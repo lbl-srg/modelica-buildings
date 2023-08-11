@@ -19,31 +19,33 @@ block TankStatus "Returns the tank status from its temperature sensors"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-110,0})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysFul(
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysCha(
     final uLow=TLow + dTHys,
-    final uHigh=TLow + 2*dTHys) "Hysteresis"
-    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysDep(
-    final uHigh=THig - dTHys,
-    final uLow=THig - 2*dTHys) "Hysteresis"
+    final uHigh=TLow + 2*dTHys) "Hysteresis, tank charged"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysEmp(
+    final uHigh=THig - dTHys,
+    final uLow=THig - 2*dTHys) "Hysteresis, tank empty"
+    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Not block"
-    annotation (Placement(transformation(extent={{20,40},{40,60}})));
+    annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   Modelica.Blocks.Interfaces.BooleanOutput y[2]
     "Tank status - 1: is empty; 2: is charged; can be both false"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 equation
-  connect(hysFul.y, not1.u)
-    annotation (Line(points={{-18,50},{18,50}},color={255,0,255}));
-  connect(TTan[1], hysFul.u) annotation (Line(points={{-110,-2.5},{-52,-2.5},{-52,
-          50},{-42,50}},    color={0,0,127}));
-  connect(TTan[2], hysDep.u) annotation (Line(points={{-110,2.5},{-52,2.5},{-52,
-          -50},{-42,-50}},
+  connect(hysCha.y, not1.u)
+    annotation (Line(points={{-18,-50},{18,-50}},
+                                               color={255,0,255}));
+  connect(TTan[1],hysCha. u) annotation (Line(points={{-110,-2.5},{-52,-2.5},{
+          -52,-50},{-42,-50}},
+                            color={0,0,127}));
+  connect(TTan[2],hysEmp. u) annotation (Line(points={{-110,2.5},{-52,2.5},{-52,
+          50},{-42,50}},
                      color={0,0,127}));
-  connect(not1.y, y[1]) annotation (Line(points={{42,50},{88,50},{88,-2.5},{110,
-          -2.5}}, color={255,0,255}));
-  connect(hysDep.y, y[2]) annotation (Line(points={{-18,-50},{88,-50},{88,2.5},{
+  connect(hysEmp.y, y[1]) annotation (Line(points={{-18,50},{60,50},{60,0},{110,
+          0},{110,-2.5}}, color={255,0,255}));
+  connect(not1.y, y[2]) annotation (Line(points={{42,-50},{60,-50},{60,2.5},{
           110,2.5}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                 Rectangle(
