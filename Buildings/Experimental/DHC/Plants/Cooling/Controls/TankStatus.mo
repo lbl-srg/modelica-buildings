@@ -10,7 +10,8 @@ block TankStatus "Returns the tank status from its temperature sensors"
 
   Modelica.Blocks.Interfaces.RealInput TTan[2](
     each final quantity="Temperature",
-    each displayUnit="C") "Temperatures at the tank 1: top; and 2: bottom"
+    each final unit="K",
+    each displayUnit="degC") "Temperatures at the tank 1: top; and 2: bottom"
                                                     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -37,16 +38,15 @@ equation
   connect(hysCha.y, not1.u)
     annotation (Line(points={{-18,-50},{18,-50}},
                                                color={255,0,255}));
-  connect(TTan[1],hysCha. u) annotation (Line(points={{-110,-2.5},{-52,-2.5},{
-          -52,-50},{-42,-50}},
-                            color={0,0,127}));
+  connect(TTan[1],hysCha. u) annotation (Line(points={{-110,-2.5},{-52,-2.5},{-52,
+          -50},{-42,-50}},  color={0,0,127}));
   connect(TTan[2],hysEmp. u) annotation (Line(points={{-110,2.5},{-52,2.5},{-52,
           50},{-42,50}},
                      color={0,0,127}));
   connect(hysEmp.y, y[1]) annotation (Line(points={{-18,50},{60,50},{60,0},{110,
           0},{110,-2.5}}, color={255,0,255}));
-  connect(not1.y, y[2]) annotation (Line(points={{42,-50},{60,-50},{60,2.5},{
-          110,2.5}}, color={255,0,255}));
+  connect(not1.y, y[2]) annotation (Line(points={{42,-50},{60,-50},{60,2.5},{110,
+          2.5}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                 Rectangle(
         extent={{-100,-100},{100,100}},
