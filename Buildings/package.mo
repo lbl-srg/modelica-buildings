@@ -305,6 +305,7 @@ to <b style=\"color:blue\">existing</b> libraries:
                        Buildings.Experimental.DHC.Plants.Cooling.Controls.FlowControl<br/>
                        Buildings.Experimental.DHC.Plants.Cooling.Controls.SelectMin<br/>
                        Buildings.Experimental.DHC.Plants.Cooling.Controls.TankStatus<br/>
+                       Buildings.Experimental.DHC.Plants.Cooling.Controls.Validation.TankStatus<br/>
                        Buildings.Experimental.DHC.Plants.Cooling.Examples.StoragePlantDualSource<br/>
                        Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.IdealUser<br/>
                        Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.ParallelJunctions<br/>
