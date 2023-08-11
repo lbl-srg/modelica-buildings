@@ -15,7 +15,7 @@ block FlowControl
     annotation(Dialog(tab="Dynamics", group="Filter"));
 
   Modelica.Blocks.Interfaces.IntegerInput com
-    "Command: 1 = charge tank, 2 = no command, 3 = discharge from tank"
+    "Command: 1 = charge tank, 2 = no command, 3 = discharge tank"
     annotation (Placement(transformation(extent={{-120,50},{-100,70}}),
         iconTransformation(extent={{-120,30},{-100,50}})));
   Modelica.Blocks.Interfaces.BooleanInput chiEnaSta
@@ -308,6 +308,20 @@ equation
 Documentation(info="<html>
 <p>
 This block implements a state graph to control the flows of the storage plant.
+It can receive one of the following commands:
+</p>
+<ol>
+<li>
+Charge tank,
+</li>
+<li>
+No command, and
+</li>
+<li>
+Discharge tank.
+</li>
+</ol>
+<p>
 The system transitions among the following states:
 </p>
 <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
@@ -342,25 +356,25 @@ The system transitions among the following states:
     <td>Secondary Pump On</td>
     <td>Turn on the secondary pump.<br>This step is in parallel with the two below.<sup>2</sup></td>
     <td>The district has load AND<br>the additional conditions of<br>either step below become true.</td>
-    <td>Implicit, when both steps below are no longer active.</td>
+    <td>Both steps below are no longer active (implicit).</td>
   </tr>
   <tr>
     <td rowspan=\"2\">Tank Producing</td>
     <td rowspan=\"2\">The tank produces CHW to the district.<br>This step is in parallel with \"secondary pump on\".</td>
-    <td rowspan=\"2\">The district has load AND<br>any one of:<br>(a) \"Tank produce\" command<br>AND tank not depleted;<br>(b) Tank is overcooled.<br>This transition takes priority<br>over the one below.</td>
-    <td>To initial step: No load OR the in-transition conditions<br>of \"tank producing\" and \"chiller producing\" are both false.<br>This transition takes priority over the one below.</td>
+    <td rowspan=\"2\">The district has load AND<br>\"Discharge tank\" command AND<br>tank not depleted.<br>This transition takes priority<br>over the one below.</td>
+    <td>To \"chiller producing\": The in-transition condition becomes false AND<br>The chiller is enabled.<br>This transition takes priority over the one below.</td>
   </tr>
   <tr>
-    <td>To \"chiller producing\": Chiller is enabled AND any one of:<br>(a) Tank is depleted;<br>(b) No \"tank produce\" command AND tank not overcooled.</td>
+  <td>To initial step: No load OR the in-transition conditions<br>of \"tank producing\" and \"chiller producing\" are both false<br>(i.e. neither tank or chiller is available).</td>
   </tr>
   <tr>
     <td rowspan=\"2\">Chiller Producing</td>
     <td rowspan=\"2\">The chiller produces CHW to the district.<br>This step is in parallel with \"secondary pump on\".</td>
     <td rowspan=\"2\">The district has load AND<br>the chiller is enabled.</td>
-    <td>To initial step: No load OR the in-transition conditions<br>of \"tank producing\" and \"chiller producing\" are both false.<br>This transition takes priority over the one below.</td>
+    <td>To \"tank producing\": The condition for in-transition of<br>\"tank producing\" becomes true.<br>This transition takes priority over the one below.</td>
   </tr>
   <tr>
-    <td>To \"tank producing\": The condition for in-transition of<br>\"tank producing\" becomes true.</td>
+    <td>To initial step: No load OR the in-transition conditions<br>of \"tank producing\" and \"chiller producing\" are both false.</td>
   </tr>
 </tbody>
 </table>

@@ -295,11 +295,11 @@ are on whenever needed (for charging the tank or producing CHW to the
 network). Otherwise, they are commanded off.
 </li>
 <li>
-The system receives a command to charge or discharge the storage tank.
-The tank controller returns status signals indicating whether it is depleted,
-cooled, or overcooled. The command may be disregarded. For example, if the
-tank is receiving a discharge command but it is already depleted, it will not
-discharge which would let warm return water directly flow to the supply side.
+The system receives a command to charge or discharge the storage tank, or take no action.
+The tank controller returns status signals. It can be empty, charged, or in between (both false).
+The command may be disregarded. For example, if the
+tank is receiving a discharge command but it is already empty, it will not
+discharge which would let warm return water directly into the supply side.
 See the Implementation section for details.
 </li>
 <li>
@@ -330,14 +330,9 @@ src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Plants/Cooling/Cont
 </p>
 <h4>Implementation</h4>
 <p>
-The control of the storage plant is implemented as a state graph in
+The flow control of the storage plant is implemented as a state graph in
 <a href=\"modelica://Buildings.Experimental.DHC.Plants.Cooling.Controls.FlowControl\">
 Buildings.Experimental.DHC.Plants.Cooling.Controls.FlowControl</a>.
-</p>
-<p>
-The status of tank is also implemented as a state graph in
-<a href=\"modelica://Buildings.Experimental.DHC.Plants.Cooling.Controls.TankStatus\">
-Buildings.Experimental.DHC.Plants.Cooling.Controls.TankStatus</a>.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -386,39 +386,20 @@ At <code>time = 0</code>, the system is all off.
 At <code>time = 200</code>, the system is commanded to charge the tank.
 The chiller is available and charges the tank locally.
 After some time, the charging stops when the tank is cooled.
-Note that at this point the tank still has capacity.
 </li>
 <li>
 At <code>time = 1800</code>, load appears at the district network.
 The storage plant starts producing CHW to the system.
 Currently the tank is not commanded to charge or discharge, therefore it
 functions like a common pipe and the CHW is supplied by the chiller.
-<ul>
-<li>
-Because the CHW flow needed at the storage plant is lower than that is
-produced by the chiller and the constant-speed pump, the tank continues
-to be charged by the overflow.
-</li>
-<li>
-After some time, the tank reaches the overcooled status.
-It then overrides the production priority of the chiller to produce CHW
-for the network instead. This continues until the tank is no longer
-overcooled, at which point the production priority is handed back to
-the chiller.
-</li>
-<li>
-The chiller and the tank continue to exchange the production priority
-based on whether the tank is overcooled.
-</li>
-</ul>
 </li>
 <li>
 At <code>time = 3500</code>, the load increases and there is no more overflow
-to charge the tank.
+through the tank.
 </li>
 <li>
 At <code>time = 4000</code>, the system is commanded to have the tank take
-priority over CHW production. After some time, the chill in the tank is
+priority for CHW production. After some time, the chill in the tank is
 depleted and the tank stops producing. Now the chiller takes over.
 </li>
 <li>
@@ -426,18 +407,18 @@ At <code>time = 7000</code>, there is no longer load in the district system.
 The system is back to the all-off state.
 </li>
 <li>
-At <code>time = 7500</code>, the system in once again commanded to charge
+At <code>time = 7500</code>, the system is once again commanded to charge
 the tank, but the chiller in the storage plant is not enabled.
 The tank is therefore charged remotely by the district.
-This stops once the tank is cooled.
+This stops once the tank is full.
 </li>
 </ul>
 <h4>Implementation</h4>
 <p>
-The chiller is implemented as an ideal temperature source where the outlet
-temperature is always at the prescribed value in
+The chiller is implemented as an ideal temperature source using
 <a href=\"Modelica://Buildings.Fluid.Sources.PropertySource_T\">
 Buildings.Fluid.Sources.PropertySource_T</a>.
+Its outlet temperature is always at the prescribed value.
 </p>
 </html>", revisions="<html>
 <ul>
