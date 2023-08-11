@@ -15,6 +15,5 @@ compareVars :=
     "stoPla.tanBra.heaPorTop.T",
     "stoPla.tanBra.heaPorBot.T",
     "stoPla.tanSta.y[1]",
-    "stoPla.tanSta.y[2]",
-    "stoPla.tanSta.y[3]"
+    "stoPla.tanSta.y[2]"
   };

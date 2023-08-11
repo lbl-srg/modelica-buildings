@@ -51,10 +51,10 @@ createPlot(id=3,
  displayUnits={"degC", "degC"});
 createPlot(id=3,
  position={322, 75, 727, 418},
- y={"stoPla.tanSta.y[1]", "stoPla.tanSta.y[2]", "stoPla.tanSta.y[3]"},
+ y={"stoPla.tanSta.y[1]", "stoPla.tanSta.y[2]"},
  range={0.0, 9000.0, -0.5, 1.5},
  grid=true,
  subPlot=102,
- colors={{28,108,200}, {28,108,200}, {28,108,200}},
+ colors={{28,108,200}, {28,108,200}},
  timeUnit="s");
 
