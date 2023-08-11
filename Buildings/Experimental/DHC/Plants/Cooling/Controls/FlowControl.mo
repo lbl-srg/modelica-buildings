@@ -79,9 +79,8 @@ block FlowControl
   Modelica.StateGraph.Transition traRes4(condition=not traPro.condition)
     "Transition: Reset to initial step"
     annotation (Placement(transformation(extent={{340,-160},{360,-140}})));
-  Modelica.StateGraph.Transition traProTan(condition=(com == 3 and (not tanSta[
-        1])) or tanSta[3])
-    "Transition: Tank commanded to discharge and is not depleted, or the tank is overcooled"
+  Modelica.StateGraph.Transition traProTan(condition=com == 3 and (not tanSta[1]))
+    "Transition: Tank commanded to discharge AND is not empty"
     annotation (Placement(transformation(extent={{260,-80},{280,-60}})));
   Modelica.StateGraph.Step steProTan(nIn=2, nOut=2) "Step: Tank produces CHW"
     annotation (Placement(transformation(extent={{300,-80},{320,-60}})));
@@ -113,8 +112,8 @@ block FlowControl
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal swiVal(realTrue=
         mTan_flow_nominal, realFalse=0) "Switch for valve flow"
     annotation (Placement(transformation(extent={{740,-80},{760,-60}})));
-  Modelica.Blocks.Interfaces.BooleanInput tanSta[3]
-    "Tank status - 1: is depleted; 2: is cooled; 3: is overcooled" annotation (
+  Modelica.Blocks.Interfaces.BooleanInput tanSta[2]
+    "Tank status - 1: is empty; 2: is charged; can be both false"  annotation (
       Placement(transformation(extent={{-120,-130},{-100,-110}}),
         iconTransformation(extent={{-120,-90},{-100,-70}})));
   Modelica.StateGraph.Step stePumSecOn(nOut=1, nIn=1) "Step: Secondary pump on"
@@ -126,13 +125,13 @@ block FlowControl
   Modelica.StateGraph.Parallel parallel(nBranches=2)
     "Parallel states of the components in the primary and secondary loops"
     annotation (Placement(transformation(extent={{116,-174},{510,-6}})));
-  Modelica.StateGraph.Transition traTanToChi(condition=(tanSta[1] or (com <> 3
-         and not tanSta[3])) and chiEnaSta)
-    "Transition: Tank is depleted OR tank is no longer overcooled while no discharge command, AND chiller enabled"
+  Modelica.StateGraph.Transition traTanToChi(condition=(not traProTan.condition)
+         and traProChi.condition)
+    "Transition: Tank no longer available (empty or commanded off) AND chiller available"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={290,-110})));
+        origin={280,-110})));
   Modelica.StateGraph.Alternative altTanCha1(nBranches=2)
     "Alternative: Tank charging locally or remotely"
     annotation (Placement(transformation(extent={{222,-170},{398,-50}})));
@@ -144,11 +143,11 @@ block FlowControl
     "A routing transition, always true"
     annotation (Placement(transformation(extent={{540,-100},{560,-80}})));
   Modelica.StateGraph.Transition traChiToTan(condition=traProTan.condition)
-    "Transition: Tank takes priority when it can produce CHW" annotation (
-      Placement(transformation(
+    "Transition: Production priority handed to tank whenever possible"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={330,-110})));
+        origin={340,-110})));
   Modelica.Blocks.Interfaces.BooleanOutput isChaRem
     "Is operated for remote charging" annotation (Placement(transformation(
           extent={{780,-140},{800,-120}}), iconTransformation(extent={{100,-50},
@@ -167,14 +166,8 @@ equation
   connect(traProChi.outPort,steProChi. inPort[1])
     annotation (Line(points={{271.5,-150},{286,-150},{286,-150.25},{299,-150.25}},
                                                      color={0,0,0}));
-  connect(steProChi.outPort[1], traRes4.inPort)
-    annotation (Line(points={{320.5,-150.125},{334,-150.125},{334,-150},{346,-150}},
-                                                     color={0,0,0}));
   connect(traProTan.outPort,steProTan. inPort[1])
     annotation (Line(points={{271.5,-70},{286,-70},{286,-70.25},{299,-70.25}},
-                                                     color={0,0,0}));
-  connect(steProTan.outPort[1], traRes3.inPort)
-    annotation (Line(points={{320.5,-70.125},{334,-70.125},{334,-70},{346,-70}},
                                                      color={0,0,0}));
   connect(expPriPumFlo.y, swiPriPum.u)
     annotation (Line(points={{721,50},{738,50}}, color={255,0,255}));
@@ -206,12 +199,8 @@ equation
                                                    color={0,0,0}));
   connect(stePumSecOn.outPort[1], parallel.join[1]) annotation (Line(points={{320.5,
           -30},{466,-30},{466,-111},{465.675,-111}}, color={0,0,0}));
-  connect(steProTan.outPort[2], traTanToChi.inPort) annotation (Line(points={{320.5,
-          -69.875},{320,-69.875},{320,-70},{326,-70},{326,-100},{290,-100},{290,
-          -106}},
-        color={0,0,0}));
-  connect(traTanToChi.outPort, steProChi.inPort[2]) annotation (Line(points={{290,
-          -111.5},{290,-149.75},{299,-149.75}},     color={0,0,0}));
+  connect(traTanToChi.outPort, steProChi.inPort[2]) annotation (Line(points={{280,
+          -111.5},{280,-149.75},{299,-149.75}},     color={0,0,0}));
   connect(traProTan.inPort, altTanCha1.split[1]) annotation (Line(points={{266,-70},
           {240,-70},{240,-98},{240.48,-98},{240.48,-125}},
                                                       color={0,0,0}));
@@ -233,10 +222,6 @@ equation
           -110},{465.675,-110},{465.675,-69}}, color={0,0,0}));
   connect(parallel.outPort, traRou.inPort)
     annotation (Line(points={{513.94,-90},{546,-90}}, color={0,0,0}));
-  connect(steProChi.outPort[2], traChiToTan.inPort) annotation (Line(points={{320.5,
-          -149.875},{330,-149.875},{330,-114}}, color={0,0,0}));
-  connect(traChiToTan.outPort, steProTan.inPort[2]) annotation (Line(points={{330,
-          -108.5},{330,-92},{290,-92},{290,-69.75},{299,-69.75}}, color={0,0,0}));
   connect(traChaLoc.inPort, alt.split[1]) annotation (Line(points={{266,70},{60,
           70},{60,-100},{60.67,-100}},   color={0,0,0}));
   connect(traChaRem.inPort, alt.split[2]) annotation (Line(points={{266,30},{60.67,
@@ -253,6 +238,18 @@ equation
                                             color={0,0,0}));
   connect(booleanExpression.y, isChaRem)
     annotation (Line(points={{721,-130},{790,-130}}, color={255,0,255}));
+  connect(traChiToTan.outPort, steProTan.inPort[2]) annotation (Line(points={{
+          340,-108.5},{340,-90},{290,-90},{290,-69.75},{299,-69.75}}, color={0,
+          0,0}));
+  connect(steProChi.outPort[1], traChiToTan.inPort) annotation (Line(points={{
+          320.5,-150.125},{320.5,-150},{340,-150},{340,-114}}, color={0,0,0}));
+  connect(steProChi.outPort[2], traRes4.inPort) annotation (Line(points={{320.5,
+          -149.875},{334,-149.875},{334,-150},{346,-150}}, color={0,0,0}));
+  connect(steProTan.outPort[1], traTanToChi.inPort) annotation (Line(points={{
+          320.5,-70.125},{320.5,-70},{330,-70},{330,-96},{280,-96},{280,-106}},
+        color={0,0,0}));
+  connect(steProTan.outPort[2], traRes3.inPort) annotation (Line(points={{320.5,
+          -69.875},{334,-69.875},{334,-70},{346,-70}}, color={0,0,0}));
   annotation (Diagram(coordinateSystem(extent={{-100,-220},{780,140}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
         Rectangle(extent={{-20,80},{20,40}}, lineColor={28,108,200}),

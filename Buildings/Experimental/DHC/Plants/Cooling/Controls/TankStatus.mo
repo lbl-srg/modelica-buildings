@@ -1,20 +1,17 @@
 within Buildings.Experimental.DHC.Plants.Cooling.Controls;
-block TankStatus "Block that returns the status of the tank"
-  extends Modelica.Blocks.Icons.Block;
+block TankStatus "Returns the tank status from its temperature sensors"
 
   parameter Modelica.Units.SI.Temperature TLow
-    "Lower temperature threshold";
+    "Lower threshold to consider the tank full";
   parameter Modelica.Units.SI.Temperature THig
-    "Higher temperature threshold";
-  parameter Modelica.Units.SI.TemperatureDifference dTUnc = 0.1
-    "Temperature sensor uncertainty";
-  parameter Modelica.Units.SI.TemperatureDifference dTHys = 1
-    "Hysteresis for temperature control";
+    "Higher threshold to consider the tank depleted";
+  parameter Modelica.Units.SI.TemperatureDifference dTHys( min=0.1) = 0.5
+    "Deadband for hysteresis";
 
   Modelica.Blocks.Interfaces.RealInput TTan[2](
     each final quantity="Temperature",
-    each displayUnit="C")
-    "Temperatures at the tank 1: top and 2: bottom" annotation (Placement(
+    each displayUnit="C") "Temperatures at the tank 1: top; and 2: bottom"
+                                                    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -22,190 +19,76 @@ block TankStatus "Block that returns the status of the tank"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-110,0})));
-
-  inner Modelica.StateGraph.StateGraphRoot stateGraphRoot "State graph root"
-    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Modelica.StateGraph.InitialStep iniSte(nOut=1, nIn=1)
-    "Initial step, also active when none of the other steps apply"
-    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Modelica.StateGraph.Transition traDep(condition=TTan[2] > THig - dTUnc)
-    "Transition: Tank is depleted"
-    annotation (Placement(transformation(extent={{40,20},{60,40}})));
-  Modelica.StateGraph.Transition traCoo(condition=TTan[1] < TLow + dTHys)
-    "Transition: Tank is cooled"
-    annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
-  Modelica.StateGraph.StepWithSignal steDep(nIn=1, nOut=1)
-    "Step: Tank is depleted"
-    annotation (Placement(transformation(extent={{80,20},{100,40}})));
-  Modelica.StateGraph.Alternative altDepOrCoo(nBranches=2)
-    "Alternative: Tank is depleted or cooled"
-    annotation (Placement(transformation(extent={{-18,-120},{338,60}})));
-  Modelica.StateGraph.StepWithSignal steCoo(nIn=1, nOut=1)
-    "Step: Tank is cooled"
-    annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
-  Modelica.StateGraph.Alternative altOveCoo(nBranches=2)
-    "Alternative: Reset or tank is overcooled"
-    annotation (Placement(transformation(extent={{112,-100},{276,0}})));
-  Modelica.StateGraph.Transition traRes1(condition=TTan[2] < THig - dTHys)
-    "Transition: Reset to initial step"
-    annotation (Placement(transformation(extent={{180,20},{200,40}})));
-  Modelica.StateGraph.Transition traCoo2(condition=TTan[1] < TLow + dTUnc)
-    "Transition: Tank is cooled"
-    annotation (Placement(transformation(extent={{140,-80},{160,-60}})));
-  Modelica.StateGraph.Transition traRes2(condition=TTan[1] > TLow + dTHys*2)
-    "Transition: Reset to initial step"
-    annotation (Placement(transformation(extent={{180,-40},{200,-20}})));
-  Modelica.StateGraph.StepWithSignal steOveCoo(nIn=1, nOut=1)
-    "Step: Tank is overcooled (and is still cooled)"
-    annotation (Placement(transformation(extent={{180,-80},{200,-60}})));
-  Modelica.StateGraph.Transition traRes3(condition=TTan[1] > TLow + dTHys)
-    "Transition: Reset to initial step"
-    annotation (Placement(transformation(extent={{220,-80},{240,-60}})));
-  Modelica.Blocks.Interfaces.BooleanOutput y[3]
-    "Tank status - 1: is depleted; 2: is cooled; 3: is overcooled"
-    annotation (Placement(transformation(extent={{440,-10},{460,10}}),
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysFul(
+    final uLow=TLow + dTHys,
+    final uHigh=TLow + 2*dTHys) "Hysteresis"
+    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysDep(
+    final uHigh=THig - dTHys,
+    final uLow=THig - 2*dTHys) "Hysteresis"
+    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not1 "Not block"
+    annotation (Placement(transformation(extent={{20,40},{40,60}})));
+  Modelica.Blocks.Interfaces.BooleanOutput y[2]
+    "Tank status - 1: is empty; 2: is charged; can be both false"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
       iconTransformation(extent={{100,-10},{120,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Or or2
-    "The tank is cooled when either the \"cooled\" or \"overcooled\" step is active"
-    annotation (Placement(transformation(extent={{380,-10},{400,10}})));
 equation
-  connect(iniSte.outPort[1], altDepOrCoo.inPort)
-    annotation (Line(points={{-39.5,-30},{-23.34,-30}}, color={0,0,0}));
-  connect(traDep.inPort, altDepOrCoo.split[1]) annotation (Line(points={{46,30},
-          {19.38,30},{19.38,-52.5}}, color={0,0,0}));
-  connect(traCoo.inPort, altDepOrCoo.split[2]) annotation (Line(points={{46,-50},
-          {19.38,-50},{19.38,-7.5}}, color={0,0,0}));
-  connect(traDep.outPort, steDep.inPort[1])
-    annotation (Line(points={{51.5,30},{79,30}}, color={0,0,0}));
-  connect(steDep.outPort[1], traRes1.inPort)
-    annotation (Line(points={{100.5,30},{186,30}}, color={0,0,0}));
-  connect(traRes1.outPort, altDepOrCoo.join[1]) annotation (Line(points={{191.5,
-          30},{300.62,30},{300.62,-52.5}}, color={0,0,0}));
-  connect(steCoo.outPort[1], altOveCoo.inPort)
-    annotation (Line(points={{100.5,-50},{109.54,-50}}, color={0,0,0}));
-  connect(traCoo.outPort, steCoo.inPort[1])
-    annotation (Line(points={{51.5,-50},{79,-50}}, color={0,0,0}));
-  connect(traRes2.inPort, altOveCoo.split[1]) annotation (Line(points={{186,-30},
-          {129.22,-30},{129.22,-62.5}}, color={0,0,0}));
-  connect(traRes2.outPort, altOveCoo.join[1]) annotation (Line(points={{191.5,-30},
-          {258.78,-30},{258.78,-62.5}}, color={0,0,0}));
-  connect(altOveCoo.outPort, altDepOrCoo.join[2]) annotation (Line(points={{277.64,
-          -50},{300.62,-50},{300.62,-7.5}}, color={0,0,0}));
-  connect(traCoo2.inPort, altOveCoo.split[2]) annotation (Line(points={{146,-70},
-          {129.22,-70},{129.22,-37.5}}, color={0,0,0}));
-  connect(steOveCoo.inPort[1], traCoo2.outPort)
-    annotation (Line(points={{179,-70},{151.5,-70}}, color={0,0,0}));
-  connect(steOveCoo.outPort[1], traRes3.inPort)
-    annotation (Line(points={{200.5,-70},{226,-70}}, color={0,0,0}));
-  connect(traRes3.outPort, altOveCoo.join[2]) annotation (Line(points={{231.5,-70},
-          {258.78,-70},{258.78,-37.5}}, color={0,0,0}));
-  connect(altDepOrCoo.outPort, iniSte.inPort[1]) annotation (Line(points={{341.56,
-          -30},{350,-30},{350,68},{-66,68},{-66,-30},{-61,-30}}, color={0,0,0}));
-  connect(steDep.active, y[1]) annotation (Line(points={{90,19},{90,8},{340,8},{
-          340,20},{420,20},{420,0},{450,0},{450,-3.33333}}, color={255,0,255}));
-  connect(or2.y, y[2])
-    annotation (Line(points={{402,0},{450,0}}, color={255,0,255}));
-  connect(steOveCoo.active, y[3]) annotation (Line(points={{190,-81},{190,-136},
-          {420,-136},{420,0},{450,0},{450,3.33333}}, color={255,0,255}));
-  connect(steCoo.active, or2.u1) annotation (Line(points={{90,-61},{90,-126},{
-          360,-126},{360,0},{378,0}}, color={255,0,255}));
-  connect(steOveCoo.active, or2.u2) annotation (Line(points={{190,-81},{190,
-          -136},{370,-136},{370,-8},{378,-8}}, color={255,0,255}));
-  annotation (Icon(coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
+  connect(hysFul.y, not1.u)
+    annotation (Line(points={{-18,50},{18,50}},color={255,0,255}));
+  connect(TTan[1], hysFul.u) annotation (Line(points={{-110,-2.5},{-52,-2.5},{-52,
+          50},{-42,50}},    color={0,0,127}));
+  connect(TTan[2], hysDep.u) annotation (Line(points={{-110,2.5},{-52,2.5},{-52,
+          -50},{-42,-50}},
+                     color={0,0,127}));
+  connect(not1.y, y[1]) annotation (Line(points={{42,50},{88,50},{88,-2.5},{110,
+          -2.5}}, color={255,0,255}));
+  connect(hysDep.y, y[2]) annotation (Line(points={{-18,-50},{88,-50},{88,2.5},{
+          110,2.5}}, color={255,0,255}));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+                                Rectangle(
+        extent={{-100,-100},{100,100}},
+        lineColor={0,0,127},
+        fillColor={255,255,255},
+        fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-40,72},{42,-72}},
+          extent={{-42,72},{40,-72}},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Rectangle(
-          extent={{-28,-64},{30,-28}},
+          extent={{-30,-64},{28,-28}},
           fillColor={28,108,200},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Rectangle(
-          extent={{-28,-20},{30,16}},
+          extent={{-30,-20},{28,16}},
           fillColor={28,108,200},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Rectangle(
-          extent={{-22,54},{24,30}},
+          extent={{-24,54},{22,30}},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None)}), Diagram(coordinateSystem(extent={{-100,-140},
-            {440,100}})),
-    defaultComponentName="tanSta",
-    Documentation(info="<html>
+          pattern=LinePattern.None)}),
+                               Diagram(coordinateSystem(preserveAspectRatio=false)),
+  defaultComponentName="tanSta",
+   Documentation(info="<html>
 <p>
-This block outputs tank status signals using the temperature signals
-from the storage tank top (<i>T<sub>1</sub></i>) and the bottom
-(<i>T<sub>2</sub></i>). The status is output as an array of three boolean
-signals. The signal <code>y[1] = true</code> means the tank is depleted,
-<code>y[2] = true</code> means it is cooled, and
-<code>y[3] = true</code> means it is overcooled.
-fixme: This is not clear: Does cooled mean it is fully cooled or partically cooled,
-and why is overcooled needed? Why not using fully depleted and fully charged, and everything
-else is partially charged? So two outputs should suffice?<br/>
-fixme: it is also not clear why an uncertainty is needed. This is the first place in the library
-where this is used. Can it be removed, and if not, what is the constraint between uncertainty and hysteresis?
-They seem not independent.<br/>
-fixme: Also, add a validation case in Controls.Validation.
+This model outputs tank status signals using the temperatures
+at the CHW tank top and the tank bottom as input.
+The status has two separate boolean signals indicating whether the tank is
+full or empty (of cooling). The two output signals can be both false,
+but never both true.
 </p>
-<p>
-This block is implemented as a state graph with transition conditions
-listed in the table below. Note that when the \"overcooled\" step is active,
-the tank is considered both \"cooled\" and \"overcooled\".
-</p>
-<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<thead>
-  <tr>
-    <th>Step</th>
-    <th>Description</th>
-    <th>Transition in</th>
-    <th>Transition out</th>
-  </tr>
-</thead>
-<tbody>
-  <tr>
-    <td>Initial Step</td>
-    <td>Initial step of the system or when none of the other steps apply</td>
-    <td>-</td>
-    <td>-</td>
-  </tr>
-  <tr>
-    <td>Depleted</td>
-    <td>The chill in the tank is depleted. The tank is warm.</td>
-    <td><i>T<sub>2</sub> &gt; T<sub>Hig</sub> - &Delta;T<sub>Unc</sub></i></td>
-    <td><i>T<sub>2</sub> &lt; T<sub>Hig</sub> - &Delta;T<sub>Hys</sub></i></td>
-  </tr>
-  <tr>
-    <td>Cooled</td>
-    <td>The tank is cooled, but there is still capacity left for further chilling.</td>
-    <td><i>T<sub>1</sub> &lt; T<sub>Low</sub> + &Delta;T<sub>Hys</sub></i></td>
-    <td><i>T<sub>1</sub> &gt; T<sub>Low</sub> + &Delta;T<sub>Hys</sub>*2</i></td>
-  </tr>
-  <tr>
-    <td>Overcooled</td>
-    <td>The tank is cooled to the maximum of its capacity.</td>
-    <td><i>T<sub>1</sub> &lt; T<sub>Low</sub> + &Delta;T<sub>Unc</sub></i></td>
-    <td><i>T<sub>1</sub> &gt; T<sub>Low</sub> + &Delta;T<sub>Hys</sub></i></td>
-  </tr>
-</tbody>
-</table>
-<p>
-In the above table,
-<i>T<sub>Hig</sub></i> is the higher threshold,
-<i>T<sub>Low</sub></i> is the lower threshold,
-<i>&Delta;T<sub>Unc</sub></i> is the meter uncertainty, and
-<i>&Delta;T<sub>Hys</sub></i> is the hysteresis.
-</p>
-</html>"),
+</html>",
 revisions="<html>
 <ul>
 <li>
-April 19, 2023 by Hongxiang Fu:<br/>
+August 10, 2023 by Hongxiang Fu:<br/>
 First implementation. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2859\">#2859</a>.
 </li>
 </ul>
-</html>");
+</html>"));
 end TankStatus;

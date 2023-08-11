@@ -74,8 +74,8 @@ model StoragePlant "Model of a storage plant with a chiller and a CHW tank"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
   Buildings.Experimental.DHC.Plants.Cooling.Controls.FlowControl floCon(
     final mChi_flow_nominal=mChi_flow_nominal,
-    final mTan_flow_nominal=mTan_flow_nominal,
-    final use_outFil=true) "Control block for storage plant flows"
+    final mTan_flow_nominal=mTan_flow_nominal)
+    "Control block for storage plant flows"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Buildings.Experimental.DHC.Plants.Cooling.Controls.TankStatus tanSta(
     TLow=T_CHWS_nominal,
@@ -145,8 +145,7 @@ equation
           {-76,80},{-76,50},{-61,50}},
                                   color={255,0,255}));
   connect(com, floCon.com) annotation (Line(points={{-40,110},{-40,76},{-72,76},
-          {-72,54},{-61,54}},
-                       color={255,127,0}));
+          {-72,54},{-61,54}}, color={255,127,0}));
   connect(hasLoa, floCon.hasLoa) annotation (Line(points={{-80,110},{-80,46},{-61,
           46}},                                                      color={255,
           0,255}));
