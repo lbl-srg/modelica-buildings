@@ -3,12 +3,12 @@ model Controller "Validation model for DX coil controller"
 
   Buildings.Controls.OBC.RooftopUnits.DXCoil.Controller DXCoiCon(
     nCoi=3,
-    conCooCoiLow=0.2,
-    conCooCoiHig=0.8,
-    uThrCooCoi=0.8,
-    uThrCooCoi1=0.2,
-    uThrCooCoi2=0.8,
-    uThrCooCoi3=0.1,
+    conCoiLow=0.2,
+    conCoiHig=0.8,
+    uThrCoi=0.8,
+    uThrCoi1=0.2,
+    uThrCoi2=0.8,
+    uThrCoi3=0.1,
     dUHys=0.01,
     timPer=480,
     timPer1=180,
@@ -29,10 +29,10 @@ model Controller "Validation model for DX coil controller"
     "Constant integer signal"
     annotation (Placement(transformation(extent={{-60,-14},{-40,6}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramCooCoi(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramCoi(
     final height=0.5,
     final duration=3600,
-    final offset=0.5) "Cooling coil valve position"
+    final offset=0.5) "Coil valve position"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1[3](
@@ -47,7 +47,7 @@ equation
   connect(pre1.y, DXCoiCon.uDXCoi) annotation (Line(points={{52,0},{60,0},{60,
           30},{-20,30},{-20,11.2},{-12,11.2}},
                                              color={255,0,255}));
-  connect(ramCooCoi.y, DXCoiCon.uCooCoi) annotation (Line(points={{-38,-50},{-20,
+  connect(ramCoi.y, DXCoiCon.uCoi) annotation (Line(points={{-38,-50},{-20,
           -50},{-20,-11.2},{-12,-11.2}}, color={0,0,127}));
   connect(con1.y, DXCoiCon.uDXCoiAva) annotation (Line(points={{-38,40},{-30,40},
           {-30,5.6},{-12,5.6}},   color={255,0,255}));
@@ -70,17 +70,17 @@ annotation (
     <li>
     When the availablity of the first DX coil is ture <code>con1[1].y=true</code> and its sequencing order is set to 1 <code>conInt[1].y=1</code>, 
     the controller enables this coil <code>DXCoiCon.yDXCoi[1]=true</code> and adjusts the compressor speed <code>DXCoiCon.yComSpe[1]</code> 
-    once the cooling coil valve position signal <code>DXCoiCon.uCooCoi</code> remains above 0.8 for a continuous duration of 300 seconds. 
+    once the coil valve position signal <code>DXCoiCon.uCoi</code> remains above 0.8 for a continuous duration of 300 seconds. 
     </li>
     <li>
     When <code>con1[2].y=true</code> and <code>conInt[2].y=2</code>, 
     the controller stages up the subsequent available coil <code>DXCoiCon.yDXCoi[2]=true</code> and adjusts <code>DXCoiCon.yComSpe[2]</code> 
-    once <code>DXCoiCon.uCooCoi</code> remains consistently above 0.8 for a continuous duration of 480 seconds. 
+    once <code>DXCoiCon.uCoi</code> remains consistently above 0.8 for a continuous duration of 480 seconds. 
     </li>
     <li>
     When <code>con1[3].y=true</code> and <code>conInt[3].y=3</code>, 
     the controller continually stages up the next available coil <code>DXCoiCon.yDXCoi[3]=true</code> and adjusts <code>DXCoiCon.yComSpe[3]</code> 
-    once <code>DXCoiCon.uCooCoi</code> remains consistently above 0.8 for a continuous duration of 480 seconds. 
+    once <code>DXCoiCon.uCoi</code> remains consistently above 0.8 for a continuous duration of 480 seconds. 
     </li>
     </ul>
     </p>

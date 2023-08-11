@@ -155,15 +155,16 @@ equation
             extent={{-94,-50},{-42,-70}},
             textColor={0,0,127},
             pattern=LinePattern.Dash,
-          textString="uComSpe"),
-       Text(extent={{-94,72},{-24,48}},
-          textColor={255,127,0},
-          textString="uDemLimLev"),
+            textString="uComSpe"),
+          Text(
+            extent={{-94,72},{-24,48}},
+            textColor={255,127,0},
+            textString="uDemLimLev"),
           Text(
             extent={{46,8},{96,-8}},
             textColor={0,0,127},
             pattern=LinePattern.Dash,
-          textString="yComSpe")}),
+            textString="yComSpe")}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,120}})),
   Documentation(info="<html>
   <p>

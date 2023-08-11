@@ -6,18 +6,18 @@ block DXCoilEnable
   parameter Integer nCoi=2
     "Number of DX coils";
 
-  parameter Real uThrCooCoi2(
+  parameter Real uThrCoi2(
     final min=0,
     final max=1)=0.8
-    "Threshold of cooling coil valve position signal above which DX coil is enabled";
+    "Threshold of coil valve position signal above which DX coil is enabled";
 
-  parameter Real uThrCooCoi3(
+  parameter Real uThrCoi3(
     final min=0,
     final max=1)=0.1
-    "Threshold of cooling coil valve position signal below which DX coil is disabled";
+    "Threshold of coil valve position signal below which DX coil is disabled";
 
   parameter Real dUHys=0.01
-    "Small temperature difference used in comparison blocks"
+    "Coil valve position comparison hysteresis difference"
     annotation(Dialog(tab="Advanced"));
 
   parameter Real timPer2(
@@ -37,11 +37,11 @@ block DXCoilEnable
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCooCoi(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCoi(
     final min=0,
     final max=1,
     final unit="1")
-    "Cooling coil valve position"
+    "Coil valve position"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
 
@@ -50,10 +50,10 @@ block DXCoilEnable
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrCooCoi(
-    final t=uThrCooCoi2,
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrCoi(
+    final t=uThrCoi2,
     final h=dUHys)
-    "Check if cooling coil signal is equal to or greater than threshold"
+    "Check if coil valve position signal is equal to or greater than threshold"
     annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.Timer tim(t=timPer2)
@@ -78,9 +78,9 @@ block DXCoilEnable
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr(
-    final t=uThrCooCoi3,
+    final t=uThrCoi3,
     final h=dUHys)
-    "Check if cooling coil signal is less than threshold"
+    "Check if coil valve position signal is less than threshold"
     annotation (Placement(transformation(extent={{-70,-70},{-50,-50}})));
 
   Buildings.Controls.OBC.CDL.Logical.And and2
@@ -96,21 +96,21 @@ block DXCoilEnable
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 
 equation
-  connect(uCooCoi, greThrCooCoi.u)
+  connect(uCoi, greThrCoi.u)
     annotation (Line(points={{-120,-60},{-80,-60},{-80,0},{-72,0}},
                                                     color={0,0,127}));
   connect(mulOr.y, not1.u)
     annotation (Line(points={{2,60},{28,60}},      color={255,0,255}));
   connect(uDXCoi, cha.u)
     annotation (Line(points={{-120,60},{-72,60}}, color={255,0,255}));
-  connect(greThrCooCoi.y, and1.u1)
+  connect(greThrCoi.y, and1.u1)
     annotation (Line(points={{-48,0},{-22,0}},  color={255,0,255}));
   connect(not1.y, and1.u2) annotation (Line(points={{52,60},{66,60},{66,30},{-30,
           30},{-30,-8},{-22,-8}},
                     color={255,0,255}));
   connect(and1.y, tim.u)
     annotation (Line(points={{2,0},{28,0}},    color={255,0,255}));
-  connect(uCooCoi, lesThr.u)
+  connect(uCoi, lesThr.u)
     annotation (Line(points={{-120,-60},{-72,-60}}, color={0,0,127}));
   connect(lesThr.y, and2.u1)
     annotation (Line(points={{-48,-60},{-22,-60}}, color={255,0,255}));
@@ -140,17 +140,19 @@ equation
           Text(
             extent={{-100,100},{100,100}},
             textColor={0,0,255}),
-       Text(extent={{-96,68},{-50,54}},
-          textColor={255,0,255},
-          textString="uDXCoi"),
           Text(
-            extent={{-94,-52},{-50,-68}},
+            extent={{-96,68},{-50,54}},
+            textColor={255,0,255},
+            textString="uDXCoi"),
+          Text(
+            extent={{-100,-54},{-64,-68}},
             textColor={0,0,127},
             pattern=LinePattern.Dash,
-            textString="uCooCoi"),
-       Text(extent={{52,8},{94,-6}},
-          textColor={255,0,255},
-          textString="yDXCoi")}),
+            textString="uCoi"),
+          Text(
+            extent={{52,8},{94,-6}},
+            textColor={255,0,255},
+            textString="yDXCoi")}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
   Documentation(info="<html>
   <p>
@@ -159,12 +161,12 @@ equation
   </p>
   <ul>
   <li>
-  Enable DX coil <code>yDXCoi = true</code> when cooling coil valve position <code>uCooCoi</code> 
-  exceeds its threshold <code>uThrCooCoi2</code> for the duration of <code>timPer2</code>, 
+  Enable DX coil <code>yDXCoi = true</code> when coil valve position <code>uCoi</code> 
+  exceeds its threshold <code>uThrCoi2</code> for the duration of <code>timPer2</code>, 
   and no changes in DX coil status <code>uDXCoi</code> are detected.
   </li>
   <li>
-  Disable DX coil <code>yDXCoi = false</code> when <code>uCooCoi</code> falls below <code>uThrCooCoi3</code>
+  Disable DX coil <code>yDXCoi = false</code> when <code>uCoi</code> falls below <code>uThrCoi3</code>
   for <code>timPer3</code>, and no changes in <code>uDXCoi</code> are detected. 
   </li>
   </ul>

@@ -7,40 +7,40 @@ block Controller
     "Total number of DX coils"
     annotation (Dialog(group="DX coil parameters"));
 
-  parameter Real conCooCoiLow(
+  parameter Real conCoiLow(
     final min=0,
     final max=1)=0.2
     "Constant lower DX coil signal"
     annotation (Dialog(group="DX coil parameters"));
 
-  parameter Real conCooCoiHig(
+  parameter Real conCoiHig(
     final min=0,
     final max=1)=0.8
     "Constant higher DX coil signal"
     annotation (Dialog(group="DX coil parameters"));
 
-  parameter Real uThrCooCoi(
+  parameter Real uThrCoi(
     final min=0,
     final max=1)=0.8
-    "Threshold of cooling coil valve position signal above which DX coil is staged up"
+    "Threshold of coil valve position signal above which DX coil is staged up"
     annotation (Dialog(group="DX coil parameters"));
 
-  parameter Real uThrCooCoi1(
+  parameter Real uThrCoi1(
     final min=0,
     final max=1)=0.2
-    "Threshold of cooling coil valve position signal below which DX coil staged down"
+    "Threshold of coil valve position signal below which DX coil staged down"
     annotation (Dialog(group="DX coil parameters"));
 
-  parameter Real uThrCooCoi2(
+  parameter Real uThrCoi2(
      final min=0,
     final max=1)=0.8
-    "Threshold of cooling coil valve position signal above which DX coil is enabled"
+    "Threshold of coil valve position signal above which DX coil is enabled"
     annotation (Dialog(group="DX coil parameters"));
 
-  parameter Real uThrCooCoi3(
+  parameter Real uThrCoi3(
     final min=0,
     final max=1)=0.1
-    "Threshold of cooling coil valve position signal below which DX coil is disabled"
+    "Threshold of coil valve position signal below which DX coil is disabled"
     annotation (Dialog(group="DX coil parameters"));
 
   parameter Real timPer(
@@ -84,7 +84,7 @@ block Controller
     annotation (Dialog(group="Compressor parameters"));
 
   parameter Real dUHys=0.01
-    "Small temperature difference used in comparison blocks"
+    "Coil valve position comparison hysteresis difference"
     annotation(Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDXCoi[nCoi]
@@ -102,11 +102,11 @@ block Controller
     annotation (Placement(transformation(extent={{-260,-60},{-220,-20}}),
       iconTransformation(extent={{-140,-58},{-100,-18}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCooCoi(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCoi(
     final min=0,
     final max=1,
     final unit="1")
-    "Cooling coil valve position"
+    "Coil valve position"
     annotation (Placement(transformation(extent={{-260,-140},{-220,-100}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
 
@@ -203,8 +203,9 @@ block Controller
 
   Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.DXCoilStage DXCoiSta(
     final nCoi=nCoi,
-    final uThrCooCoi=uThrCooCoi,
-    final uThrCooCoi1=uThrCooCoi1,
+    final uThrCoi=uThrCoi,
+    final uThrCoi1=uThrCoi1,
+    final dUHys=dUHys,
     final timPer=timPer,
     final timPer1=timPer1)
     "DX coil staging"
@@ -212,16 +213,17 @@ block Controller
 
   Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.DXCoilEnable DXCoiEna(
     final nCoi=nCoi,
-    final uThrCooCoi2=uThrCooCoi2,
-    final uThrCooCoi3=uThrCooCoi3,
+    final uThrCoi2=uThrCoi2,
+    final uThrCoi3=uThrCoi3,
+    final dUHys=dUHys,
     final timPer2=timPer2,
     final timPer3=timPer3)
     "DX coil enable and disable"
     annotation (Placement(transformation(extent={{-150,10},{-130,30}})));
 
   Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.CompressorSpeedStage ComSpeSta[nCoi](
-    final conCooCoiLow=conCooCoiLow,
-    final conCooCoiHig=conCooCoiHig,
+    final conCoiLow=conCoiLow,
+    final conCoiHig=conCoiHig,
     final minComSpe=minComSpe,
     final maxComSpe=maxComSpe)
     "Compressor speed stage"
@@ -271,7 +273,7 @@ protected
     "Type of DX coil controller"
     annotation (Dialog(group="P controller"));
 
-  parameter Real k = (maxComSpe - minComSpe) / (conCooCoiHig- conCooCoiLow)
+  parameter Real k = (maxComSpe - minComSpe) / (conCoiHig- conCoiLow)
     "Gain of DX coil controller"
     annotation (Dialog(group="P controller"));
 
@@ -307,7 +309,7 @@ equation
   connect(uDXCoi, DXCoiEna.uDXCoi) annotation (Line(points={{-240,40},{-168,40},
           {-168,26},{-152,26}},
                               color={255,0,255}));
-  connect(uCooCoi, DXCoiEna.uCooCoi) annotation (Line(points={{-240,-120},{-180,
+  connect(uCoi, DXCoiEna.uCoi) annotation (Line(points={{-240,-120},{-180,
           -120},{-180,14},{-152,14}}, color={0,0,127}));
   connect(DXCoiEna.yDXCoi, chaSta.uNexDXCoiSta) annotation (Line(points={{-128,20},
           {-120,20},{-120,126},{-60,126},{-60,152},{-2,152}},
@@ -318,8 +320,8 @@ equation
   connect(chaSta.yDXCoi, chaSta1.uDXCoil) annotation (Line(points={{24,144},{
           120,144},{120,102},{128,102}},
                                  color={255,0,255}));
-  connect(DXCoiSta.uCooCoi, uCooCoi) annotation (Line(points={{-152,54},{-180,54},
-          {-180,-120},{-240,-120}}, color={0,0,127}));
+  connect(DXCoiSta.uCoi, uCoi) annotation (Line(points={{-152,54},{-180,54},{
+          -180,-120},{-240,-120}}, color={0,0,127}));
   connect(uDXCoi, DXCoiSta.uDXCoi) annotation (Line(points={{-240,40},{-168,40},
           {-168,66},{-152,66}}, color={255,0,255}));
   connect(mulSumInt.y, intGreEquThr.u) annotation (Line(points={{-78,-20},{-60,-20},
@@ -376,9 +378,9 @@ equation
   connect(zerStaIndCor.yReaMod, reaToInt2.u) annotation (Line(points={{-28,-64},
           {-20,-64},{-20,-88},{60,-88},{60,-20},{78,-20}},
                                                          color={0,0,127}));
-  connect(reaScaRep.y, ComSpeSta.uCooCoi) annotation (Line(points={{102,-150},{120,
+  connect(reaScaRep.y, ComSpeSta.uCoi) annotation (Line(points={{102,-150},{120,
           -150},{120,-126},{128,-126}}, color={0,0,127}));
-  connect(uCooCoi, reaScaRep.u) annotation (Line(points={{-240,-120},{-180,-120},
+  connect(uCoi, reaScaRep.u) annotation (Line(points={{-240,-120},{-180,-120},
           {-180,-150},{78,-150}},                        color={0,0,127}));
   connect(mulSumInt.y, intScaRep.u) annotation (Line(points={{-78,-20},{-74,-20},
           {-74,-48},{-168,-48},{-168,-72},{-152,-72}}, color={255,127,0}));
@@ -409,27 +411,31 @@ equation
             extent={{-100,140},{100,140}},
             textColor={0,0,255}),
           Text(
-            extent={{-94,-72},{-50,-88}},
+            extent={{-100,-74},{-66,-88}},
             textColor={0,0,127},
             pattern=LinePattern.Dash,
-            textString="uCooCoi"),
-         Text(extent={{-96,-30},{-50,-44}},
+            textString="uCoi"),
+          Text(
+            extent={{-96,-30},{-50,-44}},
             textColor={255,127,0},
             textString="uCoiSeq"),
-         Text(extent={{-98,88},{-52,74}},
+          Text(
+            extent={{-98,88},{-52,74}},
             textColor={255,0,255},
             textString="uDXCoi"),
-         Text(extent={{-94,48},{-40,32}},
+          Text(
+            extent={{-94,48},{-40,32}},
             textColor={255,0,255},
             textString="uDXCoiAva"),
-         Text(extent={{52,48},{94,34}},
+          Text(
+            extent={{52,48},{94,34}},
             textColor={255,0,255},
             textString="yDXCoi"),
-            Text(
-              extent={{44,-32},{94,-48}},
-              textColor={0,0,127},
-              pattern=LinePattern.Dash,
-        textString="yComSpe")}),
+          Text(
+            extent={{44,-32},{94,-48}},
+            textColor={0,0,127},
+            pattern=LinePattern.Dash,
+            textString="yComSpe")}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,-180},{220,180}})),
   Documentation(info="<html>
   <p>

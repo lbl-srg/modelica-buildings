@@ -1,11 +1,11 @@
 within Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.Validation;
 model DXCoilStage
-  "Validate sequence for staging up and down DX coil using cooling coil valve postion signal"
+  "Validate sequence for staging up and down DX coil using coil valve postion signal"
 
   Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.DXCoilStage DXCoiSta(
     nCoi=1,
-    uThrCooCoi=0.8,
-    uThrCooCoi1=0.2,
+    uThrCoi=0.8,
+    uThrCoi1=0.2,
     dUHys=0.01,
     timPer=480,
     timPer1=180)
@@ -22,11 +22,12 @@ model DXCoilStage
     "Hold pulse signal for easy visualization"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pulCooCoi(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pulCoi(
     final amplitude=0.7,
     final width=0.6,
     final period=1800,
-    final offset=0.15) "Cooling coil valve position"
+    shift=0,
+    final offset=0.15) "Coil valve position"
     annotation (Placement(transformation(extent={{-90,-16},{-70,4}})));
 
   Buildings.Controls.OBC.CDL.Logical.Latch lat
@@ -44,7 +45,7 @@ equation
   connect(DXCoiSta.yDow, preDXCoi.u) annotation (Line(points={{-28,-6},{
           -10,-6},{-10,-50},{-2,-50}},
                           color={255,0,255}));
-  connect(pulCooCoi.y, DXCoiSta.uCooCoi)
+  connect(pulCoi.y, DXCoiSta.uCoi)
     annotation (Line(points={{-68,-6},{-52,-6}}, color={0,0,127}));
   connect(DXCoiSta.yUp, lat.u)
     annotation (Line(points={{-28,6},{-10,6},{-10,0},{-2,0}},
@@ -70,13 +71,13 @@ annotation (
     Simulation results are observed as follows: 
     <ul>
     <li>
-    When the cooling coil valve position <code>pulCooCoi.y</code> exceeds the threshold 
-    <code>DXCoiSta.uThrCooCoi</code> set at 0.8 for a duration of <code>DXCoiSta.timPer</code> 
+    When the coil valve position <code>pulCoi.y</code> exceeds the threshold 
+    <code>DXCoiSta.uThrCoi</code> set at 0.8 for a duration of <code>DXCoiSta.timPer</code> 
     amounting to 480 seconds, and no changes in DX coil status <code>DXCoiSta.uDXCoi[1]</code> 
     are detected, the controller initiates staging up of the DX coil <code>nexDXCoi.y=true</code>. 
     </li>
     <li>
-    When <code>pulCooCoi.y</code> falls below the threshold <code>DXCoiSta.uThrCooCoi1</code> set at 0.2 
+    When <code>pulCoi.y</code> falls below the threshold <code>DXCoiSta.uThrCoi1</code> set at 0.2 
     for a duration of <code>DXCoiSta.timPer</code> amounting to 180 seconds, and no changes 
     in <code>DXCoiSta.uDXCoi[1]</code> are detected, the controller initiates staging down 
     of the DX coil <code>preDXCoi.y=true</code>. 

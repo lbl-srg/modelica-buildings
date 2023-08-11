@@ -29,7 +29,7 @@ block AuxiliaryCoil "Sequences to control auxiliary heating coils"
     "Threshold of heating coil valve position signal above which auxiliary coil is enabled";
 
   parameter Real dUHys=0.01
-    "Small coil command signal difference used in comparison blocks"
+    "Coil valve position comparison hysteresis difference"
     annotation(Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(

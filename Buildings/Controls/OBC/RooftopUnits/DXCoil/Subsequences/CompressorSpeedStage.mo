@@ -3,15 +3,15 @@ block CompressorSpeedStage
   "Sequence for regulating compressor speed corresponding to previously enabled DX coil signal"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Real conCooCoiLow(
+  parameter Real conCoiLow(
     final min=0,
     final max=1)=0.2
-    "Constant lower cooling coil valve position signal";
+    "Constant lower coil valve position signal";
 
-  parameter Real conCooCoiHig(
+  parameter Real conCoiHig(
     final min=0,
     final max=1)=0.8
-    "Constant higher cooling coil valve position signal";
+    "Constant higher coil valve position signal";
 
   parameter Real minComSpe(
     final min=0,
@@ -30,11 +30,11 @@ block CompressorSpeedStage
     annotation (Placement(transformation(extent={{-160,20},{-120,60}}),
       iconTransformation(extent={{-140,38},{-100,78}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCooCoi(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCoi(
     final min=0,
     final max=1,
     final unit="1")
-    "Cooling coil valve position"
+    "Coil valve position"
     annotation (Placement(transformation(extent={{-160,-80},{-120,-40}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
 
@@ -69,7 +69,7 @@ block CompressorSpeedStage
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conDXCoi(
-    final k=conCooCoiLow)
+    final k=conCoiLow)
     "Constant DX coil signal with lower value"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
 
@@ -83,7 +83,7 @@ block CompressorSpeedStage
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
 
 protected
-  parameter Real k = (maxComSpe - minComSpe) / (conCooCoiHig- conCooCoiLow)
+  parameter Real k = (maxComSpe - minComSpe) / (conCoiHig- conCoiLow)
     "Gain of DX coil controller"
     annotation (Dialog(group="P controller"));
 
@@ -92,7 +92,7 @@ protected
     annotation (Dialog(group="P controller"));
 
 equation
-  connect(conP.u_m, uCooCoi) annotation (Line(points={{-50,-42},{-50,-60},{
+  connect(conP.u_m, uCoi) annotation (Line(points={{-50,-42},{-50,-60},{
           -140,-60}},                  color={0,0,127}));
   connect(conDXCoi.y, conP.u_s)
     annotation (Line(points={{-78,-30},{-62,-30}}, color={0,0,127}));
@@ -128,19 +128,20 @@ equation
           Text(
             extent={{-100,100},{100,100}},
             textColor={0,0,255}),
-       Text(extent={{-94,66},{-44,50}},
-          textColor={255,0,255},
-          textString="uPreDXCoi"),
           Text(
-            extent={{-94,-52},{-50,-68}},
+            extent={{-94,66},{-44,50}},
+            textColor={255,0,255},
+            textString="uPreDXCoi"),
+          Text(
+            extent={{-100,-52},{-60,-68}},
             textColor={0,0,127},
             pattern=LinePattern.Dash,
-            textString="uCooCoi"),
+            textString="uCoi"),
           Text(
             extent={{40,8},{90,-8}},
             textColor={0,0,127},
             pattern=LinePattern.Dash,
-          textString="yComSpe")}),
+            textString="yComSpe")}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{120,100}})),
   Documentation(info="<html>
   <p>
@@ -154,8 +155,8 @@ equation
   </li>
   <li>
   Implement a linear mapping to modulate <code>yComSpe</code>, aligning its minimum and maximum speed 
-  with a lower cooling coil valve position signal <code>conCooCoiLow</code> and a higher one 
-  <code>conCooCoiHig</code> from the cooling coil signal <code>uCooCoi</code> when <code>uPreDXCoi = false</code>.
+  with a lower coil valve position signal <code>conCoiLow</code> and a higher one 
+  <code>conCoiHig</code> from the coil valve position signal <code>uCoi</code> when <code>uPreDXCoi = false</code>.
   </li>
   </ul>
   </html>", revisions="<html>
