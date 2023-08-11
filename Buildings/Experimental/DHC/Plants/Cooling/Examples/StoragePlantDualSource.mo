@@ -385,7 +385,7 @@ At <code>time = 0</code>, the system is all off.
 <li>
 At <code>time = 200</code>, the system is commanded to charge the tank.
 The chiller is available and charges the tank locally.
-After some time, the charging stops when the tank is cooled.
+After some time, the charging stops when the tank is charged.
 </li>
 <li>
 At <code>time = 1800</code>, load appears at the district network.
@@ -400,7 +400,7 @@ through the tank.
 <li>
 At <code>time = 4000</code>, the system is commanded to have the tank take
 priority for CHW production. After some time, the chill in the tank is
-depleted and the tank stops producing. Now the chiller takes over.
+empty and the tank stops producing. Now the chiller takes over.
 </li>
 <li>
 At <code>time = 7000</code>, there is no longer load in the district system.

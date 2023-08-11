@@ -54,7 +54,7 @@ block FlowControl
 
   Modelica.StateGraph.Transition traChaLoc(condition=com == 1 and (not tanSta[2])
          and chiEnaSta)
-    "Transition: Charge tank command AND tank not cooled AND chiller enabled"
+    "Transition: Charge tank command AND tank not charged AND chiller enabled"
     annotation (Placement(transformation(extent={{260,60},{280,80}})));
   Modelica.StateGraph.Step steChaLoc(nIn=1, nOut=1) "Step: Local charging"
     annotation (Placement(transformation(extent={{300,60},{320,80}})));
@@ -63,7 +63,7 @@ block FlowControl
     annotation (Placement(transformation(extent={{340,60},{360,80}})));
   Modelica.StateGraph.Transition traChaRem(condition=com == 1 and (not tanSta[2])
          and not chiEnaSta)
-    "Transition: Charge tank command AND tank not cooled AND chiller not enabled"
+    "Transition: Charge tank command AND tank not charged AND chiller not enabled"
     annotation (Placement(transformation(extent={{260,20},{280,40}})));
   Modelica.StateGraph.Step steChaRem(nIn=1, nOut=1) "Step: Remote charging"
     annotation (Placement(transformation(extent={{300,20},{320,40}})));
@@ -343,7 +343,7 @@ The system transitions among the following states:
   <tr>
     <td>Local Charging</td>
     <td>Charge the tank with the local chiller.</td>
-    <td>\"Charge tank\" command<br>AND tank is not cooled yet<br>AND chiller is enabled.<br>This transition takes priority<br>over the one below.<sup>1</sup></td>
+    <td>\"Charge tank\" command<br>AND tank is not charged yet<br>AND chiller is enabled.<br>This transition takes priority<br>over the one below.<sup>1</sup></td>
     <td>The in-transition condition becomes false.</td>
   </tr>
   <tr>
@@ -361,7 +361,7 @@ The system transitions among the following states:
   <tr>
     <td rowspan=\"2\">Tank Producing</td>
     <td rowspan=\"2\">The tank produces CHW to the district.<br>This step is in parallel with \"secondary pump on\".</td>
-    <td rowspan=\"2\">The district has load AND<br>\"Discharge tank\" command AND<br>tank not depleted.<br>This transition takes priority<br>over the one below.</td>
+    <td rowspan=\"2\">The district has load AND<br>\"Discharge tank\" command AND<br>tank not empty.<br>This transition takes priority<br>over the one below.</td>
     <td>To \"chiller producing\": The in-transition condition becomes false AND<br>The chiller is enabled.<br>This transition takes priority over the one below.</td>
   </tr>
   <tr>

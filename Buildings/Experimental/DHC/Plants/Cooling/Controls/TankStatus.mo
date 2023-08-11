@@ -4,7 +4,7 @@ block TankStatus "Returns the tank status from its temperature sensors"
   parameter Modelica.Units.SI.Temperature TLow
     "Lower threshold to consider the tank full";
   parameter Modelica.Units.SI.Temperature THig
-    "Higher threshold to consider the tank depleted";
+    "Higher threshold to consider the tank empty";
   parameter Modelica.Units.SI.TemperatureDifference dTHys( min=0.1) = 0.5
     "Deadband for hysteresis";
 
