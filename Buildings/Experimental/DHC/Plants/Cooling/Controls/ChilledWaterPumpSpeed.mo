@@ -1,6 +1,6 @@
 within Buildings.Experimental.DHC.Plants.Cooling.Controls;
 model ChilledWaterPumpSpeed
-  "Controller for up to two headered variable speed chilled water pumps"
+  "Controller for two headered variable speed chilled water pumps"
   extends Modelica.Blocks.Icons.Block;
   parameter Modelica.Units.SI.PressureDifference dpSetPoi(displayUnit="Pa")
     "Pressure difference setpoint";
