@@ -161,7 +161,8 @@ equation
           {-90,48},{0,48},{0,58}}, color={0,0,127}));
 
   annotation (defaultComponentName="conAuxCoi",
-    Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+    Icon(coordinateSystem(preserveAspectRatio=false),
+      graphics={
         Text(
           extent={{-100,26},{-62,12}},
           textColor={0,0,127},

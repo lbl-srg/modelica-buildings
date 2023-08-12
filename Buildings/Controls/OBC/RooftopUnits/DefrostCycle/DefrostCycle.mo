@@ -2,10 +2,6 @@ within Buildings.Controls.OBC.RooftopUnits.DefrostCycle;
 block DefrostCycle "Sequences to control defrost cycle"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Integer nCoi = 2
-    "Total number of DX coils"
-    annotation (Dialog(group="DX coil parameters"));
-
   parameter Real TOutLoc(
     final unit="K",
     displayUnit="degC",
@@ -13,131 +9,122 @@ block DefrostCycle "Sequences to control defrost cycle"
     "Predefined outdoor lockout temperature"
     annotation (Dialog(group="Defrost parameters"));
 
-  parameter Real TFroTem(
+  parameter Real timPer4(
+    final unit="s",
+    displayUnit="s",
+    final quantity="time") = 300
+    "Delay time period for enabling defrost"
+    annotation (Dialog(tab="DX coil", group="DX coil parameters"));
+
+  parameter Real dTHys2(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature") = 273.15 + 0
-    "Predefined frost temperature"
-    annotation (Dialog(group="Defrost parameters"));
-
-  parameter Integer dTOutHys
-    "Small temperature difference used in comparison blocks"
+    final quantity="ThermodynamicTemperature")=0.05
+    "Temperature comparison hysteresis difference"
     annotation(Dialog(tab="Advanced"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDXCoiAva[nCoi]
-    "DX coil availability"
-    annotation (Placement(transformation(extent={{-180,40},{-140,80}}),
-    iconTransformation(extent={{-140,40},{-100,80}})));
+  parameter Boolean have_TFroSen=false
+    "True: RTU has frost sensor"
+    annotation (__cdl(ValueInReference=false));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TFroSen(
-    final unit="K",
-    displayUnit="degC",
-    final quantity="ThermodynamicTemperature") if has_TFroSen
-    "Measured temperature from frost sensor"
-    annotation (Placement(transformation(extent={{-180,-40},{-140,0}}),
-    iconTransformation(extent={{-140,0},{-100,40}})));
+  parameter Modelica.Units.SI.ThermodynamicTemperature TDefLim=0
+    "Maximum temperature at which defrost operation is activated"
+    annotation (Dialog(group="Defrost parameters"));
+
+  parameter Real pAtm(
+    final quantity="Pressure",
+    final unit="Pa")=101325
+    "Atmospheric pressure";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature") if not has_TFroSen
+    final quantity="ThermodynamicTemperature")
     "Outdoor air dry bulb temperature"
-    annotation (Placement(transformation(extent={{-180,0},{-140,40}}),
-        iconTransformation(extent={{-140,-80},{-100,-40}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDXCoiMod[nCoi]
-    "DX coil operation mode"
-    annotation (Placement(transformation(extent={{140,20},{180,60}}),
-      iconTransformation(extent={{100,20},{140,60}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr(
-    final t=TOutLoc,
-    final h=dThys)
-    "Check if outdoor air temperature is less than threshold"
-    annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Timer tim(
-    final t=300)
-    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Pre pre[nCoi]
-    "Break loop"
-    annotation (Placement(transformation(extent={{60,30},{80,50}})));
-
-  Buildings.Controls.OBC.CDL.Logical.And and2[nCoi]
-    "Logical And"
-    annotation (Placement(transformation(extent={{20,30},{40,50}})));
-
-  Buildings.Controls.OBC.RooftopUnits.DefrostCycle.Subsequences.DefrostTime DefTim
-    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
-
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal                        booToRea[nCoi]
-    "Convert Boolean to Real number"
-    annotation (Placement(transformation(extent={{30,-80},{50,-60}})));
-
-  CDL.Interfaces.RealOutput yDefFra[nCoi](final unit="1")
-    "Defrost operation timestep fraction"
-    annotation (Placement(transformation(extent={{140,-80},{180,-40}}),
-      iconTransformation(extent={{100,-60},{140,-20}})));
-
-  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep(
-    final nout=nCoi)
-    annotation (Placement(transformation(extent={{30,-36},{50,-16}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul1[nCoi]
-    annotation (Placement(transformation(extent={{90,-42},{110,-22}})));
+    annotation (Placement(transformation(extent={{-180,40},{-140,80}}),
+        iconTransformation(extent={{-140,40},{-100,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput phi(
     final min=0,
     final max=1)
     "Relative air humidity"
-    annotation (Placement(transformation(extent={{-180,-80},{-140,-40}}),
-      iconTransformation(extent={{-140,-40},{-100,0}})));
+    annotation (Placement(transformation(extent={{-180,-20},{-140,20}}),
+      iconTransformation(extent={{-140,-20},{-100,20}})));
 
-protected
-  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(
-  final nout=nCoi)
-    "Replicate boolean input"
-    annotation (Placement(transformation(extent={{-20,22},{0,42}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TFroSen(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature") if have_TFroSen
+    "Measured temperature from frost sensor"
+    annotation (Placement(transformation(extent={{-180,-80},{-140,-40}}),
+      iconTransformation(extent={{-140,-80},{-100,-40}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDefFra(
+    final unit="1")
+    "Defrost operation timestep fraction"
+    annotation (Placement(transformation(extent={{140,-20},{180,20}}),
+      iconTransformation(extent={{100,-20},{140,20}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr(
+    final t=TOutLoc,
+    final h=dTHys2)
+    "Check if outdoor air temperature is less than threshold"
+    annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Timer tim(
+    final t=timPer4) "Count time"
+    annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
+
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(
+    final realTrue=1,
+    final realFalse=0)
+    "Convert Boolean to Real number"
+    annotation (Placement(transformation(extent={{0,42},{20,62}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Multiply mul1
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+
+  Buildings.Controls.OBC.RooftopUnits.DefrostCycle.Subsequences.HumidityRatio_TDryBulPhi wBulPhi(
+    final pAtm=pAtm)
+    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
+
+  Buildings.Fluid.DXSystems.Heating.BaseClasses.CoilDefrostTimeCalculations defTimFra(
+    defTri=Buildings.Fluid.DXSystems.Heating.BaseClasses.Types.DefrostTimeMethods.onDemand,
+    TDefLim=TDefLim)
+    annotation (Placement(transformation(extent={{46,-18},{66,2}})));
 
 equation
   connect(lesThr.u, TOut)
-    annotation (Line(points={{-102,40},{-120,40},{-120,20},{-160,20}},
-                                                  color={0,0,127}));
+    annotation (Line(points={{-102,60},{-160,60}},color={0,0,127}));
   connect(lesThr.y, tim.u)
-    annotation (Line(points={{-78,40},{-62,40}}, color={255,0,255}));
-  connect(tim.passed, booRep1.u)
-    annotation (Line(points={{-38,32},{-22,32}}, color={255,0,255}));
-  connect(and2.y, pre.u) annotation (Line(points={{42,40},{58,40}},
-        color={255,0,255}));
-  connect(TFroSen, lesThr.u) annotation (Line(points={{-160,-20},{-120,-20},{-120,
-          40},{-102,40}}, color={0,0,127}));
-  connect(pre.y, yDXCoiMod)
-    annotation (Line(points={{82,40},{160,40}},   color={255,0,255}));
-  connect(pre.y, booToRea.u) annotation (Line(points={{82,40},{100,40},{100,0},{
-          20,0},{20,-70},{28,-70}},
-                    color={255,0,255}));
-  connect(reaScaRep.y, mul1.u1)
-    annotation (Line(points={{52,-26},{88,-26}},
-                                               color={0,0,127}));
-  connect(booToRea.y, mul1.u2) annotation (Line(points={{52,-70},{70,-70},{70,-38},
-          {88,-38}},color={0,0,127}));
-  connect(mul1.y, yDefTimPer) annotation (Line(points={{112,-32},{120,-32},{120,
-          -60},{160,-60}},
-                     color={0,0,127}));
-  connect(TOut, DefTim.TOut) annotation (Line(points={{-160,20},{-80,20},{-80,-14},
-          {-62,-14}},color={0,0,127}));
-  connect(DefTim.phi, phi) annotation (Line(points={{-62,-26},{-80,-26},{-80,-60},
-          {-160,-60}},
-                     color={0,0,127}));
-  connect(booRep1.y, and2.u2)
-    annotation (Line(points={{2,32},{18,32}}, color={255,0,255}));
-  connect(and2.u1, uDXCoiAva) annotation (Line(points={{18,40},{10,40},{10,60},{
-          -160,60}}, color={255,0,255}));
-  connect(DefTim.yDefFra, reaScaRep.u) annotation (Line(points={{-38,-20},{0,-20},
-          {0,-26},{28,-26}}, color={0,0,127}));
-    annotation (Dialog(group="Defrost parameters"),
-    defaultComponentName="DefCyc",
+    annotation (Line(points={{-78,60},{-52,60}}, color={255,0,255}));
+  connect(TOut, wBulPhi.TOut) annotation (Line(points={{-160,60},{-110,60},{
+          -110,-4},{-82,-4}},
+                          color={0,0,127}));
+  connect(wBulPhi.phi, phi) annotation (Line(points={{-82,-16},{-130,-16},{-130,
+          0},{-160,0}},     color={0,0,127}));
+  connect(wBulPhi.Xout, defTimFra.XOut) annotation (Line(points={{-58,-10},{45,
+          -10}},                     color={0,0,127}));
+  connect(defTimFra.TOut, TOut) annotation (Line(points={{45,-6},{-40,-6},{-40,20},
+          {-110,20},{-110,60},{-160,60}},
+                          color={0,0,127}));
+  if not have_TFroSen then
+  connect(TFroSen, defTimFra.TOut) annotation (Line(points={{-160,-60},{-40,-60},
+            {-40,-6},{45,-6}},  color={0,0,127}));
+  end if;
+  if not have_TFroSen then
+  connect(TFroSen, lesThr.u) annotation (Line(points={{-160,-60},{-120,-60},{-120,
+            60},{-102,60}},                   color={0,0,127}));
+  end if;
+  connect(mul1.y, yDefFra)
+    annotation (Line(points={{122,0},{160,0}}, color={0,0,127}));
+  connect(tim.passed, booToRea.u)
+    annotation (Line(points={{-28,52},{-2,52}}, color={255,0,255}));
+  connect(booToRea.y, mul1.u1)
+    annotation (Line(points={{22,52},{92,52},{92,6},{98,6}}, color={0,0,127}));
+  connect(defTimFra.tDefFra, mul1.u2)
+    annotation (Line(points={{67,-4},{67,-6},{98,-6}}, color={0,0,127}));
+  annotation (defaultComponentName="DefCyc",
     Icon(coordinateSystem(preserveAspectRatio=false,
       extent={{-100,-100},{100,100}}),
         graphics={
@@ -148,6 +135,26 @@ equation
             fillPattern=FillPattern.Solid),
           Text(
             extent={{-100,100},{100,100}},
-            textColor={0,0,255})}),
+            textColor={0,0,255}),
+          Text(
+            extent={{-100,66},{-62,52}},
+            textColor={0,0,127},
+            pattern=LinePattern.Dash,
+            textString="TOut"),
+          Text(
+            extent={{-100,6},{-68,-8}},
+            textColor={0,0,127},
+            pattern=LinePattern.Dash,
+            textString="Phi"),
+          Text(
+            extent={{-94,-52},{-48,-72}},
+            textColor={0,0,127},
+            pattern=LinePattern.Dash,
+            textString="TFroSen"),
+          Text(
+            extent={{48,8},{94,-8}},
+            textColor={0,0,127},
+            pattern=LinePattern.Dash,
+            textString="yDefFra")}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-100},{140,100}})));
 end DefrostCycle;

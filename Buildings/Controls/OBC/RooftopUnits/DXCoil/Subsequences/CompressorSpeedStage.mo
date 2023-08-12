@@ -56,7 +56,7 @@ block CompressorSpeedStage
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Add add
-    "Logical Add"
+    "Calculate the sum of the two speeds"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conMinSpe(
