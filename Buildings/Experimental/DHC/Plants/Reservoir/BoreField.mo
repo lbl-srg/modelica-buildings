@@ -9,15 +9,15 @@ model BoreField "Geothermal borefield model"
     final dT_dz=0.02,
     final dynFil=true,
     borFieDat(
-      final filDat=Buildings.Fluid.Geothermal.Borefields.Data.Filling.Bentonite(
+      filDat=Buildings.Fluid.Geothermal.Borefields.Data.Filling.Bentonite(
           kFil=2.0,
           cFil=3040,
           dFil=1450),
-      final soiDat=Buildings.Fluid.Geothermal.Borefields.Data.Soil.SandStone(
+      soiDat=Buildings.Fluid.Geothermal.Borefields.Data.Soil.SandStone(
           kSoi=2.3,
           cSoi=1000,
           dSoi=2600),
-      final conDat=Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example(
+      conDat=Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example(
         borCon=Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel,
         dp_nominal=35000,
         hBor=300,
@@ -30,14 +30,14 @@ model BoreField "Geothermal borefield model"
         eTub=0.0037,
         xC=0.05)),
     show_T=true);
-  /* 
-  Some parameters (such as nBor) cannot be propagated down to 
+  /*
+  Some parameters (such as nBor) cannot be propagated down to
   borFieDat.conDat otherwise Dymola fails to expand.
   We assign them literally within borFieDat.conDat and propagate them up here
   to compute dependent parameters.
   */
   parameter Integer nBor = borFieDat.conDat.nBor
-    "Length of borehole"
+    "Number of boreholes"
     annotation(Evaluate=true);
   parameter Real dxyBor = 10
     "Distance between boreholes";
@@ -78,6 +78,11 @@ double U-tube parallel configuration.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+May 31, 2023, by Michael Wetter:<br/>
+Removed <code>final</code> modifier for <code>borFieDat</code> to allow record to be replaced
+in models that extend this model.
+</li>
 <li>
 February 23, 2021, by Antoine Gautier:<br/>
 Updated documentation.
