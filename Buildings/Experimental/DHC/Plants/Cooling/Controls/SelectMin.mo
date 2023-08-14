@@ -37,7 +37,7 @@ annotation(defaultComponentName="selMin",
 <p>
 This block finds the minimum value from pressure head signals.
 The signal from the storage plant is included
-only when the plant is in remote charging load.
+only when the plant is in remote charging mode.
 </p>
 </html>", revisions="<html>
 <ul>

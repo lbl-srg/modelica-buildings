@@ -308,7 +308,9 @@ equation
 Documentation(info="<html>
 <p>
 This block implements a state graph to control the flows of the storage plant.
-It can receive one of the following commands:
+It receives two tank status Boolean signals indicating that the tank
+is charged or empty. These two signals can be both false indicating an
+in-between state. The block can receive one of the following commands:
 </p>
 <ol>
 <li>
@@ -321,6 +323,11 @@ No command, and
 Discharge tank.
 </li>
 </ol>
+<p>
+The command to tank may be disregarded. For example, if the
+tank is receiving a discharge command but it is already empty, it will not
+discharge which would let warm return water directly into the supply side.
+</p>
 <p>
 The system transitions among the following states:
 </p>
@@ -388,10 +395,10 @@ more than one of them become true, the transition connected by a connector
 with the lowest index in the array fires.
 For example, even when the in-transition condition of \"chiller producing\"
 becomes true, as long as the in-transition condition of \"tank producing\"
-is also true, it will not fire because of priority.
+is also true, the latter fires because of priority.
 </li>
 <li>
-Steps that are in parallel are active at the same time.
+Steps that are in parallel are and must be active at the same time.
 When \"secondary pump on\" is active, either \"tank producing\"
 or \"chiller producing\" is also active.
 </li>

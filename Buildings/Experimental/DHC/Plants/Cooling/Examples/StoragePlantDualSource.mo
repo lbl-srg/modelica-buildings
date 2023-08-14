@@ -385,7 +385,8 @@ At <code>time = 0</code>, the system is all off.
 <li>
 At <code>time = 200</code>, the system is commanded to charge the tank.
 The chiller is available and charges the tank locally.
-After some time, the charging stops when the tank is charged.
+After some time, the charging stops when the tank status signal returns
+that the tank is charged.
 </li>
 <li>
 At <code>time = 1800</code>, load appears at the district network.
@@ -399,7 +400,7 @@ through the tank.
 </li>
 <li>
 At <code>time = 4000</code>, the system is commanded to have the tank take
-priority for CHW production. After some time, the chill in the tank is
+priority for CHW production. After some time, the cooling in the tank is
 empty and the tank stops producing. Now the chiller takes over.
 </li>
 <li>
@@ -410,7 +411,7 @@ The system is back to the all-off state.
 At <code>time = 7500</code>, the system is once again commanded to charge
 the tank, but the chiller in the storage plant is not enabled.
 The tank is therefore charged remotely by the district.
-This stops once the tank is full.
+This stops once the tank is charged again.
 </li>
 </ul>
 <h4>Implementation</h4>

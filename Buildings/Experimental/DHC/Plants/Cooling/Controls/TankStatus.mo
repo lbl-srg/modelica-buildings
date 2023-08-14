@@ -80,8 +80,8 @@ equation
 This model outputs tank status signals using the temperatures
 at the CHW tank top and the tank bottom as input.
 The status has two separate boolean signals indicating whether the tank is
-full or empty (of cooling). The two output signals can be both false,
-but never both true.
+charged or empty (of cooling). The two output signals can be both false
+indicating an in-between state, but never both true.
 </p>
 </html>",
 revisions="<html>

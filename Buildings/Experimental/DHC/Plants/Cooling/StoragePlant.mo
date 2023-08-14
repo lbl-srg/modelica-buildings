@@ -242,10 +242,10 @@ equation
 <p>
 This model encompasses the components of a chilled water storage plant.
 It includes a flow-controlled primary pump, a stratefied
-storage tank, a reversible connection with a district network, and related controls
+storage tank, a reversible connection with the district network, and related controls
 to coordinate charging and discharging of the tank.
-The chiller is intentionally excluded in this model so that it can be
-otherwise chosen and configured outside of this component.  
+The chiller is intentionally excluded in this component so that it can be
+otherwise chosen and configured.
 The tank in this plant can be charged by its local chiller or by a remote
 chiller on the same CHW district network.
 </p>
@@ -264,9 +264,9 @@ referenced above.
 </li>
 <li>
 Plant 2 has a chiller and a stratified CHW tank and is represented by this model.
-The storage plant has a reversible connection to the district network 
+The storage plant has a reversible connection to the district network
 that can either pump water to the network from the plant using the
-pump P<sub>sec</sub>, 
+pump P<sub>sec</sub>,
 or throttle water from the pressurised network to charge the tank.
 </li>
 </ul>
@@ -295,9 +295,10 @@ are on whenever needed (for charging the tank or producing CHW to the
 network). Otherwise, they are commanded off.
 </li>
 <li>
-The system receives a command to charge or discharge the storage tank, or take no action.
-The tank controller returns status signals. It can be empty, charged, or in between (both false).
-The command may be disregarded. For example, if the
+The system receives one of the following three commands regarding the tank:
+charge, discharge, or no action.
+The tank controller returns status signals. It can be empty, charged, or in-between.
+The command to tank may be disregarded. For example, if the
 tank is receiving a discharge command but it is already empty, it will not
 discharge which would let warm return water directly into the supply side.
 See the Implementation section for details.
