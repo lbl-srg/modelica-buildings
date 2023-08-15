@@ -1,10 +1,11 @@
 within Buildings.Experimental.DHC.Plants.Cooling.Controls;
 block TankStatus "Returns the tank status from its temperature sensors"
 
-  parameter Modelica.Units.SI.Temperature TLow
-    "Lower threshold to consider the tank full";
   parameter Modelica.Units.SI.Temperature THig
     "Higher threshold to consider the tank empty";
+  parameter Modelica.Units.SI.Temperature TLow
+    "Lower threshold to consider the tank full";
+
   parameter Modelica.Units.SI.TemperatureDifference dTHys( min=0.1) = 0.5
     "Deadband for hysteresis";
 
@@ -31,7 +32,7 @@ block TankStatus "Returns the tank status from its temperature sensors"
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Not block"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   Modelica.Blocks.Interfaces.BooleanOutput y[2]
-    "Tank status - 1: is empty; 2: is charged; can be both false"
+    "Tank status - y[1]=true is empty; y[2] = true is charged; both false means partially charged"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 equation
@@ -80,8 +81,8 @@ equation
 This model outputs tank status signals using the temperatures
 at the CHW tank top and the tank bottom as input.
 The status has two separate boolean signals indicating whether the tank is
-charged or empty (of cooling). The two output signals can be both false
-indicating an in-between state, but never both true.
+charged or empty (of cooling). The two output signals can be both false,
+indicating an in-between state, but they can never both be true.
 </p>
 </html>",
 revisions="<html>
