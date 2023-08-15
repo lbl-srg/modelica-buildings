@@ -18,6 +18,8 @@ model ControllerHeating "Validation of controller model"
     k1=0.9,
     k2=0.85,
     k3=0.8,
+    k4=1,
+    k5=10,
     TLocOut=273.15 - 12.2,
     uThrHeaCoi=0.9,
     have_TFroSen=false,
@@ -46,6 +48,8 @@ model ControllerHeating "Validation of controller model"
     k1=0.9,
     k2=0.85,
     k3=0.8,
+    k4=1,
+    k5=10,
     TLocOut=273.15 - 12.2,
     uThrHeaCoi=0.9,
     have_TFroSen=false,
@@ -74,6 +78,8 @@ model ControllerHeating "Validation of controller model"
     k1=0.9,
     k2=0.85,
     k3=0.8,
+    k4=1,
+    k5=10,
     TLocOut=273.15 - 12.2,
     uThrHeaCoi=0.9,
     have_TFroSen=false,
@@ -102,6 +108,8 @@ model ControllerHeating "Validation of controller model"
     k1=0.9,
     k2=0.85,
     k3=0.8,
+    k4=1,
+    k5=10,
     TLocOut=273.15 - 12.2,
     uThrHeaCoi=0.9,
     have_TFroSen=false,
@@ -126,12 +134,12 @@ model ControllerHeating "Validation of controller model"
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[3](
     final k={1,2,3})
     "Constant integer signal"
-    annotation (Placement(transformation(extent={{-140,220},{-120,240}})));
+    annotation (Placement(transformation(extent={{-140,180},{-120,200}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
     final k=0)
     "Constant Integer"
-    annotation (Placement(transformation(extent={{-140,180},{-120,200}})));
+    annotation (Placement(transformation(extent={{-140,220},{-120,240}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conCooCoi(
     final k=0)
@@ -142,7 +150,7 @@ model ControllerHeating "Validation of controller model"
     final height=0.5,
     final duration=3600,
     final offset=0.5,
-    startTime=0)
+    final startTime=0)
     "Heating coil signal"
     annotation (Placement(transformation(extent={{-140,98},{-120,118}})));
 
@@ -169,12 +177,12 @@ model ControllerHeating "Validation of controller model"
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2[3](
     final k={1,2,3})
     "Constant integer signal"
-    annotation (Placement(transformation(extent={{20,220},{40,240}})));
+    annotation (Placement(transformation(extent={{20,180},{40,200}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt3(
-    final k=1)
+    final k=0)
     "Constant Integer"
-    annotation (Placement(transformation(extent={{20,180},{40,200}})));
+    annotation (Placement(transformation(extent={{20,220},{40,240}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conCooCoi1(
     final k=0)
@@ -190,7 +198,7 @@ model ControllerHeating "Validation of controller model"
     annotation (Placement(transformation(extent={{20,98},{40,118}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOut1(
-    final k=273.15 - 15)
+    final k=273.15 - 5)
     "Outdoor air dry bulb temperature"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
 
@@ -212,12 +220,12 @@ model ControllerHeating "Validation of controller model"
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt4[3](
     final k={1,2,3})
     "Constant integer signal"
-    annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
+    annotation (Placement(transformation(extent={{-140,-120},{-120,-100}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt5(
-    final k=2)
+    final k=1)
     "Constant Integer"
-    annotation (Placement(transformation(extent={{-140,-120},{-120,-100}})));
+    annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conCooCoi2(
     final k=0)
@@ -225,14 +233,15 @@ model ControllerHeating "Validation of controller model"
     annotation (Placement(transformation(extent={{-140,-158},{-120,-138}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramHeaCoi2(
-    height=0.5,
-    duration=3600,
-    offset=0.5,
-    startTime=0) "Heating coil signal"
+    final height=0.5,
+    final duration=3600,
+    final offset=0.5,
+    final startTime=0)
+    "Heating coil signal"
     annotation (Placement(transformation(extent={{-140,-202},{-120,-182}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOut2(
-    final k=273.15 - 15)
+    final k=273.15 - 5)
     "Outdoor air dry bulb temperature"
     annotation (Placement(transformation(extent={{-140,-240},{-120,-220}})));
 
@@ -254,12 +263,12 @@ model ControllerHeating "Validation of controller model"
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt6[3](
     final k={1,2,3})
     "Constant integer signal"
-    annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
+    annotation (Placement(transformation(extent={{20,-120},{40,-100}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt7(
-    final k=3)
+    final k=1)
     "Constant Integer"
-    annotation (Placement(transformation(extent={{20,-120},{40,-100}})));
+    annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conCooCoi3(
     final k=0)
@@ -275,7 +284,7 @@ model ControllerHeating "Validation of controller model"
     annotation (Placement(transformation(extent={{20,-202},{40,-182}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOut3(
-    final k=273.15 - 15)
+    final k=273.15 + 5)
     "Outdoor air dry bulb temperature"
     annotation (Placement(transformation(extent={{20,-240},{40,-220}})));
 
@@ -287,21 +296,21 @@ model ControllerHeating "Validation of controller model"
 equation
 
   connect(RTUCon.uDXCoiAva, con1.y) annotation (Line(points={{-82,163.8},{-82,164},
-          {-92,164},{-92,272},{-118,272}},color={255,0,255}));
-  connect(conInt.y, RTUCon.uCoiSeq) annotation (Line(points={{-118,230},{-100,230},
-          {-100,160},{-82,160}},color={255,127,0}));
-  connect(conInt1.y, RTUCon.uDemLimLev) annotation (Line(points={{-118,190},{-108,
-          190},{-108,156},{-82,156}},           color={255,127,0}));
+          {-92,164},{-92,272},{-118,272}}, color={255,0,255}));
+  connect(conInt.y, RTUCon.uCoiSeq) annotation (Line(points={{-118,190},{-108,190},
+          {-108,156},{-82,156}},color={255,127,0}));
+  connect(conInt1.y, RTUCon.uDemLimLev) annotation (Line(points={{-118,230},{-100,
+          230},{-100,160},{-82,160}}, color={255,127,0}));
   connect(TOut.y, RTUCon.TOut) annotation (Line(points={{-118,70},{-100,70},{-100,
           144},{-82,144}}, color={0,0,127}));
   connect(pre2.y, RTUCon1.uDXCoi) annotation (Line(points={{142,150},{148,150},{
           148,180},{74,180},{74,168},{78,168}}, color={255,0,255}));
   connect(RTUCon1.uDXCoiAva, con2.y) annotation (Line(points={{78,163.8},{78,164},
           {68,164},{68,272},{42,272}}, color={255,0,255}));
-  connect(conInt2.y, RTUCon1.uCoiSeq) annotation (Line(points={{42,230},{60,230},
-          {60,160},{78,160}}, color={255,127,0}));
-  connect(conInt3.y, RTUCon1.uDemLimLev) annotation (Line(points={{42,190},{52,190},
+  connect(conInt2.y, RTUCon1.uCoiSeq) annotation (Line(points={{42,190},{52,190},
           {52,156},{78,156}}, color={255,127,0}));
+  connect(conInt3.y, RTUCon1.uDemLimLev) annotation (Line(points={{42,230},{60,230},
+          {60,160},{78,160}}, color={255,127,0}));
   connect(conCooCoi1.y, RTUCon1.uCooCoi) annotation (Line(points={{42,152},{78,152}},
           color={0,0,127}));
   connect(ramHeaCoi1.y, RTUCon1.uHeaCoi) annotation (Line(points={{42,108},{52,108},
@@ -312,10 +321,10 @@ equation
           {-12,-120},{-86,-120},{-86,-132},{-82,-132}}, color={255,0,255}));
   connect(RTUCon2.uDXCoiAva, con3.y) annotation (Line(points={{-82,-136.2},{-82,
           -136},{-92,-136},{-92,-28},{-118,-28}}, color={255,0,255}));
-  connect(conInt4.y, RTUCon2.uCoiSeq) annotation (Line(points={{-118,-70},{-100,
-          -70},{-100,-140},{-82,-140}}, color={255,127,0}));
-  connect(conInt5.y, RTUCon2.uDemLimLev) annotation (Line(points={{-118,-110},{-108,
-          -110},{-108,-144},{-82,-144}}, color={255,127,0}));
+  connect(conInt4.y, RTUCon2.uCoiSeq) annotation (Line(points={{-118,-110},{-108,
+          -110},{-108,-144},{-82,-144}},color={255,127,0}));
+  connect(conInt5.y, RTUCon2.uDemLimLev) annotation (Line(points={{-118,-70},{-100,
+          -70},{-100,-140},{-82,-140}},  color={255,127,0}));
   connect(conCooCoi2.y, RTUCon2.uCooCoi) annotation (Line(points={{-118,-148},{-82,-148}},
           color={0,0,127}));
   connect(ramHeaCoi2.y, RTUCon2.uHeaCoi) annotation (Line(points={{-118,-192},{-108,
@@ -326,10 +335,10 @@ equation
           {148,-120},{74,-120},{74,-132},{78,-132}}, color={255,0,255}));
   connect(RTUCon3.uDXCoiAva, con4.y) annotation (Line(points={{78,-136.2},{78,-136},
           {68,-136},{68,-28},{42,-28}}, color={255,0,255}));
-  connect(conInt6.y, RTUCon3.uCoiSeq) annotation (Line(points={{42,-70},{60,-70},
-          {60,-140},{78,-140}}, color={255,127,0}));
-  connect(conInt7.y, RTUCon3.uDemLimLev) annotation (Line(points={{42,-110},{52,
-          -110},{52,-144},{78,-144}}, color={255,127,0}));
+  connect(conInt6.y, RTUCon3.uCoiSeq) annotation (Line(points={{42,-110},{52,-110},
+          {52,-144},{78,-144}}, color={255,127,0}));
+  connect(conInt7.y, RTUCon3.uDemLimLev) annotation (Line(points={{42,-70},{60,-70},
+          {60,-140},{78,-140}},       color={255,127,0}));
   connect(conCooCoi3.y, RTUCon3.uCooCoi) annotation (Line(points={{42,-148},{78,-148}},
           color={0,0,127}));
   connect(ramHeaCoi3.y, RTUCon3.uHeaCoi) annotation (Line(points={{42,-192},{52,
@@ -367,12 +376,39 @@ annotation (
     <p>
     This is a validation model for the controller
     <a href=\"modelica://Buildings.Controls.OBC.RooftopUnits.Controller\">
-    Buildings.Controls.OBC.RooftopUnits.Controller</a>.
+    Buildings.Controls.OBC.RooftopUnits.Controller</a>. 
+    </p>
+    <p>
+    Simulation results are observed as follows: 
+    <ul>
+    <li>
+    In Plot[1] when <code>RTUCon.TOut</code> drops to <i>-15</i>&deg;C, lower than the outdoor air lockout temperature 
+    <code>RTUCon.TLocOut</code> (e.g., <i>-12.2</i>&deg;C), and <code>RTUCon.uHeaCoi</code> exceeds a threshold 
+    <code>RTUCon.uThrHeaCoi</code> value of 0.9, the controller deactivates DX coils <code>conAuxCoi.yDXCoi=false</code>
+    and outputs <code>conAuxCoi.yAuxHea</code> ranging from 0.9 to 1, depending on the value of <code>RTUCon.uHeaCoi</code>. 
+    Additionally, when <code>RTUCon.uHeaCoi</code> falls below the threshold value of 0.9, the controller outputs 0.
+    </li>
+    <li>
+    Compared to Plot[1], Plot[2] shows that as <code>RTUCon.TOut</code> increaes to <i>-5</i>&deg;C, the controller initiates 
+    the staging of DX coils <code>RTUCon1.yDXHeaCoi</code> along with adjusting the corresponding compressor speed
+    <code>RTUCon1.yComSpeHea</code>. Additionally, the controller calculates the defrost timestamp fraction 
+    <code>RTUCon1.yDefFra</code>. 
+    </li>
+    <li>
+    Compared to Plot[2], Plot[3] illustrates that upon the activation of the demand limit signal to Level 1 
+    <code>RTUCon2.uDemLimLev=1</code>, the controller modifies the compressor speed <code>RTUCon2.yComSpeHea</code> 
+    to operate at 90% of its initial speed. 
+    </li>
+    <li>
+    Compared to Plot[3], Plot[4] represents that as <code>RTUCon.TOut</code> rises to <i>5</i>&deg;C, the controller
+    outpus <code>RTUCon3.yDefFra=0</code>. This signifies that there is no requirement for a defrost operation.
+    </li>
+    </ul>
     </p>
     </html>", revisions="<html>
     <ul>
     <li>
-    August 11, 2022, by Junke Wang and Karthik Devaprasad:<br/>
+    August 14, 2022, by Junke Wang and Karthik Devaprasad:<br/>
     First implementation.
     </li>
     </ul>
