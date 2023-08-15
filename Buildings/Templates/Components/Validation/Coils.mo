@@ -150,7 +150,7 @@ model Coils "Validation model for coil components"
     redeclare final package MediumAir = MediumAir,
     dat(
       redeclare
-      Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.DoubleSpeed.Lennox_SCA240H4B
+      Buildings.Fluid.DXSystems.Cooling.AirSource.Data.DoubleSpeed.Lennox_SCA240H4B
       datCoi,
       dpAir_nominal=200),
     final energyDynamics=energyDynamics) "Multiple stage evaporator coil"
@@ -272,14 +272,14 @@ annotation (
   experiment(Tolerance=1e-6, StopTime=200),
   Diagram(coordinateSystem(extent={{-140,-200},{140,200}})),
     Documentation(info="<html>
-<p> 
-This model validates the models within 
+<p>
+This model validates the models within
 <a href=\"modelica://Buildings.Templates.Components.Coils\">
 Buildings.Templates.Components.Coils</a>
-by exposing them to a fixed pressure difference on  
+by exposing them to a fixed pressure difference on
 the air side.
-Models representing a water-based coil with valve 
-are also exposed to a fixed pressure difference on the 
+Models representing a water-based coil with valve
+are also exposed to a fixed pressure difference on the
 water side, and a varying valve opening from fully closed
 to fully open position.
 Other coil models are controlled with a signal varying

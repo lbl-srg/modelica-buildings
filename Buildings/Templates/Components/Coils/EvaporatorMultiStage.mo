@@ -8,7 +8,7 @@ model EvaporatorMultiStage
   parameter Boolean have_dryCon = true
     "Set to true for air-cooled condenser, false for evaporative condenser";
 
-  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.MultiStage hex(
+  Buildings.Fluid.DXSystems.Cooling.AirSource.MultiStage hex(
     redeclare final package Medium = MediumAir,
     final datCoi=dat.datCoi,
     final dp_nominal=dpAir_nominal,
@@ -44,9 +44,9 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(TWetBul.y, hex.TConIn) annotation (Line(points={{-29,60},{-20,60},{-20,3},
+  connect(TWetBul.y, hex.TOut) annotation (Line(points={{-29,60},{-20,60},{-20,3},
           {-11,3}}, color={0,0,127}));
-  connect(TDry.y, hex.TConIn) annotation (Line(points={{-29,20},{-20,20},{-20,3},
+  connect(TDry.y, hex.TOut) annotation (Line(points={{-29,20},{-20,20},{-20,3},
           {-11,3}}, color={0,0,127}));
   connect(bus.y, hex.stage) annotation (Line(
       points={{0,100},{0,20},{-14,20},{-14,8},{-11,8}},

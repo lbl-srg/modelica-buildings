@@ -8,7 +8,7 @@ model EvaporatorVariableSpeed
   parameter Boolean have_dryCon = true
     "Set to true for air-cooled condenser, false for evaporative condenser";
 
-  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeed hex(
+  Buildings.Fluid.DXSystems.Cooling.AirSource.VariableSpeed hex(
     redeclare final package Medium = MediumAir,
     final datCoi=dat.datCoi,
     final minSpeRat=dat.datCoi.minSpeRat,
@@ -45,9 +45,10 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(TWetBul.y, hex.TConIn) annotation (Line(points={{-29,60},{-20,60},{-20,3},
-          {-11,3}}, color={0,0,127}));
-  connect(TDry.y, hex.TConIn) annotation (Line(points={{-29,20},{-20,20},{-20,3},
+  connect(TWetBul.y, hex.TOut) annotation (Line(points={{-29,60},{-20,60},{-20,
+          3},{-11,3}},
+                    color={0,0,127}));
+  connect(TDry.y, hex.TOut) annotation (Line(points={{-29,20},{-20,20},{-20,3},
           {-11,3}}, color={0,0,127}));
   connect(bus.y, hex.speRat) annotation (Line(
       points={{0,100},{0,20},{-16,20},{-16,8},{-11,8}},

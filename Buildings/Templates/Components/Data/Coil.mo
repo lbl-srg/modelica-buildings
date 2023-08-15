@@ -116,9 +116,9 @@ the maximum value from the performance data record.
       group="Nominal condition",
       enable=typ==Buildings.Templates.Components.Types.Coil.WaterBasedCooling));
   replaceable parameter
-    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.SingleSpeed.Carrier_Centurion_50PG06 datCoi
+    Buildings.Fluid.DXSystems.Cooling.AirSource.Data.SingleSpeed.Carrier_Centurion_50PG06 datCoi
     constrainedby
-    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.DXCoil
+    Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil
     "Performance data record of evaporator coil"
     annotation(choicesAllMatching=true, Dialog(
       enable=typ==Buildings.Templates.Components.Types.Coil.EvaporatorMultiStage or
