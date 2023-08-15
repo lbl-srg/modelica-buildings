@@ -2,33 +2,25 @@ within Buildings.Fluid.Storage.Ice.Examples;
 model DistrictCoolingIceTank
   "Example that tests the ice tank model for a simplified district cooling application"
   extends Modelica.Icons.Example;
-
   package MediumGly = Buildings.Media.Antifreeze.PropyleneGlycolWater (
     property_T=273.15,
     X_a=0.30,
     T_default=273.15) "Fluid medium";
   package MediumWat = Buildings.Media.Water(T_default=279.15) "Fluid medium";
-
   constant Modelica.Units.SI.SpecificEnergy Hf = 333550 "Fusion of heat of ice";
-
   parameter Real TChiWatSet_nominal(
     final unit="K",
     displayUnit="degC")=279.15
     "Nominal chilled water supply temperature";
-
   parameter Real COPWat_nominal = 4 "COP of water chiller at design conditions";
   parameter Real COPGly_nominal = 3 "COP of glycol chiller at design conditions";
-
-  parameter Modelica.Units.SI.HeatFlowRate QDis_flow_nominal = -422E3 "District cooling coil load";
+  parameter Modelica.Units.SI.HeatFlowRate QDis_flow_nominal = -900E3 "District cooling coil load";
   final parameter Modelica.Units.SI.HeatFlowRate QWatChi_flow_nominal = 0.66*QDis_flow_nominal "Water chiller size";
   final parameter Modelica.Units.SI.HeatFlowRate QGly_flow_nominal = 0.66*QDis_flow_nominal "Glycol chiller size, assumed 66% of design day peak load";
-
   parameter Modelica.Units.SI.Time tSto = 2*6*3600 "Time for a full discharge of the storage at design load if storage serves all load";
   parameter Modelica.Units.SI.Mass mIceTan = -QDis_flow_nominal*tSto/Hf
     "Mass of ice in single storage tank";
-
   parameter Modelica.Units.SI.TemperatureDifference dTHex_nominal = 6 "Nominal temperature change across heat exchanger";
-
   parameter Modelica.Units.SI.MassFlowRate mDis_flow_nominal=-QDis_flow_nominal / cpWat / dTHex_nominal
     "Nominal mass flow rate of water through the district loop";
   final parameter Modelica.Units.SI.MassFlowRate mWatChi_flow_nominal=-QWatChi_flow_nominal / cpWat /dTHex_nominal
@@ -39,14 +31,10 @@ model DistrictCoolingIceTank
     "Nominal mass flow rate of air through the chiller condenser coil";
   final parameter Modelica.Units.SI.MassFlowRate mGlyChiCon_flow_nominal=mGly_flow_nominal * (1+1/COPGly_nominal) * cpGly/cpWat
     "Nominal mass flow rate of air through the chiller condenser coil";
-
-
   final parameter Modelica.Units.SI.MassFlowRate mGly_flow_nominal=-QGly_flow_nominal / cpGly / dTHex_nominal
     "Nominal mass flow rate of glycol through the glycol circuit";
-
   final parameter Modelica.Units.SI.SpecificHeatCapacity cpWat = MediumWat.cp_const "Isobaric specific heat capacity";
   final parameter Modelica.Units.SI.SpecificHeatCapacity cpGly = MediumGly.cp_const "Isobaric specific heat capacity";
-
   parameter Buildings.Fluid.Storage.Ice.Data.Tank.Generic perIceTan(
     mIce_max=mIceTan,
     coeCha={1.76953858E-04,0,0,0,0,0},
@@ -54,9 +42,8 @@ model DistrictCoolingIceTank
     coeDisCha={5.54E-05,-1.45679E-04,9.28E-05,1.126122E-03,-1.1012E-03,3.00544E-04},
     dtDisCha=10) "Tank performance data"
     annotation (Placement(transformation(extent={{-280,140},{-260,160}})));
-
-
   Buildings.Fluid.Storage.Ice.Tank iceTan(
+    allowFlowReversal=allowFlowReversal,
     show_T=true,
     redeclare package Medium = MediumGly,
     m_flow_nominal=mGly_flow_nominal,
@@ -68,7 +55,6 @@ model DistrictCoolingIceTank
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={-240,10})));
-
   Chillers.Carnot_TEva                             chiGly(
     show_T=true,
     redeclare package Medium1 = MediumWat,
@@ -85,7 +71,6 @@ model DistrictCoolingIceTank
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-70,10})));
-
   Chillers.Carnot_TEva                             chiWat(
     show_T=true,
     redeclare package Medium1 = MediumWat,
@@ -102,11 +87,10 @@ model DistrictCoolingIceTank
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={192,10})));
-
   HeatExchangers.PlateHeatExchangerEffectivenessNTU
                                        hex(
-    allowFlowReversal1=false,
-    allowFlowReversal2=false,
+    allowFlowReversal1=allowFlowReversal,
+    allowFlowReversal2=allowFlowReversal,
     show_T=true,
     redeclare package Medium1 = MediumGly,
     redeclare package Medium2 = MediumWat,
@@ -122,7 +106,6 @@ model DistrictCoolingIceTank
                        "Heat exchanger"
     annotation (Placement(transformation(extent={{10,-10},
             {-10,10}},                                                                              rotation=90,origin={60,10})));
-
   HeatExchangers.HeaterCooler_u disCooCoi(
     redeclare package Medium = MediumWat,
     allowFlowReversal=false,
@@ -136,9 +119,9 @@ model DistrictCoolingIceTank
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={320,10})));
-
   Actuators.Valves.TwoWayLinear valStoDis(
     redeclare package Medium = MediumGly,
+    allowFlowReversal=allowFlowReversal,
     m_flow_nominal=mGly_flow_nominal,
     dpValve_nominal=6000,
     dpFixed_nominal=0,
@@ -148,9 +131,9 @@ model DistrictCoolingIceTank
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-240,-130})));
-
   Actuators.Valves.TwoWayLinear valStoCha(
     redeclare package Medium = MediumGly,
+    allowFlowReversal=allowFlowReversal,
     m_flow_nominal=mGly_flow_nominal,
     dpValve_nominal=6000,
     dpFixed_nominal=0,
@@ -160,11 +143,10 @@ model DistrictCoolingIceTank
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-190,-98})));
-
   Movers.FlowControlled_m_flow pumHexPri(
     redeclare package Medium = MediumGly,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    allowFlowReversal=false,
+    allowFlowReversal=allowFlowReversal,
     m_flow_nominal=mGly_flow_nominal,
     addPowerToMedium=false,
     nominalValuesDefineDefaultPressureCurve=true)
@@ -173,7 +155,6 @@ model DistrictCoolingIceTank
         extent={{-10,10},{10,-10}},
         rotation=270,
         origin={40,-50})));
-
   Movers.FlowControlled_m_flow pumHexSec(
     redeclare package Medium = MediumWat,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -186,7 +167,6 @@ model DistrictCoolingIceTank
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={100,-50})));
-
   Movers.FlowControlled_m_flow pumChiWat(
     redeclare package Medium = MediumWat,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -199,7 +179,6 @@ model DistrictCoolingIceTank
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={160,-50})));
-
   Movers.FlowControlled_m_flow pumLoa(
     redeclare package Medium = MediumWat,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -212,11 +191,10 @@ model DistrictCoolingIceTank
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={320,-50})));
-
   Movers.FlowControlled_m_flow pumSto(
     redeclare package Medium = MediumGly,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    allowFlowReversal=false,
+    allowFlowReversal=allowFlowReversal,
     m_flow_nominal=mGly_flow_nominal,
     addPowerToMedium=false,
     nominalValuesDefineDefaultPressureCurve=true,
@@ -225,11 +203,10 @@ model DistrictCoolingIceTank
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-240,-50})));
-
   Movers.FlowControlled_m_flow pumChiGly(
     redeclare package Medium = MediumGly,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    allowFlowReversal=false,
+    allowFlowReversal=allowFlowReversal,
     m_flow_nominal=mGly_flow_nominal,
     addPowerToMedium=false,
     nominalValuesDefineDefaultPressureCurve=true)
@@ -238,7 +215,6 @@ model DistrictCoolingIceTank
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-100,-50})));
-
   Sources.MassFlowSource_T           souWatChiCon(
     use_T_in=true,
     nPorts=1,
@@ -248,18 +224,15 @@ model DistrictCoolingIceTank
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={220,50})));
-
   Sources.Boundary_pT sin1(redeclare package Medium = MediumWat,
     nPorts=1) "Pressure source"
     annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         origin={220,-50})));
-
   Sources.Boundary_pT preSouWat(redeclare package Medium = MediumWat, nPorts=1)
     "Source for pressure and to account for thermal expansion of water"
     annotation (Placement(transformation(extent={{70,-190},{90,-170}})));
-
   Sources.MassFlowSource_T           souGlyChiCon(
     use_T_in=true,
     nPorts=1,
@@ -269,18 +242,16 @@ model DistrictCoolingIceTank
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-36,50})));
-
   Sources.Boundary_pT sin2(redeclare package Medium = MediumWat,
     nPorts=1) "Pressure source"
     annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         origin={-50,-50})));
-
-  Sources.Boundary_pT preSouGly(redeclare package Medium = MediumGly, nPorts=1)
+  Sources.Boundary_pT preSouGly(redeclare package Medium = MediumGly,
+    p=ppar,                                                           nPorts=1)
     "Source for pressure and to account for thermal expansion of glycol"
     annotation (Placement(transformation(extent={{-270,-190},{-250,-170}})));
-
   FixedResistances.Junction jun(
     redeclare package Medium = MediumGly,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -373,7 +344,8 @@ model DistrictCoolingIceTank
   Controls.OBC.CDL.Integers.Sources.Constant powMod1(k=Integer(Buildings.Fluid.Storage.Ice.Examples.BaseClasses.OperationModes.LowPower))
     "Power mode of plant low mode"
     annotation (Placement(transformation(extent={{-582,150},{-562,170}})));
-  BaseClasses.ControlDemandLevel conDemLev(k=0.07,Ti=120)
+  BaseClasses.ControlDemandLevel conDemLev(k=0.07,Ti=120,
+    waitTime=120)
     "Controller that outputs the demand level"
     annotation (Placement(transformation(extent={{-480,280},{-460,300}})));
   Sensors.TemperatureTwoPort senTemSupSec(
@@ -410,8 +382,7 @@ model DistrictCoolingIceTank
     timeScale=1,
     offset={0,0,-288,0})
     "Data columns are t = y[0], Tdb = y[1], Twb = y[2], QCoo_flow = y[3], and CO2e = y[4]"
-    annotation (Placement(transformation(extent={{480,200},{460,220}})));
-
+    annotation (Placement(transformation(extent={{482,202},{462,222}})));
   Modelica.Thermal.HeatTransfer.Celsius.ToKelvin toKelvin
     "Convert Twb from Celsius to Kelvin"
     annotation (Placement(transformation(extent={{318,378},{298,398}})));
@@ -419,7 +390,7 @@ model DistrictCoolingIceTank
     "Normalize load"
     annotation (Placement(transformation(extent={{430,110},{410,130}})));
   Controls.OBC.CDL.Integers.Switch intSwi
-    annotation (Placement(transformation(extent={{-514,170},{-494,190}})));
+    annotation (Placement(transformation(extent={{-514,172},{-494,192}})));
   Controls.OBC.CDL.Integers.Switch intSwi1
     annotation (Placement(transformation(extent={{-456,178},{-436,198}})));
   Controls.OBC.CDL.Integers.Sources.Constant powMod2(k=Integer(Buildings.Fluid.Storage.Ice.Examples.BaseClasses.OperationModes.Efficiency))
@@ -428,10 +399,16 @@ model DistrictCoolingIceTank
   Controls.OBC.CDL.Integers.Sources.Constant powMod3(k=Integer(Buildings.Fluid.Storage.Ice.Examples.BaseClasses.OperationModes.HighPower))
     "Power mode of plant High mode"
     annotation (Placement(transformation(extent={{-580,230},{-560,250}})));
-  Controls.OBC.CDL.Continuous.LessThreshold lesThr(t=400, h=50)
+  Controls.OBC.CDL.Continuous.Less lesThr(h=50)
     annotation (Placement(transformation(extent={{-550,168},{-530,188}})));
-  Controls.OBC.CDL.Continuous.LessThreshold lesThr1(t=350, h=50)
+  Controls.OBC.CDL.Continuous.Less lesThr1(h=50)
     annotation (Placement(transformation(extent={{-482,178},{-462,198}})));
+  Controls.OBC.CDL.Continuous.MovingAverage movAve1(delta=3600*24*15)
+    annotation (Placement(transformation(extent={{-580,110},{-560,130}})));
+  parameter Boolean allowFlowReversal=true
+    "= false to simplify equations, assuming, but not enforcing, no flow reversal";
+  parameter Modelica.Media.Interfaces.Types.AbsolutePressure ppar=MediumGly.p_default*
+      2 "Fixed value of pressure";
 equation
   connect(pumSto.port_b, iceTan.port_a)
     annotation (Line(points={{-240,-40},{-240,0}}, color={0,127,255}));
@@ -559,7 +536,7 @@ equation
   connect(senTemSupSec.port_b, disCooCoi.port_a) annotation (Line(points={{302,
           100},{320,100},{320,20}}, color={0,127,255}));
   connect(senTemSupSec.T,conDemLev. u_m) annotation (Line(points={{292,111},{292,
-          124},{-484,124},{-484,284},{-482,284},{-482,285}},
+          124},{-486,124},{-486,284},{-482,284},{-482,285}},
                                                       color={0,0,127}));
   connect(TConMin.y, TCon.u2) annotation (Line(points={{-378,340},{-360,340},{-360,
           354},{-322,354}}, color={0,0,127}));
@@ -579,38 +556,44 @@ equation
   connect(con.yDemLev1,conDemLev. yDemLev1) annotation (Line(points={{-420.667,
           241.408},{-420.667,242},{-448,242},{-448,290},{-458,290}},
         color={0,0,127}));
-  connect(loadBlock.y[2], toKelvin.Celsius) annotation (Line(points={{459,210},
-          {332,210},{332,388},{320,388}}, color={0,0,127}));
+  connect(loadBlock.y[2], toKelvin.Celsius) annotation (Line(points={{461,212},{
+          332,212},{332,388},{320,388}},  color={0,0,127}));
   connect(toKelvin.Kelvin, TConEntNoFre.u) annotation (Line(points={{297,388},{
           -380,388},{-380,370},{-362,370}}, color={0,0,127}));
-  connect(loadBlock.y[3], norLoa.u) annotation (Line(points={{459,210},{440,210},
+  connect(loadBlock.y[3], norLoa.u) annotation (Line(points={{461,212},{440,212},
           {440,120},{432,120}}, color={0,0,127}));
   connect(norLoa.y, disCooCoi.u)
     annotation (Line(points={{408,120},{326,120},{326,22}}, color={0,0,127}));
   connect(norLoa.y, gaiPumSec.u) annotation (Line(points={{408,120},{400,120},{
           400,-50},{382,-50}}, color={0,0,127}));
-  connect(powMod1.y, intSwi.u3) annotation (Line(points={{-560,160},{-516,160},
-          {-516,172}}, color={255,127,0}));
-  connect(powMod2.y, intSwi.u1) annotation (Line(points={{-558,200},{-524,200},
-          {-524,188},{-516,188}}, color={255,127,0}));
-  connect(powMod3.y, intSwi1.u1) annotation (Line(points={{-558,240},{-480,240},
-          {-480,196},{-458,196}}, color={255,127,0}));
+  connect(powMod1.y, intSwi.u3) annotation (Line(points={{-560,160},{-516,160},{
+          -516,174}},  color={255,127,0}));
+  connect(powMod2.y, intSwi.u1) annotation (Line(points={{-558,200},{-524,200},{
+          -524,190},{-516,190}},  color={255,127,0}));
+  connect(powMod3.y, intSwi1.u1) annotation (Line(points={{-558,240},{-460,240},
+          {-460,196},{-458,196}}, color={255,127,0}));
   connect(intSwi.y, intSwi1.u3)
-    annotation (Line(points={{-492,180},{-458,180}}, color={255,127,0}));
-  connect(lesThr.y, intSwi.u2) annotation (Line(points={{-528,178},{-522,178},{
-          -522,180},{-516,180}}, color={255,0,255}));
+    annotation (Line(points={{-492,182},{-476,182},{-476,180},{-458,180}},
+                                                     color={255,127,0}));
+  connect(lesThr.y, intSwi.u2) annotation (Line(points={{-528,178},{-522,178},{-522,
+          182},{-516,182}},      color={255,0,255}));
   connect(intSwi1.y, con.powMod) annotation (Line(points={{-434,188},{-436,188},
           {-436,235.92},{-420.667,235.92}}, color={255,127,0}));
   connect(intSwi1.u2, lesThr1.y)
     annotation (Line(points={{-458,188},{-460,188}}, color={255,0,255}));
-  connect(loadBlock.y[4], lesThr.u) annotation (Line(points={{459,210},{459,322},
-          {-552,322},{-552,178}}, color={0,0,127}));
-  connect(lesThr1.u, lesThr.u) annotation (Line(points={{-484,188},{-512,188},{
-          -512,266},{-552,266},{-552,178}}, color={0,0,127}));
+  connect(loadBlock.y[4], movAve1.u) annotation (Line(points={{461,212},{461,322},
+          {-590,322},{-590,120},{-582,120}}, color={0,0,127}));
+  connect(movAve1.y, lesThr.u2) annotation (Line(points={{-558,120},{-548,120},{
+          -548,156},{-552,156},{-552,170}}, color={0,0,127}));
+  connect(movAve1.y, lesThr1.u2) annotation (Line(points={{-558,120},{-528,120},
+          {-528,122},{-490,122},{-490,180},{-484,180}}, color={0,0,127}));
+  connect(loadBlock.y[4], lesThr.u1) annotation (Line(points={{461,212},{461,
+          312},{-552,312},{-552,178}}, color={0,0,127}));
+  connect(lesThr1.u1, lesThr.u1) annotation (Line(points={{-484,188},{-518,188},
+          {-518,222},{-552,222},{-552,178}}, color={0,0,127}));
   annotation (
     experiment(
       StopTime=31536000,
-      __Dymola_NumberOfIntervals=5000,
       Tolerance=1e-06,
       __Dymola_Algorithm="Radau"),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Ice/Examples/DistrictCoolingIceTank.mos"
