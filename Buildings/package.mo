@@ -217,6 +217,15 @@ Version 10.0.0 is ... xxx
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
+<tr><td valign=\"top\">Buildings.Templates
+    </td>
+    <td valign=\"top\">Package that contains templates for HVAC systems with control sequences
+                       based on ASHRAE Guideline 36.
+                       Currently limited to VAV systems, the package is under active development
+                       and will be further expanded with templates for primary systems and various
+                       types of zone equipment.
+    </td>
+    </tr>
 <tr><td valign=\"top\">Buildings.ThermalZones.ISO13790
     </td>
     <td valign=\"top\">Package that contains models for reduced building physics of thermal zones
@@ -818,16 +827,6 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Added unit <code>rad</code> to the input.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3277\">#3277</a>.<br/>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Sources.Sin
-    </td>
-    <td valign=\"top\">Renamed block from <code>Sine</code> to <code>Sin</code>
-                       to use consistent naming with
-                       <code>Buildings.Controls.OBC.CDL.Continuous.Sin</code>.<br/>
-                       This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3339\">#3339</a>.<br/>
-                       This change is supported in the conversion script.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Routing.RealExtractor
