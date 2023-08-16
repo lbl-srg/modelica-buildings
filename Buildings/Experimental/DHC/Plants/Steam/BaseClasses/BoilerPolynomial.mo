@@ -1,4 +1,4 @@
-﻿within Buildings.Experimental.DHC.Plants.Steam.BaseClasses;
+within Buildings.Experimental.DHC.Plants.Steam.BaseClasses;
 model BoilerPolynomial
   "A equilibrium boiler with water phase change from liquid to vapor, discharging
   saturated steam vapor, with the efficiency curve described by a polynomial."
