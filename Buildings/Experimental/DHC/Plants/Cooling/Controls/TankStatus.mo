@@ -36,6 +36,8 @@ block TankStatus "Returns the tank status from its temperature sensors"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 equation
+  assert(THig > TLow, "*** In " + getInstanceName() +
+": THig must be greater than TLow.");
   connect(hysCha.y, not1.u)
     annotation (Line(points={{-18,-50},{18,-50}},
                                                color={255,0,255}));
