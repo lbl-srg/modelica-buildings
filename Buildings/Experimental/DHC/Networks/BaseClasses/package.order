@@ -1,6 +1,9 @@
 DifferenceEnthalpyFlowRate
 PartialConnection1Pipe
 PartialConnection2Pipe
+PartialConnection2Pipe2Medium
 PartialDistribution
 PartialDistribution1Pipe
+PartialDistribution2Medium
 PartialDistribution2Pipe
+PartialDistribution2Pipe2Medium

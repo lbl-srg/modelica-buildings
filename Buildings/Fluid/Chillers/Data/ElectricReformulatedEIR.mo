@@ -25,6 +25,11 @@ This record is used as a template for performance data
 for the chiller model
 <a href=\"modelica://Buildings.Fluid.Chillers.ElectricReformulatedEIR\">
 Buildings.Fluid.Chillers.ElectricReformulatedEIR</a>.
+To provide performance data for
+<a href=\"modelica://Buildings.Fluid.Chillers.ElectricEIR\">
+Buildings.Fluid.Chillers.ElectricEIR</a>, use
+<a href=\"modelica://Buildings.Fluid.Chillers.Data.ElectricEIR.Generic\">
+Buildings.Fluid.Chillers.Data.ElectricEIR.Generic</a> instead.
 </html>", revisions="<html>
 <ul>
 <li>

@@ -1,0 +1,17 @@
+compareVars :=
+  {
+    "mod.bus.y",
+    "mod.bus.y_actual",
+    "mod.dam.m_flow",
+    "mod.dam.m_flow_nominal",
+    "pre.bus.y",
+    "pre.bus.y_actual",
+    "pre.dam.m_flow",
+    "pre.dam.m_flow_nominal",
+    "two.bus.y1",
+    "two.bus.y1_actual",
+    "two.dam.m_flow",
+    "two.dam.m_flow_nominal",
+    "non.m_flow",
+    "non.m_flow_nominal"
+  };

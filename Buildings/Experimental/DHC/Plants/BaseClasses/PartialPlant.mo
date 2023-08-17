@@ -1,10 +1,10 @@
 within Buildings.Experimental.DHC.Plants.BaseClasses;
 partial model PartialPlant
-  "Partial class for modeling a central plant"
+  "Partial class for modeling a plant"
   replaceable package Medium=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Service side medium";
-  replaceable package MediumHea_b=Buildings.Media.Water
+  replaceable package MediumHea_b=Buildings.Media.Steam
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Service side medium at heating supply"
     annotation(Dialog(enable=
@@ -23,10 +23,11 @@ partial model PartialPlant
   parameter Boolean have_eleHea=false
     "Set to true if the plant has electric heating system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  // Placeholder parameter
-  final parameter Integer nFue=0
+  parameter Integer nFue=0
     "Number of fuel types (0 means no combustion system)"
     annotation (Evaluate=true, Dialog(group="Configuration"));
+  final parameter Boolean have_fue=nFue>0
+    "Set to true if the plant has fuel use";
   parameter Boolean have_eleCoo=false
     "Set to true if the plant has electric cooling system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
@@ -36,9 +37,9 @@ partial model PartialPlant
   parameter Boolean allowFlowReversal=false
     "Set to true to allow flow reversal in service lines"
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
-  final parameter Buildings.Fluid.Data.Fuels.Generic fue[nFue]
+  parameter Buildings.Fluid.Data.Fuels.Generic fue[nFue]
     "Fuel type"
-     annotation (choicesAllMatching = true, Dialog(enable=nFue>0));
+     annotation (choicesAllMatching = true, Dialog(enable=have_fue));
   // IO CONNECTORS
   Modelica.Fluid.Interfaces.FluidPort_a port_aSerAmb(
     redeclare package Medium = Medium,
@@ -64,16 +65,16 @@ partial model PartialPlant
     h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if have_hea
     "Fluid connector for heating service supply line"
     annotation (Placement(
-      transformation(extent={{-310,-10},{-290,10}}),    iconTransformation(
-        extent={{-310,-10},{-290,10}})));
+      transformation(extent={{-310,-10},{-290,10}}),
+      iconTransformation(extent={{-310,-10},{-290,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bSerHea(
     redeclare package Medium = MediumHea_b,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     h_outflow(start=MediumHea_b.h_default, nominal=MediumHea_b.h_default)) if have_hea
     "Fluid connector for heating service return line"
     annotation (Placement(
-        transformation(extent={{290,-10},{310,10}}),    iconTransformation(
-          extent={{290,-10},{310,10}})));
+        transformation(extent={{290,-10},{310,10}}),
+        iconTransformation(extent={{290,-10},{310,10}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aSerCoo(
     redeclare package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
@@ -88,8 +89,8 @@ partial model PartialPlant
  if have_coo
     "Fluid connector for cooling service return line"
     annotation (Placement(
-      transformation(extent={{290,-50},{310,-30}}),   iconTransformation(
-        extent={{290,-50},{310,-30}})));
+      transformation(extent={{290,-50},{310,-30}}),
+      iconTransformation(extent={{290,-50},{310,-30}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus if have_weaBus
     "Weather data bus"
     annotation (Placement(transformation(extent={{-16,250},{18,282}}),
@@ -114,8 +115,8 @@ partial model PartialPlant
     "Power drawn by pump motors"
     annotation (Placement(transformation(extent={{300,140},{340,180}}),
       iconTransformation(extent={{300,120},{380,200}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QFue_flow[nFue](
-    each final unit="W") if nFue>0
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QFue_flow(
+    final unit="W") if have_fue
     "Fuel energy input rate"
     annotation (
       Placement(transformation(extent={{300,100},{340,140}}),
@@ -131,11 +132,11 @@ protected
   final parameter Boolean have_serAmb=typ == Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration5
   "Boolean flag to enable fluid connector for ambient water service line";
   annotation (
-    defaultComponentName="plan",
+    defaultComponentName="pla",
     Documentation(
       info="<html>
 <p>
-Partial class to be used for modeling a central plant.
+Partial class to be used for modeling a plant.
 </p>
 <p>
 The connectors to the service lines are configured based on an enumeration
@@ -152,7 +153,8 @@ revisions="<html>
 <ul>
 <li>
 September 20, 2021, by Mingzhe Liu:<br/>
-Refactored <code>if</code> statement to correctly enable and disable the fluid connector under different system types.
+Refactored <code>if</code> statement to correctly enable and 
+disable the fluid connector under different system types.
 </li>
 <li>
 December 21, 2020, by Antoine Gautier:<br/>
