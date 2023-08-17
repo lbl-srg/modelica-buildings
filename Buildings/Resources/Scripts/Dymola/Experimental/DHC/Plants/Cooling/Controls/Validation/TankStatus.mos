@@ -1,5 +1,5 @@
 simulateModel("Buildings.Experimental.DHC.Plants.Cooling.Controls.Validation.TankStatus",
-    stopTime=10, method="Dassl", tolerance=1e-06, resultFile="TankStatus");
+    stopTime=1, method="Dassl", tolerance=1e-06, resultFile="TankStatus");
 // Plot commands
 removePlots(false);
 createPlot(id=1,

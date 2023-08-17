@@ -4,33 +4,22 @@ model TankStatus "Validation model for TankStatus"
   Buildings.Experimental.DHC.Plants.Cooling.Controls.TankStatus tanSta(
     TLow=280.15,
     THig=286.15,
-    dTHys=0.5)
-             "Tank Status"
+    dTHys=1) "Tank Status"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
-  Modelica.Blocks.Sources.Sine sine(
-    amplitude=1.5,
-    f=0.3,
-    offset=273.15 + 10) "Signal source"
-    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter TTanTop(p=-2,
-    y(unit="K"))
-    "Temperature at tank top"
-    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter TTanBot(p=2,
-    y(unit="K"))
+  Modelica.Blocks.Sources.TimeTable TTanBot(table=[0,273.15 + 11; 0.25,273.15 +
+        13.5; 0.5,273.15 + 12.5; 0.75,273.15 + 13.5; 1,273.15 + 11])
     "Temperature at tank bottom"
-    annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
+    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
+  Modelica.Blocks.Sources.TimeTable TTanTop(table=[0,273.15 + 9; 0.25,273.15 + 6.5;
+        0.5,273.15 + 7.5; 0.75,273.15 + 6.5; 1,273.15 + 9])
+    "Temperature at tank top"
+    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 equation
-  connect(sine.y, TTanTop.u) annotation (Line(points={{-59,10},{-52,10},{-52,30},
-          {-42,30}}, color={0,0,127}));
-  connect(sine.y, TTanBot.u) annotation (Line(points={{-59,10},{-52,10},{-52,-10},
-          {-42,-10}}, color={0,0,127}));
-  connect(TTanTop.y, tanSta.TTan[1]) annotation (Line(points={{-18,30},{-6,30},{
+  connect(TTanTop.y, tanSta.TTan[1]) annotation (Line(points={{-39,30},{-6,30},{
           -6,9.75},{-1,9.75}}, color={0,0,127}));
-  connect(TTanBot.y, tanSta.TTan[2]) annotation (Line(points={{-18,-10},{-6,-10},
-          {-6,10.25},{-1,10.25}},
-                            color={0,0,127}));
-          annotation(experiment(Tolerance=1e-6, StopTime=10),
+  connect(TTanBot.y, tanSta.TTan[2]) annotation (Line(points={{-39,-10},{-6,-10},
+          {-6,10.25},{-1,10.25}}, color={0,0,127}));
+          annotation(experiment(Tolerance=1e-6, StopTime=1),
           __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Plants/Cooling/Controls/Validation/TankStatus.mos"
       "Simulate and Plot"),
@@ -49,6 +38,9 @@ First implementation. This is for
 This model validates
 <a href=\"modelica://Buildings.Experimental.DHC.Plants.Cooling.Controls.TankStatus\">
 Buildings.Experimental.DHC.Plants.Cooling.Controls.TankStatus</a>.
+Note that the output signals turn true as soon as their respective temperature
+input crosses the threshold, but there is a delay for it to turn back false
+due to hysteresis.
 </p>
 </html>"));
 end TankStatus;
