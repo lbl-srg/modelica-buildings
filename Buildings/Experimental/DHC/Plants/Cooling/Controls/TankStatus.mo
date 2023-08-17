@@ -22,12 +22,12 @@ block TankStatus "Returns the tank status from its temperature sensors"
         rotation=0,
         origin={-110,0})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysCha(
-    final uLow=TLow + dTHys,
-    final uHigh=TLow + 2*dTHys) "Hysteresis, tank charged"
+    final uLow=TLow,
+    final uHigh=TLow + dTHys) "Hysteresis, tank charged"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysEmp(
-    final uHigh=THig - dTHys,
-    final uLow=THig - 2*dTHys) "Hysteresis, tank empty"
+    final uHigh=THig,
+    final uLow=THig - dTHys) "Hysteresis, tank empty"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Not block"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));

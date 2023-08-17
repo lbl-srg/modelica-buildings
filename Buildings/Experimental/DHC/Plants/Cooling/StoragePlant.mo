@@ -78,8 +78,8 @@ model StoragePlant "Model of a storage plant with a chiller and a CHW tank"
     "Control block for storage plant flows"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Buildings.Experimental.DHC.Plants.Cooling.Controls.TankStatus tanSta(
-    TLow=T_CHWS_nominal,
-    THig=T_CHWR_nominal) "Tank status"
+    TLow=T_CHWS_nominal + 0.5,
+    THig=T_CHWR_nominal - 0.5) "Tank status"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
   Modelica.Blocks.Interfaces.BooleanInput chiEnaSta
     "Chiller enable status, true if chiller is enabled" annotation (Placement(

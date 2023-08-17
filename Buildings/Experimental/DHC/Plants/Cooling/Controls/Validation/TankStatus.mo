@@ -10,13 +10,13 @@ model TankStatus "Validation model for TankStatus"
   Modelica.Blocks.Sources.Sine sine(
     amplitude=1.5,
     f=0.3,
-    offset=273.15 + 10)
+    offset=273.15 + 10) "Signal source"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter TTanTop(p=-1.5,
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter TTanTop(p=-2,
     y(unit="K"))
     "Temperature at tank top"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter TTanBot(p=1.5,
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter TTanBot(p=2,
     y(unit="K"))
     "Temperature at tank bottom"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
