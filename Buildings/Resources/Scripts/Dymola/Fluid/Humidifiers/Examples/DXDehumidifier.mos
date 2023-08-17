@@ -1,0 +1,5 @@
+simulateModel("Buildings.Fluid.Humidifiers.Examples.DXDehumidifier", stopTime=14400, method="CVode", resultFile="DXDehumidifier", tolerance=1e-6);
+createPlot(id=1, position={0, 0, 1611, 677}, y={"dxDeh.deHum.vol.X_w", "sou.medium.Xi[1]"}, range={0.0, 14500.0, 0.0, 0.02}, grid=true, colors={{28,108,200}, {238,46,47}}, displayUnits={"kg/kg", "1"});
+createPlot(id=1, position={0, 0, 1611, 677}, y={"dxDeh.T", "dxDeh.senTIn.T"}, range={0.0, 14500.0, 290.0, 310.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}}, displayUnits={"K", "K"});
+createPlot(id=1, position={0, 0, 1611, 677}, y={"dxDeh.P"}, range={0.0, 14500.0, -1000.0, 1000.0}, grid=true, subPlot=3, colors={{28,108,200}}, displayUnits={"W"});
+createPlot(id=1, position={0, 0, 1611, 677}, y={"on.y"}, range={0.0, 14500.0, -1.0, 2.0}, grid=true, subPlot=4, colors={{28,108,200}});
