@@ -35,7 +35,7 @@ partial model PartialChillerPlant "Chiller plant model for closed-loop test"
     final use_inputFilter=false)
     "Condenser water pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=-90,origin={200,200})));
+        rotation=-90,origin={200,210})));
   Buildings.Fluid.Movers.SpeedControlled_y conWatPum2(
     redeclare package Medium = MediumW,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -44,7 +44,7 @@ partial model PartialChillerPlant "Chiller plant model for closed-loop test"
     final use_inputFilter=false)
     "Condenser water pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=-90,origin={260,200})));
+        rotation=-90,origin={260,210})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear cwIsoVal1(
     redeclare package Medium = MediumW,
     final m_flow_nominal=mCon_flow_nominal,
@@ -101,7 +101,7 @@ partial model PartialChillerPlant "Chiller plant model for closed-loop test"
     final m_flow_nominal={mCon_flow_nominal,mCon_flow_nominal,mCon_flow_nominal},
     final dp_nominal={0,0,0}) "Flow junction"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=-90,origin={260,160})));
+        rotation=-90,origin={260,140})));
   Buildings.Fluid.FixedResistances.Junction jun3(
     redeclare package Medium = MediumW,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -163,7 +163,7 @@ partial model PartialChillerPlant "Chiller plant model for closed-loop test"
     final use_inputFilter=false)
     "Chilled water pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=-90,origin={200,-112})));
+        rotation=-90,origin={200,-96})));
   Buildings.Fluid.Movers.SpeedControlled_y chiWatPum2(
     redeclare package Medium = MediumW,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -172,14 +172,14 @@ partial model PartialChillerPlant "Chiller plant model for closed-loop test"
     final use_inputFilter=false)
     "Chilled water pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=-90,origin={260,-112})));
+        rotation=-90,origin={260,-96})));
   Buildings.Fluid.FixedResistances.Junction jun8(
     redeclare package Medium = MediumW,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final m_flow_nominal={mChi_flow_nominal,mChi_flow_nominal,mChi_flow_nominal},
     final dp_nominal={0,0,0}) "Flow junction"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
-        rotation=-90,origin={200,-80})));
+        rotation=-90,origin={200,-70})));
   Buildings.Fluid.FixedResistances.Junction jun9(
     redeclare package Medium = MediumW,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -280,7 +280,38 @@ partial model PartialChillerPlant "Chiller plant model for closed-loop test"
     "Reference pressure"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=180,origin={470,110})));
-
+  Buildings.Fluid.FixedResistances.CheckValve cheVal(
+    redeclare package Medium = MediumW,
+    m_flow_nominal=mCon_flow_nominal,
+    dpValve_nominal=3400,
+    l=1e-4)
+    "Check valve to avoid reverse flow"
+    annotation (Placement(transformation(extent={{-10,-11},{10,11}},
+        rotation=-90, origin={200,169})));
+  Buildings.Fluid.FixedResistances.CheckValve cheVal1(
+    redeclare package Medium = MediumW,
+    m_flow_nominal=mCon_flow_nominal,
+    dpValve_nominal=3400,
+    l=1e-4)
+    "Check valve to avoid reverse flow"
+    annotation (Placement(transformation(extent={{-10,-11},{10,11}},
+        rotation=-90, origin={260,169})));
+  Buildings.Fluid.FixedResistances.CheckValve cheVal2(
+    redeclare package Medium = MediumW,
+    m_flow_nominal=mChi_flow_nominal,
+    dpValve_nominal=3400,
+    l=1e-4)
+    "Check valve to avoid reverse flow"
+    annotation (Placement(transformation(extent={{-10,-11},{10,11}},
+        rotation=-90, origin={200,-123})));
+  Buildings.Fluid.FixedResistances.CheckValve cheVal3(
+    redeclare package Medium = MediumW,
+    m_flow_nominal=mChi_flow_nominal,
+    dpValve_nominal=3400,
+    l=1e-4)
+    "Check valve to avoid reverse flow"
+    annotation (Placement(transformation(extent={{-10,-11},{10,11}},
+        rotation=-90, origin={260,-125})));
 equation
   connect(jun3.port_1, cooTow1.port_b)
     annotation (Line(points={{260,320},{260,380},{320,380}}, color={238,46,47},
@@ -313,19 +344,13 @@ equation
     annotation (Line(points={{210,-20},{230,-20}}, color={0,127,255},
       thickness=1));
   connect(jun7.port_2, jun8.port_1)
-    annotation (Line(points={{200,-30},{200,-70}}, color={0,127,255},
+    annotation (Line(points={{200,-30},{200,-60}}, color={0,127,255},
       thickness=1));
   connect(jun8.port_3,chiWatPum2. port_a)
-    annotation (Line(points={{210,-80},{260,-80},{260,-102}}, color={0,127,255},
+    annotation (Line(points={{210,-70},{260,-70},{260,-86}},  color={0,127,255},
       thickness=1));
   connect(jun8.port_2,chiWatPum1. port_a)
-    annotation (Line(points={{200,-90},{200,-102}}, color={0,127,255},
-      thickness=1));
-  connect(chiWatPum1.port_b, jun9.port_1)
-    annotation (Line(points={{200,-122},{200,-140}}, color={0,127,255},
-      thickness=1));
-  connect(chiWatPum2.port_b, jun9.port_3)
-    annotation (Line(points={{260,-122},{260,-150},{210,-150}}, color={0,127,255},
+    annotation (Line(points={{200,-80},{200,-86}},  color={0,127,255},
       thickness=1));
   connect(jun10.port_3, valByp.port_a)
     annotation (Line(points={{210,-220},{320,-220}}, color={0,127,255},
@@ -334,19 +359,13 @@ equation
     annotation (Line(points={{340,-220},{430,-220}}, color={0,127,255},
       thickness=1));
   connect(jun.port_1, jun2.port_2)
-    annotation (Line(points={{260,110},{260,150}}, color={238,46,47},
-      thickness=1));
-  connect(jun2.port_1, conWatPum2.port_b)
-    annotation (Line(points={{260,170},{260,190}}, color={238,46,47},
+    annotation (Line(points={{260,110},{260,130}}, color={238,46,47},
       thickness=1));
   connect(conWatPum2.port_a, jun1.port_2)
-    annotation (Line(points={{260,210},{260,230}}, color={238,46,47},
-      thickness=1));
-  connect(conWatPum1.port_b, jun2.port_3)
-    annotation (Line(points={{200,190},{200,160},{250,160}}, color={238,46,47},
+    annotation (Line(points={{260,220},{260,230}}, color={238,46,47},
       thickness=1));
   connect(conWatPum1.port_a, jun1.port_3)
-    annotation (Line(points={{200,210},{200,240},{250,240}}, color={238,46,47},
+    annotation (Line(points={{200,220},{200,240},{250,240}}, color={238,46,47},
       thickness=1));
   connect(jun9.port_2, chiWatSupTem.port_a) annotation (Line(
       points={{200,-160},{200,-170}},
@@ -409,6 +428,38 @@ equation
       thickness=1));
   connect(jun4.port_2, bou.ports[1])
     annotation (Line(points={{420,110},{460,110}}, color={238,46,47},
+      thickness=1));
+  connect(conWatPum1.port_b, cheVal.port_a) annotation (Line(
+      points={{200,200},{200,179}},
+      color={238,46,47},
+      thickness=1));
+  connect(cheVal.port_b, jun2.port_3) annotation (Line(
+      points={{200,159},{200,140},{250,140}},
+      color={238,46,47},
+      thickness=1));
+  connect(jun2.port_1, cheVal1.port_b) annotation (Line(
+      points={{260,150},{260,159}},
+      color={238,46,47},
+      thickness=1));
+  connect(cheVal1.port_a, conWatPum2.port_b) annotation (Line(
+      points={{260,179},{260,200}},
+      color={238,46,47},
+      thickness=1));
+  connect(chiWatPum1.port_b, cheVal2.port_a) annotation (Line(
+      points={{200,-106},{200,-113}},
+      color={0,127,255},
+      thickness=1));
+  connect(cheVal2.port_b, jun9.port_1) annotation (Line(
+      points={{200,-133},{200,-140}},
+      color={0,127,255},
+      thickness=1));
+  connect(chiWatPum2.port_b, cheVal3.port_a) annotation (Line(
+      points={{260,-106},{260,-115}},
+      color={0,127,255},
+      thickness=1));
+  connect(cheVal3.port_b, jun9.port_3) annotation (Line(
+      points={{260,-135},{260,-150},{210,-150}},
+      color={0,127,255},
       thickness=1));
  annotation (
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-580,-440},{580,440}})),

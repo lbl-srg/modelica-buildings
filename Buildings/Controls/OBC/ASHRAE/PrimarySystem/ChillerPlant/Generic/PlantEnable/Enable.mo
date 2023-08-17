@@ -34,7 +34,8 @@ block Enable "Sequence to enable and disable plant"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
-    final quantity="ThermodynamicTemperature")
+    final quantity="ThermodynamicTemperature",
+    final displayUnit="degC")
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-240,-170},{-200,-130}}),
       iconTransformation(extent={{-140,-62},{-100,-22}})));

@@ -57,7 +57,7 @@ block Enable "Sequence for enabling and disabling tower fan"
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Subtract sub0[nChi]
-    "DIfference between enabled chiller head pressure control maximum tower speed and the minimum tower speed"
+    "Difference between enabled chiller head pressure control maximum tower speed and the minimum tower speed"
     annotation (Placement(transformation(extent={{-70,150},{-50,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys[nChi](
     final uLow=fill(fanSpeChe, nChi),

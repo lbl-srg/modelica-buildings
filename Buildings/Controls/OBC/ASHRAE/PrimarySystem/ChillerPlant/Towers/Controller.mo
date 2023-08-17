@@ -381,8 +381,6 @@ equation
   connect(zer.y, swi.u3)
     annotation (Line(points={{22,-180},{40,-180},{40,-158},{58,-158}},
       color={0,0,127}));
-  connect(swi.y,ySpeSet)
-    annotation (Line(points={{82,-150},{120,-150}}, color={0,0,127}));
   connect(towFanSpe.chiLoa, chiLoa)
     annotation (Line(points={{-22,59},{-40,59},{-40,240},{-120,240}}, color={0,0,127}));
   connect(towFanSpe.uChi, uChi)
@@ -431,6 +429,8 @@ equation
           -30},{120,-30}}, color={255,0,255}));
   connect(uEnaPla, towSta.uEnaPla) annotation (Line(points={{-120,-70},{-34,-70},
           {-34,-41},{-22,-41}}, color={255,0,255}));
+  connect(swi.y, ySpeSet)
+    annotation (Line(points={{82,-150},{120,-150}}, color={0,0,127}));
 annotation (
   defaultComponentName="towCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}), graphics={

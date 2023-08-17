@@ -99,7 +99,7 @@ block EnableDevices
     annotation (Placement(transformation(extent={{20,-130},{40,-110}})));
 
   CDL.Logical.Pre pre
-    annotation (Placement(transformation(extent={{-20,72},{0,92}})));
+    annotation (Placement(transformation(extent={{-20,70},{0,90}})));
   CDL.Logical.Pre pre1
     annotation (Placement(transformation(extent={{2,20},{22,40}})));
 equation
@@ -145,9 +145,9 @@ equation
           0},{0,-120},{18,-120}}, color={255,0,255}));
   connect(and3.y, yLeaChi)
     annotation (Line(points={{42,-120},{180,-120}}, color={255,0,255}));
-  connect(not1.y, pre.u) annotation (Line(points={{-38,60},{-30,60},{-30,82},{
-          -22,82}}, color={255,0,255}));
-  connect(pre.y, ecoMod.clr) annotation (Line(points={{2,82},{20,82},{20,94},{
+  connect(not1.y, pre.u) annotation (Line(points={{-38,60},{-30,60},{-30,80},{
+          -22,80}}, color={255,0,255}));
+  connect(pre.y, ecoMod.clr) annotation (Line(points={{2,80},{20,80},{20,94},{
           38,94}}, color={255,0,255}));
   connect(intChiMod.y, pre1.u)
     annotation (Line(points={{-18,30},{0,30}}, color={255,0,255}));

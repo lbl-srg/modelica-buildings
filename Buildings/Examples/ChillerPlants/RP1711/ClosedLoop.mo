@@ -37,7 +37,8 @@ model ClosedLoop
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
-    computeWetBulbTemperature=false) "Weather data reader"
+      computeWetBulbTemperature=true)
+                                     "Weather data reader"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{70,80},{90,100}}),
@@ -251,7 +252,8 @@ equation
 annotation (experiment(
       StartTime=15638400,
       StopTime=15897600,
-      Tolerance=1e-06),
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlants/RP1711/ClosedLoop.mos"
     "Simulate and plot"),
   Diagram(coordinateSystem(extent={{-280,-220},{280,220}})), Icon(

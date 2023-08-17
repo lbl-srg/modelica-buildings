@@ -118,7 +118,7 @@ Central Plants and Hydronic Systems (Draft on March 23, 2020),
 section 5.2.10 Head pressure control, part 5.2.10.1 and 5.2.10.2.
 </p>
 <p>
-1. When head pressure control loop is enabled, PID loop shall
+1. When head pressure control loop is enabled, a reverse acting PID loop shall
 maintain the temperature differential between the chiller condenser water
 return (condenser leaving) temperature <code>TConWatRet</code> and chilled water supply temperature
 <code>TChiWatSup</code> at minimum allowable lift <code>minChiLif</code> (chiller lift

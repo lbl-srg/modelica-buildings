@@ -3,13 +3,12 @@ block EnableLead_headered
   "Sequence to enable or disable the lead pump of plants with headered primary chilled water pumps"
   parameter Integer nChi=2 "Total number of chiller CHW isolation valves";
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiIsoVal[nChi]
-    "True: chilled water isolation valve commended on"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEnaPla
-    "True: plant is just enabled"
-    annotation(Placement(transformation(extent={{-140,-60},{-100,-20}}),
-        iconTransformation(extent={{-140,-80},{-100,-40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiWatIsoVal[nChi](
+    final unit=fill("1", nChi),
+    final min=fill(0, nChi),
+    final max=fill(1, nChi)) "Chilled water isolation valve position"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
+      iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLea
     "Lead pump status setpoint"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
@@ -23,11 +22,13 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(final k=false)
     "Logical false"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(final nin=nChi)
-    "Check if there is any chiller enabled"
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys4[nChi](
+    final uLow=fill(0.925,nChi),
+    final uHigh=fill(0.975, nChi))
+    "Check if isolation valve is open more than 95%"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Or or2 "Check if enabling lead pump"
-    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr2(final nin=nChi)
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 equation
   connect(con.y,leaPumSta. u1)
     annotation (Line(points={{-18,60},{30,60},{30,8},{38,8}},color={255,0,255}));
@@ -36,16 +37,12 @@ equation
       color={255,0,255}));
   connect(leaPumSta.y, yLea)
     annotation (Line(points={{62,0},{120,0}}, color={255,0,255}));
-  connect(uChiIsoVal, mulOr.u)
-    annotation (Line(points={{-120,0},{-82,0}},
-      color={255,0,255}));
-  connect(mulOr.y, or2.u1)
-    annotation (Line(points={{-58,0},{-22,0}}, color={255,0,255}));
-  connect(uEnaPla, or2.u2) annotation (Line(points={{-120,-40},{-40,-40},{-40,
-          -8},{-22,-8}},
-                     color={255,0,255}));
-  connect(or2.y, leaPumSta.u2)
-    annotation (Line(points={{2,0},{38,0}}, color={255,0,255}));
+  connect(uChiWatIsoVal, hys4.u)
+    annotation (Line(points={{-120,0},{-82,0}}, color={0,0,127}));
+  connect(hys4.y, mulOr2.u)
+    annotation (Line(points={{-58,0},{-42,0}}, color={255,0,255}));
+  connect(mulOr2.y, leaPumSta.u2)
+    annotation (Line(points={{-18,0},{38,0}}, color={255,0,255}));
 annotation (
   defaultComponentName="enaLeaChiPum",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
@@ -59,20 +56,15 @@ annotation (
           textColor={0,0,255},
           textString="%name"),
         Text(
-          extent={{-94,12},{-40,-10}},
-          textColor={255,0,255},
+          extent={{-96,12},{-20,-8}},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uChiIsoVal"),
+          textString="uChiWatIsoVal"),
         Text(
           extent={{42,12},{96,-10}},
           textColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="yLeaPum"),
-        Text(
-          extent={{-96,-50},{-48,-66}},
-          textColor={255,0,255},
-          pattern=LinePattern.Dash,
-          textString="uEnaPla")}),
+          textString="yLeaPum")}),
   Diagram(coordinateSystem(preserveAspectRatio=false)),
   Documentation(info="<html>
 <p>
@@ -89,7 +81,7 @@ implemented in a separated sequence.
 </li>
 <li>
 The lead primary chilled water pump shall be enabled when any chiller
-CHW isolation valve <code>uChiIsoVal</code> is commanded open, shall be disabled
+CHW isolation valve <code>uChiIsoVal</code> is fully open, shall be disabled
 when chiller CHW isolation valves are commanded closed.
 </li>
 </ol>
