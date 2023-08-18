@@ -4,7 +4,7 @@ model PIDWithFirstOrderAMIGO "Test model for an autotuning PID controller"
     "Setpoint value"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.FirstOrderAMIGO PIDWitTun(
-      controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
+      controllerType=Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PID)
     "PID controller with an autotuning feature"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset PID(

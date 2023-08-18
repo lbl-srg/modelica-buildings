@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning;
 block FirstOrderAMIGO
   "An autotuning PID controller with an AMIGO tuner that employs a first-order time delayed system model"
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+  parameter Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController controllerType=Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PI
     "Type of controller";
   parameter Real r(
     min=100*CDL.Constants.eps)=1
@@ -15,22 +15,22 @@ block FirstOrderAMIGO
   parameter Real Ni(
     min=100*CDL.Constants.eps)=0.9
     "Ni*Ti is time constant of anti-windup compensation"
-    annotation (Dialog(tab="Advanced",group="Integrator anti-windup",enable=controllerType == CDL.Types.SimpleController.PI or controllerType ==CDL.Types.SimpleController.PID));
+    annotation (Dialog(tab="Advanced",group="Integrator anti-windup"));
   parameter Real Nd(
     min=100*CDL.Constants.eps)=10
     "The higher Nd, the more ideal the derivative block"
-    annotation (Dialog(tab="Advanced",group="Derivative block",enable=controllerType == CDL.Types.SimpleController.PD or controllerType ==CDL.Types.SimpleController.PID));
+    annotation (Dialog(tab="Advanced",group="Derivative block",enable=controllerType ==Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PID));
   parameter Real xi_start=0
     "Initial value of integrator state"
-    annotation (Dialog(tab="Advanced",group="Initialization",enable=controllerType == CDL.Types.SimpleController.PI or controllerType == CDL.Types.SimpleController.PID));
+    annotation (Dialog(tab="Advanced",group="Initialization"));
   parameter Real yd_start=0
     "Initial value of derivative output"
-    annotation (Dialog(tab="Advanced",group="Initialization",enable=controllerType == CDL.Types.SimpleController.PD or controllerType == CDL.Types.SimpleController.PID));
+    annotation (Dialog(tab="Advanced",group="Initialization",enable=controllerType == Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PID));
   parameter Boolean reverseActing=true
     "Set to true for reverse acting, or false for direct acting control action";
   parameter Real y_reset=xi_start
     "Value to which the controller output is reset if the boolean trigger has a rising edge"
-    annotation (Dialog(enable=controllerType == CDL.Types.SimpleController.PI or controllerType == CDL.Types.SimpleController.PID,group="Integrator reset"));
+    annotation (Dialog(group="Integrator reset"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u_s
     "Connector of setpoint input signal"
@@ -54,7 +54,7 @@ block FirstOrderAMIGO
     "Simulation time"
     annotation (Placement(transformation(extent={{80,60},{60,80}})));
   Buildings.Controls.OBC.Utilities.PIDWithInputGains PID(
-    final controllerType=controllerType,
+    final controllerType=conTyp,
     final r=r,
     final yMax=yMax,
     final yMin=yMin,
@@ -117,13 +117,13 @@ protected
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)=0.5
     "Start value of the time constant of integrator block"
-    annotation (Dialog(group="Control gains",enable=controllerType == CDL.Types.SimpleController.PI or controllerType == CDL.Types.SimpleController.PID));
+    annotation (Dialog(group="Control gains"));
   final parameter Real Td_start(
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)=0.1
     "Start value of the time constant of derivative block"
-    annotation (Dialog(group="Control gains",enable=controllerType == CDL.Types.SimpleController.PD or controllerType == CDL.Types.SimpleController.PID));
+    annotation (Dialog(group="Control gains",enable=controllerType == Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PID));
   final parameter Real yHig(min=1E-6) = 1
     "Higher value for the relay output";
   final parameter Real yLow(min=1E-6) = 0.1
@@ -132,14 +132,14 @@ protected
     "Deadband for holding the output value";
   final parameter Real yRef(min=1E-6) = 0.8
     "Reference output for the tuning process";
-  final parameter Boolean with_D=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+  final parameter Boolean with_D=controllerType == Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PID
     "Boolean flag to enable derivative action"
     annotation (Evaluate=true,HideResult=true);
-
-initial equation
-  assert(
-    controllerType <> Buildings.Controls.OBC.CDL.Types.SimpleController.PD and controllerType <> Buildings.Controls.OBC.CDL.Types.SimpleController.P,
-    "Only PI and PID are supported");
+  final parameter Buildings.Controls.OBC.CDL.Types.SimpleController conTyp =
+    if controllerType==Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PI
+      then Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+      else Buildings.Controls.OBC.CDL.Types.SimpleController.PID
+    "Type of controller";
 
 equation
    connect(PID.u_s, u_s) annotation (Line(points={{-2,-40},{-54,-40},{-54,0},{-120,
@@ -208,14 +208,14 @@ equation
     annotation (Line(points={{82,-20},{90,-20},{90,0},{120,0}}, color={0,0,127}));
   connect(u_m, PID.u_m) annotation (Line(points={{0,-120},{0,-96},{10,-96},{10,
           -52}}, color={0,0,127}));
-  connect(rel.trigger, triTun) annotation (Line(points={{24,-2},{24,-82},{60,-82},
+  connect(rel.trigger, triTun) annotation (Line(points={{24,-2},{24,-90},{60,-90},
           {60,-120}}, color={255,0,255}));
   connect(or1.u1, resPro.triEnd) annotation (Line(points={{58,-60},{52,-60},{52,
           -50},{46,-50},{46,-20},{-10,-20},{-10,32},{-2,32}}, color={255,0,255}));
   connect(or1.y, swi.u2) annotation (Line(points={{82,-60},{90,-60},{90,-40},{
           48,-40},{48,-20},{58,-20}}, color={255,0,255}));
-  connect(not1.u, triTun) annotation (Line(points={{28,-68},{24,-68},{24,-82},{60,
-          -82},{60,-120}}, color={255,0,255}));
+  connect(not1.u, triTun) annotation (Line(points={{28,-68},{24,-68},{24,-90},{60,
+          -90},{60,-120}}, color={255,0,255}));
   connect(not1.y, or1.u2)
     annotation (Line(points={{52,-68},{58,-68}}, color={255,0,255}));
   annotation (Documentation(info="<html>
@@ -285,7 +285,7 @@ First implementation<br/>
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-26,-22},{74,-62}},
-          textString= if controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID then "PID" else "PI",
+          textString= if controllerType == Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PID then "PID" else "PI",
           fillPattern=FillPattern.Solid,
           fillColor={175,175,175}),
         Polygon(

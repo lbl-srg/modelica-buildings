@@ -4,7 +4,7 @@ model PIWithFirstOrderAMIGO "Test model for an autotuning PI controller"
     "Setpoint value"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.FirstOrderAMIGO PIWitTun(
-    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI)
+      controllerType=Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PI)
     "PI controller with an autotuning feature"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset PI(
@@ -40,12 +40,12 @@ model PIWithFirstOrderAMIGO "Test model for an autotuning PI controller"
   Buildings.Controls.OBC.CDL.Continuous.Derivative derivative2
     "A derivative block that is used to mimic the first order process 2"
     annotation (Placement(transformation(extent={{80,-60},{60,-40}})));
-
-  CDL.Logical.Sources.Pulse autTunSig(
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse autTunSig(
     width=0.9,
     period=10000,
     shift=-9000) "Signal for enabling the autotuning"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
+
 equation
   connect(resSig.y, PI.trigger) annotation (Line(points={{-58,70},{-30,70},{-30,
           40},{-16,40},{-16,48}}, color={255,0,255}));
