@@ -1,0 +1,19 @@
+// Simulate
+simulateModel("Buildings.Experimental.DHC.Networks.Steam.Examples.ConnectionCondensatePipe", stopTime=86400, tolerance=1e-6, method="dassl", resultFile="ConnectionCondensatePipe");
+// Plot commands
+createPlot(id=1, position={26, 43, 764, 418}, 
+  y={"con.port_aDisSup.m_flow", "con.port_bDisRet.m_flow"}, 
+  range={0.0, 90000.0, -2.0, 2.0}, 
+  grid=true, 
+  filename="ConnectionCondensatePipe.mat", 
+  colors={{28,108,200}, {238,46,47}}, 
+  timeUnit="s", 
+  displayUnits={"kg/s", "kg/s"});
+createPlot(id=1, position={26, 43, 764, 418}, 
+  y={"con.port_aDisSup.p", "con.port_bDisRet.p", "con.port_bCon.p", "con.port_aCon.p"}, 
+  range={0.0, 90000.0, 0.0, 5.0}, 
+  grid=true, 
+  subPlot=102, 
+  colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, 
+  timeUnit="s", 
+  displayUnits={"bar", "bar", "bar", "bar"});
