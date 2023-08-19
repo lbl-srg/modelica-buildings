@@ -132,6 +132,10 @@
   openmodelica:
     comment: simulation terminated by an assertion at initialization
     simulate: false
+- model_name: Buildings.Experimental.DHC.Plants.Cooling.Examples.StoragePlantDualSource
+  openmodelica:
+    comment: 'Could not evaluate structural parameter (or constant): mChi_flow_nominal'
+    translate: false
 - model_name: Buildings.Experimental.DHC.Plants.Steam.BaseClasses.Examples.ControlVolumeEvaporation
   openmodelica:
     comment: simulation terminated by an assertion at initialization
