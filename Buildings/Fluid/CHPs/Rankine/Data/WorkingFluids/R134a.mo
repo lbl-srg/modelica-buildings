@@ -22,4 +22,17 @@ record R134a "Data record for R134a"
     hSupVap = {435856.71846291,444340.42235378,452720.47435259,460956.64402943,
  469007.68985154,476830.22508591,484377.44478089,491597.53831633,
  498430.62515788,504797.59544503});
+  annotation (
+  defaultComponentPrefixes = "parameter",
+  defaultComponentName = "pro",
+  Documentation(info="<html>
+<p>
+Record containing properties of R134a.
+Its name in CoolProp is \"R134a\".
+A figure in the documentation of
+<a href=\"Modelica://Buildings.Fluid.CHPs.Rankine.BaseClasses.Equations\">
+Buildings.Fluid.CHPs.Rankine.BaseClasses.Equations</a>
+shows which lines these arrays represent.
+</p>
+</html>"));
 end R134a;

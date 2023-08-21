@@ -21,4 +21,17 @@ record Toluene "Data record for toluene"
     hSupVap = {272296.09476717,316509.17875328,365077.95522047,417382.96628455,
  472684.81167829,530185.35464011,589011.0156014 ,648135.47144068,
  706284.68769947,761949.49312292});
+  annotation (
+  defaultComponentPrefixes = "parameter",
+  defaultComponentName = "pro",
+  Documentation(info="<html>
+<p>
+Record containing properties of toluene.
+Its name in CoolProp is \"Toluene\".
+A figure in the documentation of
+<a href=\"Modelica://Buildings.Fluid.CHPs.Rankine.BaseClasses.Equations\">
+Buildings.Fluid.CHPs.Rankine.BaseClasses.Equations</a>
+shows which lines these arrays represent.
+</p>
+</html>"));
 end Toluene;

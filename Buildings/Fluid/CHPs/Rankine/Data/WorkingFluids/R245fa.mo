@@ -22,4 +22,17 @@ record R245fa "Data record for R245fa"
     hSupVap = {440548.22424998,455346.20480503,470321.4215814 ,485376.53758444,
  500410.25656568,515313.94486952,529968.01763567,544239.84584977,
  557984.64769084,571041.11416431});
+  annotation (
+  defaultComponentPrefixes = "parameter",
+  defaultComponentName = "pro",
+  Documentation(info="<html>
+<p>
+Record containing properties of R245fa.
+Its name in CoolProp is \"R245fa\".
+A figure in the documentation of
+<a href=\"Modelica://Buildings.Fluid.CHPs.Rankine.BaseClasses.Equations\">
+Buildings.Fluid.CHPs.Rankine.BaseClasses.Equations</a>
+shows which lines these arrays represent.
+</p>
+</html>"));
 end R245fa;

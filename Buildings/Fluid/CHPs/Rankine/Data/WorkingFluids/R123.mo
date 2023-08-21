@@ -22,4 +22,17 @@ record R123 "Data record for R123"
     hSupVap = {408641.55037034,422444.87179123,436383.21286053,450329.7455879 ,
  464157.94377713,477739.36586387,490938.35735562,503604.43567005,
  515562.95839668,526591.3500848 });
+  annotation (
+  defaultComponentPrefixes = "parameter",
+  defaultComponentName = "pro",
+  Documentation(info="<html>
+<p>
+Record containing properties of R123.
+Its name in CoolProp is \"R123\".
+A figure in the documentation of
+<a href=\"Modelica://Buildings.Fluid.CHPs.Rankine.BaseClasses.Equations\">
+Buildings.Fluid.CHPs.Rankine.BaseClasses.Equations</a>
+shows which lines these arrays represent.
+</p>
+</html>"));
 end R123;

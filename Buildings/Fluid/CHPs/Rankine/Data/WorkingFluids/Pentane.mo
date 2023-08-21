@@ -22,4 +22,17 @@ record Pentane "Data record for n-pentane (R601)"
     hSupVap = {369072.51944532,406939.16999216,446196.13801963,486615.23857188,
  527948.63776549,569919.18746427,612211.54135267,654460.39619108,
  696236.21675587,736991.44819033});
+  annotation (
+  defaultComponentPrefixes = "parameter",
+  defaultComponentName = "pro",
+  Documentation(info="<html>
+<p>
+Record containing properties of n-pentane (R601).
+Its name in CoolProp is \"n-Pentane\".
+A figure in the documentation of
+<a href=\"Modelica://Buildings.Fluid.CHPs.Rankine.BaseClasses.Equations\">
+Buildings.Fluid.CHPs.Rankine.BaseClasses.Equations</a>
+shows which lines these arrays represent.
+</p>
+</html>"));
 end Pentane;
