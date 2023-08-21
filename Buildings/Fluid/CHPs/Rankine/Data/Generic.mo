@@ -20,4 +20,16 @@ record Generic "Generic data record for working fluid properties"
     "Specific enthalpy of saturated vapour";
   parameter Modelica.Units.SI.SpecificEnthalpy hSupVap[size(T,1)]
     "Specific enthalpy of superheated vapour";
+annotation (
+  defaultComponentPrefixes = "parameter",
+  defaultComponentName = "pro",
+  Documentation(info="<html>
+<p>
+Record containing parameters for working fluid properties.
+A figure in the documentation of
+<a href=\"Modelica://Buildings.Fluid.CHPs.Rankine.BaseClasses.Equations\">
+Buildings.Fluid.CHPs.Rankine.BaseClasses.Equations</a>
+shows which lines these arrays represent.
+</p>
+</html>"));
 end Generic;
