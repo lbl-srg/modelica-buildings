@@ -511,12 +511,21 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Examples.VAVReheat</b>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.Guideline36
+    </td>
+    <td valign=\"top\">Changed the indication of the status when window is closed.<br/>
+                       In default, it should be true (closed dry contact) rather than false.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3257\">#3257</a>.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.PartialHVAC
     </td>
     <td valign=\"top\">Added junction to mix the return and outdoor air.<br/>
                        Set the value of parameter <code>transferHeat</code> to true for the mixed air temperature sensor.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3230\">#3230</a>.
+    </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.VAVReheatBox
     </td>

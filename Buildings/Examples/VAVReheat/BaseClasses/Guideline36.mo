@@ -448,7 +448,7 @@ its input.
 <ul>
 <li>
 August 21, 2023, by Jianjun Hu:<br/>
-Changed the indication of windows cloase status, from false to true (closed dry contact).
+Changed the indication of the status when window is closed. In default, it should be true (closed dry contact) rather than false.
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3257\">issue #3257</a>.
 </li>
