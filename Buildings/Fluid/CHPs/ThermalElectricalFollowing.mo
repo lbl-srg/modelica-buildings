@@ -150,7 +150,7 @@ model ThermalElectricalFollowing "CHP model that can be thermal or electrical lo
     final Td=Td,
     final yMax=1,
     final yMin=0) if switchThermalElectricalFollowing
-    "Cooling water outplet controller"
+    "Cooling water outlet controller"
     annotation (Placement(transformation(extent={{-60,340},{-40,360}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter elePowDem(
     final k=per.PEleMax) if switchThermalElectricalFollowing
