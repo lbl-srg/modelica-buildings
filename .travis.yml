@@ -106,6 +106,9 @@ env:
     - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.Utilities\""
     - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.Utilities\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Utilities\""
+    - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.Templates\""
+    - TEST_ARG="make test-openmodelica  PACKAGE=\"Buildings.Templates\""
+    - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Templates\""
 
 before_install:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin

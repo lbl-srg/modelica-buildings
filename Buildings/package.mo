@@ -217,6 +217,15 @@ Version 10.0.0 is ... xxx
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
+<tr><td valign=\"top\">Buildings.Templates
+    </td>
+    <td valign=\"top\">Package that contains templates for HVAC systems with control sequences
+                       based on ASHRAE Guideline 36.
+                       Currently limited to VAV systems, the package is under active development
+                       and will be further expanded with templates for primary systems and various
+                       types of zone equipment.
+    </td>
+    </tr>
 <tr><td valign=\"top\">Buildings.ThermalZones.ISO13790
     </td>
     <td valign=\"top\">Package that contains models for reduced building physics of thermal zones
@@ -313,6 +322,26 @@ to <b style=\"color:blue\">existing</b> libraries:
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3103\">issue 3103</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.Plants.Cooling</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Plants.Cooling.StoragePlant<br/>
+                       Buildings.Experimental.DHC.Plants.Cooling.Controls.FlowControl<br/>
+                       Buildings.Experimental.DHC.Plants.Cooling.Controls.SelectMin<br/>
+                       Buildings.Experimental.DHC.Plants.Cooling.Controls.TankStatus<br/>
+                       Buildings.Experimental.DHC.Plants.Cooling.Controls.Validation.TankStatus<br/>
+                       Buildings.Experimental.DHC.Plants.Cooling.Examples.StoragePlantDualSource<br/>
+                       Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.IdealUser<br/>
+                       Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.ParallelJunctions<br/>
+                       Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.ParallelPipes<br/>
+                       Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.ReversibleConnection<br/>
+                       Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.TankBranch<br/>
+                       Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.Validation.IdealUser
+    </td>
+    <td valign=\"top\">Added models for a district CHW system with two plants,
+                       where one of them has a storage tank that can be charged remotely by the other plant.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2859\">issue 2859</a>.
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
     </td>
 </tr>
@@ -402,6 +431,18 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.Plants.Cooling</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Plants.Cooling.Controls.ChilledWaterPumpSpeed
+    </td>
+    <td valign=\"top\">Set <code>final totPum.nin = numPum</code> so that this block is restricted
+                       to a two-pump configuration as intended.
+                       Also corrected the \"up to two pumps\" language in documentation.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3470\">issue 3470</a>.
+    </td>
+</tr>    
 <tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed.Validation.BESTEST</b>
     </td>
 </tr>
@@ -821,16 +862,6 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Added unit <code>rad</code> to the input.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3277\">#3277</a>.<br/>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Sources.Sin
-    </td>
-    <td valign=\"top\">Renamed block from <code>Sine</code> to <code>Sin</code>
-                       to use consistent naming with
-                       <code>Buildings.Controls.OBC.CDL.Continuous.Sin</code>.<br/>
-                       This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3339\">#3339</a>.<br/>
-                       This change is supported in the conversion script.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Routing.RealExtractor

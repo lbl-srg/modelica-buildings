@@ -260,8 +260,8 @@ alt=\"Boiler polynomial steam with blocks in green conditionally removed if stea
 <p>
 In order to improve the numerical efficiency, this model follows 
 the split-medium approach using the
-<a href=\"modelica://Buildings.Fluid.Interfaces.PartialTwoPortTwoMedium\">
-Buildings.Fluid.Interfaces.PartialTwoPortTwoMedium</a> interface model.
+<a href=\"modelica://Buildings.Experimental.DHC.BaseClasses.Steam.PartialTwoPortTwoMedium\">
+Buildings.Experimental.DHC.BaseClasses.Steam.PartialTwoPortTwoMedium</a> interface model.
 The saturated mixing volume for an evaporation process 
 <a href=\"modelica://Buildings.Experimental.DHC.Plants.Steam.BaseClasses.ControlVolumeEvaporation\">
 Buildings.Experimental.DHC.Plants.Steam.BaseClasses.ControlVolumeEvaporation</a> 
