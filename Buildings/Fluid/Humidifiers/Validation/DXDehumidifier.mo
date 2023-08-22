@@ -59,7 +59,7 @@ model DXDehumidifier
     "Set point for relative humidity"
     annotation (Placement(transformation(extent={{-160,-90},{-140,-70}})));
 
-  Buildings.Fluid.Humidifiers.Examples.Data.DXDehumidifier per
+  parameter Buildings.Fluid.Humidifiers.Examples.Data.DXDehumidifier per
     "Zone air DX dehumidifier curve"
     annotation (Placement(transformation(extent={{-70,60},{-50,80}})));
 
