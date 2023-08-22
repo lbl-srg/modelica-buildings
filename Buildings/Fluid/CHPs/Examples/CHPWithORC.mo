@@ -89,5 +89,23 @@ equation
     annotation (Line(points={{50,4},{50,-20}}, color={191,0,0}));
     annotation(experiment(StopTime=10000, Tolerance=1e-6),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/Examples/CHPWithORC.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+  Documentation(info="<html>
+<p>
+This model is an example of using the organic Rankine cycle (ORC)
+as a bottoming cycle to recover power from waste heat of a topping cycle.
+The waste heat is carried by cooling water from the CHP component and passed
+to the ORC component through an evaporator.
+The CHP unit uses the same input and configuration as in
+<a href=\"modelica://Buildings.Fluid.CHPs.Validation.ElectricalFollowing\">
+Buildings.Fluid.CHPs.Validation.ElectricalFollowing</a>.
+</html>",revisions="<html>
+<ul>
+<li>
+August 3, 2023, by Hongxiang Fu:<br/>
+First implementation. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3433\">#3433</a>.
+</li>
+</ul>
+</html>"));
 end CHPWithORC;

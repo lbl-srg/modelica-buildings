@@ -95,6 +95,8 @@ annotation(experiment(StopTime=1, Tolerance=1e-6),
 This model demonstrates the use of
 <a href=\"modelica://Buildings.Fluid.CHPs.Rankine.OrganicBottomingCycle\">
 Buildings.Fluid.CHPs.Rankine.BottomingCycle</a>.
+Note that the component blocks reverse heat flow when the upstream fluid
+temperature drops below the evaporator temperature.
 </html>",revisions="<html>
 <ul>
 <li>
