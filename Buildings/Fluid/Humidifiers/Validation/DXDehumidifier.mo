@@ -12,6 +12,10 @@ model DXDehumidifier
   package Medium = Buildings.Media.Air
     "Fluid medium";
 
+  parameter Buildings.Fluid.Humidifiers.Examples.Data.DXDehumidifier per
+    "Zone air DX dehumidifier curve"
+    annotation (Placement(transformation(extent={{-70,60},{-50,80}})));
+
   Buildings.Fluid.Humidifiers.DXDehumidifier dxDeh(
     redeclare package Medium = Medium,
     final VWat_flow_nominal=5.805556e-7,
@@ -58,10 +62,6 @@ model DXDehumidifier
     final k=0.45)
     "Set point for relative humidity"
     annotation (Placement(transformation(extent={{-160,-90},{-140,-70}})));
-
-  parameter Buildings.Fluid.Humidifiers.Examples.Data.DXDehumidifier per
-    "Zone air DX dehumidifier curve"
-    annotation (Placement(transformation(extent={{-70,60},{-50,80}})));
 
   Buildings.Fluid.Movers.Preconfigured.FlowControlled_m_flow fan(
     redeclare package Medium = Medium,
