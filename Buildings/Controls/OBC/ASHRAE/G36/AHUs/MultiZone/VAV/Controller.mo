@@ -148,6 +148,10 @@ block Controller "Multizone VAV air handling unit controller"
     "Lowest allowed supply fan speed if fan is on"
     annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Fan speed", group="PID controller"));
+  parameter Real iniFanSpe(min=supFanSpe_min, max=1, unit="1") = supFanSpe_min
+    "Initial speed when fan is enabled. It has to be greater than the lowest allowed speed"
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Fan speed", group="PID controller"));
 
   // ----------- parameters for supply air temperature control  -----------
   parameter Real TSupCoo_min(
@@ -940,7 +944,8 @@ block Controller "Multizone VAV air handling unit controller"
     final Ti=TiFanSpe,
     final Td=TdFanSpe,
     final maxSpe=supFanSpe_max,
-    final minSpe=supFanSpe_min) "Supply fan speed setpoint"
+    final minSpe=supFanSpe_min,
+    final iniSpe=iniFanSpe)     "Supply fan speed setpoint"
     annotation (Placement(transformation(extent={{-220,500},{-200,520}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.SupplySignals supSig(
     final have_heaCoi=have_hotWatCoi or have_eleHeaCoi,
