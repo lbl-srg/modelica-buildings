@@ -60,6 +60,11 @@ block Alarms "Generate alarms of parallel fan-powered terminal unit with constan
     final unit="1")=0.05
     "Near zero valve position, below which the valve will be seen as closed"
     annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
+  parameter Real staTim(
+    final unit="s",
+    final quantity="Time")=1800
+    "Delay time after AHU supply fan has been enabled"
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VPri_flow(
     final min=0,
@@ -152,11 +157,11 @@ block Alarms "Generate alarms of parallel fan-powered terminal unit with constan
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
     final k=0.5)
     "Percentage of the setpoint"
-    annotation (Placement(transformation(extent={{-180,370},{-160,390}})));
+    annotation (Placement(transformation(extent={{-200,370},{-180,390}})));
   Buildings.Controls.OBC.CDL.Continuous.Less les(
     final h=floHys)
     "Check if measured airflow is less than threshold"
-    annotation (Placement(transformation(extent={{-120,400},{-100,420}})));
+    annotation (Placement(transformation(extent={{-160,400},{-140,420}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
     final delayTime=lowFloTim)
     "Check if the measured airflow has been less than threshold value for threshold time"
@@ -169,11 +174,11 @@ block Alarms "Generate alarms of parallel fan-powered terminal unit with constan
   Buildings.Controls.OBC.CDL.Continuous.Greater gre(
     final h=floHys)
     "Check if measured airflow is less than threshold"
-    annotation (Placement(transformation(extent={{-120,270},{-100,290}})));
+    annotation (Placement(transformation(extent={{-160,270},{-140,290}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(
     final k=0.7)
     "Percentage of the setpoint"
-    annotation (Placement(transformation(extent={{-180,290},{-160,310}})));
+    annotation (Placement(transformation(extent={{-200,290},{-180,310}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel1(
     final delayTime=lowFloTim)
     "Check if the measured airflow has been less than threshold value for threshold time"
@@ -437,25 +442,32 @@ block Alarms "Generate alarms of parallel fan-powered terminal unit with constan
     final delayTime=lowFloTim)
     "Check if the active flow setpoint has been greater than zero for the threshold time"
     annotation (Placement(transformation(extent={{-120,320},{-100,340}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay fanIni(
+    final delayTime=staTim)
+    "Check if the AHU supply fan has been enabled for threshold time"
+    annotation (Placement(transformation(extent={{-180,230},{-160,250}})));
+  Buildings.Controls.OBC.CDL.Logical.And and12
+    "True: AHU fan is enabled and the discharge flow is lower than the threshold"
+    annotation (Placement(transformation(extent={{-120,270},{-100,290}})));
+  Buildings.Controls.OBC.CDL.Logical.And and13
+    "True: AHU fan is enabled and the discharge flow is lower than the threshold"
+    annotation (Placement(transformation(extent={{-120,400},{-100,420}})));
 equation
-  connect(VActSet_flow, gai.u) annotation (Line(points={{-260,330},{-200,330},{-200,
-          380},{-182,380}},  color={0,0,127}));
+  connect(VActSet_flow, gai.u) annotation (Line(points={{-260,330},{-220,330},{
+          -220,380},{-202,380}},
+                             color={0,0,127}));
   connect(VPri_flow, les.u1)
-    annotation (Line(points={{-260,410},{-122,410}}, color={0,0,127}));
-  connect(gai.y, les.u2) annotation (Line(points={{-158,380},{-140,380},{-140,402},
-          {-122,402}}, color={0,0,127}));
-  connect(les.y, truDel.u)
-    annotation (Line(points={{-98,410},{-82,410}}, color={255,0,255}));
+    annotation (Line(points={{-260,410},{-162,410}}, color={0,0,127}));
+  connect(gai.y, les.u2) annotation (Line(points={{-178,380},{-170,380},{-170,402},
+          {-162,402}}, color={0,0,127}));
   connect(VActSet_flow, greThr.u)
     annotation (Line(points={{-260,330},{-182,330}}, color={0,0,127}));
-  connect(VActSet_flow, gai1.u) annotation (Line(points={{-260,330},{-200,330},{
-          -200,300},{-182,300}},  color={0,0,127}));
-  connect(VPri_flow, gre.u2) annotation (Line(points={{-260,410},{-220,410},{-220,
-          272},{-122,272}},      color={0,0,127}));
-  connect(gai1.y, gre.u1) annotation (Line(points={{-158,300},{-140,300},{-140,280},
-          {-122,280}},      color={0,0,127}));
-  connect(gre.y, truDel1.u)
-    annotation (Line(points={{-98,280},{-82,280}}, color={255,0,255}));
+  connect(VActSet_flow, gai1.u) annotation (Line(points={{-260,330},{-220,330},
+          {-220,300},{-202,300}}, color={0,0,127}));
+  connect(VPri_flow, gre.u2) annotation (Line(points={{-260,410},{-230,410},{-230,
+          272},{-162,272}},      color={0,0,127}));
+  connect(gai1.y, gre.u1) annotation (Line(points={{-178,300},{-170,300},{-170,280},
+          {-162,280}},      color={0,0,127}));
   connect(truDel.y, and2.u1)
     annotation (Line(points={{-58,410},{-42,410}}, color={255,0,255}));
   connect(truDel1.y, and1.u2) annotation (Line(points={{-58,280},{-50,280},{-50,
@@ -516,7 +528,7 @@ equation
     annotation (Line(points={{122,-110},{138,-110}}, color={255,0,255}));
   connect(booToInt3.y, yLeaDamAla)
     annotation (Line(points={{162,-70},{260,-70}}, color={255,127,0}));
-  connect(VPri_flow, gre1.u1) annotation (Line(points={{-260,410},{-220,410},{-220,
+  connect(VPri_flow, gre1.u1) annotation (Line(points={{-260,410},{-230,410},{-230,
           200},{-102,200}}, color={0,0,127}));
   connect(TDis, les1.u1)
     annotation (Line(points={{-260,-310},{-122,-310}}, color={0,0,127}));
@@ -604,9 +616,9 @@ equation
     annotation (Line(points={{62,-10},{78,-10}}, color={255,0,255}));
   connect(and10.y, not11.u) annotation (Line(points={{2,20},{20,20},{20,-10},{38,
           -10}}, color={255,0,255}));
-  connect(u1TerFan, and10.u1) annotation (Line(points={{-260,20},{-180,20},{-180,
+  connect(u1TerFan, and10.u1) annotation (Line(points={{-260,20},{-210,20},{-210,
           28},{-22,28}}, color={255,0,255}));
-  connect(u1TerFan, not12.u) annotation (Line(points={{-260,20},{-180,20},{-180,
+  connect(u1TerFan, not12.u) annotation (Line(points={{-260,20},{-210,20},{-210,
           110},{-162,110}}, color={255,0,255}));
   connect(not12.y, and11.u1) annotation (Line(points={{-138,110},{-80,110},{-80,
           98},{-22,98}}, color={255,0,255}));
@@ -660,6 +672,20 @@ equation
     annotation (Line(points={{-98,-380},{-82,-380}}, color={255,0,255}));
   connect(u1HotPla, and8.u2) annotation (Line(points={{-260,-270},{-90,-270},{-90,
           -388},{-82,-388}}, color={255,0,255}));
+  connect(les.y, and13.u1)
+    annotation (Line(points={{-138,410},{-122,410}}, color={255,0,255}));
+  connect(and13.y, truDel.u)
+    annotation (Line(points={{-98,410},{-82,410}}, color={255,0,255}));
+  connect(gre.y, and12.u1)
+    annotation (Line(points={{-138,280},{-122,280}}, color={255,0,255}));
+  connect(and12.y, truDel1.u)
+    annotation (Line(points={{-98,280},{-82,280}}, color={255,0,255}));
+  connect(u1Fan, fanIni.u) annotation (Line(points={{-260,140},{-220,140},{-220,
+          240},{-182,240}}, color={255,0,255}));
+  connect(fanIni.y, and13.u2) annotation (Line(points={{-158,240},{-130,240},{-130,
+          402},{-122,402}}, color={255,0,255}));
+  connect(fanIni.y, and12.u2) annotation (Line(points={{-158,240},{-130,240},{-130,
+          272},{-122,272}}, color={255,0,255}));
 annotation (defaultComponentName="ala",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
        graphics={
@@ -769,12 +795,14 @@ The implementation is according to the Section 5.7.6 of ASHRAE Guideline 36, May
 <h4>Low airflow</h4>
 <ol>
 <li>
-If the measured airflow <code>VPri_flow</code> is less than 70% of setpoint
+After the AHU supply fan has been enabled for <code>staTim</code>,
+if the measured airflow <code>VPri_flow</code> is less than 70% of setpoint
 <code>VActSet_flow</code> for 5 minutes (<code>lowFloTim</code>) while the setpoint
 is greater than zero, generate a Level 3 alarm.
 </li>
 <li>
-If the measured airflow <code>VPri_flow</code> is less than 50% of setpoint
+After the AHU supply fan has been enabled for <code>staTim</code>,
+if the measured airflow <code>VPri_flow</code> is less than 50% of setpoint
 <code>VActSet_flow</code> for 5 minutes (<code>lowFloTim</code>) while the setpoint
 is greater than zero, generate a Level 2 alarm.
 </li>
@@ -843,6 +871,11 @@ on (<code>u1Fan=true</code>), gemerate a Level 4 alarm.
 </p>
 </html>",revisions="<html>
 <ul>
+<li>
+August 23, 2023, by Jianjun Hu:<br/>
+Added delay <code>staTim</code> to allow the system becoming stablized.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3257\">issue 3257</a>.
+</li>
 <li>
 August 1, 2020, by Jianjun Hu:<br/>
 First implementation.

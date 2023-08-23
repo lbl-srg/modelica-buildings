@@ -35,6 +35,11 @@ block Alarms "Generate alarms of dual-duct terminal unit with cold-duct minimum 
     final unit="1")=0.05
     "Near zero damper position, below which the damper will be seen as closed"
     annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
+  parameter Real staTim(
+    final unit="s",
+    final quantity="Time")=1800
+    "Delay time after AHU supply fan has been enabled"
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VActSet_flow(
     final min=0,
@@ -100,11 +105,11 @@ block Alarms "Generate alarms of dual-duct terminal unit with cold-duct minimum 
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
     final k=0.5)
     "Percentage of the setpoint"
-    annotation (Placement(transformation(extent={{-180,280},{-160,300}})));
+    annotation (Placement(transformation(extent={{-200,280},{-180,300}})));
   Buildings.Controls.OBC.CDL.Continuous.Less les(
     final h=floHys)
     "Check if measured airflow is less than threshold"
-    annotation (Placement(transformation(extent={{-120,310},{-100,330}})));
+    annotation (Placement(transformation(extent={{-160,310},{-140,330}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
     final delayTime=lowFloTim)
     "Check if the measured airflow has been less than threshold value for threshold time"
@@ -117,11 +122,11 @@ block Alarms "Generate alarms of dual-duct terminal unit with cold-duct minimum 
   Buildings.Controls.OBC.CDL.Continuous.Greater gre(
     final h=floHys)
     "Check if measured airflow is less than threshold"
-    annotation (Placement(transformation(extent={{-120,180},{-100,200}})));
+    annotation (Placement(transformation(extent={{-160,180},{-140,200}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(
     final k=0.7)
     "Percentage of the setpoint"
-    annotation (Placement(transformation(extent={{-180,200},{-160,220}})));
+    annotation (Placement(transformation(extent={{-200,200},{-180,220}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel1(
     final delayTime=lowFloTim)
     "Check if the measured airflow has been less than threshold value for threshold time"
@@ -287,26 +292,35 @@ block Alarms "Generate alarms of dual-duct terminal unit with cold-duct minimum 
     annotation (Placement(transformation(extent={{160,-320},{180,-300}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2
     "Total discharge airflow"
-    annotation (Placement(transformation(extent={{-200,80},{-180,100}})));
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel6(
     final delayTime=lowFloTim)
     "Check if the active flow setpoint has been greater than zero for the threshold time"
     annotation (Placement(transformation(extent={{-120,230},{-100,250}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay fanIni(
+    final delayTime=staTim)
+    "Check if the AHU supply fan has been enabled for threshold time"
+    annotation (Placement(transformation(extent={{-160,80},{-140,100}})));
+  Buildings.Controls.OBC.CDL.Logical.And  and11
+    "True: AHU fan is enabled and the discharge flow is lower than the threshold"
+    annotation (Placement(transformation(extent={{-120,180},{-100,200}})));
+  Buildings.Controls.OBC.CDL.Logical.And  and10
+    "True: AHU fan is enabled and the discharge flow is lower than the threshold"
+    annotation (Placement(transformation(extent={{-120,310},{-100,330}})));
+  Buildings.Controls.OBC.CDL.Logical.Or fanOn
+    "Check if any AHU supply fan is enabled"
+    annotation (Placement(transformation(extent={{-200,80},{-180,100}})));
 equation
-  connect(VActSet_flow, gai.u) annotation (Line(points={{-260,240},{-200,240},{-200,
-          290},{-182,290}},  color={0,0,127}));
-  connect(gai.y, les.u2) annotation (Line(points={{-158,290},{-140,290},{-140,312},
-          {-122,312}}, color={0,0,127}));
-  connect(les.y, truDel.u)
-    annotation (Line(points={{-98,320},{-82,320}}, color={255,0,255}));
+  connect(VActSet_flow, gai.u) annotation (Line(points={{-260,240},{-210,240},{-210,
+          290},{-202,290}},  color={0,0,127}));
+  connect(gai.y, les.u2) annotation (Line(points={{-178,290},{-170,290},{-170,312},
+          {-162,312}}, color={0,0,127}));
   connect(VActSet_flow, greThr.u)
     annotation (Line(points={{-260,240},{-182,240}}, color={0,0,127}));
-  connect(VActSet_flow, gai1.u) annotation (Line(points={{-260,240},{-200,240},{
-          -200,210},{-182,210}},  color={0,0,127}));
-  connect(gai1.y, gre.u1) annotation (Line(points={{-158,210},{-140,210},{-140,190},
-          {-122,190}},      color={0,0,127}));
-  connect(gre.y, truDel1.u)
-    annotation (Line(points={{-98,190},{-82,190}}, color={255,0,255}));
+  connect(VActSet_flow, gai1.u) annotation (Line(points={{-260,240},{-210,240},{
+          -210,210},{-202,210}},  color={0,0,127}));
+  connect(gai1.y, gre.u1) annotation (Line(points={{-178,210},{-170,210},{-170,190},
+          {-162,190}},      color={0,0,127}));
   connect(truDel.y, and2.u1)
     annotation (Line(points={{-58,320},{-42,320}}, color={255,0,255}));
   connect(truDel1.y, and1.u2) annotation (Line(points={{-58,190},{-50,190},{-50,
@@ -359,8 +373,8 @@ equation
     annotation (Line(points={{222,260},{260,260}}, color={255,127,0}));
   connect(uCooDam, cloDam.u)
     annotation (Line(points={{-260,-120},{-182,-120}}, color={0,0,127}));
-  connect(u1CooFan, leaDamAla.u2) annotation (Line(points={{-260,-10},{-220,-10},
-          {-220,-80},{-2,-80}}, color={255,0,255}));
+  connect(u1CooFan, leaDamAla.u2) annotation (Line(points={{-260,-10},{-210,-10},
+          {-210,-80},{-2,-80}}, color={255,0,255}));
   connect(cloDam.y, leaDamAla.u3) annotation (Line(points={{-158,-120},{-20,-120},
           {-20,-88},{-2,-88}},  color={255,0,255}));
   connect(not5.y, assMes3.u)
@@ -393,14 +407,14 @@ equation
     annotation (Line(points={{182,-310},{260,-310}}, color={255,127,0}));
   connect(VHotDucDis_flow, gre2.u1)
     annotation (Line(points={{-260,-180},{-82,-180}},  color={0,0,127}));
-  connect(VColDucDis_flow, add2.u1) annotation (Line(points={{-260,50},{-220,50},
-          {-220,96},{-202,96}},   color={0,0,127}));
-  connect(VHotDucDis_flow, add2.u2) annotation (Line(points={{-260,-180},{-210,-180},
-          {-210,84},{-202,84}},   color={0,0,127}));
-  connect(add2.y, les.u1) annotation (Line(points={{-178,90},{-160,90},{-160,120},
-          {-220,120},{-220,320},{-122,320}}, color={0,0,127}));
-  connect(add2.y, gre.u2) annotation (Line(points={{-178,90},{-160,90},{-160,120},
-          {-220,120},{-220,182},{-122,182}}, color={0,0,127}));
+  connect(VColDucDis_flow, add2.u1) annotation (Line(points={{-260,50},{-120,50},
+          {-120,96},{-102,96}},   color={0,0,127}));
+  connect(VHotDucDis_flow, add2.u2) annotation (Line(points={{-260,-180},{-110,-180},
+          {-110,84},{-102,84}},   color={0,0,127}));
+  connect(add2.y, les.u1) annotation (Line(points={{-78,90},{-60,90},{-60,120},{
+          -220,120},{-220,320},{-162,320}},  color={0,0,127}));
+  connect(add2.y, gre.u2) annotation (Line(points={{-78,90},{-60,90},{-60,120},{
+          -220,120},{-220,182},{-162,182}},  color={0,0,127}));
   connect(greThr.y, truDel6.u)
     annotation (Line(points={{-158,240},{-122,240}}, color={255,0,255}));
   connect(truDel6.y, and1.u1)
@@ -439,6 +453,26 @@ equation
           {-30,-302},{-2,-302}}, color={255,0,255}));
   connect(truDel4.y, not7.u) annotation (Line(points={{42,-180},{50,-180},{50,-210},
           {58,-210}}, color={255,0,255}));
+  connect(les.y, and10.u1)
+    annotation (Line(points={{-138,320},{-122,320}}, color={255,0,255}));
+  connect(and10.y, truDel.u)
+    annotation (Line(points={{-98,320},{-82,320}}, color={255,0,255}));
+  connect(gre.y, and11.u1)
+    annotation (Line(points={{-138,190},{-122,190}}, color={255,0,255}));
+  connect(and11.y, truDel1.u)
+    annotation (Line(points={{-98,190},{-82,190}}, color={255,0,255}));
+  connect(fanOn.y, fanIni.u)
+    annotation (Line(points={{-178,90},{-162,90}}, color={255,0,255}));
+  connect(fanIni.y, and10.u2) annotation (Line(points={{-138,90},{-130,90},{
+          -130,312},{-122,312}},
+                            color={255,0,255}));
+  connect(fanIni.y, and11.u2) annotation (Line(points={{-138,90},{-130,90},{
+          -130,182},{-122,182}},
+                            color={255,0,255}));
+  connect(u1CooFan, fanOn.u2) annotation (Line(points={{-260,-10},{-210,-10},{-210,
+          82},{-202,82}}, color={255,0,255}));
+  connect(u1HeaFan, fanOn.u1) annotation (Line(points={{-260,-240},{-220,-240},{
+          -220,90},{-202,90}}, color={255,0,255}));
 annotation (defaultComponentName="ala",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
        graphics={
@@ -521,12 +555,14 @@ Note that the sequence uses two airflow sensors, one at each inlet.
 <h4>Low airflow</h4>
 <ol>
 <li>
-If the measured airflow (<code>VColDucDis_flow</code> plus <code>VHotDucDis_flow</code>) is less than 70% of setpoint
+After the AHU supply fan has been enabled for <code>staTim</code>,
+if the measured airflow (<code>VColDucDis_flow</code> plus <code>VHotDucDis_flow</code>) is less than 70% of setpoint
 <code>VActSet_flow</code> for 5 minutes (<code>lowFloTim</code>) while the setpoint
 is greater than zero, generate a Level 3 alarm.
 </li>
 <li>
-If the measured airflow (<code>VColDucDis_flow</code> plus <code>VHotDucDis_flow</code>) is less than 50% of setpoint
+After the AHU supply fan has been enabled for <code>staTim</code>,
+if the measured airflow (<code>VColDucDis_flow</code> plus <code>VHotDucDis_flow</code>) is less than 50% of setpoint
 <code>VActSet_flow</code> for 5 minutes (<code>lowFloTim</code>) while the setpoint
 is greater than zero, generate a Level 2 alarm.
 </li>
@@ -571,10 +607,14 @@ fan serving the zone is proven on (<code>u1HeaFan=true</code>), generate a Level
 </html>",revisions="<html>
 <ul>
 <li>
+August 23, 2023, by Jianjun Hu:<br/>
+Added delay <code>staTim</code> to allow the system becoming stablized.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3257\">issue 3257</a>.
+</li>
+<li>
 August 1, 2020, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    __Dymola_Commands(file="t.mos" "t"));
+</html>"));
 end Alarms;
