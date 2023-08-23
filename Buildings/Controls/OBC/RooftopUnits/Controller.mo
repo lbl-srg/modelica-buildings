@@ -168,68 +168,83 @@ block Controller
     final unit="Pa")=101325
     "Atmospheric pressure";
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDXCoi[nCoi]
-    "DX coil status"
-    annotation (Placement(transformation(extent={{-140,140},{-100,180}}),
-      iconTransformation(extent={{-140,140},{-100,180}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDXCooCoi[nCoi]
+    "DX cooling coil status"
+    annotation (Placement(transformation(extent={{-140,160},{-100,200}}),
+        iconTransformation(extent={{-140,150},{-100,190}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDXCoiAva[nCoi]
-    "DX coil availability"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDXHeaCoi[nCoi]
+    "DX heating coil status"
+    annotation (Placement(transformation(extent={{-140,130},{-100,170}}),
+        iconTransformation(extent={{-140,120},{-100,160}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uCooCoiAva[nCoi]
+    "DX cooling coil availability"
     annotation (Placement(transformation(extent={{-140,100},{-100,140}}),
-      iconTransformation(extent={{-140,98},{-100,138}})));
+        iconTransformation(extent={{-140,90},{-100,130}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uCoiSeq[nCoi]
-    "DX coil available sequence order"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
-      iconTransformation(extent={{-140,20},{-100,60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHeaCoiAva[nCoi]
+    "DX heating coil availability"
+    annotation (Placement(transformation(extent={{-140,70},{-100,110}}),
+      iconTransformation(extent={{-140,60},{-100,100}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uCooCoiSeq[nCoi]
+    "DX cooling coil available sequence order"
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
+      iconTransformation(extent={{-140,30},{-100,70}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uHeaCoiSeq[nCoi]
+    "DX heating coil available sequence order"
+    annotation (Placement(transformation(extent={{-140,10},{-100,50}}),
+      iconTransformation(extent={{-140,-2},{-100,38}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uDemLimLev
     "Demand limit level"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
-      iconTransformation(extent={{-140,60},{-100,100}})));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
+      iconTransformation(extent={{-140,-40},{-100,0}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCooCoi(
     final min=0,
     final max=1,
     final unit="1")
     "Coolign coil valve position"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
+    annotation (Placement(transformation(extent={{-140,-50},{-100,-10}}),
+      iconTransformation(extent={{-140,-70},{-100,-30}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaCoi(
     final min=0,
     final max=1,
     final unit="1")
     "Heating coil valve position"
-    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
-      iconTransformation(extent={{-140,-60},{-100,-20}})));
+    annotation (Placement(transformation(extent={{-140,-82},{-100,-42}}),
+      iconTransformation(extent={{-140,-100},{-100,-60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Outdoor air temperature"
-    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
-      iconTransformation(extent={{-140,-100},{-100,-60}})));
+    annotation (Placement(transformation(extent={{-140,-120},{-100,-80}}),
+      iconTransformation(extent={{-140,-130},{-100,-90}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput XOut(
     final unit="kg/kg",
     final quantity="MassFraction")
     "Humidity ratio of outdoor air"
-    annotation (Placement(transformation(extent={{-140,-140},{-100,-100}}),
-      iconTransformation(extent={{-140,-140},{-100,-100}})));
+    annotation (Placement(transformation(extent={{-140,-162},{-100,-122}}),
+      iconTransformation(extent={{-140,-160},{-100,-120}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TFroSen(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature") if have_TFroSen
     "Measured temperature from frost sensor"
-    annotation (Placement(transformation(extent={{-140,-180},{-100,-140}}),
-      iconTransformation(extent={{-140,-180},{-100,-140}})));
+    annotation (Placement(transformation(extent={{-140,-200},{-100,-160}}),
+      iconTransformation(extent={{-140,-190},{-100,-150}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDXCooCoi[nCoi]
     "DX cooling coil signal"
-    annotation (Placement(transformation(extent={{100,120},{140,160}}),
+    annotation (Placement(transformation(extent={{100,140},{140,180}}),
       iconTransformation(extent={{100,120},{140,160}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDXHeaCoi[nCoi]
@@ -249,7 +264,7 @@ block Controller
     final min=0,
     final max=1,
     final unit="1") "Compressor commanded speed for DX heating coils"
-    annotation (Placement(transformation(extent={{100,-40},{140,0}}),
+    annotation (Placement(transformation(extent={{100,-60},{140,-20}}),
       iconTransformation(extent={{100,-42},{140,-2}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yAuxHea(
@@ -257,13 +272,13 @@ block Controller
     final max=1,
     final unit="1")
     "Auxiliary heating coil signal"
-    annotation (Placement(transformation(extent={{100,-100},{140,-60}}),
+    annotation (Placement(transformation(extent={{100,-120},{140,-80}}),
       iconTransformation(extent={{100,-100},{140,-60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDefFra[nCoi](
     final unit="1")
     "Defrost operation timestep fraction"
-    annotation (Placement(transformation(extent={{100,-160},{140,-120}}),
+    annotation (Placement(transformation(extent={{100,-180},{140,-140}}),
       iconTransformation(extent={{100,-160},{140,-120}})));
 
   Buildings.Controls.OBC.RooftopUnits.DXCoil.Controller DXCoiCon[2](
@@ -282,7 +297,7 @@ block Controller
     final maxComSpe=maxComSpe,
     final dUHys=dUHys)
     "DX coil controller"
-    annotation (Placement(transformation(extent={{-32,126},{-12,146}})));
+    annotation (Placement(transformation(extent={{-32,146},{-12,166}})));
 
   Buildings.Controls.OBC.RooftopUnits.CompressorDR.CompressorDR ComSpeDRCoo[nCoi](
     final k1=k1,
@@ -296,7 +311,7 @@ block Controller
     final k2=k2,
     final k3=k3)
     "Compressor speed controller corresponding to DX cooling coil"
-    annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
+    annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
 
   Buildings.Controls.OBC.RooftopUnits.AuxiliaryCoil.AuxiliaryCoil conAuxCoi(
     final nCoi=nCoi,
@@ -307,7 +322,7 @@ block Controller
     final uThrHeaCoi=uThrHeaCoi,
     final dUHys=dUHys)
     "Auxiliary coil controller"
-    annotation (Placement(transformation(extent={{-30,-60},{-10,-40}})));
+    annotation (Placement(transformation(extent={{-30,-66},{-10,-46}})));
 
   Buildings.Fluid.DXSystems.Heating.BaseClasses.CoilDefrostTimeCalculations defTimFra(
     final defTri=defTri,
@@ -315,7 +330,7 @@ block Controller
     final TDefLim=TDefLim,
     final dTHys=dTHys1)
     "Defrost time calculation"
-    annotation (Placement(transformation(extent={{-60,-172},{-40,-152}})));
+    annotation (Placement(transformation(extent={{-70,-150},{-50,-130}})));
 
   Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intScaRep(
     final nout=nCoi)
@@ -326,119 +341,118 @@ block Controller
     final t=TOutLoc,
     final h=dTHys1)
     "Check if outdoor air temperature is less than threshold"
-    annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
+    annotation (Placement(transformation(extent={{-70,-110},{-50,-90}})));
 
   Buildings.Controls.OBC.CDL.Logical.Timer tim(
     final t=timPer4)
     "Count time"
-    annotation (Placement(transformation(extent={{-26,-110},{-6,-90}})));
+    annotation (Placement(transformation(extent={{-30,-110},{-10,-90}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(
     final realTrue=1,
-    final realFalse=0)
-    "Convert Boolean to Real number"
+    final realFalse=0) "Convert Boolean to Real number"
     annotation (Placement(transformation(extent={{10,-118},{30,-98}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul1
     "Calculate defrost operation timestep fraction"
-    annotation (Placement(transformation(extent={{-20,-162},{0,-142}})));
+    annotation (Placement(transformation(extent={{-20,-176},{0,-156}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1[nCoi](
     final realTrue=1,
     final realFalse=0)
     "Convert Boolean to Real number"
-    annotation (Placement(transformation(extent={{-30,4},{-10,24}})));
+    annotation (Placement(transformation(extent={{-30,0},{-10,20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul[nCoi]
     "Calculate compressor speed for DX heating"
-    annotation (Placement(transformation(extent={{40,10},{60,30}})));
+    annotation (Placement(transformation(extent={{40,6},{60,26}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul2[nCoi]
     "Calculate defrost operation timestep fractions for DX coils"
-    annotation (Placement(transformation(extent={{60,-150},{80,-130}})));
+    annotation (Placement(transformation(extent={{60,-170},{80,-150}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep(
     final nout=nCoi)
     "Real scalar replicator"
-    annotation (Placement(transformation(extent={{20,-162},{40,-142}})));
+    annotation (Placement(transformation(extent={{20,-176},{40,-156}})));
 
 equation
   connect(uDemLimLev, intScaRep.u)
-    annotation (Line(points={{-120,80},{-32,80}}, color={255,127,0}));
+    annotation (Line(points={{-120,0},{-46,0},{-46,80},{-32,80}}, color={255,127,0}));
   connect(intScaRep.y, ComSpeDRCoo.uDemLimLev)
     annotation (Line(points={{-8,80},{38,80}}, color={255,127,0}));
   connect(conAuxCoi.TOut, TOut)
-    annotation (Line(points={{-32,-50},{-40,-50},{-40,-80},{-120,-80}}, color={0,0,127}));
+    annotation (Line(points={{-32,-56},{-80,-56},{-80,-100},{-120,-100}}, color={0,0,127}));
   connect(conAuxCoi.uHeaCoi, uHeaCoi)
-    annotation (Line(points={{-32,-56},{-60,-56},{-60,-40},{-120,-40}}, color={0,0,127}));
+    annotation (Line(points={{-32,-62},{-120,-62}}, color={0,0,127}));
   if not have_TFroSen then
   connect(defTimFra.TOut, TOut)
-    annotation (Line(points={{-61,-160},{-70,-160},{-70,-80},{-120,-80}}, color={0,0,127}));
+    annotation (Line(points={{-71,-138},{-80,-138},{-80,-100},{-120,-100}}, color={0,0,127}));
   end if;
   connect(ComSpeDRCoo.yComSpe, yComSpeCoo)
     annotation (Line(points={{62,74},{80,74},{80,40},{120,40}}, color={0,0,127}));
   connect(conAuxCoi.yAuxHea, yAuxHea)
-    annotation (Line(points={{-8,-50},{80,-50},{80,-80},{120,-80}}, color={0,0,127}));
+    annotation (Line(points={{-8,-56},{60,-56},{60,-100},{120,-100}}, color={0,0,127}));
   connect(yAuxHea, yAuxHea)
-    annotation (Line(points={{120,-80},{120,-80}}, color={0,0,127}));
+    annotation (Line(points={{120,-100},{120,-100}}, color={0,0,127}));
   connect(TFroSen, defTimFra.TOut)
-    annotation (Line(points={{-120,-160},{-61,-160}}, color={0,0,127}));
-  connect(uDXCoi, DXCoiCon[1].uDXCoi)
-    annotation (Line(points={{-120,160},{-80,160},{-80,144},{-34,144}}, color={255,0,255}));
-  connect(uDXCoiAva, DXCoiCon[1].uDXCoiAva)
-    annotation (Line(points={{-120,120},{-80,120},{-80,140},{-34,140}}, color={255,0,255}));
-  connect(uCoiSeq, DXCoiCon[1].uCoiSeq)
-    annotation (Line(points={{-120,40},{-70,40},{-70,132.2},{-34,132.2}}, color={255,127,0}));
+    annotation (Line(points={{-120,-180},{-80,-180},{-80,-138},{-71,-138}}, color={0,0,127}));
   connect(uCooCoi, DXCoiCon[1].uCoi)
-    annotation (Line(points={{-120,0},{-48,0},{-48,128},{-34,128}}, color={0,0,127}));
+    annotation (Line(points={{-120,-30},{-60,-30},{-60,148},{-34,148}}, color={0,0,127}));
   connect(uHeaCoi, DXCoiCon[2].uCoi)
-    annotation (Line(points={{-120,-40},{-60,-40},{-60,128},{-34,128}}, color={0,0,127}));
-  connect(uDXCoi, DXCoiCon[2].uDXCoi)
-    annotation (Line(points={{-120,160},{-80,160},{-80,144},{-34,144}}, color={255,0,255}));
-  connect(uDXCoiAva, DXCoiCon[2].uDXCoiAva)
-    annotation (Line(points={{-120,120},{-80,120},{-80,140},{-34,140}}, color={255,0,255}));
-  connect(uCoiSeq, DXCoiCon[2].uCoiSeq)
-    annotation (Line(points={{-120,40},{-70,40},{-70,132.2},{-34,132.2}}, color={255,127,0}));
+    annotation (Line(points={{-120,-62},{-52,-62},{-52,148},{-34,148}}, color={0,0,127}));
   connect(intScaRep.y, ComSpeDRHea.uDemLimLev)
-    annotation (Line(points={{-8,80},{30,80},{30,-14},{38,-14}}, color={255,127,0}));
+    annotation (Line(points={{-8,80},{30,80},{30,-34},{38,-34}}, color={255,127,0}));
   connect(DXCoiCon[1].yComSpe, ComSpeDRCoo.uComSpe)
-    annotation (Line(points={{-10,132},{20,132},{20,68},{38,68}}, color={0,0,127}));
+    annotation (Line(points={{-10,152},{20,152},{20,68},{38,68}}, color={0,0,127}));
   connect(ComSpeDRHea.yComSpe, yComSpeHea)
-    annotation (Line(points={{62,-20},{120,-20}}, color={0,0,127}));
+    annotation (Line(points={{62,-40},{120,-40}}, color={0,0,127}));
   connect(DXCoiCon[1].yDXCoi, yDXCooCoi)
-    annotation (Line(points={{-10,140},{120,140}}, color={255,0,255}));
+    annotation (Line(points={{-10,160},{120,160}}, color={255,0,255}));
   connect(lesThr.y,tim. u)
-    annotation (Line(points={{-38,-100},{-28,-100}}, color={255,0,255}));
+    annotation (Line(points={{-48,-100},{-32,-100}}, color={255,0,255}));
   connect(tim.passed,booToRea. u)
-    annotation (Line(points={{-4,-108},{8,-108}}, color={255,0,255}));
+    annotation (Line(points={{-8,-108},{8,-108}}, color={255,0,255}));
   connect(TOut, lesThr.u)
-    annotation (Line(points={{-120,-80},{-70,-80},{-70,-100},{-62,-100}}, color={0,0,127}));
+    annotation (Line(points={{-120,-100},{-72,-100}}, color={0,0,127}));
   connect(defTimFra.tDefFra, mul1.u2)
-    annotation (Line(points={{-39,-158},{-22,-158}}, color={0,0,127}));
+    annotation (Line(points={{-49,-136},{-40,-136},{-40,-172},{-22,-172}}, color={0,0,127}));
   connect(defTimFra.XOut, XOut)
-    annotation (Line(points={{-61,-164},{-80,-164},{-80,-120},{-120,-120}}, color={0,0,127}));
+    annotation (Line(points={{-71,-142},{-120,-142}}, color={0,0,127}));
   connect(DXCoiCon[2].yDXCoi, conAuxCoi.uDXCoi)
-    annotation (Line(points={{-10,140},{0,140},{0,-20},{-40,-20},{-40,-44},{-32,-44}}, color={255,0,255}));
+    annotation (Line(points={{-10,160},{0,160},{0,-30},{-40,-30},{-40,-50},{-32,-50}}, color={255,0,255}));
   connect(conAuxCoi.yDXCoi, yDXHeaCoi)
-    annotation (Line(points={{-8,-44},{10,-44},{10,100},{120,100}}, color={255,0,255}));
+    annotation (Line(points={{-8,-50},{10,-50},{10,100},{120,100}}, color={255,0,255}));
   connect(conAuxCoi.yDXCoi, booToRea1.u)
-    annotation (Line(points={{-8,-44},{10,-44},{10,40},{-40,40},{-40,14},{-32,14}}, color={255,0,255}));
+    annotation (Line(points={{-8,-50},{10,-50},{10,40},{-40,40},{-40,10},{-32,10}}, color={255,0,255}));
   connect(booToRea1.y, mul.u2)
-    annotation (Line(points={{-8,14},{38,14}}, color={0,0,127}));
+    annotation (Line(points={{-8,10},{38,10}}, color={0,0,127}));
   connect(DXCoiCon[2].yComSpe, mul.u1)
-    annotation (Line(points={{-10,132},{20,132},{20,26},{38,26}}, color={0,0,127}));
+    annotation (Line(points={{-10,152},{20,152},{20,22},{38,22}}, color={0,0,127}));
   connect(mul.y, ComSpeDRHea.uComSpe)
-    annotation (Line(points={{62,20},{70,20},{70,0},{26,0},{26,-26},{38,-26}}, color={0,0,127}));
+    annotation (Line(points={{62,16},{80,16},{80,-10},{20,-10},{20,-46},{38,-46}}, color={0,0,127}));
   connect(booToRea.y, mul1.u1)
-    annotation (Line(points={{32,-108},{40,-108},{40,-126},{-30,-126},{-30,-146},{-22,-146}}, color={0,0,127}));
+    annotation (Line(points={{32,-108},{40,-108},{40,-140},{-30,-140},{-30,-160},{-22,-160}}, color={0,0,127}));
   connect(ComSpeDRHea.yComSpe, mul2.u1)
-    annotation (Line(points={{62,-20},{70,-20},{70,-120},{50,-120},{50,-134},{58,-134}}, color={0,0,127}));
+    annotation (Line(points={{62,-40},{80,-40},{80,-120},{50,-120},{50,-154},{58,-154}}, color={0,0,127}));
   connect(mul1.y, reaScaRep.u)
-    annotation (Line(points={{2,-152},{18,-152}}, color={0,0,127}));
+    annotation (Line(points={{2,-166},{18,-166}}, color={0,0,127}));
   connect(reaScaRep.y, mul2.u2)
-    annotation (Line(points={{42,-152},{50,-152},{50,-146},{58,-146}}, color={0,0,127}));
+    annotation (Line(points={{42,-166},{58,-166}}, color={0,0,127}));
   connect(mul2.y, yDefFra)
-    annotation (Line(points={{82,-140},{120,-140}}, color={0,0,127}));
+    annotation (Line(points={{82,-160},{120,-160}}, color={0,0,127}));
+  connect(uDXCooCoi, DXCoiCon[1].uDXCoi)
+    annotation (Line(points={{-120,180},{-80,180},{-80,164},{-34,164}}, color={255,0,255}));
+  connect(uDXHeaCoi, DXCoiCon[2].uDXCoi)
+    annotation (Line(points={{-120,150},{-80,150},{-80,164},{-34,164}}, color={255,0,255}));
+  connect(uCooCoiAva, DXCoiCon[1].uDXCoiAva)
+    annotation (Line(points={{-120,120},{-72,120},{-72,160},{-34,160}}, color={255,0,255}));
+  connect(uHeaCoiAva, DXCoiCon[2].uDXCoiAva)
+    annotation (Line(points={{-120,90},{-72,90},{-72,160},{-34,160}}, color={255,0,255}));
+  connect(uCooCoiSeq, DXCoiCon[1].uCoiSeq)
+    annotation (Line(points={{-120,60},{-66,60},{-66,152.2},{-34,152.2}}, color={255,127,0}));
+  connect(uHeaCoiSeq, DXCoiCon[2].uCoiSeq)
+    annotation (Line(points={{-120,30},{-66,30},{-66,152.2},{-34,152.2}}, color={255,127,0}));
 
   annotation (defaultComponentName="RTUCon",
     Icon(coordinateSystem(preserveAspectRatio=false,
@@ -457,38 +471,38 @@ equation
             extent={{-100,180},{100,180}},
             textColor={0,0,255}),
           Text(
-            extent={{-94,168},{-48,154}},
+            extent={{-92,176},{-30,162}},
             textColor={255,0,255},
-            textString="uDXCoi"),
+            textString="uDXCooCoi"),
           Text(
-            extent={{-92,124},{-38,108}},
+            extent={{-92,118},{-26,102}},
             textColor={255,0,255},
-            textString="uDXCoiAva"),
+            textString="uCooCoiAva"),
           Text(
-            extent={{-94,46},{-48,32}},
+            extent={{-92,24},{-24,8}},
             textColor={255,127,0},
-            textString="uCoiSeq"),
+            textString="uHeaCoiSeq"),
           Text(
-            extent={{-94,92},{-24,68}},
+            extent={{-92,-10},{-22,-34}},
             textColor={255,127,0},
             textString="uDemLimLev"),
           Text(
-            extent={{-96,8},{-64,-6}},
+            extent={{-94,-40},{-48,-62}},
             textColor={0,0,127},
             pattern=LinePattern.Dash,
-            textString="uCoi"),
+            textString="uCooCoi"),
           Text(
-            extent={{-96,-34},{-44,-48}},
+            extent={{-96,-74},{-44,-88}},
             textColor={0,0,127},
             pattern=LinePattern.Dash,
             textString="uHeaCoi"),
           Text(
-            extent={{-98,-74},{-62,-88}},
+            extent={{-98,-104},{-62,-118}},
             textColor={0,0,127},
             pattern=LinePattern.Dash,
             textString="TOut"),
           Text(
-            extent={{-92,-152},{-46,-172}},
+            extent={{-92,-160},{-46,-180}},
             textColor={0,0,127},
             pattern=LinePattern.Dash,
             textString="TFroSen"),
@@ -521,11 +535,23 @@ equation
             pattern=LinePattern.Dash,
             textString="yComSpeHea"),
           Text(
-            extent={{-98,-114},{-62,-128}},
+            extent={{-98,-134},{-62,-148}},
             textColor={0,0,127},
             pattern=LinePattern.Dash,
-            textString="XOut")}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-180},{100,180}})),
+            textString="XOut"),
+          Text(
+            extent={{-92,56},{-24,40}},
+            textColor={255,127,0},
+            textString="uCooCoiSeq"),
+          Text(
+            extent={{-92,88},{-26,72}},
+            textColor={255,0,255},
+            textString="uHeaCoiAva"),
+          Text(
+            extent={{-92,146},{-30,132}},
+            textColor={255,0,255},
+            textString="uDXHeaCoi")}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}})),
   Documentation(info="<html>
   <p>
   This is control sequences for rooftop unit heat pump systems. 

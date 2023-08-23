@@ -265,7 +265,7 @@ block Controller
     annotation (Placement(transformation(extent={{130,-70},{150,-50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul[nCoi]
-    "Logical Multiply"
+    "Calculate compressor speed based on product of two inputs"
     annotation (Placement(transformation(extent={{180,-130},{200,-110}})));
 
 protected
