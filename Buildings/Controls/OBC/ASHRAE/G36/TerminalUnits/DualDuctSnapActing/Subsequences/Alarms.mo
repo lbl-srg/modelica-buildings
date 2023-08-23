@@ -393,6 +393,9 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
   Buildings.Controls.OBC.CDL.Logical.And and10
     "True: AHU fan is enabled and the discharge flow is lower than the threshold"
     annotation (Placement(transformation(extent={{-120,410},{-100,430}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or1
+    "Check if there is any supply fan proven on"
+    annotation (Placement(transformation(extent={{-200,140},{-180,160}})));
 equation
   connect(VActSet_flow, gai.u) annotation (Line(points={{-260,340},{-210,340},{-210,
           390},{-202,390}},  color={0,0,127}));
@@ -596,12 +599,16 @@ equation
     annotation (Line(points={{-138,290},{-122,290}}, color={255,0,255}));
   connect(and11.y, truDel1.u)
     annotation (Line(points={{-98,290},{-82,290}}, color={255,0,255}));
-  connect(or2.y, fanIni.u) annotation (Line(points={{-178,100},{-170,100},{-170,
-          230},{-162,230}}, color={255,0,255}));
   connect(fanIni.y, and10.u2) annotation (Line(points={{-138,230},{-130,230},{-130,
           412},{-122,412}}, color={255,0,255}));
   connect(fanIni.y, and11.u2) annotation (Line(points={{-138,230},{-130,230},{-130,
           282},{-122,282}}, color={255,0,255}));
+  connect(u1CooFan, or1.u1) annotation (Line(points={{-260,-120},{-220,-120},{-220,
+          150},{-202,150}}, color={255,0,255}));
+  connect(u1HeaFan, or1.u2) annotation (Line(points={{-260,-350},{-210,-350},{-210,
+          142},{-202,142}}, color={255,0,255}));
+  connect(or1.y, fanIni.u) annotation (Line(points={{-178,150},{-170,150},{-170,
+          230},{-162,230}}, color={255,0,255}));
 annotation (defaultComponentName="ala",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}),
        graphics={
