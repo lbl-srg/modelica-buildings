@@ -1,0 +1,10 @@
+simulateModel("Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.ZoneCapacitanceMultiplier", stopTime=432000, method="Cvode", tolerance=1e-06, resultFile="ZoneCapacitanceMultiplier");
+createPlot(id=1,
+ position={55, 55, 592, 371},
+ y={"defCap.zon.TAir", "mulCap.zon.TAir"},
+ range={0.0, 450000.0, -5.0, 25.0},
+ grid=true,
+ colors={{28,108,200}, {238,46,47}},
+ timeUnit="s",
+ displayUnits={"degC", "degC"});
+
