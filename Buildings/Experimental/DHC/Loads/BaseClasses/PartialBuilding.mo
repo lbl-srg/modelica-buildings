@@ -287,13 +287,7 @@ First implementation.
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{20,-188},{300,-172}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={255,0,0},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-300,-172},{-20,-188}},
+          extent={{-300,-172},{300,-188}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,255},
@@ -308,13 +302,7 @@ First implementation.
           textColor={0,0,255},
           textString="%name"),
         Rectangle(
-          extent={{20,-52},{300,-68}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-300,-68},{-20,-52}},
+          extent={{-300,-68},{300,-52}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={255,0,0},
