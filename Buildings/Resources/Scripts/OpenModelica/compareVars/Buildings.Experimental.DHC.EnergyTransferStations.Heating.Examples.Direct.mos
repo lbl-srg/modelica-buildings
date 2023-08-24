@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "heaETS.senTDisSup.T",
+    "heaETS.senTBuiSup.T",
+    "heaETS.senTBuiRet.T",
+    "heaETS.senTDisRet.T",
+    "heaETS.port_aSerHea.m_flow",
+    "heaETS.ports_aHeaWat[1].m_flow",
+    "heaETS.cheVal.m_flow",
+    "heaETS.conVal.y",
+    "heaETS.Q_flow",
+    "heaETS.Q"
+  };

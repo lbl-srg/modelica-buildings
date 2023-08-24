@@ -233,12 +233,27 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
                        The models are inspired by the ISO 13790:2008 Standard.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.Heating
+    </td>
+    <td valign=\"top\">Package containing models for energy transfer stations used in district heating systems.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Experimental.DHC.Loads.Combined.Examples
     </td>
     <td valign=\"top\">Package that contains example models of a building
                        with loads provided as time series for heat
                        pump space heating, heat pump domestic hot water heating,
                        and free cooling in an ambient district network.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Loads.Heating
+    </td>
+    <td valign=\"top\">Package containing models for loads in district heating systems.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Plants.Combined
+    </td>
+    <td valign=\"top\">Package of models for central plants that provide heating and cooling.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Experimental.DHC.BaseClasses.Steam
