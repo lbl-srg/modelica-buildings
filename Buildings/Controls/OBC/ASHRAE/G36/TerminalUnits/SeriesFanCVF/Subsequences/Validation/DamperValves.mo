@@ -88,9 +88,15 @@ model DamperValves
   Buildings.Controls.OBC.CDL.Continuous.Round round1(final n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-60,140},{-40,160}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
+    final width=0.9,
+    final period=4800,
+    final shift=180)
+    "AHU fan status"
+    annotation (Placement(transformation(extent={{20,-160},{40,-140}})));
 equation
   connect(VActMin_flow.y, damValFan1.VActMin_flow) annotation (Line(points={{-38,30},
-          {44,30},{44,-89},{78,-89}},     color={0,0,127}));
+          {44,30},{44,-88},{78,-88}},     color={0,0,127}));
   connect(TZon.y, damValFan1.TZon) annotation (Line(points={{-78,10},{48,10},{48,
           -86},{78,-86}}, color={0,0,127}));
   connect(VActCooMax_flow.y, damValFan1.VActCooMax_flow) annotation (Line(
@@ -116,16 +122,19 @@ equation
       color={0,0,127}));
   connect(reaToInt2.y, damValFan1.uOpeMod) annotation (Line(points={{2,-100},{24,
           -100},{24,-103},{78,-103}}, color={255,127,0}));
-  connect(terFan.y, damValFan1.u1Fan) annotation (Line(points={{-78,-130},{20,-130},
-          {20,-106},{78,-106}}, color={255,0,255}));
-  connect(damPos.y, damValFan1.uDam) annotation (Line(points={{-38,-150},
-          {16,-150},{16,-109},{78,-109}}, color={0,0,127}));
+  connect(terFan.y, damValFan1.u1TerFan) annotation (Line(points={{-78,-130},{
+          10,-130},{10,-106},{78,-106}},
+                                      color={255,0,255}));
+  connect(damPos.y, damValFan1.uDam) annotation (Line(points={{-38,-150},{14,
+          -150},{14,-109},{78,-109}},     color={0,0,127}));
   connect(oveFlo.y,round1. u)
     annotation (Line(points={{-78,150},{-62,150}}, color={0,0,127}));
   connect(round1.y,reaToInt1. u)
     annotation (Line(points={{-38,150},{-22,150}}, color={0,0,127}));
   connect(reaToInt1.y, damValFan1.oveFloSet) annotation (Line(points={{2,150},{68,
           150},{68,-71},{78,-71}}, color={255,127,0}));
+  connect(booPul.y, damValFan1.u1Fan) annotation (Line(points={{42,-150},{60,
+          -150},{60,-90},{78,-90}}, color={255,0,255}));
 annotation (
   experiment(StopTime=7200, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/TerminalUnits/SeriesFanCVF/Subsequences/Validation/DamperValves.mos"

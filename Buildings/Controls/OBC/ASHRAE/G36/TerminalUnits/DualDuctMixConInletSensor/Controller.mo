@@ -124,6 +124,9 @@ block Controller "Controller for dual-duct terminal unit using mixing control wi
     final quantity="Time")=1800
     "Delay time after AHU supply fan has been enabled"
     annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
+  parameter Real iniDam(unit="1")=0.01
+    "Initial damper position when the damper control is enabled"
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
   parameter Real timChe(unit="s")=30
     "Threshold time to check the zone temperature status"
     annotation (__cdl(ValueInReference=true), Dialog(tab="Advanced", group="Control loops"));
@@ -407,7 +410,8 @@ block Controller "Controller for dual-duct terminal unit using mixing control wi
     final TiDam=TiDam,
     final TdDam=TdDam,
     final dTHys=dTHys,
-    final looHys=looHys)
+    final looHys=looHys,
+    final iniDam=iniDam)
     "Dampers control when the unit has single dual airflow sensor"
     annotation (Placement(transformation(extent={{0,0},{20,40}})));
   Buildings.Controls.OBC.ASHRAE.G36.Generic.TimeSuppression timSupHea(

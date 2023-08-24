@@ -24,11 +24,6 @@ model DamperValves
     final k=0.075)
     "Active cooling maximum airflow setpoint"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse cooAhu(
-    final width=0.75,
-    final period=7200)
-    "Cold air handling unit status"
-    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupSet(
     final k=273.15 + 13)
     "AHU supply air temperature setpoint"
@@ -88,27 +83,32 @@ model DamperValves
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1
     "Convert real to integer"
     annotation (Placement(transformation(extent={{20,130},{40,150}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse  booPul(
+    final width=0.9,
+    final period=4800,
+    final shift=180) "AHU fan status"
+    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
 equation
   connect(VActMin_flow.y, damValFan1.VActMin_flow) annotation (Line(points={{-78,20},
-          {44,20},{44,-70},{78,-70}},     color={0,0,127}));
+          {40,20},{40,-70},{78,-70}},     color={0,0,127}));
   connect(TZon.y, damValFan1.TZon) annotation (Line(points={{-38,0},{48,0},{48,-67},
           {78,-67}},      color={0,0,127}));
   connect(VActCooMax_flow.y, damValFan1.VActCooMax_flow) annotation (Line(
         points={{-38,80},{56,80},{56,-61},{78,-61}}, color={0,0,127}));
   connect(uCoo.y, damValFan1.uCoo) annotation (Line(points={{-78,100},{60,100},{
           60,-58},{78,-58}}, color={0,0,127}));
-  connect(uHea.y, damValFan1.uHea) annotation (Line(points={{-78,-60},{32,-60},{
-          32,-80},{78,-80}}, color={0,0,127}));
+  connect(uHea.y, damValFan1.uHea) annotation (Line(points={{-78,-60},{28,-60},{
+          28,-80},{78,-80}}, color={0,0,127}));
   connect(disAir.y,damValFan1.VPri_flow)  annotation (Line(points={{-38,120},{64,
           120},{64,-55},{78,-55}}, color={0,0,127}));
-  connect(TSupSet.y, damValFan1.TSupSet) annotation (Line(points={{-78,-20},{40,
-          -20},{40,-74},{78,-74}}, color={0,0,127}));
+  connect(TSupSet.y, damValFan1.TSupSet) annotation (Line(points={{-78,-20},{36,
+          -20},{36,-74},{78,-74}}, color={0,0,127}));
   connect(TSup.y, damValFan1.TSup) annotation (Line(points={{-78,60},{52,60},{52,
           -64},{78,-64}}, color={0,0,127}));
   connect(TZonHeaSet.y, damValFan1.THeaSet) annotation (Line(points={{-38,-40},{
-          36,-40},{36,-77},{78,-77}},  color={0,0,127}));
-  connect(TDis.y, damValFan1.TDis) annotation (Line(points={{-38,-80},{28,-80},{
-          28,-83},{78,-83}}, color={0,0,127}));
+          32,-40},{32,-77},{78,-77}},  color={0,0,127}));
+  connect(TDis.y, damValFan1.TDis) annotation (Line(points={{-38,-80},{24,-80},{
+          24,-83},{78,-83}}, color={0,0,127}));
   connect(opeMod.y,round2. u)
     annotation (Line(points={{-78,-110},{-62,-110}}, color={0,0,127}));
   connect(round2.y,reaToInt2. u)
@@ -124,6 +124,8 @@ equation
     annotation (Line(points={{2,140},{18,140}},    color={0,0,127}));
   connect(reaToInt1.y, damValFan1.oveFloSet) annotation (Line(points={{42,140},{
           68,140},{68,-51},{78,-51}}, color={255,127,0}));
+  connect(booPul.y, damValFan1.u1Fan) annotation (Line(points={{-38,40},{44,40},
+          {44,-72},{78,-72}}, color={255,0,255}));
 annotation (
   experiment(StopTime=7200, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/TerminalUnits/ParallelFanCVF/Subsequences/Validation/DamperValves.mos"

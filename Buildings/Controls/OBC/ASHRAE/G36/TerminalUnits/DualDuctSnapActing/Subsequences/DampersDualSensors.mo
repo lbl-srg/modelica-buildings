@@ -48,6 +48,9 @@ block DampersDualSensors
     final unit="1") = 0.05
     "Loop output hysteresis below which the output will be seen as zero"
     annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
+  parameter Real iniDam(unit="1")=0.01
+    "Initial damper position when the damper control is enabled"
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCoo(
     final min=0,
@@ -172,7 +175,7 @@ block DampersDualSensors
     final Td=TdDam,
     final yMax=1,
     final yMin=0,
-    final y_reset=0)
+    final y_reset=iniDam)
     "Cooling damper position controller"
     annotation (Placement(transformation(extent={{280,190},{300,210}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi
@@ -296,7 +299,7 @@ block DampersDualSensors
     final Td=TdDam,
     final yMax=1,
     final yMin=0,
-    final y_reset=0)
+    final y_reset=iniDam)
     "Heating damper position controller"
     annotation (Placement(transformation(extent={{280,-110},{300,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch heaDamPos

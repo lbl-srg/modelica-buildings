@@ -195,6 +195,9 @@ block Controller "Controller for room VAV box with reheat"
     final quantity="Time")=1800
     "Delay time after AHU supply fan has been enabled"
     annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
+  parameter Real iniDam(unit="1")=0.01
+    "Initial damper position when the damper control is enabled"
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
   parameter Real timChe(unit="s")=30
     "Threshold time to check the zone temperature status"
     annotation (__cdl(ValueInReference=true),
@@ -522,15 +525,15 @@ equation
   connect(VDis_flow, damVal.VDis_flow) annotation (Line(points={{-200,0},{-40,0},
           {-40,-16},{-2,-16}}, color={0,0,127}));
   connect(actAirSet.VActCooMin_flow, damVal.VActCooMin_flow) annotation (Line(
-        points={{-38,54},{-10,54},{-10,-19},{-2,-19}}, color={0,0,127}));
-  connect(conLoo.yCoo, damVal.uCoo) annotation (Line(points={{-118,216},{-14,
-          216},{-14,-22},{-2,-22}}, color={0,0,127}));
+        points={{-38,54},{-10,54},{-10,-18},{-2,-18}}, color={0,0,127}));
+  connect(conLoo.yCoo, damVal.uCoo) annotation (Line(points={{-118,216},{-14,216},
+          {-14,-21},{-2,-21}},      color={0,0,127}));
   connect(actAirSet.VActCooMax_flow, damVal.VActCooMax_flow) annotation (Line(
-        points={{-38,58},{-18,58},{-18,-25},{-2,-25}}, color={0,0,127}));
+        points={{-38,58},{-18,58},{-18,-23},{-2,-23}}, color={0,0,127}));
   connect(TSup, damVal.TSup) annotation (Line(points={{-200,-30},{-48,-30},{-48,
-          -28},{-2,-28}}, color={0,0,127}));
+          -26},{-2,-26}}, color={0,0,127}));
   connect(actAirSet.VActMin_flow, damVal.VActMin_flow) annotation (Line(points={{-38,50},
-          {-22,50},{-22,-31},{-2,-31}},          color={0,0,127}));
+          {-22,50},{-22,-28},{-2,-28}},          color={0,0,127}));
   connect(TDis, damVal.TDis) annotation (Line(points={{-200,30},{-128,30},{-128,
           -34},{-2,-34}}, color={0,0,127}));
   connect(TSupSet, damVal.TSupSet) annotation (Line(points={{-200,-60},{-44,-60},
@@ -645,6 +648,8 @@ equation
           {104,-139},{118,-139}}, color={0,0,127}));
   connect(setOve.yVal, ala.uVal) annotation (Line(points={{82,-94},{104,-94},
           {104,-190},{118,-190}}, color={0,0,127}));
+  connect(u1Fan, damVal.u1Fan) annotation (Line(points={{-200,-240},{-60,-240},{
+          -60,-31},{-2,-31}}, color={255,0,255}));
 annotation (defaultComponentName="rehBoxCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},
             {100,200}}), graphics={

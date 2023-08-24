@@ -187,6 +187,9 @@ block Controller "Controller for constant-volume parallel fan-powered terminal u
     final quantity="Time")=1800
     "Delay time after AHU supply fan has been enabled"
     annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
+  parameter Real iniDam(unit="1")=0.01
+    "Initial damper position when the damper control is enabled"
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
   parameter Real timChe(unit="s")=30
     "Threshold time to check the zone temperature status"
     annotation (__cdl(ValueInReference=true),
@@ -491,7 +494,8 @@ block Controller "Controller for constant-volume parallel fan-powered terminal u
     final TdDam=TdDam,
     final dTHys=dTHys,
     final looHys=looHys,
-    final floHys=floHys) "Damper and valve control"
+    final floHys=floHys,
+    final iniDam=iniDam) "Damper and valve control"
     annotation (Placement(transformation(extent={{20,0},{40,40}})));
   Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.ZoneStates zonSta(
     final uLow=looHys,
@@ -586,7 +590,7 @@ equation
           -157},{158,-157}}, color={0,0,127}));
   connect(VPri_flow,ala.VPri_flow)  annotation (Line(points={{-260,20},{-36,20},
           {-36,-240},{158,-240}}, color={0,0,127}));
-  connect(u1Fan, ala.u1Fan) annotation (Line(points={{-260,-270},{30,-270},{30,
+  connect(u1Fan, ala.u1Fan) annotation (Line(points={{-260,-270},{0,-270},{0,
           -244},{158,-244}},
                        color={255,0,255}));
   connect(TSup, ala.TSup) annotation (Line(points={{-260,-20},{-30,-20},{-30,
@@ -706,6 +710,8 @@ equation
           132,-252},{158,-252}}, color={0,0,127}));
   connect(setOve.yDam, ala.uDam) annotation (Line(points={{102,-64},{126,-64},{
           126,-250},{158,-250}}, color={0,0,127}));
+  connect(u1Fan, damVal.u1Fan) annotation (Line(points={{-260,-270},{0,-270},{0,
+          18},{18,18}}, color={255,0,255}));
 annotation (defaultComponentName="parFanCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},
             {100,200}}), graphics={

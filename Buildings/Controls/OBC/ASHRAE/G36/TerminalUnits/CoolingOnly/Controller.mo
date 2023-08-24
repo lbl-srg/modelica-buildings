@@ -130,6 +130,9 @@ block Controller "Controller for cooling only VAV box"
     final quantity="Time")=1800
     "Delay time after AHU supply fan has been enabled"
     annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
+  parameter Real iniDam(unit="1")=0.01
+    "Initial damper position when the damper control is enabled"
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
   parameter Real timChe(unit="s")=30
     "Threshold time to check the zone temperature status"
     annotation (__cdl(ValueInReference=true), Dialog(tab="Advanced", group="Control loops"));
@@ -478,6 +481,8 @@ equation
           106,-159},{118,-159}}, color={0,0,127}));
   connect(dam.yDam, ala.uDam) annotation (Line(points={{82,-49},{106,-49},{106,
           -218},{118,-218}}, color={0,0,127}));
+  connect(u1Fan, dam.u1Fan) annotation (Line(points={{-200,-240},{40,-240},{40,-44},
+          {58,-44}}, color={255,0,255}));
 annotation (defaultComponentName="cooBoxCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},
             {100,200}}), graphics={

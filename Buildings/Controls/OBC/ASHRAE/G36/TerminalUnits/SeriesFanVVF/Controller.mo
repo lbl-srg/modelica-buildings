@@ -189,6 +189,9 @@ block Controller
     final quantity="Time")=1800
     "Delay time after AHU supply fan has been enabled"
     annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
+  parameter Real iniDam(unit="1")=0.01
+    "Initial damper position when the damper control is enabled"
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
   parameter Real timChe(unit="s")=30
     "Threshold time to check the zone temperature status"
     annotation (__cdl(ValueInReference=true), Dialog(tab="Advanced", group="Control loops"));
@@ -492,7 +495,9 @@ block Controller
     final TdDam=TdDam,
     final dTHys=dTHys,
     final looHys=looHys,
-    final floHys=floHys) "Damper and valve control"
+    final floHys=floHys,
+    final damPosHys=damPosHys,
+    final iniDam=iniDam) "Damper and valve control"
     annotation (Placement(transformation(extent={{20,0},{40,40}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1
     "Convert boolean to real"
@@ -552,9 +557,9 @@ equation
   connect(TDis, damVal.TDis) annotation (Line(points={{-260,70},{-192,70},{-192,
           12},{18,12}},   color={0,0,127}));
   connect(TSupSet, damVal.TSupSet) annotation (Line(points={{-260,-40},{-24,-40},
-          {-24,20},{18,20}},   color={0,0,127}));
+          {-24,19},{18,19}},   color={0,0,127}));
   connect(THeaSet, damVal.THeaSet) annotation (Line(points={{-260,250},{-216,
-          250},{-216,18},{18,18}},   color={0,0,127}));
+          250},{-216,17},{18,17}},   color={0,0,127}));
   connect(conLoo.yHea, damVal.uHea) annotation (Line(points={{-178,254},{-160,254},
           {-160,15},{18,15}},   color={0,0,127}));
   connect(TZon, damVal.TZon) annotation (Line(points={{-260,320},{-222,320},{
@@ -565,8 +570,8 @@ equation
           -94,-100},{-94,-61},{78,-61}}, color={255,127,0}));
   connect(damVal.yDam, setOve.uDam) annotation (Line(points={{42,29},{66,29},{
           66,-63},{78,-63}},       color={0,0,127}));
-  connect(uHeaOff, setOve.uHeaOff) annotation (Line(points={{-260,-170},{12,
-          -170},{12,-69},{78,-69}}, color={255,0,255}));
+  connect(uHeaOff, setOve.uHeaOff) annotation (Line(points={{-260,-170},{20,
+          -170},{20,-69},{78,-69}}, color={255,0,255}));
   connect(damVal.yVal, setOve.uVal) annotation (Line(points={{42,8},{62,8},{62,
           -71},{78,-71}},          color={0,0,127}));
   connect(timSup.yAftSup, sysReq.uAftSup) annotation (Line(points={{-178,300},{
@@ -657,10 +662,8 @@ equation
           234},{198,234}}, color={0,0,127}));
   connect(mul1.y, VFan_flow_Set)
     annotation (Line(points={{222,240},{260,240}}, color={0,0,127}));
-  connect(u1Fan, damVal.u1Fan) annotation (Line(points={{-260,-270},{0,-270},{0,
-          3},{18,3}}, color={255,0,255}));
-  connect(u1TerFan, ala.u1TerFan) annotation (Line(points={{-260,-300},{32,-300},
-          {32,-248},{158,-248}}, color={255,0,255}));
+  connect(u1TerFan, ala.u1TerFan) annotation (Line(points={{-260,-300},{10,-300},
+          {10,-248},{158,-248}}, color={255,0,255}));
   connect(ppmCO2Set, setPoi.ppmCO2Set) annotation (Line(points={{-260,130},{-204,
           130},{-204,173},{-122,173}}, color={0,0,127}));
   connect(minFlo.VOccZonMin_flow, actAirSet.VOccMin_flow) annotation (Line(
@@ -707,6 +710,10 @@ equation
           {132,-159},{158,-159}}, color={0,0,127}));
   connect(setOve.yVal, ala.uVal) annotation (Line(points={{102,-70},{132,-70},{
           132,-252},{158,-252}}, color={0,0,127}));
+  connect(u1Fan, damVal.u1Fan) annotation (Line(points={{-260,-270},{0,-270},{0,
+          21},{18,21}}, color={255,0,255}));
+  connect(u1TerFan, damVal.u1TerFan) annotation (Line(points={{-260,-300},{10,
+          -300},{10,3},{18,3}}, color={255,0,255}));
 annotation (defaultComponentName="serFanCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},
             {100,200}}), graphics={
