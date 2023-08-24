@@ -1,0 +1,16 @@
+compareVars :=
+  {
+    "y1.y[1]",
+    "y1.y[2]",
+    "chi.m2_flow",
+    "chi.chi.m2_flow",
+    "TChiWatSupSet.y",
+    "chi.sta_a2.T",
+    "chi.sta_b2.T",
+    "chi.sta_a1.T",
+    "chi.sta_b1.T",
+    "chi.chi.PLR1",
+    "chi.chi.PLR2",
+    "dat.PLRMax",
+    "chi.chi.COP"
+  };
