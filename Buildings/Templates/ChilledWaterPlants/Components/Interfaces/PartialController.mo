@@ -28,8 +28,11 @@ partial block PartialController "Interface class for plant controller"
     "Number of primary CHW pumps"
     annotation (Evaluate=true, Dialog(group="Configuration",
     enable=typArrPumChiWatPri == Buildings.Templates.Components.Types.PumpArrangement.Headered));
-  parameter Buildings.Templates.Components.Types.PumpArrangement
-    typArrPumChiWatPri "Type of primary CHW pump arrangement"
+  parameter Buildings.Templates.Components.Types.PumpArrangement typArrPumChiWatPri
+    "Type of primary CHW pump arrangement"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Boolean have_varPumChiWatPri
+    "Set to true for variable speed primary CHW pumps, false for constant speed pumps"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Integer nPumConWat(
     start=1,
@@ -38,14 +41,10 @@ partial block PartialController "Interface class for plant controller"
     annotation (Evaluate=true, Dialog(group="Configuration",
     enable=typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled
       and typArrPumConWat == Buildings.Templates.Components.Types.PumpArrangement.Headered));
-  parameter Buildings.Templates.Components.Types.PumpArrangement
-    typArrPumConWat
+  parameter Buildings.Templates.Components.Types.PumpArrangement typArrPumConWat
     "Type of CW pump arrangement"
     annotation (Evaluate=true,
       Dialog(group="Configuration", enable=typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled));
-  parameter Boolean have_varPumChiWatPri
-    "Set to true for variable speed primary CHW pumps, false for constant speed pumps"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_varComPumChiWatPri
     "Set to true for single common speed signal for primary CHW pumps, false for dedicated signals"
     annotation (Evaluate=true, Dialog(group="Configuration"));
@@ -233,10 +232,12 @@ partial block PartialController "Interface class for plant controller"
     final nChi=nChi,
     final nPumChiWatPri=nPumChiWatPri,
     final nPumConWat=nPumConWat,
+    final typArrPumChiWatPri=typArrPumChiWatPri,
     final typDisChiWat=typDisChiWat,
     final nPumChiWatSec=nPumChiWatSec,
     final typCoo=typCoo,
     final nCoo=nCoo,
+    final have_varPumChiWatPri=have_varPumChiWatPri,
     final have_varPumConWat=have_varPumConWat,
     final typCtlHea=typCtlHea,
     final typEco=typEco,

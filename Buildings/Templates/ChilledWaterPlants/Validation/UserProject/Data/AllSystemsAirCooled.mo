@@ -1,7 +1,11 @@
 within Buildings.Templates.ChilledWaterPlants.Validation.UserProject.Data;
 class AllSystemsAirCooled
   "Design and operating parameters for testing purposes"
-  extends Buildings.Templates.Data.AllSystems;
+  extends Buildings.Templates.Data.AllSystems(
+    ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Not_Specified,
+    stdVen=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.Not_Specified,
+    stdEne=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1,
+    sysUni=Buildings.Templates.Types.Units.SI);
 
   // The following instance name matches the system tag.
   outer Buildings.Templates.ChilledWaterPlants.AirCooled CHI;
@@ -11,6 +15,8 @@ class AllSystemsAirCooled
     final typChi=CHI.typChi,
     final nChi=CHI.nChi,
     final nPumChiWatPri=CHI.nPumChiWatPri,
+    final typArrPumChiWatPri=CHI.typArrPumChiWatPri,
+    final have_varPumChiWatPri=CHI.have_varPumChiWatPri,
     final nPumConWat=CHI.nPumConWat,
     final typDisChiWat=CHI.typDisChiWat,
     final nPumChiWatSec=CHI.nPumChiWatSec,

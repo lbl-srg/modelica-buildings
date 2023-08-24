@@ -11,6 +11,12 @@ record ChilledWaterPlant "Record for chilled water plant model"
   parameter Integer nPumChiWatPri=nChi
     "Number of primary CHW pumps"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+  parameter Buildings.Templates.Components.Types.PumpArrangement typArrPumChiWatPri
+    "Type of primary CHW pump arrangement"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+  parameter Boolean have_varPumChiWatPri
+    "Set to true for variable speed primary CHW pumps, false for constant speed pumps"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Integer nPumConWat=nChi
     "Number of CW pumps"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
@@ -77,6 +83,8 @@ record ChilledWaterPlant "Record for chilled water plant model"
     final typChi=typChi,
     final nChi=nChi,
     final nPumChiWatPri=nPumChiWatPri,
+    final typArrPumChiWatPri=typArrPumChiWatPri,
+    final have_varPumChiWatPri=have_varPumChiWatPri,
     final nPumConWat=nPumConWat,
     final typDisChiWat=typDisChiWat,
     final nPumChiWatSec=nPumChiWatSec,
@@ -168,8 +176,8 @@ record ChilledWaterPlant "Record for chilled water plant model"
 
   annotation (Documentation(info="<html>
 <p>
-This record provides the set of sizing and operating parameters for 
-CHW plant models that can be found within 
+This record provides the set of sizing and operating parameters for
+CHW plant models that can be found within
 <a href=\"modelica://Buildings.Templates.ChilledWaterPlants\">
 Buildings.Templates.ChilledWaterPlants</a>.
 </p>
@@ -179,10 +187,10 @@ dedicated to the controller.
 All parameters that are also needed to parameterize other plant
 components are propagated from the controller sub-record
 to the corresponding equipment sub-records.
-Note that those parameter bindings are not final so they may be 
-overwritten in case a component is parameterized at nominal 
-conditions that differ from the design conditions specified 
-in the controller sub-record.  
+Note that those parameter bindings are not final so they may be
+overwritten in case a component is parameterized at nominal
+conditions that differ from the design conditions specified
+in the controller sub-record.
 </p>
 </html>"));
 end ChilledWaterPlant;

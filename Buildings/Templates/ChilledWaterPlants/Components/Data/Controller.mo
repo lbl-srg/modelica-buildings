@@ -8,6 +8,9 @@ record Controller "Record for plant controller"
   parameter Buildings.Templates.Components.Types.Chiller typChi
     "Type of chiller"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+  parameter Buildings.Templates.Components.Types.PumpArrangement typArrPumChiWatPri
+    "Type of primary CHW pump arrangement"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Integer nChi
     "Number of chillers"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
@@ -28,6 +31,9 @@ record Controller "Record for plant controller"
     annotation(Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Integer nCoo
     "Number of cooler units"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+  parameter Boolean have_varPumChiWatPri
+    "Set to true for variable speed primary CHW pumps, false for constant speed pumps"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Boolean have_varPumConWat
     "Set to true for variable speed CW pumps, false for constant speed pumps"
@@ -363,7 +369,7 @@ record Controller "Record for plant controller"
     annotation(Dialog(group="Information provided by testing, adjusting, and balancing contractor",
     enable=typ==Buildings.Templates.ChilledWaterPlants.Types.Controller.Guideline36 and (
     typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Constant1Variable2 or
-    Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1And2)));
+    typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1And2)));
   parameter Real yFanCoo_min(
     final unit="1",
     final min=0,
@@ -400,8 +406,8 @@ record Controller "Record for plant controller"
   defaultComponentName="datCtl",
   Documentation(info="<html>
 <p>
-This record provides the set of sizing and operating parameters for 
-CHW plant controllers that can be found within 
+This record provides the set of sizing and operating parameters for
+CHW plant controllers that can be found within
 <a href=\"modelica://Buildings.Templates.ChilledWaterPlants.Components.Controls\">
 Buildings.Templates.ChilledWaterPlants.Components.Controls</a>.
 </p>
