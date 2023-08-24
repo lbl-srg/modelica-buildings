@@ -2,13 +2,37 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="158.74022mm"
-   height="264.58331mm"
-   viewBox="0 0 158.74023 264.58331"
+   width="200mm"
+   height="200mm"
+   viewBox="0 0 200.00002 200"
    version="1.1"
    id="svg19564"
+   sodipodi:docname="ProbeInWell.svg"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7771"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.5989195"
+     inkscape:cx="-201.19565"
+     inkscape:cy="226.24076"
+     inkscape:window-width="1920"
+     inkscape:window-height="1028"
+     inkscape:window-x="-6"
+     inkscape:window-y="-6"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg19564" />
   <defs
      id="defs19561">
     <linearGradient
@@ -25,21 +49,28 @@
          id="path2" />
     </clipPath>
   </defs>
+  <rect
+     style="font-variation-settings:normal;opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke-width:0.999999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
+     id="rect9041"
+     width="61.494431"
+     height="104.5187"
+     x="69.252762"
+     y="94.978653" />
   <g
      clip-path="url(#clipId0)"
      fill="none"
      stroke="#00ff00"
      stroke-width="0.0135017"
      id="g1144"
-     transform="matrix(0,-17.578509,17.455489,0,-5333.0359,9613.4053)"
-     style="fill:none;stroke:#000000;stroke-width:0.151045;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+     transform="matrix(0,-13.321272,13.072796,0,-3953.4688,7285.1885)"
+     style="fill:none;stroke:#000000;stroke-width:0.075778;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
     <path
        id="polyline1132"
        d="m 539.754,314.616 v -2.195 h -7.846 v -4.704 h 7.846 v -2.195"
-       style="fill:none;stroke:#000000;stroke-width:0.151045;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="fill:none;stroke:#000000;stroke-width:0.0757779;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <polyline
        points="534.563,310.069 546.884,310.069 "
        id="polyline1142"
-       style="fill:none;stroke:#000000;stroke-width:0.151045;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="fill:none;stroke:#000000;stroke-width:0.0757779;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
   </g>
 </svg>

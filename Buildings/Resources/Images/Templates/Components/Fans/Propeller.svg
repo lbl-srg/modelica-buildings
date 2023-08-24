@@ -2,52 +2,72 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="1000"
-   height="1000"
-   viewBox="0 0 264.58331 264.58335"
+   width="200mm"
+   height="200mm"
+   viewBox="0 0 199.99999 200.00002"
    version="1.1"
    id="svg3506"
+   sodipodi:docname="Propeller.svg"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1622"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="true"
+     inkscape:zoom="0.59891944"
+     inkscape:cx="201.19567"
+     inkscape:cy="291.35805"
+     inkscape:window-width="1920"
+     inkscape:window-height="1028"
+     inkscape:window-x="-6"
+     inkscape:window-y="-6"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg3506"
+     inkscape:document-units="mm">
+    <inkscape:grid
+       type="xygrid"
+       id="grid2893"
+       originx="0"
+       originy="0" />
+  </sodipodi:namedview>
   <defs
      id="defs3503" />
   <g
-     id="layer1"
-     transform="matrix(1.0000183,0,0,1.0000181,-56.363028,-144.14966)"
-     style="stroke-width:0.999982">
-    <g
-       id="g2495"
-       transform="matrix(12.364481,0,0,12.334043,-172.36365,-2218.4757)"
-       style="stroke:#000000;stroke-width:0.214246;stroke-miterlimit:4;stroke-dasharray:none">
-      <ellipse
-         rx="5.3091102"
-         ry="1.49287"
-         transform="rotate(90)"
-         id="ellipse274"
-         cx="207.58783"
-         cy="-34.506859"
-         style="fill:none;stroke:#000000;stroke-width:0.214246;stroke-miterlimit:4;stroke-dasharray:none" />
-      <ellipse
-         rx="5.3091102"
-         ry="1.49287"
-         transform="rotate(90)"
-         id="ellipse276"
-         cx="196.9696"
-         cy="-34.506859"
-         style="fill:none;stroke:#000000;stroke-width:0.214246;stroke-miterlimit:4;stroke-dasharray:none" />
-      <polyline
-         points="397.589,202.247 392.28,202.247 "
-         id="polyline278"
-         style="fill:none;stroke:#000000;stroke-width:0.214246;stroke-miterlimit:4;stroke-dasharray:none"
-         transform="translate(-363.08214,0.03172)" />
-      <path
-         id="polyline280"
-         style="fill:none;stroke-width:0.214246"
-         d="m 22.826864,199.09322 v 6.371 h 6.370992 v -6.371 z" />
-    </g>
+     id="g5893"
+     transform="translate(34.406897,0.36787016)">
+    <ellipse
+       rx="49.749989"
+       ry="14.232676"
+       transform="rotate(90)"
+       id="ellipse274"
+       cx="149.38214"
+       cy="-114.69562"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none" />
+    <ellipse
+       rx="49.749989"
+       ry="14.232676"
+       transform="rotate(90)"
+       id="ellipse276"
+       cx="49.882122"
+       cy="-114.69562"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none" />
+    <polyline
+       points="397.589,202.247 392.28,202.247 "
+       id="polyline278"
+       style="fill:none;stroke:#000000;stroke-width:0.111824;stroke-miterlimit:4;stroke-dasharray:none"
+       transform="matrix(9.0201183,0,0,8.8658196,-3471.6042,-1693.4533)" />
+    <path
+       id="polyline280"
+       style="fill:#ffffff;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="M 5.3952166,69.781779 V 129.4824 H 66.134771 V 69.781779 Z" />
   </g>
-  <path
-     style="fill:none;stroke:#000000;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="m 132.29311,171.98225 v 92.60584"
-     id="path862" />
 </svg>

@@ -170,7 +170,7 @@ partial model PartialChilledWaterLoop
     final energyDynamics=energyDynamics,
     final tau=tau,
     final allowFlowReversal=allowFlowReversal,
-    icon_extend=200,
+    icon_extend=400,
     icon_dy=300)
     "Chiller group condenser fluid inlet"
     annotation (Placement(transformation(extent={{-120,-190},{-100,-170}})));
@@ -184,9 +184,11 @@ partial model PartialChilledWaterLoop
     final tau=tau,
     final allowFlowReversal=allowFlowReversal,
     icon_dash=true,
-    icon_dy=-300)
+    icon_dy=300,
+    icon_offset=-1600,
+    icon_pipe=Buildings.Templates.Components.Types.IconPipe.Return)
     "Chiller group condenser fluid outlet"
-    annotation (Placement(transformation(extent={{-60,-10},{-80,10}})));
+    annotation (Placement(transformation(extent={{-70,-10},{-90,10}})));
 
   // Secondary CHW loop
   Buildings.Templates.Components.Routing.SingleToMultiple inlPumChiWatSec(
@@ -364,7 +366,7 @@ equation
   connect(intChi.ports_bSup, pumChiWatPri.ports_a)
     annotation (Line(points={{40,0},{40,0}}, color={0,127,255}));
   connect(chi.ports_bCon, outConChi.ports_a[1:nChi])
-    annotation (Line(points={{-60,0},{-60,0}}, color={0,127,255}));
+    annotation (Line(points={{-60,0},{-70,0}}, color={0,127,255}));
   connect(pumChiWatPri.ports_b, outPumChiWatPri.ports_a)
     annotation (Line(points={{60,0},{60,0}},      color={0,127,255}));
   connect(inlPumChiWatSec.ports_b, pumChiWatSec.ports_a)
@@ -390,11 +392,11 @@ equation
     annotation (Line(points={{-100,-180},{-60,-180}},color={0,0,0},
       thickness=0.5));
   connect(inlConChi.ports_b[nChi + 1], eco.port_aConWat) annotation (Line(
-        points={{-100,-180},{-100,-210},{-49,-210}},
+        points={{-100,-180},{-106,-180},{-106,-210},{-49,-210}},
                                                    color={0,0,0},
       thickness=0.5));
   connect(eco.port_bConWat, outConChi.ports_a[nChi + 1]) annotation (Line(
-        points={{-49,-230},{-80,-230},{-80,0},{-60,0}}, color={0,0,0},
+        points={{-49,-230},{-70,-230},{-70,0}},         color={0,0,0},
       thickness=0.5,
       pattern=LinePattern.Dash));
   connect(dpChiWatLoc.port_a, port_b)

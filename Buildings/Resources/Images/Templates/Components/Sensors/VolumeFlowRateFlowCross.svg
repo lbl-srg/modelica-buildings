@@ -2,34 +2,72 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="82.660645mm"
-   height="343.9624mm"
-   viewBox="0 0 82.660643 343.96241"
+   width="200mm"
+   height="200mm"
+   viewBox="0 0 200 199.99999"
    version="1.1"
-   id="svg6459"
+   id="svg2325"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
+   sodipodi:docname="VolumeFlowRateFlowCross.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview2327"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="true"
+     inkscape:zoom="0.53354916"
+     inkscape:cx="-171.4931"
+     inkscape:cy="351.42029"
+     inkscape:window-width="1920"
+     inkscape:window-height="1028"
+     inkscape:window-x="-6"
+     inkscape:window-y="-6"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid2467"
+       originx="-87.136718"
+       originy="-116.28482" />
+  </sodipodi:namedview>
   <defs
-     id="defs6456" />
-  <ellipse
-     rx="130.96875"
-     ry="40.007408"
-     transform="rotate(90)"
-     id="ellipse686"
-     cx="132.29167"
-     cy="-41.330322"
-     style="fill:none;stroke:#000000;stroke-width:2.64583;stroke-miterlimit:4;stroke-dasharray:none" />
-  <polyline
-     points="531.981,533.674 538.553,533.674 "
-     id="polyline690"
-     style="fill:none;stroke:#000000;stroke-width:0.218834;stroke-miterlimit:4;stroke-dasharray:none"
-     transform="matrix(12.174443,0,0,12.00733,-6475.2473,-6275.7084)" />
-  <path
-     style="fill:none;stroke:#000000;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="M 41.330324,1.3230206 V 263.26447"
-     id="path6719" />
-  <path
-     style="fill:none;stroke:#000000;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="m 41.352375,263.26449 v 80.69792"
-     id="path6719-5" />
+     id="defs2322" />
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-87.136724,-116.28485)">
+    <g
+       id="g2472"
+       transform="matrix(37.290793,0,0,34.4784,-3118.5923,-3897.0741)"
+       style="stroke-width:0.0278885;stroke-dasharray:none">
+      <ellipse
+         rx="2.8859162"
+         ry="0.86946845"
+         transform="rotate(90)"
+         id="ellipse686"
+         cx="119.30249"
+         cy="-88.647324"
+         style="fill:none;stroke:#000000;stroke-width:0.0278885;stroke-dasharray:none" />
+      <polyline
+         points="535.267,522.767 535.267,547.108 "
+         id="polyline688"
+         style="fill:none;stroke:#000000;stroke-width:0.111342;stroke-dasharray:none"
+         transform="matrix(0.26458333,0,0,0.23712008,-52.975402,-7.5418846)" />
+      <polyline
+         points="531.981,533.674 538.553,533.674 "
+         id="polyline690"
+         style="fill:none;stroke:#000000;stroke-width:0.105405;stroke-dasharray:none"
+         transform="matrix(0.26458333,0,0,0.26458333,-52.975402,-21.898767)" />
+    </g>
+  </g>
 </svg>

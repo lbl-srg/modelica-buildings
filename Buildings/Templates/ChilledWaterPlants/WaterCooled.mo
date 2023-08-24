@@ -1,4 +1,4 @@
-﻿within Buildings.Templates.ChilledWaterPlants;
+within Buildings.Templates.ChilledWaterPlants;
 model WaterCooled "Water-cooled chiller plant"
   extends
     Buildings.Templates.ChilledWaterPlants.Interfaces.PartialChilledWaterLoop(
@@ -98,7 +98,7 @@ equation
   connect(pumConWat.ports_b, inlConChi.ports_a)
     annotation (Line(points={{-100,-180},{-120,-180}}, color={0,127,255}));
   connect(outConChi.port_b, TConWatSup.port_b)
-    annotation (Line(points={{-80,0},{-130,0}},  color={0,0,0},
+    annotation (Line(points={{-110,0},{-130,0}}, color={0,0,0},
       thickness=0.5,
       pattern=LinePattern.Dash));
   connect(TConWatSup.port_a, coo.port_a)

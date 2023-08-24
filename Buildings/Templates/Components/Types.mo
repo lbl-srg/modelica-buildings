@@ -1,6 +1,12 @@
 within Buildings.Templates.Components;
 package Types "Package with type definitions"
   extends Modelica.Icons.TypesPackage;
+  type BoilerHotWaterModel = enumeration(
+      Polynomial
+      "Efficiency described by a polynomial",
+      Table
+      "Efficiency described by a table")
+    "Enumeration to specify the type of hot water boiler model";
   type Chiller = enumeration(
       AirCooled
       "Air-cooled compression chiller",
@@ -71,6 +77,14 @@ package Types "Package with type definitions"
       Propeller
       "Propeller fan")
     "Enumeration to specify the type of single fan";
+  type IconPipe = enumeration(
+      None
+      "No line",
+      Return
+      "Return pipe - Dashed line",
+      Supply
+      "Supply pipe - Solid line")
+    "Enumeration to specify the pipe symbol";
   type Pump = enumeration(
       None
       "No pump",
@@ -87,8 +101,6 @@ package Types "Package with type definitions"
       "Differential pressure",
       HumidityRatio
       "Humidity ratio",
-      None
-      "None",
       PPM
       "PPM",
       RelativeHumidity
@@ -112,7 +124,7 @@ package Types "Package with type definitions"
       AFMS
       "Airflow measuring station",
       FlowCross
-      "Averaging sensor",
+      "Flow cross",
       FlowMeter
       "Flow meter")
     "Enumeration to specify the type of volume flow rate sensor";
