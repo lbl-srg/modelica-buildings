@@ -173,7 +173,7 @@ partial model PartialChilledWaterLoop
     icon_extend=200,
     icon_dy=300)
     "Chiller group condenser fluid inlet"
-    annotation (Placement(transformation(extent={{-100,-190},{-80,-170}})));
+    annotation (Placement(transformation(extent={{-120,-190},{-100,-170}})));
   Buildings.Templates.Components.Routing.MultipleToSingle outConChi(
     redeclare final package Medium = MediumCon,
     final nPorts=if typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled
@@ -372,58 +372,85 @@ equation
   connect(pumChiWatSec.ports_b, outPumChiWatSec.ports_a)
     annotation (Line(points={{200,0},{200,0}},     color={0,127,255}));
   connect(intChi.ports_bRet[1:nChi], chi.ports_aChiWat) annotation (Line(points=
-         {{0,-240},{-12,-240},{-12,-180},{-20,-180}}, color={0,127,255}));
+         {{0,-240},{-12,-240},{-12,-180},{-20,-180}}, color={0,0,0},
+      thickness=0.5,
+      pattern=LinePattern.Dash));
   connect(chi.ports_bChiWat, intChi.ports_aSup[1:nChi]) annotation (Line(points=
-         {{-20,0},{-10,0},{-10,0},{0,0}}, color={0,127,255}));
+         {{-20,0},{-10,0},{-10,0},{0,0}}, color={0,0,0},
+      thickness=0.5));
   connect(intChi.ports_bRet[nChi + 1], eco.port_a) annotation (Line(points={{0,
-          -240},{-40,-240},{-40,-230}}, color={0,127,255}));
+          -240},{-40,-240},{-40,-230}}, color={0,0,0},
+      thickness=0.5,
+      pattern=LinePattern.Dash));
   connect(eco.port_b, intChi.ports_aSup[nChi + 1]) annotation (Line(points={{-40,
-          -210},{-40,-200},{-6,-200},{-6,0},{0,0}}, color={0,127,255}));
+          -210},{-40,-200},{-6,-200},{-6,0},{0,0}}, color={0,0,0},
+      thickness=0.5,
+      pattern=LinePattern.Dash));
   connect(inlConChi.ports_b[1:nChi], chi.ports_aCon)
-    annotation (Line(points={{-80,-180},{-60,-180}}, color={0,127,255}));
+    annotation (Line(points={{-100,-180},{-60,-180}},color={0,0,0},
+      thickness=0.5));
   connect(inlConChi.ports_b[nChi + 1], eco.port_aConWat) annotation (Line(
-        points={{-80,-180},{-80,-210},{-49,-210}}, color={0,127,255}));
+        points={{-100,-180},{-100,-210},{-49,-210}},
+                                                   color={0,0,0},
+      thickness=0.5));
   connect(eco.port_bConWat, outConChi.ports_a[nChi + 1]) annotation (Line(
-        points={{-49,-230},{-60,-230},{-60,0}},         color={0,127,255}));
+        points={{-49,-230},{-80,-230},{-80,0},{-60,0}}, color={0,0,0},
+      thickness=0.5,
+      pattern=LinePattern.Dash));
   connect(dpChiWatLoc.port_a, port_b)
-    annotation (Line(points={{280,-110},{280,0},{300,0}},color={0,127,255}));
+    annotation (Line(points={{280,-110},{280,0},{300,0}},color={0,0,0}));
   connect(dpChiWatLoc.port_b, port_a) annotation (Line(points={{280,-130},{280,
           -240},{300,-240}},
-                       color={0,127,255}));
+                       color={0,0,0}));
   connect(outPumChiWatPri.port_b, VChiWatPri_flow.port_a)
     annotation (Line(points={{80,0},{80,0}}, color={0,127,255}));
   connect(junByp.port_2, inlPumChiWatSec.port_a)
     annotation (Line(points={{150,0},{160,0}}, color={0,127,255}));
   connect(junByp.port_3, valChiWatMinByp.port_a)
     annotation (Line(points={{140,-10},{140,-80},{130,-80},{130,-90}},
-                                                   color={0,127,255}));
+                                                   color={0,0,0},
+      thickness=0.5));
   connect(junByp.port_3, bypChiWatFix.port_a) annotation (Line(points={{140,-10},
-          {140,-80},{150,-80},{150,-90}}, color={0,127,255}));
+          {140,-80},{150,-80},{150,-90}}, color={0,0,0},
+      thickness=0.5));
   connect(junByp.port_2, supChiWat.port_a) annotation (Line(points={{150,0},{160,
-          0},{160,-40},{180,-40}}, color={0,127,255}));
+          0},{160,-40},{180,-40}}, color={0,0,0},
+      thickness=0.5));
   connect(outPumChiWatSec.port_b, VChiWatSecSup_flow.port_a)
     annotation (Line(points={{220,0},{230,0}}, color={0,127,255}));
   connect(supChiWat.port_b, VChiWatSecSup_flow.port_a) annotation (Line(points={
-          {200,-40},{220,-40},{220,0},{230,0}}, color={0,127,255}));
+          {200,-40},{220,-40},{220,0},{230,0}}, color={0,0,0},
+      thickness=0.5));
   connect(VChiWatSecSup_flow.port_b, port_b)
-    annotation (Line(points={{250,0},{300,0}}, color={0,127,255}));
+    annotation (Line(points={{250,0},{300,0}}, color={0,0,0},
+      thickness=0.5));
   connect(port_a, VChiWatSecRet_flow.port_a)
-    annotation (Line(points={{300,-240},{250,-240}}, color={0,127,255}));
+    annotation (Line(points={{300,-240},{250,-240}}, color={0,0,0},
+      thickness=0.5,
+      pattern=LinePattern.Dash));
   connect(VChiWatSecRet_flow.port_b, TChiWatSecRet.port_a)
-    annotation (Line(points={{230,-240},{210,-240}}, color={0,127,255}));
+    annotation (Line(points={{230,-240},{210,-240}}, color={0,0,0},
+      thickness=0.5,
+      pattern=LinePattern.Dash));
   connect(TChiWatSecRet.port_b, intChi.port_aRet) annotation (Line(points={{190,
-          -240},{60,-240},{60,-240},{40,-240}}, color={0,127,255}));
+          -240},{60,-240},{60,-240},{40,-240}}, color={0,0,0},
+      thickness=0.5,
+      pattern=LinePattern.Dash));
   connect(VChiWatPri_flow.port_b, TChiWatPriSup.port_a)
     annotation (Line(points={{100,0},{100,0}}, color={0,127,255}));
   connect(TChiWatPriSup.port_b, junByp.port_1)
-    annotation (Line(points={{120,0},{130,0}}, color={0,127,255}));
+    annotation (Line(points={{120,0},{130,0}}, color={0,0,0},
+      thickness=0.5));
   connect(bypChiWatFix.port_b, VChiWatByp_flow.port_a)
     annotation (Line(points={{150,-110},{150,-120},{140,-120},{140,-140}},
-                                                   color={0,127,255}));
+                                                   color={0,0,0},
+      thickness=0.5));
   connect(VChiWatByp_flow.port_b, intChi.port_aByp) annotation (Line(points={{
-          140,-160},{140,-200},{40,-200}}, color={0,127,255}));
+          140,-160},{140,-200},{40,-200}}, color={0,0,0},
+      thickness=0.5));
   connect(valChiWatMinByp.port_b, VChiWatByp_flow.port_a) annotation (Line(
-        points={{130,-110},{130,-120},{140,-120},{140,-140}}, color={0,127,255}));
+        points={{130,-110},{130,-120},{140,-120},{140,-140}}, color={0,0,0},
+      thickness=0.5));
   connect(busWea, out.weaBus) annotation (Line(
       points={{0,280},{0,250},{0.2,250}},
       color={255,204,51},
