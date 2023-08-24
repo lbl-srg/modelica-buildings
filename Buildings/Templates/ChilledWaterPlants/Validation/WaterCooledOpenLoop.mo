@@ -15,7 +15,13 @@ model WaterCooledOpenLoop
 
   replaceable parameter
     Buildings.Templates.ChilledWaterPlants.Validation.UserProject.Data.AllSystemsWaterCooled
-    datAll constrainedby
+    datAll(
+    sysUni=Buildings.Templates.Types.Units.SI,
+    stdEne=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1,
+    stdVen=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.Not_Specified,
+    ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Not_Specified,
+    tit24CliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Not_Specified)
+           constrainedby
     Buildings.Templates.ChilledWaterPlants.Validation.UserProject.Data.AllSystems
     "Design and operating parameters"
     annotation (Placement(transformation(extent={{70,70},{90,90}})));
