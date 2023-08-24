@@ -63,7 +63,7 @@ block Alarms "Generate alarms of parallel fan-powered terminal unit with variabl
   parameter Real staTim(
     final unit="s",
     final quantity="Time")=1800
-    "Delay time after AHU supply fan has been enabled"
+    "Delay triggering alarms after enabling AHU supply fan"
     annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VPri_flow(

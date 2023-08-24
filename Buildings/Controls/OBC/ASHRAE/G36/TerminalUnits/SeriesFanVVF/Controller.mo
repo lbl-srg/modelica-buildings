@@ -187,7 +187,7 @@ block Controller
   parameter Real staTim(
     final unit="s",
     final quantity="Time")=1800
-    "Delay time after AHU supply fan has been enabled"
+    "Delay triggering alarms after enabling AHU supply fan"
     annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
   parameter Real iniDam(unit="1")=0.01
     "Initial damper position when the damper control is enabled"

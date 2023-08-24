@@ -40,7 +40,7 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
   parameter Real staTim(
     final unit="s",
     final quantity="Time")=1800
-    "Delay time after AHU supply fan has been enabled"
+    "Delay triggering alarms after enabling AHU supply fan"
     annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis_flow(
