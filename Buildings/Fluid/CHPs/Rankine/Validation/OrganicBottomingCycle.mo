@@ -35,7 +35,7 @@ model OrganicBottomingCycle "Example ORC model"
 
   Modelica.Blocks.Sources.Cosine TSou(
     amplitude=5,
-    f=0.5,
+    f=0.005,
     offset=ORC.TEva,
     y(unit="K",
       displayUnit="degC")) "Medium source temperature"
@@ -85,9 +85,9 @@ equation
           {30,-44},{22,-44}},color={0,0,127}));
   connect(TSou.y, souEva.T_in) annotation (Line(points={{-59,30},{-50,30},{-50,34},
           {-42,34}}, color={0,0,127}));
-  connect(TSou.y, ORC.TUpsEva) annotation (Line(points={{-59,30},{-50,30},{-50,
-          -4},{-2,-4}}, color={0,0,127}));
-annotation(experiment(StopTime=1, Tolerance=1e-6),
+  connect(TSou.y, ORC.TUpsEva) annotation (Line(points={{-59,30},{-50,30},{-50,-4},
+          {-2,-4}}, color={0,0,127}));
+annotation(experiment(StopTime=100, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/Rankine/Validation/OrganicBottomingCycle.mos"
   "Simulate and plot"),
   Documentation(info="<html>

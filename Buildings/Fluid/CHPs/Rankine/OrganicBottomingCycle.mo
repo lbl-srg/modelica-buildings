@@ -50,7 +50,8 @@ model OrganicBottomingCycle
     preventHeatBackflow "Upstream fluid temperature of the evaporator"
     annotation (Placement(transformation(extent={{-140,36},{-100,76}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Utilities.Math.SmoothMin smoMin(deltaX=1) if preventHeatBackflow
+  Buildings.Utilities.Math.SmoothMin smoMin(deltaX=0.1)
+                                                      if preventHeatBackflow
     "Prevents heat transfer when upstream temperature lower than working fluid"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 protected
