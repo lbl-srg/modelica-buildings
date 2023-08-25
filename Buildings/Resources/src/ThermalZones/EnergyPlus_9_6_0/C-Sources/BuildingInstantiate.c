@@ -529,7 +529,6 @@ void generateFMU(FMUBuilding* bui, const char* spawnFullPath, const char* modeli
   /* Generate the FMU */
   char* optionFlags;
   char* outputFlag;
-  char* createFlag;
   char* fulCmd;
   int retVal;
   size_t len;
