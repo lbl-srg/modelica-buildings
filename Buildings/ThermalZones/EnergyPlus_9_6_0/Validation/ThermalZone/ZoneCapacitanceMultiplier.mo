@@ -1,4 +1,4 @@
-within Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse;
+within Buildings.ThermalZones.EnergyPlus_9_6_0.Validation.ThermalZone;
 model ZoneCapacitanceMultiplier
   "Validation model for zone capacitance multiplier in Spawn"
   extends Modelica.Icons.Example;
@@ -46,7 +46,7 @@ First implementation. This is for
 </ul>
 </html>"),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_9_6_0/Examples/SingleFamilyHouse/ZoneCapacitanceMultiplier.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_9_6_0/Validation/ThermalZone/ZoneCapacitanceMultiplier.mos" "Simulate and plot"),
     experiment(
       StopTime=432000,
       Tolerance=1e-06));
