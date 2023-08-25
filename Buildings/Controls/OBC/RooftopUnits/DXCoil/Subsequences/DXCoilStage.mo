@@ -3,7 +3,7 @@ block DXCoilStage
   "Sequence for staging up and down DX coils"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Integer nCoi=2
+  parameter Integer nCoi(min=1)=2
   "Number of DX coils";
 
   parameter Real uThrCoi(
@@ -54,8 +54,9 @@ block DXCoilStage
     annotation (Placement(transformation(extent={{100,-60},{140,-20}}),
       iconTransformation(extent={{100,-80},{140,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrCoi(final t=
-        uThrCoi, final h=dUHys)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrCoi(
+    final t=uThrCoi,
+    final h=dUHys)
     "Check if coil valve position signal is equal to or greater than threshold"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 

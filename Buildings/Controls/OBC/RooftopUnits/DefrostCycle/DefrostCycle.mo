@@ -72,7 +72,8 @@ block DefrostCycle "Sequences to control defrost cycle"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
 
   Buildings.Controls.OBC.CDL.Logical.Timer tim(
-    final t=timPer4) "Count time"
+    final t=timPer4)
+    "Count time"
     annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(
@@ -89,8 +90,8 @@ block DefrostCycle "Sequences to control defrost cycle"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
 
   Buildings.Fluid.DXSystems.Heating.BaseClasses.CoilDefrostTimeCalculations defTimFra(
-    defTri=Buildings.Fluid.DXSystems.Heating.BaseClasses.Types.DefrostTimeMethods.onDemand,
-    TDefLim=TDefLim)
+    final defTri=Buildings.Fluid.DXSystems.Heating.BaseClasses.Types.DefrostTimeMethods.onDemand,
+    final TDefLim=TDefLim)
     annotation (Placement(transformation(extent={{46,-18},{66,2}})));
 
 equation

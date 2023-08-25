@@ -3,8 +3,8 @@ block Controller
   "Sequences to stage DX coils and regulate their corresponding compressor speeds"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Integer nCoi=2
-    "Total number of DX coils"
+  parameter Integer nCoi(min=1)=2
+    "Number of DX coils"
     annotation (Dialog(group="DX coil parameters"));
 
   parameter Real conCoiLow(
@@ -32,7 +32,7 @@ block Controller
     annotation (Dialog(group="DX coil parameters"));
 
   parameter Real uThrCoi2(
-     final min=0,
+    final min=0,
     final max=1)=0.8
     "Threshold of coil valve position signal above which DX coil is enabled"
     annotation (Dialog(group="DX coil parameters"));
@@ -116,9 +116,9 @@ block Controller
       iconTransformation(extent={{100,20},{140,60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yComSpe[nCoi](
-    final min=0,
-    final max=1,
-    final unit="1")
+    each final min=0,
+    each final max=1,
+    each final unit="1")
     "Compressor commanded speed"
     annotation (Placement(transformation(extent={{220,-140},{260,-100}}),
       iconTransformation(extent={{100,-60},{140,-20}})));
@@ -222,10 +222,10 @@ block Controller
     annotation (Placement(transformation(extent={{-150,10},{-130,30}})));
 
   Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.CompressorSpeedStage ComSpeSta[nCoi](
-    final conCoiLow=conCoiLow,
-    final conCoiHig=conCoiHig,
-    final minComSpe=minComSpe,
-    final maxComSpe=maxComSpe)
+    each final conCoiLow=conCoiLow,
+    each final conCoiHig=conCoiHig,
+    each final minComSpe=minComSpe,
+    each final maxComSpe=maxComSpe)
     "Compressor speed stage"
     annotation (Placement(transformation(extent={{130,-130},{150,-110}})));
 
@@ -253,7 +253,8 @@ block Controller
     annotation (Placement(transformation(extent={{-150,-132},{-130,-112}})));
 
   Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intScaRep(
-    final nout=nCoi) "Integer scalar replicator"
+    final nout=nCoi)
+    "Integer scalar replicator"
     annotation (Placement(transformation(extent={{-150,-82},{-130,-62}})));
 
   Buildings.Controls.OBC.CDL.Integers.Greater intGre[nCoi]

@@ -3,8 +3,8 @@ block Controller
   "Controller for rooftop unit heat pump systems"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Integer nCoi = 2
-    "Total number of DX coils";
+  parameter Integer nCoi(min=1) = 2
+    "Number of DX coils";
 
   parameter Real conCoiLow(
     final min=0,
@@ -253,17 +253,18 @@ block Controller
       iconTransformation(extent={{100,60},{140,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yComSpeCoo[nCoi](
-    final min=0,
-    final max=1,
-    final unit="1")
+    each final min=0,
+    each final max=1,
+    each final unit="1")
     "Compressor commanded speed for DX cooling coils"
     annotation (Placement(transformation(extent={{100,20},{140,60}}),
       iconTransformation(extent={{100,2},{140,42}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yComSpeHea[nCoi](
-    final min=0,
-    final max=1,
-    final unit="1") "Compressor commanded speed for DX heating coils"
+    each final min=0,
+    each final max=1,
+    each final unit="1")
+    "Compressor commanded speed for DX heating coils"
     annotation (Placement(transformation(extent={{100,-60},{140,-20}}),
       iconTransformation(extent={{100,-42},{140,-2}})));
 
@@ -276,40 +277,40 @@ block Controller
       iconTransformation(extent={{100,-100},{140,-60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDefFra[nCoi](
-    final unit="1")
+    each final unit="1")
     "Defrost operation timestep fraction"
     annotation (Placement(transformation(extent={{100,-180},{140,-140}}),
       iconTransformation(extent={{100,-160},{140,-120}})));
 
   Buildings.Controls.OBC.RooftopUnits.DXCoil.Controller DXCoiCon[2](
-    final nCoi=nCoi,
-    final conCoiLow=conCoiLow,
-    final conCoiHig=conCoiHig,
-    final uThrCoi=uThrCoi,
-    final uThrCoi1=uThrCoi1,
-    final uThrCoi2=uThrCoi2,
-    final uThrCoi3=uThrCoi3,
-    final timPer=timPer,
-    final timPer1=timPer1,
-    final timPer2=timPer2,
-    final timPer3=timPer3,
-    final minComSpe=minComSpe,
-    final maxComSpe=maxComSpe,
-    final dUHys=dUHys)
+    each final nCoi=nCoi,
+    each final conCoiLow=conCoiLow,
+    each final conCoiHig=conCoiHig,
+    each final uThrCoi=uThrCoi,
+    each final uThrCoi1=uThrCoi1,
+    each final uThrCoi2=uThrCoi2,
+    each final uThrCoi3=uThrCoi3,
+    each final timPer=timPer,
+    each final timPer1=timPer1,
+    each final timPer2=timPer2,
+    each final timPer3=timPer3,
+    each final minComSpe=minComSpe,
+    each final maxComSpe=maxComSpe,
+    each final dUHys=dUHys)
     "DX coil controller"
     annotation (Placement(transformation(extent={{-32,146},{-12,166}})));
 
   Buildings.Controls.OBC.RooftopUnits.CompressorDR.CompressorDR ComSpeDRCoo[nCoi](
-    final k1=k1,
-    final k2=k2,
-    final k3=k3)
+    each final k1=k1,
+    each final k2=k2,
+    each final k3=k3)
     "Compressor speed controller corresponding to DX cooling coil"
     annotation (Placement(transformation(extent={{40,64},{60,84}})));
 
   Buildings.Controls.OBC.RooftopUnits.CompressorDR.CompressorDR ComSpeDRHea[nCoi](
-    final k1=k1,
-    final k2=k2,
-    final k3=k3)
+    each final k1=k1,
+    each final k2=k2,
+    each final k3=k3)
     "Compressor speed controller corresponding to DX cooling coil"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
 
@@ -358,8 +359,8 @@ block Controller
     annotation (Placement(transformation(extent={{-20,-176},{0,-156}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1[nCoi](
-    final realTrue=1,
-    final realFalse=0)
+    each final realTrue=1,
+    each final realFalse=0)
     "Convert Boolean to Real number"
     annotation (Placement(transformation(extent={{-30,0},{-10,20}})));
 

@@ -2,8 +2,8 @@ within Buildings.Controls.OBC.RooftopUnits.AuxiliaryCoil;
 block AuxiliaryCoil "Sequences to control auxiliary heating coils"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Integer nCoi=2
-    "Total number of DX coils"
+  parameter Integer nCoi(min=1)=2
+    "Number of DX coils"
     annotation (Dialog(group="DX coil parameters"));
 
   parameter Real TLocOut(

@@ -3,7 +3,7 @@ block DXCoilEnable
   "Sequence for enabling and disabling DX coils"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Integer nCoi=2
+  parameter Integer nCoi(min=1)=2
     "Number of DX coils";
 
   parameter Real uThrCoi2(
@@ -56,7 +56,8 @@ block DXCoilEnable
     "Check if coil valve position signal is equal to or greater than threshold"
     annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Timer tim(t=timPer2)
+  Buildings.Controls.OBC.CDL.Logical.Timer tim(
+    final t=timPer2)
     "Count time"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
 
