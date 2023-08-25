@@ -46,9 +46,10 @@ model OrganicBottomingCycle
     annotation (Placement(transformation(extent={{-10,90},{10,110}}),
       iconTransformation(extent={{-10,90},{10,110}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TUps if preventHeatBackflow
-    "Temperature of upstream fluid" annotation (Placement(transformation(extent={{-140,36},
-            {-100,76}}),           iconTransformation(extent={{-140,40},{-100,80}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TUpsEva if
+    preventHeatBackflow "Upstream fluid temperature of the evaporator"
+    annotation (Placement(transformation(extent={{-140,36},{-100,76}}),
+        iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Utilities.Math.SmoothMin smoMin(deltaX=1) if preventHeatBackflow
     "Prevents heat transfer when upstream temperature lower than working fluid"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
@@ -103,7 +104,7 @@ equation
           44},{-22,44}}, color={0,0,127}));
   connect(heaFloSen.port_a, preTem.port)
     annotation (Line(points={{60,50},{40,50}}, color={191,0,0}));
-  connect(smoMin.u1, TUps)
+  connect(smoMin.u1, TUpsEva)
     annotation (Line(points={{-22,56},{-120,56}}, color={0,0,127}));
   connect(SouTEva.y, pas.u)
     annotation (Line(points={{-39,10},{-22,10}}, color={0,0,127}));
