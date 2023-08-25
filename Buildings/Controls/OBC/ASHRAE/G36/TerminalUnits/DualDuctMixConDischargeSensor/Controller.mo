@@ -565,6 +565,8 @@ equation
           112,-96},{112,-157},{138,-157}}, color={0,0,127}));
   connect(setOve.yHeaDam, ala.uHeaDam) annotation (Line(points={{82,-96},{112,
           -96},{112,-239},{138,-239}}, color={0,0,127}));
+  connect(uOpeMod, ala.uOpeMod) annotation (Line(points={{-260,130},{-200,130},
+          {-200,-227},{138,-227}}, color={255,127,0}));
 annotation (defaultComponentName="duaDucCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}), graphics={
         Rectangle(

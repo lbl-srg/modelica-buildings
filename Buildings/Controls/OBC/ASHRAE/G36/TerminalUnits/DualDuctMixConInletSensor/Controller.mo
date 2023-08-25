@@ -555,10 +555,10 @@ equation
   connect(u1CooAHU, ala.u1CooFan) annotation (Line(points={{-260,-50},{-44,-50},
           {-44,-226},{138,-226}},color={255,0,255}));
   connect(VHotDucDis_flow, ala.VHotDucDis_flow) annotation (Line(points={{-260,
-          -110},{-48,-110},{-48,-232},{138,-232}},
+          -110},{-48,-110},{-48,-234},{138,-234}},
                                            color={0,0,127}));
   connect(u1HeaAHU, ala.u1HeaFan) annotation (Line(points={{-260,-140},{-40,
-          -140},{-40,-234},{138,-234}},
+          -140},{-40,-236},{138,-236}},
                                  color={255,0,255}));
   connect(ala.yLowFloAla, yLowFloAla) annotation (Line(points={{162,-222},{200,
           -222},{200,-160},{260,-160}},
@@ -598,11 +598,13 @@ equation
   connect(setOve.yCooDam, sysReq.uCooDam) annotation (Line(points={{82,-90},{
           106,-90},{106,-138},{138,-138}}, color={0,0,127}));
   connect(setOve.yCooDam, ala.uCooDam) annotation (Line(points={{82,-90},{106,
-          -90},{106,-228},{138,-228}}, color={0,0,127}));
+          -90},{106,-232},{138,-232}}, color={0,0,127}));
   connect(setOve.yHeaDam, sysReq.uHeaDam) annotation (Line(points={{82,-96},{
           112,-96},{112,-157},{138,-157}}, color={0,0,127}));
   connect(setOve.yHeaDam, ala.uHeaDam) annotation (Line(points={{82,-96},{112,
-          -96},{112,-236},{138,-236}}, color={0,0,127}));
+          -96},{112,-238},{138,-238}}, color={0,0,127}));
+  connect(uOpeMod, ala.uOpeMod) annotation (Line(points={{-260,130},{-200,130},
+          {-200,-229},{138,-229}}, color={255,127,0}));
 annotation (defaultComponentName="duaDucCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}), graphics={
         Rectangle(

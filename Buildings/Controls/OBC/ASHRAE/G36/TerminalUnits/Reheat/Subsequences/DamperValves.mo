@@ -653,10 +653,10 @@ equation
           {-190,-68},{-62,-68}}, color={255,0,255}));
   connect(truFalHol.y, swi3.u2) annotation (Line(points={{-198,-240},{-190,-240},
           {-190,-210},{-42,-210}}, color={255,0,255}));
-  connect(lowDisAirTem.y, swi3.u3) annotation (Line(points={{-158,-240},{-118,-240},
-          {-118,-218},{-42,-218}}, color={0,0,127}));
   connect(u1Fan, conDam.trigger) annotation (Line(points={{-340,30},{284,30},{284,
           138}}, color={255,0,255}));
+  connect(max1.y, swi3.u3) annotation (Line(points={{-78,-240},{-60,-240},{-60,
+          -218},{-42,-218}}, color={0,0,127}));
 annotation (
   defaultComponentName="damVal",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-320,-500},{320,500}}),
