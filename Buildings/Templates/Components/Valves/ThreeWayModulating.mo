@@ -11,6 +11,7 @@ model ThreeWayModulating "Three-way modulating valve"
       final dpFixed_nominal={dpFixed_nominal, dpFixedByp_nominal})
     "Valve"
     annotation (
+      __Linkage(enable=false),
       choicesAllMatching=true,
       Placement(
         transformation(
@@ -45,7 +46,7 @@ This is a model for a three-way modulating valve.
 </p>
 <ul>
 <li>
-The valve position is modulated with a fractional position 
+The valve position is modulated with a fractional position
 signal <code>y</code> (real).<br/>
 <code>y = 0</code> corresponds to full bypass.
 <code>y = 1</code> corresponds to zero bypass.

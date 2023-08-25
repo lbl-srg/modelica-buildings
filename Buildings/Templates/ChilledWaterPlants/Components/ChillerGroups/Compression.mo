@@ -147,7 +147,7 @@ equation
   connect(TChiWatChiSup.port_b, valChiWatChiIsoMod.port_a) annotation (Line(
         points={{110,120},{140,120},{140,160},{150,160}}, color={0,127,255}));
   connect(valChiWatChiIsoMod.port_b, ports_bChiWat) annotation (Line(points={{170,160},
-          {180,160},{180,120},{200,120}},      color={0,127,255}));
+          {180,160},{180,120},{200,120}}, color={0,127,255}));
   annotation(defaultComponentName="chi", Documentation(info="<html>
 <p>
 This model represents a group of compression chillers.

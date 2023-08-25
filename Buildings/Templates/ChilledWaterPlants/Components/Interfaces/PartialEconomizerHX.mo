@@ -55,5 +55,9 @@ November 18, 2022, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), Icon(graphics={
+    Rectangle(
+      extent={{100,100},{-100,0}},
+      lineColor={0,0,0},
+      lineThickness=1)}));
 end PartialEconomizerHX;

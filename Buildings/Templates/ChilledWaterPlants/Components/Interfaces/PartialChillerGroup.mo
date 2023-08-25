@@ -216,39 +216,41 @@ partial model PartialChillerGroup "Interface class for chiller group"
     each h_outflow(start=MediumChiWat.h_default, nominal=MediumChiWat.h_default))
     "CHW supply"
     annotation (Placement(transformation(extent={{190,80},{210,160}}),
-    iconTransformation(extent={{190,860},{210,940}})));
+    iconTransformation(extent={{390,860},{410,940}})));
   Modelica.Fluid.Interfaces.FluidPorts_b ports_bCon[nChi](
     redeclare each final package Medium = MediumCon,
     each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     each h_outflow(start=MediumCon.h_default, nominal=MediumCon.h_default))
     "Condenser cooling fluid return (e.g. from chillers to cooling towers)"
     annotation (Placement(transformation(extent={{-210,80},{-190,160}}),
-        iconTransformation(extent={{-210,860},{-190,940}})));
+        iconTransformation(extent={{-410,860},{-390,940}})));
   Modelica.Fluid.Interfaces.FluidPorts_a ports_aCon[nChi](
     redeclare each final package Medium = MediumCon,
     each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     each h_outflow(start=MediumCon.h_default, nominal=MediumCon.h_default))
     "Condenser cooling fluid supply (e.g. from cooling towers to chillers)"
     annotation (Placement(transformation(extent={{-210,-140},{-190,-60}}),
-        iconTransformation(extent={{-210,-940},{-190,-860}})));
+        iconTransformation(extent={{-410,-940},{-390,-860}})));
   Modelica.Fluid.Interfaces.FluidPorts_a ports_aChiWat[nChi](
     redeclare each final package Medium = MediumChiWat,
     each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     each h_outflow(start=MediumChiWat.h_default, nominal=MediumChiWat.h_default))
     "CHW return"
     annotation (Placement(transformation(extent={{190,-140},{210, -60}}),
-    iconTransformation(extent={{190,-940},{210,-860}})));
+    iconTransformation(extent={{390,-940},{410,-860}})));
   Buildings.Templates.ChilledWaterPlants.Interfaces.Bus bus
     "Plant control bus"
     annotation (Placement(transformation(extent={{-20,180},{20,220}}),
     iconTransformation(extent={{-20,980},{20,1020}})));
-  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator TChiWatSupSet(nout=nChi)
-    "Replicating common CHW supply temperature setpoint" annotation (Placement(
+
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator TChiWatSupSet(
+    final nout=nChi)
+    "Replicating common CHW supply temperature setpoint"
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,170})));
-
   Modelica.Blocks.Routing.BooleanPassThrough pasSta[nChi]
     "Direct pass through for On/Off signal"
     annotation (
@@ -292,13 +294,181 @@ equation
       horizontalAlignment=TextAlignment.Right));
   annotation (Diagram(coordinateSystem(extent={{-200,-180},{200,200}})),
   Icon(coordinateSystem(preserveAspectRatio=false,
-    extent={{-200,-1000},{200,1000}}), graphics={
-        Text(
-          extent={{-149,-1014},{151,-1054}},
-          textColor={0,0,255},
-          textString="%name"),
-    Rectangle(extent={{-200,-1000},{200,1000}},
-            lineColor={28,108,200})}),
+  extent={{-400,-1000},{400,1000}}),
+  graphics={
+    Line(
+      points={{180,800},{400,800}},
+      color={0,0,0},
+      pattern=LinePattern.Dash,
+      thickness=5),
+    Line(
+      points={{180,900},{400,900}},
+      color={0,0,0},
+      pattern=LinePattern.Solid,
+      thickness=5),
+    Line(
+      visible=nChi >= 2,
+      points={{180,600},{400,600}},
+      color={0,0,0},
+      pattern=LinePattern.Solid,
+      thickness=5),
+    Line(
+      visible=nChi >= 3,
+      points={{180,300},{400,300}},
+      color={0,0,0},
+      pattern=LinePattern.Solid,
+      thickness=5),
+    Line(
+      visible=nChi >= 4,
+      points={{180,-20},{400,-20}},
+      color={0,0,0},
+      pattern=LinePattern.Solid,
+      thickness=5),
+    Text(
+      extent={{-151,-1012},{149,-1052}},
+      textColor={0,0,255},
+      textString="%name"),
+    Bitmap(
+      visible=typValChiWatChiIso<>Buildings.Templates.Components.Types.Valve.None
+        and nChi>=1,
+      extent={{-100,-100},{100,100}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
+      rotation=-90,
+      origin={300,900}),
+    Bitmap(
+      visible=typValChiWatChiIso==Buildings.Templates.Components.Types.Valve.TwoPosition
+      and nChi >= 1,
+      extent={{260,960},{340,1040}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
+    Bitmap(
+      visible=typValChiWatChiIso == Buildings.Templates.Components.Types.Valve.TwoPosition
+        and nChi >= 2,
+      extent={{262,660},{342,740}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
+    Bitmap(
+      visible=typValChiWatChiIso <> Buildings.Templates.Components.Types.Valve.None
+        and nChi >= 2,
+      extent={{-100,-100},{100,100}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
+      rotation=-90,
+      origin={300,600}),
+    Bitmap(
+      visible=typValChiWatChiIso==Buildings.Templates.Components.Types.Valve.TwoPosition
+        and nChi >= 3,
+      extent={{260,360},{340,440}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
+    Bitmap(
+      visible=typValChiWatChiIso<>Buildings.Templates.Components.Types.Valve.None
+        and nChi >= 3,
+      extent={{-100,-100},{100,100}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
+      rotation=-90,
+      origin={300,300}),
+    Bitmap(
+      visible=typValChiWatChiIso<>Buildings.Templates.Components.Types.Valve.None
+        and nChi >= 4,
+      extent={{-100,-100},{100,100}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
+      rotation=-90,
+      origin={300,-20}),
+    Bitmap(
+      visible=typValChiWatChiIso==Buildings.Templates.Components.Types.Valve.TwoPosition
+        and nChi>=4,
+      extent={{260,40},{340,120}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
+    Bitmap(
+      visible=typValChiWatChiIso==Buildings.Templates.Components.Types.Valve.Modulating
+      and nChi >= 1,
+      extent={{260,960},{340,1040}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulating.svg"),
+    Bitmap(
+      visible=typValChiWatChiIso == Buildings.Templates.Components.Types.Valve.Modulating
+        and nChi >= 2,
+      extent={{262,660},{342,740}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulating.svg"),
+    Bitmap(
+      visible=typValChiWatChiIso == Buildings.Templates.Components.Types.Valve.Modulating
+        and nChi >= 3,
+      extent={{260,360},{340,440}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulating.svg"),
+    Bitmap(
+      visible=typValChiWatChiIso==Buildings.Templates.Components.Types.Valve.Modulating
+        and nChi>=4,
+      extent={{260,40},{340,120}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulating.svg"),
+    Rectangle(
+      extent={{180,940},{-180,760}},
+      lineColor={0,0,0},
+      lineThickness=1),
+    Text(
+      extent={{-180,800},{180,760}},
+      textColor={0,0,0},
+      textString="CHI-1"),
+    Rectangle(
+      extent={{180,640},{-180,460}},
+      lineColor={0,0,0},
+      lineThickness=1,
+      visible=nChi >= 2),
+    Text(
+      visible=nChi >= 2,
+      extent={{-180,500},{180,460}},
+      textColor={0,0,0},
+      textString="CHI-2"),
+    Line( visible=nChi >= 2,
+          points={{180,500},{400,500}},
+          color={0,0,0},
+          pattern=LinePattern.Dash,
+          thickness=5),
+    Rectangle(
+      extent={{180,340},{-180,160}},
+      lineColor={0,0,0},
+      lineThickness=1,
+      visible=nChi >= 3),
+    Text(
+      visible=nChi >= 3,
+      extent={{-180,200},{180,160}},
+      textColor={0,0,0},
+      textString="CHI-3"),
+    Line( points={{180,200},{400,200}},
+          color={0,0,0},
+          pattern=LinePattern.Dash,
+          thickness=5,
+          visible=nChi >= 3),
+    Rectangle(
+      visible=nChi >= 4,
+      extent={{180,40},{-180,-140}},
+      lineColor={0,0,0},
+      lineThickness=1),
+    Text(
+      visible=nChi >= 4,
+      extent={{-180,-100},{180,-140}},
+      textColor={0,0,0},
+      textString="CHI-4"),
+    Line( points={{180,-120},{400,-120}},
+          color={0,0,0},
+          pattern=LinePattern.Dash,
+          thickness=5,
+          visible=nChi >= 4),
+        Line(
+          points={{300,960},{300,900}},
+          color={0,0,0},
+          visible=typArrPumChiWatPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
+               and nChi >= 1),
+        Line(
+          points={{300,660},{300,600}},
+          color={0,0,0},
+          visible=typArrPumChiWatPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
+               and nChi >= 2),
+        Line(
+          points={{300,360},{300,300}},
+          color={0,0,0},
+          visible=typArrPumChiWatPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
+               and nChi >= 3),
+        Line(
+          points={{300,40},{300,-20}},
+          color={0,0,0},
+          visible=typArrPumChiWatPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
+               and nChi >= 4)}),
     Documentation(info="<html>
 <p>
 This partial class provides a standard interface for chiller group models.
@@ -310,20 +480,20 @@ models inheriting from this interface.
 </p>
 <ul>
 <li>
-Chiller On/Off command <code>y1Chi</code>: 
+Chiller On/Off command <code>y1Chi</code>:
 DO signal dedicated to each unit, with a dimensionality of one
 </li>
 <li>
-CHW supply temperature setpoint <code>TChiWatSupSet</code>: 
+CHW supply temperature setpoint <code>TChiWatSupSet</code>:
 AO signal common to all units, with a dimensionality of zero
 </li>
 <li>
-Sub-bus <code>chi</code> storing all signals dedicated 
+Sub-bus <code>chi</code> storing all signals dedicated
 to each unit, with a dimensionality of one
 <ul>
 <li>
-At least the chiller status should be available as 
-<code>chi.y1_actual</code>: DI signal dedicated to each unit, 
+At least the chiller status should be available as
+<code>chi.y1_actual</code>: DI signal dedicated to each unit,
 with a dimensionality of one
 </li>
 </ul>

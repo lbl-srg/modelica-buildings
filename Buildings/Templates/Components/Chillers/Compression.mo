@@ -64,7 +64,18 @@ equation
   connect(preConWatReq.y, bus.y1ConWatReq) annotation (Line(points={{62,-40},{
           92,-40},{92,96},{0,96},{0,100}},
                                         color={255,0,255}));
-  annotation(defaultComponentName="chi", Documentation(info="<html>
+  annotation(defaultComponentName="chi",
+  Icon(graphics={
+    Rectangle(
+          extent={{100,60},{-100,-60}},
+          lineColor={0,0,0},
+          lineThickness=1),
+    Text( extent={{-60,20},{60,-20}},
+          textColor={0,0,0},
+          textString="CHI"),
+    Bitmap(extent={{-20,60},{20,100}}, fileName=
+    "modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg")}),
+  Documentation(info="<html>
 <p>
 The chiller request commands to the CHW or CW isolation valves 
 or dedicated pumps (yielded by the chiller built-in controller)
