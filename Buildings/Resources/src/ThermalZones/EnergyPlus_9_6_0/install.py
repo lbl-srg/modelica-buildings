@@ -21,8 +21,8 @@ import shutil
 # List of all spawn versions and commits that are supported
 # by the Buildings library
 spawn_dists = [
-    {"version": "0.3.0",
-     "commit": "0fa49be49715a5acc87f078ba583e369d435cdf9"}
+    {"version": "0.4.3",
+     "commit": "7048a72798"}
 ]
 ###########################################################################
 
