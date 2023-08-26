@@ -133,10 +133,10 @@ model Case960 "Case 900, but with an unconditioned sun-space"
     "Sun space room air temperature"
     annotation (Placement(transformation(extent={{5,-5},{-5,5}},
         rotation=0, origin={107,-11})));
-  Buildings.Controls.OBC.CDL.Continuous.MovingAverage TSunSpaHou(delta=3600)
+  Buildings.Controls.OBC.CDL.Reals.MovingAverage TSunSpaHou(delta=3600)
     "Hourly averaged room air temperature"
     annotation (Placement(transformation(extent={{88,-28},{96,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.MovingAverage TSunSpaAnn(delta=86400*365)
+  Buildings.Controls.OBC.CDL.Reals.MovingAverage TSunSpaAnn(delta=86400*365)
     "Annual averaged room air temperature"
     annotation (Placement(transformation(extent={{88,-40},{96,-32}})));
 equation

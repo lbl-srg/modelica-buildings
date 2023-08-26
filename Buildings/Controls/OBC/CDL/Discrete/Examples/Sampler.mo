@@ -5,13 +5,13 @@ model Sampler
     samplePeriod=0.2)
     "Ideal sampler of a continuous signal"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramp1(
     duration=1,
     offset=0,
     height=6.2831852)
     "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sin sin1
+  Buildings.Controls.OBC.CDL.Reals.Sin sin1
     "Block that outputs the sine of the input"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 

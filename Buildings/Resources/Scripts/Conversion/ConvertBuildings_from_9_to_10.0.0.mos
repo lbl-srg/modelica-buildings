@@ -4,6 +4,11 @@
 clear
 
 convertClear();
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3483
+convertClass("Buildings.Controls.OBC.CDL.Continuous",
+             "Buildings.Controls.OBC.CDL.Reals")
+
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3339
 convertClass("Buildings.Controls.OBC.CDL.Continuous.Sources.Sine",
              "Buildings.Controls.OBC.CDL.Continuous.Sources.Sin");

@@ -147,7 +147,7 @@ model PartialIndirect
     final m_flow_nominal=mBui_flow_nominal)
     "Building supply temperature sensor"
     annotation (Placement(transformation(extent={{-16,-214},{-36,-194}})));
-  Controls.OBC.CDL.Continuous.PID con(
+  Controls.OBC.CDL.Reals.PID con(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,

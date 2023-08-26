@@ -119,16 +119,16 @@ block ControllerG36VAVBox "Guideline 36 controller for VAV terminal unit"
     "Evaluate zone temperature status"
     annotation (Placement(transformation(extent={{0,-120},{20,-92}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooDowWarUpTim(k=3600)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant cooDowWarUpTim(k=3600)
     "RFE: Optimal start (using global OA temperature not associated with any AHU) not implemented"
     annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant setAdj(k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant setAdj(k=0)
     "RFE: Setpoint adjustment by the occupant is not implemented in the template"
     annotation (Placement(transformation(extent={{-160,170},{-140,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooSetAdj(k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant cooSetAdj(k=0)
     "RFE: Setpoint adjustment by the occupant is not implemented in the template"
     annotation (Placement(transformation(extent={{-160,130},{-140,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaSetAdj(k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant heaSetAdj(k=0)
     "RFE: Setpoint adjustment by the occupant is not implemented in the template"
     annotation (Placement(transformation(extent={{-160,90},{-140,110}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant uCooDemLimLev(k=0)

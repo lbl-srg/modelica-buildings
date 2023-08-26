@@ -111,7 +111,7 @@ model HeatPumpGroup
   BaseClasses.MultipleCommands com(final nUni=nUni)
     "Convert command signals"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mulP "Scale power"
+  Buildings.Controls.OBC.CDL.Reals.Multiply mulP "Scale power"
     annotation (Placement(transformation(extent={{70,110},{90,90}})));
   Fluid.HeatPumps.EquationFitReversible heaPum(
     redeclare final package Medium1=Medium,
@@ -148,13 +148,13 @@ model HeatPumpGroup
     final nPorts=1)
     "Air flow sink"
     annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter comFan(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter comFan(
     final k=mAirUni_flow_nominal)
     "Convert On/Off command to air flow setpoint"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={46,30})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mulP1 "Scale power"
+  Buildings.Controls.OBC.CDL.Reals.Multiply mulP1 "Scale power"
     annotation (Placement(transformation(extent={{70,70},{90,50}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre preY1[nUni]
@@ -165,12 +165,12 @@ model HeatPumpGroup
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,80})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply inp
+  Buildings.Controls.OBC.CDL.Reals.Multiply inp
     "Compute pump input signal" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-40,30})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cst(final k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant cst(final k=1)
     "Constant"
     annotation (Placement(transformation(extent={{-90,50},{-70,70}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt

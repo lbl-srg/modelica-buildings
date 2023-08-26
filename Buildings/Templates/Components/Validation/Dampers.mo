@@ -25,7 +25,7 @@ model Dampers "Validation model for damper components"
     "Control bus"
     annotation (Placement(transformation(extent={{-20,60},{20,100}}),
         iconTransformation(extent={{-250,-32},{-210,8}})));
-  Controls.OBC.CDL.Continuous.Sources.Ramp y(height=1,
+  Controls.OBC.CDL.Reals.Sources.Ramp y(height=1,
     duration=10) "Damper control signal"
     annotation (Placement(transformation(extent={{-90,90},{-70,110}})));
 

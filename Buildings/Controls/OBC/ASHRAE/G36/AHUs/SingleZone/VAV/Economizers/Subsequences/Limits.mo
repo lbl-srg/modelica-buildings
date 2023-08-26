@@ -112,63 +112,63 @@ block Limits "Single zone VAV AHU minimum outdoor air control - damper position 
         iconTransformation(extent={{100,40},{140,80}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFanMinSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yFanMinSig(
     final k=supFanSpe_min) "Minimum supply fan speed"
     annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPhyPosMinSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant outDamPhyPosMinSig(
     final k=outDamPhy_min)
     "Physically fixed minimum position of the outdoor air damper"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPhyPosMaxSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant outDamPhyPosMaxSig(
     final k=outDamPhy_max)
     "Physically fixed maximum position of the outdoor air damper"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFanMaxSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yFanMaxSig(
     final k=supFanSpe_max) "Maximum supply fan speed"
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDam_VOutMin_minSpeSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yDam_VOutMin_minSpeSig(
     final k=outDamMinFloMinSpe)
     "OA damper position to supply minimum outdoor airflow at minimum fan speed"
     annotation (Placement(transformation(extent={{-140,120},{-120,140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDam_VOutDes_minSpeSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yDam_VOutDes_minSpeSig(
     final k=outDamDesFloMinSpe)
     "OA damper position to supply design outdoor airflow at minimum fan speed"
     annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDam_VOutMin_maxSpeSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yDam_VOutMin_maxSpeSig(
     final k=outDamMinFloMaxSpe)
     "OA damper position to supply minimum outdoor airflow at maximum fan speed"
     annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDam_VOutDes_maxSpeSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yDam_VOutDes_maxSpeSig(
     final k=outDamDesFloMaxSpe)
     "OA damper position to supply design outdoor airflow at maximum fan speed"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minVOutSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minVOutSig(
     final k=VOutMin_flow) "Minimum outdoor airflow rate"
     annotation (Placement(transformation(extent={{20,170},{40,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant desVOutSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant desVOutSig(
     final k=VOutDes_flow) "Design outdoor airflow rate"
     annotation (Placement(transformation(extent={{40,90},{60,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line yDam_VOutMin_curSpe(
+  Buildings.Controls.OBC.CDL.Reals.Line yDam_VOutMin_curSpe(
     final limitBelow=true,
     final limitAbove=true)
     "Calculates OA damper position required to supply minimum outdoor airflow at current fan speed"
     annotation (Placement(transformation(extent={{40,130},{60,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line yDam_VOutDes_curSpe(
+  Buildings.Controls.OBC.CDL.Reals.Line yDam_VOutDes_curSpe(
     final limitBelow=true,
     final limitAbove=true)
     "Calculates OA damper position required to supply design outdoor airflow at current fan speed"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line minVOutSetCurFanSpePos(
+  Buildings.Controls.OBC.CDL.Reals.Line minVOutSetCurFanSpePos(
     final limitBelow=true,
     final limitAbove=true)
     "Calculates OA damper position required to supply minimum outdoor airflow setpoint at current fan speed"
     annotation (Placement(transformation(extent={{100,110},{120,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch enaDis
+  Buildings.Controls.OBC.CDL.Reals.Switch enaDis
     "Logical switch to enable damper position limit calculation or disable it (set min limit to physical minimum)"
     annotation (Placement(transformation(extent={{80,-120},{100,-100}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not block"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch enaDis1
+  Buildings.Controls.OBC.CDL.Reals.Switch enaDis1
     "Logical switch to enable damper position limit calculation or disable it (set max limit to physical minimum)"
     annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
@@ -186,14 +186,14 @@ protected
     annotation (Placement(transformation(extent={{-100,-140},{-80,-120}})));
   Buildings.Controls.OBC.CDL.Logical.And3 and3 "Logical and"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch enaDis2
+  Buildings.Controls.OBC.CDL.Reals.Switch enaDis2
     "Zero minimum damper position when the min OA is near zero"
     annotation (Placement(transformation(extent={{120,-170},{140,-150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(
     final k=0)
     "Zero minimum damper position"
     annotation (Placement(transformation(extent={{80,-200},{100,-180}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold noZerMin(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold noZerMin(
     final t=floHys,
     final h=0.5*floHys) "Check if the min OA is greater than zero"
     annotation (Placement(transformation(extent={{20,-170},{40,-150}})));

@@ -63,13 +63,13 @@ model Chiller
     final reverseActing=false)
     "Condenser three-way valve control"
     annotation (Placement(transformation(extent={{50,-70},{70,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTEvaWatEnt(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxTEvaWatEnt(
     y(final unit="K",
       displayUnit="degC"),
     final k=TEvaWatEntMax)
     "Maximum value of evaporator water entering temperature"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTConWatEnt(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minTConWatEnt(
     y(final unit="K",
       displayUnit="degC"),
     final k=TConWatEntMin)

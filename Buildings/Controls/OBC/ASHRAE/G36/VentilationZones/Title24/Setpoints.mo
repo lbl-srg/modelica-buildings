@@ -98,50 +98,50 @@ block Setpoints
         iconTransformation(extent={{100,-110},{140,-70}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=0.25) "Gain factor"
     annotation (Placement(transformation(extent={{-100,220},{-80,240}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max max1
+  Buildings.Controls.OBC.CDL.Reals.Max max1
     "Find the larger input value"
     annotation (Placement(transformation(extent={{-180,80},{-160,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zonOccOAMin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zonOccOAMin(
     final k=VOccMin_flow)
     "Zone minimum outdoor airflow for occupants"
     annotation (Placement(transformation(extent={{-280,320},{-260,340}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zonAreOAMin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zonAreOAMin(
     final k=VAreMin_flow)
     "Zone minimum outdoor airflow for building area"
     annotation (Placement(transformation(extent={{-280,270},{-260,290}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch zonAbsMin
+  Buildings.Controls.OBC.CDL.Reals.Switch zonAbsMin
     "Zone absolute outdoor air minimum flow"
     annotation (Placement(transformation(extent={{40,240},{60,260}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer1(
     final k=0)
     "Constant zero"
     annotation (Placement(transformation(extent={{-100,270},{-80,290}})));
   Buildings.Controls.OBC.CDL.Logical.Not notOcc
     "Not occupied"
     annotation (Placement(transformation(extent={{-180,200},{-160,220}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch zonAbsMin1
+  Buildings.Controls.OBC.CDL.Reals.Switch zonAbsMin1
     "Zone absolute outdoor air minimum flow"
     annotation (Placement(transformation(extent={{-20,200},{0,220}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant havCO2Sen(
     final k=have_CO2Sen)
     "Check if the zone has CO2 sensor"
     annotation (Placement(transformation(extent={{-260,160},{-240,180}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch zonAbsMin2
+  Buildings.Controls.OBC.CDL.Reals.Switch zonAbsMin2
     "Zone absolute outdoor air minimum flow"
     annotation (Placement(transformation(extent={{-80,160},{-60,180}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch zonDesMin
+  Buildings.Controls.OBC.CDL.Reals.Switch zonDesMin
     "Zone design outdoor air minimum flow"
     annotation (Placement(transformation(extent={{40,120},{60,140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch zonDesMin1
+  Buildings.Controls.OBC.CDL.Reals.Switch zonDesMin1
     "Zone design outdoor air minimum flow"
     annotation (Placement(transformation(extent={{-20,100},{0,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch zonOccMin if not have_SZVAV
+  Buildings.Controls.OBC.CDL.Reals.Switch zonOccMin if not have_SZVAV
     "Zone occupied minimum flow"
     annotation (Placement(transformation(extent={{240,50},{260,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch zonOccMin1 if not have_SZVAV
+  Buildings.Controls.OBC.CDL.Reals.Switch zonOccMin1 if not have_SZVAV
     "Zone occupied minimum flow"
     annotation (Placement(transformation(extent={{180,30},{200,50}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant occMod(
@@ -152,39 +152,39 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal inOccMod if have_CO2Sen
     "Check if it is in occupied mode"
     annotation (Placement(transformation(extent={{-220,10},{-200,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(final p=-200)
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(final p=-200)
     if have_CO2Sen
     "Lower threshold of CO2 setpoint"
     annotation (Placement(transformation(extent={{-220,-60},{-200,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line lin if have_CO2Sen
+  Buildings.Controls.OBC.CDL.Reals.Line lin if have_CO2Sen
     "CO2 control loop"
     annotation (Placement(transformation(extent={{-160,-80},{-140,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(final k=0)
     "Constant zero"
     annotation (Placement(transformation(extent={{-280,-110},{-260,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(final k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one(final k=1)
     "Constant one"
     annotation (Placement(transformation(extent={{-220,-110},{-200,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply co2Con if have_CO2Sen
+  Buildings.Controls.OBC.CDL.Reals.Multiply co2Con if have_CO2Sen
     "Corrected CO2 control loop output"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea if have_CO2Sen
     "Convert boolean to real"
     annotation (Placement(transformation(extent={{-160,10},{-140,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line zonOccMin2
+  Buildings.Controls.OBC.CDL.Reals.Line zonOccMin2
     if have_CO2Sen and have_typTerUni
     "Zone occupied minimum flow when the system has typical terminal units"
     annotation (Placement(transformation(extent={{120,-150},{140,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zonMinFlo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zonMinFlo(
     final k=VMin_flow)
     "Zone minimum airflow"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zonCooMaxFlo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zonCooMaxFlo(
     final k=VCooMax_flow)
     if have_CO2Sen and (have_typTerUni or have_parFanPowUni)
     "Zone cooling maximum airflow"
     annotation (Placement(transformation(extent={{-280,-158},{-260,-138}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hal(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant hal(
     final k=0.5)
     if have_CO2Sen and (have_typTerUni or have_parFanPowUni) "Constant value"
     annotation (Placement(transformation(extent={{-160,-110},{-140,-90}})));
@@ -197,19 +197,19 @@ protected
     if have_CO2Sen and have_parFanPowUni
     "Check if it is in cooling state"
     annotation (Placement(transformation(extent={{-220,-220},{-200,-200}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract difCooMax
+  Buildings.Controls.OBC.CDL.Reals.Subtract difCooMax
     if have_CO2Sen and have_parFanPowUni
     "Maximum cooling airflw set point minus parallel fan airflow"
     annotation (Placement(transformation(extent={{-220,-260},{-200,-240}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch maxFloCO2
+  Buildings.Controls.OBC.CDL.Reals.Switch maxFloCO2
     if have_CO2Sen and have_parFanPowUni
     "Maximum airflow set point for CO2"
     annotation (Placement(transformation(extent={{-160,-220},{-140,-200}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line zonOccMin3
+  Buildings.Controls.OBC.CDL.Reals.Line zonOccMin3
     if have_CO2Sen and have_parFanPowUni
     "Zone occupied minimum flow when the system has parallel fan-powered terminal unit"
     annotation (Placement(transformation(extent={{120,-200},{140,-180}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line zonOccMin4 if have_SZVAV
+  Buildings.Controls.OBC.CDL.Reals.Line zonOccMin4 if have_SZVAV
     "Zone minimum outdoor flow when it is the single zone VAV system"
     annotation (Placement(transformation(extent={{120,-310},{140,-290}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
@@ -221,15 +221,15 @@ protected
     final k=true)
     if not have_occSen "Constant true"
     annotation (Placement(transformation(extent={{-280,220},{-260,240}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(
     final k=1)
     if not have_CO2Sen
     "Dummy gain for conditional input"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one2(final k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one2(final k=1)
     if not have_CO2Sen "Constant one"
     annotation (Placement(transformation(extent={{-80,-270},{-60,-250}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer3(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer3(final k=0)
     if not have_CO2Sen
     "Constant zero"
     annotation (Placement(transformation(extent={{200,-90},{220,-70}})));

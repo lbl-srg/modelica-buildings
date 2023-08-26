@@ -39,7 +39,7 @@ block TimeSuppression
     annotation (Placement(transformation(extent={{180,-120},{220,-80}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Min supTim
+  Buildings.Controls.OBC.CDL.Reals.Min supTim
     "Calculated suppression time due to the setpoint change"
     annotation (Placement(transformation(extent={{80,0},{100,20}})));
 
@@ -52,7 +52,7 @@ protected
     final samplePeriod=samplePeriod)
     "Delay value to record input value"
     annotation (Placement(transformation(extent={{-80,160},{-60,180}})));
-  Buildings.Controls.OBC.CDL.Continuous.Abs abs1
+  Buildings.Controls.OBC.CDL.Reals.Abs abs1
     "Absolute change of the setpoint temperature"
     annotation (Placement(transformation(extent={{100,100},{120,120}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam
@@ -70,40 +70,40 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Timer tim
     "Time when the setpoint is being changed"
     annotation (Placement(transformation(extent={{-40,-160},{-20,-140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater gre1
+  Buildings.Controls.OBC.CDL.Reals.Greater gre1
     "Check if current model time is greater than the initial period equaling the sample time"
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     final t=dTHys,
     final h=0.5*dTHys)
     "Check if there is setpoint change"
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.ModelTime modTim
+  Buildings.Controls.OBC.CDL.Reals.Sources.ModelTime modTim
     "Time of the model"
     annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=chaRat)
     "Setpoint change rate"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1
     "Calculate difference of previous and current setpoints"
     annotation (Placement(transformation(extent={{-20,130},{0,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
     final k=samplePeriod)
     "Sample period time"
     annotation (Placement(transformation(extent={{-140,70},{-120,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conZer(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conZer(
     final k=0)
     "Constant zero"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxSupTim(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxSupTim(
     final k=maxTim) "Maximum suppression time "
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con5(
     final k=true)
     "Constant true"
     annotation (Placement(transformation(extent={{80,-130},{100,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Use setpoint different value when sample period time has passed"
     annotation (Placement(transformation(extent={{40,100},{60,120}})));
   Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol(
@@ -113,16 +113,16 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Switch pasSupTim
     "Check if suppression time has passed"
     annotation (Placement(transformation(extent={{140,-110},{160,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater pasSup
+  Buildings.Controls.OBC.CDL.Reals.Greater pasSup
     "Check if the change has been suppressed by sufficient time"
     annotation (Placement(transformation(extent={{20,-160},{40,-140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract temDif
+  Buildings.Controls.OBC.CDL.Reals.Subtract temDif
     "Difference between setpoint and zone temperature"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam1
     "Zone temperature at the moment when there is setpoint change"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Abs abs2
+  Buildings.Controls.OBC.CDL.Reals.Abs abs2
     "Absolute temperature difference"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 

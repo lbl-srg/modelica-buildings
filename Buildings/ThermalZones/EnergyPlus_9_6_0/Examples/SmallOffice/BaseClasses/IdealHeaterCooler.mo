@@ -38,7 +38,7 @@ model IdealHeaterCooler
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b heaPor
     "Heat port"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID conPID(
+  Buildings.Controls.OBC.CDL.Reals.PID conPID(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
@@ -48,7 +48,7 @@ model IdealHeaterCooler
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=Q_flow_nominal) "Gain for heat flow rate"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 

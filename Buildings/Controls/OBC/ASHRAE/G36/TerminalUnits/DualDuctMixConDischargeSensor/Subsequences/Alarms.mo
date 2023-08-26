@@ -78,11 +78,11 @@ block Alarms
     annotation (Placement(transformation(extent={{240,-200},{280,-160}}),
         iconTransformation(extent={{100,-100},{140,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=0.5)
     "Percentage of the setpoint"
     annotation (Placement(transformation(extent={{-180,170},{-160,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Less les(
+  Buildings.Controls.OBC.CDL.Reals.Less les(
     final h=floHys)
     "Check if measured airflow is less than threshold"
     annotation (Placement(transformation(extent={{-120,200},{-100,220}})));
@@ -90,16 +90,16 @@ block Alarms
     final delayTime=lowFloTim)
     "Check if the measured airflow has been less than threshold value for threshold time"
     annotation (Placement(transformation(extent={{-80,200},{-60,220}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     final t=floHys,
     final h=0.5*floHys)
     "Check if setpoint airflow is greater than zero"
     annotation (Placement(transformation(extent={{-180,120},{-160,140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater gre(
+  Buildings.Controls.OBC.CDL.Reals.Greater gre(
     final h=floHys)
     "Check if measured airflow is less than threshold"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(
     final k=0.7)
     "Percentage of the setpoint"
     annotation (Placement(transformation(extent={{-180,90},{-160,110}})));
@@ -124,11 +124,11 @@ block Alarms
     final integerTrue=3)
     "Convert boolean true to level 3 alarm"
     annotation (Placement(transformation(extent={{80,120},{100,140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conInt1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conInt1(
     final k=staPreMul)
     "Importance multiplier for zone static pressure reset"
     annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr1
     "Check if the multiplier is greater than zero"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1
@@ -157,24 +157,24 @@ block Alarms
     final message="Warning: airflow is less than 70% of the setpoint.")
     "Level 3 low airflow alarm"
     annotation (Placement(transformation(extent={{100,80},{120,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold cloDam(
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold cloDam(
     final t=damPosHys,
     final h=0.5*damPosHys) "Check if damper position is near zero"
     annotation (Placement(transformation(extent={{-200,-220},{-180,-200}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold cloDam1(
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold cloDam1(
     final t=damPosHys,
     final h=0.5*damPosHys)
     "Check if damper position is near zero"
     annotation (Placement(transformation(extent={{-200,-260},{-180,-240}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooMaxFlo1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant cooMaxFlo1(
     final k=VCooMax_flow)
     "Cooling maximum airflow setpoint"
     annotation (Placement(transformation(extent={{-180,-60},{-160,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai4(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai4(
     final k=0.1)
     "Percentage of the setpoint"
     annotation (Placement(transformation(extent={{-140,-60},{-120,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater gre3(
+  Buildings.Controls.OBC.CDL.Reals.Greater gre3(
     final h=floHys)
     "Check if measured airflow is greater than threshold"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));

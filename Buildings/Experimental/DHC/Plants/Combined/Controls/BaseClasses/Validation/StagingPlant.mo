@@ -43,7 +43,7 @@ model StagingPlant "Validation of plant staging block"
     QChiWatCasCoo_flow_nominal_approx=QChiWatCasCoo_flow_nominal,
     final QHeaWat_flow_nominal=QHeaWat_flow_nominal) "Chiller staging block"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable ratFlo(table=[0,0,0; 1,
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable ratFlo(table=[0,0,0; 1,
         0,0; 4,0.3,0.1; 5,1,0.1; 10,0.1,0.1; 13,1,0.3; 16,0.3,1;20,0.1,0.1; 24,0.1,0.3; 25,
         0.1,1; 30,0,0],
     timeScale=1000) "Source signal"
@@ -51,25 +51,25 @@ model StagingPlant "Validation of plant staging block"
   Modelica.Blocks.Sources.BooleanExpression u1(y=time > 0)
     "Enable signal"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatSupSet(k=7 + 273.15)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatSupSet(k=7 + 273.15)
     "Source signal"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatPriRet(k=12 + 273.15)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatPriRet(k=12 + 273.15)
     "Source signal"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSupSet(k=60 + 273.15)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupSet(k=60 + 273.15)
     "Source signal"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatPriRet(k=50 + 273.15)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatPriRet(k=50 + 273.15)
     "Source signal"
     annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter sca(final k=
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter sca(final k=
         mChiWat_flow_nominal) "Scale signal"
     annotation (Placement(transformation(extent={{12,30},{32,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter sca1(final k=
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter sca1(final k=
         mHeaWat_flow_nominal) "Scale signal"
     annotation (Placement(transformation(extent={{12,-10},{32,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpSet(k=20E4)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dpSet(k=20E4)
     "Source signal"
     annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
 equation

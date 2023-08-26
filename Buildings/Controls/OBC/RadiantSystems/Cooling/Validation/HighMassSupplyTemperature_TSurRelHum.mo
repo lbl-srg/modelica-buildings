@@ -27,7 +27,7 @@ model HighMassSupplyTemperature_TSurRelHum
 
   CDL.Psychrometrics.DewPoint_TDryBulPhi dewPoi "Dew point temperature"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
-  CDL.Continuous.Sources.Ramp     TSur(
+  CDL.Reals.Sources.Ramp     TSur(
     height=1,
     duration=1800,
     offset=293.15)                  "Measured surface temperature"
