@@ -18,13 +18,14 @@ def main():
     "WEST ZONE DEHUMIDIFIER:Zone Dehumidifier Removed Water Mass Flow Rate [kg/s](TimeStep)",#10
     "WEST ZONE DEHUMIDIFIER:Zone Dehumidifier Electricity Rate [W](TimeStep)",#11
     "ZONE1DEHUMIDIFIERINLET:System Node Mass Flow Rate [kg/s](TimeStep)",#19
+    "Environment:Site Outdoor Air Drybulb Temperature [C](TimeStep)"
     ]
 
     e.energyplus_csv_to_mos(
     output_list = output_list,
     dat_file_name=dat_fil,
     step_size=60,
-    final_time=2419200)
+    final_time=15638400)
 
 if __name__ == '__main__':
     main()
