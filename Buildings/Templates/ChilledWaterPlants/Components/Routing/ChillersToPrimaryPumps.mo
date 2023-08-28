@@ -138,7 +138,8 @@ model ChillersToPrimaryPumps
     final m_flow_nominal=mChiWatPri_flow_nominal,
     final energyDynamics=energyDynamics,
     final tau=tau,
-    final have_comLeg=typArrPumChiWatPri == Buildings.Templates.Components.Types.PumpArrangement.Headered)
+    final have_comLeg=typArrPumChiWatPri == Buildings.Templates.Components.Types.PumpArrangement.Headered,
+    icon_dy=0)
     if typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel
     "Hydronic routing  - Supply side - Parallel arrangement"
     annotation (Placement(transformation(extent={{-10,110},{10,130}})));
@@ -150,7 +151,8 @@ model ChillersToPrimaryPumps
     final nPorts=nChi,
     final m_flow_nominal=mChiWatPri_flow_nominal,
     final energyDynamics=energyDynamics,
-    final tau=tau)
+    final tau=tau,
+    icon_dy=0)
     if typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel
     "Hydronic routing to chiller return - Parallel arrangement"
     annotation (Placement(transformation(extent={{10,-110},{-10,-90}})));
@@ -168,7 +170,8 @@ model ChillersToPrimaryPumps
     final nPorts=nPumChiWatPri,
     final m_flow_nominal=mChiWatPri_flow_nominal,
     final energyDynamics=energyDynamics,
-    final tau=tau)
+    final tau=tau,
+    icon_dy=0)
     if typArrChi==Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Series
     "Hydronic routing  - Supply side - Series arrangement"
     annotation (Placement(transformation(extent={{-10,130},{10,150}})));
@@ -342,8 +345,67 @@ annotation (
           extent={{-149,-1314},{151,-1354}},
           textColor={0,0,255},
           textString="%name"),
-        Rectangle(extent={{-200,-1300},{200,1300}},
-            lineColor={28,108,200})}),
+    Bitmap(
+      visible=have_valChiWatChiBypSer and nChi>=1,
+      extent={{-100,-100},{100,100}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
+      rotation=360,
+      origin={-200,1140}),
+    Bitmap(
+      visible=have_valChiWatChiBypSer and nChi >= 1,
+      extent={{-140,1102},{-60,1182}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
+    Bitmap(
+      visible=have_valChiWatChiBypSer and nChi >= 2,
+      extent={{-140,780},{-60,860}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
+    Bitmap(
+      visible=have_valChiWatChiBypSer and nChi >= 2,
+      extent={{-100,-100},{100,100}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
+      rotation=360,
+      origin={-200,820}),
+    Bitmap(
+      visible=have_valChiWatChiBypSer and nChi >= 3,
+      extent={{-140,460},{-60,540}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
+    Bitmap(
+      visible=have_valChiWatChiBypSer and nChi >= 3,
+      extent={{-100,-100},{100,100}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
+      rotation=360,
+      origin={-200,500}),
+    Bitmap(
+      visible=have_valChiWatChiBypSer and nChi >= 4,
+      extent={{-100,-100},{100,100}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
+      rotation=360,
+      origin={-200,180}),
+    Bitmap(
+      visible=have_valChiWatChiBypSer and nChi>=4,
+      extent={{-140,140},{-60,220}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
+    Line(
+      visible=have_valChiWatChiBypSer and nChi>=1,
+      points={{-200,1140},{-140,1140}}, color={0,0,0}),
+    Line(
+      visible=have_valChiWatChiBypSer and nChi>=2,
+      points={{-200,820},{-140,820}}, color={0,0,0}),
+    Line(
+      visible=have_valChiWatChiBypSer and nChi>=3,
+      points={{-200,500},{-140,500}}, color={0,0,0}),
+    Line(
+      visible=have_valChiWatChiBypSer and nChi>=4,
+      points={{-200,180},{-140,180}}, color={0,0,0}),
+        Line(
+          points={{-200,1200},{200,1200}},
+          color={0,0,0},
+          thickness=5),
+        Line(
+          points={{-200,-1200},{200,-1200}},
+          color={0,0,0},
+          thickness=5,
+          pattern=LinePattern.Dash)}),
  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-200},{200,200}})),
     Documentation(info="<html>
 <p>
@@ -362,10 +424,10 @@ assumed to be on the CHW supply side),
 the CHW return pipe, and
 </li>
 <li>
-the optional bypass (common leg for primary-secondary systems 
+the optional bypass (common leg for primary-secondary systems
 and bypass with modulating valve for variable primary-only systems).
 </li>
-</ul> 
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>

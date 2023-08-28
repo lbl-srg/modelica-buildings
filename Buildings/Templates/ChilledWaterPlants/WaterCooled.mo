@@ -90,15 +90,16 @@ equation
   connect(inlPumConWat.ports_b, pumConWat.ports_a)
     annotation (Line(points={{-120,-180},{-120,-180}}, color={0,127,255}));
   connect(busWea, coo.busWea) annotation (Line(
-      points={{-1.11022e-15,280},{0,280},{0,260},{-200,260},{-200,40},{-198,40}},
+      points={{0,280},{0,256},{-16,256},{-16,160},{-32,160},{-32,52},{-198,52},
+          {-198,40}},
       color={255,204,51},
       thickness=0.5));
   connect(inlPumConWat.port_a, bouConWat.ports[1])
     annotation (Line(points={{-140,-180},{-140,-210}}, color={0,127,255}));
   connect(pumConWat.ports_b, inlConChi.ports_a)
-    annotation (Line(points={{-100,-180},{-120,-180}}, color={0,127,255}));
+    annotation (Line(points={{-100,-180},{-160,-180}}, color={0,127,255}));
   connect(outConChi.port_b, TConWatSup.port_b)
-    annotation (Line(points={{-110,0},{-130,0}}, color={0,0,0},
+    annotation (Line(points={{-120,0},{-130,0}}, color={0,0,0},
       thickness=0.5,
       pattern=LinePattern.Dash));
   connect(TConWatSup.port_a, coo.port_a)
@@ -106,7 +107,7 @@ equation
       thickness=0.5,
       pattern=LinePattern.Dash));
   connect(coo.port_b, TConWatRet.port_b) annotation (Line(points={{-230,0},{
-          -280,0},{-280,-180},{-210,-180}},
+          -278,0},{-278,-180},{-210,-180}},
                                        color={0,0,0},
       thickness=0.5));
   connect(TConWatRet.port_a, inlPumConWat.port_a)
