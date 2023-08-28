@@ -55,26 +55,22 @@ model WaterCooled "Water-cooled chiller plant"
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-140,-220})));
-  Buildings.Templates.Components.Sensors.Temperature TConWatSup(
+  Buildings.Templates.Components.Sensors.Temperature TConWatRet(
     redeclare final package Medium = MediumCon,
-    final have_sen=
-      ctl.typCtlFanCoo==Buildings.Templates.ChilledWaterPlants.Types.CoolerFanSpeedControl.SupplyTemperature
-      or ctl.typCtlFanCoo==Buildings.Templates.ChilledWaterPlants.Types.CoolerFanSpeedControl.ReturnTemperature
-      and not ctl.is_clsCpl,
     final m_flow_nominal=mCon_flow_nominal,
-    final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
-    "CW supply temperature (from coolers)"
-    annotation (Placement(transformation(
+    final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
+    icon_pipe=Buildings.Templates.Components.Types.IconPipe.Return)
+    "CW return temperature (from chillers to coolers)" annotation (Placement(
+        transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-140,0})));
-  Buildings.Templates.Components.Sensors.Temperature TConWatRet(
+  Buildings.Templates.Components.Sensors.Temperature TConWatSup(
     redeclare final package Medium = MediumCon,
-    final have_sen=ctl.typCtlFanCoo
-                      ==Buildings.Templates.ChilledWaterPlants.Types.CoolerFanSpeedControl.ReturnTemperature,
     final m_flow_nominal=mCon_flow_nominal,
-    final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
-    "CW return temperature (to coolers)"
+    final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
+    icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply)
+    "CW supply temperature (from coolers to chillers)"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
@@ -84,8 +80,8 @@ equation
   /* Control point connection - start */
   connect(bus, coo.bus);
   connect(bus.pumConWat, pumConWat.bus);
-  connect(TConWatSup.y, bus.TConWatSup);
-  connect(TConWatRet.y, bus.TConWatRet);
+  connect(TConWatRet.y, bus.TConWatSup);
+  connect(TConWatSup.y, bus.TConWatRet);
   /* Control point connection - stop */
   connect(inlPumConWat.ports_b, pumConWat.ports_a)
     annotation (Line(points={{-120,-180},{-120,-180}}, color={0,127,255}));
@@ -98,19 +94,21 @@ equation
     annotation (Line(points={{-140,-180},{-140,-210}}, color={0,127,255}));
   connect(pumConWat.ports_b, inlConChi.ports_a)
     annotation (Line(points={{-100,-180},{-160,-180}}, color={0,127,255}));
-  connect(outConChi.port_b, TConWatSup.port_b)
-    annotation (Line(points={{-120,0},{-130,0}}, color={0,0,0},
+  connect(outConChi.port_b, TConWatRet.port_b) annotation (Line(
+      points={{-120,0},{-130,0}},
+      color={0,0,0},
       thickness=0.5,
       pattern=LinePattern.Dash));
-  connect(TConWatSup.port_a, coo.port_a)
-    annotation (Line(points={{-150,0},{-210,0}}, color={0,0,0},
+  connect(TConWatRet.port_a, coo.port_a) annotation (Line(
+      points={{-150,0},{-210,0}},
+      color={0,0,0},
       thickness=0.5,
       pattern=LinePattern.Dash));
-  connect(coo.port_b, TConWatRet.port_b) annotation (Line(points={{-230,0},{
+  connect(coo.port_b,TConWatSup. port_b) annotation (Line(points={{-230,0},{
           -278,0},{-278,-180},{-210,-180}},
                                        color={0,0,0},
       thickness=0.5));
-  connect(TConWatRet.port_a, inlPumConWat.port_a)
+  connect(TConWatSup.port_a, inlPumConWat.port_a)
     annotation (Line(points={{-190,-180},{-140,-180}}, color={0,0,0},
       thickness=0.5));
   annotation (Documentation(info="<html>
