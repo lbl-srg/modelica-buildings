@@ -96,9 +96,9 @@ model ChillersToPrimaryPumps
     redeclare final package Medium = MediumChiWat,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=MediumChiWat.h_default, nominal=MediumChiWat.h_default))
-    "CHW supply from minimum flow bypass or common leg"    annotation (
-      Placement(transformation(extent={{190,-10},{210,10}}),iconTransformation(
-          extent={{190,-810},{210,-790}})));
+    "CHW supply from minimum flow bypass or common leg"    annotation (Placement(
+        transformation(extent={{190,-10},{210,10}}), iconTransformation(extent={{-210,
+            -870},{-190,-850}})));
   Modelica.Fluid.Interfaces.FluidPorts_a ports_aSup[nPorts](
     redeclare each final package Medium = MediumChiWat,
     each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
@@ -336,14 +336,17 @@ equation
           {140,-100},{130,-100}}, color={0,127,255}));
   connect(VChiWatPri_flow.port_b,TChiWatPlaRet. port_a)
     annotation (Line(points={{110,-100},{90,-100}}, color={0,127,255}));
+
 annotation (
   defaultComponentName="int",
   Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-200,-1300},{200,1300}}),
     graphics={
-    Line(
-          visible=typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel,
-
+    Line( visible=typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Series,
+          points={{-200,1200},{-200,1080}},
+          color={0,0,0},
+          thickness=5),
+    Line( visible=typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel,
           points={{-200,1080},{-200,-1200}},
           color={0,0,0},
           thickness=5,
@@ -439,35 +442,101 @@ annotation (
     Line( visible=have_valChiWatChiBypSer and nChi >= 6,
           points={{-200,-460},{-140,-460}},
           color={0,0,0}),
-    Line(
-      visible=typArrChi==Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel and nChi>=2,
-      points={{-200,880},{200,880}},
-      color={0,0,0},
-      thickness=5),
-    Line(
-          visible=typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel
+    Line( visible=typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel
+               and nChi >= 2,
+          points={{-200,880},{200,880}},
+          color={0,0,0},
+          thickness=5),
+    Line( visible=typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel
                and nChi >= 3,
           points={{-200,560},{200,560}},
           color={0,0,0},
           thickness=5),
-    Line(
-          visible=typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel
+    Line( visible=typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel
                and nChi >= 4,
           points={{-200,240},{200,240}},
           color={0,0,0},
           thickness=5),
-    Line(
-          visible=typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel
+    Line( visible=typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel
                and nChi >= 5,
           points={{-200,-80},{200,-80}},
           color={0,0,0},
           thickness=5),
-    Line(
-          visible=typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel
+    Line( visible=typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel
                and nChi >= 6,
           points={{-200,-400},{200,-400}},
           color={0,0,0},
-          thickness=5)}),
+          thickness=5),
+    Line( visible=typArrChi==Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel and
+          typArrPumChiWatPri==Buildings.Templates.Components.Types.PumpArrangement.Headered,
+          points={{100,1200},{100,1200 - (nChi - 1)*320}},
+          color={0,0,0},
+          thickness=5),
+    Line(
+      visible=have_valChiWatChiBypPar,
+      points={{-200,1040},{200,1040}},
+      color={0,0,0},
+      thickness=5),
+    Bitmap(
+      visible=have_valChiWatChiBypPar,
+      extent={{-100,-100},{100,100}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
+      rotation=-90,
+      origin={0,1040}),
+    Line(
+      visible=have_valChiWatChiBypPar,
+      points={{-30,0},{30,0}}, color={0,0,0},
+      origin={0,1010},
+      rotation=-90),
+    Bitmap(
+      visible=have_valChiWatChiBypPar,
+      extent={{-40,900},{40,980}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
+    Bitmap(
+      extent={{-40,-980},{40,-900}},
+      visible=typEco<>Buildings.Templates.ChilledWaterPlants.Types.Economizer.None,
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/Temperature.svg"),
+    Bitmap(extent={{-100,-100},{100,100}},
+      visible=typEco<>Buildings.Templates.ChilledWaterPlants.Types.Economizer.None,
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/ProbeInWell.svg",
+          origin={-140,-940},
+          rotation=-90),
+    Bitmap(
+          extent={{-100,-100},{100,100}},
+          visible=have_senTChiWatPlaRet,
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/ProbeInWell.svg",
+          origin={-140,-600},
+          rotation=-90),
+    Bitmap(
+          extent={{-40,-640},{40,-560}},
+          visible=have_senTChiWatPlaRet,
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/Temperature.svg"),
+    Bitmap(
+          extent={{-100,-100},{100,100}},
+          visible=typEco <> Buildings.Templates.ChilledWaterPlants.Types.Economizer.None,
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/ProbeInWell.svg",
+          origin={120,-1140},
+          rotation=360),
+    Bitmap(
+          extent={{80,-1040},{160,-960}},
+          visible=typEco <> Buildings.Templates.ChilledWaterPlants.Types.Economizer.None,
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/Temperature.svg"),
+    Bitmap(
+          extent={{-100,-100},{100,100}},
+          visible=have_senVChiWatPri and
+      locSenFloChiWatPri==Buildings.Templates.ChilledWaterPlants.Types.SensorLocation.Return,
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRateFlowMeter.svg",
+          origin={-200,-750},
+          rotation=-90),
+    Bitmap(
+          extent={{-40,-790},{40,-710}},
+          visible=have_senVChiWatPri and
+      locSenFloChiWatPri==Buildings.Templates.ChilledWaterPlants.Types.SensorLocation.Return,
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRate.svg"),
+    Line(
+      visible=have_senVChiWatPri and
+      locSenFloChiWatPri==Buildings.Templates.ChilledWaterPlants.Types.SensorLocation.Return,
+      points={{-166,-750},{-40,-750}},color={0,0,0})}),
  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-200},{200,200}})),
     Documentation(info="<html>
 <p>

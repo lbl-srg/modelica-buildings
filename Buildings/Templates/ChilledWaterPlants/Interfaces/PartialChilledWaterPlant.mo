@@ -7,6 +7,10 @@ partial model PartialChilledWaterPlant "Interface class for CHW plant"
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Medium model for condenser cooling fluid";
 
+  inner parameter Boolean viewDiagramAll=false
+    "Set to true to view all component icons in diagram view"
+    annotation (Dialog(group="Graphics"));
+
   parameter Buildings.Templates.Components.Types.Chiller typChi
     "Type of chiller"
     annotation (Evaluate=true, Dialog(group="Chillers"));

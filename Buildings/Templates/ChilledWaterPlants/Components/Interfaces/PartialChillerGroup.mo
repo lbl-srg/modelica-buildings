@@ -62,7 +62,8 @@ partial model PartialChillerGroup "Interface class for chiller group"
   final parameter Buildings.Templates.Components.Types.Valve typValChiWatChiIso=
     if enaTypValChiWatChiIso then typValChiWatChiIso_select
     else Buildings.Templates.Components.Types.Valve.None
-    "Type of chiller CHW isolation valve";
+    "Type of chiller CHW isolation valve"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   final parameter Boolean enaTypValConWatChiIso=
     typArrPumConWat==Buildings.Templates.Components.Types.PumpArrangement.Headered
       and (typCtlHea==Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl.None
@@ -87,7 +88,8 @@ partial model PartialChillerGroup "Interface class for chiller group"
     then Buildings.Templates.Components.Types.Valve.None
     elseif enaTypValConWatChiIso then typValConWatChiIso_select
     else Buildings.Templates.Components.Types.Valve.TwoWayModulating
-    "Type of chiller CW isolation valve";
+    "Type of chiller CW isolation valve"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
 
   // The following parameter stores the user selection.
   parameter Boolean have_senTChiWatChiSup_select=false
@@ -342,15 +344,17 @@ equation
     Bitmap(
       visible=typValChiWatChiIso == Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
         and nChi >= 2,
-      extent={{262,600},{342,680}},
+      extent={{260,600},{340,680}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
     Bitmap(
-      visible=typValChiWatChiIso <> Buildings.Templates.Components.Types.Valve.None
-        and nChi >= 2,
-      extent={{-100,-100},{100,100}},
-      fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
-      rotation=-90,
-      origin={300,540}),
+          visible=typValChiWatChiIso <> Buildings.Templates.Components.Types.Valve.None
+               and nChi >= 2,
+          extent={{-100,-100},{100,100}},
+          fileName=
+              "modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
+
+          rotation=-90,
+          origin={300,540}),
     Bitmap(
       visible=typValChiWatChiIso==Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and nChi >= 3,
       extent={{260,280},{340,360}},
@@ -381,13 +385,14 @@ equation
     Bitmap(
       visible=typValChiWatChiIso == Buildings.Templates.Components.Types.Valve.TwoWayModulating
         and nChi >= 2,
-      extent={{262,600},{342,680}},
+      extent={{260,600},{340,680}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulating.svg"),
     Bitmap(
-      visible=typValChiWatChiIso == Buildings.Templates.Components.Types.Valve.TwoWayModulating
-        and nChi >= 3,
-      extent={{260,280},{340,360}},
-      fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulating.svg"),
+          visible=typValChiWatChiIso == Buildings.Templates.Components.Types.Valve.TwoWayModulating
+               and nChi >= 3,
+          extent={{260,280},{340,360}},
+          fileName=
+              "modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulating.svg"),
     Bitmap(
       visible=typValChiWatChiIso==Buildings.Templates.Components.Types.Valve.TwoWayModulating
         and nChi>=4,
@@ -446,26 +451,26 @@ equation
           pattern=LinePattern.Dash,
           thickness=5,
           visible=nChi >= 4),
-        Line(
-          points={{300,920},{300,860}},
-          color={0,0,0},
-          visible=typArrPumChiWatPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
-               and nChi >= 1),
-        Line(
-          points={{300,600},{300,540}},
-          color={0,0,0},
-          visible=typArrPumChiWatPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
-               and nChi >= 2),
-        Line(
-          points={{300,280},{300,220}},
-          color={0,0,0},
-          visible=typArrPumChiWatPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
-               and nChi >= 3),
-        Line(
-          points={{300,-40},{300,-100}},
-          color={0,0,0},
-          visible=typArrPumChiWatPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
-               and nChi >= 4),
+    Line(
+      points={{300,920},{300,860}},
+      color={0,0,0},
+      visible=typValChiWatChiIso <> Buildings.Templates.Components.Types.Valve.None
+            and nChi >= 1),
+    Line(
+      points={{300,600},{300,540}},
+      color={0,0,0},
+      visible=typValChiWatChiIso <> Buildings.Templates.Components.Types.Valve.None
+            and nChi >= 2),
+    Line(
+      points={{300,280},{300,220}},
+      color={0,0,0},
+      visible=typValChiWatChiIso <> Buildings.Templates.Components.Types.Valve.None
+            and nChi >= 3),
+    Line(
+      points={{300,-40},{300,-100}},
+      color={0,0,0},
+      visible=typArrPumChiWatPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
+            and nChi >= 4),
     Line(
       visible=nChi>=5,
       points={{180,-420},{400,-420}},
@@ -498,14 +503,14 @@ equation
       textColor={0,0,0},
           textString="CHI-5"),
     Line( points={{180,-540},{400,-540}},
-          color={0,0,0},
-          pattern=LinePattern.Dash,
-          thickness=5,
-          visible=nChi>=5),
+      color={0,0,0},
+      pattern=LinePattern.Dash,
+      thickness=5,
+      visible=nChi>=5),
     Line(
       points={{300,-360},{300,-420}},
       color={0,0,0},
-      visible=typArrPumChiWatPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
+      visible=typValChiWatChiIso <> Buildings.Templates.Components.Types.Valve.None
             and nChi >= 5),
     Line(
       visible=nChi>=6,
@@ -541,15 +546,211 @@ equation
       textColor={0,0,0},
           textString="CHI-6"),
     Line( points={{180,-860},{400,-860}},
+      color={0,0,0},
+      pattern=LinePattern.Dash,
+      thickness=5,
+      visible=nChi>=6),
+    Line(
+      points={{300,-680},{300,-740}},
+      color={0,0,0},
+      visible=typValChiWatChiIso <> Buildings.Templates.Components.Types.Valve.None
+        and nChi >= 6),
+    Line(
+      visible=nChi >= 1 and typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled,
+      points={{-400,738},{-180,738}},
+      color={0,0,0},
+      thickness=5),
+    Line(
+      visible=nChi >= 1 and typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled,
+      points={{-400,860},{-180,860}},
+      color={0,0,0},
+      pattern=LinePattern.Dash,
+      thickness=5),
+    Line(
+      visible=nChi >= 2 and typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled,
+      points={{-400,540},{-180,540}},
+      color={0,0,0},
+      pattern=LinePattern.Dash,
+      thickness=5),
+    Line(
+      visible=nChi >= 3 and typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled,
+      points={{-400,218},{-180,218}},
+      color={0,0,0},
+      pattern=LinePattern.Dash,
+      thickness=5),
+    Line(
+      visible=nChi >= 4 and typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled,
+      points={{-400,-100},{-180,-100}},
+      color={0,0,0},
+      pattern=LinePattern.Dash,
+      thickness=5),
+    Bitmap(
+      visible=typValConWatChiIso <> Buildings.Templates.Components.Types.Valve.None
+            and nChi >= 1,
+      extent={{-100,-100},{100,100}},
+      fileName=
+          "modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
+      rotation=-90,
+      origin={-280,860}),
+    Bitmap(
+      visible=typValConWatChiIso==Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+      and nChi >= 1,
+      extent={{-320,920},{-240,1000}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
+    Bitmap(
+      visible=typValConWatChiIso == Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+        and nChi >= 2,
+      extent={{-318,600},{-238,680}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
+    Bitmap(
+      visible=typValConWatChiIso <> Buildings.Templates.Components.Types.Valve.None
+            and nChi >= 2,
+      extent={{-100,-100},{100,100}},
+      fileName=
+          "modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
+      rotation=-90,
+      origin={-280,540}),
+    Bitmap(
+      visible=typValConWatChiIso==Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and nChi >= 3,
+      extent={{-320,280},{-240,360}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
+    Bitmap(
+      visible=typValConWatChiIso <> Buildings.Templates.Components.Types.Valve.None
+            and nChi >= 3,
+      extent={{-100,-100},{100,100}},
+      fileName=
+          "modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
+      rotation=-90,
+      origin={-280,220}),
+    Bitmap(
+      visible=typValConWatChiIso <> Buildings.Templates.Components.Types.Valve.None
+            and nChi >= 4,
+      extent={{-100,-100},{100,100}},
+      fileName=
+          "modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
+      rotation=-90,
+      origin={-280,-100}),
+    Bitmap(
+      visible=typValConWatChiIso==Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and nChi>=4,
+      extent={{-320,-40},{-240,40}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
+    Bitmap(
+      visible=typValConWatChiIso==Buildings.Templates.Components.Types.Valve.TwoWayModulating
+      and nChi >= 1,
+      extent={{-320,920},{-240,1000}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulating.svg"),
+    Bitmap(
+      visible=typValConWatChiIso == Buildings.Templates.Components.Types.Valve.TwoWayModulating
+        and nChi >= 2,
+      extent={{-318,600},{-238,680}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulating.svg"),
+    Bitmap(
+      visible=typValConWatChiIso == Buildings.Templates.Components.Types.Valve.TwoWayModulating
+        and nChi >= 3,
+      extent={{-320,280},{-240,360}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulating.svg"),
+    Bitmap(
+      visible=typValConWatChiIso==Buildings.Templates.Components.Types.Valve.TwoWayModulating
+        and nChi>=4,
+      extent={{-320,-40},{-240,40}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulating.svg"),
+    Line( visible=nChi >= 2 and typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled,
+          points={{-400,418},{-180,418}},
           color={0,0,0},
-          pattern=LinePattern.Dash,
+          thickness=5),
+    Line( points={{-400,98},{-180,98}},
+          color={0,0,0},
           thickness=5,
-          visible=nChi>=6),
-        Line(
-          points={{300,-680},{300,-740}},
+          visible=nChi >= 3 and typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled),
+    Line( points={{-400,-220},{-180,-220}},
           color={0,0,0},
-          visible=typArrPumChiWatPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
-               and nChi>=6)}),
+          thickness=5,
+          visible=nChi >= 4 and typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled),
+    Line(
+      points={{-280,920},{-280,860}},
+      color={0,0,0},
+      visible=typValConWatChiIso <> Buildings.Templates.Components.Types.Valve.None
+        and nChi >= 1),
+    Line(
+      points={{-280,600},{-280,540}},
+      color={0,0,0},
+      visible=typValConWatChiIso <> Buildings.Templates.Components.Types.Valve.None
+            and nChi >= 2),
+    Line(
+      points={{-280,280},{-280,220}},
+      color={0,0,0},
+      visible=typValConWatChiIso <> Buildings.Templates.Components.Types.Valve.None
+            and nChi >= 3),
+    Line(
+      points={{-280,-40},{-280,-100}},
+      color={0,0,0},
+      visible=typValConWatChiIso <> Buildings.Templates.Components.Types.Valve.None
+            and nChi >= 4),
+    Line(
+      visible=nChi>=5 and typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled,
+      points={{-400,-420},{-180,-420}},
+      color={0,0,0},
+      pattern=LinePattern.Dash,
+      thickness=5),
+    Bitmap(
+      visible=typValConWatChiIso <> Buildings.Templates.Components.Types.Valve.None
+            and nChi >= 5,
+      extent={{-100,-100},{100,100}},
+      fileName=
+          "modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
+      rotation=-90,
+      origin={-280,-420}),
+    Bitmap(
+      visible=typValConWatChiIso==Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and nChi>=5,
+      extent={{-320,-360},{-240,-280}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
+    Bitmap(
+      visible=typValConWatChiIso == Buildings.Templates.Components.Types.Valve.TwoWayModulating and nChi >= 5,
+      extent={{-320,-360},{-240,-280}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulating.svg"),
+    Line( points={{-400,-540},{-180,-540}},
+      color={0,0,0},
+      thickness=5,
+      visible=nChi>=5),
+    Line(
+      points={{-280,-360},{-280,-420}},
+      color={0,0,0},
+      visible=typValConWatChiIso <> Buildings.Templates.Components.Types.Valve.None
+            and nChi >= 5),
+    Line(
+      visible=nChi>=6 and typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled,
+      points={{-400,-740},{-180,-740}},
+      color={0,0,0},
+      pattern=LinePattern.Dash,
+      thickness=5),
+    Bitmap(
+      visible=typValConWatChiIso <> Buildings.Templates.Components.Types.Valve.None
+            and nChi >= 6,
+      extent={{-100,-100},{100,100}},
+      fileName=
+          "modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
+      rotation=-90,
+      origin={-280,-740}),
+    Bitmap(
+      visible=typValConWatChiIso==Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+        and nChi>=6,
+      extent={{-320,-680},{-240,-600}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
+    Bitmap(
+      visible=typValConWatChiIso==Buildings.Templates.Components.Types.Valve.TwoWayModulating
+        and nChi>=6,
+      extent={{-320,-680},{-240,-600}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulating.svg"),
+    Line(
+      points={{-400,-860},{-180,-860}},
+      color={0,0,0},
+      thickness=5,
+      visible=nChi >= 6 and typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled),
+    Line(
+      points={{-280,-680},{-280,-740}},
+      color={0,0,0},
+      visible=typValConWatChiIso <> Buildings.Templates.Components.Types.Valve.None
+        and nChi >= 6)}),
     Documentation(info="<html>
 <p>
 This partial class provides a standard interface for chiller group models.

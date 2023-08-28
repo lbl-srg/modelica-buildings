@@ -15,6 +15,16 @@ partial model PartialChilledWaterLoop
       nLooChiWatSec=ctl.nLooChiWatSec,
       have_senVChiWatSec=ctl.have_senVChiWatSec,
       have_senLevCoo=ctl.have_senLevCoo));
+  Buildings.Templates.Components.Routing.MultipleToSingle outPumChiWatPri(
+    redeclare final package Medium=MediumChiWat,
+    final nPorts=nPumChiWatPri,
+    final m_flow_nominal=mChiWatPri_flow_nominal,
+    final energyDynamics=energyDynamics,
+    final tau=tau,
+    final allowFlowReversal=allowFlowReversal,
+    icon_dy=-320)
+    "Primary CHW pumps outlet manifold"
+    annotation (Placement(transformation(extent={{50,-10},{70,10}})));
   Buildings.Templates.Components.Routing.MultipleToSingle outPumChiWatSec(
     redeclare final package Medium=MediumChiWat,
     final nPorts=nPumChiWatSec,
@@ -39,7 +49,7 @@ partial model PartialChilledWaterLoop
     icon_offset=-1200,
     icon_pipe=Buildings.Templates.Components.Types.IconPipe.Return)
     "Chiller group condenser fluid outlet"
-    annotation (Placement(transformation(extent={{-100,-10},{-120,10}})));
+    annotation (Placement(transformation(extent={{-90,-10},{-110,10}})));
 
   replaceable Buildings.Templates.ChilledWaterPlants.Components.ChillerGroups.Compression chi
     constrainedby
@@ -60,8 +70,8 @@ partial model PartialChilledWaterLoop
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal)
     "Chillers"
-    annotation (Dialog(group="Chillers"), Placement(transformation(extent={{-100,
-            -182},{-20,10}})));
+    annotation (Dialog(group="Chillers"), Placement(transformation(extent={{-90,
+            -182},{-10,10}})));
 
   // Primary CHW loop
   Components.Routing.ChillersToPrimaryPumps intChi(
@@ -93,18 +103,7 @@ partial model PartialChilledWaterLoop
     icon_dy=-320)
     "Primary CHW pumps"
     annotation (
-    Placement(transformation(extent={{40,-10},{60,10}})));
-  Buildings.Templates.Components.Routing.MultipleToSingle outPumChiWatPri(
-    redeclare final package Medium=MediumChiWat,
-    final nPorts=nPumChiWatPri,
-    final m_flow_nominal=mChiWatPri_flow_nominal,
-    final energyDynamics=energyDynamics,
-    final tau=tau,
-    final allowFlowReversal=allowFlowReversal,
-    icon_dy=-320)
-    "Primary CHW pumps outlet manifold"
-    annotation (
-    Placement(transformation(extent={{60,-10},{80,10}})));
+    Placement(transformation(extent={{30,-10},{50,10}})));
   Buildings.Templates.Components.Valves.TwoWayModulating valChiWatMinByp(
     redeclare final package Medium=MediumChiWat,
     final dat=dat.valChiWatMinByp,
@@ -200,7 +199,7 @@ partial model PartialChilledWaterLoop
     icon_extend=400,
     icon_dy=320)
     "Chiller group condenser fluid inlet"
-    annotation (Placement(transformation(extent={{-160,-190},{-140,-170}})));
+    annotation (Placement(transformation(extent={{-164,-206},{-144,-186}})));
 
   // Secondary CHW loop
   Buildings.Templates.Components.Routing.SingleToMultiple inlPumChiWatSec(
@@ -288,7 +287,7 @@ partial model PartialChilledWaterLoop
     Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-60,-230})));
+        origin={-50,-230})));
 
   // Controls
   replaceable Buildings.Templates.ChilledWaterPlants.Components.Controls.OpenLoop ctl
@@ -370,49 +369,53 @@ equation
   connect(TChiWatPriSup.y, bus.TChiWatPriSup);
   /* Control point connection - stop */
   connect(intChi.ports_bSup, pumChiWatPri.ports_a)
-    annotation (Line(points={{30,0},{40,0}}, color={0,127,255}));
+    annotation (Line(points={{30,0},{30,0}}, color={0,127,255}));
   connect(chi.ports_bCon, outConChi.ports_a[1:nChi])
-    annotation (Line(points={{-100,0},{-100,0}},
-                                               color={0,127,255}));
+    annotation (Line(points={{-90,0},{-90,0}}, color={0,127,255}));
   connect(pumChiWatPri.ports_b, outPumChiWatPri.ports_a)
-    annotation (Line(points={{60,0},{60,0}},      color={0,127,255}));
+    annotation (Line(points={{50,0},{50,0}},      color={0,127,255}));
   connect(inlPumChiWatSec.ports_b, pumChiWatSec.ports_a)
     annotation (Line(points={{180,0},{180,0}},     color={0,127,255}));
   connect(pumChiWatSec.ports_b, outPumChiWatSec.ports_a)
     annotation (Line(points={{200,0},{200,0}},     color={0,127,255}));
-  connect(intChi.ports_bRet[1:nChi], chi.ports_aChiWat) annotation (Line(points={{-10,
-          -240},{-10,-210},{-20,-210},{-20,-172}},    color={0,0,0},
-      thickness=0.5,
-      pattern=LinePattern.Dash));
-  connect(chi.ports_bChiWat, intChi.ports_aSup[1:nChi]) annotation (Line(points={{-20,0},
-          {-10,0}},                       color={0,0,0},
+  connect(intChi.ports_bRet[1:nChi], chi.ports_aChiWat) annotation (Line(
+      points={{-10,-240},{-10,-224},{-12,-224},{-12,-172},{-10,-172}},
+      color={0,127,255},
+      visible=viewDiagramAll));
+  connect(chi.ports_bChiWat, intChi.ports_aSup[1:nChi]) annotation (Line(points={{-10,0},
+          {-10,0}}, color={0,0,0},
       thickness=0.5));
   connect(intChi.ports_bRet[nChi + 1], eco.port_a) annotation (Line(points={{-10,
-          -240},{-60,-240}},            color={0,0,0},
+          -240},{-50,-240}}, color={0,0,0},
       thickness=0.5,
       pattern=LinePattern.Dash));
-  connect(eco.port_b, intChi.ports_aSup[nChi + 1]) annotation (Line(points={{-60,
-          -220},{-10,-220},{-10,0}}, color={0,127,255}));
+  connect(eco.port_b, intChi.ports_aSup[nChi + 1]) annotation (Line(
+      points={{-50,-220},{-10,-220},{-10,0}},
+      color={0,127,255},
+      visible=viewDiagramAll));
   connect(inlConChi.ports_b[1:nChi], chi.ports_aCon)
-    annotation (Line(points={{-140,-180},{-120,-180},{-120,-172},{-100,-172}},
-                                                     color={0,0,0},
-      thickness=0.5));
+    annotation (Line(points={{-144,-196},{-132,-196},{-132,-178},{-120,-178},{
+          -120,-172},{-90,-172}},
+      color={0,0,0},thickness=0.5));
   connect(inlConChi.ports_b[nChi + 1], eco.port_aConWat) annotation (Line(
-        points={{-140,-180},{-140,-220},{-69,-220}},
-                                                   color={0,0,0},
-      thickness=0.5));
+        points={{-144,-196},{-144,-220},{-59,-220}},
+        color={0,0,0},thickness=0.5));
   connect(eco.port_bConWat, outConChi.ports_a[nChi + 1]) annotation (Line(
-        points={{-69,-240},{-110,-240},{-110,0},{-100,0}},
-                                                        color={0,0,0},
-      thickness=0.5,
+        points={{-59,-240},{-100,-240},{-100,0},{-90,0}},
+      color={0,0,0},thickness=0.5,
       pattern=LinePattern.Dash));
   connect(dpChiWatLoc.port_a, port_b)
-    annotation (Line(points={{280,-110},{280,0},{300,0}},color={0,0,0}));
-  connect(dpChiWatLoc.port_b, port_a) annotation (Line(points={{280,-130},{280,
-          -240},{300,-240}},
-                       color={0,0,0}));
+    annotation (Line(
+      points={{280,-110},{280,0},{300,0}},
+      color={0,127,255},
+      visible=viewDiagramAll));
+  connect(dpChiWatLoc.port_b, port_a) annotation (Line(
+      points={{280,-130},{280,-240},{300,-240}},
+      color={0,127,255},
+      visible=viewDiagramAll));
   connect(outPumChiWatPri.port_b, VChiWatPri_flow.port_a)
-    annotation (Line(points={{80,0},{80,0}}, color={0,127,255}));
+    annotation (Line(points={{70,0},{80,0}}, color={0,0,0},
+      thickness=0.5));
   connect(junction.port_2, inlPumChiWatSec.port_a)
     annotation (Line(points={{150,0},{160,0}}, color={0,127,255}));
   connect(junction.port_3, valChiWatMinByp.port_a) annotation (Line(
@@ -454,11 +457,10 @@ equation
       color={0,0,0},
       thickness=0.5));
   connect(bypChiWatFix.port_b, VChiWatByp_flow.port_a)
-    annotation (Line(points={{140,-110},{140,-140}},
-                                                   color={0,0,0},
+    annotation (Line(points={{140,-110},{140,-140}},color={0,0,0},
       thickness=0.5));
   connect(VChiWatByp_flow.port_b, intChi.port_aByp) annotation (Line(points={{140,
-          -160},{140,-200},{30,-200}},     color={0,0,0},
+          -160},{140,-206},{-10,-206}},    color={0,0,0},
       thickness=0.5));
   connect(valChiWatMinByp.port_b, VChiWatByp_flow.port_a) annotation (Line(
         points={{140,-110},{140,-140}},                       color={0,0,0},
@@ -536,5 +538,9 @@ November 18, 2022, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+Diagram(graphics={Rectangle(
+  extent={{280,0},{281,-240}},
+  lineColor={0,0,0},
+  visible=ctl.have_senDpChiWatLoc)}));
 end PartialChilledWaterLoop;
