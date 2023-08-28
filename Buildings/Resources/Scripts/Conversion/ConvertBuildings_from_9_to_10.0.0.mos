@@ -11,9 +11,9 @@ convertClass("Buildings.Controls.OBC.CDL.Continuous",
 
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3339
 convertClass("Buildings.Controls.OBC.CDL.Continuous.Sources.Sine",
-             "Buildings.Controls.OBC.CDL.Continuous.Sources.Sin");
+             "Buildings.Controls.OBC.CDL.Reals.Sources.Sin");
 convertClass("Buildings.Controls.OBC.CDL.Continuous.Sources.Validation.Sine",
-             "Buildings.Controls.OBC.CDL.Continuous.Sources.Validation.Sin");
+             "Buildings.Controls.OBC.CDL.Reals.Sources.Validation.Sin");
 
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3288
 convertElement("Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage",
