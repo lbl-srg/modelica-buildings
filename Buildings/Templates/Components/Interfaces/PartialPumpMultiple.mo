@@ -67,7 +67,7 @@ both headered pumps and dedicated pumps.
 </html>", revisions="<html>
 <ul>
 <li>
-November 18, 2022, by Antoine Gautier:<br/>
+April 28, 2023, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>
@@ -76,48 +76,21 @@ First implementation.
       extent={{-149,-114},{151,-154}},
       textColor={0,0,255},
       textString="%name"),
-    Line(
-      points={{-100,0},{100,0}},
-      color={0,0,0},
-      thickness=1),
-    Line( visible=typ <> Buildings.Templates.Components.Types.Pump.None,
-          points={{-50,60},{-50,22}},
+    Line( visible=typ <> Buildings.Templates.Components.Types.Pump.None and
+              nPum >= 2,
+          points={{-100,icon_dy},{100,icon_dy}},
           color={0,0,0},
-          thickness=0.5),
-    Bitmap(
-      visible=typ<>Buildings.Templates.Components.Types.Pump.None,
-        extent={{-100,-70},{0,30}},
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Pumps/Single.svg"),
-    Bitmap(
-      visible=typ<>Buildings.Templates.Components.Types.Pump.None and have_valChe,
-        extent={{26,-22},{100,28}},
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/Check.svg"),
-    Bitmap(
-      visible=typ<>Buildings.Templates.Components.Types.Pump.None and have_var,
-        extent={{-100,60},{0,160}},
-        rotation=text_rotation,
-          fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/VFD.svg"),
-    Bitmap(
-      visible=typ<>Buildings.Templates.Components.Types.Pump.None and not have_var,
-        extent={{-100,60},{0,160}},
-        rotation=text_rotation,
-          fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/MotorStarter.svg"),
-    Line(
-      visible=typ<>Buildings.Templates.Components.Types.Pump.None and nPum>=2,
-      points={{-100,icon_dy},{100,icon_dy}},
-      color={0,0,0},
-      thickness=1),
+          thickness=5),
     Line( visible=typ<>Buildings.Templates.Components.Types.Pump.None and nPum>=2,
           points={{-50,icon_dy+60},{-50,icon_dy+22}},
-          color={0,0,0},
-          thickness=0.5),
+          color={0,0,0}),
     Bitmap(
       visible=typ<>Buildings.Templates.Components.Types.Pump.None and nPum>=2,
         extent={{-100,icon_dy-70},{0,icon_dy+30}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Pumps/Single.svg"),
     Bitmap(
       visible=typ<>Buildings.Templates.Components.Types.Pump.None and have_valChe and nPum>=2,
-        extent={{26,icon_dy-22},{100,icon_dy+28}},
+        extent={{20,icon_dy-40},{100,icon_dy+40}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/Check.svg"),
     Bitmap(
       visible=typ<>Buildings.Templates.Components.Types.Pump.None and have_var and nPum>=2,
@@ -133,18 +106,17 @@ First implementation.
       visible=typ<>Buildings.Templates.Components.Types.Pump.None and nPum>=3,
       points={{-100,2*icon_dy},{100,2*icon_dy}},
       color={0,0,0},
-      thickness=1),
+      thickness=5),
     Line( visible=typ<>Buildings.Templates.Components.Types.Pump.None and nPum>=3,
           points={{-50,2*icon_dy+60},{-50,2*icon_dy+22}},
-          color={0,0,0},
-          thickness=0.5),
+          color={0,0,0}),
     Bitmap(
       visible=typ<>Buildings.Templates.Components.Types.Pump.None and nPum>=3,
         extent={{-100,2*icon_dy-70},{0,2*icon_dy+30}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Pumps/Single.svg"),
     Bitmap(
       visible=typ<>Buildings.Templates.Components.Types.Pump.None and have_valChe and nPum>=3,
-        extent={{26, 2*icon_dy-22},{100, 2*icon_dy+28}},
+        extent={{20, 2*icon_dy-40},{100, 2*icon_dy+40}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/Check.svg"),
     Bitmap(
       visible=typ<>Buildings.Templates.Components.Types.Pump.None and have_var and nPum>=3,
@@ -160,18 +132,17 @@ First implementation.
       visible=typ<>Buildings.Templates.Components.Types.Pump.None and nPum>=4,
       points={{-100, 3*icon_dy},{100, 3*icon_dy}},
       color={0,0,0},
-      thickness=1),
+      thickness=5),
     Line( visible=typ<>Buildings.Templates.Components.Types.Pump.None and nPum>=4,
           points={{-50, 3*icon_dy+60},{-50, 3*icon_dy+22}},
-          color={0,0,0},
-          thickness=0.5),
+          color={0,0,0}),
     Bitmap(
       visible=typ<>Buildings.Templates.Components.Types.Pump.None and nPum>=4,
         extent={{-100, 3*icon_dy-70},{0, 3*icon_dy+30}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Pumps/Single.svg"),
     Bitmap(
       visible=typ<>Buildings.Templates.Components.Types.Pump.None and have_valChe and nPum>=4,
-        extent={{26, 3*icon_dy-22},{100, 3*icon_dy+28}},
+        extent={{20, 3*icon_dy-40},{100, 3*icon_dy+40}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/Check.svg"),
     Bitmap(
       visible=typ<>Buildings.Templates.Components.Types.Pump.None and have_var and nPum>=4,

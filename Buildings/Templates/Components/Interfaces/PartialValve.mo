@@ -50,8 +50,21 @@ partial model PartialValve "Interface class for valve"
         rotation=0,
         origin={0,100})));
   annotation (
-  Icon(coordinateSystem(preserveAspectRatio=false),
-  graphics={
+  Icon(graphics={
+    Line(
+      points={{-100,0},{-40,0}},
+      color={0,0,0},
+      thickness=5),
+    Line(
+      points={{40,0},{100,0}},
+      color={0,0,0},
+      thickness=5),
+    Line(
+      visible=typ==Buildings.Templates.Components.Types.Valve.ThreeWayTwoPosition or
+        typ==Buildings.Templates.Components.Types.Valve.ThreeWayModulating,
+      points={{0,-100},{0,-40}},
+      color={0,0,0},
+      thickness=5),
     Bitmap(
       visible=typ==Buildings.Templates.Components.Types.Valve.TwoWayModulating or
         typ==Buildings.Templates.Components.Types.Valve.ThreeWayModulating,
@@ -76,13 +89,9 @@ partial model PartialValve "Interface class for valve"
       extent={{-100,-100},{100,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/ThreeWay.svg",
           rotation=-90),
-    Bitmap(
-      visible=typ==Buildings.Templates.Components.Types.Valve.None,
-      extent={{-100,100},{100,-100}},
-      fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/None.svg",
-          rotation=-90)}),
-    Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
+    Line(
+      visible=typ<>Buildings.Templates.Components.Types.Valve.None,
+      points={{0,60},{0,0}}, color={0,0,0})}),
     Documentation(info="<html>
 <p>
 This partial class provides a standard interface for valve models.
