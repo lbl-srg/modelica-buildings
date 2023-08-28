@@ -131,12 +131,12 @@ partial model PartialChilledWaterLoop
     final have_sen=ctl.have_senVChiWatPri and
     ctl.locSenFloChiWatPri==Buildings.Templates.ChilledWaterPlants.Types.SensorLocation.Supply,
     final text_flip=false,
-    final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter)
+    final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter,
+    icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply)
     "Primary CHW volume flow rate"
     annotation (
     Placement(transformation(extent={{80,-10},{100,10}})));
-  Buildings.Templates.Components.Routing.Junction
-                                            junction(
+  Buildings.Templates.Components.Routing.Junction junction(
     redeclare final package Medium=MediumChiWat,
     final tau=tau,
     final m_flow_nominal=mChiWatPri_flow_nominal*{1,-1,-1},
@@ -159,7 +159,8 @@ partial model PartialChilledWaterLoop
     redeclare final package Medium = MediumChiWat,
     final have_sen=ctl.have_senTChiWatPriSup,
     final m_flow_nominal=mChiWat_flow_nominal,
-    final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
+    final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
+    icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply)
     "Primary CHW supply temperature"
     annotation (
     Placement(transformation(
@@ -174,7 +175,8 @@ partial model PartialChilledWaterLoop
       (typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1And2
       or typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1And2Distributed) and
       ctl.typMeaCtlChiWatPri==Buildings.Templates.ChilledWaterPlants.Types.PrimaryOverflowMeasurement.FlowDecoupler,
-    final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter)
+    final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter,
+    icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply)
     "Decoupler CHW volume flow rate"
     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
@@ -211,17 +213,6 @@ partial model PartialChilledWaterLoop
     if have_pumChiWatSec
     "Secondary CHW pumps inlet manifold"
     annotation (Placement(transformation(extent={{160,-10},{180,10}})));
-  Buildings.Templates.Components.Pumps.Multiple pumChiWatSec(
-    redeclare final package Medium=MediumChiWat,
-    final nPum=nPumChiWatSec,
-    final have_var=true,
-    final have_varCom=true,
-    final dat=dat.pumChiWatSec,
-    final energyDynamics=energyDynamics,
-    final allowFlowReversal=allowFlowReversal)
-    if have_pumChiWatSec
-    "Secondary CHW pumps"
-    annotation (Placement(transformation(extent={{180,-10},{200,10}})));
   Buildings.Templates.Components.Routing.PassThroughFluid supChiWat(
     redeclare final package Medium=MediumChiWat,
     final allowFlowReversal=allowFlowReversal)
@@ -246,7 +237,8 @@ partial model PartialChilledWaterLoop
     final have_sen=ctl.have_senVChiWatSec and ctl.locSenFloChiWatSec ==
       Buildings.Templates.ChilledWaterPlants.Types.SensorLocation.Supply,
     final text_flip=false,
-    final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter)
+    final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter,
+    icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply)
     "Secondary CHW volume flow rate"
     annotation (Placement(transformation(extent={{230,-10},{250,10}})));
   Buildings.Templates.Components.Sensors.VolumeFlowRate VChiWatSecRet_flow(
@@ -256,14 +248,16 @@ partial model PartialChilledWaterLoop
     final have_sen=ctl.have_senVChiWatSec and ctl.locSenFloChiWatSec ==
         Buildings.Templates.ChilledWaterPlants.Types.SensorLocation.Return,
     final text_flip=true,
-    final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter)
+    final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter,
+    icon_pipe=Buildings.Templates.Components.Types.IconPipe.Return)
     "Secondary CHW volume flow rate"
     annotation (Placement(transformation(extent={{250,-250},{230,-230}})));
   Buildings.Templates.Components.Sensors.Temperature TChiWatSecRet(
     redeclare final package Medium = MediumChiWat,
     final have_sen=ctl.have_senTChiWatSecRet,
     final m_flow_nominal=mChiWat_flow_nominal,
-    final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
+    final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
+    icon_pipe=Buildings.Templates.Components.Types.IconPipe.Return)
     "Secondary CHW return temperature"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=0,
@@ -294,7 +288,7 @@ partial model PartialChilledWaterLoop
     Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-54,-230})));
+        origin={-60,-230})));
 
   // Controls
   replaceable Buildings.Templates.ChilledWaterPlants.Components.Controls.OpenLoop ctl
@@ -348,6 +342,19 @@ partial model PartialChilledWaterLoop
     annotation (Placement(transformation(extent={{30,230},{50,250}})));
 equation
   /* Control point connection - start */
+public
+  Buildings.Templates.Components.Pumps.Multiple pumChiWatSec(
+    redeclare final package Medium=MediumChiWat,
+    final nPum=nPumChiWatSec,
+    final have_var=true,
+    final have_varCom=true,
+    final dat=dat.pumChiWatSec,
+    final energyDynamics=energyDynamics,
+    final allowFlowReversal=allowFlowReversal)
+    if have_pumChiWatSec
+    "Secondary CHW pumps"
+    annotation (Placement(transformation(extent={{180,-10},{200,10}})));
+equation
   connect(TOut.T, bus.TOut);
   connect(phiOut.phi, bus.phiOut);
   connect(bus, intChi.bus);
@@ -381,21 +388,21 @@ equation
           {-10,0}},                       color={0,0,0},
       thickness=0.5));
   connect(intChi.ports_bRet[nChi + 1], eco.port_a) annotation (Line(points={{-10,
-          -240},{-54,-240}},            color={0,0,0},
+          -240},{-60,-240}},            color={0,0,0},
       thickness=0.5,
       pattern=LinePattern.Dash));
-  connect(eco.port_b, intChi.ports_aSup[nChi + 1]) annotation (Line(points={{-54,
+  connect(eco.port_b, intChi.ports_aSup[nChi + 1]) annotation (Line(points={{-60,
           -220},{-10,-220},{-10,0}}, color={0,127,255}));
   connect(inlConChi.ports_b[1:nChi], chi.ports_aCon)
     annotation (Line(points={{-140,-180},{-120,-180},{-120,-172},{-100,-172}},
                                                      color={0,0,0},
       thickness=0.5));
   connect(inlConChi.ports_b[nChi + 1], eco.port_aConWat) annotation (Line(
-        points={{-140,-180},{-140,-220},{-63,-220}},
+        points={{-140,-180},{-140,-220},{-69,-220}},
                                                    color={0,0,0},
       thickness=0.5));
   connect(eco.port_bConWat, outConChi.ports_a[nChi + 1]) annotation (Line(
-        points={{-63,-240},{-110,-240},{-110,0},{-100,0}},
+        points={{-69,-240},{-110,-240},{-110,0},{-100,0}},
                                                         color={0,0,0},
       thickness=0.5,
       pattern=LinePattern.Dash));

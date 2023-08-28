@@ -341,6 +341,13 @@ annotation (
   Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-200,-1300},{200,1300}}),
     graphics={
+    Line(
+          visible=typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel,
+
+          points={{-200,1080},{-200,-1200}},
+          color={0,0,0},
+          thickness=5,
+          pattern=LinePattern.Dash),
         Text(
           extent={{-149,-1314},{151,-1354}},
           textColor={0,0,255},
@@ -405,7 +412,62 @@ annotation (
           points={{-200,-1200},{200,-1200}},
           color={0,0,0},
           thickness=5,
-          pattern=LinePattern.Dash)}),
+          pattern=LinePattern.Dash),
+    Bitmap(
+          visible=have_valChiWatChiBypSer and nChi >= 5,
+          extent={{-140,-180},{-60,-100}},
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
+    Bitmap(
+          visible=have_valChiWatChiBypSer and nChi >= 5,
+          extent={{-100,-100},{100,100}},
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
+          rotation=360,
+          origin={-200,-140}),
+    Bitmap(
+          visible=have_valChiWatChiBypSer and nChi >= 6,
+          extent={{-100,-100},{100,100}},
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
+          rotation=360,
+          origin={-200,-460}),
+    Bitmap(
+          visible=have_valChiWatChiBypSer and nChi >= 6,
+          extent={{-140,-500},{-60,-420}},
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
+    Line( visible=have_valChiWatChiBypSer and nChi >= 5,
+          points={{-200,-140},{-140,-140}},
+          color={0,0,0}),
+    Line( visible=have_valChiWatChiBypSer and nChi >= 6,
+          points={{-200,-460},{-140,-460}},
+          color={0,0,0}),
+    Line(
+      visible=typArrChi==Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel and nChi>=2,
+      points={{-200,880},{200,880}},
+      color={0,0,0},
+      thickness=5),
+    Line(
+          visible=typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel
+               and nChi >= 3,
+          points={{-200,560},{200,560}},
+          color={0,0,0},
+          thickness=5),
+    Line(
+          visible=typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel
+               and nChi >= 4,
+          points={{-200,240},{200,240}},
+          color={0,0,0},
+          thickness=5),
+    Line(
+          visible=typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel
+               and nChi >= 5,
+          points={{-200,-80},{200,-80}},
+          color={0,0,0},
+          thickness=5),
+    Line(
+          visible=typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel
+               and nChi >= 6,
+          points={{-200,-400},{200,-400}},
+          color={0,0,0},
+          thickness=5)}),
  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-200},{200,200}})),
     Documentation(info="<html>
 <p>

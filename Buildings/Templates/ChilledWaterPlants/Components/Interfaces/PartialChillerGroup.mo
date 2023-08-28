@@ -292,7 +292,7 @@ equation
       index=-1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
-  annotation (Diagram(coordinateSystem(extent={{-400,-960},{400,960}})),
+  annotation (Diagram(coordinateSystem(extent={{-200,-200},{200,200}})),
   Icon(coordinateSystem(preserveAspectRatio=false,
   extent={{-400,-960},{400,960}}),
   graphics={
@@ -335,12 +335,12 @@ equation
       rotation=-90,
       origin={300,860}),
     Bitmap(
-      visible=typValChiWatChiIso==Buildings.Templates.Components.Types.Valve.TwoPosition
+      visible=typValChiWatChiIso==Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
       and nChi >= 1,
       extent={{260,920},{340,1000}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
     Bitmap(
-      visible=typValChiWatChiIso == Buildings.Templates.Components.Types.Valve.TwoPosition
+      visible=typValChiWatChiIso == Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
         and nChi >= 2,
       extent={{262,600},{342,680}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
@@ -352,8 +352,7 @@ equation
       rotation=-90,
       origin={300,540}),
     Bitmap(
-      visible=typValChiWatChiIso==Buildings.Templates.Components.Types.Valve.TwoPosition
-        and nChi >= 3,
+      visible=typValChiWatChiIso==Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and nChi >= 3,
       extent={{260,280},{340,360}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
     Bitmap(
@@ -371,27 +370,26 @@ equation
       rotation=-90,
       origin={300,-100}),
     Bitmap(
-      visible=typValChiWatChiIso==Buildings.Templates.Components.Types.Valve.TwoPosition
-        and nChi>=4,
+      visible=typValChiWatChiIso==Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and nChi>=4,
       extent={{260,-40},{340,40}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
     Bitmap(
-      visible=typValChiWatChiIso==Buildings.Templates.Components.Types.Valve.Modulating
+      visible=typValChiWatChiIso==Buildings.Templates.Components.Types.Valve.TwoWayModulating
       and nChi >= 1,
       extent={{260,920},{340,1000}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulating.svg"),
     Bitmap(
-      visible=typValChiWatChiIso == Buildings.Templates.Components.Types.Valve.Modulating
+      visible=typValChiWatChiIso == Buildings.Templates.Components.Types.Valve.TwoWayModulating
         and nChi >= 2,
       extent={{262,600},{342,680}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulating.svg"),
     Bitmap(
-      visible=typValChiWatChiIso == Buildings.Templates.Components.Types.Valve.Modulating
+      visible=typValChiWatChiIso == Buildings.Templates.Components.Types.Valve.TwoWayModulating
         and nChi >= 3,
       extent={{260,280},{340,360}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulating.svg"),
     Bitmap(
-      visible=typValChiWatChiIso==Buildings.Templates.Components.Types.Valve.Modulating
+      visible=typValChiWatChiIso==Buildings.Templates.Components.Types.Valve.TwoWayModulating
         and nChi>=4,
       extent={{260,-40},{340,40}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulating.svg"),
@@ -482,16 +480,13 @@ equation
       rotation=-90,
       origin={300,-420}),
     Bitmap(
-      visible=typValChiWatChiIso==Buildings.Templates.Components.Types.Valve.TwoPosition
-        and nChi>=5,
+      visible=typValChiWatChiIso==Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and nChi>=5,
       extent={{260,-360},{340,-280}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
     Bitmap(
-          visible=typValChiWatChiIso == Buildings.Templates.Components.Types.Valve.Modulating
-               and nChi >= 5,
-          extent={{260,-360},{340,-280}},
-          fileName=
-              "modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulating.svg"),
+      visible=typValChiWatChiIso == Buildings.Templates.Components.Types.Valve.TwoWayModulating and nChi >= 5,
+      extent={{260,-360},{340,-280}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulating.svg"),
     Rectangle(
       visible=nChi>=5,
       extent={{180,-380},{-180,-580}},
@@ -508,10 +503,10 @@ equation
           thickness=5,
           visible=nChi>=5),
     Line(
-          points={{300,-360},{300,-420}},
-          color={0,0,0},
-          visible=typArrPumChiWatPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
-               and nChi >= 5),
+      points={{300,-360},{300,-420}},
+      color={0,0,0},
+      visible=typArrPumChiWatPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
+            and nChi >= 5),
     Line(
       visible=nChi>=6,
       points={{180,-740},{400,-740}},
@@ -526,12 +521,12 @@ equation
       rotation=-90,
       origin={300,-740}),
     Bitmap(
-      visible=typValChiWatChiIso==Buildings.Templates.Components.Types.Valve.TwoPosition
+      visible=typValChiWatChiIso==Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
         and nChi>=6,
       extent={{260,-680},{340,-600}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
     Bitmap(
-      visible=typValChiWatChiIso==Buildings.Templates.Components.Types.Valve.Modulating
+      visible=typValChiWatChiIso==Buildings.Templates.Components.Types.Valve.TwoWayModulating
         and nChi>=6,
       extent={{260,-680},{340,-600}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulating.svg"),
