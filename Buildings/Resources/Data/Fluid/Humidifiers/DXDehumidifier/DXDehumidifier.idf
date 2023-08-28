@@ -785,8 +785,8 @@
 
   Curve:Quadratic,
     ZoneDehumidPLFFPLR,      !- Name
-    0.95,                    !- Coefficient1 Constant
-    0.05,                    !- Coefficient2 x
+    1,                    !- Coefficient1 Constant
+    0,                    !- Coefficient2 x
     0.0,                     !- Coefficient3 x**2
     0.0,                     !- Minimum Value of x
     1.0;                     !- Maximum Value of x
