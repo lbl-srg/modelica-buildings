@@ -66,6 +66,7 @@ model DXDehumidifier
   Buildings.Fluid.Movers.Preconfigured.FlowControlled_m_flow fan(
     redeclare package Medium = Medium,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    addPowerToMedium=false,
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=100)
     "Supply fan"
@@ -268,7 +269,8 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100}
             {100,100}})), Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-180,-120},{220,100}})),
 experiment(StartTime=12960000, StopTime=15120000, Tolerance=1e-6),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Humidifiers/Validation/DXDehumidifier.mos"
+    __Dymola_Commands(file=
+          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Humidifiers/Validation/DXDehumidifier.mos"
         "Simulate and Plot"),
 Documentation(info="<html>
 <p>

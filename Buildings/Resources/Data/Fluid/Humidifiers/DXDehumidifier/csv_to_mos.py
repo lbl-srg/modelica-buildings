@@ -25,7 +25,8 @@ def main():
     output_list = output_list,
     dat_file_name=dat_fil,
     step_size=60,
-    final_time=15638400)
+    start_time=12960000,
+    final_time=15120000)
 
 if __name__ == '__main__':
     main()
