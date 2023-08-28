@@ -158,8 +158,8 @@
 
   RunPeriod,
     Run Period 1,            !- Name
-    5,                       !- Begin Month
-    31,                      !- Begin Day of Month
+    1,                       !- Begin Month
+    1,                      !- Begin Day of Month
     ,                        !- Begin Year
     6,                       !- End Month
     30,                      !- End Day of Month

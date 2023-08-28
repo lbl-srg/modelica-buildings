@@ -51,10 +51,10 @@ model DXDehumidifier
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     final tableOnFile=true,
     final fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/Humidifiers/DXDehumidifier/DXDehumidifier.dat"),
-    final columns=2:7,
+    final columns=2:8,
     final tableName="EnergyPlus",
     final smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
-    final shiftTime(displayUnit="d") = 12700800)
+    final shiftTime(displayUnit="d"))
     "Reader for energy plus reference results"
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
 
