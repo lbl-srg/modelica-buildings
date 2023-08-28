@@ -27,7 +27,7 @@ helpful to log which state variables dominate the integration error
 or the integrator time step control.
 This usually points to the control loop that is unstable.
 There are various methods for tuning a controller, and the documentation of
-`Buildings.Controls.OBC.CDL.Continuous.PIDWithReset <https://simulationresearch.lbl.gov/modelica/releases/v9.1.0/help/Buildings_Controls_OBC_CDL_Continuous.html#Buildings.Controls.OBC.CDL.Continuous.PIDWithReset>`_
+`Buildings.Controls.OBC.CDL.Reals.PIDWithReset <https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Controls_OBC_CDL_Continuous.html#Buildings.Controls.OBC.CDL.Reals.PIDWithReset>`_
 outlines one approach for tuning the gains of a PI-controller.
 
 
