@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="80mm"
+   height="80mm"
+   viewBox="0 0 79.999997 80"
+   version="1.1"
+   id="svg2869"
+   sodipodi:docname="SpecificEnthalpy.svg"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview16079"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="1.4972985"
+     inkscape:cx="40.406106"
+     inkscape:cy="112.53601"
+     inkscape:window-width="1920"
+     inkscape:window-height="1028"
+     inkscape:window-x="-6"
+     inkscape:window-y="-6"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2869" />
+  <defs
+     id="defs2866">
+    <rect
+       x="-172.27338"
+       y="891.6319"
+       width="753.24432"
+       height="549.22986"
+       id="rect40471" />
+  </defs>
+  <g
+     id="layer1"
+     transform="matrix(1.2440833,0,0,1.2440946,-299.24776,-483.64584)"
+     style="stroke-width:0.803801;stroke-dasharray:none">
+    <g
+       id="g6351-3"
+       transform="matrix(0.25502011,0,0,0.25502006,193.31609,105.18458)"
+       style="stroke-width:3.15191;stroke-miterlimit:4;stroke-dasharray:none">
+      <g
+         id="g12097-8-8"
+         transform="matrix(32.612783,0,0,32.612966,47880.873,111107.86)"
+         style="stroke-width:0.0966463;stroke-miterlimit:4;stroke-dasharray:none">
+        <path
+           d="m -1461.1642,-3372.718 a 1.27256,1.27256 0 0 0 -1.273,1.273"
+           id="path1112-2-5"
+           style="fill:none;stroke:#000000;stroke-width:0.0966463;stroke-miterlimit:4;stroke-dasharray:none" />
+        <path
+           d="m -1462.4372,-3366.355 a 1.27256,1.27256 0 0 0 1.273,1.272"
+           id="path1114-9-6"
+           style="fill:none;stroke:#000000;stroke-width:0.0966463;stroke-miterlimit:4;stroke-dasharray:none" />
+        <path
+           d="m -1456.0742,-3365.083 a 1.27256,1.27256 0 0 0 1.273,-1.272"
+           id="path1116-9-1"
+           style="fill:none;stroke:#000000;stroke-width:0.0966463;stroke-miterlimit:4;stroke-dasharray:none" />
+        <polyline
+           points="538.271,375.944 533.181,375.944 "
+           id="polyline1118-6-1"
+           style="fill:none;stroke:#000000;stroke-width:0.0966463;stroke-miterlimit:4;stroke-dasharray:none"
+           transform="translate(-1994.3452,-3741.027)" />
+        <polyline
+           points="533.181,368.309 538.271,368.309 "
+           id="polyline1120-0-5"
+           style="fill:none;stroke:#000000;stroke-width:0.0966463;stroke-miterlimit:4;stroke-dasharray:none"
+           transform="translate(-1994.3452,-3741.027)" />
+        <polyline
+           points="531.908,374.672 531.908,369.582 "
+           id="polyline1122-2-9"
+           style="fill:none;stroke:#000000;stroke-width:0.0966463;stroke-miterlimit:4;stroke-dasharray:none"
+           transform="translate(-1994.3452,-3741.027)" />
+        <polyline
+           points="539.544,369.582 539.544,374.672 "
+           id="polyline1124-7-8"
+           style="fill:none;stroke:#000000;stroke-width:0.0966463;stroke-miterlimit:4;stroke-dasharray:none"
+           transform="translate(-1994.3452,-3741.027)" />
+        <path
+           d="m -1454.8012,-3371.445 a 1.27256,1.27256 0 0 0 -1.273,-1.273"
+           id="path1126-6-4"
+           style="fill:none;stroke:#000000;stroke-width:0.0966463;stroke-miterlimit:4;stroke-dasharray:none" />
+      </g>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:127.692px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:3.15191;stroke-miterlimit:4;stroke-dasharray:none"
+         x="263.23236"
+         y="1284.5665"
+         id="text44048-8"><tspan
+           id="tspan24498"
+           x="263.23236"
+           y="1284.5665"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:127.692px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:3.15191;stroke-miterlimit:4;stroke-dasharray:none">H</tspan></text>
+      <text
+         xml:space="preserve"
+         transform="matrix(0.63846276,0,0,0.63846159,183.53363,475.061)"
+         id="text40469"
+         style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect40471);fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.93672;stroke-dasharray:none" />
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,33 @@
+simulateModel("Buildings.Templates.Components.Validation.Dampers",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=200.0,
+    resultFile="Dampers");
+createPlot(
+    id=1,
+    position={0, 0, 400, 400},
+    y={"mod.bus.y", "mod.bus.y_actual", "mod.dam.m_flow", "mod.dam.m_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    position={100, 0, 400, 400},
+    y={"pre.bus.y", "pre.bus.y_actual", "pre.dam.m_flow", "pre.dam.m_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=3,
+    position={200, 0, 400, 400},
+    y={"two.bus.y1", "two.bus.y1_actual", "two.dam.m_flow", "two.dam.m_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=4,
+    position={300, 0, 400, 400},
+    y={"non.m_flow", "non.m_flow_nominal"},
+    autoscale=true,
+    grid=true
+);

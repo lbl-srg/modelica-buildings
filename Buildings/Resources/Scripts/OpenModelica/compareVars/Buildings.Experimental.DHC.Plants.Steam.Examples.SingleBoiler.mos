@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "vol.m_flow",
+    "pla.QFue_flow",
+    "pla.PPum",
+    "pumCNR.P",
+    "pla.boi.port_b.p",
+    "steTra.port_b.p"
+  };
