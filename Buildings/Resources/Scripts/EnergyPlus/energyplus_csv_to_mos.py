@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-def energyplus_csv_to_mos(output_list, dat_file_name, step_size, final_time):
+def energyplus_csv_to_mos(output_list, dat_file_name, step_size, final_time, start_time:int = 0):
     """ Reads `EnergyPlus/eplusout.csv` and writes `dat_file_name`
         in the format required by the Modelica data reader.
 
@@ -8,6 +8,7 @@ def energyplus_csv_to_mos(output_list, dat_file_name, step_size, final_time):
        :param dat_file_name: Name of `.mos` file to be written.
        :param step_size: Step size in EnergyPlus output file in seconds.
        :param final_time: Final time of the data that should be written to the `.mos` file.
+       :param start_time: Start time of the data that should be written to the `.mos` file.
 
     """
 
@@ -27,7 +28,7 @@ def energyplus_csv_to_mos(output_list, dat_file_name, step_size, final_time):
     # In order to have a value at time=0, we add one time step, and
     # write the results of the first time step twice to the data file.
     df = pd.concat([df.head(1), df])
-    tot_steps = int (final_time / step_size ) + 1
+    tot_steps = int ((final_time - start_time) / step_size ) + 1
 
     # Step-1.0 read data into dictionary with lists
     di = []
@@ -49,19 +50,20 @@ def energyplus_csv_to_mos(output_list, dat_file_name, step_size, final_time):
     # Step-2.0 make timesteps, because energyplus timesteps are not in seconds
     time_seconds=[]
     for y in range(tot_steps):
-        time_seconds.append( y * step_size)
+        time_seconds.append(start_time + y * step_size)
 
     # Insert time in the front
     di.insert(0, {"name": "Time in seconds", 'x': time_seconds})
 
     #step-3.0 organizing data together
     data=[]
+    start_index = start_time/step_size
     for i in range(tot_steps):
         rowdata = []
         for ele in di:
             if len(rowdata) > 0:
                 rowdata.append(",")
-            rowdata.append(ele['x'][i])
+            rowdata.append(ele['x'][start_index + i])
         data.append(rowdata)
 
 

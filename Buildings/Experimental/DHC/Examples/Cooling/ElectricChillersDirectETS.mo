@@ -46,15 +46,15 @@ model ElectricChillersDirectETS "Example model for district cooling system with
     "Nominal mass flow rate in each connection line";
   // Buildings
   parameter String filNam[nLoa]={
-    "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/MediumOffice-90.1-2010-5A.mos",
-    "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/MediumOffice-90.1-2010-5A.mos",
-    "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/MediumOffice-90.1-2010-5A.mos"}
+   Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/MediumOffice-90.1-2010-5A.mos"),
+   Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/MediumOffice-90.1-2010-5A.mos"),
+   Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/MediumOffice-90.1-2010-5A.mos")}
     "Library path of the file with thermal loads as time series"
     annotation (Dialog(group="Buildings"));
   final parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal[nLoa](
     each max=-Modelica.Constants.eps)={Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(
     string="#Peak space cooling load",
-    filNam=Modelica.Utilities.Files.loadResource(filNam[i])) for i in 1:nLoa}
+    filNam=filNam[i]) for i in 1:nLoa}
     "Space cooling design load (<=0)";
   final parameter Modelica.Units.SI.MassFlowRate mBui_flow_nominal[nLoa](
     each final min=0,
@@ -205,6 +205,10 @@ This configuration is illustrated in the schematic below.
 <p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Examples/Cooling/ElectricChillersDirectETS.png\" alt=\"DC Schematic\"/></p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 22, 2023, by Michael Wetter:<br/>
+Changed call to <code>loadResources</code>. This is needed for Dymola 2024x beta1 on Linux.
+</li>
 <li>
 January 2, 2023, by Kathryn Hinkelman:<br/>
 Revised chilled water pump controls to be constant speed and running 1-and-1 with the chillers.<br>
