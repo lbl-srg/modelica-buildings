@@ -26,16 +26,16 @@ block MultipleCommands
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nUni]
     "Convert to real"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(nin=nUni)
+  Buildings.Controls.OBC.CDL.Reals.MultiSum mulSum(nin=nUni)
     "Total"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(t=0.5)
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(t=0.5)
     "Returns true if at least one unit is commanded on"
     annotation (Placement(transformation(extent={{70,50},{90,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max max1
+  Buildings.Controls.OBC.CDL.Reals.Max max1
     "Maximum value"
     annotation (Placement(transformation(extent={{70,-70},{90,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(final k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one(final k=1)
     "Constant one"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
 

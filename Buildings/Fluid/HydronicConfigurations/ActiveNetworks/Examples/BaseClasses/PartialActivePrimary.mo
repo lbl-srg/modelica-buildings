@@ -117,7 +117,7 @@ model PartialActivePrimary
         extent={{-10,10},{10,-10}},
         rotation=0,
         origin={-60,-60})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract dT1(y(final unit="K"))
+  Buildings.Controls.OBC.CDL.Reals.Subtract dT1(y(final unit="K"))
     "Primary Delta-T" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,

@@ -37,21 +37,21 @@ block StagingPump "Pump staging"
         transformation(extent={{200,-20},{240,20}}), iconTransformation(extent={{100,40},
             {140,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold cmp(final t=yUp, h=1e-3)
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold cmp(final t=yUp, h=1e-3)
     "Compare"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Buildings.Controls.OBC.CDL.Logical.Timer timSpe(t=5*60)
     "True delay"
     annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter ratFlo(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter ratFlo(
     final k=1/m_flow_nominal) if have_flowCriterion
     "Ratio of current flow rate to design value"
     annotation (Placement(transformation(extent={{-148,70},{-128,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater cmp2(h=1e-3)
+  Buildings.Controls.OBC.CDL.Reals.Greater cmp2(h=1e-3)
     if have_flowCriterion
     "Compare"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addOff(p=-0.03)
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addOff(p=-0.03)
     if have_flowCriterion
     "Add offset"
     annotation (Placement(transformation(extent={{-80,130},{-100,150}})));
@@ -62,7 +62,7 @@ block StagingPump "Pump staging"
   Buildings.Controls.OBC.CDL.Logical.Or up
     "Check if flow or speed criterion passed for staging up"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Less cmp3(h=1e-3)
+  Buildings.Controls.OBC.CDL.Reals.Less cmp3(h=1e-3)
     if have_flowCriterion
     "Compare"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
@@ -70,7 +70,7 @@ block StagingPump "Pump staging"
     if have_flowCriterion
     "Check if true for a given time"
     annotation (Placement(transformation(extent={{-72,50},{-52,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold  cmp4(final t=yDow, h=1e-3)
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold  cmp4(final t=yDow, h=1e-3)
     "Compare"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Timer timSpe1(t=5*60) "True delay"
@@ -78,7 +78,7 @@ block StagingPump "Pump staging"
   Buildings.Controls.OBC.CDL.Logical.Or  dow
     "Check if flow or speed criterion passed for staging down"
     annotation (Placement(transformation(extent={{-30,-50},{-10,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter ratOpeDsg(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter ratOpeDsg(
     final k=1/nPum)
     "Ratio of number of operating pumps to number of operating pumps at design conditions"
     annotation (Placement(transformation(extent={{-40,130},{-60,150}})));
@@ -95,7 +95,7 @@ block StagingPump "Pump staging"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal cvtInt "Convert"
     annotation (Placement(transformation(extent={{50,130},{30,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addOffLowSta(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addOffLowSta(
     final p=-1/nPum) if have_flowCriterion
     "Add offset for lower stage"
     annotation (Placement(transformation(extent={{-150,30},{-130,50}})));

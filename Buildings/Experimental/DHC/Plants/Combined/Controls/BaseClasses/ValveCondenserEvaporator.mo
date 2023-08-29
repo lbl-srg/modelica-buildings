@@ -447,16 +447,16 @@ block ValveCondenserEvaporator
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-110,-200})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold isOpe[nChiHea](each t=0.1,
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold isOpe[nChiHea](each t=0.1,
       each h=5E-2) "Check if valve open"
     annotation (Placement(transformation(extent={{190,-90},{170,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold isOpe1[nChiHea](each t=
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold isOpe1[nChiHea](each t=
        0.1, each h=5E-2) "Check if valve open"
     annotation (Placement(transformation(extent={{190,-130},{170,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold isOpe2[nChi](each t=0.1,
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold isOpe2[nChi](each t=0.1,
       each h=5E-2) "Check if valve open"
     annotation (Placement(transformation(extent={{190,-30},{170,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold isOpe3[nChi](each t=0.1,
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold isOpe3[nChi](each t=0.1,
       each h=5E-2) "Check if valve open"
     annotation (Placement(transformation(extent={{150,-50},{130,-30}})));
   Buildings.Controls.OBC.CDL.Logical.And cooOrDirAndOnAndOpe[nChiHea]
@@ -567,17 +567,17 @@ block ValveCondenserEvaporator
   Modelica.Blocks.Sources.IntegerExpression idxChiHea[nChiHea](final y={i for i in
             1:nChiHea}) "HRC index"
     annotation (Placement(transformation(extent={{-50,-386},{-30,-366}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch selCtl[nChiHea]
+  Buildings.Controls.OBC.CDL.Reals.Switch selCtl[nChiHea]
     "Select control signal" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={70,-400})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer[nChiHea](each final
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer[nChiHea](each final
             k=0) "Constant" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={30,-420})));
-  Buildings.Controls.OBC.CDL.Continuous.Max max1[nChiHea]
+  Buildings.Controls.OBC.CDL.Reals.Max max1[nChiHea]
     "Take into account entering CW temperature control in direct HR mode"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -605,7 +605,7 @@ block ValveCondenserEvaporator
   Buildings.Controls.OBC.CDL.Routing.RealExtractor TConWatEvaLvgSet(final nin=2)
     "Extract value at given index"
     annotation (Placement(transformation(extent={{-170,50},{-150,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TConWatEvaLvgSetCst[2](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TConWatEvaLvgSetCst[2](
     final k=TTanSet[:, 1])
     "HRC evaporator leaving CW temperature setpoint"
     annotation (Placement(transformation(
@@ -616,27 +616,27 @@ block ValveCondenserEvaporator
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator rep6(final nout=
         nChiHea) "Replicate"
     annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line valConWatEvaMix[nChiHea]
+  Buildings.Controls.OBC.CDL.Reals.Line valConWatEvaMix[nChiHea]
     "Mixing valve opening reset: 1 means no bypass flow"
     annotation (Placement(transformation(extent={{-40,90},{-20,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant xVal[nChiHea,2](final
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant xVal[nChiHea,2](final
       k=fill({0,0.5}, nChiHea)) "x-value for mixing valve opening reset"
     annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yVal[nChiHea,2](final k=
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yVal[nChiHea,2](final k=
         fill({0,1}, nChiHea))
     "y-value for mixing valve opening reset: 1 means no bypass flow"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line floEva[nChiHea]
+  Buildings.Controls.OBC.CDL.Reals.Line floEva[nChiHea]
     "HRC evaporator flow reset when On AND cascading heating"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant xFlo[nChiHea,2](final
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant xFlo[nChiHea,2](final
       k=fill({0.5,1}, nChiHea)) "x-value for evaporator flow reset"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFlo[nChiHea,2](final
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yFlo[nChiHea,2](final
       k=fill({mChiWatChiHea_flow_min,mChiWatChiHea_flow_nominal}, nChiHea))
     "y-value for evaporator flow reset"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch selFloSet[nChiHea]
+  Buildings.Controls.OBC.CDL.Reals.Switch selFloSet[nChiHea]
     "Select HRC evaporator flow setpoint based on operating mode"
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
   EnergyTransferStations.Combined.Controls.PIDWithEnable ctlTConWatEvaEnt(
@@ -657,19 +657,19 @@ block ValveCondenserEvaporator
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-50,-500})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TConWatEvaEntSet(final k=
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TConWatEvaEntSet(final k=
         max(TTanSet))      "HRC evaporator entering CW temperature setpoint"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-50,-460})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMin mulMin(nin=nChiHea+1)
+  Buildings.Controls.OBC.CDL.Reals.MultiMin mulMin(nin=nChiHea+1)
     "Combine outputs from evaporator entering and leaving temperature control"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={210,-440})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TConWatConRetSetCst[2](final
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TConWatConRetSetCst[2](final
       k=TTanSet[:, 2]) "CW condenser loop return temperature setpoint"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -696,23 +696,23 @@ block ValveCondenserEvaporator
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant chaAss(final k=Buildings.Experimental.DHC.Plants.Combined.Controls.ModeCondenserLoop.chargeAssist)
     "Charge assist mode index"
     annotation (Placement(transformation(extent={{-210,150},{-190,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line floCon[nChi + nChiHea]
+  Buildings.Controls.OBC.CDL.Reals.Line floCon[nChi + nChiHea]
     "Condenser flow reset (normalized output)"
     annotation (Placement(transformation(extent={{130,190},{150,210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant xFloCon[nChi + nChiHea,
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant xFloCon[nChi + nChiHea,
     2](final k=fill({0,1}, nChi + nChiHea)) "x-value for flow reset"
     annotation (Placement(transformation(extent={{60,210},{80,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFloCon[nChi + nChiHea,
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yFloCon[nChi + nChiHea,
     2](final k=fill({0.1,1}, nChi + nChiHea))
     "y-value for condenser flow reset"
     annotation (Placement(transformation(extent={{60,170},{80,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter scaFloConChi[nChi](
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter scaFloConChi[nChi](
       each final k=mConWatChi_flow_nominal) "Scale flow reset signal"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={50,360})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter scaFloConChiHea[nChiHea](
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter scaFloConChiHea[nChiHea](
       each final k=mConWatChiHea_flow_nominal) "Scale flow reset signal"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -747,19 +747,19 @@ block ValveCondenserEvaporator
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator rep11(final nout=nChi +
         nChiHea) "Replicate"
     annotation (Placement(transformation(extent={{-50,170},{-30,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one[nChi + nChiHea](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one[nChi + nChiHea](
       each final k=1) "Constant" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-40,220})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swiFloSet[nChi + nChiHea]
+  Buildings.Controls.OBC.CDL.Reals.Switch swiFloSet[nChi + nChiHea]
     "Switch condenser flow setpoint based on condenser loop operating mode"
     annotation (Placement(transformation(extent={{30,190},{50,210}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator
                                                           rep12(final nout=nChi +
         nChiHea) "Replicate"
     annotation (Placement(transformation(extent={{-10,190},{10,210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swiFloSet1[nChi + nChiHea]
+  Buildings.Controls.OBC.CDL.Reals.Switch swiFloSet1[nChi + nChiHea]
     "Switch condenser flow setpoint based on condenser loop operating mode"
     annotation (Placement(transformation(extent={{-10,230},{10,250}})));
   EnergyTransferStations.Combined.Controls.PIDWithEnable valChiWatMinByp[nChi +
@@ -781,32 +781,32 @@ block ValveCondenserEvaporator
     each final y_reset=0,
     each final y_neutral=0) "HW minimum flow bypass valve control"
     annotation (Placement(transformation(extent={{170,410},{190,430}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant floChiWatMin[nChi +
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant floChiWatMin[nChi +
     nChiHea](final k=1.1*cat(
         1,
         fill(mChiWatChi_flow_min, nChi),
         fill(mChiWatChiHea_flow_min, nChiHea))) "Minimum flow setpoint"
     annotation (Placement(transformation(extent={{100,450},{120,470}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant floHeaWatMin[nChiHea](final k=
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant floHeaWatMin[nChiHea](final k=
         1.1*fill(mHeaWatChiHea_flow_min, nChiHea))   "Minimum flow setpoint"
     annotation (Placement(transformation(extent={{100,410},{120,430}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax max2(nin=nChi + nChiHea)
+  Buildings.Controls.OBC.CDL.Reals.MultiMax max2(nin=nChi + nChiHea)
     "Maximum control signal"
     annotation (Placement(transformation(extent={{200,450},{220,470}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax max3(nin=nChiHea)
+  Buildings.Controls.OBC.CDL.Reals.MultiMax max3(nin=nChiHea)
     "Maximum control signal"
     annotation (Placement(transformation(extent={{200,410},{220,430}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator
                                                           rep7(final nout=nChi)
     "Replicate"
     annotation (Placement(transformation(extent={{-150,370},{-130,390}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi[nChi]
+  Buildings.Controls.OBC.CDL.Reals.Switch swi[nChi]
     "Condition to enable evaporator flow control loop" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={0,500})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer1[nChi](final k=
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer1[nChi](final k=
         fill(0, nChi)) "Constant"
     annotation (Placement(transformation(extent={{-70,490},{-50,510}})));
   Buildings.Controls.OBC.CDL.Logical.Not noHeaAndCooAndOn
@@ -825,25 +825,25 @@ block ValveCondenserEvaporator
                                                           rep8(final nout=nChi)
     "Replicate"
     annotation (Placement(transformation(extent={{-150,450},{-130,470}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1[nChi]
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1[nChi]
     "Condition to enable evaporator flow control loop" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-60,470})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yBalChi[nChi](final k=
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yBalChi[nChi](final k=
         fill(yBalEvaChi, nChi)) "Constant"
     annotation (Placement(transformation(extent={{-150,490},{-130,510}})));
   Buildings.Controls.OBC.CDL.Logical.Not fulOpe[nChi]
     "Condition to switch to fixed full opening"
     annotation (Placement(transformation(extent={{-110,430},{-90,450}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi2[nChi]
+  Buildings.Controls.OBC.CDL.Reals.Switch swi2[nChi]
     "Condition to enable evaporator flow control loop" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-60,440})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one1[nChi](final k=
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one1[nChi](final k=
         fill(1, nChi)) "Constant"
     annotation (Placement(transformation(extent={{-110,490},{-90,510}})));
   Buildings.Controls.OBC.CDL.Logical.And cooAndOn[nChiHea]
@@ -852,10 +852,10 @@ block ValveCondenserEvaporator
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-170,-60})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch selValPos[nChiHea]
+  Buildings.Controls.OBC.CDL.Reals.Switch selValPos[nChiHea]
     "Select HRC evaporator isolation valve command signal"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yBalChiHea[nChiHea](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yBalChiHea[nChiHea](
       final k=fill(yBalEvaChiHea, nChiHea)) "Constant"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr anyCooOrDirAndOn(nin=nChiHea)
@@ -870,7 +870,7 @@ block ValveCondenserEvaporator
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nChiHea]
     "Convert"
     annotation (Placement(transformation(extent={{20,-110},{40,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max max4[nChiHea] "Convert"
+  Buildings.Controls.OBC.CDL.Reals.Max max4[nChiHea] "Convert"
     annotation (Placement(transformation(extent={{120,-110},{140,-90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValConWatByp(final unit="1")
     "CW chiller bypass valve control signal" annotation (Placement(
@@ -885,15 +885,15 @@ block ValveCondenserEvaporator
   Buildings.Controls.OBC.CDL.Logical.MultiAnd allCloAndChaAndEna(nin=nChi+2)
     "Check if all valves closed AND Charge Assist mode is active"
     annotation (Placement(transformation(extent={{40,10},{20,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch enaCtlValConWatByp
+  Buildings.Controls.OBC.CDL.Reals.Switch enaCtlValConWatByp
     "Enable CW bypass valve control"
     annotation (Placement(transformation(extent={{170,90},{190,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer2(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer2(final k=0)
     "Constant" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={140,80})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold isOpe4(t=0.1, h=5E-2)
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold isOpe4(t=0.1, h=5E-2)
                    "Check if valve open"
     annotation (Placement(transformation(extent={{190,130},{170,150}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1CooOrHea

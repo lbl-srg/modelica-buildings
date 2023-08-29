@@ -8,20 +8,20 @@ model WetBulb_TDryBulPhi
   Buildings.Controls.OBC.CDL.Psychrometrics.WetBulb_TDryBulPhi wetBulPhi1
     "Model for wet bulb temperature"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp phi(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp phi(
     duration=1,
     height=0.95,
     offset=0.05) "Relative humidity"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TDryBul(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TDryBul(
     k=273.15+29.4) "Dry bulb temperature"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TDryBul1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TDryBul1(
     duration=1,
     height=40,
     offset=273.15) "Dry bulb temperature"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant phi2(k=0.6)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant phi2(k=0.6)
     "Relative humidity"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
 

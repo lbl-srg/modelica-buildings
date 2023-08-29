@@ -17,7 +17,7 @@ block OpenLoopRadiatorSupply
     final unit="1")
     "Valve control signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(k=1)
     "Constant valve control signal"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation

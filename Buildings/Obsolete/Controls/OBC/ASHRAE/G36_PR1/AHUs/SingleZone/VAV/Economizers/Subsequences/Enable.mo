@@ -142,33 +142,33 @@ protected
     final k=false) if not use_enthalpy
     "Deactivates outdoor air enthalpy condition if there is no enthalpy sensor"
     annotation (Placement(transformation(extent={{-60,170},{-40,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamPhyPosMinSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant retDamPhyPosMinSig(
     final k=retDamPhyPosMin)
     "Physically fixed minimum position of the return air damper"
     annotation (Placement(transformation(extent={{-140,-258},{-120,-238}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamPhyPosMaxSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant retDamPhyPosMaxSig(
     final k=retDamPhyPosMax)
     "Physically fixed maximum position of the return air damper. This is the initial condition of the return air damper"
     annotation (Placement(transformation(extent={{-140,-220},{-120,-200}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysOutTem(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysOutTem(
     final uHigh=TOutHigLimCutHig,
     final uLow=TOutHigLimCutLow)
     "Outdoor air temperature hysteresis for fixed or differential dry bulb temperature cutoff conditions"
     annotation (Placement(transformation(extent={{-100,244},{-80,264}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysOutEnt(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysOutEnt(
     final uLow=hOutHigLimCutLow,
     final uHigh=hOutHigLimCutHig) if use_enthalpy
     "Outdoor air enthalpy hysteresis for fixed or differential enthalpy cutoff conditions"
     annotation (Placement(transformation(extent={{-98,150},{-78,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2 if use_enthalpy
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub2 if use_enthalpy
     "Add block that determines the difference between hOut and hOutCut"
     annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1
     "Add block that determines difference the between TOut and TOutCut"
     annotation (Placement(transformation(extent={{-140,244},{-120,264}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch outDamSwitch "Set maximum OA damper position to minimum at disable (after time delay)"
+  Buildings.Controls.OBC.CDL.Reals.Switch outDamSwitch "Set maximum OA damper position to minimum at disable (after time delay)"
     annotation (Placement(transformation(extent={{40,-150},{60,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch minRetDamSwitch
+  Buildings.Controls.OBC.CDL.Reals.Switch minRetDamSwitch
     "Keep minimum RA damper position at physical maximum for a short time period after disable"
     annotation (Placement(transformation(extent={{40,-250},{60,-230}})));
   Buildings.Controls.OBC.CDL.Logical.Nor nor1 "Logical nor"
@@ -194,11 +194,11 @@ protected
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Controls.OBC.CDL.Logical.Not not3 "Negation for check of freeze protection status"
     annotation (Placement(transformation(extent={{-44,-10},{-24,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub3
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub3
      if use_fixed_plus_differential_drybulb
     "Add block that determines difference the between TOut and TOutCut"
     annotation (Placement(transformation(extent={{-140,200},{-120,220}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysCutTem(final uHigh=
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysCutTem(final uHigh=
         TOutHigLimCutHig, final uLow=TOutHigLimCutLow) if use_fixed_plus_differential_drybulb
     "Outdoor air temperature hysteresis for both fixed and differential dry bulb temperature cutoff conditions"
     annotation (Placement(transformation(extent={{-100,200},{-80,220}})));

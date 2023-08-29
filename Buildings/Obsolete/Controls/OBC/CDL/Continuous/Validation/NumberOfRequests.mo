@@ -6,29 +6,29 @@ model NumberOfRequests  "Validation model for the NumberOfRequests block"
     kind=0)
     "Block that outputs the number of signals that are above/below a certain threshold"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramp1(
     duration=1,
     offset=-2,
     height=4)  "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-60,56},{-40,76}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramp2(
     duration=1,
     offset=-1,
     height=3) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-60,22},{-40,42}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp3(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramp3(
     duration=1,
     height=3.5,
     offset=0.5) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp4(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramp4(
     duration=1,
     offset=3,
     height=-1) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-60,-42},{-40,-22}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp5(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramp5(
     duration=1,
     offset=0,
     height=4)  "Block that generates ramp signal"

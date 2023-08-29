@@ -148,10 +148,10 @@ block SeparateWithDP
     "Physical maximum return air damper position limit. Required as an input for the economizer enable disable sequence"
     annotation (Placement(transformation(extent={{220,-360},{260,-320}}),
         iconTransformation(extent={{100,-110},{140,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply minDp if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1
+  Buildings.Controls.OBC.CDL.Reals.Multiply minDp if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1
     "Minimum pressure difference setpoint when complying with ASHRAE 62.1"
     annotation (Placement(transformation(extent={{-120,160},{-100,180}})));
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset maxRetDam(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset maxRetDam(
     final controllerType=dpCon,
     final k=kDp,
     final Ti=TiDp,
@@ -159,27 +159,27 @@ block SeparateWithDP
     annotation (Placement(transformation(extent={{120,160},{140,180}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minDesDp(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minDesDp(
     final k=dpDesMinOutDam)
     "Design minimum outdoor air damper pressure difference"
     annotation (Placement(transformation(extent={{-180,180},{-160,200}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro
     if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1
     "Square of the normalized minimum airflow"
     annotation (Placement(transformation(extent={{-180,140},{-160,160}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     final h=1)
     "Check if the minimum pressure difference setpoint is greater than zero"
     annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
-  Buildings.Controls.OBC.CDL.Continuous.Less les(
+  Buildings.Controls.OBC.CDL.Reals.Less les(
     final h=0.05)
     "Check if economizer outdoor air damper is less than projected position"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=1.1)
     "Projected position with a gain factor"
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater gre(
+  Buildings.Controls.OBC.CDL.Reals.Greater gre(
     final h=0.05)
     "Check if the economizer outdoor air damper is greater than threshold"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
@@ -204,83 +204,83 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And3 enaMinDam
     "Check if the minimum outdoor air damper should be enabled"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one(
     final k=1) "Constant"
     annotation (Placement(transformation(extent={{-200,-130},{-180,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minFanSpe(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minFanSpe(
     final k=minSpe) "Minimum fan speed"
     annotation (Placement(transformation(extent={{-160,-70},{-140,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
     final k=0.05) "Constant"
     annotation (Placement(transformation(extent={{-160,-130},{-140,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(
     final k=0.8) "Constant"
     annotation (Placement(transformation(extent={{-200,-70},{-180,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line moaP(
+  Buildings.Controls.OBC.CDL.Reals.Line moaP(
     final limitBelow=true,
     final limitAbove=true)
     "Linear mapping of the supply fan speed to the control signal"
     annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPhyPosMinSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant outDamPhyPosMinSig(
     final k=outDamPhy_min)
     "Physically fixed minimum position of the outdoor air damper. This is the initial position of the economizer damper"
     annotation (Placement(transformation(extent={{-200,-180},{-180,-160}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPhyPosMaxSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant outDamPhyPosMaxSig(
     final k=outDamPhy_max)
     "Physically fixed maximum position of the outdoor air damper."
     annotation (Placement(transformation(extent={{-200,-220},{-180,-200}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamPhyPosMinSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant retDamPhyPosMinSig(
     final k=retDamPhy_min)
     "Physically fixed minimum position of the return air damper"
     annotation (Placement(transformation(extent={{-200,-260},{-180,-240}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamPhyPosMaxSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant retDamPhyPosMaxSig(
     final k=retDamPhy_max)
     "Physically fixed maximum position of the return air damper. This is the initial condition of the return air damper"
     annotation (Placement(transformation(extent={{-200,-300},{-180,-280}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch retDamPosMaxSwi
+  Buildings.Controls.OBC.CDL.Reals.Switch retDamPosMaxSwi
     "A switch to deactivate the return air damper maximum outdoor airflow control"
     annotation (Placement(transformation(extent={{180,-310},{200,-290}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch retDamPosMinSwi
+  Buildings.Controls.OBC.CDL.Reals.Switch retDamPosMinSwi
     "A switch to deactivate the return air damper minimal outdoor airflow control"
     annotation (Placement(transformation(extent={{180,-260},{200,-240}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro1
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro1
     if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24
     "Square of the normalized minimum airflow"
     annotation (Placement(transformation(extent={{-180,290},{-160,310}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply  pro2
+  Buildings.Controls.OBC.CDL.Reals.Multiply  pro2
     if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24
     "Square of the normalized minimum airflow"
     annotation (Placement(transformation(extent={{-180,220},{-160,240}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minAbsDp(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minAbsDp(
     final k=dpAbsMinOutDam)
     if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24
     "Absolute minimum outdoor air damper pressure difference"
     annotation (Placement(transformation(extent={{-180,330},{-160,350}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line minDp1(
+  Buildings.Controls.OBC.CDL.Reals.Line minDp1(
     final limitAbove=true)
     if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24
     "Minimum pressure difference setpoint when complying with Title 24"
     annotation (Placement(transformation(extent={{20,260},{40,280}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one1(
     final k=1)
     if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24
     "Design fan speed"
     annotation (Placement(transformation(extent={{-60,230},{-40,250}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hal(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant hal(
     final k=0.5)
     if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24
     "Constant"
     annotation (Placement(transformation(extent={{-60,290},{-40,310}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one2(
     final k=1)
     if not have_CO2Sen and venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24
     "Design fan speed"
     annotation (Placement(transformation(extent={{-120,240},{-100,260}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply actAbsMinDp
+  Buildings.Controls.OBC.CDL.Reals.Multiply actAbsMinDp
     if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24
     "Active absolute minimum pressure difference setpoint"
     annotation (Placement(transformation(extent={{-120,300},{-100,320}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply actDesMinDp
+  Buildings.Controls.OBC.CDL.Reals.Multiply actDesMinDp
     if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24
     "Active design minimum pressure difference setpoint"
     annotation (Placement(transformation(extent={{-120,200},{-100,220}})));

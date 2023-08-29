@@ -66,7 +66,7 @@ block ReturnFanAirflowTracking
     "Return fan commanded on"
     annotation (Placement(transformation(extent={{100,-90},{140,-50}}),
         iconTransformation(extent={{100,-110},{140,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID conP(
+  Buildings.Controls.OBC.CDL.Reals.PID conP(
     final controllerType=conTyp,
     final k=k,
     final Ti=Ti,
@@ -77,19 +77,19 @@ block ReturnFanAirflowTracking
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Check if relief damper should be enabled"
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract conErr(
+  Buildings.Controls.OBC.CDL.Reals.Subtract conErr(
     u1(final unit="m3/s", displayUnit="m3/s"),
     u2(final unit="m3/s", displayUnit="m3/s"),
     y(final unit="m3/s", displayUnit="m3/s"))
     "Control error"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerSpe(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zerSpe(
     final k=0) "Disable return fan"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant difFlo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant difFlo(
     final k=difFloSet) "Return airflow less than supply airflow"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 

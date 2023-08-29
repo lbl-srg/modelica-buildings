@@ -89,10 +89,10 @@ partial model PartialDecoupling
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={120,50})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dp2SetVal(final k=
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dp2SetVal(final k=
         dp2Set) "Pressure differential set point"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset ctlPum2(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset ctlPum2(
     k=0.1,
     Ti=60,
     r=1e4,
@@ -108,7 +108,7 @@ partial model PartialDecoupling
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={40,-70})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable fraLoa(table=[0,0,0; 6,
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable fraLoa(table=[0,0,0; 6,
         0,0; 6.1,1,1; 8,1,1; 9,1,0; 14,0.5,0; 14.5,0,0; 16,0,0; 17,0,1; 21,0,1;
         22,0,0; 24,0,0], timeScale=3600) "Load modulating signal"
     annotation (Placement(transformation(extent={{-140,110},{-120,130}})));
@@ -128,7 +128,7 @@ partial model PartialDecoupling
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-100,60})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant T1SetVal[3](final k={
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant T1SetVal[3](final k={
         MediumLiq.T_default,TLiqSup_nominal,TLiqSupChg_nominal})
     "Primary circuit temperature set point values"
     annotation (Placement(transformation(extent={{-140,-150},{-120,-130}})));

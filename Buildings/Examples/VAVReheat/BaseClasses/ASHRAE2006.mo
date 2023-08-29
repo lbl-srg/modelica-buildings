@@ -64,16 +64,16 @@ model ASHRAE2006
   Controls.SystemHysteresis sysHysCoo
     "Hysteresis and delay to switch cooling on and off"
     annotation (Placement(transformation(extent={{40,-250},{60,-230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swiFreStaPum
+  Buildings.Controls.OBC.CDL.Reals.Switch swiFreStaPum
     "Switch for freeze stat of pump"
     annotation (Placement(transformation(extent={{40,-130},{60,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swiFreStaVal
+  Buildings.Controls.OBC.CDL.Reals.Switch swiFreStaVal
     "Switch for freeze stat of valve"
     annotation (Placement(transformation(extent={{40,-170},{60,-150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFreHeaCoi(final k=1.0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yFreHeaCoi(final k=1.0)
     "Flow rate signal for heating coil when freeze stat is on"
     annotation (Placement(transformation(extent={{-140,-130},{-120,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMin TRooMin(
+  Buildings.Controls.OBC.CDL.Reals.MultiMin TRooMin(
     final nin=numZon,
     u(each final unit="K",
       each displayUnit="degC"),

@@ -18,7 +18,7 @@ model EnergyConversion "Validate model EnergyConversion"
     "Energy conversion volume: warm-up by time delay"
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable mWat_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable mWat_flow(
     table=[0,0; 300,0.4; 2700,0; 3000,0],
     smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments)
     "Cooling water flow rate"
@@ -31,13 +31,13 @@ model EnergyConversion "Validate model EnergyConversion"
   Modelica.Blocks.Sources.BooleanTable avaSig(startValue=true, table={3500})
     "Plant availability signal"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TEng(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TEng(
     final height=90,
     final duration=600,
     final offset=273.15 + 15,
     final startTime=360) "Engine temperature"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TWatIn(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TWatIn(
     y(final unit="K", displayUnit="degC"),
     final k=273.15 + 15) "Cooling water inlet temperature"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
@@ -45,7 +45,7 @@ model EnergyConversion "Validate model EnergyConversion"
     table=[0,0; 299,0; 300,2500; 2699,2500;2700,0; 3000,0])
     "Electric power demand"
     annotation (Placement(transformation(extent={{-30,30},{-10,50}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant TRoo(
+  Controls.OBC.CDL.Reals.Sources.Constant TRoo(
     y(final unit="K", displayUnit="degC"),
     final k=273.15 + 15)
     "Room temperature"
