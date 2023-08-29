@@ -29,18 +29,18 @@ block TankCycle "Block that determines the tank cycle flag"
     annotation (Placement(transformation(extent={{160,-20},{200,20}}),
                              iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold criTem1[nTTan](
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold criTem1[nTTan](
     each t=sum(TTanSet[2])/2, each h=1E-4)
     "Temperature criterion for first tank cycle"
     annotation (Placement(transformation(extent={{-140,-50},{-120,-30}})));
   Buildings.Controls.OBC.CDL.Logical.MultiAnd allCriTem1(final nin=nTTan)
     "All temperature criteria met"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold criFlo1(final t=1E-3*
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold criFlo1(final t=1E-3*
         mConWatHexCoo_flow_nominal, h=1E-3*mConWatHexCoo_flow_nominal/2)
     "Flow criterion for first tank cycle"
     annotation (Placement(transformation(extent={{-150,110},{-130,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold criTem2[nTTan](each t=sum(TTanSet[1])/2, each h=1E-4)
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold criTem2[nTTan](each t=sum(TTanSet[1])/2, each h=1E-4)
   "Temperature criterion for first tank cycle"
     annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
   Buildings.Controls.OBC.CDL.Logical.MultiAnd allCriTem2(final nin=nTTan)

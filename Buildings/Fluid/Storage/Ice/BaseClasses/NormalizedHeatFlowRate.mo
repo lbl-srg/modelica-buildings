@@ -42,7 +42,7 @@ protected
     final coeff=coeDisCha,
     final dt=dtDisCha) "q* for discharging mode"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract qSta
+  Buildings.Controls.OBC.CDL.Reals.Subtract qSta
     "Effective normalized heat flow rate"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 

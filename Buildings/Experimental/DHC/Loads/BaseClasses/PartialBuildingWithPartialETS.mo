@@ -220,42 +220,42 @@ partial model PartialBuildingWithPartialETS
     final allowFlowReversalBui=allowFlowReversalBui)
     "Energy transfer station model"
     annotation (Placement(transformation(extent={{-30,-86},{30,-26}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum totPHea(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum totPHea(
     final nin=Modelica.Math.BooleanVectors.countTrue(
       {bui.have_eleHea,ets.have_eleHea}))
     "Total power drawn by heating system"
     annotation (Placement(transformation(extent={{242,192},{262,212}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum totPCoo(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum totPCoo(
     final nin=Modelica.Math.BooleanVectors.countTrue(
       {bui.have_eleCoo,ets.have_eleCoo}))
     "Total power drawn by cooling system"
     annotation (Placement(transformation(extent={{240,150},{260,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum totPFan(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum totPFan(
     final nin=Modelica.Math.BooleanVectors.countTrue(
       {bui.have_fan,ets.have_fan}))
     "Total power drawn by fan motors"
     annotation (Placement(transformation(extent={{240,110},{260,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum totPPum(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum totPPum(
     final nin=Modelica.Math.BooleanVectors.countTrue(
       {bui.have_pum,ets.have_pum})) if have_pum
     "Total power drawn by pump motors"
     annotation (Placement(transformation(extent={{240,70},{260,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulQHea_flow(u(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter mulQHea_flow(u(
         final unit="W"), final k=facMul) if bui.have_heaLoa "Scaling"
     annotation (Placement(transformation(extent={{270,270},{290,290}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulQCoo_flow(u(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter mulQCoo_flow(u(
         final unit="W"), final k=facMul) if bui.have_cooLoa "Scaling"
     annotation (Placement(transformation(extent={{270,230},{290,250}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulPHea(u(final
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter mulPHea(u(final
         unit="W"), final k=facMul) if have_eleHea "Scaling"
     annotation (Placement(transformation(extent={{270,192},{290,212}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulPCoo(u(final
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter mulPCoo(u(final
         unit="W"), final k=facMul) if have_eleCoo "Scaling"
     annotation (Placement(transformation(extent={{270,150},{290,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulPFan(u(final
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter mulPFan(u(final
         unit="W"), final k=facMul) if have_fan "Scaling"
     annotation (Placement(transformation(extent={{270,110},{290,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulPPum(u(final
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter mulPPum(u(final
         unit="W"), final k=facMul) if have_pum "Scaling"
     annotation (Placement(transformation(extent={{270,70},{290,90}})));
   Fluid.BaseClasses.MassFlowRateMultiplier mulSerAmbInl(
@@ -300,7 +300,7 @@ partial model PartialBuildingWithPartialETS
     typ == TypDisSys.CombinedGeneration2to4 or
     typ == TypDisSys.Cooling "Mass flow rate multiplier"
     annotation (Placement(transformation(extent={{260,-290},{280,-270}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulQFue_flow[nFue](
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter mulQFue_flow[nFue](
       u(each final unit="W"), each final k=facMul) if nFue > 0 "Scaling"
     annotation (Placement(transformation(extent={{270,30},{290,50}})));
 initial equation

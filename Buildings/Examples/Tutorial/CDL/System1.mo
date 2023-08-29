@@ -2,21 +2,21 @@ within Buildings.Examples.Tutorial.CDL;
 model System1 "Open loop model"
   extends Buildings.Examples.Tutorial.CDL.BaseClasses.PartialOpenLoop;
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant y1(k=mRad_flow_nominal)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant y1(k=mRad_flow_nominal)
     "Control signal of 1"
     annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant y2(k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant y2(k=1)
     "Control signal of 1"
     annotation (Placement(transformation(extent={{100,-210},{120,-190}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant y3(k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant y3(k=1)
     "Constant control signal of 1"
     annotation (Placement(transformation(extent={{-120,-260},{-100,-240}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant y4(k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant y4(k=1)
     "Control signal of 1"
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant y5(k=mBoi_flow_nominal)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant y5(k=mBoi_flow_nominal)
     "Control signal of 1"
     annotation (Placement(transformation(extent={{-120,-290},{-100,-270}})));
 equation
@@ -42,8 +42,8 @@ as a first order response.
 <h4>Implementation</h4>
 <p>
 To set control inputs, we instantiated
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.Sources.Constant\">
-Buildings.Controls.OBC.CDL.Continuous.Sources.Constant</a>
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Reals.Sources.Constant\">
+Buildings.Controls.OBC.CDL.Reals.Sources.Constant</a>
 and connected them to the pumps, the boiler and the valves.
 </p>
 <h4>Exercise</h4>

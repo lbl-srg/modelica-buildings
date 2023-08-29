@@ -33,9 +33,9 @@ protected
     "Downstream pressure setpoint"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0) "Zero"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(final k=0) "Zero"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract dpReq "Calculating dp required"
+  Buildings.Controls.OBC.CDL.Reals.Subtract dpReq "Calculating dp required"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 
 equation

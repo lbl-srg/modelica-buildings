@@ -7,17 +7,17 @@ model Alarms "Validation of model that generates alarms"
     final floHys=0.01,
     final damPosHys=0.01) "Block outputs system alarms"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp disAirSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp disAirSet(
     final height=0.9,
     final duration=7200,
     final offset=0.1) "Discharge airflow rate setpoint"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp disAirRate(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp disAirRate(
     final duration=7200,
     final offset=0.1,
     final height=0.3) "Discharge airflow rate"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp damPos(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp damPos(
     final duration=7200,
     final height=0.7,
     final offset=0.3) "Damper position"
@@ -28,7 +28,7 @@ model Alarms "Validation of model that generates alarms"
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     "Convert boolean input to real output"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul
     "Damper position"
     annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse damSta(

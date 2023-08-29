@@ -93,26 +93,26 @@ block Dampers
     annotation (Placement(transformation(extent={{260,-280},{300,-240}}),
         iconTransformation(extent={{100,-110},{140,-70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
     final k=0) "Constant zero"
     annotation (Placement(transformation(extent={{-220,210},{-200,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(
     final k=1) "Constant one"
     annotation (Placement(transformation(extent={{-180,210},{-160,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line lin
+  Buildings.Controls.OBC.CDL.Reals.Line lin
     "Map cooling loop output to the active airflow setpoint"
     annotation (Placement(transformation(extent={{-120,180},{-100,200}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater gre(
+  Buildings.Controls.OBC.CDL.Reals.Greater gre(
     final h=dTHys)
     "Check if supplyair temperature from the air handler is greater than room temperature"
     annotation (Placement(transformation(extent={{-160,250},{-140,270}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Select active airfow setpoint based on difference between supply and zone temperature"
     annotation (Placement(transformation(extent={{-60,250},{-40,270}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch actFlo
+  Buildings.Controls.OBC.CDL.Reals.Switch actFlo
     "Specify active flow setpoint based on the zone status"
     annotation (Placement(transformation(extent={{-20,150},{0,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID conPID(
+  Buildings.Controls.OBC.CDL.Reals.PID conPID(
     final controllerType=damCon,
     final k=kDam,
     final Ti=TiDam,
@@ -126,14 +126,14 @@ block Dampers
   Buildings.Controls.OBC.CDL.Integers.Equal cooSta
     "Check if zone is in cooling state"
     annotation (Placement(transformation(extent={{-160,90},{-140,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant nomFlow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant nomFlow(
     final k=VCooMax_flow)
     "Nominal volume flow rate"
     annotation (Placement(transformation(extent={{0,-150},{20,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide VDisSet_flowNor
+  Buildings.Controls.OBC.CDL.Reals.Divide VDisSet_flowNor
     "Normalized setpoint for discharge volume flow rate"
     annotation (Placement(transformation(extent={{100,-160},{120,-140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide VDis_flowNor
+  Buildings.Controls.OBC.CDL.Reals.Divide VDis_flowNor
     "Normalized discharge volume flow rate"
     annotation (Placement(transformation(extent={{100,-200},{120,-180}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
@@ -169,13 +169,13 @@ block Dampers
     final realTrue=VMin_flow)
     "Force zone airflow setpoint to zone minimum flow"
     annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2
+  Buildings.Controls.OBC.CDL.Reals.Add add2
     "Add up two inputs"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add1
+  Buildings.Controls.OBC.CDL.Reals.Add add1
     "Add up inputs"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1
     "Airflow setpoint after considering override"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Or3 or3
@@ -202,13 +202,13 @@ block Dampers
     final realTrue=1)
     "Full open damper position"
     annotation (Placement(transformation(extent={{0,-270},{20,-250}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add3
+  Buildings.Controls.OBC.CDL.Reals.Add add3
     "Add up inputs"
     annotation (Placement(transformation(extent={{60,-250},{80,-230}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2
     "Check if the damper setpoint position should be overrided"
     annotation (Placement(transformation(extent={{60,-290},{80,-270}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi2
+  Buildings.Controls.OBC.CDL.Reals.Switch swi2
     "Damper setpoint position after considering override"
     annotation (Placement(transformation(extent={{220,-270},{240,-250}})));
 

@@ -116,11 +116,11 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
     annotation (Placement(transformation(extent={{240,-440},{280,-400}}),
         iconTransformation(extent={{100,-190},{140,-150}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=0.5)
     "Percentage of the setpoint"
     annotation (Placement(transformation(extent={{-180,380},{-160,400}})));
-  Buildings.Controls.OBC.CDL.Continuous.Less les(
+  Buildings.Controls.OBC.CDL.Reals.Less les(
     final h=floHys)
     "Check if measured airflow is less than threshold"
     annotation (Placement(transformation(extent={{-120,410},{-100,430}})));
@@ -128,16 +128,16 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
     final delayTime=lowFloTim)
     "Check if the measured airflow has been less than threshold value for threshold time"
     annotation (Placement(transformation(extent={{-80,410},{-60,430}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     final t=floHys,
     final h=0.5*floHys)
     "Check if setpoint airflow is greater than zero"
     annotation (Placement(transformation(extent={{-180,330},{-160,350}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater gre(
+  Buildings.Controls.OBC.CDL.Reals.Greater gre(
     final h=floHys)
     "Check if measured airflow is less than threshold"
     annotation (Placement(transformation(extent={{-120,280},{-100,300}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(
     final k=0.7)
     "Percentage of the setpoint"
     annotation (Placement(transformation(extent={{-180,300},{-160,320}})));
@@ -162,11 +162,11 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
     final integerTrue=3)
     "Convert boolean true to level 3 alarm"
     annotation (Placement(transformation(extent={{80,330},{100,350}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conInt1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conInt1(
     final k=staPreMul)
     "Importance multiplier for zone static pressure reset"
     annotation (Placement(transformation(extent={{-120,240},{-100,260}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr1
     "Check if the multiplier is greater than zero"
     annotation (Placement(transformation(extent={{-80,240},{-60,260}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1
@@ -195,10 +195,10 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
     final message="Warning: airflow is less than 70% of the setpoint.")
     "Level 3 low airflow alarm"
     annotation (Placement(transformation(extent={{100,290},{120,310}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooMaxFlo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant cooMaxFlo(
     final k=VCooMax_flow) if have_duaSen "Cooling maximum airflow setpoint"
     annotation (Placement(transformation(extent={{-200,-90},{-180,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai2(
     final k=0.1) if have_duaSen
     "Percentage of the setpoint"
     annotation (Placement(transformation(extent={{-160,-90},{-140,-70}})));
@@ -209,7 +209,7 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
     final delayTime=fanOffTim) if have_duaSen
     "Check if the input has been true for more than threshold time"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater gre1(
+  Buildings.Controls.OBC.CDL.Reals.Greater gre1(
     final h=floHys) if have_duaSen
     "Check if measured airflow is greater than threshold"
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
@@ -232,7 +232,7 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
     final delayTime=leaFloTim) if have_duaSen
     "Check if the input has been true for more than threshold time"
     annotation (Placement(transformation(extent={{20,-200},{40,-180}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold cloDam(
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold cloDam(
     final t=damPosHys,
     final h=0.5*damPosHys) "Check if damper position is near zero"
     annotation (Placement(transformation(extent={{-200,-240},{-180,-220}})));
@@ -251,11 +251,11 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
     final integerTrue=4) if have_duaSen
     "Convert boolean true to level 4 alarm"
     annotation (Placement(transformation(extent={{140,-200},{160,-180}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaMaxFlo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant heaMaxFlo(
     final k=VHeaMax_flow)
     if have_duaSen "Heating maximum airflow setpoint"
     annotation (Placement(transformation(extent={{-200,-320},{-180,-300}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai3(final k=0.1)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai3(final k=0.1)
     if have_duaSen
     "Percentage of the setpoint"
     annotation (Placement(transformation(extent={{-160,-320},{-140,-300}})));
@@ -266,7 +266,7 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
     final delayTime=fanOffTim) if have_duaSen
     "Check if the input has been true for more than threshold time"
     annotation (Placement(transformation(extent={{20,-300},{40,-280}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater gre2(
+  Buildings.Controls.OBC.CDL.Reals.Greater gre2(
     final h=floHys)
     if have_duaSen
     "Check if measured airflow is greater than threshold"
@@ -290,7 +290,7 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
     final delayTime=leaFloTim) if have_duaSen
     "Check if the input has been true for more than threshold time"
     annotation (Placement(transformation(extent={{20,-430},{40,-410}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold cloDam1(
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold cloDam1(
     final t=damPosHys,
     final h=0.5*damPosHys)
     "Check if damper position is near zero"
@@ -310,16 +310,16 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
     final integerTrue=4) if have_duaSen
     "Convert boolean true to level 4 alarm"
     annotation (Placement(transformation(extent={{140,-430},{160,-410}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooMaxFlo1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant cooMaxFlo1(
     final k=VCooMax_flow) if not have_duaSen
     "Cooling maximum airflow setpoint"
     annotation (Placement(transformation(extent={{-180,140},{-160,160}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai4(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai4(
     final k=0.1)
     if not have_duaSen
     "Percentage of the setpoint"
     annotation (Placement(transformation(extent={{-140,140},{-120,160}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater gre3(
+  Buildings.Controls.OBC.CDL.Reals.Greater gre3(
     final h=floHys)
     if not have_duaSen
     "Check if measured airflow is greater than threshold"
@@ -371,7 +371,7 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
     final integerTrue=4) if not have_duaSen
     "Convert boolean true to level 4 alarm"
     annotation (Placement(transformation(extent={{140,20},{160,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2 if have_duaSen
+  Buildings.Controls.OBC.CDL.Reals.Add add2 if have_duaSen
     "Total discharge airflow"
     annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel8(

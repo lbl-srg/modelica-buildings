@@ -54,30 +54,30 @@ protected
     final k=Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.occupied)
     "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{-120,-130},{-100,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutBelowCutoff(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOutBelowCutoff(
     final k=TOutCutoff - 5) "Outdoor air temperature is slightly below the cutoff"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VOutMinSet_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant VOutMinSet_flow(
     final k=minVOutSet_flow)
     "Outdoor airflow rate setpoint, example assumes 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp VOut_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp VOut_flow(
     final offset=VOutMin_flow,
     final duration=1800,
     final height=incVOutSet_flow) "Measured outdoor air volumetric airflow"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp uTSup(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp uTSup(
     final duration=1800,
     final height=2,
     final offset=-1)
     "Supply air temperature control signal"
     annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp supFanSpe(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp supFanSpe(
     final duration=1800,
     final height=0.5,
     final offset=0.2) "Supply fan speed"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp dpDam2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp dpDam2(
     final duration=1800,
     final offset=120,
     final height=52)  "Pressure accross outdoor air damper"

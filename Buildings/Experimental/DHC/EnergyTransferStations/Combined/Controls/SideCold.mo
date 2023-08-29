@@ -29,10 +29,10 @@ model SideCold
     "Chilled water supply temperature set point"
     annotation (Placement(transformation(extent={{180,60},{220,100}}),
     iconTransformation(extent={{100,-60},{140,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line mapFun[nSouAmb]
+  Buildings.Controls.OBC.CDL.Reals.Line mapFun[nSouAmb]
     "Mapping functions for ambient source control"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant x1[nSouAmb](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant x1[nSouAmb](
     final k={(i-1) for i in 1:nSouAmb})
     "x1"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
@@ -40,15 +40,15 @@ model SideCold
     final nout=nSouAmb)
     "Replicate control signal"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0)));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant f1[nSouAmb](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant f1[nSouAmb](
     each final k=0)
     "f1"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant f2[nSouAmb](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant f2[nSouAmb](
     each final k=1)
     "f2"
     annotation (Placement(transformation(extent={{-10,110},{10,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant x2[nSouAmb](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant x2[nSouAmb](
     final k={(i) for i in 1:nSouAmb})
     "x2"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
@@ -61,38 +61,38 @@ model SideCold
     final reverseActing=false)
     "Controller for CHWST"
     annotation (Placement(transformation(extent={{-150,-30},{-130,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line mapFunTChiSupSet
+  Buildings.Controls.OBC.CDL.Reals.Line mapFunTChiSupSet
     "Mapping function for CHWST reset"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTChiWatSup(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minTChiWatSup(
     y(final unit="K",
       displayUnit="degC"),
     final k=TChiWatSupSetMin)
     "Minimum value of chilled water supply temperature"
     annotation (Placement(transformation(extent={{62,50},{82,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(
     p=nSouAmb)
     "One minus control loop output"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     k=-nSouAmb)
     "Gain factor"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max max1
+  Buildings.Controls.OBC.CDL.Reals.Max max1
     "CHWST reset signal"
     annotation (Placement(transformation(extent={{-30,70},{-10,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(
     k=0)
     "Zero"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter subNumSou(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter subNumSou(
     p=-nSouAmb)
     "Control signal minus nSouAmb"
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Min min1
+  Buildings.Controls.OBC.CDL.Reals.Min min1
     "Ambient source control signal"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimitSlewRate ramLimHea(
+  Buildings.Controls.OBC.CDL.Reals.LimitSlewRate ramLimHea(
     raisingSlewRate=0.1) "Limit the rate of change"
     annotation (Placement(transformation(extent={{140,70},{160,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHeaCoo
@@ -124,7 +124,7 @@ model SideCold
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     "Convert DO to AO signal"
     annotation (Placement(transformation(extent={{40,-110},{60,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     t=0.01)
     "Control signal is non zero (with 1% tolerance)"
     annotation (Placement(transformation(extent={{0,-110},{20,-90}})));

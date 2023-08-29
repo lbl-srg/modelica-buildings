@@ -27,17 +27,17 @@ model SingleZoneFloorHeater
     annotation (Placement(transformation(extent={{-140,-110},{-100,-70}}),
       iconTransformation(extent={{-140,-110},{-100,-70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.PID conPID(
+  Buildings.Controls.OBC.CDL.Reals.PID conPID(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     Ti=900,
     u_s(unit="K", displayUnit="degC"),
     u_m(unit="K", displayUnit="degC")) "Controller for heater"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     k=20)
     "Gain factor"
     annotation (Placement(transformation(extent={{-48,-70},{-28,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(
     p=273.15 + 10,
     y(unit="K", displayUnit="degC"))
     "Compute the leaving water setpoint temperature"
