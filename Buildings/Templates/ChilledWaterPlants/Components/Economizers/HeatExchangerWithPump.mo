@@ -1,6 +1,7 @@
 within Buildings.Templates.ChilledWaterPlants.Components.Economizers;
 model HeatExchangerWithPump "Heat exchanger with pump for CHW flow control"
-  extends Buildings.Templates.ChilledWaterPlants.Components.Interfaces.PartialEconomizerHX(
+  extends
+    Buildings.Templates.ChilledWaterPlants.Components.Interfaces.PartialEconomizerHX(
     final typ=Buildings.Templates.ChilledWaterPlants.Types.Economizer.HeatExchangerWithPump,
     hex(from_dp2=true));
 
@@ -71,5 +72,19 @@ November 18, 2022, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Icon(graphics={
+    Bitmap(
+      extent={{300,-320},{380,-240}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/Temperature.svg"),
+    Bitmap(extent={{240,-40},{440,-240}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/ProbeInWell.svg"),
+    Line(points={{216,-142},{216,-180}},color={0,0,0}),
+    Bitmap(
+        extent={{158,-280},{258,-180}},
+        rotation=text_rotation,
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/VFD.svg"),
+    Bitmap(
+          extent={{258,-150},{158,-50}},
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Pumps/Single.svg")}));
 end HeatExchangerWithPump;

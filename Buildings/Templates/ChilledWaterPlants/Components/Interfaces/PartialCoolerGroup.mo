@@ -3,9 +3,7 @@ partial model PartialCoolerGroup
   "Interface class for cooler group"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     redeclare final package Medium=MediumConWat,
-    final m_flow_nominal=mConWat_flow_nominal)
-  annotation (
-    IconMap(extent={{-400,-400},{400,400}}));
+    final m_flow_nominal=mConWat_flow_nominal);
 
   replaceable package MediumConWat=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
@@ -94,14 +92,11 @@ partial model PartialCoolerGroup
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={0,100}), iconTransformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={0,400})));
+        origin={0,100}), iconTransformation(extent={{-20,280},{20,320}})));
   BoundaryConditions.WeatherData.Bus busWea
     "Weather data bus"
     annotation (Placement(transformation(extent={{-80,80},{-40,120}}),
-      iconTransformation(extent={{-230,390},{-210,410}})));
+        iconTransformation(extent={{-320,280},{-280,320}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator repSpe(
     final nout=nCoo) if have_varCom
     "Replicate signal in case of common unique commanded speed"
@@ -174,13 +169,8 @@ equation
       horizontalAlignment=TextAlignment.Right));
   annotation (
   Icon(coordinateSystem(preserveAspectRatio=false,
-    extent={{-400,-400},{400,400}}), graphics={
-              Rectangle(
-          extent={{-402,400},{400,-400}},
-          lineColor={0,0,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid)}),
-                                      Diagram(
+    extent={{-820,-300},{820,300}})),
+    Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),
     Documentation(info="<html>

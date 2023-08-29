@@ -53,5 +53,31 @@ November 18, 2022, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Icon(graphics={
+  Line(
+    points={{0,30},{0,-30}},
+    color={0,0,0},
+          origin={430,0},
+          rotation=-90),
+  Bitmap(
+    extent={{460,-38},{540,42}},
+    fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulating.svg"),
+  Bitmap(
+    extent={{140,-40},{220,40}},
+    fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/DifferentialPressure.svg"),
+  Bitmap(
+    extent={{190,-100},{270,-20}},
+    fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/DifferentialPressureHigh.svg"),
+  Bitmap(
+    extent={{190,20},{270,100}},
+    fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/DifferentialPressureLow.svg"),
+        Rectangle(extent={{175,-40},{185,-80}}, lineColor={0,0,0}),
+        Rectangle(extent={{175,80},{185,40}}, lineColor={0,0,0}),
+  Bitmap(
+    extent={{-100,-100},{100,100}},
+    fileName=
+        "modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
+    rotation=180,
+    origin={400,0})}));
 end HeatExchangerWithValve;

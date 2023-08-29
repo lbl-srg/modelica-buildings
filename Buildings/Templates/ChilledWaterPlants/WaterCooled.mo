@@ -20,9 +20,8 @@ model WaterCooled "Water-cooled chiller plant"
     final tau=tau,
     final allowFlowReversal=allowFlowReversal)
     "Coolers"
-    annotation (
-    Dialog(group="Coolers"),
-    Placement(transformation(extent={{-180,-40},{-260,40}})));
+    annotation (Dialog(group="Coolers"), Placement(transformation(extent={{-128,34},
+            {-292,94}})));
 
   // CW loop
   Buildings.Templates.Components.Routing.SingleToMultiple inlPumConWat(
@@ -32,9 +31,10 @@ model WaterCooled "Water-cooled chiller plant"
     final energyDynamics=energyDynamics,
     final tau=tau,
     final allowFlowReversal=allowFlowReversal,
-    icon_dy=300)
+    icon_dy=intChi.icon_dy,
+    icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply)
     "CW pumps inlet manifold"
-    annotation (Placement(transformation(extent={{-140,-190},{-120,-170}})));
+    annotation (Placement(transformation(extent={{-110,-202},{-90,-182}})));
   Buildings.Templates.Components.Pumps.Multiple pumConWat(
     redeclare final package Medium=MediumCon,
     final nPum=nPumConWat,
@@ -42,9 +42,10 @@ model WaterCooled "Water-cooled chiller plant"
     final have_varCom=have_varComPumConWat,
     final dat=dat.pumConWat,
     final energyDynamics=energyDynamics,
-    final allowFlowReversal=allowFlowReversal)
+    final allowFlowReversal=allowFlowReversal,
+    icon_dy=intChi.icon_dy)
     "CW pumps"
-    annotation (Placement(transformation(extent={{-120,-190},{-100,-170}})));
+    annotation (Placement(transformation(extent={{-90,-202},{-70,-182}})));
   Fluid.Sources.Boundary_pT bouConWat(
     redeclare final package Medium = MediumCon,
     p=200000,
@@ -54,7 +55,7 @@ model WaterCooled "Water-cooled chiller plant"
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
-        origin={-140,-220})));
+        origin={-100,-250})));
   Buildings.Templates.Components.Sensors.Temperature TConWatRet(
     redeclare final package Medium = MediumCon,
     final m_flow_nominal=mCon_flow_nominal,
@@ -64,7 +65,7 @@ model WaterCooled "Water-cooled chiller plant"
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-140,0})));
+        origin={-110,40})));
   Buildings.Templates.Components.Sensors.Temperature TConWatSup(
     redeclare final package Medium = MediumCon,
     final m_flow_nominal=mCon_flow_nominal,
@@ -74,7 +75,7 @@ model WaterCooled "Water-cooled chiller plant"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={-200,-180})));
+        origin={-160,-192})));
 
 equation
   /* Control point connection - start */
@@ -84,32 +85,39 @@ equation
   connect(TConWatSup.y, bus.TConWatRet);
   /* Control point connection - stop */
   connect(inlPumConWat.ports_b, pumConWat.ports_a)
-    annotation (Line(points={{-120,-180},{-120,-180}}, color={0,127,255}));
+    annotation (Line(
+      points={{-90,-192},{-90,-192}},
+      color={0,0,0},
+      thickness=0.5));
   connect(busWea, coo.busWea) annotation (Line(
-      points={{0,280},{0,256},{-16,256},{-16,160},{-32,160},{-32,52},{-198,52},
-          {-198,40}},
+      points={{0,280},{-180,280},{-180,94}},
       color={255,204,51},
       thickness=0.5));
   connect(inlPumConWat.port_a, bouConWat.ports[1])
-    annotation (Line(points={{-140,-180},{-140,-210}}, color={0,127,255}));
+    annotation (Line(
+      points={{-110,-192},{-110,-212},{-100,-212},{-100,-240}},
+      color={0,127,255},
+      visible=viewDiagramAll));
   connect(pumConWat.ports_b, inlConChi.ports_a)
-    annotation (Line(points={{-100,-180},{-160,-180}}, color={0,127,255}));
+    annotation (Line(
+      points={{-70,-192},{-70,-192}},
+      color={0,0,0},
+      thickness=0.5));
   connect(outConChi.port_b, TConWatRet.port_b) annotation (Line(
-      points={{-120,0},{-130,0}},
+      points={{-60,0},{-60,40},{-100,40}},
       color={0,0,0},
       thickness=0.5,
       pattern=LinePattern.Dash));
   connect(TConWatRet.port_a, coo.port_a) annotation (Line(
-      points={{-150,0},{-210,0}},
+      points={{-120,40},{-200,40},{-200,64}},
       color={0,0,0},
       thickness=0.5,
       pattern=LinePattern.Dash));
-  connect(coo.port_b,TConWatSup. port_b) annotation (Line(points={{-230,0},{
-          -278,0},{-278,-180},{-210,-180}},
-                                       color={0,0,0},
+  connect(coo.port_b,TConWatSup. port_b) annotation (Line(points={{-220,64},{
+          -212,64},{-212,-192},{-170,-192}}, color={0,0,0},
       thickness=0.5));
   connect(TConWatSup.port_a, inlPumConWat.port_a)
-    annotation (Line(points={{-190,-180},{-140,-180}}, color={0,0,0},
+    annotation (Line(points={{-150,-192},{-110,-192}}, color={0,0,0},
       thickness=0.5));
   annotation (Documentation(info="<html>
 <p>

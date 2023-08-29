@@ -153,6 +153,59 @@ First implementation.
       visible=typ<>Buildings.Templates.Components.Types.Pump.None and not have_var and nPum>=4,
         extent={{-100, 3*icon_dy+60},{0, 3*icon_dy+160}},
         rotation=text_rotation,
-          fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/MotorStarter.svg")}));
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/MotorStarter.svg"),
+    Line(
+      visible=typ<>Buildings.Templates.Components.Types.Pump.None and nPum>=5,
+      points={{-100, 4*icon_dy},{100, 4*icon_dy}},
+      color={0,0,0},
+      thickness=5),
+    Line( visible=typ<>Buildings.Templates.Components.Types.Pump.None and nPum>=5,
+          points={{-50, 4*icon_dy+60},{-50, 4*icon_dy+22}},
+          color={0,0,0}),
+    Bitmap(
+      visible=typ<>Buildings.Templates.Components.Types.Pump.None and nPum>=5,
+        extent={{-100, 4*icon_dy-70},{0, 4*icon_dy+30}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Pumps/Single.svg"),
+    Bitmap(
+      visible=typ<>Buildings.Templates.Components.Types.Pump.None and have_valChe and nPum>=5,
+        extent={{20, 4*icon_dy-40},{100, 4*icon_dy+40}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/Check.svg"),
+    Bitmap(
+      visible=typ<>Buildings.Templates.Components.Types.Pump.None and have_var and nPum>=5,
+        extent={{-100, 4*icon_dy+60},{0, 4*icon_dy+160}},
+        rotation=text_rotation,
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/VFD.svg"),
+    Bitmap(
+      visible=typ<>Buildings.Templates.Components.Types.Pump.None and not have_var and nPum>=5,
+        extent={{-100, 4*icon_dy+60},{0, 4*icon_dy+160}},
+        rotation=text_rotation,
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/MotorStarter.svg"),
+    Line(
+      visible=typ<>Buildings.Templates.Components.Types.Pump.None and nPum>=6,
+      points={{-100, 5*icon_dy},{100, 5*icon_dy}},
+      color={0,0,0},
+      thickness=5),
+    Line( visible=typ<>Buildings.Templates.Components.Types.Pump.None and nPum>=6,
+          points={{-50, 5*icon_dy+60},{-50, 5*icon_dy+22}},
+          color={0,0,0}),
+    Bitmap(
+      visible=typ<>Buildings.Templates.Components.Types.Pump.None and nPum>=6,
+        extent={{-100, 5*icon_dy-70},{0, 5*icon_dy+30}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Pumps/Single.svg"),
+    Bitmap(
+      visible=typ<>Buildings.Templates.Components.Types.Pump.None and have_valChe and nPum>=6,
+        extent={{20, 5*icon_dy-40},{100, 5*icon_dy+40}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/Check.svg"),
+    Bitmap(
+      visible=typ<>Buildings.Templates.Components.Types.Pump.None and have_var and nPum>=6,
+        extent={{-100, 5*icon_dy+60},{0, 5*icon_dy+160}},
+        rotation=text_rotation,
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/VFD.svg"),
+    Bitmap(
+      visible=typ<>Buildings.Templates.Components.Types.Pump.None and not have_var and nPum>=6,
+        extent={{-100, 5*icon_dy+60},{0, 5*icon_dy+160}},
+        rotation=text_rotation,
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/MotorStarter.svg")
+}));
 
 end PartialPumpMultiple;

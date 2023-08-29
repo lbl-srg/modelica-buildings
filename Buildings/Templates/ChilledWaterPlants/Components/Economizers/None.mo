@@ -21,5 +21,11 @@ November 18, 2022, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Icon(graphics={
+  Line(
+          points={{400,80},{400,-80}},
+          color={0,0,0},
+          thickness=5,
+          pattern=LinePattern.Dash)}));
 end None;

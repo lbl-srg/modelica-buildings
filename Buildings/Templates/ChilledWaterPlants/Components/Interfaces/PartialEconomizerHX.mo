@@ -55,9 +55,44 @@ November 18, 2022, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), Icon(graphics={
-    Rectangle(
-      extent={{100,100},{-100,0}},
-      lineColor={0,0,0},
-      lineThickness=1)}));
+</html>"),
+Icon(graphics={
+  Line(
+          points={{-400,80},{-100,80}},
+          color={0,0,0},
+          thickness=5),
+  Bitmap(
+    extent={{-100,-100},{100,100}},
+    fileName=
+        "modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
+    rotation=-90,
+    origin={-240,80}),
+  Rectangle(
+    extent={{100,100},{-100,-102}},
+    lineColor={0,0,0},
+    lineThickness=1),
+  Line(
+    points={{-100,100},{100,-100}},
+    color={0,0,0},
+    thickness=1),
+  Line(
+    points={{-240,140},{-240,80}},
+    color={0,0,0}),
+  Bitmap(
+    extent={{-280,140},{-200,220}},
+    fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
+        Line(
+          points={{326,-160}},
+          color={0,0,0},
+          thickness=0.5),
+  Line(
+          points={{100,80},{400,80},{400,-80},{100,-80}},
+          color={0,0,0},
+          thickness=5,
+          pattern=LinePattern.Dash),
+  Line(
+          points={{-400,-80},{-100,-80}},
+          color={0,0,0},
+          thickness=5,
+          pattern=LinePattern.Dash)}));
 end PartialEconomizerHX;

@@ -8,8 +8,8 @@ partial model PartialChilledWaterPlant "Interface class for CHW plant"
     "Medium model for condenser cooling fluid";
 
   inner parameter Boolean viewDiagramAll=false
-    "Set to true to view all component icons in diagram view"
-    annotation (Dialog(group="Graphics"));
+    "Set to true to view all component icons and connection lines in diagram"
+    annotation (Dialog(tab="Graphics"));
 
   parameter Buildings.Templates.Components.Types.Chiller typChi
     "Type of chiller"
@@ -128,8 +128,11 @@ partial model PartialChilledWaterPlant "Interface class for CHW plant"
        and typEco == Buildings.Templates.ChilledWaterPlants.Types.Economizer.None));
   // The following parameter stores the actual configuration setting.
   final parameter Buildings.Templates.Components.Types.PumpArrangement
-    typArrPumConWat=if typEco <> Buildings.Templates.ChilledWaterPlants.Types.Economizer.None
-       then Buildings.Templates.Components.Types.PumpArrangement.Headered else
+    typArrPumConWat=
+      if typChi==Buildings.Templates.Components.Types.Chiller.AirCooled then
+        Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+      elseif typEco<>Buildings.Templates.ChilledWaterPlants.Types.Economizer.None
+        then Buildings.Templates.Components.Types.PumpArrangement.Headered else
       typArrPumConWat_select
     "Type of CW pump arrangement"
     annotation (Evaluate=true, Dialog(group="CW loop"));
@@ -271,7 +274,7 @@ partial model PartialChilledWaterPlant "Interface class for CHW plant"
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=MediumChiWat.h_default, nominal=MediumChiWat.h_default))
     "CHW return"
-    annotation (Placement(transformation(extent={{290,-250},{310,-230}}),
+    annotation (Placement(transformation(extent={{290,-270},{310,-250}}),
         iconTransformation(extent={{192,-110},{212,-90}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
     redeclare final package Medium = MediumChiWat,
@@ -293,7 +296,7 @@ partial model PartialChilledWaterPlant "Interface class for CHW plant"
     "CHW plant control bus" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
-        origin={-300,140}), iconTransformation(
+        origin={-300,200}), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={-200,100})));
@@ -302,7 +305,7 @@ partial model PartialChilledWaterPlant "Interface class for CHW plant"
     "Air handling unit control bus"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
         rotation=-90,
-        origin={300,180}), iconTransformation(extent={{-20,-20},{20,20}},
+        origin={300,240}), iconTransformation(extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={200,140})));
   Buildings.Templates.ZoneEquipment.Interfaces.Bus busEquZon[nEquZon]
@@ -310,7 +313,7 @@ partial model PartialChilledWaterPlant "Interface class for CHW plant"
     "Terminal unit control bus"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
         rotation=-90,
-        origin={300,100}),
+        origin={300,160}),
         iconTransformation(extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={202,60})));
@@ -375,7 +378,7 @@ initial equation
     extent={{-200,-200},{200,200}}),
     graphics={
       Rectangle(
-        extent={{-200,200},{202,-200}},
+        extent={{-200,200},{200,-200}},
         lineColor={0,0,255},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
@@ -385,7 +388,7 @@ initial equation
           textString="%name")}),
    Diagram(coordinateSystem(
       preserveAspectRatio=false,
-      extent={{-300,-280},{300,280}})),
+      extent={{-300,-300},{300,300}})),
     Documentation(info="<html>
 <p>
 This partial class provides a standard interface for chilled water plant templates.

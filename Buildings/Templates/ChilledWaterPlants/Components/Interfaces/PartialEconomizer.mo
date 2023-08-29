@@ -78,7 +78,7 @@ partial model PartialEconomizer "Partial waterside economizer model"
    if typ<>Buildings.Templates.ChilledWaterPlants.Types.Economizer.None
    "Fluid connector a1 (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{90,70},{110,90}}),
-        iconTransformation(extent={{90,80},{110,100}})));
+        iconTransformation(extent={{-410,70},{-390,90}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bConWat(
    redeclare final package Medium = MediumConWat,
    m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
@@ -86,7 +86,7 @@ partial model PartialEconomizer "Partial waterside economizer model"
    if typ<>Buildings.Templates.ChilledWaterPlants.Types.Economizer.None
     "Fluid connector b1 (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{-90,70},{-110,90}}),
-        iconTransformation(extent={{-90,80},{-110,100}})));
+        iconTransformation(extent={{-390,-90},{-410,-70}})));
 
   Buildings.Templates.ChilledWaterPlants.Interfaces.Bus bus
     if typ<>Buildings.Templates.ChilledWaterPlants.Types.Economizer.None
@@ -95,12 +95,10 @@ partial model PartialEconomizer "Partial waterside economizer model"
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={0,100}), iconTransformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={0,100})));
+        origin={0,100}), iconTransformation(extent={{-20,100},{20,140}})));
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-400,
+            -100},{400,100}})),
      Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>

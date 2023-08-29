@@ -77,7 +77,28 @@ equation
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
   annotation (
   defaultComponentName="coo",
-  Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+        Rectangle(
+          extent={{-40,-60},{40,-100}},
+          lineColor={28,108,200},
+          pattern=LinePattern.None,
+          fillColor={239,239,239},
+          fillPattern=FillPattern.Solid),
+    Text( extent={{-60,-60},{60,-100}},
+          textColor={0,0,0},
+          textString="CT"),
+    Rectangle(
+          extent={{40,60},{-40,-100}},
+          lineColor={0,0,0},
+          lineThickness=1),
+    Bitmap(extent={{-20,60},{20,100}}, fileName=
+              "modelica://Buildings/Resources/Images/Templates/Components/Actuators/VFD.svg"),
+        Bitmap(
+          extent={{-33,-30},{33,30}},
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Fans/Propeller.svg",
+          origin={0,41},
+          rotation=-90)}),
+    Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
 <ul>
