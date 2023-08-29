@@ -269,6 +269,8 @@ block Controller
     "Calculate compressor speed based on product of two inputs"
     annotation (Placement(transformation(extent={{180,-130},{200,-110}})));
 
+  Subsequences.NextCoil nextCoil(nCoi=nCoi)
+    annotation (Placement(transformation(extent={{-188,-32},{-160,-4}})));
 protected
   parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.P
     "Type of DX coil controller"
@@ -289,9 +291,6 @@ equation
   connect(extIndRea.y, reaToInt.u)
     annotation (Line(points={{-128,140},{-102,140}},
                                                    color={0,0,127}));
-  connect(uDXCoi, booToInt.u)
-    annotation (Line(points={{-240,40},{-168,40},{-168,-20},{-152,-20}},
-                                                   color={255,0,255}));
   connect(booToInt.y, mulSumInt.u)
     annotation (Line(points={{-128,-20},{-102,-20}},
                                                    color={255,127,0}));
@@ -362,9 +361,6 @@ equation
   connect(nexDXCoi.y, reaToInt1.u) annotation (Line(points={{22,-20},{50,-20},{50,
           20},{78,20}},
                       color={0,0,127}));
-  connect(reaToInt1.y, chaSta1.uNexDXCoi) annotation (Line(points={{102,20},{110,
-          20},{110,98},{128,98}},
-                              color={255,127,0}));
   connect(reaToInt2.y, chaSta1.uLasDXCoi) annotation (Line(points={{102,-20},{120,
           -20},{120,94},{128,94}}, color={255,127,0}));
   connect(logSwi.y, yDXCoi)
@@ -404,6 +400,14 @@ equation
   connect(not1.y, or2.u1)
     annotation (Line(points={{-28,54},{38,54}}, color={255,0,255}));
 
+  connect(nextCoil.yDXCoiInt, booToInt.u) annotation (Line(points={{-158,-12},{
+          -154,-12},{-154,-20},{-152,-20}}, color={255,0,255}));
+  connect(uDXCoiAva, nextCoil.uDXCoiAva) annotation (Line(points={{-240,120},{
+          -196,120},{-196,-22},{-190,-22}}, color={255,0,255}));
+  connect(uDXCoi, nextCoil.uDXCoi) annotation (Line(points={{-240,40},{-206,40},
+          {-206,-28},{-190,-28}}, color={255,0,255}));
+  connect(reaToInt1.y, nextCoil.uNexCoi) annotation (Line(points={{102,20},{110,
+          20},{110,86},{-192,86},{-192,-8},{-190,-8}}, color={255,127,0}));
   annotation (defaultComponentName="DXCoiCon",
     Icon(coordinateSystem(preserveAspectRatio=false,
       extent={{-100,-100},{100,100}}),
