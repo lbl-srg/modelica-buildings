@@ -17,17 +17,17 @@ model Alarms "Validation of model that generates alarms"
     final floHys=0.01,
     final damPosHys=0.01) "Block outputs system alarms"
     annotation (Placement(transformation(extent={{80,-60},{100,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp disAirSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp disAirSet(
     final height=0.9,
     final duration=7200,
     final offset=0.1) "Discharge airflow rate setpoint"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp cooDisAir(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp cooDisAir(
     final duration=7200,
     final offset=0.1,
     final height=0.3) "Cooling duct discharge airflow rate"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp damPos(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp damPos(
     final duration=7200,
     final height=0.7,
     final offset=0.3) "Damper position"
@@ -39,14 +39,14 @@ model Alarms "Validation of model that generates alarms"
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     "Convert boolean input to real output"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul
     "Damper position"
     annotation (Placement(transformation(extent={{-20,10},{0,30}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse colDammSta(
     final width=0.5,
     final period=7500) "Cooling duct damper open and close status"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp damPos1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp damPos1(
     final duration=7200,
     final height=0.7,
     final offset=0.3) "Damper position"
@@ -59,7 +59,7 @@ model Alarms "Validation of model that generates alarms"
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1
     "Convert boolean input to real output"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply  mul1
+  Buildings.Controls.OBC.CDL.Reals.Multiply  mul1
     "Damper position"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse heaDammSta(
@@ -67,7 +67,7 @@ model Alarms "Validation of model that generates alarms"
     final period=7500)
     "Heating duct damper open and close status"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp heaDisAir(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp heaDisAir(
     final duration=7200,
     final offset=0.1,
     final height=0.3) "Heating duct discharge airflow rate"

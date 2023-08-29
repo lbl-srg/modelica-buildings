@@ -166,22 +166,22 @@ partial model PartialBuilding
     each final allowFlowReversal=allowFlowReversal) if have_chiWat
     "Mass flow rate multiplier"
     annotation (Placement(transformation(extent={{260,-270},{280,-250}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulQHea_flow(u(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter mulQHea_flow(u(
         final unit="W"), final k=facMul) if have_heaLoa "Scaling"
     annotation (Placement(transformation(extent={{270,270},{290,290}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulQCoo_flow(u(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter mulQCoo_flow(u(
         final unit="W"), final k=facMul) if have_cooLoa "Scaling"
     annotation (Placement(transformation(extent={{270,230},{290,250}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulPHea(u(final
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter mulPHea(u(final
         unit="W"), final k=facMul) if have_eleHea "Scaling"
     annotation (Placement(transformation(extent={{270,190},{290,210}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulPCoo(u(final
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter mulPCoo(u(final
         unit="W"), final k=facMul) if have_eleCoo "Scaling"
     annotation (Placement(transformation(extent={{270,150},{290,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulPFan(u(final
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter mulPFan(u(final
         unit="W"), final k=facMul) if have_fan "Scaling"
     annotation (Placement(transformation(extent={{270,110},{290,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulPPum(u(final
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter mulPPum(u(final
         unit="W"), final k=facMul) if have_pum "Scaling"
     annotation (Placement(transformation(extent={{270,70},{290,90}})));
 protected
@@ -287,13 +287,7 @@ First implementation.
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{20,-188},{300,-172}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={255,0,0},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-300,-172},{-20,-188}},
+          extent={{-300,-172},{300,-188}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,255},
@@ -308,13 +302,7 @@ First implementation.
           textColor={0,0,255},
           textString="%name"),
         Rectangle(
-          extent={{20,-52},{300,-68}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-300,-68},{-20,-52}},
+          extent={{-300,-68},{300,-52}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={255,0,0},

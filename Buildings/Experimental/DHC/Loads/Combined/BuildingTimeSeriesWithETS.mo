@@ -56,17 +56,17 @@ model BuildingTimeSeriesWithETS
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={-80,-120})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter loaHeaNor(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter loaHeaNor(
     k=1/QHea_flow_nominal) "Normalized heating load"
     annotation (Placement(transformation(extent={{-200,-110},{-180,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold enaHeaCoo[2](each t=1e-4)
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold enaHeaCoo[2](each t=1e-4)
     "Threshold comparison to enable heating and cooling"
     annotation (Placement(transformation(extent={{-110,-130},{-90,-110}})));
   Modelica.Blocks.Sources.BooleanConstant enaSHW(
     final k=true) if have_hotWat
     "SHW production enable signal"
     annotation (Placement(transformation(extent={{0,-130},{-20,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter loaCooNor(k=1/
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter loaCooNor(k=1/
         QCoo_flow_nominal) "Normalized cooling load"
     annotation (Placement(transformation(extent={{-200,-150},{-180,-130}})));
 equation

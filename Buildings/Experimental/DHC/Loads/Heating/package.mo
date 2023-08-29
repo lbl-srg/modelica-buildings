@@ -1,10 +1,11 @@
 within Buildings.Experimental.DHC.Loads;
-package Heating "Package of models for district heating loads"
-  extends Modelica.Icons.Package;
+package Heating "This package contains models for loads used in district heating systems."
+  extends Modelica.Icons.VariantsPackage;
 
-annotation (preferredView="info", Documentation(info="<html>
+annotation (Documentation(info="<html>
 <p>
-This package contains models for building heating loads served by a district network.
+This package contains models of building loads that are used to
+build example models of district heating systems.
 </p>
 </html>"));
 end Heating;

@@ -173,11 +173,11 @@ model ChillerBorefield "ETS model for 5GDHC systems with heat recovery chiller a
     "Borefield"
     annotation (Dialog(group="Borefield",enable=have_borFie),
     Placement(transformation(extent={{-80,-230},{-60,-210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerPPum(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zerPPum(
     final k=0) if not have_borFie
     "Zero power"
     annotation (Placement(transformation(extent={{220,-90},{240,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerPHea(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zerPHea(
     final k=0)
     "Zero power"
     annotation (Placement(transformation(extent={{220,50},{240,70}})));

@@ -185,13 +185,13 @@ model Case600FF
   Modelica.Blocks.Math.MultiSum multiSum(nu=1)
     "Multi sum for infiltration air flow rate"
     annotation (Placement(transformation(extent={{-78,-80},{-66,-68}})));
-  Controls.OBC.CDL.Continuous.MovingAverage TRooHou(
+  Controls.OBC.CDL.Reals.MovingAverage TRooHou(
     delta=3600,
     y(final unit="K",
       displayUnit="degC"))
     "Hourly averaged room air temperature"
     annotation (Placement(transformation(extent={{-68,-28},{-60,-20}})));
-  Controls.OBC.CDL.Continuous.MovingAverage TRooAnn(
+  Controls.OBC.CDL.Reals.MovingAverage TRooAnn(
     delta=86400*365,
     y(final unit="K",
       displayUnit="degC"))
@@ -343,8 +343,8 @@ This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3005\
 <li>
 January 21, 2020, by Michael Wetter:<br/>
 Changed calculation of time averaged values to use
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.MovingMean\">
-Buildings.Controls.OBC.CDL.Continuous.MovingMean</a>
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Reals.MovingMean\">
+Buildings.Controls.OBC.CDL.Reals.MovingMean</a>
 because this does not trigger a time event every hour.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1714\">issue 1714</a>.

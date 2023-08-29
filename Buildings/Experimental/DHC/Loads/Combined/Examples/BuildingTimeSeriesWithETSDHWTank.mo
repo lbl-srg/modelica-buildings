@@ -47,7 +47,7 @@ model BuildingTimeSeriesWithETSDHWTank
  Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSupMinSet(each k=28 + 273.15)
     "Heating water supply temperature set point - Minimum value"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  parameter Heating.DHW.Data.GenericHeatPumpWaterHeater                                  datWatHea(
+  parameter DHW.Data.GenericHeatPumpWaterHeater datWatHea(
     mHex_flow_nominal=datWatHea.QCon_flow_nominal/4200/datWatHea.dTCon_nominal,
 
     QCon_flow_max=1.2*datWatHea.QCon_flow_nominal,
@@ -56,6 +56,7 @@ model BuildingTimeSeriesWithETSDHWTank
     THex_nominal=datWatHea.TTan_nominal + datWatHea.dTCon_nominal)
     "Performance data"
     annotation (Placement(transformation(extent={{44,-38},{56,-26}})));
+
 equation
   connect(supAmbWat.ports[1], senMasFlo.port_a)
     annotation (Line(points={{-40,10},{-20,10}}, color={0,127,255}));

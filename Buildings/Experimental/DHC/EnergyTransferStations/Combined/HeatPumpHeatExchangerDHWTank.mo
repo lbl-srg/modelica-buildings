@@ -26,7 +26,7 @@ model HeatPumpHeatExchangerDHWTank
     datWatHea=datWatHea) if have_hotWat
     "Subsystem for hot water production"
     annotation (Placement(transformation(extent={{-10,24},{10,44}})));
-  parameter Loads.Heating.DHW.Data.GenericHeatPumpWaterHeater datWatHea
+  parameter Loads.DHW.Data.GenericHeatPumpWaterHeater datWatHea
     "Performance data"
     annotation (Placement(transformation(extent={{-6,6},{6,18}})));
   Fluid.Sources.MassFlowSource_T sinDHW(

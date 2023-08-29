@@ -232,8 +232,7 @@ partial model PartialBuildingWFloDis
     m_flow_nominal=mHw_flow_nominal*{1,-1,1},
     dp_nominal=0*{1,1,1})
     annotation (Placement(transformation(extent={{200,-70},{220,-50}})));
-  Heating.DHW.BaseClasses.DELETE.DirectHeatExchangerWaterHeaterWithAuxHeatOLD
-    genDHW(
+  DHW.BaseClasses.DELETE.DirectHeatExchangerWaterHeaterWithAuxHeatOLD genDHW(
     TSetHw=TSetHw,
     mHw_flow_nominal=mHw_flow_nominal,
     mDH_flow_nominal=mDH_flow_nominal,
@@ -244,18 +243,16 @@ partial model PartialBuildingWFloDis
     T(displayUnit="degC") = TDcw,
     nPorts=2) "Source of domestic cold water"
     annotation (Placement(transformation(extent={{-170,-128},{-150,-108}})));
-  Heating.DHW.BaseClasses.DomesticWaterMixer
-                                 tmv(
+  DHW.BaseClasses.DomesticWaterMixer tmv(
     redeclare package Medium = Medium,
     TSet(displayUnit="degC") = TSetTw,
     mDhw_flow_nominal=mDhw_flow_nominal,
     dpValve_nominal=dpValve_nominal,
     k=k,
-    Ti=Ti)
-          "Ideal thermostatic mixing valve"
+    Ti=Ti) "Ideal thermostatic mixing valve"
     annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));
-  Modelica.Blocks.Interfaces.RealOutput PDhw(final unit="W") if
-                       have_eleHea
+  Modelica.Blocks.Interfaces.RealOutput PDhw(final unit="W")
+                    if have_eleHea
     "Power drawn by decentralized water heating system" annotation (Placement(
         transformation(extent={{300,20},{340,60}}), iconTransformation(extent={{
             300,160},{340,200}})));

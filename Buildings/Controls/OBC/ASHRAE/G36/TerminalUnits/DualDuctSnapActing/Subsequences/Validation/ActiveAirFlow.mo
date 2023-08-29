@@ -6,12 +6,12 @@ model ActiveAirFlow
     final VHeaMax_flow=0.4)
     "Output the active airflow setpoint for terminal unit"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin minFlo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin minFlo(
     final amplitude=0.3,
     final freqHz=1/3600,
     final offset=0.2) "Occupied zone minimum flow"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp opeMod(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp opeMod(
     final offset=1,
     final height=5,
     final duration=3600)
@@ -20,7 +20,7 @@ model ActiveAirFlow
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt2
     "Convert real to integer"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Round round2(final n=0)
+  Buildings.Controls.OBC.CDL.Reals.Round round2(final n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 

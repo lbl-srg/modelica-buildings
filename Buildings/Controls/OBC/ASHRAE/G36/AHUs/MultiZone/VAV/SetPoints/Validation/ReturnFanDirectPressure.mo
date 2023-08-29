@@ -23,7 +23,7 @@ model ReturnFanDirectPressure
     final period=4000) "Supply fan status"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp dpBui(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp dpBui(
     final height=40,
     final offset=0,
     final duration=1800) "Building static presure"

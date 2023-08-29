@@ -66,7 +66,7 @@ model BenchmarkFlowDistribution2
     smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1)
     "Reader for thermal loads (y[1] is cooling load, y[2] is heating load)"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minTSet(
     k=293.15,
     y(final unit="K",
       displayUnit="degC"))
@@ -117,11 +117,11 @@ model BenchmarkFlowDistribution2
     nPorts=2)
     "Volume for fluid stream"
     annotation (Placement(transformation(extent={{-31,-80},{-11,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpPum(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dpPum(
     k=dp_nominal)
     "Prescribed head"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSup(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSup(
     k=max(
       ter.T_aHeaWat_nominal))
     "Supply temperature"

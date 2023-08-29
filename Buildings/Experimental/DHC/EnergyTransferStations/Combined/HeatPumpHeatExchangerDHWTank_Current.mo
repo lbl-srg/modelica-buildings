@@ -381,8 +381,8 @@ model HeatPumpHeatExchangerDHWTank_Current
   Buildings.Controls.OBC.CDL.Continuous.Subtract delT if have_hotWat
     "Compute DeltaT needed on condenser side"
     annotation (Placement(transformation(extent={{-150,-10},{-130,10}})));
-  Fluid.Sensors.MassFlowRate senMasFloHeaWatPri(redeclare final package Medium
-      = MediumBui, final allowFlowReversal=allowFlowReversalBui)
+  Fluid.Sensors.MassFlowRate senMasFloHeaWatPri(redeclare final package Medium =
+        MediumBui, final allowFlowReversal=allowFlowReversalBui)
     "Primary heating water mass flow rate"
     annotation (Placement(transformation(extent={{30,270},{50,250}})));
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold enaSHW(trueHoldDuration=15*
@@ -442,7 +442,7 @@ model HeatPumpHeatExchangerDHWTank_Current
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter toSin(final k=-1)
     if have_hotWat "Convert to sink"
     annotation (Placement(transformation(extent={{-98,50},{-78,70}})));
-  parameter Loads.Heating.DHW.Data.GenericHeatPumpWaterHeater                            datWatHea
+  parameter Loads.DHW.Data.GenericHeatPumpWaterHeater datWatHea
     "Performance data"
     annotation (Placement(transformation(extent={{-6,6},{6,18}})));
   Controls.PrimaryVariableFlow                                                            conFloEvaSHW(

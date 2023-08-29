@@ -74,8 +74,7 @@ model BuildingTimeSeriesWithETSWithDHWTank
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter loaCooNor(k=1/
         QCoo_flow_nominal) "Normalized cooling load"
     annotation (Placement(transformation(extent={{-200,-150},{-180,-130}})));
-  parameter Heating.DHW.Data.GenericHeatPumpWaterHeater                                  datWatHea
-    "Performance data"
+  parameter DHW.Data.GenericHeatPumpWaterHeater datWatHea "Performance data"
     annotation (Placement(transformation(extent={{-246,244},{-234,256}})));
 equation
   connect(bui.QReqHotWat_flow, ets.loaSHW) annotation (Line(points={{28,4},{28,

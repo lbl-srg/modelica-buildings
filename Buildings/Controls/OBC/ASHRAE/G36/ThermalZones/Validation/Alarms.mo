@@ -5,10 +5,10 @@ model Alarms "Validate block for generating alarms"
     final have_CO2Sen=true) "Block that generates alarms"
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ram(
     final duration=7200) "Generate ramp output"
     annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(t=0.75)
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(t=0.75)
     "Check if input is greater than 0.75"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt(
@@ -18,15 +18,15 @@ model Alarms "Validate block for generating alarms"
     annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonCooSetOcc(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TZonCooSetOcc(
     final k=295.15)
     "Occupied cooling setpoint"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonHeaSetOcc(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TZonHeaSetOcc(
     final k=293.15)
     "Occupied heating setpoint"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin zonTem(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin zonTem(
     final amplitude=8,
     final freqHz=1/7200,
     final offset=273.15 + 15) "Zone temperature"
@@ -36,7 +36,7 @@ model Alarms "Validate block for generating alarms"
     final width=0.05)
     "Generate signal indicating suppressing status"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin CO2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin CO2(
     final amplitude=500,
     final freqHz=1/7200,
     final offset=600) "CO2 concentration"

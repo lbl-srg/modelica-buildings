@@ -25,12 +25,12 @@ model ActiveAirFlow
     have_CO2Sen=true)
     "Output the active airflow setpoint for VAV reheat terminal unit"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp coCon(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp coCon(
     height=400,
     duration=86400,
     offset=500) "CO2 concentration"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sine(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sine(
     amplitude=2,
     freqHz=1/86400,
     offset=2) "occNum"
@@ -45,7 +45,7 @@ model ActiveAirFlow
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(k=2) "Cool-down mode index"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Round round1(n=0)
+  Buildings.Controls.OBC.CDL.Reals.Round round1(n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
 

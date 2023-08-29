@@ -131,11 +131,11 @@ model HeatPumpDHWTank
   Buildings.Controls.OBC.CDL.Continuous.Multiply floEva
     "Zero flow rate if not enabled"
     annotation (Placement(transformation(extent={{-20,110},{0,130}})));
-  Loads.Heating.DHW.HeatPumpWaterHeaterWithTank heaPumTan(
-    mHw_flow_nominal=mHw_flow_nominal,                    datWatHea=datWatHea)
+  Loads.DHW.HeatPumpWaterHeaterWithTank heaPumTan(mHw_flow_nominal=
+        mHw_flow_nominal, datWatHea=datWatHea)
     "Heat pump with storage tank for domestic hot water"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
-  parameter Loads.Heating.DHW.Data.GenericHeatPumpWaterHeater                            datWatHea
+  parameter Loads.DHW.Data.GenericHeatPumpWaterHeater datWatHea
     "Performance data"
     annotation (Placement(transformation(extent={{4,-36},{16,-24}})));
   Modelica.Blocks.Math.Add add
