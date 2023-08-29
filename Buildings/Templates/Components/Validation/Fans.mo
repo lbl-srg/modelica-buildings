@@ -29,7 +29,7 @@ model Fans "Validation model for fans components"
     final dp_nominal=arr.dat.dp_nominal)
     "Ducts and coils equivalent flow resistance"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
-  Controls.OBC.CDL.Continuous.Sources.Ramp y(height=1, duration=10)
+  Controls.OBC.CDL.Reals.Sources.Ramp y(height=1, duration=10)
     "Fan control signal"
     annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
   Interfaces.Bus bus "Control bus"

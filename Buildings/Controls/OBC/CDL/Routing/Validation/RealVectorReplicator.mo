@@ -5,7 +5,7 @@ model RealVectorReplicator
     reaRep(nin=2, nout=3)
     "Block that outputs the vector replicating input value"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram[2](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ram[2](
     height=fill(5,2),
     duration=fill(1,2),
     offset=fill(-2,2)) "Block that outputs ramp signal"

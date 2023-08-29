@@ -33,8 +33,7 @@ model Indirect "Example model for indirect cooling energy transfer station
     yMin=0.01,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     nPorts_bChiWat=1,
-    nPorts_aChiWat=1)
-    "Direct cooling energy transfer station"
+    nPorts_aChiWat=1) "Direct cooling energy transfer station"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   Buildings.Fluid.Sources.Boundary_pT souDis(
     redeclare package Medium = Medium,

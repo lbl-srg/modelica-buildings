@@ -12,13 +12,13 @@ model PLRToPulse
     "Time for which the enable signal is true"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiTim(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gaiTim(
     final k=15*60)
     "Calculate time for which component needs to be enabled"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp plr(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp plr(
     final height=1,
     final duration(displayUnit="min")= 15*5*60)
     "Part-load ratio signal"

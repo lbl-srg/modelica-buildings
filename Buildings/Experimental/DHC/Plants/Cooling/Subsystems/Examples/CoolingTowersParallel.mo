@@ -13,11 +13,11 @@ model CoolingTowersParallel
       use_inputFilter=false),
     weaDat(final computeWetBulbTemperature=true));
 
-   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetLea(
+   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetLea(
     k=273.15+18)
     "Setpoint for leaving temperature"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conFan(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset conFan(
     k=1,
     Ti=60,
     Td=10,

@@ -55,7 +55,7 @@ model System4
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCap(C=2*V*1.2*1006)
     "Heat capacity for furniture and walls"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timTab(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable timTab(
       extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.Periodic,
       smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
       table=[-6, 0;
@@ -200,12 +200,12 @@ model System4
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,-250})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const(k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant const(k=1)
     "Constant control signal for valves"
     annotation (Placement(transformation(extent={{-140,-160},{-120,-140}})));
 
 //---------------------Step 2: Outdoor temperature sensor and control------------------//
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTOut(uLow=273.15 + 16, uHigh=273.15 + 17)
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysTOut(uLow=273.15 + 16, uHigh=273.15 + 17)
     "Hysteresis for on/off based on outside temperature"
     annotation (Placement(transformation(extent={{-260,-200},{-240,-180}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2
@@ -217,7 +217,7 @@ model System4
 //------------------------------------------------------------------------------------//
 
 //-------------------------------Step 4: Boiler hysteresis----------------------------//
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTBoi(uHigh=273.15 + 90,
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysTBoi(uHigh=273.15 + 90,
                                              uLow=273.15 + 70)
     "Hysteresis for on/off of boiler"
     annotation (Placement(transformation(extent={{-260,-348},{-240,-328}})));
@@ -241,7 +241,7 @@ model System4
     annotation (Placement(transformation(extent={{-100,-340},{-80,-320}})));
 //------------------------------------------------------------------------------------//
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysPum(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysPum(
     uLow=273.15 + 19,
     uHigh=273.15 + 21)
     "Pump hysteresis"
@@ -493,7 +493,7 @@ Next, for the boiler on/off control, we use again a hysteresis block
 (instance <code>hysTBoi</code>), which we configured as
 </p>
 <pre>
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTBoi(uLow=273.15 + 70,
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysTBoi(uLow=273.15 + 70,
                                                            uHigh=273.15 + 90)
     \"Hysteresis for on/off of boiler\";
 </pre>

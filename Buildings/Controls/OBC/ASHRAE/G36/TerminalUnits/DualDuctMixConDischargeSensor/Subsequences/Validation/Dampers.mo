@@ -7,29 +7,29 @@ model Dampers
     final VHeaMax_flow=0.06,
     final kDam=1) "Output signal for controlling damper position"
     annotation (Placement(transformation(extent={{80,-90},{100,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp uCoo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp uCoo(
     final height=-1,
     final duration=3600,
     final offset=1,
     final startTime=900) "Cooling control signal"
     annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZon(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TZon(
     final k=273.15 + 22)
     "Zone temperature"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCooSup(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TCooSup(
     final k=273.15 + 13)
     "AHU supply air temperature"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VActMin_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant VActMin_flow(
     final k=0.01)
     "Active minimum airflow setpoint"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VActCooMax_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant VActCooMax_flow(
     final k=0.075)
     "Active cooling maximum airflow setpoint"
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin VDis(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin VDis(
     final offset=0.015,
     final amplitude=0.002,
     final freqHz=1/3600) "Discharge airflow rate"
@@ -39,18 +39,18 @@ model Dampers
     final period=7200)
     "Cold air handling unit status"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaSup(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaSup(
     final k=273.15 + 25)
     "AHU supply air temperature"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp uHea(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp uHea(
     final height=1,
     final duration=3600,
     final offset=0,
     final startTime=5500)
     "Heating control signal"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VActHeaMax_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant VActHeaMax_flow(
     final k=0.07)
     "Active heating maximum airflow setpoint"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));

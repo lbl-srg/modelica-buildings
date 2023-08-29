@@ -131,7 +131,7 @@ block SupplyFan  "Block to control multi zone VAV AHU supply fan"
     final maxRes=maxRes)
     "Static pressure setpoint reset using trim and respond logic"
     annotation (Placement(transformation(extent={{-130,-60},{-110,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conSpe(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset conSpe(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
@@ -142,10 +142,10 @@ block SupplyFan  "Block to control multi zone VAV AHU supply fan"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerSpe(k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zerSpe(k=0)
     "Zero fan speed when it becomes OFF"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     "If fan is OFF, fan speed outputs to zero"
     annotation (Placement(transformation(extent={{80,-90},{100,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Or or1
@@ -196,14 +196,14 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu4
     "Check if current operation mode is warmup mode"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant gaiNor(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant gaiNor(
     final k=maxSet)
     "Gain for normalization of controller input"
     annotation (Placement(transformation(extent={{-130,-100},{-110,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide norPSet
+  Buildings.Controls.OBC.CDL.Reals.Divide norPSet
     "Normalization for pressure set point"
     annotation (Placement(transformation(extent={{-70,-80},{-50,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide norPMea
+  Buildings.Controls.OBC.CDL.Reals.Divide norPMea
     "Normalization of pressure measurement"
     annotation (Placement(transformation(extent={{-70,-120},{-50,-100}})));
   Buildings.Controls.OBC.CDL.Discrete.FirstOrderHold firOrdHol(

@@ -70,7 +70,7 @@ protected
     final realTrue=1)
     "If in occupied mode, output 1"
     annotation (Placement(transformation(extent={{40,90},{60,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro
     "Active cooling minimum, minimum airflow setpoint"
     annotation (Placement(transformation(extent={{100,80},{120,100}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal heaMaxFlo(
@@ -103,22 +103,22 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Or3 or1
     "Check if it is in occupied, warm-up, or setback mode"
     annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2
+  Buildings.Controls.OBC.CDL.Reals.Add add2
     "Sum of minimum flow and cooling maximum flow"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
     final message="Warning: the sum of minimum flow and heating maximum flow is greater than the cooling maximum flow.")
     "Generate warning when the cooling maximum is less than the sum of heating maximum and the minimum flow"
     annotation (Placement(transformation(extent={{100,0},{120,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater gre(
+  Buildings.Controls.OBC.CDL.Reals.Greater gre(
     final h=floHys)
     "Check if cooling maximum is greater than the sum of minimum and heating maximum flow"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaMax(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant heaMax(
     final k=VHeaMax_flow)
     "Heating maximum flow"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooMax(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant cooMax(
     final k=VCooMax_flow)
     "Cooling maximum flow"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));

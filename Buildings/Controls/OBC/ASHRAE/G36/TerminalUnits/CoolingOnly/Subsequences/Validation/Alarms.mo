@@ -7,17 +7,17 @@ model Alarms "Validation of model that generates alarms"
     final floHys=0.01,
     final damPosHys=0.01) "Block outputs system alarms"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp disAirSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp disAirSet(
     final height=0.9,
     final duration=7200,
     final offset=0.1) "Discharge airflow rate setpoint"
-    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp disAirRate(
+    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp disAirRate(
     final duration=7200,
     final offset=0.1,
     final height=0.3) "Discharge airflow rate"
-    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp damPos(
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp damPos(
     final duration=7200,
     final height=0.7,
     final offset=0.3) "Damper position"
@@ -28,7 +28,7 @@ model Alarms "Validation of model that generates alarms"
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     "Convert boolean input to real output"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul
     "Damper position"
     annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse damSta(
@@ -44,10 +44,11 @@ model Alarms "Validation of model that generates alarms"
     "Operation mode"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 equation
-  connect(disAirRate.y, ala.VDis_flow) annotation (Line(points={{-58,80},{40,80},
+  connect(disAirRate.y, ala.VDis_flow) annotation (Line(points={{-58,70},{40,70},
           {40,8},{58,8}},   color={0,0,127}));
-  connect(disAirSet.y, ala.VActSet_flow) annotation (Line(points={{-18,50},{30,50},
-          {30,4},{58,4}}, color={0,0,127}));
+  connect(disAirSet.y, ala.VActSet_flow) annotation (Line(points={{-58,30},{30,
+          30},{30,4},{58,4}},
+                          color={0,0,127}));
   connect(supFan.y, ala.u1Fan) annotation (Line(points={{-58,30},{10,30},{10,0},
           {58,0}},      color={255,0,255}));
   connect(booToRea.y, mul.u1) annotation (Line(points={{-18,-50},{-10,-50},{-10,

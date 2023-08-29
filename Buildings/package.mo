@@ -233,12 +233,27 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
                        The models are inspired by the ISO 13790:2008 Standard.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.Heating
+    </td>
+    <td valign=\"top\">Package containing models for energy transfer stations used in district heating systems.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Experimental.DHC.Loads.Combined.Examples
     </td>
     <td valign=\"top\">Package that contains example models of a building
                        with loads provided as time series for heat
                        pump space heating, heat pump domestic hot water heating,
                        and free cooling in an ambient district network.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Loads.Heating
+    </td>
+    <td valign=\"top\">Package containing models for loads in district heating systems.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Plants.Combined
+    </td>
+    <td valign=\"top\">Package of models for central plants that provide heating and cooling.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Experimental.DHC.BaseClasses.Steam
@@ -293,7 +308,7 @@ to <b style=\"color:blue\">existing</b> libraries:
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3042\">issue 3042</a>.
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Ramp
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Reals.Ramp
     </td>
     <td valign=\"top\">Added new CDL blocks as suggested by ASHRAE 231p committee.<br/>
                        This is for
@@ -492,7 +507,7 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Switch
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Reals.Switch
     </td>
     <td valign=\"top\">Added <code>smoothOrder(0, ...)</code> as this is required for some solvers
                      that assume otherwise the output of the block to be differentiable.
@@ -886,19 +901,28 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Acos<br/>
-                       Buildings.Controls.OBC.CDL.Continuous.Asin<br/>
-                       Buildings.Controls.OBC.CDL.Continuous.Atan<br/>
-                       Buildings.Controls.OBC.CDL.Continuous.Atan2
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous<br/>
+    </td>
+    <td valign=\"top\">Renamed package <code>Continuous</code> to <code>Reals</code>
+                       due to changes in ASHRAE Standard 231P.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3483\">#3483</a>.<br/>
+                       This change is supported in the conversion script.
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Reals.Acos<br/>
+                       Buildings.Controls.OBC.CDL.Reals.Asin<br/>
+                       Buildings.Controls.OBC.CDL.Reals.Atan<br/>
+                       Buildings.Controls.OBC.CDL.Reals.Atan2
     </td>
     <td valign=\"top\">Added unit <code>rad</code> to the output.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3277\">#3277</a>.<br/>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Cos<br/>
-                       Buildings.Controls.OBC.CDL.Continuous.Sin<br/>
-                       Buildings.Controls.OBC.CDL.Continuous.Tan
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Reals.Cos<br/>
+                       Buildings.Controls.OBC.CDL.Reals.Sin<br/>
+                       Buildings.Controls.OBC.CDL.Reals.Tan
     </td>
     <td valign=\"top\">Added unit <code>rad</code> to the input.<br/>
                        This is for
@@ -1142,7 +1166,7 @@ that can lead to wrong simulation results):
   <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
   </tr>
-  <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Sources.CalendarTime
+  <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Reals.Sources.CalendarTime
     </td>
     <td valign=\"top\">Refactored implementation to avoid wrong day number due to rounding errors
                        that caused simultaneous events to not be triggered at the same time.<br/>

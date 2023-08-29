@@ -21,11 +21,11 @@ model SeriesConstantFlow
     k=datDes.mPla_flow_nominal)
     "District water flow rate to plant"
     annotation (Placement(transformation(extent={{-250,10},{-230,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THotWatSupSet[nBui](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THotWatSupSet[nBui](
     k=fill(63 + 273.15, nBui))
     "Hot water supply temperature set point"
     annotation (Placement(transformation(extent={{-190,170},{-170,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TColWat[nBui](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TColWat[nBui](
     k=fill(15 + 273.15, nBui))
     "Cold water temperature"
     annotation (Placement(transformation(extent={{-160,150},{-140,170}})));

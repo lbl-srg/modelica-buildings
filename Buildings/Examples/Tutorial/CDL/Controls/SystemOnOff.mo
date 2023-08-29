@@ -30,13 +30,13 @@ block SystemOnOff "Controller for system on/off"
   Buildings.Controls.OBC.CDL.Logical.OnOffController onTOut(bandwidth=1)
     "On/off control based on outside air temperature"
     annotation (Placement(transformation(extent={{-40,56},{-20,76}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetOut(k=TOutLow + 0.5)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetOut(k=TOutLow + 0.5)
     "Set point for outdoor air temperature plus half the dead band"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.Controls.OBC.CDL.Logical.OnOffController onTRoo(bandwidth=1)
     "On/off control based on room air temperature"
     annotation (Placement(transformation(extent={{-40,-64},{-20,-44}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetRoo(k=TRooSet)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetRoo(k=TRooSet)
                  "Set point for room air temperature plus half the dead band"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Buildings.Controls.OBC.CDL.Logical.And and1

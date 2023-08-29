@@ -11,11 +11,11 @@ model OptimalStartHeatingCooling
     y_start=19+273.15)
     "Room air temperature"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetCooOcc(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetCooOcc(
     k=24+273.15)
     "Zone cooling setpoint during occupancy"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TOutBase(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin TOutBase(
     amplitude=5,
     freqHz=1/86400,
     offset=15+273.15,
@@ -23,23 +23,23 @@ model OptimalStartHeatingCooling
       displayUnit="h")=0)
     "Outdoor dry bulb temperature, base component"
     annotation (Placement(transformation(extent={{-212,70},{-192,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter UA(k=25)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter UA(k=25)
     "Overall heat loss coefficient"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract dT
+  Buildings.Controls.OBC.CDL.Reals.Subtract dT
     "Temperature difference between zone and outdoor"
     annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter QCoo(k=-4000)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter QCoo(k=-4000)
     "Heat extraction in the zone"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1(
     realTrue=-6)
     "Convert Boolean to Real signal"
     annotation (Placement(transformation(extent={{80,0},{100,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add1
+  Buildings.Controls.OBC.CDL.Reals.Add add1
     "Reset temperature from unoccupied to occupied for optimal start period"
     annotation (Placement(transformation(extent={{140,0},{160,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID conPID1(
+  Buildings.Controls.OBC.CDL.Reals.PID conPID1(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     Ti=3,
     reverseActing=false)
@@ -50,11 +50,11 @@ model OptimalStartHeatingCooling
     period=24*3600)
     "Daily schedule"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum mulSum(
     nin=3)
     "Sum heat gains"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetHeaOcc(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetHeaOcc(
     k=21+273.15)
     "Zone heating setpoint during occupancy"
     annotation (Placement(transformation(extent={{-20,100},{0,120}})));
@@ -62,21 +62,21 @@ model OptimalStartHeatingCooling
     realTrue=6)
     "Convert Boolean to Real signal"
     annotation (Placement(transformation(extent={{80,40},{100,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2
+  Buildings.Controls.OBC.CDL.Reals.Add add2
     "Reset temperature from unoccupied to occupied for optimal start period"
     annotation (Placement(transformation(extent={{140,40},{160,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID conPID(
+  Buildings.Controls.OBC.CDL.Reals.PID conPID(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     Ti=3)
     "PI control for space heating"
     annotation (Placement(transformation(extent={{180,40},{200,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter QHea(k=2000)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter QHea(k=2000)
     "Heat injection in the zone"
     annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add TOut
+  Buildings.Controls.OBC.CDL.Reals.Add TOut
     "Outdoor dry bulb temperature"
     annotation (Placement(transformation(extent={{-174,50},{-154,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse pul(
     shift(
       displayUnit="d")=604800,
     amplitude=15,

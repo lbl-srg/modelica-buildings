@@ -76,11 +76,11 @@ block Alarms "Generate alarms of cooling only terminal unit"
     annotation (Placement(transformation(extent={{240,-190},{280,-150}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=0.5)
     "Percentage of the setpoint"
     annotation (Placement(transformation(extent={{-200,130},{-180,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Less les(
+  Buildings.Controls.OBC.CDL.Reals.Less les(
     final h=floHys)
     "Check if measured airflow is less than threshold"
     annotation (Placement(transformation(extent={{-160,160},{-140,180}})));
@@ -88,16 +88,16 @@ block Alarms "Generate alarms of cooling only terminal unit"
     final delayTime=lowFloTim)
     "Check if the measured airflow has been less than threshold value for threshold time"
     annotation (Placement(transformation(extent={{-80,160},{-60,180}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     final t=floHys,
     final h=0.5*floHys)
     "Check if setpoint airflow is greater than zero"
     annotation (Placement(transformation(extent={{-180,80},{-160,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater gre(
+  Buildings.Controls.OBC.CDL.Reals.Greater gre(
     final h=floHys)
     "Check if measured airflow is less than threshold"
     annotation (Placement(transformation(extent={{-160,30},{-140,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(
     final k=0.7)
     "Percentage of the setpoint"
     annotation (Placement(transformation(extent={{-200,50},{-180,70}})));
@@ -122,11 +122,11 @@ block Alarms "Generate alarms of cooling only terminal unit"
     final integerTrue=3)
     "Convert boolean true to level 3 alarm"
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conInt1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conInt1(
     final k=staPreMul)
     "Importance multiplier for zone static pressure reset"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr1
     "Check if the multiplier is greater than zero"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1
@@ -154,12 +154,12 @@ block Alarms "Generate alarms of cooling only terminal unit"
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes1(
     final message="Warning: airflow is less than 70% of the setpoint.")
     "Level 3 low airflow alarm"
-    annotation (Placement(transformation(extent={{120,40},{140,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooMaxFlo(
+    annotation (Placement(transformation(extent={{140,40},{160,60}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant cooMaxFlo(
     final k=VCooMax_flow)
     "Cooling maximum airflow setpoint"
     annotation (Placement(transformation(extent={{-200,-70},{-180,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai2(
     final k=0.1)
     "Percentage of the setpoint"
     annotation (Placement(transformation(extent={{-160,-70},{-140,-50}})));
@@ -170,7 +170,7 @@ block Alarms "Generate alarms of cooling only terminal unit"
     final delayTime=fanOffTim)
     "Check if the input has been true for more than threshold time"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater gre1(
+  Buildings.Controls.OBC.CDL.Reals.Greater gre1(
     final h=floHys)
     "Check if measured airflow is greater than threshold"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
@@ -192,7 +192,7 @@ block Alarms "Generate alarms of cooling only terminal unit"
     final delayTime=leaFloTim)
     "Check if the input has been true for more than threshold time"
     annotation (Placement(transformation(extent={{20,-180},{40,-160}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold cloDam(
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold cloDam(
     final t=damPosHys,
     final h=0.5*damPosHys)
     "Check if damper position is near zero"
@@ -239,14 +239,13 @@ equation
           -220,140},{-202,140}}, color={0,0,127}));
   connect(VDis_flow, les.u1)
     annotation (Line(points={{-260,170},{-162,170}}, color={0,0,127}));
-  connect(gai.y, les.u2) annotation (Line(points={{-178,140},{-170,140},{-170,162},
-          {-162,162}}, color={0,0,127}));
   connect(VActSet_flow, greThr.u)
     annotation (Line(points={{-260,90},{-182,90}}, color={0,0,127}));
   connect(VActSet_flow, gai1.u) annotation (Line(points={{-260,90},{-220,90},{
           -220,60},{-202,60}}, color={0,0,127}));
-  connect(VDis_flow, gre.u2) annotation (Line(points={{-260,170},{-230,170},{-230,
-          32},{-162,32}},  color={0,0,127}));
+  connect(VDis_flow, gre.u2) annotation (Line(points={{-260,170},{-230,170},{
+          -230,32},{-162,32}},
+                           color={0,0,127}));
   connect(gai1.y, gre.u1) annotation (Line(points={{-178,60},{-170,60},{-170,40},
           {-162,40}}, color={0,0,127}));
   connect(truDel.y, and2.u1)
@@ -276,7 +275,7 @@ equation
   connect(greThr1.y, and4.u2) annotation (Line(points={{-58,0},{0,0},{0,90},{18,
           90}},           color={255,0,255}));
   connect(not2.y, assMes1.u)
-    annotation (Line(points={{102,50},{118,50}}, color={255,0,255}));
+    annotation (Line(points={{102,50},{138,50}}, color={255,0,255}));
   connect(cooMaxFlo.y, gai2.u)
     annotation (Line(points={{-178,-60},{-162,-60}}, color={0,0,127}));
   connect(u1Fan, not3.u)
@@ -331,8 +330,9 @@ equation
     annotation (Line(points={{-98,40},{-82,40}}, color={255,0,255}));
   connect(u1Fan, fanIni.u) annotation (Line(points={{-260,-100},{-220,-100},{-220,
           0},{-202,0}}, color={255,0,255}));
-  connect(fanIni.y, and11.u2) annotation (Line(points={{-178,0},{-130,0},{-130,32},
-          {-122,32}}, color={255,0,255}));
+  connect(fanIni.y, and11.u2) annotation (Line(points={{-178,0},{-130,0},{-130,
+          32},{-122,32}},
+                      color={255,0,255}));
   connect(fanIni.y, and10.u2) annotation (Line(points={{-178,0},{-130,0},{-130,162},
           {-122,162}}, color={255,0,255}));
   connect(occMod.y,isOcc. u2) annotation (Line(points={{-138,-190},{-120,-190},{
@@ -359,6 +359,8 @@ equation
           130}}, color={255,0,255}));
   connect(and4.y, not2.u) annotation (Line(points={{42,90},{60,90},{60,50},{78,50}},
         color={255,0,255}));
+  connect(gai.y, les.u2) annotation (Line(points={{-178,140},{-170,140},{-170,
+          162},{-162,162}}, color={0,0,127}));
 annotation (defaultComponentName="ala",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
        graphics={

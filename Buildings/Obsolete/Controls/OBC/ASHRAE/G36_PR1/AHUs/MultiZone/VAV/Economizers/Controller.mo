@@ -239,19 +239,19 @@ block Controller "Multi zone VAV AHU economizer control sequence"
     annotation (Placement(transformation(extent={{80,-20},{100,0}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.MovingAverage movAve(final delta=delta)
+  Buildings.Controls.OBC.CDL.Reals.MovingAverage movAve(final delta=delta)
     "Moving average of outdoor air flow measurement, normalized by design minimum outdoor airflow rate"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Min outDamMaxFre
+  Buildings.Controls.OBC.CDL.Reals.Min outDamMaxFre
     "Maximum control signal for outdoor air damper due to freeze protection"
     annotation (Placement(transformation(extent={{120,-50},{140,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max retDamMinFre
+  Buildings.Controls.OBC.CDL.Reals.Max retDamMinFre
     "Minimum position for return air damper due to freeze protection"
     annotation (Placement(transformation(extent={{120,30},{140,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant noTMix(k=0) if not use_TMix
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant noTMix(k=0) if not use_TMix
     "Ignore max evaluation if there is no mixed air temperature sensor"
     annotation (Placement(transformation(extent={{76,36},{96,56}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant noTMix1(k=1) if not use_TMix
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant noTMix1(k=1) if not use_TMix
     "Ignore min evaluation if there is no mixed air temperature sensor"
     annotation (Placement(transformation(extent={{80,-56},{100,-36}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta(

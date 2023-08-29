@@ -47,19 +47,19 @@ model CollectorPump
     final azi=azi)
       "Direct solar irradiation on a tilted surface"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add HTotTil(
+  Buildings.Controls.OBC.CDL.Reals.Add HTotTil(
     u1(final unit="W/m2"),
     u2(final unit="W/m2"),
     y(final unit="W/m2"))
     "Total irradiation on tilted surface"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
       final uLow=0,
       final uHigh=delQ_flow)
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub
     "Difference between incident solar and required incident to compensate thermal losses"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 equation
