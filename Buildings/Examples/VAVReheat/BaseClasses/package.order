@@ -1,9 +1,12 @@
 ASHRAE2006
 Floor
 Guideline36
+Guideline36_RTU
 HVACBuilding
+HVACBuilding_RTU
 PartialFloor
 PartialHVAC
+PartialHVAC_RTU
 RoomLeakage
 VAVReheatBox
 Controls

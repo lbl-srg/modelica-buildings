@@ -171,17 +171,17 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDXCooCoi[nCoi]
     "DX cooling coil status"
     annotation (Placement(transformation(extent={{-140,160},{-100,200}}),
-        iconTransformation(extent={{-140,150},{-100,190}})));
+      iconTransformation(extent={{-140,150},{-100,190}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDXHeaCoi[nCoi]
     "DX heating coil status"
     annotation (Placement(transformation(extent={{-140,130},{-100,170}}),
-        iconTransformation(extent={{-140,120},{-100,160}})));
+      iconTransformation(extent={{-140,120},{-100,160}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uCooCoiAva[nCoi]
     "DX cooling coil availability"
     annotation (Placement(transformation(extent={{-140,100},{-100,140}}),
-        iconTransformation(extent={{-140,90},{-100,130}})));
+      iconTransformation(extent={{-140,90},{-100,130}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHeaCoiAva[nCoi]
     "DX heating coil availability"
