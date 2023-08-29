@@ -11779,7 +11779,7 @@ annotation (
 preferredView="info",
 version="9.1.1",
 versionDate="2022-12-06",
-dateModified="2022-12-06",
+dateModified="2023-09-05",
 uses(Modelica(version="4.0.0")),
 conversion(
   noneFromVersion="9.0.0",
