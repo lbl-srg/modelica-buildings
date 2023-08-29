@@ -1,13 +1,13 @@
 within Buildings.Controls.OBC.CDL.Integers.Validation;
 model Greater
   "Validation model for the Greater block"
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramp1(
     duration=1,
     offset=-3.5,
     height=10.0)
     "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramp2(
     duration=1,
     offset=-1.5,
     height=5.0)
@@ -16,14 +16,14 @@ model Greater
   Buildings.Controls.OBC.CDL.Integers.Greater intGre
     "Block output true if input 1 is greater than input 2"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Round round1(
+  Buildings.Controls.OBC.CDL.Reals.Round round1(
     n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
     "Convert real to integer"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Round round2(
+  Buildings.Controls.OBC.CDL.Reals.Round round2(
     n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));

@@ -6,22 +6,22 @@ model Modulation_TSup
     mod "Economizer modulation sequence"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp uTSup(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp uTSup(
     final duration=900,
     final height=2,
     final offset=-1)
     "Control signal for supply air temperature loop"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPosMin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant outDamPosMin(
     final k=0.1) "Outdoor air damper minimum position"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPosMax(final k=0.8)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant outDamPosMax(final k=0.8)
     "Outdoor air damper maximum position"
     annotation (Placement(transformation(extent={{-80,16},{-60,36}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamPosMin(final k=0.2)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant retDamPosMin(final k=0.2)
     "Return air damper minimum position"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamPosMax(final k=0.6)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant retDamPosMax(final k=0.6)
     "Return air damper maximum position"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
@@ -29,10 +29,10 @@ model Modulation_TSup
     modFre
     "Economizer modulation sequence if the dampers positions prevent freezing at the mixed air"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPosMaxFre(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant outDamPosMaxFre(final k=0)
     "Outdoor damper if freeze protection is on"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamPosMinFre(final k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant retDamPosMinFre(final k=1)
     "Return damper position if freeze protection is on"
     annotation (Placement(transformation(extent={{4,-10},{24,10}})));
 

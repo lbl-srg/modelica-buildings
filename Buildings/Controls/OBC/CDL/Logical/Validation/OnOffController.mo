@@ -1,16 +1,16 @@
 within Buildings.Controls.OBC.CDL.Logical.Validation;
 model OnOffController
   "Validation model for the OnOffController block"
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramp1(
     duration=5,
     offset=0,
     height=31.415926)
     "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-76,-16},{-56,4}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sin sin1
+  Buildings.Controls.OBC.CDL.Reals.Sin sin1
     "Block that outputs the sine of the input"
     annotation (Placement(transformation(extent={{-32,-16},{-12,4}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cons2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant cons2(
     k=0.7)
     "Constant as source term"
     annotation (Placement(transformation(extent={{-32,18},{-12,38}})));

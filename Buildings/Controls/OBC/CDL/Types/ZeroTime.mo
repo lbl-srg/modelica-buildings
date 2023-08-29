@@ -32,8 +32,8 @@ type ZeroTime = enumeration(
   annotation (Documentation(info="<html>
 <p>
 Type for choosing how to set the reference time in
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.Sources.CalendarTime\">
-Buildings.Controls.OBC.CDL.Continuous.Sources.CalendarTime</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Reals.Sources.CalendarTime\">
+Buildings.Controls.OBC.CDL.Reals.Sources.CalendarTime</a>.
 </p>
 <p>
 For example, <code>CDL.Types.TimeReference.NY2016</code>

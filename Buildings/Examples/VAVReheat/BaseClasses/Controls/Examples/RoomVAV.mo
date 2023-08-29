@@ -9,25 +9,25 @@ model RoomVAV "Test model for the room VAV controller"
     V_flow_nominal=1.5)
     "VAV terminal unit single maximum controller, for units with the exponential damper"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaSet(k=273.15 + 21)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant heaSet(k=273.15 + 21)
     "Heating setpoint"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooSet(k=273.15 + 22)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant cooSet(k=273.15 + 22)
     "Cooling setpoint"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ram(
     height=4,
     duration=3600,
     offset=-4) "Ramp source"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin(
     amplitude=1,
     freqHz=1/3600,
     offset=273.15 + 23.5) "Sine source"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add rooTem "Room temperature"
+  Buildings.Controls.OBC.CDL.Reals.Add rooTem "Room temperature"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin disFlo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin disFlo(
     amplitude=0.1,
     freqHz=1/3600,
     offset=0.2) "Discharge airflow rate"

@@ -104,7 +104,7 @@ block CoolingCoilValve "Cooling coil valve position control sequence"
     annotation (Placement(transformation(extent={{120,-10},{140,10}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset limPI(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset limPI(
     final reverseActing=reverseActing,
     final k=k,
     final Ti = Ti,
@@ -114,41 +114,41 @@ block CoolingCoilValve "Cooling coil valve position control sequence"
     "Custom PI controller"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Line higLim(
+  Buildings.Controls.OBC.CDL.Reals.Line higLim(
     final limitBelow=true,
     final limitAbove=true)
     "Defines lower limit of the cooling valve signal at low range SATs"
     annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yCooValMin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yCooValMin(
     final k=uMin)
     "Minimal control loop signal limit when supply air temperature is at a defined high limit"
     annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yCooValMax(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yCooValMax(
     final k=uMax)
     "Minimal control loop signal limit when supply air temperature is at a defined low limit"
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis TOutThr(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis TOutThr(
     final uLow = TOutCooCut - TOutDelta,
     final uHigh = TOutCooCut)
     "Determines whether the outdoor air temperature is below a treashold"
     annotation (Placement(transformation(extent={{-110,-30},{-90,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis uFanFeeThr(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis uFanFeeThr(
     final uLow=FanFeeCut - FanFeeDelta,
     final uHigh= FanFeeCut)
     "Checks if the fan status is above a threshold"
     annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupMin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSupMin(
     final k=TSupHigLim)
     "Low range supply air temperature low limit"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupMax(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSupMax(
     final k=TSupHighLim)
     "Low range supply air temperature high limit"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
@@ -157,7 +157,7 @@ protected
     "Outputs controller enable signal"
     annotation (Placement(transformation(extent={{-70,-70},{-50,-50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Min min
+  Buildings.Controls.OBC.CDL.Reals.Min min
     "Switches the signal between controller and low range limiter signals"
     annotation (Placement(transformation(extent={{80,20},{100,40}})));
 
@@ -168,7 +168,7 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro
     annotation (Placement(transformation(extent={{40,74},{60,94}})));
 
 equation

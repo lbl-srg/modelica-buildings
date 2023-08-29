@@ -508,7 +508,7 @@ block Controller
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1
     "Convert boolean to real"
     annotation (Placement(transformation(extent={{160,210},{180,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul1
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul1
     "Paralle fan airflow setpoint"
     annotation (Placement(transformation(extent={{200,230},{220,250}})));
   Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.Title24.Setpoints minFlo(

@@ -18,7 +18,7 @@ model Controller "Validate model Controller"
     final startValue=false,
     table={300,600,900}) "Plant availability signal"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable mWat_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable mWat_flow(
     table=[0,0; 900,0.4; 1320,0; 1500,0.4;
            1900,0; 1960,0.4; 2200,0; 3000,0],
     smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments)

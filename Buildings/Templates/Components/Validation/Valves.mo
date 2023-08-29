@@ -34,7 +34,7 @@ model Valves "Validation model for valve components"
     "Control bus"
     annotation (Placement(transformation(extent={{-20,80},{20,120}}),
         iconTransformation(extent={{-250,-32},{-210,8}})));
-  Controls.OBC.CDL.Continuous.Sources.Ramp y(height=1,
+  Controls.OBC.CDL.Reals.Sources.Ramp y(height=1,
     duration=10) "Damper control signal"
     annotation (Placement(transformation(extent={{-90,110},{-70,130}})));
 

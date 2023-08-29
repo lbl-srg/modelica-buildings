@@ -9,17 +9,17 @@ model Alarms "Validation of model that generates alarms"
     final floHys=0.01,
     final damPosHys=0.01) "Block outputs system alarms"
     annotation (Placement(transformation(extent={{80,40},{100,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp disAirSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp disAirSet(
     final height=0.9,
     final duration=7200,
     final offset=0.1) "Discharge airflow rate setpoint"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp disAir(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp disAir(
     final duration=7200,
     final offset=0.1,
     final height=0.3) "Discharge airflow rate"
     annotation (Placement(transformation(extent={{-100,110},{-80,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp damPos(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp damPos(
     final duration=7200,
     final height=0.7,
     final offset=0.3) "Damper position"
@@ -31,7 +31,7 @@ model Alarms "Validation of model that generates alarms"
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     "Convert boolean input to real output"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul
     "Damper position"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse damSta(
@@ -42,22 +42,22 @@ model Alarms "Validation of model that generates alarms"
     final width=0.9,
     final period=7500) "Hot water plant status"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TDis(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TDis(
     final duration=3600,
     final offset=273.15 + 20,
     final height=-5) "Discharge air temperature"
     annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp valPos(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp valPos(
     final duration=2000,
     final height=-0.7,
     final offset=0.7,
     final startTime=3600) "Valve position"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSup(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSup(
     final k=273.15 + 13)
     "AHU supply air temperature"
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TDisSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TDisSet(
     final k=273.15 + 30)
     "Discharge airflow temperature setpoint"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));

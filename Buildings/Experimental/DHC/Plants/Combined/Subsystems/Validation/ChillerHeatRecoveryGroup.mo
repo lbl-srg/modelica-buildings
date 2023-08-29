@@ -69,7 +69,7 @@ model ChillerHeatRecoveryGroup
     period=2000)
     "Direct heat recovery switchover command"
     annotation (Placement(transformation(extent={{-240,50},{-220,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatSet[nChiHea](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatSet[nChiHea](
       each final k=chi.TChiWatSup_nominal, y(each final unit="K", each
         displayUnit="degC")) "Supply temperature setpoint"
     annotation (Placement(transformation(extent={{-240,-190},{-220,-170}})));
@@ -167,10 +167,10 @@ model ChillerHeatRecoveryGroup
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-30,-60})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch TChiHeaSupSet[nChiHea]
+  Buildings.Controls.OBC.CDL.Reals.Switch TChiHeaSupSet[nChiHea]
     "Switch supply temperature setpoint"
     annotation (Placement(transformation(extent={{-168,-210},{-148,-190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSet[nChiHea](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSet[nChiHea](
       each final k=chi.THeaWatSup_nominal, y(each final unit="K", each
         displayUnit="degC")) "Supply temperature setpoint"
     annotation (Placement(transformation(extent={{-240,-230},{-220,-210}})));
@@ -271,16 +271,16 @@ model ChillerHeatRecoveryGroup
     T_start=chi.TCasCooEnt_nominal)
     "Distribution system approximated by prescribed temperature"
     annotation (Placement(transformation(extent={{100,150},{80,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatRet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatRet(
     final k=chi.THeaWatSup_nominal - 12,
     y(final unit="K", displayUnit="degC"))
     "Return temperature"
     annotation (Placement(transformation(extent={{220,90},{200,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TConWatConSup(final k=
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TConWatConSup(final k=
         chi.TCasCooEnt_nominal, y(final unit="K", displayUnit="degC"))
     "Supply temperature"
     annotation (Placement(transformation(extent={{220,170},{200,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TConWatEvaSup(final k=
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TConWatEvaSup(final k=
         chi.TCasHeaEnt_nominal, y(final unit="K", displayUnit="degC"))
     "Supply temperature"
     annotation (Placement(transformation(extent={{220,-30},{200,-10}})));
@@ -293,7 +293,7 @@ model ChillerHeatRecoveryGroup
     T_start=chi.TChiWatSup_nominal)
     "Distribution system approximated by prescribed temperature"
     annotation (Placement(transformation(extent={{80,-150},{100,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatRet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatRet(
     final k=chi.TChiWatSup_nominal + 6, y(final unit="K", displayUnit="degC"))
     "Return temperature"
     annotation (Placement(transformation(extent={{220,-130},{200,-110}})));

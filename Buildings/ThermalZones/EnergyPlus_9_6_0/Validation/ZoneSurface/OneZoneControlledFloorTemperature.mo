@@ -7,28 +7,28 @@ model OneZoneControlledFloorTemperature
     surfaceName="Living:Floor")
     "Floor surface of living room"
     annotation (Placement(transformation(extent={{70,40},{90,60}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant TSetRooHea(
+  Controls.OBC.CDL.Reals.Sources.Constant TSetRooHea(
     k(final unit="K",
       displayUnit="degC")=293.15,
     y(final unit="K",
       displayUnit="degC"))
     "Room temperture set point for heating"
     annotation (Placement(transformation(extent={{-96,40},{-76,60}})));
-  Controls.OBC.CDL.Continuous.PID conHea(
+  Controls.OBC.CDL.Reals.PID conHea(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=0.25,
     Ti(
       displayUnit="min")=1800)
     "Controller for heating"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant TSetRooCoo(
+  Controls.OBC.CDL.Reals.Sources.Constant TSetRooCoo(
     k(final unit="K",
       displayUnit="degC")=297.15,
     y(final unit="K",
       displayUnit="degC"))
     "Room temperture set point for cooling"
     annotation (Placement(transformation(extent={{-96,70},{-76,90}})));
-  Controls.OBC.CDL.Continuous.PID conCoo(
+  Controls.OBC.CDL.Reals.PID conCoo(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=0.25,
     Ti(
@@ -36,18 +36,18 @@ model OneZoneControlledFloorTemperature
     reverseActing=false)
     "Controller for cooling"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
-  Controls.OBC.CDL.Continuous.Add dTSetFlo
+  Controls.OBC.CDL.Reals.Add dTSetFlo
     "Change in floor temperature compared to room air temperature"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
-  Controls.OBC.CDL.Continuous.Add TFlo(
+  Controls.OBC.CDL.Reals.Add TFlo(
     y(final unit="K",
       displayUnit="degC"))
     "Floor temperature"
     annotation (Placement(transformation(extent={{30,40},{50,60}})));
-  Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+  Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=-5) "Gain factor"
     annotation (Placement(transformation(extent={{-32,70},{-12,90}})));
-  Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(
+  Controls.OBC.CDL.Reals.MultiplyByParameter gai1(
     final k=5) "Gain factor"
     annotation (Placement(transformation(extent={{-32,40},{-12,60}})));
 

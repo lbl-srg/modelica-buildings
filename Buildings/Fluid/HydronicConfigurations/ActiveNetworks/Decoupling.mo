@@ -151,7 +151,7 @@ model Decoupling "Decoupling circuit with self-acting Delta-p control valve"
     redeclare final package Medium = Medium)
     "Pressure drop across bypass balancing valve"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dp3Set(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dp3Set(
     y(final unit="Pa"),
     final k=dpBal3_nominal)
     "Pressure differential set point"

@@ -9,12 +9,12 @@ model SupplyAirTemperature
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse uEna(period=2800)
     "Enable signal"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSupSet(
     y(final unit="K", displayUnit="degC"),
     k=13 + 273.15)
     "Set point"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TSup(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin TSup(
     phase=3.1415926535898,
     y(final unit="K", displayUnit="degC"),
     amplitude=5,
