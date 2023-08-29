@@ -119,7 +119,7 @@ block Dampers
   Buildings.Controls.OBC.CDL.Reals.Switch actFlo
     "Specify active flow setpoint based on the zone status"
     annotation (Placement(transformation(extent={{-20,150},{0,170}})));
-  CDL.Reals.PIDWithReset               conPID(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset conPID(
     final controllerType=damCon,
     final k=kDam,
     final Ti=TiDam,
@@ -254,16 +254,14 @@ equation
   connect(nomFlow.y, VDisSet_flowNor.u2) annotation (Line(points={{22,-120},{60,
           -120},{60,-136},{98,-136}}, color={0,0,127}));
   connect(nomFlow.y, VDis_flowNor.u2) annotation (Line(points={{22,-120},{60,
-          -120},{60,-196},{98,-196}},
-                                color={0,0,127}));
+          -120},{60,-196},{98,-196}}, color={0,0,127}));
   connect(VDis_flow, VDis_flowNor.u1) annotation (Line(points={{-280,-180},{80,-180},
           {80,-184},{98,-184}}, color={0,0,127}));
   connect(VDisSet_flowNor.y, conPID.u_s)
     annotation (Line(points={{122,-130},{136,-130},{136,-110},{148,-110}},
                                                      color={0,0,127}));
   connect(VDis_flowNor.y, conPID.u_m) annotation (Line(points={{122,-190},{160,
-          -190},{160,-122}},
-                      color={0,0,127}));
+          -190},{160,-122}}, color={0,0,127}));
   connect(oveFloSet,forZerFlo. u1)
     annotation (Line(points={{-280,40},{-182,40}},  color={255,127,0}));
   connect(conInt1.y, forZerFlo.u2) annotation (Line(points={{-198,20},{-190,20},
@@ -328,8 +326,7 @@ equation
   connect(swi2.y, yDam)
     annotation (Line(points={{242,-260},{280,-260}}, color={0,0,127}));
   connect(conPID.y, swi2.u3) annotation (Line(points={{172,-110},{180,-110},{
-          180,-268},{218,-268}},
-                             color={0,0,127}));
+          180,-268},{218,-268}}, color={0,0,127}));
   connect(conInt5.y, intEqu4.u2) annotation (Line(points={{-98,-280},{-80,-280},
           {-80,-268},{-62,-268}}, color={255,127,0}));
   connect(conInt4.y, intEqu3.u2) annotation (Line(points={{-98,-240},{-80,-240},
