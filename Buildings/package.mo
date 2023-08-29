@@ -208,20 +208,21 @@ Each class (i.e., model, block and function) must be used in an example or valid
     annotation (Documentation(info="<html>
 <div class=\"release-summary\">
 <p>
-Version 9.1.1 is ... xxx
-</p>
+Version 9.1.1 is backward compatible with 9.1.0, except that the Spawn binaries need to be updated as described
+  in <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.UsersGuide.Installation\">Buildings.ThermalZones.EnergyPlus_9_6_0.UsersGuide.Installation</a>.
+  </p>
+  <p>
+  The library has been tested with Dymola 2023x, OpenModelica 1.22.0-dev (41-g8a5b18f-1), OPTIMICA (revision 2022-05-09-master-4b0cd2bf71) and recent versions of Impact.
+  </p>
+  <p>
+  The Spawn binaries have been updated from version 0.3.0 to 0.4.3.
+  Both use the same EnergyPlus input data files from EnergyPlus 9.6.0.
+  The update corrects a bug that caused EnergyPlus to always send
+  a heat capacitance multiplier of <i>1</i> to Modelica
+  (see <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3481\">#3481</a>).
+  </p>
 </div>
 <!-- New libraries -->
-<p>
-The following <b style=\"color:blue\">new libraries</b> have been added:
-</p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-    </tr>
-</table>
 <!-- New components for existing libraries -->
 <p>
 The following <b style=\"color:blue\">new components</b> have been added
@@ -361,22 +362,6 @@ have been <b style=\"color:blue\">improved</b> in a
 
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-</tr>
 </table>
 <!-- Non-backward compatible changes to existing components -->
 <!-- Errors that have been fixed -->
@@ -403,6 +388,15 @@ that can lead to wrong simulation results):
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3441\">#3441</a>.
     </td>
 </tr>
+  <tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus_9_6_0</b>
+  </td>
+  <tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone
+    </td>
+    <td valign=\"top\">Corrected bug that caused EnergyPlus to always
+                       send <i>1</i> for the heat capacitance multiplier.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3481\">#3481</a>.
+    </td>
+  </tr>
 <tr><td colspan=\"2\"><b>Buildings.Utilities.Time</b>
   </td>
 </tr>
@@ -442,14 +436,6 @@ units are wrong or errors in documentation):
   </td>
 </tr>
 </table>
-<p>
-Note:
-</p>
-<ul>
-<li>
-xxx
-</li>
-</ul>
 </html>"));
   end Version_9_1_1;
 
