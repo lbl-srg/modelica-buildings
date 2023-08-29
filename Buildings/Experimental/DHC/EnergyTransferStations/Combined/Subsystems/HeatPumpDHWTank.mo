@@ -95,7 +95,7 @@ model HeatPumpDHWTank
     annotation (Placement(transformation(extent={{70,-70},{50,-50}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     annotation (Placement(transformation(extent={{-180,110},{-160,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant floEvaNom(final k=
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant floEvaNom(final k=
         mDH_flow_nominal)    if not have_varFloEva
     "Nominal flow rate"
     annotation (Placement(transformation(extent={{0,80},{-20,100}})));
@@ -118,17 +118,17 @@ model HeatPumpDHWTank
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-40,-20})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch enaHeaPum(
+  Buildings.Controls.OBC.CDL.Reals.Switch enaHeaPum(
     u2(start=false))
     "Enable heat pump by switching to actual set point"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold staPum(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold staPum(
     y(each start=false),
     t=1e-2*heaPumTan.mDH_flow_nominal,
     h=0.5e-2*heaPumTan.mDH_flow_nominal)
                               "Pump return status"
     annotation (Placement(transformation(extent={{-80,-110},{-100,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply floEva
+  Buildings.Controls.OBC.CDL.Reals.Multiply floEva
     "Zero flow rate if not enabled"
     annotation (Placement(transformation(extent={{-20,110},{0,130}})));
   Loads.DHW.HeatPumpWaterHeaterWithTank heaPumTan(mHw_flow_nominal=

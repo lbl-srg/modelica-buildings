@@ -34,7 +34,7 @@ model HeatPumpHeatExchangerDHWTank
     use_m_flow_in=true,
     nPorts=1) if have_hotWat "Sink for domestic hot water"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter toSin(final k=-1)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter toSin(final k=-1)
     if have_hotWat "Convert to sink"
     annotation (Placement(transformation(extent={{-98,50},{-78,70}})));
 equation

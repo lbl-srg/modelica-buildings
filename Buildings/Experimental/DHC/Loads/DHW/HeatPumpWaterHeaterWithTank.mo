@@ -76,11 +76,11 @@ model HeatPumpWaterHeaterWithTank
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor tanTemSen
     "Temperature of the hot water tank"
     annotation (Placement(transformation(extent={{-40,62},{-20,82}})));
-  Controls.OBC.CDL.Continuous.MultiplyByParameter
+  Controls.OBC.CDL.Reals.MultiplyByParameter
                                    dTTanHex2(k=datWatHea.mHex_flow_nominal)
     "Temperature setpoint for domestic hot water supply from heater"
     annotation (Placement(transformation(extent={{20,80},{40,100}})));
-  Controls.OBC.CDL.Continuous.PID conPI(
+  Controls.OBC.CDL.Reals.PID conPI(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=k,
     Ti=Ti)

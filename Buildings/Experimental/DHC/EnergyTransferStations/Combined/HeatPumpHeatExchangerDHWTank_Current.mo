@@ -236,7 +236,7 @@ model HeatPumpHeatExchangerDHWTank_Current
     final allowFlowReversal=allowFlowReversalBui)
     "Chilled water mass flow rate"
     annotation (Placement(transformation(extent={{-250,-130},{-230,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(final k=
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai2(final k=
         m1HexChi_flow_nominal)
     annotation (Placement(transformation(extent={{-108,-210},{-88,-190}})));
   Buildings.Experimental.DHC.EnergyTransferStations.Combined.Controls.PIDWithEnable conTChiWat(
@@ -247,7 +247,7 @@ model HeatPumpHeatExchangerDHWTank_Current
     reverseActing=false,
     yMin=0) "PI controller for district HX primary side"
     annotation (Placement(transformation(extent={{-150,-210},{-130,-190}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum PPumHeaTot(final nin=2)
+  Buildings.Controls.OBC.CDL.Reals.MultiSum PPumHeaTot(final nin=2)
     "Total pump power for heating applications"
     annotation (Placement(transformation(extent={{190,410},{210,430}})));
   Buildings.Fluid.Sources.Boundary_pT bouHeaWat(
@@ -262,10 +262,10 @@ model HeatPumpHeatExchangerDHWTank_Current
     nPorts=1)
     "Pressure boundary condition representing the expansion vessel"
     annotation (Placement(transformation(extent={{-162,-290},{-142,-270}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum PPumCooTot(nin=1)
+  Buildings.Controls.OBC.CDL.Reals.MultiSum PPumCooTot(nin=1)
     "Total pump power for space cooling"
     annotation (Placement(transformation(extent={{190,370},{210,390}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum PPumTot(nin=2)
+  Buildings.Controls.OBC.CDL.Reals.MultiSum PPumTot(nin=2)
     "Total pump power"
     annotation (Placement(transformation(extent={{220,390},{240,410}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTHeaWatSup(
@@ -350,13 +350,13 @@ model HeatPumpHeatExchangerDHWTank_Current
       extent={{10,-10},{-10,10}},
       rotation=180,
       origin={-40,-10})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide div1 if have_hotWat
+  Buildings.Controls.OBC.CDL.Reals.Divide div1 if have_hotWat
     "Compute mass flow rate from load"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(final k=
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(final k=
         cpBui_default) if have_hotWat "Times Cp"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum masFloHeaTot(final nin=2)
+  Buildings.Controls.OBC.CDL.Reals.MultiSum masFloHeaTot(final nin=2)
     "Compute district water mass flow rate used for heating service"
     annotation (Placement(transformation(extent={{270,-150},{290,-130}})));
   Modelica.Blocks.Sources.Constant zer(final k=0) if not have_hotWat
@@ -378,7 +378,7 @@ model HeatPumpHeatExchangerDHWTank_Current
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={40,-120})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract delT if have_hotWat
+  Buildings.Controls.OBC.CDL.Reals.Subtract delT if have_hotWat
     "Compute DeltaT needed on condenser side"
     annotation (Placement(transformation(extent={{-150,-10},{-130,10}})));
   Fluid.Sensors.MassFlowRate senMasFloHeaWatPri(redeclare final package Medium =
@@ -391,26 +391,26 @@ model HeatPumpHeatExchangerDHWTank_Current
   Modelica.Blocks.Sources.Constant zer1(k=0) if not have_hotWat
     "Replacement variable"
     annotation (Placement(transformation(extent={{-40,-250},{-20,-230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add masFloHea
+  Buildings.Controls.OBC.CDL.Reals.Add masFloHea
     "Service water mass flow rate for heating applications"
     annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,-264})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum PHeaTot(final nin=2)
+  Buildings.Controls.OBC.CDL.Reals.MultiSum PHeaTot(final nin=2)
     "Total power used for heating and hot water production"
     annotation (Placement(transformation(extent={{270,70},{290,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add heaFloEvaSHW if have_hotWat and have_varFloEva
+  Buildings.Controls.OBC.CDL.Reals.Add heaFloEvaSHW if have_hotWat and have_varFloEva
     "Heat flow rate at evaporator"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract dTHHW
+  Buildings.Controls.OBC.CDL.Reals.Subtract dTHHW
     "Heating hot water DeltaT"
     annotation (Placement(transformation(extent={{0,310},{-20,330}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter capFloHHW(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter capFloHHW(
     final k=cpBui_default) if have_varFloEva or have_varFloCon "Capacity flow rate"
     annotation (Placement(transformation(extent={{-220,310},{-200,330}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add heaFloEvaHHW if have_varFloEva
+  Buildings.Controls.OBC.CDL.Reals.Add heaFloEvaHHW if have_varFloEva
     "Heat flow rate at evaporator"
     annotation (Placement(transformation(extent={{-100,230},{-80,250}})));
   Buildings.Experimental.DHC.EnergyTransferStations.Combined.Controls.PrimaryVariableFlow conFloConHHW(
@@ -427,10 +427,10 @@ model HeatPumpHeatExchangerDHWTank_Current
     final cp=cpSer_default) if have_varFloEva
     "Mass flow rate control"
     annotation (Placement(transformation(extent={{-60,230},{-40,250}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max priOve if have_varFloCon
+  Buildings.Controls.OBC.CDL.Reals.Max priOve if have_varFloCon
     "Ensure primary overflow"
     annotation (Placement(transformation(extent={{-60,270},{-40,290}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply loaHHW
+  Buildings.Controls.OBC.CDL.Reals.Multiply loaHHW
     if have_varFloEva or have_varFloCon "Heating load"
     annotation (Placement(transformation(extent={{-140,270},{-120,290}})));
 
@@ -439,7 +439,7 @@ model HeatPumpHeatExchangerDHWTank_Current
     use_m_flow_in=true,
     nPorts=1) if have_hotWat "Sink for domestic hot water"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter toSin(final k=-1)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter toSin(final k=-1)
     if have_hotWat "Convert to sink"
     annotation (Placement(transformation(extent={{-98,50},{-78,70}})));
   parameter Loads.DHW.Data.GenericHeatPumpWaterHeater datWatHea
@@ -452,7 +452,7 @@ model HeatPumpHeatExchangerDHWTank_Current
     final cp=cpSer_default) if have_hotWat and have_varFloEva
     "Mass flow rate control"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter toSub(final k=-1)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter toSub(final k=-1)
     if have_hotWat "Convert to subtraction"
     annotation (Placement(transformation(extent={{-80,70},{-100,90}})));
 equation

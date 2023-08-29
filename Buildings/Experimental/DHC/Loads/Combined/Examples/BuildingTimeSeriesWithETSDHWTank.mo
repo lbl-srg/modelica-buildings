@@ -32,24 +32,23 @@ model BuildingTimeSeriesWithETSDHWTank
     filNam="modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissOffice_20190916.mos",
     datWatHea=datWatHea)
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant TColWat(k=bui.ets.TColWat_nominal)
+  Controls.OBC.CDL.Reals.Sources.Constant TColWat(k=bui.ets.TColWat_nominal)
     "Cold water temperature"
     annotation (Placement(transformation(extent={{60,80},{80,100}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant THotWatSupSet(k=bui.ets.THotWatSup_nominal)
+  Controls.OBC.CDL.Reals.Sources.Constant THotWatSupSet(k=bui.ets.THotWatSup_nominal)
     "Hot water supply temperature set point"
     annotation (Placement(transformation(extent={{20,80},{40,100}})));
- Controls.OBC.CDL.Continuous.Sources.Constant TChiWatSupSet(k=bui.TChiWatSup_nominal)
+ Controls.OBC.CDL.Reals.Sources.Constant TChiWatSupSet(k=bui.TChiWatSup_nominal)
     "Chilled water supply temperature set point"
     annotation (Placement(transformation(extent={{-20,80},{0,100}})));
- Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSupMaxSet(k=bui.THeaWatSup_nominal)
+ Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupMaxSet(k=bui.THeaWatSup_nominal)
     "Heating water supply temperature set point - Maximum value"
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
- Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSupMinSet(each k=28 + 273.15)
+ Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupMinSet(each k=28 + 273.15)
     "Heating water supply temperature set point - Minimum value"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   parameter DHW.Data.GenericHeatPumpWaterHeater datWatHea(
     mHex_flow_nominal=datWatHea.QCon_flow_nominal/4200/datWatHea.dTCon_nominal,
-
     QCon_flow_max=1.2*datWatHea.QCon_flow_nominal,
     QCon_flow_nominal=bui.QHot_flow_nominal,
     TTan_nominal=333.15,
@@ -84,7 +83,7 @@ equation
         coordinateSystem(
         preserveAspectRatio=false)),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/Cooling/Examples/BuildingTimeSeriesWithETS.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/Combined/Examples/BuildingTimeSeriesWithETSWithDHWTank.mos" "Simulate and plot"),
     experiment(
       StopTime=864000,
       Interval=600,
