@@ -2,15 +2,14 @@ within Buildings.ThermalZones.EnergyPlus_9_6_0.Validation.ThermalZone;
 model ZoneCapacitanceMultiplier
   "Validation model for zone capacitance multiplier in Spawn"
   extends Modelica.Icons.Example;
-  Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Unconditioned
-    defCap "Default capacitance"
+  Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Unconditioned defCap
+    "Default capacitance"
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
-  Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Unconditioned
-    mulCap(
-      building(
-        idfName=Modelica.Utilities.Files.loadResource(
-          "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus_9_6_0/Examples/SingleFamilyHouse_TwoSpeed_ZoneAirBalance/SingleFamilyHouse_TwoSpeed_ZoneAirBalance_zoneCapacitanceMultiplier.idf")))
-                           "Capacitance with a multiplier of 10"
+  Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Unconditioned mulCap(
+    building(
+      idfName=Modelica.Utilities.Files.loadResource(
+        "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus_9_6_0/Examples/SingleFamilyHouse_TwoSpeed_ZoneAirBalance/SingleFamilyHouse_TwoSpeed_ZoneAirBalance_zoneCapacitanceMultiplier.idf")))
+        "Capacitance with a multiplier of 10"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
   annotation (
     Documentation(
