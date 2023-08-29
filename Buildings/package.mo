@@ -217,11 +217,25 @@ Version 10.0.0 is ... xxx
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
+<tr><td valign=\"top\">Buildings.Templates
+    </td>
+    <td valign=\"top\">Package that contains templates for HVAC systems with control sequences
+                       based on ASHRAE Guideline 36.
+                       Currently limited to VAV systems, the package is under active development
+                       and will be further expanded with templates for primary systems and various
+                       types of zone equipment.
+    </td>
+    </tr>
 <tr><td valign=\"top\">Buildings.ThermalZones.ISO13790
     </td>
     <td valign=\"top\">Package that contains models for reduced building physics of thermal zones
                        based on a thermal network consisting of five resistances and one capacity.
                        The models are inspired by the ISO 13790:2008 Standard.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.Heating
+    </td>
+    <td valign=\"top\">Package containing models for energy transfer stations used in district heating systems.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Experimental.DHC.Loads.Combined.Examples
@@ -230,6 +244,41 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
                        with loads provided as time series for heat
                        pump space heating, heat pump domestic hot water heating,
                        and free cooling in an ambient district network.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Loads.Heating
+    </td>
+    <td valign=\"top\">Package containing models for loads in district heating systems.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Plants.Combined
+    </td>
+    <td valign=\"top\">Package of models for central plants that provide heating and cooling.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.BaseClasses.Steam
+    </td>
+    <td valign=\"top\">Package for steam systems using the split-medium approach..
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Examples.Steam
+    </td>
+    <td valign=\"top\">Package of example models for steam district heating systems.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Loads.Steam
+    </td>
+    <td valign=\"top\">Package with models for loads involving steam systems.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Steam
+    </td>
+    <td valign=\"top\">Package of models for distribution networks involving steam.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Plants.Steam
+    </td>
+    <td valign=\"top\">Package with models for steam plants.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.HydronicConfigurations
@@ -273,6 +322,26 @@ to <b style=\"color:blue\">existing</b> libraries:
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3103\">issue 3103</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.Plants.Cooling</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Plants.Cooling.StoragePlant<br/>
+                       Buildings.Experimental.DHC.Plants.Cooling.Controls.FlowControl<br/>
+                       Buildings.Experimental.DHC.Plants.Cooling.Controls.SelectMin<br/>
+                       Buildings.Experimental.DHC.Plants.Cooling.Controls.TankStatus<br/>
+                       Buildings.Experimental.DHC.Plants.Cooling.Controls.Validation.TankStatus<br/>
+                       Buildings.Experimental.DHC.Plants.Cooling.Examples.StoragePlantDualSource<br/>
+                       Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.IdealUser<br/>
+                       Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.ParallelJunctions<br/>
+                       Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.ParallelPipes<br/>
+                       Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.ReversibleConnection<br/>
+                       Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.TankBranch<br/>
+                       Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.Validation.IdealUser
+    </td>
+    <td valign=\"top\">Added models for a district CHW system with two plants,
+                       where one of them has a storage tank that can be charged remotely by the other plant.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2859\">issue 2859</a>.
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
     </td>
 </tr>
@@ -362,6 +431,30 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.Plants.Cooling</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Plants.Cooling.Controls.ChilledWaterPumpSpeed
+    </td>
+    <td valign=\"top\">Set <code>final totPum.nin = numPum</code> so that this block is restricted
+                       to a two-pump configuration as intended.
+                       Also corrected the \"up to two pumps\" language in documentation.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3470\">issue 3470</a>.
+    </td>
+</tr>    
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed.Validation.BESTEST</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.Detailed.Validation.BESTEST.UsersGuide<br/>
+                       Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx<br/>
+                       Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx
+    </td>
+    <td valign=\"top\">Added test acceptance criteria limits.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3396\">issue 3396</a>.
+    </td>
+</tr>    
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.Utilities</b>
     </td>
 </tr>
@@ -464,6 +557,21 @@ have been <b style=\"color:blue\">improved</b> in a
                         <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2302\">#2302</a>.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Connection2Pipe
+    </td>
+    <td valign=\"top\">Removed renamed model redeclare to solve error and allow separate pipe 
+                       declarations on sup/ret of DHC networks.<br/>
+                        This is for
+                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2905\">#2905</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Connection2PipePlugFlow
+    </td>
+    <td valign=\"top\">Fix redeclare of dis pipe models in connections.<br/>
+                        This is for
+                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2905\">#2905</a>.
+    </td>
+</tr>    
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Actuators</b>
     </td>
   </tr>
@@ -622,6 +730,23 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3384\">#3384</a>.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Media.Steam
+    </td>
+    <td valign=\"top\">Changed the variable type definition of <code>pHat</code> and <code>THat</code> 
+                       from absolute to <code>Modelica.Units.SI.PressureDifference</code> and 
+                       <code>Modelica.Units.SI.TemperatureDifference</code> to prevent min/max 
+                       assertion erros during initilization.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2905\">#2905</a>.<br/>
+                       In function <code>rho_pT</code>, created and used new function extending
+                       <code>Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.g2</code> with an
+                       annotation <code>smoothOrder=2</code>.  This is to specifcally pass on the 
+                       <code>smoothOrder=2</code> annotion placed on <code>rho_pT</code> to 
+                       the <code>g2</code> function.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2905\">#2905</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1</b>
     </td>
   </tr>
@@ -737,16 +862,6 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Added unit <code>rad</code> to the input.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3277\">#3277</a>.<br/>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Sources.Sin
-    </td>
-    <td valign=\"top\">Renamed block from <code>Sine</code> to <code>Sin</code>
-                       to use consistent naming with
-                       <code>Buildings.Controls.OBC.CDL.Continuous.Sin</code>.<br/>
-                       This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3339\">#3339</a>.<br/>
-                       This change is supported in the conversion script.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Routing.RealExtractor

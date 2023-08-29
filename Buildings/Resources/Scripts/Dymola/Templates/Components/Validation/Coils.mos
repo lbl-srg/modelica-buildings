@@ -1,0 +1,88 @@
+simulateModel("Buildings.Templates.Components.Validation.Coils",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=200.0,
+    resultFile="Coils");
+createPlot(
+    id=1,
+    subPlot=1,
+    position={0, 0, 400, 400},
+    y={"coiCoo.bus.y", "coiCoo.bus.y_actual", "coiCoo.hex.m1_flow", "coiCoo.hex.m2_flow", "coiCoo.hex.m1_flow_nominal", "coiCoo.hex.m2_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"coiCoo.hex.Q2_flow", "coiCoo.Q_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=1,
+    position={0, 100, 400, 400},
+    y={"coiHea.bus.y", "coiHea.bus.y_actual", "coiHea.hex.m1_flow", "coiHea.hex.m2_flow", "coiHea.hex.m1_flow_nominal", "coiHea.hex.m2_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=2,
+    y={"coiHea.hex.Q2_flow", "coiHea.Q_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=3,
+    subPlot=1,
+    position={100, 0, 400, 400},
+    y={"coiEle.bus.y", "coiEle.hex.m_flow", "coiEle.hex.m_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=3,
+    subPlot=2,
+    y={"coiEle.hex.Q_flow", "coiEle.Q_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=4,
+    subPlot=1,
+    position={200, 0, 400, 400},
+    y={"coiEva.bus.y", "coiEva.hex.m_flow", "coiEva.hex.m_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=4,
+    subPlot=2,
+    y={"coiEva.hex.QSen_flow", "coiEva.hex.QLat_flow", "coiEva.Q_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=5,
+    subPlot=1,
+    position={200, 100, 400, 400},
+    y={"coiMul.bus.y", "coiMul.hex.m_flow", "coiMul.hex.m_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=5,
+    subPlot=2,
+    y={"coiMul.hex.QSen_flow", "coiMul.hex.QLat_flow", "coiMul.Q_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=6,
+    subPlot=1,
+    position={300, 0, 400, 400},
+    y={"non.m_flow", "non.m_flow_nominal"},
+    autoscale=true,
+    grid=true
+);

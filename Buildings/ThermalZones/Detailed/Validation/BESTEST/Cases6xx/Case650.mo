@@ -15,7 +15,9 @@ model Case650
     peakHea(Min = 0*1000, Max = 0*1000, Mean = 0 * 1000),
     peakCoo(Min= -5.045*1000, Max = -6.290*1000, Mean= -5.813*1000)),
     gaiHea(k=0),
-    multiSum(nu=2));
+    multiSum(nu=2),
+   heaCri(lowerLimit=0*3.6e9, upperLimit=0*3.6e9),
+   cooCri(lowerLimit=-3.46*3.6e9, upperLimit=-5.88*3.6e9));
 
   BaseClasses.DaySchedule vent(table=[      0, -1409/3600;
                                        7*3600, -1409/3600;
@@ -39,6 +41,12 @@ annotation (
       Tolerance=1e-06),
     Documentation(revisions="<html>
 <ul>
+<li>
+May 12, 2023, by Jianjun Hu:<br/>
+Added test acceptance criteria limits.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3396\">issue 3396</a>.
+</li> 
 <li>
 May 12, 2022, by Jianjun Hu:<br/>
 Changed the ventilation fan capacity from 1703.16 m3/h to 1700 m3/h and consider the adjustment

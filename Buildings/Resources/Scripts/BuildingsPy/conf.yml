@@ -132,6 +132,33 @@
   openmodelica:
     comment: simulation terminated by an assertion at initialization
     simulate: false
+- model_name: Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.Validation.StagingPlant
+  openmodelica:
+    comment: Internal error BackendDAETransform.analyseStrongComponentBlock failed (Purely discrete algebraic loops cannot be solved by iterative processes. Try to break them open using the delay() operator.)
+    translate: false
+- model_name: Buildings.Experimental.DHC.Plants.Combined.Examples.AllElectricCWStorage
+  openmodelica:
+    comment: Internal error NFCeval.evalBinaryMul failed to evaluate {0.0, 0.03359309597916374, 0.06718619195832748, 0.09151222697772191}[pressure.n] * 0.0
+    translate: false
+  optimica:
+    comment: pyfmi.fmi.FMUException Failed to update the events at time 3.024307E+06
+    simulate: false
+- model_name: Buildings.Experimental.DHC.Plants.Combined.Validation.AllElectricCWStorage
+  openmodelica:
+    comment: Internal error NFCeval.evalBinaryMul failed to evaluate {0.0, 0.03359309597916374, 0.06718619195832748, 0.09151222697772191}[pressure.n] * 0.0
+    translate: false
+- model_name: Buildings.Experimental.DHC.Plants.Cooling.Examples.StoragePlantDualSource
+  openmodelica:
+    comment: 'Could not evaluate structural parameter (or constant): mChi_flow_nominal'
+    translate: false
+- model_name: Buildings.Experimental.DHC.Plants.Steam.BaseClasses.Examples.ControlVolumeEvaporation
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization
+    simulate: false
+- model_name: Buildings.Experimental.DHC.Plants.Steam.Examples.SingleBoiler
+  optimica:
+    comment: Fails initialization, works if Buildings.Experimental.DHC.Plants.Steam.SingleBoiler.allowFlowReversal=true, but then OpenModelica fails
+    simulate: false
 - model_name: Buildings.Fluid.Examples.FlowSystem.Basic
   openmodelica:
     comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
@@ -222,6 +249,7 @@
   openmodelica:
     comment: simulation terminated by an assertion at initialization
     simulate: false
+    time_out: 600
 - model_name: Buildings.Obsolete.Utilities.IO.Python36.Examples.KalmanFilter
   dymola:
     comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
@@ -261,6 +289,68 @@
     translate: false
   optimica:
     comment: See https://github.com/lbl-srg/modelica-buildings/issues/2235
+    translate: false
+- model_name: Buildings.Templates.AirHandlersFans.Validation.VAVMZBase
+  openmodelica:
+    comment: Translation failed.
+    translate: false
+- model_name: Buildings.Templates.AirHandlersFans.Validation.VAVMZCoilElectricHeating
+  openmodelica:
+    comment: Translation failed.
+    translate: false
+- model_name: Buildings.Templates.AirHandlersFans.Validation.VAVMZCoilEvaporatorMultiStage
+  openmodelica:
+    comment: Translation failed.
+    translate: false
+- model_name: Buildings.Templates.AirHandlersFans.Validation.VAVMZCoilEvaporatorVariable
+  openmodelica:
+    comment: Translation failed.
+    translate: false
+- model_name: Buildings.Templates.AirHandlersFans.Validation.VAVMZCoilWaterHeating3WVReheat
+  openmodelica:
+    comment: Time out after 300 s.
+    translate: false
+- model_name: Buildings.Templates.AirHandlersFans.Validation.VAVMZControlG36Airflow
+  optimica:
+    comment: 'Array size mismatch in modification of the attribute quantity for the variable TZon. This is a bug in OCT tracked under Modelon#2023022839000276.'
+    translate: false
+  openmodelica:
+    comment: Translation failed.
+    translate: false
+- model_name: Buildings.Templates.AirHandlersFans.Validation.VAVMZControlG36Pressure
+  optimica:
+    comment: 'Array size mismatch in modification of the attribute quantity for the variable TZon. This is a bug in OCT tracked under Modelon#2023022839000276.'
+    translate: false
+  openmodelica:
+    comment: Translation failed.
+    translate: false
+- model_name: Buildings.Templates.AirHandlersFans.Validation.VAVMZDedicatedDampersPressure
+  openmodelica:
+    comment: Time out after 300 s.
+    translate: false
+- model_name: Buildings.Templates.AirHandlersFans.Validation.VAVMZFanRelief
+  openmodelica:
+    comment: Time out after 300 s.
+    translate: false
+- model_name: Buildings.Templates.AirHandlersFans.Validation.VAVMZFanSupplyBlowThrough
+  openmodelica:
+    comment: Translation failed.
+    translate: false
+- model_name: Buildings.Templates.Components.Validation.Fans
+  openmodelica:
+    comment: Translation failed.
+    translate: false
+- model_name: Buildings.Templates.ZoneEquipment.Validation.VAVBoxCoolingOnly
+  openmodelica:
+    comment: Time out after 300 s.
+    translate: false
+- model_name: Buildings.Templates.ZoneEquipment.Validation.VAVBoxCoolingOnlyControlG36
+  openmodelica:
+    comment: Translation failed.
+    translate: false
+- model_name: Buildings.Templates.ZoneEquipment.Validation.VAVBoxReheatControlG36
+  openmodelica:
+    comment: Time out after 300 s.
     translate: false
 - model_name: Buildings.ThermalZones.Detailed.Examples.FFD.ForcedConvection
   optimica:
@@ -322,6 +412,10 @@
 - model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx.Case930
   openmodelica:
     comment: Timeout on travis, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/571321984#L379
+    simulate: false
+- model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx.Case980
+  openmodelica:
+    comment: Timeout on travis, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/604300629#L376
     simulate: false
 - model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.Validation.FMUZoneAdapterZones1
   dymola:

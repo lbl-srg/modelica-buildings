@@ -26,6 +26,8 @@ block PIDWithEnable
     "Set to true for reverse acting, or false for direct acting control action";
   parameter Real y_reset=yMin
     "Value to which the controller output is reset if the boolean trigger has a rising edge";
+  parameter Real y_neutral=y_reset
+    "Value to which the controller output is reset when the controller is disabled";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u_s
     "Connector of setpoint input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),iconTransformation(extent={{-140,-20},{-100,20}})));
@@ -54,7 +56,7 @@ block PIDWithEnable
   Buildings.Controls.OBC.CDL.Continuous.Switch swi1
     annotation (Placement(transformation(extent={{72,-10},{92,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant valDis(
-    final k=0)
+    final k=y_neutral)
     "Value when disabled"
     annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
 equation
