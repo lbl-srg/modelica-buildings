@@ -187,9 +187,7 @@ partial model PartialChilledWaterLoop
     redeclare final package Medium = MediumCon,
     final nPorts_a=if typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled
          then nPumConWat else nChi,
-    final nPorts_b=if typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled
-         and typEco <> Buildings.Templates.ChilledWaterPlants.Types.Economizer.None
-         then nChi + 1 else nChi,
+    final nPorts_b=nChi,
     final m_flow_nominal=mCon_flow_nominal,
     final have_comLeg=typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled
          and typArrPumConWat == Buildings.Templates.Components.Types.PumpArrangement.Headered,
@@ -199,7 +197,7 @@ partial model PartialChilledWaterLoop
     icon_extend=400,
     icon_dy=320)
     "Chiller group condenser fluid inlet"
-    annotation (Placement(transformation(extent={{-164,-206},{-144,-186}})));
+    annotation (Placement(transformation(extent={{-164,-182},{-144,-162}})));
 
   // Secondary CHW loop
   Buildings.Templates.Components.Routing.SingleToMultiple inlPumChiWatSec(
@@ -393,12 +391,12 @@ equation
       points={{-50,-220},{-10,-220},{-10,0}},
       color={0,127,255},
       visible=viewDiagramAll));
-  connect(inlConChi.ports_b[1:nChi], chi.ports_aCon)
-    annotation (Line(points={{-144,-196},{-132,-196},{-132,-178},{-120,-178},{
-          -120,-172},{-90,-172}},
+  connect(inlConChi.ports_b, chi.ports_aCon)
+    annotation (Line(points={{-144,-172},{-90,-172}},
       color={0,0,0},thickness=0.5));
-  connect(inlConChi.ports_b[nChi + 1], eco.port_aConWat) annotation (Line(
-        points={{-144,-196},{-144,-220},{-59,-220}},
+  connect(inlConChi.port_aComLeg, eco.port_aConWat)
+    annotation (Line(
+        points={{-154,-172},{-154,-220},{-59,-220}},
         color={0,0,0},thickness=0.5));
   connect(eco.port_bConWat, outConChi.ports_a[nChi + 1]) annotation (Line(
         points={{-59,-240},{-100,-240},{-100,0},{-90,0}},
