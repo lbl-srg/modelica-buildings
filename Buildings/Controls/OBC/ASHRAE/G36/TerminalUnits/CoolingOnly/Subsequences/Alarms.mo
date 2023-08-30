@@ -188,8 +188,11 @@ block Alarms "Generate alarms of cooling only terminal unit"
     final h=0.5*damPosHys)
     "Check if damper position is near zero"
     annotation (Placement(transformation(extent={{-200,-220},{-180,-200}})));
-  Buildings.Controls.OBC.CDL.Logical.And3 leaDamAla
-    "Check if generating leak damper alarms"
+  Buildings.Controls.OBC.CDL.Logical.And leaDamAla1
+    "Check if generating leak damper alarms, one of two stacked And blocks"
+    annotation (Placement(transformation(extent={{-100,-180},{-80,-160}})));
+  Buildings.Controls.OBC.CDL.Logical.And leaDamAla2
+    "Check if generating leak damper alarms, one of two stacked And blocks"
     annotation (Placement(transformation(extent={{-40,-180},{-20,-160}})));
   Buildings.Controls.OBC.CDL.Logical.Not not5 "Logical not"
     annotation (Placement(transformation(extent={{100,-220},{120,-200}})));
@@ -276,10 +279,6 @@ equation
     annotation (Line(points={{222,150},{260,150}}, color={255,127,0}));
   connect(uDam, cloDam.u)
     annotation (Line(points={{-260,-210},{-202,-210}}, color={0,0,127}));
-  connect(u1Fan, leaDamAla.u2) annotation (Line(points={{-260,-100},{-220,-100},
-          {-220,-170},{-42,-170}},color={255,0,255}));
-  connect(cloDam.y, leaDamAla.u3) annotation (Line(points={{-178,-210},{-100,-210},
-          {-100,-178},{-42,-178}}, color={255,0,255}));
   connect(not5.y, assMes3.u)
     annotation (Line(points={{122,-210},{138,-210}}, color={255,0,255}));
   connect(booToInt3.y, yLeaDamAla)
@@ -300,14 +299,20 @@ equation
     annotation (Line(points={{-78,-40},{-42,-40}}, color={255,0,255}));
   connect(not3.y, and5.u2) annotation (Line(points={{-178,-100},{-60,-100},{-60,
           -48},{-42,-48}}, color={255,0,255}));
-  connect(gre1.y, leaDamAla.u1) annotation (Line(points={{-78,-40},{-70,-40},{-70,
-          -162},{-42,-162}}, color={255,0,255}));
-  connect(leaDamAla.y, truDel3.u)
-    annotation (Line(points={{-18,-170},{18,-170}}, color={255,0,255}));
   connect(truDel3.y, booToInt3.u)
     annotation (Line(points={{42,-170},{138,-170}}, color={255,0,255}));
   connect(truDel3.y, not5.u) annotation (Line(points={{42,-170},{80,-170},{80,-210},
           {98,-210}}, color={255,0,255}));
+  connect(leaDamAla2.y, truDel3.u)
+    annotation (Line(points={{-18,-170},{18,-170}}, color={255,0,255}));
+  connect(gre1.y, leaDamAla2.u1) annotation (Line(points={{-78,-40},{-50,-40},{-50,
+          -170},{-42,-170}}, color={255,0,255}));
+  connect(leaDamAla2.u2, leaDamAla1.y) annotation (Line(points={{-42,-178},{-68,
+          -178},{-68,-170},{-78,-170}}, color={255,0,255}));
+  connect(leaDamAla1.u1, u1Fan) annotation (Line(points={{-102,-170},{-230,-170},
+          {-230,-100},{-260,-100}}, color={255,0,255}));
+  connect(cloDam.y, leaDamAla1.u2) annotation (Line(points={{-178,-210},{-110,-210},
+          {-110,-178},{-102,-178}}, color={255,0,255}));
 annotation (defaultComponentName="ala",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
        graphics={
@@ -396,6 +401,13 @@ fan serving the zone is proven on (<code>uFan=true</code>), generate a Level
 </p>
 </html>",revisions="<html>
 <ul>
+<li>
+August 29, 2023, by Hongxiang Fu:<br/>
+Because of the removal of <code>Logical.And3</code> based on ASHRAE 231P,
+replaced it with a stack of two <code>Logical.And</code> blocks.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2465\">#2465</a>.
+</li>
 <li>
 August 1, 2020, by Jianjun Hu:<br/>
 First implementation.

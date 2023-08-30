@@ -206,8 +206,11 @@ block Alarms
     final delayTime=leaFloTim)
     "Check if the input has been true for more than threshold time"
     annotation (Placement(transformation(extent={{40,-190},{60,-170}})));
-  Buildings.Controls.OBC.CDL.Logical.And3 leaDamAla2
-    "Check if generating leak damper alarms"
+  Buildings.Controls.OBC.CDL.Logical.And leaDamAla1
+    "Check if generating leak damper alarms, one of two stacked And blocks"
+    annotation (Placement(transformation(extent={{-80,-190},{-60,-170}})));
+  Buildings.Controls.OBC.CDL.Logical.And leaDamAla2
+    "Check if generating leak damper alarms, one of two stacked And blocks"
     annotation (Placement(transformation(extent={{-20,-190},{0,-170}})));
   Buildings.Controls.OBC.CDL.Logical.And cloBotDam
     "Both heating and cooling dampers are closed"
@@ -306,10 +309,6 @@ equation
           -18},{-82,-18}}, color={0,0,127}));
   connect(cooMaxFlo1.y, gai4.u)
     annotation (Line(points={{-158,-50},{-142,-50}}, color={0,0,127}));
-  connect(cloBotDam.y, leaDamAla2.u3) annotation (Line(points={{-98,-210},{-80,-210},
-          {-80,-188},{-22,-188}}, color={255,0,255}));
-  connect(or2.y, leaDamAla2.u2) annotation (Line(points={{-158,-110},{-140,-110},
-          {-140,-180},{-22,-180}}, color={255,0,255}));
   connect(cloDam.y, cloBotDam.u1) annotation (Line(points={{-178,-210},{-122,-210}},
                             color={255,0,255}));
   connect(cloDam1.y, cloBotDam.u2) annotation (Line(points={{-178,-250},{-140,-250},
@@ -338,8 +337,14 @@ equation
     annotation (Line(points={{62,-180},{138,-180}}, color={255,0,255}));
   connect(truDel7.y, not11.u) annotation (Line(points={{62,-180},{80,-180},{80,-220},
           {98,-220}}, color={255,0,255}));
-  connect(gre3.y, leaDamAla2.u1) annotation (Line(points={{-58,-10},{-50,-10},{-50,
-          -172},{-22,-172}}, color={255,0,255}));
+  connect(gre3.y, leaDamAla2.u1) annotation (Line(points={{-58,-10},{-30,-10},{-30,
+          -180},{-22,-180}}, color={255,0,255}));
+  connect(or2.y, leaDamAla1.u1) annotation (Line(points={{-158,-110},{-136,-110},
+          {-136,-180},{-82,-180}}, color={255,0,255}));
+  connect(leaDamAla1.u2, cloBotDam.y) annotation (Line(points={{-82,-188},{-88,-188},
+          {-88,-210},{-98,-210}}, color={255,0,255}));
+  connect(leaDamAla1.y, leaDamAla2.u2) annotation (Line(points={{-58,-180},{-40,
+          -180},{-40,-188},{-22,-188}}, color={255,0,255}));
 annotation (defaultComponentName="ala",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
        graphics={
@@ -444,6 +449,13 @@ generate a Level 4 alarm.
 </ul>
 </html>",revisions="<html>
 <ul>
+<li>
+August 29, 2023, by Hongxiang Fu:<br/>
+Because of the removal of <code>Logical.And3</code> based on ASHRAE 231P,
+replaced it with a stack of two <code>Logical.And</code> blocks.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2465\">#2465</a>.
+</li>
 <li>
 August 1, 2020, by Jianjun Hu:<br/>
 First implementation.
