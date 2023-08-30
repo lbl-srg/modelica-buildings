@@ -1,13 +1,13 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Validation;
 model PIWithFirstOrderAMIGO "Test model for an autotuning PI controller"
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant SetPoint(k=0.8)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant SetPoint(k=0.8)
     "Setpoint value"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.FirstOrderAMIGO PIWitTun(
       controllerType=Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PI)
     "PI controller with an autotuning feature"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset PI(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset PI(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=1,
     Ti=0.5,
@@ -22,22 +22,22 @@ model PIWithFirstOrderAMIGO "Test model for an autotuning PI controller"
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel2(samplePeriod=240)
     "A delay process for control process 2"
     annotation (Placement(transformation(extent={{10,-30},{30,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant k(k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant k(k=1)
     "Gain of the first order process"
     annotation (Placement(transformation(extent={{180,20},{160,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant T(k=10)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant T(k=10)
     "Time constant of the first order process"
     annotation (Placement(transformation(extent={{180,-20},{160,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1
     "A subtract block that is used to mimic the first order process 1"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub2
     "A subtract block that is used to mimic the first order process 2"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Derivative derivative1
+  Buildings.Controls.OBC.CDL.Reals.Derivative derivative1
     "A derivative block that is used to mimic the first order process 1"
     annotation (Placement(transformation(extent={{78,26},{58,46}})));
-  Buildings.Controls.OBC.CDL.Continuous.Derivative derivative2
+  Buildings.Controls.OBC.CDL.Reals.Derivative derivative2
     "A derivative block that is used to mimic the first order process 2"
     annotation (Placement(transformation(extent={{80,-60},{60,-40}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse autTunSig(

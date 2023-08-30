@@ -120,10 +120,10 @@ model System2
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
   BoundaryConditions.WeatherData.Bus weaBus
     annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant mAir_flow(k=
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant mAir_flow(k=
         mA_flow_nominal) "Fan air flow rate"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant mWat_flow(k=mW_flow_nominal)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant mWat_flow(k=mW_flow_nominal)
     "Water flow rate"
     annotation (Placement(transformation(extent={{-80,-114},{-60,-94}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemHXOut(redeclare package Medium =

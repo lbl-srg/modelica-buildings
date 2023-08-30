@@ -50,7 +50,7 @@ block FirstOrderAMIGO
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
     "Connector for actuator output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),iconTransformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.ModelTime modTim
+  Buildings.Controls.OBC.CDL.Reals.Sources.ModelTime modTim
     "Simulation time"
     annotation (Placement(transformation(extent={{80,60},{60,80}})));
   Buildings.Controls.OBC.Utilities.PIDWithInputGains PID(
@@ -81,7 +81,7 @@ block FirstOrderAMIGO
     final yLow=yRef + yLow)
     "Identify the on and off period length, the half period ratio, and the moments when the tuning starts and ends"
     annotation (Placement(transformation(extent={{20,30},{0,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Switch between a PID controller and a relay controller"
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samk(y_start=k_start)

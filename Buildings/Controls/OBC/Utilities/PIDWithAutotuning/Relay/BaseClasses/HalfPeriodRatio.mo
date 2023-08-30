@@ -28,13 +28,13 @@ block HalfPeriodRatio
     annotation (Placement(transformation(extent={{100,-50},{140,-10}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Min tMin
+  Buildings.Controls.OBC.CDL.Reals.Min tMin
     "Minimum value of the length for the on and Off period "
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater gretOntOff
+  Buildings.Controls.OBC.CDL.Reals.Greater gretOntOff
     "Check if both the length for the On period and the length for theoff period are larger than 0"
     annotation (Placement(transformation(extent={{-20,50},{0,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minLen(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minLen(
      final k=0)
     "Minimum value for the horizon length"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
@@ -49,28 +49,28 @@ protected
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samAddtOntOff
     "Block that samples the tmin when tmin is larger than 0"
     annotation (Placement(transformation(extent={{20,30},{40,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater tInc
+  Buildings.Controls.OBC.CDL.Reals.Greater tInc
     "Block that checks if either the length for the On period or the length for theoff period increases after they both becomes positive"
     annotation (Placement(transformation(extent={{30,-40},{50,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Min mintOntOff
+  Buildings.Controls.OBC.CDL.Reals.Min mintOntOff
     "Block that finds the smaller one between the length for the On period and the length for theoff period"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max maxtOntOff
+  Buildings.Controls.OBC.CDL.Reals.Max maxtOntOff
     "Block that finds the larger one between the length for the On period and the length for theoff period"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide halPerRat
+  Buildings.Controls.OBC.CDL.Reals.Divide halPerRat
     "Block that calculates the half period ratio"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add addtOntOff
+  Buildings.Controls.OBC.CDL.Reals.Add addtOntOff
     "Block that calculates the sum of the length for the On period and the length for theoff period"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul
     "Block that detects if the the length for the On period or the length for theoff period changes after both of them are larger than 0"
     annotation (Placement(transformation(extent={{-34,-40},{-14,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater gretmaxtOntOff
+  Buildings.Controls.OBC.CDL.Reals.Greater gretmaxtOntOff
     "Block that checks if either the length for the On period or the length for theoff period is larger than 0"
     annotation (Placement(transformation(extent={{-20,10},{0,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Less tDec
+  Buildings.Controls.OBC.CDL.Reals.Less tDec
     "Block that checks if either the length for the On period or the length for theoff period decreases after they both becomes positive"
     annotation (Placement(transformation(extent={{30,-90},{50,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Or tCha

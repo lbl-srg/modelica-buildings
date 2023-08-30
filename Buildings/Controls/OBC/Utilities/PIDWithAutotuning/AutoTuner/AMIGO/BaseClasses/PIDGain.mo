@@ -23,25 +23,25 @@ block PIDGain "Identify the control gain of a PID controller"
     "Control gain signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Divide div1
+  Buildings.Controls.OBC.CDL.Reals.Divide div1
     "Block that calculates the inverse of the input"
     annotation (Placement(transformation(extent={{-40,56},{-20,76}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant const(
     final k=1)
     "Constant value 1"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter add(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter add(
     final p=0.2)
     "Block that calculates the sum of the two inputs"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide div2
+  Buildings.Controls.OBC.CDL.Reals.Divide div2
     "Block that calculates the ratio of the time constant to the time delay"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(
     final k=0.45)
     "Block that calculates the product of the two inputs"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul
     "Block that calculates the sum of the two inputs"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 

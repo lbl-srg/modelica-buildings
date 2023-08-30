@@ -6,17 +6,17 @@ model Overrides "Validation of model that overrides control"
     final VCooMax_flow=0.9,
     final VHeaMax_flow=0.8) "Block outputs system requests"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp disAirSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp disAirSet(
     final height=0.9,
     final duration=7200,
     final offset=0.1) "Discharge airflow rate setpoint"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp cooDamPos(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp cooDamPos(
     final duration=3600,
     final height=0.5,
     final offset=0.5) "Cooling damper position setpoint"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp oveFlo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp oveFlo(
     final height=3,
     final duration=2000,
     startTime=1000) "Override flow setpoint"
@@ -24,11 +24,11 @@ model Overrides "Validation of model that overrides control"
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt2
     "Convert real to integer"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Round round2(
+  Buildings.Controls.OBC.CDL.Reals.Round round2(
     final n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp oveDam(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp oveDam(
     final height=2,
     final duration=2000,
     startTime=1000) "Override damper position"
@@ -36,16 +36,16 @@ model Overrides "Validation of model that overrides control"
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1
     "Convert real to integer"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Round round1(
+  Buildings.Controls.OBC.CDL.Reals.Round round1(
     final n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp heaDamPos(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp heaDamPos(
     final duration=3600,
     final height=0.5,
     final offset=0.5) "Heating damper position setpoint"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp oveDam1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp oveDam1(
     final height=2,
     final duration=2000,
     startTime=1000) "Override damper position"
@@ -53,7 +53,7 @@ model Overrides "Validation of model that overrides control"
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt3
     "Convert real to integer"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Round round3(final n=0)
+  Buildings.Controls.OBC.CDL.Reals.Round round3(final n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 

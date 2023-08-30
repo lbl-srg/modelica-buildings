@@ -35,21 +35,21 @@ protected
     final pre_y_start=true)
     "Check if the measured value is larger than the reference, by default the relay control is on"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Switch between a higher value and a lower value"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant higVal(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant higVal(
     final k=yHig)
     "Higher value for the output"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant lowVal(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant lowVal(
     final k=-yLow)
     "Lower value for the output"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract conErr
+  Buildings.Controls.OBC.CDL.Reals.Subtract conErr
     "Control error (set point - measurement)"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1
     "Switch between a higher value and a lower value"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         origin={-50,-50})));

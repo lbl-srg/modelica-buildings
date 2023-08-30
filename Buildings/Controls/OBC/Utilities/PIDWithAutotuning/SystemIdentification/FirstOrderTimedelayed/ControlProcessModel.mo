@@ -65,11 +65,11 @@ block ControlProcessModel
     annotation (Placement(transformation(extent={{100,-80},{140,-40}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
 protected
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(
     final p=1)
     "Block that calculates the difference between 1 and the normalized time delay"
     annotation (Placement(transformation(extent={{-8,-70},{12,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide div
+  Buildings.Controls.OBC.CDL.Reals.Divide div
     "The output of samtau divided by that of addPar"
     annotation (Placement(transformation(extent={{12,-30},{32,-10}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses.Gain gain(
@@ -104,7 +104,7 @@ protected
     final y_start=0.5)
     "Block that samples the normalized time delay when the tuning period ends"
     annotation (Placement(transformation(extent={{-70,-70},{-50,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=-1)
     "Product of the normalized time delay and -1"
     annotation (Placement(transformation(extent={{-36,-70},{-16,-50}})));

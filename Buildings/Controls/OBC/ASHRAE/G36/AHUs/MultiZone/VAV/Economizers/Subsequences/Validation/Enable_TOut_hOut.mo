@@ -2,10 +2,10 @@ within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subseque
 model Enable_TOut_hOut
   "Model validates economizer disable in case outdoor air conditions are above cutoff"
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutCut(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOutCut(
     final k=TOutCutoff) "Outdoor air temperature cutoff"
     annotation (Placement(transformation(extent={{-160,80},{-140,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hOutCut1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant hOutCut1(
     final k=hOutCutoff) "Outdoor air enthalpy cutoff"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Buildings.Controls.OBC.CDL.Logical.TriggeredTrapezoid TOut(
@@ -43,33 +43,33 @@ protected
     final quantity="SpecificEnergy")=65100
     "Outdoor air enthalpy high limit cutoff";
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hOutCut(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant hOutCut(
     final k=hOutCutoff) "Outdoor air enthalpy cutoff"
     annotation (Placement(transformation(extent={{-240,80},{-220,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutCut1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOutCut1(
     final k=TOutCutoff) "Outdoor air temperature cutoff"
     annotation (Placement(transformation(extent={{0,80},{20,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hOutBelowCutoff(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant hOutBelowCutoff(
     final k=hOutCutoff - 1000)
     "Outdoor air enthalpy is slightly below the cutoff"
     annotation (Placement(transformation(extent={{-240,118},{-220,138}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutBelowCutoff(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOutBelowCutoff(
     final k=TOutCutoff - 2)
     "Outdoor air temperature is slightly below the cutoff"
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPosMax(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant outDamPosMax(
     final k=0.9) "Maximal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-240,-80},{-220,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPosMin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant outDamPosMin(
     final k=0.1) "Minimal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-240,-120},{-220,-100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamPosMax(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant retDamPosMax(
     final k=0.8) "Maximal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamPosMin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant retDamPosMin(
     final k=0) "Minimal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-160,-200},{-140,-180}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamPhyPosMax(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant retDamPhyPosMax(
     final k=1) "Maximal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-160,-120},{-140,-100}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta(

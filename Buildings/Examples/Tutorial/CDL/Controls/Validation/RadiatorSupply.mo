@@ -3,7 +3,7 @@ model RadiatorSupply
   "Validation model for the valve of the radiator supply"
     extends Modelica.Icons.Example;
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TRoo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TRoo(
     height=-4,
     duration=3600,
     offset=297.15) "Room air temperature"
@@ -11,7 +11,7 @@ model RadiatorSupply
   Buildings.Examples.Tutorial.CDL.Controls.RadiatorSupply
     conRadSup "Controller for radiator supply water temperature"
               annotation (Placement(transformation(extent={{10,-10},{30,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TSup(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin TSup(
     amplitude=20,
     freqHz=1/720,
     offset=303.15) "Measured supply water temperature"

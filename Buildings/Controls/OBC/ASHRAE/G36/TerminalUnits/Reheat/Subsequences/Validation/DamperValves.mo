@@ -8,54 +8,54 @@ model DamperValves
     final VHeaMax_flow=0.08,
     final kDam=1) "Output signal for controlling damper position"
     annotation (Placement(transformation(extent={{80,-110},{100,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp uCoo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp uCoo(
     final height=-1,
     final duration=3600,
     final offset=1,
     final startTime=900) "Cooling control signal"
     annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZon(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TZon(
     final k=273.15 + 22)
     "Zone temperature"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VActMin_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant VActMin_flow(
     final k=0.01) "Active minimum airflow setpoint"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VActCooMax_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant VActCooMax_flow(
     final k=0.075) "Active cooling maximum airflow setpoint"
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSupSet(
     final k=273.15 + 13)
     "AHU supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp uHea(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp uHea(
     final height=1,
     final duration=3600,
     final offset=0,
     final startTime=5500) "Heating control signal"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp disAir(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp disAir(
     final duration=7200,
     final offset=0.01,
     final height=0.06)
     "Discharge airflow rate"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TSup(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin TSup(
     final offset=273.15 + 13,
     final amplitude=1,
     final freqHz=1/3600)
     "Supply air temperature"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaSet(
     final k=273.15 + 20)
     "Zone heating setpoint"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TDis(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin TDis(
     final offset=273.15 + 13,
     final amplitude=1.2,
     final freqHz=1/3600) "Measured discharge air temperature"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp opeMod(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp opeMod(
     final offset=1,
     final height=3,
     final duration=90000) "Operation mode"
@@ -63,22 +63,22 @@ model DamperValves
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt2
     "Convert real to integer"
     annotation (Placement(transformation(extent={{-20,-160},{0,-140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Round round2(
+  Buildings.Controls.OBC.CDL.Reals.Round round2(
     final n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-60,-160},{-40,-140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VActCooMin_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant VActCooMin_flow(
     final k=0.015) "Active cooling minimum flow"
     annotation (Placement(transformation(extent={{-60,120},{-40,140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VActHeaMin_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant VActHeaMin_flow(
     final k=0.015)
     "Active heating minimum flow"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VActHeaMax_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant VActHeaMax_flow(
     final k=0.06)
     "Active heating maximum airflow setpoint"
     annotation (Placement(transformation(extent={{-60,-120},{-40,-100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp oveFlo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp oveFlo(
     final height=3,
     final duration=2000,
     final startTime=1000) "Override flow setpoint"
@@ -86,7 +86,7 @@ model DamperValves
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1
     "Convert real to integer"
     annotation (Placement(transformation(extent={{-20,150},{0,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Round round1(final n=0)
+  Buildings.Controls.OBC.CDL.Reals.Round round1(final n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-60,150},{-40,170}})));
 equation

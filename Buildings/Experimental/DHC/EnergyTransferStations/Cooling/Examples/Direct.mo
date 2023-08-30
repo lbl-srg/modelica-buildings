@@ -157,8 +157,6 @@ This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2912\
 <li>November 15, 2022, by Kathryn Hinkelman:<br/>
 Corrected pressure balance across bypass leg and system.
 </li>
-</ul>
-<ul>
 <li>March 20, 2022, by Chengnan Shi:<br/>First implementation.</li>
 </ul>
 </html>"));

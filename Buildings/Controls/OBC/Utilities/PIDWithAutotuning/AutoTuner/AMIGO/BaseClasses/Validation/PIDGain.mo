@@ -3,19 +3,19 @@ model PIDGain "Test model for calculating the control gain for a PID controller"
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.BaseClasses.PIDGain
     PIDGai "Blocks that calculates the control gain"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp kp(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp kp(
     duration=1,
     offset=1,
     height=1)
     "Gain of a first order time-delayed model"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp T(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp T(
     duration=1,
     offset=0.5,
     height=0.5)
     "Time constant of a first order time-delayed model"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp L(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp L(
     duration=1,
     offset=0.3,
     height=0.3)

@@ -27,13 +27,13 @@ model ArrayVariable "Fan array - Variable speed"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-46,80})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply sigCon
+  Buildings.Controls.OBC.CDL.Reals.Multiply sigCon
     "Resulting control signal"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-40,50})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold evaSta[nFan](
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold evaSta[nFan](
     each t=1E-2,
     each h=0.5E-2) "Evaluate fan status"
     annotation (Placement(transformation(

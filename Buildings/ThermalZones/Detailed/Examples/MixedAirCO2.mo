@@ -39,11 +39,11 @@ model MixedAirCO2
     reverseActing=false)
     "PI controller for fresh air supply, with negative minimum because of reverse action"
     annotation (Placement(transformation(extent={{-100,-130},{-80,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addFlo(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addFlo(
     p = 1)
     "Gain that increases the mass flow rate above its typical value"
     annotation (Placement(transformation(extent={{-70,-130},{-50,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiFac(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gaiFac(
     k=-mOut_flow)
     "Gain that increases the mass flow rate above its typical value"
     annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));

@@ -21,28 +21,28 @@ block PIDIntegralTime "Identify the integral time of a PID controller"
     "Time constant signal for the integral term"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Add add1
+  Buildings.Controls.OBC.CDL.Reals.Add add1
     "Block that calculates the sum of the two inputs"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2
+  Buildings.Controls.OBC.CDL.Reals.Add add2
     "Block that calculates the sum of the two inputs"
     annotation (Placement(transformation(extent={{-20,10},{0,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide div
+  Buildings.Controls.OBC.CDL.Reals.Divide div
     "Block that calculates input 1 divided by input 2"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(
     final k=0.4)
     "Block that calculates the product of a constant and the input"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai2(
     final k=0.8)
     "Block that calculates the product of a constant and the input"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai3(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai3(
     final k=0.1)
     "Block that calculates the product of a constant and the input"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul
     "Block that calculates the two inputs"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 

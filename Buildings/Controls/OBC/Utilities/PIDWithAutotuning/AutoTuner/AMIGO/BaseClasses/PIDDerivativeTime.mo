@@ -22,21 +22,21 @@ block PIDDerivativeTime "Identify the derivative time of a PID controller"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 protected
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(
     final k=0.3)
     "Block that calculates the product of a constant and the input"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai2(
     final k=0.5)
     "Block that calculates the product of a constant and the input"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul
     "Block that calculates the product of the two inputs"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add
+  Buildings.Controls.OBC.CDL.Reals.Add add
     "Block that calculates the sum of the two inputs"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide div
+  Buildings.Controls.OBC.CDL.Reals.Divide div
     "Block that calculates input 1 divided by input 2"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 

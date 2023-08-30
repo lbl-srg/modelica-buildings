@@ -33,19 +33,19 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not Off
     "Relay switch off"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract lenOffCal
+  Buildings.Controls.OBC.CDL.Reals.Subtract lenOffCal
     "Block that calculates the horizon length for the Off period"
     annotation (Placement(transformation(extent={{10,-40},{30,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract lenOnCal
+  Buildings.Controls.OBC.CDL.Reals.Subtract lenOnCal
     "Block that calculates the horizon length for the On period"
     annotation (Placement(transformation(extent={{10,30},{30,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater greTimOff
+  Buildings.Controls.OBC.CDL.Reals.Greater greTimOff
     "Trigger the action to record the horizon length for the Off period"
     annotation (Placement(transformation(extent={{50,-80},{70,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater greTimOn
+  Buildings.Controls.OBC.CDL.Reals.Greater greTimOn
     "Trigger the action to record the horizon length for the On period"
     annotation (Placement(transformation(extent={{50,60},{70,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minLen(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minLen(final k=0)
     "Minimum value for the horizon length"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler timOffRec

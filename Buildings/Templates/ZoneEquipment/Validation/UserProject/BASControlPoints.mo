@@ -27,23 +27,23 @@ block BASControlPoints "Emulation of control points from the BAS"
   Controls.OBC.CDL.Integers.Sources.Constant yOveDamPos[nZon](each k=0)
     "Override damper position, 1: set to close; 2: set to open"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant TZonHeaOccSet[nZon](
+  Controls.OBC.CDL.Reals.Sources.Constant TZonHeaOccSet[nZon](
     each k=293.15)
     "Occupied heating setpoint"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant TZonCooOccSet[nZon](
+  Controls.OBC.CDL.Reals.Sources.Constant TZonCooOccSet[nZon](
     each k=297.15)
     "Occupied cooling setpoint"
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant TZonHeaUnoSet[nZon](
+  Controls.OBC.CDL.Reals.Sources.Constant TZonHeaUnoSet[nZon](
     each k=285.15)
     "Unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant TZonCooUnoSet[nZon](
+  Controls.OBC.CDL.Reals.Sources.Constant TZonCooUnoSet[nZon](
     each k=303.15)
     "Unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant ppmCO2Set[nZon](
+  Controls.OBC.CDL.Reals.Sources.Constant ppmCO2Set[nZon](
     each k=1000)
     "Zone CO2 concentration setpoint"
     annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));

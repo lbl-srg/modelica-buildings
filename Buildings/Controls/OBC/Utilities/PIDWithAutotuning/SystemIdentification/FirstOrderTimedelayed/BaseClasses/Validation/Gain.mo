@@ -4,21 +4,21 @@ model Gain "Test model for identifying the gain of the control process"
     gai
     "Block that calculates the gain of a first-order model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse u(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse u(
     amplitude=0.5,
     width=0.125,
     period=0.8,
     offset=0.5)
     "The response of a relay controller"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse tOn(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse tOn(
     amplitude=-0.1,
     width=0.1,
     period=1,
     offset=0.1)
     "The length of the On period"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse tOff(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse tOff(
     amplitude=-0.7,
     width=0.8,
     period=1,

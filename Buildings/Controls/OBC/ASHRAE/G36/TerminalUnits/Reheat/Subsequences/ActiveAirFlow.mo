@@ -85,10 +85,10 @@ protected
     final realTrue=1)
     "If in occupied mode, output 1"
     annotation (Placement(transformation(extent={{-20,120},{0,140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro
     "Active cooling minimum, minimum airflow setpoint"
     annotation (Placement(transformation(extent={{140,110},{160,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max max1
+  Buildings.Controls.OBC.CDL.Reals.Max max1
     "Maximum of inputs"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal heaMinFlo(
@@ -103,32 +103,32 @@ protected
     final realTrue=VCooMax_flow)
     "Cooling maximum flow when input is true"
     annotation (Placement(transformation(extent={{40,-150},{60,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max max2
+  Buildings.Controls.OBC.CDL.Reals.Max max2
     "Maximum of inputs"
     annotation (Placement(transformation(extent={{-20,-120},{0,-100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro1
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro1
     "Product of inputs"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2
     "Check if it is warm-up or setback"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2
+  Buildings.Controls.OBC.CDL.Reals.Add add2
     "Add up inputs"
     annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add1
+  Buildings.Controls.OBC.CDL.Reals.Add add1
     "Active heating minimu flow setpoint"
     annotation (Placement(transformation(extent={{160,10},{180,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro2
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro2
     "Product of inputs"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal heaMaxFlo1(
     final realTrue=VHeaMax_flow)
     "Heating maximum flow when input is true"
     annotation (Placement(transformation(extent={{40,-190},{60,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add3
+  Buildings.Controls.OBC.CDL.Reals.Add add3
     "Add up inputs"
     annotation (Placement(transformation(extent={{100,-170},{120,-150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add4
+  Buildings.Controls.OBC.CDL.Reals.Add add4
     "Active heating maximum flow setpoint"
     annotation (Placement(transformation(extent={{160,-130},{180,-110}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant setBacMod(
@@ -154,11 +154,11 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal ifSetBac
     "Check if current operation mode is setback mode"
     annotation (Placement(transformation(extent={{-120,-200},{-100,-180}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaMaxAir(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant heaMaxAir(
     final k=VHeaMax_flow)
     "Heating maximum airflow"
     annotation (Placement(transformation(extent={{-100,-160},{-80,-140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaMinAir(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant heaMinAir(
     final k=VHeaMin_flow)
     "Heating minimum airflow"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));

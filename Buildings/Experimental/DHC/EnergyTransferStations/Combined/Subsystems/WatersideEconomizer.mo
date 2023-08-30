@@ -127,7 +127,7 @@ model WatersideEconomizer
     use_inputFilter=false) if have_val1
     "Heat exchanger primary control valve"
     annotation (Placement(transformation(extent={{70,70},{90,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(final k=
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(final k=
         m1_flow_nominal) if not have_val1 "Scale to nominal mass flow rate"
     annotation (Placement(transformation(extent={{10,100},{-10,120}})));
   Buildings.Fluid.Actuators.Valves.ThreeWayLinear val2(

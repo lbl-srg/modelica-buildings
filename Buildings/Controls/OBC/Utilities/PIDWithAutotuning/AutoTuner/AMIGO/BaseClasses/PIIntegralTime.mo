@@ -22,44 +22,44 @@ block PIIntegralTime "Identify the integral time of a PI controller"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Add add1
+  Buildings.Controls.OBC.CDL.Reals.Add add1
     "Block that calculates the sum of the two inputs"
     annotation (Placement(transformation(extent={{0,44},{20,64}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2
+  Buildings.Controls.OBC.CDL.Reals.Add add2
     "Block that calculates the sum of the two inputs"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add3
+  Buildings.Controls.OBC.CDL.Reals.Add add3
     "Block that calculates the sum of the two inputs"
     annotation (Placement(transformation(extent={{60,-54},{80,-34}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide div
+  Buildings.Controls.OBC.CDL.Reals.Divide div
     "Block that calculates the input 1 divided by input 2"
     annotation (Placement(transformation(extent={{0,-4},{20,16}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(
     final k=12)
     "Block that calculates products of a constant and the input"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai2(
     final k=7)
     "Block that calculates products of a constant and the input"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai3(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai3(
     final k=13)
     "Block that calculates products of a constant and the input"
     annotation (Placement(transformation(extent={{-20,70},{-40,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai4(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai4(
     final k=0.35)
     "Block that calculates products of a constant and the input"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul1
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul1
     "Block that calculates the product of the two inputs"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul2
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul2
     "Block that calculates the product of the two inputs"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul3
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul3
     "Block that calculates the square value of the input time constant"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul4
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul4
     "Block that calculates the product of the two inputs"
     annotation (Placement(transformation(extent={{-80,2},{-60,22}})));
 

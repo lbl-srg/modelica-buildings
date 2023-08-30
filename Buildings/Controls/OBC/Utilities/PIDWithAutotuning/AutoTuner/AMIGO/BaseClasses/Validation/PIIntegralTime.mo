@@ -4,13 +4,13 @@ model PIIntegralTime "Test model for calculating the integral time for a PI cont
     PIIntTim
     "Block that calculates the integral time"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp T(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp T(
     duration=1,
     offset=0.5,
     height=0.5)
     "Time constant of a first order time-delayed model"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp L(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp L(
     duration=1,
     offset=0.3,
     height=0.3)

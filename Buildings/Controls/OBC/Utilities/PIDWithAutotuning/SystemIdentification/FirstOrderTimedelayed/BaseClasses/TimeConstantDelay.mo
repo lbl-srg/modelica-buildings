@@ -37,48 +37,48 @@ block TimeConstantDelay
     annotation (Placement(transformation(extent={{100,-80},{140,-40}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Abs absk
+  Buildings.Controls.OBC.CDL.Reals.Abs absk
     "Absoulte value of the gain"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Exp exp
+  Buildings.Controls.OBC.CDL.Reals.Exp exp
     "Exponential value of the ratio between time constant and the time delay"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yHigSig(k=yHig)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yHigSig(k=yHig)
     "Higher value for the output"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yLowSig(k=yLow)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yLowSig(k=yLow)
     "Lower value for the output"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant relDeaBan(k=deaBan)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant relDeaBan(k=deaBan)
     "Dead band of the relay controller"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add1
+  Buildings.Controls.OBC.CDL.Reals.Add add1
     "Sum of the inputs"
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2
+  Buildings.Controls.OBC.CDL.Reals.Add add2
     "Sum of the higher value for the output and the lower value for the output"
     annotation (Placement(transformation(extent={{34,0},{54,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide div1
+  Buildings.Controls.OBC.CDL.Reals.Divide div1
     "Quotient of dead band divided by the absolute value of the gain"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide div2
+  Buildings.Controls.OBC.CDL.Reals.Divide div2
     "Blocks that calculates input 1 by input 2"
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide div3
+  Buildings.Controls.OBC.CDL.Reals.Divide div3
     "Blocks that calculates the time constant"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul1 "Product of the two inputs"
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul1 "Product of the two inputs"
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul2
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul2
     "Blocks that calculates time delay"
     annotation (Placement(transformation(extent={{0,74},{20,94}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1
     "Blocks that calculates the difference of the two inputs"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub2
     "Blocks that calculates the difference of the two inputs"
     annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Log log
+  Buildings.Controls.OBC.CDL.Reals.Log log
     "Natural logarithm of the input"
     annotation (Placement(transformation(extent={{-20,-100},{-40,-80}})));
 

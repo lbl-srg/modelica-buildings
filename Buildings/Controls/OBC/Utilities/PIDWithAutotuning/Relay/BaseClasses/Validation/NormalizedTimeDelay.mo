@@ -3,7 +3,7 @@ model NormalizedTimeDelay "Test model for calculating the normalized time delay"
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.NormalizedTimeDelay
     norTimDel(gamma=3) "Calculate the normalized time delay"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse rho(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse rho(
     amplitude=1,
     width=0.7,
     period=1,

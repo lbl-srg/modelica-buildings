@@ -5,21 +5,21 @@ model ControlProcessModel
     conProMod(yLow=0.1, deaBan=0.05)
     "Calculate the parameters of a first-order model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse u(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse u(
     amplitude=0.5,
     width=0.125,
     period=0.8,
     offset=0.5)
     "The response of a relay controller"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse tOn(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse tOn(
     amplitude=-0.1,
     width=0.1,
     period=1,
     offset=0.1)
     "The length of the On period"
     annotation (Placement(transformation(extent={{-80,42},{-60,62}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse tOff(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse tOff(
     amplitude=-0.7,
     width=0.8,
     period=1,
@@ -38,7 +38,7 @@ model ControlProcessModel
     shift=0.9)
     "The signal for the tuning period ends"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse ratioLT(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse ratioLT(
     amplitude=-0.1,
     width=0.4,
     period=0.8,

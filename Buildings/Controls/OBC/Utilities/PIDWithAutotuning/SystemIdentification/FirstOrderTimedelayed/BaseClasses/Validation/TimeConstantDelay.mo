@@ -4,17 +4,17 @@ model TimeConstantDelay "Test model for identifying the the time constant and th
     timConDel(yLow=0.1)
     "Block that calculates the time constant and the time delay of a first-order model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant k(k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant k(k=1)
     "Gain"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse tOn(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse tOn(
     amplitude=-0.1,
     width=0.1,
     period=1,
     offset=0.1)
     "The length of the On period"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse ratioLT(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse ratioLT(
     amplitude=-0.1,
     width=0.4,
     period=0.8,

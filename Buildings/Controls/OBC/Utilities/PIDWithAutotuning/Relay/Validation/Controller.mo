@@ -6,10 +6,10 @@ model Controller "Test model for a relay controller"
     deaBan=0.4)
     "A relay controller"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sin(freqHz=2)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin(freqHz=2)
     "Measured value"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(k=0)
     "Setpoint"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse enaSig(

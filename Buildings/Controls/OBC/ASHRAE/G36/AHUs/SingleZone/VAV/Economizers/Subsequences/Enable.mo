@@ -134,34 +134,34 @@ protected
     final k=false) if not use_enthalpy
     "Deactivates outdoor air enthalpy condition if there is no enthalpy sensor"
     annotation (Placement(transformation(extent={{-60,190},{-40,210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamPhyMin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant retDamPhyMin(
     final k=retDamPhy_min)
     "Physically fixed minimum position of the return air damper"
     annotation (Placement(transformation(extent={{-140,-258},{-120,-238}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamPhyMax(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant retDamPhyMax(
     final k=retDamPhy_max)
     "Physically fixed maximum position of the return air damper. This is the initial condition of the return air damper"
     annotation (Placement(transformation(extent={{-140,-220},{-120,-200}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysOutTem(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysOutTem(
     final uHigh=TOutHigLimCutHig,
     final uLow=TOutHigLimCutLow)
     "Outdoor air temperature hysteresis for fixed or differential dry bulb temperature cutoff conditions"
     annotation (Placement(transformation(extent={{-100,240},{-80,260}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysOutEnt(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysOutEnt(
     final uLow=hOutHigLimCutLow,
     final uHigh=hOutHigLimCutHig) if use_enthalpy
     "Outdoor air enthalpy hysteresis for fixed or differential enthalpy cutoff conditions"
     annotation (Placement(transformation(extent={{-100,160},{-80,180}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2 if use_enthalpy
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub2 if use_enthalpy
     "Add block that determines the difference between hOut and hOutCut"
     annotation (Placement(transformation(extent={{-140,160},{-120,180}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1
     "Add block that determines difference the between TOut and TOutCut"
     annotation (Placement(transformation(extent={{-140,240},{-120,260}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch maxOutDam
+  Buildings.Controls.OBC.CDL.Reals.Switch maxOutDam
     "Set maximum OA damper position to minimum at disable (after time delay)"
     annotation (Placement(transformation(extent={{40,-150},{60,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch minRetDam
+  Buildings.Controls.OBC.CDL.Reals.Switch minRetDam
     "Keep minimum RA damper position at physical maximum for a short time period after disable"
     annotation (Placement(transformation(extent={{40,-250},{60,-230}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2

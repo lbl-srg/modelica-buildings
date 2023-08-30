@@ -507,7 +507,8 @@ variable that is input to the controller depends on a variable
 that is computed by an iterative algorithm.
 To avoid this, the Modelica Buildings Library contains inequality blocks
 such as
-`Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold <https://simulationresearch.lbl.gov/modelica/releases/v8.1.0/help/Buildings_Controls_OBC_CDL_Continuous.html#Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold>`_
+`Buildings.Controls.OBC.CDL.Reals.GreaterThreshold
+<https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Controls_OBC_CDL_Reals.html#Buildings.Controls.OBC.CDL.Reals.GreaterThreshold>`_
 that have a hysteresis parameter.
 
 Examples of a iterative algorithms are nonlinear equation solvers

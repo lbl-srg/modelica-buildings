@@ -30,27 +30,27 @@ block Gain "Identify the gain of a first order time delayed model"
     "Gain"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Add Iu
+  Buildings.Controls.OBC.CDL.Reals.Add Iu
     "Integral of the relay output"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset Iy(
+  Buildings.Controls.OBC.CDL.Reals.IntegratorWithReset Iy(
     final k=1, final y_start=1E-3)
     "Integral of the process output"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant refRelOut(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant refRelOut(
     final k=0)
     "Reference value of the relay control output"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide divIyIu "Calculate the gain"
+  Buildings.Controls.OBC.CDL.Reals.Divide divIyIu "Calculate the gain"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(final p=1E-3)
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(final p=1E-3)
     "Block that avoids a divide-by-zero error"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiOnyHig(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gaiOnyHig(
     final k=yHig)
     "Product of tOn and yHig"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiOffyLow(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gaiOffyLow(
     final k=-yLow)
     "Product of tOff and yLow"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));

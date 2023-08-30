@@ -4,7 +4,7 @@ model HalfPeriodRatio "Test model for calculating the half period ratio"
     halPerRat
     "Calculate the half period ratio"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse tOnSig1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse tOnSig1(
     amplitude=-0.1,
     width=0.1,
     period=1,
@@ -12,17 +12,17 @@ model HalfPeriodRatio "Test model for calculating the half period ratio"
     "Block that generates signals for forming the signal of the length of On period"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse tOnSig2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse tOnSig2(
     amplitude=-0.1,
     width=0.9,
     period=1,
     offset=0.1)
     "Block that generates signals for forming the signal of the length of On period"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add tOn
+  Buildings.Controls.OBC.CDL.Reals.Add tOn
     "The length of the On period"
     annotation (Placement(transformation(extent={{-34,40},{-14,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse tOff(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse tOff(
     amplitude=-0.5,
     width=0.7,
     period=1,

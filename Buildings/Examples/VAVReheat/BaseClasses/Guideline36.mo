@@ -14,14 +14,14 @@ model Guideline36
   parameter Modelica.Units.SI.PressureDifference dpDisRetMax(displayUnit="Pa")=
        40 "Maximum return fan discharge static pressure setpoint";
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swiFreStaPum
+  Buildings.Controls.OBC.CDL.Reals.Switch swiFreStaPum
     "Switch for freeze stat of pump"
     annotation (Placement(transformation(extent={{20,-120},{40,-100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFreHeaCoi(final k=1.0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yFreHeaCoi(final k=1.0)
     "Flow rate signal for heating coil when freeze stat is on"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant warCooTim[numZon](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant warCooTim[numZon](
     final k=fill(1800, numZon)) "Warm up and cool down time"
     annotation (Placement(transformation(extent={{-300,370},{-280,390}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant falSta[numZon](
@@ -44,7 +44,7 @@ model Guideline36
   Buildings.Examples.VAVReheat.BaseClasses.Controls.SystemHysteresis sysHysCoo
     "Hysteresis and delay to switch cooling on and off"
     annotation (Placement(transformation(extent={{20,-260},{40,-240}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swiFreStaVal
+  Buildings.Controls.OBC.CDL.Reals.Switch swiFreStaVal
     "Switch for freeze stat of valve"
     annotation (Placement(transformation(extent={{20,-160},{40,-140}})));
   Buildings.Examples.VAVReheat.BaseClasses.Controls.FreezeStat freSta(lockoutTime=3600)
@@ -57,12 +57,12 @@ model Guideline36
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator tZonNexOcc(nout=
         numZon) "Next occupancy for each zone"
     annotation (Placement(transformation(extent={{-340,372},{-320,392}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOccHeaSet[numZon](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOccHeaSet[numZon](
     each k(
       unit="K",
       displayUnit="degC") = 293.15) "Occupied heating setpoint for zone air"
     annotation (Placement(transformation(extent={{-340,470},{-320,490}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOccCooSet[numZon](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOccCooSet[numZon](
     each k(
       unit="K",
       displayUnit="degC") = 297.15) "Occupied cooling setpoint for zone air"
@@ -103,12 +103,12 @@ model Guideline36
     final have_winSen=fill(false, numZon),
     final have_locAdj=fill(false, numZon)) "Zone setpoint temperature"
     annotation (Placement(transformation(extent={{80,240},{100,280}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TUnoHeaSet[numZon](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TUnoHeaSet[numZon](
       each k(
       unit="K",
       displayUnit="degC") = 285.15) "Unoccupied heating setpoint for zone air"
     annotation (Placement(transformation(extent={{-340,560},{-320,580}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TUnoCooSet[numZon](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TUnoCooSet[numZon](
       each k(
       unit="K",
       displayUnit="degC") = 303.15) "Unoccupied cooling setpoint for zone air"
