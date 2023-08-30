@@ -184,9 +184,9 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
   Buildings.Controls.OBC.CDL.Integers.Multiply proInt
     "Low flow alarms"
     annotation (Placement(transformation(extent={{200,350},{220,370}})));
-  Buildings.Controls.OBC.CDL.Logical.And3 and3
+  Buildings.Controls.OBC.CDL.Logical.And and8
     "Logical and"
-    annotation (Placement(transformation(extent={{20,410},{40,430}})));
+    annotation (Placement(transformation(extent={{0,410},{20,430}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1
     "Logical not"
     annotation (Placement(transformation(extent={{80,370},{100,390}})));
@@ -194,9 +194,9 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
     final message="Warning: airflow is less than 50% of the setpoint.")
     "Level 2 low airflow alarm"
     annotation (Placement(transformation(extent={{140,370},{160,390}})));
-  Buildings.Controls.OBC.CDL.Logical.And3 and4
+  Buildings.Controls.OBC.CDL.Logical.And and4
     "Logical and"
-    annotation (Placement(transformation(extent={{20,330},{40,350}})));
+    annotation (Placement(transformation(extent={{0,330},{20,350}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2
     "Logical not"
     annotation (Placement(transformation(extent={{80,290},{100,310}})));
@@ -240,14 +240,14 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel3(
     final delayTime=leaFloTim) if have_duaSen
     "Check if the input has been true for more than threshold time"
-    annotation (Placement(transformation(extent={{20,-200},{40,-180}})));
+    annotation (Placement(transformation(extent={{40,-200},{60,-180}})));
   Buildings.Controls.OBC.CDL.Reals.LessThreshold cloDam(
     final t=damPosHys,
     final h=0.5*damPosHys) "Check if damper position is near zero"
     annotation (Placement(transformation(extent={{-200,-240},{-180,-220}})));
-  Buildings.Controls.OBC.CDL.Logical.And3 leaDamAla if have_duaSen
+  Buildings.Controls.OBC.CDL.Logical.And leaDamAla if have_duaSen
     "Check if generating leak damper alarms"
-    annotation (Placement(transformation(extent={{-20,-200},{0,-180}})));
+    annotation (Placement(transformation(extent={{-40,-200},{-20,-180}})));
   Buildings.Controls.OBC.CDL.Logical.Not not5 if have_duaSen
     "Logical not"
     annotation (Placement(transformation(extent={{100,-240},{120,-220}})));
@@ -298,15 +298,15 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel5(
     final delayTime=leaFloTim) if have_duaSen
     "Check if the input has been true for more than threshold time"
-    annotation (Placement(transformation(extent={{20,-430},{40,-410}})));
+    annotation (Placement(transformation(extent={{40,-430},{60,-410}})));
   Buildings.Controls.OBC.CDL.Reals.LessThreshold cloDam1(
     final t=damPosHys,
     final h=0.5*damPosHys)
     "Check if damper position is near zero"
     annotation (Placement(transformation(extent={{-200,-470},{-180,-450}})));
-  Buildings.Controls.OBC.CDL.Logical.And3 leaDamAla1 if have_duaSen
+  Buildings.Controls.OBC.CDL.Logical.And leaDamAla1 if have_duaSen
     "Check if generating leak damper alarms"
-    annotation (Placement(transformation(extent={{-20,-430},{0,-410}})));
+    annotation (Placement(transformation(extent={{-40,-430},{-20,-410}})));
   Buildings.Controls.OBC.CDL.Logical.Not not8 if have_duaSen
     "Logical not"
     annotation (Placement(transformation(extent={{100,-470},{120,-450}})));
@@ -335,7 +335,7 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
     annotation (Placement(transformation(extent={{-60,190},{-40,210}})));
   Buildings.Controls.OBC.CDL.Logical.And and7 if not have_duaSen
     "Check if the measured airflow is greater than the threshold and the supply fan is OFF"
-    annotation (Placement(transformation(extent={{20,190},{40,210}})));
+    annotation (Placement(transformation(extent={{0,190},{20,210}})));
   Buildings.Controls.OBC.CDL.Logical.Not not9 if not have_duaSen
     "Logical not"
     annotation (Placement(transformation(extent={{140,150},{160,170}})));
@@ -361,21 +361,21 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel7(
     final delayTime=leaFloTim) if not have_duaSen
     "Check if the input has been true for more than threshold time"
-    annotation (Placement(transformation(extent={{60,20},{80,40}})));
-  Buildings.Controls.OBC.CDL.Logical.And3 leaDamAla2 if not have_duaSen
+    annotation (Placement(transformation(extent={{80,20},{100,40}})));
+  Buildings.Controls.OBC.CDL.Logical.And leaDamAla2 if not have_duaSen
     "Check if generating leak damper alarms"
-    annotation (Placement(transformation(extent={{20,20},{40,40}})));
+    annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Buildings.Controls.OBC.CDL.Logical.And cloBotDam if not have_duaSen
     "Both heating and cooling dampers are closed"
-    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Controls.OBC.CDL.Logical.Not not11 if not have_duaSen
     "Logical not"
-    annotation (Placement(transformation(extent={{100,-20},{120,0}})));
+    annotation (Placement(transformation(extent={{120,-20},{140,0}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes7(
     final message="Warning: the cold-duct or hot-dcut damper is leaking.")
     if not have_duaSen
     "Level 4 leaking damper alarm"
-    annotation (Placement(transformation(extent={{140,-20},{160,0}})));
+    annotation (Placement(transformation(extent={{160,-20},{180,0}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt7(
     final integerTrue=4) if not have_duaSen
     "Convert boolean true to level 4 alarm"
@@ -407,10 +407,24 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
   Buildings.Controls.OBC.CDL.Integers.Equal isOcc
     "Check if current operation mode is occupied mode"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
+  Buildings.Controls.OBC.CDL.Logical.And and3
+    "Logical and"
+    annotation (Placement(transformation(extent={{40,330},{60,350}})));
+  Buildings.Controls.OBC.CDL.Logical.And and9
+    "Logical and"
+    annotation (Placement(transformation(extent={{40,410},{60,430}})));
+  Buildings.Controls.OBC.CDL.Logical.And leaDamAla3 if not have_duaSen
+    "Check if generating leak damper alarms"
+    annotation (Placement(transformation(extent={{40,20},{60,40}})));
+  Buildings.Controls.OBC.CDL.Logical.And  leaDamAla4 if have_duaSen
+    "Check if generating leak damper alarms"
+    annotation (Placement(transformation(extent={{0,-200},{20,-180}})));
+  Buildings.Controls.OBC.CDL.Logical.And leaDamAla5 if have_duaSen
+    "Check if generating leak damper alarms"
+    annotation (Placement(transformation(extent={{0,-430},{20,-410}})));
 equation
   connect(VActSet_flow, gai.u) annotation (Line(points={{-260,340},{-210,340},{
-          -210,390},{-202,390}},
-                             color={0,0,127}));
+          -210,390},{-202,390}}, color={0,0,127}));
   connect(VDis_flow, les.u1)
     annotation (Line(points={{-260,420},{-162,420}}, color={0,0,127}));
   connect(VActSet_flow, greThr.u)
@@ -418,11 +432,9 @@ equation
   connect(VActSet_flow, gai1.u) annotation (Line(points={{-260,340},{-210,340},{
           -210,310},{-202,310}}, color={0,0,127}));
   connect(VDis_flow, gre.u2) annotation (Line(points={{-260,420},{-220,420},{
-          -220,282},{-162,282}},
-                            color={0,0,127}));
+          -220,282},{-162,282}}, color={0,0,127}));
   connect(gai1.y, gre.u1) annotation (Line(points={{-178,310},{-170,310},{-170,
-          290},{-162,290}},
-                       color={0,0,127}));
+          290},{-162,290}}, color={0,0,127}));
   connect(truDel.y, and2.u1)
     annotation (Line(points={{-58,420},{-42,420}}, color={255,0,255}));
   connect(truDel1.y, and1.u2) annotation (Line(points={{-58,290},{-50,290},{-50,
@@ -441,14 +453,14 @@ equation
           180,354},{198,354}},  color={255,127,0}));
   connect(not1.y, assMes.u)
     annotation (Line(points={{102,380},{138,380}}, color={255,0,255}));
-  connect(and2.y, and3.u1) annotation (Line(points={{-18,420},{-10,420},{-10,428},
-          {18,428}},      color={255,0,255}));
-  connect(greThr1.y, and3.u2) annotation (Line(points={{-58,250},{0,250},{0,420},
-          {18,420}},      color={255,0,255}));
-  connect(and1.y, and4.u1) annotation (Line(points={{-18,340},{-10,340},{-10,348},
-          {18,348}},color={255,0,255}));
-  connect(greThr1.y, and4.u2) annotation (Line(points={{-58,250},{0,250},{0,340},
-          {18,340}},      color={255,0,255}));
+  connect(and2.y,and8. u1) annotation (Line(points={{-18,420},{-2,420}},
+                          color={255,0,255}));
+  connect(greThr1.y,and8. u2) annotation (Line(points={{-58,250},{-10,250},{-10,
+          412},{-2,412}}, color={255,0,255}));
+  connect(and1.y, and4.u1) annotation (Line(points={{-18,340},{-2,340}},
+                    color={255,0,255}));
+  connect(greThr1.y, and4.u2) annotation (Line(points={{-58,250},{-10,250},{-10,
+          332},{-2,332}}, color={255,0,255}));
   connect(not2.y, assMes1.u)
     annotation (Line(points={{102,300},{138,300}}, color={255,0,255}));
   connect(cooMaxFlo.y, gai2.u)
@@ -468,9 +480,7 @@ equation
   connect(uCooDam, cloDam.u)
     annotation (Line(points={{-260,-230},{-202,-230}}, color={0,0,127}));
   connect(u1CooFan, leaDamAla.u2) annotation (Line(points={{-260,-120},{-220,-120},
-          {-220,-190},{-22,-190}},color={255,0,255}));
-  connect(cloDam.y, leaDamAla.u3) annotation (Line(points={{-178,-230},{-70,-230},
-          {-70,-198},{-22,-198}}, color={255,0,255}));
+          {-220,-198},{-42,-198}},color={255,0,255}));
   connect(not5.y, assMes3.u)
     annotation (Line(points={{122,-230},{138,-230}}, color={255,0,255}));
   connect(booToInt3.y, yColLeaDamAla)
@@ -492,9 +502,7 @@ equation
   connect(uHeaDam, cloDam1.u)
     annotation (Line(points={{-260,-460},{-202,-460}}, color={0,0,127}));
   connect(u1HeaFan, leaDamAla1.u2) annotation (Line(points={{-260,-350},{-210,-350},
-          {-210,-420},{-22,-420}},color={255,0,255}));
-  connect(cloDam1.y, leaDamAla1.u3) annotation (Line(points={{-178,-460},{-50,-460},
-          {-50,-428},{-22,-428}}, color={255,0,255}));
+          {-210,-428},{-42,-428}},color={255,0,255}));
   connect(not8.y,assMes5. u)
     annotation (Line(points={{122,-460},{138,-460}}, color={255,0,255}));
   connect(booToInt5.y, yHotLeaDamAla)
@@ -502,8 +510,7 @@ equation
   connect(VHotDucDis_flow, gre2.u1)
     annotation (Line(points={{-260,-290},{-102,-290}}, color={0,0,127}));
   connect(VDis_flow, gre3.u1) annotation (Line(points={{-260,420},{-220,420},{
-          -220,200},{-62,200}},
-                           color={0,0,127}));
+          -220,200},{-62,200}}, color={0,0,127}));
   connect(u1CooFan, or2.u1) annotation (Line(points={{-260,-120},{-220,-120},{-220,
           100},{-202,100}}, color={255,0,255}));
   connect(u1HeaFan, or2.u2) annotation (Line(points={{-260,-350},{-210,-350},{-210,
@@ -518,16 +525,14 @@ equation
           192},{-62,192}}, color={0,0,127}));
   connect(cooMaxFlo1.y, gai4.u)
     annotation (Line(points={{-138,150},{-122,150}}, color={0,0,127}));
-  connect(cloBotDam.y, leaDamAla2.u3) annotation (Line(points={{2,0},{10,0},{10,
-          22},{18,22}}, color={255,0,255}));
   connect(or2.y, leaDamAla2.u2) annotation (Line(points={{-178,100},{-160,100},{
-          -160,30},{18,30}}, color={255,0,255}));
+          -160,22},{-2,22}}, color={255,0,255}));
   connect(cloDam.y, cloBotDam.u1) annotation (Line(points={{-178,-230},{-70,-230},
-          {-70,0},{-22,0}}, color={255,0,255}));
+          {-70,0},{-42,0}}, color={255,0,255}));
   connect(cloDam1.y, cloBotDam.u2) annotation (Line(points={{-178,-460},{-50,-460},
-          {-50,-8},{-22,-8}}, color={255,0,255}));
+          {-50,-8},{-42,-8}}, color={255,0,255}));
   connect(not11.y, assMes7.u)
-    annotation (Line(points={{122,-10},{138,-10}}, color={255,0,255}));
+    annotation (Line(points={{142,-10},{158,-10}}, color={255,0,255}));
   connect(booToInt7.y, yLeaDamAla)
     annotation (Line(points={{162,30},{260,30}}, color={255,127,0}));
   connect(VColDucDis_flow, add2.u1) annotation (Line(points={{-260,-60},{-170,-60},
@@ -537,8 +542,7 @@ equation
   connect(add2.y, les.u1) annotation (Line(points={{-118,-20},{-80,-20},{-80,180},
           {-226,180},{-226,420},{-162,420}}, color={0,0,127}));
   connect(add2.y, gre.u2) annotation (Line(points={{-118,-20},{-80,-20},{-80,
-          180},{-226,180},{-226,282},{-162,282}},
-                                             color={0,0,127}));
+          180},{-226,180},{-226,282},{-162,282}}, color={0,0,127}));
   connect(add2.y, gre3.u1) annotation (Line(points={{-118,-20},{-80,-20},{-80,200},
           {-62,200}}, color={0,0,127}));
   connect(greThr.y, truDel8.u)
@@ -548,23 +552,21 @@ equation
   connect(truDel8.y, and2.u2) annotation (Line(points={{-98,340},{-50,340},{-50,
           412},{-42,412}}, color={255,0,255}));
   connect(gre3.y, and7.u1)
-    annotation (Line(points={{-38,200},{18,200}},  color={255,0,255}));
+    annotation (Line(points={{-38,200},{-2,200}},  color={255,0,255}));
   connect(not10.y, and7.u2) annotation (Line(points={{-38,100},{-10,100},{-10,192},
-          {18,192}},  color={255,0,255}));
+          {-2,192}},  color={255,0,255}));
   connect(and7.y, truDel6.u)
-    annotation (Line(points={{42,200},{58,200}},color={255,0,255}));
+    annotation (Line(points={{22,200},{58,200}},color={255,0,255}));
   connect(truDel6.y, booToInt6.u)
     annotation (Line(points={{82,200},{138,200}}, color={255,0,255}));
   connect(truDel6.y, not9.u) annotation (Line(points={{82,200},{100,200},{100,160},
           {138,160}},color={255,0,255}));
-  connect(leaDamAla2.y, truDel7.u)
-    annotation (Line(points={{42,30},{58,30}}, color={255,0,255}));
   connect(truDel7.y, booToInt7.u)
-    annotation (Line(points={{82,30},{138,30}}, color={255,0,255}));
-  connect(truDel7.y, not11.u) annotation (Line(points={{82,30},{90,30},{90,-10},
-          {98,-10}}, color={255,0,255}));
+    annotation (Line(points={{102,30},{138,30}},color={255,0,255}));
+  connect(truDel7.y, not11.u) annotation (Line(points={{102,30},{110,30},{110,-10},
+          {118,-10}},color={255,0,255}));
   connect(gre3.y, leaDamAla2.u1) annotation (Line(points={{-38,200},{-20,200},{-20,
-          38},{18,38}}, color={255,0,255}));
+          30},{-2,30}}, color={255,0,255}));
   connect(not3.y, and5.u2) annotation (Line(points={{-178,-120},{-40,-120},{-40,
           -68},{-22,-68}}, color={255,0,255}));
   connect(and5.y, truDel2.u)
@@ -573,13 +575,11 @@ equation
     annotation (Line(points={{42,-60},{138,-60}}, color={255,0,255}));
   connect(truDel2.y, not4.u) annotation (Line(points={{42,-60},{80,-60},{80,-100},
           {98,-100}}, color={255,0,255}));
-  connect(leaDamAla.y, truDel3.u)
-    annotation (Line(points={{2,-190},{18,-190}}, color={255,0,255}));
   connect(gre1.y, leaDamAla.u1) annotation (Line(points={{-78,-60},{-60,-60},{-60,
-          -182},{-22,-182}}, color={255,0,255}));
+          -190},{-42,-190}}, color={255,0,255}));
   connect(truDel3.y, booToInt3.u)
-    annotation (Line(points={{42,-190},{138,-190}}, color={255,0,255}));
-  connect(truDel3.y, not5.u) annotation (Line(points={{42,-190},{80,-190},{80,-230},
+    annotation (Line(points={{62,-190},{138,-190}}, color={255,0,255}));
+  connect(truDel3.y, not5.u) annotation (Line(points={{62,-190},{80,-190},{80,-230},
           {98,-230}}, color={255,0,255}));
   connect(and6.y, truDel4.u)
     annotation (Line(points={{2,-290},{18,-290}}, color={255,0,255}));
@@ -589,14 +589,12 @@ equation
           -298},{-22,-298}}, color={255,0,255}));
   connect(truDel4.y, not7.u) annotation (Line(points={{42,-290},{80,-290},{80,-330},
           {98,-330}}, color={255,0,255}));
-  connect(leaDamAla1.y, truDel5.u)
-    annotation (Line(points={{2,-420},{18,-420}}, color={255,0,255}));
   connect(truDel5.y, booToInt5.u)
-    annotation (Line(points={{42,-420},{138,-420}}, color={255,0,255}));
-  connect(truDel5.y, not8.u) annotation (Line(points={{42,-420},{80,-420},{80,-460},
+    annotation (Line(points={{62,-420},{138,-420}}, color={255,0,255}));
+  connect(truDel5.y, not8.u) annotation (Line(points={{62,-420},{80,-420},{80,-460},
           {98,-460}}, color={255,0,255}));
   connect(gre2.y, leaDamAla1.u1) annotation (Line(points={{-78,-290},{-60,-290},
-          {-60,-412},{-22,-412}}, color={255,0,255}));
+          {-60,-420},{-42,-420}}, color={255,0,255}));
   connect(les.y, and10.u1)
     annotation (Line(points={{-138,420},{-122,420}}, color={255,0,255}));
   connect(and10.y, truDel.u)
@@ -617,22 +615,44 @@ equation
           62},{-122,62}}, color={255,127,0}));
   connect(uOpeMod,isOcc. u1)
     annotation (Line(points={{-260,70},{-122,70}}, color={255,127,0}));
-  connect(and3.y, lowFloAla.u2)
-    annotation (Line(points={{42,420},{138,420}}, color={255,0,255}));
-  connect(and4.y, booToInt.u)
-    annotation (Line(points={{42,340},{78,340}}, color={255,0,255}));
-  connect(and4.y, not2.u) annotation (Line(points={{42,340},{60,340},{60,300},{78,
-          300}}, color={255,0,255}));
-  connect(and3.y, not1.u) annotation (Line(points={{42,420},{60,420},{60,380},{78,
-          380}}, color={255,0,255}));
-  connect(isOcc.y, and3.u3) annotation (Line(points={{-98,70},{10,70},{10,412},{
-          18,412}}, color={255,0,255}));
-  connect(isOcc.y, and4.u3) annotation (Line(points={{-98,70},{10,70},{10,332},{
-          18,332}}, color={255,0,255}));
   connect(fanIni.y, and11.u2) annotation (Line(points={{-138,230},{-130,230},{
           -130,282},{-122,282}}, color={255,0,255}));
   connect(gai.y, les.u2) annotation (Line(points={{-178,390},{-170,390},{-170,
           412},{-162,412}}, color={0,0,127}));
+  connect(and8.y, and9.u1)
+    annotation (Line(points={{22,420},{38,420}}, color={255,0,255}));
+  connect(and9.y, lowFloAla.u2)
+    annotation (Line(points={{62,420},{138,420}}, color={255,0,255}));
+  connect(booToInt.u, and3.y)
+    annotation (Line(points={{78,340},{62,340}}, color={255,0,255}));
+  connect(and9.y, not1.u) annotation (Line(points={{62,420},{70,420},{70,380},{78,
+          380}}, color={255,0,255}));
+  connect(and3.y, not2.u) annotation (Line(points={{62,340},{70,340},{70,300},{78,
+          300}}, color={255,0,255}));
+  connect(and4.y, and3.u1)
+    annotation (Line(points={{22,340},{38,340}}, color={255,0,255}));
+  connect(isOcc.y, and9.u2) annotation (Line(points={{-98,70},{30,70},{30,412},{
+          38,412}}, color={255,0,255}));
+  connect(isOcc.y, and3.u2) annotation (Line(points={{-98,70},{30,70},{30,332},{
+          38,332}}, color={255,0,255}));
+  connect(leaDamAla2.y, leaDamAla3.u1)
+    annotation (Line(points={{22,30},{38,30}}, color={255,0,255}));
+  connect(leaDamAla3.y, truDel7.u)
+    annotation (Line(points={{62,30},{78,30}}, color={255,0,255}));
+  connect(cloBotDam.y, leaDamAla3.u2) annotation (Line(points={{-18,0},{30,0},{30,
+          22},{38,22}}, color={255,0,255}));
+  connect(leaDamAla.y, leaDamAla4.u1)
+    annotation (Line(points={{-18,-190},{-2,-190}}, color={255,0,255}));
+  connect(leaDamAla4.y, truDel3.u)
+    annotation (Line(points={{22,-190},{38,-190}}, color={255,0,255}));
+  connect(cloDam.y, leaDamAla4.u2) annotation (Line(points={{-178,-230},{-10,-230},
+          {-10,-198},{-2,-198}}, color={255,0,255}));
+  connect(leaDamAla1.y, leaDamAla5.u1)
+    annotation (Line(points={{-18,-420},{-2,-420}}, color={255,0,255}));
+  connect(leaDamAla5.y, truDel5.u)
+    annotation (Line(points={{22,-420},{38,-420}}, color={255,0,255}));
+  connect(cloDam1.y, leaDamAla5.u2) annotation (Line(points={{-178,-460},{-10,-460},
+          {-10,-428},{-2,-428}}, color={255,0,255}));
 annotation (defaultComponentName="ala",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}),
        graphics={
