@@ -212,7 +212,7 @@ Version 9.1.1 is backward compatible with 9.1.0, except that the Spawn binaries 
   in <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.UsersGuide.Installation\">Buildings.ThermalZones.EnergyPlus_9_6_0.UsersGuide.Installation</a>.
   </p>
   <p>
-  The library has been tested with Dymola 2023x, OpenModelica 1.22.0-dev (41-g8a5b18f-1), OPTIMICA (revision 2022-05-09-master-4b0cd2bf71) and recent versions of Impact.
+  The library has been tested with Dymola 2023x, OpenModelica 1.22.0-dev (41-g8a5b18f-1), OPTIMICA 1.43.4 and recent versions of Impact.
   </p>
   <p>
   The Spawn binaries have been updated from version 0.3.0 to 0.4.3.
