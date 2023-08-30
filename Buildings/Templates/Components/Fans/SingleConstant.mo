@@ -21,7 +21,7 @@ model SingleConstant "Single fan - Constant speed"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,50})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold evaSta(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold evaSta(
     t=1E-2,
     h=0.5E-2)
     "Evaluate fan status" annotation (Placement(transformation(

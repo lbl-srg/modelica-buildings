@@ -5,13 +5,13 @@ model ZeroOrderHold
     samplePeriod=0.2)
     "Output the input signal with a zero order hold"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramp1(
     duration=1,
     offset=0,
     height=6.2831852)
     "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Cos cos1
+  Buildings.Controls.OBC.CDL.Reals.Cos cos1
     "Block that outputs the cosine of the input"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 

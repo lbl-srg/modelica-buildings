@@ -52,7 +52,7 @@ partial model PartialMultiplePumps
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={20,30})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ope(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ope(
     height=0.8,
     duration=300,
     offset=0.2,
@@ -122,12 +122,12 @@ partial model PartialMultiplePumps
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={60,-100})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply inp1
+  Buildings.Controls.OBC.CDL.Reals.Multiply inp1
     "Compute pump input signal" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={120,2})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply inp2
+  Buildings.Controls.OBC.CDL.Reals.Multiply inp2
     "Compute pump input signal" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,

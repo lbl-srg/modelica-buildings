@@ -43,7 +43,7 @@ model Chiller
     nPorts=2)
     "Condenser water boundary conditions"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-110,-62})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatSupSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatSupSet(
     k=7+273.15,
     y(final unit="K",
       displayUnit="degC"))

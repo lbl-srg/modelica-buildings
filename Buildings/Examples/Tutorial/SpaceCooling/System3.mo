@@ -120,7 +120,7 @@ model System3
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
   BoundaryConditions.WeatherData.Bus weaBus
     annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant mAir_flow(k=mA_flow_nominal)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant mAir_flow(k=mA_flow_nominal)
     "Fan air flow rate"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemHXOut(redeclare package Medium =
@@ -134,7 +134,7 @@ model System3
   Buildings.Controls.OBC.CDL.Logical.OnOffController con(bandwidth=1)
     "Controller for coil water flow rate"
     annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TRooSetPoi(k=TRooSet)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TRooSetPoi(k=TRooSet)
     "Room temperature set point"
     annotation (Placement(transformation(extent={{-170,-90},{-150,-70}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTemRoo
@@ -354,8 +354,8 @@ When simulating the model, the response shown below should be seen.
 <h4>Notes</h4>
 <p>
 To add a continuous controller for the coil water flow rate, we could have used the model
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.PID\">
-Buildings.Controls.OBC.CDL.Continuous.PID</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Reals.PID\">
+Buildings.Controls.OBC.CDL.Reals.PID</a>.
 </p>
 </html>", revisions="<html>
 <ul>

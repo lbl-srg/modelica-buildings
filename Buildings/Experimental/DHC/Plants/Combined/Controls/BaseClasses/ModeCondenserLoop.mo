@@ -58,7 +58,7 @@ block ModeCondenserLoop
   Modelica.Blocks.Sources.RealExpression ratFraChaTanVal[5](final y=ratFraChaTan)
     "Rate of change of tank charge fraction"
     annotation (Placement(transformation(extent={{-150,-50},{-130,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr[5](
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThr[5](
     final t=ratFraChaTanLim, each h=1E-4)
     "Compare rate of change to threshold"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
@@ -71,13 +71,13 @@ block ModeCondenserLoop
   Modelica.Blocks.Sources.RealExpression varCriWarUp(y=1 - fraChaTan.y)
     "Compute variable used to evaluate warmup criterion"
     annotation (Placement(transformation(extent={{-150,-90},{-130,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater criWarUp(h=1e-3)
+  Buildings.Controls.OBC.CDL.Reals.Greater criWarUp(h=1e-3)
     "Enable criterion based on time to warmup"
     annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
   Buildings.Controls.OBC.CDL.Logical.And criWarUpAndChaLow
     "Both enable criteria met"
     annotation (Placement(transformation(extent={{-70,-90},{-50,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold criChaLow(t=0.97, h=1e-3)
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold criChaLow(t=0.97, h=1e-3)
     "Low charge fraction criterion"
     annotation (Placement(transformation(extent={{-100,-130},{-80,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Not enaFal[6]
@@ -89,11 +89,11 @@ block ModeCondenserLoop
   Buildings.Controls.OBC.CDL.Logical.Timer tim2(t=15*60)
     "None of the enabling conditions is true for given time"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold criFlo(t=1E-3*
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold criFlo(t=1E-3*
         mConWatHexCoo_flow_nominal, h=1E-3*mConWatHexCoo_flow_nominal/2)
     "Disable criterion based on flow rate"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold criTem(t=max(TTanSet)
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold criTem(t=max(TTanSet)
          - 2, h=1e-3)
     "Disable criterion based on temperature"
            annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
@@ -127,7 +127,7 @@ block ModeCondenserLoop
   "CW mass flow rate through secondary (plant) side of HX"
     annotation (Placement(transformation(extent={{-240,100},{-200,140}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold criFlo1(t=-1E-3*
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold criFlo1(t=-1E-3*
         mConWatHexCoo_flow_nominal, h=1E-3*mConWatHexCoo_flow_nominal/2)
     annotation (Placement(transformation(extent={{-100,110},{-80,130}})));
   Buildings.Controls.OBC.CDL.Logical.Timer timCriFlo1(t=60)
@@ -167,7 +167,7 @@ block ModeCondenserLoop
     annotation (Placement(transformation(extent={{50,100},{70,120}})));
   Buildings.Controls.OBC.CDL.Logical.Not notDis1 "Not disabled"
     annotation (Placement(transformation(extent={{10,84},{30,104}})));
-  Buildings.Controls.OBC.CDL.Continuous.MovingAverage fraChaTan(delta=5*60)
+  Buildings.Controls.OBC.CDL.Reals.MovingAverage fraChaTan(delta=5*60)
     "Moving mean of tank charge fraction used for control logic"
     annotation (Placement(transformation(extent={{-150,-130},{-130,-110}})));
   Modelica.Blocks.Sources.RealExpression fraChaTanVal(y=fraChaTanIns)
@@ -189,28 +189,28 @@ block ModeCondenserLoop
       displayUnit="degC")       "CWC return temperature"
     annotation (Placement(transformation(extent={{-240,-220},{-200,-180}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract delTem "Compute Delta-T"
+  Buildings.Controls.OBC.CDL.Reals.Subtract delTem "Compute Delta-T"
     annotation (Placement(transformation(extent={{-170,-200},{-150,-180}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply floOutHeaPum
+  Buildings.Controls.OBC.CDL.Reals.Multiply floOutHeaPum
     "Compute HP heat flow rate output "
     annotation (Placement(transformation(extent={{-130,-190},{-110,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter floCap(final k=
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter floCap(final k=
         cp_default)
     "Compute capacity flow rate"
     annotation (Placement(transformation(extent={{-188,-170},{-168,-150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract delTem1 "Compute Delta-T"
+  Buildings.Controls.OBC.CDL.Reals.Subtract delTem1 "Compute Delta-T"
     annotation (Placement(transformation(extent={{-180,-10},{-160,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter floCap1(final k=
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter floCap1(final k=
         cp_default)
     "Compute capacity flow rate"
     annotation (Placement(transformation(extent={{-180,30},{-160,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply floChaTan
+  Buildings.Controls.OBC.CDL.Reals.Multiply floChaTan
     "Compute tank charge rate"
     annotation (Placement(transformation(extent={{-150,-10},{-130,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract ratHeaRec
+  Buildings.Controls.OBC.CDL.Reals.Subtract ratHeaRec
     "Compute heat recovery rate"
     annotation (Placement(transformation(extent={{-90,-190},{-70,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold criRatHeaRec(final t=
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold criRatHeaRec(final t=
         1E-4*(mConWatHexCoo_flow_nominal*(TTanSet[1, 2] - TTanSet[1, 1])*4184
          - QHeaPum_flow_nominal), final h=1E-4*(mConWatHexCoo_flow_nominal*(
         TTanSet[1, 2] - TTanSet[1, 1])*4184 - QHeaPum_flow_nominal)/2)

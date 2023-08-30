@@ -188,29 +188,29 @@ block AirEconomizerHighLimits "Specify the economizer high liimits"
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1
     "Logical and"
     annotation (Placement(transformation(extent={{220,400},{240,420}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1
     "Cut off outdoor air temperature"
     annotation (Placement(transformation(extent={{460,800},{480,820}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
     final k=273.15 + 24)
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1
     "Cut off temperature"
     annotation (Placement(transformation(extent={{220,840},{240,860}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1
     "Cut off outdoor air temperature"
     annotation (Placement(transformation(extent={{420,660},{440,680}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(
     final k=273.15 + 21)
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1
     "Cut off temperature"
     annotation (Placement(transformation(extent={{220,700},{240,720}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi2
+  Buildings.Controls.OBC.CDL.Reals.Switch swi2
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1
     "Cut off outdoor air temperature"
     annotation (Placement(transformation(extent={{380,580},{400,600}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con2(
     final k=273.15 + 18)
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1
     "Cut off temperature"
@@ -239,7 +239,7 @@ block AirEconomizerHighLimits "Specify the economizer high liimits"
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1
     "Logical or"
     annotation (Placement(transformation(extent={{80,400},{100,420}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi3
+  Buildings.Controls.OBC.CDL.Reals.Switch swi3
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1
     "Cut off outdoor air temperature"
     annotation (Placement(transformation(extent={{340,420},{360,440}})));
@@ -264,16 +264,16 @@ block AirEconomizerHighLimits "Specify the economizer high liimits"
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1
     "Logical not"
     annotation (Placement(transformation(extent={{440,360},{460,380}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con3(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con3(
     final k=273.15 + 24)
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1
     "Cut off temperature"
     annotation (Placement(transformation(extent={{20,150},{40,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi4
+  Buildings.Controls.OBC.CDL.Reals.Switch swi4
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1
     "Cut off outdoor air enthalpy"
     annotation (Placement(transformation(extent={{380,30},{400,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con4(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con4(
     final k=66000)
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1
     "Enthalpy cutoff value, J/kg"
@@ -373,11 +373,11 @@ block AirEconomizerHighLimits "Specify the economizer high liimits"
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24
     "Logical and"
     annotation (Placement(transformation(extent={{200,-340},{220,-320}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi5
+  Buildings.Controls.OBC.CDL.Reals.Switch swi5
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24
     "Cut off outdoor air temperature"
     annotation (Placement(transformation(extent={{480,-340},{500,-320}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con5(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con5(
     final k=273.15 + 24)
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24
     "Cut off temperature"
@@ -390,11 +390,11 @@ block AirEconomizerHighLimits "Specify the economizer high liimits"
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24
     "Logical and"
     annotation (Placement(transformation(extent={{200,-430},{220,-410}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi6
+  Buildings.Controls.OBC.CDL.Reals.Switch swi6
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24
     "Cut off outdoor air temperature"
     annotation (Placement(transformation(extent={{440,-430},{460,-410}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con6(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con6(
     final k=273.15 + 23)
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24
     "Cut off temperature"
@@ -407,21 +407,21 @@ block AirEconomizerHighLimits "Specify the economizer high liimits"
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24
     "Logical and"
     annotation (Placement(transformation(extent={{200,-510},{220,-490}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con7(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con7(
     final k=273.15 + 22)
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24
     "Cut off temperature"
     annotation (Placement(transformation(extent={{200,-470},{220,-450}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi7
+  Buildings.Controls.OBC.CDL.Reals.Switch swi7
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24
     "Cut off outdoor air temperature"
     annotation (Placement(transformation(extent={{400,-510},{420,-490}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con8(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con8(
     final k=273.15 + 21)
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24
     "Cut off temperature"
     annotation (Placement(transformation(extent={{200,-550},{220,-530}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi8
+  Buildings.Controls.OBC.CDL.Reals.Switch swi8
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24
     "Cut off outdoor air temperature"
     annotation (Placement(transformation(extent={{360,-590},{380,-570}})));
@@ -429,7 +429,7 @@ block AirEconomizerHighLimits "Specify the economizer high liimits"
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24
     "Logical and"
     annotation (Placement(transformation(extent={{200,-660},{220,-640}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi9
+  Buildings.Controls.OBC.CDL.Reals.Switch swi9
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24
     "Cut off outdoor air temperature"
     annotation (Placement(transformation(extent={{480,-640},{500,-620}})));
@@ -437,15 +437,15 @@ block AirEconomizerHighLimits "Specify the economizer high liimits"
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24
     "Logical and"
     annotation (Placement(transformation(extent={{200,-740},{220,-720}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi10
+  Buildings.Controls.OBC.CDL.Reals.Switch swi10
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24
     "Cut off outdoor air temperature"
     annotation (Placement(transformation(extent={{440,-740},{460,-720}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(
     final p=-1) if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24
     "Cut off temperature"
     annotation (Placement(transformation(extent={{280,-700},{300,-680}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi11
+  Buildings.Controls.OBC.CDL.Reals.Switch swi11
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24
     "Cut off outdoor air temperature"
     annotation (Placement(transformation(extent={{400,-820},{420,-800}})));
@@ -453,21 +453,21 @@ block AirEconomizerHighLimits "Specify the economizer high liimits"
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24
     "Logical and"
     annotation (Placement(transformation(extent={{200,-820},{220,-800}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar1(
     final p=-2)
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24
     "Cut off temperature"
     annotation (Placement(transformation(extent={{280,-780},{300,-760}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi12
+  Buildings.Controls.OBC.CDL.Reals.Switch swi12
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24
     "Cut off outdoor air temperature"
     annotation (Placement(transformation(extent={{360,-900},{380,-880}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar2(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar2(
     final p=-3)
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24
     "Cut off temperature"
     annotation (Placement(transformation(extent={{280,-860},{300,-840}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con9(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con9(
     final k=273.15 + 24)
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24
     "Cut off temperature"
@@ -495,13 +495,13 @@ block AirEconomizerHighLimits "Specify the economizer high liimits"
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24
     "Logical not"
     annotation (Placement(transformation(extent={{-320,-680},{-300,-660}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con10(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con10(
     final k=0)
     if (eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1
      and not ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb)
     "Constant 0"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con11(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con11(
     final k=0)
     if not (ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialDryBulb
      or ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulbWithDifferentialDryBulb)
@@ -515,11 +515,11 @@ block AirEconomizerHighLimits "Specify the economizer high liimits"
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1
     "Logical and"
     annotation (Placement(transformation(extent={{220,270},{240,290}})));
-  Buildings.Controls.OBC.CDL.Continuous.Min min1
+  Buildings.Controls.OBC.CDL.Reals.Min min1
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1
     "Smaller input"
     annotation (Placement(transformation(extent={{220,310},{240,330}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi13
+  Buildings.Controls.OBC.CDL.Reals.Switch swi13
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1
     "Cut off outdoor air temperature"
     annotation (Placement(transformation(extent={{300,270},{320,290}})));
@@ -527,16 +527,16 @@ block AirEconomizerHighLimits "Specify the economizer high liimits"
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1
     "Logical and"
     annotation (Placement(transformation(extent={{220,180},{240,200}})));
-  Buildings.Controls.OBC.CDL.Continuous.Min min2
+  Buildings.Controls.OBC.CDL.Reals.Min min2
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1
     "Smaller input"
     annotation (Placement(transformation(extent={{220,220},{240,240}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con12(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con12(
     final k=273.15 + 21)
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1
     "Cut off temperature"
     annotation (Placement(transformation(extent={{20,250},{40,270}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi14
+  Buildings.Controls.OBC.CDL.Reals.Switch swi14
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1
     "Cut off outdoor air temperature"
     annotation (Placement(transformation(extent={{260,180},{280,200}})));
@@ -557,11 +557,11 @@ block AirEconomizerHighLimits "Specify the economizer high liimits"
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24
     "Logical and"
     annotation (Placement(transformation(extent={{200,-990},{220,-970}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi15
+  Buildings.Controls.OBC.CDL.Reals.Switch swi15
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24
     "Cut off outdoor air temperature"
     annotation (Placement(transformation(extent={{480,-990},{500,-970}})));
-  Buildings.Controls.OBC.CDL.Continuous.Min min3
+  Buildings.Controls.OBC.CDL.Reals.Min min3
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24
     "Smaller input"
     annotation (Placement(transformation(extent={{360,-960},{380,-940}})));
@@ -569,11 +569,11 @@ block AirEconomizerHighLimits "Specify the economizer high liimits"
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24
     "Logical and"
     annotation (Placement(transformation(extent={{200,-1060},{220,-1040}})));
-  Buildings.Controls.OBC.CDL.Continuous.Min min4
+  Buildings.Controls.OBC.CDL.Reals.Min min4
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24
     "Smaller input"
     annotation (Placement(transformation(extent={{360,-1030},{380,-1010}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi16
+  Buildings.Controls.OBC.CDL.Reals.Switch swi16
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24
     "Cut off outdoor air temperature"
     annotation (Placement(transformation(extent={{440,-1060},{460,-1040}})));
@@ -581,19 +581,19 @@ block AirEconomizerHighLimits "Specify the economizer high liimits"
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24
     "Logical and"
     annotation (Placement(transformation(extent={{200,-1130},{220,-1110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi17
+  Buildings.Controls.OBC.CDL.Reals.Switch swi17
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24
     "Cut off outdoor air temperature"
     annotation (Placement(transformation(extent={{440,-1130},{460,-1110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Min min5
+  Buildings.Controls.OBC.CDL.Reals.Min min5
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24
     "Smaller input"
     annotation (Placement(transformation(extent={{360,-1100},{380,-1080}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi18
+  Buildings.Controls.OBC.CDL.Reals.Switch swi18
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24
     "Cut off outdoor air temperature"
     annotation (Placement(transformation(extent={{440,-1200},{460,-1180}})));
-  Buildings.Controls.OBC.CDL.Continuous.Min min6
+  Buildings.Controls.OBC.CDL.Reals.Min min6
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24
     "Smaller input"
     annotation (Placement(transformation(extent={{360,-1170},{380,-1150}})));

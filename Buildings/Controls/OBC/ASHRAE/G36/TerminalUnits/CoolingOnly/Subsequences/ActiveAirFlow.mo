@@ -47,7 +47,7 @@ block ActiveAirFlow
     final realTrue=1)
     "Convert boolean to real"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply actMin
+  Buildings.Controls.OBC.CDL.Reals.Multiply actMin
     "Active minimum airflow setpoint"
     annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant occMod(

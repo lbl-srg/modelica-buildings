@@ -215,47 +215,47 @@ block DamperValves
 
   Buildings.Controls.OBC.CDL.Logical.And and4 "Logical and"
     annotation (Placement(transformation(extent={{-80,250},{-60,270}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line lin
+  Buildings.Controls.OBC.CDL.Reals.Line lin
     "Active airflow setpoint for cooling"
     annotation (Placement(transformation(extent={{-180,300},{-160,320}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Output active cooling airflow according to cooling control signal"
     annotation (Placement(transformation(extent={{60,290},{80,310}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi5
+  Buildings.Controls.OBC.CDL.Reals.Switch swi5
     "Airflow setpoint when it is in cooling state"
     annotation (Placement(transformation(extent={{0,320},{20,340}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conZer(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conZer(
     final k=0) "Constant zero"
     annotation (Placement(transformation(extent={{-300,330},{-280,350}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conOne(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conOne(
     final k=1) "Constant one"
     annotation (Placement(transformation(extent={{-240,330},{-220,350}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr1(
     final t=looHys,
     final h=0.5*looHys)
     "Check if it is cooling state"
     annotation (Placement(transformation(extent={{-240,270},{-220,290}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     final t=dTHys,
     final h=0.5*dTHys)
     "Check if supply air temperature is greater than room temperature"
     annotation (Placement(transformation(extent={{-200,190},{-180,210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub2
     "Calculate temperature difference between AHU supply air and room "
     annotation (Placement(transformation(extent={{-240,190},{-220,210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi2 "Hot water valve position"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi2 "Hot water valve position"
     annotation (Placement(transformation(extent={{300,10},{320,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant nomFlow(final k=
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant nomFlow(final k=
         VCooMax_flow)
     "Nominal volume flow rate"
     annotation (Placement(transformation(extent={{100,240},{120,260}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide VDisSet_flowNor
+  Buildings.Controls.OBC.CDL.Reals.Divide VDisSet_flowNor
     "Normalized setpoint for discharge volume flow rate"
     annotation (Placement(transformation(extent={{200,270},{220,290}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide VPri_flowNor
+  Buildings.Controls.OBC.CDL.Reals.Divide VPri_flowNor
     "Normalized discharge volume flow rate"
     annotation (Placement(transformation(extent={{200,210},{220,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conDam(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset conDam(
     final controllerType=controllerTypeDam,
     final k=kDam,
     final Ti=TiDam,
@@ -265,25 +265,25 @@ block DamperValves
     final y_reset=0)
     "Damper position controller"
     annotation (Placement(transformation(extent={{240,270},{260,290}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi3 "Air damper position"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi3 "Air damper position"
     annotation (Placement(transformation(extent={{260,120},{280,140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line conTDisHeaSet
+  Buildings.Controls.OBC.CDL.Reals.Line conTDisHeaSet
     "Discharge air temperature for heating"
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(
     final p=dTDisZonSetMax)
     "Maximum heating discharge temperature"
     annotation (Placement(transformation(extent={{-280,30},{-260,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conHal(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conHal(
     final k=0.5)
     "Constant real value"
     annotation (Placement(transformation(extent={{-200,30},{-180,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr2(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr2(
     final t=looHys,
     final h=0.5*looHys)
     "Check if it is heating state"
     annotation (Placement(transformation(extent={{-280,-10},{-260,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conVal(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset conVal(
     final controllerType=controllerTypeVal,
     final k=kVal,
     final Ti=TiVal,
@@ -294,24 +294,24 @@ block DamperValves
     u_m(final unit="K", displayUnit="degC"))
     "Hot water valve controller"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conZer3(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conZer3(final k=0)
     "Constant zero"
     annotation (Placement(transformation(extent={{-280,100},{-260,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1
     "Hot water valve position, close the valve when the zone is not in heating state"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line heaFanRat
+  Buildings.Controls.OBC.CDL.Reals.Line heaFanRat
     "Parallel fan airflow setpoint when zone is in heating state"
     annotation (Placement(transformation(extent={{40,-260},{60,-240}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conHal1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conHal1(
     final k=0.5)
     "Constant real value"
     annotation (Placement(transformation(extent={{-20,-230},{0,-210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conHal2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conHal2(
     final k=1)
     "Constant real value"
     annotation (Placement(transformation(extent={{-180,-290},{-160,-270}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxFan(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxFan(
     final k=maxRat) "Maximum fan rate"
     annotation (Placement(transformation(extent={{-20,-290},{0,-270}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant uno(
@@ -325,13 +325,13 @@ block DamperValves
     "Not in unoccupied mode"
     annotation (Placement(transformation(extent={{200,150},{220,170}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi4
+  Buildings.Controls.OBC.CDL.Reals.Switch swi4
     "Fan setpoint when it is in cooling state and the supply air temperture is high"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max max1
+  Buildings.Controls.OBC.CDL.Reals.Max max1
     "Larger of minimum outdoor airflow setpoint and primary discharge airflow setpoint"
     annotation (Placement(transformation(extent={{-160,-110},{-140,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi6
+  Buildings.Controls.OBC.CDL.Reals.Switch swi6
     "Fan setpoint when it is in cooling state"
     annotation (Placement(transformation(extent={{240,-130},{260,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Or cooHea
@@ -339,13 +339,13 @@ block DamperValves
     annotation (Placement(transformation(extent={{0,-190},{20,-170}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "In deadband state"
     annotation (Placement(transformation(extent={{60,-190},{80,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi7
+  Buildings.Controls.OBC.CDL.Reals.Switch swi7
     "Fan setpoint when it is in deadband state"
     annotation (Placement(transformation(extent={{180,-170},{200,-150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi8
+  Buildings.Controls.OBC.CDL.Reals.Switch swi8
     "Fan setpoint when it is in heating state"
     annotation (Placement(transformation(extent={{100,-310},{120,-290}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold cloDam(
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold cloDam(
     final t=damPosHys,
     final h=damPosHys/2)
     "Check if the damper is fully closed before turning on fan"
@@ -382,13 +382,13 @@ block DamperValves
     final realFalse=1)
     "Boolean to real"
     annotation (Placement(transformation(extent={{160,-380},{180,-360}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul
     "Ensure damper is fully closed before turning on the fan"
     annotation (Placement(transformation(extent={{320,100},{340,120}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1
     "Boolean to real"
     annotation (Placement(transformation(extent={{160,-422},{180,-402}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul1
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul1
     "Ensure damper is fully closed before turning on the fan"
     annotation (Placement(transformation(extent={{320,-190},{340,-170}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(final k=1)
@@ -418,15 +418,15 @@ block DamperValves
     final realTrue=VMin_flow)
     "Force zone airflow setpoint to zone minimum flow"
     annotation (Placement(transformation(extent={{-80,390},{-60,410}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2
+  Buildings.Controls.OBC.CDL.Reals.Add add2
     "Add up two inputs"
     annotation (Placement(transformation(extent={{0,410},{20,430}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add1 "Add up inputs"
+  Buildings.Controls.OBC.CDL.Reals.Add add1 "Add up inputs"
     annotation (Placement(transformation(extent={{60,450},{80,470}})));
   Buildings.Controls.OBC.CDL.Logical.Or3 or1
     "Check if the airflow setpoint should be overrided"
     annotation (Placement(transformation(extent={{40,360},{60,380}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi9
+  Buildings.Controls.OBC.CDL.Reals.Switch swi9
     "Airflow setpoint after considering override"
     annotation (Placement(transformation(extent={{120,360},{140,380}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2(final k=3)

@@ -29,7 +29,7 @@ model FanCoil4PipeHeatPorts
   HeatTransfer.Sources.PrescribedHeatFlow heaFloCooRad
     "Radiative heat flow rate to load"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={110,-80})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zero(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zero(
     k=0)
     "Zero"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));

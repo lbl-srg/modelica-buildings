@@ -168,7 +168,7 @@ model Load "Model of a load on a hydronic circuit"
     "Controller for supply air temperature"
     annotation (Placement(transformation(extent={{50,50},{70,70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add  TAirSupSet(
+  Buildings.Controls.OBC.CDL.Reals.Add  TAirSupSet(
     y(final unit="K", displayUnit="degC"))
     "Compute set point as TAirEnt_nominal + u * (TAirLvg_nominal - TAirEnt_nominal)"
     annotation (Placement(transformation(extent={{14,50},{34,70}})));
@@ -243,7 +243,7 @@ model Load "Model of a load on a hydronic circuit"
         extent={{-10,10},{10,-10}},
         rotation=0,
         origin={50,0})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract dT
+  Buildings.Controls.OBC.CDL.Reals.Subtract dT
     "Compute deltaT"
     annotation (Placement(transformation(extent={{70,-80},{90,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput Q_flow(
@@ -276,20 +276,20 @@ model Load "Model of a load on a hydronic circuit"
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-50,-20})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub
     "Compute TAirLvg_nominal - TAirEnt_nominal"
     annotation (Placement(
         transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={-30,102})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro
     "Compute u * (TAirLvg_nominal - TAirEnt_nominal)"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-14,60})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TAirEntVal[3](final k=
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TAirEntVal[3](final k=
         {TAirEnt_nominal,TAirEnt_nominal,TAirEntChg_nominal})
     "Values of entering air temperature"
     annotation (Placement(transformation(extent={{-90,130},{-70,150}})));
@@ -301,7 +301,7 @@ model Load "Model of a load on a hydronic circuit"
     y(final unit="K", displayUnit="degC"), final nin=3)
     "Actual value of leaving air temperature"
     annotation (Placement(transformation(extent={{40,130},{20,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TAirLvgVal(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TAirLvgVal(
     final k=TAirLvgChg_nominal) "Values of leaving air temperature"
     annotation (Placement(transformation(extent={{90,130},{70,150}})));
 
