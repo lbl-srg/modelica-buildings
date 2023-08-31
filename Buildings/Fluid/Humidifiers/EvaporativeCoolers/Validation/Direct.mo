@@ -24,20 +24,19 @@ model Direct
         origin={-2,-14},
         extent={{-10,-10},{10,10}},
         rotation=0)));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(p = 1) annotation (
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(p = 1) annotation (
     Placement(transformation(extent = {{-90, 12}, {-70, 32}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide div annotation (
+  Buildings.Controls.OBC.CDL.Reals.Divide div annotation (
     Placement(transformation(extent = {{-40, 40}, {-20, 60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide div1 annotation (
+  Buildings.Controls.OBC.CDL.Reals.Divide div1 annotation (
     Placement(transformation(extent = {{70, 50}, {90, 70}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(p = 1) annotation (
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar1(p = 1) annotation (
     Placement(transformation(extent = {{20, 22}, {40, 42}})));
   Buildings.Fluid.Sources.MassFlowSource_T boundary(redeclare package Medium = MediumA, m_flow = 1, nPorts = 1, use_C_in = false, use_T_in = true, use_Xi_in = true, use_m_flow_in = true) annotation (
     Placement(visible = true, transformation(origin = {-140, 8}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem(redeclare package Medium = MediumA, initType = Modelica.Blocks.Types.Init.InitialOutput, m_flow_nominal = mflownom) annotation (
     Placement(visible = true, transformation(origin = {-98, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTem1(redeclare package Medium
-      =                                                                         MediumA, initType = Modelica.Blocks.Types.Init.InitialOutput, m_flow_nominal = mflownom) annotation (
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTem1(redeclare package Medium = MediumA, initType = Modelica.Blocks.Types.Init.InitialOutput, m_flow_nominal = mflownom) annotation (
     Placement(visible = true, transformation(origin = {30, -64}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Buildings.Fluid.Sensors.TemperatureWetBulbTwoPort senWetBul(redeclare package
       Medium =                                                                           MediumA, m_flow_nominal = mflownom) annotation (
@@ -45,7 +44,7 @@ model Direct
   Buildings.Fluid.Sensors.TemperatureWetBulbTwoPort senWetBul1(redeclare
       package Medium =                                                                    MediumA, m_flow_nominal = mflownom) annotation (
     Placement(visible = true, transformation(origin = {68, -64}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addParameter(p = 273.15) annotation (
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addParameter(p = 273.15) annotation (
     Placement(visible = true, transformation(origin = {-98, 18}, extent = {{-90, 12}, {-70, 32}}, rotation = 0)));
   Buildings.Fluid.Sensors.MassFractionTwoPort senMasFra(redeclare package
       Medium =                                                                     MediumA, m_flow_nominal = mflownom)  annotation (
