@@ -268,8 +268,11 @@ block Alarms "Generate alarms of parallel fan-powered terminal unit with variabl
     final t=damPosHys,
     final h=0.5*damPosHys) "Check if damper position is near zero"
     annotation (Placement(transformation(extent={{-200,-120},{-180,-100}})));
-  Buildings.Controls.OBC.CDL.Logical.And3 leaDamAla
-    "Check if generating leak damper alarms"
+  Buildings.Controls.OBC.CDL.Logical.And leaDamAla1
+    "Check if generating leak damper alarms, one of two stacked And blocks"
+    annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
+  Buildings.Controls.OBC.CDL.Logical.And leaDamAla2
+    "Check if generating leak damper alarms, one of two stacked And blocks"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
   Buildings.Controls.OBC.CDL.Logical.Not not5 "Logical not"
     annotation (Placement(transformation(extent={{100,-120},{120,-100}})));
@@ -376,7 +379,11 @@ block Alarms "Generate alarms of parallel fan-powered terminal unit with variabl
     final h=dTHys)
     "Discharge temperature greate than AHU supply temperature by a threshold"
     annotation (Placement(transformation(extent={{-140,-210},{-120,-190}})));
-  Buildings.Controls.OBC.CDL.Logical.And3 leaValAla "Check if generating leak valve alarms"
+  Buildings.Controls.OBC.CDL.Logical.And leaValAla1
+    "Check if generating leak valve alarms, one of two stacked And blocks"
+    annotation (Placement(transformation(extent={{-80,-190},{-60,-170}})));
+  Buildings.Controls.OBC.CDL.Logical.And leaValAla2
+    "Check if generating leak valve alarms, one of two stacked And blocks"
     annotation (Placement(transformation(extent={{-20,-190},{0,-170}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt6(
     final integerTrue=4)
@@ -392,8 +399,11 @@ block Alarms "Generate alarms of parallel fan-powered terminal unit with variabl
     final delayTime=comChaTim)
     "Check if the terminal fan has been commond on for threshold time"
     annotation (Placement(transformation(extent={{-160,50},{-140,70}})));
-  Buildings.Controls.OBC.CDL.Logical.And3 and11
-    "Check if the fan has been commond on for threshold time and fan is still off"
+  Buildings.Controls.OBC.CDL.Logical.And and12
+    "Check if the fan has been commond on for threshold time and fan is still off, one of two stacked And blocks"
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+  Buildings.Controls.OBC.CDL.Logical.And and13
+    "Check if the fan has been commond on for threshold time and fan is still off, one of two stacked And blocks"
     annotation (Placement(transformation(extent={{-20,80},{0,100}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt4(
     final k=2)
@@ -408,9 +418,12 @@ block Alarms "Generate alarms of parallel fan-powered terminal unit with variabl
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel8(
     final delayTime=comChaTim)
     "Check if the terminal fan has been commond off for threshold time"
-    annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
-  Buildings.Controls.OBC.CDL.Logical.And3 and10
-    "Check if the fan has been commond off for threshold time and fan is still on"
+    annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
+  Buildings.Controls.OBC.CDL.Logical.And and10
+    "Check if the fan has been commond off for threshold time and fan is still on, one of two stacked And blocks"
+    annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
+  Buildings.Controls.OBC.CDL.Logical.And and11
+    "Check if the fan has been commond off for threshold time and fan is still on, one of two stacked And blocks"
     annotation (Placement(transformation(extent={{-20,10},{0,30}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt7(
     final integerTrue=4)
@@ -508,10 +521,6 @@ equation
     annotation (Line(points={{222,350},{260,350}}, color={255,127,0}));
   connect(uDam, cloDam.u)
     annotation (Line(points={{-260,-110},{-202,-110}}, color={0,0,127}));
-  connect(u1Fan, leaDamAla.u2) annotation (Line(points={{-260,140},{-220,140},{-220,
-          -70},{-22,-70}},color={255,0,255}));
-  connect(cloDam.y, leaDamAla.u3) annotation (Line(points={{-178,-110},{-60,-110},
-          {-60,-78},{-22,-78}}, color={255,0,255}));
   connect(not5.y, assMes3.u)
     annotation (Line(points={{122,-110},{138,-110}}, color={255,0,255}));
   connect(booToInt3.y, yLeaDamAla)
@@ -564,10 +573,6 @@ equation
           -200},{-142,-200}}, color={0,0,127}));
   connect(addPar2.y, gre2.u2) annotation (Line(points={{-178,-230},{-160,-230},{
           -160,-208},{-142,-208}}, color={0,0,127}));
-  connect(u1Fan, leaValAla.u2) annotation (Line(points={{-260,140},{-220,140},{-220,
-          -180},{-22,-180}},color={255,0,255}));
-  connect(gre2.y, leaValAla.u3) annotation (Line(points={{-118,-200},{-60,-200},
-          {-60,-188},{-22,-188}}, color={255,0,255}));
   connect(not8.y, assMes6.u)
     annotation (Line(points={{122,-220},{138,-220}}, color={255,0,255}));
   connect(booToInt6.y, yLeaValAla)
@@ -577,39 +582,19 @@ equation
   connect(u1FanCom, not9.u) annotation (Line(points={{-260,60},{-200,60},{-200,-10},
           {-182,-10}}, color={255,0,255}));
   connect(not9.y, truDel8.u)
-    annotation (Line(points={{-158,-10},{-122,-10}}, color={255,0,255}));
-  connect(u1FanCom, and11.u2) annotation (Line(points={{-260,60},{-200,60},{-200,
-          90},{-22,90}}, color={255,0,255}));
-  connect(truDel7.y, and11.u3) annotation (Line(points={{-138,60},{-120,60},{-120,
-          82},{-22,82}}, color={255,0,255}));
-  connect(and11.y, fanStaAla.u2)
-    annotation (Line(points={{2,90},{138,90}}, color={255,0,255}));
-  connect(not9.y, and10.u2) annotation (Line(points={{-158,-10},{-140,-10},{-140,
-          20},{-22,20}}, color={255,0,255}));
-  connect(truDel8.y, and10.u3) annotation (Line(points={{-98,-10},{-80,-10},{-80,
-          12},{-22,12}}, color={255,0,255}));
-  connect(and10.y, booToInt7.u)
-    annotation (Line(points={{2,20},{78,20}}, color={255,0,255}));
+    annotation (Line(points={{-158,-10},{-142,-10}}, color={255,0,255}));
   connect(conInt4.y, fanStaAla.u1) annotation (Line(points={{102,130},{120,130},
           {120,98},{138,98}}, color={255,127,0}));
   connect(booToInt7.y, fanStaAla.u3) annotation (Line(points={{102,20},{120,20},
           {120,82},{138,82}}, color={255,127,0}));
   connect(fanStaAla.y, yFanStaAla)
     annotation (Line(points={{162,90},{260,90}}, color={255,127,0}));
-  connect(and11.y, not10.u) annotation (Line(points={{2,90},{20,90},{20,60},{38,
-          60}}, color={255,0,255}));
   connect(not10.y, assMes7.u)
     annotation (Line(points={{62,60},{78,60}}, color={255,0,255}));
   connect(not11.y, assMes8.u)
     annotation (Line(points={{62,-10},{78,-10}}, color={255,0,255}));
-  connect(and10.y, not11.u) annotation (Line(points={{2,20},{20,20},{20,-10},{38,
-          -10}}, color={255,0,255}));
   connect(u1TerFan, not12.u) annotation (Line(points={{-260,20},{-180,20},{-180,
           110},{-162,110}}, color={255,0,255}));
-  connect(u1TerFan, and10.u1) annotation (Line(points={{-260,20},{-180,20},{-180,
-          28},{-22,28}}, color={255,0,255}));
-  connect(not12.y, and11.u1) annotation (Line(points={{-138,110},{-80,110},{-80,
-          98},{-22,98}}, color={255,0,255}));
   connect(greThr.y, truDel9.u)
     annotation (Line(points={{-158,330},{-122,330}}, color={255,0,255}));
   connect(truDel9.y, and1.u1)
@@ -624,22 +609,16 @@ equation
           {38,170}}, color={255,0,255}));
   connect(truDel2.y, booToInt2.u)
     annotation (Line(points={{22,200},{138,200}}, color={255,0,255}));
-  connect(leaDamAla.y, truDel3.u)
-    annotation (Line(points={{2,-70},{38,-70}}, color={255,0,255}));
   connect(truDel3.y, booToInt3.u)
     annotation (Line(points={{62,-70},{138,-70}}, color={255,0,255}));
   connect(truDel3.y, not5.u) annotation (Line(points={{62,-70},{80,-70},{80,-110},
           {98,-110}}, color={255,0,255}));
-  connect(gre1.y, leaDamAla.u1) annotation (Line(points={{-78,200},{-60,200},{-60,
-          -62},{-22,-62}}, color={255,0,255}));
-  connect(leaValAla.y, truDel6.u)
-    annotation (Line(points={{2,-180},{38,-180}}, color={255,0,255}));
   connect(truDel6.y, booToInt6.u)
     annotation (Line(points={{62,-180},{138,-180}}, color={255,0,255}));
   connect(truDel6.y, not8.u) annotation (Line(points={{62,-180},{80,-180},{80,-220},
           {98,-220}}, color={255,0,255}));
-  connect(cloVal.y, leaValAla.u1) annotation (Line(points={{-178,-160},{-60,-160},
-          {-60,-172},{-22,-172}}, color={255,0,255}));
+  connect(cloVal.y, leaValAla1.u1) annotation (Line(points={{-178,-160},{-96,-160},
+          {-96,-180},{-82,-180}}, color={255,0,255}));
   connect(and6.y, truDel4.u)
     annotation (Line(points={{-58,-310},{-42,-310}}, color={255,0,255}));
   connect(truDel4.y, lowTemAla.u2)
@@ -660,6 +639,48 @@ equation
           -318},{-82,-318}}, color={255,0,255}));
   connect(u1HotPla, and8.u2) annotation (Line(points={{-260,-270},{-90,-270},{-90,
           -388},{-82,-388}}, color={255,0,255}));
+  connect(and13.y, fanStaAla.u2)
+    annotation (Line(points={{2,90},{138,90}}, color={255,0,255}));
+  connect(not12.y, and13.u1) annotation (Line(points={{-138,110},{-30,110},{-30,
+          90},{-22,90}}, color={255,0,255}));
+  connect(and12.u1, u1FanCom) annotation (Line(points={{-102,90},{-200,90},{-200,
+          60},{-260,60}}, color={255,0,255}));
+  connect(truDel7.y, and12.u2) annotation (Line(points={{-138,60},{-112,60},{-112,
+          82},{-102,82}}, color={255,0,255}));
+  connect(and12.y, and13.u2) annotation (Line(points={{-78,90},{-40,90},{-40,82},
+          {-22,82}}, color={255,0,255}));
+  connect(and11.y, booToInt7.u)
+    annotation (Line(points={{2,20},{78,20}}, color={255,0,255}));
+  connect(not11.u, and11.y) annotation (Line(points={{38,-10},{20,-10},{20,20},{
+          2,20}}, color={255,0,255}));
+  connect(u1TerFan, and11.u1) annotation (Line(points={{-260,20},{-180,20},{-180,
+          40},{-30,40},{-30,20},{-22,20}}, color={255,0,255}));
+  connect(not9.y, and10.u1) annotation (Line(points={{-158,-10},{-150,-10},{-150,
+          20},{-102,20}}, color={255,0,255}));
+  connect(truDel8.y, and10.u2) annotation (Line(points={{-118,-10},{-110,-10},{-110,
+          12},{-102,12}}, color={255,0,255}));
+  connect(and10.y, and11.u2) annotation (Line(points={{-78,20},{-40,20},{-40,12},
+          {-22,12}}, color={255,0,255}));
+  connect(leaValAla2.y, truDel6.u)
+    annotation (Line(points={{2,-180},{38,-180}}, color={255,0,255}));
+  connect(u1Fan, leaValAla2.u1) annotation (Line(points={{-260,140},{-220,140},{
+          -220,-140},{-30,-140},{-30,-180},{-22,-180}}, color={255,0,255}));
+  connect(gre2.y, leaValAla1.u2) annotation (Line(points={{-118,-200},{-92,-200},
+          {-92,-188},{-82,-188}}, color={255,0,255}));
+  connect(leaValAla1.y, leaValAla2.u2) annotation (Line(points={{-58,-180},{-40,
+          -180},{-40,-188},{-22,-188}}, color={255,0,255}));
+  connect(leaDamAla2.y, truDel3.u)
+    annotation (Line(points={{2,-70},{38,-70}}, color={255,0,255}));
+  connect(gre1.y, leaDamAla2.u1) annotation (Line(points={{-78,200},{-60,200},{-60,
+          -70},{-22,-70}}, color={255,0,255}));
+  connect(u1Fan, leaDamAla1.u1) annotation (Line(points={{-260,140},{-220,140},{
+          -220,-70},{-102,-70}}, color={255,0,255}));
+  connect(cloDam.y, leaDamAla1.u2) annotation (Line(points={{-178,-110},{-140,-110},
+          {-140,-78},{-102,-78}}, color={255,0,255}));
+  connect(leaDamAla1.y, leaDamAla2.u2) annotation (Line(points={{-78,-70},{-70,-70},
+          {-70,-78},{-22,-78}}, color={255,0,255}));
+  connect(and13.y, not10.u) annotation (Line(points={{2,90},{20,90},{20,60},{38,
+          60}}, color={255,0,255}));
 annotation (defaultComponentName="ala",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
        graphics={
@@ -843,6 +864,13 @@ on (<code>u1Fan=true</code>), gemerate a Level 4 alarm.
 </p>
 </html>",revisions="<html>
 <ul>
+<li>
+August 29, 2023, by Hongxiang Fu:<br/>
+Because of the removal of <code>Logical.And3</code> based on ASHRAE 231P,
+replaced it with a stack of two <code>Logical.And</code> blocks.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2465\">#2465</a>.
+</li>
 <li>
 August 1, 2020, by Jianjun Hu:<br/>
 First implementation.
