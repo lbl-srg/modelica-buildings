@@ -57,36 +57,36 @@ Modelica.Blocks.Sources.Ramp Vol_flow(duration = 60, height = 5, offset = 10, st
   Modelica.Blocks.Sources.Ramp pressure_variable(duration = 60, height = 5, offset = 10, startTime = 0) annotation (
     Placement(visible = true, transformation(origin = {-84, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
-connect(Tsupwb.y, directEvapCooler.Tsupwb) annotation (
-    Line(points={{-69,118},{-52,118},{-52,56.2},{-45.8,56.2}},    color = {0, 0, 127}));
-connect(Tsupdb.y, directEvapCooler.Tsupdp) annotation (
-    Line(points={{-69,84},{-54,84},{-54,51.2},{-46,51.2}},      color = {0, 0, 127}));
-connect(Vol_flow.y, directEvapCooler.Vol_Flow) annotation (
-    Line(points={{-69,50},{-54,50},{-54,46.2},{-46,46.2}},      color = {0, 0, 127}));
-connect(Tsupwb1.y, directEvapCooler1.Tsupwb) annotation (
-    Line(points={{31,116},{46,116},{46,66.2},{62.2,66.2}},    color = {0, 0, 127}));
-connect(Tsupdb1.y, directEvapCooler1.Tsupdp) annotation (
-    Line(points={{31,82},{50,82},{50,61.2},{62,61.2}},      color = {0, 0, 127}));
-connect(Vol_flow1.y, directEvapCooler1.Vol_Flow) annotation (
-    Line(points={{31,50},{54,50},{54,56.2},{62,56.2}},      color = {0, 0, 127}));
-  connect(pressure.y, directEvapCooler.pressure) annotation (
-    Line(points = {{-68, 20}, {-56, 20}, {-56, 42}, {-46, 42}}, color = {0, 0, 127}));
-  connect(pressure2.y, directEvapCooler1.pressure) annotation (
-    Line(points = {{34, 20}, {56, 20}, {56, 52}, {62, 52}}, color = {0, 0, 127}));
-  connect(Tsupwb2.y, directEvapCooler2.Tsupwb) annotation (
-    Line(points = {{48, -16}, {54, -16}, {54, -12}, {122, -12}}, color = {0, 0, 127}));
-  connect(Tsupdb2.y, directEvapCooler2.Tsupdp) annotation (
-    Line(points = {{48, -50}, {96, -50}, {96, -16}, {122, -16}}, color = {0, 0, 127}));
-  connect(Vol_flow2.y, directEvapCooler2.Vol_Flow) annotation (
-    Line(points = {{50, -84}, {112, -84}, {112, -22}, {122, -22}}, color = {0, 0, 127}));
-  connect(pressure_3.y, directEvapCooler2.pressure) annotation (
-    Line(points = {{52, -116}, {116, -116}, {116, -26}, {122, -26}}, color = {0, 0, 127}));
-  connect(Tsupwb3.y, directEvapCooler3.Tsupwb) annotation (
-    Line(points = {{-70, -16}, {-42, -16}, {-42, -26}, {-34, -26}}, color = {0, 0, 127}));
-  connect(Tsupdb3.y, directEvapCooler3.Tsupdp) annotation (
-    Line(points = {{-70, -50}, {-50, -50}, {-50, -30}, {-34, -30}}, color = {0, 0, 127}));
-  connect(Vol_flow3.y, directEvapCooler3.Vol_Flow) annotation (
-    Line(points = {{-70, -86}, {-42, -86}, {-42, -36}, {-34, -36}}, color = {0, 0, 127}));
-  connect(pressure_variable.y, directEvapCooler3.pressure) annotation (
-    Line(points = {{-72, -120}, {-40, -120}, {-40, -40}, {-34, -40}}, color = {0, 0, 127}));
+  connect(Tsupwb.y,directEvapCooler.TWetBulSup)  annotation (Line(points={{-69,
+          118},{-52,118},{-52,56.2},{-45.8,56.2}}, color={0,0,127}));
+  connect(Tsupdb.y, directEvapCooler.TDryBulSupIn) annotation (Line(points={{-69,
+          84},{-54,84},{-54,51.2},{-46,51.2}}, color={0,0,127}));
+  connect(Vol_flow.y, directEvapCooler.V_flow) annotation (Line(points={{-69,50},
+          {-54,50},{-54,46.2},{-46,46.2}}, color={0,0,127}));
+  connect(Tsupwb1.y,directEvapCooler1.TWetBulSup)  annotation (Line(points={{31,
+          116},{46,116},{46,66.2},{62.2,66.2}}, color={0,0,127}));
+  connect(Tsupdb1.y, directEvapCooler1.TDryBulSupIn) annotation (Line(points={{
+          31,82},{50,82},{50,61.2},{62,61.2}}, color={0,0,127}));
+  connect(Vol_flow1.y, directEvapCooler1.V_flow) annotation (Line(points={{31,
+          50},{54,50},{54,56.2},{62,56.2}}, color={0,0,127}));
+  connect(pressure.y, directEvapCooler.p) annotation (Line(points={{-69,20},{
+          -56,20},{-56,41.4},{-46,41.4}}, color={0,0,127}));
+  connect(pressure2.y, directEvapCooler1.p) annotation (Line(points={{33,20},{
+          56,20},{56,51.4},{62,51.4}}, color={0,0,127}));
+  connect(Tsupwb2.y,directEvapCooler2.TWetBulSup)  annotation (Line(points={{47,
+          -16},{54,-16},{54,-11.8},{122.2,-11.8}}, color={0,0,127}));
+  connect(Tsupdb2.y, directEvapCooler2.TDryBulSupIn) annotation (Line(points={{
+          47,-50},{96,-50},{96,-16.8},{122,-16.8}}, color={0,0,127}));
+  connect(Vol_flow2.y, directEvapCooler2.V_flow) annotation (Line(points={{49,
+          -84},{112,-84},{112,-21.8},{122,-21.8}}, color={0,0,127}));
+  connect(pressure_3.y, directEvapCooler2.p) annotation (Line(points={{51,-116},
+          {116,-116},{116,-26.6},{122,-26.6}}, color={0,0,127}));
+  connect(Tsupwb3.y,directEvapCooler3.TWetBulSup)  annotation (Line(points={{
+          -71,-16},{-42,-16},{-42,-25.8},{-33.8,-25.8}}, color={0,0,127}));
+  connect(Tsupdb3.y, directEvapCooler3.TDryBulSupIn) annotation (Line(points={{
+          -71,-50},{-50,-50},{-50,-30.8},{-34,-30.8}}, color={0,0,127}));
+  connect(Vol_flow3.y, directEvapCooler3.V_flow) annotation (Line(points={{-71,
+          -86},{-42,-86},{-42,-35.8},{-34,-35.8}}, color={0,0,127}));
+  connect(pressure_variable.y, directEvapCooler3.p) annotation (Line(points={{
+          -73,-120},{-40,-120},{-40,-40.6},{-34,-40.6}}, color={0,0,127}));
 end DirectCalculations;

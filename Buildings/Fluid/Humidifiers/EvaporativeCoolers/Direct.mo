@@ -39,12 +39,12 @@ model Direct
   Buildings.Fluid.Sensors.Pressure senPre(redeclare final package Medium = Medium) annotation (
     Placement(visible = true, transformation(origin={-80,60},    extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
-  connect(senVolFlo.V_flow, directEvapCooler.Vol_Flow) annotation (
-    Line(points={{-20,11},{-20,58},{-12,58},{-12,58.2}},            color = {0, 0, 127}));
-  connect(senWetBul.T, directEvapCooler.Tsupwb) annotation (
-    Line(points={{-50,11},{-44,11},{-44,68.2},{-11.8,68.2}},    color = {0, 0, 127}));
-  connect(senTem.T, directEvapCooler.Tsupdp) annotation (
-    Line(points={{-80,11},{-64,11},{-64,63.2},{-12,63.2}},      color = {0, 0, 127}));
+  connect(senVolFlo.V_flow, directEvapCooler.V_flow) annotation (Line(points={{
+          -20,11},{-20,58},{-12,58},{-12,58.2}}, color={0,0,127}));
+  connect(senWetBul.T,directEvapCooler.TWetBulSup)  annotation (Line(points={{-50,
+          11},{-44,11},{-44,68.2},{-11.8,68.2}}, color={0,0,127}));
+  connect(senTem.T, directEvapCooler.TDryBulSupIn) annotation (Line(points={{-80,
+          11},{-64,11},{-64,63.2},{-12,63.2}}, color={0,0,127}));
   connect(senTem.port_b, senWetBul.port_a) annotation (
     Line(points={{-70,0},{-60,0}},      color = {0, 127, 255}));
   connect(senWetBul.port_b, senVolFlo.port_a) annotation (
@@ -57,11 +57,10 @@ equation
     Line(points={{82,10},{82,0},{100,0}},        color = {0, 127, 255}));
   connect(senTem.port_a, senPre.port) annotation (
     Line(points={{-90,0},{-90,50},{-80,50}},                   color = {0, 127, 255}));
-  connect(senPre.p, directEvapCooler.pressure) annotation (
-    Line(points={{-69,60},{-34,60},{-34,53.4},{-12,53.4}},       color = {0, 0, 127}));
-  connect(directEvapCooler.delta_WVP, vol.mWat_flow) annotation (
-    Line(points={{11,50.6},{60,50.6},{60,28},{68,28}},
-                                                 color = {0, 0, 127}));
+  connect(senPre.p, directEvapCooler.p) annotation (Line(points={{-69,60},{-34,
+          60},{-34,53.4},{-12,53.4}}, color={0,0,127}));
+  connect(directEvapCooler.dmW, vol.mWat_flow) annotation (Line(points={{11,
+          50.6},{60,50.6},{60,28},{68,28}}, color={0,0,127}));
   connect(senVolFlo.port_b, res.port_a)
     annotation (Line(points={{-10,0},{20,0}}, color={0,127,255}));
   annotation (
