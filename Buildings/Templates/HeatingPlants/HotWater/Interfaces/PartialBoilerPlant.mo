@@ -461,7 +461,7 @@ initial equation
           fillColor={255,255,255})}),
    Diagram(coordinateSystem(
       preserveAspectRatio=false,
-      extent={{-300,-280},{300,280}})),
+      extent={{-300,-300},{300,300}})),
     Documentation(revisions="<html>
 <ul>
 <li>

@@ -5,10 +5,9 @@ model BoilerPlant
     Buildings.Templates.HeatingPlants.HotWater.Validation.BoilerPlantOpenLoop(
     BOI(
       typ=Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Hybrid,
-      nBoiCon_select=3,
+      nBoiCon_select=2,
       nBoiNon_select=2,
       typPumHeaWatPriCon=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.Variable,
-
       typPumHeaWatPriNon=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.Constant,
       typArrPumHeaWatPriCon_select=Buildings.Templates.Components.Types.PumpArrangement.Headered,
       typPumHeaWatSec2_select=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Centralized,

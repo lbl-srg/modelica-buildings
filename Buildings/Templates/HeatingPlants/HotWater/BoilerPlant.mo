@@ -59,7 +59,8 @@ model BoilerPlant "Boiler plant"
     final energyDynamics=energyDynamics,
     final tau=tau,
     final allowFlowReversal=allowFlowReversal,
-    icon_extend=-300,
+    icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply,
+    icon_xinl=-400,
     icon_dy=-300) if have_boiCon
     "Primary HW pumps inlet manifold"
     annotation (Placement(transformation(extent={{-110,-150},{-90,-130}})));
@@ -81,6 +82,7 @@ model BoilerPlant "Boiler plant"
     final energyDynamics=energyDynamics,
     final tau=tau,
     final allowFlowReversal=allowFlowReversal,
+    icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply,
     icon_dy=-300) if have_boiCon
     "Primary HW pumps outlet manifold"
     annotation (Placement(transformation(extent={{-70,-150},{-50,-130}})));
@@ -252,7 +254,8 @@ model BoilerPlant "Boiler plant"
     final energyDynamics=energyDynamics,
     final tau=tau,
     final allowFlowReversal=allowFlowReversal,
-    icon_extend=-300,
+    icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply,
+    icon_xinl=-400,
     icon_dy=-300) if have_boiNon
     "Primary HW pumps inlet manifold"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
@@ -274,6 +277,7 @@ model BoilerPlant "Boiler plant"
     final energyDynamics=energyDynamics,
     final tau=tau,
     final allowFlowReversal=allowFlowReversal,
+    icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply,
     icon_dy=-300) if have_boiNon
     "Primary HW pumps outlet manifold"
     annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
@@ -419,6 +423,7 @@ model BoilerPlant "Boiler plant"
     final m_flow_nominal=mHeaWat_flow_nominal,
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
+    icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply,
     icon_dy=-300)
     if have_pumHeaWatSec
     "Secondary HW pumps inlet manifold"
@@ -442,6 +447,7 @@ model BoilerPlant "Boiler plant"
     final energyDynamics=energyDynamics,
     final tau=tau,
     final allowFlowReversal=allowFlowReversal,
+    icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply,
     icon_dy=-300)
     if have_pumHeaWatSec
     "Secondary HW pumps outlet manifold"
