@@ -940,6 +940,13 @@ on (<code>u1Fan=true</code>), gemerate a Level 4 alarm.
 </html>",revisions="<html>
 <ul>
 <li>
+August 29, 2023, by Hongxiang Fu:<br/>
+Because of the removal of <code>Logical.And3</code> based on ASHRAE 231P,
+replaced it with a stack of two <code>Logical.And</code> blocks.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2465\">#2465</a>.
+</li>
+<li>
 August 23, 2023, by Jianjun Hu:<br/>
 Added delay <code>staTim</code> to allow the system becoming stablized.
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3257\">issue 3257</a>.

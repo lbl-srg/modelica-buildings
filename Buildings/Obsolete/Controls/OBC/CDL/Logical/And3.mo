@@ -1,16 +1,18 @@
-within Buildings.Controls.OBC.CDL.Logical;
+within Buildings.Obsolete.Controls.OBC.CDL.Logical;
 block And3
   "Logical 'and3': y = u1 and u2 and u3"
-  Interfaces.BooleanInput u1
+  extends Modelica.Icons.ObsoleteModel;
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1
     "Connector of first Boolean input signal"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-  Interfaces.BooleanInput u2
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u2
     "Connector of second Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.BooleanInput u3
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u3
     "Connector of third Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-  Interfaces.BooleanOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
@@ -18,6 +20,7 @@ equation
   y=u1 and u2 and u3;
   annotation (
     defaultComponentName="and3",
+    obsolete = "This model is obsolete, use two blocks of Buildings.Controls.OBC.CDL.Logical.And stacked together instead",
     Icon(
       coordinateSystem(
         preserveAspectRatio=true,
@@ -85,6 +88,11 @@ Otherwise the output is <code>false</code>.
 </html>",
       revisions="<html>
 <ul>
+<li>
+August 29, 2023, by Hongxiang Fu:<br/>
+Moved this model to the <code>Obsolete</code> package. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2465\">issue 2465</a>.
+</li>
 <li>
 April 10, 2017, by Jianjun Hu:<br/>
 First implementation, based on the implementation of the

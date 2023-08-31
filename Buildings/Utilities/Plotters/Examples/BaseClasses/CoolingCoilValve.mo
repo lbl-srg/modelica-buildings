@@ -153,9 +153,13 @@ protected
     "Low range supply air temperature high limit"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And3 andIntErr
+  Buildings.Controls.OBC.CDL.Logical.And andOutAirFanFee
+    "Outdoor air temperature below and fan feedback above respective thresholds"
+    annotation (Placement(transformation(extent={{-76,-30},{-56,-10}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And andIntErr
     "Outputs controller enable signal"
-    annotation (Placement(transformation(extent={{-70,-70},{-50,-50}})));
+    annotation (Placement(transformation(extent={{-76,-70},{-56,-50}})));
 
   Buildings.Controls.OBC.CDL.Reals.Min min
     "Switches the signal between controller and low range limiter signals"
@@ -174,8 +178,6 @@ protected
 equation
   connect(TOut, TOutThr.u)
     annotation (Line(points={{-140,-20},{-112,-20}}, color={0,0,127}));
-  connect(TOutThr.y, andIntErr.u1)
-    annotation (Line(points={{-88,-20},{-86,-20},{-86,-52},{-72,-52}}, color={255,0,255}));
   connect(TSup, higLim.u)
     annotation (Line(points={{-140,40},{20,40},{20,-20},{78,-20}}, color={0,0,127}));
   connect(yCooVal,min. y)
@@ -191,12 +193,10 @@ equation
     annotation (Line(points={{-140,90},{-92,90},{-92,90},{-42,90}}, color={0,0,127}));
   connect(TSup, limPI.u_m)
     annotation (Line(points={{-140,40},{-30,40},{-30,78}}, color={0,0,127}));
-  connect(andIntErr.u2, uFanFeeThr.y)
-    annotation (Line(points={{-72,-60},{-88,-60}}, color={255,0,255}));
   connect(uFanFee, uFanFeeThr.u)
     annotation (Line(points={{-140,-60},{-112,-60}}, color={0,0,127}));
   connect(andIntErr.y, cha.u)
-    annotation (Line(points={{-48,-60},{-42,-60}}, color={255,0,255}));
+    annotation (Line(points={{-54,-60},{-42,-60}}, color={255,0,255}));
   connect(cha.y, limPI.trigger)
     annotation (Line(points={{-18,-60},{-16,-60},{-16,20},{-36,20},{-36,78}},
                                       color={255,0,255}));
@@ -205,9 +205,7 @@ equation
   connect(yCooValMin.y, higLim.f1)
     annotation (Line(points={{22,-90},{30,-90},{30,-16},{78,-16}},
     color={0,0,127}));
-  connect(uFanSta, andIntErr.u3) annotation (Line(points={{-140,-100},{-82,-100},
-          {-82,-68},{-72,-68}}, color={255,0,255}));
-  connect(andIntErr.y, booToRea.u) annotation (Line(points={{-48,-60},{-46,-60},
+  connect(andIntErr.y, booToRea.u) annotation (Line(points={{-54,-60},{-46,-60},
           {-46,-20},{-42,-20}},color={255,0,255}));
   connect(limPI.y, pro.u1) annotation (Line(points={{-18,90},{38,90}},
                 color={0,0,127}));
@@ -215,6 +213,14 @@ equation
           {38,78}},color={0,0,127}));
   connect(min.u1, pro.y)
     annotation (Line(points={{78,36},{72,36},{72,84},{62,84}},color={0,0,127}));
+  connect(TOutThr.y, andOutAirFanFee.u1)
+    annotation (Line(points={{-88,-20},{-78,-20}}, color={255,0,255}));
+  connect(uFanFeeThr.y, andOutAirFanFee.u2) annotation (Line(points={{-88,-60},{
+          -84,-60},{-84,-28},{-78,-28}}, color={255,0,255}));
+  connect(andOutAirFanFee.y, andIntErr.u1) annotation (Line(points={{-54,-20},{-50,
+          -20},{-50,-44},{-80,-44},{-80,-60},{-78,-60}}, color={255,0,255}));
+  connect(andIntErr.u2, uFanSta) annotation (Line(points={{-78,-68},{-80,-68},{-80,
+          -100},{-140,-100}}, color={255,0,255}));
   annotation (
     defaultComponentName = "cooVal",
     Icon(graphics={
@@ -269,6 +275,13 @@ the ALC EIKON control sequence implementation in one of LBNL buildings.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 29, 2023, by Hongxiang Fu:<br/>
+Because of the removal of <code>Logical.And3</code> based on ASHRAE 231P,
+replaced it with a stack of two <code>Logical.And</code> blocks.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2465\">#2465</a>.
+</li>
 <li>
 April 09, 2018, by Milica Grahovac:<br/>
 First implementation.

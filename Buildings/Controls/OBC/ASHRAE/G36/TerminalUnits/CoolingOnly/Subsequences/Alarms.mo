@@ -61,7 +61,7 @@ block Alarms "Generate alarms of cooling only terminal unit"
     final min=0,
     final unit="1")
     "Damper position setpoint"
-    annotation (Placement(transformation(extent={{-280,-230},{-240,-190}}),
+    annotation (Placement(transformation(extent={{-280,-240},{-240,-200}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yLowFloAla
     "Low airflow alarms"
@@ -196,9 +196,12 @@ block Alarms "Generate alarms of cooling only terminal unit"
     final t=damPosHys,
     final h=0.5*damPosHys)
     "Check if damper position is near zero"
-    annotation (Placement(transformation(extent={{-200,-220},{-180,-200}})));
-  Buildings.Controls.OBC.CDL.Logical.And3 leaDamAla
-    "Check if generating leak damper alarms"
+    annotation (Placement(transformation(extent={{-200,-230},{-180,-210}})));
+  Buildings.Controls.OBC.CDL.Logical.And leaDamAla1
+    "Check if generating leak damper alarms, one of two stacked And blocks"
+    annotation (Placement(transformation(extent={{-100,-180},{-80,-160}})));
+  Buildings.Controls.OBC.CDL.Logical.And leaDamAla2
+    "Check if generating leak damper alarms, one of two stacked And blocks"
     annotation (Placement(transformation(extent={{-40,-180},{-20,-160}})));
   Buildings.Controls.OBC.CDL.Logical.Not not5 "Logical not"
     annotation (Placement(transformation(extent={{100,-220},{120,-200}})));
@@ -227,7 +230,7 @@ block Alarms "Generate alarms of cooling only terminal unit"
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant occMod(
     final k=Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.occupied)
     "Occupied mode"
-    annotation (Placement(transformation(extent={{-160,-200},{-140,-180}})));
+    annotation (Placement(transformation(extent={{-160,-210},{-140,-190}})));
   Buildings.Controls.OBC.CDL.Integers.Equal isOcc
     "Check if current operation mode is occupied mode"
     annotation (Placement(transformation(extent={{-100,-150},{-80,-130}})));
@@ -297,11 +300,7 @@ equation
   connect(proInt.y, yLowFloAla)
     annotation (Line(points={{222,150},{260,150}}, color={255,127,0}));
   connect(uDam, cloDam.u)
-    annotation (Line(points={{-260,-210},{-202,-210}}, color={0,0,127}));
-  connect(u1Fan, leaDamAla.u2) annotation (Line(points={{-260,-100},{-220,-100},
-          {-220,-170},{-42,-170}},color={255,0,255}));
-  connect(cloDam.y, leaDamAla.u3) annotation (Line(points={{-178,-210},{-100,-210},
-          {-100,-178},{-42,-178}}, color={255,0,255}));
+    annotation (Line(points={{-260,-220},{-202,-220}}, color={0,0,127}));
   connect(not5.y, assMes3.u)
     annotation (Line(points={{122,-210},{138,-210}}, color={255,0,255}));
   connect(booToInt3.y, yLeaDamAla)
@@ -318,10 +317,6 @@ equation
     annotation (Line(points={{-78,-40},{-42,-40}}, color={255,0,255}));
   connect(not3.y, and5.u2) annotation (Line(points={{-178,-100},{-60,-100},{-60,
           -48},{-42,-48}}, color={255,0,255}));
-  connect(gre1.y, leaDamAla.u1) annotation (Line(points={{-78,-40},{-70,-40},{-70,
-          -162},{-42,-162}}, color={255,0,255}));
-  connect(leaDamAla.y, truDel3.u)
-    annotation (Line(points={{-18,-170},{18,-170}}, color={255,0,255}));
   connect(truDel3.y, booToInt3.u)
     annotation (Line(points={{42,-170},{138,-170}}, color={255,0,255}));
   connect(truDel3.y, not5.u) annotation (Line(points={{42,-170},{80,-170},{80,-210},
@@ -337,12 +332,11 @@ equation
   connect(u1Fan, fanIni.u) annotation (Line(points={{-260,-100},{-220,-100},{-220,
           0},{-202,0}}, color={255,0,255}));
   connect(fanIni.y, and11.u2) annotation (Line(points={{-178,0},{-130,0},{-130,
-          32},{-122,32}},
-                      color={255,0,255}));
+          32},{-122,32}}, color={255,0,255}));
   connect(fanIni.y, and10.u2) annotation (Line(points={{-178,0},{-130,0},{-130,162},
           {-122,162}}, color={255,0,255}));
-  connect(occMod.y,isOcc. u2) annotation (Line(points={{-138,-190},{-120,-190},{
-          -120,-148},{-102,-148}}, color={255,127,0}));
+  connect(occMod.y,isOcc. u2) annotation (Line(points={{-138,-200},{-120,-200},
+          {-120,-148},{-102,-148}},color={255,127,0}));
   connect(uOpeMod,isOcc. u1)
     annotation (Line(points={{-260,-140},{-102,-140}}, color={255,127,0}));
   connect(and6.y, booToInt2.u)
@@ -371,6 +365,16 @@ equation
           {38,162}}, color={255,0,255}));
   connect(isOcc.y, and3.u2) annotation (Line(points={{-78,-140},{30,-140},{30,82},
           {38,82}}, color={255,0,255}));
+  connect(u1Fan, leaDamAla1.u1) annotation (Line(points={{-260,-100},{-220,-100},
+          {-220,-170},{-102,-170}}, color={255,0,255}));
+  connect(cloDam.y, leaDamAla1.u2) annotation (Line(points={{-178,-220},{-110,
+          -220},{-110,-178},{-102,-178}}, color={255,0,255}));
+  connect(leaDamAla1.y, leaDamAla2.u1)
+    annotation (Line(points={{-78,-170},{-42,-170}}, color={255,0,255}));
+  connect(gre1.y, leaDamAla2.u2) annotation (Line(points={{-78,-40},{-70,-40},{
+          -70,-178},{-42,-178}}, color={255,0,255}));
+  connect(leaDamAla2.y, truDel3.u)
+    annotation (Line(points={{-18,-170},{18,-170}}, color={255,0,255}));
 annotation (defaultComponentName="ala",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
        graphics={
@@ -466,6 +470,13 @@ fan serving the zone is proven on (<code>uFan=true</code>), generate a Level
 </p>
 </html>",revisions="<html>
 <ul>
+<li>
+August 29, 2023, by Hongxiang Fu:<br/>
+Because of the removal of <code>Logical.And3</code> based on ASHRAE 231P,
+replaced it with a stack of two <code>Logical.And</code> blocks.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2465\">#2465</a>.
+</li>
 <li>
 August 23, 2023, by Jianjun Hu:<br/>
 Added delay <code>staTim</code> to allow the system becoming stablized.

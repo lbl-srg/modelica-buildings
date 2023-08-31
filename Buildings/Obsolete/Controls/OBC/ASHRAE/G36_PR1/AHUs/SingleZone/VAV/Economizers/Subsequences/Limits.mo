@@ -173,7 +173,7 @@ protected
     annotation (Placement(transformation(extent={{-140,-190},{-120,-170}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu1 "Check if operation mode is occupied"
     annotation (Placement(transformation(extent={{-100,-170},{-80,-150}})));
-  Buildings.Controls.OBC.CDL.Logical.And3 and3 "Logical and"
+  Buildings.Obsolete.Controls.OBC.CDL.Logical.And3 and3 "Logical and"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
 
 equation

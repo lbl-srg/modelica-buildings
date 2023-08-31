@@ -864,7 +864,35 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue 2668</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36.AHUs</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Limits.SeparateWithDP<br/>
+                       Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers.Subsequences.Enable<br/>
+                       Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers.Subsequences.Limits
+    </td>
+    <td valign=\"top\">Because of the removal of <code>Logical.And3</code> based on ASHRAE 231P,
+                       replaced it with a stack of two <code>Logical.And</code> blocks.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2465\">#2465</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences.Alarms<br/>
+                       Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctColdDuctMin.Subsequences.Alarms<br/>
+                       Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConDischargeSensor.Subsequences.Alarms<br/>
+                       Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConInletSensor.Subsequences.Alarms<br/>
+                       Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctSnapActing.Subsequences.Alarms<br/>
+                       Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanCVF.Subsequences.Alarms<br/>
+                       Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanVVF.Subsequences.Alarms<br/>
+                       Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.Alarms<br/>
+                       Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanCVF.Subsequences.Alarms<br/>
+                       Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanVVF.Subsequences.Alarms<br/>
+    </td>
+    <td valign=\"top\">Because of the removal of <code>Logical.And3</code> based on ASHRAE 231P,
+                       replaced it with a stack of two <code>Logical.And</code> blocks.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2465\">#2465</a>.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences.Dampers<br/>
@@ -908,6 +936,14 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3483\">#3483</a>.<br/>
                        This change is supported in the conversion script.
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.And3<br/>
+                         Buildings.Controls.OBC.CDL.Logical.Validation.And3
+    </td>
+    <td valign=\"top\">Moved to the <code>Obsolete</code> package based on ASHRAE 231P.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2465\">#2465</a>.
     </td>
   </tr>
   <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Reals.Acos<br/>
@@ -957,6 +993,16 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Changed control that enables the heating system.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.Plants</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.ModeCondenserLoop
+    </td>
+    <td valign=\"top\">Because of the removal of <code>Logical.And3</code> based on ASHRAE 231P,
+                       replaced it with a stack of two <code>Logical.And</code> blocks.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2465\">#2465</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.Loads</b>
     </td>
 </tr>
@@ -965,7 +1011,7 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Swapped the pump models for preconfigured versions.<br/>
                        This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3099\">#3099</a>..
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3099\">#3099</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.DXCoils</b>
@@ -1145,6 +1191,15 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr><tr><td valign=\"top\">Buildings.Obsolete.DistrictHeatingCooling
     </td>
     <td valign=\"top\">Removed package which is no longer supported.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Utilities.Plotters</b>
+    </td>
+</tr><tr><td valign=\"top\">Buildings.Utilities.Plotters.Examples.BaseClasses.CoolingCoilValve
+    </td>
+    <td valign=\"top\">Because of the removal of <code>Logical.And3</code> based on ASHRAE 231P,
+                       replaced it with a stack of two <code>Logical.And</code> blocks.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2465\">#2465</a>.
     </td>
 </tr>
 </table>
