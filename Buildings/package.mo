@@ -1300,14 +1300,6 @@ units are wrong or errors in documentation):
     </td>
 </tr>
 </table>
-<p>
-Note:
-</p>
-<ul>
-<li>
-xxx
-</li>
-</ul>
 </html>"));
   end Version_10_0_0;
 
