@@ -347,16 +347,22 @@
   openmodelica:
     comment: timed out after 300 seconds
     simulate: false
+  optimica:
+    comment: Evaluating the ode derivatives failed (Modelon id 374)
+    simulate: false
 - model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.Guideline36Summer
   openmodelica:
     comment: timed out after 300 seconds
     simulate: false
   optimica:
-    comment: changed the tolerance to avoid timeout after 300 seconds
-    rtol: 1.0e-06
+    comment: Evaluating the ode derivatives failed (Modelon id 374)
+    simulate: false
 - model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.Guideline36Winter
   openmodelica:
     comment: timed out after 300 seconds
+    simulate: false
+  optimica:
+    comment: Evaluating the ode derivatives failed (Modelon id 374)
     simulate: false
 - model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.IdealHeatingCoolingSpring
   openmodelica:
