@@ -12881,6 +12881,10 @@ particular package.<br/>
    </td>
    <td valign=\"top\">Package with active beams.</td>
 </tr>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.HydronicConfigurations.UsersGuide\">Fluid.HydronicConfigurations.UsersGuide</a>
+   </td>
+   <td valign=\"top\">Package with all major hydronic configurations of heating and cooling systems.</td>
+</tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.UsersGuide\">Fluid.HeatExchangers.DXSystems.Cooling</a>
    </td>
    <td valign=\"top\">Package with direct evaporative cooling coils.</td>
@@ -12914,6 +12918,10 @@ particular package.<br/>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.HeatTransfer.UsersGuide\">HeatTransfer</a>
    </td>
    <td valign=\"top\">Package for heat transfer in building constructions.</td>
+</tr>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Templates\">Templates</a>
+   </td>
+   <td valign=\"top\">Package with pre-configured templates of HVAC systems and their control sequences.</td>
 </tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.ThermalZones.Detailed.UsersGuide.MixedAir\">ThermalZones.Detailed.UsersGuide.MixedAir</a>
    </td>
