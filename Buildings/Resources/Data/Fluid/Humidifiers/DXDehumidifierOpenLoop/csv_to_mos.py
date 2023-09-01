@@ -24,7 +24,8 @@ def main():
     "ZONE1DEHUMIDIFIERINLET:System Node Humidity Ratio [kgWater/kgDryAir](Hourly)",#10
     "ZONE1DEHUMIDIFIERINLET:System Node Temperature [C](Hourly)", #11
     "DEHUMIDIFIER OUTLET NODE:System Node Temperature [C](Hourly)", #12
-    "DEHUMIDIFIER OUTLET NODE:System Node Humidity Ratio [kgWater/kgDryAir](Hourly)" #13
+    "DEHUMIDIFIER OUTLET NODE:System Node Humidity Ratio [kgWater/kgDryAir](Hourly)", #13
+    "WEST ZONE DEHUMIDIFIER:Zone Dehumidifier Outlet Air Temperature [C](Hourly)" #14
     ]
 
     e.energyplus_csv_to_mos(
