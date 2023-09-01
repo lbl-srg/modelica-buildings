@@ -12873,6 +12873,14 @@ particular package.<br/>
    </td>
    <td valign=\"top\">Package with valves and air dampers.</td>
 </tr>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.DXSystems.Cooling\">Fluid.DXSystems.Cooling</a>
+   </td>
+   <td valign=\"top\">Package with components for DX systems for cooling.</td>
+</tr>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.DXSystems.Heating\">Fluid.DXSystems.Heating</a>
+   </td>
+   <td valign=\"top\">Package with components for DX systems for heating.</td>
+</tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.FMI.UsersGuide\">Fluid.FMI</a>
    </td>
    <td valign=\"top\">Package with blocks to export thermofluid flow models as Functional Mockup Units.</td>
