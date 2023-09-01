@@ -1,17 +1,19 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses;
 block DirectCalculations
   "Calculates efficiency of at given indoor and outdoor wet bulb and dry buld temperatures"
-  // parameter Real VolFlowRate(final unit ="1") = 5
+
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium in the component";
-  parameter Modelica.Units.SI.Area PadArea = 1;
- parameter Modelica.Units.SI.Density density =  1.225;
-  // parameter Real Vel(final unit = "1") = 5;
-  parameter Modelica.Units.SI.Length Depth = 0.5;
+  parameter Modelica.Units.SI.Area PadArea = 1 "Area of the wetted pad";
+
+  parameter Modelica.Units.SI.Length Depth = 0.5 "Depth of the evaporative cooler";
+
   Modelica.Blocks.Interfaces.RealInput TDryBulSupIn(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature") annotation (Placement(
+    final quantity="ThermodynamicTemperature")
+    "Dry bulb temperature of the supply air at the inlet"
+      annotation (Placement(
       visible=true,
       transformation(
         origin={-118,20},
@@ -24,7 +26,9 @@ block DirectCalculations
   Modelica.Blocks.Interfaces.RealInput TWetBulSup(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature") annotation (Placement(
+    final quantity="ThermodynamicTemperature")
+    "Wet bulb temperature of the supply air"
+      annotation (Placement(
       visible=true,
       transformation(
         origin={-120,52},
@@ -34,7 +38,9 @@ block DirectCalculations
         origin={-118,82},
         extent={{-20,-20},{20,20}},
         rotation=0)));
-  Modelica.Blocks.Interfaces.RealOutput eff(final unit="K/K") annotation (
+  Modelica.Blocks.Interfaces.RealOutput eff(final unit="K/K")
+  "Evaporative humidifier efficiency"
+    annotation (
       Placement(
       visible=true,
       transformation(
@@ -48,7 +54,9 @@ block DirectCalculations
   Modelica.Blocks.Interfaces.RealOutput TDryBulSupOut(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature") annotation (Placement(
+    final quantity="ThermodynamicTemperature")
+    "Dry bulb temperature of the supply air at the outlet"
+      annotation (Placement(
       visible=true,
       transformation(
         origin={110,52},
@@ -59,7 +67,9 @@ block DirectCalculations
         extent={{-10,-10},{10,10}},
         rotation=0)));
 
-  Modelica.Blocks.Interfaces.RealInput V_flow(unit="m3/s") annotation (
+  Modelica.Blocks.Interfaces.RealInput V_flow(unit="m3/s")
+  "Air volume flow rate"
+    annotation (
       Placement(
       visible=true,
       transformation(
@@ -70,8 +80,11 @@ block DirectCalculations
         origin={-120,-18},
         extent={{-20,-20},{20,20}},
         rotation=0)));
-  Real Vel;
-  Modelica.Blocks.Interfaces.RealOutput mW(unit="kg/s") annotation (Placement(
+  Real Vel "Air volume flow rate per unit pad area";
+  Modelica.Blocks.Interfaces.RealOutput m_flowWOut(unit="kg/s")
+  "Water vapor mass flow rate at the outlet"
+    annotation (
+      Placement(
       visible=true,
       transformation(
         origin={110,2},
@@ -83,12 +96,17 @@ block DirectCalculations
         rotation=0)));
  // Modelica.Blocks.Interfaces.RealOutput Humidity_Ratio(unit = "kg/kg") annotation (
    // Placement(visible = true, transformation(origin = {110, -22}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 36}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Xi_TDryBulTWetBul XiOut(redeclare package Medium = Medium) annotation (
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.Xi_TDryBulTWetBul XiOut(redeclare
+      package                                                                                          Medium = Medium)
+  "Water vapor mass fraction at the outlet"
+    annotation (
       Placement(visible=true, transformation(
         origin={-10,20},
         extent={{-10,-10},{10,10}},
         rotation=0)));
-  Modelica.Blocks.Interfaces.RealInput p(unit="m3/s") annotation (Placement(
+  Modelica.Blocks.Interfaces.RealInput p(unit="m3/s")
+  "Pressure"
+    annotation (Placement(
       visible=true,
       transformation(
         origin={-120,-48},
@@ -99,12 +117,19 @@ block DirectCalculations
         extent={{-20,-20},{20,20}},
         rotation=0)));
 //   Real density(unit = "m3/s");
-  Xi_TDryBulTWetBul XiIn(redeclare package Medium = Medium) annotation (
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.Xi_TDryBulTWetBul XiIn(redeclare
+      package                                                                                         Medium = Medium)
+  "Water vapor mass fraction at the inlet"
+  annotation (
       Placement(visible=true, transformation(
         origin={-10,80},
         extent={{-10,-10},{10,10}},
         rotation=0)));
- Modelica.Blocks.Interfaces.RealOutput dmW(unit="kg/s") annotation (Placement(
+ Modelica.Blocks.Interfaces.RealOutput dm_flowW(unit="kg/s")
+ "Water vapor mass flow rate difference between inlet and outlet
+  "
+   annotation (
+      Placement(
       visible=true,
       transformation(
         origin={110,-54},
@@ -114,6 +139,8 @@ block DirectCalculations
         origin={110,-94},
         extent={{-10,-10},{10,10}},
         rotation=0)));
+
+parameter Modelica.Units.SI.Density density =  1.225 "Air density";
 
  //equations start  here
     //Humidity_Ratio = (Mass_WVP)/(Vol_Flow*density + 1e-6);
@@ -132,6 +159,6 @@ equation
   connect(XiOut.TDryBul,TDryBulSupOut);
   connect(XiOut.TWetBul,TWetBulSup);
   connect(XiOut.p, p);
-  mW = XiOut.Xi[1]*V_flow*density;
-  dmW = (XiOut.Xi[1] - XiIn.Xi[1])*V_flow*density;
+  m_flowWOut = XiOut.Xi[1]*V_flow*density;
+  dm_flowW = (XiOut.Xi[1] - XiIn.Xi[1])*V_flow*density;
 end DirectCalculations;

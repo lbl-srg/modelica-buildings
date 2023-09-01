@@ -32,7 +32,7 @@ block Xi_TDryBulTWetBul
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
 
-protected
+//protected
   constant Real uniCon1(final unit="1/rad") = 1 "Constant to satisfy unit check";
   constant Real uniConK(final unit="K/rad") = 1 "Constant to satisfy unit check";
 
