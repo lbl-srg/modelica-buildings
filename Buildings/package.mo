@@ -209,8 +209,75 @@ Each class (i.e., model, block and function) must be used in an example or valid
     annotation (Documentation(info="<html>
 <div class=\"release-summary\">
 <p>
-Version 10.0.0 is ... xxx
+Version 10.0.0 is a major release that adds various new packages and models.
 </p>
+<p>
+The library has been tested
+Dymola 2023x,
+OpenModelica 1.22.0-dev (41-g8a5b18f-1),
+OPTIMICA 1.43.4 and recent versions of Impact.
+</p>
+<p>
+The following major changes have been done compared to release 9.1.1:
+</p>
+<ul>
+<li>
+A package with configurable template models for variable air volume flow systems
+with control based on ASHRAE Guideline 36 has been added to
+<code>Buildings.Template</code>.
+</li>
+<li>
+Reduced order building envelope models
+based on the ISO 13790:2008 Standard have been added.
+This allows to model building heat transfer either with a detailed Modelica
+multizone model (<code>Buildings.ThermalZones.Detailed</code>),
+with EnergyPlus via the Spawn coupling (<code>Buildings.ThermalZones.EnergyPlus_9_6_0</code>),
+or with reduced order models based on ISO 13790 (<code>Buildings.ThermalZones.ISO13790</code>)
+or based on VDI 6007 (<code>Buildings.ThermalZones.ReducedOrder</code>).
+</li>
+<li>
+Various models for district energy systems have been added in the package
+<code>Buildings.Experimental</code>.
+This package is still named experimental as for the next version,
+a restructing with various additional models is expected.
+However, the package already contains a comprehensive set of models, such as
+<ul>
+<li>
+models for combined heating and cooling district energy systems
+that operate near ambient temperature (sometimes called 5th generation district energy systems),
+</li>
+<li>
+Energy Transfer Stations (ETS) with all electric plants with heat recovery chillers,
+</li>
+<li>
+ETS with multiple heat pumps (heat recovery as well as air-source heat pumps) and storage, i.e.,
+the so-called Time-Independent Energy Recovery (TIER) plant in
+(<code>Buildings.Experimental.DHC.Plants.Combined.AllElectricCWStorage</code>),
+</li>
+<li>
+direct and indirect ETS for heating or for cooling, and
+</li>
+<li>
+models for district steam systems.
+</li>
+</ul>
+</li>
+<li>
+A package with all major hydronic configurations that are encountered in heating and cooling systems
+has been added in <code>Buildings.Fluid.HydronicConfigurations</code>.
+This package also includes autosizing of control valves to obtain suitable valve authority.
+</li>
+<li>
+The fan and pump models have been improved, and can now compute
+the part load efficiency based on the Euler number.
+</li>
+<li>
+Various new control blocks have been added to the <code>Buildings.Controls.OBC.CDL</code> method to
+provide a reference implementation of the currently developed ASHRAE Standard 231P
+<i>Control Description Language</i>.
+See also <a href=\"https://obc.lbl.gov\">obc.lbl.gov</a>.
+</li>
+</ul>
 </div>
 <!-- New libraries -->
 <p>
@@ -1312,7 +1379,10 @@ Version 9.1.1 is backward compatible with 9.1.0, except that the Spawn binaries 
   in <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.UsersGuide.Installation\">Buildings.ThermalZones.EnergyPlus_9_6_0.UsersGuide.Installation</a>.
   </p>
   <p>
-  The library has been tested with Dymola 2023x, OpenModelica 1.22.0-dev (41-g8a5b18f-1), OPTIMICA 1.43.4 and recent versions of Impact.
+  The library has been tested with
+  Dymola 2023x,
+  OpenModelica 1.22.0-dev (41-g8a5b18f-1),
+  OPTIMICA 1.43.4 and recent versions of Impact.
   </p>
   <p>
   The Spawn binaries have been updated from version 0.3.0 to 0.4.3.
