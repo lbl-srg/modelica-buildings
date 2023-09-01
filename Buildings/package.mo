@@ -229,7 +229,7 @@ with control based on ASHRAE Guideline 36 has been added to
 <li>
 Reduced order building envelope models
 based on the ISO 13790:2008 Standard have been added.
-This allows to model building heat transfer either with a detailed Modelica
+This allows modeling of building envelope heat transfer either with a detailed Modelica
 multizone model (<code>Buildings.ThermalZones.Detailed</code>),
 with EnergyPlus via the Spawn coupling (<code>Buildings.ThermalZones.EnergyPlus_9_6_0</code>),
 or with reduced order models based on ISO 13790 (<code>Buildings.ThermalZones.ISO13790</code>)
@@ -238,12 +238,10 @@ or based on VDI 6007 (<code>Buildings.ThermalZones.ReducedOrder</code>).
 <li>
 Various models for district energy systems have been added in the package
 <code>Buildings.Experimental</code>.
-This package is still named experimental as for the next version,
-a restructing with various additional models is expected.
-However, the package already contains a comprehensive set of models, such as
+This package includes models for
 <ul>
 <li>
-models for combined heating and cooling district energy systems
+combined heating and cooling district energy systems
 that operate near ambient temperature (sometimes called 5th generation district energy systems),
 </li>
 <li>
@@ -258,23 +256,23 @@ the so-called Time-Independent Energy Recovery (TIER) plant in
 direct and indirect ETS for heating or for cooling, and
 </li>
 <li>
-models for district steam systems.
+district steam systems.
 </li>
 </ul>
 </li>
 <li>
 A package with all major hydronic configurations that are encountered in heating and cooling systems
 has been added in <code>Buildings.Fluid.HydronicConfigurations</code>.
-This package also includes autosizing of control valves to obtain suitable valve authority.
+This package also includes automatic sizing of control valves to obtain suitable valve authority.
 </li>
 <li>
-The fan and pump models have been improved, and can now compute
+The fan and pump models have been revised, and can now be configured to compute
 the part load efficiency based on the Euler number.
 </li>
 <li>
 Various new control blocks have been added to the <code>Buildings.Controls.OBC.CDL</code> method to
-provide a reference implementation of the currently developed ASHRAE Standard 231P
-<i>Control Description Language</i>.
+provide a reference implementation of the proposed ASHRAE Standard 231P
+<i>Control Description Language</i> that is currently being developed.
 See also <a href=\"https://obc.lbl.gov\">obc.lbl.gov</a>.
 </li>
 </ul>
