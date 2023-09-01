@@ -27,10 +27,21 @@ partial model PartialEconomizerHX "Partial model of WSE with plate and frame hea
     final dat=datValConWatIso,
     final text_flip=true)
     "WSE CW isolation valve"
-    annotation (Placement(transformation(extent={{-50,70},{-70,90}})));
+    annotation (Placement(transformation(extent={{-60,70},{-80,90}})));
+  Buildings.Templates.Components.Sensors.Temperature TConWatEcoRet(
+    redeclare final package Medium = MediumConWat,
+    final allowFlowReversal=allowFlowReversal,
+    final m_flow_nominal=mConWat_flow_nominal,
+    final have_sen=true,
+    final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
+    "WSE CW return temperature"
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={-40,80})));
 equation
   /* Control point connection - start */
   connect(bus.valConWatEcoIso, valConWatIso.bus);
+  connect(bus.TConWatEcoRet, TConWatEcoRet.y);
   /* Control point connection - stop */
 
   connect(hex.port_a1, port_aConWat) annotation (Line(points={{10,80},{100,80}},
@@ -38,10 +49,12 @@ equation
   connect(hex.port_b2, port_b)
     annotation (Line(points={{10,68},{20,68},{20,0},{100,0}},
                                               color={0,127,255}));
-  connect(valConWatIso.port_a, hex.port_b1) annotation (Line(points={{-50,80},{-10,
-          80}},                   color={0,127,255}));
   connect(valConWatIso.port_b, port_bConWat)
-    annotation (Line(points={{-70,80},{-100,80}}, color={0,127,255}));
+    annotation (Line(points={{-80,80},{-100,80}}, color={0,127,255}));
+  connect(hex.port_b1, TConWatEcoRet.port_a)
+    annotation (Line(points={{-10,80},{-30,80}}, color={0,127,255}));
+  connect(TConWatEcoRet.port_b, valConWatIso.port_a)
+    annotation (Line(points={{-50,80},{-60,80}}, color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>
 This model serves as the base class to construct the WSE models.
@@ -57,16 +70,9 @@ First implementation.
 </ul>
 </html>"),
 Icon(graphics={
-  Line(
-          points={{-400,80},{-100,80}},
+  Line(   points={{-400,80},{-100,80}},
           color={0,0,0},
           thickness=5),
-  Bitmap(
-    extent={{-100,-100},{100,100}},
-    fileName=
-        "modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
-    rotation=-90,
-    origin={-240,80}),
   Rectangle(
     extent={{100,100},{-100,-102}},
     lineColor={0,0,0},
@@ -76,23 +82,31 @@ Icon(graphics={
     color={0,0,0},
     thickness=1),
   Line(
-    points={{-240,140},{-240,80}},
+    points={{-320,-80},{-320,-140}},
     color={0,0,0}),
-  Bitmap(
-    extent={{-280,140},{-200,220}},
-    fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
+  Bitmap(extent={{-360,-220},{-280,-140}},
+                                         fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
         Line(
           points={{326,-160}},
           color={0,0,0},
           thickness=0.5),
-  Line(
-          points={{100,80},{400,80},{400,-80},{100,-80}},
+  Line(   points={{100,80},{400,80},{400,-80},{100,-80}},
           color={0,0,0},
           thickness=5,
           pattern=LinePattern.Dash),
-  Line(
-          points={{-400,-80},{-100,-80}},
+  Line(   points={{-400,-80},{-100,-80}},
           color={0,0,0},
           thickness=5,
-          pattern=LinePattern.Dash)}));
+          pattern=LinePattern.Dash),
+    Bitmap(extent={{-280,-40},{-80,-240}}, fileName=
+              "modelica://Buildings/Resources/Images/Templates/Components/Sensors/ProbeInWell.svg"),
+    Bitmap(extent={{-220,-320},{-140,-240}}, fileName=
+              "modelica://Buildings/Resources/Images/Templates/Components/Sensors/Temperature.svg"),
+  Bitmap(
+          extent={{-100,-100},{100,100}},
+          fileName=
+              "modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
+
+          rotation=-90,
+          origin={-320,-80})}));
 end PartialEconomizerHX;

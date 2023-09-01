@@ -95,7 +95,7 @@ partial model PartialEconomizer "Partial waterside economizer model"
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={0,100}), iconTransformation(extent={{-20,100},{20,140}})));
+        origin={0,100}), iconTransformation(extent={{-20,80},{20,120}})));
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-400,
             -100},{400,100}})),

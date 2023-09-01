@@ -38,18 +38,18 @@ model HeatExchangerWithPump "Heat exchanger with pump for CHW flow control"
 equation
   /* Control point connection - start */
   connect(bus.pumChiWatEco, pumChiWatEco.bus);
-  connect(bus.TChiWatEcoEnt, TChiWatEcoEnt.y);
+  connect(bus.TChiWatEcoEnt,TChiWatEcoEnt.y);
   /* Control point connection - stop */
-  connect(TChiWatEcoEnt.port_b, pumChiWatEco.port_a)
-    annotation (Line(points={{-20,30},{-20,40}}, color={0,127,255}));
   connect(pumChiWatEco.port_b, hex.port_a2)
     annotation (Line(points={{-20,60},{-20,68},{-10,68}}, color={0,127,255}));
-  connect(port_a, TChiWatEcoEnt.port_a)
-    annotation (Line(points={{-100,0},{-20,0},{-20,10}}, color={0,127,255}));
   connect(port_a, resChiWatByp.port_a)
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
   connect(resChiWatByp.port_b, port_b)
     annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
+  connect(TChiWatEcoEnt.port_b, pumChiWatEco.port_a)
+    annotation (Line(points={{-20,30},{-20,40}}, color={0,127,255}));
+  connect(port_a, TChiWatEcoEnt.port_a)
+    annotation (Line(points={{-100,0},{-20,0},{-20,10}}, color={0,127,255}));
 annotation (
  defaultComponentName="eco",
 Documentation(info="<html>

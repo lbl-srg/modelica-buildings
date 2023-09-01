@@ -492,8 +492,7 @@ annotation (
           points={{100,1300},{100,1300 - (nChi - 1)*icon_dy}},
           color={0,0,0},
           thickness=5),
-    Line(
-          visible=have_valChiWatChiBypPar,
+    Line( visible=have_valChiWatChiBypPar,
           points={{-200,1100},{100,1100}},
           color={0,0,0},
           thickness=5),
@@ -502,7 +501,6 @@ annotation (
           extent={{-100,-100},{100,100}},
           fileName=
               "modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
-
           rotation=-90,
           origin={-40,1100}),
     Line(
@@ -537,10 +535,10 @@ annotation (
           extent={{-100,-100},{100,100}},
           visible=typEco <> Buildings.Templates.ChilledWaterPlants.Types.Economizer.None,
           fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/ProbeInWell.svg",
-          origin={120,-1220},
+          origin={120,-1240},
           rotation=360),
     Bitmap(
-          extent={{80,-1120},{160,-1040}},
+          extent={{80,-1140},{160,-1060}},
           visible=typEco <> Buildings.Templates.ChilledWaterPlants.Types.Economizer.None,
           fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/Temperature.svg"),
     Bitmap(
