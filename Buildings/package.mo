@@ -270,8 +270,8 @@ The fan and pump models have been revised, and can now be configured to compute
 the part load efficiency based on the Euler number.
 </li>
 <li>
-Various new control blocks have been added to the <code>Buildings.Controls.OBC.CDL</code> method to
-provide a reference implementation of the proposed ASHRAE Standard 231P
+Various new elementary control blocks have been added to the <code>Buildings.Controls.OBC.CDL</code> package to
+provide a reference implementation of the ASHRAE Standard 231P
 <i>Control Description Language</i> that is currently being developed.
 See also <a href=\"https://obc.lbl.gov\">obc.lbl.gov</a>.
 </li>
