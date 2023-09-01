@@ -4,9 +4,9 @@ block OpenLoop "Open loop controller (output signals only)"
     Buildings.Templates.ChilledWaterPlants.Components.Interfaces.PartialController(
      final typ=Buildings.Templates.ChilledWaterPlants.Types.Controller.OpenLoop);
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatSupSet(
-    y(final unit="K", displayUnit="degC"),
-    k=Buildings.Templates.Data.Defaults.TChiWatSup)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatSupSet[nChi](
+    y(each final unit="K", each displayUnit="degC"),
+    each k=Buildings.Templates.Data.Defaults.TChiWatSup)
     "CHW supply temperature set point"
     annotation (Placement(transformation(extent={{-80,250},{-100,270}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yPumChiWatPri(
@@ -251,36 +251,29 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(y1ValConWatEcoIso.y[1], busValConWatEcoIso.y1) annotation (Line(
-        points={{-98,-120},{140,-120}},                     color={255,0,255}));
+        points={{-98,-120},{140,-120}}, color={255,0,255}));
   connect(yPumConWatDed.y, busPumConWat.y) annotation (Line(points={{-78,-80},{
-          140,-80},{140,-40}},    color={0,0,127}), Text(
+          140,-80},{140,-40}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
   connect(yPumChiWatPriDed.y, busPumChiWatPri.y) annotation (Line(points={{-78,40},
-          {140,40},{140,60}},        color={0,0,127}), Text(
+          {140,40},{140,60}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(y1Chi.y[1], bus.y1Chi) annotation (Line(points={{-162,280},{-258,280},
-          {-258,0},{-260,0}},
-                            color={255,0,255}), Text(
+  connect(y1Chi.y[1], busChi.y1) annotation (Line(points={{-162,280},{-258,280},
+          {-258,200},{-240,200}}, color={255,0,255}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(TChiWatSupSet.y, bus.TChiWatSupSet) annotation (Line(points={{-102,
-          260},{-254,260},{-254,0},{-260,0}},
-                                      color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
+  connect(TChiWatSupSet.y, busChi.TChiWatSupSet) annotation (Line(points={{-102,
+          260},{-254,260},{-254,200},{-240,200}}, color={0,0,127}));
   connect(y1Coo.y[1], bus.y1Coo) annotation (Line(points={{-2,-260},{-254,-260},
-          {-254,0},{-260,0}},
-                           color={255,0,255}), Text(
+          {-254,0},{-260,0}}, color={255,0,255}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},

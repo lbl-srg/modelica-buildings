@@ -491,7 +491,7 @@ block G36 "Guideline 36 controller for CHW plant"
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_yEcoConWatIsoVal(
     k=true) if typEco<>Buildings.Templates.ChilledWaterPlants.Types.Economizer.None
     "#2299 Should be Boolean"
-    annotation (Placement(transformation(extent={{60,50},{80,70}})));
+    annotation (Placement(transformation(extent={{60,70},{80,90}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum FIXME_yChiPumSpe(
     final k=fill(1/nPumChiWatPri, nPumChiWatPri),
     final nin=nChiWatPum) if have_varPumChiWatPri
@@ -563,6 +563,10 @@ block G36 "Guideline 36 controller for CHW plant"
   Buildings.Controls.OBC.CDL.Integers.Add reqChiWatRes
     "Sum of CHW plant requests from all served units"
     annotation (Placement(transformation(extent={{-100,-170},{-80,-150}})));
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator FIXME_TChiWatSupSet(
+    final nout=nChi)
+    "#2299 Should be vectorial (typ. each chiller)"
+    annotation (Placement(transformation(extent={{60,30},{80,50}})));
 protected
   Integer idx
     "Iteration variable for algorithm section";
@@ -657,11 +661,11 @@ equation
   connect(ctl.yWseRetVal, bus.valChiWatEcoByp.y);
   connect(ctl.yWsePumOn, bus.pumChiWatEco.y1);
   connect(ctl.yWsePumSpe, bus.pumChiWatEco.y);
-  connect(ctl.TChiWatSupSet, bus.TChiWatSupSet);
+  connect(FIXME_TChiWatSupSet.y, busChi.TChiWatSupSet);
   connect(ctl.yChiWatPum, bus.pumChiWatPri.y1);
   connect(FIXME_yChiPumSpe.y, bus.pumChiWatPri.y);
   connect(FIXME_yChiDem.u, ctl.yChiDem);
-  connect(ctl.yChi, bus.y1Chi);
+  connect(ctl.yChi, busChi.y1);
   connect(FIXME1_yHeaPreConVal.y, busValConWatChiIso.y1);
   connect(FIXME_yHeaPreConVal.y, busValConWatChiIso.y);
   connect(ctl.yConWatPum, bus.pumConWat.y1);
@@ -707,6 +711,8 @@ equation
           127,0}));
   connect(reqChiWatRes.y, ctl.TChiWatSupResReq) annotation (Line(points={{-78,-160},
           {-20,-160},{-20,-20.5},{-2,-20.5}}, color={255,127,0}));
+  connect(ctl.TChiWatSupSet, FIXME_TChiWatSupSet.u) annotation (Line(points={{22,
+          11},{40,11},{40,40},{58,40}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <h4>Description</h4>
 <p>

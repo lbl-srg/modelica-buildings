@@ -245,55 +245,16 @@ partial model PartialChillerGroup "Interface class for chiller group"
     annotation (Placement(transformation(extent={{-20,180},{20,220}}),
     iconTransformation(extent={{-20,982},{20,1022}})));
 
-  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator TChiWatSupSet(
-    final nout=nChi)
-    "Replicating common CHW supply temperature setpoint"
-    annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={0,170})));
-  Modelica.Blocks.Routing.BooleanPassThrough pasSta[nChi]
-    "Direct pass through for On/Off signal"
-    annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-40,170})));
 protected
   Buildings.Templates.Components.Interfaces.Bus busChi[nChi]
     "Chiller control bus"
     annotation (Placement(transformation(extent={{-20,120},
             {20,160}}), iconTransformation(extent={{-350,6},{-310,46}})));
 equation
-  connect(TChiWatSupSet.y, busChi.TChiWatSupSet)
-    annotation (Line(points={{0,158},{0,140}}, color={0,0,127}));
-  connect(bus.TChiWatSupSet, TChiWatSupSet.u) annotation (Line(
-      points={{0,200},{0,182}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-3,6},{-3,6}},
-      horizontalAlignment=TextAlignment.Right));
   connect(busChi, bus.chi) annotation (Line(
-      points={{0,140},{40,140},{40,196},{0,196},{0,200}},
+      points={{0,140},{0,200}},
       color={255,204,51},
       thickness=0.5));
-  connect(pasSta.y, busChi.y1) annotation (Line(points={{-40,159},{-40,140},{0,
-          140}}, color={255,0,255}), Text(
-      string="%second",
-      index=1,
-      extent={{-3,-6},{-3,-6}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(bus.y1Chi, pasSta.u) annotation (Line(
-      points={{0,200},{0,190},{-40,190},{-40,182}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-3,6},{-3,6}},
-      horizontalAlignment=TextAlignment.Right));
   annotation (Diagram(coordinateSystem(extent={{-200,-240},{200,200}})),
   Icon(coordinateSystem(preserveAspectRatio=false,
   extent={{-400,-1000},{400,1000}}),
@@ -672,8 +633,7 @@ typValConWatChiIso== Buildings.Templates.Components.Types.Valve.TwoWayModulating
           points={{-400,480},{-180,480}},
           color={0,0,0},
           thickness=5),
-    Line(
-          points={{-400,120},{-180,120}},
+    Line( points={{-400,120},{-180,120}},
           color={0,0,0},
           thickness=5,
           visible=nChi >= 3 and typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled),
@@ -693,8 +653,7 @@ typValConWatChiIso <> Buildings.Templates.Components.Types.Valve.None
       visible=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled and
 typValConWatChiIso <> Buildings.Templates.Components.Types.Valve.None
             and nChi >= 2),
-    Line(
-          points={{-280,300},{-280,240}},
+    Line( points={{-280,300},{-280,240}},
           color={0,0,0},
           visible=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled and
 typValConWatChiIso <> Buildings.Templates.Components.Types.Valve.None
@@ -819,21 +778,14 @@ models inheriting from this interface.
 </p>
 <ul>
 <li>
-Chiller On/Off command <code>y1Chi</code>:
-DO signal dedicated to each unit, with a dimensionality of one
-</li>
-<li>
-CHW supply temperature setpoint <code>TChiWatSupSet</code>:
-AO signal common to all units, with a dimensionality of zero
-</li>
-<li>
-Sub-bus <code>chi</code> storing all signals dedicated
+Sub-bus <code>bus.chi=busChi</code> storing all signals dedicated
 to each unit, with a dimensionality of one
 <ul>
 <li>
-At least the chiller status should be available as
-<code>chi.y1_actual</code>: DI signal dedicated to each unit,
-with a dimensionality of one
+See the class 
+<a href=\"modelica://Buildings.Templates.Components.Chillers.Compression\">
+Buildings.Templates.Components.Chillers.Compression</a>
+for the control signals typically included in this sub-bus.
 </li>
 </ul>
 </li>
