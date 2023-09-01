@@ -1,12 +1,35 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses;
 block DirectCalculations
-  "Calculates efficiency of at given indoor and outdoor wet bulb and dry buld temperatures"
+  "Calculates water mass flow rate at given wet bulb and dry buld temperatures"
 
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium in the component";
-  parameter Modelica.Units.SI.Area PadArea = 1 "Area of the wetted pad";
 
-  parameter Modelica.Units.SI.Length Depth = 0.5 "Depth of the evaporative cooler";
+  parameter Modelica.Units.SI.Area PadArea = 1
+  "Area of the wetted pad";
+  parameter Modelica.Units.SI.Length Depth = 0.5
+  "Depth of the evaporative cooler";
+  parameter Modelica.Units.SI.Density density = 1.225 "Air density";
+
+  Real Vel "Air volume flow rate per unit pad area";
+
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.Xi_TDryBulTWetBul
+  XiOut(redeclare package Medium = Medium)
+  "Water vapor mass fraction at the outlet"
+    annotation (
+      Placement(visible=true, transformation(
+        origin={-10,20},
+        extent={{-10,-10},{10,10}},
+        rotation=0)));
+
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.Xi_TDryBulTWetBul
+  XiIn(redeclare package  Medium = Medium)
+  "Water vapor mass fraction at the inlet"
+  annotation (
+      Placement(visible=true, transformation(
+        origin={-10,80},
+        extent={{-10,-10},{10,10}},
+        rotation=0)));
 
   Modelica.Blocks.Interfaces.RealInput TDryBulSupIn(
     final unit="K",
@@ -16,7 +39,7 @@ block DirectCalculations
       annotation (Placement(
       visible=true,
       transformation(
-        origin={-118,20},
+        origin={-120,74},
         extent={{-20,-20},{20,20}},
         rotation=0),
       iconTransformation(
@@ -31,7 +54,7 @@ block DirectCalculations
       annotation (Placement(
       visible=true,
       transformation(
-        origin={-120,52},
+        origin={-120,30},
         extent={{-20,-20},{20,20}},
         rotation=0),
       iconTransformation(
@@ -66,8 +89,7 @@ block DirectCalculations
         origin={110,-32},
         extent={{-10,-10},{10,10}},
         rotation=0)));
-
-  Modelica.Blocks.Interfaces.RealInput V_flow(unit="m3/s")
+  Modelica.Blocks.Interfaces.RealInput V_flow(final unit="m3/s")
   "Air volume flow rate"
     annotation (
       Placement(
@@ -80,11 +102,9 @@ block DirectCalculations
         origin={-120,-18},
         extent={{-20,-20},{20,20}},
         rotation=0)));
-  Real Vel "Air volume flow rate per unit pad area";
-  Modelica.Blocks.Interfaces.RealOutput m_flowWOut(unit="kg/s")
-  "Water vapor mass flow rate at the outlet"
-    annotation (
-      Placement(
+
+  Modelica.Blocks.Interfaces.RealOutput mWat_flowOut(final unit="kg/s")
+    "Water vapor mass flow rate at the outlet" annotation (Placement(
       visible=true,
       transformation(
         origin={110,2},
@@ -94,17 +114,8 @@ block DirectCalculations
         origin={110,-66},
         extent={{-10,-10},{10,10}},
         rotation=0)));
- // Modelica.Blocks.Interfaces.RealOutput Humidity_Ratio(unit = "kg/kg") annotation (
-   // Placement(visible = true, transformation(origin = {110, -22}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 36}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.Xi_TDryBulTWetBul XiOut(redeclare
-      package                                                                                          Medium = Medium)
-  "Water vapor mass fraction at the outlet"
-    annotation (
-      Placement(visible=true, transformation(
-        origin={-10,20},
-        extent={{-10,-10},{10,10}},
-        rotation=0)));
-  Modelica.Blocks.Interfaces.RealInput p(unit="m3/s")
+
+  Modelica.Blocks.Interfaces.RealInput p(final unit="Pa")
   "Pressure"
     annotation (Placement(
       visible=true,
@@ -116,20 +127,10 @@ block DirectCalculations
         origin={-120,-66},
         extent={{-20,-20},{20,20}},
         rotation=0)));
-//   Real density(unit = "m3/s");
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.Xi_TDryBulTWetBul XiIn(redeclare
-      package                                                                                         Medium = Medium)
-  "Water vapor mass fraction at the inlet"
-  annotation (
-      Placement(visible=true, transformation(
-        origin={-10,80},
-        extent={{-10,-10},{10,10}},
-        rotation=0)));
- Modelica.Blocks.Interfaces.RealOutput dm_flowW(unit="kg/s")
+
+ Modelica.Blocks.Interfaces.RealOutput dmWat_flow(final unit="kg/s")
  "Water vapor mass flow rate difference between inlet and outlet
-  "
-   annotation (
-      Placement(
+  " annotation (Placement(
       visible=true,
       transformation(
         origin={110,-54},
@@ -140,12 +141,7 @@ block DirectCalculations
         extent={{-10,-10},{10,10}},
         rotation=0)));
 
-parameter Modelica.Units.SI.Density density =  1.225 "Air density";
 
- //equations start  here
-    //Humidity_Ratio = (Mass_WVP)/(Vol_Flow*density + 1e-6);
-  // Calculate Saturation efficiency
-  // Calculate Dry bulb temp exiting sum
 equation
   Vel =V_flow/PadArea;
   eff = 0.792714 + 0.958569*(Depth) - 0.25193*(Vel) - 1.03215*(Depth^2) +
@@ -153,12 +149,18 @@ equation
     *(Depth*Vel^3) + 1.13137*(Depth^3*Vel) + 0.0327622*(Vel^3*Depth^2) -
     0.145384*(Depth^3*Vel^2);
   TDryBulSupOut =TDryBulSupIn - eff*(TDryBulSupIn - TWetBulSup);
-  connect(XiIn.TDryBul, TDryBulSupIn);
-  connect(XiIn.TWetBul,TWetBulSup);
-  connect(XiIn.p, p);
-  connect(XiOut.TDryBul,TDryBulSupOut);
-  connect(XiOut.TWetBul,TWetBulSup);
-  connect(XiOut.p, p);
-  m_flowWOut = XiOut.Xi[1]*V_flow*density;
-  dm_flowW = (XiOut.Xi[1] - XiIn.Xi[1])*V_flow*density;
+  mWat_flowOut = XiOut.Xi[1]*V_flow*density;
+  dmWat_flow = (XiOut.Xi[1] - XiIn.Xi[1])*V_flow*density;
+  connect(TDryBulSupIn, XiIn.TDryBul) annotation (Line(points={{-120,74},{-70,74},
+          {-70,88},{-21,88}}, color={0,0,127}));
+  connect(TWetBulSup, XiIn.TWetBul) annotation (Line(points={{-120,30},{-63,30},
+          {-63,80},{-21,80}}, color={0,0,127}));
+  connect(p, XiIn.p) annotation (Line(points={{-120,-48},{-90,-48},{-90,-18},{-52,
+          -18},{-52,72},{-21,72}}, color={0,0,127}));
+  connect(TDryBulSupOut, XiOut.TDryBul) annotation (Line(points={{110,52},{-38,52},
+          {-38,28},{-21,28}}, color={0,0,127}));
+  connect(TWetBulSup, XiOut.TWetBul) annotation (Line(points={{-120,30},{-64,30},
+          {-64,20},{-21,20}}, color={0,0,127}));
+  connect(p, XiOut.p) annotation (Line(points={{-120,-48},{-42,-48},{-42,12},{-21,
+          12}}, color={0,0,127}));
 end DirectCalculations;

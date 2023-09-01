@@ -32,7 +32,7 @@ block Xi_TDryBulTWetBul
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
 
-//protected
+protected
   constant Real uniCon1(final unit="1/rad") = 1 "Constant to satisfy unit check";
   constant Real uniConK(final unit="K/rad") = 1 "Constant to satisfy unit check";
 
@@ -139,12 +139,7 @@ annotation (
           fillPattern=FillPattern.Solid)}),
     defaultComponentName="wetBul",
     Documentation(info="<html>
-<p>This block computes the wet bulb temperature based on given dry bulb temperature, mass fraction and atmospheric pressure. </p>
-<p>If the constant <span style=\"font-family: Courier New;\">approximateWetBulb</span> is <span style=\"font-family: Courier New;\">true</span>, then the block uses the approximation of Stull (2011) to compute the wet bulb temperature without requiring a nonlinear equation. Otherwise, the model will introduce one nonlinear equation. The approximation by Stull is valid for a relative humidity of <i>5&percnt;</i> to <i>99&percnt;</i>, a temperature range from <i>-20&deg;C</i> to <i>50&deg;C</i> and standard sea level pressure. For this range of data, the approximation error is <i>-1</i> Kelvin to <i>+0.65</i> Kelvin, with a mean error of less than <i>0.3</i> Kelvin. </p>
-<p>Otherwise a calculation based on an energy balance is used. See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/474\">#474</a> for a discussion. </p>
-<p>For a model that takes the relative humidity instead of the mass fraction as an input, see <a href=\"modelica://Buildings.Utilities.Psychrometrics.TWetBul_TDryBulPhi\">Buildings.Utilities.Psychrometrics.TWetBul_TDryBulPhi</a>. </p>
-<h4>References</h4>
-<p>Stull, Roland. <i><a href=\"http://dx.doi.org/10.1175/JAMC-D-11-0143.1\">Wet-Bulb Temperature from Relative Humidity and Air Temperature Roland Stull.</a></i> Journal of Applied Meteorology and Climatology. Volume 50, Issue 11, pp. 2267-2269. November 2011 DOI: 10.1175/JAMC-D-11-0143.1 </p>
+<p>This block computes the water vapor mass fraction based on given dry bulb temperature, wet bulb temperature and atmospheric pressure. </p>
 </html>",
 revisions="<html>
 <ul>

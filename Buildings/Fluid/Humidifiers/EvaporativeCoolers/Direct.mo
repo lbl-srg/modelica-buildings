@@ -30,13 +30,13 @@ model Direct
         extent={{-10,-10},{10,10}},
         rotation=0)));
   Buildings.Fluid.Sensors.VolumeFlowRate senV_flow(redeclare final package
-      Medium =                                                                      Medium, m_flow_nominal = mflownom) annotation (
+      Medium =  Medium, m_flow_nominal = mflownom) annotation (
     Placement(visible = true, transformation(origin = {-20, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Buildings.Fluid.FixedResistances.PressureDrop res(redeclare final package
-      Medium =                                                                       Medium, dp_nominal = 10, m_flow_nominal = mflownom) annotation (
+      Medium = Medium, dp_nominal = 10, m_flow_nominal = mflownom) annotation (
     Placement(visible = true, transformation(origin={30,0},    extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol(redeclare final
-      package Medium =                                                                    Medium, m_flow_nominal = mflownom, V = 1, nPorts = 2) annotation (
+      package Medium = Medium, m_flow_nominal = mflownom, V = 1, nPorts = 2) annotation (
     Placement(visible = true, transformation(origin={80,20},    extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Baseclasses.DirectCalculations directEvapCooler(
     redeclare package Medium = Medium,
@@ -71,7 +71,7 @@ equation
     annotation (Line(points={{-90,0},{-90,50},{-80,50}}, color={0,127,255}));
   connect(senP.p, directEvapCooler.p) annotation (Line(points={{-69,60},{-34,60},
           {-34,53.4},{-12,53.4}}, color={0,0,127}));
-  connect(directEvapCooler.dm_flowW, vol.mWat_flow) annotation (Line(points={{
+  connect(directEvapCooler.dmWat_flow, vol.mWat_flow) annotation (Line(points={{
           11,50.6},{60,50.6},{60,28},{68,28}}, color={0,0,127}));
   connect(senV_flow.port_b, res.port_a)
     annotation (Line(points={{-10,0},{20,0}}, color={0,127,255}));
