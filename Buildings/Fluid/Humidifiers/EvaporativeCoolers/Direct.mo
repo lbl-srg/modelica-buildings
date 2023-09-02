@@ -1,79 +1,88 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers;
-model Direct
-  /*redeclare package Medium = Modelica.Media.Interfaces.PartialMedium  annotation (choices(
-                choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
-                choice(redeclare package Medium = Buildings.Media.Water "Water"),
-                choice(redeclare package Medium =
-                    Buildings.Media.Antifreeze.PropyleneGlycolWater (
-                      property_T=293.15,
-                      X_a=0.40)
-                      "Propylene glycol water, 40% mass fraction")))*/
+model Direct "Direct Evaporative cooler"
+
   extends Buildings.Fluid.Interfaces.PartialTwoPort;
-  parameter Real mflownom(final unit = "1") = 1;
-  parameter Modelica.Units.SI.Area PadArea = 1;
-  parameter Modelica.Units.SI.Density density = 1.225;
-  parameter Modelica.Units.SI.Length Depth = 0.5;
-  Buildings.Fluid.Sensors.TemperatureTwoPort senT(
+
+  parameter Real mflownom(final unit = "kg/s") = 1 "Nominal mass flow rate";
+  parameter Modelica.Units.SI.Area PadArea = 1 "Area of the rigid media evaporative pad";
+  parameter Modelica.Units.SI.Density density = 1.225 "Air density";
+  parameter Modelica.Units.SI.Length Depth = 0.5 "Depth of the rigid media evaporative pad";
+
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTem(
     redeclare final package Medium = Medium,
     m_flow_nominal=mflownom,
     initType=Modelica.Blocks.Types.Init.InitialOutput,
-    T_start=298.15) annotation (Placement(visible=true, transformation(
+    T_start=298.15)
+    "Dry bulb temperature sensor"
+      annotation (Placement(visible=true, transformation(
         origin={-80,0},
         extent={{-10,-10},{10,10}},
         rotation=0)));
-  Buildings.Fluid.Sensors.TemperatureWetBulbTwoPort senTWetBul(
+  Buildings.Fluid.Sensors.TemperatureWetBulbTwoPort senTemWetBul(
     redeclare final package Medium = Medium,
     m_flow_nominal=mflownom,
     initType=Modelica.Blocks.Types.Init.InitialOutput,
-    TWetBul_start=296.15) annotation (Placement(visible=true, transformation(
+    TWetBul_start=296.15)
+    "Wet bulb temperature sensor"
+      annotation (Placement(visible=true, transformation(
         origin={-50,0},
         extent={{-10,-10},{10,10}},
         rotation=0)));
-  Buildings.Fluid.Sensors.VolumeFlowRate senV_flow(redeclare final package
-      Medium =  Medium, m_flow_nominal = mflownom) annotation (
+  Buildings.Fluid.Sensors.VolumeFlowRate senVolflo(redeclare final package
+      Medium =  Medium, m_flow_nominal = mflownom)
+      "Volume flow rate sensor"
+        annotation (
     Placement(visible = true, transformation(origin = {-20, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Buildings.Fluid.FixedResistances.PressureDrop res(redeclare final package
-      Medium = Medium, dp_nominal = 10, m_flow_nominal = mflownom) annotation (
+      Medium = Medium, dp_nominal = 10, m_flow_nominal = mflownom)
+      "Pressure drop"
+        annotation (
     Placement(visible = true, transformation(origin={30,0},    extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol(redeclare final
-      package Medium = Medium, m_flow_nominal = mflownom, V = 1, nPorts = 2) annotation (
+      package Medium = Medium, m_flow_nominal = mflownom, V = 1, nPorts = 2)
+      "Moist air mixing volume"
+      annotation (
     Placement(visible = true, transformation(origin={80,20},    extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Baseclasses.DirectCalculations directEvapCooler(
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.DirectCalculations directEvapCooler(
     redeclare package Medium = Medium,
     Depth=Depth,
     PadArea=PadArea,
-    density=density) annotation (Placement(visible=true, transformation(
+    density=density)
+    "Evaporative cooler calculator"
+      annotation (Placement(visible=true, transformation(
         origin={0,60},
         extent={{-10,-10},{10,10}},
         rotation=0)));
-  Buildings.Fluid.Sensors.Pressure senP(redeclare final package Medium = Medium)
-    annotation (Placement(visible=true, transformation(
+  Buildings.Fluid.Sensors.Pressure senPre(redeclare final package Medium =
+        Medium)
+        "Pressure"
+          annotation (Placement(visible=true, transformation(
         origin={-80,60},
         extent={{-10,-10},{10,10}},
         rotation=0)));
 equation
-  connect(senV_flow.V_flow, directEvapCooler.V_flow) annotation (Line(points={{
+  connect(senVolflo.V_flow, directEvapCooler.V_flow) annotation (Line(points={{
           -20,11},{-20,58},{-12,58},{-12,58.2}}, color={0,0,127}));
-  connect(senTWetBul.T, directEvapCooler.TWetBulSup) annotation (Line(points={{
-          -50,11},{-44,11},{-44,68.2},{-11.8,68.2}}, color={0,0,127}));
-  connect(senT.T, directEvapCooler.TDryBulSupIn) annotation (Line(points={{-80,
+  connect(senTemWetBul.T, directEvapCooler.TWetBulSup) annotation (Line(points={
+          {-50,11},{-44,11},{-44,68.2},{-11.8,68.2}}, color={0,0,127}));
+  connect(senTem.T, directEvapCooler.TDryBulSupIn) annotation (Line(points={{-80,
           11},{-64,11},{-64,63.2},{-12,63.2}}, color={0,0,127}));
-  connect(senT.port_b, senTWetBul.port_a)
+  connect(senTem.port_b, senTemWetBul.port_a)
     annotation (Line(points={{-70,0},{-60,0}}, color={0,127,255}));
-  connect(senTWetBul.port_b, senV_flow.port_a)
+  connect(senTemWetBul.port_b, senVolflo.port_a)
     annotation (Line(points={{-40,0},{-30,0}}));
   connect(res.port_b, vol.ports[1]) annotation (
     Line(points={{40,0},{78,0},{78,10}},         color = {0, 127, 255}));
-  connect(port_a, senT.port_a) annotation (Line(points={{-100,0},{-90,0}}));
+  connect(port_a, senTem.port_a) annotation (Line(points={{-100,0},{-90,0}}));
   connect(vol.ports[2], port_b) annotation (
     Line(points={{82,10},{82,0},{100,0}},        color = {0, 127, 255}));
-  connect(senT.port_a, senP.port)
+  connect(senTem.port_a, senPre.port)
     annotation (Line(points={{-90,0},{-90,50},{-80,50}}, color={0,127,255}));
-  connect(senP.p, directEvapCooler.p) annotation (Line(points={{-69,60},{-34,60},
+  connect(senPre.p, directEvapCooler.p) annotation (Line(points={{-69,60},{-34,60},
           {-34,53.4},{-12,53.4}}, color={0,0,127}));
   connect(directEvapCooler.dmWat_flow, vol.mWat_flow) annotation (Line(points={{
           11,50.6},{60,50.6},{60,28},{68,28}}, color={0,0,127}));
-  connect(senV_flow.port_b, res.port_a)
+  connect(senVolflo.port_b, res.port_a)
     annotation (Line(points={{-10,0},{20,0}}, color={0,127,255}));
   annotation (
     Icon(graphics={  Rectangle(lineColor = {0, 0, 255}, fillColor = {95, 95, 95}, pattern = LinePattern.None,

@@ -1,17 +1,17 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses;
 block DirectCalculations
-  "Calculates water mass flow rate at given wet bulb and dry buld temperatures"
+  "Calculates water mass flow rate"
 
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
-    "Medium in the component";
+    "Medium";
 
   parameter Modelica.Units.SI.Area PadArea = 1
-  "Area of the wetted pad";
+  "Area of the rigid media evaporative pad";
   parameter Modelica.Units.SI.Length Depth = 0.5
-  "Depth of the evaporative cooler";
+  "Depth of the rigid media evaporative pad";
   parameter Modelica.Units.SI.Density density = 1.225 "Air density";
 
-  Real Vel "Air volume flow rate per unit pad area";
+  Real Vel "Air velocity";
 
   Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.Xi_TDryBulTWetBul
   XiOut(redeclare package Medium = Medium)
@@ -21,7 +21,6 @@ block DirectCalculations
         origin={-10,20},
         extent={{-10,-10},{10,10}},
         rotation=0)));
-
   Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.Xi_TDryBulTWetBul
   XiIn(redeclare package  Medium = Medium)
   "Water vapor mass fraction at the inlet"
@@ -30,7 +29,6 @@ block DirectCalculations
         origin={-10,80},
         extent={{-10,-10},{10,10}},
         rotation=0)));
-
   Modelica.Blocks.Interfaces.RealInput TDryBulSupIn(
     final unit="K",
     displayUnit="degC",
@@ -102,9 +100,9 @@ block DirectCalculations
         origin={-120,-18},
         extent={{-20,-20},{20,20}},
         rotation=0)));
-
   Modelica.Blocks.Interfaces.RealOutput mWat_flowOut(final unit="kg/s")
-    "Water vapor mass flow rate at the outlet" annotation (Placement(
+    "Water mass flow rate at the outlet"
+     annotation (Placement(
       visible=true,
       transformation(
         origin={110,2},
@@ -114,7 +112,6 @@ block DirectCalculations
         origin={110,-66},
         extent={{-10,-10},{10,10}},
         rotation=0)));
-
   Modelica.Blocks.Interfaces.RealInput p(final unit="Pa")
   "Pressure"
     annotation (Placement(
@@ -127,9 +124,8 @@ block DirectCalculations
         origin={-120,-66},
         extent={{-20,-20},{20,20}},
         rotation=0)));
-
  Modelica.Blocks.Interfaces.RealOutput dmWat_flow(final unit="kg/s")
- "Water vapor mass flow rate difference between inlet and outlet
+ "Water mass flow rate difference between inlet and outlet
   " annotation (Placement(
       visible=true,
       transformation(
@@ -140,7 +136,6 @@ block DirectCalculations
         origin={110,-94},
         extent={{-10,-10},{10,10}},
         rotation=0)));
-
 
 equation
   Vel =V_flow/PadArea;
