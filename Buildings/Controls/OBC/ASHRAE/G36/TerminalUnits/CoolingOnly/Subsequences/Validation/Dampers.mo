@@ -41,7 +41,7 @@ model Dampers
     final height=-2,
     final duration=1000,
     startTime=1800) "Zone state"
-    annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
+    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt2
     "Convert real to integer"
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
@@ -71,11 +71,17 @@ model Dampers
   Buildings.Controls.OBC.CDL.Reals.Round round3(final n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
+    final width=0.9,
+    final period=4800,
+    final shift=180) "AHU fan status"
+    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 equation
   connect(zonSta.y,round2. u)
-    annotation (Line(points={{-78,-60},{-62,-60}}, color={0,0,127}));
+    annotation (Line(points={{-78,-30},{-70,-30},{-70,-60},{-62,-60}},
+                                                   color={0,0,127}));
   connect(round2.y,reaToInt2. u)
-    annotation (Line(points={{-38,-60},{-22,-60}},
+    annotation (Line(points={{-38,-60},{-30,-60},{-30,-60},{-22,-60}},
       color={0,0,127}));
   connect(VActMin_flow.y, dam1.VActMin_flow) annotation (Line(points={{-78,120},
           {56,120},{56,-42},{78,-42}}, color={0,0,127}));
@@ -85,8 +91,8 @@ equation
           {78,-48}}, color={0,0,127}));
   connect(VActCooMax_flow.y, dam1.VActCooMax_flow) annotation (Line(points={{-78,40},
           {44,40},{44,-54},{78,-54}},   color={0,0,127}));
-  connect(reaToInt2.y, dam1.uZonSta) annotation (Line(points={{2,-60},{78,-60}},
-                              color={255,127,0}));
+  connect(reaToInt2.y, dam1.uZonSta) annotation (Line(points={{2,-60},{26,-60},
+          {26,-60},{78,-60}}, color={255,127,0}));
   connect(VDis_flow.y, dam1.VDis_flow) annotation (Line(points={{-78,-90},{20,-90},
           {20,-74},{78,-74}}, color={0,0,127}));
   connect(uCoo.y, dam1.uCoo) annotation (Line(points={{-38,60},{36,60},{36,-51},
@@ -103,6 +109,8 @@ equation
           -69},{78,-69}}, color={255,127,0}));
   connect(reaToInt3.y, dam1.oveDamPos) annotation (Line(points={{2,-130},{60,-130},
           {60,-78},{78,-78}}, color={255,127,0}));
+  connect(booPul.y, dam1.u1Fan) annotation (Line(points={{-38,-30},{20,-30},{20,
+          -64},{78,-64}}, color={255,0,255}));
 annotation (
   experiment(StopTime=3600, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/TerminalUnits/CoolingOnly/Subsequences/Validation/Dampers.mos"
