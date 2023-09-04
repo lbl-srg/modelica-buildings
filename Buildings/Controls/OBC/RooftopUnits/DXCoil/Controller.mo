@@ -152,7 +152,7 @@ block Controller
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nCoi]
     "Convert boolean to integer"
-    annotation (Placement(transformation(extent={{-150,-30},{-130,-10}})));
+    annotation (Placement(transformation(extent={{-130,-30},{-110,-10}})));
 
   Buildings.Controls.OBC.CDL.Integers.MultiSum mulSumInt(
     final nin=nCoi)
@@ -270,7 +270,7 @@ block Controller
     annotation (Placement(transformation(extent={{180,-130},{200,-110}})));
 
   Subsequences.NextCoil nextCoil(nCoi=nCoi)
-    annotation (Placement(transformation(extent={{-188,-32},{-160,-4}})));
+    annotation (Placement(transformation(extent={{-174,-34},{-146,-6}})));
 protected
   parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.P
     "Type of DX coil controller"
@@ -292,7 +292,7 @@ equation
     annotation (Line(points={{-128,140},{-102,140}},
                                                    color={0,0,127}));
   connect(booToInt.y, mulSumInt.u)
-    annotation (Line(points={{-128,-20},{-102,-20}},
+    annotation (Line(points={{-108,-20},{-102,-20}},
                                                    color={255,127,0}));
   connect(conInt.y, addInt.u1) annotation (Line(points={{-168,100},{-110,100},{-110,
           26},{-102,26}},      color={255,127,0}));
@@ -400,14 +400,17 @@ equation
   connect(not1.y, or2.u1)
     annotation (Line(points={{-28,54},{38,54}}, color={255,0,255}));
 
-  connect(nextCoil.yDXCoiInt, booToInt.u) annotation (Line(points={{-158,-12},{
-          -154,-12},{-154,-20},{-152,-20}}, color={255,0,255}));
+  connect(nextCoil.yDXCoiInt, booToInt.u) annotation (Line(points={{-144,-14},{
+          -140,-14},{-140,-20},{-132,-20}}, color={255,0,255}));
   connect(uDXCoiAva, nextCoil.uDXCoiAva) annotation (Line(points={{-240,120},{
-          -196,120},{-196,-22},{-190,-22}}, color={255,0,255}));
+          -196,120},{-196,-24},{-176,-24}}, color={255,0,255}));
   connect(uDXCoi, nextCoil.uDXCoi) annotation (Line(points={{-240,40},{-206,40},
-          {-206,-28},{-190,-28}}, color={255,0,255}));
+          {-206,-30},{-176,-30}}, color={255,0,255}));
   connect(reaToInt1.y, nextCoil.uNexCoi) annotation (Line(points={{102,20},{110,
-          20},{110,86},{-192,86},{-192,-8},{-190,-8}}, color={255,127,0}));
+          20},{110,86},{-192,86},{-192,-10},{-176,-10}},
+                                                       color={255,127,0}));
+  connect(DXCoiSta.yUp, nextCoil.uStaUp) annotation (Line(points={{-128,66},{
+          -100,66},{-100,80},{-188,80},{-188,-16},{-176,-16}}, color={255,0,255}));
   annotation (defaultComponentName="DXCoiCon",
     Icon(coordinateSystem(preserveAspectRatio=false,
       extent={{-100,-100},{100,100}}),
