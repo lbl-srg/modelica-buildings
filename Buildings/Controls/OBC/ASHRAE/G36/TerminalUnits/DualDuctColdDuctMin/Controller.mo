@@ -119,6 +119,14 @@ block Controller "Controller for dual-duct terminal unit with cold-duct minimum 
   parameter Real damPosHys(unit="1")=0.005
     "Near zero damper position, below which the damper will be seen as closed"
     annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
+  parameter Real staTim(
+    final unit="s",
+    final quantity="Time")=1800
+    "Delay triggering alarms after enabling AHU supply fan"
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
+  parameter Real iniDam(unit="1")=0.01
+    "Initial damper position when the damper control is enabled"
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
   parameter Real timChe(unit="s")=30
     "Threshold time to check the zone temperature status"
     annotation (__cdl(ValueInReference=true), Dialog(tab="Advanced", group="Control loops"));
@@ -361,7 +369,8 @@ block Controller "Controller for dual-duct terminal unit with cold-duct minimum 
     final fanOffTim=fanOffTim,
     final leaFloTim=leaFloTim,
     final floHys=floHys,
-    final damPosHys=damPosHys) "Generate alarms"
+    final damPosHys=damPosHys,
+    final staTim=staTim)       "Generate alarms"
     annotation (Placement(transformation(extent={{140,-240},{160,-220}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctColdDuctMin.Subsequences.Overrides
     setOve(
@@ -400,7 +409,8 @@ block Controller "Controller for dual-duct terminal unit with cold-duct minimum 
     final TiDam=TiDam,
     final TdDam=TdDam,
     final dTHys=dTHys,
-    final looHys=looHys)
+    final looHys=looHys,
+    final iniDam=iniDam)
     "Dampers control when the unit has single dual airflow sensor"
     annotation (Placement(transformation(extent={{0,0},{20,40}})));
   Buildings.Controls.OBC.ASHRAE.G36.Generic.TimeSuppression timSupHea(
@@ -563,10 +573,10 @@ equation
   connect(u1CooAHU, ala.u1CooFan) annotation (Line(points={{-260,-50},{-44,-50},
           {-44,-226},{138,-226}},color={255,0,255}));
   connect(VHotDucDis_flow, ala.VHotDucDis_flow) annotation (Line(points={{-260,
-          -110},{-48,-110},{-48,-232},{138,-232}},
+          -110},{-48,-110},{-48,-234},{138,-234}},
                                            color={0,0,127}));
   connect(u1HeaAHU, ala.u1HeaFan) annotation (Line(points={{-260,-140},{-40,
-          -140},{-40,-234},{138,-234}},
+          -140},{-40,-236},{138,-236}},
                                  color={255,0,255}));
   connect(ala.yLowFloAla, yLowFloAla) annotation (Line(points={{162,-222},{200,
           -222},{200,-180},{260,-180}},
@@ -618,11 +628,13 @@ equation
   connect(setOve.yCooDam, sysReq.uCooDam) annotation (Line(points={{82,-90},{
           106,-90},{106,-138},{138,-138}}, color={0,0,127}));
   connect(setOve.yCooDam, ala.uCooDam) annotation (Line(points={{82,-90},{106,
-          -90},{106,-228},{138,-228}}, color={0,0,127}));
+          -90},{106,-232},{138,-232}}, color={0,0,127}));
   connect(setOve.yHeaDam, sysReq.uHeaDam) annotation (Line(points={{82,-96},{
           112,-96},{112,-157},{138,-157}}, color={0,0,127}));
   connect(setOve.yHeaDam, ala.uHeaDam) annotation (Line(points={{82,-96},{112,
-          -96},{112,-236},{138,-236}}, color={0,0,127}));
+          -96},{112,-238},{138,-238}}, color={0,0,127}));
+  connect(uOpeMod, ala.uOpeMod) annotation (Line(points={{-260,130},{-200,130},
+          {-200,-229},{138,-229}}, color={255,127,0}));
 annotation (defaultComponentName="duaDucCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}), graphics={
         Rectangle(

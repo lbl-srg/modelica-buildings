@@ -60,6 +60,9 @@ block DamperValves
   parameter Real floHys(unit="m3/s")=0.01
     "Hysteresis for checking airflow rate"
     annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
+  parameter Real iniDam(unit="1")=0.01
+    "Initial damper position when the damper control is enabled"
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput oveFloSet
     "Index of overriding flow setpoint, 1: set to zero; 2: set to cooling maximum; 3: set to minimum flow; 4: set to heating maximum"
@@ -105,6 +108,10 @@ block DamperValves
     final quantity="VolumeFlowRate") "Active primary minimum airflow rate"
     annotation (Placement(transformation(extent={{-360,10},{-320,50}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Fan
+    "AHU supply fan status"
+    annotation (Placement(transformation(extent={{-360,-20},{-320,20}}),
+        iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupSet(
     final unit="K",
     final displayUnit="degC",
@@ -155,7 +162,7 @@ block DamperValves
     final max=1,
     final unit="1")
     "VAV damper commanded position"
-    annotation (Placement(transformation(extent={{320,-20},{360,20}}),
+    annotation (Placement(transformation(extent={{320,-40},{360,0}}),
         iconTransformation(extent={{100,70},{140,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput THeaDisSet(
     final unit="K",
@@ -266,13 +273,11 @@ block DamperValves
     final Td=TdDam,
     final yMax=1,
     final yMin=0,
-    final y_reset=0)
+    final y_reset=iniDam)
     "Damper position controller"
     annotation (Placement(transformation(extent={{260,140},{280,160}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi3 "Air damper position"
-    annotation (Placement(transformation(extent={{280,-10},{300,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not1 "Not in unoccupied mode"
-    annotation (Placement(transformation(extent={{180,30},{200,50}})));
+    annotation (Placement(transformation(extent={{280,-30},{300,-10}})));
   Buildings.Controls.OBC.CDL.Reals.Less les(
     final h=floHys)
     "Check if the discharge airflow rate is less than minimum outdoor airflow setpoint"
@@ -436,19 +441,19 @@ equation
   connect(nomFlow.y, VDis_flowNor.u2) annotation (Line(points={{182,120},{200,120},
           {200,84},{218,84}},   color={0,0,127}));
   connect(swi3.y, yDam)
-    annotation (Line(points={{302,0},{340,0}},   color={0,0,127}));
+    annotation (Line(points={{302,-20},{340,-20}},
+                                                 color={0,0,127}));
   connect(isUno.y, swi3.u2) annotation (Line(points={{122,-190},{140,-190},{140,
-          0},{278,0}},   color={255,0,255}));
-  connect(conZer3.y, swi3.u1) annotation (Line(points={{-238,-20},{40,-20},{40,8},
-          {278,8}},  color={0,0,127}));
-  connect(conDam.y, swi3.u3) annotation (Line(points={{282,150},{300,150},{300,60},
-          {220,60},{220,-8},{278,-8}},  color={0,0,127}));
+          -20},{278,-20}},
+                         color={255,0,255}));
+  connect(conZer3.y, swi3.u1) annotation (Line(points={{-238,-20},{40,-20},{40,
+          -12},{278,-12}},
+                     color={0,0,127}));
+  connect(conDam.y, swi3.u3) annotation (Line(points={{282,150},{300,150},{300,
+          60},{220,60},{220,-28},{278,-28}},
+                                        color={0,0,127}));
   connect(VDis_flowNor.y, conDam.u_m)
     annotation (Line(points={{242,90},{270,90},{270,138}},   color={0,0,127}));
-  connect(isUno.y, not1.u) annotation (Line(points={{122,-190},{140,-190},{140,40},
-          {178,40}},  color={255,0,255}));
-  connect(not1.y, conDam.trigger) annotation (Line(points={{202,40},{264,40},{264,
-          138}},     color={255,0,255}));
   connect(VOAMin_flow, les.u2)
     annotation (Line(points={{-340,-308},{-262,-308}}, color={0,0,127}));
   connect(les.y, truDel7.u)
@@ -524,6 +529,8 @@ equation
     annotation (Line(points={{182,250},{340,250}}, color={0,0,127}));
   connect(swi4.y, VDisSet_flowNor.u1) annotation (Line(points={{182,250},{200,250},
           {200,156},{218,156}}, color={0,0,127}));
+  connect(u1Fan, conDam.trigger)
+    annotation (Line(points={{-340,0},{264,0},{264,138}}, color={255,0,255}));
 annotation (
   defaultComponentName="damValFan",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-320,-400},{320,400}}),
@@ -706,7 +713,12 @@ annotation (
           extent={{-96,196},{-64,184}},
           textColor={255,127,27},
           pattern=LinePattern.Dash,
-          textString="oveFloSet")}),
+          textString="oveFloSet"),
+        Text(
+          extent={{-100,-14},{-68,-24}},
+          textColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="u1Fan")}),
   Documentation(info="<html>
 <p>
 This sequence sets the fan status, damper and valve position for constant-volume
@@ -799,6 +811,11 @@ when <code>oveFloSet</code> equals to 3, force the zone airflow setpoint
 </ol>
 </html>", revisions="<html>
 <ul>
+<li>
+August 24, 2023, by Jianjun Hu:<br/>
+Added AHU supply fan status for damper position reset.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3257\">issue 3257</a>.
+</li>
 <li>
 January 12, 2023, by Jianjun Hu:<br/>
 Removed the parameter <code>have_preIndDam</code> to exclude the option of using pressure independant damper.<br/>

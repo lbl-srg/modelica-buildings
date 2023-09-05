@@ -89,6 +89,10 @@ block SupplyFan  "Block to control multi zone VAV AHU supply fan"
     "Lowest allowed fan speed if fan is on"
     annotation (__cdl(ValueInReference=false),
                 Dialog(group="Fan PID controller"));
+  parameter Real iniSpe(min=minSpe, max=1, unit="1") = 0.1
+    "Initial speed when fan is enabled. It has to be greater than the lowest allowed speed"
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="Fan PID controller"));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
    "System operation mode"
@@ -134,7 +138,7 @@ block SupplyFan  "Block to control multi zone VAV AHU supply fan"
     final Td=Td,
     final yMax=maxSpe,
     final yMin=minSpe,
-    final y_reset=minSpe) "Supply fan speed control"
+    final y_reset=iniSpe) "Supply fan speed control"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
 
 protected
@@ -414,6 +418,10 @@ that are occupied, etc.).
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 23, 2023, by Jianjun Hu:<br/>
+Added parameter to set the initial fan speed.
+</li>
 <li>
 August 1, 2020, by Jianjun Hu:<br/>
 First implementation.

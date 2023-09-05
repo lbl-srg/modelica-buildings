@@ -24,7 +24,7 @@ model Alarms "Validation of model that generates alarms"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse supFan(
     final width=0.75, final period=7500) "Supply fan status"
-    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
+    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     "Convert boolean input to real output"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
@@ -36,13 +36,21 @@ model Alarms "Validation of model that generates alarms"
     final period=7500)
     "Damper open and close status"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Pulse intPul(
+    amplitude=6,
+    width=0.1,
+    period=8500,
+    offset=1)
+    "Operation mode"
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 equation
   connect(disAirRate.y, ala.VDis_flow) annotation (Line(points={{-58,70},{40,70},
           {40,8},{58,8}},   color={0,0,127}));
-  connect(disAirSet.y, ala.VActSet_flow) annotation (Line(points={{-58,30},{20,30},
-          {20,4},{58,4}}, color={0,0,127}));
-  connect(supFan.y, ala.u1Fan) annotation (Line(points={{-58,-10},{20,-10},{20,
-          -4},{58,-4}}, color={255,0,255}));
+  connect(disAirSet.y, ala.VActSet_flow) annotation (Line(points={{-58,30},{30,
+          30},{30,4},{58,4}},
+                          color={0,0,127}));
+  connect(supFan.y, ala.u1Fan) annotation (Line(points={{-58,30},{10,30},{10,0},
+          {58,0}},      color={255,0,255}));
   connect(booToRea.y, mul.u1) annotation (Line(points={{-18,-50},{-10,-50},{-10,
           -54},{-2,-54}}, color={0,0,127}));
   connect(damPos.y, mul.u2) annotation (Line(points={{-58,-80},{-20,-80},{-20,-66},
@@ -51,6 +59,8 @@ equation
           40,-8},{58,-8}}, color={0,0,127}));
   connect(damSta.y, booToRea.u)
     annotation (Line(points={{-58,-50},{-42,-50}}, color={255,0,255}));
+  connect(intPul.y, ala.uOpeMod) annotation (Line(points={{-18,0},{0,0},{0,-4},{
+          58,-4}}, color={255,127,0}));
 annotation (
   experiment(StopTime=7200, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/TerminalUnits/CoolingOnly/Subsequences/Validation/Alarms.mos"
