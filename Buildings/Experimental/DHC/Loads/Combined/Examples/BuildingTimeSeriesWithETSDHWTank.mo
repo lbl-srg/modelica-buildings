@@ -51,7 +51,7 @@ model BuildingTimeSeriesWithETSDHWTank
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   parameter DHW.Data.GenericHeatPumpWaterHeater datWatHea(
     mHex_flow_nominal=datWatHea.QCon_flow_nominal/4200/datWatHea.dTCon_nominal*
-        1.2,
+        2,
     QCon_flow_max=1.2*datWatHea.QCon_flow_nominal,
     QCon_flow_nominal=bui.QHot_flow_nominal,
     TTan_nominal=(bui.ets.TColWat_nominal + datWatHea.THex_nominal)/2,
