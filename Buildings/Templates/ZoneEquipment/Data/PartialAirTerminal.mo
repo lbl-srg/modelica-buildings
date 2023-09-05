@@ -4,7 +4,7 @@ record PartialAirTerminal "Record for air terminal unit interface class"
 
   replaceable parameter
     Buildings.Templates.ZoneEquipment.Configuration.PartialAirTerminal cfg
-    "configuration parameters"
+    "Configuration parameters"
     annotation (Dialog(enable=false));
 
   parameter String id=""

@@ -1,7 +1,7 @@
 within Buildings.Templates.ZoneEquipment.Interfaces;
 model VAVBox "Interface class for VAV terminal unit"
   extends Buildings.Templates.ZoneEquipment.Interfaces.PartialAirTerminal(
-    redeclare Buildings.Templates.ZoneEquipment.Configuration.VAVBox cfg(
+    redeclare final Buildings.Templates.ZoneEquipment.Configuration.VAVBox cfg(
       typCoiHea=coiHea.typ,
       typValCoiHea=coiHea.typVal,
       typDamVAV=damVAV.typ,

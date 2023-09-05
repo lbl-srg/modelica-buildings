@@ -9,7 +9,7 @@ model VAVMultiZone "Multiple-zone VAV"
 */
   extends Buildings.Templates.AirHandlersFans.Interfaces.PartialAirHandler(
     nZon(final min=2),
-    redeclare Buildings.Templates.AirHandlersFans.Configuration.VAVMultiZone cfg(
+    redeclare final Buildings.Templates.AirHandlersFans.Configuration.VAVMultiZone cfg(
       final typCoiHeaPre=coiHeaPre.typ,
       final typCoiCoo=coiCoo.typ,
       final typCoiHeaReh=coiHeaReh.typ,

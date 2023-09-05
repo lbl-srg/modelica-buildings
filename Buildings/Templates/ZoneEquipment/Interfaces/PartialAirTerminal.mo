@@ -20,8 +20,7 @@ partial model PartialAirTerminal
     final typ=typ,
     final have_souChiWat=have_souChiWat,
     final have_souHeaWat=have_souHeaWat)
-    "Configuration parameters"
-    annotation (Dialog(group="Configuration", enable=false));
+    "Configuration parameters";
 
   final parameter String id=dat.id
    "System tag"
