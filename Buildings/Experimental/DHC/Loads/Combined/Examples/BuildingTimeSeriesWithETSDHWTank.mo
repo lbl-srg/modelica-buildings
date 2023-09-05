@@ -24,12 +24,14 @@ model BuildingTimeSeriesWithETSDHWTank
       displayUnit="degC") = 288.15)
     "District supply temperature"
     annotation (Placement(transformation(extent={{-90,4},{-70,24}})));
-  BuildingTimeSeriesWithETSWithDHWTank                                bui(
+  BuildingTimeSeriesWithETSWithDHWTank bui(
     redeclare package MediumSer = Medium,
     redeclare package MediumBui = Medium,
     bui(facMul=10),
     allowFlowReversalSer=true,
-    filNam="modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissOffice_20190916.mos",
+    filNam=
+        "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissOffice_20190916.mos",
+
     datWatHea=datWatHea)
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
   Controls.OBC.CDL.Reals.Sources.Constant TColWat(k=bui.ets.TColWat_nominal)
@@ -51,8 +53,9 @@ model BuildingTimeSeriesWithETSDHWTank
     mHex_flow_nominal=datWatHea.QCon_flow_nominal/4200/datWatHea.dTCon_nominal,
     QCon_flow_max=1.2*datWatHea.QCon_flow_nominal,
     QCon_flow_nominal=bui.QHot_flow_nominal,
-    TTan_nominal=333.15,
-    THex_nominal=datWatHea.TTan_nominal + datWatHea.dTCon_nominal)
+    TTan_nominal=bui.ets.THotWatSup_nominal,
+    THex_nominal=datWatHea.TTan_nominal + datWatHea.dTCon_nominal,
+    dTCon_nominal=5)
     "Performance data"
     annotation (Placement(transformation(extent={{44,-38},{56,-26}})));
 
