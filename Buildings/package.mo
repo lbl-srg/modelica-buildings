@@ -236,7 +236,7 @@ or with reduced order models based on ISO 13790 (<code>Buildings.ThermalZones.IS
 or based on VDI 6007 (<code>Buildings.ThermalZones.ReducedOrder</code>).
 </li>
 <li>
-Various models for district energy systems have been added in the package
+Various models for district energy systems have been added to the package
 <code>Buildings.Experimental</code>.
 This package includes models for
 <ul>
