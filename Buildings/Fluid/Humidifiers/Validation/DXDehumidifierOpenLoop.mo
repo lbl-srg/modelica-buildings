@@ -15,8 +15,8 @@ model DXDehumidifierOpenLoop "Validation model for DX dehumidifier"
     "Zone air DX dehumidifier curve"
     annotation (Placement(transformation(extent={{0,66},{20,86}})));
 
-  Buildings.Fluid.DXSystems.Heating.AirSource.Validation.BaseClasses.PLRToPulse plrToPul(
-    final tPer=3600)
+  Buildings.Fluid.DXSystems.Heating.AirSource.Validation.BaseClasses.PLRToPulse plrToPul(final
+      tPer=600)
     "Convert PLR signal to on-off signal"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
   Buildings.Fluid.Sources.MassFlowSource_T boundary(
@@ -45,7 +45,7 @@ model DXDehumidifierOpenLoop "Validation model for DX dehumidifier"
   Buildings.Fluid.Humidifiers.DXDehumidifier dxDeh(
     redeclare package Medium = Medium,
     final VWat_flow_nominal=5.805556e-7,
-    final addPowerToMedium=false,
+    final addPowerToMedium=true,
     final mAir_flow_nominal=m_flow_nominal,
     final dp_nominal=100,
     final eneFac_nominal=3.412,
@@ -174,7 +174,8 @@ model DXDehumidifierOpenLoop "Validation model for DX dehumidifier"
 
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     final tableOnFile=true,
-    final fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/Humidifiers/DXDehumidifierOpenLoop/DXDehumidifier.dat"),
+    final fileName=Modelica.Utilities.Files.loadResource(
+        "./Buildings/Resources/Data/Fluid/Humidifiers/DXDehumidifierOpenLoop/DXDehumidifier.dat"),
     final columns=2:15,
     final tableName="EnergyPlus",
     final smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,

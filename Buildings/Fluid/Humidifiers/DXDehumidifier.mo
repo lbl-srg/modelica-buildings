@@ -77,7 +77,7 @@ model DXDehumidifier "DX dehumidifier"
     "Remove humidity from inlet air only when component is enabled"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
-  Modelica.Blocks.Sources.RealExpression QHea(y=if uEna == true then PDeh.y
+  Modelica.Blocks.Sources.RealExpression QHea(y=if uEna == true then PDeh.y+ 1*(deHum.mWat_flow)*h_fg
          else 0)
     "Heat transfer into medium only when component is enabled"
     annotation (Placement(transformation(extent={{-92,40},{-72,60}})));
@@ -95,12 +95,6 @@ model DXDehumidifier "DX dehumidifier"
     "Inlet air temperature sensor"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
-  Buildings.Fluid.Sensors.RelativeHumidityTwoPort senRelHum(
-    redeclare package Medium = Medium,
-    final m_flow_nominal=mAir_flow_nominal)
-    "Inlet air relative humidity sensor"
-    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
-
   Buildings.Fluid.Humidifiers.Humidifier_u deHum(
     redeclare package Medium = Medium,
     final m_flow_nominal=mAir_flow_nominal,
@@ -108,19 +102,21 @@ model DXDehumidifier "DX dehumidifier"
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final mWat_flow_nominal=-VWat_flow_nominal*rhoWat)
     "Baseclass for conditioning fluid medium"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
     final k=0) if not addPowerToMedium
     "Zero source for heat flow rate if power is not added to fluid medium"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
 
-  Sensors.SpecificEnthalpyTwoPort senSpeEntOut(redeclare package Medium =
-        Medium, m_flow_nominal=mAir_flow_nominal)
-    annotation (Placement(transformation(extent={{34,-10},{54,10}})));
-  Sensors.SpecificEnthalpyTwoPort senSpeEntIn(redeclare package Medium = Medium,
+  Sensors.MassFractionTwoPort senMasFra(redeclare package Medium = Medium,
       m_flow_nominal=mAir_flow_nominal)
-    annotation (Placement(transformation(extent={{-102,18},{-82,38}})));
+    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
+
+  Modelica.Units.SI.MassFraction XOut;
+  Sensors.RelativeHumidityTwoPort senRelHum(redeclare package Medium = Medium,
+      m_flow_nominal=mAir_flow_nominal)
+    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 protected
   constant Modelica.Units.SI.SpecificEnthalpy h_fg= Buildings.Utilities.Psychrometrics.Constants.h_fg
        "Latent heat of water vapor";
@@ -157,24 +153,26 @@ equation
         x2=0.001,
         deltaX=0.0001);
 
+    //if uEna then
+           XOut= (port_a.m_flow*senMasFra.X + deHum.mWat_flow)/(port_a.m_flow+1e-6);
+    //else
+      //XOut = senMasFra.X;
+    //end if;
+
   connect(preHeaFlo.port, heaFloSen.port_a)
     annotation (Line(points={{0,50},{20,50}}, color={191,0,0}));
   connect(senTem.T, T)
     annotation (Line(points={{81,50},{120,50}}, color={0,0,127}));
   connect(heaFloSen.port_b, deHum.heatPort)
-    annotation (Line(points={{40,50},{50,50},{50,30},{-20,30},{-20,-6},{-10,-6}},
+    annotation (Line(points={{40,50},{50,50},{50,30},{20,30},{20,-6},{40,-6}},
        color={191,0,0}));
   connect(heaFloSen.port_b, senTem.port)
     annotation (Line(points={{40,50},{60,50}}, color={191,0,0}));
-  connect(senRelHum.port_b, deHum.port_a)
-    annotation (Line(points={{-30,0},{-10,0}}, color={0,127,255}));
-  connect(senTIn.port_b, senRelHum.port_a)
-    annotation (Line(points={{-60,0},{-50,0}}, color={0,127,255}));
   connect(PDeh.y, P)
-    annotation (Line(points={{-59,-60},{20,-60},{20,-30},{120,-30}},
+    annotation (Line(points={{-59,-60},{40,-60},{40,-30},{120,-30}},
       color={0,0,127}));
   connect(u.y, deHum.u)
-    annotation (Line(points={{-59,-40},{-16,-40},{-16,6},{-11,6}},
+    annotation (Line(points={{-59,-40},{28,-40},{28,6},{39,6}},
       color={0,0,127}));
   connect(con.y, preHeaFlo.Q_flow)
     annotation (Line(points={{-38,80},{-30,80},{-30,50},{-20,50}},
@@ -187,14 +185,16 @@ equation
     annotation (Line(points={{-71,50},{-66,50},{-66,20},{120,20}},
       color={0,0,127}));
 
-  connect(deHum.port_b, senSpeEntOut.port_a)
-    annotation (Line(points={{10,0},{34,0}}, color={0,127,255}));
-  connect(senSpeEntOut.port_b, port_b)
-    annotation (Line(points={{54,0},{100,0}}, color={0,127,255}));
-  connect(senSpeEntIn.port_b, senTIn.port_a)
-    annotation (Line(points={{-82,28},{-82,0},{-80,0}}, color={0,127,255}));
-  connect(port_a, senSpeEntIn.port_a)
-    annotation (Line(points={{-100,0},{-102,0},{-102,28}}, color={0,127,255}));
+  connect(port_a, senTIn.port_a)
+    annotation (Line(points={{-100,0},{-80,0}}, color={0,127,255}));
+  connect(senTIn.port_b, senMasFra.port_a)
+    annotation (Line(points={{-60,0},{-50,0}}, color={0,127,255}));
+  connect(deHum.port_b, port_b)
+    annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
+  connect(senMasFra.port_b, senRelHum.port_a)
+    annotation (Line(points={{-30,0},{-20,0}}, color={0,127,255}));
+  connect(senRelHum.port_b, deHum.port_a)
+    annotation (Line(points={{0,0},{40,0}}, color={0,127,255}));
 annotation (Icon(coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
           extent={{-70,60},{70,-60}},
