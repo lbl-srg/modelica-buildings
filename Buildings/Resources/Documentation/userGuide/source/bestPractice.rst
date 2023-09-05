@@ -14,7 +14,7 @@ created for a specific building and is of limited use for other applications.
 It is recommended that users store application-specific models outside of the `Buildings` library.
 This will allow users to replace the `Buildings` library with a new version without having to change the application-specific model.
 
-The declare the dependency of your library on ``Buildings`` version 7.0.0, use
+The declare the dependency of your library on ``Buildings`` version 10.0.0, use
 the declaration
 
 .. code-block:: modelica
@@ -25,7 +25,7 @@ the declaration
      annotation (
        uses(
          Buildings(
-           version="7.0.0")
+           version="10.0.0")
          )
       );
    end MyLibrary;
