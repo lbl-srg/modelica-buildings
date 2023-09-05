@@ -136,6 +136,18 @@ equation
 <p>
 This partial class provides a standard interface for VAV terminal unit templates.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+September 5, 2023, by Antoine Gautier:<br/>
+Refactored with a record class for configuration parameters.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3500\">#3500</a>.
+</li>
+<li>
+February 11, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"),
     Icon(graphics={
         Rectangle(

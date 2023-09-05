@@ -48,5 +48,12 @@ ASHRAE, 2021. Guideline 36-2021, High-Performance Sequences of Operation
 for HVAC Systems. Atlanta, GA.
 </li>
 </ul>
+</html>", revisions="<html>
+<ul>
+<li>
+February 11, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end VAVBoxReheat;
