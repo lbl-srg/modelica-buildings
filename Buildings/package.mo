@@ -12575,6 +12575,9 @@ on the Buildings library.
 </p>
 <ul>
 <li>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_10_0_1\">Version 10.0.1</a> (xxx, 2023)
+</li>
+<li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_10_0_0\">Version 10.0.0</a> (September 5, 2023)
 </li>
 <li>
