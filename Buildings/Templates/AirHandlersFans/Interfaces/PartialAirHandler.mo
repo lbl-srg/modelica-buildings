@@ -19,20 +19,24 @@ partial model PartialAirHandler "Interface class for air handler"
     "Type of system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  inner parameter Integer nZon(min=1)
-    "Number of served zones"
-    annotation (
-      Evaluate=true,
-      Dialog(group="Configuration"));
-
   replaceable parameter
-    Buildings.Templates.AirHandlersFans.Data.PartialAirHandler dat(
+    Buildings.Templates.AirHandlersFans.Configuration.PartialAirHandler cfg(
     final typ=typ,
     final typFanSup=typFanSup,
     final typFanRel=typFanRel,
     final typFanRet=typFanRet,
     final have_souChiWat=have_souChiWat,
     final have_souHeaWat=have_souHeaWat)
+    "Configuration parameters"
+    annotation (Dialog(group="Configuration", enable=false));
+
+  inner parameter Integer nZon(min=1)
+    "Number of served zones"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+
+  replaceable parameter
+    Buildings.Templates.AirHandlersFans.Data.PartialAirHandler dat(
+    cfg=cfg)
     "Design and operating parameters"
     annotation (Placement(transformation(extent={{270,250},{290,270}})));
 
@@ -43,11 +47,7 @@ partial model PartialAirHandler "Interface class for air handler"
   parameter Boolean have_porRel=
     typ==Buildings.Templates.AirHandlersFans.Types.Configuration.ExhaustOnly
     "Set to true for relief (exhaust) fluid port"
-    annotation (
-      Evaluate=true,
-      Dialog(
-        group="Configuration",
-        enable=false));
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Boolean have_souChiWat
     "Set to true if system uses CHW"
     annotation (Evaluate=true, Dialog(group="Configuration"));

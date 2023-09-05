@@ -15,33 +15,14 @@ class AllSystems "Top-level (whole building) system parameters"
   class for each MZVAV model instance.
   */
   replaceable model VAV =
-      Buildings.Templates.AirHandlersFans.Interfaces.PartialAirHandler
+    Buildings.Templates.AirHandlersFans.Interfaces.PartialAirHandler
     "Model of MZVAV";
 
   outer VAV VAV_1
     "Instance of MZVAV model";
 
   parameter Buildings.Templates.AirHandlersFans.Data.VAVMultiZone dat_VAV_1(
-    final typ=VAV_1.typ,
-    final typFanSup=VAV_1.typFanSup,
-    final typFanRet=VAV_1.typFanRet,
-    final typFanRel=VAV_1.typFanRel,
-    final have_souChiWat=VAV_1.have_souChiWat,
-    final have_souHeaWat=VAV_1.have_souHeaWat,
-    final typCoiHeaPre=VAV_1.coiHeaPre.typ,
-    final typCoiCoo=VAV_1.coiCoo.typ,
-    final typCoiHeaReh=VAV_1.coiHeaReh.typ,
-    final typValCoiHeaPre=VAV_1.coiHeaPre.typVal,
-    final typValCoiCoo=VAV_1.coiCoo.typVal,
-    final typValCoiHeaReh=VAV_1.coiHeaReh.typVal,
-    final typDamOut=VAV_1.secOutRel.typDamOut,
-    final typDamOutMin=VAV_1.secOutRel.typDamOutMin,
-    final typDamRet=VAV_1.secOutRel.typDamRet,
-    final typDamRel=VAV_1.secOutRel.typDamRel,
-    final typCtl=VAV_1.ctl.typ,
-    final typSecOut=VAV_1.ctl.typSecOut,
-    final buiPreCon=VAV_1.ctl.buiPreCon,
-    final stdVen=VAV_1.ctl.stdVen,
+    final cfg=VAV_1.cfg,
     id="VAV_1",
     damOut(dp_nominal=15),
     damOutMin(dp_nominal=15),
