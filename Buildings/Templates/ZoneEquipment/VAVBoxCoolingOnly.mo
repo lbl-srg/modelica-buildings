@@ -3,12 +3,13 @@ model VAVBoxCoolingOnly "VAV terminal unit cooling only"
   extends Buildings.Templates.ZoneEquipment.Interfaces.VAVBox(
     final typ=Buildings.Templates.ZoneEquipment.Types.Configuration.VAVBoxCoolingOnly,
     redeclare final Buildings.Templates.Components.Coils.None coiHea,
-    redeclare replaceable Buildings.Templates.ZoneEquipment.Components.Controls.G36VAVBoxCoolingOnly
-      ctl "Guideline 36 controller for VAV terminal unit cooling only");
+    redeclare replaceable
+      Buildings.Templates.ZoneEquipment.Components.Controls.G36VAVBoxCoolingOnly ctl
+      "Guideline 36 controller for VAV terminal unit cooling only");
 
-  annotation (
+annotation (
   defaultComponentName="VAVBox",
-    Documentation(info="<html>
+  Documentation(info="<html>
 <h4>Description</h4>
 <p>
 This template represents a cooling-only VAV terminal unit

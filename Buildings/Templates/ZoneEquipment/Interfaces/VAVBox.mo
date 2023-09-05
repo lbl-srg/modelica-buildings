@@ -1,12 +1,13 @@
 within Buildings.Templates.ZoneEquipment.Interfaces;
 model VAVBox "Interface class for VAV terminal unit"
   extends Buildings.Templates.ZoneEquipment.Interfaces.PartialAirTerminal(
-    redeclare Buildings.Templates.ZoneEquipment.Data.VAVBox dat(
+    redeclare Buildings.Templates.ZoneEquipment.Configuration.VAVBox cfg(
       typCoiHea=coiHea.typ,
       typValCoiHea=coiHea.typVal,
       typDamVAV=damVAV.typ,
       typCtl=ctl.typ,
       stdVen=ctl.stdVen),
+    redeclare Buildings.Templates.ZoneEquipment.Data.VAVBox dat,
     final have_souChiWat=false,
     final have_souHeaWat=coiHea.have_sou,
     final mAirPri_flow_nominal=mAir_flow_nominal,
@@ -34,7 +35,7 @@ model VAVBox "Interface class for VAV terminal unit"
         "Hot water coil with two-way valve"),
       choice(redeclare replaceable Buildings.Templates.Components.Coils.ElectricHeating coiHea
         "Modulating electric heating coil")),
-    Dialog(group="Heating coil"),
+    Dialog(group="Configuration"),
     Placement(transformation(extent={{-10,-210},{10,-190}})));
 
   inner replaceable Buildings.Templates.Components.Dampers.Modulating damVAV
@@ -45,7 +46,7 @@ model VAVBox "Interface class for VAV terminal unit"
       final show_T=show_T,
       final dat=datDamVAV)
     "VAV damper"
-    annotation (Dialog(group="VAV damper"),
+    annotation (Dialog(group="Configuration"),
       Placement(
         transformation(
         extent={{-10,-10},{10,10}},

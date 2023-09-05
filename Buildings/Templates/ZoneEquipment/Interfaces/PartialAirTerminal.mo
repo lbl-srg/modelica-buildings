@@ -15,6 +15,14 @@ partial model PartialAirTerminal
     "Type of system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
+  replaceable parameter
+    Buildings.Templates.ZoneEquipment.Configuration.PartialAirTerminal cfg(
+    final typ=typ,
+    final have_souChiWat=have_souChiWat,
+    final have_souHeaWat=have_souHeaWat)
+    "Configuration parameters"
+    annotation (Dialog(group="Configuration", enable=false));
+
   final parameter String id=dat.id
    "System tag"
     annotation (Dialog(group="Configuration"));
@@ -26,10 +34,7 @@ partial model PartialAirTerminal
     "Set to true if system uses HHW"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  replaceable parameter Buildings.Templates.ZoneEquipment.Data.PartialAirTerminal dat(
-    final typ=typ,
-    final have_souChiWat=have_souChiWat,
-    final have_souHeaWat=have_souHeaWat)
+  replaceable parameter Buildings.Templates.ZoneEquipment.Data.PartialAirTerminal dat
     "Design and operating parameters"
     annotation (Placement(transformation(extent={{270,250},{290,270}})));
 
