@@ -13,14 +13,11 @@ model DomesticWaterFixture
   parameter Real uLow = 0.1 "low hysteresis threshold";
   parameter Real uHigh = 0.9 "high hysteresis threshold";
 
-  DomesticWaterMixer tmv(
+  ThermostaticMixingValve tmv(
     redeclare package Medium = Medium,
-    TSet=TSetTw,
     mDhw_flow_nominal=mDhw_flow_nominal,
     dpValve_nominal=dpValve_nominal,
     k=kCon,
-    uLow=uLow,
-    uHigh=uHigh,
     Ti=Ti) "Ideal thermostatic mixing valve"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Modelica.Blocks.Interfaces.RealOutput TTw "Temperature of the outlet tempered water"
@@ -55,6 +52,8 @@ model DomesticWaterFixture
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic) "Domestic hot water fraction schedule"
     annotation (Placement(transformation(extent={{100,20},{80,40}})));
+  Modelica.Blocks.Sources.Constant const(k=TSetTw)
+    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
 equation
   connect(tmv.TTw, TTw) annotation (Line(points={{-19,6},{14,6},{14,60},{110,60}},
         color={0,0,127}));
@@ -69,6 +68,8 @@ equation
           {-46,6},{-40,6}}, color={0,127,255}));
   connect(schDhw.y[1], loaDHW.schDhw)
     annotation (Line(points={{79,30},{60,30},{60,3},{41,3}}, color={0,0,127}));
+  connect(const.y, tmv.TSet)
+    annotation (Line(points={{-59,10},{-59,8},{-42,8}}, color={0,0,127}));
 annotation (preferredView="info",Documentation(info="<html>
 <p>
 This is an example of a domestic water fixture.

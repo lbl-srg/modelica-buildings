@@ -33,12 +33,6 @@ model HeatPumpDHWTank
     annotation (
       Placement(transformation(extent={{-240,100},{-200,140}}),
         iconTransformation(extent={{-140,70},{-100,110}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupSet(
-    final unit="K",
-    displayUnit="degC")
-    "Supply temperature set point"
-    annotation (Placement(transformation(extent={{-240,-40},{-200,0}}),
-      iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput m2_flow(
     final unit="kg/s") if have_varFloEva
     "Evaporator mass flow rate"
@@ -95,9 +89,8 @@ model HeatPumpDHWTank
     annotation (Placement(transformation(extent={{70,-70},{50,-50}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     annotation (Placement(transformation(extent={{-180,110},{-160,130}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant floEvaNom(final k=
-        mDH_flow_nominal)    if not have_varFloEva
-    "Nominal flow rate"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant floEvaNom(final k=heaPumTan.mDH_flow_nominal)
+    if not have_varFloEva "Nominal flow rate"
     annotation (Placement(transformation(extent={{0,80},{-20,100}})));
   Fluid.Sensors.TemperatureTwoPort senTHotSup(
     redeclare final package Medium = Medium1,
@@ -140,13 +133,17 @@ model HeatPumpDHWTank
     annotation (Placement(transformation(extent={{4,-36},{16,-24}})));
   Modelica.Blocks.Math.Add add
     annotation (Placement(transformation(extent={{140,-18},{160,2}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetHw(k=datWatHea.THex_nominal) "Set point of water leaving heat pump"
+    annotation (Placement(transformation(extent={{-200,0},{-180,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QCon_flow(final unit="kg/s")
+    "Actual heat pump heating heat flow rate added to fluid" annotation (
+      Placement(transformation(extent={{200,-120},{240,-80}}),
+        iconTransformation(extent={{100,-120},{140,-80}})));
 equation
   connect(senTColSou.T,enaHeaPum. u3) annotation (Line(points={{-51,-20},{-150,-20},
           {-150,12},{-142,12}},            color={0,0,127}));
   connect(uEna, booToRea.u)
     annotation (Line(points={{-220,120},{-182,120}}, color={255,0,255}));
-  connect(TSupSet, enaHeaPum.u1) annotation (Line(points={{-220,-20},{-180,-20},
-          {-180,28},{-142,28}},   color={0,0,127}));
   connect(senTHotSup.port_b, port_b1)
     annotation (Line(points={{40,30},{40,60},{-200,60}}, color={0,127,255}));
   connect(pumEva.m_flow_actual, mEva_flow) annotation (Line(points={{49,-55},{
@@ -185,6 +182,10 @@ equation
           {49,-20},{49,-51}}, color={0,0,127}));
   connect(heaPumTan.PPum, add.u1) annotation (Line(points={{21,-12},{120,-12},{120,
           -2},{138,-2}}, color={0,0,127}));
+  connect(heaPumTan.QCon_flow, QCon_flow) annotation (Line(points={{21,-8},{82,-8},
+          {82,-100},{220,-100}}, color={0,0,127}));
+  connect(TSetHw.y, enaHeaPum.u1) annotation (Line(points={{-178,10},{-166,10},{
+          -166,28},{-142,28}}, color={0,0,127}));
   annotation (
   defaultComponentName="heaPum",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={

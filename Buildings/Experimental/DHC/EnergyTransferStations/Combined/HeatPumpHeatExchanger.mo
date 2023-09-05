@@ -59,7 +59,7 @@ equation
   connect(proHotWat.mEva_flow, masFloHea.u2) annotation (Line(points={{12,31},{18,
           31},{18,-240},{-6,-240},{-6,-252}}, color={0,0,127}));
   connect(proHotWat.PHea, PHeaTot.u[2]) annotation (Line(points={{12,37},{240,
-          37},{240,80},{256,80},{256,80},{268,80}},
+          37},{240,80},{256,80},{256,80.5},{268,80.5}},
                               color={0,0,127}));
   connect(TColWat, souColWat.T_in) annotation (Line(points={{-320,-80},{-60,-80},
           {-60,-36},{-50,-36}}, color={0,0,127}));
@@ -69,4 +69,6 @@ equation
           {14,28},{14,20},{-260,20},{-260,-360}}, color={0,127,255}));
   connect(proHotWat.port_b2, volMix_b.ports[4])
     annotation (Line(points={{10,40},{260,40},{260,-360}}, color={0,127,255}));
+  connect(heaFloEvaSHW.u1, div1.u1) annotation (Line(points={{-102,106},{-290,
+          106},{-290,-34},{-102,-34}}, color={0,0,127}));
 end HeatPumpHeatExchanger;

@@ -31,9 +31,9 @@ model BuildingTimeSeriesWithETSDHWTank
     allowFlowReversalSer=true,
     filNam=
         "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissOffice_20190916.mos",
-
     datWatHea=datWatHea)
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
+
   Controls.OBC.CDL.Reals.Sources.Constant TColWat(k=bui.ets.TColWat_nominal)
     "Cold water temperature"
     annotation (Placement(transformation(extent={{60,80},{80,100}})));
@@ -50,12 +50,13 @@ model BuildingTimeSeriesWithETSDHWTank
     "Heating water supply temperature set point - Minimum value"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   parameter DHW.Data.GenericHeatPumpWaterHeater datWatHea(
-    mHex_flow_nominal=datWatHea.QCon_flow_nominal/4200/datWatHea.dTCon_nominal,
+    mHex_flow_nominal=datWatHea.QCon_flow_nominal/4200/datWatHea.dTCon_nominal*
+        1.2,
     QCon_flow_max=1.2*datWatHea.QCon_flow_nominal,
     QCon_flow_nominal=bui.QHot_flow_nominal,
-    TTan_nominal=bui.ets.THotWatSup_nominal,
-    THex_nominal=datWatHea.TTan_nominal + datWatHea.dTCon_nominal,
-    dTCon_nominal=5)
+    TTan_nominal=(bui.ets.TColWat_nominal + datWatHea.THex_nominal)/2,
+    THex_nominal=333.15,
+    dTCon_nominal=datWatHea.THex_nominal - bui.ets.TColWat_nominal)
     "Performance data"
     annotation (Placement(transformation(extent={{44,-38},{56,-26}})));
 
@@ -89,7 +90,7 @@ equation
       file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/Combined/Examples/BuildingTimeSeriesWithETSWithDHWTank.mos" "Simulate and plot"),
     experiment(
       StopTime=864000,
-      Interval=600,
+      Interval=30,
       Tolerance=1e-06,
       __Dymola_Algorithm="Dassl"),
     Documentation(info="<html>

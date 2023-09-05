@@ -24,12 +24,10 @@ model DomesticWaterHeaterAndFixture
     mHw_flow_nominal=mHw_flow_nominal,
     mDH_flow_nominal=mDH_flow_nominal)       "Generation of DHW"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  DomesticWaterMixer tmv(
+  ThermostaticMixingValve tmv(
     redeclare package Medium = Medium,
-    TSet(displayUnit="degC") = TSetTw,
     mDhw_flow_nominal=mDhw_flow_nominal,
-    dpValve_nominal=dpValve_nominal)
-           "Ideal thermostatic mixing valve"
+    dpValve_nominal=dpValve_nominal) "Ideal thermostatic mixing valve"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Modelica.Blocks.Interfaces.RealOutput TTw(final unit="K",displayUnit = "degC") "Temperature of the outlet tempered water"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
@@ -70,6 +68,9 @@ model DomesticWaterHeaterAndFixture
   Modelica.Blocks.Interfaces.RealOutput PEle
     "Electric power required for generation equipment"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
+  Modelica.Blocks.Sources.Constant conTSetTw(k=TSetTw)
+    "Temperature setpoint for tempered water supply"
+    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
 equation
   connect(tmv.TTw, TTw)
     annotation (Line(points={{21,6},{30,6},{30,60},{110,60}},color={0,0,127}));
@@ -94,6 +95,8 @@ equation
     annotation (Line(points={{-40,-6},{-70,-6},{-70,-40}}, color={0,127,255}));
   connect(genDHW.PHea, PEle) annotation (Line(points={{-19,0},{-10,0},{-10,80},{
           110,80}}, color={0,0,127}));
+  connect(conTSetTw.y, tmv.TSet)
+    annotation (Line(points={{-79,30},{-2,30},{-2,8}}, color={0,0,127}));
   annotation (preferredView="info",Documentation(info="<html>
 <p>
 This is an example of a domestic water heater and fixture.
