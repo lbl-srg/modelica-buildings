@@ -25,7 +25,7 @@ Models, blocks and functions that are contributed need to adhere to the followin
  * They need to follow the coding conventions described in
 
    - the `Buildings library user guide <https://simulationresearch.lbl.gov/modelica/releases/v9.1.1/help/Buildings_UsersGuide.html#Buildings.UsersGuide.Conventions>`_ and
-   - the `Style Guide` provided in subsections of :numref:`sec_sty_gui`
+   - the `Style Guide` provided in :numref:`sec_sty_gui`
 
  * They need to be made available under the `Modelica Buildings Library license <https://simulationresearch.lbl.gov/modelica/releases/v9.1.1/help/Buildings_UsersGuide.html#Buildings.UsersGuide.License>`_.
  * For models of thermofluid flow components, they need to be based on the base classes in
