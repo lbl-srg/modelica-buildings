@@ -537,7 +537,7 @@ The following rules need to be followed, in addition to the guidelines described
        but prioritize groupings based on model specific similarities.
 
 #. Each block must have a ``defaultComponentName`` annotation and a ``%name`` label placed above the icon.
-   See for example the `CDL.Logical.Sources.Constant <https://github.com/lbl-srg/modelica-buildings/blob/f2bb4670f66b6385b3081fc1fcd70e6c6a131323/Buildings/Controls/OBC/CDL/Logical/Sources/Constant.mo#L13>`_
+   See for example line 13 in the `CDL.Logical.Sources.Constant <https://github.com/lbl-srg/modelica-buildings/blob/f2bb4670f66b6385b3081fc1fcd70e6c6a131323/Buildings/Controls/OBC/CDL/Logical/Sources/Constant.mo>`_
    block.
 
 #. To aid readability, the formatting of the Modelica source code file must be consistent with other
