@@ -209,7 +209,7 @@ Each class (i.e., model, block and function) must be used in an example or valid
 <div class=\"release-summary\">
 <p>
 Version 9.1.1 is backward compatible with 9.1.0, except that the Spawn binaries need to be updated as described
-  in <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.UsersGuide.Installation\">Buildings.ThermalZones.EnergyPlus_9_6_0.UsersGuide.Installation</a>.
+  in <code>Buildings.ThermalZones.EnergyPlus_9_6_0.UsersGuide.Installation</code>.
   </p>
   <p>
   The library has been tested with Dymola 2023x, OpenModelica 1.22.0-dev (41-g8a5b18f-1), OPTIMICA 1.43.4 and recent versions of Impact.
