@@ -212,7 +212,7 @@ Each class (i.e., model, block and function) must be used in an example or valid
 Version 10.0.0 is a major release that adds various new packages and models.
 </p>
 <p>
-The library has been tested
+The library has been tested with
 Dymola 2023x,
 OpenModelica 1.22.0-dev (41-g8a5b18f-1),
 OPTIMICA 1.43.4 and recent versions of Impact.
