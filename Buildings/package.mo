@@ -212,7 +212,7 @@ Each class (i.e., model, block and function) must be used in an example or valid
 Version 10.0.0 is a major release that adds various new packages and models.
 </p>
 <p>
-The library has been tested
+The library has been tested with
 Dymola 2023x,
 OpenModelica 1.22.0-dev (41-g8a5b18f-1),
 OPTIMICA 1.43.4 and recent versions of Impact.
@@ -236,7 +236,7 @@ or with reduced order models based on ISO 13790 (<code>Buildings.ThermalZones.IS
 or based on VDI 6007 (<code>Buildings.ThermalZones.ReducedOrder</code>).
 </li>
 <li>
-Various models for district energy systems have been added in the package
+Various models for district energy systems have been added to the package
 <code>Buildings.Experimental</code>.
 This package includes models for
 <ul>
@@ -525,7 +525,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3470\">issue 3470</a>.
     </td>
-</tr>    
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed.Validation.BESTEST</b>
     </td>
 </tr>
@@ -537,7 +537,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3396\">issue 3396</a>.
     </td>
-</tr>    
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.Utilities</b>
     </td>
 </tr>
@@ -651,7 +651,7 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Connection2Pipe
     </td>
-    <td valign=\"top\">Removed renamed model redeclare to solve error and allow separate pipe 
+    <td valign=\"top\">Removed renamed model redeclare to solve error and allow separate pipe
                        declarations on sup/ret of DHC networks.<br/>
                         This is for
                         <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2905\">#2905</a>.
@@ -663,7 +663,7 @@ have been <b style=\"color:blue\">improved</b> in a
                         This is for
                         <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2905\">#2905</a>.
     </td>
-</tr>    
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Actuators</b>
     </td>
   </tr>
@@ -824,16 +824,16 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td valign=\"top\">Buildings.Media.Steam
     </td>
-    <td valign=\"top\">Changed the variable type definition of <code>pHat</code> and <code>THat</code> 
-                       from absolute to <code>Modelica.Units.SI.PressureDifference</code> and 
-                       <code>Modelica.Units.SI.TemperatureDifference</code> to prevent min/max 
+    <td valign=\"top\">Changed the variable type definition of <code>pHat</code> and <code>THat</code>
+                       from absolute to <code>Modelica.Units.SI.PressureDifference</code> and
+                       <code>Modelica.Units.SI.TemperatureDifference</code> to prevent min/max
                        assertion erros during initilization.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2905\">#2905</a>.<br/>
                        In function <code>rho_pT</code>, created and used new function extending
                        <code>Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.g2</code> with an
-                       annotation <code>smoothOrder=2</code>.  This is to specifcally pass on the 
-                       <code>smoothOrder=2</code> annotion placed on <code>rho_pT</code> to 
+                       annotation <code>smoothOrder=2</code>.  This is to specifcally pass on the
+                       <code>smoothOrder=2</code> annotion placed on <code>rho_pT</code> to
                        the <code>g2</code> function.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2905\">#2905</a>.
@@ -1430,7 +1430,7 @@ units are wrong or errors in documentation):
 <div class=\"release-summary\">
 <p>
 Version 9.1.1 is backward compatible with 9.1.0, except that the Spawn binaries need to be updated as described
-  in <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.UsersGuide.Installation\">Buildings.ThermalZones.EnergyPlus_9_6_0.UsersGuide.Installation</a>.
+  in <code>Buildings.ThermalZones.EnergyPlus_9_6_0.UsersGuide.Installation</code>.
   </p>
   <p>
   The library has been tested with
