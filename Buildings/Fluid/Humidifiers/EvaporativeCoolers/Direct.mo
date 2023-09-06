@@ -1,4 +1,4 @@
-within Buildings.Fluid.Humidifiers.EvaporativeCoolers;
+﻿within Buildings.Fluid.Humidifiers.EvaporativeCoolers;
 model Direct "Direct Evaporative cooler"
 
   extends Buildings.Fluid.Interfaces.PartialTwoPort;
@@ -67,8 +67,7 @@ equation
           {-50,11},{-44,11},{-44,68.2},{-11.8,68.2}}, color={0,0,127}));
   connect(senTem.T, directEvapCooler.TDryBulSupIn) annotation (Line(points={{-80,
           11},{-64,11},{-64,63.2},{-12,63.2}}, color={0,0,127}));
-  connect(senTem.port_b, senTemWetBul.port_a)
-    annotation (Line(points={{-70,0},{-60,0}}, color={0,127,255}));
+  connect(senTem.port_b, senTemWetBul.port_a)    annotation (Line(points={{-70,0},{-60,0}}, color={0,127,255}));
   connect(senTemWetBul.port_b, senVolflo.port_a)
     annotation (Line(points={{-40,0},{-30,0}}));
   connect(res.port_b, vol.ports[1]) annotation (
@@ -94,5 +93,11 @@ equation
             fillPattern =                                                                                                                                                                                                        FillPattern.Solid, points = {{42, 42}, {54, 34}, {54, 34}, {42, 28}, {42, 30}, {50, 34}, {50, 34}, {42, 40}, {42, 42}}), Rectangle(lineColor = {255, 255, 255}, fillColor = {255, 255, 255},
             fillPattern =                                                                                                                                                                                                        FillPattern.Solid, extent = {{58, -54}, {54, 52}}), Polygon(lineColor = {255, 255, 255}, fillColor = {255, 255, 255},
             fillPattern =                                                                                                                                                                                                        FillPattern.Solid, points = {{42, 10}, {54, 2}, {54, 2}, {42, -4}, {42, -2}, {50, 2}, {50, 2}, {42, 8}, {42, 10}}), Polygon(lineColor = {255, 255, 255}, fillColor = {255, 255, 255},
-            fillPattern =                                                                                                                                                                                                        FillPattern.Solid, points = {{42, -26}, {54, -34}, {54, -34}, {42, -40}, {42, -38}, {50, -34}, {50, -34}, {42, -28}, {42, -26}})}, coordinateSystem(extent = {{-100, -100}, {100, 100}})));
+            fillPattern =                                                                                                                                                                                                        FillPattern.Solid, points = {{42, -26}, {54, -34}, {54, -34}, {42, -40}, {42, -38}, {50, -34}, {50, -34}, {42, -28}, {42, -26}})}, coordinateSystem(extent = {{-100, -100}, {100, 100}})),
+      Documentation(info="<html>
+<p>Model for a direct evaporative cooler.</p>
+<p>This model adds moisture into the air stream. The amount of exchanged moisture is equal to </p>
+<p align=\"center\"><i>ṁ<sub>wat</sub> = (Xi<sub>Out</sub> - Xi<sub>In</sub>) * V<sub>_flow </sub>* density </i></p>
+<p>where <i>Xi<sub>Out</i></sub> is the water mass fraction at the inlet, <i>Xi<sub>Out </i></sub>is the water mass fraction at the outlet, <i>V<sub>_flow</i></sub> is the air volume flow rate, <i>density</i> is the air density. </p>
+</html>"));
 end Direct;

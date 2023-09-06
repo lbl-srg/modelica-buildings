@@ -1,6 +1,6 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses;
 block Xi_TDryBulTWetBul
-  "Compute the water vapor mass fraction based on dry bulb/wet bulb temperature and pressure"
+  "Compute the water vapor mass fraction"
   extends Modelica.Blocks.Icons.Block;
 
   replaceable package Medium =

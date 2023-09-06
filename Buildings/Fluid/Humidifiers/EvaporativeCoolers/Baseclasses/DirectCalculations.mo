@@ -1,6 +1,6 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses;
 block DirectCalculations
-  "Calculates water mass flow rate"
+  "Calculates the water mass flow rate of a direct evaporative coolder"
 
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium";
@@ -158,4 +158,7 @@ equation
           {-64,20},{-21,20}}, color={0,0,127}));
   connect(p, XiOut.p) annotation (Line(points={{-120,-48},{-42,-48},{-42,12},{-21,
           12}}, color={0,0,127}));
+  annotation (Documentation(info="<html>
+<p>Block that calculates the water mass flow rate of the humidifier based on the performance curve.</p>
+</html>"));
 end DirectCalculations;

@@ -1,5 +1,7 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers.Validation;
-model Direct
+model Direct "Validation model for a direct evaporative cooler"
+  extends Modelica.Icons.Example;
+
   replaceable package MediumA = Buildings.Media.Air;
   parameter Real mflownom(final unit = "1") = 2;
   Buildings.Fluid.Sources.Boundary_pT sink(redeclare final package Medium = MediumA, T = 340, nPorts = 1, use_T_in = false) annotation (
@@ -116,5 +118,9 @@ equation
     experiment(
       StopTime=604800,
       Interval=60,
-      __Dymola_Algorithm="Dassl"));
+      __Dymola_Algorithm="Dassl"),
+    Documentation(info="<html>
+<p>Model that demonstrates the use of the <a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct\">
+Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct</a> evaporative cooler model. </p>
+</html>"));
 end Direct;

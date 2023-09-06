@@ -1,5 +1,6 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.Validation;
-model DirectCalculations
+model DirectCalculations "Validation of the DirectCalculations block"
+  extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.Constant Tsupwb(k = 286) annotation (
     Placement(visible = true, transformation(origin = {-80, 118}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant Tsupdb(k = 305) annotation (
@@ -89,4 +90,8 @@ equation
           -86},{-42,-86},{-42,-35.8},{-34,-35.8}}, color={0,0,127}));
   connect(pressure_variable.y, directEvapCooler3.p) annotation (Line(points={{
           -73,-120},{-40,-120},{-40,-40.6},{-34,-40.6}}, color={0,0,127}));
+  annotation (Documentation(info="<html>
+<p>This model implements a validation of the block <a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.DirectCalculations\">
+Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.DirectCalculations</a> that applies the peformance curve to calucalte the water mass flow rate. </p>
+</html>"));
 end DirectCalculations;
