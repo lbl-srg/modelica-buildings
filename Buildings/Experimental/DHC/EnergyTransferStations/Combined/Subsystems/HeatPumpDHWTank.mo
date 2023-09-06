@@ -133,7 +133,8 @@ model HeatPumpDHWTank
     annotation (Placement(transformation(extent={{4,-36},{16,-24}})));
   Modelica.Blocks.Math.Add add
     annotation (Placement(transformation(extent={{140,-18},{160,2}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetHw(k=datWatHea.THex_nominal) "Set point of water leaving heat pump"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetHw(k=datWatHea.THex_nominal)
+    "Set point of water leaving heat pump and in tank"
     annotation (Placement(transformation(extent={{-200,0},{-180,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput QCon_flow(final unit="kg/s")
     "Actual heat pump heating heat flow rate added to fluid" annotation (

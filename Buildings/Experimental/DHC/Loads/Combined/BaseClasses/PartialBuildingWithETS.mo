@@ -13,6 +13,8 @@ model PartialBuildingWithETS
       final TDisWatMax=datDes.TLooMax,
       final TChiWatSup_nominal=TChiWatSup_nominal,
       final THeaWatSup_nominal=THeaWatSup_nominal,
+      final THotWatSup_nominal=THotWatSup_nominal,
+      final TColWat_nominal=TColWat_nominal,
       final dp_nominal=dp_nominal,
       final COPHeaWat_nominal=COPHeaWat_nominal,
       final COPHotWat_nominal=COPHotWat_nominal));
@@ -27,6 +29,12 @@ model PartialBuildingWithETS
   parameter Modelica.Units.SI.Temperature THeaWatSup_nominal=38 + 273.15
     "Heating water supply temperature"
     annotation (Dialog(group="ETS model parameters"));
+  parameter Modelica.Units.SI.Temperature THotWatSup_nominal=63 + 273.15
+    "Hot water supply temperature to fixtures"
+    annotation (Dialog(group="ETS model parameters", enable=have_hotWat));
+  parameter Modelica.Units.SI.Temperature TColWat_nominal=288.15
+    "Cold water temperature (for hot water production)"
+    annotation (Dialog(group="ETS model parameters", enable=have_hotWat));
   parameter Modelica.Units.SI.Pressure dp_nominal=50000
     "Pressure difference at nominal flow rate (for each flow leg)"
     annotation (Dialog(group="ETS model parameters"));

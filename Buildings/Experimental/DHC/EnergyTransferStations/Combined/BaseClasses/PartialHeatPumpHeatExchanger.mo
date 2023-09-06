@@ -47,7 +47,7 @@ model PartialHeatPumpHeatExchanger
   final parameter Modelica.Units.SI.Temperature THeaWatRet_nominal=
       THeaWatSup_nominal - dT_nominal "Heating water return temperature"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Temperature THotWatSup_nominal=49+273.15
+  parameter Modelica.Units.SI.Temperature THotWatSup_nominal=336.15
     "Hot water supply temperature to fixture"
     annotation (Dialog(group="Nominal condition", enable=have_hotWat));
   parameter Modelica.Units.SI.Temperature TColWat_nominal=288.15

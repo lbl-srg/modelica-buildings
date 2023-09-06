@@ -29,6 +29,7 @@ model BuildingTimeSeriesWithETSDHWTank
     redeclare package MediumBui = Medium,
     bui(facMul=10),
     allowFlowReversalSer=true,
+    THotWatSup_nominal=322.15,
     filNam=
         "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissOffice_20190916.mos",
     datWatHea=datWatHea)
@@ -90,7 +91,6 @@ equation
       file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/Combined/Examples/BuildingTimeSeriesWithETSWithDHWTank.mos" "Simulate and plot"),
     experiment(
       StopTime=864000,
-      Interval=30,
       Tolerance=1e-06,
       __Dymola_Algorithm="Dassl"),
     Documentation(info="<html>
