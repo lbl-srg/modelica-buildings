@@ -7,7 +7,7 @@ model CHPWithORC "A CHP system with an ORC as its bottoming cycle"
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=0.4
     "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
 
-  Buildings.Fluid.CHPs.Rankine.OrganicBottomingCycle ORC(
+  Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.BottomingCycleHeatPort ORC(
     preventHeatBackflow=false,
     final pro=pro,
     TEva(displayUnit="K") = 320,
@@ -53,7 +53,7 @@ model CHPWithORC "A CHP system with an ORC as its bottoming cycle"
     p(displayUnit="Pa"),
     nPorts=1) "Cooling water sink"
     annotation (Placement(transformation(extent={{100,0},{80,20}})));
-  parameter Buildings.Fluid.CHPs.Rankine.Data.WorkingFluids.Pentane pro
+  parameter Buildings.Fluid.CHPs.OrganicRankine.Data.WorkingFluids.Pentane pro
     "Property record of the working fluid"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
   Buildings.Fluid.HeatExchangers.EvaporatorCondenser eva(

@@ -1,0 +1,12 @@
+simulateModel("Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.Validation.DryFluid",
+    method="dassl", stopTime=1, tolerance=1e-06, resultFile="DryFluid");
+// Plot commands
+createPlot(id=1,
+ position={95, 95, 592, 371},
+ y={"equ.etaThe"},
+ range={0.0, 1.0, 0.13, 0.165},
+ grid=true,
+ colors={{28,108,200}},
+ timeUnit="s",
+ displayUnits={"1"});
+
