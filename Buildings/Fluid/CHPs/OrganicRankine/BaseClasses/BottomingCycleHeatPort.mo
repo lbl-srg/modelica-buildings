@@ -1,6 +1,6 @@
 within Buildings.Fluid.CHPs.OrganicRankine.BaseClasses;
 model BottomingCycleHeatPort
-  "Model for the Rankine cycle as a bottoming cycle using a heat port"
+  "Model for the organic Rankine cycle as a bottoming cycle using a heat port"
 
   parameter Boolean preventHeatBackflow = false
     "Set true to stop heat back flow when upstream medium colder than working fluid";
