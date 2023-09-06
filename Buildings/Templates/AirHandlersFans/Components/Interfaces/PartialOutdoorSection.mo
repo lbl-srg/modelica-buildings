@@ -71,9 +71,6 @@ partial model PartialOutdoorSection "Interface class for outdoor air section"
       transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={0,140}), iconTransformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={0,140})));
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-180,-140},

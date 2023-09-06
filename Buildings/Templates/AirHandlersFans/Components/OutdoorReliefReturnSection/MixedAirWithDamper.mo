@@ -14,25 +14,11 @@ model MixedAirWithDamper "Mixed air system with return air damper"
     final have_eco=true,
     final have_recHea=recHea.typ<>Buildings.Templates.AirHandlersFans.Types.HeatRecovery.None);
 
-  replaceable
-    Buildings.Templates.AirHandlersFans.Components.OutdoorSection.SingleDamper
-    secOut constrainedby
-    Buildings.Templates.AirHandlersFans.Components.Interfaces.PartialOutdoorSection(
-      redeclare final package MediumAir = MediumAir,
-      final energyDynamics=energyDynamics,
-      final allowFlowReversal=allowFlowReversal,
-      final dat=dat)
+  // No replaceable keyword, nor any Dialog() annotation to avoid any entry in the parameter dialog.
+  // Parameter propagation is done via the replaceable class OutdoorSection_MAWD.
+  OutdoorSection_MAWD secOut
     "Outdoor air section"
-    annotation (
-    choices(
-      choice(redeclare replaceable Buildings.Templates.AirHandlersFans.Components.OutdoorSection.SingleDamper secOut
-        "Single damper for ventilation and economizer, with airflow measurement station"),
-      choice(redeclare replaceable Buildings.Templates.AirHandlersFans.Components.OutdoorSection.DedicatedDampersAirflow secOut
-        "Separate dampers for ventilation and economizer, with airflow measurement station"),
-      choice(redeclare replaceable Buildings.Templates.AirHandlersFans.Components.OutdoorSection.DedicatedDampersPressure secOut
-        "Separate dampers for ventilation and economizer, with differential pressure sensor")),
-    Dialog(group="Configuration"),
-    Placement(transformation(extent={{-58,-94},{-22,-66}})));
+    annotation (Placement(transformation(extent={{-60,-100},{-20,-60}})));
 
   replaceable
     Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.ReturnFan
@@ -95,9 +81,9 @@ equation
   connect(secRel.port_bRet, damRet.port_a)
     annotation (Line(points={{0,66},{0,10}}, color={0,127,255}));
   connect(port_Out, secOut.port_a)
-    annotation (Line(points={{-180,-80},{-58,-80}}, color={0,127,255}));
+    annotation (Line(points={{-180,-80},{-60,-80}}, color={0,127,255}));
   connect(secOut.port_b, port_Sup)
-    annotation (Line(points={{-22,-80},{180,-80}}, color={0,127,255}));
+    annotation (Line(points={{-20,-80},{180,-80}}, color={0,127,255}));
   connect(damRet.port_b, port_Sup)
     annotation (Line(points={{0,-10},{0,-80},{180,-80}}, color={0,127,255}));
   connect(secRel.port_bPre, port_bPre) annotation (Line(points={{8,66},{8,60},{80,
@@ -107,9 +93,10 @@ equation
   connect(secRel.port_aHeaRec, recHea.port_bRel) annotation (Line(points={{-8,66},
           {-8,60},{-100,60},{-100,6},{-90,6}}, color={0,127,255}));
   connect(recHea.port_aOut, secOut.port_bHeaRec) annotation (Line(points={{-90,-6},
-          {-100,-6},{-100,-60},{-48,-60},{-48,-66}}, color={0,127,255}));
+          {-100,-6},{-100,-60},{-48.8889,-60}},      color={0,127,255}));
   connect(recHea.port_bOut, secOut.port_aHeaRec) annotation (Line(points={{-70,-6},
-          {-60,-6},{-60,-56},{-44,-56},{-44,-66}}, color={0,127,255}));
+          {-60,-6},{-60,-56},{-44.4444,-56},{-44.4444,-60}},
+                                                   color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>
 This model represents a configuration with an air economizer.

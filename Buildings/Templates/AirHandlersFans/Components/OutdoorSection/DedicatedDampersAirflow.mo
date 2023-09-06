@@ -82,7 +82,7 @@ minimum OA control with a separate minimum OA damper and airflow measurement.
 </p>
 </html>"), Icon(graphics={
               Line(
-          points={{0,140},{0,0}},
+          points={{0,60},{0,0}},
           color={28,108,200},
           thickness=1),
               Line(

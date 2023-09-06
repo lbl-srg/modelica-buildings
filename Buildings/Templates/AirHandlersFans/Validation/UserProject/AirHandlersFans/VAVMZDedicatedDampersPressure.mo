@@ -1,12 +1,10 @@
 within Buildings.Templates.AirHandlersFans.Validation.UserProject.AirHandlersFans;
 model VAVMZDedicatedDampersPressure "Configuration of multiple-zone VAV"
   extends Buildings.Templates.AirHandlersFans.VAVMultiZone(
+    secOutRel(redeclare model OutdoorSection_MAWD =
+          Buildings.Templates.AirHandlersFans.Components.OutdoorSection.DedicatedDampersPressure),
     redeclare replaceable Buildings.Templates.AirHandlersFans.Components.Controls.OpenLoop ctl
       "Open loop controller",
-    secOutRel(redeclare replaceable
-        Buildings.Templates.AirHandlersFans.Components.OutdoorSection.DedicatedDampersPressure
-        secOut
-        "Dedicated minimum OA damper (two-position) with differential pressure sensor"),
     nZon=2);
 
   annotation (

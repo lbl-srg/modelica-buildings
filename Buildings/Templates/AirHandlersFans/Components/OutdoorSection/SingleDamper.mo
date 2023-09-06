@@ -62,10 +62,6 @@ equation
     annotation (Line(points={{-180,0},{-10,0}}, color={0,127,255}));
   annotation (Icon(graphics={
               Line(
-          points={{0,140},{0,0}},
-          color={28,108,200},
-          thickness=1),
-              Line(
           points={{-180,0},{180,0}},
           color={28,108,200},
           thickness=1)}), Documentation(info="<html>
