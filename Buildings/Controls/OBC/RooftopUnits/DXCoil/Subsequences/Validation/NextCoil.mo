@@ -53,9 +53,10 @@ equation
   connect(mulSumInt.y, extIndInt.index)
     annotation (Line(points={{-10,40},{-4,40},{-4,58}}, color={255,127,0}));
   connect(nextCoil.yNexCoi, chaSta.uNexDXCoi)
-    annotation (Line(points={{42,16},{66,16}}, color={255,127,0}));
-  connect(nextCoil.yNexCoi, chaSta.uLasDXCoi) annotation (Line(points={{42,16},{
-          60,16},{60,12},{66,12}}, color={255,127,0}));
+    annotation (Line(points={{42,16},{50,16},{50,16},{66,16}},
+                                               color={255,127,0}));
+  connect(nextCoil.yNexCoi, chaSta.uLasDXCoi) annotation (Line(points={{42,16},
+          {60,16},{60,12},{66,12}},color={255,127,0}));
   connect(chaSta.yDXCoi, pre.u) annotation (Line(points={{92,20},{96,20},{96,0},
           {64,0},{64,-20},{68,-20}}, color={255,0,255}));
   connect(pre.y, chaSta.uDXCoil) annotation (Line(points={{92,-20},{98,-20},{98,
@@ -64,8 +65,9 @@ equation
           {56,20},{56,28},{66,28}}, color={255,0,255}));
   connect(con.y, chaSta.uLasDXCoiSta) annotation (Line(points={{-68,10},{-60,10},
           {-60,-16},{62,-16},{62,25},{66,25}}, color={255,0,255}));
-  connect(pre.y, nextCoil.uDXCoi) annotation (Line(points={{92,-20},{98,-20},{98,
-          40},{14,40},{14,14},{18,14}}, color={255,0,255}));
+  connect(pre.y, nextCoil.uDXCoi) annotation (Line(points={{92,-20},{98,-20},{
+          98,40},{14,40},{14,14},{18,14}},
+                                        color={255,0,255}));
   connect(pre2.y, booToInt.u)
     annotation (Line(points={{-68,40},{-62,40}}, color={255,0,255}));
   connect(pre2.u, nextCoil.yDXCoiInt) annotation (Line(points={{-92,40},{-96,40},
@@ -78,10 +80,12 @@ equation
           -80},{18,-80}}, color={255,0,255}));
   connect(pre[3].y, truDel.u) annotation (Line(points={{92,-20},{98,-20},{98,-40},
           {108,-40}}, color={255,0,255}));
-  connect(truDel.y, nextCoil.uDXCoiAva[2]) annotation (Line(points={{132,-40},{136,
-          -40},{136,-60},{10,-60},{10,17.5},{18,17.5}}, color={255,0,255}));
-  connect(nextCoil.yStaUp, truFalHol2.u) annotation (Line(points={{42,20},{56,20},
-          {56,60},{58,60}}, color={255,0,255}));
+  connect(truDel.y, nextCoil.uDXCoiAva[2]) annotation (Line(points={{132,-40},{
+          136,-40},{136,-60},{10,-60},{10,17.5},{18,17.5}},
+                                                        color={255,0,255}));
+  connect(nextCoil.yStaUp, truFalHol2.u) annotation (Line(points={{42,20},{56,
+          20},{56,60},{58,60}},
+                            color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),                                        graphics={
           Ellipse(lineColor = {75,138,73},

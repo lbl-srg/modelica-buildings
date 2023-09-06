@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences;
-block NextCoil "Find next coil to turn on"
+block NextCoil_v2 "Find next coil to turn on"
   parameter Integer nCoi
     "Number of coils";
   CDL.Interfaces.BooleanInput                        uDXCoi[nCoi]
@@ -231,4 +231,4 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}), Diagram(coordinateSystem(
           preserveAspectRatio=false, extent={{-140,-180},{260,160}})));
-end NextCoil;
+end NextCoil_v2;
