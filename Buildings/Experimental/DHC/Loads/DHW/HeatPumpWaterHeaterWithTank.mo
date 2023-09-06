@@ -11,6 +11,9 @@ model HeatPumpWaterHeaterWithTank
     Buildings.Experimental.DHC.Loads.DHW.Data.GenericHeatPumpWaterHeater datWatHea
     "Performance data"
     annotation (Placement(transformation(extent={{-96,-96},{-84,-84}})));
+  parameter Real COP_nominal(final unit="1") "Heat pump COP at nominal conditions";
+  parameter Modelica.Units.SI.Temperature TCon_nominal "Condenser outlet temperature used to compute COP_nominal";
+  parameter Modelica.Units.SI.Temperature TEva_nominal "Evaporator outlet temperature used to compute COP_nominal";
   parameter Real k=0.1 "Proportioanl gain of circulation pump controller";
   parameter Real Ti=60 "Integrator time constant of circulation pump controller";
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemTankOut(redeclare package
@@ -23,8 +26,11 @@ model HeatPumpWaterHeaterWithTank
     m2_flow_nominal=mDH_flow_nominal,
     dTEva_nominal=datWatHea.dTEva_nominal,
     dTCon_nominal=datWatHea.dTCon_nominal,
-    use_eta_Carnot_nominal=true,
+    use_eta_Carnot_nominal=false,
     etaCarnot_nominal=0.3,
+    COP_nominal=COP_nominal,
+    TCon_nominal=TCon_nominal,
+    TEva_nominal=TEva_nominal,
     QCon_flow_max = datWatHea.QCon_flow_max,
     QCon_flow_nominal=datWatHea.QCon_flow_nominal,
     dp1_nominal=datWatHea.dp1_nominal,

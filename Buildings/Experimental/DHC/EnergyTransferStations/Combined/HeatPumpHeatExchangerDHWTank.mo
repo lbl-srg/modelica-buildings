@@ -19,6 +19,8 @@ model HeatPumpHeatExchangerDHWTank
     redeclare final package Medium2 = MediumSer,
     final have_varFloEva=have_varFloEva,
     final COP_nominal=COPHotWat_nominal,
+    TCon_nominal=datWatHea.THex_nominal,
+    TEva_nominal=TDisWatMin - dT_nominal,
     final allowFlowReversal1=allowFlowReversalBui,
     final allowFlowReversal2=allowFlowReversalSer,
     mHw_flow_nominal=QHotWat_flow_nominal/cpBui_default/(THotWatSup_nominal -

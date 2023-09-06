@@ -19,6 +19,12 @@ model HeatPumpDHWTank
   parameter Real COP_nominal(final unit="1")
     "Heat pump COP"
     annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.Temperature TCon_nominal
+    "Condenser outlet temperature used to compute COP_nominal"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.Temperature TEva_nominal
+    "Evaporator outlet temperature used to compute COP_nominal"
+    annotation (Dialog(group="Nominal condition"));
   parameter Boolean allowFlowReversal1=false
     "Set to true to allow flow reversal on condenser side"
     annotation (Dialog(tab="Assumptions"), Evaluate=true);
@@ -125,7 +131,10 @@ model HeatPumpDHWTank
     "Zero flow rate if not enabled"
     annotation (Placement(transformation(extent={{-20,110},{0,130}})));
   Loads.DHW.HeatPumpWaterHeaterWithTank heaPumTan(mHw_flow_nominal=
-        mHw_flow_nominal, datWatHea=datWatHea)
+        mHw_flow_nominal, datWatHea=datWatHea,
+    COP_nominal=COP_nominal,
+    TCon_nominal=TCon_nominal,
+    TEva_nominal=TEva_nominal)
     "Heat pump with storage tank for domestic hot water"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   parameter Loads.DHW.Data.GenericHeatPumpWaterHeater datWatHea
