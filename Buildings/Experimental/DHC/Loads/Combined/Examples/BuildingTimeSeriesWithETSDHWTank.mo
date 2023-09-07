@@ -50,7 +50,7 @@ model BuildingTimeSeriesWithETSDHWTank
  Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupMinSet(each k=28 + 273.15)
     "Heating water supply temperature set point - Minimum value"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  parameter DHW.Data.GenericHeatPumpWaterHeater datWatHea(
+  parameter HotWater.Data.GenericHeatPumpWaterHeater datWatHea(
     mHex_flow_nominal=datWatHea.QCon_flow_nominal/4200/datWatHea.dTCon_nominal*
         2,
     QCon_flow_max=datWatHea.QCon_flow_nominal,

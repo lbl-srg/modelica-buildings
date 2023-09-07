@@ -28,7 +28,7 @@ model HeatPumpHeatExchangerDHWTank
     datWatHea=datWatHea) if have_hotWat
     "Subsystem for hot water production"
     annotation (Placement(transformation(extent={{32,24},{52,44}})));
-  parameter Loads.DHW.Data.GenericHeatPumpWaterHeater datWatHea
+  parameter Loads.HotWater.Data.GenericHeatPumpWaterHeater datWatHea
     "Performance data"
     annotation (Placement(transformation(extent={{36,48},{48,60}})));
   Fluid.Sources.MassFlowSource_T sinDHW(
@@ -39,7 +39,7 @@ model HeatPumpHeatExchangerDHWTank
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter toSin(final k=-1)
     if have_hotWat "Convert to sink"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
-  Loads.DHW.ThermostaticMixingValve tmv(
+  Loads.HotWater.ThermostaticMixingValve tmv(
     redeclare package Medium = MediumBui,
     mDhw_flow_nominal=QHotWat_flow_nominal/cpBui_default/(THotWatSup_nominal -
         TColWat_nominal),
@@ -83,15 +83,15 @@ equation
           {-76,68},{-70,68}}, color={0,0,127}));
   connect(proHotWat.port_a2, volMix_a.ports[4]) annotation (Line(points={{52,28},
           {56,28},{56,20},{-260,20},{-260,-360}},             color={0,127,255}));
-  connect(tmv.port_tw, sinDHW.ports[1]) annotation (Line(points={{-40,59},{-45,
+  connect(tmv.port_tem, sinDHW.ports[1]) annotation (Line(points={{-40,59},{-45,
           59},{-45,60},{-48,60}}, color={0,127,255}));
   connect(souDCW.ports[1], dcwSpl.port_1) annotation (Line(points={{-40,-10},{
           -12,-10},{-12,-6}}, color={0,127,255}));
   connect(dcwSpl.port_3, proHotWat.port_a1)
     annotation (Line(points={{-2,4},{0,4},{0,28},{32,28}}, color={0,127,255}));
-  connect(dcwSpl.port_2, tmv.port_cw) annotation (Line(points={{-12,14},{-12,
+  connect(dcwSpl.port_2, tmv.port_col) annotation (Line(points={{-12,14},{-12,
           54.6},{-20,54.6}}, color={0,127,255}));
-  connect(proHotWat.port_b1, tmv.port_hw) annotation (Line(points={{32,40},{0,
+  connect(proHotWat.port_b1, tmv.port_hot) annotation (Line(points={{32,40},{0,
           40},{0,63.4},{-20,63.4}}, color={0,127,255}));
   connect(tmv.TSet, delT.u1) annotation (Line(points={{-18,67.8},{-12,67.8},{
           -12,68},{-8,68},{-8,26},{-160,26},{-160,6},{-152,6}}, color={0,0,127}));

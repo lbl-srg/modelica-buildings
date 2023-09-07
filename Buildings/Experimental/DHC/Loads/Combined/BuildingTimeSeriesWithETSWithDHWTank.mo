@@ -9,6 +9,7 @@ model BuildingTimeSeriesWithETSWithDHWTank
       QHeaWat_flow_nominal=QHea_flow_nominal,
       QHotWat_flow_nominal=QHot_flow_nominal,
       datWatHea=datWatHea));
-  parameter DHW.Data.GenericHeatPumpWaterHeater datWatHea "Performance data"
+  parameter HotWater.Data.GenericHeatPumpWaterHeater datWatHea
+    "Performance data"
     annotation (Placement(transformation(extent={{-246,244},{-234,256}})));
 end BuildingTimeSeriesWithETSWithDHWTank;
