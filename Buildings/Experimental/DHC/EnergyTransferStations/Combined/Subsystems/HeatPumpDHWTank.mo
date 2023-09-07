@@ -31,7 +31,7 @@ model HeatPumpDHWTank
   parameter Boolean allowFlowReversal2=false
     "Set to true to allow flow reversal on evaporator side"
     annotation (Dialog(tab="Assumptions"), Evaluate=true);
-  parameter Modelica.Units.SI.MassFlowRate mHw_flow_nominal(min=0) "Mass flow rate of domestic hot water leaving tank"
+  parameter Modelica.Units.SI.MassFlowRate mHot_flow_nominal(min=0) "Mass flow rate of hot water leaving tank"
     annotation (Dialog(group="Nominal condition"));
   // IO CONNECTORS
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEna(start=false)
@@ -88,7 +88,7 @@ model HeatPumpDHWTank
   // COMPONENTS
   Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumEva(
     redeclare final package Medium = Medium2,
-    final m_flow_nominal=heaPumTan.mDH_flow_nominal,
+    final m_flow_nominal=heaPumTan.mDis_flow_nominal,
     final allowFlowReversal=allowFlowReversal2,
     dp_nominal=datWatHea.dp2_nominal)
     "Heat pump evaporator water pump"
@@ -101,7 +101,7 @@ model HeatPumpDHWTank
   Fluid.Sensors.TemperatureTwoPort senTHotSup(
     redeclare final package Medium = Medium1,
     final allowFlowReversal=allowFlowReversal1,
-    final m_flow_nominal=mHw_flow_nominal)
+    final m_flow_nominal=mHot_flow_nominal)
     "Temperature of water leaving the domestic hot water storage tank"
     annotation (Placement(
         transformation(
@@ -111,7 +111,7 @@ model HeatPumpDHWTank
   Fluid.Sensors.TemperatureTwoPort senTColSou(
     redeclare final package Medium = Medium1,
     final allowFlowReversal=allowFlowReversal1,
-    final m_flow_nominal=mHw_flow_nominal)
+    final m_flow_nominal=mHot_flow_nominal)
     "Temperature of water entering domestic hot water tank"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -123,15 +123,15 @@ model HeatPumpDHWTank
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold staPum(
     y(each start=false),
-    t=1e-2*heaPumTan.mDH_flow_nominal,
-    h=0.5e-2*heaPumTan.mDH_flow_nominal)
+    t=1e-2*heaPumTan.mDis_flow_nominal,
+    h=0.5e-2*heaPumTan.mDis_flow_nominal)
                               "Pump return status"
     annotation (Placement(transformation(extent={{-80,-110},{-100,-90}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply floEva
     "Zero flow rate if not enabled"
     annotation (Placement(transformation(extent={{-20,110},{0,130}})));
   Loads.HotWater.HeatPumpWithTank heaPumTan(
-    mHw_flow_nominal=mHw_flow_nominal,
+    mHot_flow_nominal=mHot_flow_nominal,
     datWatHea=datWatHea,
     COP_nominal=COP_nominal,
     TCon_nominal=TCon_nominal,
@@ -191,10 +191,11 @@ equation
         color={0,0,127}));
   connect(add.u2, pumEva.P) annotation (Line(points={{138,-14},{120,-14},{120,-20},
           {49,-20},{49,-51}}, color={0,0,127}));
-  connect(heaPumTan.PPum, add.u1) annotation (Line(points={{21,-12},{120,-12},{120,
+  connect(heaPumTan.PPum, add.u1) annotation (Line(points={{21,-14},{120,-14},{120,
           -2},{138,-2}}, color={0,0,127}));
-  connect(heaPumTan.QCon_flow, QCon_flow) annotation (Line(points={{21,-8},{82,-8},
-          {82,-100},{220,-100}}, color={0,0,127}));
+  connect(heaPumTan.QCon_flow, QCon_flow) annotation (Line(points={{21,-12},{82,
+          -12},{82,-100},{220,-100}},
+                                 color={0,0,127}));
   connect(TSetHw.y, enaHeaPum.u1) annotation (Line(points={{-178,10},{-166,10},{
           -166,28},{-142,28}}, color={0,0,127}));
   annotation (

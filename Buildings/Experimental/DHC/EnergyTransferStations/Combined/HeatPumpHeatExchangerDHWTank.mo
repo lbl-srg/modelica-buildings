@@ -23,7 +23,7 @@ model HeatPumpHeatExchangerDHWTank
     TEva_nominal=TDisWatMin - dT_nominal,
     final allowFlowReversal1=allowFlowReversalBui,
     final allowFlowReversal2=allowFlowReversalSer,
-    mHw_flow_nominal=QHotWat_flow_nominal/cpBui_default/(THotWatSup_nominal -
+    mHot_flow_nominal=QHotWat_flow_nominal/cpBui_default/(THotWatSup_nominal -
         TColWat_nominal),
     datWatHea=datWatHea) if have_hotWat
     "Subsystem for hot water production"
@@ -41,7 +41,7 @@ model HeatPumpHeatExchangerDHWTank
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
   Loads.HotWater.ThermostaticMixingValve tmv(
     redeclare package Medium = MediumBui,
-    mDhw_flow_nominal=QHotWat_flow_nominal/cpBui_default/(THotWatSup_nominal -
+    mTem_flow_nominal=QHotWat_flow_nominal/cpBui_default/(THotWatSup_nominal -
         TColWat_nominal),
     dpValve_nominal=1000) "Thermostatic mixing valve"
     annotation (Placement(transformation(extent={{-20,48},{-40,70}})));
