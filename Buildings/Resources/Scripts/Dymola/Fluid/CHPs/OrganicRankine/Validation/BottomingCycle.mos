@@ -1,0 +1,22 @@
+simulateModel("Buildings.Fluid.CHPs.OrganicRankine.Validation.BottomingCycle",
+    method="dassl", stopTime=100, tolerance=1e-06, resultFile="BottomingCycle");
+// Plot commands
+createPlot(id=1,
+ position={17, 7, 590, 535},
+ y={"ORC.TEva", "TSou.y"},
+ range={0.0, 100.0, 78.0, 92.0},
+ grid=true,
+ subPlot=101,
+ colors={{28,108,200}, {238,46,47}},
+ timeUnit="s",
+ displayUnits={"degC", "degC"});
+createPlot(id=1,
+ position={17, 7, 590, 535},
+ y={"ORC.P", "ORC.QEva_flow", "ORC.QCon_flow"},
+ range={0.0, 100.0, -600.0, 600.0},
+ grid=true,
+ subPlot=102,
+ colors={{28,108,200}, {238,46,47}, {0,140,72}},
+ timeUnit="s",
+ displayUnits={"W", "W", "W"});
+
