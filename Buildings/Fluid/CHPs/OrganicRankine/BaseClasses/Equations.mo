@@ -200,8 +200,8 @@ equation
 <p>
 Implemented in this model are the core equations of an organic Rankine cycle.
 See the documentation of
-<a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.Equations\">
-Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.Equations</a>
+<a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.BottomingCycle\">
+Buildings.Fluid.CHPs.OrganicRankine.BottomingCycle</a>
 for more details.
 </html>", revisions="<html>
 <ul>

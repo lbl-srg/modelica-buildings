@@ -59,7 +59,15 @@ equation
 annotation (defaultComponentName="eva",
 Documentation(info="<html>
 <p>
-fixme: documentation pending.
+This model is based on
+<a href=\"Modelica://Buildings.Fluid.HeatExchangers.EvaporatorCondenser\">
+Buildings.Fluid.HeatExchangers.EvaporatorCondenser</a>
+and limits the direction of the heat flow.
+Namely, when the upstream temperature of the evaporator goes below
+the evaporation temperature of the working fluid,
+the temperature differential used to compute heat flow will be locked at zero.
+This setup is to avoid a negative power generation (i.e. power consumption)
+at the Rankine cycle.
 </p>
 </html>",
 revisions="<html>

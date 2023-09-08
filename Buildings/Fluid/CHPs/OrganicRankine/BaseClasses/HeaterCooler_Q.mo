@@ -62,8 +62,6 @@ Buildings.Fluid.HeatExchangers.HeaterCooler_u</a>.
 The difference is that instead using a control signal <code>u</code>,
 this model directly uses <code>Q_flow</code> as input.
 </p>
-[fixme: note - This model is specifically made for the Rankine cycle model.
-Pending review, it can be moved to Buildings.Fluid.HeatExchangers.]
 </html>",
 revisions="<html>
 <ul>
