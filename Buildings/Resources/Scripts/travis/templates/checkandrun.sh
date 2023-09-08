@@ -37,7 +37,6 @@ echo $CHECKSUM > ./Resources/Scripts/travis/templates/checksum
 # Diff / HEAD
 if $TRAVISRUN; then
     DIFFCHECKSUM="$(git diff --name-only HEAD | grep 'Resources/Scripts/travis/templates/checksum')"
-
     if [[ $? == 0 ]]; then
         echo "Computed checksum does not match checksum on HEAD: please commit updated checksum for Templates."
         echo "Checksum on HEAD:"
@@ -50,21 +49,21 @@ fi
 
 # Diff / master
 DIFFCHECKSUM="$(git diff --name-only origin/master | grep 'Resources/Scripts/travis/templates/checksum')"
-
-if [[ $? == 0 ]]; then
+if [[ $? == 0 ]];  then
     echo "Computed checksum does not match checksum on master."
     echo "Running simulations for models in Templates with $SIMULATOR."
     # Launch simulations (typically several thousands).
     r=
     ./Resources/Scripts/travis/templates/BoilerPlant.py $SIMULATOR
     r=$r$?
-    (($r==0))
-    if [[ $? == 0 ]]; then
+    if [ "$r" = 0 ]; then
         exit 0
     else
-        printf "Below is the error log.\n\n"
-        cat unitTestsTemplates.log
-        exit 1
+        if [[ -s unitTestsTemplates.log ]]; then
+            printf "Below is the error log.\n\n"
+            cat unitTestsTemplates.log
+            exit 1
+        fi
     fi
 else
     echo "Computed checksum matches checksum on master: no further check performed."
