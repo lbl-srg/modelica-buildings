@@ -20,7 +20,7 @@ model HeaterAndFixtureHeatPumpWithTank
     QCon_flow_max=60000,
     QCon_flow_nominal=50000,
     TTan_nominal=(TSetHotSou + TCol)/2,
-    THex_nominal=TSetHotSou + 3,
+    THotSou_nominal=TSetHotSou,
     dTCon_nominal=datWatHea.THex_nominal - datWatHea.TTan_nominal)
     "Data for heat pump water heater with tank"
     annotation (Placement(transformation(extent={{-46,16},{-36,26}})));
@@ -34,7 +34,7 @@ equation
           {-20,-32},{-30,-32},{-30,-40}}, color={0,127,255}));
   connect(gen.port_b2, sinDis.ports[1])
     annotation (Line(points={{-50,-6},{-70,-6},{-70,-40}}, color={0,127,255}));
-  connect(conTSetHotSou.y, gen.TSetHw)
+  connect(conTSetHotSou.y, gen.TSetHotSou)
     annotation (Line(points={{-79,0},{-51,0}}, color={0,0,127}));
   connect(gen.PHea, PEle) annotation (Line(points={{-29,0},{-12,0},{-12,80},{110,
           80}}, color={0,0,127}));

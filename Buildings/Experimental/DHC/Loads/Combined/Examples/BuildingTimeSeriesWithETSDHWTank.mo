@@ -38,7 +38,7 @@ model BuildingTimeSeriesWithETSDHWTank
   Controls.OBC.CDL.Reals.Sources.Constant TColWat(k=bui.ets.TColWat_nominal)
     "Cold water temperature"
     annotation (Placement(transformation(extent={{60,80},{80,100}})));
-  Controls.OBC.CDL.Reals.Sources.Constant THotWatSupSet(k=bui.ets.THotWatSup_nominal)
+  Controls.OBC.CDL.Reals.Sources.Constant THotWatSupSet(k=bui.THotWatSup_nominal)
     "Hot water supply temperature set point"
     annotation (Placement(transformation(extent={{20,80},{40,100}})));
  Controls.OBC.CDL.Reals.Sources.Constant TChiWatSupSet(k=bui.TChiWatSup_nominal)
@@ -56,7 +56,6 @@ model BuildingTimeSeriesWithETSDHWTank
     QCon_flow_max=datWatHea.QCon_flow_nominal,
     QCon_flow_nominal=bui.QHot_flow_nominal,
     TTan_nominal=(bui.ets.TColWat_nominal + datWatHea.THex_nominal)/2,
-    THex_nominal=333.15,
     dTCon_nominal=datWatHea.THex_nominal - bui.ets.TColWat_nominal)
     "Performance data"
     annotation (Placement(transformation(extent={{44,-38},{56,-26}})));

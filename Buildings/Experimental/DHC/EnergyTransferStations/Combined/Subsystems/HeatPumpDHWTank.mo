@@ -143,7 +143,7 @@ model HeatPumpDHWTank
     annotation (Placement(transformation(extent={{4,-36},{16,-24}})));
   Modelica.Blocks.Math.Add add
     annotation (Placement(transformation(extent={{140,-18},{160,2}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetHw(k=datWatHea.THex_nominal)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetHw(k=datWatHea.THotSou_nominal)
     "Set point of water leaving heat pump and in tank"
     annotation (Placement(transformation(extent={{-200,0},{-180,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput QCon_flow(final unit="kg/s")
@@ -179,8 +179,8 @@ equation
           -60},{40,-16},{20,-16}}, color={0,127,255}));
   connect(heaPumTan.port_b2, port_b2) annotation (Line(points={{0,-16},{-20,-16},
           {-20,40},{160,40},{160,60},{200,60}}, color={0,127,255}));
-  connect(enaHeaPum.y, heaPumTan.TSetHw) annotation (Line(points={{-118,20},{-10,
-          20},{-10,-10},{-1,-10}}, color={0,0,127}));
+  connect(enaHeaPum.y, heaPumTan.TSetHotSou) annotation (Line(points={{-118,20},
+          {-10,20},{-10,-10},{-1,-10}}, color={0,0,127}));
   connect(heaPumTan.PHea, PHea) annotation (Line(points={{21,-10},{80,-10},{80,20},
           {180,20},{180,40},{220,40}}, color={0,0,127}));
   connect(staPum.y, enaHeaPum.u2) annotation (Line(points={{-102,-100},{-160,-100},

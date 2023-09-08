@@ -10,8 +10,8 @@ partial model PartialFourPortDHW
   Modelica.Blocks.Interfaces.RealOutput PHea(unit="W")
     "Electric power required for heating equipment"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Interfaces.RealInput TSetHw
-    "Temperature setpoint for domestic hot water supply from heater"
+  Modelica.Blocks.Interfaces.RealInput TSetHotSou
+    "Temperature setpoint for domestic hot water source from heater"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
   Modelica.Blocks.Sources.Constant zero(k=0) if have_PEle == false "Zero output"
     annotation (Placement(transformation(extent={{60,80},{80,100}})));

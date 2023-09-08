@@ -66,9 +66,8 @@ equation
     annotation (Line(points={{-100,60},{-80,60},{-80,6}}, color={0,127,255}));
   connect(heaEle.Q_flow,PHea)  annotation (Line(points={{31,-2},{40,-2},{40,-20},
           {90,-20},{90,0},{110,0}}, color={0,0,127}));
-  connect(TSetHw,heaEle. TSet) annotation (Line(points={{-110,0},{-90,0},{-90,
-          -20},{0,-20},{0,-2},{8,-2}},
-                                  color={0,0,127}));
+  connect(TSetHotSou, heaEle.TSet) annotation (Line(points={{-110,0},{-90,0},{-90,
+          -20},{0,-20},{0,-2},{8,-2}}, color={0,0,127}));
   connect(hex.port_b2, port_b2) annotation (Line(points={{-80,-6},{-80,-60},{-100,
           -60}}, color={0,127,255}));
   connect(port_a2, hex.port_a2) annotation (Line(points={{100,-60},{-60,-60},{-60,

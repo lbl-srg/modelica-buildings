@@ -13,7 +13,9 @@ record GenericHeatPumpWaterHeater
   parameter Modelica.Units.SI.Height hHex_a = 1 "Height of portHex_a of the heat exchanger, measured from tank bottom";
   parameter Modelica.Units.SI.Height hHex_b = 0.2 "Height of portHex_b of the heat exchanger, measured from tank bottom";
   parameter Modelica.Units.SI.Temperature TTan_nominal = 313.15 "Temperature of fluid inside the tank at nominal heat transfer conditions";
-  parameter Modelica.Units.SI.Temperature THex_nominal = TTan_nominal+dTTanHex "Temperature of fluid inside the heat exchanger at nominal heat transfer conditions";
+  parameter Modelica.Units.SI.Temperature THotSou_nominal = 333.15 "Temperature of fluid leaving tank at nominal conditions";
+  parameter Modelica.Units.SI.TemperatureDifference dTTanHex = 3 "Temperature difference between heat pump outlet and tank leaving temperature at nominal conditions";
+  parameter Modelica.Units.SI.Temperature THex_nominal = THotSou_nominal+dTTanHex "Temperature of fluid inside the heat exchanger at nominal heat transfer conditions";
   parameter Modelica.Units.SI.TemperatureDifference dTEva_nominal = -5 "Temperature difference evaporator inlet-outlet";
   parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal = 10 "Temperature difference condenser outlet-inlet";
   parameter Modelica.Units.SI.PressureDifference dp1_nominal = 5000 "Pressure drop across condenser";
