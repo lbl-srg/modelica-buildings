@@ -77,7 +77,8 @@ model Guideline36_RTU
     final ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb,
     final have_perZonRehBox=true,
     final VUncDesOutAir_flow=0.644,
-    final VDesTotOutAir_flow=1.107)
+    final VDesTotOutAir_flow=1.107,
+    final TiVal=10000)
     "Air handler unit controller"
     annotation (Placement(transformation(extent={{460,460},{540,636}})));
 
@@ -137,8 +138,7 @@ model Guideline36_RTU
     final have_CO2Sen=fill(false, numZon),
     final VAreBreZon_flow={ratOAFlo_A*AFlo[i] for i in 1:numZon},
     final VPopBreZon_flow={ratP_A*AFlo[i]*ratOAFlo_P for i in 1:numZon},
-    final VMin_flow={max(1.5*VZonOA_flow_nominal[i], 0.15*mCooVAV_flow_nominal[
-        i]/1.2) for i in 1:numZon},
+    final VMin_flow={max(1.5*VZonOA_flow_nominal[i], 0.15*mCooVAV_flow_nominal[i]/1.2) for i in 1:numZon},
     final VCooMax_flow=mCooVAV_flow_nominal/1.2,
     final VHeaMin_flow=fill(0, numZon),
     final VHeaMax_flow=mHeaVAV_flow_nominal/1.2,
@@ -192,7 +192,8 @@ model Guideline36_RTU
     annotation (Placement(transformation(extent={{240,630},{260,650}})));
 
   Buildings.Controls.OBC.RooftopUnits.Controller RTUCon(
-    final nCoi=nCoi)
+    final nCoi=nCoi,
+    final dUHys=0.2)
     "Controller for rooftop units"
     annotation (Placement(transformation(extent={{980,522},{1000,550}})));
 

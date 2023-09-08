@@ -70,11 +70,11 @@ block Controller
     "Delay time period for disabling DX coil"
     annotation (Dialog(group="Defrost parameters"));
 
-  parameter Real timPer4(
+  parameter Real timPerOut(
     final unit="s",
     displayUnit="s",
     final quantity="time") = 300
-    "Delay time period for disabling DX coil"
+    "Delay time period for enabling defrost"
     annotation (Dialog(group="Defrost parameters"));
 
   parameter Real minComSpe(
@@ -345,13 +345,14 @@ block Controller
     annotation (Placement(transformation(extent={{-70,-110},{-50,-90}})));
 
   Buildings.Controls.OBC.CDL.Logical.Timer tim(
-    final t=timPer4)
-    "Count time"
+    final t=timPerOut)
+    "Count time when outdoor air temperature is less than threshold"
     annotation (Placement(transformation(extent={{-30,-110},{-10,-90}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(
     final realTrue=1,
-    final realFalse=0) "Convert Boolean to Real number"
+    final realFalse=0)
+    "Convert Boolean to Real number"
     annotation (Placement(transformation(extent={{10,-118},{30,-98}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul1

@@ -1,4 +1,4 @@
-simulateModel("Buildings.Examples.VAVReheat.Guideline36_RTU", stopTime=172800, method="cvode", tolerance=1e-06, resultFile="Guideline36_RTU");
+simulateModel("Buildings.Examples.VAVReheat.Guideline36_RTU_Heating", stopTime=172800, method="cvode", tolerance=1e-06, resultFile="Guideline36_RTU_Heating");
 createPlot(id = 1,
  position = {26, 33, 808, 649},
  y = {"flo.sou.air.vol.T", "flo.eas.air.vol.T", "flo.nor.air.vol.T", "flo.wes.air.vol.T", "flo.cor.air.vol.T"},
@@ -9,7 +9,7 @@ createPlot(id = 1,
  grid = true,
  color = true,
  subPlot = 1,
- filename = "Guideline36_RTU.mat",
+ filename = "Guideline36_RTU_Heating.mat",
  leftTitleType = 1,
  bottomTitleType = 1);
 createPlot(id = 1,
