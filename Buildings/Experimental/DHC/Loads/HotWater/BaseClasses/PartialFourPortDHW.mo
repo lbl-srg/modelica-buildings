@@ -5,7 +5,7 @@ partial model PartialFourPortDHW
     redeclare final package Medium1=Medium,
     redeclare final package Medium2=Medium);
   replaceable package Medium = Buildings.Media.Water "Water media model";
-  parameter Modelica.Units.SI.MassFlowRate mHot_flow_nominal "Nominal mass flow rate of hot water supply";
+  parameter Modelica.Units.SI.MassFlowRate mHotSou_flow_nominal "Nominal mass flow rate of hot water supply";
   parameter Modelica.Units.SI.MassFlowRate mDis_flow_nominal "Nominal mass flow rate of district heating water";
   Modelica.Blocks.Interfaces.RealOutput PHea(unit="W")
     "Electric power required for heating equipment"

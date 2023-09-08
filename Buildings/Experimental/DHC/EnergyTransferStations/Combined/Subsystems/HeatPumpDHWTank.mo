@@ -31,7 +31,7 @@ model HeatPumpDHWTank
   parameter Boolean allowFlowReversal2=false
     "Set to true to allow flow reversal on evaporator side"
     annotation (Dialog(tab="Assumptions"), Evaluate=true);
-  parameter Modelica.Units.SI.MassFlowRate mHot_flow_nominal(min=0) "Mass flow rate of hot water leaving tank"
+  parameter Modelica.Units.SI.MassFlowRate mHotSou_flow_nominal(min=0) "Mass flow rate of hot water leaving tank"
     annotation (Dialog(group="Nominal condition"));
   // IO CONNECTORS
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEna(start=false)
@@ -95,13 +95,13 @@ model HeatPumpDHWTank
     annotation (Placement(transformation(extent={{70,-70},{50,-50}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     annotation (Placement(transformation(extent={{-180,110},{-160,130}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant floEvaNom(final k=heaPumTan.mDH_flow_nominal)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant floEvaNom(final k=heaPumTan.mDis_flow_nominal)
     if not have_varFloEva "Nominal flow rate"
     annotation (Placement(transformation(extent={{0,80},{-20,100}})));
   Fluid.Sensors.TemperatureTwoPort senTHotSup(
     redeclare final package Medium = Medium1,
     final allowFlowReversal=allowFlowReversal1,
-    final m_flow_nominal=mHot_flow_nominal)
+    final m_flow_nominal=mHotSou_flow_nominal)
     "Temperature of water leaving the domestic hot water storage tank"
     annotation (Placement(
         transformation(
@@ -111,7 +111,7 @@ model HeatPumpDHWTank
   Fluid.Sensors.TemperatureTwoPort senTColSou(
     redeclare final package Medium = Medium1,
     final allowFlowReversal=allowFlowReversal1,
-    final m_flow_nominal=mHot_flow_nominal)
+    final m_flow_nominal=mHotSou_flow_nominal)
     "Temperature of water entering domestic hot water tank"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -131,7 +131,7 @@ model HeatPumpDHWTank
     "Zero flow rate if not enabled"
     annotation (Placement(transformation(extent={{-20,110},{0,130}})));
   Loads.HotWater.HeatPumpWithTank heaPumTan(
-    mHot_flow_nominal=mHot_flow_nominal,
+    mHotSou_flow_nominal=mHotSou_flow_nominal,
     datWatHea=datWatHea,
     COP_nominal=COP_nominal,
     TCon_nominal=TCon_nominal,

@@ -1,37 +1,37 @@
 within Buildings.Experimental.DHC.Loads.HotWater;
-model WaterDraw "A model for domestic water draws from fixture(s)"
+model WaterDraw "A model for hot water draws from fixture(s)"
   replaceable package Medium = Buildings.Media.Water "Water media model";
-  parameter Modelica.Units.SI.MassFlowRate mTem_flow_nominal "Nominal tempered water flow rate to fixture";
+  parameter Modelica.Units.SI.MassFlowRate mHot_flow_nominal "Nominal hot water flow rate to fixture";
 
-  Modelica.Fluid.Interfaces.FluidPort_a port_tw(redeclare package Medium = Medium) "Port for tempered water supply"
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  Fluid.Sources.MassFlowSource_T sinTem(
+  Modelica.Fluid.Interfaces.FluidPort_a port_hot(redeclare package Medium =
+        Medium) "Port for hot water supply to fixture"
+    annotation (Placement(transformation(extent={{-112,-10},{-92,10}})));
+  Fluid.Sources.MassFlowSource_T sinHot(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
-    nPorts=1) "Sink for tempered water supply"
+    nPorts=1) "Sink for hot water supply"
     annotation (Placement(transformation(extent={{-46,-10},{-66,10}})));
-  Modelica.Blocks.Math.Gain gaiDhw(k=-mTem_flow_nominal) "Gain for multiplying domestic hot water schedule"
+  Modelica.Blocks.Math.Gain gaiDhw(k=-mHot_flow_nominal) "Gain for multiplying domestic hot water schedule"
     annotation (Placement(transformation(extent={{60,10},{40,30}})));
   Modelica.Blocks.Continuous.Integrator watCon(k=-1) "Integrated hot water consumption"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
-  Modelica.Blocks.Interfaces.RealOutput MTem "Mass of tempered water consumed"
+  Modelica.Blocks.Interfaces.RealOutput MHot "Mass of hot water used"
     annotation (Placement(transformation(extent={{100,-82},{120,-62}}),
         iconTransformation(extent={{100,-82},{120,-62}})));
-  Modelica.Blocks.Interfaces.RealInput sch "Tempered water draw fraction"
+  Modelica.Blocks.Interfaces.RealInput sch "Hot water to fixture draw fraction"
     annotation (Placement(transformation(extent={{120,20},{100,40}}),
         iconTransformation(extent={{120,20},{100,40}})));
 equation
-  connect(gaiDhw.y,sinTem. m_flow_in) annotation (Line(points={{39,20},{-20,20},
-          {-20,8},{-44,8}},      color={0,0,127}));
   connect(watCon.u,gaiDhw. y) annotation (Line(points={{38,-80},{20,-80},{20,20},
           {39,20}},       color={0,0,127}));
-  connect(watCon.y,MTem)
-    annotation (Line(points={{61,-80},{86,-80},{86,-72},{110,-72}},
-                                                  color={0,0,127}));
-  connect(sinTem.ports[1], port_tw)
-    annotation (Line(points={{-66,0},{-100,0}}, color={0,127,255}));
   connect(sch, gaiDhw.u) annotation (Line(points={{110,30},{86,30},{86,20},{62,
           20}}, color={0,0,127}));
+  connect(port_hot, sinHot.ports[1])
+    annotation (Line(points={{-102,0},{-66,0}}, color={0,127,255}));
+  connect(sinHot.m_flow_in, gaiDhw.y) annotation (Line(points={{-44,8},{-20,8},
+          {-20,20},{39,20}}, color={0,0,127}));
+  connect(watCon.y, MHot) annotation (Line(points={{61,-80},{80,-80},{80,-72},{
+          110,-72}}, color={0,0,127}));
   annotation (preferredView="info",Documentation(info="<html>
 <p>
 This model is for connecting domestic hot water load schedules.

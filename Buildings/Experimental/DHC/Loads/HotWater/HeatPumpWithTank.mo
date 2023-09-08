@@ -17,9 +17,9 @@ model HeatPumpWithTank
   parameter Modelica.Units.SI.Temperature TEva_nominal "Evaporator outlet temperature used to compute COP_nominal";
   parameter Real k=0.1 "Proportioanl gain of circulation pump controller";
   parameter Real Ti=60 "Integrator time constant of circulation pump controller";
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTemHot(redeclare package Medium =
-        Medium, m_flow_nominal=mHot_flow_nominal)
-    "Temperature sensor for hot water supply"
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemHotSou(redeclare package
+      Medium = Medium, m_flow_nominal=mHotSou_flow_nominal)
+    "Temperature sensor for hot water source supply"
     annotation (Placement(transformation(extent={{-20,44},{0,64}})));
   Buildings.Fluid.HeatPumps.Carnot_TCon heaPum(
     redeclare package Medium1 = Medium,
@@ -71,7 +71,7 @@ model HeatPumpWithTank
     THex_nominal=datWatHea.THex_nominal,
     mHex_flow_nominal=datWatHea.mHex_flow_nominal,
     show_T=true,
-    m_flow_nominal=mHot_flow_nominal)
+    m_flow_nominal=mHotSou_flow_nominal)
     "Tank with steady-state heat exchanger balance"
     annotation (Placement(transformation(extent={{-40,40},{-60,60}})));
   Fluid.Sources.Boundary_pT bou(redeclare package Medium = Medium, nPorts=1)
@@ -97,8 +97,8 @@ model HeatPumpWithTank
 equation
   connect(heaPum.port_b1, senTemHeaPumOut.port_a)
     annotation (Line(points={{10,6},{40,6}}, color={0,127,255}));
-  connect(senTemHot.port_b, port_b1) annotation (Line(points={{0,54},{20,54},{20,
-          60},{100,60}}, color={0,127,255}));
+  connect(senTemHotSou.port_b, port_b1) annotation (Line(points={{0,54},{20,54},
+          {20,60},{100,60}}, color={0,127,255}));
   connect(port_b2, heaPum.port_b2) annotation (Line(points={{-100,-60},{-20,-60},
           {-20,-6},{-10,-6}},          color={0,127,255}));
   connect(heaPum.P,PHea)  annotation (Line(points={{11,0},{24,0},{24,-14},{82,-14},
@@ -109,8 +109,8 @@ equation
           40},{-30,46.2},{-40,46.2}}, color={0,127,255}));
   connect(tanSte.portHex_b, heaPum.port_a1) annotation (Line(points={{-40,42},{-40,
           20},{-10,20},{-10,6}}, color={0,127,255}));
-  connect(tanSte.port_a, senTemHot.port_a) annotation (Line(points={{-40,50},{-30,
-          50},{-30,54},{-20,54}}, color={0,127,255}));
+  connect(tanSte.port_a, senTemHotSou.port_a) annotation (Line(points={{-40,50},
+          {-30,50},{-30,54},{-20,54}}, color={0,127,255}));
   connect(tanSte.port_b, port_a1) annotation (Line(points={{-60,50},{-80,50},{-80,
           60},{-100,60}}, color={0,127,255}));
   connect(bou.ports[1], senTemHeaPumOut.port_b) annotation (Line(points={{80,40},

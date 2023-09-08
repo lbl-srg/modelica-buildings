@@ -11,29 +11,29 @@ model DirectHeatExchangerWithAuxHeat
 
   Buildings.Fluid.HeatExchangers.Heater_T heaEle(
     redeclare package Medium = Medium,
-    m_flow_nominal=mHot_flow_nominal,
+    m_flow_nominal=mHotSou_flow_nominal,
     dp_nominal=dpEle_nominal,
     QMax_flow=QMax_flow)
     if have_eleHea == true "Supplemental electric resistance domestic hot water heater"
     annotation (Placement(transformation(extent={{10,16},{30,-4}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTemHot(redeclare package Medium
-      = Medium, m_flow_nominal=mHot_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemHot(redeclare package Medium =
+        Medium, m_flow_nominal=mHotSou_flow_nominal)
     "Temperature sensor for hot water supply"
     annotation (Placement(transformation(extent={{60,-4},{80,16}})));
   Fluid.HeatExchangers.ConstantEffectiveness hex(
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium,
-    m1_flow_nominal=mHot_flow_nominal,
+    m1_flow_nominal=mHotSou_flow_nominal,
     m2_flow_nominal=mDis_flow_nominal,
-    dp1_nominal=dpHot_nominal,
+    dp1_nominal=dpHotSou_nominal,
     dp2_nominal=dpDis_nominal,
     eps=eps) "Domestic hot water heater heat exchanger"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Fluid.Sensors.TemperatureTwoPort senTemHexOut(redeclare package Medium =
-        Medium, m_flow_nominal=mHot_flow_nominal)
+        Medium, m_flow_nominal=mHotSou_flow_nominal)
     "Temperature sensor for hot water leaving heat exchanger"
     annotation (Placement(transformation(extent={{-40,-4},{-20,16}})));
-  parameter Modelica.Units.SI.PressureDifference dpHot_nominal=0
+  parameter Modelica.Units.SI.PressureDifference dpHotSou_nominal=0
     "Pressure difference in heat exchanger on hot water side";
   parameter Modelica.Units.SI.PressureDifference dpDis_nominal=0
     "Pressure difference in heat exchanger on district water side";
@@ -45,7 +45,7 @@ model DirectHeatExchangerWithAuxHeat
 protected
   Fluid.FixedResistances.LosslessPipe pip(
     redeclare final package Medium = Medium,
-    final m_flow_nominal=mHot_flow_nominal,
+    final m_flow_nominal=mHotSou_flow_nominal,
     final show_T=false) if have_eleHea == false "Pipe without electric resistance"
     annotation (Placement(transformation(extent={{10,44},{30,24}})));
 
