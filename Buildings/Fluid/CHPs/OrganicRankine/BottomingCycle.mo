@@ -88,6 +88,41 @@ equation
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
           fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-103,65},{98,56}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{-74,-60},{-42,-20},{2,32},{26,60},{38,60},{40,30},{34,2},{38,
+              -38},{44,-58}},
+          color={0,0,0},
+          smooth=Smooth.Bezier,
+          thickness=0.5),
+        Rectangle(
+          extent={{-99,-55},{102,-64}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{-8,20},{38,20},{52,-6},{36,-18},{-40,-18}},
+          color={0,0,0},
+          thickness=0.5,
+          pattern=LinePattern.Dash),
+        Rectangle(
+          extent={{-2,56},{98,65}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={255,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-100,-64},{0,-55}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={255,0,0},
           fillPattern=FillPattern.Solid)}), Diagram(coordinateSystem(
           preserveAspectRatio=false)));
 end BottomingCycle;
