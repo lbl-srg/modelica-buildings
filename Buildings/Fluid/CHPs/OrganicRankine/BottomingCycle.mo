@@ -115,7 +115,7 @@ equation
           preserveAspectRatio=false)),
 Documentation(info="<html>
 <p>
-This model implements the organic Rankine cycle as a bottoming cycle.
+This model implements the static organic Rankine cycle as a bottoming cycle.
 </p>
 <p>
 The thermodynamic equations are implemented in
@@ -200,6 +200,28 @@ In this case the results are accurate.
 </ul>
 </li>
 </ul>
+<h4>Dynamics</h4>
+<p>
+The ORC model is static (i.e. all input parameters such as the evaporation
+and consensation temperatures are fixed) and steady-state.
+</p>
+<p>
+This top-level component features adapted heat exchanger models
+for the evaporator and the condenser. Especially,
+<a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.EvaporatorLimited\">
+the evaporator model</a> has the feature to prevent heat backflow
+when the upstream fluid temperature is lower than the evaporating temperature
+of the working fluid. The evaporator model has to be steady-state to support
+this feature.
+</p>
+<p>
+To use other heat exchanger configurations to account for dynamic effects
+or omit the heat exchangers entirely, users can use the base class
+<a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.EvaporatorLimited\">
+base ORC component</a>
+instead. This base component directly takes the evaporator heat input and
+is agnostic to where the heat comes from or goes to.
+</p>
 <h4>References</h4>
 <p>
 Bell IH, Wronski J, Quoilin S, Lemort V.

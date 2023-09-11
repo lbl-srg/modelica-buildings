@@ -68,6 +68,7 @@ the evaporation temperature of the working fluid,
 the temperature differential used to compute heat flow will be locked at zero.
 This setup is to avoid an unintended negative power generation
 (i.e. power consumption) at the Rankine cycle.
+To support this feature, the components are steady-state.
 </p>
 </html>",
 revisions="<html>
