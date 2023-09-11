@@ -59,7 +59,7 @@ Model for an ideal heater or cooler with prescribed heat flow rate to the medium
 This model is similar to
 <a href=\"Modelica://Buildings.Fluid.HeatExchangers.HeaterCooler_u\">
 Buildings.Fluid.HeatExchangers.HeaterCooler_u</a>.
-The difference is that instead using a control signal <code>u</code>,
+The difference is that instead using a normalised control signal <code>u</code>,
 this model directly uses <code>Q_flow</code> as input.
 </p>
 </html>",

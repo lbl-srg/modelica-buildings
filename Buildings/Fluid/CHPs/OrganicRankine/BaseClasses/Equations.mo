@@ -189,7 +189,8 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
         Documentation(info="<html>
 <p>
-Implemented in this model are the core equations of an organic Rankine cycle.
+Implemented in this model are the core equations of an organic Rankine cycle,
+especially the property interpolation scheme.
 See the documentation of
 <a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.BottomingCycle\">
 Buildings.Fluid.CHPs.OrganicRankine.BottomingCycle</a>
