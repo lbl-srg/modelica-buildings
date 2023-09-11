@@ -919,8 +919,6 @@ Buildings/Fluid/Examples/Performance/package.mo
 Buildings/Fluid/Examples/Performance/package.order
 Buildings/Fluid/Examples/ResistanceVolumeFlowReversal.mo
 Buildings/Fluid/Examples/SimpleHouse.mo
-Buildings/Fluid/Examples/Tutorial/package.mo
-Buildings/Fluid/Examples/Tutorial/package.order
 Buildings/Fluid/Examples/package.mo
 Buildings/Fluid/Examples/package.order
 Buildings/Fluid/FMI/Adaptors/Examples/ThermalZoneHVACNoExhaust.mo
