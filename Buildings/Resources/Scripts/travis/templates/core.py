@@ -214,11 +214,11 @@ def generate_combinations(
 
 
 def prune_modifications(
-    combinations: list[tuple[str, list[str]]],
+    combinations: list[tuple[str, list[str], str]],
     remove_modif: dict[str, list[tuple[list[str], list[str]]]],
     exclude: dict[str, list[list[str]]],
 ) -> None:
-    """Remove class modifications.
+    """Remove class modifications and update tags.
 
     Returns:
         None (modifies inplace)
@@ -255,11 +255,15 @@ def prune_modifications(
             if any(all(re.search(el, modif_concat) for el in ell) for ell in exclude[arg[0]]):
                 combinations.remove(arg)
 
+    # Update tags. (Because pruning resulted in a sparse list of indices.)
+    for i, arg in enumerate(combinations):
+        combinations[i] = (*combinations[i][:2], str(i))
+
     print(f'Number of cases to be simulated: {len(combinations)}.\n')
 
 
 def report_clean(
-    combinations: list[tuple[str, list[str]]],
+    combinations: list[tuple[str, list[str], str]],
     results: list[tuple[int, str]],
 ) -> pd.DataFrame:
     """Report and clean after simulations."""
