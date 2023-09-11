@@ -2,11 +2,11 @@ compareVars :=
   {
     "CHP.PEleNet",
     "ORC.P",
-    "eva.Q_flow",
+    "ORC.QEva_flow",
     "ORC.QCon_flow",
     "cooWat.T_in",
     "CHP.TWatOut.T",
-    "eva.T",
+    "ORC.eva.eva.T",
     "ORC.TEva",
     "cooWat.m_flow_in"
   };
