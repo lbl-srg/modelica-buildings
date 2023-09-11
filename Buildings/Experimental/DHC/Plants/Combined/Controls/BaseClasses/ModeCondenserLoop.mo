@@ -116,8 +116,11 @@ block ModeCondenserLoop
   Buildings.Controls.OBC.CDL.Logical.Not criFraChaHig
     "High charge fraction criterion"
     annotation (Placement(transformation(extent={{-70,-130},{-50,-110}})));
-  Buildings.Controls.OBC.CDL.Logical.And3 allEnaTru "All enable criteria true"
-    annotation (Placement(transformation(extent={{40,130},{60,150}})));
+  Buildings.Controls.OBC.CDL.Logical.And allEnaTru "All enable criteria true"
+    annotation (Placement(transformation(extent={{50,170},{70,190}})));
+  Buildings.Controls.OBC.CDL.Logical.And criTemOrCriChaHigAndTimCriFlo
+    "Temperature or high charge fraction criterion true and given time criterion true"
+    annotation (Placement(transformation(extent={{50,130},{70,150}})));
   Buildings.Controls.OBC.CDL.Logical.Timer timCriFraChaHig(t=5*60)
     annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Or criTemOrCriChaHig
@@ -240,14 +243,10 @@ equation
     annotation (Line(points={{-78,-120},{-72,-120}}, color={255,0,255}));
   connect(criFloAndTem.y, disCha.u1) annotation (Line(points={{-8,40},{4,40},{4,
           -30},{38,-30}},      color={255,0,255}));
-  connect(timNotCha.passed, allEnaTru.u1) annotation (Line(points={{32,152},{36,
-          152},{36,148},{38,148}}, color={255,0,255}));
+  connect(timNotCha.passed, allEnaTru.u1) annotation (Line(points={{32,152},{40,
+          152},{40,180},{48,180}}, color={255,0,255}));
   connect(criFraChaHig.y, timCriFraChaHig.u)
     annotation (Line(points={{-48,-120},{-42,-120}}, color={255,0,255}));
-  connect(timCriFlo.passed, allEnaTru.u2) annotation (Line(points={{-48,52},{-40,
-          52},{-40,140},{38,140}}, color={255,0,255}));
-  connect(criTemOrCriChaHig.y, allEnaTru.u3) annotation (Line(points={{32,120},{
-          36,120},{36,132},{38,132}}, color={255,0,255}));
   connect(timCriTem.passed, criTemOrCriChaHig.u1) annotation (Line(points={{-48,22},
           {-36,22},{-36,120},{8,120}},       color={255,0,255}));
   connect(timCriFraChaHig.passed, criTemOrCriChaHig.u2) annotation (Line(points={{-18,
@@ -296,8 +295,8 @@ equation
           64,-60},{68,-60}}, color={255,0,255}));
   connect(enaAndNotDis1.y, enaRej.u) annotation (Line(points={{72,110},{76,110},
           {76,100},{78,100}}, color={255,0,255}));
-  connect(allEnaTru.y, enaAndNotDis1.u1) annotation (Line(points={{62,140},{64,140},
-          {64,126},{44,126},{44,110},{48,110}}, color={255,0,255}));
+  connect(allEnaTru.y, enaAndNotDis1.u1) annotation (Line(points={{72,180},{80,180},
+          {80,126},{40,126},{40,110},{48,110}}, color={255,0,255}));
   connect(notDis1.y, enaAndNotDis1.u2) annotation (Line(points={{32,94},{44,94},
           {44,102},{48,102}}, color={255,0,255}));
   connect(timCriFlo1.passed, notDis1.u) annotation (Line(points={{-48,112},{-44,
@@ -356,6 +355,13 @@ equation
           {34,-14},{34,-38},{38,-38}}, color={255,0,255}));
   connect(ratHeaRec.y, criRatHeaRec.u)
     annotation (Line(points={{-68,-180},{-62,-180}}, color={0,0,127}));
+  connect(criTemOrCriChaHig.y, criTemOrCriChaHigAndTimCriFlo.u2) annotation (
+      Line(points={{32,120},{36,120},{36,132},{48,132}}, color={255,0,255}));
+  connect(timCriFlo.passed, criTemOrCriChaHigAndTimCriFlo.u1) annotation (Line(
+        points={{-48,52},{-40,52},{-40,140},{48,140}}, color={255,0,255}));
+  connect(criTemOrCriChaHigAndTimCriFlo.y, allEnaTru.u2) annotation (Line(
+        points={{72,140},{76,140},{76,164},{46,164},{46,172},{48,172}}, color={255,
+          0,255}));
   annotation (
   defaultComponentName="modConLoo",
   Icon(graphics={
@@ -444,6 +450,13 @@ The mode is enabled whenever neither Charge Assist nor Heat Rejection mode is en
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 29, 2023, by Hongxiang Fu:<br/>
+Because of the removal of <code>Logical.And3</code> based on ASHRAE 231P,
+replaced it with a stack of two <code>Logical.And</code> blocks.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2465\">#2465</a>.
+</li>
 <li>
 February 24, 2023, by Antoine Gautier:<br/>
 First implementation.

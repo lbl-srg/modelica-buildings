@@ -52,7 +52,7 @@ block FirstOrderAMIGO
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.ModelTime modTim
     "Simulation time"
-    annotation (Placement(transformation(extent={{80,60},{60,80}})));
+    annotation (Placement(transformation(extent={{80,70},{60,90}})));
   Buildings.Controls.OBC.Utilities.PIDWithInputGains PID(
     final controllerType=conTyp,
     final r=r,
@@ -162,7 +162,7 @@ equation
           -40}}, color={0,0,127}));
   connect(resPro.on, rel.yOn) annotation (Line(points={{22,34},{58,34},{58,4},{42,
           4}}, color={255,0,255}));
-  connect(modTim.y, resPro.tim) annotation (Line(points={{58,70},{40,70},{40,46},
+  connect(modTim.y, resPro.tim) annotation (Line(points={{58,80},{40,80},{40,46},
           {22,46}}, color={0,0,127}));
   connect(resPro.tau, conProMod.tau) annotation (Line(points={{-2,40},{-10,40},{
           -10,42},{-18,42}}, color={0,0,127}));
@@ -236,7 +236,8 @@ PID controller.
 In addition, the output of this block is limited from 0 to 1.
 </p>
 <p>
-Note that the autotuning can be performed only once.
+Note that a new autotuning can be performed only when the <code>triTun</code>
+is <code>true</code> and the old tuning has finished.
 </p>
 <h4>Brief guidance</h4>
 <p>
