@@ -141,6 +141,9 @@ Buildings.Fluid.CHPs.OrganicRankine.Data</a>.
 Specific enthalpy and specific entropy values are provided as support points
 on the saturated liquid line, the saturated vapour line,
 and a superheated vapour line.
+The property points of these data records are found using CoolProp
+(<a href=\"https://www.coolprop.org\">https://www.coolprop.org</a>;
+Bell et al., 2014) under its Python wrapper.
 </p>
 <p>
 Important state points in the Rankine cycle are determined by various schemes
@@ -197,6 +200,15 @@ In this case the results are accurate.
 </ul>
 </li>
 </ul>
+<h4>References</h4>
+<p>
+Bell IH, Wronski J, Quoilin S, Lemort V.
+Pure and pseudo-pure fluid thermophysical property evaluation and the open-source thermophysical property library CoolProp.
+<i>Industrial &amp; engineering chemistry research.
+</i>
+2014 Feb 12;53(6):2498-508.
+<a href=\"https://doi.org/10.1021/ie4033999\">https://doi.org/10.1021/ie4033999</a>
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
