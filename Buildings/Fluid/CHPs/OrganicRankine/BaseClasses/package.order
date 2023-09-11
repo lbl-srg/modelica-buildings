@@ -1,5 +1,6 @@
 BottomingCycle
 BottomingCycleHeatPort
+Declarations
 Equations
 EvaporatorLimited
 HeaterCooler_Q

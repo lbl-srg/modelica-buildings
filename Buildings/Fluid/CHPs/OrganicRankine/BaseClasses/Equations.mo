@@ -1,17 +1,8 @@
 within Buildings.Fluid.CHPs.OrganicRankine.BaseClasses;
 model Equations "Core equations of a Rankine cycle"
-  parameter Buildings.Fluid.CHPs.OrganicRankine.Data.Generic pro
-    "Property records of the working fluid"
-    annotation(choicesAllMatching = true);
 
   // Input properties
-  parameter Modelica.Units.SI.Temperature TEva
-    "Evaporator temperature";
-  parameter Modelica.Units.SI.Temperature TCon
-    "Condenser temperature";
-  parameter Modelica.Units.SI.TemperatureDifference dTSup = 0
-    "Superheating differential temperature ";
-  parameter Real etaExp "Expander efficiency";
+  extends Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.Declarations;
 
   // Computed properties
   final parameter Modelica.Units.SI.AbsolutePressure pEva(

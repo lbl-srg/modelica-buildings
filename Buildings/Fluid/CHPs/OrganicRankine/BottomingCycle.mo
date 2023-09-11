@@ -3,29 +3,18 @@ model BottomingCycle
   "Organic Rankine cycle with heat exchangers as a bottoming cycle"
 
   extends Buildings.Fluid.Interfaces.PartialFourPortInterface;
-
-  parameter Buildings.Fluid.CHPs.OrganicRankine.Data.Generic pro
-    "Property records of the working fluid"
-    annotation(choicesAllMatching = true);
-
-  // Input properties
-  parameter Modelica.Units.SI.Temperature TEva
-    "Evaporator temperature";
-  parameter Modelica.Units.SI.Temperature TCon
-    "Condenser temperature";
-  parameter Modelica.Units.SI.TemperatureDifference dTSup = 0
-    "Superheating differential temperature ";
-  parameter Real etaExp "Expander efficiency";
+  extends Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.Declarations;
 
   parameter Modelica.Units.SI.ThermalConductance UA
-    "Thermal conductance of heat exchanger";
+    "Thermal conductance of the evaporator"
+    annotation(Dialog(group="Evaporator"));
 
   Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.BottomingCycle ORC(
     final pro=pro,
     final TEva=TEva,
     final TCon=TCon,
     final dTSup=dTSup,
-    final etaExp=etaExp)
+    final etaExp=etaExp) "Organic Rankine cycle"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.HeaterCooler_Q con(
     redeclare final package Medium = Medium2,

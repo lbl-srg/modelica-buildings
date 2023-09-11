@@ -1,6 +1,8 @@
 within Buildings.Fluid.CHPs.OrganicRankine.BaseClasses;
 model BottomingCycle "Organic Rankine cycle as a bottoming"
 
+  extends Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.Declarations;
+
   Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.Equations equ(
     final pro=pro,
     final TEva=TEva,
@@ -25,16 +27,6 @@ model BottomingCycle "Organic Rankine cycle as a bottoming"
     final unit="W") "Heat rejected through condensation"
     annotation (Placement(transformation(extent={{100,-60},{120,-40}}),
         iconTransformation(extent={{100,-70},{120,-50}})));
-  parameter Buildings.Fluid.CHPs.OrganicRankine.Data.Generic pro
-    "Property records of the working fluid"
-    annotation(choicesAllMatching = true);
-  parameter Modelica.Units.SI.Temperature TEva
-    "Evaporator temperature";
-  parameter Modelica.Units.SI.Temperature TCon
-    "Condenser temperature";
-  parameter Modelica.Units.SI.TemperatureDifference dTSup = 0
-    "Superheating differential temperature ";
-  parameter Real etaExp "Expander efficiency";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput QEva_flow(
     final quantity="Power",
