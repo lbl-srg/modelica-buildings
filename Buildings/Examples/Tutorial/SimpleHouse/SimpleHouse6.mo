@@ -89,8 +89,9 @@ First implementation.
 </html>", info="<html>
 <p>
 For this last exercise, we first increase the <b>window size</b>
-from <i>2 m<sup>2</sup> <b>to <i>6 m<sup>2</sup></i></b>.
+from <i>2 m<sup>2</sup></i> <b>to <i>6 m<sup>2</sup></i></b>.
 </p>
+<p>
 We will add a ventilation model that allows to perform free cooling
 using outside air when solar irradiation heats up the room too much.
 The system consists of a fan, a damper, a controller with an air temperature setpoint

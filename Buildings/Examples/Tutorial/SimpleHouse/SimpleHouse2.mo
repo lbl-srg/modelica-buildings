@@ -54,11 +54,11 @@ Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow</a>
 To be able to use the value of the outdoor solar irradiance
 you will need to access the weather data reader.
 To do this, make a connection to the <code>weaBus</code>.
-In the dialog box select <i><New Variable></i> and here type <i>HDirNor</i>,
+In the dialog box select <i>&lt;New Variable&gt;</i> and here type <i>HDirNor</i>,
 which is the direct solar irradiance on a surface of <i>1 m<sup>2</sup></i>,
 perpendicular to the sun rays.
 Set the gain factor <i>k</i> to 2,
-in order to get the solar irradiance through the window of <i>2 m<sup>2</sup>.
+in order to get the solar irradiance through the window of <i>2 m<sup>2</sup></i>.
 </p>
 <p>
 Make a connection with the <code>PrescribedHeatFlow</code> as well.

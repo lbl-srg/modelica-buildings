@@ -26,10 +26,10 @@ First implementation.
 A very simple building envelope model will be constructed manually using thermal resistors and heat capacitors.
 The house consists of a wall represented by a single heat capacitor and a thermal resistor.
 The thermal resistor and boundary temperature are already included in the template.
-The wall has a surface area of <i>A<sub>wall</sub>=100 m<sup>2</i></sup>,
+The wall has a surface area of <i>A<sub>wall</sub>=100 m<sup>2</sup></i>,
 a thickness of <i>d<sub>wall</sub>=25 cm</i>,
 a thermal conductivity of <i>k<sub>wall</sub>=0.04 W/(m K)</i>,
-a density of <i>&rho;<sub>wall</sub>=2000 kg/m<sup>3</i></sup>,
+a density of <i>&rho;<sub>wall</sub>=2000 kg/m<sup>3</sup></i>,
 and a specific heat capacity of <i>c<sub>p,wall</sub>= 1000 J/(kg K)</i>
 </p>
 <p>
@@ -40,7 +40,7 @@ You can use this way of declaring parameters in the remainder of this exercise, 
 </p>
 <p>
 The conductive thermal resistance value of a wall may be computed as <i>R=d/(A*k)</i>.
-The heat capacity value of a wall may be computed as <i>C=A*d*c_p*&rho;
+The heat capacity value of a wall may be computed as <i>C=A*d*c_p*&rho;</i>
 </p>
 <h4>Required models</h4>
 <ul>

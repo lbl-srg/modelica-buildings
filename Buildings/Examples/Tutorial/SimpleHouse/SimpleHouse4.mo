@@ -72,11 +72,11 @@ First implementation.
 <p>
 The wall temperature (and therefore the room temperature) is quite low.
 In this step a heating system is added to resolve this. It consists of a radiator, a pump and a heater.
-The radiator has a nominal power of 3~$kW$ for an inlet and outlet temperature of the radiator of <i>60°C<\\i>
-and <i>40°C<\\i>, and a room air and radiative temperature of <i>20°C<\\i>.
+The radiator has a nominal power of 3~$kW$ for an inlet and outlet temperature of the radiator of <i>60°C</i>
+and <i>40°C</i>, and a room air and radiative temperature of <i>20°C</i>.
 The pump has a (nominal) mass flow rate of <i>0.1 kg/s</i>.
 Since the heating system uses water as a heat carrier fluid,
-the media for the models in the heating circuit should be set to <i>MediumWater<\\i>.
+the media for the models in the heating circuit should be set to <i>MediumWater</i>.
 </p>
 <h4>Required models</h4>
 <ul>
