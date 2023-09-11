@@ -77,7 +77,7 @@ equation
   annotation (preferredView="info",Documentation(info="<html>
 <p>
 This model implements a basic domestic hot water (DHW) substation for a  
-low-temperature district heating (LTDH) network. It includes preheating by the
+low-temperature district heating network. It includes preheating by the
 district through a heat-exchanger and optional electric resistance to bring 
 the temperature of produced hot water to setpoint.
 </p>

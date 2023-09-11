@@ -140,8 +140,8 @@ equation
     annotation (Line(points={{-62,0},{-110,0}}, color={0,0,127}));
   annotation (preferredView="info",Documentation(info="<html>
 <p>
-This model implements a domestic hot water (DHW) substation for an  
-ultra-low-temperature district heating (ULTDH) network. It uses a heat pump,
+This model implements a domestic hot water (DHW) substation for a low-temperature
+district heating network. It uses a heat pump,
 circulation pump, and heat exchanger to draw heat from the district network 
 into a hot water storage tank.
 </p>
