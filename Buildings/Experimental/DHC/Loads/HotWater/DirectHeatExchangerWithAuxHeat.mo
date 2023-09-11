@@ -76,7 +76,7 @@ equation
           -12,18},{-12,-22},{96,-22},{96,-20},{110,-20}}, color={0,0,127}));
   annotation (preferredView="info",Documentation(info="<html>
 <p>
-This model implements a basic domestic hot water (DHW) substation for a  
+This model implements a basic domestic hot water source for a  
 low-temperature district heating network. It includes preheating by the
 district through a heat-exchanger and optional electric resistance to bring 
 the temperature of produced hot water to setpoint.
