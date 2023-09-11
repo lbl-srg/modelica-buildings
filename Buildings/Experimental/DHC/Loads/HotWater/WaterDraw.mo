@@ -34,13 +34,19 @@ equation
           110,-72}}, color={0,0,127}));
   annotation (preferredView="info",Documentation(info="<html>
 <p>
-This model is for connecting domestic hot water load schedules.
+This model implements a hot water sink, representing a fixturs(s), 
+where the flow rate of hot water draw can be specified as an input fraction 
+of a nominal value.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
+September 11, 2023 by David Blum:<br/>
+Updated for release.
+</li>
+<li>
 October 20, 2022 by Dre Helmns:<br/>
-Created load model.
+Initial Implementation.
 </li>
 </ul>
 </html>"),Icon(coordinateSystem(preserveAspectRatio=false), graphics={

@@ -29,8 +29,12 @@ This record corresponds to a generic heat pump water heater.
 </html>", revisions="<html>
 <ul>
 <li>
+September 11, 2023 by David Blum:<br/>
+Updated for release.
+</li>
+<li>
 November 22, 2022 by Dre Helmns:<br/>
-Created record.
+Initial implementation.
 </li>
 </ul>
 </html>"),Icon(coordinateSystem(preserveAspectRatio=false), graphics={

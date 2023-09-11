@@ -76,12 +76,16 @@ equation
           -12,18},{-12,-22},{96,-22},{96,-20},{110,-20}}, color={0,0,127}));
   annotation (preferredView="info",Documentation(info="<html>
 <p>
-This model is an example of a domestic hot water (DHW) substation for a  
+This model implements a basic domestic hot water (DHW) substation for a  
 low-temperature district heating (LTDH) network. It includes preheating by the
-district and optional electric resistance to bring the temperature to setpoint.
+district through a heat-exchanger and optional electric resistance to bring 
+the temperature of produced hot water to setpoint.
+</p>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Loads/HotWater/DirectHeatExchangerWithAuxHeat.png\"/>
 </p>
 <p>
-For more info, please see Fig. 5 in <i>Evaluations of different domestic hot water 
+It is based on Fig. 5 in <i>Evaluations of different domestic hot water 
 preparing methods with ultra-low-temperature district heating</i> by X. Yang, 
 H. Li, and S. Svendsen at <a href=https:/doi.org/10.1016/j.energy.2016.04.109> 
 doi.org/10.1016/j.energy.2016.04.109</a>.
@@ -89,8 +93,12 @@ doi.org/10.1016/j.energy.2016.04.109</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+September 11, 2023 by David Blum:<br/>
+Update model for release.
+</li>
+<li>
 June 16, 2022 by Dre Helmns:<br/>
-Created generation model.
+Initial Implementation.
 </li>
 </ul>
 </html>"),Icon(coordinateSystem(preserveAspectRatio=false), graphics={

@@ -80,8 +80,12 @@ This is an example of a domestic water heater and fixture.
 </html>", revisions="<html>
 <ul>
 <li>
+September 11, 2023 by David Blum:<br/>
+Made as base class.
+</li>
+<li>
 October 20, 2022 by Dre Helmns:<br/>
-Created example.
+Initial implementation.
 </li>
 </ul>
 </html>"),experiment(

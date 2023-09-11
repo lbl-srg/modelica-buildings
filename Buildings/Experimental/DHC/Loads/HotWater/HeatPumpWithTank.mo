@@ -140,21 +140,32 @@ equation
     annotation (Line(points={{-62,0},{-110,0}}, color={0,0,127}));
   annotation (preferredView="info",Documentation(info="<html>
 <p>
-This model is an example of a domestic hot water (DHW) substation for an  
-ultra-low-temperature district heating (ULTDH) network. It includes a micro heat 
-pump and storage tank with direct thermostatic mixing rather than heat exchange.
+This model implements a domestic hot water (DHW) substation for an  
+ultra-low-temperature district heating (ULTDH) network. It uses a heat pump,
+circulation pump, and heat exchanger to draw heat from the district network 
+into a hot water storage tank.
+</p>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Loads/HotWater/HeatPumpWithTank.png\"/>
 </p>
 <p>
-For more info, please see Fig. 3 in <i>Evaluations of different domestic hot water 
+It is based on Fig. 3 in <i>Evaluations of different domestic hot water 
 preparing methods with ultra-low-temperature district heating</i> by X. Yang, 
 H. Li, and S. Svendsen at <a href=https:/doi.org/10.1016/j.energy.2016.04.109> 
-doi.org/10.1016/j.energy.2016.04.109</a>.
+doi.org/10.1016/j.energy.2016.04.109</a>, as well as the
+<i>Advanced Energy Design Guide for Multifamily Buildings-Achieving Zero Energy</i>
+published by ASHRAE in 2022 at <a href=https://www.ashrae.org/technical-resources/aedgs/zero-energy-aedg-free-download>
+https://www.ashrae.org/technical-resources/aedgs/zero-energy-aedg-free-download</a>.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
+September 11, 2023 by David Blum:<br/>
+Updated for release.
+</li>
+<li>
 July 7, 2022 by Dre Helmns:<br/>
-Created generation model.
+Initial Implementation.
 </li>
 </ul>
 </html>"),Icon(coordinateSystem(preserveAspectRatio=false), graphics={

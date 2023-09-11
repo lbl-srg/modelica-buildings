@@ -42,5 +42,29 @@ equation
       StopTime=86400,
       Interval=1,
       Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"));
+      __Dymola_Algorithm="Dassl"),preferredView="info",Documentation(info="<html>
+<p>
+This model implements an example hot water system where the hot water is 
+produced using 
+The hydronic arrangement modeled in
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.HotWater.HeatPumpWithTank\">
+Buildings.Experimental.DHC.Loads.HotWater.HeatPumpWithTank</a>, 
+thermostatically mixed down to a distribution temperature, and supplied to a fixture load
+defined by a schedule.
+</p>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Loads/HotWater/Example_HeatPumpWithTank.png\"/>
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+September 11, 2023 by David Blum:<br/>
+Extended base class and updated for release.
+</li>
+<li>
+October 20, 2022 by Dre Helmns:<br/>
+Initial implementation.
+</li>
+</ul>
+</html>"));
 end HeaterAndFixtureHeatPumpWithTank;
