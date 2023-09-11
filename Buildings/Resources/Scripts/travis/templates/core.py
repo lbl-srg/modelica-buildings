@@ -175,7 +175,7 @@ def generate_modif_list(dic: dict[str, list[str]]) -> list[str]:
 
 
 def remove_items_by_indices(lst: list, indices: list[int]) -> None:
-    """Removes items from list (in place) based on their indices."""
+    """Removes (inplace) items from list based on their indices."""
     for idx in sorted(list(dict.fromkeys(indices)), reverse=True):
         if idx < len(lst):
             lst.pop(idx)
@@ -215,29 +215,48 @@ def generate_combinations(
 
 def prune_modifications(
     combinations: list[tuple[str, list[str], str]],
-    remove_modif: dict[str, list[tuple[list[str], list[str]]]],
-    exclude: dict[str, list[list[str]]],
+    remove_modif: dict[str, list[tuple[list[str], list[str]]]] = None,
+    exclude: dict[str, list[list[str]]] = None,
 ) -> None:
-    """Remove class modifications and update tags.
+    """Remove class modifications, and update combination tag.
+
+    A combination is a model and a list of class modifications (and a tag).
+
+    For a given combination:
+        - The `remove_modif` argument is used to exclude a single class modification.
+          Removing class modifications this way yields many duplicate combinations.
+          These duplicates are pruned afterwards.
+        - The `exclude` argument is used to exclude a combination entirely, i.e., all class modifications.
+
+    A class modification is removed from a combination according to the following rules.
+    For each item (2-tuple) of the list provided (as value) for each model (key) in remove_modif (dict):
+    - if all patterns of item[0] are found in the original class modifications of the combination, and
+    - if a class modification contains any item within item[1], then
+    - this class modification is removed.
+    - (re patterns are supported: for instance negative lookahead assertion using (?!pattern).)
+
+    A combination is excluded if the following exclusion test returns true.
+    - Concatenate all class modifications.
+    - Look for the model (key) in exclude (dict).
+    - Iterate over the list of list of class modifications for this model (value of exclude[model]).
+    - For a given list of class modifications, return true if all strings are found in the concatenated class modifications.
+    - (re patterns are supported: for instance negative lookahead assertion using (?!pattern).)
 
     Returns:
         None (modifies inplace)
     """
-    indices_to_pop = []
-    for i, arg in enumerate(combinations):
-        tmp = []
-        if arg[0] in remove_modif:
-            modif_concat = ''.join(arg[1])
-            for item in remove_modif[arg[0]]:
-                if all(re.search(el, modif_concat) for el in item[0]):
-                    for pattern_to_remove in item[1]:
-                        for j, modif in enumerate(arg[1]):
-                            if re.search(pattern_to_remove, modif):
-                                tmp.append(j)
-        indices_to_pop.append(tmp)
-
-    for i in range(len(combinations)):
-        remove_items_by_indices(combinations[i][1], indices_to_pop[i])
+    if remove_modif is not None:
+        for i, arg in enumerate(combinations):
+            indices_to_pop = []
+            if arg[0] in remove_modif:
+                modif_concat = ''.join(arg[1])
+                for item in remove_modif[arg[0]]:
+                    if all(re.search(el, modif_concat) for el in item[0]):
+                        for pattern_to_remove in item[1]:
+                            for j, modif in enumerate(arg[1]):
+                                if re.search(pattern_to_remove, modif):
+                                    indices_to_pop.append(j)
+            remove_items_by_indices(combinations[i][1], indices_to_pop)
 
     # Remove duplicates.
     indices_to_pop = []
@@ -249,17 +268,16 @@ def prune_modifications(
 
     # Exclude cases.
     ## We iterate over a copy of the `combinations` list to allow removing items of `combinations` during iteration.
-    for arg in combinations.copy():
-        if arg[0] in exclude:
-            modif_concat = ''.join(arg[1])
-            if any(all(re.search(el, modif_concat) for el in ell) for ell in exclude[arg[0]]):
-                combinations.remove(arg)
+    if exclude is not None:
+        for arg in combinations.copy():
+            if arg[0] in exclude:
+                modif_concat = ''.join(arg[1])
+                if any(all(re.search(el, modif_concat) for el in ell) for ell in exclude[arg[0]]):
+                    combinations.remove(arg)
 
     # Update tags. (Because pruning resulted in a sparse list of indices.)
     for i, arg in enumerate(combinations):
         combinations[i] = (*combinations[i][:2], str(i))
-
-    print(f'Number of cases to be simulated: {len(combinations)}.\n')
 
 
 def report_clean(
