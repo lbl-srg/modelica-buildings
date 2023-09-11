@@ -2,23 +2,29 @@ within Buildings.Fluid.CHPs.Examples;
 model CHPWithORC "A CHP system with an ORC as its bottoming cycle"
   extends Modelica.Icons.Example;
 
-  package Medium = Buildings.Media.Water;
+  package MediumEva = Buildings.Media.Water "Medium in the evaporator";
+  package MediumCon = Buildings.Media.Air "Medium in the condenser";
 
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=0.4
+  parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal=0.4
+    "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal=1
     "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
 
-  Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.BottomingCycleHeatPort ORC(
-    preventHeatBackflow=false,
+  Buildings.Fluid.CHPs.OrganicRankine.BottomingCycle ORC(
+    redeclare final package Medium1 = MediumEva,
+    redeclare final package Medium2 = MediumCon,
+    final m1_flow_nominal=mEva_flow_nominal,
+    final m2_flow_nominal=mCon_flow_nominal,
     final pro=pro,
     TEva(displayUnit="K") = 320,
     TCon(displayUnit="K") = 300,
-    etaExp=0.85)
-    "Organic Rankine cycle"
-    annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
+    etaExp=0.85,
+    UA=1800)     "Organic Rankine cycle"
+    annotation (Placement(transformation(extent={{40,-20},{60,0}})));
   Buildings.Fluid.CHPs.ThermalElectricalFollowing CHP(
-    redeclare package Medium = Medium,
+    redeclare package Medium = MediumEva,
     redeclare Data.ValidationData3 per,
-    final m_flow_nominal=m_flow_nominal,
+    final m_flow_nominal=mEva_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     switchThermalElectricalFollowing=false,
     TEngIni=273.15 + 69.55,
@@ -28,7 +34,7 @@ model CHPWithORC "A CHP system with an ORC as its bottoming cycle"
     "Plant availability signal"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Buildings.Fluid.Sources.MassFlowSource_T cooWat(
-    redeclare package Medium = Medium,
+    redeclare package Medium = MediumEva,
     use_m_flow_in=true,
     use_T_in=true,
     nPorts=1) "Cooling water source"
@@ -49,25 +55,25 @@ model CHPWithORC "A CHP system with an ORC as its bottoming cycle"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 
   Buildings.Fluid.Sources.Boundary_pT sin(
-    redeclare package Medium = Medium,
+    redeclare package Medium = MediumEva,
     p(displayUnit="Pa"),
     nPorts=1) "Cooling water sink"
     annotation (Placement(transformation(extent={{100,0},{80,20}})));
   parameter Buildings.Fluid.CHPs.OrganicRankine.Data.WorkingFluids.Pentane pro
     "Property record of the working fluid"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
-  Buildings.Fluid.HeatExchangers.EvaporatorCondenser eva(
-    redeclare final package Medium = Medium,
-    final allowFlowReversal=false,
-    final m_flow_nominal=m_flow_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    UA=1800,
-    from_dp=false,
-    dp_nominal=0,
-    linearizeFlowResistance=true) "Evaporator"
-    annotation (Placement(transformation(extent={{10,10},{-10,-10}},
-        rotation=180,
-        origin={50,10})));
+
+  Buildings.Fluid.Sources.MassFlowSource_T souCon(
+    redeclare final package Medium = MediumCon,
+    m_flow=mCon_flow_nominal,
+    T=288.15,
+    nPorts=1) "Source on the condenser side"
+    annotation (Placement(transformation(extent={{100,-40},{80,-20}})));
+  Buildings.Fluid.Sources.Boundary_pT sinCon(
+    redeclare final package Medium = MediumCon,
+    nPorts=1)
+          "Sink on the condenser side"
+    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 equation
   connect(avaSig.y, CHP.avaSig) annotation (Line(points={{-19,50},{-10,50},{-10,
           19},{-2,19}}, color={255,0,255}));
@@ -81,12 +87,14 @@ equation
           50},{-50,18},{-42,18}}, color={0,0,127}));
   connect(valDat.y[1], CHP.PEleDem) annotation (Line(points={{-59,50},{-50,50},{
           -50,30},{-14,30},{-14,13},{-2,13}}, color={0,0,127}));
-  connect(CHP.port_b, eva.port_a) annotation (Line(points={{20,10},{30,10},{30,10},
-          {40,10}}, color={0,127,255}));
-  connect(eva.port_b, sin.ports[1]) annotation (Line(points={{60,10},{70,10},{70,
+  connect(CHP.port_b, ORC.port_a1) annotation (Line(points={{20,10},{30,10},{30,
+          -4},{40,-4}}, color={0,127,255}));
+  connect(ORC.port_b1, sin.ports[1]) annotation (Line(points={{60,-4},{70,-4},{70,
           10},{80,10}}, color={0,127,255}));
-  connect(eva.port_ref, ORC.port_a)
-    annotation (Line(points={{50,4},{50,-20}}, color={191,0,0}));
+  connect(souCon.ports[1], ORC.port_a2) annotation (Line(points={{80,-30},{70,-30},
+          {70,-16},{60,-16}}, color={0,127,255}));
+  connect(sinCon.ports[1], ORC.port_b2) annotation (Line(points={{-20,-30},{30,-30},
+          {30,-16},{40,-16}}, color={0,127,255}));
     annotation(experiment(StopTime=10000, Tolerance=1e-6),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/Examples/CHPWithORC.mos"
         "Simulate and plot"),
