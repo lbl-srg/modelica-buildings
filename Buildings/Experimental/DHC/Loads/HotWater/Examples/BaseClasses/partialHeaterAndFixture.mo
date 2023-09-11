@@ -1,6 +1,6 @@
 within Buildings.Experimental.DHC.Loads.HotWater.Examples.BaseClasses;
 model partialHeaterAndFixture
-  "Partial base class for heater and fixture examples"
+  "Partial base class for hot water source, thermostatic mixing, and fixture load examples."
   replaceable package Medium = Buildings.Media.Water "Water media model";
   parameter Modelica.Units.SI.Temperature TSetHotSou = 273.15+50 "Temperature setpoint of hot water supply source from heater";
   parameter Modelica.Units.SI.Temperature TDis = 273.15+30 "Temperature of water supply from district";
@@ -75,7 +75,7 @@ equation
           -4},{-10,-26},{10,-26},{10,-40}}, color={0,127,255}));
   annotation (preferredView="info",Documentation(info="<html>
 <p>
-This is an example of a domestic water heater and fixture.
+Partial base class for hot water source, thermostatic mixing, and fixture load examples.
 </p>
 </html>", revisions="<html>
 <ul>
