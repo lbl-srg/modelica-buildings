@@ -366,10 +366,10 @@ initial equation
     extent={{-200,-200},{200,200}}),
     graphics={
       Rectangle(
-        extent={{-200,198},{202,-202}},
-        lineColor={0,0,255},
-        fillColor={255,255,255},
-        fillPattern=FillPattern.Solid),
+          extent={{-200,200},{200,-200}},
+          lineColor={0,0,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
         Line(
           points={{-60,-60},{50,-60},{50,0}},
           color={238,46,47},

@@ -94,11 +94,7 @@ MODIF_GRID: dict[str, dict[str, list[str]]] = {
     ),
 }
 
-# A case is excluded if the "exclusion test" returns true for any of the item value from EXCLUDE.
-# Exclusion test:
-#   - concatenate all class modifications,
-#   - return true if all strings from the item value of EXCLUDE are found in the concatenation product.
-#   - (re patterns are supported: for instance negative lookahead assertion using (?!pattern).)
+# See docstring of `prune_modifications` function for the structure of EXCLUDE.
 EXCLUDE: dict[str, list[list[str]]] = {
     'Buildings.Templates.HeatingPlants.HotWater.Validation.BoilerPlant': [
         [
@@ -108,13 +104,7 @@ EXCLUDE: dict[str, list[list[str]]] = {
     ],
 }
 
-# Class modifications are removed for each model to be simulated according to the following rules.
-# For each item (2-tuple) of the list provided (as value) for each model (key) in REMOVE_MODIF (dict):
-#   - if all patterns of item[0] are found in the original class modifications, and
-#   - if a class modification contains any item within item[1], then it is removed.
-#   - (re patterns are supported: for instance negative lookahead assertion using (?!pattern).)
-# Removing the class modifications this way yields many duplicate sets of class modifications.
-# Those are pruned afterwards.
+# See docstring of `prune_modifications` function for the structure of REMOVE_MODIF.
 REMOVE_MODIF: dict[str, list[tuple[list[str], list[str]]]] = {
     'Buildings.Templates.HeatingPlants.HotWater.Validation.BoilerPlant': [
         (
