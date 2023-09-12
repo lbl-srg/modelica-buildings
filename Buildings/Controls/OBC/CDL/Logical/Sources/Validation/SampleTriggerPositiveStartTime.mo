@@ -5,7 +5,7 @@ model SampleTriggerPositiveStartTime
     period=0.5)
     "Block that generates sample trigger signal"
     annotation (Placement(transformation(extent={{-30,20},{-10,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramp(
     duration=5,
     offset=0,
     height=20,

@@ -13,24 +13,24 @@ model Supply_T
     "Block that computes the setpoints for temperature and fan speed"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uHea(k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant uHea(k=0)
     "Heating control signal"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uCoo(k=0.6)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant uCoo(k=0.6)
     "Cooling control signal"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TOut(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TOut(
     final duration=3600,
     final height=18,
     final offset=273.15 + 10) "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZon(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TZon(
     final k=273.15 + 22) "Zone temperature"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract dT
+  Buildings.Controls.OBC.CDL.Reals.Subtract dT
     "Difference zone minus outdoor temperature"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonCooSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TZonCooSet(
     final k=273.15 + 24)
     "Zone cooling set point"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
@@ -38,7 +38,7 @@ model Supply_T
     final k=Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.occupied)
     "AHU operation mode is occupied"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonHeaSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TZonHeaSet(
     final k=273.15 + 20)
     "Zone heating set point"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));

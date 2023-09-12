@@ -32,7 +32,7 @@ model CoolingTowerGroup "Validation of cooling tower group model"
         rotation=-90,
         origin={0,-70})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TConWatSupSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TConWatSupSet(
     height=+3,
     duration=500,
     offset=coo.TConWatSup_nominal,

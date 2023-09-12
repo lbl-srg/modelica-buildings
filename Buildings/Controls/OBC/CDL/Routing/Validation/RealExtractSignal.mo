@@ -13,30 +13,30 @@ model RealExtractSignal
     final extract={1,2,5,3,4,2})
     "Block that extracts signals from an input signal vector"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ram(
     final height=5,
     final duration=1,
     final offset=-2)
     "Block that outputs ramp signal"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ram1(
     final duration=1,
     final height=4,
     final offset=-1)
     "Block that outputs ramp signal"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ram2(
     final duration=1,
     final height=3,
     final offset=-2)
     "Block that outputs ramp signal"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse pul(
     final amplitude=0.5,
     final period=0.2)
     "Generate pulse signal of type Real"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse pul1(
     final period=0.2,
     final amplitude=1.5,
     final offset=-0.2)

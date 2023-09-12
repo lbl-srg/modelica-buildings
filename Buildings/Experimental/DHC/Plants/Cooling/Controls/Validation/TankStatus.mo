@@ -6,11 +6,11 @@ model TankStatus "Validation model for tank status controller"
     THig=286.15,
     dTHys=1) "Tank status"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable TTanBot(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable TTanBot(
     table=[0,273.15 + 11; 0.25,273.15 + 13.5; 0.5,273.15 + 12.5; 0.75,273.15 + 13.5; 1,273.15 + 11])
     "Temperature at tank bottom"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable TTanTop(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable TTanTop(
     table=[0,273.15 + 9; 0.25,273.15 + 6.5;
         0.5,273.15 + 7.5; 0.75,273.15 + 6.5; 1,273.15 + 9])
     "Temperature at tank top"

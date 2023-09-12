@@ -6,7 +6,7 @@ model MultiplePumpsSpeed
     redeclare final Fluid.Movers.SpeedControlled_y pum1,
     redeclare final Fluid.Movers.SpeedControlled_y pum2);
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp spe(duration=500)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp spe(duration=500)
     "Pump speed signal"
     annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
 equation

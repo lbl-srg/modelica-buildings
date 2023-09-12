@@ -142,7 +142,7 @@ model PartialDirect
     final k=1)
     "Integration"
     annotation (Placement(transformation(extent={{260,-170},{280,-150}})));
-  Controls.OBC.CDL.Continuous.PID con(
+  Controls.OBC.CDL.Reals.PID con(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,

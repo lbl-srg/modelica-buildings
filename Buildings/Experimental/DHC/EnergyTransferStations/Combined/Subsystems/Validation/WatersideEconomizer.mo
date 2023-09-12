@@ -153,7 +153,7 @@ model WatersideEconomizer
     m_flow_nominal=hexPum.m2_flow_nominal,
     dp_nominal=20E4) "Pipe flow resistance"
     annotation (Placement(transformation(extent={{-100,-50},{-120,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp     dpSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp     dpSet(
     height=15E4,
     duration=1000,
     offset=10E4,

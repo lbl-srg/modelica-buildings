@@ -96,7 +96,7 @@ model CoolingTowerGroup "Model of multiple identical cooling towers in parallel"
   BaseClasses.MultipleCommands com(final nUni=nUni)
     "Convert command signals"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mulP "Scale power"
+  Buildings.Controls.OBC.CDL.Reals.Multiply mulP "Scale power"
     annotation (Placement(transformation(extent={{60,90},{80,70}})));
 
   Fluid.HeatExchangers.CoolingTowers.Merkel coo(
@@ -124,7 +124,7 @@ model CoolingTowerGroup "Model of multiple identical cooling towers in parallel"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-14,80})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply inp
+  Buildings.Controls.OBC.CDL.Reals.Multiply inp
     "Compute pump input signal"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},

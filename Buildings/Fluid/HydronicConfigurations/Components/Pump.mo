@@ -184,21 +184,21 @@ model Pump "Container class for circulating pumps"
     final m_flow_nominal=m_flow_nominal)
     "Volume flow rate"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter scaHea(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter scaHea(
     final k=dp_nominal)
     if typ<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None
     "Scale control input to design head" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,30})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter scaSpe(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter scaSpe(
     final k=per.speed_nominal)
     if typ<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None
     "Scale control input to design speed" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={20,30})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter scaFlo(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter scaFlo(
     final k=m_flow_nominal)
     if typ<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None
     "Scale control input to design flow rate" annotation (
@@ -206,16 +206,16 @@ model Pump "Container class for circulating pumps"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={60,30})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0.0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(final k=0.0)
                "Zero"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     if typ<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None
     "Switch on/off"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,60})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant One(final k=1.0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant One(final k=1.0)
     if typ==Buildings.Fluid.HydronicConfigurations.Types.Pump.NoVariableInput
     "one"
     annotation (Placement(transformation(extent={{60,70},{40,90}})));

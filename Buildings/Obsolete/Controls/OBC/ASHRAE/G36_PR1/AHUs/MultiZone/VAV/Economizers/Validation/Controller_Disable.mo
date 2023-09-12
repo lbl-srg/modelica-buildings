@@ -72,33 +72,33 @@ protected
     final k=Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
     "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hOutBelowCutoff(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant hOutBelowCutoff(
     final k=hOutCutoff - 40000) "Outdoor air enthalpy is below the cutoff"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hOutCut(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant hOutCut(
     final k=hOutCutoff) "Outdoor air enthalpy cutoff"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutBelowCutoff(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOutBelowCutoff(
     final k=TOutCutoff - 30) "Outdoor air temperature is below the cutoff"
     annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutCut1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOutCut1(
     final k=TOutCutoff) "Outdoor air temperature cutoff"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VOutMinSet_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant VOutMinSet_flow(
     final k=minVOutSet_flow)
     "Outdoor airflow rate setpoint, example assumes 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp VOut_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp VOut_flow(
     final height=incVOutSet_flow,
     final offset=VOutMin_flow,
     final duration=1800) "Measured outdoor air volumetric airflow"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp uTSup(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp uTSup(
     final duration=1800,
     final height=1,
     final offset=0) "Supply air temperature control signal"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sin1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin1(
     amplitude=20,
     freqHz=1/1800,
     offset=272.15,
