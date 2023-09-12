@@ -27,7 +27,8 @@ partial model PartialAirHandler "Interface class for air handler"
     final typFanRet=typFanRet,
     final have_souChiWat=have_souChiWat,
     final have_souHeaWat=have_souHeaWat)
-    "Configuration parameters";
+    "Configuration parameters"
+    annotation(__ctrlFlow(enable=false));
 
   inner parameter Integer nZon(min=1)
     "Number of served zones"
