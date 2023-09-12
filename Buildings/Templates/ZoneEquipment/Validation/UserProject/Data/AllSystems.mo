@@ -23,14 +23,7 @@ class AllSystems "Top-level (whole building) system parameters"
     "Instance of VAV box model";
 
   parameter Buildings.Templates.ZoneEquipment.Data.VAVBox dat_VAVBox_1(
-    final typ=VAVBox_1.typ,
-    final have_souChiWat=VAVBox_1.have_souChiWat,
-    final have_souHeaWat=VAVBox_1.have_souHeaWat,
-    final typCtl=VAVBox_1.ctl.typ,
-    final typDamVAV=VAVBox_1.damVAV.typ,
-    final typCoiHea=VAVBox_1.coiHea.typ,
-    final typValCoiHea=VAVBox_1.coiHea.typVal,
-    final stdVen=VAVBox_1.ctl.stdVen,
+    final cfg=VAVBox_1.cfg,
     id="VAVBox_1",
     id_souAir="VAV_1",
     damVAV(dp_nominal=50),
@@ -52,13 +45,12 @@ class AllSystems "Top-level (whole building) system parameters"
       VOutAre_flow=3e-3,
       VAirSet_flow_min=0.01))
     "Parameters for system VAVBox_1"
-    annotation (
-      Dialog(group="Zone equipment"));
+    annotation (Dialog(group="Zone equipment"));
 
   annotation (
   defaultComponentPrefixes = "inner parameter",
   defaultComponentName = "datAll",
-    Documentation(info="<html>
+  Documentation(info="<html>
 <p>
 This record provides the set of sizing and operating parameters for
 the whole HVAC system.
