@@ -1,67 +1,86 @@
-within Buildings.Fluid.Humidifiers.EvaporativeCoolers;
-model Direct
-  /*redeclare package Medium = Modelica.Media.Interfaces.PartialMedium  annotation (choices(
-                choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
-                choice(redeclare package Medium = Buildings.Media.Water "Water"),
-                choice(redeclare package Medium =
-                    Buildings.Media.Antifreeze.PropyleneGlycolWater (
-                      property_T=293.15,
-                      X_a=0.40)
-                      "Propylene glycol water, 40% mass fraction")))*/
+﻿within Buildings.Fluid.Humidifiers.EvaporativeCoolers;
+model Direct "Direct Evaporative cooler"
+
   extends Buildings.Fluid.Interfaces.PartialTwoPort;
-  parameter Real mflownom(final unit = "1") = 1;
-  parameter Modelica.Units.SI.Area PadArea = 1;
-  parameter Modelica.Units.SI.Density density = 1.225;
-  parameter Modelica.Units.SI.Length Depth = 0.5;
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTem(redeclare final package
-      Medium =                                                                       Medium, m_flow_nominal = mflownom, initType = Modelica.Blocks.Types.Init.InitialOutput, T_start = 298.15) annotation (
-    Placement(visible = true, transformation(origin={-80,0},    extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Buildings.Fluid.Sensors.TemperatureWetBulbTwoPort senWetBul(redeclare final
-      package Medium =                                                                         Medium, m_flow_nominal = mflownom, initType = Modelica.Blocks.Types.Init.InitialOutput, TWetBul_start = 296.15) annotation (
-    Placement(visible = true, transformation(origin={-50,0},    extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  parameter Real m_flow_nominal(final unit = "kg/s") = 1 "Nominal mass flow rate";
+  parameter Modelica.Units.SI.Area padAre = 1 "Area of the rigid media evaporative pad";
+  parameter Modelica.Units.SI.Density den = 1.225 "Air density";
+  parameter Modelica.Units.SI.Length dep = 0.5 "Depth of the rigid media evaporative pad";
+
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTem(
+    redeclare final package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    initType=Modelica.Blocks.Types.Init.InitialOutput,
+    T_start=298.15)
+    "Dry bulb temperature sensor"
+      annotation (Placement(visible=true, transformation(
+        origin={-80,0},
+        extent={{-10,-10},{10,10}},
+        rotation=0)));
+  Buildings.Fluid.Sensors.TemperatureWetBulbTwoPort senTemWetBul(
+    redeclare final package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    initType=Modelica.Blocks.Types.Init.InitialOutput,
+    TWetBul_start=296.15)
+    "Wet bulb temperature sensor"
+      annotation (Placement(visible=true, transformation(
+        origin={-50,0},
+        extent={{-10,-10},{10,10}},
+        rotation=0)));
   Buildings.Fluid.Sensors.VolumeFlowRate senVolFlo(redeclare final package
-      Medium =                                                                      Medium, m_flow_nominal = mflownom) annotation (
+      Medium =  Medium, m_flow_nominal=m_flow_nominal)
+      "Volume flow rate sensor"
+        annotation (
     Placement(visible = true, transformation(origin = {-20, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Buildings.Fluid.FixedResistances.PressureDrop res(redeclare final package
-      Medium =                                                                       Medium, dp_nominal = 10, m_flow_nominal = mflownom) annotation (
+      Medium = Medium, dp_nominal = 10, m_flow_nominal = m_flow_nominal)
+      "Pressure drop"
+        annotation (
     Placement(visible = true, transformation(origin={30,0},    extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol(redeclare final
-      package Medium =                                                                    Medium, m_flow_nominal = mflownom, V = 1, nPorts = 2) annotation (
+      package Medium = Medium, m_flow_nominal = m_flow_nominal, V = 1, nPorts = 2)
+      "Moist air mixing volume"
+      annotation (
     Placement(visible = true, transformation(origin={80,20},    extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Baseclasses.DirectCalculations directEvapCooler(
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.DirectCalculations
+    dirEvaCoo(
     redeclare package Medium = Medium,
-    Depth=Depth,
-    PadArea=PadArea,
-    density=density) annotation (Placement(visible=true, transformation(
+    dep=dep,
+    padAre=padAre,
+    den=den) "Evaporative cooler calculator" annotation (Placement(
+        visible=true, transformation(
         origin={0,60},
         extent={{-10,-10},{10,10}},
         rotation=0)));
-  Buildings.Fluid.Sensors.Pressure senPre(redeclare final package Medium = Medium) annotation (
-    Placement(visible = true, transformation(origin={-80,60},    extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Buildings.Fluid.Sensors.Pressure senPre(redeclare final package Medium =
+        Medium)
+        "Pressure"
+          annotation (Placement(visible=true, transformation(
+        origin={-80,60},
+        extent={{-10,-10},{10,10}},
+        rotation=0)));
 equation
-  connect(senVolFlo.V_flow, directEvapCooler.Vol_Flow) annotation (
-    Line(points={{-20,11},{-20,58},{-12,58},{-12,58.2}},            color = {0, 0, 127}));
-  connect(senWetBul.T, directEvapCooler.Tsupwb) annotation (
-    Line(points={{-50,11},{-44,11},{-44,68.2},{-11.8,68.2}},    color = {0, 0, 127}));
-  connect(senTem.T, directEvapCooler.Tsupdp) annotation (
-    Line(points={{-80,11},{-64,11},{-64,63.2},{-12,63.2}},      color = {0, 0, 127}));
-  connect(senTem.port_b, senWetBul.port_a) annotation (
-    Line(points={{-70,0},{-60,0}},      color = {0, 127, 255}));
-  connect(senWetBul.port_b, senVolFlo.port_a) annotation (
-    Line(points={{-40,0},{-30,0}}));
+  connect(senVolFlo.V_flow, dirEvaCoo.V_flow) annotation (Line(points={{-20,11},
+          {-20,58},{-12,58},{-12,57}}, color={0,0,127}));
+  connect(senTemWetBul.T, dirEvaCoo.TWetBulSup) annotation (Line(points={{-50,11},
+          {-44,11},{-44,68},{-12,68}}, color={0,0,127}));
+  connect(senTem.T, dirEvaCoo.TDryBulSupIn) annotation (Line(points={{-80,11},{-64,
+          11},{-64,63},{-12,63}}, color={0,0,127}));
+  connect(senTem.port_b, senTemWetBul.port_a)    annotation (Line(points={{-70,0},{-60,0}}, color={0,127,255}));
+  connect(senTemWetBul.port_b,senVolFlo. port_a)
+    annotation (Line(points={{-40,0},{-30,0}}));
   connect(res.port_b, vol.ports[1]) annotation (
     Line(points={{40,0},{78,0},{78,10}},         color = {0, 127, 255}));
-  connect(port_a, senTem.port_a) annotation (
-    Line(points={{-100,0},{-90,0}}));
+  connect(port_a, senTem.port_a) annotation (Line(points={{-100,0},{-90,0}}));
   connect(vol.ports[2], port_b) annotation (
     Line(points={{82,10},{82,0},{100,0}},        color = {0, 127, 255}));
-  connect(senTem.port_a, senPre.port) annotation (
-    Line(points={{-90,0},{-90,50},{-80,50}},                   color = {0, 127, 255}));
-  connect(senPre.p, directEvapCooler.pressure) annotation (
-    Line(points={{-69,60},{-34,60},{-34,53.4},{-12,53.4}},       color = {0, 0, 127}));
-  connect(directEvapCooler.delta_WVP, vol.mWat_flow) annotation (
-    Line(points={{11,50.6},{60,50.6},{60,28},{68,28}},
-                                                 color = {0, 0, 127}));
+  connect(senTem.port_a, senPre.port)
+    annotation (Line(points={{-90,0},{-90,50},{-80,50}}, color={0,127,255}));
+  connect(senPre.p, dirEvaCoo.p) annotation (Line(points={{-69,60},{-34,60},{-34,
+          52},{-12,52}}, color={0,0,127}));
+  connect(dirEvaCoo.dmWat_flow, vol.mWat_flow) annotation (Line(points={{12,52},
+          {60,52},{60,28},{68,28}}, color={0,0,127}));
   connect(senVolFlo.port_b, res.port_a)
     annotation (Line(points={{-10,0},{20,0}}, color={0,127,255}));
   annotation (
@@ -74,5 +93,11 @@ equation
             fillPattern =                                                                                                                                                                                                        FillPattern.Solid, points = {{42, 42}, {54, 34}, {54, 34}, {42, 28}, {42, 30}, {50, 34}, {50, 34}, {42, 40}, {42, 42}}), Rectangle(lineColor = {255, 255, 255}, fillColor = {255, 255, 255},
             fillPattern =                                                                                                                                                                                                        FillPattern.Solid, extent = {{58, -54}, {54, 52}}), Polygon(lineColor = {255, 255, 255}, fillColor = {255, 255, 255},
             fillPattern =                                                                                                                                                                                                        FillPattern.Solid, points = {{42, 10}, {54, 2}, {54, 2}, {42, -4}, {42, -2}, {50, 2}, {50, 2}, {42, 8}, {42, 10}}), Polygon(lineColor = {255, 255, 255}, fillColor = {255, 255, 255},
-            fillPattern =                                                                                                                                                                                                        FillPattern.Solid, points = {{42, -26}, {54, -34}, {54, -34}, {42, -40}, {42, -38}, {50, -34}, {50, -34}, {42, -28}, {42, -26}})}, coordinateSystem(extent = {{-100, -100}, {100, 100}})));
+            fillPattern =                                                                                                                                                                                                        FillPattern.Solid, points = {{42, -26}, {54, -34}, {54, -34}, {42, -40}, {42, -38}, {50, -34}, {50, -34}, {42, -28}, {42, -26}})}, coordinateSystem(extent = {{-100, -100}, {100, 100}})),
+      Documentation(info="<html>
+<p>Model for a direct evaporative cooler.</p>
+<p>This model adds moisture into the air stream. The amount of exchanged moisture is equal to </p>
+<p align=\"center\"><i>ṁ<sub>wat</sub> = (Xi<sub>Out</sub> - Xi<sub>In</sub>) * V<sub>_flow </sub>* density </i></p>
+<p>where <i>Xi<sub>Out</i></sub> is the water mass fraction at the inlet, <i>Xi<sub>Out </i></sub>is the water mass fraction at the outlet, <i>V<sub>_flow</i></sub> is the air volume flow rate, <i>density</i> is the air density. </p>
+</html>"));
 end Direct;

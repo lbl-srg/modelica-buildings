@@ -1,11 +1,11 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses;
 block Xi_TDryBulTWetBul
-  "Model to compute the mass fraction based on wet bulb temperature"
+  "Compute the water vapor mass fraction"
   extends Modelica.Blocks.Icons.Block;
 
   replaceable package Medium =
-    Modelica.Media.Interfaces.PartialCondensingGases "Medium model"                          annotation (
-      choicesAllMatching = true);
+    Modelica.Media.Interfaces.PartialCondensingGases "Medium model"
+    annotation (choicesAllMatching = true);
 
   parameter Boolean approximateWetBulb=false
     "Set to true to approximate wet bulb temperature" annotation (Evaluate=true);
@@ -14,8 +14,10 @@ block Xi_TDryBulTWetBul
     start=303,
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    min=0) "Dry bulb temperature"
+    min=0)
+    "Dry bulb temperature"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
+
   Modelica.Blocks.Interfaces.RealInput p(  final quantity="Pressure",
                                            final unit="Pa",
                                            min = 0) "Pressure"
@@ -91,16 +93,19 @@ annotation (
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}), graphics={
         Text(
-          extent={{-92,100},{-62,56}},
+          extent={{-100,102},{-70,58}},
           textColor={0,0,127},
+          fontSize=8,
           textString="TDryBul"),
         Text(
           extent={{82,10},{96,-10}},
           textColor={0,0,127},
+          fontSize=8,
           textString="Xi"),
         Text(
-          extent={{-90,-72},{-72,-90}},
+          extent={{-96,-72},{-78,-90}},
           textColor={0,0,127},
+          fontSize=8,
           textString="p"),
         Text(
           extent={{-98,22},{-68,-22}},
@@ -139,125 +144,6 @@ annotation (
           fillPattern=FillPattern.Solid)}),
     defaultComponentName="wetBul",
     Documentation(info="<html>
-<p>
-This block computes the wet bulb temperature for a given dry bulb temperature, mass fraction
-and atmospheric pressure.
-</p>
-<p>
-If the constant <code>approximateWetBulb</code> is <code>true</code>,
-then the block uses the approximation of Stull (2011) to compute
-the wet bulb temperature without requiring a nonlinear equation.
-Otherwise, the model will introduce one nonlinear equation.
-The approximation by Stull is valid for a relative humidity of <i>5%</i> to <i>99%</i>,
-a temperature range from <i>-20&deg;C</i> to <i>50&deg;C</i>
-and standard sea level pressure.
-For this range of data, the approximation error is <i>-1</i> Kelvin to <i>+0.65</i> Kelvin,
-with a mean error of less than <i>0.3</i> Kelvin.
-</p>
-<p>
-Otherwise a calculation based on an energy balance is used.
-See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/474\">#474</a> for a discussion.
-</p>
-<p>
-For a model that takes the relative humidity instead of the mass fraction as an input, see
-<a href=\"modelica://Buildings.Utilities.Psychrometrics.TWetBul_TDryBulPhi\">
-Buildings.Utilities.Psychrometrics.TWetBul_TDryBulPhi</a>.
-</p>
-<h4>References</h4>
-<p>
-Stull, Roland.
-<i><a href=\"http://dx.doi.org/10.1175/JAMC-D-11-0143.1\">
-Wet-Bulb Temperature from Relative Humidity and Air Temperature
-Roland Stull.</a></i>
-Journal of Applied Meteorology and Climatology.
-Volume 50, Issue 11, pp. 2267-2269. November 2011
-DOI: 10.1175/JAMC-D-11-0143.1
-</p>
-</html>",
-revisions="<html>
-<ul>
-<li>
-March 6, 2023, by Michael Wetter:<br/>
-Added a constant in order for unit check to pass.<br/>
-See  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1711\">#1711</a>
-for a discussion.
-</li>
-<li>
-May 1, 2017, by Filip Jorissen:<br/>
-Revised computation of <code>iWat</code>
-such that it does not require an initial algorithm.
-See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/759\">#759</a>.
-</li>
-<li>
-November 3, 2016, by Michael Wetter:<br/>
-Changed icon.
-</li>
-<li>
-May 24, 2016, by Filip Jorissen:<br/>
-Corrected exact implementation.
-See  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/474\">#474</a>
-for a discussion.
-</li>
-<li>
-April 11, 2016 by Michael Wetter:<br/>
-Corrected wrong hyperlink in documentation for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/450\">issue 450</a>.
-</li>
-<li>
-November 17, 2014, by Michael Wetter:<br/>
-Removed test on saturation pressure that avoids it to be larger than
-<code>p</code>.
-This test is not needed as it is only active near or above the boiling temperature,
-and the result is only used in the computation of <code>rh_per</code>.
-I do not see any negative impact from removing this test.
-</li>
-<li>
-July 24, 2014 by Michael Wetter:<br/>
-Revised computation of <code>rh_per</code> to use
-<a href=\"modelica://Buildings.Utilities.Math.Functions.smoothMin\">
-Buildings.Utilities.Math.Functions.smoothMin</a> rather
-than <code>min</code>.
-</li>
-<li>
-November 20, 2013 by Michael Wetter:<br/>
-Updated model to use
-<code>Buildings.Utilities.Psychrometrics.Functions.saturationPressure()</code>
-and
-<code>Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid()</code>
-as these functions have been moved from the medium to the psychrometrics package.
-</li>
-<li>
-September 10, 2013 by Michael Wetter:<br/>
-Added start value and nominal value for <code>XiSat</code> as this is an iteration
-variable in OpenModelica.
-</li>
-<li>
-October 1, 2012 by Michael Wetter:<br/>
-Revised implementation to change the dimension of the nonlinear
-system of equations from two to one.
-Added option to compute wet bulb temperature explicitly.
-</li>
-<li>
-February 22, 2011 by Michael Wetter:<br/>
-Changed the code sections that obtain the water concentration. The old version accessed
-the water concentration using the index of the vector <code>X</code>.
-However, Dymola 7.4 cannot differentiate the function if vector elements are accessed
-using their index. In the new implementation, an inner product is used to access the vector element.
-In addition, the medium substance name is searched using a case insensitive search.
-</li>
-<li>
-February 17, 2010 by Michael Wetter:<br/>
-Renamed block from <code>WetBulbTemperature</code> to <code>TWetBul_TDryBulXi</code>
-and changed obsolete real connectors to input and output connectors.
-</li>
-<li>
-May 19, 2008 by Michael Wetter:<br/>
-Added relative humidity as a port.
-</li>
-<li>
-May 7, 2008 by Michael Wetter:<br/>
-First implementation.
-</li>
-</ul>
+<p>This block computes the water vapor mass fraction based on given dry bulb temperature, wet bulb temperature and atmospheric pressure. </p>
 </html>"));
 end Xi_TDryBulTWetBul;
