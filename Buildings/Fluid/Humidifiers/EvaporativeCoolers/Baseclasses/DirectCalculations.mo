@@ -11,9 +11,6 @@ block DirectCalculations
   parameter Modelica.Units.SI.Length dep
     "Depth of the rigid media evaporative pad";
 
-  final parameter Modelica.Units.SI.Density den = 1.225
-    "Air density";
-
   Modelica.Units.SI.Velocity vel
     "Air velocity";
 
@@ -53,7 +50,8 @@ block DirectCalculations
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
-    "Wet bulb temperature of the inlet air" annotation (Placement(
+    "Wet bulb temperature of the inlet air"
+    annotation (Placement(
       visible=true,
       transformation(
         origin={-120,20},
@@ -67,7 +65,7 @@ block DirectCalculations
   Buildings.Controls.OBC.CDL.Interfaces.RealInput p(
     final unit="Pa",
     displayUnit="Pa",
-    final quantity="Pressure")
+    final quantity="AbsolutePressure")
     "Pressure"
     annotation (Placement(
       visible=true,
@@ -113,6 +111,13 @@ block DirectCalculations
     XiIn(redeclare package Medium =  Medium)
     "Water vapor mass fraction at the inlet";
 
+protected
+  parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
+    T=Medium.T_default, p=Medium.p_default, X=Medium.X_default)
+    "Default state of medium";
+  parameter Modelica.Units.SI.Density rho_default=Medium.density(sta_default)
+    "Density, used to compute fluid volume";
+
 equation
   vel =V_flow/padAre;
   eff = 0.792714 + 0.958569*(dep) - 0.25193*(vel) - 1.03215*(dep^2) +
@@ -120,8 +125,8 @@ equation
     *(dep*vel^3) + 1.13137*(dep^3*vel) + 0.0327622*(vel^3*dep^2) -
     0.145384*(dep^3*vel^2);
   TDryBulOut = TDryBulIn - eff*(TDryBulIn - TWetBulIn);
-  mWat_flowOut = XiOut.Xi[1]*V_flow*den;
-  dmWat_flow = (XiOut.Xi[1] - XiIn.Xi[1])*V_flow*den;
+  mWat_flowOut = XiOut.Xi[1]*V_flow*rho_default;
+  dmWat_flow = (XiOut.Xi[1] - XiIn.Xi[1])*V_flow*rho_default;
   TDryBulIn = XiIn.TDryBul;
   TWetBulIn = XiIn.TWetBul;
   p = XiIn.p;

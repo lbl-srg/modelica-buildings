@@ -3,130 +3,95 @@ model Direct "Validation model for a direct evaporative cooler"
   extends Modelica.Icons.Example;
 
   replaceable package MediumA = Buildings.Media.Air;
-  parameter Real mflownom(final unit = "1") = 2;
-  Buildings.Fluid.Sources.Boundary_pT sink(redeclare final package Medium = MediumA, T = 340, nPorts = 1, use_T_in = false) annotation (
-    Placement(visible = true, transformation(origin = {190, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal = 2;
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct dirEvaCoo(
+    mAir_flow_nominal=mAir_flow_nominal,
+    dep=0.2,
+    redeclare package Medium = MediumA,
+    padAre=0.6) "Direct evaporative cooler" annotation (Placement(visible=true,
+        transformation(
+        origin={0,0},
+        extent={{-10,-10},{10,10}},
+        rotation=0)));
+  Buildings.Fluid.Sources.Boundary_pT sink(redeclare final package Medium = MediumA, T = 340,             use_T_in = false,
+    nPorts=1)
+    annotation (
+    Placement(visible = true, transformation(origin={102,0},      extent = {{-10, -10}, {10, 10}}, rotation = -180)));
   Modelica.Blocks.Sources.CombiTimeTable combiTimeTable(
     columns = 2:10,
-    fileName=ModelicaServices.ExternalReferences.loadResource(
-        "modelica://Buildings/Resources/Data/Fluid/Humidifiers/EvaporativeCoolers/Direct.dat"),
+    fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Fluid/Humidifiers/EvaporativeCoolers/Direct/Direct.dat"),
     tableName = "EnergyPlus",
     tableOnFile = true,
     timeScale = 1)
     annotation (Placement(visible = true,
-      transformation(origin={-244,120},
+      transformation(origin={-120,40},
       extent = {{-10, -10}, {10, 10}},
       rotation = 0)));
-  .Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct dEC_physicsmodel1(
-    dep=0.2,
-    redeclare package Medium = MediumA,
-    padAre=0.6,
-    den(displayUnit="kg/m3"),
-    m_flow_nominal=mflownom) annotation (Placement(visible=true, transformation(
-        origin={-2,-14},
-        extent={{-10,-10},{10,10}},
-        rotation=0)));
-  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(p = 1) annotation (
-    Placement(transformation(extent={{-90,4},{-70,24}})));
-  Buildings.Controls.OBC.CDL.Reals.Divide div annotation (
-    Placement(transformation(extent={{-40,40},{-20,60}})));
-  Buildings.Controls.OBC.CDL.Reals.Divide div1 annotation (
-    Placement(transformation(extent = {{70, 50}, {90, 70}})));
-  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar1(p = 1) annotation (
-    Placement(transformation(extent={{20,22},{40,42}})));
-  Buildings.Fluid.Sources.MassFlowSource_T boundary(redeclare package Medium = MediumA, m_flow = 1, nPorts = 1, use_C_in = false, use_T_in = true, use_Xi_in = true, use_m_flow_in = true) annotation (
-    Placement(visible = true, transformation(origin={-110,-2},   extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTem(redeclare package Medium = MediumA, initType = Modelica.Blocks.Types.Init.InitialOutput, m_flow_nominal = mflownom) annotation (
-    Placement(visible = true, transformation(origin = {-98, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTem1(redeclare package Medium = MediumA, initType = Modelica.Blocks.Types.Init.InitialOutput, m_flow_nominal = mflownom) annotation (
-    Placement(visible = true, transformation(origin = {30, -64}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Buildings.Fluid.Sensors.TemperatureWetBulbTwoPort senWetBul(redeclare package
-      Medium =                                                                           MediumA, m_flow_nominal = mflownom) annotation (
-    Placement(visible = true, transformation(origin = {-42, -42}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Buildings.Fluid.Sensors.TemperatureWetBulbTwoPort senWetBul1(redeclare
-      package Medium =                                                                    MediumA, m_flow_nominal = mflownom) annotation (
-    Placement(visible = true, transformation(origin = {68, -64}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Buildings.Controls.OBC.CDL.Reals.AddParameter addParameter(p = 273.15) annotation (
-    Placement(visible = true, transformation(origin = {-98, 18}, extent = {{-90, 12}, {-70, 32}}, rotation = 0)));
-  Buildings.Fluid.Sensors.MassFractionTwoPort senMasFra(redeclare package
-      Medium =                                                                     MediumA, m_flow_nominal = mflownom)  annotation (
-    Placement(visible = true, transformation(origin = {-128, -42}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  Buildings.Fluid.Sources.MassFlowSource_T boundary(redeclare package Medium = MediumA, m_flow = 1,             use_C_in = false, use_T_in = true, use_Xi_in = true, use_m_flow_in = true,
+    nPorts=1)                                                                                                                                                                              annotation (
+    Placement(visible = true, transformation(origin={-30,0},     extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTem1(redeclare package Medium = MediumA, initType = Modelica.Blocks.Types.Init.InitialOutput, m_flow_nominal = mAir_flow_nominal,
+    T_start(displayUnit="K") = 293.15)                                                                                                                                            annotation (
+    Placement(visible = true, transformation(origin={30,0},      extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Buildings.Fluid.Sensors.MassFractionTwoPort senMasFra1(redeclare package
-      Medium =                                                                      MediumA, m_flow_nominal = mflownom)  annotation (
-    Placement(visible = true, transformation(origin = {94, -64}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Mean mean(f = 1/3600)  annotation (
-    Placement(visible = true, transformation(origin = {38, 2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Mean mean1(f = 1/3600) annotation (
-    Placement(visible = true, transformation(origin = {66, -24}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Mean mean2(f = 1/3600) annotation (
-    Placement(visible = true, transformation(origin = {96, 8}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Buildings.Fluid.Sensors.RelativeHumidityTwoPort senRelHum(redeclare package
-      Medium =                                                                         MediumA, m_flow_nominal = mflownom)  annotation (
-    Placement(visible = true, transformation(origin = {122, -38}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Mean mean3(f = 1/3600) annotation (
-    Placement(visible = true, transformation(origin = {140, -2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Controls.OBC.CDL.Reals.AddParameter           addParameter1(p=-273.15) annotation (
-    Placement(visible = true, transformation(origin={202,22},    extent = {{-90, 12}, {-70, 32}}, rotation = 0)));
+      Medium =                                                                      MediumA, m_flow_nominal = mAir_flow_nominal)  annotation (
+    Placement(visible = true, transformation(origin={60,0},      extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Math.Mean mean(f=1/600)     annotation (
+    Placement(visible = true, transformation(origin={50,60},   extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Math.Mean mean2(f=1/600)    annotation (
+    Placement(visible = true, transformation(origin={90,30},   extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Buildings.Utilities.Psychrometrics.ToTotalAir toTotAirIn
+    "Convert inlet air humidity ratio denominator from dry air to total air"
+    annotation (Placement(transformation(extent={{-90,-60},{-70,-40}})));
+  Buildings.Utilities.Psychrometrics.ToTotalAir toTotAirOut
+    "Convert outlet air humidity ratio denominator from dry air to total air"
+    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
+  Modelica.Blocks.Math.UnitConversions.From_degC from_degCIn
+    "Convert inlet temperature from deg C to Kelvin"
+    annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
+  Modelica.Blocks.Math.UnitConversions.To_degC to_degCOut
+    "Convert outlet temperature from Kelvin to deg C"
+    annotation (Placement(transformation(extent={{80,50},{100,70}})));
 equation
-  connect(addPar.y, div.u2) annotation (
-    Line(points={{-68,14},{-60,14},{-60,44},{-42,44}},          color = {0, 0, 127}));
-  connect(combiTimeTable.y[6], addPar.u) annotation (
-    Line(points={{-233,120},{-100,120},{-100,14},{-92,14}},        color = {0, 0, 127}));
-  connect(combiTimeTable.y[6], div.u1) annotation (
-    Line(points={{-233,120},{-100,120},{-100,56},{-42,56}},        color = {0, 0, 127}));
-  connect(addPar1.y, div1.u2) annotation (
-    Line(points={{42,32},{60,32},{60,54},{68,54}},          color = {0, 0, 127}));
-  connect(combiTimeTable.y[8], div1.u1) annotation (
-    Line(points={{-233,120},{-24,120},{-24,66},{68,66}},        color = {0, 0, 127}));
-  connect(combiTimeTable.y[8], addPar1.u) annotation (
-    Line(points={{-233,120},{-48,120},{-48,32},{18,32}},        color = {0, 0, 127}));
   connect(combiTimeTable.y[9], boundary.m_flow_in) annotation (
-    Line(points={{-233,120},{-136,120},{-136,54},{-156,54},{-156,36},{-154,36},
-          {-154,6},{-122,6}},                           color = {0, 0, 127}));
-  connect(div.y, boundary.Xi_in[1]) annotation (
-    Line(points={{-18,50},{-18,36},{-136,36},{-136,20},{-138,20},{-138,-6},{
-          -122,-6}},                                             color = {0, 0, 127}));
-  connect(senTem.port_b, senWetBul.port_a) annotation (
-    Line(points = {{-88, -40}, {-71, -40}, {-71, -42}, {-52, -42}}, color = {0, 127, 255}));
-  connect(senWetBul.port_b, dEC_physicsmodel1.port_a) annotation (
-    Line(points = {{-32, -42}, {-32, -14}, {-12, -14}}, color = {0, 127, 255}));
-  connect(dEC_physicsmodel1.port_b, senTem1.port_a) annotation (
-    Line(points = {{8, -14}, {20, -14}, {20, -64}}, color = {0, 127, 255}));
-  connect(senTem1.port_b, senWetBul1.port_a) annotation (
-    Line(points = {{40, -64}, {58, -64}}, color = {0, 127, 255}));
-  connect(combiTimeTable.y[5], addParameter.u) annotation (
-    Line(points={{-233,120},{-198,120},{-198,40},{-190,40}},        color = {0, 0, 127}));
-  connect(addParameter.y, boundary.T_in) annotation (
-    Line(points={{-166,40},{-162,40},{-162,2},{-122,2}},            color = {0, 0, 127}));
-  connect(boundary.ports[1], senMasFra.port_a) annotation (
-    Line(points={{-100,-2},{-114,-2},{-114,-42},{-138,-42}},        color = {0, 127, 255}));
-  connect(senMasFra.port_b, senTem.port_a) annotation (
-    Line(points = {{-118, -42}, {-114, -42}, {-114, -40}, {-108, -40}}, color = {0, 127, 255}));
-  connect(senWetBul1.port_b, senMasFra1.port_a) annotation (
-    Line(points = {{78, -64}, {84, -64}}, color = {0, 127, 255}));
+    Line(points={{-109,40},{-100,40},{-100,8},{-42,8}}, color = {0, 0, 127}));
+  connect(dirEvaCoo.port_b, senTem1.port_a)
+    annotation (Line(points={{10,0},{20,0}}, color={0,127,255}));
   connect(senTem1.T, mean.u) annotation (
-    Line(points={{30,-53},{30,-25},{26,-25},{26,2}},          color = {0, 0, 127}));
-  connect(senWetBul1.T, mean1.u) annotation (
-    Line(points={{68,-53},{42,-53},{42,-24},{54,-24}},          color = {0, 0, 127}));
+    Line(points={{30,11},{30,60},{38,60}},                    color = {0, 0, 127}));
   connect(senMasFra1.X, mean2.u) annotation (
-    Line(points={{94,-53},{84,-53},{84,8}},        color = {0, 0, 127}));
-  connect(senMasFra1.port_b, senRelHum.port_a) annotation (
-    Line(points = {{104, -64}, {104, -38}, {112, -38}}, color = {0, 127, 255}));
-  connect(senRelHum.port_b, sink.ports[1]) annotation (
-    Line(points = {{132, -38}, {200, -38}, {200, -70}}, color = {0, 127, 255}));
-  connect(senRelHum.phi, mean3.u) annotation (
-    Line(points={{122.1,-27},{120,-27},{120,-2},{128,-2}},        color = {0, 0, 127}));
-  connect(mean.y, addParameter1.u) annotation (Line(points={{49,2},{80,2},{80,
-          44},{110,44}}, color={0,0,127}));
+    Line(points={{60,11},{60,30},{78,30}},         color = {0, 0, 127}));
+  connect(combiTimeTable.y[6], toTotAirIn.XiDry) annotation (Line(points={{-109,40},
+          {-100,40},{-100,-50},{-91,-50}},      color={0,0,127}));
+  connect(toTotAirIn.XiTotalAir, boundary.Xi_in[1]) annotation (Line(points={{-69,-50},
+          {-50,-50},{-50,-4},{-42,-4}},       color={0,0,127}));
+  connect(combiTimeTable.y[8], toTotAirOut.XiDry)
+    annotation (Line(points={{-109,40},{-81,40}},  color={0,0,127}));
+  connect(combiTimeTable.y[5], from_degCIn.u) annotation (Line(points={{-109,40},
+          {-100,40},{-100,-20},{-92,-20}}, color={0,0,127}));
+  connect(from_degCIn.y, boundary.T_in) annotation (Line(points={{-69,-20},{-60,
+          -20},{-60,4},{-42,4}}, color={0,0,127}));
+  connect(mean.y, to_degCOut.u)
+    annotation (Line(points={{61,60},{78,60}}, color={0,0,127}));
+  connect(senMasFra1.port_a, senTem1.port_b)
+    annotation (Line(points={{50,0},{40,0}}, color={0,127,255}));
+  connect(senMasFra1.port_b, sink.ports[1])
+    annotation (Line(points={{70,0},{92,0}},   color={0,127,255}));
+  connect(boundary.ports[1], dirEvaCoo.port_a)
+    annotation (Line(points={{-20,0},{-10,0}}, color={0,127,255}));
   annotation (
     Placement(visible = true, transformation(origin = {-62, 66}, extent = {{-10, -10}, {10, 10}}, rotation = 0)),
-    Diagram(coordinateSystem(extent = {{-100, -100}, {100, 100}})),
+    Diagram(coordinateSystem(extent={{-140,-100},{140,100}})),
     experiment(
-      StopTime=604800,
+      StopTime=1200000,
       Interval=60,
-      __Dymola_Algorithm="Dassl"),
+      __Dymola_Algorithm="Cvode"),
     Documentation(info="<html>
 <p>Model that demonstrates the use of the <a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct\">
 Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct</a> evaporative cooler model. </p>
-</html>"));
+</html>"),
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Humidifiers/EvaporativeCoolers/Validation/Direct.mos"
+        "Simulate and plot"));
 end Direct;

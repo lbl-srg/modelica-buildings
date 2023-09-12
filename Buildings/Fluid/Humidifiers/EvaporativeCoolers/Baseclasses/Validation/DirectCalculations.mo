@@ -105,18 +105,22 @@ Modelica.Blocks.Sources.Ramp ramVol_flow(
         extent={{-10,-10},{10,10}},
         rotation=0)));
 equation
-  connect(conTSupWb.y, dirEvaCoo.TWetBulIn) annotation (Line(points={{-69,80},{-40,
-          80},{-40,56},{18,56}}, color={0,0,127}));
-  connect(conTSupDb.y, dirEvaCoo.TDryBulIn) annotation (Line(points={{-69,30},{-30,
-          30},{-30,52},{18,52}}, color={0,0,127}));
-  connect(ramVol_flow.y, dirEvaCoo.V_flow) annotation (Line(points={{1,80},{10,80},
-          {10,48},{18,48}}, color={0,0,127}));
+  connect(conTSupWb.y, dirEvaCoo.TWetBulIn) annotation (Line(points={{-69,80},{
+          -40,80},{-40,56},{18,56}},
+                                 color={0,0,127}));
+  connect(conTSupDb.y, dirEvaCoo.TDryBulIn) annotation (Line(points={{-69,30},{
+          -30,30},{-30,52},{18,52}},
+                                 color={0,0,127}));
+  connect(ramVol_flow.y, dirEvaCoo.V_flow) annotation (Line(points={{1,80},{10,
+          80},{10,48},{18,48}},
+                            color={0,0,127}));
   connect(ramTsupWb.y, dirEvaCoo1.TWetBulIn)
     annotation (Line(points={{1,20},{10,20},{10,6},{18,6}}, color={0,0,127}));
   connect(conVol_flow.y, dirEvaCoo1.V_flow) annotation (Line(points={{-69,-30},{
           -60,-30},{-60,-2},{18,-2}}, color={0,0,127}));
-  connect(conPre.y, dirEvaCoo.p) annotation (Line(points={{-69,-80},{-50,-80},{-50,
-          44},{18,44}}, color={0,0,127}));
+  connect(conPre.y, dirEvaCoo.p) annotation (Line(points={{-69,-80},{-50,-80},{
+          -50,44},{18,44}},
+                        color={0,0,127}));
   connect(ramTSupDb.y, dirEvaCoo2.TDryBulIn) annotation (Line(points={{1,-26},{10,
           -26},{10,-48},{18,-48}}, color={0,0,127}));
   connect(conTSupWb.y, dirEvaCoo2.TWetBulIn) annotation (Line(points={{-69,80},{
