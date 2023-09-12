@@ -3,10 +3,9 @@ model Direct "Direct Evaporative cooler"
 
   extends Buildings.Fluid.Interfaces.PartialTwoPort;
 
-  parameter Real m_flow_nominal(final unit = "kg/s") = 1 "Nominal mass flow rate";
-  parameter Modelica.Units.SI.Area padAre = 1 "Area of the rigid media evaporative pad";
-  parameter Modelica.Units.SI.Density den = 1.225 "Air density";
-  parameter Modelica.Units.SI.Length dep = 0.5 "Depth of the rigid media evaporative pad";
+  parameter Real m_flow_nominal(final unit = "kg/s") "Nominal mass flow rate";
+  parameter Modelica.Units.SI.Area padAre "Area of the rigid media evaporative pad";
+  parameter Modelica.Units.SI.Length dep "Depth of the rigid media evaporative pad";
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem(
     redeclare final package Medium = Medium,
@@ -47,12 +46,13 @@ model Direct "Direct Evaporative cooler"
     dirEvaCoo(
     redeclare package Medium = Medium,
     dep=dep,
-    padAre=padAre,
-    den=den) "Evaporative cooler calculator" annotation (Placement(
-        visible=true, transformation(
-        origin={0,60},
-        extent={{-10,-10},{10,10}},
-        rotation=0)));
+    padAre=padAre)
+    "Evaporative cooler calculator"
+    annotation (Placement(
+      visible=true, transformation(
+      origin={0,60},
+      extent={{-10,-10},{10,10}},
+      rotation=0)));
   Buildings.Fluid.Sensors.Pressure senPre(redeclare final package Medium =
         Medium)
         "Pressure"
@@ -62,11 +62,11 @@ model Direct "Direct Evaporative cooler"
         rotation=0)));
 equation
   connect(senVolFlo.V_flow, dirEvaCoo.V_flow) annotation (Line(points={{-20,11},
-          {-20,58},{-12,58},{-12,57}}, color={0,0,127}));
-  connect(senTemWetBul.T, dirEvaCoo.TWetBulSup) annotation (Line(points={{-50,11},
-          {-44,11},{-44,68},{-12,68}}, color={0,0,127}));
-  connect(senTem.T, dirEvaCoo.TDryBulSupIn) annotation (Line(points={{-80,11},{-64,
-          11},{-64,63},{-12,63}}, color={0,0,127}));
+          {-20,58},{-12,58},{-12,58}}, color={0,0,127}));
+  connect(senTemWetBul.T, dirEvaCoo.TWetBulIn) annotation (Line(points={{-50,11},
+          {-44,11},{-44,66},{-12,66}}, color={0,0,127}));
+  connect(senTem.T, dirEvaCoo.TDryBulIn) annotation (Line(points={{-80,11},{-64,
+          11},{-64,62},{-12,62}}, color={0,0,127}));
   connect(senTem.port_b, senTemWetBul.port_a)    annotation (Line(points={{-70,0},{-60,0}}, color={0,127,255}));
   connect(senTemWetBul.port_b,senVolFlo. port_a)
     annotation (Line(points={{-40,0},{-30,0}}));
@@ -78,9 +78,9 @@ equation
   connect(senTem.port_a, senPre.port)
     annotation (Line(points={{-90,0},{-90,50},{-80,50}}, color={0,127,255}));
   connect(senPre.p, dirEvaCoo.p) annotation (Line(points={{-69,60},{-34,60},{-34,
-          52},{-12,52}}, color={0,0,127}));
-  connect(dirEvaCoo.dmWat_flow, vol.mWat_flow) annotation (Line(points={{12,52},
-          {60,52},{60,28},{68,28}}, color={0,0,127}));
+          54},{-12,54}}, color={0,0,127}));
+  connect(dirEvaCoo.dmWat_flow, vol.mWat_flow) annotation (Line(points={{12,54},
+          {60,54},{60,28},{68,28}}, color={0,0,127}));
   connect(senVolFlo.port_b, res.port_a)
     annotation (Line(points={{-10,0},{20,0}}, color={0,127,255}));
   annotation (

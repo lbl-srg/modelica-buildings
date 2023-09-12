@@ -38,8 +38,7 @@ model Direct "Validation model for a direct evaporative cooler"
     Placement(visible = true, transformation(origin={-110,-2},   extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem(redeclare package Medium = MediumA, initType = Modelica.Blocks.Types.Init.InitialOutput, m_flow_nominal = mflownom) annotation (
     Placement(visible = true, transformation(origin = {-98, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTem1(redeclare package Medium
-      =                                                                         MediumA, initType = Modelica.Blocks.Types.Init.InitialOutput, m_flow_nominal = mflownom) annotation (
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTem1(redeclare package Medium = MediumA, initType = Modelica.Blocks.Types.Init.InitialOutput, m_flow_nominal = mflownom) annotation (
     Placement(visible = true, transformation(origin = {30, -64}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Buildings.Fluid.Sensors.TemperatureWetBulbTwoPort senWetBul(redeclare package
       Medium =                                                                           MediumA, m_flow_nominal = mflownom) annotation (
