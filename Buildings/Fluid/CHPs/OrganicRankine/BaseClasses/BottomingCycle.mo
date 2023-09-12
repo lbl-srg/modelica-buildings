@@ -34,9 +34,9 @@ model BottomingCycle "Organic Rankine cycle as a bottoming"
     "Heat flow into the evaporator" annotation (Placement(transformation(extent={{-140,36},
             {-100,76}}),            iconTransformation(extent={{-140,40},{-100,80}})));
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mulExp "Expander work"
+  Buildings.Controls.OBC.CDL.Reals.Multiply mulExp "Expander work"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mulCon "Condenser heat flow"
+  Buildings.Controls.OBC.CDL.Reals.Multiply mulCon "Condenser heat flow"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   Modelica.Blocks.Math.Gain gai(k(final unit="W") = -1, y(final unit="W"))
     "Sign reversal" annotation (Placement(transformation(
