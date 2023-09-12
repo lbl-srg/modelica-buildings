@@ -5,9 +5,10 @@ model VAVBoxReheat "VAV terminal unit with reheat"
     redeclare replaceable Buildings.Templates.ZoneEquipment.Components.Controls.G36VAVBoxReheat ctl
       "Guideline 36 controller for VAV terminal unit with reheat");
 
-  annotation (
-   defaultComponentName="VAVBox",
-    Documentation(info="<html>
+annotation (
+  __ctrlFlow_template,
+  defaultComponentName="VAVBox",
+  Documentation(info="<html>
 <h4>Description</h4>
 <p>
 This template represents a VAV terminal unit with reheat.

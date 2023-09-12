@@ -447,6 +447,7 @@ equation
   connect(fanSupBlo.port_b, coiHeaPre.port_a)
     annotation (Line(points={{-30,-200},{10,-200}}, color={0,127,255}));
   annotation (
+    __ctrlFlow_template,
     defaultComponentName="VAV",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
