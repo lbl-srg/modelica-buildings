@@ -2,12 +2,13 @@ within Buildings.Templates.ZoneEquipment;
 model VAVBoxReheat "VAV terminal unit with reheat"
   extends Buildings.Templates.ZoneEquipment.Interfaces.VAVBox(
     final typ=Buildings.Templates.ZoneEquipment.Types.Configuration.VAVBoxReheat,
-    redeclare replaceable Buildings.Templates.ZoneEquipment.Components.Controls.G36VAVBoxReheat ctl
+    redeclare replaceable
+      Buildings.Templates.ZoneEquipment.Components.Controls.G36VAVBoxReheat ctl
       "Guideline 36 controller for VAV terminal unit with reheat");
 
-  annotation (
-   defaultComponentName="VAVBox",
-    Documentation(info="<html>
+annotation (
+  defaultComponentName="VAVBox",
+  Documentation(info="<html>
 <h4>Description</h4>
 <p>
 This template represents a VAV terminal unit with reheat.
@@ -45,6 +46,13 @@ An open loop controller is also available for validation purposes only.
 <li>
 ASHRAE, 2021. Guideline 36-2021, High-Performance Sequences of Operation
 for HVAC Systems. Atlanta, GA.
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+February 11, 2022, by Antoine Gautier:<br/>
+First implementation.
 </li>
 </ul>
 </html>"));
