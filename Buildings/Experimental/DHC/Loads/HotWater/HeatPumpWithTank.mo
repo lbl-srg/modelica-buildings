@@ -147,9 +147,12 @@ into a hot water storage tank.
 The heat pump model is described in
 <a href=\"modelica://Buildings.Fluid.HeatPumps.Carnot_TCon\">
 Buildings.Fluid.HeatPumps.Carnot_TCon</a>.
-The storage tank model is describedd in 
+The storage tank model is described in 
 <a href=\"modelica://Buildings.Fluid.Storage.StratifiedEnhancedInternalHex\">
 Buildings.Fluid.Storage.StratifiedEnhancedInternalHex</a>.
+The heat pump and storage tank system should be parameterized altogether using
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.HotWater.Data.GenericHeatPumpWaterHeater\">
+Buildings.Experimental.DHC.Loads.HotWater.Data.GenericHeatPumpWaterHeater</a>.
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Loads/HotWater/HeatPumpWithTank.png\"/>
