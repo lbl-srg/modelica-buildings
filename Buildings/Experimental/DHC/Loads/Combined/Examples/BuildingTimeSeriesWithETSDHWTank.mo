@@ -1,6 +1,6 @@
 within Buildings.Experimental.DHC.Loads.Combined.Examples;
 model BuildingTimeSeriesWithETSDHWTank
-  "Example model of a building with loads provided as time series for heating, cooling, and domestic hot water heat pump and tank"
+    "Example model of a building in an ambient district network with loads provided as time series and heat pump heating, free cooling, and heat pump with storage tank domestic hot water"
   extends Modelica.Icons.Example;
   package Medium=Buildings.Media.Water
     "Medium model";
@@ -94,14 +94,16 @@ equation
       __Dymola_Algorithm="Dassl"),
     Documentation(info="<html>
 <p>
-This model provides an example for a building with loads provided
-as time series and connected to a direct ETS for cooling with the
-return chilled water temperature controlled above a minimum threshold.
+Example model of a building in an ambient district network with loads 
+provided as time series and heat pump heating, free cooling, and heat pump 
+with storage tank domestic hot water
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.Combined.BuildingTimeSeriesWithETSWithDHWTank\">
+Buildings.Experimental.DHC.Loads.Combined.BuildingTimeSeriesWithETSWithDHWTank</a>
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-March 20, 2022, by Chengnan Shi:<br/>
+September 13, 2023, by David Blum:<br/>
 First implementation.
 </li>
 </ul>

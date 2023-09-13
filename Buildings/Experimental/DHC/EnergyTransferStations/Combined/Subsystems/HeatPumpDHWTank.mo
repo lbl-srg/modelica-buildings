@@ -1,6 +1,6 @@
-﻿within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems;
+within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems;
 model HeatPumpDHWTank
-  "Base subsystem with water-to-water heat pump with storage tank for domestic hot waterr"
+  "Base subsystem with water-to-water heat pump with storage tank for domestic hot water"
   replaceable package Medium1=Modelica.Media.Interfaces.PartialMedium
     "Medium model on condenser side"
     annotation (choices(choice(redeclare package Medium=Buildings.Media.Water "Water"),
@@ -219,15 +219,13 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-200,-140},{200,140}})),
     Documentation(info="<html>
 <p>
-This model represents a water-to-water heat pump, an evaporator water pump,
-and an optional condenser water pump if <code>have_pumCon</code> is set to
-<code>true</code>.
-The heat pump model is described in
-<a href=\"modelica://Buildings.Fluid.HeatPumps.Carnot_TCon\">
-Buildings.Fluid.HeatPumps.Carnot_TCon</a>.
-By default variable speed pumps are considered.
-Constant speed pumps may also be represented by setting <code>have_varFloEva</code>
-and <code>have_varFloCon</code> to <code>false</code>.
+This model represents a water-to-water heat pump with storage tank and an evaporator water pump.
+The heat pump model with storage tank is described in
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.HotWater.HeatPumpWithTank\">
+Buildings.Experimental.DHC.Loads.HotWater.HeatPumpWithTank</a>.
+By default a variable speed evaporator pump is considered.
+A constant speed pump may also be represented by setting <code>have_varFloEva</code>
+to <code>false</code>.
 </p>
 <h4>Controls</h4>
 <p>
@@ -237,14 +235,13 @@ When enabled,
 </p>
 <ul>
 <li>
-the evaporator and optionally the condenser water pumps are commanded on and supply either
-the mass flow rate set point provided as an input in the case of variable speed pumps,
-or the nominal mass flow rate in the case of constant speed pumps,
+the evaporator pump is commanded on and supply either
+the mass flow rate set point provided as an input in the case of a variable speed pump,
+or the nominal mass flow rate in the case of a constant speed pump,
 </li>
 <li>
-the heat pump is commanded on when the evaporator and optionally the condenser water pump
-are proven on. When enabled, the heat pump controller—idealized in this model—tracks the
-supply temperature set point at the condenser outlet.
+the heat pump with storage tank system operates to maintain the desired
+storage tank temperature.
 </li>
 </ul>
 </html>", revisions="<html>

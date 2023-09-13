@@ -1,6 +1,6 @@
 within Buildings.Experimental.DHC.Loads.Combined.Examples;
 model BuildingTimeSeriesWithETS
-  "Example model of a building with loads provided as time series for heat pump heating and free cooling in an ambient district network"
+  "Example model of a building in an ambient district network with loads provided as time series and heat pump heating, free cooling, and heat pump domestic hot water"
   extends Modelica.Icons.Example;
   package Medium=Buildings.Media.Water
     "Medium model";
@@ -84,9 +84,11 @@ equation
       Tolerance=1e-06),
     Documentation(info="<html>
 <p>
-Example model of a building with loads provided as time series for heat
-pump space heating, heat pump domestic hot water heating,
-and free cooling in an ambient district network.
+Example model of a building in an ambient district network with loads 
+provided as time series and heat pump heating, free cooling, 
+and heat pump domestic hot water.  It uses 
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.Combined.BuildingTimeSeriesWithETS\">
+Buildings.Experimental.DHC.Loads.Combined.BuildingTimeSeriesWithETS</a>
 </p>
 </html>", revisions="<html>
 <ul>

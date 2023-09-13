@@ -143,7 +143,13 @@ equation
 This model implements a domestic hot water source for a low-temperature
 district heating network. It uses a heat pump,
 circulation pump, and heat exchanger to draw heat from the district network 
-into a hot water storage tank.
+into a hot water storage tank.  
+The heat pump model is described in
+<a href=\"modelica://Buildings.Fluid.HeatPumps.Carnot_TCon\">
+Buildings.Fluid.HeatPumps.Carnot_TCon</a>.
+The storage tank model is describedd in 
+<a href=\"modelica://Buildings.Fluid.Storage.StratifiedEnhancedInternalHex\">
+Buildings.Fluid.Storage.StratifiedEnhancedInternalHex</a>.
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Loads/HotWater/HeatPumpWithTank.png\"/>
