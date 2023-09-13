@@ -404,6 +404,8 @@ equation
   connect(not1.y, or2.u1)
     annotation (Line(points={{-28,54},{38,54}}, color={255,0,255}));
 
+  connect(ComSpeSta.uDXCoi, uDXCoi) annotation (Line(points={{128,-120},{60,
+          -120},{60,-140},{-190,-140},{-190,40},{-240,40}}, color={255,0,255}));
   annotation (defaultComponentName="DXCoiCon",
     Icon(coordinateSystem(preserveAspectRatio=false,
       extent={{-100,-100},{100,100}}),
