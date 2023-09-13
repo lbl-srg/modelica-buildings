@@ -30,7 +30,7 @@ model PartialBuildingWithETS
     "Heating water supply temperature"
     annotation (Dialog(group="ETS model parameters"));
   parameter Modelica.Units.SI.Temperature THotWatSup_nominal=63 + 273.15
-    "Hot water supply temperature to fixtures"
+    "Domestic hot water supply temperature to fixtures"
     annotation (Dialog(group="ETS model parameters", enable=have_hotWat));
   parameter Modelica.Units.SI.Temperature TColWat_nominal=288.15
     "Cold water temperature (for hot water production)"

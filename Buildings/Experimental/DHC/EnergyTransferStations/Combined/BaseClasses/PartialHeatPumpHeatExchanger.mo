@@ -48,7 +48,7 @@ model PartialHeatPumpHeatExchanger
       THeaWatSup_nominal - dT_nominal "Heating water return temperature"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Temperature THotWatSup_nominal=336.15
-    "Hot water supply temperature to fixture"
+    "Domestic hot water supply temperature to fixtures"
     annotation (Dialog(group="Nominal condition", enable=have_hotWat));
   parameter Modelica.Units.SI.Temperature TColWat_nominal=288.15
     "Cold water temperature (for hot water production)"
@@ -128,7 +128,7 @@ model PartialHeatPumpHeatExchanger
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THotWatSupSet(
     final unit="K",
     displayUnit="degC") if have_hotWat
-    "Domestic hot water temperature set point for supply to fixture(s)"
+    "Domestic hot water temperature set point for supply to fixtures"
     annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
@@ -362,8 +362,8 @@ model PartialHeatPumpHeatExchanger
   Buildings.Controls.OBC.CDL.Reals.Subtract delT if have_hotWat
     "Compute DeltaT needed on condenser side"
     annotation (Placement(transformation(extent={{-150,-10},{-130,10}})));
-  Fluid.Sensors.MassFlowRate senMasFloHeaWatPri(redeclare final package Medium =
-        MediumBui, final allowFlowReversal=allowFlowReversalBui)
+  Fluid.Sensors.MassFlowRate senMasFloHeaWatPri(redeclare final package Medium
+      = MediumBui, final allowFlowReversal=allowFlowReversalBui)
     "Primary heating water mass flow rate"
     annotation (Placement(transformation(extent={{30,270},{50,250}})));
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold enaSHW(
