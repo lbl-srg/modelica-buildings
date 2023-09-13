@@ -204,9 +204,9 @@ Each class (i.e., model, block and function) must be used in an example or valid
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
-class Version_11_0_0 "Version 11.0.0"
-  extends Modelica.Icons.ReleaseNotes;
-    annotation (Documentation(info="<html>
+    class Version_11_0_0 "Version 11.0.0"
+      extends Modelica.Icons.ReleaseNotes;
+        annotation (Documentation(info="<html>
 <div class=\"release-summary\">
 <p>
 Version 11.0.0 is ...
@@ -245,6 +245,16 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Discrete.Examples
+    </td>
+    <td valign=\"top\">Changed the package name from Examples to Validation.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3517\">issue 3517</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
@@ -336,7 +346,7 @@ xxx
 </li>
 </ul>
 </html>"));
-end Version_11_0_0;
+    end Version_11_0_0;
 
 
   class Version_10_0_0 "Version 10.0.0"
