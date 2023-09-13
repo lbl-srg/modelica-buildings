@@ -47,6 +47,7 @@ model HeatPumpWithTank
         rotation=0,
         origin={50,6})));
   Fluid.Movers.FlowControlled_m_flow pumHex(
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     inputType=Buildings.Fluid.Types.InputType.Continuous,
     redeclare package Medium = Medium,
     m_flow_nominal=datWatHea.mHex_flow_nominal,

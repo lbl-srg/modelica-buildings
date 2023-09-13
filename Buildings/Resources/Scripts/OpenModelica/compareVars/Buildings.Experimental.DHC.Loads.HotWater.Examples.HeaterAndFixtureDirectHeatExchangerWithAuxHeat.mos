@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "TSetHot",
+    "THot",
+    "gen.TSetHotSou",
+    "gen.senTemHot.T",
+    "PEle",
+    "loa.port_hot.m_flow"
+  };
