@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.CDL.Discrete;
-package Examples "Collection of models that illustrate model use and test models"
+package Validation "Collection of models that illustrate model use and test models"
   annotation (
     preferredView="info",
     Documentation(
@@ -29,4 +29,4 @@ Buildings.Controls.OBC.CDL.Discrete</a>.
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
           points={{-58.0,46.0},{42.0,-14.0},{-58.0,-74.0},{-58.0,46.0}})}));
-end Examples;
+end Validation;
