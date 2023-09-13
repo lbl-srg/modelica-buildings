@@ -1,14 +1,23 @@
 within Buildings.Controls.OBC.CDL.Discrete;
-package Validation "Collection of models that illustrate model use and test models"
+package Validation "Collection of models that validate the discrete blocks of the CDL"
   annotation (
     preferredView="info",
     Documentation(
       info="<html>
 <p>
-This package contains examples for the use of models that can be found in
+This package contains models that validate the blocks in
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Discrete\">
 Buildings.Controls.OBC.CDL.Discrete</a>.
 </p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+September 13, 2023, by Jianjun Hu:<br/>
+Changed the package name from Examples to Validation.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3517\">issue 3517</a>.
+</li>
+</ul>
 </html>"),
     Icon(
       graphics={

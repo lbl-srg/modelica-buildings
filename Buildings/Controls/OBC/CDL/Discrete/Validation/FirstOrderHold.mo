@@ -17,9 +17,9 @@ model FirstOrderHold
 
 equation
   connect(ramp1.y,cos1.u)
-    annotation (Line(points={{-39,0},{-12,0},{-12,0}},color={0,0,127}));
+    annotation (Line(points={{-38,0},{-12,0},{-12,0}},color={0,0,127}));
   connect(cos1.y,firOrdHol.u)
-    annotation (Line(points={{11,0},{20,0},{28,0}},color={0,0,127}));
+    annotation (Line(points={{12,0},{12,0},{28,0}},color={0,0,127}));
   annotation (
     experiment(
       StopTime=1.0,
