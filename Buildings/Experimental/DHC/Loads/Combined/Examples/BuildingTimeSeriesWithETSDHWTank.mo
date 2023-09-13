@@ -52,7 +52,7 @@ model BuildingTimeSeriesWithETSDHWTank
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   parameter HotWater.Data.GenericHeatPumpWaterHeater datWatHea(
     mHex_flow_nominal=datWatHea.QCon_flow_nominal/4200/datWatHea.dTCon_nominal*
-        2.2,
+        4,
     QCon_flow_max=datWatHea.QCon_flow_nominal,
     QCon_flow_nominal=bui.QHot_flow_nominal,
     TTan_nominal=(bui.ets.TColWat_nominal + datWatHea.THex_nominal)/2,
@@ -87,11 +87,10 @@ equation
         coordinateSystem(
         preserveAspectRatio=false)),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/Combined/Examples/BuildingTimeSeriesWithETSWithDHWTank.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/Combined/Examples/BuildingTimeSeriesWithETSDHWTank.mos" "Simulate and plot"),
     experiment(
       StopTime=864000,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),
+      Tolerance=1e-06),
     Documentation(info="<html>
 <p>
 Example model of a building in an ambient district network with loads 

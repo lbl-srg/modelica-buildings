@@ -15,8 +15,8 @@ model ThermostaticMixingValve
     Ti=Ti,
     reset=Buildings.Types.Reset.Parameter)
     annotation (Placement(transformation(extent={{40,60},{20,80}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTemHot(redeclare package Medium =
-        Medium, m_flow_nominal=mHot_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemHot(redeclare package Medium
+      = Medium, m_flow_nominal=mHot_flow_nominal)
     "Hot water to fixture temperature sensor"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Fluid.Actuators.Valves.ThreeWayLinear ValHea(
@@ -34,15 +34,15 @@ model ThermostaticMixingValve
   Modelica.Fluid.Interfaces.FluidPort_a port_col(redeclare package Medium =
         Medium) "Port for domestic cold water supply"
     annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
-  Modelica.Blocks.Interfaces.RealOutput TTem
-    "Temperature of the outlet tempered water supply to fixture"
+  Modelica.Blocks.Interfaces.RealOutput THot
+    "Temperature of the outlet hot water supply to fixture"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemHotSou(redeclare package
       Medium = Medium, m_flow_nominal=mHot_flow_nominal)
     "Source hot water temperature sensor"
     annotation (Placement(transformation(extent={{-40,-8},{-20,12}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTemCw(redeclare package Medium =
-        Medium, m_flow_nominal=mHot_flow_nominal) "Cold water temperature sensor"
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemCw(redeclare package Medium
+      = Medium, m_flow_nominal=mHot_flow_nominal) "Cold water temperature sensor"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
   Buildings.Fluid.Sensors.MassFlowRate senFloHot(redeclare package Medium =
         Medium) "Mass flow rate of hot water to fixture"
@@ -62,7 +62,7 @@ equation
           {20,-6.66134e-16},{20,0}}, color={0,127,255}));
   connect(conPID.y, ValHea.y) annotation (Line(points={{19,70},{0,70},{0,12},{
           9.99201e-16,12}}, color={0,0,127}));
-  connect(senTemHot.T, TTem) annotation (Line(points={{30,11},{30,40},{90,40},{
+  connect(senTemHot.T,THot)  annotation (Line(points={{30,11},{30,40},{90,40},{
           90,60},{110,60}}, color={0,0,127}));
   connect(ValHea.port_1, senTemHotSou.port_b) annotation (Line(points={{-10,
           1.77636e-15},{-10,2},{-20,2}}, color={0,127,255}));

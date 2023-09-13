@@ -23,8 +23,8 @@ model partialHeaterAndFixture
     mHot_flow_nominal=mHot_flow_nominal,
     dpValve_nominal=dpValve_nominal) "Ideal thermostatic mixing valve"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Modelica.Blocks.Interfaces.RealOutput TTem(final unit="K", displayUnit="degC")
-    "Temperature of the outlet tempered water"
+  Modelica.Blocks.Interfaces.RealOutput THot(final unit="K", displayUnit="degC")
+    "Temperature of the outlet hot water"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
   Fluid.Sources.MassFlowSource_T souDis(
     redeclare package Medium = Medium,
@@ -63,7 +63,7 @@ model partialHeaterAndFixture
     "Temperature setpoint for hot water supply to fixture"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
 equation
-  connect(tmv.TTem, TTem) annotation (Line(points={{21,6},{30,6},{30,60},{110,60}},
+  connect(tmv.THot,THot)  annotation (Line(points={{21,6},{30,6},{30,60},{110,60}},
         color={0,0,127}));
   connect(loa.sch, sch.y[1])
     annotation (Line(points={{61,3},{74,3},{74,30},{79,30}}, color={0,0,127}));

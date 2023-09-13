@@ -40,9 +40,9 @@ equation
           80}}, color={0,0,127}));
   annotation (experiment(
       StopTime=86400,
-      Interval=1,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),preferredView="info",Documentation(info="<html>
+      Tolerance=1e-06),
+      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/HotWater/Examples/HeaterAndFixtureHeatPumpWithTank.mos"
+        "Simulate and plot"),Documentation(info="<html>
 <p>
 This model implements an example hot water system where the hot water is 
 produced using 
