@@ -204,9 +204,9 @@ Each class (i.e., model, block and function) must be used in an example or valid
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
-    class Version_11_0_0 "Version 11.0.0"
-      extends Modelica.Icons.ReleaseNotes;
-        annotation (Documentation(info="<html>
+class Version_11_0_0 "Version 11.0.0"
+  extends Modelica.Icons.ReleaseNotes;
+    annotation (Documentation(info="<html>
 <div class=\"release-summary\">
 <p>
 Version 11.0.0 is ...
@@ -346,7 +346,7 @@ xxx
 </li>
 </ul>
 </html>"));
-    end Version_11_0_0;
+end Version_11_0_0;
 
 
   class Version_10_0_0 "Version 10.0.0"
