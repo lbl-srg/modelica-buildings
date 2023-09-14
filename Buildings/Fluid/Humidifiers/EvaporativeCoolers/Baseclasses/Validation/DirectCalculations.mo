@@ -133,8 +133,16 @@ equation
   connect(pCon.y, dirEvaCoo2.p) annotation (Line(points={{-69,-80},{-50,-80},{-50,
           -56},{18,-56}}, color={0,0,127}));
   annotation (Documentation(info="<html>
-<p>This model implements a validation of the block <a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.DirectCalculations\">
-Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.DirectCalculations</a> that applies the peformance curve to calucalte the water mass flow rate. </p>
+<p>This model implements a validation of the block <a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.DirectCalculations\">Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.DirectCalculations</a> that applies the peformance curve to calucalte the water mass flow rate of a direct evaporative cooler. </p>
+<p>This model considers three validation cases: time-varying inlet air dry bulb temperature, time-varying inlet air wet bulb temperature, and time-varying inlet air volume flow rate.</p>
+<p>The pressure is the atmospherical pressure for all the three validation cases.</p>
+</html>", revisions="<html>
+<ul>
+<li>
+Semptember 14, 2023 by Cerrina Mouchref, Karthikeya Devaprasad, Lingzhe Wang:<br/>
+First implementation.
+</li>
+</ul>
 </html>"),
 experiment(
     StopTime=60,

@@ -20,14 +20,14 @@ model Direct "Validation model for a direct evaporative cooler"
         extent={{-10,-10},{10,10}},
         rotation=0)));
 
-  Buildings.Fluid.Sources.Boundary_pT sink(
+  Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare final package Medium = MediumA,
-    T = 340,
-    use_T_in = false,
-    nPorts=1)
-    "Sink"
-    annotation (
-    Placement(visible = true, transformation(origin={102,0},      extent = {{-10, -10}, {10, 10}}, rotation = -180)));
+    T=340,
+    use_T_in=false,
+    nPorts=1) "Sink" annotation (Placement(visible=true, transformation(
+        origin={102,0},
+        extent={{-10,-10},{10,10}},
+        rotation=-180)));
 
   Modelica.Blocks.Sources.CombiTimeTable combiTimeTable(
     columns = 2:10,
@@ -41,17 +41,18 @@ model Direct "Validation model for a direct evaporative cooler"
       extent = {{-10, -10}, {10, 10}},
       rotation = 0)));
 
-  Buildings.Fluid.Sources.MassFlowSource_T boundary(
+  Buildings.Fluid.Sources.MassFlowSource_T sou(
     redeclare package Medium = MediumA,
-    m_flow = 1,
-    use_C_in = false,
-    use_T_in = true,
-    use_Xi_in = true,
-    use_m_flow_in = true,
-    nPorts=1)
-    "Mass flow rate source"
-    annotation (
-    Placement(visible = true, transformation(origin={-30,0},     extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    m_flow=1,
+    use_C_in=false,
+    use_T_in=true,
+    use_Xi_in=true,
+    use_m_flow_in=true,
+    nPorts=1) "Mass flow rate source" annotation (Placement(visible=true,
+        transformation(
+        origin={-30,0},
+        extent={{-10,-10},{10,10}},
+        rotation=0)));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem(
     redeclare package Medium = MediumA,
@@ -73,15 +74,17 @@ model Direct "Validation model for a direct evaporative cooler"
         extent={{-10,-10},{10,10}},
         rotation=0)));
 
-  Modelica.Blocks.Math.Mean mean(f=1/600)
-    "Mean block to average output data"
-        annotation (
-    Placement(visible = true, transformation(origin={50,60},   extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Math.Mean mea(f=1/600) "Mean block to average output data"
+    annotation (Placement(visible=true, transformation(
+        origin={50,60},
+        extent={{-10,-10},{10,10}},
+        rotation=0)));
 
-  Modelica.Blocks.Math.Mean mean1(f=1/600)
-    "Mean block to average output data"
-       annotation (
-    Placement(visible = true, transformation(origin={90,30},   extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Math.Mean mea1(f=1/600) "Mean block to average output data"
+    annotation (Placement(visible=true, transformation(
+        origin={90,30},
+        extent={{-10,-10},{10,10}},
+        rotation=0)));
 
   Buildings.Utilities.Psychrometrics.ToTotalAir toTotAirIn
     "Convert inlet air humidity ratio denominator from dry air to total air"
@@ -99,31 +102,31 @@ model Direct "Validation model for a direct evaporative cooler"
     "Convert outlet temperature from Kelvin to deg C"
     annotation (Placement(transformation(extent={{80,50},{100,70}})));
 equation
-  connect(combiTimeTable.y[9], boundary.m_flow_in) annotation (
-    Line(points={{-109,40},{-100,40},{-100,8},{-42,8}}, color = {0, 0, 127}));
+  connect(combiTimeTable.y[9], sou.m_flow_in) annotation (Line(points={{-109,40},
+          {-100,40},{-100,8},{-42,8}}, color={0,0,127}));
   connect(dirEvaCoo.port_b, senTem.port_a)
     annotation (Line(points={{10,0},{20,0}}, color={0,127,255}));
-  connect(senTem.T, mean.u)
+  connect(senTem.T, mea.u)
     annotation (Line(points={{30,11},{30,60},{38,60}}, color={0,0,127}));
-  connect(senMasFra.X, mean1.u)
+  connect(senMasFra.X, mea1.u)
     annotation (Line(points={{60,11},{60,30},{78,30}}, color={0,0,127}));
   connect(combiTimeTable.y[6], toTotAirIn.XiDry) annotation (Line(points={{-109,40},
           {-100,40},{-100,-50},{-91,-50}},      color={0,0,127}));
-  connect(toTotAirIn.XiTotalAir, boundary.Xi_in[1]) annotation (Line(points={{-69,-50},
-          {-50,-50},{-50,-4},{-42,-4}},       color={0,0,127}));
+  connect(toTotAirIn.XiTotalAir, sou.Xi_in[1]) annotation (Line(points={{-69,-50},
+          {-50,-50},{-50,-4},{-42,-4}}, color={0,0,127}));
   connect(combiTimeTable.y[8], toTotAirOut.XiDry)
     annotation (Line(points={{-109,40},{-81,40}},  color={0,0,127}));
   connect(combiTimeTable.y[5], from_degCIn.u) annotation (Line(points={{-109,40},
           {-100,40},{-100,-20},{-92,-20}}, color={0,0,127}));
-  connect(from_degCIn.y, boundary.T_in) annotation (Line(points={{-69,-20},{-60,
-          -20},{-60,4},{-42,4}}, color={0,0,127}));
-  connect(mean.y, to_degCOut.u)
+  connect(from_degCIn.y, sou.T_in) annotation (Line(points={{-69,-20},{-60,-20},
+          {-60,4},{-42,4}}, color={0,0,127}));
+  connect(mea.y, to_degCOut.u)
     annotation (Line(points={{61,60},{78,60}}, color={0,0,127}));
   connect(senMasFra.port_a, senTem.port_b)
     annotation (Line(points={{50,0},{40,0}}, color={0,127,255}));
-  connect(senMasFra.port_b, sink.ports[1])
+  connect(senMasFra.port_b, sin.ports[1])
     annotation (Line(points={{70,0},{92,0}}, color={0,127,255}));
-  connect(boundary.ports[1], dirEvaCoo.port_a)
+  connect(sou.ports[1], dirEvaCoo.port_a)
     annotation (Line(points={{-20,0},{-10,0}}, color={0,127,255}));
   annotation (
     Placement(visible = true, transformation(origin = {-62, 66}, extent = {{-10, -10}, {10, 10}}, rotation = 0)),
@@ -135,6 +138,13 @@ equation
     Documentation(info="<html>
 <p>Model that demonstrates the use of the <a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct\">
 Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct</a> evaporative cooler model. </p>
+</html>", revisions="<html>
+<ul>
+<li>
+Semptember 14, 2023 by Cerrina Mouchref, Karthikeya Devaprasad, Lingzhe Wang:<br/>
+First implementation.
+</li>
+</ul>
 </html>"),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Humidifiers/EvaporativeCoolers/Validation/Direct.mos"
