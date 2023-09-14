@@ -50,7 +50,6 @@ protected
 
   constant Real uniCon1(final unit="1/rad") = 1
     "Constant to satisfy unit check";
-
   constant Real uniConK(final unit="K/rad") = 1
     "Constant to satisfy unit check";
 
@@ -102,7 +101,6 @@ equation
     TDryBul_degC = 0;
     rh_per       = 0;
   end if;
-
 annotation (
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}), graphics={

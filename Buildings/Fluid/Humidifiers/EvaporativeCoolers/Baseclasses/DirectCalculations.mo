@@ -7,12 +7,19 @@ block DirectCalculations
 
   parameter Modelica.Units.SI.Area padAre
     "Area of the rigid media evaporative pad";
-
   parameter Modelica.Units.SI.Length dep
     "Depth of the rigid media evaporative pad";
 
   Modelica.Units.SI.Velocity vel
     "Air velocity";
+  Real eff(
+    final unit="1")
+    "Evaporative humidifier efficiency";
+  Modelica.Units.SI.ThermodynamicTemperature TDryBulOut(
+    displayUnit="degC")
+    "Dry bulb temperature of the outlet air";
+  Modelica.Units.SI.MassFlowRate mWat_flowOut
+    "Water mass flow rate at the outlet";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput V_flow(
     final unit="m3/s",
@@ -93,17 +100,6 @@ block DirectCalculations
        extent={{-20,-20},{20,20}},
        rotation=0)));
 
-  Real eff(
-    final unit="1")
-    "Evaporative humidifier efficiency";
-
-  Modelica.Units.SI.ThermodynamicTemperature TDryBulOut(
-    displayUnit="degC")
-    "Dry bulb temperature of the outlet air";
-
-  Modelica.Units.SI.MassFlowRate mWat_flowOut
-    "Water mass flow rate at the outlet";
-
   Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.Xi_TDryBulTWetBul
     XiOut(redeclare package Medium = Medium)
     "Water vapor mass fraction at the outlet";
@@ -136,6 +132,13 @@ equation
   p = XiOut.p;
   annotation (Documentation(info="<html>
 <p>Block that calculates the water mass flow rate of the humidifier based on the performance curve.</p>
+</html>", revisions="<html>
+<ul>
+<li>
+Semptember 14, 2023 by Cerrina Mouchref, Karthikeya Devaprasad, Lingzhe Wang:<br/>
+First implementation.
+</li>
+</ul>
 </html>"), Icon(graphics={              Text(
         extent={{-152,144},{148,104}},
         textString="%name",
