@@ -1,22 +1,30 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers.Validation;
 model Direct "Validation model for a direct evaporative cooler"
+
   extends Modelica.Icons.Example;
 
   replaceable package MediumA = Buildings.Media.Air;
-  parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal = 2;
+
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal = 2;
+
   Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct dirEvaCoo(
-    mAir_flow_nominal=mAir_flow_nominal,
-    dep=0.2,
     redeclare package Medium = MediumA,
+    m_flow_nominal=m_flow_nominal,
+    dep=0.2,
     padAre=0.6) "Direct evaporative cooler" annotation (Placement(visible=true,
         transformation(
         origin={0,0},
         extent={{-10,-10},{10,10}},
         rotation=0)));
-  Buildings.Fluid.Sources.Boundary_pT sink(redeclare final package Medium = MediumA, T = 340,             use_T_in = false,
+
+  Buildings.Fluid.Sources.Boundary_pT sink(
+    redeclare final package Medium = MediumA,
+    T = 340,
+    use_T_in = false,
     nPorts=1)
     annotation (
     Placement(visible = true, transformation(origin={102,0},      extent = {{-10, -10}, {10, 10}}, rotation = -180)));
+
   Modelica.Blocks.Sources.CombiTimeTable combiTimeTable(
     columns = 2:10,
     fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Fluid/Humidifiers/EvaporativeCoolers/Direct/Direct.dat"),
@@ -28,28 +36,46 @@ model Direct "Validation model for a direct evaporative cooler"
       extent = {{-10, -10}, {10, 10}},
       rotation = 0)));
 
-  Buildings.Fluid.Sources.MassFlowSource_T boundary(redeclare package Medium = MediumA, m_flow = 1,             use_C_in = false, use_T_in = true, use_Xi_in = true, use_m_flow_in = true,
+  Buildings.Fluid.Sources.MassFlowSource_T boundary(
+    redeclare package Medium = MediumA,
+    m_flow = 1,
+    use_C_in = false,
+    use_T_in = true,
+    use_Xi_in = true,
+    use_m_flow_in = true,
     nPorts=1)                                                                                                                                                                              annotation (
     Placement(visible = true, transformation(origin={-30,0},     extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTem1(redeclare package Medium = MediumA, initType = Modelica.Blocks.Types.Init.InitialOutput, m_flow_nominal = mAir_flow_nominal,
+
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTem1(
+    redeclare package Medium = MediumA,
+    initType = Modelica.Blocks.Types.Init.InitialOutput,
+    m_flow_nominal = m_flow_nominal,
     T_start(displayUnit="K") = 293.15)                                                                                                                                            annotation (
     Placement(visible = true, transformation(origin={30,0},      extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Buildings.Fluid.Sensors.MassFractionTwoPort senMasFra1(redeclare package
-      Medium =                                                                      MediumA, m_flow_nominal = mAir_flow_nominal)  annotation (
+
+  Buildings.Fluid.Sensors.MassFractionTwoPort senMasFra1(
+    redeclare package Medium = MediumA,
+    m_flow_nominal = m_flow_nominal)  annotation (
     Placement(visible = true, transformation(origin={60,0},      extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
   Modelica.Blocks.Math.Mean mean(f=1/600)     annotation (
     Placement(visible = true, transformation(origin={50,60},   extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
   Modelica.Blocks.Math.Mean mean2(f=1/600)    annotation (
     Placement(visible = true, transformation(origin={90,30},   extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
   Buildings.Utilities.Psychrometrics.ToTotalAir toTotAirIn
     "Convert inlet air humidity ratio denominator from dry air to total air"
     annotation (Placement(transformation(extent={{-90,-60},{-70,-40}})));
+
   Buildings.Utilities.Psychrometrics.ToTotalAir toTotAirOut
     "Convert outlet air humidity ratio denominator from dry air to total air"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
+
   Modelica.Blocks.Math.UnitConversions.From_degC from_degCIn
     "Convert inlet temperature from deg C to Kelvin"
     annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
+
   Modelica.Blocks.Math.UnitConversions.To_degC to_degCOut
     "Convert outlet temperature from Kelvin to deg C"
     annotation (Placement(transformation(extent={{80,50},{100,70}})));

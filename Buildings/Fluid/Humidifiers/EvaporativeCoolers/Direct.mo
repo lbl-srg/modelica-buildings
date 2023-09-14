@@ -4,19 +4,19 @@ model Direct
 
   extends Buildings.Fluid.Interfaces.PartialTwoPort;
 
-  parameter Real mAir_flow_nominal(final unit = "kg/s")
-    "Nominal mass flow rate";
+  parameter Real m_flow_nominal(final unit = "kg/s")
+    "Nominal air mass flow rate";
   parameter Modelica.Units.SI.Area padAre
     "Area of the rigid media evaporative pad";
   parameter Modelica.Units.SI.Length dep
     "Depth of the rigid media evaporative pad";
   parameter Modelica.Units.SI.Time tau=30
-    "Time constant at nominal flow (if energyDynamics <> SteadyState)"
+    "Time constant at nominal flow rate (if energyDynamics <> SteadyState)"
     annotation (Dialog(tab="Dynamics", group="Nominal condition"));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem(
     redeclare final package Medium = Medium,
-    m_flow_nominal=mAir_flow_nominal,
+    m_flow_nominal=m_flow_nominal,
     initType=Modelica.Blocks.Types.Init.InitialOutput,
     T_start=298.15)
     "Dry bulb temperature sensor"
@@ -27,7 +27,7 @@ model Direct
 
   Buildings.Fluid.Sensors.TemperatureWetBulbTwoPort senTemWetBul(
     redeclare final package Medium = Medium,
-    m_flow_nominal=mAir_flow_nominal,
+    m_flow_nominal=m_flow_nominal,
     initType=Modelica.Blocks.Types.Init.InitialOutput,
     TWetBul_start=296.15)
     "Wet bulb temperature sensor"
@@ -38,7 +38,7 @@ model Direct
 
   Buildings.Fluid.Sensors.VolumeFlowRate senVolFlo(
     redeclare final package
-    Medium =  Medium, m_flow_nominal=mAir_flow_nominal)
+    Medium =  Medium, m_flow_nominal=m_flow_nominal)
     "Volume flow rate sensor"
         annotation (
     Placement(visible = true, transformation(origin={-10,0},    extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -46,15 +46,15 @@ model Direct
   Buildings.Fluid.FixedResistances.PressureDrop res(
     redeclare final package Medium = Medium,
     dp_nominal = 10,
-    m_flow_nominal = mAir_flow_nominal)
+    m_flow_nominal = m_flow_nominal)
     "Pressure drop"
         annotation (
     Placement(visible = true, transformation(origin={30,0},    extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol(
     redeclare final package Medium = Medium,
-    m_flow_nominal = mAir_flow_nominal,
-    V=mAir_flow_nominal*tau/rho_default,
+    m_flow_nominal = m_flow_nominal,
+    V=m_flow_nominal*tau/rho_default,
     nPorts = 2)
     "Moist air mixing volume"
       annotation (
@@ -110,7 +110,7 @@ equation
     Icon(graphics={  Rectangle(lineColor = {0, 0, 255}, fillColor = {95, 95, 95}, pattern = LinePattern.None,
             fillPattern =                                                                                                   FillPattern.Solid, extent = {{-70, 60}, {70, -60}}), Rectangle(lineColor = {0, 0, 255}, fillColor = {0, 0, 255}, pattern = LinePattern.None,
             fillPattern =                                                                                                                                                                                                        FillPattern.Solid, extent = {{-101, 5}, {100, -4}}), Rectangle(lineColor = {0, 0, 255}, fillColor = {255, 0, 0}, pattern = LinePattern.None,
-            fillPattern =                                                                                                                                                                                                        FillPattern.Solid, extent = {{0, -4}, {100, 5}}), Text(textColor = {0, 0, 127}, extent = {{-52, -60}, {58, -120}}, textString = "m=%mAir_flow_nominal"), Rectangle(lineColor = {0, 0, 255}, pattern = LinePattern.None,
+            fillPattern =                                                                                                                                                                                                        FillPattern.Solid, extent = {{0, -4}, {100, 5}}), Text(textColor = {0, 0, 127}, extent = {{-52, -60}, {58, -120}}, textString = "m=%m_flow_nominal"), Rectangle(lineColor = {0, 0, 255}, pattern = LinePattern.None,
             fillPattern =                                                                                                                                                                                                        FillPattern.Solid, extent = {{-100, 5}, {101, -5}}), Rectangle(lineColor = {0, 0, 255}, fillColor = {0, 62, 0}, pattern = LinePattern.None,
             fillPattern =                                                                                                                                                                                                        FillPattern.Solid, extent = {{-70, 60}, {70, -60}}), Polygon(lineColor = {255, 255, 255}, fillColor = {255, 255, 255},
             fillPattern =                                                                                                                                                                                                        FillPattern.Solid, points = {{42, 42}, {54, 34}, {54, 34}, {42, 28}, {42, 30}, {50, 34}, {50, 34}, {42, 40}, {42, 42}}), Rectangle(lineColor = {255, 255, 255}, fillColor = {255, 255, 255},
