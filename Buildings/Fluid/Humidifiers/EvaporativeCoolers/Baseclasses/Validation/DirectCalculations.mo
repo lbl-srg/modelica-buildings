@@ -5,33 +5,29 @@ model DirectCalculations
 
   parameter Modelica.Units.SI.Area padAre = 0.6
     "Area of the rigid media evaporative pad";
-
   parameter Modelica.Units.SI.Length dep = 0.2
     "Depth of the rigid media evaporative pad";
-
   parameter Modelica.Units.SI.Length preAtm = 101325
     "Atmospheric pressure";
-
   parameter Modelica.Units.SI.ThermodynamicTemperature TSupDb_nominal = 296.15
     "Nominal supply air drybulb temperature";
-
   parameter Modelica.Units.SI.ThermodynamicTemperature TSupWb_nominal = 289.3
     "Nominal supply air wetbulb temperature";
-
   parameter Modelica.Units.SI.VolumeFlowRate VAir_flow_nominal = 1
     "Nominal supply air volume flowrate";
 
   Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.DirectCalculations
-    dirEvaCoo(redeclare package Medium = Buildings.Media.Air,
+    dirEvaCoo(
+    redeclare package Medium = Buildings.Media.Air,
     padAre=padAre,
     dep=dep) "Instance with time-varying volume flowrate signal"
                              annotation (Placement(visible=true, transformation(
         origin={30,50},
         extent={{-10,-10},{10,10}},
         rotation=0)));
-
   Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.DirectCalculations
-    dirEvaCoo1(redeclare package Medium = Buildings.Media.Air,
+    dirEvaCoo1(
+    redeclare package Medium = Buildings.Media.Air,
     padAre=padAre,
     dep=dep) "Instance with time-varying wetbulb temperature signal"
                                                                annotation (
@@ -39,9 +35,9 @@ model DirectCalculations
         origin={30,0},
         extent={{-10,-10},{10,10}},
         rotation=0)));
-
   Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.DirectCalculations
-    dirEvaCoo2(redeclare package Medium = Buildings.Media.Air,
+    dirEvaCoo2(
+    redeclare package Medium = Buildings.Media.Air,
     padAre=padAre,
     dep=dep) "Instance with time-varying drybulb temperature signal"
                                                                annotation (
@@ -49,16 +45,17 @@ model DirectCalculations
         origin={30,-50},
         extent={{-10,-10},{10,10}},
         rotation=0)));
-
 protected
-  Modelica.Blocks.Sources.Constant conTSupWb(k=TSupWb_nominal)
+  Modelica.Blocks.Sources.Constant conTSupWb(
+    k=TSupWb_nominal)
     "Constant wet bulb temperature signal" annotation (Placement(visible=true,
         transformation(
         origin={-80,80},
         extent={{-10,-10},{10,10}},
         rotation=0)));
 
-  Modelica.Blocks.Sources.Constant conTSupDb(k=TSupDb_nominal)
+  Modelica.Blocks.Sources.Constant conTSupDb(
+    k=TSupDb_nominal)
     "Constant drybulb temperature signal" annotation (Placement(visible=true,
         transformation(
         origin={-80,30},
@@ -69,28 +66,32 @@ protected
     duration=60,
     height=5,
     offset=TSupWb_nominal,
-    startTime=0) "Ramp signal for wet-bulb temperature" annotation (Placement(
+    startTime=0)
+    "Ramp signal for wet-bulb temperature" annotation (Placement(
         visible=true, transformation(
         origin={-10,20},
         extent={{-10,-10},{10,10}},
         rotation=0)));
+
   Modelica.Blocks.Sources.Ramp ramTSupDb(
     duration=60,
     height=15,
     offset=TSupDb_nominal,
-    startTime=0) "Ramp signal for drybulb temperature" annotation (Placement(
+    startTime=0)
+    "Ramp signal for drybulb temperature" annotation (Placement(
         visible=true, transformation(
         origin={-10,-26},
         extent={{-10,-10},{10,10}},
         rotation=0)));
 
-Modelica.Blocks.Sources.Constant conVol_flow(k=VAir_flow_nominal)
+  Modelica.Blocks.Sources.Constant conVol_flow(k=VAir_flow_nominal)
     "Constant volume flowrate signal" annotation (Placement(visible=true,
         transformation(
         origin={-80,-30},
         extent={{-10,-10},{10,10}},
         rotation=0)));
-Modelica.Blocks.Sources.Ramp ramVol_flow(
+
+  Modelica.Blocks.Sources.Ramp ramVol_flow(
     duration=60,
     height=0.5,
     offset=VAir_flow_nominal,
@@ -99,11 +100,13 @@ Modelica.Blocks.Sources.Ramp ramVol_flow(
         origin={-10,80},
         extent={{-10,-10},{10,10}},
         rotation=0)));
+
   Modelica.Blocks.Sources.Constant conPre(k=preAtm) "Constant pressure signal"
     annotation (Placement(visible=true, transformation(
         origin={-80,-80},
         extent={{-10,-10},{10,10}},
         rotation=0)));
+
 equation
   connect(conTSupWb.y, dirEvaCoo.TWetBulIn) annotation (Line(points={{-69,80},{
           -40,80},{-40,56},{18,56}},
