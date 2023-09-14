@@ -47,7 +47,6 @@ protected
   if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i], string2="Water", caseSensitive=false)
   then i else 0) for i in 1:Medium.nX})
     "Index of water in medium composition vector";
-
   constant Real uniCon1(final unit="1/rad") = 1
     "Constant to satisfy unit check";
   constant Real uniConK(final unit="K/rad") = 1
@@ -55,13 +54,10 @@ protected
 
   Modelica.Units.NonSI.Temperature_degC TDryBul_degC
     "Dry bulb temperature in degree Celsius";
-
   Real rh_per(min=0)
     "Relative humidity in percentage";
-
   Modelica.Units.SI.MassFraction XiSat(start=0.01, nominal=0.01)
     "Water vapor mass fraction at saturation";
-
   Modelica.Units.SI.MassFraction XiSatRefIn
     "Water vapor mass fraction at saturation, referenced to inlet mass flow rate";
 

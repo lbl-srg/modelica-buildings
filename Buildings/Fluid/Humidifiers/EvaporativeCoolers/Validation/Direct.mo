@@ -24,7 +24,8 @@ model Direct "Validation model for a direct evaporative cooler"
     redeclare final package Medium = MediumA,
     T=340,
     use_T_in=false,
-    nPorts=1) "Sink" annotation (Placement(visible=true, transformation(
+    nPorts=1)
+    "Sink" annotation (Placement(visible=true, transformation(
         origin={102,0},
         extent={{-10,-10},{10,10}},
         rotation=-180)));
@@ -48,7 +49,8 @@ model Direct "Validation model for a direct evaporative cooler"
     use_T_in=true,
     use_Xi_in=true,
     use_m_flow_in=true,
-    nPorts=1) "Mass flow rate source" annotation (Placement(visible=true,
+    nPorts=1)
+    "Mass flow rate source" annotation (Placement(visible=true,
         transformation(
         origin={-30,0},
         extent={{-10,-10},{10,10}},
@@ -74,13 +76,15 @@ model Direct "Validation model for a direct evaporative cooler"
         extent={{-10,-10},{10,10}},
         rotation=0)));
 
-  Modelica.Blocks.Math.Mean mea(f=1/600) "Mean block to average output data"
+  Modelica.Blocks.Math.Mean mea(f=1/600)
+    "Mean block to average output data"
     annotation (Placement(visible=true, transformation(
         origin={50,60},
         extent={{-10,-10},{10,10}},
         rotation=0)));
 
-  Modelica.Blocks.Math.Mean mea1(f=1/600) "Mean block to average output data"
+  Modelica.Blocks.Math.Mean mea1(f=1/600)
+    "Mean block to average output data"
     annotation (Placement(visible=true, transformation(
         origin={90,30},
         extent={{-10,-10},{10,10}},
@@ -136,8 +140,10 @@ equation
       Interval=60,
       __Dymola_Algorithm="Cvode"),
     Documentation(info="<html>
-<p>Model that demonstrates the use of the <a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct\">
-Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct</a> evaporative cooler model. </p>
+<p>This model validates the evaporative cooler model <a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct\">Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct</a>. </p>
+<p>The EnergyPlus results were generated using the example file <span style=\"font-family: Courier New;\">Direct.idf</span> from EnergyPlus 23.1. The results were then used to set-up the boundary conditions for the model as well as the input signals. To compare the results, the Modelica outputs are averaged over 600 seconds. </p>
+<p>Note that EnergyPlus mass fractions (X) are in mass of water vapor per mass of dry air, whereas Modelica uses the total mass as a reference. Also, the temperatures in Modelica are in Kelvin whereas they are in Celsius in EnergyPlus. Hence, the EnergyPlus values are corrected by using the appropriate conversion blocks.</p>
+<p>The validation generates three subplots. Subplot 1 shows the inlet air mass flowrate from the EnergyPlus model varying with the cooling load. Subplot 2 compares the outlet air humidity ratio between Modelica and EnergyPlus. Subplot 3 compares the outlet air dry bulb temperature.</p>
 </html>", revisions="<html>
 <ul>
 <li>

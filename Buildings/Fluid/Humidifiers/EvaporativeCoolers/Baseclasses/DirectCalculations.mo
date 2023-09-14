@@ -1,6 +1,6 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses;
 block DirectCalculations
-  "Calculates the water mass flow rate of a direct evaporative coolder"
+  "Calculates the water vapor mass flow rate of a direct evaporative coolder"
 
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium";
@@ -88,7 +88,7 @@ block DirectCalculations
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dmWat_flow(
     final unit="kg/s")
-    "Water mass flow rate difference between inlet and outlet"
+    "Water vapor mass flow rate difference between inlet and outlet"
     annotation (Placement(
      visible=true,
      transformation(
@@ -131,7 +131,7 @@ equation
   TWetBulIn = XiOut.TWetBul;
   p = XiOut.p;
   annotation (Documentation(info="<html>
-<p>Block that calculates the water mass flow rate of the humidifier based on the performance curve.</p>
+<p>Block that calculates the water vapor mass flow rate of the humidifier based on the performance curve.</p>
 </html>", revisions="<html>
 <ul>
 <li>
