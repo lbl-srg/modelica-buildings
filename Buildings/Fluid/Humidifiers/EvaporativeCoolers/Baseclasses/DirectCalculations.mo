@@ -35,7 +35,8 @@ block DirectCalculations
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
-    "Dry bulb temperature of the air at the inlet" annotation (Placement(
+    "Dry bulb temperature of the air at the inlet"
+    annotation (Placement(
       visible=true,
       transformation(
         origin={-120,60},

@@ -1,14 +1,17 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses;
 block Xi_TDryBulTWetBul
   "Compute the water vapor mass fraction"
+
   extends Modelica.Blocks.Icons.Block;
 
   replaceable package Medium =
-    Modelica.Media.Interfaces.PartialCondensingGases "Medium model"
+    Modelica.Media.Interfaces.PartialCondensingGases
+    "Medium model"
     annotation (choicesAllMatching = true);
 
   parameter Boolean approximateWetBulb=false
-    "Set to true to approximate wet bulb temperature" annotation (Evaluate=true);
+    "Set to true to approximate wet bulb temperature"
+    annotation (Evaluate=true);
 
   Modelica.Blocks.Interfaces.RealInput TDryBul(
     start=303,
@@ -18,39 +21,50 @@ block Xi_TDryBulTWetBul
     "Dry bulb temperature"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
 
-  Modelica.Blocks.Interfaces.RealInput p(  final quantity="Pressure",
-                                           final unit="Pa",
-                                           min = 0) "Pressure"
+  Modelica.Blocks.Interfaces.RealInput p(
+    final quantity="Pressure",
+    final unit="Pa",
+    min = 0)
+    "Pressure"
     annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
+
   Modelica.Blocks.Interfaces.RealInput TWetBul(
     start=293,
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    min=0) "Wet bulb temperature"
+    min=0)
+    "Wet bulb temperature"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}}),
         iconTransformation(extent={{-120,-10},{-100,10}})));
+
   Modelica.Blocks.Interfaces.RealOutput Xi[Medium.nXi]
-    "Species concentration at dry bulb temperature"
+    "Water vapor mass fraction"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
 
 protected
-  constant Real uniCon1(final unit="1/rad") = 1 "Constant to satisfy unit check";
-  constant Real uniConK(final unit="K/rad") = 1 "Constant to satisfy unit check";
+  parameter Integer iWat = sum({(
+  if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i], string2="Water", caseSensitive=false)
+  then i else 0) for i in 1:Medium.nX})
+    "Index of water in medium composition vector";
+
+  constant Real uniCon1(final unit="1/rad") = 1
+    "Constant to satisfy unit check";
+
+  constant Real uniConK(final unit="K/rad") = 1
+    "Constant to satisfy unit check";
 
   Modelica.Units.NonSI.Temperature_degC TDryBul_degC
     "Dry bulb temperature in degree Celsius";
-  Real rh_per(min=0) "Relative humidity in percentage";
+
+  Real rh_per(min=0)
+    "Relative humidity in percentage";
 
   Modelica.Units.SI.MassFraction XiSat(start=0.01, nominal=0.01)
     "Water vapor mass fraction at saturation";
+
   Modelica.Units.SI.MassFraction XiSatRefIn
     "Water vapor mass fraction at saturation, referenced to inlet mass flow rate";
-
- parameter Integer iWat = sum({(
-   if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i], string2="Water", caseSensitive=false)
-   then i else 0) for i in 1:Medium.nX})
-     "Index of water in medium composition vector";
 
 initial equation
   assert(iWat > 0, "Did not find medium species 'water' in the medium model. Change medium model.");
@@ -145,5 +159,12 @@ annotation (
     defaultComponentName="wetBul",
     Documentation(info="<html>
 <p>This block computes the water vapor mass fraction based on given dry bulb temperature, wet bulb temperature and atmospheric pressure. </p>
+</html>", revisions="<html>
+<ul>
+<li>
+Semptember 14, 2023 by Cerrina Mouchref, Karthikeya Devaprasad, Lingzhe Wang:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end Xi_TDryBulTWetBul;
