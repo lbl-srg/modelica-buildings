@@ -1,7 +1,10 @@
 within Buildings.Templates.ZoneEquipment.Validation.UserProject.Data;
 class AllSystems "Top-level (whole building) system parameters"
-  extends Buildings.Templates.Data.AllSystems(stdVen=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1,
-      stdEne=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1);
+  extends Buildings.Templates.Data.AllSystems(
+    sysUni=Buildings.Templates.Types.Units.SI,
+    ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_3B,
+    stdVen=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1,
+    stdEne=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1);
 
   /*
   The construct below where a replaceable model is used inside the `outer`
@@ -16,10 +19,10 @@ class AllSystems "Top-level (whole building) system parameters"
   class for each MZVAV model instance.
   */
   replaceable model VAVBox =
-      Buildings.Templates.ZoneEquipment.Interfaces.PartialAirTerminal
+    Buildings.Templates.ZoneEquipment.Interfaces.PartialAirTerminal
     "Model of VAV box";
 
-  outer VAVBox VAVBox_1
+  outer replaceable VAVBox VAVBox_1
     "Instance of VAV box model";
 
   parameter Buildings.Templates.ZoneEquipment.Data.VAVBox dat_VAVBox_1(

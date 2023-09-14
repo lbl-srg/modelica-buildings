@@ -2,9 +2,8 @@ within Buildings.Templates.ZoneEquipment.Validation;
 model VAVBoxCoolingOnlyControlG36
   "Validation model for VAV terminal unit cooling only"
   extends VAVBoxCoolingOnly(
-    datAll(
-      redeclare model VAVBox =
-        UserProject.ZoneEquipment.VAVBoxCoolingOnlyControlG36),
+    datAll(redeclare replaceable model VAVBox =
+    Buildings.Templates.ZoneEquipment.Validation.UserProject.ZoneEquipment.VAVBoxCoolingOnlyControlG36),
     redeclare UserProject.ZoneEquipment.VAVBoxCoolingOnlyControlG36 VAVBox_1);
   annotation (
   __Dymola_Commands(

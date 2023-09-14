@@ -1,10 +1,12 @@
 within Buildings.Templates.ZoneEquipment.Validation;
 model VAVBoxReheatControlG36 "Validation model for VAV terminal unit with reheat"
   extends VAVBoxCoolingOnly(
-    datAll(
-      redeclare model VAVBox =
-        UserProject.ZoneEquipment.VAVBoxReheatControlG36),
-    redeclare UserProject.ZoneEquipment.VAVBoxReheatControlG36 VAVBox_1);
+    datAll(redeclare replaceable model VAVBox =
+    Buildings.Templates.ZoneEquipment.Validation.UserProject.ZoneEquipment.VAVBoxReheatControlG36),
+    redeclare UserProject.ZoneEquipment.VAVBoxReheatControlG36 VAVBox_1(
+        redeclare replaceable
+        Buildings.Templates.Components.Coils.ElectricHeating coiHea
+        "Modulating electric heating coil"));
   annotation (
   __Dymola_Commands(
   file="modelica://Buildings/Resources/Scripts/Dymola/Templates/ZoneEquipment/Validation/VAVBoxReheatControlG36.mos"
