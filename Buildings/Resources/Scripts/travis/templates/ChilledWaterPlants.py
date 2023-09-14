@@ -108,19 +108,14 @@ EXCLUDE = {
             'ChillerArrangement.Series',
             'typArrPumChiWatPri_select=Buildings.Templates.Components.Types.PumpArrangement.Dedicated',
         ],
+        [
+            'Buildings.Templates.ChilledWaterPlants.Types.Economizer.(?!None)',
+        ],
     ],
 }
 EXCLUDE['Buildings.Templates.ChilledWaterPlants.Validation.WaterCooledOpenLoop'] = [
     *EXCLUDE['Buildings.Templates.ChilledWaterPlants.Validation.AirCooledOpenLoop'],
     *[
-        [
-            'Economizers.HeatExchanger',
-            'typArrPumChiWatPri_select=Buildings.Templates.Components.Types.PumpArrangement.Dedicated',
-        ],
-        [
-            'Economizers.HeatExchanger',
-            'typArrPumConWat_select=Buildings.Templates.Components.Types.PumpArrangement.Dedicated',
-        ],
         [
             'Economizers.HeatExchanger',
             'have_varPumConWat_select=false',
@@ -135,12 +130,70 @@ EXCLUDE['Buildings.Templates.ChilledWaterPlants.Validation.WaterCooledOpenLoop']
             'have_varPumConWat_select=false',
             'typValConWatChiIso_select=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition',
         ],
-    ]
+    ],
 ]
 
 # See docstring of `prune_modifications` function for the structure of REMOVE_MODIF.
-REMOVE_MODIF: dict[str, list[tuple[list[str], list[str]]]] = None
-
+REMOVE_MODIF: dict[str, list[tuple[list[str], list[str]]]] = {
+    'Buildings.Templates.ChilledWaterPlants.Validation.AirCooledOpenLoop': [
+        (
+            [
+                'typDisChiWat=Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable',
+            ],
+            [
+                'have_varPumChiWatPri_select',
+            ],
+        ),
+        (
+            [
+                'typArrPumChiWatPri_select=Buildings.Templates.Components.Types.PumpArrangement.Dedicated',
+            ],
+            [
+                'typValChiWatChiIso_select',
+            ],
+        ),
+    ]
+}
+REMOVE_MODIF['Buildings.Templates.ChilledWaterPlants.Validation.WaterCooledOpenLoop'] = [
+    *REMOVE_MODIF['Buildings.Templates.ChilledWaterPlants.Validation.AirCooledOpenLoop'],
+    *[
+        (
+            [
+                'typArrPumConWat_select=Buildings.Templates.Components.Types.PumpArrangement.Dedicated',
+            ],
+            [
+                'typValConWatChiIso_select',
+            ],
+        ),
+        (
+            [
+                'Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl.(?!None)',
+            ],
+            [
+                'typValConWatChiIso_select',
+            ],
+        ),
+        (
+            [
+                'have_varPumConWat_select=true',
+                'Buildings.Templates.ChilledWaterPlants.Components.Economizers.(?!None)',
+            ],
+            [
+                'typValConWatChiIso_select',
+            ],
+        ),
+        (
+            [
+                'Buildings.Templates.ChilledWaterPlants.Components.Economizers.(?!None)',
+            ],
+            [
+                'typArrPumChiWatPri_select',
+                'typArrPumConWat_select',
+                'have_varPumConWat_select',
+            ],
+        ),
+    ],
+]
 
 if __name__ == '__main__':
     # Generate combinations.
@@ -148,31 +201,26 @@ if __name__ == '__main__':
         models=MODELS, modif_grid=MODIF_GRID
     )
 
-    print(f'Number of cases to be simulated – before pruning: {len(combinations)}.\n')
     # Prune class modifications.
     prune_modifications(combinations=combinations, remove_modif=REMOVE_MODIF, exclude=EXCLUDE)
-    print(f'Number of cases to be simulated – after pruning: {len(combinations)}.\n')
 
-    with open('../unitTestsCombinations.log', 'w') as FH:
-        for c in combinations:
-            FH.write(f'\n\n*********************{c[0]}\n\n')
-            FH.write('\n'.join(c[1]))
+    print(f'Number of cases to be simulated: {len(combinations)}.\n')
 
     # FIXME(AntoineGautier PR#3167): Temporarily limit the number of simulations to be run (for testing purposes only).
     combinations = combinations[:2]
 
-    # # Simulate cases.
-    # results = simulate_cases(combinations, simulator=SIMULATOR, asy=False)
+    # Simulate cases.
+    results = simulate_cases(combinations, simulator=SIMULATOR, asy=False)
 
-    # # Report and clean.
-    # df = report_clean(combinations, results)
+    # Report and clean.
+    df = report_clean(combinations, results)
 
-    # # Log and exit.
-    # if df.errorcode.abs().sum() != 0:
-    #     print(
-    #         CRED + 'Some simulations failed: ' + CEND + 'see the file `unitTestsTemplates.log`.\n'
-    #     )
-    #     sys.exit(1)
-    # else:
-    #     print(CGREEN + 'All simulations succeeded.\n' + CEND)
-    #     sys.exit(0)
+    # Log and exit.
+    if df.errorcode.abs().sum() != 0:
+        print(
+            CRED + 'Some simulations failed: ' + CEND + 'see the file `unitTestsTemplates.log`.\n'
+        )
+        sys.exit(1)
+    else:
+        print(CGREEN + 'All simulations succeeded.\n' + CEND)
+        sys.exit(0)
