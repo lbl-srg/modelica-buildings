@@ -3,15 +3,18 @@ model Direct "Validation model for a direct evaporative cooler"
 
   extends Modelica.Icons.Example;
 
-  replaceable package MediumA = Buildings.Media.Air;
+  replaceable package MediumA = Buildings.Media.Air
+    "Medium";
 
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal = 2;
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal = 2
+    "Nominal supply air volume flowrate";
 
   Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct dirEvaCoo(
     redeclare package Medium = MediumA,
     m_flow_nominal=m_flow_nominal,
     dep=0.2,
-    padAre=0.6) "Direct evaporative cooler" annotation (Placement(visible=true,
+    padAre=0.6)
+    "Direct evaporative cooler" annotation (Placement(visible=true,
         transformation(
         origin={0,0},
         extent={{-10,-10},{10,10}},
@@ -22,6 +25,7 @@ model Direct "Validation model for a direct evaporative cooler"
     T = 340,
     use_T_in = false,
     nPorts=1)
+    "Sink"
     annotation (
     Placement(visible = true, transformation(origin={102,0},      extent = {{-10, -10}, {10, 10}}, rotation = -180)));
 
@@ -31,6 +35,7 @@ model Direct "Validation model for a direct evaporative cooler"
     tableName = "EnergyPlus",
     tableOnFile = true,
     timeScale = 1)
+    "EnergyPlus data"
     annotation (Placement(visible = true,
       transformation(origin={-120,40},
       extent = {{-10, -10}, {10, 10}},
@@ -43,25 +48,39 @@ model Direct "Validation model for a direct evaporative cooler"
     use_T_in = true,
     use_Xi_in = true,
     use_m_flow_in = true,
-    nPorts=1)                                                                                                                                                                              annotation (
+    nPorts=1)
+    "Mass flow rate source"
+    annotation (
     Placement(visible = true, transformation(origin={-30,0},     extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTem1(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTem(
     redeclare package Medium = MediumA,
-    initType = Modelica.Blocks.Types.Init.InitialOutput,
-    m_flow_nominal = m_flow_nominal,
-    T_start(displayUnit="K") = 293.15)                                                                                                                                            annotation (
-    Placement(visible = true, transformation(origin={30,0},      extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    initType=Modelica.Blocks.Types.Init.InitialOutput,
+    m_flow_nominal=m_flow_nominal,
+    T_start(displayUnit="K") = 293.15)
+    "Outlet air temperature sensor"
+    annotation (Placement(visible=true, transformation(
+        origin={30,0},
+        extent={{-10,-10},{10,10}},
+        rotation=0)));
 
-  Buildings.Fluid.Sensors.MassFractionTwoPort senMasFra1(
-    redeclare package Medium = MediumA,
-    m_flow_nominal = m_flow_nominal)  annotation (
-    Placement(visible = true, transformation(origin={60,0},      extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Buildings.Fluid.Sensors.MassFractionTwoPort senMasFra(
+    redeclare package
+    Medium = MediumA, m_flow_nominal=m_flow_nominal)
+    "Outlet air water mass fraction sensor" annotation (Placement(visible=true,
+        transformation(
+        origin={60,0},
+        extent={{-10,-10},{10,10}},
+        rotation=0)));
 
-  Modelica.Blocks.Math.Mean mean(f=1/600)     annotation (
+  Modelica.Blocks.Math.Mean mean(f=1/600)
+    "Mean block to average output data"
+        annotation (
     Placement(visible = true, transformation(origin={50,60},   extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Math.Mean mean2(f=1/600)    annotation (
+  Modelica.Blocks.Math.Mean mean1(f=1/600)
+    "Mean block to average output data"
+       annotation (
     Placement(visible = true, transformation(origin={90,30},   extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Buildings.Utilities.Psychrometrics.ToTotalAir toTotAirIn
@@ -82,12 +101,12 @@ model Direct "Validation model for a direct evaporative cooler"
 equation
   connect(combiTimeTable.y[9], boundary.m_flow_in) annotation (
     Line(points={{-109,40},{-100,40},{-100,8},{-42,8}}, color = {0, 0, 127}));
-  connect(dirEvaCoo.port_b, senTem1.port_a)
+  connect(dirEvaCoo.port_b, senTem.port_a)
     annotation (Line(points={{10,0},{20,0}}, color={0,127,255}));
-  connect(senTem1.T, mean.u) annotation (
-    Line(points={{30,11},{30,60},{38,60}},                    color = {0, 0, 127}));
-  connect(senMasFra1.X, mean2.u) annotation (
-    Line(points={{60,11},{60,30},{78,30}},         color = {0, 0, 127}));
+  connect(senTem.T, mean.u)
+    annotation (Line(points={{30,11},{30,60},{38,60}}, color={0,0,127}));
+  connect(senMasFra.X, mean1.u)
+    annotation (Line(points={{60,11},{60,30},{78,30}}, color={0,0,127}));
   connect(combiTimeTable.y[6], toTotAirIn.XiDry) annotation (Line(points={{-109,40},
           {-100,40},{-100,-50},{-91,-50}},      color={0,0,127}));
   connect(toTotAirIn.XiTotalAir, boundary.Xi_in[1]) annotation (Line(points={{-69,-50},
@@ -100,10 +119,10 @@ equation
           -20},{-60,4},{-42,4}}, color={0,0,127}));
   connect(mean.y, to_degCOut.u)
     annotation (Line(points={{61,60},{78,60}}, color={0,0,127}));
-  connect(senMasFra1.port_a, senTem1.port_b)
+  connect(senMasFra.port_a, senTem.port_b)
     annotation (Line(points={{50,0},{40,0}}, color={0,127,255}));
-  connect(senMasFra1.port_b, sink.ports[1])
-    annotation (Line(points={{70,0},{92,0}},   color={0,127,255}));
+  connect(senMasFra.port_b, sink.ports[1])
+    annotation (Line(points={{70,0},{92,0}}, color={0,127,255}));
   connect(boundary.ports[1], dirEvaCoo.port_a)
     annotation (Line(points={{-20,0},{-10,0}}, color={0,127,255}));
   annotation (
