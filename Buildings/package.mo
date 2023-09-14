@@ -251,7 +251,7 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Discrete.Examples
     </td>
-    <td valign=\"top\">Changed the package name from Examples to Validation.<br/>
+    <td valign=\"top\">Changed the package name from <code>Examples</code> to <code>Validation</code>.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3517\">issue 3517</a>.
     </td>
 </tr>
