@@ -233,9 +233,9 @@ model SingleBoiler "A generic steam plant with a single boiler that discharges
     annotation (Placement(transformation(extent={{38,-10},{58,10}})));
 equation
   connect(port_aSerHea, pumFW.port_a)
-    annotation (Line(points={{-300,0},{-40,0}}, color={0,127,255}));
+    annotation (Line(points={{-380,0},{-40,0}}, color={0,127,255}));
   connect(boi.port_b, port_bSerHea)
-    annotation (Line(points={{160,0},{300,0}}, color={0,127,255}));
+    annotation (Line(points={{160,0},{380,0}}, color={0,127,255}));
   connect(conPum.y, pumFW.y)
     annotation (Line(points={{-59,110},{-30,110},{-30,12}},
                                                           color={0,0,127}));
@@ -260,10 +260,10 @@ equation
     annotation (Line(points={{-159,110},{-150,110},{-150,-72},{78,-72}},
       color={0,0,127}));
   connect(QFue_flow, boi.QFueFlo)
-    annotation (Line(points={{320,120},{200,120},{200,9},{161,9}},
+    annotation (Line(points={{400,120},{200,120},{200,9},{161,9}},
       color={0,0,127}));
   connect(PPum, pumFW.P)
-    annotation (Line(points={{320,160},{0,160},{0,9},{-19,9}},
+    annotation (Line(points={{400,160},{0,160},{0,9},{-19,9}},
       color={0,0,127}));
   connect(tanFW.port_a, pumFW.port_a)
     annotation (Line(points={{-70,20},{-70,0},{-40,0}}, color={0,127,255}));
@@ -284,8 +284,27 @@ For controls, the feedwater pump maintains the water volume
 setpoint in the drum boiler, while the boiler control 
 maintains the discharge pressure setpoint. 
 </p>
+<h4>References </h4>
+<p>
+Kathryn Hinkelman, Saranya Anbarasu, Michael Wetter, Antoine Gautier, Wangda Zuo. 2022. 
+&ldquo;A Fast and Accurate Modeling Approach for Water and Steam 
+Thermodynamics with Practical Applications in District Heating System Simulation,&rdquo; 
+<i>Energy</i>, 254(A), pp. 124227.
+<a href=\"https://doi.org/10.1016/j.energy.2022.124227\">10.1016/j.energy.2022.124227</a>
+</p>
+<p>
+Kathryn Hinkelman, Saranya Anbarasu, Michael Wetter, Antoine Gautier, Baptiste Ravache, Wangda Zuo 2022. 
+&ldquo;Towards Open-Source Modelica Models For Steam-Based District Heating Systems.&rdquo; 
+<i>Proc. of the 1st International Workshop On Open Source Modelling And Simulation Of 
+Energy Systems (OSMSES 2022)</i>, Aachen, German, April 4-5, 2022.
+<a href=\"https://doi.org/10.1109/OSMSES54027.2022.9769121\">10.1109/OSMSES54027.2022.9769121</a>
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 15, 2023, by Kathryn Hinkelman:<br/>
+Added publication references.
+</li>
 <li>
 July 18, 2023, by Michael Wetter:<br/>
 Corrected assignment of <code>allowFlowReversal</code>, and set start pressure
