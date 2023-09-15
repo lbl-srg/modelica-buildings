@@ -1,5 +1,5 @@
 compareVars :=
   {
-    "zone.T",
+    "zon.T",
     "heaWat.u"
   };
