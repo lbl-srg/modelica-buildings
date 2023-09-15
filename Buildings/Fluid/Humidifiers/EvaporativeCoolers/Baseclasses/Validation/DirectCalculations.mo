@@ -148,6 +148,6 @@ experiment(
     StopTime=60,
     Interval=1),
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Humidifiers/Baseclasses/Validation/DirectCalculations.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Humidifiers/EvaporativeCoolers/Baseclasses/Validation/DirectCalculations.mos"
         "Simulate and plot"));
 end DirectCalculations;
