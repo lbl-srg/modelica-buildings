@@ -20,16 +20,17 @@ The exercise starts from a template file that should not produce any errors.
 This file will be extended in several steps, adding complexity.
 In between each step the user should be able to simulate the model,
 i.e., no errors should be produced and simulation results may be compared.
-<\\p>
+</p>
 <p>
 The model has been created in the following stages:
 </p>
 <ol>
 <li>
-<a href=\"modelica://Buildings.Examples.Tutorial.SimpleHouse.SimpleHouseTemplate\">
-Buildings.Examples.Tutorial.SimpleHouse.SimpleHouseTemplate</a>
-contains a weather data reader which connects the thermal resistance of the building wall
-to the dry bulb temperature and serves as a template to implement the entire <code>SimpleHouse</code> model.
+<a href=\"modelica://Buildings.Examples.Tutorial.SimpleHouse.SimpleHouse0\">
+Buildings.Examples.Tutorial.SimpleHouse.SimpleHouse0</a>
+contains a weather data reader which connects the data of the dry bulb temperature
+to a <code>PrescribedTemperature</code> component
+and serves as a starting model to implement the entire <code>SimpleHouse</code> model.
 </li>
 <li>
 <a href=\"modelica://Buildings.Examples.Tutorial.SimpleHouse.SimpleHouse1\">
@@ -75,10 +76,10 @@ If these instructions are not clear immediately, have a look at the model docume
 try out some things, make an educated guess, etc.
 Finally, we provide reference results that allow you to check if your implementation is correct.
 Depending on the parameter values that you choose, results may differ.
-<\\p>
+</p>
 <p>
 The graphical representation of the final model is given below.
-<\\p>
+</p>
 <p align=\"center\">
 <img alt=\"Graphical representation of the final simple house model.\"
 src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/SimpleHouse/simpleHouse.png\"/>

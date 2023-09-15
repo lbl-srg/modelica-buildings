@@ -1,16 +1,21 @@
 within Buildings.Examples.Tutorial.SimpleHouse;
 model SimpleHouse1 "Building wall model"
-  extends SimpleHouseTemplate;
+  extends SimpleHouse0;
 
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor walCap(
-    C=A_wall*d_wall*cp_wall*rho_wall, T(fixed=true))
-    "Thermal mass of walls"
+    C=AWall*dWall*cpWall*rhoWall, T(fixed=true))
+    "Thermal mass of wall"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
         origin={150,0})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor walRes(R=dWall/AWall
+        /kWall) "Thermal resistor for wall: 25 cm of rockwool"
+    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
 equation
-  connect(wallRes.port_b, walCap.port) annotation (Line(points={{100,0},{130,0},
-          {130,1.77636e-15},{140,1.77636e-15}}, color={191,0,0}));
+  connect(walRes.port_b, walCap.port) annotation (Line(points={{100,0},{112,0},
+          {112,1.77636e-15},{140,1.77636e-15}}, color={191,0,0}));
+  connect(TOut.port, walRes.port_a)
+    annotation (Line(points={{0,0},{80,0}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
             -220},{200,200}})),
     experiment(Tolerance=1e-6, StopTime=1e+06),
@@ -25,7 +30,9 @@ First implementation.
 <p>
 A very simple building envelope model will be constructed manually using thermal resistors and heat capacitors.
 The house consists of a wall represented by a single heat capacitor and a thermal resistor.
-The thermal resistor and boundary temperature are already included in the template.
+The boundary temperature are already included in
+<a href=\"modelica://Buildings.Examples.Tutorial.SimpleHouse.SimpleHouse0\">
+Buildings.Examples.Tutorial.SimpleHouse.SimpleHouse0</a>.
 The wall has a surface area of <i>A<sub>wall</sub>=100 m<sup>2</sup></i>,
 a thickness of <i>d<sub>wall</sub>=25 cm</i>,
 a thermal conductivity of <i>k<sub>wall</sub>=0.04 W/(m K)</i>,
@@ -34,16 +41,20 @@ and a specific heat capacity of <i>c<sub>p,wall</sub>= 1000 J/(kg K)</i>
 </p>
 <p>
 These parameters are already declared in the equation section of
-<a href=\"modelica://Buildings.Examples.Tutorial.SimpleHouse.SimpleHouseTemplate\">
-Buildings.Examples.Tutorial.SimpleHouse.SimpleHouseTemplate.SimpleHouseTemplate</a>.
+<a href=\"modelica://Buildings.Examples.Tutorial.SimpleHouse.SimpleHouse0\">
+Buildings.Examples.Tutorial.SimpleHouse.SimpleHouse0</a>.
 You can use this way of declaring parameters in the remainder of this exercise, but this is not required.
 </p>
 <p>
 The conductive thermal resistance value of a wall may be computed as <i>R=d/(A*k)</i>.
-The heat capacity value of a wall may be computed as <i>C=A*d*c_p*&rho;</i>
+The heat capacity value of a wall may be computed as <i>C=A*d*c<sub>p</sub>*&rho;</i>
 </p>
 <h4>Required models</h4>
 <ul>
+<li>
+<a href=\"modelica://Modelica.Thermal.HeatTransfer.Components.ThermalResistor\">
+Modelica.Thermal.HeatTransfer.Components.ThermalResistor</a>
+</li>
 <li>
 <a href=\"modelica://Modelica.Thermal.HeatTransfer.Components.HeatCapacitor\">
 Modelica.Thermal.HeatTransfer.Components.HeatCapacitor</a>
@@ -51,7 +62,8 @@ Modelica.Thermal.HeatTransfer.Components.HeatCapacitor</a>
 </ul>
 <h4>Connection instructions</h4>
 <p>
-Connect the heat capacitor to the thermal resistor.
+Connect one side of the thermal resistor to the output of <code>PrescribedTemperature</code>
+and the other side of the thermal resistor to the heat capacitor.
 </p>
 <h4>Reference result</h4>
 <p>

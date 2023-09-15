@@ -2,21 +2,21 @@ within Buildings.Examples.Tutorial.SimpleHouse;
 model SimpleHouse2 "Building window model"
   extends SimpleHouse1;
 
-  parameter Modelica.Units.SI.Area A_win=2 "Window area";
+  parameter Modelica.Units.SI.Area AWin=2 "Window area";
 
-  Modelica.Blocks.Math.Gain gaiWin(k=A_win)
+  Modelica.Blocks.Math.Gain gaiWin(k=AWin)
     "Gain for solar irradiance through the window"
-    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow window
+    annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow win
     "Very simple window model"
-    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
+    annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
 equation
-  connect(gaiWin.y,window. Q_flow) annotation (Line(points={{-39,-30},{-20,-30}},
-                                color={0,0,127}));
-  connect(window.port, walCap.port) annotation (Line(points={{0,-30},{132,-30},{
-          132,1.77636e-15},{140,1.77636e-15}},
-                         color={191,0,0}));
-  connect(gaiWin.u, weaBus.HDirNor) annotation (Line(points={{-62,-30},{-150,-30},
+  connect(gaiWin.y, win.Q_flow)
+    annotation (Line(points={{21,-20},{40,-20}},   color={0,0,127}));
+  connect(win.port, walCap.port) annotation (Line(points={{60,-20},{130,-20},{
+          130,1.77636e-15},{140,1.77636e-15}},
+                                           color={191,0,0}));
+  connect(gaiWin.u, weaBus.HDirNor) annotation (Line(points={{-2,-20},{-150,-20},
           {-150,-10}}, color={0,0,127}), Text(
       string="%second",
       index=1,

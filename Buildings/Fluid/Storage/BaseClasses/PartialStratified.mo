@@ -1,7 +1,8 @@
 within Buildings.Fluid.Storage.BaseClasses;
 model PartialStratified
   "Partial model of a stratified tank for thermal energy storage"
-  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
+  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+    port_a_x=0, port_a_y=100, port_b_x=0, port_b_y=-100);
 
   import Modelica.Fluid.Types;
   import Modelica.Fluid.Types.Dynamics;
@@ -165,11 +166,11 @@ equation
           {52,74},{20,74}}, color={191,0,0}));
   connect(heaFloBot.port_b, heaPorBot) annotation (Line(points={{42,20},{44,20},
           {44,-74},{20,-74}}, color={191,0,0}));
-  connect(heaFloTop.Q_flow, mul.u1[1]) annotation (Line(points={{36,54},{50,54},
+  connect(heaFloTop.Q_flow, mul.u1[1]) annotation (Line(points={{36,53.4},{50,53.4},
           {50,52.5},{61.2,52.5}}, color={0,0,127}));
-  connect(heaFloSid.Q_flow, mul.u2) annotation (Line(points={{36,34},{50,34},{
-          50,49},{61.2,49}}, color={0,0,127}));
-  connect(heaFloBot.Q_flow, mul.u3[1]) annotation (Line(points={{36,14},{36,10},
+  connect(heaFloSid.Q_flow, mul.u2) annotation (Line(points={{36,33.4},{50,33.4},
+          {50,49},{61.2,49}},color={0,0,127}));
+  connect(heaFloBot.Q_flow, mul.u3[1]) annotation (Line(points={{36,13.4},{36,10},
           {58,10},{58,45.5},{61.2,45.5}}, color={0,0,127}));
   connect(mul.y, sum1.u) annotation (Line(points={{70.4,49},{76.8,49}}, color={
           0,0,127}));
@@ -331,49 +332,13 @@ Icon(graphics={
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-76,2},{-90,-2}},
+          extent={{2,100},{-2,60}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{0,84},{-80,80}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-76,84},{-80,-2}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{82,0},{78,-86}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{0,84},{-4,60}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{82,-84},{2,-88}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{6,-60},{2,-84}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{92,2},{78,-2}},
+          extent={{2,-60},{-2,-100}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,127},
