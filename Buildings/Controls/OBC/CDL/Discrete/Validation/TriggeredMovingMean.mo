@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.CDL.Discrete.Examples;
+within Buildings.Controls.OBC.CDL.Discrete.Validation;
 model TriggeredMovingMean
   "Validation model for the TriggeredMovingMean block"
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin(
@@ -50,7 +50,7 @@ equation
       StopTime=15.0,
       Tolerance=1e-06),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Discrete/Examples/TriggeredMovingMean.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Discrete/Validation/TriggeredMovingMean.mos" "Simulate and plot"),
     Documentation(
       info="<html>
 <p>

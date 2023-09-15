@@ -1,9 +1,8 @@
-within Buildings.Controls.OBC.CDL.Discrete.Examples;
-model Sampler
-  "Example model for the Sampler block"
-  Buildings.Controls.OBC.CDL.Discrete.Sampler sampler1(
-    samplePeriod=0.2)
-    "Ideal sampler of a continuous signal"
+within Buildings.Controls.OBC.CDL.Discrete.Validation;
+model TriggeredMax
+  "Example model for the TriggeredMax block"
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredMax triggeredMax
+    "Output the maximum, absolute value of a continuous signal at trigger instants"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramp1(
     duration=1,
@@ -14,24 +13,31 @@ model Sampler
   Buildings.Controls.OBC.CDL.Reals.Sin sin1
     "Block that outputs the sine of the input"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
+    width=0.5,
+    period=0.2)
+    "Block that outputs cyclic on and off"
+    annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 
 equation
   connect(ramp1.y,sin1.u)
     annotation (Line(points={{-39,0},{-12,0},{-12,0}},color={0,0,127}));
-  connect(sin1.y,sampler1.u)
-    annotation (Line(points={{11,0},{20,0},{28,0}},color={0,0,127}));
+  connect(sin1.y,triggeredMax.u)
+    annotation (Line(points={{11,0},{19.5,0},{28,0}},color={0,0,127}));
+  connect(booPul.y,triggeredMax.trigger)
+    annotation (Line(points={{11,-40},{26,-40},{40,-40},{40,-11.8}},color={255,0,255}));
   annotation (
     experiment(
       StopTime=1.0,
       Tolerance=1e-06),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Discrete/Examples/Sampler.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Discrete/Validation/TriggeredMax.mos" "Simulate and plot"),
     Documentation(
       info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Discrete.Sampler\">
-Buildings.Controls.OBC.CDL.Discrete.Sampler</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Discrete.TriggeredMax\">
+Buildings.Controls.OBC.CDL.Discrete.TriggeredMax</a>.
 </p>
 </html>",
       revisions="<html>
@@ -55,4 +61,4 @@ First implementation.
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
           points={{-36,60},{64,0},{-36,-60},{-36,60}})}));
-end Sampler;
+end TriggeredMax;

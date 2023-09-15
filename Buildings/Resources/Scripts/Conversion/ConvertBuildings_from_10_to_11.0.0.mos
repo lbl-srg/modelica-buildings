@@ -4,3 +4,7 @@
 clear
 
 convertClear();
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3517
+convertClass("Buildings.Controls.OBC.CDL.Discrete.Examples",
+             "Buildings.Controls.OBC.CDL.Discrete.Validation");
