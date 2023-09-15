@@ -23,14 +23,14 @@
 from core import *
 
 MODELS = [
-    'Buildings.Templates.ZoneEquipment.Validation.VAVBoxCoolingOnlyControlG36',
-    'Buildings.Templates.ZoneEquipment.Validation.VAVBoxReheatControlG36',
+    'Buildings.Templates.ZoneEquipment.Validation.VAVBoxCoolingOnly',
+    'Buildings.Templates.ZoneEquipment.Validation.VAVBoxReheat',
 ]
 
 # Tested modifications should at least cover the options specified at:
 # https://github.com/lbl-srg/ctrl-flow-dev/blob/main/server/scripts/sequence-doc/src/version/Current%20G36%20Decisions/Guideline%2036-2021%20(mappings).csv
 MODIF_GRID: dict[str, dict[str, list[str]]] = {
-    'Buildings.Templates.ZoneEquipment.Validation.VAVBoxCoolingOnlyControlG36': dict(
+    'Buildings.Templates.ZoneEquipment.Validation.VAVBoxCoolingOnly': dict(
         VAVBox_1__ctl__have_occSen=[
             'true',
             'false',
@@ -45,8 +45,8 @@ MODIF_GRID: dict[str, dict[str, list[str]]] = {
         ],
     ),
 }
-MODIF_GRID['Buildings.Templates.ZoneEquipment.Validation.VAVBoxReheatControlG36'] = {
-    **MODIF_GRID['Buildings.Templates.ZoneEquipment.Validation.VAVBoxCoolingOnlyControlG36'],
+MODIF_GRID['Buildings.Templates.ZoneEquipment.Validation.VAVBoxReheat'] = {
+    **MODIF_GRID['Buildings.Templates.ZoneEquipment.Validation.VAVBoxCoolingOnly'],
     **dict(
         VAVBox_1__redeclare__coiHea=[
             'Buildings.Templates.Components.Coils.WaterBasedHeating',
@@ -65,7 +65,7 @@ EXCLUDE: dict[str, list[list[str]]] = None
 
 # See docstring of `prune_modifications` function for the structure of REMOVE_MODIF.
 REMOVE_MODIF: dict[str, list[tuple[list[str], list[str]]]] = {
-    'Buildings.Templates.ZoneEquipment.Validation.VAVBoxReheatControlG36': [
+    'Buildings.Templates.ZoneEquipment.Validation.VAVBoxReheat': [
         (
             [
                 'Buildings.Templates.Components.Coils.ElectricHeating',

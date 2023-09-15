@@ -1,4 +1,4 @@
-within Buildings.Templates.ZoneEquipment.Validation.UserProject.AirHandlersFans;
+within Buildings.Templates.ZoneEquipment.Validation.UserProject;
 block VAVMZControlPoints "Emulation of multiple-zone VAV control points"
   extends Modelica.Blocks.Icons.Block;
 

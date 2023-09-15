@@ -13,11 +13,7 @@ model VAVMZBase
     "Heating medium (such as HHW)";
 
   inner parameter UserProject.Data.AllSystems datAll(
-    sysUni=Buildings.Templates.Types.Units.SI,
-    redeclare replaceable model VAV = UserProject.AirHandlersFans.VAVMZBase,
-    stdEne=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1,
-    stdVen=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1,
-    ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_3B)
+    final VAV_1(cfg=VAV_1.cfg))
     "Design and operating parameters"
     annotation (Placement(transformation(extent={{90,92},{110,112}})));
 
@@ -29,7 +25,7 @@ model VAVMZBase
 
   inner replaceable UserProject.AirHandlersFans.VAVMZBase VAV_1 constrainedby
     Buildings.Templates.AirHandlersFans.VAVMultiZone(
-    final dat=datAll.dat_VAV_1,
+    final dat=datAll.VAV_1,
     redeclare final package MediumAir = MediumAir,
     redeclare final package MediumChiWat = MediumChiWat,
     final energyDynamics=energyDynamics)

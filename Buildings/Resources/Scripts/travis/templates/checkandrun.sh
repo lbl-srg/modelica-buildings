@@ -21,11 +21,11 @@ TRAVISRUN=true
 OPTIND=1
 
 while getopts 'l' flag; do
-    case "${flag}" in
-        l) TRAVISRUN=false;;
-        *) echo 'Error in command line parsing' >&2
-           exit 1
-    esac
+  case "${flag}" in
+    l) TRAVISRUN=false;;
+    *) echo 'Error in command line parsing' >&2
+       exit 1
+  esac
 done
 
 shift "$(( OPTIND - 1 ))"
@@ -35,72 +35,65 @@ SIMULATOR=${1:-Dymola}
 # Each key is a Modelica package name under Buildings.Templates (with . as separator).
 # Each value is a string containing directory paths (relative to `modelica-buildings/Buildings`).
 declare -A checksum_dirs=(
-    # ["AirHandlersFans"]="Templates/AirHandlersFans
-    #                      Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV"
-    ["ZoneEquipment"]="Templates/ZoneEquipment
-                       Controls/OBC/ASHRAE/G36/TerminalUnits/CoolingOnly
-                       Controls/OBC/ASHRAE/G36/TerminalUnits/Reheat"
+  # ["AirHandlersFans"]="Templates/AirHandlersFans
+  #                      Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV"
+  ["ZoneEquipment"]="Templates/ZoneEquipment
+                     Controls/OBC/ASHRAE/G36/TerminalUnits/CoolingOnly
+                     Controls/OBC/ASHRAE/G36/TerminalUnits/Reheat"
 )
 # Declare the python script that must be run for each template package.
 # Each key is a Modelica package name under Buildings.Templates (with . as separator).
 # Each value is a string containing the script path (relative to `modelica-buildings/Buildings`).
 declare -A test_script=(
-    # ["AirHandlersFans"]="./Resources/Scripts/travis/templates/BoilerPlant.py"
-    ["ZoneEquipment"]="./Resources/Scripts/travis/templates/VAVBox.py"
+  # ["AirHandlersFans"]="./Resources/Scripts/travis/templates/BoilerPlant.py"
+  ["ZoneEquipment"]="./Resources/Scripts/travis/templates/VAVBox.py"
 )
 
-return_code=0
-
 for type in "${!checksum_dirs[@]}"; do
-    # For each system type: compute checksum of checksum of all mo files under corresponding checksum_dirs and store value.
-    checksum="$(find ${checksum_dirs[$type]} -type f -name *.mo -exec md5sum {} \; | LC_ALL=C sort -f -k 2 | awk '{ print $1; }' | md5sum | awk '{ print $1; }')"
-    echo $checksum > "./Resources/Scripts/travis/templates/$type.checksum"
+  # For each system type: compute checksum of checksum of all mo files under corresponding checksum_dirs, and store value.
+  checksum="$(
+    find ${checksum_dirs[$type]} -type f -name '*.mo' -exec md5sum {} \; \
+      | LC_ALL=C sort -f -k 2 \
+      | awk '{ print $1; }' \
+      | md5sum \
+      | awk '{ print $1; }'
+  )"
+  echo $checksum > "./Resources/Scripts/travis/templates/$type.checksum"
 
-    # Diff/HEAD: only for remote testing.
-    # Locally, it is expected that there is some diff/HEAD, and we proceed directly to the next step: diff/master.
-    if $TRAVISRUN; then
-        diff_checksum="$(git diff --name-only HEAD | grep Resources/Scripts/travis/templates/$type.checksum)"
-        if (( $? == 0 )); then
-            echo "Computed checksum does not match checksum on HEAD: please commit updated checksum for Templates.$type."
-            echo "Computed checksum: $checksum"
-            checksum_head=$(git show HEAD:Buildings/Resources/Scripts/travis/templates/$type.checksum 2>/dev/null)
-            if [[ -z "$checksum_head" ]]; then
-                echo "There is no checksum on HEAD for $type."
-            else
-                echo "Checksum on HEAD: $checksum_head"
-            fi
-            return_code=1
-        fi
+  # Diff/HEAD: only for remote testing.
+  # Locally, it is expected that there is some diff/HEAD (and we proceed directly to the next step: diff/master).
+  if $TRAVISRUN; then
+    diff_checksum="$(git diff --name-only HEAD | grep Resources/Scripts/travis/templates/$type.checksum)"
+    if (( $? == 0 )); then
+      echo "Computed checksum does not match checksum on HEAD: please commit updated checksum for Templates.$type."
+      echo "Computed checksum: $checksum"
+      checksum_head=$(git show HEAD:Buildings/Resources/Scripts/travis/templates/$type.checksum 2>/dev/null)
+      if [[ -z "$checksum_head" ]]; then
+        echo "There is no checksum on HEAD for $type."
+      else
+        echo "Checksum on HEAD: $checksum_head"
+      fi
+      exit 1
     fi
+  fi
 
-    if (( $return_code != 0 )); then
-        exit $return_code
+  # Diff/master
+  diff_checksum="$(git diff --name-only origin/master | grep Resources/Scripts/travis/templates/$type.checksum)"
+  if (( $? == 0 ));  then
+    echo "Computed checksum does not match checksum on master."
+    echo "Running simulations for models in Templates.$type with $SIMULATOR."
+    # Launch simulations (typically several thousands).
+    python "${test_script[$type]}" $SIMULATOR
+    if (( $? != 0 )); then
+      if [[ -s unitTestsTemplates.log ]]; then
+        printf "Below is the error log.\n\n"
+        cat unitTestsTemplates.log
+      fi
+      exit 1
     fi
-
-    # Diff/master
-    diff_checksum="$(git diff --name-only origin/master | grep Resources/Scripts/travis/templates/$type.checksum)"
-    if [[ $? == 0 ]];  then
-        echo "Computed checksum does not match checksum on master."
-        echo "Running simulations for models in Templates.$type with $SIMULATOR."
-        # Launch simulations (typically several thousands).
-        python "${test_script[$type]}" $SIMULATOR
-        if (( $? == 0 )); then
-            return_code=0
-        else
-            if [[ -s unitTestsTemplates.log ]]; then
-                printf "Below is the error log.\n\n"
-                cat unitTestsTemplates.log
-            fi
-            return_code=1
-        fi
-    else
-        echo "Computed checksum matches checksum on master: no further check performed."
-        return_code=0
-    fi
-
-    if (( $return_code != 0 )); then
-        exit $return_code
-    fi
+  else
+    echo "Computed checksum matches checksum on master: no further check performed."
+  fi
 done
 
-exit $return_code
+exit 0

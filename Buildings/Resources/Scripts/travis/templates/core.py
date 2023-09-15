@@ -16,10 +16,11 @@ import pandas as pd
 
 assert sys.version_info >= (3, 9), "This script requires a Python version >= 3.9."
 
+# Simulator is used later with case-insensitive match, e.g., both Dymola and dymola can be used.
 try:
     SIMULATOR = sys.argv[1]
 except IndexError:
-    SIMULATOR = 'Dymola'
+    SIMULATOR = 'dymola'
 
 CRED = '\033[91m'
 CGREEN = '\033[92m'
@@ -47,9 +48,11 @@ def simulate_case(
     import shutil
     import tempfile
 
-    if simulator == 'Dymola':
+    simulator = simulator.lower()
+
+    if simulator == 'dymola':
         from buildingspy.simulate.Dymola import Simulator
-    elif simulator == 'Optimica':
+    elif simulator == 'optimica':
         from buildingspy.simulate.Optimica import Simulator
     else:
         return 4, f'Unsupported simulation tool: {simulator}.'
@@ -65,10 +68,10 @@ def simulate_case(
     # The following make Dymola worker cd into outputDirectory.
     s = Simulator(arg[0], outputDirectory=output_dir_path)
 
-    if simulator == 'Dymola':
+    if simulator == 'dymola':
         s.addPreProcessingStatement(r'Advanced.TranslationInCommandLog:=true;')
         s.addPreProcessingStatement(r'openModel("../Buildings/package.mo", changeDirectory=false);')
-    if simulator == 'Optimica':
+    if simulator == 'optimica':
         # Set MODELICAPATH (only in child process, so this won't affect main process).
         os.environ['MODELICAPATH'] = os.path.abspath(os.pardir)
 
@@ -89,14 +92,14 @@ def simulate_case(
 
     # Test if simulation succeeded.
     try:
-        if simulator == 'Dymola':
+        if simulator == 'dymola':
             with open(os.path.join(output_dir_path, 'simulator.log')) as fh:
                 log = fh.read()
             if re.search('\n = false', log):
                 toreturn = 1
             else:
                 toreturn = 0
-        elif simulator == 'Optimica':
+        elif simulator == 'optimica':
             with open(
                 glob.glob(os.path.join(fr'{output_dir_path}', '*buildingspy.json'))[0], 'r'
             ) as f:

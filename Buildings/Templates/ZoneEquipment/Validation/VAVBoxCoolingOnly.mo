@@ -10,8 +10,7 @@ model VAVBoxCoolingOnly "Validation model for VAV terminal unit cooling only"
     "Heating medium (such as HHW)";
 
   inner parameter UserProject.Data.AllSystems datAll(
-    redeclare replaceable model VAVBox =
-    Buildings.Templates.ZoneEquipment.Validation.UserProject.ZoneEquipment.VAVBoxCoolingOnly)
+    final VAVBox_1(cfg=VAVBox_1.cfg))
     "System parameters"
     annotation (Placement(transformation(extent={{90,92},{110,112}})));
 
@@ -35,8 +34,8 @@ model VAVBoxCoolingOnly "Validation model for VAV terminal unit cooling only"
     nPorts=1) "Boundary conditions for indoor environment"
     annotation (Placement(transformation(extent={{80,-50},{60,-30}})));
 
-  inner replaceable UserProject.ZoneEquipment.VAVBoxCoolingOnly VAVBox_1(
-    final dat=datAll.dat_VAVBox_1,
+  replaceable Buildings.Templates.ZoneEquipment.VAVBoxCoolingOnly VAVBox_1(
+    final dat=datAll.VAVBox_1,
     redeclare final package MediumAir = MediumAir,
     redeclare final package MediumHeaWat = MediumHeaWat)
     "Terminal unit"
@@ -47,9 +46,8 @@ model VAVBoxCoolingOnly "Validation model for VAV terminal unit cooling only"
     nPorts=2) if VAVBox_1.have_souHeaWat
     "Boundary conditions for HHW distribution system"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
-  UserProject.AirHandlersFans.VAVMZControlPoints sigAirHan if VAVBox_1.ctl.typ ==
-    Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxCoolingOnly or
-    VAVBox_1.ctl.typ == Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat
+  UserProject.VAVMZControlPoints sigAirHan if VAVBox_1.ctl.typ == Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxCoolingOnly
+     or VAVBox_1.ctl.typ == Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat
     "Control signals from AHU"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   UserProject.ZoneControlPoints sigZon
@@ -102,13 +100,9 @@ equation
   "Simulate and plot"),
   experiment(Tolerance=1e-6, StopTime=1), Documentation(info="<html>
 <p>
-This is a validation model for the configuration represented by
-<a href=\"modelica://Buildings.Templates.ZoneEquipment.Validation.UserProject.ZoneEquipment.VAVBoxCoolingOnly\">
-Buildings.Templates.ZoneEquipment.Validation.UserProject.ZoneEquipment.VAVBoxCoolingOnly</a>.
-It is intended to check whether the template model is well-defined for
-this particular system configuration.
-However, due to the open-loop controls a correct physical behavior
-is not expected and the plotted variables are for non-regression testing only.
+This is a validation model for the template 
+<a href=\"modelica://Buildings.Templates.ZoneEquipment.VAVBoxCoolingOnly\">
+Buildings.Templates.ZoneEquipment.VAVBoxCoolingOnly</a>.
 </p>
 </html>"),
     Diagram(coordinateSystem(extent={{-120,-120},{120,120}})));
