@@ -204,12 +204,12 @@ Each class (i.e., model, block and function) must be used in an example or valid
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
-class Version_10_1_0 "Version 10.1.0"
+class Version_11_0_0 "Version 11.0.0"
   extends Modelica.Icons.ReleaseNotes;
     annotation (Documentation(info="<html>
 <div class=\"release-summary\">
 <p>
-Version 10.1.0 is backward compatible with version 10.0.0.
+Version 11.0.0 is ...
 </p>
 </div>
 <!-- New libraries -->
@@ -245,6 +245,16 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Discrete.Examples
+    </td>
+    <td valign=\"top\">Changed the package name from <code>Examples</code> to <code>Validation</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3517\">issue 3517</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
@@ -269,7 +279,25 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
- <tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Templates</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.AirHandlersFans.Data.PartialAirHandler<br/>
+                       Buildings.Templates.AirHandlersFans.Data.VAVMultiZone<br/>
+                       Buildings.Templates.AirHandlersFans.Interfaces.PartialAirHandler<br/>
+                       Buildings.Templates.AirHandlersFans.VAVMultiZone<br/>
+                       Buildings.Templates.ZoneEquipment.Data.PartialAirTerminal<br/>
+                       Buildings.Templates.ZoneEquipment.Data.VAVBox<br/>
+                       Buildings.Templates.ZoneEquipment.Interfaces.PartialAirTerminal<br/>
+                       Buildings.Templates.ZoneEquipment.Interfaces.VAVBox<br/>
+                       Buildings.Templates.ZoneEquipment.VAVBoxCoolingOnly<br/>
+                       Buildings.Templates.ZoneEquipment.VAVBoxReheat
+    </td>
+    <td valign=\"top\">Refactored with a record class for configuration parameters.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3500\">#3500</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
 <tr><td valign=\"top\">xxx
@@ -318,7 +346,7 @@ xxx
 </li>
 </ul>
 </html>"));
-end Version_10_1_0;
+end Version_11_0_0;
 
 
   class Version_10_0_0 "Version 10.0.0"
@@ -12575,7 +12603,7 @@ on the Buildings library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_10_1_0\">Version 10.1.0</a> (xxx, 2023)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_11_0_0\">Version 11.0.0</a> (xxx, 2023)
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_10_0_0\">Version 10.0.0</a> (September 5, 2023)
@@ -13155,11 +13183,14 @@ end UsersGuide;
 
 annotation (
 preferredView="info",
-version="10.1.0",
+version="11.0.0",
 versionDate="2023-09-05",
 dateModified="2023-09-05",
 uses(Modelica(version="4.0.0")),
 conversion(
+  from(
+    version={"10.0.0"},
+    script="modelica://Buildings/Resources/Scripts/Conversion/ConvertBuildings_from_10_to_11.0.0.mos"),
   from(
     version={"9.0.0", "9.1.0", "9.1.1"},
     script="modelica://Buildings/Resources/Scripts/Conversion/ConvertBuildings_from_9_to_10.0.0.mos"),

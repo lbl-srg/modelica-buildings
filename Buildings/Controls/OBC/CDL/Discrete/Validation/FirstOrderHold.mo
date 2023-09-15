@@ -1,9 +1,9 @@
-within Buildings.Controls.OBC.CDL.Discrete.Examples;
-model ZeroOrderHold
-  "Example model for the ZeroOrderHold block"
-  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol(
+within Buildings.Controls.OBC.CDL.Discrete.Validation;
+model FirstOrderHold
+  "Example model for the FirstOrderHold block"
+  Buildings.Controls.OBC.CDL.Discrete.FirstOrderHold firOrdHol(
     samplePeriod=0.2)
-    "Output the input signal with a zero order hold"
+    "Block that first order hold of a sampled-data system"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramp1(
     duration=1,
@@ -17,21 +17,21 @@ model ZeroOrderHold
 
 equation
   connect(ramp1.y,cos1.u)
-    annotation (Line(points={{-39,0},{-12,0},{-12,0}},color={0,0,127}));
-  connect(cos1.y,zerOrdHol.u)
-    annotation (Line(points={{11,0},{20,0},{28,0}},color={0,0,127}));
+    annotation (Line(points={{-38,0},{-12,0},{-12,0}},color={0,0,127}));
+  connect(cos1.y,firOrdHol.u)
+    annotation (Line(points={{12,0},{12,0},{28,0}},color={0,0,127}));
   annotation (
     experiment(
       StopTime=1.0,
       Tolerance=1e-06),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Discrete/Examples/ZeroOrderHold.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Discrete/Validation/FirstOrderHold.mos" "Simulate and plot"),
     Documentation(
       info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold\">
-Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Discrete.FirstOrderHold\">
+Buildings.Controls.OBC.CDL.Discrete.FirstOrderHold</a>.
 </p>
 </html>",
       revisions="<html>
@@ -59,4 +59,4 @@ First implementation.
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
           points={{-36,60},{64,0},{-36,-60},{-36,60}})}));
-end ZeroOrderHold;
+end FirstOrderHold;
