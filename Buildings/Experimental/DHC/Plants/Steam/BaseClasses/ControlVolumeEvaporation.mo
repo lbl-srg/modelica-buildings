@@ -34,6 +34,10 @@ annotation (defaultComponentName="vol",
     Documentation(revisions="<html>
 <ul>
 <li>
+September 15, 2023, by Kathryn Hinkelman:<br/>
+Updated publication references.
+</li>
+<li>
 February 26, 2022 by Kathryn Hinkelman:<br/>
 Moved control volume formulation into a base class 
 for reusability in condensation and evaporation instances.
@@ -52,13 +56,20 @@ are in the base class
 <a href=\"modelica://Buildings.Experimental.DHC.BaseClasses.Steam.PartialSaturatedControlVolume\">
 Buildings.Experimental.DHC.BaseClasses.Steam.PartialSaturatedControlVolume</a>.
 
-<h4>Reference</h4>
+<h4>References </h4>
 <p>
-Hinkelman, Kathryn, Saranya Anbarasu, Michael Wetter, 
-Antoine Gautier, and Wangda Zuo. 2022. “A Fast and Accurate Modeling 
-Approach for Water and Steam Thermodynamics with Practical 
-Applications in District Heating System Simulation.” Preprint. February 24. 
-<a href=\"http://dx.doi.org/10.13140/RG.2.2.20710.29762\">doi:10.13140/RG.2.2.20710.29762</a>.
+Kathryn Hinkelman, Saranya Anbarasu, Michael Wetter, Antoine Gautier, Wangda Zuo. 2022. 
+&ldquo;A Fast and Accurate Modeling Approach for Water and Steam 
+Thermodynamics with Practical Applications in District Heating System Simulation,&rdquo; 
+<i>Energy</i>, 254(A), pp. 124227.
+<a href=\"https://doi.org/10.1016/j.energy.2022.124227\">10.1016/j.energy.2022.124227</a>
+</p>
+<p>
+Kathryn Hinkelman, Saranya Anbarasu, Michael Wetter, Antoine Gautier, Baptiste Ravache, Wangda Zuo 2022. 
+&ldquo;Towards Open-Source Modelica Models For Steam-Based District Heating Systems.&rdquo; 
+<i>Proc. of the 1st International Workshop On Open Source Modelling And Simulation Of 
+Energy Systems (OSMSES 2022)</i>, Aachen, German, April 4-5, 2022.
+<a href=\"https://doi.org/10.1109/OSMSES54027.2022.9769121\">10.1109/OSMSES54027.2022.9769121</a>
 </p>
 </html>"));
 end ControlVolumeEvaporation;
