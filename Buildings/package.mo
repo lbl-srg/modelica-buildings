@@ -265,7 +265,7 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Changed implementation to allow moving fluid connector.
                      This accomodates implementation of models that should have connectors on the top and bottom (such as a tank)
                      and moving of connectors for models that need larger icons.<br/>
-                     This is for <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1781\\\">IBPSA, #1781</a>.
+                     This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1781\">IBPSA, #1781</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
@@ -276,7 +276,7 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Changed implementation to allow ground temperature to be taken from an input rather than using
                      a constant value.<br/>
-                     This is for <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1744\\\">IBPSA, #1744</a>.
+                     This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1744\">IBPSA, #1744</a>.
     </td>
 </tr>
 </table>
