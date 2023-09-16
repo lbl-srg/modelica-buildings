@@ -1,6 +1,6 @@
 within Buildings.Experimental.DHC.Loads.Steam;
 model BuildingTimeSeriesAtETS
-  "Steam heating building interconnection with the district piping only 
+  "Steam heating building interconnection with the district piping only
   and the load at the ETS provided as a time series."
   replaceable package MediumSte = Buildings.Media.Steam constrainedby
     Modelica.Media.Interfaces.PartialMedium
@@ -320,36 +320,36 @@ equation
       Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-This model is intended for existing steam district heating systems 
-where the heating load at the energy transfer station (ETS) is  
-availble as a time series data input. Thus, the building-side piping and equipement 
+This model is intended for existing steam district heating systems
+where the heating load at the energy transfer station (ETS) is
+availble as a time series data input. Thus, the building-side piping and equipement
 is not included in this model, as depicted below.
 </p>
 <p>
-<img src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Loads/Steam/BuildingTimeSeriesAtETS.png\" alt=\"steamBuilding\"/>. 
+<img src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Loads/Steam/BuildingTimeSeriesAtETS.png\" alt=\"steamBuilding\"/>.
 </p>
 <h4> Implementation</h4>
 <p>
-With the time series input, this model is configured such that the control 
-volume (representing the steam side of the heat exchanger) has steady state 
-energy and mass balances. The steam trap also has steady state balances by 
-design. Meanwhile, the condensate return pump allows either dynamic or steady 
-state balances. The mass flow rate at the pump is prescribed ideally such that 
-the heat flow rate input from the time series is rejected at the control volume 
-based on the physical laws. 
+With the time series input, this model is configured such that the control
+volume (representing the steam side of the heat exchanger) has steady state
+energy and mass balances. The steam trap also has steady state balances by
+design. Meanwhile, the condensate return pump allows either dynamic or steady
+state balances. The mass flow rate at the pump is prescribed ideally such that
+the heat flow rate input from the time series is rejected at the control volume
+based on the physical laws.
 </p>
 <h4>References </h4>
 <p>
-Kathryn Hinkelman, Saranya Anbarasu, Michael Wetter, Antoine Gautier, Wangda Zuo. 2022. 
-&ldquo;A Fast and Accurate Modeling Approach for Water and Steam 
-Thermodynamics with Practical Applications in District Heating System Simulation,&rdquo; 
+Kathryn Hinkelman, Saranya Anbarasu, Michael Wetter, Antoine Gautier, Wangda Zuo. 2022.
+&ldquo;A Fast and Accurate Modeling Approach for Water and Steam
+Thermodynamics with Practical Applications in District Heating System Simulation,&rdquo;
 <i>Energy</i>, 254(A), pp. 124227.
 <a href=\"https://doi.org/10.1016/j.energy.2022.124227\">10.1016/j.energy.2022.124227</a>
 </p>
 <p>
-Kathryn Hinkelman, Saranya Anbarasu, Michael Wetter, Antoine Gautier, Baptiste Ravache, Wangda Zuo 2022. 
-&ldquo;Towards Open-Source Modelica Models For Steam-Based District Heating Systems.&rdquo; 
-<i>Proc. of the 1st International Workshop On Open Source Modelling And Simulation Of 
+Kathryn Hinkelman, Saranya Anbarasu, Michael Wetter, Antoine Gautier, Baptiste Ravache, Wangda Zuo 2022.
+&ldquo;Towards Open-Source Modelica Models For Steam-Based District Heating Systems.&rdquo;
+<i>Proc. of the 1st International Workshop On Open Source Modelling And Simulation Of
 Energy Systems (OSMSES 2022)</i>, Aachen, German, April 4-5, 2022.
 <a href=\"https://doi.org/10.1109/OSMSES54027.2022.9769121\">10.1109/OSMSES54027.2022.9769121</a>
 </p>

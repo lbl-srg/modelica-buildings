@@ -8,7 +8,7 @@ model ControlVolumeEvaporation
     hWat(start = MediumWat.h_default),
     p(final fixed=fixed_p_start));
   parameter Boolean fixed_p_start = false
-    "Set to true if p_start is to be used as an explicit initial equation, 
+    "Set to true if p_start is to be used as an explicit initial equation,
     not an initial guess"
     annotation(Dialog(tab = "Initialization"));
 equation
@@ -39,7 +39,7 @@ Updated publication references.
 </li>
 <li>
 February 26, 2022 by Kathryn Hinkelman:<br/>
-Moved control volume formulation into a base class 
+Moved control volume formulation into a base class
 for reusability in condensation and evaporation instances.
 </li>
 <li>
@@ -49,25 +49,25 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-This model represents an evaporation process of water with 
+This model represents an evaporation process of water with
 liquid and vapor phases in equilibrium and at a saturated state.
 Further information regarding the model formulation and assumptions
-are in the base class 
+are in the base class
 <a href=\"modelica://Buildings.Experimental.DHC.BaseClasses.Steam.PartialSaturatedControlVolume\">
 Buildings.Experimental.DHC.BaseClasses.Steam.PartialSaturatedControlVolume</a>.
 
 <h4>References </h4>
 <p>
-Kathryn Hinkelman, Saranya Anbarasu, Michael Wetter, Antoine Gautier, Wangda Zuo. 2022. 
-&ldquo;A Fast and Accurate Modeling Approach for Water and Steam 
-Thermodynamics with Practical Applications in District Heating System Simulation,&rdquo; 
+Kathryn Hinkelman, Saranya Anbarasu, Michael Wetter, Antoine Gautier, Wangda Zuo. 2022.
+&ldquo;A Fast and Accurate Modeling Approach for Water and Steam
+Thermodynamics with Practical Applications in District Heating System Simulation,&rdquo;
 <i>Energy</i>, 254(A), pp. 124227.
 <a href=\"https://doi.org/10.1016/j.energy.2022.124227\">10.1016/j.energy.2022.124227</a>
 </p>
 <p>
-Kathryn Hinkelman, Saranya Anbarasu, Michael Wetter, Antoine Gautier, Baptiste Ravache, Wangda Zuo 2022. 
-&ldquo;Towards Open-Source Modelica Models For Steam-Based District Heating Systems.&rdquo; 
-<i>Proc. of the 1st International Workshop On Open Source Modelling And Simulation Of 
+Kathryn Hinkelman, Saranya Anbarasu, Michael Wetter, Antoine Gautier, Baptiste Ravache, Wangda Zuo 2022.
+&ldquo;Towards Open-Source Modelica Models For Steam-Based District Heating Systems.&rdquo;
+<i>Proc. of the 1st International Workshop On Open Source Modelling And Simulation Of
 Energy Systems (OSMSES 2022)</i>, Aachen, German, April 4-5, 2022.
 <a href=\"https://doi.org/10.1109/OSMSES54027.2022.9769121\">10.1109/OSMSES54027.2022.9769121</a>
 </p>

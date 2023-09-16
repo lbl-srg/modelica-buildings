@@ -1,5 +1,5 @@
 within Buildings.Experimental.DHC.Plants.Steam;
-model SingleBoiler "A generic steam plant with a single boiler that discharges 
+model SingleBoiler "A generic steam plant with a single boiler that discharges
   saturated steam"
   extends Buildings.Experimental.DHC.Plants.BaseClasses.PartialPlant(
     final typ=Buildings.Experimental.DHC.Types.DistrictSystemType.HeatingGeneration1,
@@ -276,26 +276,26 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-This is a generic steam plant model that can be used in 
-district heating system simulations. The model contains a 
-feedwater tank, feedwater pump, check valve, and a boiler. 
-The boiler is designed to discharge saturated steam vapor. 
-For controls, the feedwater pump maintains the water volume 
-setpoint in the drum boiler, while the boiler control 
-maintains the discharge pressure setpoint. 
+This is a generic steam plant model that can be used in
+district heating system simulations. The model contains a
+feedwater tank, feedwater pump, check valve, and a boiler.
+The boiler is designed to discharge saturated steam vapor.
+For controls, the feedwater pump maintains the water volume
+setpoint in the drum boiler, while the boiler control
+maintains the discharge pressure setpoint.
 </p>
 <h4>References </h4>
 <p>
-Kathryn Hinkelman, Saranya Anbarasu, Michael Wetter, Antoine Gautier, Wangda Zuo. 2022. 
-&ldquo;A Fast and Accurate Modeling Approach for Water and Steam 
-Thermodynamics with Practical Applications in District Heating System Simulation,&rdquo; 
+Kathryn Hinkelman, Saranya Anbarasu, Michael Wetter, Antoine Gautier, Wangda Zuo. 2022.
+&ldquo;A Fast and Accurate Modeling Approach for Water and Steam
+Thermodynamics with Practical Applications in District Heating System Simulation,&rdquo;
 <i>Energy</i>, 254(A), pp. 124227.
 <a href=\"https://doi.org/10.1016/j.energy.2022.124227\">10.1016/j.energy.2022.124227</a>
 </p>
 <p>
-Kathryn Hinkelman, Saranya Anbarasu, Michael Wetter, Antoine Gautier, Baptiste Ravache, Wangda Zuo 2022. 
-&ldquo;Towards Open-Source Modelica Models For Steam-Based District Heating Systems.&rdquo; 
-<i>Proc. of the 1st International Workshop On Open Source Modelling And Simulation Of 
+Kathryn Hinkelman, Saranya Anbarasu, Michael Wetter, Antoine Gautier, Baptiste Ravache, Wangda Zuo 2022.
+&ldquo;Towards Open-Source Modelica Models For Steam-Based District Heating Systems.&rdquo;
+<i>Proc. of the 1st International Workshop On Open Source Modelling And Simulation Of
 Energy Systems (OSMSES 2022)</i>, Aachen, German, April 4-5, 2022.
 <a href=\"https://doi.org/10.1109/OSMSES54027.2022.9769121\">10.1109/OSMSES54027.2022.9769121</a>
 </p>
