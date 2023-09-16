@@ -43,29 +43,29 @@ equation
           defaultComponentName="con",
     Documentation(info="<html>
 <p>
-This network connection model contains one pipe declaration 
-for the condensate pipe, featuring a fixed hydraulic resistance. 
-This model is intended for steam heating systems that utilize 
-a split-medium approach with two separate medium declarations 
-between liquid and vapor states. 
+This network connection model contains one pipe declaration
+for the condensate pipe, featuring a fixed hydraulic resistance.
+This model is intended for steam heating systems that utilize
+a split-medium approach with two separate medium declarations
+between liquid and vapor states.
 </p>
 <p>
-In this model, it is assumed that there are no mass losses in 
-the network connection. Further, heat transfer with the external 
+In this model, it is assumed that there are no mass losses in
+the network connection. Further, heat transfer with the external
 environment and transport delays are also not included.
 </p>
 <h4>References </h4>
 <p>
-Kathryn Hinkelman, Saranya Anbarasu, Michael Wetter, Antoine Gautier, Wangda Zuo. 2022. 
-&ldquo;A Fast and Accurate Modeling Approach for Water and Steam 
-Thermodynamics with Practical Applications in District Heating System Simulation,&rdquo; 
+Kathryn Hinkelman, Saranya Anbarasu, Michael Wetter, Antoine Gautier, Wangda Zuo. 2022.
+&ldquo;A Fast and Accurate Modeling Approach for Water and Steam
+Thermodynamics with Practical Applications in District Heating System Simulation,&rdquo;
 <i>Energy</i>, 254(A), pp. 124227.
 <a href=\"https://doi.org/10.1016/j.energy.2022.124227\">10.1016/j.energy.2022.124227</a>
 </p>
 <p>
-Kathryn Hinkelman, Saranya Anbarasu, Michael Wetter, Antoine Gautier, Baptiste Ravache, Wangda Zuo 2022. 
-&ldquo;Towards Open-Source Modelica Models For Steam-Based District Heating Systems.&rdquo; 
-<i>Proc. of the 1st International Workshop On Open Source Modelling And Simulation Of 
+Kathryn Hinkelman, Saranya Anbarasu, Michael Wetter, Antoine Gautier, Baptiste Ravache, Wangda Zuo 2022.
+&ldquo;Towards Open-Source Modelica Models For Steam-Based District Heating Systems.&rdquo;
+<i>Proc. of the 1st International Workshop On Open Source Modelling And Simulation Of
 Energy Systems (OSMSES 2022)</i>, Aachen, German, April 4-5, 2022.
 <a href=\"https://doi.org/10.1109/OSMSES54027.2022.9769121\">10.1109/OSMSES54027.2022.9769121</a>
 </p>
