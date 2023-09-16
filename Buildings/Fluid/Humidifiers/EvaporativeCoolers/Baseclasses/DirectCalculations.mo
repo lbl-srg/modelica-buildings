@@ -1,18 +1,25 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses;
 block DirectCalculations
-  "Calculates the water mass flow rate of a direct evaporative coolder"
+  "Calculates the water vapor mass flow rate of a direct evaporative coolder"
 
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium";
 
   parameter Modelica.Units.SI.Area padAre
     "Area of the rigid media evaporative pad";
-
   parameter Modelica.Units.SI.Length dep
     "Depth of the rigid media evaporative pad";
 
   Modelica.Units.SI.Velocity vel
     "Air velocity";
+  Real eff(
+    final unit="1")
+    "Evaporative humidifier efficiency";
+  Modelica.Units.SI.ThermodynamicTemperature TDryBulOut(
+    displayUnit="degC")
+    "Dry bulb temperature of the outlet air";
+  Modelica.Units.SI.MassFlowRate mWat_flowOut
+    "Water mass flow rate at the outlet";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput V_flow(
     final unit="m3/s",
@@ -35,7 +42,8 @@ block DirectCalculations
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
-    "Dry bulb temperature of the air at the inlet" annotation (Placement(
+    "Dry bulb temperature of the air at the inlet"
+    annotation (Placement(
       visible=true,
       transformation(
         origin={-120,60},
@@ -80,7 +88,7 @@ block DirectCalculations
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dmWat_flow(
     final unit="kg/s")
-    "Water mass flow rate difference between inlet and outlet"
+    "Water vapor mass flow rate difference between inlet and outlet"
     annotation (Placement(
      visible=true,
      transformation(
@@ -91,17 +99,6 @@ block DirectCalculations
        origin={120,0},
        extent={{-20,-20},{20,20}},
        rotation=0)));
-
-  Real eff(
-    final unit="1")
-    "Evaporative humidifier efficiency";
-
-  Modelica.Units.SI.ThermodynamicTemperature TDryBulOut(
-    displayUnit="degC")
-    "Dry bulb temperature of the outlet air";
-
-  Modelica.Units.SI.MassFlowRate mWat_flowOut
-    "Water mass flow rate at the outlet";
 
   Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.Xi_TDryBulTWetBul
     XiOut(redeclare package Medium = Medium)
@@ -134,7 +131,14 @@ equation
   TWetBulIn = XiOut.TWetBul;
   p = XiOut.p;
   annotation (Documentation(info="<html>
-<p>Block that calculates the water mass flow rate of the humidifier based on the performance curve.</p>
+<p>Block that calculates the water vapor mass flow rate of the humidifier based on the performance curve.</p>
+</html>", revisions="<html>
+<ul>
+<li>
+Semptember 14, 2023 by Cerrina Mouchref, Karthikeya Devaprasad, Lingzhe Wang:<br/>
+First implementation.
+</li>
+</ul>
 </html>"), Icon(graphics={              Text(
         extent={{-152,144},{148,104}},
         textString="%name",
