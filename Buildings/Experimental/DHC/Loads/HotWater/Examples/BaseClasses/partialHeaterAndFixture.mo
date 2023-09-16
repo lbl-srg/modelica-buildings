@@ -91,6 +91,5 @@ Initial implementation.
 </html>"),experiment(
       StopTime=864000,
       Interval=1,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"));
+      Tolerance=1e-06));
 end partialHeaterAndFixture;
