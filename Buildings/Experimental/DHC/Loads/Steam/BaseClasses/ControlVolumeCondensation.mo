@@ -1,4 +1,4 @@
-﻿within Buildings.Experimental.DHC.Loads.Steam.BaseClasses;
+within Buildings.Experimental.DHC.Loads.Steam.BaseClasses;
 model ControlVolumeCondensation
   "Control volume model exhibiting the condensation process of water"
   extends
