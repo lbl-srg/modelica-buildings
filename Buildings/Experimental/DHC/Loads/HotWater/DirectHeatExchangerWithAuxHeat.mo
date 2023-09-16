@@ -87,7 +87,7 @@ the temperature of produced hot water to setpoint.
 <p>
 It is based on Fig. 5 in <i>Evaluations of different domestic hot water 
 preparing methods with ultra-low-temperature district heating</i> by X. Yang, 
-H. Li, and S. Svendsen at <a href=https:/doi.org/10.1016/j.energy.2016.04.109> 
+H. Li, and S. Svendsen at <a href=\"https:/doi.org/10.1016/j.energy.2016.04.109\"> 
 doi.org/10.1016/j.energy.2016.04.109</a>.
 </p>
 </html>", revisions="<html>

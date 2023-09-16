@@ -42,7 +42,7 @@ defined by a schedule.
 <p>
 Such distribution is based on the
 <i>Advanced Energy Design Guide for Multifamily Buildings-Achieving Zero Energy</i>
-published by ASHRAE in 2022 at <a href=https://www.ashrae.org/technical-resources/aedgs/zero-energy-aedg-free-download>
+published by ASHRAE in 2022 at <a href=\"https://www.ashrae.org/technical-resources/aedgs/zero-energy-aedg-free-download\">
 https://www.ashrae.org/technical-resources/aedgs/zero-energy-aedg-free-download</a>.
 </p>
 <p align=\"center\">

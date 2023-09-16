@@ -161,10 +161,10 @@ Buildings.Experimental.DHC.Loads.HotWater.Data.GenericHeatPumpWaterHeater</a>.
 <p>
 It is based on Fig. 3 in <i>Evaluations of different domestic hot water 
 preparing methods with ultra-low-temperature district heating</i> by X. Yang, 
-H. Li, and S. Svendsen at <a href=https:/doi.org/10.1016/j.energy.2016.04.109> 
+H. Li, and S. Svendsen at <a href=\"https:/doi.org/10.1016/j.energy.2016.04.109\"> 
 doi.org/10.1016/j.energy.2016.04.109</a>, as well as the
 <i>Advanced Energy Design Guide for Multifamily Buildings-Achieving Zero Energy</i>
-published by ASHRAE in 2022 at <a href=https://www.ashrae.org/technical-resources/aedgs/zero-energy-aedg-free-download>
+published by ASHRAE in 2022 at <a href=\"https://www.ashrae.org/technical-resources/aedgs/zero-energy-aedg-free-download\">
 https://www.ashrae.org/technical-resources/aedgs/zero-energy-aedg-free-download</a>.
 </p>
 </html>", revisions="<html>
