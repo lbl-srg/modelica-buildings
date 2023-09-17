@@ -170,11 +170,13 @@ protected
 
 initial equation
   // Assert that the substance with name 'water' has been found.
-  assert(Medium.nXi == 0 or abs(sum(s)-1) < 1e-5,
-      "In " + getInstanceName() + ":
+  if use_mWat_flow then
+    assert(Medium.nXi == 0 or abs(sum(s) - 1) < 1e-5, "In " + getInstanceName()
+       + ":
          If Medium.nXi > 1, then substance 'water' must be present for one component of '"
-         + Medium.mediumName + "'.
+       + Medium.mediumName + "'.
          Check medium model.");
+  end if;
 
   // Make sure that if energyDynamics is SteadyState, then
   // massDynamics is also SteadyState.
@@ -425,6 +427,12 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+October 24, 2022, by Michael Wetter:<br/>
+Conditionally removed assertion that checks for water content as this is
+only required if water is added to the medium.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1650\">#1650</a>.
+</li>
+<li>
 September 9, 2022, by Michael Wetter:<br/>
 Changed state variable from <code>mXi</code> to <code>medium.Xi</code>
 as this allows setting a good nominal attribute without having to use the fluid volume,
@@ -660,7 +668,7 @@ Removed the option to use <code>h_start</code>, as this
 is not needed for building simulation.
 Also removed the reference to <code>Modelica.Fluid.System</code>.
 Moved parameters and medium to
-<a href=\"Buildings.Fluid.Interfaces.LumpedVolumeDeclarations\">
+<a href=\"modelica://Buildings.Fluid.Interfaces.LumpedVolumeDeclarations\">
 Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</a>.
 </li>
 <li>

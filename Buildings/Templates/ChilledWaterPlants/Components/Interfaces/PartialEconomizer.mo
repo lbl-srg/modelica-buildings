@@ -1,6 +1,7 @@
 within Buildings.Templates.ChilledWaterPlants.Components.Interfaces;
 partial model PartialEconomizer "Partial waterside economizer model"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+    port_a_x=400, port_a_y=-80, port_b_x=400, port_b_y=80,
     redeclare final package Medium=MediumChiWat,
     final m_flow_nominal=mChiWat_flow_nominal);
 

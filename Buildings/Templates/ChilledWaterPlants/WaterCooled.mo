@@ -20,8 +20,8 @@ model WaterCooled "Water-cooled chiller plant"
     final tau=tau,
     final allowFlowReversal=allowFlowReversal)
     "Coolers"
-    annotation (Dialog(group="Coolers"), Placement(transformation(extent={{-128,34},
-            {-292,94}})));
+    annotation (Dialog(group="Coolers"), Placement(transformation(extent={{-118,34},
+            {-282,94}})));
 
   // CW loop
   Buildings.Templates.Components.Routing.SingleToMultiple inlPumConWat(
@@ -65,7 +65,7 @@ model WaterCooled "Water-cooled chiller plant"
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-110,40})));
+        origin={-80,40})));
   Buildings.Templates.Components.Sensors.Temperature TConWatSup(
     redeclare final package Medium = MediumCon,
     final m_flow_nominal=mCon_flow_nominal,
@@ -90,7 +90,7 @@ equation
       color={0,0,0},
       thickness=0.5));
   connect(busWea, coo.busWea) annotation (Line(
-      points={{0,280},{-180,280},{-180,94}},
+      points={{0,280},{-170,280},{-170,94}},
       color={255,204,51},
       thickness=0.5));
   connect(inlPumConWat.port_a, bouConWat.ports[1])
@@ -104,17 +104,17 @@ equation
       color={0,0,0},
       thickness=0.5));
   connect(outConChi.port_b, TConWatRet.port_b) annotation (Line(
-      points={{-60,0},{-60,40},{-100,40}},
+      points={{-60,0},{-60,40},{-70,40}},
       color={0,0,0},
       thickness=0.5,
       pattern=LinePattern.Dash));
   connect(TConWatRet.port_a, coo.port_a) annotation (Line(
-      points={{-120,40},{-200,40},{-200,64}},
+      points={{-90,40},{-282,40}},
       color={0,0,0},
       thickness=0.5,
       pattern=LinePattern.Dash));
-  connect(coo.port_b,TConWatSup. port_b) annotation (Line(points={{-220,64},{
-          -212,64},{-212,-192},{-170,-192}}, color={0,0,0},
+  connect(coo.port_b,TConWatSup. port_b) annotation (Line(points={{-200,34},{
+          -200,-192},{-170,-192}},           color={0,0,0},
       thickness=0.5));
   connect(TConWatSup.port_a, inlPumConWat.port_a)
     annotation (Line(points={{-150,-192},{-110,-192}}, color={0,0,0},
