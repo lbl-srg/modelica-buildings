@@ -105,5 +105,5 @@ This is a validation model for the template
 Buildings.Templates.ZoneEquipment.VAVBoxCoolingOnly</a>.
 </p>
 </html>"),
-    Diagram(coordinateSystem(extent={{-120,-120},{120,120}})));
+Diagram(coordinateSystem(extent={{-120,-120},{120,120}})));
 end VAVBoxCoolingOnly;

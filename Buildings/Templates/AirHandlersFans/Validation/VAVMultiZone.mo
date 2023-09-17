@@ -1,6 +1,5 @@
 within Buildings.Templates.AirHandlersFans.Validation;
-model VAVMZBase
-  "Validation model for multiple-zone VAV - Base model with open loop controls"
+model VAVMultiZone "Validation model for multiple-zone VAV"
   extends Modelica.Icons.Example;
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
@@ -23,8 +22,12 @@ model VAVMZBase
     annotation(Evaluate=true,
       Dialog(tab = "Dynamics", group="Conservation equations"));
 
-  inner replaceable UserProject.AirHandlersFans.VAVMZBase VAV_1 constrainedby
-    Buildings.Templates.AirHandlersFans.VAVMultiZone(
+  Buildings.Templates.AirHandlersFans.VAVMultiZone VAV_1(
+    nZon=2,
+    ctl(
+      idZon={"Box_1","Box_1"},
+      namGro={"Floor_1"},
+      namGroZon={"Floor_1","Floor_1"}),
     final dat=datAll.VAV_1,
     redeclare final package MediumAir = MediumAir,
     redeclare final package MediumChiWat = MediumChiWat,
@@ -77,9 +80,8 @@ model VAVMZBase
     nPorts=2) if VAV_1.have_souChiWat
     "Boundary conditions for CHW distribution system"
     annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
-  UserProject.ZoneEquipment.VAVBoxControlPoints sigVAVBox[VAV_1.nZon](
-    each final stdVen=datAll.stdVen)
-    if VAV_1.ctl.typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone
+  UserProject.VAVBoxControlPoints sigVAVBox[VAV_1.nZon](each final stdVen=
+        datAll.stdVen) if VAV_1.ctl.typ == Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone
     "Control signals from VAV box"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   ZoneEquipment.Validation.UserProject.BASControlPoints sigBAS(
@@ -160,18 +162,14 @@ equation
       thickness=0.5));
   annotation (
   __Dymola_Commands(
-  file="modelica://Buildings/Resources/Scripts/Dymola/Templates/AirHandlersFans/Validation/VAVMZBase.mos"
+  file="modelica://Buildings/Resources/Scripts/Dymola/Templates/AirHandlersFans/Validation/VAVMultiZone.mos"
   "Simulate and plot"),
   experiment(Tolerance=1e-6, StopTime=1), Documentation(info="<html>
 <p>
-This is a validation model for the configuration represented by
-<a href=\"modelica://Buildings.Templates.AirHandlersFans.Validation.UserProject.AirHandlersFans.VAVMZBase\">
-Buildings.Templates.AirHandlersFans.Validation.UserProject.AirHandlersFans.VAVMZBase</a>.
-It is intended to check whether the template model is well-defined for
-this particular system configuration.
-However, due to the open-loop controls a correct physical behavior
-is not expected and the plotted variables are for non-regression testing only.
+This is a validation model for the template
+<a href=\"modelica://Buildings.Templates.AirHandlersFans.VAVMultiZone\">
+Buildings.Templates.AirHandlersFans.VAVMultiZone</a>.
 </p>
 </html>"),
     Diagram(coordinateSystem(extent={{-120,-120},{120,120}})));
-end VAVMZBase;
+end VAVMultiZone;

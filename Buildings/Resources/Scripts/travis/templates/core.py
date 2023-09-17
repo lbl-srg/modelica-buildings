@@ -236,23 +236,32 @@ def prune_modifications(
           These duplicates are pruned afterwards.
         - The `exclude` argument is used to exclude a combination entirely, i.e., all class modifications.
 
-    REMOVE: A class modification is removed from a combination according to the following rules.
-    For each item (2-tuple) of the list provided (as value) for each model (key) in remove_modif (dict):
-    - if all patterns of item[0] are found in the original class modifications of the combination, and
-    - if a class modification contains any item within item[1], then
-    - this class modification is removed.
-    - (re patterns are supported: for instance negative lookahead assertion using (?!pattern).)
-
-    EXCLUDE: A combination is excluded if the following exclusion test returns true.
+    EXCLUDE (first): A combination is excluded if the following exclusion test returns true.
     - Concatenate all class modifications.
     - Look for the model (key) in exclude (dict).
     - Iterate over the list of list of class modifications for this model (value of exclude[model]).
     - For a given list of class modifications, return true if all strings are found in the concatenated class modifications.
     - (re patterns are supported: for instance negative lookahead assertion using (?!pattern).)
 
+    REMOVE (after EXCLUDE): A class modification is removed from a combination according to the following rules.
+    For each item (2-tuple) of the list provided (as value) for each model (key) in remove_modif (dict):
+    - if all patterns of item[0] are found in the original class modifications of the combination, and
+    - if a class modification contains any item within item[1], then
+    - this class modification is removed.
+    - (re patterns are supported: for instance negative lookahead assertion using (?!pattern).)
+
     Returns:
         None (modifies inplace)
     """
+    # Exclude cases.
+    ## We iterate over a copy of the `combinations` list to allow removing items of `combinations` during iteration.
+    if exclude is not None:
+        for arg in combinations.copy():
+            if arg[0] in exclude:
+                modif_concat = ''.join(arg[1])
+                if any(all(re.search(el, modif_concat) for el in ell) for ell in exclude[arg[0]]):
+                    combinations.remove(arg)
+
     if remove_modif is not None:
         for i, arg in enumerate(combinations):
             indices_to_pop = []
@@ -273,15 +282,6 @@ def prune_modifications(
             if arg[:2] == combinations[j][:2]:  # Compare w/o tag at index 3.
                 indices_to_pop.append(j)
     remove_items_by_indices(combinations, indices_to_pop)
-
-    # Exclude cases.
-    ## We iterate over a copy of the `combinations` list to allow removing items of `combinations` during iteration.
-    if exclude is not None:
-        for arg in combinations.copy():
-            if arg[0] in exclude:
-                modif_concat = ''.join(arg[1])
-                if any(all(re.search(el, modif_concat) for el in ell) for ell in exclude[arg[0]]):
-                    combinations.remove(arg)
 
     # Update tags. (Because pruning resulted in a sparse list of indices.)
     for i, arg in enumerate(combinations):

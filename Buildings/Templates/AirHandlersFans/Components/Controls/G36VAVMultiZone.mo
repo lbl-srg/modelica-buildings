@@ -252,8 +252,12 @@ equation
   connect(bus.pAirSup_rel, ctl.dpDuc);
   connect(bus.TOut, ctl.TOut);
   connect(bus.TAirSup, ctl.TAirSup);
-  connect(bus.VOut_flow, ctl.VAirOut_flow);
-  connect(bus.VOutMin_flow, ctl.VAirOut_flow);
+  if typSecOut==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper then
+    connect(bus.VOut_flow, ctl.VAirOut_flow);
+  end if;
+  if typSecOut==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow then
+    connect(bus.VOutMin_flow, ctl.VAirOut_flow);
+  end if;
 
   connect(bus.dpAirOutMin, ctl.dpMinOutDam);
   connect(bus.hAirOut, ctl.hAirOut);
@@ -485,15 +489,6 @@ Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.ZoneGroupSystem</a>:
 Computation of the AHU operating mode
 </li>
 </ul>
-<h4>Details</h4>
-<p>
-The AI point for the measured outdoor air flow rate <code>ctl.VOut_flow</code>
-used for minimum outdoor airflow control is connected to both <code>bus.VOutMin_flow</code>
-(dedicated minimum OA damper) and <code>bus.VOut_flow</code> (single common OA damper).
-Those two variables are exclusive from one another.
-In case of dedicated OA dampers, the total outdoor airflow is not measured,
-hence no <code>bus.VOut_flow</code> signal is available for that configuration.
-</p>
 <h4>References</h4>
 <ul>
 <li>

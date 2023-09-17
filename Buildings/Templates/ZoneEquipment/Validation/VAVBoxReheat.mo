@@ -5,7 +5,7 @@ model VAVBoxReheat
     redeclare Buildings.Templates.ZoneEquipment.VAVBoxReheat VAVBox_1);
   annotation (
   __Dymola_Commands(
-  file="modelica://Buildings/Resources/Scripts/Dymola/Templates/ZoneEquipment/Validation/VAVBoxReheatControlG36.mos"
+  file="modelica://Buildings/Resources/Scripts/Dymola/Templates/ZoneEquipment/Validation/VAVBoxReheat.mos"
   "Simulate and plot"),
   experiment(Tolerance=1e-6, StopTime=3600), Documentation(info="<html>
 <p>
