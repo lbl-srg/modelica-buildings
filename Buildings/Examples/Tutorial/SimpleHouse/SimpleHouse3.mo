@@ -2,29 +2,28 @@ within Buildings.Examples.Tutorial.SimpleHouse;
 model SimpleHouse3 "Air model"
   extends SimpleHouse2;
 
-  parameter Modelica.Units.SI.Volume V_zone=8*8*3 "Zone volume";
+  parameter Modelica.Units.SI.Volume VZone=8*8*3 "Zone volume";
   parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal=1
     "Nominal mass flow rate for air loop";
-  parameter Modelica.Units.SI.CoefficientOfHeatTransfer h_wall=2
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer hWall=2
     "Convective heat transfer coefficient at the wall";
 
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor convRes(R=1/2/A_wall)
-    "Thermal resistance for convective heat transfer"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor conRes(R=1/hWall/
+        AWall) "Thermal resistance for convective heat transfer" annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
         rotation=270,
         origin={130,20})));
-  Buildings.Fluid.MixingVolumes.MixingVolume zone(
+  Buildings.Fluid.MixingVolumes.MixingVolume zon(
     redeclare package Medium = MediumAir,
-    V=V_zone,
+    V=VZone,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_nominal=mAir_flow_nominal)
-    "Very simple zone air model"
+    m_flow_nominal=mAir_flow_nominal) "Very simple zone air model"
     annotation (Placement(transformation(extent={{110,130},{90,150}})));
 equation
-  connect(convRes.port_b, walCap.port)
-    annotation (Line(points={{130,10},{130,1.77636e-15},{140,1.77636e-15}},
-                                                            color={191,0,0}));
-  connect(zone.heatPort, convRes.port_a)
+  connect(conRes.port_b, walCap.port) annotation (Line(points={{130,10},{130,
+          1.77636e-15},{140,1.77636e-15}}, color={191,0,0}));
+  connect(zon.heatPort, conRes.port_a)
     annotation (Line(points={{110,140},{130,140},{130,30}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
             -220},{200,200}})),

@@ -204,9 +204,9 @@ Each class (i.e., model, block and function) must be used in an example or valid
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
-class Version_11_0_0 "Version 11.0.0"
-  extends Modelica.Icons.ReleaseNotes;
-    annotation (Documentation(info="<html>
+    class Version_11_0_0 "Version 11.0.0"
+      extends Modelica.Icons.ReleaseNotes;
+        annotation (Documentation(info="<html>
 <div class=\"release-summary\">
 <p>
 Version 11.0.0 is ...
@@ -217,9 +217,9 @@ Version 11.0.0 is ...
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Examples.Tutorial.SimpleHouse
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Tutorial for how to build a simple system model.
     </td>
     </tr>
 </table>
@@ -255,20 +255,28 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3517\">issue 3517</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Interfaces</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.Interfaces.PartialFourPort<br/>
+                     Buildings.Fluid.Interfaces.PartialTwoPort<br/>
+                     Buildings.Fluid.Interfaces.PartialTwoPortVector
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Changed implementation to allow moving fluid connector.
+                     This accomodates implementation of models that should have connectors on the top and bottom (such as a tank)
+                     and moving of connectors for models that need larger icons.<br/>
+                     This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1781\">IBPSA, #1781</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007<br/>
+                     Buildings.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Changed implementation to allow ground temperature to be taken from an input rather than using
+                     a constant value.<br/>
+                     This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1744\">IBPSA, #1744</a>.
     </td>
 </tr>
 </table>
@@ -346,7 +354,7 @@ xxx
 </li>
 </ul>
 </html>"));
-end Version_11_0_0;
+    end Version_11_0_0;
 
 
   class Version_10_0_0 "Version 10.0.0"

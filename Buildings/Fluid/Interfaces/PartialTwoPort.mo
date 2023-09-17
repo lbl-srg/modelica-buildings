@@ -20,13 +20,23 @@ partial model PartialTwoPort "Partial component with two ports"
      m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
      h_outflow(start = Medium.h_default, nominal = Medium.h_default))
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+    annotation (Placement(transformation(extent={{port_a_x-10,port_a_y-10},{port_a_x+10,port_a_y+10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
     redeclare final package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
      h_outflow(start = Medium.h_default, nominal = Medium.h_default))
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{110,-10},{90,10}})));
+    annotation (Placement(transformation(extent={{port_b_x-10,port_b_y-10},{port_b_x+10,port_b_y+10}})));
+
+protected
+  constant Integer port_a_x = -100
+    "x-coordinate of port_a center";
+  constant Integer port_a_y = 0
+    "y-coordinate of port_a center";
+  constant Integer port_b_x = 100
+    "x-coordinate of port_b center";
+  constant Integer port_b_y = 0
+    "y-coordinate of port_b center";
 
   annotation (
     Documentation(info="<html>
@@ -47,6 +57,11 @@ users have not used this global definition to assign parameters.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 1, 2023, by Antoine Gautier:<br/>
+Added constants for parameterization of port placement.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1781\">#1781</a>.
+</li>
 <li>
 January 18, 2019, by Jianjun Hu:<br/>
 Limited the media choice.
