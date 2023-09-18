@@ -680,7 +680,8 @@ block Controller "Multizone VAV air handling unit controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TAirMix(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature") if have_hotWatCoi
+    final quantity="ThermodynamicTemperature")
+    if have_hotWatCoi or have_eleHeaCoi
     "Measured mixed air temperature"
     annotation (Placement(transformation(extent={{-400,-330},{-360,-290}}),
         iconTransformation(extent={{-240,-300},{-200,-260}})));
@@ -811,8 +812,8 @@ block Controller "Multizone VAV air handling unit controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaCoi(
     final min=0,
     final max=1,
-    final unit="1")
-    if have_hotWatCoi "Heating coil valve commanded position"
+    final unit="1") if have_hotWatCoi or have_eleHeaCoi
+                      "Heating coil valve commanded position"
     annotation (Placement(transformation(extent={{360,-280},{400,-240}}),
         iconTransformation(extent={{200,-200},{240,-160}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yAla if have_frePro
@@ -864,6 +865,7 @@ block Controller "Multizone VAV air handling unit controller"
     final minOADes=minOADes,
     final freSta=freSta,
     final have_hotWatCoi=have_hotWatCoi,
+    final have_eleHeaCoi=have_eleHeaCoi,
     final minHotWatReq=minHotWatReq,
     final heaCoiCon=freProHeaCoiCon,
     final k=kFrePro,
@@ -1295,7 +1297,7 @@ annotation (
           extent={{-198,-270},{-158,-288}},
           textColor={0,0,0},
           textString="TAirMix",
-          visible=have_hotWatCoi),
+          visible=have_hotWatCoi or have_eleHeaCoi),
        Text(extent={{142,-168},{200,-188}},
           textColor={0,0,0},
           textString="yHeaCoi",

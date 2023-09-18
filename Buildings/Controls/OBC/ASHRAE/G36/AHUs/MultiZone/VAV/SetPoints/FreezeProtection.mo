@@ -21,6 +21,10 @@ block FreezeProtection
     "True: the AHU has heating coil"
     annotation (__cdl(ValueInReference=false),
                 Dialog(enable=have_frePro));
+  parameter Boolean have_eleHeaCoi=false
+    "True: the AHU has electric heating coil"
+    annotation (__cdl(ValueInReference=false),
+                Dialog(enable=have_frePro));
   parameter Integer minHotWatReq=2
     "Minimum heating hot-water plant request to active the heating plant"
     annotation(__cdl(ValueInReference=true),
@@ -28,33 +32,33 @@ block FreezeProtection
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController heaCoiCon=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Heating coil controller"
     annotation (__cdl(ValueInReference=false),
-                Dialog(group="Heating coil controller", enable=have_hotWatCoi and have_frePro));
+                Dialog(group="Heating coil controller", enable=(have_hotWatCoi or have_eleHeaCoi) and have_frePro));
   parameter Real k(unit="1")=1
     "Gain of coil controller"
     annotation (__cdl(ValueInReference=false),
-                Dialog(group="Heating coil controller", enable=have_hotWatCoi and have_frePro));
+                Dialog(group="Heating coil controller", enable=(have_hotWatCoi or have_eleHeaCoi) and have_frePro));
   parameter Real Ti(unit="s")=0.5
     "Time constant of integrator block"
     annotation (__cdl(ValueInReference=false),
                 Dialog(group="Heating coil controller",
-                       enable=have_hotWatCoi and have_frePro and
+                       enable=(have_hotWatCoi or have_eleHeaCoi) and have_frePro and
                               (heaCoiCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
                               heaCoiCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real Td(unit="s")=0.1
     "Time constant of derivative block"
     annotation (__cdl(ValueInReference=false),
                 Dialog(group="Heating coil controller",
-                       enable=have_hotWatCoi and have_frePro and
+                       enable=(have_hotWatCoi or have_eleHeaCoi) and have_frePro and
                               (heaCoiCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
                               heaCoiCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real yMax=1
     "Upper limit of output"
     annotation (__cdl(ValueInReference=false),
-                Dialog(group="Heating coil controller", enable=have_hotWatCoi and have_frePro));
+                Dialog(group="Heating coil controller", enable=(have_hotWatCoi or have_eleHeaCoi) and have_frePro));
   parameter Real yMin=0
     "Lower limit of output"
     annotation (__cdl(ValueInReference=false),
-                Dialog(group="Heating coil controller", enable=have_hotWatCoi and have_frePro));
+                Dialog(group="Heating coil controller", enable=(have_hotWatCoi or have_eleHeaCoi) and have_frePro));
   parameter Real Thys(unit="K")=0.25
     "Hysteresis for checking temperature difference"
     annotation (__cdl(ValueInReference=false),
@@ -76,7 +80,7 @@ block FreezeProtection
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaCoi(
     final min=0,
     final max=1,
-    final unit="1") if have_hotWatCoi "Heating coil commanded position"
+    final unit="1") if (have_hotWatCoi or have_eleHeaCoi) "Heating coil commanded position"
     annotation (Placement(transformation(extent={{-480,620},{-440,660}}),
         iconTransformation(extent={{-140,120},{-100,160}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uMinOutDam(
@@ -166,7 +170,7 @@ block FreezeProtection
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TAirMix(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature") if have_hotWatCoi and
+    final quantity="ThermodynamicTemperature") if (have_hotWatCoi or have_eleHeaCoi) and
     have_frePro
     "Measured mixed air temperature"
     annotation (Placement(transformation(extent={{-480,-716},{-440,-676}}),
@@ -255,11 +259,11 @@ block FreezeProtection
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaCoi(
     final min=0,
     final max=1,
-    final unit="1") if have_hotWatCoi "Heating coil commanded position"
+    final unit="1") if (have_hotWatCoi or have_eleHeaCoi) "Heating coil commanded position"
     annotation (Placement(transformation(extent={{440,-720},{480,-680}}),
         iconTransformation(extent={{100,-140},{140,-100}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatPlaReq
-    if have_hotWatCoi and (not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
+ if have_hotWatCoi and (not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
     "Request to heating hot-water plant"
     annotation (Placement(transformation(extent={{440,-800},{480,-760}}),
         iconTransformation(extent={{100,-190},{140,-150}})));
@@ -278,7 +282,7 @@ block FreezeProtection
     "Check if the supply air temperature has been lower than threshold value for sufficient long time"
     annotation (Placement(transformation(extent={{-300,810},{-280,830}})));
   Buildings.Controls.OBC.CDL.Integers.Switch hotWatPlaReq
-    if have_hotWatCoi and have_frePro
+    if (have_hotWatCoi or have_eleHeaCoi) and have_frePro
     "Hot water plant request in stage 1 mode"
     annotation (Placement(transformation(extent={{60,802},{80,822}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
@@ -294,11 +298,11 @@ block FreezeProtection
     final Ti=Ti,
     final Td=Td,
     final yMax=yMax,
-    final yMin=yMin) if have_hotWatCoi and have_frePro
+    final yMin=yMin) if (have_hotWatCoi or have_eleHeaCoi) and have_frePro
     "Heating coil control in stage 1 mode"
     annotation (Placement(transformation(extent={{-320,680},{-300,700}})));
   Buildings.Controls.OBC.CDL.Reals.Switch heaCoi1
-    if have_hotWatCoi and have_frePro
+    if (have_hotWatCoi or have_eleHeaCoi) and have_frePro
     "Heating coil position"
     annotation (Placement(transformation(extent={{120,660},{140,680}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
@@ -357,7 +361,7 @@ block FreezeProtection
     "Level 3 alarm"
     annotation (Placement(transformation(extent={{40,340},{60,360}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2(
-    final k=0) if have_hotWatCoi and have_frePro
+    final k=0) if (have_hotWatCoi or have_eleHeaCoi) and have_frePro
     "Zero request"
     annotation (Placement(transformation(extent={{-20,780},{0,800}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim3(
@@ -426,7 +430,7 @@ block FreezeProtection
     "Minimum hot-water plant requests"
     annotation (Placement(transformation(extent={{-140,-782},{-120,-762}})));
   Buildings.Controls.OBC.CDL.Reals.Max max1
-    if have_hotWatCoi and have_frePro
+    if (have_hotWatCoi or have_eleHeaCoi) and have_frePro
     "Higher of supply air and mixed air temperature"
     annotation (Placement(transformation(extent={{-300,-700},{-280,-680}})));
   Buildings.Controls.OBC.CDL.Reals.PID heaCoiMod(
@@ -435,14 +439,14 @@ block FreezeProtection
     final Ti=Ti,
     final Td=Td,
     final yMax=yMax,
-    final yMin=yMin) if have_hotWatCoi and have_frePro
+    final yMin=yMin) if (have_hotWatCoi or have_eleHeaCoi) and have_frePro
     "Heating coil control when it is in stage 3 mode"
     annotation (Placement(transformation(extent={{40,-670},{60,-650}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con4(
-    final k=273.15 + 27) if have_hotWatCoi and have_frePro
+    final k=273.15 + 27) if (have_hotWatCoi or have_eleHeaCoi) and have_frePro
     "Setpoint temperature"
     annotation (Placement(transformation(extent={{-140,-670},{-120,-650}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch heaCoiPos if have_hotWatCoi and (
+  Buildings.Controls.OBC.CDL.Reals.Switch heaCoiPos if (have_hotWatCoi or have_eleHeaCoi) and (
     not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
      and have_frePro
     "Heating coil position"
@@ -499,7 +503,7 @@ block FreezeProtection
     "Return air damper position"
     annotation (Placement(transformation(extent={{320,150},{340,170}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant supTemSet(
-    final k=273.15+ 6) if have_hotWatCoi and have_frePro
+    final k=273.15+ 6) if (have_hotWatCoi or have_eleHeaCoi) and have_frePro
     "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-380,680},{-360,700}})));
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi2 if have_frePro
@@ -574,7 +578,7 @@ block FreezeProtection
     "Disable relief fan when in stage 3"
     annotation (Placement(transformation(extent={{320,-430},{340,-410}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
-    final k=1) if (have_hotWatCoi and freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
+    final k=1) if ((have_hotWatCoi or have_eleHeaCoi) and freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
      and have_frePro
     "Dummy block for enabling and disabling the conditional connection"
     annotation (Placement(transformation(extent={{320,-650},{340,-630}})));
@@ -670,11 +674,11 @@ block FreezeProtection
     "Dummy block for enabling and disabling the conditional connection"
     annotation (Placement(transformation(extent={{-260,-640},{-240,-620}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai15(final k=1)
-    if (not have_frePro) and have_hotWatCoi
+    if (not have_frePro) and (have_hotWatCoi or have_eleHeaCoi)
     "Dummy block for enabling and disabling the conditional connection"
     annotation (Placement(transformation(extent={{-260,-740},{-240,-720}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt10(final k=0)
-    if (not have_frePro) and (have_hotWatCoi and (not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment))
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt10(final k=0) if (not
+    have_frePro) and (have_hotWatCoi and (not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment))
     "Dummy constant"
     annotation (Placement(transformation(extent={{360,-820},{380,-800}})));
 equation
@@ -1058,7 +1062,7 @@ annotation (defaultComponentName="mulAHUFrePro",
           extent={{-98,150},{-52,134}},
           textColor={0,0,127},
           textString="uHeaCoi",
-          visible=have_hotWatCoi),
+          visible=(have_hotWatCoi or have_eleHeaCoi)),
         Text(
           extent={{-96,120},{-20,102}},
           textColor={0,0,127},
@@ -1091,7 +1095,7 @@ annotation (defaultComponentName="mulAHUFrePro",
         Text(
           extent={{-96,-182},{-58,-198}},
           textColor={0,0,127},
-          visible=have_hotWatCoi and have_frePro,
+          visible=(have_hotWatCoi or have_eleHeaCoi) and have_frePro,
           textString="TAirMix"),
         Text(
           extent={{-96,-160},{-50,-178}},
@@ -1133,12 +1137,12 @@ annotation (defaultComponentName="mulAHUFrePro",
           extent={{50,-110},{96,-126}},
           textColor={0,0,127},
           textString="yHeaCoi",
-          visible=have_hotWatCoi),
+          visible=(have_hotWatCoi or have_eleHeaCoi)),
         Text(
           extent={{22,-160},{96,-178}},
           textColor={255,127,0},
           textString="yHotWatPlaReq",
-          visible=have_hotWatCoi and (not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)),
+          visible=(have_hotWatCoi or have_eleHeaCoi) and (not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)),
         Text(
           extent={{-96,12},{-30,-12}},
           textColor={255,0,255},
