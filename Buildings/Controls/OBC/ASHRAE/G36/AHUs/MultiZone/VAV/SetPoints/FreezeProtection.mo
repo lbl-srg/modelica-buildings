@@ -268,7 +268,7 @@ block FreezeProtection
     annotation (Placement(transformation(extent={{440,-720},{480,-680}}),
         iconTransformation(extent={{100,-140},{140,-100}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatPlaReq
- if have_hotWatCoi and (not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
+    if have_hotWatCoi
     "Request to heating hot-water plant"
     annotation (Placement(transformation(extent={{440,-800},{480,-760}}),
         iconTransformation(extent={{100,-190},{140,-150}})));
@@ -424,14 +424,12 @@ block FreezeProtection
      and have_frePro
     "Cooling coil position"
     annotation (Placement(transformation(extent={{120,-590},{140,-570}})));
-  Buildings.Controls.OBC.CDL.Integers.Switch hotWatPlaReq3 if have_hotWatCoi
-     and (not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
-     and have_frePro
+  Buildings.Controls.OBC.CDL.Integers.Switch hotWatPlaReq3
+    if have_hotWatCoi and have_frePro
     "Hot water plant request in stage 3 mode"
     annotation (Placement(transformation(extent={{320,-790},{340,-770}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt3(
-    final k=minHotWatReq) if have_hotWatCoi and (not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
-     and have_frePro
+    final k=minHotWatReq) if have_hotWatCoi and have_frePro
     "Minimum hot-water plant requests"
     annotation (Placement(transformation(extent={{-140,-782},{-120,-762}})));
   Buildings.Controls.OBC.CDL.Reals.Max max1
@@ -682,8 +680,8 @@ block FreezeProtection
     if (not have_frePro) and (have_hotWatCoi or have_eleHeaCoi)
     "Dummy block for enabling and disabling the conditional connection"
     annotation (Placement(transformation(extent={{-260,-740},{-240,-720}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt10(final k=0) if (not
-    have_frePro) and (have_hotWatCoi and (not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment))
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt10(final k=0)
+    if (not have_frePro) and have_hotWatCoi
     "Dummy constant"
     annotation (Placement(transformation(extent={{360,-820},{380,-800}})));
 
@@ -1152,7 +1150,7 @@ annotation (defaultComponentName="mulAHUFrePro",
           extent={{22,-160},{96,-178}},
           textColor={255,127,0},
           textString="yHotWatPlaReq",
-          visible=(have_hotWatCoi or have_eleHeaCoi) and (not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)),
+          visible=have_hotWatCoi),
         Text(
           extent={{-96,12},{-30,-12}},
           textColor={255,0,255},

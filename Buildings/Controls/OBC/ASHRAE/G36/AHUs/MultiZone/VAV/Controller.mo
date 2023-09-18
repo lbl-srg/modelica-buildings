@@ -16,7 +16,7 @@ block Controller "Multizone VAV air handling unit controller"
   parameter Boolean have_frePro=true
     "True: enable freeze protection"
     annotation (__cdl(ValueInReference=false));
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat freSta=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat freSta=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
     "Type of freeze stat"
     annotation (__cdl(ValueInReference=false),
                 Dialog(enable=have_frePro));
@@ -861,6 +861,7 @@ block Controller "Multizone VAV air handling unit controller"
         iconTransformation(extent={{200,-450},{240,-410}})));
 
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold freProMod
+    if have_hotWatCoi
     "Check if it is in freeze protection mode"
     annotation (Placement(transformation(extent={{180,-570},{200,-550}})));
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi if have_hotWatCoi
