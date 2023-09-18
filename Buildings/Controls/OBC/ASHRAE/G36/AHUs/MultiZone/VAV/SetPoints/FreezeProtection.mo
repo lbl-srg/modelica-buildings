@@ -190,14 +190,14 @@ block FreezeProtection
     final unit="1")
     "Return air damper commanded position"
     annotation (Placement(transformation(extent={{440,140},{480,180}}),
-        iconTransformation(extent={{100,130},{140,170}})));
+        iconTransformation(extent={{100,140},{140,180}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDam(
     final min=0,
     final max=1,
     final unit="1")
     "Outdoor air damper commanded position"
     annotation (Placement(transformation(extent={{440,60},{480,100}}),
-        iconTransformation(extent={{100,110},{140,150}})));
+        iconTransformation(extent={{100,120},{140,160}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMinOutDam(
     final min=0,
     final max=1,
@@ -205,29 +205,29 @@ block FreezeProtection
     if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
     "Minimum outdoor air damper commanded position"
     annotation (Placement(transformation(extent={{440,-20},{480,20}}),
-        iconTransformation(extent={{100,80},{140,120}})));
+        iconTransformation(extent={{100,90},{140,130}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1MinOutDam
     if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure
     "Minimum outdoor air damper command on position"
     annotation (Placement(transformation(extent={{440,-90},{480,-50}}),
-        iconTransformation(extent={{100,60},{140,100}})));
+        iconTransformation(extent={{100,70},{140,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1SupFan
     "Supply fan commanded on"
     annotation (Placement(transformation(extent={{440,-160},{480,-120}}),
-        iconTransformation(extent={{100,30},{140,70}})));
+        iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySupFan(
     final min=0,
     final max=1,
     final unit="1")
     "Supply fan commanded speed"
     annotation (Placement(transformation(extent={{440,-240},{480,-200}}),
-        iconTransformation(extent={{100,10},{140,50}})));
+        iconTransformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1RetFan
     if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
     "Return fan commanded on"
     annotation (Placement(transformation(extent={{440,-300},{480,-260}}),
-        iconTransformation(extent={{100,-20},{140,20}})));
+        iconTransformation(extent={{100,-10},{140,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetFan(
     final min=0,
     final max=1,
@@ -236,12 +236,17 @@ block FreezeProtection
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
     "Return fan commanded speed"
     annotation (Placement(transformation(extent={{440,-380},{480,-340}}),
-        iconTransformation(extent={{100,-40},{140,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1RelFan
-    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+        iconTransformation(extent={{100,-30},{140,10}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1RelFan if buiPreCon ==
+    Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
     "Relief fan commanded on"
     annotation (Placement(transformation(extent={{440,-440},{480,-400}}),
-        iconTransformation(extent={{100,-70},{140,-30}})));
+        iconTransformation(extent={{100,-60},{140,-20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1RelDam
+    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+    "True: 2-position relief damper is commanded open"
+    annotation (Placement(transformation(extent={{440,-480},{480,-440}}),
+        iconTransformation(extent={{100,-100},{140,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelFan(
     final min=0,
     final max=1,
@@ -249,7 +254,7 @@ block FreezeProtection
     if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
     "Relief fan commanded speed"
     annotation (Placement(transformation(extent={{440,-520},{480,-480}}),
-        iconTransformation(extent={{100,-90},{140,-50}})));
+        iconTransformation(extent={{100,-80},{140,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCooCoi(
     final min=0,
     final max=1,
@@ -681,6 +686,7 @@ block FreezeProtection
     have_frePro) and (have_hotWatCoi and (not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment))
     "Dummy constant"
     annotation (Placement(transformation(extent={{360,-820},{380,-800}})));
+
 equation
   connect(lesThr.y, tim.u)
     annotation (Line(points={{-338,820},{-302,820}}, color={255,0,255}));
@@ -1032,6 +1038,10 @@ equation
           -730},{-262,-730}}, color={0,0,127}));
   connect(conInt10.y, yHotWatPlaReq) annotation (Line(points={{382,-810},{400,-810},
           {400,-780},{460,-780}}, color={255,127,0}));
+  connect(or1.y, y1RelDam)
+    annotation (Line(points={{342,-460},{460,-460}}, color={255,0,255}));
+  connect(and3.y, y1RelDam) annotation (Line(points={{342,-420},{360,-420},{360,
+          -460},{460,-460}}, color={255,0,255}));
 annotation (defaultComponentName="mulAHUFrePro",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}),
         graphics={
@@ -1102,30 +1112,30 @@ annotation (defaultComponentName="mulAHUFrePro",
           textColor={0,0,127},
           textString="uCooCoi"),
         Text(
-          extent={{36,160},{100,144}},
+          extent={{36,170},{100,154}},
           textColor={0,0,127},
           textString="yRetDam"),
         Text(
-          extent={{38,140},{102,124}},
+          extent={{38,150},{102,134}},
           textColor={0,0,127},
           textString="yOutDam"),
         Text(
-          extent={{20,112},{98,94}},
+          extent={{20,122},{98,104}},
           textColor={0,0,127},
           visible=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow,
           textString="yMinOutDam"),
         Text(
-          extent={{50,40},{96,24}},
+          extent={{50,50},{96,34}},
           textColor={0,0,127},
           textString="ySupFan"),
         Text(
-          extent={{52,-10},{98,-26}},
+          extent={{52,0},{98,-16}},
           textColor={0,0,127},
           visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
                   or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp,
           textString="yRetFan"),
         Text(
-          extent={{58,-58},{98,-76}},
+          extent={{58,-48},{98,-66}},
           textColor={0,0,127},
           visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan,
           textString="yRelFan"),
@@ -1170,7 +1180,7 @@ annotation (defaultComponentName="mulAHUFrePro",
           textString="u1MinOutDamPos",
           visible=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure),
         Text(
-          extent={{16,92},{96,72}},
+          extent={{16,102},{96,82}},
           textColor={255,0,255},
           visible=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure,
           textString="y1MinOutDam"),
@@ -1185,17 +1195,17 @@ annotation (defaultComponentName="mulAHUFrePro",
           visible=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
                 or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)),
         Text(
-          extent={{50,64},{98,42}},
+          extent={{50,74},{98,52}},
           textColor={255,0,255},
           textString="y1SupFan"),
         Text(
-          extent={{48,16},{96,-6}},
+          extent={{48,26},{96,4}},
           textColor={255,0,255},
           textString="y1RetFan",
           visible=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
                 or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)),
         Text(
-          extent={{50,-34},{98,-56}},
+          extent={{50,-24},{98,-46}},
           textColor={255,0,255},
           visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan,
           textString="y1RelFan"),
@@ -1203,7 +1213,12 @@ annotation (defaultComponentName="mulAHUFrePro",
           extent={{-94,-110},{-46,-132}},
           textColor={255,0,255},
           visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan,
-          textString="u1RelFan")}),
+          textString="u1RelFan"),
+        Text(
+          extent={{50,-68},{98,-90}},
+          textColor={255,0,255},
+          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan,
+          textString="y1RelDam")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-440,-880},{440,
             880}}),
           graphics={
@@ -1279,6 +1294,12 @@ shall be no software reset switch.)
 </ol>
 </html>", revisions="<html>
 <ul>
+<li>
+September 18, 2023, by Jianjun Hu:<br/>
+Added 2-position relief damper position output.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3526\">issue 3526</a>.
+</li>
 <li>
 December 22, 2022, by Jianjun Hu:<br/>
 Added flag to disable freeze protection.<br/>

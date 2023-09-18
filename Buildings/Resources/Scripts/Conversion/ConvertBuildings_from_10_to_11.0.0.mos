@@ -14,3 +14,5 @@ convertElement("Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.P
                "uCooCoi_actual", "uCooCoiSet");
 convertElement("Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.PlantRequests",
                "uHeaCoi_actual", "uHeaCoiSet");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReliefFan",
+               "yDam", "y1RelDam");
