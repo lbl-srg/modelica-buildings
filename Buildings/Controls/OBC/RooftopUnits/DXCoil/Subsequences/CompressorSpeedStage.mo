@@ -91,10 +91,10 @@ block CompressorSpeedStage
     "Switch between the speed calculated by the P controller and the maximum speed"
     annotation (Placement(transformation(extent={{86,70},{106,90}})));
 
-  Buildings.Controls.OBC.CDL.Discrete.FirstOrderHold firOrdHol(
-    final samplePeriod=600)
-    "Filter to smoothen commanded compressor speed"
-    annotation (Placement(transformation(extent={{90,30},{110,50}})));
+
+  Fluid.BaseClasses.ActuatorFilter filter(f=0.08)
+    "Second order filter to approximate actuator opening time, and to improve numerics"
+    annotation (Placement(transformation(extent={{92,33},{106,47}})));
 
 protected
   parameter Real k = (maxComSpe - minComSpe) / (conCoiHig- conCoiLow)
@@ -133,10 +133,10 @@ equation
     annotation (Line(points={{-140,80},{84,80}}, color={255,0,255}));
   connect(conMinSpe.y, swi1.u3) annotation (Line(points={{-38,12},{66,12},{66,72},
           {84,72}}, color={0,0,127}));
-  connect(swi1.y, firOrdHol.u) annotation (Line(points={{108,80},{114,80},{114,60},
-          {80,60},{80,40},{88,40}}, color={0,0,127}));
-  connect(firOrdHol.y, yComSpe) annotation (Line(points={{112,40},{116,40},{116,
-          0},{140,0}}, color={0,0,127}));
+  connect(swi1.y, filter.u) annotation (Line(points={{108,80},{112,80},{112,60},
+          {80,60},{80,40},{90.6,40}}, color={0,0,127}));
+  connect(filter.y, yComSpe) annotation (Line(points={{106.7,40},{114,40},{114,0},
+          {140,0}}, color={0,0,127}));
   annotation (
     defaultComponentName="ComSpeSta",
     Icon(coordinateSystem(preserveAspectRatio=false,
