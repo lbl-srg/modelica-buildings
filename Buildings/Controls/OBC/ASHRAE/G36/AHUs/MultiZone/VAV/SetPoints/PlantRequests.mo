@@ -431,6 +431,12 @@ If the hot water valve position <code>uHeaCoiSet</code> is less than 95%, send 0
 </html>", revisions="<html>
 <ul>
 <li>
+September 18, 2023, by Jianjun Hu:<br/>
+Renamed the connectors <code>uCooCoi_actual</code> and <code>uHeaCoi_actual</code> to <code>uCooCoiSet</code> and <code>uHeaCoiSet</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3526\">issue 3526</a>.
+</li>
+<li>
 December 1, 2021, by Jianjun Hu:<br/>
 First implementation.
 </li>

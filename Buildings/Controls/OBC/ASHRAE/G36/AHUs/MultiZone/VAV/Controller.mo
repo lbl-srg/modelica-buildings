@@ -1565,6 +1565,12 @@ for more detailed description.
 revisions="<html>
 <ul>
 <li>
+September 18, 2023, by Jianjun Hu:<br/>
+Removed the connectors <code>uCooCoi_actual</code> and <code>uHeaCoi_actual</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3526\">issue 3526</a>.
+</li>
+<li>
 March 1, 2023, by Michael Wetter:<br/>
 Changed constants from <code>0</code> to <code>0.0</code> and <code>1</code> to <code>1.0</code>.<br/>
 This is for
