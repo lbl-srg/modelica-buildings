@@ -710,20 +710,6 @@ block Controller "Multizone VAV air handling unit controller"
     "Measured AHU return airflow rate"
     annotation (Placement(transformation(extent={{-400,-460},{-360,-420}}),
         iconTransformation(extent={{-240,-380},{-200,-340}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCooCoi_actual(
-    final min=0,
-    final max=1,
-    final unit="1")
-    "Actual cooling coil valve position"
-    annotation (Placement(transformation(extent={{-400,-530},{-360,-490}}),
-        iconTransformation(extent={{-240,-430},{-200,-390}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaCoi_actual(
-    final min=0,
-    final max=1,
-    final unit="1") if have_hotWatCoi
-    "Actual heating coil valve position"
-    annotation (Placement(transformation(extent={{-400,-580},{-360,-540}}),
-        iconTransformation(extent={{-240,-450},{-200,-410}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TAirSupSet(
     final unit="K",
     displayUnit="degC",
@@ -1048,10 +1034,6 @@ equation
           -527},{340,-490},{380,-490}},     color={255,127,0}));
   connect(plaReq.yHotWatResReq, yHotWatResReq) annotation (Line(points={{2,-533},
           {340,-533},{340,-540},{380,-540}},       color={255,127,0}));
-  connect(plaReq.uCooCoi_actual, uCooCoi_actual) annotation (Line(points={{-22,-533},
-          {-320,-533},{-320,-510},{-380,-510}}, color={0,0,127}));
-  connect(uHeaCoi_actual, plaReq.uHeaCoi_actual) annotation (Line(points={{-380,
-          -560},{-320,-560},{-320,-538},{-22,-538}}, color={0,0,127}));
   connect(ashOutAirSet.effOutAir_normalized, ecoCon.VOutMinSet_flow_normalized)
     annotation (Line(points={{-58,187},{40,187},{40,-21},{60,-21}}, color={0,0,127}));
   connect(ecoCon.dpMinOutDam, dpMinOutDam) annotation (Line(points={{60,-38},{
@@ -1132,8 +1114,8 @@ equation
           {-280,-464},{-162,-464}}, color={0,0,127}));
   connect(retFanDpCon.yDpBui, yDpBui) annotation (Line(points={{-138,-462},{160,
           -462},{160,-380},{380,-380}},                color={0,0,127}));
-  connect(retFanDpCon.dpDisSet, dpDisSet) annotation (Line(points={{-138,-472},{
-          310,-472},{310,-420},{380,-420}}, color={0,0,127}));
+  connect(retFanDpCon.dpDisSet, dpDisSet) annotation (Line(points={{-138,-472},
+          {280,-472},{280,-420},{380,-420}},color={0,0,127}));
   connect(u1SupFan, relDam.u1SupFan) annotation (Line(points={{-380,380},{-300,
           380},{-300,-356},{-162,-356}}, color={255,0,255}));
   connect(u1SupFan, retFanAirTra.u1SupFan) annotation (Line(points={{-380,380},{
@@ -1204,8 +1186,9 @@ equation
           -479},{120,-479},{120,-208},{178,-208}}, color={255,0,255}));
   connect(frePro.y1RelFan, y1RelFan) annotation (Line(points={{202,-205},{330,-205},
           {330,-160},{380,-160}}, color={255,0,255}));
-  connect(frePro.yFreProSta, freProMod.u) annotation (Line(points={{202,-215},{220,
-          -215},{220,-500},{170,-500},{170,-560},{178,-560}}, color={255,127,0}));
+  connect(frePro.yFreProSta, freProMod.u) annotation (Line(points={{202,-215},{
+          220,-215},{220,-514},{170,-514},{170,-560},{178,-560}},
+                                                              color={255,127,0}));
   connect(conSupFan.y1SupFan, frePro.u1SupFan) annotation (Line(points={{-198,
           517},{100,517},{100,-203},{178,-203}}, color={255,0,255}));
   connect(frePro.y1SupFan, y1SupFan) annotation (Line(points={{202,-195},{290,-195},
@@ -1229,6 +1212,12 @@ equation
           {210,60},{380,60}}, color={0,0,127}));
   connect(conSupFan.ySupFan, ecoCon.uSupFan) annotation (Line(points={{-198,510},
           {-114,510},{-114,-28},{60,-28}}, color={0,0,127}));
+  connect(frePro.yCooCoi, plaReq.uCooCoiSet) annotation (Line(points={{202,-210},
+          {310,-210},{310,-500},{-40,-500},{-40,-533},{-22,-533}}, color={0,0,
+          127}));
+  connect(frePro.yHeaCoi, plaReq.uHeaCoiSet) annotation (Line(points={{202,-212},
+          {300,-212},{300,-490},{-48,-490},{-48,-538},{-22,-538}}, color={0,0,
+          127}));
 annotation (
   defaultComponentName="mulAHUCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-440},{200,440}}),
@@ -1306,13 +1295,6 @@ annotation (
           extent={{-198,-270},{-158,-288}},
           textColor={0,0,0},
           textString="TAirMix",
-          visible=have_hotWatCoi),
-       Text(extent={{-196,-398},{-112,-420}},
-          textColor={0,0,0},
-          textString="uCooCoi_actual"),
-       Text(extent={{-196,-420},{-112,-440}},
-          textColor={0,0,0},
-          textString="uHeaCoi_actual",
           visible=have_hotWatCoi),
        Text(extent={{142,-168},{200,-188}},
           textColor={0,0,0},

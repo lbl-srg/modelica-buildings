@@ -108,16 +108,6 @@ model Controller_UnspecifiedClimate
     final offset=0,
     final duration=1800) "Building static presure"
     annotation (Placement(transformation(extent={{-240,-220},{-220,-200}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant heaCoi(
-    final k=0)
-    "Heating coil position"
-    annotation (Placement(transformation(extent={{-240,-260},{-220,-240}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp cooCoi(
-    final height=-0.3,
-    final offset=0.96,
-    final duration=3600,
-    startTime=1000) "Cooling coil position"
-    annotation (Placement(transformation(extent={{-200,-240},{-180,-220}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1
     "Logical not"
     annotation (Placement(transformation(extent={{-200,-170},{-180,-150}})));
@@ -162,10 +152,6 @@ equation
           {-140,-6},{-122,-6}}, color={0,0,127}));
   connect(uOutAirFra_max.y, conAHU.uOutAirFra_max) annotation (Line(points={{-218,
           -40},{32,-40},{32,-9.09091},{96,-9.09091}},color={0,0,127}));
-  connect(heaCoi.y, conAHU.uHeaCoi_actual) annotation (Line(points={{-218,-250},
-          {80,-250},{80,-118.182},{96,-118.182}}, color={0,0,127}));
-  connect(cooCoi.y, conAHU.uCooCoi_actual) annotation (Line(points={{-178,-230},
-          {74,-230},{74,-114.545},{96,-114.545}}, color={0,0,127}));
   connect(dpBui.y, conAHU.dpBui) annotation (Line(points={{-218,-210},{68,-210},
           {68,-96.3636},{96,-96.3636}}, color={0,0,127}));
   connect(freRes.y,not1. u)

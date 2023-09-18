@@ -367,10 +367,6 @@ equation
           602,548},{602,-316},{-68,-316},{-68,-134},{-42,-134}}, color={255,0,255}));
   connect(conAHU.y1SupFan, sysHysCoo.sysOn) annotation (Line(points={{544,548},{
           602,548},{602,-316},{-8,-316},{-8,-244},{18,-244}}, color={255,0,255}));
-  connect(valHeaCoi.y_actual, conAHU.uHeaCoi_actual) annotation (Line(points={{121,
-          -205},{121,-190},{432,-190},{432,462},{456,462}}, color={0,0,127}));
-  connect(valCooCoi.y_actual, conAHU.uCooCoi_actual) annotation (Line(points={{213,
-          -205},{213,-190},{432,-190},{432,466},{456,466}}, color={0,0,127}));
   connect(conAHU.yRetDam, damRet.y) annotation (Line(points={{544,574},{566,574},
           {566,40},{-20,40},{-20,-10},{-12,-10}}, color={0,0,127}));
   connect(conAHU.yOutDam, damOut.y) annotation (Line(points={{544,562},{560,562},

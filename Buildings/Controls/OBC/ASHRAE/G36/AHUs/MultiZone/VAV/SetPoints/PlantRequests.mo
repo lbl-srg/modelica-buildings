@@ -27,17 +27,18 @@ block PlantRequests "Output plant requests for multizone air handling unit"
     "Setpoint for supply air temperature"
     annotation (Placement(transformation(extent={{-240,140},{-200,180}}),
         iconTransformation(extent={{-140,10},{-100,50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCooCoi_actual(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCooCoiSet(
     final unit="1",
     final min=0,
     final max=1)
-    "Actual cooling coil valve position"
+    "Commanded ooling coil valve position"
     annotation (Placement(transformation(extent={{-240,80},{-200,120}}),
         iconTransformation(extent={{-140,-50},{-100,-10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaCoi_actual(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaCoiSet(
     final unit="1",
     final min=0,
-    final max=1) if have_hotWatCoi "Actual heating coil valve position"
+    final max=1) if have_hotWatCoi
+    "Commanded heating coil valve position"
     annotation (Placement(transformation(extent={{-240,-160},{-200,-120}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yChiWatResReq
@@ -198,7 +199,7 @@ equation
     annotation (Line(points={{-58,150},{-42,150}}, color={255,0,255}));
   connect(cooSupTemDif.y, greThr1.u) annotation (Line(points={{-148,200},{-100,200},
           {-100,150},{-82,150}}, color={0,0,127}));
-  connect(uCooCoi_actual, greThr2.u)
+  connect(uCooCoiSet, greThr2.u)
     annotation (Line(points={{-220,100},{-122,100}}, color={0,0,127}));
   connect(truDel.y, chiWatRes3.u2)
     annotation (Line(points={{-18,200},{158,200}}, color={255,0,255}));
@@ -210,8 +211,8 @@ equation
           {118,158}}, color={255,127,0}));
   connect(greThr2.y, lat.u)
     annotation (Line(points={{-98,100},{-42,100}}, color={255,0,255}));
-  connect(uCooCoi_actual, lesThr.u) annotation (Line(points={{-220,100},{-140,100},
-          {-140,60},{-122,60}}, color={0,0,127}));
+  connect(uCooCoiSet, lesThr.u) annotation (Line(points={{-220,100},{-140,100},{
+          -140,60},{-122,60}}, color={0,0,127}));
   connect(lesThr.y, lat.clr) annotation (Line(points={{-98,60},{-60,60},{-60,94},
           {-42,94}}, color={255,0,255}));
   connect(one.y, chiWatRes1.u1) annotation (Line(points={{22,120},{40,120},{40,108},
@@ -228,7 +229,7 @@ equation
     annotation (Line(points={{182,200},{220,200}}, color={255,127,0}));
   connect(greThr2.y, lat1.u) annotation (Line(points={{-98,100},{-80,100},{-80,20},
           {-42,20}}, color={255,0,255}));
-  connect(uCooCoi_actual, lesThr1.u) annotation (Line(points={{-220,100},{-140,100},
+  connect(uCooCoiSet, lesThr1.u) annotation (Line(points={{-220,100},{-140,100},
           {-140,14},{-122,14}}, color={0,0,127}));
   connect(lesThr1.y, lat1.clr)
     annotation (Line(points={{-98,14},{-42,14}}, color={255,0,255}));
@@ -264,12 +265,12 @@ equation
     annotation (Line(points={{-18,-90},{118,-90}}, color={255,0,255}));
   connect(hotWatRes3.y, yHotWatResReq)
     annotation (Line(points={{182,-40},{220,-40}}, color={255,127,0}));
-  connect(uHeaCoi_actual, greThr5.u)
+  connect(uHeaCoiSet, greThr5.u)
     annotation (Line(points={{-220,-140},{-122,-140}}, color={0,0,127}));
   connect(greThr5.y, lat2.u)
     annotation (Line(points={{-98,-140},{-42,-140}}, color={255,0,255}));
-  connect(uHeaCoi_actual, lesThr2.u) annotation (Line(points={{-220,-140},{-140,
-          -140},{-140,-180},{-122,-180}}, color={0,0,127}));
+  connect(uHeaCoiSet, lesThr2.u) annotation (Line(points={{-220,-140},{-140,-140},
+          {-140,-180},{-122,-180}}, color={0,0,127}));
   connect(lesThr2.y, lat2.clr) annotation (Line(points={{-98,-180},{-60,-180},{-60,
           -146},{-42,-146}}, color={255,0,255}));
   connect(lat2.y, hotWatRes1.u2)
@@ -280,8 +281,8 @@ equation
           {78,-148}}, color={255,127,0}));
   connect(hotWatRes1.y, hotWatRes2.u3) annotation (Line(points={{102,-140},{110,
           -140},{110,-98},{118,-98}}, color={255,127,0}));
-  connect(uHeaCoi_actual, lesThr3.u) annotation (Line(points={{-220,-140},{-140,
-          -140},{-140,-226},{-122,-226}}, color={0,0,127}));
+  connect(uHeaCoiSet, lesThr3.u) annotation (Line(points={{-220,-140},{-140,-140},
+          {-140,-226},{-122,-226}}, color={0,0,127}));
   connect(lesThr3.y, lat3.clr)
     annotation (Line(points={{-98,-226},{-42,-226}}, color={255,0,255}));
   connect(greThr5.y, lat3.u) annotation (Line(points={{-98,-140},{-80,-140},{-80,
@@ -322,13 +323,13 @@ annotation (
           extent={{-98,-22},{-38,-38}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uCooCoi_actual"),
+          textString="uCooCoiSet"),
         Text(
           extent={{-98,-72},{-36,-88}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
           visible=have_hotWatCoi,
-          textString="uHeaCoi_actual"),
+          textString="uHeaCoiSet"),
         Text(
           extent={{34,92},{98,70}},
           textColor={255,127,0},
@@ -368,11 +369,11 @@ If the supply air temperature <code>TAirSup</code> exceeds the supply air temper
 set point <code>TAirSupSet</code> by 2 &deg;C (3 &deg;F) for 2 minutes, send 2 requests.
 </li>
 <li>
-Else if the chilled water valve position <code>uCooCoi_actual</code> is greater than
-95%, send 1 request until the <code>uCooCoi_actual</code> is less than 85%.
+Else if the chilled water valve position <code>uCooCoiSet</code> is greater than
+95%, send 1 request until the <code>uCooCoiSet</code> is less than 85%.
 </li>
 <li>
-Else if the chilled water valve position <code>uCooCoi_actual</code> is less than 95%,
+Else if the chilled water valve position <code>uCooCoiSet</code> is less than 95%,
 send 0 request.
 </li>
 </ol>
@@ -382,11 +383,11 @@ Send the chiller plant that serves the system a chiller plant request as follows
 </p>
 <ol>
 <li>
-If the chilled water valve position <code>uCooCoi_actual</code> is greater than
-95%, send 1 request until the <code>uCooCoi_actual</code> is less than 10%.
+If the chilled water valve position <code>uCooCoiSet</code> is greater than
+95%, send 1 request until the <code>uCooCoiSet</code> is less than 10%.
 </li>
 <li>
-Else if the chilled water valve position <code>uCooCoi_actual</code> is less than 95%,
+Else if the chilled water valve position <code>uCooCoiSet</code> is less than 95%,
 send 0 request.
 </li>
 </ol>
@@ -404,11 +405,11 @@ the supply air temperature set point <code>TAirSupSet</code> for 5 minutes, send
 requests.
 </li>
 <li>
-Else if the hot water valve position <code>uHeaCoi_actual</code> is greater than
-95%, send 1 request until the <code>uHeaCoi_actual</code> is less than 85%.
+Else if the hot water valve position <code>uHeaCoiSet</code> is greater than
+95%, send 1 request until the <code>uHeaCoiSet</code> is less than 85%.
 </li>
 <li>
-Else if the hot water valve position <code>uHeaCoi_actual</code> is less than 95%,
+Else if the hot water valve position <code>uHeaCoiSet</code> is less than 95%,
 send 0 request.
 </li>
 </ol>
@@ -420,11 +421,11 @@ plant request as follows:
 </p>
 <ol>
 <li>
-If the hot water valve position <code>uHeaCoi_actual</code> is greater than 95%, send 1
+If the hot water valve position <code>uHeaCoiSet</code> is greater than 95%, send 1
 request until the hot water valve position is less than 10%.
 </li>
 <li>
-If the hot water valve position <code>uHeaCoi_actual</code> is less than 95%, send 0 requests.
+If the hot water valve position <code>uHeaCoiSet</code> is less than 95%, send 0 requests.
 </li>
 </ol>
 </html>", revisions="<html>

@@ -50,16 +50,16 @@ equation
           {20,-42},{58,-42}}, color={0,0,127}));
   connect(supTemSet.y, plaReq1.TAirSupSet) annotation (Line(points={{-18,-40},{
           0,-40},{0,-47},{58,-47}}, color={0,0,127}));
-  connect(cooCoi.y, plaReq1.uCooCoi_actual) annotation (Line(points={{-58,-80},
-          {20,-80},{20,-53},{58,-53}}, color={0,0,127}));
+  connect(cooCoi.y, plaReq1.uCooCoiSet) annotation (Line(points={{-58,-80},{20,
+          -80},{20,-53},{58,-53}}, color={0,0,127}));
   connect(supTem1.y, plaReq.TAirSup) annotation (Line(points={{-58,80},{0,80},{
           0,68},{58,68}}, color={0,0,127}));
   connect(supTemSet1.y, plaReq.TAirSupSet) annotation (Line(points={{-18,60},{0,
           60},{0,63},{58,63}}, color={0,0,127}));
-  connect(cooCoi1.y, plaReq.uCooCoi_actual) annotation (Line(points={{-58,40},{
-          10,40},{10,57},{58,57}}, color={0,0,127}));
-  connect(heaCoi.y, plaReq.uHeaCoi_actual) annotation (Line(points={{-18,20},{
-          20,20},{20,52},{58,52}}, color={0,0,127}));
+  connect(cooCoi1.y, plaReq.uCooCoiSet) annotation (Line(points={{-58,40},{10,
+          40},{10,57},{58,57}}, color={0,0,127}));
+  connect(heaCoi.y, plaReq.uHeaCoiSet) annotation (Line(points={{-18,20},{20,20},
+          {20,52},{58,52}}, color={0,0,127}));
 
 annotation (
   experiment(StopTime=3600, Tolerance=1e-6),
