@@ -292,65 +292,18 @@
   optimica:
     comment: See https://github.com/lbl-srg/modelica-buildings/issues/2235
     translate: false
-- model_name: Buildings.Templates.AirHandlersFans.Validation.VAVMZBase
-  openmodelica:
-    comment: Translation failed.
-    translate: false
-- model_name: Buildings.Templates.AirHandlersFans.Validation.VAVMZCoilElectricHeating
-  openmodelica:
-    comment: Translation failed.
-    translate: false
-- model_name: Buildings.Templates.AirHandlersFans.Validation.VAVMZCoilEvaporatorMultiStage
-  openmodelica:
-    comment: Translation failed.
-    translate: false
-- model_name: Buildings.Templates.AirHandlersFans.Validation.VAVMZCoilEvaporatorVariable
-  openmodelica:
-    comment: Translation failed.
-    translate: false
-- model_name: Buildings.Templates.AirHandlersFans.Validation.VAVMZCoilWaterHeating3WVReheat
-  openmodelica:
-    comment: Time out after 300 s.
-    translate: false
-- model_name: Buildings.Templates.AirHandlersFans.Validation.VAVMZControlG36Airflow
+- model_name: Buildings.Templates.AirHandlersFans.Validation.VAVMultiZone
   optimica:
     comment: 'Array size mismatch in modification of the attribute quantity for the variable TZon. This is a bug in OCT tracked under Modelon#2023022839000276.'
     translate: false
-  openmodelica:
-    comment: Translation failed.
-    translate: false
-- model_name: Buildings.Templates.AirHandlersFans.Validation.VAVMZControlG36Pressure
-  optimica:
-    comment: 'Array size mismatch in modification of the attribute quantity for the variable TZon. This is a bug in OCT tracked under Modelon#2023022839000276.'
-    translate: false
-  openmodelica:
-    comment: Translation failed.
-    translate: false
-- model_name: Buildings.Templates.AirHandlersFans.Validation.VAVMZDedicatedDampersPressure
-  openmodelica:
-    comment: Time out after 300 s.
-    translate: false
-- model_name: Buildings.Templates.AirHandlersFans.Validation.VAVMZFanRelief
-  openmodelica:
-    comment: Time out after 300 s.
-    translate: false
-- model_name: Buildings.Templates.AirHandlersFans.Validation.VAVMZFanSupplyBlowThrough
-  openmodelica:
-    comment: Translation failed.
-    translate: false
-- model_name: Buildings.Templates.Components.Validation.Fans
   openmodelica:
     comment: Translation failed.
     translate: false
 - model_name: Buildings.Templates.ZoneEquipment.Validation.VAVBoxCoolingOnly
   openmodelica:
-    comment: Time out after 300 s.
-    translate: false
-- model_name: Buildings.Templates.ZoneEquipment.Validation.VAVBoxCoolingOnlyControlG36
-  openmodelica:
     comment: Translation failed.
     translate: false
-- model_name: Buildings.Templates.ZoneEquipment.Validation.VAVBoxReheatControlG36
+- model_name: Buildings.Templates.ZoneEquipment.Validation.VAVBoxReheat
   openmodelica:
     comment: Time out after 300 s.
     translate: false

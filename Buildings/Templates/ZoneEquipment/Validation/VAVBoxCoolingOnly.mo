@@ -98,9 +98,9 @@ equation
   __Dymola_Commands(
   file="modelica://Buildings/Resources/Scripts/Dymola/Templates/ZoneEquipment/Validation/VAVBoxCoolingOnly.mos"
   "Simulate and plot"),
-  experiment(Tolerance=1e-6, StopTime=1), Documentation(info="<html>
+  experiment(Tolerance=1e-6, StopTime=3600), Documentation(info="<html>
 <p>
-This is a validation model for the template 
+This is a validation model for the template
 <a href=\"modelica://Buildings.Templates.ZoneEquipment.VAVBoxCoolingOnly\">
 Buildings.Templates.ZoneEquipment.VAVBoxCoolingOnly</a>.
 </p>
