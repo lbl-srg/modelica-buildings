@@ -5,6 +5,5 @@ compareVars :=
     "PIDWitTun.u_s",
     "PIDWitTun.u_m",
     "autTunSig.y",
-    "PIDWitTun.conProMod.triSta",
-    "PIDWitTun.conProMod.triEnd"
+    "PIDWitTun.inTunPro.y"
   };

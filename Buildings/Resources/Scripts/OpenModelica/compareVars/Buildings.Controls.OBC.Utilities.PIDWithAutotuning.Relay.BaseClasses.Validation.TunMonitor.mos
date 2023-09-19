@@ -2,5 +2,6 @@ compareVars :=
   {
     "tOn.y",
     "tOff.y",
-    "halPerRat.rho"
+    "tunSta.y",
+    "tunEnd.y"
   };
