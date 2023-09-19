@@ -10,6 +10,7 @@ block NormalizedTimeDelay
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput tau
     "Normalized time delay"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
+
 protected
   Buildings.Controls.OBC.CDL.Reals.AddParameter addPar1(
     final p=-1)

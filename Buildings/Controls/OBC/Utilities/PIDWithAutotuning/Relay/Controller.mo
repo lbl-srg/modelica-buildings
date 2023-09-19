@@ -14,11 +14,11 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u_m
     "Measurement input signal"
     annotation (Placement(transformation(origin={0,-120},extent={{20,-20},{-20,20}},rotation=270),
-        iconTransformation(extent={{20,-20},{-20,20}},rotation=270,origin={0,-120})));
+    iconTransformation(extent={{20,-20},{-20,20}},rotation=270,origin={0,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput trigger
     "Connector for enabling the relay controller"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=90,origin={-80,-120}),
-        iconTransformation(extent={{-20,-20},{20,20}},rotation=90,origin={-60,-120})));
+    iconTransformation(extent={{-20,-20},{20,20}},rotation=90,origin={-60,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
     "Control output"
     annotation (Placement(transformation(extent={{100,40},{140,80}})));
@@ -28,7 +28,8 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yErr
     "Control error"
     annotation (Placement(transformation(extent={{100,0},{140,40}}),
-        iconTransformation(extent={{100,-20},{140,20}})));
+    iconTransformation(extent={{100,-20},{140,20}})));
+    
 protected
   Buildings.Controls.OBC.CDL.Logical.OnOffController greMeaSet(
     final bandwidth=deaBan*2,
@@ -52,7 +53,7 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Switch swi1
     "Switch between a higher value and a lower value"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        origin={-50,-50})));
+    origin={-50,-50})));
 initial equation
   assert(
     yHig-yLow>1E-6,
@@ -120,8 +121,8 @@ equation
           fillPattern=FillPattern.Solid,
           fillColor={175,175,175},
           textString="Relay"),
-        Line(points={{-70,24},{-34,24},{-34,58},{38,58},{38,24},{66,24}}, color
-            ={28,108,200})}),                                    Diagram(
+        Line(points={{-70,24},{-34,24},{-34,58},{38,58},{38,24},{66,24}}, color=
+             {28,108,200})}), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
 Documentation(info="<html>
 <p>

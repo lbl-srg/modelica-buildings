@@ -28,16 +28,20 @@ model HalfPeriodRatio "Test model for calculating the half period ratio"
     period=1,
     offset=0.5)
     "The length of the Off period"
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+    annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger samTri(period=1, shift=0.9)
+    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
 equation
-  connect(tOff.y, halPerRat.tOff) annotation (Line(points={{-58,-30},{0,-30},{0,
-          -6},{18,-6}},       color={0,0,127}));
+  connect(tOff.y, halPerRat.tOff) annotation (Line(points={{-58,-60},{12,-60},{
+          12,-6},{18,-6}},    color={0,0,127}));
   connect(tOnSig2.y, tOn.u1) annotation (Line(points={{-58,70},{-40,70},{-40,56},
           {-36,56}}, color={0,0,127}));
   connect(tOnSig1.y, tOn.u2) annotation (Line(points={{-58,30},{-40,30},{-40,44},
           {-36,44}}, color={0,0,127}));
   connect(tOn.y, halPerRat.tOn)
     annotation (Line(points={{-12,50},{0,50},{0,6},{18,6}}, color={0,0,127}));
+  connect(samTri.y, halPerRat.TunEnd) annotation (Line(points={{-58,-10},{0,-10},
+          {0,0},{18,0}}, color={255,0,255}));
   annotation (
       experiment(
       StopTime=1.0,
@@ -74,20 +78,10 @@ Validation test for the block
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.HalfPeriodRatio\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.HalfPeriodRatio</a>.
 </p>
-<ul>
-<li>
-At <i>0.1</i>s, the length of the On period is sampled and it becomes <i>0.1</i>s,
-triggering the training period to start.
-</li>
-<li>
-At <i>0.7</i>s, the length of the Off period becomes is sampled
-and it becomes <i>0.5</i>s.
-</li>
-<li>
-At <i>0.9</i>s, the length of the On period changes from <i>0.1</i>s to <i>0.9</i>s
-while that of the Off period remains <i>0.5</i>s.
-This triggers the training period to end.
-</li>
-</ul>
+<p>
+This testing scenario in this example is the same as that in <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.Validation.TunMonitor\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.Validation.TunMonitor</a>.
+The lengths of the On period and the Off period are sampled at <i>0.9</i>s to calculate the half period ratio.
+</p>
 </html>"));
 end HalfPeriodRatio;
