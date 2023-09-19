@@ -10,17 +10,6 @@ block DirectCalculations
   parameter Modelica.Units.SI.Length dep
     "Depth of the rigid media evaporative pad";
 
-  Modelica.Units.SI.Velocity vel
-    "Air velocity";
-  Real eff(
-    final unit="1")
-    "Evaporative humidifier efficiency";
-  Modelica.Units.SI.ThermodynamicTemperature TDryBulOut(
-    displayUnit="degC")
-    "Dry bulb temperature of the outlet air";
-  Modelica.Units.SI.MassFlowRate mWat_flowOut
-    "Water mass flow rate at the outlet";
-
   Buildings.Controls.OBC.CDL.Interfaces.RealInput V_flow(
     final unit="m3/s",
     displayUnit="m3/s",
@@ -107,6 +96,20 @@ block DirectCalculations
   Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.Xi_TDryBulTWetBul
     XiIn(redeclare package Medium =  Medium)
     "Water vapor mass fraction at the inlet";
+
+  Modelica.Units.SI.Velocity vel
+    "Air velocity";
+
+  Real eff(
+    final unit="1")
+    "Evaporative humidifier efficiency";
+
+  Modelica.Units.SI.ThermodynamicTemperature TDryBulOut(
+    displayUnit="degC")
+    "Dry bulb temperature of the outlet air";
+
+  Modelica.Units.SI.MassFlowRate mWat_flowOut
+    "Water mass flow rate at the outlet";
 
 protected
   parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
