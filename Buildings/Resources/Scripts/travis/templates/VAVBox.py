@@ -85,7 +85,12 @@ if __name__ == '__main__':
     )
 
     # Prune class modifications.
-    prune_modifications(combinations=combinations, remove_modif=REMOVE_MODIF, exclude=EXCLUDE)
+    prune_modifications(
+        combinations=combinations,
+        remove_modif=REMOVE_MODIF,
+        exclude=EXCLUDE,
+        fraction_test_coverage=FRACTION_TEST_COVERAGE,
+    )
 
     print(f'Number of cases to be simulated: {len(combinations)}.\n')
 

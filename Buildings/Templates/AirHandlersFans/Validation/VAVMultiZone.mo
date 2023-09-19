@@ -24,8 +24,6 @@ model VAVMultiZone "Validation model for multiple-zone VAV"
 
   Buildings.Templates.AirHandlersFans.VAVMultiZone VAV_1(
     nZon=2,
-    redeclare replaceable Buildings.Templates.Components.Fans.ArrayVariable
-      fanSupDra "Fan array - Variable speed",
     ctl(
       idZon={"Box_1","Box_1"},
       namGro={"Floor_1"},
@@ -166,7 +164,7 @@ equation
   __Dymola_Commands(
   file="modelica://Buildings/Resources/Scripts/Dymola/Templates/AirHandlersFans/Validation/VAVMultiZone.mos"
   "Simulate and plot"),
-  experiment(Tolerance=1e-6, StopTime=1), Documentation(info="<html>
+  experiment(Tolerance=1e-6, StopTime=10000), Documentation(info="<html>
 <p>
 This is a validation model for the template
 <a href=\"modelica://Buildings.Templates.AirHandlersFans.VAVMultiZone\">

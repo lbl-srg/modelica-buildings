@@ -6,6 +6,7 @@
 import inspect
 import itertools
 import os
+import random
 import re
 import sys
 
@@ -21,6 +22,14 @@ try:
     SIMULATOR = sys.argv[1]
 except IndexError:
     SIMULATOR = 'dymola'
+# Fraction of test coverage between 0 and 1 (1 should be for used for PR against master).
+try:
+    FRACTION_TEST_COVERAGE = float(sys.argv[2])
+except IndexError:
+    FRACTION_TEST_COVERAGE = 1
+assert (
+    FRACTION_TEST_COVERAGE > 0 and FRACTION_TEST_COVERAGE <= 1
+), "FRACTION_TEST_COVERAGE must be between (>) 0 and (<=) 1."
 
 CRED = '\033[91m'
 CGREEN = '\033[92m'
@@ -160,26 +169,32 @@ def generate_modif_list(dic: dict[str, list[str]]) -> list[str]:
     Args:
         dic: A dictionary where each key is the component or variable to be modified,
              and the corresponding value is a list of modifications to be applied.
+             Bindings for parameters of redeclared components can be appended as class modifications, e.g.
+             'VAV_1__redeclare__fanSupBlo': [
+                 'Buildings.Templates.Components.Fans.ArrayVariable(nFan=2)',
+             ],
     """
     to_return = []
     for param, val in dic.items():
         if 'redeclare' in param:
-            modif = re.sub('(.*)redeclare__(.*)', fr'\g<1>redeclare {val} \g<2>', param)
+            modif_val = re.search('(.*)\((.*)\)', val)
+            if modif_val is not None:
+                comp_type = modif_val.group(1)
+                comp_modif = '(' + modif_val.group(2)
+            else:
+                comp_type = val
+                comp_modif = ''
+            modif = re.sub(
+                '(.*)redeclare__(.*)',
+                fr'\g<1>redeclare {comp_type} \g<2>',
+                param + comp_modif,
+            )
         else:
             modif = param + '=' + val
         modif = re.sub('__', '(', modif)
         modif = modif + ')' * modif.count('(')
         to_return.append(modif)
     return to_return
-
-
-# The function below is kept for reference, but it is not used as it yields tags that are too long.
-#
-# def generate_tag(dic):
-#     tag = ''
-#     for param, val in dic.items():
-#         tag = tag + '_' + re.split(r'\.', val)[-1]
-#     return re.sub('^_', '', tag)
 
 
 def remove_items_by_indices(lst: list, indices: list[int]) -> None:
@@ -223,8 +238,9 @@ def generate_combinations(
 
 def prune_modifications(
     combinations: list[tuple[str, list[str], str]],
-    remove_modif: dict[str, list[tuple[list[str], list[str]]]] = None,
-    exclude: dict[str, list[list[str]]] = None,
+    remove_modif: dict[str, list[tuple[list[str], list[str]]]],
+    exclude: dict[str, list[list[str]]],
+    fraction_test_coverage: float,
 ) -> None:
     """Remove class modifications, and update combination tag.
 
@@ -237,18 +253,18 @@ def prune_modifications(
         - The `exclude` argument is used to exclude a combination entirely, i.e., all class modifications.
 
     EXCLUDE (first): A combination is excluded if the following exclusion test returns true.
-    - Concatenate all class modifications.
     - Look for the model (key) in exclude (dict).
     - Iterate over the list of list of class modifications for this model (value of exclude[model]).
-    - For a given list of class modifications, return true if all strings are found in the concatenated class modifications.
-    - Note: re patterns are supported, e.g., negative lookahead using (?!pattern).*
+    - For a given list of class modifications, return true if all strings are found in the original
+      class modifications of the combination (concatenated).
+    - Note: re patterns are supported, e.g., negative lookahead using (?!pattern)
 
     REMOVE (after EXCLUDE): A class modification is removed from a combination according to the following rules.
     For each item (2-tuple) of the list provided (as value) for each model (key) in remove_modif (dict):
-    - if all patterns of item[0] are found in the original class modifications of the combination, and
+    - if all patterns of item[0] are found in the original class modifications of the combination (concatenated), and
     - if a class modification contains any item within item[1], then
     - this class modification is removed.
-    - Note: re patterns are supported, e.g., negative lookahead using (?!pattern).*
+    - Note: re patterns are supported, e.g., negative lookahead using (?!pattern)
 
     Returns:
         None (modifies inplace)
@@ -259,7 +275,10 @@ def prune_modifications(
         for arg in combinations.copy():
             if arg[0] in exclude:
                 modif_concat = ''.join(arg[1])
-                if any(all(re.search(el, modif_concat) for el in ell) for ell in exclude[arg[0]]):
+                if any(
+                    all(re.search(modif_ex, modif_concat) for modif_ex in list_modif_ex)
+                    for list_modif_ex in exclude[arg[0]]
+                ):
                     combinations.remove(arg)
 
     if remove_modif is not None:
@@ -282,6 +301,15 @@ def prune_modifications(
             if arg[:2] == combinations[j][:2]:  # Compare w/o tag at index 3.
                 indices_to_pop.append(j)
     remove_items_by_indices(combinations, indices_to_pop)
+
+    # Apply fraction of test coverage.
+    if fraction_test_coverage is not None:
+        remove_items_by_indices(
+            combinations,
+            random.sample(
+                range(len(combinations)), int(len(combinations) * (1 - fraction_test_coverage))
+            ),
+        )
 
     # Update tags. (Because pruning resulted in a sparse list of indices.)
     for i, arg in enumerate(combinations):
