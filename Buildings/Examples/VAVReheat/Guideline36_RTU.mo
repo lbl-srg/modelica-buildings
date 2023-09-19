@@ -1,5 +1,5 @@
 within Buildings.Examples.VAVReheat;
-model Guideline36_RTU_Cooling
+model Guideline36_RTU
   "Variable air volume flow system with terminal reheat and five thermal zones"
   extends Modelica.Icons.Example;
   extends Buildings.Examples.VAVReheat.BaseClasses.HVACBuilding_RTU(
@@ -117,4 +117,5 @@ model Guideline36_RTU_Cooling
         "Simulate and plot"),
     experiment(StartTime=16848000, StopTime=17020800, Tolerance=1e-06),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
-end Guideline36_RTU_Cooling;
+    //experiment(StopTime=172800, Tolerance=1e-06),
+end Guideline36_RTU;

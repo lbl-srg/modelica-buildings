@@ -270,5 +270,5 @@ This is for
         "Simulate and plot"),
     experiment(StartTime=16848000, StopTime=17020800, Tolerance=1e-06),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
-    //experiment(StopTime=172800, Tolerance=1e-06),//
+    //experiment(StopTime=172800, Tolerance=1e-06),
 end ASHRAE2006_RTU;
