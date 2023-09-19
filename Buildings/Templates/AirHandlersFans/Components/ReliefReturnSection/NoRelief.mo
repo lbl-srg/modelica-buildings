@@ -5,7 +5,9 @@ model NoRelief "No relief branch"
     final typ=Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.NoRelief,
     final typDamRel=Buildings.Templates.Components.Types.Damper.None,
     final typFanRel=Buildings.Templates.Components.Types.Fan.None,
-    final typFanRet=fanRet.typ);
+    final typFanRet=fanRet.typ,
+    final nFanRel=0,
+    final nFanRet=fanRet.nFan);
 
   replaceable Buildings.Templates.Components.Fans.None fanRet
     constrainedby Buildings.Templates.Components.Interfaces.PartialFan(

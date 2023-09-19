@@ -100,7 +100,7 @@ EXCLUDE = {
             'typArrPumChiWatPri_select=Buildings.Templates.Components.Types.PumpArrangement.Dedicated',
         ],
         [
-            'Buildings.Templates.ChilledWaterPlants.Types.Economizer.(?!None)',
+            'Buildings.Templates.ChilledWaterPlants.Types.Economizer.(?!None).*',
         ],
     ],
 }
@@ -158,7 +158,7 @@ REMOVE_MODIF['Buildings.Templates.ChilledWaterPlants.Validation.WaterCooledOpenL
         ),
         (
             [
-                'Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl.(?!None)',
+                'Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl.(?!None).*',
             ],
             [
                 'typValConWatChiIso_select',
@@ -167,7 +167,7 @@ REMOVE_MODIF['Buildings.Templates.ChilledWaterPlants.Validation.WaterCooledOpenL
         (
             [
                 'have_varPumConWat_select=true',
-                'Buildings.Templates.ChilledWaterPlants.Components.Economizers.(?!None)',
+                'Buildings.Templates.ChilledWaterPlants.Components.Economizers.(?!None).*',
             ],
             [
                 'typValConWatChiIso_select',
@@ -175,7 +175,7 @@ REMOVE_MODIF['Buildings.Templates.ChilledWaterPlants.Validation.WaterCooledOpenL
         ),
         (
             [
-                'Buildings.Templates.ChilledWaterPlants.Components.Economizers.(?!None)',
+                'Buildings.Templates.ChilledWaterPlants.Components.Economizers.(?!None).*',
             ],
             [
                 'typArrPumChiWatPri_select',

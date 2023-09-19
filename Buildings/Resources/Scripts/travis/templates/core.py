@@ -241,14 +241,14 @@ def prune_modifications(
     - Look for the model (key) in exclude (dict).
     - Iterate over the list of list of class modifications for this model (value of exclude[model]).
     - For a given list of class modifications, return true if all strings are found in the concatenated class modifications.
-    - (re patterns are supported: for instance negative lookahead assertion using (?!pattern).)
+    - Note: re patterns are supported, e.g., negative lookahead using (?!pattern).*
 
     REMOVE (after EXCLUDE): A class modification is removed from a combination according to the following rules.
     For each item (2-tuple) of the list provided (as value) for each model (key) in remove_modif (dict):
     - if all patterns of item[0] are found in the original class modifications of the combination, and
     - if a class modification contains any item within item[1], then
     - this class modification is removed.
-    - (re patterns are supported: for instance negative lookahead assertion using (?!pattern).)
+    - Note: re patterns are supported, e.g., negative lookahead using (?!pattern).*
 
     Returns:
         None (modifies inplace)

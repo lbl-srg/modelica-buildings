@@ -24,6 +24,8 @@ model VAVMultiZone "Validation model for multiple-zone VAV"
 
   Buildings.Templates.AirHandlersFans.VAVMultiZone VAV_1(
     nZon=2,
+    redeclare replaceable Buildings.Templates.Components.Fans.ArrayVariable
+      fanSupDra "Fan array - Variable speed",
     ctl(
       idZon={"Box_1","Box_1"},
       namGro={"Floor_1"},

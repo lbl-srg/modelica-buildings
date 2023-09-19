@@ -53,10 +53,26 @@ MODIF_GRID: dict[str, dict[str, list[str]]] = {
             # 'Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.ReliefFan',
             'Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.ReturnFan',
         ],
+        VAV_1__redeclare__fanSupBlo=[
+            'Buildings.Templates.Components.Fans.None',
+            'Buildings.Templates.Components.Fans.SingleVariable',
+            'Buildings.Templates.Components.Fans.ArrayVariable',
+        ],
+        VAV_1__redeclare__fanSupDra=[
+            'Buildings.Templates.Components.Fans.None',
+            'Buildings.Templates.Components.Fans.SingleVariable',
+            'Buildings.Templates.Components.Fans.ArrayVariable',
+        ],
+        VAV_1__fanSupBlo__nFan=[
+            2,
+        ],
+        VAV_1__fanSupDra__nFan=[
+            2,
+        ],
         VAV_1__ctl__typCtlEco=[
             'Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb',
             'Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialDryBulb',
-            'Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulbWithDifferentialDryBulb',
+            # 'Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulbWithDifferentialDryBulb',
             'Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb',
             'Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb',
         ],
@@ -77,7 +93,7 @@ MODIF_GRID: dict[str, dict[str, list[str]]] = {
         VAV_1__ctl__typFreSta=[
             'Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat',
             # 'Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment',
-            'Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_BAS',
+            # 'Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_BAS',
         ],
         VAV_1__ctl__have_CO2Sen=[
             'true',
@@ -89,13 +105,21 @@ MODIF_GRID: dict[str, dict[str, list[str]]] = {
 # See docstring of `prune_modifications` function for the structure of EXCLUDE.
 EXCLUDE: dict[str, list[list[str]]] = {
     'Buildings.Templates.AirHandlersFans.Validation.VAVMultiZone': [
+        [
+            'Buildings.Templates.Components.Fans.(?!None).* fanSupBlo',
+            'Buildings.Templates.Components.Fans.(?!None).* fanSupDra',
+        ],
+        [
+            'Buildings.Templates.Components.Fans.None fanSupBlo',
+            'Buildings.Templates.Components.Fans.None fanSupDra',
+        ],
         # We don't test all combinations of control options to limit the number of simulations.
         [
-            'Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.(?!FixedDryBulb)',
-            'Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.(?!AirflowMeasured)',
+            'Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.(?!FixedDryBulb).*',
+            'Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.(?!AirflowMeasured).*',
             'have_perZonRehBox=false',
             'have_frePro=false',
-            'Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.(?!No_freeze_stat)',
+            'Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.(?!No_freeze_stat).*',
             'have_CO2Sen-false',
         ],
     ],
@@ -106,7 +130,23 @@ REMOVE_MODIF: dict[str, list[tuple[list[str], list[str]]]] = {
     'Buildings.Templates.AirHandlersFans.Validation.VAVMultiZone': [
         (
             [
-                'Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.(?!ReturnFan)',
+                'Buildings.Templates.Components.Fans.(?!ArrayVariable).* fanSupBlo',
+            ],
+            [
+                'fanSupBlo\(nFan',
+            ],
+        ),
+        (
+            [
+                'Buildings.Templates.Components.Fans.(?!ArrayVariable).* fanSupDra',
+            ],
+            [
+                'fanSupDra\(nFan',
+            ],
+        ),
+        (
+            [
+                'Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.(?!ReturnFan).*',
             ],
             [
                 'typCtlFanRet',
@@ -122,7 +162,7 @@ REMOVE_MODIF: dict[str, list[tuple[list[str], list[str]]]] = {
         ),
         (
             [
-                'Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.(?!DedicatedDampersPressure)',
+                'Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.(?!DedicatedDampersPressure).*',
             ],
             [
                 'have_CO2Sen',
