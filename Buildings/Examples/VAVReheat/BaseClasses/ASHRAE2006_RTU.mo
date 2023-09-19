@@ -51,7 +51,7 @@ model ASHRAE2006_RTU
   Buildings.Controls.OBC.CDL.Logical.Or or2
     annotation (Placement(transformation(extent={{-100,-250},{-80,-230}})));
 
-  Controls.SupplyAirTemperature conTSup(k=0.05, Ti=10000)
+  Controls.SupplyAirTemperature conTSup(k=0.09, Ti=12000)
     "Supply air temperature and economizer controller"
     annotation (Placement(transformation(extent={{-60,-230},{-40,-210}})));
 
