@@ -21,6 +21,7 @@ def main():
       'SUPPLY OUTLET NODE:System Node Temperature [C](TimeStep)',
       'SUPPLY OUTLET NODE:System Node Humidity Ratio [kgWater/kgDryAir](TimeStep)',
       'SUPPLY OUTLET NODE:System Node Mass Flow Rate [kg/s](TimeStep)',
+      'EVAP COOLER INLET NODE:System Node Mass Flow Rate [kg/s](TimeStep)',
       'Environment:Site Outdoor Air Humidity Ratio [kgWater/kgDryAir](TimeStep)'
     ]
     e.energyplus_csv_to_mos(

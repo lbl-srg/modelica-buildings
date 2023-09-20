@@ -1,28 +1,45 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers;
 model IndirectDry "Indirect dry evaporative cooler"
   extends Buildings.Fluid.Interfaces.PartialFourPortParallel(
-    redeclare package Medium1=Medium,
-    redeclare package Medium2=Medium);
+    redeclare final package Medium1=MediumPri,
+    redeclare final package Medium2=MediumSec);
+
+  replaceable package MediumPri =
+    Modelica.Media.Interfaces.PartialMedium "Medium 1 in the component"
+      annotation (choices(
+        choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
+        choice(redeclare package Medium = Buildings.Media.Water "Water"),
+        choice(redeclare package Medium =
+            Buildings.Media.Antifreeze.PropyleneGlycolWater (
+          property_T=293.15,
+          X_a=0.40)
+          "Propylene glycol water, 40% mass fraction")));
+
+  replaceable package MediumSec =
+    Modelica.Media.Interfaces.PartialMedium "Medium 2 in the component"
+    annotation (choices(
+        choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
+
   Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct dirEvaCoo(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
+    redeclare package Medium = MediumSec,
+    m_flow_nominal=mAirSec_flow_nominal,
     padAre=padAre,
     dep=dep)
     "Direct evaporative cooler for representing effect on primary air"
     annotation (Placement(visible=true, transformation(
-        origin={-4,-58},
+        origin={0,-60},
         extent={{-10,-10},{10,10}},
         rotation=0)));
 
   Buildings.Fluid.HeatExchangers.ConstantEffectiveness hex(
-    redeclare package Medium1 = Medium,
-    redeclare package Medium2 = Medium,                                                                                                                      dp1_nominal = dp_nom, dp2_nominal = dp_nom, eps = eps, m1_flow_nominal = mflownom1, m2_flow_nominal = mflownom2) annotation (
+    redeclare package Medium1 = MediumPri,
+    redeclare package Medium2 = MediumSec,                                                                                                                   dp1_nominal = dp_nom, dp2_nominal = dp_nom, eps = eps,
+    m1_flow_nominal=mAirPri_flow_nominal,
+    m2_flow_nominal=mAirSec_flow_nominal)                                                                                                                                                                                                         annotation (
     Placement(visible = true, transformation(origin = {64, 38}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  parameter Real eps(final unit = "1") = 0.67;
-  parameter Real dp_nom(final unit = "1") = 10;
+  parameter Real eps(final unit = "1")=0.8;
+  parameter Real dp_nom(final unit = "1");
 
-  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
-    annotation (__Dymola_choicesAllMatching=true);
   parameter Real mAirPri_flow_nominal "Primary air nominal mass flow rate";
   parameter Real mAirSec_flow_nominal "Secondary air nominal mass flow rate";
 
@@ -32,9 +49,9 @@ model IndirectDry "Indirect dry evaporative cooler"
     "Depth of the rigid media evaporative pad";
 equation
   connect(port_a2, dirEvaCoo.port_a)
-    annotation (Line(points={{-100,-60},{-14,-60},{-14,-58}}));
+    annotation (Line(points={{-100,-60},{-10,-60}}));
   connect(dirEvaCoo.port_b, hex.port_a2)
-    annotation (Line(points={{6,-58},{74,-58},{74,32}}, color={0,127,255}));
+    annotation (Line(points={{10,-60},{74,-60},{74,32}},color={0,127,255}));
   connect(hex.port_b2, port_b2) annotation (
     Line(points = {{54, 32}, {54, -19}, {100, -19}, {100, -60}}, color = {0, 127, 255}));
   connect(port_a1, hex.port_a1) annotation (
