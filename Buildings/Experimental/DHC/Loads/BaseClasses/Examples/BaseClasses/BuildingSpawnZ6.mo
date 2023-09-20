@@ -32,7 +32,7 @@ model BuildingSpawnZ6
     "Name of the weather file";
   parameter String weaName="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"
     "Name of the weather file";
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet[nZon](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minTSet[nZon](
     k=fill(
       293.15,
       nZon),
@@ -40,7 +40,7 @@ model BuildingSpawnZ6
       each displayUnit="degC"))
     "Minimum temperature set point"
     annotation (Placement(transformation(extent={{-280,250},{-260,270}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet[nZon](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxTSet[nZon](
     k=fill(
       297.15,
       nZon),
@@ -106,10 +106,10 @@ model BuildingSpawnZ6
       weaName))
     "Building outer component"
     annotation (Placement(transformation(extent={{30,138},{52,158}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum mulSum(
     final nin=nZon)
     annotation (Placement(transformation(extent={{230,110},{250,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum3(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum mulSum3(
     nin=2)
     annotation (Placement(transformation(extent={{230,70},{250,90}})));
   Buildings.Experimental.DHC.Loads.BaseClasses.Examples.BaseClasses.FanCoil4Pipe terUni[nZon](

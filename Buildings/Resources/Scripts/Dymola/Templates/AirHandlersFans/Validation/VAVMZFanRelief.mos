@@ -5,8 +5,16 @@ simulateModel("Buildings.Templates.AirHandlersFans.Validation.VAVMZFanRelief",
     resultFile="VAVMZFanRelief");
 createPlot(
     id=1,
-    position={15, 15, 1192, 772},
-    y={"VAV_1.port_Sup.m_flow"},
+    subPlot=1,
+    position={20, 20, 500, 500},
+    y={"VAV_1.bus.TAirSup", "VAV_1.bus.TAirMix", "VAV_1.bus.TOut"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"VAV_1.bus.fanSup.V_flow", "VAV_1.bus.VOut_flow"},
     autoscale=true,
     grid=true
 );

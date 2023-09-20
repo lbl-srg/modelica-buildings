@@ -1,12 +1,6 @@
 within Buildings.Templates.Components;
 package Types "Package with type definitions"
   extends Modelica.Icons.TypesPackage;
-  type BoilerHotWaterModel = enumeration(
-      Polynomial
-      "Efficiency described by a polynomial",
-      Table
-      "Efficiency described by a table")
-    "Enumeration to specify the type of hot water boiler model";
   type Chiller = enumeration(
       AirCooled
       "Air-cooled compression chiller",
@@ -85,17 +79,6 @@ package Types "Package with type definitions"
       Supply
       "Supply pipe - Solid line")
     "Enumeration to specify the pipe symbol";
-  type Pump = enumeration(
-      None
-      "No pump",
-      Single
-      "Single pump",
-      Multiple
-      "Multiple pumps in parallel")
-    "Enumeration to configure the pump";
-  type PumpArrangement = enumeration(
-      Dedicated "Dedicated pumps",
-      Headered "Headered pumps") "Enumeration to specify the pump arrangement";
   type Sensor = enumeration(
       DifferentialPressure
       "Differential pressure",

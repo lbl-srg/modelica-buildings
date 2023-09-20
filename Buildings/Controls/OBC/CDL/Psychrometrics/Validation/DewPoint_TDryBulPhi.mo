@@ -7,23 +7,23 @@ model DewPoint_TDryBulPhi
   Buildings.Controls.OBC.CDL.Psychrometrics.DewPoint_TDryBulPhi dewBulPhi1
     "Model for dew point temperature"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp phi(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp phi(
     duration=1,
     height=1,
     offset=0.001)
     "Relative humidity"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TDryBul(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TDryBul(
     k=273.15+29.4)
     "Dry bulb temperature"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TDryBul2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TDryBul2(
     duration=1,
     height=35,
     offset=273.15+2.0)
     "Dry bulb temperature"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant phi2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant phi2(
     k=0.4)
     "Relative humidity"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));

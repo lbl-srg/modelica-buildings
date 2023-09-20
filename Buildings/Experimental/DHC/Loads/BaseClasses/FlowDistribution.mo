@@ -137,7 +137,7 @@ model FlowDistribution
     annotation (Placement(transformation(extent={{100,60},{140,100}}),
       iconTransformation(extent={{100,-90},{120,-70}})));
   // COMPONENTS
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum sumMasFloReq(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum sumMasFloReq(
     final k=fill(
       1,
       nUni),
@@ -156,7 +156,7 @@ model FlowDistribution
     final nPorts=nUni)
     "Sink for terminal units return flow rate"
     annotation (Placement(transformation(extent={{-60,190},{-80,210}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum Q_flowSum(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum Q_flowSum(
     final nin=nUni)
     "Total heat flow rate"
     annotation (Placement(transformation(extent={{-50,130},{-30,150}})));

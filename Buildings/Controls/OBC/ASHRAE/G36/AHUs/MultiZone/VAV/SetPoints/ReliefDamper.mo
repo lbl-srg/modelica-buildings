@@ -29,29 +29,29 @@ block ReliefDamper
       iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Check if relief damper should be enabled"
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract conErr(
+  Buildings.Controls.OBC.CDL.Reals.Subtract conErr(
     u1(final unit="Pa", displayUnit="Pa"),
     u2(final unit="Pa", displayUnit="Pa"),
     y(final unit="Pa", displayUnit="Pa"))
     "Control error"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID conP(
+  Buildings.Controls.OBC.CDL.Reals.PID conP(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     final k=k,
     final reverseActing=false)
     "Building static pressure controller"
     annotation (Placement(transformation(extent={{10,60},{30,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerDam(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zerDam(
     final k=0)
     "Close damper when disabled"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpBuiSetPoi(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dpBuiSetPoi(
     final k=dpBuiSet) "Building pressure setpoint"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(
     final k=0)
     "Zero constant"
     annotation (Placement(transformation(extent={{-30,60},{-10,80}})));

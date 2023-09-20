@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "y1Pum.y[1]",
+    "y1Pum.y[2]",
+    "ope.y",
+    "dpSet.y",
+    "senRelPre.p_rel",
+    "senRelPre1.p_rel",
+    "senMasFlo.m_flow",
+    "senMasFlo1.m_flow",
+    "pum.P"
+  };

@@ -68,28 +68,28 @@ block Alarms "Zone level alarms"
     annotation (Placement(transformation(extent={{240,-200},{280,-160}}),
         iconTransformation(extent={{100,-60},{140,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract lowTem
+  Buildings.Controls.OBC.CDL.Reals.Subtract lowTem
     "Zone temperature below the heating setpoint"
     annotation (Placement(transformation(extent={{-170,90},{-150,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold twoDegLow(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold twoDegLow(
     final t=2,
     final h=dTHys)
     "Check if the zone temperature is 2 degC lower than the heating setpoint"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold thrDegLow(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold thrDegLow(
     final t=3,
     final h=dTHys)
     "Check if the zone temperature is 3 degC lower than the heating setpoint"
     annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract higTem
+  Buildings.Controls.OBC.CDL.Reals.Subtract higTem
     "Zone temperature above the cooling setpoint"
     annotation (Placement(transformation(extent={{-170,210},{-150,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold twoDegHig(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold twoDegHig(
     final t=2,
     final h=dTHys)
     "Check if the zone temperature is 2 degC higher than the cooling setpoint"
     annotation (Placement(transformation(extent={{-120,210},{-100,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold thrDegHig(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold thrDegHig(
     final t=3,
     final h=dTHys)
     "Check if the zone temperature is 3 degC higher than the cooling setpoint"
@@ -159,12 +159,12 @@ block Alarms "Zone level alarms"
   Buildings.Controls.OBC.CDL.Integers.Equal levTwoLow
     "Check if generating level 2 low temperature alarm"
     annotation (Placement(transformation(extent={{120,50},{140,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr(
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThr(
     final t=300,
     final h=ppmHys) if have_CO2Sen
     "Check if the CO2 concentration is less than threshold"
     annotation (Placement(transformation(extent={{-40,-190},{-20,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     final t=600,
     final h=ppmHys) if have_CO2Sen
     "Check if the CO2 concentration is greater than threshold"
@@ -178,7 +178,7 @@ block Alarms "Zone level alarms"
     annotation (Placement(transformation(extent={{200,-130},{220,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Not not5 if have_CO2Sen "Logical not"
     annotation (Placement(transformation(extent={{160,-130},{180,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr1(
     final t=1.1*CO2Set,
     final h=ppmHys) if have_CO2Sen
     "Check if the CO2 concentration exceeds setpoint plus 10%"

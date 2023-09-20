@@ -46,7 +46,7 @@ model FanCoil2PipeHeating
     final dp_nominal=dpLoa_nominal)
     "Fan"
     annotation (Placement(transformation(extent={{50,-10},{30,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset con(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset con(
     final k=k,
     final Ti=Ti,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
@@ -68,13 +68,13 @@ model FanCoil2PipeHeating
     final allowFlowReversal2=allowFlowReversalLoa)
     "Heating coil"
     annotation (Placement(transformation(extent={{-80,4},{-60,-16}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiMasFlo(k=
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gaiMasFlo(k=
         mHeaWat_flow_nominal) "Scale water flow rate"
     annotation (Placement(transformation(extent={{40,210},{60,230}})));
   Modelica.Blocks.Sources.RealExpression Q_flowHea(
     y=hex.Q2_flow)
     annotation (Placement(transformation(extent={{120,210},{140,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiFloNom2(k=
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gaiFloNom2(k=
         mLoaHea_flow_nominal) "Scale air flow rate"
     annotation (Placement(transformation(extent={{56,170},{76,190}})));
   Fluid.Sources.Boundary_pT sinAir(
@@ -95,25 +95,25 @@ model FanCoil2PipeHeating
     TAir_start=293.15,
     QEnv_flow_nominal=QHea_flow_nominal) "Predicted room air temperature"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiHeaFlo(k=1/
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gaiHeaFlo(k=1/
         QHea_flow_nominal)
     annotation (Placement(transformation(extent={{-88,210},{-68,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiHeaFlo1(k=1/
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gaiHeaFlo1(k=1/
         QHea_flow_nominal) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,190})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Logical switch"
     annotation (Placement(transformation(extent={{30,170},{50,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one(
     k=1)
     "One constant"
     annotation (Placement(transformation(extent={{0,130},{20,150}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(
     k=have_speVar)
     annotation (Placement(transformation(extent={{-50,160},{-30,180}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     t=1E-4,
     h=0.5E-4)
     "Reset when demand rises from zero"

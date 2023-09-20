@@ -100,11 +100,11 @@ or a terminal unit (refer to
 Buildings.Templates.UsersGuide.Conventions</a>
 for the definition of a system).
 A template is a self-contained model that can be reconfigured
-by redeclaring some of its components or modifying some 
+by redeclaring some of its components or modifying some
 structural parameters.
 Such configuration does not require any further modification
 of the template.
-In particular, all connect clauses between replaceable components 
+In particular, all connect clauses between replaceable components
 are resolved internally without user intervention.
 The same applies to sensors that are required for a specific control
 option and instantiated only when that option is selected.
@@ -148,22 +148,22 @@ that originate from the zone equipment controller.
 If the controller selected for the zone equipment does not
 generate such requests, the simulation model will be singular.
 Selecting controllers from the same reference&mdash;e.g.,
-ASHRAE (2021)&mdash;is the safest way 
+ASHRAE (2021)&mdash;is the safest way
 to ensure consistency throughout the HVAC system model.
 </p>
 <h4>Model parameters</h4>
 <p>
-Each template contains an instance <code>dat</code> of a record class that 
+Each template contains an instance <code>dat</code> of a record class that
 contains all design and operating parameters for parameterizing
 the subcomponents of the template.
-For example, the multiple-zone VAV template 
+For example, the multiple-zone VAV template
 <a href=\"modelica://Buildings.Templates.AirHandlersFans.VAVMultiZone\">
 Buildings.Templates.AirHandlersFans.VAVMultiZone</a>
 contains an instance of the record class
 <a href=\"modelica://Buildings.Templates.AirHandlersFans.Data.VAVMultiZone\">
 Buildings.Templates.AirHandlersFans.Data.VAVMultiZone</a>
 which contains the parameters for configuring the heating coil component,
-as an instance of the record class  
+as an instance of the record class
 <a href=\"modelica://Buildings.Templates.Components.Data.Coil\">
 Buildings.Templates.Components.Data.Coil</a>.
 All design and operating parameters should be assigned through this record instance
@@ -174,22 +174,22 @@ In addition to these parameters, the record class also contains the configuratio
 parameters that define the system layout and control options.
 These configuration parameters are bound to the values that are assigned via
 the template's parameter dialog.
-In this way, only the set of parameters needed for the particular system layout 
+In this way, only the set of parameters needed for the particular system layout
 for which the template is configured is displayed in the parameter dialog.
 Note that these configuration parameters are disabled in the record class
-to avoid any modification by the user and preserve the bindings with the 
+to avoid any modification by the user and preserve the bindings with the
 template parameters.
 </p>
 <p>
-When creating a model for a complete HVAC system with multiple instances of 
+When creating a model for a complete HVAC system with multiple instances of
 different templates, the class
 <a href=\"modelica://Buildings.Templates.Data.AllSystems\">
 Buildings.Templates.Data.AllSystems</a>.
 can be used at the top level of the model to assign all design and operating parameters.
-This class allows the use of Modelica outer components to retrieve the configuration 
+This class allows the use of Modelica outer components to retrieve the configuration
 parameter values for each template instance based on the instance name.
 Thus, it is the avatar in the modeling environment of an HVAC project datasheet.
-The validation models within 
+The validation models within
 <a href=\"modelica://Buildings.Templates.AirHandlersFans.Validation\">
 Buildings.Templates.AirHandlersFans.Validation</a>
 illustrate the use of this class.

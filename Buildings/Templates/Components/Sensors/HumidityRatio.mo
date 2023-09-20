@@ -6,7 +6,8 @@ model HumidityRatio "Humidity ratio sensor"
 
   Buildings.Fluid.Sensors.MassFractionTwoPort senMasFra(
     redeclare final package Medium=Medium,
-    final m_flow_nominal=m_flow_nominal) if have_sen
+    final m_flow_nominal=m_flow_nominal,
+    final allowFlowReversal=allowFlowReversal) if have_sen
     "Mass fraction sensor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Utilities.Psychrometrics.ToDryAir toDryAir if have_sen
@@ -17,8 +18,9 @@ model HumidityRatio "Humidity ratio sensor"
         rotation=90,
         origin={0,30})));
 
-  Buildings.Templates.Components.Routing.PassThroughFluid pas(redeclare final
-      package Medium = Medium) if not have_sen "Pass through"
+  Buildings.Templates.Components.Routing.PassThroughFluid pas(
+    redeclare final package Medium = Medium,
+    final allowFlowReversal=allowFlowReversal) if not have_sen "Pass through"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 equation
   connect(port_a, senMasFra.port_a)

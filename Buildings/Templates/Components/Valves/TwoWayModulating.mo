@@ -8,10 +8,16 @@ model TwoWayModulating "Two-way modulating valve"
       redeclare final package Medium=Medium,
       final m_flow_nominal=m_flow_nominal,
       final dpValve_nominal=dpValve_nominal,
-      final dpFixed_nominal=dpFixed_nominal)
+      final dpFixed_nominal=dpFixed_nominal,
+      final use_inputFilter=use_inputFilter,
+      final riseTime=riseTime,
+      final init=init,
+      final y_start=y_start,
+      final allowFlowReversal=allowFlowReversal,
+      final show_T=show_T)
     "Valve"
     annotation (
-      __Linkage(enable=false),
+      __ctrl_flow(enable=false),
       choicesAllMatching=true,
       Placement(
         transformation(

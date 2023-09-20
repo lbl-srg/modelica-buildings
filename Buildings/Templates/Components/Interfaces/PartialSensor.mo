@@ -1,7 +1,7 @@
 within Buildings.Templates.Components.Interfaces;
 partial model PartialSensor "Interface class for sensor"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface
-    annotation(__Linkage(enable=false));
+    annotation(__ctrl_flow(enable=false));
 
   parameter Boolean have_sen=true
     "Set to true for sensor, false for direct pass through"
@@ -15,10 +15,6 @@ partial model PartialSensor "Interface class for sensor"
     annotation(Dialog(tab="Graphics", enable=false));
   parameter Boolean text_flip = false
     "True to flip text horizontally in icon layer"
-    annotation(Dialog(tab="Graphics", enable=false));
-  parameter Buildings.Templates.Components.Types.IconPipe icon_pipe =
-    Buildings.Templates.Components.Types.IconPipe.None
-    "Pipe symbol"
     annotation(Dialog(tab="Graphics", enable=false));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y if have_sen
@@ -46,16 +42,12 @@ equation
 
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false),
-    graphics={Line(
-        visible=icon_pipe<>Buildings.Templates.Components.Types.IconPipe.None
-        or (not have_sen) and (not isDifPreSen),
-        points={{-100,0},{100,0}},
-        color=if icon_pipe==Buildings.Templates.Components.Types.IconPipe.None
-        then {28,108,200} else {0,0,0},
-        thickness=if icon_pipe==Buildings.Templates.Components.Types.IconPipe.None
-        then 1 else 5,
-        pattern=if icon_pipe==Buildings.Templates.Components.Types.IconPipe.Return
-        then LinePattern.Dash else LinePattern.Solid)}),
+      graphics={
+      Line(
+        visible=(not have_sen) and (not isDifPreSen),
+          points={{-100,0},{100,0}},
+          color={28,108,200},
+          thickness=1)}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>

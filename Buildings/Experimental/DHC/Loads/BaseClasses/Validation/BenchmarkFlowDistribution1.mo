@@ -73,7 +73,7 @@ model BenchmarkFlowDistribution1
     smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1)
     "Reader for thermal loads (y[1] is cooling load, y[2] is heating load)"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minTSet(
     k=293.15,
     y(final unit="K",
       displayUnit="degC"))
@@ -99,7 +99,7 @@ model BenchmarkFlowDistribution1
     nPorts=1)
     "Sink for heating water"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={90,-80})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSup(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSup(
     k=max(
       ter.T_aHeaWat_nominal))
     "Supply temperature"
@@ -135,7 +135,7 @@ This model is part of a computational performance benchmark between
 <ul>
 <li>
 a simplified modeling of the piping network as implemented in
-<a href=\"Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution\">
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution\">
 Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution</a>
 (see the corresponding example
 <a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BenchmarkFlowDistribution1\">

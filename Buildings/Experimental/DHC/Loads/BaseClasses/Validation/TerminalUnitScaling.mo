@@ -69,7 +69,7 @@ model TerminalUnitScaling
     final T_aLoaHea_nominal=T_aLoaHea_nominal)
     "Terminal unit with no multiplier"
     annotation (Placement(transformation(extent={{8,78},{32,102}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSet(k=293.15, y(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSet(k=293.15, y(
         final unit="K", displayUnit="degC")) "Temperature set point"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
  Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BaseClasses.FanCoil2PipeHeating terUniMul(
@@ -92,7 +92,7 @@ model TerminalUnitScaling
     nPorts=1)
     "Heating water supply"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-50,-20})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ram(
     height=1.2*QHea_flow_nominal,
     duration=500)
     "Required heat flow rate"

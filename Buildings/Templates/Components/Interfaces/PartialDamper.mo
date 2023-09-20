@@ -2,30 +2,48 @@ within Buildings.Templates.Components.Interfaces;
 partial model PartialDamper "Interface class for damper"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     final m_flow_nominal=dat.m_flow_nominal)
-    annotation(__Linkage(enable=false));
+    annotation(__ctrl_flow(enable=false));
 
   parameter Buildings.Templates.Components.Types.Damper typ
     "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
+  parameter Buildings.Templates.Components.Data.Damper dat(final typ=typ)
+    "Design and operating parameters"
+    annotation (Placement(transformation(extent={{70,70},{90,90}})));
+
+  final parameter Modelica.Units.SI.PressureDifference dp_nominal=
+    dat.dp_nominal
+    "Damper pressure drop";
+
+  parameter Boolean use_inputFilter=true
+    "= true, if opening is filtered with a 2nd order CriticalDamping filter"
+    annotation(Dialog(tab="Dynamics", group="Filtered opening",
+    enabel=typ<>Buildings.Templates.Components.Types.Damper.None));
+  parameter Modelica.Units.SI.Time riseTime=120
+    "Rise time of the filter (time to reach 99.6 % of an opening step)"
+    annotation (Dialog(
+      tab="Dynamics",
+      group="Filtered opening",
+      enable=use_inputFilter and typ<>Buildings.Templates.Components.Types.Damper.None));
+  parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
+    "Type of initialization (no init/steady state/initial state/initial output)"
+    annotation(Dialog(tab="Dynamics", group="Filtered opening",
+    enable=use_inputFilter and typ<>Buildings.Templates.Components.Types.Damper.None));
+  parameter Real y_start=1 "Initial position of actuator"
+    annotation(Dialog(tab="Dynamics", group="Filtered opening",
+    enable=use_inputFilter and typ<>Buildings.Templates.Components.Types.Damper.None));
+
   parameter Buildings.Templates.Components.Types.DamperBlades typBla=
     Buildings.Templates.Components.Types.DamperBlades.Parallel
     "Type of blades"
     annotation(Dialog(tab="Graphics", enable=false));
-
   parameter Integer text_rotation = 0
     "Text rotation angle in icon layer"
     annotation(Dialog(tab="Graphics", enable=false));
   parameter Boolean text_flip = false
     "True to flip text horizontally in icon layer"
     annotation(Dialog(tab="Graphics", enable=false));
-
-  parameter Buildings.Templates.Components.Data.Damper dat(final typ=typ)
-    "Design and operating parameters";
-
-  final parameter Modelica.Units.SI.PressureDifference dp_nominal=
-    dat.dp_nominal
-    "Damper pressure drop";
 
   Buildings.Templates.Components.Interfaces.Bus bus
     if typ <> Buildings.Templates.Components.Types.Damper.None

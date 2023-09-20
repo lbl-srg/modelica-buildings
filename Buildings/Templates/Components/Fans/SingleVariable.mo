@@ -1,13 +1,17 @@
 within Buildings.Templates.Components.Fans;
 model SingleVariable "Single fan - Variable speed"
   extends Buildings.Templates.Components.Interfaces.PartialFan(
+    final nFan=1,
     final typ=Buildings.Templates.Components.Types.Fan.SingleVariable);
 
   Buildings.Fluid.Movers.SpeedControlled_y fan(
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare final package Medium = Medium,
     final inputType=Buildings.Fluid.Types.InputType.Continuous,
-    final per=dat.per)
+    final per=dat.per,
+    final energyDynamics=energyDynamics,
+    final tau=tau,
+    use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
+    final allowFlowReversal=allowFlowReversal)
     "Fan"
     annotation (
       Placement(transformation(extent={{-10,-10},{10,10}})));
@@ -19,14 +23,14 @@ model SingleVariable "Single fan - Variable speed"
         rotation=-90,
         origin={-20,70})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Multiply sigCon
+  Buildings.Controls.OBC.CDL.Reals.Multiply sigCon
     "Resulting control signal"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,30})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold evaSta(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold evaSta(
     t=1E-2,
     h=0.5E-2)
     "Evaluate fan status"

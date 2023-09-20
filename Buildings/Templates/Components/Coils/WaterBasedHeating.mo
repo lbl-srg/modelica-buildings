@@ -3,8 +3,7 @@ model WaterBasedHeating "Hot water coil"
   extends Buildings.Templates.Components.Interfaces.PartialCoil(
     final typ=Buildings.Templates.Components.Types.Coil.WaterBasedHeating,
     final typVal=val.typ,
-    port_aSou(redeclare final package Medium = MediumHeaWat),
-    port_bSou(redeclare final package Medium = MediumHeaWat));
+    redeclare final package MediumSou = MediumHeaWat);
 
   replaceable package MediumHeaWat=Buildings.Media.Water
     "Source side medium";
@@ -22,6 +21,10 @@ model WaterBasedHeating "Hot water coil"
   replaceable Buildings.Templates.Components.Valves.TwoWayModulating val constrainedby
     Buildings.Templates.Components.Interfaces.PartialValve(
       redeclare final package Medium = MediumHeaWat,
+      final energyDynamics=energyDynamics,
+      use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
+      final allowFlowReversal=allowFlowReversalLiq,
+      final show_T=show_T,
       final dat=datVal)
     "Valve"
     annotation (
@@ -47,13 +50,17 @@ model WaterBasedHeating "Hot water coil"
     redeclare final package Medium1 = MediumHeaWat,
     redeclare final package Medium2 = MediumAir,
     final m1_flow_nominal=mWat_flow_nominal,
-    final m2_flow_nominal=mAir_flow_nominal)
+    final m2_flow_nominal=mAir_flow_nominal,
+    final allowFlowReversal1=allowFlowReversalLiq,
+    final allowFlowReversal2=allowFlowReversalAir,
+    final show_T=show_T)
     "Heat exchanger"
-    annotation (__Linkage(enable=false),
+    annotation (__ctrl_flow(enable=false),
       Placement(transformation(extent={{10,4},{-10,-16}})));
 
   Buildings.Templates.Components.Routing.PassThroughFluid pas(
-    redeclare final package Medium = MediumHeaWat)
+    redeclare final package Medium = MediumHeaWat,
+    final allowFlowReversal=allowFlowReversalLiq)
     if typVal <> Buildings.Templates.Components.Types.Valve.ThreeWayModulating
     "Direct pass through" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -64,7 +71,16 @@ model WaterBasedHeating "Hot water coil"
     redeclare final package Medium=MediumHeaWat,
     final m_flow_nominal=mWat_flow_nominal * {1, -1, -1},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    dp_nominal=fill(0, 3))
+    dp_nominal=fill(0, 3),
+    final portFlowDirection_1=if allowFlowReversal then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+      else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    final portFlowDirection_2=if allowFlowReversal then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+      else Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    final portFlowDirection_3=if allowFlowReversal then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+      else Modelica.Fluid.Types.PortFlowDirection.Leaving)
     if typVal==Buildings.Templates.Components.Types.Valve.ThreeWayModulating
     "Junction"
     annotation (

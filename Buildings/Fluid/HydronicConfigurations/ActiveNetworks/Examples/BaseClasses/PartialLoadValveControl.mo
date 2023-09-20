@@ -245,8 +245,8 @@ equation
 <p>
 This is a partial model of a thermal load on a hydronic circuit that
 is composed of
-<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load\">
-Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load</a>
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses.Load\">
+Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses.Load</a>
 and a replaceable configuration component derived from 
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.Interfaces.PartialHydronicConfiguration\">
 Buildings.Fluid.HydronicConfigurations.Interfaces.PartialHydronicConfiguration</a>

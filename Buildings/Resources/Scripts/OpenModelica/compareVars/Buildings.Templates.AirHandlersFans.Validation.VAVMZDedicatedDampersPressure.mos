@@ -1,4 +1,7 @@
 compareVars :=
   {
-    "VAV_1.port_Sup.m_flow"
+    "VAV_1.bus.TAirSup",
+    "VAV_1.bus.TAirMix",
+    "VAV_1.bus.TOut",
+    "VAV_1.bus.fanSup.V_flow"
   };

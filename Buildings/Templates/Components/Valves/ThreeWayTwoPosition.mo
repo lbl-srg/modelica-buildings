@@ -8,23 +8,38 @@ model ThreeWayTwoPosition "Three-way two-position valve"
       redeclare final package Medium=Medium,
       final m_flow_nominal=m_flow_nominal,
       final dpValve_nominal=dpValve_nominal,
-      final dpFixed_nominal=dpFixed_nominal)
+      final dpFixed_nominal={dpFixed_nominal, dpFixedByp_nominal},
+      final energyDynamics=energyDynamics,
+      final tau=tau,
+      final use_inputFilter=use_inputFilter,
+      final riseTime=riseTime,
+      final init=init,
+      final y_start=y_start,
+      final portFlowDirection_1=if allowFlowReversal then
+        Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+        else Modelica.Fluid.Types.PortFlowDirection.Entering,
+      final portFlowDirection_2=if allowFlowReversal then
+        Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+        else Modelica.Fluid.Types.PortFlowDirection.Leaving,
+      final portFlowDirection_3=if allowFlowReversal then
+        Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+        else Modelica.Fluid.Types.PortFlowDirection.Entering)
     "Valve"
     annotation (
-      __Linkage(enable=false),
+      __ctrl_flow(enable=false),
       choicesAllMatching=true,
       Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0)));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold evaOpe(t=0.99, h=0.5E-2)
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold evaOpe(t=0.99, h=0.5E-2)
     "Return true if open (open end switch contact)"
     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={20,-50})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold evaClo(t=0.01, h=0.5E-2)
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold evaClo(t=0.01, h=0.5E-2)
     "Return true if closed (closed end switch contact)"
                             annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -39,9 +54,9 @@ model ThreeWayTwoPosition "Three-way two-position valve"
         rotation=-90,
         origin={0,50})));
 equation
-  connect(port_a, val.port_a)
+  connect(port_a, val.port_1)
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
-  connect(val.port_b, port_b)
+  connect(val.port_2, port_b)
     annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
   connect(val.y_actual, evaOpe.u)
     annotation (Line(points={{5,7},{20,7},{20,-38}}, color={0,0,127}));

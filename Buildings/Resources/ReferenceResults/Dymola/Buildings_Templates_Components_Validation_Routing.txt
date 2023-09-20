@@ -1,0 +1,27 @@
+last-generated=2023-05-24
+statistics-initialization=
+{
+  "nonlinear": "1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0",
+  "numerical Jacobians": "0"
+}
+statistics-simulation=
+{
+  "linear": " ",
+  "nonlinear": " ",
+  "number of continuous time states": "3",
+  "numerical Jacobians": "0"
+}
+time=[0e+00, 1e+00]
+mulMul.ports_a[1].m_flow=[1e+00, 1e+00]
+mulMul.ports_b[1].m_flow=[-1e+00, -1e+00]
+mulMul.m_flow_nominal=[3e+00, 3e+00]
+mulMulCom.ports_a[1].m_flow=[1e+00, 1e+00]
+mulMulCom.ports_b[1].m_flow=[-1e+00, -1e+00]
+mulMulCom.m_flow_nominal=[3e+00, 3e+00]
+mulSin.ports_a[1].m_flow=[1e+00, 1e+00]
+mulSin.port_b.m_flow=[-3e+00, -3e+00]
+mulSin.m_flow_nominal=[3e+00, 3e+00]
+sinMul.port_a.m_flow=[3e+00, 3e+00]
+sinMul.ports_b[1].m_flow=[-1e+00, -1e+00]
+sinMul.m_flow_nominal=[3e+00, 3e+00]
+pas.port_a.m_flow=[1e+00, 1e+00]

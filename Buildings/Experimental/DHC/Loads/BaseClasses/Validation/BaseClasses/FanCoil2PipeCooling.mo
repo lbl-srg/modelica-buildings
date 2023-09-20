@@ -42,7 +42,7 @@ model FanCoil2PipeCooling
     "Design temperature difference at which envelope heat loss is QEnv_flow_nominal"
     annotation (Dialog(group="Nominal condition"));
 
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset con(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset con(
     final k=k,
     final Ti=Ti,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
@@ -77,13 +77,13 @@ model FanCoil2PipeCooling
     final w_a2_nominal=w_aLoaCoo_nominal)
     "Cooling coil"
     annotation (Placement(transformation(extent={{-80,4},{-60,-16}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiMasFlo(k=
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gaiMasFlo(k=
         mChiWat_flow_nominal) "Scale water flow rate"
     annotation (Placement(transformation(extent={{40,210},{60,230}})));
   Modelica.Blocks.Sources.RealExpression Q_flowCoo(
     final y=hexWetNtu.Q2_flow)
     annotation (Placement(transformation(extent={{120,190},{140,210}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiFloNom2(k=
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gaiFloNom2(k=
         mLoaCoo_flow_nominal) "Scale air flow rate"
     annotation (Placement(transformation(extent={{52,170},{72,190}})));
   Fluid.Sources.Boundary_pT sinAir(
@@ -103,15 +103,15 @@ model FanCoil2PipeCooling
     TAir_start=297.15,
     final QEnv_flow_nominal=QEnv_flow_nominal) "Predicted room air temperature"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiHeaFlo(k=1/
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gaiHeaFlo(k=1/
         QCoo_flow_nominal)
     annotation (Placement(transformation(extent={{-88,210},{-68,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiHeaFlo1(k=1/
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gaiHeaFlo1(k=1/
         QCoo_flow_nominal) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,190})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     t=1E-4,
     h=0.5E-4)
     "Reset when demand rises from zero"
@@ -123,12 +123,12 @@ model FanCoil2PipeCooling
     final dp_nominal=dpLoa_nominal)
     "Load side pressure drop"
     annotation (Placement(transformation(extent={{80,-10},{60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one(k=1)
     "One constant"
     annotation (Placement(transformation(extent={{-10,130},{10,150}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(k=have_speVar)
     annotation (Placement(transformation(extent={{-50,150},{-30,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Logical switch"
     annotation (Placement(transformation(extent={{26,170},{46,190}})));
 equation

@@ -4,13 +4,15 @@ model ArrayVariable "Fan array - Variable speed"
     final typ=Buildings.Templates.Components.Types.Fan.ArrayVariable);
 
   Buildings.Fluid.Movers.SpeedControlled_y fan[nFan](
-    each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare each final package Medium=Medium,
     each final inputType=Buildings.Fluid.Types.InputType.Continuous,
-    each final per=dat.per)
-    "Fan"
-    annotation (
-      Placement(transformation(extent={{-10,-10},{10,10}})));
+    each final per=dat.per,
+    each final energyDynamics=energyDynamics,
+    each final tau=tau,
+    each use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
+    each final allowFlowReversal=allowFlowReversal)
+    "Fan array"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator repSig(
     final nout=nFan)
@@ -25,13 +27,13 @@ model ArrayVariable "Fan array - Variable speed"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-46,80})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply sigCon
+  Buildings.Controls.OBC.CDL.Reals.Multiply sigCon
     "Resulting control signal"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-40,50})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold evaSta[nFan](
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold evaSta[nFan](
     each t=1E-2,
     each h=0.5E-2) "Evaluate fan status"
     annotation (Placement(transformation(

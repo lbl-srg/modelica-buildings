@@ -51,7 +51,7 @@ Model included into the Buildings library.
 </html>", info="<html>
 <p>
 This is a model of a generic inductive load. This model is an extension of the base load model
-<a href=\"Buildings.Electrical.Interfaces.Load\">
+<a href=\"modelica://Buildings.Electrical.Interfaces.Load\">
 Buildings.Electrical.Interfaces.Load</a>.
 </p>
 <p>

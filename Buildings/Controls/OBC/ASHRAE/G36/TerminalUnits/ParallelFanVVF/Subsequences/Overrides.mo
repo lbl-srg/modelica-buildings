@@ -65,15 +65,15 @@ block Overrides "Software switches to override setpoints"
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal opeDam(
     final realTrue=1) "Full open damper position"
     annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add3 "Add up inputs"
+  Buildings.Controls.OBC.CDL.Reals.Add add3 "Add up inputs"
     annotation (Placement(transformation(extent={{20,120},{40,140}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2
     "Check if the damper setpoint position should be overrided"
     annotation (Placement(transformation(extent={{0,80},{20,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1
     "Damper setpoint position after considering override"
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro
     "Valve position setpoint after considering override"
     annotation (Placement(transformation(extent={{80,0},{100,20}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(

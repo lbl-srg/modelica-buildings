@@ -58,15 +58,15 @@ block PlantRequests "Output plant requests for multizone air handling unit"
         iconTransformation(extent={{100,-100},{140,-60}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Subtract cooSupTemDif
+  Buildings.Controls.OBC.CDL.Reals.Subtract cooSupTemDif
     "Find the cooling supply temperature difference to the setpoint"
     annotation (Placement(transformation(extent={{-170,190},{-150,210}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     final t=3,
     final h=Thys)
     "Check if the supply temperature is greater than the setpoint by a threshold value"
     annotation (Placement(transformation(extent={{-80,190},{-60,210}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr1(
     final t=2,
     final h=Thys)
     "Check if the supply temperature is greater than the setpoint by a threshold value"
@@ -79,7 +79,7 @@ protected
     final delayTime=120)
     "Check if the input has been true for a certain time"
     annotation (Placement(transformation(extent={{-40,140},{-20,160}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr2(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr2(
     final t=0.95,
     final h=posHys)
     "Check if the chilled water valve position is greater than a threshold value"
@@ -97,7 +97,7 @@ protected
     final k=2)
     "Constant 2"
     annotation (Placement(transformation(extent={{0,170},{20,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr(
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThr(
     final t=0.85,
     final h=posHys)
     "Check if the chilled water valve position is less than a threshold value"
@@ -117,7 +117,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Latch lat1
     "Keep true signal until other condition becomes true"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr1(
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThr1(
     final t=0.1,
     final h=posHys)
     "Check if the chilled water valve position is less than a threshold value"
@@ -125,16 +125,16 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi3
     "Send 1 chiller plant request"
     annotation (Placement(transformation(extent={{80,10},{100,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract heaSupTemDif if have_hotWatCoi
+  Buildings.Controls.OBC.CDL.Reals.Subtract heaSupTemDif if have_hotWatCoi
     "Find the heating supply temperature difference to the setpoint"
     annotation (Placement(transformation(extent={{-150,-50},{-130,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr3(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr3(
     final t=17,
     final h=Thys)
     if have_hotWatCoi
     "Check if the supply temperature is less than the setpoint by a threshold value"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr4(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr4(
     final t=8,
     final h=Thys)
     if have_hotWatCoi
@@ -154,13 +154,13 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Switch hotWatRes2 if have_hotWatCoi
     "Send 2 hot water reset request"
     annotation (Placement(transformation(extent={{120,-100},{140,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr2(
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThr2(
     final t=0.85,
     final h=posHys)
     if have_hotWatCoi
     "Check if the hot water valve position is less than a threshold value"
     annotation (Placement(transformation(extent={{-120,-190},{-100,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr5(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr5(
     final t=0.95,
     final h=posHys)
     if have_hotWatCoi
@@ -172,7 +172,7 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Switch hotWatRes1 if have_hotWatCoi
     "Send 1 hot water reset request"
     annotation (Placement(transformation(extent={{80,-150},{100,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr3(
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThr3(
     final t=0.1,
     final h=posHys)
     if have_hotWatCoi

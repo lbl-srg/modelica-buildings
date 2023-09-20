@@ -1,4 +1,4 @@
 compareVars :=
   {
-    "VAVBox_1.port_Sup.m_flow"
+    "VAVBox_1.damVAV.m_flow"
   };

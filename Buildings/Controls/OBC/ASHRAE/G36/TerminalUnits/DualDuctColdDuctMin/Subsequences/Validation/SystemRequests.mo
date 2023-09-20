@@ -7,7 +7,7 @@ model SystemRequests
     final looHys=0.01,
     final damPosHys=0.01) "Block outputs system requests"
     annotation (Placement(transformation(extent={{60,-22},{80,18}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sine(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sine(
     final freqHz=1/7200,
     final offset=296.15)
     "Generate data for setpoint"
@@ -15,30 +15,30 @@ model SystemRequests
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay TZonCooSet(
     final samplePeriod=1800) "Cooling setpoint temperature"
     annotation (Placement(transformation(extent={{-20,100},{0,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TZon(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin TZon(
     final freqHz=1/7200,
     final amplitude=2,
     final offset=299.15)
     "Zone temperature"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp uCoo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp uCoo(
     final height=-1,
     final duration=2000,
     final offset=1,
     final startTime=1000)
     "Cooling loop signal"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp colDucAirSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp colDucAirSet(
     final height=0.9,
     final duration=7200,
     final offset=0.1) "Cold-duct airflow rate setpoint"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp colDucAirRate(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp colDucAirRate(
     final duration=7200,
     final offset=0.1,
     final height=0.3) "Cold duct airflow rate"
     annotation (Placement(transformation(extent={{-20,10},{0,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp colDamPos(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp colDamPos(
     final duration=3000,
     final height=-0.7,
     final offset=0.7) "Cold-duct damper position"
@@ -50,7 +50,7 @@ model SystemRequests
     annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{-20,130},{0,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sine1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sine1(
     final freqHz=1/7200,
     final offset=293.15)
     "Generate data for setpoint"
@@ -66,25 +66,25 @@ model SystemRequests
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp uHea(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp uHea(
     final height=0.9,
     final duration=3600,
     final startTime=3600)
     "Heating loop signal"
     annotation (Placement(transformation(extent={{-20,-100},{0,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp hotDucAirSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp hotDucAirSet(
     final height=0.9,
     final duration=7200,
     final offset=0.1)
     "Hot-duct airflow rate setpoint"
     annotation (Placement(transformation(extent={{-60,-120},{-40,-100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp hotDucAirRate(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp hotDucAirRate(
     final duration=7200,
     final offset=0.1,
     final height=0.3)
     "Hot duct airflow rate"
     annotation (Placement(transformation(extent={{-20,-140},{0,-120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp hotDamPos(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp hotDamPos(
     final duration=3600,
     final height=0.7,
     startTime=3600)

@@ -1,12 +1,20 @@
 simulateModel("Buildings.Templates.ZoneEquipment.Validation.VAVBoxCoolingOnlyControlG36",
     method="cvode",
     tolerance=1e-6,
-    stopTime=1.0,
+    stopTime=3600,
     resultFile="VAVBoxCoolingOnlyControlG36");
 createPlot(
     id=1,
-    position={15, 15, 1192, 772},
-    y={"VAVBox_1.port_Sup.m_flow"},
+    subPlot=1,
+    position={20, 20, 500, 500},
+    y={"VAVBox_1.bus.TAirSup", "VAVBox_1.bus.TAirDis", "VAVBox_1.bus.TZon"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"VAVBox_1.damVAV.m_flow"},
     autoscale=true,
     grid=true
 );
