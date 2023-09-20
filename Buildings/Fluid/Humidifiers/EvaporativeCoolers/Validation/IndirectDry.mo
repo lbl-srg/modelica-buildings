@@ -78,8 +78,8 @@ model IndirectDry
     redeclare package MediumSec = MediumA,
     eps=0.67,
     dp_nom=200,
-    mAirPri_flow_nominal=mAirPri_flow_nominal,
-    mAirSec_flow_nominal=0.002,
+    m_flow_nominal_AirPri=mAirPri_flow_nominal,
+    m_flow_nominal_AirSec=0.002,
     padAre=0.6,
     dep=0.2) "Indirect dry evaporative cooler" annotation (Placement(visible=
           true, transformation(

@@ -4,7 +4,7 @@ model Direct
 
   extends Buildings.Fluid.Interfaces.PartialTwoPort;
 
-  parameter Real m_flow_nominal(final unit = "kg/s")
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Nominal air mass flow rate";
   parameter Modelica.Units.SI.Area padAre
     "Area of the rigid media evaporative pad";

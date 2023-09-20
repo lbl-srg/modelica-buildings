@@ -1,11 +1,13 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers;
 model IndirectDry "Indirect dry evaporative cooler"
+
   extends Buildings.Fluid.Interfaces.PartialFourPortParallel(
     redeclare final package Medium1=MediumPri,
     redeclare final package Medium2=MediumSec);
 
   replaceable package MediumPri =
-    Modelica.Media.Interfaces.PartialMedium "Medium 1 in the component"
+    Modelica.Media.Interfaces.PartialMedium
+    "Medium 1 in the component"
       annotation (choices(
         choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
         choice(redeclare package Medium = Buildings.Media.Water "Water"),
@@ -14,15 +16,28 @@ model IndirectDry "Indirect dry evaporative cooler"
           property_T=293.15,
           X_a=0.40)
           "Propylene glycol water, 40% mass fraction")));
-
   replaceable package MediumSec =
-    Modelica.Media.Interfaces.PartialMedium "Medium 2 in the component"
+    Modelica.Media.Interfaces.PartialMedium
+    "Medium 2 in the component"
     annotation (choices(
         choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
 
+  parameter Real eps(final unit = "1")=0.8
+    "Heat exchanger effectiveness";
+  parameter Modelica.Units.SI.Pressure dp_nom
+    "Nominal pressure drop";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal_AirPri
+    "Primary air nominal mass flow rate";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal_AirSec
+    "Secondary air nominal mass flow rate";
+  parameter Modelica.Units.SI.Area padAre
+    "Area of the rigid media evaporative pad";
+  parameter Modelica.Units.SI.Length dep
+    "Depth of the rigid media evaporative pad";
+
   Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct dirEvaCoo(
     redeclare package Medium = MediumSec,
-    m_flow_nominal=mAirSec_flow_nominal,
+    m_flow_nominal=m_flow_nominal_AirSec,
     padAre=padAre,
     dep=dep)
     "Direct evaporative cooler for representing effect on primary air"
@@ -33,31 +48,26 @@ model IndirectDry "Indirect dry evaporative cooler"
 
   Buildings.Fluid.HeatExchangers.ConstantEffectiveness hex(
     redeclare package Medium1 = MediumPri,
-    redeclare package Medium2 = MediumSec,                                                                                                                   dp1_nominal = dp_nom, dp2_nominal = dp_nom, eps = eps,
-    m1_flow_nominal=mAirPri_flow_nominal,
-    m2_flow_nominal=mAirSec_flow_nominal)                                                                                                                                                                                                         annotation (
-    Placement(visible = true, transformation(origin = {64, 38}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  parameter Real eps(final unit = "1")=0.8;
-  parameter Real dp_nom(final unit = "1");
+    redeclare package Medium2 = MediumSec,
+    dp1_nominal = dp_nom,
+    dp2_nominal = dp_nom,
+    eps = eps,
+    m1_flow_nominal=m_flow_nominal_AirPri,
+    m2_flow_nominal=m_flow_nominal_AirSec)
+    "Heat exchanger for heat transfer between primary and secondary air"
+    annotation (Placement(visible = true, transformation(origin={0,8},extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  parameter Real mAirPri_flow_nominal "Primary air nominal mass flow rate";
-  parameter Real mAirSec_flow_nominal "Secondary air nominal mass flow rate";
-
-  parameter Modelica.Units.SI.Area padAre
-    "Area of the rigid media evaporative pad";
-  parameter Modelica.Units.SI.Length dep
-    "Depth of the rigid media evaporative pad";
 equation
   connect(port_a2, dirEvaCoo.port_a)
     annotation (Line(points={{-100,-60},{-10,-60}}));
   connect(dirEvaCoo.port_b, hex.port_a2)
-    annotation (Line(points={{10,-60},{74,-60},{74,32}},color={0,127,255}));
+    annotation (Line(points={{10,-60},{10,2}},          color={0,127,255}));
   connect(hex.port_b2, port_b2) annotation (
-    Line(points = {{54, 32}, {54, -19}, {100, -19}, {100, -60}}, color = {0, 127, 255}));
+    Line(points={{-10,2},{-10,-19},{100,-19},{100,-60}},         color = {0, 127, 255}));
   connect(port_a1, hex.port_a1) annotation (
-    Line(points = {{-100, 60}, {-12, 60}, {-12, 44}, {54, 44}}));
+    Line(points={{-100,60},{-12,60},{-12,14},{-10,14}}));
   connect(hex.port_b1, port_b1) annotation (
-    Line(points = {{74, 44}, {74, 48}, {100, 48}, {100, 60}}, color = {0, 127, 255}));
+    Line(points={{10,14},{10,48},{100,48},{100,60}},          color = {0, 127, 255}));
   annotation (
     Documentation, Icon(graphics={
                      Rectangle(lineColor = {0, 0, 255}, fillColor = {95, 95, 95}, pattern = LinePattern.None,
