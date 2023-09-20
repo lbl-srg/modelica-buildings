@@ -65,6 +65,9 @@ for type in "${!checksum_dirs[@]}"; do
   )"
   echo $checksum > "./Resources/Scripts/travis/templates/$type.checksum"
 
+  # Add checksum file to the index so that differences shows up in git diff.
+  git add --intent-to-add "./Resources/Scripts/travis/templates/$type.checksum"
+
   # Diff/HEAD: only for remote testing.
   # Locally, it is expected that there is some diff/HEAD (and we proceed directly to the next step: diff/master).
   if $TRAVISRUN; then
