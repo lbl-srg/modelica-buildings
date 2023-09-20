@@ -51,19 +51,47 @@ model Guideline36_RTU
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
 
   parameter Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil datCooCoi(
-    nSta=1,
-    minSpeRat=0.2,
-    sta={
-      Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.Stage(
-        spe=900/60,
-        nomVal=
-          Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.NominalValues(
-          Q_flow_nominal=-158051,
-          COP_nominal=3,
-          SHR_nominal=0.8,
-          m_flow_nominal=6.71405),
-        perCur=
-          Buildings.Fluid.DXSystems.Cooling.AirSource.Examples.PerformanceCurves.Curve_I())})
+    nSta=4,
+    sta={Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.Stage(
+      spe=900/60,
+      nomVal=
+      Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.NominalValues(
+        Q_flow_nominal=-12000,
+        COP_nominal=3,
+        SHR_nominal=0.8,
+        m_flow_nominal=0.9),
+      perCur=
+      Buildings.Fluid.DXSystems.Cooling.AirSource.Examples.PerformanceCurves.Curve_I()),
+    Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.Stage(
+      spe=1200/60,
+      nomVal=
+      Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.NominalValues(
+        Q_flow_nominal=-18000,
+        COP_nominal=3,
+        SHR_nominal=0.8,
+        m_flow_nominal=1.2),
+      perCur=
+      Buildings.Fluid.DXSystems.Cooling.AirSource.Examples.PerformanceCurves.Curve_I()),
+    Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.Stage(
+      spe=1800/60,
+      nomVal=
+      Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.NominalValues(
+        Q_flow_nominal=-21000,
+        COP_nominal=3,
+        SHR_nominal=0.8,
+        m_flow_nominal=1.5),
+      perCur=
+      Buildings.Fluid.DXSystems.Cooling.AirSource.Examples.PerformanceCurves.Curve_II()),
+    Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.Stage(
+      spe=2400/60,
+      nomVal=
+      Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.NominalValues(
+        Q_flow_nominal=-30000,
+        COP_nominal=3,
+        SHR_nominal=0.8,
+        m_flow_nominal=1.8),
+      perCur=
+      Buildings.Fluid.DXSystems.Cooling.AirSource.Examples.PerformanceCurves.Curve_III())})
     "DX cooling coil data record"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
 
@@ -85,8 +113,9 @@ model Guideline36_RTU
   </ul>
   </html>"),
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/Guideline36_RTU.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/Guideline36_RTU_Cooling.mos"
         "Simulate and plot"),
-    experiment(StopTime=172800, Tolerance=1e-06),
+    experiment(StartTime=16848000, StopTime=17020800, Tolerance=1e-06),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
+    //experiment(StopTime=172800, Tolerance=1e-06),
 end Guideline36_RTU;
