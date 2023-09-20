@@ -1,6 +1,7 @@
 compareVars :=
   {
     "relSwi.y",
+    "retSig.y",
     "onOffPer.tOn",
     "onOffPer.tOff"
   };

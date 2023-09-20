@@ -3,7 +3,8 @@ compareVars :=
     "relSwi.y",
     "resPro.tOn",
     "resPro.tOff",
-    "resPro.triEnd",
-    "resPro.triSta",
+    "tunSta.y",
+    "tunEnd.y",
+    "resSig.y",
     "resPro.tau"
   };

@@ -4,7 +4,7 @@ block FirstOrderAMIGO
   parameter Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController controllerType=Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PI
     "Type of controller";
   parameter Real r(
-    min=100*CDL.Constants.eps)=1
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps)=1
     "Typical range of control error, used for scaling the control error";
   final parameter Real yMax=1
     "Upper limit of output"
@@ -13,11 +13,11 @@ block FirstOrderAMIGO
     "Lower limit of output"
     annotation (Dialog(group="Limits"));
   parameter Real Ni(
-    min=100*CDL.Constants.eps)=0.9
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps)=0.9
     "Ni*Ti is time constant of anti-windup compensation"
     annotation (Dialog(tab="Advanced",group="Integrator anti-windup"));
   parameter Real Nd(
-    min=100*CDL.Constants.eps)=10
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps)=10
     "The higher Nd, the more ideal the derivative block"
     annotation (Dialog(tab="Advanced",group="Derivative block",enable=controllerType ==Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PID));
   parameter Real xi_start=0
@@ -31,7 +31,6 @@ block FirstOrderAMIGO
   parameter Real y_reset=xi_start
     "Value to which the controller output is reset if the boolean trigger has a rising edge"
     annotation (Dialog(group="Integrator reset"));
-
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u_s
     "Connector of setpoint input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),iconTransformation(extent={{-140,-20},{-100,20}})));
@@ -52,7 +51,7 @@ block FirstOrderAMIGO
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.ModelTime modTim
     "Simulation time"
-    annotation (Placement(transformation(extent={{80,70},{60,90}})));
+    annotation (Placement(transformation(extent={{-10,60},{10,80}})));
   Buildings.Controls.OBC.Utilities.PIDWithInputGains PID(
     final controllerType=conTyp,
     final r=r,
@@ -100,12 +99,15 @@ block FirstOrderAMIGO
     final deaBan=deaBan)
     "Calculates the parameters of a first-order time delayed model"
     annotation (Placement(transformation(extent={{-20,40},{-40,60}})));
-  Buildings.Controls.OBC.CDL.Logical.Or or1
-    "Switch the block output to the output from the PID controller when the autotuning is disabled or is completed "
-    annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not1
-    "Becomes true when the autotuning is disabled"
-    annotation (Placement(transformation(extent={{30,-78},{50,-58}})));
+  Buildings.Controls.OBC.CDL.Logical.Latch inTunPro
+    "True: it is in an autotuning process"
+    annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
+  Buildings.Controls.OBC.CDL.Logical.Nand nand
+    "Check if an autotuning is ongoing while a new autotuning request is received"
+    annotation (Placement(transformation(extent={{90,60},{70,80}})));
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMes(final message="An autotuning is ongoing and an autotuning request is ignored")
+    "Error message when an autotuning tuning is ongoing while a new autotuning request is received"
+    annotation (Placement(transformation(extent={{60,60},{40,80}})));
 
 protected
   final parameter Real k_start(
@@ -135,7 +137,7 @@ protected
   final parameter Boolean with_D=controllerType == Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PID
     "Boolean flag to enable derivative action"
     annotation (Evaluate=true,HideResult=true);
-  final parameter Buildings.Controls.OBC.CDL.Types.SimpleController conTyp =
+  final parameter Buildings.Controls.OBC.CDL.Types.SimpleController conTyp=
     if controllerType==Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PI
       then Buildings.Controls.OBC.CDL.Types.SimpleController.PI
       else Buildings.Controls.OBC.CDL.Types.SimpleController.PID
@@ -156,13 +158,9 @@ equation
           {-2,-44}}, color={0,0,127}));
   connect(rel.u_m, u_m) annotation (Line(points={{30,-2},{30,-60},{10,-60},{10,
           -96},{0,-96},{0,-120}}, color={0,0,127}));
-  connect(swi.u3, rel.y)
-    annotation (Line(points={{58,-28},{52,-28},{52,16},{42,16}}, color={0,0,127}));
-  connect(swi.u1,PID. y) annotation (Line(points={{58,-12},{40,-12},{40,-40},{22,
-          -40}}, color={0,0,127}));
-  connect(resPro.on, rel.yOn) annotation (Line(points={{22,34},{58,34},{58,4},{42,
+  connect(resPro.on, rel.yOn) annotation (Line(points={{22,40},{58,40},{58,4},{42,
           4}}, color={255,0,255}));
-  connect(modTim.y, resPro.tim) annotation (Line(points={{58,80},{40,80},{40,46},
+  connect(modTim.y, resPro.tim) annotation (Line(points={{12,70},{28,70},{28,46},
           {22,46}}, color={0,0,127}));
   connect(resPro.tau, conProMod.tau) annotation (Line(points={{-2,40},{-10,40},{
           -10,42},{-18,42}}, color={0,0,127}));
@@ -208,16 +206,26 @@ equation
     annotation (Line(points={{82,-20},{90,-20},{90,0},{120,0}}, color={0,0,127}));
   connect(u_m, PID.u_m) annotation (Line(points={{0,-120},{0,-96},{10,-96},{10,
           -52}}, color={0,0,127}));
-  connect(rel.trigger, triTun) annotation (Line(points={{24,-2},{24,-90},{60,-90},
+  connect(rel.y, swi.u1) annotation (Line(points={{42,16},{54,16},{54,-12},{58,-12}},
+        color={0,0,127}));
+  connect(swi.u3, PID.y) annotation (Line(points={{58,-28},{40,-28},{40,-40},{22,
+          -40}}, color={0,0,127}));
+  connect(inTunPro.y, swi.u2) annotation (Line(points={{62,-70},{68,-70},{68,-40},
+          {52,-40},{52,-20},{58,-20}}, color={255,0,255}));
+  connect(inTunPro.u, triTun) annotation (Line(points={{38,-70},{30,-70},{30,-92},
+          {60,-92},{60,-120}}, color={255,0,255}));
+  connect(inTunPro.clr, resPro.triEnd) annotation (Line(points={{38,-76},{-10,-76},
+          {-10,32},{-2,32}}, color={255,0,255}));
+  connect(rel.trigger, triTun) annotation (Line(points={{24,-2},{24,-92},{60,-92},
           {60,-120}}, color={255,0,255}));
-  connect(or1.u1, resPro.triEnd) annotation (Line(points={{58,-60},{52,-60},{52,
-          -50},{46,-50},{46,-20},{-10,-20},{-10,32},{-2,32}}, color={255,0,255}));
-  connect(or1.y, swi.u2) annotation (Line(points={{82,-60},{90,-60},{90,-40},{
-          48,-40},{48,-20},{58,-20}}, color={255,0,255}));
-  connect(not1.u, triTun) annotation (Line(points={{28,-68},{24,-68},{24,-90},{60,
-          -90},{60,-120}}, color={255,0,255}));
-  connect(not1.y, or1.u2)
-    annotation (Line(points={{52,-68},{58,-68}}, color={255,0,255}));
+  connect(resPro.trigger, triTun) annotation (Line(points={{22,34},{96,34},{96,-92},
+          {60,-92},{60,-120}}, color={255,0,255}));
+  connect(nand.y, assMes.u)
+    annotation (Line(points={{68,70},{62,70}}, color={255,0,255}));
+  connect(nand.u2, triTun) annotation (Line(points={{92,62},{96,62},{96,-92},{60,
+          -92},{60,-120}}, color={255,0,255}));
+  connect(nand.u1, inTunPro.y) annotation (Line(points={{92,70},{98,70},{98,-70},
+          {62,-70}}, color={255,0,255}));
   annotation (Documentation(info="<html>
 <p>
 This block implements a rule-based PID tuning method.
@@ -235,22 +243,23 @@ and inherits most of the parameters of the latter. However, through the paramete
 PID controller.
 In addition, the output of this block is limited from 0 to 1.
 </p>
-<p>
-Note that a new autotuning can be performed only when the <code>triTun</code>
-is <code>true</code> and the old tuning has finished.
-</p>
+
 <h4>Brief guidance</h4>
 <p>
 To use this block, connect it with a control loop.
-This block starts the PID tuning process when the value of the boolean input signal <code>triTun</code> changes from
-<code>false</code> to <code>true</code>.
 Before the PID tuning process starts, this block is equivalent to <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithInputGains\">
 Buildings.Controls.OBC.Utilities.PIDWithInputGains</a>.
-During the PID tuning process, the output of the block changes into that of a relay controller (see <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller\">
+This block starts the PID tuning process when a request for performing autotuning occurs, i.e., the value of the boolean input signal <code>triTun</code> changes from
+<code>false</code> to <code>true</code>.
+During the autotuning process, the output of the block changes into that of a relay controller (see <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller</a>).
-The PID tuning process ends automatically (see details in <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.HalfPeriodRatio\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.BaseClasses.Relay.HalfPeriodRatio</a>).
+The PID tuning process ends automatically (see details in <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.TunMonitor\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.BaseClasses.Relay.TunMonitor</a>).
 Since then, this block turns back to a PID controller but with tuned PID parameters.
+</p>
+
+<p>
+<b>Note:</b> If an autotuning is ongoing, i.e., <code>inTunPro.y</code> is true, a request for performing autotuning will be ignored.
 </p>
 
 <h4>References</h4>
