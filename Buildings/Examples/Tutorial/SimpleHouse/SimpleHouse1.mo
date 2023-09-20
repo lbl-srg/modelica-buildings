@@ -7,17 +7,17 @@ model SimpleHouse1 "Building wall model"
     "Thermal mass of wall"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={150,0})));
+        origin={170,0})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor walRes(R=dWall/AWall
         /kWall) "Thermal resistor for wall: 25 cm of rockwool"
-    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 equation
-  connect(walRes.port_b, walCap.port) annotation (Line(points={{100,0},{112,0},
-          {112,1.77636e-15},{140,1.77636e-15}}, color={191,0,0}));
+  connect(walRes.port_b, walCap.port) annotation (Line(points={{80,0},{100,0},{100,
+          1.77636e-15},{160,1.77636e-15}},      color={191,0,0}));
   connect(TOut.port, walRes.port_a)
-    annotation (Line(points={{0,0},{80,0}}, color={191,0,0}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
-            -220},{200,200}})),
+    annotation (Line(points={{-60,0},{60,0}}, color={191,0,0}));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,
+            -220},{220,220}})),
     experiment(Tolerance=1e-6, StopTime=1e+06),
     Documentation(revisions="<html>
 <ul>

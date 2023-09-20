@@ -13,20 +13,20 @@ model SimpleHouse3 "Air model"
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={130,20})));
+        origin={110,20})));
   Buildings.Fluid.MixingVolumes.MixingVolume zon(
     redeclare package Medium = MediumAir,
     V=VZone,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mAir_flow_nominal) "Very simple zone air model"
-    annotation (Placement(transformation(extent={{110,130},{90,150}})));
+    annotation (Placement(transformation(extent={{160,50},{180,30}})));
 equation
-  connect(conRes.port_b, walCap.port) annotation (Line(points={{130,10},{130,
-          1.77636e-15},{140,1.77636e-15}}, color={191,0,0}));
   connect(zon.heatPort, conRes.port_a)
-    annotation (Line(points={{110,140},{130,140},{130,30}}, color={191,0,0}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
-            -220},{200,200}})),
+    annotation (Line(points={{160,40},{110,40},{110,30}},   color={191,0,0}));
+  connect(conRes.port_b, walCap.port) annotation (Line(points={{110,10},{110,1.77636e-15},
+          {160,1.77636e-15}}, color={191,0,0}));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,
+            -220},{220,220}})),
     experiment(Tolerance=1e-6, StopTime=1e+06),
     Documentation(revisions="<html>
 <ul>

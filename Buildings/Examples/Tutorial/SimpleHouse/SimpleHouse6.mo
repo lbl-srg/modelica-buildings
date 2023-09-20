@@ -14,7 +14,7 @@ model SimpleHouse6 "Free cooling model"
     m_flow_nominal=mAir_flow_nominal,
     dpDamper_nominal=dpAir_nominal)
     "Damper" annotation (Placement(transformation(extent={{-10,10},{10,
-            -10}}, origin={50,110})));
+            -10}}, origin={110,130})));
   Buildings.Fluid.Movers.FlowControlled_dp fan(
     redeclare package Medium = MediumAir,
     show_T=true,
@@ -25,9 +25,9 @@ model SimpleHouse6 "Free cooling model"
     m_flow_nominal=mAir_flow_nominal)
                  "Constant head fan" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
-        origin={-50,110})));
+        origin={0,130})));
   Modelica.Blocks.Sources.Constant con_dp(k=dpAir_nominal) "Pressure head"
-    annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
+    annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
   Buildings.Fluid.HeatExchangers.ConstantEffectiveness hexRec(
     redeclare package Medium1 = MediumAir,
     redeclare package Medium2 = MediumAir,
@@ -36,7 +36,7 @@ model SimpleHouse6 "Free cooling model"
     m1_flow_nominal=mAir_flow_nominal,
     m2_flow_nominal=mAir_flow_nominal,
     eps=0.85)      "Heat exchanger for heat recuperation"
-    annotation (Placement(transformation(extent={{-80,104},{-110,136}})));
+    annotation (Placement(transformation(extent={{-55,124},{-85,156}})));
   Buildings.Fluid.Sources.Boundary_pT
                       bouAir(
     redeclare package Medium = MediumAir,
@@ -44,37 +44,40 @@ model SimpleHouse6 "Free cooling model"
     nPorts=2)      "Air boundary with constant temperature"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        origin={-130,130})));
+        origin={-110,140})));
   Modelica.Blocks.Logical.Hysteresis hysAir(uLow=273.15 + 23, uHigh=273.15 + 25)
     "Hysteresis controller for damper"
-    annotation (Placement(transformation(extent={{-20,70},{0,90}})));
+    annotation (Placement(transformation(extent={{40,90},{60,110}})));
   Modelica.Blocks.Math.BooleanToReal booToRea1 "Boolean to real"
-    annotation (Placement(transformation(extent={{20,70},{40,90}})));
+    annotation (Placement(transformation(extent={{80,90},{100,110}})));
 equation
   connect(con_dp.y, fan.dp_in)
-    annotation (Line(points={{-69,80},{-50,80},{-50,98}}, color={0,0,127}));
-  connect(hexRec.port_a1, zon.ports[1]) annotation (Line(points={{-80,129.6},{
-          97,129.6},{97,130},{100,130}}, color={0,127,255}));
-  connect(bouAir.T_in, weaBus.TDryBul) annotation (Line(points={{-142,134},{
-          -150,134},{-150,-10}},color={0,0,127}));
-  connect(hexRec.port_b2, fan.port_a) annotation (Line(points={{-80,110.4},{-69,
-          110.4},{-69,110},{-60,110}}, color={0,127,255}));
-  connect(vavDam.port_b, zon.ports[2]) annotation (Line(points={{60,110},{100,
-          110},{100,130}}, color={0,127,255}));
+    annotation (Line(points={{-39,100},{0,100},{0,118}},  color={0,0,127}));
+  connect(hexRec.port_a1, zon.ports[1]) annotation (Line(points={{-55,149.6},{169,
+          149.6},{169,50},{170,50}},     color={0,127,255}));
+  connect(bouAir.T_in, weaBus.TDryBul) annotation (Line(points={{-122,144},{-130,
+          144},{-130,0}},       color={0,0,127}));
+  connect(vavDam.port_b, zon.ports[2]) annotation (Line(points={{120,130},{142,130},
+          {142,50},{170,50}},
+                           color={0,127,255}));
   connect(booToRea1.y, vavDam.y)
-    annotation (Line(points={{41,80},{50,80},{50,98}}, color={0,0,127}));
+    annotation (Line(points={{101,100},{110,100},{110,118}},
+                                                       color={0,0,127}));
   connect(hysAir.y, booToRea1.u)
-    annotation (Line(points={{1,80},{18,80}}, color={255,0,255}));
+    annotation (Line(points={{61,100},{78,100}},
+                                              color={255,0,255}));
   connect(vavDam.port_a, fan.port_b)
-    annotation (Line(points={{40,110},{-40,110}}, color={0,127,255}));
-  connect(hysAir.u, hysRad.u) annotation (Line(points={{-22,80},{-30,80},{-30,
-          160},{-230,160},{-230,-100},{-82,-100}}, color={0,0,127}));
-  connect(bouAir.ports[1], hexRec.port_b1) annotation (Line(points={{-120,129},
-          {-119,129},{-119,129.6},{-110,129.6}}, color={0,127,255}));
-  connect(bouAir.ports[2], hexRec.port_a2) annotation (Line(points={{-120,131},
-          {-120,110.4},{-110,110.4}}, color={0,127,255}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
-            -220},{200,200}})),
+    annotation (Line(points={{100,130},{10,130}}, color={0,127,255}));
+  connect(hysAir.u, hysRad.u) annotation (Line(points={{38,100},{30,100},{30,170},
+          {-210,170},{-210,-110},{-82,-110}},      color={0,0,127}));
+  connect(bouAir.ports[1], hexRec.port_a2) annotation (Line(points={{-100,139},{
+          -100,130.4},{-85,130.4}},   color={0,127,255}));
+  connect(fan.port_a, hexRec.port_b2) annotation (Line(points={{-10,130},{-32,130},
+          {-32,130.4},{-55,130.4}}, color={0,127,255}));
+  connect(hexRec.port_b1, bouAir.ports[2]) annotation (Line(points={{-85,149.6},
+          {-100,149.6},{-100,141}}, color={0,127,255}));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,
+            -220},{220,220}})),
     experiment(Tolerance=1e-6, StopTime=1e+06),
     Documentation(revisions="<html>
 <ul>
