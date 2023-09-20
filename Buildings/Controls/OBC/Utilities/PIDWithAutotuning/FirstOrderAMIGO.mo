@@ -100,13 +100,13 @@ block FirstOrderAMIGO
     "Calculates the parameters of a first-order time delayed model"
     annotation (Placement(transformation(extent={{-20,40},{-40,60}})));
   Buildings.Controls.OBC.CDL.Logical.Latch inTunPro
-    "True: it is in tuning process"
+    "True: it is in an autotuning process"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
   Buildings.Controls.OBC.CDL.Logical.Nand nand
-    "Check if the tuning is ongoing while a tuning request is received"
+    "Check if an autotuning is ongoing while a new autotuning request is received"
     annotation (Placement(transformation(extent={{90,60},{70,80}})));
-  Buildings.Controls.OBC.CDL.Utilities.Assert assMes(final message="A tuning is ongoin and the tuning request is ignored")
-    "Error message when the tuning is ongoing while a tuning request is received"
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMes(final message="An autotuning is ongoing and an autotuning request is ignored")
+    "Error message when an autotuning tuning is ongoing while a new autotuning request is received"
     annotation (Placement(transformation(extent={{60,60},{40,80}})));
 
 protected
@@ -137,7 +137,7 @@ protected
   final parameter Boolean with_D=controllerType == Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PID
     "Boolean flag to enable derivative action"
     annotation (Evaluate=true,HideResult=true);
-  final parameter Buildings.Controls.OBC.CDL.Types.SimpleController conTyp =
+  final parameter Buildings.Controls.OBC.CDL.Types.SimpleController conTyp=
     if controllerType==Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PI
       then Buildings.Controls.OBC.CDL.Types.SimpleController.PI
       else Buildings.Controls.OBC.CDL.Types.SimpleController.PID
@@ -249,9 +249,9 @@ In addition, the output of this block is limited from 0 to 1.
 To use this block, connect it with a control loop.
 Before the PID tuning process starts, this block is equivalent to <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithInputGains\">
 Buildings.Controls.OBC.Utilities.PIDWithInputGains</a>.
-This block starts the PID tuning process when a request for performing auto-tuning occurs, i.e., the value of the boolean input signal <code>triTun</code> changes from
+This block starts the PID tuning process when a request for performing autotuning occurs, i.e., the value of the boolean input signal <code>triTun</code> changes from
 <code>false</code> to <code>true</code>.
-During the auto-tuning process, the output of the block changes into that of a relay controller (see <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller\">
+During the autotuning process, the output of the block changes into that of a relay controller (see <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller</a>).
 The PID tuning process ends automatically (see details in <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.TunMonitor\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.BaseClasses.Relay.TunMonitor</a>).
@@ -259,7 +259,7 @@ Since then, this block turns back to a PID controller but with tuned PID paramet
 </p>
 
 <p>
-<b>Note:</b> If an auto-tuning is ongoing, i.e., <code>inTunPro.y</code> is true, a request for performing auto-tuning will be ignored.
+<b>Note:</b> If an autotuning is ongoing, i.e., <code>inTunPro.y</code> is true, a request for performing autotuning will be ignored.
 </p>
 
 <h4>References</h4>
