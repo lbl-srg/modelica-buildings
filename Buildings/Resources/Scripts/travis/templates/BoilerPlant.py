@@ -24,16 +24,11 @@
 
 from core import *
 
-try:
-    SIMULATOR = sys.argv[1]
-except IndexError:
-    SIMULATOR = 'Dymola'
-
-MODELS: list[str] = [
+MODELS = [
     'Buildings.Templates.HeatingPlants.HotWater.Validation.BoilerPlant',
 ]
 
-MODIF_GRID: dict[str, dict[str, list[str]]] = {
+MODIF_GRID = {
     'Buildings.Templates.HeatingPlants.HotWater.Validation.BoilerPlant': dict(
         BOI__typ=[
             'Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Condensing',
@@ -95,7 +90,7 @@ MODIF_GRID: dict[str, dict[str, list[str]]] = {
 }
 
 # See docstring of `prune_modifications` function for the structure of EXCLUDE.
-EXCLUDE: dict[str, list[list[str]]] = {
+EXCLUDE = {
     'Buildings.Templates.HeatingPlants.HotWater.Validation.BoilerPlant': [
         [
             'Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Hybrid',
@@ -105,7 +100,7 @@ EXCLUDE: dict[str, list[list[str]]] = {
 }
 
 # See docstring of `prune_modifications` function for the structure of REMOVE_MODIF.
-REMOVE_MODIF: dict[str, list[tuple[list[str], list[str]]]] = {
+REMOVE_MODIF = {
     'Buildings.Templates.HeatingPlants.HotWater.Validation.BoilerPlant': [
         (
             [
@@ -239,10 +234,19 @@ REMOVE_MODIF: dict[str, list[tuple[list[str], list[str]]]] = {
 
 if __name__ == '__main__':
     # Generate combinations.
-    combinations: list[tuple[str, list[str], str]] = generate_combinations(models=MODELS, modif_grid=MODIF_GRID)
+    combinations = generate_combinations(
+        models=MODELS, modif_grid=MODIF_GRID
+    )
 
     # Prune class modifications.
-    prune_modifications(combinations=combinations, remove_modif=REMOVE_MODIF, exclude=EXCLUDE)
+    prune_modifications(
+        combinations=combinations,
+        exclude=EXCLUDE,
+        remove_modif=REMOVE_MODIF,
+        fraction_test_coverage=FRACTION_TEST_COVERAGE,
+    )
+
+    print(f'Number of cases to be simulated: {len(combinations)}.\n')
 
     # FIXME(AntoineGautier PR#3364): Temporarily limit the number of simulations to be run (for testing purposes only).
     combinations = combinations[:2]
