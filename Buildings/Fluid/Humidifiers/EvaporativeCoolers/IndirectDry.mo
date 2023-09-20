@@ -69,7 +69,21 @@ equation
   connect(hex.port_b1, port_b1) annotation (
     Line(points={{10,14},{10,48},{100,48},{100,60}},          color = {0, 127, 255}));
   annotation (
-    Documentation, Icon(graphics={
+    Documentation(info="<html>
+<p>Model for a indirect dry evaporative cooler.</p>
+<p>This model contains two components, a direct evaporative cooler 
+(<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct\">Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct</a>) and an air-to-air heat exchanger 
+(<a href=\"modelica://Buildings.Fluid.HeatExchangers.ConstantEffectiveness\">Buildings.Fluid.HeatExchangers.ConstantEffectiveness</a>). 
+The secondary air travels through the rigid media pad of the direct evaporative cooler and enters 
+the air-to-air heat exchanger where it cools the primary air flowing through the heat exchanger tubes.</p>
+</html>", revisions="<html>
+<ul>
+<li>
+September 20, 2023 by Cerrina Mouchref, Karthikeya Devaprasad, Lingzhe Wang:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),         Icon(graphics={
                      Rectangle(lineColor = {0, 0, 255}, fillColor = {95, 95, 95}, pattern = LinePattern.None,
             fillPattern =                                                                                                   FillPattern.Solid, extent={{
               -70,60},{70,-60}}),                                                                                                                                                                                                        Text(textColor = {0, 0, 127}, extent={{
