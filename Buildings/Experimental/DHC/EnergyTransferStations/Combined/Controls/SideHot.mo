@@ -34,7 +34,7 @@ block SideHot
     "Control signal for cold side"
     annotation (Placement(transformation(extent={{180,-60},{220,-20}}),
     iconTransformation(extent={{100,-60},{140,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     final t=0.01)
     "Control signal is non zero (with 1% tolerance)"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
@@ -50,10 +50,10 @@ block SideHot
     final reverseActing=false)
     "Controller for heat rejection"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line mapFun[nSouAmb]
+  Buildings.Controls.OBC.CDL.Reals.Line mapFun[nSouAmb]
     "Mapping functions for controlled systems"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant x1[nSouAmb](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant x1[nSouAmb](
     final k={(i-1) for i in 1:nSouAmb})
     "x1"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
@@ -61,15 +61,15 @@ block SideHot
     final nout=nSouAmb)
     "Replicate control signal"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={0,60})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant f1[nSouAmb](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant f1[nSouAmb](
     each final k=0)
     "f1"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant f2[nSouAmb](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant f2[nSouAmb](
     each final k=1)
     "f2"
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant x2[nSouAmb](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant x2[nSouAmb](
     final k={(i) for i in 1:nSouAmb})
     "x2"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
@@ -109,12 +109,12 @@ block SideHot
     "Return position of evaporator to ambient loop isolation valve"
     annotation (Placement(transformation(extent={{-220,-140},{-180,-100}}),
     iconTransformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold isValIsoConClo(
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold isValIsoConClo(
     final t=1E-6,
     h=0.5E-6)
     "Check if isolation valve is closed"
     annotation (Placement(transformation(extent={{-160,-90},{-140,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold isValIsoEvaClo(
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold isValIsoEvaClo(
     final t=1E-6,
     h=0.5E-6)
     "At least one signal is non zero"
@@ -122,18 +122,18 @@ block SideHot
   Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(
     nin=3)
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addDea(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addDea(
     p=dTDea)
     "Add dead band"
     annotation (Placement(transformation(extent={{-130,-10},{-110,10}})));
   Modelica.Blocks.Discrete.ZeroOrderHold zeroOrderHold(
     samplePeriod=60)
     annotation (Placement(transformation(extent={{120,-10},{140,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addLoc(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addLoc(
     p=dTLoc)
     "Add temperature difference for lockout"
     annotation (Placement(transformation(extent={{-130,30},{-110,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Less isBelLoc(
+  Buildings.Controls.OBC.CDL.Reals.Less isBelLoc(
     h=0.1)
     "Check if temperature is below cold rejection lockout"
     annotation (Placement(transformation(extent={{-90,50},{-70,70}})));

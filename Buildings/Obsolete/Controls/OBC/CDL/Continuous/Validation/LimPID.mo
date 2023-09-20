@@ -1,6 +1,6 @@
 within Buildings.Obsolete.Controls.OBC.CDL.Continuous.Validation;
 model LimPID "Test model for LimPID controller"
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pulse(period=0.25)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse pulse(period=0.25)
     "Setpoint"
     annotation (Placement(transformation(extent={{-90,14},{-70,34}})));
   Buildings.Obsolete.Controls.OBC.CDL.Continuous.LimPID limPID(
@@ -15,7 +15,7 @@ model LimPID "Test model for LimPID controller"
     Td=1,
     yMin=-1) "PID controller"
           annotation (Placement(transformation(extent={{-30,74},{-10,94}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const(k=0.5)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant const(k=0.5)
     "Measurement data"
     annotation (Placement(transformation(extent={{-90,-22},{-70,-2}})));
 

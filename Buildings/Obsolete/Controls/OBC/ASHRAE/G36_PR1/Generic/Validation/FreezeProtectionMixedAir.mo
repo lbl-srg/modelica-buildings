@@ -13,7 +13,7 @@ model FreezeProtectionMixedAir
     "Freeze protection signal based on mixed air temperature"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sin1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin1(
     amplitude=20,
     freqHz=1/1800,
     startTime=0,

@@ -542,7 +542,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Controls.MixedAirTemperatureSetpoint TMixSet
     "Mixed air temperature set point"
     annotation (Placement(transformation(extent={{-190,110},{-170,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID conTMix(
+  Buildings.Controls.OBC.CDL.Reals.PID conTMix(
     k=0.05,
     Ti=1200,
     reverseActing=false) "Controller for mixed air temperature"

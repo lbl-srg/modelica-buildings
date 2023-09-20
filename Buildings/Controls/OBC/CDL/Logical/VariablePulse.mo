@@ -38,13 +38,13 @@ protected
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam
     "Sample the input when there is value change"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub
     "Output the difference before and after sampling"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Abs abs1
+  Buildings.Controls.OBC.CDL.Reals.Abs abs1
     "Output the absolute value change"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     final t=deltaU,
     final h=0)
     "Check if there is a sufficiently large change in input value"

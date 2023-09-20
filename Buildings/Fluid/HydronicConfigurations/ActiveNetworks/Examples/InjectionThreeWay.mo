@@ -41,7 +41,7 @@ model InjectionThreeWay
     final TLiqLvg_nominal=TLiqLvg_nominal)
     "Load"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable fraLoa(table=[0,0,0;
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable fraLoa(table=[0,0,0;
         6,0,0; 6.1,1,1; 8,1,1; 9,1,0; 14,0.5,0; 14.5,0,0; 16,0,0; 17,0,1; 21,0,
         1; 22,0,0; 24,0,0],
     timeScale=3600)
@@ -73,11 +73,11 @@ model InjectionThreeWay
     timeScale=3600,
     period=86400) "Operating mode (time schedule)"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable setOff(table=[0,0; 12,
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable setOff(table=[0,0; 12,
         0; 13,-5; 14,-7; 17,0; 24,0],  timeScale=3600)
     "Offset applied to design supply temperature to compute set point"
     annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter T2Set(final p=
+  Buildings.Controls.OBC.CDL.Reals.AddParameter T2Set(final p=
         TLiqEnt_nominal, y(final unit="K", displayUnit="degC"))
     "Consumer circuit temperature set point" annotation (Placement(
         transformation(

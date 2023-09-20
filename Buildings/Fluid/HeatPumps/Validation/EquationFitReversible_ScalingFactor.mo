@@ -88,7 +88,7 @@ model EquationFitReversible_ScalingFactor
   Modelica.Blocks.Math.RealToInteger reaToInt
     "Real to integer conversion"
     annotation (Placement(transformation(extent={{-58,-90},{-38,-70}})));
-  Controls.OBC.CDL.Continuous.Sources.Ramp TLoaEntHea(
+  Controls.OBC.CDL.Reals.Sources.Ramp TLoaEntHea(
     height=4,
     duration(displayUnit="h") = 14400,
     offset=50 + 273.15,

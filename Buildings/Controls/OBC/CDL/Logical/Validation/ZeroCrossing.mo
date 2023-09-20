@@ -1,13 +1,13 @@
 within Buildings.Controls.OBC.CDL.Logical.Validation;
 model ZeroCrossing
   "Validation model for the zero crossing block"
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramp1(
     duration=5,
     offset=0,
     height=31.415926)
     "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-82,-10},{-62,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sin sin1
+  Buildings.Controls.OBC.CDL.Reals.Sin sin1
     "Block that outputs the sine of the input"
     annotation (Placement(transformation(extent={{-38,-10},{-18,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(
@@ -18,7 +18,7 @@ model ZeroCrossing
   Buildings.Controls.OBC.CDL.Logical.ZeroCrossing zeroCrossing
     "Zero crossing block"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramp2(
     duration=5,
     offset=0,
     height=31.415926)

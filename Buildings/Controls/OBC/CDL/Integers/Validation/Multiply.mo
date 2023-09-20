@@ -9,7 +9,7 @@ model Multiply "Validation model for the Multiply block"
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt2
     "Convert real to integer"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timTabLin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable timTabLin(
     smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
     table=[
       0,-1;
@@ -19,7 +19,7 @@ model Multiply "Validation model for the Multiply block"
       1,0])
     "Time table with smoothness method of constant segments"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timTabLin1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable timTabLin1(
     smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
     table=[
       0,0;
