@@ -20,7 +20,7 @@ model Direct
     initType=Modelica.Blocks.Types.Init.InitialOutput,
     T_start=298.15)
     "Dry bulb temperature sensor"
-      annotation (Placement(visible=true, transformation(
+    annotation (Placement(visible=true, transformation(
         origin={-70,0},
         extent={{-10,-10},{10,10}},
         rotation=0)));
@@ -31,7 +31,7 @@ model Direct
     initType=Modelica.Blocks.Types.Init.InitialOutput,
     TWetBul_start=296.15)
     "Wet bulb temperature sensor"
-      annotation (Placement(visible=true, transformation(
+    annotation (Placement(visible=true, transformation(
         origin={-40,0},
         extent={{-10,-10},{10,10}},
         rotation=0)));
@@ -40,16 +40,17 @@ model Direct
     redeclare final package
     Medium =  Medium, m_flow_nominal=m_flow_nominal)
     "Volume flow rate sensor"
-        annotation (
-    Placement(visible = true, transformation(origin={-10,0},    extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    annotation (
+      Placement(visible = true, transformation(origin={-10,0},
+      extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Buildings.Fluid.FixedResistances.PressureDrop res(
     redeclare final package Medium = Medium,
     dp_nominal = 10,
     m_flow_nominal = m_flow_nominal)
     "Pressure drop"
-        annotation (
-    Placement(visible = true, transformation(origin={30,0},    extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    annotation (Placement(visible = true, transformation(origin={30,0},
+      extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol(
     redeclare final package Medium = Medium,
@@ -57,8 +58,8 @@ model Direct
     V=m_flow_nominal*tau/rho_default,
     nPorts = 2)
     "Moist air mixing volume"
-      annotation (
-    Placement(visible = true, transformation(origin={80,20},    extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    annotation (Placement(visible = true, transformation(origin={80,20},
+      extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.DirectCalculations
     dirEvaCoo(
@@ -67,7 +68,8 @@ model Direct
     padAre=padAre)
     "Evaporative cooler calculator"
     annotation (Placement(
-      visible=true, transformation(
+      visible=true,
+      transformation(
       origin={30,60},
       extent={{-10,-10},{10,10}},
       rotation=0)));
@@ -117,7 +119,8 @@ equation
             fillPattern =                                                                                                                                                                                                        FillPattern.Solid, extent = {{58, -54}, {54, 52}}), Polygon(lineColor = {255, 255, 255}, fillColor = {255, 255, 255},
             fillPattern =                                                                                                                                                                                                        FillPattern.Solid, points = {{42, 10}, {54, 2}, {54, 2}, {42, -4}, {42, -2}, {50, 2}, {50, 2}, {42, 8}, {42, 10}}), Polygon(lineColor = {255, 255, 255}, fillColor = {255, 255, 255},
             fillPattern =                                                                                                                                                                                                        FillPattern.Solid, points = {{42, -26}, {54, -34}, {54, -34}, {42, -40}, {42, -38}, {50, -34}, {50, -34}, {42, -28}, {42, -26}})}, coordinateSystem(extent = {{-100, -100}, {100, 100}})),
-      Documentation(info="<html>
+      Documentation(defaultComponentName="dirEvaCoo",
+      info="<html>
 <p>Model for a direct evaporative cooler.</p>
 <p>This model adds moisture into the air stream. The amount of exchanged moisture is equal to </p>
 <p align=\"center\"><i>ṁ<sub>wat</sub> = (Xi<sub>Out</sub> - Xi<sub>In</sub>) * V<sub>_flow </sub>* density </i></p>
@@ -125,7 +128,7 @@ equation
 </html>", revisions="<html>
 <ul>
 <li>
-Semptember 14, 2023 by Cerrina Mouchref, Karthikeya Devaprasad, Lingzhe Wang:<br/>
+September 14, 2023 by Cerrina Mouchref, Karthikeya Devaprasad, Lingzhe Wang:<br/>
 First implementation.
 </li>
 </ul>

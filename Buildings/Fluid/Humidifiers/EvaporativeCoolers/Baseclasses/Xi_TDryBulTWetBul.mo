@@ -22,7 +22,7 @@ block Xi_TDryBulTWetBul
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
 
   Modelica.Blocks.Interfaces.RealInput p(
-    final quantity="Pressure",
+    final quantity="AbsolutePressure",
     final unit="Pa",
     min = 0)
     "Pressure"

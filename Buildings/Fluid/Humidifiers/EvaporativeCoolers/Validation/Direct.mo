@@ -140,14 +140,34 @@ equation
       Interval=60,
       __Dymola_Algorithm="Cvode"),
     Documentation(info="<html>
-<p>This model validates the evaporative cooler model <a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct\">Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct</a>. </p>
-<p>The EnergyPlus results were generated using the example file <span style=\"font-family: Courier New;\">Direct.idf</span> from EnergyPlus 23.1. The results were then used to set-up the boundary conditions for the model as well as the input signals. To compare the results, the Modelica outputs are averaged over 600 seconds. </p>
-<p>Note that EnergyPlus mass fractions (X) are in mass of water vapor per mass of dry air, whereas Modelica uses the total mass as a reference. Also, the temperatures in Modelica are in Kelvin whereas they are in Celsius in EnergyPlus. Hence, the EnergyPlus values are corrected by using the appropriate conversion blocks.</p>
-<p>The validation generates three subplots. Subplot 1 shows the inlet air mass flowrate from the EnergyPlus model varying with the cooling load. Subplot 2 compares the outlet air humidity ratio between Modelica and EnergyPlus. Subplot 3 compares the outlet air dry bulb temperature.</p>
-</html>", revisions="<html>
+    <p>
+    This model validates the evaporative cooler model 
+    <a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct\">
+    Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct</a>. 
+    </p>
+    <p>
+    The EnergyPlus results were generated using the example file 
+    <code>Direct.idf</code> from EnergyPlus 23.1. The results were then used to 
+    set-up the boundary conditions for the model as well as the input signals. 
+    To compare the results, the Modelica outputs are averaged over 600 seconds. 
+    </p>
+    <p>
+    Note that EnergyPlus mass fractions (X) are in mass of water vapor per mass 
+    of dry air, whereas Modelica uses the total mass as a reference. Also, the 
+    temperatures in Modelica are in Kelvin whereas they are in Celsius in 
+    EnergyPlus. Hence, the EnergyPlus values are corrected by using the 
+    appropriate conversion blocks.
+    </p>
+    <p>
+    The validation generates three subplots. Subplot 1 shows the inlet air 
+    mass flowrate from the EnergyPlus model varying with the cooling load. Subplot 
+    2 compares the outlet air humidity ratio between Modelica and EnergyPlus. 
+    Subplot 3 compares the outlet air dry bulb temperature.
+    </p>
+    </html>", revisions="<html>
 <ul>
 <li>
-Semptember 14, 2023 by Cerrina Mouchref, Karthikeya Devaprasad, Lingzhe Wang:<br/>
+September 14, 2023 by Cerrina Mouchref, Karthikeya Devaprasad, Lingzhe Wang:<br/>
 First implementation.
 </li>
 </ul>
