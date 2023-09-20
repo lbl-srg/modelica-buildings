@@ -19,11 +19,11 @@ partial model PartialHVAC_RTU
   final parameter Modelica.Units.SI.Area ATot=sum(AFlo)
     "Total floor area for all zone";
 
-  parameter Modelica.Units.SI.HeatFlowRate QHeaAHU_flow_nominal(min=0) = mHeaAir_flow_nominal * cpAir * (THeaAirSup_nominal-THeaAirMix_nominal)
+  parameter Modelica.Units.SI.HeatFlowRate QHeaRTU_flow_nominal(min=0) = mHeaAir_flow_nominal * cpAir * (THeaAirSup_nominal-THeaAirMix_nominal)
     "Nominal total heating heat flow rate of rooftop unit coil"
     annotation (Dialog(group="Nominal heat flow rate"));
 
-  parameter Modelica.Units.SI.HeatFlowRate QCooAHU_flow_nominal(max=0) = 1.3 * mCooAir_flow_nominal * cpAir *(TCooAirSup_nominal-TCooAirMix_nominal)
+  parameter Modelica.Units.SI.HeatFlowRate QCooRTU_flow_nominal(max=0) = 1.3 * mCooAir_flow_nominal * cpAir *(TCooAirSup_nominal-TCooAirMix_nominal)
     "Nominal total cooling heat flow rate of rooftop unit coil (negative number)"
     annotation (Dialog(group="Nominal heat flow rate"));
 

@@ -399,18 +399,9 @@ equation
     annotation (Line(points={{-128,54},{-52,54}}, color={255,0,255}));
   connect(not1.y, or2.u1)
     annotation (Line(points={{-28,54},{38,54}}, color={255,0,255}));
-
-  connect(nextCoil.yDXCoiInt, booToInt.u) annotation (Line(points={{-144,-14},{
-          -140,-14},{-140,-20},{-132,-20}}, color={255,0,255}));
-  connect(uDXCoiAva, nextCoil.uDXCoiAva) annotation (Line(points={{-240,120},{
-          -196,120},{-196,-24},{-176,-24}}, color={255,0,255}));
-  connect(uDXCoi, nextCoil.uDXCoi) annotation (Line(points={{-240,40},{-206,40},
-          {-206,-30},{-176,-30}}, color={255,0,255}));
-  connect(reaToInt1.y, nextCoil.uNexCoi) annotation (Line(points={{102,20},{110,
-          20},{110,86},{-192,86},{-192,-10},{-176,-10}},
-                                                       color={255,127,0}));
-  connect(DXCoiSta.yUp, nextCoil.uStaUp) annotation (Line(points={{-128,66},{
-          -100,66},{-100,80},{-188,80},{-188,-16},{-176,-16}}, color={255,0,255}));
+  connect(ComSpeSta.uDXCoi, uDXCoi) annotation (Line(points={{128,-120},{60,
+          -120},{60,-140},{-190,-140},{-190,40},{-240,40}}, color={255,0,255}));
+		  
   annotation (defaultComponentName="DXCoiCon",
     Icon(coordinateSystem(preserveAspectRatio=false,
       extent={{-100,-100},{100,100}}),
