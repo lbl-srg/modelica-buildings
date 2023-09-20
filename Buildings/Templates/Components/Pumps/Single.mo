@@ -20,13 +20,13 @@ model Single "Single pump"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-60,70})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply sigCon
+  Buildings.Controls.OBC.CDL.Reals.Multiply sigCon
     "Resulting control signal"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,30})));
-  Controls.OBC.CDL.Continuous.GreaterThreshold evaSta(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold evaSta(
     t=1E-2,
     h=0.5E-2)
     "Evaluate pump status"
@@ -44,7 +44,7 @@ model Single "Single pump"
     redeclare final package Medium=Medium) if not have_valChe
     "Fluid pass through if no check valve"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant speCst(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant speCst(
     final k=1) if not have_var
     "Constant signal in case of constant speed pump"
     annotation (Placement(
@@ -109,12 +109,12 @@ equation
   Documentation(info="<html>
 <p>
 This is a model for a single pump
-with an optional check valve (depending on the value of the parameter 
+with an optional check valve (depending on the value of the parameter
 <code>have_valChe</code>).
 </p>
 <p>
 By default, a variable speed pump is modeled.
-A constant speed pump can be modeled by setting the parameter 
+A constant speed pump can be modeled by setting the parameter
 <code>have_var</code> to <code>false</code>.
 </p>
 <h4>Control points</h4>
@@ -123,17 +123,17 @@ The following input and output points are available.
 </p>
 <ul>
 <li>
-Pump Start/Stop command (VFD Run or motor starter contact) 
-<code>y1</code>: 
+Pump Start/Stop command (VFD Run or motor starter contact)
+<code>y1</code>:
 DO signal
 </li>
 <li>
-Pump speed command (VFD Speed) <code>y</code> for variable speed pumps only: 
+Pump speed command (VFD Speed) <code>y</code> for variable speed pumps only:
 AO signal
 </li>
 <li>
-Pump status (through VFD interface, VFD status contact, 
-or current switch) <code>y1_actual</code>: 
+Pump status (through VFD interface, VFD status contact,
+or current switch) <code>y1_actual</code>:
 DI signal
 </li>
 </ul>
@@ -142,7 +142,7 @@ DI signal
 The design parameters and the pump characteristics are specified with an instance of
 <a href=\"modelica://Buildings.Templates.Components.Data.PumpSingle\">
 Buildings.Templates.Components.Data.PumpSingle</a>.
-The documentation of this record class provides further details on how to 
+The documentation of this record class provides further details on how to
 properly parameterize the model.
 </p>
 </html>", revisions="<html>

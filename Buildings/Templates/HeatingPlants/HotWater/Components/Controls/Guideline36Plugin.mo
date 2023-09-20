@@ -1087,7 +1087,7 @@ block Guideline36Plugin
     each timeScale=1000,
     each period=2000) "Boiler Enable signal"
     annotation (Placement(transformation(extent={{280,210},{300,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSup(k=
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSup(k=
         TPlaHotWatSetMax) "HW supply temperature set point"
     annotation (Placement(transformation(extent={{280,250},{300,270}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator rep(final nout=nBoi)
@@ -1100,14 +1100,14 @@ block Guideline36Plugin
     annotation (Placement(transformation(extent={{280,310},{300,330}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nBoi]
     annotation (Placement(transformation(extent={{340,130},{360,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zero(k=0) "Constant"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zero(k=0) "Constant"
     annotation (Placement(transformation(extent={{340,-20},{360,0}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1PumPri[nPumPri](
     each table=[0,0; 1,1; 2,0],
     each timeScale=1000,
     each period=2000) "Primary pump Enable signal"
     annotation (Placement(transformation(extent={{280,-120},{300,-100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(k=1) "Constant"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one(k=1) "Constant"
     annotation (Placement(transformation(extent={{340,-160},{360,-140}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1PumSec[nPumSec](
     each table=[0,0; 1,1; 2,0],
@@ -1173,7 +1173,7 @@ equation
     Documentation(info="<html>
 <p>
 FIXME: This class is for temporary use only.
-It aims at providing the outside connectors and parameters of the 
+It aims at providing the outside connectors and parameters of the
 G36 controller while the comments at
 
 are being addressed.

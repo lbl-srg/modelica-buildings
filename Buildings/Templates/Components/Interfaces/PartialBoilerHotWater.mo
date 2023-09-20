@@ -47,20 +47,20 @@ partial model PartialBoilerHotWater "Interface class for hot water boiler models
       "Boiler"
       annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
 
-  Controls.OBC.CDL.Continuous.PIDWithReset ctl(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset ctl(
     Ti=60,
     final yMax=1,
     final yMin=0,
     final reverseActing=true)
     "HW supply temperature controller"
     annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swiSet
+  Buildings.Controls.OBC.CDL.Reals.Switch swiSet
     "Switch setpoint to measured value when disabled"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swiSig
+  Buildings.Controls.OBC.CDL.Reals.Switch swiSig
     "Switch control signal to zero when disabled"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant valDis(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant valDis(final k=0)
     "Value when disabled"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
 
@@ -131,7 +131,7 @@ This partial class provides a standard interface for hot water boiler models.
 It includes a replaceable instance of
 <a href=\"modelica://Buildings.Fluid.Boilers.BaseClasses.PartialBoiler\">
 Buildings.Fluid.Boilers.BaseClasses.PartialBoiler</a>.
-This model is used to construct the hot water boiler models within  
+This model is used to construct the hot water boiler models within
 <a href=\"modelica://Buildings.Templates.Components.Boilers\">
 Buildings.Templates.Components.Boilers</a>.
 </p>

@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# Requires Python >= 3.9
-
 # This script shall be run from the directory `modelica-buildings/Buildings`,
 # i.e., where the top-level `package.mo` file can be found.
 # The script takes as an optional positional argument the Modelica tool to use

@@ -29,13 +29,13 @@ model Multiple "Multiple pumps in parallel"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-60,70})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply sigCon[nPum]
+  Buildings.Controls.OBC.CDL.Reals.Multiply sigCon[nPum]
     "Resulting control signal"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,30})));
-  Controls.OBC.CDL.Continuous.GreaterThreshold evaSta[nPum](
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold evaSta[nPum](
     each t=1E-2,
     each h=0.5E-2)
     "Evaluate pump status"
@@ -50,7 +50,7 @@ model Multiple "Multiple pumps in parallel"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,70})));
-  Controls.OBC.CDL.Continuous.Sources.Constant speCst[nPum](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant speCst[nPum](
     final k=fill(1, nPum)) if not have_var
     "Constant signal in case of constant speed pump" annotation (Placement(
         transformation(
@@ -124,20 +124,20 @@ equation
   defaultComponentName="pum",
   Documentation(info="<html>
 <p>
-This is a model for a parallel arrangement of <code>nPum</code> pumps 
-with optional check valves (depending on the value of the parameter 
+This is a model for a parallel arrangement of <code>nPum</code> pumps
+with optional check valves (depending on the value of the parameter
 <code>have_valChe</code>).
 </p>
 <p>
 Note that the inlet and outlet manifolds are not included in this model.
-The manifolds may be modeled with 
+The manifolds may be modeled with
 <a href=\"modelica://Buildings.Templates.Components.Routing.MultipleToMultiple\">
 Buildings.Templates.Components.Routing.MultipleToMultiple</a>.
 This allows representing both headered and dedicated arrangements.
 </p>
 <p>
 By default, variable speed pumps are modeled.
-Constant speed pumps can be modeled by setting the parameter 
+Constant speed pumps can be modeled by setting the parameter
 <code>have_var</code> to <code>false</code>.
 </p>
 <h4>Control points</h4>
@@ -146,26 +146,26 @@ The following input and output points are available.
 </p>
 <ul>
 <li>
-Pump Start/Stop command (VFD Run or motor starter contact) 
-<code>y1</code>: 
+Pump Start/Stop command (VFD Run or motor starter contact)
+<code>y1</code>:
 DO signal dedicated to each unit, with a dimensionality of one
 </li>
 <li>
-Pump speed command (VFD Speed) <code>y</code> for variable speed pumps only: 
+Pump speed command (VFD Speed) <code>y</code> for variable speed pumps only:
 <ul>
 <li>
-If <code>have_varCom</code>: AO signal common to all units, 
+If <code>have_varCom</code>: AO signal common to all units,
 with a dimensionality of zero
 </li>
 <li>
-If <code>not have_varCom</code>: AO signal dedicated to each unit, 
+If <code>not have_varCom</code>: AO signal dedicated to each unit,
 with a dimensionality of one
 </li>
 </ul>
 </li>
 <li>
-Pump status (through VFD interface, VFD status contact, 
-or current switch) <code>y1_actual</code>: 
+Pump status (through VFD interface, VFD status contact,
+or current switch) <code>y1_actual</code>:
 DI signal dedicated to each unit, with a dimensionality of one
 </li>
 </ul>
@@ -174,7 +174,7 @@ DI signal dedicated to each unit, with a dimensionality of one
 The design parameters and the pump characteristics are specified with an instance of
 <a href=\"modelica://Buildings.Templates.Components.Data.PumpMultiple\">
 Buildings.Templates.Components.Data.PumpMultiple</a>.
-The documentation of this record class provides further details on how to 
+The documentation of this record class provides further details on how to
 properly parameterize the model.
 </p>
 </html>", revisions="<html>

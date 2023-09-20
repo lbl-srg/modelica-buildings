@@ -246,32 +246,32 @@ block Guideline36 "Guideline 36 controller"
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_uBoiAva[nBoi](each
       k=true) "Not an input point per G36 4.11.1: this should be removed."
     annotation (Placement(transformation(extent={{-100,310},{-80,330}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_TSupPri(k=
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant FIXME_TSupPri(k=
         Buildings.Templates.Data.Defaults.THeaWatSup)
     "Which sensor is that: primary loop or secondary loop? Missing Boolean condition & support for hybrid plants"
     annotation (Placement(transformation(extent={{-100,270},{-80,290}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_TRetPri(k=
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant FIXME_TRetPri(k=
         Buildings.Templates.Data.Defaults.THeaWatRet)
     "Missing Boolean condition & support for hybrid plants"
     annotation (Placement(transformation(extent={{-100,230},{-80,250}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_VHotWatPri_flow(k=1E-2)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant FIXME_VHotWatPri_flow(k=1E-2)
     "Missing Boolean condition & support for hybrid plants"
     annotation (Placement(transformation(extent={{-100,190},{-80,210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uHotWatIsoVal[nBoi](each k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant FIXME_uHotWatIsoVal[nBoi](each k=1)
     "This point should be optional. If present, there should rather be 2 Boolean input points (DI)."
     annotation (Placement(transformation(extent={{-100,150},{-80,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uBypValPos(k=0) "Not an input point per G36 4.11.1: this should be removed.
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant FIXME_uBypValPos(k=0) "Not an input point per G36 4.11.1: this should be removed.
 " annotation (Placement(transformation(extent={{-100,110},{-80,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uPriPumSpe[nPumPri](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant FIXME_uPriPumSpe[nPumPri](
       each k=0.5) "Not an input point per G36 4.11.1: this should be removed.
 " annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold FIXME_yHotWatIsoValCon[nBoiCon](
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold FIXME_yHotWatIsoValCon[nBoiCon](
     each t=1E-2, each h=5E-3)
     if have_boiCon and
     typArrPumHeaWatPriCon==Buildings.Templates.Components.Types.PumpArrangement.Headered
     "Should be a DO point (Boolean)"
     annotation (Placement(transformation(extent={{120,10},{140,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold FIXME_yHotWatIsoValNon[nBoiNon](
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold FIXME_yHotWatIsoValNon[nBoiNon](
     each t=1E-2, each h=5E-3)
     if have_boiNon and
     typArrPumHeaWatPriNon==Buildings.Templates.Components.Types.PumpArrangement.Headered
@@ -378,18 +378,18 @@ The Guideline 36 control sequence requires the following input points in
 addition to the ones from the HW plant model.
 </p>
 <ul>
-<li>Outdoor air temperature <code>TOut</code>: 
+<li>Outdoor air temperature <code>TOut</code>:
 AI signal with a dimensionality of zero</li>
-<li>HW differential pressure from remote sensor(s) <code>dpHeaWatRem</code>: 
-AI signal with a dimensionality of one, the number of remote 
+<li>HW differential pressure from remote sensor(s) <code>dpHeaWatRem</code>:
+AI signal with a dimensionality of one, the number of remote
 sensors is specified by the parameter <code>nSenDpHeaWatRem</code>.</li>
 <li>
-Inside the sub-bus <code>busAirHan[:]</code> (resp. <code>busEquZon[:]</code>), 
+Inside the sub-bus <code>busAirHan[:]</code> (resp. <code>busEquZon[:]</code>),
 with a dimensionality of one
 <ul>
 <li>HW plant requests yielded by the air handler or zone
 equipment controller <code>bus(AirHan|EquZon)[:].reqHeaWatPla</code>:
-AI signal (Integer), with a dimensionality of one 
+AI signal (Integer), with a dimensionality of one
 </li>
 <li>HW reset requests yielded by the air handler or zone
 equipment controller <code>bus(AirHan|EquZon)[:].reqHeaWatRes</code>:

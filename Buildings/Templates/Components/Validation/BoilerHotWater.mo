@@ -45,7 +45,7 @@ model BoilerHotWater "Test model for the hot water boiler model"
         Medium, final m_flow_nominal=datBoiTab.mHeaWat_flow_nominal)
     "HW supply temperature"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp THeaWatRet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp THeaWatRet(
     y(final unit="K", displayUnit="degC"),
     height=35,
     duration=500,
@@ -62,7 +62,7 @@ model BoilerHotWater "Test model for the hot water boiler model"
     annotation (
       Placement(transformation(extent={{-20,20},{20,60}}), iconTransformation(
           extent={{-296,-74},{-256,-34}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSupSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupSet(
     k=Buildings.Templates.Data.Defaults.THeaWatSup,
     y(final unit="K", displayUnit="degC"))
     "HW supply temperature setpoint"
@@ -149,7 +149,7 @@ fluid temperature <code>TConEnt_nominal</code>
 when redeclaring the performance data record <code>per</code>,
 </li>
 <li>
-how the original bindings for other design parameters such as the 
+how the original bindings for other design parameters such as the
 CHW and CW flow rates persist when redeclaring the performance data record,
 </li>
 <li>

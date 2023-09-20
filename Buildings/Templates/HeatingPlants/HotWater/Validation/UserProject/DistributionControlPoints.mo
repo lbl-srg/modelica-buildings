@@ -6,7 +6,7 @@ block DistributionControlPoints
   parameter Integer nSenDpHeaWatRem
     "Number of remote HW differential pressure sensors used for HW pump speed control"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  Controls.OBC.CDL.Continuous.Sources.Constant dpHeaWatRem[nSenDpHeaWatRem](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dpHeaWatRem[nSenDpHeaWatRem](
     each k=Buildings.Templates.Data.Defaults.dpHeaWatSet_max)
     "HW differential pressure used for HW pump speed control"
     annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
@@ -24,8 +24,8 @@ equation
           0}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
-This class generates signals typically yielded by sensors 
-from the HW distribution system. 
+This class generates signals typically yielded by sensors
+from the HW distribution system.
 It is aimed for validation purposes only.
 </p>
 </html>"));

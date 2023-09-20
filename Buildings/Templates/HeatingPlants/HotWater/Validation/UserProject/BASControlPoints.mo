@@ -1,7 +1,7 @@
 within Buildings.Templates.HeatingPlants.HotWater.Validation.UserProject;
 block BASControlPoints "Emulation of control points from the BAS"
   extends Modelica.Blocks.Icons.Block;
-  Controls.OBC.CDL.Continuous.Sources.Constant TOut(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOut(
     k=10+273.15)
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
