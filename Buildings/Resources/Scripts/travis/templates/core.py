@@ -120,12 +120,6 @@ def simulate_case(arg, simulator):
     finally:
         if toreturn == 0:
             shutil.rmtree(output_dir_path, ignore_errors=True)
-        else:
-            print(
-                f'Simulation failed in {output_dir_path} with the following class modifications:\n'
-                + ',\n'.join(arg[1])
-                + '\n'
-            )
 
     return toreturn, log
 
