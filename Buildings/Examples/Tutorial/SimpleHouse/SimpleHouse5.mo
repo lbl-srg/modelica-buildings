@@ -4,35 +4,35 @@ model SimpleHouse5 "Heating controller model"
         massFlowRates=mWat_flow_nominal*{1}), final use_constantHeater=false);
 
   Modelica.Blocks.Math.BooleanToInteger booInt "Boolean to integer"
-    annotation (Placement(transformation(extent={{0,-150},{20,-130}})));
+    annotation (Placement(transformation(extent={{0,-160},{20,-140}})));
   Modelica.Blocks.Math.BooleanToReal booRea "Boolean to real"
-    annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
+    annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
   Modelica.Blocks.Logical.Hysteresis hysRad(uLow=273.15 + 21, uHigh=273.15 + 23)
     "Hysteresis controller for radiator"
-    annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
+    annotation (Placement(transformation(extent={{-80,-120},{-60,-100}})));
   Modelica.Blocks.Logical.Not not1
     "Negation for enabling heating when temperature is low"
-    annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
+    annotation (Placement(transformation(extent={{-40,-120},{-20,-100}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTemZonAir
     "Zone air temperature sensor"
-    annotation (Placement(transformation(extent={{90,150},{70,170}})));
+    annotation (Placement(transformation(extent={{90,160},{70,180}})));
 equation
-  connect(booInt.y, pum.stage) annotation (Line(points={{21,-140},{100,-140},{
-          100,-158}}, color={255,127,0}));
-  connect(booInt.u, not1.y) annotation (Line(points={{-2,-140},{-11.5,-140},{-11.5,
-          -100},{-19,-100}}, color={255,0,255}));
-  connect(booRea.y, heaWat.u) annotation (Line(points={{21,-100},{40.5,-100},{
-          40.5,-94},{58,-94}}, color={0,0,127}));
-  connect(not1.u,hysRad. y) annotation (Line(points={{-42,-100},{-59,-100}},
+  connect(booInt.y, pum.stage) annotation (Line(points={{21,-150},{150,-150},{150,
+          -168}},     color={255,127,0}));
+  connect(booInt.u, not1.y) annotation (Line(points={{-2,-150},{-11.5,-150},{-11.5,
+          -110},{-19,-110}}, color={255,0,255}));
+  connect(not1.u,hysRad. y) annotation (Line(points={{-42,-110},{-59,-110}},
                   color={255,0,255}));
-  connect(senTemZonAir.T,hysRad. u) annotation (Line(points={{69,160},{-230,160},
-          {-230,-100},{-82,-100}},            color={0,0,127}));
+  connect(senTemZonAir.T,hysRad. u) annotation (Line(points={{69,170},{-210,170},
+          {-210,-110},{-82,-110}},            color={0,0,127}));
   connect(senTemZonAir.port, zon.heatPort)
-    annotation (Line(points={{90,160},{110,160},{110,140}}, color={191,0,0}));
+    annotation (Line(points={{90,170},{160,170},{160,40}},  color={191,0,0}));
   connect(not1.y, booRea.u)
-    annotation (Line(points={{-19,-100},{-2,-100}}, color={255,0,255}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
-            -220},{200,200}})),
+    annotation (Line(points={{-19,-110},{-2,-110}}, color={255,0,255}));
+  connect(booRea.y, heaWat.u) annotation (Line(points={{21,-110},{40,-110},{40,-124},
+          {58,-124}}, color={0,0,127}));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,
+            -220},{220,220}})),
     experiment(Tolerance=1e-6, StopTime=1e+06),
     Documentation(revisions="<html>
 <ul>
