@@ -10,6 +10,10 @@ block DirectCalculations
   parameter Modelica.Units.SI.Length dep
     "Depth of the rigid media evaporative pad";
 
+  Real eff(
+    final unit="1")
+    "Evaporative humidifier efficiency";
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput V_flow(
     final unit="m3/s",
     displayUnit="m3/s",
@@ -99,10 +103,6 @@ block DirectCalculations
 
   Modelica.Units.SI.Velocity vel
     "Air velocity";
-
-  Real eff(
-    final unit="1")
-    "Evaporative humidifier efficiency";
 
   Modelica.Units.SI.ThermodynamicTemperature TDryBulOut(
     displayUnit="degC")

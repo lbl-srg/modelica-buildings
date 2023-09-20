@@ -27,7 +27,7 @@ model IndirectDry
         rotation=0)));
 
   Modelica.Blocks.Sources.CombiTimeTable combiTimeTable(
-    columns=2:12,                                                       fileName = ModelicaServices.ExternalReferences.loadResource("./Buildings/Resources/Data/Fluid/Humidifiers/EvaporativeCoolers/IndirectDry/IndirectDry.dat"), tableName = "EnergyPlus", tableOnFile = true, timeScale = 1)
+    columns=2:12,                                                       fileName = ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Fluid/Humidifiers/EvaporativeCoolers/IndirectDry/IndirectDry.dat"), tableName = "EnergyPlus", tableOnFile = true, timeScale = 1)
     "Table input from EnergyPlus"                                                                                                                                                                                                         annotation (
     Placement(visible = true, transformation(origin={-178,90},   extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem(redeclare package Medium =
