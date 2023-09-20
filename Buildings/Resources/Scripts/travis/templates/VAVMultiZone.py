@@ -28,7 +28,7 @@ MODELS = [
 
 # Tested modifications should at least cover the options specified at:
 # https://github.com/lbl-srg/ctrl-flow-dev/blob/main/server/scripts/sequence-doc/src/version/Current%20G36%20Decisions/Guideline%2036-2021%20(mappings).csv
-MODIF_GRID: dict[str, dict[str, list[str]]] = {
+MODIF_GRID = {
     'Buildings.Templates.AirHandlersFans.Validation.VAVMultiZone': {
         # FIXME(AntoineGautier #3526): Some options are currently not supported by G36 controller.
         'VAV_1__redeclare__coiHeaPre': [
@@ -97,7 +97,7 @@ MODIF_GRID: dict[str, dict[str, list[str]]] = {
 }
 
 # See docstring of `prune_modifications` function for the structure of EXCLUDE.
-EXCLUDE: dict[str, list[list[str]]] = {
+EXCLUDE = {
     'Buildings.Templates.AirHandlersFans.Validation.VAVMultiZone': [
         [
             'Buildings.Templates.Components.Fans.None fanSupBlo',
@@ -116,7 +116,7 @@ EXCLUDE: dict[str, list[list[str]]] = {
 }
 
 # See docstring of `prune_modifications` function for the structure of REMOVE_MODIF.
-REMOVE_MODIF: dict[str, list[tuple[list[str], list[str]]]] = {
+REMOVE_MODIF = {
     'Buildings.Templates.AirHandlersFans.Validation.VAVMultiZone': [
         (
             [
@@ -220,15 +220,15 @@ REMOVE_MODIF: dict[str, list[tuple[list[str], list[str]]]] = {
 
 if __name__ == '__main__':
     # Generate combinations.
-    combinations: list[tuple[str, list[str], str]] = generate_combinations(
+    combinations = generate_combinations(
         models=MODELS, modif_grid=MODIF_GRID
     )
 
     # Prune class modifications.
     prune_modifications(
         combinations=combinations,
-        remove_modif=REMOVE_MODIF,
         exclude=EXCLUDE,
+        remove_modif=REMOVE_MODIF,
         fraction_test_coverage=FRACTION_TEST_COVERAGE,
     )
 
