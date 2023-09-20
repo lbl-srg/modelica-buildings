@@ -115,7 +115,9 @@ model Controller "Validation controller model"
     final period=3600)
     "Freeze protection reset"
     annotation (Placement(transformation(extent={{-240,-170},{-220,-150}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre pre "Break loop"
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
+    final trueHoldDuration=1)
+    "Break loop"
     annotation (Placement(transformation(extent={{220,30},{240,50}})));
 
 equation
@@ -157,11 +159,11 @@ equation
     annotation (Line(points={{-218,-160},{-202,-160}}, color={255,0,255}));
   connect(not1.y, conAHU.u1SofSwiRes) annotation (Line(points={{-178,-160},{56,
           -160},{56,-76.3636},{96,-76.3636}}, color={255,0,255}));
-  connect(conAHU.y1SupFan, pre.u) annotation (Line(points={{184,-40},{200,-40},
-          {200,40},{218,40}},          color={255,0,255}));
-  connect(pre.y, conAHU.u1SupFan) annotation (Line(points={{242,40},{250,40},{
-          250,70},{50,70},{50,16.3636},{96,16.3636}}, color={255,0,255}));
-
+  connect(conAHU.y1SupFan, truFalHol.u) annotation (Line(points={{184,-40},{200,
+          -40},{200,40},{218,40}}, color={255,0,255}));
+  connect(truFalHol.y, conAHU.u1SupFan) annotation (Line(points={{242,40},{250,
+          40},{250,70},{50,70},{50,16.3636},{96,16.3636}},
+                                                       color={255,0,255}));
   connect(sumDesPopBreZon.y, conAHU.VSumAdjPopBreZon_flow) annotation (Line(
         points={{-178,100},{38,100},{38,5.45455},{96,5.45455}}, color={0,0,127}));
   connect(sumDesAreBreZon.y, conAHU.VSumAdjAreBreZon_flow) annotation (Line(
