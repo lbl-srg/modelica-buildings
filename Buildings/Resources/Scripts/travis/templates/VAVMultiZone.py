@@ -234,10 +234,10 @@ if __name__ == '__main__':
 
     print(f'Number of cases to be simulated: {len(combinations)}.\n')
 
-    # Lof combinations for debugging.
-    with open('unitTestsCombinations.log', 'w') as FH:
-        for c in combinations:
-            FH.write("*********" + c[0] + "\n\n" + "\n".join(c[1]) + "\n\n")
+    # # Log combinations for debugging.
+    # with open('unitTestsCombinations.log', 'w') as FH:
+    #     for c in combinations:
+    #         FH.write("*********" + c[0] + "\n\n" + "\n".join(c[1]) + "\n\n")
 
     # Simulate cases.
     results = simulate_cases(combinations, simulator=SIMULATOR, asy=False)
