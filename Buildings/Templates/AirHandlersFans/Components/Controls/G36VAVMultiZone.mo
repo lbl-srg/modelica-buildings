@@ -268,8 +268,6 @@ equation
 
   connect(bus.fanSup.V_flow, ctl.VAirSup_flow);
   connect(bus.fanRet.V_flow, ctl.VAirRet_flow);
-  connect(bus.coiCoo.y_actual, ctl.uCooCoi_actual);
-  connect(bus.coiHea.y_actual, ctl.uHeaCoi_actual);
 
   connect(bus.fanSup.y1_actual, y1FanSup_actual.u);
   connect(bus.TAirSup, TAirSup.u);
