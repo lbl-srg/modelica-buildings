@@ -19,7 +19,7 @@ model TwoWayTwoPosition "Two-way two-position valve"
       final show_T=show_T)
     "Valve (butterfly valve characteristic)"
     annotation (
-      __ctrl_flow(enable=false),
+      __ctrlFlow(enable=false),
       choicesAllMatching=true,
       Placement(
         transformation(
