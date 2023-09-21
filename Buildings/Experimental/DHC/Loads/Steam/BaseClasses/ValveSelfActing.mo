@@ -40,7 +40,7 @@ protected
 
 equation
   assert(dpReq.y > 0, "pb_nominal is set higher than the upstream pressure in "
-  + getInstanceName() + ", which results in a negative pressure drop. 
+  + getInstanceName() + ", which results in a negative pressure drop.
   This is not typical of real systems and should be verified.", AssertionLevel.warning);
 
   connect(ideSou.port_b, port_b)
@@ -64,29 +64,48 @@ equation
     defaultComponentName="prv",
     Documentation(info="<html>
 <p>
-This is the model of self-acting control valve that automatically adjusts  
-the diameter of valve  orifice to reduce the unregulated inlet pressure to a 
-constant, reduced outlet pressure. 
+This is the model of self-acting control valve that automatically adjusts
+the diameter of valve  orifice to reduce the unregulated inlet pressure to a
+constant, reduced outlet pressure.
 </p>
 <h4>Implementation</h4>
 <p>
-To simplify the complex relationships of the valve opening (<code>y_actual</code>), 
-mass flow rate (<code>m_flow</code>), and change in pressure (<code>dp</code>) 
-for compressible medium (such as steam), this model is implemented using an ideal source 
+To simplify the complex relationships of the valve opening (<code>y_actual</code>),
+mass flow rate (<code>m_flow</code>), and change in pressure (<code>dp</code>)
+for compressible medium (such as steam), this model is implemented using an ideal source
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.IdealSource\">
-Buildings.Fluid.Movers.BaseClasses.IdealSource</a>, that allows the pressure drop 
-to be prescribed independently of mass flow rate. 
+Buildings.Fluid.Movers.BaseClasses.IdealSource</a>, that allows the pressure drop
+to be prescribed independently of mass flow rate.
 </p>
 <p>
-The model maintains <code>dp</code> based on the user specified downstream pressure 
-value (<code>pb_nominal</code>), except for instances where the upstream pressure 
-falls below <code>pb_nominal</code>. In these instances, the valve exibits no 
-pressure drop (<code>dpSet = 0</code>) and asserts a warning. 
-This model assumes that <code>dp</code> across the valve is independent of 
+The model maintains <code>dp</code> based on the user specified downstream pressure
+value (<code>pb_nominal</code>), except for instances where the upstream pressure
+falls below <code>pb_nominal</code>. In these instances, the valve exibits no
+pressure drop (<code>dpSet = 0</code>) and asserts a warning.
+This model assumes that <code>dp</code> across the valve is independent of
 <code>m_flow</code>. This generally leads to a simplier set of equations.
+</p>
+<h4>References </h4>
+<p>
+Kathryn Hinkelman, Saranya Anbarasu, Michael Wetter, Antoine Gautier, Wangda Zuo. 2022.
+&ldquo;A Fast and Accurate Modeling Approach for Water and Steam
+Thermodynamics with Practical Applications in District Heating System Simulation,&rdquo;
+<i>Energy</i>, 254(A), pp. 124227.
+<a href=\"https://doi.org/10.1016/j.energy.2022.124227\">10.1016/j.energy.2022.124227</a>
+</p>
+<p>
+Kathryn Hinkelman, Saranya Anbarasu, Michael Wetter, Antoine Gautier, Baptiste Ravache, Wangda Zuo 2022.
+&ldquo;Towards Open-Source Modelica Models For Steam-Based District Heating Systems.&rdquo;
+<i>Proc. of the 1st International Workshop On Open Source Modelling And Simulation Of
+Energy Systems (OSMSES 2022)</i>, Aachen, German, April 4-5, 2022.
+<a href=\"https://doi.org/10.1109/OSMSES54027.2022.9769121\">10.1109/OSMSES54027.2022.9769121</a>
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 15, 2023, by Kathryn Hinkelman:<br/>
+Added publication references.
+</li>
 <li>
 March 2, 2022 by Saranya Anbarasu:<br/>
 First implementation.
