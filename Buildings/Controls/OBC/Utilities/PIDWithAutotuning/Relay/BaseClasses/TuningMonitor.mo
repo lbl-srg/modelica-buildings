@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses;
-block TunMonitor "Monitor the tuning process"
+block TuningMonitor "Monitor the tuning process"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tOn(
     final quantity="Time",
     final unit="s",
@@ -157,4 +157,4 @@ or <code>t<sub>off</sub></code> changes after the tuning period starts, as illus
 \"Automatic Controller Tuning using Relay-based Model Identification.\"
 Department of Automatic Control, Lund Institute of Technology, Lund University. </p>
 </html>"));
-end TunMonitor;
+end TuningMonitor;

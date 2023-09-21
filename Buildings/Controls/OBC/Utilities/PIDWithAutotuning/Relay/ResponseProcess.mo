@@ -53,8 +53,8 @@ protected
      final gamma=max(yHig, yLow)/min(yLow, yHig))
     "Block that calculates the normalized time delay"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.TunMonitor TunMon
-    "Block that detects when the tuning period starts and ends"
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.TuningMonitor
+    TunMon "Block that detects when the tuning period starts and ends"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 
 equation
@@ -153,8 +153,8 @@ Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.NormalizedT
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.OnOffPeriod</a>.
 </li>
 <li>
-<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.TunMonitor\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.TunMonitor</a>.
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.TuningMonitor\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.TuningMonitor</a>.
 </li>
 </ul>
 </html>"));

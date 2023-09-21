@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.Validation;
-model TunMonitor "Test model for the tuning period management"
+model TuningMonitor "Test model for the tuning period management"
   Buildings.Controls.OBC.CDL.Reals.Sources.Pulse tOnSig1(
     amplitude=-0.1,
     width=0.1,
@@ -25,7 +25,7 @@ model TunMonitor "Test model for the tuning period management"
     offset=0.5)
     "The length of the Off period"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.TunMonitor
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.TuningMonitor
     tunMan "Manage the tuning process"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.Controls.OBC.CDL.Logical.Latch tunSta "Display when tuning process starts"
@@ -56,7 +56,7 @@ equation
       StopTime=1.0,
       Tolerance=1e-06),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/Utilities/PIDWithAutotuning/Relay/BaseClasses/Validation/TunMonitor.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/Utilities/PIDWithAutotuning/Relay/BaseClasses/Validation/TuningMonitor.mos" "Simulate and plot"),
       Icon(
       coordinateSystem(
         preserveAspectRatio=false,
@@ -84,8 +84,8 @@ First implementation<br/>
 </html>", info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.TunMonitor\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.TunMonitor</a>.
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.TuningMonitor\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.TuningMonitor</a>.
 </p>
 <ul>
 <li>
@@ -102,4 +102,4 @@ This triggers the tuning period to end.
 </li>
 </ul>
 </html>"));
-end TunMonitor;
+end TuningMonitor;

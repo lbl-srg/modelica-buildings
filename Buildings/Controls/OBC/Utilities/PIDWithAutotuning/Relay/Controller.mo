@@ -29,7 +29,7 @@ block Controller
     "Control error"
     annotation (Placement(transformation(extent={{100,0},{140,40}}),
     iconTransformation(extent={{100,-20},{140,20}})));
-    
+
 protected
   Buildings.Controls.OBC.CDL.Logical.OnOffController greMeaSet(
     final bandwidth=deaBan*2,
@@ -121,8 +121,8 @@ equation
           fillPattern=FillPattern.Solid,
           fillColor={175,175,175},
           textString="Relay"),
-        Line(points={{-70,24},{-34,24},{-34,58},{38,58},{38,24},{66,24}}, color=
-             {28,108,200})}), Diagram(
+        Line(points={{-70,24},{-34,24},{-34,58},{38,58},{38,24},{66,24}}, color
+            ={28,108,200})}), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
 Documentation(info="<html>
 <p>

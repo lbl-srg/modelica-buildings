@@ -2,4 +2,4 @@ HalfPeriodRatio
 NormalizedTimeDelay
 OnOffPeriod
 SamplerWithResetThreshold
-TunMonitor
+TuningMonitor

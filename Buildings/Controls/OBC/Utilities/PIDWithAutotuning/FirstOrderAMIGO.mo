@@ -253,7 +253,7 @@ This block starts the PID tuning process when a request for performing autotunin
 <code>false</code> to <code>true</code>.
 During the autotuning process, the output of the block changes into that of a relay controller (see <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller</a>).
-The PID tuning process ends automatically (see details in <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.TunMonitor\">
+The PID tuning process ends automatically (see details in <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.TuningMonitor\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.BaseClasses.Relay.TunMonitor</a>).
 Since then, this block turns back to a PID controller but with tuned PID parameters.
 </p>
