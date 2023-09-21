@@ -1,7 +1,14 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# This file contains imports and functions used by other Python scripts in the same directory.
+"""Provide definitions and common declarations used by other scripts in the same directory.
+
+Args:
+    Scripts that import this module take the following optional positional arguments.
+    - str: Modelica tool to use (case-insensitive): Dymola or Optimica, defaulting to Dymola.
+    - float: Fraction of test coverage between 0 (>) and 1 (<=): 1 should be for used for PR
+      against master, other values are for local testing only.
+"""
 
 import inspect
 import itertools
@@ -22,7 +29,6 @@ try:
     SIMULATOR = sys.argv[1]
 except IndexError:
     SIMULATOR = 'dymola'
-# Fraction of test coverage between 0 and 1 (1 should be for used for PR against master).
 try:
     FRACTION_TEST_COVERAGE = float(sys.argv[2])
 except IndexError:
@@ -193,7 +199,7 @@ def generate_modif_list(dic):
 
 
 def remove_items_by_indices(lst, indices):
-    """Removes (inplace) items from list based on their indices.
+    """Remove (inplace) items from list based on their indices.
 
     Args:
         lst: list
@@ -345,7 +351,6 @@ def report_clean(combinations, results):
     Returns:
         pd.DataFrame
     """
-
     try:
         os.unlink('tmp_func.py')
         os.unlink('unitTestsTemplates.log')
