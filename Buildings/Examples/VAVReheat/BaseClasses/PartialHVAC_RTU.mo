@@ -129,7 +129,8 @@ partial model PartialHVAC_RTU
     annotation (Evaluate=true);
 
   parameter Integer nCoi(min=1) = 3
-    "Number of DX coils";
+    "Number of DX coils"
+    annotation (Dialog(group="Parameters"));
 
   parameter Modelica.Units.SI.PressureDifference dpDXCoi_nominal=1000
     "Pressure drop at mAir_flow_nominal for DX coils";

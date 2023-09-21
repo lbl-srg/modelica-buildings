@@ -113,7 +113,7 @@ model Guideline36_RTU
   </ul>
   </html>"),
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/Guideline36_RTU_Cooling.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/Guideline36_RTU.mos"
         "Simulate and plot"),
     experiment(StartTime=16848000, StopTime=17020800, Tolerance=1e-06),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));

@@ -210,7 +210,7 @@ model Guideline36_RTU
     annotation (Placement(transformation(extent={{900,590},{920,610}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1[nCoi](
-    final k=fill(true,3))
+    final k=fill(true,nCoi))
     "Constant Boolean signal"
     annotation (Placement(transformation(extent={{900,630},{920,650}})));
 
