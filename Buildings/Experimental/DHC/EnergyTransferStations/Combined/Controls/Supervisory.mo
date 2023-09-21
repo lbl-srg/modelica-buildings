@@ -50,7 +50,7 @@ model Supervisory
     final TChiWatSupSetMin=TChiWatSupSetMin)
     "Cold side controller"
     annotation (Placement(transformation(extent={{0,-42},{20,-22}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max max1[nSouAmb]
+  Buildings.Controls.OBC.CDL.Reals.Max max1[nSouAmb]
     "Maximum of output control signals"
     annotation (Placement(transformation(extent={{50,-10},{70,10}})));
   Reset resTSup(

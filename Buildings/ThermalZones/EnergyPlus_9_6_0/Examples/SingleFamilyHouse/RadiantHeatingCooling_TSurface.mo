@@ -59,7 +59,7 @@ model RadiantHeatingCooling_TSurface
     nPorts=1)
     "Pressure boundary condition"
     annotation (Placement(transformation(extent={{70,-190},{50,-170}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant TSetRooHea(
+  Controls.OBC.CDL.Reals.Sources.Constant TSetRooHea(
     k(final unit="K",
       displayUnit="degC")=293.15,
     y(final unit="K",
@@ -117,7 +117,7 @@ model RadiantHeatingCooling_TSurface
     nPorts=1)
     "Mass flow source for cooling water at prescribed temperature"
     annotation (Placement(transformation(extent={{-38,80},{-18,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetSurCooOn(k(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetSurCooOn(k(
       final unit="K",
       displayUnit="degC") = 293.15, y(final unit="K", displayUnit="degC"))
     "Surface temperture set point for cooling"
@@ -146,18 +146,18 @@ model RadiantHeatingCooling_TSurface
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TSur
     "Surface temperature"
     annotation (Placement(transformation(extent={{120,60},{140,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetSurOff(k(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetSurOff(k(
       final unit="K",
       displayUnit="degC") = 303.15, y(final unit="K", displayUnit="degC"))
     "Surface temperture set point to switch system off"
     annotation (Placement(visible = true, transformation(extent = {{-214, 100}, {-194, 120}}, rotation = 0)));
-  Controls.OBC.CDL.Continuous.Greater enaCoo(h=1)
+  Controls.OBC.CDL.Reals.Greater enaCoo(h=1)
     "Switch to enable and disable cooling"
     annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch TSetSurCoo
+  Buildings.Controls.OBC.CDL.Reals.Switch TSetSurCoo
     "Set point for surface temperature for cooling system"
     annotation (Placement(visible = true, transformation(extent = {{-180, 108}, {-160, 128}}, rotation = 0)));
-  Controls.OBC.CDL.Continuous.AddParameter TOffSet(p=3)
+  Controls.OBC.CDL.Reals.AddParameter TOffSet(p=3)
     "Off set before switching on the cooling system"
     annotation (Placement(transformation(extent={{-180,-18},{-160,2}})));
 initial equation

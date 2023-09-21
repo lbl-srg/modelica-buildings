@@ -10,7 +10,7 @@ model MultiplePumpsDp
       final m_flow_nominal=mPum_flow_nominal,
       final dp_nominal=dpPum_nominal));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp dpSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp dpSet(
     height=dpPum_nominal, duration=500)
     "Differential pressure setpoint"
     annotation (Placement(transformation(extent={{-120,30},{-100,50}})));

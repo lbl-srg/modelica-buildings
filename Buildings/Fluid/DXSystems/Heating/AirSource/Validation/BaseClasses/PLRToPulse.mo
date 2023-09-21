@@ -16,7 +16,7 @@ block PLRToPulse
       iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=tPer)
     "Calculate runtime from PLR signal"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
@@ -35,7 +35,7 @@ protected
     "Outputs true signals for 1e-6 second duration at required timestep interval"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Less les
+  Buildings.Controls.OBC.CDL.Reals.Less les
     "Check if component runtime has exceeded required runtime from PLR"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
 

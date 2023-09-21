@@ -150,7 +150,7 @@ block SeparateWithAFMS
     annotation (Placement(transformation(extent={{220,-310},{260,-270}}),
         iconTransformation(extent={{100,-110},{140,-70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conMinOA(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset conMinOA(
     final controllerType=minOAConTyp,
     final k=kMinOA,
     final Ti=TiMinOA,
@@ -171,56 +171,56 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And enaMinCon
     "Check if the minimum outdoor air control loop should be enabled"
     annotation (Placement(transformation(extent={{-80,150},{-60,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(
     final k=0) "Constant"
     annotation (Placement(transformation(extent={{120,260},{140,280}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
     final k=0.5) "Constant"
     annotation (Placement(transformation(extent={{80,200},{100,220}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line minOutDamPos(
+  Buildings.Controls.OBC.CDL.Reals.Line minOutDamPos(
     final limitBelow=true,
     final limitAbove=true)
     "Minimum outdoor air damper position"
     annotation (Placement(transformation(extent={{160,230},{180,250}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minOutDamPhyPosMinSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minOutDamPhyPosMinSig(
     final k=minOutDamPhy_min)
     "Physically fixed minimum position of the minimum outdoor air damper. This is the initial position of the economizer damper"
     annotation (Placement(transformation(extent={{80,260},{100,280}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minOutDamPhyPosMaxSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minOutDamPhyPosMaxSig(
     final k=minOutDamPhy_max)
     "Physically fixed maximum position of the minimum outdoor air damper"
     annotation (Placement(transformation(extent={{120,200},{140,220}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one(
     final k=1) "Constant one"
     annotation (Placement(transformation(extent={{-200,-80},{-180,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(
     final k=0.05) "Constant"
     annotation (Placement(transformation(extent={{-160,-80},{-140,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con2(
     final k=0.8) "Constant"
     annotation (Placement(transformation(extent={{-200,-20},{-180,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minFanSpe(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minFanSpe(
     final k=minSpe) "Minimum fan speed"
     annotation (Placement(transformation(extent={{-160,-20},{-140,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line moaP(
+  Buildings.Controls.OBC.CDL.Reals.Line moaP(
     final limitBelow=true,
     final limitAbove=true)
     "Linear mapping of the supply fan speed to the control signal"
     annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Less les(
+  Buildings.Controls.OBC.CDL.Reals.Less les(
     final h=0.05)
     "Check if economizer outdoor air damper is less than projected position"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     final t=0.98,
     final h=0.01)
     "Check if the minimum outdoor air damper position is fully open"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=1.1)
     "Projected position with a gain factor"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater gre(
+  Buildings.Controls.OBC.CDL.Reals.Greater gre(
     final h=0.05)
     "Check if the economizer outdoor air damper is greater than threshold"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
@@ -236,37 +236,37 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Or disRetDamMin
     "Disable return air damper minimum outdoor air control"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPhyPosMinSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant outDamPhyPosMinSig(
     final k=outDamPhy_min)
     "Physically fixed minimum position of the outdoor air damper. This is the initial position of the economizer damper"
     annotation (Placement(transformation(extent={{-200,-130},{-180,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPhyPosMaxSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant outDamPhyPosMaxSig(
     final k=outDamPhy_max)
     "Physically fixed maximum position of the outdoor air damper."
     annotation (Placement(transformation(extent={{-200,-170},{-180,-150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamPhyPosMinSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant retDamPhyPosMinSig(
     final k=retDamPhy_min)
     "Physically fixed minimum position of the return air damper"
     annotation (Placement(transformation(extent={{-200,-210},{-180,-190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamPhyPosMaxSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant retDamPhyPosMaxSig(
     final k=retDamPhy_max)
     "Physically fixed maximum position of the return air damper. This is the initial condition of the return air damper"
     annotation (Placement(transformation(extent={{-200,-250},{-180,-230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch retDamPosMinSwi
+  Buildings.Controls.OBC.CDL.Reals.Switch retDamPosMinSwi
     "A switch to deactivate the return air damper minimal outdoor airflow control"
     annotation (Placement(transformation(extent={{180,-210},{200,-190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch retDamPosMaxSwi
+  Buildings.Controls.OBC.CDL.Reals.Switch retDamPosMaxSwi
     "A switch to deactivate the return air damper minimal outdoor airflow control"
     annotation (Placement(transformation(extent={{180,-260},{200,-240}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line maxRetDamPos(
+  Buildings.Controls.OBC.CDL.Reals.Line maxRetDamPos(
     final limitBelow=true,
     final limitAbove=true)
     "Maximum return air damper position"
     annotation (Placement(transformation(extent={{100,-110},{120,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con3(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con3(
     final k=0.5) "Constant"
     annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con4(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con4(
     final k=1) "Constant"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
 

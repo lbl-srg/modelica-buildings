@@ -21,11 +21,11 @@ block TankStatus "Returns the tank status from its temperature sensors"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-110,0})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysCha(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysCha(
     final uLow=TLow,
     final uHigh=TLow + dTHys) "Hysteresis, tank charged"
     annotation (Placement(visible = true, transformation(origin = {0, 50}, extent = {{-40, -60}, {-20, -40}}, rotation = 0)));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysEmp(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysEmp(
     final uHigh=THig,
     final uLow=THig - dTHys) "Hysteresis, tank empty"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
@@ -35,15 +35,15 @@ block TankStatus "Returns the tank status from its temperature sensors"
     "Tank status - y[1]=true is empty; y[2] = true is charged; both false means partially charged"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
       iconTransformation(extent={{100,-10},{120,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TTanTopChe(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TTanTopChe(
     final k(final unit="K", displayUnit="degC") = THig) "Set point for top temperatuer of tank"
      annotation(
     Placement(visible = true, transformation(origin = {-70, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TTanBotChe(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TTanBotChe(
     final k(final unit="K", displayUnit="degC") = TLow) "Set point for bottom temperature of tank"
     annotation(
     Placement(visible = true, transformation(origin = {-70, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Buildings.Controls.OBC.CDL.Continuous.Greater gre
+  Buildings.Controls.OBC.CDL.Reals.Greater gre
    "Test for temperature set points"
   annotation(
     Placement(visible = true, transformation(origin = {-30, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

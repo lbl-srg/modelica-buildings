@@ -217,14 +217,14 @@ model Chiller
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     "Constant speed primary pumps control signal"
     annotation (Placement(transformation(extent={{-60,170},{-80,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2
+  Buildings.Controls.OBC.CDL.Reals.Add add2
     annotation (Placement(transformation(extent={{160,-150},{180,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(final k=dat.mCon_flow_nominal)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(final k=dat.mCon_flow_nominal)
     "Scale to nominal mass flow rate" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-100,114})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(final k=dat.mEva_flow_nominal)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai2(final k=dat.mEva_flow_nominal)
     "Scale to nominal mass flow rate" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,

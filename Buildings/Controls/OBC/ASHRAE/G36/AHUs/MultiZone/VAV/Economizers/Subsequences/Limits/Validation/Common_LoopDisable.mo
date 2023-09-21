@@ -2,11 +2,11 @@ within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subseque
 model Common_LoopDisable
   "Validation model for the multi zone VAV AHU minimum outdoor air control - damper position limits"
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VOutMinSet_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant VOutMinSet_flow(
     final k=VOutSet_flow)
     "Outdoor airflow rate setpoint, 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VOutMinSet1_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant VOutMinSet1_flow(
     final k=VOutSet_flow)
     "Outdoor airflow rate setpoint, 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
@@ -22,12 +22,12 @@ model Common_LoopDisable
     "AHU operation mode is NOT Occupied"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp VOut_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp VOut_flow(
     final duration=1800,
     final offset=minVOutSet_flow,
     final height=incVOutSet_flow) "Measured outdoor airflow rate"
     annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp VOut1_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp VOut1_flow(
     final duration=1800,
     final offset=minVOutSet_flow,
     final height=incVOutSet_flow)

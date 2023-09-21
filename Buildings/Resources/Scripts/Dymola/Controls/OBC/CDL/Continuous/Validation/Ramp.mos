@@ -1,8 +1,0 @@
-simulateModel("Buildings.Controls.OBC.CDL.Continuous.Validation.Ramp", method="Cvode", tolerance=1e-06, stopTime=10.0, resultFile="rampUpDown");
-createPlot(id=1, position={15, 15, 1034, 1198}, y={"ramUp.u", "ramUp.y", "ramUp1.y"}, range={0.0, 10.0, -0.5, 1.5}, grid=true, subPlot=1, colors={{28,108,200}, {238,46,47}, {0,140,72}}, timeUnit="s", displayUnits={"1", "1", "1"});
-createPlot(id=1, position={15, 15, 1034, 1198}, y={"ramUp.active"}, range={0.0, 10.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}}, timeUnit="s");
-createPlot(id=1, position={15, 15, 1034, 1198}, y={"ramUpDow.u", "ramUpDow.y"}, range={0.0, 10.0, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"1", "1"});
-createPlot(id=1, position={15, 15, 1034, 1198}, y={"ramUpDow.active"}, range={0.0, 10.0, -0.5, 1.5}, grid=true, subPlot=4, colors={{28,108,200}}, timeUnit="s");
-createPlot(id=2, position={1059, 15, 1002, 1200}, y={"ramUpDow1.u", "ramUpDow1.y"}, range={0.0, 10.0, -0.1, 1.1}, grid=true, subPlot=1, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"1", "1"});
-createPlot(id=2, position={1059, 15, 1002, 1200}, y={"ramUpDow1.active"}, range={0.0, 10.0, -0.1, 1.1}, grid=true, subPlot=2, colors={{28,108,200}}, timeUnit="s");
-

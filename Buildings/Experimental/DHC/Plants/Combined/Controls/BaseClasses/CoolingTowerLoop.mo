@@ -94,19 +94,19 @@ block CoolingTowerLoop "Cooling tower loop control"
     "Cooling tower Start command" annotation (Placement(transformation(extent={{180,
             -140},{220,-100}}),    iconTransformation(extent={{100,-80},{140,
             -40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract delTemCon "Compute CW deltaT"
+  Buildings.Controls.OBC.CDL.Reals.Subtract delTemCon "Compute CW deltaT"
     annotation (Placement(transformation(extent={{-160,30},{-140,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.MovingAverage mea(delta=5*60)
+  Buildings.Controls.OBC.CDL.Reals.MovingAverage mea(delta=5*60)
     "Moving mean"
     annotation (Placement(transformation(extent={{-130,30},{-110,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract delTem1 "Compute deltaT"
+  Buildings.Controls.OBC.CDL.Reals.Subtract delTem1 "Compute deltaT"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add lifPlu "Add target lift"
+  Buildings.Controls.OBC.CDL.Reals.Add lifPlu "Add target lift"
     annotation (Placement(transformation(extent={{-130,90},{-110,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter subApp(final p=-
+  Buildings.Controls.OBC.CDL.Reals.AddParameter subApp(final p=-
         dTHexCoo_nominal) "Substract HX approach"
     annotation (Placement(transformation(extent={{-70,60},{-50,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch TSupSetUnb(y(unit="K",
+  Buildings.Controls.OBC.CDL.Reals.Switch TSupSetUnb(y(unit="K",
         displayUnit="degC"))
     "Compute tower supply temperature setpoint, unbounded" annotation (
       Placement(transformation(
@@ -119,22 +119,22 @@ block CoolingTowerLoop "Cooling tower loop control"
     annotation (Placement(transformation(extent={{-150,230},{-130,250}})));
   Buildings.Controls.OBC.CDL.Integers.Equal isModRej "Heat rejection mode"
     annotation (Placement(transformation(extent={{-110,250},{-90,270}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant setOth[2](final k=
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant setOth[2](final k=
         TTanSet[:, 1] .- dTHexCoo_nominal)
     "Target setpoint in any mode other than heat rejection"
     annotation (Placement(transformation(extent={{-110,190},{-90,210}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor extSet(final nin=2)
     "Extract setpoint value based on current mode"
     annotation (Placement(transformation(extent={{-70,230},{-50,250}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter ratDes(final k=abs(1
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter ratDes(final k=abs(1
         /QChiWat_flow_nominal)) "Ratio to design capacity"
     annotation (Placement(transformation(extent={{-160,150},{-140,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line lif "Compute target chiller lift"
+  Buildings.Controls.OBC.CDL.Reals.Line lif "Compute target chiller lift"
     annotation (Placement(transformation(extent={{-110,130},{-90,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant xLif[2](k={0.1,1})
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant xLif[2](k={0.1,1})
     "x-value for lift reset"
     annotation (Placement(transformation(extent={{-160,180},{-140,200}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yLif[2](final k={
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yLif[2](final k={
         dTLifChi_min,dTLifChi_nominal}) "y-value for lift reset"
     annotation (Placement(transformation(extent={{-160,120},{-140,140}})));
   StagingPump staPum(
@@ -144,7 +144,7 @@ block CoolingTowerLoop "Cooling tower loop control"
     yUp=0.8)
     "Stage pumps"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold cmpFlo(t=0.025*
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold cmpFlo(t=0.025*
         mConWatHexCoo_flow_nominal, h=0.025*mConWatHexCoo_flow_nominal/2)
     "Flow criterion to enable lead pump"
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
@@ -154,7 +154,7 @@ block CoolingTowerLoop "Cooling tower loop control"
   Buildings.Controls.OBC.CDL.Logical.Timer timFlo1(t=5*60)
     "Timer for flow exceeding triggering limit"
     annotation (Placement(transformation(extent={{-130,-50},{-110,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold cmpOpe(t=0.99, h=0.005)
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold cmpOpe(t=0.99, h=0.005)
     "Valve opening criterion to enable lead pump"
     annotation (Placement(transformation(extent={{-160,-90},{-140,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Timer timOpe(t=60)
@@ -172,14 +172,14 @@ block CoolingTowerLoop "Cooling tower loop control"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
   Buildings.Controls.OBC.CDL.Logical.Latch enaLea "Enable lead pump"
     annotation (Placement(transformation(extent={{-30,-50},{-10,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract delTem2 "Compute deltaT"
+  Buildings.Controls.OBC.CDL.Reals.Subtract delTem2 "Compute deltaT"
     annotation (Placement(transformation(extent={{-160,-250},{-140,-230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract delTem3 "Compute deltaT"
+  Buildings.Controls.OBC.CDL.Reals.Subtract delTem3 "Compute deltaT"
     annotation (Placement(transformation(extent={{-160,-210},{-140,-190}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addOff(final p=-1)
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addOff(final p=-1)
     "Add offset"
     annotation (Placement(transformation(extent={{-130,-250},{-110,-230}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addApp(final p=
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addApp(final p=
         dTHexCoo_nominal) "Add HX approach"
     annotation (Placement(transformation(extent={{-40,-210},{-20,-190}})));
   EnergyTransferStations.Combined.Controls.PIDWithEnable ctlPum1(
@@ -193,17 +193,17 @@ block CoolingTowerLoop "Cooling tower loop control"
     final reverseActing=false)
                               "Pump control loop #1"
     annotation (Placement(transformation(extent={{-10,-250},{10,-230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Min minCtlPum "Minimum loop output"
+  Buildings.Controls.OBC.CDL.Reals.Min minCtlPum "Minimum loop output"
     annotation (Placement(transformation(extent={{30,-230},{50,-210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line pum "Pump speed command"
+  Buildings.Controls.OBC.CDL.Reals.Line pum "Pump speed command"
     annotation (Placement(transformation(extent={{120,-230},{140,-210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant xPum[2](k={0,1})
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant xPum[2](k={0,1})
     "x-value for pump speed reset"
     annotation (Placement(transformation(extent={{90,-210},{110,-190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(final k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one(final k=1)
     "Constant"
     annotation (Placement(transformation(extent={{90,-260},{110,-240}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yPumMin[nPumConWatCoo](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yPumMin[nPumConWatCoo](
      final k=yPumConWatCoo_min) "Minimum pump speed"
     annotation (Placement(transformation(extent={{30,-260},{50,-240}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor extYPumMin(final nin=
@@ -213,12 +213,12 @@ block CoolingTowerLoop "Cooling tower loop control"
   Modelica.Blocks.Sources.IntegerExpression nPumBou(y=max(1, staPum.nPumEna))
     "Number of pumps commanded on, bounded by 1"
     annotation (Placement(transformation(extent={{30,-284},{50,-264}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line fanMax "Compute maximum fan speed"
+  Buildings.Controls.OBC.CDL.Reals.Line fanMax "Compute maximum fan speed"
     annotation (Placement(transformation(extent={{70,150},{90,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant xFan[2](k={0,0.5})
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant xFan[2](k={0,0.5})
     "x-value for maximum fan speed reset"
     annotation (Placement(transformation(extent={{30,180},{50,200}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFan[2](final k={0.7,1.0})
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yFan[2](final k={0.7,1.0})
     "y-value for maximum fan speed reset"
     annotation (Placement(transformation(extent={{30,120},{50,140}})));
   EnergyTransferStations.Combined.Controls.PIDWithEnable ctlFan(
@@ -231,20 +231,20 @@ block CoolingTowerLoop "Cooling tower loop control"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-60,-150})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant setMax(k=25 + 273.15)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant setMax(k=25 + 273.15)
     "Maximum setpoint"
     annotation (Placement(transformation(extent={{-70,190},{-50,210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Min TSupSet(
+  Buildings.Controls.OBC.CDL.Reals.Min TSupSet(
     y(unit="K", displayUnit="degC"))
     "Compute tower supply temperature setpoint"
     annotation (Placement(transformation(extent={{-30,190},{-10,210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line fan "Compute fan speed"
+  Buildings.Controls.OBC.CDL.Reals.Line fan "Compute fan speed"
     annotation (Placement(transformation(extent={{150,-70},{170,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant xFan1
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant xFan1
                                                              [2](k={0,1})
     "x-value for fan speed reset"
     annotation (Placement(transformation(extent={{110,-50},{130,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFan1(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yFan1(final k=0)
     "y-value for fan speed reset"
     annotation (Placement(transformation(extent={{110,-90},{130,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2

@@ -29,29 +29,29 @@ model SupplyFan "Validate SupplyFan"
     annotation (Placement(transformation(extent={{80,20},{100,40}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ram(
     final duration=28800,
     final height=6) "Ramp signal for generating operation mode"
     annotation (Placement(transformation(extent={{-200,100},{-180,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sine(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sine(
     final freqHz=1/14400,
     final offset=3,
     final amplitude=2)
     "Generate sine signal "
     annotation (Placement(transformation(extent={{-200,-10},{-180,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sine1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sine1(
     final freqHz=1/14400,
     final offset=200,
     amplitude=150)
     "Generate sine signal"
     annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Abs abs
+  Buildings.Controls.OBC.CDL.Reals.Abs abs
     "Block generates absolute value of input"
     annotation (Placement(transformation(extent={{-160,100},{-140,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Abs abs1
+  Buildings.Controls.OBC.CDL.Reals.Abs abs1
     "Block generates absolute value of input"
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Round round2(
+  Buildings.Controls.OBC.CDL.Reals.Round round2(
     final n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
@@ -61,7 +61,7 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt2
     "Convert real to integer"
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Round round1(n=0)
+  Buildings.Controls.OBC.CDL.Reals.Round round1(n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
 

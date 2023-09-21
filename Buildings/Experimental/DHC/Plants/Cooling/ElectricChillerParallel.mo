@@ -219,15 +219,15 @@ model ElectricChillerParallel
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal chiOn[numChi]
     "Convert chiller on signal from boolean to real"
     annotation (Placement(transformation(extent={{-120,200},{-100,220}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum totPPum(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum totPPum(
     nin=4)
     "Total pump power"
     annotation (Placement(transformation(extent={{340,150},{360,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum totPFan(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum totPFan(
     nin=2)
     "Total fan power"
     annotation (Placement(transformation(extent={{340,190},{360,210}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum totPCoo(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum totPCoo(
     nin=2)
     "Total cooling power"
     annotation (Placement(transformation(extent={{340,230},{360,250}})));

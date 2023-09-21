@@ -13,36 +13,47 @@ model DistributionCondensatePipe
     Documentation(
       info="<html>
 <p>
-This is a model of a distribution network for steam heating systems. 
-The model utilizes a split-medium approach with two separate medium 
-declarations between liquid (condensate return) and vapor (steam 
+This is a model of a distribution network for steam heating systems.
+The model utilizes a split-medium approach with two separate medium
+declarations between liquid (condensate return) and vapor (steam
 supply) states. The piping network features:
 </p>
 <ul>
 <li>
-a connection model with fixed hydraulic resistance and no heat loss 
-in the condensate return pipe segments; 
+a connection model with fixed hydraulic resistance and no heat loss
+in the condensate return pipe segments;
 </li>
 <li>
-a dummy pipe model with no hydraulic resistance and no heat loss for 
-the steam supply pipes; and 
+a dummy pipe model with no hydraulic resistance and no heat loss for
+the steam supply pipes; and
 </li>
 <li>
 a dummy pipe model with no hydraulic resistance and no heat loss for the end of
-the distribution line (after the last connection). 
+the distribution line (after the last connection).
 </li>
 </ul>
-<h4>Reference</h4>
+<h4>References </h4>
 <p>
-Hinkelman, Kathryn, Saranya Anbarasu, Michael Wetter, 
-Antoine Gautier, and Wangda Zuo. 2022. “A Fast and Accurate Modeling 
-Approach for Water and Steam Thermodynamics with Practical 
-Applications in District Heating System Simulation.” Preprint. February 24. 
-<a href=\"http://dx.doi.org/10.13140/RG.2.2.20710.29762\">doi:10.13140/RG.2.2.20710.29762</a>.
+Kathryn Hinkelman, Saranya Anbarasu, Michael Wetter, Antoine Gautier, Wangda Zuo. 2022.
+&ldquo;A Fast and Accurate Modeling Approach for Water and Steam
+Thermodynamics with Practical Applications in District Heating System Simulation,&rdquo;
+<i>Energy</i>, 254(A), pp. 124227.
+<a href=\"https://doi.org/10.1016/j.energy.2022.124227\">10.1016/j.energy.2022.124227</a>
+</p>
+<p>
+Kathryn Hinkelman, Saranya Anbarasu, Michael Wetter, Antoine Gautier, Baptiste Ravache, Wangda Zuo 2022.
+&ldquo;Towards Open-Source Modelica Models For Steam-Based District Heating Systems.&rdquo;
+<i>Proc. of the 1st International Workshop On Open Source Modelling And Simulation Of
+Energy Systems (OSMSES 2022)</i>, Aachen, German, April 4-5, 2022.
+<a href=\"https://doi.org/10.1109/OSMSES54027.2022.9769121\">10.1109/OSMSES54027.2022.9769121</a>
 </p>
 </html>",
       revisions="<html>
 <ul>
+<li>
+September 15, 2023, by Kathryn Hinkelman:<br/>
+Updated publication references.
+</li>
 <li>
 March 2, 2022, by Kathryn Hinkelman:<br/>
 First implementation.

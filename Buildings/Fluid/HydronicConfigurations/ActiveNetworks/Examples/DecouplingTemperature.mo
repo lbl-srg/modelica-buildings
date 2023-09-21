@@ -10,13 +10,13 @@ model DecouplingTemperature
     "Set to true to correct Delta-T set point for low load operation"
     annotation(Evaluate=true);
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract dT(
+  Buildings.Controls.OBC.CDL.Reals.Subtract dT(
     y(final unit="K")) "Compute T1Ret-T2Ret"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={70,-40})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dTSetVal[3](final k={1,
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dTSetVal[3](final k={1,
         if typ == Types.Control.Heating then 1 else -1,1})
     "Delta-T set point values"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
@@ -35,7 +35,7 @@ model DecouplingTemperature
     final reverseActing=typ == Buildings.Fluid.HydronicConfigurations.Types.Control.Heating)
     "Controller"
     annotation (Placement(transformation(extent={{130,-70},{150,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract dT2SupRet(y(final unit="K"))
+  Buildings.Controls.OBC.CDL.Reals.Subtract dT2SupRet(y(final unit="K"))
     "Compute T2Sup-T2Ret" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -46,13 +46,13 @@ model DecouplingTemperature
   Modelica.Blocks.Sources.RealExpression T2Sup(y=con.T2Sup.T)
     "Access T2Sup measurement from connection component"
     annotation (Placement(transformation(extent={{30,-124},{50,-104}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max maxDelT(y(final unit="K"))
+  Buildings.Controls.OBC.CDL.Reals.Max maxDelT(y(final unit="K"))
     "Compute max(T2Sup-T2Ret, dTSet) for cooling mode" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={110,-100})));
-  Buildings.Controls.OBC.CDL.Continuous.Min minDelT(y(final unit="K"))
+  Buildings.Controls.OBC.CDL.Reals.Min minDelT(y(final unit="K"))
     "Compute min(T2Sup-T2Ret, dTSet) for heating mode" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
