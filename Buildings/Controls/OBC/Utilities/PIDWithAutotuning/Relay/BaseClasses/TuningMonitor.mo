@@ -63,13 +63,12 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Greater gretOnAndtOff
     "Check if both the length for the On period and the length for the off period are larger than 0"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
+
 equation
   connect(tMax.u1, tOn) annotation (Line(points={{-82,76},{-94,76},{-94,80},{
-          -120,80}},
-          color={0,0,127}));
+          -120,80}}, color={0,0,127}));
   connect(tMax.u2, tOff) annotation (Line(points={{-82,64},{-94,64},{-94,-70},{
-          -120,-70}},
-         color={0,0,127}));
+          -120,-70}}, color={0,0,127}));
   connect(minLen.y, gretOnOrtOff.u2) annotation (Line(points={{-58,30},{-50,30},
           {-50,42},{-42,42}}, color={0,0,127}));
   connect(samAddtOntOff.y, tInc.u2) annotation (Line(points={{2,0},{10,0},{10,22},
@@ -84,13 +83,11 @@ equation
   connect(samAddtOntOff.y, tDec.u2) annotation (Line(points={{2,0},{10,0},{10,-38},
           {18,-38}}, color={0,0,127}));
   connect(gretOnOrtOff.u1, tMax.y) annotation (Line(points={{-42,50},{-52,50},{
-          -52,70},{-58,70}},
-           color={0,0,127}));
+          -52,70},{-58,70}}, color={0,0,127}));
   connect(tDec.y, tCha.u2) annotation (Line(points={{42,-30},{42,-8},{48,-8}},
-                     color={255,0,255}));
+           color={255,0,255}));
   connect(edgTunSta.y, triSta) annotation (Line(points={{82,60},{88,60},{88,60},
-          {120,60}},
-                   color={255,0,255}));
+          {120,60}}, color={255,0,255}));
   connect(tCha.y, edgTunEnd.u) annotation (Line(points={{72,0},{80,0},{80,-40},{
           52,-40},{52,-60},{58,-60}}, color={255,0,255}));
   connect(edgTunEnd.y, triEnd) annotation (Line(points={{82,-60},{92,-60},{92,-60},
@@ -102,8 +99,7 @@ equation
   connect(tMin.y, gretOnAndtOff.u1)
     annotation (Line(points={{-58,-70},{-42,-70}}, color={0,0,127}));
   connect(gretOnAndtOff.u2, minLen.y) annotation (Line(points={{-42,-78},{-50,
-          -78},{-50,30},{-58,30}},
-          color={0,0,127}));
+          -78},{-50,30},{-58,30}}, color={0,0,127}));
   connect(gretOnOrtOff.y, edgTunSta.u) annotation (Line(points={{-18,50},{50,50},
           {50,60},{58,60}},color={255,0,255}));
   connect(gretOnAndtOff.y, samAddtOntOff.trigger) annotation (Line(points={{-18,
@@ -118,7 +114,8 @@ equation
         color={0,0,127}));
   connect(samAddtOntOff.u, mul.y) annotation (Line(points={{-22,0},{-32,0},{-32,
           -14},{-14,-14},{-14,-30},{-18,-30}}, color={0,0,127}));
-  annotation (defaultComponentName = "tunMon",
+
+annotation (defaultComponentName = "tunMon",
         Diagram(
            coordinateSystem(
            extent={{-100,-100},{100,100}})),
@@ -136,7 +133,7 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
-June 1, 2022, by Sen Huang:<br/>
+September 20, 2023, by Sen Huang:<br/>
 First implementation<br/>
 </li>
 </ul>

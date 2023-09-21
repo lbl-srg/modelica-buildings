@@ -10,9 +10,9 @@ block SamplerWithResetThreshold
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput trigger
-    "Resets the output when trigger becomes true" annotation (Placement(
-        transformation(extent={{-140,-80},{-100,-40}}), iconTransformation(
-          extent={{-140,-80},{-100,-40}})));
+    "Resets the output when trigger becomes true"
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
    "Sampling output"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
@@ -82,7 +82,7 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
-June 1, 2022, by Sen Huang:<br/>
+September 20, 2023, by Sen Huang:<br/>
 First implementation<br/>
 </li>
 </ul>
