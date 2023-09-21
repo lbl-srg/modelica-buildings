@@ -215,15 +215,5 @@ if __name__ == '__main__':
     # Simulate cases.
     results = simulate_cases(combinations, simulator=SIMULATOR, asy=False)
 
-    # Report and clean.
-    df = report_clean(combinations, results)
-
-    # Log and exit.
-    if df.errorcode.abs().sum() != 0:
-        print(
-            CRED + 'Some simulations failed: ' + CEND + 'see the file `unitTestsTemplates.log`.\n'
-        )
-        sys.exit(1)
-    else:
-        print(CGREEN + 'All simulations succeeded.\n' + CEND)
-        sys.exit(0)
+    # Report, clean and exit.
+    report_clean(combinations, results)

@@ -91,10 +91,6 @@ for type in "${!checksum_dirs[@]}"; do
     # Launch simulations (typically several thousands).
     python "${test_script[$type]}" $SIMULATOR $FRACTION_TEST_COVERAGE
     if (( $? != 0 )); then
-      if [[ -s unitTestsTemplates.log ]]; then
-        printf "Below is the error log.\n\n"
-        cat unitTestsTemplates.log
-      fi
       exit 1
     fi
   else

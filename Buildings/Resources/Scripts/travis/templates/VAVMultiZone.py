@@ -245,20 +245,10 @@ if __name__ == '__main__':
     #         FH.write("*********" + c[0] + "\n\n" + "\n".join(c[1]) + "\n\n")
 
     # FIXME(AntoineGautier PR#3528): Temporarily limit the number of simulations to be run (for testing purposes only).
-    combinations = combinations[:2]
+    combinations = [combinations[i] for i in random.sample(range(len(combinations)), 5)]
 
     # Simulate cases.
     results = simulate_cases(combinations, simulator=SIMULATOR, asy=False)
 
-    # Report and clean.
-    df = report_clean(combinations, results)
-
-    # Log and exit.
-    if df.errorcode.abs().sum() != 0:
-        print(
-            CRED + 'Some simulations failed: ' + CEND + 'see the file `unitTestsTemplates.log`.\n'
-        )
-        sys.exit(1)
-    else:
-        print(CGREEN + 'All simulations succeeded.\n' + CEND)
-        sys.exit(0)
+    # Report, clean and exit.
+    report_clean(combinations, results)

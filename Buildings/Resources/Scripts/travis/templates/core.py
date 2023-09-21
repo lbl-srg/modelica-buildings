@@ -342,7 +342,7 @@ def prune_modifications(combinations, exclude, remove_modif, fraction_test_cover
 
 
 def report_clean(combinations, results):
-    """Report and clean after simulations.
+    """Report, clean and exit after simulations.
 
     Args:
         combinations: list[tuple[str, list[str], str]]: List of combinations.
@@ -366,14 +366,27 @@ def report_clean(combinations, results):
             errorlog=[r[1] for r in results],
         )
     )
+    assert len(df) > 0, 'Error when trying to retrieve simulation results as a DataFrame.'
 
-    with open('unitTestsTemplates.log', 'w') as FH:
-        for idx in df[df.errorcode != 0].index:
-            FH.write(
-                f'*** Simulation failed for {df.iloc[idx].model} with the error code {df.iloc[idx].errorcode} '
-                + 'and the following class modifications and error log.\n\n'
-                + ',\n'.join(df.iloc[idx].modif)
-                + f'\n\n{df.iloc[idx].errorlog}\n\n'
-            )
+    # Log and exit.
+    if df.errorcode.abs().sum() != 0:
+        with open('unitTestsTemplates.log', 'w') as FH:
+            for idx in df[df.errorcode != 0].index:
+                FH.write(
+                    f'*** Simulation failed for {df.iloc[idx].model} with the error code {df.iloc[idx].errorcode} '
+                    + 'and the following class modifications and error log.\n\n'
+                    + ',\n'.join(df.iloc[idx].modif)
+                    + f'\n\n{df.iloc[idx].errorlog}\n\n'
+                )
 
-    return df
+        number_failure = df.errorcode.apply(lambda x: 1 if x != 0 else 0).sum()
+        print(
+            CRED
+            + f'{int(number_failure / len(df) * 100)} % of the simulations failed. '
+            + CEND
+            + 'See the file `unitTestsTemplates.log`.\n'
+        )
+        sys.exit(1)
+    else:
+        print(CGREEN + 'All simulations succeeded.\n' + CEND)
+        sys.exit(0)
