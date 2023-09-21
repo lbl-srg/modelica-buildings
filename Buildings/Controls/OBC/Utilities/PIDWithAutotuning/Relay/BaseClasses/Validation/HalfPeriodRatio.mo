@@ -30,6 +30,7 @@ model HalfPeriodRatio "Test model for calculating the half period ratio"
     "The length of the Off period"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger samTri(period=1, shift=0.9)
+    "True endi sampling"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
 equation
   connect(tOff.y, halPerRat.tOff) annotation (Line(points={{-58,-60},{12,-60},{

@@ -38,7 +38,7 @@ protected
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
   Buildings.Controls.OBC.CDL.Reals.Max maxtOntOff
     "Block that finds the larger one between the length for the On period and the length for theoff period"
-    annotation (Placement(transformation(extent={{-18,30},{2,50}})));
+    annotation (Placement(transformation(extent={{-20,30},{0,50}})));
   Buildings.Controls.OBC.CDL.Reals.Divide halPerRat
     "Block that calculates the half period ratio"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
@@ -48,14 +48,16 @@ equation
     annotation (Line(points={{-82,80},{-120,80}}, color={0,0,127}));
   connect(tOffSam.u, tOff)
     annotation (Line(points={{-82,-70},{-120,-70}}, color={0,0,127}));
-  connect(tOnSam.y, maxtOntOff.u1) annotation (Line(points={{-58,80},{-52,80},{-52,
-          46},{-20,46}}, color={0,0,127}));
-  connect(maxtOntOff.u2, tOffSam.y) annotation (Line(points={{-20,34},{-40,34},{
-          -40,-70},{-58,-70}}, color={0,0,127}));
+  connect(tOnSam.y, maxtOntOff.u1) annotation (Line(points={{-58,80},{-52,80},{
+          -52,46},{-22,46}},
+                         color={0,0,127}));
+  connect(maxtOntOff.u2, tOffSam.y) annotation (Line(points={{-22,34},{-40,34},
+          {-40,-70},{-58,-70}},color={0,0,127}));
   connect(mintOntOff.u2, tOffSam.y) annotation (Line(points={{-22,-26},{-40,-26},
           {-40,-70},{-58,-70}}, color={0,0,127}));
-  connect(maxtOntOff.y, halPerRat.u1) annotation (Line(points={{4,40},{32,40},{32,
-          6},{38,6}}, color={0,0,127}));
+  connect(maxtOntOff.y, halPerRat.u1) annotation (Line(points={{2,40},{32,40},{
+          32,6},{38,6}},
+                      color={0,0,127}));
   connect(halPerRat.u2, mintOntOff.y) annotation (Line(points={{38,-6},{10,-6},{
           10,-20},{2,-20}}, color={0,0,127}));
   connect(halPerRat.y, rho) annotation (Line(points={{62,0},{102,0},{102,0},{120,
