@@ -40,7 +40,7 @@ model IndirectDry "Indirect dry evaporative cooler"
     m_flow_nominal=m_flow_nominal_AirSec,
     padAre=padAre,
     dep=dep)
-    "Direct evaporative cooler for representing effect on primary air"
+    "Direct evaporative cooler for representing effect on secondary air"
     annotation (Placement(visible=true, transformation(
         origin={0,-60},
         extent={{-10,-10},{10,10}},
