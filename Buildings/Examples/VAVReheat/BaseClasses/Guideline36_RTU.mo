@@ -78,8 +78,7 @@ model Guideline36_RTU
     final have_perZonRehBox=true,
     final VUncDesOutAir_flow=0.644,
     final VDesTotOutAir_flow=1.107,
-    kVal=0.09,
-    TiVal=12000)
+    TiVal=800)
     "Air handler unit controller"
     annotation (Placement(transformation(extent={{460,460},{540,636}})));
 
