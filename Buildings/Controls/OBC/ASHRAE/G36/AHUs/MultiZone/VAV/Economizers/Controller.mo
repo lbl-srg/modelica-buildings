@@ -635,7 +635,7 @@ annotation (defaultComponentName="ecoCon",
           extent={{42,-50},{98,-66}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
-          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir,
+          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir,
           textString="yRelDam"),
         Text(
           extent={{42,-110},{98,-126}},

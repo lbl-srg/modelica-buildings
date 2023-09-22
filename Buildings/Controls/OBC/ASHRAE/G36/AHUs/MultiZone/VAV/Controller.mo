@@ -38,17 +38,6 @@ block Controller "Multizone VAV air handling unit controller"
     "Economizer high limit control device"
     annotation (__cdl(ValueInReference=false),
                 Dialog(group="Economizer design"));
-
-  parameter Boolean have_hotWatCoi=true
-    "True: the AHU has hot water heating coil"
-    annotation (__cdl(ValueInReference=false),
-                Dialog(group="System and building parameters"));
-  parameter Boolean have_eleHeaCoi=false
-    "True: the AHU has electric heating coil"
-    annotation (__cdl(ValueInReference=false),
-                Dialog(group="System and building parameters"));
-
-
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.Coil cooCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedCooling
     "Cooling coil type"
     annotation (__cdl(ValueInReference=false),
@@ -453,11 +442,11 @@ block Controller "Multizone VAV air handling unit controller"
 //   parameter Real kRelFan(unit="1")=1
 //     "Gain, normalized using dpBuiSet"
 //     annotation (Dialog(tab="Pressure control", group="Relief fans",
-//       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan));
+//       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan));
 //   parameter Real minSpeRelFan(unit="1")=0.1
 //     "Minimum relief fan speed"
 //     annotation (Dialog(tab="Pressure control", group="Relief fans",
-//       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan));
+//       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan));
   parameter Real difFloSet(unit="m3/s")=0.1
     "Airflow differential between supply air and return air fans required to maintain building pressure at desired pressure"
     annotation (__cdl(ValueInReference=false),
@@ -966,7 +955,7 @@ block Controller "Multizone VAV air handling unit controller"
     final iniSpe=iniFanSpe)     "Supply fan speed setpoint"
     annotation (Placement(transformation(extent={{-220,500},{-200,520}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.SupplySignals supSig(
-    final have_heaCoi=have_hotWatCoi or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.ElectricHeating,
+    final have_heaCoi=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.ElectricHeating,
     final controllerType=valCon,
     final kTSup=kVal,
     final TiTSup=TiVal,
@@ -1430,26 +1419,22 @@ annotation (
           extent={{-196,-352},{-136,-368}},
           textColor={0,0,0},
           visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir,
-
           textString="VAirRet_flow"),
        Text(
           extent={{-196,-332},{-136,-348}},
           textColor={0,0,0},
           visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir,
-
           textString="VAirSup_flow"),
        Text(
           extent={{150,-268},{204,-286}},
           textColor={0,0,0},
           visible=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
                and have_ahuRelFan) or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp,
-
           textString="yDpBui"),
        Text(
           extent={{138,-300},{200,-318}},
           textColor={0,0,0},
           visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp,
-
           textString="dpDisSet"),
        Text(
           extent={{166,-240},{196,-258}},
@@ -1490,7 +1475,6 @@ annotation (
           extent={{130,-138},{198,-158}},
           textColor={255,0,255},
           visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan,
-
           textString="y1RelDam")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-360,-600},{360,600}})),
   Documentation(info="<html>
@@ -1610,7 +1594,8 @@ revisions="<html>
 <li>
 September 18, 2023, by Jianjun Hu:<br/>
 Removed the connectors <code>uCooCoi_actual</code> and <code>uHeaCoi_actual</code>,
-added 2-position relief damper position output <code>y1RelDam</code>.<br/>
+added 2-position relief damper position output <code>y1RelDam</code>,
+added coil type enumeration so to avoid using flag parameters.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3526\">issue 3526</a>.
 </li>
