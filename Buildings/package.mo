@@ -299,9 +299,17 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36</b>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits
+    </td>
+    <td valign=\"top\">Added coil type enumeration and removed the coil type flags.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3526\">issue 3526</a>.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Controller
     </td>
-    <td valign=\"top\">Removed the connectors <code>uCooCoi_actual</code> and <code>uHeaCoi_actual</code>.<br/>
+    <td valign=\"top\">Removed the connectors <code>uCooCoi_actual</code> and <code>uHeaCoi_actual</code>,
+                       added coil type enumeration and removed the coil type flags.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3526\">issue 3526</a>.
     </td>

@@ -4,6 +4,9 @@ block PlantRequests "Output plant requests for multizone air handling unit"
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.Coil heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
     "Heating coil type"
     annotation (__cdl(ValueInReference=false));
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.Coil cooCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedCooling
+    "Cooling coil type"
+    annotation (__cdl(ValueInReference=false));
   parameter Real Thys = 0.1
     "Hysteresis for checking temperature difference"
     annotation(__cdl(ValueInReference=false),
@@ -31,6 +34,7 @@ block PlantRequests "Output plant requests for multizone air handling unit"
     final unit="1",
     final min=0,
     final max=1)
+    if cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedCooling
     "Commanded ooling coil valve position"
     annotation (Placement(transformation(extent={{-240,80},{-200,120}}),
         iconTransformation(extent={{-140,-50},{-100,-10}})));
@@ -42,10 +46,12 @@ block PlantRequests "Output plant requests for multizone air handling unit"
     annotation (Placement(transformation(extent={{-240,-160},{-200,-120}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yChiWatResReq
+    if cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedCooling
     "Chilled water reset request"
     annotation (Placement(transformation(extent={{200,180},{240,220}}),
         iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yChiPlaReq
+    if cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedCooling
     "Chiller plant request"
     annotation (Placement(transformation(extent={{200,0},{240,40}}),
         iconTransformation(extent={{100,10},{140,50}})));
@@ -85,15 +91,18 @@ protected
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr2(
     final t=0.95,
     final h=posHys)
+    if cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedCooling
     "Check if the chilled water valve position is greater than a threshold value"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant thr(
     final k=3) "Constant 3"
     annotation (Placement(transformation(extent={{0,222},{20,242}})));
   Buildings.Controls.OBC.CDL.Integers.Switch chiWatRes3
+    if cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedCooling
     "Send 3 chilled water reset request"
     annotation (Placement(transformation(extent={{160,190},{180,210}})));
   Buildings.Controls.OBC.CDL.Integers.Switch chiWatRes2
+    if cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedCooling
     "Send 2 chilled water reset request"
     annotation (Placement(transformation(extent={{120,140},{140,160}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant two(
@@ -103,12 +112,15 @@ protected
   Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThr(
     final t=0.85,
     final h=posHys)
+    if cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedCooling
     "Check if the chilled water valve position is less than a threshold value"
     annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat
+    if cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedCooling
     "Keep true signal until other condition becomes true"
     annotation (Placement(transformation(extent={{-40,90},{-20,110}})));
   Buildings.Controls.OBC.CDL.Integers.Switch chiWatRes1
+    if cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedCooling
     "Send 1 chilled water reset request"
     annotation (Placement(transformation(extent={{80,90},{100,110}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant one(
@@ -118,14 +130,17 @@ protected
     final k=0) "Constant 0"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat1
+    if cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedCooling
     "Keep true signal until other condition becomes true"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
   Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThr1(
     final t=0.1,
     final h=posHys)
+    if cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedCooling
     "Check if the chilled water valve position is less than a threshold value"
     annotation (Placement(transformation(extent={{-120,4},{-100,24}})));
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi3
+    if cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedCooling
     "Send 1 chiller plant request"
     annotation (Placement(transformation(extent={{80,10},{100,30}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract heaSupTemDif
@@ -332,7 +347,8 @@ annotation (
           extent={{-98,-22},{-38,-38}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uCooCoiSet"),
+          textString="uCooCoiSet",
+          visible=cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedCooling),
         Text(
           extent={{-98,-72},{-36,-88}},
           textColor={0,0,127},
@@ -343,12 +359,14 @@ annotation (
           extent={{34,92},{98,70}},
           textColor={255,127,0},
           pattern=LinePattern.Dash,
-          textString="yChiWatResReq"),
+          textString="yChiWatResReq",
+          visible=cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedCooling),
         Text(
           extent={{52,42},{98,20}},
           textColor={255,127,0},
           pattern=LinePattern.Dash,
-          textString="yChiPlaReq"),
+          textString="yChiPlaReq",
+          visible=cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedCooling),
         Text(
           extent={{34,-18},{98,-40}},
           textColor={255,127,0},
@@ -367,7 +385,7 @@ annotation (
 This sequence outputs the system reset requests for multiple zone air handling unit. The
 implementation is according to the Section 5.16.16 of ASHRAE Guideline 36, May 2020. 
 </p>
-<h4>chilled water reset request <code>yChiWatResReq</code></h4>
+<h4>Chilled water reset request <code>yChiWatResReq</code></h4>
 <ol>
 <li>
 If the supply air temperature <code>TAirSup</code> exceeds the supply air temperature

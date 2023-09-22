@@ -819,7 +819,9 @@ block Controller "Multizone VAV air handling unit controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCooCoi(
     final min=0,
     final max=1,
-    final unit="1") "Cooling coil valve commanded position"
+    final unit="1") if (cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedCooling
+     or cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.DXCoil)
+                    "Cooling coil valve commanded position"
     annotation (Placement(transformation(extent={{360,-290},{400,-250}}),
         iconTransformation(extent={{200,-210},{240,-170}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaCoi(
@@ -853,10 +855,12 @@ block Controller "Multizone VAV air handling unit controller"
     annotation (Placement(transformation(extent={{360,-440},{400,-400}}),
         iconTransformation(extent={{200,-330},{240,-290}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yChiWatResReq
+    if cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedCooling
     "Chilled water reset request"
     annotation (Placement(transformation(extent={{360,-480},{400,-440}}),
         iconTransformation(extent={{200,-360},{240,-320}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yChiPlaReq
+    if cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedCooling
     "Chiller plant request"
     annotation (Placement(transformation(extent={{360,-510},{400,-470}}),
         iconTransformation(extent={{200,-390},{240,-350}})));
@@ -885,6 +889,7 @@ block Controller "Multizone VAV air handling unit controller"
     final minOADes=minOADes,
     final freSta=freSta,
     final heaCoi=heaCoi,
+    final cooCoi=cooCoi,
     final minHotWatReq=minHotWatReq,
     final heaCoiCon=freProHeaCoiCon,
     final k=kFrePro,
@@ -896,6 +901,7 @@ block Controller "Multizone VAV air handling unit controller"
     annotation (Placement(transformation(extent={{180,-220},{200,-180}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.PlantRequests plaReq(
     final heaCoi=heaCoi,
+    final cooCoi=cooCoi,
     final Thys=Thys,
     final posHys=posHys) "Plant requests"
     annotation (Placement(transformation(extent={{-20,-540},{0,-520}})));
@@ -956,6 +962,8 @@ block Controller "Multizone VAV air handling unit controller"
     annotation (Placement(transformation(extent={{-220,500},{-200,520}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.SupplySignals supSig(
     final have_heaCoi=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.ElectricHeating,
+    final have_cooCoi=cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedCooling
+         or cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.DXCoil,
     final controllerType=valCon,
     final kTSup=kVal,
     final TiTSup=TiVal,
@@ -1318,9 +1326,12 @@ annotation (
           textColor={0,0,0},
           textString="yHeaCoi",
           visible=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating),
-       Text(extent={{142,-180},{200,-200}},
+       Text(
+          extent={{142,-180},{200,-200}},
           textColor={0,0,0},
-          textString="yCooCoi"),
+          textString="yCooCoi",
+          visible=(cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedCooling
+               or cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.DXCoil)),
        Text(
           extent={{142,-108},{204,-128}},
           textColor={0,0,0},
@@ -1365,12 +1376,16 @@ annotation (
        Text(extent={{-194,340},{-106,320}},
           textColor={255,127,0},
           textString="uZonTemResReq"),
-       Text(extent={{106,-328},{194,-348}},
+       Text(
+          extent={{106,-328},{194,-348}},
           textColor={255,127,0},
-          textString="yChiWatResReq"),
-       Text(extent={{124,-358},{202,-376}},
+          textString="yChiWatResReq",
+          visible=cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedCooling),
+       Text(
+          extent={{124,-358},{202,-376}},
           textColor={255,127,0},
-          textString="yChiPlaReq"),
+          textString="yChiPlaReq",
+          visible=cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedCooling),
        Text(extent={{108,-388},{196,-408}},
           textColor={255,127,0},
           textString="yHotWatResReq",
