@@ -51,7 +51,7 @@ model ASHRAE2006_RTU
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
 
   parameter Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil datCooCoi(
-    nSta=4,
+    nSta=5,
     sta={Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.Stage(
       spe=900/60,
       nomVal=
@@ -90,6 +90,16 @@ model ASHRAE2006_RTU
         COP_nominal=3,
         SHR_nominal=0.8,
         m_flow_nominal=1.8),
+      perCur=
+      Buildings.Fluid.DXSystems.Cooling.AirSource.Examples.PerformanceCurves.Curve_III()),
+    Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.Stage(
+      spe=3000/60,
+      nomVal=
+      Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.NominalValues(
+        Q_flow_nominal=-39000,
+        COP_nominal=3,
+        SHR_nominal=0.8,
+        m_flow_nominal=2.1),
       perCur=
       Buildings.Fluid.DXSystems.Cooling.AirSource.Examples.PerformanceCurves.Curve_III())})
     "DX cooling coil data record"

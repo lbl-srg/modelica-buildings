@@ -11,7 +11,7 @@ model ASHRAE2006_RTU
     xSet_nominal(displayUnit="Pa") = 410,
     r_N_min=yFanMin)
     "Controller for fan"
-    annotation (Placement(transformation(extent={{240,-10},{260,10}})));
+    annotation (Placement(transformation(extent={{240,40},{260,60}})));
 
   Controls.ModeSelector modeSelector
     annotation (Placement(transformation(extent={{-200,-320},{-180,-300}})));
@@ -51,7 +51,7 @@ model ASHRAE2006_RTU
   Buildings.Controls.OBC.CDL.Logical.Or or2
     annotation (Placement(transformation(extent={{-100,-250},{-80,-230}})));
 
-  Controls.SupplyAirTemperature conTSup(k=0.09, Ti=12000)
+  Controls.SupplyAirTemperature conTSup(k=0.05, Ti=800)
     "Supply air temperature and economizer controller"
     annotation (Placement(transformation(extent={{-60,-230},{-40,-210}})));
 
@@ -116,7 +116,7 @@ model ASHRAE2006_RTU
     annotation (Placement(transformation(extent={{910,310},{930,330}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1[nCoi](
-    final k=fill(true,3))
+    final k=fill(true,nCoi))
     "Constant Boolean signal"
     annotation (Placement(transformation(extent={{910,350},{930,370}})));
 
@@ -166,6 +166,22 @@ model ASHRAE2006_RTU
     "Enable auxiliary coil if fan is on and DX coils are unable to meet heating load"
     annotation (Placement(transformation(extent={{540,-120},{560,-100}})));
 
+  Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical Not"
+    annotation (Placement(transformation(extent={{140,-110},{160,-90}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea2
+    "Convert Boolean to Real number"
+    annotation (Placement(transformation(extent={{170,-110},{190,-90}})));
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(final nin=nCoi)
+    "Logical Multi Or"
+    annotation (Placement(transformation(extent={{102,-110},{122,-90}})));
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr1(final nin=nCoi)
+    "Logical Multi Or"
+    annotation (Placement(transformation(extent={{280,-100},{300,-80}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical Not"
+    annotation (Placement(transformation(extent={{310,-100},{330,-80}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea3
+    "Convert Boolean to Real number"
+    annotation (Placement(transformation(extent={{340,-100},{360,-80}})));
 equation
   connect(controlBus, modeSelector.cb) annotation (Line(
       points={{-240,-340},{-152,-340},{-152,-303.182},{-196.818,-303.182}},
@@ -192,12 +208,13 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(dpDisSupFan.p_rel, conFanSup.u_m) annotation (Line(
-      points={{411,4.44089e-16},{304,4.44089e-16},{304,-16},{250,-16},{250,-12}},
+      points={{411,4.44089e-16},{396,4.44089e-16},{396,0},{380,0},{380,30},{250,
+          30},{250,38}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(pSetDuc.y, conFanSup.u) annotation (Line(
-      points={{181,-6},{210,-6},{210,0},{238,0}},
+      points={{181,-6},{210,-6},{210,50},{238,50}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -229,8 +246,9 @@ equation
           141.467},{-70.6667,120},{-240,120},{-240,-340}},
                                               color={255,204,51}, thickness=0.5));
   connect(modeSelector.yFan, conFanSup.uFan) annotation (Line(points={{-179.091,
-          -305.455},{220,-305.455},{220,6},{238,6}}, color={255,0,255}));
-  connect(conFanSup.y, fanSup.y) annotation (Line(points={{261,0},{280,0},{280,
+          -305.455},{220,-305.455},{220,56},{238,56}},
+                                                     color={255,0,255}));
+  connect(conFanSup.y, fanSup.y) annotation (Line(points={{261,50},{280,50},{280,
           -20},{410,-20},{410,-28}}, color={0,0,127}));
   connect(or2.u2, modeSelector.yFan) annotation (Line(points={{-102,-248},{-120,
           -248},{-120,-305.455},{-179.091,-305.455}},
@@ -238,8 +256,8 @@ equation
   connect(VAVBox.y_actual, pSetDuc.u) annotation (Line(points={{762,40},{770,40},
           {770,80},{140,80},{140,-6},{158,-6}},     color={0,0,127}));
   connect(TSup.T, conTSup.TSup) annotation (Line(
-      points={{518,-29},{518,-20},{600,-20},{600,-188},{-70,-188},{-70,-214},{
-          -62,-214}},
+      points={{540,-29},{540,-20},{600,-20},{600,-188},{-70,-188},{-70,-214},{-62,
+          -214}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(conTSup.yOA, conEco.uOATSup) annotation (Line(
@@ -381,6 +399,27 @@ equation
   connect(RTUCon.uHeaCoi, conTSup.yHea) annotation (Line(points={{1008,238},{
           980,238},{980,-214},{-38,-214}}, color={0,0,127}));
 
+  connect(not1.y,booToRea2. u)
+    annotation (Line(points={{162,-100},{168,-100}},
+                                                   color={255,0,255}));
+  connect(mulOr.y, not1.u)
+    annotation (Line(points={{124,-100},{138,-100}}, color={255,0,255}));
+  connect(booToRea2.y, damPreInd.y) annotation (Line(points={{192,-100},{200,-100},
+          {200,12},{110,12}}, color={0,0,127}));
+  connect(RTUCon.yDXHeaCoi[1:nCoi], mulOr.u[1:nCoi]) annotation (Line(points={{1032,
+          254},{1060,254},{1060,-180},{90,-180},{90,-100},{100,-100}},color={255,
+          0,255}));
+  connect(not2.y,booToRea3. u)
+    annotation (Line(points={{332,-90},{338,-90}}, color={255,0,255}));
+  connect(mulOr1.y, not2.u)
+    annotation (Line(points={{302,-90},{308,-90}}, color={255,0,255}));
+  connect(booToRea3.y, damPreInd1.y) annotation (Line(points={{362,-90},{374,-90},
+          {374,12},{250,12}}, color={0,0,127}));
+  connect(RTUCon.yDXCooCoi[1:nCoi], mulOr1.u[1:nCoi]) annotation (Line(points={{1032,
+          260},{1070,260},{1070,-168},{260,-168},{260,-90},{278,-90}},color={255,
+          0,255}));
+  connect(booToRea1.y, damPreInd2.y) annotation (Line(points={{522,-110},{528,-110},
+          {528,12},{470,12}}, color={0,0,127}));
   annotation (
   defaultComponentName="hvac",
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-400},{1420,
