@@ -38,8 +38,8 @@ FRACTION_TEST_COVERAGE=${2:-1}
 # Each key is a Modelica package name under Buildings.Templates (with . as separator).
 # Each value is a string containing directory paths (relative to `modelica-buildings/Buildings`).
 declare -A checksum_dirs=(
-  # ["AirHandlersFans"]="Templates/AirHandlersFans
-  #                      Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV"
+  ["AirHandlersFans"]="Templates/AirHandlersFans
+                       Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV"
   ["ZoneEquipment"]="Templates/ZoneEquipment
                      Controls/OBC/ASHRAE/G36/TerminalUnits/CoolingOnly
                      Controls/OBC/ASHRAE/G36/TerminalUnits/Reheat"
@@ -48,12 +48,16 @@ declare -A checksum_dirs=(
 # Each key is a Modelica package name under Buildings.Templates (with . as separator).
 # Each value is a string containing the script path (relative to `modelica-buildings/Buildings`).
 declare -A test_script=(
-  # ["AirHandlersFans"]="./Resources/Scripts/travis/templates/VAVMultiZone.py"
+  ["AirHandlersFans"]="./Resources/Scripts/travis/templates/VAVMultiZone.py"
   ["ZoneEquipment"]="./Resources/Scripts/travis/templates/VAVBox.py"
 )
 
 for type in "${!checksum_dirs[@]}"; do
   # For each system type: compute checksum of checksum of all mo files under corresponding checksum_dirs, and store value.
+  debug=$(find ${checksum_dirs[$type]} -type f -name '*.mo')
+  printf "%s\n" "${debug}"
+  debug=$(find ${checksum_dirs[$type]} -type f -name '*.mo' -exec md5sum {} \; | LC_ALL=C sort -f -k 2)
+  printf "%s\n" "${debug}"
   checksum="$(
     find ${checksum_dirs[$type]} -type f -name '*.mo' -exec md5sum {} \; \
       | LC_ALL=C sort -f -k 2 \
@@ -61,13 +65,14 @@ for type in "${!checksum_dirs[@]}"; do
       | md5sum \
       | awk '{ print $1; }'
   )"
+  echo $checksum
   echo $checksum > "./Resources/Scripts/travis/templates/$type.checksum"
 
   # Add checksum file to the index so that differences shows up in git diff even if file was never added before.
   git add --intent-to-add "./Resources/Scripts/travis/templates/$type.checksum"
 
   # Diff/HEAD: only for remote testing.
-  # Locally, it is expected that there is some diff/HEAD (and we proceed directly to the next step: diff/master).
+  # (Locally, it is expected that there is some diff/HEAD, and we proceed directly to the next step: diff/master.)
   if $TRAVISRUN; then
     diff_checksum="$(git diff --name-only HEAD | grep Resources/Scripts/travis/templates/$type.checksum)"
     if (( $? == 0 )); then
