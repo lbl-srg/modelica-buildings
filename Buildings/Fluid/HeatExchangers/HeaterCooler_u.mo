@@ -12,6 +12,9 @@ model HeaterCooler_u "Heater or cooler with prescribed heat flow rate"
   Modelica.Blocks.Interfaces.RealOutput Q_flow(unit="W")
     "Heat added to the fluid"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
+  Controls.OBC.CDL.Conversions.BooleanToReal booToRea
+    "Convert Boolean to Real number"
+    annotation (Placement(transformation(extent={{-68,74},{-56,86}})));
 protected
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea(
     final alpha=0)
@@ -22,6 +25,10 @@ protected
     y(final unit="W"))
     "Gain"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
+protected
+  Modelica.Blocks.Logical.Hysteresis deaBanDam(final uLow=0.05, final uHigh=0.1)
+    "Speed ratio deadband"
+    annotation (Placement(transformation(extent={{-88,74},{-76,86}})));
 equation
   connect(u, gai.u) annotation (Line(
       points={{-120,60},{-82,60}},
@@ -35,6 +42,12 @@ equation
   connect(gai.y, Q_flow) annotation (Line(
       points={{-59,60},{-50,60},{-50,80},{80,80},{80,60},{110,60}},
       color={0,0,127}));
+  connect(u, deaBanDam.u) annotation (Line(points={{-120,60},{-94,60},{-94,80},
+          {-89.2,80}}, color={0,0,127}));
+  connect(deaBanDam.y, booToRea.u)
+    annotation (Line(points={{-75.4,80},{-69.2,80}}, color={255,0,255}));
+  connect(booToRea.y, damPreInd.y) annotation (Line(points={{-54.8,80},{-54.8,
+          82},{-48,82},{-48,18},{-78,18},{-78,12}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(

@@ -45,6 +45,9 @@ equation
                       color={255,0,255}));
   connect(booToReaOn.y, defCap.uSpe) annotation (Line(points={{22,140},{44,140},
           {44,100},{61,100}}, color={0,0,127}));
+  connect(booToReaOn.y, damPreInd.y) annotation (Line(points={{22,140},{28,140},
+          {28,126},{-78,126},{-78,12}},                              color={0,0,
+          127}));
   annotation (defaultComponentName="sinSpeDXHea", Documentation(info="<html>
 <p>
 This model can be used to simulate an air-source DX heating coil with single speed compressor.

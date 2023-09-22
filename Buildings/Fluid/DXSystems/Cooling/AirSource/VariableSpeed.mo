@@ -1,7 +1,6 @@
 within Buildings.Fluid.DXSystems.Cooling.AirSource;
 model VariableSpeed "Variable speed DX cooling coil"
-  extends
-    Buildings.Fluid.DXSystems.Cooling.BaseClasses.PartialDXCoolingCoil(
+  extends Buildings.Fluid.DXSystems.Cooling.BaseClasses.PartialDXCoolingCoil(
     dxCoi(
       final variableSpeedCoil=true,
       wetCoi(redeclare
@@ -27,11 +26,13 @@ model VariableSpeed "Variable speed DX cooling coil"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}}),
       iconTransformation(extent={{-120,70},{-100,90}})));
 
+  Controls.OBC.CDL.Conversions.BooleanToReal booToRea
+    "Convert Boolean to Real number"
+    annotation (Placement(transformation(extent={{-42,84},{-30,96}})));
 protected
   Modelica.Blocks.Logical.Hysteresis deaBan(
     final uLow=minSpeRat - speRatDeaBan/2,
-    final uHigh=minSpeRat + speRatDeaBan/2)
-    "Speed ratio deadband"
+    final uHigh=minSpeRat + speRatDeaBan/2) "Speed ratio deadband"
     annotation (Placement(transformation(extent={{-64,64},{-52,76}})));
 
   Modelica.Blocks.Math.BooleanToInteger onSwi(
@@ -62,6 +63,10 @@ equation
       points={{-51.4,70},{-43.2,70}},
       color={255,0,255},
       smooth=Smooth.None));
+  connect(deaBan.y, booToRea.u) annotation (Line(points={{-51.4,70},{-48,70},{
+          -48,90},{-43.2,90}}, color={255,0,255}));
+  connect(booToRea.y, damPreInd.y) annotation (Line(points={{-28.8,90},{-22,90},
+          {-22,66},{-26,66},{-26,-14},{-78,-14},{-78,12}}, color={0,0,127}));
   annotation (defaultComponentName="varSpeDXCoo", Documentation(info="<html>
 <p>
 This model can be used to simulate an air source DX cooling coil with continuously
