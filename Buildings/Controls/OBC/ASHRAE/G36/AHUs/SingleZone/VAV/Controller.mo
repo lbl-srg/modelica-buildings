@@ -39,14 +39,14 @@ block Controller
   parameter Boolean have_CO2Sen=true
     "True: the zone has CO2 sensor"
     annotation (__cdl(ValueInReference=false));
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon=
-    Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.BarometricRelief
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl buiPreCon=
+      Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.BarometricRelief
     "Type of building pressure control system"
     annotation (__cdl(ValueInReference=false));
   parameter Boolean have_ahuRelFan=true
     "True: relief fan is part of AHU; False: the relief fans group that may associate multiple AHUs"
     annotation (__cdl(ValueInReference=false),
-                Dialog(enable=buiPreCon==Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan));
+                Dialog(enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan));
   parameter Real VAreBreZon_flow(unit="m3/s")=0
     "Design area component of the breathing zone outdoor airflow"
     annotation (__cdl(ValueInReference=false),
@@ -455,37 +455,40 @@ block Controller
     "Relief-damper position that maintains a building pressure of 12 Pa while the economizer damper is positioned to provide minimum outdoor air while the supply fan is at minimum speed"
     annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Pressure control", group="Relief damper",
-                       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper));
+                       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefDamper));
   parameter Real relDam_max(unit="1")=1
     "Relief-damper position that maintains a building pressure of 12 Pa while the economizer damper is fully open and the fan speed is at cooling maximum"
     annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Pressure control", group="Relief damper",
-                       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper));
+                       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefDamper));
   parameter Real speDif=-0.1
     "Speed difference between supply and return fan to maintain building pressure at desired pressure"
     annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Pressure control", group="Return fan",
-                       enable=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
-                            or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)));
+                       enable=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
+           or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp)));
   parameter Real dpBuiSet(
     unit="Pa",
     displayUnit="Pa")=12
     "Building static pressure difference relative to ambient (positive to pressurize the building)"
     annotation (__cdl(ValueInReference=true),
                 Dialog(tab="Pressure control",
-      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan and have_ahuRelFan));
+      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
+           and have_ahuRelFan));
   parameter Real relFanSpe_min(
     final min=0,
     final max=1)= 0.1
     "Relief fan minimum speed"
     annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Pressure control", group="Relief fan",
-      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan and have_ahuRelFan));
+      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
+           and have_ahuRelFan));
   parameter Real kRelFan(unit="1")=1
     "Gain of relief fan controller, normalized using dpBuiSet"
     annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Pressure control", group="Relief fan",
-      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan and have_ahuRelFan));
+      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
+           and have_ahuRelFan));
 
   // ----------- Advanced -----------
   parameter Real posHys=0.01 "Hysteresis for damper position check"
@@ -654,21 +657,21 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpBui(
     final unit="Pa",
     displayUnit="Pa",
-    final quantity="PressureDifference")
-    if have_ahuRelFan and buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+    final quantity="PressureDifference") if have_ahuRelFan and buiPreCon ==
+    Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
     "Measured building static pressure difference, relative to ambient (positive if pressurized)"
     annotation (Placement(transformation(extent={{-300,-248},{-260,-208}}),
         iconTransformation(extent={{-240,-240},{-200,-200}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1RelFan
-    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
-     and not have_ahuRelFan
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1RelFan if buiPreCon ==
+    Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan and not
+    have_ahuRelFan
     "Relief fan commanded on"
     annotation (Placement(transformation(extent={{-300,-270},{-260,-230}}),
         iconTransformation(extent={{-240,-260},{-200,-220}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uRelFan(
     final min=0,
     final max=1,
-    final unit="1") if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+    final unit="1") if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
      and not have_ahuRelFan
     "Relief fan commanded speed"
     annotation (Placement(transformation(extent={{-300,-300},{-260,-260}}),
@@ -684,8 +687,7 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDam(
     final min=0,
     final max=1,
-    final unit="1")
-    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
+    final unit="1") if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefDamper
     "Outdoor damper position"
     annotation (Placement(transformation(extent={{-300,-360},{-260,-320}}),
         iconTransformation(extent={{-240,-330},{-200,-290}})));
@@ -767,31 +769,29 @@ block Controller
     "Supply fan commanded speed"
     annotation (Placement(transformation(extent={{260,20},{300,60}}),
         iconTransformation(extent={{200,20},{240,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1RetFan
-    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
-     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1RetFan if (buiPreCon
+     == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
+     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp)
     "Return fan commanded on"
     annotation (Placement(transformation(extent={{260,-20},{300,20}}),
         iconTransformation(extent={{200,-10},{240,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetFan(
     final min=0,
     final max=1,
-    final unit="1")
-    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
-     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
+    final unit="1") if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
+     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp)
     "Return fan commanded speed"
     annotation (Placement(transformation(extent={{260,-50},{300,-10}}),
         iconTransformation(extent={{200,-30},{240,10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1RelFan
-    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1RelFan if buiPreCon ==
+    Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
     "Relief fan commanded on"
     annotation (Placement(transformation(extent={{260,-90},{300,-50}}),
         iconTransformation(extent={{200,-60},{240,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelFan(
     final min=0,
     final max=1,
-    final unit="1")
-    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+    final unit="1") if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
     "Relief fan commanded speed"
     annotation (Placement(transformation(extent={{260,-120},{300,-80}}),
         iconTransformation(extent={{200,-80},{240,-40}})));
@@ -815,14 +815,14 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelDam(
     final min=0,
     final max=1,
-    final unit="1") if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
-     or (have_ahuRelFan and buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan)
+    final unit="1") if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefDamper
+     or (have_ahuRelFan and buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan)
     "Relief damper commanded position"
     annotation (Placement(transformation(extent={{260,-290},{300,-250}}),
         iconTransformation(extent={{200,-230},{240,-190}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ExhDam
-    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
-     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ExhDam if (buiPreCon
+     == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
+     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp)
     "Exhaust damper command on"
     annotation (Placement(transformation(extent={{260,-320},{300,-280}}),
         iconTransformation(extent={{200,-260},{240,-220}})));
@@ -987,12 +987,12 @@ block Controller
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.ReliefDamper relDam(
     final relDam_min=relDam_min,
     final relDam_max=relDam_max,
-    final posHys=posHys) if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
+    final posHys=posHys) if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefDamper
     "Relief damper control"
     annotation (Placement(transformation(extent={{60,-280},{80,-260}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.ReturnFan retFan(
-    final speDif=speDif) if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
-     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
+    final speDif=speDif) if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
+     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp)
     "Return fan control"
     annotation (Placement(transformation(extent={{60,-372},{80,-352}})));
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi
@@ -1016,8 +1016,7 @@ block Controller
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.ReliefFan relFanCon(
     final relFanSpe_min=relFanSpe_min,
     final dpBuiSet=dpBuiSet,
-    final k=kRelFan)
-    if have_ahuRelFan and buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+    final k=kRelFan) if have_ahuRelFan and buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
     "Control of relief fan when it is part of AHU"
     annotation (Placement(transformation(extent={{60,-220},{80,-200}})));
 

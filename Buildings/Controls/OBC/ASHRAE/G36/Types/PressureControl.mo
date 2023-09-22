@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Types;
-type BuildingPressureControlTypes = enumeration(
+type PressureControl = enumeration(
     BarometricRelief "Nonactuated barometric relief",
     ReliefDamper "Actuated relief damper, without fan",
     ReliefFan "Actuated relief damper, with relief fan(s)",

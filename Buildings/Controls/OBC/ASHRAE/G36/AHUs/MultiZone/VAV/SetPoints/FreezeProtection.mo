@@ -5,10 +5,10 @@ block FreezeProtection
   parameter Boolean have_frePro=true
     "True: enable freeze protection"
     annotation (__cdl(ValueInReference=false));
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl buiPreCon=
+      Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefDamper
     "Type of building pressure control system"
-    annotation (__cdl(ValueInReference=false),
-                Dialog(enable=have_frePro));
+    annotation (__cdl(ValueInReference=false), Dialog(enable=have_frePro));
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection minOADes=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
     "Design of minimum outdoor air and economizer function"
     annotation (__cdl(ValueInReference=false),
@@ -133,31 +133,29 @@ block FreezeProtection
     "Supply fan commanded speed"
     annotation (Placement(transformation(extent={{-480,-248},{-440,-208}}),
         iconTransformation(extent={{-140,-70},{-100,-30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1RetFan
-    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
-     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1RetFan if (buiPreCon ==
+    Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
+     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp)
     "Return fan commanded on"
     annotation (Placement(transformation(extent={{-480,-340},{-440,-300}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uRetFan(
     final min=0,
     final max=1,
-    final unit="1")
-    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
-     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
+    final unit="1") if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
+     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp)
     "Return fan commanded speed"
     annotation (Placement(transformation(extent={{-480,-388},{-440,-348}}),
         iconTransformation(extent={{-140,-120},{-100,-80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1RelFan if buiPreCon ==
-    Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+    Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
     "Relief fan commanded on"
     annotation (Placement(transformation(extent={{-480,-480},{-440,-440}}),
         iconTransformation(extent={{-140,-140},{-100,-100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uRelFan(
     final min=0,
     final max=1,
-    final unit="1")
-    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+    final unit="1") if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
     "Relief fan commanded speed"
     annotation (Placement(transformation(extent={{-480,-528},{-440,-488}}),
         iconTransformation(extent={{-140,-160},{-100,-120}})));
@@ -222,36 +220,34 @@ block FreezeProtection
     "Supply fan commanded speed"
     annotation (Placement(transformation(extent={{440,-240},{480,-200}}),
         iconTransformation(extent={{100,20},{140,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1RetFan
-    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
-     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1RetFan if (buiPreCon
+     == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
+     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp)
     "Return fan commanded on"
     annotation (Placement(transformation(extent={{440,-300},{480,-260}}),
         iconTransformation(extent={{100,-10},{140,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetFan(
     final min=0,
     final max=1,
-    final unit="1")
-    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
-     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
+    final unit="1") if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
+     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp)
     "Return fan commanded speed"
     annotation (Placement(transformation(extent={{440,-380},{480,-340}}),
         iconTransformation(extent={{100,-30},{140,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1RelFan if buiPreCon ==
-    Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+    Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
     "Relief fan commanded on"
     annotation (Placement(transformation(extent={{440,-440},{480,-400}}),
         iconTransformation(extent={{100,-60},{140,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1RelDam
-    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1RelDam if buiPreCon ==
+    Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
     "True: 2-position relief damper is commanded open"
     annotation (Placement(transformation(extent={{440,-480},{480,-440}}),
         iconTransformation(extent={{100,-100},{140,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelFan(
     final min=0,
     final max=1,
-    final unit="1")
-    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+    final unit="1") if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
     "Relief fan commanded speed"
     annotation (Placement(transformation(extent={{440,-520},{480,-480}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
@@ -398,14 +394,13 @@ block FreezeProtection
      and have_frePro
     "Supply fan speed"
     annotation (Placement(transformation(extent={{120,-230},{140,-210}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch retFan if (buiPreCon ==
-    Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
-     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
+  Buildings.Controls.OBC.CDL.Reals.Switch retFan if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
+     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp)
      and (not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
      and have_frePro
     "Return fan speed"
     annotation (Placement(transformation(extent={{120,-370},{140,-350}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch relFan if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+  Buildings.Controls.OBC.CDL.Reals.Switch relFan if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
      and (not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
      and have_frePro
     "Relief fan speed"
@@ -550,14 +545,14 @@ block FreezeProtection
      and have_frePro
     "Reset the freeze protection by the physical reset switch in freeze stat"
     annotation (Placement(transformation(extent={{-220,120},{-200,140}})));
-  Buildings.Controls.OBC.CDL.Logical.And and1 if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
-     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
+  Buildings.Controls.OBC.CDL.Logical.And and1 if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
+     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp)
      and (not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
      and have_frePro
     "Disable return fan when in stage 3"
     annotation (Placement(transformation(extent={{320,-290},{340,-270}})));
-  Buildings.Controls.OBC.CDL.Logical.Not norSta3 if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
-     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
+  Buildings.Controls.OBC.CDL.Logical.Not norSta3 if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
+     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp)
      and have_frePro
     "Not in stage 3"
     annotation (Placement(transformation(extent={{160,-310},{180,-290}})));
@@ -568,11 +563,11 @@ block FreezeProtection
      and have_frePro
     "Disable supply fan when in stage 3"
     annotation (Placement(transformation(extent={{320,-150},{340,-130}})));
-  Buildings.Controls.OBC.CDL.Logical.Not norSta2 if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan)
+  Buildings.Controls.OBC.CDL.Logical.Not norSta2 if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan)
      and have_frePro
     "Not in stage 3"
     annotation (Placement(transformation(extent={{160,-450},{180,-430}})));
-  Buildings.Controls.OBC.CDL.Logical.And and3 if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+  Buildings.Controls.OBC.CDL.Logical.And and3 if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
      and (not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
      and have_frePro
     "Disable relief fan when in stage 3"
@@ -588,25 +583,25 @@ block FreezeProtection
     "Dummy block for enabling and disabling the conditional connection"
     annotation (Placement(transformation(extent={{120,-620},{140,-600}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai2(
-    final k=1) if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+    final k=1) if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
      and freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
      and have_frePro
     "Dummy block for enabling and disabling the conditional connection"
     annotation (Placement(transformation(extent={{120,-540},{140,-520}})));
-  Buildings.Controls.OBC.CDL.Logical.Or or1 if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+  Buildings.Controls.OBC.CDL.Logical.Or or1 if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
      and (not ((not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
      and have_frePro))
     "Dummy block for enabling and disabling conditional connection"
     annotation (Placement(transformation(extent={{320,-470},{340,-450}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai3(
-    final k=1) if ((buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
-     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
+    final k=1) if ((buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
+     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp)
      and freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
      and have_frePro
     "Dummy block for enabling and disabling the conditional connection"
     annotation (Placement(transformation(extent={{120,-400},{140,-380}})));
-  Buildings.Controls.OBC.CDL.Logical.Or or4 if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
-     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
+  Buildings.Controls.OBC.CDL.Logical.Or or4 if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
+     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp)
      and not ((not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
      and have_frePro)
     "Dummy block for enabling and disabling conditional connection"
@@ -660,13 +655,13 @@ block FreezeProtection
     if not have_frePro
     "Dummy block for enabling and disabling the conditional connection"
     annotation (Placement(transformation(extent={{-260,-280},{-240,-260}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai12(final k=1)
-    if (not have_frePro) and (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
-     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai12(final k=1) if (not
+    have_frePro) and (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
+     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp)
     "Dummy block for enabling and disabling the conditional connection"
     annotation (Placement(transformation(extent={{-260,-420},{-240,-400}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai13(final k=1)
-    if (not have_frePro) and buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai13(final k=1) if (not
+    have_frePro) and buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
     "Dummy block for enabling and disabling the conditional connection"
     annotation (Placement(transformation(extent={{-260,-560},{-240,-540}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai14(final k=1)
