@@ -340,8 +340,8 @@ equation
   connect(chaSta.yDXCoi, chaSta1.uDXCoil) annotation (Line(points={{24,144},{
           120,144},{120,102},{128,102}},
                                  color={255,0,255}));
-  connect(DXCoiSta.uCoi, uCoi) annotation (Line(points={{-152,60},{-180,60},{-180,
-          -120},{-240,-120}},      color={0,0,127}));
+  connect(DXCoiSta.uCoi, uCoi) annotation (Line(points={{-152,60},{-180,60},{
+          -180,-120},{-240,-120}}, color={0,0,127}));
   connect(uDXCoi, DXCoiSta.uDXCoi) annotation (Line(points={{-240,40},{-168,40},
           {-168,64},{-152,64}}, color={255,0,255}));
   connect(mulSumInt.y, intGreEquThr.u) annotation (Line(points={{-88,-20},{-60,
@@ -349,8 +349,8 @@ equation
                                 color={255,127,0}));
   connect(mulSumInt.y, intLesEquThr.u) annotation (Line(points={{-88,-20},{-52,
           -20}},                color={255,127,0}));
-  connect(DXCoiSta.yUp, and2.u1) annotation (Line(points={{-128,66},{-60,66},{-60,
-          110},{38,110}},
+  connect(DXCoiSta.yUp, and2.u1) annotation (Line(points={{-128,66},{-60,66},{
+          -60,110},{38,110}},
                         color={255,0,255}));
   connect(intGreEquThr.y, and2.u2) annotation (Line(points={{-28,20},{30,20},{30,
           102},{38,102}},    color={255,0,255}));
@@ -417,7 +417,8 @@ equation
   connect(booToRea.y, mul.u1) annotation (Line(points={{152,-60},{170,-60},{170,
           -114},{178,-114}}, color={0,0,127}));
   connect(DXCoiSta.yDow, not1.u)
-    annotation (Line(points={{-128,54},{-52,54}}, color={255,0,255}));
+    annotation (Line(points={{-128,54},{-90,54},{-90,54},{-52,54}},
+                                                  color={255,0,255}));
   connect(not1.y, or2.u1)
     annotation (Line(points={{-28,54},{38,54}}, color={255,0,255}));
   connect(ComSpeSta.uDXCoi, uDXCoi) annotation (Line(points={{128,-118},{60,-118},
@@ -430,8 +431,9 @@ equation
                             color={255,0,255}));
   connect(TSupCoiDif, ComSpeSta.TSupCoiDif) annotation (Line(points={{-240,-160},
           {60,-160},{60,-168},{124,-168},{124,-126},{128,-126}}, color={0,0,127}));
-  connect(TSupCoiDif, DXCoiSta.TSupCoiDif) annotation (Line(points={{-240,-160},
-          {-160,-160},{-160,56},{-152,56}}, color={0,0,127}));
+  connect(ComSpeSta.yComSpe, DXCoiSta.uComSpe) annotation (Line(points={{152,
+          -120},{162,-120},{162,-170},{-210,-170},{-210,56},{-152,56}}, color={
+          0,0,127}));
   annotation (defaultComponentName="DXCoiCon",
     Icon(coordinateSystem(preserveAspectRatio=false,
       extent={{-100,-100},{100,100}}),
