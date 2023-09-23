@@ -205,9 +205,9 @@ Each class (i.e., model, block and function) must be used in an example or valid
     extends Modelica.Icons.ReleaseNotes;
 
 
-class Version_10_0_1 "Version 10.0.1"
-  extends Modelica.Icons.ReleaseNotes;
-    annotation (Documentation(info="<html>
+    class Version_10_0_1 "Version 10.0.1"
+      extends Modelica.Icons.ReleaseNotes;
+        annotation (Documentation(info="<html>
 <div class=\"release-summary\">
 <p>
 Version 10.0.1 is backward compatible with version 10.0.0.
@@ -246,6 +246,16 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.BoundaryConditions.WeatherData</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.Bus
+    </td>
+    <td valign=\"top\">Declared variables on weather data bus, which avoids
+                       a warning in OMEdit, and improves usability of weather data bus.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1798\">IBPSA, issue 1798</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
@@ -319,7 +329,7 @@ xxx
 </li>
 </ul>
 </html>"));
-end Version_10_0_1;
+    end Version_10_0_1;
 
   class Version_10_0_0 "Version 10.0.0"
   extends Modelica.Icons.ReleaseNotes;
