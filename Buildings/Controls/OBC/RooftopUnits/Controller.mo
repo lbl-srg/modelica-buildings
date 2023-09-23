@@ -179,6 +179,10 @@ block Controller
     final unit="Pa")=101325
     "Atmospheric pressure";
 
+  parameter Real TCooMin = 273.15+10;
+
+  parameter Real THeaMax = 273.15+35;
+
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDXCooCoi[nCoiCoo]
     "DX cooling coil status" annotation (Placement(transformation(extent={{-140,
             160},{-100,200}}), iconTransformation(extent={{-140,150},{-100,190}})));
@@ -416,6 +420,14 @@ block Controller
   CDL.Routing.IntegerScalarReplicator intScaRepHea(final nout=nCoiHea)
     "Integer scalar replicator"
     annotation (Placement(transformation(extent={{-30,42},{-10,62}})));
+  CDL.Continuous.Subtract subCoo[nCoiCoo]
+    annotation (Placement(transformation(extent={{48,-218},{68,-198}})));
+  CDL.Continuous.Subtract subHea[nCoiHea]
+    annotation (Placement(transformation(extent={{48,-258},{68,-238}})));
+  CDL.Continuous.Sources.Constant conCoo[nCoiCoo](k=fill(TCooMin, nCoiCoo))
+    annotation (Placement(transformation(extent={{-80,-210},{-60,-190}})));
+  CDL.Continuous.Sources.Constant conHea[nCoiHea](k=fill(THeaMax, nCoiHea))
+    annotation (Placement(transformation(extent={{-80,-260},{-60,-240}})));
 equation
   connect(uDemLimLev, intScaRepCoo.u) annotation (Line(points={{-120,0},{-46,0},
           {-46,80},{-32,80}}, color={255,127,0}));
@@ -493,16 +505,24 @@ equation
           30},{-80,140},{-32,140}}, color={255,127,0}));
   connect(uHeaCoi, DXCoiConHea.uCoi) annotation (Line(points={{-120,-62},{-50,-62},
           {-50,136},{-32,136}}, color={0,0,127}));
-  connect(TSupCoiCoo, DXCoiConCoo.TSupCoiDif) annotation (Line(points={{-120,-220},
-          {-92,-220},{-92,172},{-32,172}}, color={0,0,127}));
-  connect(TSupCoiHea, DXCoiConHea.TSupCoiDif) annotation (Line(points={{-120,-260},
-          {-84,-260},{-84,132},{-32,132}}, color={0,0,127}));
   connect(DXCoiConHea.yComSpe, mul.u1) annotation (Line(points={{-8,136},{14,136},
           {14,26},{38,26}}, color={0,0,127}));
   connect(uDemLimLev, intScaRepHea.u) annotation (Line(points={{-120,0},{-46,0},
           {-46,56},{-32,56},{-32,52}}, color={255,127,0}));
   connect(intScaRepHea.y, ComSpeDRHea.uDemLimLev) annotation (Line(points={{-8,52},
           {32,52},{32,-34},{38,-34}}, color={255,127,0}));
+  connect(conCoo.y, subCoo.u1) annotation (Line(points={{-58,-200},{20,-200},{20,
+          -202},{46,-202}}, color={0,0,127}));
+  connect(conHea.y, subHea.u2) annotation (Line(points={{-58,-250},{40,-250},{40,
+          -254},{46,-254}}, color={0,0,127}));
+  connect(TSupCoiCoo, subCoo.u2) annotation (Line(points={{-120,-220},{20,-220},
+          {20,-214},{46,-214}}, color={0,0,127}));
+  connect(TSupCoiHea, subHea.u1) annotation (Line(points={{-120,-260},{20,-260},
+          {20,-242},{46,-242}}, color={0,0,127}));
+  connect(subCoo.y, DXCoiConCoo.TSupCoiDif) annotation (Line(points={{70,-208},
+          {80,-208},{80,-178},{-90,-178},{-90,172},{-32,172}}, color={0,0,127}));
+  connect(subHea.y, DXCoiConHea.TSupCoiDif) annotation (Line(points={{70,-248},
+          {84,-248},{84,-174},{-84,-174},{-84,132},{-32,132}}, color={0,0,127}));
   annotation (defaultComponentName="RTUCon",
     Icon(coordinateSystem(preserveAspectRatio=false,
       extent={{-100,-280},{100,200}}),
