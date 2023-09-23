@@ -4,11 +4,8 @@ model DXCoilStage
 
   Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.DXCoilStage DXCoiSta(
     nCoi=1,
-    uThrCoi=0.8,
-    uThrCoi1=0.2,
     dUHys=0.01,
-    timPer=480,
-    timPer1=180)
+    dTHys(displayUnit="K") = 1)
     "DX coil staging up and down"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
 
@@ -38,6 +35,15 @@ model DXCoilStage
     "Feedback delay"
     annotation (Placement(transformation(extent={{50,-10},{70,10}})));
 
+  CDL.Continuous.Sources.Pulse                        pulCoi1(
+    final amplitude=3,
+    final width=0.6,
+    final period=1800,
+    shift=450,
+    final offset=-1.5) "Coil valve position"
+    annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
+  CDL.Routing.RealScalarReplicator reaScaRep(nout=DXCoiSta.nCoi)
+    annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
 equation
   connect(DXCoiSta.yUp, nexDXCoi.u) annotation (Line(points={{-28,6},{-10,
           6},{-10,50},{-2,50}},
@@ -46,17 +52,22 @@ equation
           -10,-6},{-10,-50},{-2,-50}},
                           color={255,0,255}));
   connect(pulCoi.y, DXCoiSta.uCoi)
-    annotation (Line(points={{-68,-6},{-52,-6}}, color={0,0,127}));
+    annotation (Line(points={{-68,-6},{-60,-6},{-60,0},{-52,0}},
+                                                 color={0,0,127}));
   connect(DXCoiSta.yUp, lat.u)
     annotation (Line(points={{-28,6},{-10,6},{-10,0},{-2,0}},
                                                          color={255,0,255}));
   connect(lat.y, pre1.u)
     annotation (Line(points={{22,0},{48,0}}, color={255,0,255}));
   connect(pre1.y, DXCoiSta.uDXCoi[1]) annotation (Line(points={{72,0},{80,0},{
-          80,72},{-60,72},{-60,6},{-52,6}}, color={255,0,255}));
+          80,72},{-60,72},{-60,4},{-52,4}}, color={255,0,255}));
   connect(DXCoiSta.yDow, lat.clr)
     annotation (Line(points={{-28,-6},{-2,-6}},color={255,0,255}));
 
+  connect(pulCoi1.y, reaScaRep.u)
+    annotation (Line(points={{-68,-40},{-62,-40}}, color={0,0,127}));
+  connect(reaScaRep.y, DXCoiSta.TSupCoiDif) annotation (Line(points={{-38,-40},
+          {-26,-40},{-26,-20},{-56,-20},{-56,-4},{-52,-4}}, color={0,0,127}));
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/RooftopUnits/DXCoil/Subsequences/Validation/DXCoilStage.mos"

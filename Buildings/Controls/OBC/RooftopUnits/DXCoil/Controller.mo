@@ -19,13 +19,13 @@ block Controller
     "Constant higher DX coil signal"
     annotation (Dialog(group="DX coil parameters"));
 
-  parameter Real uThrCoi(
+  parameter Real uThrCoiUp(
     final min=0,
     final max=1)=0.8
     "Threshold of coil valve position signal above which DX coil is staged up"
     annotation (Dialog(group="DX coil parameters"));
 
-  parameter Real uThrCoi1(
+  parameter Real uThrCoiDow(
     final min=0,
     final max=1)=0.2
     "Threshold of coil valve position signal below which DX coil staged down"
@@ -57,6 +57,13 @@ block Controller
     "Delay time period for staging down DX coil"
     annotation (Dialog(group="DX coil parameters"));
 
+  parameter Real timPerSetExc(
+    final unit="s",
+    displayUnit="s",
+    final quantity="time") = 480
+    "Delay time period for staging down DX coil when minimum/maximum setpoint is exceeded"
+    annotation (Dialog(group="DX coil parameters"));
+
   parameter Real timPer2(
     final unit="s",
     displayUnit="s",
@@ -83,6 +90,13 @@ block Controller
     "Maximum compressor speed"
     annotation (Dialog(group="Compressor parameters"));
 
+  parameter Real dTHys(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=0.05
+    "Temperature comparison hysteresis difference"
+    annotation(Dialog(tab="Advanced"));
+
   parameter Real dUHys=0.01
     "Coil valve position comparison hysteresis difference"
     annotation(Dialog(tab="Advanced"));
@@ -100,7 +114,7 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uCoiSeq[nCoi]
     "DX coil available sequence order"
     annotation (Placement(transformation(extent={{-260,-60},{-220,-20}}),
-      iconTransformation(extent={{-140,-58},{-100,-18}})));
+      iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCoi(
     final min=0,
@@ -108,7 +122,7 @@ block Controller
     final unit="1")
     "Coil valve position"
     annotation (Placement(transformation(extent={{-260,-140},{-220,-100}}),
-      iconTransformation(extent={{-140,-100},{-100,-60}})));
+      iconTransformation(extent={{-140,-60},{-100,-20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDXCoi[nCoi]
     "DX coil signal"
@@ -152,12 +166,12 @@ block Controller
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nCoi]
     "Convert boolean to integer"
-    annotation (Placement(transformation(extent={{-130,-30},{-110,-10}})));
+    annotation (Placement(transformation(extent={{-148,-30},{-128,-10}})));
 
   Buildings.Controls.OBC.CDL.Integers.MultiSum mulSumInt(
     final nin=nCoi)
     "Sum of integer inputs"
-    annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
+    annotation (Placement(transformation(extent={{-110,-30},{-90,-10}})));
 
   Buildings.Controls.OBC.CDL.Integers.Add addInt
     "Integer Add"
@@ -203,27 +217,27 @@ block Controller
 
   Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.DXCoilStage DXCoiSta(
     final nCoi=nCoi,
-    final uThrCoi=uThrCoi,
-    final uThrCoi1=uThrCoi1,
+    uThrCoiUp=uThrCoiUp,
+    uThrCoiDow=uThrCoiDow,
     final dUHys=dUHys,
-    final timPer=timPer,
-    final timPer1=timPer1)
+    timPerUp=timPer,
+    timPerDow=timPer1)
     "DX coil staging"
     annotation (Placement(transformation(extent={{-150,50},{-130,70}})));
 
   Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.DXCoilEnable DXCoiEna(
     final nCoi=nCoi,
-    final uThrCoi2=uThrCoi2,
-    final uThrCoi3=uThrCoi3,
-    final dUHys=dUHys,
-    final timPer2=timPer2,
-    final timPer3=timPer3)
+    uThrCoiEna=uThrCoi2,
+    uThrCoiDis=uThrCoi3,
+    timPerEna=timPer2,
+    timPerDis=timPer3,
+    final dUHys=dUHys)
     "DX coil enable and disable"
     annotation (Placement(transformation(extent={{-150,10},{-130,30}})));
 
   Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.CompressorSpeedStage ComSpeSta[nCoi](
-    each final conCoiLow=conCoiLow,
-    each final conCoiHig=conCoiHig,
+    coiSpeLow=conCoiLow,
+    coiSpeHig=conCoiHig,
     each final minComSpe=minComSpe,
     each final maxComSpe=maxComSpe)
     "Compressor speed stage"
@@ -255,7 +269,7 @@ block Controller
   Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intScaRep(
     final nout=nCoi)
     "Integer scalar replicator"
-    annotation (Placement(transformation(extent={{-150,-82},{-130,-62}})));
+    annotation (Placement(transformation(extent={{-138,-80},{-118,-60}})));
 
   Buildings.Controls.OBC.CDL.Integers.Greater intGre[nCoi]
     "Output true Boolean signal if integer is greater than threshold"
@@ -269,8 +283,13 @@ block Controller
     "Calculate compressor speed based on product of two inputs"
     annotation (Placement(transformation(extent={{180,-130},{200,-110}})));
 
-  Subsequences.NextCoil nextCoil(nCoi=nCoi)
-    annotation (Placement(transformation(extent={{-174,-34},{-146,-6}})));
+  CDL.Interfaces.RealInput TSupCoiDif[nCoi](
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")
+    "Difference between coil supply air temperature and setpoint" annotation (
+      Placement(transformation(extent={{-260,-180},{-220,-140}}),
+        iconTransformation(extent={{-140,-100},{-100,-60}})));
 protected
   parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.P
     "Type of DX coil controller"
@@ -292,12 +311,12 @@ equation
     annotation (Line(points={{-128,140},{-102,140}},
                                                    color={0,0,127}));
   connect(booToInt.y, mulSumInt.u)
-    annotation (Line(points={{-108,-20},{-102,-20}},
+    annotation (Line(points={{-126,-20},{-112,-20}},
                                                    color={255,127,0}));
   connect(conInt.y, addInt.u1) annotation (Line(points={{-168,100},{-110,100},{-110,
           26},{-102,26}},      color={255,127,0}));
-  connect(mulSumInt.y, addInt.u2) annotation (Line(points={{-78,-20},{-74,-20},{
-          -74,0},{-110,0},{-110,14},{-102,14}},
+  connect(mulSumInt.y, addInt.u2) annotation (Line(points={{-88,-20},{-74,-20},
+          {-74,0},{-110,0},{-110,14},{-102,14}},
                                 color={255,127,0}));
   connect(reaToInt.y, chaSta.uNexDXCoi) annotation (Line(points={{-78,140},{-2,140}},
                                                          color={255,127,0}));
@@ -315,19 +334,20 @@ equation
           {-120,20},{-120,126},{-60,126},{-60,152},{-2,152}},
         color={255,0,255}));
   connect(DXCoiEna.yDXCoi, chaSta.uLasDXCoiSta) annotation (Line(points={{-128,20},
-          {-120,20},{-120,126},{-60,126},{-60,149},{-2,149}},
+          {-120,20},{-120,126},{-60,126},{-60,148},{-2,148}},
                                                             color={255,0,255}));
   connect(chaSta.yDXCoi, chaSta1.uDXCoil) annotation (Line(points={{24,144},{
           120,144},{120,102},{128,102}},
                                  color={255,0,255}));
-  connect(DXCoiSta.uCoi, uCoi) annotation (Line(points={{-152,54},{-180,54},{
-          -180,-120},{-240,-120}}, color={0,0,127}));
+  connect(DXCoiSta.uCoi, uCoi) annotation (Line(points={{-152,60},{-180,60},{-180,
+          -120},{-240,-120}},      color={0,0,127}));
   connect(uDXCoi, DXCoiSta.uDXCoi) annotation (Line(points={{-240,40},{-168,40},
-          {-168,66},{-152,66}}, color={255,0,255}));
-  connect(mulSumInt.y, intGreEquThr.u) annotation (Line(points={{-78,-20},{-60,-20},
-          {-60,20},{-52,20}},   color={255,127,0}));
-  connect(mulSumInt.y, intLesEquThr.u) annotation (Line(points={{-78,-20},{-52,-20}},
+          {-168,64},{-152,64}}, color={255,0,255}));
+  connect(mulSumInt.y, intGreEquThr.u) annotation (Line(points={{-88,-20},{-60,
+          -20},{-60,20},{-52,20}},
                                 color={255,127,0}));
+  connect(mulSumInt.y, intLesEquThr.u) annotation (Line(points={{-88,-20},{-52,
+          -20}},                color={255,127,0}));
   connect(DXCoiSta.yUp, and2.u1) annotation (Line(points={{-128,66},{-60,66},{-60,
           110},{38,110}},
                         color={255,0,255}));
@@ -337,7 +357,7 @@ equation
           -20,46},{38,46}},
                         color={255,0,255}));
   connect(or2.y, chaSta1.uLasDXCoiSta) annotation (Line(points={{62,54},{100,54},
-          {100,107},{128,107}},
+          {100,106},{128,106}},
                             color={255,0,255}));
   connect(and2.y, chaSta1.uNexDXCoiSta)
     annotation (Line(points={{62,110},{128,110}},
@@ -365,7 +385,7 @@ equation
           -20},{120,94},{128,94}}, color={255,127,0}));
   connect(logSwi.y, yDXCoi)
     annotation (Line(points={{202,80},{240,80}},   color={255,0,255}));
-  connect(mulSumInt.y, zerStaIndCor.uInd) annotation (Line(points={{-78,-20},{
+  connect(mulSumInt.y, zerStaIndCor.uInd) annotation (Line(points={{-88,-20},{
           -74,-20},{-74,-56},{-52,-56}},
                                      color={255,127,0}));
   connect(zerStaIndCor.yIndMod, lasDXCoi.index) annotation (Line(points={{-28,-56},
@@ -376,14 +396,14 @@ equation
           {-20,-64},{-20,-88},{60,-88},{60,-20},{78,-20}},
                                                          color={0,0,127}));
   connect(reaScaRep.y, ComSpeSta.uCoi) annotation (Line(points={{102,-150},{120,
-          -150},{120,-126},{128,-126}}, color={0,0,127}));
+          -150},{120,-122},{128,-122}}, color={0,0,127}));
   connect(uCoi, reaScaRep.u) annotation (Line(points={{-240,-120},{-180,-120},
           {-180,-150},{78,-150}},                        color={0,0,127}));
-  connect(mulSumInt.y, intScaRep.u) annotation (Line(points={{-78,-20},{-74,-20},
-          {-74,-48},{-168,-48},{-168,-72},{-152,-72}}, color={255,127,0}));
+  connect(mulSumInt.y, intScaRep.u) annotation (Line(points={{-88,-20},{-74,-20},
+          {-74,-48},{-152,-48},{-152,-70},{-140,-70}}, color={255,127,0}));
   connect(intGre.y, ComSpeSta.uPreDXCoi) annotation (Line(points={{-28,-114},{27,
-          -114},{27,-114.2},{128,-114.2}}, color={255,0,255}));
-  connect(intScaRep.y, intGre.u1) annotation (Line(points={{-128,-72},{-80,-72},
+          -114},{27,-114},{128,-114}},     color={255,0,255}));
+  connect(intScaRep.y, intGre.u1) annotation (Line(points={{-116,-70},{-80,-70},
           {-80,-114},{-52,-114}}, color={255,127,0}));
   connect(conInt1.y, intGre.u2)
     annotation (Line(points={{-128,-122},{-52,-122}}, color={255,127,0}));
@@ -399,9 +419,18 @@ equation
     annotation (Line(points={{-128,54},{-52,54}}, color={255,0,255}));
   connect(not1.y, or2.u1)
     annotation (Line(points={{-28,54},{38,54}}, color={255,0,255}));
-  connect(ComSpeSta.uDXCoi, uDXCoi) annotation (Line(points={{128,-120},{60,
-          -120},{60,-140},{-190,-140},{-190,40},{-240,40}}, color={255,0,255}));
-		  
+  connect(ComSpeSta.uDXCoi, uDXCoi) annotation (Line(points={{128,-118},{60,-118},
+          {60,-140},{-190,-140},{-190,40},{-240,40}},       color={255,0,255}));
+
+  connect(reaToInt1.y, chaSta1.uNexDXCoi) annotation (Line(points={{102,20},{116,
+          20},{116,98},{128,98}}, color={255,127,0}));
+  connect(uDXCoi, booToInt.u) annotation (Line(points={{-240,40},{-190,40},{
+          -190,-20},{-150,-20}},
+                            color={255,0,255}));
+  connect(TSupCoiDif, ComSpeSta.TSupCoiDif) annotation (Line(points={{-240,-160},
+          {60,-160},{60,-168},{124,-168},{124,-126},{128,-126}}, color={0,0,127}));
+  connect(TSupCoiDif, DXCoiSta.TSupCoiDif) annotation (Line(points={{-240,-160},
+          {-160,-160},{-160,56},{-152,56}}, color={0,0,127}));
   annotation (defaultComponentName="DXCoiCon",
     Icon(coordinateSystem(preserveAspectRatio=false,
       extent={{-100,-100},{100,100}}),
@@ -410,12 +439,12 @@ equation
             extent={{-100,140},{100,140}},
             textColor={0,0,255}),
           Text(
-            extent={{-100,-74},{-66,-88}},
+            extent={{-100,-34},{-66,-48}},
             textColor={0,0,127},
             pattern=LinePattern.Dash,
             textString="uCoi"),
           Text(
-            extent={{-96,-30},{-50,-44}},
+            extent={{-96,8},{-50,-6}},
             textColor={255,127,0},
             textString="uCoiSeq"),
           Text(
@@ -434,7 +463,12 @@ equation
             extent={{44,-32},{94,-48}},
             textColor={0,0,127},
             pattern=LinePattern.Dash,
-            textString="yComSpe")}),
+            textString="yComSpe"),
+          Text(
+            extent={{-98,-72},{-50,-88}},
+            textColor={0,0,127},
+            pattern=LinePattern.Dash,
+          textString="TSupCoiDif")}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,-180},{220,180}})),
   Documentation(info="<html>
   <p>

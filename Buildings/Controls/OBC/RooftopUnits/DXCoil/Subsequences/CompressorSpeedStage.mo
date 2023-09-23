@@ -3,12 +3,12 @@ block CompressorSpeedStage
   "Sequence for regulating compressor speed corresponding to previously enabled DX coil signal"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Real conCoiLow(
+  parameter Real coiSpeLow(
     final min=0,
     final max=1)=0.2
-    "Constant lower coil valve position signal";
+    "Coil signal corresponding to lower compressor speed limit";
 
-  parameter Real conCoiHig(
+  parameter Real coiSpeHig(
     final min=0,
     final max=1)=0.8
     "Constant higher coil valve position signal";
@@ -25,10 +25,22 @@ block CompressorSpeedStage
     "Maximum compressor speed"
     annotation (Dialog(group="Compressor parameters"));
 
+  parameter Real dTHys(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=0.05
+    "Temperature comparison hysteresis difference"
+    annotation(Dialog(tab="Advanced"));
+
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPreDXCoi
     "Previously enabled DX coil signal"
     annotation (Placement(transformation(extent={{-160,20},{-120,60}}),
-      iconTransformation(extent={{-140,38},{-100,78}})));
+      iconTransformation(extent={{-140,40},{-100,80}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDXCoi
+    "DX coil status"
+    annotation (Placement(transformation(extent={{-160,60},{-120,100}}),
+      iconTransformation(extent={{-140,0},{-100,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCoi(
     final min=0,
@@ -36,6 +48,14 @@ block CompressorSpeedStage
     final unit="1")
     "Coil valve position"
     annotation (Placement(transformation(extent={{-160,-80},{-120,-40}}),
+      iconTransformation(extent={{-140,-40},{-100,0}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupCoiDif(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")
+    "Difference between coil supply air temperature and setpoint"
+    annotation (Placement(transformation(extent={{-160,-110},{-120,-70}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yComSpe(
@@ -45,6 +65,15 @@ block CompressorSpeedStage
     "Compressor commanded speed"
     annotation (Placement(transformation(extent={{120,-20},{160,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
+
+protected
+  parameter Real k = (maxComSpe - minComSpe) / (coiSpeHig- coiSpeLow)
+    "Gain of DX coil controller"
+    annotation (Dialog(group="P controller"));
+
+  parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.P
+    "Type of DX coil controller"
+    annotation (Dialog(group="P controller"));
 
   Buildings.Controls.Continuous.LimPID conP(
     final controllerType=controllerType,
@@ -69,7 +98,7 @@ block CompressorSpeedStage
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conDXCoi(
-    final k=conCoiLow)
+    final k=coiSpeLow)
     "Constant DX coil signal with lower value"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
 
@@ -82,28 +111,27 @@ block CompressorSpeedStage
     "Pass through the minimum compressor speed"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDXCoi
-    "DX coil status"
-    annotation (Placement(transformation(extent={{-160,60},{-120,100}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
-
   Buildings.Controls.OBC.CDL.Continuous.Switch swi1
     "Switch between the speed calculated by the P controller and the maximum speed"
     annotation (Placement(transformation(extent={{86,70},{106,90}})));
 
-
-  Fluid.BaseClasses.ActuatorFilter filter(f=0.08)
+  Buildings.Fluid.BaseClasses.ActuatorFilter filter(f=0.08)
     "Second order filter to approximate actuator opening time, and to improve numerics"
     annotation (Placement(transformation(extent={{92,33},{106,47}})));
 
-protected
-  parameter Real k = (maxComSpe - minComSpe) / (conCoiHig- conCoiLow)
-    "Gain of DX coil controller"
-    annotation (Dialog(group="P controller"));
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+    final uLow=-dTHys,
+    final uHigh=dTHys)
+    "Check for coils running below minimum/maximum setpoint"
+    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 
-  parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.P
-    "Type of DX coil controller"
-    annotation (Dialog(group="P controller"));
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi2
+    "Switch to sampled speed when coil exceeds minimum/maximum setpoint"
+    annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
+
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam
+    "Sample the compressor speed when the coil exceeds minimum/maximum setpoint"
+    annotation (Placement(transformation(extent={{-20,-74},{0,-54}})));
 
 equation
   connect(conP.u_m, uCoi) annotation (Line(points={{-50,-42},{-50,-60},{
@@ -135,8 +163,20 @@ equation
           {84,72}}, color={0,0,127}));
   connect(swi1.y, filter.u) annotation (Line(points={{108,80},{112,80},{112,60},
           {80,60},{80,40},{90.6,40}}, color={0,0,127}));
-  connect(filter.y, yComSpe) annotation (Line(points={{106.7,40},{114,40},{114,0},
-          {140,0}}, color={0,0,127}));
+  connect(TSupCoiDif, hys.u)
+    annotation (Line(points={{-140,-90},{-102,-90}}, color={0,0,127}));
+  connect(hys.y, swi2.u2) annotation (Line(points={{-78,-90},{-40,-90},{-40,-80},
+          {58,-80}}, color={255,0,255}));
+  connect(triSam.y, swi2.u1) annotation (Line(points={{2,-64},{32,-64},{32,-72},
+          {58,-72}}, color={0,0,127}));
+  connect(hys.y, triSam.trigger) annotation (Line(points={{-78,-90},{-40,-90},{-40,
+          -80},{-10,-80},{-10,-76}}, color={255,0,255}));
+  connect(filter.y, triSam.u) annotation (Line(points={{106.7,40},{116,40},{116,
+          98},{-70,98},{-70,-64},{-22,-64}}, color={0,0,127}));
+  connect(filter.y, swi2.u3) annotation (Line(points={{106.7,40},{116,40},{116,98},
+          {-70,98},{-70,-88},{58,-88}}, color={0,0,127}));
+  connect(swi2.y, yComSpe) annotation (Line(points={{82,-80},{116,-80},{116,0},{
+          140,0}}, color={0,0,127}));
   annotation (
     defaultComponentName="ComSpeSta",
     Icon(coordinateSystem(preserveAspectRatio=false,
@@ -151,11 +191,11 @@ equation
             extent={{-100,100},{100,100}},
             textColor={0,0,255}),
           Text(
-            extent={{-94,66},{-44,50}},
+            extent={{-94,68},{-44,52}},
             textColor={255,0,255},
             textString="uPreDXCoi"),
           Text(
-            extent={{-100,-52},{-60,-68}},
+            extent={{-100,-12},{-60,-28}},
             textColor={0,0,127},
             pattern=LinePattern.Dash,
             textString="uCoi"),
@@ -165,9 +205,14 @@ equation
             pattern=LinePattern.Dash,
             textString="yComSpe"),
           Text(
-            extent={{-94,6},{-54,-6}},
+            extent={{-94,26},{-54,14}},
             textColor={255,0,255},
-          textString="uDXCoi")}),
+          textString="uDXCoi"),
+          Text(
+            extent={{-98,-50},{-54,-70}},
+            textColor={0,0,127},
+            pattern=LinePattern.Dash,
+          textString="TSupCoiDif")}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{120,100}})),
   Documentation(info="<html>
   <p>
@@ -181,8 +226,8 @@ equation
   </li>
   <li>
   Implement a linear mapping to modulate <code>yComSpe</code>, aligning its minimum and maximum speed 
-  with a lower coil valve position signal <code>conCoiLow</code> and a higher one 
-  <code>conCoiHig</code> from the coil valve position signal <code>uCoi</code> when <code>uPreDXCoi = false</code>.
+  with a lower coil valve position signal <code>coiSpeLow</code> and a higher one 
+  <code>coiSpeHig</code> from the coil valve position signal <code>uCoi</code> when <code>uPreDXCoi = false</code>.
   </li>
   </ul>
   </html>", revisions="<html>
