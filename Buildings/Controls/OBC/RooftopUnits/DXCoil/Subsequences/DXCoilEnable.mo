@@ -6,12 +6,12 @@ block DXCoilEnable
   parameter Integer nCoi(min=1)=2
     "Number of DX coils";
 
-  parameter Real uThrCoi2(
+  parameter Real uThrCoiEna(
     final min=0,
     final max=1)=0.8
     "Threshold of coil valve position signal above which DX coil is enabled";
 
-  parameter Real uThrCoi3(
+  parameter Real uThrCoiDis(
     final min=0,
     final max=1)=0.1
     "Threshold of coil valve position signal below which DX coil is disabled";
@@ -20,13 +20,13 @@ block DXCoilEnable
     "Coil valve position comparison hysteresis difference"
     annotation(Dialog(tab="Advanced"));
 
-  parameter Real timPer2(
+  parameter Real timPerEna(
     final unit="s",
     displayUnit="s",
     final quantity="time") = 300
     "Delay time period for enabling DX coil";
 
-  parameter Real timPer3(
+  parameter Real timPerDis(
     final unit="s",
     displayUnit="s",
     final quantity="time") = 300
@@ -50,49 +50,51 @@ block DXCoilEnable
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
+protected
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrCoi(
-    final t=uThrCoi2,
+    final t=uThrCoiEna,
     final h=dUHys)
     "Check if coil valve position signal is equal to or greater than threshold"
     annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Timer tim(
-    final t=timPer2)
-    "Count time"
+  Buildings.Controls.OBC.CDL.Logical.Timer timEna(
+    final t=timPerEna)
+    "Check time for which enable conditions are met"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Change cha[nCoi]
+  Buildings.Controls.OBC.CDL.Logical.Change chaDXCoi[nCoi]
     "Detect changes in DX coil status"
     annotation (Placement(transformation(extent={{-70,50},{-50,70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOrDXCoi(
     final nin=nCoi)
-    "Multi Or"
+    "Check for changes in DX coil status"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Not not1
-    "Logical Not"
+  Buildings.Controls.OBC.CDL.Logical.Not notDXCoiCha
+    "Generate Boolean False signal if change in status is detected"
     annotation (Placement(transformation(extent={{30,50},{50,70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And and1
-    "Logical And"
+  Buildings.Controls.OBC.CDL.Logical.And andEna
+    "Reset timer if coil status change is detected"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr(
-    final t=uThrCoi3,
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThrCoi(
+    final t=uThrCoiDis,
     final h=dUHys)
     "Check if coil valve position signal is less than threshold"
     annotation (Placement(transformation(extent={{-70,-70},{-50,-50}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And and2
-    "Logical And"
+  Buildings.Controls.OBC.CDL.Logical.And andDis
+    "Reset timer if coil status change is detected"
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Timer tim1(t=timPer3)
-    "Count time"
+  Buildings.Controls.OBC.CDL.Logical.Timer timDis(
+    final t=timPerDis)
+    "Check time for which disable conditions are met"
     annotation (Placement(transformation(extent={{30,-70},{50,-50}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Latch lat
+  Buildings.Controls.OBC.CDL.Logical.Latch latEnaDis
     "Maintain DX coil status till the conditions to change it are met"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 
@@ -100,32 +102,31 @@ equation
   connect(uCoi, greThrCoi.u)
     annotation (Line(points={{-120,-60},{-80,-60},{-80,0},{-72,0}},
                                                     color={0,0,127}));
-  connect(mulOr.y, not1.u)
-    annotation (Line(points={{2,60},{28,60}},      color={255,0,255}));
-  connect(uDXCoi, cha.u)
+  connect(mulOrDXCoi.y, notDXCoiCha.u)
+    annotation (Line(points={{2,60},{28,60}}, color={255,0,255}));
+  connect(uDXCoi, chaDXCoi.u)
     annotation (Line(points={{-120,60},{-72,60}}, color={255,0,255}));
-  connect(greThrCoi.y, and1.u1)
-    annotation (Line(points={{-48,0},{-22,0}},  color={255,0,255}));
-  connect(not1.y, and1.u2) annotation (Line(points={{52,60},{66,60},{66,30},{-30,
-          30},{-30,-8},{-22,-8}},
-                    color={255,0,255}));
-  connect(and1.y, tim.u)
-    annotation (Line(points={{2,0},{28,0}},    color={255,0,255}));
-  connect(uCoi, lesThr.u)
+  connect(greThrCoi.y, andEna.u1)
+    annotation (Line(points={{-48,0},{-22,0}}, color={255,0,255}));
+  connect(notDXCoiCha.y, andEna.u2) annotation (Line(points={{52,60},{66,60},{66,
+          30},{-30,30},{-30,-8},{-22,-8}}, color={255,0,255}));
+  connect(andEna.y, timEna.u)
+    annotation (Line(points={{2,0},{28,0}}, color={255,0,255}));
+  connect(uCoi, lesThrCoi.u)
     annotation (Line(points={{-120,-60},{-72,-60}}, color={0,0,127}));
-  connect(lesThr.y, and2.u1)
+  connect(lesThrCoi.y, andDis.u1)
     annotation (Line(points={{-48,-60},{-22,-60}}, color={255,0,255}));
-  connect(and2.y,tim1. u)
-    annotation (Line(points={{2,-60},{28,-60}},  color={255,0,255}));
-  connect(not1.y, and2.u2) annotation (Line(points={{52,60},{66,60},{66,30},{-30,
-          30},{-30,-68},{-22,-68}}, color={255,0,255}));
-  connect(cha.y, mulOr.u)
+  connect(andDis.y, timDis.u)
+    annotation (Line(points={{2,-60},{28,-60}}, color={255,0,255}));
+  connect(notDXCoiCha.y, andDis.u2) annotation (Line(points={{52,60},{66,60},{66,
+          30},{-30,30},{-30,-68},{-22,-68}}, color={255,0,255}));
+  connect(chaDXCoi.y, mulOrDXCoi.u)
     annotation (Line(points={{-48,60},{-22,60}}, color={255,0,255}));
-  connect(tim.passed, lat.u) annotation (Line(points={{52,-8},{60,-8},{60,0},{68,
-          0}}, color={255,0,255}));
-  connect(tim1.passed, lat.clr) annotation (Line(points={{52,-68},{64,-68},{64,-6},
-          {68,-6}}, color={255,0,255}));
-  connect(lat.y, yDXCoi)
+  connect(timEna.passed, latEnaDis.u) annotation (Line(points={{52,-8},{60,-8},{
+          60,0},{68,0}}, color={255,0,255}));
+  connect(timDis.passed, latEnaDis.clr) annotation (Line(points={{52,-68},{64,-68},
+          {64,-6},{68,-6}}, color={255,0,255}));
+  connect(latEnaDis.y, yDXCoi)
     annotation (Line(points={{92,0},{120,0}}, color={255,0,255}));
 
   annotation (
@@ -163,12 +164,12 @@ equation
   <ul>
   <li>
   Enable DX coil <code>yDXCoi = true</code> when coil valve position <code>uCoi</code> 
-  exceeds its threshold <code>uThrCoi2</code> for the duration of <code>timPer2</code>, 
+  exceeds its threshold <code>uThrCoiEna</code> for the duration of <code>timPerEna</code>, 
   and no changes in DX coil status <code>uDXCoi</code> are detected.
   </li>
   <li>
-  Disable DX coil <code>yDXCoi = false</code> when <code>uCoi</code> falls below <code>uThrCoi3</code>
-  for <code>timPer3</code>, and no changes in <code>uDXCoi</code> are detected. 
+  Disable DX coil <code>yDXCoi = false</code> when <code>uCoi</code> falls below <code>uThrCoiDis</code>
+  for <code>timPerDis</code>, and no changes in <code>uDXCoi</code> are detected. 
   </li>
   </ul>
   </html>", revisions="<html>

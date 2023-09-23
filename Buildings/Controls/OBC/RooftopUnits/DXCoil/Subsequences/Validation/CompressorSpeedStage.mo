@@ -3,12 +3,11 @@ model CompressorSpeedStage
   "Validate sequence for compressor speed using cooling coil valve postion and previous enable signals"
 
   Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.CompressorSpeedStage ComSpeSta(
-    conCooCoiLow=0.2,
-    conCooCoiHig=0.8,
+    dTHys(displayUnit="K") = 1,
     minComSpe=0.1,
     maxComSpe=1)
     "Compressor speed control for DX coil staging signal"
-    annotation (Placement(transformation(extent={{20,-12},{40,8}})));
+    annotation (Placement(transformation(extent={{20,-8},{40,12}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
     final width=0.5,
@@ -21,12 +20,28 @@ model CompressorSpeedStage
       final duration=1800) "Cooling coil valve position"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 
+  CDL.Continuous.Sources.Pulse                        pulCoi1(
+    final amplitude=3,
+    final width=0.3,
+    final period=450,
+    shift=450,
+    final offset=-1.5) "Coil valve position"
+    annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
+  CDL.Logical.Sources.Pulse                        booPul1(
+    final width=0.9,
+    final period=3600,
+    final shift=30) "Coil proven on signal signal"
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 equation
-  connect(booPul.y, ComSpeSta.uPreDXCoi) annotation (Line(points={{-18,30},
-          {0,30},{0,3.8},{18,3.8}}, color={255,0,255}));
-  connect(ramCooCoi.y, ComSpeSta.uCooCoi) annotation (Line(points={{-18,-30},{0,
-          -30},{0,-8},{18,-8}}, color={0,0,127}));
+  connect(booPul.y, ComSpeSta.uPreDXCoi) annotation (Line(points={{-18,30},{0,
+          30},{0,8},{18,8}},        color={255,0,255}));
 
+  connect(ramCooCoi.y, ComSpeSta.uCoi) annotation (Line(points={{-18,-30},{4,
+          -30},{4,0},{18,0}}, color={0,0,127}));
+  connect(pulCoi1.y, ComSpeSta.TSupCoiDif) annotation (Line(points={{-18,-70},{
+          10,-70},{10,-4},{18,-4}}, color={0,0,127}));
+  connect(booPul1.y, ComSpeSta.uDXCoi)
+    annotation (Line(points={{-18,0},{2,0},{2,4},{18,4}}, color={255,0,255}));
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/RooftopUnits/DXCoil/Subsequences/Validation/CompressorSpeedStage.mos"

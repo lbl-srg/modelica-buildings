@@ -14,7 +14,8 @@ block ChangeStatus "Sequence for changing DX coil status"
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLasDXCoiSta
     "Status of last DX coil"
-    annotation (Placement(transformation(extent={{-140,30},{-100,70}})));
+    annotation (Placement(transformation(extent={{-140,30},{-100,70}}),
+        iconTransformation(extent={{-140,20},{-100,60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uNexDXCoi
     "Index of next DX coil"
