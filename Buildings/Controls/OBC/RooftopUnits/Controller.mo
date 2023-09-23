@@ -116,11 +116,11 @@ block Controller
     "Minimum outdoor dry-bulb lockout temperature"
     annotation (Dialog(tab="Auxiliary coil"));
 
-  parameter Real TSupSetMin=273.15 - 12.2
+  parameter Real TSupSetMin=273.15 + 10
     "Minimum supply air temperature setpoint"
     annotation (Dialog(tab="DX coil", group="DX coil parameters"));
 
-  parameter Real TSupSetMax=273.15 - 12.2
+  parameter Real TSupSetMax=273.15 + 35
     "Maximum supply air temperature setpoint"
     annotation (Dialog(tab="DX coil", group="DX coil parameters"));
 
@@ -179,36 +179,39 @@ block Controller
     final unit="Pa")=101325
     "Atmospheric pressure";
 
-  parameter Real TCooMin = 273.15+10;
-
-  parameter Real THeaMax = 273.15+35;
+  parameter Real timPerSetExc=480
+    "Delay time period for staging down DX coil when minimum/maximum setpoint is exceeded"
+    annotation (Dialog(tab="DX coil", group="DX coil parameters"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDXCooCoi[nCoiCoo]
-    "DX cooling coil status" annotation (Placement(transformation(extent={{-140,
-            160},{-100,200}}), iconTransformation(extent={{-140,150},{-100,190}})));
+    "DX cooling coil status"
+    annotation (Placement(transformation(extent={{-140,160},{-100,200}}),
+      iconTransformation(extent={{-140,150},{-100,190}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDXHeaCoi[nCoiHea]
-    "DX heating coil status" annotation (Placement(transformation(extent={{-140,
-            130},{-100,170}}), iconTransformation(extent={{-140,120},{-100,160}})));
+    "DX heating coil status"
+    annotation (Placement(transformation(extent={{-140,130},{-100,170}}),
+      iconTransformation(extent={{-140,120},{-100,160}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uCooCoiAva[nCoiCoo]
-    "DX cooling coil availability" annotation (Placement(transformation(extent={
-            {-140,100},{-100,140}}), iconTransformation(extent={{-140,90},{-100,
-            130}})));
+    "DX cooling coil availability"
+    annotation (Placement(transformation(extent={{-140,100},{-100,140}}),
+      iconTransformation(extent={{-140,90},{-100,130}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHeaCoiAva[nCoiHea]
-    "DX heating coil availability" annotation (Placement(transformation(extent={
-            {-140,70},{-100,110}}), iconTransformation(extent={{-140,60},{-100,100}})));
+    "DX heating coil availability"
+    annotation (Placement(transformation(extent={{-140,70},{-100,110}}),
+      iconTransformation(extent={{-140,60},{-100,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uCooCoiSeq[nCoiCoo]
-    "DX cooling coil available sequence order" annotation (Placement(
-        transformation(extent={{-140,40},{-100,80}}), iconTransformation(extent=
-           {{-140,30},{-100,70}})));
+    "DX cooling coil available sequence order"
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
+      iconTransformation(extent={{-140,30},{-100,70}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uHeaCoiSeq[nCoiHea]
-    "DX heating coil available sequence order" annotation (Placement(
-        transformation(extent={{-140,10},{-100,50}}), iconTransformation(extent=
-           {{-140,-2},{-100,38}})));
+    "DX heating coil available sequence order"
+    annotation (Placement(transformation(extent={{-140,10},{-100,50}}),
+      iconTransformation(extent={{-140,-2},{-100,38}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uDemLimLev
     "Demand limit level"
@@ -297,17 +300,19 @@ block Controller
     each final nCoi=nCoiCoo,
     each final conCoiLow=conCoiLow,
     each final conCoiHig=conCoiHig,
-    uThrCoiUp=uThrCoi,
-    uThrCoiDow=uThrCoi1,
+    each final uThrCoiUp=uThrCoi,
+    each final uThrCoiDow=uThrCoi1,
     each final uThrCoi2=uThrCoi2,
     each final uThrCoi3=uThrCoi3,
     each final timPer=timPer,
     each final timPer1=timPer1,
+    each final timPerSetExc=timPerSetExc,
     each final timPer2=timPer2,
     each final timPer3=timPer3,
     each final minComSpe=minComSpe,
     each final maxComSpe=maxComSpe,
-    each final dUHys=dUHys) "DX cooling coil controller"
+    each final dUHys=dUHys)
+    "DX cooling coil controller"
     annotation (Placement(transformation(extent={{-30,170},{-10,190}})));
 
   Buildings.Controls.OBC.RooftopUnits.CompressorDR.CompressorDR ComSpeDRCoo[nCoiCoo](
@@ -325,7 +330,7 @@ block Controller
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
 
   Buildings.Controls.OBC.RooftopUnits.AuxiliaryCoil.AuxiliaryCoil conAuxCoi(
-    final nCoi=1,
+    final nCoi=nCoiHea,
     final TLocOut=TLocOut,
     final dTHys=dTHys,
     final k1=k4,
@@ -343,8 +348,9 @@ block Controller
     "Defrost time calculation"
     annotation (Placement(transformation(extent={{-70,-150},{-50,-130}})));
 
-  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intScaRepCoo(final
-      nout=nCoiCoo) "Integer scalar replicator"
+  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intScaRepCoo(
+    final nout=nCoiCoo)
+    "Integer scalar replicator"
     annotation (Placement(transformation(extent={{-30,70},{-10,90}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr(
@@ -387,47 +393,59 @@ block Controller
     "Real scalar replicator"
     annotation (Placement(transformation(extent={{20,-180},{40,-160}})));
 
-  CDL.Interfaces.RealInput TSupCoiHea[nCoiHea](
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupCoiHea[nCoiHea](
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
-    "Heating coil supply air temperature" annotation (Placement(transformation(
-          extent={{-140,-280},{-100,-240}}), iconTransformation(extent={{-140,-220},
-            {-100,-180}})));
-  CDL.Interfaces.RealInput TSupCoiCoo[nCoiCoo](
+    "Heating coil supply air temperature"
+    annotation (Placement(transformation(extent={{-140,-280},{-100,-240}}),
+      iconTransformation(extent={{-140,-220},{-100,-180}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupCoiCoo[nCoiCoo](
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
-    "Cooling coil supply air temperature" annotation (Placement(transformation(
-          extent={{-140,-240},{-100,-200}}), iconTransformation(extent={{-140,-260},
-            {-100,-220}})));
+    "Cooling coil supply air temperature"
+    annotation (Placement(transformation(extent={{-140,-240},{-100,-200}}),
+      iconTransformation(extent={{-140,-260},{-100,-220}})));
+
   DXCoil.Controller DXCoiConHea(
-    each final nCoi=nCoiHea,
-    each final conCoiLow=conCoiLow,
-    each final conCoiHig=conCoiHig,
-    uThrCoiUp=uThrCoi,
-    uThrCoiDow=uThrCoi1,
-    each final uThrCoi2=uThrCoi2,
-    each final uThrCoi3=uThrCoi3,
-    each final timPer=timPer,
-    each final timPer1=timPer1,
-    each final timPer2=timPer2,
-    each final timPer3=timPer3,
-    each final minComSpe=minComSpe,
-    each final maxComSpe=maxComSpe,
-    each final dUHys=dUHys) "DX heating coil controller"
+    final nCoi=nCoiHea,
+    final conCoiLow=conCoiLow,
+    final conCoiHig=conCoiHig,
+    final uThrCoiUp=uThrCoi,
+    final uThrCoiDow=uThrCoi1,
+    final uThrCoi2=uThrCoi2,
+    final uThrCoi3=uThrCoi3,
+    final timPer=timPer,
+    final timPer1=timPer1,
+    final timPer2=timPer2,
+    final timPer3=timPer3,
+    final minComSpe=minComSpe,
+    final maxComSpe=maxComSpe,
+    final dUHys=dUHys)
+    "DX heating coil controller"
     annotation (Placement(transformation(extent={{-30,130},{-10,150}})));
-  CDL.Routing.IntegerScalarReplicator intScaRepHea(final nout=nCoiHea)
+
+  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intScaRepHea(
+    final nout=nCoiHea)
     "Integer scalar replicator"
     annotation (Placement(transformation(extent={{-30,42},{-10,62}})));
-  CDL.Continuous.Subtract subCoo[nCoiCoo]
+
+  Buildings.Controls.OBC.CDL.Continuous.Subtract subCoo[nCoiCoo]
     annotation (Placement(transformation(extent={{48,-218},{68,-198}})));
-  CDL.Continuous.Subtract subHea[nCoiHea]
+
+  Buildings.Controls.OBC.CDL.Continuous.Subtract subHea[nCoiHea]
     annotation (Placement(transformation(extent={{48,-258},{68,-238}})));
-  CDL.Continuous.Sources.Constant conCoo[nCoiCoo](k=fill(TCooMin, nCoiCoo))
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conCoo[nCoiCoo](
+    k=fill(TSupSetMin, nCoiCoo))
     annotation (Placement(transformation(extent={{-80,-210},{-60,-190}})));
-  CDL.Continuous.Sources.Constant conHea[nCoiHea](k=fill(THeaMax, nCoiHea))
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conHea[nCoiHea](
+    k=fill(TSupSetMax, nCoiHea))
     annotation (Placement(transformation(extent={{-80,-260},{-60,-240}})));
+
 equation
   connect(uDemLimLev, intScaRepCoo.u) annotation (Line(points={{-120,0},{-46,0},
           {-46,80},{-32,80}}, color={255,127,0}));
@@ -528,7 +546,7 @@ equation
       extent={{-100,-280},{100,200}}),
         graphics={
           Rectangle(
-            extent={{100,180},{-100,-180}},
+            extent={{100,180},{-100,-280}},
             lineColor={0,0,0},
             fillColor={255,255,255},
             fillPattern=FillPattern.Solid),
@@ -619,7 +637,17 @@ equation
           Text(
             extent={{-92,146},{-30,132}},
             textColor={255,0,255},
-            textString="uDXHeaCoi")}),
+            textString="uDXHeaCoi"),
+          Text(
+            extent={{-92,-188},{-28,-216}},
+            textColor={0,0,127},
+            pattern=LinePattern.Dash,
+          textString="TSupCoiHea"),
+          Text(
+            extent={{-90,-226},{-26,-254}},
+            textColor={0,0,127},
+            pattern=LinePattern.Dash,
+          textString="TSupCoiCoo")}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-280},{100,
             200}})),
   Documentation(info="<html>

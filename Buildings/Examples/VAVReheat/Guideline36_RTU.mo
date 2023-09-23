@@ -9,6 +9,8 @@ model Guideline36_RTU
     mNor_flow_nominal=ACHNor*VRooNor*conv,
     mWes_flow_nominal=ACHWes*VRooWes*conv,
     redeclare Buildings.Examples.VAVReheat.BaseClasses.Guideline36_RTU hvac(
+      nCoiCoo=nCoiCoo,
+      nCoiHea=nCoiHea,
       datHeaCoi=datHeaCoi,
       datCooCoi=datCooCoi),
     redeclare Buildings.Examples.VAVReheat.BaseClasses.Floor flo(
@@ -24,8 +26,12 @@ model Guideline36_RTU
     "Design air change per hour north";
   parameter Real ACHWes(final unit="1/h")=7
     "Design air change per hour west";
-  parameter Integer nCoi(min=1) = 3
-    "Number of DX coils";
+  parameter Integer nCoiHea(min=1) = 6
+    "Number of DX heating coils";
+  parameter Integer nCoiCoo(min=1) = 6
+    "Number of DX cooling coils";
+  parameter Real f_num = 0.8
+    "Factor to modify cooling capacity of each DX stage ";
   parameter Fluid.DXSystems.Heating.AirSource.Data.Generic.DXCoil datHeaCoi(
     nSta=1,
     minSpeRat=0.2,
@@ -56,7 +62,7 @@ model Guideline36_RTU
       spe=900/60,
       nomVal=
       Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.NominalValues(
-        Q_flow_nominal=-12000,
+        Q_flow_nominal=-12000*f_num,
         COP_nominal=3,
         SHR_nominal=0.8,
         m_flow_nominal=0.9),
@@ -66,7 +72,7 @@ model Guideline36_RTU
       spe=1200/60,
       nomVal=
       Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.NominalValues(
-        Q_flow_nominal=-18000,
+        Q_flow_nominal=-18000*f_num,
         COP_nominal=3,
         SHR_nominal=0.8,
         m_flow_nominal=1.2),
@@ -76,7 +82,7 @@ model Guideline36_RTU
       spe=1800/60,
       nomVal=
       Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.NominalValues(
-        Q_flow_nominal=-21000,
+        Q_flow_nominal=-21000*f_num,
         COP_nominal=3,
         SHR_nominal=0.8,
         m_flow_nominal=1.5),
@@ -86,7 +92,7 @@ model Guideline36_RTU
       spe=2400/60,
       nomVal=
       Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.NominalValues(
-        Q_flow_nominal=-30000,
+        Q_flow_nominal=-30000*f_num,
         COP_nominal=3,
         SHR_nominal=0.8,
         m_flow_nominal=1.8),
@@ -96,7 +102,7 @@ model Guideline36_RTU
       spe=3000/60,
       nomVal=
       Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.NominalValues(
-        Q_flow_nominal=-39000,
+        Q_flow_nominal=-39000*f_num,
         COP_nominal=3,
         SHR_nominal=0.8,
         m_flow_nominal=2.1),
@@ -125,7 +131,7 @@ model Guideline36_RTU
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/Guideline36_RTU.mos"
         "Simulate and plot"),
-    experiment(StartTime=16848000, StopTime=17020800, Tolerance=1e-06),
+    experiment(StartTime=16848000, StopTime=17539200, Tolerance=1e-06),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
     //experiment(StopTime=172800, Tolerance=1e-06),
 end Guideline36_RTU;

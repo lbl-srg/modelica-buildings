@@ -236,8 +236,8 @@ block Controller
     annotation (Placement(transformation(extent={{-150,10},{-130,30}})));
 
   Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.CompressorSpeedStage ComSpeSta[nCoi](
-    coiSpeLow=conCoiLow,
-    coiSpeHig=conCoiHig,
+    each final coiSpeLow=conCoiLow,
+    each final coiSpeHig=conCoiHig,
     each final minComSpe=minComSpe,
     each final maxComSpe=maxComSpe)
     "Compressor speed stage"
@@ -283,13 +283,14 @@ block Controller
     "Calculate compressor speed based on product of two inputs"
     annotation (Placement(transformation(extent={{180,-130},{200,-110}})));
 
-  CDL.Interfaces.RealInput TSupCoiDif[nCoi](
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupCoiDif[nCoi](
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
-    "Difference between coil supply air temperature and setpoint" annotation (
-      Placement(transformation(extent={{-260,-180},{-220,-140}}),
-        iconTransformation(extent={{-140,-100},{-100,-60}})));
+    "Difference between coil supply air temperature and setpoint"
+    annotation (Placement(transformation(extent={{-260,-180},{-220,-140}}),
+      iconTransformation(extent={{-140,-100},{-100,-60}})));
+
 protected
   parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.P
     "Type of DX coil controller"

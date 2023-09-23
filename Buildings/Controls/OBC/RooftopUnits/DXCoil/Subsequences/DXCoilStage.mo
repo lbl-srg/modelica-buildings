@@ -115,8 +115,9 @@ protected
     "Reset timer when coil status changes"
     annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysSetExc[nCoi](final uLow=-
-        dTHys, final uHigh=dTHys)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysSetExc[nCoi](
+    each final uLow=-dTHys,
+    each final uHigh=dTHys)
     "Check if any of the coils are exceeding minimum/maximum setpoint"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 
@@ -132,7 +133,8 @@ protected
     "Stage down the coil array if either the stage-down conditions are met, or if coil exceeds minimum/maximum setpoint"
     annotation (Placement(transformation(extent={{70,-60},{90,-40}})));
 
-  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOrSetExc(final nin=nCoi)
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOrSetExc(
+    final nin=nCoi)
     "Check for coils exceeding minimum/maximum setpoint"
     annotation (Placement(transformation(extent={{-50,-90},{-30,-70}})));
 

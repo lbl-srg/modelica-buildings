@@ -115,7 +115,8 @@ protected
     "Switch between the speed calculated by the P controller and the maximum speed"
     annotation (Placement(transformation(extent={{86,70},{106,90}})));
 
-  Buildings.Fluid.BaseClasses.ActuatorFilter filter(f=0.08)
+  Buildings.Fluid.BaseClasses.ActuatorFilter filter(
+    final f=0.08)
     "Second order filter to approximate actuator opening time, and to improve numerics"
     annotation (Placement(transformation(extent={{92,33},{106,47}})));
 
