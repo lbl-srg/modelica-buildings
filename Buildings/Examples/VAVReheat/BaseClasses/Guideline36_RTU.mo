@@ -78,8 +78,7 @@ model Guideline36_RTU
     final have_perZonRehBox=true,
     final VUncDesOutAir_flow=0.644,
     final VDesTotOutAir_flow=1.107,
-    kVal=0.09,
-    TiVal=12000)
+    TiVal=800)
     "Air handler unit controller"
     annotation (Placement(transformation(extent={{460,460},{540,636}})));
 
@@ -193,55 +192,57 @@ model Guideline36_RTU
     annotation (Placement(transformation(extent={{240,630},{260,650}})));
 
   Buildings.Controls.OBC.RooftopUnits.Controller RTUCon(
-    final nCoi=nCoi,
-    minComSpe=0.25,
+    final nCoiHea=nCoiHea,
+    final nCoiCoo=nCoiCoo,
+    final uThrCoi1=0.4,
+    final minComSpe=0.25,
     final dUHys=0.2)
     "Controller for rooftop units"
-    annotation (Placement(transformation(extent={{980,522},{1000,550}})));
+    annotation (Placement(transformation(extent={{980,520},{1000,548}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant demLimLev1(
     final k=0)
     "Demand limit level, assumes to be 0"
-    annotation (Placement(transformation(extent={{900,550},{920,570}})));
+    annotation (Placement(transformation(extent={{900,540},{920,560}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[nCoi](
-    final k=1:nCoi)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[nCoiHea](
+    final k=1:nCoiHea)
     "Constant integer signal"
-    annotation (Placement(transformation(extent={{900,590},{920,610}})));
+    annotation (Placement(transformation(extent={{900,570},{920,590}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1[nCoi](
-    final k=fill(true,nCoi))
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1[nCoiCoo](
+    final k=fill(true, nCoiCoo))
     "Constant Boolean signal"
-    annotation (Placement(transformation(extent={{900,630},{920,650}})));
+    annotation (Placement(transformation(extent={{930,640},{950,660}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys[nCoi](
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys[nCoiHea](
     each final uLow=0.5,
     each final uHigh=1)
     "Check if DXs are on"
     annotation (Placement(transformation(extent={{140,-170},{160,-150}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1[nCoi](
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1[nCoiCoo](
     each final uLow=0.5,
     each final uHigh=1)
     "Check if DXs are on"
     annotation (Placement(transformation(extent={{280,-160},{300,-140}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Timer timDXSta[nCoi](
+  Buildings.Controls.OBC.CDL.Logical.Timer timDXSta[nCoiHea](
     each final t=120)
     "Output DX heating coils proven on signal when status is enabled for two minutes"
     annotation (Placement(transformation(extent={{180,-170},{200,-150}})));
 
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nCoi](
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nCoiCoo](
     each final realTrue=1,
     each final realFalse=0)
     "Convert Boolean to Real number"
     annotation (Placement(transformation(extent={{1060,540},{1080,560}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul[nCoi]
+  Buildings.Controls.OBC.CDL.Continuous.Multiply mul[nCoiCoo]
     "Calculate compressor speed based on product of two inputs"
     annotation (Placement(transformation(extent={{1100,520},{1120,540}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Timer timDXSta1[nCoi](
+  Buildings.Controls.OBC.CDL.Logical.Timer timDXSta1[nCoiCoo](
     each final t=120)
     "Output DX cooling coils proven on signal when status is enabled for two minutes"
     annotation (Placement(transformation(extent={{320,-160},{340,-140}})));
@@ -252,8 +253,8 @@ model Guideline36_RTU
     annotation (Placement(transformation(extent={{360,454},{380,474}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys2(
-    final uLow=0.001,
-    final uHigh=0.002)
+    final uLow=0.05,
+    final uHigh=0.1)
     "Check if supply fan is on"
     annotation (Placement(transformation(extent={{440,-130},{460,-110}})));
 
@@ -265,22 +266,42 @@ model Guideline36_RTU
     "Enable auxiliary coil if fan is on and DX coils are unable to meet heating load"
     annotation (Placement(transformation(extent={{520,-130},{540,-110}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical Not"
+  Buildings.Controls.OBC.CDL.Logical.Not not1
+    "Logical Not"
     annotation (Placement(transformation(extent={{140,-100},{160,-80}})));
+
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea2
     "Convert Boolean to Real number"
     annotation (Placement(transformation(extent={{180,-100},{200,-80}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical Not"
-    annotation (Placement(transformation(extent={{280,-110},{300,-90}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Not not2
+  "Logical Not"
+  annotation (Placement(transformation(extent={{280,-110},{300,-90}})));
+
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea3
     "Convert Boolean to Real number"
     annotation (Placement(transformation(extent={{310,-110},{330,-90}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(final nin=nCoi)
+
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
+    final nin=nCoiHea)
     "Logical Multi Or"
     annotation (Placement(transformation(extent={{100,-100},{120,-80}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr1(final nin=nCoi)
+
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr1(
+    final nin=nCoiCoo)
     "Logical Multi Or"
     annotation (Placement(transformation(extent={{246,-110},{266,-90}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2[nCoiHea](
+    final k=fill(true, nCoiHea))
+    "Constant Boolean signal"
+    annotation (Placement(transformation(extent={{900,610},{920,630}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1[nCoiCoo](
+    final k=1:nCoiCoo)
+    "Constant integer signal"
+    annotation (Placement(transformation(extent={{930,590},{950,610}})));
+
 equation
   connect(occSch.tNexOcc, reaRep.u) annotation (Line(points={{-299,-204},{-280,
           -204},{-280,-180},{-242,-180}}, color={0,0,127}));
@@ -478,34 +499,30 @@ equation
           32},{340,80},{286,80},{286,604},{456,604}},     color={0,0,127}));
   connect(TSup.T, TSupAHU.u) annotation (Line(points={{540,-29},{540,32},{340,32},
           {340,80},{378,80}},     color={0,0,127}));
-  connect(conAHU.yCooCoi, RTUCon.uCooCoi) annotation (Line(points={{544,518},{900,
-          518},{900,531},{978,531}},     color={0,0,127}));
-  connect(conAHU.yHeaCoi, RTUCon.uHeaCoi) annotation (Line(points={{544,512},{910,
-          512},{910,528},{978,528}},     color={0,0,127}));
-  connect(RTUCon.uDemLimLev, demLimLev1.y) annotation (Line(points={{978,534},{930,
-          534},{930,560},{922,560}},     color={255,127,0}));
-  connect(x_pTphi.X[1], RTUCon.XOut) annotation (Line(points={{-279,100},{-160,100},
-          {-160,160},{142,160},{142,382},{940,382},{940,522},{978,522}}, color={0,0,127}));
-  connect(RTUCon.TOut, TOut.y) annotation (Line(points={{978,525},{920,525},{920,
-          390},{122,390},{122,180},{-279,180}}, color={0,0,127}));
-  connect(RTUCon.yDXCooCoi, booToRea.u) annotation (Line(points={{1002,550},{1058,
-          550}}, color={255,0,255}));
+  connect(conAHU.yCooCoi, RTUCon.uCooCoi) annotation (Line(points={{544,518},{
+          900,518},{900,533.417},{978,533.417}},
+                                         color={0,0,127}));
+  connect(conAHU.yHeaCoi, RTUCon.uHeaCoi) annotation (Line(points={{544,512},{
+          910,512},{910,531.667},{978,531.667}},
+                                         color={0,0,127}));
+  connect(RTUCon.uDemLimLev, demLimLev1.y) annotation (Line(points={{978,
+          535.167},{978,538},{930,538},{930,550},{922,550}},
+                                         color={255,127,0}));
+  connect(x_pTphi.X[1], RTUCon.XOut) annotation (Line(points={{-279,100},{-160,
+          100},{-160,160},{142,160},{142,382},{940,382},{940,528.167},{978,
+          528.167}},                                                     color={0,0,127}));
+  connect(RTUCon.TOut, TOut.y) annotation (Line(points={{978,529.917},{920,
+          529.917},{920,390},{122,390},{122,180},{-279,180}},
+                                                color={0,0,127}));
+  connect(RTUCon.yDXCooCoi, booToRea.u) annotation (Line(points={{1002,544.5},{1030,
+          544.5},{1030,550},{1058,550}},
+                 color={255,0,255}));
   connect(booToRea.y, mul.u1) annotation (Line(points={{1082,550},{1090,550},{1090,
           536},{1098,536}}, color={0,0,127}));
-  connect(RTUCon.yComSpeCoo, mul.u2) annotation (Line(points={{1002,538.2},{1050,
-          538.2},{1050,524},{1098,524}}, color={0,0,127}));
-  connect(RTUCon.uCooCoiAva, con1.y) annotation (Line(points={{978,547},{950,547},
-          {950,640},{922,640}}, color={255,0,255}));
-  connect(RTUCon.uHeaCoiAva, con1.y) annotation (Line(points={{978,544},{950,544},
-          {950,640},{922,640}}, color={255,0,255}));
-  connect(RTUCon.uCooCoiSeq, conInt.y) annotation (Line(points={{978,541},{940,541},
-          {940,600},{922,600}}, color={255,127,0}));
-  connect(RTUCon.uHeaCoiSeq, conInt.y) annotation (Line(points={{978,537.8},{940,
-          537.8},{940,600},{922,600}}, color={255,127,0}));
   connect(mul.y, CooCoi.speRat) annotation (Line(points={{1122,530},{1140,530},{
           1140,-70},{230,-70},{230,-48},{239,-48}}, color={0,0,127}));
-  connect(RTUCon.yDXHeaCoi, HeaCoi.on) annotation (Line(points={{1002,544},{1040,
-          544},{1040,-180},{90,-180},{90,-48},{99,-48}}, color={255,0,255}));
+  connect(RTUCon.yDXHeaCoi, HeaCoi.on) annotation (Line(points={{1002,541},{1040,
+          541},{1040,-180},{90,-180},{90,-48},{99,-48}}, color={255,0,255}));
   connect(hys1.y, timDXSta1.u) annotation (Line(points={{302,-150},{318,-150}},
           color={255,0,255}));
   connect(hys.y, timDXSta.u) annotation (Line(points={{162,-160},{178,-160}},
@@ -515,12 +532,16 @@ equation
   connect(HeaCoi.P, hys.u) annotation (Line(points={{121,-49},{130,-49},{130,-160},
           {138,-160}}, color={0,0,127}));
   connect(timDXSta1.passed, RTUCon.uDXCooCoi) annotation (Line(points={{342,-158},
-          {960,-158},{960,553},{978,553}}, color={255,0,255}));
+          {960,-158},{960,546.25},{978,546.25}},
+                                           color={255,0,255}));
   connect(timDXSta.passed, RTUCon.uDXHeaCoi) annotation (Line(points={{202,-168},
-          {970,-168},{970,550},{978,550}}, color={255,0,255}));
-  for i in 1:nCoi loop
+          {970,-168},{970,544.5},{978,544.5}},
+                                           color={255,0,255}));
+  for i in 1:nCoiCoo loop
   connect(CooCoi[i].TOut, TOut.y) annotation (Line(points={{239,-43},{230,-43},{
           230,70},{-220,70},{-220,180},{-279,180}}, color={0,0,127}));
+  end for;
+  for i in 1:nCoiHea loop
   connect(HeaCoi[i].TOut, TOut.y) annotation (Line(points={{99,-36},{80,-36},{80,
           70},{-220,70},{-220,180},{-279,180}}, color={0,0,127}));
   connect(HeaCoi[i].phi, Phi.y) annotation (Line(points={{99,-32},{90,-32},{90,60},
@@ -536,8 +557,9 @@ equation
           color={255,0,255}));
   connect(booToRea1.y, mulAuxHea.u2) annotation (Line(points={{502,-120},{510,-120},
           {510,-126},{518,-126}}, color={0,0,127}));
-  connect(RTUCon.yAuxHea, mulAuxHea.u1) annotation (Line(points={{1002,528},{1020,
-          528},{1020,-90},{510,-90},{510,-114},{518,-114}}, color={0,0,127}));
+  connect(RTUCon.yAuxHea, mulAuxHea.u1) annotation (Line(points={{1002,531.667},
+          {1020,531.667},{1020,-90},{510,-90},{510,-114},{518,-114}},
+                                                            color={0,0,127}));
   connect(mulAuxHea.y, AuxHeaCoi.u) annotation (Line(points={{542,-120},{550,-120},
           {550,-80},{450,-80},{450,-34},{458,-34}}, color={0,0,127}));
 
@@ -547,20 +569,39 @@ equation
     annotation (Line(points={{122,-90},{138,-90}}, color={255,0,255}));
   connect(not1.y, booToRea2.u)
     annotation (Line(points={{162,-90},{178,-90}}, color={255,0,255}));
-  connect(RTUCon.yDXHeaCoi[1:nCoi], mulOr.u[1:nCoi]) annotation (Line(points={{1002,544},{
-          1022,544},{1022,520},{1034,520},{1034,-182},{90,-182},{90,-90},{98,-90}},
-        color={255,0,255}));
+  connect(RTUCon.yDXHeaCoi[1:nCoiHea], mulOr.u[1:nCoiHea]) annotation (Line(points={{1002,
+          541},{1030,541},{1030,-182},{90,-182},{90,-90},{98,-90}},
+          color={255,0,255}));
   connect(not2.y, booToRea3.u)
     annotation (Line(points={{302,-100},{308,-100}}, color={255,0,255}));
   connect(mulOr1.y, not2.u)
     annotation (Line(points={{268,-100},{278,-100}}, color={255,0,255}));
-  connect(mulOr1.u[1:nCoi], RTUCon.yDXCooCoi[1:nCoi]) annotation (Line(points={{244,
-          -100},{240,-100},{240,-176},{1048,-176},{1048,550},{1002,550}},
-        color={255,0,255}));
+  connect(mulOr1.u[1:nCoiCoo], RTUCon.yDXCooCoi[1:nCoiCoo]) annotation (Line(points={{244,
+          -100},{240,-100},{240,-176},{1046,-176},{1046,544.5},{1002,544.5}}, color={255,0,255}));
   connect(booToRea2.y, damPreInd.y) annotation (Line(points={{202,-90},{216,-90},
           {216,-64},{192,-64},{192,12},{110,12}}, color={0,0,127}));
   connect(booToRea3.y, damPreInd1.y) annotation (Line(points={{332,-100},{376,
           -100},{376,-8},{360,-8},{360,12},{250,12}}, color={0,0,127}));
+  connect(RTUCon.uCooCoiAva, con1.y) annotation (Line(points={{978,542.75},{978,
+          544},{974,544},{974,650},{952,650}}, color={255,0,255}));
+  connect(RTUCon.uHeaCoiAva, con2.y) annotation (Line(points={{978,541},{978,544},
+          {968,544},{968,620},{922,620}}, color={255,0,255}));
+  connect(RTUCon.uCooCoiSeq, conInt1.y) annotation (Line(points={{978,539.25},{964,
+          539.25},{964,600},{952,600}}, color={255,127,0}));
+  connect(conInt.y, RTUCon.uHeaCoiSeq) annotation (Line(points={{922,580},{940,
+          580},{940,537.383},{978,537.383}},
+                                        color={255,127,0}));
+  connect(RTUCon.TSupCoiHea, THeaCoi.T) annotation (Line(points={{978,524.667},
+          {930,524.667},{930,420},{140,420},{140,-29}},color={0,0,127}));
+  connect(RTUCon.TSupCoiCoo, TCooCoi.T) annotation (Line(points={{978,522.333},
+          {950,522.333},{950,410},{280,410},{280,-29}},color={0,0,127}));
+  connect(RTUCon.yComSpeCoo, mul.u2) annotation (Line(points={{1002,537.617},{
+          1002,538},{1052,538},{1052,524},{1098,524}},
+                                                  color={0,0,127}));
+  connect(RTUCon.TSupCoiSet, conAHU.TAirSupSet) annotation (Line(points={{978,
+          518.833},{978,512},{912,512},{912,528},{704,528},{704,648},{576,648},
+          {576,616},{544,616}},
+                      color={0,0,127}));
   annotation (
   defaultComponentName="hvac",
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-320},{1420,

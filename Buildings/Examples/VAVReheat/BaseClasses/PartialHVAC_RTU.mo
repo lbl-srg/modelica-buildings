@@ -128,8 +128,12 @@ partial model PartialHVAC_RTU
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation (Evaluate=true);
 
-  parameter Integer nCoi(min=1) = 3
-    "Number of DX coils"
+  parameter Integer nCoiCoo(min=1) = 3
+    "Number of DX cooling coils"
+    annotation (Dialog(group="Parameters"));
+
+  parameter Integer nCoiHea(min=1) = 3
+    "Number of DX heating coils"
     annotation (Dialog(group="Parameters"));
 
   parameter Modelica.Units.SI.PressureDifference dpDXCoi_nominal=50
@@ -171,7 +175,7 @@ partial model PartialHVAC_RTU
     "Ambient conditions"
     annotation (Placement(transformation(extent={{-136,-56},{-114,-34}})));
 
-  Buildings.Fluid.DXSystems.Heating.AirSource.SingleSpeed HeaCoi[nCoi](
+  Buildings.Fluid.DXSystems.Heating.AirSource.SingleSpeed HeaCoi[nCoiHea](
     redeclare each final package Medium = MediumA,
     each final dp_nominal=dpDXCoi_nominal,
     each final datCoi=datHeaCoi,
@@ -183,7 +187,7 @@ partial model PartialHVAC_RTU
     "Single speed DX heating coil"
     annotation (Placement(transformation(extent={{100,-30},{120,-50}})));
 
-  Buildings.Fluid.DXSystems.Cooling.AirSource.VariableSpeed CooCoi[nCoi](
+  Buildings.Fluid.DXSystems.Cooling.AirSource.VariableSpeed CooCoi[nCoiCoo](
     redeclare each final package Medium = MediumA,
     each final dp_nominal=dpDXCoi_nominal,
     each final datCoi=datCooCoi,
@@ -389,19 +393,19 @@ partial model PartialHVAC_RTU
     "Supply air temperature sensor"
     annotation (Placement(transformation(extent={{530,-50},{550,-30}})));
 
-  Buildings.Fluid.Sensors.TemperatureTwoPort THeaCoi(
+  Buildings.Fluid.Sensors.TemperatureTwoPort THeaCoi[nCoiHea](
     redeclare package Medium = MediumA,
-    m_flow_nominal=mAir_flow_nominal,
-    allowFlowReversal=allowFlowReversal)
+    each m_flow_nominal=mAir_flow_nominal,
+    each allowFlowReversal=allowFlowReversal)
     "Heating coil outlet air temperature sensor"
-    annotation (Placement(transformation(extent={{160,-50},{180,-30}})));
+    annotation (Placement(transformation(extent={{130,-50},{150,-30}})));
 
-  Buildings.Fluid.Sensors.TemperatureTwoPort TCooCoi(
+  Buildings.Fluid.Sensors.TemperatureTwoPort TCooCoi[nCoiCoo](
     redeclare package Medium = MediumA,
-    m_flow_nominal=mAir_flow_nominal,
-    allowFlowReversal=allowFlowReversal)
+    each m_flow_nominal=mAir_flow_nominal,
+    each allowFlowReversal=allowFlowReversal)
     "Cooling coil outlet air temperature sensor"
-    annotation (Placement(transformation(extent={{310,-50},{330,-30}})));
+    annotation (Placement(transformation(extent={{270,-50},{290,-30}})));
 
   Modelica.Blocks.Routing.RealPassThrough Phi(y(
     final unit="1"))
@@ -439,7 +443,7 @@ partial model PartialHVAC_RTU
     linearized=true) "Flow splitter" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=0,
-        origin={138,-40})));
+        origin={170,-40})));
   Fluid.FixedResistances.Junction splRetOut3(
     redeclare package Medium = MediumA,
     tau=15,
@@ -471,7 +475,7 @@ partial model PartialHVAC_RTU
     linearized=true) "Flow splitter" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=0,
-        origin={280,-40})));
+        origin={310,-40})));
   Fluid.FixedResistances.Junction           splRetOut5(
     redeclare package Medium = MediumA,
     tau=15,
@@ -672,17 +676,17 @@ equation
       horizontalAlignment=TextAlignment.Right));
   connect(TSup.port_b, senSupFlo.port_a)
     annotation (Line(points={{550,-40},{572,-40}}, color={0,127,255}));
-  connect(dpSupDuc.port_a, TCooCoi.port_b)
-    annotation (Line(points={{350,-40},{330,-40}}, color={0,127,255}));
-  for i in 1:nCoi loop
+  for i in 1:nCoiHea loop
   connect(splRetOut1.port_2, HeaCoi[i].port_a)
     annotation (Line(points={{90,-40},{100,-40}}, color={0,127,255}));
-  connect(HeaCoi[i].port_b, splRetOut2.port_1)
-    annotation (Line(points={{120,-40},{128,-40}}, color={0,127,255}));
+  connect(THeaCoi[i].port_b, splRetOut2.port_1)
+    annotation (Line(points={{150,-40},{160,-40}}, color={0,127,255}));
+  end for;
+  for i in 1:nCoiCoo loop
   connect(splRetOut3.port_2, CooCoi[i].port_a)
     annotation (Line(points={{230,-40},{240,-40}}, color={0,127,255}));
-  connect(CooCoi[i].port_b, splRetOut4.port_1)
-    annotation (Line(points={{260,-40},{270,-40}}, color={0,127,255}));
+  connect(TCooCoi[i].port_b, splRetOut4.port_1)
+    annotation (Line(points={{290,-40},{300,-40}}, color={0,127,255}));
   end for;
   connect(weaBus.relHum, Phi.u) annotation (Line(
       points={{-320,180},{-320,140},{-302,140}},
@@ -707,21 +711,22 @@ equation
     annotation (Line(points={{480,0},{500,0},{500,-30}}, color={0,127,255}));
   connect(TMix.port_b, splRetOut1.port_1)
     annotation (Line(points={{50,-40},{70,-40}}, color={0,127,255}));
-  connect(splRetOut2.port_2, THeaCoi.port_a)
-    annotation (Line(points={{148,-40},{160,-40}}, color={0,127,255}));
-  connect(THeaCoi.port_b, splRetOut3.port_1)
-    annotation (Line(points={{180,-40},{210,-40}}, color={0,127,255}));
-  connect(splRetOut4.port_2, TCooCoi.port_a)
-    annotation (Line(points={{290,-40},{310,-40}}, color={0,127,255}));
   connect(splRetOut1.port_3, damPreInd.port_a)
     annotation (Line(points={{80,-30},{80,0},{100,0}}, color={0,127,255}));
   connect(damPreInd.port_b, splRetOut2.port_3)
-    annotation (Line(points={{120,0},{138,0},{138,-30}}, color={0,127,255}));
+    annotation (Line(points={{120,0},{170,0},{170,-30}}, color={0,127,255}));
   connect(splRetOut3.port_3, damPreInd1.port_a)
     annotation (Line(points={{220,-30},{220,0},{240,0}}, color={0,127,255}));
   connect(damPreInd1.port_b, splRetOut4.port_3)
-    annotation (Line(points={{260,0},{280,0},{280,-30}}, color={0,127,255}));
-
+    annotation (Line(points={{260,0},{310,0},{310,-30}}, color={0,127,255}));
+  connect(HeaCoi.port_b, THeaCoi.port_a)
+    annotation (Line(points={{120,-40},{130,-40}}, color={0,127,255}));
+  connect(CooCoi.port_b, TCooCoi.port_a)
+    annotation (Line(points={{260,-40},{270,-40}}, color={0,127,255}));
+  connect(splRetOut2.port_2, splRetOut3.port_1)
+    annotation (Line(points={{180,-40},{210,-40}}, color={0,127,255}));
+  connect(splRetOut4.port_2, dpSupDuc.port_a)
+    annotation (Line(points={{320,-40},{350,-40}}, color={0,127,255}));
   annotation (Diagram(
     coordinateSystem(
     preserveAspectRatio=false,

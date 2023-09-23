@@ -50,14 +50,6 @@ block CompressorSpeedStage
     annotation (Placement(transformation(extent={{-160,-80},{-120,-40}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupCoiDif(
-    final unit="K",
-    displayUnit="degC",
-    final quantity="ThermodynamicTemperature")
-    "Difference between coil supply air temperature and setpoint"
-    annotation (Placement(transformation(extent={{-160,-110},{-120,-70}}),
-      iconTransformation(extent={{-140,-80},{-100,-40}})));
-
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yComSpe(
     final min=0,
     final max=1,
@@ -80,8 +72,7 @@ protected
     final k=k,
     final yMax=1,
     final yMin=0,
-    final reverseActing=false)
-    "Regulate compressor speed"
+    final reverseActing=false) "Regulate compressor speed"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Add add
@@ -115,23 +106,10 @@ protected
     "Switch between the speed calculated by the P controller and the maximum speed"
     annotation (Placement(transformation(extent={{86,70},{106,90}})));
 
-  Buildings.Fluid.BaseClasses.ActuatorFilter filter(f=0.08)
+  Buildings.Fluid.BaseClasses.ActuatorFilter filter(
+    final f=0.08)
     "Second order filter to approximate actuator opening time, and to improve numerics"
     annotation (Placement(transformation(extent={{92,33},{106,47}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
-    final uLow=-dTHys,
-    final uHigh=dTHys)
-    "Check for coils running below minimum/maximum setpoint"
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi2
-    "Switch to sampled speed when coil exceeds minimum/maximum setpoint"
-    annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
-
-  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam
-    "Sample the compressor speed when the coil exceeds minimum/maximum setpoint"
-    annotation (Placement(transformation(extent={{-20,-74},{0,-54}})));
 
 equation
   connect(conP.u_m, uCoi) annotation (Line(points={{-50,-42},{-50,-60},{
@@ -163,20 +141,8 @@ equation
           {84,72}}, color={0,0,127}));
   connect(swi1.y, filter.u) annotation (Line(points={{108,80},{112,80},{112,60},
           {80,60},{80,40},{90.6,40}}, color={0,0,127}));
-  connect(TSupCoiDif, hys.u)
-    annotation (Line(points={{-140,-90},{-102,-90}}, color={0,0,127}));
-  connect(hys.y, swi2.u2) annotation (Line(points={{-78,-90},{-40,-90},{-40,-80},
-          {58,-80}}, color={255,0,255}));
-  connect(triSam.y, swi2.u1) annotation (Line(points={{2,-64},{32,-64},{32,-72},
-          {58,-72}}, color={0,0,127}));
-  connect(hys.y, triSam.trigger) annotation (Line(points={{-78,-90},{-40,-90},{-40,
-          -80},{-10,-80},{-10,-76}}, color={255,0,255}));
-  connect(filter.y, triSam.u) annotation (Line(points={{106.7,40},{116,40},{116,
-          98},{-70,98},{-70,-64},{-22,-64}}, color={0,0,127}));
-  connect(filter.y, swi2.u3) annotation (Line(points={{106.7,40},{116,40},{116,98},
-          {-70,98},{-70,-88},{58,-88}}, color={0,0,127}));
-  connect(swi2.y, yComSpe) annotation (Line(points={{82,-80},{116,-80},{116,0},{
-          140,0}}, color={0,0,127}));
+  connect(filter.y, yComSpe) annotation (Line(points={{106.7,40},{114,40},{114,
+          0},{140,0}}, color={0,0,127}));
   annotation (
     defaultComponentName="ComSpeSta",
     Icon(coordinateSystem(preserveAspectRatio=false,
