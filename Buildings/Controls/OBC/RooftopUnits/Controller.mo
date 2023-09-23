@@ -432,20 +432,38 @@ block Controller
     "Integer scalar replicator"
     annotation (Placement(transformation(extent={{-30,42},{-10,62}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract subCoo[nCoiCoo]
-    annotation (Placement(transformation(extent={{48,-218},{68,-198}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Subtract subHea[nCoiHea]
-    annotation (Placement(transformation(extent={{48,-258},{68,-238}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conCoo[nCoiCoo](
-    k=fill(TSupSetMin, nCoiCoo))
-    annotation (Placement(transformation(extent={{-80,-210},{-60,-190}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conHea[nCoiHea](
-    k=fill(TSupSetMax, nCoiHea))
-    annotation (Placement(transformation(extent={{-80,-260},{-60,-240}})));
-
+  CDL.Interfaces.RealInput TSupCoiSet(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")
+    "Cooling coil supply air temperature" annotation (Placement(transformation(
+          extent={{-140,-320},{-100,-280}}), iconTransformation(extent={{-140,-260},
+            {-100,-220}})));
+  CDL.Routing.RealScalarReplicator                        TSupAHUSet(final nout
+      =nCoiCoo)
+    "Replicate AHU supply temperature setpoint"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=0, origin={-54,-296})));
+  CDL.Routing.RealScalarReplicator                        TSupAHUSet1(final
+      nout=nCoiHea)
+    "Replicate AHU supply temperature setpoint"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=0, origin={-54,-322})));
+protected
+  Continuous.LimPID conP[nCoiCoo](
+    final controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    final k=0.1,
+    Ti=1000,
+    final yMax=1,
+    final yMin=0,
+    final reverseActing=false) "Regulate compressor speed"
+    annotation (Placement(transformation(extent={{2,-222},{22,-202}})));
+  Continuous.LimPID conP1[nCoiHea](
+    final controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    final k=0.1,
+    Ti=1000,
+    final yMax=1,
+    final yMin=0,
+    final reverseActing=false) "Regulate compressor speed"
+    annotation (Placement(transformation(extent={{0,-262},{20,-242}})));
 equation
   connect(uDemLimLev, intScaRepCoo.u) annotation (Line(points={{-120,0},{-46,0},
           {-46,80},{-32,80}}, color={255,127,0}));
@@ -469,8 +487,6 @@ equation
     annotation (Line(points={{-120,-180},{-80,-180},{-80,-138},{-71,-138}}, color={0,0,127}));
   connect(uCooCoi, DXCoiConCoo.uCoi) annotation (Line(points={{-120,-30},{-60,
           -30},{-60,176},{-32,176}}, color={0,0,127}));
-  connect(DXCoiConCoo.yComSpe, ComSpeDRCoo.uComSpe) annotation (Line(points={{-8,176},
-          {20,176},{20,64},{38,64}},          color={0,0,127}));
   connect(ComSpeDRHea.yComSpe, yComSpeHea)
     annotation (Line(points={{62,-40},{120,-40}}, color={0,0,127}));
   connect(DXCoiConCoo.yDXCoi, yDXCooCoi) annotation (Line(points={{-8,184},{56,
@@ -523,24 +539,30 @@ equation
           30},{-80,140},{-32,140}}, color={255,127,0}));
   connect(uHeaCoi, DXCoiConHea.uCoi) annotation (Line(points={{-120,-62},{-50,-62},
           {-50,136},{-32,136}}, color={0,0,127}));
-  connect(DXCoiConHea.yComSpe, mul.u1) annotation (Line(points={{-8,136},{14,136},
-          {14,26},{38,26}}, color={0,0,127}));
   connect(uDemLimLev, intScaRepHea.u) annotation (Line(points={{-120,0},{-46,0},
           {-46,56},{-32,56},{-32,52}}, color={255,127,0}));
   connect(intScaRepHea.y, ComSpeDRHea.uDemLimLev) annotation (Line(points={{-8,52},
           {32,52},{32,-34},{38,-34}}, color={255,127,0}));
-  connect(conCoo.y, subCoo.u1) annotation (Line(points={{-58,-200},{20,-200},{20,
-          -202},{46,-202}}, color={0,0,127}));
-  connect(conHea.y, subHea.u2) annotation (Line(points={{-58,-250},{40,-250},{40,
-          -254},{46,-254}}, color={0,0,127}));
-  connect(TSupCoiCoo, subCoo.u2) annotation (Line(points={{-120,-220},{20,-220},
-          {20,-214},{46,-214}}, color={0,0,127}));
-  connect(TSupCoiHea, subHea.u1) annotation (Line(points={{-120,-260},{20,-260},
-          {20,-242},{46,-242}}, color={0,0,127}));
-  connect(subCoo.y, DXCoiConCoo.TSupCoiDif) annotation (Line(points={{70,-208},
-          {80,-208},{80,-178},{-90,-178},{-90,172},{-32,172}}, color={0,0,127}));
-  connect(subHea.y, DXCoiConHea.TSupCoiDif) annotation (Line(points={{70,-248},
-          {84,-248},{84,-174},{-84,-174},{-84,132},{-32,132}}, color={0,0,127}));
+  connect(TSupCoiCoo, conP.u_m) annotation (Line(points={{-120,-220},{-4,-220},
+          {-4,-232},{12,-232},{12,-224}}, color={0,0,127}));
+  connect(TSupCoiHea, conP1.u_m) annotation (Line(points={{-120,-260},{-86,-260},
+          {-86,-270},{10,-270},{10,-264}}, color={0,0,127}));
+  connect(TSupAHUSet.y, conP.u_s) annotation (Line(points={{-42,-296},{-34,-296},
+          {-34,-212},{0,-212}}, color={0,0,127}));
+  connect(TSupCoiSet, TSupAHUSet.u) annotation (Line(points={{-120,-300},{-92,
+          -300},{-92,-296},{-66,-296}}, color={0,0,127}));
+  connect(TSupCoiSet, TSupAHUSet1.u) annotation (Line(points={{-120,-300},{-74,
+          -300},{-74,-322},{-66,-322}}, color={0,0,127}));
+  connect(TSupAHUSet1.y, conP1.u_s) annotation (Line(points={{-42,-322},{-32,
+          -322},{-32,-252},{-2,-252}}, color={0,0,127}));
+  connect(conP.y, DXCoiConCoo.uComSpe) annotation (Line(points={{23,-212},{46,
+          -212},{46,-206},{-32,-206},{-32,172}}, color={0,0,127}));
+  connect(conP1.y, DXCoiConHea.uComSpe) annotation (Line(points={{21,-252},{54,
+          -252},{54,-256},{-32,-256},{-32,132}}, color={0,0,127}));
+  connect(conP.y, ComSpeDRCoo.uComSpe) annotation (Line(points={{23,-212},{42,
+          -212},{42,-216},{38,-216},{38,64}}, color={0,0,127}));
+  connect(conP1.y, mul.u1) annotation (Line(points={{21,-252},{52,-252},{52,26},
+          {38,26}}, color={0,0,127}));
   annotation (defaultComponentName="RTUCon",
     Icon(coordinateSystem(preserveAspectRatio=false,
       extent={{-100,-280},{100,200}}),

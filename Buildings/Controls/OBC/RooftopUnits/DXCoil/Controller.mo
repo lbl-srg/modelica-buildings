@@ -129,14 +129,6 @@ block Controller
     annotation (Placement(transformation(extent={{220,60},{260,100}}),
       iconTransformation(extent={{100,20},{140,60}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yComSpe[nCoi](
-    each final min=0,
-    each final max=1,
-    each final unit="1")
-    "Compressor commanded speed"
-    annotation (Placement(transformation(extent={{220,-140},{260,-100}}),
-      iconTransformation(extent={{100,-60},{140,-20}})));
-
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea[nCoi]
     "Convert integer to real number"
     annotation (Placement(transformation(extent={{-190,130},{-170,150}})));
@@ -235,14 +227,6 @@ block Controller
     "DX coil enable and disable"
     annotation (Placement(transformation(extent={{-150,10},{-130,30}})));
 
-  Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.CompressorSpeedStage ComSpeSta[nCoi](
-    each final coiSpeLow=conCoiLow,
-    each final coiSpeHig=conCoiHig,
-    each final minComSpe=minComSpe,
-    each final maxComSpe=maxComSpe)
-    "Compressor speed stage"
-    annotation (Placement(transformation(extent={{130,-130},{150,-110}})));
-
   Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.ZeroIndexCorrection zerStaIndCor
     "Pass the correct input details when index signal is zero"
     annotation (Placement(transformation(extent={{-50,-70},{-30,-50}})));
@@ -257,11 +241,6 @@ block Controller
     "Change DX coil status"
     annotation (Placement(transformation(extent={{130,92},{152,112}})));
 
-  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep(
-    final nout=nCoi)
-    "Real scalar replicator"
-    annotation (Placement(transformation(extent={{80,-160},{100,-140}})));
-
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1[nCoi](k=1:nCoi)
     "Constant integer signal"
     annotation (Placement(transformation(extent={{-150,-132},{-130,-112}})));
@@ -275,21 +254,10 @@ block Controller
     "Output true Boolean signal if integer is greater than threshold"
     annotation (Placement(transformation(extent={{-50,-124},{-30,-104}})));
 
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nCoi]
-    "Convert Boolean to Real number"
-    annotation (Placement(transformation(extent={{130,-70},{150,-50}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul[nCoi]
-    "Calculate compressor speed based on product of two inputs"
-    annotation (Placement(transformation(extent={{180,-130},{200,-110}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupCoiDif[nCoi](
-    final unit="K",
-    displayUnit="degC",
-    final quantity="ThermodynamicTemperature")
-    "Difference between coil supply air temperature and setpoint"
-    annotation (Placement(transformation(extent={{-260,-180},{-220,-140}}),
-      iconTransformation(extent={{-140,-100},{-100,-60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uComSpe[nCoi](displayUnit="1")
+    "Difference between coil supply air temperature and setpoint" annotation (
+      Placement(transformation(extent={{-260,-180},{-220,-140}}),
+        iconTransformation(extent={{-140,-100},{-100,-60}})));
 
 protected
   parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.P
@@ -396,44 +364,25 @@ equation
   connect(zerStaIndCor.yReaMod, reaToInt2.u) annotation (Line(points={{-28,-64},
           {-20,-64},{-20,-88},{60,-88},{60,-20},{78,-20}},
                                                          color={0,0,127}));
-  connect(reaScaRep.y, ComSpeSta.uCoi) annotation (Line(points={{102,-150},{120,
-          -150},{120,-122},{128,-122}}, color={0,0,127}));
-  connect(uCoi, reaScaRep.u) annotation (Line(points={{-240,-120},{-180,-120},
-          {-180,-150},{78,-150}},                        color={0,0,127}));
   connect(mulSumInt.y, intScaRep.u) annotation (Line(points={{-88,-20},{-74,-20},
           {-74,-48},{-152,-48},{-152,-70},{-140,-70}}, color={255,127,0}));
-  connect(intGre.y, ComSpeSta.uPreDXCoi) annotation (Line(points={{-28,-114},{27,
-          -114},{27,-114},{128,-114}},     color={255,0,255}));
   connect(intScaRep.y, intGre.u1) annotation (Line(points={{-116,-70},{-80,-70},
           {-80,-114},{-52,-114}}, color={255,127,0}));
   connect(conInt1.y, intGre.u2)
     annotation (Line(points={{-128,-122},{-52,-122}}, color={255,127,0}));
-  connect(logSwi.y, booToRea.u) annotation (Line(points={{202,80},{210,80},{210,
-          -30},{120,-30},{120,-60},{128,-60}}, color={255,0,255}));
-  connect(mul.y, yComSpe)
-    annotation (Line(points={{202,-120},{240,-120}}, color={0,0,127}));
-  connect(ComSpeSta.yComSpe, mul.u2) annotation (Line(points={{152,-120},{160,-120},
-          {160,-126},{178,-126}}, color={0,0,127}));
-  connect(booToRea.y, mul.u1) annotation (Line(points={{152,-60},{170,-60},{170,
-          -114},{178,-114}}, color={0,0,127}));
   connect(DXCoiSta.yDow, not1.u)
     annotation (Line(points={{-128,54},{-90,54},{-90,54},{-52,54}},
                                                   color={255,0,255}));
   connect(not1.y, or2.u1)
     annotation (Line(points={{-28,54},{38,54}}, color={255,0,255}));
-  connect(ComSpeSta.uDXCoi, uDXCoi) annotation (Line(points={{128,-118},{60,-118},
-          {60,-140},{-190,-140},{-190,40},{-240,40}},       color={255,0,255}));
 
   connect(reaToInt1.y, chaSta1.uNexDXCoi) annotation (Line(points={{102,20},{116,
           20},{116,98},{128,98}}, color={255,127,0}));
   connect(uDXCoi, booToInt.u) annotation (Line(points={{-240,40},{-190,40},{
           -190,-20},{-150,-20}},
                             color={255,0,255}));
-  connect(TSupCoiDif, ComSpeSta.TSupCoiDif) annotation (Line(points={{-240,-160},
-          {60,-160},{60,-168},{124,-168},{124,-126},{128,-126}}, color={0,0,127}));
-  connect(ComSpeSta.yComSpe, DXCoiSta.uComSpe) annotation (Line(points={{152,
-          -120},{162,-120},{162,-170},{-210,-170},{-210,56},{-152,56}}, color={
-          0,0,127}));
+  connect(uComSpe, DXCoiSta.uComSpe) annotation (Line(points={{-240,-160},{-178,
+          -160},{-178,44},{-160,44},{-160,56},{-152,56}}, color={0,0,127}));
   annotation (defaultComponentName="DXCoiCon",
     Icon(coordinateSystem(preserveAspectRatio=false,
       extent={{-100,-100},{100,100}}),
