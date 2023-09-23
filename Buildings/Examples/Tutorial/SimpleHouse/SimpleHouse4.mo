@@ -7,7 +7,7 @@ model SimpleHouse4 "Heating model"
   parameter Modelica.Units.SI.MassFlowRate mWat_flow_nominal=0.1
     "Nominal mass flow rate for water loop";
   parameter Boolean use_constantHeater=true
-    "To enable/disable the connection between the constant source and heater";
+    "To enable/disable the connection between the constant source and heater and circulation pump";
 
   Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad(
     redeclare package Medium = MediumWater,
@@ -15,8 +15,9 @@ model SimpleHouse4 "Heating model"
     T_b_nominal=313.15,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     allowFlowReversal=false,
-    Q_flow_nominal=QHea_flow_nominal)                          "Radiator"
+    Q_flow_nominal=QHea_flow_nominal) "Radiator"
     annotation (Placement(transformation(extent={{140,-140},{160,-120}})));
+
   Buildings.Fluid.HeatExchangers.HeaterCooler_u heaWat(
     redeclare package Medium = MediumWater,
     m_flow_nominal=mWat_flow_nominal,
@@ -25,38 +26,45 @@ model SimpleHouse4 "Heating model"
     dp_nominal=5000,
     Q_flow_nominal=QHea_flow_nominal) "Heater for water circuit"
     annotation (Placement(transformation(extent={{60,-140},{80,-120}})));
-  Buildings.Fluid.Movers.FlowControlled_m_flow pum(
+
+  Fluid.Movers.Preconfigured.FlowControlled_m_flow pum(
     redeclare package Medium = MediumWater,
     use_inputFilter=false,
     m_flow_nominal=mWat_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    allowFlowReversal=false,
-    nominalValuesDefineDefaultPressureCurve=true,
-    inputType=Buildings.Fluid.Types.InputType.Constant) "Pump"
-    annotation (Placement(transformation(extent={{160,-190},{140,-170}})));
-  Buildings.Fluid.Sources.Boundary_pT bouWat(redeclare package Medium = MediumWater, nPorts=1)
-    "Pressure bound for water circuit" annotation (Placement(transformation(
+    allowFlowReversal=false) "Pump"
+    annotation (Placement(transformation(extent={{110,-190},{90,-170}})));
+
+  Buildings.Fluid.Sources.Boundary_pT bouWat(
+    redeclare package Medium = MediumWater,
+    nPorts=1)
+    "Pressure bound for water circuit"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         origin={20,-180})));
   Modelica.Blocks.Sources.Constant conHea(k=1)
+    if use_constantHeater "Gain for heater"
     annotation (Placement(transformation(extent={{80,-110},{60,-90}})));
+  Modelica.Blocks.Sources.Constant conPum(k=mWat_flow_nominal)
+    if use_constantHeater "Gain for pump"
+    annotation (Placement(transformation(extent={{130,-160},{110,-140}})));
 equation
   connect(heaWat.port_b,rad. port_a) annotation (Line(points={{80,-130},{140,-130}},
                        color={0,127,255}));
   connect(rad.port_b, pum.port_a) annotation (Line(points={{160,-130},{175,-130},
-          {175,-180},{160,-180}}, color={0,127,255}));
+          {175,-180},{110,-180}}, color={0,127,255}));
   connect(heaWat.port_a, pum.port_b) annotation (Line(points={{60,-130},{39.75,-130},
-          {39.75,-180},{140,-180}},      color={0,127,255}));
+          {39.75,-180},{90,-180}},       color={0,127,255}));
   connect(rad.heatPortCon, zon.heatPort) annotation (Line(points={{148,-122.8},{
           148,40},{160,40}},   color={191,0,0}));
   connect(rad.heatPortRad, walCap.port) annotation (Line(points={{152,-122.8},{152,
           1.77636e-15},{160,1.77636e-15}},                     color={191,0,0}));
-  if use_constantHeater then
-      connect(conHea.y, heaWat.u) annotation (Line(points={{59,-100},{40,-100},{40,-124},
+  connect(conPum.y, pum.m_flow_in) annotation (Line(points={{109,-150},{100,-150},
+          {100,-168}}, color={0,0,127}));
+  connect(conHea.y, heaWat.u) annotation (Line(points={{59,-100},{40,-100},{40,-124},
           {58,-124}}, color={0,0,127}));
-  end if;
   connect(bouWat.ports[1], pum.port_b)
-    annotation (Line(points={{30,-180},{140,-180}},color={0,127,255}));
+    annotation (Line(points={{30,-180},{90,-180}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,
             -220},{220,220}})),
     experiment(Tolerance=1e-6, StopTime=1e+06),
@@ -80,16 +88,16 @@ the media for the models in the heating circuit should be set to <i>MediumWater<
 <h4>Required models</h4>
 <ul>
 <li>
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2\">
-Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2</a>
-</li>
-<li>
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.HeaterCooler_u\">
 Buildings.Fluid.HeatExchangers.HeaterCooler_u</a>
 </li>
 <li>
-<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_m_flow\">
-Buildings.Fluid.Movers.FlowControlled_m_flow</a>
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2\">
+Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2</a>
+</li>
+<li>
+<a href=\"modelica://Buildings.Fluid.Movers.Preconfigured.FlowControlled_m_flow\">
+Buildings.Fluid.Movers.Preconfigured.FlowControlled_m_flow</a>
 </li>
 <li>
 <a href=\"modelica://Buildings.Fluid.Sources.Boundary_pT\">
@@ -104,7 +112,7 @@ Modelica.Blocks.Sources.Constant</a>
 <p>
 The radiator contains one port for convective heat transfer and one for radiative heat transfer.
 Connect both in a reasonable way. Since the heating system uses water as a heat carrier fluid,
-the media for the models should be set to <i>MediumWater</i>.
+the media for the models should be set to <code>MediumWater</code>.
 </p>
 <p>
 The <code>Boundary_pT</code> model needs to be used to set an absolute pressure somewhere in the system.
