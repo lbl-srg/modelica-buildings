@@ -156,20 +156,13 @@ def simulate_cases(args, simulator, asy=True):
     Returns:
         list[tuple[int, str]]: List of (error code, log).
     """
-    # Workaround for multiprocessing that isn't strictly supported on Windows Jupyter Notebook.
-    with open('tmp_func.py', 'w') as file:
-        file.write(inspect.getsource(simulate_case).replace(simulate_case.__name__, "task"))
-    sys.path.append('.')
-    from tmp_func import task
-
     args_with_fixed = [(el, simulator) for el in args]
     results = []
-    func = task
     pool = Pool(os.cpu_count())
     if asy:
-        results = pool.starmap_async(func, args_with_fixed)
+        results = pool.starmap_async(simulate_case, args_with_fixed)
     else:
-        results = pool.starmap(func, args_with_fixed)
+        results = pool.starmap(simulate_case, args_with_fixed)
     pool.close()
     pool.join()
 

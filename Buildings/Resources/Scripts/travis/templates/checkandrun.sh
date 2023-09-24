@@ -88,6 +88,8 @@ for type in "${!checksum_dirs[@]}"; do
   if (( $? == 0 ));  then
     echo "Computed checksum does not match checksum on master."
     echo "Running simulations for models in Templates.$type with $SIMULATOR."
+    # Debug travis exit code 137.
+    free -h
     # Launch simulations (typically several thousands).
     python "${test_script[$type]}" $SIMULATOR $FRACTION_TEST_COVERAGE
     if (( $? != 0 )); then
