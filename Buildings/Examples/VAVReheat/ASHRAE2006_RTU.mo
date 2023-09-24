@@ -284,7 +284,11 @@ This is for
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/ASHRAE2006_RTU.mos"
         "Simulate and plot"),
-    experiment(StartTime=16848000, StopTime=17539200, Tolerance=1e-06),
+    experiment(
+      StartTime=16848000,
+      StopTime=17539200,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
     //experiment(StopTime=172800, Tolerance=1e-06),
 end ASHRAE2006_RTU;
