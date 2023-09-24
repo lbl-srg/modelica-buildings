@@ -1,7 +1,8 @@
 within Buildings.Examples.VAVReheat.BaseClasses;
 model ASHRAE2006_RTU
   "Variable air volume flow system with terminal reheat and ASHRAE 2006 control sequence serving five thermal zones"
-  extends Buildings.Examples.VAVReheat.BaseClasses.PartialHVAC_RTU(amb(nPorts=3));
+  extends Buildings.Examples.VAVReheat.BaseClasses.PartialHVAC_RTU(amb(nPorts=3),
+    yFanMin=0);
 
   parameter Real ratVMinVAV_flow[numZon](each final unit="1") = {max(1.5*
     VZonOA_flow_nominal[i]/mCooVAV_flow_nominal[i]/1.2, 0.15) for i in 1:numZon}
@@ -204,11 +205,13 @@ model ASHRAE2006_RTU
     annotation (Placement(transformation(extent={{940,304},{960,324}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(k=true)
-    annotation (Placement(transformation(extent={{298,48},{318,68}})));
+    annotation (Placement(transformation(extent={{160,100},{180,120}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea4
-    annotation (Placement(transformation(extent={{348,38},{368,58}})));
+    annotation (Placement(transformation(extent={{100,30},{120,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul1
-    annotation (Placement(transformation(extent={{388,32},{408,52}})));
+    annotation (Placement(transformation(extent={{144,30},{164,50}})));
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(p=1)
+    annotation (Placement(transformation(extent={{180,30},{200,50}})));
 equation
   connect(controlBus, modeSelector.cb) annotation (Line(
       points={{-240,-340},{-152,-340},{-152,-303.182},{-196.818,-303.182}},
@@ -240,11 +243,6 @@ equation
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
-  connect(pSetDuc.y, conFanSup.u) annotation (Line(
-      points={{181,-6},{210,-6},{210,50},{238,50}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
   connect(conEco.VOut_flow, VOut1.V_flow) annotation (Line(
       points={{-81.3333,142.667},{-90,142.667},{-90,80},{-80,80},{-80,-29}},
       color={0,0,127},
@@ -272,8 +270,8 @@ equation
   connect(conEco.controlBus, controlBus) annotation (Line(points={{-70.6667,
           141.467},{-70.6667,120},{-240,120},{-240,-340}},
                                               color={255,204,51}, thickness=0.5));
-  connect(or2.u2, modeSelector.yFan) annotation (Line(points={{-102,-248},{-120,
-          -248},{-120,-305.455},{-179.091,-305.455}},
+  connect(or2.u2, modeSelector.yFan) annotation (Line(points={{-102,-248},{-170,
+          -248},{-170,-305.455},{-179.091,-305.455}},
                                      color={255,0,255}));
   connect(VAVBox.y_actual, pSetDuc.u) annotation (Line(points={{762,40},{770,40},
           {770,80},{140,80},{140,-6},{158,-6}},     color={0,0,127}));
@@ -460,16 +458,21 @@ equation
   connect(conInt.y, RTUCon.uHeaCoiSeq) annotation (Line(points={{932,294},{950,
           294},{950,249.383},{1008,249.383}},
                                         color={255,127,0}));
-  connect(con.y, conFanSup.uFan) annotation (Line(points={{320,58},{279,58},{
-          279,56},{238,56}}, color={255,0,255}));
-  connect(booToRea4.u, occSch.occupied) annotation (Line(points={{346,48},{322,
-          48},{322,26},{-299,26},{-299,-216}}, color={255,0,255}));
-  connect(booToRea4.y, mul1.u1)
-    annotation (Line(points={{370,48},{386,48}}, color={0,0,127}));
-  connect(conFanSup.y, mul1.u2) annotation (Line(points={{261,50},{261,88},{386,
-          88},{386,36}}, color={0,0,127}));
-  connect(mul1.y, fanSup.y)
-    annotation (Line(points={{410,42},{410,-28}}, color={0,0,127}));
+  connect(con.y, conFanSup.uFan) annotation (Line(points={{182,110},{220,110},{
+          220,56},{238,56}}, color={255,0,255}));
+  connect(conFanSup.y, fanSup.y)
+    annotation (Line(points={{261,50},{410,50},{410,-28}}, color={0,0,127}));
+  connect(booToRea4.y, mul1.u1) annotation (Line(points={{122,40},{132,40},{132,
+          46},{142,46}}, color={0,0,127}));
+  connect(pSetDuc.y, mul1.u2) annotation (Line(points={{181,-6},{186,-6},{186,
+          26},{132,26},{132,34},{142,34}}, color={0,0,127}));
+  connect(mul1.y, addPar.u)
+    annotation (Line(points={{166,40},{178,40}}, color={0,0,127}));
+  connect(addPar.y, conFanSup.u) annotation (Line(points={{202,40},{220,40},{
+          220,50},{238,50}}, color={0,0,127}));
+  connect(modeSelector.yFan, booToRea4.u) annotation (Line(points={{-179.091,
+          -305.455},{-174,-305.455},{-174,-306},{-170,-306},{-170,40},{98,40}},
+        color={255,0,255}));
   annotation (
   defaultComponentName="hvac",
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-400},{1420,
