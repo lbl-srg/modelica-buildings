@@ -86,6 +86,12 @@ REMOVE_MODIF = {
 
 
 if __name__ == '__main__':
+    # Exclude model if is included in conf.yml for the given simulator.
+    for model_name in MODELS:
+        if check_conf(model_name, SIMULATOR):
+            MODELS.remove(model_name)
+            print(f'Model {model_name} is not simulated based on `conf.yml`.')
+
     # Generate combinations.
     combinations = generate_combinations(
         models=MODELS, modif_grid=MODIF_GRID
@@ -107,7 +113,7 @@ if __name__ == '__main__':
     #         FH.write("*********" + c[0] + "\n\n" + "\n".join(c[1]) + "\n\n")
 
     # FIXME(AntoineGautier PR#3528): Temporarily limit the number of simulations to be run (for testing purposes only).
-    combinations = [combinations[i] for i in random.sample(range(len(combinations)), 5)]
+    combinations = [combinations[i] for i in random.sample(range(len(combinations)), min(len(combinations), 5))]
 
     # Simulate cases.
     results = simulate_cases(combinations, simulator=SIMULATOR, asy=False)

@@ -21,6 +21,7 @@ import sys
 from multiprocessing import Pool
 
 import pandas as pd
+import yaml
 
 assert sys.version_info >= (3, 8), "This script requires a Python version >= 3.8."
 
@@ -40,6 +41,20 @@ assert (
 CRED = '\033[91m'
 CGREEN = '\033[92m'
 CEND = '\033[0m'
+
+# Parse conf.yml.
+with open('./Resources/Scripts/BuildingsPy/conf.yml', 'r') as FH:
+    CONF = yaml.safe_load(FH)
+
+
+def check_conf(model_name, simulator, conf=CONF):
+    """Check whether a model is included in conf.yml for the given simulator."""
+    simulator = simulator.lower()
+    for el in conf:
+        list_keys = list(el.keys())
+        if model_name == el['model_name'] and simulator in list(el.keys()):
+            return True
+    return False
 
 
 def simulate_case(arg, simulator):
@@ -366,7 +381,8 @@ def report_clean(combinations, results):
             errorlog=[r[1] for r in results],
         )
     )
-    assert len(df) > 0, 'Error when trying to retrieve simulation results as a DataFrame.'
+
+    assert len(df) == len(combinations), 'Error when trying to retrieve simulation results as a DataFrame.'
 
     # Log and exit.
     if df.errorcode.abs().sum() != 0:
