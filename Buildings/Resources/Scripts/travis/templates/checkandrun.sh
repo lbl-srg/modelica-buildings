@@ -54,8 +54,6 @@ declare -A test_script=(
 
 for type in "${!checksum_dirs[@]}"; do
   # For each system type: compute checksum of checksum of all mo files under corresponding checksum_dirs, and store value.
-  debug=$(find ${checksum_dirs[$type]} -type f -name '*.mo')
-  printf "%s\n" "${debug}"
   debug=$(find ${checksum_dirs[$type]} -type f -name '*.mo' -exec md5sum {} \; | LC_ALL=C sort -f -k 2)
   printf "%s\n" "${debug}"
   checksum="$(
