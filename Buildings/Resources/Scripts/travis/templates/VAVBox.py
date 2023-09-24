@@ -107,14 +107,6 @@ if __name__ == '__main__':
 
     print(f'Number of cases to be simulated: {len(combinations)}.\n')
 
-    # # Log combinations for debugging.
-    # with open('unitTestsCombinations.log', 'w') as FH:
-    #     for c in combinations:
-    #         FH.write("*********" + c[0] + "\n\n" + "\n".join(c[1]) + "\n\n")
-
-    # FIXME(AntoineGautier PR#3528): Temporarily limit the number of simulations to be run (for testing purposes only).
-    combinations = [combinations[i] for i in random.sample(range(len(combinations)), min(len(combinations), 5))]
-
     # Simulate cases.
     results = simulate_cases(combinations, simulator=SIMULATOR, asy=False)
 

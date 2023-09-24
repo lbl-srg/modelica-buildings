@@ -54,8 +54,6 @@ declare -A test_script=(
 
 for type in "${!checksum_dirs[@]}"; do
   # For each system type: compute checksum of checksum of all mo files under corresponding checksum_dirs, and store value.
-  debug=$(find ${checksum_dirs[$type]} -type f -name '*.mo' -exec md5sum {} \; | LC_ALL=C sort -f -k 2)
-  printf "%s\n" "${debug}"
   checksum="$(
     find ${checksum_dirs[$type]} -type f -name '*.mo' -exec md5sum {} \; \
       | LC_ALL=C sort -f -k 2 \
@@ -63,7 +61,6 @@ for type in "${!checksum_dirs[@]}"; do
       | md5sum \
       | awk '{ print $1; }'
   )"
-  echo $checksum
   echo $checksum > "./Resources/Scripts/travis/templates/$type.checksum"
 
   # Add checksum file to the index so that differences shows up in git diff even if file was never added before.
