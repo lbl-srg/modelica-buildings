@@ -60,7 +60,7 @@ model VAVMultiZone "Multiple-zone VAV"
   Hence, no choices annotation, but still replaceable to access parameter
   dialog box of the component.
   */
-  inner Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.MixedAirWithDamper
+  inner replaceable Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.MixedAirWithDamper
     secOutRel(
     redeclare final package MediumAir = MediumAir,
     final typCtlFanRet=ctl.typCtlFanRet,
@@ -77,8 +77,8 @@ model VAVMultiZone "Multiple-zone VAV"
       final fanRet=dat.fanRet))
      "Outdoor/relief/return air section"
      annotation (
-     Dialog(group="Configuration"), Placement(transformation(extent={{-280,-220},
-            {-120,-60}})));
+     Dialog(group="Configuration"),
+     Placement(transformation(extent={{-280,-220},{-120,-60}})));
 
   Buildings.Templates.Components.Sensors.Temperature TAirMix(
     redeclare final package Medium = MediumAir,
@@ -453,6 +453,7 @@ equation
   connect(fanSupBlo.port_b, coiHeaPre.port_a)
     annotation (Line(points={{-30,-200},{10,-200}}, color={0,127,255}));
   annotation (
+    __ctrlFlow_template,
     defaultComponentName="VAV",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(

@@ -2,7 +2,7 @@ within Buildings.Templates.Components.Interfaces;
 partial model PartialDamper "Interface class for damper"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     final m_flow_nominal=dat.m_flow_nominal)
-    annotation(__ctrl_flow(enable=false));
+    annotation(__ctrlFlow(enable=false));
 
   parameter Buildings.Templates.Components.Types.Damper typ
     "Equipment type"
