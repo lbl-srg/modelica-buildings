@@ -48,7 +48,7 @@ block DXCoilStage
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDXCoi[nCoi]
     "DX coil status"
     annotation (Placement(transformation(extent={{-140,30},{-100,70}}),
-      iconTransformation(extent={{-140,20},{-100,60}})));
+      iconTransformation(extent={{-140,40},{-100,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCoi(
     final min=0,
@@ -60,90 +60,96 @@ block DXCoilStage
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yUp
     "Next DX coil status"
-    annotation (Placement(transformation(extent={{100,20},{140,60}}),
+    annotation (Placement(transformation(extent={{100,-28},{140,12}}),
       iconTransformation(extent={{100,40},{140,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDow
     "Last DX coil status"
-    annotation (Placement(transformation(extent={{100,-70},{140,-30}}),
+    annotation (Placement(transformation(extent={{100,-78},{140,-38}}),
       iconTransformation(extent={{100,-80},{140,-40}})));
 
-  CDL.Interfaces.RealInput uComSpe[nCoi](
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uComSpe[nCoi](
     displayUnit="1")
     "Compressor speed"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
-      iconTransformation(extent={{-140,-60},{-100,-20}})));
+      iconTransformation(extent={{-140,-80},{-100,-40}})));
 
-  CDL.Logical.MultiOr mulOr1(nin=nCoi)
-    annotation (Placement(transformation(extent={{-50,-70},{-30,-50}})));
-protected
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrCoiUp(final t=
-        uThrCoiUp, final h=dUHys)
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr1(
+    final nin=nCoi)
+    annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrCoiUp(
+    final t=uThrCoiUp,
+    final h=dUHys)
     "Check if coil valve position signal is equal to or greater than threshold"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Timer timUp(final t=timPerUp)
+  Buildings.Controls.OBC.CDL.Logical.Timer timUp(
+    final t=timPerUp)
     "Check time for which stage-up conditions have been satisfied"
-    annotation (Placement(transformation(extent={{30,-10},{50,10}})));
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.And andUp
     "Reset timer when coil status changes"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.Change cha[nCoi]
     "Detect changes in DX coil status"
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+    annotation (Placement(transformation(extent={{-50,40},{-30,60}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    final nin=nCoi) "Check if any coil status changed"
-    annotation (Placement(transformation(extent={{-10,40},{10,60}})));
+    final nin=nCoi)
+    "Check if any coil status changed"
+    annotation (Placement(transformation(extent={{0,40},{20,60}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not notCoiSta
     "Generate Boolean False signal when any coil status changes"
-    annotation (Placement(transformation(extent={{30,40},{50,60}})));
+    annotation (Placement(transformation(extent={{40,40},{60,60}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Timer timDow(final t=timPerDow)
+  Buildings.Controls.OBC.CDL.Logical.Timer timDow(
+    final t=timPerDow)
     "Check time for which stage-down conditions have been satisfied"
-    annotation (Placement(transformation(extent={{30,-60},{50,-40}})));
+    annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
 
   Buildings.Controls.OBC.CDL.Logical.And andDow
     "Reset timer when coil status changes"
-    annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
+    annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
 
-  CDL.Continuous.LessThreshold lesThrCoiDow1[nCoi](final t=fill(uThrCoiDow,
-        nCoi), final h=fill(dUHys, nCoi))
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThrCoiDow1[nCoi](
+    final t=fill(uThrCoiDow,nCoi),
+    final h=fill(dUHys, nCoi))
     "Check if coil valve position signal is less than threshold"
-    annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
+    annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
+
 equation
-  connect(uCoi, greThrCoiUp.u) annotation (Line(points={{-120,0},{-62,0}},
+  connect(uCoi, greThrCoiUp.u) annotation (Line(points={{-120,0},{-52,0}},
                        color={0,0,127}));
   connect(mulOr.y, notCoiSta.u)
-    annotation (Line(points={{12,50},{28,50}}, color={255,0,255}));
+    annotation (Line(points={{22,50},{38,50}}, color={255,0,255}));
   connect(uDXCoi, cha.u)
-    annotation (Line(points={{-120,50},{-62,50}}, color={255,0,255}));
+    annotation (Line(points={{-120,50},{-52,50}}, color={255,0,255}));
   connect(andUp.y, timUp.u)
-    annotation (Line(points={{12,0},{28,0}}, color={255,0,255}));
+    annotation (Line(points={{22,0},{38,0}}, color={255,0,255}));
   connect(andDow.y, timDow.u)
-    annotation (Line(points={{12,-50},{28,-50}}, color={255,0,255}));
-  connect(greThrCoiUp.y, andUp.u2) annotation (Line(points={{-38,0},{-30,0},{-30,
-          -8},{-12,-8}}, color={255,0,255}));
-  connect(notCoiSta.y, andUp.u1) annotation (Line(points={{52,50},{60,50},{60,28},
-          {-20,28},{-20,0},{-12,0}}, color={255,0,255}));
-  connect(notCoiSta.y, andDow.u1) annotation (Line(points={{52,50},{60,50},{60,28},
-          {-20,28},{-20,-50},{-12,-50}}, color={255,0,255}));
+    annotation (Line(points={{22,-50},{38,-50}}, color={255,0,255}));
+  connect(greThrCoiUp.y, andUp.u2) annotation (Line(points={{-28,0},{-20,0},{-20,
+          -8},{-2,-8}},  color={255,0,255}));
+  connect(notCoiSta.y, andUp.u1) annotation (Line(points={{62,50},{70,50},{70,28},
+          {-10,28},{-10,0},{-2,0}},  color={255,0,255}));
+  connect(notCoiSta.y, andDow.u1) annotation (Line(points={{62,50},{70,50},{70,28},
+          {-10,28},{-10,-50},{-2,-50}},  color={255,0,255}));
   connect(cha.y, mulOr.u)
-    annotation (Line(points={{-38,50},{-12,50}}, color={255,0,255}));
-  connect(timUp.passed, yUp) annotation (Line(points={{52,-8},{80,-8},{80,40},{120,
-          40}}, color={255,0,255}));
-
+    annotation (Line(points={{-28,50},{-2,50}},  color={255,0,255}));
+  connect(timUp.passed, yUp) annotation (Line(points={{62,-8},{120,-8}},
+                color={255,0,255}));
   connect(uComSpe, lesThrCoiDow1.u)
-    annotation (Line(points={{-120,-60},{-92,-60}}, color={0,0,127}));
-  connect(lesThrCoiDow1.y, mulOr1.u[1:nCoi]) annotation (Line(points={{-68,-60},
-          {-60,-60},{-60,-60},{-52,-60}},color={255,0,255}));
-  connect(mulOr1.y, andDow.u2) annotation (Line(points={{-28,-60},{-20,-60},{-20,
-          -58},{-12,-58}}, color={255,0,255}));
-  connect(timDow.passed, yDow) annotation (Line(points={{52,-58},{80,-58},{80,-50},
-          {120,-50}}, color={255,0,255}));
+    annotation (Line(points={{-120,-60},{-82,-60}}, color={0,0,127}));
+  connect(lesThrCoiDow1.y, mulOr1.u[1:nCoi]) annotation (Line(points={{-58,-60},
+          {-42,-60}},                    color={255,0,255}));
+  connect(mulOr1.y, andDow.u2) annotation (Line(points={{-18,-60},{-10,-60},{-10,
+          -58},{-2,-58}},  color={255,0,255}));
+  connect(timDow.passed, yDow) annotation (Line(points={{62,-58},{120,-58}},
+                      color={255,0,255}));
   annotation (
     defaultComponentName="DXCoiSta",
     Icon(coordinateSystem(preserveAspectRatio=false,
@@ -158,7 +164,7 @@ equation
             extent={{-100,100},{100,100}},
             textColor={0,0,255}),
           Text(
-            extent={{-96,46},{-50,32}},
+            extent={{-96,68},{-50,54}},
             textColor={255,0,255},
             textString="uDXCoi"),
           Text(
@@ -175,11 +181,11 @@ equation
             textColor={255,0,255},
             textString="yDow"),
           Text(
-            extent={{-98,-34},{-62,-48}},
+            extent={{-92,-50},{-44,-70}},
             textColor={0,0,127},
             pattern=LinePattern.Dash,
-          textString="TSupCoiDif")}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-160},{100,
+          textString="uComSpe")}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),
   Documentation(info="<html>
   <p>

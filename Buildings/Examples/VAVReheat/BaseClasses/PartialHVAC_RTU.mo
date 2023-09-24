@@ -71,8 +71,9 @@ partial model PartialHVAC_RTU
 
   parameter Modelica.Units.SI.VolumeFlowRate Vou_flow_nominal=(divP*ratOAFlo_P*
       ratP_A + ratOAFlo_A)*sum(AFlo) "System uncorrected outdoor air flow rate";
+
   parameter Real effVen(final unit="1") = if divP < 0.6 then
-    0.88 * divP + 0.22 else 0.75
+      0.88 * divP + 0.22 else 0.75
     "System ventilation efficiency";
 
   parameter Modelica.Units.SI.VolumeFlowRate Vot_flow_nominal=Vou_flow_nominal/effVen
@@ -166,8 +167,8 @@ partial model PartialHVAC_RTU
     each final unit="K",
     each displayUnit="degC")
     "Room temperatures"
-    annotation (Placement(transformation(extent={{-20,-20},{20,20}}, rotation=0, origin={-400,320}),
-      iconTransformation(extent={{-20,-20},{20,20}}, rotation=0, origin={-220,180})));
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}}, origin={-400,320}),
+      iconTransformation(extent={{-20,-20},{20,20}}, origin={-220,180})));
 
   Buildings.Fluid.Sources.Outside amb(
     redeclare package Medium = MediumA,
@@ -412,7 +413,7 @@ partial model PartialHVAC_RTU
     "Outdoor air relative humidity"
     annotation (Placement(transformation(extent={{-300,130},{-280,150}})));
 
-  Fluid.FixedResistances.Junction splRetOut1(
+  Buildings.Fluid.FixedResistances.Junction splRetOut1(
     redeclare package Medium = MediumA,
     tau=15,
     m_flow_nominal=mAir_flow_nominal*{1,1,1},
@@ -424,11 +425,11 @@ partial model PartialHVAC_RTU
          else Modelica.Fluid.Types.PortFlowDirection.Leaving,
     portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Entering,
-    linearized=true) "Flow splitter" annotation (Placement(transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=0,
-        origin={80,-40})));
-  Fluid.FixedResistances.Junction splRetOut2(
+    linearized=true)
+    "Flow splitter"
+    annotation (Placement(transformation(extent={{-10,10},{10,-10}}, origin={80,-40})));
+
+  Buildings.Fluid.FixedResistances.Junction splRetOut2(
     redeclare package Medium = MediumA,
     tau=15,
     m_flow_nominal=mAir_flow_nominal*{1,1,1},
@@ -440,11 +441,11 @@ partial model PartialHVAC_RTU
          else Modelica.Fluid.Types.PortFlowDirection.Leaving,
     portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Entering,
-    linearized=true) "Flow splitter" annotation (Placement(transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=0,
-        origin={170,-40})));
-  Fluid.FixedResistances.Junction splRetOut3(
+    linearized=true)
+    "Flow splitter"
+    annotation (Placement(transformation(extent={{-10,10},{10,-10}}, origin={170,-40})));
+
+  Buildings.Fluid.FixedResistances.Junction splRetOut3(
     redeclare package Medium = MediumA,
     tau=15,
     m_flow_nominal=mAir_flow_nominal*{1,1,1},
@@ -456,11 +457,11 @@ partial model PartialHVAC_RTU
          else Modelica.Fluid.Types.PortFlowDirection.Leaving,
     portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Entering,
-    linearized=true) "Flow splitter" annotation (Placement(transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=0,
-        origin={220,-40})));
-  Fluid.FixedResistances.Junction splRetOut4(
+    linearized=true)
+    "Flow splitter"
+    annotation (Placement(transformation(extent={{-10,10},{10,-10}}, origin={220,-40})));
+
+  Buildings.Fluid.FixedResistances.Junction splRetOut4(
     redeclare package Medium = MediumA,
     tau=15,
     m_flow_nominal=mAir_flow_nominal*{1,1,1},
@@ -472,11 +473,11 @@ partial model PartialHVAC_RTU
          else Modelica.Fluid.Types.PortFlowDirection.Leaving,
     portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Entering,
-    linearized=true) "Flow splitter" annotation (Placement(transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=0,
-        origin={310,-40})));
-  Fluid.FixedResistances.Junction           splRetOut5(
+    linearized=true)
+    "Flow splitter"
+    annotation (Placement(transformation(extent={{-10,10},{10,-10}}, origin={310,-40})));
+
+  Buildings.Fluid.FixedResistances.Junction splRetOut5(
     redeclare package Medium = MediumA,
     tau=15,
     m_flow_nominal=mAir_flow_nominal*{1,1,1},
@@ -488,9 +489,11 @@ partial model PartialHVAC_RTU
          else Modelica.Fluid.Types.PortFlowDirection.Leaving,
     portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Entering,
-    linearized=true) "Flow splitter"
-    annotation (Placement(transformation(extent={{-10,10},{10,-10}}, rotation=0, origin={440,-40})));
-  Fluid.FixedResistances.Junction           splRetOut6(
+    linearized=true)
+    "Flow splitter"
+    annotation (Placement(transformation(extent={{-10,10},{10,-10}}, origin={440,-40})));
+
+  Buildings.Fluid.FixedResistances.Junction splRetOut6(
     redeclare package Medium = MediumA,
     tau=15,
     m_flow_nominal=mAir_flow_nominal*{1,1,1},
@@ -502,26 +505,31 @@ partial model PartialHVAC_RTU
          else Modelica.Fluid.Types.PortFlowDirection.Leaving,
     portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Entering,
-    linearized=true) "Flow splitter"
-    annotation (Placement(transformation(extent={{-10,10},{10,-10}}, rotation=0, origin={500,-40})));
-  Fluid.Actuators.Dampers.PressureIndependent damPreInd(
+    linearized=true)
+    "Flow splitter"
+    annotation (Placement(transformation(extent={{-10,10},{10,-10}}, origin={500,-40})));
+
+  Buildings.Fluid.Actuators.Dampers.PressureIndependent damPreInd(
     redeclare package Medium = MediumA,
     m_flow_nominal=mAir_flow_nominal,
     dpDamper_nominal=5,
     dpFixed_nominal=5)
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Fluid.Actuators.Dampers.PressureIndependent damPreInd1(
+
+  Buildings.Fluid.Actuators.Dampers.PressureIndependent damPreInd1(
     redeclare package Medium = MediumA,
     m_flow_nominal=mAir_flow_nominal,
     dpDamper_nominal=5,
     dpFixed_nominal=5)
     annotation (Placement(transformation(extent={{240,-10},{260,10}})));
-  Fluid.Actuators.Dampers.PressureIndependent damPreInd2(
+
+  Buildings.Fluid.Actuators.Dampers.PressureIndependent damPreInd2(
     redeclare package Medium = MediumA,
     m_flow_nominal=mAir_flow_nominal,
     dpDamper_nominal=5,
     dpFixed_nominal=5)
     annotation (Placement(transformation(extent={{460,-10},{480,10}})));
+
 protected
   constant Modelica.Units.SI.SpecificHeatCapacity cpAir=Buildings.Utilities.Psychrometrics.Constants.cpAir
     "Air specific heat capacity";

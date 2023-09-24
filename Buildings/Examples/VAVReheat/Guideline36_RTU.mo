@@ -131,7 +131,11 @@ model Guideline36_RTU
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/Guideline36_RTU.mos"
         "Simulate and plot"),
-    experiment(StartTime=16848000, StopTime=17539200, Tolerance=1e-06),
+    experiment(
+      StartTime=16848000,
+      StopTime=19440000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
     //experiment(StopTime=172800, Tolerance=1e-06),
 end Guideline36_RTU;
