@@ -25,11 +25,11 @@ partial model PartialReliefReturnSection "Interface class for relief/return air 
     "Number of return fans"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  outer parameter Buildings.Templates.AirHandlersFans.Types.ControlFanReturn typCtlFanRet
-    "Return fan control type";
-  outer parameter Boolean have_recHea
+  parameter Boolean have_recHea
     "Set to true in case of heat recovery";
-  outer parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer typCtlEco
+  parameter Buildings.Templates.AirHandlersFans.Types.ControlFanReturn typCtlFanRet
+    "Return fan control type";
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer typCtlEco
     "Economizer control type";
 
   parameter
