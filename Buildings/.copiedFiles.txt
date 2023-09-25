@@ -1756,6 +1756,7 @@ Buildings/Fluid/Storage/BaseClasses/Examples/package.mo
 Buildings/Fluid/Storage/BaseClasses/Examples/package.order
 Buildings/Fluid/Storage/BaseClasses/IndirectTankHeatExchanger.mo
 Buildings/Fluid/Storage/BaseClasses/PartialStratified.mo
+Buildings/Fluid/Storage/BaseClasses/PartialTwoPortInterface.mo
 Buildings/Fluid/Storage/BaseClasses/ThirdOrderStratifier.mo
 Buildings/Fluid/Storage/BaseClasses/package.mo
 Buildings/Fluid/Storage/BaseClasses/package.order

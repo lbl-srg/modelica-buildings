@@ -16,7 +16,7 @@ model SimpleHouse4 "Heating model"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     allowFlowReversal=false,
     Q_flow_nominal=QHea_flow_nominal)                          "Radiator"
-    annotation (Placement(transformation(extent={{110,-110},{130,-90}})));
+    annotation (Placement(transformation(extent={{140,-140},{160,-120}})));
   Buildings.Fluid.HeatExchangers.HeaterCooler_u heaWat(
     redeclare package Medium = MediumWater,
     m_flow_nominal=mWat_flow_nominal,
@@ -24,7 +24,7 @@ model SimpleHouse4 "Heating model"
     allowFlowReversal=false,
     dp_nominal=5000,
     Q_flow_nominal=QHea_flow_nominal) "Heater for water circuit"
-    annotation (Placement(transformation(extent={{60,-110},{80,-90}})));
+    annotation (Placement(transformation(extent={{60,-140},{80,-120}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow pum(
     redeclare package Medium = MediumWater,
     use_inputFilter=false,
@@ -33,32 +33,32 @@ model SimpleHouse4 "Heating model"
     allowFlowReversal=false,
     nominalValuesDefineDefaultPressureCurve=true,
     inputType=Buildings.Fluid.Types.InputType.Constant) "Pump"
-    annotation (Placement(transformation(extent={{110,-180},{90,-160}})));
+    annotation (Placement(transformation(extent={{160,-190},{140,-170}})));
   Buildings.Fluid.Sources.Boundary_pT bouWat(redeclare package Medium = MediumWater, nPorts=1)
     "Pressure bound for water circuit" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        origin={10,-170})));
+        origin={20,-180})));
   Modelica.Blocks.Sources.Constant conHea(k=1)
-    annotation (Placement(transformation(extent={{80,-80},{60,-60}})));
+    annotation (Placement(transformation(extent={{80,-110},{60,-90}})));
 equation
-  connect(heaWat.port_b,rad. port_a) annotation (Line(points={{80,-100},{110,-100}},
+  connect(heaWat.port_b,rad. port_a) annotation (Line(points={{80,-130},{140,-130}},
                        color={0,127,255}));
-  connect(rad.port_b, pum.port_a) annotation (Line(points={{130,-100},{148,-100},
-          {148,-170},{110,-170}}, color={0,127,255}));
-  connect(heaWat.port_a, pum.port_b) annotation (Line(points={{60,-100},{49.75,
-          -100},{49.75,-170},{90,-170}}, color={0,127,255}));
-  connect(rad.heatPortCon, zon.heatPort) annotation (Line(points={{118,-92.8},{
-          118,140},{110,140}}, color={191,0,0}));
-  connect(rad.heatPortRad, walCap.port) annotation (Line(points={{122,-92.8},{122,
-          -20},{130,-20},{130,1.77636e-15},{140,1.77636e-15}}, color={191,0,0}));
+  connect(rad.port_b, pum.port_a) annotation (Line(points={{160,-130},{175,-130},
+          {175,-180},{160,-180}}, color={0,127,255}));
+  connect(heaWat.port_a, pum.port_b) annotation (Line(points={{60,-130},{39.75,-130},
+          {39.75,-180},{140,-180}},      color={0,127,255}));
+  connect(rad.heatPortCon, zon.heatPort) annotation (Line(points={{148,-122.8},{
+          148,40},{160,40}},   color={191,0,0}));
+  connect(rad.heatPortRad, walCap.port) annotation (Line(points={{152,-122.8},{152,
+          1.77636e-15},{160,1.77636e-15}},                     color={191,0,0}));
   if use_constantHeater then
-    connect(conHea.y, heaWat.u) annotation (Line(points={{59,-70},{50,-70},{50,
-            -94},{58,-94}}, color={0,0,127}));
+      connect(conHea.y, heaWat.u) annotation (Line(points={{59,-100},{40,-100},{40,-124},
+          {58,-124}}, color={0,0,127}));
   end if;
   connect(bouWat.ports[1], pum.port_b)
-    annotation (Line(points={{20,-170},{90,-170}}, color={0,127,255}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
-            -220},{200,200}})),
+    annotation (Line(points={{30,-180},{140,-180}},color={0,127,255}));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,
+            -220},{220,220}})),
     experiment(Tolerance=1e-6, StopTime=1e+06),
     Documentation(revisions="<html>
 <ul>
