@@ -11,6 +11,8 @@ model MixedAirWithDamper "Mixed air system with return air damper"
     final typDamRet=damRet.typ,
     final typFanRel=secRel.typFanRel,
     final typFanRet=secRel.typFanRet,
+    final nFanRel=secRel.nFanRel,
+    final nFanRet=secRel.nFanRet,
     final have_eco=true,
     final have_recHea=recHea.typ<>Buildings.Templates.AirHandlersFans.Types.HeatRecovery.None);
 

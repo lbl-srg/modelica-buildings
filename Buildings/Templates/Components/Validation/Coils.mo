@@ -58,8 +58,8 @@ model Coils "Validation model for coil components"
                      annotation (Placement(transformation(extent={{-20,120},{20,
             160}}),
         iconTransformation(extent={{-250,-32},{-210,8}})));
-  Controls.OBC.CDL.Reals.Sources.Ramp y(height=1,
-    duration=10) "Coil/valve control signal"
+  .Buildings.Controls.OBC.CDL.Reals.Sources.Ramp y(height=1, duration=10)
+    "Coil/valve control signal"
     annotation (Placement(transformation(extent={{-90,150},{-70,170}})));
 
   Buildings.Templates.Components.Coils.WaterBasedHeating coiHea(
@@ -117,17 +117,17 @@ model Coils "Validation model for coil components"
   Interfaces.Bus bus3 "Control bus"
     annotation (Placement(transformation(extent={{-20,-100},{20,-60}}),
         iconTransformation(extent={{-250,-32},{-210,8}})));
-  Controls.OBC.CDL.Reals.Sources.Constant TOut(k=coiEva.dat.datCoi.sta[1].nomVal.TConIn_nominal)
-    "Outdoor temperature"
+  .Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOut(k=coiEva.dat.datCoi.sta[
+        1].nomVal.TConIn_nominal) "Outdoor temperature"
     annotation (Placement(transformation(extent={{-130,-110},{-110,-90}})));
-  Controls.OBC.CDL.Reals.Sources.Constant XOut(k=0.015)
+  .Buildings.Controls.OBC.CDL.Reals.Sources.Constant XOut(k=0.015)
     "Water mass fraction in outdoor air"
     annotation (Placement(transformation(extent={{-130,-150},{-110,-130}})));
   Utilities.Psychrometrics.TWetBul_TDryBulXi wetBul(
     redeclare final package Medium = MediumAir)
     "Compute wet bulb temperature"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
-  Controls.OBC.CDL.Reals.Sources.Constant pOut(k=101325)
+  .Buildings.Controls.OBC.CDL.Reals.Sources.Constant pOut(k=101325)
     "Outdoor pressure"
     annotation (Placement(transformation(extent={{-130,-190},{-110,-170}})));
   Fluid.Sources.Boundary_pT bouAirEntCoo1(
@@ -140,11 +140,11 @@ model Coils "Validation model for coil components"
   Utilities.Psychrometrics.X_pTphi x_pTphi(use_p_in=false)
     "Compute wet bulb temperature"
     annotation (Placement(transformation(extent={{-88,-10},{-68,10}})));
-  Controls.OBC.CDL.Reals.Sources.Constant TAirEnt(k=coiEva.dat.datCoi.sta[1].nomVal.TEvaIn_nominal)
-    "Entering air temperature"
+  .Buildings.Controls.OBC.CDL.Reals.Sources.Constant TAirEnt(k=coiEva.dat.datCoi.sta[
+        1].nomVal.TEvaIn_nominal) "Entering air temperature"
     annotation (Placement(transformation(extent={{-130,10},{-110,30}})));
-  Controls.OBC.CDL.Reals.Sources.Constant phiAirEnt(k=coiEva.dat.datCoi.sta[1].nomVal.phiIn_nominal)
-    "Enetring air relative humidity"
+  .Buildings.Controls.OBC.CDL.Reals.Sources.Constant phiAirEnt(k=coiEva.dat.datCoi.sta[
+        1].nomVal.phiIn_nominal) "Enetring air relative humidity"
     annotation (Placement(transformation(extent={{-130,-30},{-110,-10}})));
   Buildings.Templates.Components.Coils.EvaporatorMultiStage coiMul(
     redeclare final package MediumAir = MediumAir,
@@ -155,10 +155,10 @@ model Coils "Validation model for coil components"
       dpAir_nominal=200),
     final energyDynamics=energyDynamics) "Multiple stage evaporator coil"
     annotation (Placement(transformation(extent={{10,-170},{30,-150}})));
-  Controls.OBC.CDL.Integers.Sources.TimeTable y1(
+  .Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable y1(
     table=[0,0; 1,1; 2,2],
     timeScale=50,
-    period=200)  "Coil/valve control signal"
+    period=200) "Coil/valve control signal"
     annotation (Placement(transformation(extent={{-80,-190},{-60,-170}})));
   Interfaces.Bus bus4 "Control bus"
     annotation (Placement(transformation(extent={{-20,-160},{20,-120}}),

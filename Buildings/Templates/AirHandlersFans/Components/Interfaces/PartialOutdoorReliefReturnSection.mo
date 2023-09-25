@@ -34,6 +34,12 @@ partial model PartialOutdoorReliefReturnSection
   parameter Buildings.Templates.Components.Types.Fan typFanRet
     "Return fan type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Integer nFanRel
+    "Number of relief fans"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Integer nFanRet
+    "Number of return fans"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_eco
     "Set to true in case of economizer function"
     annotation (Evaluate=true, Dialog(group="Configuration"));

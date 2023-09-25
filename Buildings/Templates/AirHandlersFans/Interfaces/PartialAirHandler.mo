@@ -64,6 +64,15 @@ partial model PartialAirHandler "Interface class for air handler"
   inner parameter Buildings.Templates.Components.Types.Fan typFanRel
     "Type of relief fan"
     annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Integer nFanSup
+    "Number of supply fan"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Integer nFanRet
+    "Number of return fan"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Integer nFanRel
+    "Number of relief fan"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
 
   // Design parameters
   final parameter Modelica.Units.SI.MassFlowRate mAirSup_flow_nominal=

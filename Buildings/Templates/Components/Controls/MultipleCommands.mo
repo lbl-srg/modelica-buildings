@@ -1,4 +1,4 @@
-within Buildings.Experimental.DHC.Plants.Combined.Subsystems.BaseClasses;
+within Buildings.Templates.Components.Controls;
 block MultipleCommands
   "Block that converts command signals for multiple units"
 
@@ -76,8 +76,8 @@ equation
     Documentation(info="<html>
 <p>
 This block computes the following variables based on a Boolean array
-representing typically the On/Off command signal for a group of multiple
-units such as chillers or CHW pumps.
+representing the On/Off command signal for a group of multiple
+units, such as parallel fans or pumps.
 </p>
 <ul>
 <li>

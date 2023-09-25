@@ -19,9 +19,8 @@ model ArrayVariable "Fan array - Variable speed"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-30,60})));
-  Buildings.Controls.OBC.CDL.Reals.Multiply sigCon
-    "Resulting control signal"
+        origin={-30,50})));
+  Buildings.Controls.OBC.CDL.Reals.Multiply sigCon "Resulting control signal"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -44,19 +43,22 @@ model ArrayVariable "Fan array - Variable speed"
     final use_input=true)
     "Flow rate multiplier"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Experimental.DHC.Plants.Combined.Subsystems.BaseClasses.MultipleCommands
-    conCom(final nUni=nFan)
+  Buildings.Templates.Components.Controls.MultipleCommands conCom(final nUni=nFan)
     "Convert command signal"
-    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  Controls.OBC.CDL.Routing.BooleanScalarReplicator           rep(final nout=
-        nFan)
-    "Replicate"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={0,-70})));
+    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
+  Buildings.Controls.OBC.CDL.Reals.Multiply pow "Compute input power"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={80,50})));
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator rep(final nout=
+        nFan) "Replicate" annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={-70,80})));
 equation
   connect(sigSta.y, sigCon.u2)
-    annotation (Line(points={{-18,60},{-6,60},{-6,52}},
+    annotation (Line(points={{-18,50},{-14,50},{-14,54},{-6,54},{-6,52}},
                                                  color={0,0,127}));
   connect(fan.y_actual, evaSta.u) annotation (Line(points={{11,7},{20,7},{20,-20},
           {2.22045e-15,-20},{2.22045e-15,-28}},
@@ -77,22 +79,28 @@ equation
     annotation (Line(points={{-60,0},{-10,0}}, color={0,127,255}));
   connect(fan.port_b, mulOut.port_a)
     annotation (Line(points={{10,0},{40,0}}, color={0,127,255}));
-  connect(bus.y1, conCom.y1) annotation (Line(
-      points={{0,100},{0,94},{-90,94},{-90,60},{-82,60}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(conCom.y1One, sigSta.u) annotation (Line(points={{-58,66},{-50,66},{-50,
-          60},{-42,60}}, color={255,0,255}));
-  connect(conCom.nUniOnBou, mulOut.u) annotation (Line(points={{-58,54},{-50,54},
+  connect(conCom.y1One, sigSta.u) annotation (Line(points={{-58,56},{-46,56},{
+          -46,50},{-42,50}},
+                         color={255,0,255}));
+  connect(conCom.nUniOnBou, mulOut.u) annotation (Line(points={{-58,44},{-50,44},
           {-50,24},{32,24},{32,6},{38,6}}, color={0,0,127}));
   connect(mulInl.u, mulOut.uInv) annotation (Line(points={{-82,6},{-90,6},{-90,20},
           {70,20},{70,6},{61,6}}, color={0,0,127}));
   connect(sigCon.y, fan.y)
     annotation (Line(points={{0,28},{0,12}}, color={0,0,127}));
-  connect(evaSta.y, rep.u)
-    annotation (Line(points={{0,-52},{0,-58}}, color={255,0,255}));
-  connect(rep.y, bus.y1_actual) annotation (Line(points={{0,-82},{0,-90},{26,
-          -90},{26,96},{6,96},{6,100},{0,100}}, color={255,0,255}));
+  connect(conCom.nUniOn, pow.u1) annotation (Line(points={{-58,50},{-50,50},{
+          -50,70},{60,70},{60,56},{68,56}},
+                                        color={0,0,127}));
+  connect(fan.P, pow.u2)
+    annotation (Line(points={{11,9},{20,9},{20,44},{68,44}}, color={0,0,127}));
+  connect(rep.y, conCom.y1) annotation (Line(points={{-82,80},{-90,80},{-90,50},
+          {-82,50}}, color={255,0,255}));
+  connect(bus.y1, rep.u) annotation (Line(
+      points={{0,100},{0,80},{-58,80}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(evaSta.y, bus.y1_actual) annotation (Line(points={{0,-52},{0,-60},{26,
+          -60},{26,96},{6,96},{6,100},{0,100}}, color={255,0,255}));
   annotation (Placement(transformation(extent={{-10,-10},{10,10}})),
     Diagram(
         coordinateSystem(preserveAspectRatio=false)),

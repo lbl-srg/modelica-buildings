@@ -34,8 +34,8 @@ model Valves "Validation model for valve components"
     "Control bus"
     annotation (Placement(transformation(extent={{-20,80},{20,120}}),
         iconTransformation(extent={{-250,-32},{-210,8}})));
-  Controls.OBC.CDL.Reals.Sources.Ramp y(height=1,
-    duration=10) "Damper control signal"
+  .Buildings.Controls.OBC.CDL.Reals.Sources.Ramp y(height=1, duration=10)
+    "Damper control signal"
     annotation (Placement(transformation(extent={{-90,110},{-70,130}})));
 
   Buildings.Templates.Components.Valves.ThreeWayTwoPosition twoThr(
@@ -63,7 +63,7 @@ model Valves "Validation model for valve components"
     "Control bus"
     annotation (Placement(transformation(extent={{-20,20},{20,60}}),
         iconTransformation(extent={{-250,-32},{-210,8}})));
-  Controls.OBC.CDL.Logical.Sources.TimeTable y1(
+  .Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1(
     table=[0,0; 1,1],
     timeScale=10,
     period=200) "Damper control signal"

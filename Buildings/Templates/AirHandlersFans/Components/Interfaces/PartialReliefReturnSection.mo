@@ -18,6 +18,12 @@ partial model PartialReliefReturnSection "Interface class for relief/return air 
   parameter Buildings.Templates.Components.Types.Fan typFanRet
     "Return fan type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Integer nFanRel
+    "Number of relief fans"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Integer nFanRet
+    "Number of return fans"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
 
   outer parameter Buildings.Templates.AirHandlersFans.Types.ControlFanReturn typCtlFanRet
     "Return fan control type";
