@@ -32,10 +32,6 @@ package Types "Package with type definitions"
       "Dry cooler")
     "Enumeration to configure the condenser water cooling equipment";
   type Damper = enumeration(
-      NoPath
-      "No fluid path",
-      Barometric
-      "Barometric damper",
       Modulating
       "Modulating damper",
       None

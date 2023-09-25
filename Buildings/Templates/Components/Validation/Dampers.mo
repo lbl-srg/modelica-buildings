@@ -12,14 +12,17 @@ model Dampers "Validation model for damper components"
     nPorts=4) "Boundary conditions for entering air"
     annotation (Placement(transformation(extent={{-90,50},{-70,70}})));
   Fluid.Sources.Boundary_pT bouAirLvg(
-    redeclare final package Medium =MediumAir, nPorts=4) "Boundary conditions for leaving air"
+    redeclare final package Medium =MediumAir, nPorts=4)
+    "Boundary conditions for leaving air"
     annotation (Placement(transformation(extent={{110,50},{90,70}})));
 
-  Buildings.Templates.Components.Dampers.Modulating mod(
+  Buildings.Templates.Components.Actuators.Damper mod(
+    final typ=Buildings.Templates.Components.Types.Damper.Modulating,
     y_start=0,
     redeclare final package Medium = MediumAir,
     dat(m_flow_nominal=1,
-        dp_nominal=50))       "Modulating damper"
+        dp_nominal=50))
+    "Modulating damper"
     annotation (Placement(transformation(extent={{10,50},{30,70}})));
   Interfaces.Bus bus
     "Control bus"
@@ -29,7 +32,8 @@ model Dampers "Validation model for damper components"
     duration=10) "Damper control signal"
     annotation (Placement(transformation(extent={{-90,90},{-70,110}})));
 
-  Buildings.Templates.Components.Dampers.PressureIndependent pre(
+  Buildings.Templates.Components.Actuators.Damper pre(
+    final typ=Buildings.Templates.Components.Types.Damper.PressureIndependent,
     y_start=0,
     redeclare final package  Medium = MediumAir,
     dat(m_flow_nominal=1, dp_nominal=50))
@@ -39,7 +43,8 @@ model Dampers "Validation model for damper components"
     "Control bus"
     annotation (Placement(transformation(extent={{-20,0},{20,40}}),
         iconTransformation(extent={{-250,-32},{-210,8}})));
-  Buildings.Templates.Components.Dampers.TwoPosition two(
+  Buildings.Templates.Components.Actuators.Damper two(
+    final typ=Buildings.Templates.Components.Types.Damper.TwoPosition,
     y_start=0,
     redeclare final package Medium = MediumAir,
     dat(m_flow_nominal=1, dp_nominal=50)) "Two-position damper"
@@ -53,8 +58,10 @@ model Dampers "Validation model for damper components"
     timeScale=10,
     period=200) "Damper control signal"
     annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
-  Buildings.Templates.Components.Dampers.None non(
-    redeclare final package Medium = MediumAir) "No damper"
+  Buildings.Templates.Components.Actuators.Damper non(
+    final typ=Buildings.Templates.Components.Types.Damper.None,
+    redeclare final package Medium = MediumAir)
+    "No damper"
     annotation (Placement(transformation(extent={{10,-110},{30,-90}})));
   Fluid.FixedResistances.PressureDrop res(
     redeclare final package Medium = MediumAir,
