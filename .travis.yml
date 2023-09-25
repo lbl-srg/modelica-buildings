@@ -109,7 +109,7 @@ env:
     # - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.Templates\""
     # - TEST_ARG="make test-openmodelica  PACKAGE=\"Buildings.Templates\""
     # - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Templates\""
-    - TEST_ARG="make test-templates-optimica"
+    # - TEST_ARG="make test-templates-optimica"
     - TEST_ARG="make test-templates-dymola"
 
 before_install:

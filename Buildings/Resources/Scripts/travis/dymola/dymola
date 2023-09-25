@@ -13,6 +13,7 @@ docker run \
   -v /tmp/.X11-unix:/tmp/.X11-unix \
   -e DISPLAY=${DISPLAY} \
   --detach=false \
+  --memory=6g \
   --rm \
   -v ${sha_dir}:/mnt/shared \
   ${DOCKER_USERNAME}/${DYMOLA_VERSION} /bin/bash -c \
