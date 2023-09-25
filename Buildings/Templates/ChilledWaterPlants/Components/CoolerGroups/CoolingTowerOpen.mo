@@ -91,9 +91,9 @@ equation
   connect(valCooInlIso.port_b, coo.port_a)
     annotation (Line(points={{-30,0},{-10,0}}, color={0,127,255}));
   connect(port_b, outCoo.port_b)
-    annotation (Line(points={{100,0},{90,0}}, color={0,127,255}));
+    annotation (Line(points={{0,0},{90,0}},   color={0,127,255}));
   connect(port_a, inlCoo.port_a)
-    annotation (Line(points={{-100,0},{-90,0}}, color={0,127,255}));
+    annotation (Line(points={{0,0},{-90,0}},    color={0,127,255}));
   connect(inlCoo.ports_b, valCooInlIso.port_a)
     annotation (Line(points={{-70,0},{-50,0}}, color={0,127,255}));
   connect(coo.port_b, valCooOutIso.port_a)
@@ -103,6 +103,12 @@ equation
     annotation (
     defaultComponentName="coo",
     Documentation(info="<html>
+<p>
+This model represents a group of open-circuit cooling towers.
+The tower cells (or units) may be unequally sized as explained in the documentation of 
+<a href=\"modelica://Buildings.Templates.ChilledWaterPlants.Components.Data.CoolerGroup\">
+Buildings.Templates.ChilledWaterPlants.Components.Data.CoolerGroup</a>.
+</p>
 <h4>Control points</h4>
 <p>
 See the documentation of
@@ -125,8 +131,7 @@ First implementation.
           fillColor={239,239,239},
           fillPattern=FillPattern.Solid,
           visible=nCoo >= 4),
-    Text(
-          extent={{60,-100},{220,-160}},
+    Text( extent={{60,-100},{220,-160}},
           textColor={0,0,0},
           visible=nCoo >= 4,
           textString="CT-4"),
@@ -256,13 +261,11 @@ First implementation.
           extent={{100,160},{180,240}},
           fileName=
               "modelica://Buildings/Resources/Images/Templates/Components/Actuators/VFD.svg",
-
           visible=nCoo >= 4),
         Bitmap(
           extent={{-60,-60},{60,60}},
           fileName=
               "modelica://Buildings/Resources/Images/Templates/Components/Fans/Propeller.svg",
-
           origin={140,122},
           rotation=-90,
           visible=nCoo >= 4),
@@ -281,13 +284,11 @@ First implementation.
           extent={{380,160},{460,240}},
           fileName=
               "modelica://Buildings/Resources/Images/Templates/Components/Actuators/VFD.svg",
-
           visible=nCoo >= 5),
         Bitmap(
           extent={{-60,-60},{60,60}},
           fileName=
               "modelica://Buildings/Resources/Images/Templates/Components/Fans/Propeller.svg",
-
           origin={420,122},
           rotation=-90,
           visible=nCoo >= 5),
@@ -314,8 +315,7 @@ First implementation.
           lineColor={0,0,0},
           lineThickness=1,
           visible=nCoo >= 5),
-    Text(
-          extent={{340,-100},{500,-160}},
+    Text( extent={{340,-100},{500,-160}},
           textColor={0,0,0},
           visible=nCoo >= 5,
           textString="CT-5"),
@@ -323,13 +323,11 @@ First implementation.
           extent={{660,160},{740,240}},
           fileName=
               "modelica://Buildings/Resources/Images/Templates/Components/Actuators/VFD.svg",
-
           visible=nCoo >= 6),
         Bitmap(
           extent={{-60,-60},{60,60}},
           fileName=
               "modelica://Buildings/Resources/Images/Templates/Components/Fans/Propeller.svg",
-
           origin={700,122},
           rotation=-90,
           visible=nCoo >= 6),
@@ -356,8 +354,7 @@ First implementation.
           lineColor={0,0,0},
           lineThickness=1,
           visible=nCoo >= 6),
-    Text(
-          extent={{620,-100},{780,-160}},
+    Text( extent={{620,-100},{780,-160}},
           textColor={0,0,0},
           visible=nCoo >= 6,
           textString="CT-6")}));
