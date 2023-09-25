@@ -141,11 +141,13 @@ def simulate_case(arg, simulator):
     finally:
         if toreturn == 0:
             shutil.rmtree(output_dir_path, ignore_errors=True)
+            # We delete the log of successful simulations to limit memory usage.
+            log = None
 
     return toreturn, log
 
 
-def simulate_cases(args, simulator, asy=True):
+def simulate_cases(args, simulator, asy=False):
     """Configure and run all simulations.
 
     Args:
@@ -387,7 +389,6 @@ def report_clean(combinations, results):
                     + ',\n'.join(df.iloc[idx].modif)
                     + f'\n\n{df.iloc[idx].errorlog}\n\n'
                 )
-
         number_failure = df.errorcode.apply(lambda x: 1 if x != 0 else 0).sum()
         print(
             CRED
