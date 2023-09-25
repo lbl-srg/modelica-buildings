@@ -17,57 +17,57 @@ block FreezeProtection
     "Type of freeze stat"
     annotation (__cdl(ValueInReference=false),
                 Dialog(enable=have_frePro));
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.Coil heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Heating coil type"
     annotation (__cdl(ValueInReference=false),
                 Dialog(enable=have_frePro));
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.Coil cooCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedCooling
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil cooCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
     "Cooling coil type"
     annotation (__cdl(ValueInReference=false));
   parameter Integer minHotWatReq=2
     "Minimum heating hot-water plant request to active the heating plant"
     annotation(__cdl(ValueInReference=true),
-                Dialog(enable=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating and have_frePro));
+                Dialog(enable=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased and have_frePro));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController heaCoiCon=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Heating coil controller"
     annotation (__cdl(ValueInReference=false),
                 Dialog(group="Heating coil controller",
-                enable=(heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
-                        or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.ElectricHeating) and have_frePro));
+                enable=(heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+                        or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric) and have_frePro));
   parameter Real k(unit="1")=1
     "Gain of coil controller"
     annotation (__cdl(ValueInReference=false),
                 Dialog(group="Heating coil controller",
-                enable=(heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
-                        or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.ElectricHeating) and have_frePro));
+                enable=(heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+                        or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric) and have_frePro));
   parameter Real Ti(unit="s")=0.5
     "Time constant of integrator block"
     annotation (__cdl(ValueInReference=false),
                 Dialog(group="Heating coil controller",
-                       enable=(heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
-                               or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.ElectricHeating) and have_frePro and
+                       enable=(heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+                               or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric) and have_frePro and
                               (heaCoiCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
                               heaCoiCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real Td(unit="s")=0.1
     "Time constant of derivative block"
     annotation (__cdl(ValueInReference=false),
                 Dialog(group="Heating coil controller",
-                       enable=(heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
-                               or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.ElectricHeating) and have_frePro and
+                       enable=(heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+                               or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric) and have_frePro and
                               (heaCoiCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
                               heaCoiCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real yMax=1
     "Upper limit of output"
     annotation (__cdl(ValueInReference=false),
                 Dialog(group="Heating coil controller",
-                       enable=(heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
-                               or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.ElectricHeating) and have_frePro));
+                       enable=(heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+                               or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric) and have_frePro));
   parameter Real yMin=0
     "Lower limit of output"
     annotation (__cdl(ValueInReference=false),
                 Dialog(group="Heating coil controller",
-                       enable=(heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
-                               or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.ElectricHeating) and have_frePro));
+                       enable=(heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+                               or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric) and have_frePro));
   parameter Real Thys(unit="K")=0.25
     "Hysteresis for checking temperature difference"
     annotation (__cdl(ValueInReference=false),
@@ -90,8 +90,8 @@ block FreezeProtection
     final min=0,
     final max=1,
     final unit="1")
-    if (heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
-        or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.ElectricHeating)
+    if (heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+        or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric)
     "Heating coil commanded position"
     annotation (Placement(transformation(extent={{-480,620},{-440,660}}),
         iconTransformation(extent={{-140,120},{-100,160}})));
@@ -176,8 +176,8 @@ block FreezeProtection
     final min=0,
     final max=1,
     final unit="1")
-    if (cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedCooling
-     or cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.DXCoil)
+    if (cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
+     or cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.DXCoil)
     "Cooling coil commanded position"
     annotation (Placement(transformation(extent={{-480,-608},{-440,-568}}),
         iconTransformation(extent={{-140,-190},{-100,-150}})));
@@ -185,8 +185,8 @@ block FreezeProtection
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
-    if (heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
-        or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.ElectricHeating)
+    if (heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+        or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric)
         and have_frePro
     "Measured mixed air temperature"
     annotation (Placement(transformation(extent={{-480,-716},{-440,-676}}),
@@ -275,8 +275,8 @@ block FreezeProtection
     final min=0,
     final max=1,
     final unit="1")
-    if (cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedCooling
-     or cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.DXCoil)
+    if (cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
+     or cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.DXCoil)
     "Cooling coil commanded position"
     annotation (Placement(transformation(extent={{440,-600},{480,-560}}),
         iconTransformation(extent={{100,-120},{140,-80}})));
@@ -284,13 +284,13 @@ block FreezeProtection
     final min=0,
     final max=1,
     final unit="1")
-    if (heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
-        or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.ElectricHeating)
+    if (heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+        or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric)
     "Heating coil commanded position"
     annotation (Placement(transformation(extent={{440,-720},{480,-680}}),
         iconTransformation(extent={{100,-140},{140,-100}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatPlaReq
-    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Request to heating hot-water plant"
     annotation (Placement(transformation(extent={{440,-800},{480,-760}}),
         iconTransformation(extent={{100,-190},{140,-150}})));
@@ -309,13 +309,13 @@ block FreezeProtection
     "Check if the supply air temperature has been lower than threshold value for sufficient long time"
     annotation (Placement(transformation(extent={{-300,810},{-280,830}})));
   Buildings.Controls.OBC.CDL.Integers.Switch hotWatPlaReq
-    if (heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
-        or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.ElectricHeating) and have_frePro
+    if (heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+        or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric) and have_frePro
     "Hot water plant request in stage 1 mode"
     annotation (Placement(transformation(extent={{60,802},{80,822}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
     final k=minHotWatReq)
-    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating and have_frePro
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased and have_frePro
     "Minimum hot-water plant requests"
     annotation (Placement(transformation(extent={{-20,830},{0,850}})));
   Buildings.Controls.OBC.CDL.Reals.Switch minVen if have_frePro
@@ -328,13 +328,13 @@ block FreezeProtection
     final Td=Td,
     final yMax=yMax,
     final yMin=yMin)
-    if (heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
-        or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.ElectricHeating) and have_frePro
+    if (heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+        or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric) and have_frePro
     "Heating coil control in stage 1 mode"
     annotation (Placement(transformation(extent={{-320,680},{-300,700}})));
   Buildings.Controls.OBC.CDL.Reals.Switch heaCoi1
-    if (heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
-        or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.ElectricHeating) and have_frePro
+    if (heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+        or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric) and have_frePro
     "Heating coil position"
     annotation (Placement(transformation(extent={{120,660},{140,680}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
@@ -394,8 +394,8 @@ block FreezeProtection
     annotation (Placement(transformation(extent={{40,340},{60,360}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2(
     final k=0)
-    if (heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
-        or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.ElectricHeating) and have_frePro
+    if (heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+        or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric) and have_frePro
     "Zero request"
     annotation (Placement(transformation(extent={{-20,780},{0,800}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim3(
@@ -448,21 +448,21 @@ block FreezeProtection
     "Outdoor air damper"
     annotation (Placement(transformation(extent={{320,70},{340,90}})));
   Buildings.Controls.OBC.CDL.Reals.Switch cooCoiVal if (not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
-     and have_frePro and (cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedCooling
-     or cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.DXCoil)
+     and have_frePro and (cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
+     or cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.DXCoil)
     "Cooling coil position"
     annotation (Placement(transformation(extent={{120,-590},{140,-570}})));
   Buildings.Controls.OBC.CDL.Integers.Switch hotWatPlaReq3
-    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating and have_frePro
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased and have_frePro
     "Hot water plant request in stage 3 mode"
     annotation (Placement(transformation(extent={{320,-790},{340,-770}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt3(
-    final k=minHotWatReq) if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating and have_frePro
+    final k=minHotWatReq) if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased and have_frePro
     "Minimum hot-water plant requests"
     annotation (Placement(transformation(extent={{-140,-782},{-120,-762}})));
   Buildings.Controls.OBC.CDL.Reals.Max max1
-    if (heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
-       or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.ElectricHeating) and have_frePro
+    if (heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+       or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric) and have_frePro
     "Higher of supply air and mixed air temperature"
     annotation (Placement(transformation(extent={{-300,-700},{-280,-680}})));
   Buildings.Controls.OBC.CDL.Reals.PID heaCoiMod(
@@ -472,19 +472,19 @@ block FreezeProtection
     final Td=Td,
     final yMax=yMax,
     final yMin=yMin)
-    if (heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
-        or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.ElectricHeating) and have_frePro
+    if (heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+        or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric) and have_frePro
     "Heating coil control when it is in stage 3 mode"
     annotation (Placement(transformation(extent={{40,-670},{60,-650}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con4(
     final k=273.15 + 27)
-    if (heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
-        or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.ElectricHeating) and have_frePro
+    if (heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+        or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric) and have_frePro
     "Setpoint temperature"
     annotation (Placement(transformation(extent={{-140,-670},{-120,-650}})));
   Buildings.Controls.OBC.CDL.Reals.Switch heaCoiPos
-    if (heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
-        or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.ElectricHeating) and (
+    if (heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+        or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric) and (
            not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
         and have_frePro
     "Heating coil position"
@@ -542,8 +542,8 @@ block FreezeProtection
     annotation (Placement(transformation(extent={{320,150},{340,170}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant supTemSet(
     final k=273.15+ 6)
-    if (heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
-        or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.ElectricHeating) and have_frePro
+    if (heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+        or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric) and have_frePro
     "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-380,680},{-360,700}})));
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi2 if have_frePro
@@ -625,16 +625,16 @@ block FreezeProtection
     annotation (Placement(transformation(extent={{320,-430},{340,-410}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=1)
-    if ((heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
-      or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.ElectricHeating)
+    if ((heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+      or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric)
       and freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
      and have_frePro
     "Dummy block for enabling and disabling the conditional connection"
     annotation (Placement(transformation(extent={{320,-650},{340,-630}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(
     final k=1) if freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
-     and have_frePro and (cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedCooling
-     or cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.DXCoil)
+     and have_frePro and (cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
+     or cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.DXCoil)
     "Dummy block for enabling and disabling the conditional connection"
     annotation (Placement(transformation(extent={{120,-620},{140,-600}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai2(
@@ -720,17 +720,17 @@ block FreezeProtection
     "Dummy block for enabling and disabling the conditional connection"
     annotation (Placement(transformation(extent={{-260,-560},{-240,-540}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai14(final k=1) if (not
-    have_frePro) and (cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedCooling
-     or cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.DXCoil)
+    have_frePro) and (cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
+     or cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.DXCoil)
     "Dummy block for enabling and disabling the conditional connection"
     annotation (Placement(transformation(extent={{-260,-640},{-240,-620}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai15(final k=1)
-    if (not have_frePro) and (heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
-                              or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.ElectricHeating)
+    if (not have_frePro) and (heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+                              or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric)
     "Dummy block for enabling and disabling the conditional connection"
     annotation (Placement(transformation(extent={{-260,-740},{-240,-720}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt10(final k=0)
-    if (not have_frePro) and heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
+    if (not have_frePro) and heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Dummy constant"
     annotation (Placement(transformation(extent={{360,-820},{380,-800}})));
 
@@ -1119,8 +1119,8 @@ annotation (defaultComponentName="mulAHUFrePro",
           extent={{-98,150},{-52,134}},
           textColor={0,0,127},
           textString="uHeaCoi",
-          visible=(heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
-                or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.ElectricHeating)),
+          visible=(heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+                or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric)),
         Text(
           extent={{-96,120},{-20,102}},
           textColor={0,0,127},
@@ -1153,15 +1153,15 @@ annotation (defaultComponentName="mulAHUFrePro",
         Text(
           extent={{-96,-182},{-58,-198}},
           textColor={0,0,127},
-          visible=(heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
-                or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.ElectricHeating) and have_frePro,
+          visible=(heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+                or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric) and have_frePro,
           textString="TAirMix"),
         Text(
           extent={{-96,-160},{-50,-178}},
           textColor={0,0,127},
           textString="uCooCoi",
-          visible=(cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedCooling
-               or cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.DXCoil)),
+          visible=(cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
+               or cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.DXCoil)),
         Text(
           extent={{36,170},{100,154}},
           textColor={0,0,127},
@@ -1194,19 +1194,19 @@ annotation (defaultComponentName="mulAHUFrePro",
           extent={{52,-90},{96,-106}},
           textColor={0,0,127},
           textString="yCooCoi",
-          visible=(cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedCooling
-               or cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.DXCoil)),
+          visible=(cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
+               or cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.DXCoil)),
         Text(
           extent={{50,-110},{96,-126}},
           textColor={0,0,127},
           textString="yHeaCoi",
-          visible=(heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
-                or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.ElectricHeating)),
+          visible=(heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+                or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric)),
         Text(
           extent={{22,-160},{96,-178}},
           textColor={255,127,0},
           textString="yHotWatPlaReq",
-          visible=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating),
+          visible=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased),
         Text(
           extent={{-96,12},{-30,-12}},
           textColor={255,0,255},

@@ -1,14 +1,14 @@
 within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanCVF.Subsequences;
 block Alarms "Generate alarms of parallel fan-powered terminal unit with constant-volume fan"
 
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.Coil heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Heating coil type"
     annotation (__cdl(ValueInReference=false));
   parameter Real staPreMul
     "Importance multiplier for the zone static pressure reset control loop";
   parameter Real hotWatRes
     "Importance multiplier for the hot water reset control loop"
-    annotation (Dialog(enable=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating));
+    annotation (Dialog(enable=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased));
   parameter Real VCooMax_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
@@ -22,7 +22,7 @@ block Alarms "Generate alarms of parallel fan-powered terminal unit with constan
     final unit="s",
     final quantity="Time")=600
     "Threshold time to check low discharge temperature"
-    annotation (__cdl(ValueInReference=true), Dialog(enable=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating));
+    annotation (__cdl(ValueInReference=true), Dialog(enable=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased));
   parameter Real comChaTim(
     final unit="s",
     final quantity="Time")=15
@@ -116,7 +116,7 @@ block Alarms "Generate alarms of parallel fan-powered terminal unit with constan
     annotation (Placement(transformation(extent={{-280,-260},{-240,-220}}),
         iconTransformation(extent={{-140,-70},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1HotPla
-    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Hot water plant status"
     annotation (Placement(transformation(extent={{-280,-290},{-240,-250}}),
         iconTransformation(extent={{-140,-90},{-100,-50}})));
@@ -131,7 +131,7 @@ block Alarms "Generate alarms of parallel fan-powered terminal unit with constan
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
-    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Discharge air temperature setpoint"
     annotation (Placement(transformation(extent={{-280,-370},{-240,-330}}),
         iconTransformation(extent={{-140,-130},{-100,-90}})));
@@ -156,7 +156,7 @@ block Alarms "Generate alarms of parallel fan-powered terminal unit with constan
     annotation (Placement(transformation(extent={{240,-200},{280,-160}}),
         iconTransformation(extent={{100,-70},{140,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yLowTemAla
-    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Low discharge air temperature alarms"
     annotation (Placement(transformation(extent={{240,-390},{280,-350}}),
         iconTransformation(extent={{100,-110},{140,-70}})));
@@ -295,95 +295,95 @@ block Alarms "Generate alarms of parallel fan-powered terminal unit with constan
     annotation (Placement(transformation(extent={{140,-80},{160,-60}})));
   Buildings.Controls.OBC.CDL.Reals.Less les1(
     final h=dTHys)
-    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Discharge temperature lower than setpoint by a threshold"
     annotation (Placement(transformation(extent={{-120,-320},{-100,-300}})));
   Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(
     final p=-17)
-    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Setpoint temperature minus a threshold"
     annotation (Placement(transformation(extent={{-180,-360},{-160,-340}})));
   Buildings.Controls.OBC.CDL.Reals.Less les2(
     final h=dTHys)
-    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Discharge temperature lower than setpoint by a threshold"
     annotation (Placement(transformation(extent={{-120,-390},{-100,-370}})));
   Buildings.Controls.OBC.CDL.Reals.AddParameter addPar1(
     final p=-8)
-    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Setpoint temperature minus a threshold"
     annotation (Placement(transformation(extent={{-180,-430},{-160,-410}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel4(
     final delayTime=lowTemTim)
-    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Check if the discharge temperature has been less than threshold value for threshold time"
     annotation (Placement(transformation(extent={{-40,-320},{-20,-300}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel5(
     final delayTime=lowTemTim)
-    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Check if the discharge temperature has been less than threshold value for threshold time"
     annotation (Placement(transformation(extent={{-40,-390},{-20,-370}})));
   Buildings.Controls.OBC.CDL.Logical.And and6
-    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Discharge temperature has been less than threshold and the hot water plant is proven on"
     annotation (Placement(transformation(extent={{-80,-320},{-60,-300}})));
   Buildings.Controls.OBC.CDL.Logical.And and7
-    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Logical and"
     annotation (Placement(transformation(extent={{0,-320},{20,-300}})));
   Buildings.Controls.OBC.CDL.Logical.Not not6
-    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Logical not"
     annotation (Placement(transformation(extent={{80,-360},{100,-340}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes4(
     final message="Warning: discharge air temperature is 17 degC less than the setpoint.")
-    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Level 2 low discharge air temperature alarm"
     annotation (Placement(transformation(extent={{140,-360},{160,-340}})));
   Buildings.Controls.OBC.CDL.Integers.Switch lowTemAla
-    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Low discharge temperature alarm"
     annotation (Placement(transformation(extent={{140,-320},{160,-300}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2(
-    final k=2) if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
+    final k=2) if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Level 2 alarm"
     annotation (Placement(transformation(extent={{80,-280},{100,-260}})));
   Buildings.Controls.OBC.CDL.Logical.And and8
-    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Discharge temperature has been less than threshold and the hot water plant is proven on"
     annotation (Placement(transformation(extent={{-80,-390},{-60,-370}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt4(
     final integerTrue=3)
-    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Convert boolean true to level 3 alarm"
     annotation (Placement(transformation(extent={{80,-390},{100,-370}})));
   Buildings.Controls.OBC.CDL.Logical.And and9
-    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Logical and"
     annotation (Placement(transformation(extent={{0,-390},{20,-370}})));
   Buildings.Controls.OBC.CDL.Logical.Not not7
-    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Logical not"
     annotation (Placement(transformation(extent={{80,-430},{100,-410}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes5(
     final message="Warning: discharge air temperature is 8 degC less than the setpoint.")
-    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Level 3 low airflow alarm"
     annotation (Placement(transformation(extent={{140,-430},{160,-410}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conInt3(
-    final k=hotWatRes) if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
+    final k=hotWatRes) if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Importance multiplier for hot water reset control"
     annotation (Placement(transformation(extent={{-120,-460},{-100,-440}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr2
-    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Check if the multiplier is greater than zero"
     annotation (Placement(transformation(extent={{-80,-460},{-60,-440}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt5
-    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Suppress the alarm when multiplier is zero"
     annotation (Placement(transformation(extent={{140,-460},{160,-440}})));
   Buildings.Controls.OBC.CDL.Integers.Multiply proInt1
-    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Low discharge air temperature alarms"
     annotation (Placement(transformation(extent={{200,-380},{220,-360}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel6(
@@ -501,11 +501,11 @@ block Alarms "Generate alarms of parallel fan-powered terminal unit with constan
     "Check if generating leak damper alarms"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
   Buildings.Controls.OBC.CDL.Logical.And and18
-    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Logical and"
     annotation (Placement(transformation(extent={{40,-390},{60,-370}})));
   Buildings.Controls.OBC.CDL.Logical.And and19
-    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Logical and"
     annotation (Placement(transformation(extent={{40,-320},{60,-300}})));
 equation
@@ -830,7 +830,7 @@ annotation (defaultComponentName="ala",
           extent={{-98,-64},{-66,-76}},
           textColor={255,0,255},
           pattern=LinePattern.Dash,
-          visible=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating,
+          visible=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased,
           textString="u1HotPla"),
         Text(
           extent={{-100,-82},{-76,-92}},
@@ -842,7 +842,7 @@ annotation (defaultComponentName="ala",
           textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TDisSet",
-          visible=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating),
+          visible=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased),
         Text(
           extent={{48,-42},{98,-56}},
           textColor={255,127,0},
@@ -853,7 +853,7 @@ annotation (defaultComponentName="ala",
           textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="yLowTemAla",
-          visible=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.WaterBasedHeating),
+          visible=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased),
         Text(
           extent={{-96,56},{-66,44}},
           textColor={255,0,255},

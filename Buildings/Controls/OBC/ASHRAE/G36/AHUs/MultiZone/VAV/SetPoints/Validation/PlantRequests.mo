@@ -5,9 +5,9 @@ model PlantRequests
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.PlantRequests plaReq
     "Calculate plant request"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
-  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.PlantRequests plaReq1(heaCoi=
-        Buildings.Controls.OBC.ASHRAE.G36.Types.Coil.None)
-                                "Calculate plant request"
+  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.PlantRequests plaReq1(
+    heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.None)
+    "Calculate plant request"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp supTem(
