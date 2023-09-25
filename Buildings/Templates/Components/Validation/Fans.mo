@@ -80,6 +80,11 @@ model Fans "Validation model for fans components"
     final dp_nominal=1000)
     "Ducts and coils equivalent flow resistance"
     annotation (Placement(transformation(extent={{40,-150},{60,-130}})));
+  Controls.OBC.CDL.Logical.Sources.TimeTable y1Mul[arr.nFan](
+    each table=[0,0; 1,1],
+    each timeScale=10,
+    each period=100) "Fan array start/stop signal"
+    annotation (Placement(transformation(extent={{60,150},{40,170}})));
 equation
   connect(bou.ports[1], arr.port_a) annotation (Line(points={{-60,-1.75},{-60,80},
           {-10,80}},         color={0,127,255}));
@@ -93,9 +98,8 @@ equation
       points={{-20,120},{0,120},{0,90}},
       color={255,204,51},
       thickness=0.5));
-  connect(y1.y[1], bus.y1) annotation (Line(points={{-58,160},{-20,160},{-20,120}},
-        color={255,0,255}));
-  connect(y1.y[1], bus1.y1) annotation (Line(points={{-58,160},{-20,160},{-20,20}},
+  connect(y1.y[1], bus1.y1) annotation (Line(points={{-58,160},{-34,160},{-34,40},
+          {-20,40},{-20,20}},
         color={255,0,255}));
   connect(cst.port_b, res1.port_a) annotation (Line(points={{10,-20},{40,-20}},
                           color={0,127,255}));
@@ -126,7 +130,10 @@ equation
           {25,-140},{40,-140}}, color={0,127,255}));
   connect(res3.port_b, bou.ports[8]) annotation (Line(points={{60,-140},{80,-140},
           {80,1.75},{-60,1.75}},  color={0,127,255}));
-  connect(y1.y[1], bus2.y1) annotation (Line(points={{-58,160},{-20,160},{-20,-60}},
+  connect(y1.y[1], bus2.y1) annotation (Line(points={{-58,160},{-34,160},{-34,-40},
+          {-20,-40},{-20,-60}},
+        color={255,0,255}));
+  connect(y1Mul.y[1], bus.y1) annotation (Line(points={{38,160},{-20,160},{-20,120}},
         color={255,0,255}));
 annotation (
   __Dymola_Commands(
