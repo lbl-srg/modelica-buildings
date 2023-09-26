@@ -145,11 +145,11 @@ partial model PartialHVAC_RTU
 
   replaceable parameter Buildings.Fluid.DXSystems.Heating.AirSource.Data.Generic.DXCoil datHeaCoi
     "Performance data of DX heating coil"
-    annotation (Placement(transformation(extent={{-4,-142},{16,-122}})));
+    annotation (Placement(transformation(extent={{84,-258},{104,-238}})));
 
   replaceable parameter Buildings.Fluid.DXSystems.Heating.AirSource.Data.Generic.DXCoil datCooCoi
     "Performance data of DX cooling coil"
-    annotation (Placement(transformation(extent={{42,-142},{62,-122}})));
+    annotation (Placement(transformation(extent={{130,-258},{150,-238}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_supAir[numZon](
     redeclare package Medium = MediumA)
@@ -206,7 +206,7 @@ partial model PartialHVAC_RTU
     final Q_flow_nominal=QAuxHea_flow_nominal,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Auxiliary heating coil"
-    annotation (Placement(transformation(extent={{460,-50},{480,-30}})));
+    annotation (Placement(transformation(extent={{480,-50},{500,-30}})));
 
   Buildings.Fluid.FixedResistances.PressureDrop dpRetDuc(
     m_flow_nominal=mAir_flow_nominal,
@@ -222,13 +222,13 @@ partial model PartialHVAC_RTU
     dp_nominal=780 + 10 + dpBuiStaSet,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Supply air fan"
-    annotation (Placement(transformation(extent={{400,-50},{420,-30}})));
+    annotation (Placement(transformation(extent={{386,-50},{406,-30}})));
 
   Buildings.Fluid.Sensors.VolumeFlowRate senSupFlo(
     redeclare package Medium = MediumA,
     m_flow_nominal=mAir_flow_nominal)
     "Sensor for supply fan flow rate"
-    annotation (Placement(transformation(extent={{572,-50},{592,-30}})));
+    annotation (Placement(transformation(extent={{600,-50},{620,-30}})));
 
   Buildings.Fluid.Sensors.VolumeFlowRate senRetFlo(
     redeclare package Medium = MediumA, m_flow_nominal=mAir_flow_nominal)
@@ -245,7 +245,7 @@ partial model PartialHVAC_RTU
   Buildings.Fluid.Sensors.RelativePressure dpDisSupFan(
     redeclare package Medium = MediumA)
     "Supply fan static discharge pressure"
-    annotation (Placement(transformation(extent={{-10,10},{10,-10}},rotation=90, origin={420,0})));
+    annotation (Placement(transformation(extent={{-10,10},{10,-10}},rotation=90, origin={406,0})));
 
   Buildings.Controls.SetPoints.OccupancySchedule occSch(
     occupancy=3600*{6,19})
@@ -366,7 +366,7 @@ partial model PartialHVAC_RTU
     allowFlowReversal=allowFlowReversal,
     dp_nominal=200 + 200 + 100 + 40)
     "Pressure drop for supply duct"
-    annotation (Placement(transformation(extent={{350,-50},{370,-30}})));
+    annotation (Placement(transformation(extent={{340,-50},{360,-30}})));
 
   Buildings.Fluid.FixedResistances.Junction splRetOut(
     redeclare package Medium = MediumA,
@@ -392,7 +392,7 @@ partial model PartialHVAC_RTU
     m_flow_nominal=mAir_flow_nominal,
     allowFlowReversal=allowFlowReversal)
     "Supply air temperature sensor"
-    annotation (Placement(transformation(extent={{530,-50},{550,-30}})));
+    annotation (Placement(transformation(extent={{560,-50},{580,-30}})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort THeaCoi[nCoiHea](
     redeclare package Medium = MediumA,
@@ -507,7 +507,7 @@ partial model PartialHVAC_RTU
          else Modelica.Fluid.Types.PortFlowDirection.Entering,
     linearized=true)
     "Flow splitter"
-    annotation (Placement(transformation(extent={{-10,10},{10,-10}}, origin={500,-40})));
+    annotation (Placement(transformation(extent={{-10,10},{10,-10}}, origin={530,-40})));
 
   Buildings.Fluid.Actuators.Dampers.PressureIndependent damPreInd(
     redeclare package Medium = MediumA,
@@ -528,7 +528,7 @@ partial model PartialHVAC_RTU
     m_flow_nominal=mAir_flow_nominal,
     dpDamper_nominal=5,
     dpFixed_nominal=5)
-    annotation (Placement(transformation(extent={{460,-10},{480,10}})));
+    annotation (Placement(transformation(extent={{480,-10},{500,10}})));
 
 protected
   constant Modelica.Units.SI.SpecificHeatCapacity cpAir=Buildings.Utilities.Psychrometrics.Constants.cpAir
@@ -581,7 +581,7 @@ protected
   end Results;
 equation
   connect(fanSup.port_b, dpDisSupFan.port_a) annotation (Line(
-      points={{420,-40},{420,-10}},
+      points={{406,-40},{406,-10}},
       color={0,0,0},
       smooth=Smooth.None,
       pattern=LinePattern.Dot));
@@ -604,7 +604,7 @@ equation
   connect(senRetFlo.port_a, dpRetDuc.port_b)
     annotation (Line(points={{360,140},{380,140}}, color={0,127,255}));
   connect(dpDisSupFan.port_b, amb.ports[2]) annotation (Line(
-      points={{420,10},{420,22},{-114,22},{-114,-43.9}},
+      points={{406,10},{406,20},{-114,20},{-114,-43.9}},
       color={0,0,0},
       pattern=LinePattern.Dot));
   connect(senRetFlo.port_b, TRet.port_a) annotation (Line(points={{340,140},{
@@ -627,7 +627,7 @@ equation
   end for;
 
   connect(splSupRoo[1].port_1, senSupFlo.port_b)
-    annotation (Line(points={{730,-40},{592,-40}}, color={0,127,255}));
+    annotation (Line(points={{730,-40},{620,-40}}, color={0,127,255}));
   connect(splRetRoo[1].port_1, dpRetDuc.port_a)
     annotation (Line(points={{830,100},{580,100},{580,140},{400,140}},
     color={0,127,255}));
@@ -651,7 +651,7 @@ equation
   connect(splRetRoo[numZon-1].port_2, port_retAir[numZon]);
 
   connect(dpSupDuc.port_b, fanSup.port_a)
-    annotation (Line(points={{370,-40},{400,-40}}, color={0,127,255}));
+    annotation (Line(points={{360,-40},{386,-40}}, color={0,127,255}));
   connect(damOut.port_b, splRetOut.port_1)
     annotation (Line(points={{-30,-40},{-10,-40}}, color={0,127,255}));
   connect(splRetOut.port_2, TMix.port_a)
@@ -683,7 +683,7 @@ equation
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(TSup.port_b, senSupFlo.port_a)
-    annotation (Line(points={{550,-40},{572,-40}}, color={0,127,255}));
+    annotation (Line(points={{580,-40},{600,-40}}, color={0,127,255}));
   for i in 1:nCoiHea loop
   connect(splRetOut1.port_2, HeaCoi[i].port_a)
     annotation (Line(points={{90,-40},{100,-40}}, color={0,127,255}));
@@ -706,17 +706,15 @@ equation
       horizontalAlignment=TextAlignment.Right));
 
   connect(TSup.port_a, splRetOut6.port_2)
-    annotation (Line(points={{530,-40},{510,-40}}, color={0,127,255}));
+    annotation (Line(points={{560,-40},{540,-40}}, color={0,127,255}));
   connect(fanSup.port_b, splRetOut5.port_1)
-    annotation (Line(points={{420,-40},{430,-40}}, color={0,127,255}));
-  connect(splRetOut5.port_2, AuxHeaCoi.port_a)
-    annotation (Line(points={{450,-40},{460,-40}}, color={0,127,255}));
+    annotation (Line(points={{406,-40},{430,-40}}, color={0,127,255}));
   connect(AuxHeaCoi.port_b, splRetOut6.port_1)
-    annotation (Line(points={{480,-40},{490,-40}}, color={0,127,255}));
+    annotation (Line(points={{500,-40},{520,-40}}, color={0,127,255}));
   connect(splRetOut5.port_3, damPreInd2.port_a)
-    annotation (Line(points={{440,-30},{440,0},{460,0}}, color={0,127,255}));
+    annotation (Line(points={{440,-30},{440,0},{480,0}}, color={0,127,255}));
   connect(damPreInd2.port_b, splRetOut6.port_3)
-    annotation (Line(points={{480,0},{500,0},{500,-30}}, color={0,127,255}));
+    annotation (Line(points={{500,0},{530,0},{530,-30}}, color={0,127,255}));
   connect(TMix.port_b, splRetOut1.port_1)
     annotation (Line(points={{50,-40},{70,-40}}, color={0,127,255}));
   connect(splRetOut1.port_3, damPreInd.port_a)
@@ -734,7 +732,9 @@ equation
   connect(splRetOut2.port_2, splRetOut3.port_1)
     annotation (Line(points={{180,-40},{210,-40}}, color={0,127,255}));
   connect(splRetOut4.port_2, dpSupDuc.port_a)
-    annotation (Line(points={{320,-40},{350,-40}}, color={0,127,255}));
+    annotation (Line(points={{320,-40},{340,-40}}, color={0,127,255}));
+  connect(splRetOut5.port_2, AuxHeaCoi.port_a)
+    annotation (Line(points={{450,-40},{480,-40}}, color={0,127,255}));
   annotation (Diagram(
     coordinateSystem(
     preserveAspectRatio=false,

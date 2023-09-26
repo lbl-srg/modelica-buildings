@@ -12,7 +12,7 @@ model ASHRAE2006_RTU
     xSet_nominal(displayUnit="Pa") = 410,
     r_N_min=yFanMin)
     "Controller for fan"
-    annotation (Placement(transformation(extent={{260,40},{280,60}})));
+    annotation (Placement(transformation(extent={{260,36},{280,56}})));
 
   Controls.ModeSelector modeSelector
     annotation (Placement(transformation(extent={{-200,-320},{-180,-300}})));
@@ -140,20 +140,6 @@ model ASHRAE2006_RTU
     "Output DX cooling coils proven on signal when status is enabled for two minutes"
     annotation (Placement(transformation(extent={{318,-150},{338,-130}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys2(
-    final uLow=0.001,
-    final uHigh=0.002)
-    "Check if supply fan is on"
-    annotation (Placement(transformation(extent={{460,-120},{480,-100}})));
-
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1
-    "Convert Boolean fan enable signal to real value"
-    annotation (Placement(transformation(extent={{500,-120},{520,-100}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mulAuxHea
-    "Enable auxiliary coil if fan is on and DX coils are unable to meet heating load"
-    annotation (Placement(transformation(extent={{550,-114},{570,-94}})));
-
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical Not"
     annotation (Placement(transformation(extent={{140,-110},{160,-90}})));
 
@@ -207,11 +193,21 @@ model ASHRAE2006_RTU
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(k=true)
     annotation (Placement(transformation(extent={{160,100},{180,120}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea4
-    annotation (Placement(transformation(extent={{100,46},{120,66}})));
+    annotation (Placement(transformation(extent={{100,34},{120,54}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul1
-    annotation (Placement(transformation(extent={{144,40},{164,60}})));
+    annotation (Placement(transformation(extent={{160,36},{180,56}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(p=1e-6)
-    annotation (Placement(transformation(extent={{180,40},{200,60}})));
+    annotation (Placement(transformation(extent={{192,36},{212,56}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea5
+    "Convert Boolean to Real number"
+    annotation (Placement(transformation(extent={{520,-140},{540,-120}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con3(k=0)
+    annotation (Placement(transformation(extent={{548,16},{568,36}})));
+  Buildings.Controls.OBC.CDL.Continuous.Multiply mul2
+    annotation (Placement(transformation(extent={{556,-126},{576,-106}})));
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys2(each final uLow=0.5,
+      each final uHigh=1) "Check if DXs are on"
+    annotation (Placement(transformation(extent={{480,-140},{500,-120}})));
 equation
   connect(controlBus, modeSelector.cb) annotation (Line(
       points={{-240,-340},{-152,-340},{-152,-303.182},{-196.818,-303.182}},
@@ -238,8 +234,8 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(dpDisSupFan.p_rel, conFanSup.u_m) annotation (Line(
-      points={{411,4.44089e-16},{396,4.44089e-16},{396,0},{380,0},{380,30},{270,
-          30},{270,38}},
+      points={{397,4.44089e-16},{396,4.44089e-16},{396,0},{380,0},{380,26},{270,
+          26},{270,34}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -276,8 +272,8 @@ equation
   connect(VAVBox.y_actual, pSetDuc.u) annotation (Line(points={{762,40},{770,40},
           {770,86},{140,86},{140,-6},{158,-6}},     color={0,0,127}));
   connect(TSup.T, conTSup.TSup) annotation (Line(
-      points={{540,-29},{540,-20},{600,-20},{600,-188},{-70,-188},{-70,-214},{-62,
-          -214}},
+      points={{570,-29},{570,-20},{592,-20},{592,-188},{-70,-188},{-70,-214},{
+          -62,-214}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(conTSup.yOA, conEco.uOATSup) annotation (Line(
@@ -303,15 +299,6 @@ equation
       horizontalAlignment=TextAlignment.Right));
   connect(TSupSet.TSet, conTSup.TSupSet)
     annotation (Line(points={{-178,-220},{-62,-220}},color={0,0,127}));
-  connect(damRet.y, conEco.yRet) annotation (Line(points={{-12,-10},{-18,-10},{
-          -18,146.667},{-58.6667,146.667}},
-                                        color={0,0,127}));
-  connect(damExh.y, conEco.yOA) annotation (Line(points={{-40,2},{-40,152},{
-          -58.6667,152}},
-                 color={0,0,127}));
-  connect(damOut.y, conEco.yOA) annotation (Line(points={{-40,-28},{-40,-20},{
-          -22,-20},{-22,152},{-58.6667,152}},
-                                          color={0,0,127}));
   connect(damExh.port_a, TRet.port_b) annotation (Line(points={{-30,-10},{-26,-10},
           {-26,140},{90,140}}, color={0,127,255}));
   connect(freSta.y, or2.u1) annotation (Line(points={{-38,-80},{-20,-80},{-20,-100},
@@ -334,7 +321,7 @@ equation
       points={{-400,320},{-360,320},{-360,304},{48,304},{48,96},{548,96},{548,47},
           {578,47}}, color={0,0,127}));
   connect(controlBus.TRooSetHea, TRooHeaSet.u) annotation (Line(
-      points={{-240,-340},{386,-340},{386,64},{478,64}},
+      points={{-240,-340},{-230,-340},{-230,64},{478,64}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -342,7 +329,7 @@ equation
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(controlBus.TRooSetCoo, TRooCooSet.u) annotation (Line(
-      points={{-240,-340},{394,-340},{394,30},{478,30}},
+      points={{-240,-340},{-220,-340},{-220,30},{478,30}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -385,9 +372,6 @@ equation
   connect(timDXSta.passed,RTUCon. uDXHeaCoi) annotation (Line(points={{202,-158},
           {960,-158},{960,257.083},{1008,257.083}},
                                             color={255,0,255}));
-  connect(RTUCon.yAuxHea, mulAuxHea.u1) annotation (Line(points={{1032,240.283},
-          {1040,240.283},{1040,-80},{540,-80},{540,-98},{548,-98}},
-                                                                 color={0,0,127}));
   connect(hys1.y,timDXSta1. u) annotation (Line(points={{302,-140},{316,-140}},
           color={255,0,255}));
   connect(hys.y,timDXSta. u) annotation (Line(points={{162,-150},{178,-150}},
@@ -396,14 +380,6 @@ equation
           -50},{270,-140},{278,-140}}, color={0,0,127}));
   connect(HeaCoi.P,hys. u) annotation (Line(points={{121,-49},{130,-49},{130,
           -150},{138,-150}}, color={0,0,127}));
-  connect(fanSup.y_actual,hys2. u) annotation (Line(points={{421,-33},{421,-34},
-          {426,-34},{426,-110},{458,-110}}, color={0,0,127}));
-  connect(hys2.y,booToRea1. u) annotation (Line(points={{482,-110},{498,-110}},
-          color={255,0,255}));
-  connect(booToRea1.y,mulAuxHea. u2) annotation (Line(points={{522,-110},{548,
-          -110}},                       color={0,0,127}));
-  connect(mulAuxHea.y, AuxHeaCoi.u) annotation (Line(points={{572,-104},{580,
-          -104},{580,-70},{456,-70},{456,-34},{458,-34}}, color={0,0,127}));
   for i in 1:nCoiCoo loop
   connect(CooCoi[i].TOut, TOut.y) annotation (Line(points={{239,-43},{234,-43},
             {234,80},{-220,80},{-220,180},{-279,180}},
@@ -441,8 +417,6 @@ equation
           {374,12},{250,12}}, color={0,0,127}));
   connect(RTUCon.yDXCooCoi[1:nCoiCoo], mulOr1.u[1:nCoiCoo]) annotation (Line(points={{1032,
           256.5},{1060,256.5},{1060,-170},{260,-170},{260,-90},{278,-90}},color={255,0,255}));
-  connect(booToRea1.y, damPreInd2.y) annotation (Line(points={{522,-110},{528,-110},
-          {528,12},{470,12}}, color={0,0,127}));
   connect(TSupSet.TSet, RTUCon.TSupCoiSet) annotation (Line(points={{-178,-220},
           {1000,-220},{1000,234},{1008,234},{1008,233.75}},
                                        color={0,0,127}));
@@ -467,20 +441,38 @@ equation
           290},{970,250.083},{1008,250.083}},
                                         color={255,127,0}));
   connect(con.y, conFanSup.uFan) annotation (Line(points={{182,110},{220,110},{
-          220,56},{258,56}}, color={255,0,255}));
+          220,52},{258,52}}, color={255,0,255}));
   connect(conFanSup.y, fanSup.y)
-    annotation (Line(points={{281,50},{410,50},{410,-28}}, color={0,0,127}));
-  connect(booToRea4.y, mul1.u1) annotation (Line(points={{122,56},{142,56}},
-                         color={0,0,127}));
-  connect(pSetDuc.y, mul1.u2) annotation (Line(points={{181,-6},{186,-6},{186,
-          26},{132,26},{132,44},{142,44}}, color={0,0,127}));
+    annotation (Line(points={{281,46},{396,46},{396,-28}}, color={0,0,127}));
+  connect(booToRea4.y, mul1.u1) annotation (Line(points={{122,44},{150,44},{150,
+          52},{158,52}}, color={0,0,127}));
+  connect(pSetDuc.y, mul1.u2) annotation (Line(points={{181,-6},{190,-6},{190,
+          26},{150,26},{150,40},{158,40}}, color={0,0,127}));
   connect(mul1.y, addPar.u)
-    annotation (Line(points={{166,50},{178,50}}, color={0,0,127}));
-  connect(addPar.y, conFanSup.u) annotation (Line(points={{202,50},{258,50}},
+    annotation (Line(points={{182,46},{190,46}}, color={0,0,127}));
+  connect(addPar.y, conFanSup.u) annotation (Line(points={{214,46},{258,46}},
                              color={0,0,127}));
   connect(modeSelector.yFan, booToRea4.u) annotation (Line(points={{-179.091,
-          -305.455},{-174,-305.455},{-174,-306},{-170,-306},{-170,56},{98,56}},
+          -305.455},{-174,-305.455},{-174,-306},{-170,-306},{-170,44},{98,44}},
         color={255,0,255}));
+  connect(con3.y, damPreInd2.y) annotation (Line(points={{570,26},{584,26},{584,
+          0},{528,0},{528,12},{490,12}}, color={0,0,127}));
+  connect(booToRea5.y, mul2.u2) annotation (Line(points={{542,-130},{542,-122},
+          {554,-122}}, color={0,0,127}));
+  connect(mul2.u1, RTUCon.yAuxHea) annotation (Line(points={{554,-110},{550,
+          -110},{550,-94},{1032,-94},{1032,240.283}}, color={0,0,127}));
+  connect(mul2.y, AuxHeaCoi.u) annotation (Line(points={{578,-116},{584,-116},{
+          584,-56},{478,-56},{478,-34}}, color={0,0,127}));
+  connect(hys2.y, booToRea5.u)
+    annotation (Line(points={{502,-130},{518,-130}}, color={255,0,255}));
+  connect(fanSup.y_actual, hys2.u) annotation (Line(points={{407,-33},{407,-130},
+          {478,-130}}, color={0,0,127}));
+  connect(conEco.yRet, damRet.y) annotation (Line(points={{-58.6667,146.667},{
+          -12,146.667},{-12,-10}}, color={0,0,127}));
+  connect(conEco.yOA, damExh.y) annotation (Line(points={{-58.6667,152},{-40,
+          152},{-40,2}}, color={0,0,127}));
+  connect(conEco.yOA, damOut.y) annotation (Line(points={{-58.6667,152},{-40,
+          152},{-40,20},{-20,20},{-20,-20},{-40,-20},{-40,-28}}, color={0,0,127}));
   annotation (
   defaultComponentName="hvac",
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-400},{1420,
