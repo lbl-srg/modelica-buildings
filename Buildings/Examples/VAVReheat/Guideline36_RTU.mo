@@ -14,7 +14,12 @@ model Guideline36_RTU
       datHeaCoi=datHeaCoi,
       datCooCoi=datCooCoi),
     redeclare Buildings.Examples.VAVReheat.BaseClasses.Floor flo(
-      sampleModel=true));
+      sampleModel=true,
+      wes(T_start=297.15),
+      nor(T_start=297.15),
+      cor(T_start=297.15),
+      eas(T_start=297.15),
+      sou(T_start=297.15)));
 
   parameter Real ACHCor(final unit="1/h")=6
     "Design air change per hour core";
@@ -132,10 +137,9 @@ model Guideline36_RTU
           "modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/Guideline36_RTU.mos"
         "Simulate and plot"),
     experiment(
-      StartTime=16848000,
-      StopTime=19440000,
+      StartTime=15552000,
+      StopTime=18144000,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
-    //experiment(StopTime=172800, Tolerance=1e-06),
 end Guideline36_RTU;
