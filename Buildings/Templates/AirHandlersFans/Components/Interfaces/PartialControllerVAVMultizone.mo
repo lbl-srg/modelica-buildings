@@ -96,8 +96,7 @@ partial block PartialControllerVAVMultizone
 initial equation
   if typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone then
     // We check the fallback "else" clause.
-    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefDamper
-         then
+    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefDamper then
       assert(secOutRel.typSecRel==Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReliefDamper,
        "In "+ getInstanceName() + ": "+
        "The system configuration is incompatible with available options for building pressure control.");

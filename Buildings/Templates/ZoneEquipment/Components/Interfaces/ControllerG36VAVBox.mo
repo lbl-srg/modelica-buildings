@@ -11,8 +11,12 @@ block ControllerG36VAVBox "Guideline 36 controller for VAV terminal unit"
     "Set to true if the zone has window status sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  final parameter Boolean have_hotWatCoi=
-    coiHea.typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating
+  final parameter Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil typCoiHea=
+    if coiHea.typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating
+      then Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+    elseif coiHea.typ==Buildings.Templates.Components.Types.Coil.ElectricHeating
+      then Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric
+    else Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.None
     "Set to true if the system has hot water coil"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
@@ -77,7 +81,7 @@ block ControllerG36VAVBox "Guideline 36 controller for VAV terminal unit"
     final have_winSen=have_winSen,
     final have_occSen=have_occSen,
     final have_CO2Sen=have_CO2Sen,
-    final have_hotWatCoi=have_hotWatCoi,
+    final heaCoi=typCoiHea,
     final VOccMin_flow=VOutMinOcc_flow,
     final VAreMin_flow=VOutMinAre_flow,
     final VAreBreZon_flow=VOutAre_flow,
