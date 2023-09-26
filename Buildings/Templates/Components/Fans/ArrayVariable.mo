@@ -124,5 +124,17 @@ A unique status signal <code>y1_actual</code> (Boolean) is returned.<br/>
 <code>y1_actual = true</code> means that all fans are On.
 </li>
 </ul>
+</html>", revisions="<html>
+<ul>
+<li>
+September 26, 2023, by Antoine Gautier:<br/>
+Refactored with flow rate multiplier.<br/>
+This is for <a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/3536\\\">#3536</a>.
+</li>
+<li>
+November 18, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end ArrayVariable;
