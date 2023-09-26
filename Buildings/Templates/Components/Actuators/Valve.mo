@@ -7,6 +7,71 @@ model Valve "Multiple-configuration valve"
   parameter Buildings.Templates.Components.Types.Valve typ
     "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Buildings.Templates.Components.Types.ValveCharacteristicTwoWay chaTwo=
+    Buildings.Templates.Components.Types.ValveCharacteristicTwoWay.Linear
+    "Valve characteristic"
+    annotation (Evaluate=true,
+    __ctrlFlow(enable=false),
+    Dialog(group="Configuration",
+    enable=is_twoWay));
+  parameter Buildings.Templates.Components.Types.ValveCharacteristicThreeWay chaThr=
+    Buildings.Templates.Components.Types.ValveCharacteristicThreeWay.Linear
+    "Equipment type"
+    annotation (Evaluate=true,
+    __ctrlFlow(enable=false),
+    Dialog(group="Configuration",
+    enable=is_thrWay));
+  final parameter Boolean is_twoWay=
+    typ==Buildings.Templates.Components.Types.Valve.TwoWayModulating
+    or typ==Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+    "Evaluate to true in case of two-way valve"
+    annotation(Evaluate=true);
+  final parameter Boolean is_thrWay=
+    typ==Buildings.Templates.Components.Types.Valve.ThreeWayModulating
+    or typ==Buildings.Templates.Components.Types.Valve.ThreeWayTwoPosition
+    "Evaluate to true in case of three-way valve"
+    annotation(Evaluate=true);
+  final parameter Boolean is_actTwo=
+    typ==Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+    or typ==Buildings.Templates.Components.Types.Valve.ThreeWayTwoPosition
+    "Evaluate to true in case of two-position actuator"
+    annotation(Evaluate=true);
+  final parameter Boolean is_actMod=
+    typ==Buildings.Templates.Components.Types.Valve.ThreeWayModulating
+    or typ==Buildings.Templates.Components.Types.Valve.TwoWayModulating
+    "Evaluate to true in case of modulating actuator"
+    annotation(Evaluate=true);
+
+  parameter Buildings.Fluid.Actuators.Valves.Data.Generic flowCharacteristics(
+    y={0,1},
+    phi={0.0001,1})
+    "Table with flow characteristics"
+    annotation (
+    __ctrlFlow(enable=false),
+    Dialog(group="Configuration",
+    enable=is_twoWay and chaTwo==Buildings.Templates.Components.Types.ValveCharacteristicTwoWay.Table),
+    choicesAllMatching=true,
+    Placement(transformation(extent={{70,-50},{90,-30}})));
+  parameter Buildings.Fluid.Actuators.Valves.Data.Generic flowCharacteristics1(
+    y={0,1},
+    phi={0.0001,1})
+    "Table with flow characteristics for direct flow path at port_1"
+    annotation (
+    __ctrlFlow(enable=false),
+    Dialog(group="Configuration",
+    enable=is_thrWay and chaThr==Buildings.Templates.Components.Types.ValveCharacteristicThreeWay.Table),
+    choicesAllMatching=true,
+    Placement(transformation(extent={{70,-110},{90,-90}})));
+  parameter Buildings.Fluid.Actuators.Valves.Data.Generic flowCharacteristics3(
+    y={0,1},
+    phi={0.0001,1})
+    "Table with flow characteristics for bypass flow path at port_3"
+    annotation (
+    __ctrlFlow(enable=false),
+    Dialog(group="Configuration",
+    enable=is_thrWay and chaThr==Buildings.Templates.Components.Types.ValveCharacteristicThreeWay.Table),
+    choicesAllMatching=true,
+    Placement(transformation(extent={{70,-138},{90,-118}})));
 
   parameter Buildings.Templates.Components.Data.Valve dat(final typ=typ)
     "Design and operating parameters"
@@ -75,7 +140,8 @@ model Valve "Multiple-configuration valve"
     if typ==Buildings.Templates.Components.Types.Valve.ThreeWayTwoPosition or
       typ==Buildings.Templates.Components.Types.Valve.ThreeWayModulating
     "Fluid connector with bypass line"
-    annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
+    annotation (Placement(transformation(extent={{-10,-170},{10,-150}}),
+        iconTransformation(extent={{-10,-110},{10,-90}})));
   Buildings.Templates.Components.Interfaces.Bus bus
     if typ<>Buildings.Templates.Components.Types.Valve.None
     "Control bus"
@@ -83,18 +149,52 @@ model Valve "Multiple-configuration valve"
       transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={0,100}), iconTransformation(
+        origin={0,160}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={0,100})));
+
+  Controls.OBC.CDL.Conversions.BooleanToReal y1(final realTrue=1, final
+      realFalse=0) if is_actTwo "Two-position signal" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-80,120})));
+  Modelica.Blocks.Routing.RealPassThrough y if is_actMod
+    "Modulating signal"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-40,120})));
+  Modelica.Blocks.Routing.RealPassThrough y_actual if is_actMod
+    "Position feedback"
+    annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=-90,
+        origin={0,120})));
+  Controls.OBC.CDL.Reals.GreaterThreshold y1_actual(t=0.99, h=0.5E-2)
+    if is_actTwo
+    "Open end switch status"
+    annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=-90,
+        origin={80,120})));
+  Controls.OBC.CDL.Reals.LessThreshold y0_actual(t=0.01, h=0.5E-2)
+    if is_actTwo
+    "Closed end switch status"
+    annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=-90,
+        origin={40,120})));
+
   Routing.PassThroughFluid non(
     redeclare final package Medium = Medium)
     if typ==Buildings.Templates.Components.Types.Valve.None
     "No valve"
-    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-
+    annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage equ(
     redeclare final package Medium=Medium,
+    final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     final m_flow_nominal=m_flow_nominal,
     final dpValve_nominal=dpValve_nominal,
     final dpFixed_nominal=dpFixed_nominal,
@@ -103,23 +203,263 @@ model Valve "Multiple-configuration valve"
     final init=init,
     final y_start=y_start,
     final allowFlowReversal=allowFlowReversal,
-    final show_T=show_T) "Two-way valve with equal percentage characteristic"
+    final show_T=show_T)
+    if is_twoWay
+    and chaTwo==Buildings.Templates.Components.Types.ValveCharacteristicTwoWay.EqualPercentage
+    "Two-way valve with equal percentage characteristic"
     annotation (
       __ctrlFlow(enable=false),
-      choicesAllMatching=true,
       Placement(
         transformation(
-        extent={{-40,10},{-20,30}},
+        extent={{-70,-10},{-50,10}},
+        rotation=0)));
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear lin(
+    redeclare final package Medium=Medium,
+    final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
+    final m_flow_nominal=m_flow_nominal,
+    final dpValve_nominal=dpValve_nominal,
+    final dpFixed_nominal=dpFixed_nominal,
+    final use_inputFilter=use_inputFilter,
+    final riseTime=riseTime,
+    final init=init,
+    final y_start=y_start,
+    final allowFlowReversal=allowFlowReversal,
+    final show_T=show_T)
+    if is_twoWay
+    and chaTwo==Buildings.Templates.Components.Types.ValveCharacteristicTwoWay.Linear
+    "Two-way valve with linear characteristic"
+    annotation (
+      __ctrlFlow(enable=false),
+      Placement(
+        transformation(
+        extent={{-90,10},{-70,30}},
+        rotation=0)));
+  Buildings.Fluid.Actuators.Valves.TwoWayPressureIndependent ind(
+    redeclare final package Medium=Medium,
+    final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
+    final m_flow_nominal=m_flow_nominal,
+    final dpValve_nominal=dpValve_nominal,
+    final dpFixed_nominal=dpFixed_nominal,
+    final use_inputFilter=use_inputFilter,
+    final riseTime=riseTime,
+    final init=init,
+    final y_start=y_start,
+    final allowFlowReversal=allowFlowReversal,
+    final show_T=show_T)
+    if is_twoWay
+    and chaTwo==Buildings.Templates.Components.Types.ValveCharacteristicTwoWay.PressureIndependent
+    "Pressure independent two-way valve"
+    annotation (
+      __ctrlFlow(enable=false),
+      Placement(
+        transformation(
+        extent={{-50,-30},{-30,-10}},
+        rotation=0)));
+  Buildings.Fluid.Actuators.Valves.TwoWayTable tab(
+    redeclare final package Medium=Medium,
+    final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
+    final flowCharacteristics=flowCharacteristics,
+    final m_flow_nominal=m_flow_nominal,
+    final dpValve_nominal=dpValve_nominal,
+    final dpFixed_nominal=dpFixed_nominal,
+    final use_inputFilter=use_inputFilter,
+    final riseTime=riseTime,
+    final init=init,
+    final y_start=y_start,
+    final allowFlowReversal=allowFlowReversal,
+    final show_T=show_T)
+    if is_twoWay
+    and chaTwo==Buildings.Templates.Components.Types.ValveCharacteristicTwoWay.Table
+    "Pressure independent two-way valve"
+    annotation (
+      __ctrlFlow(enable=false),
+      Placement(
+        transformation(
+        extent={{-30,-50},{-10,-30}},
+        rotation=0)));
+  Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear equLin(
+    redeclare final package Medium=Medium,
+    final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
+    final m_flow_nominal=m_flow_nominal,
+    final dpValve_nominal=dpValve_nominal,
+    final dpFixed_nominal={dpFixed_nominal, dpFixedByp_nominal},
+    final energyDynamics=energyDynamics,
+    final tau=tau,
+    final use_inputFilter=use_inputFilter,
+    final riseTime=riseTime,
+    final init=init,
+    final y_start=y_start,
+    final portFlowDirection_1=if allowFlowReversal then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+      else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    final portFlowDirection_2=if allowFlowReversal then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+      else Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    final portFlowDirection_3=if allowFlowReversal then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+    else Modelica.Fluid.Types.PortFlowDirection.Entering)
+    if is_thrWay
+    and chaThr==Buildings.Templates.Components.Types.ValveCharacteristicThreeWay.EqualPercentageLinear
+    "Three-way valve with equal percentage and linear characteristics"
+    annotation (
+      __ctrlFlow(enable=false),
+      Placement(
+        transformation(
+        extent={{10,-90},{30,-70}},
+        rotation=0)));
+  Fluid.Actuators.Valves.ThreeWayLinear linLin(
+    redeclare final package Medium = Medium,
+    final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
+    final m_flow_nominal=m_flow_nominal,
+    final dpValve_nominal=dpValve_nominal,
+    final dpFixed_nominal={dpFixed_nominal,dpFixedByp_nominal},
+    final energyDynamics=energyDynamics,
+    final tau=tau,
+    final use_inputFilter=use_inputFilter,
+    final riseTime=riseTime,
+    final init=init,
+    final y_start=y_start,
+    final portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    final portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Entering)
+    if is_thrWay
+    and chaThr==Buildings.Templates.Components.Types.ValveCharacteristicThreeWay.Linear
+    "Three-way valve with linear characteristics"
+    annotation (
+      __ctrlFlow(enable=false),
+      Placement(
+        transformation(
+        extent={{-10,-70},{10,-50}},
+        rotation=0)));
+  Fluid.Actuators.Valves.ThreeWayTable tabTab(
+    redeclare final package Medium = Medium,
+    final flowCharacteristics1=flowCharacteristics1,
+    final flowCharacteristics3=flowCharacteristics3,
+    final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
+    final m_flow_nominal=m_flow_nominal,
+    final dpValve_nominal=dpValve_nominal,
+    final dpFixed_nominal={dpFixed_nominal,dpFixedByp_nominal},
+    final energyDynamics=energyDynamics,
+    final tau=tau,
+    final use_inputFilter=use_inputFilter,
+    final riseTime=riseTime,
+    final init=init,
+    final y_start=y_start,
+    final portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    final portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Entering)
+    if is_thrWay
+    and chaThr==Buildings.Templates.Components.Types.ValveCharacteristicThreeWay.Table
+    "Three-way valve with table-specified characteristics"
+    annotation (
+      __ctrlFlow(enable=false),
+      Placement(
+        transformation(
+        extent={{30,-110},{50,-90}},
         rotation=0)));
 equation
+  /* Control point connection - start */
+  connect(y1.y, lin.y);
+  connect(y.y, lin.y);
+  connect(y_actual.u, lin.y_actual);
+  connect(y0_actual.u, lin.y_actual);
+  connect(y1_actual.u, lin.y_actual);
+  connect(y1.y, equ.y);
+  connect(y.y, equ.y);
+  connect(y_actual.u, equ.y_actual);
+  connect(y0_actual.u, equ.y_actual);
+  connect(y1_actual.u, equ.y_actual);
+  connect(y1.y, tab.y);
+  connect(y.y, tab.y);
+  connect(y_actual.u, tab.y_actual);
+  connect(y0_actual.u, tab.y_actual);
+  connect(y1_actual.u, tab.y_actual);
+  connect(y1.y, ind.y);
+  connect(y.y, ind.y);
+  connect(y_actual.u, ind.y_actual);
+  connect(y0_actual.u, ind.y_actual);
+  connect(y1_actual.u, ind.y_actual);
+  connect(y1.y, equLin.y);
+  connect(y.y, equLin.y);
+  connect(y_actual.u, equLin.y_actual);
+  connect(y0_actual.u, equLin.y_actual);
+  connect(y1_actual.u, equLin.y_actual);
+  connect(y1.y, linLin.y);
+  connect(y.y, linLin.y);
+  connect(y_actual.u, linLin.y_actual);
+  connect(y0_actual.u, linLin.y_actual);
+  connect(y1_actual.u, linLin.y_actual);
+  connect(y1.y, tabTab.y);
+  connect(y.y, tabTab.y);
+  connect(y_actual.u, tabTab.y_actual);
+  connect(y0_actual.u, tabTab.y_actual);
+  connect(y1_actual.u, tabTab.y_actual);
+  /* Control point connection - stop */
   connect(port_a, non.port_a)
-    annotation (Line(points={{-100,0},{-80,0}}, color={0,127,255}));
+    annotation (Line(points={{-100,0},{-94,0},{-94,40},{-10,40}}, color={0,127,255}));
   connect(non.port_b, port_b)
-    annotation (Line(points={{-60,0},{100,0}}, color={0,127,255}));
-  connect(port_a, equ.port_a) annotation (Line(points={{-100,0},{-70,0},{-70,20},
-          {-40,20}}, color={0,127,255}));
-  connect(equ.port_b, port_b) annotation (Line(points={{-20,20},{0,20},{0,0},{
+    annotation (Line(points={{10,40},{60,40},{60,0},{100,0}}, color={0,127,255}));
+  connect(port_a, equ.port_a) annotation (Line(points={{-100,0},{-70,0}},
+                     color={0,127,255}));
+  connect(equ.port_b, port_b) annotation (Line(points={{-50,0},{100,0}},
+                   color={0,127,255}));
+  connect(lin.port_b, port_b) annotation (Line(points={{-70,20},{60,20},{60,0},{
           100,0}}, color={0,127,255}));
+  connect(port_a, lin.port_a) annotation (Line(points={{-100,0},{-94,0},{-94,20},
+          {-90,20}}, color={0,127,255}));
+  connect(port_a, ind.port_a) annotation (Line(points={{-100,0},{-94,0},{-94,-20},
+          {-50,-20}}, color={0,127,255}));
+  connect(port_a, tab.port_a) annotation (Line(points={{-100,0},{-94,0},{-94,-40},
+          {-30,-40}}, color={0,127,255}));
+  connect(ind.port_b, port_b) annotation (Line(points={{-30,-20},{60,-20},{60,0},
+          {100,0}}, color={0,127,255}));
+  connect(tab.port_b, port_b) annotation (Line(points={{-10,-40},{60,-40},{60,0},
+          {100,0}}, color={0,127,255}));
+  connect(bus.y1, y1.u) annotation (Line(
+      points={{0,160},{0,140},{-80,140},{-80,132}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(bus.y, y.u) annotation (Line(
+      points={{0,160},{0,140},{-40,140},{-40,132}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(bus.y_actual, y_actual.y) annotation (Line(
+      points={{0,160},{0,131}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(equLin.port_3, portByp_a)
+    annotation (Line(points={{20,-90},{20,-140},{0,-140},{0,-160}},
+                                                 color={0,127,255}));
+  connect(port_a, equLin.port_1) annotation (Line(points={{-100,0},{-94,0},{-94,
+          -80},{10,-80}},    color={0,127,255}));
+  connect(equLin.port_2, port_b) annotation (Line(points={{30,-80},{60,-80},{60,
+          0},{100,0}}, color={0,127,255}));
+  connect(bus.y0_actual, y0_actual.y) annotation (Line(
+      points={{0,160},{0,140},{40,140},{40,132}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(bus.y1_actual, y1_actual.y) annotation (Line(
+      points={{0,160},{0,140},{80,140},{80,132}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(tabTab.port_2, port_b) annotation (Line(points={{50,-100},{60,-100},{60,
+          0},{100,0}}, color={0,127,255}));
+  connect(tabTab.port_3, portByp_a) annotation (Line(points={{40,-110},{40,-140},
+          {0,-140},{0,-160}}, color={0,127,255}));
+  connect(port_a, tabTab.port_1) annotation (Line(points={{-100,0},{-94,0},{-94,
+          -100},{30,-100},{30,-100}}, color={0,127,255}));
+  connect(port_a, linLin.port_1) annotation (Line(points={{-100,0},{-94,0},{-94,
+          -60},{-10,-60}}, color={0,127,255}));
+  connect(linLin.port_3, portByp_a)
+    annotation (Line(points={{0,-70},{0,-70},{0,-160}}, color={0,127,255}));
+  connect(linLin.port_2, port_b) annotation (Line(points={{10,-60},{60,-60},{60,
+          0},{100,0}}, color={0,127,255}));
   annotation (
   Icon(graphics={
     Line(
@@ -131,32 +471,27 @@ equation
       color={0,0,0},
       thickness=5),
     Line(
-      visible=typ==Buildings.Templates.Components.Types.Valve.ThreeWayTwoPosition or
-        typ==Buildings.Templates.Components.Types.Valve.ThreeWayModulating,
+      visible=is_thrWay,
       points={{0,-100},{0,-40}},
       color={0,0,0},
       thickness=5),
     Bitmap(
-      visible=typ==Buildings.Templates.Components.Types.Valve.TwoWayModulating or
-        typ==Buildings.Templates.Components.Types.Valve.ThreeWayModulating,
+      visible=is_actMod,
       extent=if text_flip then {{40,60},{-40,140}} else {{-40,60},{40,140}},
       rotation=text_rotation,
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulating.svg"),
     Bitmap(
-      visible=typ==Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition or
-        typ==Buildings.Templates.Components.Types.Valve.ThreeWayTwoPosition,
+      visible=is_actTwo,
       extent=if text_flip then {{40,60},{-40,140}} else {{-40,60},{40,140}},
       rotation=text_rotation,
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
     Bitmap(
-      visible=typ==Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition or
-        typ==Buildings.Templates.Components.Types.Valve.TwoWayModulating,
+      visible=is_twoWay,
       extent={{-100,-100},{100,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
       rotation=-90),
     Bitmap(
-      visible=typ==Buildings.Templates.Components.Types.Valve.ThreeWayTwoPosition or
-        typ==Buildings.Templates.Components.Types.Valve.ThreeWayModulating,
+      visible=is_thrWay,
       extent={{-100,-100},{100,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/ThreeWay.svg",
           rotation=-90),
@@ -167,5 +502,6 @@ equation
 <p>
 This partial class provides a standard interface for valve models.
 </p>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(extent={{-100,-160},{100,160}})));
 end Valve;

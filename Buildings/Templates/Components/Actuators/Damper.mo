@@ -92,48 +92,50 @@ model Damper "Multiple-configuration damper"
     if typ==Buildings.Templates.Components.Types.Damper.None
     "No damper"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(
-    final realTrue=1,
-    final realFalse=0)
-    if typ==Buildings.Templates.Components.Types.Damper.TwoPosition
-    "Signal conversion"
-    annotation (Placement(transformation(
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal y1(final realTrue=1,
+      final realFalse=0)
+    if typ == Buildings.Templates.Components.Types.Damper.TwoPosition
+    "Two-position signal" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-20,50})));
-  Modelica.Blocks.Routing.RealPassThrough pasCom
-    if typ == Buildings.Templates.Components.Types.Damper.Modulating
-    or typ == Buildings.Templates.Components.Types.Damper.PressureIndependent
-    "Pass through signal without modification"
-    annotation (Placement(
-        transformation(
+        origin={-80,40})));
+  Modelica.Blocks.Routing.RealPassThrough y if typ == Buildings.Templates.Components.Types.Damper.Modulating
+     or typ == Buildings.Templates.Components.Types.Damper.PressureIndependent
+    "Modulating signal" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={20,50})));
-  Controls.OBC.CDL.Reals.LessThreshold evaClo(t=0.01, h=0.5E-2)
-    if typ==Buildings.Templates.Components.Types.Damper.TwoPosition
-    "Return true if closed (closed end switch contact)"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-20,-50})));
-  Controls.OBC.CDL.Reals.GreaterThreshold evaOpe(t=0.99, h=0.5E-2)
-    if typ==Buildings.Templates.Components.Types.Damper.TwoPosition
-    "Return true if open (open end switch contact)"
-    annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={20,-50})));
-  Modelica.Blocks.Routing.RealPassThrough pasRet
-    if typ == Buildings.Templates.Components.Types.Damper.Modulating
-    or typ == Buildings.Templates.Components.Types.Damper.PressureIndependent
-    "Pass through signal without modification" annotation (Placement(
-        transformation(
+        origin={-40,40})));
+  Controls.OBC.CDL.Reals.LessThreshold y0_actual(t=0.01, h=0.5E-2)
+    if typ == Buildings.Templates.Components.Types.Damper.TwoPosition
+    "Closed end switch status" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
-        origin={60,50})));
+        origin={40,40})));
+  Controls.OBC.CDL.Reals.GreaterThreshold y1_actual(t=0.99, h=0.5E-2)
+    if typ == Buildings.Templates.Components.Types.Damper.TwoPosition
+    "Open end switch status" annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=-90,
+        origin={80,40})));
+  Modelica.Blocks.Routing.RealPassThrough y_actual if typ == Buildings.Templates.Components.Types.Damper.Modulating
+     or typ == Buildings.Templates.Components.Types.Damper.PressureIndependent
+    "Position feedback" annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=-90,
+        origin={0,40})));
 equation
+  /* Control point connection - start */
+  connect(y1.y, exp.y);
+  connect(y.y, exp.y);
+  connect(y_actual.u, exp.y_actual);
+  connect(y0_actual.u, exp.y_actual);
+  connect(y1_actual.u, exp.y_actual);
+  connect(y1.y, ind.y);
+  connect(y.y, ind.y);
+  connect(y_actual.u, ind.y_actual);
+  connect(y0_actual.u, ind.y_actual);
+  connect(y1_actual.u, ind.y_actual);
+  /* Control point connection - stop */
   connect(port_a, non.port_a)
     annotation (Line(points={{-100,0},{-80,0}}, color={0,127,255}));
   connect(non.port_b, port_b)
@@ -146,36 +148,26 @@ equation
     annotation (Line(points={{-100,0},{50,0}}, color={0,127,255}));
   connect(ind.port_b, port_b)
     annotation (Line(points={{70,0},{100,0}}, color={0,127,255}));
-  connect(bus.y1, booToRea.u) annotation (Line(
-      points={{0,100},{0,80},{-20,80},{-20,62}},
+  connect(bus.y1, y1.u) annotation (Line(
+      points={{0,100},{0,60},{-80,60},{-80,52}},
       color={255,204,51},
       thickness=0.5));
-  connect(bus.y, pasCom.u) annotation (Line(
-      points={{0,100},{0,80},{20,80},{20,62}},
+  connect(bus.y, y.u) annotation (Line(
+      points={{0,100},{0,60},{-40,60},{-40,52}},
       color={255,204,51},
       thickness=0.5));
-  connect(booToRea.y,exp. y) annotation (Line(points={{-20,38},{-20,20},{0,20},{
-          0,12}}, color={0,0,127}));
-  connect(pasCom.y, exp.y)
-    annotation (Line(points={{20,39},{20,20},{0,20},{0,12}}, color={0,0,127}));
-  connect(pasCom.y, ind.y) annotation (Line(points={{20,39},{20,20},{60,20},{60,
-          12}}, color={0,0,127}));
-  connect(exp.y_actual, evaOpe.u)
-    annotation (Line(points={{5,7},{20,7},{20,-38}}, color={0,0,127}));
-  connect(exp.y_actual, evaClo.u) annotation (Line(points={{5,7},{20,7},{20,-20},
-          {-20,-20},{-20,-38}}, color={0,0,127}));
-  connect(exp.y_actual, pasRet.u) annotation (Line(points={{5,7},{40,7},{40,30},
-          {60,30},{60,38}}, color={0,0,127}));
-  connect(ind.y_actual, pasRet.u) annotation (Line(points={{65,7},{80,7},{80,30},
-          {60,30},{60,38}}, color={0,0,127}));
-  connect(evaClo.y, bus.y0_actual) annotation (Line(points={{-20,-62},{-20,-80},
-          {-40,-80},{-40,96},{0,96},{0,100}},
-                                        color={255,0,255}));
-  connect(pasRet.y, bus.y_actual)
-    annotation (Line(points={{60,61},{60,94},{0,94},{0,100}},
-                                                        color={0,0,127}));
-  connect(evaOpe.y, bus.y1_actual) annotation (Line(points={{20,-62},{20,-78},{-38,
-          -78},{-38,94},{0,94},{0,100}}, color={255,0,255}));
+  connect(bus.y_actual, y_actual.y) annotation (Line(
+      points={{0,100},{0,51}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(bus.y0_actual, y0_actual.y) annotation (Line(
+      points={{0,100},{0,60},{40,60},{40,52}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(bus.y1_actual, y1_actual.y) annotation (Line(
+      points={{0,100},{0,60},{80,60},{80,52}},
+      color={255,204,51},
+      thickness=0.5));
   annotation (
     Icon(
     graphics={

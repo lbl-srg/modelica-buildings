@@ -26,8 +26,10 @@ model Dampers "Validation model for damper components"
     annotation (Placement(transformation(extent={{10,50},{30,70}})));
   Interfaces.Bus bus
     "Control bus"
-    annotation (Placement(transformation(extent={{-20,60},{20,100}}),
-        iconTransformation(extent={{-250,-32},{-210,8}})));
+    annotation (Placement(
+      iconVisible=false,
+      transformation(extent={{-20,60},{20,100}}),
+      iconTransformation(extent={{-250,-32},{-210,8}})));
   Controls.OBC.CDL.Reals.Sources.Ramp y(height=1,
     duration=10) "Damper control signal"
     annotation (Placement(transformation(extent={{-90,90},{-70,110}})));
@@ -41,8 +43,10 @@ model Dampers "Validation model for damper components"
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
   Interfaces.Bus bus1
     "Control bus"
-    annotation (Placement(transformation(extent={{-20,0},{20,40}}),
-        iconTransformation(extent={{-250,-32},{-210,8}})));
+    annotation (Placement(
+      iconVisible=false,
+      transformation(extent={{-20,0},{20,40}}),
+      iconTransformation(extent={{-250,-32},{-210,8}})));
   Buildings.Templates.Components.Actuators.Damper two(
     final typ=Buildings.Templates.Components.Types.Damper.TwoPosition,
     y_start=0,
@@ -51,8 +55,10 @@ model Dampers "Validation model for damper components"
     annotation (Placement(transformation(extent={{10,-70},{30,-50}})));
   Interfaces.Bus bus2
     "Control bus"
-    annotation (Placement(transformation(extent={{-20,-60},{20,-20}}),
-        iconTransformation(extent={{-250,-32},{-210,8}})));
+    annotation (Placement(
+      iconVisible=false,
+      transformation(extent={{-20,-60},{20,-20}}),
+      iconTransformation(extent={{-250,-32},{-210,8}})));
   Controls.OBC.CDL.Logical.Sources.TimeTable y1(
     table=[0,0; 1,1],
     timeScale=10,
