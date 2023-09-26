@@ -18,7 +18,8 @@ model WaterCooled "Water-cooled chiller plant"
     final dat=dat.coo,
     final energyDynamics=energyDynamics,
     final tau=tau,
-    final allowFlowReversal=allowFlowReversal)
+    final allowFlowReversal=allowFlowReversal,
+    final text_flip=true)
     "Coolers"
     annotation (Dialog(group="Coolers"), Placement(transformation(extent={{-118,34},
             {-282,94}})));
@@ -109,7 +110,7 @@ equation
       thickness=0.5,
       pattern=LinePattern.Dash));
   connect(TConWatRet.port_a, coo.port_a) annotation (Line(
-      points={{-90,40},{-282,40}},
+      points={{-90,40},{-118,40}},
       color={0,0,0},
       thickness=0.5,
       pattern=LinePattern.Dash));

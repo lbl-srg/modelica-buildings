@@ -148,6 +148,7 @@ model ChillerGroupWaterCooled
   ChillerGroups.Compression chi(
     redeclare final package MediumChiWat = MediumChiWat,
     redeclare final package MediumCon = MediumConWat,
+    typArrChi=Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel,
     typDisChiWat=Buildings.Templates.ChilledWaterPlants.Types.Distribution.Constant1Only,
     final dat=datChi,
     final nChi=nChi,
@@ -273,19 +274,22 @@ equation
   connect(pumConWat.ports_a, inlPumConWat.ports_b)
     annotation (Line(points={{-150,-80},{-150,-80}}, color={0,127,255}));
   connect(chi.ports_bCon, outConWatChi.ports_b)
-    annotation (Line(points={{-100,100},{-130,100}}, color={0,127,255}));
+    annotation (Line(points={{-100,106},{-116,106},{-116,100},{-130,100}},
+                                                     color={0,127,255}));
   connect(outConWatChi.port_a, tow.port_a) annotation (Line(points={{-150,100},{
           -220,100},{-220,-80},{-206,-80}},  color={0,127,255}));
   connect(inlChiWatChi.ports_a, chi.ports_aChiWat)
-    annotation (Line(points={{-52,-80},{-60,-80}}, color={0,127,255}));
+    annotation (Line(points={{-52,-80},{-56,-80},{-56,-86},{-60,-86}},
+                                                   color={0,127,255}));
   connect(chi.ports_bChiWat, inlPumChiWatPri.ports_a)
-    annotation (Line(points={{-60,100},{-60,100}}, color={0,127,255}));
+    annotation (Line(points={{-60,106},{-60,100}}, color={0,127,255}));
   connect(inlPumChiWatPri.ports_b, pumChiWatPri.ports_a)
     annotation (Line(points={{-40,100},{-40,100}}, color={0,127,255}));
   connect(pumConWat.ports_b, outPumConWat.ports_a)
     annotation (Line(points={{-130,-80},{-130,-80}}, color={0,127,255}));
   connect(outPumConWat.ports_b, chi.ports_aCon)
-    annotation (Line(points={{-110,-80},{-100,-80}}, color={0,127,255}));
+    annotation (Line(points={{-110,-80},{-106,-80},{-106,-86},{-100,-86}},
+                                                     color={0,127,255}));
   connect(tow.port_b, bouCon.ports[1]) annotation (Line(points={{-186,-80},{-180,
           -80},{-180,-100}},color={0,127,255}));
   connect(booToRea.y,comSigLoa. u)
@@ -301,7 +305,7 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(chi.bus, busPla) annotation (Line(
-      points={{-80,110},{-80,140}},
+      points={{-80,110.2},{-80,140}},
       color={255,204,51},
       thickness=0.5));
   connect(ctl.bus, busPla) annotation (Line(

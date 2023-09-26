@@ -15,23 +15,6 @@ partial model PartialChilledWaterLoop
       nLooChiWatSec=ctl.nLooChiWatSec,
       have_senVChiWatSec=ctl.have_senVChiWatSec,
       have_senLevCoo=ctl.have_senLevCoo));
-  Components.Routing.ChillersToPrimaryPumps intChi(
-    redeclare final package MediumChiWat = MediumChiWat,
-    final nChi=nChi,
-    final nPumChiWatPri=nPumChiWatPri,
-    final have_senTChiWatPlaRet=ctl.have_senTChiWatPlaRet,
-    final have_senVChiWatPri=ctl.have_senVChiWatPri,
-    final locSenFloChiWatPri=ctl.locSenFloChiWatPri,
-    final typArrChi=typArrChi,
-    final typDisChiWat=typDisChiWat,
-    final typArrPumChiWatPri=typArrPumChiWatPri,
-    final typEco=typEco,
-    final mChiWatPri_flow_nominal=mChiWatPri_flow_nominal,
-    final tau=tau,
-    final energyDynamics=energyDynamics,
-    final allowFlowReversal=allowFlowReversal)
-    "Hydronic interface between chillers (and optional WSE) and primary CHW pumps"
-    annotation (Placement(transformation(extent={{40,-264},{80,4}})));
 
   replaceable Buildings.Templates.ChilledWaterPlants.Components.ChillerGroups.Compression chi
     constrainedby
@@ -40,6 +23,7 @@ partial model PartialChilledWaterLoop
     redeclare final package MediumCon=MediumCon,
     final nChi=nChi,
     final typChi=typChi,
+    final typArrChi=typArrChi,
     final typArrPumChiWatPri=typArrPumChiWatPri,
     final typArrPumConWat=typArrPumConWat,
     final have_varPumConWat=have_varPumConWat,
@@ -56,6 +40,24 @@ partial model PartialChilledWaterLoop
     Placement(transformation(extent={{-40,-196},{40,4}})));
 
   // Primary CHW loop
+  Components.Routing.ChillersToPrimaryPumps intChi(
+    redeclare final package MediumChiWat = MediumChiWat,
+    final nChi=nChi,
+    final typValChiWatChiIso=chi.typValChiWatChiIso,
+    final nPumChiWatPri=nPumChiWatPri,
+    final have_senTChiWatPlaRet=ctl.have_senTChiWatPlaRet,
+    final have_senVChiWatPri=ctl.have_senVChiWatPri,
+    final locSenFloChiWatPri=ctl.locSenFloChiWatPri,
+    final typArrChi=typArrChi,
+    final typDisChiWat=typDisChiWat,
+    final typArrPumChiWatPri=typArrPumChiWatPri,
+    final typEco=typEco,
+    final mChiWatPri_flow_nominal=mChiWatPri_flow_nominal,
+    final tau=tau,
+    final energyDynamics=energyDynamics,
+    final allowFlowReversal=allowFlowReversal)
+    "Hydronic interface between chillers (and optional WSE) and primary CHW pumps"
+    annotation (Placement(transformation(extent={{40,-264},{80,4}})));
   Buildings.Templates.Components.Pumps.Multiple pumChiWatPri(
     redeclare final package Medium=MediumChiWat,
     final nPum=nPumChiWatPri,
@@ -280,6 +282,25 @@ partial model PartialChilledWaterLoop
         origin={200,-260})));
 
   // WSE
+  replaceable Buildings.Templates.ChilledWaterPlants.Components.Economizers.None eco
+    constrainedby
+    Buildings.Templates.ChilledWaterPlants.Components.Interfaces.PartialEconomizer(
+      redeclare final package MediumChiWat=MediumChiWat,
+      redeclare final package MediumConWat=MediumCon,
+      final dat=dat.eco,
+      final allowFlowReversal=allowFlowReversal,
+      final energyDynamics=energyDynamics)
+    "Waterside economizer"
+    annotation (
+    Dialog(group="Waterside economizer"),
+    choices(
+      choice(redeclare replaceable Buildings.Templates.ChilledWaterPlants.Components.Economizers.None eco
+      "No waterside economizer"),
+      choice(redeclare replaceable Buildings.Templates.ChilledWaterPlants.Components.Economizers.HeatExchangerWithPump eco
+      "Heat exchanger with pump for CHW flow control"),
+      choice(redeclare replaceable Buildings.Templates.ChilledWaterPlants.Components.Economizers.HeatExchangerWithValve eco
+      "Heat exchanger with bypass valve for CHW flow control")),
+    Placement(transformation(extent={{-40,-262},{40,-242}})));
 
   // Controls
   replaceable Buildings.Templates.ChilledWaterPlants.Components.Controls.OpenLoop ctl
@@ -333,27 +354,6 @@ partial model PartialChilledWaterLoop
     annotation (Placement(transformation(extent={{30,230},{50,250}})));
 equation
   /* Control point connection - start */
-public
-  replaceable Buildings.Templates.ChilledWaterPlants.Components.Economizers.None eco
-    constrainedby
-    Buildings.Templates.ChilledWaterPlants.Components.Interfaces.PartialEconomizer(
-      redeclare final package MediumChiWat=MediumChiWat,
-      redeclare final package MediumConWat=MediumCon,
-      final dat=dat.eco,
-      final allowFlowReversal=allowFlowReversal,
-      final energyDynamics=energyDynamics)
-    "Waterside economizer"
-    annotation (
-    Dialog(group="Waterside economizer"),
-    choices(
-      choice(redeclare replaceable Buildings.Templates.ChilledWaterPlants.Components.Economizers.None eco
-      "No waterside economizer"),
-      choice(redeclare replaceable Buildings.Templates.ChilledWaterPlants.Components.Economizers.HeatExchangerWithPump eco
-      "Heat exchanger with pump for CHW flow control"),
-      choice(redeclare replaceable Buildings.Templates.ChilledWaterPlants.Components.Economizers.HeatExchangerWithValve eco
-      "Heat exchanger with bypass valve for CHW flow control")),
-    Placement(transformation(extent={{-40,-262},{40,-242}})));
-equation
   connect(TOut.T, bus.TOut);
   connect(phiOut.phi, bus.phiOut);
   connect(bus, intChi.bus);

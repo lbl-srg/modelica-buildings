@@ -2,7 +2,7 @@ within Buildings.Templates.ChilledWaterPlants.Components.Interfaces;
 partial model PartialCoolerGroup
   "Interface class for cooler group"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
-    port_a_x=820, port_a_y=-240, port_b_x=0, port_b_y=-300,
+    port_a_x=-820, port_a_y=-240, port_b_x=0, port_b_y=-300,
     redeclare final package Medium=MediumConWat,
     final m_flow_nominal=mConWat_flow_nominal);
 
@@ -87,6 +87,10 @@ partial model PartialCoolerGroup
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab="Dynamics", group="Conservation equations"));
+
+  parameter Boolean text_flip = false
+    "True to flip text horizontally in icon layer"
+    annotation(Dialog(tab="Graphics", enable=false));
 
   Buildings.Templates.ChilledWaterPlants.Interfaces.Bus bus
     "Plant control bus"

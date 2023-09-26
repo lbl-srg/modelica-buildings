@@ -117,6 +117,7 @@ model ChillerGroupAirCooled
   ChillerGroups.Compression chi(
     redeclare final package MediumChiWat = MediumChiWat,
     redeclare final package MediumCon = MediumAir,
+    typArrChi=Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel,
     typDisChiWat=Buildings.Templates.ChilledWaterPlants.Types.Distribution.Constant1Only,
     final dat=datChi,
     final nChi=nChi,
@@ -202,9 +203,11 @@ model ChillerGroupAirCooled
         origin={0,-80})));
 equation
   connect(chi.ports_bCon, bouConAir.ports)
-    annotation (Line(points={{-100,100},{-140,100}}, color={0,127,255}));
+    annotation (Line(points={{-100,106},{-120,106},{-120,100},{-140,100}},
+                                                     color={0,127,255}));
   connect(souConAir.ports[1], chi.ports_aCon)
-    annotation (Line(points={{-140,-80},{-100,-80}}, color={0,127,255}));
+    annotation (Line(points={{-140,-80},{-120,-80},{-120,-86},{-100,-86}},
+                                                     color={0,127,255}));
   connect(pumChiWatPri.ports_b, outPumChiWatPri.ports_a)
     annotation (Line(points={{-20,100},{-20,100}},color={0,127,255}));
   connect(outPumChiWatPri.port_b, TChiWatPriSup.port_a)
@@ -217,9 +220,10 @@ equation
     annotation (Line(points={{40,-90},{40,-80},{68,-80}},
                                                      color={0,127,255}));
   connect(inlChiWatChi.ports_a, chi.ports_aChiWat)
-    annotation (Line(points={{-52,-80},{-60,-80}}, color={0,127,255}));
+    annotation (Line(points={{-52,-80},{-56,-80},{-56,-86},{-60,-86}},
+                                                   color={0,127,255}));
   connect(chi.ports_bChiWat, inlPumChiWatPri.ports_a)
-    annotation (Line(points={{-60,100},{-60,100}}, color={0,127,255}));
+    annotation (Line(points={{-60,106},{-60,100}}, color={0,127,255}));
   connect(inlPumChiWatPri.ports_b, pumChiWatPri.ports_a)
     annotation (Line(points={{-40,100},{-40,100}}, color={0,127,255}));
   connect(booToRea.y,comSigLoa. u)
@@ -235,7 +239,7 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(chi.bus, busPla) annotation (Line(
-      points={{-80,110},{-80,140}},
+      points={{-80,110.2},{-80,140}},
       color={255,204,51},
       thickness=0.5));
   connect(ctl.bus, busPla) annotation (Line(

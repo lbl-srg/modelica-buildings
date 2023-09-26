@@ -105,7 +105,7 @@ equation
     Documentation(info="<html>
 <p>
 This model represents a group of open-circuit cooling towers.
-The tower cells (or units) may be unequally sized as explained in the documentation of 
+The tower cells (or units) may be unequally sized as explained in the documentation of
 <a href=\"modelica://Buildings.Templates.ChilledWaterPlants.Components.Data.CoolerGroup\">
 Buildings.Templates.ChilledWaterPlants.Components.Data.CoolerGroup</a>.
 </p>
@@ -152,7 +152,8 @@ First implementation.
           textString="CT-1",
           visible=nCoo >= 1),
     Bitmap(
-          extent={{-740,160},{-660,240}},
+          extent=if text_flip then {{-660,160},{-740,240}} else {{-740,160},{-660,
+              240}},
           fileName=
               "modelica://Buildings/Resources/Images/Templates/Components/Actuators/VFD.svg",
           visible=nCoo >= 1),
@@ -191,7 +192,7 @@ First implementation.
           visible=nCoo >= 2,
           textString="CT-2"),
     Bitmap(
-          extent={{-460,160},{-380,240}},
+          extent=if text_flip then {{-380,160},{-460,240}} else {{-460,160},{-380,240}},
           fileName=
               "modelica://Buildings/Resources/Images/Templates/Components/Actuators/VFD.svg",
           visible=nCoo >= 2),
@@ -230,7 +231,7 @@ First implementation.
           visible=nCoo >= 3,
           textString="CT-3"),
     Bitmap(
-          extent={{-180,160},{-100,240}},
+          extent=if text_flip then {{-100,160},{-180,240}} else {{-180,160},{-100,240}},
           fileName=
               "modelica://Buildings/Resources/Images/Templates/Components/Actuators/VFD.svg",
           visible=nCoo >= 3),
@@ -258,7 +259,7 @@ First implementation.
           lineThickness=1,
           visible=nCoo >= 4),
     Bitmap(
-          extent={{100,160},{180,240}},
+          extent=if text_flip then {{180,160},{100,240}} else {{100,160},{180,240}},
           fileName=
               "modelica://Buildings/Resources/Images/Templates/Components/Actuators/VFD.svg",
           visible=nCoo >= 4),
@@ -281,7 +282,7 @@ First implementation.
           thickness=5,
           visible=nCoo >= 4),
     Bitmap(
-          extent={{380,160},{460,240}},
+          extent=if text_flip then {{460,160},{380,240}} else {{380,160},{460,240}},
           fileName=
               "modelica://Buildings/Resources/Images/Templates/Components/Actuators/VFD.svg",
           visible=nCoo >= 5),
@@ -320,7 +321,7 @@ First implementation.
           visible=nCoo >= 5,
           textString="CT-5"),
     Bitmap(
-          extent={{660,160},{740,240}},
+          extent=if text_flip then {{740,160},{660,240}} else {{660,160},{740,240}},
           fileName=
               "modelica://Buildings/Resources/Images/Templates/Components/Actuators/VFD.svg",
           visible=nCoo >= 6),
