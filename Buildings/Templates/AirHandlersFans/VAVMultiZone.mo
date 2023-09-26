@@ -218,7 +218,7 @@ model VAVMultiZone "Multiple-zone VAV"
 
   inner replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHeaPre(
     redeclare final package MediumHeaWat=MediumHeaWat,
-    redeclare final Buildings.Templates.Components.Valves.TwoWayModulating val)
+    final typVal=Buildings.Templates.Components.Types.Valve.TwoWayModulating)
     constrainedby Buildings.Templates.Components.Interfaces.PartialCoil(
       final dat=dat.coiHeaPre,
       redeclare final package MediumAir=MediumAir,
@@ -235,7 +235,7 @@ model VAVMultiZone "Multiple-zone VAV"
       choice(
         redeclare replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHeaPre(
           redeclare final package MediumHeaWat=MediumHeaWat,
-          redeclare final Buildings.Templates.Components.Valves.TwoWayModulating val)
+          final typVal=Buildings.Templates.Components.Types.Valve.TwoWayModulating)
         "Hot water coil with two-way valve"),
       choice(
         redeclare replaceable Buildings.Templates.Components.Coils.ElectricHeating coiHeaPre
@@ -246,7 +246,7 @@ model VAVMultiZone "Multiple-zone VAV"
 
   inner replaceable Buildings.Templates.Components.Coils.WaterBasedCooling coiCoo(
     redeclare final package MediumChiWat=MediumChiWat,
-    redeclare final Buildings.Templates.Components.Valves.TwoWayModulating val)
+    final typVal=Buildings.Templates.Components.Types.Valve.TwoWayModulating)
     constrainedby Buildings.Templates.Components.Interfaces.PartialCoil(
       final dat=dat.coiCoo,
       redeclare final package MediumAir=MediumAir,
@@ -261,7 +261,7 @@ model VAVMultiZone "Multiple-zone VAV"
         "No coil"),
       choice(redeclare replaceable Buildings.Templates.Components.Coils.WaterBasedCooling coiCoo(
         redeclare final package MediumChiWat=MediumChiWat,
-        redeclare final Buildings.Templates.Components.Valves.TwoWayModulating val)
+        final typVal=Buildings.Templates.Components.Types.Valve.TwoWayModulating)
         "Chilled water coil with two-way valve")),
     Dialog(group="Configuration"),
     Placement(transformation(extent={{70,-210},{90,-190}})));

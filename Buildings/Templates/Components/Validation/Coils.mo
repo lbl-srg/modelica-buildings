@@ -50,9 +50,7 @@ model Coils "Validation model for coil components"
       TAirEnt_nominal=308.15,
       wAirEnt_nominal=0.017),
     final energyDynamics=energyDynamics,
-    redeclare replaceable
-      Buildings.Templates.Components.Valves.TwoWayModulating val(y_start=0)
-      "Two-way modulating valve") "Water-based cooling coil"
+    val(y_start=0)) "Water-based cooling coil"
     annotation (Placement(transformation(extent={{10,110},{30,130}})));
   Interfaces.Bus bus "Control bus"
     annotation (Placement(
@@ -76,9 +74,7 @@ model Coils "Validation model for coil components"
       TWatEnt_nominal=323.15,
       TAirEnt_nominal=263.15),
     final energyDynamics=energyDynamics,
-    redeclare replaceable
-      Buildings.Templates.Components.Valves.TwoWayModulating val(y_start=0)
-      "Two-way modulating valve") "Water-based heating"
+    val(y_start=0)) "Water-based heating"
     annotation (Placement(transformation(extent={{10,30},{30,50}})));
   Interfaces.Bus bus1 "Control bus"
     annotation (Placement(
