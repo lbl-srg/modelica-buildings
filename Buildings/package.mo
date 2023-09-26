@@ -274,7 +274,7 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">Buildings.Templates.Components.Fans.ArrayVariable
     </td>
     <td valign=\"top\">Refactored with flow rate multiplier.<br/>
-	          This is for <a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/3536\\\">#3536</a>.
+	          This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3536\">#3536</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
