@@ -12,8 +12,8 @@ block Controller "Controller for room VAV box with reheat"
   parameter Boolean have_CO2Sen=true
     "True: the zone has CO2 sensor"
     annotation (__cdl(ValueInReference=false));
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
-    "Heating coil type"
+  parameter Boolean have_hotWatCoi = true
+    "True: the unit has the hot water coil; False: the unit has the modulated electric coil"
     annotation (__cdl(ValueInReference=false));
   parameter Boolean permit_occStandby=true
     "True: occupied-standby mode is permitted"
@@ -394,6 +394,12 @@ block Controller "Controller for room VAV box with reheat"
     annotation (Placement(transformation(extent={{200,-260},{240,-220}}),
         iconTransformation(extent={{100,-210},{140,-170}})));
 
+protected
+  final parameter Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil heaCoi=
+    if have_hotWatCoi then Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+    else Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric
+    "Heating coil type"
+    annotation (__cdl(ValueInReference=false));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.ActiveAirFlow actAirSet(
     final VCooMax_flow=VCooMax_flow,
     final VHeaMin_flow=VHeaMin_flow,
@@ -492,7 +498,8 @@ block Controller "Controller for room VAV box with reheat"
     final VOccMin_flow=VOccMin_flow,
     final VAreMin_flow=VAreMin_flow,
     final VMin_flow=VMin_flow,
-    final VCooMax_flow=VCooMax_flow) if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24
+    final VCooMax_flow=VCooMax_flow)
+    if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24
     "Output the minimum outdoor airflow rate setpoint, when using Title 24"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 equation
