@@ -26,8 +26,8 @@ model ArrayVariable "Fan array - Variable speed"
         rotation=-90,
         origin={0,40})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold evaSta(
-    each t=1E-2,
-    each h=0.5E-2)
+    t=1E-2,
+    h=0.5E-2)
     "Evaluate fan status"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
