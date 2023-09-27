@@ -586,7 +586,7 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dot));
   connect(amb.ports[1], VOut1.port_a) annotation (Line(
-      points={{-114,-46.1},{-94,-46.1},{-94,-40},{-90,-40}},
+      points={{-114,-42.8},{-94,-42.8},{-94,-40},{-90,-40}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
@@ -604,7 +604,7 @@ equation
   connect(senRetFlo.port_a, dpRetDuc.port_b)
     annotation (Line(points={{360,140},{380,140}}, color={0,127,255}));
   connect(dpDisSupFan.port_b, amb.ports[2]) annotation (Line(
-      points={{406,10},{406,20},{-114,20},{-114,-43.9}},
+      points={{406,10},{406,20},{-114,20},{-114,-47.2}},
       color={0,0,0},
       pattern=LinePattern.Dot));
   connect(senRetFlo.port_b, TRet.port_a) annotation (Line(points={{340,140},{

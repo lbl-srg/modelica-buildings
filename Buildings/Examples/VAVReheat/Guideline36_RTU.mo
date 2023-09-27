@@ -138,7 +138,8 @@ model Guideline36_RTU
         "Simulate and plot"),
     experiment(
       StartTime=15552000,
-      StopTime=18144000,
+      StopTime=15724800,
+      Interval=3600,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
