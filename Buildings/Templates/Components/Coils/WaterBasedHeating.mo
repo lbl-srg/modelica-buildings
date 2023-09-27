@@ -27,15 +27,8 @@ model WaterBasedHeating "Hot water coil"
     final show_T=show_T,
     final dat=datVal)
     "Valve"
-    annotation (
-      choices(
-        choice(redeclare replaceable Buildings.Templates.Components.Valves.ThreeWayModulating val
-          "Three-way modulating valve"),
-        choice(redeclare replaceable Buildings.Templates.Components.Valves.TwoWayModulating val
-          "Two-way modulating valve")),
-      Placement(transformation(extent={{-10,10},{10,-10}},
-        rotation=-90,
-        origin={-40,-60})));
+    annotation (Placement(
+    transformation(extent={{-10,10},{10,-10}},rotation=-90,origin={-40,-60})));
 
   replaceable Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU hex(
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,

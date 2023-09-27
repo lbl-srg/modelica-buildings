@@ -7,8 +7,9 @@ model SingleDamper
     final typDamOut=damOut.typ,
     final typDamOutMin=Buildings.Templates.Components.Types.Damper.None);
 
-  Buildings.Templates.Components.Dampers.Modulating damOut(
+  Buildings.Templates.Components.Actuators.Damper damOut(
     redeclare final package Medium = MediumAir,
+    final typ=Buildings.Templates.Components.Types.Damper.Modulating,
     use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
     final allowFlowReversal=allowFlowReversal,
     final dat=dat.damOut)

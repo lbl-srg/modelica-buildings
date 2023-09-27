@@ -15,15 +15,7 @@ partial model PartialOutdoorSection "Interface class for outdoor air section"
   parameter Buildings.Templates.Components.Types.Damper typDamOutMin
     "Minimum outdoor air damper type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Buildings.Templates.Components.Types.SensorOutdoorAirFlow typSenOut_select
-    "Type of sensor for OA flow measurement"
-    annotation (Evaluate=true, Dialog(group="Configuration",
-    enable=typ==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampers));
-  final parameter Buildings.Templates.Components.Types.SensorOutdoorAirFlow typSenOut=
-    if typ==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampers then
-      typSenOut_select else Buildings.Templates.Components.Types.SensorOutdoorAirFlow.AFMS
-    "Type of sensor for OA flow measurement"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+
   outer parameter Boolean have_recHea
     "Set to true in case of heat recovery";
   outer parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer typCtlEco

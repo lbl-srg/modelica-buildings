@@ -91,12 +91,6 @@ package Types "Package with type definitions"
       VolumeFlowRate
       "Volume flow rate")
     "Enumeration to configure the sensor";
-  type SensorOutdoorAirFlow = enumeration(
-      AFMS
-      "Airflow measuring station",
-      DP
-      "Differential pressure sensor")
-    "Enumeration to specify the type of sensor for OA flow measurement";
   type SensorTemperature = enumeration(
       Standard
       "Standard sensor",

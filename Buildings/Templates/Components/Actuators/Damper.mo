@@ -35,7 +35,11 @@ model Damper "Multiple-configuration damper"
     enable=use_inputFilter and typ<>Buildings.Templates.Components.Types.Damper.None));
 
   parameter Buildings.Templates.Components.Types.DamperBlades typBla=
-    Buildings.Templates.Components.Types.DamperBlades.Parallel
+    if typ==Buildings.Templates.Components.Types.Damper.TwoPosition then
+      Buildings.Templates.Components.Types.DamperBlades.Opposed
+    elseif typ==Buildings.Templates.Components.Types.Damper.PressureIndependent then
+      Buildings.Templates.Components.Types.DamperBlades.VAV
+    else Buildings.Templates.Components.Types.DamperBlades.Parallel
     "Type of blades"
     annotation(Dialog(tab="Graphics", enable=false));
   parameter Integer text_rotation = 0

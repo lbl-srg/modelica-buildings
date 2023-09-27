@@ -32,9 +32,9 @@ record Damper "Record for damper model"
   annotation (Documentation(info="<html>
 <p>
 This record provides the set of sizing and operating parameters for
-the classes within
-<a href=\"modelica://Buildings.Templates.Components.Dampers\">
-Buildings.Templates.Components.Dampers</a>.
+the class
+<a href=\"modelica://Buildings.Templates.Components.Actuators.Damper\">
+Buildings.Templates.Components.Actuators.Damper</a>.
 </p>
 </html>"));
 end Damper;

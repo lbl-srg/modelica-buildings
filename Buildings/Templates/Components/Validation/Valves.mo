@@ -161,11 +161,11 @@ annotation (
   experiment(Tolerance=1e-6, StopTime=200),
   Diagram(coordinateSystem(extent={{-140,-140},{140,140}})),
     Documentation(info="<html>
-<p> 
-This model validates the models within 
-<a href=\"modelica://Buildings.Templates.Components.Valves\">
-Buildings.Templates.Components.Valves</a>
-by exposing them to a fixed pressure difference
+<p>
+This model validates the various configurations of the model
+<a href=\"modelica://Buildings.Templates.Components.Actuators.Valve\">
+Buildings.Templates.Components.Actuators.Valve</a>
+by exposing this model to a fixed pressure difference
 and a control signal varying from <i>0</i> to <i>1</i>.
 </p>
 </html>"));
