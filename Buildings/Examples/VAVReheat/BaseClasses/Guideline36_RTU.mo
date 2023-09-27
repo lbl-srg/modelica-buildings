@@ -149,8 +149,7 @@ model Guideline36_RTU
     annotation (Placement(transformation(extent={{618,182},{638,222}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator TSupAHU(
-    final nout=numZon)
-    "Replicate AHU supply temperature"
+    final nout=numZon) "Replicate AHU supply temperature"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=0, origin={390,80})));
 
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator TSupAHUSet(
@@ -467,7 +466,7 @@ equation
   connect(conAHU.yOutDam, damOut.y) annotation (Line(points={{544,562},{560,562},
           {560,50},{-40,50},{-40,-28}}, color={0,0,127}));
   connect(conAHU.ySupFan, fanSup.y) annotation (Line(points={{544,543.6},{554,
-          543.6},{554,-20},{390,-20},{390,-28}}, color={0,0,127}));
+          543.6},{554,-20},{396,-20},{396,-28}}, color={0,0,127}));
   connect(hotWatPla.y, conVAV.u1HotPla) annotation (Line(points={{522,170},{608,
           170},{608,183.2},{616,183.2}}, color={255,0,255}));
   connect(conAHU.y1SupFan, conAHU.u1SupFan) annotation (Line(points={{544,548},{
@@ -608,7 +607,7 @@ equation
           528,-54},{478,-54},{478,-34}}, color={0,0,127}));
   connect(hys2.y, booToRea5.u)
     annotation (Line(points={{454,-128},{462,-128}}, color={255,0,255}));
-  connect(fanSup.y_actual, hys2.u) annotation (Line(points={{401,-33},{401,-128},
+  connect(fanSup.y_actual, hys2.u) annotation (Line(points={{407,-33},{407,-128},
           {430,-128}}, color={0,0,127}));
   annotation (
   defaultComponentName="hvac",
