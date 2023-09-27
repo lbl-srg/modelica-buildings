@@ -40,7 +40,7 @@ block CompressorSpeedStage
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDXCoi
     "DX coil status"
     annotation (Placement(transformation(extent={{-160,60},{-120,100}}),
-      iconTransformation(extent={{-140,0},{-100,40}})));
+      iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCoi(
     final min=0,
@@ -48,7 +48,7 @@ block CompressorSpeedStage
     final unit="1")
     "Coil valve position"
     annotation (Placement(transformation(extent={{-160,-80},{-120,-40}}),
-      iconTransformation(extent={{-140,-40},{-100,0}})));
+      iconTransformation(extent={{-140,-78},{-100,-38}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yComSpe(
     final min=0,
@@ -72,21 +72,22 @@ protected
     final k=k,
     final yMax=1,
     final yMin=0,
-    final reverseActing=false) "Regulate compressor speed"
-    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
+    final reverseActing=false)
+    "Regulate compressor speed"
+    annotation (Placement(transformation(extent={{-70,-40},{-50,-20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Add add
     "Calculate the sum of the two speeds"
-    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
+    annotation (Placement(transformation(extent={{-30,-46},{-10,-26}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conMinSpe(
     final k=minComSpe)
     "Minimum compressor speed"
-    annotation (Placement(transformation(extent={{-60,2},{-40,22}})));
+    annotation (Placement(transformation(extent={{-70,0},{-50,20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Switch between the speed calculated by the P controller and the maximum speed"
-    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
+    annotation (Placement(transformation(extent={{50,-20},{70,0}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conDXCoi(
     final k=coiSpeLow)
@@ -96,52 +97,53 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conMaxSpe(
     final k=maxComSpe)
     "Maximum compressor speed"
-    annotation (Placement(transformation(extent={{20,50},{40,70}})));
+    annotation (Placement(transformation(extent={{-30,50},{-10,70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Min min
     "Pass through the minimum compressor speed"
-    annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
+    annotation (Placement(transformation(extent={{10,-40},{30,-20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Switch swi1
     "Switch between the speed calculated by the P controller and the maximum speed"
-    annotation (Placement(transformation(extent={{86,70},{106,90}})));
+    annotation (Placement(transformation(extent={{70,70},{90,90}})));
 
   Buildings.Fluid.BaseClasses.ActuatorFilter filter(
     final f=0.08)
     "Second order filter to approximate actuator opening time, and to improve numerics"
-    annotation (Placement(transformation(extent={{92,33},{106,47}})));
+    annotation (Placement(transformation(extent={{82,21},{100,40}})));
 
 equation
-  connect(conP.u_m, uCoi) annotation (Line(points={{-50,-42},{-50,-60},{
-          -140,-60}},                  color={0,0,127}));
+  connect(conP.u_m, uCoi) annotation (Line(points={{-60,-42},{-60,-60},{-140,-60}},
+                                       color={0,0,127}));
   connect(conDXCoi.y, conP.u_s)
-    annotation (Line(points={{-78,-30},{-62,-30}}, color={0,0,127}));
-  connect(uPreDXCoi, swi.u2) annotation (Line(points={{-140,40},{60,40},{60,
-          0},{78,0}}, color={255,0,255}));
-  connect(conP.y, add.u2) annotation (Line(points={{-39,-30},{-30,-30},{-30,
-          -36},{-22,-36}},
+    annotation (Line(points={{-78,-30},{-72,-30}}, color={0,0,127}));
+  connect(uPreDXCoi, swi.u2) annotation (Line(points={{-140,40},{30,40},{30,-10},
+          {48,-10}},  color={255,0,255}));
+  connect(conP.y, add.u2) annotation (Line(points={{-49,-30},{-40,-30},{-40,-42},
+          {-32,-42}},
                     color={0,0,127}));
-  connect(conMinSpe.y, add.u1) annotation (Line(points={{-38,12},{-30,12},{
-          -30,-24},{-22,-24}},
-                     color={0,0,127}));
+  connect(conMinSpe.y, add.u1) annotation (Line(points={{-48,10},{-40,10},{-40,-30},
+          {-32,-30}},color={0,0,127}));
   connect(conMaxSpe.y, swi.u1)
-    annotation (Line(points={{42,60},{70,60},{70,8},{78,8}}, color={0,0,127}));
-  connect(min.y, swi.u3) annotation (Line(points={{42,-50},{60,-50},{60,-8},
-          {78,-8}}, color={0,0,127}));
-  connect(add.y, min.u2) annotation (Line(points={{2,-30},{8,-30},{8,-56},{
-          18,-56}}, color={0,0,127}));
-  connect(conMaxSpe.y, min.u1) annotation (Line(points={{42,60},{50,60},{50,
-          0},{14,0},{14,-44},{18,-44}}, color={0,0,127}));
+    annotation (Line(points={{-8,60},{40,60},{40,-2},{48,-2}},
+                                                             color={0,0,127}));
+  connect(min.y, swi.u3) annotation (Line(points={{32,-30},{40,-30},{40,-18},{48,
+          -18}},    color={0,0,127}));
+  connect(add.y, min.u2) annotation (Line(points={{-8,-36},{8,-36}},
+                    color={0,0,127}));
+  connect(conMaxSpe.y, min.u1) annotation (Line(points={{-8,60},{0,60},{0,-24},{
+          8,-24}},                      color={0,0,127}));
 
-  connect(swi.y, swi1.u1) annotation (Line(points={{102,0},{110,0},{110,20},{74,
-          20},{74,88},{84,88}}, color={0,0,127}));
+  connect(swi.y, swi1.u1) annotation (Line(points={{72,-10},{80,-10},{80,20},{60,
+          20},{60,88},{68,88}}, color={0,0,127}));
   connect(uDXCoi, swi1.u2)
-    annotation (Line(points={{-140,80},{84,80}}, color={255,0,255}));
-  connect(conMinSpe.y, swi1.u3) annotation (Line(points={{-38,12},{66,12},{66,72},
-          {84,72}}, color={0,0,127}));
-  connect(swi1.y, filter.u) annotation (Line(points={{108,80},{112,80},{112,60},
-          {80,60},{80,40},{90.6,40}}, color={0,0,127}));
-  connect(filter.y, yComSpe) annotation (Line(points={{106.7,40},{114,40},{114,
+    annotation (Line(points={{-140,80},{68,80}}, color={255,0,255}));
+  connect(conMinSpe.y, swi1.u3) annotation (Line(points={{-48,10},{50,10},{50,72},
+          {68,72}}, color={0,0,127}));
+  connect(swi1.y, filter.u) annotation (Line(points={{92,80},{100,80},{100,60},{
+          70,60},{70,30.5},{80.2,30.5}},
+                                      color={0,0,127}));
+  connect(filter.y, yComSpe) annotation (Line(points={{100.9,30.5},{114,30.5},{114,
           0},{140,0}}, color={0,0,127}));
   annotation (
     defaultComponentName="ComSpeSta",
@@ -161,7 +163,7 @@ equation
             textColor={255,0,255},
             textString="uPreDXCoi"),
           Text(
-            extent={{-100,-12},{-60,-28}},
+            extent={{-100,-50},{-60,-66}},
             textColor={0,0,127},
             pattern=LinePattern.Dash,
             textString="uCoi"),
@@ -171,14 +173,9 @@ equation
             pattern=LinePattern.Dash,
             textString="yComSpe"),
           Text(
-            extent={{-94,26},{-54,14}},
+            extent={{-94,6},{-54,-6}},
             textColor={255,0,255},
-          textString="uDXCoi"),
-          Text(
-            extent={{-98,-50},{-54,-70}},
-            textColor={0,0,127},
-            pattern=LinePattern.Dash,
-          textString="TSupCoiDif")}),
+          textString="uDXCoi")}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{120,100}})),
   Documentation(info="<html>
   <p>

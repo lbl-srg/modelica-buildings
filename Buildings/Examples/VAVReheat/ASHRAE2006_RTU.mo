@@ -14,7 +14,12 @@ model ASHRAE2006_RTU
       datHeaCoi=datHeaCoi,
       datCooCoi=datCooCoi),
     redeclare replaceable Buildings.Examples.VAVReheat.BaseClasses.Floor flo(
-      sampleModel=true));
+      sampleModel=true,
+      wes(T_start=297.15),
+      nor(T_start=297.15),
+      cor(T_start=297.15),
+      eas(T_start=297.15),
+      sou(T_start=297.15)));
 
   parameter Real ACHCor(final unit="1/h")=6
     "Design air change per hour core";
@@ -285,8 +290,8 @@ This is for
           "modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/ASHRAE2006_RTU.mos"
         "Simulate and plot"),
     experiment(
-      StartTime=16848000,
-      StopTime=17539200,
+      StartTime=15552000,
+      StopTime=18144000,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
