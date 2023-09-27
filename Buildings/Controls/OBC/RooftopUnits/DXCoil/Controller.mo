@@ -255,8 +255,7 @@ block Controller
     annotation (Placement(transformation(extent={{-50,-122},{-30,-102}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uComSpe[nCoi](
-    displayUnit="1")
-    "Difference between coil supply air temperature and setpoint"
+    displayUnit="1") "Compressor speed ratio"
     annotation (Placement(transformation(extent={{-260,-140},{-220,-100}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
 

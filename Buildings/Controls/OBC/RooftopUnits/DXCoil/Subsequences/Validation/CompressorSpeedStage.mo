@@ -7,41 +7,37 @@ model CompressorSpeedStage
     minComSpe=0.1,
     maxComSpe=1)
     "Compressor speed control for DX coil staging signal"
-    annotation (Placement(transformation(extent={{20,-8},{40,12}})));
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
     final width=0.5,
     final period=3600,
     final shift=1800)
     "Previous enable signal"
-    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
+    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramCooCoi(final height=1,
-      final duration=1800) "Cooling coil valve position"
-    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pulCoi1(
+    final amplitude=1,
+    final width=0.5,
+    final period=450)
+    "Coil valve position"
+    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
 
-  CDL.Continuous.Sources.Pulse                        pulCoi1(
-    final amplitude=3,
-    final width=0.3,
-    final period=450,
-    shift=450,
-    final offset=-1.5) "Coil valve position"
-    annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
-  CDL.Logical.Sources.Pulse                        booPul1(
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(
     final width=0.9,
     final period=3600,
-    final shift=30) "Coil proven on signal signal"
+    final shift=30)
+    "Coil proven on signal signal"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-equation
-  connect(booPul.y, ComSpeSta.uPreDXCoi) annotation (Line(points={{-18,30},{0,
-          30},{0,8},{18,8}},        color={255,0,255}));
 
-  connect(ramCooCoi.y, ComSpeSta.uCoi) annotation (Line(points={{-18,-30},{4,
-          -30},{4,0},{18,0}}, color={0,0,127}));
-  connect(pulCoi1.y, ComSpeSta.TSupCoiDif) annotation (Line(points={{-18,-70},{
-          10,-70},{10,-4},{18,-4}}, color={0,0,127}));
+equation
+  connect(booPul.y, ComSpeSta.uPreDXCoi) annotation (Line(points={{-18,40},{0,40},
+          {0,6},{18,6}}, color={255,0,255}));
   connect(booPul1.y, ComSpeSta.uDXCoi)
-    annotation (Line(points={{-18,0},{2,0},{2,4},{18,4}}, color={255,0,255}));
+    annotation (Line(points={{-18,0},{18,0}}, color={255,0,255}));
+  connect(pulCoi1.y, ComSpeSta.uCoi) annotation (Line(points={{-18,-40},{0,-40},
+          {0,-5.8},{18,-5.8}}, color={0,0,127}));
+
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/RooftopUnits/DXCoil/Subsequences/Validation/CompressorSpeedStage.mos"

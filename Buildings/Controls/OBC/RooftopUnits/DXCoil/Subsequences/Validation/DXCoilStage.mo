@@ -10,12 +10,12 @@ model DXCoilStage
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold nexDXCoi(
-    final trueHoldDuration=10)
+    final trueHoldDuration=120)
     "Hold pulse signal for easy visualization"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold preDXCoi(
-    final trueHoldDuration=10)
+    final trueHoldDuration=120)
     "Hold pulse signal for easy visualization"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
 
@@ -23,8 +23,9 @@ model DXCoilStage
     final amplitude=0.7,
     final width=0.6,
     final period=1800,
-    shift=0,
-    final offset=0.15) "Coil valve position"
+    final shift=0,
+    final offset=0.15)
+    "Coil valve position"
     annotation (Placement(transformation(extent={{-90,-16},{-70,4}})));
 
   Buildings.Controls.OBC.CDL.Logical.Latch lat
@@ -35,39 +36,35 @@ model DXCoilStage
     "Feedback delay"
     annotation (Placement(transformation(extent={{50,-10},{70,10}})));
 
-  CDL.Continuous.Sources.Pulse                        pulCoi1(
-    final amplitude=3,
-    final width=0.6,
-    final period=1800,
-    shift=450,
-    final offset=-1.5) "Coil valve position"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramComSpe(
+    final height=1,
+    final duration=1800)
+    "Compressor speed ratio"
     annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
-  CDL.Routing.RealScalarReplicator reaScaRep(nout=DXCoiSta.nCoi)
+
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep(
+    final nout=DXCoiSta.nCoi)
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
+
 equation
   connect(DXCoiSta.yUp, nexDXCoi.u) annotation (Line(points={{-28,6},{-10,
-          6},{-10,50},{-2,50}},
-                    color={255,0,255}));
+          6},{-10,50},{-2,50}}, color={255,0,255}));
   connect(DXCoiSta.yDow, preDXCoi.u) annotation (Line(points={{-28,-6},{
-          -10,-6},{-10,-50},{-2,-50}},
-                          color={255,0,255}));
+          -10,-6},{-10,-50},{-2,-50}}, color={255,0,255}));
   connect(pulCoi.y, DXCoiSta.uCoi)
-    annotation (Line(points={{-68,-6},{-60,-6},{-60,0},{-52,0}},
-                                                 color={0,0,127}));
+    annotation (Line(points={{-68,-6},{-60,-6},{-60,0},{-52,0}}, color={0,0,127}));
   connect(DXCoiSta.yUp, lat.u)
-    annotation (Line(points={{-28,6},{-10,6},{-10,0},{-2,0}},
-                                                         color={255,0,255}));
+    annotation (Line(points={{-28,6},{-10,6},{-10,0},{-2,0}}, color={255,0,255}));
   connect(lat.y, pre1.u)
     annotation (Line(points={{22,0},{48,0}}, color={255,0,255}));
-  connect(pre1.y, DXCoiSta.uDXCoi[1]) annotation (Line(points={{72,0},{80,0},{
-          80,72},{-60,72},{-60,4},{-52,4}}, color={255,0,255}));
+  connect(pre1.y, DXCoiSta.uDXCoi[1]) annotation (Line(points={{72,0},{80,0},{80,
+          72},{-60,72},{-60,6},{-52,6}}, color={255,0,255}));
   connect(DXCoiSta.yDow, lat.clr)
     annotation (Line(points={{-28,-6},{-2,-6}},color={255,0,255}));
-
-  connect(pulCoi1.y, reaScaRep.u)
+  connect(ramComSpe.y, reaScaRep.u)
     annotation (Line(points={{-68,-40},{-62,-40}}, color={0,0,127}));
-  connect(reaScaRep.y, DXCoiSta.TSupCoiDif) annotation (Line(points={{-38,-40},
-          {-26,-40},{-26,-20},{-56,-20},{-56,-4},{-52,-4}}, color={0,0,127}));
+  connect(reaScaRep.y, DXCoiSta.uComSpe) annotation (Line(points={{-38,-40},{-32,
+          -40},{-32,-20},{-56,-20},{-56,-6},{-52,-6}}, color={0,0,127}));
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/RooftopUnits/DXCoil/Subsequences/Validation/DXCoilStage.mos"
@@ -82,16 +79,16 @@ annotation (
     Simulation results are observed as follows: 
     <ul>
     <li>
-    When the coil valve position <code>pulCoi.y</code> exceeds the threshold 
-    <code>DXCoiSta.uThrCoi</code> set at 0.8 for a duration of <code>DXCoiSta.timPer</code> 
+    When the coil valve position <code>DXCoiSta.uCoi</code> exceeds the threshold 
+    <code>DXCoiSta.uThrCoiUp</code> set at 0.8 for a duration of <code>DXCoiSta.timPerUp</code> 
     amounting to 480 seconds, and no changes in DX coil status <code>DXCoiSta.uDXCoi[1]</code> 
     are detected, the controller initiates staging up of the DX coil <code>nexDXCoi.y=true</code>. 
     </li>
     <li>
-    When <code>pulCoi.y</code> falls below the threshold <code>DXCoiSta.uThrCoi1</code> set at 0.2 
-    for a duration of <code>DXCoiSta.timPer</code> amounting to 180 seconds, and no changes 
-    in <code>DXCoiSta.uDXCoi[1]</code> are detected, the controller initiates staging down 
-    of the DX coil <code>preDXCoi.y=true</code>. 
+    When the compressor speed ratio <code>DXCoiSta.uComSpe</code> falls below the threshold 
+    <code>DXCoiSta.uThrCoiDow</code> set at 0.2  for a duration of <code>DXCoiSta.timPerDow</code> 
+    amounting to 180 seconds, and no changes in <code>DXCoiSta.uDXCoi[1]</code> are detected, 
+    the controller initiates staging down of the DX coil <code>preDXCoi.y=true</code>. 
     </li>
     </ul>
     </p>

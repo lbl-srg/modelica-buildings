@@ -436,7 +436,7 @@ block Controller
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
-    "Cooling coil supply air temperature"
+    "AHU supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-140,-330},{-100,-290}}),
       iconTransformation(extent={{-140,-270},{-100,-230}})));
 

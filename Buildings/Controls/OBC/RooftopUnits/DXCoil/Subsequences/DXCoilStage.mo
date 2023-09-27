@@ -4,7 +4,7 @@ block DXCoilStage
   extends Modelica.Blocks.Icons.Block;
 
   parameter Integer nCoi(min=1)=2
-  "Number of DX coils";
+    "Number of DX coils";
 
   parameter Real uThrCoiUp(
     final min=0,
@@ -39,12 +39,6 @@ block DXCoilStage
     final quantity="time") = 180
     "Delay time period for staging down DX coil";
 
-  parameter Real timPerSetExc(
-    final unit="s",
-    displayUnit="s",
-    final quantity="time") = 480
-    "Delay time period for staging down DX coil when minimum/maximum setpoint is exceeded";
-
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDXCoi[nCoi]
     "DX coil status"
     annotation (Placement(transformation(extent={{-140,30},{-100,70}}),
@@ -69,13 +63,13 @@ block DXCoilStage
       iconTransformation(extent={{100,-80},{140,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uComSpe[nCoi](
-    displayUnit="1")
-    "Compressor speed"
+    displayUnit="1") "Compressor speed ratio"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr1(
     final nin=nCoi)
+    "Logical MultiOr"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrCoiUp(
@@ -115,15 +109,14 @@ block DXCoilStage
     "Reset timer when coil status changes"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThrCoiDow1[nCoi](
-    final t=fill(uThrCoiDow,nCoi),
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThrCoiDow[nCoi](
+    final t=fill(uThrCoiDow, nCoi),
     final h=fill(dUHys, nCoi))
-    "Check if coil valve position signal is less than threshold"
+    "Check if compressor speed is less than a threshold of coil valve postition"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
 
 equation
-  connect(uCoi, greThrCoiUp.u) annotation (Line(points={{-120,0},{-52,0}},
-                       color={0,0,127}));
+  connect(uCoi, greThrCoiUp.u) annotation (Line(points={{-120,0},{-52,0}}, color={0,0,127}));
   connect(mulOr.y, notCoiSta.u)
     annotation (Line(points={{22,50},{38,50}}, color={255,0,255}));
   connect(uDXCoi, cha.u)
@@ -140,16 +133,15 @@ equation
           {-10,28},{-10,-50},{-2,-50}},  color={255,0,255}));
   connect(cha.y, mulOr.u)
     annotation (Line(points={{-28,50},{-2,50}},  color={255,0,255}));
-  connect(timUp.passed, yUp) annotation (Line(points={{62,-8},{120,-8}},
-                color={255,0,255}));
-  connect(uComSpe, lesThrCoiDow1.u)
+  connect(timUp.passed, yUp) annotation (Line(points={{62,-8},{120,-8}}, color={255,0,255}));
+  connect(uComSpe, lesThrCoiDow.u)
     annotation (Line(points={{-120,-60},{-82,-60}}, color={0,0,127}));
-  connect(lesThrCoiDow1.y, mulOr1.u[1:nCoi]) annotation (Line(points={{-58,-60},
-          {-42,-60}},                    color={255,0,255}));
+  connect(lesThrCoiDow.y, mulOr1.u[1:nCoi])
+    annotation (Line(points={{-58,-60},{-42,-60}}, color={255,0,255}));
   connect(mulOr1.y, andDow.u2) annotation (Line(points={{-18,-60},{-10,-60},{-10,
           -58},{-2,-58}},  color={255,0,255}));
-  connect(timDow.passed, yDow) annotation (Line(points={{62,-58},{120,-58}},
-                      color={255,0,255}));
+  connect(timDow.passed, yDow) annotation (Line(points={{62,-58},{120,-58}}, color={255,0,255}));
+
   annotation (
     defaultComponentName="DXCoiSta",
     Icon(coordinateSystem(preserveAspectRatio=false,
@@ -199,13 +191,9 @@ equation
   in DX coil status <code>uDXCoi</code> are detected. 
   </li>
   <li>
-  Stage down <code>yDow = false</code> when <code>uCoi</code> falls below <code>uThrCoiDow</code>
-  for <code>timPerDow</code>, and no changes in <code>uDXCoi</code> are detected. 
-  </li>
-  <li>
-  Stage down <code>yDow = false</code> when temperature deviation from minimum/maximum setpoint 
-  <code>TSupCoiDif</code> exceeds <code>dTHys</code> for <code>timPerSetExc</code>, 
-  and no changes in <code>uDXCoi</code> are detected.
+  Stage down <code>yDow = false</code> when compressor speed ratio <code>uComSpe</code> falls below a 
+  threshold of coil valve position <code>uThrCoiDow</code> for the duration of <code>timPerDow</code>, 
+  and no changes in <code>uDXCoi</code> are detected. 
   </li>
   </ul>
   </html>", revisions="<html>
