@@ -3,17 +3,11 @@ model Controller "Validation controller model"
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Controller conAHU(
     final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1,
-
     final venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1,
-
     final ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_4B,
-
     final minOADes=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow,
-
     final buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefDamper,
-
     final ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb,
-
     final VUncDesOutAir_flow=0.05,
     final VDesTotOutAir_flow=0.05) "Multizone VAV AHU controller"
     annotation (Placement(transformation(extent={{100,-120},{180,40}})));

@@ -308,9 +308,9 @@ block FreezeProtection
     final t=300) if have_frePro
     "Check if the supply air temperature has been lower than threshold value for sufficient long time"
     annotation (Placement(transformation(extent={{-300,810},{-280,830}})));
-  Buildings.Controls.OBC.CDL.Integers.Switch hotWatPlaReq
-    if (heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
-        or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric) and have_frePro
+  Buildings.Controls.OBC.CDL.Integers.Switch hotWatPlaReq if heaCoi ==
+    Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased and
+    have_frePro
     "Hot water plant request in stage 1 mode"
     annotation (Placement(transformation(extent={{60,802},{80,822}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
@@ -393,9 +393,8 @@ block FreezeProtection
     "Level 3 alarm"
     annotation (Placement(transformation(extent={{40,340},{60,360}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2(
-    final k=0)
-    if (heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
-        or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric) and have_frePro
+    final k=0) if heaCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+     and have_frePro
     "Zero request"
     annotation (Placement(transformation(extent={{-20,780},{0,800}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim3(
