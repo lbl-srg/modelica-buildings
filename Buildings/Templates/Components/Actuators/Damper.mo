@@ -207,7 +207,77 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
-This partial class provides a standard interface for damper models.
+This is a container model that can be used to represent a variety of dampers.
+The supported damper types are described in the enumeration
+<a href=\"modelica://Buildings.Templates.Components.Types.Damper\">
+Buildings.Templates.Components.Types.Damper</a>.
 </p>
+<h4>Control points</h4>
+<p>
+The following input and output points are available.
+</p>
+<p>
+For modulating dampers:
+</p>
+<ul>
+<li>
+The damper opening is modulated with a fractional opening
+signal <code>y</code> (real).<br/>
+<code>y = 0</code> corresponds to fully closed.
+<code>y = 1</code> corresponds to fully open.
+</li>
+<li>
+The actual damper position <code>y_actual</code> (real) is returned.<br/>
+<code>y_actual = 0</code> corresponds to fully closed.
+<code>y_actual = 1</code> corresponds to fully open.
+</li>
+</ul>
+<p>
+For pressure-independent dampers:
+</p>
+<ul>
+<li>
+The airflow setpoint is modulated with a fractional
+airflow signal <code>y</code> (real).<br/>
+<code>y = 0</code> corresponds to zero airflow.
+<code>y = 1</code> corresponds to the maximum airflow.
+</li>
+<li>
+The actual damper position <code>y_actual</code> (real) is returned.<br/>
+<code>y_actual = 0</code> corresponds to fully closed.
+<code>y_actual = 1</code> corresponds to fully open.
+</li>
+</ul>
+<p>
+For two-position dampers:
+</p>
+<ul>
+<li>
+The damper is commanded open with a Boolean signal <code>y1</code>.<br/>
+<code>y1 = 0</code> corresponds to fully closed.
+<code>y1 = 1</code> corresponds to fully open.
+</li>
+<li>
+The open end switch status <code>y1_actual</code> and
+closed end switch status <code>y0_actual</code> (Booleans)
+are returned.<br/>
+<code>y1_actual = false</code> corresponds to fully closed.
+<code>y1_actual = true</code> corresponds to fully open.
+And the opposite for <code>y0_actual</code>.
+</li>
+</ul>
+<h4>Model parameters</h4>
+<p>
+The design operating point is specified with an instance of
+<a href=\"modelica://Buildings.Templates.Components.Data.Damper\">
+Buildings.Templates.Components.Data.Damper</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+September 27, 2023, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end Damper;
