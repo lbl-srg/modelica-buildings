@@ -15,19 +15,17 @@ model SimpleHouse6 "Free cooling model"
     dpDamper_nominal=dpAir_nominal)
     "Damper" annotation (Placement(transformation(extent={{-10,10},{10,
             -10}}, origin={110,130})));
-  Buildings.Fluid.Movers.FlowControlled_dp fan(
+  Fluid.Movers.Preconfigured.FlowControlled_dp fan(
     redeclare package Medium = MediumAir,
     show_T=true,
     dp_nominal=dpAir_nominal,
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    nominalValuesDefineDefaultPressureCurve=true,
     m_flow_nominal=mAir_flow_nominal)
-                 "Constant head fan" annotation (Placement(transformation(
+    "Constant head fan" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         origin={0,130})));
-  Modelica.Blocks.Sources.Constant con_dp(k=dpAir_nominal) "Pressure head"
-    annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
+
   Buildings.Fluid.HeatExchangers.ConstantEffectiveness hexRec(
     redeclare package Medium1 = MediumAir,
     redeclare package Medium2 = MediumAir,
@@ -35,24 +33,26 @@ model SimpleHouse6 "Free cooling model"
     dp2_nominal=10,
     m1_flow_nominal=mAir_flow_nominal,
     m2_flow_nominal=mAir_flow_nominal,
-    eps=0.85)      "Heat exchanger for heat recuperation"
+    eps=0.85) "Heat exchanger for heat recuperation"
     annotation (Placement(transformation(extent={{-55,124},{-85,156}})));
-  Buildings.Fluid.Sources.Boundary_pT
-                      bouAir(
+  Buildings.Fluid.Sources.Boundary_pT bouAir(
     redeclare package Medium = MediumAir,
     use_T_in=true,
-    nPorts=2)      "Air boundary with constant temperature"
+    nPorts=2) "Air boundary with constant temperature"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         origin={-110,140})));
   Modelica.Blocks.Logical.Hysteresis hysAir(uLow=273.15 + 23, uHigh=273.15 + 25)
     "Hysteresis controller for damper"
-    annotation (Placement(transformation(extent={{40,90},{60,110}})));
-  Modelica.Blocks.Math.BooleanToReal booToRea1 "Boolean to real"
-    annotation (Placement(transformation(extent={{80,90},{100,110}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={50,110})));
+  Modelica.Blocks.Math.BooleanToReal booRea2 "Boolean to real"
+    annotation (Placement(transformation(extent={{80,80},{100,100}})));
+  Modelica.Blocks.Math.BooleanToReal booRea3(realTrue=dpAir_nominal)
+    "Boolean to real"
+    annotation (Placement(transformation(extent={{30,80},{10,100}})));
 equation
-  connect(con_dp.y, fan.dp_in)
-    annotation (Line(points={{-39,100},{0,100},{0,118}},  color={0,0,127}));
   connect(hexRec.port_a1, zon.ports[1]) annotation (Line(points={{-55,149.6},{169,
           149.6},{169,50},{170,50}},     color={0,127,255}));
   connect(bouAir.T_in, weaBus.TDryBul) annotation (Line(points={{-122,144},{-130,
@@ -60,22 +60,26 @@ equation
   connect(vavDam.port_b, zon.ports[2]) annotation (Line(points={{120,130},{142,130},
           {142,50},{170,50}},
                            color={0,127,255}));
-  connect(booToRea1.y, vavDam.y)
-    annotation (Line(points={{101,100},{110,100},{110,118}},
-                                                       color={0,0,127}));
-  connect(hysAir.y, booToRea1.u)
-    annotation (Line(points={{61,100},{78,100}},
-                                              color={255,0,255}));
+  connect(booRea2.y, vavDam.y)
+    annotation (Line(points={{101,90},{110,90},{110,118}}, color={0,0,127}));
+  connect(hysAir.y, booRea2.u)
+    annotation (Line(points={{50,99},{50,90},{78,90}}, color={255,0,255}));
   connect(vavDam.port_a, fan.port_b)
     annotation (Line(points={{100,130},{10,130}}, color={0,127,255}));
-  connect(hysAir.u, hysRad.u) annotation (Line(points={{38,100},{30,100},{30,170},
-          {-210,170},{-210,-110},{-82,-110}},      color={0,0,127}));
   connect(bouAir.ports[1], hexRec.port_a2) annotation (Line(points={{-100,139},{
           -100,130.4},{-85,130.4}},   color={0,127,255}));
   connect(fan.port_a, hexRec.port_b2) annotation (Line(points={{-10,130},{-32,130},
           {-32,130.4},{-55,130.4}}, color={0,127,255}));
   connect(hexRec.port_b1, bouAir.ports[2]) annotation (Line(points={{-85,149.6},
           {-100,149.6},{-100,141}}, color={0,127,255}));
+  connect(booRea1.y, pum.m_flow_in) annotation (Line(points={{21,-150},{100,
+          -150},{100,-168}}, color={0,0,127}));
+  connect(hysAir.u, hysRad.u) annotation (Line(points={{50,122},{50,170},{-210,
+          170},{-210,-110},{-82,-110}}, color={0,0,127}));
+  connect(booRea3.y, fan.dp_in)
+    annotation (Line(points={{9,90},{0,90},{0,118}}, color={0,0,127}));
+  connect(booRea3.u, hysAir.y)
+    annotation (Line(points={{32,90},{50,90},{50,99}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,
             -220},{220,220}})),
     experiment(Tolerance=1e-6, StopTime=1e+06),
@@ -104,16 +108,28 @@ The nominal mass flow rate of the ventilation system is <i>0.1 kg/s</i>.
 <h4>Required models</h4>
 <ul>
 <li>
+<a href=\"modelica://Buildings.Fluid.Actuators.Dampers.Exponential\">
+Buildings.Fluid.Actuators.Dampers.Exponential</a>
+</li>
+<li>
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.ConstantEffectiveness\">
 Buildings.Fluid.HeatExchangers.ConstantEffectiveness</a>
 </li>
 <li>
-<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_dp\">
-Buildings.Fluid.Movers.FlowControlled_dp</a>
+<a href=\"modelica://Buildings.Fluid.Movers.Preconfigured.FlowControlled_dp\">
+Buildings.Fluid.Movers.Preconfigured.FlowControlled_dp</a>
 </li>
 <li>
-<a href=\"modelica://Buildings.Fluid.Actuators.Dampers.Exponential\">
-Buildings.Fluid.Actuators.Dampers.Exponential</a>
+<a href=\"modelica://Buildings.Fluid.Sources.Boundary_pT\">
+Buildings.Fluid.Sources.Boundary_pT</a>
+</li>
+<li>
+<a href=\"modelica://Modelica.Blocks.Logical.Hysteresis\">
+Modelica.Blocks.Logical.Hysteresis</a>
+</li>
+<li>
+<a href=\"modelica://Modelica.Blocks.Math.BooleanToReal\">
+Modelica.Blocks.Math.BooleanToReal</a>
 </li>
 </ul>
 <h4>Connection instructions</h4>
@@ -121,9 +137,10 @@ Buildings.Fluid.Actuators.Dampers.Exponential</a>
 Connect the components such that they exchange mass (and therefore also energy)
 with the <code>MixingVolume</code> representing the zone air.
 Add a <code>boundary_pT</code> to draw air from the environment.
-Enable its temperature input and connect it to the <i>TDryBul</i> variable in the weather data reader.
+Enable its temperature input and connect it to the <code>TDryBul</code> variable in the weather data reader.
 Also reconsider the nominal mass flow rate parameter value in the <code>MixingVolume</code>
 given the flow rate information of the ventilation system.
+Finally, make sure that the fan is only active when the damper is open.
 </p>
 <h4>Reference result</h4>
 <p>
