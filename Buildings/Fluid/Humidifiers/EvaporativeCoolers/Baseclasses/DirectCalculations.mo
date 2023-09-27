@@ -146,7 +146,7 @@ First implementation.
         extent={{-152,144},{148,104}},
         textString="%name",
         textColor={0,0,255}), Rectangle(extent={{-100,100},{100,-100}},
-            lineColor={28,108,200},
+            lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}));
 end DirectCalculations;
