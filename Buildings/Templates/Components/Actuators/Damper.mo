@@ -10,7 +10,10 @@ model Damper "Multiple-configuration damper"
 
   parameter Buildings.Templates.Components.Data.Damper dat(final typ=typ)
     "Design and operating parameters"
-    annotation (Placement(transformation(extent={{70,70},{90,90}})));
+    annotation (
+    __ctrlFlow(enable=false),
+    Dialog(enable=typ<>Buildings.Templates.Components.Types.Damper.None),
+    Placement(transformation(extent={{70,70},{90,90}})));
 
   final parameter Modelica.Units.SI.PressureDifference dp_nominal=
     dat.dp_nominal

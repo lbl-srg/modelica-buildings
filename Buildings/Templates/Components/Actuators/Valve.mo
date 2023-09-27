@@ -96,8 +96,10 @@ model Valve "Multiple-configuration valve"
 
   parameter Buildings.Templates.Components.Data.Valve dat(final typ=typ)
     "Design and operating parameters"
-    annotation (Placement(transformation(extent={{70,70},{90,90}})),
-    __ctrlFlow(enable=false));
+    annotation (
+    __ctrlFlow(enable=false),
+    Dialog(enable=typ<>Buildings.Templates.Components.Types.Damper.None),
+    Placement(transformation(extent={{70,70},{90,90}})));
 
   final parameter Modelica.Units.SI.PressureDifference dpValve_nominal=
     dat.dpValve_nominal

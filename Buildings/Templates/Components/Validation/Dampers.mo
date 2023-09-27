@@ -71,8 +71,8 @@ model Dampers "Validation model for damper components"
     annotation (Placement(transformation(extent={{10,-110},{30,-90}})));
   Fluid.FixedResistances.PressureDrop res(
     redeclare final package Medium = MediumAir,
-    final m_flow_nominal=mod.dat.m_flow_nominal,
-    final dp_nominal=mod.dat.dp_nominal) "Flow resistance"
+    final m_flow_nominal=mod.m_flow_nominal,
+    final dp_nominal=mod.dp_nominal)     "Flow resistance"
     annotation (Placement(transformation(extent={{-30,-110},{-10,-90}})));
 equation
   connect(bouAirEnt.ports[1], mod.port_a)

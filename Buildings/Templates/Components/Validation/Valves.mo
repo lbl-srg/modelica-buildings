@@ -97,6 +97,12 @@ model Valves "Validation model for valve components"
     typ=Buildings.Templates.Components.Types.Valve.None)
     "No valve"
     annotation (Placement(transformation(extent={{10,-130},{30,-110}})));
+  Fluid.FixedResistances.PressureDrop res(
+    redeclare final package Medium = MediumLiq,
+    final m_flow_nominal=modTwo.m_flow_nominal,
+    final dp_nominal=modTwo.dpValve_nominal + modTwo.dpFixed_nominal)
+                                         "Flow resistance"
+    annotation (Placement(transformation(extent={{-30,-130},{-10,-110}})));
 equation
   connect(bouLiqEnt.ports[1], modThr.port_a)
     annotation (Line(points={{-70,78.2857},{-40,78.2857},{-40,100},{10,100}},
@@ -150,10 +156,12 @@ equation
                                                   color={0,127,255}));
   connect(bouLiqEnt.ports[6], twoThr.portByp_a) annotation (Line(points={{-70,
           81.1429},{-40,81.1429},{-40,-40},{20,-40},{20,-30}}, color={0,127,255}));
-  connect(bouLiqEnt.ports[7], non.port_a) annotation (Line(points={{-70,81.7143},
-          {-70,80},{-40,80},{-40,-120},{10,-120}}, color={0,127,255}));
   connect(non.port_b, bouLiqLvg.ports[5]) annotation (Line(points={{30,-120},{60,
           -120},{60,81.6},{90,81.6}}, color={0,127,255}));
+  connect(bouLiqEnt.ports[7], res.port_a) annotation (Line(points={{-70,81.7143},
+          {-70,80},{-40,80},{-40,-120},{-30,-120}}, color={0,127,255}));
+  connect(res.port_b, non.port_a)
+    annotation (Line(points={{-10,-120},{10,-120}}, color={0,127,255}));
 annotation (
   __Dymola_Commands(
   file="modelica://Buildings/Resources/Scripts/Dymola/Templates/Components/Validation/Valves.mos"
