@@ -56,7 +56,7 @@ def parse_args():
         required=False,
     )
     parser.add_argument("--generate", help="generate combinations", action="store_true")
-    parser.add_argument("--simulate", help="simulate combinations", action="store_true")
+    parser.add_argument("--simulate", type=str, help="path of combination file", required=False, default=None)
     args = parser.parse_args()
 
     assert (

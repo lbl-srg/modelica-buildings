@@ -256,26 +256,26 @@ if __name__ == '__main__':
                 slc = slice(i * 100, min((i + 1) * 100, len(combinations)))
                 pickle.dump(combinations[slc], FH)
 
-    if args.simulate:
-        # We launch (parallel) simulations by chunks of 100 items.
-        # This gives a chance to exit if any simulation fails within a single chunk.
-        for file in glob.glob(f'{os.path.basename(__file__).replace(".py", "_combin")}*'):
-            with open(file, 'rb') as FH:
+    if args.simulate is not None:
+        if args.simulate == 'all':
+            combinations = []
+            for file in glob.glob(f'{os.path.basename(__file__).replace(".py", "_combin")}*'):
+                with open(file, 'rb') as FH:
+                    combinations = combinations + pickle.load(FH)
+                # Delete combination file that was just consumed.
+                os.unlink(file)
+        elif os.path.isfile(args.simulate):
+            with open(args.simulate, 'rb') as FH:
                 combinations = pickle.load(FH)
-
             # Delete combination file that was just consumed.
-            os.unlink(file)
-
+            os.unlink(args.simulate)
             print(
-                f'Running {len(combinations)} simulations based on the combinations stored in {file}.\n'
+                f'Running {len(combinations)} simulations based on the combinations stored in {args.simulate}.\n'
             )
 
-            if len(combinations) > 0:
-                # Simulate cases.
-                results = simulate_cases(combinations, simulator=args.tool, asy=False)
+        if len(combinations) > 0:
+            # Simulate cases.
+            results = simulate_cases(combinations, simulator=args.tool, asy=False)
 
-                # Report, clean and exit(1) if any simulations failed.
-                report_clean(combinations, results)
-
-        print(CGREEN + 'All simulations succeeded.\n' + CEND)
-        sys.exit(0)
+            # Report, clean and exit(1) if any simulations failed.
+            report_clean(combinations, results)
