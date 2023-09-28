@@ -42,8 +42,8 @@ model PIWithFirstOrderAMIGO "Test model for an autotuning PI controller"
     annotation (Placement(transformation(extent={{80,-60},{60,-40}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse autTunSig(
     width=0.9,
-    period=10000,
-    shift=-9000) "Signal for enabling the autotuning"
+    period=6000,
+    shift=500) "Signal for enabling the autotuning"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
 
 equation
@@ -99,7 +99,7 @@ Validation test for the block
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.FirstOrderAMIGO</a>.
 </p>
 <p>
-This example is almost identical to <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Validation.PIDWithFirstOrderAMIGO\">
+This example is similar as <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Validation.PIDWithFirstOrderAMIGO\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Validation.PIDWithFirstOrderAMIGO</a>.
 However, an autotuning PI controller rather than an autotuning PID controller is considered in this example.
 </p>

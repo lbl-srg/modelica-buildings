@@ -42,8 +42,8 @@ model PIDWithFirstOrderAMIGO "Test model for an autotuning PID controller"
     annotation (Placement(transformation(extent={{80,-60},{60,-40}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse autTunSig(
     width=0.9,
-    period=10000,
-    shift=-9000) "Signal for enabling the autotuning"
+    period=6000,
+    shift=500)   "Signal for enabling the autotuning"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
 equation
   connect(resSig.y, PID.trigger) annotation (Line(points={{-58,70},{-30,70},{-30,
@@ -103,15 +103,19 @@ to that of a normal PID controller (<code>PID</code>) with prescribed gains.
 </p>
 <p>
 Both PID controllers are connected with a first-order control process.
-At the beginning (<i>0</i>s-<i>1000</i>s), the outputs from those two PID controllers 
+At the beginning (<i>0</i>s-<i>500</i>s), the outputs from those two PID controllers 
 are identical as their prescribed gains are the same.
 </p>
 <p>
-Once the autotuning starts at <i>1000</i>s, the outputs of the two PID controllers become different.
+Once the autotuning starts at <i>500</i>s, the outputs of the two PID controllers become different.
 After the tuning completes, under the control of <code>PIDWitTun</code>, the value of the controlled variable
 is close to the setpoint after the tuning period ends (<code>PIDWitTun.resPro.triEnd = true</code>). 
 On the contrary, <code>PID</code> has a poor control performance,
 i.e., the value of the controlled variable oscillates.
+</p>
+<p>
+The example also shows that the autotunning process can be retriggered
+when the input <code>triTun</code> becomes <code>true</code>.
 </p>
 </html>",
       revisions="<html>
