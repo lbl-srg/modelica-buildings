@@ -173,9 +173,10 @@ test-optimica:
 	  export PYTHONPATH=$(TRAVIS_BUILD_DIR)/Buildings/Resources/Python-Sources && \
 	  python3 ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool optimica --skip-verification -n $(NPROC))
 
-# DEBUG: Try w/o subshell.
 test-templates-dymola:
-	cd $(ROOT)/Buildings && ../Buildings/Resources/Scripts/travis/templates/checkandrun.sh Dymola
+	while sleep 600; do echo "=====[ $SECONDS seconds still running ]====="; free -m; done & \
+	cd $(ROOT)/Buildings && ../Buildings/Resources/Scripts/travis/templates/checkandrun.sh Dymola; \
+	kill %1
 
 test-templates-optimica:
 	(cd $(ROOT)/Buildings && ../Buildings/Resources/Scripts/travis/templates/checkandrun.sh Optimica)
