@@ -9,12 +9,20 @@ partial model PartialOutdoorSection "Interface class for outdoor air section"
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection typ
     "Outdoor air section type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
+  // HACK(AntoineGautier ctrl-flow-dev#360): Add vendor annotation because
+  // final keyword in derived class is disregarded.
   parameter Buildings.Templates.Components.Types.Damper typDamOut
     "Outdoor air damper type"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+    annotation (
+    __ctrlFlow(enable=false),
+    Evaluate=true, Dialog(group="Configuration"));
+  // HACK(AntoineGautier ctrl-flow-dev#360): Add vendor annotation because
+  // final keyword in derived class is disregarded.
   parameter Buildings.Templates.Components.Types.Damper typDamOutMin
     "Minimum outdoor air damper type"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+    annotation (
+    __ctrlFlow(enable=false),
+    Evaluate=true, Dialog(group="Configuration"));
 
   outer parameter Boolean have_recHea
     "Set to true in case of heat recovery";
