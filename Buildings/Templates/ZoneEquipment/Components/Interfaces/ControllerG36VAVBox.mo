@@ -11,14 +11,9 @@ block ControllerG36VAVBox "Guideline 36 controller for VAV terminal unit"
     "Set to true if the zone has window status sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  final parameter Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil typCoiHea=
-    if coiHea.typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating
-      then Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
-    elseif coiHea.typ==Buildings.Templates.Components.Types.Coil.ElectricHeating
-      then Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric
-    else Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.None
-    "Set to true if the system has hot water coil"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+  final parameter Boolean have_hotWatCoi=
+    coiHea.typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating
+    "Set to true if the system has hot water coil";
 
   final parameter Modelica.Units.SI.VolumeFlowRate VAirCooSet_flow_max=
     dat.VAirCooSet_flow_max
@@ -81,7 +76,7 @@ block ControllerG36VAVBox "Guideline 36 controller for VAV terminal unit"
     final have_winSen=have_winSen,
     final have_occSen=have_occSen,
     final have_CO2Sen=have_CO2Sen,
-    final heaCoi=typCoiHea,
+    final have_hotWatCoi=have_hotWatCoi,
     final VOccMin_flow=VOutMinOcc_flow,
     final VAreMin_flow=VOutMinAre_flow,
     final VAreBreZon_flow=VOutAre_flow,
@@ -92,7 +87,8 @@ block ControllerG36VAVBox "Guideline 36 controller for VAV terminal unit"
     final VHeaMax_flow=VAirHeaSet_flow_max,
     final dTDisZonSetMax=dTAirDisHea_max,
     final zonDisEff_cool=effAirDisCoo,
-    final zonDisEff_heat=effAirDisHea) if typ == Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat
+    final zonDisEff_heat=effAirDisHea)
+    if typ == Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat
     "Terminal unit with reheat controller"
     annotation (Placement(transformation(extent={{0,-20},{20,20}})));
 
@@ -108,7 +104,8 @@ block ControllerG36VAVBox "Guideline 36 controller for VAV terminal unit"
     final VMin_flow=VAirSet_flow_min,
     final VCooMax_flow=VAirCooSet_flow_max,
     final zonDisEff_cool=effAirDisCoo,
-    final zonDisEff_heat=effAirDisHea) if typ == Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxCoolingOnly
+    final zonDisEff_heat=effAirDisHea)
+    if typ == Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxCoolingOnly
     "Terminal unit cooling only controller"
     annotation (Placement(transformation(extent={{0,40},{20,80}})));
 
