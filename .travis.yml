@@ -176,7 +176,7 @@ install:
 
 # Execute tests
 script:
-  - (cd Buildings/Resources/Scripts/travis && travis_wait 90 $TEST_ARG)
+  - (cd Buildings/Resources/Scripts/travis && travis_wait 180 $TEST_ARG)
 
 after_failure:
   - |

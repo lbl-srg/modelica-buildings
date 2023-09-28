@@ -174,9 +174,7 @@ test-optimica:
 	  python3 ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool optimica --skip-verification -n $(NPROC))
 
 test-templates-dymola:
-	while sleep 600; do echo "=====[ $SECONDS seconds still running ]====="; free -m; done & \
-	cd $(ROOT)/Buildings && ../Buildings/Resources/Scripts/travis/templates/checkandrun.sh Dymola; \
-	kill %1
+	(cd $(ROOT)/Buildings && ../Buildings/Resources/Scripts/travis/templates/checkandrun.sh Dymola)
 
 test-templates-optimica:
 	(cd $(ROOT)/Buildings && ../Buildings/Resources/Scripts/travis/templates/checkandrun.sh Optimica)
