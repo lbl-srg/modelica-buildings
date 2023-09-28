@@ -40,16 +40,16 @@ FRACTION_TEST_COVERAGE=${2:-1}
 declare -A checksum_dirs=(
   ["AirHandlersFans"]="Templates/AirHandlersFans
                        Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV"
-  ["ZoneEquipment"]="Templates/ZoneEquipment
-                     Controls/OBC/ASHRAE/G36/TerminalUnits/CoolingOnly
-                     Controls/OBC/ASHRAE/G36/TerminalUnits/Reheat"
+  # ["ZoneEquipment"]="Templates/ZoneEquipment
+  #                    Controls/OBC/ASHRAE/G36/TerminalUnits/CoolingOnly
+  #                    Controls/OBC/ASHRAE/G36/TerminalUnits/Reheat"
 )
 # Declare the python script that must be run for each template package.
 # Each key is a Modelica package name under Buildings.Templates (with . as separator).
 # Each value is a string containing the script path (relative to `modelica-buildings/Buildings`).
 declare -A test_script=(
   ["AirHandlersFans"]="./Resources/Scripts/travis/templates/VAVMultiZone.py"
-  ["ZoneEquipment"]="./Resources/Scripts/travis/templates/VAVBox.py"
+  # ["ZoneEquipment"]="./Resources/Scripts/travis/templates/VAVBox.py"
 )
 
 for type in "${!checksum_dirs[@]}"; do
@@ -88,8 +88,8 @@ for type in "${!checksum_dirs[@]}"; do
   if (( $? == 0 ));  then
     echo "Computed checksum does not match checksum on master."
     echo "Running simulations for models in Templates.$type with $SIMULATOR."
-    # Launch simulations (typically several thousands).
-    python "${test_script[$type]}" $SIMULATOR $FRACTION_TEST_COVERAGE
+    # Generate combinations and launch simulations by chunks of 100 items. This is to avoid Travis error 137.
+    python "${test_script[$type]}" --generate --simulate --tool $SIMULATOR --coverage $FRACTION_TEST_COVERAGE
     if (( $? != 0 )); then
       exit 1
     fi

@@ -10,12 +10,16 @@ Args:
       against master, other values are for local testing only.
 """
 
-import inspect
+import argparse
+import gc
+import glob
 import itertools
 import os
+import pickle
 import random
 import re
 import sys
+from math import ceil, floor
 
 # For CPU- and I/O-heavy jobs, we prefer multiprocessing.Pool because it provides better process isolation.
 from multiprocessing import Pool
@@ -25,19 +29,6 @@ import yaml
 
 assert sys.version_info >= (3, 8), "This script requires a Python version >= 3.8."
 
-# Simulator is used later with case-insensitive match, e.g., both Dymola and dymola can be used.
-try:
-    SIMULATOR = sys.argv[1]
-except IndexError:
-    SIMULATOR = 'dymola'
-try:
-    FRACTION_TEST_COVERAGE = float(sys.argv[2])
-except IndexError:
-    FRACTION_TEST_COVERAGE = 1
-assert (
-    FRACTION_TEST_COVERAGE > 0 and FRACTION_TEST_COVERAGE <= 1
-), "FRACTION_TEST_COVERAGE must be between (>) 0 and (<=) 1."
-
 CRED = '\033[91m'
 CGREEN = '\033[92m'
 CEND = '\033[0m'
@@ -45,6 +36,34 @@ CEND = '\033[0m'
 # Parse conf.yml.
 with open('./Resources/Scripts/BuildingsPy/conf.yml', 'r') as FH:
     CONF = yaml.safe_load(FH)
+
+
+def parse_args():
+    """Parse script arguments."""
+    parser = argparse.ArgumentParser(description='Generate combinations and run simulations')
+    parser.add_argument(
+        "--tool",
+        type=str,
+        help="tool to run simulations (case-insensitive)",
+        default='dymola',
+        required=False,
+    )
+    parser.add_argument(
+        "--coverage",
+        type=float,
+        help="fraction of test coverage between 0 (>) and 1 (<=)",
+        default=1,
+        required=False,
+    )
+    parser.add_argument("--generate", help="generate combinations", action="store_true")
+    parser.add_argument("--simulate", help="simulate combinations", action="store_true")
+    args = parser.parse_args()
+
+    assert (
+        args.coverage > 0 and args.coverage <= 1
+    ), "Fraction of test coverage must be between (>) 0 and (<=) 1."
+
+    return args
 
 
 def check_conf(model_name, simulator, conf=CONF):
@@ -352,7 +371,7 @@ def prune_modifications(combinations, exclude, remove_modif, fraction_test_cover
 
 
 def report_clean(combinations, results):
-    """Report, clean and exit after simulations.
+    """Report, clean and exit(1) if any simulations failed.
 
     Args:
         combinations: list[tuple[str, list[str], str]]: List of combinations.
@@ -377,9 +396,11 @@ def report_clean(combinations, results):
         )
     )
 
-    assert len(df) == len(combinations), 'Error when trying to retrieve simulation results as a DataFrame.'
+    assert len(df) == len(
+        combinations
+    ), 'Error when trying to retrieve simulation results as a DataFrame.'
 
-    # Log and exit.
+    # Log and exit if any simulations failed.
     if df.errorcode.abs().sum() != 0:
         with open('unitTestsTemplates.log', 'w') as FH:
             for idx in df[df.errorcode != 0].index:
@@ -397,6 +418,8 @@ def report_clean(combinations, results):
             + 'See the file `unitTestsTemplates.log`.\n'
         )
         sys.exit(1)
-    else:
-        print(CGREEN + 'All simulations succeeded.\n' + CEND)
-        sys.exit(0)
+
+    # Release memory.
+    del combinations
+    del results
+    gc.collect()

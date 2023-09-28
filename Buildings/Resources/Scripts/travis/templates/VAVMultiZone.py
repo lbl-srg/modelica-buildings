@@ -226,27 +226,56 @@ REMOVE_MODIF = {
 
 
 if __name__ == '__main__':
-    # Exclude model if is included in conf.yml for the given simulator.
-    for model_name in MODELS:
-        if check_conf(model_name, SIMULATOR):
-            MODELS.remove(model_name)
-            print(f'Model {model_name} is not simulated based on `conf.yml`.')
+    args = parse_args()
 
-    # Generate combinations.
-    combinations = generate_combinations(models=MODELS, modif_grid=MODIF_GRID)
+    if args.generate:
+        # Exclude model if is included in conf.yml for the given simulator.
+        for model_name in MODELS:
+            if check_conf(model_name, args.tool):
+                MODELS.remove(model_name)
+                print(f'Model {model_name} is not simulated based on `conf.yml`.')
 
-    # Prune class modifications.
-    prune_modifications(
-        combinations=combinations,
-        exclude=EXCLUDE,
-        remove_modif=REMOVE_MODIF,
-        fraction_test_coverage=FRACTION_TEST_COVERAGE,
-    )
+        # Generate combinations.
+        combinations = generate_combinations(models=MODELS, modif_grid=MODIF_GRID)
 
-    print(f'Number of cases to be simulated: {len(combinations)}.\n')
+        # Prune class modifications.
+        prune_modifications(
+            combinations=combinations,
+            exclude=EXCLUDE,
+            remove_modif=REMOVE_MODIF,
+            fraction_test_coverage=args.coverage,
+        )
 
-    # Simulate cases.
-    results = simulate_cases(combinations, simulator=SIMULATOR, asy=False)
+        print(f'Number of cases to be simulated: {len(combinations)}.\n')
 
-    # Report, clean and exit.
-    report_clean(combinations, results)
+        # Split combinations into chunks of 100 items.
+        for i in range(ceil(len(combinations) / 100)):
+            with open(
+                f'{os.path.basename(__file__).replace(".py", "_combin") + str(i)}', 'wb'
+            ) as FH:
+                slc = slice(i * 100, min((i + 1) * 100, len(combinations)))
+                pickle.dump(combinations[slc], FH)
+
+    if args.simulate:
+        # We launch (parallel) simulations by chunks of 100 items.
+        # This gives a chance to exit if any simulation fails within a single chunk.
+        for file in glob.glob(f'{os.path.basename(__file__).replace(".py", "_combin")}*'):
+            with open(file, 'rb') as FH:
+                combinations = pickle.load(FH)
+
+            # Delete combination file that was just consumed.
+            os.unlink(file)
+
+            print(
+                f'Running {len(combinations)} simulations based on the combinations stored in {file}.\n'
+            )
+
+            if len(combinations) > 0:
+                # Simulate cases.
+                results = simulate_cases(combinations, simulator=args.tool, asy=False)
+
+                # Report, clean and exit(1) if any simulations failed.
+                report_clean(combinations, results)
+
+        print(CGREEN + 'All simulations succeeded.\n' + CEND)
+        sys.exit(0)
