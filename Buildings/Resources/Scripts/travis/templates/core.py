@@ -187,6 +187,11 @@ def simulate_cases(args, simulator, asy=False):
     pool.close()
     pool.join()
 
+    # DEBUG: Try to release memory.
+    if not asy:
+        del pool
+        gc.collect()
+
     return results
 
 

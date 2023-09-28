@@ -100,6 +100,9 @@ for type in "${!checksum_dirs[@]}"; do
       python "${test_script[$type]}" --simulate $file --tool $SIMULATOR --coverage $FRACTION_TEST_COVERAGE
       if (( $? != 0 )); then
         exit 1
+      # DEBUG
+      else
+        echo "Simulations succeeded for combinations in $file."
       fi
     done
     printf "${CGREEN}All simulations succeeded.${CEND}"
