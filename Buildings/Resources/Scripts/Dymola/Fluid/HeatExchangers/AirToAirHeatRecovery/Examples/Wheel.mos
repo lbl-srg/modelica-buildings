@@ -1,0 +1,6 @@
+simulateModel("Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.Examples.Wheel", stopTime=360, method="CVode", tolerance=1e-06, resultFile="Wheel");
+createPlot(id=1, position={19, 23, 890, 669}, y={"TSup.y", "TExh.y"}, range={0.0, 360.0, 280.0, 320.0}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}}, timeUnit="s");
+createPlot(id=1, position={19, 23, 890, 669}, y={"whe.m1_flow", "whe.m2_flow"}, range={0.0, 360.0, 0.0, 20.0}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"kg/s", "kg/s"});
+createPlot(id=1, position={19, 23, 890, 669}, y={"whe.sta_b1.T", "whe.sta_b2.T"}, range={0.0, 360.0, 20.0, 40.0}, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"degC", "degC"});
+createPlot(id=1, position={19, 23, 890, 669}, y={"whe.yWheSpe"}, range={0.0, 360.0, 0.6000000000000001, 0.9000000000000001}, grid=true, subPlot=104, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
+createPlot(id=1, position={19, 23, 890, 669}, y={"whe.effCal.epsS", "whe.effCal.epsL"}, range={0.0, 360.0, 0.0, 1.0}, grid=true, subPlot=105, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"1", "1"});
