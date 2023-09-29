@@ -11,16 +11,12 @@ model HeatPumpWithTank
   parameter
     Buildings.Experimental.DHC.Loads.HotWater.Data.GenericHeatPumpWaterHeater
     datWatHea "Performance data"
-    annotation (Placement(transformation(extent={{-96,-96},{-84,-84}})));
+    annotation (Placement(transformation(extent={{-90,-88},{-70,-68}})));
   parameter Real COP_nominal(final unit="1") "Heat pump COP at nominal conditions";
   parameter Modelica.Units.SI.Temperature TCon_nominal "Condenser outlet temperature used to compute COP_nominal";
   parameter Modelica.Units.SI.Temperature TEva_nominal "Evaporator outlet temperature used to compute COP_nominal";
   parameter Real k=0.1 "Proportioanl gain of circulation pump controller";
   parameter Real Ti=60 "Integrator time constant of circulation pump controller";
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTemHotSou(redeclare package
-      Medium = Medium, m_flow_nominal=mHotSou_flow_nominal)
-    "Temperature sensor for hot water source supply"
-    annotation (Placement(transformation(extent={{-20,44},{0,64}})));
   Buildings.Fluid.HeatPumps.Carnot_TCon heaPum(
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium,
@@ -38,14 +34,7 @@ model HeatPumpWithTank
     dp1_nominal=datWatHea.dp1_nominal,
     dp2_nominal=datWatHea.dp2_nominal)
               "Domestic hot water heater"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Fluid.Sensors.TemperatureTwoPort senTemHeaPumOut(redeclare package Medium =
-        Medium, m_flow_nominal=datWatHea.mHex_flow_nominal)
-    "Temperature of water leaving heat pump" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={50,6})));
+    annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
   Fluid.Movers.FlowControlled_m_flow pumHex(
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     inputType=Buildings.Fluid.Types.InputType.Continuous,
@@ -54,7 +43,7 @@ model HeatPumpWithTank
     riseTime=10,
     massFlowRates={0,0.5,1}*datWatHea.mHex_flow_nominal)
     "Pump with m_flow input"
-    annotation (Placement(transformation(extent={{60,30},{40,50}})));
+    annotation (Placement(transformation(extent={{60,6},{40,26}})));
   Fluid.Storage.StratifiedEnhancedInternalHex
     tanSte(
     T_start=datWatHea.TTan_nominal,
@@ -74,71 +63,74 @@ model HeatPumpWithTank
     show_T=true,
     m_flow_nominal=mHotSou_flow_nominal)
     "Tank with steady-state heat exchanger balance"
-    annotation (Placement(transformation(extent={{-40,40},{-60,60}})));
+    annotation (Placement(transformation(extent={{-40,0},{-60,20}})));
   Fluid.Sources.Boundary_pT bou(redeclare package Medium = Medium, nPorts=1)
-    annotation (Placement(transformation(extent={{100,30},{80,50}})));
+    annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTemTan
     "Temperature of the hot water tank"
-    annotation (Placement(transformation(extent={{-40,62},{-20,82}})));
+    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Controls.OBC.CDL.Reals.MultiplyByParameter
                                    dTTanHex2(k=datWatHea.mHex_flow_nominal)
     "Temperature setpoint for domestic hot water supply from heater"
-    annotation (Placement(transformation(extent={{20,80},{40,100}})));
+    annotation (Placement(transformation(extent={{20,70},{40,90}})));
   Controls.OBC.CDL.Reals.PID conPI(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=k,
     Ti=Ti)
-    annotation (Placement(transformation(extent={{-10,80},{10,100}})));
+    annotation (Placement(transformation(extent={{-10,70},{10,90}})));
   Modelica.Blocks.Interfaces.RealOutput PPum(unit="W")
     "Electric power required for pumping equipment"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
   Modelica.Blocks.Interfaces.RealOutput QCon_flow
     "Actual heat pump heating heat flow rate added to fluid"
     annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
-  Controls.OBC.CDL.Reals.AddParameter addPar(p=datWatHea.dTTanHex)
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+  Controls.OBC.CDL.Reals.AddParameter TConSet(p=datWatHea.dTTanHex)
+    "Set point temperature for condenser"
+    annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
 equation
-  connect(heaPum.port_b1, senTemHeaPumOut.port_a)
-    annotation (Line(points={{10,6},{40,6}}, color={0,127,255}));
-  connect(senTemHotSou.port_b, port_b1) annotation (Line(points={{0,54},{20,54},
-          {20,60},{100,60}}, color={0,127,255}));
-  connect(port_b2, heaPum.port_b2) annotation (Line(points={{-100,-60},{-20,-60},
-          {-20,-6},{-10,-6}},          color={0,127,255}));
-  connect(heaPum.P,PHea)  annotation (Line(points={{11,0},{24,0},{24,-14},{82,-14},
-          {82,0},{110,0}},          color={0,0,127}));
-  connect(pumHex.port_a, senTemHeaPumOut.port_b) annotation (Line(points={{60,40},
-          {70,40},{70,6},{60,6}}, color={0,127,255}));
-  connect(pumHex.port_b, tanSte.portHex_a) annotation (Line(points={{40,40},{-30,
-          40},{-30,46.2},{-40,46.2}}, color={0,127,255}));
-  connect(tanSte.portHex_b, heaPum.port_a1) annotation (Line(points={{-40,42},{-40,
-          20},{-10,20},{-10,6}}, color={0,127,255}));
-  connect(tanSte.port_a, senTemHotSou.port_a) annotation (Line(points={{-40,50},
-          {-30,50},{-30,54},{-20,54}}, color={0,127,255}));
-  connect(tanSte.port_b, port_a1) annotation (Line(points={{-60,50},{-80,50},{-80,
-          60},{-100,60}}, color={0,127,255}));
-  connect(bou.ports[1], senTemHeaPumOut.port_b) annotation (Line(points={{80,40},
-          {70,40},{70,6},{60,6}}, color={0,127,255}));
+  connect(port_b2, heaPum.port_b2) annotation (Line(points={{-100,-60},{-56,-60},
+          {-56,-56},{-10,-56}},        color={0,127,255}));
+  connect(heaPum.P,PHea)  annotation (Line(points={{11,-50},{82,-50},{82,0},{
+          110,0}},                  color={0,0,127}));
+  connect(pumHex.port_b, tanSte.portHex_a) annotation (Line(points={{40,16},{
+          -20,16},{-20,6},{-30,6},{-30,6.2},{-40,6.2}},
+                                      color={0,127,255}));
+  connect(tanSte.portHex_b, heaPum.port_a1) annotation (Line(points={{-40,2},{
+          -20,2},{-20,-44},{-10,-44}},
+                                 color={0,127,255}));
+  connect(tanSte.port_b, port_a1) annotation (Line(points={{-50,0},{-50,-8},{
+          -80,-8},{-80,60},{-100,60}},
+                          color={0,127,255}));
   connect(dTTanHex2.y, pumHex.m_flow_in)
-    annotation (Line(points={{42,90},{50,90},{50,52}}, color={0,0,127}));
-  connect(heaPum.port_a2, port_a2) annotation (Line(points={{10,-6},{20,-6},{20,
-          -60},{100,-60}}, color={0,127,255}));
+    annotation (Line(points={{42,80},{50,80},{50,28}}, color={0,0,127}));
+  connect(heaPum.port_a2, port_a2) annotation (Line(points={{10,-56},{56,-56},{
+          56,-60},{100,-60}},
+                           color={0,127,255}));
   connect(conPI.y, dTTanHex2.u)
-    annotation (Line(points={{12,90},{18,90}}, color={0,0,127}));
+    annotation (Line(points={{12,80},{18,80}}, color={0,0,127}));
   connect(TSetHotSou, conPI.u_s) annotation (Line(points={{-110,0},{-88,0},{-88,
-          90},{-12,90}}, color={0,0,127}));
-  connect(senTemTan.T, conPI.u_m) annotation (Line(points={{-19,72},{-8,72},{-8,
-          70},{0,70},{0,78}}, color={0,0,127}));
-  connect(pumHex.P, PPum) annotation (Line(points={{39,49},{30,49},{30,-40},{110,
-          -40}}, color={0,0,127}));
-  connect(heaPum.QCon_flow, QCon_flow) annotation (Line(points={{11,9},{11,4},{26,
-          4},{26,-20},{110,-20}},
+          80},{-12,80}}, color={0,0,127}));
+  connect(senTemTan.T, conPI.u_m) annotation (Line(points={{-19,30},{0,30},{0,
+          68}},               color={0,0,127}));
+  connect(pumHex.P, PPum) annotation (Line(points={{39,25},{30,25},{30,-40},{
+          110,-40}},
+                 color={0,0,127}));
+  connect(heaPum.QCon_flow, QCon_flow) annotation (Line(points={{11,-41},{11,
+          -42},{80,-42},{80,-20},{110,-20}},
                             color={0,0,127}));
   connect(senTemTan.port, tanSte.heaPorVol[4])
-    annotation (Line(points={{-40,72},{-50,72},{-50,50}}, color={191,0,0}));
-  connect(addPar.y, heaPum.TSet) annotation (Line(points={{-38,0},{-28,0},{-28,
-          9},{-12,9}}, color={0,0,127}));
-  connect(addPar.u, TSetHotSou)
-    annotation (Line(points={{-62,0},{-110,0}}, color={0,0,127}));
+    annotation (Line(points={{-40,30},{-44,30},{-44,10},{-50,10}},
+                                                          color={191,0,0}));
+  connect(TConSet.y, heaPum.TSet) annotation (Line(points={{-38,-40},{-28,-40},
+          {-28,-41},{-12,-41}}, color={0,0,127}));
+  connect(TConSet.u, TSetHotSou) annotation (Line(points={{-62,-40},{-88,-40},{
+          -88,0},{-110,0}}, color={0,0,127}));
+  connect(heaPum.port_b1, pumHex.port_a) annotation (Line(points={{10,-44},{70,
+          -44},{70,16},{60,16}}, color={0,127,255}));
+  connect(pumHex.port_a, bou.ports[1]) annotation (Line(points={{60,16},{70,16},
+          {70,-20},{60,-20}}, color={0,127,255}));
+  connect(tanSte.port_a, port_b1) annotation (Line(points={{-50,20},{-50,52},{
+          26,52},{26,60},{100,60}}, color={0,127,255}));
   annotation (preferredView="info",Documentation(info="<html>
 <p>
 This model implements a domestic hot water source for a low-temperature
