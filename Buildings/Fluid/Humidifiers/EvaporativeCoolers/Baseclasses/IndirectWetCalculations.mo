@@ -129,7 +129,7 @@ block IndirectWetCalculations
     "Actual efficiency of component";
 
 equation
-  eff = max((maxEff - floRat*VPri_flow/VSec_flow),0);
+  eff = max((maxEff - floRat*abs(VPri_flow)/abs(VSec_flow)),0);
   TDryBulPriOut = TDryBulPriIn - eff*(TDryBulSecIn - TWetBulSecIn);
 
   annotation (defaultComponentName="indWetCal",

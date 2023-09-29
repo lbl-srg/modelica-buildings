@@ -7,8 +7,14 @@ block DirectCalculations
 
   parameter Modelica.Units.SI.Area padAre
     "Area of the rigid media evaporative pad";
+
   parameter Modelica.Units.SI.Length dep
     "Depth of the rigid media evaporative pad";
+
+  parameter Real effCoe[11] = {0.792714, 0.958569, -0.25193, -1.03215, 0.0262659,
+                               0.914869, -1.48241, -0.018992, 1.13137, 0.0327622,
+                               -0.145384}
+    "Coefficients for efficiency calculation of ";
 
   Real eff(
     final unit="1")
@@ -80,7 +86,9 @@ block DirectCalculations
         rotation=0)));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dmWat_flow(
-    final unit="kg/s")
+    final unit="kg/s",
+    displayUnit="kg/s",
+    final quantity="MassFlowRate")
     "Water vapor mass flow rate difference between inlet and outlet"
     annotation (Placement(
      visible=true,
@@ -119,11 +127,11 @@ protected
     "Density, used to compute fluid volume";
 
 equation
-  vel =V_flow/padAre;
-  eff = 0.792714 + 0.958569*(dep) - 0.25193*(vel) - 1.03215*(dep^2) +
-    0.0262659*(vel^2) + 0.914869*(dep*vel) - 1.48241*(vel*dep^2) - 0.018992
-    *(dep*vel^3) + 1.13137*(dep^3*vel) + 0.0327622*(vel^3*dep^2) -
-    0.145384*(dep^3*vel^2);
+  vel =abs(V_flow)/padAre;
+  eff = effCoe[1] + effCoe[2]*(dep) + effCoe[3]*(vel)  + effCoe[4]*(dep^2) +
+    effCoe[5]*(vel^2) + effCoe[6]*(dep*vel)  + effCoe[7]*(vel*dep^2) +
+    effCoe[8]*(dep*vel^3) + effCoe[9]*(dep^3*vel) + effCoe[10]*(vel^3*dep^2) +
+    effCoe[11]*(dep^3*vel^2);
   TDryBulOut = TDryBulIn - eff*(TDryBulIn - TWetBulIn);
   mWat_flowOut = XiOut.Xi[1]*V_flow*rho_default;
   dmWat_flow = (XiOut.Xi[1] - XiIn.Xi[1])*V_flow*rho_default;

@@ -80,7 +80,7 @@ model IndirectWet "Indirect wet evaporative cooler"
       origin={30,20},
       extent={{-10,-10},{10,10}})));
 
-  MixingVolumes.MixingVolumeMoistAir volPri(
+  MixingVolumes.MixingVolume         volPri(
     redeclare package Medium = MediumPri,
     m_flow_nominal=mPri_flow_nominal,
     V=mPri_flow_nominal*tau/rho_default,

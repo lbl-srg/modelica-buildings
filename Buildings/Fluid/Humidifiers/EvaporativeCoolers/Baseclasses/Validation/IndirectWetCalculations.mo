@@ -153,7 +153,11 @@ equation
           {-40,-10},{-40,-100},{36,-100}},
                                          color={0,0,127}));
   annotation (Documentation(info="<html>
-<p>This model implements a validation of the block <a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.DirectCalculations\">Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.DirectCalculations</a> that applies the peformance curve to calculate the water mass flow rate of a direct evaporative cooler. </p>
+  <p>This model implements a validation of the block 
+  <a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.DirectCalculations\">
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.DirectCalculations</a> 
+  that applies the peformance curve to calculate the water mass flow rate of a direct 
+  evaporative cooler. </p>
 <p>This model considers three validation instances with: </p>
 <ul>
 <li>Time-varying inlet air dry bulb temperature <code>TDryBulIn</code>. </li>

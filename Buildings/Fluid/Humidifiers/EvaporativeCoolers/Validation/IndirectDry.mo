@@ -141,12 +141,6 @@ model IndirectDry "Validation model for indirect dry evaporative cooler"
     annotation (Placement(transformation(extent={{-140,-120},{-120,-100}})));
 
 
-  Sensors.RelativeHumidityTwoPort senRelHum(redeclare package Medium = MediumA,
-      m_flow_nominal=m_flow_nominal_AirSec)
-    annotation (Placement(transformation(extent={{-60,-16},{-40,4}})));
-  Sensors.TemperatureWetBulbTwoPort senWetBul(redeclare package Medium =
-        MediumA, m_flow_nominal=m_flow_nominal_AirSec)
-    annotation (Placement(transformation(extent={{-36,-16},{-16,4}})));
 equation
   connect(combiTimeTable.y[5], from_degCPriIn.u) annotation (Line(points={{-167,
           90},{-150,90},{-150,50},{-142,50}}, color={0,0,127}));
@@ -187,12 +181,8 @@ equation
           46,-6},{46,-36},{120,-36}},  color={0,127,255}));
   connect(souPri.ports[1], indDryEvaCoo.port_a1) annotation (Line(points={{-70,10},
           {-40,10},{-40,6},{-12,6}}, color={0,127,255}));
-  connect(souSec.ports[1], senRelHum.port_a) annotation (Line(points={{-70,-30},
-          {-66,-30},{-66,-6},{-60,-6}}, color={0,127,255}));
-  connect(senRelHum.port_b, senWetBul.port_a)
-    annotation (Line(points={{-40,-6},{-36,-6}}, color={0,127,255}));
-  connect(senWetBul.port_b, indDryEvaCoo.port_a2)
-    annotation (Line(points={{-16,-6},{-12,-6}}, color={0,127,255}));
+  connect(souSec.ports[1], indDryEvaCoo.port_a2) annotation (Line(points={{-70,
+          -30},{-40,-30},{-40,-6},{-12,-6}}, color={0,127,255}));
   annotation (
     Diagram(coordinateSystem(extent={{-200,-180},{180,180}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})),
