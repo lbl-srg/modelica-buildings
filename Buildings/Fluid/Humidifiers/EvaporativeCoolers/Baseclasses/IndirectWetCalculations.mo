@@ -134,12 +134,35 @@ equation
 
   annotation (defaultComponentName="indWetCal",
   Documentation(info="<html>
-  <p>Block that calculates the primary outlet air drybulb temperature of an indirect
-  wet evaporative cooler.</p>
+  <p>Block that calculates the water vapor mass flow rate addition in the 
+  direct evaporative cooler component. The calculations are based on the indirect 
+  wet evaporative cooler model in the Engineering Reference document from EnergyPlus 
+  v23.1.0.</p>
+  <p>
+  The effective efficiency of the heat exchanger <code>eff</code> is calculated using 
+  the formula</p>
+  <p align=\"center\" style=\"font-style:italic;\">
+  eff = max((maxEff - floRat*abs(VPri_flow)/abs(VSec_flow)),0)</p>
+    <p>
+    where <code>VPri_flow</code> and <code>VSec_flow</code> are the volume flow 
+    rates of the primary and secondary fluid media respectively. The maximum 
+    efficiency of the heat exchanger <code>maxEff</code> as well as the efficiency-reduction
+    coil flow ratio <code>floRat</code> are empirically determined for the specific
+    equipment using experiments.<br>
+    The outlet primary fluid drybulb temperature <code>TDryBulPriOut</code> is calculated 
+    using the energy-balance equation
+    </p>
+    <p align=\"center\" style=\"font-style:italic;\">
+    TDryBulPriOut = TDryBulPriIn - eff*(TDryBulSecIn - TWetBulSecIn)</p>
+    <p>
+    where <code>TDryBulPriIn</code> is the inlet primary fluid drybulb temperature, 
+    <code>TDryBulSecIn</code> is the inlet secondary air drybulb temperature and 
+    <code>TWetBulSecIn</code> is the inlet secondary air wetbulb temperature.
+    </p>
 </html>", revisions="<html>
 <ul>
 <li>
-Semptember 14, 2023 by Cerrina Mouchref, Karthikeya Devaprasad, Lingzhe Wang:<br/>
+September 29, 2023 by Karthikeya Devaprasad:<br/>
 First implementation.
 </li>
 </ul>

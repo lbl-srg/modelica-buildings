@@ -1,4 +1,4 @@
-﻿within Buildings.Fluid.Humidifiers.EvaporativeCoolers;
+within Buildings.Fluid.Humidifiers.EvaporativeCoolers;
 model Direct
   "Direct Evaporative cooler"
 
@@ -6,39 +6,63 @@ model Direct
 
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Nominal air mass flow rate";
+
   parameter Modelica.Units.SI.Area padAre
     "Area of the rigid media evaporative pad";
+
   parameter Modelica.Units.SI.Length dep
     "Depth of the rigid media evaporative pad";
+
+  parameter Real effCoe[11]={0.792714, 0.958569, -0.25193, -1.03215, 0.0262659,
+                             0.914869, -1.48241, -0.018992, 1.13137, 0.0327622,
+                             -0.145384}
+    "Coefficients for evaporative medium efficiency calculation";
+
   parameter Modelica.Units.SI.Time tau=30
     "Time constant at nominal flow rate (if energyDynamics <> SteadyState)"
     annotation (Dialog(tab="Dynamics", group="Nominal condition"));
 
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput dmWat_flow(
+    final unit="kg/s",
+    displayUnit="kg/s",
+    final quantity="MassFlowRate")
+    "Water vapor mass flow rate difference between inlet and outlet"
+    annotation (Placement(
+      visible=true,
+      transformation(
+        origin={120,80},
+        extent={{-20,-20},{20,20}},
+        rotation=0),
+      iconTransformation(
+        origin={90,40},
+        extent={{-20,-20},{20,20}},
+        rotation=0)));
+
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem(
     redeclare final package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    initType=Modelica.Blocks.Types.Init.InitialOutput,
-    T_start=298.15)
+    final m_flow_nominal=m_flow_nominal,
+    final initType=Modelica.Blocks.Types.Init.InitialOutput,
+    final T_start=298.15)
     "Dry bulb temperature sensor"
     annotation (Placement(visible=true, transformation(
-        origin={-70,0},
-        extent={{-10,-10},{10,10}},
-        rotation=0)));
+      origin={-70,0},
+      extent={{-10,-10},{10,10}},
+      rotation=0)));
 
   Buildings.Fluid.Sensors.TemperatureWetBulbTwoPort senTemWetBul(
     redeclare final package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    initType=Modelica.Blocks.Types.Init.InitialOutput,
-    TWetBul_start=296.15)
+    final m_flow_nominal=m_flow_nominal,
+    final initType=Modelica.Blocks.Types.Init.InitialOutput,
+    final TWetBul_start=296.15)
     "Wet bulb temperature sensor"
     annotation (Placement(visible=true, transformation(
-        origin={-40,0},
-        extent={{-10,-10},{10,10}},
-        rotation=0)));
+      origin={-40,0},
+      extent={{-10,-10},{10,10}},
+      rotation=0)));
 
   Buildings.Fluid.Sensors.VolumeFlowRate senVolFlo(
-    redeclare final package
-    Medium =  Medium, m_flow_nominal=m_flow_nominal)
+    redeclare final package Medium =  Medium,
+    final m_flow_nominal=m_flow_nominal)
     "Volume flow rate sensor"
     annotation (
       Placement(visible = true, transformation(origin={-10,0},
@@ -46,27 +70,28 @@ model Direct
 
   Buildings.Fluid.FixedResistances.PressureDrop res(
     redeclare final package Medium = Medium,
-    dp_nominal = 10,
-    m_flow_nominal = m_flow_nominal)
+    final dp_nominal = 10,
+    final m_flow_nominal = m_flow_nominal)
     "Pressure drop"
     annotation (Placement(visible = true, transformation(origin={30,0},
       extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol(
     redeclare final package Medium = Medium,
-    m_flow_nominal = m_flow_nominal,
-    V=m_flow_nominal*tau/rho_default,
-    nPorts = 2)
+    final m_flow_nominal = m_flow_nominal,
+    final V=m_flow_nominal*tau/rho_default,
+    final nPorts = 2)
     "Moist air mixing volume"
     annotation (Placement(visible = true, transformation(origin={80,20},
       extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.DirectCalculations
     dirEvaCoo(
-    redeclare package Medium = Medium,
-    dep=dep,
-    padAre=padAre)
-    "Evaporative cooler calculator"
+    redeclare final package Medium = Medium,
+    final dep=dep,
+    final padAre=padAre,
+    final effCoe=effCoe)
+    "Direct evaporative cooling calculator"
     annotation (Placement(
       visible=true,
       transformation(
@@ -78,9 +103,9 @@ model Direct
     redeclare final package Medium = Medium)
     "Pressure"
     annotation (Placement(visible=true, transformation(
-        origin={-90,54},
-        extent={{-10,-10},{10,10}},
-        rotation=0)));
+      origin={-90,54},
+      extent={{-10,-10},{10,10}},
+      rotation=0)));
 
 protected
   parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
@@ -108,6 +133,8 @@ equation
   connect(dirEvaCoo.dmWat_flow, vol.mWat_flow) annotation (Line(points={{42,60},
           {60,60},{60,28},{68,28}}, color={0,0,127}));
   connect(senVolFlo.port_b, res.port_a) annotation (Line(points={{0,0},{20,0}},   color={0,127,255}));
+  connect(dirEvaCoo.dmWat_flow, dmWat_flow) annotation (Line(points={{42,60},{60,
+          60},{60,80},{120,80}}, color={0,0,127}));
   annotation (
     Icon(graphics={  Rectangle(lineColor = {0, 0, 255}, fillColor = {95, 95, 95}, pattern = LinePattern.None,
             fillPattern =                                                                                                   FillPattern.Solid, extent = {{-70, 60}, {70, -60}}), Rectangle(lineColor = {0, 0, 255}, fillColor = {0, 0, 255}, pattern = LinePattern.None,
@@ -122,9 +149,9 @@ equation
       Documentation(defaultComponentName="dirEvaCoo",
       info="<html>
 <p>Model for a direct evaporative cooler.</p>
-<p>This model adds moisture into the air stream. The amount of exchanged moisture is equal to </p>
-<p align=\"center\"><i>ṁ<sub>wat</sub> = (Xi<sub>Out</sub> - Xi<sub>In</sub>) * V<sub>_flow </sub>* density </i></p>
-<p>where <i>Xi<sub>Out</i></sub> is the water mass fraction at the inlet, <i>Xi<sub>Out </i></sub>is the water mass fraction at the outlet, <i>V<sub>_flow</i></sub> is the air volume flow rate, <i>density</i> is the air density. </p>
+<p>This model cools the airstream down by adiabatically increasing the humidity 
+mass fraction of the air. The mass of water vapour added to the air is reported by the 
+output signal <code>dmWat_flow</code>.
 </html>", revisions="<html>
 <ul>
 <li>

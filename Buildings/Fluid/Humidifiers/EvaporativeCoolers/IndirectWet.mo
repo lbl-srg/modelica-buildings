@@ -4,25 +4,22 @@ model IndirectWet "Indirect wet evaporative cooler"
     redeclare final package Medium1=MediumPri,
     redeclare final package Medium2=MediumSec);
 
-  replaceable package MediumPri =
-    Modelica.Media.Interfaces.PartialMedium
+  replaceable package MediumPri = Modelica.Media.Interfaces.PartialMedium
     "Medium 1 in the component"
     annotation (choices(
       choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
       choice(redeclare package Medium = Buildings.Media.Water "Water"),
       choice(redeclare package Medium =
-          Buildings.Media.Antifreeze.PropyleneGlycolWater (
+        Buildings.Media.Antifreeze.PropyleneGlycolWater (
         property_T=293.15,
-        X_a=0.40)
-        "Propylene glycol water, 40% mass fraction")));
+        X_a=0.40) "Propylene glycol water, 40% mass fraction")));
 
-  replaceable package MediumSec =
-    Modelica.Media.Interfaces.PartialMedium
+  replaceable package MediumSec = Modelica.Media.Interfaces.PartialMedium
     "Medium 2 in the component"
     annotation (choices(
       choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
 
-  parameter Modelica.Units.SI.PressureDifference dp_nominal=10
+  parameter Modelica.Units.SI.PressureDifference dp_nominal
     "Pressure drop at nominal mass flow rate";
 
   parameter Modelica.Units.SI.MassFlowRate mPri_flow_nominal
@@ -43,102 +40,116 @@ model IndirectWet "Indirect wet evaporative cooler"
     "Time constant at nominal flow rate (if energyDynamics <> SteadyState)"
     annotation (Dialog(tab="Dynamics", group="Nominal condition"));
 
-  Sensors.TemperatureTwoPort senTemDryPri(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemDryPri(
     redeclare final package Medium = MediumPri,
-    m_flow_nominal=mPri_flow_nominal,
-    initType=Modelica.Blocks.Types.Init.InitialOutput,
-    T_start=298.15)
-    "Primary air dry bulb temperature sensor"
+    final m_flow_nominal=mPri_flow_nominal,
+    final initType=Modelica.Blocks.Types.Init.InitialOutput,
+    final T_start=298.15) "Primary fluid dry bulb temperature sensor"
     annotation (Placement(visible=true, transformation(
       origin={-80,20},
       extent={{-10,-10},{10,10}})));
 
-  Sensors.TemperatureWetBulbTwoPort senTemWetPri(
+  Buildings.Fluid.Sensors.TemperatureWetBulbTwoPort senTemWetPri(
     redeclare final package Medium = MediumPri,
-    m_flow_nominal=mPri_flow_nominal,
-    initType=Modelica.Blocks.Types.Init.InitialOutput,
-    TWetBul_start=296.15)
-    "Primary air wet bulb temperature sensor"
+    final m_flow_nominal=mPri_flow_nominal,
+    final initType=Modelica.Blocks.Types.Init.InitialOutput,
+    final TWetBul_start=296.15)
+    "Primary fluid wet bulb temperature sensor"
     annotation (Placement(visible=true, transformation(
       origin={-50,20},
       extent={{-10,-10},{10,10}})));
 
-  Sensors.VolumeFlowRate senVolFloPri(
+  Buildings.Fluid.Sensors.VolumeFlowRate senVolFloPri(
     redeclare final package Medium=MediumPri,
-    m_flow_nominal=mPri_flow_nominal)
-    "Primary air volume flow rate sensor"
+    final m_flow_nominal=mPri_flow_nominal)
+    "Primary fluid volume flow rate sensor"
     annotation (Placement(visible=true, transformation(
       origin={-20,20},
       extent={{-10,-10},{10,10}})));
 
-  FixedResistances.PressureDrop resPri(
+  Buildings.Fluid.FixedResistances.PressureDrop resPri(
     redeclare final package Medium = MediumPri,
-    dp_nominal=dp_nominal,
-    m_flow_nominal=mPri_flow_nominal)
-    "Primary air pressure drop"
+    final dp_nominal=dp_nominal,
+    final m_flow_nominal=mPri_flow_nominal)
+    "Primary fluid pressure drop"
     annotation (Placement(visible=true, transformation(
       origin={30,20},
       extent={{-10,-10},{10,10}})));
 
-  MixingVolumes.MixingVolume         volPri(
+  Buildings.Fluid.MixingVolumes.MixingVolume volPri(
     redeclare package Medium = MediumPri,
-    m_flow_nominal=mPri_flow_nominal,
-    V=mPri_flow_nominal*tau/rho_default,
-    nPorts=2)
-    "Moist air mixing volume for primary air"
+    final m_flow_nominal=mPri_flow_nominal,
+    final V=mPri_flow_nominal*tau/rhoPri_default,
+    nPorts=2)       "Mixing volume for primary fluid"
     annotation (Placement(visible=true,
       transformation(origin={80,40},
       extent={{-10,-10},{10,10}})));
 
-  Baseclasses.IndirectWetCalculations indWetCal(maxEff=maxEff, floRat=floRat)
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.IndirectWetCalculations indWetCal(
+    final maxEff=maxEff,
+    final floRat=floRat)
+    "Indirect wet evaporative cooling calculations"
     annotation (Placement(transformation(extent={{16,56},{40,80}})));
 
-  Sensors.TemperatureTwoPort senTemDrySec(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemDrySec(
     redeclare final package Medium = MediumSec,
-    m_flow_nominal=mSec_flow_nominal,
-    initType=Modelica.Blocks.Types.Init.InitialOutput,
-    T_start=298.15) "Secondary air dry bulb temperature sensor" annotation (
-      Placement(visible=true, transformation(
-        origin={-70,-60},
-        extent={{-10,-10},{10,10}},
-        rotation=0)));
-
-  Sensors.TemperatureWetBulbTwoPort senTemWetSec(
-    redeclare final package Medium = MediumSec,
-    m_flow_nominal=mSec_flow_nominal,
-    initType=Modelica.Blocks.Types.Init.InitialOutput,
-    TWetBul_start=296.15) "Secondary air wet bulb temperature sensor"
+    final m_flow_nominal=mSec_flow_nominal,
+    final initType=Modelica.Blocks.Types.Init.InitialOutput,
+    final T_start=298.15)
+    "Secondary air dry bulb temperature sensor"
     annotation (Placement(visible=true, transformation(
-        origin={-40,-60},
-        extent={{-10,-10},{10,10}},
-        rotation=0)));
+      origin={-70,-60},
+      extent={{-10,-10},{10,10}},
+      rotation=0)));
 
-  FixedResistances.PressureDrop resSec(
+  Buildings.Fluid.Sensors.TemperatureWetBulbTwoPort senTemWetSec(
+    redeclare final package Medium = MediumSec,
+    final m_flow_nominal=mSec_flow_nominal,
+    final initType=Modelica.Blocks.Types.Init.InitialOutput,
+    final TWetBul_start=296.15)
+    "Secondary air wet bulb temperature sensor"
+    annotation (Placement(visible=true, transformation(
+      origin={-40,-60},
+      extent={{-10,-10},{10,10}},
+      rotation=0)));
+
+  Buildings.Fluid.FixedResistances.PressureDrop resSec(
     redeclare package Medium = MediumSec,
-    dp_nominal=10,
-    m_flow_nominal=mSec_flow_nominal) "Secondary air pressure drop" annotation (
-     Placement(visible=true, transformation(
-        origin={40,-60},
-        extent={{-10,-10},{10,10}},
-        rotation=0)));
+    final dp_nominal=10,
+    final m_flow_nominal=mSec_flow_nominal)
+    "Secondary air pressure drop"
+    annotation (Placement(visible=true, transformation(
+      origin={40,-60},
+      extent={{-10,-10},{10,10}},
+      rotation=0)));
 
-  Sensors.VolumeFlowRate senVolFloSec(redeclare final package Medium =
-        MediumSec, m_flow_nominal=mSec_flow_nominal)
-    "Secondary air volume flow rate sensor" annotation (Placement(visible=true,
-        transformation(
-        origin={0,-60},
-        extent={{-10,-10},{10,10}},
-        rotation=0)));
+  Buildings.Fluid.Sensors.VolumeFlowRate senVolFloSec(
+    redeclare final package Medium = MediumSec,
+    final m_flow_nominal=mSec_flow_nominal)
+    "Secondary air volume flow rate sensor"
+    annotation (Placement(visible=true,
+      transformation(
+      origin={0,-60},
+      extent={{-10,-10},{10,10}},
+      rotation=0)));
 
-  HeatTransfer.Sources.PrescribedTemperature preTem
+  Buildings.HeatTransfer.Sources.PrescribedTemperature preTem
+    "Boundary condition enforcing calculated outlet air drybulb temperature"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
 protected
-  parameter MediumPri.ThermodynamicState sta_default=MediumPri.setState_pTX(
+  parameter MediumPri.ThermodynamicState staPri_default=MediumPri.setState_pTX(
     T=MediumPri.T_default, p=MediumPri.p_default, X=MediumPri.X_default)
     "Default state of medium";
 
-  parameter Modelica.Units.SI.Density rho_default=MediumPri.density(sta_default)
+  parameter Modelica.Units.SI.Density rhoPri_default=MediumPri.density(staPri_default)
+    "Density, used to compute fluid volume";
+
+  parameter MediumPri.ThermodynamicState staSec_default=MediumSec.setState_pTX(
+    T=MediumSec.T_default, p=MediumSec.p_default, X=MediumSec.X_default)
+    "Default state of medium";
+
+  parameter Modelica.Units.SI.Density rhoSec_default=MediumPri.density(staSec_default)
     "Density, used to compute fluid volume";
 
 equation
@@ -146,15 +157,11 @@ equation
     annotation (Line(points={{-70,20},{-60,20}}, color={0,127,255}));
   connect(senTemWetPri.port_b, senVolFloPri.port_a)
     annotation (Line(points={{-40,20},{-30,20}}));
-  connect(resPri.port_b, volPri.ports[1])
-    annotation (Line(points={{40,20},{78,20},{78,30}}, color={0,127,255}));
   connect(senVolFloPri.port_b, resPri.port_a)
     annotation (Line(points={{-10,20},{20,20}},
                                               color={0,127,255}));
   connect(port_a1, senTemDryPri.port_a) annotation (Line(points={{-100,60},{-96,
           60},{-96,20},{-90,20}}, color={0,127,255}));
-  connect(volPri.ports[2], port_b1) annotation (Line(points={{82,30},{84,30},{84,
-          20},{100,20},{100,60}}, color={0,127,255}));
   connect(senTemDryPri.T, indWetCal.TDryBulPriIn)
     annotation (Line(points={{-80,31},{-80,78},{14,78}}, color={0,0,127}));
   connect(senTemWetPri.T, indWetCal.TWetBulPriIn)
@@ -169,8 +176,6 @@ equation
     annotation (Line(points={{-100,-60},{-80,-60}}, color={0,127,255}));
   connect(senTemDrySec.port_b, senTemWetSec.port_a)
     annotation (Line(points={{-60,-60},{-50,-60}}, color={0,127,255}));
-  connect(resSec.port_b, port_b2)
-    annotation (Line(points={{50,-60},{100,-60}}, color={0,127,255}));
   connect(senTemWetSec.port_b, senVolFloSec.port_a)
     annotation (Line(points={{-30,-60},{-10,-60}}, color={0,127,255}));
   connect(senVolFloSec.port_b, resSec.port_a)
@@ -181,8 +186,56 @@ equation
           50,68},{50,70},{58,70}}, color={0,0,127}));
   connect(preTem.port, volPri.heatPort) annotation (Line(points={{80,70},{90,70},
           {90,56},{60,56},{60,40},{70,40}}, color={191,0,0}));
+  connect(resSec.port_b, port_b2)
+    annotation (Line(points={{50,-60},{100,-60}}, color={0,127,255}));
+  connect(resPri.port_b, volPri.ports[1])
+    annotation (Line(points={{40,20},{78,20},{78,30}}, color={0,127,255}));
+  connect(volPri.ports[2], port_b1) annotation (Line(points={{82,30},{82,30},{82,
+          20},{98,20},{98,60},{100,60}}, color={0,127,255}));
   annotation (
-    Documentation, Icon(graphics={
+    Documentation(info="<html>
+<p>Model for a indirect dry evaporative cooler.</p>
+<p>This model conists of the following components:
+<ul>
+<li>
+drybulb temperature sensor 
+(<a href=\"modelica://Buildings.Fluid.Sensors.TemperatureTwoPort\">
+Buildings.Fluid.Sensors.TemperatureTwoPort</a>), wetbulb temperature sensor 
+(<a href=\"modelica://Buildings.Fluid.Sensors.TemperatureWetBulbTwoPort\">
+Buildings.Fluid.Sensors.TemperatureWetBulbTwoPort</a>) and volume flowrate sensor 
+(<a href=\"modelica://Buildings.Fluid.Sensors.VolumeFlowRate\">
+Buildings.Fluid.Sensors.VolumeFlowRate</a>) for the primary and secondary fluid 
+inlet.
+</li>
+<li>
+indirect wet evaporative cooling calculations for calculating primary outlet drybulb 
+temperature (<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.IndirectWetCalculations\">
+Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.IndirectWetCalculations</a>).
+</li>
+<li>
+prescribed temperature block (<a href=\"modelica://Buildings.HeatTransfer.Sources.PrescribedTemperature\">
+Buildings.HeatTransfer.Sources.PrescribedTemperature</a>) and mixing volume 
+(<a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolume\">
+Buildings.Fluid.MixingVolumes.MixingVolume</a>) for enforcing calculated outlet 
+air temperature.
+</li>
+</ul>
+</p>
+<p>
+Note: The model works correctly only when the ports a1 and a2 are used as inlet ports, 
+and ports b1 and b2 are used as outlet ports, for the primary and secondary flow 
+respectively. Also, the secondary air outlet conditions are currently not validated, 
+and it is recommended that it be vented to an object acting as a sink, and without
+connecting any downstream components to it.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+September 29, 2023 by Karthikeya Devaprasad:<br/>
+First implementation.
+</li>
+</ul>
+</html>"), Icon(graphics={
                      Rectangle(lineColor = {0, 0, 255}, fillColor = {95, 95, 95}, pattern = LinePattern.None,
             fillPattern =                                                                                                   FillPattern.Solid, extent={{
               -70,60},{70,-60}}),                                                                                                                                                                                                        Text(textColor = {0, 0, 127}, extent={{
