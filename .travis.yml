@@ -109,8 +109,8 @@ env:
     # - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.Templates\""
     # - TEST_ARG="make test-openmodelica  PACKAGE=\"Buildings.Templates\""
     # - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Templates\""
-    - TEST_ARG="travis_wait 180 make test-templates-optimica"
-    - TEST_ARG="travis_wait 180 make test-templates-dymola"
+    - TEST_ARG="make test-templates-optimica"
+    - TEST_ARG="make test-templates-dymola"
 
 before_install:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
@@ -176,7 +176,13 @@ install:
 
 # Execute tests
 script:
-  - (cd Buildings/Resources/Scripts/travis && travis_wait 90 $TEST_ARG)
+  - |
+    TRAVIS_WAIT=90
+    if [[ "$TEST_ARG" == *test-templates* ]]; then
+      TRAVIS_WAIT=180
+    fi
+    (cd Buildings/Resources/Scripts/travis && travis_wait $TRAVIS_WAIT $TEST_ARG)
+
 
 after_failure:
   - |
