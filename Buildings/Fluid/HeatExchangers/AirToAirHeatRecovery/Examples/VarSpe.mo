@@ -137,7 +137,7 @@ Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.Wheel</a>.
 <p>
 The input signals are configured as follows:</p>
 <ul>
-<li>Temperature of the supply air, <i>TSup</i>, changes from <i>273.15 + 30 K</i> to <i>273.15 + 40 K</i> during the period from <i>60s</i> to <i>120s</i>.
+<li>The temperature of the supply air, <i>TSup</i>, changes from <i>273.15 + 30 K</i> to <i>273.15 + 40 K</i> during the period from <i>60s</i> to <i>120s</i>.
 On the other hand, the temperature of the exhaust air is constant;
 </ul>
 <ul>

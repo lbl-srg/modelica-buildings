@@ -16,11 +16,11 @@ The possible values are:
 <th>Description</th></tr>
 <tr><td><code>Bypass</code></td>
 <td>
-The HR devices adjust the heat exchange by modulating the flow rates through the wheel via a bypass damper.
+The HR devices adjust the heat exchange by modulating the flow rates through the wheel via a bypass damper
 </td></tr>
 <tr><td><code>VariableSpeed</code></td>
 <td>
-The HR devices adjust the heat exchange by modulating the speed of the wheel.
+The HR devices adjust the heat exchange by modulating the speed of the wheel
 </td></tr>
 </table>
 </html>", revisions="<html>

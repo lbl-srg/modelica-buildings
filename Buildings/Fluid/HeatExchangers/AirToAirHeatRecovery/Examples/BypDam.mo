@@ -136,14 +136,11 @@ Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.Wheel</a>.
 <p>
 The input signals are configured as follows:</p>
 <ul>
-<li>Temperature of the supply air, <i>TSup</i>, changes from <i>273.15 + 30 K</i> to <i>273.15 + 40 K</i> during the period from <i>60s</i> to <i>120s</i>.
+<li>The temperature of the supply air, <i>TSup</i>, changes from <i>273.15 + 30 K</i> to <i>273.15 + 40 K</i> during the period from <i>60s</i> to <i>120s</i>.
 On the other hand, the temperature of the exhaust air is constant;
 </ul>
 <ul>
 <li>The bypass damper position, <i>DamPos</i>, changes from <i>0</i> to <i>1</i> during the period from <i>60s</i> to <i>120s</i>;
-</ul>
-<ul>
-<li>The flow rate of the exhaust air changes from  <i>5.24kg/s</i> to <i>1.58kg/s</i> during the period from <i>240s</i> to <i>300s</i>;
 </ul>
 <b>Note:</b> This problem may fails to translate in Dymola 2012 due to an error in Dymola's support
 of stream connector.
