@@ -44,16 +44,16 @@ FRACTION_TEST_COVERAGE=${2:-1}
 declare -A checksum_dirs=(
   ["AirHandlersFans"]="Templates/AirHandlersFans
                        Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV"
-  # ["ZoneEquipment"]="Templates/ZoneEquipment
-  #                    Controls/OBC/ASHRAE/G36/TerminalUnits/CoolingOnly
-  #                    Controls/OBC/ASHRAE/G36/TerminalUnits/Reheat"
+  ["ZoneEquipment"]="Templates/ZoneEquipment
+                     Controls/OBC/ASHRAE/G36/TerminalUnits/CoolingOnly
+                     Controls/OBC/ASHRAE/G36/TerminalUnits/Reheat"
 )
 # Declare the python script that must be run for each template package.
 # Each key is a Modelica package name under Buildings.Templates (with . as separator).
 # Each value is a string containing the script path (relative to `modelica-buildings/Buildings`).
 declare -A test_script=(
   ["AirHandlersFans"]="./Resources/Scripts/travis/templates/VAVMultiZone.py"
-  # ["ZoneEquipment"]="./Resources/Scripts/travis/templates/VAVBox.py"
+  ["ZoneEquipment"]="./Resources/Scripts/travis/templates/VAVBox.py"
 )
 
 for type in "${!checksum_dirs[@]}"; do
@@ -75,7 +75,7 @@ for type in "${!checksum_dirs[@]}"; do
   if $TRAVISRUN; then
     diff_checksum="$(git diff --name-only HEAD | grep Resources/Scripts/travis/templates/$type.checksum)"
     if (( $? == 0 )); then
-      echo "${CRED}Computed checksum does not match checksum on HEAD${CEND}: please commit updated checksum for Templates.$type."
+      printf "${CRED}Computed checksum does not match checksum on HEAD${CEND}: please commit updated checksum for Templates.%s.\n" $type
       echo "Computed checksum: $checksum"
       checksum_head=$(git show HEAD:Buildings/Resources/Scripts/travis/templates/$type.checksum 2>/dev/null)
       if [[ -z "$checksum_head" ]]; then
@@ -92,20 +92,13 @@ for type in "${!checksum_dirs[@]}"; do
   if (( $? == 0 ));  then
     echo "Computed checksum does not match checksum on master."
     echo "Running simulations for models in Templates.$type with $SIMULATOR."
-    # Generate combinations and store them into chunks of 100 items.
-    python "${test_script[$type]}" --generate --tool $SIMULATOR --coverage $FRACTION_TEST_COVERAGE
-    # Run simulations for each chunk of 100 items. This is to avoid Travis error 137.
-    # This also gives a chance to exit(1) if any simulation failed within a given chunk.
-    for file in $(basename ${test_script[$type]} .py)_combin*; do
-      python "${test_script[$type]}" --simulate $file --tool $SIMULATOR --coverage $FRACTION_TEST_COVERAGE
-      if (( $? != 0 )); then
-        exit 1
-      fi
-    done
-    printf "${CGREEN}All simulations succeeded.${CEND}"
+    python "${test_script[$type]}" --generate --simulate --tool $SIMULATOR --coverage $FRACTION_TEST_COVERAGE
+    if (( $? == 0 ));  then
+      printf "${CGREEN}All simulations succeeded.${CEND}\n"
+    else
+      exit 1
+    fi
   else
     echo "Computed checksum matches checksum on master: no further check performed."
   fi
 done
-
-exit 0

@@ -1,14 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-"""Provide definitions and common declarations used by other scripts in the same directory.
-
-Args:
-    Scripts that import this module take the following optional positional arguments.
-    - str: Modelica tool to use (case-insensitive): Dymola or Optimica, defaulting to Dymola.
-    - float: Fraction of test coverage between 0 (>) and 1 (<=): 1 should be for used for PR
-      against master, other values are for local testing only.
-"""
+"""Provide definitions and common declarations used by other scripts in the same directory."""
 
 import argparse
 import gc
@@ -20,7 +13,6 @@ import random
 import re
 import sys
 from math import ceil, floor
-
 # For CPU- and I/O-heavy jobs, we prefer multiprocessing.Pool because it provides better process isolation.
 from multiprocessing import Pool
 
@@ -56,7 +48,7 @@ def parse_args():
         required=False,
     )
     parser.add_argument("--generate", help="generate combinations", action="store_true")
-    parser.add_argument("--simulate", type=str, help="path of combination file", required=False, default=None)
+    parser.add_argument("--simulate", help="path of combination file", action="store_true")
     args = parser.parse_args()
 
     assert (
@@ -419,7 +411,55 @@ def report_clean(combinations, results):
         )
         sys.exit(1)
 
-    # Release memory.
     del combinations
     del results
     gc.collect()
+
+
+def main(models, modif_grid, exclude, remove_modif):
+    """Main function."""
+    args = parse_args()
+
+    if args.generate:
+        # Exclude model if is included in conf.yml for the given simulator.
+        for model_name in models:
+            if check_conf(model_name, args.tool):
+                models.remove(model_name)
+                print(f'Model {model_name} is not simulated based on `conf.yml`.')
+
+        # Generate combinations.
+        combinations = generate_combinations(models=models, modif_grid=modif_grid)
+
+        # Prune class modifications.
+        prune_modifications(
+            combinations=combinations,
+            exclude=exclude,
+            remove_modif=remove_modif,
+            fraction_test_coverage=args.coverage,
+        )
+
+        print(f'Number of cases to be simulated: {len(combinations)}.\n')
+
+        # Split combinations into chunks of 100 items.
+        for i in range(ceil(len(combinations) / 100)):
+            with open(
+                f'{os.path.basename(__file__).replace(".py", "_combin") + str(i)}', 'wb'
+            ) as FH:
+                slc = slice(i * 100, min((i + 1) * 100, len(combinations)))
+                pickle.dump(combinations[slc], FH)
+
+    if args.simulate:
+        # Run simulations by chunks of 100 items.
+        # This gives a chance to exit(1) if any simulation failed within a given chunk.
+        for file in glob.glob(f'{os.path.basename(__file__).replace(".py", "_combin")}*'):
+            with open(file, 'rb') as FH:
+                combinations = pickle.load(FH)
+            # Delete combination file that was just consumed.
+            os.unlink(file)
+
+            if len(combinations) > 0:
+                # Simulate cases.
+                results = simulate_cases(combinations, simulator=args.tool, asy=False)
+
+                # Report, clean and exit(1) if any simulations failed.
+                report_clean(combinations, results)

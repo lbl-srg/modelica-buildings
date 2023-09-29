@@ -109,16 +109,16 @@ env:
     # - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.Templates\""
     # - TEST_ARG="make test-openmodelica  PACKAGE=\"Buildings.Templates\""
     # - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Templates\""
-    # - TEST_ARG="make test-templates-optimica"
-    - TEST_ARG="make test-templates-dymola"
+    - TEST_ARG="travis_wait 180 make test-templates-optimica"
+    - TEST_ARG="travis_wait 180 make test-templates-dymola"
 
 before_install:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - if [[ "$TEST_ARG" == *test-dymola* || "$TEST_ARG" == *test-bestest* || "$TEST_ARG" == *spawn-portability* || "$TEST_ARG" == *test-templates-dymola* ]]; then
+  - if [[ "$TEST_ARG" == *test-*dymola* || "$TEST_ARG" == *test-bestest* || "$TEST_ARG" == *spawn-portability* ]]; then
        docker pull "$DOCKER_USERNAME"/${DYMOLA_VERSION};
        cp Buildings/Resources/Scripts/travis/dymola/dymola $HOME/bin/;
     fi;
-  - if [[ "$TEST_ARG" == *test-optimica* || "$TEST_ARG" == *test-templates-optimica* ]]; then
+  - if [[ "$TEST_ARG" == *test-*optimica* ]]; then
        docker pull "$DOCKER_USERNAME"/${OPTIMICA_VERSION};
        cp Buildings/Resources/Scripts/travis/optimica/jm_ipython.sh $HOME/bin/jm_ipython.sh;
     fi;
@@ -145,7 +145,7 @@ before_install:
       cd -;
       echo "Installed modelica-json in ${MODELICA_JSON_HOME}";
     fi;
-  - if [[ "$TEST_ARG" == *test-openmodelica* ]]; then
+  - if [[ "$TEST_ARG" == *test-*openmodelica* ]]; then
        docker pull "$DOCKER_USERNAME"/${OMC_VERSION};
        cp Buildings/Resources/Scripts/travis/omc/omc $HOME/bin/omc;
     fi;
@@ -176,7 +176,7 @@ install:
 
 # Execute tests
 script:
-  - (cd Buildings/Resources/Scripts/travis && travis_wait 180 $TEST_ARG)
+  - (cd Buildings/Resources/Scripts/travis && travis_wait 90 $TEST_ARG)
 
 after_failure:
   - |

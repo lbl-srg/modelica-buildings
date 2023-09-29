@@ -86,29 +86,4 @@ REMOVE_MODIF = {
 
 
 if __name__ == '__main__':
-    # Exclude model if is included in conf.yml for the given simulator.
-    for model_name in MODELS:
-        if check_conf(model_name, SIMULATOR):
-            MODELS.remove(model_name)
-            print(f'Model {model_name} is not simulated based on `conf.yml`.')
-
-    # Generate combinations.
-    combinations = generate_combinations(
-        models=MODELS, modif_grid=MODIF_GRID
-    )
-
-    # Prune class modifications.
-    prune_modifications(
-        combinations=combinations,
-        exclude=EXCLUDE,
-        remove_modif=REMOVE_MODIF,
-        fraction_test_coverage=FRACTION_TEST_COVERAGE,
-    )
-
-    print(f'Number of cases to be simulated: {len(combinations)}.\n')
-
-    # Simulate cases.
-    results = simulate_cases(combinations, simulator=SIMULATOR, asy=False)
-
-    # Report, clean and exit.
-    report_clean(combinations, results)
+    main(models=MODELS, modif_grid=MODIF_GRID, exclude=EXCLUDE, remove_modif=REMOVE_MODIF)
