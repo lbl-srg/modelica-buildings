@@ -97,7 +97,6 @@ equation
   assert(vRat > 0.5 and vRat < 1.3,
     "Operatiing flow rate outside full accuracy range",
     level=AssertionLevel.warning);
-
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={Text(
           extent={{-54,28},{50,-40}},
           textColor={28,108,200},
@@ -158,7 +157,7 @@ U.S. Department of Energy 2016.
 </html>", revisions="<html>
 <ul>
 <li>
-September 17, 2022, by Sen Huang:<br/>
+September 29, 2023, by Sen Huang:<br/>
 First implementation<br/>
 </li>
 </ul>

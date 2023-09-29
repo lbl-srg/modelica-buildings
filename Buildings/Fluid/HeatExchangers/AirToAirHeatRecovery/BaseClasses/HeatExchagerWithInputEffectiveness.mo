@@ -21,13 +21,12 @@ model HeatExchagerWithInputEffectiveness
   Modelica.Blocks.Interfaces.RealInput epsL(unit="1")
     "Latent heat exchanger effectiveness"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
-
   Modelica.Units.SI.HeatFlowRate QLat_flow
     "Latent heat exchange from medium 2 to medium 1";
-
-  Medium1.MassFraction X_w_in1 "Inlet water mass fraction of medium 1";
-  Medium2.MassFraction X_w_in2 "Inlet water mass fraction of medium 2";
-
+  Medium1.MassFraction X_w_in1
+    "Inlet water mass fraction of medium 1";
+  Medium2.MassFraction X_w_in2
+    "Inlet water mass fraction of medium 2";
   Modelica.Units.SI.MassFlowRate mWat_flow
     "Water flow rate from medium 2 to medium 1";
   Modelica.Units.SI.MassFlowRate mMax_flow
@@ -136,7 +135,7 @@ in the species vector.
 revisions="<html>
 <ul>
 <li>
-September 17, 2022, by Sen Huang:<br/>
+September 29, 2023, by Sen Huang:<br/>
 Changing the effectiveness from parameters to inputs<br/>
 </li>
 <li>

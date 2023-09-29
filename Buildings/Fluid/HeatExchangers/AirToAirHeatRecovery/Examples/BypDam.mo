@@ -102,7 +102,7 @@ equation
           {38,-56}}, color={0,0,127}));
   connect(TSup.y, sou_1.T_in)
     annotation (Line(points={{-79,54},{-70.5,54},{-62,54}},
-                                                 color={0,0,127}));
+          color={0,0,127}));
   connect(PSin_1.y, sin_1.p_in) annotation (Line(points={{61,70},{90,70},{90,20},
           {86,20}},     color={0,0,127}));
   connect(sou_1.ports[1],whe. port_a1) annotation (Line(
@@ -150,7 +150,7 @@ of stream connector.
 </html>", revisions="<html>
 <ul>
 <li>
-September 17, 2022, by Sen Huang:<br/>
+September 29, 2023, by Sen Huang:<br/>
 First implementation<br/>
 </li>
 </ul>

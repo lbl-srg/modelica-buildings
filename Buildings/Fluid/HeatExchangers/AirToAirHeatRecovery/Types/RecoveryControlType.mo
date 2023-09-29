@@ -2,8 +2,8 @@ within Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.Types;
 type RecoveryControlType = enumeration(
     Bypass
     "with a bypass damper",
-    VariableSpeed)
-    "with a variable speed wheel"
+    VariableSpeed
+    "with a variable speed wheel")
      annotation (Documentation(info="<html>
 <p>
 Enumeration for the types of heat recovery (HR) devices.
@@ -26,7 +26,7 @@ The HR devices adjust the heat exchange by modulating the speed of the wheel.
 </html>", revisions="<html>
 <ul>
 <li>
-September 17, 2022, by Sen Huang:<br/>
+September 29, 2023, by Sen Huang:<br/>
 First implementation<br/>
 </li>
 </ul>

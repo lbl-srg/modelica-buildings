@@ -15,9 +15,9 @@ model Wheel "Sensible and latent air-to-air heat recovery wheels"
     Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.Types.RecoveryControlType.Bypass
     "Type of controller";
   parameter Real P_nominal(unit="W") = 1000
-    "Power at design condition"
-    annotation (Dialog(group="Fan"));
-  parameter Real k(final min=0) = 1 "Gain of controller";
+    "Power at design condition";
+  parameter Real k(final min=0) = 1
+    "Gain of controller";
   parameter Modelica.Units.SI.Efficiency epsS_cool_nominal(final max=1) = 0.8
     "Nominal sensible heat exchanger effectiveness at the cooling mode";
   parameter Modelica.Units.SI.Efficiency epsL_cool_nominal(final max=1) = 0.8
@@ -34,6 +34,7 @@ model Wheel "Sensible and latent air-to-air heat recovery wheels"
     "Partial load (75%) sensible heat exchanger effectiveness at the heating mode";
   parameter Modelica.Units.SI.Efficiency epsL_heat_partload(final max=1) = 0.75
     "Partial load (75%) latent heat exchanger effectiveness at the heating mode";
+
   Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.HeatExchagerWithInputEffectiveness hex(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
@@ -59,10 +60,10 @@ model Wheel "Sensible and latent air-to-air heat recovery wheels"
     final v_flow_sup_nominal=m1_flow_nominal/1.293)
     "Calculates the effectiveness of heat exhcnages"
     annotation (Placement(transformation(extent={{40,20},{20,40}})));
-  Modelica.Blocks.Interfaces.RealInput yWheSpe(unit="1") if not with_ByPass
+  Modelica.Blocks.Interfaces.RealInput yWheSpe(unit="1") if not with_BypDam
     "Wheel speed ratio"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-  Modelica.Blocks.Interfaces.RealInput yBypDam(unit="1") if with_ByPass
+  Modelica.Blocks.Interfaces.RealInput yBypDam(unit="1") if with_BypDam
     "Bypass damper position"
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}})));
   Modelica.Blocks.Interfaces.RealOutput P
@@ -105,7 +106,6 @@ model Wheel "Sensible and latent air-to-air heat recovery wheels"
         extent={{10,10},{-10,-10}},
         rotation=-90,
         origin={66,-38})));
-
   Buildings.Fluid.Actuators.Dampers.Exponential bypDamExh(
     redeclare package Medium = Medium2,
     final allowFlowReversal=allowFlowReversal2,
@@ -128,8 +128,10 @@ model Wheel "Sensible and latent air-to-air heat recovery wheels"
     "Temperature of the exhaust air"
     annotation (Placement(transformation(extent={{92,10},{72,30}})));
   Modelica.Blocks.Sources.Constant zer(final k=0)
+    "Zero signal"
     annotation (Placement(transformation(extent={{-78,84},{-64,98}})));
   Modelica.Blocks.Sources.Constant uni(final k=1)
+    "Unity signal"
     annotation (Placement(transformation(extent={{-76,-88},{-62,-74}})));
   Modelica.Blocks.Sources.RealExpression PEle(y=P_nominal*effCal.y)
     "Electrical power consumption"
@@ -138,7 +140,7 @@ model Wheel "Sensible and latent air-to-air heat recovery wheels"
     "Adder"
     annotation (Placement(transformation(extent={{-64,-46},{-48,-30}})));
 protected
-  parameter Boolean with_ByPass = controlType == Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.Types.RecoveryControlType.Bypass
+  parameter Boolean with_BypDam = controlType == Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.Types.RecoveryControlType.Bypass
     "Boolean flag to enable the bypass control"
     annotation(Evaluate=true, HideResult=true);
 
@@ -147,7 +149,7 @@ equation
           4},{-12,4}}, color={0,0,127}));
   connect(effCal.epsL, hex.epsL) annotation (Line(points={{19,26},{-18,26},{-18,
           -4},{-12,-4}}, color={0,0,127}));
-  if with_ByPass then
+  if with_BypDam then
     connect(bypDamExh.y, yBypDam)
       annotation (Line(points={{0,-48},{0,-20},{-120,-20}}, color={0,0,127}));
     connect(bypDamSup.y, yBypDam) annotation (Line(points={{0,72},{0,80},{-80,80},
@@ -274,7 +276,7 @@ Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.Types.RecoveryControlType</a
 </html>", revisions="<html>
 <ul>
 <li>
-September 17, 2022, by Sen Huang:<br/>
+September 29, 2023, by Sen Huang:<br/>
 First implementation<br/>
 </li>
 </ul>
