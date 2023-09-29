@@ -50,7 +50,6 @@ block DXCoilEnable
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-protected
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrCoi(
     final t=uThrCoiEna,
     final h=dUHys)

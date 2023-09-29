@@ -154,8 +154,8 @@ block RoomVAV "Controller for room VAV box"
     Ni=10) if not have_preIndDam
            "Damper position setpoint"
     annotation (Placement(transformation(extent={{80,10},{100,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide VDis_flowNor if
-       not have_preIndDam
+  Buildings.Controls.OBC.CDL.Continuous.Divide VDis_flowNor
+    if not have_preIndDam
     "Normalized discharge volume flow rate"
     annotation (Placement(transformation(extent={{10,-150},{30,-130}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant norFlo(
@@ -163,8 +163,8 @@ block RoomVAV "Controller for room VAV box"
     "Norminal airflow rate"
     annotation (Placement(transformation(extent={{-80,-170},{-60,-150}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
-    final k=1) if
-       have_preIndDam "Dummy block to enable or disable connection"
+    final k=1)
+    if have_preIndDam "Dummy block to enable or disable connection"
     annotation (Placement(transformation(extent={{80,50},{100,70}})));
 
 protected

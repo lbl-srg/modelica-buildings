@@ -450,7 +450,6 @@ block Controller
     "Replicate AHU heating supply temperature setpoint" annotation (
      Placement(transformation(extent={{-10,-10},{10,10}}, origin={-62,-320})));
 
-protected
   Continuous.LimPID conPCoo[nCoiCoo](
     each final controllerType=Modelica.Blocks.Types.SimpleController.PI,
     each final k=0.1,
@@ -466,7 +465,7 @@ protected
     each final Ti=1000,
     each final yMax=1,
     each final yMin=0,
-    each final reverseActing=false)
+    each final reverseActing=true)
     "Regulate heating supply air temperature"
     annotation (Placement(transformation(extent={{-32,-250},{-12,-230}})));
 
