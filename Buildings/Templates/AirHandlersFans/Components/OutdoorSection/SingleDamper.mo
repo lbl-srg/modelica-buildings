@@ -3,13 +3,11 @@ model SingleDamper
   "Single damper for ventilation and economizer, with airflow measurement station"
   extends
     Buildings.Templates.AirHandlersFans.Components.Interfaces.PartialOutdoorSection(
-    final typ=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper,
-    final typDamOut=damOut.typ,
-    final typDamOutMin=Buildings.Templates.Components.Types.Damper.None);
+    final typ=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper);
 
   Buildings.Templates.Components.Actuators.Damper damOut(
     redeclare final package Medium = MediumAir,
-    final typ=Buildings.Templates.Components.Types.Damper.Modulating,
+    final typ=typDamOut,
     use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
     final allowFlowReversal=allowFlowReversal,
     final dat=dat.damOut)

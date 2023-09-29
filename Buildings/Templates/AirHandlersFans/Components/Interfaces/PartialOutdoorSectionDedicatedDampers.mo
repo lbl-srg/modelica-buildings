@@ -2,13 +2,11 @@ within Buildings.Templates.AirHandlersFans.Components.Interfaces;
 partial model PartialOutdoorSectionDedicatedDampers
   "Base class for modeling separate dampers for ventilation and economizer"
   extends
-    Buildings.Templates.AirHandlersFans.Components.Interfaces.PartialOutdoorSection(
-    final typDamOut=damOut.typ,
-    final typDamOutMin=damOutMin.typ);
+    Buildings.Templates.AirHandlersFans.Components.Interfaces.PartialOutdoorSection;
 
   Buildings.Templates.Components.Actuators.Damper damOut(
     redeclare final package Medium = MediumAir,
-    final typ=Buildings.Templates.Components.Types.Damper.Modulating,
+    final typ=typDamOut,
     use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
     final allowFlowReversal=allowFlowReversal,
     final dat=dat.damOut)
@@ -19,11 +17,7 @@ partial model PartialOutdoorSectionDedicatedDampers
         origin={0,0})));
   Buildings.Templates.Components.Actuators.Damper damOutMin(
     redeclare final package Medium = MediumAir,
-    final typ=if typ==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
-      then Buildings.Templates.Components.Types.Damper.Modulating
-      elseif typ==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure
-        then Buildings.Templates.Components.Types.Damper.TwoPosition
-      else Buildings.Templates.Components.Types.Damper.None,
+    final typ=typDamOutMin,
     use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
     final allowFlowReversal=allowFlowReversal,
     final dat=dat.damOutMin)

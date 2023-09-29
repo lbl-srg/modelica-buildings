@@ -9,20 +9,24 @@ partial model PartialOutdoorSection "Interface class for outdoor air section"
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection typ
     "Outdoor air section type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  // HACK(AntoineGautier ctrl-flow-dev#360): Add vendor annotation because
-  // final keyword in derived class is disregarded.
-  parameter Buildings.Templates.Components.Types.Damper typDamOut
+  final parameter Buildings.Templates.Components.Types.Damper typDamOut=
+    if typ==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper
+    or typ==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
+    or typ==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure
+    then Buildings.Templates.Components.Types.Damper.Modulating
+    else Buildings.Templates.Components.Types.Damper.None
     "Outdoor air damper type"
-    annotation (
-    __ctrlFlow(enable=false),
-    Evaluate=true, Dialog(group="Configuration"));
-  // HACK(AntoineGautier ctrl-flow-dev#360): Add vendor annotation because
-  // final keyword in derived class is disregarded.
-  parameter Buildings.Templates.Components.Types.Damper typDamOutMin
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  final parameter Buildings.Templates.Components.Types.Damper typDamOutMin=
+    if typ==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper
+    then Buildings.Templates.Components.Types.Damper.None
+    elseif typ==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
+    then Buildings.Templates.Components.Types.Damper.Modulating
+    elseif typ==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure
+    then Buildings.Templates.Components.Types.Damper.TwoPosition
+    else Buildings.Templates.Components.Types.Damper.None
     "Minimum outdoor air damper type"
-    annotation (
-    __ctrlFlow(enable=false),
-    Evaluate=true, Dialog(group="Configuration"));
+    annotation (Evaluate=true, Dialog(group="Configuration"));
 
   outer parameter Boolean have_recHea
     "Set to true in case of heat recovery";
