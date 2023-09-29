@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.Examples;
-model Wheel
-  "Test model for the air-to-air thermal wheel"
+model VarSpe
+  "Test model for the air-to-air thermal wheel with a variable speed"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Air
     "Medium model for supply air";
@@ -126,7 +126,7 @@ equation
   connect(WheSpe.y, whe.yWheSpe) annotation (Line(points={{-59,-30},{-30,-30},{
           -30,10},{4,10}}, color={0,0,127}));
  annotation(experiment(Tolerance=1e-6, StopTime=360),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/AirToAirHeatRecovery/Examples/Wheel.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/AirToAirHeatRecovery/Examples/VarSpe.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -141,7 +141,7 @@ The input signals are configured as follows:</p>
 On the other hand, the temperature of the exhaust air is constant;
 </ul>
 <ul>
-<li>The wheel speed, <i>wheSpe</i>, changes from <i>0.7</i> to <i>1</i> during the period from <i>60s</i> to <i>120s</i>;
+<li>The wheel speed, <i>WheSpe</i>, changes from <i>0.7</i> to <i>1</i> during the period from <i>60s</i> to <i>120s</i>;
 </ul>
 <ul>
 <li>The flow rate of the exhaust air changes from  <i>5.24kg/s</i> to <i>1.58kg/s</i> during the period from <i>240s</i> to <i>300s</i>;
@@ -156,4 +156,4 @@ First implementation<br/>
 </li>
 </ul>
 </html>"));
-end Wheel;
+end VarSpe;
