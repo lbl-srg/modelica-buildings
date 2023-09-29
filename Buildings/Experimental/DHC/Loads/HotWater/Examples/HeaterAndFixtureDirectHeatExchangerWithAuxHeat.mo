@@ -15,14 +15,14 @@ equation
 
   connect(gen.port_b1, tmv.port_hotsou) annotation (Line(points={{-30,6},{-10,6},
           {-10,4},{0,4}}, color={0,127,255}));
-  connect(gen.port_a1, souCol.ports[2]) annotation (Line(points={{-50,6},{-60,6},
-          {-60,-20},{10,-20},{10,-40}}, color={0,127,255}));
+  connect(gen.port_a1, souCol.ports[2]) annotation (Line(points={{-50,6},{-54,6},
+          {-54,-20},{10,-20},{10,-40}}, color={0,127,255}));
   connect(gen.port_a2, souDis.ports[1]) annotation (Line(points={{-30,-6},{-20,
           -6},{-20,-32},{-30,-32},{-30,-40}}, color={0,127,255}));
   connect(gen.port_b2, sinDis.ports[1])
-    annotation (Line(points={{-50,-6},{-70,-6},{-70,-40}}, color={0,127,255}));
+    annotation (Line(points={{-50,-6},{-60,-6},{-60,-40}}, color={0,127,255}));
   connect(conTSetHotSou.y, gen.TSetHotSou)
-    annotation (Line(points={{-79,0},{-51,0}}, color={0,0,127}));
+    annotation (Line(points={{-69,0},{-51,0}}, color={0,0,127}));
   connect(gen.PHea, PEle) annotation (Line(points={{-29,0},{-20,0},{-20,80},{
           110,80}}, color={0,0,127}));
   annotation (experiment(

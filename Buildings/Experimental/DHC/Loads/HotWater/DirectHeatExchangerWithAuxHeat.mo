@@ -15,11 +15,11 @@ model DirectHeatExchangerWithAuxHeat
     dp_nominal=dpEle_nominal,
     QMax_flow=QMax_flow)
     if have_eleHea == true "Supplemental electric resistance domestic hot water heater"
-    annotation (Placement(transformation(extent={{10,16},{30,-4}})));
+    annotation (Placement(transformation(extent={{10,-50},{30,-30}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemHot(redeclare package Medium =
         Medium, m_flow_nominal=mHotSou_flow_nominal)
     "Temperature sensor for hot water supply"
-    annotation (Placement(transformation(extent={{60,-4},{80,16}})));
+    annotation (Placement(transformation(extent={{58,50},{78,70}})));
   Fluid.HeatExchangers.ConstantEffectiveness hex(
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium,
@@ -28,11 +28,11 @@ model DirectHeatExchangerWithAuxHeat
     dp1_nominal=dpHotSou_nominal,
     dp2_nominal=dpDis_nominal,
     eps=eps) "Domestic hot water heater heat exchanger"
-    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+    annotation (Placement(transformation(extent={{-80,-64},{-60,-44}})));
   Fluid.Sensors.TemperatureTwoPort senTemHexOut(redeclare package Medium =
         Medium, m_flow_nominal=mHotSou_flow_nominal)
     "Temperature sensor for hot water leaving heat exchanger"
-    annotation (Placement(transformation(extent={{-40,-4},{-20,16}})));
+    annotation (Placement(transformation(extent={{-38,-50},{-18,-30}})));
   parameter Modelica.Units.SI.PressureDifference dpHotSou_nominal=0
     "Pressure difference in heat exchanger on hot water side";
   parameter Modelica.Units.SI.PressureDifference dpDis_nominal=0
@@ -47,33 +47,37 @@ protected
     redeclare final package Medium = Medium,
     final m_flow_nominal=mHotSou_flow_nominal,
     final show_T=false) if have_eleHea == false "Pipe without electric resistance"
-    annotation (Placement(transformation(extent={{10,44},{30,24}})));
+    annotation (Placement(transformation(extent={{10,10},{30,-10}})));
 
 equation
   connect(senTemHexOut.port_a, hex.port_b1)
-    annotation (Line(points={{-40,6},{-60,6}}, color={0,127,255}));
+    annotation (Line(points={{-38,-40},{-50,-40},{-50,-48},{-60,-48}},
+                                               color={0,127,255}));
   connect(senTemHexOut.port_b, heaEle.port_a)
-    annotation (Line(points={{-20,6},{10,6}}, color={0,127,255}));
-  connect(senTemHexOut.port_b, pip.port_a) annotation (Line(points={{-20,6},{0,
-          6},{0,34},{10,34}}, color={0,127,255}));
+    annotation (Line(points={{-18,-40},{10,-40}},
+                                              color={0,127,255}));
+  connect(senTemHexOut.port_b, pip.port_a) annotation (Line(points={{-18,-40},{0,
+          -40},{0,0},{10,0}}, color={0,127,255}));
   connect(heaEle.port_b, senTemHot.port_a)
-    annotation (Line(points={{30,6},{60,6}}, color={0,127,255}));
-  connect(pip.port_b, senTemHot.port_a) annotation (Line(points={{30,34},{40,34},
-          {40,6},{60,6}}, color={0,127,255}));
-  connect(senTemHot.port_b, port_b1) annotation (Line(points={{80,6},{90,6},{90,
-          60},{100,60}}, color={0,127,255}));
+    annotation (Line(points={{30,-40},{40,-40},{40,60},{58,60}},
+                                             color={0,127,255}));
+  connect(pip.port_b, senTemHot.port_a) annotation (Line(points={{30,0},{40,0},{
+          40,60},{58,60}},color={0,127,255}));
+  connect(senTemHot.port_b, port_b1) annotation (Line(points={{78,60},{100,60}},
+                         color={0,127,255}));
   connect(port_a1, hex.port_a1)
-    annotation (Line(points={{-100,60},{-80,60},{-80,6}}, color={0,127,255}));
-  connect(heaEle.Q_flow,PHea)  annotation (Line(points={{31,-2},{40,-2},{40,-20},
-          {90,-20},{90,0},{110,0}}, color={0,0,127}));
-  connect(TSetHotSou, heaEle.TSet) annotation (Line(points={{-110,0},{-90,0},{-90,
-          -20},{0,-20},{0,-2},{8,-2}}, color={0,0,127}));
-  connect(hex.port_b2, port_b2) annotation (Line(points={{-80,-6},{-80,-60},{-100,
-          -60}}, color={0,127,255}));
-  connect(port_a2, hex.port_a2) annotation (Line(points={{100,-60},{-60,-60},{-60,
-          -6}}, color={0,127,255}));
-  connect(senTemHexOut.T, THexOut) annotation (Line(points={{-30,17},{-30,18},{
-          -12,18},{-12,-22},{96,-22},{96,-20},{110,-20}}, color={0,0,127}));
+    annotation (Line(points={{-100,60},{-86,60},{-86,-48},{-80,-48}},
+                                                          color={0,127,255}));
+  connect(heaEle.Q_flow,PHea)  annotation (Line(points={{31,-32},{82,-32},{82,0},
+          {110,0}},                 color={0,0,127}));
+  connect(TSetHotSou, heaEle.TSet) annotation (Line(points={{-110,0},{-12,0},{-12,
+          -32},{8,-32}},               color={0,0,127}));
+  connect(hex.port_b2, port_b2) annotation (Line(points={{-80,-60},{-100,-60}},
+                 color={0,127,255}));
+  connect(port_a2, hex.port_a2) annotation (Line(points={{100,-60},{-60,-60}},
+                color={0,127,255}));
+  connect(senTemHexOut.T, THexOut) annotation (Line(points={{-28,-29},{-28,-20},
+          {110,-20}},                                     color={0,0,127}));
   annotation (preferredView="info",Documentation(info="<html>
 <p>
 This model implements a basic domestic hot water source for a  
@@ -106,10 +110,93 @@ Initial Implementation.
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
         fillColor={255,255,255},
-        fillPattern=FillPattern.Solid), Line(
-          points={{-80,0},{-70,0},{-60,20},{-40,-20},{-20,20},{0,-20},{20,20},{
-              40,-20},{60,20},{70,0},{80,0}},
-          color={238,46,47},
-          thickness=1)}),                                        Diagram(
+        fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-102,62},{-72,58}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-72,30},{-68,62}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-72,34},{-20,30}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{28,62},{100,58}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={238,46,47},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{28,30},{32,62}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={238,46,47},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-104,-58},{-74,-62}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-74,-62},{-70,-30}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{26,-62},{30,-30}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={238,46,47},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{26,-58},{98,-62}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={238,46,47},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-20,34},{28,30}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={238,46,47},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-20,-30},{28,-34}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={238,46,47},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-72,-30},{-20,-34}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid),Rectangle(
+          extent={{-60,40},{20,-40}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),Rectangle(
+          extent={{40,80},{80,40}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid,
+          visible=have_eleHea),           Text(
+          extent={{-58,-8},{18,-36}},
+          textColor={255,255,255},
+          textString="eps=%eps")}),
+        Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end DirectHeatExchangerWithAuxHeat;

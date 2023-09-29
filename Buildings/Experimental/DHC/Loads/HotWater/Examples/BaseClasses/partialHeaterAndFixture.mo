@@ -29,17 +29,17 @@ model partialHeaterAndFixture
   Fluid.Sources.MassFlowSource_T souDis(
     redeclare package Medium = Medium,
     m_flow=mDis_flow_nominal,
-    T(displayUnit="degC") = TDis)
-                                 "Source of district network water" annotation (
+    T(displayUnit="degC") = TDis) "Source of district network water" annotation (
      Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-30,-50})));
   Modelica.Blocks.Sources.Constant conTSetHotSou(k=TSetHotSou)
     "Temperature setpoint for domestic hot water source supplied from heater"
-    annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
-  WaterDraw loa(redeclare package Medium = Medium, mHot_flow_nominal=
-        mHot_flow_nominal) "Tempered water draw"
+    annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
+  WaterDraw loa(
+    redeclare package Medium = Medium,
+    mHot_flow_nominal=mHot_flow_nominal) "Tempered water draw"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Modelica.Blocks.Sources.CombiTimeTable sch(
     tableOnFile=true,
@@ -48,31 +48,35 @@ model partialHeaterAndFixture
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     "Domestic hot water fixture draw fraction schedule"
-    annotation (Placement(transformation(extent={{100,20},{80,40}})));
+    annotation (Placement(transformation(extent={{40,20},{60,40}})));
 
-  Fluid.Sources.Boundary_pT sinDis(redeclare package Medium = Medium, T(
-        displayUnit="degC")) "Sink of district network water" annotation (
+  Fluid.Sources.Boundary_pT sinDis(
+    redeclare package Medium = Medium,
+    T(final unit="K",
+      displayUnit="degC")) "Sink of district network water" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-70,-50})));
-  Modelica.Blocks.Interfaces.RealOutput PEle
+        origin={-60,-50})));
+  Modelica.Blocks.Interfaces.RealOutput PEle(final unit="W")
     "Electric power required for generation equipment"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
-  Modelica.Blocks.Sources.Constant conTSetHot(k=TSetHot)
+  Modelica.Blocks.Sources.Constant conTSetHot(k(final unit="K")=TSetHot)
     "Temperature setpoint for hot water supply to fixture"
-    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
+    annotation (Placement(transformation(extent={{-90,20},{-70,40}})));
 equation
   connect(tmv.THot,THot)  annotation (Line(points={{21,6},{30,6},{30,60},{110,60}},
         color={0,0,127}));
   connect(loa.sch, sch.y[1])
-    annotation (Line(points={{61,3},{74,3},{74,30},{79,30}}, color={0,0,127}));
+    annotation (Line(points={{39,6},{34,6},{34,16},{70,16},{70,30},{61,30}},
+                                                             color={0,0,127}));
   connect(conTSetHot.y, tmv.TSet)
-    annotation (Line(points={{-79,30},{-2,30},{-2,8}}, color={0,0,127}));
+    annotation (Line(points={{-69,30},{-10,30},{-10,8},{-2,8}},
+                                                       color={0,0,127}));
   connect(tmv.port_hot, loa.port_hot)
-    annotation (Line(points={{20,0},{39.8,0}}, color={0,127,255}));
-  connect(tmv.port_col, souCol.ports[1]) annotation (Line(points={{0,-4},{-10,
-          -4},{-10,-26},{10,-26},{10,-40}}, color={0,127,255}));
+    annotation (Line(points={{20,0},{40,0}},   color={0,127,255}));
+  connect(tmv.port_col, souCol.ports[1]) annotation (Line(points={{0,-4},{-10,-4},
+          {-10,-26},{10,-26},{10,-40}},     color={0,127,255}));
   annotation (preferredView="info",Documentation(info="<html>
 <p>
 Partial base class for hot water source, thermostatic mixing, and fixture load examples.
