@@ -138,7 +138,8 @@ equation
     experiment(
       StopTime=1200000,
       Interval=60,
-      __Dymola_Algorithm="Cvode"),
+      __Dymola_Algorithm="Cvode",
+      Tolerance=1e-6),
     Documentation(info="<html>
     <p>This model validates the direct evaporative cooler model 
     <a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct\">

@@ -196,7 +196,8 @@ equation
     experiment(
       StopTime=604800,
       Interval=600,
-      __Dymola_Algorithm="Dassl"),
+      __Dymola_Algorithm="Cvode",
+      Tolerance=1e-6),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Humidifiers/EvaporativeCoolers/Validation/IndirectWet.mos"
       "Simulate and plot"),
     Documentation(info="<html>

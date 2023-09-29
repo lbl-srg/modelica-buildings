@@ -172,7 +172,8 @@ First implementation.
 </html>"),
 experiment(
     StopTime=60,
-    Interval=1),
+    Interval=1,
+      Tolerance=1e-6),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Humidifiers/EvaporativeCoolers/Baseclasses/Validation/DirectCalculations.mos"
         "Simulate and plot"));
