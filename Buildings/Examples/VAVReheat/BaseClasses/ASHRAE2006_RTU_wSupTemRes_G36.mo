@@ -1,5 +1,5 @@
 within Buildings.Examples.VAVReheat.BaseClasses;
-model ASHRAE2006_RTU_wSupTemRes
+model ASHRAE2006_RTU_wSupTemRes_G36
   "Variable air volume flow system with terminal reheat and ASHRAE 2006 control sequence serving five thermal zones"
   extends Buildings.Examples.VAVReheat.BaseClasses.PartialHVAC_RTU(
     yFanMin=0, amb(nPorts=3));
@@ -509,7 +509,7 @@ model ASHRAE2006_RTU_wSupTemRes
     annotation (Placement(transformation(extent={{914,50},{934,70}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr2(nin=4)
     "Logical Multi Or"
-    annotation (Placement(transformation(extent={{-142,-342},{-122,-322}})));
+    annotation (Placement(transformation(extent={{-140,-358},{-120,-338}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys3(each final uLow=50,
       each final uHigh=100)
                           "Check if DXs are on"
@@ -734,8 +734,8 @@ equation
   connect(conInt.y, RTUCon.uHeaCoiSeq) annotation (Line(points={{932,290},{970,
           290},{970,250.083},{1008,250.083}},
                                         color={255,127,0}));
-  connect(con.y, conFanSupASHRAE2006.uFan) annotation (Line(points={{-88,-10},{-28,
-          -10},{-28,-84},{-2,-84}},     color={255,0,255}));
+  connect(con.y, conFanSupASHRAE2006.uFan) annotation (Line(points={{-88,-10},{
+          -12,-10},{-12,-84},{-2,-84}}, color={255,0,255}));
   connect(booToRea4.y, mul1.u1) annotation (Line(points={{122,44},{150,44},{150,
           52},{158,52}}, color={0,0,127}));
   connect(mul1.y, addPar.u)
@@ -746,8 +746,8 @@ equation
           0},{528,0},{528,12},{490,12}}, color={0,0,127}));
   connect(booToRea5.y, mul2.u2) annotation (Line(points={{542,-130},{542,-122},
           {554,-122}}, color={0,0,127}));
-  connect(mul2.u1, RTUCon.yAuxHea) annotation (Line(points={{554,-110},{550,
-          -110},{550,-94},{1032,-94},{1032,240.283}}, color={0,0,127}));
+  connect(mul2.u1, RTUCon.yAuxHea) annotation (Line(points={{554,-110},{548,
+          -110},{548,-96},{1032,-96},{1032,240.283}}, color={0,0,127}));
   connect(mul2.y, AuxHeaCoi.u) annotation (Line(points={{578,-116},{584,-116},{
           584,-56},{478,-56},{478,-34}}, color={0,0,127}));
   connect(hys2.y, booToRea5.u)
@@ -852,28 +852,28 @@ equation
           {948,130},{680,130},{680,56},{716,56}}, color={0,0,127}));
   connect(fanSup.P, hys2.u) annotation (Line(points={{407,-31},{420,-31},{420,
           -130},{478,-130}}, color={0,0,127}));
-  connect(TSupSetASHRAE2006.TSet, TSupSet_pasThr.u) annotation (Line(points={{-178,
-          -220},{-168,-220},{-168,-236},{-148,-236}}, color={0,0,127}));
-  connect(conFanSupASHRAE2006.y, uFan_pasThr1.u) annotation (Line(points={{21,-90},
-          {21,-104},{38,-104},{38,-130}}, color={0,0,127}));
-  connect(conVAVASHRAE2006.yDam, yDam_pasThr.u) annotation (Line(points={{894,95},
-          {894,96},{900,96},{900,80},{912,80},{912,60}}, color={0,0,127}));
-  connect(conVAVASHRAE2006.yVal, yVal_pasThr.u) annotation (Line(points={{894,85},
-          {902,85},{902,90},{910,90}}, color={0,0,127}));
+  connect(conTSupSetG36.TAirSupSet, TSupSet_pasThr.u) annotation (Line(points={{
+          -178,-180},{-164,-180},{-164,-236},{-148,-236}}, color={0,0,127}));
+  connect(addPar1.y, uFan_pasThr1.u)
+    annotation (Line(points={{-18,-130},{38,-130}}, color={0,0,127}));
+  connect(conVAVG36.yVal, yVal_pasThr.u) annotation (Line(points={{834,49},{834,
+          48},{898,48},{898,90},{910,90}}, color={0,0,127}));
+  connect(conVAVG36.yDam, yDam_pasThr.u) annotation (Line(points={{834,51},{834,
+          52},{904,52},{904,60},{912,60}}, color={0,0,127}));
   connect(modeSelector.yFan, mulOr2.u[1]) annotation (Line(points={{-179.091,
-          -305.455},{-179.091,-318},{-180,-318},{-180,-306},{-156,-306},{-156,
-          -334.625},{-144,-334.625}}, color={255,0,255}));
+          -305.455},{-179.091,-306},{-160,-306},{-160,-350.625},{-142,-350.625}},
+        color={255,0,255}));
   connect(mulOr.y, mulOr2.u[2]) annotation (Line(points={{124,-100},{120,-100},
-          {120,-352},{-144,-352},{-144,-332.875}}, color={255,0,255}));
-  connect(mulOr1.y, mulOr2.u[3]) annotation (Line(points={{302,-90},{296,-90},{
-          296,-112},{248,-112},{248,-220},{120,-220},{120,-352},{-144,-352},{
-          -144,-331.125}}, color={255,0,255}));
-  connect(mulOr2.y, booToRea4.u) annotation (Line(points={{-120,-332},{-78,-332},
-          {-78,-284},{70,-284},{70,44},{98,44}}, color={255,0,255}));
+          {120,-366},{-142,-366},{-142,-348.875}}, color={255,0,255}));
+  connect(mulOr1.y, mulOr2.u[3]) annotation (Line(points={{302,-90},{306,-90},{
+          306,-116},{248,-116},{248,-208},{120,-208},{120,-366},{-142,-366},{
+          -142,-347.125}}, color={255,0,255}));
+  connect(mulOr2.y, booToRea4.u) annotation (Line(points={{-118,-348},{66,-348},
+          {66,44},{98,44}}, color={255,0,255}));
   connect(AuxHeaCoi.Q_flow, hys3.u)
     annotation (Line(points={{501,-34},{501,-90},{518,-90}}, color={0,0,127}));
-  connect(hys3.y, mulOr2.u[4]) annotation (Line(points={{542,-90},{468,-90},{
-          468,-196},{-144,-196},{-144,-329.375}}, color={255,0,255}));
+  connect(hys3.y, mulOr2.u[4]) annotation (Line(points={{542,-90},{546,-90},{
+          546,-366},{-142,-366},{-142,-345.375}}, color={255,0,255}));
   annotation (
   defaultComponentName="hvac",
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-400},{1420,
@@ -1266,10 +1266,5 @@ This is for
           fillColor={255,255,255},
           fillPattern=FillPattern.Backward,
           origin={230,153},
-          rotation=90)}),
-    experiment(
-      StopTime=604800,
-      Interval=600,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"));
-end ASHRAE2006_RTU_wSupTemRes;
+          rotation=90)}));
+end ASHRAE2006_RTU_wSupTemRes_G36;

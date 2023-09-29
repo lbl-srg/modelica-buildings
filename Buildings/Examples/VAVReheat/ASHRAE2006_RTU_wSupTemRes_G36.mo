@@ -1,5 +1,5 @@
 within Buildings.Examples.VAVReheat;
-model ASHRAE2006_RTU_wSupTemRes
+model ASHRAE2006_RTU_wSupTemRes_G36
   "Variable air volume flow system with terminal reheat and five thermal zones"
   extends Modelica.Icons.Example;
   extends Buildings.Examples.VAVReheat.BaseClasses.HVACBuilding_RTU(
@@ -8,7 +8,7 @@ model ASHRAE2006_RTU_wSupTemRes
     mEas_flow_nominal=ACHEas*VRooEas*conv,
     mNor_flow_nominal=ACHNor*VRooNor*conv,
     mWes_flow_nominal=ACHWes*VRooWes*conv,
-    redeclare Buildings.Examples.VAVReheat.BaseClasses.ASHRAE2006_RTU_wSupTemRes hvac(
+    redeclare Buildings.Examples.VAVReheat.BaseClasses.ASHRAE2006_RTU_wSupTemRes_G36 hvac(
       nCoiCoo=nCoiCoo,
       nCoiHea=nCoiHea,
       datHeaCoi=datHeaCoi,
@@ -301,4 +301,4 @@ This is for
       __Dymola_Algorithm="Cvode"),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
     //experiment(StopTime=172800, Tolerance=1e-06),
-end ASHRAE2006_RTU_wSupTemRes;
+end ASHRAE2006_RTU_wSupTemRes_G36;

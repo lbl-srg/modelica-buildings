@@ -50,7 +50,6 @@ block DXCoilEnable
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-protected
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrCoi(
     final t=uThrCoiEna,
     final h=dUHys)
@@ -100,16 +99,15 @@ protected
 
 equation
   connect(uCoi, greThrCoi.u)
-    annotation (Line(points={{-120,-60},{-80,-60},{-80,0},{-72,0}},
-                                                    color={0,0,127}));
+    annotation (Line(points={{-120,-60},{-80,-60},{-80,0},{-72,0}}, color={0,0,127}));
   connect(mulOrDXCoi.y, notDXCoiCha.u)
     annotation (Line(points={{2,60},{28,60}}, color={255,0,255}));
   connect(uDXCoi, chaDXCoi.u)
     annotation (Line(points={{-120,60},{-72,60}}, color={255,0,255}));
   connect(greThrCoi.y, andEna.u1)
     annotation (Line(points={{-48,0},{-22,0}}, color={255,0,255}));
-  connect(notDXCoiCha.y, andEna.u2) annotation (Line(points={{52,60},{66,60},{66,
-          30},{-30,30},{-30,-8},{-22,-8}}, color={255,0,255}));
+  connect(notDXCoiCha.y, andEna.u2) annotation (Line(points={{52,60},{66,60},{66,30},
+          {-30,30},{-30,-8},{-22,-8}}, color={255,0,255}));
   connect(andEna.y, timEna.u)
     annotation (Line(points={{2,0},{28,0}}, color={255,0,255}));
   connect(uCoi, lesThrCoi.u)
@@ -118,12 +116,12 @@ equation
     annotation (Line(points={{-48,-60},{-22,-60}}, color={255,0,255}));
   connect(andDis.y, timDis.u)
     annotation (Line(points={{2,-60},{28,-60}}, color={255,0,255}));
-  connect(notDXCoiCha.y, andDis.u2) annotation (Line(points={{52,60},{66,60},{66,
-          30},{-30,30},{-30,-68},{-22,-68}}, color={255,0,255}));
+  connect(notDXCoiCha.y, andDis.u2) annotation (Line(points={{52,60},{66,60},{66,30},
+          {-30,30},{-30,-68},{-22,-68}}, color={255,0,255}));
   connect(chaDXCoi.y, mulOrDXCoi.u)
     annotation (Line(points={{-48,60},{-22,60}}, color={255,0,255}));
-  connect(timEna.passed, latEnaDis.u) annotation (Line(points={{52,-8},{60,-8},{
-          60,0},{68,0}}, color={255,0,255}));
+  connect(timEna.passed, latEnaDis.u) annotation (Line(points={{52,-8},{60,-8},
+          {60,0},{68,0}}, color={255,0,255}));
   connect(timDis.passed, latEnaDis.clr) annotation (Line(points={{52,-68},{64,-68},
           {64,-6},{68,-6}}, color={255,0,255}));
   connect(latEnaDis.y, yDXCoi)

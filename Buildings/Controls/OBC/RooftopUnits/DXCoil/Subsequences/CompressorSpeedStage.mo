@@ -114,26 +114,22 @@ protected
 
 equation
   connect(conP.u_m, uCoi) annotation (Line(points={{-60,-42},{-60,-60},{-140,-60}},
-                                       color={0,0,127}));
+          color={0,0,127}));
   connect(conDXCoi.y, conP.u_s)
     annotation (Line(points={{-78,-30},{-72,-30}}, color={0,0,127}));
   connect(uPreDXCoi, swi.u2) annotation (Line(points={{-140,40},{30,40},{30,-10},
           {48,-10}},  color={255,0,255}));
   connect(conP.y, add.u2) annotation (Line(points={{-49,-30},{-40,-30},{-40,-42},
-          {-32,-42}},
-                    color={0,0,127}));
+          {-32,-42}}, color={0,0,127}));
   connect(conMinSpe.y, add.u1) annotation (Line(points={{-48,10},{-40,10},{-40,-30},
-          {-32,-30}},color={0,0,127}));
+          {-32,-30}}, color={0,0,127}));
   connect(conMaxSpe.y, swi.u1)
-    annotation (Line(points={{-8,60},{40,60},{40,-2},{48,-2}},
-                                                             color={0,0,127}));
-  connect(min.y, swi.u3) annotation (Line(points={{32,-30},{40,-30},{40,-18},{48,
-          -18}},    color={0,0,127}));
-  connect(add.y, min.u2) annotation (Line(points={{-8,-36},{8,-36}},
-                    color={0,0,127}));
-  connect(conMaxSpe.y, min.u1) annotation (Line(points={{-8,60},{0,60},{0,-24},{
-          8,-24}},                      color={0,0,127}));
-
+    annotation (Line(points={{-8,60},{40,60},{40,-2},{48,-2}}, color={0,0,127}));
+  connect(min.y, swi.u3) annotation (Line(points={{32,-30},{40,-30},{40,-18},{48,-18}},
+          color={0,0,127}));
+  connect(add.y, min.u2) annotation (Line(points={{-8,-36},{8,-36}}, color={0,0,127}));
+  connect(conMaxSpe.y, min.u1) annotation (Line(points={{-8,60},{0,60},{0,-24},{8,-24}},
+          color={0,0,127}));
   connect(swi.y, swi1.u1) annotation (Line(points={{72,-10},{80,-10},{80,20},{60,
           20},{60,88},{68,88}}, color={0,0,127}));
   connect(uDXCoi, swi1.u2)
@@ -141,10 +137,10 @@ equation
   connect(conMinSpe.y, swi1.u3) annotation (Line(points={{-48,10},{50,10},{50,72},
           {68,72}}, color={0,0,127}));
   connect(swi1.y, filter.u) annotation (Line(points={{92,80},{100,80},{100,60},{
-          70,60},{70,30.5},{80.2,30.5}},
-                                      color={0,0,127}));
-  connect(filter.y, yComSpe) annotation (Line(points={{100.9,30.5},{114,30.5},{114,
-          0},{140,0}}, color={0,0,127}));
+          70,60},{70,30.5},{80.2,30.5}}, color={0,0,127}));
+  connect(filter.y, yComSpe) annotation (Line(points={{100.9,30.5},{114,30.5},{114,0},{140,0}},
+          color={0,0,127}));
+
   annotation (
     defaultComponentName="ComSpeSta",
     Icon(coordinateSystem(preserveAspectRatio=false,
@@ -179,8 +175,8 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{120,100}})),
   Documentation(info="<html>
   <p>
-  This is a control module for regulating compressor speed, utilizing a previously enabled DX coil signal. 
-  The control module is operated as follows: 
+  This is a control module for regulating compressor speed, utilizing a previously enabled DX coil signal 
+  and current DX coil signal. The control module is operated as follows: 
   </p>
   <ul>
   <li>
@@ -191,6 +187,11 @@ equation
   Implement a linear mapping to modulate <code>yComSpe</code>, aligning its minimum and maximum speed 
   with a lower coil valve position signal <code>coiSpeLow</code> and a higher one 
   <code>coiSpeHig</code> from the coil valve position signal <code>uCoi</code> when <code>uPreDXCoi = false</code>.
+  </li>
+  <li>
+  Output <code>yComSpe</code> after applying a second-order filter to approximate actuator opening time and enhance 
+  numerical stability when the current DX coil signal is true <code>uDXCoi = true</code>. 
+  Otherwise, the output will be the minimum compressor speed <code>conMinSpe</code>.
   </li>
   </ul>
   </html>", revisions="<html>

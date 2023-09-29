@@ -432,7 +432,7 @@ equation
   connect(booScaRep.y, conVAV.u1Fan) annotation (Line(points={{662,548},{688,
           548},{688,234},{608,234},{608,185.2},{616,185.2}}, color={255,0,255}));
   connect(conVAV.VAdjPopBreZon_flow, sumZon.VAdjPopBreZon_flow) annotation (
-          Line(points={{640,214},{720,214},{720,320},{200,320},{200,594},{238,594}},
+          Line(points={{640,214},{688,214},{688,-6},{168,-6},{168,594},{238,594}},
           color={0,0,127}));
   connect(conVAV.VAdjAreBreZon_flow, sumZon.VAdjAreBreZon_flow) annotation (
           Line(points={{640,212},{728,212},{728,328},{208,328},{208,590},{238,590}},
@@ -479,8 +479,8 @@ equation
           {800,270},{800,360},{404,360},{404,630},{456,630}}, color={255,127,0}));
   connect(temResReq.y, conAHU.uZonTemResReq) annotation (Line(points={{782,220},
           {808,220},{808,368},{412,368},{412,614},{456,614}}, color={255,127,0}));
-  connect(freSta.y, falEdg.u) annotation (Line(points={{-68,-110},{-60,-110},{
-          -60,360},{338,360}}, color={255,0,255}));
+  connect(freSta.y, falEdg.u) annotation (Line(points={{-68,-110},{-32,-110},{
+          -32,360},{338,360}}, color={255,0,255}));
   connect(falEdg.y, conAHU.u1SofSwiRes) annotation (Line(points={{362,360},{396,
           360},{396,508},{456,508}}, color={255,0,255}));
   connect(opeModSel.yOpeMod, sumZon.uOpeMod[1]) annotation (Line(points={{-18,
