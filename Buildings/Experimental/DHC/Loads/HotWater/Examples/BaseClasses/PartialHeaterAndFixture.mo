@@ -1,5 +1,5 @@
 within Buildings.Experimental.DHC.Loads.HotWater.Examples.BaseClasses;
-model partialHeaterAndFixture
+model PartialHeaterAndFixture
   "Partial base class for hot water source, thermostatic mixing, and fixture load examples."
   replaceable package Medium = Buildings.Media.Water "Water media model";
   parameter Modelica.Units.SI.Temperature TSetHotSou = 273.15+50 "Temperature setpoint of hot water supply source from heater";
@@ -52,8 +52,7 @@ model partialHeaterAndFixture
 
   Fluid.Sources.Boundary_pT sinDis(
     redeclare package Medium = Medium,
-    T(final unit="K",
-      displayUnit="degC")) "Sink of district network water" annotation (
+    T(displayUnit="degC")) "Sink of district network water" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -96,4 +95,4 @@ Initial implementation.
       StopTime=864000,
       Interval=1,
       Tolerance=1e-06));
-end partialHeaterAndFixture;
+end PartialHeaterAndFixture;

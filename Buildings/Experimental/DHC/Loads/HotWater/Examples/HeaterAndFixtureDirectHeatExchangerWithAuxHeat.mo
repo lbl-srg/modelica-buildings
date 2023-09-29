@@ -1,7 +1,7 @@
 within Buildings.Experimental.DHC.Loads.HotWater.Examples;
 model HeaterAndFixtureDirectHeatExchangerWithAuxHeat
   extends Modelica.Icons.Example;
-  extends BaseClasses.partialHeaterAndFixture(
+  extends BaseClasses.PartialHeaterAndFixture(
     souCol(nPorts=2),
     souDis(nPorts=1),
     sinDis(nPorts=1));
@@ -13,8 +13,6 @@ model HeaterAndFixtureDirectHeatExchangerWithAuxHeat
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
 equation
 
-  connect(gen.port_b1, tmv.port_hotsou) annotation (Line(points={{-30,6},{-10,6},
-          {-10,4},{0,4}}, color={0,127,255}));
   connect(gen.port_a1, souCol.ports[2]) annotation (Line(points={{-50,6},{-54,6},
           {-54,-20},{10,-20},{10,-40}}, color={0,127,255}));
   connect(gen.port_a2, souDis.ports[1]) annotation (Line(points={{-30,-6},{-20,
@@ -25,6 +23,8 @@ equation
     annotation (Line(points={{-69,0},{-51,0}}, color={0,0,127}));
   connect(gen.PHea, PEle) annotation (Line(points={{-29,0},{-20,0},{-20,80},{
           110,80}}, color={0,0,127}));
+  connect(tmv.port_hotSou, gen.port_b1) annotation (Line(points={{0,4},{-14,4},
+          {-14,6},{-30,6}}, color={0,127,255}));
   annotation (experiment(
       StopTime=86400,
       Tolerance=1e-06),
