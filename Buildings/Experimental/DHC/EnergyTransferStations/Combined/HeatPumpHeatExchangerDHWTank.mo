@@ -13,7 +13,7 @@ model HeatPumpHeatExchangerDHWTank
       transformation(
       extent={{10,-10},{-10,10}},
       rotation=180,
-      origin={-50,-10})));
+      origin={-52,-56})));
   Subsystems.HeatPumpDHWTank proHotWat(
     redeclare final package Medium1 = MediumBui,
     redeclare final package Medium2 = MediumSer,
@@ -39,7 +39,7 @@ model HeatPumpHeatExchangerDHWTank
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter toSin(final k=-1)
     if have_hotWat "Convert to sink"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
-  Loads.HotWater.ThermostaticMixingValve tmv(
+  Loads.HotWater.ThermostaticMixingValve theMixVal(
     redeclare package Medium = MediumBui,
     mHot_flow_nominal=QHotWat_flow_nominal/cpBui_default/(THotWatSup_nominal -
         TColWat_nominal),
@@ -59,14 +59,12 @@ equation
                                          color={0,0,127}));
   connect(conFloEvaSHW.m_flow, proHotWat.m2_flow) annotation (Line(points={{-38,100},
           {28,100},{28,31},{30,31}},         color={0,0,127}));
-  connect(souDCW.T_in, delT.u2) annotation (Line(points={{-62,-14},{-64,-14},{
-          -64,-60},{-156,-60},{-156,-6},{-152,-6}}, color={0,0,127}));
+  connect(souDCW.T_in, delT.u2) annotation (Line(points={{-64,-60},{-156,-60},{
+          -156,-6},{-152,-6}},                      color={0,0,127}));
   connect(enaSHW.y, proHotWat.uEna) annotation (Line(points={{-118,80},{-114,80},
           {-114,43},{30,43}},  color={255,0,255}));
   connect(proHotWat.port_b2, volMix_b.ports[4])
     annotation (Line(points={{52,40},{260,40},{260,-360}}, color={0,127,255}));
-  connect(proHotWat.PHea, toSub.u) annotation (Line(points={{54,37},{56,37},{56,
-          80},{-78,80}}, color={0,0,127}));
   connect(proHotWat.PHea, PHeaTot.u[2]) annotation (Line(points={{54,37},{66,37},
           {66,38},{268,38},{268,80.5}},
         color={0,0,127}));
@@ -83,20 +81,24 @@ equation
           {-76,68},{-70,68}}, color={0,0,127}));
   connect(proHotWat.port_a2, volMix_a.ports[4]) annotation (Line(points={{52,28},
           {56,28},{56,20},{-260,20},{-260,-360}},             color={0,127,255}));
-  connect(tmv.port_hot, sinDHW.ports[1]) annotation (Line(points={{-40,61},{-45,
-          61},{-45,60},{-48,60}}, color={0,127,255}));
-  connect(souDCW.ports[1], dcwSpl.port_1) annotation (Line(points={{-40,-10},{
-          -12,-10},{-12,-6}}, color={0,127,255}));
+  connect(theMixVal.port_hot, sinDHW.ports[1]) annotation (Line(points={{-40,61},
+          {-45,61},{-45,60},{-48,60}}, color={0,127,255}));
+  connect(souDCW.ports[1], dcwSpl.port_1) annotation (Line(points={{-42,-56},{
+          -12,-56},{-12,-6}}, color={0,127,255}));
   connect(dcwSpl.port_3, proHotWat.port_a1)
-    annotation (Line(points={{-2,4},{0,4},{0,28},{32,28}}, color={0,127,255}));
-  connect(dcwSpl.port_2, tmv.port_col) annotation (Line(points={{-12,14},{-12,
-          56.6},{-20,56.6}}, color={0,127,255}));
-  connect(proHotWat.port_b1,tmv.port_hotSou)  annotation (Line(points={{32,40},
-          {0,40},{0,65.4},{-20,65.4}}, color={0,127,255}));
-  connect(tmv.TSet, delT.u1) annotation (Line(points={{-18,69.8},{-12,69.8},{
-          -12,70},{-8,70},{-8,26},{-160,26},{-160,6},{-152,6}}, color={0,0,127}));
+    annotation (Line(points={{-2,4},{12,4},{12,28},{32,28}},
+                                                           color={0,127,255}));
+  connect(dcwSpl.port_2, theMixVal.port_col) annotation (Line(points={{-12,14},
+          {-12,56.6},{-20,56.6}}, color={0,127,255}));
+  connect(proHotWat.port_b1, theMixVal.port_hotSou) annotation (Line(points={{
+          32,40},{0,40},{0,65.4},{-20,65.4}}, color={0,127,255}));
+  connect(theMixVal.TSet, delT.u1) annotation (Line(points={{-18,69.8},{-12,
+          69.8},{-12,70},{-8,70},{-8,26},{-160,26},{-160,6},{-152,6}}, color={0,
+          0,127}));
   connect(proHotWat.QCon_flow, heaFloEvaSHW.u1) annotation (Line(points={{54,24},
           {68,24},{68,120},{-108,120},{-108,106},{-102,106}}, color={0,0,127}));
+  connect(proHotWat.PHea, heaFloEvaSHW.u2) annotation (Line(points={{54,37},{60,
+          37},{60,80},{-108,80},{-108,94},{-102,94}}, color={0,0,127}));
   annotation (
   Documentation(info="<html>
 <p>

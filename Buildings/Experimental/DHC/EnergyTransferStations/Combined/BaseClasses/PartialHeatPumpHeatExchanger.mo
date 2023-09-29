@@ -362,8 +362,8 @@ model PartialHeatPumpHeatExchanger
   Buildings.Controls.OBC.CDL.Reals.Subtract delT if have_hotWat
     "Compute DeltaT needed on condenser side"
     annotation (Placement(transformation(extent={{-150,-10},{-130,10}})));
-  Fluid.Sensors.MassFlowRate senMasFloHeaWatPri(redeclare final package Medium
-      = MediumBui, final allowFlowReversal=allowFlowReversalBui)
+  Fluid.Sensors.MassFlowRate senMasFloHeaWatPri(redeclare final package Medium =
+        MediumBui, final allowFlowReversal=allowFlowReversalBui)
     "Primary heating water mass flow rate"
     annotation (Placement(transformation(extent={{30,270},{50,250}})));
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold enaSHW(
@@ -382,7 +382,8 @@ model PartialHeatPumpHeatExchanger
   Buildings.Controls.OBC.CDL.Reals.MultiSum PHeaTot(nin=2)
     "Total power used for heating and hot water production"
     annotation (Placement(transformation(extent={{270,70},{290,90}})));
-  Buildings.Controls.OBC.CDL.Reals.Add heaFloEvaSHW if have_hotWat and have_varFloEva
+  Buildings.Controls.OBC.CDL.Reals.Subtract
+                                       heaFloEvaSHW if have_hotWat and have_varFloEva
     "Heat flow rate at evaporator"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract dTHHW
@@ -422,9 +423,6 @@ model PartialHeatPumpHeatExchanger
     if have_varFloEva or have_varFloCon "Heating load"
     annotation (Placement(transformation(extent={{-140,270},{-120,290}})));
 
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter toSub(final k=-1)
-    if have_hotWat and have_varFloEva "Convert to subtraction"
-    annotation (Placement(transformation(extent={{-80,70},{-100,90}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter toSub1(final k=-1)
     if have_varFloEva "Convert to subtraction"
     annotation (Placement(transformation(extent={{-80,216},{-100,236}})));
@@ -585,8 +583,6 @@ equation
     annotation (Line(points={{-118,280},{-102,280}}, color={0,0,127}));
   connect(loaHHW.y, heaFloEvaHHW.u1) annotation (Line(points={{-118,280},{-110,
           280},{-110,246},{-102,246}}, color={0,0,127}));
-  connect(toSub.y, heaFloEvaSHW.u2) annotation (Line(points={{-102,80},{-108,80},
-          {-108,94},{-102,94}}, color={0,0,127}));
   connect(proHeaWat.PHea, toSub1.u) annotation (Line(points={{12,217},{20,217},
           {20,226},{-78,226}}, color={0,0,127}));
   connect(toSub1.y, heaFloEvaHHW.u2) annotation (Line(points={{-102,226},{-110,

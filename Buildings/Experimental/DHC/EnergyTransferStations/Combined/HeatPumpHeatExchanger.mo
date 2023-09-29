@@ -48,8 +48,6 @@ equation
                                           color={0,0,127}));
   connect(enaSHW.y, proHotWat.uEna) annotation (Line(points={{-118,80},{-114,80},
           {-114,43},{-12,43}}, color={255,0,255}));
-  connect(proHotWat.PHea, toSub.u) annotation (Line(points={{12,37},{18,37},{18,
-          80},{-78,80}}, color={0,0,127}));
   connect(proHotWat.PPum, PPumHeaTot.u[2]) annotation (Line(points={{12,34},{176,
           34},{176,420},{188,420},{188,420.5}},
                                               color={0,0,127}));
@@ -71,6 +69,8 @@ equation
     annotation (Line(points={{10,40},{260,40},{260,-360}}, color={0,127,255}));
   connect(heaFloEvaSHW.u1, div1.u1) annotation (Line(points={{-102,106},{-290,
           106},{-290,-34},{-102,-34}}, color={0,0,127}));
+  connect(proHotWat.PHea, heaFloEvaSHW.u2) annotation (Line(points={{12,37},{14,
+          37},{14,80},{-108,80},{-108,94},{-102,94}}, color={0,0,127}));
   annotation (
   Documentation(info="<html>
 <p>
