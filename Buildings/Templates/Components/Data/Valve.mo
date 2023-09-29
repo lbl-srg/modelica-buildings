@@ -35,7 +35,7 @@ record Valve "Record for valve model"
 
   annotation (Documentation(info="<html>
 <p>
-This record provides the set of sizing and operating parameters for
+This record provides the set of sizing parameters for
 the class
 <a href=\"modelica://Buildings.Templates.Components.Actuators.Valve\">
 Buildings.Templates.Components.Actuators.Valve</a>.
