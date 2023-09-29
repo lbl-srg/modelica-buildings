@@ -192,7 +192,7 @@ equation
     annotation (Line(points={{40,20},{78,20},{78,30}}, color={0,127,255}));
   connect(volPri.ports[2], port_b1) annotation (Line(points={{82,30},{82,30},{82,
           20},{98,20},{98,60},{100,60}}, color={0,127,255}));
-  annotation (
+  annotation (defaultComponentName = "indWetEva",
     Documentation(info="<html>
 <p>Model for a indirect dry evaporative cooler.</p>
 <p>This model conists of the following components:

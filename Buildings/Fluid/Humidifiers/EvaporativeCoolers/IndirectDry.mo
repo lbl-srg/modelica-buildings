@@ -99,7 +99,7 @@ equation
     Line(points={{10,14},{10,48},{100,48},{100,60}},          color = {0, 127, 255}));
   connect(dirEvaCoo.dmWat_flow, dmWat_flow) annotation (Line(points={{9,-56},{60,
           -56},{60,90},{120,90}}, color={0,0,127}));
-  annotation (
+  annotation (defaultComponentName="indDryEva",
     Documentation(info="<html>
 <p>Model for a indirect dry evaporative cooler.</p>
 <p>This model contains two components, a direct evaporative cooler 
