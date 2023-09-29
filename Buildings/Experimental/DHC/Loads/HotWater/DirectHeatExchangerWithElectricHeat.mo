@@ -1,5 +1,5 @@
 within Buildings.Experimental.DHC.Loads.HotWater;
-model DirectHeatExchangerWithAuxHeat
+model DirectHeatExchangerWithElectricHeat
   "A model for generating hot water using a district heat exchanger and supplemental electric resistance"
   extends
     Buildings.Experimental.DHC.Loads.HotWater.BaseClasses.PartialFourPortDHW(
@@ -86,7 +86,7 @@ district through a heat-exchanger and optional electric resistance to bring
 the temperature of produced hot water to setpoint.
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Loads/HotWater/DirectHeatExchangerWithAuxHeat.png\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Loads/HotWater/DirectHeatExchangerWithElectricHeat.png\"/>
 </p>
 <p>
 It is based on Fig. 5 in <i>Evaluations of different domestic hot water 
@@ -199,4 +199,4 @@ Initial Implementation.
           textString="eps=%eps")}),
         Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end DirectHeatExchangerWithAuxHeat;
+end DirectHeatExchangerWithElectricHeat;

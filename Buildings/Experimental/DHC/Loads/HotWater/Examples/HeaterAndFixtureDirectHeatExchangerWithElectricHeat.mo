@@ -1,11 +1,11 @@
 within Buildings.Experimental.DHC.Loads.HotWater.Examples;
-model HeaterAndFixtureDirectHeatExchangerWithAuxHeat
+model HeaterAndFixtureDirectHeatExchangerWithElectricHeat
   extends Modelica.Icons.Example;
   extends BaseClasses.PartialHeaterAndFixture(
     souCol(nPorts=2),
     souDis(nPorts=1),
     sinDis(nPorts=1));
-  DirectHeatExchangerWithAuxHeat gen(
+  DirectHeatExchangerWithElectricHeat gen(
     redeclare package Medium = Medium,
     mHotSou_flow_nominal=mHotSou_flow_nominal,
       mDis_flow_nominal=mDis_flow_nominal)
@@ -28,14 +28,14 @@ equation
   annotation (experiment(
       StopTime=86400,
       Tolerance=1e-06),
-      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/HotWater/Examples/HeaterAndFixtureDirectHeatExchangerWithAuxHeat.mos"
+      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/HotWater/Examples/HeaterAndFixtureDirectHeatExchangerWithElectricHeat.mos"
         "Simulate and plot"),Documentation(info="<html>
 <p>
 This model implements an example hot water system where the hot water is 
 produced using 
 The hydronic arrangement modeled in
-<a href=\"modelica://Buildings.Experimental.DHC.Loads.HotWater.DirectHeatExchangerWithAuxHeat\">
-Buildings.Experimental.DHC.Loads.HotWater.DirectHeatExchangerWithAuxHeat</a>, 
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.HotWater.DirectHeatExchangerWithElectricHeat\">
+Buildings.Experimental.DHC.Loads.HotWater.DirectHeatExchangerWithElectricHeat</a>, 
 thermostatically mixed down to a distribution temperature, and supplied to a fixture load
 defined by a schedule.
 </p>
@@ -60,4 +60,4 @@ Initial implementation.
 </li>
 </ul>
 </html>"));
-end HeaterAndFixtureDirectHeatExchangerWithAuxHeat;
+end HeaterAndFixtureDirectHeatExchangerWithElectricHeat;
