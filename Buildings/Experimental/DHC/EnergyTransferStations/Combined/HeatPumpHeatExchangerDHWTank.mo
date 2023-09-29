@@ -44,7 +44,7 @@ model HeatPumpHeatExchangerDHWTank
     mHot_flow_nominal=QHotWat_flow_nominal/cpBui_default/(THotWatSup_nominal -
         TColWat_nominal),
     dpValve_nominal=1000) "Thermostatic mixing valve"
-    annotation (Placement(transformation(extent={{-20,48},{-40,70}})));
+    annotation (Placement(transformation(extent={{-20,50},{-40,72}})));
   Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Junction dcwSpl(
       redeclare final package Medium = MediumBui, final m_flow_nominal=
         proHeaWat.m1_flow_nominal*{1,-1,-1}) "Splitter for domestic cold water"
@@ -83,18 +83,18 @@ equation
           {-76,68},{-70,68}}, color={0,0,127}));
   connect(proHotWat.port_a2, volMix_a.ports[4]) annotation (Line(points={{52,28},
           {56,28},{56,20},{-260,20},{-260,-360}},             color={0,127,255}));
-  connect(tmv.port_hot, sinDHW.ports[1]) annotation (Line(points={{-40,59},{-45,
-          59},{-45,60},{-48,60}}, color={0,127,255}));
+  connect(tmv.port_hot, sinDHW.ports[1]) annotation (Line(points={{-40,61},{-45,
+          61},{-45,60},{-48,60}}, color={0,127,255}));
   connect(souDCW.ports[1], dcwSpl.port_1) annotation (Line(points={{-40,-10},{
           -12,-10},{-12,-6}}, color={0,127,255}));
   connect(dcwSpl.port_3, proHotWat.port_a1)
     annotation (Line(points={{-2,4},{0,4},{0,28},{32,28}}, color={0,127,255}));
   connect(dcwSpl.port_2, tmv.port_col) annotation (Line(points={{-12,14},{-12,
-          54.6},{-20,54.6}}, color={0,127,255}));
-  connect(proHotWat.port_b1, tmv.port_hotsou) annotation (Line(points={{32,40},
-          {0,40},{0,63.4},{-20,63.4}}, color={0,127,255}));
-  connect(tmv.TSet, delT.u1) annotation (Line(points={{-18,67.8},{-12,67.8},{
-          -12,68},{-8,68},{-8,26},{-160,26},{-160,6},{-152,6}}, color={0,0,127}));
+          56.6},{-20,56.6}}, color={0,127,255}));
+  connect(proHotWat.port_b1,tmv.port_hotSou)  annotation (Line(points={{32,40},
+          {0,40},{0,65.4},{-20,65.4}}, color={0,127,255}));
+  connect(tmv.TSet, delT.u1) annotation (Line(points={{-18,69.8},{-12,69.8},{
+          -12,70},{-8,70},{-8,26},{-160,26},{-160,6},{-152,6}}, color={0,0,127}));
   connect(proHotWat.QCon_flow, heaFloEvaSHW.u1) annotation (Line(points={{54,24},
           {68,24},{68,120},{-108,120},{-108,106},{-102,106}}, color={0,0,127}));
   annotation (

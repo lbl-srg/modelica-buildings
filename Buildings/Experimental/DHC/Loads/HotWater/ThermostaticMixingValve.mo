@@ -14,9 +14,9 @@ model ThermostaticMixingValve
     k=k,
     Ti=Ti,
     reset=Buildings.Types.Reset.Parameter)
-    annotation (Placement(transformation(extent={{40,60},{20,80}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTemHot(redeclare package Medium =
-        Medium, m_flow_nominal=mHot_flow_nominal)
+    annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemHot(redeclare package Medium
+      = Medium, m_flow_nominal=mHot_flow_nominal)
     "Hot water to fixture temperature sensor"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Fluid.Actuators.Valves.ThreeWayLinear val(
@@ -29,7 +29,7 @@ model ThermostaticMixingValve
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={0,0})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_hotsou(redeclare package Medium =
+  Modelica.Fluid.Interfaces.FluidPort_a port_hotSou(redeclare package Medium =
         Medium) "Port for hot water supply from source"
     annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_col(redeclare package Medium =
@@ -41,15 +41,16 @@ model ThermostaticMixingValve
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemHotSou(redeclare package
       Medium = Medium, m_flow_nominal=mHot_flow_nominal)
     "Source hot water temperature sensor"
-    annotation (Placement(transformation(extent={{-40,-8},{-20,12}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTemCw(redeclare package Medium =
-        Medium, m_flow_nominal=mHot_flow_nominal) "Cold water temperature sensor"
-    annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemCw(redeclare package Medium
+      = Medium, m_flow_nominal=mHot_flow_nominal) "Cold water temperature sensor"
+    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Buildings.Fluid.Sensors.MassFlowRate senFloHot(redeclare package Medium =
         Medium) "Mass flow rate of hot water to fixture"
     annotation (Placement(transformation(extent={{50,-10},{70,10}})));
-  Modelica.Blocks.Logical.Hysteresis hysteresis(uLow=uLow, uHigh=uHigh)
-    annotation (Placement(transformation(extent={{56,24},{44,36}})));
+  Modelica.Blocks.Logical.Hysteresis hys(uLow=uLow, uHigh=uHigh)
+    "Hysteresis to reset controller if flow starts"
+    annotation (Placement(transformation(extent={{-10,30},{-30,50}})));
   Modelica.Blocks.Interfaces.RealInput TSet
     "Temperature setpoint of tempered hot water outlet"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
@@ -58,32 +59,33 @@ protected
   parameter Real uHigh = 0.05*mHot_flow_nominal "High hysteresis threshold";
 equation
   connect(senTemHot.T, conPID.u_m)
-    annotation (Line(points={{30,11},{30,58}}, color={0,0,127}));
+    annotation (Line(points={{30,11},{30,60},{-30,60},{-30,68}},
+                                               color={0,0,127}));
   connect(val.port_2, senTemHot.port_a) annotation (Line(points={{10,-6.66134e-16},
           {20,-6.66134e-16},{20,0}}, color={0,127,255}));
-  connect(conPID.y, val.y) annotation (Line(points={{19,70},{0,70},{0,12},{
-          9.99201e-16,12}}, color={0,0,127}));
-  connect(senTemHot.T,THot)  annotation (Line(points={{30,11},{30,40},{90,40},{
-          90,60},{110,60}}, color={0,0,127}));
-  connect(val.port_1, senTemHotSou.port_b) annotation (Line(points={{-10,
-          1.77636e-15},{-10,2},{-20,2}}, color={0,127,255}));
-  connect(senTemHotSou.port_a, port_hotsou) annotation (Line(points={{-40,2},{-60,
-          2},{-60,40},{-100,40}}, color={0,127,255}));
-  connect(val.port_3, senTemCw.port_b) annotation (Line(points={{-1.77636e-15,-10},
-          {-1.77636e-15,-60},{-20,-60}}, color={0,127,255}));
-  connect(senTemCw.port_a, port_col) annotation (Line(points={{-40,-60},{-70,-60},
-          {-70,-40},{-100,-40}}, color={0,127,255}));
+  connect(conPID.y, val.y) annotation (Line(points={{-19,80},{0,80},{0,12}},
+                            color={0,0,127}));
+  connect(senTemHot.T,THot)  annotation (Line(points={{30,11},{30,60},{110,60}},
+                            color={0,0,127}));
+  connect(val.port_1, senTemHotSou.port_b) annotation (Line(points={{-10,0},{
+          -20,0}},                       color={0,127,255}));
+  connect(senTemHotSou.port_a,port_hotSou)  annotation (Line(points={{-40,0},{
+          -60,0},{-60,40},{-100,40}},
+                                  color={0,127,255}));
+  connect(val.port_3, senTemCw.port_b) annotation (Line(points={{0,-10},{0,-40},
+          {-20,-40}},                    color={0,127,255}));
+  connect(senTemCw.port_a, port_col) annotation (Line(points={{-40,-40},{-100,
+          -40}},                 color={0,127,255}));
   connect(senTemHot.port_b, senFloHot.port_a)
     annotation (Line(points={{40,0},{50,0}}, color={0,127,255}));
   connect(senFloHot.port_b, port_hot)
     annotation (Line(points={{70,0},{100,0}}, color={0,127,255}));
-  connect(hysteresis.u,senFloHot. m_flow)
-    annotation (Line(points={{57.2,30},{60,30},{60,11}},
-                                                       color={0,0,127}));
-  connect(hysteresis.y, conPID.trigger)
-    annotation (Line(points={{43.4,30},{38,30},{38,58}}, color={255,0,255}));
-  connect(conPID.u_s, TSet) annotation (Line(points={{42,70},{50,70},{50,92},{-94,
-          92},{-94,80},{-120,80}}, color={0,0,127}));
+  connect(hys.u, senFloHot.m_flow)
+    annotation (Line(points={{-8,40},{60,40},{60,11}}, color={0,0,127}));
+  connect(hys.y, conPID.trigger)
+    annotation (Line(points={{-31,40},{-38,40},{-38,68}}, color={255,0,255}));
+  connect(conPID.u_s, TSet) annotation (Line(points={{-42,80},{-120,80}},
+                                   color={0,0,127}));
   annotation (preferredView="info",Documentation(info="<html>
 <p>
 This model implements a thermostatic mixing valve, which uses
