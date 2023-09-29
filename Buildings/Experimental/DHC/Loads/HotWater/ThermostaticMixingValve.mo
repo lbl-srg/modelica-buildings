@@ -6,17 +6,30 @@ model ThermostaticMixingValve
   parameter Modelica.Units.SI.PressureDifference dpValve_nominal(min=0, displayUnit="Pa") "Nominal pressure drop of valve";
   parameter Real k = 0.1 "Proportional gain of valve controller";
   parameter Modelica.Units.SI.Time Ti = 15 "Integrator time constant of valve controller";
-  Modelica.Fluid.Interfaces.FluidPort_b port_hot(redeclare package Medium =
-        Medium) "Port for hot water outlet to fixture(s)"
+  Modelica.Fluid.Interfaces.FluidPort_b port_hot(
+    redeclare package Medium = Medium) "Port for hot water outlet to fixture(s)"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+
+  Modelica.Fluid.Interfaces.FluidPort_a port_hotSou(redeclare package Medium =
+        Medium) "Port for hot water supply from source"
+    annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
+  Modelica.Fluid.Interfaces.FluidPort_a port_col(redeclare package Medium =
+        Medium) "Port for domestic cold water supply"
+    annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
+  Modelica.Blocks.Interfaces.RealOutput THot
+    "Temperature of the outlet hot water supply to fixture"
+    annotation (Placement(transformation(extent={{100,50},{120,70}})));
+
   Buildings.Controls.Continuous.LimPID conPID(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=k,
     Ti=Ti,
     reset=Buildings.Types.Reset.Parameter)
+    "Controller for thermostatic valve"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTemHot(redeclare package Medium
-      = Medium, m_flow_nominal=mHot_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemHot(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=mHot_flow_nominal)
     "Hot water to fixture temperature sensor"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Fluid.Actuators.Valves.ThreeWayLinear val(
@@ -29,21 +42,13 @@ model ThermostaticMixingValve
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={0,0})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_hotSou(redeclare package Medium =
-        Medium) "Port for hot water supply from source"
-    annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_col(redeclare package Medium =
-        Medium) "Port for domestic cold water supply"
-    annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
-  Modelica.Blocks.Interfaces.RealOutput THot
-    "Temperature of the outlet hot water supply to fixture"
-    annotation (Placement(transformation(extent={{100,50},{120,70}})));
+
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemHotSou(redeclare package
       Medium = Medium, m_flow_nominal=mHot_flow_nominal)
     "Source hot water temperature sensor"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTemCw(redeclare package Medium
-      = Medium, m_flow_nominal=mHot_flow_nominal) "Cold water temperature sensor"
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemCw(redeclare package Medium =
+        Medium, m_flow_nominal=mHot_flow_nominal) "Cold water temperature sensor"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Buildings.Fluid.Sensors.MassFlowRate senFloHot(redeclare package Medium =
         Medium) "Mass flow rate of hot water to fixture"
@@ -67,15 +72,14 @@ equation
                             color={0,0,127}));
   connect(senTemHot.T,THot)  annotation (Line(points={{30,11},{30,60},{110,60}},
                             color={0,0,127}));
-  connect(val.port_1, senTemHotSou.port_b) annotation (Line(points={{-10,0},{
-          -20,0}},                       color={0,127,255}));
-  connect(senTemHotSou.port_a,port_hotSou)  annotation (Line(points={{-40,0},{
-          -60,0},{-60,40},{-100,40}},
-                                  color={0,127,255}));
+  connect(val.port_1, senTemHotSou.port_b) annotation (Line(points={{-10,0},{-20,
+          0}},                           color={0,127,255}));
+  connect(senTemHotSou.port_a,port_hotSou)  annotation (Line(points={{-40,0},{-60,
+          0},{-60,40},{-100,40}}, color={0,127,255}));
   connect(val.port_3, senTemCw.port_b) annotation (Line(points={{0,-10},{0,-40},
           {-20,-40}},                    color={0,127,255}));
-  connect(senTemCw.port_a, port_col) annotation (Line(points={{-40,-40},{-100,
-          -40}},                 color={0,127,255}));
+  connect(senTemCw.port_a, port_col) annotation (Line(points={{-40,-40},{-100,-40}},
+                                 color={0,127,255}));
   connect(senTemHot.port_b, senFloHot.port_a)
     annotation (Line(points={{40,0},{50,0}}, color={0,127,255}));
   connect(senFloHot.port_b, port_hot)
@@ -86,7 +90,9 @@ equation
     annotation (Line(points={{-31,40},{-38,40},{-38,68}}, color={255,0,255}));
   connect(conPID.u_s, TSet) annotation (Line(points={{-42,80},{-120,80}},
                                    color={0,0,127}));
-  annotation (preferredView="info",Documentation(info="<html>
+  annotation (
+  defaultComponentName="theMixVal",
+  preferredView="info",Documentation(info="<html>
 <p>
 This model implements a thermostatic mixing valve, which uses
 a PI feedback controller to mix hot and cold fluid to achieve a specified 
@@ -110,29 +116,22 @@ Initial Implementation.
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Rectangle(
-          visible=use_inputFilter,
           extent={{-34,-28},{32,32}},
           lineColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          visible=use_inputFilter,
           extent={{-34,32},{32,-28}},
           lineColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
         Text(
-          visible=use_inputFilter,
           extent={{-22,26},{20,-20}},
           textColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid,
           textString="M",
           textStyle={TextStyle.Bold}),
-        Text(
-          extent={{-42,58},{-162,8}},
-          textColor={0,0,0},
-          textString=DynamicSelect("", String(y, format=".2f"))),
     Rectangle(
       extent={{-40,22},{40,-22}},
       lineColor={0,0,0},
@@ -148,7 +147,6 @@ Initial Implementation.
           origin={-78,40},
           rotation=90),
     Line(
-      visible=use_inputFilter,
       points={{-32,-28},{28,-28}}),
     Rectangle(
       extent={{-40,22},{40,-22}},
