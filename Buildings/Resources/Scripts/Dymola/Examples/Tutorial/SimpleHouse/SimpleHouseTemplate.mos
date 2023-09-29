@@ -1,2 +1,0 @@
-simulateModel("Buildings.Examples.Tutorial.SimpleHouse.SimpleHouseTemplate", stopTime=1e+06, method="CVode", tolerance=1e-06, resultFile="SimpleHouseTemplate");
-createPlot(id=1,position={0, 0, 792, 1247}, y={"Tout.T"}, range={0.0, 1e+06, 12.5, 20.5}, grid=true, colors={{28,108,200}});

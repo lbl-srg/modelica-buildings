@@ -1,4 +1,4 @@
 compareVars :=
   {
-    "zon.T"
+    "TOut.T"
   };

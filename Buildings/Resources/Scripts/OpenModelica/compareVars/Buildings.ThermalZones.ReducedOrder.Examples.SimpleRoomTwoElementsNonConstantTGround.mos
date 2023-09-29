@@ -1,4 +1,4 @@
 compareVars :=
   {
-    "Tout.T"
+    "eqAirTemp.TEqAir"
   };
