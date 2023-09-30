@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences;
-block DXCoilEnable
+block Enable
   "Sequence for enabling and disabling DX coils"
   extends Modelica.Blocks.Icons.Block;
 
@@ -50,6 +50,7 @@ block DXCoilEnable
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
+protected
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrCoi(
     final t=uThrCoiEna,
     final h=dUHys)
@@ -128,7 +129,7 @@ equation
     annotation (Line(points={{92,0},{120,0}}, color={255,0,255}));
 
   annotation (
-    defaultComponentName="DXCoiEna",
+    defaultComponentName="coiEna",
     Icon(coordinateSystem(preserveAspectRatio=false,
       extent={{-100,-100},{100,100}}),
         graphics={
@@ -178,4 +179,4 @@ equation
   </li>
   </ul>
   </html>"));
-end DXCoilEnable;
+end Enable;

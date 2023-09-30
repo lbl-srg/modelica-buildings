@@ -1,5 +1,7 @@
 ASHRAE2006
 ASHRAE2006_RTU
+ASHRAE2006_RTU_wSupTemRes
+ASHRAE2006_RTU_wSupTemRes_G36
 Floor
 Guideline36
 Guideline36_RTU
@@ -11,5 +13,3 @@ PartialHVAC_RTU
 RoomLeakage
 VAVReheatBox
 Controls
-ASHRAE2006_RTU_wSupTemRes
-ASHRAE2006_RTU_wSupTemRes_G36

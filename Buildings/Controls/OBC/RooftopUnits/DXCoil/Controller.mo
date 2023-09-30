@@ -217,7 +217,7 @@ block Controller
     "DX coil staging"
     annotation (Placement(transformation(extent={{-150,46},{-130,66}})));
 
-  Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.DXCoilEnable DXCoiEna(
+  Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.Enable DXCoiEna(
     final nCoi=nCoi,
     final uThrCoiEna=uThrCoi2,
     final uThrCoiDis=uThrCoi3,
@@ -428,8 +428,8 @@ equation
   </li>
   <li>
   Subsequences to enable and disable DX coils 
-  <a href=\"modelica://Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.DXCoilEnable\">
-  Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.DXCoilEnable</a>.
+  <a href=\"modelica://Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.Enable\">
+  Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.Enable</a>.
   </li>
   <li>
   Subsequences to control compressor speed 
