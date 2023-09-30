@@ -2,14 +2,10 @@ within Buildings.BoundaryConditions.WeatherData;
 expandable connector Bus "Data bus that stores weather data"
   extends Modelica.Icons.SignalBus;
 
-  Modelica.Units.SI.Temperature TDryBul(displayUnit="degC")
-    "Dry bulb temperature";
-  Modelica.Units.SI.Temperature TWetBul(displayUnit="degC")
-    "Wet bulb temperature";
-  Modelica.Units.SI.Temperature TDewPoi(displayUnit="degC")
-    "Dew point temperature";
-  Modelica.Units.SI.Temperature TBlaSky(displayUnit="degC")
-    "Black-body sky temperature";
+  Modelica.Units.SI.Temperature TDryBul "Dry bulb temperature";
+  Modelica.Units.SI.Temperature TWetBul "Wet bulb temperature";
+  Modelica.Units.SI.Temperature TDewPoi "Dew point temperature";
+  Modelica.Units.SI.Temperature TBlaSky "Black-body sky temperature";
 
   Real relHum(final unit="1") "Relative humidity";
 
