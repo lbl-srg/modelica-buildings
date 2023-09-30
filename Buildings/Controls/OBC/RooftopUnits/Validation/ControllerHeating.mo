@@ -2,7 +2,8 @@ within Buildings.Controls.OBC.RooftopUnits.Validation;
 model ControllerHeating "Validation of controller in heating mode operation"
 
   Buildings.Controls.OBC.RooftopUnits.Controller RTUCon(
-    nCoi=3,
+    nCoiHea=3,
+    nCoiCoo=3,
     conCoiLow=0.2,
     conCoiHig=0.8,
     uThrCoi=0.8,
@@ -32,7 +33,8 @@ model ControllerHeating "Validation of controller in heating mode operation"
     annotation (Placement(transformation(extent={{-80,138},{-60,166}})));
 
   Buildings.Controls.OBC.RooftopUnits.Controller RTUCon1(
-    nCoi=3,
+    nCoiHea=3,
+    nCoiCoo=3,
     conCoiLow=0.2,
     conCoiHig=0.8,
     uThrCoi=0.8,
@@ -62,7 +64,8 @@ model ControllerHeating "Validation of controller in heating mode operation"
     annotation (Placement(transformation(extent={{80,138},{100,166}})));
 
   Buildings.Controls.OBC.RooftopUnits.Controller RTUCon2(
-    nCoi=3,
+    nCoiHea=3,
+    nCoiCoo=3,
     conCoiLow=0.2,
     conCoiHig=0.8,
     uThrCoi=0.8,
@@ -92,7 +95,8 @@ model ControllerHeating "Validation of controller in heating mode operation"
     annotation (Placement(transformation(extent={{-80,-162},{-60,-134}})));
 
   Buildings.Controls.OBC.RooftopUnits.Controller RTUCon3(
-    nCoi=3,
+    nCoiHea=3,
+    nCoiCoo=3,
     conCoiLow=0.2,
     conCoiHig=0.8,
     uThrCoi=0.8,
@@ -134,17 +138,17 @@ model ControllerHeating "Validation of controller in heating mode operation"
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[3](
     final k={1,2,3})
     "Constant integer signal"
-    annotation (Placement(transformation(extent={{-140,220},{-120,240}})));
+    annotation (Placement(transformation(extent={{-140,230},{-120,250}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
     final k=0)
     "Constant Integer"
-    annotation (Placement(transformation(extent={{-140,180},{-120,200}})));
+    annotation (Placement(transformation(extent={{-140,200},{-120,220}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conCooCoi(
     final k=0)
     "Cooiling coil signal"
-    annotation (Placement(transformation(extent={{-140,140},{-120,160}})));
+    annotation (Placement(transformation(extent={{-140,170},{-120,190}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramHeaCoi(
     final height=0.5,
@@ -152,17 +156,17 @@ model ControllerHeating "Validation of controller in heating mode operation"
     final offset=0.5,
     final startTime=0)
     "Heating coil signal"
-    annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
+    annotation (Placement(transformation(extent={{-140,140},{-120,160}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOut(
     final k=273.15 - 15)
     "Outdoor air dry bulb temperature"
-    annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
+    annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant Xout(
     final k=0.03)
     "Outdoor air humidity ratio"
-    annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
+    annotation (Placement(transformation(extent={{-140,70},{-120,90}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre pre2[3](
     final pre_u_start=fill(false, 3))
@@ -177,17 +181,17 @@ model ControllerHeating "Validation of controller in heating mode operation"
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2[3](
     final k={1,2,3})
     "Constant integer signal"
-    annotation (Placement(transformation(extent={{20,220},{40,240}})));
+    annotation (Placement(transformation(extent={{20,230},{40,250}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt3(
     final k=0)
     "Constant Integer"
-    annotation (Placement(transformation(extent={{20,180},{40,200}})));
+    annotation (Placement(transformation(extent={{20,200},{40,220}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conCooCoi1(
     final k=0)
     "Cooiling coil signal"
-    annotation (Placement(transformation(extent={{20,140},{40,160}})));
+    annotation (Placement(transformation(extent={{20,170},{40,190}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramHeaCoi1(
     final height=0.5,
@@ -195,17 +199,17 @@ model ControllerHeating "Validation of controller in heating mode operation"
     final offset=0.5,
     final startTime=0)
     "Heating coil signal"
-    annotation (Placement(transformation(extent={{20,100},{40,120}})));
+    annotation (Placement(transformation(extent={{20,140},{40,160}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOut1(
     final k=273.15 - 5)
     "Outdoor air dry bulb temperature"
-    annotation (Placement(transformation(extent={{20,60},{40,80}})));
+    annotation (Placement(transformation(extent={{20,110},{40,130}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant Xout1(
     final k=0.03)
     "Outdoor air humidity ratio"
-    annotation (Placement(transformation(extent={{20,20},{40,40}})));
+    annotation (Placement(transformation(extent={{20,80},{40,100}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre pre3[3](
     final pre_u_start=fill(false, 3))
@@ -220,17 +224,17 @@ model ControllerHeating "Validation of controller in heating mode operation"
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt4[3](
     final k={1,2,3})
     "Constant integer signal"
-    annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
+    annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt5(
     final k=1)
     "Constant Integer"
-    annotation (Placement(transformation(extent={{-140,-120},{-120,-100}})));
+    annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conCooCoi2(
     final k=0)
     "Cooiling coil signal"
-    annotation (Placement(transformation(extent={{-140,-160},{-120,-140}})));
+    annotation (Placement(transformation(extent={{-140,-130},{-120,-110}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramHeaCoi2(
     final height=0.5,
@@ -238,17 +242,17 @@ model ControllerHeating "Validation of controller in heating mode operation"
     final offset=0.5,
     final startTime=0)
     "Heating coil signal"
-    annotation (Placement(transformation(extent={{-140,-200},{-120,-180}})));
+    annotation (Placement(transformation(extent={{-140,-160},{-120,-140}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOut2(
     final k=273.15 - 5)
     "Outdoor air dry bulb temperature"
-    annotation (Placement(transformation(extent={{-140,-240},{-120,-220}})));
+    annotation (Placement(transformation(extent={{-140,-190},{-120,-170}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant Xout2(
     final k=0.03)
     "Outdoor air humidity ratio"
-    annotation (Placement(transformation(extent={{-140,-280},{-120,-260}})));
+    annotation (Placement(transformation(extent={{-140,-220},{-120,-200}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre pre4[3](
     final pre_u_start=fill(false, 3))
@@ -263,17 +267,17 @@ model ControllerHeating "Validation of controller in heating mode operation"
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt6[3](
     final k={1,2,3})
     "Constant integer signal"
-    annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
+    annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt7(
     final k=1)
     "Constant Integer"
-    annotation (Placement(transformation(extent={{20,-120},{40,-100}})));
+    annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conCooCoi3(
     final k=0)
     "Cooiling coil signal"
-    annotation (Placement(transformation(extent={{20,-160},{40,-140}})));
+    annotation (Placement(transformation(extent={{20,-130},{40,-110}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramHeaCoi3(
     final height=0.5,
@@ -281,17 +285,17 @@ model ControllerHeating "Validation of controller in heating mode operation"
     final offset=0.5,
     final startTime=0)
     "Heating coil signal"
-    annotation (Placement(transformation(extent={{20,-200},{40,-180}})));
+    annotation (Placement(transformation(extent={{20,-160},{40,-140}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOut3(
     final k=273.15 + 5)
     "Outdoor air dry bulb temperature"
-    annotation (Placement(transformation(extent={{20,-240},{40,-220}})));
+    annotation (Placement(transformation(extent={{20,-190},{40,-170}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant Xout3(
     final k=0.03)
     "Outdoor air humidity ratio"
-    annotation (Placement(transformation(extent={{20,-280},{40,-260}})));
+    annotation (Placement(transformation(extent={{20,-220},{40,-200}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre pre5[3](
     final pre_u_start=fill(false, 3))
@@ -312,6 +316,50 @@ model ControllerHeating "Validation of controller in heating mode operation"
     final pre_u_start=fill(false, 3))
     "Logical Pre block"
     annotation (Placement(transformation(extent={{120,-180},{140,-160}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TSup[3](
+    each height=4,
+    each duration=1800,
+    each offset=10)
+    "Supply air temperature"
+    annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupSet(final k=12)
+    "Supply air temperature setpoint"
+    annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TSup1[3](
+    each height=4,
+    each duration=1800,
+    each offset=10)
+    "Supply air temperature"
+    annotation (Placement(transformation(extent={{20,50},{40,70}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupSet1(final k=12)
+    "Supply air temperature setpoint"
+    annotation (Placement(transformation(extent={{20,20},{40,40}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TSup2[3](
+    each height=4,
+    each duration=1800,
+    each offset=10)
+    "Supply air temperature"
+    annotation (Placement(transformation(extent={{-140,-250},{-120,-230}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupSet2(final k=12)
+    "Supply air temperature setpoint"
+    annotation (Placement(transformation(extent={{-140,-280},{-120,-260}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TSup3[3](
+    each height=4,
+    each duration=1800,
+    each offset=10)
+    "Supply air temperature"
+    annotation (Placement(transformation(extent={{20,-250},{40,-230}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupSet3(final k=12)
+    "Supply air temperature setpoint"
+    annotation (Placement(transformation(extent={{20,-280},{40,-260}})));
 
 equation
   connect(conInt1.y, RTUCon.uDemLimLev) annotation (Line(points={{-118,190},{
@@ -485,10 +533,10 @@ annotation (
     <ul>
     <li>
     In Plot[1] when <code>RTUCon.TOut</code> drops to <i>-15</i>&deg;C, lower than the outdoor air lockout temperature 
-    <code>RTUCon.TLocOut</code> (e.g., <i>-12.2</i>&deg;C), and <code>RTUCon.uHeaCoi</code> exceeds a threshold 
+    <code>RTUCon.TLocOut</code> (e.g., <i>-12.2</i>&deg;C), and <code>RTUCon.uDXHeaCoi</code> exceeds a threshold 
     <code>RTUCon.uThrHeaCoi</code> value of 0.9, the controller deactivates DX coils <code>conAuxCoi.yDXCoi=false</code>
-    and outputs <code>conAuxCoi.yAuxHea</code> ranging from 0.9 to 1, depending on the value of <code>RTUCon.uHeaCoi</code>. 
-    Additionally, when <code>RTUCon.uHeaCoi</code> falls below the threshold value of 0.9, the controller outputs 0.
+    and outputs <code>conAuxCoi.yAuxHea</code> ranging from 0.9 to 1, depending on the value of <code>RTUCon.uDXHeaCoi</code>. 
+    Additionally, when <code>RTUCon.uDXHeaCoi</code> falls below the threshold value of 0.9, the controller outputs 0.
     </li>
     <li>
     Compared to Plot[1], Plot[2] shows that as <code>RTUCon.TOut</code> increaes to <i>-5</i>&deg;C, the controller initiates 
