@@ -1,5 +1,5 @@
 simulateModel("Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.Validation.DXCoilStage", stopTime=3600, method="Cvode", tolerance=1e-06, resultFile="DXCoilStage");
-createPlot(id=1, position={15, 15, 600, 400}, y={"DXCoiSta.uCoi"}, range={0.0, 3600.0, 0.0, 1.0}, grid=true, autoscale=false, filename="DXCoilStage.mat", subPlot=101, colors={{28,108,200}}, thicknesses={0.5}, timeUnit="s", displayUnits={""});
+createPlot(id=1, position={15, 15, 600, 400}, y={"DXCoiSta.uCoi"}, range={0.0, 3600.0, 0.0, 1.5}, grid=true, autoscale=false, filename="DXCoilStage.mat", subPlot=101, colors={{28,108,200}}, thicknesses={0.5}, timeUnit="s", displayUnits={""});
 createPlot(id=1, position={15, 15, 600, 400}, y={"DXCoiSta.uComSpe[1]"}, range={0.0, 3600.0, -0.5, 1.5}, erase=false, autoscale=false, subPlot=102, colors={{28,108,200}}, thicknesses={0.5}, timeUnit="s");
 createPlot(id=1, position={15, 15, 600, 400}, y={"DXCoiSta.uDXCoi[1]"}, range={0.0, 3600.0, -0.5, 1.5}, erase=false, autoscale=false, subPlot=103, colors={{28,108,200}}, thicknesses={0.5}, timeUnit="s");
 createPlot(id=1, position={15, 15, 600, 400}, y={"nexDXCoi.y", "preDXCoi.y"}, range={0.0, 3600.0, -0.2, 1.2}, grid=true, autoscale=false, subPlot=104, colors={{28,108,200}, {28,108,200}}, thicknesses={0.5,0.5}, timeUnit="s");

@@ -5,8 +5,8 @@ model Controller "Validation model for DX coil controller"
     nCoi=3,
     conCoiLow=0.2,
     conCoiHig=0.8,
-    uThrCoi=0.8,
-    uThrCoi1=0.2,
+    uThrCoiUp=0.8,
+    uThrCoiDow=0.2,
     uThrCoi2=0.8,
     uThrCoi3=0.1,
     dUHys=0.01,
@@ -17,43 +17,48 @@ model Controller "Validation model for DX coil controller"
     minComSpe=0.1,
     maxComSpe=1)
     "DX coil staging and compressor speed control"
-    annotation (Placement(transformation(extent={{-10,-14},{10,14}})));
+    annotation (Placement(transformation(extent={{-10,6},{10,34}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre pre1[3](
     final pre_u_start=fill(false,3))
     "Logical Pre block"
-    annotation (Placement(transformation(extent={{30,-10},{50,10}})));
+    annotation (Placement(transformation(extent={{30,10},{50,30}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[3](
-    final k={1,2,3})
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[3](final k={1,2,3})
     "Constant integer signal"
-    annotation (Placement(transformation(extent={{-60,-14},{-40,6}})));
+    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramCoi(
-    final height=0.5,
+    final height=0.2,
     final duration=3600,
-    final offset=0.5) "Coil valve position"
-    annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
+    final offset=0.8)
+    "Coil valve position"
+    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1[3](
     final k={true,true,true})
     "Constant Boolean signal"
-    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
+    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pulComSpe[3](
+    each final period=900) "Coil valve position"
+    annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
 
 equation
   connect(DXCoiCon.yDXCoi, pre1.u)
-    annotation (Line(points={{12,5.6},{22,5.6},{22,0},{28,0}},
-                                                           color={255,0,255}));
-  connect(pre1.y, DXCoiCon.uDXCoi) annotation (Line(points={{52,0},{60,0},{60,
-          30},{-20,30},{-20,11.2},{-12,11.2}},
+    annotation (Line(points={{12,20},{28,20}},             color={255,0,255}));
+  connect(pre1.y, DXCoiCon.uDXCoi) annotation (Line(points={{52,20},{60,20},{60,
+          50},{-20,50},{-20,25.6},{-12,25.6}},
                                              color={255,0,255}));
-  connect(ramCoi.y, DXCoiCon.uCoi) annotation (Line(points={{-38,-50},{-20,
-          -50},{-20,-11.2},{-12,-11.2}}, color={0,0,127}));
-  connect(con1.y, DXCoiCon.uDXCoiAva) annotation (Line(points={{-38,40},{-30,40},
-          {-30,5.6},{-12,5.6}},   color={255,0,255}));
-  connect(conInt.y, DXCoiCon.uCoiSeq) annotation (Line(points={{-38,-4},{-25,-4},
-          {-25,-5.32},{-12,-5.32}},                 color={255,127,0}));
+  connect(ramCoi.y, DXCoiCon.uCoi) annotation (Line(points={{-38,-20},{-30,-20},
+          {-30,14.4},{-12,14.4}},        color={0,0,127}));
+  connect(con1.y, DXCoiCon.uDXCoiAva) annotation (Line(points={{-38,60},{-30,60},
+          {-30,31.2},{-12,31.2}}, color={255,0,255}));
+  connect(conInt.y, DXCoiCon.uCoiSeq) annotation (Line(points={{-38,20},{-12,20}},
+                                                    color={255,127,0}));
 
+  connect(pulComSpe.y, DXCoiCon.uComSpe) annotation (Line(points={{-38,-60},{-20,
+          -60},{-20,8.8},{-12,8.8}}, color={0,0,127}));
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/RooftopUnits/DXCoil/Validation/Controller.mos"
@@ -68,19 +73,26 @@ annotation (
     Simulation results are observed as follows: 
     <ul>
     <li>
-    When the availablity of the first DX coil is ture <code>con1[1].y=true</code> and its sequencing order is set to 1 <code>conInt[1].y=1</code>, 
-    the controller enables this coil <code>DXCoiCon.yDXCoi[1]=true</code> and adjusts the compressor speed <code>DXCoiCon.yComSpe[1]</code> 
-    once the coil valve position signal <code>DXCoiCon.uCoi</code> remains above 0.8 for a continuous duration of 300 seconds. 
+    When the availablity of the first DX coil is ture <code>DXCoiCon.uDXCoiAva[1]=true</code> 
+    and its sequencing order is set to 1 <code>DXCoiCon.uCoiSeq[1]=1</code>, 
+    the controller enables this coil <code>DXCoiCon.yDXCoi[1]=true</code>
+    once the coil valve position signal <code>DXCoiCon.uCoi</code> remains 
+    above 0.8 for a continuous duration of 300 seconds. 
     </li>
     <li>
-    When <code>con1[2].y=true</code> and <code>conInt[2].y=2</code>, 
-    the controller stages up the subsequent available coil <code>DXCoiCon.yDXCoi[2]=true</code> and adjusts <code>DXCoiCon.yComSpe[2]</code> 
+    When <code>DXCoiCon.uDXCoiAva[2]=true</code> and <code>DXCoiCon.uCoiSeq[2]=2</code>, 
+    the controller stages up the subsequent available coil <code>DXCoiCon.yDXCoi[2]=true</code>
     once <code>DXCoiCon.uCoi</code> remains consistently above 0.8 for a continuous duration of 480 seconds. 
     </li>
     <li>
-    When <code>con1[3].y=true</code> and <code>conInt[3].y=3</code>, 
-    the controller continually stages up the next available coil <code>DXCoiCon.yDXCoi[3]=true</code> and adjusts <code>DXCoiCon.yComSpe[3]</code> 
+    When <code>DXCoiCon.uDXCoiAva[3]=true</code> and <code>DXCoiCon.uCoiSeq[3]=3</code>, 
+    the controller continually stages up the next available coil <code>DXCoiCon.yDXCoi[3]=true</code>
     once <code>DXCoiCon.uCoi</code> remains consistently above 0.8 for a continuous duration of 480 seconds. 
+    </li>
+    <li>
+    When the compressor speed ratio <code>DXCoiCon.uComSpe</code> falls below a threshold of coil valve position 
+    <code>uThrCoiDow</code> of 0.2 for the duration <code>timPerDow</code> of 180 seconds, 
+    the controller stages down the last enabled DX coil <code>DXCoiCon.yDXCoi=false</code>. 
     </li>
     </ul>
     </p>
