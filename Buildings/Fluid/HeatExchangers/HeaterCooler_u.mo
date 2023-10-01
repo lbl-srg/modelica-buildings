@@ -12,8 +12,6 @@ model HeaterCooler_u "Heater or cooler with prescribed heat flow rate"
   Modelica.Blocks.Interfaces.RealOutput Q_flow(unit="W")
     "Heat added to the fluid"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant con(k=1)
-    annotation (Placement(transformation(extent={{-78,22},{-58,42}})));
 protected
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea(
     final alpha=0)
@@ -37,8 +35,6 @@ equation
   connect(gai.y, Q_flow) annotation (Line(
       points={{-59,60},{-50,60},{-50,80},{80,80},{80,60},{110,60}},
       color={0,0,127}));
-  connect(con.y, damPreInd.y) annotation (Line(points={{-56,32},{-50,32},{-50,
-          18},{-78,18},{-78,12}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(

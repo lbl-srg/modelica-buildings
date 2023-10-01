@@ -63,11 +63,6 @@ model TwoPortHeatMassExchanger
     final dp_nominal=dp_nominal) "Flow resistance"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
-  Actuators.Dampers.PressureIndependent      damPreInd(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    dpDamper_nominal=dp_nominal)
-    annotation (Placement(transformation(extent={{-88,-10},{-68,10}})));
 protected
   parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
       T=Medium.T_default, p=Medium.p_default, X=Medium.X_default);
@@ -93,13 +88,12 @@ equation
   connect(vol.ports[2], port_b) annotation (Line(
       points={{1,0},{100,0}},
       color={0,127,255}));
+  connect(port_a, preDro.port_a) annotation (Line(
+      points={{-100,0},{-90,0},{-90,0},{-80,0},{-80,0},{-60,0}},
+      color={0,127,255}));
   connect(preDro.port_b, vol.ports[1]) annotation (Line(
       points={{-40,0},{1,0}},
       color={0,127,255}));
-  connect(port_a, damPreInd.port_a)
-    annotation (Line(points={{-100,0},{-88,0}}, color={0,127,255}));
-  connect(damPreInd.port_b, preDro.port_a)
-    annotation (Line(points={{-68,0},{-60,0}}, color={0,127,255}));
   annotation (
     Documentation(info="<html>
 <p>
