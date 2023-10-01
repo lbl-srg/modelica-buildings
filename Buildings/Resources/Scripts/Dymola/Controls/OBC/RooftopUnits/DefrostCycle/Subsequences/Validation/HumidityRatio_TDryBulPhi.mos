@@ -1,4 +1,0 @@
-simulateModel("Buildings.Controls.OBC.RooftopUnits.DefrostCycle.Subsequences.Validation.HumidityRatio_TDryBulPhi", stopTime=3600, method="Cvode", tolerance=1e-06, resultFile="HumidityRatio_TDryBulPhi");
-createPlot(id=1, position={15, 10, 1000, 700}, y={"TDryBul.y"}, range={0.0, 3600.0, 26.0, 34.0}, erase=false, grid=true, filename="HumidityRatio_TDryBulPhi.mat", subPlot=101, colors={{28,108,200}}, thicknesses={0.5}, timeUnit="s", displayUnits={"degC"});
-createPlot(id=1, position={15, 10, 1000, 700}, y={"phi.y"}, range={0.0, 3600.0, -0.2, 1.2}, erase=false, grid=true, subPlot=102, colors={{28,108,200}}, thicknesses={0.5}, timeUnit="s", displayUnits={""});
-createPlot(id=1, position={15, 10, 1000, 700}, y={"wBulPhi.Xout"}, range={0.0, 3600.0, 0, 0.1}, erase=false, grid=true, subPlot=103, colors={{28,108,200}}, thicknesses={0.5}, timeUnit="s", displayUnits={""});
