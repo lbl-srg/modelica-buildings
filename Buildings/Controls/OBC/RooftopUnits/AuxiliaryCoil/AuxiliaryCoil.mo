@@ -1,8 +1,7 @@
 within Buildings.Controls.OBC.RooftopUnits.AuxiliaryCoil;
 block AuxiliaryCoil "Sequences to control auxiliary heating coils"
-  extends Modelica.Blocks.Icons.Block;
 
-  parameter Integer nCoi(min=1)=2
+  parameter Integer nCoi(min=1)
     "Number of DX coils"
     annotation (Dialog(group="DX coil parameters"));
 
@@ -19,12 +18,12 @@ block AuxiliaryCoil "Sequences to control auxiliary heating coils"
     "Small temperature difference used in comparison blocks"
     annotation(Dialog(tab="Advanced"));
 
-  parameter Real k1=1
-    "Gain of auxiliary heating controller 1"
+  parameter Real kLocOut=1
+    "Gain of auxiliary heating controller when the DX heating coils are locked out"
     annotation (Dialog(group="P controller"));
 
-  parameter Real k2=10
-    "Gain of auxiliary heating controller 2"
+  parameter Real kOpe=10
+    "Gain of auxiliary heating controller when the DX heating coils are operational"
     annotation (Dialog(group="P controller"));
 
   parameter Real uThrHeaCoi(
@@ -58,9 +57,9 @@ block AuxiliaryCoil "Sequences to control auxiliary heating coils"
       iconTransformation(extent={{-140,-80},{-100,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDXCoi[nCoi]
-    "DX coil commanded signal"
+    "DX coil signal"
     annotation (Placement(transformation(extent={{100,40},{140,80}}),
-      iconTransformation(extent={{100,40},{140,80}})));
+      iconTransformation(extent={{100,0},{140,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yAuxHea(
     final min=0,
@@ -68,7 +67,12 @@ block AuxiliaryCoil "Sequences to control auxiliary heating coils"
     final unit="1")
     "Auxiliary heating coil signal"
     annotation (Placement(transformation(extent={{100,-40},{140,0}}),
-      iconTransformation(extent={{100,-20},{140,20}})));
+      iconTransformation(extent={{100,-40},{140,0}})));
+
+protected
+  parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.P
+    "Type of auxiliary heating controller"
+    annotation (Dialog(group="P controller"));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep(
     final nout=nCoi)
@@ -77,7 +81,7 @@ block AuxiliaryCoil "Sequences to control auxiliary heating coils"
 
   Buildings.Controls.Continuous.LimPID conPHeaHig(
     final controllerType=controllerType,
-    final k=k2,
+    final k=kOpe,
     final yMax=1,
     final yMin=0,
     final reverseActing=false)
@@ -127,7 +131,7 @@ block AuxiliaryCoil "Sequences to control auxiliary heating coils"
 
   Buildings.Controls.Continuous.LimPID conPHeaLocOut(
     final controllerType=controllerType,
-    final k=k1,
+    final k=kLocOut,
     final yMax=1,
     final yMin=0,
     final reverseActing=false)
@@ -142,15 +146,10 @@ block AuxiliaryCoil "Sequences to control auxiliary heating coils"
     "Convert Boolean auxiliary heating enable signal to real value"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conHeaCoiSig1(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conHeaCoiSigZer(
     final k=0)
-    "Constant heating coil signal"
+    "Constant zero heating coil signal"
     annotation (Placement(transformation(extent={{-46,40},{-26,60}})));
-
-protected
-  parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.P
-    "Type of auxiliary heating controller"
-    annotation (Dialog(group="P controller"));
 
 equation
   connect(lesThrLocOut.u, TOut)
@@ -183,7 +182,7 @@ equation
     annotation (Line(points={{-58,-40},{-52,-40},{-52,-8},{-48,-8}}, color={255,0,255}));
   connect(mulSupHeaEng1.y, maxSupHea.u1)
     annotation (Line(points={{52,54},{60,54},{60,-14},{68,-14}}, color={0,0,127}));
-  connect(conHeaCoiSig1.y, conPHeaLocOut.u_s)
+  connect(conHeaCoiSigZer.y, conPHeaLocOut.u_s)
     annotation (Line(points={{-24,50},{-12,50}}, color={0,0,127}));
   connect(uHeaCoi, conPHeaLocOut.u_m)
     annotation (Line(points={{-120,-40},{-90,-40},{-90,28},{0,28},{0,38}}, color={0,0,127}));
@@ -212,7 +211,7 @@ equation
           pattern=LinePattern.Dash,
           textString="uHeaCoi"),
         Text(
-          extent={{42,14},{94,-12}},
+          extent={{42,-6},{94,-32}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yAuxHea"),
@@ -221,9 +220,18 @@ equation
             textColor={255,0,255},
           textString="uDXCoi"),
           Text(
-            extent={{54,66},{96,52}},
+            extent={{54,26},{96,12}},
             textColor={255,0,255},
-            textString="yDXCoi")}),
+            textString="yDXCoi"),
+        Rectangle(
+          extent={{-100,100},{100,-100}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+                                        Text(
+        extent={{-150,140},{150,100}},
+        textString="%name",
+        textColor={0,0,255})}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{100,120}})),
   Documentation(info="<html>
   <p>

@@ -2,29 +2,21 @@ within Buildings.Controls.OBC.RooftopUnits.DXCoil.Validation;
 model Controller "Validation model for DX coil controller"
 
   Buildings.Controls.OBC.RooftopUnits.DXCoil.Controller DXCoiCon(
-    nCoi=3,
-    conCoiLow=0.2,
-    conCoiHig=0.8,
-    uThrCoiUp=0.8,
-    uThrCoiDow=0.2,
-    uThrCoi2=0.8,
-    uThrCoi3=0.1,
-    dUHys=0.01,
-    timPer=480,
-    timPer1=180,
-    timPer2=300,
-    timPer3=300,
-    minComSpe=0.1,
-    maxComSpe=1)
+    final nCoi=3,
+    final uThrCoiUp=0.8,
+    final uThrCoiDow=0.2,
+    final dUHys=0.01)
     "DX coil staging and compressor speed control"
     annotation (Placement(transformation(extent={{-10,6},{10,34}})));
 
+protected
   Buildings.Controls.OBC.CDL.Logical.Pre pre1[3](
     final pre_u_start=fill(false,3))
     "Logical Pre block"
     annotation (Placement(transformation(extent={{30,10},{50,30}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[3](final k={1,2,3})
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[3](
+    final k={1,2,3})
     "Constant integer signal"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
 
@@ -41,7 +33,8 @@ model Controller "Validation model for DX coil controller"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pulComSpe[3](
-    each final period=900) "Coil valve position"
+    final period=fill(900, 3))
+    "Coil valve position"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
 
 equation

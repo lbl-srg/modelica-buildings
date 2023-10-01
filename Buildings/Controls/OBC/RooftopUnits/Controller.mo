@@ -1,7 +1,6 @@
 within Buildings.Controls.OBC.RooftopUnits;
 block Controller
   "Controller for rooftop unit heat pump systems"
-  extends Modelica.Blocks.Icons.Block;
 
   parameter Integer nCoiHea(min=1)
     "Number of DX heating coils";
@@ -9,120 +8,146 @@ block Controller
   parameter Integer nCoiCoo(min=1)
     "Number of DX cooling coils";
 
-  parameter Real conCoiLow(
-    final min=0,
-    final max=1)=0.2
-    "Constant lower DX coil signal"
-    annotation (Dialog(tab="DX coil", group="DX coil parameters"));
-
-  parameter Real conCoiHig(
-    final min=0,
-    final max=1)=0.8
-    "Constant higher DX coil signal"
-    annotation (Dialog(tab="DX coil", group="DX coil parameters"));
-
-  parameter Real uThrCoi(
+  parameter Real uThrCoiUp(
     final min=0,
     final max=1)=0.8
     "Threshold of coil valve position signal above which DX coil is staged up"
     annotation (Dialog(tab="DX coil", group="DX coil parameters"));
 
-  parameter Real uThrCoi1(
+  parameter Real uThrCoiDow(
     final min=0,
     final max=1)=0.2
     "Threshold of coil valve position signal below which DX coil staged down"
     annotation (Dialog(tab="DX coil", group="DX coil parameters"));
 
-  parameter Real uThrCoi2(
+  parameter Real uThrCoiEna(
     final min=0,
     final max=1)=0.8
     "Threshold of coil valve position signal above which DX coil is enabled"
     annotation (Dialog(tab="DX coil", group="DX coil parameters"));
 
-  parameter Real uThrCoi3(
+  parameter Real uThrCoiDis(
     final min=0,
     final max=1)=0.1
     "Threshold of coil valve position signal below which DX coil is disabled"
     annotation (Dialog(tab="DX coil", group="DX coil parameters"));
 
-  parameter Real timPer(
+  parameter Real timPerUp(
     final unit="s",
     displayUnit="s",
     final quantity="time") = 480
     "Delay time period for staging up DX coil"
     annotation (Dialog(tab="DX coil", group="DX coil parameters"));
 
-  parameter Real timPer1(
+  parameter Real timPerDow(
     final unit="s",
     displayUnit="s",
     final quantity="time") = 180
     "Delay time period for staging down DX coil"
     annotation (Dialog(tab="DX coil", group="DX coil parameters"));
 
-  parameter Real timPer2(
+  parameter Real timPerEna(
     final unit="s",
     displayUnit="s",
     final quantity="time") = 300
     "Delay time period for enabling DX coil"
     annotation (Dialog(tab="DX coil", group="DX coil parameters"));
 
-  parameter Real timPer3(
+  parameter Real timPerDis(
     final unit="s",
     displayUnit="s",
     final quantity="time") = 300
     "Delay time period for disabling DX coil"
-    annotation (Dialog(group="Defrost parameters"));
+    annotation (Dialog(tab="Defrost parameters"));
 
   parameter Real timPerOut(
     final unit="s",
     displayUnit="s",
     final quantity="time") = 300
     "Delay time period for enabling defrost"
-    annotation (Dialog(group="Defrost parameters"));
+    annotation (Dialog(tab="Defrost parameters"));
 
-  parameter Real minComSpe(
+  parameter Real minComHeaSpe(
     final min=0,
-    final max=maxComSpe) = 0.1
+    final max=maxComHeaSpe) = 0.1
     "Minimum compressor speed"
-    annotation (Dialog(tab="Compressor", group="Compressor parameters"));
+    annotation (Dialog(tab="Compressor speed", group="Heating mode"));
 
-  parameter Real maxComSpe(
-    final min=minComSpe,
+  parameter Real maxComHeaSpe(
+    final min=minComHeaSpe,
     final max=1) = 1
     "Maximum compressor speed"
-    annotation (Dialog(tab="Compressor", group="Compressor parameters"));
+    annotation (Dialog(tab="Compressor speed", group="Heating mode"));
 
-  parameter Real k1=0.9
+  parameter Modelica.Blocks.Types.SimpleController controllerTypeHeaSpe=
+    Modelica.Blocks.Types.SimpleController.PI
+    "Type of controller"
+    annotation (Dialog(tab="Compressor speed", group="Heating mode"));
+
+  parameter Real kHeaSpe=0.1
+    "Gain of controller"
+    annotation (Dialog(tab="Compressor speed", group="Heating mode"));
+
+  parameter Modelica.Units.SI.Time TiHeaSpe=1000
+    "Time constant of Integrator block"
+    annotation (Dialog(tab="Compressor speed", group="Heating mode"));
+
+  parameter Modelica.Units.SI.Time TdHeaSpe=0.1
+    "Time constant of Derivative block"
+    annotation (Dialog(tab="Compressor speed", group="Heating mode"));
+
+  parameter Real minComCooSpe(
+    final min=0,
+    final max=maxComCooSpe) = 0.1
+    "Minimum compressor speed"
+    annotation (Dialog(tab="Compressor speed", group="Cooling mode"));
+
+  parameter Real maxComCooSpe(
+    final min=minComCooSpe,
+    final max=1) = 1
+    "Maximum compressor speed"
+    annotation (Dialog(tab="Compressor speed", group="Cooling mode"));
+
+  parameter Modelica.Blocks.Types.SimpleController controllerTypeCooSpe=
+    Modelica.Blocks.Types.SimpleController.PI
+    "Type of heating coil speed controller"
+    annotation (Dialog(tab="Compressor speed", group="Cooling mode"));
+
+  parameter Real kCooSpe=0.1
+    "Gain of controller"
+    annotation (Dialog(tab="Compressor speed", group="Cooling mode"));
+
+  parameter Modelica.Units.SI.Time TiCooSpe=1000
+    "Time constant of Integrator block"
+    annotation (Dialog(tab="Compressor speed", group="Cooling mode"));
+
+  parameter Modelica.Units.SI.Time TdCooSpe=0.1
+    "Time constant of Derivative block"
+    annotation (Dialog(tab="Compressor speed", group="Cooling mode"));
+
+  parameter Real kDR1=0.9
     "Constant compressor speed gain at demand-limit Level 1"
-    annotation (Dialog(tab="Compressor", group="DR parameters"));
+    annotation (Dialog(tab="Compressor speed", group="DR parameters"));
 
-  parameter Real k2=0.85
+  parameter Real kDR2=0.85
     "Constant compressor speed gain at demand-limit Level 2"
-    annotation (Dialog(tab="Compressor", group="DR parameters"));
+    annotation (Dialog(tab="Compressor speed", group="DR parameters"));
 
-  parameter Real k3=0.8
+  parameter Real kDR3=0.8
     "Constant compressor speed gain at demand-limit Level 3"
-    annotation (Dialog(tab="Compressor", group="DR parameters"));
+    annotation (Dialog(tab="Compressor speed", group="DR parameters"));
 
-  parameter Real k4=1
+  parameter Real kLocOut=1
     "Gain of auxiliary heating controller 1"
     annotation (Dialog(tab="Auxiliary coil"));
 
-  parameter Real k5=10
+  parameter Real kOpe=10
     "Gain of auxiliary heating controller 2"
     annotation (Dialog(tab="Auxiliary coil"));
 
   parameter Real TLocOut=273.15 - 12.2
     "Minimum outdoor dry-bulb lockout temperature"
     annotation (Dialog(tab="Auxiliary coil"));
-
-  parameter Real TSupSetMin=273.15 + 10
-    "Minimum supply air temperature setpoint"
-    annotation (Dialog(tab="DX coil", group="DX coil parameters"));
-
-  parameter Real TSupSetMax=273.15 + 35
-    "Maximum supply air temperature setpoint"
-    annotation (Dialog(tab="DX coil", group="DX coil parameters"));
 
   parameter Real uThrHeaCoi(
     final min=0,
@@ -132,29 +157,29 @@ block Controller
 
   parameter Boolean have_TFroSen=false
     "True: RTU has frost sensor"
-    annotation (__cdl(ValueInReference=false), group="Defrost parameters");
+    annotation (tab="Defrost parameters");
 
   parameter Fluid.DXSystems.Heating.BaseClasses.Types.DefrostTimeMethods defTri=
      Buildings.Fluid.DXSystems.Heating.BaseClasses.Types.DefrostTimeMethods.timed
     "Type of method to trigger the defrost cycle"
-    annotation (Dialog(group="Defrost parameters"));
+    annotation (Dialog(tab="Defrost parameters"));
 
   parameter Modelica.Units.SI.ThermodynamicTemperature TDefLim=0
     "Maximum temperature at which defrost operation is activated"
-    annotation (Dialog(group="Defrost parameters"));
+    annotation (Dialog(tab="Defrost parameters"));
 
   parameter Real tDefRun(
     final min=0,
     final max=1)=0.5
     "If defrost operation is timed, timestep fraction for which defrost cycle is run"
-    annotation (Dialog(group="Defrost parameters"));
+    annotation (Dialog(tab="Defrost parameters"));
 
   parameter Real TOutLoc(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature") = 273.15 + 5
     "Predefined outdoor lockout temperature"
-    annotation (Dialog(group="Defrost parameters"));
+    annotation (Dialog(tab="Defrost parameters"));
 
   parameter Real dUHys=0.01
     "Small coil valve position signal difference used in comparison blocks"
@@ -252,6 +277,30 @@ block Controller
     annotation (Placement(transformation(extent={{-140,-200},{-100,-160}}),
       iconTransformation(extent={{-140,-180},{-100,-140}})));
 
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupCoiSet(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")
+    "AHU supply air temperature setpoint"
+    annotation (Placement(transformation(extent={{-140,-330},{-100,-290}}),
+      iconTransformation(extent={{-140,-270},{-100,-230}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupCoiHea[nCoiHea](
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")
+    "Heating coil supply air temperature"
+    annotation (Placement(transformation(extent={{-140,-280},{-100,-240}}),
+      iconTransformation(extent={{-140,-210},{-100,-170}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupCoiCoo[nCoiCoo](
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")
+    "Cooling coil supply air temperature"
+    annotation (Placement(transformation(extent={{-140,-240},{-100,-200}}),
+      iconTransformation(extent={{-140,-240},{-100,-200}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDXCooCoi[nCoiCoo]
     "DX cooling coil signal"
     annotation (Placement(transformation(extent={{100,140},{140,180}}),
@@ -263,17 +312,17 @@ block Controller
       iconTransformation(extent={{100,42},{140,82}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yComSpeCoo[nCoiCoo](
-    each final min=0,
-    each final max=1,
-    each final unit="1")
+    final min=fill(0,nCoiCoo),
+    final max=fill(1,nCoiCoo),
+    final unit=fill("1",nCoiCoo))
     "Compressor commanded speed for DX cooling coils"
     annotation (Placement(transformation(extent={{100,20},{140,60}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yComSpeHea[nCoiHea](
-    each final min=0,
-    each final max=1,
-    each final unit="1")
+    final min=fill(0,nCoiHea),
+    final max=fill(1,nCoiHea),
+    final unit=fill("1",nCoiHea))
     "Compressor commanded speed for DX heating coils"
     annotation (Placement(transformation(extent={{100,-60},{140,-20}}),
       iconTransformation(extent={{100,-78},{140,-38}})));
@@ -287,40 +336,37 @@ block Controller
       iconTransformation(extent={{100,-158},{140,-118}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDefFra[nCoiHea](
-    each final unit="1")
+    final unit=fill("1",nCoiHea))
     "Defrost operation timestep fraction"
     annotation (Placement(transformation(extent={{100,-180},{140,-140}}),
       iconTransformation(extent={{100,-240},{140,-200}})));
 
+protected
   Buildings.Controls.OBC.RooftopUnits.DXCoil.Controller DXCoiConCoo(
-    each final nCoi=nCoiCoo,
-    each final conCoiLow=conCoiLow,
-    each final conCoiHig=conCoiHig,
-    each final uThrCoiUp=uThrCoi,
-    each final uThrCoiDow=uThrCoi1,
-    each final uThrCoi2=uThrCoi2,
-    each final uThrCoi3=uThrCoi3,
-    each final timPer=timPer,
-    each final timPer1=timPer1,
-    each final timPer2=timPer2,
-    each final timPer3=timPer3,
-    each final minComSpe=minComSpe,
-    each final maxComSpe=maxComSpe,
-    each final dUHys=dUHys)
+    final nCoi=nCoiCoo,
+    final uThrCoiUp=uThrCoiUp,
+    final uThrCoiDow=uThrCoiDow,
+    final uThrCoiEna=uThrCoiEna,
+    final uThrCoiDis=uThrCoiDis,
+    final timPerUp=timPerUp,
+    final timPerDow=timPerDow,
+    final timPerEna=timPerEna,
+    final timPerDis=timPerDis,
+    final dUHys=dUHys)
     "DX cooling coil controller"
     annotation (Placement(transformation(extent={{-30,170},{-10,190}})));
 
   Buildings.Controls.OBC.RooftopUnits.CompressorDR.CompressorDR ComSpeDRCoo[nCoiCoo](
-    each final k1=k1,
-    each final k2=k2,
-    each final k3=k3)
+    final kDR1=fill(kDR1,nCoiCoo),
+    final kDR2=fill(kDR2,nCoiCoo),
+    final kDR3=fill(kDR3,nCoiCoo))
     "Compressor speed controller corresponding to DX cooling coil"
     annotation (Placement(transformation(extent={{60,64},{80,84}})));
 
   Buildings.Controls.OBC.RooftopUnits.CompressorDR.CompressorDR ComSpeDRHea[nCoiHea](
-    each final k1=k1,
-    each final k2=k2,
-    each final k3=k3)
+    final kDR1=fill(kDR1,nCoiHea),
+    final kDR2=fill(kDR2,nCoiHea),
+    final kDR3=fill(kDR3,nCoiHea))
     "Compressor speed controller corresponding to DX cooling coil"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
 
@@ -328,8 +374,8 @@ block Controller
     final nCoi=nCoiHea,
     final TLocOut=TLocOut,
     final dTHys=dTHys,
-    final k1=k4,
-    final k2=k5,
+    final kLocOut=kLocOut,
+    final kOpe=kOpe,
     final uThrHeaCoi=uThrHeaCoi,
     final dUHys=dUHys)
     "Auxiliary coil controller"
@@ -370,8 +416,8 @@ block Controller
     annotation (Placement(transformation(extent={{-32,-176},{-12,-156}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1[nCoiHea](
-    each final realTrue=1,
-    each final realFalse=0)
+    final realTrue=fill(1,nCoiHea),
+    final realFalse=fill(0,nCoiHea))
     "Convert Boolean to Real number"
     annotation (Placement(transformation(extent={{-30,4},{-10,24}})));
 
@@ -388,36 +434,16 @@ block Controller
     "Real scalar replicator"
     annotation (Placement(transformation(extent={{0,-176},{20,-156}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupCoiHea[nCoiHea](
-    final unit="K",
-    displayUnit="degC",
-    final quantity="ThermodynamicTemperature")
-    "Heating coil supply air temperature"
-    annotation (Placement(transformation(extent={{-140,-280},{-100,-240}}),
-      iconTransformation(extent={{-140,-210},{-100,-170}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupCoiCoo[nCoiCoo](
-    final unit="K",
-    displayUnit="degC",
-    final quantity="ThermodynamicTemperature")
-    "Cooling coil supply air temperature"
-    annotation (Placement(transformation(extent={{-140,-240},{-100,-200}}),
-      iconTransformation(extent={{-140,-240},{-100,-200}})));
-
   Buildings.Controls.OBC.RooftopUnits.DXCoil.Controller DXCoiConHea(
     final nCoi=nCoiHea,
-    final conCoiLow=conCoiLow,
-    final conCoiHig=conCoiHig,
-    final uThrCoiUp=uThrCoi,
-    final uThrCoiDow=uThrCoi1,
-    final uThrCoi2=uThrCoi2,
-    final uThrCoi3=uThrCoi3,
-    final timPer=timPer,
-    final timPer1=timPer1,
-    final timPer2=timPer2,
-    final timPer3=timPer3,
-    final minComSpe=minComSpe,
-    final maxComSpe=maxComSpe,
+    final uThrCoiUp=uThrCoiUp,
+    final uThrCoiDow=uThrCoiDow,
+    final uThrCoiEna=uThrCoiEna,
+    final uThrCoiDis=uThrCoiDis,
+    final timPerUp=timPerUp,
+    final timPerDow=timPerDow,
+    final timPerEna=timPerEna,
+    final timPerDis=timPerDis,
     final dUHys=dUHys)
     "DX heating coil controller"
     annotation (Placement(transformation(extent={{-30,132},{-10,152}})));
@@ -426,14 +452,6 @@ block Controller
     final nout=nCoiHea)
     "Integer scalar replicator"
     annotation (Placement(transformation(extent={{-30,40},{-10,60}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupCoiSet(
-    final unit="K",
-    displayUnit="degC",
-    final quantity="ThermodynamicTemperature")
-    "AHU supply air temperature setpoint"
-    annotation (Placement(transformation(extent={{-140,-330},{-100,-290}}),
-      iconTransformation(extent={{-140,-270},{-100,-230}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator TSupCooSet(
     final nout=nCoiCoo)
@@ -446,22 +464,24 @@ block Controller
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, origin={-62,-320})));
 
   Buildings.Controls.Continuous.LimPID conPCoo[nCoiCoo](
-    each final controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    each final k=0.1,
-    each final Ti=1000,
-    each final yMax=1,
-    each final yMin=0,
-    each final reverseActing=false)
+    final controllerType=fill(controllerTypeCooSpe, nCoiCoo),
+    final k=fill(kCooSpe, nCoiCoo),
+    final Ti=fill(TiCooSpe, nCoiCoo),
+    final Td=fill(TdCooSpe, nCoiCoo),
+    final yMax=fill(maxComCooSpe, nCoiCoo),
+    final yMin=fill(minComCooSpe, nCoiCoo),
+    final reverseActing=fill(false,nCoiCoo))
     "Regulate cooling supply air temperature"
     annotation (Placement(transformation(extent={{-10,-210},{10,-190}})));
 
   Buildings.Controls.Continuous.LimPID conPHea[nCoiHea](
-    each final controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    each final k=0.1,
-    each final Ti=1000,
-    each final yMax=1,
-    each final yMin=0,
-    each final reverseActing=true)
+    final controllerType=fill(controllerTypeHeaSpe, nCoiHea),
+    final k=fill(kHeaSpe, nCoiHea),
+    final Ti=fill(TiHeaSpe, nCoiHea),
+    final Td=fill(TdHeaSpe, nCoiHea),
+    final yMax=fill(maxComHeaSpe, nCoiHea),
+    final yMin=fill(minComHeaSpe, nCoiHea),
+    final reverseActing=fill(true,nCoiHea))
     "Regulate heating supply air temperature"
     annotation (Placement(transformation(extent={{-10,-250},{10,-230}})));
 
@@ -481,7 +501,7 @@ equation
   connect(ComSpeDRCoo.yComSpe, yComSpeCoo)
     annotation (Line(points={{82,74},{90,74},{90,40},{120,40}}, color={0,0,127}));
   connect(conAuxCoi.yAuxHea, yAuxHea)
-    annotation (Line(points={{-8,-54},{80,-54},{80,-80},{120,-80}},   color={0,0,127}));
+    annotation (Line(points={{-8,-56},{80,-56},{80,-80},{120,-80}},   color={0,0,127}));
   connect(yAuxHea, yAuxHea)
     annotation (Line(points={{120,-80},{120,-80}},   color={0,0,127}));
   connect(TFroSen, defTimFra.TOut)
@@ -503,9 +523,9 @@ equation
   connect(defTimFra.XOut, XOut)
     annotation (Line(points={{-71,-140},{-120,-140}}, color={0,0,127}));
   connect(conAuxCoi.yDXCoi, yDXHeaCoi)
-    annotation (Line(points={{-8,-48},{10,-48},{10,100},{120,100}}, color={255,0,255}));
+    annotation (Line(points={{-8,-52},{10,-52},{10,100},{120,100}}, color={255,0,255}));
   connect(conAuxCoi.yDXCoi, booToRea1.u)
-    annotation (Line(points={{-8,-48},{10,-48},{10,-10},{-40,-10},{-40,14},{-32,
+    annotation (Line(points={{-8,-52},{10,-52},{10,-10},{-40,-10},{-40,14},{-32,
           14}},                                                                     color={255,0,255}));
   connect(booToRea1.y, mul.u2)
     annotation (Line(points={{-8,14},{58,14}}, color={0,0,127}));
@@ -686,12 +706,12 @@ equation
   </p>
   <ul>
   <li>
-  Subsequences to stage DX coils and corresponding compressor speeds 
+  Subsequences to enable and stage DX coil arrays
   <a href=\"modelica://Buildings.Controls.OBC.RooftopUnits.DXCoil.Controller\">
   Buildings.Controls.OBC.RooftopUnits.DXCoil.Controller</a>.
   </li>
   <li>
-  Subsequences to control auxiliary coil 
+  Subsequences to control auxiliary heating coil 
   <a href=\"modelica://Buildings.Controls.OBC.RooftopUnits.AuxiliaryCoil.AuxiliaryCoil\">
   Buildings.Controls.OBC.RooftopUnits.AuxiliaryCoil.AuxiliaryCoil</a>.
   </li>

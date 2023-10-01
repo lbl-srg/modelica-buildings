@@ -3,7 +3,7 @@ package Subsequences "Subsequences for DX coil control"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains control subsequences for staging DX coils and adjusting their corresponding compressor speeds.
+This package contains subsequences used in the DX coil controller.
 </p>
 </html>"),
   Icon(graphics={

@@ -1,31 +1,19 @@
 within Buildings.Controls.OBC.RooftopUnits.CompressorDR.Validation;
 model CompressorDR "Validation model for CompressorDR"
 
-  Buildings.Controls.OBC.RooftopUnits.CompressorDR.CompressorDR ComSpeDR(
-    k1=0.9,
-    k2=0.85,
-    k3=0.8)
+  Buildings.Controls.OBC.RooftopUnits.CompressorDR.CompressorDR ComSpeDR
     "Regulate compressor speed for demand response"
     annotation (Placement(transformation(extent={{-30,40},{-10,60}})));
 
-  Buildings.Controls.OBC.RooftopUnits.CompressorDR.CompressorDR ComSpeDR1(
-    k1=0.9,
-    k2=0.85,
-    k3=0.8)
+  Buildings.Controls.OBC.RooftopUnits.CompressorDR.CompressorDR ComSpeDR1
     "Regulate compressor speed for demand response"
     annotation (Placement(transformation(extent={{70,40},{90,60}})));
 
-  Buildings.Controls.OBC.RooftopUnits.CompressorDR.CompressorDR ComSpeDR2(
-    k1=0.9,
-    k2=0.85,
-    k3=0.8)
+  Buildings.Controls.OBC.RooftopUnits.CompressorDR.CompressorDR ComSpeDR2
     "Regulate compressor speed for demand response"
     annotation (Placement(transformation(extent={{-28,-60},{-8,-40}})));
 
-  Buildings.Controls.OBC.RooftopUnits.CompressorDR.CompressorDR ComSpeDR3(
-    final k1=0.9,
-    final k2=0.85,
-    final k3=0.8)
+  Buildings.Controls.OBC.RooftopUnits.CompressorDR.CompressorDR ComSpeDR3
     "Regulate compressor speed for demand response"
     annotation (Placement(transformation(extent={{70,-60},{90,-40}})));
 

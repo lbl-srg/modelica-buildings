@@ -2,8 +2,10 @@ within Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.Validation;
 model Enable
   "Validate sequence for enabling and disabling DX coil using cooling coil valve postion signal"
 
-  Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.Enable coiEna(final
-      nCoi=1, final dUHys=0.01) "Enable DX coil array"
+  Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.Enable coiEna(
+    final nCoi=1,
+    final dUHys=0.01)
+    "Enable DX coil array"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 protected
@@ -15,7 +17,7 @@ protected
     "Cooling coil valve position"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
 
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold CoiEna(
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold coiEnaSig(
     final trueHoldDuration=10)
     "Hold pulse signal for easy visualization"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
@@ -27,7 +29,7 @@ protected
 equation
   connect(pulCooCoi.y, coiEna.uCooCoi) annotation (Line(points={{-38,-40},{-20,-40},
           {-20,-6},{-12,-6}}, color={0,0,127}));
-  connect(coiEna.yDXCoi, CoiEna.u)
+  connect(coiEna.yDXCoi, coiEnaSig.u)
     annotation (Line(points={{12,0},{38,0}}, color={255,0,255}));
   connect(coiEna.yDXCoi, pre1.u) annotation (Line(points={{12,0},{20,0},{20,40},
           {38,40}}, color={255,0,255}));

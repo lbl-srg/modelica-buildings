@@ -1,130 +1,64 @@
 within Buildings.Controls.OBC.RooftopUnits.Validation;
-model ControllerCooling "Validation of controller in cooling mode operation"
+model ControllerCooling
+  "Validation of controller in cooling mode operation"
 
   Buildings.Controls.OBC.RooftopUnits.Controller RTUCon(
-    nCoiHea=3,
-    nCoiCoo=3,
-    conCoiLow=0.2,
-    conCoiHig=0.8,
-    uThrCoi=0.8,
-    uThrCoi1=0.2,
-    uThrCoi2=0.8,
-    uThrCoi3=0.1,
-    timPer=480,
-    timPer1=180,
-    timPer2=300,
-    timPer3=300,
-    minComSpe=0.1,
-    maxComSpe=1,
-    k1=0.9,
-    k2=0.85,
-    k3=0.8,
-    k4=1,
-    k5=10,
-    TLocOut=273.15 - 12.2,
-    uThrHeaCoi=0.9,
-    have_TFroSen=false,
-    defTri=Buildings.Fluid.DXSystems.Heating.BaseClasses.Types.DefrostTimeMethods.onDemand,
-    TDefLim=273.15,
-    dUHys=0.01,
-    dTHys=273.2,
-    dTHys1=273.65)
-    "RTU congtroller"
-    annotation (Placement(transformation(extent={{-80,138},{-60,166}})));
+    final nCoiHea=3,
+    final nCoiCoo=3,
+    final TLocOut=273.15 - 12.2,
+    final uThrHeaCoi=0.9,
+    final have_TFroSen=false,
+    final defTri=Buildings.Fluid.DXSystems.Heating.BaseClasses.Types.DefrostTimeMethods.onDemand,
+    final TDefLim=273.15,
+    final dUHys=0.01,
+    final dTHys=273.2,
+    final dTHys1=273.65)
+    "RTU controller"
+    annotation (Placement(transformation(extent={{-76,138},{-56,186}})));
 
   Buildings.Controls.OBC.RooftopUnits.Controller RTUCon1(
-    nCoiHea=3,
-    nCoiCoo=3,
-    conCoiLow=0.2,
-    conCoiHig=0.8,
-    uThrCoi=0.8,
-    uThrCoi1=0.2,
-    uThrCoi2=0.8,
-    uThrCoi3=0.1,
-    timPer=480,
-    timPer1=180,
-    timPer2=300,
-    timPer3=300,
-    minComSpe=0.1,
-    maxComSpe=1,
-    k1=0.9,
-    k2=0.85,
-    k3=0.8,
-    k4=1,
-    k5=10,
-    TLocOut=273.15 - 12.2,
-    uThrHeaCoi=0.9,
-    have_TFroSen=false,
-    defTri=Buildings.Fluid.DXSystems.Heating.BaseClasses.Types.DefrostTimeMethods.onDemand,
-    TDefLim=273.15,
-    dUHys=0.01,
-    dTHys=273.2,
-    dTHys1=273.65)
-    "RTU congtroller"
-    annotation (Placement(transformation(extent={{80,138},{100,166}})));
+    final nCoiHea=3,
+    final nCoiCoo=3,
+    final TLocOut=273.15 - 12.2,
+    final uThrHeaCoi=0.9,
+    final have_TFroSen=false,
+    final defTri=Buildings.Fluid.DXSystems.Heating.BaseClasses.Types.DefrostTimeMethods.onDemand,
+    final TDefLim=273.15,
+    final dUHys=0.01,
+    final dTHys=273.2,
+    final dTHys1=273.65)
+    "RTU controller"
+    annotation (Placement(transformation(extent={{80,138},{100,186}})));
 
   Buildings.Controls.OBC.RooftopUnits.Controller RTUCon2(
-    nCoiHea=3,
-    nCoiCoo=3,
-    conCoiLow=0.2,
-    conCoiHig=0.8,
-    uThrCoi=0.8,
-    uThrCoi1=0.2,
-    uThrCoi2=0.8,
-    uThrCoi3=0.1,
-    timPer=480,
-    timPer1=180,
-    timPer2=300,
-    timPer3=300,
-    minComSpe=0.1,
-    maxComSpe=1,
-    k1=0.9,
-    k2=0.85,
-    k3=0.8,
-    k4=1,
-    k5=10,
-    TLocOut=273.15 - 12.2,
-    uThrHeaCoi=0.9,
-    have_TFroSen=false,
-    defTri=Buildings.Fluid.DXSystems.Heating.BaseClasses.Types.DefrostTimeMethods.onDemand,
-    TDefLim=273.15,
-    dUHys=0.01,
-    dTHys=273.2,
-    dTHys1=273.65)
-    "RTU congtroller"
-    annotation (Placement(transformation(extent={{-80,-162},{-60,-134}})));
+    final nCoiHea=3,
+    final nCoiCoo=3,
+    final TLocOut=273.15 - 12.2,
+    final uThrHeaCoi=0.9,
+    final have_TFroSen=false,
+    final defTri=Buildings.Fluid.DXSystems.Heating.BaseClasses.Types.DefrostTimeMethods.onDemand,
+    final TDefLim=273.15,
+    final dUHys=0.01,
+    final dTHys=273.2,
+    final dTHys1=273.65)
+    "RTU controller"
+    annotation (Placement(transformation(extent={{-80,-162},{-60,-114}})));
 
   Buildings.Controls.OBC.RooftopUnits.Controller RTUCon3(
-    nCoiHea=3,
-    nCoiCoo=3,
-    conCoiLow=0.2,
-    conCoiHig=0.8,
-    uThrCoi=0.8,
-    uThrCoi1=0.2,
-    uThrCoi2=0.8,
-    uThrCoi3=0.1,
-    timPer=480,
-    timPer1=180,
-    timPer2=300,
-    timPer3=300,
-    minComSpe=0.1,
-    maxComSpe=1,
-    k1=0.9,
-    k2=0.85,
-    k3=0.8,
-    k4=1,
-    k5=10,
-    TLocOut=273.15 - 12.2,
-    uThrHeaCoi=0.9,
-    have_TFroSen=false,
-    defTri=Buildings.Fluid.DXSystems.Heating.BaseClasses.Types.DefrostTimeMethods.onDemand,
-    TDefLim=273.15,
-    dUHys=0.01,
-    dTHys=273.2,
-    dTHys1=273.65)
-    "RTU congtroller"
-    annotation (Placement(transformation(extent={{80,-162},{100,-134}})));
+    final nCoiHea=3,
+    final nCoiCoo=3,
+    final TLocOut=273.15 - 12.2,
+    final uThrHeaCoi=0.9,
+    final have_TFroSen=false,
+    final defTri=Buildings.Fluid.DXSystems.Heating.BaseClasses.Types.DefrostTimeMethods.onDemand,
+    final TDefLim=273.15,
+    final dUHys=0.01,
+    final dTHys=273.2,
+    final dTHys1=273.65)
+    "RTU controller"
+    annotation (Placement(transformation(extent={{80,-162},{100,-114}})));
 
+protected
   Buildings.Controls.OBC.CDL.Logical.Pre pre1[3](
     final pre_u_start=fill(false, 3))
     "Logical Pre block"
@@ -317,9 +251,10 @@ model ControllerCooling "Validation of controller in cooling mode operation"
     annotation (Placement(transformation(extent={{120,-180},{140,-160}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TSup[3](
-    each height=4,
-    each duration=1800,
-    each offset=10) "Supply air temperature"
+    final height=fill(4,3),
+    final duration=fill(1800,3),
+    final offset=fill(10,3))
+    "Supply air temperature"
     annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupSet(
@@ -328,9 +263,9 @@ model ControllerCooling "Validation of controller in cooling mode operation"
     annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TSup1[3](
-    each height=4,
-    each duration=1800,
-    each offset=10)
+    final height=fill(4,3),
+    final duration=fill(1800,3),
+    final offset=fill(10,3))
     "Supply air temperature"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
 
@@ -340,9 +275,9 @@ model ControllerCooling "Validation of controller in cooling mode operation"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TSup2[3](
-    each height=4,
-    each duration=1800,
-    each offset=10)
+    final height=fill(4,3),
+    final duration=fill(1800,3),
+    final offset=fill(10,3))
     "Supply air temperature"
     annotation (Placement(transformation(extent={{-140,-250},{-120,-230}})));
 
@@ -352,9 +287,9 @@ model ControllerCooling "Validation of controller in cooling mode operation"
     annotation (Placement(transformation(extent={{-140,-280},{-120,-260}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TSup3[3](
-    each height=4,
-    each duration=1800,
-    each offset=10)
+    final height=fill(4,3),
+    final duration=fill(1800,3),
+    final offset=fill(10,3))
     "Supply air temperature"
     annotation (Placement(transformation(extent={{20,-250},{40,-230}})));
 
@@ -364,162 +299,145 @@ model ControllerCooling "Validation of controller in cooling mode operation"
     annotation (Placement(transformation(extent={{20,-280},{40,-260}})));
 
 equation
-  connect(conInt1.y, RTUCon.uDemLimLev) annotation (Line(points={{-118,190},{
-          -104,190},{-104,154.333},{-82,154.333}},
-                                      color={255,127,0}));
-  connect(TOut.y, RTUCon.TOut) annotation (Line(points={{-118,70},{-100,70},{-100,
-          148.5},{-82,148.5}},
-                           color={0,0,127}));
-  connect(conInt3.y, RTUCon1.uDemLimLev) annotation (Line(points={{42,190},{56,
-          190},{56,154.333},{78,154.333}},
-                              color={255,127,0}));
-  connect(ramCooCoi1.y, RTUCon1.uCooCoi) annotation (Line(points={{42,150},{52,
-          150},{52,152.117},{78,152.117}},
+  connect(conInt1.y, RTUCon.uDemLimLev) annotation (Line(points={{-118,210},{-104,
+          210},{-104,166},{-78,166}}, color={255,127,0}));
+  connect(TOut.y, RTUCon.TOut) annotation (Line(points={{-118,120},{-100,120},{-100,
+          156},{-78,156}}, color={0,0,127}));
+  connect(conInt3.y, RTUCon1.uDemLimLev) annotation (Line(points={{42,210},{56,210},
+          {56,166},{78,166}}, color={255,127,0}));
+  connect(ramCooCoi1.y, RTUCon1.uCooCoi) annotation (Line(points={{42,180},{52,180},
+          {52,162.2},{78,162.2}},
                               color={0,0,127}));
-  connect(conHeaCoi1.y, RTUCon1.uHeaCoi) annotation (Line(points={{42,110},{52,110},
-          {52,150.25},{78,150.25}},
-                              color={0,0,127}));
-  connect(TOut1.y, RTUCon1.TOut) annotation (Line(points={{42,70},{60,70},{60,148.5},
-          {78,148.5}},
+  connect(conHeaCoi1.y, RTUCon1.uHeaCoi) annotation (Line(points={{42,150},{52,150},
+          {52,159},{78,159}}, color={0,0,127}));
+  connect(TOut1.y, RTUCon1.TOut) annotation (Line(points={{42,120},{60,120},{60,
+          156},{78,156}},
                      color={0,0,127}));
-  connect(conInt5.y, RTUCon2.uDemLimLev) annotation (Line(points={{-118,-110},{
-          -104,-110},{-104,-145.667},{-82,-145.667}},
-                                         color={255,127,0}));
-  connect(ramCooCoi2.y, RTUCon2.uCooCoi) annotation (Line(points={{-118,-150},{
-          -108,-150},{-108,-147.883},{-82,-147.883}},
+  connect(conInt5.y, RTUCon2.uDemLimLev) annotation (Line(points={{-118,-90},{-104,
+          -90},{-104,-134},{-82,-134}},  color={255,127,0}));
+  connect(ramCooCoi2.y, RTUCon2.uCooCoi) annotation (Line(points={{-118,-120},{-108,
+          -120},{-108,-137.8},{-82,-137.8}},
                                          color={0,0,127}));
-  connect(conHeaCoi2.y, RTUCon2.uHeaCoi) annotation (Line(points={{-118,-190},{-108,
-          -190},{-108,-149.75},{-82,-149.75}},
-                                         color={0,0,127}));
-  connect(TOut2.y, RTUCon2.TOut) annotation (Line(points={{-118,-230},{-100,-230},
-          {-100,-151.5},{-82,-151.5}},
-                                   color={0,0,127}));
-  connect(conInt7.y, RTUCon3.uDemLimLev) annotation (Line(points={{42,-110},{56,
-          -110},{56,-145.667},{78,-145.667}},
-                                      color={255,127,0}));
-  connect(ramCooCoi3.y, RTUCon3.uCooCoi) annotation (Line(points={{42,-150},{52,
-          -150},{52,-147.883},{78,-147.883}},
+  connect(conHeaCoi2.y, RTUCon2.uHeaCoi) annotation (Line(points={{-118,-150},{-108,
+          -150},{-108,-141},{-82,-141}}, color={0,0,127}));
+  connect(TOut2.y, RTUCon2.TOut) annotation (Line(points={{-118,-180},{-100,-180},
+          {-100,-144},{-82,-144}}, color={0,0,127}));
+  connect(conInt7.y, RTUCon3.uDemLimLev) annotation (Line(points={{42,-90},{56,-90},
+          {56,-134},{78,-134}},       color={255,127,0}));
+  connect(ramCooCoi3.y, RTUCon3.uCooCoi) annotation (Line(points={{42,-120},{52,
+          -120},{52,-137.8},{78,-137.8}},
                                       color={0,0,127}));
-  connect(conHeaCoi3.y, RTUCon3.uHeaCoi) annotation (Line(points={{42,-190},{52,
-          -190},{52,-149.75},{78,-149.75}},
+  connect(conHeaCoi3.y, RTUCon3.uHeaCoi) annotation (Line(points={{42,-150},{52,
+          -150},{52,-141},{78,-141}}, color={0,0,127}));
+  connect(TOut3.y, RTUCon3.TOut) annotation (Line(points={{42,-180},{60,-180},{60,
+          -144},{78,-144}}, color={0,0,127}));
+  connect(ramCooCoi.y, RTUCon.uCooCoi) annotation (Line(points={{-118,180},{-108,
+          180},{-108,162.2},{-78,162.2}},
                                       color={0,0,127}));
-  connect(TOut3.y, RTUCon3.TOut) annotation (Line(points={{42,-230},{60,-230},{60,
-          -151.5},{78,-151.5}},
-                            color={0,0,127}));
-  connect(ramCooCoi.y, RTUCon.uCooCoi) annotation (Line(points={{-118,150},{
-          -108,150},{-108,152.117},{-82,152.117}},
-                                      color={0,0,127}));
-  connect(RTUCon.uHeaCoi, conHeaCoi.y) annotation (Line(points={{-82,150.25},{-108,
-          150.25},{-108,110},{-118,110}},
-                                       color={0,0,127}));
-  connect(Xout.y, RTUCon.XOut) annotation (Line(points={{-118,30},{-90,30},{-90,
-          146.75},{-82,146.75}},
-                           color={0,0,127}));
-  connect(Xout1.y, RTUCon1.XOut) annotation (Line(points={{42,30},{70,30},{70,146.75},
-          {78,146.75}},
-                     color={0,0,127}));
-  connect(Xout2.y, RTUCon2.XOut) annotation (Line(points={{-118,-270},{-90,-270},
-          {-90,-153.25},{-82,-153.25}},
-                                  color={0,0,127}));
-  connect(Xout3.y, RTUCon3.XOut) annotation (Line(points={{42,-270},{70,-270},{70,
-          -153.25},{78,-153.25}},
-                            color={0,0,127}));
-  connect(RTUCon.yDXCooCoi, pre1.u) annotation (Line(points={{-58,162.5},{-50,162.5},
+  connect(RTUCon.uHeaCoi, conHeaCoi.y) annotation (Line(points={{-78,159},{-108,
+          159},{-108,150},{-118,150}}, color={0,0,127}));
+  connect(Xout.y, RTUCon.XOut) annotation (Line(points={{-118,90},{-90,90},{-90,
+          153},{-78,153}}, color={0,0,127}));
+  connect(Xout1.y, RTUCon1.XOut) annotation (Line(points={{42,90},{70,90},{70,153},
+          {78,153}}, color={0,0,127}));
+  connect(Xout2.y, RTUCon2.XOut) annotation (Line(points={{-118,-210},{-90,-210},
+          {-90,-147},{-82,-147}}, color={0,0,127}));
+  connect(Xout3.y, RTUCon3.XOut) annotation (Line(points={{42,-210},{70,-210},{70,
+          -147},{78,-147}}, color={0,0,127}));
+  connect(RTUCon.yDXCooCoi, pre1.u) annotation (Line(points={{-54,180},{-50,180},
           {-50,166},{-42,166}},
           color={255,0,255}));
-  connect(RTUCon.yDXHeaCoi, pre2.u) annotation (Line(points={{-58,157.95},{-50,157.95},
+  connect(RTUCon.yDXHeaCoi, pre2.u) annotation (Line(points={{-54,172.2},{-50,172.2},
           {-50,130},{-42,130}}, color={255,0,255}));
   connect(pre2.y, RTUCon.uDXHeaCoi) annotation (Line(points={{-18,130},{-6,130},
-          {-6,200},{-92,200},{-92,163.083},{-82,163.083}},
-                                                   color={255,0,255}));
-  connect(RTUCon.uCooCoiAva, con1.y) annotation (Line(points={{-82,161.333},{
-          -82,164},{-96,164},{-96,270},{-118,270}},
-                                           color={255,0,255}));
-  connect(RTUCon.uHeaCoiAva, con1.y) annotation (Line(points={{-82,159.583},{
-          -96,159.583},{-96,270},{-118,270}},
-                                 color={255,0,255}));
-  connect(RTUCon.uHeaCoiSeq, conInt.y) annotation (Line(points={{-82,156.083},{
-          -82,154},{-100,154},{-100,230},{-118,230}},
-                                                  color={255,127,0}));
-  connect(RTUCon.uCooCoiSeq, conInt.y) annotation (Line(points={{-82,157.833},{
-          -82,156},{-100,156},{-100,230},{-118,230}},
-                                             color={255,127,0}));
-  connect(RTUCon.uDXCooCoi, pre1.y) annotation (Line(points={{-82,164.833},{-82,
-          170},{-88,170},{-88,190},{-12,190},{-12,166},{-18,166}},
-                                                              color={255,0,255}));
-  connect(RTUCon1.yDXCooCoi, pre3.u) annotation (Line(points={{102,162.5},{110,162.5},
+          {-6,200},{-92,200},{-92,181},{-78,181}}, color={255,0,255}));
+  connect(RTUCon.uCooCoiAva, con1.y) annotation (Line(points={{-78,178},{-96,178},
+          {-96,270},{-118,270}},           color={255,0,255}));
+  connect(RTUCon.uHeaCoiAva, con1.y) annotation (Line(points={{-78,175},{-96,175},
+          {-96,270},{-118,270}}, color={255,0,255}));
+  connect(RTUCon.uHeaCoiSeq, conInt.y) annotation (Line(points={{-78,169},{-78,168},
+          {-100,168},{-100,240},{-118,240}},      color={255,127,0}));
+  connect(RTUCon.uCooCoiSeq, conInt.y) annotation (Line(points={{-78,172},{-98,172},
+          {-98,240},{-118,240}},             color={255,127,0}));
+  connect(RTUCon.uDXCooCoi, pre1.y) annotation (Line(points={{-78,184},{-90,184},
+          {-90,190},{-12,190},{-12,166},{-18,166}},           color={255,0,255}));
+  connect(RTUCon1.yDXCooCoi, pre3.u) annotation (Line(points={{102,180},{110,180},
           {110,166},{118,166}},
           color={255,0,255}));
-  connect(pre3.y, RTUCon1.uDXCooCoi) annotation (Line(points={{142,166},{148,
-          166},{148,190},{72,190},{72,170},{78,170},{78,164.833}},
-                                                          color={255,0,255}));
-  connect(RTUCon1.yDXHeaCoi, pre4.u) annotation (Line(points={{102,157.95},{110,
-          157.95},{110,130},{118,130}},
-                                color={255,0,255}));
-  connect(pre4.y, RTUCon1.uDXHeaCoi) annotation (Line(points={{142,130},{154,
-          130},{154,200},{68,200},{68,163.083},{78,163.083}},
-                                                 color={255,0,255}));
-  connect(RTUCon1.uCooCoiAva, con2.y) annotation (Line(points={{78,161.333},{78,
-          162},{64,162},{64,270},{42,270}},
-                                       color={255,0,255}));
-  connect(RTUCon1.uHeaCoiAva, con2.y) annotation (Line(points={{78,159.583},{64,
-          159.583},{64,270},{42,270}},
-                              color={255,0,255}));
-  connect(RTUCon1.uCooCoiSeq, conInt2.y) annotation (Line(points={{78,157.833},
-          {60,157.833},{60,230},{42,230}},
-                              color={255,127,0}));
-  connect(RTUCon1.uHeaCoiSeq, conInt2.y) annotation (Line(points={{78,156.083},
-          {78,152},{60,152},{60,230},{42,230}},
-                                            color={255,127,0}));
-  connect(RTUCon2.yDXCooCoi, pre5.u) annotation (Line(points={{-58,-137.5},{-50,
-          -137.5},{-50,-134},{-42,-134}},
+  connect(pre3.y, RTUCon1.uDXCooCoi) annotation (Line(points={{142,166},{148,166},
+          {148,190},{72,190},{72,170},{78,170},{78,184}}, color={255,0,255}));
+  connect(RTUCon1.yDXHeaCoi, pre4.u) annotation (Line(points={{102,172.2},{110,172.2},
+          {110,130},{118,130}}, color={255,0,255}));
+  connect(pre4.y, RTUCon1.uDXHeaCoi) annotation (Line(points={{142,130},{154,130},
+          {154,200},{68,200},{68,181},{78,181}}, color={255,0,255}));
+  connect(RTUCon1.uCooCoiAva, con2.y) annotation (Line(points={{78,178},{78,162},
+          {64,162},{64,270},{42,270}}, color={255,0,255}));
+  connect(RTUCon1.uHeaCoiAva, con2.y) annotation (Line(points={{78,175},{64,175},
+          {64,270},{42,270}}, color={255,0,255}));
+  connect(RTUCon1.uCooCoiSeq, conInt2.y) annotation (Line(points={{78,172},{60,172},
+          {60,240},{42,240}}, color={255,127,0}));
+  connect(RTUCon1.uHeaCoiSeq, conInt2.y) annotation (Line(points={{78,169},{78,152},
+          {60,152},{60,240},{42,240}},      color={255,127,0}));
+  connect(RTUCon2.yDXCooCoi, pre5.u) annotation (Line(points={{-58,-120},{-50,-120},
+          {-50,-134},{-42,-134}},
           color={255,0,255}));
-  connect(pre5.y, RTUCon2.uDXCooCoi) annotation (Line(points={{-18,-134},{-12,
-          -134},{-12,-110},{-88,-110},{-88,-130},{-82,-130},{-82,-135.167}},
-                                                                   color={255,0,255}));
-  connect(RTUCon2.yDXHeaCoi, pre6.u) annotation (Line(points={{-58,-142.05},{-50,
-          -142.05},{-50,-170},{-42,-170}},
+  connect(pre5.y, RTUCon2.uDXCooCoi) annotation (Line(points={{-18,-134},{-12,-134},
+          {-12,-110},{-88,-110},{-88,-130},{-82,-130},{-82,-116}}, color={255,0,255}));
+  connect(RTUCon2.yDXHeaCoi, pre6.u) annotation (Line(points={{-58,-127.8},{-50,
+          -127.8},{-50,-170},{-42,-170}},
                                   color={255,0,255}));
-  connect(pre6.y, RTUCon2.uDXHeaCoi) annotation (Line(points={{-18,-170},{-6,
-          -170},{-6,-100},{-92,-100},{-92,-136.917},{-82,-136.917}},
-                                                       color={255,0,255}));
-  connect(RTUCon2.uCooCoiAva, con3.y) annotation (Line(points={{-82,-138.667},{
-          -96,-138.667},{-96,-30},{-118,-30}},
-                                 color={255,0,255}));
-  connect(RTUCon2.uHeaCoiAva, con3.y) annotation (Line(points={{-82,-140.417},{
-          -96,-140.417},{-96,-30},{-118,-30}},
-                                 color={255,0,255}));
-  connect(RTUCon2.uCooCoiSeq, conInt4.y) annotation (Line(points={{-82,-142.167},
-          {-100,-142.167},{-100,-70},{-118,-70}},
-                                        color={255,127,0}));
-  connect(RTUCon2.uHeaCoiSeq, conInt4.y) annotation (Line(points={{-82,-143.917},
-          {-100,-143.917},{-100,-70},{-118,-70}},
-                                               color={255,127,0}));
-  connect(RTUCon3.yDXCooCoi, pre7.u) annotation (Line(points={{102,-137.5},{118,
-          -137.5},{118,-134}},
-                       color={255,0,255}));
-  connect(pre7.y, RTUCon3.uDXCooCoi) annotation (Line(points={{142,-134},{148,
-          -134},{148,-110},{72,-110},{72,-130},{78,-130},{78,-135.167}},
-                                                               color={255,0,255}));
-  connect(RTUCon3.yDXHeaCoi, pre8.u) annotation (Line(points={{102,-142.05},{110,
-          -142.05},{110,-170},{118,-170}},
+  connect(pre6.y, RTUCon2.uDXHeaCoi) annotation (Line(points={{-18,-170},{-6,-170},
+          {-6,-100},{-92,-100},{-92,-119},{-82,-119}}, color={255,0,255}));
+  connect(RTUCon2.uCooCoiAva, con3.y) annotation (Line(points={{-82,-122},{-96,-122},
+          {-96,-30},{-118,-30}}, color={255,0,255}));
+  connect(RTUCon2.uHeaCoiAva, con3.y) annotation (Line(points={{-82,-125},{-96,-125},
+          {-96,-30},{-118,-30}}, color={255,0,255}));
+  connect(RTUCon2.uCooCoiSeq, conInt4.y) annotation (Line(points={{-82,-128},{-100,
+          -128},{-100,-60},{-118,-60}}, color={255,127,0}));
+  connect(RTUCon2.uHeaCoiSeq, conInt4.y) annotation (Line(points={{-82,-131},{-100,
+          -131},{-100,-60},{-118,-60}},        color={255,127,0}));
+  connect(RTUCon3.yDXCooCoi, pre7.u) annotation (Line(points={{102,-120},{118,-120},
+          {118,-134}}, color={255,0,255}));
+  connect(pre7.y, RTUCon3.uDXCooCoi) annotation (Line(points={{142,-134},{148,-134},
+          {148,-110},{72,-110},{72,-130},{78,-130},{78,-116}}, color={255,0,255}));
+  connect(RTUCon3.yDXHeaCoi, pre8.u) annotation (Line(points={{102,-127.8},{110,
+          -127.8},{110,-170},{118,-170}},
                                   color={255,0,255}));
-  connect(pre8.y, RTUCon3.uDXHeaCoi) annotation (Line(points={{142,-170},{154,
-          -170},{154,-100},{68,-100},{68,-136.917},{78,-136.917}},
-                                                     color={255,0,255}));
-  connect(RTUCon3.uCooCoiAva, con4.y) annotation (Line(points={{78,-138.667},{
-          64,-138.667},{64,-30},{42,-30}},
-                              color={255,0,255}));
-  connect(RTUCon3.uHeaCoiAva, con4.y) annotation (Line(points={{78,-140.417},{
-          64,-140.417},{64,-30},{42,-30}},
-                              color={255,0,255}));
-  connect(RTUCon3.uCooCoiSeq, conInt6.y) annotation (Line(points={{78,-142.167},
-          {60,-142.167},{60,-70},{42,-70}},
-                                    color={255,127,0}));
-  connect(RTUCon3.uHeaCoiSeq, conInt6.y) annotation (Line(points={{78,-143.917},
-          {70,-143.917},{70,-146},{60,-146},{60,-70},{42,-70}},
-                                                          color={255,127,0}));
-														  
+  connect(pre8.y, RTUCon3.uDXHeaCoi) annotation (Line(points={{142,-170},{154,-170},
+          {154,-100},{68,-100},{68,-119},{78,-119}}, color={255,0,255}));
+  connect(RTUCon3.uCooCoiAva, con4.y) annotation (Line(points={{78,-122},{64,-122},
+          {64,-30},{42,-30}}, color={255,0,255}));
+  connect(RTUCon3.uHeaCoiAva, con4.y) annotation (Line(points={{78,-125},{64,-125},
+          {64,-30},{42,-30}}, color={255,0,255}));
+  connect(RTUCon3.uCooCoiSeq, conInt6.y) annotation (Line(points={{78,-128},{60,
+          -128},{60,-60},{42,-60}}, color={255,127,0}));
+  connect(RTUCon3.uHeaCoiSeq, conInt6.y) annotation (Line(points={{78,-131},{70,
+          -131},{70,-146},{60,-146},{60,-60},{42,-60}},   color={255,127,0}));
+
+  connect(TSup.y, RTUCon.TSupCoiHea) annotation (Line(points={{-118,60},{-84,60},
+          {-84,147},{-78,147}},       color={0,0,127}));
+  connect(TSup.y, RTUCon.TSupCoiCoo) annotation (Line(points={{-118,60},{-84,60},
+          {-84,144},{-78,144}},     color={0,0,127}));
+  connect(TSupSet.y, RTUCon.TSupCoiSet) annotation (Line(points={{-118,30},{-80,
+          30},{-80,141},{-78,141}},       color={0,0,127}));
+  connect(TSup1.y, RTUCon1.TSupCoiHea) annotation (Line(points={{42,60},{74,60},
+          {74,147},{78,147}}, color={0,0,127}));
+  connect(TSup1.y, RTUCon1.TSupCoiCoo) annotation (Line(points={{42,60},{74,60},
+          {74,144},{78,144}}, color={0,0,127}));
+  connect(TSupSet1.y, RTUCon1.TSupCoiSet) annotation (Line(points={{42,30},{76,30},
+          {76,141},{78,141}}, color={0,0,127}));
+  connect(TSup2.y, RTUCon2.TSupCoiHea) annotation (Line(points={{-118,-240},{-86,
+          -240},{-86,-153},{-82,-153}}, color={0,0,127}));
+  connect(TSup2.y, RTUCon2.TSupCoiCoo) annotation (Line(points={{-118,-240},{-86,
+          -240},{-86,-156},{-82,-156}}, color={0,0,127}));
+  connect(TSupSet2.y, RTUCon2.TSupCoiSet) annotation (Line(points={{-118,-270},{
+          -84,-270},{-84,-159},{-82,-159}}, color={0,0,127}));
+  connect(TSup3.y, RTUCon3.TSupCoiHea) annotation (Line(points={{42,-240},{74,-240},
+          {74,-153},{78,-153}}, color={0,0,127}));
+  connect(TSup3.y, RTUCon3.TSupCoiCoo) annotation (Line(points={{42,-240},{74,-240},
+          {74,-156},{78,-156}}, color={0,0,127}));
+  connect(TSupSet3.y, RTUCon3.TSupCoiSet) annotation (Line(points={{42,-270},{76,
+          -270},{76,-159},{78,-159}}, color={0,0,127}));
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/RooftopUnits/Validation/ControllerCooling.mos"

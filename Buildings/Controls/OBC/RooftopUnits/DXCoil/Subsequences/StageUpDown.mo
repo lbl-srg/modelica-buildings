@@ -1,9 +1,8 @@
 within Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences;
-block DXCoilStage
+block StageUpDown
   "Sequence for staging up and down DX coils"
-  extends Modelica.Blocks.Icons.Block;
 
-  parameter Integer nCoi(min=1)=2
+  parameter Integer nCoi(min=1)
     "Number of DX coils";
 
   parameter Real uThrCoiUp(
@@ -166,7 +165,7 @@ equation
         graphics={
           Rectangle(
             extent={{-100,-100},{100,100}},
-            lineColor={0,0,127},
+            lineColor={0,0,0},
             fillColor={255,255,255},
             fillPattern=FillPattern.Solid),
           Text(
@@ -193,24 +192,27 @@ equation
             extent={{-92,-50},{-44,-70}},
             textColor={0,0,127},
             pattern=LinePattern.Dash,
-          textString="uComSpe")}),
+          textString="uComSpe"),        Text(
+        extent={{-150,140},{150,100}},
+        textString="%name",
+        textColor={0,0,255})}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),
   Documentation(info="<html>
   <p>
-  This is a control module for staging DX coil operation signal. 
+  This is a control module for staging the DX coil operation signal. 
   The control module is operated as follows: 
   </p>
   <ul>
   <li>
   Stage up <code>yUp = true</code> when coil valve position <code>uCoi</code> exceeds 
-  its threshold <code>uThrCoiUp</code> for the duration of <code>timPerUp</code>, and no changes 
-  in DX coil status <code>uDXCoi</code> are detected. 
+  its threshold <code>uThrCoiUp</code> for the duration of <code>timPerUp</code>, 
+  and no changes in DX coil status <code>uDXCoi</code> are detected. 
   </li>
   <li>
-  Stage down <code>yDow = false</code> when compressor speed ratio <code>uComSpe</code> falls below a 
-  threshold of coil valve position <code>uThrCoiDow</code> for the duration of <code>timPerDow</code>, 
-  and no changes in <code>uDXCoi</code> are detected. 
+  Stage down <code>yDow = true</code> when compressor speed ratio <code>uComSpe</code> 
+  falls below a threshold of coil valve position <code>uThrCoiDow</code> for the 
+  duration of <code>timPerDow</code>, and no changes in <code>uDXCoi</code> are detected. 
   </li>
   </ul>
   </html>", revisions="<html>
@@ -221,4 +223,4 @@ equation
   </li>
   </ul>
   </html>"));
-end DXCoilStage;
+end StageUpDown;

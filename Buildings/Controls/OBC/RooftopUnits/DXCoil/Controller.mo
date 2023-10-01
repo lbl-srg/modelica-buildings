@@ -1,22 +1,9 @@
 within Buildings.Controls.OBC.RooftopUnits.DXCoil;
 block Controller
-  "Sequences to stage DX coils and regulate their corresponding compressor speeds"
-  extends Modelica.Blocks.Icons.Block;
+  "Sequences to enable and stage DX coils"
 
-  parameter Integer nCoi(min=1)=2
+  parameter Integer nCoi(min=1)
     "Number of DX coils"
-    annotation (Dialog(group="DX coil parameters"));
-
-  parameter Real conCoiLow(
-    final min=0,
-    final max=1)=0.2
-    "Constant lower DX coil signal"
-    annotation (Dialog(group="DX coil parameters"));
-
-  parameter Real conCoiHig(
-    final min=0,
-    final max=1)=0.8
-    "Constant higher DX coil signal"
     annotation (Dialog(group="DX coil parameters"));
 
   parameter Real uThrCoiUp(
@@ -31,57 +18,45 @@ block Controller
     "Threshold of coil valve position signal below which DX coil staged down"
     annotation (Dialog(group="DX coil parameters"));
 
-  parameter Real uThrCoi2(
+  parameter Real uThrCoiEna(
     final min=0,
     final max=1)=0.8
     "Threshold of coil valve position signal above which DX coil is enabled"
     annotation (Dialog(group="DX coil parameters"));
 
-  parameter Real uThrCoi3(
+  parameter Real uThrCoiDis(
     final min=0,
     final max=1)=0.1
     "Threshold of coil valve position signal below which DX coil is disabled"
     annotation (Dialog(group="DX coil parameters"));
 
-  parameter Real timPer(
+  parameter Real timPerUp(
     final unit="s",
     displayUnit="s",
     final quantity="time") = 480
     "Delay time period for staging up DX coil"
     annotation (Dialog(group="DX coil parameters"));
 
-  parameter Real timPer1(
+  parameter Real timPerDow(
     final unit="s",
     displayUnit="s",
     final quantity="time") = 180
     "Delay time period for staging down DX coil"
     annotation (Dialog(group="DX coil parameters"));
 
-  parameter Real timPer2(
+  parameter Real timPerEna(
     final unit="s",
     displayUnit="s",
     final quantity="time") = 300
     "Delay time period for enabling DX coil"
     annotation (Dialog(group="DX coil parameters"));
 
-  parameter Real timPer3(
+  parameter Real timPerDis(
     final unit="s",
     displayUnit="s",
     final quantity="time") = 300
     "Delay time period for disabling DX coil"
     annotation (Dialog(group="DX coil parameters"));
-
-  parameter Real minComSpe(
-    final min=0,
-    final max=maxComSpe) = 0.1
-    "Minimum compressor speed"
-    annotation (Dialog(group="Compressor parameters"));
-
-  parameter Real maxComSpe(
-    final min=minComSpe,
-    final max=1) = 1
-    "Maximum compressor speed"
-    annotation (Dialog(group="Compressor parameters"));
 
   parameter Real dTHys(
     final unit="K",
@@ -128,6 +103,7 @@ block Controller
     annotation (Placement(transformation(extent={{220,40},{260,80}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
+protected
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea[nCoi]
     "Convert integer to real number"
     annotation (Placement(transformation(extent={{-190,110},{-170,130}})));
@@ -190,11 +166,13 @@ block Controller
     "Logical Or"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
 
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor nexDXCoi(nin=nCoi)
+  Buildings.Controls.OBC.CDL.Routing.RealExtractor nexDXCoi(
+    final nin=nCoi)
     "Next DX coil"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
 
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor lasDXCoi(nin=nCoi)
+  Buildings.Controls.OBC.CDL.Routing.RealExtractor lasDXCoi(
+    final nin=nCoi)
     "Last DX coil"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
 
@@ -206,22 +184,22 @@ block Controller
     "Convert real input to integer output"
     annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
 
-  Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.DXCoilStage DXCoiSta(
+  Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.StageUpDown DXCoiSta(
     final nCoi=nCoi,
     final uThrCoiUp=uThrCoiUp,
     final uThrCoiDow=uThrCoiDow,
     final dUHys=dUHys,
-    final timPerUp=timPer,
-    final timPerDow=timPer1)
+    final timPerUp=timPerUp,
+    final timPerDow=timPerDow)
     "DX coil staging"
-    annotation (Placement(transformation(extent={{-150,26},{-130,46}})));
+    annotation (Placement(transformation(extent={{-150,24},{-130,44}})));
 
   Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.Enable DXCoiEna(
     final nCoi=nCoi,
-    final uThrCoiEna=uThrCoi2,
-    final uThrCoiDis=uThrCoi3,
-    final timPerEna=timPer2,
-    final timPerDis=timPer3,
+    final uThrCoiEna=uThrCoiEna,
+    final uThrCoiDis=uThrCoiDis,
+    final timPerEna=timPerEna,
+    final timPerDis=timPerDis,
     final dUHys=dUHys)
     "DX coil enable and disable"
     annotation (Placement(transformation(extent={{-150,-10},{-130,10}})));
@@ -239,15 +217,6 @@ block Controller
     final nCoi=nCoi)
     "Change DX coil status"
     annotation (Placement(transformation(extent={{130,72},{152,92}})));
-
-protected
-  parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.P
-    "Type of DX coil controller"
-    annotation (Dialog(group="P controller"));
-
-  parameter Real k = (maxComSpe - minComSpe) / (conCoiHig- conCoiLow)
-    "Gain of DX coil controller"
-    annotation (Dialog(group="P controller"));
 
 equation
   connect(uCoiSeq, intToRea.u)
@@ -281,15 +250,15 @@ equation
           {-120,0},{-120,106},{-60,106},{-60,128},{-2,128}},color={255,0,255}));
   connect(chaSta.yDXCoi, chaSta1.uDXCoil) annotation (Line(points={{24,124},{118,
           124},{118,82},{128,82}}, color={255,0,255}));
-  connect(DXCoiSta.uCoi, uCoi) annotation (Line(points={{-152,36},{-180,36},{-180,
+  connect(DXCoiSta.uCoi, uCoi) annotation (Line(points={{-152,34},{-180,34},{-180,
           -60},{-240,-60}}, color={0,0,127}));
-  connect(uDXCoi, DXCoiSta.uDXCoi) annotation (Line(points={{-240,40},{-190,40},
-          {-190,42},{-152,42}}, color={255,0,255}));
+  connect(uDXCoi, DXCoiSta.uDXCoi) annotation (Line(points={{-240,40},{-152,40}},
+                                color={255,0,255}));
   connect(mulSumInt.y, intGreEquThr.u) annotation (Line(points={{-88,-40},{-60,-40},
           {-60,0},{-52,0}}, color={255,127,0}));
   connect(mulSumInt.y, intLesEquThr.u)
     annotation (Line(points={{-88,-40},{-52,-40}}, color={255,127,0}));
-  connect(DXCoiSta.yUp, and2.u1) annotation (Line(points={{-128,42},{-60,42},{-60,
+  connect(DXCoiSta.yUp, and2.u1) annotation (Line(points={{-128,40},{-60,40},{-60,
           90},{38,90}}, color={255,0,255}));
   connect(intGreEquThr.y, and2.u2) annotation (Line(points={{-28,0},{30,0},{30,82},
           {38,82}}, color={255,0,255}));
@@ -326,7 +295,8 @@ equation
   connect(zerStaIndCor.yReaMod, reaToInt2.u) annotation (Line(points={{-28,-84},
           {-20,-84},{-20,-108},{60,-108},{60,-40},{78,-40}}, color={0,0,127}));
   connect(DXCoiSta.yDow, not1.u)
-    annotation (Line(points={{-128,30},{-52,30}}, color={255,0,255}));
+    annotation (Line(points={{-128,28},{-90,28},{-90,30},{-52,30}},
+                                                  color={255,0,255}));
   connect(not1.y, or2.u1)
     annotation (Line(points={{-28,30},{38,30}}, color={255,0,255}));
   connect(reaToInt1.y, chaSta1.uNexDXCoi) annotation (Line(points={{102,0},{110,
@@ -334,12 +304,17 @@ equation
   connect(uDXCoi, booToInt.u) annotation (Line(points={{-240,40},{-190,40},{-190,
           -40},{-150,-40}}, color={255,0,255}));
   connect(uComSpe, DXCoiSta.uComSpe) annotation (Line(points={{-240,-100},{-170,
-          -100},{-170,30},{-152,30}}, color={0,0,127}));
+          -100},{-170,28},{-152,28}}, color={0,0,127}));
 
   annotation (defaultComponentName="DXCoiCon",
     Icon(coordinateSystem(preserveAspectRatio=false,
       extent={{-100,-100},{100,100}}),
         graphics={
+          Rectangle(
+            extent={{-100,100},{100,-100}},
+            lineColor={0,0,0},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
           Text(
             extent={{-100,140},{100,140}},
             textColor={0,0,255}),
@@ -368,28 +343,27 @@ equation
             extent={{-94,-72},{-46,-88}},
             textColor={0,0,127},
             pattern=LinePattern.Dash,
-          textString="uComSpe")}),
+          textString="uComSpe"),        Text(
+        extent={{-150,140},{150,100}},
+        textString="%name",
+        textColor={0,0,255})}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,-140},{220,160}})),
   Documentation(info="<html>
   <p>
-  This is a control module for DX coils staging. 
+  This is a control module for enabling and disabling DX coil arrays, as well as 
+  enabling and disabling different coils in each stage.
   The control module consists of: 
   </p>
   <ul>
   <li>
   Subsequences to stage up and down DX coils 
-  <a href=\"modelica://Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.DXCoilStage\">
-  Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.DXCoilStage</a>.
+  <a href=\"modelica://Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.StageUpDown\">
+  Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.StageUpDown</a>.
   </li>
   <li>
   Subsequences to enable and disable DX coils 
   <a href=\"modelica://Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.Enable\">
   Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.Enable</a>.
-  </li>
-  <li>
-  Subsequences to change DX coil status 
-  <a href=\"modelica://Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.ChangeStatus\">
-  Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.ChangeStatus</a>.
   </li>
   </ul>
   </html>", revisions="<html>

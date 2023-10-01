@@ -1,14 +1,15 @@
 within Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.Validation;
-model DXCoilStage
+model StageUpDown
   "Validate sequence for staging up and down DX coil using coil valve postion signal"
 
-  Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.DXCoilStage DXCoiSta(
-    nCoi=1,
-    dUHys=0.01,
-    dTHys(displayUnit="K") = 1)
+  Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.StageUpDown DXCoiSta(
+    final nCoi=1,
+    final dUHys=0.01,
+    final dTHys(displayUnit="K") = 1)
     "DX coil staging up and down"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
 
+protected
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold nexDXCoi(
     final trueHoldDuration=120)
     "Hold pulse signal for easy visualization"
@@ -44,7 +45,7 @@ model DXCoilStage
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep(
-    final nout=DXCoiSta.nCoi)
+    final nout=DXCoiSta.nCoi) "Replicate speed signal for number of coils"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
 
 equation
@@ -68,13 +69,13 @@ equation
           -40},{-10,-20},{-46,-20},{-46,-6},{-32,-6}}, color={0,0,127}));
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/RooftopUnits/DXCoil/Subsequences/Validation/DXCoilStage.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/RooftopUnits/DXCoil/Subsequences/Validation/StageUpDown.mos"
     "Simulate and plot"),
     Documentation(info="<html>
     <p>
     This is a validation model for the controller
-    <a href=\"modelica://Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.DXCoilStage\">
-    Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.DXCoilStage</a>. 
+    <a href=\"modelica://Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.StageUpDown\">
+    Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.StageUpDown</a>. 
     </p>
     <p>
     Simulation results are observed as follows: 
@@ -113,4 +114,4 @@ annotation (
               fillPattern = FillPattern.Solid,
               points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),
       Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})));
-end DXCoilStage;
+end StageUpDown;

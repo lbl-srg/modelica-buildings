@@ -3,7 +3,8 @@ package DXCoil "Sequences for DX coil control"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains control sequences to stage DX coils and regulate their corresponding compressor speeds.
+This package contains control sequences to enable the DX coil array and then stage 
+it.
 </p>
 </html>"),
   Icon(graphics={

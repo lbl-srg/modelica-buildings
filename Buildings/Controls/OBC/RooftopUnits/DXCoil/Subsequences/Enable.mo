@@ -1,9 +1,8 @@
 within Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences;
 block Enable
   "Sequence for enabling and disabling DX coils"
-  extends Modelica.Blocks.Icons.Block;
 
-  parameter Integer nCoi(min=1)=2
+  parameter Integer nCoi(min=1)
     "Number of DX coils";
 
   parameter Real uThrCoiEna(
@@ -46,7 +45,7 @@ block Enable
       iconTransformation(extent={{-140,-80},{-100,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDXCoi
-    "DX coil signal"
+    "DX coil enable signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
@@ -135,7 +134,7 @@ equation
         graphics={
           Rectangle(
             extent={{-100,-100},{100,100}},
-            lineColor={0,0,127},
+            lineColor={0,0,0},
             fillColor={255,255,255},
             fillPattern=FillPattern.Solid),
           Text(
@@ -153,7 +152,10 @@ equation
           Text(
             extent={{52,8},{94,-6}},
             textColor={255,0,255},
-            textString="yDXCoi")}),
+            textString="yDXCoi"),       Text(
+        extent={{-150,140},{150,100}},
+        textString="%name",
+        textColor={0,0,255})}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
   Documentation(info="<html>
   <p>

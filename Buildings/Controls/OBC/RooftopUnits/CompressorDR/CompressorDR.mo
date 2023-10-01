@@ -1,26 +1,24 @@
 within Buildings.Controls.OBC.RooftopUnits.CompressorDR;
 block CompressorDR
   "Sequences to control compressor speed for demand reponse"
-  extends Modelica.Blocks.Icons.Block;
 
-  parameter Real k1(
+  parameter Real kDR1(
     final min=0,
     final max=1)=0.9
     "Constant compressor speed gain at demand-limit Level 1"
     annotation (Dialog(group="Compressor DR parameters"));
 
-  parameter Real k2(
+  parameter Real kDR2(
     final min=0,
     final max=1)=0.85
     "Constant compressor speed gain at demand-limit Level 2"
     annotation (Dialog(group="Compressor DR parameters"));
 
-  parameter Real k3(
+  parameter Real kDR3(
     final min=0,
     final max=1)=0.8
     "Constant compressor speed gain at demand-limit Level 3"
     annotation (Dialog(group="Compressor DR parameters"));
-
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uDemLimLev
     "Demand limit level"
@@ -43,6 +41,7 @@ block CompressorDR
     annotation (Placement(transformation(extent={{120,-20},{160,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
+protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu1
     "Output true Boolean signal if two integer inputs are equal"
     annotation (Placement(transformation(extent={{-48,74},{-28,94}})));
@@ -71,7 +70,7 @@ block CompressorDR
     annotation (Placement(transformation(extent={{-48,-6},{-28,14}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(
-    final k=k1)
+    final k=kDR1)
     "Constant gain"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
 
@@ -88,12 +87,12 @@ block CompressorDR
     annotation (Placement(transformation(extent={{0,-6},{20,14}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(
-    final k=k2)
+    final k=kDR2)
     "Constant gain"
     annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai3(
-    final k=k3)
+    final k=kDR3)
     "Constant gain"
     annotation (Placement(transformation(extent={{-48,-100},{-28,-80}})));
 
@@ -173,13 +172,13 @@ equation
   </p>
   <ul>
   <li>
-  Reduce the compressor speed to <code>k1</code> at demand-limit Level 1 <code>conIntDemLev1</code>.
+  Reduce the compressor speed to <code>kDR1</code> at demand-limit Level 1 <code>conIntDemLev1</code>.
   </li>
   <li>
-  Reduce the compressor speed to <code>k2</code> at demand-limit Level 2 <code>conIntDemLev2</code>.
+  Reduce the compressor speed to <code>kDR2</code> at demand-limit Level 2 <code>conIntDemLev2</code>.
   </li>
   <li>
-  Reduce the compressor speed to <code>k3</code> at demand-limit Level 3 <code>conIntDemLev3</code>.
+  Reduce the compressor speed to <code>kDR3</code> at demand-limit Level 3 <code>conIntDemLev3</code>.
   </li>
   </ul>
   </html>", revisions="<html>

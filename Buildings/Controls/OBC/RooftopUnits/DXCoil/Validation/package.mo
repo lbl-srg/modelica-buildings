@@ -4,8 +4,8 @@ package Validation "Collection of validation models"
 annotation (preferredView="info", Documentation(info="<html>
     <p>
     This package contains validation models for the classes in
-    <a href=\"modelica://Buildings.Controls.OBC.RooftopUnits.Controls.DXCoil.Validation\">
-    Buildings.Controls.OBC.RooftopUnits.Controls.DXCoil.Validation</a>.
+    <a href=\"modelica://Buildings.Controls.OBC.RooftopUnits.DXCoil\">
+    Buildings.Controls.OBC.RooftopUnits.DXCoil</a>.
     </p>
     </html>"),
     Icon(graphics={

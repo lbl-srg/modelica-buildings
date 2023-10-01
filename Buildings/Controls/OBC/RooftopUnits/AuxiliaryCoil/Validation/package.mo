@@ -3,9 +3,9 @@ package Validation "Collection of validation models"
 
 annotation (preferredView="info", Documentation(info="<html>
     <p>
-    This package contains a validation model for the classes in
-    <a href=\"modelica://Buildings.Controls.OBC.RooftopUnits.AuxiliaryCoil.Validation\">
-    Buildings.Controls.OBC.RooftopUnits.AuxiliaryCoil.Validation</a>.
+    This package contains a validation model for the class in
+    <a href=\"modelica://Buildings.Controls.OBC.RooftopUnits.AuxiliaryCoil\">
+    Buildings.Controls.OBC.RooftopUnits.AuxiliaryCoil</a>.
     </p>
     </html>"),
     Icon(graphics={
