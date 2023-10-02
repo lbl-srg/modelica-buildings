@@ -31,19 +31,10 @@ model HeatPumpHeatExchangerDHWTank
   parameter Loads.HotWater.Data.GenericHeatPumpWaterHeater datWatHea
     "Performance data"
     annotation (Placement(transformation(extent={{36,48},{48,60}})));
-  Fluid.Sources.MassFlowSource_T sinDHW(
-    redeclare final package Medium = MediumBui,
-    use_m_flow_in=true,
-    nPorts=1) if have_hotWat "Sink for domestic hot water"
-    annotation (Placement(transformation(extent={{-68,50},{-48,70}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter toSin(final k=-1)
-    if have_hotWat "Convert to sink"
-    annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
   Loads.HotWater.ThermostaticMixingValve theMixVal(
     redeclare package Medium = MediumBui,
     mMix_flow_nominal=QHotWat_flow_nominal/cpBui_default/(THotWatSup_nominal -
-        TColWat_nominal),
-    dpValve_nominal=1000) "Thermostatic mixing valve"
+        TColWat_nominal)) "Thermostatic mixing valve"
     annotation (Placement(transformation(extent={{-20,50},{-40,72}})));
   Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Junction dcwSpl(
       redeclare final package Medium = MediumBui, final m_flow_nominal=
@@ -52,15 +43,13 @@ model HeatPumpHeatExchangerDHWTank
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-12,4})));
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(k=1/
+        QHotWat_flow_nominal)
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 equation
 
-  connect(toSin.u, div1.y) annotation (Line(points={{-102,60},{-108,60},{-108,
-          32},{-70,32},{-70,-40},{-78,-40}},
-                                         color={0,0,127}));
   connect(conFloEvaSHW.m_flow, proHotWat.m2_flow) annotation (Line(points={{-38,100},
           {28,100},{28,31},{30,31}},         color={0,0,127}));
-  connect(souDCW.T_in, delT.u2) annotation (Line(points={{-64,-60},{-156,-60},{
-          -156,-6},{-152,-6}},                      color={0,0,127}));
   connect(enaSHW.y, proHotWat.uEna) annotation (Line(points={{-118,80},{-114,80},
           {-114,43},{30,43}},  color={255,0,255}));
   connect(proHotWat.port_b2, volMix_b.ports[4])
@@ -77,28 +66,29 @@ equation
   connect(proHotWat.mEva_flow, masFloHea.u2) annotation (Line(points={{54,31},{
           58,31},{58,-242},{-6,-242},{-6,-252}},
                                               color={0,0,127}));
-  connect(toSin.y, sinDHW.m_flow_in) annotation (Line(points={{-78,60},{-76,60},
-          {-76,68},{-70,68}}, color={0,0,127}));
   connect(proHotWat.port_a2, volMix_a.ports[4]) annotation (Line(points={{52,28},
           {56,28},{56,20},{-260,20},{-260,-360}},             color={0,127,255}));
-  connect(theMixVal.port_mix, sinDHW.ports[1]) annotation (Line(points={{-40,61},
-          {-45,61},{-45,60},{-48,60}}, color={0,127,255}));
   connect(souDCW.ports[1], dcwSpl.port_1) annotation (Line(points={{-42,-56},{
           -12,-56},{-12,-6}}, color={0,127,255}));
   connect(dcwSpl.port_3, proHotWat.port_a1)
     annotation (Line(points={{-2,4},{12,4},{12,28},{32,28}},
                                                            color={0,127,255}));
   connect(dcwSpl.port_2, theMixVal.port_col) annotation (Line(points={{-12,14},
-          {-12,56.6},{-20,56.6}}, color={0,127,255}));
-  connect(proHotWat.port_b1, theMixVal.port_hotSou) annotation (Line(points={{32,40},
-          {0,40},{0,65.4},{-20,65.4}},        color={0,127,255}));
-  connect(theMixVal.TMixSet, delT.u1) annotation (Line(points={{-18,69.8},{-12,
-          69.8},{-12,70},{-8,70},{-8,26},{-160,26},{-160,6},{-152,6}}, color={0,
-          0,127}));
+          {-12,52.2},{-20,52.2}}, color={0,127,255}));
+  connect(proHotWat.port_b1, theMixVal.port_hot) annotation (Line(points={{32,40},
+          {0,40},{0,56.6},{-20,56.6}},     color={0,127,255}));
   connect(proHotWat.QCon_flow, heaFloEvaSHW.u1) annotation (Line(points={{54,24},
           {68,24},{68,120},{-108,120},{-108,106},{-102,106}}, color={0,0,127}));
   connect(proHotWat.PHea, heaFloEvaSHW.u2) annotation (Line(points={{54,37},{60,
           37},{60,80},{-108,80},{-108,94},{-102,94}}, color={0,0,127}));
+  connect(souDCW.T_in, TColWat) annotation (Line(points={{-64,-60},{-156,-60},{
+          -156,-80},{-320,-80}}, color={0,0,127}));
+  connect(THotWatSupSet, theMixVal.TMixSet) annotation (Line(points={{-320,-40},
+          {-32,-40},{-32,32},{-8,32},{-8,63.2},{-19,63.2}}, color={0,0,127}));
+  connect(loaSHW, gai.u) annotation (Line(points={{-320,-120},{-288,-120},{-288,
+          60},{-82,60}}, color={0,0,127}));
+  connect(gai.y, theMixVal.yMixSet) annotation (Line(points={{-58,60},{-48,60},
+          {-48,78},{-8,78},{-8,69.8},{-19,69.8}}, color={0,0,127}));
   annotation (
   Documentation(info="<html>
 <p>

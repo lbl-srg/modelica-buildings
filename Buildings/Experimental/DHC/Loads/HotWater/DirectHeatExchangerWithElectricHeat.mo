@@ -70,7 +70,7 @@ equation
                                                           color={0,127,255}));
   connect(heaEle.Q_flow,PHea)  annotation (Line(points={{31,-32},{82,-32},{82,0},
           {110,0}},                 color={0,0,127}));
-  connect(TSetHotSou, heaEle.TSet) annotation (Line(points={{-110,0},{-12,0},{-12,
+  connect(THotSouSet, heaEle.TSet) annotation (Line(points={{-110,0},{-12,0},{-12,
           -32},{8,-32}},               color={0,0,127}));
   connect(hex.port_b2, port_b2) annotation (Line(points={{-80,-60},{-100,-60}},
                  color={0,127,255}));

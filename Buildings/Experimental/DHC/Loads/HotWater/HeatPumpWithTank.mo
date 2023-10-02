@@ -87,6 +87,10 @@ model HeatPumpWithTank
   Controls.OBC.CDL.Reals.AddParameter TConSet(p=datWatHea.dTTanHex)
     "Set point temperature for condenser"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
+  Fluid.Sensors.TemperatureTwoPort           senTemHot(redeclare package Medium
+      = Medium, m_flow_nominal=mHotSou_flow_nominal)
+    "Temperature sensor for hot water supply"
+    annotation (Placement(transformation(extent={{20,38},{40,58}})));
 equation
   connect(port_b2, heaPum.port_b2) annotation (Line(points={{-100,-60},{-56,-60},
           {-56,-56},{-10,-56}},        color={0,127,255}));
@@ -108,7 +112,7 @@ equation
                            color={0,127,255}));
   connect(conPI.y, dTTanHex2.u)
     annotation (Line(points={{12,80},{18,80}}, color={0,0,127}));
-  connect(TSetHotSou, conPI.u_s) annotation (Line(points={{-110,0},{-88,0},{-88,
+  connect(THotSouSet, conPI.u_s) annotation (Line(points={{-110,0},{-88,0},{-88,
           80},{-12,80}}, color={0,0,127}));
   connect(senTemTan.T, conPI.u_m) annotation (Line(points={{-19,30},{0,30},{0,
           68}},               color={0,0,127}));
@@ -123,14 +127,16 @@ equation
                                                           color={191,0,0}));
   connect(TConSet.y, heaPum.TSet) annotation (Line(points={{-38,-40},{-28,-40},
           {-28,-41},{-12,-41}}, color={0,0,127}));
-  connect(TConSet.u, TSetHotSou) annotation (Line(points={{-62,-40},{-88,-40},{
+  connect(TConSet.u,THotSouSet)  annotation (Line(points={{-62,-40},{-88,-40},{
           -88,0},{-110,0}}, color={0,0,127}));
   connect(heaPum.port_b1, pumHex.port_a) annotation (Line(points={{10,-44},{70,
           -44},{70,16},{60,16}}, color={0,127,255}));
   connect(pumHex.port_a, bou.ports[1]) annotation (Line(points={{60,16},{70,16},
           {70,-20},{60,-20}}, color={0,127,255}));
-  connect(tanSte.port_a, port_b1) annotation (Line(points={{-50,20},{-50,52},{
-          26,52},{26,60},{100,60}}, color={0,127,255}));
+  connect(tanSte.port_a, senTemHot.port_a)
+    annotation (Line(points={{-50,20},{-50,48},{20,48}}, color={0,127,255}));
+  connect(senTemHot.port_b, port_b1) annotation (Line(points={{40,48},{90,48},{
+          90,60},{100,60}}, color={0,127,255}));
   annotation (preferredView="info",Documentation(info="<html>
 <p>
 This model implements a domestic hot water source for a low-temperature

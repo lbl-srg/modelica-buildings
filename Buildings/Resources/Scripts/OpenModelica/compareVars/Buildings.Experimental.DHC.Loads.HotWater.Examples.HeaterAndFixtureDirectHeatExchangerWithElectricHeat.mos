@@ -1,9 +1,9 @@
 compareVars :=
   {
-    "TSetHot",
-    "THot",
-    "gen.TSetHotSou",
+    "theMixVal.TMixSet",
+    "theMixVal.senTemHot.T",
+    "gen.THotSouSet",
     "gen.senTemHot.T",
     "PEle",
-    "loa.port_hot.m_flow"
+    "theMixVal.yMixSet"
   };

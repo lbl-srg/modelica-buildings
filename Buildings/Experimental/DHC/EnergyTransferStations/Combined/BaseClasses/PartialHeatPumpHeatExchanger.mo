@@ -331,12 +331,6 @@ model PartialHeatPumpHeatExchanger
     final dp1_nominal=dp_nominal,
     final dp2_nominal=dp_nominal) "Subsystem for heating water production"
     annotation (Placement(transformation(extent={{-10,204},{10,224}})));
-  Buildings.Controls.OBC.CDL.Reals.Divide div1 if have_hotWat
-    "Compute mass flow rate from load"
-    annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(final k=
-        cpBui_default) if have_hotWat "Times Cp"
-    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
   Buildings.Controls.OBC.CDL.Reals.MultiSum masFloHeaTot(nin=2)
     "Compute district water mass flow rate used for heating service"
     annotation (Placement(transformation(extent={{270,-150},{290,-130}})));
@@ -359,9 +353,6 @@ model PartialHeatPumpHeatExchanger
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={40,-120})));
-  Buildings.Controls.OBC.CDL.Reals.Subtract delT if have_hotWat
-    "Compute DeltaT needed on condenser side"
-    annotation (Placement(transformation(extent={{-150,-10},{-130,10}})));
   Fluid.Sensors.MassFlowRate senMasFloHeaWatPri(redeclare final package Medium =
         MediumBui, final allowFlowReversal=allowFlowReversalBui)
     "Primary heating water mass flow rate"
@@ -487,10 +478,6 @@ equation
   connect(proHeaWat.PPum, PPumHeaTot.u[1]) annotation (Line(points={{12,214},{172,
           214},{172,419.5},{188,419.5}},
                                      color={0,0,127}));
-  connect(gai.y, div1.u2) annotation (Line(points={{-98,0},{-80,0},{-80,-20},{-120,
-          -20},{-120,-46},{-102,-46}},                color={0,0,127}));
-  connect(loaSHW, div1.u1) annotation (Line(points={{-320,-120},{-290,-120},{-290,
-          -34},{-102,-34}}, color={0,0,127}));
   connect(masFloHeaTot.y, mHea_flow)
     annotation (Line(points={{292,-140},{320,-140}}, color={0,0,127}));
   connect(zer.y, masFloHeaTot.u[2]) annotation (Line(points={{161,360},{216,360},
@@ -508,13 +495,6 @@ equation
           {120,300},{120,240},{110,240}},      color={0,127,255}));
   connect(senMasFloChiWat.port_b, senTChiWatRet.port_a)
     annotation (Line(points={{-230,-120},{30,-120}}, color={0,127,255}));
-  connect(delT.y, gai.u)
-    annotation (Line(points={{-128,0},{-122,0}},     color={0,0,127}));
-  connect(TColWat, delT.u2) annotation (Line(points={{-320,-80},{-156,-80},{-156,
-          -6},{-152,-6}},   color={0,0,127}));
-  connect(THotWatSupSet, delT.u1) annotation (Line(points={{-320,-40},{-160,-40},
-          {-160,6},{-152,6}},
-                            color={0,0,127}));
   connect(proHeaWat.port_b1, senMasFloHeaWatPri.port_a) annotation (Line(points=
          {{-10,220},{-20,220},{-20,260},{30,260}}, color={0,127,255}));
   connect(senMasFloHeaWatPri.port_b, bypHeaWatSup.port_1)

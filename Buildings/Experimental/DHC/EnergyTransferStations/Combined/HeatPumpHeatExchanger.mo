@@ -36,6 +36,15 @@ model HeatPumpHeatExchanger
       extent={{10,-10},{-10,10}},
       rotation=180,
       origin={-60,60})));
+  Buildings.Controls.OBC.CDL.Reals.Divide div1 if have_hotWat
+    "Compute mass flow rate from load"
+    annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(final k=
+        cpBui_default) if have_hotWat "Times Cp"
+    annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
+  Buildings.Controls.OBC.CDL.Reals.Subtract delT if have_hotWat
+    "Compute DeltaT needed on condenser side"
+    annotation (Placement(transformation(extent={{-150,-20},{-130,0}})));
 equation
   connect(souColWat.ports[1], proHotWat.port_a1) annotation (Line(points={{-28,-40},
           {-20,-40},{-20,28},{-10,28}}, color={0,127,255}));
@@ -61,16 +70,30 @@ equation
                               color={0,0,127}));
   connect(TColWat, souColWat.T_in) annotation (Line(points={{-320,-80},{-60,-80},
           {-60,-36},{-50,-36}}, color={0,0,127}));
-  connect(div1.y, souColWat.m_flow_in) annotation (Line(points={{-78,-40},{-68,-40},
-          {-68,-32},{-50,-32}}, color={0,0,127}));
+  connect(div1.y, souColWat.m_flow_in) annotation (Line(points={{-78,-50},{-70,
+          -50},{-70,-32},{-50,-32}},
+                                color={0,0,127}));
   connect(proHotWat.port_a2, volMix_a.ports[4]) annotation (Line(points={{10,28},
           {14,28},{14,20},{-260,20},{-260,-360}}, color={0,127,255}));
   connect(proHotWat.port_b2, volMix_b.ports[4])
     annotation (Line(points={{10,40},{260,40},{260,-360}}, color={0,127,255}));
   connect(heaFloEvaSHW.u1, div1.u1) annotation (Line(points={{-102,106},{-290,
-          106},{-290,-34},{-102,-34}}, color={0,0,127}));
+          106},{-290,-44},{-102,-44}}, color={0,0,127}));
   connect(proHotWat.PHea, heaFloEvaSHW.u2) annotation (Line(points={{12,37},{14,
           37},{14,80},{-108,80},{-108,94},{-102,94}}, color={0,0,127}));
+  connect(gai.y,div1. u2) annotation (Line(points={{-98,-10},{-80,-10},{-80,-30},
+          {-120,-30},{-120,-56},{-102,-56}},          color={0,0,127}));
+  connect(loaSHW,div1. u1) annotation (Line(points={{-320,-120},{-290,-120},{
+          -290,-44},{-102,-44}},
+                            color={0,0,127}));
+  connect(delT.y,gai. u)
+    annotation (Line(points={{-128,-10},{-122,-10}}, color={0,0,127}));
+  connect(TColWat,delT. u2) annotation (Line(points={{-320,-80},{-156,-80},{
+          -156,-16},{-152,-16}},
+                            color={0,0,127}));
+  connect(THotWatSupSet,delT. u1) annotation (Line(points={{-320,-40},{-160,-40},
+          {-160,-4},{-152,-4}},
+                            color={0,0,127}));
   annotation (
   Documentation(info="<html>
 <p>

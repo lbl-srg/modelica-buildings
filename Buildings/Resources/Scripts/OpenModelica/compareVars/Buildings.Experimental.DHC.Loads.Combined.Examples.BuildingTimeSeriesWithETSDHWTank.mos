@@ -10,9 +10,9 @@ compareVars :=
     "bui.QCoo_flow",
     "bui.ets.loaSHW",
     "bui.ets.THotWatSupSet",
-    "bui.ets.tmv.THot",
+    "bui.ets.theMixVal.TMixSet",
     "bui.ets.proHotWat.senTHotSup.T",
-    "bui.ets.proHotWat.TSetHotSou.y",
-    "bui.ets.sinDHW.ports[1].m_flow",
+    "bui.ets.proHotWat.THotSouSet.y",
+    "bui.ets.theMixVal.mMix_flow",
     "bui.ets.proHotWat.PHea"
   };
