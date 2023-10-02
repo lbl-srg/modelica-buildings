@@ -147,7 +147,7 @@ model PartialHeatPumpHeatExchanger
         extent={{-40,-40},{40,40}},
         rotation=0,
         origin={-340,-140})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput loaSHW(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput QReqHotWat_flow(
     final unit="W") if have_hotWat "Service hot water load"
     annotation (
       Placement(transformation(
@@ -656,6 +656,10 @@ Energy, Volume 199, 15 May 2020, 117418.
 </html>",
   revisions="<html>
 <ul>
+<li>
+October 2, 2023, by Michael Wetter:<br/>
+Renamed input <code>loaSHW</code> to <code>QReqHotWat_flow</code>.
+</li>  
 <li>
 May 17, 2023, by David Blum:<br/>
 Assigned dp_nominal to <code>pum1HexChi</code>.<br/>

@@ -85,24 +85,24 @@ equation
           -156,-80},{-320,-80}}, color={0,0,127}));
   connect(THotWatSupSet, theMixVal.TMixSet) annotation (Line(points={{-320,-40},
           {-32,-40},{-32,32},{-8,32},{-8,63.2},{-19,63.2}}, color={0,0,127}));
-  connect(loaSHW, gai.u) annotation (Line(points={{-320,-120},{-288,-120},{-288,
+  connect(QReqHotWat_flow, gai.u) annotation (Line(points={{-320,-120},{-288,-120},{-288,
           60},{-82,60}}, color={0,0,127}));
   connect(gai.y, theMixVal.yMixSet) annotation (Line(points={{-58,60},{-48,60},
           {-48,78},{-8,78},{-8,69.8},{-19,69.8}}, color={0,0,127}));
   annotation (
   Documentation(info="<html>
 <p>
-This model uses the base energy transfer station defined in 
+This model uses the base energy transfer station defined in
 <a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.BaseClasses.PartialHeatPumpHeatExchanger\">
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.BaseClasses.PartialHeatPumpHeatExchanger</a>.
 </p>
 <h4>Domestic Hot Water</h4>
 <p>
-Domestic hot water is produced using a dedicated water-to-water heat pump 
+Domestic hot water is produced using a dedicated water-to-water heat pump
 with storage tank.
 </p>
 <p>
-Heating is enabled based on the input signal <code>uSHW</code> 
+Heating is enabled based on the input signal <code>uSHW</code>
 which is held for <i>15</i> minutes, meaning that,
 when enabled, the mode remains active for at least <i>15</i> minutes and,
 when disabled, the mode cannot be enabled again for at least <i>15</i> minutes.
@@ -122,20 +122,20 @@ Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPumpDH
 </li>
 <li>
 The heat pump condensor water mass flow rate is controlled for the charging of the storage tank
-as described in 
+as described in
 <a href=\"modelica://Buildings.Experimental.DHC.Loads.HotWater.HeatPumpWithTank\">
 Buildings.Experimental.DHC.Loads.HotWater.HeatPumpWithTank</a>.
 </li>
 <li>
 The mass flow rate of water leaving the storage tank is computed based on the domestic hot water
-heating load (input <code>loaSHW</code>) combined with the operation of a thermostatic
+heating load (input <code>QReqHotWat_flow</code>) combined with the operation of a thermostatic
 mixing valve used to mix down the temperature of hot water leaving the tank
 to the temperature distributed to fixtures (parameter <code>THotWatSup_nominal</code>)
 using domestic cold water at the cold water temperature (input <code>TColWat</code>).
 The desired water flow rate leaving the thermostatic mixing valve
 is determined according to the following equation:
 <p align=\"center\" style=\"font-style:italic;\">
-<code>loaSHW</code> = m&#775; cp (<code>THotWatSup_nominal</code> - <code>TColWat</code>)
+<code>QReqHotWat_flow</code> = m&#775; cp (<code>THotWatSup_nominal</code> - <code>TColWat</code>)
 </p>
 </li>
 <li>
@@ -154,7 +154,7 @@ Extended from partial base class.
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3063\">
 issue 3063</a>.
-</li>  
+</li>
 <li>
 May 17, 2023, by David Blum:<br/>
 Assigned dp_nominal to <code>pum1HexChi</code>.<br/>

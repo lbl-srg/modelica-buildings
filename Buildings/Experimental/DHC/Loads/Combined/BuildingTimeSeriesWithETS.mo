@@ -70,7 +70,7 @@ model BuildingTimeSeriesWithETS
         QCoo_flow_nominal) "Normalized cooling load"
     annotation (Placement(transformation(extent={{-200,-150},{-180,-130}})));
 equation
-  connect(bui.QReqHotWat_flow, ets.loaSHW) annotation (Line(points={{28,4},{28,
+  connect(bui.QReqHotWat_flow, ets.QReqHotWat_flow) annotation (Line(points={{28,4},{28,
           -10},{-64,-10},{-64,-74},{-34,-74}}, color={0,0,127}));
   connect(THotWatSupSet, ets.THotWatSupSet) annotation (Line(points={{-320,40},
           {-136,40},{-136,-66},{-34,-66}},  color={0,0,127}));

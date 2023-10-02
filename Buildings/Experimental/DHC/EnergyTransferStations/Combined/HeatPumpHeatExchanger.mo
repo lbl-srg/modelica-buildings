@@ -3,7 +3,8 @@ model HeatPumpHeatExchanger
   "Model of a substation with heat pump for heating, heat pump for domestic hot water, and compressor-less cooling"
   extends
     Buildings.Experimental.DHC.EnergyTransferStations.Combined.BaseClasses.PartialHeatPumpHeatExchanger(
-     volMix_a(nPorts=4), volMix_b(nPorts=4));
+      volMix_a(nPorts=4),
+      volMix_b(nPorts=4));
   Subsystems.HeatPump                                                            proHotWat(
     redeclare final package Medium1 = MediumBui,
     redeclare final package Medium2 = MediumSer,
@@ -83,7 +84,7 @@ equation
           37},{14,80},{-108,80},{-108,94},{-102,94}}, color={0,0,127}));
   connect(gai.y,div1. u2) annotation (Line(points={{-98,-10},{-80,-10},{-80,-30},
           {-120,-30},{-120,-56},{-102,-56}},          color={0,0,127}));
-  connect(loaSHW,div1. u1) annotation (Line(points={{-320,-120},{-290,-120},{
+  connect(QReqHotWat_flow,div1. u1) annotation (Line(points={{-320,-120},{-290,-120},{
           -290,-44},{-102,-44}},
                             color={0,0,127}));
   connect(delT.y,gai. u)
@@ -97,17 +98,17 @@ equation
   annotation (
   Documentation(info="<html>
 <p>
-This model uses the base energy transfer station defined in 
+This model uses the base energy transfer station defined in
 <a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.BaseClasses.PartialHeatPumpHeatExchanger\">
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.BaseClasses.PartialHeatPumpHeatExchanger</a>.
 </p>
 <h4>Domestic Hot Water</h4>
 <p>
-Domestic hot water is produced using a dedicated water-to-water heat pump 
+Domestic hot water is produced using a dedicated water-to-water heat pump
 on-demand with no storage.
 </p>
 <p>
-Heating is enabled based on the input signal <code>uSHW</code> 
+Heating is enabled based on the input signal <code>uSHW</code>
 which is held for <i>15</i> minutes, meaning that,
 when enabled, the mode remains active for at least <i>15</i> minutes and,
 when disabled, the mode cannot be enabled again for at least <i>15</i> minutes.
@@ -127,12 +128,12 @@ Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump</
 </li>
 <li>
 The condensor water mass flow rate is computed based on the domestic hot water
-heating load (input <code>loaSHW</code>) where the temperature of water is boosted from the
+heating load (input <code>QReqHotWat_flow</code>) where the temperature of water is boosted from the
 domestic cold water temperature (input <code>TColWat</code>) to the desired domestic hot water
 distribution temperature (parameter <code>THotWatSup_nominal</code>), according
 to the following equation:
 <p align=\"center\" style=\"font-style:italic;\">
-<code>loaSHW</code> = m&#775; cp (<code>THotWatSup_nominal</code> - <code>TColWat</code>)
+<code>QReqHotWat_flow</code> = m&#775; cp (<code>THotWatSup_nominal</code> - <code>TColWat</code>)
 </p>
 </li>
 <li>
@@ -151,7 +152,7 @@ Extended from partial base class.
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3063\">
 issue 3063</a>.
-</li>  
+</li>
 <li>
 May 17, 2023, by David Blum:<br/>
 Assigned dp_nominal to <code>pum1HexChi</code>.<br/>

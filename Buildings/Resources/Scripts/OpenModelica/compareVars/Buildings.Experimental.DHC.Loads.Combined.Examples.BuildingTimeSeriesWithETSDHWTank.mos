@@ -8,7 +8,7 @@ compareVars :=
     "bui.PPum",
     "bui.QHea_flow",
     "bui.QCoo_flow",
-    "bui.ets.loaSHW",
+    "bui.ets.QReqHotWat_flow",
     "bui.ets.THotWatSupSet",
     "bui.ets.theMixVal.TMixSet",
     "bui.ets.proHotWat.senTHotSup.T",
