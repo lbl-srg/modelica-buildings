@@ -14,7 +14,7 @@ model HeatPumpDHWTank
       Buildings.Media.Antifreeze.PropyleneGlycolWater (property_T=293.15,X_a=0.40)
     "Propylene glycol water, 40% mass fraction")));
   parameter Boolean have_varFloEva = true
-    "Set to true for a variable evaporator flow"
+    "Set to true for a variable evaporator flow. Fixme: false does not make sense here."
     annotation(Evaluate=true);
   parameter Real COP_nominal(final unit="1")
     "Heat pump COP"
