@@ -410,18 +410,18 @@ block Controller "Controller for dual-duct terminal unit with cold-duct minimum 
     final dTHys=dTHys)
     "Specify suppresion time due to the zone heating setpoint change and check if it has passed the suppresion period"
     annotation (Placement(transformation(extent={{-200,240},{-180,260}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooMax(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant cooMax(
     final k=VCooMax_flow)
     "Cooling maximum flow"
     annotation (Placement(transformation(extent={{-40,280},{-20,300}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaMax(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant heaMax(
     final k=VHeaMax_flow)
     "Heating maximum flow"
     annotation (Placement(transformation(extent={{-80,250},{-60,270}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2
+  Buildings.Controls.OBC.CDL.Reals.Add add2
     "Sum of minimum flow and cooling maximum flow"
     annotation (Placement(transformation(extent={{-40,230},{-20,250}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater gre(
+  Buildings.Controls.OBC.CDL.Reals.Greater gre(
     final h=floHys)
     "Check if cooling maximum is greater than the sum of minimum and heating maximum flow"
     annotation (Placement(transformation(extent={{20,280},{40,300}})));

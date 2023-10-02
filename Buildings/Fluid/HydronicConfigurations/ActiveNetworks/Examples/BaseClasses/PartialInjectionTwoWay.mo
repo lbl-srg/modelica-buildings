@@ -56,13 +56,13 @@ partial model PartialInjectionTwoWay
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={80,-70})));
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset ctlPum1(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset ctlPum1(
     k=0.1,
     Ti=60,
     r=1e4,
     y_reset=0) "Primary pump controller"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dp1SetVal(final k=
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dp1SetVal(final k=
         dp1Set) "Pressure differential set point"
     annotation (Placement(transformation(extent={{-140,-40},{-120,-20}})));
 

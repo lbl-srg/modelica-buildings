@@ -6,7 +6,7 @@ model Shade_H
     HLow=400)
     "Shade controller"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  CDL.Continuous.Sources.Sin H(
+  CDL.Reals.Sources.Sin H(
     final amplitude=500,
     final freqHz=1/(2*1800),
     final offset=250)

@@ -89,7 +89,7 @@ model ControllerEconomizer "Controller for economizer"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Modelica.Blocks.Math.Feedback feedback1
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Controls.OBC.CDL.Continuous.Hysteresis hysChiPla(
+  Controls.OBC.CDL.Reals.Hysteresis hysChiPla(
     final uLow=0.95,
     final uHigh=0.98)
     "Hysteresis with delay to switch on cooling"
@@ -101,7 +101,7 @@ model ControllerEconomizer "Controller for economizer"
   Modelica.Blocks.Logical.Not not1 "No economizer"
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
 
-  Controls.OBC.CDL.Continuous.Hysteresis hysCooPot(
+  Controls.OBC.CDL.Reals.Hysteresis hysCooPot(
     final uLow=0,
     final uHigh=0.5)
     "Hysteresis with delay to check for cooling potential of outside air"
@@ -114,7 +114,7 @@ model ControllerEconomizer "Controller for economizer"
     final trueHoldDuration=60*15)
     "True/false hold for mixing temperature"
     annotation (Placement(transformation(extent={{-24,-40},{-4,-20}})));
-  Controls.OBC.CDL.Continuous.Hysteresis hysTMix(
+  Controls.OBC.CDL.Reals.Hysteresis hysTMix(
     final uLow=-0.5,
     final uHigh=0.5)
     "Hysteresis with delay for mixed air temperature"

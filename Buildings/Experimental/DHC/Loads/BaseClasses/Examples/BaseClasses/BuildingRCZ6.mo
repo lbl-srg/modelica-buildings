@@ -27,7 +27,7 @@ model BuildingRCZ6
       fill(-10000, nZon - 1),
       {-50000}) ./ facMulTerUni "Design cooling heat flow rate (<=0)"
     annotation (Dialog(group="Nominal condition"));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet[nZon](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minTSet[nZon](
     k=fill(
       293.15,
       nZon),
@@ -35,7 +35,7 @@ model BuildingRCZ6
       each displayUnit="degC"))
     "Minimum temperature set point"
     annotation (Placement(transformation(extent={{-290,230},{-270,250}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet[nZon](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxTSet[nZon](
     k=fill(
       297.15,
       nZon),
@@ -55,7 +55,7 @@ model BuildingRCZ6
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
   Buildings.Experimental.DHC.Loads.BaseClasses.Examples.BaseClasses.GeojsonExportRC.OfficeBuilding.ICT iCT
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum mulSum(
     nin=2)
     annotation (Placement(transformation(extent={{240,70},{260,90}})));
   Buildings.Experimental.DHC.Loads.BaseClasses.Examples.BaseClasses.FanCoil4PipeHeatPorts terUni[nZon](

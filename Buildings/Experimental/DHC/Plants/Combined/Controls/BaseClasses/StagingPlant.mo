@@ -129,19 +129,19 @@ block StagingPlant
         rotation=0,
         origin={120,-140})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MovingAverage movAve(delta=300)
+  Buildings.Controls.OBC.CDL.Reals.MovingAverage movAve(delta=300)
     "Moving average"
     annotation (Placement(transformation(extent={{-150,110},{-130,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply loaChiWat
+  Buildings.Controls.OBC.CDL.Reals.Multiply loaChiWat
     "Compute total chiller load (>0)"
     annotation (Placement(transformation(extent={{-180,110},{-160,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract dTChiWatPos
+  Buildings.Controls.OBC.CDL.Reals.Subtract dTChiWatPos
     "Compute deltaT (>0)"
     annotation (Placement(transformation(extent={{-210,70},{-190,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply loaHeaWat
+  Buildings.Controls.OBC.CDL.Reals.Multiply loaHeaWat
     "Compute total chiller load"
     annotation (Placement(transformation(extent={{-180,-130},{-160,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract dTHeaWat "Compute deltaT"
+  Buildings.Controls.OBC.CDL.Reals.Subtract dTHeaWat "Compute deltaT"
     annotation (Placement(transformation(extent={{-220,-150},{-200,-130}})));
   Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator rep(final nout=
         nChi) "Replicate"
@@ -150,13 +150,13 @@ block StagingPlant
       t={i for i in 1:nChi})
     "Compute chiller On/Off command from number of units to be commanded On"
     annotation (Placement(transformation(extent={{210,110},{230,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter timCp(final k=
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter timCp(final k=
         cp_default) "Scale"
     annotation (Placement(transformation(extent={{-210,130},{-190,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter timCp1(final k=
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter timCp1(final k=
         cp_default) "Scale"
     annotation (Placement(transformation(extent={{-220,-90},{-200,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.MovingAverage movAve1(delta=300)
+  Buildings.Controls.OBC.CDL.Reals.MovingAverage movAve1(delta=300)
     "Moving average"
     annotation (Placement(transformation(extent={{-150,-130},{-130,-110}})));
   Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator rep5(final nout=
@@ -197,16 +197,16 @@ block StagingPlant
         rotation=0,
         origin={-30,-40})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract errTChiWatSup
+  Buildings.Controls.OBC.CDL.Reals.Subtract errTChiWatSup
     "Compute tracking error"
     annotation (Placement(transformation(extent={{-200,200},{-180,220}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract errDpChiWat
+  Buildings.Controls.OBC.CDL.Reals.Subtract errDpChiWat
     "Compute tracking error"
     annotation (Placement(transformation(extent={{-200,250},{-180,270}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold cmpErrLim(t=-1, h=1E-4)
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold cmpErrLim(t=-1, h=1E-4)
     "Check tracking error limit"
     annotation (Placement(transformation(extent={{-170,200},{-150,220}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold cmpErrLim1(t=1.5E4, h=1E-1)
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold cmpErrLim1(t=1.5E4, h=1E-1)
     "Check tracking error limit"
     annotation (Placement(transformation(extent={{-170,250},{-150,270}})));
   Buildings.Controls.OBC.CDL.Logical.Timer timErrExcLim(t=15*60)
@@ -231,7 +231,7 @@ block StagingPlant
          - nChi)/nChiHea*QChiWatCasCoo_flow_nominal)))
     "Total capacity at current stage (>0) times stage-up PLR limit "
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater cmpOPLRLimUp(h=-1E-4*(
+  Buildings.Controls.OBC.CDL.Reals.Greater cmpOPLRLimUp(h=-1E-4*(
         QChiWatChi_flow_nominal + QChiWatCasCoo_flow_nominal_approx)/2)
     "Check OPLR limit"
     annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
@@ -254,7 +254,7 @@ block StagingPlant
         /nChiHea*QHeaWat_flow_nominal)
     "Total capacity at current stage times stage-up PLR limit "
     annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater cmpOPLRLimUp1(h=1E-1)
+  Buildings.Controls.OBC.CDL.Reals.Greater cmpOPLRLimUp1(h=1E-1)
     "Check OPLR limit"
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Timer timOPLRExcLim1(t=15*60)
@@ -266,7 +266,7 @@ block StagingPlant
         staHea.preIdxSta - 1)/nChiHea*QHeaWat_flow_nominal)
     "Total capacity at next lower stage times stage-down PLR limit "
     annotation (Placement(transformation(extent={{-120,-178},{-100,-158}})));
-  Buildings.Controls.OBC.CDL.Continuous.Less cmpOPLRLimDow(h=1E-1)
+  Buildings.Controls.OBC.CDL.Reals.Less cmpOPLRLimDow(h=1E-1)
   "Check OPLR limit"
     annotation (Placement(transformation(extent={{-80,-170},{-60,-150}})));
   Buildings.Controls.OBC.CDL.Logical.Timer timOPLRExcLim2(t=15*60)
@@ -277,7 +277,7 @@ block StagingPlant
         0, staCoo.preIdxSta - 1 - nChi)/nChiHea*QChiWatCasCoo_flow_nominal)))
     "Total capacity at next lower stage (>0) times stage-down PLR limit "
     annotation (Placement(transformation(extent={{-120,62},{-100,82}})));
-  Buildings.Controls.OBC.CDL.Continuous.Less cmpOPLRLimDow1(h=-1E-4*(
+  Buildings.Controls.OBC.CDL.Reals.Less cmpOPLRLimDow1(h=-1E-4*(
         QChiWatChi_flow_nominal + QChiWatCasCoo_flow_nominal_approx)/2)
     "Check OPLR limit"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
@@ -290,17 +290,17 @@ block StagingPlant
   Buildings.Controls.OBC.CDL.Logical.And dowAndNotFail
     "No stage up failsafe condition and efficiency condition to stage down"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract errTChiWatSup1
+  Buildings.Controls.OBC.CDL.Reals.Subtract errTChiWatSup1
     "Compute tracking error"
     annotation (Placement(transformation(extent={{-200,-230},{-180,-210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract errDpHeaWat
+  Buildings.Controls.OBC.CDL.Reals.Subtract errDpHeaWat
     "Compute tracking error"
     annotation (Placement(transformation(extent={{-200,-290},{-180,-270}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold
                                                       cmpErrLim2(t=+1, h=1E-4)
     "Check tracking error limit"
     annotation (Placement(transformation(extent={{-170,-230},{-150,-210}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold cmpErrLim3(t=1.5E4, h=1E-1)
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold cmpErrLim3(t=1.5E4, h=1E-1)
     "Check tracking error limit"
     annotation (Placement(transformation(extent={{-170,-290},{-150,-270}})));
   Buildings.Controls.OBC.CDL.Logical.Timer timErrExcLim2(t=15*60)

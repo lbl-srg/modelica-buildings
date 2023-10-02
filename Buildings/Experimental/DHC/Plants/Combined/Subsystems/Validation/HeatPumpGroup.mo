@@ -54,7 +54,7 @@ model HeatPumpGroup "Validation of heat pump group model"
         rotation=-90,
         origin={2,-90})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSupSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupSet(
     k=dat.hea.TRefLoa+ 10,
     y(displayUnit="degC", unit="K")) "HW supply temperature setpoint"
     annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
@@ -74,7 +74,7 @@ model HeatPumpGroup "Validation of heat pump group model"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-100,20})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp THeaWatRetBou(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp THeaWatRetBou(
     y(displayUnit="degC", unit="K"),
     height=+5,
     duration=1000,

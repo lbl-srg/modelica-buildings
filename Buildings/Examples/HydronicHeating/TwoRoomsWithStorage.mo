@@ -161,7 +161,7 @@ model TwoRoomsWithStorage
     annotation (Placement(transformation(extent={{-40,-150},{-20,-130}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TRoo2
     annotation (Placement(transformation(extent={{480,216},{500,236}})));
-  Controls.OBC.CDL.Continuous.PIDWithReset conPum(
+  Controls.OBC.CDL.Reals.PIDWithReset conPum(
     yMax=1,
     Td=60,
     yMin=0.05,
@@ -181,7 +181,7 @@ model TwoRoomsWithStorage
     from_dp=true,
     use_inputFilter=false) "Radiator valve"
     annotation (Placement(transformation(extent={{360,120},{380,140}})));
-  Controls.OBC.CDL.Continuous.PID conRoo2(
+  Controls.OBC.CDL.Reals.PID conRoo2(
     yMax=1,
     yMin=0,
     Ti=60,
@@ -199,7 +199,7 @@ model TwoRoomsWithStorage
     from_dp=true,
     use_inputFilter=false) "Radiator valve"
     annotation (Placement(transformation(extent={{360,390},{380,410}})));
-  Controls.OBC.CDL.Continuous.PID conRoo1(
+  Controls.OBC.CDL.Reals.PID conRoo1(
     yMax=1,
     yMin=0,
     Ti=60,
@@ -234,7 +234,7 @@ model TwoRoomsWithStorage
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={220,-40})));
-  Controls.OBC.CDL.Continuous.PIDWithReset conVal(
+  Controls.OBC.CDL.Reals.PIDWithReset conVal(
     yMax=1,
     yMin=0,
     xi_start=1,
@@ -259,12 +259,12 @@ model TwoRoomsWithStorage
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor tanTemTop
     "Tank temperature"
     annotation (Placement(transformation(extent={{284,-180},{304,-160}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(t=TSup_nominal + 5)
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(t=TSup_nominal + 5)
     "Check for temperature at the bottom of the tank"
     annotation (Placement(transformation(extent={{400,-240},{420,-220}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaPum "Signal converter for pump"
     annotation (Placement(transformation(extent={{420,-130},{400,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater lesThr
+  Buildings.Controls.OBC.CDL.Reals.Greater lesThr
     "Check for temperature at the top of the tank"
     annotation (Placement(transformation(extent={{400,-178},{420,-158}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort temSup(
@@ -289,29 +289,29 @@ model TwoRoomsWithStorage
   Controls.SetPoints.OccupancySchedule occSch1(occupancy=3600*{7,8,10,11,11.5,
         15,19,21}) "Occupancy schedule"
     annotation (Placement(transformation(extent={{300,556},{320,576}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch switch1
+  Buildings.Controls.OBC.CDL.Reals.Switch switch1
     annotation (Placement(transformation(extent={{340,550},{360,570}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(k=0) "Outputs zero"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(k=0) "Outputs zero"
     annotation (Placement(transformation(extent={{260,540},{280,560}})));
   Controls.SetPoints.OccupancySchedule occSch2(
       firstEntryOccupied=false, occupancy=3600*{7,10,12,22})
     "Occupancy schedule"
     annotation (Placement(transformation(extent={{300,276},{320,296}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch switch2
+  Buildings.Controls.OBC.CDL.Reals.Switch switch2
     annotation (Placement(transformation(extent={{340,270},{360,290}})));
   Controls.SetPoints.OccupancySchedule occSch "Occupancy schedule"
     annotation (Placement(transformation(extent={{480,358},{500,378}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Switch to select set point"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi "Switch to select set point"
     annotation (Placement(transformation(extent={{640,370},{660,390}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TRooNig(k=273.15 + 16)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TRooNig(k=273.15 + 16)
     "Room temperature set point at night"
     annotation (Placement(transformation(extent={{480,330},{500,350}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TRooSet(k=273.15 + 21)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TRooSet(k=273.15 + 21)
     annotation (Placement(transformation(extent={{480,390},{500,410}})));
-  Controls.OBC.CDL.Continuous.MultiMax mulMax(nin=2)
+  Controls.OBC.CDL.Reals.MultiMax mulMax(nin=2)
     "Maximum radiator valve position"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
-  Controls.OBC.CDL.Continuous.Hysteresis hysPum(
+  Controls.OBC.CDL.Reals.Hysteresis hysPum(
     uLow=0.01,
     uHigh=0.5) "Hysteresis for pump"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
@@ -361,7 +361,7 @@ model TwoRoomsWithStorage
     nominalValuesDefineDefaultPressureCurve=true,
     use_inputFilter=false) "Supply air fan"
     annotation (Placement(transformation(extent={{70,490},{90,510}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant m_flow_out(k=2*VRoo*1.2*0.37/3600)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant m_flow_out(k=2*VRoo*1.2*0.37/3600)
     "Outside air mass flow rate"
     annotation (Placement(transformation(extent={{0,500},{20,520}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow fanRet(
@@ -388,18 +388,18 @@ model TwoRoomsWithStorage
   Modelica.Blocks.Math.MatrixGain gai2(K=[35; 70; 30])
     "Gain to convert from occupancy (per person) to radiant, convective and latent heat in [W/m2] "
     annotation (Placement(transformation(extent={{380,270},{400,290}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dTThr(k=1) "Threshold to switch boiler off"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dTThr(k=1) "Threshold to switch boiler off"
     annotation (Placement(transformation(extent={{310,-210},{330,-190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1
     annotation (Placement(transformation(extent={{350,-186},{370,-166}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TRooOff(k=273.15 - 5)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TRooOff(k=273.15 - 5)
     "Low room temperature set point to switch heating off"
     annotation (Placement(transformation(extent={{600,300},{620,320}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1 "Switch to select set point"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1 "Switch to select set point"
     annotation (Placement(transformation(extent={{540,380},{560,400}})));
   Modelica.Blocks.Logical.OnOffController onOff(bandwidth=2) "On/off switch"
     annotation (Placement(transformation(extent={{580,334},{600,354}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutSwi(k(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOutSwi(k(
       final unit="K",
       displayUnit="degC") = 289.15,
     y(final unit="K",
@@ -409,7 +409,7 @@ model TwoRoomsWithStorage
   Buildings.Fluid.Sources.Boundary_pT bou(nPorts=1, redeclare package Medium = MediumW)
     "Fixed boundary condition, needed to provide a pressure in the system"
     annotation (Placement(transformation(extent={{-82,-180},{-62,-160}})));
-  Controls.OBC.CDL.Continuous.MultiplyByParameter gain(k=1/dp_nominal)
+  Controls.OBC.CDL.Reals.MultiplyByParameter gain(k=1/dp_nominal)
     "Gain used to normalize pressure measurement signal"
     annotation (Placement(transformation(extent={{160,0},{140,20}})));
   Buildings.Fluid.FixedResistances.Junction splVal(
@@ -593,13 +593,13 @@ Changed controller to output setpoint for supply air temperature for cooling coi
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     "Conversion from boolean to real signal"
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant           occ1(k=1/6/4)
+  Controls.OBC.CDL.Reals.Sources.Constant           occ1(k=1/6/4)
     "Heat gain if occupied in room 1"
     annotation (Placement(transformation(extent={{300,590},{320,610}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant           occ2(k=1/6/4)
+  Controls.OBC.CDL.Reals.Sources.Constant           occ2(k=1/6/4)
     "Heat gain if occupied in room 2"
     annotation (Placement(transformation(extent={{300,310},{320,330}})));
-  Controls.OBC.CDL.Continuous.MovingAverage aveTOut(delta=24*3600)
+  Controls.OBC.CDL.Reals.MovingAverage aveTOut(delta=24*3600)
     "Time averaged outdoor air temperature"
     annotation (Placement(transformation(extent={{540,300},{560,320}})));
 equation

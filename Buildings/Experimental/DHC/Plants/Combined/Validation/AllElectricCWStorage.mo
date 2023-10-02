@@ -93,19 +93,19 @@ model AllElectricCWStorage "Validation of all-electric plant model"
     "CHW and HW plant"
     annotation (Placement(transformation(extent={{-30,-30},{30,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatSupSet(final k=pla.TChiWatSup_nominal,
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatSupSet(final k=pla.TChiWatSup_nominal,
     y(final unit="K", displayUnit="degC"))
                    "Source signal for setpoint"
     annotation (Placement(transformation(extent={{-220,10},{-200,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSupSet(final k=pla.THeaWatSup_nominal,
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupSet(final k=pla.THeaWatSup_nominal,
     y(final unit="K", displayUnit="degC"))
                    "Source signal for setpoint"
     annotation (Placement(transformation(extent={{-190,-10},{-170,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpHeaWatSet_max(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dpHeaWatSet_max(
     k=pla.dpHeaWatSet_max,
     y(final unit="Pa")) "Source signal for setpoint"
     annotation (Placement(transformation(extent={{-190,-70},{-170,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpChiWatSet_max(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dpChiWatSet_max(
     k=pla.dpChiWatSet_max,
     y(final unit="Pa")) "Source signal for setpoint"
     annotation (Placement(transformation(extent={{-220,-50},{-200,-30}})));
@@ -135,11 +135,11 @@ model AllElectricCWStorage "Validation of all-electric plant model"
     "Distribution system approximated by prescribed return temperature"
     annotation (Placement(transformation(extent={{10,-150},{-10,-130}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatRet(k=pla.THeaWatRet_nominal,
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatRet(k=pla.THeaWatRet_nominal,
               y(final unit="K", displayUnit="degC"))
     "Source signal for HW return temperature"
     annotation (Placement(transformation(extent={{-190,70},{-170,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatRet(k=pla.TChiWatRet_nominal,
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatRet(k=pla.TChiWatRet_nominal,
               y(final unit="K", displayUnit="degC"))
     "Source signal for CHW return temperature"
     annotation (Placement(transformation(extent={{-220,-110},{-200,-90}})));
@@ -162,7 +162,7 @@ model AllElectricCWStorage "Validation of all-electric plant model"
     dpFixed_nominal=pla.dpChiWatSet_max - valDisChiWat.dpValve_nominal)
     "Distribution system approximated by variable flow resistance"
     annotation (Placement(transformation(extent={{-30,-150},{-50,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable ratFlo(table=[0,0,0;
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable ratFlo(table=[0,0,0;
         6,0,0; 10,0.3,0.1; 15,1,0.1; 24,0.1,0.1; 30,0.1,1; 39,1,0.3; 48,0.1,0.1;
         54,0.1,1; 63,0.1,0.3; 72,0,0; 78,0,1; 96,0,0],
                                     timeScale=3600)

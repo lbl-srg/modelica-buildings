@@ -97,11 +97,11 @@ block Alarms "Generate alarms of dual-duct terminal unit with cold-duct minimum 
     annotation (Placement(transformation(extent={{240,-330},{280,-290}}),
         iconTransformation(extent={{100,-90},{140,-50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=0.5)
     "Percentage of the setpoint"
     annotation (Placement(transformation(extent={{-180,280},{-160,300}})));
-  Buildings.Controls.OBC.CDL.Continuous.Less les(
+  Buildings.Controls.OBC.CDL.Reals.Less les(
     final h=floHys)
     "Check if measured airflow is less than threshold"
     annotation (Placement(transformation(extent={{-120,310},{-100,330}})));
@@ -109,16 +109,16 @@ block Alarms "Generate alarms of dual-duct terminal unit with cold-duct minimum 
     final delayTime=lowFloTim)
     "Check if the measured airflow has been less than threshold value for threshold time"
     annotation (Placement(transformation(extent={{-80,310},{-60,330}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     final t=floHys,
     final h=0.5*floHys)
     "Check if setpoint airflow is greater than zero"
     annotation (Placement(transformation(extent={{-180,230},{-160,250}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater gre(
+  Buildings.Controls.OBC.CDL.Reals.Greater gre(
     final h=floHys)
     "Check if measured airflow is less than threshold"
     annotation (Placement(transformation(extent={{-120,180},{-100,200}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(
     final k=0.7)
     "Percentage of the setpoint"
     annotation (Placement(transformation(extent={{-180,200},{-160,220}})));
@@ -143,11 +143,11 @@ block Alarms "Generate alarms of dual-duct terminal unit with cold-duct minimum 
     final integerTrue=3)
     "Convert boolean true to level 3 alarm"
     annotation (Placement(transformation(extent={{80,230},{100,250}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conInt1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conInt1(
     final k=staPreMul)
     "Importance multiplier for zone static pressure reset"
     annotation (Placement(transformation(extent={{-120,140},{-100,160}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr1
     "Check if the multiplier is greater than zero"
     annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1
@@ -176,10 +176,10 @@ block Alarms "Generate alarms of dual-duct terminal unit with cold-duct minimum 
     final message="Warning: airflow is less than 70% of the setpoint.")
     "Level 3 low airflow alarm"
     annotation (Placement(transformation(extent={{100,190},{120,210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooMaxFlo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant cooMaxFlo(
     final k=VCooMax_flow)  "Cooling maximum airflow setpoint"
     annotation (Placement(transformation(extent={{-180,20},{-160,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai2(
     final k=0.1)
     "Percentage of the setpoint"
     annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
@@ -190,7 +190,7 @@ block Alarms "Generate alarms of dual-duct terminal unit with cold-duct minimum 
     final delayTime=fanOffTim)
     "Check if the input has been true for more than threshold time"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater gre1(
+  Buildings.Controls.OBC.CDL.Reals.Greater gre1(
     final h=floHys)
     "Check if measured airflow is greater than threshold"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
@@ -212,7 +212,7 @@ block Alarms "Generate alarms of dual-duct terminal unit with cold-duct minimum 
     final delayTime=leaFloTim)
     "Check if the input has been true for more than threshold time"
     annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold cloDam(
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold cloDam(
     final t=damPosHys,
     final h=0.5*damPosHys) "Check if damper position is near zero"
     annotation (Placement(transformation(extent={{-180,-130},{-160,-110}})));
@@ -230,11 +230,11 @@ block Alarms "Generate alarms of dual-duct terminal unit with cold-duct minimum 
     final integerTrue=4)
     "Convert boolean true to level 4 alarm"
     annotation (Placement(transformation(extent={{160,-90},{180,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaMaxFlo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant heaMaxFlo(
     final k=VHeaMax_flow)
      "Heating maximum airflow setpoint"
     annotation (Placement(transformation(extent={{-180,-210},{-160,-190}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai3(final k=0.1)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai3(final k=0.1)
     "Percentage of the setpoint"
     annotation (Placement(transformation(extent={{-140,-210},{-120,-190}})));
   Buildings.Controls.OBC.CDL.Logical.Not not6
@@ -244,7 +244,7 @@ block Alarms "Generate alarms of dual-duct terminal unit with cold-duct minimum 
     final delayTime=fanOffTim)
     "Check if the input has been true for more than threshold time"
     annotation (Placement(transformation(extent={{20,-190},{40,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater gre2(
+  Buildings.Controls.OBC.CDL.Reals.Greater gre2(
     final h=floHys)
     "Check if measured airflow is greater than threshold"
     annotation (Placement(transformation(extent={{-80,-190},{-60,-170}})));
@@ -266,7 +266,7 @@ block Alarms "Generate alarms of dual-duct terminal unit with cold-duct minimum 
     final delayTime=leaFloTim)
     "Check if the input has been true for more than threshold time"
     annotation (Placement(transformation(extent={{60,-320},{80,-300}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold cloDam1(
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold cloDam1(
     final t=damPosHys,
     final h=0.5*damPosHys)
     "Check if damper position is near zero"
@@ -285,7 +285,7 @@ block Alarms "Generate alarms of dual-duct terminal unit with cold-duct minimum 
     final integerTrue=4)
     "Convert boolean true to level 4 alarm"
     annotation (Placement(transformation(extent={{160,-320},{180,-300}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2
+  Buildings.Controls.OBC.CDL.Reals.Add add2
     "Total discharge airflow"
     annotation (Placement(transformation(extent={{-200,80},{-180,100}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel6(

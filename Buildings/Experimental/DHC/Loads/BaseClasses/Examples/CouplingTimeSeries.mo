@@ -60,16 +60,16 @@ model CouplingTimeSeries
     y(unit="J"))
     "Actual energy used for cooling"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.MovingAverage QAveHeaReq_flow(y(unit=
+  Buildings.Controls.OBC.CDL.Reals.MovingAverage QAveHeaReq_flow(y(unit=
           "W"), final delta=perAve) "Time average of heating load"
     annotation (Placement(transformation(extent={{60,110},{80,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.MovingAverage QAveHeaAct_flow(y(unit=
+  Buildings.Controls.OBC.CDL.Reals.MovingAverage QAveHeaAct_flow(y(unit=
           "W"), final delta=perAve) "Time average of heating heat flow rate"
     annotation (Placement(transformation(extent={{100,110},{120,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.MovingAverage QAveCooReq_flow(y(unit=
+  Buildings.Controls.OBC.CDL.Reals.MovingAverage QAveCooReq_flow(y(unit=
           "W"), final delta=perAve) "Time average of cooling load"
     annotation (Placement(transformation(extent={{60,-110},{80,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.MovingAverage QAveCooAct_flow(y(unit=
+  Buildings.Controls.OBC.CDL.Reals.MovingAverage QAveCooAct_flow(y(unit=
           "W"), final delta=perAve) "Time average of cooling heat flow rate"
     annotation (Placement(transformation(extent={{100,-110},{120,-90}})));
 equation

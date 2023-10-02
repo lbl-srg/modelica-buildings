@@ -62,7 +62,7 @@ model ChillerGroup "Validation of chiller group model"
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-20,-102})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TChiWatSupSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TChiWatSupSet(
     y(displayUnit="degC", unit="K"),
     height=+5,
     duration=1000,

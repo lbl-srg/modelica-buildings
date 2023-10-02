@@ -222,7 +222,7 @@ model StoragePlantDualSource
 
   Modelica.Blocks.Routing.Multiplex muxDp(n=3) "Multiplexer block for routing"
     annotation (Placement(transformation(extent={{238,140},{258,160}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax mulMax_yVal_actual(nin=3)
+  Buildings.Controls.OBC.CDL.Reals.MultiMax mulMax_yVal_actual(nin=3)
     "Position of the most open user control valve"
     annotation (Placement(transformation(extent={{200,-220},{220,-200}})));
   Modelica.Blocks.Sources.IntegerTable com(table=[0,2; 200,1; 3000,2; 4000,3;
@@ -232,7 +232,7 @@ model StoragePlantDualSource
   Modelica.Blocks.Sources.BooleanTable chiEnaSta(table={0,6000}, startValue=
         false) "Chiller enable status, true if chiller is enabled"
     annotation (Placement(transformation(extent={{-138,-60},{-118,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys_yVal_actual(uLow=0.05,
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys_yVal_actual(uLow=0.05,
       uHigh=0.5) "Hysteresis for user control valve position"
     annotation (Placement(transformation(extent={{240,-220},{260,-200}})));
 

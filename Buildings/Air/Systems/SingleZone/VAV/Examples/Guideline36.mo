@@ -43,7 +43,7 @@ model Guideline36
     "VAV controller"
     annotation (Placement(transformation(extent={{-120,-20},{-80,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysChiPla(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysChiPla(
     uLow=-1,
     uHigh=0)
     "Hysteresis with delay to switch on cooling"
@@ -59,19 +59,19 @@ model Guideline36
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant demLim(final k=0)
     "Cooling and heating demand imit level"
     annotation (Placement(transformation(extent={{-200,-30},{-180,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooWarTim(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant cooWarTim(final k=0)
     "Cooldown and warm-up time"
     annotation (Placement(transformation(extent={{-200,40},{-180,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOccHeaSet(final k=293.15)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOccHeaSet(final k=293.15)
     "Occupied heating setpoint"
     annotation (Placement(transformation(extent={{-210,170},{-190,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOccCooSet(final k=298.15)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOccCooSet(final k=298.15)
     "Occupied cooling setpoint"
     annotation (Placement(transformation(extent={{-180,150},{-160,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TUnoHeaSet(final k=288.15)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TUnoHeaSet(final k=288.15)
     "Unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{-210,120},{-190,140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TUnoCooSet(final k=303.15)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TUnoCooSet(final k=303.15)
     "Unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-180,100},{-160,120}})));
   Modelica.Blocks.Sources.BooleanConstant freRes(k=true)

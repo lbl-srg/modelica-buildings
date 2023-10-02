@@ -42,17 +42,17 @@ partial model PartialCoolingTowersSubsystem
     "On/off controller"
     annotation (Placement(transformation(extent={{-20,-200},{0,-180}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Control switch for chilled water pump"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi "Control switch for chilled water pump"
     annotation (Placement(transformation(extent={{20,-200},{40,-180}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSwi(k=273.15 + 22)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSwi(k=273.15 + 22)
     "Switch temperature for switching tower pump on"
     annotation (Placement(transformation(extent={{-80,-206},{-60,-186}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(k=0) "Zero flow rate"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(k=0) "Zero flow rate"
     annotation (Placement(transformation(extent={{-20,-230},{0,-210}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant m_flow(k=m_flow_nominal)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant m_flow(k=m_flow_nominal)
     "Water flow rate"
     annotation (Placement(transformation(extent={{-20,-168},{0,-148}})));
 

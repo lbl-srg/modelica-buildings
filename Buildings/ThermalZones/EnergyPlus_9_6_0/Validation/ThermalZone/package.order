@@ -4,4 +4,5 @@ OneZoneCompareZoneTemperatureOutput
 OneZoneOneYear
 RefBldgSmallOffice
 TwoIdenticalZones
+ZoneCapacitanceMultiplier
 ZoneTemperatureInitialization

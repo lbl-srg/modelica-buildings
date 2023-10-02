@@ -71,15 +71,15 @@ model SingleMixing "Model illustrating the operation of single mixing circuits"
     timeScale=3600,
     period=86400) "Operating mode (time schedule)"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable fraLoa(table=[0,0,0; 6,
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable fraLoa(table=[0,0,0; 6,
         0,0; 6.1,1,1; 8,1,1; 9,1,0; 14,0.5,0; 14.5,0,0; 16,0,0; 17,0,1; 21,0,1;
         22,0,0; 24,0,0], timeScale=3600) "Load modulating signal"
     annotation (Placement(transformation(extent={{-120,110},{-100,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable setOff(table=[0,0; 10,
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable setOff(table=[0,0; 10,
         0; 13,-8; 13,0; 18,0; 22,+5; 22,0; 24,0], timeScale=3600)
     "Offset applied to design supply temperature to compute set point"
     annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add          T2Set(y(final unit="K",
+  Buildings.Controls.OBC.CDL.Reals.Add          T2Set(y(final unit="K",
         displayUnit="degC"))
     "Consumer circuit temperature set point" annotation (Placement(
         transformation(
@@ -93,11 +93,11 @@ model SingleMixing "Model illustrating the operation of single mixing circuits"
         extent={{-10,10},{10,-10}},
         rotation=0,
         origin={-80,0})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant T2SetVal[3](final k={
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant T2SetVal[3](final k={
         MediumLiq.T_default,TLiqEnt_nominal,TLiqEntChg_nominal})
     "Consumer circuit temperature set point values"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant T1SetVal[3](final k={
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant T1SetVal[3](final k={
         MediumLiq.T_default,TLiqSup_nominal,TLiqSupChg_nominal})
     "Primary circuit temperature set point values"
     annotation (Placement(transformation(extent={{-120,-130},{-100,-110}})));

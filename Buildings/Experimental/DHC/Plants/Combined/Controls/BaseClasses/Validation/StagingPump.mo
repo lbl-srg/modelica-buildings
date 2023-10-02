@@ -15,7 +15,7 @@ model StagingPump "Validation of pump staging block"
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=1
     annotation(Dialog(group="Nominal condition"));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable floSpe(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable floSpe(
     table=[
       0,0,0;
       1,0,0;
@@ -31,10 +31,10 @@ model StagingPump "Validation of pump staging block"
     final m_flow_nominal=m_flow_nominal)
     "Pump staging block - Detailed version"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yVal(k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yVal(k=1)
     "Source signal"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold isOpe(t=0.1,
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold isOpe(t=0.1,
     h=5E-2) "Check if valve open"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 equation

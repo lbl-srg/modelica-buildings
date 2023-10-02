@@ -20,7 +20,7 @@ model MultiplePumpsFlow
     annotation (
     Placement(transformation(extent={{-140,40},{-100,80}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide div1
+  Buildings.Controls.OBC.CDL.Reals.Divide div1
     "Divide total flow setpoint by number of pumps commanded On"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 equation

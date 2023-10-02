@@ -8,35 +8,35 @@ model Dampers
     final kDam=1) "Output signal for controlling damper position"
     annotation (Placement(transformation(extent={{80,-80},{100,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp uCoo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp uCoo(
     final height=1,
     final duration=3600,
     final offset=0,
     final startTime=900)
     "Cooling control signal"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZon(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TZon(
     final k=273.15 + 22)
     "Zone temperature"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSup(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSup(
     final k=273.15 + 13)
     "AHU supply air temperature"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VActMin_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant VActMin_flow(
     final k=0.01)
     "Active minimum airflow setpoint"
     annotation (Placement(transformation(extent={{-100,110},{-80,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VActCooMax_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant VActCooMax_flow(
     final k=0.075)
     "Active cooling maximum airflow setpoint"
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin VDis_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin VDis_flow(
     final offset=0.015,
     final amplitude=0.002,
     final freqHz=1/3600)  "Discharge airflow rate"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp zonSta(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp zonSta(
     final offset=3,
     final height=-2,
     final duration=1000,
@@ -45,11 +45,11 @@ model Dampers
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt2
     "Convert real to integer"
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Round round2(
+  Buildings.Controls.OBC.CDL.Reals.Round round2(
     final n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp oveFlo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp oveFlo(
     final height=3,
     final duration=2000,
     startTime=1000) "Override flow setpoint"
@@ -57,10 +57,10 @@ model Dampers
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1
     "Convert real to integer"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Round round1(final n=0)
+  Buildings.Controls.OBC.CDL.Reals.Round round1(final n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp oveDam(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp oveDam(
     final height=2,
     final duration=2000,
     startTime=1000) "Override damper position"
@@ -68,7 +68,7 @@ model Dampers
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt3
     "Convert real to integer"
     annotation (Placement(transformation(extent={{-20,-140},{0,-120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Round round3(final n=0)
+  Buildings.Controls.OBC.CDL.Reals.Round round3(final n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
 equation

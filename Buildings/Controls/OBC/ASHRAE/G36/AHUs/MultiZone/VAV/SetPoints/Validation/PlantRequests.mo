@@ -9,39 +9,39 @@ model PlantRequests
     final have_hotWatCoi=false) "Calculate plant request"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp supTem(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp supTem(
     final height=8,
     final offset=273.15 + 15,
     final duration=3600) "Supply air temperature"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp supTemSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp supTemSet(
     final height=6,
     final offset=273.15 + 14.5,
     final duration=3600) "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp cooCoi(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp cooCoi(
     final height=-0.3,
     final offset=0.96,
     final duration=3600,
     startTime=1000) "Cooling coil position"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp heaCoi(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp heaCoi(
     final height=-0.3,
     final offset=0.96,
     final duration=3600,
     startTime=1000) "Heating coil position"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp supTem1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp supTem1(
     final height=8,
     final offset=273.15 + 12,
     final duration=3600) "Supply air temperature"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp supTemSet1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp supTemSet1(
     final height=15,
     final offset=273.15 + 20,
     final duration=3600) "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooCoi1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant cooCoi1(
     final k=0) "Cooling coil position"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 

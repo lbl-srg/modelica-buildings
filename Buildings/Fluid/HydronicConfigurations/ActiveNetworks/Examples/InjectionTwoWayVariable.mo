@@ -30,7 +30,7 @@ model InjectionTwoWayVariable
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={140,40})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dp2SetVal(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dp2SetVal(
     final k=dp2Set) "Pressure differential set point"
     annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
   Controls.PIDWithOperatingMode ctlPum2(
