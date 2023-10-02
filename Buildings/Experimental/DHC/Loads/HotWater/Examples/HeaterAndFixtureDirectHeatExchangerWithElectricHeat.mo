@@ -46,7 +46,7 @@ published by ASHRAE in 2022 at <a href=\"https://www.ashrae.org/technical-resour
 https://www.ashrae.org/technical-resources/aedgs/zero-energy-aedg-free-download</a>.
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Loads/HotWater/Example_DirectHeatExchangerWithAuxHeat.png\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Loads/HotWater/Example_DirectHeatExchangerWithElectricHeat.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>
