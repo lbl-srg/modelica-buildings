@@ -41,7 +41,7 @@ model HeatPumpHeatExchangerDHWTank
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
   Loads.HotWater.ThermostaticMixingValve theMixVal(
     redeclare package Medium = MediumBui,
-    mHot_flow_nominal=QHotWat_flow_nominal/cpBui_default/(THotWatSup_nominal -
+    mMix_flow_nominal=QHotWat_flow_nominal/cpBui_default/(THotWatSup_nominal -
         TColWat_nominal),
     dpValve_nominal=1000) "Thermostatic mixing valve"
     annotation (Placement(transformation(extent={{-20,50},{-40,72}})));
@@ -81,7 +81,7 @@ equation
           {-76,68},{-70,68}}, color={0,0,127}));
   connect(proHotWat.port_a2, volMix_a.ports[4]) annotation (Line(points={{52,28},
           {56,28},{56,20},{-260,20},{-260,-360}},             color={0,127,255}));
-  connect(theMixVal.port_hot, sinDHW.ports[1]) annotation (Line(points={{-40,61},
+  connect(theMixVal.port_mix, sinDHW.ports[1]) annotation (Line(points={{-40,61},
           {-45,61},{-45,60},{-48,60}}, color={0,127,255}));
   connect(souDCW.ports[1], dcwSpl.port_1) annotation (Line(points={{-42,-56},{
           -12,-56},{-12,-6}}, color={0,127,255}));
@@ -90,9 +90,9 @@ equation
                                                            color={0,127,255}));
   connect(dcwSpl.port_2, theMixVal.port_col) annotation (Line(points={{-12,14},
           {-12,56.6},{-20,56.6}}, color={0,127,255}));
-  connect(proHotWat.port_b1, theMixVal.port_hotSou) annotation (Line(points={{
-          32,40},{0,40},{0,65.4},{-20,65.4}}, color={0,127,255}));
-  connect(theMixVal.TSet, delT.u1) annotation (Line(points={{-18,69.8},{-12,
+  connect(proHotWat.port_b1, theMixVal.port_hotSou) annotation (Line(points={{32,40},
+          {0,40},{0,65.4},{-20,65.4}},        color={0,127,255}));
+  connect(theMixVal.TMixSet, delT.u1) annotation (Line(points={{-18,69.8},{-12,
           69.8},{-12,70},{-8,70},{-8,26},{-160,26},{-160,6},{-152,6}}, color={0,
           0,127}));
   connect(proHotWat.QCon_flow, heaFloEvaSHW.u1) annotation (Line(points={{54,24},

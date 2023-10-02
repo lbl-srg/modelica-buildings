@@ -66,9 +66,6 @@ model PartialHeaterAndFixture
 equation
   connect(tmv.THot,THot)  annotation (Line(points={{21,6},{30,6},{30,60},{110,60}},
         color={0,0,127}));
-  connect(loa.sch, sch.y[1])
-    annotation (Line(points={{39,6},{34,6},{34,16},{70,16},{70,30},{61,30}},
-                                                             color={0,0,127}));
   connect(conTSetHot.y, tmv.TSet)
     annotation (Line(points={{-69,30},{-10,30},{-10,8},{-2,8}},
                                                        color={0,0,127}));
@@ -76,6 +73,8 @@ equation
     annotation (Line(points={{20,0},{40,0}},   color={0,127,255}));
   connect(tmv.port_col, souCol.ports[1]) annotation (Line(points={{0,-4},{-10,-4},
           {-10,-26},{10,-26},{10,-40}},     color={0,127,255}));
+  connect(sch.y[1], loa.yHotWat) annotation (Line(points={{61,30},{72,30},{72,
+          16},{36,16},{36,6},{39,6}}, color={0,0,127}));
   annotation (preferredView="info",Documentation(info="<html>
 <p>
 Partial base class for hot water source, thermostatic mixing, and fixture load examples.

@@ -16,18 +16,17 @@ model WaterDraw "A model for hot water draws from fixture(s)"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-70,60})));
-  Modelica.Blocks.Interfaces.RealInput sch(
-    final min=0,
-    final unit="1") "Hot water to fixture draw fraction"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+  Modelica.Blocks.Interfaces.RealInput yHotWat(final min=0, final unit="1")
+    "Hot water to fixture draw fraction" annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
         rotation=180,
-        origin={-110,60}),
-        iconTransformation(extent={{10,-10},{-10,10}},
+        origin={-110,60}), iconTransformation(
+        extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-110,60})));
 equation
-  connect(sch, gaiDhw.u) annotation (Line(points={{-110,60},{-82,60}},
-                color={0,0,127}));
+  connect(yHotWat, gaiDhw.u)
+    annotation (Line(points={{-110,60},{-82,60}}, color={0,0,127}));
   connect(port_hot, sinHot.ports[1])
     annotation (Line(points={{-100,0},{-66,0}}, color={0,127,255}));
   connect(sinHot.m_flow_in, gaiDhw.y) annotation (Line(points={{-44,8},{-20,8},{
