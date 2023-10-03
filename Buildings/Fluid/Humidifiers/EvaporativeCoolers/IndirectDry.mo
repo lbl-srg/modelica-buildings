@@ -2,12 +2,12 @@ within Buildings.Fluid.Humidifiers.EvaporativeCoolers;
 model IndirectDry "Indirect dry evaporative cooler"
 
   extends Buildings.Fluid.Interfaces.PartialFourPortParallel(
-    redeclare final package Medium1=MediumPri,
-    redeclare final package Medium2=MediumSec);
+    redeclare final package Medium1=MediumCooled,
+    redeclare final package Medium2=MediumRejected);
 
-  replaceable package MediumPri =
+  replaceable package MediumCooled =
     Modelica.Media.Interfaces.PartialMedium
-    "Medium 1 in the component"
+    "Medium to be cooled"
       annotation (choices(
         choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
         choice(redeclare package Medium = Buildings.Media.Water "Water"),
@@ -17,9 +17,9 @@ model IndirectDry "Indirect dry evaporative cooler"
           X_a=0.40)
           "Propylene glycol water, 40% mass fraction")));
 
-  replaceable package MediumSec =
+  replaceable package MediumRejected =
     Modelica.Media.Interfaces.PartialMedium
-    "Medium 2 in the component"
+    "Medium  rejected to outdoor air"
     annotation (choices(
         choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
 
@@ -32,7 +32,7 @@ model IndirectDry "Indirect dry evaporative cooler"
                               -0.145384}
     "Coefficients for evaporative medium efficiency calculation";
 
-  parameter Modelica.Units.SI.Pressure dp_nom
+  parameter Modelica.Units.SI.Pressure dp_nominal
     "Nominal pressure drop";
 
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal_AirPri
@@ -64,7 +64,7 @@ model IndirectDry "Indirect dry evaporative cooler"
         rotation=0)));
 
   Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct dirEvaCoo(
-    redeclare final package Medium = MediumSec,
+    redeclare final package Medium = MediumRejected,
     final m_flow_nominal=m_flow_nominal_AirSec,
     final padAre=padAre,
     final dep=dep,
@@ -76,13 +76,8 @@ model IndirectDry "Indirect dry evaporative cooler"
       rotation=0)));
 
   Buildings.Fluid.HeatExchangers.ConstantEffectiveness hex(
-    redeclare final package Medium1 = MediumPri,
-    redeclare final package Medium2 = MediumSec,
-    final dp1_nominal = dp_nom,
-    final dp2_nominal = dp_nom,
-    final eps = eps,
-    final m1_flow_nominal=m_flow_nominal_AirPri,
-    final m2_flow_nominal=m_flow_nominal_AirSec)
+    redeclare final package Medium1 = MediumCooled,
+    redeclare final package Medium2 = MediumRejected, dp1_nominal = dp_nominal, dp2_nominal = dp_nominal, eps = eps, m1_flow_nominal = m_flow_nominal_AirPri, m2_flow_nominal = m_flow_nominal_AirSec)
     "Heat exchanger for heat transfer between primary and secondary air"
     annotation (Placement(visible = true, transformation(origin={0,8},extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
