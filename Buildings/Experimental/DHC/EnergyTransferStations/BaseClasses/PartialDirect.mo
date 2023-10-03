@@ -57,7 +57,7 @@ model PartialDirect
     "Bandwidth around reference signal for on/off controller"
     annotation (Dialog(tab="Advanced"));
 
-  Modelica.Blocks.Interfaces.RealInput TSetDisRet(
+  Modelica.Blocks.Interfaces.RealInput TDisRetSet(
      final unit="K",
      displayUnit="degC")
     "Setpoint for the district return temperature (min for cooling, max for heating)"
@@ -197,7 +197,7 @@ equation
   connect(senTDisSup.T,dTDis. u2)
     annotation (Line(points={{-170,-269},{-172,-269},{-172,-184},{60,-184},{60,-110},
           {78,-110}},                                            color={0,0,127}));
-  connect(TSetDisRet, con.u_s)
+  connect(TDisRetSet, con.u_s)
     annotation (Line(points={{-318,0},{-272,0},{-272,250},{-222,250}},
                                                                      color={0,0,127}));
   connect(senTBuiRet.T, con.u_m)

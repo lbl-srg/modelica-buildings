@@ -2,28 +2,27 @@ within Buildings.Examples.Tutorial.SimpleHouse;
 model SimpleHouse2 "Building window model"
   extends SimpleHouse1;
 
-  parameter Modelica.Units.SI.Area A_win=2 "Window area";
+  parameter Modelica.Units.SI.Area AWin=2 "Window area";
 
-  Modelica.Blocks.Math.Gain gaiWin(k=A_win)
+  Modelica.Blocks.Math.Gain gaiWin(k=AWin)
     "Gain for solar irradiance through the window"
-    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow window
+    annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow win
     "Very simple window model"
-    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
+    annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
 equation
-  connect(gaiWin.y,window. Q_flow) annotation (Line(points={{-39,-30},{-20,-30}},
-                                color={0,0,127}));
-  connect(window.port, walCap.port) annotation (Line(points={{0,-30},{132,-30},{
-          132,1.77636e-15},{140,1.77636e-15}},
-                         color={191,0,0}));
-  connect(gaiWin.u, weaBus.HDirNor) annotation (Line(points={{-62,-30},{-150,-30},
-          {-150,-10}}, color={0,0,127}), Text(
+  connect(gaiWin.y, win.Q_flow)
+    annotation (Line(points={{41,-40},{60,-40}},   color={0,0,127}));
+  connect(gaiWin.u, weaBus.HDirNor) annotation (Line(points={{18,-40},{-130,-40},
+          {-130,0}},   color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
-            -220},{200,200}})),
+  connect(win.port, walCap.port) annotation (Line(points={{80,-40},{110,-40},{110,
+          1.77636e-15},{160,1.77636e-15}}, color={191,0,0}));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,
+            -220},{220,220}})),
     experiment(Tolerance=1e-6, StopTime=1e+06),
     Documentation(revisions="<html>
 <ul>
@@ -54,10 +53,10 @@ Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow</a>
 To be able to use the value of the outdoor solar irradiance
 you will need to access the weather data reader.
 To do this, make a connection to the <code>weaBus</code>.
-In the dialog box select <i>&lt;New Variable&gt;</i> and here type <i>HDirNor</i>,
+In the dialog box select <i>&lt;New Variable&gt;</i> and here type <code>HDirNor</code>,
 which is the direct solar irradiance on a surface of <i>1 m<sup>2</sup></i>,
 perpendicular to the sun rays.
-Set the gain factor <i>k</i> to 2,
+Set the gain factor <code>k</code> to 2,
 in order to get the solar irradiance through the window of <i>2 m<sup>2</sup></i>.
 </p>
 <p>

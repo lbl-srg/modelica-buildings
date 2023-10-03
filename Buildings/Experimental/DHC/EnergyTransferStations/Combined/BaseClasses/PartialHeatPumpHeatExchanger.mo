@@ -147,7 +147,7 @@ model PartialHeatPumpHeatExchanger
         extent={{-40,-40},{40,40}},
         rotation=0,
         origin={-340,-140})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput loaSHW(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput QReqHotWat_flow(
     final unit="W") if have_hotWat "Service hot water load"
     annotation (
       Placement(transformation(
@@ -331,12 +331,6 @@ model PartialHeatPumpHeatExchanger
     final dp1_nominal=dp_nominal,
     final dp2_nominal=dp_nominal) "Subsystem for heating water production"
     annotation (Placement(transformation(extent={{-10,204},{10,224}})));
-  Buildings.Controls.OBC.CDL.Reals.Divide div1 if have_hotWat
-    "Compute mass flow rate from load"
-    annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(final k=
-        cpBui_default) if have_hotWat "Times Cp"
-    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
   Buildings.Controls.OBC.CDL.Reals.MultiSum masFloHeaTot(nin=2)
     "Compute district water mass flow rate used for heating service"
     annotation (Placement(transformation(extent={{270,-150},{290,-130}})));
@@ -359,11 +353,8 @@ model PartialHeatPumpHeatExchanger
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={40,-120})));
-  Buildings.Controls.OBC.CDL.Reals.Subtract delT if have_hotWat
-    "Compute DeltaT needed on condenser side"
-    annotation (Placement(transformation(extent={{-150,-10},{-130,10}})));
-  Fluid.Sensors.MassFlowRate senMasFloHeaWatPri(redeclare final package Medium
-      = MediumBui, final allowFlowReversal=allowFlowReversalBui)
+  Fluid.Sensors.MassFlowRate senMasFloHeaWatPri(redeclare final package Medium =
+        MediumBui, final allowFlowReversal=allowFlowReversalBui)
     "Primary heating water mass flow rate"
     annotation (Placement(transformation(extent={{30,270},{50,250}})));
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold enaSHW(
@@ -382,7 +373,8 @@ model PartialHeatPumpHeatExchanger
   Buildings.Controls.OBC.CDL.Reals.MultiSum PHeaTot(nin=2)
     "Total power used for heating and hot water production"
     annotation (Placement(transformation(extent={{270,70},{290,90}})));
-  Buildings.Controls.OBC.CDL.Reals.Add heaFloEvaSHW if have_hotWat and have_varFloEva
+  Buildings.Controls.OBC.CDL.Reals.Subtract
+                                       heaFloEvaSHW if have_hotWat and have_varFloEva
     "Heat flow rate at evaporator"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract dTHHW
@@ -422,9 +414,6 @@ model PartialHeatPumpHeatExchanger
     if have_varFloEva or have_varFloCon "Heating load"
     annotation (Placement(transformation(extent={{-140,270},{-120,290}})));
 
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter toSub(final k=-1)
-    if have_hotWat and have_varFloEva "Convert to subtraction"
-    annotation (Placement(transformation(extent={{-80,70},{-100,90}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter toSub1(final k=-1)
     if have_varFloEva "Convert to subtraction"
     annotation (Placement(transformation(extent={{-80,216},{-100,236}})));
@@ -489,10 +478,6 @@ equation
   connect(proHeaWat.PPum, PPumHeaTot.u[1]) annotation (Line(points={{12,214},{172,
           214},{172,419.5},{188,419.5}},
                                      color={0,0,127}));
-  connect(gai.y, div1.u2) annotation (Line(points={{-98,0},{-80,0},{-80,-20},{-120,
-          -20},{-120,-46},{-102,-46}},                color={0,0,127}));
-  connect(loaSHW, div1.u1) annotation (Line(points={{-320,-120},{-290,-120},{-290,
-          -34},{-102,-34}}, color={0,0,127}));
   connect(masFloHeaTot.y, mHea_flow)
     annotation (Line(points={{292,-140},{320,-140}}, color={0,0,127}));
   connect(zer.y, masFloHeaTot.u[2]) annotation (Line(points={{161,360},{216,360},
@@ -510,13 +495,6 @@ equation
           {120,300},{120,240},{110,240}},      color={0,127,255}));
   connect(senMasFloChiWat.port_b, senTChiWatRet.port_a)
     annotation (Line(points={{-230,-120},{30,-120}}, color={0,127,255}));
-  connect(delT.y, gai.u)
-    annotation (Line(points={{-128,0},{-122,0}},     color={0,0,127}));
-  connect(TColWat, delT.u2) annotation (Line(points={{-320,-80},{-156,-80},{-156,
-          -6},{-152,-6}},   color={0,0,127}));
-  connect(THotWatSupSet, delT.u1) annotation (Line(points={{-320,-40},{-160,-40},
-          {-160,6},{-152,6}},
-                            color={0,0,127}));
   connect(proHeaWat.port_b1, senMasFloHeaWatPri.port_a) annotation (Line(points=
          {{-10,220},{-20,220},{-20,260},{30,260}}, color={0,127,255}));
   connect(senMasFloHeaWatPri.port_b, bypHeaWatSup.port_1)
@@ -585,8 +563,6 @@ equation
     annotation (Line(points={{-118,280},{-102,280}}, color={0,0,127}));
   connect(loaHHW.y, heaFloEvaHHW.u1) annotation (Line(points={{-118,280},{-110,
           280},{-110,246},{-102,246}}, color={0,0,127}));
-  connect(toSub.y, heaFloEvaSHW.u2) annotation (Line(points={{-102,80},{-108,80},
-          {-108,94},{-102,94}}, color={0,0,127}));
   connect(proHeaWat.PHea, toSub1.u) annotation (Line(points={{12,217},{20,217},
           {20,226},{-78,226}}, color={0,0,127}));
   connect(toSub1.y, heaFloEvaHHW.u2) annotation (Line(points={{-102,226},{-110,
@@ -680,6 +656,10 @@ Energy, Volume 199, 15 May 2020, 117418.
 </html>",
   revisions="<html>
 <ul>
+<li>
+October 2, 2023, by Michael Wetter:<br/>
+Renamed input <code>loaSHW</code> to <code>QReqHotWat_flow</code>.
+</li>  
 <li>
 May 17, 2023, by David Blum:<br/>
 Assigned dp_nominal to <code>pum1HexChi</code>.<br/>

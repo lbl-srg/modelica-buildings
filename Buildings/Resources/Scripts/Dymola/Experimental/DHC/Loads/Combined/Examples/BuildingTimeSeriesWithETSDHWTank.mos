@@ -6,9 +6,9 @@ createPlot(id=1, position={540, 9, 784, 614}, y={"bui.ets.proHotWat.heaPumTan.he
 createPlot(id=1, position={540, 9, 784, 614}, y={"bui.PHea", "bui.PPum"}, range={0.0, 10.0, -50000.0, 100000.0}, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}}, timeUnit="d", displayUnits={"W", "W"});
 createPlot(id=1, position={540, 9, 784, 614}, y={"bui.QHea_flow", "bui.QCoo_flow"}, range={0.0, 10.0, -200000.0, 400000.0}, grid=true, subPlot=104, colors={{28,108,200}, {238,46,47}}, timeUnit="d", displayUnits={"W", "W"});
 
-createPlot(id=2, position={590, -8, 592, 663}, y={"bui.ets.loaSHW"}, range={0.0, 900000.0, -2000.0, 4000.0}, grid=true, subPlot=101, colors={{28,108,200}}, timeUnit="s", displayUnits={"W"});
-createPlot(id=2, position={590, -8, 592, 663}, y={"bui.ets.THotWatSupSet", "bui.ets.tmv.THot"}, range={0.0, 900000.0, 280.0, 340.0}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"K", ""});
-createPlot(id=2, position={590, -8, 592, 663}, y={"bui.ets.proHotWat.senTHotSup.T", "bui.ets.proHotWat.TSetHotSou.y"}, range={0.0, 900000.0, 250.0, 350.0}, grid=true, subPlot=103, colors={{238,46,47}, {28,108,200}}, timeUnit="s", displayUnits={"K", ""});
-createPlot(id=2, position={590, -8, 592, 663}, y={"bui.ets.sinDHW.ports[1].m_flow"}, range={0.0, 900000.0, -0.02, 0.039999999999999994}, grid=true, subPlot=104, colors={{28,108,200}}, timeUnit="s", displayUnits={"kg/s"});
+createPlot(id=2, position={590, -8, 592, 663}, y={"bui.ets.QReqHotWat_flow"}, range={0.0, 900000.0, -2000.0, 4000.0}, grid=true, subPlot=101, colors={{28,108,200}}, timeUnit="s", displayUnits={"W"});
+createPlot(id=2, position={590, -8, 592, 663}, y={"bui.ets.THotWatSupSet", "bui.ets.theMixVal.TMixSet"}, range={0.0, 900000.0, 280.0, 340.0}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"K", ""});
+createPlot(id=2, position={590, -8, 592, 663}, y={"bui.ets.proHotWat.senTHotSup.T", "bui.ets.proHotWat.THotSouSet.y"}, range={0.0, 900000.0, 250.0, 350.0}, grid=true, subPlot=103, colors={{238,46,47}, {28,108,200}}, timeUnit="s", displayUnits={"K", ""});
+createPlot(id=2, position={590, -8, 592, 663}, y={"bui.ets.theMixVal.mMix_flow"}, range={0.0, 900000.0, -0.02, 0.039999999999999994}, grid=true, subPlot=104, colors={{28,108,200}}, timeUnit="s", displayUnits={"kg/s"});
 createPlot(id=2, position={590, -8, 592, 663}, y={"bui.ets.proHotWat.PHea"}, range={0.0, 900000.0, -1000.0, 1000.0}, grid=true, subPlot=105, colors={{28,108,200}}, timeUnit="s", displayUnits={"W"});
 

@@ -1,5 +1,5 @@
 within Buildings.Experimental.DHC.Examples.Steam;
-model SingleBoiler "Example model for a complete steam district heating system with a 
+model SingleBoiler "Example model for a complete steam district heating system with a
   central plant that contains a single boiler"
   extends Modelica.Icons.Example;
 
@@ -101,16 +101,35 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
+September 15, 2023, by Kathryn Hinkelman:<br/>
+Added publication references.
+</li>
+<li>
 March 3, 2022 by Kathryn Hinkelman:<br/>
 First implementation.
 </li>
 </ul>
 </html>", info="<html>
 <p>
-This example model demonstrates a complete system simulation for 
+This example model demonstrates a complete system simulation for
 steam district heating systems. The central plant features a single boiler.
-For the distribution network, pressure losses on the condensate return 
+For the distribution network, pressure losses on the condensate return
 pipes are included, while the steam pipes are assumed to be lossless.
+</p>
+<h4>References </h4>
+<p>
+Kathryn Hinkelman, Saranya Anbarasu, Michael Wetter, Antoine Gautier, Wangda Zuo. 2022.
+&ldquo;A Fast and Accurate Modeling Approach for Water and Steam
+Thermodynamics with Practical Applications in District Heating System Simulation,&rdquo;
+<i>Energy</i>, 254(A), pp. 124227.
+<a href=\"https://doi.org/10.1016/j.energy.2022.124227\">10.1016/j.energy.2022.124227</a>
+</p>
+<p>
+Kathryn Hinkelman, Saranya Anbarasu, Michael Wetter, Antoine Gautier, Baptiste Ravache, Wangda Zuo 2022.
+&ldquo;Towards Open-Source Modelica Models For Steam-Based District Heating Systems.&rdquo;
+<i>Proc. of the 1st International Workshop On Open Source Modelling And Simulation Of
+Energy Systems (OSMSES 2022)</i>, Aachen, German, April 4-5, 2022.
+<a href=\"https://doi.org/10.1109/OSMSES54027.2022.9769121\">10.1109/OSMSES54027.2022.9769121</a>
 </p>
 </html>"));
 end SingleBoiler;

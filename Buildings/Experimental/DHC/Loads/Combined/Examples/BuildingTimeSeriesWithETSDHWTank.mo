@@ -37,19 +37,19 @@ model BuildingTimeSeriesWithETSDHWTank
 
   Controls.OBC.CDL.Reals.Sources.Constant TColWat(k=bui.ets.TColWat_nominal)
     "Cold water temperature"
-    annotation (Placement(transformation(extent={{60,80},{80,100}})));
+    annotation (Placement(transformation(extent={{70,70},{90,90}})));
   Controls.OBC.CDL.Reals.Sources.Constant THotWatSupSet(k=bui.THotWatSup_nominal)
     "Hot water supply temperature set point"
-    annotation (Placement(transformation(extent={{20,80},{40,100}})));
+    annotation (Placement(transformation(extent={{30,70},{50,90}})));
  Controls.OBC.CDL.Reals.Sources.Constant TChiWatSupSet(k=bui.TChiWatSup_nominal)
     "Chilled water supply temperature set point"
-    annotation (Placement(transformation(extent={{-20,80},{0,100}})));
+    annotation (Placement(transformation(extent={{-10,70},{10,90}})));
  Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupMaxSet(k=bui.THeaWatSup_nominal)
     "Heating water supply temperature set point - Maximum value"
-    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
+    annotation (Placement(transformation(extent={{-50,70},{-30,90}})));
  Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupMinSet(each k=28 + 273.15)
     "Heating water supply temperature set point - Minimum value"
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+    annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
   parameter HotWater.Data.GenericHeatPumpWaterHeater datWatHea(
     mHex_flow_nominal=datWatHea.QCon_flow_nominal/4200/datWatHea.dTCon_nominal*
         4,
@@ -69,16 +69,18 @@ equation
           10},{20,-10},{40,-10}}, color={0,127,255}));
   connect(sinAmbWat.ports[1], bui.port_bSerAmb) annotation (Line(points={{-40,-50},
           {80,-50},{80,-10},{60,-10}}, color={0,127,255}));
-  connect(THeaWatSupMinSet.y, bui.THeaWatSupMinSet) annotation (Line(points={{-78,
-          90},{-70,90},{-70,60},{34,60},{34,-1},{38,-1}}, color={0,0,127}));
-  connect(THeaWatSupMaxSet.y, bui.THeaWatSupMaxSet) annotation (Line(points={{-38,
-          90},{-30,90},{-30,58},{32,58},{32,-3},{38,-3}}, color={0,0,127}));
-  connect(TChiWatSupSet.y, bui.TChiWatSupSet) annotation (Line(points={{2,90},{10,
-          90},{10,56},{30,56},{30,-5},{38,-5}}, color={0,0,127}));
-  connect(THotWatSupSet.y, bui.THotWatSupSet) annotation (Line(points={{42,90},{
-          50,90},{50,40},{28,40},{28,-7},{38,-7}}, color={0,0,127}));
-  connect(TColWat.y, bui.TColWat) annotation (Line(points={{82,90},{88,90},{88,38},
-          {26,38},{26,-26},{42,-26},{42,-22}}, color={0,0,127}));
+  connect(THeaWatSupMinSet.y, bui.THeaWatSupMinSet) annotation (Line(points={{-68,80},
+          {-60,80},{-60,60},{34,60},{34,-1},{38,-1}},     color={0,0,127}));
+  connect(THeaWatSupMaxSet.y, bui.THeaWatSupMaxSet) annotation (Line(points={{-28,80},
+          {-20,80},{-20,58},{32,58},{32,-3},{38,-3}},     color={0,0,127}));
+  connect(TChiWatSupSet.y, bui.TChiWatSupSet) annotation (Line(points={{12,80},
+          {20,80},{20,56},{30,56},{30,-5},{38,-5}},
+                                                color={0,0,127}));
+  connect(THotWatSupSet.y, bui.THotWatSupSet) annotation (Line(points={{52,80},
+          {60,80},{60,40},{28,40},{28,-7},{38,-7}},color={0,0,127}));
+  connect(TColWat.y, bui.TColWat) annotation (Line(points={{92,80},{96,80},{96,
+          38},{26,38},{26,-26},{42,-26},{42,-22}},
+                                               color={0,0,127}));
   annotation (
     Icon(
       coordinateSystem(

@@ -14,7 +14,7 @@ model HeatPumpDHWTank
       Buildings.Media.Antifreeze.PropyleneGlycolWater (property_T=293.15,X_a=0.40)
     "Propylene glycol water, 40% mass fraction")));
   parameter Boolean have_varFloEva = true
-    "Set to true for a variable evaporator flow"
+    "Set to true for a variable evaporator flow. Fixme: false does not make sense here."
     annotation(Evaluate=true);
   parameter Real COP_nominal(final unit="1")
     "Heat pump COP"
@@ -143,7 +143,7 @@ model HeatPumpDHWTank
     annotation (Placement(transformation(extent={{4,-36},{16,-24}})));
   Modelica.Blocks.Math.Add add
     annotation (Placement(transformation(extent={{140,-18},{160,2}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetHotSou(k=datWatHea.THotSou_nominal)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THotSouSet(k=datWatHea.THotSou_nominal)
     "Set point of water in hot water tank"
     annotation (Placement(transformation(extent={{-200,0},{-180,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput QCon_flow(final unit="kg/s")
@@ -179,7 +179,7 @@ equation
           -60},{40,-16},{20,-16}}, color={0,127,255}));
   connect(heaPumTan.port_b2, port_b2) annotation (Line(points={{0,-16},{-20,-16},
           {-20,40},{160,40},{160,60},{200,60}}, color={0,127,255}));
-  connect(enaHeaPum.y, heaPumTan.TSetHotSou) annotation (Line(points={{-118,20},
+  connect(enaHeaPum.y,heaPumTan.THotSouSet)  annotation (Line(points={{-118,20},
           {-10,20},{-10,-10},{-1,-10}}, color={0,0,127}));
   connect(heaPumTan.PHea, PHea) annotation (Line(points={{21,-10},{80,-10},{80,20},
           {180,20},{180,40},{220,40}}, color={0,0,127}));
@@ -196,7 +196,7 @@ equation
   connect(heaPumTan.QCon_flow, QCon_flow) annotation (Line(points={{21,-12},{82,
           -12},{82,-100},{220,-100}},
                                  color={0,0,127}));
-  connect(TSetHotSou.y, enaHeaPum.u1) annotation (Line(points={{-178,10},{-166,
+  connect(THotSouSet.y, enaHeaPum.u1) annotation (Line(points={{-178,10},{-166,
           10},{-166,28},{-142,28}}, color={0,0,127}));
   annotation (
   defaultComponentName="heaPum",

@@ -13,7 +13,7 @@ model HeatPumpHeatExchangerDHWTank
       transformation(
       extent={{10,-10},{-10,10}},
       rotation=180,
-      origin={-50,-10})));
+      origin={-52,-56})));
   Subsystems.HeatPumpDHWTank proHotWat(
     redeclare final package Medium1 = MediumBui,
     redeclare final package Medium2 = MediumSer,
@@ -31,20 +31,11 @@ model HeatPumpHeatExchangerDHWTank
   parameter Loads.HotWater.Data.GenericHeatPumpWaterHeater datWatHea
     "Performance data"
     annotation (Placement(transformation(extent={{36,48},{48,60}})));
-  Fluid.Sources.MassFlowSource_T sinDHW(
-    redeclare final package Medium = MediumBui,
-    use_m_flow_in=true,
-    nPorts=1) if have_hotWat "Sink for domestic hot water"
-    annotation (Placement(transformation(extent={{-68,50},{-48,70}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter toSin(final k=-1)
-    if have_hotWat "Convert to sink"
-    annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
-  Loads.HotWater.ThermostaticMixingValve tmv(
+  Loads.HotWater.ThermostaticMixingValve theMixVal(
     redeclare package Medium = MediumBui,
-    mHot_flow_nominal=QHotWat_flow_nominal/cpBui_default/(THotWatSup_nominal -
-        TColWat_nominal),
-    dpValve_nominal=1000) "Thermostatic mixing valve"
-    annotation (Placement(transformation(extent={{-20,48},{-40,70}})));
+    mMix_flow_nominal=QHotWat_flow_nominal/cpBui_default/(THotWatSup_nominal -
+        TColWat_nominal)) "Thermostatic mixing valve"
+    annotation (Placement(transformation(extent={{-20,50},{-40,72}})));
   Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Junction dcwSpl(
       redeclare final package Medium = MediumBui, final m_flow_nominal=
         proHeaWat.m1_flow_nominal*{1,-1,-1}) "Splitter for domestic cold water"
@@ -52,21 +43,17 @@ model HeatPumpHeatExchangerDHWTank
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-12,4})));
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(k=1/
+        QHotWat_flow_nominal)
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 equation
 
-  connect(toSin.u, div1.y) annotation (Line(points={{-102,60},{-108,60},{-108,
-          32},{-70,32},{-70,-40},{-78,-40}},
-                                         color={0,0,127}));
   connect(conFloEvaSHW.m_flow, proHotWat.m2_flow) annotation (Line(points={{-38,100},
           {28,100},{28,31},{30,31}},         color={0,0,127}));
-  connect(souDCW.T_in, delT.u2) annotation (Line(points={{-62,-14},{-64,-14},{
-          -64,-60},{-156,-60},{-156,-6},{-152,-6}}, color={0,0,127}));
   connect(enaSHW.y, proHotWat.uEna) annotation (Line(points={{-118,80},{-114,80},
           {-114,43},{30,43}},  color={255,0,255}));
   connect(proHotWat.port_b2, volMix_b.ports[4])
     annotation (Line(points={{52,40},{260,40},{260,-360}}, color={0,127,255}));
-  connect(proHotWat.PHea, toSub.u) annotation (Line(points={{54,37},{56,37},{56,
-          80},{-78,80}}, color={0,0,127}));
   connect(proHotWat.PHea, PHeaTot.u[2]) annotation (Line(points={{54,37},{66,37},
           {66,38},{268,38},{268,80.5}},
         color={0,0,127}));
@@ -79,38 +66,43 @@ equation
   connect(proHotWat.mEva_flow, masFloHea.u2) annotation (Line(points={{54,31},{
           58,31},{58,-242},{-6,-242},{-6,-252}},
                                               color={0,0,127}));
-  connect(toSin.y, sinDHW.m_flow_in) annotation (Line(points={{-78,60},{-76,60},
-          {-76,68},{-70,68}}, color={0,0,127}));
   connect(proHotWat.port_a2, volMix_a.ports[4]) annotation (Line(points={{52,28},
           {56,28},{56,20},{-260,20},{-260,-360}},             color={0,127,255}));
-  connect(tmv.port_hot, sinDHW.ports[1]) annotation (Line(points={{-40,59},{-45,
-          59},{-45,60},{-48,60}}, color={0,127,255}));
-  connect(souDCW.ports[1], dcwSpl.port_1) annotation (Line(points={{-40,-10},{
-          -12,-10},{-12,-6}}, color={0,127,255}));
+  connect(souDCW.ports[1], dcwSpl.port_1) annotation (Line(points={{-42,-56},{
+          -12,-56},{-12,-6}}, color={0,127,255}));
   connect(dcwSpl.port_3, proHotWat.port_a1)
-    annotation (Line(points={{-2,4},{0,4},{0,28},{32,28}}, color={0,127,255}));
-  connect(dcwSpl.port_2, tmv.port_col) annotation (Line(points={{-12,14},{-12,
-          54.6},{-20,54.6}}, color={0,127,255}));
-  connect(proHotWat.port_b1, tmv.port_hotsou) annotation (Line(points={{32,40},
-          {0,40},{0,63.4},{-20,63.4}}, color={0,127,255}));
-  connect(tmv.TSet, delT.u1) annotation (Line(points={{-18,67.8},{-12,67.8},{
-          -12,68},{-8,68},{-8,26},{-160,26},{-160,6},{-152,6}}, color={0,0,127}));
+    annotation (Line(points={{-2,4},{12,4},{12,28},{32,28}},
+                                                           color={0,127,255}));
+  connect(dcwSpl.port_2, theMixVal.port_col) annotation (Line(points={{-12,14},
+          {-12,52.2},{-20,52.2}}, color={0,127,255}));
+  connect(proHotWat.port_b1, theMixVal.port_hot) annotation (Line(points={{32,40},
+          {0,40},{0,56.6},{-20,56.6}},     color={0,127,255}));
   connect(proHotWat.QCon_flow, heaFloEvaSHW.u1) annotation (Line(points={{54,24},
           {68,24},{68,120},{-108,120},{-108,106},{-102,106}}, color={0,0,127}));
+  connect(proHotWat.PHea, heaFloEvaSHW.u2) annotation (Line(points={{54,37},{60,
+          37},{60,80},{-108,80},{-108,94},{-102,94}}, color={0,0,127}));
+  connect(souDCW.T_in, TColWat) annotation (Line(points={{-64,-60},{-156,-60},{
+          -156,-80},{-320,-80}}, color={0,0,127}));
+  connect(THotWatSupSet, theMixVal.TMixSet) annotation (Line(points={{-320,-40},
+          {-32,-40},{-32,32},{-8,32},{-8,63.2},{-19,63.2}}, color={0,0,127}));
+  connect(QReqHotWat_flow, gai.u) annotation (Line(points={{-320,-120},{-288,-120},{-288,
+          60},{-82,60}}, color={0,0,127}));
+  connect(gai.y, theMixVal.yMixSet) annotation (Line(points={{-58,60},{-48,60},
+          {-48,78},{-8,78},{-8,69.8},{-19,69.8}}, color={0,0,127}));
   annotation (
   Documentation(info="<html>
 <p>
-This model uses the base energy transfer station defined in 
+This model uses the base energy transfer station defined in
 <a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.BaseClasses.PartialHeatPumpHeatExchanger\">
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.BaseClasses.PartialHeatPumpHeatExchanger</a>.
 </p>
 <h4>Domestic Hot Water</h4>
 <p>
-Domestic hot water is produced using a dedicated water-to-water heat pump 
+Domestic hot water is produced using a dedicated water-to-water heat pump
 with storage tank.
 </p>
 <p>
-Heating is enabled based on the input signal <code>uSHW</code> 
+Heating is enabled based on the input signal <code>uSHW</code>
 which is held for <i>15</i> minutes, meaning that,
 when enabled, the mode remains active for at least <i>15</i> minutes and,
 when disabled, the mode cannot be enabled again for at least <i>15</i> minutes.
@@ -130,20 +122,20 @@ Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPumpDH
 </li>
 <li>
 The heat pump condensor water mass flow rate is controlled for the charging of the storage tank
-as described in 
+as described in
 <a href=\"modelica://Buildings.Experimental.DHC.Loads.HotWater.HeatPumpWithTank\">
 Buildings.Experimental.DHC.Loads.HotWater.HeatPumpWithTank</a>.
 </li>
 <li>
 The mass flow rate of water leaving the storage tank is computed based on the domestic hot water
-heating load (input <code>loaSHW</code>) combined with the operation of a thermostatic
+heating load (input <code>QReqHotWat_flow</code>) combined with the operation of a thermostatic
 mixing valve used to mix down the temperature of hot water leaving the tank
 to the temperature distributed to fixtures (parameter <code>THotWatSup_nominal</code>)
 using domestic cold water at the cold water temperature (input <code>TColWat</code>).
 The desired water flow rate leaving the thermostatic mixing valve
 is determined according to the following equation:
 <p align=\"center\" style=\"font-style:italic;\">
-<code>loaSHW</code> = m&#775; cp (<code>THotWatSup_nominal</code> - <code>TColWat</code>)
+<code>QReqHotWat_flow</code> = m&#775; cp (<code>THotWatSup_nominal</code> - <code>TColWat</code>)
 </p>
 </li>
 <li>
@@ -162,7 +154,7 @@ Extended from partial base class.
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3063\">
 issue 3063</a>.
-</li>  
+</li>
 <li>
 May 17, 2023, by David Blum:<br/>
 Assigned dp_nominal to <code>pum1HexChi</code>.<br/>
