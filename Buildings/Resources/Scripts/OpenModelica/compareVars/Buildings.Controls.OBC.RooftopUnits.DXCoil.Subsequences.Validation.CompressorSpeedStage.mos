@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "ComSpeSta.uDXCoi",
+    "ComSpeSta.uPreDXCoi",
+    "ComSpeSta.uCoi"
+  };

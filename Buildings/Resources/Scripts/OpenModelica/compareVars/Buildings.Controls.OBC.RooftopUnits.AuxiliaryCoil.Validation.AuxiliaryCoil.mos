@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "TOut.y",
+    "HeaCoi.y",
+    "conAuxCoi.yAuxHea",
+    "conAuxCoi.yDXCoi[1]",
+    "conAuxCoi.yDXCoi[2]",
+    "TOut1.y",
+    "HeaCoi1.y",
+    "conAuxCoi1.yAuxHea",
+    "conAuxCoi1.yDXCoi[1]",
+    "conAuxCoi1.yDXCoi[2]"
+  };

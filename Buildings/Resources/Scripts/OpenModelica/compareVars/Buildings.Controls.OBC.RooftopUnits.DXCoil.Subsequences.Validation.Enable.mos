@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "pulCoi.y",
+    "DXCoiEna.uDXCoi[1]",
+    "CoiEna.y"
+  };
