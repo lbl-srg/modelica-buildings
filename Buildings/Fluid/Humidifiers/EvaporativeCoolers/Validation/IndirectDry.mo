@@ -44,7 +44,7 @@ model IndirectDry "Validation model for indirect dry evaporative cooler"
 
   Modelica.Blocks.Sources.CombiTimeTable combiTimeTable(
     columns=2:12,
-    fileName=ModelicaServices.ExternalReferences.loadResource("./Buildings/Resources/Data/Fluid/Humidifiers/EvaporativeCoolers/IndirectDry/IndirectDry.dat"),
+    fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Fluid/Humidifiers/EvaporativeCoolers/IndirectDry/IndirectDry.dat"),
     tableName = "EnergyPlus",
     tableOnFile = true,
     timeScale = 1)
