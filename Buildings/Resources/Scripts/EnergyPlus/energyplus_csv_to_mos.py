@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-def energyplus_csv_to_mos(output_list, dat_file_name, step_size, final_time, start_time:int = 0):
+def energyplus_csv_to_mos(output_list, dat_file_name, step_size, final_time, start_time = 0):
     """ Reads `EnergyPlus/eplusout.csv` and writes `dat_file_name`
         in the format required by the Modelica data reader.
 
