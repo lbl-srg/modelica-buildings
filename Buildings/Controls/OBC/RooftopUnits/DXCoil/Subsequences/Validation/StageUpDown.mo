@@ -9,7 +9,6 @@ model StageUpDown
     "DX coil staging up and down"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
 
-protected
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold nexDXCoi(
     final trueHoldDuration=120)
     "Hold pulse signal for easy visualization"
@@ -20,6 +19,7 @@ protected
     "Hold pulse signal for easy visualization"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
 
+protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pulCoi(
     final amplitude=0.9,
     final width=0.6,
