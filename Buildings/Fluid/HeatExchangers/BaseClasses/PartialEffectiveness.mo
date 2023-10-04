@@ -35,19 +35,19 @@ partial model PartialEffectiveness
 protected
   parameter Real delta=1E-3 "Parameter used for smoothing";
 
-  parameter Modelica.Units.SI.SpecificHeatCapacity cp1_default=
+  parameter Modelica.Units.SI.SpecificHeatCapacity cp1_default =
     Medium1.specificHeatCapacityCp(Medium1.setState_pTX(
       Medium1.p_default,
       Medium1.T_default,
       Medium1.X_default))
     "Specific heat capacity of medium 1 at default medium state";
-  parameter Modelica.Units.SI.SpecificHeatCapacity cp2_default=
+  parameter Modelica.Units.SI.SpecificHeatCapacity cp2_default =
     Medium2.specificHeatCapacityCp(Medium2.setState_pTX(
       Medium2.p_default,
       Medium2.T_default,
       Medium2.X_default))
     "Specific heat capacity of medium 2 at default medium state";
-  parameter Modelica.Units.SI.ThermalConductance CMin_flow_small=
+  parameter Modelica.Units.SI.ThermalConductance CMin_flow_small =
     min(m1_flow_small*cp1_default, m2_flow_small*cp2_default)
     "Small value for smoothing of minimum heat capacity flow rate";
   Real fra_a1(min=0, max=1) = if allowFlowReversal1
