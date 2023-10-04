@@ -14,7 +14,7 @@ model Humidifier_u "Model that demonstrates the ideal humidifier model"
     nPorts=2,
     m_flow=2*m_flow_nominal,
     T=303.15) "Source"
-    annotation (Placement(transformation(extent={{-82,38},{-62,58}})));
+    annotation (Placement(transformation(extent={{-82,40},{-62,60}})));
   Buildings.Fluid.Humidifiers.Humidifier_u humSte(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
@@ -68,7 +68,7 @@ equation
       points={{-39,150},{38,150}},
       color={0,0,127}));
   connect(con1.y, humSte.u) annotation (Line(
-      points={{61,150},{70,150},{70,130},{-10,130},{-10,106},{-1,106}},
+      points={{61,150},{70,150},{70,130},{-10,130},{-10,106},{-2,106}},
       color={0,0,127}));
   connect(humSte.port_b, senTem1.port_a) annotation (Line(
       points={{20,100},{40,100}},
@@ -80,17 +80,17 @@ equation
       points={{-39,150},{-14,150},{-14,40},{38,40}},
       color={0,0,127}));
   connect(con2.y, humDyn.u) annotation (Line(
-      points={{61,40},{70,40},{70,20},{-10,20},{-10,-4},{-1,-4}},
+      points={{61,40},{70,40},{70,20},{-10,20},{-10,-4},{-2,-4}},
       color={0,0,127}));
   connect(humDyn.port_b, senTem2.port_a) annotation (Line(
       points={{20,-10},{40,-10}},
       color={0,127,255}));
 
   connect(sou.ports[1], humSte.port_a) annotation (Line(
-      points={{-62,50},{-30,50},{-30,100},{0,100}},
+      points={{-62,52},{-30,52},{-30,100},{0,100}},
       color={0,127,255}));
   connect(sou.ports[2], humDyn.port_a) annotation (Line(
-      points={{-62,46},{-30,46},{-30,-10},{-4.44089e-16,-10}},
+      points={{-62,48},{-30,48},{-30,-10},{-4.44089e-16,-10}},
       color={0,127,255}));
   connect(senTem1.port_b, sin.ports[1]) annotation (Line(
       points={{60,100},{109,100},{109,52},{158,52}},
