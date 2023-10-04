@@ -1,11 +1,9 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers;
 model IndirectDry "Indirect dry evaporative cooler"
 
-  extends Buildings.Fluid.Interfaces.PartialFourPortParallel(
-    redeclare final package Medium1=MediumCooled,
-    redeclare final package Medium2=MediumRejected);
+  extends Buildings.Fluid.Interfaces.PartialFourPortParallel;
 
-  replaceable package MediumCooled =
+  replaceable package Medium1 =
     Modelica.Media.Interfaces.PartialMedium
     "Medium to be cooled"
       annotation (choices(
@@ -17,7 +15,7 @@ model IndirectDry "Indirect dry evaporative cooler"
           X_a=0.40)
           "Propylene glycol water, 40% mass fraction")));
 
-  replaceable package MediumRejected =
+  replaceable package Medium2 =
     Modelica.Media.Interfaces.PartialMedium
     "Medium  rejected to outdoor air"
     annotation (choices(
@@ -64,7 +62,7 @@ model IndirectDry "Indirect dry evaporative cooler"
         rotation=0)));
 
   Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct dirEvaCoo(
-    redeclare final package Medium = MediumRejected,
+    redeclare final package Medium = Medium2,
     final m_flow_nominal=m_flow_nominal_AirSec,
     final padAre=padAre,
     final dep=dep,
@@ -76,8 +74,8 @@ model IndirectDry "Indirect dry evaporative cooler"
       rotation=0)));
 
   Buildings.Fluid.HeatExchangers.ConstantEffectiveness hex(
-    redeclare final package Medium1 = MediumCooled,
-    redeclare final package Medium2 = MediumRejected, dp1_nominal = dp_nominal, dp2_nominal = dp_nominal, eps = eps, m1_flow_nominal = m_flow_nominal_AirPri, m2_flow_nominal = m_flow_nominal_AirSec)
+    redeclare final package Medium1 = Medium1,
+    redeclare final package Medium2 = Medium2, dp1_nominal = dp_nominal, dp2_nominal = dp_nominal, eps = eps, m1_flow_nominal = m_flow_nominal_AirPri, m2_flow_nominal = m_flow_nominal_AirSec)
     "Heat exchanger for heat transfer between primary and secondary air"
     annotation (Placement(visible = true, transformation(origin={0,8},extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
