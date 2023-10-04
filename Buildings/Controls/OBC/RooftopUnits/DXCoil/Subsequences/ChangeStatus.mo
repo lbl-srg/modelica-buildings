@@ -28,7 +28,7 @@ block ChangeStatus "Sequence for changing DX coil status"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDXCoi[nCoi]
     "DX coil status"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
-        iconTransformation(extent={{120,-20},{160,20}})));
+        iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
   parameter Integer coiInd[nCoi]={i for i in 1:nCoi}
@@ -171,10 +171,10 @@ equation
 annotation (
   defaultComponentName="chaSta",
   Icon(coordinateSystem(preserveAspectRatio=false,
-    extent={{-100,-100},{120,100}}),
+    extent={{-100,-100},{100,100}}),
       graphics={
         Rectangle(
-          extent={{-100,-100},{120,100}},
+          extent={{-100,-100},{100,100}},
           lineColor={0,0,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),

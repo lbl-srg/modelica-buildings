@@ -1,5 +1,6 @@
 within Buildings.Controls.OBC.RooftopUnits.AuxiliaryCoil;
-block AuxiliaryCoil "Sequences to control auxiliary heating coils"
+block AuxiliaryCoil
+  "Sequences to control auxiliary heating coils"
 
   parameter Integer nCoi(min=1)
     "Number of DX coils"
@@ -86,7 +87,7 @@ protected
     final yMin=0,
     final reverseActing=false)
     "Regulate supply air temperature at or above its setpoint when load is unmet by DX heating"
-    annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
+    annotation (Placement(transformation(extent={{-10,-100},{10,-80}})));
 
   Buildings.Controls.OBC.CDL.Logical.And and2[nCoi]
     "Logical And"
@@ -110,11 +111,11 @@ protected
     final t=uThrHeaCoi,
     final h=dUHys)
     "Check if heating coil signal is equal to or greater than threshold"
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+    annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaSupHeaHig
     "Convert Boolean auxiliary heating enable signal to real value"
-    annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
+    annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
 
   Buildings.Controls.OBC.CDL.Logical.And andLocOut
     "Check for heating coil signal and outdoor air temperature lockout"
@@ -127,7 +128,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conHeaCoiSig(
     final k=uThrHeaCoi)
     "Constant heating coil signal"
-    annotation (Placement(transformation(extent={{-46,-90},{-26,-70}})));
+    annotation (Placement(transformation(extent={{-50,-100},{-30,-80}})));
 
   Buildings.Controls.Continuous.LimPID conPHeaLocOut(
     final controllerType=controllerType,
@@ -151,35 +152,42 @@ protected
     "Constant zero heating coil signal"
     annotation (Placement(transformation(extent={{-46,40},{-26,60}})));
 
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrHeaCoi1(
+    final t=dUHys,
+    final h=dUHys/2)
+    "Check if heating coil signal is greater than zero during lockout mode"
+    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+
 equation
   connect(lesThrLocOut.u, TOut)
     annotation (Line(points={{-82,0},{-120,0}}, color={0,0,127}));
   connect(uHeaCoi, greThrHeaCoi.u)
-    annotation (Line(points={{-120,-40},{-82,-40}}, color={0,0,127}));
+    annotation (Line(points={{-120,-40},{-90,-40},{-90,-60},{-82,-60}},
+                                                    color={0,0,127}));
   connect(lesThrLocOut.y, andLocOut.u1)
     annotation (Line(points={{-58,0},{-48,0}}, color={255,0,255}));
   connect(conPHeaHig.y, mulSupHeaEng.u1)
-    annotation (Line(points={{11,-80},{28,-80}}, color={0,0,127}));
+    annotation (Line(points={{11,-90},{20,-90},{20,-80},{28,-80}},
+                                                 color={0,0,127}));
   connect(mulSupHeaEng.y, maxSupHea.u2)
     annotation (Line(points={{52,-86},{60,-86},{60,-26},{68,-26}}, color={0,0,127}));
   connect(maxSupHea.y, yAuxHea)
     annotation (Line(points={{92,-20},{120,-20}}, color={0,0,127}));
   connect(conPHeaHig.u_s, conHeaCoiSig.y)
-    annotation (Line(points={{-12,-80},{-24,-80}}, color={0,0,127}));
+    annotation (Line(points={{-12,-90},{-28,-90}}, color={0,0,127}));
   connect(uHeaCoi, conPHeaHig.u_m)
-    annotation (Line(points={{-120,-40},{-90,-40},{-90,-100},{0,-100},{0,-92}}, color={0,0,127}));
+    annotation (Line(points={{-120,-40},{-90,-40},{-90,-110},{0,-110},{0,-102}},color={0,0,127}));
   connect(booToReaSupHeaHig.y, mulSupHeaEng.u2)
-    annotation (Line(points={{12,-40},{20,-40},{20,-92},{28,-92}}, color={0,0,127}));
+    annotation (Line(points={{2,-50},{24,-50},{24,-92},{28,-92}},  color={0,0,127}));
   connect(conPHeaLocOut.y, mulSupHeaEng1.u1)
     annotation (Line(points={{11,50},{20,50},{20,60},{28,60}}, color={0,0,127}));
   connect(booToReaSupHeaLocOut.y, mulSupHeaEng1.u2)
     annotation (Line(points={{12,0},{ 20,0},{20,48},{28,48}}, color={0,0,127}));
   connect(greThrHeaCoi.y, booToReaSupHeaHig.u)
-    annotation (Line(points={{-58,-40},{-12,-40}}, color={255,0,255}));
+    annotation (Line(points={{-58,-60},{-40,-60},{-40,-50},{-22,-50}},
+                                                   color={255,0,255}));
   connect(andLocOut.y, booToReaSupHeaLocOut.u)
     annotation (Line(points={{-24,0},{-12,0}}, color={255,0,255}));
-  connect(greThrHeaCoi.y, andLocOut.u2)
-    annotation (Line(points={{-58,-40},{-52,-40},{-52,-8},{-48,-8}}, color={255,0,255}));
   connect(mulSupHeaEng1.y, maxSupHea.u1)
     annotation (Line(points={{52,54},{60,54},{60,-14},{68,-14}}, color={0,0,127}));
   connect(conHeaCoiSigZer.y, conPHeaLocOut.u_s)
@@ -197,6 +205,10 @@ equation
           60}}, color={255,0,255}));
   connect(uDXCoi, and2.u2)
     annotation (Line(points={{-120,80},{58,80}}, color={255,0,255}));
+  connect(uHeaCoi, greThrHeaCoi1.u) annotation (Line(points={{-120,-40},{-90,-40},
+          {-90,-30},{-82,-30}}, color={0,0,127}));
+  connect(greThrHeaCoi1.y, andLocOut.u2) annotation (Line(points={{-58,-30},{-52,
+          -30},{-52,-8},{-48,-8}}, color={255,0,255}));
   annotation (defaultComponentName="conAuxCoi",
     Icon(coordinateSystem(preserveAspectRatio=false),
       graphics={

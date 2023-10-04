@@ -3,31 +3,28 @@ model AuxiliaryCoil
   "Validation model of auxiliary heating coil control sequence"
 
   Buildings.Controls.OBC.RooftopUnits.AuxiliaryCoil.AuxiliaryCoil conAuxCoi(
-    nCoi=2,
-    TLocOut=273.15 - 12.2,
-    dTHys=273.1,
-    k1=1,
-    k2=10,
-    uThrHeaCoi=0.9,
-    dUHys=0.01)
-    "Instance of controller for auxiliary heating coil"
+    final nCoi=2,
+    final TLocOut=273.15 - 12.2,
+    final dTHys=273.1,
+    final uThrHeaCoi=0.9,
+    final dUHys=0.01)
+    "Instance of controller for auxiliary heating coil with DX coil lockout"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
 
   Buildings.Controls.OBC.RooftopUnits.AuxiliaryCoil.AuxiliaryCoil conAuxCoi1(
-    nCoi=2,
-    TLocOut=273.15 - 12.2,
-    dTHys=273.1,
-    k1=1,
-    k2=10,
-    uThrHeaCoi=0.9,
-    dUHys=0.01)
-    "Instance of controller for auxiliary heating coil"
+    final nCoi=2,
+    final TLocOut=273.15 - 12.2,
+    final dTHys=273.1,
+    final uThrHeaCoi=0.9,
+    final dUHys=0.01)
+    "Instance of controller for auxiliary heating coil without DX coil lockout"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
 
+protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[2](
     final k={true,true})
     "Constant Boolean signal"
-    annotation (Placement(transformation(extent={{-40,90},{-20,110}})));
+    annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp HeaCoi(
     final height=1,
@@ -39,7 +36,7 @@ model AuxiliaryCoil
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOut(
     final k=273.15 - 15)
     "Outdoor air dry bulb temperature"
-    annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
+    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1[2](
     final k={true,true})
@@ -49,26 +46,26 @@ model AuxiliaryCoil
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOut1(
     final k=273.15 + 5)
     "Outdoor air dry bulb temperature"
-    annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
+    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp HeaCoi1(
     final height=1,
     final offset=0,
     final duration=1200)
     "Heating coil signal"
-    annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
+    annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
 
 equation
   connect(conAuxCoi.uHeaCoi, HeaCoi.y)
     annotation (Line(points={{18,44},{10,44},{10,20},{-18,20}}, color={0,0,127}));
   connect(TOut.y, conAuxCoi.TOut)
-    annotation (Line(points={{-18,60},{0,60},{0,50},{18,50}}, color={0,0,127}));
+    annotation (Line(points={{-18,50},{18,50}},               color={0,0,127}));
   connect(TOut1.y, conAuxCoi1.TOut)
-    annotation (Line(points={{-18,-60},{0,-60},{0,-50},{18,-50}}, color={0,0,127}));
+    annotation (Line(points={{-18,-50},{18,-50}},                 color={0,0,127}));
   connect(HeaCoi1.y, conAuxCoi1.uHeaCoi)
-    annotation (Line(points={{-18,-100},{10,-100},{10,-56},{18,-56}}, color={0,0,127}));
-  connect(con.y, conAuxCoi.uDXCoi) annotation (Line(points={{-18,100},{10,100},
-          {10,56},{18,56}}, color={255,0,255}));
+    annotation (Line(points={{-18,-80},{10,-80},{10,-56},{18,-56}},   color={0,0,127}));
+  connect(con.y, conAuxCoi.uDXCoi) annotation (Line(points={{-18,80},{10,80},{10,
+          56},{18,56}},     color={255,0,255}));
   connect(con1.y, conAuxCoi1.uDXCoi) annotation (Line(points={{-18,-20},{10,-20},
           {10,-44},{18,-44}}, color={255,0,255}));
 
@@ -123,5 +120,5 @@ equation
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),
-    Diagram(coordinateSystem(extent={{-120,-120},{120,120}})));
+    Diagram(coordinateSystem(extent={{-100,-100},{100,100}})));
 end AuxiliaryCoil;

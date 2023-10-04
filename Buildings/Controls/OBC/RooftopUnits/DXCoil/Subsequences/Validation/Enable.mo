@@ -27,15 +27,16 @@ protected
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
 
 equation
-  connect(pulCooCoi.y, coiEna.uCooCoi) annotation (Line(points={{-38,-40},{-20,-40},
-          {-20,-6},{-12,-6}}, color={0,0,127}));
   connect(coiEna.yDXCoi, coiEnaSig.u)
     annotation (Line(points={{12,0},{38,0}}, color={255,0,255}));
   connect(coiEna.yDXCoi, pre1.u) annotation (Line(points={{12,0},{20,0},{20,40},
           {38,40}}, color={255,0,255}));
-  connect(pre1.y, coiEna.uDXCoi[1]) annotation (Line(points={{62,40},{70,40},{70,
-          60},{-20,60},{-20,6},{-12,6}}, color={255,0,255}));
+  connect(pre1.y, coiEna.uDXCoi[1]) annotation (Line(points={{62,40},{70,40},{
+          70,60},{-20,60},{-20,6},{-12,6}},
+                                         color={255,0,255}));
 
+  connect(pulCooCoi.y, coiEna.uCoi) annotation (Line(points={{-38,-40},{-20,-40},
+          {-20,-6},{-12,-6}}, color={0,0,127}));
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/RooftopUnits/DXCoil/Subsequences/Validation/Enable.mos"

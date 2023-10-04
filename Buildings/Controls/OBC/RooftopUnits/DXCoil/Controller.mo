@@ -211,12 +211,12 @@ protected
   Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.ChangeStatus chaSta(
     final nCoi=nCoi)
     "Change DX coil status"
-    annotation (Placement(transformation(extent={{0,114},{22,134}})));
+    annotation (Placement(transformation(extent={{0,120},{20,140}})));
 
   Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.ChangeStatus chaSta1(
     final nCoi=nCoi)
     "Change DX coil status"
-    annotation (Placement(transformation(extent={{130,72},{152,92}})));
+    annotation (Placement(transformation(extent={{140,80},{160,100}})));
 
 equation
   connect(uCoiSeq, intToRea.u)
@@ -235,21 +235,23 @@ equation
     annotation (Line(points={{-88,-40},{-74,-40},{-74,-20},{-110,-20},{-110,-6}, {-102,-6}},
                 color={255,127,0}));
   connect(reaToInt.y, chaSta.uNexDXCoi)
-    annotation (Line(points={{-78,120},{-2,120}}, color={255,127,0}));
+    annotation (Line(points={{-78,120},{-40,120},{-40,126},{-2,126}},
+                                                  color={255,127,0}));
   connect(reaToInt.y, chaSta.uLasDXCoi) annotation (Line(points={{-78,120},{-40,
-          120},{-40,116},{-2,116}},  color={255,127,0}));
-  connect(uDXCoi, chaSta.uDXCoil) annotation (Line(points={{-240,40},{-160,40},{
-          -160,70},{-20,70},{-20,124},{-2,124}}, color={255, 0,255}));
+          120},{-40,122},{-2,122}},  color={255,127,0}));
+  connect(uDXCoi, chaSta.uDXCoil) annotation (Line(points={{-240,40},{-160,40},
+          {-160,70},{-20,70},{-20,130},{-2,130}},color={255, 0,255}));
   connect(uDXCoi, DXCoiEna.uDXCoi) annotation (Line(points={{-240,40},{-160,40},
           {-160,6},{-152,6}}, color={255,0,255}));
   connect(uCoi, DXCoiEna.uCoi) annotation (Line(points={{-240,-60},{-180,-60},{-180,
           -6},{-152,-6}}, color={0,0,127}));
   connect(DXCoiEna.yDXCoi, chaSta.uNexDXCoiSta) annotation (Line(points={{-128,0},
-          {-120,0},{-120,106},{-60,106},{-60,132},{-2,132}}, color={255,0,255}));
+          {-120,0},{-120,106},{-60,106},{-60,138},{-2,138}}, color={255,0,255}));
   connect(DXCoiEna.yDXCoi, chaSta.uLasDXCoiSta) annotation (Line(points={{-128,0},
-          {-120,0},{-120,106},{-60,106},{-60,128},{-2,128}},color={255,0,255}));
-  connect(chaSta.yDXCoi, chaSta1.uDXCoil) annotation (Line(points={{24,124},{118,
-          124},{118,82},{128,82}}, color={255,0,255}));
+          {-120,0},{-120,106},{-60,106},{-60,134},{-2,134}},color={255,0,255}));
+  connect(chaSta.yDXCoi, chaSta1.uDXCoil) annotation (Line(points={{22,130},{
+          118,130},{118,90},{138,90}},
+                                   color={255,0,255}));
   connect(DXCoiSta.uCoi, uCoi) annotation (Line(points={{-152,34},{-180,34},{-180,
           -60},{-240,-60}}, color={0,0,127}));
   connect(uDXCoi, DXCoiSta.uDXCoi) annotation (Line(points={{-240,40},{-152,40}},
@@ -265,11 +267,12 @@ equation
   connect(intLesEquThr.y, or2.u2) annotation (Line(points={{-28,-40},{-20,-40},{
           -20,22},{38,22}}, color={255,0,255}));
   connect(or2.y, chaSta1.uLasDXCoiSta) annotation (Line(points={{62,30},{100,30},
-          {100,86},{128,86}}, color={255,0,255}));
+          {100,94},{138,94}}, color={255,0,255}));
   connect(and2.y, chaSta1.uNexDXCoiSta)
-    annotation (Line(points={{62,90},{128,90}},color={255,0,255}));
-  connect(chaSta1.yDXCoi, logSwi.u1) annotation (Line(points={{154,82},{160,82},
-          {160,68},{178,68}},   color={255,0,255}));
+    annotation (Line(points={{62,90},{96,90},{96,98},{138,98}},
+                                               color={255,0,255}));
+  connect(chaSta1.yDXCoi, logSwi.u1) annotation (Line(points={{162,90},{170,90},
+          {170,68},{178,68}},   color={255,0,255}));
   connect(con.y, logSwi.u3) annotation (Line(points={{152,40},{160,40},{160,52},
           {178,52}}, color={255,0,255}));
   connect(uDXCoiAva, logSwi.u2) annotation (Line(points={{-240,100},{20,100},{20,
@@ -282,8 +285,9 @@ equation
           -56},{10,-56},{10,-52}}, color={255,127,0}));
   connect(nexDXCoi.y, reaToInt1.u) annotation (Line(points={{22,-40},{50,-40},{50,
           0},{78,0}}, color={0,0,127}));
-  connect(reaToInt2.y, chaSta1.uLasDXCoi) annotation (Line(points={{102,-40},{120,
-          -40},{120,74},{128,74}}, color={255,127,0}));
+  connect(reaToInt2.y, chaSta1.uLasDXCoi) annotation (Line(points={{102,-40},{
+          120,-40},{120,82},{138,82}},
+                                   color={255,127,0}));
   connect(logSwi.y, yDXCoi)
     annotation (Line(points={{202,60},{240,60}},   color={255,0,255}));
   connect(mulSumInt.y, zerStaIndCor.uInd) annotation (Line(points={{-88,-40},{-74,
@@ -300,7 +304,7 @@ equation
   connect(not1.y, or2.u1)
     annotation (Line(points={{-28,30},{38,30}}, color={255,0,255}));
   connect(reaToInt1.y, chaSta1.uNexDXCoi) annotation (Line(points={{102,0},{110,
-          0},{110,78},{128,78}},  color={255,127,0}));
+          0},{110,86},{138,86}},  color={255,127,0}));
   connect(uDXCoi, booToInt.u) annotation (Line(points={{-240,40},{-190,40},{-190,
           -40},{-150,-40}}, color={255,0,255}));
   connect(uComSpe, DXCoiSta.uComSpe) annotation (Line(points={{-240,-100},{-170,

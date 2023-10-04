@@ -446,7 +446,7 @@ protected
     final timPerDis=timPerDis,
     final dUHys=dUHys)
     "DX heating coil controller"
-    annotation (Placement(transformation(extent={{-30,132},{-10,152}})));
+    annotation (Placement(transformation(extent={{-30,130},{-10,150}})));
 
   Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intScaRepHea(
     final nout=nCoiHea)
@@ -510,8 +510,8 @@ equation
           -30},{-60,176},{-32,176}}, color={0,0,127}));
   connect(ComSpeDRHea.yComSpe, yComSpeHea)
     annotation (Line(points={{82,-40},{120,-40}}, color={0,0,127}));
-  connect(DXCoiConCoo.yDXCoi, yDXCooCoi) annotation (Line(points={{-8,180},{56,180},
-          {56,160},{120,160}},      color={255,0,255}));
+  connect(DXCoiConCoo.yDXCoi, yDXCooCoi) annotation (Line(points={{-8,180},{50,
+          180},{50,160},{120,160}}, color={255,0,255}));
   connect(lesThr.y,tim. u)
     annotation (Line(points={{-48,-100},{-32,-100}}, color={255,0,255}));
   connect(tim.passed,booToRea. u)
@@ -551,16 +551,19 @@ equation
   connect(uCooCoiSeq, DXCoiConCoo.uCoiSeq) annotation (Line(points={{-120,60},
           {-66,60},{-66,180},{-32,180}}, color={255,127,0}));
 
-  connect(DXCoiConHea.yDXCoi, conAuxCoi.uDXCoi) annotation (Line(points={{-8,142},
-          {0,142},{0,-30},{-40,-30},{-40,-48},{-32,-48}}, color={255,0,255}));
-  connect(uDXHeaCoi, DXCoiConHea.uDXCoi) annotation (Line(points={{-120,160},{-80,
-          160},{-80,146},{-32,146}}, color={255,0,255}));
+  connect(DXCoiConHea.yDXCoi, conAuxCoi.uDXCoi) annotation (Line(points={{-8,140},
+          {0,140},{0,-30},{-40,-30},{-40,-48},{-32,-48}}, color={255,0,255}));
+  connect(uDXHeaCoi, DXCoiConHea.uDXCoi) annotation (Line(points={{-120,160},{
+          -80,160},{-80,144},{-32,144}},
+                                     color={255,0,255}));
   connect(uHeaCoiAva, DXCoiConHea.uDXCoiAva) annotation (Line(points={{-120,90},
-          {-40,90},{-40,150},{-32,150}}, color={255,0,255}));
-  connect(uHeaCoiSeq, DXCoiConHea.uCoiSeq) annotation (Line(points={{-120,30},{-80,
-          30},{-80,142},{-32,142}}, color={255,127,0}));
-  connect(uHeaCoi, DXCoiConHea.uCoi) annotation (Line(points={{-120,-60},{-54,-60},
-          {-54,138},{-32,138}}, color={0,0,127}));
+          {-40,90},{-40,148},{-32,148}}, color={255,0,255}));
+  connect(uHeaCoiSeq, DXCoiConHea.uCoiSeq) annotation (Line(points={{-120,30},{
+          -80,30},{-80,140},{-32,140}},
+                                    color={255,127,0}));
+  connect(uHeaCoi, DXCoiConHea.uCoi) annotation (Line(points={{-120,-60},{-54,
+          -60},{-54,136},{-32,136}},
+                                color={0,0,127}));
   connect(uDemLimLev, intScaRepHea.u) annotation (Line(points={{-120,0},{-46,0},
           {-46,50},{-32,50}},          color={255,127,0}));
   connect(intScaRepHea.y, ComSpeDRHea.uDemLimLev) annotation (Line(points={{-8,50},
@@ -579,8 +582,9 @@ equation
           {-40,-240},{-12,-240}}, color={0,0,127}));
   connect(conPCoo.y, DXCoiConCoo.uComSpe) annotation (Line(points={{11,-200},{36,
           -200},{36,120},{-48,120},{-48,172},{-32,172}}, color={0,0,127}));
-  connect(conPHea.y, DXCoiConHea.uComSpe) annotation (Line(points={{11,-240},{40,
-          -240},{40,126},{-36,126},{-36,134},{-32,134}}, color={0,0,127}));
+  connect(conPHea.y, DXCoiConHea.uComSpe) annotation (Line(points={{11,-240},{
+          40,-240},{40,126},{-36,126},{-36,132},{-32,132}},
+                                                         color={0,0,127}));
   connect(conPCoo.y, ComSpeDRCoo.uComSpe) annotation (Line(points={{11,-200},{46,
           -200},{46,68},{58,68}}, color={0,0,127}));
   connect(conPHea.y, mul.u1) annotation (Line(points={{11,-240},{50,-240},{50,26},
