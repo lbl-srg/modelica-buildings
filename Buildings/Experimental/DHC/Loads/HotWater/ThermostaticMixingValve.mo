@@ -103,7 +103,7 @@ protected
     "Inequality to monitor whether temperatures are sufficient to meet set point"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
 
-  parameter Modelica.Units.SI.Temperature dTSmall = 0.01 "Small temperature used to avoid division by zero";
+  parameter Modelica.Units.SI.Temperature dTSmall = 0.1 "Small temperature used to avoid division by zero";
 equation
   connect(senTemHot.port_a, port_hot) annotation (Line(points={{-80,-40},{-100,-40}},
                               color={0,127,255}));

@@ -88,14 +88,14 @@ model HeatPumpDHWTank
   // COMPONENTS
   Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumEva(
     redeclare final package Medium = Medium2,
-    final m_flow_nominal=heaPumTan.mDis_flow_nominal,
+    final m_flow_nominal=heaPumTan.mHea_flow_nominal,
     final allowFlowReversal=allowFlowReversal2,
     dp_nominal=datWatHea.dp2_nominal)
     "Heat pump evaporator water pump"
     annotation (Placement(transformation(extent={{70,-70},{50,-50}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     annotation (Placement(transformation(extent={{-180,110},{-160,130}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant floEvaNom(final k=heaPumTan.mDis_flow_nominal)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant floEvaNom(final k=heaPumTan.mHea_flow_nominal)
     if not have_varFloEva "Nominal flow rate"
     annotation (Placement(transformation(extent={{0,80},{-20,100}})));
   Fluid.Sensors.TemperatureTwoPort senTHotSup(
@@ -123,23 +123,19 @@ model HeatPumpDHWTank
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold staPum(
     y(each start=false),
-    t=1e-2*heaPumTan.mDis_flow_nominal,
-    h=0.5e-2*heaPumTan.mDis_flow_nominal)
+    t=1e-2*heaPumTan.mHea_flow_nominal,
+    h=0.5e-2*heaPumTan.mHea_flow_nominal)
                               "Pump return status"
     annotation (Placement(transformation(extent={{-80,-110},{-100,-90}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply floEva
     "Zero flow rate if not enabled"
     annotation (Placement(transformation(extent={{-20,110},{0,130}})));
-  Loads.HotWater.HeatPumpWithTank heaPumTan(
-    mHotSou_flow_nominal=mHotSou_flow_nominal,
-    datWatHea=datWatHea,
-    COP_nominal=COP_nominal,
-    TCon_nominal=TCon_nominal,
-    TEva_nominal=TEva_nominal)
+  Loads.HotWater.StorageTankWithExternalHeatExchanger heaPumTan(
+      mDom_flow_nominal=mHotSou_flow_nominal)
     "Heat pump with storage tank for domestic hot water"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
-  parameter Loads.HotWater.Data.GenericHeatPumpWaterHeater datWatHea
-    "Performance data"
+  parameter Loads.HotWater.Data.GenericDomesticHotWaterWithHeatExchanger
+    datWatHea "Performance data"
     annotation (Placement(transformation(extent={{4,-36},{16,-24}})));
   Modelica.Blocks.Math.Add add
     annotation (Placement(transformation(extent={{140,-18},{160,2}})));
@@ -171,16 +167,8 @@ equation
     annotation (Line(points={{2,120},{60,120},{60,-48}}, color={0,0,127}));
   connect(port_a1,senTColSou. port_a) annotation (Line(points={{-200,-60},{-40,-60},
           {-40,-30}}, color={0,127,255}));
-  connect(heaPumTan.port_a1,senTColSou. port_b)
-    annotation (Line(points={{0,-4},{-40,-4},{-40,-10}}, color={0,127,255}));
-  connect(heaPumTan.port_b1,senTHotSup. port_a)
-    annotation (Line(points={{20,-4},{40,-4},{40,10}}, color={0,127,255}));
-  connect(pumEva.port_b, heaPumTan.port_a2) annotation (Line(points={{50,-60},{40,
-          -60},{40,-16},{20,-16}}, color={0,127,255}));
-  connect(heaPumTan.port_b2, port_b2) annotation (Line(points={{0,-16},{-20,-16},
-          {-20,40},{160,40},{160,60},{200,60}}, color={0,127,255}));
-  connect(enaHeaPum.y,heaPumTan.THotSouSet)  annotation (Line(points={{-118,20},
-          {-10,20},{-10,-10},{-1,-10}}, color={0,0,127}));
+  connect(enaHeaPum.y, heaPumTan.TDomSet) annotation (Line(points={{-118,20},{-10,
+          20},{-10,-10},{-1,-10}}, color={0,0,127}));
   connect(heaPumTan.PHea, PHea) annotation (Line(points={{21,-10},{80,-10},{80,20},
           {180,20},{180,40},{220,40}}, color={0,0,127}));
   connect(staPum.y, enaHeaPum.u2) annotation (Line(points={{-102,-100},{-160,-100},
@@ -191,11 +179,9 @@ equation
         color={0,0,127}));
   connect(add.u2, pumEva.P) annotation (Line(points={{138,-14},{120,-14},{120,-20},
           {49,-20},{49,-51}}, color={0,0,127}));
-  connect(heaPumTan.PPum, add.u1) annotation (Line(points={{21,-14},{120,-14},{120,
-          -2},{138,-2}}, color={0,0,127}));
-  connect(heaPumTan.QCon_flow, QCon_flow) annotation (Line(points={{21,-12},{82,
-          -12},{82,-100},{220,-100}},
-                                 color={0,0,127}));
+  connect(heaPumTan.PPum, add.u1) annotation (Line(points={{21,-10},{120,-10},{
+          120,-2},{138,-2}},
+                         color={0,0,127}));
   connect(THotSouSet.y, enaHeaPum.u1) annotation (Line(points={{-178,10},{-166,
           10},{-166,28},{-142,28}}, color={0,0,127}));
   annotation (

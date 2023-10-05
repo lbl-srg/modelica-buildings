@@ -8,14 +8,15 @@ model HeaterAndFixtureHeatPumpWithTank
 
   HeatPumpWithTank gen(
     redeclare package Medium = Medium,
-    mHotSou_flow_nominal=mHotSou_flow_nominal,
-    mDis_flow_nominal=mDis_flow_nominal,
+    mDom_flow_nominal=mHotSou_flow_nominal,
+    mHea_flow_nominal=mDis_flow_nominal,
     datWatHea=datWatHea,
     COP_nominal=2.3,
     TCon_nominal=datWatHea.THex_nominal,
     TEva_nominal=TDis + 5) "Heat pump water heater with tank"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
-  Buildings.Experimental.DHC.Loads.HotWater.Data.GenericHeatPumpWaterHeater datWatHea(
+  Buildings.Experimental.DHC.Loads.HotWater.Data.GenericDomesticHotWaterWithHeatExchanger
+    datWatHea(
     mHex_flow_nominal=1.5,
     QCon_flow_max=60000,
     QCon_flow_nominal=50000,
@@ -26,19 +27,18 @@ model HeaterAndFixtureHeatPumpWithTank
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
 equation
 
-  connect(gen.port_a1, souCol.ports[2]) annotation (Line(points={{-50,6},{-56,6},
-          {-56,-30},{10,-30},{10,-40}}, color={0,127,255}));
-  connect(gen.port_a2, souDis.ports[1]) annotation (Line(points={{-30,-6},{-24,
-          -6},{-24,-20},{-30,-20},{-30,-40}},
-                                          color={0,127,255}));
-  connect(gen.port_b2, sinDis.ports[1])
+  connect(gen.port_aDomWat, souCol.ports[2]) annotation (Line(points={{-50,6},{
+          -56,6},{-56,-30},{10,-30},{10,-40}}, color={0,127,255}));
+  connect(gen.port_aHeaWat, souDis.ports[1]) annotation (Line(points={{-30,-6},
+          {-24,-6},{-24,-20},{-30,-20},{-30,-40}}, color={0,127,255}));
+  connect(gen.port_bHeaWat, sinDis.ports[1])
     annotation (Line(points={{-50,-6},{-60,-6},{-60,-40}}, color={0,127,255}));
-  connect(conTHotSouSet.y,gen.THotSouSet)
+  connect(conTHotSouSet.y, gen.TDomSet)
     annotation (Line(points={{-69,0},{-51,0}}, color={0,0,127}));
   connect(gen.PHea, PEle) annotation (Line(points={{-29,0},{-12,0},{-12,80},{110,
           80}}, color={0,0,127}));
-  connect(theMixVal.port_hot, gen.port_b1) annotation (Line(points={{0,-6},{-20,
-          -6},{-20,6},{-30,6}}, color={0,127,255}));
+  connect(theMixVal.port_hot, gen.port_bDomWat) annotation (Line(points={{0,-6},
+          {-20,-6},{-20,6},{-30,6}}, color={0,127,255}));
   annotation (experiment(
       StopTime=86400,
       Tolerance=1e-06),

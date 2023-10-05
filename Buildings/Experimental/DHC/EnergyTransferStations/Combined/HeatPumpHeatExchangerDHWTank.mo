@@ -28,8 +28,8 @@ model HeatPumpHeatExchangerDHWTank
     datWatHea=datWatHea) if have_hotWat
     "Subsystem for hot water production"
     annotation (Placement(transformation(extent={{32,24},{52,44}})));
-  parameter Loads.HotWater.Data.GenericHeatPumpWaterHeater datWatHea
-    "Performance data"
+  parameter Loads.HotWater.Data.GenericDomesticHotWaterWithHeatExchanger
+    datWatHea "Performance data"
     annotation (Placement(transformation(extent={{36,48},{48,60}})));
   Loads.HotWater.ThermostaticMixingValve theMixVal(
     redeclare package Medium = MediumBui,
