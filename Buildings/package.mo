@@ -256,6 +256,17 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1798\">IBPSA, issue 1798</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Occupants</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Occupants.BaseClasses.binaryVariableGeneration<br/>
+                       Buildings.Occupants.BaseClasses.exponentialVariableGeneration<br/>
+                       Buildings.Occupants.BaseClasses.weibullVariableGeneration
+    </td>
+    <td valign=\"top\">Initialized <code>localSeed</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3549\">#3549</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
