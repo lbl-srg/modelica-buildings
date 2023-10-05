@@ -85,8 +85,7 @@ model Direct
     annotation (Placement(visible = true, transformation(origin={80,20},
       extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.DirectCalculations
-    dirEvaCoo(
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.DirectCalculations dirEvaCoo(
     redeclare final package Medium = Medium,
     final dep=dep,
     final padAre=padAre,
@@ -159,5 +158,6 @@ September 14, 2023 by Cerrina Mouchref, Karthikeya Devaprasad, Lingzhe Wang:<br/
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+  Diagram(graphics = {Line(origin = {28, 62}, points = {{0, 0}})}));
 end Direct;

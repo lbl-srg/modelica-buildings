@@ -1,11 +1,9 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers;
 model IndirectWet "Indirect wet evaporative cooler"
-  extends Buildings.Fluid.Interfaces.PartialFourPortParallel(
-    redeclare final package Medium1=MediumPri,
-    redeclare final package Medium2=MediumSec);
+  extends Buildings.Fluid.Interfaces.PartialFourPortParallel;
 
-  replaceable package MediumPri = Modelica.Media.Interfaces.PartialMedium
-    "Medium 1 in the component"
+  replaceable package Medium1 = Modelica.Media.Interfaces.PartialMedium
+    "Medium to be cooled"
     annotation (choices(
       choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
       choice(redeclare package Medium = Buildings.Media.Water "Water"),
@@ -14,19 +12,19 @@ model IndirectWet "Indirect wet evaporative cooler"
         property_T=293.15,
         X_a=0.40) "Propylene glycol water, 40% mass fraction")));
 
-  replaceable package MediumSec = Modelica.Media.Interfaces.PartialMedium
-    "Medium 2 in the component"
+  replaceable package Medium2 = Modelica.Media.Interfaces.PartialMedium
+    "Secondary Air stream to which heat is rejected to outdoor air"
     annotation (choices(
       choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
 
   parameter Modelica.Units.SI.PressureDifference dp_nominal
     "Pressure drop at nominal mass flow rate";
 
-  parameter Modelica.Units.SI.MassFlowRate mPri_flow_nominal
-    "Primary nominal mass flow rate";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal1
+    "Cooled air nominal mass flow rate";
 
-  parameter Modelica.Units.SI.MassFlowRate mSec_flow_nominal
-    "Secondary nominal mass flow rate";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal2
+    "Rejected air nominal mass flow rate";
 
   parameter Real maxEff(
     displayUnit="1")
@@ -34,15 +32,15 @@ model IndirectWet "Indirect wet evaporative cooler"
 
   parameter Real floRat(
     displayUnit="1")
-    "Coil flow ratio";
+    "Coil flow ratio of actual to maximum heat transfer";
 
   parameter Modelica.Units.SI.Time tau=30
     "Time constant at nominal flow rate (if energyDynamics <> SteadyState)"
     annotation (Dialog(tab="Dynamics", group="Nominal condition"));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemDryPri(
-    redeclare final package Medium = MediumPri,
-    final m_flow_nominal=mPri_flow_nominal,
+    redeclare final package Medium = Medium1,
+    final m_flow_nominal=m_flow_nominal1,
     final initType=Modelica.Blocks.Types.Init.InitialOutput,
     final T_start=298.15) "Primary fluid dry bulb temperature sensor"
     annotation (Placement(visible=true, transformation(
@@ -50,8 +48,8 @@ model IndirectWet "Indirect wet evaporative cooler"
       extent={{-10,-10},{10,10}})));
 
   Buildings.Fluid.Sensors.TemperatureWetBulbTwoPort senTemWetPri(
-    redeclare final package Medium = MediumPri,
-    final m_flow_nominal=mPri_flow_nominal,
+    redeclare final package Medium = Medium1,
+    final m_flow_nominal=m_flow_nominal1,
     final initType=Modelica.Blocks.Types.Init.InitialOutput,
     final TWetBul_start=296.15)
     "Primary fluid wet bulb temperature sensor"
@@ -60,27 +58,28 @@ model IndirectWet "Indirect wet evaporative cooler"
       extent={{-10,-10},{10,10}})));
 
   Buildings.Fluid.Sensors.VolumeFlowRate senVolFloPri(
-    redeclare final package Medium=MediumPri,
-    final m_flow_nominal=mPri_flow_nominal)
+    redeclare final package Medium=Medium1,
+    final m_flow_nominal=m_flow_nominal1)
     "Primary fluid volume flow rate sensor"
     annotation (Placement(visible=true, transformation(
       origin={-20,20},
       extent={{-10,-10},{10,10}})));
 
   Buildings.Fluid.FixedResistances.PressureDrop resPri(
-    redeclare final package Medium = MediumPri,
+    redeclare final package Medium = Medium1,
     final dp_nominal=dp_nominal,
-    final m_flow_nominal=mPri_flow_nominal)
+    final m_flow_nominal=m_flow_nominal1)
     "Primary fluid pressure drop"
     annotation (Placement(visible=true, transformation(
       origin={30,20},
       extent={{-10,-10},{10,10}})));
 
   Buildings.Fluid.MixingVolumes.MixingVolume volPri(
-    redeclare package Medium = MediumPri,
-    final m_flow_nominal=mPri_flow_nominal,
-    final V=mPri_flow_nominal*tau/rhoPri_default,
-    nPorts=2)       "Mixing volume for primary fluid"
+    redeclare package Medium = Medium1,
+    final m_flow_nominal=m_flow_nominal1,
+    final V=m_flow_nominal1*tau/rhoPri_default,
+    nPorts=2)       
+    "Mixing volume for primary fluid"
     annotation (Placement(visible=true,
       transformation(origin={80,40},
       extent={{-10,-10},{10,10}})));
@@ -92,8 +91,8 @@ model IndirectWet "Indirect wet evaporative cooler"
     annotation (Placement(transformation(extent={{16,56},{40,80}})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemDrySec(
-    redeclare final package Medium = MediumSec,
-    final m_flow_nominal=mSec_flow_nominal,
+    redeclare final package Medium = Medium2,
+    final m_flow_nominal=m_flow_nominal2,
     final initType=Modelica.Blocks.Types.Init.InitialOutput,
     final T_start=298.15)
     "Secondary air dry bulb temperature sensor"
@@ -103,8 +102,8 @@ model IndirectWet "Indirect wet evaporative cooler"
       rotation=0)));
 
   Buildings.Fluid.Sensors.TemperatureWetBulbTwoPort senTemWetSec(
-    redeclare final package Medium = MediumSec,
-    final m_flow_nominal=mSec_flow_nominal,
+    redeclare final package Medium = Medium2,
+    final m_flow_nominal=m_flow_nominal2,
     final initType=Modelica.Blocks.Types.Init.InitialOutput,
     final TWetBul_start=296.15)
     "Secondary air wet bulb temperature sensor"
@@ -114,9 +113,9 @@ model IndirectWet "Indirect wet evaporative cooler"
       rotation=0)));
 
   Buildings.Fluid.FixedResistances.PressureDrop resSec(
-    redeclare package Medium = MediumSec,
+    redeclare package Medium = Medium2,
     final dp_nominal=10,
-    final m_flow_nominal=mSec_flow_nominal)
+    final m_flow_nominal=m_flow_nominal2)
     "Secondary air pressure drop"
     annotation (Placement(visible=true, transformation(
       origin={40,-60},
@@ -124,8 +123,8 @@ model IndirectWet "Indirect wet evaporative cooler"
       rotation=0)));
 
   Buildings.Fluid.Sensors.VolumeFlowRate senVolFloSec(
-    redeclare final package Medium = MediumSec,
-    final m_flow_nominal=mSec_flow_nominal)
+    redeclare final package Medium = Medium2,
+    final m_flow_nominal=m_flow_nominal2)
     "Secondary air volume flow rate sensor"
     annotation (Placement(visible=true,
       transformation(
@@ -138,18 +137,18 @@ model IndirectWet "Indirect wet evaporative cooler"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
 protected
-  parameter MediumPri.ThermodynamicState staPri_default=MediumPri.setState_pTX(
-    T=MediumPri.T_default, p=MediumPri.p_default, X=MediumPri.X_default)
+  parameter Medium1.ThermodynamicState staPri_default=Medium1.setState_pTX(
+    T=Medium1.T_default, p=Medium1.p_default, X=Medium1.X_default)
     "Default state of medium";
 
-  parameter Modelica.Units.SI.Density rhoPri_default=MediumPri.density(staPri_default)
+  parameter Modelica.Units.SI.Density rhoPri_default=Medium1.density(staPri_default)
     "Density, used to compute fluid volume";
 
-  parameter MediumPri.ThermodynamicState staSec_default=MediumSec.setState_pTX(
-    T=MediumSec.T_default, p=MediumSec.p_default, X=MediumSec.X_default)
+  parameter Medium1.ThermodynamicState staReject_default=Medium2.setState_pTX(
+    T=Medium2.T_default, p=Medium2.p_default, X=Medium2.X_default)
     "Default state of medium";
 
-  parameter Modelica.Units.SI.Density rhoSec_default=MediumPri.density(staSec_default)
+  parameter Modelica.Units.SI.Density rhoReject_default=Medium1.density(staReject_default)
     "Density, used to compute fluid volume";
 
 equation
@@ -195,10 +194,10 @@ equation
   annotation (defaultComponentName = "indWetEva",
     Documentation(info="<html>
 <p>Model for a indirect dry evaporative cooler.</p>
-<p>This model conists of the following components:
+<p>This model consists of the following components:
 <ul>
 <li>
-drybulb temperature sensor 
+Drybulb temperature sensor 
 (<a href=\"modelica://Buildings.Fluid.Sensors.TemperatureTwoPort\">
 Buildings.Fluid.Sensors.TemperatureTwoPort</a>), wetbulb temperature sensor 
 (<a href=\"modelica://Buildings.Fluid.Sensors.TemperatureWetBulbTwoPort\">
@@ -208,12 +207,12 @@ Buildings.Fluid.Sensors.VolumeFlowRate</a>) for the primary and secondary fluid
 inlet.
 </li>
 <li>
-indirect wet evaporative cooling calculations for calculating primary outlet drybulb 
+Indirect wet evaporative cooling calculations for calculating primary outlet drybulb 
 temperature (<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.IndirectWetCalculations\">
 Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.IndirectWetCalculations</a>).
 </li>
 <li>
-prescribed temperature block (<a href=\"modelica://Buildings.HeatTransfer.Sources.PrescribedTemperature\">
+Prescribed temperature block (<a href=\"modelica://Buildings.HeatTransfer.Sources.PrescribedTemperature\">
 Buildings.HeatTransfer.Sources.PrescribedTemperature</a>) and mixing volume 
 (<a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolume\">
 Buildings.Fluid.MixingVolumes.MixingVolume</a>) for enforcing calculated outlet 

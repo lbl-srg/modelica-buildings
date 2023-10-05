@@ -8,7 +8,7 @@ block IndirectWetCalculations
 
   parameter Real floRat(
     displayUnit="1")
-    "Coil flow ratio";
+    "Coil flow efficency ratio of actual to maximum heat transfer rate";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VPri_flow(
     final unit="m3/s",
