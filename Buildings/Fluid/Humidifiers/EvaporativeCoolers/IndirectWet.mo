@@ -1,6 +1,6 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers;
 model IndirectWet "Indirect wet evaporative cooler"
-  extends Buildings.Fluid.Interfaces.PartialFourPortParallel;
+  extends Buildings.Fluid.Interfaces.PartialFourPortParallel(port_a2.Medium = Medium2, port_a1.Medium = Medium1);
 
   replaceable package Medium1 = Modelica.Media.Interfaces.PartialMedium
     "Medium to be cooled"
@@ -85,8 +85,7 @@ model IndirectWet "Indirect wet evaporative cooler"
       extent={{-10,-10},{10,10}})));
 
   Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.IndirectWetCalculations indWetCal(
-    final maxEff=maxEff,
-    final floRat=floRat)
+     maxEff = maxEff,floRat = floRat)
     "Indirect wet evaporative cooling calculations"
     annotation (Placement(transformation(extent={{16,56},{40,80}})));
 

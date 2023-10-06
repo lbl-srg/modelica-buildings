@@ -106,10 +106,10 @@ model IndirectDry "Validation model for indirect dry evaporative cooler"
         rotation=0)));
 
   Buildings.Fluid.Humidifiers.EvaporativeCoolers.IndirectDry indDryEvaCoo(
-    redeclare package MediumPri = MediumA,
-    redeclare package MediumSec = MediumA,
+    redeclare package Medium1 = MediumA,
+    redeclare package Medium2 = MediumA,
     eps=0.67,
-    dp_nom=200,
+    dp_nominal=200,
     m_flow_nominal_AirPri=m_flow_nominal_AirPri,
     m_flow_nominal_AirSec=2,
     padAre=0.6,
