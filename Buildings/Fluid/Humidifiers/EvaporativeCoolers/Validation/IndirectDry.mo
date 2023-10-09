@@ -23,7 +23,7 @@ model IndirectDry
       rotation=180)));
 
   Buildings.Fluid.Sources.Boundary_pT sin1(
-    redeclare package Medium = MediumA,
+    redeclare final package Medium = MediumA,
     final nPorts=1)
     "Sink for secondary airflow"
     annotation (Placement(visible=true, transformation(
@@ -32,7 +32,7 @@ model IndirectDry
       rotation=180)));
 
   Buildings.Fluid.Sources.MassFlowSource_T souPri(
-    redeclare package Medium = MediumA,
+    redeclare final package Medium = MediumA,
     final use_T_in=true,
     final use_Xi_in=true,
     final use_m_flow_in=true,
