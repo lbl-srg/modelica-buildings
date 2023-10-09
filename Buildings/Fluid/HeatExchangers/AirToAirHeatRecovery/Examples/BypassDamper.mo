@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.Examples;
-model BypDam
+model BypassDamper
   "Test model for the air-to-air thermal wheel with bypass dampers"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Air
@@ -125,7 +125,7 @@ equation
   connect(DamPos.y, whe.yBypDam) annotation (Line(points={{-59,-30},{-26,-30},{
           -26,4},{4,4}}, color={0,0,127}));
  annotation(experiment(Tolerance=1e-6, StopTime=360),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/AirToAirHeatRecovery/Examples/BypDam.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/AirToAirHeatRecovery/Examples/BypassDamper.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -152,4 +152,4 @@ First implementation<br/>
 </li>
 </ul>
 </html>"));
-end BypDam;
+end BypassDamper;
