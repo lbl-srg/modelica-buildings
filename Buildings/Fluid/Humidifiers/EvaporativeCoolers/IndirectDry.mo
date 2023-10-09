@@ -1,43 +1,47 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers;
-model IndirectDry "Indirect dry evaporative cooler"
+model IndirectDry
+  "Indirect dry evaporative cooler"
 
   extends Buildings.Fluid.Interfaces.PartialFourPortParallel;
 
   replaceable package Medium1 =
     Modelica.Media.Interfaces.PartialMedium
     "Medium to be cooled"
-      annotation (choices(
-        choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
-        choice(redeclare package Medium = Buildings.Media.Water "Water"),
-        choice(redeclare package Medium =
+    annotation (choices(
+      choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
+      choice(redeclare package Medium = Buildings.Media.Water "Water"),
+      choice(redeclare package Medium =
             Buildings.Media.Antifreeze.PropyleneGlycolWater (
-          property_T=293.15,
-          X_a=0.40)
-          "Propylene glycol water, 40% mass fraction")));
+        property_T=293.15,
+        X_a=0.40)
+        "Propylene glycol water, 40% mass fraction")));
 
   replaceable package Medium2 =
     Modelica.Media.Interfaces.PartialMedium
     "Medium  rejected to outdoor air"
     annotation (choices(
-        choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
+      choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
 
   parameter Real eps(
     final unit = "1")=0.8
     "Heat exchanger effectiveness";
 
-  parameter Real effCoe[11]={ 0.792714, 0.958569, -0.25193, -1.03215, 0.0262659,
-                              0.914869, -1.48241, -0.018992, 1.13137, 0.0327622,
-                              -0.145384}
+  parameter Real effCoe[11]={0.792714, 0.958569, -0.25193, -1.03215, 0.0262659,
+                             0.914869, -1.48241, -0.018992, 1.13137, 0.0327622,
+                             -0.145384}
     "Coefficients for evaporative medium efficiency calculation";
 
-  parameter Modelica.Units.SI.Pressure dp_nominal
-    "Nominal pressure drop";
+  parameter Modelica.Units.SI.Pressure dp1_nominal
+    "Nominal pressure drop of medium flow to be cooled";
 
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal_AirPri
-    "Primary air nominal mass flow rate";
+  parameter Modelica.Units.SI.Pressure dp2_nominal
+    "Nominal pressure drop of medium rejected to outdoor air";
 
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal_AirSec
-    "Secondary air nominal mass flow rate";
+  parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal
+    "Nominal mass flow rate of medium to be cooled";
+
+  parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal
+    "Nominal mass flow rate of medium rejected to outdoor air";
 
   parameter Modelica.Units.SI.Area padAre
     "Area of the rigid media evaporative pad";
@@ -63,7 +67,8 @@ model IndirectDry "Indirect dry evaporative cooler"
 
   Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct dirEvaCoo(
     redeclare final package Medium = Medium2,
-    final m_flow_nominal=m_flow_nominal_AirSec,
+    final m_flow_nominal=m2_flow_nominal,
+    final dp_nominal=dp2_nominal,
     final padAre=padAre,
     final dep=dep,
     final effCoe=effCoe)
@@ -75,9 +80,17 @@ model IndirectDry "Indirect dry evaporative cooler"
 
   Buildings.Fluid.HeatExchangers.ConstantEffectiveness hex(
     redeclare final package Medium1 = Medium1,
-    redeclare final package Medium2 = Medium2, dp1_nominal = dp_nominal, dp2_nominal = dp_nominal, eps = eps, m1_flow_nominal = m_flow_nominal_AirPri, m2_flow_nominal = m_flow_nominal_AirSec)
+    redeclare final package Medium2 = Medium2,
+    final dp1_nominal=dp1_nominal,
+    final dp2_nominal=dp2_nominal,
+    final eps = eps,
+    final m1_flow_nominal = m1_flow_nominal,
+    final m2_flow_nominal = m2_flow_nominal)
     "Heat exchanger for heat transfer between primary and secondary air"
-    annotation (Placement(visible = true, transformation(origin={0,8},extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    annotation (Placement(visible = true,
+      transformation(origin={0,8},
+      extent = {{-10, -10}, {10, 10}},
+      rotation = 0)));
 
 equation
   connect(port_a2, dirEvaCoo.port_a)
