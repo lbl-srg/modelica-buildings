@@ -7,6 +7,9 @@ model Direct
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Nominal air mass flow rate";
 
+  parameter Modelica.Units.SI.PressureDifference dp_nominal
+    "Pressure drop at nominal mass flow rate";
+
   parameter Modelica.Units.SI.Area padAre
     "Area of the rigid media evaporative pad";
 
@@ -70,7 +73,7 @@ model Direct
 
   Buildings.Fluid.FixedResistances.PressureDrop res(
     redeclare final package Medium = Medium,
-    final dp_nominal = 10,
+    final dp_nominal=dp_nominal,
     final m_flow_nominal = m_flow_nominal)
     "Pressure drop"
     annotation (Placement(visible = true, transformation(origin={30,0},
@@ -159,5 +162,5 @@ First implementation.
 </li>
 </ul>
 </html>"),
-  Diagram(graphics = {Line(origin = {28, 62}, points = {{0, 0}})}));
+  Diagram(graphics={  Line(origin = {28, 62}, points = {{0, 0}})}));
 end Direct;

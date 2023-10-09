@@ -2,43 +2,156 @@ within Buildings.Fluid.Humidifiers.EvaporativeCoolers.Validation;
 
 model IndirectWet "Validation model for indirect wet evaporative cooler"
   extends Modelica.Icons.Example;
-  replaceable package MediumA = Buildings.Media.Air "Medium";
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal1 = 2*1.225 "Primary nominal mass flow rate";
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal2 = 1*1.225 "Secondary nominal mass flow rate";
-  Buildings.Fluid.Sources.Boundary_pT sin(redeclare package Medium = MediumA, nPorts = 1) "Sink for primary airflow" annotation(
-    Placement(visible = true, transformation(origin = {130, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Buildings.Fluid.Sources.Boundary_pT sin1(redeclare package Medium = MediumA, nPorts = 1) "Sink for secondary airflow" annotation(
-    Placement(visible = true, transformation(origin = {130, -36}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Buildings.Fluid.Sources.MassFlowSource_T souPri(redeclare package Medium = MediumA, use_T_in = true, use_Xi_in = true, use_m_flow_in = true, nPorts = 1) "Source for primary flow" annotation(
-    Placement(visible = true, transformation(origin = {-80, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.CombiTimeTable combiTimeTable(columns = 2:12, fileName = ModelicaServices.ExternalReferences.loadResource("./Buildings/Resources/Data/Fluid/Humidifiers/EvaporativeCoolers/IndirectWet/IndirectWet.dat"), tableName = "EnergyPlus", tableOnFile = true, timeScale = 1) "Table input from EnergyPlus" annotation(
-    Placement(visible = true, transformation(origin = {-178, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTem(redeclare package Medium = MediumA, m_flow_nominal = m_flow_nominal1) "Outlet air drybulb temperature sensor" annotation(
-    Placement(visible = true, transformation(origin = {30, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.UnitConversions.From_degC from_degCPriIn "Primary air inlet temperature to Kelvin" annotation(
-    Placement(visible = true, transformation(origin = {-130, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Buildings.Fluid.Sensors.MassFractionTwoPort senMasFra(redeclare package Medium = MediumA, m_flow_nominal = m_flow_nominal1) "Measured primary outlet air mass fraction" annotation(
-    Placement(visible = true, transformation(origin = {60, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Mean TOut_mean(f = 1/600) "Measured outlet air drybulb temperature mean" annotation(
-    Placement(visible = true, transformation(origin = {90, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Mean XOut_mean(f = 1/600) "Measured primary outlet air mass fraction mean" annotation(
-    Placement(visible = true, transformation(origin = {90, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Buildings.Fluid.Sources.MassFlowSource_T souSec(redeclare package Medium = MediumA, use_T_in = true, use_Xi_in = true, use_m_flow_in = true, nPorts = 1) "Secondary air source" annotation(
-    Placement(visible = true, transformation(origin = {-80, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.UnitConversions.From_degC from_degCSecIn "Secondary air inlet temperature to Kelvin" annotation(
-    Placement(visible = true, transformation(origin = {-130, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.IndirectWet indWetEvaCoo(redeclare package Medium1 = MediumA, redeclare package Medium2 = MediumA, dp_nominal(displayUnit = "Pa") = 200, floRat(displayUnit = "") = 0.16, m_flow_nominal1 = m_flow_nominal1, m_flow_nominal2 = m_flow_nominal2, maxEff(displayUnit = "") = 0.8) "Indirect wet evaporative cooler" annotation(
-    Placement(visible = true, transformation(origin = {-2, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Buildings.Utilities.Psychrometrics.ToTotalAir toTotAirPriIn "Primary inlet air mass fraction" annotation(
-    Placement(transformation(extent = {{-140, 0}, {-120, 20}})));
-  Buildings.Utilities.Psychrometrics.ToTotalAir toTotAirSecIn "Secondary inlet air mass fraction" annotation(
-    Placement(transformation(extent = {{-140, -80}, {-120, -60}})));
-  Buildings.Utilities.Psychrometrics.ToTotalAir toTotAirPriOut "Primary outlet air mass fraction" annotation(
-    Placement(transformation(extent = {{-80, 80}, {-60, 100}})));
-  Modelica.Blocks.Math.UnitConversions.To_degC to_degC "Measured outlet air temperature to degree C" annotation(
-    Placement(transformation(extent = {{40, 80}, {60, 100}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(final k = m_flow_nominal2) "Mass flowrate for secondary fluid" annotation(
-    Placement(transformation(extent = {{-140, -120}, {-120, -100}})));
+
+  replaceable package MediumA = Buildings.Media.Air
+    "Medium";
+
+  parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal=2*1.225
+    "Primary nominal mass flow rate";
+
+  parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal=1*1.225
+    "Secondary nominal mass flow rate";
+
+  Buildings.Fluid.Sources.Boundary_pT sin(
+    redeclare final package Medium = MediumA,
+    final nPorts=1)
+    "Sink for primary airflow"
+    annotation (Placement(visible=true, transformation(
+      origin={130,0},
+      extent={{-10,-10},{10,10}},
+      rotation=180)));
+
+  Buildings.Fluid.Sources.Boundary_pT sin1(
+    redeclare final package Medium = MediumA,
+    final nPorts=1)
+    "Sink for secondary airflow"
+    annotation (Placement(visible=true, transformation(
+      origin={130,-36},
+      extent={{-10,-10},{10,10}},
+      rotation=180)));
+
+  Buildings.Fluid.Sources.MassFlowSource_T souPri(
+    redeclare final package Medium = MediumA,
+    final use_T_in=true,
+    final use_Xi_in=true,
+    final use_m_flow_in=true,
+    final nPorts=1)
+    "Source for primary flow"
+    annotation (Placement(visible=true,
+      transformation(
+      origin={-80,10},
+      extent={{-10,-10},{10,10}},
+      rotation=0)));
+
+  Modelica.Blocks.Sources.CombiTimeTable combiTimeTable(
+    final columns=2:12,
+    final fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Fluid/Humidifiers/EvaporativeCoolers/IndirectWet/IndirectWet.dat"),
+    final tableName = "EnergyPlus",
+    final tableOnFile = true,
+    final timeScale = 1)
+    "Table input from EnergyPlus"
+    annotation (Placement(visible = true,
+      transformation(origin={-178,90},
+      extent = {{-10, -10}, {10, 10}},
+      rotation = 0)));
+
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTem(
+    redeclare final package Medium = MediumA,
+    final m_flow_nominal=m1_flow_nominal)
+    "Outlet air drybulb temperature sensor"
+    annotation (Placement(visible = true, transformation(origin={30,20},
+      extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  Modelica.Blocks.Math.UnitConversions.From_degC from_degCPriIn
+    "Primary air inlet temperature to Kelvin"
+    annotation (Placement(visible=true,
+      transformation(
+      origin={-130,50},
+      extent={{-10,-10},{10,10}},
+      rotation=0)));
+
+  Buildings.Fluid.Sensors.MassFractionTwoPort senMasFra(
+    redeclare final package Medium = MediumA,
+    final m_flow_nominal=m1_flow_nominal)
+    "Measured primary outlet air mass fraction"
+    annotation (Placement(visible = true,
+      transformation(origin={60,20},
+      extent = {{-10, -10}, {10, 10}},
+      rotation = 0)));
+
+  Modelica.Blocks.Math.Mean TOut_mean(
+    final f=1/600)
+    "Measured outlet air drybulb temperature mean"
+    annotation (Placement(visible=true, transformation(
+      origin={90,90},
+      extent={{-10,-10},{10,10}},
+      rotation=0)));
+
+  Modelica.Blocks.Math.Mean XOut_mean(
+    final f=1/600)
+    "Measured primary outlet air mass fraction mean"
+    annotation (Placement(visible=true, transformation(
+      origin={90,60},
+      extent={{-10,-10},{10,10}},
+      rotation=0)));
+
+  Buildings.Fluid.Sources.MassFlowSource_T souSec(
+    redeclare final package Medium = MediumA,
+    final use_T_in=true,
+    final use_Xi_in=true,
+    final use_m_flow_in=true,
+    final nPorts=1)
+    "Secondary air source"
+    annotation (Placement(visible=true,
+      transformation(
+      origin={-80,-30},
+      extent={{-10,-10},{10,10}},
+      rotation=0)));
+
+  Modelica.Blocks.Math.UnitConversions.From_degC from_degCSecIn
+    "Secondary air inlet temperature to Kelvin"
+    annotation (Placement(visible=true,
+      transformation(
+      origin={-130,-30},
+      extent={{-10,-10},{10,10}},
+      rotation=0)));
+
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.IndirectWet indWetEvaCoo(
+    redeclare final package Medium1 = MediumA,
+    redeclare final package Medium2 = MediumA,
+    final dp1_nominal = 200,
+    final dp2_nominal = 200,
+    final m1_flow_nominal=m1_flow_nominal,
+    final m2_flow_nominal=m2_flow_nominal,
+    final maxEff=0.8,
+    final floRat=0.16)
+    "Indirect wet evaporative cooler"
+    annotation (Placement(visible=true,
+      transformation(origin={-2,0},
+      extent={{-10,-10},{10,10}},
+      rotation=0)));
+
+  Buildings.Utilities.Psychrometrics.ToTotalAir toTotAirPriIn
+    "Primary inlet air mass fraction"
+    annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
+
+  Buildings.Utilities.Psychrometrics.ToTotalAir toTotAirSecIn
+    "Secondary inlet air mass fraction"
+    annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
+
+  Buildings.Utilities.Psychrometrics.ToTotalAir toTotAirPriOut
+    "Primary outlet air mass fraction"
+    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
+
+  Modelica.Blocks.Math.UnitConversions.To_degC to_degC
+    "Measured outlet air temperature to degree C"
+    annotation (Placement(transformation(extent={{40,80},{60,100}})));
+
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
+    final k=m2_flow_nominal)
+    "Mass flowrate for secondary fluid"
+    annotation (Placement(transformation(extent={{-140,-120},{-120,-100}})));
+
 equation
   connect(combiTimeTable.y[5], from_degCPriIn.u) annotation(
     Line(points = {{-167, 90}, {-150, 90}, {-150, 50}, {-142, 50}}, color = {0, 0, 127}));
