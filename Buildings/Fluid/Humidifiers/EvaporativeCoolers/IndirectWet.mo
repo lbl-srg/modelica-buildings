@@ -89,8 +89,8 @@ model IndirectWet "Indirect wet evaporative cooler"
       extent={{-10,-10},{10,10}})));
 
   Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.IndirectWetCalculations indWetCal(
-    final maxEff = maxEff,
-	final floRat = floRat)
+    final maxEff=maxEff,
+    final floRat=floRat)
     "Indirect wet evaporative cooling calculations"
     annotation (Placement(transformation(extent={{16,56},{40,80}})));
 
