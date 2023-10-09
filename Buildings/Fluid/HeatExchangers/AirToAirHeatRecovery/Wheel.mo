@@ -256,7 +256,7 @@ equation
           fillPattern=FillPattern.Solid)}), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-Model for a a generic, sensible and latent air-to-air heat exchanger, (heat recovery wheel), that consists of 
+Model for a generic, sensible and latent air-to-air heat recovery wheel, that consists of 
 a heat exchanger and primary/secondary airflow bypass dampers.
 
 The input requires no geometric data. Performance is defined by specifying sensible and/or latent effectiveness 

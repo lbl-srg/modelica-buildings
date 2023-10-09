@@ -142,9 +142,10 @@ The input signals are configured as follows:
 <ul>
 <li>Latent heat exchanger effectiveness, <i>epsL</i>, changes from <i>0.7</i> to <i>0.8</i> during the period from <i>60s</i> to <i>120s</i>;
 </ul>
-
+<p>
 <b>Note:</b> This problem may fail to translate in Dymola 2012 due to an error in Dymola's support
 of stream connector.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
