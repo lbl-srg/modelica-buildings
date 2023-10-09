@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "whe.sta_b1.T",
+    "TSup.y",
+    "whe.m1_flow",
+    "whe.m2_flow",
+    "TExh.y",
+    "whe.sta_b2.T",
+    "whe.yWheSpe",
+    "whe.effCal.epsS",
+    "whe.effCal.epsL"
+  };

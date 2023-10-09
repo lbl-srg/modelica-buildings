@@ -12,6 +12,7 @@ WetCoilCounterFlow
 WetCoilDiscretized
 WetCoilEffectivenessNTU
 ActiveBeams
+AirToAirHeatRecovery
 CoolingTowers
 RadiantSlabs
 Radiators

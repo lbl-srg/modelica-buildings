@@ -1,0 +1,10 @@
+compareVars :=
+  {
+    "y.y",
+    "TSup.y",
+    "TExh.y",
+    "vSup.y",
+    "vExh.y",
+    "epsCal.epsS",
+    "epsCal.epsL"
+  };
