@@ -2,12 +2,14 @@ within Buildings.Examples.Tutorial.SimpleHouse;
 model SimpleHouse4 "Heating model"
   extends SimpleHouse3;
 
+  constant Boolean use_constantHeater=true
+    "To enable/disable the connection between the constant source and heater and circulation pump";
+
   parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal=3000
     "Nominal capacity of heating system";
   parameter Modelica.Units.SI.MassFlowRate mWat_flow_nominal=0.1
     "Nominal mass flow rate for water loop";
-  parameter Boolean use_constantHeater=true
-    "To enable/disable the connection between the constant source and heater and circulation pump";
+
 
   Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad(
     redeclare package Medium = MediumWater,
@@ -121,7 +123,17 @@ Pressure difference modelling may be disregarded in the heating circuit
 since the chosen pump sets a fixed mass flow rate regardless of the pressure drop.
 </p>
 <p>
-Set the heater input to 1, meaning that it will produce 1 times its nominal power.
+Set the heater input to <i>1</i>, meaning that it will produce <i>1</i> times its nominal power.
+</p>
+<h4>Implementation</h4>
+<p>
+The pump and the heater need a control input, which we set here to a constant
+of <i>1</i>.
+However, in the next version of this model, we want to connect an actual controller to these models.
+We can therefore introduce a <code>Boolean constant</code> (or a <code>Boolean parameter</code>
+would also work), and use this to conditionally remove the Modelica block
+that outputs the control signal. When Modelica removes such a block, then all
+connections to it will also be removed.
 </p>
 <h4>Reference result</h4>
 <p>
