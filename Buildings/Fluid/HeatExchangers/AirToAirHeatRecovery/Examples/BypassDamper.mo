@@ -91,9 +91,6 @@ model BypassDamper
     offset=0,
     startTime=60) "Damper position"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  inner Modelica.Fluid.System system
-    "Ambient environment"
-    annotation (Placement(transformation(extent={{-20,60},{0,80}})));
 equation
   connect(PIn.y,sou_2. p_in) annotation (Line(
       points={{1,-40},{20,-40},{20,-52},{38,-52}},
