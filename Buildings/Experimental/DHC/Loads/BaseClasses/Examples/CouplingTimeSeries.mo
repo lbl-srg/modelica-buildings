@@ -7,7 +7,7 @@ model CouplingTimeSeries
   parameter Modelica.Units.SI.Time perAve=600
     "Period for time averaged variables";
   Buildings.Experimental.DHC.Loads.BaseClasses.Examples.BaseClasses.BuildingTimeSeries bui(
-    filNam="modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissResidential_20190916.mos",
+    filNam="modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/BTS_validation_test.mos",
     nPorts_aHeaWat=1,
     nPorts_aChiWat=1,
     nPorts_bHeaWat=1,
