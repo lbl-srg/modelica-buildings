@@ -103,19 +103,19 @@ equation
           textString="eps")}), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     defaultComponentName="EffCal",
-    Documentation(info="<html>
+Documentation(info="<html>
 <p>
-This block calculates the sensible and latent effectiveness of the heat exchanger for heating and cooling conditions
-at different air flow rates of the supply air stream and the exhaust air stream.
+This block calculates the sensible and latent effectiveness of the heat exchanger
+for heating and cooling conditions at different air flow rates of the supply
+air stream and the exhaust air stream.
 </p>
-
-<p> It first calculates the average volumetric air flow rate through the heat exchanger by:</p>
-
+<p>
+It first calculates the average volumetric air flow rate through the heat exchanger by:
+</p>
 <pre>
   v_ave = (v_sup + v_exh)/2,
   vRat = v_ave/v_sup_nom,
 </pre>
-
 <p>
 where <code>v_ave</code> is the average volumetric air flow rate,
 <code>v_sup</code> is the air flow of the supply air stream,
@@ -123,13 +123,14 @@ where <code>v_ave</code> is the average volumetric air flow rate,
 <code>v_sup_nom</code> is the nominal air flow of the supply air stream and 
 <code>vRat</code> is the flow ratio.
 </p>
-
-<p> It then calculates the sensible and latent effectiveness by:</p>
-
+<p>
+It then calculates the sensible and latent effectiveness by:
+</p>
 <pre>
   epsS = y * (epsS_75 + (epsS_100 - epsS_75) * (vRat - 0.75)/0.25),
   epsL = y * (epsL_75 + (epsL_100 - epsL_75) * (vRat - 0.75)/0.25),
 </pre>
+<p> 
 where <code>epsS</code> and <code>epsL</code> are the effectiveness
 for the sensible and latent heat transfer, respectively.
 <code>epsS_100</code> and <code>epsS_75</code> are the effectiveness 
@@ -137,20 +138,19 @@ for the sensible heat transfer when <code>vRat</code> is 1 and 0.75, respectivel
 <code>epsL_100</code> and <code>epsL_75</code> are the effectiveness 
 for the latent heat transfer when <code>vRat</code> is 1 and 0.75, respectively.
 <code>y</code> is an effectiveness associated with the speed of a rotary wheel.
-
+</p>
 <p>
-<code>epsS_100</code>, <code>epsS_75</code>, <code>epsL_100</code>, and <code>epsL_75</code> are parameters.
+<code>epsS_100</code>, <code>epsS_75</code>, <code>epsL_100</code>, and
+<code>epsL_75</code> are parameters.
 Depending on the cooling or heating mode, their values are different.
-In this model, if the supply air temperature is larger than the exhaust air temperature, the exchanger is considered to operate under
-the cooling mode;
+In this model, if the supply air temperature is larger than the exhaust air
+temperature, the exchanger is considered to operate under the cooling mode;
 Otherwise, it is considered to operate under a heating mode.
 </p>
-
 <P>
 <b>Note:</b> The average volumetric air flow rate should be between 50% and 130% of the nominal supply air flow rate.
 In addition, the ratio of the supply air flow rate to the exhaust air flow rate should be between 0.5 and 2.
 </P>
-
 <h4>References</h4>
 U.S. Department of Energy 2016.
 &quot;EnergyPlus Engineering reference&quot;.
@@ -158,7 +158,7 @@ U.S. Department of Energy 2016.
 <ul>
 <li>
 September 29, 2023, by Sen Huang:<br/>
-First implementation<br/>
+First implementation.
 </li>
 </ul>
 </html>"));

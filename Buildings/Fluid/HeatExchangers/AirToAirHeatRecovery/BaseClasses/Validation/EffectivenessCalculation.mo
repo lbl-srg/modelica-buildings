@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.Validation;
 model EffectivenessCalculation
-    extends Modelica.Icons.Example;
+  extends Modelica.Icons.Example;
 
   Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.EffectivenessCalculation
     epsCal(
@@ -12,31 +12,31 @@ model EffectivenessCalculation
     epsL_heat_partload=0.5,
     v_flow_sup_nominal=1) "Effectiveness calculator"
     annotation (Placement(transformation(extent={{-12,-10},{8,10}})));
-   Modelica.Blocks.Sources.Ramp y(
+  Modelica.Blocks.Sources.Ramp y(
     height=0.7,
     duration=60,
     offset=0.3,
     startTime=60) "Wheel speed"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-   Modelica.Blocks.Sources.Ramp TSup(
+  Modelica.Blocks.Sources.Ramp TSup(
     height=5,
     duration=60,
     offset=273.15 + 20,
     startTime=0) "Supply air temperature"
-                 annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-   Modelica.Blocks.Sources.Ramp TExh(
+    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
+  Modelica.Blocks.Sources.Ramp TExh(
     height=20,
     duration=60,
     offset=273.15 + 15,
     startTime=0) "Exhaust air temperature"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-   Modelica.Blocks.Sources.Ramp vSup(
+  Modelica.Blocks.Sources.Ramp vSup(
     height=0.7,
     duration=60,
     offset=0.3,
     startTime=0) "Supply air flow rate"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-   Modelica.Blocks.Sources.Ramp vExh(
+  Modelica.Blocks.Sources.Ramp vExh(
     height=0.8,
     duration=60,
     offset=0.2,
@@ -64,26 +64,32 @@ Validation test for the block
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.EffectivenessCalculation\">
 Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.EffectivenessCalculation</a>.
 </p>
-
+<p>
 The input signals are configured as follows:
+</p>
 <ul>
-<li>The temperature of the supply air, <i>TSup</i>, is larger than the temperature of the exhaust air, <i>TExh</i> before <i>20s</i>;
-After that, <i>TSup</i> is less than <i>TExh</i>, leading to a heating mode;
-</ul>
-<ul>
-<li> The supply air flow rate, <i>vSup</i>, and the exhaust air flow rate, <i>vExh</i>, change from 0.3 to 1 and 0.2 to 1 
+<li>
+The temperature of the supply air, <i>TSup</i>, is larger than the temperature
+of the exhaust air, <i>TExh</i> before <i>20s</i>;
+After that, <i>TSup</i> is less than <i>TExh</i>, leading to a heating mode.
+</li>
+<li>
+The supply air flow rate, <i>vSup</i>, and the exhaust air flow rate,
+<i>vExh</i>, change from 0.3 to 1 and 0.2 to 1 
 during the period from <i>0s</i> to <i>60s</i>, respectively;
 They then stay constant.
-</ul>
-<ul>
-<li> The wheel speed ratio, <i>y</i> keeps constant during the period from <i>0s</i> to <i>60s</i> and then increases from 0.3 to 1
-during the period from <i>60s</i> to <i>120s</i>;
+</li>
+<li>
+The wheel speed ratio, <i>y</i> keeps constant during the period from
+<i>0s</i> to <i>60s</i> and then increases from 0.3 to 1
+during the period from <i>60s</i> to <i>120s</i>.
+</li>
 </ul>
 </html>", revisions="<html>
 <ul>
 <li>
 September 29, 2022, by Sen Huang:<br/>
-First implementation<br/>
+First implementation.
 </li>
 </ul>
 </html>"));

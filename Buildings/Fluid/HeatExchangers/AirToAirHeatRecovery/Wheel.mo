@@ -13,7 +13,7 @@ model Wheel "Sensible and latent air-to-air heat recovery wheels"
 
   parameter
     Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.Types.RecoveryControl
-    controlType=Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.Types.RecoveryControl.BypassAir
+    conTyp=Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.Types.RecoveryControl.BypassAir
     "Type of controller";
   parameter Real P_nominal(unit="W") = 1000
     "Power at design condition";
@@ -141,7 +141,7 @@ model Wheel "Sensible and latent air-to-air heat recovery wheels"
     "Adder"
     annotation (Placement(transformation(extent={{-64,-46},{-48,-30}})));
 protected
-  parameter Boolean with_BypDam = controlType ==Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.Types.RecoveryControl.BypassAir
+  parameter Boolean with_BypDam = conTyp ==Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.Types.RecoveryControl.BypassAir
     "Boolean flag to enable the bypass control"
     annotation(Evaluate=true, HideResult=true);
 
@@ -257,28 +257,31 @@ equation
           fillPattern=FillPattern.Solid)}), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
+<p>
 Model for a generic, sensible and latent air-to-air heat recovery wheel, that consists of 
 a heat exchanger and primary/secondary airflow bypass dampers.
-
-The input requires no geometric data. Performance is defined by specifying sensible and/or latent effectiveness 
+</p>
+<p>
+Performance of the recovery wheel is defined by specifying sensible and/or latent effectiveness 
 at 75% and 100% of the nominal supply air flow rate in both heating and cooling conditions
 For details, refer to
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.EffectivenessCalculation\">
 Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.EffectivenessCalculation</a>.
-
+</p>
+<p>
 The operation of the heat recovery wheel is adjustable through wheel speed modulation or bypassing supply air 
 around the heat exchanger.
-The parameter, <i>controlType</i>, can be used to specify either wheel speed modulation or bypassing supply air
+The parameter, <i>conTyp</i>, can be used to specify either wheel speed modulation or bypassing supply air
 is used.
 See more in  
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.Types.RecoveryControl\">
-Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.Types.RecoveryControlType</a>.
-
+Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.Types.RecoveryControl</a>.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
 September 29, 2023, by Sen Huang:<br/>
-First implementation<br/>
+First implementation.
 </li>
 </ul>
 </html>"));

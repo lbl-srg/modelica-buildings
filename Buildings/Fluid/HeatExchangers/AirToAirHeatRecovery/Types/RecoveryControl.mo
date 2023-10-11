@@ -10,7 +10,6 @@ type RecoveryControl = enumeration(
 Enumeration for the types of heat recovery (HR) devices.
 The possible values are:
 </p>
-
 <table border=\"1\" summary=\"Explanation of the enumeration\">
 <tr>
 <th>Enumeration</th>
@@ -28,7 +27,7 @@ The HR devices adjust the heat exchange by modulating the speed of the wheel
 <ul>
 <li>
 September 29, 2023, by Sen Huang:<br/>
-First implementation<br/>
+First implementation.
 </li>
 </ul>
 </html>"));

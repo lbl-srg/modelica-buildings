@@ -14,9 +14,8 @@ model HeatExchagerWithInputEffectiveness
     use_p_in=true,
     nPorts=1)
      "Sink that represents the ambient environment"
-    annotation (Placement(transformation(extent={{-58,-10},
-            {-38,10}})));
-    Modelica.Blocks.Sources.Constant PIn(
+    annotation (Placement(transformation(extent={{-58,-10}, {-38,10}})));
+  Modelica.Blocks.Sources.Constant PIn(
     k=101325 + 100)
      "Pressure of the exhaust air"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
@@ -27,9 +26,8 @@ model HeatExchagerWithInputEffectiveness
     use_T_in=true,
     nPorts=1)
      "Source of the exhuast air"
-    annotation (Placement(transformation(extent={{40,-70},
-            {60,-50}})));
-    Modelica.Blocks.Sources.Ramp TSup(
+    annotation (Placement(transformation(extent={{40,-70}, {60,-50}})));
+  Modelica.Blocks.Sources.Ramp TSup(
     height=10,
     duration=60,
     offset=273.15 + 30,
@@ -38,7 +36,7 @@ model HeatExchagerWithInputEffectiveness
   Modelica.Blocks.Sources.Constant TDb(k=293.15)
     "Drybulb temperature of the exhaust air"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
-    Modelica.Blocks.Sources.Constant POut(k=101325)
+  Modelica.Blocks.Sources.Constant POut(k=101325)
      "Pressure of the ambient environment"
       annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
   Buildings.Fluid.Sources.Boundary_pT sin_1(
@@ -49,8 +47,7 @@ model HeatExchagerWithInputEffectiveness
     p=300000,
     nPorts=1)
      "Sink of the supply air"
-    annotation (Placement(transformation(extent={{84,2},{
-            64,22}})));
+    annotation (Placement(transformation(extent={{84,2},{64,22}})));
   Buildings.Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = Medium1,
     T=273.15 + 50,
@@ -59,11 +56,10 @@ model HeatExchagerWithInputEffectiveness
     p=100000,
     nPorts=1)
      "Source of the supply air"
-    annotation (Placement(transformation(extent={{-60,40},
-            {-40,60}})));
-    Modelica.Blocks.Sources.Constant PSin_1(
+    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+  Modelica.Blocks.Sources.Constant PSin_1(
     k=1E5 - 110)
-     "Pressure of the exhaust air"
+    "Pressure of the exhaust air"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
   Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.HeatExchagerWithInputEffectiveness hex(
     redeclare package Medium1 = Medium1,
@@ -131,26 +127,28 @@ Validation test for the block
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.HeatExchagerWithInputEffectiveness\">
 Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.HeatExchagerWithInputEffectiveness</a>.
 </p>
-
-The input signals are configured as follows:
-<ul>
-<li>Temperature of the supply air, <i>TSup</i>, changes from <i>273.15 + 30 K</i> to <i>273.15 + 40 K</i> during the period from <i>120s</i> to <i>180s</i>;
-</ul>
-<ul>
-<li>Sensible heat exchanger effectiveness, <i>epsS</i>, changes from <i>0.7</i> to <i>0.8</i> during the period from <i>120s</i> to <i>180s</i>;
-</ul>
-<ul>
-<li>Latent heat exchanger effectiveness, <i>epsL</i>, changes from <i>0.7</i> to <i>0.8</i> during the period from <i>60s</i> to <i>120s</i>;
-</ul>
 <p>
-<b>Note:</b> This problem may fail to translate in Dymola 2012 due to an error in Dymola's support
-of stream connector.
+The input signals are configured as follows:
 </p>
+<ul>
+<li>
+Temperature of the supply air, <i>TSup</i>, changes from <i>273.15 + 30 K</i>
+to <i>273.15 + 40 K</i> during the period from <i>120s</i> to <i>180s</i>.
+</li>
+<li>
+Sensible heat exchanger effectiveness, <i>epsS</i>, changes from <i>0.7</i>
+to <i>0.8</i> during the period from <i>120s</i> to <i>180s</i>.
+</li>
+<li>
+Latent heat exchanger effectiveness, <i>epsL</i>, changes from <i>0.7</i> to
+<i>0.8</i> during the period from <i>60s</i> to <i>120s</i>.
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>
 September 29, 2023, by Sen Huang:<br/>
-First implementation<br/>
+First implementation.
 </li>
 </ul>
 </html>"));

@@ -12,8 +12,7 @@ model BypassDamper
     use_p_in=true,
     nPorts=1)
     "Sink of exhaust air"
-    annotation (Placement(transformation(extent={{-58,-10},
-            {-38,10}})));
+    annotation (Placement(transformation(extent={{-58,-10},{-38,10}})));
     Modelica.Blocks.Sources.Ramp PIn(
     height=200,
     duration=60,
@@ -27,8 +26,7 @@ model BypassDamper
     use_T_in=true,
     nPorts=1)
     "Source of exhaust air"
-    annotation (Placement(transformation(extent={{40,-70},
-            {60,-50}})));
+    annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
   Modelica.Blocks.Sources.Ramp TSup(
     height=10,
     duration=60,
@@ -49,8 +47,7 @@ model BypassDamper
     p=300000,
     nPorts=1)
     "Sink of supply air"
-    annotation (Placement(transformation(extent={{84,2},{
-            64,22}})));
+    annotation (Placement(transformation(extent={{84,2},{64,22}})));
   Buildings.Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = Medium1,
     T=273.15 + 50,
@@ -59,8 +56,7 @@ model BypassDamper
     p=100000,
     nPorts=1)
     "Source of supply air"
-    annotation (Placement(transformation(extent={{-60,40},
-            {-40,60}})));
+    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
     Modelica.Blocks.Sources.Ramp PSin_1(
     duration=60,
     startTime=240,
@@ -78,14 +74,13 @@ model BypassDamper
     dp1_nominal=100,
     dp2_nominal=100,
     show_T=true,
-    controlType=Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.Types.RecoveryControl.BypassAir,
+    conTyp=Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.Types.RecoveryControl.BypassAir,
     epsL_cool_nominal=0.7,
     epsL_cool_partload=0.6,
     epsL_heat_nominal=0.7,
     epsL_heat_partload=0.6) "Wheel"
     annotation (Placement(transformation(extent={{6,-4},{26,16}})));
-
-    Modelica.Blocks.Sources.Ramp DamPos(
+  Modelica.Blocks.Sources.Ramp DamPos(
     height=1.0,
     duration=60,
     offset=0,
@@ -134,21 +129,24 @@ Example for using the block
 Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.Wheel</a>.
 </p>
 <p>
-The input signals are configured as follows:</p>
+The input signals are configured as follows:
+</p>
 <ul>
-<li>The temperature of the supply air, <i>TSup</i>, changes from <i>273.15 + 30 K</i> to <i>273.15 + 40 K</i> during the period from <i>60s</i> to <i>120s</i>.
-On the other hand, the temperature of the exhaust air is constant;
+<li>
+The temperature of the supply air, <i>TSup</i>, changes from
+<i>273.15 + 30 K</i> to <i>273.15 + 40 K</i> during the period from <i>60s</i> to <i>120s</i>.
+On the other hand, the temperature of the exhaust air is constant.
+</li>
+<li>
+The bypass damper position, <i>DamPos</i>, changes from <i>0</i> to
+<i>1</i> during the period from <i>60s</i> to <i>120s</i>.
+</li>
 </ul>
-<ul>
-<li>The bypass damper position, <i>DamPos</i>, changes from <i>0</i> to <i>1</i> during the period from <i>60s</i> to <i>120s</i>;
-</ul>
-<b>Note:</b> This problem may fails to translate in Dymola 2012 due to an error in Dymola's support
-of stream connector.
 </html>", revisions="<html>
 <ul>
 <li>
 September 29, 2023, by Sen Huang:<br/>
-First implementation<br/>
+First implementation.
 </li>
 </ul>
 </html>"));

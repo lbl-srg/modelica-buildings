@@ -115,28 +115,30 @@ This block is identical to
 Buildings.Fluid.MassExchangers.ConstantEffectivenesst</a>,
 except that the effectiveness are inputs rather than parameters.
 </p>
-
+<p>
 This model transfers heat and moisture in the amount of
+</p>
 <pre>
   QSen = epsS * Q_max,
   m    = epsL * mWat_max,
 </pre>
-
+<p>
 where <code>epsS</code> and <code>epsL</code> are input effectiveness
 for the sensible and latent heat transfer,
 <code>Q_max</code> is the maximum sensible heat that can be transferred and
 <code>mWat_max</code> is the maximum moisture that can be transferred.
-
-
+</p>
+<p>
 This model can only be used with medium models that define the integer constant
 <code>Water</code> which needs to be equal to the index of the water mass fraction
 in the species vector.
+</p>
 </html>",
 revisions="<html>
 <ul>
 <li>
 September 29, 2023, by Sen Huang:<br/>
-Changing the effectiveness from parameters to inputs<br/>
+Changing the effectiveness from parameters to inputs.
 </li>
 <li>
 April 30, 2018, by Filip Jorissen:<br/>

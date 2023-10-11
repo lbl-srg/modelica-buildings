@@ -12,9 +12,8 @@ model ModulateWheel
     use_p_in=true,
     nPorts=1)
     "Sink of exhaust air"
-    annotation (Placement(transformation(extent={{-58,-10},
-            {-38,10}})));
-    Modelica.Blocks.Sources.Ramp PIn(
+    annotation (Placement(transformation(extent={{-58,-10},{-38,10}})));
+  Modelica.Blocks.Sources.Ramp PIn(
     height=200,
     duration=60,
     offset=101330)
@@ -27,9 +26,8 @@ model ModulateWheel
     use_T_in=true,
     nPorts=1)
     "Source of exhaust air"
-    annotation (Placement(transformation(extent={{40,-70},
-            {60,-50}})));
-    Modelica.Blocks.Sources.Ramp TSup(
+    annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
+  Modelica.Blocks.Sources.Ramp TSup(
     height=10,
     duration=60,
     offset=273.15 + 30,
@@ -49,8 +47,7 @@ model ModulateWheel
     p=300000,
     nPorts=1)
     "Sink of supply air"
-    annotation (Placement(transformation(extent={{84,2},{
-            64,22}})));
+    annotation (Placement(transformation(extent={{84,2},{64,22}})));
   Buildings.Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = Medium1,
     T=273.15 + 50,
@@ -59,9 +56,8 @@ model ModulateWheel
     p=100000,
     nPorts=1)
     "Source of supply air"
-    annotation (Placement(transformation(extent={{-60,40},
-            {-40,60}})));
-    Modelica.Blocks.Sources.Ramp PSin_1(
+    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+  Modelica.Blocks.Sources.Ramp PSin_1(
     duration=60,
     startTime=240,
     height=100,
@@ -78,13 +74,13 @@ model ModulateWheel
     dp1_nominal=100,
     dp2_nominal=100,
     show_T=true,
-    controlType=Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.Types.RecoveryControl.ModulateWheel,
+    conTyp=Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.Types.RecoveryControl.ModulateWheel,
     epsL_cool_nominal=0.7,
     epsL_cool_partload=0.6,
     epsL_heat_nominal=0.7,
     epsL_heat_partload=0.6) "Wheel"
     annotation (Placement(transformation(extent={{6,-4},{26,16}})));
-    Modelica.Blocks.Sources.Ramp WheSpe(
+  Modelica.Blocks.Sources.Ramp WheSpe(
     height=0.1,
     duration=60,
     offset=0.7,
@@ -101,26 +97,22 @@ equation
   connect(TExh.y, sou_2.T_in) annotation (Line(points={{1,-80},{20,-80},{20,-56},
           {38,-56}}, color={0,0,127}));
   connect(TSup.y, sou_1.T_in)
-    annotation (Line(points={{-79,54},{-70.5,54},{-62,54}},
-                                                 color={0,0,127}));
+    annotation (Line(points={{-79,54},{-70.5,54},{-62,54}}, color={0,0,127}));
   connect(PSin_1.y, sin_1.p_in) annotation (Line(points={{61,70},{90,70},{90,20},
           {86,20}},     color={0,0,127}));
   connect(sou_1.ports[1],whe. port_a1) annotation (Line(
-      points={{-40,50},{0,50},{0,12},{6,12}},
-      color={0,127,255}));
+      points={{-40,50},{0,50},{0,12},{6,12}}, color={0,127,255}));
   connect(whe.port_a2, sou_2.ports[1]) annotation (Line(
       points={{26,5.55112e-16},{32,5.55112e-16},{32,-20},{70,-20},{70,-60},{60,
           -60}},
       color={0,127,255}));
   connect(POut.y, sin_2.p_in) annotation (Line(
-      points={{-79,8},{-69.5,8},{-69.5,8},{-60,8}},
-      color={0,0,127}));
+      points={{-79,8},{-69.5,8},{-69.5,8},{-60,8}}, color={0,0,127}));
   connect(whe.port_b1, sin_1.ports[1]) annotation (Line(
       points={{26,12},{45,12},{45,12},{64,12}},
       color={0,127,255}));
   connect(whe.port_b2, sin_2.ports[1]) annotation (Line(
-      points={{6,5.55112e-16},{-18,5.55112e-16},{-18,6.66134e-16},{-38,
-          6.66134e-16}},
+      points={{6,5.55112e-16},{-18,5.55112e-16},{-18,6.66134e-16},{-38,6.66134e-16}},
       color={0,127,255}));
   connect(WheSpe.y, whe.yWheSpe) annotation (Line(points={{-59,-30},{-30,-30},{
           -30,10},{4,10}}, color={0,0,127}));
@@ -134,24 +126,29 @@ Example for using the block
 Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.Wheel</a>.
 </p>
 <p>
-The input signals are configured as follows:</p>
+The input signals are configured as follows:
+</p>
 <ul>
-<li>The temperature of the supply air, <i>TSup</i>, changes from <i>273.15 + 30 K</i> to <i>273.15 + 40 K</i> during the period from <i>60s</i> to <i>120s</i>.
-On the other hand, the temperature of the exhaust air is constant;
+<li>
+The temperature of the supply air, <i>TSup</i>, changes from
+<i>273.15 + 30 K</i> to <i>273.15 + 40 K</i> during the period
+from <i>60s</i> to <i>120s</i>.
+On the other hand, the temperature of the exhaust air is constant.
+</li>
+<li>
+The wheel speed, <i>WheSpe</i>, changes from <i>0.7</i> to <i>1</i> during
+the period from <i>60s</i> to <i>120s</i>.
+</li>
+<li>
+The flow rate of the exhaust air changes from  <i>5.24kg/s</i> to <i>1.58kg/s</i>
+during the period from <i>240s</i> to <i>300s</i>.
+</li>
 </ul>
-<ul>
-<li>The wheel speed, <i>WheSpe</i>, changes from <i>0.7</i> to <i>1</i> during the period from <i>60s</i> to <i>120s</i>;
-</ul>
-<ul>
-<li>The flow rate of the exhaust air changes from  <i>5.24kg/s</i> to <i>1.58kg/s</i> during the period from <i>240s</i> to <i>300s</i>;
-</ul>
-<b>Note:</b> This problem may fails to translate in Dymola 2012 due to an error in Dymola's support
-of stream connector.
 </html>", revisions="<html>
 <ul>
 <li>
 September 29, 2023, by Sen Huang:<br/>
-First implementation<br/>
+First implementation.
 </li>
 </ul>
 </html>"));
