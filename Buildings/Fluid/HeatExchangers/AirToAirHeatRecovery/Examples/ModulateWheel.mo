@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.Examples;
-model VarSpe
+model ModulateWheel
   "Test model for the air-to-air thermal wheel with a variable speed"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Air
@@ -78,12 +78,11 @@ model VarSpe
     dp1_nominal=100,
     dp2_nominal=100,
     show_T=true,
-    controlType=Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.Types.RecoveryControlType.VariableSpeed,
+    controlType=Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.Types.RecoveryControl.ModulateWheel,
     epsL_cool_nominal=0.7,
     epsL_cool_partload=0.6,
     epsL_heat_nominal=0.7,
-    epsL_heat_partload=0.6)
-    "Wheel"
+    epsL_heat_partload=0.6) "Wheel"
     annotation (Placement(transformation(extent={{6,-4},{26,16}})));
     Modelica.Blocks.Sources.Ramp WheSpe(
     height=0.1,
@@ -92,6 +91,9 @@ model VarSpe
     startTime=60)
     "Wheel speed"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+  inner Modelica.Fluid.System system
+    "Ambient environment"
+    annotation (Placement(transformation(extent={{0,60},{20,80}})));
 equation
   connect(PIn.y,sou_2. p_in) annotation (Line(
       points={{1,-40},{20,-40},{20,-52},{38,-52}},
@@ -123,7 +125,7 @@ equation
   connect(WheSpe.y, whe.yWheSpe) annotation (Line(points={{-59,-30},{-30,-30},{
           -30,10},{4,10}}, color={0,0,127}));
  annotation(experiment(Tolerance=1e-6, StopTime=360),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/AirToAirHeatRecovery/Examples/VarSpe.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/AirToAirHeatRecovery/Examples/ModulateWheel.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -153,4 +155,4 @@ First implementation<br/>
 </li>
 </ul>
 </html>"));
-end VarSpe;
+end ModulateWheel;

@@ -29,7 +29,7 @@ model BypassDamper
     "Source of exhaust air"
     annotation (Placement(transformation(extent={{40,-70},
             {60,-50}})));
-    Modelica.Blocks.Sources.Ramp TSup(
+  Modelica.Blocks.Sources.Ramp TSup(
     height=10,
     duration=60,
     offset=273.15 + 30,
@@ -78,19 +78,22 @@ model BypassDamper
     dp1_nominal=100,
     dp2_nominal=100,
     show_T=true,
-    controlType=Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.Types.RecoveryControlType.Bypass,
+    controlType=Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.Types.RecoveryControl.BypassAir,
     epsL_cool_nominal=0.7,
     epsL_cool_partload=0.6,
     epsL_heat_nominal=0.7,
-    epsL_heat_partload=0.6)
-    "Wheel"
+    epsL_heat_partload=0.6) "Wheel"
     annotation (Placement(transformation(extent={{6,-4},{26,16}})));
+
     Modelica.Blocks.Sources.Ramp DamPos(
     height=1.0,
     duration=60,
     offset=0,
     startTime=60) "Damper position"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+  inner Modelica.Fluid.System system
+    "Ambient environment"
+    annotation (Placement(transformation(extent={{0,60},{20,80}})));
 equation
   connect(PIn.y,sou_2. p_in) annotation (Line(
       points={{1,-40},{20,-40},{20,-52},{38,-52}},

@@ -11,8 +11,9 @@ model Wheel "Sensible and latent air-to-air heat recovery wheels"
         final from_dp1=false,
         final from_dp2=false);
 
-  parameter Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.Types.RecoveryControlType controlType=
-    Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.Types.RecoveryControlType.Bypass
+  parameter
+    Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.Types.RecoveryControl
+    controlType=Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.Types.RecoveryControl.BypassAir
     "Type of controller";
   parameter Real P_nominal(unit="W") = 1000
     "Power at design condition";
@@ -140,7 +141,7 @@ model Wheel "Sensible and latent air-to-air heat recovery wheels"
     "Adder"
     annotation (Placement(transformation(extent={{-64,-46},{-48,-30}})));
 protected
-  parameter Boolean with_BypDam = controlType == Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.Types.RecoveryControlType.Bypass
+  parameter Boolean with_BypDam = controlType ==Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.Types.RecoveryControl.BypassAir
     "Boolean flag to enable the bypass control"
     annotation(Evaluate=true, HideResult=true);
 
@@ -270,7 +271,7 @@ around the heat exchanger.
 The parameter, <i>controlType</i>, can be used to specify either wheel speed modulation or bypassing supply air
 is used.
 See more in  
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.Types.RecoveryControlType\">
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.Types.RecoveryControl\">
 Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.Types.RecoveryControlType</a>.
 
 </html>", revisions="<html>

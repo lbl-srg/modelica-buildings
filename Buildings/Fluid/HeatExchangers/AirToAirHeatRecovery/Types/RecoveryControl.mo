@@ -1,9 +1,10 @@
 within Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.Types;
-type RecoveryControlType = enumeration(
-    Bypass
-    "with a bypass damper",
-    VariableSpeed
-    "with a variable speed wheel")
+type RecoveryControl = enumeration(
+    BypassAir
+    "With a bypass damper",
+    ModulateWheel
+    "With a variable speed wheel")
+  "Enumeration of the control of heat recovery"
      annotation (Documentation(info="<html>
 <p>
 Enumeration for the types of heat recovery (HR) devices.
@@ -14,11 +15,11 @@ The possible values are:
 <tr>
 <th>Enumeration</th>
 <th>Description</th></tr>
-<tr><td><code>Bypass</code></td>
+<tr><td><code>BypassAir</code></td>
 <td>
 The HR devices adjust the heat exchange by modulating the flow rates through the wheel via a bypass damper
 </td></tr>
-<tr><td><code>VariableSpeed</code></td>
+<tr><td><code>ModulateWheel</code></td>
 <td>
 The HR devices adjust the heat exchange by modulating the speed of the wheel
 </td></tr>
