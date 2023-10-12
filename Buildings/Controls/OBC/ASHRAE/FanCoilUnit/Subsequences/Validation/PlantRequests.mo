@@ -129,10 +129,10 @@ equation
   connect(supTemSet.y,plaReq1.TSupSet)  annotation (Line(points={{-18,-60},{0,-60},
           {0,-70},{58,-70}}, color={0,0,127}));
 
-  connect(fanSpe.y, plaReq.uFanSpe) annotation (Line(points={{32,80},{50,80},{50,
+  connect(fanSpe.y, plaReq.uFan) annotation (Line(points={{32,80},{50,80},{50,
           68},{58,68}}, color={0,0,127}));
 
-  connect(fanSpe1.y, plaReq1.uFanSpe) annotation (Line(points={{42,-20},{52,-20},
+  connect(fanSpe1.y, plaReq1.uFan) annotation (Line(points={{42,-20},{52,-20},
           {52,-62},{58,-62}}, color={0,0,127}));
 
   connect(supTem3.y, plaReq2.TAirSup) annotation (Line(points={{-58,-120},{20,-120},
@@ -141,7 +141,7 @@ equation
   connect(supTemSet2.y, plaReq2.TSupSet) annotation (Line(points={{-18,-140},{0,
           -140},{0,-150},{58,-150}}, color={0,0,127}));
 
-  connect(fanSpe2.y, plaReq2.uFanSpe) annotation (Line(points={{42,-100},{52,-100},
+  connect(fanSpe2.y, plaReq2.uFan) annotation (Line(points={{42,-100},{52,-100},
           {52,-142},{58,-142}}, color={0,0,127}));
 
   connect(heaCoi2.y, plaReq2.uHeaCoi_actual) annotation (Line(points={{-58,-160},

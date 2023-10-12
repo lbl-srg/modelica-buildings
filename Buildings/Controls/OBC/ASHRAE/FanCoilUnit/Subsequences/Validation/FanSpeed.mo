@@ -188,7 +188,7 @@ equation
           {-46,136},{-42,136}},
                               color={255,127,0}));
 
-  connect(booPul.y, fanSpe.uFanPro) annotation (Line(points={{-78,140},{-50,140},
+  connect(booPul.y, fanSpe.u1FanPro) annotation (Line(points={{-78,140},{-50,140},
           {-50,132},{-42,132}},
                              color={255,0,255}));
 
@@ -209,7 +209,7 @@ equation
   connect(reaToInt1.y, fanSpe2.opeMod) annotation (Line(points={{72,170},{74,170},
           {74,136},{78,136}},      color={255,127,0}));
 
-  connect(booPul1.y, fanSpe2.uFanPro) annotation (Line(points={{42,140},{70,140},
+  connect(booPul1.y, fanSpe2.u1FanPro) annotation (Line(points={{42,140},{70,140},
           {70,132},{78,132}}, color={255,0,255}));
 
   connect(con2.y, fanSpe2.uCoo) annotation (Line(points={{42,80},{76,80},{76,
@@ -221,7 +221,7 @@ equation
   connect(reaToInt2.y,fanSpe1. opeMod) annotation (Line(points={{-48,40},{-46,40},
           {-46,6},{-42,6}},     color={255,127,0}));
 
-  connect(booPul2.y,fanSpe1. uFanPro) annotation (Line(points={{-78,10},{-50,10},
+  connect(booPul2.y,fanSpe1. u1FanPro) annotation (Line(points={{-78,10},{-50,10},
           {-50,2},{-42,2}},     color={255,0,255}));
 
   connect(sin2.y, abs2.u)
@@ -242,7 +242,7 @@ equation
   connect(reaToInt3.y,fanSpe3. opeMod) annotation (Line(points={{72,40},{74,40},
           {74,6},{78,6}},       color={255,127,0}));
 
-  connect(booPul3.y,fanSpe3. uFanPro) annotation (Line(points={{42,10},{70,10},{
+  connect(booPul3.y,fanSpe3. u1FanPro) annotation (Line(points={{42,10},{70,10},{
           70,2},{78,2}},        color={255,0,255}));
 
   connect(sin1.y,abs1. u)
@@ -258,7 +258,7 @@ equation
           {-46,-124},{-42,-124}},
                                 color={255,127,0}));
 
-  connect(booPul4.y, fanSpe4.uFanPro) annotation (Line(points={{-78,-120},{-50,-120},
+  connect(booPul4.y, fanSpe4.u1FanPro) annotation (Line(points={{-78,-120},{-50,-120},
           {-50,-128},{-42,-128}},
                                 color={255,0,255}));
 
@@ -275,7 +275,7 @@ equation
   connect(reaToInt5.y, fanSpe5.opeMod) annotation (Line(points={{72,-90},{74,-90},
           {74,-124},{78,-124}},      color={255,127,0}));
 
-  connect(booPul5.y, fanSpe5.uFanPro) annotation (Line(points={{42,-120},{70,-120},
+  connect(booPul5.y, fanSpe5.u1FanPro) annotation (Line(points={{42,-120},{70,-120},
           {70,-128},{78,-128}},       color={255,0,255}));
 
   connect(ram1.y, reaToInt5.u)

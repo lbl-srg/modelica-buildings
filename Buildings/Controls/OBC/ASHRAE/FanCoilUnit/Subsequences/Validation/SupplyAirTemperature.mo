@@ -176,13 +176,13 @@ equation
   connect(sin3.y, TSupAir3.TAirSup) annotation (Line(points={{42,-60},{52,-60},
           {52,-70},{58,-70}}, color={0,0,127}));
 
-  connect(con10.y, TSupAir.uFan) annotation (Line(points={{-98,-10},{-54,-10},{
+  connect(con10.y, TSupAir.u1Fan) annotation (Line(points={{-98,-10},{-54,-10},{
           -54,82},{-52,82}},       color={255,0,255}));
-  connect(con10.y, TSupAir1.uFan) annotation (Line(points={{-98,-10},{74,-10},{
+  connect(con10.y, TSupAir1.u1Fan) annotation (Line(points={{-98,-10},{74,-10},{
           74,82},{78,82}},        color={255,0,255}));
-  connect(con10.y, TSupAir2.uFan) annotation (Line(points={{-98,-10},{-54,-10},
+  connect(con10.y, TSupAir2.u1Fan) annotation (Line(points={{-98,-10},{-54,-10},
           {-54,-78},{-52,-78}},          color={255,0,255}));
-  connect(con10.y, TSupAir3.uFan) annotation (Line(points={{-98,-10},{54,-10},{
+  connect(con10.y, TSupAir3.u1Fan) annotation (Line(points={{-98,-10},{54,-10},{
           54,-58},{58,-58}},        color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={

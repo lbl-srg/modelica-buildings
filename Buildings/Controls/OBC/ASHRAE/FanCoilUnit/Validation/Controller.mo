@@ -154,7 +154,7 @@ equation
   connect(TZon.y,conFCU. TZon) annotation (Line(points={{-158,80},{-20,80},{-20,
           106},{18,106}}, color={0,0,127}));
 
-  connect(occSch.occupied,conFCU. uOcc) annotation (Line(points={{-99,48},{-74,
+  connect(occSch.occupied,conFCU. u1Occ) annotation (Line(points={{-99,48},{-74,
           48},{-74,118.632},{18,118.632}},
                                        color={255,0,255}));
 
@@ -166,7 +166,7 @@ equation
           -140,109.158},{18,109.158}},
                                   color={0,0,127}));
 
-  connect(win.y,conFCU1. uWin) annotation (Line(points={{-158,-140},{0,-140},{0,
+  connect(win.y,conFCU1. u1Win) annotation (Line(points={{-158,-140},{0,-140},{0,
           7.89474},{18,7.89474}},
                          color={255,0,255}));
 
@@ -174,7 +174,7 @@ equation
           -20,60},{-20,52.1053},{18,52.1053}},
                                            color={0,0,127}));
 
-  connect(occSch.occupied,conFCU1. uOcc)
+  connect(occSch.occupied,conFCU1. u1Occ)
     annotation (Line(points={{-99,48},{-40,48},{-40,42.6316},{18,42.6316}},
           color={255,0,255}));
 
@@ -187,8 +187,9 @@ equation
   connect(TSup1.y,conFCU2. TSup) annotation (Line(points={{-158,-70},{-84,-70},{
           -84,-44.8421},{18,-44.8421}}, color={0,0,127}));
 
-  connect(occSch.occupied,conFCU2. uOcc) annotation (Line(points={{-99,48},{-74,
-          48},{-74,-35.3684},{18,-35.3684}}, color={255,0,255}));
+  connect(occSch.occupied,conFCU2. u1Occ) annotation (Line(points={{-99,48},{
+          -74,48},{-74,-35.3684},{18,-35.3684}},
+                                             color={255,0,255}));
 
   connect(occSch.tNexOcc,conFCU2. tNexOcc) annotation (Line(points={{-99,60},{
           -80,60},{-80,-25.8947},{18,-25.8947}},
@@ -197,12 +198,13 @@ equation
   connect(TZon1.y,conFCU2. TZon) annotation (Line(points={{-158,-40},{-70,-40},{
           -70,-48},{18,-48}}, color={0,0,127}));
 
-  connect(win.y,conFCU3. uWin) annotation (Line(points={{-158,-140},{0,-140},{0,
-          -146.105},{18,-146.105}},
+  connect(win.y,conFCU3. u1Win) annotation (Line(points={{-158,-140},{0,-140},{
+          0,-146.105},{18,-146.105}},
                           color={255,0,255}));
 
-  connect(occSch.occupied,conFCU3. uOcc) annotation (Line(points={{-99,48},{-74,
-          48},{-74,-111.368},{18,-111.368}}, color={255,0,255}));
+  connect(occSch.occupied,conFCU3. u1Occ) annotation (Line(points={{-99,48},{
+          -74,48},{-74,-111.368},{18,-111.368}},
+                                             color={255,0,255}));
 
   connect(TSup1.y,conFCU3. TSup) annotation (Line(points={{-158,-70},{-84,-70},
           {-84,-120.842},{18,-120.842}},color={0,0,127}));
@@ -285,18 +287,6 @@ equation
   connect(nOcc.y, conFCU2.nOcc) annotation (Line(points={{-138,0},{-10,0},{-10,
           -63.7895},{18,-63.7895}},
                      color={255,127,0}));
-  connect(conFCU.yFan, conFCU.uFan) annotation (Line(points={{62,121.789},{70,
-          121.789},{70,74},{12,74},{12,87.0526},{18,87.0526}},
-                                            color={255,0,255}));
-  connect(conFCU1.yFan, conFCU1.uFan) annotation (Line(points={{62,45.7895},{72,
-          45.7895},{72,-8},{12,-8},{12,11.0526},{18,11.0526}},
-                                          color={255,0,255}));
-  connect(conFCU2.yFan, conFCU2.uFan) annotation (Line(points={{62,-32.2105},{
-          72,-32.2105},{72,-86},{12,-86},{12,-66.9474},{18,-66.9474}},
-                                                color={255,0,255}));
-  connect(conFCU3.yFan, conFCU3.uFan) annotation (Line(points={{62,-108.211},{
-          72,-108.211},{72,-160},{10,-160},{10,-142.947},{18,-142.947}},
-                                                    color={255,0,255}));
   connect(conFCU.yHeaCoi, conFCU.uHeaCoi) annotation (Line(points={{62,109.158},
           {68,109.158},{68,72},{14,72},{14,80.7368},{18,80.7368}},
                                                  color={0,0,127}));
@@ -356,6 +346,18 @@ equation
           {-48,140},{-48,-133.474},{18,-133.474}},color={0,0,127}));
   connect(TUnoCooSet.y, conFCU3.TUnoCooSet) annotation (Line(points={{-18,140},
           {-8,140},{-8,-136.632},{18,-136.632}},color={0,0,127}));
+  connect(conFCU.y1Fan, conFCU.u1Fan) annotation (Line(points={{62,121.789},{62,
+          122},{70,122},{70,68},{10,68},{10,87.0526},{18,87.0526}}, color={255,
+          0,255}));
+  connect(conFCU1.y1Fan, conFCU1.u1Fan) annotation (Line(points={{62,45.7895},{
+          72,45.7895},{72,-8},{12,-8},{12,11.0526},{18,11.0526}}, color={255,0,
+          255}));
+  connect(conFCU2.y1Fan, conFCU2.u1Fan) annotation (Line(points={{62,-32.2105},
+          {72,-32.2105},{72,-86},{12,-86},{12,-66.9474},{18,-66.9474}}, color={
+          255,0,255}));
+  connect(conFCU3.y1Fan, conFCU3.u1Fan) annotation (Line(points={{62,-108.211},
+          {72,-108.211},{72,-160},{10,-160},{10,-142.947},{18,-142.947}}, color
+        ={255,0,255}));
 annotation (experiment(StopTime=86400, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/FanCoilUnit/Validation/Controller.mos"
     "Simulate and plot"),
