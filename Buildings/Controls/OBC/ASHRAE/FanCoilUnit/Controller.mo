@@ -91,7 +91,7 @@ block Controller
     final quantity="Time")=900
     "Time constant of integrator block for cooling coil control signal"
     annotation(Dialog(tab="PID parameters", group="Cooling coil control",
-    enable=controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+      enable=controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
         or controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Real TdCooCoi(
@@ -439,17 +439,17 @@ block Controller
     "Fan speed hysteresis difference"
     annotation(Dialog(tab="Advanced"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOcc
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Occ
     "Current occupancy period, true if it is in occupant period"
     annotation (Placement(transformation(extent={{-260,50},{-220,90}}),
       iconTransformation(extent={{-240,140},{-200,180}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWin if have_winSen
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Win if have_winSen
     "Window status, true if open, false if closed"
     annotation (Placement(transformation(extent={{-260,-320},{-220,-280}}),
       iconTransformation(extent={{-240,-300},{-200,-260}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFan
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Fan
     "Fan proven on signal"
     annotation (Placement(transformation(extent={{-260,-290},{-220,-250}}),
       iconTransformation(extent={{-240,-260},{-200,-220}})));
@@ -569,8 +569,8 @@ block Controller
     annotation (Placement(transformation(extent={{-260,-220},{-220,-180}}),
       iconTransformation(extent={{-240,-180},{-200,-140}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yFan
-    "Fan enable signal"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Fan
+    "Fan command on status"
     annotation (Placement(transformation(extent={{200,180},{240,220}}),
       iconTransformation(extent={{200,180},{240,220}})));
 
@@ -598,15 +598,15 @@ block Controller
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
-    "Supply air temperature setpoint" annotation (Placement(transformation(
-          extent={{200,-40},{240,0}}), iconTransformation(extent={{200,-60},{
-            240,-20}})));
+    "Supply air temperature setpoint"
+    annotation (Placement(transformation(extent={{200,-40},{240,0}}),
+      iconTransformation(extent={{200,-60},{240,-20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFanSpe(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFan(
     final min=0,
     final max=1,
     final unit="1")
-    "Fan speed signal"
+    "Fan command speed"
     annotation (Placement(transformation(extent={{200,140},{240,180}}),
       iconTransformation(extent={{200,140},{240,180}})));
 
@@ -825,8 +825,8 @@ equation
           160},{-216,166},{-142,166}},
                  color={0,0,127}));
 
-  connect(uOcc, modSetPoi.u1Occ) annotation (Line(points={{-240,70},{-194,70},{-194,
-          168},{-142,168}},      color={255,0,255}));
+  connect(u1Occ, modSetPoi.u1Occ) annotation (Line(points={{-240,70},{-194,70},{-194,
+          168},{-142,168}}, color={255,0,255}));
 
   connect(modSetPoi.yOpeMod, isUnOcc.u1) annotation (Line(points={{-118,178},{-110,
           178},{-110,-320},{-102,-320}}, color={255,127,0}));
@@ -834,8 +834,8 @@ equation
   connect(win.y, modSetPoi.u1Win) annotation (Line(points={{-176,-220},{-150,-220},
           {-150,183},{-142,183}}, color={255,0,255}));
 
-  connect(uWin, modSetPoi.u1Win) annotation (Line(points={{-240,-300},{-158,-300},
-          {-158,183},{-142,183}},color={255,0,255}));
+  connect(u1Win, modSetPoi.u1Win) annotation (Line(points={{-240,-300},{-158,-300},
+          {-158,183},{-142,183}}, color={255,0,255}));
 
   connect(havOcc.y, modSetPoi.u1OccSen) annotation (Line(points={{-78,60},{-60,60},
           {-60,112},{-180,112},{-180,156},{-142,156}}, color={255,0,255}));
@@ -861,10 +861,10 @@ equation
   connect(TSupAir.TSupSet, TSupSet) annotation (Line(points={{124,12},{180,12},
           {180,-20},{220,-20}}, color={0,0,127}));
 
-  connect(fanSpe.yFanSpe, yFanSpe) annotation (Line(points={{142,178},{160,178},
-          {160,160},{220,160}}, color={0,0,127}));
+  connect(fanSpe.yFan, yFan) annotation (Line(points={{142,178},{160,178},{160,160},
+          {220,160}}, color={0,0,127}));
 
-  connect(fanSpe.yFan, yFan) annotation (Line(points={{142,182},{160,182},{160,200},
+  connect(fanSpe.y1Fan, y1Fan) annotation (Line(points={{142,182},{160,182},{160,200},
           {220,200}}, color={255,0,255}));
 
   connect(modSetPoi.yOpeMod, fanSpe.opeMod) annotation (Line(points={{-118,178},
@@ -874,8 +874,8 @@ equation
           -80,10},{100,10}},
                            color={0,0,127}));
 
-  connect(uFan, fanSpe.uFanPro) annotation (Line(points={{-240,-270},{8,-270},{8,
-          182},{118,182}},    color={255,0,255}));
+  connect(u1Fan, fanSpe.u1FanPro) annotation (Line(points={{-240,-270},{8,-270},
+          {8,182},{118,182}}, color={255,0,255}));
 
   connect(heaPI.y, fanSpe.uHea) annotation (Line(points={{-58,220},{0,220},{0,178},
           {118,178}}, color={0,0,127}));
@@ -898,8 +898,8 @@ equation
   connect(TZonHeaSet, TZonHeaSet)
     annotation (Line(points={{220,120},{220,120}}, color={0,0,127}));
 
-  connect(uFan, TSupAir.uFan) annotation (Line(points={{-240,-270},{8,-270},{8,22},
-          {100,22}},              color={255,0,255}));
+  connect(u1Fan, TSupAir.u1Fan) annotation (Line(points={{-240,-270},{8,-270},{8,22},
+          {100,22}}, color={255,0,255}));
 
   connect(nOcc, havOcc.u) annotation (Line(points={{-240,-240},{-140,-240},{-140,
           60},{-102,60}},
@@ -935,16 +935,18 @@ equation
   connect(TSupAir.TSupSet, fcuPlaReq.TSupSet) annotation (Line(points={{124,12},
           {130,12},{130,-70},{94,-70},{94,-90},{98,-90}}, color={0,0,127}));
 
-  connect(fanSpe.yFanSpe, fcuPlaReq.uFanSpe) annotation (Line(points={{142,178},
-          {150,178},{150,-60},{90,-60},{90,-82},{98,-82}},           color={0,0,
-          127}));
+  connect(fanSpe.yFan, fcuPlaReq.uFan) annotation (Line(points={{142,178},{150,178},
+          {150,-60},{90,-60},{90,-82},{98,-82}}, color={0,0,127}));
 
   connect(TOccHeaSet, modSetPoi.TOccHeaSet) annotation (Line(points={{-240,-80},
           {-164,-80},{-164,177},{-142,177}}, color={0,0,127}));
+
   connect(TOccCooSet, modSetPoi.TOccCooSet) annotation (Line(points={{-240,-120},
           {-168,-120},{-168,175},{-142,175}}, color={0,0,127}));
+
   connect(TUnoHeaSet, modSetPoi.TUnoHeaSet) annotation (Line(points={{-240,-160},
           {-200,-160},{-200,173},{-142,173}}, color={0,0,127}));
+
   connect(TUnoCooSet, modSetPoi.TUnoCooSet) annotation (Line(points={{-240,-200},
           {-206,-200},{-206,171},{-142,171}}, color={0,0,127}));
 annotation (defaultComponentName="conFCU",
@@ -971,11 +973,11 @@ annotation (defaultComponentName="conFCU",
           fillPattern=FillPattern.Solid,
           textString="TZon"),
         Text(
-          extent={{-200,172},{-154,152}},
+          extent={{-196,172},{-150,152}},
           textColor={255,0,255},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="uOcc"),
+          textString="u1Occ"),
         Text(
           extent={{-200,52},{-152,30}},
           textColor={0,0,127},
@@ -991,11 +993,11 @@ annotation (defaultComponentName="conFCU",
           visible=have_occSen),
         Text(
           visible=have_winSen,
-          extent={{-198,-266},{-154,-288}},
+          extent={{-196,-266},{-152,-288}},
           textColor={255,0,255},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="uWin"),
+          textString="u1Win"),
         Text(
           extent={{132,-22},{198,-56}},
           textColor={0,0,127},
@@ -1003,11 +1005,11 @@ annotation (defaultComponentName="conFCU",
           fillPattern=FillPattern.Solid,
           textString="TSupSet"),
         Text(
-          extent={{150,174},{198,150}},
+          extent={{148,172},{200,136}},
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="yFanSpe"),
+          textString="yFan"),
         Text(
           extent={{116,136},{194,102}},
           textColor={0,0,127},
@@ -1059,17 +1061,17 @@ annotation (defaultComponentName="conFCU",
           fillPattern=FillPattern.Solid,
           textString="uHeaDemLimLev"),
         Text(
-          extent={{-202,-230},{-156,-250}},
+          extent={{-196,-230},{-150,-250}},
           textColor={255,0,255},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="uFan"),
+          textString="u1Fan"),
         Text(
-          extent={{158,212},{202,190}},
+          extent={{144,212},{188,190}},
           textColor={255,0,255},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="yFan"),
+          textString="y1Fan"),
         Text(
           extent={{-196,174},{-134,146}},
           textColor={0,0,127},

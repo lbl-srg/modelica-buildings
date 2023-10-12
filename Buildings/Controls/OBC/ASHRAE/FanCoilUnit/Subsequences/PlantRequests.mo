@@ -156,7 +156,7 @@ block PlantRequests
     annotation (Placement(transformation(extent={{-240,-160},{-200,-120}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uFanSpe(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uFan(
     final unit="1",
     final min=0,
     final max=1)
@@ -526,7 +526,7 @@ equation
   connect(yChiWatResReq, yChiWatResReq)
     annotation (Line(points={{220,200},{220,200}}, color={255,127,0}));
 
-  connect(uFanSpe, hysFanCoo.u)
+  connect(uFan, hysFanCoo.u)
     annotation (Line(points={{-220,240},{-132,240}}, color={0,0,127}));
 
   connect(hysFanCoo.y, booToIntCoo.u)
@@ -550,7 +550,7 @@ equation
   connect(booToIntHea.y, mulIntHea.u1) annotation (Line(points={{-68,-10},{100,-10},
           {100,6},{108,6}}, color={255,127,0}));
 
-  connect(uFanSpe, hysFanHea.u) annotation (Line(points={{-220,240},{-170,240},{
+  connect(uFan, hysFanHea.u) annotation (Line(points={{-220,240},{-170,240},{
           -170,-10},{-142,-10}}, color={0,0,127}));
 
   connect(mulIntHea.y, yHotWatResReq) annotation (Line(points={{132,0},{192,0},{
@@ -613,10 +613,10 @@ annotation (
           textString="yHotWatPlaReq",
           visible=have_hotWatCoi),
         Text(
-          extent={{-98,88},{-56,74}},
+          extent={{-100,86},{-72,76}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uFanSpe"),
+          textString="uFan"),
         Text(
           extent={{-98,-72},{-24,-86}},
           textColor={0,0,127},

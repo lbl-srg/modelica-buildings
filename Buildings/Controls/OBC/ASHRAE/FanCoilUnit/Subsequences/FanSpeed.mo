@@ -90,7 +90,7 @@ block FanSpeed
     "Hysteresis limits for deadband mode transitions"
     annotation(Dialog(tab="Advanced"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFanPro
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1FanPro
     "Fan proven on signal"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
       iconTransformation(extent={{-140,0},{-100,40}})));
@@ -114,17 +114,17 @@ block FanSpeed
     annotation (Placement(transformation(extent={{-140,-140},{-100,-100}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yFan
-    "Fan enable signal"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Fan
+    "Fan command on status"
     annotation (Placement(transformation(extent={{120,40},{160,80}}),
-        iconTransformation(extent={{100,0},{140,40}})));
+      iconTransformation(extent={{100,0},{140,40}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFanSpe(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFan(
     final unit="1",
     displayUnit="1")
-    "Fan speed signal"
+    "Fan command speed"
     annotation (Placement(transformation(extent={{120,-20},{160,20}}),
-        iconTransformation(extent={{100,-40},{140,0}})));
+      iconTransformation(extent={{100,-40},{140,0}})));
 
 protected
   Buildings.Controls.OBC.CDL.Integers.Equal isUnOcc
@@ -249,11 +249,10 @@ equation
   connect(isUnOcc.y, notUno.u)
     annotation (Line(points={{-18,80},{-12,80}}, color={255,0,255}));
 
-  connect(notUno.y, yFan) annotation (Line(points={{12,80},{20,80},{20,60},{140,
-          60}},
-        color={255,0,255}));
+  connect(notUno.y, y1Fan) annotation (Line(points={{12,80},{20,80},{20,60},{140,
+          60}}, color={255,0,255}));
 
-  connect(uFanPro, swiFanPro.u2) annotation (Line(points={{-120,40},{30,40},{30,
+  connect(u1FanPro, swiFanPro.u2) annotation (Line(points={{-120,40},{30,40},{30,
           0},{78,0}}, color={255,0,255}));
 
   connect(notUno.y, booToRea.u) annotation (Line(points={{12,80},{20,80},{20,-20},
@@ -298,7 +297,7 @@ equation
   connect(mulFanSpe.y, swiFanPro.u1) annotation (Line(points={{112,-80},{114,-80},
           {114,20},{74,20},{74,8},{78,8}}, color={0,0,127}));
 
-  connect(swiFanPro.y, yFanSpe)
+  connect(swiFanPro.y, yFan)
     annotation (Line(points={{102,0},{140,0}}, color={0,0,127}));
 
   connect(conZerHeaMod.y, linHeaFanSpe.u) annotation (Line(points={{-68,-70},{-36,
@@ -352,13 +351,13 @@ equation
           textColor={255,0,255},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="uFanPro"),
+          textString="u1FanPro"),
         Text(
-          extent={{54,32},{100,12}},
+          extent={{48,32},{94,12}},
           textColor={255,0,255},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="yFan"),
+          textString="y1Fan"),
         Text(
           extent={{-100,70},{-36,50}},
           textColor={255,127,0},
@@ -380,11 +379,11 @@ equation
           textString="uCoo",
           visible=have_cooCoi),
         Text(
-          extent={{36,-8},{98,-30}},
+          extent={{46,-8},{100,-30}},
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="yFanSpe")}),
+          textString="yFan")}),
     Diagram(coordinateSystem(preserveAspectRatio=false,
         extent={{-100,-180},{120,120}})),
     Documentation(info="<html>

@@ -126,7 +126,7 @@ block SupplyAirTemperature
     "Hysteresis limits for deadband mode transitions"
     annotation(Dialog(tab="Advanced"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFan
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Fan
     "Fan proven on signal"
     annotation (Placement(transformation(extent={{-160,120},{-120,160}}),
       iconTransformation(extent={{-140,80},{-100,120}})));
@@ -376,8 +376,8 @@ equation
   connect(swiDeaCoo.y, TSupSet) annotation (Line(points={{22,-20},{36,-20},{36,0},
           {140,0}}, color={0,0,127}));
 
-  connect(uFan, booToRea2.u)
-    annotation (Line(points={{-140,140},{58,140}},   color={255,0,255}));
+  connect(u1Fan, booToRea2.u)
+    annotation (Line(points={{-140,140},{58,140}}, color={255,0,255}));
   connect(yHeaCoi, mul2.y)
     annotation (Line(points={{140,60},{112,60}}, color={0,0,127}));
   connect(booToRea2.y, mul2.u1) annotation (Line(points={{82,140},{86,140},{86,66},
@@ -423,11 +423,11 @@ equation
           textString="%name",
           textColor={0,0,255}),
         Text(
-          extent={{-100,110},{-54,90}},
+          extent={{-96,110},{-50,90}},
           textColor={255,0,255},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="uFan"),
+          textString="u1Fan"),
         Text(
           extent={{-96,70},{-20,48}},
           textColor={0,0,127},
