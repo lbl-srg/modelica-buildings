@@ -24,7 +24,7 @@ model Controller "Validate chiller water pump control sequence"
     annotation (Placement(transformation(extent={{80,-90},{100,-70}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp isoVal[2](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp isoVal[2](
     duration=fill(1200, 2),
     startTime={0,300})
     "Chilled water isolation valve position"
@@ -33,27 +33,27 @@ protected
     final k={2,1,3})
     "Chilled water pump operating priority"
     annotation (Placement(transformation(extent={{-60,150},{-40,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin chiWatFlo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin chiWatFlo(
     final amplitude=0.25,
     final freqHz=1/3600,
     final offset=0.25) "Measured chilled water flow rate"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin remPreSen1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin remPreSen1(
     final offset=8.4*6894.75,
     final freqHz=1/3600,
     final amplitude=0.2*6894.75) "Remote pressure difference sensor reading"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin remPreSen2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin remPreSen2(
     final offset=8.5*6894.75,
     final freqHz=1/3600,
     final startTime=2,
     final amplitude=0.05*6894.75) "Remote pressure difference sensor reading"
     annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant difPreSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant difPreSet(
     final k=8.5*6894.75)
     "Pressure difference setpoint"
     annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin locPreSen(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin locPreSen(
     final offset=8.5*6894.75,
     final freqHz=1/3600,
     final startTime=2,

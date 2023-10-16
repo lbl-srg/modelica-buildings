@@ -34,29 +34,29 @@ protected
     final k=true) "WSE status"
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCWSupSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TCWSupSet(
     final k=273.15 + 14) "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-160,-20},{-140,0}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpChiWatSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dpChiWatSet(
     final k=65*6895) "Chilled water differential pressure setpoint"
     annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCWSup(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TCWSup(
     final k=273.15 + 14) "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-160,-60},{-140,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpChiWat(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dpChiWat(
     final k=65*6895)
     "Chilled water differential pressure"
     annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant splrDown(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant splrDown(
     final k=0.8)
     "Staging down part load ratio"
     annotation (Placement(transformation(extent={{-160,100},{-140,120}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin oplrDown(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin oplrDown(
     final amplitude=0.1,
     final startTime=0,
     final freqHz=1/4800,
@@ -64,53 +64,53 @@ protected
     final offset=0.75) "Operating part load ratio of the next stage down"
     annotation (Placement(transformation(extent={{-120,120},{-100,140}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TWsePre(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TWsePre(
     final k=273.15 + 14)
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-160,20},{-140,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TowFanSpeMax(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TowFanSpeMax(
     final k=0.9)
     "Maximum cooling tower speed signal"
     annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCWSupSet1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TCWSupSet1(
     final k=273.15 + 14)
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpChiWatSet1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dpChiWatSet1(
     final k=65*6895)
     "Chilled water differential pressure setpoint"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCWSup1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TCWSup1(
     final k=273.15 + 14)
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpChiWat1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dpChiWat1(
     final k=62*6895)
     "Chilled water differential pressure"
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oplrDown1(final k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant oplrDown1(final k=1)
     "Operating part load ratio of stage 0"
     annotation (Placement(transformation(extent={{60,120},{80,140}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TowFanSpeMax1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TowFanSpeMax1(
     final k=0.9)
     "Maximum cooling tower speed signal"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TWsePre1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin TWsePre1(
     final amplitude=4,
     final freqHz=1/2100,
     final offset=273.15 + 12.5)
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 
-  CDL.Continuous.Sources.Constant                        splrDown1(final k=1)
+  CDL.Reals.Sources.Constant                        splrDown1(final k=1)
     "Staging down part load ratio"
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
 equation

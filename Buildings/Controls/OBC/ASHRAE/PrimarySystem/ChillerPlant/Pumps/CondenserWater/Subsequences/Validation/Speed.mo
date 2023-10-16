@@ -9,11 +9,11 @@ model Speed
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramp(
     final duration=1,
     final height=3) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Round round(final n=0)
+  Buildings.Controls.OBC.CDL.Reals.Round round(final n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt

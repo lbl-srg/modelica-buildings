@@ -21,13 +21,13 @@ protected
     final width=0.2,
     final period=600) "Boolean pulse"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp minFloSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp minFloSet(
     final height=0.5,
     final duration=60,
     final offset=1,
     final startTime=120) "Minimum chiller water flow setpoint"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp meaFlo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp meaFlo(
     final height=0.5,
     final duration=80,
     final offset=1,

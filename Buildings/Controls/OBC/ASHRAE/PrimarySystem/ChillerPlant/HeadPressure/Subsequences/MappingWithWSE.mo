@@ -44,59 +44,59 @@ block MappingWithWSE
       iconTransformation(extent={{100,-80},{140,-40}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Line maxCooTowSpeSet
+  Buildings.Controls.OBC.CDL.Reals.Line maxCooTowSpeSet
     "Maximum cooling tower speed setpoint"
     annotation (Placement(transformation(extent={{40,120},{60,140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(final k=0)
     "Constant zero"
     annotation (Placement(transformation(extent={{0,140},{20,160}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(final k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one(final k=1)
     "Constant one"
     annotation (Placement(transformation(extent={{-40,140},{-20,160}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hal(final k=0.5)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant hal(final k=0.5)
     "Constant value"
     annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hpTowMaxSpe(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant hpTowMaxSpe(
     final k=minTowSpe)
     "Minimum allowable tower speed"
     annotation (Placement(transformation(extent={{0,100},{20,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line conWatPumSpe
+  Buildings.Controls.OBC.CDL.Reals.Line conWatPumSpe
     "Condenser water pump speed"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hal1(final k=0.5)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant hal1(final k=0.5)
     "Constant value"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one2(final k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one2(final k=1)
     "Constant one"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
     final k=minConWatPumSpe) "Minimum condenser water pump speed"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one3(final k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one3(final k=1)
     "Constant one"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one4(final k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one4(final k=1)
     "Constant one"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(
     final k=minHeaPreValPos)
     "Minimum head pressure control valve position"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer1(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer1(final k=0)
     "Constant value"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line heaPreConVal
+  Buildings.Controls.OBC.CDL.Reals.Line heaPreConVal
     "Head pressure control valve position"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     annotation (Placement(transformation(extent={{80,170},{100,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi2
+  Buildings.Controls.OBC.CDL.Reals.Switch swi2
     annotation (Placement(transformation(extent={{80,-120},{100,-100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi3
+  Buildings.Controls.OBC.CDL.Reals.Switch swi3
     annotation (Placement(transformation(extent={{80,-170},{100,-150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer2(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer2(final k=0)
     "Constant value"
     annotation (Placement(transformation(extent={{-40,-190},{-20,-170}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"

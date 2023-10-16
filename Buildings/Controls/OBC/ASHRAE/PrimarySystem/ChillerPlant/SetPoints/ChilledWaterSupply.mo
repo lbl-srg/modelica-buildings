@@ -52,35 +52,35 @@ block ChilledWaterSupply
       iconTransformation(extent={{100,-80},{140,-40}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Line chiWatPumPre[nRemDpSen]
+  Buildings.Controls.OBC.CDL.Reals.Line chiWatPumPre[nRemDpSen]
     "Chilled water pump differential pressure setpoint"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerRes[nRemDpSen](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zerRes[nRemDpSen](
       final k=fill(minSet, nRemDpSen)) "Minimum plant reset"
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant halRes[nRemDpSen](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant halRes[nRemDpSen](
       final k=fill(halSet, nRemDpSen)) "Half one plant reset"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oneRes(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant oneRes(
     final k=maxSet) "Maximum plant reset"
     annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minChiWatPumPre[nRemDpSen](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minChiWatPumPre[nRemDpSen](
      final k=fill(dpChiWatPumMin, nRemDpSen))
     "Minimum chilled water pump differential pressure setpoint"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxChiWatPumPre[nRemDpSen](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxChiWatPumPre[nRemDpSen](
      final k=dpChiWatPumMax)
     "Maximum chilled water pump differential pressure setpoint"
     annotation (Placement(transformation(extent={{-20,18},{0,38}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxChiWatTem(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxChiWatTem(
     final k=TChiWatSupMax)
     "Maximum chilled water supply temperature"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minChiWatTem(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minChiWatTem(
     final k=TChiWatSupMin)
     "Minimum chilled water supply temperature"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line chiWatTem
+  Buildings.Controls.OBC.CDL.Reals.Line chiWatTem
     "Chilled water temperature setpoint"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(

@@ -109,11 +109,11 @@ protected
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(final nin=nChi) "Logical or"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1 "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1 "Logical switch"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0) "Zero constant"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(final k=0) "Zero constant"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
 
 equation

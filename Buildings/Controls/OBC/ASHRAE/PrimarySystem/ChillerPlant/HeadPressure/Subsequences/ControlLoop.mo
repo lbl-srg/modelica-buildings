@@ -42,7 +42,7 @@ block ControlLoop
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conPID(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset conPID(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
@@ -52,12 +52,12 @@ block ControlLoop
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1
     annotation (Placement(transformation(extent={{-70,-30},{-50,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(final k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(final k=1)
     "Constant one"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(final k=1/minChiLif)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(final k=1/minChiLif)
     "Normalized by minimum allowable lift at minimum load for chiller"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
 

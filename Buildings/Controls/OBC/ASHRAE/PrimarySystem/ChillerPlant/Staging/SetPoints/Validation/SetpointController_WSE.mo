@@ -51,14 +51,14 @@ protected
     displayUnit="m3/s")=0.05
       "Average measured chilled water flow rate";
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TChiWatRet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin TChiWatRet(
     final amplitude=7,
     final offset=273.15 + 15,
     final freqHz=1/21600)
     "Chilled water return temeprature"
     annotation (Placement(transformation(extent={{-200,140},{-180,160}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin chiWatFlow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin chiWatFlow(
     final offset=0,
     final freqHz=1/21600,
     final amplitude=0.037)
@@ -70,7 +70,7 @@ protected
     "Chiller availability vector"
     annotation (Placement(transformation(extent={{-120,200},{-100,220}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Max max "Maximum"
+  Buildings.Controls.OBC.CDL.Reals.Max max "Maximum"
     annotation (Placement(transformation(extent={{-160,100},{-140,120}})));
 
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol(
@@ -104,35 +104,35 @@ protected
     final delayOnInit=true) "True delay"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter wseTPre(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter wseTPre(
     final p=-3) "Predicted WSE outlet temperature"
     annotation (Placement(transformation(extent={{0,200},{20,220}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TCWSup(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TCWSup(
     final height=-2.1,
     final duration=300,
     final offset=273.15 + 16,
     final startTime=1500) "Chilled water supply temperature ramp"
     annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable wseSta(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable wseSta(
     final table=[0,1; 1500,1; 1500,0; 12500,0;
         12500,1; 14000,1], smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.LinearSegments)
     "WSE is on during low loads, off during high loads"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     final t=0.5) "Greater threshold"
     annotation (Placement(transformation(extent={{-20,10},{0,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TChiWatRet1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin TChiWatRet1(
     final amplitude=7,
     final offset=273.15 + 15,
     final freqHz=1/21600)
     "Chilled water return temeprature"
     annotation (Placement(transformation(extent={{-200,-100},{-180,-80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin chiWatFlow1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin chiWatFlow1(
     final offset=0,
     final freqHz=1/21600,
     final amplitude=0.037)
@@ -144,7 +144,7 @@ protected
     "Chiller availability vector"
     annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Max max1 "Maximum"
+  Buildings.Controls.OBC.CDL.Reals.Max max1 "Maximum"
     annotation (Placement(transformation(extent={{-160,-140},{-140,-120}})));
 
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol1(
@@ -176,91 +176,91 @@ protected
     final delayOnInit=true) "True delay"
     annotation (Placement(transformation(extent={{-20,-180},{0,-160}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter wseTPre1(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter wseTPre1(
     final p=-3)
     "Predicted WSE outlet temperature"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TCWSup1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TCWSup1(
     final height=-2.1,
     final duration=300,
     final offset=273.15 + 16,
     final startTime=1500) "Chilled water supply temperature ramp"
     annotation (Placement(transformation(extent={{-120,-140},{-100,-120}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable wseSta1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable wseSta1(
     final table=[0,1; 1500,1; 1500,0; 12500,0;
         12500,1; 14000,1], smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.LinearSegments)
     "WSE is on during low loads, off during high loads"
     annotation (Placement(transformation(extent={{-60,-220},{-40,-200}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr1(
     final t=0.5) "Greater than threshold"
     annotation (Placement(transformation(extent={{-20,-220},{0,-200}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpChiWat(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dpChiWat(
     final k=65*6895)
     "Chilled water differential pressure"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCWSupSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TCWSupSet(
     final k=273.15 + 14)
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-120,160},{-100,180}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpChiWatSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dpChiWatSet(
     final k=65*6895)
     "Chilled water differential pressure setpoint"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zero(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zero(
     final k=0) "Constant"
     annotation (Placement(transformation(extent={{-200,60},{-180,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp maxTowFanSpe(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp maxTowFanSpe(
     final height=-0.05,
     final duration=60,
     final offset=1,
     final startTime=13000) "Constant"
     annotation (Placement(transformation(extent={{-160,180},{-140,200}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpChiWat1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dpChiWat1(
     final k=65*6895)
     "Chilled water differential pressure"
     annotation (Placement(transformation(extent={{-120,-230},{-100,-210}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCWSupSet1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TCWSupSet1(
     final k=273.15 + 14)
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpChiWatSet1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dpChiWatSet1(
     final k=65*6895)
     "Chilled water differential pressure setpoint"
     annotation (Placement(transformation(extent={{-120,-180},{-100,-160}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zero1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zero1(
     final k=0) "Constant"
     annotation (Placement(transformation(extent={{-200,-180},{-180,-160}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp maxTowFanSpe1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp maxTowFanSpe1(
     final height=-0.05,
     final duration=60,
     final offset=1,
     final startTime=13000) "Constant"
     annotation (Placement(transformation(extent={{-160,-60},{-140,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant tunPar(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant tunPar(
     final k=0.06)
     "Assume a constant tuning parameter"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter TOutWet(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter TOutWet(
     final p=-10)
     "Predicted WSE outlet temperature"
     annotation (Placement(transformation(extent={{-60,120},{-40,140}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter TOutWet1(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter TOutWet1(
     final p=-10)
     "Predicted WSE outlet temperature"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));

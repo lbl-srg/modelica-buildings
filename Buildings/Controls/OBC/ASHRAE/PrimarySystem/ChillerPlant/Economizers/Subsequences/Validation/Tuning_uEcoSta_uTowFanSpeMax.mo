@@ -27,7 +27,7 @@ protected
                       "Timer"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr1(
     final t=7e4) "Greater than"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
 
@@ -44,17 +44,17 @@ protected
     "Water side economizer enable/disable status"
     annotation (Placement(transformation(extent={{-120,200},{-100,220}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTowFanSpeSig0(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxTowFanSpeSig0(
     final k=1)
     "Maximum cooling tower fan speed signal"
     annotation (Placement(transformation(extent={{-120,140},{-100,160}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTowFanSpeSig2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxTowFanSpeSig2(
     final k=1)
     "Maximum cooling tower fan speed signal"
     annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTowFanSig1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxTowFanSig1(
     final k=1)
     "Cooling tower fan full load signal"
     annotation (Placement(transformation(extent={{20,160},{40,180}})));
@@ -65,14 +65,14 @@ protected
     "Water side economizer enable/disable status"
     annotation (Placement(transformation(extent={{20,200},{40,220}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin cooTowFanSta1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin cooTowFanSta1(
     final amplitude=0.2,
     final offset=1.1,
     final freqHz=1/(80*60),
     final phase=3.1415926535898) "Cooling tower fan speed status signal"
     annotation (Placement(transformation(extent={{20,118},{40,138}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Min min1 "Minimum"
+  Buildings.Controls.OBC.CDL.Reals.Min min1 "Minimum"
     annotation (Placement(transformation(extent={{60,140},{80,160}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse ecoSta2(
@@ -87,7 +87,7 @@ protected
     "Water side economizer enable/disable status"
     annotation (Placement(transformation(extent={{20,80},{40,100}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTowFanSpeSig3(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxTowFanSpeSig3(
     final k=1)
     "Maximum cooling tower fan speed signal"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
@@ -98,7 +98,7 @@ protected
     "Water side economizer enable/disable status"
     annotation (Placement(transformation(extent={{20,-120},{40,-100}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTowFanSpeSig1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxTowFanSpeSig1(
     final k=1)
     "Maximum cooling tower fan speed signal"
     annotation (Placement(transformation(extent={{20,-180},{40,-160}})));

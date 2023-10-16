@@ -20,17 +20,17 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
     final k=false) "Constant false"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp parLoaRat(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp parLoaRat(
     final height=0.6, final duration=3600)
     "Partial load ratio"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0) "Constant zero"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(final k=0) "Constant zero"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiWatSupSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiWatSupSet(
     final k=273.15 + 6.5)
     "Chilled water supply setpoint"
     annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
 
 equation

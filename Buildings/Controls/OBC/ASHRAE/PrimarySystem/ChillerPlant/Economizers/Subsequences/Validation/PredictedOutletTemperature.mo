@@ -19,14 +19,14 @@ model PredictedOutletTemperature
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TOutWetSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin TOutWetSig(
     final amplitude=2,
     final freqHz=1/600,
     final offset=aveTWetBul)
     "Measured outdoor air wet bulb temperature"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin chiWatFlow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin chiWatFlow(
     final freqHz=1/600,
     final offset=aveVChiWat_flow,
     final amplitude=0.002) "Chilled water flow"
@@ -36,7 +36,7 @@ protected
     final samplePeriod=60) "Sampler"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ram(
     final offset=-0.2,
     final height=0.7,
     final duration=2100) "Ramp"

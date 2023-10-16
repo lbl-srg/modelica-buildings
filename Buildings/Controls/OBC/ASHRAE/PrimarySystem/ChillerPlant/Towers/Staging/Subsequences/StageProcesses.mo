@@ -38,38 +38,38 @@ block StageProcesses "Sequence for process of staging cells"
       iconTransformation(extent={{100,-80},{140,-40}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi2[nTowCel] "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi2[nTowCel] "Logical switch"
     annotation (Placement(transformation(extent={{100,100},{120,120}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim
     "Count the time after changing up-stream device status"
     annotation (Placement(transformation(extent={{-120,210},{-100,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con9(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con9(final k=0)
     "Constant zero"
     annotation (Placement(transformation(extent={{-40,230},{-20,250}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con7(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con7(
     final k=chaTowCelIsoTim) "Time to change cooling tower isolation valve"
     annotation (Placement(transformation(extent={{-120,180},{-100,200}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con8(final k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con8(final k=1)
     "Fully open valve"
     annotation (Placement(transformation(extent={{-40,180},{-20,200}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line lin1
+  Buildings.Controls.OBC.CDL.Reals.Line lin1
     "Chilled water isolation valve setpoint"
     annotation (Placement(transformation(extent={{20,210},{40,230}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
     final nout=nTowCel)
     "Replicate real input"
     annotation (Placement(transformation(extent={{100,140},{120,160}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi[nTowCel] "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi[nTowCel] "Logical switch"
     annotation (Placement(transformation(extent={{160,80},{180,100}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=nTowCel)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys3[nTowCel](
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys3[nTowCel](
     final uLow=fill(0.025, nTowCel),
     final uHigh=fill(0.05, nTowCel)) "Check if isolation valve is enabled"
     annotation (Placement(transformation(extent={{-140,-60},{-120,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys4[nTowCel](
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys4[nTowCel](
     final uLow=fill(0.925, nTowCel),
     final uHigh=fill(0.975, nTowCel)) "Check if isolation valve is open more than 95%"
     annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
@@ -79,7 +79,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and5
     "Check if the isolation valve has been fully open"
     annotation (Placement(transformation(extent={{100,-100},{120,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greEquThr(
     final t=chaTowCelIsoTim)
     "Check if it has past the target time of open isolation valve "
     annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
@@ -103,7 +103,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.MultiAnd enaCel(
     final nin=nTowCel) "New cells should be enabled"
     annotation (Placement(transformation(extent={{-20,140},{0,160}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch celPosSet
+  Buildings.Controls.OBC.CDL.Reals.Switch celPosSet
     "Slowly change the opening setpoint to 1 of the enabling cells isolation valve, or change the setpoint to 0 of the disabling cells"
     annotation (Placement(transformation(extent={{60,140},{80,160}})));
   Buildings.Controls.OBC.CDL.Logical.And enaPro "Enabling cells process"

@@ -10,13 +10,13 @@ model EnableCWPump
     annotation (Placement(transformation(extent={{80,50},{100,70}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Switch curSta
+  Buildings.Controls.OBC.CDL.Reals.Switch curSta
     "Current chiller stage setpoint"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt[2]
     "Real input to integer output"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch curSta1
+  Buildings.Controls.OBC.CDL.Reals.Switch curSta1
     "Current chiller stage setpoint"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1[2]
@@ -38,10 +38,10 @@ protected
     final k=false)
     "No stage change"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staTwo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant staTwo(
     final k=2) "Chiller stage index"
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staOne(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant staOne(
     final k=1) "Chiller stage index"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
 

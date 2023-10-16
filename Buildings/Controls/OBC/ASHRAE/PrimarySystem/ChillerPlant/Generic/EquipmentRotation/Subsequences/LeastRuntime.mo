@@ -26,94 +26,99 @@ block LeastRuntime
 
   Buildings.Controls.OBC.CDL.Logical.TimerAccumulating accTim[nDev]
     "Measures time spent loaded at the current role (lead or lag)"
-    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 
+  CDL.Logical.MultiOr mulOr(nin=nDev) "Multiple or"
+    annotation (Placement(transformation(extent={{120,-10},{140,10}})));
 protected
   final parameter Integer nDev = 2
     "Total number of devices, such as chillers, isolation valves, CW pumps, or CHW pumps";
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[nDev](
     final k=fill(false, nDev)) "Constant"
-    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
+    annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Greater longer1
+  Buildings.Controls.OBC.CDL.Reals.Greater longer1
     "Runtime of the first device is longer than runtime of the second device"
-    annotation (Placement(transformation(extent={{-20,50},{0,70}})));
+    annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Greater longer2
+  Buildings.Controls.OBC.CDL.Reals.Greater longer2
     "Runtime of the second device is longer than the runtime of the first device"
-    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-
-  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    final nin=nDev) "Multiple or"
-    annotation (Placement(transformation(extent={{130,-10},{150,10}})));
+    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not1 if lag "Logical not"
-    annotation (Placement(transformation(extent={{20,50},{40,70}})));
+    annotation (Placement(transformation(extent={{0,50},{20,70}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not2 if lag "Logical not"
-    annotation (Placement(transformation(extent={{20,20},{40,40}})));
+    annotation (Placement(transformation(extent={{0,20},{20,40}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not3[nDev] if lag "Logical not"
-    annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
+    annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And3 and3[nDev] if lag "Logical not"
-    annotation (Placement(transformation(extent={{100,10},{120,30}})));
+  Buildings.Controls.OBC.CDL.Logical.And and3[nDev] if lag "Logical not"
+    annotation (Placement(transformation(extent={{40,10},{60,30}})));
 
   Buildings.Controls.OBC.CDL.Logical.Edge edg [nDev](
     final pre_u_start=fill(false, nDev)) if lag "Rising edge"
-    annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
+    annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
 
   Buildings.Controls.OBC.CDL.Logical.And and1[nDev] if not lag "Logical and"
-    annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
+    annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
 
   Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg [nDev](
     final pre_u_start=fill(false, nDev)) if not lag "Falling edge"
-    annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
+    annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and2[nDev] if lag
+    "Logical and"
+    annotation (Placement(transformation(extent={{80,10},{100,30}})));
 
 equation
   connect(uDevSta, accTim.u)
-    annotation (Line(points={{-180,60},{-62,60}}, color={255,0,255}));
+    annotation (Line(points={{-180,60},{-82,60}}, color={255,0,255}));
   connect(accTim[1].y, longer1.u1)
-    annotation (Line(points={{-38,60},{-22,60}}, color={0,0,127}));
-  connect(accTim[2].y, longer1.u2) annotation (Line(points={{-38,60},{-30,60},{-30,
-          52},{-22,52}}, color={0,0,127}));
-  connect(accTim[1].y, longer2.u2) annotation (Line(points={{-38,60},{-30,60},{-30,
-          22},{-22,22}}, color={0,0,127}));
-  connect(accTim[2].y, longer2.u1) annotation (Line(points={{-38,60},{-30,60},{-30,
-          30},{-22,30}}, color={0,0,127}));
-  connect(uDevSta, edg.u) annotation (Line(points={{-180,60},{-120,60},{-120,-10},
-          {-102,-10}}, color={255,0,255}));
+    annotation (Line(points={{-58,60},{-42,60}}, color={0,0,127}));
+  connect(accTim[2].y, longer1.u2) annotation (Line(points={{-58,60},{-50,60},{-50,
+          52},{-42,52}}, color={0,0,127}));
+  connect(accTim[1].y, longer2.u2) annotation (Line(points={{-58,60},{-50,60},{-50,
+          22},{-42,22}}, color={0,0,127}));
+  connect(accTim[2].y, longer2.u1) annotation (Line(points={{-58,60},{-50,60},{-50,
+          30},{-42,30}}, color={0,0,127}));
   connect(longer2.y, not2.u)
-    annotation (Line(points={{2,30},{18,30}}, color={255,0,255}));
+    annotation (Line(points={{-18,30},{-2,30}}, color={255,0,255}));
   connect(longer1.y, not1.u)
-    annotation (Line(points={{2,60},{18,60}}, color={255,0,255}));
+    annotation (Line(points={{-18,60},{-2,60}}, color={255,0,255}));
   connect(uPreDevRolSig, not3.u)
-    annotation (Line(points={{-180,-40},{18,-40}}, color={255,0,255}));
-  connect(edg.y, and3.u2) annotation (Line(points={{-78,-10},{80,-10},{80,20},{98,
-          20}}, color={255,0,255}));
-  connect(not3.y, and3.u3) annotation (Line(points={{42,-40},{88,-40},{88,12},{98,
+    annotation (Line(points={{-180,-40},{-62,-40}},color={255,0,255}));
+  connect(edg.y, and3.u2) annotation (Line(points={{-98,-10},{20,-10},{20,12},{38,
           12}}, color={255,0,255}));
-  connect(not1.y, and3[1].u1) annotation (Line(points={{42,60},{80,60},{80,28},{
-          98,28}}, color={255,0,255}));
-  connect(not2.y, and3[2].u1) annotation (Line(points={{42,30},{70,30},{70,28},{
-          98,28}}, color={255,0,255}));
+  connect(not1.y, and3[1].u1) annotation (Line(points={{22,60},{30,60},{30,20},{
+          38,20}}, color={255,0,255}));
+  connect(not2.y, and3[2].u1) annotation (Line(points={{22,30},{30,30},{30,20},{
+          38,20}}, color={255,0,255}));
+  connect(longer1.y, and1[1].u1) annotation (Line(points={{-18,60},{-10,60},{-10,
+          -60},{58,-60}},              color={255,0,255}));
+  connect(longer2.y, and1[2].u1) annotation (Line(points={{-18,30},{-10,30},{-10,
+          -60},{58,-60}},              color={255,0,255}));
+  connect(falEdg.y, and1.u2) annotation (Line(points={{-98,-60},{-60,-60},{-60,-68},
+          {58,-68}},      color={255,0,255}));
+  connect(con.y, accTim.reset) annotation (Line(points={{-98,30},{-90,30},{-90,52},
+          {-82,52}}, color={255,0,255}));
+  connect(uDevSta, falEdg.u) annotation (Line(points={{-180,60},{-140,60},{-140,
+          -60},{-122,-60}}, color={255,0,255}));
+  connect(uDevSta, edg.u) annotation (Line(points={{-180,60},{-140,60},{-140,-10},
+          {-122,-10}}, color={255,0,255}));
+  connect(and3.y, and2.u1)
+    annotation (Line(points={{62,20},{78,20}}, color={255,0,255}));
+  connect(not3.y, and2.u2) annotation (Line(points={{-38,-40},{70,-40},{70,12},{
+          78,12}}, color={255,0,255}));
+  connect(and2.y, mulOr.u) annotation (Line(points={{102,20},{110,20},{110,0},{118,
+          0}}, color={255,0,255}));
+  connect(and1.y, mulOr.u) annotation (Line(points={{82,-60},{110,-60},{110,0},{
+          118,0}}, color={255,0,255}));
   connect(mulOr.y, yRot)
-    annotation (Line(points={{152,0},{180,0}}, color={255,0,255}));
-  connect(and3.y, mulOr.u) annotation (Line(points={{122,20},{124,20},{124,0},{128,
-          0},{128,0}},            color={255,0,255}));
-  connect(uDevSta, falEdg.u) annotation (Line(points={{-180,60},{-120,60},{-120,
-          -60},{-102,-60}}, color={255,0,255}));
-  connect(longer1.y, and1[1].u1) annotation (Line(points={{2,60},{10,60},{10,-20},
-          {80,-20},{80,-60},{98,-60}}, color={255,0,255}));
-  connect(longer2.y, and1[2].u1) annotation (Line(points={{2,30},{10,30},{10,-20},
-          {80,-20},{80,-60},{98,-60}}, color={255,0,255}));
-  connect(and1.y, mulOr.u) annotation (Line(points={{122,-60},{122,0},{128,0}},
-                       color={255,0,255}));
-  connect(falEdg.y, and1.u2) annotation (Line(points={{-78,-60},{20,-60},{20,
-          -68},{98,-68}}, color={255,0,255}));
-  connect(con.y, accTim.reset) annotation (Line(points={{-78,30},{-70,30},{-70,52},
-          {-62,52}}, color={255,0,255}));
+    annotation (Line(points={{142,0},{180,0}}, color={255,0,255}));
+
   annotation (Diagram(coordinateSystem(extent={{-160,-80},{160,80}})),
       defaultComponentName="leaRunTim",
     Icon(graphics={

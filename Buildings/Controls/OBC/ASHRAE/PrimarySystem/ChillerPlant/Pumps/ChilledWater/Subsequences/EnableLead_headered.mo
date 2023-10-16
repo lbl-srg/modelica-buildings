@@ -22,7 +22,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(final k=false)
     "Logical false"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys4[nChi](
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys4[nChi](
     final uLow=fill(0.925,nChi),
     final uHigh=fill(0.975, nChi))
     "Check if isolation valve is open more than 95%"

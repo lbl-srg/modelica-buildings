@@ -51,13 +51,13 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant staOneChi[2](
     final k={true,false}) "Vector of chillers status setpoint at stage one"
     annotation (Placement(transformation(extent={{-260,70},{-240,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant upSta(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant upSta(
     final k=2) "Stage two"
     annotation (Placement(transformation(extent={{-260,230},{-240,250}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dowSta(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dowSta(
     final k=1) "Stage one"
     annotation (Placement(transformation(extent={{-260,190},{-240,210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{-180,210},{-160,230}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger staSet
     "Stage setpoint index"
@@ -87,15 +87,15 @@ protected
     final k={true,false})
     "Vector of chillers status setpoint at stage one"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant upSta1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant upSta1(
     final k=2)
     "Stage two"
     annotation (Placement(transformation(extent={{40,230},{60,250}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dowSta1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dowSta1(
     final k=1)
     "Stage one"
     annotation (Placement(transformation(extent={{40,190},{60,210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1 "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1 "Logical switch"
     annotation (Placement(transformation(extent={{120,210},{140,230}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger staSet1
     "Stage setpoint index"
@@ -125,13 +125,13 @@ protected
     final k={true,false})
     "Vector of chillers status setpoint at stage one"
     annotation (Placement(transformation(extent={{-260,-210},{-240,-190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant upSta2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant upSta2(
     final k=2) "Stage two"
     annotation (Placement(transformation(extent={{-260,-130},{-240,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dowSta2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dowSta2(
     final k=1) "Stage one"
     annotation (Placement(transformation(extent={{-260,-90},{-240,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi2 "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi2 "Logical switch"
     annotation (Placement(transformation(extent={{-180,-110},{-160,-90}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger staSet2
     "Stage setpoint index"
@@ -160,13 +160,13 @@ protected
     final k={true,false})
     "Vector of chillers status setpoint at stage one"
     annotation (Placement(transformation(extent={{40,-210},{60,-190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant upSta3(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant upSta3(
     final k=2) "Stage two"
     annotation (Placement(transformation(extent={{40,-130},{60,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dowSta3(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dowSta3(
     final k=1) "Stage one"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi3 "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi3 "Logical switch"
     annotation (Placement(transformation(extent={{120,-110},{140,-90}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger staSet3 "Stage setpoint index"
     annotation (Placement(transformation(extent={{160,-110},{180,-90}})));

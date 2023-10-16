@@ -30,7 +30,7 @@ protected
     annotation (Placement(transformation(extent={{-200,-40},{-180,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Not upsDevSta "Upstream device status"
     annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant valOne(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant valOne(
     final k=1) "Valve one position, fully open"
     annotation (Placement(transformation(extent={{-200,10},{-180,30}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant enaChi(
@@ -40,7 +40,7 @@ protected
     final samplePeriod=2)
     "Output the input signal with a zero order hold"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant valOne1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant valOne1(
     final k=1)
     "Valve one position, fully open"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
@@ -52,7 +52,7 @@ protected
     final samplePeriod=2)
     "Output the input signal with a zero order hold"
     annotation (Placement(transformation(extent={{160,-20},{180,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Second chiller isolation valve position"
     annotation (Placement(transformation(extent={{160,30},{180,50}})));
 

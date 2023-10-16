@@ -57,7 +57,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "Logical latch, maintain ON signal until condition changes"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     final t=thrTimEnb)
     "Check if it has been threhold time after condenser water pump achieves its new setpoint"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
@@ -74,22 +74,22 @@ protected
     annotation (Placement(transformation(extent={{-160,50},{-140,70}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{-160,10},{-140,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi[nChi] "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi[nChi] "Logical switch"
     annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr1(
     final t=thrTimEnb + waiTim)
     "Check if it has been threshold time after condenser water pump achieves its new setpoint and have waited for another amount of time"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(
     final nout=nChi) "Replicate boolean input"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr[nChi](
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greEquThr[nChi](
     final t=fill(0.5, nChi))
     "Convert real input to boolean output"
     annotation (Placement(transformation(extent={{140,-30},{160,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1[nChi] "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1[nChi] "Logical switch"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep2(final nout=nChi)
     "Replicate boolean input"
@@ -100,7 +100,7 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu[nChi]
     "Check next enabling isolation valve"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi2[nChi] "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi2[nChi] "Logical switch"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1[nChi]
     "Convert boolean input to real output"

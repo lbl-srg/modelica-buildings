@@ -94,29 +94,29 @@ block Initial "Outputs the initial stage"
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt "Type converter"
     annotation (Placement(transformation(extent={{160,30},{180,50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staZer(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant staZer(
     final k=0)
     "Zero stage"
     annotation (Placement(transformation(extent={{0,100},{20,120}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys1(
     final uLow=0,
     final uHigh=wseDt) if have_WSE
     "Check if the initial predicted heat exchange leaving water temperature is greater than chilled water supply temperature setpoint less offset"
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1 if have_WSE
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1 if have_WSE
     "Difference between predicted heat exchanger leaving water temperature and chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{60,80},{80,100}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant noWSE(
     final k=false) if not have_WSE "Replacement signal for no WSE case"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con3(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con3(
     final k=VHeaExcDes_flow) if have_WSE
     "Design heat exchanger chiller water flow rate"
     annotation (Placement(transformation(extent={{-220,20},{-200,40}})));

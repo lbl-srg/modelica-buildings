@@ -123,22 +123,22 @@ block DisableChillers
   Buildings.Controls.OBC.CDL.Logical.Or cloChiIsoVal
     "Close all chilled water isolation valve"
     annotation (Placement(transformation(extent={{0,190},{20,210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi[nChi] "Close valve"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi[nChi] "Close valve"
     annotation (Placement(transformation(extent={{160,190},{180,210}})));
   Buildings.Controls.OBC.CDL.Logical.Or cloChiIsoVal1
     "Close all chilled water isolation valve"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
   Buildings.Controls.OBC.CDL.Logical.Not not3 "No condenser water request"
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1[nChi]
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1[nChi]
     "Close valve"
     annotation (Placement(transformation(extent={{160,60},{180,80}})));
   Buildings.Controls.OBC.CDL.Logical.Or cloPums "Disable pumps"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi2[nChiWatPum]
+  Buildings.Controls.OBC.CDL.Reals.Switch swi2[nChiWatPum]
     "Disable pumps"
     annotation (Placement(transformation(extent={{160,-70},{180,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi3[nConWatPum]
+  Buildings.Controls.OBC.CDL.Reals.Switch swi3[nConWatPum]
     "Disable pumps"
     annotation (Placement(transformation(extent={{160,-180},{180,-160}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
@@ -162,14 +162,14 @@ block DisableChillers
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     "Convert boolean to real"
     annotation (Placement(transformation(extent={{-100,250},{-80,270}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul[nChi]
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul[nChi]
     "Product of the two real inputs"
     annotation (Placement(transformation(extent={{100,230},{120,250}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep(
     final nout=nChi)
     "Duplicate real input"
     annotation (Placement(transformation(extent={{0,236},{20,256}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul1[nChiWatPum]
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul1[nChiWatPum]
     "Product of the two real inputs"
     annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep1(
@@ -180,14 +180,14 @@ block DisableChillers
     final nout=nConWatPum)
     "Duplicate real input"
     annotation (Placement(transformation(extent={{0,-124},{20,-104}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul2[nConWatPum]
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul2[nConWatPum]
     "Product of the two real inputs"
     annotation (Placement(transformation(extent={{100,-130},{120,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
     final k=false) if not have_WSE
     "Consant false"
     annotation (Placement(transformation(extent={{-180,270},{-160,290}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul3[nChi]
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul3[nChi]
     "Product of the two real inputs"
     annotation (Placement(transformation(extent={{100,100},{120,120}})));
   Buildings.Controls.OBC.CDL.Logical.Or towSta

@@ -39,7 +39,7 @@ model Controller "Validation head pressure controller"
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant uChiWatPum[2](
     final k={true,false}) "Chilled water pump status"
     annotation (Placement(transformation(extent={{-260,122},{-240,142}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timTabLin1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable timTabLin1(
     final smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
     final table=[0,2; 600,4; 1200,6; 1800,6; 2400,8; 3000,8; 3600,8; 4200,6; 4800,6;
                  5400,6; 6000,7; 6600,7; 7200,7])
@@ -52,43 +52,43 @@ model Controller "Validation head pressure controller"
     final k={true,true})
     "Chilled availability"
     annotation (Placement(transformation(extent={{-240,-60},{-220,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TChiWatSup(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TChiWatSup(
     final height=4,
     final duration=7200,
     final offset=273.15 + 7) "Chilled water supply"
     annotation (Placement(transformation(extent={{-280,-10},{-260,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutWet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOutWet(
     final k=283.15)
     "Outdoor wet bulb temperatur"
     annotation (Placement(transformation(extent={{-280,30},{-260,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOut1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOut1(
     final k=313.15) "Outdoor dry bulb temperature"
     annotation (Placement(transformation(extent={{-260,-190},{-240,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TChiWatRet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TChiWatRet(
     final height=5,
     final duration=3600,
     final offset=273.15 + 15) "Chilled water return temperature"
     annotation (Placement(transformation(extent={{-240,10},{-220,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TChiWatRetDow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TChiWatRetDow(
     final height=3,
     final duration=3600,
     final offset=273.15 + 10) "Chilled water return downstream of WSE"
     annotation (Placement(transformation(extent={{-300,-170},{-280,-150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TConWatRet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TConWatRet(
     final k=307.15)
     "Condenser water return temperature"
     annotation (Placement(transformation(extent={{-220,-250},{-200,-230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TConWatSup(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TConWatSup(
     final k=305.15)
     "Condenser water supply temperature"
     annotation (Placement(transformation(extent={{-260,-230},{-240,-210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max max1
+  Buildings.Controls.OBC.CDL.Reals.Max max1
     annotation (Placement(transformation(extent={{120,-150},{140,-130}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[2]
     annotation (Placement(transformation(extent={{220,-50},{240,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro[2]
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro[2]
     annotation (Placement(transformation(extent={{260,-10},{280,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp dpChiWat(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp dpChiWat(
     final height=2*6895,
     final duration=3600,
     final offset=3*6895,
@@ -96,7 +96,7 @@ model Controller "Validation head pressure controller"
     annotation (Placement(transformation(extent={{-260,60},{-240,80}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1[2]
     annotation (Placement(transformation(extent={{-240,160},{-220,180}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro1[2]
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro1[2]
     annotation (Placement(transformation(extent={{-200,-138},{-180,-118}})));
   Buildings.Controls.OBC.CDL.Logical.Pre chiOneSta
     "Chiller one status"
@@ -108,7 +108,7 @@ model Controller "Validation head pressure controller"
     final pre_u_start=fill(false, 2))
     "Tower cell status"
     annotation (Placement(transformation(extent={{120,-180},{140,-160}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp watLev(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp watLev(
     final height=1.2,
     final duration=3600,
     final offset=0.5) "Water level in cooling tower"
@@ -129,13 +129,13 @@ model Controller "Validation head pressure controller"
     final samplePeriod=fill(5, 2))
     "Output the input signal with a zero order hold"
     annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp chiCooLoa[2](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp chiCooLoa[2](
     final height={80,70},
     final duration=fill(3600, 2),
     final offset={20,25})
     "Current chiller cooling load"
     annotation (Placement(transformation(extent={{-300,-130},{-280,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp chiWatFlo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp chiWatFlo(
     final height=0.002,
     final duration=10800,
     final offset=0.0075) "Chilled water flow"
@@ -143,7 +143,7 @@ model Controller "Validation head pressure controller"
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr
     "Check if the WSE pump should be enabled"
     annotation (Placement(transformation(extent={{-200,-100},{-180,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TEntHex(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TEntHex(
     final height=3,
     final duration=3600,
     final offset=273.15 + 14)

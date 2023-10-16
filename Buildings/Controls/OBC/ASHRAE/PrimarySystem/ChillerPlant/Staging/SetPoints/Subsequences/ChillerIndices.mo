@@ -52,13 +52,13 @@ protected
     final k=staMat) "Staging matrix"
     annotation (Placement(transformation(extent={{-80,-56},{-60,-36}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MatrixMax matMax(
+  Buildings.Controls.OBC.CDL.Reals.MatrixMax matMax(
     final nRow=nSta,
     final nCol=nChi,
     final rowMax=false) "Column-wise matrix maximum"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold chiInSta[nChi](t=fill(0.5, nChi))
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold chiInSta[nChi](t=fill(0.5, nChi))
     "Identifies chillers designated to operate in a given stage"
     annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
 

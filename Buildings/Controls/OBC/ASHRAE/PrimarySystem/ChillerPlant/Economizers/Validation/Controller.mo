@@ -22,7 +22,7 @@ model Controller
     "Waterside economizer enable status sequence"
     annotation (Placement(transformation(extent={{240,40},{260,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin dpWSE(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin dpWSE(
     final amplitude=3000,
     freqHz=1/3600,
     final offset=4500)
@@ -54,81 +54,81 @@ protected
     displayUnit="m3/s")=0.01
       "Measured chilled water return temperature";
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiWatFlow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiWatFlow(
     final k=VChiWat_flow)
     "Chilled water flow"
     annotation (Placement(transformation(extent={{-260,0},{-240,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse TOutWetSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse TOutWetSig(
     final amplitude=5,
     final period=2*15*60,
     final offset=TOutWetBul) "Measured outdoor air wet bulb temperature"
     annotation (Placement(transformation(extent={{-260,100},{-240,120}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant constTowFanSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant constTowFanSig(
     final k=1)
     "Cooling tower fan full load signal"
     annotation (Placement(transformation(extent={{-260,-40},{-240,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatRetSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatRetSig(
     final k=TChiWatRet)
     "Chilled water return temperature upstream of WSE"
     annotation (Placement(transformation(extent={{-260,70},{-240,90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatRetDow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatRetDow(
     final k=TWseOut)
     "Chilled water return temperature downstream of WSE"
     annotation (Placement(transformation(extent={{-260,40},{-240,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiWatFlow1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiWatFlow1(
     final k=VChiWat_flow)
     "Chilled water flow"
     annotation (Placement(transformation(extent={{-150,0},{-130,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutWetSig1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOutWetSig1(
     final k=TOutWetBul)
     "Measured outdoor air wet bulb temperature"
     annotation (Placement(transformation(extent={{-150,100},{-130,120}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant constTowFanSig1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant constTowFanSig1(
     final k=1)
     "Cooling tower fan full load signal"
     annotation (Placement(transformation(extent={{-150,-40},{-130,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatRetSig1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatRetSig1(
     final k=TChiWatRet)
     "Chilled water return temperature upstream of WSE"
     annotation (Placement(transformation(extent={{-150,70},{-130,90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TChiWatRetDow1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin TChiWatRetDow1(
     final offset=TWseOut,
     final freqHz=1/1800,
     final amplitude=4)
     "Chilled water return temperature downstream of WSE"
     annotation (Placement(transformation(extent={{-150,40},{-130,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiWatFlow2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiWatFlow2(
     final k=VChiWat_flow)
     "Chilled water flow"
     annotation (Placement(transformation(extent={{-30,0},{-10,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse TOutWetSig2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse TOutWetSig2(
     final amplitude=5,
     final period=2*15*60,
     final offset=TOutWetBul) "Measured outdoor air wet bulb temperature"
     annotation (Placement(transformation(extent={{-30,100},{-10,120}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant constTowFanSig2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant constTowFanSig2(
     final k=1)
     "Cooling tower fan full load signal"
     annotation (Placement(transformation(extent={{-30,-40},{-10,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatRetSig2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatRetSig2(
     final k=TChiWatRet)
     "Chilled water return temperature upstream of WSE"
     annotation (Placement(transformation(extent={{-30,70},{-10,90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TChiWatRetDow3(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin TChiWatRetDow3(
     final offset=TWseOut,
     final freqHz=1/1800,
     final amplitude=4)
@@ -146,23 +146,23 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
     final k=true) "Enabled plant"
     annotation (Placement(transformation(extent={{-300,22},{-280,42}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiWatFlow3(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiWatFlow3(
     final k=VChiWat_flow)
     "Chilled water flow"
     annotation (Placement(transformation(extent={{160,0},{180,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant constTowFanSig3(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant constTowFanSig3(
     final k=1)
     "Cooling tower fan full load signal"
     annotation (Placement(transformation(extent={{160,-40},{180,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatRetSig3(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatRetSig3(
     final k=TChiWatRet)
     "Chilled water return temperature upstream of WSE"
     annotation (Placement(transformation(extent={{160,70},{180,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatRetDow2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatRetDow2(
     final k=TWseOut)
     "Chilled water return temperature downstream of WSE"
     annotation (Placement(transformation(extent={{160,40},{180,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutWetSig3(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOutWetSig3(
     final k=292.15)
     "Measured outdoor air wet bulb temperature"
     annotation (Placement(transformation(extent={{160,100},{180,120}})));
@@ -174,7 +174,7 @@ protected
     final k=0)
     "Stage 0"
     annotation (Placement(transformation(extent={{120,-20},{140,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TEntHex(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TEntHex(
     final height=3,
     final duration=3600,
     final offset=290.15)

@@ -9,7 +9,7 @@ model ChilledWaterSupply
     final TChiWatSupMin=280.15,
     final TChiWatSupMax=291.15) "Generate setpoint for chilled water supply control"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram(final duration=3600)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ram(final duration=3600)
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
 equation

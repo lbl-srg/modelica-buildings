@@ -38,9 +38,9 @@ model StageProcesses
   Buildings.Controls.OBC.CDL.Logical.Pre pre1[4](
     pre_u_start={false,true,true,false}) "Tower cell actual status"
     annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi[4] "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi[4] "Logical switch"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1[4](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1[4](
     final k={0,1,1,0})
     "Initial isolation valve positions"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));

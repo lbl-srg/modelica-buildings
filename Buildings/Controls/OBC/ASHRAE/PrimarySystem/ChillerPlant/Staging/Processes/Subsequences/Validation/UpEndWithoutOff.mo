@@ -28,18 +28,18 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiHea[2](
     final k=fill(true,2)) "Chiller one head pressure control"
     annotation (Placement(transformation(extent={{-140,-170},{-120,-150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiWatFlo(final k=1.667)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiWatFlo(final k=1.667)
     "Chilled water flow rate"
     annotation (Placement(transformation(extent={{-140,-250},{-120,-230}})));
   Buildings.Controls.OBC.CDL.Logical.Pre chiOneSta(
     final pre_u_start=true) "Chiller one status"
     annotation (Placement(transformation(extent={{140,110},{160,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi2 "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi2 "Logical switch"
     annotation (Placement(transformation(extent={{-60,140},{-40,160}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant nexEnaChi(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant nexEnaChi(
     final k=2) "Next enable chiller"
     annotation (Placement(transformation(extent={{-140,160},{-120,180}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer2(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer2(final k=0)
     "Constant zero"
     annotation (Placement(transformation(extent={{-140,120},{-120,140}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
@@ -54,7 +54,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Pre chiTwoSta(
     final pre_u_start=false) "Chiller two status"
     annotation (Placement(transformation(extent={{140,70},{160,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiWatIsoVal[2](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiWatIsoVal[2](
     final k=fill(1, 2))  "Constant one"
     annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
 

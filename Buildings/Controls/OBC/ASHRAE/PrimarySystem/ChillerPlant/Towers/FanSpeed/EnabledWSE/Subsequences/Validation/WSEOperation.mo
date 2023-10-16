@@ -15,32 +15,32 @@ model WSEOperation
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.Controls.OBC.CDL.Logical.Not fanSpeSwi "Two fan speed switch"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin chiSup(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin chiSup(
     final amplitude=0.5,
     final freqHz=1/1800,
     final offset=273.15 + 7.1) "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiSupSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiSupSet(
     final k=273.15 + 7)
     "Chilled water supply water setpoint"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(final k=0.1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(final k=0.1)
     "Minimum fan speed"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ram(
     final height=0.2,
     final duration=3600,
     final offset=0.1,
     final startTime=1750) "Tower speed"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ram1(
     final height=3,
     final duration=3600,
     final startTime=1500) "Ramp"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2 "Add real inputs"
+  Buildings.Controls.OBC.CDL.Reals.Add add2 "Add real inputs"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
 
 equation

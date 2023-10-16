@@ -52,48 +52,48 @@ block PredictedOutletTemperature
     iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Divide heaExcPlr
+  Buildings.Controls.OBC.CDL.Reals.Divide heaExcPlr
     "Heat exchanger flow part load ratio"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaExcDes_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant heaExcDes_flow(
     final k= VHeaExcDes_flow) "Heat exchanger design flow"
     annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaAppDes(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant heaAppDes(
     final k=heaExcAppDes)
     "Heat exchanger design approach"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro "Product"
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro "Product"
     annotation (Placement(transformation(extent={{0,44},{20,64}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1 "Subtraction"
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1 "Subtraction"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TWetDes(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TWetDes(
     final k=TOutWetDes)
     "Design outdoor air wet bulb temperature"
     annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro1 "Product"
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro1 "Product"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant towAppDes(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant towAppDes(
     final k=cooTowAppDes)
     "Cooling tower design approach"
     annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum mulSum(
     final nin=4)
     "Sum of multiple inputs"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Min min1
+  Buildings.Controls.OBC.CDL.Reals.Min min1
     "Lesser of the input"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
     final k=1) "Constant one"
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
 

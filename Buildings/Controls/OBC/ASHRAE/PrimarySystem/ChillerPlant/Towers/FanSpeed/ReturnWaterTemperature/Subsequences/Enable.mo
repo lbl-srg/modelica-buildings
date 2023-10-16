@@ -56,10 +56,10 @@ block Enable "Sequence for enabling and disabling tower fan"
         iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub0[nChi]
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub0[nChi]
     "Difference between enabled chiller head pressure control maximum tower speed and the minimum tower speed"
     annotation (Placement(transformation(extent={{-70,150},{-50,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys[nChi](
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys[nChi](
     final uLow=fill(fanSpeChe, nChi),
     final uHigh=fill(2*fanSpeChe, nChi))
     "Check if chiller head pressure control maximum tower speed is greater than the minimum tower speed "
@@ -73,17 +73,17 @@ protected
     final t=cheMaxTowSpe)
     "Count the time when the chiller head pressure control maximum tower speed equals tower minimum speed"
     annotation (Placement(transformation(extent={{80,150},{100,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1[nChi](
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys1[nChi](
     final uLow=fill(fanSpeChe, nChi),
     final uHigh=fill(2*fanSpeChe, nChi))
     "Check if chiller has been enabled, an enabled chiller will have the head pressure control maximum cooling tower speed that is greater than zero"
     annotation (Placement(transformation(extent={{-140,170},{-120,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi[nChi] "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi[nChi] "Logical switch"
     annotation (Placement(transformation(extent={{-100,150},{-80,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1
     "Difference between tower fan speed and the minimum fan speed"
     annotation (Placement(transformation(extent={{-90,110},{-70,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys2(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys2(
     final uLow=fanSpeChe,
     final uHigh=2*fanSpeChe)
     "Check if tower fan speed is greater than minimum speed"
@@ -91,10 +91,10 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not not2
     "Check if tower fan speed equals to the minimum speed"
     annotation (Placement(transformation(extent={{0,110},{20,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub2
     "Difference between the return water temperature and the adjusted setpoint"
     annotation (Placement(transformation(extent={{-90,30},{-70,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys3(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys3(
     final uLow=0.1, final uHigh=0.15)
     "Check if tower temperature is a delta below setpoint"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
@@ -112,37 +112,37 @@ protected
     final t=cheTowOff)
     "Count the time when all tower cells are off"
     annotation (Placement(transformation(extent={{-20,-130},{0,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub3
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub3
     "Difference between the return water temperature and the adjusted setpoint"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys4(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys4(
     final uLow=0.1,
     final uHigh=0.15)
     "Check if tower temperature is above the adjusted setpoint"
-    annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
+    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
   Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(final nin=nChi)
     "Check if all enabled chillers head pressure control maximum tower speed are greater than tower minimum speed"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Buildings.Controls.OBC.CDL.Logical.And3 enaTow
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+  Buildings.Controls.OBC.CDL.Logical.And enaTow
     "Check if tower fans should be enabled"
-    annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
+    annotation (Placement(transformation(extent={{70,-50},{90,-30}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu
     "Check integer number equality"
     annotation (Placement(transformation(extent={{-80,-170},{-60,-150}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
     final k=0) "Zero constant"
     annotation (Placement(transformation(extent={{-140,-190},{-120,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTowSpe[nChi](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minTowSpe[nChi](
     final k=fill(fanSpeMin, nChi))
     "Minimum tower speed"
     annotation (Placement(transformation(extent={{-140,70},{-120,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one[nChi](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one[nChi](
     final k=fill(1, nChi)) "Constant one"
     annotation (Placement(transformation(extent={{-140,130},{-120,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(
     final p=5/9) "Tower temperature setpoint plus 1 degF"
     annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar1(
     final p=-5/9)
     "Temperature of a delta value below the tower temperature setpoint"
     annotation (Placement(transformation(extent={{-140,30},{-120,50}})));
@@ -160,6 +160,9 @@ protected
     annotation (Placement(transformation(extent={{140,-100},{160,-80}})));
   Buildings.Controls.OBC.CDL.Logical.Or chaTow "Change tower status"
     annotation (Placement(transformation(extent={{120,30},{140,50}})));
+  Buildings.Controls.OBC.CDL.Logical.And and1
+    "Logical and"
+    annotation (Placement(transformation(extent={{32,-50},{52,-30}})));
 
 equation
   connect(sub0.y, hys.u)
@@ -204,15 +207,11 @@ equation
     annotation (Line(points={{-200,0},{-80,0},{-80,-34},{-62,-34}},
       color={0,0,127}));
   connect(sub3.y, hys4.u)
-    annotation (Line(points={{-38,-40},{18,-40}},  color={0,0,127}));
-  connect(mulAnd.y, enaTow.u1)
-    annotation (Line(points={{42,0},{50,0},{50,-32},{58,-32}}, color={255,0,255}));
-  connect(hys4.y, enaTow.u2)
-    annotation (Line(points={{42,-40},{58,-40}}, color={255,0,255}));
+    annotation (Line(points={{-38,-40},{-2,-40}},  color={0,0,127}));
   connect(not1.y, mulOr.u)
     annotation (Line(points={{22,160},{38,160}}, color={255,0,255}));
   connect(hys.y, mulAnd.u)
-    annotation (Line(points={{-18,160},{-10,160},{-10,0},{18,0}}, color={255,0,255}));
+    annotation (Line(points={{-18,160},{-10,160},{-10,0},{-2,0}}, color={255,0,255}));
   connect(uTow, mulOr1.u)
     annotation (Line(points={{-200,-120},{-142,-120}}, color={255,0,255}));
   connect(uConWatPumNum, intEqu.u1)
@@ -240,7 +239,7 @@ equation
     annotation (Line(points={{-118,-120},{-100,-120},{-100,-98},{138,-98}},
       color={255,0,255}));
   connect(enaTow.y, chaTow.u2)
-    annotation (Line(points={{82,-40},{100,-40},{100,32},{118,32}}, color={255,0,255}));
+    annotation (Line(points={{92,-40},{100,-40},{100,32},{118,32}}, color={255,0,255}));
   connect(disTow.y, chaTow.u1)
     annotation (Line(points={{142,120},{150,120},{150,60},{100,60},{100,40},
       {118,40}}, color={255,0,255}));
@@ -251,14 +250,12 @@ equation
     annotation (Line(points={{162,-90},{170,-90},{170,-140},{130,-140},{130,-168},
       {138,-168}}, color={255,0,255}));
   connect(enaTow.y, logSwi1.u1)
-    annotation (Line(points={{82,-40},{100,-40},{100,-82},{138,-82}},
+    annotation (Line(points={{92,-40},{100,-40},{100,-82},{138,-82}},
       color={255,0,255}));
   connect(tim2.passed, and2.u1) annotation (Line(points={{62,112},{70,112},{70,80},
           {78,80}}, color={255,0,255}));
   connect(tim.passed, disTow.u1) annotation (Line(points={{102,152},{110,152},{110,
           120},{118,120}}, color={255,0,255}));
-  connect(tim1.passed, enaTow.u3) annotation (Line(points={{2,-128},{50,-128},{50,
-          -48},{58,-48}}, color={255,0,255}));
   connect(addPar.y, sub3.u2) annotation (Line(points={{-118,-80},{-80,-80},{-80,
           -46},{-62,-46}}, color={0,0,127}));
   connect(TTow, sub2.u2) annotation (Line(points={{-200,0},{-100,0},{-100,34},{-92,
@@ -268,6 +265,14 @@ equation
   connect(minTowSpe[1].y, sub1.u2) annotation (Line(points={{-118,80},{-102,80},
           {-102,114},{-92,114}}, color={0,0,127}));
 
+  connect(enaTow.u1, and1.y)
+    annotation (Line(points={{68,-40},{54,-40}}, color={255,0,255}));
+  connect(hys4.y, and1.u1)
+    annotation (Line(points={{22,-40},{30,-40}}, color={255,0,255}));
+  connect(tim1.passed, enaTow.u2) annotation (Line(points={{2,-128},{60,-128},{60,
+          -48},{68,-48}}, color={255,0,255}));
+  connect(mulAnd.y, and1.u2) annotation (Line(points={{22,0},{26,0},{26,-48},{30,
+          -48}}, color={255,0,255}));
 annotation (
   defaultComponentName="enaTow",
   Diagram(coordinateSystem(preserveAspectRatio=false,

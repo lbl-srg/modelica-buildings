@@ -184,7 +184,7 @@ protected
   final parameter Real small = Buildings.Controls.OBC.CDL.Constants.small
   "Small number to avoid division with zero";
 
-  Buildings.Controls.OBC.CDL.Continuous.Divide opePlrSta
+  Buildings.Controls.OBC.CDL.Reals.Divide opePlrSta
     "Calculates operating part load ratio at the current stage"
     annotation (Placement(transformation(extent={{-200,-60},{-180,-40}})));
 
@@ -206,7 +206,7 @@ protected
     "Extract stage type for the first lower available stage"
     annotation (Placement(transformation(extent={{-120,110},{-100,130}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Logical switch"
     annotation (Placement(transformation(extent={{200,140},{220,160}})));
 
@@ -223,23 +223,23 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu "Equality"
     annotation (Placement(transformation(extent={{60,160},{80,180}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant posDisTypMult(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant posDisTypMult(
     final k=posDisMult)
     "Positive displacement chiller type SPLR multiplier"
     annotation (Placement(transformation(extent={{-140,-120},{-120,-100}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conSpeCenTypMult(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conSpeCenTypMult(
     final k=conSpeCenMult)
     "Constant speed centrifugal chiller type SPLR multiplier"
     annotation (Placement(transformation(extent={{-140,-40},{-120,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1 "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1 "Logical switch"
     annotation (Placement(transformation(extent={{160,60},{180,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi2 "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi2 "Logical switch"
     annotation (Placement(transformation(extent={{100,-190},{120,-170}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi3 "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi3 "Logical switch"
     annotation (Placement(transformation(extent={{60,-240},{80,-220}})));
 
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu1 "Logical equality"
@@ -248,59 +248,59 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu2 "Logical equality"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Divide minOpePlrUp
+  Buildings.Controls.OBC.CDL.Reals.Divide minOpePlrUp
    "Calculates minimum OPLR of one stage up"
     annotation (Placement(transformation(extent={{-200,-200},{-180,-180}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Divide opePlrUp
+  Buildings.Controls.OBC.CDL.Reals.Divide opePlrUp
     "Calculates operating part load ratio at the next stage up"
     annotation (Placement(transformation(extent={{-200,-150},{-180,-130}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant const(
     final k=0.9) if anyVsdCen "Constant"
     annotation (Placement(transformation(extent={{-200,-360},{-180,-340}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub2
     if anyVsdCen "Subtract"
     annotation (Placement(transformation(extent={{-80,-420},{-60,-400}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Divide div if anyVsdCen
+  Buildings.Controls.OBC.CDL.Reals.Divide div if anyVsdCen
     "Division"
     annotation (Placement(transformation(extent={{-20,-370},{0,-350}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant const1(
     final k=0.4) if anyVsdCen "Constant"
     annotation (Placement(transformation(extent={{-200,-480},{-180,-460}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant const2(
     final k=1.4) if anyVsdCen "Constant"
     annotation (Placement(transformation(extent={{-200,-560},{-180,-540}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1
     if anyVsdCen "Subtract"
     annotation (Placement(transformation(extent={{-80,-500},{-60,-480}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mult0 if anyVsdCen "Multiplier"
+  Buildings.Controls.OBC.CDL.Reals.Multiply mult0 if anyVsdCen "Multiplier"
     annotation (Placement(transformation(extent={{-140,-460},{-120,-440}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mult1 if anyVsdCen "Multiplier"
+  Buildings.Controls.OBC.CDL.Reals.Multiply mult1 if anyVsdCen "Multiplier"
     annotation (Placement(transformation(extent={{-140,-540},{-120,-520}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mult2 if anyVsdCen "Multiplier"
+  Buildings.Controls.OBC.CDL.Reals.Multiply mult2 if anyVsdCen "Multiplier"
     annotation (Placement(transformation(extent={{40,-440},{60,-420}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mult3 if anyVsdCen "Multiplier"
+  Buildings.Controls.OBC.CDL.Reals.Multiply mult3 if anyVsdCen "Multiplier"
     annotation (Placement(transformation(extent={{100,-510},{120,-490}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add3 if anyVsdCen "Add"
+  Buildings.Controls.OBC.CDL.Reals.Add add3 if anyVsdCen "Add"
     annotation (Placement(transformation(extent={{160,-482},{180,-462}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const3(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant const3(
     final k=-1) if not anyVsdCen
     "Constant"
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const4(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant const4(
     final k=-1) if not anyVsdCen
     "Constant"
     annotation (Placement(transformation(extent={{0,-260},{20,-240}})));
@@ -310,30 +310,30 @@ protected
     "Chiller type outside of recommenation when staging up"
     annotation (Placement(transformation(extent={{300,280},{320,300}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     final t=-0.5)
     "Less than threshold"
     annotation (Placement(transformation(extent={{260,200},{280,220}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr1(
     final t=-0.5) "Less than threshold"
     annotation (Placement(transformation(extent={{200,-110},{220,-90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Divide opePlrDow
+  Buildings.Controls.OBC.CDL.Reals.Divide opePlrDow
     "Calculates operating part load ratio of the next stage down"
     annotation (Placement(transformation(extent={{-200,-90},{-180,-70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Divide minOpePlr
+  Buildings.Controls.OBC.CDL.Reals.Divide minOpePlr
     "Calculates minimum OPLR of the current stage"
     annotation (Placement(transformation(extent={{-200,-240},{-180,-220}})));
 
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu3 "Integer equal"
     annotation (Placement(transformation(extent={{60,240},{80,260}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi4 "Switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi4 "Switch"
     annotation (Placement(transformation(extent={{160,-170},{180,-150}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const5(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant const5(
     final k=1)
     "If staging down to stage 0 set staging down part load to 1"
     annotation (Placement(transformation(extent={{100,-150},{120,-130}})));
@@ -350,17 +350,17 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Max maxIntDown "Maximum"
     annotation (Placement(transformation(extent={{-300,60},{-280,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Max max if anyVsdCen "Maximum"
+  Buildings.Controls.OBC.CDL.Reals.Max max if anyVsdCen "Maximum"
     annotation (Placement(transformation(extent={{220,-420},{240,-400}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Min min if anyVsdCen "Minimum"
+  Buildings.Controls.OBC.CDL.Reals.Min min if anyVsdCen "Minimum"
     annotation (Placement(transformation(extent={{260,-380},{280,-360}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxLim(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxLim(
     final k=varSpeStaMax) if anyVsdCen "Constant"
     annotation (Placement(transformation(extent={{160,-360},{180,-340}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minLim(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minLim(
     final k=varSpeStaMin) if anyVsdCen "Constant"
     annotation (Placement(transformation(extent={{160,-420},{180,-400}})));
 
@@ -369,36 +369,36 @@ protected
     "Chiller type outside of recommenation when staging down"
     annotation (Placement(transformation(extent={{260,-20},{280,0}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conSpeCenTypMult1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conSpeCenTypMult1(
     final k=anyOutOfScoMult)
     "Outside of G36 recommended staging order chiller type SPLR multiplier"
     annotation (Placement(transformation(extent={{200,20},{220,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi5
+  Buildings.Controls.OBC.CDL.Reals.Switch swi5
     "Logical switch"
     annotation (Placement(transformation(extent={{320,220},{340,240}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi6
+  Buildings.Controls.OBC.CDL.Reals.Switch swi6
     "Logical switch"
     annotation (Placement(transformation(extent={{260,-110},{280,-90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant smaNum(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant smaNum(
     final k=small) "Small constant"
     annotation (Placement(transformation(extent={{-360,-54},{-340,-34}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Max max1
+  Buildings.Controls.OBC.CDL.Reals.Max max1
     "Maximum output to avoid zero denominator in downstream"
     annotation (Placement(transformation(extent={{-300,-60},{-280,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Max max2
+  Buildings.Controls.OBC.CDL.Reals.Max max2
     "Maximum output to avoid zero denominator in downstream"
     annotation (Placement(transformation(extent={{-300,-110},{-280,-90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Max max3
+  Buildings.Controls.OBC.CDL.Reals.Max max3
     "Maximum output to avoid zero denominator in downstream"
     annotation (Placement(transformation(extent={{-300,-170},{-280,-150}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MovingAverage movMea(
+  Buildings.Controls.OBC.CDL.Reals.MovingAverage movMea(
     final delta=avePer) if anyVsdCen
     annotation (Placement(transformation(extent={{300,-330},{320,-310}})));
 

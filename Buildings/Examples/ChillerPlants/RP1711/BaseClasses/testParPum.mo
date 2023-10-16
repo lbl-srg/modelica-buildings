@@ -78,7 +78,7 @@ model testParPum "Test parallel pump configuration"
         rotation=-90,
         origin={30,5})));
 protected
-  Controls.OBC.CDL.Continuous.Sources.Ramp     ram[2](
+  Controls.OBC.CDL.Reals.Sources.Ramp     ram[2](
     height={1,0},
     duration=fill(1, 2),
     startTime=fill(0.2, 2))

@@ -358,9 +358,9 @@ protected
     final watLevMax=watLevMax)
     "Make up water control"
     annotation (Placement(transformation(extent={{-20,-250},{0,-230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi[nTowCel] "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi[nTowCel] "Logical switch"
     annotation (Placement(transformation(extent={{60,-160},{80,-140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer[nTowCel](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer[nTowCel](
     final k=fill(0, nTowCel)) "Zero constant"
     annotation (Placement(transformation(extent={{0,-190},{20,-170}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(

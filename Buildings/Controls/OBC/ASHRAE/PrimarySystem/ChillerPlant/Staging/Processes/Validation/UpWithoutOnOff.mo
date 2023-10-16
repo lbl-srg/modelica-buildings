@@ -18,7 +18,7 @@ model UpWithoutOnOff
     annotation (Placement(transformation(extent={{40,48},{60,88}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp chiWatFlo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp chiWatFlo(
     final height=1,
     final duration=300,
     final offset=1,
@@ -33,22 +33,22 @@ protected
     annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
   Buildings.Controls.OBC.CDL.Logical.Not staUp "Stage up command"
     annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiLoa[2](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiLoa[2](
     final k=fill(2, 2))
     "Chiller load"
     annotation (Placement(transformation(extent={{-140,30},{-120,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant iniChiIsoVal[2](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant iniChiIsoVal[2](
     final k={1,0}) "Initial chilled water solation valve"
     annotation (Placement(transformation(extent={{-140,-260},{-120,-240}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer1[2](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer1[2](
     final k=fill(0,2)) "Constant zero"
     annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
   Buildings.Controls.OBC.CDL.Logical.Pre chiStaRet[2](
     final pre_u_start={true,false}) "Chiller status return value"
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1[2] "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1[2] "Logical switch"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch IsoVal[2] "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch IsoVal[2] "Logical switch"
     annotation (Placement(transformation(extent={{-20,-260},{0,-240}})));
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol[2](
     final samplePeriod=fill(10, 2))
@@ -73,13 +73,13 @@ protected
     final k={true,true})
     "Vector of chillers status setpoint at stage two"
     annotation (Placement(transformation(extent={{-140,140},{-120,160}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dowSta(final k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dowSta(final k=1)
     "Stage one"
     annotation (Placement(transformation(extent={{-140,170},{-120,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant upSta(final k=2)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant upSta(final k=2)
     "Stage two"
     annotation (Placement(transformation(extent={{-140,210},{-120,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{-60,190},{-40,210}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger staSet
     "Stage setpoint index"
@@ -90,12 +90,12 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Switch chiSet[2]
     "Chiller status setpoint"
     annotation (Placement(transformation(extent={{-20,100},{0,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staOne(final k=1) "Stage one"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant staOne(final k=1) "Stage one"
     annotation (Placement(transformation(extent={{-140,-140},{-120,-120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staTwo(final k=2)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant staTwo(final k=2)
     "Stage two"
     annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch chiSta "Current chiller stage"
+  Buildings.Controls.OBC.CDL.Reals.Switch chiSta "Current chiller stage"
     annotation (Placement(transformation(extent={{-60,-120},{-40,-100}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger sta "Current chiller stage"
     annotation (Placement(transformation(extent={{-20,-120},{0,-100}})));

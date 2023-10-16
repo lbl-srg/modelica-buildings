@@ -238,12 +238,12 @@ block Controller "Waterside economizer (WSE) enable/disable status"
     annotation (Placement(transformation(extent={{180,-230},{220,-190}}),
         iconTransformation(extent={{100,-110},{140,-70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold enaTChiWatRet(
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold enaTChiWatRet(
     final t=delDis)
     "Enable condition based on chilled water return temperature upstream and downstream WSE"
     annotation (Placement(transformation(extent={{60,90},{80,110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis enaTWet(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis enaTWet(
     final uLow = TOffsetEna - hysDt/2,
     final uHigh = TOffsetEna + hysDt/2)
     "Enable condition based on the outdoor wet bulb temperature"
@@ -265,13 +265,13 @@ protected
     "Calculates the predicted WSE outlet temperature"
     annotation (Placement(transformation(extent={{-100,150},{-80,170}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2 "Subtract"
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub2 "Subtract"
     annotation (Placement(transformation(extent={{-20,156},{0,176}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre pre "Logical pre"
     annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1 "Subtract"
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1 "Subtract"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
@@ -283,7 +283,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and2 "And"
     annotation (Placement(transformation(extent={{100,156},{120,176}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
     final uLow = TOffsetDis - hysDt/2,
     final uHigh = TOffsetDis + hysDt/2)
     "Hysteresis comparing CHW temperatures upstream and downstream WSE"

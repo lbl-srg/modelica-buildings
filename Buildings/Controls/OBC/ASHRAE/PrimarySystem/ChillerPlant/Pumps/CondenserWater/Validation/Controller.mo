@@ -22,16 +22,16 @@ model Controller "Validate condenser water pump control sequence"
     "Condenser water pumps controller for plant with headered condenser water pump and without waterside economizer"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pumSpe(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse pumSpe(
     final amplitude=0.2,
     final period=900,
     final offset=0.3) "Measured pump speed"
     annotation (Placement(transformation(extent={{-80,-36},{-60,-16}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramp1(
     final duration=3600,
     final height=2.4) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-90,80},{-70,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Round round1(final n=0)
+  Buildings.Controls.OBC.CDL.Reals.Round round1(final n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-50,80},{-30,100}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger chiSta
@@ -43,14 +43,14 @@ model Controller "Validate condenser water pump control sequence"
     final period=1800)
     "Waterside economizer status"
     annotation (Placement(transformation(extent={{-10,14},{10,34}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch meaPumSpe "Measured pump speed"
+  Buildings.Controls.OBC.CDL.Reals.Switch meaPumSpe "Measured pump speed"
     annotation (Placement(transformation(extent={{-10,-46},{10,-26}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(final k=0)
     "Zero pump speed"
     annotation (Placement(transformation(extent={{-80,-66},{-60,-46}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch pumSpeSet "Pump speed setpoint"
+  Buildings.Controls.OBC.CDL.Reals.Switch pumSpeSet "Pump speed setpoint"
     annotation (Placement(transformation(extent={{-10,-16},{10,4}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pumSpeSetVal(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse pumSpeSetVal(
     final amplitude=0.2,
     final period=900,
     final offset=0.3,

@@ -68,7 +68,7 @@ block Coupled
     annotation (Placement(transformation(extent={{120,-60},{160,-20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conPID(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset conPID(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
@@ -80,19 +80,19 @@ block Coupled
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTowSpe(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minTowSpe(
     final k=fanSpeMin) "Minimum tower speed"
     annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line CWRTSpd
+  Buildings.Controls.OBC.CDL.Reals.Line CWRTSpd
     "Fan speed calculated based on return water temperature control loop"
     annotation (Placement(transformation(extent={{80,70},{100,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(
     final k=yMin) "Zero constant"
     annotation (Placement(transformation(extent={{0,110},{20,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one(
     final k=yMax) "Constant one"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis proOn[nConWatPum](
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis proOn[nConWatPum](
     final uLow=fill(pumSpeChe, nConWatPum),
     final uHigh=fill(2*pumSpeChe, nConWatPum))
     "Check if the condenser water pump is proven on"
@@ -101,17 +101,17 @@ protected
     final nin=nConWatPum)
     "Check if there is any condenser water pump is proven on"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMin fanSpe(final nin=3)
+  Buildings.Controls.OBC.CDL.Reals.MultiMin fanSpe(final nin=3)
     "Cooling tower fan speed"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMin maxSpe(final nin=nChi)
+  Buildings.Controls.OBC.CDL.Reals.MultiMin maxSpe(final nin=nChi)
     "Lowest value of the maximum cooling tower speed from each chiller head pressure control loop"
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi  "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi  "Logical switch"
     annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1[nChi] "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1[nChi] "Logical switch"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one1[nChi](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one1[nChi](
     final k=fill(1, nChi)) "Constant one"
     annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
 

@@ -8,7 +8,7 @@ model BypassValve "Validate the control of inline valve"
     final width=0.8,
     final period=3600) "Water side economizer enable/disable status"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse dpWSE(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse dpWSE(
     final amplitude=3000,
     final period=3600,
     final offset=4500)

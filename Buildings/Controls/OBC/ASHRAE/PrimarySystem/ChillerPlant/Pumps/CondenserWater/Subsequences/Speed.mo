@@ -52,18 +52,18 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt if not fixSpe
     "Convert real input to integer output"
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1[totSta](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1[totSta](
     final k=desConWatPumSpe) if not fixSpe
     "Condenser water pump speed setpoint"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con2[totSta](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con2[totSta](
     final k=desConWatPumNum) if not fixSpe
     "Number of condenser water pump should be on"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea if not fixSpe
     "Convert integer to real number"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con3[totSta](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con3[totSta](
     final k=staVec) if not fixSpe
     "Chiller stage vector, element value like x.5 means chiller stage x plus WSE"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
@@ -71,17 +71,17 @@ protected
     final realTrue=0.5) if have_WSE
     "Convert boolean input to real output"
     annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2 if not fixSpe
+  Buildings.Controls.OBC.CDL.Reals.Add add2 if not fixSpe
     "Add two real inputs"
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
     final nout=totSta) if not fixSpe
     "Replicate real input"
     annotation (Placement(transformation(extent={{-40,90},{-20,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1[totSta] if not fixSpe
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1[totSta] if not fixSpe
     "Add two real inputs"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr[totSta](
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greEquThr[totSta](
     final t=fill(-0.1, totSta)) if not fixSpe
     "Identify current stage"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
@@ -93,11 +93,11 @@ protected
     final nin=totSta) if not fixSpe
     "Current stage index"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con4(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con4(
     final k=0) if not have_WSE
     "Constant zero"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con5[nChiSta](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con5[nChiSta](
     final k=desChiNum) if fixSpe
     "Number of chiller should be enabled"
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));

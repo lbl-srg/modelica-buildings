@@ -7,12 +7,12 @@ model EnableLead_headered
     "Enable lead chilled water pump based on the status of chilled water isolation valves"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp isoVal1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp isoVal1(
     duration=3000,
     startTime=300)
     "Chilled water isolation valve position"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp isoVal2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp isoVal2(
     duration=3000,
     startTime=900)
     "Chilled water isolation valve position"

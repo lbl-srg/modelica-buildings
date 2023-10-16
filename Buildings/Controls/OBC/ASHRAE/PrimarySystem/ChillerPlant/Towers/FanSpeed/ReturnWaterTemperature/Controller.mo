@@ -241,42 +241,42 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and2
     "Any chiller is enabled and waterside economizer is not enabled"
     annotation (Placement(transformation(extent={{-20,200},{0,220}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter parLoaRat(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter parLoaRat(
     final k=1/desCap) "Plant partial load ratio"
     annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line plrTowMaxSpe
+  Buildings.Controls.OBC.CDL.Reals.Line plrTowMaxSpe
     "Tower maximum speed resetted by partial load ratio"
     annotation (Placement(transformation(extent={{-20,100},{0,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     annotation (Placement(transformation(extent={{120,-10},{140,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1
     "Switch between when waterside economizer is enabled and disabled"
     annotation (Placement(transformation(extent={{100,200},{120,220}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant lowPlrTowMaxSpe(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant lowPlrTowMaxSpe(
     final k=0.7)
     "Lower bound of tower maximum speed"
     annotation (Placement(transformation(extent={{-120,130},{-100,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(
     final k=0) "Zero constant"
     annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hal(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant hal(
     final k=0.5) "Constant 0.5"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uppPlrTowMaxSpe(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant uppPlrTowMaxSpe(
     final k=1)
     "Upper bound of tower maximum speed"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer1(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer1(final k=0)
     "Zero constant"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant tru(
     final k=true) if not have_WSE "True constant"
     annotation (Placement(transformation(extent={{-80,160},{-60,180}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer2(
     final k=0) if not have_WSE
     "Zero constant"
     annotation (Placement(transformation(extent={{40,160},{60,180}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis proOn[nConWatPum](
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis proOn[nConWatPum](
     final uLow=fill(speChe, nConWatPum),
     final uHigh=fill(2*speChe, nConWatPum))
     "Check if the condenser water pump is proven on"

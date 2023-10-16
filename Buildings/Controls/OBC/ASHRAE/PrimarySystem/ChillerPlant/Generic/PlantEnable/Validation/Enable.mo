@@ -29,11 +29,11 @@ protected
     "Chiller plant requests above the number of ignored requests"
     annotation (Placement(transformation(extent={{-20,100},{0,120}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conOutTem(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conOutTem(
     final k=293.15) "Constant outdoor temperature above lockout"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable chiPlaReq2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable chiPlaReq2(
     final table=[0,1; 6.5*3600,1; 9*3600,2;14*3600,0; 19*3600,0; 24*3600,1],
     final smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments)
     "Number of chiller plant request"
@@ -43,12 +43,12 @@ protected
     "Convert real input to integer output"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conOutTem1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conOutTem1(
     final k=282.15)
     "Constant outdoor temperature"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable chiPlaReq3(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable chiPlaReq3(
     final table=[0,1; 6.5*3600,1; 9*3600,2;14*3600,3; 19*3600,3; 24*3600,1],
     final smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments)
     "Number of chiller plant request"
@@ -58,7 +58,7 @@ protected
     "Convert real input to integer output"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin outTem1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin outTem1(
     final amplitude=7.5,
     final freqHz=1/(24*3600),
     final offset=280.15) "Outdoor temperature"

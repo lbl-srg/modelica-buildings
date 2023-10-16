@@ -55,7 +55,7 @@ block Controller
     annotation (Placement(transformation(extent={{100,60},{140,100}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset valPos(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset valPos(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
@@ -66,22 +66,22 @@ block Controller
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minFlo[nChi](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minFlo[nChi](
     final k=minFloSet) "Minimum bypass flow rate at each stage"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum mulSum(
     final nin=nChi)
     "Sum of minimum chilled water flow of all chillers"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide div
+  Buildings.Controls.OBC.CDL.Reals.Divide div
     "Normalized minimum flow setpoint"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide div1
+  Buildings.Controls.OBC.CDL.Reals.Divide div1
     "Normalized minimum bypass flow "
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant opeVal(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant opeVal(
     final k=1) "Valve open"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
 

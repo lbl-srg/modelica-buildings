@@ -33,16 +33,16 @@ block ResetMinBypass
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yMinBypRes
     "True: minimum chilled water flow bypass setpoint has been resetted successfully"
-    annotation (Placement(transformation(extent={{160,60},{200,100}}),
+    annotation (Placement(transformation(extent={{160,-40},{200,0}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
     final uLow=relFloDif - 0.01,
     final uHigh=relFloDif + 0.01)
     "Check if chiller water flow rate is different from its setpoint"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
-  Buildings.Controls.OBC.CDL.Logical.And3 and1 "Logical and"
+  Buildings.Controls.OBC.CDL.Logical.And and1 "Logical and"
     annotation (Placement(transformation(extent={{120,70},{140,90}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim(
     final t=aftByPasSetTim)
@@ -55,10 +55,10 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "Logical latch, maintain ON signal until condition changes"
     annotation (Placement(transformation(extent={{80,30},{100,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide div
+  Buildings.Controls.OBC.CDL.Reals.Divide div
     "Flow rate error divided by its setpoint"
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(
     final p=1e-6)
     "Add a small positive to avoid zero output"
     annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
@@ -70,13 +70,16 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Edge edg2
     "Rising edge, output true at the moment when input turns from false to true"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Abs abs "Absolute value"
+  Buildings.Controls.OBC.CDL.Reals.Abs abs "Absolute value"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract floDif
+  Buildings.Controls.OBC.CDL.Reals.Subtract floDif
     "Checkout the flow rate difference"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
+  Buildings.Controls.OBC.CDL.Logical.And and4
+    "Logical and"
+    annotation (Placement(transformation(extent={{120,-30},{140,-10}})));
 
 equation
   connect(uUpsDevSta, and2.u1)
@@ -85,15 +88,13 @@ equation
     annotation (Line(points={{-180,40},{-140,40},{-140,72},{-82,72}},
       color={255,0,255}));
   connect(and2.y, and1.u1)
-    annotation (Line(points={{-58,80},{-10,80},{-10,88},{118,88}},
+    annotation (Line(points={{-58,80},{-10,80},{-10,80},{118,80}},
       color={255,0,255}));
-  connect(and1.y,yMinBypRes)
-    annotation (Line(points={{142,80},{180,80}}, color={255,0,255}));
   connect(chaPro, not1.u)
     annotation (Line(points={{-180,40},{-140,40},{-140,20},{-122,20}},
       color={255,0,255}));
   connect(lat.y, and1.u2)
-    annotation (Line(points={{102,40},{108,40},{108,80},{118,80}},
+    annotation (Line(points={{102,40},{108,40},{108,72},{118,72}},
       color={255,0,255}));
   connect(VMinChiWat_setpoint, addPar.u)
     annotation (Line(points={{-180,-80},{-142,-80}}, color={0,0,127}));
@@ -129,12 +130,14 @@ equation
   connect(not2.y, and3.u2)
     annotation (Line(points={{2,-60},{10,-60},{10,-40},{-10,-40},{-10,-28},
       {-2,-28}}, color={255,0,255}));
-  connect(tim.passed, and1.u3)
-    annotation (Line(points={{62,-28},{114,-28},{114,72},{118,72}},
-      color={255,0,255}));
   connect(VMinChiWat_setpoint, floDif.u2) annotation (Line(points={{-180,-80},{-150,
           -80},{-150,-26},{-122,-26}}, color={0,0,127}));
-
+  connect(and1.y, and4.u1) annotation (Line(points={{142,80},{150,80},{150,20},{
+          100,20},{100,-20},{118,-20}}, color={255,0,255}));
+  connect(tim.passed, and4.u2)
+    annotation (Line(points={{62,-28},{118,-28}}, color={255,0,255}));
+  connect(and4.y, yMinBypRes)
+    annotation (Line(points={{142,-20},{180,-20}}, color={255,0,255}));
 annotation (
   defaultComponentName="minBypRes",
   Icon(graphics={

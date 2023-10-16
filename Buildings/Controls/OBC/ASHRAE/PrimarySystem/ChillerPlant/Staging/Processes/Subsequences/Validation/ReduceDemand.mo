@@ -22,15 +22,15 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiOn(
     final k=true) "Operating chiller one"
     annotation (Placement(transformation(extent={{-260,-150},{-240,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{-160,50},{-140,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiLoa(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiLoa(
     final k=1000) "Chiller load"
     annotation (Placement(transformation(extent={{-260,50},{-240,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerLoa(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zerLoa(
     final k=0) "Zero chiller load"
     annotation (Placement(transformation(extent={{-260,10},{-240,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yOpeParLoaRatMin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yOpeParLoaRatMin(
     final k=0.7)
     "Minimum cycling operative partial load ratio"
     annotation (Placement(transformation(extent={{-260,-30},{-240,-10}})));
@@ -49,12 +49,12 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiOn1[2](
     final k=fill(true,2)) "Operating chiller one"
     annotation (Placement(transformation(extent={{40,-150},{60,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1[2] "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1[2] "Logical switch"
     annotation (Placement(transformation(extent={{140,-50},{160,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiLoa1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiLoa1(
     final k=1000) "Chiller load"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yOpeParLoaRatMin1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yOpeParLoaRatMin1(
     final k=0.7)
     "Minimum cycling operative partial load ratio"
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));

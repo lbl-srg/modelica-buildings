@@ -61,17 +61,17 @@ protected
     final k=false) if not have_WSE
     "Constant false"
     annotation (Placement(transformation(extent={{-220,-80},{-200,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add3 "Add real inputs"
+  Buildings.Controls.OBC.CDL.Reals.Add add3 "Add real inputs"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
     final nout=totSta) "Replicate real input"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con4[totSta](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con4[totSta](
     final k=staVec) "Stage indicator array"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub4[totSta] "Sum of real inputs"
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub4[totSta] "Sum of real inputs"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr[totSta](
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greEquThr[totSta](
     final t=fill(-0.1,totSta)) "Check stage indicator"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[totSta]
@@ -84,11 +84,11 @@ protected
     final nin=totSta)
     "Number of cells should be enabled at current plant stage"
     annotation (Placement(transformation(extent={{180,-10},{200,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con5[totSta](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con5[totSta](
     final k=towCelOnSet)
     "Number of enabling cells at each stage"
     annotation (Placement(transformation(extent={{140,-10},{160,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis proOn[nConWatPum](
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis proOn[nConWatPum](
     final uLow=fill(speChe, nConWatPum),
     final uHigh=fill(2*speChe, nConWatPum))
     "Check if the condenser water pump is proven on"
@@ -102,7 +102,7 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal norOpe
     "Normal operation, not in the chiller stage change process"
     annotation (Placement(transformation(extent={{-220,90},{-200,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1
     "Chiller stage index in the staging process"
     annotation (Placement(transformation(extent={{-160,10},{-140,30}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
@@ -111,7 +111,7 @@ protected
     annotation (Placement(transformation(extent={{-140,-170},{-120,-150}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2 "Logical or"
     annotation (Placement(transformation(extent={{200,-100},{220,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Chiller stage index to identify total number of enabling cells"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre1[totSta]

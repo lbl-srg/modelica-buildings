@@ -104,17 +104,17 @@ protected
     "Extracts the minimum capacity of the current stage"
     annotation (Placement(transformation(extent={{0,-150},{20,-130}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi2 "Switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi2 "Switch"
     annotation (Placement(transformation(extent={{160,50},{180,70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi4 "Switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi4 "Switch"
     annotation (Placement(transformation(extent={{160,-100},{180,-80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1
     "Outputs minimum current stage capacity as design stage down capacity if operating in the lowest available stage"
     annotation (Placement(transformation(extent={{160,10},{180,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=larGai)
     "Ouputs a very large and unachievable staging up capacity when current is the highest available stage"
     annotation (Placement(transformation(extent={{80,110},{100,130}})));
@@ -122,19 +122,19 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[3]
     "Convert boolean to real"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul
     "Ensure zero output when the index is out of range"
     annotation (Placement(transformation(extent={{30,140},{50,160}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul1
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul1
     "Ensure zero output when the index is out of range"
     annotation (Placement(transformation(extent={{60,-130},{80,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul2
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul2
     "Ensure zero output when the index is out of range"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul3
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul3
     "Ensure zero output when the index is out of range"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul4
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul4
     "Ensure zero output when the index is out of range"
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
   Buildings.Controls.OBC.CDL.Integers.GreaterEqualThreshold intGreEquThr[3](

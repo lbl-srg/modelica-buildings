@@ -13,15 +13,15 @@ model DisableChillers
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse wseSta(final width=0.7,
       final period=3600) "Waterside economizer"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiIsoVal[2](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiIsoVal[2](
     final k={1,0})
     "Chilled water isolation valve"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conIsoVal1[2](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conIsoVal1[2](
     final k={1,0})
     "Condenser water isolation valve"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant pumSpe[2](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant pumSpe[2](
     final k={0.75,0}) "Pumps speed"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse chiSta[2](

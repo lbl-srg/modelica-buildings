@@ -16,7 +16,7 @@ protected
     "Lowest chiller stage that is available "
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin outTemHot(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin outTemHot(
     final amplitude=8,
     final freqHz=1/(24*3600),
     final phase=-1.5707963267949,
@@ -24,7 +24,7 @@ protected
     "Measured outdoor air wet bulb temperature on a hot day"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin outTemCol(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin outTemCol(
     final amplitude=8,
     final freqHz=1/(24*3600),
     final phase=-1.5707963267949,
@@ -32,12 +32,12 @@ protected
     "Measured outdoor air wet bulb temperature on a cold day"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant tunPar(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant tunPar(
     final k=0.06)
     "Assume a constant tuning parameter"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatSupSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatSupSet(
     final k=285.15)
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));

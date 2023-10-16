@@ -18,7 +18,7 @@ model DownWithoutOnOff
     annotation (Placement(transformation(extent={{40,50},{60,90}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp chiWatFlo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp chiWatFlo(
     final height=-1,
     final duration=300,
     final offset=2,
@@ -33,25 +33,25 @@ protected
     annotation (Placement(transformation(extent={{-140,120},{-120,140}})));
   Buildings.Controls.OBC.CDL.Logical.Not staDow "Stage down command"
     annotation (Placement(transformation(extent={{-100,120},{-80,140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiLoa[2](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiLoa[2](
     final k=fill(2, 2))
     "Chiller load"
     annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yOpeParLoaRatMin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yOpeParLoaRatMin(
     final k=0.78) "Minimum cycling operative partial load ratio"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant fulOpe[2](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant fulOpe[2](
     final k=fill(1, 2)) "Full open isolation valve"
     annotation (Placement(transformation(extent={{-140,-240},{-120,-220}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer1[2](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer1[2](
     final k=fill(0,2)) "Constant zero"
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre2[2](
     final pre_u_start=fill(true,2)) "Break algebraic loop"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1[2] "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1[2] "Logical switch"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch IsoVal[2] "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch IsoVal[2] "Logical switch"
     annotation (Placement(transformation(extent={{-20,-240},{0,-220}})));
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol[2](
     final samplePeriod=fill(10, 2))
@@ -85,20 +85,20 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger staSet2
     "Stage setpoint index"
     annotation (Placement(transformation(extent={{-20,200},{0,220}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi2 "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi2 "Logical switch"
     annotation (Placement(transformation(extent={{-60,200},{-40,220}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant upSta2(final k=2)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant upSta2(final k=2)
     "Stage two"
     annotation (Placement(transformation(extent={{-140,180},{-120,200}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dowSta2(final k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dowSta2(final k=1)
     "Stage one"
     annotation (Placement(transformation(extent={{-140,220},{-120,240}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staOne(final k=1) "Stage one"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant staOne(final k=1) "Stage one"
     annotation (Placement(transformation(extent={{-140,-150},{-120,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staTwo(final k=2)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant staTwo(final k=2)
     "Stage two"
     annotation (Placement(transformation(extent={{-140,-190},{-120,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch chiSta "Current chiller stage"
+  Buildings.Controls.OBC.CDL.Reals.Switch chiSta "Current chiller stage"
     annotation (Placement(transformation(extent={{-60,-170},{-40,-150}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger sta "Current chiller stage"
     annotation (Placement(transformation(extent={{-20,-170},{0,-150}})));

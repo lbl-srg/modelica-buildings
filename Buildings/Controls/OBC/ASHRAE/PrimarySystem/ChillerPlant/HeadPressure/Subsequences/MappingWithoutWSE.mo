@@ -48,50 +48,50 @@ block MappingWithoutWSE
       iconTransformation(extent={{100,-100},{140,-60}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Line maxCooTowSpeSet
+  Buildings.Controls.OBC.CDL.Reals.Line maxCooTowSpeSet
     "Maximum cooling tower speed setpoint"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(final k=0)
     "Constant zero"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(final k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one(final k=1)
     "Constant one"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hal(final k=0.5)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant hal(final k=0.5)
     "Constant value"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hpTowMaxSpe(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant hpTowMaxSpe(
     final k=minTowSpe)
     "Minimum allowable tower speed"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line lin
+  Buildings.Controls.OBC.CDL.Reals.Line lin
     "Head pressure control valve position, or condenser water pump speed"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hal1(final k=0.5)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant hal1(final k=0.5)
     "Constant value"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant fulOpeVal(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant fulOpeVal(
     final k=1) if have_fixSpeConWatPum "Fully open valve position"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one2(k=1) "Constant one"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one2(k=1) "Constant one"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minValPos(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minValPos(
     final k=minHeaPreValPos) if have_fixSpeConWatPum
     "Minimum head pressure control valve position"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minPumSpe(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minPumSpe(
     final k=minConWatPumSpe) if not have_fixSpeConWatPum
     "Minimum condenser water pump speed"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1 "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1 "Logical switch"
     annotation (Placement(transformation(extent={{60,90},{80,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zero(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zero(final k=0)
     if have_fixSpeConWatPum
     "Constant zero"
     annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=1) if not have_fixSpeConWatPum
     "Dummy gain so can disable the connection"
     annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));

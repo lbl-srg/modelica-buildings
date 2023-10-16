@@ -93,19 +93,19 @@ block FailsafeCondition
     annotation (Placement(transformation(extent={{140,-20},{180,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysdpSup(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysdpSup(
     final uLow=dpDif - dpDifHys,
     final uHigh=dpDif) if (not have_serChi) and have_locSen
     "Checks how closely the chilled water pump differential pressure aproaches its setpoint from below"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTSup(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysTSup(
     final uLow=TDif - TDifHys,
     final uHigh=TDif)
     "Checks if the chilled water supply temperature is higher than its setpoint plus an offset"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysdpSup1[nRemSen](
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysdpSup1[nRemSen](
     final uLow=fill(dpDif - dpDifHys, nRemSen),
     final uHigh=fill(dpDif, nRemSen))
     if (not have_serChi) and (not have_locSen)
@@ -127,11 +127,11 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Or or1 "Logical or"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub0
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub0
     "Adder for temperatures"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1
     if (not have_serChi) and have_locSen
     "Subtracts differential pressures"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
@@ -141,7 +141,7 @@ protected
     if (not have_serChi) and (not have_locSen)
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2[nRemSen]
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub2[nRemSen]
     if (not have_serChi) and (not have_locSen)
     "Subtracts differential pressures"
     annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));

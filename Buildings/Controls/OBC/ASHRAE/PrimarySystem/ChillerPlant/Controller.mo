@@ -1350,7 +1350,7 @@ block Controller "Chiller plant controller"
     "Staging up process controller"
     annotation(Placement(transformation(extent={{180,280},{260,440}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax mulMax(
+  Buildings.Controls.OBC.CDL.Reals.MultiMax mulMax(
     final nin=nTowCel) if have_WSE
     "All input values are the same"
     annotation(Placement(transformation(extent={{-60,-590},{-40,-570}})));
@@ -1368,7 +1368,7 @@ block Controller "Chiller plant controller"
     "Check if there is any chilled water pump is enabled"
     annotation(Placement(transformation(extent={{-740,-134},{-720,-114}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax conWatPumSpe(
+  Buildings.Controls.OBC.CDL.Reals.MultiMax conWatPumSpe(
     final nin=nConWatPum)
     if not have_fixSpeConWatPum
     "Running condenser water pump speed"
@@ -1395,7 +1395,7 @@ block Controller "Chiller plant controller"
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-680,194},{-660,214}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch desConWatPumSpeSwi
+  Buildings.Controls.OBC.CDL.Reals.Switch desConWatPumSpeSwi
     if not have_fixSpeConWatPum
     "Design condenser water pump speed"
     annotation (Placement(transformation(extent={{480,190},{500,210}})));
@@ -1405,12 +1405,12 @@ block Controller "Chiller plant controller"
     "Replicate design condenser water pump speed"
     annotation (Placement(transformation(extent={{540,190},{560,210}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiMin mulMin(
+  Buildings.Controls.OBC.CDL.Reals.MultiMin mulMin(
     final nin=nChi)
     if not have_fixSpeConWatPum
     annotation (Placement(transformation(extent={{-460,150},{-440,170}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch chiMinFloSet
+  Buildings.Controls.OBC.CDL.Reals.Switch chiMinFloSet
     "Chiller water minimum flow setpoint"
     annotation (Placement(transformation(extent={{480,110},{500,130}})));
 
@@ -1488,11 +1488,11 @@ block Controller "Chiller plant controller"
     "Check if more than one pump is enabled, if yes, then it means lag pump is enabled"
     annotation (Placement(transformation(extent={{480,50},{500,70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch chiIsoVal[nChi]
+  Buildings.Controls.OBC.CDL.Reals.Switch chiIsoVal[nChi]
     "Chiller isolation valve position setpoint"
     annotation (Placement(transformation(extent={{540,-10},{560,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch chiDem[nChi]
+  Buildings.Controls.OBC.CDL.Reals.Switch chiDem[nChi]
     if need_reduceChillerDemand
     "Chiller demand"
     annotation (Placement(transformation(extent={{640,410},{660,430}})));
@@ -1513,7 +1513,7 @@ block Controller "Chiller plant controller"
     "Chilled water pump status previous value"
     annotation (Placement(transformation(extent={{540,550},{560,570}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
     final k=fixConWatPumSpe)
     if have_fixSpeConWatPum "Speed of constant speed condenser water pump"
     annotation (Placement(transformation(extent={{540,90},{560,110}})));
@@ -1527,11 +1527,11 @@ block Controller "Chiller plant controller"
     "Boolean to real"
     annotation (Placement(transformation(extent={{580,490},{600,510}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro[nChiWatPum]
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro[nChiWatPum]
     "Chilled water pump speed setpoint"
     annotation (Placement(transformation(extent={{640,470},{660,490}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro1[nChiWatPum]
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro1[nChiWatPum]
     "Condenser water pump speed setpoint"
     annotation (Placement(transformation(extent={{660,140},{680,160}})));
 
@@ -1547,11 +1547,11 @@ block Controller "Chiller plant controller"
     "Boolean to real"
     annotation (Placement(transformation(extent={{580,250},{600,270}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro4[nChi]
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro4[nChi]
     "Head pressure control valve position"
     annotation (Placement(transformation(extent={{660,230},{680,250}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant fulOpeVal[nChi](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant fulOpeVal[nChi](
     final k=fill(1, nChi))
     if not have_WSE and not have_fixSpeConWatPum
     "Full open head pressure control valve"
@@ -1580,16 +1580,16 @@ block Controller "Chiller plant controller"
     "False: disable tower cell"
     annotation (Placement(transformation(extent={{840,-670},{860,-650}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi[nTowCel]
+  Buildings.Controls.OBC.CDL.Reals.Switch swi[nTowCel]
     "Tower cell isolation valve position setpoint"
     annotation (Placement(transformation(extent={{880,-630},{900,-610}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1[nTowCel](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1[nTowCel](
     final k=fill(0, nTowCel))
     "Constant zero"
     annotation (Placement(transformation(extent={{700,-590},{720,-570}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1[nTowCel]
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1[nTowCel]
     "Tower cell fan speed setpoint"
     annotation (Placement(transformation(extent={{880,-710},{900,-690}})));
 

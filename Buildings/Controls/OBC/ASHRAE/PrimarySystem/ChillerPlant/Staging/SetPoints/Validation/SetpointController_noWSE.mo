@@ -60,14 +60,14 @@ protected
     "False hold to visualize the stage change initiation"
     annotation (Placement(transformation(extent={{100,-180},{120,-160}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TChiWatRet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin TChiWatRet(
     final amplitude=7,
     final offset=273.15 + 15,
     final freqHz=1/21600)
     "Chilled water return temeprature"
     annotation (Placement(transformation(extent={{-200,140},{-180,160}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin chiWatFlow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin chiWatFlow(
     final offset=0,
     final freqHz=1/21600,
     final amplitude=0.037)
@@ -79,7 +79,7 @@ protected
     "Chiller availability vector"
     annotation (Placement(transformation(extent={{-120,200},{-100,220}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Max max "Maximum"
+  Buildings.Controls.OBC.CDL.Reals.Max max "Maximum"
     annotation (Placement(transformation(extent={{-160,80},{-140,100}})));
 
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol(
@@ -104,14 +104,14 @@ protected
     final delayOnInit=true) "True delay"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TChiWatRet1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin TChiWatRet1(
     final amplitude=7,
     final offset=273.15 + 15,
     final freqHz=1/21600)
     "Chilled water return temeprature"
     annotation (Placement(transformation(extent={{-200,-100},{-180,-80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin chiWatFlow1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin chiWatFlow1(
     final offset=0,
     final freqHz=1/21600,
     final amplitude=0.037)
@@ -123,7 +123,7 @@ protected
     "Chiller availability vector"
     annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Max max1 "Maximum"
+  Buildings.Controls.OBC.CDL.Reals.Max max1 "Maximum"
     annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));
 
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol1(
@@ -148,51 +148,51 @@ protected
     final delayOnInit=true) "True delay"
     annotation (Placement(transformation(extent={{-20,-180},{0,-160}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpChiWat(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dpChiWat(
     final k=65*6895)
     "Chilled water differential pressure"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCWSupSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TCWSupSet(
     final k=273.15 + 14)
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-120,160},{-100,180}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpChiWatSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dpChiWatSet(
     final k=65*6895)
     "Chilled water differential pressure setpoint"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCWSup(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TCWSup(
     final k=273.15 + 14)
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zero(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zero(
     final k=0) "Constant"
     annotation (Placement(transformation(extent={{-200,60},{-180,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpChiWat1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dpChiWat1(
     final k=65*6895)
     "Chilled water differential pressure"
     annotation (Placement(transformation(extent={{-120,-230},{-100,-210}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCWSupSet1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TCWSupSet1(
     final k=273.15 + 14)
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpChiWatSet1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dpChiWatSet1(
     final k=65*6895)
     "Chilled water differential pressure setpoint"
     annotation (Placement(transformation(extent={{-120,-180},{-100,-160}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCWSup1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TCWSup1(
     final k=273.15 + 14)
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-120,-140},{-100,-120}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zero1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zero1(
     final k=0) "Constant"
     annotation (Placement(transformation(extent={{-200,-180},{-180,-160}})));
 

@@ -111,7 +111,7 @@ block LessCoupled
     annotation (Placement(transformation(extent={{160,-160},{200,-120}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset supCon(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset supCon(
     final controllerType=supWatCon,
     final k=kSupCon,
     final Ti=TiSupCon,
@@ -123,7 +123,7 @@ block LessCoupled
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis proOn[nConWatPum](
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis proOn[nConWatPum](
     final uLow=fill(pumSpeChe, nConWatPum),
     final uHigh=fill(2*pumSpeChe, nConWatPum))
     "Check if the condenser water pump is proven on"
@@ -132,61 +132,61 @@ protected
     final nin=nConWatPum)
     "Check if any condenser water pump is proven on"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant  minTowSpe(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant  minTowSpe(
     final k=fanSpeMin) "Minimum tower speed"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer1(
     final k=ySupConMin)
     "Zero constant"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one1(
     final k=ySupConMax) "Maximum speed"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line CWSTSpd
+  Buildings.Controls.OBC.CDL.Reals.Line CWSTSpd
     "Fan speed calculated based on supply water temperature control"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMin maxSpe(final nin=nChi)
+  Buildings.Controls.OBC.CDL.Reals.MultiMin maxSpe(final nin=nChi)
     "Lowest value of the maximum cooling tower speed from each chiller head pressure control loop"
     annotation (Placement(transformation(extent={{0,-130},{20,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMin fanSpe(final nin=3)
+  Buildings.Controls.OBC.CDL.Reals.MultiMin fanSpe(final nin=3)
     "Cooling tower fan speed"
     annotation (Placement(transformation(extent={{60,-130},{80,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{120,-150},{140,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer2(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer2(final k=0)
     "Zero constant"
     annotation (Placement(transformation(extent={{60,-180},{80,-160}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one2[nChi](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one2[nChi](
     final k=fill(1,nChi)) "Constant one"
     annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1[nChi] "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1[nChi] "Logical switch"
     annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nChi]
     "Convert chiller status to real number, true becomes 1 and false becomes 0"
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter enaDesConWatRet[nChi](
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter enaDesConWatRet[nChi](
     final k=TConWatRet_nominal)
     "Design condenser water return temperature of the enabled chiller"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter enaDesConWatSup[nChi](
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter enaDesConWatSup[nChi](
     final k=TConWatSup_nominal)
     "Design condenser water supply temperature of the enabled chiller"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2[nChi]
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub2[nChi]
     "Difference of the design supply and return condenser water temperature"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax multiMax(nin=nChi)
+  Buildings.Controls.OBC.CDL.Reals.MultiMax multiMax(nin=nChi)
     "Difference of the design supply and return condenser water temperature of the enabled chiller"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim(final t=iniPlaTim)
     "Count the time after plant being enabled"
     annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch delTem "Temperature difference value"
+  Buildings.Controls.OBC.CDL.Reals.Switch delTem "Temperature difference value"
     annotation (Placement(transformation(extent={{60,90},{80,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract meaTemDif
+  Buildings.Controls.OBC.CDL.Reals.Subtract meaTemDif
     "Difference of the condenser return and supply water temperature"
     annotation (Placement(transformation(extent={{-140,130},{-120,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.MovingAverage movMea(
+  Buildings.Controls.OBC.CDL.Reals.MovingAverage movMea(
     final delta=300)
     "Moving average of the sampled temperature difference"
     annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
@@ -194,10 +194,10 @@ protected
     final samplePeriod=samplePeriod)
     "Sample the temperature difference"
     annotation (Placement(transformation(extent={{-100,130},{-80,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract conWatSupSet
+  Buildings.Controls.OBC.CDL.Reals.Subtract conWatSupSet
     "Condenser water supply temperature setpoint"
     annotation (Placement(transformation(extent={{100,140},{120,160}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai[nChi](
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai[nChi](
     final k=fill(0.5, nChi))
     "Gain factor"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));

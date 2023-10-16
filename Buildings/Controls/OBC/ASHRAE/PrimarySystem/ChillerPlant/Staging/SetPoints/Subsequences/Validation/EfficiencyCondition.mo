@@ -7,7 +7,7 @@ model EfficiencyCondition "Validate efficiency condition sequence"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin oplr(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin oplr(
     final amplitude=0.1,
     final phase(displayUnit="rad"),
     final startTime=0,
@@ -15,7 +15,7 @@ protected
     final freqHz=1/2100) "Operating part load ratio of the current stage"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant splrUp(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant splrUp(
     final k=0.8)
     "Staging part load ratio of the next stage up"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));

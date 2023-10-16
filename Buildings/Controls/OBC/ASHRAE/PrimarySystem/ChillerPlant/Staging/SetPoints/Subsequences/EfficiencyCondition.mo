@@ -35,13 +35,13 @@ protected
     "Delays a true signal"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysOpe(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysOpe(
     final uLow=0,
     final uHigh=sigDif)
     "Checks if the current stage operating part load ratio exceeds the stage up part load ratio"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub
     "Subtracts part load ratios"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 

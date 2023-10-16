@@ -13,26 +13,26 @@ model Enable
     annotation (Placement(transformation(extent={{220,40},{240,60}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conRetSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conRetSet(
     final k=273.15 + 32) "Condenser water return temperature setpoint"
     annotation (Placement(transformation(extent={{-220,-10},{-200,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant offTowSta[4](
     final k=fill(false,4)) "Tower is OFF"
     annotation (Placement(transformation(extent={{-220,-60},{-200,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp conRet1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp conRet1(
     final height=2,
     final duration=3600,
     final offset=273.15 + 32.5) "Condenser return water temperature"
     annotation (Placement(transformation(extent={{-260,-40},{-240,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hpTowSpe1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant hpTowSpe1(
     final k=0.2)
     "Head pressure control maximum tower speed"
     annotation (Placement(transformation(extent={{-220,80},{-200,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hpTowSpe2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant hpTowSpe2(
     final k=0)
     "Head pressure control maximum tower speed"
     annotation (Placement(transformation(extent={{-260,60},{-240,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant towFanSpe(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant towFanSpe(
     final k=0)
     "Measured tower fan speed"
     annotation (Placement(transformation(extent={{-220,30},{-200,50}})));
@@ -40,23 +40,23 @@ protected
     final k=1)
     "Operating condenser water pumps"
     annotation (Placement(transformation(extent={{-260,-90},{-240,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hpTowSpe3(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant hpTowSpe3(
     final k=0.1)
     "Head pressure control maximum tower speed"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hpTowSpe4(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant hpTowSpe4(
     final k=0.2)
     "Head pressure control maximum tower speed"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant towFanSpe1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant towFanSpe1(
     final k=0.2)
     "Measured tower fan speed"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conRetSet1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conRetSet1(
     final k=273.15 + 32)
     "Condenser water return temperature setpoint"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp conRet2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp conRet2(
     final height=2,
     final duration=3600,
     final offset=273.15 + 32.5) "Condenser return water temperature"
@@ -67,19 +67,19 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant opeConPum1(
     final k=2) "Operating condenser water pumps"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hpTowSpe5(final k=0.2)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant hpTowSpe5(final k=0.2)
     "Head pressure control maximum tower speed"
     annotation (Placement(transformation(extent={{140,80},{160,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hpTowSpe6(final k=0.2)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant hpTowSpe6(final k=0.2)
     "Head pressure control maximum tower speed"
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant towFanSpe2(final k=0.1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant towFanSpe2(final k=0.1)
     "Measured tower fan speed"
     annotation (Placement(transformation(extent={{140,30},{160,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conRetSet2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conRetSet2(
     final k=273.15 + 32) "Condenser water return temperature setpoint"
     annotation (Placement(transformation(extent={{140,-10},{160,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp conRet3(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp conRet3(
     final height=-2,
     final duration=3600,
     final offset=273.15 + 32.5) "Condenser return water temperature"

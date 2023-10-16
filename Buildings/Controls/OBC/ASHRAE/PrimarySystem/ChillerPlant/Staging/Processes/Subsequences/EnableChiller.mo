@@ -59,7 +59,7 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nChi]
     "Convert boolean input to real output"
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr[nChi](
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greEquThr[nChi](
     final t=fill(0.5, nChi))
     "Convert real input to boolean output"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));

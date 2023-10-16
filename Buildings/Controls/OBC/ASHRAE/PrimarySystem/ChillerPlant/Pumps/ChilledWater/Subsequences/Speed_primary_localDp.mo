@@ -72,7 +72,7 @@ block Speed_primary_localDp
     annotation (Placement(transformation(extent={{140,-40},{180,0}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conPID1(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset conPID1(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
@@ -81,16 +81,16 @@ block Speed_primary_localDp
     final yMin=0,
     final y_reset=0) "Pump speed controller"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line pumSpe "Pump speed"
+  Buildings.Controls.OBC.CDL.Reals.Line pumSpe "Pump speed"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax maxRemDP(
+  Buildings.Controls.OBC.CDL.Reals.MultiMax maxRemDP(
     final nin=nSen)
     "Highest output from differential pressure control loops"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line locDpSet
+  Buildings.Controls.OBC.CDL.Reals.Line locDpSet
     "Local differential pressure setpoint"
     annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conPID[nSen](
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset conPID[nSen](
     final controllerType=fill(controllerType, nSen),
     final k=fill(k, nSen),
     final Ti=fill(Ti, nSen),
@@ -105,36 +105,36 @@ protected
     final nout=nSen)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(final k=0)
     "Constant zero"
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant locDp_min(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant locDp_min(
     final k=minLocDp)
     "Minimum local differential pressure"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(final k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one(final k=1)
     "Constant one"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant locDp_max(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant locDp_max(
     final k=maxLocDp)
     "Maximum local differential pressure "
     annotation (Placement(transformation(extent={{40,-130},{60,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant pumSpe_min(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant pumSpe_min(
     final k=minPumSpe) "Minimum pump speed"
     annotation (Placement(transformation(extent={{40,90},{60,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant pumSpe_max(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant pumSpe_max(
     final k=maxPumSpe) "Maximum pump speed"
     annotation (Placement(transformation(extent={{-20,90},{0,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide div[nSen]
+  Buildings.Controls.OBC.CDL.Reals.Divide div[nSen]
     "Normalized pressure difference"
     annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide div1
+  Buildings.Controls.OBC.CDL.Reals.Divide div1
     "Normalized pressure difference"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep1(
     final nout=nSen) "Replicate real input"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{100,110},{120,130}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(final nin=nPum)
     "Check if there is any pump enabled"

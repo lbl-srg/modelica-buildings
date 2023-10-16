@@ -20,7 +20,7 @@ model Controller "Validation sequence of tower cell controller"
     final period=3600,
     final shift=300) "Water side economizer status"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp chiStaGen(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp chiStaGen(
     final height=1.2,
     final duration=3600,
     final offset=1) "Generate chiller stage"
@@ -34,7 +34,7 @@ model Controller "Validation sequence of tower cell controller"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Not StaTow "Stage tower cells"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conWatPumSpe[2](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conWatPumSpe[2](
     final k=fill(0.5, 2)) "Condenser water pump speed"
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(

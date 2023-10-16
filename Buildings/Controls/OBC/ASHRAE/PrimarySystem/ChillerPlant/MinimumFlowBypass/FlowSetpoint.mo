@@ -63,49 +63,49 @@ block FlowSetpoint "Chilled water minimum flow setpoint for primary-only plants"
 protected
   final parameter Integer chiInd[nChi]={i for i in 1:nChi}
     "Chiller index, {1,2,...,n}";
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con3(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con3(
     final k=byPasSetTim)
     "Duration time to change old setpoint to new setpoint"
     annotation (Placement(transformation(extent={{-60,158},{-40,178}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line oneMorSet
+  Buildings.Controls.OBC.CDL.Reals.Line oneMorSet
     "Minimum flow setpoint when adding one more chiller"
     annotation (Placement(transformation(extent={{100,220},{120,240}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con2(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con2(final k=0)
     "Constant zero"
     annotation (Placement(transformation(extent={{-60,200},{-40,220}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim
     "Time after suppress chiller demand"
     annotation (Placement(transformation(extent={{-218,410},{-198,430}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line oneLeSet
+  Buildings.Controls.OBC.CDL.Reals.Line oneLeSet
     "Minimum flow setpoint when disabling one chiller"
     annotation (Placement(transformation(extent={{100,-150},{120,-130}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim1
     "Time after suppress chiller demand"
     annotation (Placement(transformation(extent={{-220,-400},{-200,-380}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch dowSet
+  Buildings.Controls.OBC.CDL.Reals.Switch dowSet
     "Minimum flow chilled water flow setpoint when there is stage-down command"
     annotation (Placement(transformation(extent={{240,-130},{260,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
     annotation (Placement(transformation(extent={{-220,-430},{-200,-410}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch byPasSet1
+  Buildings.Controls.OBC.CDL.Reals.Switch byPasSet1
     "Minimum flow chilled water flow setpoint"
     annotation (Placement(transformation(extent={{400,130},{420,150}})));
   Buildings.Controls.OBC.CDL.Logical.And and1 "Logical and"
     annotation (Placement(transformation(extent={{-320,410},{-300,430}})));
   Buildings.Controls.OBC.CDL.Logical.And and3 "Logical and"
     annotation (Placement(transformation(extent={{-320,-400},{-300,-380}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minFlo[nChi](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minFlo[nChi](
     final k=minFloSet)
     "Minimum chilled water flow through each chiller"
     annotation (Placement(transformation(extent={{-400,190},{-380,210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxFlo[nChi](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxFlo[nChi](
     final k=maxFloSet)
     "Maximum chilled water flow through each chiller"
     annotation (Placement(transformation(extent={{-400,150},{-380,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer[nChi](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer[nChi](
     final k=fill(0,nChi)) "Constant zero"
     annotation (Placement(transformation(extent={{-400,110},{-380,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide floRat[nChi]
+  Buildings.Controls.OBC.CDL.Reals.Divide floRat[nChi]
     "Flow rate ratio through each chiller"
     annotation (Placement(transformation(extent={{-280,170},{-260,190}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor nexChiRat(final nin=nChi)
@@ -115,10 +115,10 @@ protected
   Buildings.Controls.OBC.CDL.Routing.RealExtractor nexChiMaxFlo(final nin=nChi)
     if have_parChi "Maximum flow rate of next enabling chiller"
     annotation (Placement(transformation(extent={{-220,40},{-200,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max max if have_parChi
+  Buildings.Controls.OBC.CDL.Reals.Max max if have_parChi
     "Maximum flow rate ratio of operating chillers after one chiller being enabled"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2 if have_parChi
+  Buildings.Controls.OBC.CDL.Reals.Add add2 if have_parChi
     "Sum of maximum chilled water flow rate setpoint of operating chillers after one chiller being enabled"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[nChi](
@@ -131,93 +131,93 @@ protected
     annotation (Placement(transformation(extent={{-320,-40},{-300,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Xor xor[nChi] "Outputs true if exactly one input is true"
     annotation (Placement(transformation(extent={{-220,-40},{-200,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi3[nChi] if have_parChi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi3[nChi] if have_parChi
     "Flow rate ratio of operating chiller"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi4[nChi] if have_parChi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi4[nChi] if have_parChi
     "Maximum flow rate of operating chiller"
     annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro2 if have_parChi
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro2 if have_parChi
     "Chilled water flow setpoint after disabling next chiller"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max max1 if not have_parChi
+  Buildings.Controls.OBC.CDL.Reals.Max max1 if not have_parChi
     "Largest minimum flow rate setpoint of operating chillers after one chiller being enabled"
     annotation (Placement(transformation(extent={{-20,-200},{0,-180}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum1(final nin=nChi)
+  Buildings.Controls.OBC.CDL.Reals.MultiSum mulSum1(final nin=nChi)
     if have_parChi
     "Sum of maximum chilled water flow rate setpoint of operating chillers after one chiller being disabled"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax multiMax1(final nin=nChi)
+  Buildings.Controls.OBC.CDL.Reals.MultiMax multiMax1(final nin=nChi)
     if not have_parChi
     "Largest minimum flow rate setpoint of operating chillers"
     annotation (Placement(transformation(extent={{-80,-160},{-60,-140}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax multiMax2(final nin=nChi)
+  Buildings.Controls.OBC.CDL.Reals.MultiMax multiMax2(final nin=nChi)
     if have_parChi
     "Maximum flow rate ratio of operating chillers after one chiller being disabled"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax multiMax3(final nin=nChi)
+  Buildings.Controls.OBC.CDL.Reals.MultiMax multiMax3(final nin=nChi)
     if not have_parChi
     "Largest minimum flow rate setpoint of operating chillers after one chiller being disabled"
     annotation (Placement(transformation(extent={{-20,-240},{0,-220}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi5[nChi] if not have_parChi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi5[nChi] if not have_parChi
     "Minimum flow rate of operating chiller"
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor nexChiMinFlo(final nin=nChi)
     if not have_parChi "Minimum flow rate of next enabling chiller"
     annotation (Placement(transformation(extent={{-220,-200},{-200,-180}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi6[nChi] if not have_parChi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi6[nChi] if not have_parChi
     "Minimum flow rate of operating chiller"
     annotation (Placement(transformation(extent={{-100,-240},{-80,-220}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2  "Logical and"
     annotation (Placement(transformation(extent={{-400,-10},{-380,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi9[nChi] if have_parChi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi9[nChi] if have_parChi
     "Flow rate ratio of operating chiller"
     annotation (Placement(transformation(extent={{-220,340},{-200,360}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax multiMax4(
+  Buildings.Controls.OBC.CDL.Reals.MultiMax multiMax4(
     final nin=nChi) if have_parChi
     "Maximum flow rate ratio of operating chillers"
     annotation (Placement(transformation(extent={{-180,340},{-160,360}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch  swi10[nChi] if have_parChi
+  Buildings.Controls.OBC.CDL.Reals.Switch  swi10[nChi] if have_parChi
     "Maximum flow rate of operating chiller"
     annotation (Placement(transformation(extent={{-220,300},{-200,320}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum2(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum mulSum2(
     final nin=nChi) if have_parChi
     "Sum of maximum chilled water flow rate setpoint of operating chillers"
     annotation (Placement(transformation(extent={{-180,300},{-160,320}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro3 if have_parChi
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro3 if have_parChi
     "Chilled water flow setpoint for current operating chillers"
     annotation (Placement(transformation(extent={{-60,320},{-40,340}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi11[nChi] if have_parChi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi11[nChi] if have_parChi
     "Maximum flow rate of operating chiller"
     annotation (Placement(transformation(extent={{-220,220},{-200,240}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum3(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum mulSum3(
     final nin=nChi) if have_parChi
     "Sum of maximum chilled water flow rate setpoint of operating chillers"
     annotation (Placement(transformation(extent={{-180,220},{-160,240}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi12[nChi] if have_parChi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi12[nChi] if have_parChi
     "Flow rate ratio of operating chiller"
     annotation (Placement(transformation(extent={{-220,260},{-200,280}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax multiMax5(final nin=nChi)
+  Buildings.Controls.OBC.CDL.Reals.MultiMax multiMax5(final nin=nChi)
     if have_parChi
     "Maximum flow rate ratio of operating chillers"
     annotation (Placement(transformation(extent={{-180,260},{-160,280}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro4 if have_parChi
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro4 if have_parChi
     "Chilled water flow setpoint for current operating chillers"
     annotation (Placement(transformation(extent={{-60,240},{-40,260}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro1 if have_parChi
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro1 if have_parChi
     "Chilled water flow setpoint for current operating chillers"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax multiMax6(
+  Buildings.Controls.OBC.CDL.Reals.MultiMax multiMax6(
     final nin=nChi) if not have_parChi
     "Largest minimum flow rate setpoint of operating chillers"
     annotation (Placement(transformation(extent={{-80,-120},{-60,-100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1[nChi] if not have_parChi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1[nChi] if not have_parChi
     "Minimum flow rate of operating chiller"
     annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch byPasSet2
+  Buildings.Controls.OBC.CDL.Reals.Switch byPasSet2
     "Minimum flow chilled water flow setpoint"
     annotation (Placement(transformation(extent={{180,250},{200,270}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch upSet
+  Buildings.Controls.OBC.CDL.Reals.Switch upSet
     "Minimum flow chilled water flow setpoint when there is stage-up command"
     annotation (Placement(transformation(extent={{240,210},{260,230}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim2
@@ -225,13 +225,13 @@ protected
     annotation (Placement(transformation(extent={{-220,-360},{-200,-340}})));
   Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
     annotation (Placement(transformation(extent={{-320,-360},{-300,-340}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line oneMorSet1
+  Buildings.Controls.OBC.CDL.Reals.Line oneMorSet1
     "Minimum flow setpoint when adding one more chiller"
     annotation (Placement(transformation(extent={{100,-360},{120,-340}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch byPasSet4
+  Buildings.Controls.OBC.CDL.Reals.Switch byPasSet4
     "Minimum flow chilled water flow setpoint"
     annotation (Placement(transformation(extent={{160,-310},{180,-290}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch chaSet
+  Buildings.Controls.OBC.CDL.Reals.Switch chaSet
     "Minimum flow chilled water flow setpoint when there is stage-change command"
     annotation (Placement(transformation(extent={{300,40},{320,60}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
@@ -246,7 +246,7 @@ protected
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=nChi) "Replicate boolean input"
     annotation (Placement(transformation(extent={{-380,30},{-360,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr[nChi](
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greEquThr[nChi](
     final t=fill(0.5, nChi))
     "Convert real to boolean"
     annotation (Placement(transformation(extent={{-320,240},{-300,260}})));
@@ -270,10 +270,10 @@ protected
     annotation (Placement(transformation(extent={{-320,-180},{-300,-160}})));
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi "Valid index"
     annotation (Placement(transformation(extent={{-320,-240},{-300,-220}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul3 if not have_parChi
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul3 if not have_parChi
     "Ensure zero output when the index is out of range"
     annotation (Placement(transformation(extent={{-120,-190},{-100,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul1[2] if have_parChi
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul1[2] if have_parChi
     "Ensure zero output when the index is out of range"
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep(

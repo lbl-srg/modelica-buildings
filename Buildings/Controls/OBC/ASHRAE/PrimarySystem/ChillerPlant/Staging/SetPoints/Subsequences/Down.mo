@@ -158,15 +158,15 @@ protected
     "Switches staging down rules"
     annotation (Placement(transformation(extent={{-120,-170},{-100,-150}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTSup(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysTSup(
     final uLow=TDif - TDifHys,
     final uHigh=TDif) if have_WSE
     "Checks if the predicted downstream WSE chilled water supply temperature is higher than its setpoint plus an offset"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And3 and1 if have_WSE
+  Buildings.Controls.OBC.CDL.Logical.And and1 if have_WSE
     "Or for staging up"
-    annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
+    annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not0 if have_WSE
     "Outputs true if signal is below maximum"
@@ -176,11 +176,11 @@ protected
     "Logical not"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1 if have_WSE
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1 if have_WSE
     "Temperature difference"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
     final uHigh=0.99,
     final uLow=0.98) if have_WSE
     "Checks if the signal is at its maximum"
@@ -192,13 +192,13 @@ protected
     "Delays a true signal"
     annotation (Placement(transformation(extent={{-40,180},{-20,200}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysDow(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysDow(
     final uLow=0,
     final uHigh=0.05)
     "Checks if the operating PLR of the next available stage down exceeds the staging down PLR for that stage"
     annotation (Placement(transformation(extent={{-80,180},{-60,200}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub2
     "Subtracts part load ratios"
     annotation (Placement(transformation(extent={{-120,180},{-100,200}})));
 
@@ -206,6 +206,10 @@ protected
     final k=false) if not have_WSE
     "Staging from 1 to 0 for plants without a WSE is depends on the plant disable sequence"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and2 if have_WSE
+    "Logical and"
+    annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
 
 equation
   connect(TChiWatSupSet, faiSafCon.TChiWatSupSet) annotation (Line(points={{-200,
@@ -224,17 +228,14 @@ equation
     annotation (Line(points={{-98,-100},{-82,-100}}, color={255,0,255}));
   connect(uTowFanSpeMax, hys.u) annotation (
     Line(points={{-200,-100},{-122,-100}},color={0,0,127}));
-  connect(uWseSta, and1.u3) annotation (Line(points={{-200,-130},{10,-130},{10,
-          -68},{18,-68}},
-                     color={255,0,255}));
-  connect(hysTSup.y, and1.u1) annotation (Line(points={{-18,-60},{-10,-60},{-10,
-          -52},{18,-52}}, color={255,0,255}));
+  connect(hysTSup.y, and1.u1) annotation (Line(points={{-18,-60},{-2,-60}},
+                          color={255,0,255}));
   connect(not1.y, and0.u2) annotation (Line(points={{-18,50},{0,50},{0,82},{18,82}},
                 color={255,0,255}));
   connect(intGreThr.y, logSwi.u2) annotation (Line(points={{-98,-160},{90,-160},
           {90,0},{98,0}}, color={255,0,255}));
-  connect(not0.y, and1.u2) annotation (Line(points={{-58,-100},{0,-100},{0,-60},
-          {18,-60}}, color={255,0,255}));
+  connect(not0.y, and1.u2) annotation (Line(points={{-58,-100},{-10,-100},{-10,-68},
+          {-2,-68}}, color={255,0,255}));
   connect(sub2.y, hysDow.u)
     annotation (Line(points={{-98,190},{-82,190}}, color={0,0,127}));
   connect(TChiWatSupSet, sub1.u1) annotation (Line(points={{-200,-40},{-160,-40},
@@ -251,8 +252,6 @@ equation
           8}}, color={255,0,255}));
   connect(logSwi.y, y)
     annotation (Line(points={{122,0},{190,0}}, color={255,0,255}));
-  connect(and1.y, logSwi.u3) annotation (Line(points={{42,-60},{80,-60},{80,-8},
-          {98,-8}}, color={255,0,255}));
   connect(faiSafCon.y, not1.u)
     annotation (Line(points={{-58,50},{-42,50}}, color={255,0,255}));
   connect(dpChiWatPumSet_remote, faiSafCon.dpChiWatPumSet_remote) annotation (
@@ -263,6 +262,12 @@ equation
           184},{-122,184}}, color={0,0,127}));
   connect(uStaDow, sub2.u1) annotation (Line(points={{-200,170},{-140,170},{-140,
           196},{-122,196}}, color={0,0,127}));
+  connect(and1.y, and2.u1)
+    annotation (Line(points={{22,-60},{38,-60}}, color={255,0,255}));
+  connect(uWseSta, and2.u2) annotation (Line(points={{-200,-130},{30,-130},{30,-68},
+          {38,-68}}, color={255,0,255}));
+  connect(and2.y, logSwi.u3) annotation (Line(points={{62,-60},{80,-60},{80,-8},
+          {98,-8}}, color={255,0,255}));
   annotation (defaultComponentName = "staDow",
         Icon(graphics={
         Rectangle(

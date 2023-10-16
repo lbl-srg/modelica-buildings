@@ -7,7 +7,7 @@ model HeatExchangerPump "Validate the control of heat exchanger pump"
     final width=0.8,
     final period=3600) "Water side economizer enable/disable status"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp entWSETem(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp entWSETem(
     final height=6,
     final duration=3600,
     final offset=285.15)
@@ -18,7 +18,7 @@ model HeatExchangerPump "Validate the control of heat exchanger pump"
     final period=3600)
     "Pump proven on"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp entHexTem(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp entHexTem(
     final height=8,
     final duration=3600,
     final offset=283.15)

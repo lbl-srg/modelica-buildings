@@ -65,52 +65,52 @@ protected
     "Asserts whether chillers are tagged in ascending order with regards to capacity"
     annotation (Placement(transformation(extent={{60,160},{80,180}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sort sort1(
+  Buildings.Controls.OBC.CDL.Reals.Sort sort1(
     final nin=nChi) "Ascending sort"
     annotation (Placement(transformation(extent={{-140,160},{-120,180}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1[nChi]
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1[nChi]
     "Subtracts signals"
     annotation (Placement(transformation(extent={{-100,160},{-80,180}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax multiMax(
+  Buildings.Controls.OBC.CDL.Reals.MultiMax multiMax(
     final nin=nChi) "Maximum value in a vector input"
     annotation (Placement(transformation(extent={{-60,160},{-40,180}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Abs abs "Absolute values"
+  Buildings.Controls.OBC.CDL.Reals.Abs abs "Absolute values"
     annotation (Placement(transformation(extent={{-20,160},{0,180}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr1(
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThr1(
     final t=0.5) "Less threshold"
     annotation (Placement(transformation(extent={{20,160},{40,180}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiDesCaps[nChi](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiDesCaps[nChi](
     final k=chiDesCap) "Design chiller capacities vector"
     annotation (Placement(transformation(extent={{-200,100},{-180,120}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiMinCaps[nChi](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiMinCaps[nChi](
     final k=chiMinCap) "Chiller unload capacities vector"
     annotation (Placement(transformation(extent={{-200,60},{-180,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MatrixGain staDesCaps(
+  Buildings.Controls.OBC.CDL.Reals.MatrixGain staDesCaps(
     final K=staMat) "Matrix gain for design capacities"
     annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MatrixGain staMinCaps(
+  Buildings.Controls.OBC.CDL.Reals.MatrixGain staMinCaps(
     final K=staMat) "Matrix gain from minimal capacities"
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MatrixGain sumNumChi(
+  Buildings.Controls.OBC.CDL.Reals.MatrixGain sumNumChi(
     final K=staMat)
     "Outputs the total chiller count per stage vector"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MatrixGain sumNumAvaChi(
+  Buildings.Controls.OBC.CDL.Reals.MatrixGain sumNumAvaChi(
     final K=staMat)
     "Outputs the available chiller count per stage vector"
     annotation (Placement(transformation(extent={{-140,-50},{-120,-30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oneVec[nChi](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant oneVec[nChi](
     final k=fill(1, nChi)) "Mocks a case with all chillers available"
     annotation (Placement(transformation(extent={{-200,10},{-180,30}})));
 
@@ -118,28 +118,28 @@ protected
     "Type converter"
     annotation (Placement(transformation(extent={{-200,-50},{-180,-30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2[nSta]
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub2[nSta]
     "Subtracts count of available chillers from the design count, at each stage"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr[nSta](
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThr[nSta](
     final t=fill(0.5, nSta))
     "Checks if the count of available chillers in each stage equals the design count"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiStaMat[nSta,nChi](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiStaMat[nSta,nChi](
     final k=staMat) "Staging matrix"
     annotation (Placement(transformation(extent={{-200,-170},{-180,-150}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staType[nSta,nChi](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant staType[nSta,nChi](
     final k=chiTypMat) "Chiller stage type matrix"
     annotation (Placement(transformation(extent={{-200,-110},{-180,-90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro[nSta,nChi]
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro[nSta,nChi]
     "Element-wise product"
     annotation (Placement(transformation(extent={{-140,-130},{-120,-110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MatrixMax matMax(
+  Buildings.Controls.OBC.CDL.Reals.MatrixMax matMax(
     final nRow=nSta,
     final nCol=nChi) "Row-wise matrix maximum"
     annotation (Placement(transformation(extent={{-100,-130},{-80,-110}})));
@@ -148,7 +148,7 @@ protected
     "Type converter"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sort sort(
+  Buildings.Controls.OBC.CDL.Reals.Sort sort(
     final nin=nSta) "Vector sort"
     annotation (Placement(transformation(extent={{20,-180},{40,-160}})));
 

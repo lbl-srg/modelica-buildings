@@ -58,21 +58,21 @@ protected
     final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-60,150},{-40,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi4[nChi]
+  Buildings.Controls.OBC.CDL.Reals.Switch swi4[nChi]
     "Current setpoint to chillers"
     annotation (Placement(transformation(extent={{120,80},{140,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con[nChi](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con[nChi](
     final k=fill(0.2, nChi)) "Constant value to avoid zero as the denominator"
     annotation (Placement(transformation(extent={{-140,-170},{-120,-150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi[nChi]
+  Buildings.Controls.OBC.CDL.Reals.Switch swi[nChi]
     "Change zero input to a given constant if the chiller is not enabled"
     annotation (Placement(transformation(extent={{-80,-120},{-60,-100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys[nChi](
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys[nChi](
     final uLow=fill(chiDemRedFac + 0.05 - 0.01, nChi),
     final uHigh=fill(chiDemRedFac + 0.05 + 0.01, nChi))
     "Check if actual demand has already reduced at instant when receiving stage change signal"
     annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide div[nChi]
+  Buildings.Controls.OBC.CDL.Reals.Divide div[nChi]
     "Output result of first input divided by second input"
     annotation (Placement(transformation(extent={{-40,-120},{-20,-100}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1[nChi] "Logical not"
@@ -91,25 +91,25 @@ protected
     annotation (Placement(transformation(extent={{120,40},{140,60}})));
   Buildings.Controls.OBC.CDL.Logical.And and1 "Logical and"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1
     "Minimum cycling operative partial load ratio"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(
     final k=0) "Constant zero"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con2(
     final k=chiDemRedFac)
     "Demand reducing factor of current operating chillers"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max max "Maximum value of two real inputs"
+  Buildings.Controls.OBC.CDL.Reals.Max max "Maximum value of two real inputs"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(final nout=nChi)
     "Replicate real input"
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro[nChi]
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro[nChi]
     "Percentage of the current load"
     annotation (Placement(transformation(extent={{80,120},{100,140}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar[nChi](
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar[nChi](
     final p=fill(1e-6, nChi))
     "Add a small value to avoid potentially zero denominator"
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));

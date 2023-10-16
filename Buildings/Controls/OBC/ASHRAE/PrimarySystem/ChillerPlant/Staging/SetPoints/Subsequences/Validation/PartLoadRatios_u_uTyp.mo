@@ -65,35 +65,35 @@ protected
     "Stage types"
     annotation (Placement(transformation(extent={{-420,-270},{-400,-250}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Max max "Maximum"
+  Buildings.Controls.OBC.CDL.Reals.Max max "Maximum"
     annotation (Placement(transformation(extent={{-340,360},{-320,380}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Max max1 "Maximum"
+  Buildings.Controls.OBC.CDL.Reals.Max max1 "Maximum"
     annotation (Placement(transformation(extent={{-120,360},{-100,380}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Max max2 "Maximum"
+  Buildings.Controls.OBC.CDL.Reals.Max max2 "Maximum"
     annotation (Placement(transformation(extent={{100,360},{120,380}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Max max3 "Maximum"
+  Buildings.Controls.OBC.CDL.Reals.Max max3 "Maximum"
     annotation (Placement(transformation(extent={{340,360},{360,380}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Max max4 "Maximum"
+  Buildings.Controls.OBC.CDL.Reals.Max max4 "Maximum"
     annotation (Placement(transformation(extent={{-340,0},{-320,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Max max5 "Maximum"
+  Buildings.Controls.OBC.CDL.Reals.Max max5 "Maximum"
     annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Max max6 "Maximum"
+  Buildings.Controls.OBC.CDL.Reals.Max max6 "Maximum"
     annotation (Placement(transformation(extent={{100,0},{120,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Max max7 "Maximum"
+  Buildings.Controls.OBC.CDL.Reals.Max max7 "Maximum"
     annotation (Placement(transformation(extent={{340,0},{360,20}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant curSta(
     final k=1) "Current chiller stage"
     annotation (Placement(transformation(extent={{-420,180},{-400,200}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin capReq3(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin capReq3(
     final amplitude=6e5,
     final freqHz=1/1800,
     final offset=9e5,
@@ -111,17 +111,17 @@ protected
     "Next available chiller stage down"
     annotation (Placement(transformation(extent={{-420,100},{-400,120}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant lowLim(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant lowLim(
     final k=0)
     "Capacity requirement"
     annotation (Placement(transformation(extent={{-420,340},{-400,360}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant capDes[3](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant capDes[3](
     final k={10e5,15e5,25e5})
     "Stage design capacities"
     annotation (Placement(transformation(extent={{-380,300},{-360,320}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant capMin[3](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant capMin[3](
     final k={2e5,3e5,5e5})
     "Stage unload capacities"
     annotation (Placement(transformation(extent={{-380,260},{-360,280}})));
@@ -131,7 +131,7 @@ protected
     "Current chiller stage"
     annotation (Placement(transformation(extent={{-200,180},{-180,200}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin capReq1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin capReq1(
     final amplitude=6e5,
     final freqHz=1/1800,
     final offset=14e5,
@@ -154,7 +154,7 @@ protected
     "Current chiller stage"
     annotation (Placement(transformation(extent={{20,180},{40,200}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin capReq2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin capReq2(
     final amplitude=6e5,
     final freqHz=1/1800,
     final offset=19e5,
@@ -176,7 +176,7 @@ protected
     "Current chiller stage"
     annotation (Placement(transformation(extent={{260,180},{280,200}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin capReq4(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin capReq4(
     final amplitude=6e5,
     final freqHz=1/1800,
     final offset=5e5,
@@ -199,7 +199,7 @@ protected
     "Current chiller stage"
     annotation (Placement(transformation(extent={{-420,-310},{-400,-290}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin capReq5(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin capReq5(
     final amplitude=6e5,
     final freqHz=1/1800,
     final offset=9e5,
@@ -217,16 +217,16 @@ protected
     "Next available chiller stage down"
     annotation (Placement(transformation(extent={{-420,-390},{-400,-370}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant lowLim4(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant lowLim4(
     final k=0)
     "Capacity requirement"
     annotation (Placement(transformation(extent={{-420,-20},{-400,0}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant capDes1[3](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant capDes1[3](
     final k={10e5,15e5,25e5}) "Stage design capacities"
     annotation (Placement(transformation(extent={{-380,-60},{-360,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant capMin1[3](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant capMin1[3](
     final k={2e5,3e5,5e5})
     "Stage unload capacities"
     annotation (Placement(transformation(extent={{-380,-100},{-360,-80}})));
@@ -236,7 +236,7 @@ protected
     "Current chiller stage"
     annotation (Placement(transformation(extent={{-200,-310},{-180,-290}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin capReq6(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin capReq6(
     final amplitude=6e5,
     final freqHz=1/1800,
     final offset=14e5,
@@ -259,7 +259,7 @@ protected
     "Current chiller stage"
     annotation (Placement(transformation(extent={{20,-310},{40,-290}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin capReq7(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin capReq7(
     final amplitude=6e5,
     final freqHz=1/1800,
     final offset=19e5,
@@ -282,7 +282,7 @@ protected
     "Current chiller stage"
     annotation (Placement(transformation(extent={{260,-310},{280,-290}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin capReq8(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin capReq8(
     final amplitude=6e5,
     final freqHz=1/1800,
     final offset=5e5,
@@ -300,15 +300,15 @@ protected
     "Next available chiller stage down"
     annotation (Placement(transformation(extent={{260,-390},{280,-370}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant Lift(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant Lift(
     final k=16) "Chiller lift"
     annotation (Placement(transformation(extent={{-420,-130},{-400,-110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant LiftMin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant LiftMin(
     final k=10) "Minimum chiller lift"
     annotation (Placement(transformation(extent={{-420,-220},{-400,-200}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant LiftMax(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant LiftMax(
     final k=20) "Maximum chiller lift"
     annotation (Placement(transformation(extent={{-420,-180},{-400,-160}})));
 

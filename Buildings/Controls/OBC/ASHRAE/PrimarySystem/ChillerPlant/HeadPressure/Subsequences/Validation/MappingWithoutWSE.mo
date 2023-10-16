@@ -14,10 +14,10 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant enaPreCon(
     final k=true) "Constant true"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant desPumSpe(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant desPumSpe(
     final k=0.75) "Design condenser water pump speed at current stage"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp conLoo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp conLoo(
     final duration=5) "Control loop output"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
 

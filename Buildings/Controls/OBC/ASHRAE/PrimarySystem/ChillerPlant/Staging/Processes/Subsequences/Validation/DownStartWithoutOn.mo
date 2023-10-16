@@ -24,38 +24,38 @@ protected
     final k=fill(true,2))
     "Operating chiller one"
     annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{-40,-250},{-20,-230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiLoa[2](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiLoa[2](
     final k=fill(1000,2)) "Chiller load"
     annotation (Placement(transformation(extent={{-120,130},{-100,150}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant nexEnaChi(
     final k=0) "Next enabling chiller"
     annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yOpeParLoaRatMin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yOpeParLoaRatMin(
     final k=0.7)
     "Minimum cycling operative partial load ratio"
     annotation (Placement(transformation(extent={{-120,170},{-100,190}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant onOff(
     final k=false) "Chiller on-off command"
     annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiFlo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiFlo(
     final k=2) "Chilled water flow"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiHea[2](
     final k=fill(true,2))
     "Chiller head pressure control"
     annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiIsoVal[2](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiIsoVal[2](
     final k=fill(1,2)) "Chilled water isolation valve"
     annotation (Placement(transformation(extent={{-120,-190},{-100,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant nexDisChi(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant nexDisChi(
     final k=2) "Next disable chiller"
     annotation (Placement(transformation(extent={{-120,-230},{-100,-210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(
     final k=0) "Constant zero"
     annotation (Placement(transformation(extent={{-120,-270},{-100,-250}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer1[2](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer1[2](
     final k=fill(0,2)) "Constant zero"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant fal[2](
@@ -68,7 +68,7 @@ protected
     annotation (Placement(transformation(extent={{100,170},{120,190}})));
   Buildings.Controls.OBC.CDL.Logical.Switch logSwi[2] "Logical switch"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1[2] "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1[2] "Logical switch"
     annotation (Placement(transformation(extent={{-40,130},{-20,150}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul2(
     final width=0.95,

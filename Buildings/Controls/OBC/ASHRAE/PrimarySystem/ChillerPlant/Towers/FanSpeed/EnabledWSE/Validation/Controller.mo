@@ -11,39 +11,39 @@ model Controller
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Buildings.Controls.OBC.CDL.Logical.Not fanSpeSwi "Two fan speed switch"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin chiSup(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin chiSup(
     final amplitude=0.5,
     final freqHz=1/1800,
     final offset=273.15 + 7.1) "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiSupSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiSupSet(
     final k=273.15 + 7)
     "Chilled water supply water setpoint"
     annotation (Placement(transformation(extent={{0,-150},{20,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(final k=0.1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(final k=0.1)
     "Minimum fan speed"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ram(
     final height=0.2,
     final duration=3600,
     final offset=0.1,
     final startTime=1750) "Tower speed"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ram1(
     final height=3,
     final duration=3600,
     final startTime=1500) "Ramp"
     annotation (Placement(transformation(extent={{-100,-150},{-80,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2 "Add real inputs"
+  Buildings.Controls.OBC.CDL.Reals.Add add2 "Add real inputs"
     annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1 "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1 "Logical switch"
     annotation (Placement(transformation(extent={{0,100},{20,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(final k=0)
     "Zero constant"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin(
     final amplitude=0.2*1e4,
     final freqHz=1/1200,
     final offset=1.1*1e4,

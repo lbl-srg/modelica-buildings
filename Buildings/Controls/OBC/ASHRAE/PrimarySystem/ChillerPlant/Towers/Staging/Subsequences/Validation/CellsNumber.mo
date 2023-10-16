@@ -12,7 +12,7 @@ model CellsNumber
     final period=3600,
     final shift=300) "Water side economizer status"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp chiStaGen(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp chiStaGen(
     final height=1.2,
     final duration=3600,
     final offset=1) "Generate chiller stage"
@@ -28,7 +28,7 @@ model CellsNumber
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
   Buildings.Controls.OBC.CDL.Logical.Not StaTow "Stage tower cells"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conWatPumSpe[2](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conWatPumSpe[2](
     final k=fill(0.5, 2)) "Condenser water pump speed"
     annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(

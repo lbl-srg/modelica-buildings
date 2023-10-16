@@ -37,7 +37,7 @@ protected
     final period=4)
     "Status of upflow device"
     annotation (Placement(transformation(extent={{-140,160},{-120,180}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch enaChi "Next enabling chiller"
+  Buildings.Controls.OBC.CDL.Reals.Switch enaChi "Next enabling chiller"
     annotation (Placement(transformation(extent={{-40,90},{-20,110}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant noStaCha(
     final k=false) "No stage change"
@@ -46,7 +46,7 @@ protected
     annotation (Placement(transformation(extent={{-100,190},{-80,210}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
     annotation (Placement(transformation(extent={{-100,160},{-80,180}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch disChi "Disabling chiller"
+  Buildings.Controls.OBC.CDL.Reals.Switch disChi "Disabling chiller"
     annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant haveOnOff(
     final k=true)
@@ -60,13 +60,13 @@ protected
     annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Not not3 "Logical not"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
     final k=3) "Index of enabling chiller"
     annotation (Placement(transformation(extent={{-140,110},{-120,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(
     final k=0) "Zero"
     annotation (Placement(transformation(extent={{-140,-190},{-120,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(
     final k=2) "Index of disabling chiller"
     annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt

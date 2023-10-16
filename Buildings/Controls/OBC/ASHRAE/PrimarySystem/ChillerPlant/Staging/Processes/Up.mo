@@ -303,19 +303,19 @@ protected
     annotation (Placement(transformation(extent={{-140,-62},{-120,-42}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr1(final nin=nChi) "Multiple or"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi[nChi] "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi[nChi] "Logical switch"
     annotation (Placement(transformation(extent={{200,-200},{220,-180}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{140,-230},{160,-210}})));
   Buildings.Controls.OBC.CDL.Logical.Switch logSwi[nChi] "Logical switch"
     annotation (Placement(transformation(extent={{200,-140},{220,-120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1 "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1 "Logical switch"
     annotation (Placement(transformation(extent={{200,30},{220,50}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "Logical latch, maintain ON signal until condition changes"
     annotation (Placement(transformation(extent={{-140,140},{-120,160}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(final k=0)
     if need_reduceChillerDemand
     "Constant zero"
     annotation (Placement(transformation(extent={{-200,80},{-180,100}})));
@@ -343,10 +343,10 @@ protected
     annotation (Placement(transformation(extent={{-100,290},{-80,310}})));
   Buildings.Controls.OBC.CDL.Logical.Switch logSwi1 "Logical switch"
     annotation (Placement(transformation(extent={{-40,230},{-20,250}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.ModelTime modTim
+  Buildings.Controls.OBC.CDL.Reals.Sources.ModelTime modTim
     "Simulation time"
     annotation (Placement(transformation(extent={{-200,220},{-180,240}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(final t=1)
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(final t=1)
     "Check if it has passed initial time"
     annotation (Placement(transformation(extent={{-140,220},{-120,240}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu

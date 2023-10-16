@@ -79,7 +79,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Edge edg
     "Check if the input changes from false to true"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Switch plant reset value depends on if there is chiller stage change"
     annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1[nPum] "Logical not"

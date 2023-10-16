@@ -45,7 +45,7 @@ block Enable "Sequence to enable and disable plant"
     annotation (Placement(transformation(extent={{200,70},{220,90}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable enaSch(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable enaSch(
     final table=schTab,
     final smoothness=tabSmo,
     final extrapolation=extrapolation)
@@ -61,7 +61,7 @@ protected
     Buildings.Controls.OBC.CDL.Types.Extrapolation.Periodic
     "Extrapolation of data outside the definition range";
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold schOn(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold schOn(
     final t=0.5)
     "Check if enabling schedule is active"
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
@@ -104,7 +104,7 @@ protected
     "Chiller plant enabling status"
     annotation (Placement(transformation(extent={{140,70},{160,90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
     final uLow=0,
     final uHigh=locDt)
     "Check if outdoor temperature is lower than chiller lockout temperature"
@@ -124,12 +124,12 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Pre pre1 "Pre"
     annotation (Placement(transformation(extent={{-180,110},{-160,130}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiLocOutTem(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiLocOutTem(
     final k=TChiLocOut)
     "Outdoor air lockout temperature"
     annotation (Placement(transformation(extent={{-180,-120},{-160,-100}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1
     "Difference between chiller lockout temperature and outdoor temperature"
     annotation (Placement(transformation(extent={{-140,-140},{-120,-120}})));
 

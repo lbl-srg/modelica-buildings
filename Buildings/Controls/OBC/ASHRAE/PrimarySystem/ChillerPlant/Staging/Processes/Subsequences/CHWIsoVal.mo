@@ -45,22 +45,22 @@ block CHWIsoVal "Sequence of enable or disable chilled water isolation valve"
 protected
   final parameter Integer chiInd[nChi]={i for i in 1:nChi}
     "Chiller index, {1,2,...,n}";
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con7(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con7(
     final k=chaChiWatIsoTim) "Time to change chilled water isolation valve"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con8(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con8(
     final k=endValPos)
     "Ending valve position"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con6(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con6(
     final k=iniValPos)
     "Initial isolation valve position"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con9(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con9(
     final k=0)
     "Constant zero"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line lin1
+  Buildings.Controls.OBC.CDL.Reals.Line lin1
     "Chilled water isolation valve setpoint"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim(
@@ -85,7 +85,7 @@ protected
     annotation (Placement(transformation(extent={{-40,-180},{-20,-160}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{-40,-210},{-20,-190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi[nChi] "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi[nChi] "Logical switch"
     annotation (Placement(transformation(extent={{120,-50},{140,-30}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(
     final nout=nChi)
@@ -93,9 +93,9 @@ protected
     annotation (Placement(transformation(extent={{60,-180},{80,-160}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2[nChi] "Logical not"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1[nChi] "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1[nChi] "Logical switch"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi2[nChi] "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi2[nChi] "Logical switch"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu[nChi]
     "Check next enabling isolation valve"
@@ -108,11 +108,11 @@ protected
     final nout=nChi)
     "Replicate real input"
     annotation (Placement(transformation(extent={{80,50},{100,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys3[nChi](
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys3[nChi](
     final uLow=fill(0.025, nChi),
     final uHigh=fill(0.05, nChi)) "Check if isolation valve is enabled"
     annotation (Placement(transformation(extent={{-120,210},{-100,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys4[nChi](
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys4[nChi](
     final uLow=fill(0.925, nChi),
     final uHigh=fill(0.975, nChi)) "Check if isolation valve is open more than 95%"
     annotation (Placement(transformation(extent={{-120,150},{-100,170}})));
@@ -130,9 +130,9 @@ protected
     final nin=nChi)
     "Logical and"
     annotation (Placement(transformation(extent={{80,210},{100,230}})));
-  Buildings.Controls.OBC.CDL.Logical.And3 and5
+  Buildings.Controls.OBC.CDL.Logical.And and5
     "Check if the isolation valve has been fully open"
-    annotation (Placement(transformation(extent={{140,130},{160,150}})));
+    annotation (Placement(transformation(extent={{120,130},{140,150}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[nChi](
     final k=chiInd) "Chiller index array"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
@@ -145,6 +145,9 @@ protected
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
     final delayTime=5) "Delay the true input"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
+  Buildings.Controls.OBC.CDL.Logical.And and1
+    "Logical and"
+    annotation (Placement(transformation(extent={{150,130},{170,150}})));
 
 equation
   connect(uChiWatIsoVal, triSam.u)
@@ -252,17 +255,16 @@ equation
     annotation (Line(points={{22,190},{30,190},{30,212},{38,212}},
       color={255,0,255}));
   connect(mulAnd1.y, and5.u1)
-    annotation (Line(points={{102,220},{120,220},{120,148},{138,148}},
+    annotation (Line(points={{102,220},{110,220},{110,140},{118,140}},
       color={255,0,255}));
-  connect(and5.y, yEnaChiWatIsoVal)
-    annotation (Line(points={{162,140},{200,140}}, color={255,0,255}));
   connect(or2.y, mulAnd1.u)
     annotation (Line(points={{62,220},{78,220}}, color={255,0,255}));
   connect(conInt.y, intEqu.u2)
     annotation (Line(points={{-58,-30},{-40,-30},{-40,-8},{-22,-8}},
       color={255,127,0}));
   connect(lat1.y, and5.u2)
-    annotation (Line(points={{-48,140},{138,140}}, color={255,0,255}));
+    annotation (Line(points={{-48,140},{46,140},{46,132},{118,132}},
+                                                   color={255,0,255}));
   connect(uUpsDevSta, lat1.u) annotation (Line(points={{-180,-140},{-130,-140},{
           -130,140},{-72,140}}, color={255,0,255}));
   connect(not1.y, truDel.u) annotation (Line(points={{-18,-200},{0,-200},{0,-230},
@@ -273,9 +275,13 @@ equation
           {-42,120}}, color={255,0,255}));
   connect(truDel.y, lat2.clr) annotation (Line(points={{-78,100},{-74,100},{-74,
           114},{-42,114}}, color={255,0,255}));
-  connect(lat2.y, and5.u3) annotation (Line(points={{-18,120},{0,120},{0,132},{138,
-          132}}, color={255,0,255}));
 
+  connect(and5.y, and1.u1)
+    annotation (Line(points={{142,140},{148,140}}, color={255,0,255}));
+  connect(and1.y, yEnaChiWatIsoVal)
+    annotation (Line(points={{172,140},{200,140}}, color={255,0,255}));
+  connect(lat2.y, and1.u2) annotation (Line(points={{-18,120},{144,120},{144,
+          132},{148,132}}, color={255,0,255}));
 annotation (
   defaultComponentName="enaChiIsoVal",
   Diagram(coordinateSystem(preserveAspectRatio=false,

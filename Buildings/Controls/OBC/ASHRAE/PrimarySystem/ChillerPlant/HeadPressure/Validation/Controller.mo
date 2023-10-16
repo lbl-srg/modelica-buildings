@@ -23,12 +23,12 @@ protected
     final period=5,
     final shift=0.5) "Head pressure control enabling status"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TConWatRet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin TConWatRet(
     final amplitude=-11,
     final freqHz=2/10,
     final offset=273.15 + 27) "Measured condenser water return temperature"
     annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TChiWatSup(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin TChiWatSup(
     final amplitude=1,
     final freqHz=1/5,
     final offset=273.15 + 6) "Measured chilled water supply temperature"
@@ -36,7 +36,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant runWSE(
     final k=true) "Constant true"
     annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant desPumSpe(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant desPumSpe(
     final k=0.75) "Design condenser water pump speed at current stage"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"

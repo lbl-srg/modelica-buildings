@@ -311,7 +311,7 @@ protected
     final nin=nChi)
     "Current disabling chiller"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesEquThr(
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold lesEquThr(
     final t=0.5)
     "Check if the disabled chiller has chilled water request"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
@@ -325,7 +325,7 @@ protected
     final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi[nChi]
+  Buildings.Controls.OBC.CDL.Reals.Switch swi[nChi]
     "Chilled water isolvation valve position"
     annotation (Placement(transformation(extent={{140,70},{160,90}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea2[nChi]
@@ -335,11 +335,11 @@ protected
     final nin=nChi)
     "Current disabling chiller"
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesEquThr1(
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold lesEquThr1(
     final t=0.5)
     "Check if the disabled chiller is not requiring condenser water"
     annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));
-  Buildings.Controls.OBC.CDL.Logical.And3 and5 "Logical and"
+  Buildings.Controls.OBC.CDL.Logical.And and5 "Logical and"
     annotation (Placement(transformation(extent={{60,-130},{80,-110}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(
     final nout=nChi)
@@ -370,7 +370,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Latch lat2
     "Maintain ON signal when chiller demand has been limited"
     annotation (Placement(transformation(extent={{120,150},{140,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch chiWatMinSet
+  Buildings.Controls.OBC.CDL.Reals.Switch chiWatMinSet
     "Chilled water minimum flow set"
     annotation (Placement(transformation(extent={{200,-340},{220,-320}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat3
@@ -379,6 +379,9 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Latch lat4
     "Maintain ON signal when chiller head pressure control has been disabled"
     annotation (Placement(transformation(extent={{200,-140},{220,-120}})));
+  Buildings.Controls.OBC.CDL.Logical.And and3
+    "Logical and"
+    annotation (Placement(transformation(extent={{120,-130},{140,-110}})));
 
 equation
   connect(nexChi.yEnaSmaChi,dowSta. nexEnaChi)
@@ -436,10 +439,8 @@ equation
   connect(curDisChi1.y, lesEquThr1.u)
     annotation (Line(points={{-58,-120},{-42,-120}}, color={0,0,127}));
   connect(logSwi2.y, and5.u1)
-    annotation (Line(points={{82,20},{90,20},{90,-20},{10,-20},{10,-112},{58,-112}},
-      color={255,0,255}));
-  connect(lesEquThr1.y, and5.u3)
-    annotation (Line(points={{-18,-120},{10,-120},{10,-128},{58,-128}},
+    annotation (Line(points={{82,20},{90,20},{90,-20},{10,-20},{10,-120},{58,
+          -120}},
       color={255,0,255}));
   connect(uChi,dowSta. uChi)
     annotation (Line(points={{-300,220},{-200,220},{-200,234},{58,234}},
@@ -454,9 +455,6 @@ equation
     annotation (Line(points={{82,-70},{138,-70}}, color={255,0,255}));
   connect(dowSta.yChiHeaCon, logSwi.u1)
     annotation (Line(points={{82,232},{100,232},{100,-62},{138,-62}},
-      color={255,0,255}));
-  connect(and5.y, disHeaCon.uUpsDevSta)
-    annotation (Line(points={{82,-120},{160,-120},{160,-96},{198,-96}},
       color={255,0,255}));
   connect(nexChi.yLasDisChi, disHeaCon.nexChaChi)
     annotation (Line(points={{-18,316},{20,316},{20,-104},{198,-104}},
@@ -631,9 +629,6 @@ equation
   connect(disChiIsoVal.yEnaChiWatIsoVal, lat3.u)
     annotation (Line(points={{222,66},{240,66},{240,0},{180,0},{180,-30},
       {198,-30}}, color={255,0,255}));
-  connect(lat3.y, and5.u2)
-    annotation (Line(points={{222,-30},{240,-30},{240,-50},{40,-50},{40,-120},
-      {58,-120}}, color={255,0,255}));
   connect(edg1.y, lat3.clr)
     annotation (Line(points={{222,-370},{260,-370},{260,-390},{-190,-390},
       {-190,-36},{198,-36}}, color={255,0,255}));
@@ -682,6 +677,14 @@ equation
           {-120,-92},{198,-92}}, color={255,0,255}));
   connect(con.y, conWatPumCon.uEnaPla) annotation (Line(points={{-138,200},{
           -120,200},{-120,-180},{138,-180}}, color={255,0,255}));
+  connect(and5.y, and3.u1)
+    annotation (Line(points={{82,-120},{118,-120}}, color={255,0,255}));
+  connect(and3.y, disHeaCon.uUpsDevSta) annotation (Line(points={{142,-120},{
+          160,-120},{160,-96},{198,-96}}, color={255,0,255}));
+  connect(lat3.y, and3.u2) annotation (Line(points={{222,-30},{240,-30},{240,
+          -50},{110,-50},{110,-128},{118,-128}}, color={255,0,255}));
+  connect(lesEquThr1.y, and5.u2) annotation (Line(points={{-18,-120},{-10,-120},
+          {-10,-128},{58,-128}}, color={255,0,255}));
 annotation (
   defaultComponentName="dowProCon",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-280,-400},{280,400}})),

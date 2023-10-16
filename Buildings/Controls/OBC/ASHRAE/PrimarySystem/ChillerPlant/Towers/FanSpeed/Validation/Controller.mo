@@ -20,50 +20,50 @@ protected
     shift=-3000)
     "Waterside economizer enabling status"
     annotation (Placement(transformation(extent={{-360,140},{-340,160}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp plaCap(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp plaCap(
     final height=8e5,
     final duration=3600,
     final offset=1e5) "Real operating chiller plant capacity"
     annotation (Placement(transformation(extent={{-360,10},{-340,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin conSup(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin conSup(
     final amplitude=2,
     final freqHz=1/1800,
     final offset=273.15 + 29) "Condenser water supply temperature"
     annotation (Placement(transformation(extent={{-360,-250},{-340,-230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ram2(
     final height=3,
     final duration=3600,
     final startTime=1500) "Ramp"
     annotation (Placement(transformation(extent={{-360,-290},{-340,-270}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add1 "Add real inputs"
+  Buildings.Controls.OBC.CDL.Reals.Add add1 "Add real inputs"
     annotation (Placement(transformation(extent={{-300,-270},{-280,-250}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram3(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ram3(
     final height=3,
     final duration=3600,
     final startTime=1500) "Ramp"
     annotation (Placement(transformation(extent={{-360,-200},{-340,-180}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin conRet2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin conRet2(
     final amplitude=2,
     final freqHz=1/1800,
     final offset=273.15 + 28) "Condenser water return temperature"
     annotation (Placement(transformation(extent={{-360,-170},{-340,-150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add3 "Add real inputs"
+  Buildings.Controls.OBC.CDL.Reals.Add add3 "Add real inputs"
     annotation (Placement(transformation(extent={{-300,-190},{-280,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp conWatPumSpe1[2](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp conWatPumSpe1[2](
     final height=fill(0.5, 2),
     final duration=fill(3600, 2),
     final startTime=fill(300, 2)) "Measured condenser water pump speed"
     annotation (Placement(transformation(extent={{-300,-230},{-280,-210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hpTowSpe1(final k=0.5)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant hpTowSpe1(final k=0.5)
     "Head pressure control maximum tower speed"
     annotation (Placement(transformation(extent={{-320,-10},{-300,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hpTowSpe2(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant hpTowSpe2(final k=0)
     "Head pressure control maximum tower speed"
     annotation (Placement(transformation(extent={{-360,-70},{-340,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant towFanSpe3(final k=0.2)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant towFanSpe3(final k=0.2)
     "Measured tower fan speed"
     annotation (Placement(transformation(extent={{-320,110},{-300,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiWatSupSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiWatSupSet(
     final k=273.15 + 6.5)
     "Chilled water supply setpoint"
     annotation (Placement(transformation(extent={{-360,-120},{-340,-100}})));
@@ -80,33 +80,33 @@ protected
     annotation (Placement(transformation(extent={{-200,-90},{-180,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{-320,200},{-300,220}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(
     final k=0) "Constant zero"
     annotation (Placement(transformation(extent={{-320,-50},{-300,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1 "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1 "Logical switch"
     annotation (Placement(transformation(extent={{-240,-30},{-220,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi2 "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi2 "Logical switch"
     annotation (Placement(transformation(extent={{-260,260},{-240,280}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(final k=0)
     "Zero constant"
     annotation (Placement(transformation(extent={{-360,240},{-340,260}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin(
     final amplitude=0.2*1e4,
     final freqHz=1/1200,
     final offset=1.1*1e4,
     final startTime=180) "Chiller load"
     annotation (Placement(transformation(extent={{-360,280},{-340,300}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin chiSup(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin chiSup(
     final amplitude=0.5,
     final freqHz=1/1800,
     final offset=273.15 + 7.1) "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-360,80},{-340,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ram1(
     final height=3,
     final duration=3600,
     final startTime=1500) "Ramp"
     annotation (Placement(transformation(extent={{-360,40},{-340,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2 "Add real inputs"
+  Buildings.Controls.OBC.CDL.Reals.Add add2 "Add real inputs"
     annotation (Placement(transformation(extent={{-260,60},{-240,80}})));
 
 equation

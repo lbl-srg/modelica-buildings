@@ -22,10 +22,10 @@ model ChilledWaterPlantReset
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Switch between two Real signals"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(final k=0)
     "Zero request when device is OFF"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt3
@@ -34,13 +34,13 @@ model ChilledWaterPlantReset
 
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(nout=2)
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timTabLin1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable timTabLin1(
     final smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
     final table=[0,0;150,1; 300,2; 450,3; 600,4; 750,5; 900,6;
                  1050,5; 1200,4; 1350,3; 1500,2; 1650,1; 1800,0])
     "Time table with smoothness method of constant segments"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timTabLin2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable timTabLin2(
     final smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
     final table=[0,0;150,1; 300,2; 450,3; 600,4; 750,5; 900,6;
                  1050,5; 1200,4; 1350,3; 1500,2; 1650,1; 1800,0])

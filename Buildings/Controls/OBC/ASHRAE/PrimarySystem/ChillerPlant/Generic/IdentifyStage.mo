@@ -37,27 +37,27 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea [nSta,nChi]
     "Convert boolean to real"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.MatrixMax rowMax(
+  Buildings.Controls.OBC.CDL.Reals.MatrixMax rowMax(
     final nRow=nSta,
     final nCol=nChi)
     "Outputs the row-wise maximum"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.MatrixMin rowMin(
+  Buildings.Controls.OBC.CDL.Reals.MatrixMin rowMin(
     final nRow=nSta,
     final nCol=nChi)
     "Outputs the row-wise minimum"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul[nSta]
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul[nSta]
     "Output product of the inputs"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con[nSta](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con[nSta](
     final k=staInd)
     "Stage indices"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul1[nSta]
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul1[nSta]
     "Output vector with the elements which equal to either zero or current stage index"
     annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum curSta(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum curSta(
     final nin=nSta)
     "Current stage"
     annotation (Placement(transformation(extent={{30,-70},{50,-50}})));

@@ -55,16 +55,16 @@ block IntegratedOperation
       iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiMinCycLoa[nChi](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiMinCycLoa[nChi](
     final k=chiMinCap)
     "Minimum cycling load of each chiller"
     annotation (Placement(transformation(extent={{-120,130},{-100,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi[nChi] "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi[nChi] "Logical switch"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer[nChi](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer[nChi](
     final k=fill(0, nChi)) "Zero constant"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset loaCon(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset loaCon(
     final controllerType=conTyp,
     final k=k,
     final Ti=Ti,
@@ -75,37 +75,37 @@ protected
     final y_reset=yMax)
     "Controller to maintain chiller load at the sum of minimum cycling load of operating chillers"
     annotation (Placement(transformation(extent={{80,90},{100,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum totMinCycLoa(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum totMinCycLoa(
     final k=fill(1.1, nChi),
     final nin=nChi)
     "Sum of minimum cycling load for the operating chillers"
     annotation (Placement(transformation(extent={{-20,90},{0,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum totLoa(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum totLoa(
     final nin=nChi) "Total load of operating chillers"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum minCycLoa(final nin=nChi)
+  Buildings.Controls.OBC.CDL.Reals.MultiSum minCycLoa(final nin=nChi)
     "Sum of minimum cycling load for all chillers"
     annotation (Placement(transformation(extent={{-20,130},{0,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide div "Output first input divided by second input"
+  Buildings.Controls.OBC.CDL.Reals.Divide div "Output first input divided by second input"
     annotation (Placement(transformation(extent={{40,90},{60,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide div1 "Output first input divided by second input"
+  Buildings.Controls.OBC.CDL.Reals.Divide div1 "Output first input divided by second input"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(final nin=nChi) "Logical or"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line lin "Linear interpolation"
+  Buildings.Controls.OBC.CDL.Reals.Line lin "Linear interpolation"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer1(
     final k=yMin) "Load control minimum limit"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one(
     final k=yMax)
     "Load control maximum limit"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTowSpe(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minTowSpe(
     final k=fanSpeMin)
     "Minimum speed"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTowSpe(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxTowSpe(
     final k=fanSpeMax)
     "Maximum tower fan speed"
     annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
@@ -114,7 +114,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and1
     "Check if it switches from WSE only mode to integrated operation mode"
     annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch fanSpe "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch fanSpe "Logical switch"
     annotation (Placement(transformation(extent={{120,-90},{140,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "Logical latch, maintain ON signal until condition changes"
@@ -125,11 +125,14 @@ protected
     annotation (Placement(transformation(extent={{80,-120},{100,-100}})));
   Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg "Output true when input becomes false"
     annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
-  Buildings.Controls.OBC.CDL.Logical.And3 and3 "Logical and"
+  Buildings.Controls.OBC.CDL.Logical.And and3 "Logical and"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre
     "Breaks algebraic loops by an infinitesimal small time delay"
     annotation (Placement(transformation(extent={{0,-150},{20,-130}})));
+  Buildings.Controls.OBC.CDL.Logical.And and2
+    "Logical and"
+    annotation (Placement(transformation(extent={{0,10},{20,30}})));
 
 equation
   connect(uChi, swi.u2)
@@ -192,21 +195,22 @@ equation
     annotation (Line(points={{62,-110},{70,-110},{70,-80},{-140,-80},{-140,-60},
       {-122,-60}}, color={255,0,255}));
   connect(mulOr.y, and3.u1)
-    annotation (Line(points={{-98,20},{-90,20},{-90,28},{-62,28}}, color={255,0,255}));
+    annotation (Line(points={{-98,20},{-62,20}}, color={255,0,255}));
   connect(falEdg.y, and3.u2)
-    annotation (Line(points={{-98,-60},{-80,-60},{-80,20},{-62,20}},
+    annotation (Line(points={{-98,-60},{-80,-60},{-80,12},{-62,12}},
       color={255,0,255}));
-  connect(uWse, and3.u3)
-    annotation (Line(points={{-180,0},{-70,0},{-70,12},{-62,12}}, color={255,0,255}));
-  connect(and3.y, loaCon.trigger)
-    annotation (Line(points={{-38,20},{84,20},{84,88}}, color={255,0,255}));
   connect(pre.y, lat.clr)
     annotation (Line(points={{22,-140},{30,-140},{30,-116},{38,-116}},
       color={255,0,255}));
   connect(intOpeTim.passed, pre.u)
     annotation (Line(points={{102,-118},{120,-118},{120,-154},{-10,-154},
       {-10,-140},{-2,-140}}, color={255,0,255}));
-
+  connect(and3.y, and2.u1)
+    annotation (Line(points={{-38,20},{-2,20}}, color={255,0,255}));
+  connect(uWse, and2.u2) annotation (Line(points={{-180,0},{-20,0},{-20,12},{-2,
+          12}}, color={255,0,255}));
+  connect(and2.y, loaCon.trigger)
+    annotation (Line(points={{22,20},{84,20},{84,88}}, color={255,0,255}));
 annotation (
   defaultComponentName="wseTowSpeIntOpe",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},

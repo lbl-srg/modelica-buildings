@@ -49,14 +49,14 @@ block HeatExchangerPump
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     annotation (Placement(transformation(extent={{40,100},{60,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub "Temperature difference"
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub "Temperature difference"
     annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     final t=1.11,
     final h=0.44)
     "Check if the temperature difference is greater than 2 degF (1.11 degK)"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr1(
     final t=0.56,
     final h=0.45)
     "Check if the temperature difference is greater than 1 degF (0.56 degK)"
@@ -87,7 +87,7 @@ block HeatExchangerPump
     final maxRes=-0.06)
     "Reset pump speed"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul "Pump Speed"
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul "Pump Speed"
     annotation (Placement(transformation(extent={{120,20},{140,40}})));
   Buildings.Controls.OBC.CDL.Logical.And and1
     "Waterside economizer commanded on"

@@ -60,14 +60,14 @@ protected
     displayUnit="m3/s")=0.05
       "Average measured chilled water flow rate";
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timeTable(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable timeTable(
     final table=[0,0; 600,0; 600,1; 1200,1; 1200,0; 2500,0; 2500,1; 3700,1; 3700,0; 4300,
         0; 4300,1; 4500,1; 4500,0; 6000,0; 6000,1; 9200,1; 9200,0; 12000,0;
         12000,1; 14000,1; 14000,0])
     "Stage up signal for the first exampe and stage down signal for the second example from the top"
     annotation (Placement(transformation(extent={{-160,220},{-140,240}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     final t=0.5) "Greater than threshold"
     annotation (Placement(transformation(extent={{-120,220},{-100,240}})));
 
@@ -108,14 +108,14 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Subtract addInt3 "Addder"
     annotation (Placement(transformation(extent={{140,-20},{160,0}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timeTable2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable timeTable2(
     final table=[0,0; 800,0; 800,1; 2700,1; 2700,0; 4500,0; 4500,1; 5200,1; 5200,0;
         6000,0; 6000,1; 6900,1; 6900,0; 7800,0; 7800,1; 8700,1; 8700,0; 12000,0;
         12000,1; 14000,1; 14000,0])
     "Stage up signal, if simultaneous stage up and down signals are generated the plant will stage down"
     annotation (Placement(transformation(extent={{-160,-140},{-140,-120}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr2(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr2(
     final t=0.5) "Greater threshold"
     annotation (Placement(transformation(extent={{-120,-140},{-100,-120}})));
 
@@ -137,7 +137,7 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Subtract addInt5 "Adder"
     annotation (Placement(transformation(extent={{140,-200},{160,-180}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr3(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr3(
     final t=0.5) "Greater than threshold"
     annotation (Placement(transformation(extent={{-120,-180},{-100,-160}})));
 
@@ -146,7 +146,7 @@ protected
     "No stage change signal"
     annotation (Placement(transformation(extent={{-200,100},{-180,120}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timeTable1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable timeTable1(
     final table=[0,0; 1600,0; 1600,1; 2400,1; 2400,0; 3700,0; 3700,1; 5900,1; 5900,
         0; 6900,0; 6900,1; 7800,1; 7800,0; 12000,0; 12000,1; 14000,1; 14000,0])
     "Stage down signal"
@@ -197,12 +197,12 @@ protected
     "Chiller stage"
     annotation (Placement(transformation(extent={{140,-240},{160,-220}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timeTable3(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable timeTable3(
     final table=[0,0; 10,0; 10,1; 11000,1; 11000,0; 12000,0; 12000,1; 14000,1;
         14000,0]) "Plant enable"
     annotation (Placement(transformation(extent={{-200,20},{-180,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr1(
     final t=0.5) "Greater than threshold"
     annotation (Placement(transformation(extent={{-160,20},{-140,40}})));
 

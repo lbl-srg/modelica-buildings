@@ -186,18 +186,18 @@ protected
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep4(final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch chiWatIso[nChi]
+  Buildings.Controls.OBC.CDL.Reals.Switch chiWatIso[nChi]
     "Chilled water isolation valve"
     annotation (Placement(transformation(extent={{160,50},{180,70}})));
   Buildings.Controls.OBC.CDL.Logical.Switch logSwi4
     "Logical switch"
     annotation (Placement(transformation(extent={{160,-170},{180,-150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch chiWatByp
+  Buildings.Controls.OBC.CDL.Reals.Switch chiWatByp
     "Chilled water bypass flow setpoint"
     annotation (Placement(transformation(extent={{160,-120},{180,-100}})));
   Buildings.Controls.OBC.CDL.Logical.Switch logSwi5 "Logical switch"
     annotation (Placement(transformation(extent={{60,-240},{80,-220}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch chiWatByp1
+  Buildings.Controls.OBC.CDL.Reals.Switch chiWatByp1
     "Chilled water bypass flow setpoint"
     annotation (Placement(transformation(extent={{100,-140},{120,-120}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat1

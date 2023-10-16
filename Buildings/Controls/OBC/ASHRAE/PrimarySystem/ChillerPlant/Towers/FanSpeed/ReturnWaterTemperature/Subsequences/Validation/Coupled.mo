@@ -6,38 +6,38 @@ model Coupled
     couTowSpe
     "Tower fan speed control based on the condenser water return temperature control for close coupled plants"
     annotation (Placement(transformation(extent={{60,80},{80,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin conRet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin conRet(
     final amplitude=2,
     final freqHz=1/1800,
     final offset=273.15 + 32) "Condenser water return temperature"
     annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ram1(
     final height=3,
     final duration=3600,
     final startTime=1500) "Ramp"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2 "Add real inputs"
+  Buildings.Controls.OBC.CDL.Reals.Add add2 "Add real inputs"
     annotation (Placement(transformation(extent={{-20,80},{0,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conRetSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conRetSet(
     final k=273.15 + 32)
     "Condenser water return temperature setpoint"
     annotation (Placement(transformation(extent={{-20,110},{0,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp conWatPumSpe[2](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp conWatPumSpe[2](
     final height=fill(0.5, 2),
     final duration=fill(3600, 2),
     final startTime=fill(300, 2)) "Measured condenser water pump speed"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp towMaxSpe(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp towMaxSpe(
     final height=0.25,
     final duration=3600,
     final offset=0.5) "Maximum tower speed specified by head pressure control loop"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp towMaxSpe1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp towMaxSpe1(
     final height=-0.25,
     final duration=3600,
     final offset=0.8) "Maximum tower speed specified by head pressure control loop"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp plrTowMaxSpe(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp plrTowMaxSpe(
     final height=-0.3,
     final duration=3600,
     final offset=0.9) "Maximum tower speed reset based on the partial load"
@@ -47,10 +47,10 @@ model Coupled
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1[2] "Logical not"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer[2](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer[2](
     final k=fill(0,2)) "Constant zero"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi[2] "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi[2] "Logical switch"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse chiSta2(
     final width=0.1, final period=3600)  "Chiller one enabling status"

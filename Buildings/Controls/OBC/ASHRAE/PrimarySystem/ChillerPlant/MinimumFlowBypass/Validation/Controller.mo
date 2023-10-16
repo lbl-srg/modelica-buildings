@@ -7,7 +7,7 @@ model Controller "Validate control of minimum bypass valve"
     minBypValCon(final nChi=3, final minFloSet={0.005,0.005,0.005})
                        "Minimum bypass valve position"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse chiFloSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse chiFloSet(
     final amplitude=-0.005,
     final period=3,
     final offset=0.015) "Minimum flow setpoint"
@@ -21,17 +21,17 @@ protected
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   Buildings.Controls.OBC.CDL.Logical.Not not4 "Logical not"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin(
     final amplitude=0.0025,
     final freqHz=1/2,
     final offset=0.005) "Output sine wave value"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ram(
     final height=0.015,
     final duration=2,
     final startTime=1.2) "Output ramp value"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2
+  Buildings.Controls.OBC.CDL.Reals.Add add2
     "Measured minimum bypass flow rate"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 

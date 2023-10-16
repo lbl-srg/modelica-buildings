@@ -60,7 +60,7 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nChi]
     "Convert boolean input to real output"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr[nChi](
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greEquThr[nChi](
     final t=fill(0.5, nChi))
     "Convert real input to boolean output"
     annotation (Placement(transformation(extent={{20,90},{40,110}})));
@@ -125,7 +125,7 @@ protected
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep5(final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-120,-250},{-100,-230}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr1[nChi](
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greEquThr1[nChi](
     final t=fill(0.5, nChi))
     "Convert real input to boolean output"
     annotation (Placement(transformation(extent={{40,-220},{60,-200}})));

@@ -67,23 +67,23 @@ protected
     final t=cheCycOffTim)
     "Count the time when fan is at minimum speed and the chilled water supply temperature drops below setpoint"
     annotation (Placement(transformation(extent={{80,130},{100,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTowSpe(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minTowSpe(
     final k=fanSpeMin) "Minimum tower speed"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract dFanSpe
+  Buildings.Controls.OBC.CDL.Reals.Subtract dFanSpe
     "Different between measured fan speed and the minimum fan speed"
     annotation (Placement(transformation(extent={{-90,90},{-70,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys2(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys2(
     final uLow=fanSpeChe,
     final uHigh=fanSpeChe + 0.005)
     "Check if tower fan speed is greater than minimum speed"
     annotation (Placement(transformation(extent={{-40,90},{-20,110}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract dTChiSup
+  Buildings.Controls.OBC.CDL.Reals.Subtract dTChiSup
     "Difference between chilled water supply temperature and its setpoint"
     annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys1(
     final uLow=-0.1,
     final uHigh=0.1)
     "Check if chilled water supply temperature is greater than setpoint"
@@ -96,14 +96,14 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "Logical latch, maintain ON signal until condition changes"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys3(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys3(
     final uLow=0.5*5/9,
     final uHigh=1.5*5/9)
     "Check if chilled water supply temperature is greater than setpoint by a threshold delta"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset chiWatTemCon(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset chiWatTemCon(
     final controllerType=chiWatCon,
     final k=k,
     final Ti=Ti,
@@ -114,19 +114,19 @@ protected
     final y_reset=0)
     "Controller to maintain chilled water supply temperature at setpoint"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(
     final k=yMin)
     "Minimum output from chilled water supply temperature control loop, default to be zero"
     annotation (Placement(transformation(extent={{40,-110},{60,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one(
     final k=yMax)
     "Maximum output from chilled water supply temperature control loop"
     annotation (Placement(transformation(extent={{-20,-150},{0,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTowSpe(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxTowSpe(
     final k=fanSpeMax)
     "Maximum tower fan speed"
     annotation (Placement(transformation(extent={{40,-150},{60,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line lin
+  Buildings.Controls.OBC.CDL.Reals.Line lin
     "Output the value of the input x along a line specified by two points"
     annotation (Placement(transformation(extent={{100,-130},{120,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg1

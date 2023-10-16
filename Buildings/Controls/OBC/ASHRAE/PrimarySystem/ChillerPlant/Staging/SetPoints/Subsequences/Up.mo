@@ -181,14 +181,14 @@ protected
     "Switches staging up rules"
     annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTSup(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysTSup(
     final uLow=smallTDif - TDifHys,
     final uHigh=smallTDif,
     final pre_y_start=false) if have_WSE
     "Checks if the chilled water supply temperature is higher than its setpoint plus an offset"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTSup1(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysTSup1(
     final uLow=largeTDif - TDifHys,
     final uHigh=largeTDif,
     final pre_y_start=false) if have_WSE
@@ -199,7 +199,7 @@ protected
     "Or for staging up"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1 if have_WSE
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1 if have_WSE
     "Temperature difference"
     annotation (Placement(transformation(extent={{-110,-40},{-90,-20}})));
 

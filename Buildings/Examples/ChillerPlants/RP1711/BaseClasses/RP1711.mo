@@ -47,22 +47,22 @@ model RP1711 "Chiller plant model with RP1711 controller"
     final dpChiWatPumMax={160000},
     final speChe=speChe)           "Chiller plant controller"
     annotation (Placement(transformation(extent={{-260,0},{-220,160}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold chiWatIso[2](final t=
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold chiWatIso[2](final t=
         fill(posChe, 2), final h=fill(0.5*posChe, 2))
     "Chilled water isolation valve status"
     annotation (Placement(transformation(extent={{-400,320},{-380,340}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold conWatIso[2](final t=
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold conWatIso[2](final t=
         fill(posChe, 2), final h=fill(0.5*posChe, 2))
     "Condenser water isolation valve status"
     annotation (Placement(transformation(extent={{-400,280},{-380,300}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold chiSta[2](final t=fill(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold chiSta[2](final t=fill(
          loaChe, 2), final h=fill(0.5*loaChe, 2))
     "Chiller status, check if the chiller load is greater than zero "
     annotation (Placement(transformation(extent={{-400,230},{-380,250}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiAva[2](final k=fill(
         true, 2)) "Chiller availability"
     annotation (Placement(transformation(extent={{-400,40},{-380,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold conWatPumSta[2](final t=
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold conWatPumSta[2](final t=
         fill(speChe, 2), final h=fill(0.5*speChe, 2))
     "Condenser water pump status"
     annotation (Placement(transformation(extent={{-400,150},{-380,170}})));
@@ -81,18 +81,18 @@ model RP1711 "Chiller plant model with RP1711 controller"
       displayUnit="degC",
       min=0)) "Outdoor wet bulb temperature"
     annotation (Placement(transformation(extent={{-520,70},{-500,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold chiWatPumSta[2](final t=
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold chiWatPumSta[2](final t=
         fill(speChe, 2), final h=fill(0.5*speChe, 2))
     "Chilled water pump status"
     annotation (Placement(transformation(extent={{-400,-110},{-380,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold towSta[2](final t=fill(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold towSta[2](final t=fill(
          loaChe, 2), final h=fill(0.5*loaChe, 2))
                           "Cooling tower status"
     annotation (Placement(transformation(extent={{-400,-30},{-380,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conWatLev(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conWatLev(
     final k=0.9) "Constant cooling tower water level"
     annotation (Placement(transformation(extent={{-520,-10},{-500,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax cooTowFan(final nin=2)
+  Buildings.Controls.OBC.CDL.Reals.MultiMax cooTowFan(final nin=2)
     "Cooling tower fan speed"
     annotation (Placement(transformation(extent={{-400,200},{-380,220}})));
   Modelica.Fluid.Interfaces.FluidPort_b portCooCoiSup(

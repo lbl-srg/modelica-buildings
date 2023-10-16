@@ -76,19 +76,19 @@ model ClosedLoop
      "Supply air temperature"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,origin={80,-100})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant airSupTemSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant airSupTemSet(
     final k=273.15 + 18)
     "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-240,-50},{-220,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract temDif
+  Buildings.Controls.OBC.CDL.Reals.Subtract temDif
     "Difference between supply air temperature and its setpoint"
     annotation (Placement(transformation(extent={{-220,110},{-200,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
     uLow=2.9,
     uHigh=3.1)
     "Higher than setpoint by 3 degC"
     annotation (Placement(transformation(extent={{-180,110},{-160,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys1(
     uLow=1.9,
     uHigh=2.1)
     "Higher than setpoint by 2 degC"
@@ -113,11 +113,11 @@ model ClosedLoop
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
     final k=2) "Constant two"
     annotation (Placement(transformation(extent={{-140,70},{-120,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID conPID(
+  Buildings.Controls.OBC.CDL.Reals.PID conPID(
     final reverseActing=false)
     "Chilled water valve control"
     annotation (Placement(transformation(extent={{-200,-50},{-180,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     t=0.95,
     h=0.1)
     "Send one request when the input is greater than threshold unit it is less than threshold minus hysteresis"
@@ -138,7 +138,7 @@ model ClosedLoop
   Buildings.Controls.OBC.CDL.Integers.Switch chiPlaReq
     "Chiller plant request"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr1(
     t=0.95,
     h=0.85)
     "Send one request when the input is greater than threshold unit it is less than threshold minus hysteresis"
