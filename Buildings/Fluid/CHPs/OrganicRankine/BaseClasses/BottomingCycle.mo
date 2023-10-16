@@ -14,7 +14,7 @@ model BottomingCycle "Organic Rankine cycle as a bottoming"
     min=0,
     final quantity="Power",
     final unit="W") "Power output of the expander"
-                                   annotation (Placement(transformation(extent={{100,40},
+    annotation (Placement(transformation(extent={{100,40},
             {120,60}}),            iconTransformation(extent={{100,50},{120,70}})));
   Modelica.Blocks.Interfaces.RealOutput etaThe(
     min=0,

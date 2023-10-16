@@ -20,7 +20,9 @@ model EvaporatorLimited
     final dp_nominal=dp_nominal) "Evaporator"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  Modelica.Blocks.Interfaces.RealOutput Q_flow(unit="W")
+  Modelica.Blocks.Interfaces.RealOutput Q_flow(
+    final quantity="Power",
+    final unit="W")
     "Heat added to the fluid"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}}),
         iconTransformation(extent={{100,-70},{120,-50}})));

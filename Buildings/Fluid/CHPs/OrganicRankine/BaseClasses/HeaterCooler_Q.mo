@@ -5,7 +5,9 @@ model HeaterCooler_Q
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol(
     final prescribedHeatFlowRate=true));
 
-  Modelica.Blocks.Interfaces.RealInput Q_flow(unit="W")
+  Modelica.Blocks.Interfaces.RealInput Q_flow(
+    final quantity="Power",
+    final unit="W")
     "Heat added to the fluid"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
 protected

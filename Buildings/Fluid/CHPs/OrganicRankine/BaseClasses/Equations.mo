@@ -50,18 +50,18 @@ model Equations "Core equations of a Rankine cycle"
   final Modelica.Units.SI.SpecificEnergy dhExp =
     (hExpOut_i - hExpInl) * etaExp
     "Enthalpy differential at the expander (negative)";
-  final Modelica.Units.SI.SpecificEnergy dhCon = - dhEva - dhExp
+  final Modelica.Units.SI.SpecificEnergy dhCon = -dhEva - dhExp
     "Enthalpy differential at the condenser (negative)";
 
   Modelica.Blocks.Interfaces.RealOutput etaThe(
     min=0,
-    final unit="1")=-dhExp/dhEva      "Thermal efficiency"
+    final unit="1") = -dhExp/dhEva "Thermal efficiency"
     annotation (Placement(
         transformation(extent={{100,30},{120,50}}),   iconTransformation(extent={{100,30},
             {120,50}})));
   Modelica.Blocks.Interfaces.RealOutput rConEva(
     max=0,
-    final unit="1")=dhCon/dhEva
+    final unit="1") = dhCon/dhEva
     "Ratio of heat flow of condenser to evaporator (<0)"
     annotation (Placement(
         transformation(extent={{100,-50},{120,-30}}), iconTransformation(extent={{100,-50},

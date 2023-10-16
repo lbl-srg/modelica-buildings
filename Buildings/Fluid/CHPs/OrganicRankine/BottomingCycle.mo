@@ -35,19 +35,20 @@ model BottomingCycle
     min=0,
     final quantity="Power",
     final unit="W") "Power output of the expander"
-                                   annotation (Placement(transformation(extent={{100,20},
+    annotation (Placement(transformation(extent={{100,20},
             {120,40}}),            iconTransformation(extent={{100,20},{120,40}})));
   Modelica.Blocks.Interfaces.RealOutput etaThe(min=0, final unit="1")
-                    "Thermal efficiency"
+    "Thermal efficiency"
     annotation (Placement(
         transformation(extent={{100,-10},{120,10}}),  iconTransformation(extent={{100,-40},
             {120,-20}})));
   Modelica.Blocks.Interfaces.RealOutput QCon_flow(final quantity="Power",
-      final unit="W") "Heat rejected through condensation"
+    final unit="W") "Heat rejected through condensation"
     annotation (Placement(transformation(extent={{100,-100},{120,-80}}),
         iconTransformation(extent={{100,-110},{120,-90}})));
   Modelica.Blocks.Interfaces.RealOutput QEva_flow(final quantity="Power",
-      final unit="W") "Heat added through evaporation" annotation (Placement(
+    final unit="W") "Heat added through evaporation"
+    annotation (Placement(
         transformation(extent={{100,82},{120,102}}), iconTransformation(extent={
             {100,90},{120,110}})));
 equation
