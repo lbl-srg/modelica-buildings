@@ -68,23 +68,23 @@ model AbsorptionIndirectSteamVaryingLoad
     redeclare package Medium = Medium,
     use_T_in=true) "Cooling load"
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant TSet(k=273.15 + 10) "Set point"
+  Controls.OBC.CDL.Reals.Sources.Constant TSet(k=273.15 + 10) "Set point"
     annotation (Placement(transformation(extent={{-130,-12},{-110,8}})));
-  Controls.OBC.CDL.Continuous.Sources.Ramp mPum_flow(
+  Controls.OBC.CDL.Reals.Sources.Ramp mPum_flow(
     height=per.mEva_flow_nominal,
     duration=86400,
     offset=0) "Pump flow rate"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
-  Controls.OBC.CDL.Continuous.Divide QEva_QGen
+  Controls.OBC.CDL.Reals.Divide QEva_QGen
     "Ratio of cooling provided over required steam"
     annotation (Placement(transformation(extent={{90,0},{110,20}})));
-  Controls.OBC.CDL.Continuous.Divide QEva_P
+  Controls.OBC.CDL.Reals.Divide QEva_P
     "Ratio of cooling provided over pump energy"
     annotation (Placement(transformation(extent={{90,-30},{110,-10}})));
-  Controls.OBC.CDL.Continuous.MultiplyByParameter gai(k=-1)
+  Controls.OBC.CDL.Reals.MultiplyByParameter gai(k=-1)
     "Gain to switch sign"
     annotation (Placement(transformation(extent={{52,-50},{72,-30}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant TEnt(k=273.15 + 15)
+  Controls.OBC.CDL.Reals.Sources.Constant TEnt(k=273.15 + 15)
     "Entering evaporator temperature"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 equation

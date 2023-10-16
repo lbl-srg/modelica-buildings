@@ -865,7 +865,7 @@ block Controller
     final spePoiFou=spePoiFou)
     "Supply air set point and fan signal for single zone VAV system"
     annotation (Placement(transformation(extent={{-20,390},{0,410}})));
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset cooPI(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset cooPI(
     final controllerType=cooLooCon,
     final k=kCoo,
     final Ti=TiCoo,
@@ -873,7 +873,7 @@ block Controller
     final reverseActing=false)
     "Zone cooling control signal"
     annotation (Placement(transformation(extent={{-90,350},{-70,370}})));
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset heaPI(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset heaPI(
     final controllerType=heaLooCon,
     final k=kHea,
     final Ti=TiHea,

@@ -20,14 +20,14 @@ model Reset
     "Heating water supply temperature set point after reset"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
     iconTransformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minSet(
     k=THeaWatSupSetMin)
     "Minimum value of HW set point"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swiHea
+  Buildings.Controls.OBC.CDL.Reals.Switch swiHea
     "Switch"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimitSlewRate ramLimHea(raisingSlewRate
+  Buildings.Controls.OBC.CDL.Reals.LimitSlewRate ramLimHea(raisingSlewRate
       =0.1) "Limit the rate of change"
     annotation (Placement(transformation(extent={{50,-10},{70,10}})));
 equation

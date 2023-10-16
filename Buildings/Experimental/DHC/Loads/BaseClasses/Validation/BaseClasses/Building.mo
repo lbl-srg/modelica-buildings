@@ -10,16 +10,16 @@ model Building
     annotation (Dialog(group="Nominal condition", enable=have_heaWat));
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Nominal mass flow rate";
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant souPHea(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant souPHea(
     k=1)
     annotation (Placement(transformation(extent={{240,190},{260,210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant souPCoo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant souPCoo(
     k=1)
     annotation (Placement(transformation(extent={{240,150},{260,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant souPFan(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant souPFan(
     k=1)
     annotation (Placement(transformation(extent={{240,110},{260,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant souPPum(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant souPPum(
     k=1)
     annotation (Placement(transformation(extent={{240,70},{260,90}})));
   Fluid.HeatExchangers.HeaterCooler_u loaHea(
@@ -38,13 +38,13 @@ model Building
     dp_nominal=0)  if have_chiWat
     "Cooling load"
     annotation (Placement(transformation(extent={{-10,-270},{10,-250}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(k=1) "One"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one(k=1) "One"
     annotation (Placement(transformation(extent={{-80,-170},{-60,-150}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     k=-1)  if have_heaWat
     "Opposite"
     annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(
     k=-1)  if have_chiWat
     "Opposite"
     annotation (Placement(transformation(extent={{30,-250},{50,-230}})));

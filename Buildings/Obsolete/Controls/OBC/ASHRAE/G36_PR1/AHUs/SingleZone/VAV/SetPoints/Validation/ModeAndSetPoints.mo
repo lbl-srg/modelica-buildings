@@ -27,19 +27,19 @@ model ModeAndSetPoints
 
   Buildings.Controls.SetPoints.OccupancySchedule occSch "Occupancy schedule"
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin heaSetAdj(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin heaSetAdj(
     final freqHz=1/28800,
     final amplitude=0.5) "Heating setpoint adjustment"
     annotation (Placement(transformation(extent={{-46,-2},{-26,18}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin cooSetAdj(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin cooSetAdj(
     final freqHz=1/28800) "Cooling setpoint adjustment"
     annotation (Placement(transformation(extent={{-46,38},{-26,58}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TZon1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin TZon1(
     final amplitude=5,
     final offset=18 + 273.15,
     final freqHz=1/86400) "Zone 1 temperature"
     annotation (Placement(transformation(extent={{-88,38},{-68,58}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TZon2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin TZon2(
     final offset=18 + 273.15,
     final freqHz=1/86400,
     final amplitude=7.5) "Zone 2 temperature"
@@ -63,7 +63,7 @@ model ModeAndSetPoints
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant demLimLev(
     final k=0) "Demand limit level"
     annotation (Placement(transformation(extent={{-66,-110},{-46,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant warCooTim(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant warCooTim(
     final k=1800)
     "Warm-up or cooldown time"
     annotation (Placement(transformation(extent={{-48,94},{-28,114}})));

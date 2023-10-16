@@ -32,7 +32,7 @@ block MixingValveControl
     "Valve control signal"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=0,origin={120,0}),iconTransformation(extent={{-10,-10},{10,10}},rotation=0,origin={110,0})));
   // COMPONENTS
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(
     k=0)
     "Zero constant"
     annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
@@ -40,7 +40,7 @@ block MixingValveControl
     threshold=2) if typDis == Type_dis.ChangeOver
     "Conversion to boolean (true if cooling mode)"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset resConTSup(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset resConTSup(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final k=k,
     final Ti=Ti,
@@ -50,7 +50,7 @@ block MixingValveControl
     final y_reset=0) if typDis == Type_dis.ChangeOver
     "PI controller tracking supply temperature"
     annotation (Placement(transformation(extent={{-70,-70},{-50,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID conTSup(
+  Buildings.Controls.OBC.CDL.Reals.PID conTSup(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final k=k,
     final Ti=Ti,
@@ -59,16 +59,16 @@ block MixingValveControl
     final reverseActing=true) if typDis <> Type_dis.ChangeOver
     "PI controller tracking supply temperature"
     annotation (Placement(transformation(extent={{-70,-30},{-50,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Min negPar
+  Buildings.Controls.OBC.CDL.Reals.Min negPar
     "Negative part of control signal"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max posPar
+  Buildings.Controls.OBC.CDL.Reals.Max posPar
     "Positive part of control signal"
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter opp(k=-1)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter opp(k=-1)
     "Opposite value"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Logical switch"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
   Modelica.Blocks.Sources.BooleanExpression fixMod(

@@ -66,10 +66,10 @@ model SingleMixingOpenLoop
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant mode(k=1)
     "Operating mode"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant fraLoa(k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant fraLoa(k=1)
     "Load modulating signal"
     annotation (Placement(transformation(extent={{-120,110},{-100,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable  ope(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable  ope(
     table=[0,1,1; 1,0,1],
     extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint,
     timeScale=100) "Valve opening signal"

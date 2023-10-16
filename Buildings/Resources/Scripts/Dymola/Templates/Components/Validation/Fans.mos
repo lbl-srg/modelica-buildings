@@ -1,0 +1,33 @@
+simulateModel("Buildings.Templates.Components.Validation.Fans",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=200.0,
+    resultFile="Fans");
+createPlot(
+    id=1,
+    position={0, 0, 400, 400},
+    y={"arr.bus.y", "arr.bus.y1", "arr.bus.y1_actual", "arr.fan[1].m_flow",  "arr.m_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    position={100, 0, 400, 400},
+    y={"cst.bus.y1", "cst.bus.y1_actual", "cst.fan.m_flow", "cst.m_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=3,
+    position={200, 0, 400, 400},
+    y={"var.bus.y", "var.bus.y1", "var.bus.y1_actual", "var.fan.m_flow", "var.m_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=4,
+    position={300, 0, 400, 400},
+    y={"non.m_flow", "non.m_flow_nominal"},
+    autoscale=true,
+    grid=true
+);

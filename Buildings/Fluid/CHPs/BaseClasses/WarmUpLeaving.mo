@@ -40,25 +40,25 @@ protected
     final t=timeDelayStart) if warmUpByTimeDelay
     "Check the time since the warm-up mode is activated"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTem(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysTem(
     final uLow=-0.5,
     final uHigh=0) if not warmUpByTimeDelay
     "Check if actual engine temperature is higher than the nominal value"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub
  if not warmUpByTimeDelay
     "Difference between actual engine temperature and the nominal value"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant temEngNom(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant temEngNom(
     y(final unit="K", displayUnit="degC"),
     final k=TEngNom)
     "Nominal engine temperature"
     annotation (Placement(transformation(extent={{-88,-30},{-68,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1
  if not warmUpByTimeDelay
     "Difference between actual power output and demand"
     annotation (Placement(transformation(extent={{-50,-70},{-30,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysPow(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysPow(
     final uLow=-0.01*PEleMax - 1e-6,
     final uHigh=0) if not warmUpByTimeDelay
     "Check if actual power output is higher than demand"

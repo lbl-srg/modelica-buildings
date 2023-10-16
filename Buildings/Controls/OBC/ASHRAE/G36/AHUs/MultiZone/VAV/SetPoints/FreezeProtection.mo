@@ -268,7 +268,7 @@ block FreezeProtection
     annotation (Placement(transformation(extent={{440,-860},{480,-820}}),
         iconTransformation(extent={{100,-210},{140,-170}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr(
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThr(
     final t=273.15 + 4.4,
     final h=Thys) if have_frePro
     "Check if supply air temperature is less than threshold"
@@ -285,10 +285,10 @@ block FreezeProtection
     final k=minHotWatReq) if have_hotWatCoi and have_frePro
     "Minimum hot-water plant requests"
     annotation (Placement(transformation(extent={{-20,830},{0,850}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch minVen if have_frePro
+  Buildings.Controls.OBC.CDL.Reals.Switch minVen if have_frePro
     "Minimum ventilation when in stage 1 mode"
     annotation (Placement(transformation(extent={{60,730},{80,750}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID heaCoiCon1(
+  Buildings.Controls.OBC.CDL.Reals.PID heaCoiCon1(
     final controllerType=heaCoiCon,
     final k=k,
     final Ti=Ti,
@@ -297,11 +297,11 @@ block FreezeProtection
     final yMin=yMin) if have_hotWatCoi and have_frePro
     "Heating coil control in stage 1 mode"
     annotation (Placement(transformation(extent={{-320,680},{-300,700}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch heaCoi1
+  Buildings.Controls.OBC.CDL.Reals.Switch heaCoi1
     if have_hotWatCoi and have_frePro
     "Heating coil position"
     annotation (Placement(transformation(extent={{120,660},{140,680}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     final t=273.15 + 7,
     final h=Thys) if have_frePro
     "Check if supply air temperature is greater than threshold"
@@ -316,7 +316,7 @@ block FreezeProtection
   Buildings.Controls.OBC.CDL.Logical.Edge endStaOne if have_frePro
     "Clear the latch to end the stage 1 freeze protection"
     annotation (Placement(transformation(extent={{-260,592},{-240,612}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr1(
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThr1(
     final t=273.15 + 3.3,
     final h=Thys) if have_frePro
     "Check if supply air temperature is less than threshold"
@@ -330,22 +330,22 @@ block FreezeProtection
     final falseHoldDuration=0) if have_frePro
     "Stage in stage 2 freeze protection mode"
     annotation (Placement(transformation(extent={{-300,452},{-280,472}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch outDam2 if have_frePro
+  Buildings.Controls.OBC.CDL.Reals.Switch outDam2 if have_frePro
     "Outdoor air damper position"
     annotation (Placement(transformation(extent={{120,590},{140,610}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
     final k=0) if have_frePro
     "Fully closed damper position"
     annotation (Placement(transformation(extent={{40,610},{60,630}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch minOutDam2 if minOADes ==
+  Buildings.Controls.OBC.CDL.Reals.Switch minOutDam2 if minOADes ==
     Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
      and have_frePro
     "Minimum outdoor air damper position"
     annotation (Placement(transformation(extent={{120,540},{140,560}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch retDam2 if have_frePro
+  Buildings.Controls.OBC.CDL.Reals.Switch retDam2 if have_frePro
     "Return air damper position"
     annotation (Placement(transformation(extent={{120,408},{140,428}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(
     final k=1) if have_frePro
     "Fully open damper or valve position"
     annotation (Placement(transformation(extent={{-140,310},{-120,330}})));
@@ -364,7 +364,7 @@ block FreezeProtection
     final t=900) if have_frePro
     "Check if the supply air temperature has been lower than threshold value for sufficient long time"
     annotation (Placement(transformation(extent={{-300,240},{-280,260}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr2(
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThr2(
     final t=273.15 + 1,
     final h=Thys) if have_frePro
     "Check if supply air temperature is less than threshold"
@@ -384,33 +384,33 @@ block FreezeProtection
   Buildings.Controls.OBC.CDL.Logical.Latch lat1 if have_frePro
     "Stay in stage 3 freeze protection mode"
     annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch supFan if (not freSta ==
+  Buildings.Controls.OBC.CDL.Reals.Switch supFan if (not freSta ==
     Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
      and have_frePro
     "Supply fan speed"
     annotation (Placement(transformation(extent={{120,-230},{140,-210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch retFan if (buiPreCon ==
+  Buildings.Controls.OBC.CDL.Reals.Switch retFan if (buiPreCon ==
     Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
      and (not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
      and have_frePro
     "Return fan speed"
     annotation (Placement(transformation(extent={{120,-370},{140,-350}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch relFan if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+  Buildings.Controls.OBC.CDL.Reals.Switch relFan if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
      and (not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
      and have_frePro
     "Relief fan speed"
     annotation (Placement(transformation(extent={{120,-510},{140,-490}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con3(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con3(
     final k=0) if have_frePro
     "Zero constant"
     annotation (Placement(transformation(extent={{-140,48},{-120,68}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch outDam if not freSta ==
+  Buildings.Controls.OBC.CDL.Reals.Switch outDam if not freSta ==
     Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
      and have_frePro
     "Outdoor air damper"
     annotation (Placement(transformation(extent={{320,70},{340,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch cooCoi if not freSta ==
+  Buildings.Controls.OBC.CDL.Reals.Switch cooCoi if not freSta ==
     Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
      and have_frePro
     "Cooling coil position"
@@ -425,11 +425,11 @@ block FreezeProtection
      and have_frePro
     "Minimum hot-water plant requests"
     annotation (Placement(transformation(extent={{-140,-782},{-120,-762}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max max1
+  Buildings.Controls.OBC.CDL.Reals.Max max1
     if have_hotWatCoi and have_frePro
     "Higher of supply air and mixed air temperature"
     annotation (Placement(transformation(extent={{-300,-700},{-280,-680}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID heaCoiMod(
+  Buildings.Controls.OBC.CDL.Reals.PID heaCoiMod(
     final controllerType=heaCoiCon,
     final k=k,
     final Ti=Ti,
@@ -438,11 +438,11 @@ block FreezeProtection
     final yMin=yMin) if have_hotWatCoi and have_frePro
     "Heating coil control when it is in stage 3 mode"
     annotation (Placement(transformation(extent={{40,-670},{60,-650}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con4(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con4(
     final k=273.15 + 27) if have_hotWatCoi and have_frePro
     "Setpoint temperature"
     annotation (Placement(transformation(extent={{-140,-670},{-120,-650}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch heaCoiPos if have_hotWatCoi and (
+  Buildings.Controls.OBC.CDL.Reals.Switch heaCoiPos if have_hotWatCoi and (
     not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
      and have_frePro
     "Heating coil position"
@@ -474,7 +474,7 @@ block FreezeProtection
     final t=3600) if have_frePro
     "Check if it has been in stage 2 for sufficient long time"
     annotation (Placement(transformation(extent={{-260,420},{-240,440}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch minOutDam if minOADes ==
+  Buildings.Controls.OBC.CDL.Reals.Switch minOutDam if minOADes ==
     Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
      and (not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
      and have_frePro
@@ -493,12 +493,12 @@ block FreezeProtection
   Buildings.Controls.OBC.CDL.Logical.Or or2 if have_frePro
     "Start stage 1 freeze protection mode"
     annotation (Placement(transformation(extent={{-160,802},{-140,822}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch retDam if not freSta ==
+  Buildings.Controls.OBC.CDL.Reals.Switch retDam if not freSta ==
     Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
      and have_frePro
     "Return air damper position"
     annotation (Placement(transformation(extent={{320,150},{340,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant supTemSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant supTemSet(
     final k=273.15+ 6) if have_hotWatCoi and have_frePro
     "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-380,680},{-360,700}})));
@@ -573,17 +573,17 @@ block FreezeProtection
      and have_frePro
     "Disable relief fan when in stage 3"
     annotation (Placement(transformation(extent={{320,-430},{340,-410}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=1) if (have_hotWatCoi and freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
      and have_frePro
     "Dummy block for enabling and disabling the conditional connection"
     annotation (Placement(transformation(extent={{320,-650},{340,-630}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(
     final k=1) if freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
      and have_frePro
     "Dummy block for enabling and disabling the conditional connection"
     annotation (Placement(transformation(extent={{120,-620},{140,-600}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai2(
     final k=1) if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
      and freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
      and have_frePro
@@ -594,7 +594,7 @@ block FreezeProtection
      or not have_frePro)
     "Dummy block for enabling and disabling conditional connection"
     annotation (Placement(transformation(extent={{320,-470},{340,-450}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai3(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai3(
     final k=1) if ((buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
      and freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
@@ -607,17 +607,17 @@ block FreezeProtection
      or not have_frePro)
     "Dummy block for enabling and disabling conditional connection"
     annotation (Placement(transformation(extent={{320,-330},{340,-310}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai4(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai4(
     final k=1) if freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
      and have_frePro
     "Dummy block for enabling and disabling the conditional connection"
     annotation (Placement(transformation(extent={{320,120},{340,140}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai5(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai5(
     final k=1) if freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
      and have_frePro
     "Dummy block for enabling and disabling the conditional connection"
     annotation (Placement(transformation(extent={{320,40},{340,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai6(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai6(
     final k=1) if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
      and freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
      and have_frePro
@@ -632,44 +632,44 @@ block FreezeProtection
      or (not have_frePro)
     "Dummy block for enabling and disabling conditional connection"
     annotation (Placement(transformation(extent={{320,-190},{340,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai7(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai7(
     final k=1) if freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
      and have_frePro
     "Dummy block for enabling and disabling the conditional connection"
     annotation (Placement(transformation(extent={{120,-260},{140,-240}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai8(final k=1)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai8(final k=1)
     if not have_frePro
     "Dummy block for enabling and disabling the conditional connection"
     annotation (Placement(transformation(extent={{-240,-60},{-220,-40}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt9(final k=0)
     if not have_frePro "Dummy constant"
     annotation (Placement(transformation(extent={{380,360},{400,380}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai9(final k=1)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai9(final k=1)
     if not have_frePro
     "Dummy block for enabling and disabling the conditional connection"
     annotation (Placement(transformation(extent={{-240,-90},{-220,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai10(final k=1)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai10(final k=1)
     if not have_frePro
     "Dummy block for enabling and disabling the conditional connection"
     annotation (Placement(transformation(extent={{-240,-120},{-220,-100}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai11(final k=1)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai11(final k=1)
     if not have_frePro
     "Dummy block for enabling and disabling the conditional connection"
     annotation (Placement(transformation(extent={{-260,-280},{-240,-260}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai12(final k=1)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai12(final k=1)
     if (not have_frePro) and (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
     "Dummy block for enabling and disabling the conditional connection"
     annotation (Placement(transformation(extent={{-260,-420},{-240,-400}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai13(final k=1)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai13(final k=1)
     if (not have_frePro) and buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
     "Dummy block for enabling and disabling the conditional connection"
     annotation (Placement(transformation(extent={{-260,-560},{-240,-540}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai14(final k=1)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai14(final k=1)
     if not have_frePro
     "Dummy block for enabling and disabling the conditional connection"
     annotation (Placement(transformation(extent={{-260,-640},{-240,-620}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai15(final k=1)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai15(final k=1)
     if (not have_frePro) and have_hotWatCoi
     "Dummy block for enabling and disabling the conditional connection"
     annotation (Placement(transformation(extent={{-260,-740},{-240,-720}})));

@@ -28,18 +28,18 @@ model FilterPower "Constraints for electric power"
 protected
   Modelica.Blocks.Nonlinear.VariableLimiter PLim "Power limiter"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant PMax(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant PMax(
     final k=PEleMax) "Maximum power"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant PMin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant PMin(
     final k=PEleMin) "Minimum power"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimitSlewRate dPLim(
+  Buildings.Controls.OBC.CDL.Reals.LimitSlewRate dPLim(
     final raisingSlewRate(unit="W/s") = dPEleMax,
     final fallingSlewRate(unit="W/s") = -dPEleMax,
     final Td=1) "Power rate limiter"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch switch
+  Buildings.Controls.OBC.CDL.Reals.Switch switch
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant limDp(
     final k=use_powerRateLimit)

@@ -43,7 +43,7 @@ model SwitchBox "Validation of flow switch box"
   Fluid.Sensors.MassFlowRate senMasFlo(
     redeclare final package Medium = Medium) "District water mass flow rate"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={0,-100})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant setMasFlo1(k=0.5)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant setMasFlo1(k=0.5)
     "Set point for mass flow rate (normalized)"
     annotation (Placement(transformation(extent={{-90,30},{-70,50}})));
   Fluid.Sources.Boundary_pT disWatBou(redeclare package Medium = Medium,
@@ -59,10 +59,10 @@ model SwitchBox "Validation of flow switch box"
     columns={2},
     timeScale=1000) "Set point for mass flow rate (normalized)"
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(final k=
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai2(final k=
         m_flow_nominal) "Scale with nominal mass flow rate"
     annotation (Placement(transformation(extent={{-46,70},{-26,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(final k=
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(final k=
         m_flow_nominal) "Scale with nominal mass flow rate"
     annotation (Placement(transformation(extent={{-46,30},{-26,50}})));
 equation

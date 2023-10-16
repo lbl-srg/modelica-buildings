@@ -280,12 +280,12 @@ partial model PartialDataCenter
     annotation (Placement(transformation(extent={{-180,-100},{-160,-80}})));
   Modelica.Blocks.Math.Gain gai1(k=1/dpSetPoi) "Gain effect"
     annotation (Placement(transformation(extent={{-200,-70},{-220,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi[numChi]
+  Buildings.Controls.OBC.CDL.Reals.Switch swi[numChi]
     "Switch to assign pump signal if plant is on"
     annotation (Placement(transformation(extent={{-120,230},{-100,250}})));
   Buildings.Controls.OBC.CDL.Logical.Or plaOn "Output true if plant is on"
     annotation (Placement(transformation(extent={{-160,230},{-140,250}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer[numChi](each final
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer[numChi](each final
             k=0) "Outputs zero"
     annotation (Placement(transformation(extent={{-220,230},{-200,250}})));
   Modelica.Blocks.MathBoolean.Or chiOnSta(nu=numChi)
