@@ -6,7 +6,7 @@ compareVars :=
     "plaReq.uHeaCoi_actual",
     "plaReq.yHotWatResReq",
     "plaReq.yHotWatPlaReq",
-    "plaReq.uFanSpe",
+    "plaReq.uFan",
     "plaReq1.TAirSup",
     "plaReq1.TSupSet",
     "plaReq1.uCooCoi_actual",
@@ -17,5 +17,5 @@ compareVars :=
     "plaReq2.uHeaCoi_actual",
     "plaReq2.yHotWatResReq",
     "plaReq2.yHotWatPlaReq",
-    "plaReq2.uFanSpe"
+    "plaReq2.uFan"
   };
