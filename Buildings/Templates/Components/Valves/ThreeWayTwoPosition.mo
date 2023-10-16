@@ -26,7 +26,7 @@ model ThreeWayTwoPosition "Three-way two-position valve"
         else Modelica.Fluid.Types.PortFlowDirection.Entering)
     "Valve"
     annotation (
-      __ctrl_flow(enable=false),
+      __ctrlFlow(enable=false),
       choicesAllMatching=true,
       Placement(
         transformation(
