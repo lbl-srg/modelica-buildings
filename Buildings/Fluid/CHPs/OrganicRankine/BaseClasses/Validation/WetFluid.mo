@@ -6,7 +6,7 @@ model WetFluid "Organic Rankine cycle with a wet working fluid"
     redeclare parameter
                 Buildings.Fluid.CHPs.OrganicRankine.Data.WorkingFluids.R134a pro);
 annotation (experiment(StopTime=1, Tolerance=1e-6),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/OrganicRankine/BaseClasses/Validation/DryFluid.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/OrganicRankine/BaseClasses/Validation/WetFluid.mos"
   "Simulate and plot"),
   Documentation(info="<html>
 <p>
