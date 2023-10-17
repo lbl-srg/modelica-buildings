@@ -189,7 +189,7 @@ protected
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=nPum) if have_heaPum
     "Replicate boolean input"
-    annotation (Placement(transformation(extent={{0,100},{20,120}})));
+    annotation (Placement(transformation(extent={{0,90},{20,110}})));
   Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intRep1(
     final nout=nPum) if have_heaPum
     "Replicate integer input"
@@ -307,6 +307,13 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And pumSta1[nPum] if have_heaPum
     "Chilled water pump status"
     annotation (Placement(transformation(extent={{240,30},{260,50}})));
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
+    final nin=nPum)
+    "Check if there is any enabled pump"
+    annotation (Placement(transformation(extent={{-100,110},{-80,130}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or2
+    "Check if the lead pump is enabled"
+    annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
 
 equation
   connect(enaDedLeaPum.uLeaChiEna, uLeaChiEna)
@@ -339,7 +346,7 @@ equation
     annotation (Line(points={{-300,140},{100,140},{100,182},{118,182}},
       color={255,0,255}));
   connect(booRep.y, leaPumSta.u1)
-    annotation (Line(points={{22,110},{90,110},{90,198},{118,198}},
+    annotation (Line(points={{22,100},{90,100},{90,198},{118,198}},
       color={255,0,255}));
   connect(intToRea.y, nexLagPum.u)
     annotation (Line(points={{-198,230},{-160,230},{-160,-50},{-82,-50}},
@@ -411,10 +418,6 @@ equation
       {178,-98}},  color={255,0,255}));
   connect(lasLagPumSta.y, pumSta.u1)
     annotation (Line(points={{142,-90},{178,-90}}, color={255,0,255}));
-  connect(enaDedLeaPum.yLea, booRep.u)
-    annotation (Line(points={{-178,110},{-2,110}}, color={255,0,255}));
-  connect(enaHeaLeaPum.yLea, booRep.u)
-    annotation (Line(points={{-178,70},{-90,70},{-90,110},{-2,110}}, color={255,0,255}));
   connect(booRep2.y, remPum.u2)
     annotation (Line(points={{82,0},{90,0},{90,-70},{218,-70}},
       color={255,0,255}));
@@ -456,11 +459,6 @@ equation
     annotation (Line(points={{-38,-200},{300,-200}}, color={0,0,127}));
   connect(pumSpeRemDp.yChiWatPumSpe, yPumSpe) annotation (Line(points={{-39,-240},
           {-20,-240},{-20,-200},{300,-200}}, color={0,0,127}));
-  connect(enaDedLeaPum.yLea, yLea)
-    annotation (Line(points={{-178,110},{-90,110},{-90,80},{300,80}}, color={255,0,255}));
-  connect(enaHeaLeaPum.yLea, yLea)
-    annotation (Line(points={{-178,70},{-90,70},{-90,80},{300,80}},
-                                                  color={255,0,255}));
   connect(enaLagChiPum.yUp, enaNexLag.u) annotation (Line(points={{-218,4},{-210,
           4},{-210,30},{-2,30}}, color={255,0,255}));
   connect(enaNexLag.y, booRep1.u)
@@ -489,7 +487,7 @@ equation
           -140},{-250,-140},{-250,-70},{-242,-70}}, color={255,0,255}));
   connect(pumSpeLocDp.dpChiWatPumSet_local, dpChiWatPumSet_local) annotation (
       Line(points={{-38,-206},{200,-206},{200,-240},{300,-240}}, color={0,0,127}));
-  connect(booRep.y, pumSta1.u1) annotation (Line(points={{22,110},{90,110},{90,40},
+  connect(booRep.y, pumSta1.u1) annotation (Line(points={{22,100},{90,100},{90,40},
           {238,40}}, color={255,0,255}));
   connect(addPum.y, pumSta1.u2) annotation (Line(points={{262,0},{268,0},{268,20},
           {220,20},{220,32},{238,32}}, color={255,0,255}));
@@ -499,6 +497,18 @@ equation
           {210,-100},{210,-120},{218,-120}}, color={255,0,255}));
   connect(uChiWatIsoVal, enaHeaLeaPum.uChiWatIsoVal) annotation (Line(points={{-300,
           20},{-222,20},{-222,70},{-202,70}}, color={0,0,127}));
+  connect(uChiWatPum, mulOr.u) annotation (Line(points={{-300,140},{-140,140},{-140,
+          120},{-102,120}}, color={255,0,255}));
+  connect(mulOr.y, or2.u1) annotation (Line(points={{-78,120},{-70,120},{-70,100},
+          {-62,100}}, color={255,0,255}));
+  connect(enaDedLeaPum.yLea, or2.u2) annotation (Line(points={{-178,110},{-120,110},
+          {-120,92},{-62,92}}, color={255,0,255}));
+  connect(enaHeaLeaPum.yLea, or2.u2) annotation (Line(points={{-178,70},{-120,70},
+          {-120,92},{-62,92}}, color={255,0,255}));
+  connect(or2.y, yLea) annotation (Line(points={{-38,100},{-20,100},{-20,80},{300,
+          80}}, color={255,0,255}));
+  connect(or2.y, booRep.u)
+    annotation (Line(points={{-38,100},{-2,100}}, color={255,0,255}));
 annotation (
   defaultComponentName="chiWatPum",
   Diagram(coordinateSystem(preserveAspectRatio=false,

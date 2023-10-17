@@ -56,11 +56,11 @@ model Controller "Validation head pressure controller"
     final height=4,
     final duration=7200,
     final offset=273.15 + 7) "Chilled water supply"
-    annotation (Placement(transformation(extent={{-280,-10},{-260,10}})));
+    annotation (Placement(transformation(extent={{-300,0},{-280,20}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOutWet(
     final k=283.15)
     "Outdoor wet bulb temperatur"
-    annotation (Placement(transformation(extent={{-280,30},{-260,50}})));
+    annotation (Placement(transformation(extent={{-300,50},{-280,70}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOut1(
     final k=313.15) "Outdoor dry bulb temperature"
     annotation (Placement(transformation(extent={{-260,-190},{-240,-170}})));
@@ -68,7 +68,7 @@ model Controller "Validation head pressure controller"
     final height=5,
     final duration=3600,
     final offset=273.15 + 15) "Chilled water return temperature"
-    annotation (Placement(transformation(extent={{-240,10},{-220,30}})));
+    annotation (Placement(transformation(extent={{-240,20},{-220,40}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TChiWatRetDow(
     final height=3,
     final duration=3600,
@@ -93,7 +93,7 @@ model Controller "Validation head pressure controller"
     final duration=3600,
     final offset=3*6895,
     final startTime=0) "Chilled water differential pressure"
-    annotation (Placement(transformation(extent={{-260,60},{-240,80}})));
+    annotation (Placement(transformation(extent={{-260,80},{-240,100}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1[2]
     annotation (Placement(transformation(extent={{-240,160},{-220,180}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply pro1[2]
@@ -167,14 +167,14 @@ equation
   connect(uChiAva.y, chiPlaCon.uChiAva) annotation (Line(points={{-218,-50},{-124,
           -50},{-124,5},{-30,5}}, color={255,0,255}));
   connect(TOutWet.y, chiPlaCon.TOutWet)
-    annotation (Line(points={{-258,40},{-150,40},{-150,100},{-30,100}}, color={0,0,127}));
+    annotation (Line(points={{-278,60},{-150,60},{-150,100},{-30,100}}, color={0,0,127}));
   connect(TOut1.y, chiPlaCon.TOut) annotation (Line(points={{-238,-180},{-150,-180},
           {-150,-100},{-30,-100}}, color={0,0,127}));
   connect(TChiWatRet.y, chiPlaCon.TChiWatRet)
-    annotation (Line(points={{-218,20},{-128,20},{-128,80},{-30,80}},
+    annotation (Line(points={{-218,30},{-128,30},{-128,80},{-30,80}},
                                                   color={0,0,127}));
   connect(TChiWatSup.y, chiPlaCon.TChiWatSup)
-    annotation (Line(points={{-258,0},{-144,0},{-144,60},{-30,60}},
+    annotation (Line(points={{-278,10},{-144,10},{-144,60},{-30,60}},
                                                   color={0,0,127}));
   connect(TChiWatRetDow.y, chiPlaCon.TChiWatRetDow) annotation (Line(points={{-278,
           -160},{-170,-160},{-170,90},{-30,90}}, color={0,0,127}));
@@ -211,8 +211,8 @@ equation
           {100,-15},{100,-60},{118,-60}}, color={0,0,127}));
   connect(zerOrdHol2.y, chiPlaCon.uChiWatIsoVal) annotation (Line(points={{142,-60},
           {200,-60},{200,-220},{-80,-220},{-80,-40},{-30,-40}}, color={0,0,127}));
-  connect(dpChiWat.y, chiPlaCon.dpChiWat_remote[1]) annotation (Line(points={{-238,70},
-          {-180,70},{-180,140},{-30,140}},          color={0,0,127}));
+  connect(dpChiWat.y, chiPlaCon.dpChiWat_remote[1]) annotation (Line(points={{-238,90},
+          {-180,90},{-180,140},{-30,140}},          color={0,0,127}));
   connect(booToRea1.y, pro1.u1) annotation (Line(points={{-218,170},{-210,170},
           {-210,-122},{-202,-122}}, color={0,0,127}));
   connect(chiCooLoa.y, pro1.u2) annotation (Line(points={{-278,-120},{-220,-120},
