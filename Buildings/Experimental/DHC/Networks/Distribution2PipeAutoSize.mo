@@ -14,7 +14,12 @@ model Distribution2PipeAutoSize
       final dhDisRet=dhDisRet,
       final dhCon=dhCon),
     redeclare model Model_pipDis =
-        Fluid.FixedResistances.LosslessPipe);
+      Buildings.Experimental.DHC.Networks.Pipes.PipeAutosize (
+        roughness=7e-6,
+        fac=1.5,
+        final dp_length_nominal=dp_length_nominal,
+        final dh(fixed=true) = dhEnd,
+        final length=2*lEnd));
   parameter Real dp_length_nominal(final unit="Pa/m") = 250
     "Pressure drop per pipe length at nominal flow rate";
   parameter Modelica.Units.SI.Length lDis[nCon]

@@ -1,6 +1,6 @@
 within Buildings.Experimental.DHC.Networks;
-model Distribution1Pipe
-  "Model of a one-pipe distribution network"
+model Distribution1PipeAutoSize
+  "Model of a one-pipe distribution network with auto-size pipes"
   extends
     Buildings.Experimental.DHC.Networks.BaseClasses.PartialDistribution1Pipe(
     tau=5*60,
@@ -66,4 +66,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Distribution1Pipe;
+end Distribution1PipeAutoSize;

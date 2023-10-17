@@ -93,7 +93,7 @@ partial model PartialSeries "Partial model for series network"
     final dpDis_nominal=datDes.dpPla_nominal,
     final epsHex=datDes.epsPla) "Sewage heat recovery plant"
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
-  Buildings.Experimental.DHC.Networks.Distribution1Pipe dis(
+  Buildings.Experimental.DHC.Networks.Distribution1PipeAutoSize dis(
     redeclare final package Medium = Medium,
     final nCon=nBui,
     show_TOut=true,
