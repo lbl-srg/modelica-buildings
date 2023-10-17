@@ -133,30 +133,23 @@ protected
     annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{20,-110},{40,-90}})));
+  Buildings.Controls.OBC.CDL.Logical.Pre pre "Break loop"
+    annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
 
 equation
   connect(chiHeaPreLoo.TConWatRet, TConWatRet)
     annotation (Line(points={{-22,90},{-120,90}}, color={0,0,127}));
   connect(chiHeaPreLoo.TChiWatSup, TChiWatSup)
-    annotation (Line(points={{-22,82},{-40,82},{-40,60},{-120,60}}, color={0,0,127}));
+    annotation (Line(points={{-22,82},{-60,82},{-60,60},{-120,60}}, color={0,0,127}));
   connect(chiHeaPreLoo.yHeaPreCon, noWSE.uHeaPreCon)
     annotation (Line(points={{2,90},{20,90},{20,58},{38,58}}, color={0,0,127}));
   connect(chiHeaPreLoo.yHeaPreCon, withWSE.uHeaPreCon)
     annotation (Line(points={{2,90},{20,90},{20,-2},{38,-2}},   color={0,0,127}));
-  connect(uChiHeaCon, noWSE.uHeaPreEna)
-    annotation (Line(points={{-120,120},{-80,120},{-80,42},{38,42}},
-      color={255,0,255}));
   connect(withWSE.uWSE, uWSE)
     annotation (Line(points={{38,-14},{-20,-14},{-20,0},{-120,0}},
       color={255,0,255}));
-  connect(uChiHeaCon, withWSE.uHeaPreEna)
-    annotation (Line(points={{-120,120},{-80,120},{-80,-18},{38,-18}},
-      color={255,0,255}));
-  connect(uChiHeaCon, swi.u2)
-    annotation (Line(points={{-120,120},{-80,120},{-80,-40},{-22,-40}},
-      color={255,0,255}));
   connect(uHeaPreCon, swi.u1)
-    annotation (Line(points={{-120,-30},{-40,-30},{-40,-32},{-22,-32}},
+    annotation (Line(points={{-120,-30},{-60,-30},{-60,-32},{-22,-32}},
       color={0,0,127}));
   connect(con.y, swi.u3)
     annotation (Line(points={{-58,-60},{-40,-60},{-40,-48},{-22,-48}},
@@ -179,9 +172,6 @@ equation
     annotation (Line(points={{62,42},{70,42},{70,-10},{120,-10}}, color={0,0,127}));
   connect(noWSE.yHeaPreConVal, yHeaPreConVal)
     annotation (Line(points={{62,46},{90,46},{90,30},{120,30}}, color={0,0,127}));
-  connect(uChiHeaCon, chiHeaPreLoo.uHeaPreEna)
-    annotation (Line(points={{-120,120},{-80,120},{-80,98},{-22,98}},
-      color={255,0,255}));
   connect(desConWatPumSpe, noWSE.desConWatPumSpe)
     annotation (Line(points={{-120,30},{0,30},{0,50},{38,50}}, color={0,0,127}));
   connect(havWSE.y, and2.u1) annotation (Line(points={{-38,-90},{-30,-90},{-30,-100},
@@ -192,7 +182,16 @@ equation
     annotation (Line(points={{2,-100},{18,-100}}, color={255,0,255}));
   connect(not1.y, assMes1.u)
     annotation (Line(points={{42,-100},{58,-100}}, color={255,0,255}));
-
+  connect(uChiHeaCon, pre.u)
+    annotation (Line(points={{-120,120},{-82,120}}, color={255,0,255}));
+  connect(pre.y, swi.u2) annotation (Line(points={{-58,120},{-40,120},{-40,-40},
+          {-22,-40}}, color={255,0,255}));
+  connect(pre.y, chiHeaPreLoo.uHeaPreEna) annotation (Line(points={{-58,120},{-40,
+          120},{-40,98},{-22,98}}, color={255,0,255}));
+  connect(pre.y, noWSE.uHeaPreEna) annotation (Line(points={{-58,120},{-40,120},
+          {-40,42},{38,42}}, color={255,0,255}));
+  connect(pre.y, withWSE.uHeaPreEna) annotation (Line(points={{-58,120},{-40,120},
+          {-40,-18},{38,-18}}, color={255,0,255}));
 annotation (
   defaultComponentName="heaPreCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
