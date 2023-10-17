@@ -54,7 +54,7 @@ partial model PartialSeries "Partial model for series network"
       extent={{10,10},{-10,-10}},
       rotation=180,
       origin={-180,-80})));
-  Buildings.Experimental.DHC.Networks.Connections.ConnectionSeriesStandard
+  Buildings.Experimental.DHC.Networks.Connections.Connection1PipeStandard
     conPla(
     redeclare final package Medium = Medium,
     final mDis_flow_nominal=datDes.mPipDis_flow_nominal,
@@ -69,7 +69,7 @@ partial model PartialSeries "Partial model for series network"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-80,-10})));
-  Buildings.Experimental.DHC.Networks.Connections.ConnectionSeriesStandard
+  Buildings.Experimental.DHC.Networks.Connections.Connection1PipeStandard
     conSto(
     redeclare final package Medium = Medium,
     final mDis_flow_nominal=datDes.mPipDis_flow_nominal,

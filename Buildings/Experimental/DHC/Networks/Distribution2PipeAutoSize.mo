@@ -5,7 +5,7 @@ model Distribution2PipeAutoSize
     Buildings.Experimental.DHC.Networks.BaseClasses.PartialDistribution2Pipe(
     tau=5*60,
     redeclare
-      Buildings.Experimental.DHC.Networks.Connections.ConnectionParallelAutosize
+      Buildings.Experimental.DHC.Networks.Connections.Connection2PipeAutosize
       con[nCon](
       each final dp_length_nominal=dp_length_nominal,
       final lDis=lDis,
@@ -14,7 +14,7 @@ model Distribution2PipeAutoSize
       final dhDisRet=dhDisRet,
       final dhCon=dhCon),
     redeclare model Model_pipDis =
-      Buildings.Experimental.DHC.Networks.Pipes.PipeAutosize (
+        Buildings.Experimental.DHC.Networks.Pipes.PipeAutosize (
         roughness=7e-6,
         fac=1.5,
         final dp_length_nominal=dp_length_nominal,

@@ -1,6 +1,6 @@
+Connection1PipeAutosize
+Connection1PipeStandard
 Connection2Pipe
+Connection2PipeAutosize
 Connection2PipePlugFlow
-ConnectionParallelAutosize
-ConnectionParallelStandard
-ConnectionSeriesAutosize
-ConnectionSeriesStandard
+Connection2PipeStandard

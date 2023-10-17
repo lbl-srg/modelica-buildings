@@ -1,13 +1,18 @@
 within Buildings.Experimental.DHC.Networks.Connections;
-model ConnectionSeriesAutosize
-  "Model for connecting an agent to the DHC system"
-  extends ConnectionSeriesStandard(
+model Connection2PipeAutosize "Model for connecting an agent to the DHC system"
+  extends Connection2PipeStandard(
     tau=5*60,
-    redeclare replaceable model Model_pipDis = Pipes.PipeAutosize (
+    redeclare replaceable model Model_pipDisSup = Pipes.PipeAutosize (
         roughness=7e-6,
         fac=1.5,
+        dh(fixed=true) = dhDis,
         final length=lDis,
-        final dh(fixed=true) = dhDis,
+        final dp_length_nominal=dp_length_nominal),
+    redeclare replaceable model Model_pipDisRet = Pipes.PipeAutosize (
+        roughness=7e-6,
+        fac=1.5,
+        dh(fixed=true) = dhDisRet,
+        final length=lDis,
         final dp_length_nominal=dp_length_nominal),
     redeclare replaceable model Model_pipCon = Pipes.PipeAutosize (
         roughness=2.5e-5,
@@ -17,6 +22,8 @@ model ConnectionSeriesAutosize
         final dp_length_nominal=dp_length_nominal));
   parameter Real dp_length_nominal(final unit="Pa/m") = 250
     "Pressure drop per pipe length at nominal flow rate";
+  parameter Modelica.Units.SI.Length dhDisRet
+    "Hydraulic diameter of the return distribution pipe";
   annotation (Documentation(revisions="<html>
 <ul>
 <li>
@@ -27,10 +34,10 @@ First implementation.
 </html>", info="<html>
 <p>
 This model represents the supply and return lines to connect an
-agent (e.g., an energy transfer station) to a one-pipe main distribution
+agent (e.g., an energy transfer station) to a two-pipe main distribution
 system.
-The instances of the pipe model are autosized based on the pressure drop per pipe length 
-at nominal flow rate.
+The instances of the pipe model are autosized based on the pressure 
+drop per pipe length at nominal flow rate.
 </p>
 </html>"));
-end ConnectionSeriesAutosize;
+end Connection2PipeAutosize;

@@ -5,7 +5,7 @@ model Distribution1PipeAutoSize
     Buildings.Experimental.DHC.Networks.BaseClasses.PartialDistribution1Pipe(
     tau=5*60,
     redeclare
-      Buildings.Experimental.DHC.Networks.Connections.ConnectionSeriesAutosize
+      Buildings.Experimental.DHC.Networks.Connections.Connection1PipeAutosize
       con[nCon](
       each final dp_length_nominal=dp_length_nominal,
       final lDis=lDis,
@@ -52,7 +52,7 @@ at nominal flow rate.
 Note that <code>dhDis</code> needs to be vectorized, even if the same value
 is computed for each array element in case of a one-pipe network.
 This is because the pipe diameter is computed at initialization by the model
-<a href=\"modelica://Buildings.Experimental.DHC.Networks.Connections.ConnectionSeriesAutosize\">
+<a href=\"modelica://Buildings.Experimental.DHC.Networks.Connections.Connection1PipeAutosize\">
 Buildings.Experimental.DHC.Networks.Combined.BaseClasses.ConnectionSeriesAutosize</a>
 which is instantiated for each connection.
 So the initialization system of equations would be overdetermined if using

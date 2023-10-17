@@ -1,10 +1,14 @@
 within Buildings.Experimental.DHC.Networks.Connections;
-model ConnectionSeriesStandard
-  "Model for connecting an agent to the DHC system"
+model Connection2PipeStandard "Model for connecting an agent to the DHC system"
   extends
-    Buildings.Experimental.DHC.Networks.BaseClasses.PartialConnection1Pipe(
+    Buildings.Experimental.DHC.Networks.BaseClasses.PartialConnection2Pipe(
     tau=5*60,
-    redeclare replaceable model Model_pipDis = Pipes.PipeStandard (
+    redeclare replaceable model Model_pipDisSup = Pipes.PipeStandard (
+        roughness=7e-6,
+        fac=1.5,
+        final length=lDis,
+        final dh=dhDis),
+    redeclare replaceable model Model_pipDisRet = Pipes.PipeStandard (
         roughness=7e-6,
         fac=1.5,
         final length=lDis,
@@ -32,10 +36,10 @@ First implementation.
 </html>", info="<html>
 <p>
 This model represents the supply and return lines to connect an
-agent (e.g., an energy transfer station) to a one-pipe main distribution
+agent (e.g., an energy transfer station) to a two-pipe main distribution
 system.
 The instances of the pipe model are parameterized with the
 hydraulic diameter.
 </p>
 </html>"));
-end ConnectionSeriesStandard;
+end Connection2PipeStandard;
