@@ -156,7 +156,28 @@ annotation (
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.PlantRequests\">
 Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.PlantRequests</a>
-for fan coil units.
+for fan coil units. The three instances of the controller are as follows:
+</p>
+<p>
+<ul>
+<li>
+<code>plaReq</code> represents a controller instance for a system with both 
+heating and cooling coils.
+</li>
+<li>
+<code>plaReq1</code> represents a controller instance for a system with just a 
+cooling coil.
+</li>
+<li>
+<code>plaReq2</code> represents a controller instance for a system with just a 
+heating coil.
+</li>
+</ul>
+</p>
+<p>
+Each instance is subjected to an increasing deviation of the measured supply 
+temperature <code>TAirSup</code> from the supply temperature setpoint <code>TSupSet</code>
+that results in an increasing number of requests from the controllers.
 </p>
 </html>", revisions="<html>
 <ul>

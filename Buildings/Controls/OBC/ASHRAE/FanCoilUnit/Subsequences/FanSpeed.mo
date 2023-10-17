@@ -393,16 +393,16 @@ equation
       ASHRAE Guideline 36, 2021, Part 5.22.4.
       </p>
       <p>
-      The fan enable signal <code>yFan</code> is switched to <code>false</code>
+      The fan enable signal <code>y1Fan</code> is switched to <code>false</code>
       when the operating mode signal <code>opeMod</code> is <code>unoccupied</code>,
       and is set to <code>true</code> otherwise.
       <br>
-      The fan speed signal <code>yFanSpe</code> is varied from 
+      The fan speed signal <code>yFan</code> is varied from 
       the minimum cooling mode fan speed <code>cooSpe_min</code> to the maximum
       cooling mode fan speed <code>cooSpe_max</code>,
       when the cooling loop signal <code>uCoo</code> varies from the minimum limit
       <code>uCoo_min</code> to the maximum limit <code>uCoo_max</code>.
-      Similarly, <code>yFanSpe</code> is varied from the minimum heating mode fan speed
+      Similarly, <code>yFan</code> is varied from the minimum heating mode fan speed
       <code>heaSpe_min</code> to the maximum heating mode fan speed <code>heaSpe_max</code>,
       when the heating loop signal <code>uHea</code> varies from the minimum limit
       <code>uHea_min</code> to the maximum limit <code>uHea_max</code>.
