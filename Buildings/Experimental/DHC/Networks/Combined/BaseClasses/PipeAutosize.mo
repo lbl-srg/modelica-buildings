@@ -16,12 +16,6 @@ model PipeAutosize "Pipe model parameterized with pressure drop per pipe length"
 
   parameter Real ReC(min=0)=4000
     "Reynolds number where transition to turbulence starts";
-
-  parameter Modelica.Units.SI.Velocity v_nominal=m_flow_nominal/(rho_default*
-      ARound)
-    "Velocity at m_flow_nominal (used to compute default value for hydraulic diameter dh)"
-    annotation (Dialog(group="Nominal condition"));
-
   parameter Modelica.Units.SI.Length roughness(min=0) = 2.5e-5
     "Absolute roughness of pipe, with a default for a smooth steel pipe (PE100: 7E-6)";
 
@@ -48,6 +42,10 @@ model PipeAutosize "Pipe model parameterized with pressure drop per pipe length"
 protected
   parameter Modelica.Units.SI.Area ARound=dh^2*Modelica.Constants.pi/4
     "Cross sectional area (assuming a round cross section area)";
+
+  parameter Modelica.Units.SI.Velocity v_nominal=m_flow_nominal/(rho_default*
+      ARound)
+    "Velocity at m_flow_nominal (used to compute default value for hydraulic diameter dh)";
 
   parameter Medium.ThermodynamicState state_default=
     Medium.setState_pTX(
