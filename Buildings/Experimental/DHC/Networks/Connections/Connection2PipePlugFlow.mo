@@ -1,4 +1,4 @@
-within Buildings.Experimental.DHC.Networks;
+within Buildings.Experimental.DHC.Networks.Connections;
 model Connection2PipePlugFlow
   "Model for connecting an agent to a two-pipe distribution network, using plug flow pipe models in the main line"
   extends

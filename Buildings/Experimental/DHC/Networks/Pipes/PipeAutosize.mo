@@ -1,5 +1,6 @@
-within Buildings.Experimental.DHC.Networks.Combined.BaseClasses;
-model PipeAutosize "Pipe model parameterized with pressure drop per pipe length"
+within Buildings.Experimental.DHC.Networks.Pipes;
+model PipeAutosize
+  "Pipe model parameterized with pressure drop per pipe length"
   extends Buildings.Fluid.FixedResistances.PressureDrop(
     final deltaM =  eta_default*dh/4*Modelica.Constants.pi*ReC/m_flow_nominal_pos,
     final dp_nominal=dp_length_nominal*length);

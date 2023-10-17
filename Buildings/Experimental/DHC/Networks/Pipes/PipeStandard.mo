@@ -1,5 +1,6 @@
-within Buildings.Experimental.DHC.Networks.Combined.BaseClasses;
-model PipeStandard "Pipe model parameterized with hydraulic diameter"
+within Buildings.Experimental.DHC.Networks.Pipes;
+model PipeStandard
+  "Pipe model parameterized with hydraulic diameter"
   extends Buildings.Fluid.FixedResistances.HydraulicDiameter(
     dp(nominal=1E5),
     final linearized=false,

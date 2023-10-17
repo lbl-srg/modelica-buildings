@@ -1,7 +1,8 @@
-Connection2Pipe
-Connection2PipePlugFlow
+Distribution1Pipe
 Distribution2Pipe
+Distribution2PipeAutoSize
 Distribution2PipePlugFlow
-Combined
+Connections
+Pipes
 Steam
 BaseClasses

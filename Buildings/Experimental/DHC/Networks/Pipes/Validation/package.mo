@@ -1,4 +1,4 @@
-within Buildings.Experimental.DHC.Networks.Combined.BaseClasses;
+within Buildings.Experimental.DHC.Networks.Pipes;
 package Validation "Validation models for BaseClasses"
   extends Modelica.Icons.ExamplesPackage;
 

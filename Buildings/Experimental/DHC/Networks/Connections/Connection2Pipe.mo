@@ -1,7 +1,8 @@
-within Buildings.Experimental.DHC.Networks;
+within Buildings.Experimental.DHC.Networks.Connections;
 model Connection2Pipe
   "Model for connecting an agent to a two-pipe distribution network, using fixed resistance pipe model"
-  extends Buildings.Experimental.DHC.Networks.BaseClasses.PartialConnection2Pipe(
+  extends
+    Buildings.Experimental.DHC.Networks.BaseClasses.PartialConnection2Pipe(
     redeclare model Model_pipDisSup=Fluid.FixedResistances.PressureDrop (
       final dp_nominal=dpDis_nominal),
     redeclare model Model_pipDisRet=Fluid.FixedResistances.PressureDrop (

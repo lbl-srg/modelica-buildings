@@ -1,22 +1,24 @@
-within Buildings.Experimental.DHC.Networks.Combined;
-model UnidirectionalSeries
-  "Hydronic network for unidirectional series DHC system"
-  extends Buildings.Experimental.DHC.Networks.BaseClasses.PartialDistribution1Pipe(
+within Buildings.Experimental.DHC.Networks;
+model Distribution1Pipe
+  "Model of a one-pipe distribution network"
+  extends
+    Buildings.Experimental.DHC.Networks.BaseClasses.PartialDistribution1Pipe(
     tau=5*60,
-    redeclare Buildings.Experimental.DHC.Networks.Combined.BaseClasses.ConnectionSeriesAutosize con[nCon](
+    redeclare
+      Buildings.Experimental.DHC.Networks.Connections.ConnectionSeriesAutosize
+      con[nCon](
       each final dp_length_nominal=dp_length_nominal,
       final lDis=lDis,
       final lCon=lCon,
       final dhDis=dhDis,
       final dhCon=dhCon),
     redeclare model Model_pipDis =
-        Buildings.Experimental.DHC.Networks.Combined.BaseClasses.PipeAutosize
-        (
-      roughness=7e-6,
-      fac=1.5,
-      final dp_length_nominal=dp_length_nominal,
-      final dh(fixed=true)=dhEnd,
-      final length=lEnd));
+        Buildings.Experimental.DHC.Networks.Pipes.PipeAutosize (
+        roughness=7e-6,
+        fac=1.5,
+        final dp_length_nominal=dp_length_nominal,
+        final dh(fixed=true) = dhEnd,
+        final length=lEnd));
   parameter Real dp_length_nominal(final unit="Pa/m") = 250
     "Pressure drop per pipe length at nominal flow rate";
   parameter Modelica.Units.SI.Length lDis[nCon]
@@ -50,7 +52,7 @@ at nominal flow rate.
 Note that <code>dhDis</code> needs to be vectorized, even if the same value
 is computed for each array element in case of a one-pipe network.
 This is because the pipe diameter is computed at initialization by the model
-<a href=\"modelica://Buildings.Experimental.DHC.Networks.Combined.BaseClasses.ConnectionSeriesAutosize\">
+<a href=\"modelica://Buildings.Experimental.DHC.Networks.Connections.ConnectionSeriesAutosize\">
 Buildings.Experimental.DHC.Networks.Combined.BaseClasses.ConnectionSeriesAutosize</a>
 which is instantiated for each connection.
 So the initialization system of equations would be overdetermined if using
@@ -64,4 +66,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end UnidirectionalSeries;
+end Distribution1Pipe;

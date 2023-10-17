@@ -1,9 +1,12 @@
-within Buildings.Experimental.DHC.Networks.Combined;
-model UnidirectionalParallel
+within Buildings.Experimental.DHC.Networks;
+model Distribution2PipeAutoSize
   "Hydronic network for unidirectional parallel DHC system"
-  extends Buildings.Experimental.DHC.Networks.BaseClasses.PartialDistribution2Pipe(
+  extends
+    Buildings.Experimental.DHC.Networks.BaseClasses.PartialDistribution2Pipe(
     tau=5*60,
-    redeclare Buildings.Experimental.DHC.Networks.Combined.BaseClasses.ConnectionParallelAutosize con[nCon](
+    redeclare
+      Buildings.Experimental.DHC.Networks.Connections.ConnectionParallelAutosize
+      con[nCon](
       each final dp_length_nominal=dp_length_nominal,
       final lDis=lDis,
       final lCon=lCon,
@@ -11,13 +14,7 @@ model UnidirectionalParallel
       final dhDisRet=dhDisRet,
       final dhCon=dhCon),
     redeclare model Model_pipDis =
-        Buildings.Experimental.DHC.Networks.Combined.BaseClasses.PipeAutosize
-        (
-      roughness=7e-6,
-      fac=1.5,
-      final dp_length_nominal=dp_length_nominal,
-      final dh(fixed=true)=dhEnd,
-      final length=2*lEnd));
+        Fluid.FixedResistances.LosslessPipe);
   parameter Real dp_length_nominal(final unit="Pa/m") = 250
     "Pressure drop per pipe length at nominal flow rate";
   parameter Modelica.Units.SI.Length lDis[nCon]
@@ -46,10 +43,18 @@ model UnidirectionalParallel
     min=0.01) "Hydraulic diameter of the end of the distribution line";
   annotation (Documentation(info="<html>
 <p>
-This model represents a two-pipe distribution network with built-in computation
-of the pipe diameters based on the pressure drop per pipe length
-at nominal flow rate.
+This is a model of a two-pipe distribution network using
 </p>
+<ul>
+<li>
+a connection model with an auto-sized pipe in the main line whose hydraulic diameter is calculated at initialization based on the pressure drop per pipe length
+at nominal flow rate, and
+</li>
+<li>
+a dummy pipe model with no hydraulic resistance and no heat loss for the end of
+the distribution line (after the last connection).
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>
@@ -58,4 +63,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end UnidirectionalParallel;
+end Distribution2PipeAutoSize;

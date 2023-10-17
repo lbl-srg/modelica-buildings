@@ -1,4 +1,4 @@
-within Buildings.Experimental.DHC.Networks.Combined.BaseClasses.Validation;
+within Buildings.Experimental.DHC.Networks.Pipes.Validation;
 model Pipe "Validates the PipeAutosize model initialization"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water "Medium model";
@@ -12,7 +12,7 @@ model Pipe "Validates the PipeAutosize model initialization"
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={50,0})));
-  Buildings.Experimental.DHC.Networks.Combined.BaseClasses.PipeStandard pipSta1(
+  Buildings.Experimental.DHC.Networks.Pipes.PipeStandard pipSta1(
     redeclare final package Medium = Medium,
     m_flow_nominal=m1_flow_nominal,
     dh=0.00548,
@@ -28,7 +28,7 @@ model Pipe "Validates the PipeAutosize model initialization"
     m_flow=m2_flow_nominal,
     nPorts=1) "Source of water flow for autosized pipe 2"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  Buildings.Experimental.DHC.Networks.Combined.BaseClasses.PipeAutosize pipAut2(
+  Buildings.Experimental.DHC.Networks.Pipes.PipeAutosize pipAut2(
     redeclare final package Medium = Medium,
     m_flow_nominal=m2_flow_nominal,
     dp_length_nominal=dp2_length_nominal,
@@ -39,13 +39,13 @@ model Pipe "Validates the PipeAutosize model initialization"
     m_flow=m1_flow_nominal,
     nPorts=1) "Source of water flow for autosized pipe 1"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  PipeAutosize pipAut1(
+  Pipes.PipeAutosize pipAut1(
     redeclare final package Medium = Medium,
     m_flow_nominal=m1_flow_nominal,
     dp_length_nominal=dp1_length_nominal,
     length=100) "Pipe 1 with autosized hydraulic diameter"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
-  PipeStandard pipSta2(
+  Pipes.PipeStandard pipSta2(
     redeclare final package Medium = Medium,
     m_flow_nominal=m2_flow_nominal,
     dh=2.943,
@@ -75,7 +75,7 @@ equation
     annotation (Line(points={{10,-60},{40,-60},{40,-1.5}}, color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>
-Validation model for <a href=\"modelica://Buildings.Experimental.DHC.Networks.Combined.BaseClasses.PipeAutosize\">
+Validation model for <a href=\"modelica://Buildings.Experimental.DHC.Networks.Pipes.PipeAutosize\">
 Buildings.Experimental.DHC.Networks.Combined.BaseClasses.PipeAutosize</a>
 for range of flow rates and pressure drops per unit length.
 </p>

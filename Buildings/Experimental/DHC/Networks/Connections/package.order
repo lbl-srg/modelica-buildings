@@ -1,7 +1,6 @@
+Connection2Pipe
+Connection2PipePlugFlow
 ConnectionParallelAutosize
 ConnectionParallelStandard
 ConnectionSeriesAutosize
 ConnectionSeriesStandard
-PipeAutosize
-PipeStandard
-Validation

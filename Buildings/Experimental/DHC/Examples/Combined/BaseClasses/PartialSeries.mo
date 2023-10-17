@@ -54,7 +54,7 @@ partial model PartialSeries "Partial model for series network"
       extent={{10,10},{-10,-10}},
       rotation=180,
       origin={-180,-80})));
-  Buildings.Experimental.DHC.Networks.Combined.BaseClasses.ConnectionSeriesStandard
+  Buildings.Experimental.DHC.Networks.Connections.ConnectionSeriesStandard
     conPla(
     redeclare final package Medium = Medium,
     final mDis_flow_nominal=datDes.mPipDis_flow_nominal,
@@ -69,7 +69,7 @@ partial model PartialSeries "Partial model for series network"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-80,-10})));
-  Buildings.Experimental.DHC.Networks.Combined.BaseClasses.ConnectionSeriesStandard
+  Buildings.Experimental.DHC.Networks.Connections.ConnectionSeriesStandard
     conSto(
     redeclare final package Medium = Medium,
     final mDis_flow_nominal=datDes.mPipDis_flow_nominal,
@@ -93,8 +93,7 @@ partial model PartialSeries "Partial model for series network"
     final dpDis_nominal=datDes.dpPla_nominal,
     final epsHex=datDes.epsPla) "Sewage heat recovery plant"
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
-  Buildings.Experimental.DHC.Networks.Combined.UnidirectionalSeries
-    dis(
+  Buildings.Experimental.DHC.Networks.Distribution1Pipe dis(
     redeclare final package Medium = Medium,
     final nCon=nBui,
     show_TOut=true,
