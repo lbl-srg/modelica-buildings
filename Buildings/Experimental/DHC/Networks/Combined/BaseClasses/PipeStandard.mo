@@ -7,12 +7,6 @@ model PipeStandard "Pipe model parameterized with hydraulic diameter"
 
 annotation (
   DefaultComponentName="pipDis",
-  Icon(graphics={
-        Rectangle(
-          extent={{-100,22},{100,-24}},
-          lineColor={0,0,0},
-          fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={0,140,72})}),
     Documentation(revisions="<html>
 <ul>
 <li>
@@ -29,5 +23,15 @@ except that a binding equation is provided to compute the nominal fluid velocity
 from the hydraulic diameter (as opposed to the hydraulic diameter being
 computed from the nominal fluid velocity in the original model).
 </p>
-</html>"));
+</html>"),
+    Icon(graphics={
+        Rectangle(
+          extent={{-100,22},{100,-24}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={0,127,255}),
+                 Text(
+          extent={{-40,18},{38,-20}},
+          textColor={255,255,255},
+          textString="v")}));
 end PipeStandard;
