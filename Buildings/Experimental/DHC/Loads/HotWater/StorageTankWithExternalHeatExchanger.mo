@@ -9,7 +9,7 @@ model StorageTankWithExternalHeatExchanger
     dat "Performance data"
     annotation (Placement(transformation(extent={{60,80},{80,100}})));
 
-  parameter Real k=0.1 "Proportioanl gain of circulation pump controller";
+  parameter Real k=0.1 "Proportional gain of circulation pump controller";
   parameter Real Ti=60 "Integrator time constant of circulation pump controller";
 
   parameter Modelica.Media.Interfaces.Types.Temperature TTan_start=323.15
@@ -306,11 +306,11 @@ First implementation.
           origin={-34,46},
           rotation=270),
         Rectangle(
-          extent={{-33,2},{33,-2}},
+          extent={{-15,2},{15,-2}},
           fillColor={28,108,200},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
-          origin={-67,-60},
+          origin={-85,-60},
           rotation=180),
         Rectangle(
           extent={{-6,2},{6,-2}},
@@ -320,11 +320,11 @@ First implementation.
           origin={-26,-44},
           rotation=360),
         Rectangle(
-          extent={{-31,2},{31,-2}},
+          extent={{-23,2},{23,-2}},
           fillColor={28,108,200},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
-          origin={-34,-31},
+          origin={-34,-23},
           rotation=270),
         Rectangle(
           extent={{-12,2},{12,-2}},
@@ -415,7 +415,28 @@ First implementation.
               {0,255,0}
             else
               {235,235,235}),
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-16,2},{16,-2}},
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          origin={-72,-76},
+          rotation=270),
+        Rectangle(
+          extent={{-54,2},{54,-2}},
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          origin={-20,-90},
+          rotation=180),
+        Rectangle(
+          extent={{-7,2},{7,-2}},
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          origin={32,-85},
+          rotation=270)}),
         Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end StorageTankWithExternalHeatExchanger;

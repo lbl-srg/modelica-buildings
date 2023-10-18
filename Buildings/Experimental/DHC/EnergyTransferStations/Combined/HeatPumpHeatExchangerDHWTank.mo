@@ -23,8 +23,8 @@ model HeatPumpHeatExchangerDHWTank
     TEva_nominal=TDisWatMin - dT_nominal,
     final allowFlowReversal1=allowFlowReversalBui,
     final allowFlowReversal2=allowFlowReversalSer,
-    mHotSou_flow_nominal=QHotWat_flow_nominal/cpBui_default/(THotWatSup_nominal
-         - TColWat_nominal),
+    dp1_nominal=6000,
+    dp2_nominal=6000,
     datWatHea=datWatHea) if have_hotWat
     "Subsystem for hot water production"
     annotation (Placement(transformation(extent={{32,24},{52,44}})));

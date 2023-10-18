@@ -20,7 +20,8 @@ record GenericDomesticHotWaterWithHeatExchanger
       dpHexHea_nominal*(mDom_flow_nominal/mHex_flow_nominal)^2
     "Pressure drop across the heat exchanger at nominal conditions on domestic hot water side"
     annotation (Dialog(group="Heat exchanger", tab="Advanced"));
-  parameter Modelica.Units.SI.MassFlowRate mHex_flow_nominal = QHex_flow_nominal/dTHexHea/4200
+  parameter Modelica.Units.SI.MassFlowRate mHex_flow_nominal = QHex_flow_nominal/
+      dTHexHea_nominal                                                                   /4200
   "Mass flow rate of heat exchanger on heating side"
     annotation (Dialog(group="Heat exchanger", tab="Advanced"));
   parameter Modelica.Units.SI.MassFlowRate mDom_flow_nominal
@@ -42,7 +43,7 @@ record GenericDomesticHotWaterWithHeatExchanger
     annotation (Dialog(group="Domestic hot water", tab="Advanced"));
   parameter Integer nSeg(min=4) = 5 "Number of volume segments used to discretize tank"
     annotation (Dialog(group="Tank", tab="Advanced"));
-  parameter Modelica.Units.SI.TemperatureDifference dTHexHea(min=2) = 5
+  parameter Modelica.Units.SI.TemperatureDifference dTHexHea_nominal(min=2) = 5
     "Temperature difference across heat exchanger on heating water side (inlet-outlet)"
     annotation (Dialog(group="Heat exchanger", tab="Advanced"));
   parameter Modelica.Units.SI.TemperatureDifference dTHexApp_nominal(min=1) = 2
