@@ -11,9 +11,6 @@ record GenericDomesticHotWaterWithHeatExchanger
   parameter Modelica.Units.SI.ThermalConductivity kIns = 0.04
     "Specific heat conductivity of insulation"
     annotation (Dialog(group="Tank", tab="Advanced"));
-  parameter Modelica.Units.SI.TemperatureDifference dTTan_nominal(min=2) = 5
-    "Maximum temperature difference of tank above the temperature required to heat the domestic hot water"
-    annotation (Dialog(group="Tank", tab="Advanced"));
 
   parameter Modelica.Units.SI.PressureDifference dpHexHea_nominal(displayUnit="Pa")=5000
     "Pressure drop across the heat exchanger at nominal conditions on heating water side"
@@ -46,7 +43,10 @@ record GenericDomesticHotWaterWithHeatExchanger
   parameter Integer nSeg(min=4) = 5 "Number of volume segments used to discretize tank"
     annotation (Dialog(group="Tank", tab="Advanced"));
   parameter Modelica.Units.SI.TemperatureDifference dTHexHea(min=2) = 5
-    "Temperature difference between across heat exchanger on heating water side (inlet-outlet)"
+    "Temperature difference across heat exchanger on heating water side (inlet-outlet)"
+    annotation (Dialog(group="Heat exchanger", tab="Advanced"));
+  parameter Modelica.Units.SI.TemperatureDifference dTHexApp_nominal(min=1) = 2
+    "Heat exchanger approach temperature"
     annotation (Dialog(group="Heat exchanger", tab="Advanced"));
 
   annotation (preferredView="info",Documentation(info="<html>

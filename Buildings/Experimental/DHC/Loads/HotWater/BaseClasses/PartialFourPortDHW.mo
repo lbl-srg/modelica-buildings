@@ -35,6 +35,7 @@ partial model PartialFourPortDHW
     h_outflow(start=MediumDom.h_default, nominal=MediumDom.h_default))
     "Fluid connector for cold water (or recirculation water)"
     annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
+
   Modelica.Fluid.Interfaces.FluidPort_b port_bDom(
     redeclare final package Medium = MediumDom,
     m_flow(max=if allowFlowReversalDom then +Modelica.Constants.inf else 0),
@@ -48,6 +49,7 @@ partial model PartialFourPortDHW
     h_outflow(start=MediumHea.h_default, nominal=MediumHea.h_default))
     "Fluid connector for heating water (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
+
   Modelica.Fluid.Interfaces.FluidPort_b port_bHea(
     redeclare final package Medium = MediumHea,
     m_flow(max=if allowFlowReversalHea then +Modelica.Constants.inf else 0),
@@ -55,9 +57,17 @@ partial model PartialFourPortDHW
     "Fluid connector b for heating water (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-90,-70},{-110,-50}})));
 
-  Modelica.Blocks.Interfaces.RealInput TDomSet(final unit="K", displayUnit="degC")
+  Controls.OBC.CDL.Interfaces.RealInput TDomSet(
+    final unit="K",
+    displayUnit="degC")
     "Temperature setpoint for domestic water source from heater"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
+
+  Controls.OBC.CDL.Interfaces.BooleanOutput charge
+    "Output true if tank needs to be charged, false if it is sufficiently charged"
+    annotation (Placement(transformation(extent={{100,-100},{140,-60}}),
+        iconTransformation(extent={{100,-110},{140,-70}})));
+
   annotation (Documentation(info="<html>
 <p>
 This partial model can be used for different domestic hot water generation methods.

@@ -2,8 +2,14 @@ within Buildings.Experimental.DHC.Loads.HotWater.Examples;
 model StorageTankWithExternalHeatExchanger
   "Example model for storage tank with external heat exchanger"
   extends Modelica.Icons.Example;
+
   package Medium = Buildings.Media.Water "Medium model";
 
+  parameter Data.GenericDomesticHotWaterWithHeatExchanger
+    datWatHea(
+    VTan=0.3, mDom_flow_nominal=0.333)
+    "Data for heat pump water heater with tank"
+    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
 
   Modelica.Blocks.Sources.CombiTimeTable sch(
     tableOnFile=true,
@@ -14,11 +20,6 @@ model StorageTankWithExternalHeatExchanger
     "Domestic hot water fixture draw fraction schedule"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
-  Data.GenericDomesticHotWaterWithHeatExchanger
-    datWatHea(
-    VTan=0.3, mDom_flow_nominal=0.333)
-    "Data for heat pump water heater with tank"
-    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Fluid.Sources.Boundary_pT sinDis(
     nPorts=1,
     redeclare package Medium = Medium,
@@ -40,7 +41,7 @@ model StorageTankWithExternalHeatExchanger
     use_m_flow_in=true,
     nPorts=1,
     redeclare package Medium = Medium,
-    T(displayUnit="degC") = datWatHea.TMix_nominal + datWatHea.dTTan_nominal)
+    T(displayUnit="degC") = datWatHea.TMix_nominal + datWatHea.dTHexApp_nominal)
     "Source for heating water"
     annotation (
      Placement(transformation(
@@ -51,25 +52,28 @@ model StorageTankWithExternalHeatExchanger
       final unit="K",
       displayUnit="degC") = 308.15)
     "Temperature setpoint for hot water supply to fixture"
-    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Buildings.Experimental.DHC.Loads.HotWater.StorageTankWithExternalHeatExchanger
     domHotWatTan(redeclare package MediumDom = Medium, redeclare package
       MediumHea = Medium,
     dat=datWatHea)        "Storage tank with external heat exchanger"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   ThermostaticMixingValve theMixVal(redeclare package Medium = Medium,
-      mMix_flow_nominal=datWatHea.mDom_flow_nominal)
+      mMix_flow_nominal=1.2*datWatHea.mDom_flow_nominal)
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
-  Controls.OBC.CDL.Conversions.BooleanToReal booToRea(
-    realTrue=0.2*datWatHea.QHex_flow_nominal*4200*(55 - 50))
+  Controls.OBC.CDL.Conversions.BooleanToReal booToRea(realTrue=0.1*datWatHea.QHex_flow_nominal
+        /4200/(55 - 50))
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
+  Modelica.Blocks.Sources.Constant conTSetHot1(k(
+      final unit="K",
+      displayUnit="degC") = 313.15)
+    "Temperature setpoint for hot water supply to fixture"
+    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
 equation
   connect(theMixVal.yMixSet, sch.y[1]) annotation (Line(points={{39,78},{-50,78},
           {-50,70},{-59,70}}, color={0,0,127}));
-  connect(conTSetHot.y, domHotWatTan.TDomSet) annotation (Line(points={{-59,30},
-          {-1,30}},                   color={0,0,127}));
-  connect(conTSetHot.y, theMixVal.TMixSet) annotation (Line(points={{-59,30},{
-          -10,30},{-10,72},{39,72}},
+  connect(conTSetHot.y, theMixVal.TMixSet) annotation (Line(points={{-59,40},{
+          -10,40},{-10,72},{39,72}},
                                  color={0,0,127}));
   connect(domHotWatTan.port_bDom, theMixVal.port_hot) annotation (Line(points={{
           20,36},{32,36},{32,66},{40,66}}, color={0,127,255}));
@@ -85,6 +89,8 @@ equation
     annotation (Line(points={{-4,-40},{-4,24},{0,24}}, color={0,127,255}));
   connect(souHea.ports[1], domHotWatTan.port_aHea)
     annotation (Line(points={{58,24},{20,24}}, color={0,127,255}));
+  connect(domHotWatTan.TDomSet, conTSetHot1.y) annotation (Line(points={{-1,30},
+          {-20,30},{-20,10},{-59,10}}, color={0,0,127}));
   annotation (Diagram(graphics={
         Text(
           extent={{-140,160},{160,120}},
@@ -92,7 +98,9 @@ equation
           textColor={0,0,255})}),
     Documentation(info="<html>
 <p>
-fixme: add
+Example model of a fresh water station that heats up domestic hot water.
+Input is a load profile which is sent to a model that computes the hot and cold water draw.
+If the tank needs to be recharged, then heating water with a prescribed temperature is sent to the tank.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -102,5 +110,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    experiment(StopTime=86400, __Dymola_Algorithm="Radau"));
+    experiment(
+      StopTime=8640000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"));
 end StorageTankWithExternalHeatExchanger;

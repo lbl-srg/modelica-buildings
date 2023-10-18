@@ -5,6 +5,31 @@ model ThermostaticMixingValve
   parameter Modelica.Units.SI.MassFlowRate mMix_flow_nominal
     "Nominal mixed water flow rate to fixture";
 
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller";
+  parameter Real k(
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps)=1
+    "Gain of controller"
+    annotation (Dialog(group="Control gains"));
+  parameter Real Ti(
+    final quantity="Time",
+    final unit="s",
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps)=0.5
+    "Time constant of integrator block"
+    annotation (Dialog(group="Control gains",
+      enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
+      controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Real Td(
+    final quantity="Time",
+    final unit="s",
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps)=0.1
+    "Time constant of derivative block"
+    annotation (Dialog(group="Control gains",
+      enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
+      controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Real relTol = 0.005 "Relative tolerance on energy balance, if not met, a warning will be issued at end of simulation"
+    annotation(Dialog(tab="Advanced"));
+
   Modelica.Fluid.Interfaces.FluidPort_a port_hot(redeclare package Medium =
         Medium) "Port for hot water supply"
     annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
@@ -13,8 +38,7 @@ model ThermostaticMixingValve
     annotation (Placement(transformation(extent={{-110,-90},{-90,-70}})));
   Modelica.Blocks.Interfaces.RealInput TMixSet(
     final unit="K",
-    displayUnit="degC")
-    "Temperature setpoint of mixed water outlet"
+    displayUnit="degC") "Temperature setpoint of mixed water outlet"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}}),
         iconTransformation(extent={{-120,10},{-100,30}})));
 
@@ -28,141 +52,209 @@ model ThermostaticMixingValve
         rotation=180,
         origin={-110,80})));
 
-  Fluid.Sensors.TemperatureTwoPort senTemHot(
+  Fluid.Sensors.TemperatureTwoPort senTHot(
     redeclare final package Medium = Medium,
     allowFlowReversal=false,
     final m_flow_nominal=mMix_flow_nominal,
     tau=0) "Hot water temperature"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Fluid.Sensors.TemperatureTwoPort senTemCol(
+  Fluid.Sensors.TemperatureTwoPort senTCol(
     redeclare final package Medium = Medium,
     allowFlowReversal=false,
     final m_flow_nominal=mMix_flow_nominal,
     tau=0) "Cold water temperature"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 
-  Modelica.Units.SI.MassFlowRate mMix_flow = gaiMMix_flow.y
-    "Mass flow rate of mixed water";
-  Controls.OBC.CDL.Utilities.Assert assTHotTooLow(message="Hot water temperature is insufficient to meet mixed water set point")
-    "Assertion that triggers a warning whenever the hot water temperature becomes too low"
-    annotation (Placement(transformation(extent={{60,70},{80,90}})));
+  Fluid.Sensors.TemperatureTwoPort senTMix(
+    redeclare final package Medium = Medium,
+    allowFlowReversal=false,
+    final m_flow_nominal=mMix_flow_nominal,
+    tau=1) "Mixed water temperature"
+    annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
+
+  Controls.OBC.CDL.Reals.PID conPID(
+    final controllerType=controllerType,
+    final k=k,
+    final Ti=Ti,
+    final Td=Td,
+    yMax=1,
+    yMin=0) annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+
+  Controls.OBC.CDL.Reals.Divide ratEne
+    "Ratio of actual over required energy (must be near 1 if load is satisfied)"
+    annotation (Placement(transformation(extent={{20,60},{40,80}})));
 protected
-  Controls.OBC.CDL.Reals.Subtract dTMix
-    "Temperature difference mixed minus cold"
-    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-  Controls.OBC.CDL.Reals.Subtract dTHot "Temperature difference hot minus cold"
-    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
-  Utilities.Math.SmoothMax dTHot_nonZero(deltaX=dTSmall/4)
-    "Temperature difference bounded away from zero"
-    annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  Controls.OBC.CDL.Reals.Sources.Constant dTSmaDiv(
-    final k(final unit="K")=dTSmall)
-    "Small temperature difference to avoid division by zero"
-    annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  Controls.OBC.CDL.Reals.Divide temRat
-    "Ratio of temperatures (T_mix-T_col)/(T_hot-T_col)"
-    annotation (Placement(transformation(extent={{40,40},{60,60}})));
-  Modelica.Blocks.Math.Gain gaiMMix_flow(final k=mMix_flow_nominal)
+  Controls.OBC.CDL.Reals.Multiply mulMHot_flow
+    "Multiplication to output required hot water mass flow rate"
+    annotation (Placement(transformation(extent={{40,10},{60,30}})));
+
+  EnergyMeter eneMetReq "Required energy"
+    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+  EnergyMeter eneMetAct "Actual energy"
+    annotation (Placement(transformation(extent={{-20,70},{0,90}})));
+
+  block EnergyMeter "Block that outputs integrated energy, bounded away from zero"
+    extends Modelica.Blocks.Icons.Block;
+
+    Modelica.Blocks.Interfaces.RealInput TMix(final unit="K", displayUnit="degC")
+      "Temperature of mixed water outlet" annotation (Placement(transformation(
+            extent={{-120,50},{-100,70}}), iconTransformation(extent={{-120,50},{-100,
+              70}})));
+    Modelica.Blocks.Interfaces.RealInput TCol(final unit="K", displayUnit="degC")
+      "Temperature of cold water" annotation (Placement(transformation(extent={{-120,
+              -10},{-100,10}}), iconTransformation(extent={{-120,-10},{-100,10}})));
+    Modelica.Blocks.Interfaces.RealInput m_flow(final unit="kg/s")
+      "Mass flow rate" annotation (Placement(transformation(extent={{-120,-70},{-100,
+              -50}}), iconTransformation(extent={{-120,-70},{-100,-50}})));
+    Modelica.Blocks.Interfaces.RealOutput E(final unit="J") "Consumed energy"
+      annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    Modelica.Units.SI.Energy EInt(
+      start=0,
+      fixed=true,
+      unbounded=true,
+      nominal=1E9) "Integral of H_flow";
+    Modelica.Units.SI.HeatFlowRate H_flow "Enthalpy flow rate";
+  equation
+    der(EInt) = H_flow;
+    H_flow = m_flow * Buildings.Utilities.Psychrometrics.Constants.cpWatLiq * (TMix-TCol);
+    E = max(Buildings.Utilities.Psychrometrics.Constants.cpWatLiq*1, EInt);
+    annotation (
+    defaultComponentName="eneMet",
+    Icon(graphics={
+          Text(
+            extent={{-96,72},{-70,48}},
+            textColor={0,0,88},
+            textString="TMix"),
+          Text(
+            extent={{-94,14},{-68,-10}},
+            textColor={0,0,88},
+            textString="TCol"),
+          Text(
+            extent={{-94,-46},{-68,-70}},
+            textColor={0,0,88},
+            textString="m_flow"),
+          Text(
+            extent={{68,12},{94,-12}},
+            textColor={0,0,88},
+            textString="E")}), Documentation(info="<html>
+<p>
+Block that outputs the integrated enthalpy flow rate.
+</p>
+<p>
+To avoid division by zero in downstream blocks, the output is bounded away from zero.
+</p>
+</html>",   revisions="<html>
+<ul>
+<li>
+October 5, 2023, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+  end EnergyMeter;
+
+protected
+  parameter Modelica.Units.SI.Temperature dTSmall = 0.1 "Small temperature used to avoid division by zero";
+
+  Controls.OBC.CDL.Reals.MultiplyByParameter gaiMMix_flow(final k=mMix_flow_nominal)
     "Gain for multiplying domestic hot water schedule" annotation (Placement(
         transformation(
-        extent={{10,-10},{-10,10}},
+        extent={{10,10},{-10,-10}},
         rotation=180,
-        origin={-30,-20})));
-  Controls.OBC.CDL.Reals.Multiply mHot_flow(
-    u1(final unit="1"),
-    u2(final unit="kg/s"),
-    y(final unit="kg/s"))
-    "Hot water flow rate"
-    annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  Controls.OBC.CDL.Reals.Subtract mCol_flow "Cold water flow rate"
-    annotation (Placement(transformation(extent={{60,-20},{80,0}})));
+        origin={-70,30})));
 
-  Fluid.Sources.MassFlowSource_T sinHot(
-    redeclare package Medium = Medium,
+  Fluid.Movers.BaseClasses.IdealSource floSouHot(
+    redeclare final package Medium = Medium,
+    allowFlowReversal=false,
+    m_flow_small=1E-4*mMix_flow_nominal,
+    final control_m_flow=true,
+    final control_dp=false)
+    "Forced mass flow rate for hot water"
+    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
+  Fluid.Sources.MassFlowSource_T sinMMix(
+    redeclare final package Medium = Medium,
     use_m_flow_in=true,
-    nPorts=1) "Sink for hot water supply"
-    annotation (Placement(transformation(extent={{10,-50},{-10,-30}})));
-  Fluid.Sources.MassFlowSource_T sinCol(
-    redeclare package Medium = Medium,
-    use_m_flow_in=true,
-    nPorts=1) "Sink for cold water supply"
-    annotation (Placement(transformation(extent={{8,-90},{-12,-70}})));
-  Modelica.Blocks.Math.Gain sigHot(final k=-1)
-    "Sign change to extract mass flow rate" annotation (Placement(
+    nPorts=1) "Sink for mixed mass flow rate" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={50,-40})));
-  Modelica.Blocks.Math.Gain sigCol(final k=-1)
-    "Sign change to extract mass flow rate" annotation (Placement(
-        transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=0,
-        origin={50,-80})));
-  Controls.OBC.CDL.Reals.Greater dTMon(h=dTSmall/4)
-    "Inequality to monitor whether temperatures are sufficient to meet set point"
-    annotation (Placement(transformation(extent={{20,70},{40,90}})));
+        origin={50,-60})));
 
-  parameter Modelica.Units.SI.Temperature dTSmall = 0.1 "Small temperature used to avoid division by zero";
+  Controls.OBC.CDL.Reals.MultiplyByParameter gaiMMix_sign(final k=-1)
+    "Gain to invert sign" annotation (Placement(transformation(
+        extent={{10,10},{-10,-10}},
+        rotation=180,
+        origin={50,-10})));
 equation
-  connect(senTemHot.port_a, port_hot) annotation (Line(points={{-80,-40},{-100,-40}},
-                              color={0,127,255}));
-  connect(port_col, senTemCol.port_a)
+  connect(senTHot.port_a, port_hot)
+    annotation (Line(points={{-80,-40},{-100,-40}}, color={0,127,255}));
+  connect(port_col, senTCol.port_a)
     annotation (Line(points={{-100,-80},{-80,-80}}, color={0,127,255}));
-  connect(dTMix.u1, TMixSet) annotation (Line(points={{-42,76},{-74,76},{-74,20},
+  connect(yMixSet, gaiMMix_flow.u) annotation (Line(points={{-110,80},{-90,80},{
+          -90,30},{-82,30}},   color={0,0,127}));
+  connect(floSouHot.port_a, senTHot.port_b)
+    annotation (Line(points={{-40,-40},{-60,-40}}, color={0,127,255}));
+  connect(floSouHot.port_b, senTMix.port_a) annotation (Line(points={{-20,-40},
+          {-14,-40},{-14,-60},{0,-60}}, color={0,127,255}));
+  connect(conPID.u_s, TMixSet) annotation (Line(points={{-42,0},{-88,0},{-88,20},
           {-110,20}}, color={0,0,127}));
-  connect(senTemCol.T, dTMix.u2) annotation (Line(points={{-70,-69},{-70,-60},{-52,
-          -60},{-52,64},{-42,64}}, color={0,0,127}));
-  connect(dTHot.u1, senTemHot.T)
-    annotation (Line(points={{-42,46},{-70,46},{-70,-29}}, color={0,0,127}));
-  connect(dTHot.u2, senTemCol.T) annotation (Line(points={{-42,34},{-46,34},{-46,
-          -60},{-70,-60},{-70,-69}}, color={0,0,127}));
-  connect(dTHot_nonZero.u1, dTHot.y) annotation (Line(points={{-2,36},{-10,36},{
-          -10,40},{-18,40}}, color={0,0,127}));
-  connect(dTHot_nonZero.u2, dTSmaDiv.y) annotation (Line(points={{-2,24},{-8,24},
-          {-8,10},{-18,10}},  color={0,0,127}));
-  connect(dTHot_nonZero.y, temRat.u2) annotation (Line(points={{21,30},{30,30},{
-          30,44},{38,44}}, color={0,0,127}));
-  connect(temRat.u1, dTMix.y) annotation (Line(points={{38,56},{-10,56},{-10,70},
-          {-18,70}},color={0,0,127}));
-  connect(yMixSet, gaiMMix_flow.u) annotation (Line(points={{-110,80},{-80,80},{
-          -80,-20},{-42,-20}}, color={0,0,127}));
-  connect(mHot_flow.u1, temRat.y) annotation (Line(points={{18,-4},{10,-4},{10,10},
-          {70,10},{70,50},{62,50}}, color={0,0,127}));
-  connect(gaiMMix_flow.y, mHot_flow.u2) annotation (Line(points={{-19,-20},{0,-20},
-          {0,-16},{18,-16}}, color={0,0,127}));
-  connect(gaiMMix_flow.y, mCol_flow.u1) annotation (Line(points={{-19,-20},{0,-20},
-          {0,14},{50,14},{50,-4},{58,-4}}, color={0,0,127}));
-  connect(mHot_flow.y, mCol_flow.u2) annotation (Line(points={{42,-10},{52,-10},
-          {52,-16},{58,-16}}, color={0,0,127}));
-  connect(sigCol.y, sinCol.m_flow_in) annotation (Line(points={{39,-80},{26,-80},
-          {26,-72},{10,-72}}, color={0,0,127}));
-  connect(sigHot.y, sinHot.m_flow_in) annotation (Line(points={{39,-40},{26,-40},
-          {26,-32},{12,-32}}, color={0,0,127}));
-  connect(sigHot.u, mHot_flow.y) annotation (Line(points={{62,-40},{72,-40},{72,
-          -24},{52,-24},{52,-10},{42,-10}}, color={0,0,127}));
-  connect(mCol_flow.y, sigCol.u) annotation (Line(points={{82,-10},{90,-10},{90,
-          -80},{62,-80}}, color={0,0,127}));
-  connect(sinCol.ports[1], senTemCol.port_b)
-    annotation (Line(points={{-12,-80},{-60,-80}}, color={0,127,255}));
-  connect(sinHot.ports[1], senTemHot.port_b)
-    annotation (Line(points={{-10,-40},{-60,-40}}, color={0,127,255}));
-  connect(dTMon.y, assTHotTooLow.u)
-    annotation (Line(points={{42,80},{58,80}}, color={255,0,255}));
-  connect(dTMon.u1, dTHot.y) annotation (Line(points={{18,80},{-14,80},{-14,40},
-          {-18,40}}, color={0,0,127}));
-  connect(dTSmaDiv.y, dTMon.u2) annotation (Line(points={{-18,10},{-8,10},{-8,72},
-          {18,72}}, color={0,0,127}));
+  connect(senTMix.T, conPID.u_m) annotation (Line(points={{10,-49},{10,-20},{
+          -30,-20},{-30,-12}}, color={0,0,127}));
+  connect(sinMMix.m_flow_in, gaiMMix_sign.y) annotation (Line(points={{62,-52},
+          {80,-52},{80,-10},{62,-10}}, color={0,0,127}));
+  connect(mulMHot_flow.y, floSouHot.m_flow_in) annotation (Line(points={{62,20},
+          {90,20},{90,-28},{-36,-28},{-36,-32}}, color={0,0,127}));
+  connect(gaiMMix_flow.y, mulMHot_flow.u1) annotation (Line(points={{-58,30},{26,
+          30},{26,26},{38,26}},    color={0,0,127}));
+  connect(conPID.y, mulMHot_flow.u2) annotation (Line(points={{-18,0},{30,0},{
+          30,14},{38,14}}, color={0,0,127}));
+  connect(gaiMMix_flow.y, gaiMMix_sign.u) annotation (Line(points={{-58,30},{26,
+          30},{26,-10},{38,-10}}, color={0,0,127}));
+  connect(senTCol.port_b, senTMix.port_a) annotation (Line(points={{-60,-80},{
+          -14,-80},{-14,-60},{0,-60}}, color={0,127,255}));
+  connect(senTMix.port_b, sinMMix.ports[1])
+    annotation (Line(points={{20,-60},{40,-60}}, color={0,127,255}));
+  connect(eneMetReq.TMix, TMixSet) annotation (Line(points={{-21,56},{-88,56},{-88,
+          20},{-110,20}}, color={0,0,127}));
+  connect(eneMetReq.TCol, senTCol.T) annotation (Line(points={{-21,50},{-52,50},
+          {-52,-60},{-70,-60},{-70,-69}}, color={0,0,127}));
+  connect(gaiMMix_flow.y, eneMetReq.m_flow) annotation (Line(points={{-58,30},{-32,
+          30},{-32,44},{-21,44}}, color={0,0,127}));
+  connect(eneMetAct.TMix, senTMix.T) annotation (Line(points={{-21,86},{-28,86},
+          {-28,20},{10,20},{10,-49}}, color={0,0,127}));
+  connect(eneMetAct.TCol, senTCol.T) annotation (Line(points={{-21,80},{-52,80},
+          {-52,-60},{-70,-60},{-70,-69}}, color={0,0,127}));
+  connect(eneMetAct.m_flow, gaiMMix_flow.y) annotation (Line(points={{-21,74},{-24,
+          74},{-24,30},{-58,30}}, color={0,0,127}));
+  connect(eneMetReq.E, ratEne.u2) annotation (Line(points={{1,50},{10,50},{10,64},
+          {18,64}}, color={0,0,127}));
+  connect(eneMetAct.E, ratEne.u1) annotation (Line(points={{1,80},{10,80},{10,76},
+          {18,76}}, color={0,0,127}));
+  when terminal() then
+    assert(
+      abs(1-ratEne.y) < relTol,
+      "In " + getInstanceName() + ": Required domestic hot water flow rate is not met. Ratio of actual over required energy = " + String(ratEne.y),
+      level=AssertionLevel.warning);
+  end when;
   annotation (
   defaultComponentName="theMixVal",
   preferredView="info",Documentation(info="<html>
 <p>
 This model implements a thermostatic mixing valve, which uses
 a PI feedback controller to mix hot and cold fluid to achieve a specified 
-hot water outlet temperature to send to a fixture(s).
+mixed water outlet temperature.
+</p>
+<p>
+If the mixed water temperature cannot be provided within a tolerance of <code>relTol</code>,
+averaged over the whole simulation period,
+then an assertion warning will be written at the end of the simulation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 17, 2023, by Michael Wetter:<br/>
+Revised implementation.
+</li>
 <li>
 September 11, 2023 by David Blum:<br/>
 Updated for release.

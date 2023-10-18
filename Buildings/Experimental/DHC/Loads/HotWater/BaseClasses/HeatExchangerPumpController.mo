@@ -36,8 +36,9 @@ block HeatExchangerPumpController
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
   Controls.OBC.CDL.Reals.Hysteresis hysMasFlo(
-    uLow=mDom_flow_nominal/1E6,
-    uHigh=mDom_flow_nominal/1E5)
+    uLow=mDom_flow_nominal/1E4,
+    uHigh=2*mDom_flow_nominal/1E4,
+    y(start=false))
     "Hysteresis used to switch secondary pump on and off"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 
@@ -45,7 +46,9 @@ block HeatExchangerPumpController
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=k,
     Ti=Ti,
+    yMin=0.03,
     y_reset=0)
+    "PI controller for pump"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
   Controls.OBC.CDL.Reals.Switch swi "Switch for pump control"

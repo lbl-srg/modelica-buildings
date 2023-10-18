@@ -1,7 +1,7 @@
 DirectHeatExchangerWithElectricHeat
 HeatPumpWithTank
+StorageTankWithExternalHeatExchanger
 ThermostaticMixingValve
 Data
 Examples
 BaseClasses
-StorageTankWithExternalHeatExchanger

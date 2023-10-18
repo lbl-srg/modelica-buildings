@@ -2,8 +2,7 @@ within Buildings.Experimental.DHC.Loads.HotWater;
 model DirectHeatExchangerWithElectricHeat
   "A model for generating hot water using a district heat exchanger and supplemental electric resistance"
   extends
-    Buildings.Experimental.DHC.Loads.HotWater.BaseClasses.PartialFourPortDHW(
-      final have_PEle=have_eleHea);
+    Buildings.Experimental.DHC.Loads.HotWater.BaseClasses.PartialFourPort;
   parameter Modelica.Units.SI.Efficiency eps(min=0,max=1) = 0.8 "Heat exchanger effectiveness";
   parameter Boolean have_eleHea = true "True if has auxiliary electric heater";
   parameter Modelica.Units.SI.HeatFlowRate QMax_flow(min=0) = Modelica.Constants.inf "Maximum heat flow rate for electric heater (positive)"
