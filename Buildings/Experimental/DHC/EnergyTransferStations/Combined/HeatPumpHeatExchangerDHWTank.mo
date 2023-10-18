@@ -17,10 +17,11 @@ model HeatPumpHeatExchangerDHWTank
   Subsystems.HeatPumpDHWTank proHotWat(
     redeclare final package Medium1 = MediumBui,
     redeclare final package Medium2 = MediumSer,
-    final have_varFloEva=have_varFloEva,
     final COP_nominal=COPHotWat_nominal,
-    TCon_nominal=datWatHea.THex_nominal,
+    TCon_nominal=THotWatSup_nominal,
     TEva_nominal=TDisWatMin - dT_nominal,
+    QHotWat_flow_nominal=QHotWat_flow_nominal,
+    dT_nominal=dT_nominal,
     final allowFlowReversal1=allowFlowReversalBui,
     final allowFlowReversal2=allowFlowReversalSer,
     dp1_nominal=6000,
@@ -33,8 +34,9 @@ model HeatPumpHeatExchangerDHWTank
     annotation (Placement(transformation(extent={{36,48},{48,60}})));
   Loads.HotWater.ThermostaticMixingValve theMixVal(
     redeclare package Medium = MediumBui,
-    mMix_flow_nominal=QHotWat_flow_nominal/cpBui_default/(THotWatSup_nominal -
-        TColWat_nominal)) "Thermostatic mixing valve"
+    mMix_flow_nominal=QHotWat_flow_nominal/cpBui_default/(THotWatSup_nominal - TColWat_nominal))
+     if have_hotWat
+     "Thermostatic mixing valve"
     annotation (Placement(transformation(extent={{-20,50},{-40,72}})));
   Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Junction dcwSpl(
       redeclare final package Medium = MediumBui, final m_flow_nominal=
@@ -43,13 +45,11 @@ model HeatPumpHeatExchangerDHWTank
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-12,4})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(k=1/
-        QHotWat_flow_nominal)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
+    k=1/QHotWat_flow_nominal) if have_hotWat
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 equation
 
-  connect(conFloEvaSHW.m_flow, proHotWat.m2_flow) annotation (Line(points={{-38,100},
-          {28,100},{28,31},{30,31}},         color={0,0,127}));
   connect(enaSHW.y, proHotWat.uEna) annotation (Line(points={{-118,80},{-114,80},
           {-114,43},{30,43}},  color={255,0,255}));
   connect(proHotWat.port_b2, volMix_b.ports[4])
@@ -85,8 +85,9 @@ equation
           -156,-80},{-320,-80}}, color={0,0,127}));
   connect(THotWatSupSet, theMixVal.TMixSet) annotation (Line(points={{-320,-40},
           {-32,-40},{-32,32},{-8,32},{-8,63.2},{-19,63.2}}, color={0,0,127}));
-  connect(QReqHotWat_flow, gai.u) annotation (Line(points={{-320,-120},{-288,-120},{-288,
-          60},{-82,60}}, color={0,0,127}));
+  connect(QReqHotWat_flow, gai.u) annotation (Line(points={{-320,-120},{-288,-120},
+          {-288,60},{-82,60}},
+                         color={0,0,127}));
   connect(gai.y, theMixVal.yMixSet) annotation (Line(points={{-58,60},{-48,60},
           {-48,78},{-8,78},{-8,69.8},{-19,69.8}}, color={0,0,127}));
   annotation (
@@ -177,5 +178,136 @@ This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1097\">issue 1097</a>.
 </li>
 </ul>
-</html>"));
+</html>"), Icon(graphics={
+        Rectangle(
+          extent={{-140,-142},{140,142}},
+          lineColor={0,0,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-14,8},{58,-70}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{0,-52},{46,-60}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{6,-30},{2,-38},{10,-38},{6,-30}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{6,-30},{2,-22},{10,-22},{6,-30}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{36,-12},{40,-52}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{30,-24},{48,-42}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{38,-24},{30,-36},{48,-36},{38,-24}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{4,-38},{8,-52}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{4,-12},{8,-22}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-2,-4},{44,-12}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-76,60},{-62,36}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-70,76},{-68,60}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-1.5,9.5},{1.5,-9.5}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid,
+          origin={-59.5,74.5},
+          rotation=90),
+        Rectangle(
+          extent={{-70,36},{-68,26}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-1.5,9.5},{1.5,-9.5}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid,
+          origin={-59.5,26.5},
+          rotation=90),
+        Rectangle(
+          extent={{-1.5,5.5},{1.5,-5.5}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid,
+          origin={-13.5,26.5},
+          rotation=90),
+        Rectangle(
+          extent={{-1.5,34.5},{1.5,-34.5}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid,
+          origin={15.5,74.5},
+          rotation=90),
+        Rectangle(
+          extent={{-50,78},{-18,22}},
+          pattern=LinePattern.None,
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-50,78},{-18,50}},
+          pattern=LinePattern.None,
+          fillColor={238,46,47},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-8,28},{-6,8}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{50,76},{48,8}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid)}));
 end HeatPumpHeatExchangerDHWTank;

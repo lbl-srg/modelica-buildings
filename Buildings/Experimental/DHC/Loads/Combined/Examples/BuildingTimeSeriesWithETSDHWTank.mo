@@ -32,7 +32,7 @@ model BuildingTimeSeriesWithETSDHWTank
     THotWatSup_nominal=322.15,
     filNam=
         "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissOffice_20190916.mos",
-    datWatHea=datWatHea)
+    datWatHea=datWatHea) "Building load with time series data"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
 
   Controls.OBC.CDL.Reals.Sources.Constant TColWat(k=bui.ets.TColWat_nominal)
@@ -50,15 +50,9 @@ model BuildingTimeSeriesWithETSDHWTank
  Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupMinSet(each k=28 + 273.15)
     "Heating water supply temperature set point - Minimum value"
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
-  parameter HotWater.Data.GenericDomesticHotWaterWithHeatExchanger datWatHea(
-    mHex_flow_nominal=datWatHea.QCon_flow_nominal/4200/datWatHea.dTCon_nominal*
-        4,
-    QCon_flow_max=datWatHea.QCon_flow_nominal,
-    QCon_flow_nominal=bui.QHot_flow_nominal,
-    TTan_nominal=(bui.ets.TColWat_nominal + datWatHea.THex_nominal)/2,
-    dTCon_nominal=datWatHea.THex_nominal - bui.ets.TColWat_nominal)
+  parameter HotWater.Data.GenericDomesticHotWaterWithHeatExchanger datWatHea(VTan=0.3)
     "Performance data"
-    annotation (Placement(transformation(extent={{44,-38},{56,-26}})));
+    annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
 
 equation
   connect(supAmbWat.ports[1], senMasFlo.port_a)

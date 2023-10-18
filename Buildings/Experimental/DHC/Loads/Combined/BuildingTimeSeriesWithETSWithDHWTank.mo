@@ -12,7 +12,7 @@ model BuildingTimeSeriesWithETSWithDHWTank
       datWatHea=datWatHea));
   parameter HotWater.Data.GenericDomesticHotWaterWithHeatExchanger datWatHea
     "Performance data"
-    annotation (Placement(transformation(extent={{-246,244},{-234,256}})));
+    annotation (Placement(transformation(extent={{-250,232},{-230,252}})));
   annotation (Documentation(info="<html>
 <p>
 This model is the same as 

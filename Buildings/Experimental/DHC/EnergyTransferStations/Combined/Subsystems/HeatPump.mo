@@ -1,4 +1,4 @@
-within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems;
+﻿within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems;
 model HeatPump "Base subsystem with water-to-water heat pump"
   replaceable package Medium1=Modelica.Media.Interfaces.PartialMedium
     "Medium model on condenser side"
@@ -249,8 +249,9 @@ equation
           138,6}}, color={0,0,127}));
   connect(pumCon.port_b, senTConEnt.port_a) annotation (Line(points={{-50,-50},
           {-40,-50},{-40,-30}},color={0,127,255}));
-  connect(zer.y, add2.u2) annotation (Line(points={{101,-100},{120,-100},{120,-6},
-          {138,-6}}, color={0,0,127}));
+  connect(zer.y, add2.u2) annotation (Line(points={{101,-100},{120,-100},{120,
+          -6},{138,-6}},
+                     color={0,0,127}));
   connect(pumCon.m_flow_actual, staPum[1].u) annotation (Line(points={{-49,-45},
           {-38,-45},{-38,-100},{-78,-100}}, color={0,0,127}));
   connect(pumEva.m_flow_actual, staPum[2].u) annotation (Line(points={{49,-55},{
