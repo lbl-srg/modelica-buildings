@@ -266,5 +266,8 @@ Initial Implementation.
           lineThickness=0.5,
           fillColor={0,0,0},
           fillPattern=FillPattern.CrossDiag)}),                  Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false), graphics={Text(
+          extent={{-116,94},{-24,84}},
+          textColor={238,46,47},
+          textString="fixme: to be deleted")}));
 end HeatPumpWithTank;

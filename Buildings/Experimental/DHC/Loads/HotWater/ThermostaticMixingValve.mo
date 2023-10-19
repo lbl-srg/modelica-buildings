@@ -78,7 +78,7 @@ model ThermostaticMixingValve
     final Ti=Ti,
     final Td=Td,
     yMax=1,
-    yMin=0) annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+    yMin=0) annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
   Controls.OBC.CDL.Reals.Divide ratEne
     "Ratio of actual over required energy (must be near 1 if load is satisfied)"
@@ -196,18 +196,18 @@ equation
     annotation (Line(points={{-40,-40},{-60,-40}}, color={0,127,255}));
   connect(floSouHot.port_b, senTMix.port_a) annotation (Line(points={{-20,-40},
           {-14,-40},{-14,-60},{0,-60}}, color={0,127,255}));
-  connect(conPID.u_s, TMixSet) annotation (Line(points={{-42,0},{-88,0},{-88,20},
+  connect(conPID.u_s, TMixSet) annotation (Line(points={{-22,0},{-88,0},{-88,20},
           {-110,20}}, color={0,0,127}));
   connect(senTMix.T, conPID.u_m) annotation (Line(points={{10,-49},{10,-20},{
-          -30,-20},{-30,-12}}, color={0,0,127}));
+          -10,-20},{-10,-12}}, color={0,0,127}));
   connect(sinMMix.m_flow_in, gaiMMix_sign.y) annotation (Line(points={{62,-52},
           {80,-52},{80,-10},{62,-10}}, color={0,0,127}));
   connect(mulMHot_flow.y, floSouHot.m_flow_in) annotation (Line(points={{62,20},
           {90,20},{90,-28},{-36,-28},{-36,-32}}, color={0,0,127}));
   connect(gaiMMix_flow.y, mulMHot_flow.u1) annotation (Line(points={{-58,30},{26,
           30},{26,26},{38,26}},    color={0,0,127}));
-  connect(conPID.y, mulMHot_flow.u2) annotation (Line(points={{-18,0},{30,0},{
-          30,14},{38,14}}, color={0,0,127}));
+  connect(conPID.y, mulMHot_flow.u2) annotation (Line(points={{2,0},{30,0},{30,
+          14},{38,14}},    color={0,0,127}));
   connect(gaiMMix_flow.y, gaiMMix_sign.u) annotation (Line(points={{-58,30},{26,
           30},{26,-10},{38,-10}}, color={0,0,127}));
   connect(senTCol.port_b, senTMix.port_a) annotation (Line(points={{-60,-80},{
