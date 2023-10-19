@@ -1,1 +1,4 @@
+HeatExchangerPumpController
 PartialFourPortDHW
+TankChargingController
+TankValveController

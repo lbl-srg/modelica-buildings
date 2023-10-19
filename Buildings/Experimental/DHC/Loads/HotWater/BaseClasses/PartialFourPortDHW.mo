@@ -1,39 +1,83 @@
 within Buildings.Experimental.DHC.Loads.HotWater.BaseClasses;
 partial model PartialFourPortDHW
   "A partial model for domestic water heating"
-  extends Buildings.Fluid.Interfaces.PartialFourPort(
-    redeclare final package Medium1=Medium,
-    redeclare final package Medium2=Medium);
-  replaceable package Medium = Buildings.Media.Water "Water media model";
-  parameter Modelica.Units.SI.MassFlowRate mHotSou_flow_nominal "Nominal mass flow rate of hot water supply";
-  parameter Modelica.Units.SI.MassFlowRate mDis_flow_nominal "Nominal mass flow rate of district heating water";
-  Modelica.Blocks.Interfaces.RealOutput PHea(unit="W")
-    "Electric power required for heating equipment"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Interfaces.RealInput THotSouSet(
+  replaceable package MediumDom =
+    Modelica.Media.Interfaces.PartialMedium "Medium 1 in the component"
+      annotation (choices(
+        choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
+        choice(redeclare package Medium = Buildings.Media.Water "Water"),
+        choice(redeclare package Medium =
+            Buildings.Media.Antifreeze.PropyleneGlycolWater (
+          property_T=293.15,
+          X_a=0.40)
+          "Propylene glycol water, 40% mass fraction")));
+  replaceable package MediumHea =
+    Modelica.Media.Interfaces.PartialMedium "Medium 2 in the component"
+      annotation (choices(
+        choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
+        choice(redeclare package Medium = Buildings.Media.Water "Water"),
+        choice(redeclare package Medium =
+            Buildings.Media.Antifreeze.PropyleneGlycolWater (
+          property_T=293.15,
+          X_a=0.40)
+          "Propylene glycol water, 40% mass fraction")));
+
+  parameter Boolean allowFlowReversalDom=true
+    "= false to simplify equations, assuming, but not enforcing, no flow reversal for domestic water"
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
+  parameter Boolean allowFlowReversalHea=true
+    "= false to simplify equations, assuming, but not enforcing, no flow reversal for heating water"
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
+
+  Modelica.Fluid.Interfaces.FluidPort_a port_aDom(
+    redeclare final package Medium = MediumDom,
+    m_flow(min=if allowFlowReversalDom then -Modelica.Constants.inf else 0),
+    h_outflow(start=MediumDom.h_default, nominal=MediumDom.h_default))
+    "Fluid connector for cold water (or recirculation water)"
+    annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
+
+  Modelica.Fluid.Interfaces.FluidPort_b port_bDom(
+    redeclare final package Medium = MediumDom,
+    m_flow(max=if allowFlowReversalDom then +Modelica.Constants.inf else 0),
+    h_outflow(start=MediumDom.h_default, nominal=MediumDom.h_default))
+    "Fluid connector for heated domestic hot water"
+    annotation (Placement(transformation(extent={{110,50},{90,70}})));
+
+  Modelica.Fluid.Interfaces.FluidPort_a port_aHea(
+    redeclare final package Medium = MediumHea,
+    m_flow(min=if allowFlowReversalHea then -Modelica.Constants.inf else 0),
+    h_outflow(start=MediumHea.h_default, nominal=MediumHea.h_default))
+    "Fluid connector for heating water (positive design flow direction is from port_a to port_b)"
+    annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
+
+  Modelica.Fluid.Interfaces.FluidPort_b port_bHea(
+    redeclare final package Medium = MediumHea,
+    m_flow(max=if allowFlowReversalHea then +Modelica.Constants.inf else 0),
+    h_outflow(start=MediumHea.h_default, nominal=MediumHea.h_default))
+    "Fluid connector b for heating water (positive design flow direction is from port_a to port_b)"
+    annotation (Placement(transformation(extent={{-90,-70},{-110,-50}})));
+
+  Controls.OBC.CDL.Interfaces.RealInput TDomSet(
     final unit="K",
     displayUnit="degC")
-    "Temperature setpoint for domestic hot water source from heater"
+    "Temperature setpoint for domestic water source from heater"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
-  Modelica.Blocks.Sources.Constant zero(k=0) if have_PEle == false "Zero output"
-    annotation (Placement(transformation(extent={{60,80},{80,100}})));
-protected
-  parameter Boolean have_PEle "Flag that specifies whether electric power is required for water heating";
-equation
-  connect(zero.y,PHea)
-    annotation (Line(points={{81,90},{82,90},{82,0},{110,0}},
-                                              color={0,0,127}));
-  annotation (preferredView="info",Documentation(info="<html>
+
+  Controls.OBC.CDL.Interfaces.BooleanOutput charge
+    "Output true if tank needs to be charged, false if it is sufficiently charged"
+    annotation (Placement(transformation(extent={{100,-100},{140,-60}}),
+        iconTransformation(extent={{100,-110},{140,-70}})));
+
+  annotation (Documentation(info="<html>
 <p>
 This partial model can be used for different domestic hot water generation methods.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-September 29, 2022 by Dre Helmns:<br/>
-Created partial model.
+October 4, 2023, by Michael Wetter:<br/>
+First implementation.
 </li>
 </ul>
-</html>"),Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+</html>"));
 end PartialFourPortDHW;
