@@ -309,5 +309,9 @@ This is for
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={175,175,175},
-          fillPattern=FillPattern.Solid)}));
+          fillPattern=FillPattern.Solid)}),
+    Diagram(graphics={Text(
+          extent={{-22,112},{18,100}},
+          textColor={238,46,47},
+          textString="fixme: are these blocks needed?")}));
 end HeatPumpHeatExchangerDHWTank;
