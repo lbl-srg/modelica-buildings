@@ -39,8 +39,8 @@ partial model PartialRoom "Partial model for a room"
   Modelica.Blocks.Sources.Constant qLatGai_flow(k=0) "Latent heat gain"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"), TDryBul=
-        293.15)
+    filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
+    TDryBul=293.15)
     annotation (Placement(transformation(extent={{160,140},{180,160}})));
 equation
   connect(qRadGai_flow.y, multiplex3_1.u1[1]) annotation (Line(
