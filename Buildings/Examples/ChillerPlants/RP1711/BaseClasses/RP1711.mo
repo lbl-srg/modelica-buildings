@@ -127,6 +127,19 @@ model RP1711 "Chiller plant model with RP1711 controller"
     "Sample value and break algebric loop"
     annotation (Placement(transformation(extent={{340,-110},{360,-90}})));
 
+  Controls.OBC.CDL.Reals.Sources.Constant con(k=1)
+    annotation (Placement(transformation(extent={{-20,150},{0,170}})));
+  Controls.OBC.CDL.Reals.GreaterThreshold greThr[2](t=fill(0.95, 2), h=fill(
+        0.025, 2))
+    annotation (Placement(transformation(extent={{-100,56},{-80,76}})));
+  Controls.OBC.CDL.Conversions.BooleanToReal booToRea[2]
+    annotation (Placement(transformation(extent={{-8,56},{12,76}})));
+  Controls.OBC.CDL.Logical.MultiOr mulOr(nin=2)
+    annotation (Placement(transformation(extent={{-70,56},{-50,76}})));
+  Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep(nout=2)
+    annotation (Placement(transformation(extent={{-40,56},{-20,76}})));
+  Controls.OBC.CDL.Reals.Multiply mul[2]
+    annotation (Placement(transformation(extent={{30,30},{50,50}})));
 protected
   final parameter Modelica.Units.SI.SpecificHeatCapacity Cp = 4198
     "Water specific heat capacity";
@@ -158,17 +171,15 @@ equation
   connect(conWatPum2.y_actual, conWatPumSta[2].u) annotation (Line(points={{267,199},
           {267,192},{-410,192},{-410,160},{-402,160}},      color={0,0,127}));
   connect(weaBus.TDryBul, TOut.u)
-          annotation (Line(points={{-560,40},{-522,40}},
+          annotation (Line(points={{-559.95,40.05},{-540,40.05},{-540,40},{-522,
+          40}},
       color={255,204,51},
       thickness=0.5));
   connect(TOut.y, chiPlaCon.TOut) annotation (Line(points={{-499,40},{-440,40},
           {-440,32},{-264,32}},   color={0,0,127}));
-  connect(chiPlaCon.yChiWatIsoVal[1], chwIsoVal1.y) annotation (Line(points={{-216,66},
-          {-140,66},{-140,100},{240,100},{240,82}}, color={0,0,127}));
-  connect(chiPlaCon.yChiWatIsoVal[2], chwIsoVal2.y) annotation (Line(points={{-216,66},
-          {-140,66},{-140,100},{130,100},{130,10},{240,10},{240,-8}}, color={0,0,127}));
-  connect(weaBus.TWetBul, TWetBul.u) annotation (Line(points={{-560,40},{-540,40},
-          {-540,80},{-522,80}}, color={255,204,51},thickness=0.5));
+  connect(weaBus.TWetBul, TWetBul.u) annotation (Line(points={{-559.95,40.05},{
+          -540,40.05},{-540,80},{-522,80}},
+                                color={255,204,51},thickness=0.5));
   connect(TWetBul.y, cooTow2.TAir) annotation (Line(points={{-499,80},{-490,80},
           {-490,350},{360,350},{360,314},{342,314}},      color={0,0,127}));
   connect(chiWatPum1.y_actual, chiWatPumSta[1].u) annotation (Line(points={{207,
@@ -181,10 +192,6 @@ equation
           {300,388},{-430,388},{-430,-20},{-402,-20}},      color={0,0,127}));
   connect(conWatLev.y, chiPlaCon.watLev) annotation (Line(points={{-498,0},{
           -380,0},{-380,8},{-264,8}},       color={0,0,127}));
-  connect(chiPlaCon.yChiPumSpe[1], chiWatPum1.y) annotation (Line(points={{-216,
-          124},{80,124},{80,-56},{220,-56},{220,-96},{212,-96}},   color={0,0,127}));
-  connect(chiPlaCon.yChiPumSpe[2], chiWatPum2.y) annotation (Line(points={{-216,
-          124},{80,124},{80,-56},{280,-56},{280,-96},{272,-96}},   color={0,0,127}));
   connect(chiPlaCon.yConWatPumSpe[1], conWatPum1.y) annotation (Line(points={{-216,92},
           {120,92},{120,224},{220,224},{220,210},{212,210}}, color={0,0,127}));
   connect(chiPlaCon.yConWatPumSpe[2], conWatPum2.y) annotation (Line(points={{-216,92},
@@ -320,6 +327,26 @@ equation
           {-170,31},{-170,410},{350,410},{350,388},{342,388}}, color={0,0,127}));
   connect(chiPlaCon.yTowFanSpe[2], cooTow2.y) annotation (Line(points={{-216,33},
           {-170,33},{-170,340},{350,340},{350,318},{342,318}}, color={0,0,127}));
+  connect(chiPlaCon.yChiWatIsoVal[1], chwIsoVal1.y) annotation (Line(points={{
+          -216,66},{-120,66},{-120,106},{240,106},{240,82}}, color={0,0,127}));
+  connect(chiPlaCon.yChiWatIsoVal[2], chwIsoVal2.y) annotation (Line(points={{
+          -216,66},{-120,66},{-120,12},{240,12},{240,-8}}, color={0,0,127}));
+  connect(chiPlaCon.yChiWatIsoVal, greThr.u)
+    annotation (Line(points={{-216,66},{-102,66}}, color={0,0,127}));
+  connect(greThr.y, mulOr.u)
+    annotation (Line(points={{-78,66},{-72,66}}, color={255,0,255}));
+  connect(mulOr.y, booScaRep.u)
+    annotation (Line(points={{-48,66},{-42,66}}, color={255,0,255}));
+  connect(booScaRep.y, booToRea.u)
+    annotation (Line(points={{-18,66},{-10,66}}, color={255,0,255}));
+  connect(booToRea.y, mul.u1) annotation (Line(points={{14,66},{20,66},{20,46},
+          {28,46}}, color={0,0,127}));
+  connect(chiPlaCon.yChiPumSpe, mul.u2) annotation (Line(points={{-216,124},{
+          -180,124},{-180,34},{28,34}}, color={0,0,127}));
+  connect(mul[2].y, chiWatPum2.y) annotation (Line(points={{52,40},{80,40},{80,
+          -56},{280,-56},{280,-96},{272,-96}}, color={0,0,127}));
+  connect(mul[1].y, chiWatPum1.y) annotation (Line(points={{52,40},{80,40},{80,
+          -56},{220,-56},{220,-96},{212,-96}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,200},
             {160,-200}}), graphics={
         Rectangle(

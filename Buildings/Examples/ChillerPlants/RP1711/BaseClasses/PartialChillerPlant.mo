@@ -160,7 +160,7 @@ partial model PartialChillerPlant "Chiller plant model for closed-loop test"
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     per(pressure(V_flow={0,mChi_flow_nominal,2*mChi_flow_nominal}/1.2,
                      dp={2*dpChi_nominal,dpChi_nominal,0})),
-    final use_inputFilter=false)
+    use_inputFilter=false)
     "Chilled water pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,origin={200,-96})));

@@ -8,6 +8,8 @@ block EnableDevices
     "Total number of chilled water pumps";
   parameter Integer nConWatPum = 2
     "Total number of condenser water pumps";
+  parameter Real iniPumDel(unit="s") = 5
+    "Time to delay pump operation when the plant is just initiated";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla
     "Plant enable signal"
@@ -72,7 +74,7 @@ block EnableDevices
     "Plant enable edge"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
   Buildings.Controls.OBC.CDL.Logical.Latch ecoMod "Plant enabled in economizer mode"
-    annotation (Placement(transformation(extent={{40,90},{60,110}})));
+    annotation (Placement(transformation(extent={{0,90},{20,110}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
     final k=1)
     "Stage 1, meaning it stages in chiller mode"
@@ -98,10 +100,6 @@ block EnableDevices
     "Enable lead chiller"
     annotation (Placement(transformation(extent={{20,-130},{40,-110}})));
 
-  CDL.Logical.Pre pre
-    annotation (Placement(transformation(extent={{-20,70},{0,90}})));
-  CDL.Logical.Pre pre1
-    annotation (Placement(transformation(extent={{2,20},{22,40}})));
 equation
   connect(uPla, edg.u)
     annotation (Line(points={{-180,100},{-102,100}}, color={255,0,255}));
@@ -112,20 +110,14 @@ equation
   connect(intEqu1.y, not1.u)
     annotation (Line(points={{-78,60},{-62,60}}, color={255,0,255}));
   connect(edg.y, ecoMod.u)
-    annotation (Line(points={{-78,100},{38,100}}, color={255,0,255}));
+    annotation (Line(points={{-78,100},{-2,100}}, color={255,0,255}));
   connect(ecoMod.y, yEnaPlaPro)
-    annotation (Line(points={{62,100},{180,100}}, color={255,0,255}));
-  connect(ecoMod.y, yLeaPriChiPum) annotation (Line(points={{62,100},{80,100},{80,
-          -30},{180,-30}}, color={255,0,255}));
-  connect(ecoMod.y, yLeaConPum) annotation (Line(points={{62,100},{80,100},{80,-60},
-          {180,-60}}, color={255,0,255}));
-  connect(ecoMod.y,yLeaTowCel)  annotation (Line(points={{62,100},{80,100},{80,-90},
-          {180,-90}},  color={255,0,255}));
+    annotation (Line(points={{22,100},{180,100}}, color={255,0,255}));
   connect(conInt.y, intChiMod.u2) annotation (Line(points={{-98,0},{-60,0},{-60,
           22},{-42,22}}, color={255,127,0}));
   connect(uIni, intChiMod.u1) annotation (Line(points={{-180,60},{-120,60},{-120,
           30},{-42,30}}, color={255,127,0}));
-  connect(ecoMod.y, and1.u2) annotation (Line(points={{62,100},{80,100},{80,22},
+  connect(ecoMod.y, and1.u2) annotation (Line(points={{22,100},{40,100},{40,22},
           {98,22}}, color={255,0,255}));
   connect(and1.y, yChiWatIsoVal)
     annotation (Line(points={{122,30},{180,30}}, color={255,0,255}));
@@ -145,14 +137,16 @@ equation
           0},{0,-120},{18,-120}}, color={255,0,255}));
   connect(and3.y, yLeaChi)
     annotation (Line(points={{42,-120},{180,-120}}, color={255,0,255}));
-  connect(not1.y, pre.u) annotation (Line(points={{-38,60},{-30,60},{-30,80},{
-          -22,80}}, color={255,0,255}));
-  connect(pre.y, ecoMod.clr) annotation (Line(points={{2,80},{20,80},{20,94},{
-          38,94}}, color={255,0,255}));
-  connect(intChiMod.y, pre1.u)
-    annotation (Line(points={{-18,30},{0,30}}, color={255,0,255}));
-  connect(pre1.y, and1.u1)
-    annotation (Line(points={{24,30},{98,30}}, color={255,0,255}));
+  connect(not1.y, ecoMod.clr) annotation (Line(points={{-38,60},{-20,60},{-20,94},
+          {-2,94}}, color={255,0,255}));
+  connect(intChiMod.y, and1.u1)
+    annotation (Line(points={{-18,30},{98,30}}, color={255,0,255}));
+  connect(ecoMod.y, yLeaPriChiPum) annotation (Line(points={{22,100},{40,100},{
+          40,-30},{180,-30}}, color={255,0,255}));
+  connect(ecoMod.y, yLeaConPum) annotation (Line(points={{22,100},{40,100},{40,
+          -60},{180,-60}}, color={255,0,255}));
+  connect(ecoMod.y, yLeaTowCel) annotation (Line(points={{22,100},{40,100},{40,
+          -90},{180,-90}}, color={255,0,255}));
 annotation (defaultComponentName = "enaDev",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
     graphics={

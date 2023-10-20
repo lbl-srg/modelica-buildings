@@ -187,6 +187,10 @@ block Controller "Chiller plant controller"
     "Ignorable chiller plant requests"
     annotation(Dialog(tab="Plant enable"));
 
+  parameter Real iniPumDel(unit="s") = 5
+    "Time to delay pump operation when the plant is just initiated"
+    annotation(Dialog(tab="Plant enable"));
+
   // ---- Waterside economizer ----
 
   parameter Real holdPeriod(unit="s")=1200
@@ -1560,7 +1564,8 @@ block Controller "Chiller plant controller"
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable.EnableDevices enaDev(
     final nSta=nSta,
     final nChiWatPum=nChiWatPum,
-    final nConWatPum=nConWatPum)
+    final nConWatPum=nConWatPum,
+    final iniPumDel=iniPumDel)
     "Enable devices when plant is enabled"
     annotation (Placement(transformation(extent={{-540,-440},{-520,-420}})));
 

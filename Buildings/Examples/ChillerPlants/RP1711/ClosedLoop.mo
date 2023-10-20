@@ -48,6 +48,7 @@ model ClosedLoop
     final m_flow_nominal=mWater_flow_nominal,
     final show_T=true,
     final dpValve_nominal=20000,
+    use_inputFilter=false,
     final dpFixed_nominal=60000) "Cooling coil valve"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},rotation=90,origin={80,20})));
@@ -175,7 +176,7 @@ equation
       color={0,127,255},
       thickness=0.5));
   connect(weaBus.TDryBul, outAir.T_in) annotation (Line(
-      points={{80,90},{250,90},{250,-76},{242,-76}},
+      points={{80.05,90.05},{250,90.05},{250,-76},{242,-76}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
