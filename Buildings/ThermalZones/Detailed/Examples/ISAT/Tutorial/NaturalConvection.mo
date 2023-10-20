@@ -429,7 +429,9 @@ Figure (b). Note: Tecplot is needed for this.
 </ol>
 </html>",revisions="<html>
 <ul>
-<li>April 5, 2020, by Xu Han, Cary Faulkner, Wangda Zuo:<br>First implementation. </li>
+<li>April 5, 2020, by Xu Han, Cary Faulkner, Wangda Zuo:<br/>
+First implementation.
+</li>
 </ul>
 <h4>References</h4>
 <p><a name=\"ZuoEtAl2012\">W</a>angda Zuo, Mingang Jin, Qingyan Chen, 2012.</p>
