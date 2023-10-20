@@ -205,12 +205,13 @@ Each class (i.e., model, block and function) must be used in an example or valid
     extends Modelica.Icons.ReleaseNotes;
 
 
-    class Version_10_0_1 "Version 10.0.1"
-      extends Modelica.Icons.ReleaseNotes;
-        annotation (Documentation(info="<html>
+    class Version_10_1_0 "Version 10.1.0"
+  extends Modelica.Icons.ReleaseNotes;
+        annotation(
+          Documentation(info = "<html>
 <div class=\"release-summary\">
 <p>
-Version 10.0.1 is backward compatible with version 10.0.0.
+Version 10.1.0 is backward compatible with version 10.0.0.
 </p>
 </div>
 <!-- New libraries -->
@@ -218,9 +219,9 @@ Version 10.0.1 is backward compatible with version 10.0.0.
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.Geothermal.Aquifer
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Library with component models for aquifer thermal energy storage.
     </td>
     </tr>
 </table>
@@ -340,7 +341,7 @@ xxx
 </li>
 </ul>
 </html>"));
-    end Version_10_0_1;
+    end Version_10_1_0;
 
   class Version_10_0_0 "Version 10.0.0"
   extends Modelica.Icons.ReleaseNotes;
@@ -12596,7 +12597,7 @@ on the Buildings library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_10_0_1\">Version 10.0.1</a> (xxx, 2023)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_10_1_0\">Version 10.1.0</a> (xxx, 2023)
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_10_0_0\">Version 10.0.0</a> (September 5, 2023)
@@ -13176,7 +13177,7 @@ end UsersGuide;
 
 annotation (
 preferredView="info",
-version="10.0.1",
+version="10.1.0",
 versionDate="2023-09-05",
 dateModified="2023-09-05",
 uses(Modelica(version="4.0.0")),
