@@ -21,7 +21,7 @@ model Valves "Validation model for valve components"
     "Boundary conditions for leaving liquid"
     annotation (Placement(transformation(extent={{110,70},{90,90}})));
 
-  Actuators.Valve                                          modThr(
+  Actuators.Valve modThr(
     redeclare final package Medium = MediumLiq,
     typ=Buildings.Templates.Components.Types.Valve.ThreeWayModulating,
     final energyDynamics=energyDynamics,
@@ -41,7 +41,7 @@ model Valves "Validation model for valve components"
     duration=10) "Damper control signal"
     annotation (Placement(transformation(extent={{-90,110},{-70,130}})));
 
-  Actuators.Valve                                           twoThr(
+  Actuators.Valve twoThr(
     redeclare final package Medium = MediumLiq,
     typ=Buildings.Templates.Components.Types.Valve.ThreeWayTwoPosition,
     final energyDynamics=energyDynamics,
@@ -57,7 +57,7 @@ model Valves "Validation model for valve components"
       transformation(extent={{-20,-20},{20,20}}),
       iconTransformation(extent={{-250,-32},{-210,8}})));
 
-  Actuators.Valve                                        modTwo(
+  Actuators.Valve modTwo(
     redeclare final package Medium = MediumLiq,
     typ=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
     final energyDynamics=energyDynamics,
