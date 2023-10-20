@@ -42,7 +42,7 @@ model NumberWells
     y=aquWel2.TAquHot[10])
     "Temperature output from aquifer model with two pairs of wells"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
-  Utilities.Diagnostics.CheckEquality cheEqu
+  Buildings.Utilities.Diagnostics.CheckEquality cheEqu
     "Assertion that checks for equality of results"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 equation

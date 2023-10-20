@@ -2183,9 +2183,6 @@ Buildings/Resources/Images/Utilities/Math/Functions/Examples/cubicHermite.png
 Buildings/Resources/Images/Utilities/Math/Functions/SmoothExponentialXPower.png
 Buildings/Resources/Images/Utilities/Math/int.pdf
 Buildings/Resources/Images/Utilities/Math/int.png
-Buildings/Resources/ReferenceResults/Dymola/Buildings_Fluid_Geothermal_Aquifer_Examples_CoolingOffice.txt
-Buildings/Resources/ReferenceResults/Dymola/Buildings_Fluid_Geothermal_Aquifer_Validation_NumberWells.txt
-Buildings/Resources/ReferenceResults/Dymola/Buildings_Fluid_Geothermal_Aquifer_Validation_SimulationTest.txt
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/Interpolate.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLaw.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLawFixedM.mos
@@ -2506,6 +2503,9 @@ Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PressureDro
 Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PressureDropsExplicitLinearized.mos
 Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PressureDropsParallel.mos
 Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PressureDropsSeries.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Aquifer/Examples/CoolingOffice.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Aquifer/Validation/NumberWells.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Aquifer/Validation/SimulationTest.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Examples/InternalHEXOneUTube.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Examples/InternalHEXTwoUTube.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Examples/InternalResistancesOneUTube.mos
