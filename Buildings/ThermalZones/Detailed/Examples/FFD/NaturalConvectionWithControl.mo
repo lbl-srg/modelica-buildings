@@ -11,7 +11,7 @@ model NaturalConvectionWithControl
 
   HeatTransfer.Sources.PrescribedHeatFlow preHeatFlo "Prescribed heat flow rate"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID conPID(
+  Buildings.Controls.OBC.CDL.Reals.PID conPID(
     yMin=0,
     Ti=120,
     k=1,
@@ -20,7 +20,7 @@ model NaturalConvectionWithControl
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-10,60})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSet(k=275.15) "Temperature set point"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSet(k=275.15) "Temperature set point"
     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,

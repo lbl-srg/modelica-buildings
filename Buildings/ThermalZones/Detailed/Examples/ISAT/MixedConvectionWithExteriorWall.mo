@@ -194,7 +194,7 @@ If the case has more than one inputs, the syntax of setting is:
       StopTime=604800,
       Tolerance=1e-06),
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/ISAT/Tutorial/MixedConvection.mos" "Simulate and plot"),
+          "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/ISAT/MixedConvectionWithExteriorWall.mos" "Simulate and plot"),
     Diagram(coordinateSystem(extent={{-80,-160},{200,120}}, preserveAspectRatio=false),
         graphics));
 end MixedConvectionWithExteriorWall;
