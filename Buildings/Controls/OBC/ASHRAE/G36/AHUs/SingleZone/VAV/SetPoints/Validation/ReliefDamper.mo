@@ -4,7 +4,7 @@ model ReliefDamper "Validation of relief damper control"
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.ReliefDamper relDam(final
       relDam_min=0.1, final relDam_max=0.6) "Relief damper controller"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp outDamMin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp outDamMin(
     final height=0.1,
     final offset=0.1,
     final duration=3600)
@@ -14,7 +14,7 @@ model ReliefDamper "Validation of relief damper control"
     final period=3600)
     "Supply fan status"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp outDam(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp outDam(
     final height=0.6,
     final offset=0.2,
     final duration=3600)

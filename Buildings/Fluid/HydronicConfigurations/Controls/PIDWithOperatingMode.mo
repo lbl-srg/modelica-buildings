@@ -68,7 +68,7 @@ block PIDWithOperatingMode "PID controller with operating mode input"
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={-60,-120})));
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conPID(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset conPID(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
@@ -87,28 +87,28 @@ block PIDWithOperatingMode "PID controller with operating mode input"
   Buildings.Controls.OBC.CDL.Integers.Change cha
     "Monitor change of signal value"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mulSet
+  Buildings.Controls.OBC.CDL.Reals.Multiply mulSet
     "Multiply input with mapping coefficient"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor extIndSig(final nin=3)
     "Select mapping coefficient based on operating mode"
     annotation (Placement(transformation(extent={{-30,70},{-10,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant map_ms[3](k={0,1,-1})
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant map_ms[3](k={0,1,-1})
     "Map set point and measured values depending on actual operating mode"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mulMea
+  Buildings.Controls.OBC.CDL.Reals.Multiply mulMea
     "Multiply input with mapping coefficient"
     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={20,-50})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Integers.LessEqualThreshold isDis(t=Controls.OperatingModes.disabled)
     "Returns true if disabled"
     annotation (Placement(transformation(extent={{10,20},{30,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant disVal(k=y_neutral)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant disVal(k=y_neutral)
     "Value when disabled"
     annotation (Placement(transformation(extent={{10,70},{30,90}})));
   Buildings.Controls.OBC.CDL.Integers.AddParameter addPar(final p=1)
@@ -194,8 +194,8 @@ equation
     Documentation(info="<html>
 <p>
 This block adds the following features to 
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.PIDWithReset\">
-Buildings.Controls.OBC.CDL.Continuous.PIDWithReset</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Reals.PIDWithReset\">
+Buildings.Controls.OBC.CDL.Reals.PIDWithReset</a>.
 </p>
 <ul>
 <li>
@@ -213,22 +213,18 @@ applies the minimum control effect, i.e., valves/dampers closed,
 VFDs at minimum speed, etc.
 </li>
 <li>
-When operated under the mode
-<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.Controls.OperatingModes.enabled\">
-Buildings.Fluid.HydronicConfigurations.Controls.OperatingModes.enabled</a>
+When operated under the mode <code>enabled</code>
 the controller behaves exactly as
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.PIDWithReset\">
-Buildings.Controls.OBC.CDL.Continuous.PIDWithReset</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Reals.PIDWithReset\">
+Buildings.Controls.OBC.CDL.Reals.PIDWithReset</a>.
 Furthermore, the controller output is reset to <code>y_reset</code> at enable
 time.
 </li>
 <li>
-When operated under the mode
-<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.Controls.OperatingModes.heating\">
-Buildings.Fluid.HydronicConfigurations.Controls.OperatingModes.heating</a>
+When operated under the mode <code>heating</code>
 the controller behaves as
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.PIDWithReset\">
-Buildings.Controls.OBC.CDL.Continuous.PIDWithReset</a>
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Reals.PIDWithReset\">
+Buildings.Controls.OBC.CDL.Reals.PIDWithReset</a>
 except that the sign of the measured and set point variables is reversed
 so that the controller may for instance provide a heating function if 
 it was originally configured for a cooling function.

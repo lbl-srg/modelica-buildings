@@ -1,4 +1,0 @@
-simulateModel("Buildings.Controls.OBC.CDL.Continuous.Validation.Sort", method="Cvode", tolerance=1e-06, stopTime=1.0, resultFile="Sort1");
-createPlot(id=1, position={53, 14, 959, 905}, y={"sorAsc.u[1]", "sorAsc.u[2]", "sorAsc.u[3]", "sorAsc.u[4]", "sorAsc.u[5]"}, range={0.0, 0.0, -4.0, 6.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});
-createPlot(id=1, position={53, 14, 959, 299}, y={"sorAsc.y[1]", "sorAsc.y[2]", "sorAsc.y[3]", "sorAsc.y[4]", "sorAsc.y[5]"}, range={0.0, 0.0, -6.0, 6.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});
-createPlot(id=1, position={53, 14, 959, 299}, y={"sorDes.y[1]", "sorDes.y[2]", "sorDes.y[3]", "sorDes.y[4]", "sorDes.y[5]"}, range={0.0, 0.0, -6.0, 6.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}});

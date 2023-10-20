@@ -95,11 +95,11 @@ block Overrides "Software switches to override setpoints"
     final realTrue=VMin_flow)
     "Force zone airflow setpoint to zone minimum flow"
     annotation (Placement(transformation(extent={{-40,130},{-20,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2 "Add up two inputs"
+  Buildings.Controls.OBC.CDL.Reals.Add add2 "Add up two inputs"
     annotation (Placement(transformation(extent={{28,150},{48,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add1 "Add up inputs"
+  Buildings.Controls.OBC.CDL.Reals.Add add1 "Add up inputs"
     annotation (Placement(transformation(extent={{62,190},{82,210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Airflow setpoint after considering override"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi "Airflow setpoint after considering override"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
   Buildings.Controls.OBC.CDL.Logical.Or3 or3 "Check if the airflow setpoint should be overrided"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
@@ -125,12 +125,12 @@ block Overrides "Software switches to override setpoints"
     final realTrue=1)
     "Full open damper position"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add3 "Add up inputs"
+  Buildings.Controls.OBC.CDL.Reals.Add add3 "Add up inputs"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2
     "Check if the damper setpoint position should be overrided"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1
     "Damper setpoint position after considering override"
     annotation (Placement(transformation(extent={{80,-90},{100,-70}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt5(
@@ -144,7 +144,7 @@ block Overrides "Software switches to override setpoints"
     final realTrue=VHeaMax_flow)
     "Force zone airflow setpoint to zone heating maximum flow"
     annotation (Placement(transformation(extent={{-40,90},{-20,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add4
+  Buildings.Controls.OBC.CDL.Reals.Add add4
     "Add up two inputs"
     annotation (Placement(transformation(extent={{-6,110},{14,130}})));
   Buildings.Controls.OBC.CDL.Logical.Or or1
@@ -172,13 +172,13 @@ block Overrides "Software switches to override setpoints"
     final realTrue=1)
     "Full open damper position"
     annotation (Placement(transformation(extent={{-40,-190},{-20,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add5
+  Buildings.Controls.OBC.CDL.Reals.Add add5
     "Add up inputs"
     annotation (Placement(transformation(extent={{20,-170},{40,-150}})));
   Buildings.Controls.OBC.CDL.Logical.Or or4
     "Check if the damper setpoint position should be overrided"
     annotation (Placement(transformation(extent={{0,-210},{20,-190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi2
+  Buildings.Controls.OBC.CDL.Reals.Switch swi2
     "Damper setpoint position after considering override"
     annotation (Placement(transformation(extent={{80,-210},{100,-190}})));
 

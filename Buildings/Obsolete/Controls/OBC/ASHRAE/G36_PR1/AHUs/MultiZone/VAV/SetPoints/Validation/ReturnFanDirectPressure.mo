@@ -9,7 +9,7 @@ model ReturnFanDirectPressure
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse yFan(period=4000)
     "Supply fan status"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp dpBui(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp dpBui(
     height=40,
     offset=0,
     duration=1800) "Building static presure"

@@ -3,8 +3,13 @@ model Connection2PipePlugFlow
   "Model for connecting an agent to a two-pipe distribution network, using plug flow pipe models in the main line"
   extends
     Buildings.Experimental.DHC.Networks.BaseClasses.PartialConnection2Pipe(
-    redeclare model Model_pipDis=Buildings.Fluid.FixedResistances.PlugFlowPipe
-        (
+    redeclare model Model_pipDisSup =
+        Buildings.Fluid.FixedResistances.PlugFlowPipe (
+      final length=length,
+      final dIns=dIns,
+      final kIns=kIns),
+    redeclare model Model_pipDisRet =
+        Buildings.Fluid.FixedResistances.PlugFlowPipe (
       final length=length,
       final dIns=dIns,
       final kIns=kIns),
@@ -42,6 +47,10 @@ but not in the connection to the building, as the latter is typically short.
 </html>",
       revisions="<html>
 <ul>
+<li>
+June 14, 2023, by David Blum:<br/>
+Fix redeclare of dis pipe models in connections.
+</li>
 <li>
 January 2, 2023, by Kathryn Hinkelman:<br/>
 First implementation.

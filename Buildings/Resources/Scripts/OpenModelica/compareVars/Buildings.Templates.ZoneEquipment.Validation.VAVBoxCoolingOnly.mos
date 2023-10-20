@@ -1,0 +1,4 @@
+compareVars :=
+  {
+    "VAVBox_1.damVAV.m_flow"
+  };

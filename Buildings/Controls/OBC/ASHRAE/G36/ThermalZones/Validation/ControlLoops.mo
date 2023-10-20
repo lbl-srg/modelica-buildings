@@ -4,15 +4,15 @@ model ControlLoops
   Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.ControlLoops conLoo
     "Heating and cooling loop"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonCooSetOcc(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TZonCooSetOcc(
     final k=297.15)
     "Occupied cooling setpoint"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonHeaSetOcc(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TZonHeaSetOcc(
     final k=293.15)
     "Occupied heating setpoint"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin zonTem(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin zonTem(
     final amplitude=8,
     final freqHz=1/7200,
     final offset=273.15 + 18) "Zone temperature"

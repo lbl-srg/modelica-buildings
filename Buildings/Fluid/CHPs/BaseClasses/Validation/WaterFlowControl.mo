@@ -11,7 +11,7 @@ model WaterFlowControl "Validate model WaterFlowControl"
 protected
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     annotation (Placement(transformation(extent={{60,59},{80,79}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable mWat_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable mWat_flow(
     table=[0,0; 300,0.4; 2700,0; 3000,0],
     smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments)
     "Water mass flow rate"
@@ -29,19 +29,19 @@ protected
     final table={3500})
     "Plant availability signal"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TEng(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TEng(
     y(final unit="K", displayUnit="degC"),
     final height=90,
     final duration=300,
     final offset=273.15 + 15,
     final startTime=360) "Engine temperature"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TWatIn(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TWatIn(
     y(final unit="K", displayUnit="degC"),
     final k=273.15 + 15)
     "Water inlet temperature"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable PEle(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable PEle(
     final table=[0,0; 300,2500; 2700,0; 3000,0],
     final smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments)
     "Electric power demand"

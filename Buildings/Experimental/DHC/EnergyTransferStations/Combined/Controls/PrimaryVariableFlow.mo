@@ -26,16 +26,16 @@ block PrimaryVariableFlow
     "Mass flow rate"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant masFloMin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant masFloMin(
     final k=ratFloMin*m_flow_nominal)
     "Minimum mass flow rate"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter masFlo_dT(final k=1
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter masFlo_dT(final k=1
         /cp/dT_nominal) "Mass flow rate for constant DeltaT"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max masFlo "Mass flow rate"
+  Buildings.Controls.OBC.CDL.Reals.Max masFlo "Mass flow rate"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Abs abs1 "Absolute value"
+  Buildings.Controls.OBC.CDL.Reals.Abs abs1 "Absolute value"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
   connect(loa, masFlo_dT.u)

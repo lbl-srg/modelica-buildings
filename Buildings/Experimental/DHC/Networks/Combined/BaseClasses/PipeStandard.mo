@@ -23,7 +23,7 @@ First implementation.
 </html>", info="<html>
 <p>
 This model is similar to
-<a href=\"Buildings.Fluid.FixedResistances.HydraulicDiameter\">
+<a href=\"modelica://Buildings.Fluid.FixedResistances.HydraulicDiameter\">
 Buildings.Fluid.FixedResistances.HydraulicDiameter</a>
 except that a binding equation is provided to compute the nominal fluid velocity
 from the hydraulic diameter (as opposed to the hydraulic diameter being
