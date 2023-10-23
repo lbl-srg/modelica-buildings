@@ -116,7 +116,7 @@ equation
           color={192,192,192}),
         Text(
           extent={{-62,-10},{84,-52}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillPattern=FillPattern.Solid,
           fillColor={175,175,175},
           textString="Relay"),

@@ -105,7 +105,7 @@ equation
         Line(points={{32,-44},{32,-62}}, color={28,108,200}),
         Text(
           extent={{-16,102},{84,62}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillPattern=FillPattern.Solid,
           fillColor={175,175,175},
           textString="k"),
