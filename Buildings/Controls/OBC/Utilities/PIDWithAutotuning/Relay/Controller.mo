@@ -115,7 +115,6 @@ equation
           points={{-80,-70},{80,-70}},
           color={192,192,192}),
         Text(
-          visible=(controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI),
           extent={{-62,-10},{84,-52}},
           lineColor={0,0,0},
           fillPattern=FillPattern.Solid,

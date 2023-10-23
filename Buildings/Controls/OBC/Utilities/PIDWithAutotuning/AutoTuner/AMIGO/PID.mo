@@ -104,7 +104,6 @@ equation
         Line(points={{-22,2},{-48,2}}, color={28,108,200}),
         Line(points={{32,-44},{32,-62}}, color={28,108,200}),
         Text(
-          visible=(controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI),
           extent={{-16,102},{84,62}},
           lineColor={0,0,0},
           fillPattern=FillPattern.Solid,
