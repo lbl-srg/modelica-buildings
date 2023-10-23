@@ -305,6 +305,16 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3500\">#3500</a>.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Templates.Components.Dampers<br/>
+                     Buildings.Templates.Components.Valves
+    </td>
+    <td valign=\"top\">The models in these packages have been retired and replaced 
+		with two container classes within <code>Buildings.Templates.Components.Actuators</code>
+		that cover all equipment types, and allow the flow characteristic to be specified 
+		with one parameter.<br/>
+                     	This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3539\">#3539</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
