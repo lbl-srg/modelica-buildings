@@ -93,7 +93,9 @@ Validation test for the block
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.ControlProcessModel\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.ControlProcessModel</a>.
 </p>
+<p>
 This example considers an output from a relay controller, which is described below:
+</p>
 <ul>
 <li>
 At <i>0.1</i>s, the output switches from On to Off.
@@ -105,6 +107,8 @@ At <i>0.8</i>s, the output switches to On.
 At <i>0.9</i>s, the output switches to Off.
 </li>
 </ul>
+<p>
 This output triggers an autotuning process that lasts from <i>0.1</i>s to <i>0.9</i>s.
+</p>
 </html>"));
 end ControlProcessModel;

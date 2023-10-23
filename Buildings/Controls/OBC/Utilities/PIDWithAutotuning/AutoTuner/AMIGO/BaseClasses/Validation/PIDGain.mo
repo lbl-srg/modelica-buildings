@@ -14,20 +14,21 @@ model PIDGain "Test model for calculating the control gain for a PID controller"
     offset=0.5,
     height=0.5)
     "Time constant of a first order time-delayed model"
-    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp L(
     duration=1,
     offset=0.3,
     height=0.3)
     "Time delay of a first order time-delayed model"
-    annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
+    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 equation
   connect(kp.y, PIDGai.kp) annotation (Line(points={{-38,30},{-20,30},{-20,6},{-12,
           6}}, color={0,0,127}));
-  connect(T.y, PIDGai.T) annotation (Line(points={{-38,-10},{-20,-10},{-20,0},{-12,
-          0}}, color={0,0,127}));
-  connect(PIDGai.L, L.y) annotation (Line(points={{-12,-6},{-18,-6},{-18,-50},{-38,
-          -50}}, color={0,0,127}));
+  connect(T.y, PIDGai.T) annotation (Line(points={{-38,0},{-12,0}},
+               color={0,0,127}));
+  connect(PIDGai.L, L.y) annotation (Line(points={{-12,-6},{-18,-6},{-18,-30},{
+          -38,-30}},
+                 color={0,0,127}));
   annotation (
       experiment(
       StopTime=1.0,

@@ -15,18 +15,19 @@ model PIGain "Test model for calculating the gain for a PI controller"
     offset=0.5,
     height=0.5)
     "Time constant of a first order time-delayed model"
-    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp L(
     duration=1,
     offset=0.3,
     height=0.3)
     "Time delay of a first order time-delayed model"
-    annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
+    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 equation
-  connect(L.y, PIGai.L) annotation (Line(points={{-38,-50},{-20,-50},{-20,-6},{-10,
-          -6}}, color={0,0,127}));
-  connect(T.y, PIGai.T) annotation (Line(points={{-38,-10},{-28,-10},{-28,0},{-10,
-          0}}, color={0,0,127}));
+  connect(L.y, PIGai.L) annotation (Line(points={{-38,-30},{-20,-30},{-20,-6},{
+          -10,-6}},
+                color={0,0,127}));
+  connect(T.y, PIGai.T) annotation (Line(points={{-38,0},{-10,0}},
+               color={0,0,127}));
   connect(kp.y, PIGai.kp) annotation (Line(points={{-38,30},{-20,30},{-20,6},{-10,
           6}}, color={0,0,127}));
   annotation (

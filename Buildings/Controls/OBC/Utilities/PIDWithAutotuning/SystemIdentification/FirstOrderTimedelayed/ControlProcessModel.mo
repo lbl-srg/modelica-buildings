@@ -211,9 +211,9 @@ to identify the gain, the time constant and the time delay, respectively.
 </p>
 <p>
 The calculations are disabled by default. They will be enabled once the tuning period starts,
-i.e., <code>triSta</code> becomes true;
+i.e., <code>triSta</code> becomes <code>true</code>.
 It then calculates the model parameters at the time when the tuning period ends,
-i.e., <code>triEnd</code> becomes true.
+i.e., <code>triEnd</code> becomes <code>true</code>.
 </p>
 <p>
 Refer to <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller\">
