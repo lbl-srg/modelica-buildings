@@ -296,7 +296,13 @@ equation
           fillColor={175,175,175},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
-          lineColor={0,0,0})}),
+          lineColor={0,0,0}),
+        Text(
+          extent={{226,60},{106,10}},
+          textColor={0,0,0},
+          textString=DynamicSelect("",String(y,
+            leftJustified=false,
+            significantDigits=3)))}),
     Diagram(
       coordinateSystem(
         extent={{-220,-200},{220,200}}), graphics={Rectangle(
@@ -482,6 +488,10 @@ American Society of Heating Refrigerating and Air-Conditioning Engineers Inc. At
 </html>",
       revisions="<html>
 <ul>
+<li>
+October 23, 2023, by Michael Wetter:<br/>
+Added value of control output <code>y</code> to icon.
+</li>
 <li>
 May 20, 2022, by Michael Wetter:<br/>
 Refactored implementation to use new derivative block from CDL package.<br/>

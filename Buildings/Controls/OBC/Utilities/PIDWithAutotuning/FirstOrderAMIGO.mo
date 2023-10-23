@@ -53,7 +53,7 @@ block FirstOrderAMIGO
     annotation (Dialog(group="Integrator reset"));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u_s
     "Connector of setpoint input signal"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),iconTransformation(extent={{-140,-20},{-100,20}})));
+    annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u_m
     "Connector of measurement input signal"
     annotation (Placement(transformation(origin={0,-120},  extent={{20,-20},{-20,20}},rotation=270),
@@ -68,11 +68,11 @@ block FirstOrderAMIGO
         iconTransformation(extent={{-20,-20},{20,20}},rotation=90,origin={60,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
     "Connector for actuator output signal"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}}),iconTransformation(extent={{100,-20},{140,20}})));
+    annotation (Placement(transformation(extent={{180,-20},{220,20}}),iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.ModelTime modTim
     "Simulation time"
-    annotation (Placement(transformation(extent={{-10,70},{10,90}})));
-  Buildings.Controls.OBC.Utilities.PIDWithInputGains PID(
+    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
+  Buildings.Controls.OBC.Utilities.PIDWithInputGains con(
     final controllerType=conTyp,
     final r=r,
     final yMax=yMax,
@@ -82,53 +82,53 @@ block FirstOrderAMIGO
     final xi_start=xi_start,
     final yd_start=yd_start,
     final reverseActing=reverseActing,
-    final y_reset=xi_start) "PID controller with the gains as inputs"
-    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
+    final y_reset=xi_start) "PI or P controller with the gains as inputs"
+    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PID PIDPar
     if with_D "Autotuner of gains for a PID controller"
-    annotation (Placement(transformation(extent={{-60,40},{-80,60}})));
+    annotation (Placement(transformation(extent={{80,30},{100,50}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PI PIPar
     if not with_D "Autotuner of gains for a PI controller"
-    annotation (Placement(transformation(extent={{-60,70},{-80,90}})));
+    annotation (Placement(transformation(extent={{80,60},{100,80}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller rel(
     final yHig=yHig,
     final yLow=yLow,
     final deaBan=deaBan) "Relay controller"
-    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.ResponseProcess resPro(
     final yHig=yHig - yRef,
     final yLow=yRef + yLow)
     "Identify the on and off period length, the half period ratio, and the moments when the tuning starts and ends"
-    annotation (Placement(transformation(extent={{20,30},{0,50}})));
+    annotation (Placement(transformation(extent={{0,30},{20,50}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Switch between a PID controller and a relay controller"
-    annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
+    annotation (Placement(transformation(extent={{140,-10},{160,10}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samk(final y_start=k_start)
     "Recording the proportional control gain"
-    annotation (Placement(transformation(extent={{-40,-10},{-20,-30}})));
+    annotation (Placement(transformation(extent={{-120,-10},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samTi(final y_start=Ti_start)
     "Recording the integral time"
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-60}})));
+    annotation (Placement(transformation(extent={{-120,-40},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samTd(final y_start=Td_start) if with_D
     "Recording the derivative time"
-    annotation (Placement(transformation(extent={{-40,-60},{-20,-80}})));
+    annotation (Placement(transformation(extent={{-120,-70},{-100,-90}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.ControlProcessModel
     conProMod(
     final yHig=yHig - yRef,
     final yLow=yRef + yLow,
     final deaBan=deaBan)
     "Calculates the parameters of a first-order time delayed model"
-    annotation (Placement(transformation(extent={{-20,40},{-40,60}})));
+    annotation (Placement(transformation(extent={{40,30},{60,50}})));
   Buildings.Controls.OBC.CDL.Logical.Latch inTunPro
     "Outputs true if the controller is conducting the autotuning process"
-    annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
+    annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
   Buildings.Controls.OBC.CDL.Logical.Nand nand
     "Check if an autotuning is ongoing while a new autotuning request is received"
-    annotation (Placement(transformation(extent={{90,60},{70,80}})));
+    annotation (Placement(transformation(extent={{120,-90},{140,-70}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
     message="An autotuning is ongoing and an autotuning request is ignored.")
     "Error message when an autotuning tuning is ongoing while a new autotuning request is received"
-    annotation (Placement(transformation(extent={{60,60},{40,80}})));
+    annotation (Placement(transformation(extent={{148,-90},{168,-70}})));
 
 protected
   final parameter Real yHig(min=1E-6) = 1
@@ -149,90 +149,108 @@ protected
     "Type of controller";
 
 equation
-   connect(PID.u_s, u_s) annotation (Line(points={{-2,-40},{-54,-40},{-54,0},{-120,
+   connect(con.u_s, u_s) annotation (Line(points={{-42,-40},{-48,-40},{-48,0},{-200,
           0}}, color={0,0,127}));
-  connect(rel.u_s, u_s) annotation (Line(points={{-2,0},{-120,0}},
-               color={0,0,127}));
-  connect(PID.trigger, triRes) annotation (Line(points={{4,-52},{4,-90},{-60,-90},
-          {-60,-120}}, color={255,0,255}));
-  connect(samk.y,PID. k) annotation (Line(points={{-18,-20},{-14,-20},{-14,-32},
-          {-2,-32}}, color={0,0,127}));
-  connect(PID.Ti, samTi.y) annotation (Line(points={{-2,-36},{-14,-36},{-14,-50},
-          {-58,-50}}, color={0,0,127}));
-  connect(samTd.y,PID. Td) annotation (Line(points={{-18,-70},{-6,-70},{-6,-44},
-          {-2,-44}}, color={0,0,127}));
-  connect(rel.u_m, u_m) annotation (Line(points={{10,-12},{10,-22},{28,-22},{28,
-          -92},{0,-92},{0,-120}}, color={0,0,127}));
-  connect(resPro.on, rel.yOn) annotation (Line(points={{22,40},{58,40},{58,-6},{
-          22,-6}},
+  connect(rel.u_s, u_s) annotation (Line(points={{-42,40},{-122,40},{-122,0},{-200,
+          0}}, color={0,0,127}));
+  connect(con.trigger, triRes) annotation (Line(points={{-36,-52},{-36,-90},{-60,
+          -90},{-60,-120}},
+                       color={255,0,255}));
+  connect(samk.y,con. k) annotation (Line(points={{-98,-20},{-74,-20},{-74,-32},
+          {-42,-32}},color={0,0,127}));
+  connect(con.Ti, samTi.y) annotation (Line(points={{-42,-36},{-74,-36},{-74,-50},
+          {-98,-50}}, color={0,0,127}));
+  connect(samTd.y,con. Td) annotation (Line(points={{-98,-80},{-66,-80},{-66,-44},
+          {-42,-44}},color={0,0,127}));
+  connect(rel.u_m, u_m) annotation (Line(points={{-30,28},{-30,-22},{0,-22},{0,-120}},
+                                  color={0,0,127}));
+  connect(resPro.on, rel.yOn) annotation (Line(points={{-2,40},{-10,40},{-10,34},
+          {-18,34}},
                color={255,0,255}));
-  connect(modTim.y, resPro.tim) annotation (Line(points={{12,80},{28,80},{28,46},
-          {22,46}}, color={0,0,127}));
-  connect(resPro.tau, conProMod.tau) annotation (Line(points={{-2,40},{-10,40},{
-          -10,42},{-18,42}}, color={0,0,127}));
-  connect(conProMod.tOff, resPro.tOff) annotation (Line(points={{-18,46},{-10,46},
-          {-10,44},{-2,44}}, color={0,0,127}));
-  connect(resPro.tOn, conProMod.tOn) annotation (Line(points={{-2,48},{-10,48},{
-          -10,54},{-18,54}}, color={0,0,127}));
-  connect(rel.yErr, conProMod.u) annotation (Line(points={{22,0},{48,0},{48,58},
-          {-18,58}}, color={0,0,127}));
+  connect(modTim.y, resPro.tim) annotation (Line(points={{-18,70},{-10,70},{-10,
+          46},{-2,46}},
+                    color={0,0,127}));
+  connect(resPro.tau, conProMod.tau) annotation (Line(points={{22,40},{28,40},{28,
+          32},{38,32}},      color={0,0,127}));
+  connect(conProMod.tOff, resPro.tOff) annotation (Line(points={{38,36},{30,36},
+          {30,44},{22,44}},  color={0,0,127}));
+  connect(resPro.tOn, conProMod.tOn) annotation (Line(points={{22,48},{32,48},{32,
+          44},{38,44}},      color={0,0,127}));
+  connect(rel.yErr, conProMod.u) annotation (Line(points={{-18,40},{-12,40},{-12,
+          60},{34,60},{34,48},{38,48}},
+                     color={0,0,127}));
   connect(PIDPar.kp, conProMod.k)
-    annotation (Line(points={{-58,56},{-50,56},{-50,56},{-42,56}}, color={0,0,127}));
+    annotation (Line(points={{78,46},{62,46}},                     color={0,0,127}));
   connect(PIDPar.T, conProMod.T)
-    annotation (Line(points={{-58,50},{-42,50}}, color={0,0,127}));
-  connect(PIDPar.L, conProMod.L) annotation (Line(points={{-58,44},{-54,44},{
-          -54,44},{-42,44}}, color={0,0,127}));
-  connect(PIDPar.k, samk.u) annotation (Line(points={{-82,57},{-94,57},{-94,-20},
-          {-42,-20}}, color={0,0,127}));
-  connect(PIDPar.Ti, samTi.u) annotation (Line(points={{-82,50},{-90,50},{-90,-50},
-          {-82,-50}}, color={0,0,127}));
-  connect(PIPar.kp, conProMod.k) annotation (Line(points={{-58,86},{-46,86},{
-          -46,56},{-42,56}}, color={0,0,127}));
-  connect(PIPar.T, conProMod.T) annotation (Line(points={{-58,80},{-50,80},{-50,
-          50},{-42,50}}, color={0,0,127}));
-  connect(PIPar.L, conProMod.L) annotation (Line(points={{-58,74},{-54,74},{-54,
-          44},{-42,44}}, color={0,0,127}));
-  connect(PIPar.k, samk.u) annotation (Line(points={{-82,86},{-94,86},{-94,-20},
-          {-42,-20}}, color={0,0,127}));
-  connect(PIPar.Ti, samTi.u) annotation (Line(points={{-82,74},{-90,74},{-90,
-          -50},{-82,-50}}, color={0,0,127}));
-  connect(resPro.triEnd, conProMod.triEnd) annotation (Line(points={{-2,32},{-36,
-          32},{-36,38}}, color={255,0,255}));
-  connect(resPro.triSta, conProMod.triSta) annotation (Line(points={{-2,36},{-24,
-          36},{-24,38}}, color={255,0,255}));
-  connect(resPro.triEnd, samTi.trigger) annotation (Line(points={{-2,32},{-10,
-          32},{-10,10},{-70,10},{-70,-38}}, color={255,0,255}));
-  connect(resPro.triEnd, samk.trigger) annotation (Line(points={{-2,32},{-10,32},
-          {-10,10},{-30,10},{-30,-8}},color={255,0,255}));
-  connect(resPro.triEnd, samTd.trigger) annotation (Line(points={{-2,32},{-10,
-          32},{-10,-44},{-30,-44},{-30,-58}}, color={255,0,255}));
-  connect(PIDPar.Td, samTd.u) annotation (Line(points={{-82,43},{-86,43},{-86,-70},
-          {-42,-70}}, color={0,0,127}));
+    annotation (Line(points={{78,40},{62,40}},   color={0,0,127}));
+  connect(PIDPar.L, conProMod.L) annotation (Line(points={{78,34},{62,34}},
+                             color={0,0,127}));
+  connect(PIDPar.k, samk.u) annotation (Line(points={{102,47},{110,47},{110,96},
+          {-148,96},{-148,-20},{-122,-20}},
+                      color={0,0,127}));
+  connect(PIDPar.Ti, samTi.u) annotation (Line(points={{102,40},{112,40},{112,98},
+          {-150,98},{-150,-50},{-122,-50}},
+                      color={0,0,127}));
+  connect(PIPar.kp, conProMod.k) annotation (Line(points={{78,76},{70,76},{70,46},
+          {62,46}},          color={0,0,127}));
+  connect(PIPar.T, conProMod.T) annotation (Line(points={{78,70},{72,70},{72,40},
+          {62,40}},      color={0,0,127}));
+  connect(PIPar.L, conProMod.L) annotation (Line(points={{78,64},{74,64},{74,34},
+          {62,34}},      color={0,0,127}));
+  connect(PIPar.k, samk.u) annotation (Line(points={{102,76},{110,76},{110,96},{
+          -148,96},{-148,-20},{-122,-20}},
+                      color={0,0,127}));
+  connect(PIPar.Ti, samTi.u) annotation (Line(points={{102,64},{112,64},{112,98},
+          {-150,98},{-150,-50},{-122,-50}},
+                           color={0,0,127}));
+  connect(resPro.triEnd, conProMod.triEnd) annotation (Line(points={{22,32},{24,
+          32},{24,20},{56,20},{56,28}},
+                         color={255,0,255}));
+  connect(resPro.triSta, conProMod.triSta) annotation (Line(points={{22,36},{26,
+          36},{26,22},{44,22},{44,28}},
+                         color={255,0,255}));
+  connect(resPro.triEnd, samTi.trigger) annotation (Line(points={{22,32},{24,32},
+          {24,20},{-126,20},{-126,-36},{-110,-36},{-110,-38}},
+                                            color={255,0,255}));
+  connect(resPro.triEnd, samk.trigger) annotation (Line(points={{22,32},{24,32},
+          {24,20},{-126,20},{-126,-6},{-110,-6},{-110,-8}},
+                                      color={255,0,255}));
+  connect(resPro.triEnd, samTd.trigger) annotation (Line(points={{22,32},{24,32},
+          {24,20},{-126,20},{-126,-66},{-110,-66},{-110,-68}},
+                                              color={255,0,255}));
+  connect(PIDPar.Td, samTd.u) annotation (Line(points={{102,33},{114,33},{114,94},
+          {-146,94},{-146,-80},{-122,-80}},
+                      color={0,0,127}));
   connect(swi.y, y)
-    annotation (Line(points={{82,-20},{90,-20},{90,0},{120,0}}, color={0,0,127}));
-  connect(u_m, PID.u_m) annotation (Line(points={{0,-120},{0,-92},{10,-92},{10,-52}},
-                 color={0,0,127}));
-  connect(rel.y, swi.u1) annotation (Line(points={{22,6},{54,6},{54,-12},{58,-12}},
+    annotation (Line(points={{162,0},{200,0}},                  color={0,0,127}));
+  connect(u_m,con. u_m) annotation (Line(points={{0,-120},{0,-90},{-30,-90},{-30,
+          -52}}, color={0,0,127}));
+  connect(rel.y, swi.u1) annotation (Line(points={{-18,46},{-16,46},{-16,88},{130,
+          88},{130,8},{138,8}},
         color={0,0,127}));
-  connect(swi.u3, PID.y) annotation (Line(points={{58,-28},{40,-28},{40,-40},{22,
+  connect(swi.u3,con. y) annotation (Line(points={{138,-8},{128,-8},{128,-40},{-18,
           -40}}, color={0,0,127}));
-  connect(inTunPro.y, swi.u2) annotation (Line(points={{62,-70},{68,-70},{68,-40},
-          {52,-40},{52,-20},{58,-20}}, color={255,0,255}));
-  connect(inTunPro.u, triTun) annotation (Line(points={{38,-70},{30,-70},{30,-92},
-          {60,-92},{60,-120}}, color={255,0,255}));
-  connect(inTunPro.clr, resPro.triEnd) annotation (Line(points={{38,-76},{-10,-76},
-          {-10,32},{-2,32}}, color={255,0,255}));
-  connect(rel.trigger, triTun) annotation (Line(points={{4,-12},{4,-20},{30,-20},
-          {30,-92},{60,-92},{60,-120}},
+  connect(inTunPro.y, swi.u2) annotation (Line(points={{42,-70},{50,-70},{50,0},
+          {138,0}},                    color={255,0,255}));
+  connect(inTunPro.u, triTun) annotation (Line(points={{18,-70},{8,-70},{8,-88},
+          {60,-88},{60,-120}}, color={255,0,255}));
+  connect(inTunPro.clr, resPro.triEnd) annotation (Line(points={{18,-76},{12,-76},
+          {12,20},{24,20},{24,32},{22,32}},
+                             color={255,0,255}));
+  connect(rel.trigger, triTun) annotation (Line(points={{-36,28},{-36,-20},{8,-20},
+          {8,-88},{60,-88},{60,-120}},
                       color={255,0,255}));
-  connect(resPro.trigger, triTun) annotation (Line(points={{22,34},{96,34},{96,-92},
-          {60,-92},{60,-120}}, color={255,0,255}));
+  connect(resPro.trigger, triTun) annotation (Line(points={{-2,34},{-8,34},{-8,-20},
+          {8,-20},{8,-88},{60,-88},{60,-120}},
+                               color={255,0,255}));
   connect(nand.y, assMes.u)
-    annotation (Line(points={{68,70},{62,70}}, color={255,0,255}));
-  connect(nand.u2, triTun) annotation (Line(points={{92,62},{96,62},{96,-92},{60,
-          -92},{60,-120}}, color={255,0,255}));
-  connect(nand.u1, inTunPro.y) annotation (Line(points={{92,70},{98,70},{98,-70},
-          {62,-70}}, color={255,0,255}));
+    annotation (Line(points={{142,-80},{146,-80}},
+                                               color={255,0,255}));
+  connect(nand.u2, triTun) annotation (Line(points={{118,-88},{60,-88},{60,-120}},
+                           color={255,0,255}));
+  connect(nand.u1, inTunPro.y) annotation (Line(points={{118,-80},{114,-80},{114,
+          -70},{42,-70}},
+                     color={255,0,255}));
   annotation (Documentation(info="<html>
 <p>
 This block implements a rule-based PID tuning method.
@@ -298,7 +316,8 @@ First implementation<br/>
 </ul>
 </html>"),
         defaultComponentName = "PIDWitTun",
-        Icon(graphics={
+        Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
+             graphics={
         Text(
           extent={{-100,140},{100,100}},
           textString="%name",
@@ -314,8 +333,8 @@ First implementation<br/>
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-26,-22},{74,-62}},
-          textString= if controllerType == Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PI then "PI" else "P",
+          extent={{-26,102},{74,62}},
+          textString= if controllerType == Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PID then "PID" else "PI",
           fillPattern=FillPattern.Solid,
           fillColor={175,175,175}),
         Polygon(
@@ -348,5 +367,43 @@ First implementation<br/>
           fillColor={175,175,175},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
-          lineColor={0,0,0})}));
+          lineColor={0,0,0}),
+        Text(
+          extent={{226,60},{106,10}},
+          textColor={0,0,0},
+          textString=DynamicSelect("",String(y,
+            leftJustified=false,
+            significantDigits=3))),
+        Text(
+          extent={{62,70},{-58,20}},
+          textColor={0,0,0},
+          textString=DynamicSelect(
+            "k = " + String(k_start,
+            leftJustified=false,
+            significantDigits=3),
+            "k = " + String(con.k,
+            leftJustified=false,
+            significantDigits=3))),
+        Text(
+          extent={{62,22},{-58,-28}},
+          textColor={0,0,0},
+          textString=DynamicSelect(
+            "Ti = " + String(Ti_start,
+            leftJustified=false,
+            significantDigits=3),
+            "Ti = " + String(con.Ti,
+            leftJustified=false,
+            significantDigits=3))),
+        Text(
+          visible = controllerType == Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PID,
+          extent={{60,-22},{-60,-72}},
+          textColor={0,0,0},
+          textString=DynamicSelect(
+            "Td = " + String(Td_start,
+            leftJustified=false,
+            significantDigits=3),
+            "Td = " + String(con.Td,
+            leftJustified=false,
+            significantDigits=3)))}),
+    Diagram(coordinateSystem(extent={{-180,-100},{180,100}})));
 end FirstOrderAMIGO;

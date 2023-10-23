@@ -18,10 +18,10 @@ model PIDWithFirstOrderAMIGO "Test model for an autotuning PID controller"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel2(samplePeriod=240)
     "A delay process for control process 2"
-    annotation (Placement(transformation(extent={{10,-30},{30,-10}})));
+    annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel1(samplePeriod=240)
     "A delay process for control process 1"
-    annotation (Placement(transformation(extent={{10,50},{30,70}})));
+    annotation (Placement(transformation(extent={{20,50},{40,70}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant k(k=1)
     "Gain of the first order process"
     annotation (Placement(transformation(extent={{10,10},{30,30}})));
@@ -30,16 +30,16 @@ model PIDWithFirstOrderAMIGO "Test model for an autotuning PID controller"
     annotation (Placement(transformation(extent={{10,-66},{30,-46}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract sub1
     "A subtract block that is used to mimic the first order process 1"
-    annotation (Placement(transformation(extent={{100,70},{120,90}})));
+    annotation (Placement(transformation(extent={{120,70},{140,90}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract sub2
     "A subtract block that is used to mimic the first order process 2"
-    annotation (Placement(transformation(extent={{100,-20},{120,0}})));
+    annotation (Placement(transformation(extent={{120,-20},{140,0}})));
   Buildings.Controls.OBC.CDL.Reals.Derivative derivative1
     "A derivative block that is used to mimic the first order process 1"
-    annotation (Placement(transformation(extent={{60,10},{80,30}})));
+    annotation (Placement(transformation(extent={{80,10},{100,30}})));
   Buildings.Controls.OBC.CDL.Reals.Derivative derivative2
     "A derivative block that is used to mimic the first order process 2"
-    annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
+    annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse autTunSig(
     width=0.9,
     period=6000,
@@ -55,36 +55,38 @@ equation
   connect(SetPoint.y, PID.u_s) annotation (Line(points={{-58,10},{-48,10},{-48,60},
           {-22,60}}, color={0,0,127}));
   connect(PIDWitTun.y, uniDel2.u)
-    annotation (Line(points={{2,-20},{8,-20}}, color={0,0,127}));
+    annotation (Line(points={{2,-20},{18,-20}},color={0,0,127}));
   connect(uniDel1.u, PID.y)
-    annotation (Line(points={{8,60},{2,60}}, color={0,0,127}));
-  connect(uniDel1.y, sub1.u1) annotation (Line(points={{32,60},{54,60},{54,86},
-          {98,86}},color={0,0,127}));
+    annotation (Line(points={{18,60},{2,60}},color={0,0,127}));
+  connect(uniDel1.y, sub1.u1) annotation (Line(points={{42,60},{54,60},{54,86},
+          {118,86}},
+                   color={0,0,127}));
   connect(k.y, derivative1.k) annotation (Line(points={{32,20},{44,20},{44,28},
-          {58,28}}, color={0,0,127}));
-  connect(derivative1.T, T.y) annotation (Line(points={{58,24},{48,24},{48,-56},
+          {78,28}}, color={0,0,127}));
+  connect(derivative1.T, T.y) annotation (Line(points={{78,24},{60,24},{60,-56},
           {32,-56}},                      color={0,0,127}));
-  connect(derivative1.y, sub1.u2) annotation (Line(points={{82,20},{92,20},{92,
-          74},{98,74}},
+  connect(derivative1.y, sub1.u2) annotation (Line(points={{102,20},{112,20},{
+          112,74},{118,74}},
                     color={0,0,127}));
-  connect(sub1.y, PID.u_m) annotation (Line(points={{122,80},{132,80},{132,40},
+  connect(sub1.y, PID.u_m) annotation (Line(points={{142,80},{150,80},{150,40},
           {-10,40},{-10,48}},         color={0,0,127}));
-  connect(sub2.u1, uniDel2.y) annotation (Line(points={{98,-4},{54,-4},{54,-20},
-          {32,-20}}, color={0,0,127}));
-  connect(derivative2.y,sub2. u2) annotation (Line(points={{82,-60},{90,-60},{
-          90,-16},{98,-16}}, color={0,0,127}));
-  connect(sub2.y, PIDWitTun.u_m) annotation (Line(points={{122,-10},{132,-10},{
-          132,-36},{-10,-36},{-10,-32}},                   color={0,0,127}));
-  connect(derivative2.T, T.y) annotation (Line(points={{58,-56},{32,-56}},
+  connect(sub2.u1, uniDel2.y) annotation (Line(points={{118,-4},{64,-4},{64,-20},
+          {42,-20}}, color={0,0,127}));
+  connect(derivative2.y,sub2. u2) annotation (Line(points={{102,-60},{110,-60},
+          {110,-16},{118,-16}},
+                             color={0,0,127}));
+  connect(sub2.y, PIDWitTun.u_m) annotation (Line(points={{142,-10},{152,-10},{
+          152,-36},{-10,-36},{-10,-32}},                   color={0,0,127}));
+  connect(derivative2.T, T.y) annotation (Line(points={{78,-56},{32,-56}},
                            color={0,0,127}));
-  connect(derivative1.u, sub1.u1) annotation (Line(points={{58,20},{54,20},{54,
-          86},{98,86}},             color={0,0,127}));
-  connect(derivative2.u, uniDel2.y) annotation (Line(points={{58,-60},{54,-60},
-          {54,-20},{32,-20}},                   color={0,0,127}));
+  connect(derivative1.u, sub1.u1) annotation (Line(points={{78,20},{72,20},{72,
+          86},{118,86}},            color={0,0,127}));
+  connect(derivative2.u, uniDel2.y) annotation (Line(points={{78,-60},{64,-60},
+          {64,-20},{42,-20}},                   color={0,0,127}));
   connect(autTunSig.y, PIDWitTun.triTun)
     annotation (Line(points={{-58,-50},{-4,-50},{-4,-32}}, color={255,0,255}));
-  connect(k.y, derivative2.k) annotation (Line(points={{32,20},{50,20},{50,-52},
-          {58,-52}}, color={0,0,127}));
+  connect(k.y, derivative2.k) annotation (Line(points={{32,20},{68,20},{68,-52},
+          {78,-52}}, color={0,0,127}));
   annotation (
     experiment(
       StopTime=10000,
