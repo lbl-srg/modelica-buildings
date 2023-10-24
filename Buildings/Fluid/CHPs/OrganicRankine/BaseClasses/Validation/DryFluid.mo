@@ -8,7 +8,7 @@ model DryFluid "Organic Rankine cycle with a dry working fluid"
     etaExp=0.85) "Thermodynamic equations of the Rankine cycle"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   replaceable parameter
-            Buildings.Fluid.CHPs.OrganicRankine.Data.WorkingFluids.Toluene pro
+            Buildings.Fluid.CHPs.OrganicRankine.Data.WorkingFluids.Acetone pro
     constrainedby Buildings.Fluid.CHPs.OrganicRankine.Data.Generic
     "Property record of the working fluid"
     annotation (Placement(transformation(extent={{60,60},{80,80}})),
