@@ -8,3 +8,11 @@ convertClear();
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3517
 convertClass("Buildings.Controls.OBC.CDL.Discrete.Examples",
              "Buildings.Controls.OBC.CDL.Discrete.Validation");
+        
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3526
+convertElement("Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.PlantRequests",
+               "uCooCoi_actual", "uCooCoiSet");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.PlantRequests",
+               "uHeaCoi_actual", "uHeaCoiSet");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReliefFan",
+               "yDam", "y1RelDam");

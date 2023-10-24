@@ -245,7 +245,16 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Controller
+    </td>
+    <td valign=\"top\">Added 2-position relief damper position output <code>y1RelDam</code>.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3526\">issue 3526</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>
@@ -287,6 +296,24 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits
+    </td>
+    <td valign=\"top\">Added coil type enumeration and removed the coil type flags.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3526\">issue 3526</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Controller
+    </td>
+    <td valign=\"top\">Removed the connectors <code>uCooCoi_actual</code> and <code>uHeaCoi_actual</code>,
+                       added coil type enumeration and removed the coil type flags.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3526\">issue 3526</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Templates</b>
     </td>
 </tr>
