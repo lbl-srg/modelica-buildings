@@ -15,12 +15,15 @@ model NaturalConvectionWithControl
     yMin=0,
     Ti=120,
     k=1,
+    u_m(final unit="K", displayUnit="degC"),
+    u_s(final unit="K", displayUnit="degC"),
     yMax=2) "PI controller"
     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-10,60})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSet(k=275.15) "Temperature set point"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSet(
+    k(final unit="K", displayUnit="degC")=275.15) "Temperature set point"
     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
@@ -48,7 +51,7 @@ equation
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/FFD/NaturalConvectionWithControl.mos"
         "Simulate and plot"),
-   experiment(Tolerance=1e-06, StopTime=7200),
+   experiment(Tolerance=1e-06, StopTime=3600),
    Documentation(info="<html>
 <p>
 This model tests the coupled simulation of
