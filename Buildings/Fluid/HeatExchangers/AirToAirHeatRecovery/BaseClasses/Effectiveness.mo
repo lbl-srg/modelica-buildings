@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses;
-model EffectivenessCalculation
+model Effectiveness
   "Model for calculating the heat exchange effectiveness of heat exchangers"
   extends Modelica.Blocks.Icons.Block;
 
@@ -162,4 +162,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end EffectivenessCalculation;
+end Effectiveness;

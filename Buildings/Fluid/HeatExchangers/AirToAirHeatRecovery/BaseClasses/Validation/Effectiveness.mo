@@ -1,8 +1,8 @@
 within Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.Validation;
-model EffectivenessCalculation
+model Effectiveness "Validate the effectiveness calculation"
   extends Modelica.Icons.Example;
 
-  Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.EffectivenessCalculation
+  Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.Effectiveness
     epsCal(
     epsL_cool_nominal=0.6,
     epsL_cool_partload=0.7,
@@ -56,13 +56,13 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(Tolerance=1e-6, StopTime=120),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/AirToAirHeatRecovery/BaseClasses/Validation/EffectivenessCalculation.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/AirToAirHeatRecovery/BaseClasses/Validation/Effectiveness.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.EffectivenessCalculation\">
-Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.EffectivenessCalculation</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.Effectiveness\">
+Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.Effectiveness</a>.
 </p>
 <p>
 The input signals are configured as follows:
@@ -93,4 +93,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end EffectivenessCalculation;
+end Effectiveness;

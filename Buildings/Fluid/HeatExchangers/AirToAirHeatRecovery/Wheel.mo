@@ -48,7 +48,7 @@ model Wheel "Sensible and latent air-to-air heat recovery wheels"
     final dp2_nominal=dp2_nominal)
     "Heat exchanger"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.EffectivenessCalculation
+  Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.Effectiveness
     effCal(
     final epsS_cool_nominal=epsS_cool_nominal,
     final epsL_cool_nominal=epsL_cool_nominal,
@@ -265,8 +265,8 @@ a heat exchanger and primary/secondary airflow bypass dampers.
 Performance of the recovery wheel is defined by specifying sensible and/or latent effectiveness 
 at 75% and 100% of the nominal supply air flow rate in both heating and cooling conditions
 For details, refer to
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.EffectivenessCalculation\">
-Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.EffectivenessCalculation</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.Effectiveness\">
+Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.Effectiveness</a>.
 </p>
 <p>
 The operation of the heat recovery wheel is adjustable through wheel speed modulation or bypassing supply air 
