@@ -1,6 +1,5 @@
 within Buildings.Fluid.Humidifiers.Validation;
-model DXDehumidifier
-  "Validation model for DX dehumidifier"
+model DXDehumidifierClosedLoop "Validation model for DX dehumidifier"
   extends Modelica.Icons.Example;
 
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=0.13545
@@ -43,7 +42,7 @@ model DXDehumidifier
     "Thermal zone model"
     annotation (Placement(transformation(extent={{14,20},{-26,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con[3](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con[3](
     final k=fill(0,3))
     "Zero signal for internal thermal loads"
     annotation (Placement(transformation(extent={{50,60},{30,80}})));
@@ -76,17 +75,17 @@ model DXDehumidifier
     "Convert fan enable signal to real value"
     annotation (Placement(transformation(extent={{-70,-20},{-50,0}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysPhi(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysPhi(
     final uLow=-0.01,
     final uHigh=0.01)
     "Enable the dehumidifier when zone relative humidity is not at setpoint"
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract phiSub
+  Buildings.Controls.OBC.CDL.Reals.Subtract phiSub
     "Find difference between zone RH and setpoint"
     annotation (Placement(transformation(extent={{-130,-70},{-110,-50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=m_flow_nominal)
     "Gain factor"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
@@ -131,8 +130,8 @@ model DXDehumidifier
     "Water removal mass flow rate (EnergyPlus)"
     annotation (Placement(transformation(extent={{144,26},{164,46}})));
 
-  Modelica.Blocks.Sources.RealExpression realExpression3(
-    final y=dxDeh.QHea.y)
+  Modelica.Blocks.Sources.RealExpression realExpression3(final y=dxDeh.QHea.y
+         - dxDeh.deHum.mWat_flow*Buildings.Utilities.Psychrometrics.Constants.h_fg)
     "Air heating rate (Modelica)"
     annotation (Placement(transformation(extent={{66,-10},{86,10}})));
 
@@ -231,7 +230,7 @@ equation
   connect(fan.port_b, dxDeh.port_a)
     annotation (Line(points={{18,-32},{30,-32}}, color={0,127,255}));
   connect(dxDeh.port_b, zon.ports[1])
-    annotation (Line(points={{50,-32},{54,-32},{54,12},{-5,12},{-5,20.9}},
+    annotation (Line(points={{50,-32},{54,-32},{54,12},{-4,12},{-4,20.9}},
       color={0,127,255}));
   connect(booToReaFanEna.y, gai.u)
     annotation (Line(points={{-48,-10},{-42,-10}}, color={0,0,127}));
@@ -262,52 +261,25 @@ equation
   connect(realExpression12.y, phiZonAirEP.u)
     annotation (Line(points={{165,-90},{178,-90}}, color={0,0,127}));
   connect(fan.port_a, zon.ports[2])
-    annotation (Line(points={{-2,-32},{-7,-32},{-7,20.9}},
+    annotation (Line(points={{-2,-32},{-8,-32},{-8,20.9}},
       color={0,127,255}));
 
 annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})), Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-180,-120},{220,100}})),
 experiment(StartTime=12960000, StopTime=15120000, Tolerance=1e-6),
-    __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Humidifiers/Validation/DXDehumidifier.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Humidifiers/Validation/DXDehumidifierClosedLoop.mos"
         "Simulate and Plot"),
 Documentation(info="<html>
-<p>
-This is a validation model for the zone air DX dehumidifier model
-<a href=\"modelica://Buildings.Fluid.Humidifiers.DXDehumidifier\">
-Buildings.Fluid.Humidifiers.DXDehumidifier</a> with an 
-on-off controller to maintain the zone relative humidity. It consists of: 
-</p>
+<p>This is a validation model for the zone air DX dehumidifier model <a href=\"modelica://Buildings.Fluid.Humidifiers.DXDehumidifier\">Buildings.Fluid.Humidifiers.DXDehumidifier</a> with an on-off controller to maintain the zone relative humidity. It consists of: </p>
 <ul>
-<li>
-an instance of the zone air DX dehumidifier model <code>dxDeh</code>. 
-</li>
-<li>
-thermal zone model <code>zon</code> of class 
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone\">
-Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone</a>. 
-</li>
-<li>
-on-off controller <code>hysPhi</code>. 
-</li>
-<li>
-zone air relative humidity setpoint controller <code>phiSet</code>. 
-</li>
+<li>an instance of the zone air DX dehumidifier model <span style=\"font-family: Courier New;\">dxDeh</span>. </li>
+<li>thermal zone model <span style=\"font-family: Courier New;\">zon</span> of class <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone\">Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone</a>. </li>
+<li>on-off controller <span style=\"font-family: Courier New;\">hysPhi</span>. </li>
+<li>zone air relative humidity setpoint controller <span style=\"font-family: Courier New;\">phiSet</span>. </li>
 </ul>
-<p>
-The control loop in the simulation model operates <code>dxDeh</code> to 
-regulate the relative humidity in <code>zon</code> at the setpoint generated 
-by <code>phiSet</code>.
-</p>
-<p>
-The generated plots show that <code>dxDeh</code> removes an amount of water 
-that is similar to the reference EnergyPlus results, while consuming a similar 
-amount of power. There is a mismatch in the zone temperature the longer the
-dehumidifier operates, which may be attributed to how the EnergyPlus component 
-operates at part-load averaged over a timestep, whereas the Modelica model 
-cycles between a disabled state and full capacity.
-</p>
+<p>The control loop in the simulation model operates <span style=\"font-family: Courier New;\">dxDeh</span> to regulate the relative humidity in <span style=\"font-family: Courier New;\">zon</span> at the setpoint generated by <span style=\"font-family: Courier New;\">phiSet</span>. </p>
+<p>The generated plots show that <span style=\"font-family: Courier New;\">dxDeh</span> removes an amount of water that is similar to the reference EnergyPlus results, while consuming a similar amount of power.The zone air temperature and relative humidity also matches well after three days of different initialization conditions.</p>
 </html>",
 revisions="<html>
 <ul>
@@ -317,4 +289,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end DXDehumidifier;
+end DXDehumidifierClosedLoop;
