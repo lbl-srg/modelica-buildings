@@ -40,7 +40,7 @@ protected
     "Block that checks if either the length for the On period or the length for theoff period increases after they both becomes positive"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Buildings.Controls.OBC.CDL.Reals.Add addtOntOff
-    "Block that calculates the sum of the length for the On period and the length for theoff period"
+    "Block that calculates the sum of the length for the On period and the length for the Off period"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Buildings.Controls.OBC.CDL.Reals.Less tDec
     "Block that checks if either the length for the On period or the length for theoff period decreases after they both becomes positive"
@@ -67,14 +67,15 @@ protected
 equation
   connect(tMax.u1, tOn) annotation (Line(points={{-82,76},{-94,76},{-94,80},{
           -120,80}}, color={0,0,127}));
-  connect(tMax.u2, tOff) annotation (Line(points={{-82,64},{-94,64},{-94,-70},{
+  connect(tMax.u2, tOff) annotation (Line(points={{-82,64},{-90,64},{-90,-70},{
           -120,-70}}, color={0,0,127}));
   connect(minLen.y, gretOnOrtOff.u2) annotation (Line(points={{-58,30},{-50,30},
           {-50,42},{-42,42}}, color={0,0,127}));
   connect(samAddtOntOff.y, tInc.u2) annotation (Line(points={{2,0},{10,0},{10,22},
           {18,22}}, color={0,0,127}));
-  connect(addtOntOff.u2, tOff) annotation (Line(points={{-82,-36},{-88,-36},{-88,
-          -70},{-120,-70}}, color={0,0,127}));
+  connect(addtOntOff.u2, tOff) annotation (Line(points={{-82,-36},{-90,-36},{
+          -90,-70},{-120,-70}},
+                            color={0,0,127}));
   connect(addtOntOff.u1, tOn) annotation (Line(points={{-82,-24},{-94,-24},{-94,
           80},{-120,80}}, color={0,0,127}));
   connect(tCha.u1, tInc.y)
@@ -94,7 +95,7 @@ equation
           {120,-60}}, color={255,0,255}));
   connect(tMin.u1, tOn) annotation (Line(points={{-82,-64},{-94,-64},{-94,80},{-120,
           80}}, color={0,0,127}));
-  connect(tMin.u2, tOff) annotation (Line(points={{-82,-76},{-88,-76},{-88,-70},
+  connect(tMin.u2, tOff) annotation (Line(points={{-82,-76},{-90,-76},{-90,-70},
           {-120,-70}}, color={0,0,127}));
   connect(tMin.y, gretOnAndtOff.u1)
     annotation (Line(points={{-58,-70},{-42,-70}}, color={0,0,127}));
