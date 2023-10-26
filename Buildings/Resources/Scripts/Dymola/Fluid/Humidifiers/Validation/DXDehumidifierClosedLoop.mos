@@ -1,0 +1,6 @@
+simulateModel("Buildings.Fluid.Humidifiers.Validation.DXDehumidifierClosedLoop", startTime=12960000, stopTime=15120000, method="CVode", resultFile="DXDehumidifierClosedLoop", tolerance=1e-6);
+createPlot(id=1, position={0, 0, 1678, 688}, y={"mWatEP.y", "mWatMod.y"}, range={12900000.0, 15200000.0, -0.0005, 0.001}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={0, 0, 1678, 688}, y={"QHeaEP.y", "QHeaMod.y"}, range={12900000.0, 15200000.0, -2000.0, 4000.0}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={0, 0, 1678, 688}, y={"PEP.y", "PMod.y"}, range={12900000.0, 15200000.0, -500.0, 1000.0}, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={0, 0, 1380, 674}, y={"phiZonAirEP.y", "phiZonAirMod.y"}, range={12900000.0, 15200000.0, 38.0, 48.0}, autoscale=false, grid=true, colors={{28,108,200}, {238,46,47}}, range2={0.8, 1.0});
+createPlot(id=2, position={0, 0, 1380, 674}, y={"TZonAirEP.y", "TZonAirMod.y"}, range={12900000.0, 15200000.0, 20.0, 40.0}, autoscale=false, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, range2={0.6000000000000001, 1.0});
