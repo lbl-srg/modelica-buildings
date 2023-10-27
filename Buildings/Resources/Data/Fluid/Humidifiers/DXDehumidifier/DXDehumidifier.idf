@@ -924,47 +924,49 @@
   OutputControl:Table:Style,
     HTML;                    !- Column Separator
 
-  Output:Variable,*,Site Outdoor Air Drybulb Temperature,Timestep;
+  Output:Variable,*,Site Outdoor Air Drybulb Temperature, hourly;
 
-  Output:Variable,West Zone,Zone Air Temperature,Timestep;
+  Output:Variable,West Zone,Zone Air Temperature, hourly;
 
-  Output:Variable,West Zone,Zone Air Humidity Ratio,Timestep;
+  Output:Variable,West Zone,Zone Air Humidity Ratio, hourly;
 
-  Output:Variable,West Zone,Zone Air Relative Humidity,Timestep;
+  Output:Variable,West Zone,Zone Air Relative Humidity, hourly;
 
-  Output:Variable,West Zone,Zone Thermostat Heating Setpoint Temperature,Timestep;
+  Output:Variable,West Zone,Zone Thermostat Heating Setpoint Temperature, hourly;
 
-  Output:Variable,West Zone,Zone Thermostat Cooling Setpoint Temperature,Timestep;
+  Output:Variable,West Zone,Zone Thermostat Cooling Setpoint Temperature, hourly;
 
-  Output:Variable,West Zone,Zone Air System Sensible Heating Rate,Timestep;
+  Output:Variable,West Zone,Zone Air System Sensible Heating Rate, hourly;
 
-  Output:Variable,West Zone,Zone Air System Sensible Cooling Rate,Timestep;
+  Output:Variable,West Zone,Zone Air System Sensible Cooling Rate, hourly;
 
-  Output:Variable,Zone1DehumidifierInlet,System Node Mass Flow Rate,Timestep;
+  Output:Variable,Zone1DehumidifierInlet,System Node Mass Flow Rate, hourly;
 
-  Output:Variable,Zone1DehumidifierInlet,System Node Temperature,Timestep;
+  Output:Variable,Zone1DehumidifierInlet,System Node Temperature, hourly;
 
-  Output:Variable,Zone1DehumidifierInlet,System Node Humidity Ratio,Timestep;
+  Output:Variable,Zone1DehumidifierInlet,System Node Humidity Ratio, hourly;
 
-  Output:Variable,Zone1DehumidifierInlet,System Node Standard Density Volume Flow Rate,Timestep;
+  Output:Variable,Zone1DehumidifierInlet,System Node Standard Density Volume Flow Rate, hourly;
 
-  Output:Variable,Dehumidifier Outlet Node,System Node Mass Flow Rate,Timestep;
+  Output:Variable,Dehumidifier Outlet Node,System Node Mass Flow Rate, hourly;
 
-  Output:Variable,West Zone Dehumidifier,Zone Dehumidifier Outlet Air Temperature,Timestep;
+  Output:Variable,West Zone Dehumidifier,Zone Dehumidifier Outlet Air Temperature, hourly;
 
-  Output:Variable,Dehumidifier Outlet Node,System Node Humidity Ratio,Timestep;
+  Output:Variable,Dehumidifier Outlet Node,System Node Temperature, hourly;
+  
+  Output:Variable,Dehumidifier Outlet Node,System Node Humidity Ratio, hourly;
 
-  Output:Variable,Dehumidifier Outlet Node,System Node Standard Density Volume Flow Rate,Timestep;
+  Output:Variable,Dehumidifier Outlet Node,System Node Standard Density Volume Flow Rate, hourly;
 
-  Output:Variable,West Zone Dehumidifier,Zone Dehumidifier Sensible Heating Rate,Timestep;
+  Output:Variable,West Zone Dehumidifier,Zone Dehumidifier Sensible Heating Rate, hourly;
 
-  Output:Variable,West Zone Dehumidifier,Zone Dehumidifier Removed Water Mass Flow Rate,Timestep;
+  Output:Variable,West Zone Dehumidifier,Zone Dehumidifier Removed Water Mass Flow Rate, hourly;
 
-  Output:Variable,West Zone Dehumidifier,Zone Dehumidifier Electricity Rate,Timestep;
+  Output:Variable,West Zone Dehumidifier,Zone Dehumidifier Electricity Rate, hourly;
 
-  Output:Variable,West Zone Dehumidifier,Zone Dehumidifier Part Load Ratio,Timestep;
+  Output:Variable,West Zone Dehumidifier,Zone Dehumidifier Part Load Ratio, hourly;
 
-  Output:Variable,West Zone Dehumidifier,Zone Dehumidifier Runtime Fraction,Timestep;
+  Output:Variable,West Zone Dehumidifier,Zone Dehumidifier Runtime Fraction, hourly;
 
   Output:Meter:MeterFileOnly,Electricity:Facility,monthly;
 
