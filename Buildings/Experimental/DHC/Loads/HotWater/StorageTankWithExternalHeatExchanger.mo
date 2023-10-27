@@ -148,7 +148,7 @@ equation
           80},{-88,-6},{-81,-6}}, color={0,0,127}));
   connect(conPum.TDomSet, TDomSet) annotation (Line(points={{-81,0},{-92,0},{-92,
           0},{-110,0}}, color={0,0,127}));
-  connect(conCha.TTanTop, TTanTop.T) annotation (Line(points={{70,-86},{66,-86},
+  connect(conCha.TTanTop, TTanTop.T) annotation (Line(points={{70,-80},{66,-80},
           {66,10},{61,10}},   color={0,0,127}));
   connect(conCha.charge, charge) annotation (Line(points={{94,-80},{120,-80}},
                            color={255,0,255}));
@@ -174,7 +174,8 @@ equation
   connect(TTanBot.port, tan.heaPorVol[dat.nSeg]) annotation (Line(points={{40,-20},
           {22,-20},{22,-8},{20,-8}}, color={191,0,0}));
   connect(conCha.TTanTopSet, dTHexApp.y)
-    annotation (Line(points={{71,-74},{56,-74}}, color={0,0,127}));
+    annotation (Line(points={{71,-72},{64,-72},{64,-74},{56,-74}},
+                                                 color={0,0,127}));
   connect(dTHexApp.u, TDomSet) annotation (Line(points={{32,-74},{26,-74},{26,
           -96},{-90,-96},{-90,0},{-110,0}}, color={0,0,127}));
   connect(divVal.port_3, tan.fluPorVol[dat.nSeg]) annotation (Line(points={{20,-40},
@@ -183,6 +184,8 @@ equation
           -26},{-80,-60},{-100,-60}}, color={0,127,255}));
   connect(pumHex.port_b, senTemRet.port_a) annotation (Line(points={{-40,-10},{-40,
           -50},{-20,-50}}, color={0,127,255}));
+  connect(TTanBot.T, conCha.TTanBot) annotation (Line(points={{61,-20},{62,-20},
+          {62,-88},{70,-88}}, color={0,0,127}));
   annotation (
   defaultComponentName="domHotWatTan",
   Documentation(info="<html>
