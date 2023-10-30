@@ -44,65 +44,90 @@ model CycleVariable
     "Nominal pressure drop of the condenser"
     annotation(Dialog(group="Condenser"));
 
-  Modelica.Blocks.Sources.RealExpression expTEva(y=TEva)
-    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Modelica.Blocks.Sources.RealExpression expTCon(y=TCon)
-    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  Modelica.Blocks.Sources.RealExpression expQEva_flow(y=QEva_flow)
+  Modelica.Blocks.Sources.RealExpression expTConWor(y=TConWor)
+    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
+  Modelica.Blocks.Sources.RealExpression expQEva_flow(y=QEva_flow_internal)
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Modelica.Blocks.Sources.RealExpression expQCon_flow(y=QCon_flow)
+  Modelica.Blocks.Sources.RealExpression expQCon_flow(y=QCon_flow_internal)
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Sensors.Temperature senTemEvaIn(redeclare package Medium = Medium1,
+  Sensors.Temperature senTem1(redeclare package Medium = Medium1,
       warnAboutOnePortConnection=false) "fixme: to be replaced"
     annotation (Placement(transformation(extent={{-58,50},{-38,70}})));
-  Sensors.Temperature senTemConIn(redeclare package Medium = Medium2,
+  Sensors.Temperature senTem2(redeclare package Medium = Medium2,
       warnAboutOnePortConnection=false) "fixme: to be replaced"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
+
+  Modelica.Blocks.Interfaces.RealInput TEvaWor(unit="K")
+    "Set point for working fluid evaporating temperature" annotation (Placement(
+        transformation(
+        origin={-110,10},
+        extent={{10,-10},{-10,10}},
+        rotation=180), iconTransformation(
+        extent={{10,-10},{-10,10}},
+        rotation=180,
+        origin={-110,20})));
+  Modelica.Units.SI.ThermodynamicTemperature TConWor(
+    start=300)
+    "Working fluid condenser temperature";
+
+  // Evaporator
 protected
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpEva_default =
+    Medium1.specificHeatCapacityCp(sta1_nominal)
+    "Constant specific heat capacity";
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloEva
     "Prescribed heat flow rate"
     annotation (Placement(transformation(extent={{-39,20},{-19,40}})));
+  Modelica.Units.SI.ThermodynamicTemperature TEvaIn=senTem1.T
+    "Fluid temperature into the evaporator";
+  Modelica.Units.SI.ThermodynamicTemperature TEvaOut_internal
+    "Fluid temperature out of the evaporator, intermediate variable";
+  Modelica.Units.SI.HeatFlowRate QEva_flow_internal
+    "Evaporator heat flow rate, intermediate variable";
+  Modelica.Units.SI.HeatFlowRate QEva_flow_max
+    "Maximum evaporator heat flow rate";
+
+  // Condenser
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpCon_default =
+    Medium2.specificHeatCapacityCp(sta2_nominal)
+    "Constant specific heat capacity";
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloCon
     "Prescribed heat flow rate"
     annotation (Placement(transformation(extent={{-39,-40},{-19,-20}})));
+  Modelica.Units.SI.ThermodynamicTemperature TConIn = senTem2.T
+    "Fluid temperature into the condenser";
+  Modelica.Units.SI.ThermodynamicTemperature TConOut_internal
+    "Fluid temperature out of the condenser, intermediate variable";
+  Modelica.Units.SI.HeatFlowRate QCon_flow_internal
+    "Condenser heat flow rate, intermediate variable";
+  Modelica.Units.SI.HeatFlowRate QCon_flow_max
+    "Maximum condenser heat flow rate";
 
 public
-  Real CpEva, TEva, TEvaIn, QEva_flow, TEvaOut, QEva_flow_max, epsEva;
-  Real CpCon, TCon( start = 300), TConIn, QCon_flow, TConOut, QCon_flow_max, epsCon;
+  Real epsEva;
+  Real epsCon;
 
 equation
   // Evaporator
-  //m1_flow = 1;
-  CpEva = 4200;
-  TEvaIn = senTemEvaIn.T;
-
-  QEva_flow = m1_flow * CpEva * (TEvaIn - TEvaOut);
-  QEva_flow = QEva_flow_max * epsEva;
-  QEva_flow_max = m1_flow * CpEva * (TEvaIn - TEva);
-  epsEva = 1 - exp(UAEva/(- m1_flow * CpEva));
+  QEva_flow_internal = m1_flow * cpEva_default * (TEvaIn - TEvaOut_internal);
+  QEva_flow_internal = QEva_flow_max * epsEva;
+  QEva_flow_max =m1_flow*cpEva_default*(TEvaIn - TEvaWor);
+  epsEva = 1 - exp(UAEva/(- m1_flow * cpEva_default));
 
   // Condenser
-  //m2_flow = 2;
-  CpCon = 4200;
-  TConIn = senTemConIn.T;
-
-  QCon_flow = m2_flow * CpCon * (TConOut - TConIn);
-  QCon_flow = QCon_flow_max * epsCon;
-  QCon_flow_max = m2_flow * CpCon * (TCon - TConIn);
-  epsCon = 1 - exp(UACon/(- m2_flow * CpCon));
+  QCon_flow_internal = m2_flow * cpCon_default * (TConOut_internal - TConIn);
+  QCon_flow_internal = QCon_flow_max * epsCon;
+  QCon_flow_max = m2_flow * cpCon_default * (TConWor - TConIn);
+  epsCon = 1 - exp(UACon/(- m2_flow * cpCon_default));
 
   // Cycle
-  QEva_flow * equ.etaThe = QEva_flow - QCon_flow;
+  QEva_flow_internal * equ.etaThe = QEva_flow_internal - QCon_flow_internal;
 
   // Control input
-  TEva = 450;
+  //TEva = 450;
 
-
-
-  connect(expTEva.y, equ.TEva) annotation (Line(points={{-39,10},{-20,10},{-20,4},
-          {-12,4}}, color={0,0,127}));
-  connect(expTCon.y, equ.TCon) annotation (Line(points={{-39,-10},{-20,-10},{-20,
-          -4},{-12,-4}}, color={0,0,127}));
+  connect(expTConWor.y, equ.TCon) annotation (Line(points={{-59,-10},{-20,-10},{
+          -20,-4},{-12,-4}}, color={0,0,127}));
   connect(preHeaFloEva.port, vol1.heatPort) annotation (Line(points={{-19,30},{-16,
           30},{-16,60},{-10,60}}, color={191,0,0}));
   connect(expQEva_flow.y, preHeaFloEva.Q_flow)
@@ -111,10 +136,12 @@ equation
     annotation (Line(points={{-59,-30},{-39,-30}}, color={0,0,127}));
   connect(preHeaFloCon.port, vol2.heatPort) annotation (Line(points={{-19,-30},{
           18,-30},{18,-60},{12,-60}}, color={191,0,0}));
-  connect(senTemEvaIn.port, port_a1) annotation (Line(points={{-48,50},{-90,50},
-          {-90,60},{-100,60}}, color={0,127,255}));
-  connect(senTemConIn.port, port_a2)
+  connect(senTem1.port, port_a1) annotation (Line(points={{-48,50},{-90,50},{-90,
+          60},{-100,60}}, color={0,127,255}));
+  connect(senTem2.port, port_a2)
     annotation (Line(points={{70,-60},{100,-60}}, color={0,127,255}));
+  connect(equ.TEva, TEvaWor) annotation (Line(points={{-12,4},{-20,4},{-20,10},{
+          -110,10}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end CycleVariable;
