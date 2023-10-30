@@ -86,6 +86,17 @@ protected
     "Evaporator heat flow rate, intermediate variable";
   Modelica.Units.SI.HeatFlowRate QEva_flow_max
     "Maximum evaporator heat flow rate";
+  Modelica.Units.SI.Efficiency NTUEva=UAEva/(Buildings.Utilities.Math.Functions.smoothMax(
+      abs(m1_flow),
+      m1_flow_small,
+      m1_flow_small)*cpEva_default) "Number of transfer units of heat exchanger";
+  Modelica.Units.SI.Efficiency epsEva=Buildings.Utilities.Math.Functions.smoothMin(
+      Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_ntuZ(
+        NTUEva,
+        0,
+        Integer(Buildings.Fluid.Types.HeatExchangerFlowRegime.ConstantTemperaturePhaseChange)),
+      0.999,
+      1.0e-4) "Effectiveness of heat exchanger";
 
   // Condenser
   parameter Modelica.Units.SI.SpecificHeatCapacity cpCon_default =
@@ -102,29 +113,31 @@ protected
     "Condenser heat flow rate, intermediate variable";
   Modelica.Units.SI.HeatFlowRate QCon_flow_max
     "Maximum condenser heat flow rate";
-
-public
-  Real epsEva;
-  Real epsCon;
+  Modelica.Units.SI.Efficiency NTUCon=UACon/(Buildings.Utilities.Math.Functions.smoothMax(
+      abs(m2_flow),
+      m2_flow_small,
+      m2_flow_small)*cpCon_default) "Number of transfer units of heat exchanger";
+  Modelica.Units.SI.Efficiency epsCon=Buildings.Utilities.Math.Functions.smoothMin(
+      Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_ntuZ(
+        NTUCon,
+        0,
+        Integer(Buildings.Fluid.Types.HeatExchangerFlowRegime.ConstantTemperaturePhaseChange)),
+      0.999,
+      1.0e-4) "Effectiveness of heat exchanger";
 
 equation
   // Evaporator
   QEva_flow_internal = m1_flow * cpEva_default * (TEvaIn - TEvaOut_internal);
   QEva_flow_internal = QEva_flow_max * epsEva;
   QEva_flow_max =m1_flow*cpEva_default*(TEvaIn - TEvaWor);
-  epsEva = 1 - exp(UAEva/(- m1_flow * cpEva_default));
 
   // Condenser
   QCon_flow_internal = m2_flow * cpCon_default * (TConOut_internal - TConIn);
   QCon_flow_internal = QCon_flow_max * epsCon;
   QCon_flow_max = m2_flow * cpCon_default * (TConWor - TConIn);
-  epsCon = 1 - exp(UACon/(- m2_flow * cpCon_default));
 
   // Cycle
   QEva_flow_internal * equ.etaThe = QEva_flow_internal - QCon_flow_internal;
-
-  // Control input
-  //TEva = 450;
 
   connect(expTConWor.y, equ.TCon) annotation (Line(points={{-59,-10},{-20,-10},{
           -20,-4},{-12,-4}}, color={0,0,127}));
