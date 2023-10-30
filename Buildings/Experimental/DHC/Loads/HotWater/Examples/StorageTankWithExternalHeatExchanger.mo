@@ -4,18 +4,22 @@ model StorageTankWithExternalHeatExchanger
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.Water "Medium model";
-
+  parameter Modelica.Units.SI.Temperature THotSet=273.15 + 40
+    "Temperature setpoint of hot water supply";
+  parameter Modelica.Units.SI.Temperature TMixSet=273.15 + 35
+    "Temperature setpoint of hot water supply to fixture";
+  parameter Modelica.Units.SI.Temperature TCol = 273.15+10 "Temperature of domestic cold water supply";
   parameter Data.GenericDomesticHotWaterWithHeatExchanger
-    datWatHea(
-    VTan=0.3, mDom_flow_nominal=0.333)
+    datWatHea(VTan=0.1892706, mDom_flow_nominal=6.52944E-06*1000)
     "Data for heat pump water heater with tank"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
 
   Modelica.Blocks.Sources.CombiTimeTable sch(
     tableOnFile=true,
     tableName="tab1",
-    fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Heating/DHW/DHW_SingleApartment.mos"),
-    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
+    fileName=Modelica.Utilities.Files.loadResource(
+        "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/HotWater/DHW_ApartmentMidRise.mos"),
+    smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     "Domestic hot water fixture draw fraction schedule"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
@@ -41,7 +45,8 @@ model StorageTankWithExternalHeatExchanger
     use_m_flow_in=true,
     nPorts=1,
     redeclare package Medium = Medium,
-    T(displayUnit="degC") = datWatHea.TMix_nominal + datWatHea.dTHexApp_nominal)
+    T(displayUnit="degC") = datWatHea.TMix_nominal + datWatHea.dTHexApp_nominal +
+      1)
     "Source for heating water"
     annotation (
      Placement(transformation(
@@ -61,7 +66,7 @@ model StorageTankWithExternalHeatExchanger
   ThermostaticMixingValve theMixVal(redeclare package Medium = Medium,
       mMix_flow_nominal=1.2*datWatHea.mDom_flow_nominal)
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
-  Controls.OBC.CDL.Conversions.BooleanToReal booToRea(realTrue=0.1*datWatHea.QHex_flow_nominal
+  Controls.OBC.CDL.Conversions.BooleanToReal booToRea(realTrue=datWatHea.QHex_flow_nominal
         /4200/(55 - 50))
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
   Modelica.Blocks.Sources.Constant conTSetHot1(k(
@@ -112,6 +117,7 @@ First implementation.
 </html>"),
     experiment(
       StopTime=8640000,
+      Interval=30,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"));
 end StorageTankWithExternalHeatExchanger;
