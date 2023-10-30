@@ -6,8 +6,8 @@ model CycleVariable
     final dp1_nominal = dpEva_nominal,
     final m2_flow_nominal = mCon_flow_nominal,
     final dp2_nominal = dpCon_nominal,
-    T1_start = 273.15+25,
-    T2_start = 273.15+5,
+    T1_start = (max(pro.T) + min(pro.T))/2,
+    T2_start = 300,
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol2(
       V=m2_flow_nominal*tau2/rho2_nominal,
       nPorts=2,
@@ -16,8 +16,7 @@ model CycleVariable
       final prescribedHeatFlowRate=true));
 
   Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.EquationsVariable equ(
-    redeclare parameter
-      Buildings.Fluid.CHPs.OrganicRankine.Data.WorkingFluids.Toluene pro,
+    final pro = pro,
     etaExp=0.7)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
@@ -25,19 +24,19 @@ model CycleVariable
     constrainedby Buildings.Fluid.CHPs.OrganicRankine.Data.Generic
     "Property records of the working fluid"
     annotation(choicesAllMatching = true);
-  parameter Modelica.Units.SI.ThermalConductance UAEva = 1000
+  parameter Modelica.Units.SI.ThermalConductance UAEva
     "Thermal conductance of the evaporator"
     annotation(Dialog(group="Evaporator"));
-  parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal = 1
+  parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal
     "Nominal mass flow rate of the evaporator fluid"
     annotation(Dialog(group="Evaporator"));
   parameter Modelica.Units.SI.PressureDifference dpEva_nominal = 0
     "Nominal pressure drop of the evaporator"
     annotation(Dialog(group="Evaporator"));
-  parameter Modelica.Units.SI.ThermalConductance UACon = 1000
+  parameter Modelica.Units.SI.ThermalConductance UACon
     "Thermal conductance of the condenser"
     annotation(Dialog(group="Condenser"));
-  parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal = 1
+  parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal
     "Nominal mass flow rate of the condenser fluid"
     annotation(Dialog(group="Condenser"));
   parameter Modelica.Units.SI.PressureDifference dpCon_nominal = 0
@@ -50,12 +49,6 @@ model CycleVariable
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Modelica.Blocks.Sources.RealExpression expQCon_flow(y=QCon_flow_internal)
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Sensors.Temperature senTem1(redeclare package Medium = Medium1,
-      warnAboutOnePortConnection=false) "fixme: to be replaced"
-    annotation (Placement(transformation(extent={{-58,50},{-38,70}})));
-  Sensors.Temperature senTem2(redeclare package Medium = Medium2,
-      warnAboutOnePortConnection=false) "fixme: to be replaced"
-    annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
 
   Modelica.Blocks.Interfaces.RealInput TEvaWor(unit="K")
     "Set point for working fluid evaporating temperature" annotation (Placement(
@@ -67,11 +60,15 @@ model CycleVariable
         rotation=180,
         origin={-110,20})));
   Modelica.Units.SI.ThermodynamicTemperature TConWor(
-    start=300)
+    start=T2_start)
     "Working fluid condenser temperature";
 
   // Evaporator
 protected
+  Buildings.Fluid.Sensors.Temperature senTem1(
+    redeclare package Medium = Medium1,
+    warnAboutOnePortConnection=false) "fixme: to be replaced"
+    annotation (Placement(transformation(extent={{-58,50},{-38,70}})));
   parameter Modelica.Units.SI.SpecificHeatCapacity cpEva_default =
     Medium1.specificHeatCapacityCp(sta1_nominal)
     "Constant specific heat capacity";
@@ -99,6 +96,10 @@ protected
       1.0e-4) "Effectiveness of heat exchanger";
 
   // Condenser
+  Buildings.Fluid.Sensors.Temperature senTem2(
+    redeclare package Medium = Medium2,
+    warnAboutOnePortConnection=false) "fixme: to be replaced"
+    annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
   parameter Modelica.Units.SI.SpecificHeatCapacity cpCon_default =
     Medium2.specificHeatCapacityCp(sta2_nominal)
     "Constant specific heat capacity";
@@ -155,6 +156,7 @@ equation
     annotation (Line(points={{70,-60},{100,-60}}, color={0,127,255}));
   connect(equ.TEva, TEvaWor) annotation (Line(points={{-12,4},{-20,4},{-20,10},{
           -110,10}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (defaultComponentName = "ORC",
+  Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end CycleVariable;
