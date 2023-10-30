@@ -3,7 +3,7 @@ model EquationsVariable "Core equations of a Rankine cycle"
 
   // Input properties
   //extends Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.Declarations;
-  parameter Buildings.Fluid.CHPs.OrganicRankine.Data.Generic pro
+  replaceable parameter Buildings.Fluid.CHPs.OrganicRankine.Data.Generic pro
     "Property records of the working fluid"
     annotation(Dialog(group="ORC inputs"),choicesAllMatching = true);
 
@@ -61,7 +61,7 @@ model EquationsVariable "Core equations of a Rankine cycle"
       xSup = pro.T,
       ySup = pro.hSatLiq)
     "Specific enthalpy at pump, neglecting difference between inlet and outlet";
-  Modelica.Units.SI.SpecificEnthalpy hExpOut_i(displayUnit = "kJ/kg")
+  Modelica.Units.SI.SpecificEnthalpy hExpOut_i(displayUnit = "kJ/kg", start = (max(pro.hSatVap)+min(pro.hSatVap))/2)
     "Estimated specific enthalpy at expander outlet assuming isentropic";
 
   final Real etaExpLim =
