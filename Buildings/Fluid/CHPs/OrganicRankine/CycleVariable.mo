@@ -157,6 +157,17 @@ equation
   connect(equ.TEva, TEvaWor) annotation (Line(points={{-12,4},{-20,4},{-20,10},{
           -110,10}}, color={0,0,127}));
   annotation (defaultComponentName = "ORC",
-  Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+        Line(
+          points={{-60,-60},{-28,-20},{16,32},{40,60},{52,60},{54,30},{48,2},{
+              52,-38},{58,-58}},
+          color={255,255,255},
+          smooth=Smooth.Bezier,
+          thickness=0.5),
+        Line(
+          points={{6,20},{52,20},{66,-6},{50,-18},{-26,-18}},
+          color={255,255,255},
+          thickness=0.5,
+          pattern=LinePattern.Dash)}),               Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end CycleVariable;
