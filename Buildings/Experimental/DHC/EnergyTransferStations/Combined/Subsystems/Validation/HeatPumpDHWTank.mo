@@ -67,8 +67,6 @@ model HeatPumpDHWTank
       displayUnit="degC") = 308.15)
     "Temperature setpoint for mixed water supply to fixture"
     annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
-  Modelica.Blocks.Sources.BooleanConstant booCon "Always on"
-    annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
   Loads.HotWater.ThermostaticMixingValve
                           theMixVal(redeclare package Medium = Medium,
       mMix_flow_nominal=1.2*datWatHea.mDom_flow_nominal)
@@ -91,8 +89,6 @@ equation
           -30},{-60,-30}}, color={0,127,255}));
   connect(dcwSpl.port_3, heaPum.port_a1)
     annotation (Line(points={{-22,-10},{-22,-8},{-10,-8}}, color={0,127,255}));
-  connect(booCon.y, heaPum.uEna) annotation (Line(points={{-99,-10},{-80,-10},{-80,
-          7},{-12,7}}, color={255,0,255}));
   connect(sch.y[1], theMixVal.yMixSet) annotation (Line(points={{-99,70},{-80,70},
           {-80,78},{-61,78}}, color={0,0,127}));
   connect(conTSetMix.y, theMixVal.TMixSet) annotation (Line(points={{-99,30},{-76,

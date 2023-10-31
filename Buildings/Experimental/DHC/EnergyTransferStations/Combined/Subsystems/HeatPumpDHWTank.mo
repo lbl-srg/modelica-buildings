@@ -50,11 +50,6 @@ model HeatPumpDHWTank
     "Pressure difference over evaporator"
     annotation (Dialog(group="Nominal condition"));
   // IO CONNECTORS
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEna
-    "Enable signal"
-    annotation (
-      Placement(transformation(extent={{-240,100},{-200,140}}),
-        iconTransformation(extent={{-140,70},{-100,110}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a2(
     redeclare final package Medium = Medium2,
     m_flow(min=if allowFlowReversal2 then -Modelica.Constants.inf else 0),
