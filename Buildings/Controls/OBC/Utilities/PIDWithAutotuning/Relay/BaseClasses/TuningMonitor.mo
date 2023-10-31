@@ -29,8 +29,7 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Greater gretOnOrtOff
     "Check if either the length for the On period or the length for the off period are larger than 0"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minLen(
-     final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minLen(final k=1e-5)
     "Minimum value for the horizon length"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samAddtOntOff
