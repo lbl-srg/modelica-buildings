@@ -45,9 +45,11 @@ model CycleVariable
 
   Modelica.Blocks.Sources.RealExpression expTConWor(y=TConWor)
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  Modelica.Blocks.Sources.RealExpression expQEva_flow(y=QEva_flow_internal)
+  Modelica.Blocks.Sources.RealExpression expQEva_flow(y=
+    if err then 0 else QEva_flow_internal)
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Modelica.Blocks.Sources.RealExpression expQCon_flow(y=QCon_flow_internal)
+  Modelica.Blocks.Sources.RealExpression expQCon_flow(y=
+    if err then 0 else QCon_flow_internal)
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 
   Modelica.Blocks.Interfaces.RealInput TEvaWor(unit="K")
@@ -62,6 +64,16 @@ model CycleVariable
   Modelica.Units.SI.ThermodynamicTemperature TConWor(
     start=T2_start)
     "Working fluid condenser temperature";
+
+  // Error statuses
+  Boolean errEva = TEvaIn - TEvaWor < 1
+    "Error: incoming evaporator fluid too cold";
+  Boolean errCon = TConWor - TConIn < 1
+    "Error: incoming condenser fluid too warm";
+  Boolean errCyc = TEvaWor - TConWor < 1
+    "Error: Rankine cycle temperature differential reversed";
+  Boolean err = errEva or errCon or errCyc
+    "Error, to replace heat flow rates and power with zero";
 
   // Evaporator
 protected
