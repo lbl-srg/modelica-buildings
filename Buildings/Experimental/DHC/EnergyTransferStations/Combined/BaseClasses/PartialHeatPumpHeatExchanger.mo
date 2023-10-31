@@ -353,8 +353,8 @@ model PartialHeatPumpHeatExchanger
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={40,-120})));
-  Fluid.Sensors.MassFlowRate senMasFloHeaWatPri(redeclare final package Medium =
-        MediumBui, final allowFlowReversal=allowFlowReversalBui)
+  Fluid.Sensors.MassFlowRate senMasFloHeaWatPri(redeclare final package Medium
+      = MediumBui, final allowFlowReversal=allowFlowReversalBui)
     "Primary heating water mass flow rate"
     annotation (Placement(transformation(extent={{30,270},{50,250}})));
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold enaSHW(
@@ -373,10 +373,6 @@ model PartialHeatPumpHeatExchanger
   Buildings.Controls.OBC.CDL.Reals.MultiSum PHeaTot(nin=2)
     "Total power used for heating and hot water production"
     annotation (Placement(transformation(extent={{270,70},{290,90}})));
-  Buildings.Controls.OBC.CDL.Reals.Subtract
-                                       heaFloEvaSHW if have_hotWat and have_varFloEva
-    "Heat flow rate at evaporator"
-    annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract dTHHW
     "Heating hot water DeltaT"
     annotation (Placement(transformation(extent={{0,310},{-20,330}})));
@@ -386,13 +382,6 @@ model PartialHeatPumpHeatExchanger
   Buildings.Controls.OBC.CDL.Reals.Add heaFloEvaHHW if have_varFloEva
     "Heat flow rate at evaporator"
     annotation (Placement(transformation(extent={{-100,230},{-80,250}})));
-  Buildings.Experimental.DHC.EnergyTransferStations.Combined.Controls.PrimaryVariableFlow conFloEvaSHW(
-    final Q_flow_nominal=-QHotWat_flow_nominal*(1 - 1/COPHotWat_nominal),
-    final dT_nominal=-dT_nominal,
-    final ratFloMin=ratFloMin,
-    final cp=cpSer_default) if have_hotWat and have_varFloEva
-    "Mass flow rate control"
-    annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
   Buildings.Experimental.DHC.EnergyTransferStations.Combined.Controls.PrimaryVariableFlow conFloConHHW(
     final Q_flow_nominal=QHeaWat_flow_nominal,
     final dT_nominal=dT_nominal,
@@ -551,8 +540,6 @@ equation
           280},{-70,274},{-62,274}}, color={0,0,127}));
   connect(priOve.y, proHeaWat.m1_flow) annotation (Line(points={{-38,280},{-24,280},
           {-24,214},{-12,214}}, color={0,0,127}));
-  connect(heaFloEvaSHW.y, conFloEvaSHW.loa)
-    annotation (Line(points={{-78,100},{-62,100}}, color={0,0,127}));
   connect(heaFloEvaHHW.y, conFloEvaHHW.loa)
     annotation (Line(points={{-78,240},{-62,240}}, color={0,0,127}));
   connect(capFloHHW.y, loaHHW.u2) annotation (Line(points={{-198,320},{-180,320},

@@ -50,8 +50,6 @@ model HeatPumpHeatExchangerDHWTank
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 equation
 
-  connect(enaSHW.y, proHotWat.uEna) annotation (Line(points={{-118,80},{-114,80},
-          {-114,43},{30,43}},  color={255,0,255}));
   connect(proHotWat.port_b2, volMix_b.ports[4])
     annotation (Line(points={{52,40},{260,40},{260,-360}}, color={0,127,255}));
   connect(proHotWat.PHea, PHeaTot.u[2]) annotation (Line(points={{54,37},{66,37},
@@ -77,10 +75,6 @@ equation
           {-12,52.2},{-20,52.2}}, color={0,127,255}));
   connect(proHotWat.port_b1, theMixVal.port_hot) annotation (Line(points={{32,40},
           {0,40},{0,56.6},{-20,56.6}},     color={0,127,255}));
-  connect(proHotWat.QCon_flow, heaFloEvaSHW.u1) annotation (Line(points={{54,24},
-          {68,24},{68,120},{-108,120},{-108,106},{-102,106}}, color={0,0,127}));
-  connect(proHotWat.PHea, heaFloEvaSHW.u2) annotation (Line(points={{54,37},{60,
-          37},{60,80},{-108,80},{-108,94},{-102,94}}, color={0,0,127}));
   connect(souDCW.T_in, TColWat) annotation (Line(points={{-64,-60},{-156,-60},{
           -156,-80},{-320,-80}}, color={0,0,127}));
   connect(THotWatSupSet, theMixVal.TMixSet) annotation (Line(points={{-320,-40},
@@ -309,9 +303,5 @@ This is for
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={175,175,175},
-          fillPattern=FillPattern.Solid)}),
-    Diagram(graphics={Text(
-          extent={{-22,112},{18,100}},
-          textColor={238,46,47},
-          textString="fixme: are these blocks needed?")}));
+          fillPattern=FillPattern.Solid)}));
 end HeatPumpHeatExchangerDHWTank;

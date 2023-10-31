@@ -175,5 +175,9 @@ This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1097\">issue 1097</a>.
 </li>
 </ul>
-</html>"));
+</html>"), Diagram(graphics={
+                      Text(
+          extent={{-74,104},{-34,92}},
+          textColor={238,46,47},
+          textString="fixme: are these blocks needed?")}));
 end HeatPumpHeatExchanger;

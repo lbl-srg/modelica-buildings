@@ -29,7 +29,7 @@ model BuildingTimeSeriesWithETSDHWTank
     redeclare package MediumBui = Medium,
     bui(facMul=10),
     allowFlowReversalSer=true,
-    THotWatSup_nominal=322.15,
+    THotWatSup_nominal=313.15,
     filNam=
         "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissOffice_20190916.mos",
     datWatHea=datWatHea) "Building load with time series data"
@@ -50,7 +50,8 @@ model BuildingTimeSeriesWithETSDHWTank
  Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupMinSet(each k=28 + 273.15)
     "Heating water supply temperature set point - Minimum value"
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
-  parameter HotWater.Data.GenericDomesticHotWaterWithHeatExchanger datWatHea(VTan=0.3)
+  parameter HotWater.Data.GenericDomesticHotWaterWithHeatExchanger datWatHea(VTan=0.3,
+      mDom_flow_nominal=0.03)
     "Performance data"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
 
