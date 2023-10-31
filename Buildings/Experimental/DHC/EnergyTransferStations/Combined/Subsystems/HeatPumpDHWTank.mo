@@ -16,9 +16,6 @@ model HeatPumpDHWTank
   parameter Loads.HotWater.Data.GenericDomesticHotWaterWithHeatExchanger
     datWatHea "Performance data"
     annotation (Placement(transformation(extent={{140,100},{160,120}})));
-//  parameter Boolean have_varFloEva = true
-//    "Set to true for a variable evaporator flow. Fixme: false does not make sense here."
-//    annotation(Evaluate=true);
   parameter Real COP_nominal(final unit="1")
     "Heat pump COP"
     annotation (Dialog(group="Nominal condition"));
@@ -149,10 +146,6 @@ model HeatPumpDHWTank
     annotation (Placement(transformation(extent={{-180,0},{-160,20}})));
   Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(p=datWatHea.dTHexApp_nominal)
     annotation (Placement(transformation(extent={{-120,-62},{-100,-42}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QCon_flow(final unit="kg/s")
-    "Actual heat pump heating heat flow rate added to fluid" annotation (
-      Placement(transformation(extent={{200,-120},{240,-80}}),
-        iconTransformation(extent={{100,-120},{140,-80}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal floEva(realTrue=
         mEva_flow_nominal) "Evaporator mass flow rate"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
@@ -185,12 +178,23 @@ model HeatPumpDHWTank
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant dTSet(k=dT_nominal)
     "Set point for temperature difference over heat pump"
     annotation (Placement(transformation(extent={{80,10},{100,30}})));
-  Buildings.Controls.OBC.CDL.Reals.PIDWithReset conPI(Ti=20, xi_start=0.2)
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset conPI(
+    k=0.1,
+    Ti=120,                                                  xi_start=0.2,
+    reverseActing=false)
     "Controller to ensure dT_nominal over heat pump connection"
     annotation (Placement(transformation(extent={{120,10},{140,30}})));
   Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium2)
     "Mass flow rate drawn from ETS"
     annotation (Placement(transformation(extent={{160,-70},{140,-50}})));
+  Fluid.Sources.Boundary_pT preRef(
+    redeclare package Medium = Medium2,
+    p(displayUnit="bar"),
+    nPorts=1) "Reference pressure for loop" annotation (Placement(
+        transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={-60,-20})));
 equation
   connect(add3_1.y, PPum) annotation (Line(points={{161,70},{172,70},{172,0},{220,
           0}},     color={0,0,127}));
@@ -268,6 +272,8 @@ equation
   connect(heaPumTan.charge, conPI.trigger) annotation (Line(points={{-58,11},{
           -54,11},{-54,0},{-100,0},{-100,106},{112,106},{112,0},{124,0},{124,8}},
         color={255,0,255}));
+  connect(preRef.ports[1], heaPumTan.port_bHea) annotation (Line(points={{-70,-20},
+          {-92,-20},{-92,14},{-80,14}}, color={0,127,255}));
   annotation (
   defaultComponentName="heaPum",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
