@@ -1,5 +1,7 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses;
 block TuningMonitor "Monitor the tuning process"
+  constant Modelica.Units.SI.Time minHorLen = 1E-3
+    "Minimum value for horizon length, used to guard against rounding errors";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tOn(
     final quantity="Time",
     final unit="s",
@@ -29,7 +31,7 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Greater gretOnOrtOff
     "Check if either the length for the On period or the length for the off period are larger than 0"
     annotation (Placement(transformation(origin = {0, 10}, extent = {{-40, 40}, {-20, 60}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minLen(final k=1e-5)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minLen(final k=minHorLen)
     "Minimum value for the horizon length"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samAddtOntOff
