@@ -40,7 +40,8 @@ model HeatPumpHeatExchangerDHWTank
     annotation (Placement(transformation(extent={{-20,50},{-40,72}})));
   Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Junction dcwSpl(
       redeclare final package Medium = MediumBui, final m_flow_nominal=
-        proHeaWat.m1_flow_nominal*{1,-1,-1}) "Splitter for domestic cold water"
+        datWatHea.mDom_flow_nominal*{1,-1,-1})
+                                             "Splitter for domestic cold water"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,

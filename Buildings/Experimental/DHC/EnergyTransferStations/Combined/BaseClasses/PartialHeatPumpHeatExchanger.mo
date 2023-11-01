@@ -69,7 +69,7 @@ model PartialHeatPumpHeatExchanger
        "Evaporator water mass flow rate of heat pump for hot water production"
     annotation (Dialog(group="Nominal condition", enable=have_hotWat));
   final parameter Modelica.Units.SI.MassFlowRate mSerWat_flow_nominal(min=0)=
-    max(proHeaWat.m2_flow_nominal + mEvaHotWat_flow_nominal, hexChi.m1_flow_nominal)
+    max(proHeaWat.mCon_flow_nominal + mEvaHotWat_flow_nominal, hexChi.m1_flow_nominal)
     "Service water mass flow rate"
     annotation (Dialog(group="Nominal condition"));
   constant Modelica.Units.SI.SpecificHeatCapacity cpBui_default=
@@ -211,7 +211,7 @@ model PartialHeatPumpHeatExchanger
     annotation (Placement(transformation(extent={{10,-324},{-10,-344}})));
   Buildings.Fluid.Delays.DelayFirstOrder volHeaWatRet(
     redeclare final package Medium = MediumBui,
-    final m_flow_nominal=proHeaWat.m1_flow_nominal,
+    final m_flow_nominal=proHeaWat.mCon_flow_nominal,
     tau=60,
     final energyDynamics=mixingVolumeEnergyDynamics,
     T_start=THeaWatSup_nominal,
@@ -296,16 +296,15 @@ model PartialHeatPumpHeatExchanger
     final m_flow_nominal=mSerWat_flow_nominal) "Flow switch box"
     annotation (Placement(transformation(extent={{-10,-390},{10,-370}})));
   Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Junction bypHeaWatSup(
-    redeclare final package Medium = MediumBui,
-    final m_flow_nominal=proHeaWat.m1_flow_nominal
+    redeclare final package Medium = MediumBui, final m_flow_nominal=proHeaWat.mCon_flow_nominal
         *{1,-1,-1}) "Bypass heating water (supply)" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={100,260})));
   Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Junction bypHeaWatRet(
-    redeclare final package Medium = MediumBui,
-    final m_flow_nominal=proHeaWat.m1_flow_nominal*{1,-1,1})
+    redeclare final package Medium = MediumBui, final m_flow_nominal=proHeaWat.mCon_flow_nominal
+        *{1,-1,1})
     "Bypass heating water (return)"
     annotation (Placement(
         transformation(
@@ -315,19 +314,17 @@ model PartialHeatPumpHeatExchanger
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold enaHea(
     trueHoldDuration=15*60) "Enable heating"
     annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
-  Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump proHeaWat(
+  Subsystems.HeatPumpExtended                                                    proHeaWat(
     redeclare final package Medium1 = MediumBui,
     redeclare final package Medium2 = MediumSer,
+    dT_nominal=dT_nominal,
     final have_varFloCon=have_varFloCon,
-    final have_varFloEva=have_varFloEva,
     final COP_nominal=COPHeaWat_nominal,
     final TCon_nominal=THeaWatSup_nominal,
     final TEva_nominal=TDisWatMin-dT_nominal,
     final Q1_flow_nominal=QHeaWat_flow_nominal,
     final allowFlowReversal1=allowFlowReversalBui,
     final allowFlowReversal2=allowFlowReversalSer,
-    final dT1_nominal=dT_nominal,
-    final dT2_nominal=-dT_nominal,
     final dp1_nominal=dp_nominal,
     final dp2_nominal=dp_nominal) "Subsystem for heating water production"
     annotation (Placement(transformation(extent={{-10,204},{10,224}})));
@@ -353,8 +350,8 @@ model PartialHeatPumpHeatExchanger
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={40,-120})));
-  Fluid.Sensors.MassFlowRate senMasFloHeaWatPri(redeclare final package Medium
-      = MediumBui, final allowFlowReversal=allowFlowReversalBui)
+  Fluid.Sensors.MassFlowRate senMasFloHeaWatPri(redeclare final package Medium =
+        MediumBui, final allowFlowReversal=allowFlowReversalBui)
     "Primary heating water mass flow rate"
     annotation (Placement(transformation(extent={{30,270},{50,250}})));
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold enaSHW(
@@ -379,9 +376,6 @@ model PartialHeatPumpHeatExchanger
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter capFloHHW(
     final k=cpBui_default) if have_varFloEva or have_varFloCon "Capacity flow rate"
     annotation (Placement(transformation(extent={{-220,310},{-200,330}})));
-  Buildings.Controls.OBC.CDL.Reals.Add heaFloEvaHHW if have_varFloEva
-    "Heat flow rate at evaporator"
-    annotation (Placement(transformation(extent={{-100,230},{-80,250}})));
   Buildings.Experimental.DHC.EnergyTransferStations.Combined.Controls.PrimaryVariableFlow conFloConHHW(
     final Q_flow_nominal=QHeaWat_flow_nominal,
     final dT_nominal=dT_nominal,
@@ -389,13 +383,6 @@ model PartialHeatPumpHeatExchanger
     final cp=cpBui_default) if have_varFloCon
     "Mass flow rate control"
     annotation (Placement(transformation(extent={{-100,270},{-80,290}})));
-  Buildings.Experimental.DHC.EnergyTransferStations.Combined.Controls.PrimaryVariableFlow conFloEvaHHW(
-    final Q_flow_nominal=-QHeaWat_flow_nominal*(1 - 1/COPHeaWat_nominal),
-    final dT_nominal=-dT_nominal,
-    final ratFloMin=ratFloMin,
-    final cp=cpSer_default) if have_varFloEva
-    "Mass flow rate control"
-    annotation (Placement(transformation(extent={{-60,230},{-40,250}})));
   Buildings.Controls.OBC.CDL.Reals.Max priOve if have_varFloCon
     "Ensure primary overflow"
     annotation (Placement(transformation(extent={{-60,270},{-40,290}})));
@@ -403,9 +390,6 @@ model PartialHeatPumpHeatExchanger
     if have_varFloEva or have_varFloCon "Heating load"
     annotation (Placement(transformation(extent={{-140,270},{-120,290}})));
 
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter toSub1(final k=-1)
-    if have_varFloEva "Convert to subtraction"
-    annotation (Placement(transformation(extent={{-80,216},{-100,236}})));
 equation
   connect(TChiWatSupSet, conTChiWat.u_s) annotation (Line(points={{-320,0},{-200,
           0},{-200,-200},{-152,-200}},  color={0,0,127}));
@@ -532,28 +516,18 @@ equation
     annotation (Line(points={{140,271},{140,326},{2,326}}, color={0,0,127}));
   connect(senMasFloHeaWat.m_flow, capFloHHW.u) annotation (Line(points={{-240,271},
           {-240,320},{-222,320}}, color={0,0,127}));
-  connect(conFloEvaHHW.m_flow, proHeaWat.m2_flow) annotation (Line(points={{-38,240},
-          {-28,240},{-28,211},{-12,211}},      color={0,0,127}));
   connect(senMasFloHeaWat.m_flow, priOve.u1) annotation (Line(points={{-240,271},
           {-240,296},{-70,296},{-70,286},{-62,286}}, color={0,0,127}));
   connect(conFloConHHW.m_flow, priOve.u2) annotation (Line(points={{-78,280},{-70,
           280},{-70,274},{-62,274}}, color={0,0,127}));
   connect(priOve.y, proHeaWat.m1_flow) annotation (Line(points={{-38,280},{-24,280},
           {-24,214},{-12,214}}, color={0,0,127}));
-  connect(heaFloEvaHHW.y, conFloEvaHHW.loa)
-    annotation (Line(points={{-78,240},{-62,240}}, color={0,0,127}));
   connect(capFloHHW.y, loaHHW.u2) annotation (Line(points={{-198,320},{-180,320},
           {-180,274},{-142,274}}, color={0,0,127}));
   connect(dTHHW.y, loaHHW.u1) annotation (Line(points={{-22,320},{-160,320},{
           -160,286},{-142,286}}, color={0,0,127}));
   connect(loaHHW.y, conFloConHHW.loa)
     annotation (Line(points={{-118,280},{-102,280}}, color={0,0,127}));
-  connect(loaHHW.y, heaFloEvaHHW.u1) annotation (Line(points={{-118,280},{-110,
-          280},{-110,246},{-102,246}}, color={0,0,127}));
-  connect(proHeaWat.PHea, toSub1.u) annotation (Line(points={{12,217},{20,217},
-          {20,226},{-78,226}}, color={0,0,127}));
-  connect(toSub1.y, heaFloEvaHHW.u2) annotation (Line(points={{-102,226},{-110,
-          226},{-110,234},{-102,234}}, color={0,0,127}));
   annotation (
   defaultComponentName="ets",
   Documentation(info="<html>

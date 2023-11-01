@@ -6,3 +6,5 @@ HeatPumpDHWTank
 SwitchBox
 WatersideEconomizer
 Validation
+BaseClasses
+HeatPumpExtended
