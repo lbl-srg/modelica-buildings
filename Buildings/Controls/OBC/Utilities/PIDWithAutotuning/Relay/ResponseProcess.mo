@@ -54,7 +54,7 @@ protected
     "Block that calculates the normalized time delay"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.TuningMonitor
-    TunMon "Block that detects when the tuning period starts and ends"
+    tunMon "Block that detects when the tuning period starts and ends"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 
 equation
@@ -74,15 +74,15 @@ equation
           4},{-2,4}}, color={0,0,127}));
   connect(norTimDel.tau, tau) annotation (Line(points={{62,10},{120,10}},
           color={0,0,127}));
-  connect(TunMon.triSta, triSta) annotation (Line(points={{-18,-24},{80,-24},{80,
+  connect(tunMon.triSta, triSta) annotation (Line(points={{-18,-24},{80,-24},{80,
           -40},{120,-40}}, color={255,0,255}));
-  connect(TunMon.triEnd, triEnd) annotation (Line(points={{-18,-36},{60,-36},{60,
+  connect(tunMon.triEnd, triEnd) annotation (Line(points={{-18,-36},{60,-36},{60,
           -80},{120,-80}}, color={255,0,255}));
-  connect(TunMon.tOn, onOffPer.tOn) annotation (Line(points={{-42,-24},{-52,-24},
+  connect(tunMon.tOn, onOffPer.tOn) annotation (Line(points={{-42,-24},{-52,-24},
           {-52,14},{-58,14}}, color={0,0,127}));
-  connect(TunMon.tOff, onOffPer.tOff) annotation (Line(points={{-42,-36},{-56,-36},
+  connect(tunMon.tOff, onOffPer.tOff) annotation (Line(points={{-42,-36},{-56,-36},
           {-56,6},{-58,6}}, color={0,0,127}));
-  connect(halPerRatio.TunEnd, TunMon.triEnd) annotation (Line(points={{-2,10},{-10,
+  connect(halPerRatio.TunEnd, tunMon.triEnd) annotation (Line(points={{-2,10},{-10,
           10},{-10,-36},{-18,-36}}, color={255,0,255}));
   connect(onOffPer.trigger, trigger) annotation (Line(points={{-82,4},{-90,4},{-90,
           -60},{-120,-60}}, color={255,0,255}));

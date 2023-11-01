@@ -20,53 +20,50 @@ block SamplerWithResetThreshold
 protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant thr(final k=lowLim)
     "Threshold"
-    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+    annotation (Placement(transformation(origin = {0, 42}, extent = {{-80, -10}, {-60, 10}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler yRec(final y_start=y_reset)
     "Record the input when sampling is triggered"
     annotation (Placement(transformation(extent={{60,10},{80,-10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant reset(final k=y_reset)
     "Reset value"
-    annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
+    annotation (Placement(transformation(origin = {0, 72}, extent = {{-80, -90}, {-60, -70}})));
   Buildings.Controls.OBC.CDL.Logical.Or samTri "Sampling trigger"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
   Buildings.Controls.OBC.CDL.Reals.Greater gre(final h=0)
     "Check if the input signal is larger than the threshold"
-    annotation (Placement(transformation(extent={{-32,20},{-12,40}})));
+    annotation (Placement(transformation(origin = {0, 20}, extent = {{-32, 20}, {-12, 40}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Switch between sampling the input signal and the reset value"
     annotation (Placement(transformation(extent={{-16,10},{4,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edgRes(final pre_u_start=false)
     "Detect if the reset is triggered"
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+    annotation (Placement(transformation(origin = {0, -20}, extent = {{-80, -50}, {-60, -30}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edgThr(final pre_u_start=false)
     "Detect if the threshold is exceeded"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
 equation
   connect(yRec.y, y) annotation (Line(points={{82,0},{106,0},{106,0},{120,0}},
         color={0,0,127}));
-  connect(thr.y, gre.u2) annotation (Line(points={{-58,0},{-40,0},{-40,22},{-34,
-          22}}, color={0,0,127}));
-  connect(gre.u1, u) annotation (Line(points={{-34,30},{-46,30},{-46,60},{-120,
+  connect(thr.y, gre.u2) annotation (Line(points={{-58, 42},{-34,
+          42}}, color={0,0,127}));
+  connect(gre.u1, u) annotation (Line(points={{-34,50},{-46,50},{-46,60},{-120,
           60}}, color={0,0,127}));
   connect(yRec.u, swi.y)
     annotation (Line(points={{58,0},{6,0}}, color={0,0,127}));
-  connect(edgRes.u, trigger) annotation (Line(points={{-82,-40},{-92,-40},{-92,
-          -60},{-120,-60}}, color={255,0,255}));
-  connect(edgRes.y, swi.u2) annotation (Line(points={{-58,-40},{-32,-40},{-32,0},
+  connect(edgRes.u, trigger) annotation (Line(points={{-82, -60},{-120,-60}}, color={255,0,255}));
+  connect(edgRes.y, swi.u2) annotation (Line(points={{-58,-60},{-32,-60},{-32,0},
           {-18,0}}, color={255,0,255}));
   connect(swi.u3, u)
     annotation (Line(points={{-18,8},{-46,8},{-46,60},{-120,60}},
         color={0,0,127}));
-  connect(swi.u1, reset.y) annotation (Line(points={{-18,-8},{-26,-8},{-26,-80},
-          {-58,-80}}, color={0,0,127}));
-  connect(samTri.u2, edgRes.y) annotation (Line(points={{38,42},{30,42},{30,-40},
-          {-58,-40}}, color={255,0,255}));
+  connect(swi.u1, reset.y) annotation (Line(points={{-18,-8},{-58, -8}}, color={0,0,127}));
+  connect(samTri.u2, edgRes.y) annotation (Line(points={{38,42},{30,42},{30,-60},
+          {-58,-60}}, color={255,0,255}));
   connect(samTri.y, yRec.trigger)
     annotation (Line(points={{62,50},{70,50},{70,12}}, color={255,0,255}));
   connect(edgThr.y, samTri.u1)
     annotation (Line(points={{22,50},{38,50}}, color={255,0,255}));
-  connect(edgThr.u, gre.y) annotation (Line(points={{-2,50},{-8,50},{-8,30},{
-          -10,30}}, color={255,0,255}));
+  connect(edgThr.u, gre.y) annotation (Line(points={{-2,50},{-10, 50}}, color={255,0,255}));
   annotation (
         defaultComponentName = "samResThr",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={

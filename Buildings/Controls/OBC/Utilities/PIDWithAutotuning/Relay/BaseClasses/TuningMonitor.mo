@@ -25,10 +25,10 @@ block TuningMonitor "Monitor the tuning process"
 
 protected
   Buildings.Controls.OBC.CDL.Reals.Max tMax "Maximum value of the length for the on and Off period "
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+    annotation (Placement(transformation(origin = {0, -10}, extent = {{-80, 60}, {-60, 80}})));
   Buildings.Controls.OBC.CDL.Reals.Greater gretOnOrtOff
     "Check if either the length for the On period or the length for the off period are larger than 0"
-    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+    annotation (Placement(transformation(origin = {0, 10}, extent = {{-40, 40}, {-20, 60}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant minLen(final k=1e-5)
     "Minimum value for the horizon length"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
@@ -64,12 +64,12 @@ protected
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
 
 equation
-  connect(tMax.u1, tOn) annotation (Line(points={{-82,76},{-94,76},{-94,80},{
+  connect(tMax.u1, tOn) annotation (Line(points={{-82,66},{-94,66},{-94,80},{
           -120,80}}, color={0,0,127}));
-  connect(tMax.u2, tOff) annotation (Line(points={{-82,64},{-90,64},{-90,-70},{
+  connect(tMax.u2, tOff) annotation (Line(points={{-82,54},{-90,54},{-90,-70},{
           -120,-70}}, color={0,0,127}));
   connect(minLen.y, gretOnOrtOff.u2) annotation (Line(points={{-58,30},{-50,30},
-          {-50,42},{-42,42}}, color={0,0,127}));
+          {-50,52},{-42,52}}, color={0,0,127}));
   connect(samAddtOntOff.y, tInc.u2) annotation (Line(points={{2,0},{10,0},{10,22},
           {18,22}}, color={0,0,127}));
   connect(addtOntOff.u2, tOff) annotation (Line(points={{-82,-36},{-90,-36},{
@@ -82,8 +82,7 @@ equation
           color={255,0,255}));
   connect(samAddtOntOff.y, tDec.u2) annotation (Line(points={{2,0},{10,0},{10,-38},
           {18,-38}}, color={0,0,127}));
-  connect(gretOnOrtOff.u1, tMax.y) annotation (Line(points={{-42,50},{-52,50},{
-          -52,70},{-58,70}}, color={0,0,127}));
+  connect(gretOnOrtOff.u1, tMax.y) annotation (Line(points={{-42,60},{-58, 60}}, color={0,0,127}));
   connect(tDec.y, tCha.u2) annotation (Line(points={{42,-30},{42,-8},{48,-8}},
            color={255,0,255}));
   connect(edgTunSta.y, triSta) annotation (Line(points={{82,60},{88,60},{88,60},
@@ -100,8 +99,7 @@ equation
     annotation (Line(points={{-58,-70},{-42,-70}}, color={0,0,127}));
   connect(gretOnAndtOff.u2, minLen.y) annotation (Line(points={{-42,-78},{-50,
           -78},{-50,30},{-58,30}}, color={0,0,127}));
-  connect(gretOnOrtOff.y, edgTunSta.u) annotation (Line(points={{-18,50},{50,50},
-          {50,60},{58,60}},color={255,0,255}));
+  connect(gretOnOrtOff.y, edgTunSta.u) annotation (Line(points={{-18, 60},{58,60}},color={255,0,255}));
   connect(gretOnAndtOff.y, samAddtOntOff.trigger) annotation (Line(points={{-18,
           -70},{-10,-70},{-10,-12}}, color={255,0,255}));
   connect(addtOntOff.y, mul.u1) annotation (Line(points={{-58,-30},{-54,-30},{-54,
