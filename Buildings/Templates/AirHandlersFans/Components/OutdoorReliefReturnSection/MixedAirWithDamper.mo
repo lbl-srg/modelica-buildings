@@ -66,8 +66,9 @@ model MixedAirWithDamper "Mixed air system with return air damper"
     Dialog(group="Configuration"),
     Placement(transformation(extent={{-18,66},{18,94}})));
 
-  Buildings.Templates.Components.Dampers.Modulating damRet(
+  Buildings.Templates.Components.Actuators.Damper damRet(
     redeclare final package Medium = MediumAir,
+    final typ=Buildings.Templates.Components.Types.Damper.Modulating,
     use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
     final allowFlowReversal=allowFlowReversal,
     final dat=dat.damRet,

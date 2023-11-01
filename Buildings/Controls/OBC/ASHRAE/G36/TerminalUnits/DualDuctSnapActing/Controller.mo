@@ -113,8 +113,8 @@ block Controller "Controller for snap-acting controlled dual-duct terminal unit"
     "Threshold time to check valve leaking water flow"
     annotation (__cdl(ValueInReference=true), Dialog(tab="Alarms"));
   // ---------------- Parameters for time-based suppression ----------------
-  parameter Real chaRat=540
-    "Gain factor to calculate suppression time based on the change of the setpoint, second per degC"
+  parameter Real chaRat(final unit="s/K")=540
+    "Gain factor to calculate suppression time based on the change of the setpoint, seconds per Kelvin"
     annotation (__cdl(ValueInReference=true), Dialog(tab="Time-based suppresion"));
   parameter Real maxSupTim(unit="s")=1800
     "Maximum suppression time"
