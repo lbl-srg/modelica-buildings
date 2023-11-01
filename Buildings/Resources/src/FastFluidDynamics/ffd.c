@@ -56,7 +56,7 @@ int allocate_memory(PARA_DATA* para) {
   | Allocate memory for variables
   ****************************************************************************/
   nb_var = C2BC + 1;
-  var = (REAL * *)malloc(nb_var * sizeof(REAL*));
+  var = (REAL * *) malloc(nb_var * sizeof(REAL*));
   if (var == NULL) {
 	ffd_log("allocate_memory(): Could not allocate memory for var.",
 		FFD_ERROR);
@@ -64,7 +64,7 @@ int allocate_memory(PARA_DATA* para) {
   }
 
   for (i = 0; i < nb_var; i++) {
-	var[i] = (REAL*)calloc(size, sizeof(REAL));
+	var[i] = (REAL*) calloc(size, sizeof(REAL));
 	if (var[i] == NULL) {
 		sprintf(msg,
 			"allocate_memory(): Could not allocate memory for var[%d]", i);
@@ -82,7 +82,7 @@ int allocate_memory(PARA_DATA* para) {
   | BINDEX[4]: Boundary ID to identify which boundary it belongs to
   | BINDEX[5]: Type of object that cell belongs to, for example, Rack
   ****************************************************************************/
-  BINDEX = (int**)malloc(6 * sizeof(int*));
+  BINDEX = (int**) malloc(6 * sizeof(int*));
   if (BINDEX == NULL) {
 	ffd_log("allocate_memory(): Could not allocate memory for BINDEX.",
 		FFD_ERROR);
@@ -90,7 +90,7 @@ int allocate_memory(PARA_DATA* para) {
   }
 
   for (i = 0; i < 6; i++) {
-	BINDEX[i] = (int*)malloc(size * sizeof(int));
+	BINDEX[i] = (int*) malloc(size * sizeof(int));
 	if (BINDEX[i] == NULL) {
 		sprintf(msg,
 			"allocate_memory(): Could not allocate memory for BINDEX[%d]", i);
@@ -116,8 +116,8 @@ int allocate_memory(PARA_DATA* para) {
 	*
 	* @return 0 if no error occurred
 	*/
-int ffd_cosimulation(CosimulationData* cosim) {
-  para.cosim = (CosimulationData*)malloc(sizeof(CosimulationData));
+int ffd_cosimulation(CosimulationData *cosim) {
+  para.cosim = (CosimulationData*) malloc(sizeof(CosimulationData));
   para.cosim = cosim;
 
   if (ffd(1) != 0) {

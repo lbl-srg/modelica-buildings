@@ -140,6 +140,9 @@ int cfdExchangeData(double t0, double dt, const double *u, size_t nU, size_t nY,
   cosim->modelica->p = u[i];
   i++;
 
+  cosim->modelica->sensibleHeat = u[i];
+  i++;
+
   cosim->modelica->latentHeat = u[i];
   i++;
 
