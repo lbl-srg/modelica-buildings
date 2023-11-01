@@ -57,7 +57,7 @@ model Coils "Validation model for coil components"
       iconVisible=false,
       transformation(extent={{-20,120},{20,160}}),
       iconTransformation(extent={{-250,-32},{-210,8}})));
-  Controls.OBC.CDL.Reals.Sources.Ramp y(height=1,
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp y(height=1,
     duration=10) "Coil/valve control signal"
     annotation (Placement(transformation(extent={{-90,150},{-70,170}})));
 
@@ -122,7 +122,8 @@ model Coils "Validation model for coil components"
       iconVisible=false,
       transformation(extent={{-20,-100},{20,-60}}),
       iconTransformation(extent={{-250,-32},{-210,8}})));
-  Controls.OBC.CDL.Reals.Sources.Constant TOut(k=coiEva.dat.datCoi.sta[1].nomVal.TConIn_nominal)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOut(
+    k=coiEva.dat.datCoi.sta[1].nomVal.TConIn_nominal)
     "Outdoor temperature"
     annotation (Placement(transformation(extent={{-130,-110},{-110,-90}})));
   .Buildings.Controls.OBC.CDL.Reals.Sources.Constant XOut(k=0.015)
@@ -234,13 +235,14 @@ equation
   connect(y.y, bus3.y) annotation (Line(points={{-68,160},{0,160},{0,-80}},
                            color={0,0,127}));
   connect(TOut.y, weaBus.TDryBul) annotation (Line(points={{-108,-100},{-70,-100},
-          {-70,-90},{-30,-90}}, color={0,0,127}));
+          {-70,-89.9},{-29.9,-89.9}},
+                                color={0,0,127}));
   connect(TOut.y, wetBul.TDryBul) annotation (Line(points={{-108,-100},{-70,-100},
           {-70,-112},{-61,-112}},  color={0,0,127}));
   connect(pOut.y, wetBul.p) annotation (Line(points={{-108,-180},{-100,-180},{-100,
           -128},{-61,-128}}, color={0,0,127}));
   connect(wetBul.TWetBul, weaBus.TWetBul) annotation (Line(points={{-39,-120},{-32,
-          -120},{-32,-90},{-30,-90}},
+          -120},{-32,-89.9},{-29.9,-89.9}},
                             color={0,0,127}));
   connect(XOut.y, wetBul.Xi[1]) annotation (Line(points={{-108,-140},{-84,-140},
           {-84,-120},{-61,-120}}, color={0,0,127}));

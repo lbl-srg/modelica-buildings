@@ -112,13 +112,13 @@ model Damper "Multiple-configuration damper"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-40,40})));
-  Controls.OBC.CDL.Reals.LessThreshold y0_actual(t=0.01, h=0.5E-2)
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold y0_actual(t=0.01, h=0.5E-2)
     if typ == Buildings.Templates.Components.Types.Damper.TwoPosition
     "Closed end switch status" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={40,40})));
-  Controls.OBC.CDL.Reals.GreaterThreshold y1_actual(t=0.99, h=0.5E-2)
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold y1_actual(t=0.99, h=0.5E-2)
     if typ == Buildings.Templates.Components.Types.Damper.TwoPosition
     "Open end switch status" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
