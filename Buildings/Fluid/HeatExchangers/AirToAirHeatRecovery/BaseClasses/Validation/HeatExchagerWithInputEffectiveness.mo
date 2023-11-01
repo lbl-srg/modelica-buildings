@@ -26,7 +26,7 @@ model HeatExchagerWithInputEffectiveness
     use_p_in=true,
     use_T_in=true,
     nPorts=1)
-     "Source of the exhuast air"
+     "Source of the exhaust air"
     annotation (Placement(transformation(extent={{40,-70},
             {60,-50}})));
     Modelica.Blocks.Sources.Ramp TSup(

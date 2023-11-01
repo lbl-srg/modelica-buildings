@@ -58,7 +58,7 @@ model Wheel "Sensible and latent air-to-air heat recovery wheels"
     final epsS_heat_partload=epsS_heat_partload,
     final epsL_heat_partload=epsL_heat_partload,
     final v_flow_sup_nominal=m1_flow_nominal/1.293)
-    "Calculates the effectiveness of heat exhcnages"
+    "Calculates the effectiveness of heat exchanges"
     annotation (Placement(transformation(extent={{40,20},{20,40}})));
   Modelica.Blocks.Interfaces.RealInput yWheSpe(unit="1") if not with_BypDam
     "Wheel speed ratio"

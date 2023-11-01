@@ -46,7 +46,7 @@ model EffectivenessCalculation
     "Sensible heat exchanger effectiveness"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
   Modelica.Blocks.Interfaces.RealOutput epsL(final unit="1")
-    "Latent heat exchanger effectivenessr"
+    "Latent heat exchanger effectiveness"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
 
 protected
@@ -95,7 +95,7 @@ equation
   vRat =  (v_flow_Sup + v_flow_Exh)/2/v_flow_sup_nominal;
   // check if the extrapolation goes too far
   assert(vRat > 0.5 and vRat < 1.3,
-    "Operatiing flow rate outside full accuracy range",
+    "Operating flow rate outside full accuracy range",
     level=AssertionLevel.warning);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={Text(
           extent={{-54,28},{50,-40}},
