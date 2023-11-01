@@ -3,7 +3,7 @@ model ResponseProcess "Test model for processing the response of a relay control
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.ResponseProcess resPro(
     final yHig=1,
     final yLow=0.2)
-    "Calculate the length of the On period and the Off period"
+    "Calculate the length of the on period and the off period"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.ModelTime modTim
     "Simulation time"

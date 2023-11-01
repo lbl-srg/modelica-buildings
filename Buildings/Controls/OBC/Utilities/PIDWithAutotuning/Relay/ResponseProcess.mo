@@ -23,13 +23,13 @@ block ResponseProcess
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
-    "Length of the On period"
+    "Length of the on period"
     annotation (Placement(transformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput tOff(
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
-    "Length of the Off period"
+    "Length of the off period"
     annotation (Placement(transformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput triSta
     "True: the tuning starts"
@@ -44,7 +44,7 @@ block ResponseProcess
 
 protected
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.OnOffPeriod onOffPer
-    "Block that calculates the length of the On period and the Off period"
+    "Block that calculates the length of the on period and the off period"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.HalfPeriodRatio halPerRatio
     "Block that calculates the half period ratio"
@@ -124,10 +124,10 @@ This block processes a relay switch output signal and calculates:
 </p>
 <ol>
 <li>
-the length of the On period;
+the length of the on period;
 </li>
 <li>
-the length of the Off period;
+the length of the off period;
 </li>
 <li>
 the normalized time delay of the responses;

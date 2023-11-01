@@ -16,14 +16,14 @@ model TuningMonitor "Test model for the tuning period management"
     "Block that generates signals for forming the signal of the length of On period"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Buildings.Controls.OBC.CDL.Reals.Add tOn
-    "The length of the On period"
+    "The length of the on period"
     annotation (Placement(transformation(extent={{-34,40},{-14,60}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Pulse tOff(
     amplitude=-0.5,
     width=0.7,
     period=1,
     offset=0.5)
-    "The length of the Off period"
+    "The length of the off period"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.TuningMonitor
     tunMan "Manage the tuning process"
@@ -89,15 +89,15 @@ Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.TuningMonit
 </p>
 <ul>
 <li>
-At <i>0.1</i>s, the length of the On period becomes <i>0.1</i>s,
+At <i>0.1</i>s, the length of the on period becomes <i>0.1</i>s,
 triggering the training period to start.
 </li>
 <li>
-At <i>0.7</i>s, the length of the Off period becomes <i>0.5</i>s.
+At <i>0.7</i>s, the length of the off period becomes <i>0.5</i>s.
 </li>
 <li>
-At <i>0.9</i>s, the length of the On period changes from <i>0.1</i>s to <i>0.9</i>s
-while that of the Off period remains <i>0.5</i>s.
+At <i>0.9</i>s, the length of the on period changes from <i>0.1</i>s to <i>0.9</i>s
+while that of the off period remains <i>0.5</i>s.
 This triggers the tuning period to end.
 </li>
 </ul>

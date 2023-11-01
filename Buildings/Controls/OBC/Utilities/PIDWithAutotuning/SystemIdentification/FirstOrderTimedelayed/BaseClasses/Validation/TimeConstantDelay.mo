@@ -12,7 +12,7 @@ model TimeConstantDelay "Test model for identifying the the time constant and th
     width=0.1,
     period=1,
     offset=0.1)
-    "The length of the On period"
+    "The length of the on period"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Pulse ratioLT(
     amplitude=-0.1,

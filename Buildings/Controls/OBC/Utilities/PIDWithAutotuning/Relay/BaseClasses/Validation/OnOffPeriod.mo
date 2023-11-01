@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.Validation;
-model OnOffPeriod "Test model for calculating the length of the On period and the Off period"
+model OnOffPeriod "Test model for calculating the length of the on period and the off period"
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.OnOffPeriod
-    onOffPer "Calculate the length of the On period and the Off period"
+    onOffPer "Calculate the length of the on period and the off period"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.ModelTime modTim
     "Simulation time"

@@ -17,14 +17,14 @@ model ControlProcessModel
     width=0.1,
     period=1,
     offset=0.1)
-    "The length of the On period"
+    "The length of the on period"
     annotation (Placement(transformation(extent={{-80,42},{-60,62}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Pulse tOff(
     amplitude=-0.7,
     width=0.8,
     period=1,
     offset=0.7)
-    "The length of the Off period"
+    "The length of the off period"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse tunSta(
     width=0.9,

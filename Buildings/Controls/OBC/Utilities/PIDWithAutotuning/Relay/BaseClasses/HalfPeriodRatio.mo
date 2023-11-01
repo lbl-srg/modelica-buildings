@@ -5,14 +5,14 @@ block HalfPeriodRatio
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
-    "Length for the On period"
+    "Length for the on period"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
     iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tOff(
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
-    "Length for the Off period"
+    "Length for the off period"
     annotation (Placement(transformation(extent={{-140,-90},{-100,-50}}),
     iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput TunEnd
@@ -34,10 +34,10 @@ protected
     "Block that samples tOff when the tuning period ends"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-80}})));
   Buildings.Controls.OBC.CDL.Reals.Min mintOntOff
-    "Block that finds the smaller one between the length for the On period and the length for theoff period"
+    "Block that finds the smaller one between the length for the on period and the length for the off period"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
   Buildings.Controls.OBC.CDL.Reals.Max maxtOntOff
-    "Block that finds the larger one between the length for the On period and the length for theoff period"
+    "Block that finds the larger one between the length for the on period and the length for the off period"
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
   Buildings.Controls.OBC.CDL.Reals.Divide halPerRat
     "Block that calculates the half period ratio"
@@ -101,7 +101,7 @@ This block calculates the half-period ratio of the output from a relay controlle
 </p>
 <p>
 where <code>t<sub>on</sub></code> and <code>t<sub>off</sub></code> are the
-lengths of the On period and the Off period, respectively.
+lengths of the on period and the off period, respectively.
 An On period is defined as the period when the relay switch output of the relay controller is
 <code>true</code>.
 Likewise, an Off period is defined as the period when the relay switch output is <code>false</code>.

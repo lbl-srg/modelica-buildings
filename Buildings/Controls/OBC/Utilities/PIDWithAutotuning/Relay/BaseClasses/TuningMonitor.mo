@@ -1,19 +1,19 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses;
 block TuningMonitor "Monitor the tuning process"
-  constant Modelica.Units.SI.Time minHorLen = 1E-3
+  constant Modelica.Units.SI.Time minHorLen = 1E-5
     "Minimum value for horizon length, used to guard against rounding errors";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tOn(
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
-    "Length for the On period"
+    "Length for the on period"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
     iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tOff(
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
-    "Length for the Off period"
+    "Length for the off period"
     annotation (Placement(transformation(extent={{-140,-90},{-100,-50}}),
     iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput triSta
@@ -29,7 +29,7 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Max tMax "Maximum value of the length for the on and Off period "
     annotation (Placement(transformation(origin = {0, -10}, extent = {{-80, 60}, {-60, 80}})));
   Buildings.Controls.OBC.CDL.Reals.Greater gretOnOrtOff
-    "Check if either the length for the On period or the length for the off period are larger than 0"
+    "Check if either the length for the on period or the length for the off period are larger than 0"
     annotation (Placement(transformation(origin = {0, 10}, extent = {{-40, 40}, {-20, 60}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant minLen(final k=minHorLen)
     "Minimum value for the horizon length"
@@ -38,16 +38,16 @@ protected
     "Block that samples the tmin when tmin is larger than 0"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Buildings.Controls.OBC.CDL.Reals.Greater tInc
-    "Block that checks if either the length for the On period or the length for theoff period increases after they both becomes positive"
+    "Block that checks if either the length for the on period or the length for the off period increases after they both become positive"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Buildings.Controls.OBC.CDL.Reals.Add addtOntOff
-    "Block that calculates the sum of the length for the On period and the length for the Off period"
+    "Block that calculates the sum of the length for the on period and the length for the off period"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Buildings.Controls.OBC.CDL.Reals.Less tDec
-    "Block that checks if either the length for the On period or the length for theoff period decreases after they both becomes positive"
+    "Block that checks if either the length for the on period or the length for the off period decreases after they both become positive"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Or tCha
-    "Block that checks if the length for the On period or the length for theoff period changes"
+    "Block that checks if the length for the on period or the length for the off period changes"
     annotation (Placement(transformation(extent={{50,-10},{70,10}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edgTunSta
    "Detect if the tuning process starts"
@@ -62,7 +62,7 @@ protected
    "Minimum value of the length for the on and Off period"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Buildings.Controls.OBC.CDL.Reals.Greater gretOnAndtOff
-    "Check if both the length for the On period and the length for the off period are larger than 0"
+    "Check if both the length for the on period and the length for the off period are larger than 0"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
 
 equation

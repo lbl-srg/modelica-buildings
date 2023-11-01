@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses;
-block OnOffPeriod "Calculate the lengths of the On period and the Off period"
+block OnOffPeriod "Calculate the lengths of the on period and the off period"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tim(
     final quantity="Time",
     final unit="s")
@@ -18,14 +18,14 @@ block OnOffPeriod "Calculate the lengths of the On period and the Off period"
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
-    "Length for the Off period"
+    "Length for the off period"
     annotation (Placement(transformation(extent={{100,-60},{140,-20}}),
         iconTransformation(extent={{100,-60},{140,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput tOn(
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
-    "Length for the On period"
+    "Length for the on period"
     annotation (Placement(transformation(extent={{100,20},{140,60}})));
 protected
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler timOn
@@ -35,21 +35,21 @@ protected
     "Simulation time when the input signal becomes off (False)"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract lenOffCal
-    "Block that calculates the horizon length for the Off period"
+    "Block that calculates the horizon length for the off period"
     annotation (Placement(transformation(extent={{10,-50},{30,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract lenOnCal
-    "Block that calculates the horizon length for the On period"
+    "Block that calculates the horizon length for the on period"
     annotation (Placement(transformation(extent={{12,30},{32,50}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1
     "True: the relay output switch to false"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.SamplerWithResetThreshold timOnRec(
      final lowLim=0, final y_reset=0)
-    "Sampling the On time"
+    "Sampling the on time"
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.SamplerWithResetThreshold timOffRec(
      final lowLim=0, final y_reset=0)
-    "Sampling the Off time"
+    "Sampling the off time"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
 
 equation
@@ -106,7 +106,7 @@ First implementation<br/>
 </html>", info="<html>
 <p>
 This block processes a relay switch output and calculates the length of
-the On period, <code>tOn</code>, and the length of the Off period, <code>tOff</code>, as shown below.
+the on period, <code>tOn</code>, and the length of the off period, <code>tOff</code>, as shown below.
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Controls/OBC/Utilities/PIDWithAutotuning/Relay/BaseClasses/OnOff.png\"/>

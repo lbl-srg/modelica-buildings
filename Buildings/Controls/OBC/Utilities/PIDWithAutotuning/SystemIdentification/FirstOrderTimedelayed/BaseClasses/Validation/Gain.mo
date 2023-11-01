@@ -16,14 +16,14 @@ model Gain "Test model for identifying the gain of the control process"
     width=0.1,
     period=1,
     offset=0.1)
-    "The length of the On period"
+    "The length of the on period"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Pulse tOff(
     amplitude=-0.7,
     width=0.8,
     period=1,
     offset=0.7)
-    "The length of the Off period"
+    "The length of the off period"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse tunSta(
     width=0.9,

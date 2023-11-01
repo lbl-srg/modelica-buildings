@@ -20,14 +20,14 @@ model HalfPeriodRatio "Test model for calculating the half period ratio"
     "Block that generates signals for forming the signal of the length of On period"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Buildings.Controls.OBC.CDL.Reals.Add tOn
-    "The length of the On period"
+    "The length of the on period"
     annotation (Placement(transformation(extent={{-34,40},{-14,60}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Pulse tOff(
     amplitude=-0.5,
     width=0.7,
     period=1,
     offset=0.5)
-    "The length of the Off period"
+    "The length of the off period"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger samTri(period=1, shift=0.9)
     "True endi sampling"
@@ -82,7 +82,7 @@ Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.HalfPeriodR
 <p>
 This testing scenario in this example is the same as that in <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.Validation.TuningMonitor\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.Validation.TunMonitor</a>.
-The lengths of the On period and the Off period are sampled at <i>0.9</i>s to calculate the half period ratio.
+The lengths of the on period and the off period are sampled at <i>0.9</i>s to calculate the half period ratio.
 </p>
 </html>"));
 end HalfPeriodRatio;
