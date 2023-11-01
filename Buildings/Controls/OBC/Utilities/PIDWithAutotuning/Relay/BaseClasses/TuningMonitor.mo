@@ -7,118 +7,131 @@ block TuningMonitor "Monitor the tuning process"
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
     "Length for the on period"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
+    annotation (Placement(transformation(extent={{-200,60},{-160,100}}),
     iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tOff(
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
     "Length for the off period"
-    annotation (Placement(transformation(extent={{-140,-90},{-100,-50}}),
+    annotation (Placement(transformation(extent={{-200,-100},{-160,-60}}),
     iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput triSta
     "A boolean signal, true if the tuning starts"
-    annotation (Placement(transformation(extent={{100,40},{140,80}}),
+    annotation (Placement(transformation(extent={{160,40},{200,80}}),
     iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput triEnd
     "A boolean signal, true if the tuning completes"
-    annotation (Placement(transformation(extent={{100,-80},{140,-40}}),
+    annotation (Placement(transformation(extent={{160,-20},{200,20}}),
     iconTransformation(extent={{100,-80},{140,-40}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Reals.Max tMax "Maximum value of the length for the on and Off period "
-    annotation (Placement(transformation(origin = {0, -10}, extent = {{-80, 60}, {-60, 80}})));
-  Buildings.Controls.OBC.CDL.Reals.Greater gretOnOrtOff
+  Buildings.Controls.OBC.CDL.Reals.Max tMax
+    "Maximum value of the length for the on and Off period "
+    annotation (Placement(transformation(origin={-50,-10},  extent = {{-80, 60}, {-60, 80}})));
+  Buildings.Controls.OBC.CDL.Reals.Greater greThr
     "Check if either the length for the on period or the length for the off period are larger than 0"
-    annotation (Placement(transformation(origin = {0, 10}, extent = {{-40, 40}, {-20, 60}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minLen(final k=minHorLen)
+    annotation (Placement(transformation(origin={-40,10},  extent = {{-40, 40}, {-20, 60}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minLen(
+    final k=minHorLen)
     "Minimum value for the horizon length"
-    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+    annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samAddtOntOff
-    "Block that samples the tmin when tmin is larger than 0"
-    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+    "Sample the minimum period when the minimum period is greater than 0"
+    annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   Buildings.Controls.OBC.CDL.Reals.Greater tInc
-    "Block that checks if either the length for the on period or the length for the off period increases after they both become positive"
-    annotation (Placement(transformation(extent={{20,20},{40,40}})));
+    "Check if either the length for the on period or the length for the off period increases after they both become positive"
+    annotation (Placement(transformation(extent={{40,20},{60,40}})));
   Buildings.Controls.OBC.CDL.Reals.Add addtOntOff
     "Block that calculates the sum of the length for the on period and the length for the off period"
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Buildings.Controls.OBC.CDL.Reals.Less tDec
-    "Block that checks if either the length for the on period or the length for the off period decreases after they both become positive"
-    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
+    annotation (Placement(transformation(extent={{-130,-20},{-110,0}})));
+  Buildings.Controls.OBC.CDL.Reals.Greater tDec
+    "Check if either the length for the on period or the length for the off period decreases after they both become positive"
+    annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Or tCha
     "Block that checks if the length for the on period or the length for the off period changes"
-    annotation (Placement(transformation(extent={{50,-10},{70,10}})));
+    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edgTunSta
    "Detect if the tuning process starts"
-    annotation (Placement(transformation(extent={{60,50},{80,70}})));
+    annotation (Placement(transformation(extent={{120,50},{140,70}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edgTunEnd
    "Detect if the tuning process ends"
-    annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
+    annotation (Placement(transformation(extent={{120,-10},{140,10}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply mul
    "Calculate the product of two inputs"
-    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
+    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   Buildings.Controls.OBC.CDL.Reals.Min tMin
    "Minimum value of the length for the on and Off period"
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  Buildings.Controls.OBC.CDL.Reals.Greater gretOnAndtOff
+    annotation (Placement(transformation(extent={{-130,-90},{-110,-70}})));
+  Buildings.Controls.OBC.CDL.Reals.Greater greThr1
     "Check if both the length for the on period and the length for the off period are larger than 0"
-    annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
+    annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub "Find the input difference"
+    annotation (Placement(transformation(extent={{0,20},{20,40}})));
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1 "Find the input difference"
+    annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
 
 equation
-  connect(tMax.u1, tOn) annotation (Line(points={{-82,66},{-94,66},{-94,80},{
-          -120,80}}, color={0,0,127}));
-  connect(tMax.u2, tOff) annotation (Line(points={{-82,54},{-90,54},{-90,-70},{
-          -120,-70}}, color={0,0,127}));
-  connect(minLen.y, gretOnOrtOff.u2) annotation (Line(points={{-58,30},{-50,30},
-          {-50,52},{-42,52}}, color={0,0,127}));
-  connect(samAddtOntOff.y, tInc.u2) annotation (Line(points={{2,0},{10,0},{10,22},
-          {18,22}}, color={0,0,127}));
-  connect(addtOntOff.u2, tOff) annotation (Line(points={{-82,-36},{-90,-36},{
-          -90,-70},{-120,-70}},
-                            color={0,0,127}));
-  connect(addtOntOff.u1, tOn) annotation (Line(points={{-82,-24},{-94,-24},{-94,
-          80},{-120,80}}, color={0,0,127}));
-  connect(tCha.u1, tInc.y)
-    annotation (Line(points={{48,0},{42,0},{42,30}},
+  connect(tMax.u1, tOn) annotation (Line(points={{-132,66},{-150,66},{-150,80},{
+          -180,80}}, color={0,0,127}));
+  connect(tMax.u2, tOff) annotation (Line(points={{-132,54},{-140,54},{-140,-80},
+          {-180,-80}},color={0,0,127}));
+  connect(addtOntOff.u2, tOff) annotation (Line(points={{-132,-16},{-140,-16},{-140,
+          -80},{-180,-80}}, color={0,0,127}));
+  connect(addtOntOff.u1, tOn) annotation (Line(points={{-132,-4},{-150,-4},{-150,
+          80},{-180,80}}, color={0,0,127}));
+  connect(edgTunSta.y, triSta) annotation (Line(points={{142,60},{180,60}},
+         color={255,0,255}));
+  connect(tCha.y, edgTunEnd.u) annotation (Line(points={{102,0},{118,0}},
           color={255,0,255}));
-  connect(samAddtOntOff.y, tDec.u2) annotation (Line(points={{2,0},{10,0},{10,-38},
-          {18,-38}}, color={0,0,127}));
-  connect(gretOnOrtOff.u1, tMax.y) annotation (Line(points={{-42,60},{-58, 60}}, color={0,0,127}));
-  connect(tDec.y, tCha.u2) annotation (Line(points={{42,-30},{42,-8},{48,-8}},
-           color={255,0,255}));
-  connect(edgTunSta.y, triSta) annotation (Line(points={{82,60},{88,60},{88,60},
-          {120,60}}, color={255,0,255}));
-  connect(tCha.y, edgTunEnd.u) annotation (Line(points={{72,0},{80,0},{80,-40},{
-          52,-40},{52,-60},{58,-60}}, color={255,0,255}));
-  connect(edgTunEnd.y, triEnd) annotation (Line(points={{82,-60},{92,-60},{92,-60},
-          {120,-60}}, color={255,0,255}));
-  connect(tMin.u1, tOn) annotation (Line(points={{-82,-64},{-94,-64},{-94,80},{-120,
-          80}}, color={0,0,127}));
-  connect(tMin.u2, tOff) annotation (Line(points={{-82,-76},{-90,-76},{-90,-70},
-          {-120,-70}}, color={0,0,127}));
-  connect(tMin.y, gretOnAndtOff.u1)
-    annotation (Line(points={{-58,-70},{-42,-70}}, color={0,0,127}));
-  connect(gretOnAndtOff.u2, minLen.y) annotation (Line(points={{-42,-78},{-50,
-          -78},{-50,30},{-58,30}}, color={0,0,127}));
-  connect(gretOnOrtOff.y, edgTunSta.u) annotation (Line(points={{-18, 60},{58,60}},color={255,0,255}));
-  connect(gretOnAndtOff.y, samAddtOntOff.trigger) annotation (Line(points={{-18,
-          -70},{-10,-70},{-10,-12}}, color={255,0,255}));
-  connect(addtOntOff.y, mul.u1) annotation (Line(points={{-58,-30},{-54,-30},{-54,
-          -24},{-42,-24}}, color={0,0,127}));
-  connect(mul.u2, tMin.y) annotation (Line(points={{-42,-36},{-54,-36},{-54,-70},
-          {-58,-70}}, color={0,0,127}));
-  connect(mul.y, tDec.u1)
-    annotation (Line(points={{-18,-30},{18,-30}}, color={0,0,127}));
-  connect(tInc.u1, mul.y) annotation (Line(points={{18,30},{6,30},{6,-30},{-18,-30}},
-        color={0,0,127}));
-  connect(samAddtOntOff.u, mul.y) annotation (Line(points={{-22,0},{-32,0},{-32,
-          -14},{-14,-14},{-14,-30},{-18,-30}}, color={0,0,127}));
-
+  connect(edgTunEnd.y, triEnd) annotation (Line(points={{142,0},{180,0}},
+          color={255,0,255}));
+  connect(tMin.u1, tOn) annotation (Line(points={{-132,-74},{-150,-74},{-150,80},
+          {-180,80}}, color={0,0,127}));
+  connect(tMin.u2, tOff) annotation (Line(points={{-132,-86},{-140,-86},{-140,-80},
+          {-180,-80}}, color={0,0,127}));
+  connect(greThr.y, edgTunSta.u)
+    annotation (Line(points={{-58,60},{118,60}}, color={255,0,255}));
+  connect(greThr1.y, samAddtOntOff.trigger) annotation (Line(points={{-58,-80},{
+          -30,-80},{-30,-22}}, color={255,0,255}));
+  connect(addtOntOff.y, mul.u1) annotation (Line(points={{-108,-10},{-100,-10},{
+          -100,-4},{-82,-4}}, color={0,0,127}));
+  connect(mul.u2, tMin.y) annotation (Line(points={{-82,-16},{-100,-16},{-100,-80},
+          {-108,-80}},color={0,0,127}));
+  connect(samAddtOntOff.u, mul.y) annotation (Line(points={{-42,-10},{-58,-10}},
+          color={0,0,127}));
+  connect(tInc.y, tCha.u1) annotation (Line(points={{62,30},{70,30},{70,0},{78,0}},
+        color={255,0,255}));
+  connect(tDec.y, tCha.u2) annotation (Line(points={{62,-60},{70,-60},{70,-8},{78,
+          -8}}, color={255,0,255}));
+  connect(samAddtOntOff.y, sub.u2) annotation (Line(points={{-18,-10},{-10,-10},
+          {-10,24},{-2,24}}, color={0,0,127}));
+  connect(mul.y, sub.u1) annotation (Line(points={{-58,-10},{-50,-10},{-50,36},{
+          -2,36}}, color={0,0,127}));
+  connect(samAddtOntOff.y, sub1.u1) annotation (Line(points={{-18,-10},{-10,-10},
+          {-10,-54},{-2,-54}}, color={0,0,127}));
+  connect(mul.y, sub1.u2) annotation (Line(points={{-58,-10},{-50,-10},{-50,-66},
+          {-2,-66}}, color={0,0,127}));
+  connect(tMax.y, greThr.u1)
+    annotation (Line(points={{-108,60},{-82,60}}, color={0,0,127}));
+  connect(tMin.y, greThr1.u1)
+    annotation (Line(points={{-108,-80},{-82,-80}}, color={0,0,127}));
+  connect(minLen.y, greThr.u2) annotation (Line(points={{-118,100},{-90,100},{-90,
+          52},{-82,52}}, color={0,0,127}));
+  connect(minLen.y, greThr1.u2) annotation (Line(points={{-118,100},{-90,100},{-90,
+          -88},{-82,-88}}, color={0,0,127}));
+  connect(sub.y, tInc.u1)
+    annotation (Line(points={{22,30},{38,30}}, color={0,0,127}));
+  connect(sub1.y, tDec.u1)
+    annotation (Line(points={{22,-60},{38,-60}}, color={0,0,127}));
+  connect(minLen.y, tInc.u2) annotation (Line(points={{-118,100},{30,100},{30,22},
+          {38,22}}, color={0,0,127}));
+  connect(minLen.y, tDec.u2) annotation (Line(points={{-118,100},{30,100},{30,-68},
+          {38,-68}}, color={0,0,127}));
 annotation (defaultComponentName = "tunMon",
         Diagram(
            coordinateSystem(
-           extent={{-100,-100},{100,100}})),
+           extent={{-160,-120},{160,120}})),
         Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={
         Rectangle(
