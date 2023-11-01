@@ -33,8 +33,10 @@ model Fans "Validation model for fans components"
     "Fan control signal"
     annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
   Interfaces.Bus bus "Control bus"
-                     annotation (Placement(transformation(extent={{-40,100},{0,140}}),
-        iconTransformation(extent={{-250,-32},{-210,8}})));
+    annotation (Placement(
+      iconVisible=false,
+      transformation(extent={{-40,100},{0,140}}),
+      iconTransformation(extent={{-250,-32},{-210,8}})));
   Controls.OBC.CDL.Logical.Sources.TimeTable y1(
     table=[0,0; 1,1],
     timeScale=10,
@@ -47,8 +49,10 @@ model Fans "Validation model for fans components"
     dat(m_flow_nominal=1, dp_nominal=1000)) "Variable speed fan"
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
   Interfaces.Bus bus1 "Control bus"
-                     annotation (Placement(transformation(extent={{-40,0},{0,40}}),
-        iconTransformation(extent={{-250,-32},{-210,8}})));
+    annotation (Placement(
+      iconVisible=false,
+      transformation(extent={{-40,0},{0,40}}),
+      iconTransformation(extent={{-250,-32},{-210,8}})));
   Buildings.Templates.Components.Fans.SingleConstant cst(
     redeclare final package Medium=MediumAir,
     have_senFlo=true,
@@ -68,8 +72,11 @@ model Fans "Validation model for fans components"
     "Ducts and coils equivalent flow resistance"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
   Interfaces.Bus bus2
-    "Control bus"    annotation (Placement(transformation(extent={{-40,-80},{0,-40}}),
-        iconTransformation(extent={{-250,-32},{-210,8}})));
+    "Control bus"
+      annotation (Placement(
+      iconVisible=false,
+      transformation(extent={{-40,-80},{0,-40}}),
+      iconTransformation(extent={{-250,-32},{-210,8}})));
   Buildings.Templates.Components.Fans.None non(
     redeclare final package Medium = MediumAir)
     "No fan"
