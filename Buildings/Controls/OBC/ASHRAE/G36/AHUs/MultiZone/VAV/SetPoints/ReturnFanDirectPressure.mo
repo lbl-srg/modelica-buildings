@@ -103,74 +103,74 @@ block ReturnFanDirectPressure
     annotation (Placement(transformation(extent={{120,-220},{160,-180}}),
         iconTransformation(extent={{100,-110},{140,-70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MovingAverage movMea(
+  Buildings.Controls.OBC.CDL.Reals.MovingAverage movMea(
     final delta=300)
     "Average building static pressure measurement"
     annotation (Placement(transformation(extent={{-130,130},{-110,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID conP(
+  Buildings.Controls.OBC.CDL.Reals.PID conP(
     final controllerType=conTyp,
     final k=k,
     final Ti=Ti,
     final Td=Td)
     "Building static pressure controller"
     annotation (Placement(transformation(extent={{-60,170},{-40,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line linExhAirDam
+  Buildings.Controls.OBC.CDL.Reals.Line linExhAirDam
     "Exhaust air damper position"
     annotation (Placement(transformation(extent={{60,170},{80,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line linRetFanStaPre
+  Buildings.Controls.OBC.CDL.Reals.Line linRetFanStaPre
     "Return fan static pressure setpoint"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1
     "Relief air damper position"
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Return fan discharge static pressure setpoint"
     annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide div "Normalized the control error"
+  Buildings.Controls.OBC.CDL.Reals.Divide div "Normalized the control error"
     annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line linRetFanSpe "Return fan speed"
+  Buildings.Controls.OBC.CDL.Reals.Line linRetFanSpe "Return fan speed"
     annotation (Placement(transformation(extent={{60,-110},{80,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi2
+  Buildings.Controls.OBC.CDL.Reals.Switch swi2
     "Return fan speed setpoint"
     annotation (Placement(transformation(extent={{80,-160},{100,-140}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpBuiSetPoi(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dpBuiSetPoi(
     final k=dpBuiSet) "Building pressure setpoint"
     annotation (Placement(transformation(extent={{-130,100},{-110,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retFanDisPreMin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant retFanDisPreMin(
     final k=p_rel_RetFan_min) "Return fan discharge static pressure minimum setpoint"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retFanDisPreMax(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant retFanDisPreMax(
     final k=p_rel_RetFan_max) "Return fan discharge static pressure maximum setpoint"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(final k=0)
     "Zero fan control signal"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer1(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer1(final k=0)
     "Zero constant"
     annotation (Placement(transformation(extent={{-40,112},{-20,132}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(final k=0.5)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(final k=0.5)
     "Constant 0.5"
     annotation (Placement(transformation(extent={{0,150},{20,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(final k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one(final k=1)
     "Constant one"
     annotation (Placement(transformation(extent={{0,96},{20,116}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conOne(final k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conOne(final k=1)
     "Constant one"
     annotation (Placement(transformation(extent={{-100,170},{-80,190}})));
   Buildings.Controls.OBC.CDL.Logical.And enaDam
     "Check if the relief damper should be enabled"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retFanSpeMin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant retFanSpeMin(
     final k=disSpe_min)
     "Return fan speed when discharge static pressure minimum setpoint"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retFanSpeMax(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant retFanSpeMax(
     final k=disSpe_max)
     "Return fan speed when discharge static pressure maximum setpoint"
     annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer2(
     final k=0)
     "Zero fan control signal"
     annotation (Placement(transformation(extent={{0,-180},{20,-160}})));

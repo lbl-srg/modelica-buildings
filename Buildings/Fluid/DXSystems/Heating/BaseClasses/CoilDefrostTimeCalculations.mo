@@ -65,7 +65,7 @@ block CoilDefrostTimeCalculations
   Buildings.Utilities.Psychrometrics.ToDryAir toDryAir
     "Convert outdoor air humidity ratio from total air to dry air";
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTOut(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysTOut(
     final uLow=-dTHys,
     final uHigh=dTHys)
     "Check if outdoor air temperature is below maximum limit for defrost operation";

@@ -76,7 +76,7 @@ model FlowDistributionPumpControl
     smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1)
     "Reader for thermal loads (y[1] is cooling load, y[2] is heating load)"
     annotation (Placement(transformation(extent={{-180,20},{-160,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minTSet(
     k=20+273.15,
     y(final unit="K",
       displayUnit="degC"))
@@ -170,7 +170,7 @@ model FlowDistributionPumpControl
     final control_dp=false)
     "Fictitious pipe used to prescribe pump flow rate"
     annotation (Placement(transformation(extent={{-8,170},{12,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one1(
     k=1)
     "Constant one"
     annotation (Placement(transformation(extent={{-180,190},{-160,210}})));
@@ -199,7 +199,7 @@ model FlowDistributionPumpControl
     nPorts_b1=5)
     "Distribution system with pump controlled at constant speed"
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSup(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSup(
     k=T_aHeaWat_nominal)
     "Heating water supply temperature"
     annotation (Placement(transformation(extent={{-180,-10},{-160,10}})));
@@ -209,7 +209,7 @@ model FlowDistributionPumpControl
     nPorts=2)
     "Heating water source"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-130,-180})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant setDp(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant setDp(
     k=dpSet)
     "Pressure difference set-point"
     annotation (Placement(transformation(extent={{-180,-140},{-160,-120}})));

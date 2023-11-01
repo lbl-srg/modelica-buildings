@@ -114,7 +114,7 @@ model SewageHeatRecovery
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,-16})));
- Buildings.Controls.OBC.CDL.Continuous.MultiSum sumPPum(nin=2) "Sum pump power"
+ Buildings.Controls.OBC.CDL.Reals.MultiSum sumPPum(nin=2) "Sum pump power"
     annotation (Placement(transformation(extent={{260,150},{280,170}})));
 equation
   connect(senTSewOut.port_b, souSew.ports[1])

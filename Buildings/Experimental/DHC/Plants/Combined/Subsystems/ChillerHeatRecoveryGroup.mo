@@ -374,7 +374,7 @@ model ChillerHeatRecoveryGroup
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={20,20})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(nin=nUni)
+  Buildings.Controls.OBC.CDL.Reals.MultiSum mulSum(nin=nUni)
     "Sum up power of all units"
     annotation (Placement(transformation(extent={{70,110},{90,130}})));
   Fluid.Sensors.MassFlowRate floEva[nUni](

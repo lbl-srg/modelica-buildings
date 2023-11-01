@@ -104,7 +104,7 @@ block FlowControl
     "Alternative: Tank charging or plant outputting CHW"
     annotation (Placement(transformation(extent={{-8,-200},{646,100}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swiSecPum
+  Buildings.Controls.OBC.CDL.Reals.Switch swiSecPum
     "Switch for secondary pump flow"
     annotation (Placement(transformation(extent={{740,-20},{760,0}})));
   Modelica.Blocks.Sources.Constant zer(final k=0) "Constant zero"

@@ -81,8 +81,8 @@ Buildings.Examples.Tutorial.CDL.Controls.EquipmentOnOff</a>.
 <li>
 <p>
 In this new block, we used a hysteresis block
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.Hysteresis\">
-Buildings.Controls.OBC.CDL.Continuous.Hysteresis</a> to switch the boiler,
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Reals.Hysteresis\">
+Buildings.Controls.OBC.CDL.Reals.Hysteresis</a> to switch the boiler,
 and negated its output because the boiler needs to be off if the temperature exceeds the
 value <code>uHigh</code> of this hysteresis.
 We also used an instance of

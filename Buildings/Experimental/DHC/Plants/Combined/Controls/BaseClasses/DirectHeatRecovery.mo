@@ -82,32 +82,32 @@ block DirectHeatRecovery
     each final y_neutral=y_neutral)
     "CHW supply temperature control"
     annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line chiFloRes[nChiHea]
+  Buildings.Controls.OBC.CDL.Reals.Line chiFloRes[nChiHea]
     "Chiller evaporator flow reset"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMin min(nin=nChiHea)
+  Buildings.Controls.OBC.CDL.Reals.MultiMin min(nin=nChiHea)
     "Minimum evaporator flow setpoint"
     annotation (Placement(transformation(extent={{90,70},{110,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant xFlo[nChiHea,2](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant xFlo[nChiHea,2](
     final k=fill({0,0.33}, nChiHea))
     "x-value for flow reset"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFlo[nChiHea,2](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yFlo[nChiHea,2](
     final k=fill(1.2 .* {mChiWatChi_flow_min,mChiWatChi_flow_nominal}, nChiHea))
     "y-value for flow reset"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line chiHeaFloRes[nChiHea]
+  Buildings.Controls.OBC.CDL.Reals.Line chiHeaFloRes[nChiHea]
     "HRC evaporator flow reset"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMin min1(nin=nChiHea)
+  Buildings.Controls.OBC.CDL.Reals.MultiMin min1(nin=nChiHea)
     "Minimum evaporator flow setpoint"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant xFlo1
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant xFlo1
                                                              [nChiHea, 2](final k=
         fill({0.33,0.67}, nChiHea))
     "x-value for flow reset"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFlo1
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yFlo1
                                                              [nChiHea, 2](final k=
         fill(1.2 .* {mChiWatChiHea_flow_nominal,mChiWatChiHea_flow_min}, nChiHea))
     "y-value for flow reset"
@@ -116,19 +116,19 @@ block DirectHeatRecovery
       unit="kg/s") "HRC evaporator flow setpoint" annotation (Placement(
         transformation(extent={{140,-20},{180,20}}), iconTransformation(extent={{100,-20},
             {140,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line chiHeaConTemRes[nChiHea]
+  Buildings.Controls.OBC.CDL.Reals.Line chiHeaConTemRes[nChiHea]
     "HRC condenser entering temperature reset"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant xFlo2
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant xFlo2
                                                              [nChiHea, 2](final k=
         fill({0.67,1.0}, nChiHea))
     "x-value for flow reset"
     annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addOff(final p=0.5)
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addOff(final p=0.5)
     "Add offset"
     annotation (Placement(transformation(extent={{-90,-90},{-70,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addOff1(final p=-15)
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addOff1(final p=-15)
     "Add offset"
     annotation (Placement(transformation(extent={{-90,-130},{-70,-110}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator rep1(final nout=
@@ -144,7 +144,7 @@ block DirectHeatRecovery
         i].y then i else 1 for i in 1:nChiHea}))
     "Highest index of HRC in direct HR (defaulted to 1 if all false)"
     annotation (Placement(transformation(extent={{60,-130},{80,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.MovingAverage mea(delta=5*60)
+  Buildings.Controls.OBC.CDL.Reals.MovingAverage mea(delta=5*60)
     "Moving average"
     annotation (Placement(transformation(extent={{-130,-90},{-110,-70}})));
 equation

@@ -6,26 +6,26 @@ model Setpoints "Validate block for zone set point"
     final have_winSen=true) "Block that determines the thermal zone setpoints"
     annotation (Placement(transformation(extent={{110,40},{130,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonCooSetOcc(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TZonCooSetOcc(
     final k=297.15)
     "Occupied cooling setpoint"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonHeaSetOcc(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TZonHeaSetOcc(
     final k=293.15)
     "Occupied heating setpoint"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonCooSetUno(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TZonCooSetUno(
     final k=303.15)
     "Unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonHeaSetUno(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TZonHeaSetUno(
     final k=287.15)
     "Unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin cooSetAdj(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin cooSetAdj(
     final freqHz=1/28800) "Cooling setpoint adjustment"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin heaSetAdj(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin heaSetAdj(
     final freqHz=1/28800,
     final amplitude=0.5)
     "Heating setpoint adjustment"
@@ -38,11 +38,11 @@ model Setpoints "Validate block for zone set point"
     final k=0)
     "Heating demand limit level"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ram(
     final duration=28800)
     "Generate ramp output"
     annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(t=0.75)
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(t=0.75)
     "Check if input is greater than 0.75"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt(
@@ -61,13 +61,13 @@ model Setpoints "Validate block for zone set point"
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerAdj(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zerAdj(
     final k=0) "Zero adjustment"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1
     "Switch to zero adjustment when window is open"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi2
+  Buildings.Controls.OBC.CDL.Reals.Switch swi2
     "Switch to zero adjustment when window is open"
     annotation (Placement(transformation(extent={{-20,10},{0,30}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2

@@ -340,7 +340,7 @@ First implementation.
 <p>
 This model contains a simple model of a house
 with a heating system, ventilation and weather boundary conditions.
-It servers as a demonstration case of how the <code>Buildings</code> library can be used.
+It serves as a demonstration case of how the <code>Buildings</code> library can be used.
 </p>
 </html>"),
     __Dymola_Commands(file=
