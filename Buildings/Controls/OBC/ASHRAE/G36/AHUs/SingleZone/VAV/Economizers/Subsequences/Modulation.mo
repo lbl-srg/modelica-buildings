@@ -104,7 +104,7 @@ block Modulation "Outdoor and return air damper position modulation sequence for
       Placement(transformation(extent={{120,-10},{140,10}}), iconTransformation(
           extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset uTSup(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset uTSup(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
@@ -115,44 +115,44 @@ block Modulation "Outdoor and return air damper position modulation sequence for
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamMinLimSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant outDamMinLimSig(
     final k=uMin) "Minimal control loop signal for the outdoor air damper"
     annotation (Placement(transformation(extent={{-60,-88},{-40,-68}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamMaxLimSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant retDamMaxLimSig(
     final k=uMax) "Maximal control loop signal for the return air damper"
     annotation (Placement(transformation(extent={{-60,-34},{-40,-14}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Line outDamPos(
+  Buildings.Controls.OBC.CDL.Reals.Line outDamPos(
     final limitBelow=true,
     final limitAbove=true)
     "Damper position is linearly proportional to the control signal between signal limits"
     annotation (Placement(transformation(extent={{24,-50},{44,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line retDamPos(
+  Buildings.Controls.OBC.CDL.Reals.Line retDamPos(
     final limitBelow=true,
     final limitAbove=true)
     "Damper position is linearly proportional to the control signal between signal limits"
     annotation (Placement(transformation(extent={{22,-10},{42,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line HeaCoi(
+  Buildings.Controls.OBC.CDL.Reals.Line HeaCoi(
     final limitBelow=true,
     final limitAbove=true) if have_heaCoi
     "Heating coil signal is linearly proportional to the control signal between signal limits"
     annotation (Placement(transformation(extent={{22,30},{42,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaCoiMaxLimSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant heaCoiMaxLimSig(
     final k=1) if have_heaCoi
     "Maximal control loop signal for the heating coil"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaCoiMinLimSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant heaCoiMinLimSig(
     final k=0) if have_heaCoi
     "Minimum control loop signal for the heating coil"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uMaxHeaCoi(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant uMaxHeaCoi(
     final k=1)
     "Maximal control loop signal for the heating coil"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch enaDis if have_heaCoi
+  Buildings.Controls.OBC.CDL.Reals.Switch enaDis if have_heaCoi
     "Enable or disable the heating coil"
     annotation (Placement(transformation(extent={{76,30},{96,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant Off(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant Off(
     final k=0) if have_heaCoi
     "Off signal for heating coil"
     annotation (Placement(transformation(extent={{6,-90},{26,-70}})));

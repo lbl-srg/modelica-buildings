@@ -8,7 +8,7 @@ block Controller "Plant controller"
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal cvtValBypTan
     "Convert DO to AO"
     annotation (Placement(transformation(extent={{-40,-290},{-20,-270}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch TChiHeaSupSet[nChiHea]
+  Buildings.Controls.OBC.CDL.Reals.Switch TChiHeaSupSet[nChiHea]
     "Switch supply temperature setpoint"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
   BaseClasses.StagingPump staPumChiWat(
@@ -63,10 +63,10 @@ block Controller "Plant controller"
     final m_flow_nominal=mConWatEva_flow_nominal)
     "CW pump staging"
     annotation (Placement(transformation(extent={{120,-190},{140,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpConNom(final k=
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dpConNom(final k=
         dpConWatConSet_max) "Constant"
     annotation (Placement(transformation(extent={{160,-130},{180,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpEvaNom(final k=
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dpEvaNom(final k=
         dpConWatEvaSet_max) "Constant"
     annotation (Placement(transformation(extent={{160,-190},{180,-170}})));
   BaseClasses.StagingPlant staPla(
@@ -108,7 +108,7 @@ block Controller "Plant controller"
   Buildings.Controls.OBC.CDL.Logical.And assAndPum
     "Charge assist mode and any CW pump On"
     annotation (Placement(transformation(extent={{186,-210},{206,-230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaPumSetVal[2](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaPumSetVal[2](
     final k={max(TTanSet[i]) + 3 for i in 1:2})
     "HP supply temperature setpoint for each tank cycle"
     annotation (Placement(transformation(extent={{-170,-230},{-150,-210}})));

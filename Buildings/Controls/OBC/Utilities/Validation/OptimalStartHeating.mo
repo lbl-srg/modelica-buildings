@@ -11,7 +11,7 @@ model OptimalStartHeating
     y_start=21+273.15)
     "Room air temperature"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetHeaOcc(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetHeaOcc(
     k=21+273.15)
     "Zone heating setpoint during occupancy"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
@@ -20,23 +20,23 @@ model OptimalStartHeating
     period=24*3600)
     "Daily schedule"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter UA(k=10)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter UA(k=10)
     "Overall heat loss coefficient"
     annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract dT
+  Buildings.Controls.OBC.CDL.Reals.Subtract dT
     "Temperature difference between zone and outdoor"
     annotation (Placement(transformation(extent={{-160,0},{-140,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add dTdt
+  Buildings.Controls.OBC.CDL.Reals.Add dTdt
     "Temperature derivative"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter QHea(k=500)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter QHea(k=500)
     "Heat injection in the zone"
     annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(
     realTrue=6)
     "Convert Boolean to Real signal"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TOut(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin TOut(
     amplitude=10,
     freqHz=1/86400,
     phase=3.1415926535898,
@@ -45,12 +45,12 @@ model OptimalStartHeating
       displayUnit="d")=-172800)
     "Outdoor dry bulb temperature to test heating system"
     annotation (Placement(transformation(extent={{-194,40},{-174,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID conPID(
+  Buildings.Controls.OBC.CDL.Reals.PID conPID(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     Ti=1.5)
     "PI control for space heating"
     annotation (Placement(transformation(extent={{160,0},{180,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add
+  Buildings.Controls.OBC.CDL.Reals.Add add
     "Reset temperature from unoccupied to occupied for optimal start period"
     annotation (Placement(transformation(extent={{120,0},{140,20}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal TSetHea(

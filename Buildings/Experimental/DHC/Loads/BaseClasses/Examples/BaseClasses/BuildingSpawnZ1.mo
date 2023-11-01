@@ -47,13 +47,13 @@ model BuildingSpawnZ1
       weaName))
     "Building model"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minTSet(
     k=293.15,
     y(final unit="K",
       displayUnit="degC"))
     "Minimum temperature set point"
     annotation (Placement(transformation(extent={{-280,250},{-260,270}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxTSet(
     k=297.15,
     y(final unit="K",
       displayUnit="degC"))

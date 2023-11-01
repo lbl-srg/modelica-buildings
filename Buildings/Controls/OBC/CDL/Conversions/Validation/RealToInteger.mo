@@ -4,7 +4,7 @@ model RealToInteger
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
     "Block that converts Real to Integer signal"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramp1(
     duration=1,
     offset=-3.5,
     height=7.0)

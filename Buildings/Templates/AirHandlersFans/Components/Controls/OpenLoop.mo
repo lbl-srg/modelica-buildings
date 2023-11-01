@@ -4,7 +4,7 @@ block OpenLoop "Open loop controller"
     Buildings.Templates.AirHandlersFans.Components.Interfaces.PartialControllerVAVMultizone(
       final typ=Buildings.Templates.AirHandlersFans.Types.Controller.OpenLoop);
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDamOut(k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yDamOut(k=1)
  if secOutRel.typDamOut == Buildings.Templates.Components.Types.Damper.Modulating
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -16,7 +16,7 @@ block OpenLoop "Open loop controller"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-170,144})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDamOutMin(k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yDamOutMin(k=1)
  if secOutRel.typDamOutMin == Buildings.Templates.Components.Types.Damper.Modulating
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -28,12 +28,12 @@ block OpenLoop "Open loop controller"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-140,144})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDamRet(k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yDamRet(k=1)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-120,170})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDamRel(k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yDamRel(k=1)
  if secOutRel.typDamRel == Buildings.Templates.Components.Types.Damper.Modulating
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -45,7 +45,7 @@ block OpenLoop "Open loop controller"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-60,170})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yCoiCoo(k=1) if coiCoo.typ
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yCoiCoo(k=1) if coiCoo.typ
      == Buildings.Templates.Components.Types.Coil.WaterBasedCooling or coiCoo.typ
      == Buildings.Templates.Components.Types.Coil.EvaporatorVariableSpeed
      annotation (
@@ -58,7 +58,7 @@ block OpenLoop "Open loop controller"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,110})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFanSup(k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yFanSup(k=1)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -68,13 +68,13 @@ block OpenLoop "Open loop controller"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={40,70})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yCoiHea(k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yCoiHea(k=1)
     annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={20,110})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFanRet(k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yFanRet(k=1)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -85,7 +85,7 @@ block OpenLoop "Open loop controller"
         rotation=-90,
         origin={200,70})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFanRel(k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yFanRel(k=1)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,

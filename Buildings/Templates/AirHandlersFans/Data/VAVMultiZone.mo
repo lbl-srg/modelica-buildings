@@ -1,56 +1,35 @@
 within Buildings.Templates.AirHandlersFans.Data;
 record VAVMultiZone "Record for multiple-zone VAV"
   extends Buildings.Templates.AirHandlersFans.Data.PartialAirHandler(
+    redeclare Buildings.Templates.AirHandlersFans.Configuration.VAVMultiZone cfg,
     redeclare Buildings.Templates.AirHandlersFans.Components.Data.VAVMultiZoneController
     ctl(
-      final typSecOut=typSecOut,
-      final buiPreCon=buiPreCon,
-      final stdVen=stdVen),
-    final mAirSup_flow_nominal=if typFanSup<>Buildings.Templates.Components.Types.Fan.None
-    then fanSup.m_flow_nominal else 0,
-    final mAirRet_flow_nominal=if typFanRet<>Buildings.Templates.Components.Types.Fan.None
-    then fanRet.m_flow_nominal
-    elseif typFanRel<>Buildings.Templates.Components.Types.Fan.None
-    then fanRel.m_flow_nominal
-    elseif typFanSup<>Buildings.Templates.Components.Types.Fan.None
-    then fanSup.m_flow_nominal else 0);
-
-  parameter Buildings.Templates.Components.Types.Coil typCoiHeaPre
-    "Type of heating coil in preheat position"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Buildings.Templates.Components.Types.Coil typCoiCoo
-    "Type of cooling coil"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Buildings.Templates.Components.Types.Coil typCoiHeaReh
-    "Type of heating coil in reheat position"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Buildings.Templates.Components.Types.Valve typValCoiHeaPre
-    "Type of valve for heating coil in preheat position"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Buildings.Templates.Components.Types.Valve typValCoiCoo
-    "Type of valve for cooling coil"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Buildings.Templates.Components.Types.Valve typValCoiHeaReh
-    "Type of valve for heating coil in reheat position"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection typSecOut
-    "Type of outdoor air section"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon
-    "Type of building pressure control system"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard stdVen
-    "Ventilation standard"
-    annotation(Evaluate=true, Dialog(group="Energy and ventilation standards", enable=false));
+      final typSecOut=cfg.typSecOut,
+      final buiPreCon=cfg.buiPreCon,
+      final stdVen=cfg.stdVen),
+    final mAirSup_flow_nominal=if cfg.typFanSup<>Buildings.Templates.Components.Types.Fan.None
+      then fanSup.m_flow_nominal else 0,
+    final mAirRet_flow_nominal=if cfg.typFanRet<>Buildings.Templates.Components.Types.Fan.None
+      then fanRet.m_flow_nominal
+    elseif cfg.typFanRel<>Buildings.Templates.Components.Types.Fan.None
+      then fanRel.m_flow_nominal
+    elseif cfg.typFanSup<>Buildings.Templates.Components.Types.Fan.None
+      then fanSup.m_flow_nominal else 0);
 
   parameter Buildings.Templates.Components.Data.Fan fanSup(
-    final typ=typFanSup)
+    final typ=cfg.typFanSup)
     "Supply fan"
     annotation (Dialog(
-    group="Fans", enable=typFanSup <> Buildings.Templates.Components.Types.Fan.None));
+    group="Fans", enable=cfg.typFanSup <> Buildings.Templates.Components.Types.Fan.None));
 
   extends
     Buildings.Templates.AirHandlersFans.Components.Data.OutdoorReliefReturnSection(
+    final typDamOut=cfg.typDamOut,
+    final typDamOutMin=cfg.typDamOutMin,
+    final typDamRel=cfg.typDamRel,
+    final typDamRet=cfg.typDamRet,
+    final typFanRel=cfg.typFanRel,
+    final typFanRet=cfg.typFanRet,
     fanRel,
     fanRet,
     damOut(
@@ -63,40 +42,44 @@ record VAVMultiZone "Record for multiple-zone VAV"
       m_flow_nominal=mAirRet_flow_nominal));
 
   parameter Buildings.Templates.Components.Data.Coil coiHeaPre(
-    final typ=typCoiHeaPre,
-    final typVal=typValCoiHeaPre,
-    final have_sou=have_souHeaWat,
+    final typ=cfg.typCoiHeaPre,
+    final typVal=cfg.typValCoiHeaPre,
+    final have_sou=cfg.have_souHeaWat,
     mAir_flow_nominal=mAirSup_flow_nominal)
     "Heating coil in preheat position"
     annotation (Dialog(group="Coils",
-    enable=typCoiHeaPre <> Buildings.Templates.Components.Types.Coil.None));
+    enable=cfg.typCoiHeaPre <> Buildings.Templates.Components.Types.Coil.None));
 
   parameter Buildings.Templates.Components.Data.Coil coiCoo(
-    final typ=typCoiCoo,
-    final typVal=typValCoiCoo,
-    final have_sou=have_souChiWat,
+    final typ=cfg.typCoiCoo,
+    final typVal=cfg.typValCoiCoo,
+    final have_sou=cfg.have_souChiWat,
     mAir_flow_nominal=mAirSup_flow_nominal)
     "Cooling coil"
     annotation (Dialog(
-    group="Coils", enable=typCoiCoo <> Buildings.Templates.Components.Types.Coil.None));
+    group="Coils", enable=cfg.typCoiCoo <> Buildings.Templates.Components.Types.Coil.None));
 
   parameter Buildings.Templates.Components.Data.Coil coiHeaReh(
-    final typ=typCoiHeaReh,
-    final typVal=typValCoiHeaReh,
-    final have_sou=have_souHeaWat,
+    final typ=cfg.typCoiHeaReh,
+    final typVal=cfg.typValCoiHeaReh,
+    final have_sou=cfg.have_souHeaWat,
     mAir_flow_nominal=mAirSup_flow_nominal)
     "Heating coil in reheat position"
     annotation (Dialog(group="Coils",
-    enable=typCoiHeaReh <> Buildings.Templates.Components.Types.Coil.None));
+    enable=cfg.typCoiHeaReh <> Buildings.Templates.Components.Types.Coil.None));
 
 annotation (
   defaultComponentPrefixes = "parameter",
   defaultComponentName = "dat",
-    Documentation(info="<html>
+  Documentation(info="<html>
 <p>
 This record provides the set of sizing and operating parameters for the class
 <a href=\"modelica://Buildings.Templates.AirHandlersFans.VAVMultiZone\">
 Buildings.Templates.AirHandlersFans.VAVMultiZone</a>.
+</p>
+<p>
+The tab <code>Advanced</code> contains some optional parameters that can be used 
+for workflow automation, but are not used for simulation.
 </p>
 </html>"));
 end VAVMultiZone;

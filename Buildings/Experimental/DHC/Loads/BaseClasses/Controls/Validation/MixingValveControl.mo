@@ -23,34 +23,34 @@ model MixingValveControl
     nPorts=1)
     "Primary supply stream"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-10,20})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TPriHea(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TPriHea(
     k=313.15,
     y(final unit="K",
       displayUnit="degC"))
     "Heating water primary supply temperature"
     annotation (Placement(transformation(extent={{-140,110},{-120,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TPriChi(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TPriChi(
     k=280.15,
     y(final unit="K",
       displayUnit="degC"))
     "Chilled water primary supply temperature"
     annotation (Placement(transformation(extent={{-140,70},{-120,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch TPri(
+  Buildings.Controls.OBC.CDL.Reals.Switch TPri(
     y(final unit="K",
       displayUnit="degC"))
     "Actual primary supply temperature"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetSecHea(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetSecHea(
     k=303.15,
     y(final unit="K",
       displayUnit="degC"))
     "Heating water secondary supply temperature set point"
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetSecChi(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetSecChi(
     k=291.15)
     "Chilled water secondary supply temperature set point"
     annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch TSetSecAct(
+  Buildings.Controls.OBC.CDL.Reals.Switch TSetSecAct(
     y(final unit="K",
       displayUnit="degC"))
     "Actual secondary supply temperature set point"
@@ -67,7 +67,7 @@ model MixingValveControl
     nPorts=1)
     "Sink for secondary stream"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={110,100})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dTSecHea(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dTSecHea(
     k=-5)
     "Secondary temperature difference between supply and return"
     annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
@@ -86,13 +86,13 @@ model MixingValveControl
     nPorts=1)
     "Sink for primary stream"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={110,20})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse mSec_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse mSec_flow(
     amplitude=m_flow_nominal,
     period=200,
     offset=0)
     "Secondary mass flow rate"
     annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add
+  Buildings.Controls.OBC.CDL.Reals.Add add
     "Computation of secondary return temperature"
     annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTPriSup(
@@ -100,12 +100,12 @@ model MixingValveControl
     m_flow_nominal=m_flow_nominal)
     "Primary supply temperature (measured)"
     annotation (Placement(transformation(extent={{8,10},{28,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch dTSec(
+  Buildings.Controls.OBC.CDL.Reals.Switch dTSec(
     y(final unit="K",
       displayUnit="degC"))
     "Actual secondary delta T"
     annotation (Placement(transformation(extent={{20,-130},{40,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dTSecCoo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dTSecCoo(
     k=5)
     "Secondary temperature difference between supply and return"
     annotation (Placement(transformation(extent={{-20,-150},{0,-130}})));

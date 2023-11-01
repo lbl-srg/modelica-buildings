@@ -16,11 +16,11 @@ block VAVBoxControlPoints "Emulation of VAV box control points"
         rotation=90,
         origin={100,0})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant tNexOcc(final k=3600)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant tNexOcc(final k=3600)
     "Time next occupancy"
     annotation (Placement(transformation(extent={{-140,130},{-120,150}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VAirDis_flow(final k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant VAirDis_flow(final k=1)
     annotation (Placement(transformation(extent={{-140,-50},{-120,-30}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant yReqZonTemRes(final k=1)
     "Request"
@@ -28,7 +28,7 @@ block VAVBoxControlPoints "Emulation of VAV box control points"
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant yReqZonPreRes(final k=1)
     "Request"
     annotation (Placement(transformation(extent={{-140,-150},{-120,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TAirDis(final k=303.15)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TAirDis(final k=303.15)
     "Discharge temperature"
     annotation (Placement(transformation(extent={{-140,30},{-120,50}})));
 
@@ -39,10 +39,10 @@ block VAVBoxControlPoints "Emulation of VAV box control points"
   Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.ZoneStatus sta
     "Evaluate zone temperature status"
     annotation (Placement(transformation(extent={{100,-74},{120,-46}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant cooDowTim(final k=1800)
+  Controls.OBC.CDL.Reals.Sources.Constant cooDowTim(final k=1800)
                   "Cooling down time"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant warUpTim(final k=1800)
+  Controls.OBC.CDL.Reals.Sources.Constant warUpTim(final k=1800)
                   "Warm-up time"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
   Controls.OBC.ASHRAE.G36.VentilationZones.Title24.Setpoints setMinOA_T24(

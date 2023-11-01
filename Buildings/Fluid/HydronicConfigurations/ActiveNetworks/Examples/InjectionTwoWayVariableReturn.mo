@@ -17,7 +17,7 @@ model InjectionTwoWayVariableReturn
     final TLiqEnt_nominal=TLiqEnt_nominal,
     final TLiqLvg_nominal=TLiqLvg_nominal) "Load with open loop control"
     annotation (Placement(transformation(extent={{210,-120},{230,-100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TSupVal1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TSupVal1(
     height=6,
     duration=16*3600,
     offset=TLiqEnt_nominal,
@@ -56,7 +56,7 @@ model InjectionTwoWayVariableReturn
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={250,-110})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant  fraLoa1(k=0.7)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant  fraLoa1(k=0.7)
     "Load modulating signal"
     annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant modOpe(

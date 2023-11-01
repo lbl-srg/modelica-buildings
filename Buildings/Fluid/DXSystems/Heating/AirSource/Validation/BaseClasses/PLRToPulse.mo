@@ -5,6 +5,9 @@ block PLRToPulse
   parameter Real tPer = 15*60
     "Time period for PLR sampling";
 
+  parameter Real tDel = 1e-6
+    "Delay time of the enable signal";
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uPLR
     "Part load ratio input"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
@@ -16,7 +19,7 @@ block PLRToPulse
       iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=tPer)
     "Calculate runtime from PLR signal"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
@@ -30,12 +33,12 @@ protected
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
-    final width=1e-6/tPer,
+    final width=tDel/tPer,
     final period=tPer)
     "Outputs true signals for 1e-6 second duration at required timestep interval"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Less les
+  Buildings.Controls.OBC.CDL.Reals.Less les
     "Check if component runtime has exceeded required runtime from PLR"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
 
@@ -57,7 +60,7 @@ protected
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
-    final delayTime=1e-6)
+    final delayTime=tDel)
     "Delay the enable signal by 1e-6 seconds, which is also the duration for 
     which the pulse signal is held. Required when PLR input is zero"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));

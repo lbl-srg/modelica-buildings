@@ -1,6 +1,6 @@
 within Buildings.Obsolete.Controls.OBC.CDL.Continuous.Validation;
 model LessEqualThreshold  "Validation model for the LessEqualThreshold block"
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramp1(
     duration=1,
     offset=-2,
     height=4)  "Block that generates ramp signal"

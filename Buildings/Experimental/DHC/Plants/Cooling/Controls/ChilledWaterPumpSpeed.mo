@@ -66,7 +66,7 @@ model ChilledWaterPumpSpeed
     final deaBanSpe=deaBanSpe)
     "Chilled water pump staging control"
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conPID(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset conPID(
     final controllerType=controllerType,
     final Ti=Ti,
     final k=k,

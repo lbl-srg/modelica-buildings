@@ -78,58 +78,58 @@ block AHU "AHU level setpoint calculation"
     annotation (Placement(transformation(extent={{100,-180},{140,-140}}),
         iconTransformation(extent={{100,-110},{140,-70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant absOutAir(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant absOutAir(
     final k=VAbsOutAir_flow)
     "Design outdoor airflow rate when all zones with CO2 sensors or occupancy sensors are unpopulated"
     annotation (Placement(transformation(extent={{-80,170},{-60,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Min min1
+  Buildings.Controls.OBC.CDL.Reals.Min min1
     "Effective outdoor air absolute minimum setpoint"
     annotation (Placement(transformation(extent={{20,150},{40,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant desOutAir(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant desOutAir(
     final k=VDesOutAir_flow)
     "Design minimum outdoor airflow with areas served by the system are occupied at their design population, including diversity where applicable"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Min min2 "Effective outdoor air design minimum setpoint"
+  Buildings.Controls.OBC.CDL.Reals.Min min2 "Effective outdoor air design minimum setpoint"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide norVOutMin
+  Buildings.Controls.OBC.CDL.Reals.Divide norVOutMin
     "Normalization for minimum outdoor air flow rate"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide norVOutMin1
+  Buildings.Controls.OBC.CDL.Reals.Divide norVOutMin1
     "Normalization for minimum outdoor air flow rate"
     annotation (Placement(transformation(extent={{20,110},{40,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
     final k=0.5) if have_CO2Sen
     "Constant value"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(
     final k=1) if have_CO2Sen
     "Constant value"
     annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line effOutAir(
+  Buildings.Controls.OBC.CDL.Reals.Line effOutAir(
     final limitBelow=false,
     final limitAbove=true) if have_CO2Sen
     "Normalized effective outdoor air setpoint"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=1) if not have_CO2Sen
     "When there is no zone has CO2 sensor, design setpoint will be applied"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide norVOutMin2 if have_CO2Sen
+  Buildings.Controls.OBC.CDL.Reals.Divide norVOutMin2 if have_CO2Sen
     "Normalization for minimum outdoor air flow rate"
     annotation (Placement(transformation(extent={{60,-110},{80,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide norVOut
+  Buildings.Controls.OBC.CDL.Reals.Divide norVOut
     if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
      or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper)
     "Normalization for outdoor air flow rate"
     annotation (Placement(transformation(extent={{40,-170},{60,-150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant neaZer(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant neaZer(
     final k=1E-4)
     "Near zero value"
     annotation (Placement(transformation(extent={{-80,-2},{-60,18}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max max2
+  Buildings.Controls.OBC.CDL.Reals.Max max2
     "Avoid devide by zero"
     annotation (Placement(transformation(extent={{-30,104},{-10,124}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max max1
+  Buildings.Controls.OBC.CDL.Reals.Max max1
     "Avoid devide by zero"
     annotation (Placement(transformation(extent={{-30,4},{-10,24}})));
 equation

@@ -5,24 +5,24 @@ model TDewPoi_TDryBulPhi
   Buildings.Obsolete.Controls.OBC.CDL.Psychrometrics.TDewPoi_TDryBulPhi dewBulPhi
    "Model for dew point temperature"
     annotation (Placement(transformation(extent={{16,74},{36,94}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant p(k=101325) "Pressure"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant p(k=101325) "Pressure"
      annotation (Placement(transformation(extent={{-94,8}, {-74,28}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp phi(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp phi(
     duration=1,
     height=1,
     offset=0.001) "Relative humidity"
     annotation (Placement(transformation(extent={{-94,40},{-74,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TDryBul(k=273.15 + 29.4)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TDryBul(k=273.15 + 29.4)
     "Dry bulb temperature"
     annotation (Placement(transformation(extent={{-94,74},{-74,94}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant p2(k=101325) "Pressure"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant p2(k=101325) "Pressure"
     annotation (Placement(transformation(extent={{-94,-94},{-74,-74}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TDryBul2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TDryBul2(
     duration=1,
     height=35,
     offset=273.15+2.0) "Dry bulb temperature"
     annotation (Placement(transformation(extent={{-94,-28},{-74,-8}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant phi2(k=0.4)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant phi2(k=0.4)
     "Relative humidity"
     annotation (Placement(transformation(extent={{-94,-60},{-74,-40}})));
 
@@ -36,7 +36,7 @@ model TDewPoi_TDryBulPhi
     annotation (Placement(transformation(extent={{-12,4},{8,24}})));
   // ===================================================================
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub
     "Dew point temperature difference"
     annotation (Placement(transformation(extent={{52,40},{72,60}})));
   Buildings.Obsolete.Controls.OBC.CDL.Psychrometrics.TDewPoi_TDryBulPhi dewBulPhi1
@@ -50,7 +50,7 @@ model TDewPoi_TDryBulPhi
     annotation (Placement(transformation(extent={{-10,-98},{10,-78}})));
   Buildings.Utilities.Psychrometrics.X_pTphi X_pTphi1 "Steam mass fraction"
     annotation (Placement(transformation(extent={{-44,-98},{-24,-78}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1
     "Dew point temperature difference"
     annotation (Placement(transformation(extent={{52,-60},{72,-40}})));
 
