@@ -50,7 +50,7 @@ at nominal flow rate.
 Note that <code>dhDis</code> needs to be vectorized, even if the same value
 is computed for each array element in case of a one-pipe network.
 This is because the pipe diameter is computed at initialization by the model
-<a href=\"Buildings.Experimental.DHC.Networks.Combined.BaseClasses.ConnectionSeriesAutosize\">
+<a href=\"modelica://Buildings.Experimental.DHC.Networks.Combined.BaseClasses.ConnectionSeriesAutosize\">
 Buildings.Experimental.DHC.Networks.Combined.BaseClasses.ConnectionSeriesAutosize</a>
 which is instantiated for each connection.
 So the initialization system of equations would be overdetermined if using

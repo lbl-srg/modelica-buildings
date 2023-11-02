@@ -2,4 +2,6 @@ CSVReader
 CSVWriter
 JSONWriter
 Printer
+WeeklySchedule
+WeeklySchedule7to19
 BaseClasses

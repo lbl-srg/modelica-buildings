@@ -6,8 +6,8 @@ model PipeAutosize "Pipe model parameterized with pressure drop per pipe length"
 
   parameter Modelica.Units.SI.Length dh(
     fixed=false,
-    start=0.05,
-    min=0.01) "Hydraulic diameter (assuming a round cross section area)";
+    start=0.01,
+    min=0.001) "Hydraulic diameter (assuming a round cross section area)";
 
   parameter Real dp_length_nominal(final unit="Pa/m") = 250
     "Pressure drop per pipe length at nominal flow rate";
@@ -29,7 +29,7 @@ model PipeAutosize "Pipe model parameterized with pressure drop per pipe length"
     "Factor to take into account resistance of bends etc., fac=dp_nominal/dpStraightPipe_nominal";
 
   final parameter Modelica.Units.SI.PressureDifference dpStraightPipe_nominal(
-      displayUnit="Pa") =
+      displayUnit="Pa")=
     Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
     m_flow=m_flow_nominal,
     rho_a=rho_default,
@@ -75,7 +75,7 @@ annotation (
     Documentation(info="<html>
 <p>
 This model is similar to
-<a href=\"Buildings.Fluid.FixedResistances.HydraulicDiameter\">
+<a href=\"modelica://Buildings.Fluid.FixedResistances.HydraulicDiameter\">
 Buildings.Fluid.FixedResistances.HydraulicDiameter</a>
 except for the modifications below which allow to use this model for computing the
 hydraulic diameter at initialization, based on the pressure drop per pipe length
@@ -99,6 +99,12 @@ depends on <code>dp_nominal</code> and must be evaluated at compile time.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+November 18, 2022, by David Blum:<br/>
+<code>start</code> attribute for parameter <code>dh</code> changed to 0.01.<br/>
+<code>min</code> attribute for parameter <code>dh</code> changed to 0.001.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2510\">issue 2510</a>.
+</li>
 <li>
 February 23, 2021, by Antoine Gautier:<br/>
 First implementation.

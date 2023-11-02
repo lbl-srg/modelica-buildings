@@ -1,0 +1,16 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.Validation.SupplyFan", method="Cvode", stopTime=28800, tolerance=1e-06, resultFile="SupplyFan_MultiZone");
+createPlot(id=1, position={10, 10, 600, 1000}, subPlot=1, y={"conSupFan.ySupFan"}, range={0.0, 1.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});
+createPlot(id=1, position={10, 10, 600, 1000}, subPlot=2, y={"conSupFan.y1SupFan"}, range={0.0, 1.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});
+createPlot(id=1, position={10, 10, 600, 1000}, subPlot=3, y={"conSupFan.dpDuc", "conSupFan.staPreSetRes.y"}, range={0.0, 1.0, -0.2, 0.12}, grid=true, colors={{238,46,47},{28,108,200}});
+createPlot(id=1, position={10, 10, 600, 1000}, subPlot=4, y={"conSupFan.staPreSetRes.numOfReq"}, range={0.0, 1.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});
+createPlot(id=1, position={10, 10, 600, 1000}, subPlot=5, y={"conSupFan.uOpeMod"}, range={0.0, 1.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});
+createPlot(id=2, position={620, 10, 600, 1000}, subPlot=1, y={"conSupFan1.ySupFan"}, range={0.0, 1.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});
+createPlot(id=2, position={620, 10, 600, 1000}, subPlot=2, y={"conSupFan1.y1SupFan"}, range={0.0, 1.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});
+createPlot(id=2, position={620, 10, 600, 1000}, subPlot=3, y={"conSupFan1.dpDuc", "conSupFan1.staPreSetRes.y"}, range={0.0, 1.0, -0.2, 0.12}, grid=true, colors={{238,46,47},{28,108,200}});
+createPlot(id=2, position={620, 10, 600, 1000}, subPlot=4, y={"conSupFan1.staPreSetRes.numOfReq"}, range={0.0, 1.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});
+createPlot(id=2, position={620, 10, 600, 1000}, subPlot=5, y={"conSupFan1.uOpeMod"}, range={0.0, 1.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});
+createPlot(id=3, position={1230, 10, 600, 1000}, subPlot=1, y={"conSupFan2.ySupFan"}, range={0.0, 1.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});
+createPlot(id=3, position={1230, 10, 600, 1000}, subPlot=2, y={"conSupFan2.y1SupFan"}, range={0.0, 1.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});
+createPlot(id=3, position={1230, 10, 600, 1000}, subPlot=3, y={"conSupFan2.dpDuc", "conSupFan2.staPreSetRes.y"}, range={0.0, 1.0, -0.2, 0.12}, grid=true, colors={{238,46,47},{28,108,200}});
+createPlot(id=3, position={1230, 10, 600, 1000}, subPlot=4, y={"conSupFan2.staPreSetRes.numOfReq"}, range={0.0, 1.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});
+createPlot(id=3, position={1230, 10, 600, 1000}, subPlot=5, y={"conSupFan2.uOpeMod"}, range={0.0, 1.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});

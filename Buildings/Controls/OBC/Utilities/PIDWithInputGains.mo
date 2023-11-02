@@ -94,7 +94,8 @@ block PIDWithInputGains
     final uMin=yMin)
     "Limiter"
     annotation (Placement(transformation(extent={{120,80},{140,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide antWinGai2 "Outputs of anti-windup compensation"
+  Buildings.Controls.OBC.CDL.Continuous.Divide antWinGai2 if with_I
+    "Outputs of anti-windup compensation"
     annotation (Placement(transformation(extent={{100,-30},{80,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide gaiI if with_I "Gain of the integral term"
     annotation (Placement(transformation(extent={{-200,116},{-180,136}})));
@@ -295,28 +296,28 @@ equation
         Text(
           visible=(controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.P),
           extent={{-32,-22},{68,-62}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="P",
           fillPattern=FillPattern.Solid,
           fillColor={175,175,175}),
         Text(
           visible=(controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI),
           extent={{-26,-22},{74,-62}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="PI",
           fillPattern=FillPattern.Solid,
           fillColor={175,175,175}),
         Text(
           visible=(controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD),
           extent={{-16,-22},{88,-62}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillPattern=FillPattern.Solid,
           fillColor={175,175,175},
           textString="P D"),
         Text(
           visible=(controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID),
           extent={{-14,-22},{86,-62}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="PID",
           fillPattern=FillPattern.Solid,
           fillColor={175,175,175}),
@@ -366,7 +367,7 @@ equation
           pattern=LinePattern.None,
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="PID")}),
     Documentation(
       info="<html>
@@ -407,7 +408,7 @@ where <i>y<sub>min</sub></i> and <i>y<sub>max</sub></i> are limits for the contr
 </p>
 <p>
 This block is identical to
-<a href=\"Buildings.Controls.OBC.CDL.Continuous.PIDWithReset\">
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.PIDWithReset\">
 Buildings.Controls.OBC.CDL.Continuous.PIDWithReset</a>,
 except that the controller gains
 <i>k</i>, <i>T<sub>i</sub></i> and <i>T<sub>d</sub></i> are inputs rather than parameters.
@@ -536,8 +537,14 @@ R. Montgomery and R. McDowall (2008).
 American Society of Heating Refrigerating and Air-Conditioning Engineers Inc. Atlanta, GA.
 </p>
 </html>",
-      revisions="<html>
+revisions="<html>
 <ul>
+<li>
+June 5, 2023, by Jianjun Hu:<br/>
+Changed the instance <code>antWinGai2</code> to be conditional.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3423\">issue 3423</a>.
+</li>       
 <li>
 May 17, 2022, by Sen Huang:<br/>
 Changing the gains from parameters to inputs<br/>

@@ -128,7 +128,7 @@ equation
           lineColor={0,0,0}),
         Text(
           extent={{-50.5,20.5},{50.5,-20.5}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           origin={-72.5,-12.5},
           rotation=90,
           textString="%name"),

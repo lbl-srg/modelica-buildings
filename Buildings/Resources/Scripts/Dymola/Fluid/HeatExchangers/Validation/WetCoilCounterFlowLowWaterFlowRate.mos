@@ -1,7 +1,7 @@
-simulateModel("Buildings.Fluid.HeatExchangers.Validation.WetCoilCounterFlowLowWaterFlowRate", stopTime=3600, method="Cvode", tolerance=1e-06, resultFile="WetCoilCounterFlowLowWaterFlowRate");
-createPlot(id=1, position={44, 96, 1574, 1253}, y={"hex.QSen2_flow", "hex.QLat2_flow"}, range={0.0, 3600.0, -1500000.0, 500000.0}, grid=true, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"W", "W"});
-createPlot(id=1, position={44, 96, 1574, 1253}, y={"hex.m1_flow", "hex.m2_flow"}, range={0.0, 3600.0, -100.0, 500.0}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"kg/s", "kg/s"});
-createPlot(id=1, position={44, 96, 1574, 1253}, y={"hex.sta_a1.T", "hex.sta_b1.T", "hex.sta_a2.T", "hex.sta_b2.T"}, range={0.0, 3600.0, 8.0, 14.0}, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, timeUnit="s", displayUnits={"degC", "degC", "degC", "degC"});
-createPlot(id=1, position={44, 96, 1574, 1253}, y={"hex.sta_a2.X[1]", "hex.sta_b2.X[1]"}, range={0.0, 3600.0, 0.0075, 0.010499999999999999}, grid=true, subPlot=104, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"kg/kg", "kg/kg"});
-createPlot(id=1, position={44, 96, 1574, 1253}, y={"hex.SHR"}, range={0.0, 3600.0, -4.0, 2.0}, autoscale=false, grid=true, subPlot=105, colors={{28,108,200}}, range2={0.23312200000000005, 0.23312400000000005}, timeUnit="s", displayUnits={"1"});
-
+oldStoreProtVar=Advanced.StoreProtectedVariables;
+Advanced.StoreProtectedVariables:=true;
+simulateModel("Buildings.Fluid.HeatExchangers.Validation.WetCoilCounterFlowLowWaterFlowRate", stopTime=5000, method="Cvode", tolerance=1e-6, resultFile="WetCoilCounterFlowLowWaterFlowRate");
+createPlot(id=1, position={15, 14, 1170, 1253}, y={"hex.Q1_flow", "hex.QSen2_flow", "hex.QLat2_flow"}, autoscale=true, autoerase=true, autoreplot=true, grid=true, color=true);
+createPlot(id=1, y={"hex.m1_flow", "hex.m2_flow"}, autoscale=true, autoerase=true, autoreplot=true, grid=true, color=true, subPlot=2);
+createPlot(id=1, y={"hex.ele[1].mas.T", "senTemAirIn.T", "senTemWatIn.T"}, autoscale=true, autoerase=true, autoreplot=true, grid=true, color=true, subPlot=3);
+Advanced.StoreProtectedVariables=oldStoreProtVar;

@@ -1,0 +1,7 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.Validation.OperationMode", method="Cvode", stopTime=172800, tolerance=1e-06, resultFile="OperationMode");
+createPlot(id=1, position={10, 10, 1450, 1400}, y={"opeModSel.yOpeMod"}, range={0.0, 48.0, 0.0, 10.0}, grid=true, subPlot=1, colors={{28,108,200}}, timeUnit="h");
+createPlot(id=1, position={10, 10, 1450, 1400}, y={"opeModSel.u1Occ", "opeModSel.u1HigOccCoo", "opeModSel.u1OccHeaHig"}, range={0.0, 48.0, -1.0, 2.0}, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}, {28,108,200}}, timeUnit="h");
+createPlot(id=1, position={10, 10, 1450, 1400}, y={"opeModSel.tNexOcc"}, range={0.0, 48.0, -50000.0, 100000.0}, grid=true, subPlot=3, colors={{28,108,200}}, timeUnit="h", displayUnits={"s"});
+createPlot(id=1, position={10, 10, 1450, 1400}, y={"opeModSel.maxCooDowTim", "opeModSel.maxWarUpTim"}, range={0.0, 48.0, 1600.0, 2000.0}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}}, timeUnit="h", displayUnits={"s", "s"});
+createPlot(id=1, position={10, 10, 1450, 1400}, y={"TZonHeaSetUno.y", "TZonCooSetUno.y", "TZonHeaSetOcc.y", "TZonCooSetOcc.y", "opeModSel.TZonMin"}, range={0.0, 48.0, 280.0, 320.0}, grid=true, subPlot=5, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}}, timeUnit="h", displayUnits={"", "", "", "", "K"});
+

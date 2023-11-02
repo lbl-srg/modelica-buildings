@@ -94,7 +94,7 @@ model Case600FF
       glaSys={window600},
       wWin={2*3},
       hWin={2},
-      fFra={0.001},
+      fFra={1e-10},
       til={Z_},
       azi={S_})) "Room model"
     annotation (Placement(transformation(extent={{36,-30},{66,0}})));
@@ -142,17 +142,12 @@ model Case600FF
     roughness_a=Buildings.HeatTransfer.Types.SurfaceRoughness.Rough) "Roof"
     annotation (Placement(transformation(extent={{60,84},{74,98}})));
   replaceable parameter Buildings.ThermalZones.Detailed.Validation.BESTEST.Data.Win600 window600(
-    UFra=3,
     haveExteriorShade=false,
     haveInteriorShade=false) "Window"
     annotation (Placement(transformation(extent={{40,84},{54,98}})));
   Buildings.Fluid.Sources.MassFlowSource_T sinInf(
     redeclare package Medium = MediumA,
-    m_flow=1,
     use_m_flow_in=true,
-    use_T_in=false,
-    use_X_in=false,
-    use_C_in=false,
     nPorts=1) "Sink model for air infiltration"
     annotation (Placement(transformation(extent={{4,-66},{16,-54}})));
   Buildings.Fluid.Sources.Outside souInf(redeclare package Medium = MediumA,
@@ -186,7 +181,7 @@ model Case600FF
         meanT(Min=24.3+273.15,  Max=26.1+273.15,  Mean=25.2+273.15))
           constrainedby Modelica.Icons.Record
     "Reference results from ASHRAE/ANSI Standard 140"
-    annotation (Placement(transformation(extent={{82,42},{96,56}})));
+    annotation (Placement(transformation(extent={{42,44},{56,58}})));
   Modelica.Blocks.Math.MultiSum multiSum(nu=1)
     "Multi sum for infiltration air flow rate"
     annotation (Placement(transformation(extent={{-78,-80},{-66,-68}})));
@@ -205,7 +200,6 @@ model Case600FF
 
   HeatTransfer.Convection.Exterior conOpa(
     A=48,
-    hFixed=0.8,
     roughness=Buildings.HeatTransfer.Types.SurfaceRoughness.Rough,
     final til=Buildings.Types.Tilt.Floor,
     final azi=0,
@@ -262,7 +256,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(density.port, roo.ports[1])  annotation (Line(
-      points={{-45,-76},{32,-76},{32,-24.5},{39.75,-24.5}},
+      points={{-45,-76},{32,-76},{32,-23.5},{39.75,-23.5}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(weaDat.weaBus, weaBus) annotation (Line(
@@ -321,8 +315,8 @@ equation
           {-56,-58},{-51,-58}}, color={0,0,127}));
   connect(souInf.ports[1], res.port_a)
     annotation (Line(points={{-12,-28},{0,-28}}, color={0,127,255}));
-  connect(res.port_b, roo.ports[3]) annotation (Line(points={{20,-28},{28,-28},{
-          28,-20.5},{39.75,-20.5}}, color={0,127,255}));
+  connect(res.port_b, roo.ports[3]) annotation (Line(points={{20,-28},{28,-28},
+          {28,-21.5},{39.75,-21.5}},color={0,127,255}));
   annotation (
 experiment(Tolerance=1e-06, StopTime=3.1536e+07),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Cases6xx/Case600FF.mos"

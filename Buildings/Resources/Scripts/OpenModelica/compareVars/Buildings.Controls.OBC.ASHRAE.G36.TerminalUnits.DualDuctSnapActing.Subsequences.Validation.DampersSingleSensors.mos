@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "dam1.VActMin_flow",
+    "dam1.VActCooMax_flow",
+    "dam1.VActHeaMax_flow",
+    "dam1.uCoo",
+    "dam1.uHea",
+    "dam1.VDis_flow_Set",
+    "dam1.yCooDam",
+    "dam1.yHeaDam"
+  };

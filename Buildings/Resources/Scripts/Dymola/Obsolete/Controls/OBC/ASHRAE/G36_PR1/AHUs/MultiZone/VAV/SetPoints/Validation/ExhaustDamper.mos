@@ -1,0 +1,9 @@
+simulateModel("Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.Validation.ExhaustDamper", method="Cvode", stopTime=1200, tolerance=1e-06, resultFile="ExhaustDamper_MultiZone");
+createPlot(id=1, position={355, 13, 392, 700}, y={"exhDamPos.yExhDamPos"}, range={0.0, 0.05, -0.2, 0.6000000000000001}, grid=true, subPlot=1, colors={{28,108,200}});
+createPlot(id=1, position={355, 13, 392, 700}, y={"exhDamPos.conP.y"}, range={0.0, 4000.0, -0.1, 0.30000000000000004}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=2, position={759, 17, 392, 700}, y={"exhDamPos1.yExhDamPos"}, range={0.0, 0.05, -0.5, 1.5}, grid=true, subPlot=1, colors={{28,108,200}});
+createPlot(id=2, position={759, 17, 392, 700}, y={"exhDamPos1.conP.y"}, range={0.0, 0.05, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=3, position={1160, 23, 391, 700}, y={"exhDamPos2.yExhDamPos"}, range={0.0, 0.05, -0.5, 1.5}, grid=true, subPlot=1, colors={{28,108,200}});
+createPlot(id=3, position={1160, 23, 391, 700}, y={"exhDamPos2.conP.y"}, range={0.0, 0.05, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=4, position={-1, 20, 344, 646}, y={"exhDamPos.dpBui"}, range={0.0, 0.06, -20.0, 60.0}, grid=true, colors={{28,108,200}});
+createPlot(id=4, position={-1, 20, 344, 321}, y={"exhDamPos.uSupFan"}, range={0.0, 0.06, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}});

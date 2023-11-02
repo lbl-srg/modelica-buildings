@@ -121,7 +121,7 @@ equation
 Documentation(info="<html>
 <p>
 This model implements a comparative model validation of
-<a href=\"Buildings.Fluid.HeatPumps.EquationFitReversible\">
+<a href=\"modelica://Buildings.Fluid.HeatPumps.EquationFitReversible\">
 Buildings.Fluid.HeatPumps.EquationFitReversible</a>
 against results obtained using EnergyPlus 9.1.
 <p>
