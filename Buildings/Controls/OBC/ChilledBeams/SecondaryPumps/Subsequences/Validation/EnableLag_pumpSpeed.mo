@@ -48,6 +48,26 @@ This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ChilledBeams.SecondaryPumps.Subsequences.EnableLag_pumpSpeed\">
 Buildings.Controls.OBC.ChilledBeams.SecondaryPumps.Subsequences.EnableLag_pumpSpeed</a>.
 </p>
+<p>
+It consists of an open-loop setup for block <code>enaLagPum</code> with
+a ramp input signal <code>ram</code> that is used to simulate the pump speed, and 
+two outputs <code>yUp</code> and <code>yDown</code> that hold stage-up and stage-down 
+signals with a duration of 10 seconds for easy visualization, respectively. 
+</p>
+<p>
+The following observations should be apparent from the simulation plots:
+<ol>
+<li>
+<code>enaLagPum</code> stages up (<code>yUp = true</code>) when pump speed 
+<code>uPumSpe</code> exceeds speed limits <code>speLim</code> for time period 
+<code>timPer</code> or <code>speLim1</code> for <code>timPer1</code>.
+</li>
+<li>
+It stages down (<code>yDown = false</code>) when <code>uPumSpe</code> 
+falls below speed limit <code>speLim2</code> for time period <code>timPer2</code>.
+</li>
+</ol>
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

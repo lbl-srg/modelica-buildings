@@ -2,7 +2,7 @@ compareVars :=
   {
     "zonRegCon.uOpeMod",
     "zonRegCon.TZon",
-    "zonRegCon.TZonSet.TZonHeaSet",
+    "zonRegCon.TZonHeaSet",
     "zonRegCon.yReh",
     "zonRegCon.mulSum.y",
     "zonRegCon.VDes_occ",
@@ -12,6 +12,6 @@ compareVars :=
     "zonRegCon.mulSum.y",
     "zonRegCon.yDam",
     "zonRegCon.TZon",
-    "zonRegCon.TZonSet.TZonCooSet",
+    "zonRegCon.TZonCooSet",
     "zonRegCon.yChiVal"
   };

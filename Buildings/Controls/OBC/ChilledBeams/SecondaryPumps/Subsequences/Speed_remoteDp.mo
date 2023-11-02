@@ -200,8 +200,6 @@ equation
     annotation (Line(points={{22,-66},{30,-66},{30,-12}},color={0,0,127}));
   connect(conPID.y, maxLoo.u[1:nSen])
     annotation (Line(points={{42,0},{50,0},{50,0},{58,0}},   color={0,0,127}));
-  connect(pumSpe_max.y, swi.u3) annotation (Line(points={{2,40},{10,40},{10,92},
-          {78,92}}, color={0,0,127}));
   connect(reaRep.y, div.u2) annotation (Line(points={{-18,-90},{-10,-90},{-10,-72},
           {-2,-72}},       color={0,0,127}));
   connect(guaDivZer.y, reaRep.u)
@@ -210,6 +208,8 @@ equation
           -82,-80},{-88,-80}}, color={0,0,127}));
   connect(guaDivZer.u2, dpChiWatSet) annotation (Line(points={{-72,-96},{-84,-96},
           {-84,-100},{-140,-100}}, color={0,0,127}));
+  connect(pumSpe_min.y, swi.u3) annotation (Line(points={{-58,80},{-40,80},{-40,
+          92},{78,92}}, color={0,0,127}));
 annotation (
   defaultComponentName="chiPumSpe",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),

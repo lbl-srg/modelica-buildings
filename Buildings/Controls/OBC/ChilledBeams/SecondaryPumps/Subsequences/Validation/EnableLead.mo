@@ -21,7 +21,7 @@ equation
 
 annotation (
   experiment(
-    StopTime=720,
+    StopTime=760,
     Tolerance=1e-06,
     __Dymola_Algorithm="Dassl"),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ChilledBeams/SecondaryPumps/Subsequences/Validation/EnableLead.mos"
@@ -31,6 +31,26 @@ annotation (
     This example validates
     <a href=\"modelica://Buildings.Controls.OBC.ChilledBeams.SecondaryPumps.Subsequences.EnableLead\">
     Buildings.Controls.OBC.ChilledBeams.SecondaryPumps.Subsequences.EnableLead</a>.
+    </p>
+    <p>
+    It consists of an open-loop setup for block <code>enaLeaPum</code> with
+    a pulse input signal <code>pull</code> that is used to generate valve positions for chilled beam mainfolds.
+    </p>
+    <p>
+    The following observations should be apparent from the simulation plots:
+    <ol>
+    <li>
+    <code>enaLeaPum</code> enables the lead pump (<code>yLea = true</code>)
+    when any of the chilled beam control valves are continuously open 
+    (<code>uValPos[1] &gt; valPosOpe</code> or <code>uValPos[2] &gt; valPosOpe</code>) 
+    for time period <code>valOpeThr</code>.
+    </li>
+    <li>
+    It disables lead pump (<code>yLea = false</code>) when all the chilled beam 
+    control valves are continuously closed (<code>uValPos[1] &lt; valPosClo</code> 
+    and <code>uValPos[2] &lt; valPosClo</code>) for duration <code>valCloThr</code>.
+    </li>
+    </ol>
     </p>
     </html>", revisions="<html>
     <ul>

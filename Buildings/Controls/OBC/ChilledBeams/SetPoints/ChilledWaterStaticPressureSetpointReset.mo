@@ -2,10 +2,12 @@ within Buildings.Controls.OBC.ChilledBeams.SetPoints;
 block ChilledWaterStaticPressureSetpointReset
   "Sequence to generate static pressure setpoint for chilled water loop"
 
-  parameter Integer nVal = 3
+  parameter Integer nVal(
+    final min=1)
     "Number of chilled water control valves on chilled beam manifolds";
 
-  parameter Integer nPum = 2
+  parameter Integer nPum(
+    final min=1)
     "Number of chilled water pumps in chilled beam system";
 
   parameter Real valPosLowClo(
@@ -35,14 +37,14 @@ block ChilledWaterStaticPressureSetpointReset
   parameter Real chiWatStaPreMax(
     final unit="Pa",
     displayUnit="Pa",
-    final quantity="Pressure") = 30000
+    final quantity="Pressure")
     "Maximum chilled water loop static pressure setpoint"
     annotation(Dialog(group="Trim-and-Respond parameters"));
 
   parameter Real chiWatStaPreMin(
     final unit="Pa",
     displayUnit="Pa",
-    final quantity="Pressure") = 20000
+    final quantity="Pressure")
     "Minimum chilled water loop static pressure setpoint"
     annotation(Dialog(group="Trim-and-Respond parameters"));
 
@@ -98,14 +100,14 @@ block ChilledWaterStaticPressureSetpointReset
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPumSta[nPum]
     "Pump proven on signal"
     annotation (Placement(transformation(extent={{-140,30},{-100,70}}),
-      iconTransformation(extent={{-140,30},{-100,70}})));
+      iconTransformation(extent={{-140,20},{-100,60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uValPos[nVal](
     final unit = fill("1", nVal),
     displayUnit = fill("1", nVal))
     "Chilled water control valve position on chilled beams"
     annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
-      iconTransformation(extent={{-140,-70},{-100,-30}})));
+      iconTransformation(extent={{-140,-60},{-100,-20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yStaPreSetPoi(
     final unit="Pa",
@@ -166,7 +168,7 @@ protected
     "Find maximum integer output"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.TrimAndRespond triRes(
+  Buildings.Controls.OBC.ASHRAE.G36.Generic.TrimAndRespond triRes(
     final iniSet=chiWatStaPreMax,
     final minSet=chiWatStaPreMin,
     final maxSet=chiWatStaPreMax,
@@ -229,15 +231,24 @@ annotation(defaultComponentName="chiWatStaPreSetRes",
               textString="%name"),
             Rectangle(
               extent={{-100,100},{100,-100}},
-              lineColor={28,108,200},
+              lineColor={0,0,0},
               fillColor={255,255,255},
               fillPattern=FillPattern.Solid),
-            Text(
-              extent={{-50,20},{50,-20}},
-              lineColor={28,108,200},
-              fillColor={255,255,255},
-              fillPattern=FillPattern.None,
-      textString="chiWatStaPreSetRes")}),
+        Text(
+          extent={{-96,48},{-60,32}},
+          textColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="uPumSta"),
+        Text(
+          extent={{-96,-32},{-60,-48}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="uValPos"),
+        Text(
+          extent={{44,16},{98,-14}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="yStaPreSetPoi")}),
   Diagram(coordinateSystem(preserveAspectRatio=false)),
   Documentation(info="<html>
 <p>

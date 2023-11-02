@@ -1,19 +1,19 @@
 simulateModel("Buildings.Controls.OBC.ChilledBeams.Terminal.Validation.Controller", method="Cvode", stopTime=3600, tolerance=1e-06, resultFile="TerminalController");
 
-createPlot(id=1, position={702, 0, 685, 451}, y={"terCon.uDetOcc"}, range={0.0, 3600.0, -1.0, 2.0}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={702, 0, 685, 451}, y={"terCon.uOccDet"}, range={0.0, 3600.0, -1.0, 2.0}, grid=true, colors={{28,108,200}});
 createPlot(id=1, position={702, 0, 685, 60}, y={"terCon.uConSen"}, range={0.0, 3600.0, -1.0, 2.0}, grid=true, subPlot=2, colors={{28,108,200}});
-createPlot(id=1, position={702, 0, 685, 60}, y={"terCon.TZon", "terCon.zonRegCon.TZonSet.TZonCooSet"}, range={0.0, 3600.0, 280.0, 310.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={702, 0, 685, 60}, y={"terCon.TZon", "terCon.TZonCooSet"}, range={0.0, 3600.0, 280.0, 310.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
 createPlot(id=1, position={702, 0, 685, 61}, y={"terCon.uChiVal"}, range={0.0, 3600.0, -0.5, 1.0}, grid=true, subPlot=4, colors={{28,108,200}});
 createPlot(id=1, position={702, 0, 685, 60}, y={"terCon.yChiWatSupReq"}, range={0.0, 3600.0, -2.0, 4.0}, grid=true, subPlot=5, colors={{28,108,200}});
 createPlot(id=1, position={702, 0, 685, 60}, y={"terCon.TChiWatReq"}, range={0.0, 3600.0, -2.0, 2.0}, grid=true, subPlot=6, colors={{28,108,200}});
 createPlot(id=1, position={702, 0, 685, 60}, y={"terCon.yChiVal"}, range={0.0, 3600.0, -0.5, 1.0}, grid=true, subPlot=7, colors={{28,108,200}});
 
-createPlot(id=2, position={702, 0, 685, 451}, y={"terCon.uDetOcc"}, range={0.0, 3600.0, -0.2, 1.2000000000000002}, grid=true, colors={{28,108,200}});
-createPlot(id=2, position={702, 0, 685, 109}, y={"terCon.uConSen"}, range={0.0, 3600.0, -0.2, 1.2000000000000002}, grid=true, subPlot=2, colors={{28,108,200}});
-createPlot(id=2, position={702, 0, 685, 109}, y={"terCon.TZon", "terCon.zonRegCon.TZonSet.TZonHeaSet", "terCon.zonRegCon.TZonSet.TZonCooSet"}, range={0.0, 3600.0, 288.0, 302.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}, {0,140,72}});
-createPlot(id=2, position={702, 0, 685, 109}, y={"terCon.yReh"}, range={0.0, 3600.0, -0.1, 0.5000000000000001}, grid=true, subPlot=4, colors={{28,108,200}});
+createPlot(id=2, position={702, 0, 685, 451}, y={"terCon.uOccDet"}, range={0.0, 3600.0, -0.2, 1.2}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={702, 0, 685, 109}, y={"terCon.uConSen"}, range={0.0, 3600.0, -0.2, 1.2}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=2, position={702, 0, 685, 109}, y={"terCon.TZon", "terCon.TZonHeaSet", "terCon.TZonCooSet"}, range={0.0, 3600.0, 288.0, 302.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=2, position={702, 0, 685, 109}, y={"terCon.yReh"}, range={0.0, 3600.0, -0.1, 0.5}, grid=true, subPlot=4, colors={{28,108,200}});
 
-createPlot(id=3, position={0, 0, 1403, 978}, y={"terCon.uDetOcc"}, range={0.0, 3600.0, -0.2, 1.2000000000000002}, grid=true, colors={{28,108,200}});
-createPlot(id=3, position={0, 0, 1403, 241}, y={"terCon.uConSen"}, range={0.0, 3600.0, -0.2, 1.2000000000000002}, grid=true, subPlot=2, colors={{28,108,200}});
-createPlot(id=3, position={0, 0, 1403, 240}, y={"terCon.VDis_flow", "terCon.zonRegCon.mulSum.y"}, range={0.0, 3600.0, -0.2, 1.2000000000000002}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
-createPlot(id=3, position={0, 0, 1403, 241}, y={"terCon.yDam"}, range={0.0, 3600.0, -0.2, 1.2000000000000002}, grid=true, subPlot=4, colors={{28,108,200}});
+createPlot(id=3, position={0, 0, 1403, 978}, y={"terCon.uOccDet"}, range={0.0, 3600.0, -0.2, 1.2}, grid=true, colors={{28,108,200}});
+createPlot(id=3, position={0, 0, 1403, 241}, y={"terCon.uConSen"}, range={0.0, 3600.0, -0.2, 1.2}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=3, position={0, 0, 1403, 240}, y={"terCon.VDis_flow", "terCon.zonRegCon.mulSum.y"}, range={0.0, 3600.0, -0.2, 1.2}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
+createPlot(id=3, position={0, 0, 1403, 241}, y={"terCon.yDam"}, range={0.0, 3600.0, -0.2, 1.2}, grid=true, subPlot=4, colors={{28,108,200}});

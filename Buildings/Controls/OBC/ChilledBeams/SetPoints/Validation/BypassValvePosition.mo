@@ -4,6 +4,7 @@ model BypassValvePosition
 
   Buildings.Controls.OBC.ChilledBeams.SetPoints.BypassValvePosition
     bypValPos(
+    final nPum=2,
     final k=10,
     final Ti=0.001)
     "Bypass valve position setpoint controller"
@@ -18,7 +19,7 @@ protected
     "Real pulse source"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sin(
     final amplitude=10000,
     final freqHz=1/1000,
     final offset=45000)
@@ -33,20 +34,18 @@ protected
 
 equation
   connect(booPul.y, bypValPos.uPumSta) annotation (Line(points={{-58,40},{-20,40},
-          {-20,4},{-2,4}}, color={255,0,255}));
+          {-20,6},{-2,6}}, color={255,0,255}));
 
   connect(pul.y, bypValPos.uPumSpe)
     annotation (Line(points={{-58,0},{-2,0}}, color={0,0,127}));
 
   connect(sin.y, bypValPos.dpChiWatLoo) annotation (Line(points={{-58,-40},{-20,
-          -40},{-20,-4},{-2,-4}}, color={0,0,127}));
+          -40},{-20,-6},{-2,-6}}, color={0,0,127}));
 
 annotation (
   experiment(
       StopTime=7200,
-      Interval=1,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ChilledBeams/SetPoints/Validation/BypassValvePosition.mos"
     "Simulate and plot"),
   Documentation(info="<html>
@@ -54,6 +53,31 @@ annotation (
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ChilledBeams.SetPoints.BypassValvePosition\">
 Buildings.Controls.OBC.ChilledBeams.SetPoints.BypassValvePosition</a>.
+</p>
+<p>
+It consists of an open-loop setup for block <code>bypValPos</code> with
+a Boolean pulse signal <code>booPul</code> that is used to simulate pump proven on signal, 
+a real pulse signal <code>pul</code> that is used to simulate pump speed, 
+and a sine signal <code>sin</code> that is used to simulate chilled water loop differential static pressure. 
+The block determines the bypass valve position setpoint <code>bypValPos.yBypValPos</code>
+based on the pump proven on status <code>uPumSta</code>, measured pump 
+speed <code>uPumSpe</code> and measured differential pressure across the
+demand loop <code>dpChiWatLoo</code>.
+</p>
+<p>
+The following observations should be apparent from the simulation plots:
+<ol>
+<li>
+When none of the pumps are proven on (<code>uPumSta=false</code>), 
+the bypass valve is completely opened (<code>yBypValPos=1</code>).
+</li>
+<li>
+When the pumps are proven on (<code>uPumSta=true</code>) and are running at 
+minimum speed (<code>minPumSpe=0.1</code>), <code>yBypValPos</code> is used to 
+regulate the measured chilled water differential pressure<code>dpChiWatLoo</code> 
+at maximum allowed loop pressure <code>dPChiWatMax</code>.
+</li>
+</ol>
 </p>
 </html>", revisions="<html>
 <ul>
