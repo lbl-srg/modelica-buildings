@@ -15,39 +15,6 @@ model DXDehumidifier "Validation model for DX dehumidifier"
     "Zone air DX dehumidifier curve"
     annotation (Placement(transformation(extent={{-40,66},{-20,86}})));
 
-  Buildings.Fluid.DXSystems.Heating.AirSource.Validation.BaseClasses.PLRToPulse plrToPul(
-    final tPer=3600, tDel=0.1)
-    "Convert PLR signal to on-off signal"
-    annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
-	
-  Buildings.Fluid.Sources.MassFlowSource_T boundary(
-    redeclare package Medium = Medium,
-    final use_Xi_in=true,
-    final use_m_flow_in=true,
-    final use_T_in=true,
-    nPorts=1)
-    "Mass flow source for coil inlet air"
-    annotation (Placement(transformation(extent={{-82,-28},{-62,-8}})));
-	
-  Buildings.Fluid.Sources.Boundary_pT sin(
-    redeclare package Medium = Medium,
-    final p(displayUnit="Pa") = 101325,
-    final T=294.15,
-    nPorts=1)
-    "Sink"
-    annotation (Placement(transformation(extent={{0,-28},{-20,-8}})));
-	
-  Buildings.Utilities.Psychrometrics.ToTotalAir toTotAirIn
-    "Convert humidity ratio per kg dry air to humidity ratio per kg total air for coil inlet air"
-    annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
-	
-  Buildings.Utilities.IO.BCVTB.From_degC TIn_K "Converts degC to K"
-    annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
-	
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaFanEna
-    "Convert fan enable signal to real value"
-    annotation (Placement(transformation(extent={{-160,-20},{-140,0}})));
-
   Buildings.Fluid.Humidifiers.DXDehumidifier dxDeh(
     redeclare package Medium = Medium,
     final VWat_flow_nominal=5.805556e-7,
@@ -61,12 +28,48 @@ model DXDehumidifier "Validation model for DX dehumidifier"
     "DX dehumidifier"
     annotation (Placement(transformation(extent={{-50,-28},{-30,-8}})));
 
+  Buildings.Fluid.DXSystems.Heating.AirSource.Validation.BaseClasses.PLRToPulse plrToPul(
+    final tPer=3600,
+    final tDel=0.1)
+    "Convert PLR signal to on-off signal"
+    annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
+
+  Buildings.Fluid.Sources.MassFlowSource_T boundary(
+    redeclare package Medium = Medium,
+    final use_Xi_in=true,
+    final use_m_flow_in=true,
+    final use_T_in=true,
+    nPorts=1)
+    "Mass flow source for coil inlet air"
+    annotation (Placement(transformation(extent={{-82,-28},{-62,-8}})));
+
+  Buildings.Fluid.Sources.Boundary_pT sin(
+    redeclare package Medium = Medium,
+    final p(displayUnit="Pa") = 101325,
+    final T=294.15,
+    nPorts=1)
+    "Sink"
+    annotation (Placement(transformation(extent={{0,-28},{-20,-8}})));
+
+  Buildings.Utilities.Psychrometrics.ToTotalAir toTotAirIn
+    "Convert humidity ratio per kg dry air to humidity ratio per kg total air for coil inlet air"
+    annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
+
+  Buildings.Utilities.IO.BCVTB.From_degC TIn_K
+    "Converts degC to K"
+    annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
+
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaFanEna
+    "Convert fan enable signal to real value"
+    annotation (Placement(transformation(extent={{-160,-20},{-140,0}})));
+
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=m_flow_nominal)
     "Gain factor"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
 
-  Modelica.Blocks.Sources.RealExpression realExpression1(final y=dxDeh.port_a.m_flow)
+  Modelica.Blocks.Sources.RealExpression realExpression1(
+    final y=dxDeh.port_a.m_flow)
     "DX dehumidifier air mass flow rate (Modelica)"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
 	
@@ -81,7 +84,8 @@ model DXDehumidifier "Validation model for DX dehumidifier"
     annotation (Placement(transformation(extent={{134,60},{154,80}})));
 
   Modelica.Blocks.Sources.RealExpression realExpression5(
-    final y=datRea.y[6]) "DX dehumidifier air mass flow rate (EnergyPlus)"
+    final y=datRea.y[6])
+    "DX dehumidifier air mass flow rate (EnergyPlus)"
     annotation (Placement(transformation(extent={{98,60},{118,80}})));
 
   Modelica.Blocks.Sources.RealExpression realExpression2(
@@ -119,24 +123,29 @@ model DXDehumidifier "Validation model for DX dehumidifier"
     "Average out EnergyPlus results over time"
     annotation (Placement(transformation(extent={{134,-10},{154,10}})));
 
-  Modelica.Blocks.Sources.RealExpression realExpression7(final y=datRea.y[5])
+  Modelica.Blocks.Sources.RealExpression realExpression7(
+    final y=datRea.y[5])
     "DX dehumidifier power rate (EnergyPlus)"
     annotation (Placement(transformation(extent={{98,-10},{118,10}})));
 
-  Modelica.Blocks.Sources.RealExpression realExpression4(final y=dxDeh.QHea.y -
-        dxDeh.deHum.mWat_flow*Buildings.Utilities.Psychrometrics.Constants.h_fg)
+  Modelica.Blocks.Sources.RealExpression realExpression4(
+    final y=dxDeh.QHea.y -
+      dxDeh.deHum.mWat_flow*Buildings.Utilities.Psychrometrics.Constants.h_fg)
     "DX dehumidifier heating rate (Modelica)"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 
-  Modelica.Blocks.Math.Mean QHeaMod(final f=1/tStepAve)
+  Modelica.Blocks.Math.Mean QHeaMod(
+    final f=1/tStepAve)
     "Average out Modelica results over time"
     annotation (Placement(transformation(extent={{54,-40},{74,-20}})));
 
-  Modelica.Blocks.Math.Mean QHeaEP(final f=1/tStepAve)
+  Modelica.Blocks.Math.Mean QHeaEP(
+    final f=1/tStepAve)
     "Average out EnergyPlus results over time"
     annotation (Placement(transformation(extent={{134,-40},{154,-20}})));
 
-  Modelica.Blocks.Sources.RealExpression realExpression8(final y=datRea.y[3])
+  Modelica.Blocks.Sources.RealExpression realExpression8(
+    final y=datRea.y[3])
     "DX dehumidifier heating rate (EnergyPlus)"
     annotation (Placement(transformation(extent={{98,-40},{118,-20}})));
 

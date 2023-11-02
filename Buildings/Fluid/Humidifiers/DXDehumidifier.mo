@@ -101,23 +101,37 @@ model DXDehumidifier "DX dehumidifier"
     "Zero source for heat flow rate if power is not added to fluid medium"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
 
-  Sensors.MassFractionTwoPort senMasFra(redeclare package Medium = Medium,
-      m_flow_nominal=mAir_flow_nominal)
+  Buildings.Fluid.Sensors.MassFractionTwoPort senMasFra(
+    redeclare package Medium = Medium,
+    m_flow_nominal=mAir_flow_nominal)
+    "Inlet air water vapor mass fraction"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
 
-  Modelica.Units.SI.MassFraction XOut;
-  Sensors.RelativeHumidityTwoPort senRelHum(redeclare package Medium = Medium,
-      m_flow_nominal=mAir_flow_nominal)
+  Modelica.Units.SI.MassFraction XOut
+    "Outlet air water vapor mass fraction";
+
+  Buildings.Fluid.Sensors.RelativeHumidityTwoPort senRelHum(
+    redeclare package Medium = Medium,
+    m_flow_nominal=mAir_flow_nominal)
+    "Inlet air relative humidity"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 protected
   constant Modelica.Units.SI.SpecificEnthalpy h_fg= Buildings.Utilities.Psychrometrics.Constants.h_fg
-       "Latent heat of water vapor";
-  constant Modelica.Units.SI.Density rhoWat=1000 "Water density";
+    "Latent heat of water vapor";
 
-  Real watRemMod(min=0, nominal=1, start=1)
+  constant Modelica.Units.SI.Density rhoWat=1000
+    "Water density";
+
+  Real watRemMod(
+    min=0,
+    nominal=1,
+    start=1)
     "Water removal modifier factor as a function of temperature and RH";
 
-  Real eneFacMod(min=0, nominal=1, start=1)
+  Real eneFacMod(
+    min=0,
+    nominal=1,
+    start=1)
     "Energy factor modifier factor as a function of temperature and RH";
 
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(final k=1) if
@@ -166,15 +180,6 @@ equation
   connect(u.y, deHum.u)
     annotation (Line(points={{-59,-40},{28,-40},{28,6},{39,6}},
       color={0,0,127}));
-  connect(con.y, preHeaFlo.Q_flow)
-    annotation (Line(points={{-38,80},{-30,80},{-30,50},{-20,50}},
-      color={0,0,127}));
-  connect(QHea.y, gai.u)
-    annotation (Line(points={{-71,50},{-62,50}}, color={0,0,127}));
-  connect(gai.y, preHeaFlo.Q_flow)
-    annotation (Line(points={{-38,50},{-20,50}}, color={0,0,127}));
-
-
   connect(port_a, senTIn.port_a)
     annotation (Line(points={{-100,0},{-80,0}}, color={0,127,255}));
   connect(senTIn.port_b, senMasFra.port_a)
