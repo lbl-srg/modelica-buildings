@@ -4,8 +4,8 @@
 #First column: Seconds in the year (loads are hourly)
 #Second column: cooling loads in Watts (as negative numbers).
 #Third column: space heating loads in Watts
+#Fourth column: domestic water heating loads in Watts
 #
-#Fourth column: water heating
 #Peak space cooling load = -30890 Watts
 #Peak space heating load = 26170 Watts
 #Peak water heating load = 350 Watts

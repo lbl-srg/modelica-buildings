@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "relDam.dpBui",
+    "relDam.dpBuiSet",
+    "relDam.u1SupFan",
+    "relDam.yRelDam",
+    "relDam1.dpBui",
+    "relDam1.dpBuiSet",
+    "relDam1.u1SupFan",
+    "relDam1.yRelDam"
+  };

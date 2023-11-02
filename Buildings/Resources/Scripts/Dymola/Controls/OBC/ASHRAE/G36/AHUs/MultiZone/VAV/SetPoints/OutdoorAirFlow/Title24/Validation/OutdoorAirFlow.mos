@@ -1,0 +1,10 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.Title24.Validation.OutdoorAirFlow", method="Cvode", stopTime=3600, tolerance=1e-06, resultFile="OutdoorAirFlow_MultiZone");
+createPlot(id=1, position={15, 15, 872, 1350}, y={"zonToAhu.VZonAbsMin_flow[1]", "zonToAhu.VZonAbsMin_flow[2]", "zonToAhu.VZonAbsMin_flow[3]","zonToAhu.VZonAbsMin_flow[4]"}, range={0.0, 4000.0, 0.08, 0.22}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, timeUnit="s", displayUnits={"m3/s", "m3/s", "m3/s", "m3/s"});
+createPlot(id=1, position={15, 15, 872, 1350}, y={"zonToAhu.VZonDesMin_flow[1]", "zonToAhu.VZonDesMin_flow[2]", "zonToAhu.VZonDesMin_flow[3]","zonToAhu.VZonDesMin_flow[4]"}, range={0.0, 4000.0, 0.14, 0.32}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, timeUnit="s", displayUnits={"m3/s", "m3/s", "m3/s", "m3/s"});
+createPlot(id=1, position={15, 15, 872, 1350}, y={"zonToAhu.uCO2[1]", "zonToAhu.uCO2[2]", "zonToAhu.uCO2[3]", "zonToAhu.uCO2[4]"}, range={0.0, 4000.0, 0.2, 0.55}, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, timeUnit="s", displayUnits={"1", "1", "1", "1"});
+createPlot(id=2, position={893, 17, 844, 1346}, y={"zonToAhu.VSumZonAbsMin_flow", "zonToAhu.VSumZonDesMin_flow", "zonToAhu.yMaxCO2"}, range={0.0, 4000.0, 0.2, 0.55}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}}, timeUnit="s", displayUnits={"m3/s", "m3/s", "1"});
+createPlot(id=2, position={893, 17, 844, 1346}, y={"ahu.VEffAbsOutAir_flow", "ahu.VEffDesOutAir_flow"}, range={0.0, 4000.0, -0.05, 0.4}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"m3/s", "m3/s"});
+createPlot(id=2, position={893, 17, 844, 1346}, y={"ahu.effAbsOutAir_normalized", "ahu.effDesOutAir_normalized", "ahu.effOutAir_normalized"}, range={0.0, 4000.0, -0.1, 0.5}, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}, {0,140,72}}, timeUnit="s", displayUnits={"1", "1", "1"});
+
+
+

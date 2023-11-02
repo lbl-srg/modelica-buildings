@@ -1,0 +1,25 @@
+simulateModel("Buildings.Fluid.HydronicConfigurations.Examples.TwoWayOpenLoop", stopTime=100, tolerance=1e-06, resultFile="TwoWayOpenLoop");
+
+createPlot(id=1, position={15, 15, 1184, 744}, x="ope.y", y={"valAut100.m_flow", "valAut75.m_flow", "valAut50.m_flow", "valAut33.m_flow", "valAut25.m_flow", "valAut50Ove.m_flow", "valAut33Bal.m_flow"}, erase=true, autoscale=true, grid=true, color=true);
+
+createPlot(id=2, position={1214, 15, 1184, 744}, range={0.0, 1.0, 0.0, 2E5}, x="ope.y", y={"valAut100.dp", "valAut75.dp", "valAut50.dp", "valAut33.dp", "valAut25.dp", "valAut50Ove.dp", "valAut33Bal.dp"}, erase=true, grid=true, color=true);
+
+nPoints = readTrajectorySize("TwoWayOpenLoop.mat");
+componentNames = {"valAut100", "valAut75", "valAut50", "valAut33", "valAut25", "valAut50Ove", "valAut33Bal"};
+varNames = {c + ".m_flow" for c in componentNames}
+m_flow = readTrajectory("TwoWayOpenLoop.mat", varNames, nPoints);
+varNames = {c + ".dp" for c in componentNames}
+dp = readTrajectory("TwoWayOpenLoop.mat", varNames, nPoints);
+ope = readTrajectory("TwoWayOpenLoop.mat", {"ope.y"}, nPoints);
+m_flow_nominal = readTrajectory("TwoWayOpenLoop.mat", {"mLiq_flow_nominal"}, 1);
+
+createPlot(id=3, position={594, 342, 1184, 744}, x="ope.y", leftTitle="m_flow(y)/m_flow(100%)", autoscale=true, grid=true, erase=true, color=true);
+plotArray(ope[1], m_flow[3] / max(m_flow[3]), erase=false, legend="valAut50");
+plotArray(ope[1], m_flow[6] / max(m_flow[6]), erase=false, legend="valAut50Ove");
+plotArray(ope[1], m_flow[7] / max(m_flow[7]), erase=false, legend="valAut33Bal");
+
+for i in 1:(size(componentNames))[1] loop
+  beta := dp[i, end] / dp[i, 1];
+  betaPrim := beta / (max(m_flow[i]) / m_flow_nominal[1, 1])^2;
+  Modelica.Utilities.Streams.print("Component " + componentNames[i] + ": Beta = " + String(beta) + "\tBeta' = " + String(betaPrim));
+end for;

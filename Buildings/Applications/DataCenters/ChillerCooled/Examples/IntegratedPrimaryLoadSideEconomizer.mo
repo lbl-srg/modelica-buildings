@@ -133,7 +133,7 @@ equation
       thickness=0.5));
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
-    extent={{-360,-200},{300,220}})),
+    extent={{-360,-200},{320,260}})),
   __Dymola_Commands(file=
   "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Examples/IntegratedPrimaryLoadSideEconomizer.mos"
   "Simulate and plot"),
@@ -230,6 +230,11 @@ are not implemented in this example.
 </html>", revisions="<html>
 <ul>
 <li>
+November 16, 2022, by Michael Wetter:<br/>
+Corrected control to avoid cooling tower pumps to operate when plant is off, because
+shut-off valves are off when plant is off.
+</li>
+<li>
 November 1, 2021, by Michael Wetter:<br/>
 Corrected weather data bus connection which was structurally incorrect
 and did not parse in OpenModelica.<br/>
@@ -249,5 +254,6 @@ First implementation.
 experiment(
       StartTime=0,
       StopTime=86400,
-      Tolerance=1e-06));
+      Tolerance=1e-06),
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end IntegratedPrimaryLoadSideEconomizer;

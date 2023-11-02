@@ -275,7 +275,7 @@ The generator heat input ratio is
 genHIR = D<sub>1</sub> + D<sub>2</sub>PLR+D<sub>3</sub>PLR<sup>2</sup>+D<sub>4</sub>PLR<sup>3</sup>.
 </p>
 <p>
-Two additional curves modifiy the heat input requirement based on the condenser inlet water temperature
+Two additional curves modify the heat input requirement based on the condenser inlet water temperature
 and the evaporator outlet water temperature. Specifically,
 the generator heat modifier based on the condenser inlet water temperature is
 <p align=\"center\" style=\"font-style:italic;\">
@@ -313,7 +313,7 @@ The heat balance of the chiller is
 <p>
 The equipment performance data is obtained from the record <code>per</code>,
 which is an instance of
-<a href=\"Buildings.Fluid.Chillers.Data.AbsorptionIndirectSteam\">
+<a href=\"modelica://Buildings.Fluid.Chillers.Data.AbsorptionIndirectSteam\">
 Buildings.Fluid.Chillers.Data.AbsorptionIndirectSteam</a>.
 Additional performance curves can be developed using
 two available techniques (Hydeman and Gillespie, 2002). The first technique is called the

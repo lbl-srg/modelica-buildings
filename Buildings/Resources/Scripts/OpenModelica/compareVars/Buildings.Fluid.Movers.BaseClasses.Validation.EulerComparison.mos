@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "eta1",
+    "eta2",
+    "P1",
+    "P2",
+    "eff1.dp",
+    "eff1.r_N"
+  };

@@ -34,7 +34,10 @@ model PartialMixingVolume
     annotation (Placement(transformation(extent={{-40,-10},{40,10}},
       origin={0,-100})));
 
-  Medium.Temperature T = Medium.temperature_phX(p=p, h=hOut_internal, X=cat(1,Xi,{1-sum(Xi)}))
+  Medium.Temperature T = Medium.temperature_phX(
+    p=p,
+    h=hOut_internal,
+    X=if Medium.reducedX then cat(1, Xi, {1-sum(Xi)}) else Xi)
     "Temperature of the fluid";
   Modelica.Blocks.Interfaces.RealOutput U(unit="J")
     "Internal energy of the component";
@@ -83,15 +86,15 @@ protected
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
 
   // Density at start values, used to compute initial values and start guesses
-  parameter Modelica.Units.SI.Density rho_start=Medium.density(state=
-      state_start) "Density, used to compute start and guess values";
+  parameter Modelica.Units.SI.Density rho_start=Medium.density(
+    state=state_start) "Density, used to compute start and guess values";
   final parameter Medium.ThermodynamicState state_default = Medium.setState_pTX(
       T=Medium.T_default,
       p=Medium.p_default,
       X=Medium.X_default[1:Medium.nXi]) "Medium state at default values";
   // Density at medium default values, used to compute the size of control volumes
-  final parameter Modelica.Units.SI.Density rho_default=Medium.density(state=
-      state_default) "Density, used to compute fluid mass";
+  final parameter Modelica.Units.SI.Density rho_default=Medium.density(
+    state=state_default) "Density, used to compute fluid mass";
   final parameter Medium.ThermodynamicState state_start = Medium.setState_pTX(
       T=T_start,
       p=p_start,
@@ -302,6 +305,12 @@ Buildings.Fluid.MixingVolumes</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+October 24, 2022, by Michael Wetter:<br/>
+Improved conversion from <code>Xi</code> to <code>X</code> so that it also works
+with media that have <code>reducedX=true</code>.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1650\">#1650</a>.
+</li>
+<li>
 September 18, 2020, by Michael Wetter:<br/>
 Set start value for <code>steBal.hOut</code> so that <code>T_start</code>
 can be used which is not known in that instance.<br/>
@@ -497,7 +506,7 @@ as a state. See ticket Dynasim #13596.
 <li>
 July 26, 2011 by Michael Wetter:<br/>
 Revised model to use new declarations from
-<a href=\"Buildings.Fluid.Interfaces.LumpedVolumeDeclarations\">
+<a href=\"modelica://Buildings.Fluid.Interfaces.LumpedVolumeDeclarations\">
 Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</a>.
 </li>
 <li>

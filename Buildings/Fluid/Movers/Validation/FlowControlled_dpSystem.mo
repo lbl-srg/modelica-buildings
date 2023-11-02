@@ -235,5 +235,5 @@ This is for
 </li>
 </ul>
 </html>"),
-    Icon(coordinateSystem(extent={{-120,-120},{120,120}})));
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end FlowControlled_dpSystem;

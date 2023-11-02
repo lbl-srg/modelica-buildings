@@ -1,0 +1,2 @@
+simulateModel("Buildings.Fluid.MixingVolumes.Validation.MSLFlueGasSixComponents", method="Cvode", tolerance=1e-06, resultFile="MSLFlueGasSixComponents");
+createPlot(id=1, position={15, 15, 930, 581}, y={"vol.T"}, range={0.0, 1.0, 19.95, 20.0}, grid=true, colors={{28,108,200}}, timeUnit="s", displayUnits={"degC"});

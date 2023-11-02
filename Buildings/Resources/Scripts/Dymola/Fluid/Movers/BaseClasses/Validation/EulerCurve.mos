@@ -1,0 +1,18 @@
+simulateModel("Buildings.Fluid.Movers.BaseClasses.Validation.EulerCurve",
+ stopTime=10,
+ tolerance=1e-06,
+ resultFile="EulerCurve");
+// Plot commands
+createPlot(id=1,
+ position={294, 80, 535, 374},
+ x="x",
+ y={"etaApp", "etaOri"},
+ range={-4.0, 6.0, 0.0, 1.0},
+ autoscale=false,
+ grid=true,
+ legends={"Approximation", "Original"},
+ leftTitleType=2,
+ leftTitle="Ratio of Efficiency",
+ bottomTitleType=2,
+ bottomTitle="Log10 of Ratio of Euler Number",
+ colors={{28,108,200}, {238,46,47}});

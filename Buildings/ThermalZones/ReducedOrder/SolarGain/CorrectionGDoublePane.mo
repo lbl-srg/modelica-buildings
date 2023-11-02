@@ -42,14 +42,14 @@ protected
       XN2_diff "Energetic dregree of transmission for second pane";
   parameter Modelica.Units.SI.Emissivity a1_diff=1 - Ta1_diff - rho_1_diff
     "Degree of absorption for single pane window";
-  parameter Modelica.Units.SI.CoefficientOfHeatTransfer Q21_diff=a1_diff*(1 + (
+  parameter Real Q21_diff=a1_diff*(1 + (
       Ta1_diff*rho_1_diff/XN2_diff))*UWin/25
-    "Coefficient of heat transfer for exterior pane of double pane window";
-  parameter Modelica.Units.SI.CoefficientOfHeatTransfer Q22_diff=a1_diff*(
+    "Auxiliary parameter for heat transfer of exterior pane of double pane window";
+  parameter Real Q22_diff=a1_diff*(
       Ta1_diff/XN2_diff)*(1 - (UWin/7.7))
-    "Coefficient of heat transfer for interior pane of double pane window";
-  parameter Modelica.Units.SI.CoefficientOfHeatTransfer Qsek2_diff=Q21_diff +
-      Q22_diff "Overall coefficient of heat transfer for double pane window";
+    "Auxiliary parameter for heat transfer of interior pane of double pane window";
+  parameter Real Qsek2_diff=Q21_diff + Q22_diff
+    "Overall auxiliary parameter for heat transfer of double pane window";
   parameter Modelica.Units.SI.TransmissionCoefficient CorG_diff=(Ta2_diff +
       Qsek2_diff)/g_dir0
     "Transmission coefficient correction factor for diffuse radiation";

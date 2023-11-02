@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="124.41948mm"
+   height="64.971443mm"
+   viewBox="0 0 124.41948 64.971443"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
+   sodipodi:docname="VAVSupTempSet.svg"
+   inkscape:export-filename="/home/jianjunhu/GitFolder/modelica-buildings/Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV/SetPoints/VAVSupTempSet.png"
+   inkscape:export-xdpi="163.31848"
+   inkscape:export-ydpi="163.31848">
+  <defs
+     id="defs2">
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path860"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lstart"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path857"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(0.8,0,0,0.8,10,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <linearGradient
+       id="linearGradient6140"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#0000ec;stop-opacity:1;"
+         offset="0"
+         id="stop6138" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient6140"
+       id="linearGradient6142"
+       x1="37.041664"
+       y1="143.54167"
+       x2="111.125"
+       y2="143.54167"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="3.3600972"
+     inkscape:cx="228.94787"
+     inkscape:cy="117.47397"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="3414"
+     inkscape:window-height="2050"
+     inkscape:window-x="72"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid4485"
+       originx="-7.8721923"
+       originy="-138.75773" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-7.8721933,-93.270833)">
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 37.041666,93.270833 V 148.83333 H 132.29167"
+       id="path4487"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.2, 1.2;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 37.041666,132.95833 H 66.145832 L 111.125,143.54167 h 21.16667"
+       id="path4489"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 37.041666,103.85417 H 66.145832 L 111.125,143.54167"
+       id="path4491"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.45327115px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.08633218px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="51.777122"
+       y="112.55549"
+       id="text4495-1"><tspan
+         sodipodi:role="line"
+         id="tspan4522"
+         x="51.777122"
+         y="112.55549">T_max with  </tspan><tspan
+         sodipodi:role="line"
+         id="tspan4524"
+         x="51.777122"
+         y="116.87208">many requests</tspan></text>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.2, 0.1;stroke-dashoffset:0.02;stroke-opacity:1"
+       d="m 66.145832,98.5625 v 50.27083"
+       id="path4526"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.2, 0.1;stroke-dashoffset:0.01;stroke-opacity:1"
+       d="m 111.125,138.25 v 10.58333"
+       id="path4528"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.07326746px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.10183171px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="61.712811"
+       y="157.395"
+       id="text4532"><tspan
+         sodipodi:role="line"
+         id="tspan4530"
+         x="61.712811"
+         y="157.395"
+         style="stroke-width:0.10183171px">Outdoor air temperature</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.09202766px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.07730288px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="58.087341"
+       y="152.31676"
+       id="text4532-1"><tspan
+         sodipodi:role="line"
+         id="tspan4692"
+         x="58.087341"
+         y="152.31676"
+         style="stroke-width:0.07730288px">TOut_min</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.08588243px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.07714924px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="103.06651"
+       y="152.25797"
+       id="text4532-1-9"><tspan
+         sodipodi:role="line"
+         id="tspan4690"
+         x="103.06651"
+         y="152.25797"
+         style="stroke-width:0.07714924px">TOut_max</tspan></text>
+    <path
+       style="fill:url(#linearGradient6142);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0.01;stroke-opacity:1"
+       d="M 111.125,143.54167 H 37.041666"
+       id="path4576"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.17118979px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.07928187px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="13.86499"
+       y="144.22313"
+       id="text4532-1-0-2-6"><tspan
+         sodipodi:role="line"
+         id="tspan842"
+         x="13.86499"
+         y="144.22313">TSupCoo_min</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.07936192px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0769861px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="13.86472"
+       y="104.70927"
+       id="text4532-1-0-2-6-4-3"><tspan
+         sodipodi:role="line"
+         id="tspan846"
+         x="13.86472"
+         y="104.70927">TSupCoo_max</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.56910872px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0892278px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="-10.583879"
+       y="-143.06389"
+       id="text4702"
+       transform="scale(-1)"><tspan
+         sodipodi:role="line"
+         id="tspan4700"
+         x="-143.06389"
+         y="-10.583879"
+         style="writing-mode:tb-rl;text-orientation:sideways;stroke-width:0.0892278px">Supply air temperature</tspan></text>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.09375433;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0.02;stroke-opacity:1;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow1Lend)"
+       d="m 50.523985,104.13001 v 39.29326"
+       id="path4526-9"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.0920279px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.07730288px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="-128.24231"
+       y="49.239944"
+       id="text4532-1-4"
+       transform="rotate(-90)"><tspan
+         sodipodi:role="line"
+         id="tspan4692-9"
+         x="-128.24231"
+         y="49.239944"
+         style="stroke-width:0.07730288px">T_max</tspan></text>
+    <path
+       sodipodi:type="star"
+       style="stroke-width:0.1;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0"
+       id="path1567"
+       sodipodi:sides="5"
+       sodipodi:cx="86.15889"
+       sodipodi:cy="137.7522"
+       sodipodi:r1="1.02668"
+       sodipodi:r2="0.51334"
+       sodipodi:arg1="0.70862627"
+       sodipodi:arg2="1.3369448"
+       inkscape:flatsided="false"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="m 86.938403,138.42035 -0.660559,-0.16879 -0.513524,0.44847 -0.0436,-0.68039 -0.585203,-0.3498 0.633614,-0.25172 0.151848,-0.66466 0.435194,0.52482 0.67905,-0.061 -0.36465,0.57607 z"
+       inkscape:transform-center-x="0.073517347"
+       inkscape:transform-center-y="-0.02545146" />
+    <rect
+       style="stroke-width:0.1;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect1569"
+       width="1.4476681"
+       height="1.4476681"
+       x="65.227325"
+       y="132.42917" />
+    <ellipse
+       style="stroke-width:0.1;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0"
+       id="path1571"
+       cx="110.99197"
+       cy="143.4872"
+       rx="0.66815448"
+       ry="0.61247498" />
+  </g>
+</svg>

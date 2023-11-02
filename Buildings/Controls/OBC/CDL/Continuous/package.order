@@ -35,6 +35,7 @@ Multiply
 MultiplyByParameter
 PID
 PIDWithReset
+Ramp
 Round
 Sin
 Sort

@@ -1,4 +1,3 @@
-removePlots(false);
 simulateModel("Buildings.Experimental.DHC.EnergyTransferStations.Combined.Examples.ChillerBorefield",
     method="Cvode",
     tolerance=1e-6,

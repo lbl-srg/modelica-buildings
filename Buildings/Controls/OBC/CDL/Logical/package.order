@@ -13,6 +13,7 @@ OnOffController
 Or
 Or3
 Pre
+Proof
 Switch
 Timer
 TimerAccumulating
@@ -21,6 +22,7 @@ TriggeredTrapezoid
 TrueDelay
 TrueFalseHold
 TrueHoldWithReset
+VariablePulse
 Xor
 ZeroCrossing
 Sources
