@@ -5,7 +5,7 @@ model HeatPumpHeatExchanger
     Buildings.Experimental.DHC.EnergyTransferStations.Combined.BaseClasses.PartialHeatPumpHeatExchanger(
       volMix_a(nPorts=4),
       volMix_b(nPorts=4));
-  Subsystems.HeatPumpExtended                                                    proHotWat(
+  Subsystems.HeatPump proHotWat(
     redeclare final package Medium1 = MediumBui,
     redeclare final package Medium2 = MediumSer,
     final COP_nominal=COPHotWat_nominal,
@@ -112,7 +112,7 @@ When enabled,
 <li>
 The heat pump and the evaporator and condenser water pumps are controlled
 based on the principles described in
-<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump\">
+<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump_Old\">
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump</a>.
 </li>
 <li>

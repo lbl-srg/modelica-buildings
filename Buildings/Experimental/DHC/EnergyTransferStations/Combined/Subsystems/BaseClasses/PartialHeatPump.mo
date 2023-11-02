@@ -1,5 +1,6 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.BaseClasses;
-model HeatPump "Base class for subsystems containing a heat pump"
+model PartialHeatPump
+  "Partial base class for subsystems containing a heat pump"
   replaceable package Medium1=Modelica.Media.Interfaces.PartialMedium
     "Medium model on condenser side"
     annotation (choices(choice(redeclare package Medium=Buildings.Media.Water "Water"),
@@ -217,56 +218,56 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-12,0},{60,-78}},
+          extent={{-32,40},{40,-38}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{2,-60},{48,-68}},
+          extent={{-18,-20},{28,-28}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Polygon(
-          points={{8,-38},{4,-46},{12,-46},{8,-38}},
+          points={{-12,2},{-16,-6},{-8,-6},{-12,2}},
           lineColor={0,0,0},
           smooth=Smooth.None,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Polygon(
-          points={{8,-38},{4,-30},{12,-30},{8,-38}},
+          points={{-12,2},{-16,10},{-8,10},{-12,2}},
           lineColor={0,0,0},
           smooth=Smooth.None,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{38,-20},{42,-60}},
+          extent={{18,20},{22,-20}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          extent={{32,-32},{50,-50}},
+          extent={{12,8},{30,-10}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Polygon(
-          points={{40,-32},{32,-44},{50,-44},{40,-32}},
+          points={{20,8},{12,-4},{30,-4},{20,8}},
           lineColor={0,0,0},
           smooth=Smooth.None,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{6,-46},{10,-60}},
+          extent={{-14,-6},{-10,-20}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{6,-20},{10,-30}},
+          extent={{-14,20},{-10,10}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{0,-12},{46,-20}},
+          extent={{-20,28},{26,20}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}), Diagram(
@@ -312,4 +313,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end HeatPump;
+end PartialHeatPump;

@@ -7,7 +7,7 @@ model HeatPump
   parameter Modelica.Units.SI.Temperature TCon_nominal = 273.15+30 "Nominal condenser outlet temperature";
   parameter Modelica.Units.SI.Temperature TAmb_nominal = 273.15+15 "Nominal ambient loop temperature to evaporator";
   parameter Modelica.Units.SI.Power QLoa_nominal = 1000 "Nominal load";
-  HeatPumpExtended
+  Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump
     heaPum(
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium,
@@ -121,7 +121,7 @@ First implementation.
       info="<html>
 <p>
 This model validates
-<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump\">
+<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump_Old\">
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump</a>.
 </p>
 </html>"));

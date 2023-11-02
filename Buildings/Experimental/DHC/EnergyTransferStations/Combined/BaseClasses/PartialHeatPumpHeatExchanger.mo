@@ -314,14 +314,14 @@ model PartialHeatPumpHeatExchanger
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold enaHea(
     trueHoldDuration=15*60) "Enable heating"
     annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
-  Subsystems.HeatPumpExtended                                                    proHeaWat(
+  Subsystems.HeatPump proHeaWat(
     redeclare final package Medium1 = MediumBui,
     redeclare final package Medium2 = MediumSer,
     dT_nominal=dT_nominal,
     final have_varFloCon=have_varFloCon,
     final COP_nominal=COPHeaWat_nominal,
     final TCon_nominal=THeaWatSup_nominal,
-    final TEva_nominal=TDisWatMin-dT_nominal,
+    final TEva_nominal=TDisWatMin - dT_nominal,
     final Q1_flow_nominal=QHeaWat_flow_nominal,
     final allowFlowReversal1=allowFlowReversalBui,
     final allowFlowReversal2=allowFlowReversalSer,
@@ -587,7 +587,7 @@ When enabled,
 <li>
 the heat pumps and the evaporator and condenser water pumps are controlled
 based on the principles described in
-<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump\">
+<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump_Old\">
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump</a>.
 The evaporator and condenser water mass flow rates are computed based on the
 logic described in
