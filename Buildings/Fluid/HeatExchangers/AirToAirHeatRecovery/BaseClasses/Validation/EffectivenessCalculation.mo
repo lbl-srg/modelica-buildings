@@ -10,7 +10,7 @@ model EffectivenessCalculation
     epsL_heat_nominal=0.6,
     epsS_heat_partload=0.6,
     epsL_heat_partload=0.5,
-    v_flow_sup_nominal=1) "Effectiveness calculator"
+    vSup_flow_nominal=1) "Effectiveness calculator"
     annotation (Placement(transformation(extent={{-12,-10},{8,10}})));
    Modelica.Blocks.Sources.Ramp y(
     height=0.7,
@@ -49,9 +49,9 @@ equation
           4},{-14,4}}, color={0,0,127}));
   connect(TExh.y, epsCal.TExh)
     annotation (Line(points={{-59,0},{-14,0}}, color={0,0,127}));
-  connect(vSup.y, epsCal.v_flow_Sup) annotation (Line(points={{-59,-40},{-24,
+  connect(vSup.y, epsCal.vSup_flow) annotation (Line(points={{-59,-40},{-24,
           -40},{-24,-4},{-14,-4}}, color={0,0,127}));
-  connect(vExh.y, epsCal.v_flow_Exh) annotation (Line(points={{-59,-80},{-20,
+  connect(vExh.y, epsCal.vExh_flow) annotation (Line(points={{-59,-80},{-20,
           -80},{-20,-8},{-14,-8}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),

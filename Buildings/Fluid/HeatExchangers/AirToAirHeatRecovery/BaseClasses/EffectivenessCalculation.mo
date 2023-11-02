@@ -19,7 +19,7 @@ model EffectivenessCalculation
     "Partial load (75%) sensible heat exchanger effectiveness at the heating mode";
   parameter Modelica.Units.SI.Efficiency epsL_heat_partload(max=1) = 0.75
     "Partial load (75%) latent heat exchanger effectiveness at the heating mode";
-  parameter Modelica.Units.SI.VolumeFlowRate v_flow_sup_nominal(min = 100*Modelica.Constants.eps)
+  parameter Modelica.Units.SI.VolumeFlowRate vSup_flow_nominal(min = 100*Modelica.Constants.eps)
     "Nominal supply air flow rate";
 
   Modelica.Blocks.Interfaces.RealInput TSup(
@@ -34,10 +34,10 @@ model EffectivenessCalculation
     final displayUnit="degC")
     "Exhaust air temperature
     " annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Modelica.Blocks.Interfaces.RealInput v_flow_Sup(final unit="m3/s")
+  Modelica.Blocks.Interfaces.RealInput vSup_flow(final unit="m3/s")
     "Volumetric flow rate of the supply air"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
-  Modelica.Blocks.Interfaces.RealInput v_flow_Exh( final unit="m3/s")
+  Modelica.Blocks.Interfaces.RealInput vExh_flow( final unit="m3/s")
     "Volumetric flow rate of the exhaust air"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
   Modelica.Blocks.Interfaces.RealInput y(final unit="1") "Wheel speed ratio"
@@ -52,51 +52,42 @@ model EffectivenessCalculation
 protected
    Real vRat
    "Ratio of the average operating volumetric air flow rate to the nominal supply air flow rate";
-
-algorithm
-  // calculate effectiveness
-  if TSup > TExh then
-    // cooling mode
-    epsS :=y*(epsS_cool_partload + (epsS_cool_nominal - epsS_cool_partload)*(
-      vRat-0.75)/0.25);
-    epsL :=y*(epsL_cool_partload + (epsL_cool_nominal - epsL_cool_partload)*(
-      vRat-0.75)/0.25);
-  else
-    // heating mode
-    epsS :=y*(epsS_heat_partload + (epsS_heat_nominal - epsS_heat_partload)*(
-      vRat-0.75)/0.25);
-    epsL :=y*(epsL_heat_partload + (epsL_heat_nominal - epsL_heat_partload)*(
-      vRat-0.75)/0.25);
-  end if;
-  epsS := Buildings.Utilities.Math.Functions.smoothMax(
-       x1 = 0.01,
-       x2 = epsS,
-       deltaX = 1E-7);
-  epsS := Buildings.Utilities.Math.Functions.smoothMin(
-       x1 = 0.99,
-       x2 = epsS,
-       deltaX = 1E-7);
-
-  epsL := Buildings.Utilities.Math.Functions.smoothMax(
-       x1 = 0.01,
-       x2 = epsL,
-       deltaX = 1E-7);
-  epsL := Buildings.Utilities.Math.Functions.smoothMin(
-       x1 = 0.99,
-       x2 = epsL,
-       deltaX = 1E-7);
+   Real epsS_act_partload
+   "The partial load (75%) sensible heat exchanger effectiveness used for calculation";
+   Real epsS_act_nominal
+   "The nominal sensible heat exchanger effectiveness used for calculation";
+   Real epsL_act_partload
+   "The partial load (75%) latent heat exchanger effectiveness used for calculation";
+   Real epsL_act_nominal
+   "The nominal latent heat exchanger effectiveness used for calculation";
 
 equation
-  // check if the extrapolation goes too far
-  assert(v_flow_Sup - 2*v_flow_Exh < 0 or v_flow_Exh - 2*v_flow_Sup < 0,
+  // check if the air flow is too unbalanced
+  assert(vSup_flow - 2*vExh_flow < 0 or vExh_flow - 2*vSup_flow < 0,
     "Unbalanced air flow ratio",
     level=AssertionLevel.warning);
   // calculate the average volumetric air flow and flow rate ratio
-  vRat =  (v_flow_Sup + v_flow_Exh)/2/v_flow_sup_nominal;
+  vRat = (vSup_flow + vExh_flow)/2/vSup_flow_nominal;
   // check if the extrapolation goes too far
   assert(vRat > 0.5 and vRat < 1.3,
     "Operating flow rate outside full accuracy range",
     level=AssertionLevel.warning);
+
+  epsS_act_partload = Buildings.Utilities.Math.Functions.regStep(TSup-TExh, epsS_cool_partload, epsS_heat_partload, 1e-5);
+  epsS_act_nominal = Buildings.Utilities.Math.Functions.regStep(TSup-TExh, epsS_cool_nominal, epsS_heat_nominal, 1e-5);
+  epsL_act_partload = Buildings.Utilities.Math.Functions.regStep(TSup-TExh, epsL_cool_partload, epsL_heat_partload, 1e-5);
+  epsL_act_nominal = Buildings.Utilities.Math.Functions.regStep(TSup-TExh, epsL_cool_nominal, epsL_heat_nominal, 1e-5);
+  // calculate effectiveness
+    epsS = y*(epsS_act_partload + (epsS_act_nominal - epsS_act_partload)*(
+      vRat-0.75)/0.25);
+    epsL = y*(epsL_act_partload + (epsL_act_nominal - epsL_act_partload)*(
+      vRat-0.75)/0.25);
+  assert(epsS > 0 and epsS < 1,
+    "Insensed value for the sensible heat exchanger effectivenes",
+    level=AssertionLevel.error);
+  assert(epsL > 0 and epsL < 1,
+    "Insensed value for the latent heat exchanger effectivenes",
+    level=AssertionLevel.error);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={Text(
           extent={{-54,28},{50,-40}},
           textColor={28,108,200},
