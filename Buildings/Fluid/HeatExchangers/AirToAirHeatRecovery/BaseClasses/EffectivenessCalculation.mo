@@ -50,38 +50,38 @@ model EffectivenessCalculation
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
 
 protected
-   Real vRat
+   Real ratV_flow
    "Ratio of the average operating volumetric air flow rate to the nominal supply air flow rate";
-   Real epsS_act_partload
+   Real epsS_partload
    "The partial load (75%) sensible heat exchanger effectiveness used for calculation";
-   Real epsS_act_nominal
+   Real epsS_nominal
    "The nominal sensible heat exchanger effectiveness used for calculation";
-   Real epsL_act_partload
+   Real epsL_partload
    "The partial load (75%) latent heat exchanger effectiveness used for calculation";
-   Real epsL_act_nominal
+   Real epsL_nominal
    "The nominal latent heat exchanger effectiveness used for calculation";
 
 equation
-  // check if the air flow is too unbalanced
+  // check if the air flow is too unbalanced.
   assert(vSup_flow - 2*vExh_flow < 0 or vExh_flow - 2*vSup_flow < 0,
     "Unbalanced air flow ratio",
     level=AssertionLevel.warning);
-  // calculate the average volumetric air flow and flow rate ratio
-  vRat = (vSup_flow + vExh_flow)/2/vSup_flow_nominal;
-  // check if the extrapolation goes too far
-  assert(vRat > 0.5 and vRat < 1.3,
+  // calculate the average volumetric air flow and flow rate ratio.
+  ratV_flow = (vSup_flow + vExh_flow)/2/vSup_flow_nominal;
+  // check if the extrapolation goes too far.
+  assert(ratV_flow > 0.5 and ratV_flow < 1.3,
     "Operating flow rate outside full accuracy range",
     level=AssertionLevel.warning);
 
-  epsS_act_partload = Buildings.Utilities.Math.Functions.regStep(TSup-TExh, epsS_cool_partload, epsS_heat_partload, 1e-5);
-  epsS_act_nominal = Buildings.Utilities.Math.Functions.regStep(TSup-TExh, epsS_cool_nominal, epsS_heat_nominal, 1e-5);
-  epsL_act_partload = Buildings.Utilities.Math.Functions.regStep(TSup-TExh, epsL_cool_partload, epsL_heat_partload, 1e-5);
-  epsL_act_nominal = Buildings.Utilities.Math.Functions.regStep(TSup-TExh, epsL_cool_nominal, epsL_heat_nominal, 1e-5);
+  epsS_partload = Buildings.Utilities.Math.Functions.regStep(TSup-TExh, epsS_cool_partload, epsS_heat_partload, 1e-5);
+  epsS_nominal = Buildings.Utilities.Math.Functions.regStep(TSup-TExh, epsS_cool_nominal, epsS_heat_nominal, 1e-5);
+  epsL_partload = Buildings.Utilities.Math.Functions.regStep(TSup-TExh, epsL_cool_partload, epsL_heat_partload, 1e-5);
+  epsL_nominal = Buildings.Utilities.Math.Functions.regStep(TSup-TExh, epsL_cool_nominal, epsL_heat_nominal, 1e-5);
   // calculate effectiveness
-    epsS = y*(epsS_act_partload + (epsS_act_nominal - epsS_act_partload)*(
-      vRat-0.75)/0.25);
-    epsL = y*(epsL_act_partload + (epsL_act_nominal - epsL_act_partload)*(
-      vRat-0.75)/0.25);
+    epsS = y*(epsS_partload + (epsS_partload - epsS_partload)*(
+      ratV_flow-0.75)/0.25);
+    epsL = y*(epsL_partload + (epsL_nominal - epsL_partload)*(
+      ratV_flow-0.75)/0.25);
   assert(epsS > 0 and epsS < 1,
     "Insensed value for the sensible heat exchanger effectivenes",
     level=AssertionLevel.error);

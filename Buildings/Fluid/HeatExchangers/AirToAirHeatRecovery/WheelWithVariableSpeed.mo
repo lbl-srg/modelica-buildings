@@ -172,7 +172,7 @@ equation
           fillColor={28,108,200},
           fillPattern=FillPattern.Solid),
         Line(points={{-22,-90},{22,-90}},   color={28,108,200}),
-        Line(points={{-20,88},{24,88}},   color={28,108,200}),
+        Line(points={{-20,88},{22,88}},   color={28,108,200}),
         Rectangle(
           extent={{34,64},{94,56}},
           lineColor={0,0,255},

@@ -11,9 +11,9 @@ model WheelWithBypassDamper
     "Air flow rate of the supply air stream";
   parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal
     "Air flow rate of the exhaust air stream";
-  parameter Modelica.Units.SI.PressureDifference dp1_nominal
+  parameter Modelica.Units.SI.PressureDifference dp1_nominal = 500
     "Nominal pressure drop of the supply air stream";
-  parameter Modelica.Units.SI.PressureDifference dp2_nominal
+  parameter Modelica.Units.SI.PressureDifference dp2_nominal = 500
     "Nominal pressure drop of the exhaust air stream";
   parameter Real P_nominal(final unit="W") = 1000
     "Power at design condition";
@@ -233,7 +233,7 @@ equation
           fillColor={28,108,200},
           fillPattern=FillPattern.Solid),
         Line(points={{-22,-90},{22,-90}},   color={28,108,200}),
-        Line(points={{-20,88},{24,88}},   color={28,108,200}),
+        Line(points={{-20,88},{22,88}},   color={28,108,200}),
         Rectangle(
           extent={{34,64},{94,56}},
           lineColor={0,0,255},
@@ -241,7 +241,7 @@ equation
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{36,-56},{94,-64}},
+          extent={{34,-56},{92,-64}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,0},
@@ -250,8 +250,8 @@ equation
           extent={{-149,-108},{151,-148}},
           textColor={0,0,255},
           textString="%name"),
-        Line(points={{-58,62},{-58,96},{64,96},{64,64}}, color={28,108,200}),
-        Line(points={{-58,-62},{-58,-96},{64,-96},{64,-64}}, color={28,108,200})}),
+        Line(points={{-58,64},{-58,96},{64,96},{64,64}}, color={28,108,200}),
+        Line(points={{-58,-64},{-58,-96},{64,-96},{64,-64}}, color={28,108,200})}),
           Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,140}})),
     Documentation(info="<html>
