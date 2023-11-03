@@ -21,11 +21,11 @@ model CycleVariable
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     T1_start(displayUnit="K") = 500,
     T2_start(displayUnit="K") = 290,
-    UAEva=1000,
     mEva_flow_nominal=mEva_flow_nominal,
-    UACon=1000,
     mCon_flow_nominal=mCon_flow_nominal) "Organic Rankine cycle"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    //UAEva=1000,
+    //UACon=1000,
   Buildings.Fluid.Sources.MassFlowSource_T souEva(
     redeclare final package Medium = MediumEva,
     m_flow=mEva_flow_nominal,

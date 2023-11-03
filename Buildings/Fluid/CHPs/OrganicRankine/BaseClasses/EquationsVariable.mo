@@ -64,6 +64,12 @@ model EquationsVariable "Core equations of a Rankine cycle"
   Modelica.Units.SI.SpecificEnthalpy hExpOut_i(displayUnit = "kJ/kg", start = (max(pro.hSatVap)+min(pro.hSatVap))/2)
     "Estimated specific enthalpy at expander outlet assuming isentropic";
 
+  final Modelica.Units.SI.SpecificEnthalpy hExpOut(
+    displayUnit = "kJ/kg") = hExpInl - (hExpInl - hExpOut_i) * etaExp
+    "Specific enthalpy at expander outlet";
+  Modelica.Units.SI.ThermodynamicTemperature TExpOut
+    "Temperature at expander outlet";
+
   final Real etaExpLim =
     (hExpInl - hSatVapCon)/(hExpInl - hExpOut_i)
     "Upper limit of expander efficiency to prevent condensation, dry fluids have >1";
@@ -170,6 +176,11 @@ equation
     (hExpOut_i - hPum) / (sExpInl - sPum)
       = (hSatVapCon - hPum) / (sSatVapCon - sPum);
   end if;
+
+  // Estimate temperature at expander outlet
+  (TExpOut - TCon) / pro.dTSup
+    = (hExpOut - hSatVapCon) / (hSupVapCon - hSatVapCon);
+
   annotation (defaultComponentName="equ",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                Rectangle(

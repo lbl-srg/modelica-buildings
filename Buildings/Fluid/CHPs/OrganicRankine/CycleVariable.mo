@@ -24,8 +24,11 @@ model CycleVariable
     constrainedby Buildings.Fluid.CHPs.OrganicRankine.Data.Generic
     "Property records of the working fluid"
     annotation(choicesAllMatching = true);
-  parameter Modelica.Units.SI.ThermalConductance UAEva
+  /*parameter Modelica.Units.SI.ThermalConductance UAEva
     "Thermal conductance of the evaporator"
+    annotation(Dialog(group="Evaporator"));*/
+  parameter Modelica.Units.SI.Efficiency epsEva=0.8
+    "Effectiveness of the evaporator"
     annotation(Dialog(group="Evaporator"));
   parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal
     "Nominal mass flow rate of the evaporator fluid"
@@ -33,8 +36,11 @@ model CycleVariable
   parameter Modelica.Units.SI.PressureDifference dpEva_nominal = 0
     "Nominal pressure drop of the evaporator"
     annotation(Dialog(group="Evaporator"));
-  parameter Modelica.Units.SI.ThermalConductance UACon
+  /*parameter Modelica.Units.SI.ThermalConductance UACon
     "Thermal conductance of the condenser"
+    annotation(Dialog(group="Condenser"));*/
+  parameter Modelica.Units.SI.Efficiency epsCon=0.8
+    "Effectiveness of the condenser"
     annotation(Dialog(group="Condenser"));
   parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal
     "Nominal mass flow rate of the condenser fluid"
@@ -42,6 +48,9 @@ model CycleVariable
   parameter Modelica.Units.SI.PressureDifference dpCon_nominal = 0
     "Nominal pressure drop of the condenser"
     annotation(Dialog(group="Condenser"));
+
+  Modelica.Units.SI.MassFlowRate mWor_flow
+    "Mass flow rate of the working fluid";
 
   Modelica.Blocks.Sources.RealExpression expTConWor(y=TConWor)
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
@@ -66,14 +75,20 @@ model CycleVariable
     "Working fluid condenser temperature";
 
   // Error statuses
-  Boolean errEva = TEvaIn - TEvaWor < 1
-    "Error: incoming evaporator fluid too cold";
-  Boolean errCon = TConWor - TConIn < 1
-    "Error: incoming condenser fluid too warm";
+  /*Boolean errEva = TEvaIn - TEvaWor < 1
+    "Error: incoming evaporator fluid too cold";*/
+  Boolean errEva = TEvaOut_internal - TConWor < 1
+    "Error: evaporator side pinch point violation [fixme: placeholder]";
+  /*Boolean errCon = TConWor - TConIn < 1
+    "Error: incoming condenser fluid too warm";*/
+  Boolean errCon = equ.TExpOut - TConOut_internal < 1
+    "Error, condenser side pint point violation [fiexme: placeholder]";
   Boolean errCyc = TEvaWor - TConWor < 1
     "Error: Rankine cycle temperature differential reversed";
   Boolean err = errEva or errCon or errCyc
     "Error, to replace heat flow rates and power with zero";
+
+
 
   // Evaporator
 protected
@@ -93,9 +108,9 @@ protected
     "Fluid temperature out of the evaporator, intermediate variable";
   Modelica.Units.SI.HeatFlowRate QEva_flow_internal
     "Evaporator heat flow rate, intermediate variable";
-  Modelica.Units.SI.HeatFlowRate QEva_flow_max
+/*  Modelica.Units.SI.HeatFlowRate QEva_flow_max
     "Maximum evaporator heat flow rate";
-  Modelica.Units.SI.Efficiency NTUEva=UAEva/(Buildings.Utilities.Math.Functions.smoothMax(
+/*  Modelica.Units.SI.Efficiency NTUEva=UAEva/(Buildings.Utilities.Math.Functions.smoothMax(
       abs(m1_flow),
       m1_flow_small,
       m1_flow_small)*cpEva_default) "Number of transfer units of heat exchanger";
@@ -105,7 +120,7 @@ protected
         0,
         Integer(Buildings.Fluid.Types.HeatExchangerFlowRegime.ConstantTemperaturePhaseChange)),
       0.999,
-      1.0e-4) "Effectiveness of heat exchanger";
+      1.0e-4) "Effectiveness of heat exchanger";*/
 
   // Condenser
   Buildings.Fluid.Sensors.Temperature senTem2(
@@ -124,9 +139,9 @@ protected
     "Fluid temperature out of the condenser, intermediate variable";
   Modelica.Units.SI.HeatFlowRate QCon_flow_internal
     "Condenser heat flow rate, intermediate variable";
-  Modelica.Units.SI.HeatFlowRate QCon_flow_max
+/*  Modelica.Units.SI.HeatFlowRate QCon_flow_max
     "Maximum condenser heat flow rate";
-  Modelica.Units.SI.Efficiency NTUCon=UACon/(Buildings.Utilities.Math.Functions.smoothMax(
+/*  Modelica.Units.SI.Efficiency NTUCon=UACon/(Buildings.Utilities.Math.Functions.smoothMax(
       abs(m2_flow),
       m2_flow_small,
       m2_flow_small)*cpCon_default) "Number of transfer units of heat exchanger";
@@ -136,21 +151,23 @@ protected
         0,
         Integer(Buildings.Fluid.Types.HeatExchangerFlowRegime.ConstantTemperaturePhaseChange)),
       0.999,
-      1.0e-4) "Effectiveness of heat exchanger";
+      1.0e-4) "Effectiveness of heat exchanger";*/
 
 equation
   // Evaporator
   QEva_flow_internal = m1_flow * cpEva_default * (TEvaIn - TEvaOut_internal);
-  QEva_flow_internal = QEva_flow_max * epsEva;
-  QEva_flow_max =m1_flow*cpEva_default*(TEvaIn - TEvaWor);
+  QEva_flow_internal = mWor_flow * (equ.hExpInl - equ.hPum);
+  QEva_flow_internal = m1_flow * cpEva_default * (TEvaIn - TConWor) * epsEva;
+  //QEva_flow_max = m1_flow*cpEva_default*(TEvaIn - TConWor);
 
   // Condenser
   QCon_flow_internal = m2_flow * cpCon_default * (TConOut_internal - TConIn);
-  QCon_flow_internal = QCon_flow_max * epsCon;
-  QCon_flow_max = m2_flow * cpCon_default * (TConWor - TConIn);
+  QCon_flow_internal = mWor_flow * (equ.hExpOut - equ.hPum);
+  QCon_flow_internal = m2_flow * cpCon_default * (equ.TExpOut - TConIn) * epsCon;
+  //QCon_flow_max = m2_flow * cpCon_default * (TConWor - TConIn);
 
   // Cycle
-  QEva_flow_internal * equ.etaThe = QEva_flow_internal - QCon_flow_internal;
+  //QEva_flow_internal * equ.etaThe = QEva_flow_internal - QCon_flow_internal;
 
   connect(expTConWor.y, equ.TCon) annotation (Line(points={{-59,-10},{-20,-10},{
           -20,-4},{-12,-4}}, color={0,0,127}));
