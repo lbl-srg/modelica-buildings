@@ -102,7 +102,7 @@ The heat exchanger effectiveness is calculated from the number of transfer units
 (NTU):
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-&epsilon; = 1 - exp(UA &frasl; (m&#775; c<sub>p</sub>))
+&epsilon; = 1 - exp(- UA &frasl; (m&#775; c<sub>p</sub>))
 </p>
 <p>
 Optionally, this model can have a flow resistance.
