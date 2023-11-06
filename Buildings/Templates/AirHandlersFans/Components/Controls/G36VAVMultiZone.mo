@@ -329,6 +329,7 @@ equation
   connect(ctl.y1MinOutDam, bus.damOutMin.y1);
   connect(ctl.yRetDam, bus.damRet.y);
   connect(ctl.yRelDam, bus.damRel.y);
+  connect(ctl.y1RelDam, bus.damRel.y1);
   connect(ctl.yOutDam, bus.damOut.y);
   connect(ctl.y1EneCHWPum, bus.y1PumChiWat);
   connect(ctl.y1SupFan, bus.fanSup.y1);
