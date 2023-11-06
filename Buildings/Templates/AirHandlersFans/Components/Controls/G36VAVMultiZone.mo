@@ -57,6 +57,27 @@ block G36VAVMultiZone
     "Number of zones that each group contains"
     annotation(Evaluate=true);
 
+  final parameter Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil typCoiCoo=
+    if coiCoo.typ==Buildings.Templates.Components.Types.Coil.WaterBasedCooling then
+      Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
+    elseif coiCoo.typ==Buildings.Templates.Components.Types.Coil.EvaporatorMultiStage or
+      coiCoo.typ==Buildings.Templates.Components.Types.Coil.EvaporatorVariableSpeed then
+      Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.DXCoil
+    else Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.None
+    "Type of cooling coil"
+    annotation(Evaluate=true);
+
+  final parameter Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil typCoiHea=
+    if coiHeaPre.typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating or
+      coiHeaReh.typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating
+      then Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+    elseif coiHeaPre.typ==Buildings.Templates.Components.Types.Coil.ElectricHeating or
+      coiHeaPre.typ==Buildings.Templates.Components.Types.Coil.ElectricHeating
+      then Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric
+    else Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.None
+    "Type of cooling coil"
+    annotation(Evaluate=true);
+
   parameter Boolean have_perZonRehBox=false
     "Set to true if there are any VAV-reheat boxes on perimeter zones"
     annotation (Dialog(group="Configuration"));
@@ -139,10 +160,8 @@ block G36VAVMultiZone
     final minOADes=typSecOut,
     final buiPreCon=buiPreCon,
     final ecoHigLimCon=typCtlEco,
-    final have_hotWatCoi=coiHeaPre.typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating or
-      coiHeaReh.typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating,
-    final have_eleHeaCoi=coiHeaPre.typ==Buildings.Templates.Components.Types.Coil.ElectricHeating or
-      coiHeaReh.typ==Buildings.Templates.Components.Types.Coil.ElectricHeating,
+    final cooCoi=typCoiCoo,
+    final heaCoi=typCoiHea,
     final have_perZonRehBox=have_perZonRehBox,
     final VUncDesOutAir_flow=VOutUnc_flow_nominal,
     final VDesTotOutAir_flow=VOutTot_flow_nominal,
@@ -272,8 +291,6 @@ equation
 
   connect(bus.fanSup.V_flow, ctl.VAirSup_flow);
   connect(bus.fanRet.V_flow, ctl.VAirRet_flow);
-  connect(bus.coiCoo.y_actual, ctl.uCooCoi_actual);
-  connect(bus.coiHea.y_actual, ctl.uHeaCoi_actual);
 
   connect(bus.fanSup.y1_actual, y1FanSup_actual.u);
   connect(bus.TAirSup, TAirSup.u);

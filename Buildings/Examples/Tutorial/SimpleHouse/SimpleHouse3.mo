@@ -56,16 +56,16 @@ Modelica.Thermal.HeatTransfer.Components.ThermalResistor</a>
 </ul>
 <h4>Connection instructions</h4>
 <p>
-The <code>MixingVolume</code> <i>Medium</i> parameter contains information about
+The <code>MixingVolume</code> <code>Medium</code> parameter contains information about
 the type of fluid and its properties that should be modelled by the <code>MixingVolume</code>.
-Set its value to <i>MediumAir</i>, which is declared in the template,
-by typing <i>redeclare package Medium = MediumAir</i>.
+Set its value to <code>MediumAir</code>, which is declared in the template,
+by typing <code>redeclare package Medium = MediumAir</code>.
 For the nominal mass flow rate you may assume a value of <i>1 kg/m<sup>3</sup></i> for now.
 You will have to change this value once you add a ventilation system to the model (see
 <a href=\"modelica://Buildings.Examples.Tutorial.SimpleHouse.SimpleHouse6\">
 Buildings.Examples.Tutorial.SimpleHouse.SimpleHouse6</a>).
-Finally, set the <i>energyDynamics</i> of the <code>MixingVolume</code>,
-which can be found in the <i>Dynamics</i> tab of the model parameter window, to <i>FixedInitial</i>.
+Finally, set the <code>energyDynamics</code> of the <code>MixingVolume</code>,
+which can be found in the <code>Dynamics</code> tab of the model parameter window, to <code>FixedInitial</code>.
 </p>
 <p>
 Make a connection with the <code>PrescribedHeatFlow</code> as well.
