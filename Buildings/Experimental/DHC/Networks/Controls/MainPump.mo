@@ -41,29 +41,29 @@ model MainPump "Main pump controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(min=0, max=1, unit="1")
     "Pump control signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMin TMixMin(
+  Buildings.Controls.OBC.CDL.Reals.MultiMin TMixMin(
     final nin=nMix,
     y(final unit="K",
       displayUnit="degC"))
     "Minimum temperature at mixing points"
     annotation (Placement(transformation(extent={{-70,-30},{-50,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax TMixMax(
+  Buildings.Controls.OBC.CDL.Reals.MultiMax TMixMax(
     final nin=nMix,
     y(final unit="K", displayUnit="degC"))
     "Maximum temperature at mixing points"
     annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum mulSum(
     nin=nSou,
     k=fill(1, nSou))
     annotation (Placement(transformation(extent={{-50,-130},{-30,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract dTSou[nSou]
+  Buildings.Controls.OBC.CDL.Reals.Subtract dTSou[nSou]
     "Temperature differences over source"
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter dTSou_nor(k=1/(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter dTSou_nor(k=1/(
         sum(dTSou_nominal)))
     "Normalization of temperature difference over source"
     annotation (Placement(transformation(extent={{-20,-130},{0,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID conShi(
+  Buildings.Controls.OBC.CDL.Reals.PID conShi(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final k=k,
     Ti(displayUnit="min") = Ti,
@@ -71,53 +71,53 @@ model MainPump "Main pump controller"
     final yMin=-1)
     "Controller to shift the min/max slopes"
     annotation (Placement(transformation(extent={{10,-110},{30,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(k=0)
     "Set point for source dT"
     annotation (Placement(transformation(extent={{-50,-90},{-30,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line uppCur "Upper curve"
+  Buildings.Controls.OBC.CDL.Reals.Line uppCur "Upper curve"
     annotation (Placement(transformation(extent={{30,10},{50,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(k=1) "Constant 1"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one(k=1) "Constant 1"
     annotation (Placement(transformation(extent={{-70,70},{-50,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yMin(k=yPumMin)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yMin(k=yPumMin)
     "Minimum pump speed"
     annotation (Placement(transformation(extent={{-70,40},{-50,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TMax_nominal(k=TMax)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TMax_nominal(k=TMax)
     "Maximum temperature"
     annotation (Placement(transformation(extent={{-70,150},{-50,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add TMax_upper(
+  Buildings.Controls.OBC.CDL.Reals.Add TMax_upper(
     y(final unit="K", displayUnit="degC"))
     "Upper value of upper slope after shifting it"
     annotation (Placement(transformation(extent={{-30,150},{-10,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max sPos "Positive shift"
+  Buildings.Controls.OBC.CDL.Reals.Max sPos "Positive shift"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Min sNeg "Negative shift"
+  Buildings.Controls.OBC.CDL.Reals.Min sNeg "Negative shift"
     annotation (Placement(transformation(extent={{60,-150},{80,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter TMax_lower(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter TMax_lower(
     final p=-dTSlo,
     y(final unit="K", displayUnit="degC"))
     "Minimum temperatuer value of upper slope after shifting it"
     annotation (Placement(transformation(extent={{10,149},{30,171}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line lowCur "Lower curve"
+  Buildings.Controls.OBC.CDL.Reals.Line lowCur "Lower curve"
     annotation (Placement(transformation(extent={{30,-30},{50,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TMin_nominal(k=TMin)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TMin_nominal(k=TMin)
     "Minimum temperature"
     annotation (Placement(transformation(extent={{-70,110},{-50,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add TMin_lower(
+  Buildings.Controls.OBC.CDL.Reals.Add TMin_lower(
     y(unit="K", displayUnit="degC"))
     "Lower value of lower slope after shifting it"
     annotation (Placement(transformation(extent={{-30,110},{-10,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter TMin_upper(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter TMin_upper(
     final p=dTSlo,
     y(final unit="K", displayUnit="degC"))
     "Maximum temperatuer value of lower slope after shifting it"
     annotation (Placement(transformation(extent={{10,110},{30,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max ySetPum "Change in pump signal"
+  Buildings.Controls.OBC.CDL.Reals.Max ySetPum "Change in pump signal"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=-delta)
     "Gain factor"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(
     final k=-delta)
     "Gain factor"
     annotation (Placement(transformation(extent={{60,-110},{80,-90}})));

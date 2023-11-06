@@ -1,0 +1,18 @@
+simulateModel("Buildings.Experimental.DHC.Plants.Combined.Subsystems.Validation.ValveOpeningFlowBalancing",
+    method="Cvode",
+    tolerance=1e-6,
+    startTime=0,
+    stopTime=1,
+    resultFile="ValveOpeningFlowBalancing");
+createPlot(
+    id=1,
+    position={42, 27, 592, 367},
+    y={"y1", "y2"},
+    range={0.0, 1, 0.0, 1.0},
+    autoscale=false,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+plotExpression(apply(ValveOpeningFlowBalancing.m1_flow / ValveOpeningFlowBalancing.m2_flow), false, "m1_flow/m2_flow");
+plotExpression(apply(ValveOpeningFlowBalancing.val1.m_flow / ValveOpeningFlowBalancing.val2.m_flow), false, "val1.m_flow/val2.m_flow");

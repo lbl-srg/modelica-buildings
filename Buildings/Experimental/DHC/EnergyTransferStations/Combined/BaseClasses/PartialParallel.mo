@@ -183,15 +183,15 @@ model PartialParallel
         extent={{20,-10},{-20,10}},
         rotation=180,
         origin={0,-106})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum totPPum(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum totPPum(
     nin=1)
     "Total pump power"
     annotation (Placement(transformation(extent={{260,-70},{280,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum totPHea(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum totPHea(
     nin=1)
     "Total power drawn by heating system"
     annotation (Placement(transformation(extent={{260,50},{280,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum totPCoo(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum totPCoo(
     nin=1)
     "Total power drawn by cooling system"
     annotation (Placement(transformation(extent={{260,10},{280,30}})));

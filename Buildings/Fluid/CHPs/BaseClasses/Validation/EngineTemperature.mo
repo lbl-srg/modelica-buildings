@@ -12,18 +12,18 @@ model EngineTemperature "Validate model EngineTemperature"
     final capEng=per.capEng,
     final TEngIni=273.15 + 20) "Heat exchange within the engine control volume"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp QGen(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp QGen(
     final height=5000,
     final duration=360,
     final offset=0,
     final startTime=600) "Heat generation within the engine"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TRoo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TRoo(
     y(final unit="K", displayUnit="degC"),
     final k=273.15 + 15)
     "Room temperature"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TWat(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TWat(
     y(final unit="K", displayUnit="degC"),
     final k=273.15 + 60)
     "Water temperature"

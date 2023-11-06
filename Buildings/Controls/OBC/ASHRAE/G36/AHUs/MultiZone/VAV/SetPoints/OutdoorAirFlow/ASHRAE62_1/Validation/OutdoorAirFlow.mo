@@ -29,23 +29,23 @@ protected
              Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.unoccupied})
     "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant adjPopFlo[nZon](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant adjPopFlo[nZon](
     final k={0.1,0.12,0.2,0.15})
     "Adjusted population component flow"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant adjAreFlo[nZon](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant adjAreFlo[nZon](
     final k={0.08,0.1,0.15,0.1})
     "Adjusted area component flow"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant priFlo[nZon](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant priFlo[nZon](
     final k={0.3,0.25,0.4,0.5})
     "Measured zone primary airflow"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minOAFlo[nZon](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minOAFlo[nZon](
     final k={0.2,0.21,0.35,0.25})
     "Minimum outdoor airflow"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outAirFlo(final k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant outAirFlo(final k=1)
     "Adjusted area component flow"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
 equation

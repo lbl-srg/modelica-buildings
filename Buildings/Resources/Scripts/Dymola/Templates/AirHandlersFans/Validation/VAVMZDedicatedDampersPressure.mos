@@ -1,0 +1,20 @@
+simulateModel("Buildings.Templates.AirHandlersFans.Validation.VAVMZDedicatedDampersPressure",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=1.0,
+    resultFile="VAVMZDedicatedDampersPressure");
+createPlot(
+    id=1,
+    subPlot=1,
+    position={20, 20, 500, 500},
+    y={"VAV_1.bus.TAirSup", "VAV_1.bus.TAirMix", "VAV_1.bus.TOut"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"VAV_1.bus.fanSup.V_flow"},
+    autoscale=true,
+    grid=true
+);

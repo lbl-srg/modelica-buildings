@@ -46,7 +46,7 @@ block SupplyAirTemperature
     "Control signal for cooling coil valve"
     annotation (Placement(transformation(extent={{120,-100},{160,-60}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset con(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset con(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
@@ -62,44 +62,44 @@ block SupplyAirTemperature
     displayUnit="degC"))
     "Supply temperature controller"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line mapHea if have_heating
+  Buildings.Controls.OBC.CDL.Reals.Line mapHea if have_heating
     "Mapping function for actuating the heating coil valve "
     annotation (Placement(transformation(extent={{10,70},{30,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line mapOA
+  Buildings.Controls.OBC.CDL.Reals.Line mapOA
     "Mapping function for actuating the outdoor air damper"
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line mapCoo
+  Buildings.Controls.OBC.CDL.Reals.Line mapCoo
     "Mapping function for actuating the cooling coil valve"
     annotation (Placement(transformation(extent={{10,-90},{30,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant limInfHea(k=-1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant limInfHea(k=-1)
     "Inferior limit of the control signal for heating coil control "
     annotation (Placement(transformation(extent={{-50,110},{-30,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant limSupHea(k=-0.5)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant limSupHea(k=-0.5)
     "Superior limit of the control signal for heating coil control "
     annotation (Placement(transformation(extent={{-50,70},{-30,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant limInfOA(k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant limInfOA(k=0)
     "Inferior limit of the control signal for outdoor air damper control "
     annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant limSupOA(k=0.5)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant limSupOA(k=0.5)
     "Superior limit of the control signal for outdoor air damper control "
     annotation (Placement(transformation(extent={{-50,-30},{-30,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant limSupCoo(k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant limSupCoo(k=1)
     "Superior limit of the control signal for cooling coil control "
     annotation (Placement(transformation(extent={{-50,-130},{-30,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zero(k=0) "Zero"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zero(k=0) "Zero"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(k=1) "one"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one(k=1) "one"
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swiHea if have_heating
+  Buildings.Controls.OBC.CDL.Reals.Switch swiHea if have_heating
     "Switch to close heating coil valve"
     annotation (Placement(transformation(extent={{70,70},{90,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swiCoo
+  Buildings.Controls.OBC.CDL.Reals.Switch swiCoo
     "Switch to close cooling coil valve"
     annotation (Placement(transformation(extent={{70,-90},{90,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swiOA
+  Buildings.Controls.OBC.CDL.Reals.Switch swiOA
     "Switch to close outdoor air damper"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant limInfCoo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant limInfCoo(
     k=limSupOA.k)
     "Inferior limit of the control signal for cooling coil control "
     annotation (Placement(transformation(extent={{-50,-90},{-30,-70}})));

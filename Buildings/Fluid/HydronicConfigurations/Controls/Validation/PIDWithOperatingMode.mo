@@ -9,10 +9,10 @@ model PIDWithOperatingMode "Test model for PID controller with operating mode"
     y_reset=0.5)
     "Controller, reset to parameter value"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset intWitRes1
+  Buildings.Controls.OBC.CDL.Reals.IntegratorWithReset intWitRes1
     "Integrator whose output should be brought to the set point"
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant resVal(k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant resVal(k=1)
          "Reset value"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Fluid.HydronicConfigurations.Controls.PIDWithOperatingMode limPIPar(
@@ -23,7 +23,7 @@ model PIDWithOperatingMode "Test model for PID controller with operating mode"
     y_reset=0.5)
     "Controller, reset to parameter value"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset intWitRes3
+  Buildings.Controls.OBC.CDL.Reals.IntegratorWithReset intWitRes3
     "Integrator whose output should be brought to the set point"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(

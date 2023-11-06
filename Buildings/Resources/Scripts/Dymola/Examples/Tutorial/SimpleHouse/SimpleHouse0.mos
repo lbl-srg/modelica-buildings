@@ -1,0 +1,2 @@
+simulateModel("Buildings.Examples.Tutorial.SimpleHouse.SimpleHouse0", stopTime=1e+06, method="CVode", tolerance=1e-06, resultFile="SimpleHouse0");
+createPlot(id=1,position={0, 0, 792, 1247}, y={"TOut.T"}, range={0.0, 1e+06, 12.5, 20.5}, grid=true, colors={{28,108,200}});

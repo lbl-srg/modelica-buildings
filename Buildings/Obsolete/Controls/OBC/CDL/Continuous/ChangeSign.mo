@@ -13,7 +13,7 @@ equation
   y = -u;
 
 annotation (
-  obsolete = "Obsolete model, use Buildings.Controls.OBC.CDL.Continuous.Gain with a gain of -1 instead",
+  obsolete = "Obsolete model, use Buildings.Controls.OBC.CDL.Reals.Gain with a gain of -1 instead",
   defaultComponentName="chaSig",
   Icon(coordinateSystem(
         preserveAspectRatio=true,

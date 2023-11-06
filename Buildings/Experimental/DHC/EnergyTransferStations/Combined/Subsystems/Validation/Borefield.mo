@@ -56,11 +56,11 @@ model Borefield
     offset=273.15)
     "Inlet temperature values"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(
     k=0)
     "Zero"
     annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp u(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp u(
     duration=1000,
     startTime=2500)
     "Control signal"

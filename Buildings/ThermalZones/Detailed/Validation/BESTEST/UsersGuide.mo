@@ -36,14 +36,14 @@ in Nouidui et al. (2012).
 <h4>Implementation</h4>
 <p>
 Heating and cooling is controlled using the PI controller
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.PID\">
-Buildings.Controls.OBC.CDL.Continuous.PID</a>
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Reals.PID\">
+Buildings.Controls.OBC.CDL.Reals.PID</a>
 with anti-windup.
 </p>
 <p>
 Hourly averaged values and annual mean values are computed using an instance of
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.MovingAverage\">
-Buildings.Controls.OBC.CDL.Continuous.MovingAverage</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Reals.MovingAverage\">
+Buildings.Controls.OBC.CDL.Reals.MovingAverage</a>.
 </p>
 <h4>Validation results</h4>
 <p>

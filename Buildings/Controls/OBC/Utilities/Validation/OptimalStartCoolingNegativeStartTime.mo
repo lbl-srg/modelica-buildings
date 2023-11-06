@@ -11,11 +11,11 @@ model OptimalStartCoolingNegativeStartTime
     y_start=24+273.15)
     "Room air temperature"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetCooOcc(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetCooOcc(
     k=24+273.15)
     "Zone cooling setpoint during occupancy"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TOut(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin TOut(
     amplitude=5,
     freqHz=1/86400,
     offset=28+273.15,
@@ -23,26 +23,26 @@ model OptimalStartCoolingNegativeStartTime
       displayUnit="s")=-691200)
     "Outdoor dry bulb temperature to test cooling system"
     annotation (Placement(transformation(extent={{-194,50},{-174,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter UA(k=100)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter UA(k=100)
     "Overall heat loss coefficient"
     annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract dT
+  Buildings.Controls.OBC.CDL.Reals.Subtract dT
     "Temperature difference between zone and outdoor"
     annotation (Placement(transformation(extent={{-160,0},{-140,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add dTdt
+  Buildings.Controls.OBC.CDL.Reals.Add dTdt
     "Temperature derivative"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter QCoo(k=-2000)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter QCoo(k=-2000)
     "Heat extraction in the zone"
     annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(
     realTrue=-6)
     "Convert Boolean to Real signal"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add
+  Buildings.Controls.OBC.CDL.Reals.Add add
     "Reset setpoint from unoccupied to occupied during optimal start period"
     annotation (Placement(transformation(extent={{120,0},{140,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID conPID(
+  Buildings.Controls.OBC.CDL.Reals.PID conPID(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     Ti=1,
     reverseActing=false)

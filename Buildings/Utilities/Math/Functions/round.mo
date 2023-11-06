@@ -40,8 +40,8 @@ Hence, the function outputs
 </pre>
 <p>
 To use this function as a block, use
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.Round\">
-Buildings.Controls.OBC.CDL.Continuous.Round</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Reals.Round\">
+Buildings.Controls.OBC.CDL.Reals.Round</a>.
 </p>
 </html>", revisions="<html>
 <ul>
