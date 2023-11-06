@@ -17,7 +17,7 @@ protected
     "Boolean pulse source"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sin2[2](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin2[2](
     final amplitude=fill(0.5, 2),
     final freqHz=fill(1/1800, 2),
     final phase=fill(1.57, 2),

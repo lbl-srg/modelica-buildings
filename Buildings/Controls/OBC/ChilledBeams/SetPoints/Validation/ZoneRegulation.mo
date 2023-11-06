@@ -15,13 +15,13 @@ protected
     "Real to Integer conversion"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ram(
     final height=3,
     final duration=3600)
     "Ramp input signal"
     annotation (Placement(transformation(extent={{-70,-90},{-50,-70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin(
     final amplitude=0.5,
     final freqHz=1/360,
     final offset=0.5)
@@ -38,19 +38,19 @@ protected
     "Logical Not"
     annotation (Placement(transformation(extent={{-30,38},{-10,58}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sin1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin1(
     final amplitude=10,
     final freqHz=1/720,
     final offset=297.15)
     "Continuous sine signal"
     annotation (Placement(transformation(extent={{-70,72},{-50,92}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
     final k=273.15+22)
     "Zone occupied heating setpoint"
     annotation (Placement(transformation(extent={{-70,6},{-50,26}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(
     final k=273.15+26)
     "Zone occupied cooling setpoint"
     annotation (Placement(transformation(extent={{-70,-26},{-50,-6}})));

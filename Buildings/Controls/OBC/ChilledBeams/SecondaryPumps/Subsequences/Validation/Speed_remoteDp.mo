@@ -17,19 +17,19 @@ protected
     "Pump status"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant difPreSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant difPreSet(
     final k=8.5)
     "Pressure difference setpoint"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin remPreSen1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin remPreSen1(
     final offset=8.5,
     final freqHz=1/10,
     final amplitude=1.5)
     "Remote pressure difference sensor reading"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin remPreSen2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin remPreSen2(
     final offset=8.5,
     final freqHz=1/10,
     final startTime=2,

@@ -18,17 +18,17 @@ model ChilledWaterSupplyReset
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
     final k=0.15)
     "Low valve openign signal"
     annotation (Placement(transformation(extent={{-90,60},{-70,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(
     final k=0.55)
     "Medium valve opening signal"
     annotation (Placement(transformation(extent={{10,60},{30,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con2(
     final k=1)
     "High valve opening signal"
     annotation (Placement(transformation(extent={{-90,-40},{-70,-20}})));

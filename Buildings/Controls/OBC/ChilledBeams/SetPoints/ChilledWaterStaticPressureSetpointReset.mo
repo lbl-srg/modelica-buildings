@@ -128,7 +128,7 @@ protected
     "Check if threshold time for generating two requests has been exceeded"
     annotation (Placement(transformation(extent={{-50,-80},{-30,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1[nVal](
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys1[nVal](
     final uLow=fill(valPosLowClo, nVal),
     final uHigh=fill(valPosLowOpe, nVal))
     "Check if chilled water control valve is at limit required to send one request"
@@ -139,7 +139,7 @@ protected
     "Check if any chilled water pump is enabled"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys2[nVal](
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys2[nVal](
     final uLow=fill(valPosHigClo, nVal),
     final uHigh=fill(valPosHigOpe, nVal))
     "Check if chilled water control valve is at limit required to send two requests"

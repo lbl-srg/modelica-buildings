@@ -69,16 +69,16 @@ block Speed_remoteDp
     annotation (Placement(transformation(extent={{120,-20},{160,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax maxLoo(
+  Buildings.Controls.OBC.CDL.Reals.MultiMax maxLoo(
     final nin=nSen)
     "Maximum DP loop output"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Line pumSpe
+  Buildings.Controls.OBC.CDL.Reals.Line pumSpe
     "Convert PI signal into linear transformation between minimum and maximum pump speed"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conPID[nSen](
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset conPID[nSen](
     controllerType=fill(controllerType, nSen),
     k=fill(k, nSen),
     Ti=fill(Ti, nSen),
@@ -109,26 +109,26 @@ protected
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant pumSpe_min(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant pumSpe_min(
     final k=minPumSpe)
     "Minimum pump speed"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant pumSpe_max(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant pumSpe_max(
     final k=maxPumSpe)
     "Maximum pump speed"
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one(
     final k=1) "Constant one"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(
     final k=0)
     "Constant zero"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Divide div[nSen]
+  Buildings.Controls.OBC.CDL.Reals.Divide div[nSen]
     "Normalized pressure difference"
     annotation (Placement(transformation(extent={{0,-76},{20,-56}})));
 
@@ -137,15 +137,15 @@ protected
     "Replicate real input"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Logical switch"
     annotation (Placement(transformation(extent={{80,90},{100,110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Max guaDivZer
+  Buildings.Controls.OBC.CDL.Reals.Max guaDivZer
     "Ensure zero setpoint does not cause division by zero"
     annotation (Placement(transformation(extent={{-70,-100},{-50,-80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant smaPre(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant smaPre(
     final k(final unit="Pa") = 1)
     "Constant for small pressure, used to avoid division by zero. Set to 1 Pa as default as set point is usually in the order of 1 kPa"
     annotation (Placement(transformation(extent={{-110,-90},{-90,-70}})));

@@ -9,7 +9,7 @@ model EnableLead
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul[2](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse pul[2](
     final period={180,360},
     final shift=fill(10, 2))
     "Real pulse source"

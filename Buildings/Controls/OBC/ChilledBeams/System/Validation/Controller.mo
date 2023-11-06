@@ -20,7 +20,7 @@ model Controller
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul[3](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse pul[3](
     final width=fill(0.9, 3),
     final period=fill(3600, 3),
     final shift=fill(100, 3))
@@ -31,7 +31,7 @@ protected
     "Logical pre block"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sin2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin2(
     final amplitude=7500,
     final freqHz=1/1800,
     final offset=25000)

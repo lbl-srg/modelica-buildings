@@ -172,13 +172,13 @@ block ZoneRegulation
     annotation (Placement(transformation(extent={{140,140},{180,180}}),
       iconTransformation(extent={{120,20},{160,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum mulSum(
     final nin=3)
     "Find required volume flow rate"
     annotation (Placement(transformation(extent={{-30,-40},{-10,-20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conHeaLoo(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset conHeaLoo(
     final controllerType=controllerTypeHea,
     final k=kHea,
     final Ti=TiHea,
@@ -188,7 +188,7 @@ protected
     "Heating loop signal"
     annotation (Placement(transformation(extent={{0,150},{20,170}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conCooLoo(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset conCooLoo(
     final controllerType=controllerTypeCoo,
     final k=kCoo,
     final Ti=TiCoo,
@@ -199,7 +199,7 @@ protected
     "Cooling loop signal"
     annotation (Placement(transformation(extent={{0,110},{20,130}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conDam(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset conDam(
     final controllerType=controllerTypeDam,
     final k=kDam,
     final Ti=TiDam,
@@ -209,11 +209,11 @@ protected
     "Damper control to regulate measured air flowrate at required air flowrate"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro[3]
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro[3]
     "Product of required volume flow rate for a given mode and the current mode status"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con[3](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con[3](
     final k={VDes_occ,VDes_unoccSch,VDes_unoccUnsch})
     "Design volume fliow rates for each operation mode"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
@@ -239,7 +239,7 @@ protected
     "Boolean to Real conversion"
     annotation (Placement(transformation(extent={{50,30},{70,50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro1
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro1
     "Product to close chilled beam manifold valve due to condensation"
     annotation (Placement(transformation(extent={{90,30},{110,50}})));
 
@@ -248,11 +248,11 @@ protected
     "Zone condensation warning"
     annotation (Placement(transformation(extent={{50,60},{70,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Switch to completely open damper when condensation is detected, and regulate its position otherwise"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(
     final k=1)
     "Constant CAV damper open signal"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));

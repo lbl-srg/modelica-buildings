@@ -77,11 +77,11 @@ block BypassValvePosition
       iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Real switch for regulating bypass valve position once all conditions are satisfied"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
     final uLow=minPumSpe + dPumSpe,
     final uHigh=minPumSpe + 2*dPumSpe)
     "Check if pump speed is at minimum"
@@ -95,21 +95,21 @@ protected
     "Regulate bypass valve position only when pump is enabled and at minimum speed"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1
     "Ensure bypass valve is open when no pumps are enabled and close it when any pump is enabled"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
     final k=0)
     "Constant real zero source"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(
     final k=1)
     "Constant real one source"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conPID(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset conPID(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
@@ -119,7 +119,7 @@ protected
     "PID controller for regulating differential pressure at or below max pressure setpoint"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract subDpChiWatMax
+  Buildings.Controls.OBC.CDL.Reals.Subtract subDpChiWatMax
     "Find error in meaured differential pressure from maximum allowed value"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
 
@@ -128,7 +128,7 @@ protected
     "Check if any chilled water pump is enabled"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant offSetdPChiWatMax(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant offSetdPChiWatMax(
     final k=dPChiWatMax)
     "Offset for maximum dp chilled water"
     annotation (Placement(transformation(extent={{-90,-90},{-70,-70}})));

@@ -17,12 +17,12 @@ model Controller
     annotation (Placement(transformation(extent={{20,-16},{40,16}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     final t=0.5)
     "Convert Real signal to Boolean"
     annotation (Placement(transformation(extent={{-40,16},{-20,36}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable enaSch(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable enaSch(
     final table=schTab,
     final smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
     final timeScale=3600)
@@ -34,7 +34,7 @@ protected
     "Unit delay"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin(
     final amplitude=0.5,
     final freqHz=1/360,
     final offset=0.5)
@@ -51,7 +51,7 @@ protected
     "Logical Not"
     annotation (Placement(transformation(extent={{-40,46},{-20,66}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sin1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin1(
     final amplitude=10,
     final freqHz=1/720,
     final offset=297.15)
@@ -63,12 +63,12 @@ protected
     "Boolean pulse source"
     annotation (Placement(transformation(extent={{-80,74},{-60,94}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
     final k=273.15+22)
     "Zone occupied heating setpoint"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(
     final k=273.15+26)
     "Zone occupied cooling setpoint"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));

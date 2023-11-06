@@ -74,19 +74,19 @@ block EnableLag_pumpSpeed
     annotation (Placement(transformation(extent={{-50,-100},{-30,-80}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
     final uLow=speLim - sigDif,
     final uHigh=speLim)
     "Hysteresis for enabling next lag pump at speed limit speLim"
     annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys1(
     final uLow=speLim1 - sigDif,
     final uHigh=speLim1)
     "Hysteresis for enabling next lag pump at speed limit speLim1"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys2(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys2(
     final uLow=speLim2,
     final uHigh=speLim2 + sigDif)
     "Hysteresis for disabling last lag pump"

@@ -13,12 +13,12 @@ model OperatingMode
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     final t=0.5)
     "Covert Real signal to Boolean"
     annotation (Placement(transformation(extent={{-30,-30},{-10,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable enaSch(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable enaSch(
     final table=schTab,
     final smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
     final timeScale=3600)

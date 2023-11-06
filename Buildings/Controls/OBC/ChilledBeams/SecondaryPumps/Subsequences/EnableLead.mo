@@ -40,7 +40,7 @@ block EnableLead
       iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys[nVal](
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys[nVal](
     final uLow=fill(valPosClo, nVal),
     final uHigh=fill(valPosOpe, nVal))
     "Determine if valves are opened or closed"

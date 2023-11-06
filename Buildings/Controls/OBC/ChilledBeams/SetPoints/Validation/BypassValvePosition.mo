@@ -11,7 +11,7 @@ model BypassValvePosition
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse pul(
     final amplitude=0.1,
     final period=2000,
     final shift=10,
@@ -19,7 +19,7 @@ protected
     "Real pulse source"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin(
     final amplitude=10000,
     final freqHz=1/1000,
     final offset=45000)
