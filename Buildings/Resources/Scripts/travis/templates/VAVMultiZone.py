@@ -37,27 +37,24 @@ MODELS = [
 # https://github.com/lbl-srg/ctrl-flow-dev/blob/main/server/scripts/sequence-doc/src/version/Current%20G36%20Decisions/Guideline%2036-2021%20(mappings).csv
 MODIF_GRID = {
     'Buildings.Templates.AirHandlersFans.Validation.VAVMultiZone': {
-        # FIXME(AntoineGautier #3526): Some options are currently not supported by G36 controller.
         'VAV_1__redeclare__coiHeaPre': [
             'Buildings.Templates.Components.Coils.None',
             'Buildings.Templates.Components.Coils.WaterBasedHeating',
-            # 'Buildings.Templates.Components.Coils.ElectricHeating',
+            'Buildings.Templates.Components.Coils.ElectricHeating',
         ],
-        # FIXME(AntoineGautier #3526): Some options are currently not supported by G36 controller.
         'VAV_1__redeclare__coiCoo': [
-            # 'Buildings.Templates.Components.Coils.None',
+            'Buildings.Templates.Components.Coils.None',
             'Buildings.Templates.Components.Coils.WaterBasedCooling',
-            # 'Buildings.Templates.Components.Coils.EvaporatorVariableSpeed',
+            'Buildings.Templates.Components.Coils.EvaporatorVariableSpeed',
         ],
         'VAV_1__secOutRel__redeclare__secOut': [
             'Buildings.Templates.AirHandlersFans.Components.OutdoorSection.DedicatedDampersAirflow',
             'Buildings.Templates.AirHandlersFans.Components.OutdoorSection.DedicatedDampersPressure',
             'Buildings.Templates.AirHandlersFans.Components.OutdoorSection.SingleDamper',
         ],
-        # FIXME(AntoineGautier #3526): Some options are currently not supported by G36 controller.
         'VAV_1__secOutRel__redeclare__secRel': [
             'Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.ReliefDamper',
-            # 'Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.ReliefFan',
+            'Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.ReliefFan',
             'Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.ReturnFan',
         ],
         'VAV_1__redeclare__fanSupBlo': [
@@ -73,7 +70,7 @@ MODIF_GRID = {
         'VAV_1__ctl__typCtlEco': [
             'Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb',
             'Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialDryBulb',
-            # 'Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulbWithDifferentialDryBulb',
+            'Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulbWithDifferentialDryBulb',
             'Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb',
             'Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb',
         ],
@@ -85,16 +82,14 @@ MODIF_GRID = {
             'true',
             'false',
         ],
-        # FIXME(AntoineGautier #3526): Some options are currently not supported by G36 controller.
         'VAV_1__ctl__have_frePro': [
             'true',
-            # 'false',
+            'false',
         ],
-        # FIXME(AntoineGautier #3526): Some options are currently not supported by G36 controller.
         'VAV_1__ctl__typFreSta': [
             'Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat',
-            # 'Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment',
-            # 'Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_BAS',
+            'Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment',
+            'Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_BAS',
         ],
         'VAV_1__ctl__have_CO2Sen': [
             'true',
@@ -113,11 +108,6 @@ EXCLUDE = {
         [
             'Buildings.Templates.Components.Fans.(SingleVariable|ArrayVariable) fanSupBlo',
             'Buildings.Templates.Components.Fans.(SingleVariable|ArrayVariable) fanSupDra',
-        ],
-        # FIXME(AntoineGautier #3527): Simulation fails with Cvode.
-        [
-            'Buildings.Templates.Components.Coils.None coiHeaPre',
-            'Buildings.Templates.Components.Fans.ArrayVariable fanSup(Blo|Dra)',
         ],
     ],
 }

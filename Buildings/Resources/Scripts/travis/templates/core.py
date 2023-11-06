@@ -13,6 +13,7 @@ import random
 import re
 import sys
 from math import ceil, floor
+
 # For CPU- and I/O-heavy jobs, we prefer multiprocessing.Pool because it provides better process isolation.
 from multiprocessing import Pool
 
@@ -316,21 +317,23 @@ def prune_modifications(combinations, exclude, remove_modif, fraction_test_cover
                 excluding all combinations with a electric heating coil.
     """
     # Exclude cases.
-    ## We iterate over a copy of the `combinations` list to allow removing items of `combinations` during iteration.
     if exclude is not None:
-        for arg in combinations.copy():
-            if arg[0] in exclude:
+        indices_to_pop = []
+        for i, arg in enumerate(combinations):
+            if arg[0] in exclude:  # Model found in dict keys.
                 modif_concat = ''.join(arg[1])
                 if any(
                     all(re.search(modif_ex, modif_concat) for modif_ex in list_modif_ex)
                     for list_modif_ex in exclude[arg[0]]
                 ):
-                    combinations.remove(arg)
+                    indices_to_pop.append(i)
+        remove_items_by_indices(combinations, indices_to_pop)
 
+    # Remove modifications.
     if remove_modif is not None:
         for i, arg in enumerate(combinations):
             indices_to_pop = []
-            if arg[0] in remove_modif:
+            if arg[0] in remove_modif:  # Model found in dict keys.
                 modif_concat = ''.join(arg[1])
                 for item in remove_modif[arg[0]]:
                     if all(re.search(el, modif_concat) for el in item[0]):
