@@ -68,9 +68,7 @@ equation
 annotation (
   experiment(
       StopTime=3600,
-      Interval=1,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ChilledBeams/SetPoints/Validation/ChilledWaterSupplyReset.mos"
     "Simulate and plot"),
   Documentation(info="<html>
@@ -78,6 +76,41 @@ annotation (
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ChilledBeams.SetPoints.ChilledWaterSupplyReset\">
 Buildings.Controls.OBC.ChilledBeams.SetPoints.ChilledWaterSupplyReset</a>.
+</p>
+<p>
+It consists of three open-loop setup for blocks <code>chiWatSupRes</code>, 
+<code>chiWatSupRes1</code>, and <code>chiWatSupRes2</code>.
+Each block has the similar input and output signals, in which, a constant Real 
+input signal <code>ram</code> is used to simulate Chilled water control valve position
+(<code>chiWatSupRes.uValPos</code>), a Boolean pulse input signal that is used to 
+simulate the condensation sensor signal <code>chiWatSupRes.uConSen</code>, and 
+two outputs (<code>chiWatSupRes.yChiWatSupReq</code> and <code>chiWatSupRes.TChiWatReq</code>)
+that generate the number of requests for chilled water supply and its temperature 
+setpoint reset, respectively.
+</p>
+<p>
+The following observations should be apparent from the simulation plots:
+<ol>
+<li>
+When the control valve position (<code>uValPos</code>) is open greater than 
+(<code>valPosHigOpeReq</code>) for duration (<code>thrTimLowReq</code>) continuously, 
+one request (<code>yChiWatSupReq=1</code>) is generated for chilled water supply. 
+When <code>uValPos</code> is less than <code>valPosLowOpeTemRes</code>, 
+no requests (<code>chiWatSupRes.TChiWatReq=0</code>) 
+are generated for chilled water supply temperature setpoint reset. 
+</li>
+<li>
+When <code>uValPos</code> open greater than <code>valPosHigOpeReq</code> 
+for <code>thrTimHigReq</code> continuously, two requests 
+(<code>yChiWatSupReq=2</code>) are generated for chilled water supply.
+</li>
+<li> 
+When <code>uValPos</code> is greater than <code>valPosLowOpeTemRes</code> and 
+<code>uConSen=false</code>, one request 
+(<code>TChiWatReq=1</code>) is generated for chilled water supply temperature 
+setpoint reset. 
+</li>
+</ol>
 </p>
 </html>", revisions="<html>
 <ul>

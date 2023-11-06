@@ -1,14 +1,14 @@
 simulateModel("Buildings.Controls.OBC.ChilledBeams.SetPoints.Validation.ZoneRegulation", method="Cvode", stopTime=3600, tolerance=1e-06, resultFile="ZoneRegulation");
 
 createPlot(id=1, position={0, 0, 1403, 978}, y={"zonRegCon.uOpeMod"}, range={0.0, 3600.0, -1.0, 4.0}, grid=true, colors={{28,108,200}});
-createPlot(id=1, position={0, 0, 1403, 322}, y={"zonRegCon.TZon", "zonRegCon.TZonSet.TZonHeaSet"}, range={0.0, 3600.0, 14.0, 30.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}}, displayUnits={"degC", "degC"});
-createPlot(id=1, position={0, 0, 1403, 323}, y={"zonRegCon.yReh"}, range={0.0, 3600.0, -0.1, 0.30000000000000004}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1403, 322}, y={"zonRegCon.TZon", "zonRegCon.TZonHeaSet"}, range={0.0, 3600.0, 14.0, 30.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}}, displayUnits={"degC", "degC"});
+createPlot(id=1, position={0, 0, 1403, 323}, y={"zonRegCon.yReh"}, range={0.0, 3600.0, -0.1, 0.3}, grid=true, subPlot=3, colors={{28,108,200}});
 
 createPlot(id=2, position={0, 490, 686, 449}, y={"zonRegCon.uOpeMod"}, range={0.0, 3600.0, -0.5, 3.5}, grid=true, colors={{28,108,200}});
-createPlot(id=2, position={0, 490, 686, 108}, y={"zonRegCon.mulSum.y", "zonRegCon.VDes_occ", "zonRegCon.VDes_unoccSch", "zonRegCon.VDes_unoccUnsch"}, range={0.0, 3600.0, -0.1, 0.6000000000000001}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
-createPlot(id=2, position={0, 490, 686, 109}, y={"zonRegCon.VDis_flow", "zonRegCon.mulSum.y"}, range={0.0, 3600.0, -0.2, 1.2000000000000002}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={0, 490, 686, 108}, y={"zonRegCon.mulSum.y", "zonRegCon.VDes_occ", "zonRegCon.VDes_unoccSch", "zonRegCon.VDes_unoccUnsch"}, range={0.0, 3600.0, -0.1, 0.6}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
+createPlot(id=2, position={0, 490, 686, 109}, y={"zonRegCon.VDis_flow", "zonRegCon.mulSum.y"}, range={0.0, 3600.0, -0.2, 1.2}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
 createPlot(id=2, position={0, 490, 686, 108}, y={"zonRegCon.yDam"}, range={0.0, 3600.0, -0.1, 0.4}, grid=true, subPlot=4, colors={{28,108,200}});
 
 createPlot(id=3, position={702, 0, 685, 451}, y={"zonRegCon.uOpeMod"}, range={0.0, 3600.0, -0.5, 3.5}, grid=true, colors={{28,108,200}});
-createPlot(id=3, position={702, 0, 685, 147}, y={"zonRegCon.TZon", "zonRegCon.TZonSet.TZonCooSet"}, range={0.0, 3600.0, 16.0, 28.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}}, displayUnits={"degC", "degC"});
-createPlot(id=3, position={702, 0, 685, 147}, y={"zonRegCon.yChiVal"}, range={0.0, 3600.0, -0.2, 1.0000000000000002}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=3, position={702, 0, 685, 147}, y={"zonRegCon.TZon", "zonRegCon.TZonCooSet"}, range={0.0, 3600.0, 16.0, 28.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}}, displayUnits={"degC", "degC"});
+createPlot(id=3, position={702, 0, 685, 147}, y={"zonRegCon.yChiVal"}, range={0.0, 3600.0, -0.2, 1.0}, grid=true, subPlot=3, colors={{28,108,200}});

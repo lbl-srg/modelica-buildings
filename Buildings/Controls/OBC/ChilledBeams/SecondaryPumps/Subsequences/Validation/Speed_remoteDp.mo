@@ -22,14 +22,14 @@ protected
     "Pressure difference setpoint"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine remPreSen1(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin remPreSen1(
     final offset=8.5,
     final freqHz=1/10,
     final amplitude=1.5)
     "Remote pressure difference sensor reading"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine remPreSen2(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin remPreSen2(
     final offset=8.5,
     final freqHz=1/10,
     final startTime=2,
@@ -59,6 +59,31 @@ annotation (
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ChilledBeams.SecondaryPumps.Subsequences.Speed_remoteDp\">
 Buildings.Controls.OBC.ChilledBeams.SecondaryPumps.Subsequences.Speed_remoteDp</a>.
+</p>
+<p>
+It consists of an open-loop setup for block <code>chiPumSpe</code> with
+a Boolean pulse input signal <code>pumSta</code> that is used to simulate chilled 
+water pump status <code>chiPumSpe.uChiWatPum</code>, 
+two sine input signals <code>remPreSen1</code> and <code>remPreSen2</code> that 
+are used to represent remote pressure difference sensor readings, 
+a constant input signal <code>difPreSet</code> that generates a pressure difference 
+setpoint, and an output signal <code>chiPumSpe.yChiWatPumSpe</code> for the 
+chilled water pump speed setpoint in chilled beam systems with variable-speed pumps. 
+</p>
+<p>
+The following observations should be apparent from the simulation plots:
+<ol>
+<li>
+The block <code>chiPumSpe</code> outputs chilled water pump speed <code>yChiWatPumSpe</code>,
+based on the difference between the measured chilled water differential pressure
+<code>dpChiWat</code> and the setpoint <code>dpChiWatSet</code> whenever any of the pumps 
+are proven on (<code>uChiWatPum = true</code>).
+</li>
+<li>
+<code>chiPumSpe</code> runs the pump at minimum speed (<code>yChiWatPumSpe = minPumSpe</code>)
+when none of the pumps are not yet proven on (<code>uChiWatPum = false</code>).
+</li>
+</ol>
 </p>
 </html>", revisions="<html>
 <ul>
