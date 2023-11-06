@@ -283,7 +283,7 @@ def prune_modifications(combinations, exclude, remove_modif, fraction_test_cover
             of combinations (randomly). 1 should be for used for PR against master.
 
     Returns:
-        None (modifies inplace)
+        list[tuple[str, list[str], str]]: Pruned list of combinations
 
     Details:
         A combination is a model and a list of class modifications (and a tag).
@@ -327,7 +327,7 @@ def prune_modifications(combinations, exclude, remove_modif, fraction_test_cover
                     for list_modif_ex in exclude[arg[0]]
                 ):
                     indices_to_pop.append(i)
-        remove_items_by_indices(combinations, indices_to_pop)
+        combinations = [el for idx, el in enumerate(combinations) if idx not in indices_to_pop]
 
     # Remove modifications.
     if remove_modif is not None:
@@ -341,28 +341,32 @@ def prune_modifications(combinations, exclude, remove_modif, fraction_test_cover
                             for j, modif in enumerate(arg[1]):
                                 if re.search(pattern_to_remove, modif):
                                     indices_to_pop.append(j)
+            # The tuple combinations[i] is immutable, but modifying inplace one of its elements is possible though.
             remove_items_by_indices(combinations[i][1], indices_to_pop)
 
-    # Remove duplicates.
-    indices_to_pop = []
-    for i, arg in enumerate(combinations):
-        for j in range(i + 1, len(combinations)):
-            if arg[:2] == combinations[j][:2]:  # Compare w/o tag at index 3.
-                indices_to_pop.append(j)
-    remove_items_by_indices(combinations, indices_to_pop)
+    # Remove elements with duplicated (model, modif) within combinations.
+    df_model_modif = pd.DataFrame(
+        dict(model=[el[0] for el in combinations], modif=[''.join(el[1]) for el in combinations])
+    )
+    indices_to_pop = df_model_modif[df_model_modif.duplicated() == True].index.tolist()
+    combinations = [el for idx, el in enumerate(combinations) if idx not in indices_to_pop]
 
     # Apply fraction of test coverage.
     if fraction_test_coverage is not None:
-        remove_items_by_indices(
-            combinations,
-            random.sample(
-                range(len(combinations)), int(len(combinations) * (1 - fraction_test_coverage))
-            ),
-        )
+        combinations = [
+            el
+            for idx, el in enumerate(combinations)
+            if idx
+            in random.sample(
+                range(len(combinations)), int(len(combinations) * fraction_test_coverage)
+            )
+        ]
 
     # Update tags. (Because pruning resulted in a sparse list of indices.)
     for i, arg in enumerate(combinations):
         combinations[i] = (*combinations[i][:2], str(i))
+
+    return combinations
 
 
 def report_clean(combinations, results):
@@ -434,7 +438,7 @@ def main(models, modif_grid, exclude, remove_modif):
         combinations = generate_combinations(models=models, modif_grid=modif_grid)
 
         # Prune class modifications.
-        prune_modifications(
+        combinations = prune_modifications(
             combinations=combinations,
             exclude=exclude,
             remove_modif=remove_modif,

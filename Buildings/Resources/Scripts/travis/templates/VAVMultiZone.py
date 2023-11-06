@@ -139,7 +139,58 @@ REMOVE_MODIF = {
                 'have_CO2Sen',
             ],
         ),
-        # We don't test all combinations of control options to limit the number of simulations.
+        # We don't test all combinations of equipment and control options to limit the number of simulations.
+        (
+            [
+                'Buildings.Templates.Components.Coils.(None|ElectricHeating|EvaporatorVariableSpeed)',
+            ],
+            [
+                'secOut',
+                'secRel',
+                'fanSupBlo',
+                'fanSupDra',
+                'typCtlFanRet',
+                'typCtlEco',
+                'have_perZonRehBox',
+                'have_frePro',
+                'typFreSta',
+                'have_CO2Sen',
+            ],
+        ),
+        (
+            [
+                'Buildings.Templates.Components.Fans.ArrayVariable',
+            ],
+            [
+                'coiHeaPre',
+                'coiCoo',
+                'secOut',
+                'secRel',
+                'typCtlFanRet',
+                'typCtlEco',
+                'have_perZonRehBox',
+                'have_frePro',
+                'typFreSta',
+                'have_CO2Sen',
+            ],
+        ),
+        (
+            [
+                'Buildings.Templates.Components.Fans.(?!None) fanSupBlo',
+            ],
+            [
+                'coiHeaPre',
+                'coiCoo',
+                'secOut',
+                'secRel',
+                'typCtlFanRet',
+                'typCtlEco',
+                'have_perZonRehBox',
+                'have_frePro',
+                'typFreSta',
+                'have_CO2Sen',
+            ],
+        ),
         (
             [
                 'typCtlEco=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.(?!FixedDryBulb)',
