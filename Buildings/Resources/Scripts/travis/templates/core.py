@@ -456,11 +456,11 @@ def main(models, modif_grid, exclude, remove_modif):
 
         print(f'Number of cases to be simulated: {len(combinations)}.\n')
 
-        # DEBUG
-        with open('combinations.log', 'w') as FH:
-            for el in combinations:
-                modif = "\n".join(el[1])
-                FH.write(f'{el[0]}\n{modif}\n\n')
+        # # DEBUG
+        # with open('combinations.log', 'w') as FH:
+        #     for el in combinations:
+        #         modif = "\n".join(el[1])
+        #         FH.write(f'{el[0]}\n{modif}\n\n')
 
         # Split combinations into chunks of 100 items.
         for i in range(ceil(len(combinations) / 100)):
