@@ -48,7 +48,7 @@ model MixedConvection "Tutorial for the mixed convection case"
     nSurBou = nSurBou,
     nPorts=2,
     portName={"Inlet","Outlet"},
-    samplePeriod = 200)
+    samplePeriod=60)
   annotation (Placement(transformation(extent={{80,-38},{120,2}})));
   HeatTransfer.Sources.FixedTemperature TOthWal[nSurBou-1](each T=283.15)
     "Temperature for other walls"

@@ -49,7 +49,7 @@ model MixedConvectionWithBox
     nSurBou = nSurBou,
     nPorts=2,
     portName={"Inlet","Outlet"},
-    samplePeriod = 200,
+    samplePeriod=60,
     sourceName={"block"})
   annotation (Placement(transformation(extent={{80,-38},{120,2}})));
   HeatTransfer.Sources.FixedTemperature TOthWal[nSurBou-1](each T=283.15)

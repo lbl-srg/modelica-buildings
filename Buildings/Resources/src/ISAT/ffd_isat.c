@@ -700,7 +700,7 @@ void randomCall (int nCall, int useNormalDistribution, int useUnboundedTest){
 | return No return needed
 ****************************************************************************/
 void writeRecord (){
-  int i;
+  	int i;
 	sprintf(logMsg, "nQuery,stats[1-5], isat_cum, cpu_cum:\t%d\t%f\t%f\t%f\t%f\t%f\t%f\t%f\t%f", nQuery,stats[0],stats[1],stats[2],stats[3],stats[4],stats[8],stats[81],cpuISAT );
 	cosim_log(logMsg, COSIM_NORMAL);
 	for (i = 0; i < num_input; i++) {
@@ -708,9 +708,7 @@ void writeRecord (){
 		cosim_log(logMsg, COSIM_NORMAL);
 	}
 	for (i = 0; i < num_output; i++) {
-		para.cosim->ffd->output[i] = fa[i] * (outp_Boundary_upper[i] - outp_Boundary_lower[i]) + outp_Boundary_lower[i];
-		/* sprintf(logMsg, "\toutput[%d]:\t%f\t%f", i, fa[i], fa[i] * (outp_Boundary_upper[i] - outp_Boundary_lower[i]) + outp_Boundary_lower[i]); */
-		sprintf(logMsg, "\toutput[%d]:\t%f\t%f", i, fa[i], para.cosim->ffd->output[i]);
+		sprintf(logMsg, "\toutput[%d]:\t%f\t%f", i, fa[i], fa[i] * (outp_Boundary_upper[i] - outp_Boundary_lower[i]) + outp_Boundary_lower[i]);
 		cosim_log(logMsg, COSIM_NORMAL);
 	}
 }
@@ -1505,7 +1503,6 @@ int cosim_loop() {
   int size = para.cosim->para->nSur + para.cosim->para->nPorts * 2 + para.cosim->para->nSou;
   para.cosim->ffd->input = (REAL*)malloc(size * sizeof(REAL));
   para.cosim->ffd->output = (REAL*)malloc(num_output * sizeof(REAL));
-  /* para.cosim->ffd->output = (REAL*)malloc(20 * sizeof(REAL)); */
   flag = read_cosim_data(&para);
 
   for (i = 0; i < num_input; i++) {
@@ -1513,6 +1510,9 @@ int cosim_loop() {
   }
 
   evaluate();
+  for (i = 0; i < num_output; i++) {
+	para.cosim->ffd->output[i] = fa[i] * (outp_Boundary_upper[i] - outp_Boundary_lower[i]) + outp_Boundary_lower[i];
+  }
   flag = write_cosim_data(&para);
 	
   next = 1;
@@ -1541,7 +1541,6 @@ int cosim_loop() {
 	}
 	for (i = 0; i < num_output; i++) {
 		para.cosim->ffd->output[i] = fa[i] * (outp_Boundary_upper[i] - outp_Boundary_lower[i]) + outp_Boundary_lower[i];
-		/* para.cosim->ffd->output[i] = 103.0; */
 	}
 
 

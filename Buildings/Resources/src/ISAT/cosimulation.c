@@ -325,8 +325,7 @@ int write_cosim_data(PARA_DATA *para){
   ****************************************************************************/
   for (i = 0; i<num_output; i++) {
 	  if (outp_name[i] == temp_roo) {
-		  /* para->cosim->ffd->TRoo = para->cosim->ffd->output[i]; */
-		  para->cosim->ffd->TRoo = 102.0;
+		  para->cosim->ffd->TRoo = para->cosim->ffd->output[i];
 		  sprintf(comsg, "\tpara->cosim->ffd->TRoo: %f",
 			  para->cosim->ffd->TRoo);
 		  cosim_log(comsg, COSIM_NORMAL);
@@ -395,7 +394,6 @@ int write_cosim_data(PARA_DATA *para){
   ****************************************************************************/
   for(i=0; i<para->cosim->para->nSen; i++) {
 	para->cosim->ffd->senVal[i] = para->cosim->ffd->output[i];
-	/* para->cosim->ffd->senVal[i] = 101.0; */
     sprintf(comsg, "\tpara->cosim->ffd->output[%d]: %f",
 		i, para->cosim->ffd->senVal[i]);
     cosim_log(comsg, COSIM_NORMAL);
