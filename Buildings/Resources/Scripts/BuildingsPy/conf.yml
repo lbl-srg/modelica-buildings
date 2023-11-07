@@ -399,6 +399,37 @@
   openmodelica:
     comment: 'TimeoutExpired: omc timed out after 300 seconds'
     simulate: false
+- model_name: Buildings.ThermalZones.Detailed.Examples.ISAT.MixedConvectionWithExteriorWall
+  dymola:
+    comment: 'TimeoutExpired: dymola timed out after 300 seconds'
+    simulate: false
+  optimica:
+    comment: 'TimeoutExpired: optimica timed out after 300 seconds'
+    simulate: false
+  openmodelica:
+    comment: 'TimeoutExpired: omc timed out after 300 seconds'
+    simulate: false
+- model_name: Buildings.ThermalZones.Detailed.Examples.ISAT.Tutorial.MixedConvection
+  optimica:
+    comment: 'TimeoutExpired: optimica timed out after 300 seconds'
+    simulate: false
+  openmodelica:
+    comment: 'TimeoutExpired: omc timed out after 300 seconds'
+    simulate: false
+- model_name: Buildings.ThermalZones.Detailed.Examples.ISAT.Tutorial.MixedConvectionWithBox
+  dymola:
+    comment: 'TimeoutExpired: dymola timed out after 300 seconds'
+    simulate: false
+  optimica:
+    comment: 'TimeoutExpired: optimica timed out after 300 seconds'
+    simulate: false
+  openmodelica:
+    comment: 'TimeoutExpired: omc timed out after 300 seconds'
+    simulate: false
+- model_name: Buildings.ThermalZones.Detailed.Examples.ISAT.Tutorial.NaturalConvection
+  openmodelica:
+    comment: 'TimeoutExpired: omc timed out after 300 seconds'
+    simulate: false
 - model_name: Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.Examples.X3WithRadiantFloor
   openmodelica:
     comment: 'TimeoutExpired: translation timed out after 300 seconds'
