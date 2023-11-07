@@ -189,10 +189,18 @@ def generate_modif_list(dic):
     Args:
         dic: dict[str, list[str]]: Dictionary where each key is the component or variable to be modified,
             and each value is a list of modifications to be applied.
-            Bindings for parameters of redeclared components can be appended as class modifications, e.g.
-            'VAV_1__redeclare__fanSupBlo': [
-                'Buildings.Templates.Components.Fans.ArrayVariable(nFan=2)',
-            ],
+            Class modifications of redeclared components shall be appended to the class name, e.g.:
+                'VAV_1__redeclare__fanSupBlo': [
+                    'Buildings.Templates.Components.Fans.ArrayVariable(nFan=2)',
+                ]
+            as opposed to:
+                'VAV_1__redeclare__fanSupBlo': [
+                    'Buildings.Templates.Components.Fans.ArrayVariable',
+                ],
+                'VAV_1__fanSupBlo__nFan': [
+                    2,
+                ]
+            which is not supported by Dymola (which does not error, but simply disregard the second modification!).
 
     Returns:
         list[str]: List of class modifications.
@@ -242,7 +250,8 @@ def generate_combinations(models, modif_grid):
         models: list[str]: List of model names.
         modif_grid: dict[str, dict[str, list[str]]]: Dictionary where each key is a model name,
             and each value is a dictionary where each key resolves into a component to modify
-            and each value is a list of modifications to be applied to the component.
+            and each value is a list of modifications to be applied to the component:
+            see docstring of `generate_modif_list` for the structure of this list of modifications.
 
     Returns:
         list[tuple[str, list[str], str]]: List of 3-tuples where
@@ -446,6 +455,12 @@ def main(models, modif_grid, exclude, remove_modif):
         )
 
         print(f'Number of cases to be simulated: {len(combinations)}.\n')
+
+        # DEBUG
+        with open('combinations.log', 'w') as FH:
+            for el in combinations:
+                modif = "\n".join(el[1])
+                FH.write(f'{el[0]}\n{modif}\n\n')
 
         # Split combinations into chunks of 100 items.
         for i in range(ceil(len(combinations) / 100)):

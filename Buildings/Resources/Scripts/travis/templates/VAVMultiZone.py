@@ -33,6 +33,7 @@ MODELS = [
     'Buildings.Templates.AirHandlersFans.Validation.VAVMultiZone',
 ]
 
+# See docstring of `generate_combinations` function for the structure of MODIF_GRID.
 # Tested modifications should at least cover the options specified at:
 # https://github.com/lbl-srg/ctrl-flow-dev/blob/main/server/scripts/sequence-doc/src/version/Current%20G36%20Decisions/Guideline%2036-2021%20(mappings).csv
 MODIF_GRID = {

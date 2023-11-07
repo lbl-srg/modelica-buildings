@@ -34,6 +34,7 @@ MODELS = [
     'Buildings.Templates.ZoneEquipment.Validation.VAVBoxReheat',
 ]
 
+# See docstring of `generate_combinations` function for the structure of MODIF_GRID.
 # Tested modifications should at least cover the options specified at:
 # https://github.com/lbl-srg/ctrl-flow-dev/blob/main/server/scripts/sequence-doc/src/version/Current%20G36%20Decisions/Guideline%2036-2021%20(mappings).csv
 MODIF_GRID = {
@@ -56,33 +57,20 @@ MODIF_GRID['Buildings.Templates.ZoneEquipment.Validation.VAVBoxReheat'] = {
     **MODIF_GRID['Buildings.Templates.ZoneEquipment.Validation.VAVBoxCoolingOnly'],
     **dict(
         VAVBox_1__redeclare__coiHea=[
-            'Buildings.Templates.Components.Coils.WaterBasedHeating',
+            'Buildings.Templates.Components.Coils.WaterBasedHeating'
+            + '(typVal=Buildings.Templates.Components.Types.Valve.TwoWayModulating)',
+            'Buildings.Templates.Components.Coils.WaterBasedHeating'
+            + '(typVal=Buildings.Templates.Components.Types.Valve.ThreeWayModulating)',
             'Buildings.Templates.Components.Coils.ElectricHeating',
-        ],
-        VAVBox_1__coiHea__redeclare__val=[
-            'Buildings.Templates.Components.Valves.TwoWayModulating',
-            'Buildings.Templates.Components.Valves.ThreeWayModulating',
         ],
     ),
 }
-
 
 # See docstring of `prune_modifications` function for the structure of EXCLUDE.
 EXCLUDE = None
 
 # See docstring of `prune_modifications` function for the structure of REMOVE_MODIF.
-REMOVE_MODIF = {
-    'Buildings.Templates.ZoneEquipment.Validation.VAVBoxReheat': [
-        (
-            [
-                'Buildings.Templates.Components.Coils.ElectricHeating',
-            ],
-            [
-                'Buildings.Templates.Components.Valves',
-            ],
-        ),
-    ]
-}
+REMOVE_MODIF = None
 
 
 if __name__ == '__main__':
