@@ -117,7 +117,7 @@ for type in "${!test_script[@]}"; do
     diff_checksum="$(git diff --name-only origin/master | grep Resources/Scripts/travis/templates/$type.checksum)"
     if (( $? == 0 ));  then
       echo "Computed checksum does not match checksum on master."
-      echo "Running ${test_script[$type]} --tool $SIMULATOR."
+      echo "Running ${test_script[$type]} with --tool $SIMULATOR."
       python "${test_script[$type]}" --generate --simulate --tool $SIMULATOR --coverage $FRACTION_TEST_COVERAGE
       if (( $? == 0 ));  then
         printf "${CGREEN}All simulations succeeded.${CEND}\n"
