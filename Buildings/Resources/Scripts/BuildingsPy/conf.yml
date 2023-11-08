@@ -391,6 +391,9 @@
   openmodelica:
     comment: Failed to solve linear system of equations (no. 697) at time 0.000000.
     simulate: false
+  optimica:
+    comment: 'malloc_consolidate(): unaligned fastbin chunk detected.'
+    simulate: false
 - model_name: Buildings.ThermalZones.Detailed.Examples.FFD.Tutorial.NaturalConvection
   openmodelica:
     comment: 'TimeoutExpired: omc timed out after 300 seconds'
