@@ -335,9 +335,9 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">Buildings.Templates.Components.Dampers<br/>
                      Buildings.Templates.Components.Valves
     </td>
-    <td valign=\"top\">The models in these packages have been retired and replaced 
+    <td valign=\"top\">The models in these packages have been retired and replaced
 		with two container classes within <code>Buildings.Templates.Components.Actuators</code>
-		that cover all equipment types, and allow the flow characteristic to be specified 
+		that cover all equipment types, and allow the flow characteristic to be specified
 		with one parameter.<br/>
                      	This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3539\">#3539</a>.
     </td>
@@ -357,6 +357,28 @@ The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., 
 that can lead to wrong simulation results):
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Templates</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.AirHandlersFans.Components.Controls.G36VAVMultiZone<br/>
+                       Buildings.Templates.AirHandlersFans.Components.Data.OutdoorReliefReturnSection<br/>
+                       Buildings.Templates.AirHandlersFans.Components.Interfaces.PartialOutdoorReliefReturnSection<br/>
+                       Buildings.Templates.AirHandlersFans.Components.Interfaces.PartialReliefReturnSection<br/>
+                       Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.MixedAirWithDamper<br/>
+                       Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.NoRelief<br/>
+                       Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.NoReturn<br/>
+                       Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.ReliefDamper<br/>
+                       Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.ReliefFan<br/>
+                       Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.ReturnFan<br/>
+                       Buildings.Templates.AirHandlersFans.Configuration.PartialAirHandler<br/>
+                       Buildings.Templates.AirHandlersFans.Data.VAVMultiZone<br/>
+                       Buildings.Templates.AirHandlersFans.VAVMultiZone
+    </td>
+    <td valign=\"top\">Added support for additional configurations.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3526\">#3526</a>
+                       and <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3520\">#3520</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
