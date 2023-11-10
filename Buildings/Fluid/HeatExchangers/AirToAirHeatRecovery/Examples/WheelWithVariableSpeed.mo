@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.Examples;
 model WheelWithVariableSpeed
-  "Test model for the air-to-air thermal wheel with a variable speed"
+  "Test model for the air-to-air thermal wheel with a variable speed drive"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Air
     "Medium model for supply air";
@@ -8,8 +8,9 @@ model WheelWithVariableSpeed
     "Medium model for exhaust air";
   Buildings.Fluid.Sources.Boundary_pT sin_2(
     redeclare package Medium = Medium2,
-    T=273.15 + 10,
-    use_p_in=true,
+    p(displayUnit="Pa") = 101325,
+    T(displayUnit="K") = 273.15 + 10,
+    use_p_in=false,
     nPorts=1)
     "Sink of exhaust air"
     annotation (Placement(transformation(extent={{-58,-10},
@@ -19,12 +20,12 @@ model WheelWithVariableSpeed
     duration=60,
     offset=101330)
     "Pressure of exhaust air"
-    annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
+    annotation (Placement(transformation(extent={{0,-62},{20,-42}})));
   Buildings.Fluid.Sources.Boundary_pT sou_2(
     redeclare package Medium = Medium2,
-    T=273.15 + 5,
+    T(displayUnit="K") = 293.15,
     use_p_in=true,
-    use_T_in=true,
+    use_T_in=false,
     nPorts=1)
     "Source of exhaust air"
     annotation (Placement(transformation(extent={{40,-70},
@@ -35,12 +36,7 @@ model WheelWithVariableSpeed
     offset=273.15 + 30,
     startTime=60)
     "Supply air temperature"
-    annotation (Placement(transformation(extent={{-100,44},{-80,64}})));
-  Modelica.Blocks.Sources.Constant TExh(k=293.15)
-    "Temperature of exhaust air"
-    annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
-  Modelica.Blocks.Sources.Constant POut(k=101325) "Ambient pressure"
-    annotation (Placement(transformation(extent={{-100,-2},{-80,18}})));
+    annotation (Placement(transformation(extent={{-94,44},{-74,64}})));
   Buildings.Fluid.Sources.Boundary_pT sin_1(
     redeclare package Medium = Medium1,
     T=273.15 + 30,
@@ -76,10 +72,10 @@ model WheelWithVariableSpeed
     m2_flow_nominal=5,
     dp1_nominal=100,
     dp2_nominal=100,
-    epsL_cool_nominal=0.7,
-    epsL_cool_partload=0.6,
-    epsL_heat_nominal=0.7,
-    epsL_heat_partload=0.6) "Wheel"
+    epsLatCoo_nominal=0.7,
+    epsLatCoo_ParLoa=0.6,
+    epsLatHea_nominal=0.7,
+    epsLatHea_ParLoa=0.6) "Wheel"
     annotation (Placement(transformation(extent={{6,-4},{26,16}})));
     Modelica.Blocks.Sources.Ramp WheSpe(
     height=0.1,
@@ -90,13 +86,10 @@ model WheelWithVariableSpeed
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 equation
   connect(PIn.y,sou_2. p_in) annotation (Line(
-      points={{1,-40},{20,-40},{20,-52},{38,-52}},
+      points={{21,-52},{38,-52}},
       color={0,0,127}));
-  connect(TExh.y, sou_2.T_in) annotation (Line(points={{1,-80},{20,-80},{20,-56},
-          {38,-56}}, color={0,0,127}));
   connect(TSup.y, sou_1.T_in)
-    annotation (Line(points={{-79,54},{-70.5,54},{-62,54}},
-                                                 color={0,0,127}));
+    annotation (Line(points={{-73,54},{-62,54}}, color={0,0,127}));
   connect(PSin_1.y, sin_1.p_in) annotation (Line(points={{61,70},{90,70},{90,20},
           {86,20}},     color={0,0,127}));
   connect(sou_1.ports[1],whe. port_a1) annotation (Line(
@@ -106,9 +99,6 @@ equation
       points={{26,5.55112e-16},{32,5.55112e-16},{32,-20},{70,-20},{70,-60},{60,
           -60}},
       color={0,127,255}));
-  connect(POut.y, sin_2.p_in) annotation (Line(
-      points={{-79,8},{-69.5,8},{-69.5,8},{-60,8}},
-      color={0,0,127}));
   connect(whe.port_b1, sin_1.ports[1]) annotation (Line(
       points={{26,12},{45,12},{45,12},{64,12}},
       color={0,127,255}));

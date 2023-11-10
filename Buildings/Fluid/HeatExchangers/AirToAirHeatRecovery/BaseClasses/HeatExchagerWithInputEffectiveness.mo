@@ -10,15 +10,15 @@ model HeatExchagerWithInputEffectiveness
   sensibleOnly2=false,
   final prescribedHeatFlowRate1=true,
   final prescribedHeatFlowRate2=true,
-  Q1_flow = epsS * QMax_flow + QLat_flow,
+  Q1_flow = epsSen * QMax_flow + QLat_flow,
   Q2_flow = -Q1_flow,
   mWat1_flow = +mWat_flow,
   mWat2_flow = -mWat_flow);
 
-  Modelica.Blocks.Interfaces.RealInput epsS(unit="1")
+  Modelica.Blocks.Interfaces.RealInput epsSen(unit="1")
     "Sensible heat exchanger effectiveness"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-  Modelica.Blocks.Interfaces.RealInput epsL(unit="1")
+  Modelica.Blocks.Interfaces.RealInput epsLat(unit="1")
     "Latent heat exchanger effectiveness"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
   Modelica.Units.SI.HeatFlowRate QLat_flow
@@ -81,7 +81,7 @@ equation
 
   mMax_flow = smooth(1, min(smooth(1, gai1 * abs(m1_flow)),
                             smooth(1, gai2 * abs(m2_flow)))) * (X_w_in2 - X_w_in1);
-  mWat_flow = epsL * mMax_flow;
+  mWat_flow = epsLat * mMax_flow;
   // As enthalpyOfCondensingGas is dominated by the latent heat of phase change,
   // we simplify and use Medium1.enthalpyOfVaporization for the
   // latent heat that is exchanged among the fluid streams.
@@ -118,11 +118,11 @@ except that the effectiveness are inputs rather than parameters.
 
 This model transfers heat and moisture in the amount of
 <pre>
-  QSen = epsS * Q_max,
-  m    = epsL * mWat_max,
+  QSen = epsSen * Q_max,
+  m    = epsLat * mWat_max,
 </pre>
 
-where <code>epsS</code> and <code>epsL</code> are input effectiveness
+where <code>epsSen</code> and <code>epsLat</code> are input effectiveness
 for the sensible and latent heat transfer,
 <code>Q_max</code> is the maximum sensible heat that can be transferred and
 <code>mWat_max</code> is the maximum moisture that can be transferred.

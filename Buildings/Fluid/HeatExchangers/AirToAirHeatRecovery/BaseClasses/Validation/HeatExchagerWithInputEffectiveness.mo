@@ -58,14 +58,14 @@ model HeatExchagerWithInputEffectiveness
     show_T=true)
      "Heat exchanger"
     annotation (Placement(transformation(extent={{6,-4},{26,16}})));
-  Modelica.Blocks.Sources.Ramp epsS(
+  Modelica.Blocks.Sources.Ramp epsSen(
     height=0.1,
     duration=60,
     offset=0.7,
     startTime=120)
      "Sensible heat exchanger effectiveness"
     annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
-  Modelica.Blocks.Sources.Ramp epsL(
+  Modelica.Blocks.Sources.Ramp epsLat(
     height=0.1,
     duration=60,
     offset=0.7,
@@ -88,9 +88,9 @@ equation
   connect(hex.port_b2, sin_2.ports[1]) annotation (Line(
       points={{6,0},{-26,0},{-26,-20},{-34,-20}},
       color={0,127,255}));
-  connect(epsS.y, hex.epsS) annotation (Line(points={{-69,20},{-4,20},{-4,10},{4,
+  connect(epsSen.y, hex.epsSen) annotation (Line(points={{-69,20},{-4,20},{-4,10},{4,
           10}},    color={0,0,127}));
-  connect(hex.epsL, epsL.y) annotation (Line(points={{4,2},{-62,2},{-62,-40},{-69,
+  connect(hex.epsLat, epsLat.y) annotation (Line(points={{4,2},{-62,2},{-62,-40},{-69,
           -40}}, color={0,0,127}));
  annotation(experiment(Tolerance=1e-6, StopTime=360),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/AirToAirHeatRecovery/BaseClasses/Validation/HeatExchagerWithInputEffectiveness.mos"
