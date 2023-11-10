@@ -234,7 +234,7 @@ equation
       extent={{-6,3},{-6,3}}));
   connect(roo.heaPorAir, TRooAir.port)
     annotation (Line(points={{81,4},{94,4},{108,4},{110,4}}, color={191,0,0}));
-  connect(TRooAir.T, conWin.T) annotation (Line(points={{131,4},{134,4},{134,30},
+  connect(TRooAir.T, conWin.T) annotation (Line(points={{130,4},{134,4},{134,30},
           {-10,30},{-10,14},{-1.5,14}}, color={0,0,127}));
   connect(conWin.H, weaBus.HGloHor) annotation (Line(points={{-1.5,6},{-12,6},{-12,
           34},{150,34},{150,20}}, color={0,0,127}));

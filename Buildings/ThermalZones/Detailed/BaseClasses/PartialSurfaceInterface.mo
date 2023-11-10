@@ -35,7 +35,8 @@ partial model PartialSurfaceInterface
                               annotation (Placement(transformation(extent={{231,
             -230},{251,-210}})));
 protected
-  final parameter Modelica.Units.SI.Area AConExt[NConExt] = datConExt.A
+  final parameter String instanceName = getInstanceName() "Name of the instance";
+  final parameter Modelica.Units.SI.Area AConExt[NConExt]=datConExt.A
     "Areas of exterior constructions";
   final parameter Modelica.Units.SI.Area AConExtWinOpa[NConExtWin]=datConExtWin.AOpa
     "Opaque areas of exterior construction that have a window";
@@ -76,11 +77,11 @@ Check the parameters of the room model.");
     end if;
   end checkSurfaceAreas;
 initial algorithm
-  checkSurfaceAreas(nConExt,    datConExt.A,       "datConExt");
-  checkSurfaceAreas(nConExtWin, datConExtWin.AWin, "datConExtWin");
-  checkSurfaceAreas(nConPar,    datConPar.A,       "datConPar");
-  checkSurfaceAreas(nConBou,    datConBou.A,       "datConBou");
-  checkSurfaceAreas(nSurBou,    surBou.A,          "surBou");
+  checkSurfaceAreas(nConExt,    datConExt.A,       instanceName + ".datConExt");
+  checkSurfaceAreas(nConExtWin, datConExtWin.AWin, instanceName + ".datConExtWin");
+  checkSurfaceAreas(nConPar,    datConPar.A,       instanceName + ".datConPar");
+  checkSurfaceAreas(nConBou,    datConBou.A,       instanceName + ".datConBou");
+  checkSurfaceAreas(nSurBou,    surBou.A,          instanceName + ".surBou");
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-240,
             -240},{240,240}}),
                       graphics), Icon(coordinateSystem(preserveAspectRatio=true,
