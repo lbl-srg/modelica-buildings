@@ -4,11 +4,8 @@ model StorageTankWithExternalHeatExchanger
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.Water "Medium model";
-  parameter Modelica.Units.SI.Temperature THotSet=273.15 + 40
-    "Temperature setpoint of hot water supply";
-  parameter Modelica.Units.SI.Temperature TMixSet=273.15 + 35
-    "Temperature setpoint of hot water supply to fixture";
   parameter Modelica.Units.SI.Temperature TCol = 273.15+10 "Temperature of domestic cold water supply";
+  parameter Modelica.Units.SI.MassFlowRate mHea_flow_nominal = datWatHea.QHex_flow_nominal/4200/(55 - 50) "Tank heater water loop nominal mass flow";
   parameter Data.GenericDomesticHotWaterWithHeatExchanger
     datWatHea(VTan=0.1892706, mDom_flow_nominal=6.52944E-06*1000)
     "Data for heat pump water heater with tank"
@@ -24,35 +21,13 @@ model StorageTankWithExternalHeatExchanger
     "Domestic hot water fixture draw fraction schedule"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
-  Fluid.Sources.Boundary_pT sinDis(
-    nPorts=1,
-    redeclare package Medium = Medium,
-    T(displayUnit="degC")) "Sink for heating water"
-   annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-4,-50})));
   Fluid.Sources.Boundary_pT souCol(
     nPorts=2,
     redeclare package Medium = Medium,
-    T(displayUnit="degC") = 283.15)
-              "Source of domestic cold water"
+    T(displayUnit="degC") = 283.15) "Source of domestic cold water"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-32,-50})));
-  Fluid.Sources.MassFlowSource_T souHea(
-    use_m_flow_in=true,
-    nPorts=1,
-    redeclare package Medium = Medium,
-    T(displayUnit="degC") = datWatHea.TDom_nominal + datWatHea.dTHexApp_nominal
-       + 1)
-    "Source for heating water"
-    annotation (
-     Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=180,
-        origin={68,24})));
   Modelica.Blocks.Sources.Constant conTSetHot(k(
       final unit="K",
       displayUnit="degC") = 308.15)
@@ -66,14 +41,39 @@ model StorageTankWithExternalHeatExchanger
   ThermostaticMixingValve theMixVal(redeclare package Medium = Medium,
       mMix_flow_nominal=1.2*datWatHea.mDom_flow_nominal)
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
-  Controls.OBC.CDL.Conversions.BooleanToReal booToRea(realTrue=datWatHea.QHex_flow_nominal
-        /4200/(55 - 50))
+  Controls.OBC.CDL.Conversions.BooleanToReal booToRea(realTrue=
+        mHea_flow_nominal)
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
   Modelica.Blocks.Sources.Constant conTSetHot1(k(
       final unit="K",
       displayUnit="degC") = 313.15)
     "Temperature setpoint for hot water supply to fixture"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+  Fluid.HeatExchangers.Heater_T hea(
+    redeclare package Medium = Medium,
+    m_flow_nominal=mHea_flow_nominal,
+    dp_nominal=0)
+    annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
+  Fluid.Movers.FlowControlled_m_flow mov(
+    redeclare package Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    nominalValuesDefineDefaultPressureCurve=true,
+    m_flow_nominal=mHea_flow_nominal)
+    annotation (Placement(transformation(extent={{70,14},{50,34}})));
+  Fluid.Sensors.TemperatureTwoPort senTem(
+    redeclare package Medium = Medium,
+    m_flow_nominal=mHea_flow_nominal,
+    tau=0) annotation (Placement(transformation(extent={{10,-50},{30,-30}})));
+  Controls.OBC.CDL.Reals.AddParameter addPar(p=5)
+    annotation (Placement(transformation(extent={{14,-24},{24,-14}})));
+  Fluid.Sources.Boundary_pT preRef(
+    nPorts=1,
+    redeclare package Medium = Medium,
+    T(displayUnit="degC")) "Reference pressure" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={80,-60})));
 equation
   connect(theMixVal.yMixSet, sch.y[1]) annotation (Line(points={{39,78},{-50,78},
           {-50,70},{-59,70}}, color={0,0,127}));
@@ -88,14 +88,24 @@ equation
     annotation (Line(points={{-33,-40},{-33,62},{40,62}}, color={0,127,255}));
   connect(booToRea.u, domHotWatTan.charge) annotation (Line(points={{38,-10},{32,
           -10},{32,21},{22,21}}, color={255,0,255}));
-  connect(booToRea.y, souHea.m_flow_in) annotation (Line(points={{62,-10},{88,-10},
-          {88,16},{80,16}}, color={0,0,127}));
-  connect(sinDis.ports[1], domHotWatTan.port_bHea)
-    annotation (Line(points={{-4,-40},{-4,24},{0,24}}, color={0,127,255}));
-  connect(souHea.ports[1], domHotWatTan.port_aHea)
-    annotation (Line(points={{58,24},{20,24}}, color={0,127,255}));
   connect(domHotWatTan.TDomSet, conTSetHot1.y) annotation (Line(points={{-1,30},
           {-20,30},{-20,10},{-59,10}}, color={0,0,127}));
+  connect(mov.port_b, domHotWatTan.port_aHea)
+    annotation (Line(points={{50,24},{20,24}}, color={0,127,255}));
+  connect(hea.port_b, mov.port_a) annotation (Line(points={{60,-40},{80,-40},{80,
+          24},{70,24}}, color={0,127,255}));
+  connect(booToRea.y, mov.m_flow_in) annotation (Line(points={{62,-10},{90,-10},
+          {90,46},{60,46},{60,36}}, color={0,0,127}));
+  connect(domHotWatTan.port_bHea, senTem.port_a) annotation (Line(points={{0,24},
+          {-10,24},{-10,-40},{10,-40}}, color={0,127,255}));
+  connect(senTem.port_b, hea.port_a)
+    annotation (Line(points={{30,-40},{40,-40}}, color={0,127,255}));
+  connect(addPar.y, hea.TSet) annotation (Line(points={{25,-19},{32,-19},{32,-32},
+          {38,-32}}, color={0,0,127}));
+  connect(senTem.T, addPar.u) annotation (Line(points={{20,-29},{14,-29},{14,-28},
+          {6,-28},{6,-19},{13,-19}}, color={0,0,127}));
+  connect(hea.port_b, preRef.ports[1])
+    annotation (Line(points={{60,-40},{80,-40},{80,-50}}, color={0,127,255}));
   annotation (Diagram(graphics={
         Text(
           extent={{-140,160},{160,120}},
