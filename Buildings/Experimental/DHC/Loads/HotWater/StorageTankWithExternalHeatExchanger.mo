@@ -16,7 +16,7 @@ model StorageTankWithExternalHeatExchanger
     "Start value of tank temperature"
     annotation(Dialog(tab="Initialization"));
   final parameter Real eps =
-    dat.QHex_flow_nominal / CMin_flow_nominal / ( dat.TMix_nominal + dat.dTHexApp_nominal - dat.TCol_nominal)
+    dat.QHex_flow_nominal / CMin_flow_nominal / ( dat.TDom_nominal + dat.dTHexApp_nominal - dat.TCol_nominal)
     "Heat exchanger effectiveness"
     annotation(Dialog(tab="Advanced"));
   Fluid.Movers.Preconfigured.FlowControlled_dp pumHex(

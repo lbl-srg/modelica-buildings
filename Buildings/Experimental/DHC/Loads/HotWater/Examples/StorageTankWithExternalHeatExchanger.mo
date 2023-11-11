@@ -45,8 +45,8 @@ model StorageTankWithExternalHeatExchanger
     use_m_flow_in=true,
     nPorts=1,
     redeclare package Medium = Medium,
-    T(displayUnit="degC") = datWatHea.TMix_nominal + datWatHea.dTHexApp_nominal +
-      1)
+    T(displayUnit="degC") = datWatHea.TDom_nominal + datWatHea.dTHexApp_nominal
+       + 1)
     "Source for heating water"
     annotation (
      Placement(transformation(

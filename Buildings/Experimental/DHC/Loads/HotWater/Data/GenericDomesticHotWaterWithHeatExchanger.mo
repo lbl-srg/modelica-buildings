@@ -28,15 +28,15 @@ record GenericDomesticHotWaterWithHeatExchanger
   "Design mass flow rate of domestic hot water"
     annotation (Dialog(group="Heat exchanger"));
 
-  parameter Modelica.Units.SI.HeatFlowRate QHex_flow_nominal(min=0) = mDom_flow_nominal*4200*(TMix_nominal-TCol_nominal)
+  parameter Modelica.Units.SI.HeatFlowRate QHex_flow_nominal(min=0) = mDom_flow_nominal*4200*(TDom_nominal-TCol_nominal)
   "Nominal heating flow rate at heat exchanger"
     annotation (Dialog(group="Heat exchanger"));
 //  parameter Modelica.Units.SI.HeatFlowRate QTan_flow_nominal = mHex_flow_nominal*4200*(THex_nominal-TTan_nominal)
 //    "Nominal heating flow rate";
 //  parameter Modelica.Units.SI.Height hHex_a = 1 "Height of portHex_a of the heat exchanger, measured from tank bottom";
 //  parameter Modelica.Units.SI.Height hHex_b = 0.2 "Height of portHex_b of the heat exchanger, measured from tank bottom";
-  parameter Modelica.Units.SI.Temperature TMix_nominal = 318.15
-    "Temperature of fluid leaving tank at nominal conditions"
+  parameter Modelica.Units.SI.Temperature TDom_nominal = 318.15
+    "Temperature of domestic hot water leaving heater at nominal conditions"
     annotation (Dialog(group="Domestic hot water"));
   parameter Modelica.Units.SI.Temperature TCol_nominal = 288.15
     "Temperature of cold water"
