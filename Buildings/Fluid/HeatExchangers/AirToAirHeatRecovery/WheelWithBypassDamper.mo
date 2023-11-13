@@ -156,47 +156,56 @@ equation
     annotation (Line(points={{-20,-60},{100,-60}},color={0,127,255}));
   connect(bypDamExh.port_b, port_b2)
     annotation (Line(points={{-40,-60},{-180,-60}}, color={0,127,255}));
-  connect(hex.port_b2, port_b2) annotation (Line(points={{-10,8},{-76,8},{-76,-60},
-          {-180,-60}}, color={0,127,255}));
+  connect(hex.port_b2, port_b2) 
+    annotation (Line(points={{-10,8},{-70,8},{-70,-60},{-180,-60}}, color={0,127,255}));
   connect(PEle.y, P)
     annotation (Line(points={{91,0},{110,0}}, color={0,0,127}));
   connect(VExh_flow.port_a, damExh.port_b)
     annotation (Line(points={{44,-14},{60,-14},{60,-30}}, color={0,127,255}));
   connect(damExh.port_a, port_a2)
     annotation (Line(points={{60,-50},{60,-60},{100,-60}}, color={0,127,255}));
-  connect(add.y, damSup.y) annotation (Line(points={{-105.3,101},{20,101},{20,50},
-          {-28,50},{-28,48}}, color={0,0,127}));
-  connect(damExh.y, add.y) annotation (Line(points={{48,-40},{20,-40},{20,101},{
-          -105.3,101}}, color={0,0,127}));
+  connect(add.y, damSup.y) 
+    annotation (Line(points={{-105.3,101},{20,101},{20,50},{-28,50},{-28,48}}, color={0,0,127}));
+  connect(damExh.y, add.y) 
+    annotation (Line(points={{48,-40},{20,-40},{20,101},{-105.3,101}}, color={0,0,127}));
   connect(hex.port_b1, VSup_flow.port_a)
     annotation (Line(points={{10,20},{44,20}}, color={0,127,255}));
-  connect(VSup_flow.port_b, port_b1) annotation (Line(points={{58,20},{78,20},{
-          78,80},{100,80}}, color={0,127,255}));
-  connect(effCal.epsSen, hex.epsSen) annotation (Line(points={{-79,20},{-76,20},
-          {-76,18},{-12,18}}, color={0,0,127}));
+  connect(VSup_flow.port_b, port_b1) 
+    annotation (Line(points={{58,20},{78,20},{78,80},{100,80}}, color={0,127,255}));
+  connect(effCal.epsSen, hex.epsSen) 
+    annotation (Line(points={{-79,20},{-76,20},{-76,18},{-12,18}}, color={0,0,127}));
   connect(effCal.epsLat, hex.epsLat) annotation (Line(points={{-79,12},{-76,12},
           {-76,10},{-12,10}}, color={0,0,127}));
   connect(bypDamSup.y, bypDamPos)
     annotation (Line(points={{-28,92},{-28,120},{-200,120}}, color={0,0,127}));
-  connect(add.u2, uni.y) annotation (Line(points={{-121.4,96.8},{-132,96.8},{-132,
+  connect(add.u2, uni.y) 
+    annotation (Line(points={{-121.4,96.8},{-132,96.8},{-132,
           39},{-139.3,39}}, color={0,0,127}));
-  connect(effCal.wheSpe, uni.y) annotation (Line(points={{-102,16},{-124,16},{-124,
+  connect(effCal.wheSpe, uni.y) 
+    annotation (Line(points={{-102,16},{-124,16},{-124,
           39},{-139.3,39}}, color={0,0,127}));
-  connect(TSup.y, effCal.TSup) annotation (Line(points={{-141,-10},{-114,-10},{-114,
+  connect(TSup.y, effCal.TSup) 
+    annotation (Line(points={{-141,-10},{-114,-10},{-114,
           12},{-102,12}}, color={0,0,127}));
-  connect(TExh.y, effCal.TExh) annotation (Line(points={{-141,-30},{-110,-30},{-110,
+  connect(TExh.y, effCal.TExh) 
+    annotation (Line(points={{-141,-30},{-110,-30},{-110,
           8},{-102,8}}, color={0,0,127}));
   connect(damSup.port_b, hex.port_a1)
     annotation (Line(points={{-18,36},{-10,36},{-10,20}}, color={0,127,255}));
-  connect(damSup.port_a, port_a1) annotation (Line(points={{-38,36},{-100,36},{
+  connect(damSup.port_a, port_a1) 
+    annotation (Line(points={{-38,36},{-100,36},{
           -100,80},{-180,80}}, color={0,127,255}));
-  connect(VExh_flow.V_flow, effCal.VExh_flow) annotation (Line(points={{37,-5.2},
+  connect(VExh_flow.V_flow, effCal.VExh_flow) 
+    annotation (Line(points={{37,-5.2},
           {37,56},{-120,56},{-120,20},{-102,20}}, color={0,0,127}));
-  connect(bypDamExh.y, bypDamPos) annotation (Line(points={{-30,-48},{-30,-20},{
+  connect(bypDamExh.y, bypDamPos) 
+    annotation (Line(points={{-30,-48},{-30,-20},{
           -54,-20},{-54,120},{-200,120}}, color={0,0,127}));
-  connect(add.u1, bypDamPos) annotation (Line(points={{-121.4,105.2},{-132,105.2},
+  connect(add.u1, bypDamPos) 
+    annotation (Line(points={{-121.4,105.2},{-132,105.2},
           {-132,120},{-200,120}}, color={0,0,127}));
-  connect(VSup_flow.V_flow, effCal.VSup_flow) annotation (Line(points={{51,28.8},
+  connect(VSup_flow.V_flow, effCal.VSup_flow) 
+    annotation (Line(points={{51,28.8},
           {51,60},{-114,60},{-114,24},{-102,24}}, color={0,0,127}));
   annotation (
         defaultComponentName="whe",
@@ -256,7 +265,7 @@ equation
           Diagram(
         coordinateSystem(preserveAspectRatio=true, extent={{-180,-100},{100,140}})),
     Documentation(info="<html>
-Model for a generic, sensible and latent air-to-air heat recovery wheel, that consists of 
+Model for a generic, sensible, and latent air-to-air heat recovery wheel, that consists of 
 a heat exchanger and supply/exhaust airflow bypass dampers.
 
 The input requires no geometric data. Performance is defined by specifying sensible and/or latent effectiveness 
@@ -265,7 +274,7 @@ For details, refer to
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.EffectivenessCalculation\">
 Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.EffectivenessCalculation</a>.
 
-The operation of the heat recovery wheel is adjustable through bypassing supply/exhaust air 
+The operation of the heat recovery wheel is adjustable via bypassing supply/exhaust air 
 around the heat exchanger.
 </html>", revisions="<html>
 <ul>

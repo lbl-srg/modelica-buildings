@@ -1,6 +1,6 @@
 simulateModel("Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.Examples.WheelWithVariableSpeed", stopTime=360, method="CVode", tolerance=1e-06, resultFile="WheelWithVariableSpeed");
 createPlot(id=1, position={40, -1, 890, 669}, y={"whe.hex.sta_b1.T", "TSup.y"}, range={0.0, 360.0, 280.0, 320.0}, grid=true, subPlot=101, colors={{238,46,47}, {28,108,200}}, timeUnit="s", displayUnits={"K", ""});
 createPlot(id=1, position={40, -1, 890, 669}, y={"whe.port_a1.m_flow", "whe.port_a2.m_flow"}, range={0.0, 360.0, 0.0, 20.0}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"kg/s", "kg/s"});
-createPlot(id=1, position={40, -1, 890, 669}, y={"TExh.y", "whe.hex.sta_b2.T"}, range={0.0, 360.0, 290.0, 310.0}, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"", "K"});
+createPlot(id=1, position={40, -1, 890, 669}, y={"whe.hex.sta_b2.T"}, range={0.0, 360.0, 290.0, 310.0}, grid=true, subPlot=103, colors={{238,46,47}}, timeUnit="s", displayUnits={"K"});
 createPlot(id=1, position={40, -1, 890, 669}, y={"whe.wheSpe"}, range={0.0, 360.0, 0.6000000000000001, 0.9000000000000001}, grid=true, subPlot=104, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
 createPlot(id=1, position={40, -1, 890, 669}, y={"whe.effCal.epsSen", "whe.effCal.epsLat"}, range={0.0, 360.0, 0.0, 1.0}, grid=true, subPlot=105, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"1", "1"});

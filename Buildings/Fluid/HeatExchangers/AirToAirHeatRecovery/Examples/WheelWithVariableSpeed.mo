@@ -85,27 +85,31 @@ model WheelWithVariableSpeed
     "Wheel speed"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 equation
-  connect(PIn.y,sou_2. p_in) annotation (Line(
+  connect(PIn.y,sou_2. p_in) 
+    annotation (Line(
       points={{21,-52},{38,-52}},
       color={0,0,127}));
   connect(TSup.y, sou_1.T_in)
     annotation (Line(points={{-73,54},{-62,54}}, color={0,0,127}));
-  connect(PSin_1.y, sin_1.p_in) annotation (Line(points={{61,70},{90,70},{90,20},
-          {86,20}},     color={0,0,127}));
-  connect(sou_1.ports[1],whe. port_a1) annotation (Line(
+  connect(PSin_1.y, sin_1.p_in) 
+    annotation (Line(points={{61,70},{90,70},{90,20},
+          {86,20}}, color={0,0,127}));
+  connect(sou_1.ports[1],whe. port_a1) 
+    annotation (Line(
       points={{-40,50},{0,50},{0,12},{6,12}},
       color={0,127,255}));
-  connect(whe.port_a2, sou_2.ports[1]) annotation (Line(
+  connect(whe.port_a2, sou_2.ports[1]) 
+    annotation (Line(
       points={{26,5.55112e-16},{32,5.55112e-16},{32,-20},{70,-20},{70,-60},{60,
-          -60}},
-      color={0,127,255}));
-  connect(whe.port_b1, sin_1.ports[1]) annotation (Line(
+          -60}},color={0,127,255}));
+  connect(whe.port_b1, sin_1.ports[1]) 
+    annotation (Line(
       points={{26,12},{45,12},{45,12},{64,12}},
       color={0,127,255}));
-  connect(whe.port_b2, sin_2.ports[1]) annotation (Line(
+  connect(whe.port_b2, sin_2.ports[1]) 
+    annotation (Line(
       points={{6,5.55112e-16},{-18,5.55112e-16},{-18,6.66134e-16},{-38,
-          6.66134e-16}},
-      color={0,127,255}));
+          6.66134e-16}},color={0,127,255}));
   connect(WheSpe.y, whe.wheSpe) annotation (Line(points={{-59,-30},{-28,-30},{-28,
           6},{4,6}}, color={0,0,127}));
  annotation(experiment(Tolerance=1e-6, StopTime=360),
@@ -118,9 +122,19 @@ Example for using the block
 Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.WheelWithVariableSpeed</a>.
 </p>
 <p>
-The test condition is the same as <a href=\"modelica://Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.Examples.WheelWithBypassDamper\">
-Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.Examples.WheelWithBypassDamper</a></p>
-<b>Note:</b> This problem may fails to translate in Dymola 2012 due to an error in Dymola's support
+The input signals are configured as follows:</p>
+<ul>
+<li>The temperature of the supply air, <i>TSup</i>, changes from <i>273.15 + 30 K</i> to <i>273.15 + 40 K</i> during the period from <i>60s</i> to <i>120s</i>.
+On the other hand, the temperature of the exhaust air is constant;
+</ul>
+<ul>
+<li>The wheel speead ratio, <i>wheSpe</i>, changes from <i>0.7</i> to <i>1</i> during the period from <i>60s</i> to <i>120s</i>;
+</ul>
+<ul>
+<li>The flow rate of the exhaust air changes from  <i>5.24kg/s</i> to <i>1.58kg/s</i> during the period from <i>240s</i> to <i>300s</i>;
+</ul>
+<b>Note:</b> This problem may fail to translate in Dymola 2012 due to an error in Dymola's support
+of the stream connector.
 of stream connector.
 </html>", revisions="<html>
 <ul>

@@ -4,7 +4,6 @@ compareVars :=
     "TSup.y",
     "whe.port_a1.m_flow",
     "whe.port_a2.m_flow",
-    "TExh.y",
     "whe.hex.sta_b2.T",
     "whe.wheSpe",
     "whe.effCal.epsSen",

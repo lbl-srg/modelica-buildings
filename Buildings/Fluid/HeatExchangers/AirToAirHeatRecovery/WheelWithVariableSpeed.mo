@@ -110,31 +110,42 @@ model WheelWithVariableSpeed
 equation
   connect(senExhFlow.port_b, hex.port_a2)
     annotation (Line(points={{42,-6},{26,-6}}, color={0,127,255}));
-  connect(hex.port_a1, senSupFlow.port_b) annotation (Line(points={{6,6},{-2,6},
-          {-2,100},{-28,100}},   color={0,127,255}));
-  connect(hex.port_b1, port_b1) annotation (Line(points={{26,6},{64,6},{64,100},
+  connect(hex.port_a1, senSupFlow.port_b) 
+    annotation (Line(points={{6,6},{-2,6},
+          {-2,100},{-28,100}}, color={0,127,255}));
+  connect(hex.port_b1, port_b1) 
+    annotation (Line(points={{26,6},{64,6},{64,100},
           {100,100}}, color={0,127,255}));
-  connect(hex.port_b2, port_b2) annotation (Line(points={{6,-6},{-62,-6},{-62,-60},
+  connect(hex.port_b2, port_b2) 
+    annotation (Line(points={{6,-6},{-62,-6},{-62,-60},
           {-100,-60}}, color={0,127,255}));
   connect(PEle.y, P)
-  annotation (Line(points={{91,0},{110,0}}, color={0,0,127}));
-  connect(senExhFlow.port_a, port_a2) annotation (Line(points={{56,-6},{64,-6},{
+    annotation (Line(points={{91,0},{110,0}}, color={0,0,127}));
+  connect(senExhFlow.port_a, port_a2) 
+    annotation (Line(points={{56,-6},{64,-6},{
           64,-60},{100,-60}}, color={0,127,255}));
-  connect(senSupFlow.port_a, port_a1) annotation (Line(points={{-42,100},{-72,100},
+  connect(senSupFlow.port_a, port_a1) 
+    annotation (Line(points={{-42,100},{-72,100},
           {-72,100},{-100,100}}, color={0,127,255}));
   connect(effCal.epsSen, hex.epsSen)
     annotation (Line(points={{-19,54},{-6,54},{-6,4},{4,4}}, color={0,0,127}));
-  connect(effCal.epsLat, hex.epsLat) annotation (Line(points={{-19,46},{-12,46},
+  connect(effCal.epsLat, hex.epsLat) 
+    annotation (Line(points={{-19,46},{-12,46},
           {-12,-4},{4,-4}}, color={0,0,127}));
-  connect(effCal.wheSpe, wheSpe) annotation (Line(points={{-42,50},{-94,50},{-94,
+  connect(effCal.wheSpe, wheSpe) 
+    annotation (Line(points={{-42,50},{-94,50},{-94,
           0},{-120,0}}, color={0,0,127}));
-  connect(senSupFlow.V_flow, effCal.VSup_flow) annotation (Line(points={{-35,108.8},
+  connect(senSupFlow.V_flow, effCal.VSup_flow) 
+    annotation (Line(points={{-35,108.8},
           {-35,120},{-80,120},{-80,58},{-42,58}}, color={0,0,127}));
-  connect(senExhFlow.V_flow, effCal.VExh_flow) annotation (Line(points={{49,2.8},
+  connect(senExhFlow.V_flow, effCal.VExh_flow) 
+    annotation (Line(points={{49,2.8},
           {49,80},{-74,80},{-74,54},{-42,54}}, color={0,0,127}));
-  connect(TSup.y, effCal.TSup) annotation (Line(points={{-69,38},{-60,38},{-60,46},
+  connect(TSup.y, effCal.TSup) 
+    annotation (Line(points={{-69,38},{-60,38},{-60,46},
           {-42,46}}, color={0,0,127}));
-  connect(TExh.y, effCal.TExh) annotation (Line(points={{-69,20},{-52,20},{-52,42},
+  connect(TExh.y, effCal.TExh) 
+    annotation (Line(points={{-69,20},{-52,20},{-52,42},
           {-42,42}}, color={0,0,127}));
   annotation (
         defaultComponentName="whe",
@@ -191,13 +202,13 @@ equation
           Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,140}})),
     Documentation(info="<html>
-Model for a generic, sensible and latent air-to-air heat recovery wheel with a variable speed drive.
+Model for a generic, sensible, and latent air-to-air heat recovery wheel with a variable speed drive.
 The input requires no geometric data. Performance is defined by specifying sensible and/or latent effectiveness 
 at 75% and 100% of the nominal supply air flow rate in both heating and cooling conditions
 For details, refer to
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.EffectivenessCalculation\">
 Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.EffectivenessCalculation</a>.
-The operation of the heat recovery wheel is adjustable through modulating the wheel speed.
+The operation of the heat recovery wheel is adjustable by modulating the wheel speed.
 </html>", revisions="<html>
 <ul>
 <li>

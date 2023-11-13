@@ -70,7 +70,7 @@ equation
   rat = (VSup_flow + VExh_flow)/2/VSup_flow_nominal;
   // check if the extrapolation goes too far.
   assert(rat > 0.5 and rat < 1.3,
-    "Operating flow rate outside full accuracy range",
+    "Operating flow rate outside the full accuracy range",
     level=AssertionLevel.warning);
 
   epsSen_ParLoa = Buildings.Utilities.Math.Functions.regStep(TSup-TExh, epsSenCoo_ParLoa, epsSenHea_ParLoa, 1e-5);
@@ -137,9 +137,9 @@ Otherwise, it is considered to operate under a heating mode.
 
 <P>
 <b>Note:</b> 
-The average volumetric air flow rate should be between 50% and 130% of the nominal supply air flow rate to ensure reasonable extrapolation.
-In addition, air flows through the heat exchanger may be unbalanced, i.e., <code>rat</code> &ne; <i>1</i>.
-However, but an unbalanced air flow ratio greater than 2,  i.e., <code>rat</code> &#62; <i>2</i> or <code>rat</code> &#60; <i>0.5</i>, is not recommended.
+The <code>rat</code> should be between <i>0.5</i> and <i>1.3</i> to ensure reasonable extrapolation.
+Likewise, an unbalanced air flow ratio greater than 2,  i.e., <code>VSup_flow/VExh_flow</code> &#62; <i>2</i> or <code>VSup_flow/VExh_flow</code> &#60; <i>0.5</i>, 
+is not recommended.
 </P>
 
 <h4>References</h4>

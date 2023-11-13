@@ -113,7 +113,7 @@ Documentation(info="<html>
 This block is identical to
 <a href=\"modelica://Buildings.Fluid.MassExchangers.ConstantEffectiveness\">
 Buildings.Fluid.MassExchangers.ConstantEffectivenesst</a>,
-except that the effectiveness are inputs rather than parameters.
+except that the sensible and latent effectiveness are inputs rather than parameters.
 </p>
 
 This model transfers heat and moisture in the amount of
@@ -123,7 +123,7 @@ This model transfers heat and moisture in the amount of
 </pre>
 
 where <code>epsSen</code> and <code>epsLat</code> are input effectiveness
-for the sensible and latent heat transfer,
+for the sensible and latent heat transfer, respectively;
 <code>Q_max</code> is the maximum sensible heat that can be transferred and
 <code>mWat_max</code> is the maximum moisture that can be transferred.
 

@@ -49,15 +49,19 @@ model EffectivenessCalculation
     "Exhaust air flow rate"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 equation
-  connect(VSup.y, epsCal.VSup_flow) annotation (Line(points={{-59,70},{-28,70},{
+  connect(VSup.y, epsCal.VSup_flow) 
+    annotation (Line(points={{-59,70},{-28,70},{
           -28,8},{-14,8}}, color={0,0,127}));
-  connect(VExh.y, epsCal.VExh_flow) annotation (Line(points={{-59,30},{-40,30},{
+  connect(VExh.y, epsCal.VExh_flow) 
+    annotation (Line(points={{-59,30},{-40,30},{
           -40,4},{-14,4}}, color={0,0,127}));
   connect(whSpe.y, epsCal.wheSpe)
     annotation (Line(points={{-59,0},{-14,0}}, color={0,0,127}));
-  connect(TSup.y, epsCal.TSup) annotation (Line(points={{-59,-40},{-40,-40},{-40,
+  connect(TSup.y, epsCal.TSup) 
+    annotation (Line(points={{-59,-40},{-40,-40},{-40,
           -4},{-14,-4}}, color={0,0,127}));
-  connect(TExh.y, epsCal.TExh) annotation (Line(points={{-59,-80},{-28,-80},{-28,
+  connect(TExh.y, epsCal.TExh) 
+    annotation (Line(points={{-59,-80},{-28,-80},{-28,
           -8},{-14,-8}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
@@ -77,12 +81,12 @@ The input signals are configured as follows:
 After that, <i>TSup</i> is less than <i>TExh</i>, leading to a heating mode;
 </ul>
 <ul>
-<li> The supply air flow rate, <i>vSup</i>, and the exhaust air flow rate, <i>vExh</i>, change from 0.3 to 1 and 0.2 to 1 
+<li> The supply air flow rate, <i>VSup</i>, and the exhaust air flow rate, <i>VExh</i>, change from 0.3 to 1 and 0.2 to 1 
 during the period from <i>0s</i> to <i>60s</i>, respectively;
 They then stay constant.
 </ul>
 <ul>
-<li> The wheel speed ratio, <i>y</i> keeps constant during the period from <i>0s</i> to <i>60s</i> and then increases from 0.3 to 1
+<li> The wheel speed ratio, <i>wheSpe</i> keeps constant during the period from <i>0s</i> to <i>60s</i> and then increases from 0.3 to 1
 during the period from <i>60s</i> to <i>120s</i>;
 </ul>
 </html>", revisions="<html>
