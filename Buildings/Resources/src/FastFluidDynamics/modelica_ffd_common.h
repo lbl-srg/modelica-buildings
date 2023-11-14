@@ -87,4 +87,11 @@ typedef struct{
   ModelicaSharedData *modelica;
 } CosimulationData;
 
+#define FFD_ISAT
+
+#ifdef FFD_ISAT
+typedef enum { COSIM_WARNING, COSIM_ERROR, COSIM_NORMAL, COSIM_NEW } COSIM_MSG_TYPE;
+typedef enum { temp_roo, temp_occ, vel_occ, temp_sen, vel_sen, temp_rack, heat_wall1, heat_wall2, heat_wall3, heat_wall4, heat_wall5, heat_wall6} OUTPUT_TYPE;
+typedef enum { inlet_temp, inlet_mass, inlet_vel, block_temp, block_hea, rack_hea, sur_temp, sur_hea } INPUT_TYPE;
+#endif
 

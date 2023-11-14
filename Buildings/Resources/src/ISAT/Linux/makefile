@@ -18,8 +18,8 @@ BINDIR = ../../../Library/linux$(ARCH)
 CC = gcc
 
 #Note that Dymola use 32bit compiler, so generated executable only support 32bit loaded library
-CC_FLAGS_32 = -Wall -lm -m32 -std=c89 -pedantic -msse2 -mfpmath=sse
-CC_FLAGS_64 = -Wall -lm -m64 -std=c89 -pedantic -msse2 -mfpmath=sse
+CC_FLAGS_32 = -Wall -lm -m32 -std=c89 -pedantic -msse2 -mfpmath=sse -fcommon
+CC_FLAGS_64 = -Wall -lm -m64 -std=c89 -pedantic -msse2 -mfpmath=sse -fcommon
 
 # Directory for FFD source code
 FFD = ../../FastFluidDynamics/
