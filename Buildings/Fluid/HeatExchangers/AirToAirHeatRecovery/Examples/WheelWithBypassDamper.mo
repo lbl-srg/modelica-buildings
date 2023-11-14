@@ -114,7 +114,7 @@ On the other hand, the temperature of the exhaust air is constant;
 <li>The bypass damper position, <i>bypDamPos</i>, changes from <i>0</i> to <i>0.2</i> during the period from <i>200s</i> to <i>360s</i>;
 </ul>
 <ul>
-<li>The supply flow rate and the exhaust flow rate are constant.
+<li>The supply air flow rate and the exhaust air flow rate are constant.
 </ul>
 <b>Note:</b> This problem may fail to translate in Dymola 2012 due to an error in Dymola's support
 of the stream connector.

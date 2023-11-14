@@ -7,8 +7,5 @@ This package contains validation models for the classes in
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses\">
 Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses</a>.
 
-Note that most validation models contain simple input data
-which may not be realistic, but for which the correct
-output can be obtained through an analytic solution.
 </html>"));
 end Validation;

@@ -124,7 +124,8 @@ This model transfers heat and moisture in the amount of
 
 where <code>epsSen</code> and <code>epsLat</code> are input effectiveness
 for the sensible and latent heat transfer, respectively;
-<code>Q_max</code> is the maximum sensible heat that can be transferred and
+<code>Q_max</code> is the maximum sensible heat that can be transferred,
+<code>m</code> is the moisture that is transferred, and
 <code>mWat_max</code> is the maximum moisture that can be transferred.
 
 

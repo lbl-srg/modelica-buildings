@@ -65,7 +65,7 @@ model WheelWithVariableSpeed
   Buildings.Fluid.Sensors.VolumeFlowRate senExhFlow(
     redeclare package Medium = Medium2,
     final m_flow_nominal=m2_flow_nominal)
-    "Damper in the exhaust air stream"
+    "Flow sensor in the exhaust air stream"
     annotation (Placement(transformation(extent={{56,-14},{42,2}})));
   Buildings.Fluid.Sensors.VolumeFlowRate senSupFlow(
     redeclare package Medium =Medium1,
@@ -87,25 +87,25 @@ model WheelWithVariableSpeed
     "Temperature of the exhaust air"
     annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
   Modelica.Blocks.Sources.RealExpression PEle(y=P_nominal)
-    "Electrical power consumption"
+    "Electric power consumption"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a1(
     redeclare final package Medium = Medium1)
-    "Fluid connector a1 (positive design flow direction is from port_a1 to port_b1)"
+    "Fluid connector a1 of the supply air"
     annotation (Placement(transformation(extent={{-110,90},{-90,110}}),
         iconTransformation(extent={{-110,50},{-90,70}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b2(
     redeclare final package Medium = Medium2)
-    "Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)"
+    "Fluid connector b2 of the exhaust air"
     annotation (Placement(transformation(extent={{-90,-70},{-110,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b1(
     redeclare final package Medium = Medium1)
-    "Fluid connector b1 (positive design flow direction is from port_a1 to port_b1)"
+    "Fluid connector b1 of the supply air"
     annotation (Placement(transformation(extent={{110,90},{90,110}}),
         iconTransformation(extent={{110,50},{90,70}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a2(
     redeclare final package Medium = Medium2)
-    "Fluid connector a2 (positive design flow direction is from port_a2 to port_b2)"
+    "Fluid connector a2 of the exhaust air)"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
 equation
   connect(senExhFlow.port_b, hex.port_a2)

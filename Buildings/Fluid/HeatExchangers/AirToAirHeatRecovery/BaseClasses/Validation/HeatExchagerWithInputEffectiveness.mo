@@ -42,7 +42,7 @@ model HeatExchagerWithInputEffectiveness
     T=273.15 + 50,
     X={0.012,1 - 0.012},
     use_T_in=true,
-    p=100000,
+    p(displayUnit="Pa") = 100000,
     nPorts=1)
      "Source of the supply air"
     annotation (Placement(transformation(extent={{-48,50},{-28,70}})));
