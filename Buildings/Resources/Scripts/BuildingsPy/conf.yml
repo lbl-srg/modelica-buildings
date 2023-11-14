@@ -388,6 +388,8 @@
     comment: See https://github.com/lbl-srg/modelica-buildings/issues/2231
     simulate: false
 - model_name: Buildings.ThermalZones.Detailed.Examples.FFD.Tutorial.MixedConvectionWithBox
+  dymola:
+    time_out: 600
   openmodelica:
     comment: Failed to solve linear system of equations (no. 697) at time 0.000000.
     simulate: false
@@ -399,6 +401,8 @@
     comment: 'TimeoutExpired: omc timed out after 300 seconds'
     simulate: false
 - model_name: Buildings.ThermalZones.Detailed.Examples.FFD.WindowWithShade
+  dymola:
+    time_out: 600
   openmodelica:
     comment: 'TimeoutExpired: omc timed out after 300 seconds'
     simulate: false
