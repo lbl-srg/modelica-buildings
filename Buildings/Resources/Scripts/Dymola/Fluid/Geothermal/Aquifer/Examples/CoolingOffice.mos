@@ -1,0 +1,13 @@
+simulateModel("Buildings.Fluid.Geothermal.Aquifer.Examples.CoolingOffice", tolerance=1e-6, startTime=0, stopTime=7776000, method="CVode", resultFile="CoolingOffice");
+createPlot(id = 1,
+ position = {55, 50, 697, 502},
+ x = "time",
+ y = {"aquWel.TAquHot[50]"},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "CoolingOffice.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);
