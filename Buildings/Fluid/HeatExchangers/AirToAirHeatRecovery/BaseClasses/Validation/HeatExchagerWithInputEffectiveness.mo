@@ -75,23 +75,23 @@ model HeatExchagerWithInputEffectiveness
 equation
   connect(TSup.y, sou_1.T_in)
     annotation (Line(points={{-69,64},{-50,64}}, color={0,0,127}));
-  connect(sou_1.ports[1], hex.port_a1) 
+  connect(sou_1.ports[1], hex.port_a1)
     annotation (Line(
       points={{-28,60},{-2,60},{-2,12},{6,12}},
       color={0,127,255}));
-  connect(hex.port_a2, sou_2.ports[1]) 
+  connect(hex.port_a2, sou_2.ports[1])
     annotation (Line(
       points={{26,5.55112e-16},{32,5.55112e-16},{32,-20},{70,-20},{70,-60},{60,
           -60}},color={0,127,255}));
-  connect(hex.port_b1, sin_1.ports[1]) 
+  connect(hex.port_b1, sin_1.ports[1])
     annotation (Line(
       points={{26,12},{45,12},{45,12},{64,12}},
       color={0,127,255}));
-  connect(hex.port_b2, sin_2.ports[1]) 
+  connect(hex.port_b2, sin_2.ports[1])
     annotation (Line(
       points={{6,0},{-26,0},{-26,-20},{-34,-20}},
       color={0,127,255}));
-  connect(epsSen.y, hex.epsSen) 
+  connect(epsSen.y, hex.epsSen)
     annotation (Line(points={{-69,20},{-4,20},{-4,10},{4,
           10}}, color={0,0,127}));
   connect(hex.epsLat, epsLat.y) annotation (Line(points={{4,2},{-62,2},{-62,-40},{-69,
@@ -114,7 +114,7 @@ The input signals are configured as follows:
 <li>Sensible heat exchanger effectiveness, <i>epsSen</i>, changes from <i>0.7</i> to <i>0.8</i> during the period from <i>120s</i> to <i>180s</i>;
 </ul>
 <ul>
-<li>Latent heat exchanger effectiveness, <i>epsLat</i>, changes from <i>0.7</i> to <i>0.8</i> during the period from <i>60s</i> to <i>120s</i>;
+<li>Latent heat exchanger effectiveness, <i>epsLat</i>, changes from <i>0.7</i> to <i>0.8</i> during the period from <i>60s</i> to <i>120s</i>.
 </ul>
 <p>
 <b>Note:</b> This problem may fail to translate in Dymola 2012 due to an error in Dymola's support

@@ -11,11 +11,11 @@ model WheelWithBypassDamper
     "Air flow rate of the supply air stream";
   parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal
     "Air flow rate of the exhaust air stream";
-  parameter Modelica.Units.SI.PressureDifference dp1_nominal = 500
+  parameter Modelica.Units.SI.PressureDifference dp1_nominal = 125
     "Nominal pressure drop of the supply air stream";
-  parameter Modelica.Units.SI.PressureDifference dp2_nominal = 500
+  parameter Modelica.Units.SI.PressureDifference dp2_nominal = 125
     "Nominal pressure drop of the exhaust air stream";
-  parameter Real P_nominal(final unit="W") = 1000
+  parameter Real P_nominal(final unit="W") = 100
     "Power at design condition";
   parameter Modelica.Units.SI.Efficiency epsSenCoo_nominal(final max=1) = 0.8
     "Nominal sensible heat exchanger effectiveness at the cooling mode";
@@ -62,15 +62,15 @@ model WheelWithBypassDamper
     final epsLatHea_ParLoa=epsLatHea_ParLoa,
     final VSup_flow_nominal=m1_flow_nominal/1.293)
     "Calculates the effectiveness of heat exchanges"
-    annotation (Placement(transformation(extent={{-100,6},{-80,26}})));
+    annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
   Buildings.Fluid.Sensors.VolumeFlowRate VExh_flow(redeclare package Medium =
         Medium2, final m_flow_nominal=m2_flow_nominal)
     "Damper in the exhaust air stream"
-    annotation (Placement(transformation(extent={{44,-22},{30,-6}})));
+    annotation (Placement(transformation(extent={{-42,-28},{-56,-12}})));
   Buildings.Fluid.Sensors.VolumeFlowRate VSup_flow(redeclare package Medium =
         Medium1, final m_flow_nominal=m1_flow_nominal)
     "Flow sensor in the supply air stream"
-    annotation (Placement(transformation(extent={{44,12},{58,28}})));
+    annotation (Placement(transformation(extent={{-78,28},{-64,44}})));
   Buildings.Fluid.Actuators.Dampers.Exponential bypDamSup(
     redeclare package Medium = Medium1,
     final m_flow_nominal=m1_flow_nominal,
@@ -142,12 +142,10 @@ model WheelWithBypassDamper
   Modelica.Blocks.Sources.Constant uni(final k=1)
     "Unity signal"
     annotation (Placement(transformation(extent={{-154,32},{-140,46}})));
-  Modelica.Blocks.Math.Add add(final k2=-1)
+  Modelica.Blocks.Math.Add add(k1=-1, final k2=+1)
     "Adder"
     annotation (Placement(transformation(extent={{-120,94},{-106,108}})));
 equation
-  connect(VExh_flow.port_b, hex.port_a2) annotation (Line(points={{30,-14},{16,-14},
-          {16,8},{10,8}}, color={0,127,255}));
   connect(bypDamSup.port_a, port_a1)
     annotation (Line(points={{-38,80},{-180,80}}, color={0,127,255}));
   connect(bypDamSup.port_b, port_b1)
@@ -156,57 +154,62 @@ equation
     annotation (Line(points={{-20,-60},{100,-60}},color={0,127,255}));
   connect(bypDamExh.port_b, port_b2)
     annotation (Line(points={{-40,-60},{-180,-60}}, color={0,127,255}));
-  connect(hex.port_b2, port_b2) 
-    annotation (Line(points={{-10,8},{-70,8},{-70,-60},{-180,-60}}, color={0,127,255}));
   connect(PEle.y, P)
     annotation (Line(points={{91,0},{110,0}}, color={0,0,127}));
-  connect(VExh_flow.port_a, damExh.port_b)
-    annotation (Line(points={{44,-14},{60,-14},{60,-30}}, color={0,127,255}));
   connect(damExh.port_a, port_a2)
     annotation (Line(points={{60,-50},{60,-60},{100,-60}}, color={0,127,255}));
-  connect(add.y, damSup.y) 
-    annotation (Line(points={{-105.3,101},{20,101},{20,50},{-28,50},{-28,48}}, color={0,0,127}));
-  connect(damExh.y, add.y) 
+  connect(add.y, damSup.y)
+    annotation (Line(points={{-105.3,101},{20,101},{20,60},{-28,60},{-28,48}}, color={0,0,127}));
+  connect(damExh.y, add.y)
     annotation (Line(points={{48,-40},{20,-40},{20,101},{-105.3,101}}, color={0,0,127}));
-  connect(hex.port_b1, VSup_flow.port_a)
-    annotation (Line(points={{10,20},{44,20}}, color={0,127,255}));
-  connect(VSup_flow.port_b, port_b1) 
-    annotation (Line(points={{58,20},{78,20},{78,80},{100,80}}, color={0,127,255}));
-  connect(effCal.epsSen, hex.epsSen) 
-    annotation (Line(points={{-79,20},{-76,20},{-76,18},{-12,18}}, color={0,0,127}));
-  connect(effCal.epsLat, hex.epsLat) annotation (Line(points={{-79,12},{-76,12},
-          {-76,10},{-12,10}}, color={0,0,127}));
+  connect(effCal.epsSen, hex.epsSen)
+    annotation (Line(points={{-79,14},{-76,14},{-76,18},{-12,18}}, color={0,0,127}));
+  connect(effCal.epsLat, hex.epsLat) annotation (Line(points={{-79,6},{-76,6},{
+          -76,10},{-12,10}},  color={0,0,127}));
   connect(bypDamSup.y, bypDamPos)
     annotation (Line(points={{-28,92},{-28,120},{-200,120}}, color={0,0,127}));
-  connect(add.u2, uni.y) 
+  connect(add.u2, uni.y)
     annotation (Line(points={{-121.4,96.8},{-132,96.8},{-132,
           39},{-139.3,39}}, color={0,0,127}));
-  connect(effCal.wheSpe, uni.y) 
-    annotation (Line(points={{-102,16},{-124,16},{-124,
-          39},{-139.3,39}}, color={0,0,127}));
-  connect(TSup.y, effCal.TSup) 
-    annotation (Line(points={{-141,-10},{-114,-10},{-114,
-          12},{-102,12}}, color={0,0,127}));
-  connect(TExh.y, effCal.TExh) 
-    annotation (Line(points={{-141,-30},{-110,-30},{-110,
-          8},{-102,8}}, color={0,0,127}));
+  connect(effCal.wheSpe, uni.y)
+    annotation (Line(points={{-102,10},{-124,10},{-124,39},{-139.3,39}},
+                            color={0,0,127}));
+  connect(TSup.y, effCal.TSup)
+    annotation (Line(points={{-141,-10},{-114,-10},{-114,6},{-102,6}},
+                          color={0,0,127}));
+  connect(TExh.y, effCal.TExh)
+    annotation (Line(points={{-141,-30},{-110,-30},{-110,2},{-102,2}},
+                        color={0,0,127}));
   connect(damSup.port_b, hex.port_a1)
     annotation (Line(points={{-18,36},{-10,36},{-10,20}}, color={0,127,255}));
-  connect(damSup.port_a, port_a1) 
-    annotation (Line(points={{-38,36},{-100,36},{
-          -100,80},{-180,80}}, color={0,127,255}));
-  connect(VExh_flow.V_flow, effCal.VExh_flow) 
-    annotation (Line(points={{37,-5.2},
-          {37,56},{-120,56},{-120,20},{-102,20}}, color={0,0,127}));
-  connect(bypDamExh.y, bypDamPos) 
-    annotation (Line(points={{-30,-48},{-30,-20},{
-          -54,-20},{-54,120},{-200,120}}, color={0,0,127}));
-  connect(add.u1, bypDamPos) 
+  connect(bypDamExh.y, bypDamPos)
+    annotation (Line(points={{-30,-48},{-30,-30},{40,-30},{40,120},{-200,120}},
+                                          color={0,0,127}));
+  connect(add.u1, bypDamPos)
     annotation (Line(points={{-121.4,105.2},{-132,105.2},
           {-132,120},{-200,120}}, color={0,0,127}));
-  connect(VSup_flow.V_flow, effCal.VSup_flow) 
-    annotation (Line(points={{51,28.8},
-          {51,60},{-114,60},{-114,24},{-102,24}}, color={0,0,127}));
+  connect(VSup_flow.V_flow, effCal.VSup_flow)
+    annotation (Line(points={{-71,44.8},{-71,50},{-112,50},{-112,18},{-102,18}},
+                                                  color={0,0,127}));
+  connect(damSup.port_a, VSup_flow.port_b)
+    annotation (Line(points={{-38,36},{-64,36}}, color={0,127,255}));
+  connect(VSup_flow.port_a, port_a1)
+    annotation (Line(points={{-78,36},{-100,36},{-100,80},{-180,80}},
+                                color={0,127,255}));
+  connect(hex.port_b1, port_b1)
+    annotation (Line(points={{10,20},{58,20},{58,80},
+          {100,80}}, color={0,127,255}));
+  connect(hex.port_b2, VExh_flow.port_a)
+    annotation (Line(points={{-10,8},{-22,8},
+          {-22,-20},{-42,-20}}, color={0,127,255}));
+  connect(VExh_flow.port_b, port_b2)
+    annotation (Line(points={{-56,-20},{-70,-20},
+          {-70,-60},{-180,-60}}, color={0,127,255}));
+  connect(hex.port_a2, damExh.port_b)
+    annotation (Line(points={{10,8},{60,8},{60,-30}}, color={0,127,255}));
+  connect(VExh_flow.V_flow, effCal.VExh_flow)
+    annotation (Line(points={{-49,-11.2},{-49,60},{-120,60},{-120,14},{-102,14}},
+                                                   color={0,0,127}));
   annotation (
         defaultComponentName="whe",
         Icon(coordinateSystem(extent={{-100,-100},{100,100}}),

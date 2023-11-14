@@ -49,7 +49,7 @@ model EffectivenessCalculation
     "Latent heat exchanger effectiveness"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
 
-protected
+//protected
    Real rat
    "Ratio of the average operating volumetric air flow rate to the nominal supply air flow rate";
    Real epsSen_ParLoa

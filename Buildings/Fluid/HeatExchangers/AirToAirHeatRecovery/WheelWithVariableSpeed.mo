@@ -11,11 +11,11 @@ model WheelWithVariableSpeed
     "Air flow rate of the supply air stream";
   parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal
     "Air flow rate of the exhaust air stream";
-  parameter Modelica.Units.SI.PressureDifference dp1_nominal
+  parameter Modelica.Units.SI.PressureDifference dp1_nominal = 125
     "Nominal pressure drop of the supply air stream";
-  parameter Modelica.Units.SI.PressureDifference dp2_nominal
+  parameter Modelica.Units.SI.PressureDifference dp2_nominal = 125
     "Nominal pressure drop of the exhaust air stream";
-  parameter Real P_nominal(final unit="W") = 1000
+  parameter Real P_nominal(final unit="W") = 100
     "Power at design condition";
   parameter Modelica.Units.SI.Efficiency epsSenCoo_nominal(final max=1) = 0.8
     "Nominal sensible heat exchanger effectiveness at the cooling mode";
@@ -110,41 +110,41 @@ model WheelWithVariableSpeed
 equation
   connect(senExhFlow.port_b, hex.port_a2)
     annotation (Line(points={{42,-6},{26,-6}}, color={0,127,255}));
-  connect(hex.port_a1, senSupFlow.port_b) 
+  connect(hex.port_a1, senSupFlow.port_b)
     annotation (Line(points={{6,6},{-2,6},
           {-2,100},{-28,100}}, color={0,127,255}));
-  connect(hex.port_b1, port_b1) 
+  connect(hex.port_b1, port_b1)
     annotation (Line(points={{26,6},{64,6},{64,100},
           {100,100}}, color={0,127,255}));
-  connect(hex.port_b2, port_b2) 
+  connect(hex.port_b2, port_b2)
     annotation (Line(points={{6,-6},{-62,-6},{-62,-60},
           {-100,-60}}, color={0,127,255}));
   connect(PEle.y, P)
     annotation (Line(points={{91,0},{110,0}}, color={0,0,127}));
-  connect(senExhFlow.port_a, port_a2) 
+  connect(senExhFlow.port_a, port_a2)
     annotation (Line(points={{56,-6},{64,-6},{
           64,-60},{100,-60}}, color={0,127,255}));
-  connect(senSupFlow.port_a, port_a1) 
+  connect(senSupFlow.port_a, port_a1)
     annotation (Line(points={{-42,100},{-72,100},
           {-72,100},{-100,100}}, color={0,127,255}));
   connect(effCal.epsSen, hex.epsSen)
     annotation (Line(points={{-19,54},{-6,54},{-6,4},{4,4}}, color={0,0,127}));
-  connect(effCal.epsLat, hex.epsLat) 
+  connect(effCal.epsLat, hex.epsLat)
     annotation (Line(points={{-19,46},{-12,46},
           {-12,-4},{4,-4}}, color={0,0,127}));
-  connect(effCal.wheSpe, wheSpe) 
+  connect(effCal.wheSpe, wheSpe)
     annotation (Line(points={{-42,50},{-94,50},{-94,
           0},{-120,0}}, color={0,0,127}));
-  connect(senSupFlow.V_flow, effCal.VSup_flow) 
+  connect(senSupFlow.V_flow, effCal.VSup_flow)
     annotation (Line(points={{-35,108.8},
           {-35,120},{-80,120},{-80,58},{-42,58}}, color={0,0,127}));
-  connect(senExhFlow.V_flow, effCal.VExh_flow) 
+  connect(senExhFlow.V_flow, effCal.VExh_flow)
     annotation (Line(points={{49,2.8},
           {49,80},{-74,80},{-74,54},{-42,54}}, color={0,0,127}));
-  connect(TSup.y, effCal.TSup) 
+  connect(TSup.y, effCal.TSup)
     annotation (Line(points={{-69,38},{-60,38},{-60,46},
           {-42,46}}, color={0,0,127}));
-  connect(TExh.y, effCal.TExh) 
+  connect(TExh.y, effCal.TExh)
     annotation (Line(points={{-69,20},{-52,20},{-52,42},
           {-42,42}}, color={0,0,127}));
   annotation (

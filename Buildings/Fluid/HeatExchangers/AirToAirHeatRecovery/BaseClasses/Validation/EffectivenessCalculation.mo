@@ -35,32 +35,32 @@ model EffectivenessCalculation
     "Exhaust air temperature"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
    Modelica.Blocks.Sources.Ramp VSup(
-    height=0.7,
+    height=0.4,
     duration=60,
-    offset=0.3,
+    offset=0.6,
     startTime=0)
     "Supply air flow rate"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
    Modelica.Blocks.Sources.Ramp VExh(
-    height=0.8,
+    height=0.2,
     duration=60,
-    offset=0.2,
+    offset=0.8,
     startTime=0)
     "Exhaust air flow rate"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 equation
-  connect(VSup.y, epsCal.VSup_flow) 
+  connect(VSup.y, epsCal.VSup_flow)
     annotation (Line(points={{-59,70},{-28,70},{
           -28,8},{-14,8}}, color={0,0,127}));
-  connect(VExh.y, epsCal.VExh_flow) 
+  connect(VExh.y, epsCal.VExh_flow)
     annotation (Line(points={{-59,30},{-40,30},{
           -40,4},{-14,4}}, color={0,0,127}));
   connect(whSpe.y, epsCal.wheSpe)
     annotation (Line(points={{-59,0},{-14,0}}, color={0,0,127}));
-  connect(TSup.y, epsCal.TSup) 
+  connect(TSup.y, epsCal.TSup)
     annotation (Line(points={{-59,-40},{-40,-40},{-40,
           -4},{-14,-4}}, color={0,0,127}));
-  connect(TExh.y, epsCal.TExh) 
+  connect(TExh.y, epsCal.TExh)
     annotation (Line(points={{-59,-80},{-28,-80},{-28,
           -8},{-14,-8}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
@@ -81,7 +81,7 @@ The input signals are configured as follows:
 After that, <i>TSup</i> is less than <i>TExh</i>, leading to a heating mode;
 </ul>
 <ul>
-<li> The supply air flow rate, <i>VSup</i>, and the exhaust air flow rate, <i>VExh</i>, change from 0.3 to 1 and 0.2 to 1 
+<li> The supply air flow rate, <i>VSup</i>, and the exhaust air flow rate, <i>VExh</i>, change from 0.6 to 1 and 0.8 to 1 
 during the period from <i>0s</i> to <i>60s</i>, respectively;
 They then stay constant.
 </ul>

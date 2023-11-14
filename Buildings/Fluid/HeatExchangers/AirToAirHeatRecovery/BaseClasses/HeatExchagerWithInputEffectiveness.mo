@@ -136,7 +136,7 @@ revisions="<html>
 <ul>
 <li>
 September 29, 2023, by Sen Huang:<br/>
-Changing the effectiveness from parameters to inputs<br/>
+Change the effectiveness parameters into inputs<br/>
 </li>
 <li>
 April 30, 2018, by Filip Jorissen:<br/>
