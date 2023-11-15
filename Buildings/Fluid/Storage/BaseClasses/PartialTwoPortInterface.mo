@@ -60,8 +60,8 @@ partial model PartialTwoPortInterface
     else
       Medium.setState_phX(port_a.p,
                           noEvent(inStream(port_a.h_outflow)),
-                          noEvent(inStream(port_a.Xi_outflow)))
-      if show_T "Medium properties in port_a";
+                          noEvent(inStream(port_a.Xi_outflow))) if
+         show_T "Medium properties in port_a";
 
   Medium.ThermodynamicState sta_b=
     if allowFlowReversal then
@@ -71,8 +71,8 @@ partial model PartialTwoPortInterface
     else
       Medium.setState_phX(port_b.p,
                           noEvent(port_b.h_outflow),
-                          noEvent(port_b.Xi_outflow))
-       if show_T "Medium properties in port_b";
+                          noEvent(port_b.Xi_outflow)) if
+          show_T "Medium properties in port_b";
 
 protected
   final parameter Modelica.Units.SI.MassFlowRate _m_flow_start=0
