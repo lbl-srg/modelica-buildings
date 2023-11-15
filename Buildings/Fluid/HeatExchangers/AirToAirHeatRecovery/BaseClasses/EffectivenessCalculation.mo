@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses;
 model EffectivenessCalculation
-  "Model for calculating the heat exchange effectiveness of heat exchangers"
+  "Model for calculating the heat exchange effectiveness"
   extends Modelica.Blocks.Icons.Block;
   parameter Modelica.Units.SI.Efficiency epsSenCoo_nominal(max=1) = 0.8
     "Nominal sensible heat exchanger effectiveness at the cooling mode";
@@ -107,9 +107,9 @@ at different air flow rates of the supply air stream and the exhaust air stream.
 </pre>
 
 <p>
-where <code>VSup_flow</code> is the air flow of the supply air stream,
-<code>VExh_flow</code> is the air flow of the exhaust air stream,
-<code>VSup_flow_nominal</code> is the nominal air flow of the supply air stream and 
+where <code>VSup_flow</code> is the flow rate of the supply air stream,
+<code>VExh_flow</code> is the flow rate of the exhaust air stream,
+<code>VSup_flow_nominal</code> is the nominal flow rate of the supply air stream and 
 <code>rat</code> is the flow ratio.
 </p>
 
@@ -125,7 +125,7 @@ for the sensible and latent heat transfer, respectively.
 for the sensible heat transfer when <code>rat</code> is 1 and 0.75, respectively.
 <code>epsLat_nominal</code> and <code>epsLat_ParLoa</code> are the effectiveness 
 for the latent heat transfer when <code>vRat</code> is 1 and 0.75, respectively.
-<code>wheSpe</code> is an effectiveness associated with the speed of a rotary wheel.
+<code>wheSpe</code> is the speed of a rotary wheel.
 
 <p>
 <code>epsSen_nominal</code>, <code>epsSen_ParLoa</code>, <code>epsLat_nominal</code>, and <code>epsLat_ParLoa</code> are parameters.

@@ -105,7 +105,7 @@ model WheelWithVariableSpeed
         iconTransformation(extent={{110,50},{90,70}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a2(
     redeclare final package Medium = Medium2)
-    "Fluid connector a2 of the exhaust air)"
+    "Fluid connector a2 of the exhaust air"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
 equation
   connect(senExhFlow.port_b, hex.port_a2)
@@ -202,9 +202,9 @@ equation
           Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,140}})),
     Documentation(info="<html>
-Model for a generic, sensible, and latent air-to-air heat recovery wheel with a variable speed drive.
+Model of a generic, sensible, and latent air-to-air heat recovery wheel with a variable speed drive.
 The input requires no geometric data. Performance is defined by specifying sensible and/or latent effectiveness 
-at 75% and 100% of the nominal supply air flow rate in both heating and cooling conditions
+at 75% and 100% of the nominal supply air flow rate in both heating and cooling conditions.
 For details, refer to
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.EffectivenessCalculation\">
 Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.EffectivenessCalculation</a>.

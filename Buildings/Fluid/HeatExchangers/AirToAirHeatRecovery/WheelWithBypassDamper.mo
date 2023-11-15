@@ -270,11 +270,11 @@ equation
           Diagram(
         coordinateSystem(preserveAspectRatio=true, extent={{-180,-100},{100,140}})),
     Documentation(info="<html>
-Model for a generic, sensible, and latent air-to-air heat recovery wheel, that consists of 
+Model of a generic, sensible, and latent air-to-air heat recovery wheel, that consists of 
 a heat exchanger and supply/exhaust airflow bypass dampers.
 
 The input requires no geometric data. Performance is defined by specifying sensible and/or latent effectiveness 
-at 75% and 100% of the nominal supply air flow rate in both heating and cooling conditions
+at 75% and 100% of the nominal supply air flow rate in both heating and cooling conditions.
 For details, refer to
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.EffectivenessCalculation\">
 Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.EffectivenessCalculation</a>.
