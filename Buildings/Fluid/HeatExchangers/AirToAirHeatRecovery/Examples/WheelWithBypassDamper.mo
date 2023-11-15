@@ -11,7 +11,7 @@ model WheelWithBypassDamper
     p(displayUnit="Pa") = 101325,
     T=273.15 + 10,
     use_p_in=false,
-    nPorts=1) 
+    nPorts=1)
     "Sink of the exhaust air"
     annotation (Placement(transformation(extent={{-58,-10},
     {-38,10}})));
@@ -37,7 +37,7 @@ model WheelWithBypassDamper
     X={0.012,1 - 0.012},
     use_p_in=false,
     p(displayUnit="Pa") = 101325 - 100,
-    nPorts=1) 
+    nPorts=1)
     "Sink of the supply air"
     annotation (Placement(transformation(extent={{84,2},{
     64,22}})));
@@ -47,7 +47,7 @@ model WheelWithBypassDamper
     X={0.012,1 - 0.012},
     use_T_in=true,
     p(displayUnit="Pa") = 101325,
-    nPorts=1) 
+    nPorts=1)
     "Source of the supply air"
     annotation (Placement(transformation(extent={{-60,40},
     {-40,60}})));

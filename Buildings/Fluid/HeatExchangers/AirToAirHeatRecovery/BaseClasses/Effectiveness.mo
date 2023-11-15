@@ -98,16 +98,14 @@ Documentation(info="<html>
 <p>
 This block calculates the sensible and latent effectiveness of the heat exchanger
 for heating and cooling conditions at different air flow rates of the supply
- air stream and the exhaust air stream.
+air stream and the exhaust air stream.
 </p>
 <p>
 It first calculates the average volumetric air flow rate through the heat exchanger by:
 </p>
-
 <pre>
   rat = (VSup_flow + VExh_flow)/(2*VSup_flow_nominal),
 </pre>
-
 <p>
 where <code>VSup_flow</code> is the flow rate of the supply air stream,
 <code>VExh_flow</code> is the flow rate of the exhaust air stream,
@@ -117,7 +115,6 @@ where <code>VSup_flow</code> is the flow rate of the supply air stream,
 <p>
 It then calculates the sensible and latent effectiveness by:
 </p>
-
 <pre>
   epsSen = wheSpe * (epsSen_ParLoa + (epsSen_nominal - epsSen_ParLoa) * (rat - 0.75)/0.25),
   epsLat = wheSpe * (epsLat_ParLoa + (epsLat_nominal - epsLat_ParLoa) * (rat - 0.75)/0.25),
@@ -129,7 +126,6 @@ for the sensible heat transfer when <code>rat</code> is 1 and 0.75, respectively
 <code>epsLat_nominal</code> and <code>epsLat_ParLoa</code> are the effectiveness 
 for the latent heat transfer when <code>vRat</code> is 1 and 0.75, respectively.
 <code>wheSpe</code> is the speed of a rotary wheel.
-
 <p>
 <code>epsSen_nominal</code>, <code>epsSen_ParLoa</code>, <code>epsLat_nominal</code>, and 
 <code>epsLat_ParLoa</code> are parameters.
@@ -139,14 +135,12 @@ temperature, the exchanger is considered to operate under
 the cooling mode;
 Otherwise, it is considered to operate under a heating mode.
 </p>
-
 <P>
 <b>Note:</b> 
 The <code>rat</code> should be between <i>0.5</i> and <i>1.3</i> to ensure reasonable extrapolation.
 Likewise, an unbalanced air flow ratio greater than 2,  i.e., <code>VSup_flow/VExh_flow</code> &#62; <i>2</i> 
 or <code>VSup_flow/VExh_flow</code> &#60; <i>0.5</i>, is not recommended.
 </P>
-
 <h4>References</h4>
 U.S. Department of Energy 2016.
 &quot;EnergyPlus Engineering Reference&quot;.

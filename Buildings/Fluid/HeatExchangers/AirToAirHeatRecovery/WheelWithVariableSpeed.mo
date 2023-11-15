@@ -2,10 +2,10 @@ within Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery;
 model WheelWithVariableSpeed
   "Sensible and latent air-to-air heat recovery wheel with a variable speed drive"
   replaceable package Medium1 =
-      Modelica.Media.Interfaces.PartialCondensingGases
+    Modelica.Media.Interfaces.PartialCondensingGases
     "Medium of the supply air stream";
   replaceable package Medium2 =
-      Modelica.Media.Interfaces.PartialCondensingGases
+    Modelica.Media.Interfaces.PartialCondensingGases
     "Medium of the exhaust air stream";
   parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal
     "Air flow rate of the supply air stream";
@@ -202,13 +202,19 @@ equation
           Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,140}})),
     Documentation(info="<html>
+<p>
 Model of a generic, sensible, and latent air-to-air heat recovery wheel with a variable speed drive.
+</p>
+<p>
 The input requires no geometric data. Performance is defined by specifying sensible and latent effectiveness 
 at 75% and 100% of the nominal supply air flow rate in both heating and cooling conditions.
 For details, refer to
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.EffectivenessCalculation\">
-Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.EffectivenessCalculation</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.Effectiveness\">
+Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.Effectiveness</a>.
+</p>
+<p>
 The operation of the heat recovery wheel is adjustable by modulating the wheel speed.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

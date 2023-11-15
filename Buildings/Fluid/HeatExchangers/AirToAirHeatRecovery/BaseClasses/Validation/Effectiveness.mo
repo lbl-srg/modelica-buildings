@@ -65,13 +65,13 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(Tolerance=1e-6, StopTime=120),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/AirToAirHeatRecovery/BaseClasses/Validation/EffectivenessCalculation.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/AirToAirHeatRecovery/BaseClasses/Validation/Effectiveness.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.EffectivenessCalculation\">
-Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.EffectivenessCalculation</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.Effectiveness\">
+Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.Effectiveness</a>.
 </p>
 <p>
 The input signals are configured as follows:
@@ -81,6 +81,7 @@ The input signals are configured as follows:
 of the exhaust air, <i>TExh</i>, before <i>20s</i>;
 After that, <i>TSup</i> is less than <i>TExh</i>, leading to a heating mode;
 </li>
+</ul>
 <ul>
 <li>
 The supply air flow rate, <i>VSup</i>, and the exhaust air flow rate, <i>VExh</i>, change from 
@@ -90,7 +91,8 @@ They then stay constant.
 </li>
 </ul>
 <ul>
-<li> The wheel speed ratio, <i>wheSpe</i>, keeps constant during the period from 
+<li> 
+The wheel speed ratio, <i>wheSpe</i>, keeps constant during the period from 
 <i>0s</i> to <i>60s</i> and then increases from 0.3 to 1
 during the period from <i>60s</i> to <i>120s</i>.
 </li> 

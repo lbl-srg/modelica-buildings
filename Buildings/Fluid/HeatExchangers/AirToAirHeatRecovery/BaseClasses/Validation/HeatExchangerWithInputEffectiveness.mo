@@ -117,8 +117,8 @@ Temperature of the supply air, <i>TSup</i>, changes from <i>273.15 + 30 K</i> to
 </ul>
 <ul>
 <li>Sensible heat exchanger effectiveness, <i>epsSen</i>, changes from <i>0.7</i> to <i>0.8</i>
-</li>
 during the period from <i>120s</i> to <i>180s</i>;
+</li>
 </ul>
 <ul>
 <li>
@@ -126,8 +126,6 @@ Latent heat exchanger effectiveness, <i>epsLat</i>, changes from <i>0.7</i> to <
 during the period from <i>60s</i> to <i>120s</i>.
 </li>
 </ul>
-<b>Note:</b> This problem may fail to translate in Dymola 2012 due to an error in Dymola's support
-of the stream connector.
 </html>", revisions="<html>
 <ul>
 <li>
