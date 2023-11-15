@@ -10,7 +10,8 @@ model Effectiveness
     epsLatHea_nominal=0.6,
     epsSenHea_ParLoa=0.6,
     epsLatHea_ParLoa=0.5,
-    VSup_flow_nominal=1) "Effectiveness calculator"
+    VSup_flow_nominal=1)
+    "Effectiveness calculator"
     annotation (Placement(transformation(extent={{-12,-10},{8,10}})));
   Modelica.Blocks.Sources.Ramp whSpe(
     height=0.7,

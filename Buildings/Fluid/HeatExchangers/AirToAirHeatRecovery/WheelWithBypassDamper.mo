@@ -48,7 +48,8 @@ model WheelWithBypassDamper
     final m2_flow_nominal=m2_flow_nominal,
     final show_T=true,
     final dp1_nominal=0,
-    final dp2_nominal=0) "Heat exchanger"
+    final dp2_nominal=0)
+    "Heat exchanger"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
   Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.Effectiveness
     effCal(

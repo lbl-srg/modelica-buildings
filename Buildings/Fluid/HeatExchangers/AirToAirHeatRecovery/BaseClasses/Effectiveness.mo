@@ -109,7 +109,7 @@ It first calculates the average volumetric air flow rate through the heat exchan
 <p>
 where <code>VSup_flow</code> is the flow rate of the supply air stream,
 <code>VExh_flow</code> is the flow rate of the exhaust air stream,
-<code>VSup_flow_nominal</code> is the nominal flow rate of the supply air stream and 
+<code>VSup_flow_nominal</code> is the nominal flow rate of the supply air stream, and 
 <code>rat</code> is the flow ratio.
 </p>
 <p>
@@ -133,13 +133,14 @@ Depending on the cooling or heating mode, their values are different.
 In this model, if the supply air temperature is larger than the exhaust air 
 temperature, the exchanger is considered to operate under
 the cooling mode;
-Otherwise, it is considered to operate under a heating mode.
+Otherwise, it operates under a heating mode.
 </p>
 <P>
 <b>Note:</b> 
-The <code>rat</code> should be between <i>0.5</i> and <i>1.3</i> to ensure reasonable extrapolation.
-Likewise, an unbalanced air flow ratio greater than 2,  i.e., <code>VSup_flow/VExh_flow</code> &#62; <i>2</i> 
-or <code>VSup_flow/VExh_flow</code> &#60; <i>0.5</i>, is not recommended.
+The value of the <code>rat</code> is suggested to be between <i>0.5</i> and <i>1.3</i>, 
+to ensure reasonable extrapolation.
+Likewise, an unbalanced air flow ratio less than 2,  i.e., <code>VSup_flow/VExh_flow</code> &#62; <i>0.5</i> 
+and <code>VSup_flow/VExh_flow</code> &#60; <i>2</i>, is recommended.
 </P>
 <h4>References</h4>
 U.S. Department of Energy 2016.
