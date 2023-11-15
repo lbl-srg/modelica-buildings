@@ -1,9 +1,10 @@
 compareVars :=
   {
-    "theMixVal.TMixSet",
-    "theMixVal.senTemHot.T",
-    "gen.THotSouSet",
-    "gen.senTemHot.T",
-    "PEle",
-    "theMixVal.yMixSet"
+    "theMixValNoEle.conPID.y",
+    "theMixVal.conPID.y",
+    "genNoEle.THexOut",
+    "souDisHot.T",
+    "gen.PEle",
+    "genNoEle.PEle",
+    "sch.y[1]"
   };
