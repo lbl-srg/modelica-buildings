@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.Validation;
-model HeatExchagerWithInputEffectiveness
-    "Test model for the heat exchanger with input effectiveness"
+model HeatExchangerWithInputEffectiveness
+  "Test model for the heat exchanger with input effectiveness"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Air
      "Medium of the supply air";
@@ -46,7 +46,8 @@ model HeatExchagerWithInputEffectiveness
     nPorts=1)
      "Source of the supply air"
     annotation (Placement(transformation(extent={{-48,50},{-28,70}})));
-  Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.HeatExchagerWithInputEffectiveness hex(
+  Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.HeatExchangerWithInputEffectiveness
+    hex(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     m1_flow(start=5),
@@ -55,15 +56,13 @@ model HeatExchagerWithInputEffectiveness
     m2_flow_nominal=5,
     dp1_nominal=100,
     dp2_nominal=100,
-    show_T=true)
-     "Heat exchanger"
+    show_T=true) "Heat exchanger"
     annotation (Placement(transformation(extent={{6,-4},{26,16}})));
   Modelica.Blocks.Sources.Ramp epsSen(
     height=0.1,
     duration=60,
     offset=0.7,
-    startTime=120)
-     "Sensible heat exchanger effectiveness"
+    startTime=120) "Sensible heat exchanger effectiveness"
     annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
   Modelica.Blocks.Sources.Ramp epsLat(
     height=0.1,
@@ -97,13 +96,13 @@ equation
   connect(hex.epsLat, epsLat.y) annotation (Line(points={{4,2},{-62,2},{-62,-40},{-69,
           -40}}, color={0,0,127}));
  annotation(experiment(Tolerance=1e-6, StopTime=360),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/AirToAirHeatRecovery/BaseClasses/Validation/HeatExchagerWithInputEffectiveness.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/AirToAirHeatRecovery/BaseClasses/Validation/HeatExchangerWithInputEffectiveness.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.HeatExchagerWithInputEffectiveness\">
-Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.HeatExchagerWithInputEffectiveness</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.HeatExchangerWithInputEffectiveness\">
+Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.HeatExchangerWithInputEffectiveness</a>.
 </p>
 
 The input signals are configured as follows:
@@ -116,10 +115,8 @@ The input signals are configured as follows:
 <ul>
 <li>Latent heat exchanger effectiveness, <i>epsLat</i>, changes from <i>0.7</i> to <i>0.8</i> during the period from <i>60s</i> to <i>120s</i>.
 </ul>
-<p>
 <b>Note:</b> This problem may fail to translate in Dymola 2012 due to an error in Dymola's support
 of the stream connector.
-</p>
 </html>", revisions="<html>
 <ul>
 <li>
@@ -128,4 +125,4 @@ First implementation<br/>
 </li>
 </ul>
 </html>"));
-end HeatExchagerWithInputEffectiveness;
+end HeatExchangerWithInputEffectiveness;

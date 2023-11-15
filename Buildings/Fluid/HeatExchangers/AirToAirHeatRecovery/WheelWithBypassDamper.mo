@@ -40,7 +40,7 @@ model WheelWithBypassDamper
   Modelica.Blocks.Interfaces.RealOutput P
     "Electric power consumed by the wheel"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.HeatExchagerWithInputEffectiveness
+  Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.HeatExchangerWithInputEffectiveness
     hex(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
@@ -48,8 +48,7 @@ model WheelWithBypassDamper
     final m2_flow_nominal=m2_flow_nominal,
     final show_T=true,
     final dp1_nominal=0,
-    final dp2_nominal=0)
-    "Heat exchanger"
+    final dp2_nominal=0) "Heat exchanger"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
   Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.EffectivenessCalculation
     effCal(
@@ -62,7 +61,7 @@ model WheelWithBypassDamper
     final epsSenHea_ParLoa=epsSenHea_ParLoa,
     final epsLatHea_ParLoa=epsLatHea_ParLoa,
     final VSup_flow_nominal=m1_flow_nominal/1.293)
-    "Calculates the effectiveness of heat exchanges"
+    "Calculates the effectiveness of heat exchange"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
   Buildings.Fluid.Sensors.VolumeFlowRate VExh_flow(
    redeclare package Medium = Medium2, final m_flow_nominal=m2_flow_nominal)
@@ -164,9 +163,9 @@ equation
   connect(damExh.y,sub. y)
     annotation (Line(points={{48,-40},{20,-40},{20,101},{-105.3,101}}, color={0,0,127}));
   connect(effCal.epsSen, hex.epsSen)
-    annotation (Line(points={{-79,14},{-12,14}},                   color={0,0,127}));
+    annotation (Line(points={{-79,14},{-12,14}}, color={0,0,127}));
   connect(effCal.epsLat, hex.epsLat) annotation (Line(points={{-79,6},{-12,6}},
-                              color={0,0,127}));
+        color={0,0,127}));
   connect(bypDamSup.y, bypDamPos)
     annotation (Line(points={{-28,92},{-28,120},{-200,120}}, color={0,0,127}));
   connect(sub.u2, uni.y)
@@ -174,44 +173,44 @@ equation
           39},{-139.3,39}}, color={0,0,127}));
   connect(effCal.wheSpe, uni.y)
     annotation (Line(points={{-102,10},{-124,10},{-124,39},{-139.3,39}},
-                            color={0,0,127}));
+        color={0,0,127}));
   connect(TSup.y, effCal.TSup)
     annotation (Line(points={{-139,-20},{-114,-20},{-114,6},{-102,6}},
-                          color={0,0,127}));
+        color={0,0,127}));
   connect(TExh.y, effCal.TExh)
     annotation (Line(points={{-139,-40},{-110,-40},{-110,2},{-102,2}},
-                        color={0,0,127}));
+        color={0,0,127}));
   connect(damSup.port_b, hex.port_a1)
     annotation (Line(points={{-22,36},{-20,36},{-20,16},{-10,16}},
-                                                          color={0,127,255}));
+        color={0,127,255}));
   connect(bypDamExh.y, bypDamPos)
     annotation (Line(points={{-30,-48},{-30,-30},{40,-30},{40,120},{-200,120}},
-                                          color={0,0,127}));
+        color={0,0,127}));
   connect(sub.u1, bypDamPos)
     annotation (Line(points={{-121.4,105.2},{-132,105.2},
-          {-132,120},{-200,120}}, color={0,0,127}));
+        {-132,120},{-200,120}}, color={0,0,127}));
   connect(VSup_flow.V_flow, effCal.VSup_flow)
     annotation (Line(points={{-71,44.8},{-71,50},{-112,50},{-112,18},{-102,18}},
-                                                  color={0,0,127}));
+        color={0,0,127}));
   connect(damSup.port_a, VSup_flow.port_b)
     annotation (Line(points={{-42,36},{-64,36}}, color={0,127,255}));
   connect(VSup_flow.port_a, port_a1)
     annotation (Line(points={{-78,36},{-100,36},{-100,80},{-180,80}},
-                                color={0,127,255}));
+        color={0,127,255}));
   connect(hex.port_b1, port_b1)
     annotation (Line(points={{10,16},{58,16},{58,80},{100,80}},
-                     color={0,127,255}));
+        color={0,127,255}));
   connect(hex.port_b2, VExh_flow.port_a)
     annotation (Line(points={{-10,4},{-22,4},{-22,-20},{-42,-20}},
-                                color={0,127,255}));
+        color={0,127,255}));
   connect(VExh_flow.port_b, port_b2)
     annotation (Line(points={{-56,-20},{-70,-20},
-          {-70,-60},{-180,-60}}, color={0,127,255}));
+        {-70,-60},{-180,-60}}, color={0,127,255}));
   connect(hex.port_a2, damExh.port_b)
     annotation (Line(points={{10,4},{60,4},{60,-30}}, color={0,127,255}));
   connect(VExh_flow.V_flow, effCal.VExh_flow)
     annotation (Line(points={{-49,-11.2},{-49,60},{-120,60},{-120,14},{-102,14}},
-                                                   color={0,0,127}));
+        color={0,0,127}));
   annotation (
         defaultComponentName="whe",
         Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
@@ -273,14 +272,14 @@ equation
 Model of a generic, sensible, and latent air-to-air heat recovery wheel, that consists of 
 a heat exchanger and supply/exhaust airflow bypass dampers.
 
-The input requires no geometric data. Performance is defined by specifying sensible and/or latent effectiveness 
+The input requires no geometric data. Performance is defined by specifying sensible and latent effectiveness 
 at 75% and 100% of the nominal supply air flow rate in both heating and cooling conditions.
 For details, refer to
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.EffectivenessCalculation\">
 Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.EffectivenessCalculation</a>.
 
 The operation of the heat recovery wheel is adjustable via bypassing supply/exhaust air 
-around the heat exchanger.
+through the heat exchanger.
 </html>", revisions="<html>
 <ul>
 <li>

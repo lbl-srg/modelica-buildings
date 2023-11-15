@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers;
-package AirToAirHeatRecovery "Package with Air-to-Air heat recovery devices"
+package AirToAirHeatRecovery "Package with air-to-air heat recovery devices"
   extends Modelica.Icons.VariantsPackage;
 
 annotation (Documentation(info="<html>

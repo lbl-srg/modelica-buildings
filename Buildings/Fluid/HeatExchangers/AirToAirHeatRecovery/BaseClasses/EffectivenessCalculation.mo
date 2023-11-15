@@ -2,23 +2,23 @@ within Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses;
 model EffectivenessCalculation
   "Model for calculating the heat exchange effectiveness"
   extends Modelica.Blocks.Icons.Block;
-  parameter Modelica.Units.SI.Efficiency epsSenCoo_nominal(max=1) = 0.8
+  parameter Modelica.Units.SI.Efficiency epsSenCoo_nominal(final max=1) = 0.8
     "Nominal sensible heat exchanger effectiveness at the cooling mode";
-  parameter Modelica.Units.SI.Efficiency epsLatCoo_nominal(max=1) = 0.8
+  parameter Modelica.Units.SI.Efficiency epsLatCoo_nominal(final max=1) = 0.8
     "Nominal latent heat exchanger effectiveness at the cooling mode";
-  parameter Modelica.Units.SI.Efficiency epsSenCoo_ParLoa(max=1) = 0.75
+  parameter Modelica.Units.SI.Efficiency epsSenCoo_ParLoa(final max=1) = 0.75
     "Partial load (75%) sensible heat exchanger effectiveness at the cooling mode";
-  parameter Modelica.Units.SI.Efficiency epsLatCoo_ParLoa(max=1) = 0.75
+  parameter Modelica.Units.SI.Efficiency epsLatCoo_ParLoa(final max=1) = 0.75
     "Partial load (75%) latent heat exchanger effectiveness at the cooling mode";
-  parameter Modelica.Units.SI.Efficiency epsSenHea_nominal(max=1) = 0.8
+  parameter Modelica.Units.SI.Efficiency epsSenHea_nominal(final max=1) = 0.8
     "Nominal sensible heat exchanger effectiveness at the heating mode";
-  parameter Modelica.Units.SI.Efficiency epsLatHea_nominal(max=1) = 0.8
+  parameter Modelica.Units.SI.Efficiency epsLatHea_nominal(final max=1) = 0.8
     "Nominal latent heat exchanger effectiveness at the heating mode";
-  parameter Modelica.Units.SI.Efficiency epsSenHea_ParLoa(max=1) = 0.75
+  parameter Modelica.Units.SI.Efficiency epsSenHea_ParLoa(final max=1) = 0.75
     "Partial load (75%) sensible heat exchanger effectiveness at the heating mode";
-  parameter Modelica.Units.SI.Efficiency epsLatHea_ParLoa(max=1) = 0.75
+  parameter Modelica.Units.SI.Efficiency epsLatHea_ParLoa(final max=1) = 0.75
     "Partial load (75%) latent heat exchanger effectiveness at the heating mode";
-  parameter Modelica.Units.SI.VolumeFlowRate VSup_flow_nominal(min = 100*Modelica.Constants.eps)
+  parameter Modelica.Units.SI.VolumeFlowRate VSup_flow_nominal(final min = 100*Modelica.Constants.eps)
     "Nominal supply air flow rate";
 
   Modelica.Blocks.Interfaces.RealInput TSup(
@@ -49,7 +49,7 @@ model EffectivenessCalculation
     "Latent heat exchanger effectiveness"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
 
-//protected
+protected
    Real rat
    "Ratio of the average operating volumetric air flow rate to the nominal supply air flow rate";
    Real epsSen_ParLoa
@@ -72,21 +72,21 @@ equation
   assert(rat > 0.5 and rat < 1.3,
     "Operating flow rate outside the full accuracy range",
     level=AssertionLevel.warning);
-
+  // switch between cooling and heating modes based on the difference between the supply air temperature and the exhaust air temperature.
   epsSen_ParLoa = Buildings.Utilities.Math.Functions.regStep(TSup-TExh, epsSenCoo_ParLoa, epsSenHea_ParLoa, 1e-5);
   epsSen_nominal = Buildings.Utilities.Math.Functions.regStep(TSup-TExh, epsSenCoo_nominal, epsSenHea_nominal, 1e-5);
   epsLat_ParLoa = Buildings.Utilities.Math.Functions.regStep(TSup-TExh, epsLatCoo_ParLoa, epsLatHea_ParLoa, 1e-5);
   epsLat_nominal = Buildings.Utilities.Math.Functions.regStep(TSup-TExh, epsLatCoo_nominal, epsLatHea_nominal, 1e-5);
-  // calculate effectiveness
+  // calculate effectiveness.
     epsSen =wheSpe*(epsSen_ParLoa + (epsSen_nominal - epsSen_ParLoa)*(rat -
     0.75)/0.25);
     epsLat =wheSpe*(epsLat_ParLoa + (epsLat_nominal - epsLat_ParLoa)*(rat -
     0.75)/0.25);
   assert(epsSen > 0 and epsSen < 1,
-    "Insensed value for the sensible heat exchanger effectivenes",
+    "Insensed value for the sensible heat exchanger effectiveness",
     level=AssertionLevel.error);
   assert(epsLat > 0 and epsLat < 1,
-    "Insensed value for the latent heat exchanger effectivenes",
+    "Insensed value for the latent heat exchanger effectiveness",
     level=AssertionLevel.error);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={Text(
           extent={{-54,28},{50,-40}},

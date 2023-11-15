@@ -3,28 +3,26 @@ model WheelWithBypassDamper
   "Test model for the air-to-air thermal wheel with bypass dampers"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Air
-    "Medium model for supply air";
+    "Medium model for the supply air";
   package Medium2 = Buildings.Media.Air
-    "Medium model for exhaust air";
+    "Medium model for the exhaust air";
   Buildings.Fluid.Sources.Boundary_pT sin_2(
     redeclare package Medium = Medium2,
     p(displayUnit="Pa") = 101325,
     T=273.15 + 10,
     use_p_in=false,
-    nPorts=1)
-    "Sink of exhaust air"
+    nPorts=1) "Sink of the exhaust air"
     annotation (Placement(transformation(extent={{-58,-10},
-            {-38,10}})));
+    {-38,10}})));
   Buildings.Fluid.Sources.Boundary_pT sou_2(
     redeclare package Medium = Medium2,
     p(displayUnit="Pa") = 101325 + 100,
     T(displayUnit="K") = 293.15,
     use_p_in=false,
     use_T_in=false,
-    nPorts=1)
-    "Source of exhaust air"
+    nPorts=1) "Source of the exhaust air"
     annotation (Placement(transformation(extent={{40,-70},
-            {60,-50}})));
+    {60,-50}})));
     Modelica.Blocks.Sources.Ramp TSup(
     height=10,
     duration=60,
@@ -38,20 +36,18 @@ model WheelWithBypassDamper
     X={0.012,1 - 0.012},
     use_p_in=false,
     p(displayUnit="Pa") = 101325 - 100,
-    nPorts=1)
-    "Sink of supply air"
+    nPorts=1) "Sink of the supply air"
     annotation (Placement(transformation(extent={{84,2},{
-            64,22}})));
+    64,22}})));
   Buildings.Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = Medium1,
     T=273.15 + 50,
     X={0.012,1 - 0.012},
     use_T_in=true,
     p(displayUnit="Pa") = 101325,
-    nPorts=1)
-    "Source of supply air"
+    nPorts=1) "Source of the supply air"
     annotation (Placement(transformation(extent={{-60,40},
-            {-40,60}})));
+    {-40,60}})));
   Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.WheelWithBypassDamper whe(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
@@ -65,7 +61,6 @@ model WheelWithBypassDamper
     epsLatHea_ParLoa=0.6)
     "Wheel"
     annotation (Placement(transformation(extent={{6,-4},{26,16}})));
-
     Modelica.Blocks.Sources.Ramp bypDamPos(
     height=0.2,
     duration=160,
@@ -76,8 +71,8 @@ model WheelWithBypassDamper
 equation
   connect(TSup.y, sou_1.T_in)
     annotation (Line(points={{-73,54},{-62,54}},
-          color={0,0,127}));
-  connect(sou_1.ports[1],whe. port_a1)
+      color={0,0,127}));
+  connect(sou_1.ports[1],whe.port_a1)
     annotation (Line(
       points={{-40,50},{0,50},{0,12},{6,12}},
       color={0,127,255}));

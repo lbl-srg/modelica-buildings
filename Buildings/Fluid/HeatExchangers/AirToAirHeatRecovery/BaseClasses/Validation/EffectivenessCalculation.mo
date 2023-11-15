@@ -77,7 +77,7 @@ Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.EffectivenessCal
 
 The input signals are configured as follows:
 <ul>
-<li>The temperature of the supply air, <i>TSup</i>, is larger than the temperature of the exhaust air, <i>TExh</i> before <i>20s</i>;
+<li>The temperature of the supply air, <i>TSup</i>, is larger than the temperature of the exhaust air, <i>TExh</i>, before <i>20s</i>;
 After that, <i>TSup</i> is less than <i>TExh</i>, leading to a heating mode;
 </ul>
 <ul>
@@ -86,8 +86,8 @@ during the period from <i>0s</i> to <i>60s</i>, respectively;
 They then stay constant.
 </ul>
 <ul>
-<li> The wheel speed ratio, <i>wheSpe</i> keeps constant during the period from <i>0s</i> to <i>60s</i> and then increases from 0.3 to 1
-during the period from <i>60s</i> to <i>120s</i>;
+<li> The wheel speed ratio, <i>wheSpe</i>, keeps constant during the period from <i>0s</i> to <i>60s</i> and then increases from 0.3 to 1
+during the period from <i>60s</i> to <i>120s</i>.
 </ul>
 </html>", revisions="<html>
 <ul>

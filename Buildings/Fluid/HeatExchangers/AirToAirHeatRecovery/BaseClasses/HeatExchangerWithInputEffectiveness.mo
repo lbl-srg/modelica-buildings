@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses;
-model HeatExchagerWithInputEffectiveness
+model HeatExchangerWithInputEffectiveness
   "Heat and moisture exchanger with varying effectiveness"
   extends Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectiveness(
   redeclare replaceable package Medium1 =
@@ -181,4 +181,4 @@ Buildings.Fluid.HeatExchangers.ConstantEffectiveness</a>.
 </li>
 </ul>
 </html>"));
-end HeatExchagerWithInputEffectiveness;
+end HeatExchangerWithInputEffectiveness;
