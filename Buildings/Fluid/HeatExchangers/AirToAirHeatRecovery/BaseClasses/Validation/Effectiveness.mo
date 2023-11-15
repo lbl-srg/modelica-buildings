@@ -50,24 +50,24 @@ model Effectiveness
 equation
   connect(VSup.y, epsCal.VSup_flow)
     annotation (Line(points={{-59,70},{-28,70},{
-          -28,8},{-14,8}}, color={0,0,127}));
+    -28,8},{-14,8}}, color={0,0,127}));
   connect(VExh.y, epsCal.VExh_flow)
     annotation (Line(points={{-59,30},{-40,30},{
-          -40,4},{-14,4}}, color={0,0,127}));
+    -40,4},{-14,4}}, color={0,0,127}));
   connect(whSpe.y, epsCal.wheSpe)
     annotation (Line(points={{-59,0},{-14,0}}, color={0,0,127}));
   connect(TSup.y, epsCal.TSup)
     annotation (Line(points={{-59,-40},{-40,-40},{-40,
-          -4},{-14,-4}}, color={0,0,127}));
+    -4},{-14,-4}}, color={0,0,127}));
   connect(TExh.y, epsCal.TExh)
     annotation (Line(points={{-59,-80},{-28,-80},{-28,
-          -8},{-14,-8}}, color={0,0,127}));
+    -8},{-14,-8}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(Tolerance=1e-6, StopTime=120),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/AirToAirHeatRecovery/BaseClasses/Validation/Effectiveness.mos"
         "Simulate and plot"),
-    Documentation(info="<html>
+Documentation(info="<html>
 <p>
 Validation test for the block
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.Effectiveness\">

@@ -74,25 +74,26 @@ model WheelWithBypassDamper
 equation
   connect(TSup.y, sou_1.T_in)
     annotation (Line(points={{-73,54},{-62,54}},
-      color={0,0,127}));
+    color={0,0,127}));
   connect(sou_1.ports[1],whe.port_a1)
     annotation (Line(
-      points={{-40,50},{0,50},{0,12},{6,12}},
-      color={0,127,255}));
+    points={{-40,50},{0,50},{0,12},{6,12}},
+    color={0,127,255}));
   connect(whe.port_a2, sou_2.ports[1])
     annotation (Line(
-      points={{26,0},{32,0},{32,-20},{70,-20},{70,-60},{60,-60}},
-      color={0,127,255}));
+    points={{26,0},{32,0},{32,-20},{70,-20},{70,-60},{60,-60}},
+    color={0,127,255}));
   connect(whe.port_b1, sin_1.ports[1])
     annotation (Line(
-      points={{26,12},{45,12},{45,12},{64,12}},
-      color={0,127,255}));
+    points={{26,12},{45,12},{45,12},{64,12}},
+    color={0,127,255}));
   connect(whe.port_b2, sin_2.ports[1])
     annotation (Line(
-      points={{6,0},{-18,0},{-18,6.66134e-16},{-38,6.66134e-16}},
-      color={0,127,255}));
-  connect(bypDamPos.y, whe.bypDamPos) annotation (Line(points={{-59,-30},{-28,-30},
-          {-28,6},{4,6}}, color={0,0,127}));
+    points={{6,0},{-18,0},{-18,6.66134e-16},{-38,6.66134e-16}},
+    color={0,127,255}));
+  connect(bypDamPos.y, whe.bypDamPos)
+    annotation (Line(points={{-59,-30},{-28,-30},
+    {-28,6},{4,6}}, color={0,0,127}));
  annotation(experiment(Tolerance=1e-6, StopTime=360),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/AirToAirHeatRecovery/Examples/WheelWithBypassDamper.mos"
         "Simulate and plot"),

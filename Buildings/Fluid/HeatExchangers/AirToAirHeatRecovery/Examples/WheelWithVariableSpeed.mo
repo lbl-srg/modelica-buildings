@@ -75,22 +75,22 @@ equation
     annotation (Line(points={{-73,54},{-62,54}}, color={0,0,127}));
   connect(sou_1.ports[1],whe. port_a1)
     annotation (Line(
-      points={{-40,50},{0,50},{0,12},{6,12}},
-      color={0,127,255}));
+     points={{-40,50},{0,50},{0,12},{6,12}},
+     color={0,127,255}));
   connect(whe.port_a2, sou_2.ports[1])
     annotation (Line(
-      points={{26,5.55112e-16},{32,5.55112e-16},{32,-20},{70,-20},{70,-60},{60,
-      -60}},color={0,127,255}));
+    points={{26,5.55112e-16},{32,5.55112e-16},{32,-20},{70,-20},{70,-60},{60,
+    -60}},color={0,127,255}));
   connect(whe.port_b1, sin_1.ports[1])
     annotation (Line(
-      points={{26,12},{45,12},{45,12},{64,12}},
-      color={0,127,255}));
+    points={{26,12},{45,12},{45,12},{64,12}},
+    color={0,127,255}));
   connect(whe.port_b2, sin_2.ports[1])
     annotation (Line(
-      points={{6,5.55112e-16},{-18,5.55112e-16},{-18,0},{-38,0}},
-      color={0,127,255}));
+    points={{6,5.55112e-16},{-18,5.55112e-16},{-18,0},{-38,0}},
+    color={0,127,255}));
   connect(WheSpe.y, whe.wheSpe) annotation (Line(points={{-59,-30},{-28,-30},{-28,
-      6},{4,6}}, color={0,0,127}));
+    6},{4,6}}, color={0,0,127}));
  annotation(experiment(Tolerance=1e-6, StopTime=360),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/AirToAirHeatRecovery/Examples/WheelWithVariableSpeed.mos"
         "Simulate and plot"),

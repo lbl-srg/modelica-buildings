@@ -20,8 +20,7 @@ model HeatExchangerWithInputEffectiveness
     T=566.3,
     nPorts=1)
     "Source of the exhaust air"
-    annotation (Placement(transformation(extent={{40,-70},
-            {60,-50}})));
+    annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
     Modelica.Blocks.Sources.Ramp TSup(
     height=10,
     duration=60,
@@ -35,8 +34,7 @@ model HeatExchangerWithInputEffectiveness
     p(displayUnit="Pa") = 1E5 - 110,
     nPorts=1)
     "Sink of the supply air"
-    annotation (Placement(transformation(extent={{84,2},{
-            64,22}})));
+    annotation (Placement(transformation(extent={{84,2},{64,22}})));
   Buildings.Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = Medium1,
     T=273.15 + 50,
@@ -78,29 +76,29 @@ equation
     annotation (Line(points={{-69,64},{-50,64}}, color={0,0,127}));
   connect(sou_1.ports[1], hex.port_a1)
     annotation (Line(
-      points={{-28,60},{-2,60},{-2,12},{6,12}},
-      color={0,127,255}));
+    points={{-28,60},{-2,60},{-2,12},{6,12}},
+    color={0,127,255}));
   connect(hex.port_a2, sou_2.ports[1])
     annotation (Line(
-      points={{26,5.55112e-16},{32,5.55112e-16},{32,-20},{70,-20},{70,-60},{60,
-          -60}},color={0,127,255}));
+    points={{26,5.55112e-16},{32,5.55112e-16},{32,-20},{70,-20},{70,-60},{60,
+    -60}},color={0,127,255}));
   connect(hex.port_b1, sin_1.ports[1])
     annotation (Line(
-      points={{26,12},{45,12},{45,12},{64,12}},
-      color={0,127,255}));
+    points={{26,12},{45,12},{45,12},{64,12}},
+    color={0,127,255}));
   connect(hex.port_b2, sin_2.ports[1])
     annotation (Line(
-      points={{6,0},{-26,0},{-26,-20},{-34,-20}},
-      color={0,127,255}));
+    points={{6,0},{-26,0},{-26,-20},{-34,-20}},
+    color={0,127,255}));
   connect(epsSen.y, hex.epsSen)
     annotation (Line(points={{-69,20},{-4,20},{-4,10},{4,
-          10}}, color={0,0,127}));
+    10}}, color={0,0,127}));
   connect(hex.epsLat, epsLat.y) annotation (Line(points={{4,2},{-62,2},{-62,-40},{-69,
-          -40}}, color={0,0,127}));
+    -40}}, color={0,0,127}));
  annotation(experiment(Tolerance=1e-6, StopTime=360),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/AirToAirHeatRecovery/BaseClasses/Validation/HeatExchangerWithInputEffectiveness.mos"
         "Simulate and plot"),
-    Documentation(info="<html>
+Documentation(info="<html>
 <p>
 Validation test for the block
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.HeatExchangerWithInputEffectiveness\">
