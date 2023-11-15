@@ -29,12 +29,12 @@ model DirectHeatExchangerWithElectricHeat
     dp1_nominal=dpHotSou_nominal,
     dp2_nominal=dpDis_nominal,
     eps=eps) "Domestic hot water heater heat exchanger"
-    annotation (Placement(transformation(extent={{-80,-64},{-60,-44}})));
+    annotation (Placement(transformation(extent={{-60,-64},{-40,-44}})));
   Fluid.Sensors.TemperatureTwoPort senTemHexOut(redeclare package Medium =
         MediumDom,
                 m_flow_nominal=mDom_flow_nominal)
     "Temperature sensor for hot water leaving heat exchanger"
-    annotation (Placement(transformation(extent={{-38,-50},{-18,-30}})));
+    annotation (Placement(transformation(extent={{-30,-50},{-10,-30}})));
   parameter Modelica.Units.SI.PressureDifference dpHotSou_nominal=0
     "Pressure difference in heat exchanger on hot water side";
   parameter Modelica.Units.SI.PressureDifference dpDis_nominal=0
@@ -60,13 +60,14 @@ protected
 
 equation
   connect(senTemHexOut.port_a, hex.port_b1)
-    annotation (Line(points={{-38,-40},{-50,-40},{-50,-48},{-60,-48}},
+    annotation (Line(points={{-30,-40},{-36,-40},{-36,-48},{-40,-48}},
                                                color={0,127,255}));
   connect(senTemHexOut.port_b, heaEle.port_a)
-    annotation (Line(points={{-18,-40},{10,-40}},
+    annotation (Line(points={{-10,-40},{10,-40}},
                                               color={0,127,255}));
-  connect(senTemHexOut.port_b, pip.port_a) annotation (Line(points={{-18,-40},{0,
-          -40},{0,0},{10,0}}, color={0,127,255}));
+  connect(senTemHexOut.port_b, pip.port_a) annotation (Line(points={{-10,-40},{
+          0,-40},{0,0},{10,0}},
+                              color={0,127,255}));
   connect(heaEle.port_b, senTemHot.port_a)
     annotation (Line(points={{30,-40},{40,-40},{40,60},{58,60}},
                                              color={0,127,255}));
@@ -74,20 +75,20 @@ equation
           40,60},{58,60}},color={0,127,255}));
   connect(TDomSet, heaEle.TSet) annotation (Line(points={{-110,0},{-12,0},{-12,
           -32},{8,-32}}, color={0,0,127}));
-  connect(senTemHexOut.T, THexOut) annotation (Line(points={{-28,-29},{-28,-20},
+  connect(senTemHexOut.T, THexOut) annotation (Line(points={{-20,-29},{-20,-20},
           {110,-20}},                                     color={0,0,127}));
   connect(heaEle.Q_flow, PEle) annotation (Line(points={{31,-32},{60,-32},{60,0},
           {110,0}}, color={0,0,127}));
   connect(zero.y, PEle) annotation (Line(points={{81,20},{90,20},{90,0},{110,0}},
         color={0,0,127}));
-  connect(port_aDom, hex.port_a1) annotation (Line(points={{-100,60},{-90,60},{
-          -90,-48},{-80,-48}}, color={0,127,255}));
-  connect(hex.port_b2, port_bHea)
-    annotation (Line(points={{-80,-60},{-100,-60}}, color={0,127,255}));
-  connect(hex.port_a2, port_aHea)
-    annotation (Line(points={{-60,-60},{100,-60}}, color={0,127,255}));
+  connect(port_aDom, hex.port_a1) annotation (Line(points={{-100,60},{-64,60},{
+          -64,-48},{-60,-48}}, color={0,127,255}));
+  connect(hex.port_a2, port_aHea) annotation (Line(points={{-40,-60},{-36,-60},
+          {-36,-58},{90,-58},{90,-60},{100,-60}}, color={0,127,255}));
   connect(senTemHot.port_b, port_bDom)
     annotation (Line(points={{78,60},{100,60}}, color={0,127,255}));
+  connect(hex.port_b2, port_bHea)
+    annotation (Line(points={{-60,-60},{-100,-60}}, color={0,127,255}));
   annotation (preferredView="info",Documentation(info="<html>
 <p>
 This model implements a basic domestic hot water source for a  
