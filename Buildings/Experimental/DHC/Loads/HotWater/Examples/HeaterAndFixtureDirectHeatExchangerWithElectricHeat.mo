@@ -113,9 +113,25 @@ equation
           -10},{62,-10},{62,-32},{-1.33333,-32},{-1.33333,-40}}, color={0,127,255}));
   connect(genNoEle.port_aDom, sinDis.ports[3]) annotation (Line(points={{32,4},{
           24,4},{24,-28},{-71.3333,-28},{-71.3333,-40}}, color={0,127,255}));
-  annotation (experiment(
-      StopTime=864000,
-      Interval=60,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"));
+  annotation (__Dymola_Commands(
+      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/HotWater/Examples/HeaterAndFixtureDirectHeatExchangerWithElectricHeat.mos" "Simulate and plot"),
+      Documentation(info="<html>
+<p>
+Example model of a fresh water station that heats up domestic hot water.
+Input is a load profile which is sent to a model that computes the hot and cold water draw.
+The domestic hot water is produced by a heat exchanger with a district water source
+and optionally an electric heater.  Examples with and without the electric 
+heater are shown.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+Nov 15, 2023, by David Blum:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
+experiment(
+      StopTime=172800,
+      Tolerance=1e-06));
 end HeaterAndFixtureDirectHeatExchangerWithElectricHeat;

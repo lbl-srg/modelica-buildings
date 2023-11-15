@@ -110,11 +110,14 @@ equation
           extent={{-140,160},{160,120}},
           textString="%name",
           textColor={0,0,255})}),
-    Documentation(info="<html>
+          __Dymola_Commands(
+      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/HotWater/Examples/StorageTankWithExternalHeatExchanger.mos" "Simulate and plot"),
+Documentation(info="<html>
 <p>
 Example model of a fresh water station that heats up domestic hot water.
 Input is a load profile which is sent to a model that computes the hot and cold water draw.
-If the tank needs to be recharged, then heating water with a prescribed temperature is sent to the tank.
+If the tank needs to be recharged, then tank water is circulated through a heater
+with a prescribed temperature lift.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -125,8 +128,7 @@ First implementation.
 </ul>
 </html>"),
     experiment(
-      StopTime=8640000,
-      Interval=30,
+      StopTime=172800,
       Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"));
+      __Dymola_Algorithm="Dassl"));
 end StorageTankWithExternalHeatExchanger;
