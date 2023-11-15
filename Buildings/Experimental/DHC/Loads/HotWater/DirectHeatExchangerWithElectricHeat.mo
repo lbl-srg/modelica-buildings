@@ -16,8 +16,8 @@ model DirectHeatExchangerWithElectricHeat
     QMax_flow=QMax_flow) if have_eleHea == true
     "Supplemental electric resistance domestic hot water heater"
     annotation (Placement(transformation(extent={{10,-50},{30,-30}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTemHot(redeclare package Medium
-      = MediumDom,
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemHot(redeclare package Medium =
+        MediumDom,
                 m_flow_nominal=mDom_flow_nominal)
     "Temperature sensor for hot water supply"
     annotation (Placement(transformation(extent={{58,50},{78,70}})));
@@ -26,8 +26,8 @@ model DirectHeatExchangerWithElectricHeat
     redeclare package Medium2 = MediumHea,
     m1_flow_nominal=mDom_flow_nominal,
     m2_flow_nominal=mHea_flow_nominal,
-    dp1_nominal=dpHotSou_nominal,
-    dp2_nominal=dpDis_nominal,
+    dp1_nominal=dpDom_nominal,
+    dp2_nominal=dpHea_nominal,
     eps=eps) "Domestic hot water heater heat exchanger"
     annotation (Placement(transformation(extent={{-60,-64},{-40,-44}})));
   Fluid.Sensors.TemperatureTwoPort senTemHexOut(redeclare package Medium =
@@ -35,12 +35,12 @@ model DirectHeatExchangerWithElectricHeat
                 m_flow_nominal=mDom_flow_nominal)
     "Temperature sensor for hot water leaving heat exchanger"
     annotation (Placement(transformation(extent={{-30,-50},{-10,-30}})));
-  parameter Modelica.Units.SI.PressureDifference dpHotSou_nominal=0
-    "Pressure difference in heat exchanger on hot water side";
-  parameter Modelica.Units.SI.PressureDifference dpDis_nominal=0
-    "Pressure difference in heat exchanger on district water side";
+  parameter Modelica.Units.SI.PressureDifference dpDom_nominal=0
+    "Pressure difference in heat exchanger on domestic water side";
+  parameter Modelica.Units.SI.PressureDifference dpHea_nominal=0
+    "Pressure difference in heat exchanger on heating water side";
   parameter Modelica.Units.SI.PressureDifference dpEle_nominal=0
-    "Pressure difference in electric reheater for hot water";
+    "Pressure difference in electric reheater for domestic water";
   Modelica.Blocks.Interfaces.RealOutput THexOut
     "Temperature of hot water leaving heat exchanger"
     annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
@@ -65,9 +65,8 @@ equation
   connect(senTemHexOut.port_b, heaEle.port_a)
     annotation (Line(points={{-10,-40},{10,-40}},
                                               color={0,127,255}));
-  connect(senTemHexOut.port_b, pip.port_a) annotation (Line(points={{-10,-40},{
-          0,-40},{0,0},{10,0}},
-                              color={0,127,255}));
+  connect(senTemHexOut.port_b, pip.port_a) annotation (Line(points={{-10,-40},{0,
+          -40},{0,0},{10,0}}, color={0,127,255}));
   connect(heaEle.port_b, senTemHot.port_a)
     annotation (Line(points={{30,-40},{40,-40},{40,60},{58,60}},
                                              color={0,127,255}));
@@ -81,20 +80,21 @@ equation
           {110,0}}, color={0,0,127}));
   connect(zero.y, PEle) annotation (Line(points={{81,20},{90,20},{90,0},{110,0}},
         color={0,0,127}));
-  connect(port_aDom, hex.port_a1) annotation (Line(points={{-100,60},{-64,60},{
-          -64,-48},{-60,-48}}, color={0,127,255}));
-  connect(hex.port_a2, port_aHea) annotation (Line(points={{-40,-60},{-36,-60},
-          {-36,-58},{90,-58},{90,-60},{100,-60}}, color={0,127,255}));
+  connect(port_aDom, hex.port_a1) annotation (Line(points={{-100,60},{-64,60},{-64,
+          -48},{-60,-48}}, color={0,127,255}));
+  connect(hex.port_a2, port_aHea) annotation (Line(points={{-40,-60},{-36,-60},{
+          -36,-58},{90,-58},{90,-60},{100,-60}}, color={0,127,255}));
   connect(senTemHot.port_b, port_bDom)
     annotation (Line(points={{78,60},{100,60}}, color={0,127,255}));
   connect(hex.port_b2, port_bHea)
     annotation (Line(points={{-60,-60},{-100,-60}}, color={0,127,255}));
   annotation (preferredView="info",Documentation(info="<html>
 <p>
-This model implements a basic domestic hot water source for a  
-low-temperature district heating network. It includes preheating by the
+This model implements a basic domestic hot water source for a 
+district heating network. It includes heating by the
 district through a heat-exchanger and optional electric resistance to bring 
-the temperature of produced hot water to setpoint.
+the temperature of produced hot water to setpoint, if the district supply
+water is not hot enough.
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Loads/HotWater/DirectHeatExchangerWithElectricHeat.png\"/>

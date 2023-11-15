@@ -2,7 +2,7 @@ within Buildings.Experimental.DHC.Loads.HotWater.BaseClasses;
 partial model PartialFourPortDHW
   "A partial model for domestic water heating"
   replaceable package MediumDom =
-    Modelica.Media.Interfaces.PartialMedium "Medium 1 in the component"
+    Modelica.Media.Interfaces.PartialMedium "Medium for domestic water in the component"
       annotation (choices(
         choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
         choice(redeclare package Medium = Buildings.Media.Water "Water"),
@@ -12,7 +12,7 @@ partial model PartialFourPortDHW
           X_a=0.40)
           "Propylene glycol water, 40% mass fraction")));
   replaceable package MediumHea =
-    Modelica.Media.Interfaces.PartialMedium "Medium 2 in the component"
+    Modelica.Media.Interfaces.PartialMedium "Medium for heating source in the component"
       annotation (choices(
         choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
         choice(redeclare package Medium = Buildings.Media.Water "Water"),
