@@ -12,14 +12,14 @@ model HeatExchangerWithInputEffectiveness
     p(displayUnit="Pa") = 101325,
     T=273.15 + 10,
     nPorts=1)
-     "Sink that represents the ambient environment"
+    "Sink that represents the ambient environment"
     annotation (Placement(transformation(extent={{-54,-30},{-34,-10}})));
   Buildings.Fluid.Sources.Boundary_pT sou_2(
     redeclare package Medium = Medium2,
     p(displayUnit="Pa") = 101325 + 100,
     T=566.3,
     nPorts=1)
-     "Source of the exhaust air"
+    "Source of the exhaust air"
     annotation (Placement(transformation(extent={{40,-70},
             {60,-50}})));
     Modelica.Blocks.Sources.Ramp TSup(
@@ -34,7 +34,7 @@ model HeatExchangerWithInputEffectiveness
     X={0.012,1 - 0.012},
     p(displayUnit="Pa") = 1E5 - 110,
     nPorts=1)
-     "Sink of the supply air"
+    "Sink of the supply air"
     annotation (Placement(transformation(extent={{84,2},{
             64,22}})));
   Buildings.Fluid.Sources.Boundary_pT sou_1(
@@ -44,7 +44,7 @@ model HeatExchangerWithInputEffectiveness
     use_T_in=true,
     p(displayUnit="Pa") = 100000,
     nPorts=1)
-     "Source of the supply air"
+    "Source of the supply air"
     annotation (Placement(transformation(extent={{-48,50},{-28,70}})));
   Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.HeatExchangerWithInputEffectiveness
     hex(
@@ -56,20 +56,22 @@ model HeatExchangerWithInputEffectiveness
     m2_flow_nominal=5,
     dp1_nominal=100,
     dp2_nominal=100,
-    show_T=true) "Heat exchanger"
+    show_T=true)
+    "Heat exchanger"
     annotation (Placement(transformation(extent={{6,-4},{26,16}})));
   Modelica.Blocks.Sources.Ramp epsSen(
     height=0.1,
     duration=60,
     offset=0.7,
-    startTime=120) "Sensible heat exchanger effectiveness"
+    startTime=120)
+    "Sensible heat exchanger effectiveness"
     annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
   Modelica.Blocks.Sources.Ramp epsLat(
     height=0.1,
     duration=60,
     offset=0.7,
     startTime=60)
-     "Latent heat exchanger effectiveness"
+    "Latent heat exchanger effectiveness"
     annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
 equation
   connect(TSup.y, sou_1.T_in)
@@ -104,16 +106,25 @@ Validation test for the block
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.HeatExchangerWithInputEffectiveness\">
 Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.HeatExchangerWithInputEffectiveness</a>.
 </p>
-
+<p>
 The input signals are configured as follows:
+</p>
 <ul>
-<li>Temperature of the supply air, <i>TSup</i>, changes from <i>273.15 + 30 K</i> to <i>273.15 + 40 K</i> during the period from <i>120s</i> to <i>180s</i>;
+<li>
+Temperature of the supply air, <i>TSup</i>, changes from <i>273.15 + 30 K</i> to <i>273.15 + 40 K</i>
+ during the period from <i>120s</i> to <i>180s</i>;
+</li>
 </ul>
 <ul>
-<li>Sensible heat exchanger effectiveness, <i>epsSen</i>, changes from <i>0.7</i> to <i>0.8</i> during the period from <i>120s</i> to <i>180s</i>;
+<li>Sensible heat exchanger effectiveness, <i>epsSen</i>, changes from <i>0.7</i> to <i>0.8</i>
+</li>
+during the period from <i>120s</i> to <i>180s</i>;
 </ul>
 <ul>
-<li>Latent heat exchanger effectiveness, <i>epsLat</i>, changes from <i>0.7</i> to <i>0.8</i> during the period from <i>60s</i> to <i>120s</i>.
+<li>
+Latent heat exchanger effectiveness, <i>epsLat</i>, changes from <i>0.7</i> to <i>0.8</i> 
+during the period from <i>60s</i> to <i>120s</i>.
+</li>
 </ul>
 <b>Note:</b> This problem may fail to translate in Dymola 2012 due to an error in Dymola's support
 of the stream connector.
@@ -121,7 +132,7 @@ of the stream connector.
 <ul>
 <li>
 September 29, 2023, by Sen Huang:<br/>
-First implementation<br/>
+First implementation.
 </li>
 </ul>
 </html>"));

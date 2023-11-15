@@ -11,7 +11,8 @@ model WheelWithBypassDamper
     p(displayUnit="Pa") = 101325,
     T=273.15 + 10,
     use_p_in=false,
-    nPorts=1) "Sink of the exhaust air"
+    nPorts=1) 
+    "Sink of the exhaust air"
     annotation (Placement(transformation(extent={{-58,-10},
     {-38,10}})));
   Buildings.Fluid.Sources.Boundary_pT sou_2(
@@ -36,7 +37,8 @@ model WheelWithBypassDamper
     X={0.012,1 - 0.012},
     use_p_in=false,
     p(displayUnit="Pa") = 101325 - 100,
-    nPorts=1) "Sink of the supply air"
+    nPorts=1) 
+    "Sink of the supply air"
     annotation (Placement(transformation(extent={{84,2},{
     64,22}})));
   Buildings.Fluid.Sources.Boundary_pT sou_1(
@@ -45,7 +47,8 @@ model WheelWithBypassDamper
     X={0.012,1 - 0.012},
     use_T_in=true,
     p(displayUnit="Pa") = 101325,
-    nPorts=1) "Source of the supply air"
+    nPorts=1) 
+    "Source of the supply air"
     annotation (Placement(transformation(extent={{-60,40},
     {-40,60}})));
   Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.WheelWithBypassDamper whe(
@@ -100,24 +103,31 @@ Example for using the block
 Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.WheelWithBypassDamper</a>.
 </p>
 <p>
-The input signals are configured as follows:</p>
+The input signals are configured as follows:
+</p>
 <ul>
-<li>The temperature of the supply air, <i>TSup</i>, changes from <i>273.15 + 30 K</i> to <i>273.15 + 40 K</i> during the period from <i>60s</i> to <i>120s</i>.
+<li>
+The temperature of the supply air, <i>TSup</i>, changes from <i>273.15 + 30 K</i> to <i>273.15 + 40 K</i> 
+during the period from <i>60s</i> to <i>120s</i>.
 On the other hand, the temperature of the exhaust air is constant;
+</li>
 </ul>
 <ul>
-<li>The bypass damper position, <i>bypDamPos</i>, changes from <i>0</i> to <i>0.2</i> during the period from <i>200s</i> to <i>360s</i>;
+<li>
+The bypass damper position, <i>bypDamPos</i>, changes from <i>0</i> to <i>0.2</i> 
+during the period from <i>200s</i> to <i>360s</i>;
+</li>
 </ul>
 <ul>
-<li>The supply air flow rate and the exhaust air flow rate are constant.
+<li>
+The supply air flow rate and the exhaust air flow rate are constant.
+</li>
 </ul>
-<b>Note:</b> This problem may fail to translate in Dymola 2012 due to an error in Dymola's support
-of the stream connector.
 </html>", revisions="<html>
 <ul>
 <li>
 September 29, 2023, by Sen Huang:<br/>
-First implementation<br/>
+First implementation.
 </li>
 </ul>
 </html>"));

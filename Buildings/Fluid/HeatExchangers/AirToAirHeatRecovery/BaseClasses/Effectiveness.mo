@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses;
-model EffectivenessCalculation
+model Effectiveness
   "Model for calculating the heat exchange effectiveness"
   extends Modelica.Blocks.Icons.Block;
   parameter Modelica.Units.SI.Efficiency epsSenCoo_nominal(final max=1) = 0.8
@@ -93,14 +93,16 @@ equation
           textColor={28,108,200},
           textString="eps")}), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    defaultComponentName="EffCal",
-    Documentation(info="<html>
+    defaultComponentName="effCal",
+Documentation(info="<html>
 <p>
-This block calculates the sensible and latent effectiveness of the heat exchanger for heating and cooling conditions
-at different air flow rates of the supply air stream and the exhaust air stream.
+This block calculates the sensible and latent effectiveness of the heat exchanger
+for heating and cooling conditions at different air flow rates of the supply
+ air stream and the exhaust air stream.
 </p>
-
-<p> It first calculates the average volumetric air flow rate through the heat exchanger by:</p>
+<p>
+It first calculates the average volumetric air flow rate through the heat exchanger by:
+</p>
 
 <pre>
   rat = (VSup_flow + VExh_flow)/(2*VSup_flow_nominal),
@@ -112,8 +114,9 @@ where <code>VSup_flow</code> is the flow rate of the supply air stream,
 <code>VSup_flow_nominal</code> is the nominal flow rate of the supply air stream and 
 <code>rat</code> is the flow ratio.
 </p>
-
-<p> It then calculates the sensible and latent effectiveness by:</p>
+<p>
+It then calculates the sensible and latent effectiveness by:
+</p>
 
 <pre>
   epsSen = wheSpe * (epsSen_ParLoa + (epsSen_nominal - epsSen_ParLoa) * (rat - 0.75)/0.25),
@@ -128,9 +131,11 @@ for the latent heat transfer when <code>vRat</code> is 1 and 0.75, respectively.
 <code>wheSpe</code> is the speed of a rotary wheel.
 
 <p>
-<code>epsSen_nominal</code>, <code>epsSen_ParLoa</code>, <code>epsLat_nominal</code>, and <code>epsLat_ParLoa</code> are parameters.
+<code>epsSen_nominal</code>, <code>epsSen_ParLoa</code>, <code>epsLat_nominal</code>, and 
+<code>epsLat_ParLoa</code> are parameters.
 Depending on the cooling or heating mode, their values are different.
-In this model, if the supply air temperature is larger than the exhaust air temperature, the exchanger is considered to operate under
+In this model, if the supply air temperature is larger than the exhaust air 
+temperature, the exchanger is considered to operate under
 the cooling mode;
 Otherwise, it is considered to operate under a heating mode.
 </p>
@@ -138,8 +143,8 @@ Otherwise, it is considered to operate under a heating mode.
 <P>
 <b>Note:</b> 
 The <code>rat</code> should be between <i>0.5</i> and <i>1.3</i> to ensure reasonable extrapolation.
-Likewise, an unbalanced air flow ratio greater than 2,  i.e., <code>VSup_flow/VExh_flow</code> &#62; <i>2</i> or <code>VSup_flow/VExh_flow</code> &#60; <i>0.5</i>, 
-is not recommended.
+Likewise, an unbalanced air flow ratio greater than 2,  i.e., <code>VSup_flow/VExh_flow</code> &#62; <i>2</i> 
+or <code>VSup_flow/VExh_flow</code> &#60; <i>0.5</i>, is not recommended.
 </P>
 
 <h4>References</h4>
@@ -149,8 +154,8 @@ U.S. Department of Energy 2016.
 <ul>
 <li>
 September 29, 2023, by Sen Huang:<br/>
-First implementation<br/>
+First implementation.
 </li>
 </ul>
 </html>"));
-end EffectivenessCalculation;
+end Effectiveness;

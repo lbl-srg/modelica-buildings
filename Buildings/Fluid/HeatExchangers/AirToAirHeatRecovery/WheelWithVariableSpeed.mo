@@ -49,7 +49,7 @@ model WheelWithVariableSpeed
     final dp1_nominal=dp1_nominal,
     final dp2_nominal=dp2_nominal) "Heat exchanger"
     annotation (Placement(transformation(extent={{6,-10},{26,10}})));
-  Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.EffectivenessCalculation
+  Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.Effectiveness
     effCal(
     final epsSenCoo_nominal=epsSenCoo_nominal,
     final epsLatCoo_nominal=epsLatCoo_nominal,
