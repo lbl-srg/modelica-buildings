@@ -63,11 +63,6 @@ partial model PartialFourPortDHW
     "Temperature setpoint for domestic water source from heater"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
-  Controls.OBC.CDL.Interfaces.BooleanOutput charge
-    "Output true if tank needs to be charged, false if it is sufficiently charged"
-    annotation (Placement(transformation(extent={{100,-100},{140,-60}}),
-        iconTransformation(extent={{100,-110},{140,-70}})));
-
   annotation (Documentation(info="<html>
 <p>
 This partial model can be used for different domestic hot water generation methods.

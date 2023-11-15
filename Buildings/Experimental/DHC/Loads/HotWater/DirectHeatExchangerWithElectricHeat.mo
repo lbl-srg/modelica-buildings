@@ -2,26 +2,28 @@ within Buildings.Experimental.DHC.Loads.HotWater;
 model DirectHeatExchangerWithElectricHeat
   "A model for generating hot water using a district heat exchanger and supplemental electric resistance"
   extends
-    Buildings.Experimental.DHC.Loads.HotWater.BaseClasses.PartialFourPort;
+    Buildings.Experimental.DHC.Loads.HotWater.BaseClasses.PartialFourPortDHW;
   parameter Modelica.Units.SI.Efficiency eps(min=0,max=1) = 0.8 "Heat exchanger effectiveness";
   parameter Boolean have_eleHea = true "True if has auxiliary electric heater";
   parameter Modelica.Units.SI.HeatFlowRate QMax_flow(min=0) = Modelica.Constants.inf "Maximum heat flow rate for electric heater (positive)"
   annotation(Dialog(enable=have_eleHea));
-
+  parameter Modelica.Units.SI.MassFlowRate mDom_flow_nominal "Nominal flow rate of domestic hot water";
+  parameter Modelica.Units.SI.MassFlowRate mHea_flow_nominal "Nominal flow rate of heating source water";
   Buildings.Fluid.HeatExchangers.Heater_T heaEle(
-    redeclare package Medium = Medium,
+    redeclare package Medium = MediumDom,
     m_flow_nominal=mDom_flow_nominal,
     dp_nominal=dpEle_nominal,
     QMax_flow=QMax_flow) if have_eleHea == true
     "Supplemental electric resistance domestic hot water heater"
     annotation (Placement(transformation(extent={{10,-50},{30,-30}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemHot(redeclare package Medium
-      = Medium, m_flow_nominal=mDom_flow_nominal)
+      = MediumDom,
+                m_flow_nominal=mDom_flow_nominal)
     "Temperature sensor for hot water supply"
     annotation (Placement(transformation(extent={{58,50},{78,70}})));
   Fluid.HeatExchangers.ConstantEffectiveness hex(
-    redeclare package Medium1 = Medium,
-    redeclare package Medium2 = Medium,
+    redeclare package Medium1 = MediumDom,
+    redeclare package Medium2 = MediumHea,
     m1_flow_nominal=mDom_flow_nominal,
     m2_flow_nominal=mHea_flow_nominal,
     dp1_nominal=dpHotSou_nominal,
@@ -29,7 +31,8 @@ model DirectHeatExchangerWithElectricHeat
     eps=eps) "Domestic hot water heater heat exchanger"
     annotation (Placement(transformation(extent={{-80,-64},{-60,-44}})));
   Fluid.Sensors.TemperatureTwoPort senTemHexOut(redeclare package Medium =
-        Medium, m_flow_nominal=mDom_flow_nominal)
+        MediumDom,
+                m_flow_nominal=mDom_flow_nominal)
     "Temperature sensor for hot water leaving heat exchanger"
     annotation (Placement(transformation(extent={{-38,-50},{-18,-30}})));
   parameter Modelica.Units.SI.PressureDifference dpHotSou_nominal=0
@@ -41,9 +44,15 @@ model DirectHeatExchangerWithElectricHeat
   Modelica.Blocks.Interfaces.RealOutput THexOut
     "Temperature of hot water leaving heat exchanger"
     annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
+  Modelica.Blocks.Interfaces.RealOutput PEle(unit="W")
+    "Electric power required for electric heater"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
+        iconTransformation(extent={{100,-10},{120,10}})));
+  Modelica.Blocks.Sources.Constant zero(k=0) if have_eleHea == false "Zero power if no heater"
+    annotation (Placement(transformation(extent={{60,10},{80,30}})));
 protected
   Fluid.FixedResistances.LosslessPipe pip(
-    redeclare final package Medium = Medium,
+    redeclare package Medium = MediumDom,
     final m_flow_nominal=mDom_flow_nominal,
     final show_T=false) if have_eleHea == false
     "Pipe without electric resistance"
@@ -63,20 +72,22 @@ equation
                                              color={0,127,255}));
   connect(pip.port_b, senTemHot.port_a) annotation (Line(points={{30,0},{40,0},{
           40,60},{58,60}},color={0,127,255}));
-  connect(senTemHot.port_b, port_bDomWat)
-    annotation (Line(points={{78,60},{100,60}}, color={0,127,255}));
-  connect(port_aDomWat, hex.port_a1) annotation (Line(points={{-100,60},{-86,60},
-          {-86,-48},{-80,-48}}, color={0,127,255}));
-  connect(heaEle.Q_flow,PHea)  annotation (Line(points={{31,-32},{82,-32},{82,0},
-          {110,0}},                 color={0,0,127}));
   connect(TDomSet, heaEle.TSet) annotation (Line(points={{-110,0},{-12,0},{-12,
           -32},{8,-32}}, color={0,0,127}));
-  connect(hex.port_b2, port_bHeaWat)
-    annotation (Line(points={{-80,-60},{-100,-60}}, color={0,127,255}));
-  connect(port_aHeaWat, hex.port_a2)
-    annotation (Line(points={{100,-60},{-60,-60}}, color={0,127,255}));
   connect(senTemHexOut.T, THexOut) annotation (Line(points={{-28,-29},{-28,-20},
           {110,-20}},                                     color={0,0,127}));
+  connect(heaEle.Q_flow, PEle) annotation (Line(points={{31,-32},{60,-32},{60,0},
+          {110,0}}, color={0,0,127}));
+  connect(zero.y, PEle) annotation (Line(points={{81,20},{90,20},{90,0},{110,0}},
+        color={0,0,127}));
+  connect(port_aDom, hex.port_a1) annotation (Line(points={{-100,60},{-90,60},{
+          -90,-48},{-80,-48}}, color={0,127,255}));
+  connect(hex.port_b2, port_bHea)
+    annotation (Line(points={{-80,-60},{-100,-60}}, color={0,127,255}));
+  connect(hex.port_a2, port_aHea)
+    annotation (Line(points={{-60,-60},{100,-60}}, color={0,127,255}));
+  connect(senTemHot.port_b, port_bDom)
+    annotation (Line(points={{78,60},{100,60}}, color={0,127,255}));
   annotation (preferredView="info",Documentation(info="<html>
 <p>
 This model implements a basic domestic hot water source for a  

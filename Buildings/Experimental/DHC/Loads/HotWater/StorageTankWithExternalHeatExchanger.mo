@@ -108,6 +108,10 @@ model StorageTankWithExternalHeatExchanger
   Controls.OBC.CDL.Reals.AddParameter dTHexApp(p=dat.dTHexApp_nominal)
     "Offset for heat exchanger approach temperature"
     annotation (Placement(transformation(extent={{34,-84},{54,-64}})));
+  Controls.OBC.CDL.Interfaces.BooleanOutput charge
+    "Output true if tank needs to be charged, false if it is sufficiently charged"
+    annotation (Placement(transformation(extent={{100,-100},{140,-60}}),
+        iconTransformation(extent={{100,-110},{140,-70}})));
 protected
   parameter Modelica.Units.SI.SpecificHeatCapacity cpHea_default =
     MediumHea.specificHeatCapacityCp(MediumHea.setState_pTX(

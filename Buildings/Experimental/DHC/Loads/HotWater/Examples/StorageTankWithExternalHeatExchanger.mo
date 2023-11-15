@@ -28,10 +28,10 @@ model StorageTankWithExternalHeatExchanger
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-32,-50})));
-  Modelica.Blocks.Sources.Constant conTSetHot(k(
+  Modelica.Blocks.Sources.Constant conTSetMix(k(
       final unit="K",
       displayUnit="degC") = 308.15)
-    "Temperature setpoint for hot water supply to fixture"
+    "Temperature setpoint for mixed water supply to fixture"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Buildings.Experimental.DHC.Loads.HotWater.StorageTankWithExternalHeatExchanger
     domHotWatTan(redeclare package MediumDom = Medium, redeclare package
@@ -44,7 +44,7 @@ model StorageTankWithExternalHeatExchanger
   Controls.OBC.CDL.Conversions.BooleanToReal booToRea(realTrue=
         mHea_flow_nominal)
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
-  Modelica.Blocks.Sources.Constant conTSetHot1(k(
+  Modelica.Blocks.Sources.Constant conTSetHot(k(
       final unit="K",
       displayUnit="degC") = 313.15)
     "Temperature setpoint for hot water supply to fixture"
@@ -77,7 +77,7 @@ model StorageTankWithExternalHeatExchanger
 equation
   connect(theMixVal.yMixSet, sch.y[1]) annotation (Line(points={{39,78},{-50,78},
           {-50,70},{-59,70}}, color={0,0,127}));
-  connect(conTSetHot.y, theMixVal.TMixSet) annotation (Line(points={{-59,40},{
+  connect(conTSetMix.y, theMixVal.TMixSet) annotation (Line(points={{-59,40},{
           -10,40},{-10,72},{39,72}},
                                  color={0,0,127}));
   connect(domHotWatTan.port_bDom, theMixVal.port_hot) annotation (Line(points={{
@@ -88,7 +88,7 @@ equation
     annotation (Line(points={{-33,-40},{-33,62},{40,62}}, color={0,127,255}));
   connect(booToRea.u, domHotWatTan.charge) annotation (Line(points={{38,-10},{32,
           -10},{32,21},{22,21}}, color={255,0,255}));
-  connect(domHotWatTan.TDomSet, conTSetHot1.y) annotation (Line(points={{-1,30},
+  connect(domHotWatTan.TDomSet, conTSetHot.y) annotation (Line(points={{-1,30},
           {-20,30},{-20,10},{-59,10}}, color={0,0,127}));
   connect(mov.port_b, domHotWatTan.port_aHea)
     annotation (Line(points={{50,24},{20,24}}, color={0,127,255}));
