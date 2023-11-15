@@ -62,7 +62,7 @@ protected
    "The nominal latent heat exchanger effectiveness used for calculation";
 
 equation
-  // check if the air flow is too unbalanced.
+  // check if the air flows are too unbalanced.
   assert(VSup_flow - 2*VExh_flow < 0 or VExh_flow - 2*VSup_flow < 0,
     "Unbalanced air flow ratio",
     level=AssertionLevel.warning);
@@ -133,7 +133,7 @@ Depending on the cooling or heating mode, their values are different.
 In this model, if the supply air temperature is larger than the exhaust air 
 temperature, the exchanger is considered to operate under
 the cooling mode;
-Otherwise, it operates under a heating mode.
+Otherwise, it operates under the heating mode.
 </p>
 <P>
 <b>Note:</b> 

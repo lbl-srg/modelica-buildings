@@ -112,7 +112,7 @@ On the other hand, the temperature of the exhaust air is constant;
 </ul>
 <ul>
 <li>
-The wheel spead ratio, <i>wheSpe</i>, changes from <i>0.7</i> to <i>1</i> 
+The wheel speed ratio, <i>wheSpe</i>, changes from <i>0.7</i> to <i>1</i> 
 during the period from <i>200s</i> to <i>360s</i>;
 </li>
 </ul>
