@@ -60,7 +60,7 @@ partial model PartialFourPortDHW
   Controls.OBC.CDL.Interfaces.RealInput TDomSet(
     final unit="K",
     displayUnit="degC")
-    "Temperature setpoint for domestic water source from heater"
+    "Temperature setpoint for heated domestic water"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
   annotation (Documentation(info="<html>

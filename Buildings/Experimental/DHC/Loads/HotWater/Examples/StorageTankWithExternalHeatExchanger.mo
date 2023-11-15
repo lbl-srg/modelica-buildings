@@ -2,7 +2,6 @@ within Buildings.Experimental.DHC.Loads.HotWater.Examples;
 model StorageTankWithExternalHeatExchanger
   "Example model for storage tank with external heat exchanger"
   extends Modelica.Icons.Example;
-
   package Medium = Buildings.Media.Water "Medium model";
   parameter Modelica.Units.SI.Temperature TCol = 273.15+10 "Temperature of domestic cold water supply";
   parameter Modelica.Units.SI.MassFlowRate mHea_flow_nominal = datWatHea.QHex_flow_nominal/4200/(55 - 50) "Tank heater water loop nominal mass flow";
@@ -64,7 +63,7 @@ model StorageTankWithExternalHeatExchanger
     redeclare package Medium = Medium,
     m_flow_nominal=mHea_flow_nominal,
     tau=0) annotation (Placement(transformation(extent={{10,-50},{30,-30}})));
-  Controls.OBC.CDL.Reals.AddParameter addPar(p=5)
+  Controls.OBC.CDL.Reals.AddParameter addPar(p=5) "dT for heater"
     annotation (Placement(transformation(extent={{14,-24},{24,-14}})));
   Fluid.Sources.Boundary_pT preRef(
     nPorts=1,
@@ -88,8 +87,8 @@ equation
     annotation (Line(points={{-33,-40},{-33,62},{40,62}}, color={0,127,255}));
   connect(booToRea.u, domHotWatTan.charge) annotation (Line(points={{38,-10},{32,
           -10},{32,21},{22,21}}, color={255,0,255}));
-  connect(domHotWatTan.TDomSet, conTSetHot.y) annotation (Line(points={{-1,30},
-          {-20,30},{-20,10},{-59,10}}, color={0,0,127}));
+  connect(domHotWatTan.TDomSet, conTSetHot.y) annotation (Line(points={{-1,30},{
+          -20,30},{-20,10},{-59,10}}, color={0,0,127}));
   connect(mov.port_b, domHotWatTan.port_aHea)
     annotation (Line(points={{50,24},{20,24}}, color={0,127,255}));
   connect(hea.port_b, mov.port_a) annotation (Line(points={{60,-40},{80,-40},{80,

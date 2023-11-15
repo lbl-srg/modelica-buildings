@@ -6,7 +6,7 @@ block HeatExchangerPumpController
   parameter Modelica.Units.SI.PressureDifference dpPum_nominal(
     displayUnit="Pa",
     min=0)
-    "Heating water flow rate at full speed through heat exchanger";
+    "Heating water pump head at full speed through heat exchanger";
 
   parameter Real k=0.1 "Proportioanl gain of circulation pump controller";
   parameter Real Ti=60 "Integrator time constant of circulation pump controller";
