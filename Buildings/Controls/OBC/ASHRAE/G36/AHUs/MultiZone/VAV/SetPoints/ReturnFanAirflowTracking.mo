@@ -13,13 +13,13 @@ block ReturnFanAirflowTracking
                 Dialog(group="Fan controller"));
   parameter Real k(final unit="1") = 1
     "Gain, normalized using dpBuiSet"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(group="Fan controller"));
   parameter Real Ti(
     final unit="s",
     final quantity="Time")=0.5
     "Time constant of integrator block"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(group="Fan controller",
       enable=conTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
           or conTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
@@ -27,29 +27,31 @@ block ReturnFanAirflowTracking
     final unit="s",
     final quantity="Time")=0.1
     "Time constant of derivative block"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(group="Fan controller",
       enable=conTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or conTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real maxSpe=1
     "Upper limit of output"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(group="Fan controller"));
   parameter Real minSpe=0
     "Lower limit of output"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(group="Fan controller"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VAirSup_flow(
     final unit="m3/s",
     final min=0,
-    final quantity="VolumeFlowRate") "Measured AHU supply airflow rate"
+    final quantity="VolumeFlowRate")
+    "Measured AHU supply airflow rate"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VAirRet_flow(
     final unit="m3/s",
     final min=0,
-    final quantity="VolumeFlowRate") "Measured AHU return airflow rate"
+    final quantity="VolumeFlowRate")
+    "Measured AHU return airflow rate"
     annotation (Placement(transformation(extent={{-140,0},{-100,40}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1SupFan
@@ -151,6 +153,12 @@ Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Mo
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+November 16, 2023, by Jianjun Hu:<br/>
+Added vendor annotation <code>InstanceInReference</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2191\">issue 2191</a>.
+</li>
 <li>
 May 20, 2021, by Jianjun Hu:<br/>
 First implementation.

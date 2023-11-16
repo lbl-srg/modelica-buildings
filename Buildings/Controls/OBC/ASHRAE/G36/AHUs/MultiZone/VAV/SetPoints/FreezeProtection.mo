@@ -4,45 +4,51 @@ block FreezeProtection
 
   parameter Boolean have_frePro=true
     "True: enable freeze protection"
-    annotation (__cdl(ValueInReference=false));
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false));
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl buiPreCon=
       Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefDamper
     "Type of building pressure control system"
-    annotation (__cdl(ValueInReference=false), Dialog(enable=have_frePro));
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection minOADes=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
+    annotation (__cdl(ValueInReference=false, InstanceInReference=true),
+                Dialog(enable=have_frePro));
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection minOADes=
+    Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
     "Design of minimum outdoor air and economizer function"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=true),
                 Dialog(enable=have_frePro));
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat freSta=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat freSta=
+    Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
     "Type of freeze stat"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=true),
                 Dialog(enable=have_frePro));
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil heaCoi=
+    Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Heating coil type"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(enable=have_frePro));
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil cooCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil cooCoi=
+    Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
     "Cooling coil type"
-    annotation (__cdl(ValueInReference=false));
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false));
   parameter Integer minHotWatReq=2
     "Minimum heating hot-water plant request to active the heating plant"
     annotation(__cdl(ValueInReference=true),
                 Dialog(enable=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased and have_frePro));
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController heaCoiCon=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController heaCoiCon=
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Heating coil controller"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=true),
                 Dialog(group="Heating coil controller",
                 enable=(heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
                         or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric) and have_frePro));
   parameter Real k(unit="1")=1
     "Gain of coil controller"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(group="Heating coil controller",
                 enable=(heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
                         or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric) and have_frePro));
   parameter Real Ti(unit="s")=0.5
     "Time constant of integrator block"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(group="Heating coil controller",
                        enable=(heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
                                or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric) and have_frePro and
@@ -50,7 +56,7 @@ block FreezeProtection
                               heaCoiCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real Td(unit="s")=0.1
     "Time constant of derivative block"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(group="Heating coil controller",
                        enable=(heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
                                or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric) and have_frePro and
@@ -58,19 +64,19 @@ block FreezeProtection
                               heaCoiCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real yMax=1
     "Upper limit of output"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(group="Heating coil controller",
                        enable=(heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
                                or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric) and have_frePro));
   parameter Real yMin=0
     "Lower limit of output"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(group="Heating coil controller",
                        enable=(heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
                                or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric) and have_frePro));
   parameter Real Thys(unit="K")=0.25
     "Hysteresis for checking temperature difference"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(tab="Advanced", enable=have_frePro));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDamPosMin(
@@ -1347,6 +1353,12 @@ shall be no software reset switch.)
 </ol>
 </html>", revisions="<html>
 <ul>
+<li>
+November 16, 2023, by Jianjun Hu:<br/>
+Added vendor annotation <code>InstanceInReference</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2191\">issue 2191</a>.
+</li>
 <li>
 September 18, 2023, by Jianjun Hu:<br/>
 Added 2-position relief damper position output.<br/>

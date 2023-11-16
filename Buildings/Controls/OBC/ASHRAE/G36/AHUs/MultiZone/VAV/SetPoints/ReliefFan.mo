@@ -19,7 +19,7 @@ block ReliefFan "Sequence for control of relief fan in AHU"
                 Dialog(group="Pressure controller"));
   parameter Real hys = 0.005
     "Hysteresis for checking the controller output value"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpBui(

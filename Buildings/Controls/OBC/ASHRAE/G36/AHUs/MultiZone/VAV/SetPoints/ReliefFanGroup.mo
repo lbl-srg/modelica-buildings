@@ -12,7 +12,7 @@ block ReliefFanGroup
     final min=0,
     final max=1)= 0.1
     "Relief fan minimum speed"
-    annotation (__cdl(ValueInReference=false));
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false));
   parameter Integer staVec[nRelFan] = {2,3,1,4}
     "Vector of the order for staging up relief fan, i.e. the 1st element means the 1st relief fan and its value showing its sequence when staging up";
   parameter Integer relFanMat[nRelFan, nSupFan] = {{1,0},{1,0},{0,1},{0,1}}
@@ -26,11 +26,11 @@ block ReliefFanGroup
   parameter Real k(
     final unit="1") = 1
     "Gain, normalized using dpBuiSet"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(group="Pressure controller"));
   parameter Real hys = 0.005
     "Hysteresis for checking the controller output value"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1SupFan[nSupFan]
@@ -786,6 +786,12 @@ is above Stage 0.
 </ol>
 </html>", revisions="<html>
 <ul>
+<li>
+November 16, 2023, by Jianjun Hu:<br/>
+Added vendor annotation <code>InstanceInReference</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2191\">issue 2191</a>.
+</li>
 <li>
 July 15, 2021, by Jianjun Hu:<br/>
 First implementation.

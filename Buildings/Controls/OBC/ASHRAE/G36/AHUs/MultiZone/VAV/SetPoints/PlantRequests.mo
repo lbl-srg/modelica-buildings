@@ -3,17 +3,17 @@ block PlantRequests "Output plant requests for multizone air handling unit"
 
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Heating coil type"
-    annotation (__cdl(ValueInReference=false));
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false));
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil cooCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
     "Cooling coil type"
-    annotation (__cdl(ValueInReference=false));
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false));
   parameter Real Thys = 0.1
     "Hysteresis for checking temperature difference"
-    annotation(__cdl(ValueInReference=false),
+    annotation(__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(tab="Advanced"));
   parameter Real posHys = 0.05
     "Hysteresis for checking valve position difference"
-    annotation(__cdl(ValueInReference=false),
+    annotation(__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TAirSup(
@@ -457,6 +457,12 @@ If the hot water valve position <code>uHeaCoiSet</code> is less than 95%, send 0
 </ol>
 </html>", revisions="<html>
 <ul>
+<li>
+November 16, 2023, by Jianjun Hu:<br/>
+Added vendor annotation <code>InstanceInReference</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2191\">issue 2191</a>.
+</li>
 <li>
 September 18, 2023, by Jianjun Hu:<br/>
 Renamed the connectors <code>uCooCoi_actual</code> and <code>uHeaCoi_actual</code> to <code>uCooCoiSet</code> and <code>uHeaCoiSet</code>.<br/>
