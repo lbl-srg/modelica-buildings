@@ -274,17 +274,12 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-200,-140},{200,140}})),
     Documentation(info="<html>
 <p>
-This model represents a water-to-water heat pump with storage tank and an evaporator water pump.
-The heat pump model with storage tank is described in
-<a href=\"modelica://Buildings.Experimental.DHC.Loads.HotWater.HeatPumpWithTank\">
-Buildings.Experimental.DHC.Loads.HotWater.HeatPumpWithTank</a>.
-By default a variable speed evaporator pump is considered.
-<br/>
-fixme: Update documentation. Do we indeed need a constant flow rate option?<br/>
-A constant speed pump may also be represented by setting <code>have_varFloEva</code>
-to <code>false</code>.
-</p>
-<h4>Controls</h4>
+This model represents a water-to-water heat pump, as described in
+<a href=\"modelica://Buildings.Fluid.HeatPumps.Carnot_TCon\">
+Buildings.Fluid.HeatPumps.Carnot_TCon</a>, the condenser pump, and the 
+evaporator side hydronics and control.
+
+<h4>Evaporator Controls</h4>
 <p>
 The system is enabled when the input control signal <code>uEna</code> switches to
 <code>true</code>.
@@ -292,13 +287,12 @@ When enabled,
 </p>
 <ul>
 <li>
-the evaporator pump is commanded on and supply either
-the mass flow rate set point provided as an input in the case of a variable speed pump,
-or the nominal mass flow rate in the case of a constant speed pump,
+the evaporator pump is commanded on and supplies the nominal mass flow rate,
 </li>
 <li>
-the heat pump with storage tank system operates to maintain the desired
-storage tank temperature.
+a three-way diverging valve is used to bypass flow through the evaporator and
+is controlled by a PI controller to maintain <code>dT_nominal</code> across
+the district supply and return flows.
 </li>
 </ul>
 </html>", revisions="<html>
