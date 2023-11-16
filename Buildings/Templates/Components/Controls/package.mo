@@ -4,7 +4,7 @@ package Controls "Control blocks"
 
   annotation (Documentation(info="<html>
 <p>
-This package contains elementary control blocks.
+This package contains control blocks.
 </p>
 </html>"));
 end Controls;
