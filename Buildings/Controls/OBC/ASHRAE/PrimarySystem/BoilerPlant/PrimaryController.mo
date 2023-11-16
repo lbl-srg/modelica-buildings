@@ -884,11 +884,6 @@ model PrimaryController "Boiler plant primary loop controller"
     annotation (Placement(transformation(extent={{-440,-420},{-400,-380}}),
       iconTransformation(extent={{-140,-220},{-100,-180}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSecPum[nPumSec] if not have_priOnl
-    "Secondary pump proven on signal"
-    annotation (Placement(transformation(extent={{-440,-460},{-400,-420}}),
-      iconTransformation(extent={{-140,-250},{-100,-210}})));
-
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSchEna
     "Signal indicating if schedule allows plant to be enabled"
     annotation (Placement(transformation(extent={{-440,400},{-400,440}}),
@@ -987,15 +982,6 @@ model PrimaryController "Boiler plant primary loop controller"
     annotation (Placement(transformation(extent={{-440,-210},{-400,-170}}),
       iconTransformation(extent={{-140,-70},{-100,-30}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHotWatSec_rem[nSenSec](
-    final unit=fill("Pa", nSenSec),
-    displayUnit=fill("Pa", nSenSec),
-    final quantity=fill("PressureDifference", nSenSec)) if not
-    have_priOnl and have_varSecPum and (have_remDPRegSec or have_locDPRegSec)
-    "Measured differential pressure between hot water supply and return in secondary circuit"
-    annotation (Placement(transformation(extent={{-440,-250},{-400,-210}}),
-        iconTransformation(extent={{-140,-100},{-100,-60}})));
-
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHotWatPri_loc(
     final unit="Pa",
     displayUnit="Pa",
@@ -1003,15 +989,6 @@ model PrimaryController "Boiler plant primary loop controller"
     "Measured differential pressure between hot water supply and return in primary circuit"
     annotation (Placement(transformation(extent={{-440,-290},{-400,-250}}),
         iconTransformation(extent={{-140,-130},{-100,-90}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHotWatSec_loc(
-    final unit="Pa",
-    displayUnit="Pa",
-    final quantity="PressureDifference") if not have_priOnl and
-    have_varSecPum and have_locDPRegSec
-    "Measured differential pressure between hot water supply and return in secondary circuit"
-    annotation (Placement(transformation(extent={{-440,-330},{-400,-290}}),
-        iconTransformation(extent={{-140,-160},{-100,-120}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uHotWatIsoVal[nBoi](
     final unit=fill("1",nBoi),
@@ -1043,11 +1020,6 @@ model PrimaryController "Boiler plant primary loop controller"
     "Primary pump enable status vector"
     annotation (Placement(transformation(extent={{400,-150},{440,-110}}),
       iconTransformation(extent={{100,-80},{140,-40}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput ySecPum[nPumSec] if not have_priOnl
-    "Secondary pump enable status vector"
-    annotation (Placement(transformation(extent={{400,-360},{440,-320}}),
-      iconTransformation(extent={{100,-160},{140,-120}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yPla
     "Plant enable signal"
@@ -1082,13 +1054,6 @@ model PrimaryController "Boiler plant primary loop controller"
     "Bypass valve position"
     annotation (Placement(transformation(extent={{400,-50},{440,-10}}),
       iconTransformation(extent={{100,-40},{140,0}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySecPumSpe(
-    final unit="1",
-    displayUnit="1") if not have_priOnl and have_varSecPum
-    "Secondary pump speed vector"
-    annotation (Placement(transformation(extent={{400,-410},{440,-370}}),
-      iconTransformation(extent={{100,-200},{140,-160}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TBoiHotWatSupSet[nBoi](
     final unit=fill("K", nBoi),
@@ -1436,50 +1401,9 @@ protected
     "Plant disable process controller"
     annotation (Placement(transformation(extent={{240,60},{260,80}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.SecondaryPumps.Controller secPumCon(
-    final controllerType=controllerType_secPum,
-    final have_varSecPum=true,
-    final have_secFloSen=have_secFloSen,
-    final nPum=nPumSec,
-    final nPumPri=nPumPri,
-    final nBoi=nBoi,
-    final nSen=nSenSec,
-    final nPum_nominal=nPumSec,
-    final minPumSpe=minPumSpeSec,
-    final maxPumSpe=maxPumSpeSec,
-    final VHotWat_flow_nominal=VHotWatSec_flow_nominal,
-    final maxLocDp=maxLocDpSec,
-    final minLocDp=minLocDpSec,
-    final offTimThr=offTimThr,
-    final delBoiDis=0,
-    final timPer=timPerSec,
-    final staCon=staConSec,
-    final speLim=speLim,
-    final speLim1=speLim1,
-    final speLim2=speLim2,
-    final timPer1=timPer1,
-    final timPer2=timPer2,
-    final timPer3=timPer3,
-    final k=k_sec,
-    final Ti=Ti_sec,
-    final Td=Td_sec,
-    final speConTyp=speConTypSec) if not have_priOnl
-    "Secondary pump controller"
-    annotation (Placement(transformation(extent={{120,-380},{140,-340}})));
-
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi1 if not have_priOnl
     "Switch input signal between stage-up and stage-down processes"
     annotation (Placement(transformation(extent={{64,280},{84,300}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt3[nPumSec](
-    final k=secPumInd) if not have_priOnl
-    "Constant stage Integer source"
-    annotation (Placement(transformation(extent={{60,-290},{80,-270}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpHotWatSet1(
-    final k=maxLocDpSec) if not have_priOnl
-    "Differential pressure setpoint for secondary circuit"
-    annotation (Placement(transformation(extent={{60,-390},{80,-370}})));
 
   Buildings.Controls.OBC.CDL.Logical.Or or1 if not have_priOnl
     "Or operator for pump stage change signal from up-staging, down-staging and plant disable process controllers"
@@ -1717,8 +1641,6 @@ equation
   connect(conSet.yMinPriPumSpe, priPumCon.uMinPriPumSpeCon) annotation (Line(
         points={{-38,-102},{88,-102},{88,-193.067},{118,-193.067}},
                                                            color={0,0,127}));
-  connect(conInt3.y, secPumCon.uPumLeaLag) annotation (Line(points={{82,-280},{90,
-          -280},{90,-341.8},{118,-341.8}}, color={255,127,0}));
   connect(VHotWatSec_flow, priPumCon.VHotWatSec_flow) annotation (Line(points={{-420,
           -70},{8,-70},{8,-224},{114,-224},{114,-195.867},{118,-195.867}},
         color={0,0,127}));
@@ -1737,27 +1659,9 @@ equation
           {-184,-190},{-184,-216},{0,-216},{0,-232},{110,-232},{110,-207.067},{
           118,-207.067}},
                       color={0,0,127}));
-  connect(secPumCon.yHotWatPum, ySecPum)
-    annotation (Line(points={{142,-360},{220,-360},{220,-340},{420,-340}},
-                                                     color={255,0,255}));
-  connect(plaReq, secPumCon.supResReq) annotation (Line(points={{-420,350},{-154,
-          350},{-154,20},{14,20},{14,-354},{118,-354}}, color={255,127,0}));
-  connect(plaEna.yPla, secPumCon.uPlaEna) annotation (Line(points={{-318,330},{-230,
-          330},{-230,-78},{12,-78},{12,-350},{118,-350}}, color={255,0,255}));
-  connect(VHotWatSec_flow, secPumCon.VHotWat_flow) annotation (Line(points={{-420,
-          -70},{8,-70},{8,-358},{118,-358}}, color={0,0,127}));
-  connect(conSet.yMaxSecPumSpe, secPumCon.uMaxSecPumSpeCon) annotation (Line(
-        points={{-38,-108},{94,-108},{94,-378},{118,-378}},color={0,0,127}));
-  connect(dpHotWatSet1.y, secPumCon.dpHotWatSet) annotation (Line(points={{82,-380},
-          {86,-380},{86,-374},{118,-374}}, color={0,0,127}));
-  connect(dpHotWatSec_rem, secPumCon.dpHotWat_remote) annotation (Line(points={{-420,
-          -230},{-190,-230},{-190,-300},{86,-300},{86,-370},{118,-370}},
-        color={0,0,127}));
   connect(dpHotWatPri_loc, priPumCon.dpHotWat_local) annotation (Line(points={{-420,
           -270},{-180,-270},{-180,-234},{96,-234},{96,-184.667},{118,-184.667}},
         color={0,0,127}));
-  connect(dpHotWatSec_loc, secPumCon.dpHotWat_local) annotation (Line(points={{-420,
-          -310},{100,-310},{100,-366},{118,-366}}, color={0,0,127}));
   connect(reaToInt2.y, priPumCon.uLasDisBoi) annotation (Line(points={{142,380},
           {150,380},{150,340},{288,340},{288,-210},{102,-210},{102,-181.867},{
           118,-181.867}}, color={255,127,0}));
@@ -1795,8 +1699,6 @@ equation
                                                 color={255,0,255}));
   connect(uPriPum, bypValPos.uPumSta) annotation (Line(points={{-420,-400},{-28,
           -400},{-28,-42},{118,-42}}, color={255,0,255}));
-  connect(uPriPum, secPumCon.uPriPumSta) annotation (Line(points={{-420,-400},{-28,
-          -400},{-28,-362},{118,-362}}, color={255,0,255}));
   connect(uPriPum, cha.u) annotation (Line(points={{-420,-400},{-28,-400},{-28,-420},
           {158,-420}}, color={255,0,255}));
   connect(cha.y, mulOr.u[1:nPumPri]) annotation (Line(points={{182,-420},{190,-420},{190,
@@ -1807,8 +1709,6 @@ equation
           -420},{232,-20},{70,-20},{70,77},{118,77}}, color={255,0,255}));
   connect(mulOr.y, dowProCon.uPumChaPro) annotation (Line(points={{222,-420},{232,
           -420},{232,-20},{70,-20},{70,22},{118,22}}, color={255,0,255}));
-  connect(uSecPum, secPumCon.uHotWatPum) annotation (Line(points={{-420,-440},{-20,
-          -440},{-20,-346},{118,-346}}, color={255,0,255}));
   connect(uPriPumSpe, mulMax.u[1:2]) annotation (Line(points={{-420,-560},{-402,
           -560},{-402,-560},{-382,-560}}, color={0,0,127}));
   connect(mulMax.y, staSetCon.uPumSpe) annotation (Line(points={{-358,-560},{-262,
@@ -1823,8 +1723,6 @@ equation
           0,0,127}));
   connect(uBypValPos, staSetCon.uBypValPos) annotation (Line(points={{-420,-520},
           {-258,-520},{-258,2},{-212,2}}, color={0,0,127}));
-  connect(secPumCon.yPumSpe, ySecPumSpe) annotation (Line(points={{142,-370},{
-          260,-370},{260,-390},{420,-390}}, color={0,0,127}));
   connect(hotWatSupTemRes.TBoiHotWatSupSet, TBoiHotWatSupSet) annotation (Line(
         points={{-118,176},{360,176},{360,170},{420,170}}, color={0,0,127}));
   connect(intWitRes.y, reaToInt1.u)
@@ -1944,19 +1842,6 @@ control setpoints"),
             lineColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString="Primary pump controller"),
-          Rectangle(
-            extent={{34,-260},{206,-398}},
-            fillColor={210,210,210},
-            fillPattern=FillPattern.Solid,
-            pattern=LinePattern.None),
-          Text(
-            extent={{122,-386},{200,-394}},
-            pattern=LinePattern.None,
-            fillColor={255,255,255},
-            fillPattern=FillPattern.Solid,
-            lineColor={0,0,127},
-          horizontalAlignment=TextAlignment.Left,
-          textString="Secondary pump controller"),
           Rectangle(
             extent={{82,136},{264,-12}},
             fillColor={210,210,210},
