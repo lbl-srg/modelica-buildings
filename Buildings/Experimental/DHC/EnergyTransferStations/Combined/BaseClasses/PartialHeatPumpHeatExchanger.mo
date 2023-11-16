@@ -26,7 +26,7 @@ model PartialHeatPumpHeatExchanger
     final unit="1",
     final min=0,
     final max=1)=0.3
-    "Minimum condenser or evaporator mass flow rate (ratio to nominal)"
+    "Minimum condenser mass flow rate (ratio to nominal)"
     annotation (Dialog(enable=have_varFloCon or have_varFloEva));
   parameter Modelica.Units.SI.Temperature TDisWatMin
     "District water minimum temperature" annotation (Dialog(group="DHC system"));
@@ -532,44 +532,60 @@ equation
   defaultComponentName="ets",
   Documentation(info="<html>
 <p>
-This model represents an energy transfer station as described in Sommer (2020).
+This model represents an energy transfer station based on that described in Sommer (2020),
+with some additioinal details:
 </p>
 <ul>
 <li>
 The cooling function is provided in a compressor-less mode by a heat exchanger
-connected to the service line.
+connected to the district supply line.
+<ul>
+<li>
+The cooling heat exchanger primary pump is modulated based on a PI control
+loop tracking the chilled water supply temperature at the outlet of the heat exchanger
+secondary side.
+</li>
+<li>
 The chilled water is typically produced at high temperature and distributed
 to radiant cooling systems, for instance at 19&deg;C.
 </li>
+</ul>
 <li>
-The heating functions are provided by water-to-water heat pumps.
+The space heating heating function is provided by a water-to-water heat pump
+<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump\">
+Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump</a>,
 <ul>
 <li>
-By default the condenser and evaporator loops are operated
-with variable mass flow rate, with a lower limit specified by the ratio
-<code>ratFloMin</code>.
-The model can also represent constant flow condenser and evaporator loops
-by setting <code>have_varFloCon</code> and <code>have_varFloEva</code>
-to <code>false</code>.
+By default, the condenser loop is operated
+with a variable mass flow rate to maintain a difference between supply and
+return water of <code>dT_nominal</code>, 
+with a lower limit of mass flow specified by the ratio <code>ratFloMin</code>.
+The control logic is implemented and described in
+<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Controls.PrimaryVariableFlow\">
+Buildings.Experimental.DHC.EnergyTransferStations.Combined.Controls.PrimaryVariableFlow</a>.
+The model can also represent a constant flow condenser loop
+by setting <code>have_varFloCon</code> to <code>false</code>.
 </li>
 <li>
-The evaporator water is supplied by mixing the flow rate from the direct connection
-to the service line to the flow rate from the primary side of the cooling
-heat exchanger.
+The evaporator loop is controlled according to the documentation in
+<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump\">
+Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump</a>.
+Evaporator water is supplied by mixing flow directly from the district line with
+flow leaving the district side of the cooling heat exchanger.
 The hydronic arrangement modeled in
 <a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.SwitchBox\">
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.SwitchBox</a>
-ensures that the resulting fluid stream in the service line always flows
+ensures that the resulting fluid stream in the district line always flows
 in the same direction.
 </li>
 <li>
-The heating hot water is typically produced at low temperature,
+The space heating hot water is typically produced at low temperature,
 for instance 40&deg;C.
 </li>
 </ul>
 </li>
 </ul>
-<h4>Controls</h4>
+<h4>Space Heating and Cooling Enable/Disable</h4>
 <p>
 Heating (resp. cooling) is enabled based on the input signal <code>uHea</code>
 (resp. <code>uCoo</code>) which is held for <i>15</i> minutes, meaning that,
@@ -580,26 +596,6 @@ on a schedule (to lock out the system during off-hours), ideally in conjunction
 with the number of requests yielded by the terminal unit controllers, or any
 other signal representative of the load.
 </p>
-<p>
-When enabled,
-</p>
-<ul>
-<li>
-the heat pumps and the evaporator and condenser water pumps are controlled
-based on the principles described in
-<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump_Old\">
-Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump</a>.
-The evaporator and condenser water mass flow rates are computed based on the
-logic described in
-<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Controls.PrimaryVariableFlow\">
-Buildings.Experimental.DHC.EnergyTransferStations.Combined.Controls.PrimaryVariableFlow</a>.
-</li>
-<li>
-the cooling heat exchanger primary pump is modulated based on a PI control
-loop tracking the chilled water supply temperature at the outlet of the heat exchanger
-secondary side.
-</li>
-</ul>
 <h4>Modeling considerations</h4>
 <p>
 There is a control volume at each of the two fluid ports that serve as inlet and outlet
