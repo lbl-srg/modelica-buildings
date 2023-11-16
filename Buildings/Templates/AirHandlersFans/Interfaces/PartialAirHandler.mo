@@ -65,13 +65,13 @@ partial model PartialAirHandler "Interface class for air handler"
     "Type of relief fan"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Integer nFanSup
-    "Number of supply fan"
+    "Number of supply fans"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Integer nFanRet
-    "Number of return fan"
+    "Number of return fans"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Integer nFanRel
-    "Number of relief fan"
+    "Number of relief fans"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   // Design parameters

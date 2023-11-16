@@ -18,11 +18,11 @@ partial block PartialController "Interface class for AHU controller"
   parameter Buildings.Templates.Components.Types.Fan typFanRet
     "Type of return fan";
   parameter Integer nFanSup
-    "Number of supply fan";
+    "Number of supply fans";
   parameter Integer nFanRel
-    "Number of relief fan";
+    "Number of relief fans";
   parameter Integer nFanRet
-    "Number of return fan";
+    "Number of return fans";
 
   replaceable parameter
     Buildings.Templates.AirHandlersFans.Components.Data.PartialController dat(
