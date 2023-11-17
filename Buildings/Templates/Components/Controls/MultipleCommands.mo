@@ -37,6 +37,7 @@ block MultipleCommands
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(nin=nUni)
+    "Returns true if at least one unit is commanded on"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
 equation
   connect(booToRea.y, mulSum.u)
