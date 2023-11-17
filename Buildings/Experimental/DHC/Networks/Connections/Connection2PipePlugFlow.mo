@@ -32,6 +32,10 @@ equation
                                     color={191,0,0}));
   connect(pipDisSup.heatPort, heatPort) annotation (Line(points={{-70,-30},{-70,
           -20},{-52,-20},{-52,70},{-100,70}}, color={191,0,0}));
+  connect(pipDisSup.port_b, junConSup.port_1)
+    annotation (Line(points={{-60,-40},{-30,-40}}, color={0,127,255}));
+  connect(pipDisRet.port_a, junConRet.port_2)
+    annotation (Line(points={{-60,-80},{10,-80}}, color={0,127,255}));
   annotation (
     Documentation(
       info="<html>

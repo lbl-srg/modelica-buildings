@@ -16,6 +16,9 @@ model Connection1PipeAutosize "Model for connecting an agent to the DHC system"
         final dp_length_nominal=dp_length_nominal));
   parameter Real dp_length_nominal(final unit="Pa/m") = 250
     "Pressure drop per pipe length at nominal flow rate";
+equation
+  connect(pipDis.port_b, junConSup.port_1)
+    annotation (Line(points={{-60,-40},{-50,-40}}, color={0,127,255}));
   annotation (Documentation(revisions="<html>
 <ul>
 <li>

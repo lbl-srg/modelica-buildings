@@ -24,6 +24,11 @@ model Connection2PipeAutosize "Model for connecting an agent to the DHC system"
     "Pressure drop per pipe length at nominal flow rate";
   parameter Modelica.Units.SI.Length dhDisRet
     "Hydraulic diameter of the return distribution pipe";
+equation
+  connect(pipDisSup.port_b, junConSup.port_1)
+    annotation (Line(points={{-60,-40},{-30,-40}}, color={0,127,255}));
+  connect(pipDisRet.port_a, junConRet.port_2)
+    annotation (Line(points={{-60,-80},{10,-80}}, color={0,127,255}));
   annotation (Documentation(revisions="<html>
 <ul>
 <li>

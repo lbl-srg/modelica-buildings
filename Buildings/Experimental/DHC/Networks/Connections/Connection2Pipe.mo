@@ -11,6 +11,11 @@ model Connection2Pipe
   parameter Modelica.Units.SI.PressureDifference dpDis_nominal(
     displayUnit="Pa")
     "Pressure drop in distribution line (supply only, not counting return line)";
+equation
+  connect(pipDisSup.port_b, junConSup.port_1)
+    annotation (Line(points={{-60,-40},{-30,-40}}, color={0,127,255}));
+  connect(pipDisRet.port_a, junConRet.port_2)
+    annotation (Line(points={{-60,-80},{10,-80}}, color={0,127,255}));
   annotation (
     Documentation(
       info="<html>

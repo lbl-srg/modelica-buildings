@@ -222,8 +222,6 @@ equation
   end if;
   connect(junConSup.port_3,pipCon.port_a)
     annotation (Line(points={{-40,-30},{-40,0}},color={0,127,255}));
-  connect(pipDis.port_b,junConSup.port_1)
-    annotation (Line(points={{-60,-40},{-50,-40}},color={0,127,255}));
   connect(senMasFloCon.m_flow,mCon_flow)
     annotation (Line(points={{-29,60},{120,60}},color={0,0,127}));
   connect(pipCon.port_b,senMasFloCon.port_a)

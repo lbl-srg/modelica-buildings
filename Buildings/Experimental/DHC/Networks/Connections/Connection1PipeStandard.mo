@@ -21,6 +21,9 @@ model Connection1PipeStandard "Model for connecting an agent to the DHC system"
     "Hydraulic diameter of the distribution pipe";
   parameter Modelica.Units.SI.Length dhCon
     "Hydraulic diameter of the connection pipe";
+equation
+  connect(pipDis.port_b, junConSup.port_1)
+    annotation (Line(points={{-60,-40},{-50,-40}}, color={0,127,255}));
   annotation (Documentation(revisions="<html>
 <ul>
 <li>
