@@ -6,7 +6,7 @@ record VAVMultiZoneController "Record for multiple-zone VAV controller"
     "Type of outdoor air section"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl buiPreCon
     "Type of building pressure control system"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
@@ -97,24 +97,24 @@ record VAVMultiZoneController "Record for multiple-zone VAV controller"
     displayUnit="Pa")=10
     "Return fan minimum discharge static pressure setpoint"
     annotation (Dialog(group="Information provided by testing, adjusting, and balancing contractor",
-      enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
-      buiPreCon==Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp));
+      enable=typ == Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone
+           and buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp));
 
   parameter Modelica.Units.SI.PressureDifference pAirRetSet_rel_max(
     final min=10,
     displayUnit="Pa")=40
     "Return fan maximum discharge static pressure setpoint"
     annotation (Dialog(group="Information provided by testing, adjusting, and balancing contractor",
-      enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
-      buiPreCon==Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp));
+      enable=typ == Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone
+           and buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp));
 
   parameter Modelica.Units.SI.VolumeFlowRate dVFanRet_flow(
     final min=0,
     start=0.1)
     "Airflow differential between supply and return fans to maintain building pressure at setpoint"
     annotation (Dialog(group="Information provided by testing, adjusting, and balancing contractor",
-      enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
-      buiPreCon==Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir));
+      enable=typ == Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone
+           and buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir));
 
   parameter Real yFanSup_min(
     final unit="1",

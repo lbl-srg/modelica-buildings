@@ -1,8 +1,9 @@
 within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanCVF.Subsequences;
 block SystemRequests "Output system requests for parallel fan-powered terminal unit with constant-volume fan"
 
-  parameter Boolean have_hotWatCoi
-    "True: the system has hot water coil";
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+    "Heating coil type"
+    annotation (__cdl(ValueInReference=false));
   parameter Real thrTemDif(
     final unit="K",
     final quantity="TemperatureDifference")=3
@@ -17,12 +18,12 @@ block SystemRequests "Output system requests for parallel fan-powered terminal u
     final unit="K",
     final quantity="TemperatureDifference")=17
     "Threshold difference between discharge air temperature and its setpoint for generating 3 hot water reset requests"
-    annotation (__cdl(ValueInReference=true), Dialog(enable=have_hotWatCoi));
+    annotation (__cdl(ValueInReference=true), Dialog(enable=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased));
   parameter Real thrTDis_2(
     final unit="K",
     final quantity="TemperatureDifference")=8
     "Threshold difference between discharge air temperature and its setpoint for generating 2 hot water reset requests"
-    annotation (__cdl(ValueInReference=true), Dialog(enable=have_hotWatCoi));
+    annotation (__cdl(ValueInReference=true), Dialog(enable=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased));
   parameter Real durTimTem(
     final unit="s",
     final quantity="Time")=120
@@ -38,13 +39,13 @@ block SystemRequests "Output system requests for parallel fan-powered terminal u
     final quantity="Time")=300
     "Duration time of discharge air temperature less than setpoint"
     annotation (__cdl(ValueInReference=true),
-                Dialog(group="Duration times", enable=have_hotWatCoi));
+                Dialog(group="Duration times", enable=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased));
   parameter Real dTHys(
     final unit="K",
     final quantity="TemperatureDifference")=0.25
     "Near zero temperature difference, below which the difference will be seen as zero"
     annotation (__cdl(ValueInReference=false),
-                Dialog(tab="Advanced", enable=have_hotWatCoi));
+                Dialog(tab="Advanced", enable=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased));
   parameter Real floHys(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
@@ -60,7 +61,7 @@ block SystemRequests "Output system requests for parallel fan-powered terminal u
   parameter Real valPosHys(
     final unit="1")
     "Near zero valve position, below which the valve will be seen as closed"
-    annotation (Dialog(tab="Advanced", enable=have_hotWatCoi));
+    annotation (Dialog(tab="Advanced", enable=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased));
   parameter Real samplePeriod(
     final unit="s",
     final quantity="Time")=120
@@ -115,14 +116,16 @@ block SystemRequests "Output system requests for parallel fan-powered terminal u
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDisSet(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature") if have_hotWatCoi
+    final quantity="ThermodynamicTemperature")
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Discharge airflow setpoint temperature for heating"
     annotation (Placement(transformation(extent={{-220,-130},{-180,-90}}),
         iconTransformation(extent={{-140,-70},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDis(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature") if have_hotWatCoi
+    final quantity="ThermodynamicTemperature")
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Measured discharge airflow temperature"
     annotation (Placement(transformation(extent={{-220,-160},{-180,-120}}),
         iconTransformation(extent={{-140,-90},{-100,-50}})));
@@ -130,7 +133,8 @@ block SystemRequests "Output system requests for parallel fan-powered terminal u
     final min=0,
     final max=1,
     final unit="1")
-    if have_hotWatCoi "Hot water valve position"
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+    "Hot water valve position"
     annotation (Placement(transformation(extent={{-220,-240},{-180,-200}}),
         iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yZonTemResReq
@@ -141,22 +145,24 @@ block SystemRequests "Output system requests for parallel fan-powered terminal u
     "Zone static pressure reset requests"
     annotation (Placement(transformation(extent={{180,40},{220,80}}),
         iconTransformation(extent={{100,10},{140,50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHeaValResReq if have_hotWatCoi
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHeaValResReq
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Hot water reset requests"
     annotation (Placement(transformation(extent={{180,-160},{220,-120}}),
         iconTransformation(extent={{100,-50},{140,-10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatPlaReq if have_hotWatCoi
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatPlaReq
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Request to heating hot-water plant"
     annotation (Placement(transformation(extent={{180,-290},{220,-250}}),
         iconTransformation(extent={{100,-100},{140,-60}})));
 
 protected
   Buildings.Controls.OBC.CDL.Reals.Less les(
-    final h=dTHys) if have_hotWatCoi
+    final h=dTHys) if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Check if discharge temperature is less than setpoint by a threshold"
     annotation (Placement(transformation(extent={{-60,-150},{-40,-130}})));
   Buildings.Controls.OBC.CDL.Reals.Less les1(
-    final h=dTHys) if have_hotWatCoi
+    final h=dTHys) if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Check if discharge temperature is less than setpoint by a threshold"
     annotation (Placement(transformation(extent={{-60,-190},{-40,-170}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr1(
@@ -261,53 +267,61 @@ protected
     "Logical and"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
   Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(
-    final p=thrTDis_1) if have_hotWatCoi
+    final p=thrTDis_1)
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Discharge temperature plus threshold"
     annotation (Placement(transformation(extent={{-140,-150},{-120,-130}})));
   Buildings.Controls.OBC.CDL.Reals.AddParameter addPar1(
-    final p=thrTDis_2) if have_hotWatCoi
+    final p=thrTDis_2)
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Discharge temperature plus threshold"
     annotation (Placement(transformation(extent={{-140,-190},{-120,-170}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant thrHeaResReq(
-    final k=3) if have_hotWatCoi
+    final k=3)
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Constant 3"
     annotation (Placement(transformation(extent={{100,-120},{120,-100}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant twoHeaResReq(
-    final k=2) if have_hotWatCoi
+    final k=2)
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Constant 2"
     annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi2
-    if have_hotWatCoi
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Output 3 or other request "
     annotation (Placement(transformation(extent={{140,-150},{160,-130}})));
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi3
-    if have_hotWatCoi
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Output 2 or other request "
     annotation (Placement(transformation(extent={{100,-190},{120,-170}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay tim4(
-    final delayTime=durTimDisAir) if have_hotWatCoi
+    final delayTime=durTimDisAir)
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Check if it is more than threshold time"
     annotation (Placement(transformation(extent={{0,-150},{20,-130}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay tim5(
-    final delayTime=durTimDisAir) if have_hotWatCoi
+    final delayTime=durTimDisAir)
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Check if it is more than threshold time"
     annotation (Placement(transformation(extent={{0,-190},{20,-170}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr5(
     final t=0.95,
-    final h=valPosHys) if have_hotWatCoi
+    final h=valPosHys)
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Check if valve position is greater than 0.95"
     annotation (Placement(transformation(extent={{-140,-230},{-120,-210}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt2
-    if have_hotWatCoi
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Convert boolean to integer"
     annotation (Placement(transformation(extent={{0,-230},{20,-210}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr6(
     final t=0.95,
-    final h=0.85) if have_hotWatCoi
+    final h=0.85)
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Check if valve position is greater than 0.95"
     annotation (Placement(transformation(extent={{-140,-280},{-120,-260}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt3
-    if have_hotWatCoi
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Convert boolean to integer"
     annotation (Placement(transformation(extent={{0,-280},{20,-260}})));
   Buildings.Controls.OBC.CDL.Discrete.Sampler sampler(
@@ -567,13 +581,13 @@ annotation (
           pattern=LinePattern.Dash,
           textString="uAftSup"),
         Text(
-          visible=have_hotWatCoi,
+          visible=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased,
           extent={{-98,-42},{-74,-54}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TDisSet"),
         Text(
-          visible=have_hotWatCoi,
+          visible=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased,
           extent={{-102,-64},{-76,-74}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
@@ -584,14 +598,14 @@ annotation (
           pattern=LinePattern.Dash,
           textString="uVal"),
         Text(
-          visible=have_hotWatCoi,
+          visible=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased,
           extent={{40,-20},{98,-36}},
           textColor={255,127,0},
           pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="yHeaValResReq"),
         Text(
-          visible=have_hotWatCoi,
+          visible=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased,
           extent={{40,-70},{98,-86}},
           textColor={255,127,0},
           pattern=LinePattern.Dash,
@@ -647,7 +661,7 @@ Else if the damper position <code>uDam</code> is less than 95%, send 0 request
 </li>
 </ol>
 
-<h4>If there is a hot-water coil (<code>have_hotWatCoi=true</code>), hot-water reset requests
+<h4>If there is a hot-water coil, hot-water reset requests
 <code>yHeaValResReq</code></h4>
 <ol>
 <li>

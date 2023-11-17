@@ -917,23 +917,39 @@ steam heating processes involving low and medium pressure steam.
 properties of water and steam,&rdquo; <i>J. Eng. Gas Turbines Power</i>, vol. 122, no.
 1, pp. 150&ndash;180, 2000.
 </p>
+<p>
+Kathryn Hinkelman, Saranya Anbarasu, Michael Wetter, Antoine Gautier, Wangda Zuo. 2022.
+&ldquo;A Fast and Accurate Modeling Approach for Water and Steam
+Thermodynamics with Practical Applications in District Heating System Simulation,&rdquo;
+<i>Energy</i>, 254(A), pp. 124227.
+<a href=\"https://doi.org/10.1016/j.energy.2022.124227\">10.1016/j.energy.2022.124227</a>
+</p>
+<p>
+Kathryn Hinkelman, Saranya Anbarasu, Michael Wetter, Antoine Gautier, Baptiste Ravache, Wangda Zuo 2022.
+&ldquo;Towards Open-Source Modelica Models For Steam-Based District Heating Systems.&rdquo;
+<i>Proc. of the 1st International Workshop On Open Source Modelling And Simulation Of
+Energy Systems (OSMSES 2022)</i>, Aachen, German, April 4-5, 2022.
+<a href=\"https://doi.org/10.1109/OSMSES54027.2022.9769121\">10.1109/OSMSES54027.2022.9769121</a>
+</p>
 </html>", revisions="<html>
 <ul>
-
+<li>
+September 29, 2023, by Kathryn Hinkelman:<br/>
+Added publication references.
+</li>
 <li>
 March 10, 2023, by Saranya Anbarasu:<br/>
-Changed the variable type definition of <code>pHat</code> and <code>THat</code> 
-from absolute to <code>Modelica.Units.SI.PressureDifference</code> and 
-<code>Modelica.Units.SI.TemperatureDifference</code> to prevent min/max 
-assertion erros during initilization.
+Changed the variable type definition of <code>pHat</code> and <code>THat</code>
+from absolute to <code>Modelica.Units.SI.PressureDifference</code> and
+<code>Modelica.Units.SI.TemperatureDifference</code> to prevent min/max
+assertion errors during initilization.
 </li>
-
 <li>
 May 9, 2022, by David Blum:<br/>
 In function <code>rho_pT</code>, created and used new function extending
 <code>Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.g2</code> with an
-annotation <code>smoothOrder=2</code>.  This is to specifcally pass on the 
-<code>smoothOrder=2</code> annotion placed on <code>rho_pT</code> to 
+annotation <code>smoothOrder=2</code>. This is to specifically pass on the
+<code>smoothOrder=2</code> annotion placed on <code>rho_pT</code> to
 the <code>g2</code> function.
 </li>
 <li>
