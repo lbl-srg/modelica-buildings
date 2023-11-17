@@ -4,8 +4,10 @@ model FreezeProtection
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.FreezeProtection
     frePro(
-    final buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper,
+    final buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefDamper,
+
     final minOADes=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow,
+
     final freSta=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat)
     "Freeze protection control"
     annotation (Placement(transformation(extent={{80,0},{100,40}})));
