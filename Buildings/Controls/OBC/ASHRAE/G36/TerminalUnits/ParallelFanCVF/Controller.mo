@@ -44,19 +44,19 @@ block Controller "Controller for constant-volume parallel fan-powered terminal u
   // ---------------- Control loop parameters ----------------
   parameter Real kCooCon=0.1
     "Gain of controller for cooling control loop"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(tab="Control loops", group="Cooling"));
   parameter Real TiCooCon(unit="s")=900
     "Time constant of integrator block for cooling control loop"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(tab="Control loops", group="Cooling"));
   parameter Real kHeaCon=0.1
     "Gain of controller for heating control loop"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(tab="Control loops", group="Heating"));
   parameter Real TiHeaCon(unit="s")=900
     "Time constant of integrator block for heating control loop"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(tab="Control loops", group="Heating"));
   // ---------------- Damper and valve control parameters ----------------
   parameter Real dTDisZonSetMax(unit="K")=11
@@ -68,17 +68,17 @@ block Controller "Controller for constant-volume parallel fan-powered terminal u
                 Dialog(tab="Damper and valve control", group="Valve"));
   parameter Real kVal=0.5
     "Gain of controller for valve control"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(tab="Damper and valve control", group="Valve"));
   parameter Real TiVal(unit="s")=300
     "Time constant of integrator block for valve control"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(tab="Damper and valve control", group="Valve",
       enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
           or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real TdVal(unit="s")=0.1
     "Time constant of derivative block for valve control"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(tab="Damper and valve control", group="Valve",
       enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
@@ -88,17 +88,17 @@ block Controller "Controller for constant-volume parallel fan-powered terminal u
                 Dialog(tab="Damper and valve control", group="Damper"));
   parameter Real kDam=0.5
     "Gain of controller for damper control"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(tab="Damper and valve control", group="Damper"));
   parameter Real TiDam(unit="s")=300
     "Time constant of integrator block for damper control"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(tab="Damper and valve control", group="Damper",
       enable=(controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
            or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real TdDam(unit="s")=0.1
     "Time constant of derivative block for damper control"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(tab="Damper and valve control", group="Damper",
       enable=(controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
            or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
@@ -169,19 +169,19 @@ block Controller "Controller for constant-volume parallel fan-powered terminal u
   // ---------------- Advanced parameters ----------------
   parameter Real dTHys(unit="K")=0.25
     "Near zero temperature difference, below which the difference will be seen as zero"
-    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false), Dialog(tab="Advanced"));
   parameter Real looHys(unit="1")=0.01
     "Loop output hysteresis below which the output will be seen as zero"
-    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false), Dialog(tab="Advanced"));
   parameter Real floHys(unit="m3/s")=0.01*VMin_flow
     "Near zero flow rate, below which the flow rate or difference will be seen as zero"
-    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false), Dialog(tab="Advanced"));
   parameter Real damPosHys(unit="1")=0.005
     "Near zero damper position, below which the damper will be seen as closed"
-    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false), Dialog(tab="Advanced"));
   parameter Real valPosHys(unit="1")=0.005
     "Near zero valve position, below which the valve will be seen as closed"
-    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false), Dialog(tab="Advanced"));
   parameter Real staTim(
     final unit="s",
     final quantity="Time")=1800
@@ -1012,6 +1012,12 @@ Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanCVF.Subsequences.Over
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 16, 2023, by Jianjun Hu:<br/>
+Added vendor annotation <code>InstanceInReference</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2191\">issue 2191</a>.
+</li>
 <li>
 January 12, 2023, by Jianjun Hu:<br/>
 Removed the parameter <code>have_preIndDam</code> to exclude the option of using pressure independant damper.<br/>

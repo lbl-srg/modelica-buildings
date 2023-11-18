@@ -6,9 +6,11 @@ block SumZone "Calculate the sum of zone level setpoints"
   parameter Integer nGro
     "Total number of groups";
   parameter Integer zonGroMat[nGro, nZon]
-    "Zone matrix with zone group as row index and zone as column index. It uses index 1 to flag which zone is in which group";
+    "Zone matrix with zone group as row index and zone as column index. It uses index 1 to flag which zone is in which group"
+    annotation (__cdl(InstanceInReference=false));
   parameter Integer zonGroMatTra[nZon, nGro]
-    "Transpose of the zone matrix";
+    "Transpose of the zone matrix"
+    annotation (__cdl(InstanceInReference=false));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod[nGro]
     "Groups operation mode"

@@ -14,12 +14,12 @@ block SupplySignals
     annotation (__cdl(ValueInReference=false));
   parameter Real kTSup(final unit="1/K")=0.05
     "Gain of controller for supply air temperature signal"
-    annotation (__cdl(ValueInReference=false));
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false));
   parameter Real TiTSup(
     final unit="s",
     final quantity="Time")=600
     "Time constant of integrator block for supply temperature control signal"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(
       enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
@@ -27,7 +27,7 @@ block SupplySignals
     final unit="s",
     final quantity="Time")=0.1
     "Time constant of derivative block for supply temperature control signal"
-    annotation(__cdl(ValueInReference=false),
+    annotation(__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
                           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real uHea_max(
@@ -45,19 +45,20 @@ block SupplySignals
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
-    "Measured supply air temperature" annotation (Placement(transformation(
-          extent={{-140,-40},{-100,0}}), iconTransformation(extent={{-140,-80},{
-            -100,-40}})));
+    "Measured supply air temperature"
+    annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TAirSupSet(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
-    "Supply air temperature setpoint" annotation (Placement(transformation(
-          extent={{-140,10},{-100,50}}), iconTransformation(extent={{-140,-20},{
-            -100,20}})));
+    "Supply air temperature setpoint"
+    annotation (Placement(transformation(extent={{-140,10},{-100,50}}),
+        iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1SupFan
-    "Supply fan status"           annotation (Placement(transformation(extent={{
-            -140,60},{-100,100}}), iconTransformation(extent={{-140,40},{-100,80}})));
+    "Supply fan status"
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
+        iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaCoi(
     final min=0,
     final max=1,
@@ -168,13 +169,15 @@ equation
     annotation (Line(points={{22,60},{120,60}},  color={0,0,127}));
   connect(TAirSupSet, conTSup.u_s)
     annotation (Line(points={{-120,30},{-62,30}}, color={0,0,127}));
-  connect(u1SupFan, swi.u2) annotation (Line(points={{-120,80},{-80,80},{-80,60},
-          {-2,60}}, color={255,0,255}));
+  connect(u1SupFan, swi.u2)
+    annotation (Line(points={{-120,80},{-80,80},{-80,60},{-2,60}},
+      color={255,0,255}));
   connect(conTSup.y, swi.u1)
     annotation (Line(points={{-38,30},{-28,30},{-28,68},{-2,68}},
       color={0,0,127}));
-  connect(u1SupFan, conTSup.trigger) annotation (Line(points={{-120,80},{-80,80},
-          {-80,0},{-56,0},{-56,18}}, color={255,0,255}));
+  connect(u1SupFan, conTSup.trigger)
+    annotation (Line(points={{-120,80},{-80,80},{-80,0},{-56,0},{-56,18}},
+      color={255,0,255}));
 
 annotation (
   defaultComponentName = "supSig",

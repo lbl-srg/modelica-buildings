@@ -45,19 +45,19 @@ block Controller
   // ---------------- Control loop parameters ----------------
   parameter Real kCooCon=0.1
     "Gain of controller for cooling control loop"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(tab="Control loops", group="Cooling"));
   parameter Real TiCooCon(unit="s")=900
     "Time constant of integrator block for cooling control loop"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(tab="Control loops", group="Cooling"));
   parameter Real kHeaCon=0.1
     "Gain of controller for heating control loop"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(tab="Control loops", group="Heating"));
   parameter Real TiHeaCon(unit="s")=900
     "Time constant of integrator block for heating control loop"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(tab="Control loops", group="Heating"));
   // ---------------- Damper and valve control parameters ----------------
   parameter Real dTDisZonSetMax(unit="K")=11
@@ -72,17 +72,17 @@ block Controller
                 Dialog(tab="Damper and valve control", group="Valve"));
   parameter Real kVal=0.5
     "Gain of controller for valve control"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(tab="Damper and valve control", group="Valve"));
   parameter Real TiVal(unit="s")=300
     "Time constant of integrator block for valve control"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(tab="Damper and valve control", group="Valve",
       enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
           or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real TdVal(unit="s")=0.1
     "Time constant of derivative block for valve control"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(tab="Damper and valve control", group="Valve",
       enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
@@ -92,17 +92,17 @@ block Controller
                 Dialog(tab="Damper and valve control", group="Damper"));
   parameter Real kDam=0.5
     "Gain of controller for damper control"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(tab="Damper and valve control", group="Damper"));
   parameter Real TiDam(unit="s")=300
     "Time constant of integrator block for damper control"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(tab="Damper and valve control", group="Damper",
       enable=(controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
            or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real TdDam(unit="s")=0.1
     "Time constant of derivative block for damper control"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(tab="Damper and valve control", group="Damper",
       enable=(controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
            or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
@@ -171,19 +171,19 @@ block Controller
   // ---------------- Advanced parameters ----------------
   parameter Real dTHys(unit="K")=0.25
     "Near zero temperature difference, below which the difference will be seen as zero"
-    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false), Dialog(tab="Advanced"));
   parameter Real looHys(unit="1")=0.01
     "Loop output hysteresis below which the output will be seen as zero"
-    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false), Dialog(tab="Advanced"));
   parameter Real floHys(unit="m3/s")=0.01*VMin_flow
     "Near zero flow rate, below which the flow rate or difference will be seen as zero"
-    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false), Dialog(tab="Advanced"));
   parameter Real damPosHys(unit="1")=0.005
     "Near zero damper position, below which the damper will be seen as closed"
-    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false), Dialog(tab="Advanced"));
   parameter Real valPosHys(unit="1")=0.005
     "Near zero valve position, below which the valve will be seen as closed"
-    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false), Dialog(tab="Advanced"));
   parameter Real staTim(
     final unit="s",
     final quantity="Time")=1800
@@ -575,85 +575,65 @@ equation
   connect(damVal.yVal, setOve.uVal) annotation (Line(points={{42,8},{62,8},{62,
           -71},{78,-71}},          color={0,0,127}));
   connect(timSup.yAftSup, sysReq.uAftSup) annotation (Line(points={{-178,300},{
-          -148,300},{-148,-141},{158,-141}},
-                                       color={255,0,255}));
+          -148,300},{-148,-141},{158,-141}}, color={255,0,255}));
   connect(TCooSet, sysReq.TCooSet) annotation (Line(points={{-260,290},{-228,
           290},{-228,-143},{158,-143}}, color={0,0,127}));
   connect(TZon, sysReq.TZon) annotation (Line(points={{-260,320},{-222,320},{
-          -222,-145},{158,-145}},
-                             color={0,0,127}));
+          -222,-145},{158,-145}}, color={0,0,127}));
   connect(conLoo.yCoo, sysReq.uCoo) annotation (Line(points={{-178,266},{-154,
-          266},{-154,-147},{158,-147}},
-                                  color={0,0,127}));
+          266},{-154,-147},{158,-147}}, color={0,0,127}));
   connect(VPri_flow,sysReq.VPri_flow)  annotation (Line(points={{-260,20},{-36,
-          20},{-36,-151},{158,-151}},
-                                  color={0,0,127}));
+          20},{-36,-151},{158,-151}},color={0,0,127}));
   connect(TDis, sysReq.TDis) annotation (Line(points={{-260,70},{-192,70},{-192,
           -157},{158,-157}}, color={0,0,127}));
   connect(VPri_flow,ala.VPri_flow)  annotation (Line(points={{-260,20},{-36,20},
           {-36,-239},{158,-239}}, color={0,0,127}));
   connect(u1Fan, ala.u1Fan) annotation (Line(points={{-260,-270},{0,-270},{0,
-          -243},{158,-243}},
-                       color={255,0,255}));
+          -243},{158,-243}}, color={255,0,255}));
   connect(TSup, ala.TSup) annotation (Line(points={{-260,-10},{-30,-10},{-30,
-          -255},{158,-255}},
-                       color={0,0,127}));
+          -255},{158,-255}}, color={0,0,127}));
   connect(u1HotPla, ala.u1HotPla) annotation (Line(points={{-260,-330},{40,-330},
           {40,-257},{158,-257}}, color={255,0,255}));
   connect(TDis, ala.TDis) annotation (Line(points={{-260,70},{-192,70},{-192,
-          -259},{158,-259}},
-                       color={0,0,127}));
+          -259},{158,-259}}, color={0,0,127}));
   connect(setOve.yDam, yDam) annotation (Line(points={{102,-63},{126,-63},{126,300},
-          {260,300}},           color={0,0,127}));
+          {260,300}}, color={0,0,127}));
   connect(setOve.yVal, yVal) annotation (Line(points={{102,-70},{132,-70},{132,270},
-          {260,270}},          color={0,0,127}));
+          {260,270}}, color={0,0,127}));
   connect(sysReq.yZonTemResReq, yZonTemResReq) annotation (Line(points={{182,
-          -142},{200,-142},{200,-50},{260,-50}},
-                                           color={255,127,0}));
+          -142},{200,-142},{200,-50},{260,-50}}, color={255,127,0}));
   connect(sysReq.yZonPreResReq, yZonPreResReq) annotation (Line(points={{182,
-          -147},{206,-147},{206,-80},{260,-80}},
-                                           color={255,127,0}));
+          -147},{206,-147},{206,-80},{260,-80}},  color={255,127,0}));
   connect(sysReq.yHeaValResReq, yHeaValResReq) annotation (Line(points={{182,
-          -153},{212,-153},{212,-110},{260,-110}},
-                                             color={255,127,0}));
+          -153},{212,-153},{212,-110},{260,-110}}, color={255,127,0}));
   connect(sysReq.yHotWatPlaReq, yHotWatPlaReq) annotation (Line(points={{182,
-          -158},{218,-158},{218,-140},{260,-140}},
-                                             color={255,127,0}));
+          -158},{218,-158},{218,-140},{260,-140}}, color={255,127,0}));
   connect(ala.yLowFloAla, yLowFloAla) annotation (Line(points={{182,-241},{200,
-          -241},{200,-180},{260,-180}},
-                                  color={255,127,0}));
+          -241},{200,-180},{260,-180}}, color={255,127,0}));
   connect(ala.yFloSenAla, yFloSenAla) annotation (Line(points={{182,-244},{206,
-          -244},{206,-210},{260,-210}},
-                                  color={255,127,0}));
+          -244},{206,-210},{260,-210}}, color={255,127,0}));
   connect(ala.yLeaDamAla, yLeaDamAla) annotation (Line(points={{182,-252},{212,
-          -252},{212,-270},{260,-270}},
-                                  color={255,127,0}));
+          -252},{212,-270},{260,-270}}, color={255,127,0}));
   connect(ala.yLeaValAla, yLeaValAla) annotation (Line(points={{182,-255},{206,
-          -255},{206,-300},{260,-300}},
-                                  color={255,127,0}));
+          -255},{206,-300},{260,-300}}, color={255,127,0}));
   connect(ala.yLowTemAla, yLowTemAla) annotation (Line(points={{182,-259},{200,
-          -259},{200,-330},{260,-330}},
-                                  color={255,127,0}));
+          -259},{200,-330},{260,-330}}, color={255,127,0}));
   connect(setPoi.VMinOA_flow, damVal.VOAMin_flow) annotation (Line(points={{-98,166},
-          {-62,166},{-62,9},{18,9}},      color={0,0,127}));
+          {-62,166},{-62,9},{18,9}}, color={0,0,127}));
   connect(damVal.THeaDisSet, sysReq.TDisSet) annotation (Line(points={{42,11},{
-          58,11},{58,-155},{158,-155}},
-                                     color={0,0,127}));
+          58,11},{58,-155},{158,-155}}, color={0,0,127}));
   connect(setOve.oveFan, oveFan) annotation (Line(points={{78,-77},{-88,-77},{
           -88,-130},{-260,-130}}, color={255,127,0}));
   connect(setOve.y1Fan, y1Fan) annotation (Line(points={{102,-77},{140,-77},{140,
           200},{260,200}},   color={255,0,255}));
   connect(ala.yFanStaAla, yFanStaAla) annotation (Line(points={{182,-248},{212,
-          -248},{212,-240},{260,-240}},
-                                  color={255,127,0}));
+          -248},{212,-240},{260,-240}}, color={255,127,0}));
   connect(damVal.y1Fan, setOve.u1Fan) annotation (Line(points={{42,1},{54,1},{
           54,-79},{78,-79}}, color={255,0,255}));
   connect(damVal.y1Fan, ala.u1FanCom) annotation (Line(points={{42,1},{54,1},{
-          54,-245},{158,-245}},
-                             color={255,0,255}));
+          54,-245},{158,-245}},  color={255,0,255}));
   connect(damVal.THeaDisSet, ala.TDisSet) annotation (Line(points={{42,11},{58,
-          11},{58,-261},{158,-261}},
-                                 color={0,0,127}));
+          11},{58,-261},{158,-261}}, color={0,0,127}));
   connect(damVal.VFan_flow_Set, mul1.u1) annotation (Line(points={{42,3.8},{114,
           3.8},{114,246},{198,246}}, color={0,0,127}));
   connect(setOve.y1Fan, booToRea1.u) annotation (Line(points={{102,-77},{140,-77},
@@ -1013,6 +993,12 @@ Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanVVF.Subsequences.Overri
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 16, 2023, by Jianjun Hu:<br/>
+Added vendor annotation <code>InstanceInReference</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2191\">issue 2191</a>.
+</li>
 <li>
 January 12, 2023, by Jianjun Hu:<br/>
 Removed the parameter <code>have_preIndDam</code> to exclude the option of using pressure independant damper.<br/>

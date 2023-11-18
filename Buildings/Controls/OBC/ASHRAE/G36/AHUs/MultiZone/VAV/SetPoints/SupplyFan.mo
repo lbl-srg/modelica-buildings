@@ -61,14 +61,14 @@ block SupplyFan  "Block to control multi zone VAV AHU supply fan"
                 Dialog(group="Fan PID controller"));
   parameter Real k(final unit="1")=0.1
     "Gain of controller, normalized using maxSet"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(group="Fan PID controller"));
   parameter Real Ti(
     final unit="s",
     final quantity="Time",
     min=0)=60
     "Time constant of integrator block"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(group="Fan PID controller",
       enable=controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PI
          or  controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
@@ -77,7 +77,7 @@ block SupplyFan  "Block to control multi zone VAV AHU supply fan"
     final quantity="Time",
     final min=0) = 0.1
     "Time constant of derivative block"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(group="Fan PID controller",
       enable=controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
@@ -418,6 +418,12 @@ that are occupied, etc.).
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 16, 2023, by Jianjun Hu:<br/>
+Added vendor annotation <code>InstanceInReference</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2191\">issue 2191</a>.
+</li>
 <li>
 August 23, 2023, by Jianjun Hu:<br/>
 Added parameter to set the initial fan speed.

@@ -4,7 +4,7 @@ block ReturnFan
 
   parameter Boolean have_dirCon=true
     "True: the building have direct pressure control"
-    annotation (__cdl(ValueInReference=false));
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false));
   parameter Real uMin(
     final max=0,
     final unit="1")=-0.25
@@ -40,7 +40,8 @@ block ReturnFan
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDam(
     final min=0,
     final max=1,
-    final unit="1") "Return air damper position"
+    final unit="1")
+    "Return air damper position"
     annotation (Placement(transformation(extent={{120,20},{160,60}}),
         iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelDam(

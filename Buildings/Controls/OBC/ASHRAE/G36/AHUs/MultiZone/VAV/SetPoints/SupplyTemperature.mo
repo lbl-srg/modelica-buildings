@@ -6,16 +6,14 @@ block SupplyTemperature
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=285.15
-    "Lowest cooling supply air temperature setpoint when the outdoor air temperature is at the
-    higher value of the reset range and above"
+    "Lowest cooling supply air temperature setpoint when the outdoor air temperature is at the higher value of the reset range and above"
     annotation (__cdl(ValueInReference=false),
                 Dialog(group="Temperatures"));
   parameter Real TSupCoo_max(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=291.15
-    "Highest cooling supply air temperature setpoint. It is typically 18 degC (65 degF) 
-    in mild and dry climates, 16 degC (60 degF) or lower in humid climates"
+    "Highest cooling supply air temperature setpoint. It is typically 18 degC (65 degF) in mild and dry climates, 16 degC (60 degF) or lower in humid climates"
     annotation (__cdl(ValueInReference=false),
                 Dialog(group="Temperatures"));
   parameter Real TOut_min(
@@ -202,10 +200,11 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu
     "Check if it is in cooldown mode"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
-
-  CDL.Reals.Sources.Constant TDea(final k=TDeaBan)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TDea(
+    final k=TDeaBan)
     "Deadband supply temperature setpoint"
     annotation (Placement(transformation(extent={{-100,150},{-80,170}})));
+
 equation
   connect(minOutTem.y, lin.x1)
     annotation (Line(points={{-38,140},{-20,140},{-20,128},{-2,128}},
@@ -278,7 +277,6 @@ equation
           68}}, color={0,0,127}));
   connect(swi4.y, swi2.u3) annotation (Line(points={{62,60},{70,60},{70,-40},{10,
           -40},{10,-78},{18,-78}}, color={0,0,127}));
-
   connect(TDea.y, swi4.u3) annotation (Line(points={{-78,160},{-30,160},{-30,52},
           {38,52}}, color={0,0,127}));
   connect(TDea.y, swi3.u3) annotation (Line(points={{-78,160},{-30,160},{-30,-8},

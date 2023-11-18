@@ -22,7 +22,8 @@ block Controller
     annotation (__cdl(ValueInReference=false));
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat freSta=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
     "Type of freeze stat"
-    annotation (__cdl(ValueInReference=false), Dialog(enable=have_frePro));
+    annotation (__cdl(ValueInReference=false, InstanceInRefrence=false),
+                Dialog(enable=have_frePro));
   parameter Boolean have_winSen=false
     "Check if the zone has window status sensor"
     annotation (__cdl(ValueInReference=false));
@@ -31,10 +32,10 @@ block Controller
     annotation (__cdl(ValueInReference=false));
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil cooCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
     "Cooling coil type"
-    annotation (__cdl(ValueInReference=false));
+    annotation (__cdl(ValueInReference=false, InstanceInRefrence=false));
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Heating coil type"
-    annotation (__cdl(ValueInReference=false));
+    annotation (__cdl(ValueInReference=false, InstanceInRefrence=false));
   parameter Boolean have_CO2Sen=true
     "True: the zone has CO2 sensor"
     annotation (__cdl(ValueInReference=false));
@@ -166,17 +167,17 @@ block Controller
                 Dialog(tab="Loops control", group="Cooling loop"));
   parameter Real kCoo(unit="1/K")=0.1
     "Gain for cooling control loop signal"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(tab="Loops control", group="Cooling loop"));
   parameter Real TiCoo(unit="s")=900
     "Time constant of integrator block for cooling control loop signal"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(tab="Loops control", group="Cooling loop",
       enable=cooLooCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
           or cooLooCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real TdCoo(unit="s")=0.1
     "Time constant of derivative block for cooling control loop signal"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(tab="Loops control", group="Cooling loop",
       enable=cooLooCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or cooLooCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
@@ -187,17 +188,17 @@ block Controller
                 Dialog(tab="Loops control", group="Heating loop"));
   parameter Real kHea(unit="1/K")=0.1
     "Gain for heating control loop signal"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(tab="Loops control", group="Heating loop"));
   parameter Real TiHea(unit="s")=900
     "Time constant of integrator block for heating control loop signal"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(tab="Loops control", group="Heating loop",
       enable=heaLooCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
           or heaLooCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real TdHea(unit="s")=0.1
     "Time constant of derivative block for heating control loop signal"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(tab="Loops control", group="Heating loop",
       enable=heaLooCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or heaLooCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
@@ -331,17 +332,17 @@ block Controller
     annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Economizer", group="Modulation"));
   parameter Real kMod=1 "Gain of modulation controller"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(tab="Economizer", group="Modulation"));
   parameter Real TiMod(unit="s")=300
     "Time constant of modulation controller integrator block"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(tab="Economizer", group="Modulation",
       enable=ecoModCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
           or ecoModCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real TdMod(unit="s")=0.1
     "Time constant of derivative block for modulation controller"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(tab="Economizer", group="Modulation",
       enable=ecoModCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or ecoModCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
@@ -395,16 +396,17 @@ block Controller
     annotation (__cdl(ValueInReference=false), Dialog(tab="Cooling coil"));
   parameter Real kCooCoi(unit="1/K")=0.1
     "Gain for cooling coil control loop signal"
-    annotation (__cdl(ValueInReference=false), Dialog(tab="Cooling coil"));
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
+                Dialog(tab="Cooling coil"));
   parameter Real TiCooCoi(unit="s")=900
     "Time constant of integrator block for cooling coil control loop signal"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(tab="Cooling coil",
       enable=cooCoiCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
           or cooCoiCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real TdCooCoi(unit="s")=0.1
     "Time constant of derivative block for cooling coil control loop signal"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(tab="Cooling coil",
       enable=cooCoiCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or cooCoiCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
@@ -421,31 +423,31 @@ block Controller
                 Dialog(tab="Freeze protection", group="Heating coil control",
                        enable=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased and have_frePro));
   parameter Real kFreHea=1 "Gain of coil controller"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(tab="Freeze protection", group="Heating coil control",
                        enable=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased and have_frePro));
   parameter Real TiFreHea(unit="s")=0.5
     "Time constant of integrator block"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(tab="Freeze protection", group="Heating coil control",
       enable=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased and have_frePro and
             (freHeaCoiCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
              or freHeaCoiCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real TdFreHea(unit="s")=0.1
     "Time constant of derivative block"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(tab="Freeze protection", group="Heating coil control",
       enable=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased and have_frePro and
              (freHeaCoiCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
               or freHeaCoiCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real yMaxFreHea=1
     "Upper limit of output"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(tab="Freeze protection", group="Heating coil control",
                        enable=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased and have_frePro));
   parameter Real yMinFreHea=0
     "Lower limit of output"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(tab="Freeze protection", group="Heating coil control",
                        enable=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased and have_frePro));
 
@@ -491,21 +493,21 @@ block Controller
 
   // ----------- Advanced -----------
   parameter Real posHys=0.01 "Hysteresis for damper position check"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(tab="Advanced", group="Hysteresis"));
   parameter Real Thys(unit="K")=0.25
     "Hysteresis for checking temperature difference"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(tab="Advanced", group="Hysteresis"));
   parameter Real delEntHys(unit="J/kg")=1000
     "Delta between the enthalpy hysteresis high and low limits"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(tab="Advanced", group="Hysteresis",
                       enable = (ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb
                              or ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb)));
   parameter Real floHys(unit="m3/s")=0.01*VOutMin_flow
     "Near zero flow rate, below which the flow rate or difference will be seen as zero"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(tab="Advanced", group="Hysteresis"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
@@ -519,13 +521,15 @@ block Controller
     final unit="s",
     final quantity="Time")
     "Cool-down time retrieved from optimal cool-down block"
-    annotation (Placement(transformation(extent={{-300,440},{-260,480}}),
+    annotation (__cdl(InstanceInReference=false),
+      Placement(transformation(extent={{-300,440},{-260,480}}),
         iconTransformation(extent={{-240,340},{-200,380}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput warUpTim(
     final unit="s",
     final quantity="Time")
     "Warm-up time retrieved from optimal warm-up block"
-    annotation (Placement(transformation(extent={{-300,410},{-260,450}}),
+    annotation (__cdl(InstanceInReference=false),
+      Placement(transformation(extent={{-300,410},{-260,450}}),
         iconTransformation(extent={{-240,320},{-200,360}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Occ
     "Current occupancy period, true if it is in occupant period"
@@ -535,7 +539,8 @@ block Controller
     final unit="s",
     final quantity="Time")
     "Time to next occupied period"
-    annotation (Placement(transformation(extent={{-300,356},{-260,396}}),
+    annotation (__cdl(InstanceInReference=false),
+      Placement(transformation(extent={{-300,356},{-260,396}}),
         iconTransformation(extent={{-240,270},{-200,310}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",
@@ -549,28 +554,32 @@ block Controller
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Zone occupied heating setpoint temperatures"
-    annotation (Placement(transformation(extent={{-300,300},{-260,340}}),
+    annotation (__cdl(InstanceInReference=false),
+      Placement(transformation(extent={{-300,300},{-260,340}}),
         iconTransformation(extent={{-240,220},{-200,260}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOccCooSet(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Zone occupied cooling setpoint temperatures"
-    annotation (Placement(transformation(extent={{-300,280},{-260,320}}),
+    annotation (__cdl(InstanceInReference=false),
+      Placement(transformation(extent={{-300,280},{-260,320}}),
         iconTransformation(extent={{-240,200},{-200,240}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TUnoHeaSet(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Zone unoccupied heating setpoint temperatures"
-    annotation (Placement(transformation(extent={{-300,260},{-260,300}}),
+    annotation (__cdl(InstanceInReference=false),
+      Placement(transformation(extent={{-300,260},{-260,300}}),
         iconTransformation(extent={{-240,180},{-200,220}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TUnoCooSet(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Zone unoccupied cooling setpoint temperatures"
-    annotation (Placement(transformation(extent={{-300,240},{-260,280}}),
+    annotation (__cdl(InstanceInReference=false),
+      Placement(transformation(extent={{-300,240},{-260,280}}),
         iconTransformation(extent={{-240,160},{-200,200}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput setAdj
     if have_locAdj and not sepAdj
@@ -586,7 +595,7 @@ block Controller
     if have_locAdj and sepAdj
     "Heating setpoint adjustment value"
     annotation (Placement(transformation(extent={{-300,150},{-260,190}}),
-      iconTransformation(extent={{-240,100},{-200,140}})));
+        iconTransformation(extent={{-240,100},{-200,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1OccSen if have_occSen
     "Occupancy sensor (occupied=true, unoccupied=false)"
     annotation (Placement(transformation(extent={{-300,120},{-260,160}}),
@@ -624,7 +633,8 @@ block Controller
     if (ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb
      or ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb)
     "Outdoor air enthalpy"
-    annotation (Placement(transformation(extent={{-300,-100},{-260,-60}}),
+    annotation (__cdl(InstanceInReference=false),
+      Placement(transformation(extent={{-300,-100},{-260,-60}}),
         iconTransformation(extent={{-240,-120},{-200,-80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hAirRet(
     final unit="J/kg",
@@ -632,7 +642,8 @@ block Controller
     if (eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1
      and ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb)
     "Return air enthalpy"
-    annotation (Placement(transformation(extent={{-300,-130},{-260,-90}}),
+    annotation (__cdl(InstanceInReference=false),
+      Placement(transformation(extent={{-300,-130},{-260,-90}}),
         iconTransformation(extent={{-240,-140},{-200,-100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TAirRet(
     final unit="K",
@@ -642,8 +653,8 @@ block Controller
     "Used only for fixed plus differential dry bulb temperature high limit cutoff"
     annotation (Placement(transformation(extent={{-300,-160},{-260,-120}}),
         iconTransformation(extent={{-240,-160},{-200,-120}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1FreSta if freSta ==
-    Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_BAS
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1FreSta
+    if freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_BAS
     "Freeze protection stat signal. The stat is normally close (the input is normally true), when enabling freeze protection, the input becomes false"
     annotation (Placement(transformation(extent={{-300,-190},{-260,-150}}),
         iconTransformation(extent={{-240,-190},{-200,-150}})));
@@ -656,22 +667,23 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpBui(
     final unit="Pa",
     displayUnit="Pa",
-    final quantity="PressureDifference") if have_ahuRelFan and buiPreCon ==
-    Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
+    final quantity="PressureDifference")
+    if have_ahuRelFan and buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
     "Measured building static pressure difference, relative to ambient (positive if pressurized)"
     annotation (Placement(transformation(extent={{-300,-248},{-260,-208}}),
         iconTransformation(extent={{-240,-240},{-200,-200}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1RelFan if buiPreCon ==
-    Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan and not
-    have_ahuRelFan
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1RelFan
+    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
+      and not have_ahuRelFan
     "Relief fan commanded on"
     annotation (Placement(transformation(extent={{-300,-270},{-260,-230}}),
         iconTransformation(extent={{-240,-260},{-200,-220}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uRelFan(
     final min=0,
     final max=1,
-    final unit="1") if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
-     and not have_ahuRelFan
+    final unit="1")
+    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
+       and not have_ahuRelFan
     "Relief fan commanded speed"
     annotation (Placement(transformation(extent={{-300,-300},{-260,-260}}),
       iconTransformation(extent={{-240,-280},{-200,-240}})));
@@ -686,7 +698,8 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDam(
     final min=0,
     final max=1,
-    final unit="1") if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefDamper
+    final unit="1")
+    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefDamper
     "Outdoor damper position"
     annotation (Placement(transformation(extent={{-300,-360},{-260,-320}}),
         iconTransformation(extent={{-240,-330},{-200,-290}})));
@@ -741,7 +754,7 @@ block Controller
     annotation (Placement(transformation(extent={{260,250},{300,290}}),
         iconTransformation(extent={{200,170},{240,210}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1EneCHWPum
- if have_frePro
+    if have_frePro
     "Commanded on to energize chilled water pump"
     annotation (Placement(transformation(extent={{260,160},{300,200}}),
         iconTransformation(extent={{200,130},{240,170}})));
@@ -770,8 +783,8 @@ block Controller
     "Supply fan commanded speed"
     annotation (Placement(transformation(extent={{260,20},{300,60}}),
         iconTransformation(extent={{200,20},{240,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1RetFan if (buiPreCon
-     == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1RetFan
+    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp)
     "Return fan commanded on"
     annotation (Placement(transformation(extent={{260,-20},{300,20}}),
@@ -779,27 +792,30 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetFan(
     final min=0,
     final max=1,
-    final unit="1") if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
+    final unit="1")
+    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp)
     "Return fan commanded speed"
     annotation (Placement(transformation(extent={{260,-50},{300,-10}}),
         iconTransformation(extent={{200,-30},{240,10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1RelFan if buiPreCon ==
-    Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1RelFan
+    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
     "Relief fan commanded on"
     annotation (Placement(transformation(extent={{260,-90},{300,-50}}),
         iconTransformation(extent={{200,-60},{240,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelFan(
     final min=0,
     final max=1,
-    final unit="1") if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
+    final unit="1")
+    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
     "Relief fan commanded speed"
     annotation (Placement(transformation(extent={{260,-120},{300,-80}}),
         iconTransformation(extent={{200,-80},{240,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCooCoi(
     final min=0,
     final max=1,
-    final unit="1") "Cooling coil valve commanded position"
+    final unit="1")
+    "Cooling coil valve commanded position"
     annotation (Placement(transformation(extent={{260,-170},{300,-130}}),
         iconTransformation(extent={{200,-130},{240,-90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaCoi(
@@ -817,13 +833,14 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelDam(
     final min=0,
     final max=1,
-    final unit="1") if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefDamper
+    final unit="1")
+    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefDamper
      or (have_ahuRelFan and buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan)
     "Relief damper commanded position"
     annotation (Placement(transformation(extent={{260,-290},{300,-250}}),
         iconTransformation(extent={{200,-230},{240,-190}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ExhDam if (buiPreCon
-     == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ExhDam
+    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp)
     "Exhaust damper command on"
     annotation (Placement(transformation(extent={{260,-320},{300,-280}}),
@@ -1747,6 +1764,12 @@ for more detailed description.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 16, 2023, by Jianjun Hu:<br/>
+Added vendor annotation <code>InstanceInReference</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2191\">issue 2191</a>.
+</li>
 <li>
 September 18, 2023, by Jianjun Hu:<br/>
 Added coil type enumeration so to avoid using flag parameters.<br/>

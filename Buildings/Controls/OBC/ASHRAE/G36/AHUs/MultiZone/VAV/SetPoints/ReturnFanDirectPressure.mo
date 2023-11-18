@@ -39,13 +39,13 @@ block ReturnFanDirectPressure
                 Dialog(group="Pressure controller"));
   parameter Real k(final unit="1") = 1
     "Gain, normalized using dpBuiSet"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(group="Pressure controller"));
   parameter Real Ti(
     final unit="s",
     final quantity="Time")=0.5
     "Time constant of integrator block"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(group="Pressure controller",
       enable=conTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
           or conTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
@@ -53,7 +53,7 @@ block ReturnFanDirectPressure
     final unit="s",
     final quantity="Time")=0.1
     "Time constant of derivative block"
-    annotation (__cdl(ValueInReference=false),
+    annotation (__cdl(ValueInReference=false, InstanceInReference=false),
                 Dialog(group="Pressure controller",
       enable=conTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or conTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
@@ -381,6 +381,12 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/AHUs/MultiZo
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 16, 2023, by Jianjun Hu:<br/>
+Added vendor annotation <code>InstanceInReference</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2191\">issue 2191</a>.
+</li>
 <li>
 October 16, 2017, by Michael Wetter:<br/>
 Revised implementation, normalized control input
