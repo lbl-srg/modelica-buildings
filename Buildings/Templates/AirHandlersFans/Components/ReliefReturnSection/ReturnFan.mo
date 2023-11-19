@@ -5,7 +5,9 @@ model ReturnFan "Return fan with modulating relief damper"
     final typ=Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReturnFan,
     final typDamRel=damRel.typ,
     final typFanRel=Buildings.Templates.Components.Types.Fan.None,
-    final typFanRet=fanRet.typ);
+    final typFanRet=fanRet.typ,
+    final nFanRel=0,
+    final nFanRet=fanRet.nFan);
 
   Buildings.Templates.Components.Actuators.Damper damRel(
     redeclare final package Medium = MediumAir,
