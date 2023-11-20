@@ -144,7 +144,7 @@ before_install:
       echo "Installed modelica-json in ${MODELICA_JSON_HOME}";
     fi;
   - if [[ "$TEST_ARG" == *test-openmodelica* ]]; then
-       docker pull "$DOCKER_USERNAME"/${OMC_VERSION};
+       docker pull lbnlblum/${OMC_VERSION};
        cp Buildings/Resources/Scripts/travis/omc/omc $HOME/bin/omc;
     fi;
 
