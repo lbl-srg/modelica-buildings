@@ -10,7 +10,7 @@
 #################################################
 set -e
 IMG_NAME=${OMC_VERSION}
-DOCKER_USERNAME=michaelwetter
+DOCKER_USERNAME=lbnlblum
 
 # Function declarations
 function create_mount_command()
