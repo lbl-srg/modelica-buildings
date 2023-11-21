@@ -1,41 +1,23 @@
 within Buildings.Templates.Data;
 class AllSystems "Top-level (whole building) system parameters"
-
-//   parameter Buildings.Templates.Types.Buildings typBui
-//     "Building type";
-//
-//   parameter String namPro
-//     "Project name";
-//
-//   parameter Modelica.Units.SI.Area areFlo
-//     "Project floor area";
-
   parameter Buildings.Templates.Types.Units sysUni
     "Unit system";
-
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard stdEne
     "Energy standard"
     annotation(Evaluate=true);
-
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard stdVen
     "Ventilation standard"
     annotation(Evaluate=true);
-
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone ashCliZon(
     start=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_1A)
     "ASHRAE climate zone"
     annotation (Dialog(
     enable=stdEne==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1));
-
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone tit24CliZon(
     start=Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_1)
     "California Title 24 climate zone"
     annotation (Dialog(
     enable=stdEne==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24));
-
-//   parameter String note
-//     "Notes";
-
 annotation (
   defaultComponentPrefixes = "inner parameter",
   defaultComponentName = "datAll",
