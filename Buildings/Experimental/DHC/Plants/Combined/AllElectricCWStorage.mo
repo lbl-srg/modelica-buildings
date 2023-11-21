@@ -255,7 +255,7 @@ model AllElectricCWStorage
     "Tank temperature setpoints: 2 cycles with 2 setpoints"
     annotation(Dialog(group="CW loop, TES tank and heat pumps"));
   // Default TES tank pressure drop without PSV, otherwise ~ 20E3
-  parameter Modelica.Units.SI.PressureDifference dpTan_nominal(displayUnit="Pa")=1E3
+  parameter Modelica.Units.SI.PressureDifference dpTan_nominal=1E3
     "Design pressure drop through TES tank"
     annotation (Dialog(group="CW loop, TES tank and heat pumps"));
   replaceable parameter Fluid.HeatPumps.Data.EquationFitReversible.Generic datHeaPum

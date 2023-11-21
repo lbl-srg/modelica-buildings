@@ -56,12 +56,12 @@ model ExtremeAmbientConditions
     offset=273.15 + 40,
     height=-100,
     duration=10*3600) "Ambient temperature"
-    annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
+    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Modelica.Blocks.Sources.Ramp HSol(
     duration=12*3600,
     height=1000,
     startTime=10*3600) "Solar irradiation"
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 
   Sources.MassFlowSource_T sou2(
     redeclare package Medium = Medium,
@@ -76,16 +76,13 @@ model ExtremeAmbientConditions
         transformation(extent={{-10,-10},{10,10}}),iconTransformation(extent={{-154,
             16},{-134,36}})));
   Modelica.Blocks.Sources.Constant const(k=0) "Constant that outputs zero"
-    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+    annotation (Placement(transformation(extent={{-80,2},{-60,22}})));
   Modelica.Blocks.Sources.Constant solTim(k=12*3600) "Solar time"
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+    annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   Modelica.Blocks.Sources.Constant lat(k=0.656593) "Location latitude"
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Modelica.Blocks.Sources.Constant alt(k=2) "Location altitude"
-    annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
-  Modelica.Blocks.Sources.Constant const1(k=0)
-                                              "Constant that outputs zero"
-    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
+    annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 equation
   connect(sou.ports[1], solAsh.port_a)
     annotation (Line(points={{1.77636e-15,-40},{20,-40}}, color={0,127,255}));
@@ -104,38 +101,40 @@ equation
       textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(TAmb.y, weaBus.TDryBul) annotation (Line(points={{-59,100},{0,100},{0,
-          50},{0.05,50},{0.05,0.05}},
-                      color={0,0,127}), Text(
+  connect(TAmb.y, weaBus.TDryBul) annotation (Line(points={{-59,80},{-59,80},{0,
+          80},{0,0}}, color={0,0,127}), Text(
       textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(HSol.y, weaBus.HDifHor) annotation (Line(points={{-59,70},{-28,70},{-28,
-          0.05},{0.05,0.05}},
+  connect(HSol.y, weaBus.HDifHor) annotation (Line(points={{-59,50},{-28,50},{
+          -28,0},{0,0}},
                      color={0,0,127}), Text(
       textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(HSol.y, weaBus.HGloHor) annotation (Line(points={{-59,70},{-28,70},{-28,
-          0.05},{0.05,0.05}},
+  connect(HSol.y, weaBus.HGloHor) annotation (Line(points={{-59,50},{-28,50},{
+          -28,0},{0,0}},
                      color={0,0,127}), Text(
       textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(const.y, weaBus.solZen) annotation (Line(points={{-59,30},{-28,30},{-28,
-          0.05},{0.05,0.05}},
-                     color={0,0,127}), Text(
+  connect(const.y, weaBus.solZen) annotation (Line(points={{-59,12},{-28,12},{-28,
+          0},{0,0}}, color={0,0,127}), Text(
       textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(solTim.y, weaBus.solTim) annotation (Line(points={{-59,-40},{-28,-40},
-          {-28,0.05},{0.05,0.05}},
-                          color={0,0,127}), Text(
+  connect(const.y, weaBus.cloTim) annotation (Line(points={{-59,12},{-28,12},{-28,
+          0},{0,0}}, color={0,0,127}), Text(
       textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(HSol.y, weaBus.HDirNor) annotation (Line(points={{-59,70},{-28,70},{-28,
-          0.05},{0.05,0.05}},
+  connect(solTim.y, weaBus.solTim) annotation (Line(points={{-59,-20},{-28,-20},
+          {-28,0},{0,0}}, color={0,0,127}), Text(
+      textString="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(HSol.y, weaBus.HDirNor) annotation (Line(points={{-59,50},{-28,50},{
+          -28,0},{0,0}},
                      color={0,0,127}), Text(
       textString="%second",
       index=1,
@@ -147,22 +146,14 @@ equation
       textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(lat.y, weaBus.lat) annotation (Line(points={{-59,-70},{-28,-70},{-28,0.05},
-          {0.05,0.05}},
-                     color={0,0,127}), Text(
+  connect(lat.y, weaBus.lat) annotation (Line(points={{-59,-50},{-28,-50},{-28,
+          0},{0,0}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(alt.y, weaBus.alt) annotation (Line(points={{-59,-100},{-28,-100},{-28,
-          0.05},{0.05,0.05}},
-                     color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
-  connect(const1.y, weaBus.cloTim) annotation (Line(points={{-59,-10},{-28,-10},
-          {-28,0.05},{0.05,0.05}}, color={0,0,127}), Text(
+  connect(alt.y, weaBus.alt) annotation (Line(points={{-59,-80},{-28,-80},{-28,
+          0},{0,0}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
@@ -197,10 +188,6 @@ to set the two bounds for the water temperature.
 revisions="<html>
 <ul>
 <li>
-September 25, 2023, by Michael Wetter:<br/>
-Corrected <code>connect</code> statement with wrong quantity.
-</li>
-<li>
 September 16, 2021, by Michael Wetter:<br/>
 Removed parameter assignment for <code>lat</code>.<br/>
 This is for
@@ -214,7 +201,5 @@ First implementation.
 </html>"),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/SolarCollectors/Validation/ExtremeAmbientConditions.mos"
         "Simulate and plot"),
-    experiment(Tolerance=1e-06, StopTime=86400),
-    Diagram(coordinateSystem(extent={{-100,-120},{100,120}})),
-    Icon(coordinateSystem(extent={{-100,-120},{100,120}})));
+    experiment(Tolerance=1e-06, StopTime=86400));
 end ExtremeAmbientConditions;

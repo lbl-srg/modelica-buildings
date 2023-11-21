@@ -12,8 +12,8 @@ block Controller "Controller for room VAV box with reheat"
   parameter Boolean have_CO2Sen=true
     "True: the zone has CO2 sensor"
     annotation (__cdl(ValueInReference=false));
-  parameter Boolean have_hotWatCoi = true
-    "True: the unit has the hot water coil; False: the unit has the modulated electric coil"
+  parameter Boolean have_hotWatCoi=true
+    "True: the unit has the hot water coil"
     annotation (__cdl(ValueInReference=false));
   parameter Boolean permit_occStandby=true
     "True: occupied-standby mode is permitted"
@@ -125,11 +125,11 @@ block Controller "Controller for room VAV box with reheat"
   parameter Real thrTDis_1(unit="K")=17
     "Threshold difference between discharge air temperature and its setpoint for generating 3 hot water reset requests"
     annotation (__cdl(ValueInReference=true),
-                Dialog(tab="System requests", enable=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased));
+                Dialog(tab="System requests", enable=have_hotWatCoi));
   parameter Real thrTDis_2(unit="K")=8
     "Threshold difference between discharge air temperature and its setpoint for generating 2 hot water reset requests"
     annotation (__cdl(ValueInReference=true),
-                Dialog(tab="System requests", enable=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased));
+                Dialog(tab="System requests", enable=have_hotWatCoi));
   parameter Real durTimTem(unit="s")=120
     "Duration time of zone temperature exceeds setpoint"
     annotation (__cdl(ValueInReference=true),
@@ -141,20 +141,20 @@ block Controller "Controller for room VAV box with reheat"
   parameter Real durTimDisAir(unit="s")=300
     "Duration time of discharge air temperature less than setpoint"
     annotation (__cdl(ValueInReference=true),
-                Dialog(tab="System requests", group="Duration time", enable=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased));
+                Dialog(tab="System requests", group="Duration time", enable=have_hotWatCoi));
   // ---------------- Parameters for alarms ----------------
   parameter Real staPreMul=1
     "Importance multiplier for the zone static pressure reset control loop"
     annotation (__cdl(ValueInReference=false), Dialog(tab="Alarms"));
   parameter Real hotWatRes=1
     "Importance multiplier for the hot water reset control loop"
-    annotation (__cdl(ValueInReference=false), Dialog(tab="Alarms", enable=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Alarms", enable=have_hotWatCoi));
   parameter Real lowFloTim(unit="s")=300
     "Threshold time to check low flow rate"
     annotation (__cdl(ValueInReference=true), Dialog(tab="Alarms"));
   parameter Real lowTemTim(unit="s")=600
     "Threshold time to check low discharge temperature"
-    annotation (__cdl(ValueInReference=true), Dialog(tab="Alarms", enable=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased));
+    annotation (__cdl(ValueInReference=true), Dialog(tab="Alarms", enable=have_hotWatCoi));
   parameter Real fanOffTim(unit="s")=600
     "Threshold time to check fan off"
     annotation (__cdl(ValueInReference=true), Dialog(tab="Alarms"));
@@ -168,8 +168,8 @@ block Controller "Controller for room VAV box with reheat"
   parameter Real samplePeriod(unit="s")=120
     "Sample period of component, set to the same value as the trim and respond that process static pressure reset"
     annotation (__cdl(ValueInReference=false), Dialog(tab="Time-based suppresion"));
-  parameter Real chaRat(final unit="s/K")=540
-    "Gain factor to calculate suppression time based on the change of the setpoint, seconds per Kelvin"
+  parameter Real chaRat=540
+    "Gain factor to calculate suppression time based on the change of the setpoint, second per degC"
     annotation (__cdl(ValueInReference=true), Dialog(tab="Time-based suppresion"));
   parameter Real maxSupTim(unit="s")=1800
     "Maximum suppression time"
@@ -297,7 +297,7 @@ block Controller "Controller for room VAV box with reheat"
     "AHU supply fan status"
     annotation (Placement(transformation(extent={{-220,-260},{-180,-220}}),
         iconTransformation(extent={{-140,-188},{-100,-148}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1HotPla if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1HotPla if have_hotWatCoi
     "Hot water plant status"
     annotation (Placement(transformation(extent={{-220,-290},{-180,-250}}),
         iconTransformation(extent={{-140,-208},{-100,-168}})));
@@ -363,12 +363,12 @@ block Controller "Controller for room VAV box with reheat"
     annotation (Placement(transformation(extent={{200,-50},{240,-10}}),
         iconTransformation(extent={{100,-60},{140,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHeaValResReq
-    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+    if have_hotWatCoi
     "Hot water reset requests"
     annotation (Placement(transformation(extent={{200,-80},{240,-40}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatPlaReq
-    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+    if have_hotWatCoi
     "Request to heating hot-water plant"
     annotation (Placement(transformation(extent={{200,-110},{240,-70}}),
         iconTransformation(extent={{100,-100},{140,-60}})));
@@ -389,24 +389,18 @@ block Controller "Controller for room VAV box with reheat"
     annotation (Placement(transformation(extent={{200,-230},{240,-190}}),
         iconTransformation(extent={{100,-190},{140,-150}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yLowTemAla
-    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+    if have_hotWatCoi
     "Low discharge air temperature alarms"
     annotation (Placement(transformation(extent={{200,-260},{240,-220}}),
         iconTransformation(extent={{100,-210},{140,-170}})));
 
-protected
-  final parameter Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil heaCoi=
-    if have_hotWatCoi then Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
-    else Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric
-    "Heating coil type"
-    annotation (__cdl(ValueInReference=false));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.ActiveAirFlow actAirSet(
     final VCooMax_flow=VCooMax_flow,
     final VHeaMin_flow=VHeaMin_flow,
     final VHeaMax_flow=VHeaMax_flow) "Active airflow setpoint"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.SystemRequests sysReq(
-    final heaCoi=heaCoi,
+    final have_hotWatCoi=have_hotWatCoi,
     final thrTemDif=thrTemDif,
     final twoTemDif=twoTemDif,
     final thrTDis_1=thrTDis_1,
@@ -431,7 +425,7 @@ protected
     final looHys=looHys) "Heating and cooling control loop"
     annotation (Placement(transformation(extent={{-140,200},{-120,220}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.Alarms ala(
-    final heaCoi=heaCoi,
+    final have_hotWatCoi=have_hotWatCoi,
     final staPreMul=staPreMul,
     final hotWatRes=hotWatRes,
     final VCooMax_flow=VCooMax_flow,
@@ -498,8 +492,7 @@ protected
     final VOccMin_flow=VOccMin_flow,
     final VAreMin_flow=VAreMin_flow,
     final VMin_flow=VMin_flow,
-    final VCooMax_flow=VCooMax_flow)
-    if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24
+    final VCooMax_flow=VCooMax_flow) if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24
     "Output the minimum outdoor airflow rate setpoint, when using Title 24"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 equation
@@ -732,7 +725,7 @@ annotation (defaultComponentName="rehBoxCon",
           extent={{-96,-180},{-60,-196}},
           textColor={255,0,255},
           pattern=LinePattern.Dash,
-          visible=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased,
+          visible=have_hotWatCoi,
           textString="u1HotPla"),
         Text(
           extent={{-98,-162},{-72,-174}},
@@ -789,13 +782,13 @@ annotation (defaultComponentName="rehBoxCon",
           textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="yHeaValResReq",
-          visible=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased),
+          visible=have_hotWatCoi),
         Text(
           extent={{18,-68},{96,-86}},
           textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="yHotWatPlaReq",
-          visible=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased),
+          visible=have_hotWatCoi),
         Text(
           extent={{42,-100},{98,-118}},
           textColor={255,127,0},
@@ -821,7 +814,7 @@ annotation (defaultComponentName="rehBoxCon",
           textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="yLowTemAla",
-          visible=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased),
+          visible=have_hotWatCoi),
         Text(
           visible=have_CO2Sen,
           extent={{-100,46},{-58,34}},

@@ -1,7 +1,5 @@
 within Buildings.Occupants.BaseClasses;
 function logit1DQuadratic "Mapping a continuous input to a binary output through a quadratic logistic relation"
-  extends Modelica.Icons.Function;
-
   input Real x "Continous variable";
   input Real A=1.0 "Parameter defining the quadratic logistic relation";
   input Real B=1.0 "Parameter defining the quadratic logistic relation";

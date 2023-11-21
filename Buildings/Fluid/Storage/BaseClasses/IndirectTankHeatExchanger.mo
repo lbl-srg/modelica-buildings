@@ -169,7 +169,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(vol[1].ports[1],senMasFlo.port_b) annotation (Line(
-      points={{-23,-40},{-23,-50},{-60,-50}},
+      points={{-24,-40},{-24,-50},{-60,-50}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(cap.port,HexToTan.solid) annotation (Line(
@@ -185,7 +185,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(temSenHex.T, hAPipIns.T)     annotation (Line(
-      points={{-9,-70},{0,-70},{0,-76},{9,-76}},
+      points={{-10,-70},{0,-70},{0,-76},{9,-76}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(hAPipIns.hA, htfToHex.Gc)     annotation (Line(
@@ -202,12 +202,12 @@ equation
       smooth=Smooth.None));
   connect(temSenSur.T, hANatCyl.TSur)
                                      annotation (Line(
-      points={{20,53},{20,70},{-40,70},{-40,114},{-2,114}},
+      points={{20,52},{20,70},{-40,70},{-40,114},{-2,114}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(hANatCyl.TFlu, temSenWat.T)
                                      annotation (Line(
-      points={{-2,106},{-36,106},{-36,76},{68,76},{68,51}},
+      points={{-2,106},{-36,106},{-36,76},{68,76},{68,50}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(port_a, senMasFlo.port_a) annotation (Line(
@@ -215,7 +215,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(vol[nSeg].ports[2], res.port_a) annotation (Line(
-      points={{-21,-40},{-21,-50},{46,-50}},
+      points={{-20,-40},{-20,-50},{46,-50}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(res.port_b, port_b) annotation (Line(
@@ -238,7 +238,7 @@ equation
             -150},{100,150}}), graphics), Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-150},{100,150}}), graphics={
         Rectangle(
-          extent={{-70,64},{70,-96}},
+          extent={{-66,64},{74,-96}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={95,95,95},
@@ -250,25 +250,25 @@ equation
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-70,-12},{70,-18}},
+          extent={{-66,-12},{74,-18}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-40,64},{-36,-96}},
+          extent={{-36,64},{-32,-96}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-2,64},{2,-96}},
+          extent={{2,64},{6,-96}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{36,64},{40,-96}},
+          extent={{40,64},{44,-96}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,0},

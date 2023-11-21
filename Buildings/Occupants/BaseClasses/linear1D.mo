@@ -1,7 +1,5 @@
 within Buildings.Occupants.BaseClasses;
 function linear1D "Mapping a continuous input to a binary output through a linear relation"
-  extends Modelica.Icons.Function;
-
   input Real x "Continuous variable";
   input Real A=1 "Slope of the linear function";
   input Real B=0 "Intercept of the linear function";

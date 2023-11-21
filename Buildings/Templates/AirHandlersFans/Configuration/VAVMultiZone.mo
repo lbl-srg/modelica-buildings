@@ -35,8 +35,9 @@ record VAVMultiZone "Configuration parameters for multiple-zone VAV"
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection typSecOut
     "Type of outdoor air section"
     annotation (Evaluate=true);
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl buiPreCon
-    "Type of building pressure control system" annotation (Evaluate=true);
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon
+    "Type of building pressure control system"
+    annotation (Evaluate=true);
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard stdVen
     "Ventilation standard"
     annotation(Evaluate=true);

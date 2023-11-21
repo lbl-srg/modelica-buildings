@@ -6,28 +6,28 @@ simulateModel("Buildings.Templates.Components.Validation.Valves",
 createPlot(
     id=1,
     position={0, 0, 400, 400},
-    y={"modThr.bus.y", "modThr.bus.y_actual", "modThr.m_flow",  "modThr.portByp_a.m_flow", "modThr.m_flow_nominal"},
+    y={"modThr.bus.y", "modThr.bus.y_actual", "modThr.val.res1.m_flow",  "modThr.val.res3.m_flow", "modThr.val.m_flow_nominal"},
     autoscale=true,
     grid=true
 );
 createPlot(
     id=2,
     position={100, 0, 400, 400},
-    y={"modTwo.bus.y", "modTwo.bus.y_actual", "modTwo.m_flow", "modTwo.m_flow_nominal"},
+    y={"modTwo.bus.y", "modTwo.bus.y_actual", "modTwo.val.m_flow", "modTwo.val.m_flow_nominal"},
     autoscale=true,
     grid=true
 );
 createPlot(
     id=3,
     position={200, 0, 400, 400},
-    y={"twoThr.bus.y1", "twoThr.bus.y1_actual", "twoThr.m_flow", "twoThr.portByp_a.m_flow", "twoThr.m_flow_nominal"},
+    y={"twoThr.bus.y1", "twoThr.bus.y1_actual", "twoThr.val.res1.m_flow", "twoThr.val.res3.m_flow", "twoThr.val.m_flow_nominal"},
     autoscale=true,
     grid=true
 );
 createPlot(
     id=4,
     position={300, 0, 400, 400},
-    y={"twoTwo.bus.y1", "twoTwo.bus.y1_actual", "twoTwo.m_flow", "twoTwo.m_flow_nominal"},
+    y={"twoTwo.bus.y1", "twoTwo.bus.y1_actual", "twoTwo.val.m_flow", "twoTwo.val.m_flow_nominal"},
     autoscale=true,
     grid=true
 );

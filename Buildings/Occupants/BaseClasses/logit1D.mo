@@ -1,7 +1,5 @@
 within Buildings.Occupants.BaseClasses;
 function logit1D "Mapping a continuous input to a binary output through a logistic relation"
-  extends Modelica.Icons.Function;
-
   input Real x "Continuous variable";
   input Real A=1.0 "Logistic relation: Slope";
   input Real B=1.0 "Logistic relation: Intercept";

@@ -32,6 +32,10 @@ package Types "Package with type definitions"
       "Dry cooler")
     "Enumeration to configure the condenser water cooling equipment";
   type Damper = enumeration(
+      NoPath
+      "No fluid path",
+      Barometric
+      "Barometric damper",
       Modulating
       "Modulating damper",
       None
@@ -111,6 +115,10 @@ package Types "Package with type definitions"
   type Valve = enumeration(
       None
       "No valve",
+      PumpedCoilThreeWay
+      "Pumped coil with three-way valve",
+      PumpedCoilTwoWay
+      "Pumped coil with two-way valve",
       ThreeWayModulating
       "Three-way modulating valve",
       ThreeWayTwoPosition
@@ -120,58 +128,6 @@ package Types "Package with type definitions"
       TwoWayTwoPosition
       "Two-way two-position valve")
     "Enumeration to configure the valve";
-  type ValveCharacteristicTwoWay = enumeration(
-      EqualPercentage
-      "Equal percentage",
-      Linear
-      "Linear",
-      PressureIndependent
-      "Pressure independent (mass flow rate only dependent of input signal)",
-      Table
-      "Table-specified")
-    "Enumeration to specify the characteristic of two-way valves"
-    annotation (
-      Documentation(info="<html>
-<p>
-Enumeration that defines the characteristic of two-way valves.
-</p>
-<table summary=\"summary\"  border=\"1\">
-<tr><th>Enumeration</th>
-    <th>Description</th></tr>
-<tr><td>EqualPercentage</td>
-    <td>Equal percentage</td></tr>
-<tr><td>Linear</td>
-    <td>Linear</td></tr>
-<tr><td>PressureIndependent</td>
-    <td>Pressure independent (mass flow rate only dependent of input signal)</td></tr>
-<tr><td>Table</td>
-    <td>Table-specified</td></tr>
-</table>
-</html>"));
-  type ValveCharacteristicThreeWay = enumeration(
-      EqualPercentageLinear
-      "Equal percentage (direct) and linear (bypass)",
-      Linear
-      "Linear (both direct and bypass)",
-      Table
-      "Table-specified (both direct and bypass)")
-    "Enumeration to specify the characteristic of the bypass valve"
-    annotation (
-      Documentation(info="<html>
-<p>
-Enumeration that defines the characteristic of three-way valves.
-</p>
-<table summary=\"summary\"  border=\"1\">
-<tr><th>Enumeration</th>
-    <th>Description</th></tr>
-<tr><td>EqualPercentageLinear</td>
-    <td>Equal percentage (direct) and linear (bypass)</td></tr>
-<tr><td>Linear</td>
-    <td>Linear (both direct and bypass)</td></tr>
-<tr><td>Table</td>
-<td>Table-specified (both direct and bypass)</td></tr>
-</table>
-</html>"));
   annotation (Documentation(info="<html>
 <p>
 This package contains type definitions.

@@ -8,7 +8,6 @@ model VAVBoxCoolingOnly "VAV terminal unit cooling only"
       "Guideline 36 controller for VAV terminal unit cooling only");
 
 annotation (
-  __ctrlFlow_template,
   defaultComponentName="VAVBox",
   Documentation(info="<html>
 <h4>Description</h4>

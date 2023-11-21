@@ -1,0 +1,5 @@
+simulateModel("Buildings.Fluid.Examples.SimpleHouse", stopTime=3.1536e+07, method="Lsodar", tolerance=1e-06, resultFile="SimpleHouse");
+createPlot(id=1, position={0, 0, 792, 1247}, y={"zone.T"}, range={0.0, 32000000.0, 19.5, 24.5}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 792, 413}, y={"heaWat.u"}, range={0.0, 32000000.0, -0.1, 1.1}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 792, 413}, y={"vavDam.y"}, range={0.0, 380.0, 0.098, 0.124}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=2, position={818, 10, 662, 377}, y={"fan.sta_a.T", "fan.sta_b.T"}, range={0.0, 380.0, 18.0, 22.5}, grid=true, colors={{28,108,200}, {238,46,47}});

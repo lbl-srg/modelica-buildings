@@ -4,30 +4,17 @@ partial model PartialOutdoorSection "Interface class for outdoor air section"
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air medium"
-    annotation(__ctrlFlow(enable=false));
+    annotation(__ctrl_flow(enable=false));
 
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection typ
     "Outdoor air section type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  final parameter Buildings.Templates.Components.Types.Damper typDamOut=
-    if typ==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper
-    or typ==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
-    or typ==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure
-    then Buildings.Templates.Components.Types.Damper.Modulating
-    else Buildings.Templates.Components.Types.Damper.None
+  parameter Buildings.Templates.Components.Types.Damper typDamOut
     "Outdoor air damper type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  final parameter Buildings.Templates.Components.Types.Damper typDamOutMin=
-    if typ==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper
-    then Buildings.Templates.Components.Types.Damper.None
-    elseif typ==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
-    then Buildings.Templates.Components.Types.Damper.Modulating
-    elseif typ==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure
-    then Buildings.Templates.Components.Types.Damper.TwoPosition
-    else Buildings.Templates.Components.Types.Damper.None
+  parameter Buildings.Templates.Components.Types.Damper typDamOutMin
     "Minimum outdoor air damper type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-
   outer parameter Boolean have_recHea
     "Set to true in case of heat recovery";
   outer parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer typCtlEco
@@ -48,11 +35,11 @@ partial model PartialOutdoorSection "Interface class for outdoor air section"
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"),
-      __ctrlFlow(enable=false));
+      __ctrl_flow(enable=false));
 
   parameter Boolean allowFlowReversal = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
-    annotation(Dialog(tab="Assumptions"), Evaluate=true, __ctrlFlow(enable=false));
+    annotation(Dialog(tab="Assumptions"), Evaluate=true, __ctrl_flow(enable=false));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare final package Medium = MediumAir,

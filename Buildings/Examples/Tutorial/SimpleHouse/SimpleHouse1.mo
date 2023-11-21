@@ -3,14 +3,13 @@ model SimpleHouse1 "Building wall model"
   extends SimpleHouse0;
 
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor walCap(
-    C=AWall*dWall*cpWall*rhoWall,
-    T(fixed=true))
+    C=AWall*dWall*cpWall*rhoWall, T(fixed=true))
     "Thermal mass of wall"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
         origin={170,0})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor walRes(
-    R=dWall/AWall/kWall) "Thermal resistor for wall: 25 cm of rockwool"
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor walRes(R=dWall/AWall
+        /kWall) "Thermal resistor for wall: 25 cm of rockwool"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 equation
   connect(walRes.port_b, walCap.port) annotation (Line(points={{80,0},{100,0},{100,
@@ -53,12 +52,12 @@ The heat capacity value of a wall may be computed as <i>C=A*d*c<sub>p</sub>*&rho
 <h4>Required models</h4>
 <ul>
 <li>
-<a href=\"modelica://Modelica.Thermal.HeatTransfer.Components.HeatCapacitor\">
-Modelica.Thermal.HeatTransfer.Components.HeatCapacitor</a>
-</li>
-<li>
 <a href=\"modelica://Modelica.Thermal.HeatTransfer.Components.ThermalResistor\">
 Modelica.Thermal.HeatTransfer.Components.ThermalResistor</a>
+</li>
+<li>
+<a href=\"modelica://Modelica.Thermal.HeatTransfer.Components.HeatCapacitor\">
+Modelica.Thermal.HeatTransfer.Components.HeatCapacitor</a>
 </li>
 </ul>
 <h4>Connection instructions</h4>

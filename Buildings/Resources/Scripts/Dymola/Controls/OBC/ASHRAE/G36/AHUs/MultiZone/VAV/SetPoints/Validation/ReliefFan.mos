@@ -1,11 +1,11 @@
 simulateModel("Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.Validation.ReliefFan", method="Cvode", stopTime=3600, tolerance=1e-06, resultFile="ReliefFan");
 createPlot(id=1, position={15, 15, 664, 910}, y={"relFanCon.u1SupFan"}, range={0.0, 4000.0, -0.5, 1.5}, grid=true, subPlot=1, colors={{28,108,200}}, timeUnit="s");
 createPlot(id=1, position={15, 15, 664, 910}, y={"relFanCon.dpBui", "relFanCon.yDpBui"}, range={0.0, 4000.0, -5.0, 20.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}}, timeUnit="s");
-createPlot(id=1, position={15, 15, 664, 910}, y={"relFanCon.y1RelDam", "relFanCon.yRelFan"}, range={0.0, 4000.0, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"1", "1"});
+createPlot(id=1, position={15, 15, 664, 910}, y={"relFanCon.yDam", "relFanCon.yRelFan"}, range={0.0, 4000.0, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"1", "1"});
 createPlot(id=2, position={687, 17, 592, 912}, y={"relFanCon1.u1SupFan"}, range={0.0, 4000.0, 0.8, 1.2}, grid=true, subPlot=1, colors={{28,108,200}}, timeUnit="s");
 createPlot(id=2, position={687, 17, 592, 912}, y={"relFanCon1.dpBui", "relFanCon1.yDpBui"}, range={0.0, 4000.0, -20.0, 60.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}}, timeUnit="s");
-createPlot(id=2, position={687, 17, 592, 912}, y={"relFanCon1.y1RelDam", "relFanCon1.yRelFan"}, range={0.0, 4000.0, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"1", "1"});
+createPlot(id=2, position={687, 17, 592, 912}, y={"relFanCon1.yDam", "relFanCon1.yRelFan"}, range={0.0, 4000.0, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"1", "1"});
 createPlot(id=3, position={1287, 17, 592, 910}, y={"relFanCon2.u1SupFan"}, range={0.0, 4000.0, 0.8, 1.2}, grid=true, subPlot=1, colors={{28,108,200}}, timeUnit="s");
 createPlot(id=3, position={1287, 17, 592, 910}, y={"relFanCon2.dpBui", "relFanCon2.yDpBui"}, range={0.0, 4000.0, -10.0, 30.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}}, timeUnit="s");
-createPlot(id=3, position={1287, 17, 592, 910}, y={"relFanCon2.y1RelDam", "relFanCon2.yRelFan"}, range={0.0, 4000.0, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"1", "1"});
+createPlot(id=3, position={1287, 17, 592, 910}, y={"relFanCon2.yDam", "relFanCon2.yRelFan"}, range={0.0, 4000.0, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"1", "1"});
 

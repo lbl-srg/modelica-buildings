@@ -1,11 +1,10 @@
 within Buildings.Occupants.BaseClasses;
 function exponentialVariableGeneration "Random variable generator from the exponential distribution"
-  extends Modelica.Icons.Function;
     input Real mu  "Mean exponential distribution";
     input Integer globalSeed "Seed for the random number generator";
     output Real y "duration of event";
 protected
-    Integer localSeed = 0 "Local seed";
+    Integer localSeed;
     Integer state[Modelica.Math.Random.Generators.Xorshift1024star.nState];
     Real r "Generated random numberin the range 0 < random ≤ 1";
 algorithm
@@ -24,11 +23,6 @@ chance to generate a larger output <code>y</code>.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-October 3, 2023, by Michael Wetter:<br/>
-Initialized <code>localSeed</code>.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3549\">#3549</a>.
-</li>
 <li>
 July 20, 2018, by Zhe Wang:<br/>
 First implementation.

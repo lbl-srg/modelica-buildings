@@ -5,9 +5,6 @@ block SupplySignals
   parameter Boolean have_heaCoi=true
     "True: the AHU has heating coil. It could be the hot water coil, or the electric heating coil"
     annotation (__cdl(ValueInReference=false));
-  parameter Boolean have_cooCoi=true
-    "True: the AHU has cooling coil. It could be the chilled water coil, or the direct expansion coil"
-    annotation (__cdl(ValueInReference=false));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
       Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller for supply air temperature signal"
@@ -67,10 +64,9 @@ block SupplySignals
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCooCoi(
     final min=0,
     final max=1,
-    final unit="1") if have_cooCoi
-    "Cooling coil commanded position"
-    annotation (Placement(transformation(extent={{100,-40},{140,0}}),
-        iconTransformation(extent={{100,-80},{140,-40}})));
+    final unit="1") "Cooling coil commanded position" annotation (Placement(
+        transformation(extent={{100,-40},{140,0}}), iconTransformation(extent={{
+            100,-80},{140,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput uTSup(
     final max=1,
     final unit="1",
@@ -104,7 +100,7 @@ protected
     "Negative unity signal"
     annotation (Placement(transformation(extent={{0,18},{20,38}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant uCooMinCon(
-    final k=uCoo_min) if have_cooCoi
+    final k=uCoo_min)
     "Constant signal to map control action"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(final k=0)
@@ -115,7 +111,7 @@ protected
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
   Buildings.Controls.OBC.CDL.Reals.Line conSigCoo(
     final limitBelow=true,
-    final limitAbove=false) if have_cooCoi
+    final limitAbove=false)
     "Cooling control signal"
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
   Buildings.Controls.OBC.CDL.Reals.Line conSigHea(
@@ -209,8 +205,7 @@ annotation (
           extent={{62,-50},{96,-64}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="yCooCoi",
-          visible=have_cooCoi),
+          textString="yCooCoi"),
         Text(
           extent={{-96,66},{-56,52}},
           textColor={0,0,127},

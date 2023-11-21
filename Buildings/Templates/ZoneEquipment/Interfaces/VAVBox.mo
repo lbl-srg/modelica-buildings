@@ -17,8 +17,8 @@ model VAVBox "Interface class for VAV terminal unit"
     final QHeaWat_flow_nominal=if coiHea.have_sou then dat.coiHea.Q_flow_nominal else 0);
 
   inner replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHea(
-    redeclare final package MediumHeaWat=MediumHeaWat,
-    final typVal=Buildings.Templates.Components.Types.Valve.TwoWayModulating)
+      redeclare final package MediumHeaWat = MediumHeaWat,
+      redeclare final Buildings.Templates.Components.Valves.TwoWayModulating val)
     constrainedby Buildings.Templates.Components.Interfaces.PartialCoil(
       redeclare final package MediumAir = MediumAir,
       final dat=datCoiHea,
@@ -31,21 +31,20 @@ model VAVBox "Interface class for VAV terminal unit"
     choices(
       choice(redeclare replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHea(
         redeclare final package MediumHeaWat = MediumHeaWat,
-        final typVal=Buildings.Templates.Components.Types.Valve.TwoWayModulating)
+        redeclare final Buildings.Templates.Components.Valves.TwoWayModulating val)
         "Hot water coil with two-way valve"),
       choice(redeclare replaceable Buildings.Templates.Components.Coils.ElectricHeating coiHea
         "Modulating electric heating coil")),
     Dialog(group="Configuration"),
     Placement(transformation(extent={{-10,-210},{10,-190}})));
 
-  Buildings.Templates.Components.Actuators.Damper damVAV(
+  inner replaceable Buildings.Templates.Components.Dampers.Modulating damVAV
+    constrainedby Buildings.Templates.Components.Interfaces.PartialDamper(
       redeclare final package Medium = MediumAir,
-      final typ=Buildings.Templates.Components.Types.Damper.Modulating,
       use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
       final allowFlowReversal=allowFlowReversalAir,
       final show_T=show_T,
-      final dat=datDamVAV,
-      typBla=Buildings.Templates.Components.Types.DamperBlades.VAV)
+      final dat=datDamVAV)
     "VAV damper"
     annotation (Dialog(group="Configuration"),
       Placement(

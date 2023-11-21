@@ -50,13 +50,14 @@ model Coils "Validation model for coil components"
       TAirEnt_nominal=308.15,
       wAirEnt_nominal=0.017),
     final energyDynamics=energyDynamics,
-    val(y_start=0)) "Water-based cooling coil"
+    redeclare replaceable
+      Buildings.Templates.Components.Valves.TwoWayModulating val(y_start=0)
+      "Two-way modulating valve") "Water-based cooling coil"
     annotation (Placement(transformation(extent={{10,110},{30,130}})));
   Interfaces.Bus bus "Control bus"
-    annotation (Placement(
-      iconVisible=false,
-      transformation(extent={{-20,120},{20,160}}),
-      iconTransformation(extent={{-250,-32},{-210,8}})));
+                     annotation (Placement(transformation(extent={{-20,120},{20,
+            160}}),
+        iconTransformation(extent={{-250,-32},{-210,8}})));
   Controls.OBC.CDL.Reals.Sources.Ramp y(height=1,
     duration=10) "Coil/valve control signal"
     annotation (Placement(transformation(extent={{-90,150},{-70,170}})));
@@ -74,13 +75,13 @@ model Coils "Validation model for coil components"
       TWatEnt_nominal=323.15,
       TAirEnt_nominal=263.15),
     final energyDynamics=energyDynamics,
-    val(y_start=0)) "Water-based heating"
+    redeclare replaceable
+      Buildings.Templates.Components.Valves.TwoWayModulating val(y_start=0)
+      "Two-way modulating valve") "Water-based heating"
     annotation (Placement(transformation(extent={{10,30},{30,50}})));
   Interfaces.Bus bus1 "Control bus"
-    annotation (Placement(
-    iconVisible=false,
-    transformation(extent={{-20,40},{20,80}}),
-    iconTransformation(extent={{-250,-32},{-210,8}})));
+    annotation (Placement(transformation(extent={{-20,40},{20,80}}),
+        iconTransformation(extent={{-250,-32},{-210,8}})));
   Fluid.Sources.Boundary_pT bouAirEntHea(
     redeclare final package Medium = MediumAir,
     p=bouAirLvg.p + coiHea.dat.dpAir_nominal,
@@ -103,25 +104,19 @@ model Coils "Validation model for coil components"
     final energyDynamics=energyDynamics) "Electric heating"
     annotation (Placement(transformation(extent={{10,-50},{30,-30}})));
   Interfaces.Bus bus2 "Control bus"
-    annotation (Placement(
-      iconVisible=false,
-      transformation(extent={{-20,-40},{20,0}}),
-      iconTransformation(extent={{-250,-32},{-210,8}})));
+    annotation (Placement(transformation(extent={{-20,-40},{20,0}}),
+        iconTransformation(extent={{-250,-32},{-210,8}})));
   Buildings.Templates.Components.Coils.EvaporatorVariableSpeed coiEva(
     redeclare final package MediumAir = MediumAir,
     dat(dpAir_nominal=200),
     final energyDynamics=energyDynamics) "Variable speed evaporator coil"
     annotation (Placement(transformation(extent={{10,-110},{30,-90}})));
-  BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
-    annotation (Placement(
-    iconVisible=false,
-    transformation(extent={{-50,-110},{-10,-70}}),
-    iconTransformation(extent={{190,-10},{210,10}})));
+  BoundaryConditions.WeatherData.Bus
+      weaBus "Weather data bus" annotation (Placement(transformation(extent={{-50,
+            -110},{-10,-70}}),   iconTransformation(extent={{190,-10},{210,10}})));
   Interfaces.Bus bus3 "Control bus"
-    annotation (Placement(
-      iconVisible=false,
-      transformation(extent={{-20,-100},{20,-60}}),
-      iconTransformation(extent={{-250,-32},{-210,8}})));
+    annotation (Placement(transformation(extent={{-20,-100},{20,-60}}),
+        iconTransformation(extent={{-250,-32},{-210,8}})));
   Controls.OBC.CDL.Reals.Sources.Constant TOut(k=coiEva.dat.datCoi.sta[1].nomVal.TConIn_nominal)
     "Outdoor temperature"
     annotation (Placement(transformation(extent={{-130,-110},{-110,-90}})));
@@ -166,10 +161,8 @@ model Coils "Validation model for coil components"
     period=200)  "Coil/valve control signal"
     annotation (Placement(transformation(extent={{-80,-190},{-60,-170}})));
   Interfaces.Bus bus4 "Control bus"
-    annotation (Placement(
-      iconVisible=false,
-      transformation(extent={{-20,-160},{20,-120}}),
-      iconTransformation(extent={{-250,-32},{-210,8}})));
+    annotation (Placement(transformation(extent={{-20,-160},{20,-120}}),
+        iconTransformation(extent={{-250,-32},{-210,8}})));
   Fluid.FixedResistances.PressureDrop res(
     redeclare final package Medium = MediumAir,
     final m_flow_nominal=coiCoo.dat.mAir_flow_nominal,

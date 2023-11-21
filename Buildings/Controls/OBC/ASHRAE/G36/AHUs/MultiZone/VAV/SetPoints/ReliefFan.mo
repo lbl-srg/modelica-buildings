@@ -38,8 +38,11 @@ block ReliefFan "Sequence for control of relief fan in AHU"
     "Building static pressure difference, relative to ambient (positive if pressurized)"
     annotation (Placement(transformation(extent={{220,120},{260,160}}),
         iconTransformation(extent={{100,60},{140,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1RelDam
-    "True: 2-position relief damper commanded open"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDam(
+    final unit="1",
+    final min=0,
+    final max=1)
+    "Damper commanded position"
     annotation (Placement(transformation(extent={{220,20},{260,60}}),
         iconTransformation(extent={{100,10},{140,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelFan(
@@ -126,6 +129,9 @@ block ReliefFan "Sequence for control of relief fan in AHU"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply pro1 "Relief fan speed"
     annotation (Placement(transformation(extent={{160,-50},{180,-30}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1
+    "Convert boolean to real"
+    annotation (Placement(transformation(extent={{160,30},{180,50}})));
 
 equation
   connect(dpBui, movMea.u)
@@ -180,12 +186,14 @@ equation
           -34},{158,-34}}, color={0,0,127}));
   connect(movMea.y, yDpBui)
     annotation (Line(points={{-198,140},{240,140}}, color={0,0,127}));
+  connect(relDam.y, booToRea1.u)
+    annotation (Line(points={{122,40},{158,40}}, color={255,0,255}));
+  connect(booToRea1.y, yDam)
+    annotation (Line(points={{182,40},{240,40}}, color={0,0,127}));
   connect(pro1.y, yRelFan)
     annotation (Line(points={{182,-40},{240,-40}}, color={0,0,127}));
   connect(relFan.y, y1RelFan) annotation (Line(points={{62,-60},{80,-60},{80,-100},
           {240,-100}},color={255,0,255}));
-  connect(relDam.y, y1RelDam)
-    annotation (Line(points={{122,40},{240,40}}, color={255,0,255}));
 annotation (defaultComponentName="relFanCon",
  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                          graphics={
@@ -214,13 +222,13 @@ annotation (defaultComponentName="relFanCon",
           textColor={0,0,127},
           textString="yDpBui"),
         Text(
+          extent={{60,38},{100,22}},
+          textColor={0,0,127},
+          textString="yDam"),
+        Text(
           extent={{56,-70},{98,-90}},
           textColor={255,0,255},
-          textString="y1RelFan"),
-        Text(
-          extent={{56,42},{98,22}},
-          textColor={255,0,255},
-          textString="y1RelDam")}),
+          textString="y1RelFan")}),
  Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-240,-220},{220,220}})),
 Documentation(info="<html>
@@ -265,12 +273,6 @@ by 5 minutes, shut off the relief fan.
 </ol>
 </html>", revisions="<html>
 <ul>
-<li>
-September 18, 2023, by Jianjun Hu:<br/>
-Changed damper position output from the real to boolean.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3526\">issue 3526</a>.
-</li>
 <li>
 September 20, 2022, by Jianjun Hu:<br/>
 First implementation.

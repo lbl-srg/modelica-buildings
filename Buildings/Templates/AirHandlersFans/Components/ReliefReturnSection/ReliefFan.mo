@@ -7,9 +7,8 @@ model ReliefFan "Relief fan with two-position relief damper"
     final typFanRel=fanRel.typ,
     final typFanRet=Buildings.Templates.Components.Types.Fan.None);
 
-  Buildings.Templates.Components.Actuators.Damper damRel(
+  Buildings.Templates.Components.Dampers.TwoPosition damRel(
     redeclare final package Medium = MediumAir,
-    final typ=Buildings.Templates.Components.Types.Damper.TwoPosition,
     use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
     final allowFlowReversal=allowFlowReversal,
     final dat=dat.damRel,

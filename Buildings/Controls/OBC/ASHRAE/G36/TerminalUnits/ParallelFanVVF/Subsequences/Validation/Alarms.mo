@@ -2,6 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanVVF.Subsequenc
 model Alarms "Validation of model that generates alarms"
 
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanVVF.Subsequences.Alarms ala(
+    final have_hotWatCoi=true,
     final staPreMul=1,
     final hotWatRes=1,
     final VCooMax_flow=1,

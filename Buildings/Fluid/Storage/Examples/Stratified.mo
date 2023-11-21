@@ -42,7 +42,7 @@ model Stratified "Test model for stratified tank"
     nSeg=10,
     m_flow_nominal=0.1,
     VTan=3) "Tank"
-    annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
+    annotation (Placement(transformation(extent={{-18,-70},{2,-50}})));
   Buildings.Fluid.FixedResistances.PressureDrop res_2(
     from_dp=true,
     redeclare package Medium = Medium,
@@ -92,7 +92,7 @@ equation
   connect(HOut_flow.port_b, res_1.port_a)
     annotation (Line(points={{20,-8},{34,-8}}, color={0,127,255}));
   connect(tanEnh.port_b, HOut_flow1.port_a)
-    annotation (Line(points={{-10,-70},{-10,-80},{20,-80}},
+    annotation (Line(points={{-8,-70},{-8,-80},{20,-80}},
                                                color={0,127,255}));
   connect(HOut_flow1.port_b, res_2.port_a) annotation (Line(points={{36,-80},{
           40,-80}}, color={0,127,255}));
@@ -114,9 +114,9 @@ equation
   connect(sine.y, TBCTop2.T) annotation (Line(points={{-69,72},{-56,72},{-56,38},
           {-41.2,38}}, color={0,0,127}));
   connect(TBCSid2.port, tanEnh.heaPorSid) annotation (Line(points={{-28,56},{
-          -24,56},{-24,-12},{-4.4,-12},{-4.4,-60}},        color={191,0,0}));
+          -24,56},{-24,-12},{-2,-12},{-2,-60},{-2.4,-60}}, color={191,0,0}));
   connect(TBCTop2.port, tanEnh.heaPorTop) annotation (Line(points={{-28,38},{
-          -26,38},{-26,-14},{-8,-14},{-8,-52.6}}, color={191,0,0}));
+          -26,38},{-26,-14},{-6,-14},{-6,-52.6}}, color={191,0,0}));
   connect(sin_1.ports[1], res_1.port_b) annotation (Line(
       points={{70,-9},{64,-9},{64,-8},{54,-8}},
       color={0,127,255},
@@ -130,7 +130,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou_1.ports[2], tanEnh.port_a) annotation (Line(
-      points={{-40,9},{-30,9},{-30,-40},{-10,-40},{-10,-50}},
+      points={{-40,9},{-30,9},{-30,-40},{-8,-40},{-8,-50}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TBCSid1.port, tanSim.heaPorSid) annotation (Line(

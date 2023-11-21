@@ -13,8 +13,8 @@ block Controller
   parameter Boolean have_CO2Sen=true
     "True: the zone has CO2 sensor"
     annotation (__cdl(ValueInReference=false));
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
-    "Heating coil type"
+  parameter Boolean have_hotWatCoi=true
+    "True: the unit has the hot water coil"
     annotation (__cdl(ValueInReference=false));
   parameter Boolean permit_occStandby=true
     "True: occupied-standby mode is permitted"
@@ -116,11 +116,11 @@ block Controller
   parameter Real thrTDis_1(unit="K")=17
     "Threshold difference between discharge air temperature and its setpoint for generating 3 hot water reset requests"
     annotation (__cdl(ValueInReference=true),
-                Dialog(tab="System requests", enable=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased));
+                Dialog(tab="System requests", enable=have_hotWatCoi));
   parameter Real thrTDis_2(unit="K")=8.3
     "Threshold difference between discharge air temperature and its setpoint for generating 2 hot water reset requests"
     annotation (__cdl(ValueInReference=true),
-                Dialog(tab="System requests", enable=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased));
+                Dialog(tab="System requests", enable=have_hotWatCoi));
   parameter Real durTimTem(unit="s")=120
     "Duration time of zone temperature exceeds setpoint"
     annotation (__cdl(ValueInReference=true),
@@ -132,20 +132,20 @@ block Controller
   parameter Real durTimDisAir(unit="s")=300
     "Duration time of discharge air temperature less than setpoint"
     annotation (__cdl(ValueInReference=true),
-                Dialog(tab="System requests", group="Duration time", enable=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased));
+                Dialog(tab="System requests", group="Duration time", enable=have_hotWatCoi));
   // ---------------- Parameters for alarms ----------------
   parameter Real staPreMul=1
     "Importance multiplier for the zone static pressure reset control loop"
     annotation (__cdl(ValueInReference=false), Dialog(tab="Alarms"));
   parameter Real hotWatRes=1
     "Importance multiplier for the hot water reset control loop"
-    annotation (__cdl(ValueInReference=false), Dialog(tab="Alarms", enable=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Alarms", enable=have_hotWatCoi));
   parameter Real lowFloTim(unit="s")=300
     "Threshold time to check low flow rate"
     annotation (__cdl(ValueInReference=true), Dialog(tab="Alarms"));
   parameter Real lowTemTim(unit="s")=600
     "Threshold time to check low discharge temperature"
-    annotation (__cdl(ValueInReference=true), Dialog(tab="Alarms", enable=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased));
+    annotation (__cdl(ValueInReference=true), Dialog(tab="Alarms", enable=have_hotWatCoi));
   parameter Real comChaTim(unit="s")=15
     "Threshold time after fan command change"
     annotation (__cdl(ValueInReference=true), Dialog(tab="Alarms"));
@@ -162,8 +162,8 @@ block Controller
   parameter Real samplePeriod(unit="s")=120
     "Sample period of component, set to the same value as the trim and respond that process static pressure reset"
     annotation (__cdl(ValueInReference=false), Dialog(tab="Time-based suppresion"));
-  parameter Real chaRat(final unit="s/K")=540
-    "Gain factor to calculate suppression time based on the change of the setpoint, seconds per Kelvin"
+  parameter Real chaRat=540
+    "Gain factor to calculate suppression time based on the change of the setpoint, second per degC"
     annotation (__cdl(ValueInReference=true), Dialog(tab="Time-based suppresion"));
   parameter Real maxSupTim(unit="s")=1800
     "Maximum suppression time"
@@ -298,7 +298,7 @@ block Controller
     "Terminal fan status"
     annotation (Placement(transformation(extent={{-280,-320},{-240,-280}}),
         iconTransformation(extent={{-140,-190},{-100,-150}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1HotPla if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1HotPla if have_hotWatCoi
     "Hot water plant status"
     annotation (Placement(transformation(extent={{-280,-350},{-240,-310}}),
         iconTransformation(extent={{-140,-210},{-100,-170}})));
@@ -401,7 +401,7 @@ block Controller
     annotation (Placement(transformation(extent={{240,-320},{280,-280}}),
         iconTransformation(extent={{100,-200},{140,-160}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yLowTemAla
-    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+    if have_hotWatCoi
     "Low discharge air temperature alarms"
     annotation (Placement(transformation(extent={{240,-350},{280,-310}}),
         iconTransformation(extent={{100,-220},{140,-180}})));
@@ -411,7 +411,7 @@ block Controller
     annotation (Placement(transformation(extent={{-40,90},{-20,110}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanVVF.Subsequences.SystemRequests
     sysReq(
-    final heaCoi=heaCoi,
+    final have_hotWatCoi=have_hotWatCoi,
     final thrTemDif=thrTemDif,
     final twoTemDif=twoTemDif,
     final thrTDis_1=thrTDis_1,
@@ -437,7 +437,7 @@ block Controller
     annotation (Placement(transformation(extent={{-200,250},{-180,270}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanVVF.Subsequences.Alarms
     ala(
-    final heaCoi=heaCoi,
+    final have_hotWatCoi=have_hotWatCoi,
     final staPreMul=staPreMul,
     final hotWatRes=hotWatRes,
     final VCooMax_flow=VCooMax_flow,
@@ -785,7 +785,7 @@ annotation (defaultComponentName="serFanCon",
           extent={{-98,-182},{-52,-198}},
           textColor={255,0,255},
           pattern=LinePattern.Dash,
-          visible=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased,
+          visible=have_hotWatCoi,
           textString="u1HotPla"),
         Text(
           extent={{-98,-142},{-64,-158}},
@@ -872,7 +872,7 @@ annotation (defaultComponentName="serFanCon",
           textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="yLowTemAla",
-          visible=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased),
+          visible=have_hotWatCoi),
         Text(
           extent={{-96,-80},{-64,-98}},
           textColor={255,127,0},

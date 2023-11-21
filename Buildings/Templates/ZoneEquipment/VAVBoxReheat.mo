@@ -7,7 +7,6 @@ model VAVBoxReheat "VAV terminal unit with reheat"
       "Guideline 36 controller for VAV terminal unit with reheat");
 
 annotation (
-  __ctrlFlow_template,
   defaultComponentName="VAVBox",
   Documentation(info="<html>
 <h4>Description</h4>

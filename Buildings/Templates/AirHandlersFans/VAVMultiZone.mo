@@ -55,7 +55,7 @@ model VAVMultiZone "Multiple-zone VAV"
   Hence, no choices annotation, but still replaceable to access parameter
   dialog box of the component.
   */
-  inner replaceable Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.MixedAirWithDamper
+  inner Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.MixedAirWithDamper
     secOutRel(
     redeclare final package MediumAir = MediumAir,
     final typCtlFanRet=ctl.typCtlFanRet,
@@ -72,8 +72,8 @@ model VAVMultiZone "Multiple-zone VAV"
       final fanRet=dat.fanRet))
      "Outdoor/relief/return air section"
      annotation (
-     Dialog(group="Configuration"),
-     Placement(transformation(extent={{-280,-220},{-120,-60}})));
+     Dialog(group="Configuration"), Placement(transformation(extent={{-280,-220},
+            {-120,-60}})));
 
   Buildings.Templates.Components.Sensors.Temperature TAirMix(
     redeclare final package Medium = MediumAir,
@@ -218,7 +218,7 @@ model VAVMultiZone "Multiple-zone VAV"
 
   inner replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHeaPre(
     redeclare final package MediumHeaWat=MediumHeaWat,
-    final typVal=Buildings.Templates.Components.Types.Valve.TwoWayModulating)
+    redeclare final Buildings.Templates.Components.Valves.TwoWayModulating val)
     constrainedby Buildings.Templates.Components.Interfaces.PartialCoil(
       final dat=dat.coiHeaPre,
       redeclare final package MediumAir=MediumAir,
@@ -235,7 +235,7 @@ model VAVMultiZone "Multiple-zone VAV"
       choice(
         redeclare replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHeaPre(
           redeclare final package MediumHeaWat=MediumHeaWat,
-          final typVal=Buildings.Templates.Components.Types.Valve.TwoWayModulating)
+          redeclare final Buildings.Templates.Components.Valves.TwoWayModulating val)
         "Hot water coil with two-way valve"),
       choice(
         redeclare replaceable Buildings.Templates.Components.Coils.ElectricHeating coiHeaPre
@@ -246,7 +246,7 @@ model VAVMultiZone "Multiple-zone VAV"
 
   inner replaceable Buildings.Templates.Components.Coils.WaterBasedCooling coiCoo(
     redeclare final package MediumChiWat=MediumChiWat,
-    final typVal=Buildings.Templates.Components.Types.Valve.TwoWayModulating)
+    redeclare final Buildings.Templates.Components.Valves.TwoWayModulating val)
     constrainedby Buildings.Templates.Components.Interfaces.PartialCoil(
       final dat=dat.coiCoo,
       redeclare final package MediumAir=MediumAir,
@@ -261,7 +261,7 @@ model VAVMultiZone "Multiple-zone VAV"
         "No coil"),
       choice(redeclare replaceable Buildings.Templates.Components.Coils.WaterBasedCooling coiCoo(
         redeclare final package MediumChiWat=MediumChiWat,
-        final typVal=Buildings.Templates.Components.Types.Valve.TwoWayModulating)
+        redeclare final Buildings.Templates.Components.Valves.TwoWayModulating val)
         "Chilled water coil with two-way valve")),
     Dialog(group="Configuration"),
     Placement(transformation(extent={{70,-210},{90,-190}})));
@@ -448,7 +448,6 @@ equation
   connect(fanSupBlo.port_b, coiHeaPre.port_a)
     annotation (Line(points={{-30,-200},{10,-200}}, color={0,127,255}));
   annotation (
-    __ctrlFlow_template,
     defaultComponentName="VAV",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(

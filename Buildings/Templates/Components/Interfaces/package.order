@@ -1,4 +1,6 @@
 Bus
 PartialCoil
+PartialDamper
 PartialFan
 PartialSensor
+PartialValve

@@ -7,9 +7,8 @@ model ReturnFan "Return fan with modulating relief damper"
     final typFanRel=Buildings.Templates.Components.Types.Fan.None,
     final typFanRet=fanRet.typ);
 
-  Buildings.Templates.Components.Actuators.Damper damRel(
+  Buildings.Templates.Components.Dampers.Modulating damRel(
     redeclare final package Medium = MediumAir,
-    final typ=Buildings.Templates.Components.Types.Damper.Modulating,
     final dat=dat.damRel,
     use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
     final allowFlowReversal=allowFlowReversal,

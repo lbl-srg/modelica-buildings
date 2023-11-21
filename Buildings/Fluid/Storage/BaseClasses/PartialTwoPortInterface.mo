@@ -86,8 +86,8 @@ protected
     Documentation(info="<html>
 <p>
 This partial class implements the same functionality as 
-<a href=\"modelica://Buildings.Fluid.Interfaces.PartialTwoPortInterface\">
-Buildings.Fluid.Interfaces.PartialTwoPortInterface</a>,
+<a href=\"modelica://Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger\">
+Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger</a>,
 except that <code>port_a</code> and <code>port_b</code> are placed at the top and bottom
 of the component.
 </p>

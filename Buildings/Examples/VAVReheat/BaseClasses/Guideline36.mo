@@ -68,19 +68,12 @@ model Guideline36
     annotation (Placement(transformation(extent={{-340,430},{-320,450}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Controller conAHU(
     final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1,
-
     final venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1,
-
     final ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_5A,
-
     final freSta=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat,
-
     final minOADes=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper,
-
-    final buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.BarometricRelief,
-
+    final buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.BarometricRelief,
     final ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb,
-
     final have_perZonRehBox=true,
     final VUncDesOutAir_flow=0.644,
     final VDesTotOutAir_flow=1.107) "Air handler unit controller"
@@ -374,6 +367,10 @@ equation
           602,548},{602,-316},{-68,-316},{-68,-134},{-42,-134}}, color={255,0,255}));
   connect(conAHU.y1SupFan, sysHysCoo.sysOn) annotation (Line(points={{544,548},{
           602,548},{602,-316},{-8,-316},{-8,-244},{18,-244}}, color={255,0,255}));
+  connect(valHeaCoi.y_actual, conAHU.uHeaCoi_actual) annotation (Line(points={{121,
+          -205},{121,-190},{432,-190},{432,462},{456,462}}, color={0,0,127}));
+  connect(valCooCoi.y_actual, conAHU.uCooCoi_actual) annotation (Line(points={{213,
+          -205},{213,-190},{432,-190},{432,466},{456,466}}, color={0,0,127}));
   connect(conAHU.yRetDam, damRet.y) annotation (Line(points={{544,574},{566,574},
           {566,40},{-20,40},{-20,-10},{-12,-10}}, color={0,0,127}));
   connect(conAHU.yOutDam, damOut.y) annotation (Line(points={{544,562},{560,562},

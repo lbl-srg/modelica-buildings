@@ -192,10 +192,6 @@
   openmodelica:
     comment: timed out after 300 seconds
     time_out: 600
-- model_name: Buildings.Fluid.Geothermal.Aquifer.Validation.SimulationTest
-  openmodelica:
-    comment: Timeout after 300 s
-    time_out: 600
 - model_name: Buildings.Fluid.Geothermal.BuriedPipes.Examples.DiscretizedBuriedPipe
   openmodelica:
     comment: timed out after 300 seconds

@@ -1,6 +1,6 @@
 within Buildings.Fluid.Interfaces;
 partial model PartialTwoPortInterface
-  "Partial model with two ports and declaration of quantities that are used by many models"
+  "Partial model transporting fluid between two ports without storing mass or energy"
   extends Buildings.Fluid.Interfaces.PartialTwoPort(
     port_a(p(start=Medium.p_default)),
     port_b(p(start=Medium.p_default)));
@@ -58,8 +58,8 @@ protected
     preferredView="info",
     Documentation(info="<html>
 <p>
-This component defines the interface for models with two fluid ports.
-It is similar to
+This component defines the interface for models that
+transports a fluid between two ports. It is similar to
 <a href=\"Modelica://Modelica.Fluid.Interfaces.PartialTwoPortTransport\">
 Modelica.Fluid.Interfaces.PartialTwoPortTransport</a>, but it does not
 include the species balance
@@ -71,13 +71,6 @@ include the species balance
 Thus, it can be used as a base class for a heat <i>and</i> mass transfer component
 </p>
 <p>
-The partial model extends
-<a href=\"modelica://Buildings.Fluid.Interfaces.PartialTwoPort\">
-Buildings.Fluid.Interfaces.PartialTwoPort</a>
-and adds quantities that are used by many models such as
-<code>m_flow_nominal</code>, <code>m_flow</code> and <code>dp</code>.
-</p>
-<p>
 The model is used by other models in this package that add heat transfer,
 mass transfer and pressure drop equations. See for example
 <a href=\"modelica://Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger\">
@@ -85,12 +78,6 @@ Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger</a>.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-September 22, 2023, by Michael Wetter:<br/>
-Improved documentation.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1796\">IBPSA, #1796</a>.
-</li>
 <li>
 February 2, 2022, by Hongxiang Fu:<br/>
 If <code>allowFlowReversal==false</code>, replaced <code>actualStream()</code>

@@ -3,7 +3,7 @@ block TimeSuppression
   "Calculate a time-delay period after change in set point"
 
   parameter Real chaRat(final unit="s/K")=540
-    "Gain factor to calculate suppression time based on the change of the setpoint, seconds per Kelvin. For cooling or heating request, it should be 540 seconds, for temperature alarms, it should be 1080 seconds"
+    "Gain factor to calculate suppression time based on the change of the setpoint, second per degC. For cooling or heating request, it should be 540 seconds, for temperature alarms, it should be 1080 seconds"
     annotation (__cdl(ValueInReference=true));
   parameter Real maxTim(
     final unit="s",

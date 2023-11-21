@@ -3,6 +3,7 @@ model SystemRequests
   "Validation of model that generates system requests"
 
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.SystemRequests sysReq(
+    final have_hotWatCoi=true,
     final floHys=0.01,
     final looHys=0.01,
     final damPosHys=0.01,

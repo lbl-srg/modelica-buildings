@@ -16,7 +16,7 @@ model BoilerPolynomial
      "Steam medium - port_b (oulet)";
   // Initialization
   parameter Boolean fixed_p_start=false
-    "Set to true if p_start is to be used as an explicit initial equation,
+    "Set to true if p_start is to be used as an explicit initial equation, 
     not an initial guess"
     annotation(Dialog(tab = "Initialization"));
   // Nominal conditions
@@ -25,7 +25,7 @@ model BoilerPolynomial
     annotation(Dialog(group = "Nominal condition"));
   parameter Modelica.Units.SI.Power Q_flow_nominal "Nominal heating power";
   parameter Modelica.Units.SI.Temperature T_nominal = 373.15
-    "Temperature used to compute nominal efficiency
+    "Temperature used to compute nominal efficiency 
     (only used if efficiency curve depends on temperature)";
 
   // Efficiency, fuel, and boiler properties
@@ -224,30 +224,30 @@ equation
           preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-This model represents a steam boiler that discharges saturated
+This model represents a steam boiler that discharges saturated 
 steam and has an efficiency curve defined by a polynomial.
-The efficiency in this model represents the fuel-to-water
+The efficiency in this model represents the fuel-to-water 
 efficiency (e.g., thermal efficiency).
-This model is similar to the
-<a href=\"modelica://Buildings.Fluid.Boilers.BoilerPolynomial\">
-Buildings.Fluid.Boilers.BoilerPolynomial</a> for the efficiency
+This model is similar to the 
+<a href=\"modelica://Buildings.Fluid.Boilers.BoilerPolynomial\"> 
+Buildings.Fluid.Boilers.BoilerPolynomial</a> for the efficiency 
 and fuel mass flow rate computation with the following exceptions:
 </p>
 <ul>
 <li>
-Water enters <code>port_a</code> in liquid state and exits
+Water enters <code>port_a</code> in liquid state and exits 
 <code>port_b</code> in vapor state.
-</li>
+</li> 
 <li>
 The liquid and vapor phases are at equilibrium; thus, the steam
 boiler is constrained to saturated states only with the volume
-containing a wet steam mixture.
+containing a wet steam mixture. 
 </li>
 <li>
 If the boiler is configured in steady state, several blocks involving
 the heat flow rate are conditionally removed to avoid overconstraining
-the model. This is because the discharging fluid is constrained at
-a saturated state. The blocks that are conditionally removed as a
+the model. This is because the discharging fluid is constrained at 
+a saturated state. The blocks that are conditionally removed as a 
 result are within the green region in the below figure:
 </li>
 </ul>
@@ -258,37 +258,26 @@ alt=\"Boiler polynomial steam with blocks in green conditionally removed if stea
 </p>
 <h4>Implementation</h4>
 <p>
-In order to improve the numerical efficiency, this model follows
+In order to improve the numerical efficiency, this model follows 
 the split-medium approach using the
 <a href=\"modelica://Buildings.Experimental.DHC.BaseClasses.Steam.PartialTwoPortTwoMedium\">
 Buildings.Experimental.DHC.BaseClasses.Steam.PartialTwoPortTwoMedium</a> interface model.
-The saturated mixing volume for an evaporation process
+The saturated mixing volume for an evaporation process 
 <a href=\"modelica://Buildings.Experimental.DHC.Plants.Steam.BaseClasses.ControlVolumeEvaporation\">
-Buildings.Experimental.DHC.Plants.Steam.BaseClasses.ControlVolumeEvaporation</a>
-represents the phase change process of water from liquid
+Buildings.Experimental.DHC.Plants.Steam.BaseClasses.ControlVolumeEvaporation</a> 
+represents the phase change process of water from liquid 
 to vapor at equilibrium.
 </p>
-<h4>References </h4>
+<h4>Reference</h4>
 <p>
-Kathryn Hinkelman, Saranya Anbarasu, Michael Wetter, Antoine Gautier, Wangda Zuo. 2022.
-&ldquo;A Fast and Accurate Modeling Approach for Water and Steam
-Thermodynamics with Practical Applications in District Heating System Simulation,&rdquo;
-<i>Energy</i>, 254(A), pp. 124227.
-<a href=\"https://doi.org/10.1016/j.energy.2022.124227\">10.1016/j.energy.2022.124227</a>
-</p>
-<p>
-Kathryn Hinkelman, Saranya Anbarasu, Michael Wetter, Antoine Gautier, Baptiste Ravache, Wangda Zuo 2022.
-&ldquo;Towards Open-Source Modelica Models For Steam-Based District Heating Systems.&rdquo;
-<i>Proc. of the 1st International Workshop On Open Source Modelling And Simulation Of
-Energy Systems (OSMSES 2022)</i>, Aachen, German, April 4-5, 2022.
-<a href=\"https://doi.org/10.1109/OSMSES54027.2022.9769121\">10.1109/OSMSES54027.2022.9769121</a>
+Hinkelman, Kathryn, Saranya Anbarasu, Michael Wetter, 
+Antoine Gautier, and Wangda Zuo. 2022. “A Fast and Accurate Modeling 
+Approach for Water and Steam Thermodynamics with Practical 
+Applications in District Heating System Simulation.” Preprint. February 24. 
+<a href=\"http://dx.doi.org/10.13140/RG.2.2.20710.29762\">doi:10.13140/RG.2.2.20710.29762</a>.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-September 15, 2023, by Kathryn Hinkelman:<br/>
-Updated publication references.
-</li>
 <li>
 February 25, 2022 by Kathryn Hinkelman:<br/>
 Refactored base classes for improved extensibility and relocated models into Steam subpackages.

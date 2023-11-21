@@ -2,7 +2,7 @@ within Buildings.Templates.Components.Coils;
 model WaterBasedCooling "Chilled water coil"
   extends Buildings.Templates.Components.Interfaces.PartialCoil(
     final typ=Buildings.Templates.Components.Types.Coil.WaterBasedCooling,
-    typVal=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
+    final typVal=val.typ,
     redeclare final package MediumSou = MediumChiWat);
 
   replaceable package MediumChiWat=Buildings.Media.Water
@@ -18,16 +18,21 @@ model WaterBasedCooling "Chilled water coil"
     dat.dpValve_nominal
     "Nominal pressure drop across fully open valve";
 
-  Buildings.Templates.Components.Actuators.Valve val(
-    redeclare final package Medium = MediumChiWat,
-    final typ=typVal,
-    final energyDynamics=energyDynamics,
-    use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
-    final allowFlowReversal=allowFlowReversalLiq,
-    final show_T=show_T,
-    final dat=datVal)
+  replaceable Buildings.Templates.Components.Valves.TwoWayModulating val constrainedby
+    Buildings.Templates.Components.Interfaces.PartialValve(
+      redeclare final package Medium = MediumChiWat,
+      final energyDynamics=energyDynamics,
+      use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
+      final allowFlowReversal=allowFlowReversalLiq,
+      final show_T=show_T,
+      final dat=datVal)
     "Valve"
     annotation (
+      choices(
+        choice(redeclare replaceable Buildings.Templates.Components.Valves.ThreeWayModulating val
+          "Three-way modulating valve"),
+        choice(redeclare replaceable Buildings.Templates.Components.Valves.TwoWayModulating val
+          "Two-way modulating valve")),
       Placement(transformation(extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={-40,-60})));
@@ -52,7 +57,7 @@ model WaterBasedCooling "Chilled water coil"
     final show_T=show_T)
     "Heat exchanger"
     annotation (
-      __ctrlFlow(enable=false),
+      __ctrl_flow(enable=false),
       Placement(transformation(extent={{10,4},{-10,-16}})));
 
   Buildings.Fluid.FixedResistances.Junction jun(

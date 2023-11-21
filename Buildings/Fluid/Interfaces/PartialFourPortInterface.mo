@@ -1,6 +1,6 @@
 within Buildings.Fluid.Interfaces;
 partial model PartialFourPortInterface
-  "Partial model with four ports and declaration of quantities that are used by many models"
+  "Partial model transporting fluid between two ports without storing mass or energy"
   extends Buildings.Fluid.Interfaces.PartialFourPort;
   parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal(min=0)
     "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
@@ -90,8 +90,8 @@ protected
   preferredView="info",
     Documentation(info="<html>
 <p>
-This component defines the interface for models with four fluid ports
-and two fluid streams.
+This component defines the interface for models that
+transport two fluid streams between four ports.
 It is similar to
 <a href=\"modelica://Buildings.Fluid.Interfaces.PartialTwoPortInterface\">
 Buildings.Fluid.Interfaces.PartialTwoPortInterface</a>,
@@ -103,12 +103,6 @@ mass transfer and pressure drop equations.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-September 22, 2023, by Michael Wetter:<br/>
-Improved documentation.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1796\">IBPSA, #1796</a>.
-</li>
 <li>
 February 3, 2022, by Michael Wetter:<br/>
 If <code>allowFlowReversal==false</code>, removed <code>noEvent()</code> declaration

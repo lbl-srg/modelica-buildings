@@ -190,7 +190,7 @@ equation
     annotation (Line(points={{-4.44089e-16,-20},{0,-20},{0,-30}},
                                                         color={191,0,0}));
   connect(QBorHol.Q_flow, QTotSeg_flow.u)
-    annotation (Line(points={{-11,-10},{-86,-10},{-86,80},{-62,80}},
+    annotation (Line(points={{-10,-10},{-86,-10},{-86,80},{-62,80}},
                                                           color={0,0,127}));
   connect(groTemRes.delTBor, repDelTBor.u)
     annotation (Line(points={{41,80},{58,80}}, color={0,0,127}));
