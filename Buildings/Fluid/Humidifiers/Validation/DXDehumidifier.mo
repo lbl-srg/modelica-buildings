@@ -22,9 +22,7 @@ model DXDehumidifier "Validation model for DX dehumidifier"
     final mAir_flow_nominal=m_flow_nominal,
     final dp_nominal=100,
     final eneFac_nominal=3.412,
-    final per=per,
-    senTIn(T_start=302.05),
-    deHum(T_start=302.05, X_start={0.0110173,0.9889827}))
+    final per=per)
     "DX dehumidifier"
     annotation (Placement(transformation(extent={{-50,-28},{-30,-8}})));
 
@@ -129,8 +127,8 @@ model DXDehumidifier "Validation model for DX dehumidifier"
     annotation (Placement(transformation(extent={{98,-10},{118,10}})));
 
   Modelica.Blocks.Sources.RealExpression realExpression4(
-    final y=dxDeh.QHea.y -
-      dxDeh.deHum.mWat_flow*Buildings.Utilities.Psychrometrics.Constants.h_fg)
+    final y=dxDeh.heaFloSen.Q_flow -
+    dxDeh.deHum.mWat_flow*Buildings.Utilities.Psychrometrics.Constants.h_fg)
     "DX dehumidifier heating rate (Modelica)"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 

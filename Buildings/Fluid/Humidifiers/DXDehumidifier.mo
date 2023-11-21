@@ -1,4 +1,4 @@
-﻿within Buildings.Fluid.Humidifiers;
+within Buildings.Fluid.Humidifiers;
 model DXDehumidifier "DX dehumidifier"
   extends Buildings.Fluid.Interfaces.PartialTwoPort;
 
@@ -50,9 +50,18 @@ model DXDehumidifier "DX dehumidifier"
     annotation (Placement(transformation(extent={{100,-50},{140,-10}}),
       iconTransformation(extent={{100,-30},{120,-10}})));
 
+  Modelica.Blocks.Sources.RealExpression uWatRem(y=watRemMod)
+    "Removed humidity from inlet air only when component is enabled"
+    annotation (Placement(transformation(extent={{-80,-38},{-60,-18}})));
+
+  Modelica.Blocks.Sources.RealExpression PDehEna(y=VWat_flow_nominal*watRemMod/
+        eneFac_nominal/eneFacMod*1000*1000*3600)
+    "Power consumed by dehumidification process when component is enabled"
+    annotation (Placement(transformation(extent={{-80,-88},{-60,-68}})));
+
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
     "Heat transfer into medium from dehumidifying action"
-    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+    annotation (Placement(transformation(extent={{-10,40},{10,60}})));
 
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloSen
     "Sensor for measuring heat flow rate into medium"
@@ -62,30 +71,14 @@ model DXDehumidifier "DX dehumidifier"
     "Temperature sensor"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
 
-  Modelica.Blocks.Sources.RealExpression u(
-    y=if uEna == true
-      then watRemMod
-      else 0)
-    "Remove humidity from inlet air only when component is enabled"
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-
-  Modelica.Blocks.Sources.RealExpression QHea(y=if uEna == true then PDeh.y
-         else 0)
-    "Heat transfer into medium only when component is enabled"
-    annotation (Placement(transformation(extent={{-92,40},{-72,60}})));
-
-  Modelica.Blocks.Sources.RealExpression PDeh(
-    y=if uEna == true
-      then VWat_flow_nominal*watRemMod/eneFac_nominal/eneFacMod*1000*1000*3600
-      else 0)
-    "Power consumed by dehumidification process"
-    annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
+  Modelica.Units.SI.MassFraction XOut
+    "Outlet air water vapor mass fraction";
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTIn(
     redeclare package Medium = Medium,
     final m_flow_nominal=mAir_flow_nominal)
     "Inlet air temperature sensor"
-    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+    annotation (Placement(transformation(extent={{-82,-10},{-62,10}})));
 
   Buildings.Fluid.Humidifiers.Humidifier_u deHum(
     redeclare package Medium = Medium,
@@ -99,22 +92,35 @@ model DXDehumidifier "DX dehumidifier"
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
     final k=0) if not addPowerToMedium
     "Zero source for heat flow rate if power is not added to fluid medium"
-    annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
+
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
+    "Conversion from boolean to real enable signal"
+    annotation (Placement(transformation(extent={{-90,-60},{-70,-40}})));
+
+  Buildings.Controls.OBC.CDL.Reals.Multiply QHea if addPowerToMedium
+    "Heat transfer into medium only when component is enabled"
+    annotation (Placement(transformation(extent={{-46,20},{-26,40}})));
+  Buildings.Controls.OBC.CDL.Reals.Multiply u
+    "Removed humidity from inlet air only"
+    annotation (Placement(transformation(extent={{-46,-54},{-26,-34}})));
+
+  Buildings.Controls.OBC.CDL.Reals.Multiply PDeh
+    "Power consumed by dehumidification process"
+    annotation (Placement(transformation(extent={{-46,-82},{-26,-62}})));
 
   Buildings.Fluid.Sensors.MassFractionTwoPort senMasFra(
     redeclare package Medium = Medium,
     m_flow_nominal=mAir_flow_nominal)
     "Inlet air water vapor mass fraction"
-    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
-
-  Modelica.Units.SI.MassFraction XOut
-    "Outlet air water vapor mass fraction";
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
   Buildings.Fluid.Sensors.RelativeHumidityTwoPort senRelHum(
     redeclare package Medium = Medium,
     m_flow_nominal=mAir_flow_nominal)
     "Inlet air relative humidity"
-    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+
 protected
   constant Modelica.Units.SI.SpecificEnthalpy h_fg= Buildings.Utilities.Psychrometrics.Constants.h_fg
     "Latent heat of water vapor";
@@ -126,13 +132,13 @@ protected
     min=0,
     nominal=1,
     start=1)
-    "Water removal modifier factor as a function of temperature and RH";
+    "Water removal modifier factor as a function of temperature and relative humidity";
 
   Real eneFacMod(
     min=0,
     nominal=1,
     start=1)
-    "Energy factor modifier factor as a function of temperature and RH";
+    "Energy factor modifier factor as a function of temperature and relative humidity";
 
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(final k=1) if
        addPowerToMedium "Dummy block to conditional disable the connection"
@@ -158,15 +164,10 @@ equation
           x2=senRelHum.phi*100),
         x2=0.001,
         deltaX=0.0001);
-
-    //if uEna then
-           XOut= (port_a.m_flow*senMasFra.X + deHum.mWat_flow)/(port_a.m_flow+1e-6);
-    //else
-      //XOut = senMasFra.X;
-    //end if;
+    XOut= (port_a.m_flow*senMasFra.X + deHum.mWat_flow)/(port_a.m_flow+1e-6);
 
   connect(preHeaFlo.port, heaFloSen.port_a)
-    annotation (Line(points={{0,50},{20,50}}, color={191,0,0}));
+    annotation (Line(points={{10,50},{20,50}},color={191,0,0}));
   connect(senTem.T, T)
     annotation (Line(points={{81,50},{120,50}}, color={0,0,127}));
   connect(heaFloSen.port_b, deHum.heatPort)
@@ -174,22 +175,46 @@ equation
        color={191,0,0}));
   connect(heaFloSen.port_b, senTem.port)
     annotation (Line(points={{40,50},{60,50}}, color={191,0,0}));
-  connect(PDeh.y, P)
-    annotation (Line(points={{-59,-60},{40,-60},{40,-30},{120,-30}},
-      color={0,0,127}));
-  connect(u.y, deHum.u)
-    annotation (Line(points={{-59,-40},{28,-40},{28,6},{39,6}},
-      color={0,0,127}));
   connect(port_a, senTIn.port_a)
-    annotation (Line(points={{-100,0},{-80,0}}, color={0,127,255}));
+    annotation (Line(points={{-100,0},{-82,0}}, color={0,127,255}));
   connect(senTIn.port_b, senMasFra.port_a)
-    annotation (Line(points={{-60,0},{-50,0}}, color={0,127,255}));
+    annotation (Line(points={{-62,0},{-40,0}}, color={0,127,255}));
   connect(deHum.port_b, port_b)
     annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
   connect(senMasFra.port_b, senRelHum.port_a)
-    annotation (Line(points={{-30,0},{-20,0}}, color={0,127,255}));
+    annotation (Line(points={{-20,0},{-10,0}}, color={0,127,255}));
   connect(senRelHum.port_b, deHum.port_a)
-    annotation (Line(points={{0,0},{40,0}}, color={0,127,255}));
+    annotation (Line(points={{10,0},{40,0}},color={0,127,255}));
+
+  if addPowerToMedium then
+  else
+  connect(con.y, preHeaFlo.Q_flow) annotation (Line(points={{-58,60},{-30,60},{
+            -30,50},{-10,50}},
+                         color={0,0,127}));
+  end if;
+  connect(QHea.y, preHeaFlo.Q_flow) annotation (Line(points={{-24,30},{-20,30},{
+          -20,50},{-10,50}}, color={0,0,127}));
+  connect(uWatRem.y, u.u1)
+    annotation (Line(points={{-59,-28},{-52,-28},{-52,-38},{-48,-38}},
+                                                   color={0,0,127}));
+  connect(u.y, deHum.u) annotation (Line(points={{-24,-44},{22,-44},{22,6},{39,
+          6}},
+        color={0,0,127}));
+  connect(PDeh.y, P) annotation (Line(points={{-24,-72},{26,-72},{26,-30},{120,-30},
+          {120,-30}}, color={0,0,127}));
+  connect(PDeh.y, QHea.u1) annotation (Line(points={{-24,-72},{-20,-72},{-20,
+          -20},{-52,-20},{-52,36},{-48,36}},
+                                        color={0,0,127}));
+  connect(PDehEna.y, PDeh.u2)
+    annotation (Line(points={{-59,-78},{-48,-78}}, color={0,0,127}));
+  connect(uEna, booToRea.u)
+    annotation (Line(points={{-120,-50},{-92,-50}}, color={255,0,255}));
+  connect(booToRea.y, QHea.u2) annotation (Line(points={{-68,-50},{-54,-50},{
+          -54,24},{-48,24}}, color={0,0,127}));
+  connect(booToRea.y, u.u2) annotation (Line(points={{-68,-50},{-48,-50}},
+                           color={0,0,127}));
+  connect(booToRea.y, PDeh.u1) annotation (Line(points={{-68,-50},{-54,-50},{
+          -54,-66},{-48,-66}}, color={0,0,127}));
 annotation (Icon(coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
           extent={{-70,60},{70,-60}},
@@ -246,20 +271,40 @@ annotation (Icon(coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
           fillPattern=FillPattern.Solid)}),
 defaultComponentName="dxDeh",
 Documentation(info="<html>
-<p>This is a zone air DX dehumidifier model based on the first principles according to the EnergyPlus model <span style=\"font-family: Courier New;\">ZoneHVAC:Dehumidifier:DX</span>. Different from the EnergyPlus implementation of adding the heat to the zone air heat balance, this model assumes that this equipment removes the moisture from the air stream and simultaneously heats the air.</p>
-<p>Two performance curves <span style=\"font-family: Courier New;\">watRemMod</span> and <span style=\"font-family: Courier New;\">eneFacMod</span> are specified to characterize the change in water removal and energy consumption at part-load conditions. </p>
-<p>The amount of exchanged moisture <span style=\"font-family: Courier New;\">mWat_flow</span> is equal to </p>
-<p align=\"center\"><i>ṁ<sub>wat_flow</sub> = watRemMod &rho; V̇<sub>flow_nominal</i></sub> </p>
+<p>This is a zone air DX dehumidifier model based on the first principles according 
+to the EnergyPlus model <span style=\"font-family: Courier New;\">ZoneHVAC:Dehumidifier:DX</span>. 
+Different from the EnergyPlus implementation of adding the heat to the zone air heat balance,
+this model assumes that this equipment removes the moisture from the air stream
+and simultaneously heats the air.</p>
+<p>Two performance curves <span style=\"font-family: Courier New;\">watRemMod</span> 
+and <span style=\"font-family: Courier New;\">eneFacMod</span> are specified to 
+characterize the change in water removal and energy consumption at part-load conditions. </p>
+<p>The amount of exchanged moisture <span style=\"font-family: Courier New;\">mWat_flow</span>
+is equal to </p> <p align=\"center\"><i>ṁ<sub>wat_flow</sub> = watRemMod &rho; 
+V̇<sub>flow_nominal</i></sub> </p>
 <p>The amount of heat added to the air stream <span style=\"font-family: Courier New;\">QHea</span> is equal to </p>
 <p align=\"center\"><i>Q̇<sub>hea</sub> = ṁ<sub>wat_flow</sub> h<sub>fg</sub> + P<sub>deh</sub> </i></p>
-<p>Please note that the enthalpy of the exchanged moisture has been considered and therefore the added heat flow to the connector equals to P<sub>deh</sub>. </p>
-<p align=\"center\"><i>P<sub>deh</sub> = V̇<sub>flow_nominal</sub> watRemMod / (eneFac<sub>nominal</sub> eneFacMod), </i></p>
-<p>where <span style=\"font-family: Courier New;\">VWat_flow_nominal</span> is the rated water removal flow rate and <span style=\"font-family: Courier New;\">eneFac_nominal</span> is the rated energy factor. h<sub>fg</sub> is the enthalpy of vaporization of air. </p>
+<p>Please note that the enthalpy of the exchanged moisture has been considered 
+and therefore the added heat flow to the connector equals to P<sub>deh</sub>. </p>
+<p align=\"center\"><i>P<sub>deh</sub> = V̇<sub>flow_nominal</sub> watRemMod /
+(eneFac<sub>nominal</sub> eneFacMod), </i></p>
+<p>where <span style=\"font-family: Courier New;\">VWat_flow_nominal</span> is 
+the rated water removal flow rate and <span style=\"font-family: Courier New;\">eneFac_nominal</span> 
+is the rated energy factor. h<sub>fg</sub> is the enthalpy of vaporization of air. </p>
 <h4>Performance Curve Modifiers</h4>
-<p>The water removal modifier curve <span style=\"font-family: Courier New;\">watRemMod</span> is a biquadratic curve with two independent variables: dry-bulb temperature and relative humidity of the air entering the dehumidifier. </p>
-<p align=\"center\"><i>watRemMod(T<sub>in</sub>, phi<sub>in</sub>) = a<sub>1</sub> + a<sub>2</sub> T<sub>in</sub> + a<sub>3</sub> T<sub>in</sub> <sup>2</sup> + a<sub>4</sub> phi<sub>in</sub> + a<sub>5</sub> phi<sub>in</sub> <sup>2</sup> + a<sub>6</sub> T<sub>in</sub> phi<sub>in</i></sub> </p>
-<p>The energy factor modifier curve <span style=\"font-family: Courier New;\">eneFacMod</span> is a biquadratic curve with two independent variables: dry-bulb temperature and relative humidity of the air entering the dehumidifier. </p>
-<p align=\"center\"><i>eneFacMod(T<sub>in</sub>, phi<sub>in</sub>) = b<sub>1</sub> + b<sub>2</sub> T<sub>in</sub> + b<sub>3</sub> T<sub>in</sub> <sup>2</sup> + b<sub>4</sub> phi<sub>in</sub> + b<sub>5</sub> phi<sub>in</sub> <sup>2</sup> + b<sub>6</sub> T<sub>in</sub> phi<sub>in</i></sub> </p>
+<p>The water removal modifier curve <span style=\"font-family: Courier New;\">watRemMod</span> 
+is a biquadratic curve with two independent variables: dry-bulb temperature and
+relative humidity of the air entering the dehumidifier. </p>
+<p align=\"center\"><i>watRemMod(T<sub>in</sub>, phi<sub>in</sub>) = a<sub>1</sub> 
++ a<sub>2</sub> T<sub>in</sub> + a<sub>3</sub> T<sub>in</sub> <sup>2</sup> + a<sub>4</sub> phi<sub>in</sub> 
++ a<sub>5</sub> phi<sub>in</sub> <sup>2</sup> + a<sub>6</sub> T<sub>in</sub> phi<sub>in</i></sub> </p>
+<p>The energy factor modifier curve <span style=\"font-family: Courier New;\">eneFacMod</span> 
+is a biquadratic curve with two independent variables: dry-bulb temperature 
+and relative humidity of the air entering the dehumidifier. </p>
+<p align=\"center\"><i>eneFacMod(T<sub>in</sub>, phi<sub>in</sub>) = b<sub>1</sub> 
++ b<sub>2</sub> T<sub>in</sub> + b<sub>3</sub> T<sub>in</sub> <sup>2</sup> + 
+b<sub>4</sub> phi<sub>in</sub> + b<sub>5</sub> phi<sub>in</sub> <sup>2</sup> + 
+b<sub>6</sub> T<sub>in</sub> phi<sub>in</i></sub> </p>
 </html>",
 revisions="<html>
 <ul>
