@@ -30,6 +30,7 @@ services:
 
 env:
   global:
+    - DOCKER_REPONAME=lbnlblum
     - BUILDINGSPY_VERSION=BuildingsPy@v5.0.0
     - OMC_VERSION=ubuntu-2204-omc:1.22.0_dev-41-g8a5b18f-1
     - OPTIMICA_VERSION=travis-ubuntu-2204-optimica:1.43.4
@@ -100,11 +101,11 @@ env:
 before_install:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - if [[ "$TEST_ARG" == *test-dymola* || "$TEST_ARG" == *test-bestest* || "$TEST_ARG" == *spawn-portability* ]]; then
-       docker pull "$DOCKER_USERNAME"/${DYMOLA_VERSION};
+       docker pull "$DOCKER_REPONAME"/${DYMOLA_VERSION};
        cp Buildings/Resources/Scripts/travis/dymola/dymola $HOME/bin/;
     fi;
   - if [[ "$TEST_ARG" == *test-optimica* ]]; then
-       docker pull "$DOCKER_USERNAME"/${OPTIMICA_VERSION};
+       docker pull "$DOCKER_REPONAME"/${OPTIMICA_VERSION};
        cp Buildings/Resources/Scripts/travis/optimica/jm_ipython.sh $HOME/bin/jm_ipython.sh;
     fi;
   - if [[ "$TEST_ARG" == *test-energyplus* ]]; then
@@ -125,7 +126,7 @@ before_install:
       echo "Installed modelica-json in ${MODELICA_JSON_HOME}";
     fi;
   - if [[ "$TEST_ARG" == *test-openmodelica* ]]; then
-       docker pull "$DOCKER_USERNAME"/${OMC_VERSION};
+       docker pull "$DOCKER_REPONAME"/${OMC_VERSION};
        cp Buildings/Resources/Scripts/travis/omc/omc $HOME/bin/omc;
     fi;
 
