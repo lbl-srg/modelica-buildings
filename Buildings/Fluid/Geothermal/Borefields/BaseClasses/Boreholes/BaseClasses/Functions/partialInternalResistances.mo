@@ -29,7 +29,7 @@ partial function partialInternalResistances
   input Modelica.Units.SI.SpecificHeatCapacity cpMed
     "Specific heat capacity of the fluid";
   input Modelica.Units.SI.MassFlowRate m_flow_nominal "Nominal mass flow rate";
-  input String instanceName "undeclared caller"
+  input String instanceName="undeclared caller"
     "Instance name of the model or block that calls this function";
 
   // Outputs
