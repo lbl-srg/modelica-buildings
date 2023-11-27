@@ -421,6 +421,8 @@
     comment: 'TimeoutExpired: omc timed out after 300 seconds'
     simulate: false
 - model_name: Buildings.ThermalZones.Detailed.Examples.ISAT.Tutorial.MixedConvection
+  dymola:
+    time_out: 600
   optimica:
     comment: 'TimeoutExpired: optimica timed out after 300 seconds'
     simulate: false
@@ -438,6 +440,8 @@
     comment: 'TimeoutExpired: omc timed out after 300 seconds'
     simulate: false
 - model_name: Buildings.ThermalZones.Detailed.Examples.ISAT.Tutorial.NaturalConvection
+  dymola:
+    time_out: 600
   openmodelica:
     comment: 'TimeoutExpired: omc timed out after 300 seconds'
     simulate: false
@@ -452,7 +456,7 @@
 - model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case630
   openmodelica:
     comment: Timeout on travis, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/571321984#L379
-    simulate: false
+    simulate: false  
 - model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx.Case920
   openmodelica:
     comment: Timeout on travis
@@ -465,6 +469,10 @@
   openmodelica:
     comment: Timeout on travis, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/604300629#L376
     simulate: false
+- model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx.Case995
+  openmodelica:
+    comment: Timeout on travis
+    time_out: 600 
 - model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.Validation.FMUZoneAdapterZones1
   dymola:
     comment: Requires docker update to Ubuntu 22.04 due to libgc.
