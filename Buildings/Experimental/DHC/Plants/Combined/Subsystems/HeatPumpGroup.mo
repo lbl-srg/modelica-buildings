@@ -108,7 +108,7 @@ model HeatPumpGroup
     final use_input=true)
     "Flow rate multiplier"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  BaseClasses.MultipleCommands com(final nUni=nUni)
+  Buildings.Templates.Components.Controls.MultipleCommands com(final nUni=nUni)
     "Convert command signals"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply mulP "Scale power"

@@ -30,7 +30,7 @@ model Dampers "Validation model for damper components"
       iconVisible=false,
       transformation(extent={{-20,60},{20,100}}),
       iconTransformation(extent={{-250,-32},{-210,8}})));
-  Controls.OBC.CDL.Reals.Sources.Ramp y(height=1,
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp y(height=1,
     duration=10) "Damper control signal"
     annotation (Placement(transformation(extent={{-90,90},{-70,110}})));
 
@@ -59,7 +59,7 @@ model Dampers "Validation model for damper components"
       iconVisible=false,
       transformation(extent={{-20,-60},{20,-20}}),
       iconTransformation(extent={{-250,-32},{-210,8}})));
-  Controls.OBC.CDL.Logical.Sources.TimeTable y1(
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1(
     table=[0,0; 1,1],
     timeScale=10,
     period=200) "Damper control signal"

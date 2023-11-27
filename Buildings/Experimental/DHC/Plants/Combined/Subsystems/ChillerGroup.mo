@@ -192,7 +192,7 @@ model ChillerGroup
     final use_input=true)
     "Flow rate multiplier"
     annotation (Placement(transformation(extent={{-30,-70},{-50,-50}})));
-  BaseClasses.MultipleCommands com(
+  Buildings.Templates.Components.Controls.MultipleCommands com(
     final nUni=nUni)
     "Convert command signals"
     annotation (Placement(transformation(extent={{-80,110},{-60,130}})));

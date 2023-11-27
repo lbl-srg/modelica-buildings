@@ -1,4 +1,4 @@
-within Buildings.Experimental.DHC.Plants.Combined.Subsystems.BaseClasses;
+within Buildings.Templates.Components.Controls;
 block MultipleCommands
   "Block that converts command signals for multiple units"
 
@@ -29,9 +29,6 @@ block MultipleCommands
   Buildings.Controls.OBC.CDL.Reals.MultiSum mulSum(nin=nUni)
     "Total"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(t=0.5)
-    "Returns true if at least one unit is commanded on"
-    annotation (Placement(transformation(extent={{70,50},{90,70}})));
   Buildings.Controls.OBC.CDL.Reals.Max max1
     "Maximum value"
     annotation (Placement(transformation(extent={{70,-70},{90,-50}})));
@@ -39,15 +36,12 @@ block MultipleCommands
     "Constant one"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
 
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(nin=nUni)
+    "Returns true if at least one unit is commanded on"
+    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
 equation
   connect(booToRea.y, mulSum.u)
     annotation (Line(points={{-38,0},{-12,0}}, color={0,0,127}));
-  connect(greThr.y, y1One)
-    annotation (Line(points={{92,60},{120,60}},
-                                              color={255,0,255}));
-  connect(mulSum.y, greThr.u)
-    annotation (Line(points={{12,0},{60,0},{60,60},{68,60}},
-                                              color={0,0,127}));
   connect(max1.y, nUniOnBou)
     annotation (Line(points={{92,-60},{120,-60}},
                                                 color={0,0,127}));
@@ -61,6 +55,10 @@ equation
                 color={0,0,127}));
   connect(y1, booToRea.u)
     annotation (Line(points={{-120,0},{-62,0}}, color={255,0,255}));
+  connect(y1, mulOr.u) annotation (Line(points={{-120,0},{-80,0},{-80,60},{-62,60}},
+        color={255,0,255}));
+  connect(y1One, mulOr.y)
+    annotation (Line(points={{120,60},{-38,60}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),                                        graphics={
         Rectangle(
@@ -76,8 +74,8 @@ equation
     Documentation(info="<html>
 <p>
 This block computes the following variables based on a Boolean array
-representing typically the On/Off command signal for a group of multiple
-units such as chillers or CHW pumps.
+representing the On/Off command signal for a group of multiple
+units, such as parallel fans or pumps.
 </p>
 <ul>
 <li>
@@ -95,6 +93,10 @@ and <code>nUniOn</code>.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2023, by Michael Wetter:<br/>
+Reformulated using a multi-or block.
+</li>
 <li>
 February 24, 2023, by Antoine Gautier:<br/>
 First implementation.
