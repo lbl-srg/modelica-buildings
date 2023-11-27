@@ -27,10 +27,9 @@ partial model PartialOutdoorSection "Interface class for outdoor air section"
     else Buildings.Templates.Components.Types.Damper.None
     "Minimum outdoor air damper type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-
-  outer parameter Boolean have_recHea
+  parameter Boolean have_recHea
     "Set to true in case of heat recovery";
-  outer parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer typCtlEco
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer typCtlEco
     "Economizer control type";
 
   parameter

@@ -14,7 +14,7 @@ record Fan "Record for fan model"
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(
     final min=0,
     start=1)
-    "Air mass flow rate"
+    "Total air mass flow rate"
     annotation (
       Dialog(group="Nominal condition",
         enable=typ <> Buildings.Templates.Components.Types.Fan.None));

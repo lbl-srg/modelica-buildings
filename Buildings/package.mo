@@ -277,6 +277,15 @@ have been <b style=\"color:blue\">improved</b> in a
                      This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1781\">IBPSA, #1781</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Templates</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Components.Fans.ArrayVariable
+    </td>
+    <td valign=\"top\">Refactored with flow rate multiplier.<br/>
+	          This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3536\">#3536</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
     </td>
 </tr>
@@ -314,30 +323,40 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3526\">issue 3526</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Plants.Combined.Subsystems.BaseClasses.MultipleCommands
+    </td>
+    <td valign=\"top\">The class has been moved to Buildings.Templates.Components.Controls.MultipleCommands.<br/>
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3536\">#3536</a>.<br/>
+                     This change is supported in the conversion script.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Templates</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Templates.AirHandlersFans.Data.PartialAirHandler<br/>
-                       Buildings.Templates.AirHandlersFans.Data.VAVMultiZone<br/>
-                       Buildings.Templates.AirHandlersFans.Interfaces.PartialAirHandler<br/>
-                       Buildings.Templates.AirHandlersFans.VAVMultiZone<br/>
-                       Buildings.Templates.ZoneEquipment.Data.PartialAirTerminal<br/>
-                       Buildings.Templates.ZoneEquipment.Data.VAVBox<br/>
-                       Buildings.Templates.ZoneEquipment.Interfaces.PartialAirTerminal<br/>
-                       Buildings.Templates.ZoneEquipment.Interfaces.VAVBox<br/>
-                       Buildings.Templates.ZoneEquipment.VAVBoxCoolingOnly<br/>
-                       Buildings.Templates.ZoneEquipment.VAVBoxReheat
+                     Buildings.Templates.AirHandlersFans.Data.VAVMultiZone<br/>
+                     Buildings.Templates.AirHandlersFans.Interfaces.PartialAirHandler<br/>
+                     Buildings.Templates.AirHandlersFans.VAVMultiZone<br/>
+                     Buildings.Templates.ZoneEquipment.Data.PartialAirTerminal<br/>
+                     Buildings.Templates.ZoneEquipment.Data.VAVBox<br/>
+                     Buildings.Templates.ZoneEquipment.Interfaces.PartialAirTerminal<br/>
+                     Buildings.Templates.ZoneEquipment.Interfaces.VAVBox<br/>
+                     Buildings.Templates.ZoneEquipment.VAVBoxCoolingOnly<br/>
+                     Buildings.Templates.ZoneEquipment.VAVBoxReheat
     </td>
     <td valign=\"top\">Refactored with a record class for configuration parameters.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3500\">#3500</a>.
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3500\">#3500</a>.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Templates.Components.Dampers<br/>
                      Buildings.Templates.Components.Valves
     </td>
-    <td valign=\"top\">The models in these packages have been retired and replaced 
+    <td valign=\"top\">The models in these packages have been retired and replaced
 		with two container classes within <code>Buildings.Templates.Components.Actuators</code>
-		that cover all equipment types, and allow the flow characteristic to be specified 
+		that cover all equipment types, and allow the flow characteristic to be specified
 		with one parameter.<br/>
                      	This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3539\">#3539</a>.
     </td>
