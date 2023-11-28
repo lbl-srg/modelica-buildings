@@ -535,8 +535,7 @@ equation
 This model represents an energy transfer station based on that described in Sommer (2020),
 with some additioinal details:
 </p>
-<ul>
-<li>
+<p>
 The cooling function is provided in a compressor-less mode by a heat exchanger
 connected to the district supply line.
 <ul>
@@ -549,9 +548,9 @@ secondary side.
 The chilled water is typically produced at high temperature and distributed
 to radiant cooling systems, for instance at 19&deg;C.
 </li>
-</li>
 </ul>
-<li>
+</p>
+<p>
 The space heating heating function is provided by a water-to-water heat pump
 <a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump\">
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump</a>,
@@ -584,8 +583,7 @@ The space heating hot water is typically produced at low temperature,
 for instance 40&deg;C.
 </li>
 </ul>
-</li>
-</ul>
+</p>
 <h4>Space Heating and Cooling Enable/Disable</h4>
 <p>
 Heating (resp. cooling) is enabled based on the input signal <code>uHea</code>
