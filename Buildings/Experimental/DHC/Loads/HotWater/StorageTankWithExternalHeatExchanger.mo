@@ -59,7 +59,6 @@ model StorageTankWithExternalHeatExchanger
     final allowFlowReversal1=allowFlowReversalDom,
     m1_flow_nominal=dat.mDom_flow_nominal,
     m2_flow_nominal=dat.mHex_flow_nominal,
-    show_T=true,
     dp1_nominal=dat.dpHexHea_nominal,
     from_dp2=true,
     dp2_nominal=dat.dpHexDom_nominal,
