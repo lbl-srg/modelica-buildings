@@ -106,9 +106,8 @@ equation
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/EnergyTransferStations/Combined/Subsystems/Validation/HeatPump.mos" "Simulate and plot"),
     experiment(
-      StopTime=86400,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),
+      StopTime=172800,
+      Tolerance=1e-06),
     Documentation(
       revisions="<html>
 <ul>
