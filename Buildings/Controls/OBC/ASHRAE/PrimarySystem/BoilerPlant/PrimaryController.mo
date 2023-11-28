@@ -1019,7 +1019,7 @@ model PrimaryController "Boiler plant primary loop controller"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yPriPum[nPumPri]
     "Primary pump enable status vector"
     annotation (Placement(transformation(extent={{400,-150},{440,-110}}),
-      iconTransformation(extent={{100,-80},{140,-40}})));
+      iconTransformation(extent={{100,-120},{140,-80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yPla
     "Plant enable signal"
@@ -1046,7 +1046,7 @@ model PrimaryController "Boiler plant primary loop controller"
     displayUnit="1") if have_varPriPum
     "Primary pump speed"
     annotation (Placement(transformation(extent={{400,-190},{440,-150}}),
-      iconTransformation(extent={{100,-120},{140,-80}})));
+      iconTransformation(extent={{100,-160},{140,-120}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yBypValPos(
     final unit="1",
@@ -1062,6 +1062,13 @@ model PrimaryController "Boiler plant primary loop controller"
     "Boiler hot water supply temperature setpoint vector"
     annotation (Placement(transformation(extent={{400,150},{440,190}}),
       iconTransformation(extent={{100,40},{140,80}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yConRegSig(
+    final unit="1",
+    displayUnit="1")
+    "Condensation regulation signal"
+    annotation (Placement(transformation(extent={{400,-100},{440,-60}}),
+      iconTransformation(extent={{100,-80},{140,-40}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.PlantEnable plaEna(
     final nIgnReq=nIgnReq,
@@ -1429,7 +1436,8 @@ equation
   connect(staSetCon.yChaUpEdg, upProCon.uStaUpPro) annotation (Line(points={{-188,2},
           {58,2},{58,92},{118,92}},    color={255,0,255}));
   connect(conSet.yMinBypValPos, bypValPos.uMinBypValPos) annotation (Line(
-        points={{-38,-96},{110,-96},{110,-46},{118,-46}},color={0,0,127}));
+        points={{-38,-100},{110,-100},{110,-46},{118,-46}},
+                                                         color={0,0,127}));
   connect(staSetCon.yStaTyp, conSet.uStaTyp) annotation (Line(points={{-188,10},
           {-90,10},{-90,-108},{-62,-108}},
                                  color={255,127,0}));
@@ -1639,7 +1647,7 @@ equation
           274,76},{274,-88},{112,-88},{112,-166.933},{118,-166.933}},
                                                                   color={255,0,255}));
   connect(conSet.yMinPriPumSpe, priPumCon.uMinPriPumSpeCon) annotation (Line(
-        points={{-38,-102},{88,-102},{88,-193.067},{118,-193.067}},
+        points={{-38,-104},{88,-104},{88,-193.067},{118,-193.067}},
                                                            color={0,0,127}));
   connect(VHotWatSec_flow, priPumCon.VHotWatSec_flow) annotation (Line(points={{-420,
           -70},{8,-70},{8,-224},{114,-224},{114,-195.867},{118,-195.867}},
@@ -1752,6 +1760,8 @@ equation
           255}));
   connect(uSchEna, plaEna.uSchEna) annotation (Line(points={{-420,420},{-350,420},
           {-350,336},{-342,336}}, color={255,0,255}));
+  connect(conSet.yConRegSig, yConRegSig) annotation (Line(points={{-38,-96},{
+          184,-96},{184,-80},{420,-80}}, color={0,0,127}));
   annotation (defaultComponentName="boiPlaCon",
     Icon(coordinateSystem(extent={{-100,-360},{100,360}}),
        graphics={

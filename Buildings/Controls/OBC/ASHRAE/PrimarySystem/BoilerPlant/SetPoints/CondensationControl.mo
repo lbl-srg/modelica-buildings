@@ -62,8 +62,8 @@ block CondensationControl
     final min=0,
     final max=1) if have_priOnl
     "Minimum allowed setpoint of bypass valve position"
-    annotation (Placement(transformation(extent={{100,30},{140,70}}),
-      iconTransformation(extent={{100,40},{140,80}})));
+    annotation (Placement(transformation(extent={{100,0},{140,40}}),
+      iconTransformation(extent={{100,0},{140,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMinPriPumSpe(
     final unit="1",
@@ -71,8 +71,8 @@ block CondensationControl
     final min=0,
     final max=1) if (have_varPriPum and not have_priOnl)
     "Minimum allowed primary pump speed"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
-      iconTransformation(extent={{100,-20},{140,20}})));
+    annotation (Placement(transformation(extent={{100,-40},{140,0}}),
+      iconTransformation(extent={{100,-40},{140,0}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMaxSecPumSpe(
     final unit="1",
@@ -80,8 +80,17 @@ block CondensationControl
     final min=0,
     final max=1) if not have_priOnl
     "Maximum allowed secondary pump speed"
-    annotation (Placement(transformation(extent={{100,-70},{140,-30}}),
+    annotation (Placement(transformation(extent={{100,-80},{140,-40}}),
       iconTransformation(extent={{100,-80},{140,-40}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yConRegSig(
+    final unit="1",
+    final displayUnit="1",
+    final min=0,
+    final max=1)
+    "Condensation regulation signal"
+    annotation (Placement(transformation(extent={{100,40},{140,80}}),
+      iconTransformation(extent={{100,40},{140,80}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Switch swi
@@ -127,7 +136,7 @@ equation
                                                 color={0,0,127}));
 
   connect(yMinBypValPos, yMinBypValPos)
-    annotation (Line(points={{120,50},{120,50}}, color={0,0,127}));
+    annotation (Line(points={{120,20},{120,20}}, color={0,0,127}));
 
   connect(uStaTyp, intToRea.u)
     annotation (Line(points={{-120,-70},{-92,-70}},
@@ -149,8 +158,8 @@ equation
           58},{-52,58}},       color={0,0,127}));
   connect(greThr.y, swi.u2) annotation (Line(points={{12,-70},{20,-70},{20,-50},
           {-56,-50},{-56,50},{-52,50}},     color={255,0,255}));
-  connect(swi.y, yMinBypValPos) annotation (Line(points={{-28,50},{120,50}},
-                                         color={0,0,127}));
+  connect(swi.y, yMinBypValPos) annotation (Line(points={{-28,50},{46,50},{46,
+          20},{120,20}},                 color={0,0,127}));
   connect(con.y, swi.u3) annotation (Line(points={{-68,30},{-60,30},{-60,42},{-52,
           42}},       color={0,0,127}));
   connect(swi.y, pumSpeLim.uRegSig) annotation (Line(points={{-28,50},{-20,50},{
@@ -158,9 +167,12 @@ equation
   connect(uCurSta, pumSpeLim.uCurSta) annotation (Line(points={{-120,0},{-60,0},
           {-60,5},{-12,5}}, color={255,127,0}));
   connect(pumSpeLim.yMinPriPumSpe, yMinPriPumSpe)
-    annotation (Line(points={{12,5},{30,5},{30,0},{120,0}},color={0,0,127}));
+    annotation (Line(points={{12,5},{40,5},{40,-20},{120,-20}},
+                                                           color={0,0,127}));
   connect(pumSpeLim.yMaxSecPumSpe, yMaxSecPumSpe) annotation (Line(points={{12,-5},
-          {30,-5},{30,-50},{120,-50}}, color={0,0,127}));
+          {30,-5},{30,-60},{120,-60}}, color={0,0,127}));
+  connect(proReg.yRegSig, yConRegSig) annotation (Line(points={{-68,70},{20,70},
+          {20,60},{120,60}}, color={0,0,127}));
   annotation (defaultComponentName=
     "conSet",
     Icon(graphics={
