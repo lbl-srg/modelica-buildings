@@ -1,9 +1,0 @@
-compareVars :=
-  {
-    "theMixVal.TMixSet",
-    "theMixVal.senTemHot.T",
-    "gen.THotSouSet",
-    "gen.senTemHot.T",
-    "PEle",
-    "theMixVal.yMixSet"
-  };
