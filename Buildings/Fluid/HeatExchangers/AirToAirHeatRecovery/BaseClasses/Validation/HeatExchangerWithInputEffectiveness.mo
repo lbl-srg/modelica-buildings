@@ -3,29 +3,30 @@ model HeatExchangerWithInputEffectiveness
   "Test model for the heat exchanger with input effectiveness"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Air
-     "Medium of the supply air";
+     "Supply air";
   package Medium2 = Buildings.Media.Air
-     "Medium of the exhaust air";
+     "Exhaust air";
 
   Buildings.Fluid.Sources.Boundary_pT sin_2(
     redeclare package Medium = Medium2,
     p(displayUnit="Pa") = 101325,
     T=273.15 + 10,
     nPorts=1)
-    "Sink that represents the ambient environment"
+    "Ambient"
     annotation (Placement(transformation(extent={{-54,-30},{-34,-10}})));
   Buildings.Fluid.Sources.Boundary_pT sou_2(
     redeclare package Medium = Medium2,
     p(displayUnit="Pa") = 101325 + 100,
     T=566.3,
     nPorts=1)
-    "Source of the exhaust air"
+    "Exhaust air source"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
     Modelica.Blocks.Sources.Ramp TSup(
     height=10,
     duration=60,
     offset=273.15 + 30,
-    startTime=120) "Temperature of the supply air"
+    startTime=120)
+    "Supply air temperature"
     annotation (Placement(transformation(extent={{-90,54},{-70,74}})));
   Buildings.Fluid.Sources.Boundary_pT sin_1(
     redeclare package Medium = Medium1,
@@ -33,7 +34,7 @@ model HeatExchangerWithInputEffectiveness
     X={0.012,1 - 0.012},
     p(displayUnit="Pa") = 1E5 - 110,
     nPorts=1)
-    "Sink of the supply air"
+    "Supply air sink"
     annotation (Placement(transformation(extent={{84,2},{64,22}})));
   Buildings.Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = Medium1,
@@ -42,7 +43,7 @@ model HeatExchangerWithInputEffectiveness
     use_T_in=true,
     p(displayUnit="Pa") = 100000,
     nPorts=1)
-    "Source of the supply air"
+    "Supply air source"
     annotation (Placement(transformation(extent={{-48,50},{-28,70}})));
   Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.HeatExchangerWithInputEffectiveness
     hex(
@@ -122,6 +123,19 @@ during the period from <i>120s</i> to <i>180s</i>;
 <li>
 Latent heat exchanger effectiveness, <i>epsLat</i>, changes from <i>0.7</i> to <i>0.8</i> 
 during the period from <i>60s</i> to <i>120s</i>.
+</li>
+</ul>
+<p>
+The expected outputs are:
+</p>
+<ul>
+<li>
+The humidity of the supply air and that of the exhaust air leaving the exchanger changes during the period from <i>60s</i> to <i>120s</i>;
+</li>
+</ul>
+<ul>
+<li>
+The temperature of the supply air and that of the exhaust air leaving the exchanger changes during the period from <i>120s</i> to <i>180s</i>.
 </li>
 </ul>
 </html>", revisions="<html>

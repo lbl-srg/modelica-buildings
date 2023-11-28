@@ -6,18 +6,18 @@ model Effectiveness
     "Nominal sensible heat exchanger effectiveness at the cooling mode";
   parameter Modelica.Units.SI.Efficiency epsLatCoo_nominal(final max=1) = 0.8
     "Nominal latent heat exchanger effectiveness at the cooling mode";
-  parameter Modelica.Units.SI.Efficiency epsSenCoo_ParLoa(final max=1) = 0.75
-    "Partial load (75%) sensible heat exchanger effectiveness at the cooling mode";
-  parameter Modelica.Units.SI.Efficiency epsLatCoo_ParLoa(final max=1) = 0.75
-    "Partial load (75%) latent heat exchanger effectiveness at the cooling mode";
+  parameter Modelica.Units.SI.Efficiency epsSenCooPL(final max=1) = 0.75
+    "Part load (75%) sensible heat exchanger effectiveness at the cooling mode";
+  parameter Modelica.Units.SI.Efficiency epsLatCooPL(final max=1) = 0.75
+    "Part load (75%) latent heat exchanger effectiveness at the cooling mode";
   parameter Modelica.Units.SI.Efficiency epsSenHea_nominal(final max=1) = 0.8
     "Nominal sensible heat exchanger effectiveness at the heating mode";
   parameter Modelica.Units.SI.Efficiency epsLatHea_nominal(final max=1) = 0.8
     "Nominal latent heat exchanger effectiveness at the heating mode";
-  parameter Modelica.Units.SI.Efficiency epsSenHea_ParLoa(final max=1) = 0.75
-    "Partial load (75%) sensible heat exchanger effectiveness at the heating mode";
-  parameter Modelica.Units.SI.Efficiency epsLatHea_ParLoa(final max=1) = 0.75
-    "Partial load (75%) latent heat exchanger effectiveness at the heating mode";
+  parameter Modelica.Units.SI.Efficiency epsSenHeaPL(final max=1) = 0.75
+    "Part load (75%) sensible heat exchanger effectiveness at the heating mode";
+  parameter Modelica.Units.SI.Efficiency epsLatHeaPL(final max=1) = 0.75
+    "Part load (75%) latent heat exchanger effectiveness at the heating mode";
   parameter Modelica.Units.SI.VolumeFlowRate VSup_flow_nominal(final min = 100*Modelica.Constants.eps)
     "Nominal supply air flow rate";
 
@@ -52,14 +52,14 @@ model Effectiveness
 protected
    Real rat
    "Ratio of the average operating volumetric air flow rate to the nominal supply air flow rate";
-   Real epsSen_ParLoa
-   "The partial load (75%) sensible heat exchanger effectiveness used for calculation";
+   Real epsSenPL
+   "Part load (75%) sensible heat exchanger effectiveness used for calculation";
    Real epsSen_nominal
-   "The nominal sensible heat exchanger effectiveness used for calculation";
-   Real epsLat_ParLoa
-   "The partial load (75%) latent heat exchanger effectiveness used for calculation";
+   "Nominal sensible heat exchanger effectiveness used for calculation";
+   Real epsLatPL
+   "Part load (75%) latent heat exchanger effectiveness used for calculation";
    Real epsLat_nominal
-   "The nominal latent heat exchanger effectiveness used for calculation";
+   "Nominal latent heat exchanger effectiveness used for calculation";
 
 equation
   // check if the air flows are too unbalanced.
@@ -73,14 +73,14 @@ equation
     "Operating flow rate outside the full accuracy range",
     level=AssertionLevel.warning);
   // switch between cooling and heating modes based on the difference between the supply air temperature and the exhaust air temperature.
-  epsSen_ParLoa = Buildings.Utilities.Math.Functions.regStep(TSup-TExh, epsSenCoo_ParLoa, epsSenHea_ParLoa, 1e-5);
+  epsSenPL = Buildings.Utilities.Math.Functions.regStep(TSup-TExh, epsSenCooPL, epsSenHeaPL, 1e-5);
   epsSen_nominal = Buildings.Utilities.Math.Functions.regStep(TSup-TExh, epsSenCoo_nominal, epsSenHea_nominal, 1e-5);
-  epsLat_ParLoa = Buildings.Utilities.Math.Functions.regStep(TSup-TExh, epsLatCoo_ParLoa, epsLatHea_ParLoa, 1e-5);
+  epsLatPL = Buildings.Utilities.Math.Functions.regStep(TSup-TExh, epsLatCooPL, epsLatHeaPL, 1e-5);
   epsLat_nominal = Buildings.Utilities.Math.Functions.regStep(TSup-TExh, epsLatCoo_nominal, epsLatHea_nominal, 1e-5);
   // calculate effectiveness.
-    epsSen =wheSpe*(epsSen_ParLoa + (epsSen_nominal - epsSen_ParLoa)*(rat -
+    epsSen =wheSpe*(epsSenPL + (epsSen_nominal - epsSenPL)*(rat -
     0.75)/0.25);
-    epsLat =wheSpe*(epsLat_ParLoa + (epsLat_nominal - epsLat_ParLoa)*(rat -
+    epsLat =wheSpe*(epsLatPL + (epsLat_nominal - epsLatPL)*(rat -
     0.75)/0.25);
   assert(epsSen > 0 and epsSen < 1,
     "Insensed value for the sensible heat exchanger effectiveness",

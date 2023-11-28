@@ -21,18 +21,18 @@ model WheelWithVariableSpeed
     "Nominal sensible heat exchanger effectiveness at the cooling mode";
   parameter Modelica.Units.SI.Efficiency epsLatCoo_nominal(final max=1) = 0.8
     "Nominal latent heat exchanger effectiveness at the cooling mode";
-  parameter Modelica.Units.SI.Efficiency epsSenCoo_ParLoa(final max=1) = 0.75
-    "Partial load (75%) sensible heat exchanger effectiveness at the cooling mode";
-  parameter Modelica.Units.SI.Efficiency epsLatCoo_ParLoa(final max=1) = 0.75
-    "Partial load (75%) latent heat exchanger effectiveness at the cooling mode";
+  parameter Modelica.Units.SI.Efficiency epsSenCooPL(final max=1) = 0.75
+    "Part load (75%) sensible heat exchanger effectiveness at the cooling mode";
+  parameter Modelica.Units.SI.Efficiency epsLatCooPL(final max=1) = 0.75
+    "Part load (75%) latent heat exchanger effectiveness at the cooling mode";
   parameter Modelica.Units.SI.Efficiency epsSenHea_nominal(final max=1) = 0.8
     "Nominal sensible heat exchanger effectiveness at the heating mode";
   parameter Modelica.Units.SI.Efficiency epsLatHea_nominal(final max=1) = 0.8
     "Nominal latent heat exchanger effectiveness at the heating mode";
-  parameter Modelica.Units.SI.Efficiency epsSenHea_ParLoa(final max=1) = 0.75
-    "Partial load (75%) sensible heat exchanger effectiveness at the heating mode";
-  parameter Modelica.Units.SI.Efficiency epsLatHea_ParLoa(final max=1) = 0.75
-    "Partial load (75%) latent heat exchanger effectiveness at the heating mode";
+  parameter Modelica.Units.SI.Efficiency epsSenHeaPL(final max=1) = 0.75
+    "Part load (75%) sensible heat exchanger effectiveness at the heating mode";
+  parameter Modelica.Units.SI.Efficiency epsLatHeaPL(final max=1) = 0.75
+    "Part load (75%) latent heat exchanger effectiveness at the heating mode";
   Modelica.Blocks.Interfaces.RealInput wheSpe(final unit="1")
     "Wheel speed ratio"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
@@ -54,12 +54,12 @@ model WheelWithVariableSpeed
     effCal(
     final epsSenCoo_nominal=epsSenCoo_nominal,
     final epsLatCoo_nominal=epsLatCoo_nominal,
-    final epsSenCoo_ParLoa=epsSenCoo_ParLoa,
-    final epsLatCoo_ParLoa=epsLatCoo_ParLoa,
+    final epsSenCooPL=epsSenCooPL,
+    final epsLatCooPL=epsLatCooPL,
     final epsSenHea_nominal=epsSenHea_nominal,
     final epsLatHea_nominal=epsLatHea_nominal,
-    final epsSenHea_ParLoa=epsSenHea_ParLoa,
-    final epsLatHea_ParLoa=epsLatHea_ParLoa,
+    final epsSenHeaPL=epsSenHeaPL,
+    final epsLatHeaPL=epsLatHeaPL,
     final VSup_flow_nominal=m1_flow_nominal/1.293)
     "Calculates the effectiveness of heat exchange"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));

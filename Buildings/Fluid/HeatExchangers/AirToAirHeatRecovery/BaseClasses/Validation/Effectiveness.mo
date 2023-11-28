@@ -5,11 +5,11 @@ model Effectiveness
   Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.Effectiveness
     epsCal(
     epsLatCoo_nominal=0.6,
-    epsLatCoo_ParLoa=0.7,
+    epsLatCooPL=0.7,
     epsSenHea_nominal=0.7,
     epsLatHea_nominal=0.6,
-    epsSenHea_ParLoa=0.6,
-    epsLatHea_ParLoa=0.5,
+    epsSenHeaPL=0.6,
+    epsLatHeaPL=0.5,
     VSup_flow_nominal=1)
     "Effectiveness calculator"
     annotation (Placement(transformation(extent={{-12,-10},{8,10}})));
@@ -87,8 +87,8 @@ After that, <i>TSup</i> is less than <i>TExh</i>, leading to a heating mode;
 <li>
 The supply air flow rate, <i>VSup</i>, and the exhaust air flow rate, <i>VExh</i>, change from 
 0.6 to 1 and 0.8 to 1 
-during the period from <i>0s</i> to <i>60s</i>, respectively;
-They then stay constant.
+during the period from <i>0s</i> to <i>60s</i>, respectively.
+They then stay constant;
 </li>
 </ul>
 <ul>
@@ -97,6 +97,20 @@ The wheel speed ratio, <i>wheSpe</i>, keeps constant during the period from
 <i>0s</i> to <i>60s</i> and then increases from 0.3 to 1
 during the period from <i>60s</i> to <i>120s</i>.
 </li> 
+</ul>
+<p>
+The expected outputs are:
+</p>
+<ul>
+<li>
+The sensible effectiveness, <code>epsSen</code>, increases during the whole simulation period. The latent effectiveness, 
+<code>epsLat</code>, decreases from <i>0s</i> to <i>20s</i> and then increases during the rest of the time;
+</li>
+</ul>
+<ul>
+<li>There are dramatic changes in the effectiveness, <code>epsSen</code> and <code>epsLat</code>, at around <i>20s</i> due to switching
+from the cooling mode to the heating mode.
+</li>
 </ul>
 </html>", revisions="<html>
 <ul>

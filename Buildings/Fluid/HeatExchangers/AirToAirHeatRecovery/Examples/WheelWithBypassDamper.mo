@@ -3,16 +3,16 @@ model WheelWithBypassDamper
   "Test model for the air-to-air thermal wheel with bypass dampers"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Air
-    "Medium model for the supply air";
+    "Supply air";
   package Medium2 = Buildings.Media.Air
-    "Medium model for the exhaust air";
+    "Exhaust air";
   Buildings.Fluid.Sources.Boundary_pT sin_2(
     redeclare package Medium = Medium2,
     p(displayUnit="Pa") = 101325,
     T=273.15 + 10,
     use_p_in=false,
     nPorts=1)
-    "Sink of the exhaust air"
+    "Exhaust air sink"
     annotation (Placement(transformation(extent={{-58,-10},
     {-38,10}})));
   Buildings.Fluid.Sources.Boundary_pT sou_2(
@@ -21,7 +21,8 @@ model WheelWithBypassDamper
     T(displayUnit="K") = 293.15,
     use_p_in=false,
     use_T_in=false,
-    nPorts=1) "Source of the exhaust air"
+    nPorts=1)
+    "Exhaust air Source"
     annotation (Placement(transformation(extent={{40,-70},
     {60,-50}})));
     Modelica.Blocks.Sources.Ramp TSup(
@@ -38,7 +39,7 @@ model WheelWithBypassDamper
     use_p_in=false,
     p(displayUnit="Pa") = 101325 - 100,
     nPorts=1)
-    "Sink of the supply air"
+    "Supply air sink"
     annotation (Placement(transformation(extent={{84,2},{
     64,22}})));
   Buildings.Fluid.Sources.Boundary_pT sou_1(
@@ -48,7 +49,7 @@ model WheelWithBypassDamper
     use_T_in=true,
     p(displayUnit="Pa") = 101325,
     nPorts=1)
-    "Source of the supply air"
+    "Supply air source"
     annotation (Placement(transformation(extent={{-60,40},
     {-40,60}})));
   Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.WheelWithBypassDamper whe(
@@ -59,9 +60,9 @@ model WheelWithBypassDamper
     dp1_nominal(displayUnit="Pa") = 100,
     dp2_nominal(displayUnit="Pa") = 100,
     epsLatCoo_nominal=0.7,
-    epsLatCoo_ParLoa=0.6,
+    epsLatCooPL=0.6,
     epsLatHea_nominal=0.7,
-    epsLatHea_ParLoa=0.6)
+    epsLatHeaPL=0.6)
     "Wheel"
     annotation (Placement(transformation(extent={{6,-4},{26,16}})));
     Modelica.Blocks.Sources.Ramp bypDamPos(
@@ -122,6 +123,24 @@ during the period from <i>200s</i> to <i>360s</i>;
 <ul>
 <li>
 The supply air flow rate and the exhaust air flow rate are constant.
+</li>
+</ul>
+<p>
+The expected outputs are:
+</p>
+<ul>
+<li>
+The sensible effectiveness, <code>epsSen</code>, and the latent effectiveness, 
+<code>epsLat</code>, keep relatively constant before <i>200s</i>.
+After <i>200s</i>, both <code>epsSen</code> and <code>epsLat</code> decrease; 
+</li>
+</ul>
+<ul>
+<li>
+The temperature of the supply air and that of the exhaust air leaving the exchanger 
+follows the change of <i>TSup</i> before <i>200s</i>.
+After <i>200s</i>, the temperature of the supply air leaving the exchanger increases.
+The temperature of the exhaust air leaving the exchanger decreases.
 </li>
 </ul>
 </html>", revisions="<html>
