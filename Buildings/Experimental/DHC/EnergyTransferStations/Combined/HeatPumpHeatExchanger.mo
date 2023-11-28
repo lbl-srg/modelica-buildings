@@ -110,7 +110,7 @@ When enabled,
 </p>
 <ul>
 <li>
-The heat pump and the evaporator and condenser water pumps are controlled
+The heat pump and the evaporator and condenser hydronics are controlled
 based on the principles described in
 <a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump_Old\">
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump</a>.
@@ -124,12 +124,6 @@ to the following equation:
 <p align=\"center\" style=\"font-style:italic;\">
 <code>QReqHotWat_flow</code> = m&#775; cp (<code>THotWatSup_nominal</code> - <code>TColWat</code>)
 </p>
-</li>
-<li>
-The evaporator water mass flow rate is computed based on the
-logic described in
-<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Controls.PrimaryVariableFlow\">
-Buildings.Experimental.DHC.EnergyTransferStations.Combined.Controls.PrimaryVariableFlow</a>.
 </li>
 </ul>
 </html>",

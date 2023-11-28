@@ -111,21 +111,15 @@ When enabled,
 </p>
 <ul>
 <li>
-The heat pump evaporator water pump is controlled
+The heat pump and the evaporator and condenser hydronics are controlled
 based on the principles described in
 <a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPumpDHWTank\">
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPumpDHWTank</a>.
 </li>
 <li>
-The heat pump condensor water mass flow rate is controlled for the charging of the storage tank
-as described in
-<a href=\"modelica://Buildings.Experimental.DHC.Loads.HotWater.HeatPumpWithTank\">
-Buildings.Experimental.DHC.Loads.HotWater.HeatPumpWithTank</a>.
-</li>
-<li>
-The mass flow rate of water leaving the storage tank is computed based on the domestic hot water
+The mass flow rate of water leaving the domestic hot water heat exchanger is computed based on the domestic hot water
 heating load (input <code>QReqHotWat_flow</code>) combined with the operation of a thermostatic
-mixing valve used to mix down the temperature of hot water leaving the tank
+mixing valve used to mix down the temperature of hot water leaving the domestic hot water heat exchanger
 to the temperature distributed to fixtures (parameter <code>THotWatSup_nominal</code>)
 using domestic cold water at the cold water temperature (input <code>TColWat</code>).
 The desired water flow rate leaving the thermostatic mixing valve
@@ -133,12 +127,6 @@ is determined according to the following equation:
 <p align=\"center\" style=\"font-style:italic;\">
 <code>QReqHotWat_flow</code> = m&#775; cp (<code>THotWatSup_nominal</code> - <code>TColWat</code>)
 </p>
-</li>
-<li>
-The evaporator water mass flow rate is computed based on the
-logic described in
-<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Controls.PrimaryVariableFlow\">
-Buildings.Experimental.DHC.EnergyTransferStations.Combined.Controls.PrimaryVariableFlow</a>.
 </li>
 </ul>
 </html>",
