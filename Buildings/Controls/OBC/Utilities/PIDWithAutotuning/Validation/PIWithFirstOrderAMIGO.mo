@@ -22,7 +22,7 @@ model PIWithFirstOrderAMIGO "Test model for an autotuning PI controller"
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel2(samplePeriod=240)
     "A delay process for control process 2"
     annotation (Placement(transformation(extent={{10,-30},{30,-10}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant k(k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant k(k=10)
     "Gain of the first order process"
     annotation (Placement(transformation(extent={{180,20},{160,40}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant T(k=10)

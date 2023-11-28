@@ -7,6 +7,9 @@ block Controller
     "Lower value for the output";
   parameter Real deaBan(min=1E-6) = 0.5
     "Deadband for holding the output value";
+  parameter Boolean reverseActing=true
+    "Set to true for reverse acting, or false for direct acting control action";
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u_s
     "Setpoint input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
@@ -63,8 +66,6 @@ initial equation
 equation
   connect(swi.y, y)
     annotation (Line(points={{82,0},{88,0},{88,60},{120,60}},  color={0,0,127}));
-  connect(greMeaSet.reference, u_s)
-    annotation (Line(points={{-2,6},{-40,6},{-40,0},{-120,0}},  color={0,0,127}));
   connect(higVal.y, swi.u1)
     annotation (Line(points={{22,60},{40,60},{40,8},{58,8}},color={0,0,127}));
   connect(lowVal.y, swi.u3) annotation (Line(points={{22,-40},{40,-40},{40,-8},{
@@ -75,18 +76,33 @@ equation
          color={0,0,127}));
   connect(greMeaSet.y, swi.u2)
     annotation (Line(points={{22,0},{58,0}},color={255,0,255}));
-  connect(conErr.u2, u_s) annotation (Line(points={{-62,14},{-90,14},{-90,0},{-120,
-          0}}, color={0,0,127}));
   connect(swi1.u3, u_s) annotation (Line(points={{-62,-58},{-90,-58},{-90,0},{-120,
           0}}, color={0,0,127}));
-  connect(swi1.y, greMeaSet.u) annotation (Line(points={{-38,-50},{-20,-50},{-20,
-          -6},{-2,-6}}, color={0,0,127}));
-  connect(swi1.y, conErr.u1) annotation (Line(points={{-38,-50},{-20,-50},{-20,-6},
-          {-70,-6},{-70,26},{-62,26}}, color={0,0,127}));
+
   connect(trigger, swi1.u2) annotation (Line(points={{-80,-120},{-80,-50},{-62,-50}},
         color={255,0,255}));
   connect(u_m, swi1.u1) annotation (Line(points={{0,-120},{0,-80},{-70,-80},{-70,
           -42},{-62,-42}}, color={0,0,127}));
+   connect(swi1.y, conErr.u1) annotation (Line(points={{-38,-50},{-20,-50},{-20,-6},
+          {-70,-6},{-70,26},{-62,26}}, color={0,0,127}));
+   connect(conErr.u2, u_s) annotation (Line(points={{-62,14},{-90,14},{-90,0},{-120,
+          0}}, color={0,0,127}));
+  if reverseActing then
+
+   connect(greMeaSet.reference, u_s)
+    annotation (Line(points={{-2,6},{-40,6},{-40,0},{-120,0}},  color={0,0,127}));
+   connect(swi1.y, greMeaSet.u) annotation (Line(points={{-38,-50},{-20,-50},{-20,
+          -6},{-2,-6}}, color={0,0,127}));
+
+  else
+
+   connect(greMeaSet.reference, swi1.y)
+    annotation (Line(points={{-2,6},{-40,6},{-40,-50},{-38,-50}},
+                                                                color={0,0,127}));
+   connect(u_s, greMeaSet.u) annotation (Line(points={{-120,0},{-20,0},{-20,-6},
+            {-2,-6}},   color={0,0,127}));
+
+  end if;
   annotation (defaultComponentName = "relCon",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
@@ -131,15 +147,17 @@ boolean relay switch output <code>yOn</code>, and the control error
 </p>
 <ul>
 <li>
-<code>yErr = u_s - u_m</code>,
+<code>yErr = u_m - u_s</code>,
 </li>
 <li>
 if <code>yErr &lt; -deaBan</code> and <code>trigger</code> is <code>true</code>,
-then <code>y = yHig</code>, <code>yOn = true</code>,
+then <code>y = yHig</code> (-yLow if the parameter <code>reverseActing = false</code>), <code>yOn = true</code>
+ (<code>false</code> if the <code>reverseActing = false</code>),
 </li>
 <li>
 if <code>yErr &gt; deaBan</code> and <code>trigger</code> is <code>true</code>,
-then <code>y = -yLow</code>, <code>yOn = false</code>,
+then <code>y = -yLow</code> (yHig if the  <code>reverseActing = false</code>), 
+<code>yOn = false</code> (<code>true</code> if the <code>reverseActing = false</code>),
 </li>
 <li>
 else, <code>y</code> and <code>yOn</code> are kept as the initial values,
