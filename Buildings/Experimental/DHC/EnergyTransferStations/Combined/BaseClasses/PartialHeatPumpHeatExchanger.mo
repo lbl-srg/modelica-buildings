@@ -549,6 +549,7 @@ secondary side.
 The chilled water is typically produced at high temperature and distributed
 to radiant cooling systems, for instance at 19&deg;C.
 </li>
+</li>
 </ul>
 <li>
 The space heating heating function is provided by a water-to-water heat pump
