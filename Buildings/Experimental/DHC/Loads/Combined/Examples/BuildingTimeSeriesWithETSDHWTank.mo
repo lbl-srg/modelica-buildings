@@ -51,7 +51,8 @@ model BuildingTimeSeriesWithETSDHWTank
     "Heating water supply temperature set point - Minimum value"
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
   parameter HotWater.Data.GenericDomesticHotWaterWithHeatExchanger datWatHea(VTan=0.3,
-      mDom_flow_nominal=0.03)
+      mDom_flow_nominal=0.03,
+    TDom_nominal=318.15)
     "Performance data"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
 

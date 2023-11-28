@@ -126,6 +126,7 @@ model PartialHeatPump
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
   Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valHeaPumEva(
     redeclare package Medium = Medium2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal=mEva_flow_nominal,
     dpValve_nominal=6000) "Valve at heat pump evaporator"
     annotation (Placement(transformation(extent={{80,-70},{60,-50}})));
