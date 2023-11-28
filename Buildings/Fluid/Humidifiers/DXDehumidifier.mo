@@ -181,13 +181,6 @@ equation
     annotation (Line(points={{-20,0},{-10,0}}, color={0,127,255}));
   connect(senRelHum.port_b, deHum.port_a)
     annotation (Line(points={{10,0},{40,0}},color={0,127,255}));
-
-  if addPowerToMedium then
-  else
-  connect(con.y, preHeaFlo.Q_flow) annotation (Line(points={{-58,60},{-30,60},{
-            -30,50},{-10,50}},
-                         color={0,0,127}));
-  end if;
   connect(QHea.y, preHeaFlo.Q_flow) annotation (Line(points={{-24,30},{-20,30},{
           -20,50},{-10,50}}, color={0,0,127}));
   connect(uWatRem.y, u.u1)
@@ -211,6 +204,8 @@ equation
                            color={0,0,127}));
   connect(booToRea.y, PDeh.u1) annotation (Line(points={{-68,-50},{-54,-50},{
           -54,-66},{-48,-66}}, color={0,0,127}));
+  connect(con.y, preHeaFlo.Q_flow) annotation (Line(points={{-58,60},{-20,60},{-20,
+          50},{-10,50}}, color={0,0,127}));
 annotation (Icon(coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
           extent={{-70,60},{70,-60}},
