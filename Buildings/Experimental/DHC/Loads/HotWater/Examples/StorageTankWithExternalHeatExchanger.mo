@@ -133,6 +133,5 @@ First implementation.
 </html>"),
     experiment(
       StopTime=172800,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"));
+      Tolerance=1e-06));
 end StorageTankWithExternalHeatExchanger;
