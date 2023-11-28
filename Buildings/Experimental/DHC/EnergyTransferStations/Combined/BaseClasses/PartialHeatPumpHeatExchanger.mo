@@ -538,6 +538,7 @@ with some additioinal details:
 <p>
 The cooling function is provided in a compressor-less mode by a heat exchanger
 connected to the district supply line.
+</p>
 <ul>
 <li>
 The cooling heat exchanger primary pump is modulated based on a PI control
@@ -549,11 +550,11 @@ The chilled water is typically produced at high temperature and distributed
 to radiant cooling systems, for instance at 19&deg;C.
 </li>
 </ul>
-</p>
 <p>
 The space heating heating function is provided by a water-to-water heat pump
 <a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump\">
-Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump</a>,
+Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump</a>.
+</p>
 <ul>
 <li>
 By default, the condenser loop is operated
@@ -583,7 +584,6 @@ The space heating hot water is typically produced at low temperature,
 for instance 40&deg;C.
 </li>
 </ul>
-</p>
 <h4>Space Heating and Cooling Enable/Disable</h4>
 <p>
 Heating (resp. cooling) is enabled based on the input signal <code>uHea</code>

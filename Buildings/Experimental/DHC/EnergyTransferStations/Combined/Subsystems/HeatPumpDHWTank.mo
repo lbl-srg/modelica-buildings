@@ -232,6 +232,7 @@ Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.BaseClasse
 The system is enabled when the tank charge control signal switches to
 <code>true</code>.
 When enabled, 
+</p>
 <ul>
 <li>
 the condenser pump is commanded on and supplies the nominal mass flow rate
@@ -242,7 +243,6 @@ the heat pump condenser supplies a constant temperature increase from the return
 the supply equal to <code>dT_nominal</code>.
 </li>
 </ul>
-</p>
 </html>", revisions="<html>
 <ul>
 <li>
