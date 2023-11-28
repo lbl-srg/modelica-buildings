@@ -747,6 +747,7 @@ Buildings/Electrical/Utilities/package.mo
 Buildings/Electrical/Utilities/package.order
 Buildings/Electrical/package.mo
 Buildings/Electrical/package.order
+Buildings/Examples/SimpleHouse.mo
 Buildings/Examples/Tutorial/SimpleHouse/SimpleHouse0.mo
 Buildings/Examples/Tutorial/SimpleHouse/SimpleHouse1.mo
 Buildings/Examples/Tutorial/SimpleHouse/SimpleHouse2.mo
@@ -918,7 +919,6 @@ Buildings/Fluid/Examples/Performance/PressureDrop/package.order
 Buildings/Fluid/Examples/Performance/package.mo
 Buildings/Fluid/Examples/Performance/package.order
 Buildings/Fluid/Examples/ResistanceVolumeFlowReversal.mo
-Buildings/Fluid/Examples/SimpleHouse.mo
 Buildings/Fluid/Examples/package.mo
 Buildings/Fluid/Examples/package.order
 Buildings/Fluid/FMI/Adaptors/Examples/ThermalZoneHVACNoExhaust.mo
@@ -1064,6 +1064,20 @@ Buildings/Fluid/FixedResistances/Validation/package.mo
 Buildings/Fluid/FixedResistances/Validation/package.order
 Buildings/Fluid/FixedResistances/package.mo
 Buildings/Fluid/FixedResistances/package.order
+Buildings/Fluid/Geothermal/Aquifer/Data/Rock.mo
+Buildings/Fluid/Geothermal/Aquifer/Data/Template.mo
+Buildings/Fluid/Geothermal/Aquifer/Data/package.mo
+Buildings/Fluid/Geothermal/Aquifer/Data/package.order
+Buildings/Fluid/Geothermal/Aquifer/Examples/CoolingOffice.mo
+Buildings/Fluid/Geothermal/Aquifer/Examples/package.mo
+Buildings/Fluid/Geothermal/Aquifer/Examples/package.order
+Buildings/Fluid/Geothermal/Aquifer/MultiWell.mo
+Buildings/Fluid/Geothermal/Aquifer/Validation/NumberWells.mo
+Buildings/Fluid/Geothermal/Aquifer/Validation/SimulationTest.mo
+Buildings/Fluid/Geothermal/Aquifer/Validation/package.mo
+Buildings/Fluid/Geothermal/Aquifer/Validation/package.order
+Buildings/Fluid/Geothermal/Aquifer/package.mo
+Buildings/Fluid/Geothermal/Aquifer/package.order
 Buildings/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Examples/InternalHEXOneUTube.mo
 Buildings/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Examples/InternalHEXTwoUTube.mo
 Buildings/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Examples/InternalResistancesOneUTube.mo
@@ -2051,6 +2065,11 @@ Buildings/Resources/Images/Fluid/FixedResistances/Junction.svg
 Buildings/Resources/Images/Fluid/FixedResistances/PressureDrop.png
 Buildings/Resources/Images/Fluid/FixedResistances/Validation/PlugFlowPipes/AITTestBench.png
 Buildings/Resources/Images/Fluid/FixedResistances/Validation/PlugFlowPipes/ULgTestBench.png
+Buildings/Resources/Images/Fluid/Geothermal/Aquifer/Geometry.png
+Buildings/Resources/Images/Fluid/Geothermal/Aquifer/Geometry.svg
+Buildings/Resources/Images/Fluid/Geothermal/Aquifer/PressureCircuit.png
+Buildings/Resources/Images/Fluid/Geothermal/Aquifer/PressureCircuit.svg
+Buildings/Resources/Images/Fluid/Geothermal/Aquifer/results.png
 Buildings/Resources/Images/Fluid/Geothermal/Borefields/BorefieldGeometry_01.png
 Buildings/Resources/Images/Fluid/Geothermal/Borefields/BorefieldGeometry_01.tex
 Buildings/Resources/Images/Fluid/Geothermal/Borefields/BoreholeResistances_01.png
@@ -2355,6 +2374,7 @@ Buildings/Resources/Scripts/Dymola/Electrical/DC/Sources/Examples/VoltageSource.
 Buildings/Resources/Scripts/Dymola/Electrical/Transmission/Functions/Validation/SelectCable_low.mos
 Buildings/Resources/Scripts/Dymola/Electrical/Transmission/Functions/Validation/SelectCable_med.mos
 Buildings/Resources/Scripts/Dymola/Electrical/Utilities/Examples/TestVoltageCTRL.mos
+Buildings/Resources/Scripts/Dymola/Examples/SimpleHouse.mos
 Buildings/Resources/Scripts/Dymola/Examples/Tutorial/SimpleHouse/SimpleHouse0.mos
 Buildings/Resources/Scripts/Dymola/Examples/Tutorial/SimpleHouse/SimpleHouse1.mos
 Buildings/Resources/Scripts/Dymola/Examples/Tutorial/SimpleHouse/SimpleHouse2.mos
@@ -2425,7 +2445,6 @@ Buildings/Resources/Scripts/Dymola/Fluid/Examples/Performance/PressureDrop/Serie
 Buildings/Resources/Scripts/Dymola/Fluid/Examples/Performance/PressureDrop/SeriesParallelFlow.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Examples/Performance/PressureDrop/SeriesParallelFlowOptimised.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Examples/ResistanceVolumeFlowReversal.mos
-Buildings/Resources/Scripts/Dymola/Fluid/Examples/SimpleHouse.mos
 Buildings/Resources/Scripts/Dymola/Fluid/FMI/Adaptors/Examples/ThermalZoneHVACNoExhaust.mos
 Buildings/Resources/Scripts/Dymola/Fluid/FMI/Adaptors/Examples/ThermalZoneHVACWithExhaust.mos
 Buildings/Resources/Scripts/Dymola/Fluid/FMI/Conversion/Validation/AirToOutlet.mos
@@ -2484,6 +2503,9 @@ Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PressureDro
 Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PressureDropsExplicitLinearized.mos
 Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PressureDropsParallel.mos
 Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PressureDropsSeries.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Aquifer/Examples/CoolingOffice.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Aquifer/Validation/NumberWells.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Aquifer/Validation/SimulationTest.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Examples/InternalHEXOneUTube.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Examples/InternalHEXTwoUTube.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Examples/InternalResistancesOneUTube.mos

@@ -94,5 +94,12 @@ A status signal <code>y1_actual</code> (Boolean) is returned.<br/>
 <code>y1_actual = true</code> means that the fan is on.
 </li>
 </ul>
+</html>", revisions="<html>
+<ul>
+<li>
+November 18, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end SingleVariable;
