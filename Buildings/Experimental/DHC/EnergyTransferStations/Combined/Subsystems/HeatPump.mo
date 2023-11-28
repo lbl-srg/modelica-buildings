@@ -2,8 +2,7 @@
 model HeatPump "Base subsystem with water-to-water heat pump"
   extends
     Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.BaseClasses.PartialHeatPump(
-                                                                                                     heaPum(
-        QCon_flow_nominal=Q1_flow_nominal));
+        heaPum(QCon_flow_nominal=Q1_flow_nominal));
   parameter Boolean have_varFloCon = true
     "Set to true for a variable condenser flow"
     annotation(Evaluate=true);
@@ -57,6 +56,8 @@ equation
     annotation (Line(points={{-98,120},{-30,120},{-30,26}}, color={0,0,127}));
   connect(conPI.trigger, floEva.u) annotation (Line(points={{124,8},{124,-2},{
           110,-2},{110,136},{-90,136},{-90,90},{-82,90}}, color={255,0,255}));
+  connect(addPPum.y, PPum) annotation (Line(points={{161,70},{174,70},{174,0},{
+          220,0}}, color={0,0,127}));
   annotation (
   defaultComponentName="heaPum",
   Icon(coordinateSystem(preserveAspectRatio=false)),

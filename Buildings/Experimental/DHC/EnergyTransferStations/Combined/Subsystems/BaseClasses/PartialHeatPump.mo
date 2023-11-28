@@ -62,14 +62,15 @@ model PartialHeatPump
     redeclare final package Medium = Medium1,
     m_flow(min=if allowFlowReversal1 then -Modelica.Constants.inf else 0),
     h_outflow(start=Medium1.h_default, nominal=Medium1.h_default))
-    "Fluid port for entering condenser water" annotation (Placement(
+    "Fluid port for cold domestic water"      annotation (Placement(
         transformation(extent={{-210,-70},{-190,-50}}), iconTransformation(
           extent={{-110,-70},{-90,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b1(
     redeclare final package Medium = Medium1,
     m_flow(max=if allowFlowReversal1 then +Modelica.Constants.inf else 0),
     h_outflow(start=Medium1.h_default, nominal=Medium1.h_default))
-    "Fluid port for leaving condenser water" annotation (Placement(
+    "Fluid port for heated domestic hot water"
+                                             annotation (Placement(
         transformation(extent={{-210,50},{-190,70}}), iconTransformation(extent=
            {{-110,50},{-90,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PHea(
@@ -204,8 +205,6 @@ equation
     annotation (Line(points={{160,-60},{200,-60}}, color={0,127,255}));
   connect(senMasFlo.m_flow, mEva_flow)
     annotation (Line(points={{150,-49},{150,-40},{220,-40}}, color={0,0,127}));
-  connect(addPPum.y, PPum) annotation (Line(points={{161,70},{170,70},{170,0},{
-          220,0}}, color={0,0,127}));
   connect(pumCon.P, addPPum.u1) annotation (Line(points={{-41,23},{-42,23},{-42,
           76},{138,76}}, color={0,0,127}));
   connect(addPPum.u2, pumEva.P) annotation (Line(points={{138,64},{-8,64},{-8,
