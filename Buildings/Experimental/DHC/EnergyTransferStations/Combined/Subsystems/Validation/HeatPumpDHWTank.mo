@@ -4,15 +4,21 @@ model HeatPumpDHWTank
   extends Modelica.Icons.Example;
   package Medium=Buildings.Media.Water
     "Medium model";
+  parameter Modelica.Units.SI.TemperatureDifference dT_nominal = 5
+    "Nominal temperature difference across heat pump condensor and district supply/return water";
+  parameter Modelica.Units.SI.Temperature TDisSup_nominal = 273.15 + 15
+    "Nominal district supply water temperature";
   Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPumpDHWTank
     heaPum(
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium,
     datWatHea=datWatHea,
     COP_nominal=2.3,
-    TCon_nominal=datWatHea.TMix_nominal + datWatHea.dTHexApp_nominal + 1,
-    TEva_nominal(displayUnit="K") = 273.15 + 15 - 5,
+    TCon_nominal=datWatHea.TDom_nominal + datWatHea.dTHexApp_nominal +
+        dT_nominal,
+    TEva_nominal(displayUnit="K") = TDisSup_nominal - dT_nominal,
     QHotWat_flow_nominal=datWatHea.QHex_flow_nominal,
+    dT_nominal=dT_nominal,
     dp1_nominal=6000,
     dp2_nominal=6000)
     annotation (Placement(transformation(extent={{-10,-12},{10,8}})));
@@ -32,9 +38,7 @@ model HeatPumpDHWTank
         Medium)
     "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{40,-70},{20,-50}})));
-  Modelica.Blocks.Sources.Constant TDisSup(k(
-      unit="K",
-      displayUnit="degC") = 288.15)
+  Modelica.Blocks.Sources.Constant TDisSup(k = TDisSup_nominal)
     "District supply temperature"
     annotation (Placement(transformation(extent={{100,-60},{80,-40}})));
   Fluid.Sources.Boundary_pT souDCW(
@@ -105,13 +109,17 @@ equation
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/EnergyTransferStations/Combined/Subsystems/Validation/HeatPumpDHWTank.mos" "Simulate and plot"),
     experiment(
-      StopTime=86400,
+      StopTime=172800,
       Interval=30,
       Tolerance=1e-06,
       __Dymola_Algorithm="Dassl"),
     Documentation(
       revisions="<html>
 <ul>
+<li>
+November 28, 2023, by David Blum:<br/>
+Update for new heat pump with storage tank subsystem model.
+</li>
 <li>
 October 31, 2020, by David Blum:<br/>
 First implementation.

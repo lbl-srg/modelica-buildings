@@ -83,7 +83,7 @@ When enabled, on the condenser side,
 </p>
 <ul>
 <li>
-the ondenser water pumps are commanded on and supply either
+the condenser water pumps are commanded on and supply either
 the condenser mass flow rate set point provided as an input in the case of the variable speed condenser pump,
 or the nominal mass flow rate in the case of the constant speed condenser pump,
 </li>
@@ -94,6 +94,10 @@ supply temperature set point at the condenser outlet.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2023, by David Blum:<br/>
+Changed to extend partial base class with added condenser hydronics and control.
+</li>
 <li>
 May 3, 2023, by David Blum:<br/>
 Assigned <code>dp_nominal</code> to condenser pump.<br/>

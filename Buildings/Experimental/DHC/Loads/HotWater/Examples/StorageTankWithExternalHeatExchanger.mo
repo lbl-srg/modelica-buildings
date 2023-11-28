@@ -122,6 +122,10 @@ with a prescribed temperature lift.
 </html>", revisions="<html>
 <ul>
 <li>
+November 15, 2023, by David Blum:<br/>
+Add heater with constant dT as heat source.
+</li>
+<li>
 October 5, 2023, by Michael Wetter:<br/>
 First implementation.
 </li>

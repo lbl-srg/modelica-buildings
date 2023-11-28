@@ -113,6 +113,10 @@ equation
       revisions="<html>
 <ul>
 <li>
+November 15, 2023, by David Blum:<br/>
+Update for new heat pump subsystem model.
+</li>
+<li>
 November 1, 2020, by David Blum:<br/>
 First implementation.
 </li>

@@ -93,6 +93,10 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
+November 15, 2023, by David Blum:<br/>
+Add that charging is stopped when bottom temperature reaches set point.
+</li>
+<li>
 October 4, 2023, by Michael Wetter:<br/>
 First implementation.
 </li>

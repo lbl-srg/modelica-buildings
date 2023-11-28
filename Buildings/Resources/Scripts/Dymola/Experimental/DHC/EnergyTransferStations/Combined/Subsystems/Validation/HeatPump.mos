@@ -2,7 +2,7 @@ simulateModel("Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsys
     method="cvode",
     tolerance=1e-6,
     startTime=0,
-    stopTime=86400,
+    stopTime=172800,
     resultFile="HeatPump");
 createPlot(id=1, position={532, 0, 831, 646}, y={"heaPum.senTDisSup.T", "heaPum.senTEvaRet.T", "senTLoaSup.T"}, range={0.0, 90000.0, 0.0, 40.0}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}, {0,140,72}}, timeUnit="s", displayUnits={"degC", "degC", "degC"});
 createPlot(id=1, position={532, 0, 831, 646}, y={"heaPum.heaPum.QCon_flow", "heaPum.heaPum.QCon_flow_nominal"}, range={0.0, 90000.0, -500.0, 1500.0}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"W", "W"});

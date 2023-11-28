@@ -136,11 +136,9 @@ model HeatPumpDHWTank
 
   Modelica.Blocks.Math.Add3 add3_1 "Electricity use for pumps"
     annotation (Placement(transformation(extent={{140,60},{160,80}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THotSouSet(k=datWatHea.TMix_nominal)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THotSouSet(k=datWatHea.TDom_nominal)
     "Set point of water in hot water tank"
     annotation (Placement(transformation(extent={{-180,0},{-160,20}})));
-  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(p=datWatHea.dTHexApp_nominal)
-    annotation (Placement(transformation(extent={{-120,-62},{-100,-42}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal floEva(realTrue=
         mEva_flow_nominal) "Evaporator mass flow rate"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
@@ -190,24 +188,25 @@ model HeatPumpDHWTank
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-60,-20})));
+  Fluid.Sensors.TemperatureTwoPort senTemHeaPumRet(
+    redeclare package Medium = Medium1,
+    m_flow_nominal=mCon_flow_nominal,
+    tau=0)
+    annotation (Placement(transformation(extent={{-140,-64},{-120,-44}})));
+  Buildings.Controls.OBC.CDL.Reals.AddParameter
+                                      addPar(p=dT_nominal)
+                                                  "dT for heater"
+    annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
 equation
   connect(add3_1.y, PPum) annotation (Line(points={{161,70},{172,70},{172,0},{220,
           0}},     color={0,0,127}));
-  connect(heaPum.port_a1, heaPumTan.port_bHea) annotation (Line(points={{-82,-54},
-          {-92,-54},{-92,14},{-80,14}}, color={0,127,255}));
   connect(pumCon.port_b, heaPumTan.port_aHea)
     annotation (Line(points={{-40,14},{-60,14}}, color={0,127,255}));
   connect(heaPum.port_b1,pumCon. port_a) annotation (Line(points={{-62,-54},{
           -14,-54},{-14,14},{-20,14}},
                            color={0,127,255}));
-  connect(addPar.y, heaPum.TSet) annotation (Line(points={{-98,-52},{-94,-52},{
-          -94,-51},{-84,-51}},
-                           color={0,0,127}));
   connect(THotSouSet.y, heaPumTan.TDomSet) annotation (Line(points={{-158,10},{-140,
           10},{-140,20},{-81,20}}, color={0,0,127}));
-  connect(addPar.u, THotSouSet.y) annotation (Line(points={{-122,-52},{-140,-52},
-          {-140,10},{-158,10}},
-                              color={0,0,127}));
   connect(heaPum.P, PHea) annotation (Line(points={{-61,-60},{-20,-60},{-20,-20},
           {22,-20},{22,40},{220,40}},
                 color={0,0,127}));
@@ -269,6 +268,14 @@ equation
         color={255,0,255}));
   connect(preRef.ports[1], heaPumTan.port_bHea) annotation (Line(points={{-70,-20},
           {-92,-20},{-92,14},{-80,14}}, color={0,127,255}));
+  connect(heaPumTan.port_bHea, senTemHeaPumRet.port_a) annotation (Line(points={
+          {-80,14},{-120,14},{-120,0},{-140,0},{-140,-54}}, color={0,127,255}));
+  connect(senTemHeaPumRet.port_b, heaPum.port_a1)
+    annotation (Line(points={{-120,-54},{-82,-54}}, color={0,127,255}));
+  connect(senTemHeaPumRet.T, addPar.u) annotation (Line(points={{-130,-43},{-130,
+          -30},{-122,-30}}, color={0,0,127}));
+  connect(addPar.y, heaPum.TSet) annotation (Line(points={{-98,-30},{-92,-30},{-92,
+          -51},{-84,-51}}, color={0,0,127}));
   annotation (
   defaultComponentName="heaPum",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
@@ -410,31 +417,32 @@ This model represents a water-to-water heat pump with storage tank and an evapor
 The heat pump model with storage tank is described in
 <a href=\"modelica://Buildings.Experimental.DHC.Loads.HotWater.HeatPumpWithTank\">
 Buildings.Experimental.DHC.Loads.HotWater.HeatPumpWithTank</a>.
-By default a variable speed evaporator pump is considered.
-<br/>
-fixme: Update documentation. Do we indeed need a constant flow rate option?<br/>
-A constant speed pump may also be represented by setting <code>have_varFloEva</code>
-to <code>false</code>.
+The evaporator hydronics and control are described in
+<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.BaseClasses.PartialHeatPump\">
+Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.BaseClasses.PartialHeatPump</a>.
 </p>
-<h4>Controls</h4>
+<h4>Condenser Controls</h4>
 <p>
-The system is enabled when the input control signal <code>uEna</code> switches to
+The system is enabled when the tank charge control signal switches to
 <code>true</code>.
-When enabled,
-</p>
+When enabled, 
 <ul>
 <li>
-the evaporator pump is commanded on and supply either
-the mass flow rate set point provided as an input in the case of a variable speed pump,
-or the nominal mass flow rate in the case of a constant speed pump,
+the condenser pump is commanded on and supplies the nominal mass flow rate
+to the tank and domestic hot water system,
 </li>
 <li>
-the heat pump with storage tank system operates to maintain the desired
-storage tank temperature.
+the heat pump condenser supplies a constant temperature increase from the return to
+the supply equal to <code>dT_nominal</code>.
 </li>
 </ul>
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2023, by David Blum:<br/>
+Changed to extend partial base class with added condenser hydronics and control.
+</li>
 <li>
 November 16, 2022, by Michael Wetter:<br/>
 Set <code>pumEva.dp_nominal</code> to correct value.

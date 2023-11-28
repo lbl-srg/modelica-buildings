@@ -298,6 +298,10 @@ the district supply and return flows.
 </html>", revisions="<html>
 <ul>
 <li>
+November 15, 2023, by David Blum:<br/>
+Changed to partial base class with evaporator hydronics and control.
+</li>
+<li>
 November 16, 2022, by Michael Wetter:<br/>
 Set <code>pumEva.dp_nominal</code> to correct value.
 </li>
