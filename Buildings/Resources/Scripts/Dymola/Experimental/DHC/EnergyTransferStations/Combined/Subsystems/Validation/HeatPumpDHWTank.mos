@@ -1,4 +1,4 @@
-﻿simulateModel("Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.Validation.HeatPumpDHWTank",
+simulateModel("Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.Validation.HeatPumpDHWTank",
     method="cvode",
     tolerance=1e-6,
     startTime=0,
