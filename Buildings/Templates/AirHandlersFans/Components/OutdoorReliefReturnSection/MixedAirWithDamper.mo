@@ -11,6 +11,8 @@ model MixedAirWithDamper "Mixed air system with return air damper"
     final typDamRet=damRet.typ,
     final typFanRel=secRel.typFanRel,
     final typFanRet=secRel.typFanRet,
+    final nFanRel=secRel.nFanRel,
+    final nFanRet=secRel.nFanRet,
     final have_eco=true,
     final have_recHea=recHea.typ<>Buildings.Templates.AirHandlersFans.Types.HeatRecovery.None);
 
@@ -21,7 +23,9 @@ model MixedAirWithDamper "Mixed air system with return air damper"
       redeclare final package MediumAir = MediumAir,
       final energyDynamics=energyDynamics,
       final allowFlowReversal=allowFlowReversal,
-      final dat=dat)
+      final dat=dat,
+      final have_recHea=have_recHea,
+      final typCtlEco=typCtlEco)
     "Outdoor air section"
     annotation (
     choices(
@@ -41,7 +45,10 @@ model MixedAirWithDamper "Mixed air system with return air damper"
       redeclare final package MediumAir = MediumAir,
       final energyDynamics=energyDynamics,
       final allowFlowReversal=allowFlowReversal,
-      final dat=dat)
+      final dat=dat,
+      final have_recHea=have_recHea,
+      final typCtlFanRet=typCtlFanRet,
+      final typCtlEco=typCtlEco)
     "Relief/return air section"
     annotation (
     choices(
