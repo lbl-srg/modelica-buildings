@@ -34,10 +34,10 @@ model Effectiveness
     "Exhaust air temperature
     " annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
   Modelica.Blocks.Interfaces.RealInput VSup_flow(final unit="m3/s")
-    "Volumetric flow rate of the supply air"
+    "Supply air volumetric flow rate"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
   Modelica.Blocks.Interfaces.RealInput VExh_flow( final unit="m3/s")
-    "Volumetric flow rate of the exhaust air"
+    "Exhaust air volumetric flow rate"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
   Modelica.Blocks.Interfaces.RealInput wheSpe(final unit="1")
     "Wheel speed ratio"
@@ -97,38 +97,38 @@ equation
 Documentation(info="<html>
 <p>
 This block calculates the sensible and latent effectiveness of the heat exchanger
-for heating and cooling conditions at different air flow rates of the supply
-air stream and the exhaust air stream.
+for heating and cooling conditions at different flow rates of the supply
+air and the exhaust air.
 </p>
 <p>
-It first calculates the average volumetric air flow rate through the heat exchanger by:
+It first calculates the average volumetric flow rate through the heat exchanger by:
 </p>
 <pre>
   rat = (VSup_flow + VExh_flow)/(2*VSup_flow_nominal),
 </pre>
 <p>
-where <code>VSup_flow</code> is the flow rate of the supply air stream,
-<code>VExh_flow</code> is the flow rate of the exhaust air stream,
-<code>VSup_flow_nominal</code> is the nominal flow rate of the supply air stream, and 
+where <code>VSup_flow</code> is the flow rate of the supply air,
+<code>VExh_flow</code> is the flow rate of the exhaust air,
+<code>VSup_flow_nominal</code> is the nominal flow rate of the supply air, and 
 <code>rat</code> is the flow ratio.
 </p>
 <p>
 It then calculates the sensible and latent effectiveness by:
 </p>
 <pre>
-  epsSen = wheSpe * (epsSen_ParLoa + (epsSen_nominal - epsSen_ParLoa) * (rat - 0.75)/0.25),
-  epsLat = wheSpe * (epsLat_ParLoa + (epsLat_nominal - epsLat_ParLoa) * (rat - 0.75)/0.25),
+  epsSen = wheSpe * (epsSenPL + (epsSen_nominal - epsSenPL) * (rat - 0.75)/0.25),
+  epsLat = wheSpe * (epsLatPL + (epsLat_nominal - epsLatPL) * (rat - 0.75)/0.25),
 </pre>
 where <code>epsSen</code> and <code>epsLat</code> are the effectiveness
 for the sensible and latent heat transfer, respectively.
-<code>epsSen_nominal</code> and <code>epsSen_ParLoa</code> are the effectiveness 
+<code>epsSen_nominal</code> and <code>epsSenPL</code> are the effectiveness 
 for the sensible heat transfer when <code>rat</code> is 1 and 0.75, respectively.
-<code>epsLat_nominal</code> and <code>epsLat_ParLoa</code> are the effectiveness 
+<code>epsLat_nominal</code> and <code>epsLatPL</code> are the effectiveness 
 for the latent heat transfer when <code>vRat</code> is 1 and 0.75, respectively.
 <code>wheSpe</code> is the speed of a rotary wheel.
 <p>
-<code>epsSen_nominal</code>, <code>epsSen_ParLoa</code>, <code>epsLat_nominal</code>, and 
-<code>epsLat_ParLoa</code> are parameters.
+<code>epsSen_nominal</code>, <code>epsSenPL</code>, <code>epsLat_nominal</code>, and 
+<code>epsLatPL</code> are parameters.
 Depending on the cooling or heating mode, their values are different.
 In this model, if the supply air temperature is larger than the exhaust air 
 temperature, the exchanger is considered to operate under

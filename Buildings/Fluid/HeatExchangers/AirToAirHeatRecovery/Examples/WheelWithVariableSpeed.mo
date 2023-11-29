@@ -10,7 +10,6 @@ model WheelWithVariableSpeed
     redeclare package Medium = Medium2,
     p(displayUnit="Pa") = 101325,
     T(displayUnit="K") = 273.15 + 10,
-    use_p_in=false,
     nPorts=1)
     "Exhaust air sink"
     annotation (Placement(transformation(extent={{-58,-10},{-38,10}})));
@@ -18,8 +17,6 @@ model WheelWithVariableSpeed
     redeclare package Medium = Medium2,
     p(displayUnit="Pa") = 101325 + 100,
     T(displayUnit="K") = 293.15,
-    use_p_in=false,
-    use_T_in=false,
     nPorts=1)
     "Exhaust air source"
     annotation (Placement(transformation(extent={{40,-70},
@@ -35,7 +32,6 @@ model WheelWithVariableSpeed
     redeclare package Medium = Medium1,
     T=273.15 + 30,
     X={0.012,1 - 0.012},
-    use_p_in=false,
     p(displayUnit="Pa") = 101325 - 100,
     nPorts=1)
     "Supply air sink"

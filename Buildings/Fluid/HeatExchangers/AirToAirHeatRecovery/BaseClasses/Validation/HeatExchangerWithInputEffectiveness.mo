@@ -121,7 +121,7 @@ during the period from <i>120s</i> to <i>180s</i>;
 </ul>
 <ul>
 <li>
-Latent heat exchanger effectiveness, <i>epsLat</i>, changes from <i>0.7</i> to <i>0.8</i> 
+Latent heat exchanger effectiveness, <i>epsLat</i>, changes from <i>0.7</i> to <i>0.8</i>
 during the period from <i>60s</i> to <i>120s</i>.
 </li>
 </ul>
@@ -130,12 +130,14 @@ The expected outputs are:
 </p>
 <ul>
 <li>
-The humidity of the supply air and that of the exhaust air leaving the exchanger changes during the period from <i>60s</i> to <i>120s</i>;
+The humidity of the supply air and that of the exhaust air leaving the exchanger changes 
+during the period from <i>60s</i> to <i>120s</i>;
 </li>
 </ul>
 <ul>
 <li>
-The temperature of the supply air and that of the exhaust air leaving the exchanger changes during the period from <i>120s</i> to <i>180s</i>.
+The temperature of the supply air and that of the exhaust air leaving the exchanger changes 
+during the period from <i>120s</i> to <i>180s</i>.
 </li>
 </ul>
 </html>", revisions="<html>

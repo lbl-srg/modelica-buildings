@@ -3,18 +3,18 @@ model WheelWithVariableSpeed
   "Sensible and latent air-to-air heat recovery wheel with a variable speed drive"
   replaceable package Medium1 =
     Modelica.Media.Interfaces.PartialCondensingGases
-    "Medium of the supply air stream";
+    "Supply air";
   replaceable package Medium2 =
     Modelica.Media.Interfaces.PartialCondensingGases
-    "Medium of the exhaust air stream";
+    "Exhaust air";
   parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal
-    "Air flow rate of the supply air stream";
+    "Nominal supply air mass flow rate";
   parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal
-    "Air flow rate of the exhaust air stream";
+    "Nominal exhaust air mass flow rate";
   parameter Modelica.Units.SI.PressureDifference dp1_nominal = 125
-    "Nominal pressure drop of the supply air stream";
+    "Nominal supply air pressure drop";
   parameter Modelica.Units.SI.PressureDifference dp2_nominal = 125
-    "Nominal pressure drop of the exhaust air stream";
+    "Nominal exhaust air pressure drop";
   parameter Real P_nominal(final unit="W") = 100
     "Power at design condition";
   parameter Modelica.Units.SI.Efficiency epsSenCoo_nominal(final max=1) = 0.8
@@ -61,52 +61,52 @@ model WheelWithVariableSpeed
     final epsSenHeaPL=epsSenHeaPL,
     final epsLatHeaPL=epsLatHeaPL,
     final VSup_flow_nominal=m1_flow_nominal/1.293)
-    "Calculates the effectiveness of heat exchange"
+    "Calculate the effectiveness of heat exchange"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Buildings.Fluid.Sensors.VolumeFlowRate senExhFlow(
     redeclare package Medium = Medium2,
     final m_flow_nominal=m2_flow_nominal)
-    "Flow sensor in the exhaust air stream"
+    "Exhaust air volume flow rate sensor"
     annotation (Placement(transformation(extent={{56,-14},{42,2}})));
   Buildings.Fluid.Sensors.VolumeFlowRate senSupFlow(
     redeclare package Medium =Medium1,
     final m_flow_nominal=m1_flow_nominal)
-    "Flow sensor in the supply air stream"
+    "Supply air volume flow rate sensor"
     annotation (Placement(transformation(extent={{-42,92},{-28,108}})));
   Modelica.Blocks.Sources.RealExpression TSup(final y=Medium1.temperature(
       Medium1.setState_phX(
         p=port_a1.p,
         h=inStream(port_a1.h_outflow),
         X=inStream(port_a1.Xi_outflow))))
-    "Temperature of the supply air"
+    "Supply air temperature"
     annotation (Placement(transformation(extent={{-90,28},{-70,48}})));
   Modelica.Blocks.Sources.RealExpression TExh(final y=Medium2.temperature(
       Medium2.setState_phX(
         p=port_a2.p,
         h=inStream(port_a2.h_outflow),
         X=inStream(port_a2.Xi_outflow))))
-    "Temperature of the exhaust air"
+    "Exhaust air temperature"
     annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
   Modelica.Blocks.Sources.RealExpression PEle(y=P_nominal)
     "Electric power consumption"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a1(
     redeclare final package Medium = Medium1)
-    "Fluid connector a1 of the supply air"
+    "Fluid connector a1 of the supply air (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{-110,90},{-90,110}}),
         iconTransformation(extent={{-110,50},{-90,70}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b2(
     redeclare final package Medium = Medium2)
-    "Fluid connector b2 of the exhaust air"
+    "Fluid connector b2 of the exhaust air (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{-90,-70},{-110,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b1(
     redeclare final package Medium = Medium1)
-    "Fluid connector b1 of the supply air"
+    "Fluid connector b1 of the supply air (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{110,90},{90,110}}),
         iconTransformation(extent={{110,50},{90,70}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a2(
     redeclare final package Medium = Medium2)
-    "Fluid connector a2 of the exhaust air"
+    "Fluid connector a2 of the exhaust air (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
 equation
   connect(senExhFlow.port_b, hex.port_a2)
@@ -204,17 +204,18 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,140}})),
 Documentation(info="<html>
 <p>
-Model of a generic, sensible, and latent air-to-air heat recovery wheel with a variable speed drive.
+Model of a generic, sensible and latent air-to-air heat recovery wheel, which has the 
+wheel speed as the input to control the heat recovery.
 </p>
 <p>
-The input requires no geometric data. Performance is defined by specifying sensible and latent effectiveness 
+The operation of the heat recovery wheel is adjustable by modulating the wheel speed.
+</p>
+<p>
+This model does not require geometric data. Performance is defined by specifying sensible and latent effectiveness 
 at 75% and 100% of the nominal supply air flow rate in both heating and cooling conditions.
 For details, refer to
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.Effectiveness\">
 Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.Effectiveness</a>.
-</p>
-<p>
-The operation of the heat recovery wheel is adjustable by modulating the wheel speed.
 </p>
 </html>", revisions="<html>
 <ul>

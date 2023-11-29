@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery;
-package BaseClasses "Package with base classes for Air-to-Air heat recovery devices"
+package BaseClasses "Package with base classes for air-to-air heat recovery devices"
   extends Modelica.Icons.BasesPackage;
 
 annotation (Documentation(info="<html>
