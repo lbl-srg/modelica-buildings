@@ -18,8 +18,8 @@ BINDIR = ../../../Library/linux$(ARCH)
 CC = gcc
 
 #Note that Dymola use 32bit compiler, so generated executable only support 32bit loaded library
-CC_FLAGS_32 = -Wall -lm -m32 -std=c89 -pedantic -msse2 -mfpmath=sse -fcommon -pthread
-CC_FLAGS_64 = -Wall -lm -m64 -std=c89 -pedantic -msse2 -mfpmath=sse -fcommon -pthread
+CC_FLAGS_32 = -Wall -lm -m32 -std=c89 -pedantic -msse2 -mfpmath=sse -fcommon
+CC_FLAGS_64 = -Wall -lm -m64 -std=c89 -pedantic -msse2 -mfpmath=sse -fcommon
 
 # Directory for FFD source code
 FFD = ../../FastFluidDynamics/
@@ -41,7 +41,7 @@ OBJS = advection.o boundary.o chen_zero_equ_model.o cosimulation.o \
        usrfgh.o utility_isat.o\
 
 LIB = libisat.so
-LIBS = -lpthread -lc -lgfortran -llapack -lblas
+LIBS = -pthread -lc -lgfortran -llapack -lblas
 
 # Note that -fPIC is recommended on Linux according to the Modelica specification
 
