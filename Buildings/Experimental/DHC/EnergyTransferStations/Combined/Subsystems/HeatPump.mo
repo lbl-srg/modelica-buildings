@@ -1,4 +1,4 @@
-within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems;
+﻿within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems;
 model HeatPump "Base subsystem with water-to-water heat pump"
   extends
     Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.BaseClasses.PartialHeatPump(
@@ -27,7 +27,7 @@ model HeatPump "Base subsystem with water-to-water heat pump"
       iconTransformation(extent={{-140,-20},{-100,20}})));
   // COMPONENTS
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant floConNom(
-    final k=m1_flow_nominal) if not have_varFloCon
+    final k=mCon_flow_nominal) if not have_varFloCon
     "Nominal flow rate"
     annotation (Placement(transformation(extent={{-100,80},{-120,100}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
