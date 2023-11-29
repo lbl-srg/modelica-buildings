@@ -24,7 +24,12 @@ partial model PartialCoil "Interface class for coil"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Buildings.Templates.Components.Types.Valve typVal
     "Type of valve"
-    annotation (Dialog(group="Configuration"));
+    annotation (Evaluate=true, Dialog(group="Configuration"),
+    choices(
+      choice=Buildings.Templates.Components.Types.Valve.ThreeWayModulating
+        "Three-way modulating valve",
+      choice=Buildings.Templates.Components.Types.Valve.TwoWayModulating
+        "Two-way modulating valve"));
   final parameter Boolean have_sou=
     typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating or
     typ==Buildings.Templates.Components.Types.Coil.WaterBasedCooling

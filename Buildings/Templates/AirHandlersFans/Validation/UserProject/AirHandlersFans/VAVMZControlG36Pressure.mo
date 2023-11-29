@@ -2,17 +2,6 @@ within Buildings.Templates.AirHandlersFans.Validation.UserProject.AirHandlersFan
 model VAVMZControlG36Pressure "Configuration of multiple-zone VAV"
   extends Buildings.Templates.AirHandlersFans.VAVMultiZone(
     nZon=2,
-    redeclare replaceable
-      Buildings.Templates.Components.Coils.WaterBasedHeating coiHeaPre(
-        redeclare final package MediumHeaWat = MediumHeaWat,
-        redeclare replaceable
-        Buildings.Templates.Components.Valves.TwoWayModulating val),
-    redeclare replaceable
-      Buildings.Templates.Components.Coils.WaterBasedCooling coiCoo(
-      redeclare final package MediumChiWat = MediumChiWat,
-      redeclare replaceable
-        Buildings.Templates.Components.Valves.TwoWayModulating val)
-      "Chilled water coil",
     redeclare replaceable  Buildings.Templates.AirHandlersFans.Components.Controls.G36VAVMultiZone ctl(
       typCtlFanRet=Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.BuildingPressure,
       idZon={"Box_1","Box_1"},

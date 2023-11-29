@@ -102,7 +102,8 @@ partial model PartialMultiplePumps
     final per=per,
     addPowerToMedium=false) "Pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  MultipleCommands com(final nUni=nPum) "Convert command signal"
+  Buildings.Templates.Components.Controls.MultipleCommands com(final nUni=nPum)
+    "Convert command signal"
     annotation (Placement(transformation(extent={{-50,90},{-30,110}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
@@ -241,7 +242,7 @@ equation
 <p>
 This base class represents multiple identical pumps that are piped in parallel.
 An optional check valve in series with each pump is included.
-This class is used to construct the various multiple-pump models within 
+This class is used to construct the various multiple-pump models within
 <a href=\"modelica://Buildings.Experimental.DHC.Plants.Combined.Subsystems\">
 Buildings.Experimental.DHC.Plants.Combined.Subsystems</a>.
 </p>
@@ -249,7 +250,7 @@ Buildings.Experimental.DHC.Plants.Combined.Subsystems</a>.
 <p>
 In a parallel arrangement, all operating units have the same operating point.
 This allows modeling the multiple pumps with a single instance of any
-class derived from 
+class derived from
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine\">
 Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine</a>.
 Hydronics are resolved with mass flow rate multiplier components.

@@ -23,30 +23,29 @@ block Controller
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat freSta=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
     "Type of freeze stat"
     annotation (__cdl(ValueInReference=false), Dialog(enable=have_frePro));
-
   parameter Boolean have_winSen=false
     "Check if the zone has window status sensor"
     annotation (__cdl(ValueInReference=false));
   parameter Boolean have_occSen=false
     "Check if the zone has occupancy sensor"
     annotation (__cdl(ValueInReference=false));
-  parameter Boolean have_hotWatCoi=true
-    "True: the AHU has hot water heating coil"
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil cooCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
+    "Cooling coil type"
     annotation (__cdl(ValueInReference=false));
-  parameter Boolean have_eleHeaCoi=false
-    "True: the AHU has electric heating coil"
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+    "Heating coil type"
     annotation (__cdl(ValueInReference=false));
   parameter Boolean have_CO2Sen=true
     "True: the zone has CO2 sensor"
     annotation (__cdl(ValueInReference=false));
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon=
-    Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.BarometricRelief
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl buiPreCon=
+      Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.BarometricRelief
     "Type of building pressure control system"
     annotation (__cdl(ValueInReference=false));
   parameter Boolean have_ahuRelFan=true
     "True: relief fan is part of AHU; False: the relief fans group that may associate multiple AHUs"
     annotation (__cdl(ValueInReference=false),
-                Dialog(enable=buiPreCon==Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan));
+                Dialog(enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan));
   parameter Real VAreBreZon_flow(unit="m3/s")=0
     "Design area component of the breathing zone outdoor airflow"
     annotation (__cdl(ValueInReference=false),
@@ -420,72 +419,75 @@ block Controller
     "Heating coil controller"
     annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Freeze protection", group="Heating coil control",
-                       enable=have_hotWatCoi and have_frePro));
+                       enable=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased and have_frePro));
   parameter Real kFreHea=1 "Gain of coil controller"
     annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Freeze protection", group="Heating coil control",
-                       enable=have_hotWatCoi and have_frePro));
+                       enable=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased and have_frePro));
   parameter Real TiFreHea(unit="s")=0.5
     "Time constant of integrator block"
     annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Freeze protection", group="Heating coil control",
-      enable=have_hotWatCoi and have_frePro and
+      enable=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased and have_frePro and
             (freHeaCoiCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
              or freHeaCoiCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real TdFreHea(unit="s")=0.1
     "Time constant of derivative block"
     annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Freeze protection", group="Heating coil control",
-      enable=have_hotWatCoi and have_frePro and
+      enable=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased and have_frePro and
              (freHeaCoiCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
               or freHeaCoiCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real yMaxFreHea=1
     "Upper limit of output"
     annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Freeze protection", group="Heating coil control",
-                       enable=have_hotWatCoi and have_frePro));
+                       enable=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased and have_frePro));
   parameter Real yMinFreHea=0
     "Lower limit of output"
     annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Freeze protection", group="Heating coil control",
-                       enable=have_hotWatCoi and have_frePro));
+                       enable=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased and have_frePro));
 
   // ----------- parameters for building pressure control -----------
   parameter Real relDam_min(unit="1")=0.1
     "Relief-damper position that maintains a building pressure of 12 Pa while the economizer damper is positioned to provide minimum outdoor air while the supply fan is at minimum speed"
     annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Pressure control", group="Relief damper",
-                       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper));
+                       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefDamper));
   parameter Real relDam_max(unit="1")=1
     "Relief-damper position that maintains a building pressure of 12 Pa while the economizer damper is fully open and the fan speed is at cooling maximum"
     annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Pressure control", group="Relief damper",
-                       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper));
+                       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefDamper));
   parameter Real speDif=-0.1
     "Speed difference between supply and return fan to maintain building pressure at desired pressure"
     annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Pressure control", group="Return fan",
-                       enable=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
-                            or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)));
+                       enable=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
+           or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp)));
   parameter Real dpBuiSet(
     unit="Pa",
     displayUnit="Pa")=12
     "Building static pressure difference relative to ambient (positive to pressurize the building)"
     annotation (__cdl(ValueInReference=true),
                 Dialog(tab="Pressure control",
-      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan and have_ahuRelFan));
+      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
+           and have_ahuRelFan));
   parameter Real relFanSpe_min(
     final min=0,
     final max=1)= 0.1
     "Relief fan minimum speed"
     annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Pressure control", group="Relief fan",
-      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan and have_ahuRelFan));
+      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
+           and have_ahuRelFan));
   parameter Real kRelFan(unit="1")=1
     "Gain of relief fan controller, normalized using dpBuiSet"
     annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Pressure control", group="Relief fan",
-      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan and have_ahuRelFan));
+      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
+           and have_ahuRelFan));
 
   // ----------- Advanced -----------
   parameter Real posHys=0.01 "Hysteresis for damper position check"
@@ -654,21 +656,21 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpBui(
     final unit="Pa",
     displayUnit="Pa",
-    final quantity="PressureDifference")
-    if have_ahuRelFan and buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+    final quantity="PressureDifference") if have_ahuRelFan and buiPreCon ==
+    Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
     "Measured building static pressure difference, relative to ambient (positive if pressurized)"
     annotation (Placement(transformation(extent={{-300,-248},{-260,-208}}),
         iconTransformation(extent={{-240,-240},{-200,-200}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1RelFan
-    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
-     and not have_ahuRelFan
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1RelFan if buiPreCon ==
+    Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan and not
+    have_ahuRelFan
     "Relief fan commanded on"
     annotation (Placement(transformation(extent={{-300,-270},{-260,-230}}),
         iconTransformation(extent={{-240,-260},{-200,-220}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uRelFan(
     final min=0,
     final max=1,
-    final unit="1") if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+    final unit="1") if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
      and not have_ahuRelFan
     "Relief fan commanded speed"
     annotation (Placement(transformation(extent={{-300,-300},{-260,-260}}),
@@ -677,15 +679,14 @@ block Controller
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
-    if have_hotWatCoi
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Measured mixed air temperature, used for freeze protection"
     annotation (Placement(transformation(extent={{-300,-330},{-260,-290}}),
         iconTransformation(extent={{-240,-310},{-200,-270}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDam(
     final min=0,
     final max=1,
-    final unit="1")
-    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
+    final unit="1") if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefDamper
     "Outdoor damper position"
     annotation (Placement(transformation(extent={{-300,-360},{-260,-320}}),
         iconTransformation(extent={{-240,-330},{-200,-290}})));
@@ -706,7 +707,9 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaCoi_actual(
     final min=0,
     final max=1,
-    final unit="1") if have_hotWatCoi "Heating coil valve actual position"
+    final unit="1")
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+    "Heating coil valve actual position"
     annotation (Placement(transformation(extent={{-300,-470},{-260,-430}}),
         iconTransformation(extent={{-240,-410},{-200,-370}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSupHeaEcoSet(
@@ -767,31 +770,29 @@ block Controller
     "Supply fan commanded speed"
     annotation (Placement(transformation(extent={{260,20},{300,60}}),
         iconTransformation(extent={{200,20},{240,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1RetFan
-    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
-     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1RetFan if (buiPreCon
+     == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
+     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp)
     "Return fan commanded on"
     annotation (Placement(transformation(extent={{260,-20},{300,20}}),
         iconTransformation(extent={{200,-10},{240,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetFan(
     final min=0,
     final max=1,
-    final unit="1")
-    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
-     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
+    final unit="1") if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
+     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp)
     "Return fan commanded speed"
     annotation (Placement(transformation(extent={{260,-50},{300,-10}}),
         iconTransformation(extent={{200,-30},{240,10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1RelFan
-    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1RelFan if buiPreCon ==
+    Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
     "Relief fan commanded on"
     annotation (Placement(transformation(extent={{260,-90},{300,-50}}),
         iconTransformation(extent={{200,-60},{240,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelFan(
     final min=0,
     final max=1,
-    final unit="1")
-    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+    final unit="1") if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
     "Relief fan commanded speed"
     annotation (Placement(transformation(extent={{260,-120},{300,-80}}),
         iconTransformation(extent={{200,-80},{240,-40}})));
@@ -805,7 +806,8 @@ block Controller
     final min=0,
     final max=1,
     final unit="1")
-    if have_hotWatCoi "Heating coil valve commanded position"
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+    "Heating coil valve commanded position"
     annotation (Placement(transformation(extent={{260,-200},{300,-160}}),
         iconTransformation(extent={{200,-160},{240,-120}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yAla if have_frePro
@@ -815,14 +817,14 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelDam(
     final min=0,
     final max=1,
-    final unit="1") if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
-     or (have_ahuRelFan and buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan)
+    final unit="1") if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefDamper
+     or (have_ahuRelFan and buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan)
     "Relief damper commanded position"
     annotation (Placement(transformation(extent={{260,-290},{300,-250}}),
         iconTransformation(extent={{200,-230},{240,-190}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ExhDam
-    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
-     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ExhDam if (buiPreCon
+     == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
+     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp)
     "Exhaust damper command on"
     annotation (Placement(transformation(extent={{260,-320},{300,-280}}),
         iconTransformation(extent={{200,-260},{240,-220}})));
@@ -835,12 +837,12 @@ block Controller
     annotation (Placement(transformation(extent={{260,-410},{300,-370}}),
         iconTransformation(extent={{200,-340},{240,-300}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatResReq
-    if have_hotWatCoi
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Hot water reset request"
     annotation (Placement(transformation(extent={{260,-460},{300,-420}}),
         iconTransformation(extent={{200,-370},{240,-330}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatPlaReq
-    if have_hotWatCoi
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Hot water plant request"
     annotation (Placement(transformation(extent={{260,-500},{300,-460}}),
         iconTransformation(extent={{200,-400},{240,-360}})));
@@ -885,7 +887,7 @@ block Controller
     final ecoHigLimCon=ecoHigLimCon,
     final ashCliZon=ashCliZon,
     final tit24CliZon=tit24CliZon,
-    final have_heaCoi=have_hotWatCoi or have_eleHeaCoi,
+    final have_heaCoi=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric,
     final uMin=uMin,
     final uMax=uMax,
     final controllerTypeMod=ecoModCon,
@@ -960,7 +962,7 @@ block Controller
     final TZonFreProOff=TZonFreProOff)
     "Output zone setpoint with operation mode selection"
     annotation (Placement(transformation(extent={{-200,360},{-180,400}})));
-  Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.CoolingCoil cooCoi(
+  Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.CoolingCoil cooCoiVal(
     final controllerTypeCooCoi=cooCoiCon,
     final kCooCoi=kCooCoi,
     final TiCooCoi=TiCooCoi,
@@ -969,7 +971,7 @@ block Controller
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.FreezeProtection frePro(
     final buiPreCon=buiPreCon,
     final freSta=freSta,
-    final have_hotWatCoi=have_hotWatCoi,
+    final heaCoi=heaCoi,
     final minHotWatReq=minHotWatReq,
     final heaCoiCon=freHeaCoiCon,
     final k=kFreHea,
@@ -980,27 +982,27 @@ block Controller
     final Thys=Thys) "Freeze protection"
     annotation (Placement(transformation(extent={{140,-150},{160,-110}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.PlantRequests plaReq(
-    final have_hotWatCoi=have_hotWatCoi,
+    final heaCoi=heaCoi,
     final Thys=Thys,
     final posHys=posHys) "Plant request"
     annotation (Placement(transformation(extent={{60,-420},{80,-400}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.ReliefDamper relDam(
     final relDam_min=relDam_min,
     final relDam_max=relDam_max,
-    final posHys=posHys) if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
+    final posHys=posHys) if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefDamper
     "Relief damper control"
     annotation (Placement(transformation(extent={{60,-280},{80,-260}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.ReturnFan retFan(
-    final speDif=speDif) if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
-     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
+    final speDif=speDif) if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
+     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp)
     "Return fan control"
     annotation (Placement(transformation(extent={{60,-372},{80,-352}})));
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi
-    if have_hotWatCoi
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Hot water plant request"
     annotation (Placement(transformation(extent={{200,-490},{220,-470}})));
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold freProMod
-    if have_hotWatCoi
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Check if it is in freeze protection mode"
     annotation (Placement(transformation(extent={{120,-470},{140,-450}})));
   Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.Title24.Setpoints minFlo(
@@ -1016,8 +1018,7 @@ block Controller
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.ReliefFan relFanCon(
     final relFanSpe_min=relFanSpe_min,
     final dpBuiSet=dpBuiSet,
-    final k=kRelFan)
-    if have_ahuRelFan and buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+    final k=kRelFan) if have_ahuRelFan and buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
     "Control of relief fan when it is part of AHU"
     annotation (Placement(transformation(extent={{60,-220},{80,-200}})));
 
@@ -1060,12 +1061,12 @@ equation
           {-280,-80}},        color={0,0,127}));
   connect(conEco.TAirRet, TAirRet) annotation (Line(points={{58,177},{50,177},{50,
           -140},{-280,-140}}, color={0,0,127}));
-  connect(switch.y, cooCoi.u1SupFan) annotation (Line(points={{-98,-60},{0,-60},
+  connect(switch.y, cooCoiVal.u1SupFan) annotation (Line(points={{-98,-60},{0,-60},
           {0,42},{58,42}}, color={255,0,255}));
-  connect(zonSta.yZonSta, cooCoi.uZonSta) annotation (Line(points={{2,330},{14,330},
-          {14,46},{58,46}},           color={255,127,0}));
-  connect(cooCoi.TAirSup, TAirSup) annotation (Line(points={{58,54},{-54,54},{-54,
-          -10},{-280,-10}}, color={0,0,127}));
+  connect(zonSta.yZonSta, cooCoiVal.uZonSta) annotation (Line(points={{2,330},{14,
+          330},{14,46},{58,46}}, color={255,127,0}));
+  connect(cooCoiVal.TAirSup, TAirSup) annotation (Line(points={{58,54},{-54,54},
+          {-54,-10},{-280,-10}}, color={0,0,127}));
   connect(switch.y, conEco.u1SupFan) annotation (Line(points={{-98,-60},{0,-60},
           {0,149},{58,149}}, color={255,0,255}));
   connect(heaPI.y, setPoiVAV.uHea) annotation (Line(points={{-108,430},{-60,430},
@@ -1086,8 +1087,8 @@ equation
           418}}, color={0,0,127}));
   connect(intEqu.u1, modSetPoi.yOpeMod) annotation (Line(points={{-152,-60},{-160,
           -60},{-160,388},{-178,388}},       color={255,127,0}));
-  connect(setPoiVAV.TSupCooSet, cooCoi.TSupCooSet) annotation (Line(points={{2,394},
-          {20,394},{20,58},{58,58}}, color={0,0,127}));
+  connect(setPoiVAV.TSupCooSet, cooCoiVal.TSupCooSet) annotation (Line(points={{
+          2,394},{20,394},{20,58},{58,58}}, color={0,0,127}));
   connect(TZon, setPoiVAV.TZon) annotation (Line(points={{-280,340},{-120,340},{
           -120,406.4},{-22,406.4}}, color={0,0,127}));
   connect(TZon, outAirSetPoi.TZon) annotation (Line(points={{-280,340},{-120,340},
@@ -1130,8 +1131,8 @@ equation
           {26,-133},{138,-133}}, color={0,0,127}));
   connect(uRelFan, frePro.uRelFan) annotation (Line(points={{-280,-280},{-20,-280},
           {-20,-143},{138,-143}}, color={0,0,127}));
-  connect(cooCoi.yCooCoi, frePro.uCooCoi) annotation (Line(points={{82,50},{94,50},
-          {94,-146},{138,-146}}, color={0,0,127}));
+  connect(cooCoiVal.yCooCoi, frePro.uCooCoi) annotation (Line(points={{82,50},{94,
+          50},{94,-146},{138,-146}}, color={0,0,127}));
   connect(TAirMix, frePro.TAirMix) annotation (Line(points={{-280,-310},{-14,-310},
           {-14,-149},{138,-149}}, color={0,0,127}));
   connect(frePro.y1EneCHWPum, y1EneCHWPum) annotation (Line(points={{162,-111},{
@@ -1355,7 +1356,7 @@ equation
           fillPattern=FillPattern.Solid,
           textString="TAirSup"),
         Text(
-          visible=have_hotWatCoi,
+          visible=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased,
           extent={{-202,-280},{-146,-300}},
           textColor={0,0,127},
           fillColor={0,0,0},
@@ -1427,7 +1428,7 @@ equation
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yHeaCoi",
-          visible=have_hotWatCoi),
+          visible=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased),
         Text(
           extent={{152,-100},{194,-118}},
           textColor={0,0,127},
@@ -1469,8 +1470,8 @@ equation
           fillPattern=FillPattern.Solid,
           textString="u1SofSwiRes"),
         Text(
-          visible=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
-                or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp),
+          visible=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
+                or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp),
           extent={{142,-228},{194,-248}},
           textColor={255,0,255},
           fillColor={0,0,0},
@@ -1484,7 +1485,7 @@ equation
           fillPattern=FillPattern.Solid,
           textString="y1EneCHWPum"),
         Text(
-          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
                and not have_ahuRelFan,
           extent={{-198,-250},{-134,-272}},
           textColor={0,0,127},
@@ -1492,7 +1493,7 @@ equation
           fillPattern=FillPattern.Solid,
           textString="uRelFan"),
         Text(
-          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper,
+          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefDamper,
           extent={{-196,-298},{-130,-320}},
           textColor={0,0,127},
           fillColor={0,0,0},
@@ -1511,7 +1512,7 @@ equation
           fillPattern=FillPattern.Solid,
           textString="uCooCoi_actual"),
         Text(
-          visible=have_hotWatCoi,
+          visible=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased,
           extent={{-196,-378},{-90,-400}},
           textColor={0,0,127},
           fillColor={0,0,0},
@@ -1522,23 +1523,23 @@ equation
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          visible=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
-               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp),
+          visible=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
+               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp),
           textString="yRetFan"),
         Text(
           extent={{128,-50},{198,-66}},
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan,
+          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan,
           textString="yRelFan"),
         Text(
           extent={{130,-200},{200,-216}},
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
-               or (have_ahuRelFan and buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan),
+          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefDamper
+               or (have_ahuRelFan and buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan),
           textString="yRelDam"),
         Text(
           extent={{116,-280},{198,-298}},
@@ -1558,14 +1559,14 @@ equation
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yHotWatResReq",
-          visible=have_hotWatCoi),
+          visible=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased),
         Text(
           extent={{116,-368},{198,-386}},
           textColor={255,127,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yHotWatPlaReq",
-          visible=have_hotWatCoi),
+          visible=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased),
         Text(
           extent={{166,-156},{194,-176}},
           textColor={255,127,0},
@@ -1604,7 +1605,7 @@ equation
           fillPattern=FillPattern.Solid,
           textString="TUnoHeaSet"),
         Text(
-          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
                and not have_ahuRelFan,
           extent={{-196,-228},{-144,-248}},
           textColor={255,0,255},
@@ -1612,15 +1613,15 @@ equation
           fillPattern=FillPattern.Solid,
           textString="u1RelFan"),
         Text(
-          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan,
+          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan,
           extent={{144,-30},{196,-50}},
           textColor={255,0,255},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="y1RelFan"),
         Text(
-          visible=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
-               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp),
+          visible=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
+               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp),
           extent={{144,22},{196,2}},
           textColor={255,0,255},
           fillColor={0,0,0},
@@ -1633,7 +1634,7 @@ equation
           fillPattern=FillPattern.Solid,
           textString="y1SupFan"),
         Text(
-          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
                and not have_ahuRelFan,
           extent={{-198,-206},{-134,-228}},
           textColor={0,0,127},
@@ -1745,6 +1746,12 @@ for more detailed description.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 18, 2023, by Jianjun Hu:<br/>
+Added coil type enumeration so to avoid using flag parameters.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3526\">issue 3526</a>.
+</li>
 <li>
 March 1, 2023, by Michael Wetter:<br/>
 Changed constants from <code>0</code> to <code>0.0</code> and <code>1</code> to <code>1.0</code>.<br/>
