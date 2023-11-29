@@ -206,8 +206,9 @@ Each class (i.e., model, block and function) must be used in an example or valid
 
 
     class Version_10_1_0 "Version 10.1.0"
-  extends Modelica.Icons.ReleaseNotes;
-        annotation(
+      extends
+          Modelica.Icons.ReleaseNotes;
+        annotation (
           Documentation(info = "<html>
 <div class=\"release-summary\">
 <p>
@@ -323,12 +324,16 @@ that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
 units are wrong or errors in documentation):
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal.Borefields</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.internalResistancesOneUTube<br/>
+                       Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.internalResistancesTwoUTube
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Corrected usage of <code>getInstanceName()</code>, which was called inside
+                       these functions. This does not conform with the Modelica Language Standard, and causes
+                       the compilation to fail in OpenModelica 1.22.0.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1814\">IBPSA, #1814</a>
     </td>
 </tr>
 </table>
