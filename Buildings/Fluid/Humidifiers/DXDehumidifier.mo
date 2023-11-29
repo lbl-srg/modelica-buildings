@@ -12,7 +12,7 @@ model DXDehumidifier "DX dehumidifier"
 
   parameter Modelica.Units.SI.VolumeFlowRate VWat_flow_nominal(
     final min=0)
-    "Rated water removal rate, in m3/s"
+    "Rated water removal rate"
     annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal
@@ -26,7 +26,7 @@ model DXDehumidifier "DX dehumidifier"
 
   parameter Real eneFac_nominal(
     final min=0)
-    "Rated energy factor, in L/kwh"
+    "Rated energy factor, in liter/kWh"
     annotation (Dialog(group="Nominal condition"));
 
   Modelica.Blocks.Interfaces.BooleanInput uEna
@@ -50,12 +50,13 @@ model DXDehumidifier "DX dehumidifier"
     annotation (Placement(transformation(extent={{100,-50},{140,-10}}),
       iconTransformation(extent={{100,-30},{120,-10}})));
 
-  Modelica.Blocks.Sources.RealExpression uWatRem(y=watRemMod)
-    "Removed humidity from inlet air only when component is enabled"
+  Modelica.Blocks.Sources.RealExpression uWatRem(
+    final y=watRemMod)
+    "Humidity removed from inlet air when component is enabled"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 
-  Modelica.Blocks.Sources.RealExpression PDehEna(y=VWat_flow_nominal*watRemMod/
-        eneFac_nominal/eneFacMod*1000*1000*3600)
+  Modelica.Blocks.Sources.RealExpression PDehEna(
+    final y=VWat_flow_nominal/eneFac_nominal/eneFacMod*1000*1000*3600)
     "Power consumed by dehumidification process when component is enabled"
     annotation (Placement(transformation(extent={{-80,-88},{-60,-68}})));
 
@@ -64,7 +65,7 @@ model DXDehumidifier "DX dehumidifier"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
 
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloSen
-    "Sensor for measuring heat flow rate into medium"
+    "Sensor for measuring heat flow rate into medium during dehumidification"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
 
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTem
@@ -95,23 +96,24 @@ model DXDehumidifier "DX dehumidifier"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
-    "Conversion from boolean to real enable signal"
+    "Convert enable signal from Boolean to Real"
     annotation (Placement(transformation(extent={{-90,-60},{-70,-40}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Multiply QHea if addPowerToMedium
-    "Heat transfer into medium only when component is enabled"
-    annotation (Placement(transformation(extent={{-46,20},{-26,40}})));
+  Modelica.Blocks.Routing.RealPassThrough QHea if addPowerToMedium
+    "Heat transfer into medium only if required"
+    annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
+
   Buildings.Controls.OBC.CDL.Reals.Multiply u
-    "Removed humidity from inlet air only"
-    annotation (Placement(transformation(extent={{-46,-54},{-26,-34}})));
+    "Calculate non-zero humidity removal from inlet air only when component is enabled"
+    annotation (Placement(transformation(extent={{-46,-50},{-26,-30}})));
 
   Buildings.Controls.OBC.CDL.Reals.Multiply PDeh
-    "Power consumed by dehumidification process"
+    "Calculate non-zero power consumption only during water removal"
     annotation (Placement(transformation(extent={{-46,-82},{-26,-62}})));
 
   Buildings.Fluid.Sensors.MassFractionTwoPort senMasFra(
     redeclare package Medium = Medium,
-    m_flow_nominal=mAir_flow_nominal)
+    final m_flow_nominal=mAir_flow_nominal)
     "Inlet air water vapor mass fraction"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
@@ -185,31 +187,27 @@ equation
     annotation (Line(points={{-20,0},{-10,0}}, color={0,127,255}));
   connect(senRelHum.port_b, deHum.port_a)
     annotation (Line(points={{10,0},{40,0}},color={0,127,255}));
-  connect(QHea.y, preHeaFlo.Q_flow) annotation (Line(points={{-24,30},{-20,30},{
+  connect(QHea.y, preHeaFlo.Q_flow) annotation (Line(points={{-29,30},{-20,30},{
           -20,50},{-10,50}}, color={0,0,127}));
   connect(uWatRem.y, u.u1)
-    annotation (Line(points={{-59,-30},{-52,-30},{-52,-38},{-48,-38}},
+    annotation (Line(points={{-59,-30},{-52,-30},{-52,-34},{-48,-34}},
                                                    color={0,0,127}));
-  connect(u.y, deHum.u) annotation (Line(points={{-24,-44},{22,-44},{22,6},{39,
-          6}},
+  connect(u.y, deHum.u) annotation (Line(points={{-24,-40},{22,-40},{22,6},{39,6}},
         color={0,0,127}));
   connect(PDeh.y, P) annotation (Line(points={{-24,-72},{26,-72},{26,-30},{120,-30},
           {120,-30}}, color={0,0,127}));
-  connect(PDeh.y, QHea.u1) annotation (Line(points={{-24,-72},{-20,-72},{-20,
-          -20},{-52,-20},{-52,36},{-48,36}},
-                                        color={0,0,127}));
   connect(PDehEna.y, PDeh.u2)
     annotation (Line(points={{-59,-78},{-48,-78}}, color={0,0,127}));
   connect(uEna, booToRea.u)
     annotation (Line(points={{-120,-50},{-92,-50}}, color={255,0,255}));
-  connect(booToRea.y, QHea.u2) annotation (Line(points={{-68,-50},{-54,-50},{
-          -54,24},{-48,24}}, color={0,0,127}));
-  connect(booToRea.y, u.u2) annotation (Line(points={{-68,-50},{-48,-50}},
-                           color={0,0,127}));
-  connect(booToRea.y, PDeh.u1) annotation (Line(points={{-68,-50},{-54,-50},{
-          -54,-66},{-48,-66}}, color={0,0,127}));
+  connect(booToRea.y, u.u2) annotation (Line(points={{-68,-50},{-54,-50},{-54,-46},
+          {-48,-46}},      color={0,0,127}));
   connect(con.y, preHeaFlo.Q_flow) annotation (Line(points={{-58,60},{-20,60},{-20,
           50},{-10,50}}, color={0,0,127}));
+  connect(u.y, PDeh.u1) annotation (Line(points={{-24,-40},{-10,-40},{-10,-56},{
+          -60,-56},{-60,-66},{-48,-66}}, color={0,0,127}));
+  connect(PDeh.y, QHea.u) annotation (Line(points={{-24,-72},{-20,-72},{-20,-20},
+          {-58,-20},{-58,30},{-52,30}}, color={0,0,127}));
 annotation (Icon(coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
           extent={{-70,60},{70,-60}},
@@ -275,14 +273,14 @@ and simultaneously heats the air.</p>
 and <code>eneFacMod</code> are specified to 
 characterize the change in water removal and energy consumption at part-load conditions. </p>
 <p>The amount of exchanged moisture <code>mWat_flow</code>
-is equal to </p> <p align=\"center\"><i>ṁ<sub>wat_flow</sub> = watRemMod &rho; 
+is equal to </p> <p align=\"center\"><i>ṁ<sub>wat_flow</sub> = watRemMod * &rho; *  
 V̇<sub>flow_nominal</i></sub> </p>
 <p>The amount of heat added to the air stream <code>QHea</code> is equal to </p>
-<p align=\"center\"><i>Q̇<sub>hea</sub> = ṁ<sub>wat_flow</sub> h<sub>fg</sub> + P<sub>deh</sub> </i></p>
+<p align=\"center\"><i>Q̇<sub>hea</sub> = ṁ<sub>wat_flow</sub> * h<sub>fg</sub> + P<sub>deh</sub> </i></p>
 <p>Please note that the enthalpy of the exchanged moisture has been considered 
 and therefore the added heat flow to the connector equals to P<sub>deh</sub>. </p>
-<p align=\"center\"><i>P<sub>deh</sub> = V̇<sub>flow_nominal</sub> watRemMod /
-(eneFac<sub>nominal</sub> eneFacMod), </i></p>
+<p align=\"center\"><i>P<sub>deh</sub> = V̇<sub>flow_nominal</sub> * watRemMod /
+(eneFac<sub>nominal</sub> * eneFacMod), </i></p>
 <p>where <code>VWat_flow_nominal</code> is 
 the rated water removal flow rate and <code>eneFac_nominal</code> 
 is the rated energy factor. h<sub>fg</sub> is the enthalpy of vaporization of air. </p>
