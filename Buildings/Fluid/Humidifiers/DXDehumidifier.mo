@@ -123,6 +123,18 @@ model DXDehumidifier "DX dehumidifier"
     "Inlet air relative humidity"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
+  Controls.OBC.CDL.Reals.MultiplyByParameter eneFac(k=eneFac_nominal/(1000*1000
+        *3600))
+    "Multiply energy factor modifier by nominal energy factor (converted from liter/kWh to m^3/J)"
+    annotation (Placement(transformation(extent={{-40,-150},{-20,-130}})));
+  Modelica.Blocks.Sources.RealExpression eneFacModVal(final y=eneFacMod)
+    "Calculated value of energy factor modifier curve"
+    annotation (Placement(transformation(extent={{-80,-150},{-60,-130}})));
+  Controls.OBC.CDL.Reals.MultiplyByParameter watRemRat(k=VWat_flow_nominal)
+    "Calculate water removal rate by multiplying water removal modifier by nominal removal rate"
+    annotation (Placement(transformation(extent={{-40,-120},{-20,-100}})));
+  Controls.OBC.CDL.Reals.Divide div
+    annotation (Placement(transformation(extent={{0,-130},{20,-110}})));
 protected
   constant Modelica.Units.SI.SpecificEnthalpy h_fg= Buildings.Utilities.Psychrometrics.Constants.h_fg
     "Latent heat of water vapor";
@@ -190,8 +202,6 @@ equation
                                                    color={0,0,127}));
   connect(u.y, deHum.u) annotation (Line(points={{-24,-40},{22,-40},{22,6},{39,6}},
         color={0,0,127}));
-  connect(PDeh.y, P) annotation (Line(points={{-24,-72},{26,-72},{26,-30},{120,-30},
-          {120,-30}}, color={0,0,127}));
   connect(PDehEna.y, PDeh.u2)
     annotation (Line(points={{-59,-78},{-48,-78}}, color={0,0,127}));
   connect(uEna, booToRea.u)
@@ -202,9 +212,19 @@ equation
           50},{-10,50}}, color={0,0,127}));
   connect(u.y, PDeh.u1) annotation (Line(points={{-24,-40},{-10,-40},{-10,-56},{
           -60,-56},{-60,-66},{-48,-66}}, color={0,0,127}));
-  connect(PDeh.y, QHea.u) annotation (Line(points={{-24,-72},{-20,-72},{-20,-20},
-          {-58,-20},{-58,30},{-52,30}}, color={0,0,127}));
-annotation (Icon(coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
+  connect(eneFacModVal.y, eneFac.u)
+    annotation (Line(points={{-59,-140},{-42,-140}}, color={0,0,127}));
+  connect(u.y, watRemRat.u) annotation (Line(points={{-24,-40},{-10,-40},{-10,
+          -90},{-60,-90},{-60,-110},{-42,-110}}, color={0,0,127}));
+  connect(watRemRat.y, div.u1) annotation (Line(points={{-18,-110},{-10,-110},{
+          -10,-114},{-2,-114}}, color={0,0,127}));
+  connect(eneFac.y, div.u2) annotation (Line(points={{-18,-140},{-10,-140},{-10,
+          -126},{-2,-126}}, color={0,0,127}));
+  connect(div.y, QHea.u) annotation (Line(points={{22,-120},{30,-120},{30,-20},
+          {-56,-20},{-56,30},{-52,30}}, color={0,0,127}));
+  connect(div.y, P) annotation (Line(points={{22,-120},{30,-120},{30,-30},{120,
+          -30}}, color={0,0,127}));
+annotation (Icon(coordinateSystem(extent={{-100,-160},{100,100}}), graphics={
         Rectangle(
           extent={{-70,60},{70,-60}},
           lineColor={0,0,255},
@@ -302,5 +322,6 @@ June 20, 2023, by Xing Lu:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(extent={{-100,-160},{100,100}})));
 end DXDehumidifier;
