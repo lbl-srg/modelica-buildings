@@ -206,8 +206,19 @@ experiment(StartTime=12960000, StopTime=15120000, Tolerance=1e-6),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Humidifiers/Validation/DXDehumidifier.mos"
         "Simulate and Plot"),
 Documentation(info="<html>
-<p>This is a validation model for the zone air DX dehumidifier model <a href=\"modelica://Buildings.Fluid.Humidifiers.DXDehumidifier\">Buildings.Fluid.Humidifiers.DXDehumidifier</a>. The inlet conditions such as the air dry bulb temperature and humidity ratio are read from EnergyPlus data file. The module <span style=\"font-family: Courier New;\">plrToPul</span> translates the runtime fraction from EnergyPlus to on off signal for the DX dehumidifier.</p>
-<p><br>The generated plots show that <span style=\"font-family: Courier New;\">dxDeh</span> removes an amount of water that is similar to the reference EnergyPlus results, while consuming a similar amount of power and adding similar amount of the heat. The comparison of the outlet conditions such as the air dry bulb temperature and humidity ratio is not considered here because EnergyPlus adds the added sensible heat directly to the zone air balance and sets the dry bulb temperature of the dehumidifier&apos;s outlet air equal to the inlet air node. </p>
+<p>This is a validation model for the zone air DX dehumidifier model 
+<a href=\"modelica://Buildings.Fluid.Humidifiers.DXDehumidifier\">
+Buildings.Fluid.Humidifiers.DXDehumidifier</a>. The inlet conditions such as the 
+air dry bulb temperature and humidity ratio are read from EnergyPlus data file. 
+The module <code>plrToPul</code> translates the runtime fraction from EnergyPlus 
+to on off signal for the DX dehumidifier.</p>
+<p>The generated plots show that <code>dxDeh</code> removes an amount of water 
+that is similar to the reference EnergyPlus results, while consuming a similar amount 
+of power and adding similar amount of the heat. The comparison of the outlet conditions 
+such as the air dry bulb temperature and humidity ratio is not considered here because 
+EnergyPlus adds the added sensible heat directly to the zone air balance and sets 
+the dry bulb temperature of the dehumidifier&apos;s outlet air equal to the inlet 
+air node. </p>
 </html>",
 revisions="<html>
 <ul>
