@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Validation;
-model PIWithFirstOrderAMIGO "Test model for an autotuning PI controller"
+model PIWithFirstOrderAMIGO "Test model for an autotuning reverse-acting PI controller"
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant SetPoint(k=0.8)
     "Setpoint value"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
@@ -56,10 +56,8 @@ equation
           60},{-22,60}}, color={0,0,127}));
   connect(SetPoint.y, PI.u_s) annotation (Line(points={{-58,10},{-48,10},{-48,60},
           {-22,60}}, color={0,0,127}));
-  connect(PIWitTun.y, uniDel2.u)
-    annotation (Line(points={{2,-20},{8,-20}}, color={0,0,127}));
-  connect(uniDel1.u, PI.y)
-    annotation (Line(points={{8,60},{2,60}}, color={0,0,127}));
+  connect(PIWitTun.y, uniDel2.u) annotation (Line(points={{2,-20},{8,-20}}, color={0,0,127}));
+  connect(uniDel1.u, PI.y) annotation (Line(points={{8,60},{2,60}}, color={0,0,127}));
   connect(uniDel1.y, sub1.u1) annotation (Line(points={{32,60},{40,60},{40,86},{
           58,86}}, color={0,0,127}));
   connect(k.y, derivative1.k) annotation (Line(points={{158,30},{148,30},{148,

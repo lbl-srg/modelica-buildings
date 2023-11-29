@@ -4,7 +4,6 @@ block FirstOrderAMIGO
   parameter Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController controllerType=
     Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PI
     "Type of controller";
-
   parameter Real k_start(
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)=1
     "Start value of the gain of controller"
@@ -22,7 +21,6 @@ block FirstOrderAMIGO
     "Start value of the time constant of derivative block"
     annotation (Dialog(group="Initial control gains, used prior to first tuning",
       enable=controllerType == Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PID));
-
   parameter Real r(
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)=1
     "Typical range of control error, used for scaling the control error";
@@ -151,7 +149,7 @@ protected
     "Type of controller";
 
 equation
-   connect(con.u_s, u_s) annotation (Line(points={{-42,-40},{-48,-40},{-48,0},{-200,
+  connect(con.u_s, u_s) annotation (Line(points={{-42,-40},{-48,-40},{-48,0},{-200,
           0}}, color={0,0,127}));
   connect(rel.u_s, u_s) annotation (Line(points={{-42,40},{-122,40},{-122,0},{-200,
           0}}, color={0,0,127}));
@@ -181,10 +179,8 @@ equation
   connect(rel.yErr, conProMod.u) annotation (Line(points={{-18,40},{-12,40},{-12,
           60},{34,60},{34,48},{38,48}},
                      color={0,0,127}));
-  connect(PIDPar.kp, conProMod.k)
-    annotation (Line(points={{78,46},{62,46}},                     color={0,0,127}));
-  connect(PIDPar.T, conProMod.T)
-    annotation (Line(points={{78,40},{62,40}},   color={0,0,127}));
+  connect(PIDPar.kp, conProMod.k) annotation (Line(points={{78,46},{62,46}}, color={0,0,127}));
+  connect(PIDPar.T, conProMod.T) annotation (Line(points={{78,40},{62,40}}, color={0,0,127}));
   connect(PIDPar.L, conProMod.L) annotation (Line(points={{78,34},{62,34}},
                              color={0,0,127}));
   connect(PIDPar.k, samk.u) annotation (Line(points={{102,47},{110,47},{110,96},
@@ -223,8 +219,7 @@ equation
   connect(PIDPar.Td, samTd.u) annotation (Line(points={{102,33},{114,33},{114,94},
           {-146,94},{-146,-80},{-122,-80}},
                       color={0,0,127}));
-  connect(swi.y, y)
-    annotation (Line(points={{162,0},{200,0}},                  color={0,0,127}));
+  connect(swi.y, y) annotation (Line(points={{162,0},{200,0}}, color={0,0,127}));
   connect(u_m,con. u_m) annotation (Line(points={{0,-120},{0,-90},{-30,-90},{-30,
           -52}}, color={0,0,127}));
   connect(rel.y, swi.u1) annotation (Line(points={{-18,46},{-16,46},{-16,88},{130,
@@ -245,9 +240,7 @@ equation
   connect(resPro.trigger, triTun) annotation (Line(points={{-2,34},{-8,34},{-8,-20},
           {8,-20},{8,-88},{60,-88},{60,-120}},
                                color={255,0,255}));
-  connect(nand.y, assMes.u)
-    annotation (Line(points={{142,-80},{146,-80}},
-                                               color={255,0,255}));
+  connect(nand.y, assMes.u) annotation (Line(points={{142,-80},{146,-80}}, color={255,0,255}));
   connect(nand.u2, triTun) annotation (Line(points={{118,-88},{60,-88},{60,-120}},
                            color={255,0,255}));
   connect(nand.u1, inTunPro.y) annotation (Line(points={{118,-80},{114,-80},{114,

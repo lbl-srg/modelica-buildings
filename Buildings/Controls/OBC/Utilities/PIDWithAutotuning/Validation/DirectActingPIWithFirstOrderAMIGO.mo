@@ -89,21 +89,18 @@ equation
   connect(derivative1.u, sub1.u1) annotation (Line(points={{92,20},{86,20},{86,
           86},{132,86}},            color={0,0,127}));
   connect(derivative2.u, uniDel2.y) annotation (Line(points={{78,-60},{64,-60},{
-          64,-20},{60,-20}},                    color={0,0,127}));
-  connect(autTunSig.y, PIWitTun.triTun)
-    annotation (Line(points={{-58,-50},{-4,-50},{-4,-32}}, color={255,0,255}));
+          64,-20},{60,-20}}, color={0,0,127}));
+  connect(autTunSig.y, PIWitTun.triTun) annotation (Line(points={{-58,-50},{-4,-50},{-4,-32}}, color={255,0,255}));
   connect(k.y, derivative2.k) annotation (Line(points={{54,20},{68,20},{68,-52},
           {78,-52}}, color={0,0,127}));
   connect(const.y, sub3.u1) annotation (Line(points={{-18,120},{4,120},{4,66},{
           12,66}}, color={0,0,127}));
-  connect(PI.y, sub3.u2)
-    annotation (Line(points={{2,60},{6,60},{6,54},{12,54}}, color={0,0,127}));
+  connect(PI.y, sub3.u2) annotation (Line(points={{2,60},{6,60},{6,54},{12,54}}, color={0,0,127}));
   connect(sub3.y, uniDel1.u)
     annotation (Line(points={{36,60},{48,60}}, color={0,0,127}));
   connect(PIWitTun.y, sub4.u2) annotation (Line(points={{2,-20},{8,-20},{8,-26},
           {10,-26}}, color={0,0,127}));
-  connect(uniDel2.u, sub4.y)
-    annotation (Line(points={{36,-20},{34,-20}}, color={0,0,127}));
+  connect(uniDel2.u, sub4.y) annotation (Line(points={{36,-20},{34,-20}}, color={0,0,127}));
   connect(sub4.u1, const.y) annotation (Line(points={{10,-14},{4,-14},{4,120},{-18,
           120}}, color={0,0,127}));
   annotation (

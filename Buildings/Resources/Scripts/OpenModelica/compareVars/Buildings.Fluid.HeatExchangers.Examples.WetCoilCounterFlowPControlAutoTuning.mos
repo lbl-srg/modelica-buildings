@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "con.inTunPro.y",
+    "con.u_s",
+    "con.u_m",
+    "con.PIPar.k",
+    "con.PIPar.Ti"
+  };

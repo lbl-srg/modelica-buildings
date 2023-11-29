@@ -1,0 +1,5 @@
+simulateModel("Buildings.Fluid.HeatExchangers.Examples.WetCoilCounterFlowPControlAutoTuning", stopTime=3600, method="CVode", tolerance=1e-6, resultFile="WetCoilCounterFlowPControlAutoTuning");
+createPlot(id=4, position={35, 10, 741, 638}, y={"con.inTunPro.y"}, range={0.0, 3600.0, -0.5, 1.5}, grid=true, subPlot=101, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=4, position={35, 10, 741, 638}, y={"con.u_s", "con.u_m"}, range={0.0, 3600.0, 280.0, 310.0}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="s");
+createPlot(id=4, position={35, 10, 741, 638}, y={"con.PIPar.k", "con.PIPar.Ti"}, range={0.0, 3600.0, -5.0, 15.0}, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"", "s"});
+

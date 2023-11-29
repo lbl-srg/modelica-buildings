@@ -38,14 +38,13 @@ protected
     "Integral of the process output"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant refRelOut(
-    final k=0)
-    "Reference value of the relay control output"
+    final k=0) "Reference value of the relay control output"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Buildings.Controls.OBC.CDL.Reals.Divide divIyIu "Calculate the gain"
-    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(final p=1E-3)
     "Block that avoids a divide-by-zero error"
-    annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
+    annotation (Placement(transformation(extent={{8,-50},{28,-30}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gaiOnyHig(
     final k=yHig)
     "Product of tOn and yHig"
@@ -62,12 +61,11 @@ equation
           {-20,32},{-12,32}}, color={0,0,127}));
   connect(Iy.trigger, triSta) annotation (Line(points={{0,28},{0,-120}},
           color={255,0,255}));
-  connect(divIyIu.u1, Iy.y) annotation (Line(points={{58,6},{40,6},{40,40},{12,
+  connect(divIyIu.u1, Iy.y) annotation (Line(points={{38,6},{18,6},{18,40},{12,
           40}}, color={0,0,127}));
-  connect(Iu.y, addPar.u) annotation (Line(points={{-18,-40},{18,-40}},color={0,0,127}));
-  connect(addPar.y, divIyIu.u2) annotation (Line(points={{42,-40},{50,-40},{50,
-          -6},{58,-6}}, color={0,0,127}));
-  connect(divIyIu.y, k) annotation (Line(points={{82,0},{120,0}}, color={0,0,127}));
+  connect(Iu.y, addPar.u) annotation (Line(points={{-18,-40},{6,-40}}, color={0,0,127}));
+  connect(addPar.y, divIyIu.u2) annotation (Line(points={{30,-40},{32,-40},{32,
+          -6},{38,-6}}, color={0,0,127}));
   connect(gaiOnyHig.u, tOn) annotation (Line(points={{-82,-20},{-120,-20}},
           color={0,0,127}));
   connect(gaiOnyHig.y, Iu.u1) annotation (Line(points={{-58,-20},{-50,-20},{-50,
@@ -76,6 +74,8 @@ equation
     annotation (Line(points={{-82,-80},{-120,-80}}, color={0,0,127}));
   connect(gaiOffyLow.y, Iu.u2) annotation (Line(points={{-58,-80},{-50,-80},{-50,
           -46},{-42,-46}}, color={0,0,127}));
+  connect(divIyIu.y, k)
+    annotation (Line(points={{62,0},{120,0}}, color={0,0,127}));
   annotation (
         defaultComponentName = "gai",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={

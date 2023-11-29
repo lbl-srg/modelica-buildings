@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatExchangers.Examples;
 model WetCoilCounterFlowPControlAutoTuning
-  "Model that demonstrates use of a heat exchanger with condensation and with feedback control"
+  "Model that demonstrates use of a heat exchanger with condensation and with autotuning feedback control"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Water;
   package Medium2 = Buildings.Media.Air;
@@ -82,18 +82,17 @@ model WetCoilCounterFlowPControlAutoTuning
         T_b2_nominal),
     show_T=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-                             annotation (Placement(transformation(extent={{60,
-            16},{80,36}})));
+    annotation (Placement(transformation(extent={{60,16},{80,36}})));
   Modelica.Blocks.Sources.Constant const(k=0.8)
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
   Buildings.Utilities.Psychrometrics.X_pTphi x_pTphi(use_p_in=false)
     annotation (Placement(transformation(extent={{150,-42},{170,-22}})));
   Modelica.Blocks.Sources.Constant const1(k=T_a2_nominal)
     annotation (Placement(transformation(extent={{100,-38},{120,-18}})));
-  Controls.OBC.Utilities.PIDWithAutotuning.FirstOrderAMIGO
-                                       con(controllerType=Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PI,
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.FirstOrderAMIGO
+    con(controllerType=Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PI,
     reverseActing=false)
-           "Controller"
+    "Controller"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
   Modelica.Blocks.Sources.Ramp TWat(
     height=30,
@@ -101,21 +100,15 @@ model WetCoilCounterFlowPControlAutoTuning
     startTime=300,
     duration=2000) "Water temperature, raised to high value at t=3000 s"
     annotation (Placement(transformation(extent={{-80,54},{-60,74}})));
-  Controls.OBC.CDL.Logical.Sources.Constant           resSig(k=false)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant resSig(k=false)
     "Reset signal"
     annotation (Placement(transformation(extent={{-80,160},{-60,180}})));
-  Controls.OBC.CDL.Logical.Sources.Pulse           autTunSig(
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse autTunSig(
     width=0.9,
     period=4000,
-    shift=400)   "Signal for enabling the autotuning"
+    shift=400)
+    "Signal for enabling the autotuning"
     annotation (Placement(transformation(extent={{20,160},{40,180}})));
-  Controls.OBC.CDL.Reals.MultiplyByParameter gai(k=310)
-    annotation (Placement(transformation(extent={{-38,94},{-26,106}})));
-  Controls.OBC.CDL.Reals.MultiplyByParameter gai1(k=310) annotation (Placement(
-        transformation(
-        extent={{6,-6},{-6,6}},
-        rotation=-90,
-        origin={10,48})));
 equation
   connect(hex.port_b1, res_1.port_a) annotation (Line(points={{80,32},{86,32},{
           86,60},{90,60}}, color={0,127,255}));
@@ -173,18 +166,14 @@ equation
           82},{4,82},{4,88}}, color={255,0,255}));
   connect(autTunSig.y, con.triTun) annotation (Line(points={{42,170},{74,170},{
           74,82},{16,82},{16,88}}, color={255,0,255}));
-  connect(TSet.y, gai.u)
-    annotation (Line(points={{-59,100},{-39.2,100}}, color={0,0,127}));
-  connect(gai.y, con.u_s)
-    annotation (Line(points={{-24.8,100},{-2,100}}, color={0,0,127}));
-  connect(gai1.u, temSen.T)
-    annotation (Line(points={{10,40.8},{10,31}}, color={0,0,127}));
-  connect(gai1.y, con.u_m)
-    annotation (Line(points={{10,55.2},{10,88}}, color={0,0,127}));
+  connect(TSet.y, con.u_s)
+    annotation (Line(points={{-59,100},{-2,100}}, color={0,0,127}));
+  connect(temSen.T, con.u_m)
+    annotation (Line(points={{10,31},{10,88}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{200,200}})),
 experiment(Tolerance=1e-6, StopTime=3600),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/WetCoilCounterFlowPControl.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/WetCoilCounterFlowPControlAutoTuning.mos"
         "Simulate and plot"),
 Documentation(info="<html>
 <p>

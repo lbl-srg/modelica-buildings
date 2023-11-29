@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Validation;
 model DirectActingPIDWithFirstOrderAMIGO
-  "Test model for an autotuning reversed PID controller"
+  "Test model for an autotuning direct-acting PID controller"
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant SetPoint(k=0.8)
     "Setpoint value"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
@@ -48,13 +48,13 @@ model DirectActingPIDWithFirstOrderAMIGO
     shift=500)   "Signal for enabling the autotuning"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract sub3
-    "A subtract block that is used to mimic the direct acting in the first order process 1"
+    "A subtract block that is used to mimic the direct-acting in the first order process 1"
     annotation (Placement(transformation(extent={{14,50},{34,70}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant const(k=1)
    "constant value 1"
     annotation (Placement(transformation(extent={{-40,110},{-20,130}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract sub4
-    "A subtract block that is used to mimic the direct acting in the first order process 2"
+    "A subtract block that is used to mimic the direct-acting in the first order process 2"
     annotation (Placement(transformation(extent={{12,-30},{32,-10}})));
 equation
   connect(resSig.y, PID.trigger) annotation (Line(points={{-58,70},{-30,70},{-30,
@@ -122,7 +122,7 @@ Buildings.Controls.OBC.Utilities.PIDWithAutotuning.FirstOrderAMIGO</a>.
 <p>
 This example is similar as <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Validation.PIDWithFirstOrderAMIGO\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Validation.PIDWithFirstOrderAMIGO</a>.
-However, PI controllers with direct acting are considered.
+However, PID controllers with direct acting are considered.
 </p>
 </html>",
       revisions="<html>
