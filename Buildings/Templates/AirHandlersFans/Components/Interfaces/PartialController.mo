@@ -10,15 +10,25 @@ partial block PartialController "Interface class for AHU controller"
 
   outer parameter Buildings.Templates.Data.AllSystems datAll
     "Top-level (whole building) system parameters";
-  outer parameter Buildings.Templates.Components.Types.Fan typFanSup
+
+  parameter Buildings.Templates.Components.Types.Fan typFanSup
     "Type of supply fan";
-  outer parameter Buildings.Templates.Components.Types.Fan typFanRet
-    "Type of relief/return fan";
+  parameter Buildings.Templates.Components.Types.Fan typFanRel
+    "Type of relief fan";
+  parameter Buildings.Templates.Components.Types.Fan typFanRet
+    "Type of return fan";
+  parameter Integer nFanSup
+    "Number of supply fans";
+  parameter Integer nFanRel
+    "Number of relief fans";
+  parameter Integer nFanRet
+    "Number of return fans";
 
   replaceable parameter
     Buildings.Templates.AirHandlersFans.Components.Data.PartialController dat(
     final typ=typ,
     final typFanSup=typFanSup,
+    final typFanRel=typFanRel,
     final typFanRet=typFanRet)
     "Design and operating parameters"
     annotation (Placement(transformation(extent={{190,170},{210,190}})));

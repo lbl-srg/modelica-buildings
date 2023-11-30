@@ -29,13 +29,15 @@ model Fans "Validation model for fans components"
     final dp_nominal=arr.dat.dp_nominal)
     "Ducts and coils equivalent flow resistance"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
-  Controls.OBC.CDL.Reals.Sources.Ramp y(height=1, duration=10)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp y(height=1, duration=10)
     "Fan control signal"
     annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
   Interfaces.Bus bus "Control bus"
-                     annotation (Placement(transformation(extent={{-40,100},{0,140}}),
-        iconTransformation(extent={{-250,-32},{-210,8}})));
-  Controls.OBC.CDL.Logical.Sources.TimeTable y1(
+    annotation (Placement(
+      iconVisible=false,
+      transformation(extent={{-40,100},{0,140}}),
+      iconTransformation(extent={{-250,-32},{-210,8}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1(
     table=[0,0; 1,1],
     timeScale=10,
     period=100) "Fan start/stop signal"
@@ -93,9 +95,8 @@ equation
       points={{-20,120},{0,120},{0,90}},
       color={255,204,51},
       thickness=0.5));
-  connect(y1.y[1], bus.y1) annotation (Line(points={{-58,160},{-20,160},{-20,120}},
-        color={255,0,255}));
-  connect(y1.y[1], bus1.y1) annotation (Line(points={{-58,160},{-20,160},{-20,20}},
+  connect(y1.y[1], bus1.y1) annotation (Line(points={{-58,160},{-34,160},{-34,
+          40},{-20,40},{-20,20}},
         color={255,0,255}));
   connect(cst.port_b, res1.port_a) annotation (Line(points={{10,-20},{40,-20}},
                           color={0,127,255}));
@@ -126,8 +127,11 @@ equation
           {25,-140},{40,-140}}, color={0,127,255}));
   connect(res3.port_b, bou.ports[8]) annotation (Line(points={{60,-140},{80,-140},
           {80,1.75},{-60,1.75}},  color={0,127,255}));
-  connect(y1.y[1], bus2.y1) annotation (Line(points={{-58,160},{-20,160},{-20,-60}},
+  connect(y1.y[1], bus2.y1) annotation (Line(points={{-58,160},{-34,160},{-34,
+          -56},{-20,-56},{-20,-60}},
         color={255,0,255}));
+  connect(y1.y[1], bus.y1) annotation (Line(points={{-58,160},{-34,160},{-34,
+          140},{-20,140},{-20,120}}, color={255,0,255}));
 annotation (
   __Dymola_Commands(
   file="modelica://Buildings/Resources/Scripts/Dymola/Templates/Components/Validation/Fans.mos"
@@ -135,12 +139,12 @@ annotation (
   experiment(Tolerance=1e-6, StopTime=200),
     Diagram(coordinateSystem(extent={{-140,-180},{140,180}})),
     Documentation(info="<html>
-<p> 
-This model validates the models within 
+<p>
+This model validates the models within
 <a href=\"modelica://Buildings.Templates.Components.Fans\">
 Buildings.Templates.Components.Fans</a>
 by exposing them to a control signal varying from <i>0</i> to <i>1</i>
-and connecting them to an air loop with a fixed flow resistance, which 
+and connecting them to an air loop with a fixed flow resistance, which
 is sized based on the nominal operating point of the fan model.
 </p>
 </html>"));

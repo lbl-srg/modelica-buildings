@@ -32,10 +32,12 @@ model Valves "Validation model for valve components"
     annotation (Placement(transformation(extent={{10,70},{30,90}})));
   Interfaces.Bus bus
     "Control bus"
-    annotation (Placement(transformation(extent={{-20,80},{20,120}}),
-        iconTransformation(extent={{-250,-32},{-210,8}})));
-  Controls.OBC.CDL.Reals.Sources.Ramp y(height=1,
-    duration=10) "Damper control signal"
+    annotation (Placement(
+      iconVisible=false,
+      transformation(extent={{-20,100},{20,140}}),
+      iconTransformation(extent={{-250,-32},{-210,8}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp y(height=1, duration=10)
+    "Damper control signal"
     annotation (Placement(transformation(extent={{-90,110},{-70,130}})));
 
   Buildings.Templates.Components.Valves.ThreeWayTwoPosition twoThr(
@@ -61,9 +63,11 @@ model Valves "Validation model for valve components"
     annotation (Placement(transformation(extent={{10,10},{30,30}})));
   Interfaces.Bus bus2
     "Control bus"
-    annotation (Placement(transformation(extent={{-20,20},{20,60}}),
-        iconTransformation(extent={{-250,-32},{-210,8}})));
-  Controls.OBC.CDL.Logical.Sources.TimeTable y1(
+    annotation (Placement(
+      iconVisible=false,
+      transformation(extent={{-20,40},{20,80}}),
+      iconTransformation(extent={{-250,-32},{-210,8}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1(
     table=[0,0; 1,1],
     timeScale=10,
     period=200) "Damper control signal"
