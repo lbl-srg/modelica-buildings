@@ -63,7 +63,7 @@ model DXDehumidifier "Validation model for DX dehumidifier"
 
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=m_flow_nominal)
-    "Gain factor"
+    "Calculate inlet air mass flow rate from component enable signal"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
 
   Modelica.Blocks.Sources.RealExpression realExpression1(
@@ -177,7 +177,7 @@ equation
     annotation (Line(points={{119,-30},{132,-30}}, color={0,0,127}));
 
   connect(plrToPul.yEna, dxDeh.uEna) annotation (Line(points={{-98,70},{-54,70},
-          {-54,-22},{-51,-22}}, color={255,0,255}));
+          {-54,-14},{-51,-14}}, color={255,0,255}));
   connect(toTotAirIn.XiTotalAir, boundary.Xi_in[1]) annotation (Line(points={{-99,-50},
           {-90,-50},{-90,-22},{-84,-22}},      color={0,0,127}));
   connect(TIn_K.Kelvin, boundary.T_in) annotation (Line(points={{-99,19.8},{-90,
@@ -208,17 +208,17 @@ experiment(StartTime=12960000, StopTime=15120000, Tolerance=1e-6),
 Documentation(info="<html>
 <p>This is a validation model for the zone air DX dehumidifier model 
 <a href=\"modelica://Buildings.Fluid.Humidifiers.DXDehumidifier\">
-Buildings.Fluid.Humidifiers.DXDehumidifier</a>. The inlet conditions such as the 
-air dry bulb temperature and humidity ratio are read from EnergyPlus data file. 
+Buildings.Fluid.Humidifiers.DXDehumidifier</a>. The inlet air conditions such as 
+the dry bulb temperature and humidity ratio are read from an EnergyPlus data file. 
 The module <code>plrToPul</code> translates the runtime fraction from EnergyPlus 
-to on off signal for the DX dehumidifier.</p>
+to an on-off signal for the DX dehumidifier.</p>
 <p>The generated plots show that <code>dxDeh</code> removes an amount of water 
 that is similar to the reference EnergyPlus results, while consuming a similar amount 
-of power and adding similar amount of the heat. The comparison of the outlet conditions 
-such as the air dry bulb temperature and humidity ratio is not considered here because 
-EnergyPlus adds the added sensible heat directly to the zone air balance and sets 
-the dry bulb temperature of the dehumidifier&apos;s outlet air equal to the inlet 
-air node. </p>
+of power and adding similar amount of heat to the outlet air stream. The 
+comparison of the outlet air conditions such as the dry bulb temperature and humidity 
+ratio is not considered here because EnergyPlus adds the rejected heat directly 
+to the zone air balance and sets the dry bulb temperature of the dehumidifier&apos;s 
+outlet air equal to that of the inlet air. </p>
 </html>",
 revisions="<html>
 <ul>

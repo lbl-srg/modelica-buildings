@@ -281,14 +281,15 @@ annotation (Icon(coordinateSystem(extent={{-100,-100},{100,100}}),  graphics={
           fillPattern=FillPattern.Solid)}),
 defaultComponentName="dxDeh",
 Documentation(info="<html>
-<p>This is a zone air DX dehumidifier model based on the first principles according 
-to the EnergyPlus model <code>ZoneHVAC:Dehumidifier:DX</code>. 
-Different from the EnergyPlus implementation of adding the heat to the zone air heat balance,
-this model assumes that this equipment removes the moisture from the air stream
-and simultaneously heats the air.</p>
+<p>This is a zone air DX dehumidifier model based on the first principles and other 
+calculations as defined in the EnergyPlus model <code>ZoneHVAC:Dehumidifier:DX</code>. 
+While the EnergyPlus implementation adds the heat rejected by the condensor coil to the 
+zone air heat balance, this model assumes that this rejected heat is added to the 
+outlet air stream.</p>
 <p>Two performance curves <code>watRemMod</code> 
 and <code>eneFacMod</code> are specified to 
-characterize the change in water removal and energy consumption at part-load conditions. </p>
+characterize the change in water removal and energy consumption at non-rated inlet 
+air conditions. </p>
 <p>The amount of exchanged moisture <code>mWat_flow</code>
 is equal to </p> <p align=\"center\"><i>ṁ<sub>wat_flow</sub> = watRemMod * &rho; *  
 V̇<sub>flow_nominal</i></sub> </p>
