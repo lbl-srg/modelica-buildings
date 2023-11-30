@@ -5,7 +5,9 @@ model ReliefDamper "Modulating relief damper without fan"
     final typ=Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReliefDamper,
     final typDamRel=damRel.typ,
     final typFanRel=Buildings.Templates.Components.Types.Fan.None,
-    final typFanRet=Buildings.Templates.Components.Types.Fan.None);
+    final typFanRet=Buildings.Templates.Components.Types.Fan.None,
+    final nFanRel=0,
+    final nFanRet=0);
 
   Buildings.Templates.Components.Dampers.Modulating damRel(
     redeclare final package Medium = MediumAir,
