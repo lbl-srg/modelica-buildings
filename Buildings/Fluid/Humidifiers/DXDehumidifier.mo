@@ -8,7 +8,7 @@ model DXDehumidifier "DX dehumidifier"
   parameter Buildings.Fluid.Humidifiers.Data.Generic per
     "Performance data"
     annotation (choicesAllMatching=true,
-      Placement(transformation(extent={{60,-60},{80,-40}})));
+      Placement(transformation(extent={{70,-100},{90,-80}})));
 
   parameter Modelica.Units.SI.VolumeFlowRate VWat_flow_nominal(
     final min=0)
@@ -32,7 +32,7 @@ model DXDehumidifier "DX dehumidifier"
   Modelica.Blocks.Interfaces.BooleanInput uEna
     "Enable signal"
     annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
-      iconTransformation(extent={{-120,-50},{-100,-30}})));
+      iconTransformation(extent={{-120,30},{-100,50}})));
 
   Modelica.Blocks.Interfaces.RealOutput T(
     final unit="K",
@@ -40,7 +40,7 @@ model DXDehumidifier "DX dehumidifier"
     final quantity="ThermodynamicTemperature")
     "Outlet air medium temperature"
     annotation (Placement(transformation(extent={{100,30},{140,70}}),
-      iconTransformation(extent={{100,40},{120,60}})));
+      iconTransformation(extent={{100,30},{120,50}})));
 
   Modelica.Blocks.Interfaces.RealOutput P(
     final unit="W",
@@ -48,17 +48,12 @@ model DXDehumidifier "DX dehumidifier"
     final quantity="Power")
     "Power consumption rate"
     annotation (Placement(transformation(extent={{100,-50},{140,-10}}),
-      iconTransformation(extent={{100,-30},{120,-10}})));
+      iconTransformation(extent={{100,-50},{120,-30}})));
 
   Modelica.Blocks.Sources.RealExpression uWatRem(
     final y=watRemMod)
     "Humidity removed from inlet air when component is enabled"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-
-  Modelica.Blocks.Sources.RealExpression PDehEna(
-    final y=VWat_flow_nominal/eneFac_nominal/eneFacMod*1000*1000*3600)
-    "Power consumed by dehumidification process when component is enabled"
-    annotation (Placement(transformation(extent={{-80,-88},{-60,-68}})));
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
     "Heat transfer into medium from dehumidifying action"
@@ -93,7 +88,7 @@ model DXDehumidifier "DX dehumidifier"
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
     final k=0) if not addPowerToMedium
     "Zero source for heat flow rate if power is not added to fluid medium"
-    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
+    annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     "Convert enable signal from Boolean to Real"
@@ -107,10 +102,6 @@ model DXDehumidifier "DX dehumidifier"
     "Calculate non-zero humidity removal from inlet air only when component is enabled"
     annotation (Placement(transformation(extent={{-46,-50},{-26,-30}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Multiply PDeh
-    "Calculate non-zero power consumption only during water removal"
-    annotation (Placement(transformation(extent={{-46,-82},{-26,-62}})));
-
   Buildings.Fluid.Sensors.MassFractionTwoPort senMasFra(
     redeclare package Medium = Medium,
     final m_flow_nominal=mAir_flow_nominal)
@@ -119,22 +110,31 @@ model DXDehumidifier "DX dehumidifier"
 
   Buildings.Fluid.Sensors.RelativeHumidityTwoPort senRelHum(
     redeclare package Medium = Medium,
-    m_flow_nominal=mAir_flow_nominal)
+    final m_flow_nominal=mAir_flow_nominal)
     "Inlet air relative humidity"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  Controls.OBC.CDL.Reals.MultiplyByParameter eneFac(k=eneFac_nominal/(1000*1000
-        *3600))
-    "Multiply energy factor modifier by nominal energy factor (converted from liter/kWh to m^3/J)"
-    annotation (Placement(transformation(extent={{-40,-150},{-20,-130}})));
-  Modelica.Blocks.Sources.RealExpression eneFacModVal(final y=eneFacMod)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter eneFac(
+    final k=eneFac_nominal/(1000*1000*3600))
+    "Multiply energy factor modifier by nominal energy factor (converted from 
+    liter/kWh to m^3/J)"
+    annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
+
+  Modelica.Blocks.Sources.RealExpression eneFacModVal(
+    final y=eneFacMod)
     "Calculated value of energy factor modifier curve"
-    annotation (Placement(transformation(extent={{-80,-150},{-60,-130}})));
-  Controls.OBC.CDL.Reals.MultiplyByParameter watRemRat(k=VWat_flow_nominal)
-    "Calculate water removal rate by multiplying water removal modifier by nominal removal rate"
-    annotation (Placement(transformation(extent={{-40,-120},{-20,-100}})));
-  Controls.OBC.CDL.Reals.Divide div
-    annotation (Placement(transformation(extent={{0,-130},{20,-110}})));
+    annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
+
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter watRemRat(
+    final k=VWat_flow_nominal)
+    "Calculate water removal rate by multiplying water removal modifier by nominal
+    removal rate"
+    annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
+
+  Buildings.Controls.OBC.CDL.Reals.Divide PDeh
+    "Calculate dehumidification power consumption"
+    annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
+
 protected
   constant Modelica.Units.SI.SpecificEnthalpy h_fg= Buildings.Utilities.Psychrometrics.Constants.h_fg
     "Latent heat of water vapor";
@@ -204,31 +204,28 @@ equation
   connect(uWatRem.y, u.u1)
     annotation (Line(points={{-59,-30},{-52,-30},{-52,-34},{-48,-34}},
                                                    color={0,0,127}));
-  connect(u.y, deHum.u) annotation (Line(points={{-24,-40},{22,-40},{22,6},{39,6}},
+  connect(u.y, deHum.u) annotation (Line(points={{-24,-40},{30,-40},{30,6},{39,6}},
         color={0,0,127}));
-  connect(PDehEna.y, PDeh.u2)
-    annotation (Line(points={{-59,-78},{-48,-78}}, color={0,0,127}));
   connect(uEna, booToRea.u)
     annotation (Line(points={{-120,-50},{-92,-50}}, color={255,0,255}));
   connect(booToRea.y, u.u2) annotation (Line(points={{-68,-50},{-54,-50},{-54,-46},
           {-48,-46}},      color={0,0,127}));
-  connect(con.y, preHeaFlo.Q_flow) annotation (Line(points={{-58,60},{-20,60},{-20,
-          50},{-10,50}}, color={0,0,127}));
-  connect(u.y, PDeh.u1) annotation (Line(points={{-24,-40},{-10,-40},{-10,-56},{
-          -60,-56},{-60,-66},{-48,-66}}, color={0,0,127}));
+  connect(con.y, preHeaFlo.Q_flow) annotation (Line(points={{-28,60},{-20,60},{
+          -20,50},{-10,50}},
+                         color={0,0,127}));
   connect(eneFacModVal.y, eneFac.u)
-    annotation (Line(points={{-59,-140},{-42,-140}}, color={0,0,127}));
-  connect(u.y, watRemRat.u) annotation (Line(points={{-24,-40},{-10,-40},{-10,
-          -90},{-60,-90},{-60,-110},{-42,-110}}, color={0,0,127}));
-  connect(watRemRat.y, div.u1) annotation (Line(points={{-18,-110},{-10,-110},{
-          -10,-114},{-2,-114}}, color={0,0,127}));
-  connect(eneFac.y, div.u2) annotation (Line(points={{-18,-140},{-10,-140},{-10,
-          -126},{-2,-126}}, color={0,0,127}));
-  connect(div.y, QHea.u) annotation (Line(points={{22,-120},{30,-120},{30,-20},
-          {-56,-20},{-56,30},{-52,30}}, color={0,0,127}));
-  connect(div.y, P) annotation (Line(points={{22,-120},{30,-120},{30,-30},{120,
-          -30}}, color={0,0,127}));
-annotation (Icon(coordinateSystem(extent={{-100,-160},{100,100}}), graphics={
+    annotation (Line(points={{-19,-90},{-2,-90}}, color={0,0,127}));
+  connect(u.y, watRemRat.u) annotation (Line(points={{-24,-40},{-10,-40},{-10,-60},
+          {-2,-60}}, color={0,0,127}));
+  connect(watRemRat.y, PDeh.u1) annotation (Line(points={{22,-60},{30,-60},{30,
+          -64},{38,-64}}, color={0,0,127}));
+  connect(eneFac.y, PDeh.u2) annotation (Line(points={{22,-90},{30,-90},{30,-76},
+          {38,-76}}, color={0,0,127}));
+  connect(PDeh.y, QHea.u) annotation (Line(points={{62,-70},{80,-70},{80,-20},{
+          -56,-20},{-56,30},{-52,30}}, color={0,0,127}));
+  connect(PDeh.y, P) annotation (Line(points={{62,-70},{80,-70},{80,-30},{120,-30}},
+        color={0,0,127}));
+annotation (Icon(coordinateSystem(extent={{-100,-100},{100,100}}),  graphics={
         Rectangle(
           extent={{-70,60},{70,-60}},
           lineColor={0,0,255},
@@ -327,5 +324,5 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-100,-160},{100,100}})));
+    Diagram(coordinateSystem(extent={{-100,-120},{100,80}})));
 end DXDehumidifier;
