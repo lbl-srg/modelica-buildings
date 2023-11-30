@@ -31,14 +31,14 @@ model SeriesVariableFlowUpdate
     k=fill(15 + 273.15, nBui))
     "Cold water temperature"
     annotation (Placement(transformation(extent={{-160,150},{-140,170}})));
-  Buildings.Experimental.DHC.Networks.Controls.MainPump conPum(
+  Buildings.Experimental.DHC.Examples.Combined.Controls.MainPump conPum(
     nMix=nBui,
     nSou=2,
     nBui=nBui,
     TMin=279.15,
     TMax=290.15,
     dTSlo=1.5,
-    use_temperatureShift=true)  "Main pump controller"
+    use_temperatureShift=true) "Main pump controller"
     annotation (Placement(transformation(extent={{-280,-70},{-260,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(k=datDes.mPumDis_flow_nominal)
     "Scale with nominal mass flow rate"
@@ -85,20 +85,20 @@ model SeriesVariableFlowUpdate
   Modelica.Blocks.Sources.Constant HXmassFlowGain(k=1)
     "mass flow rate gain for sewage heat exchanger"
     annotation (Placement(transformation(extent={{-280,-36},{-260,-16}})));
-  Controls.OBC.CDL.Continuous.MultiplyByParameter           gai1(k=datDes.mSto_flow_nominal)
+  .Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(k=datDes.mSto_flow_nominal)
     "Scale with nominal mass flow rate"
     annotation (Placement(transformation(extent={{-240,-112},{-220,-92}})));
   parameter Modelica.Units.SI.Length diameter= 0.0381*pip1.m_flow_nominal^0.3764
     "Pipe diameter (without insulation)";
   parameter Integer nSeg=10 "Number of volume segments";
-  Fluid.Sensors.TemperatureTwoPort TDisWatSup1(redeclare final package Medium
-      = Medium, final m_flow_nominal=datDes.mPumDis_flow_nominal)
+  Fluid.Sensors.TemperatureTwoPort TDisWatSup1(redeclare final package Medium =
+        Medium, final m_flow_nominal=datDes.mPumDis_flow_nominal)
     "District water supply temperature"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-60,134})));
-  Fluid.Sensors.TemperatureTwoPort TDisWatRet1(redeclare final package Medium
-      = Medium, final m_flow_nominal=datDes.mPumDis_flow_nominal)
+  Fluid.Sensors.TemperatureTwoPort TDisWatRet1(redeclare final package Medium =
+        Medium, final m_flow_nominal=datDes.mPumDis_flow_nominal)
     "District water return temperature"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -123,7 +123,8 @@ model SeriesVariableFlowUpdate
       k=2.3,
       c=1000,
       d=2600)) annotation (Placement(transformation(extent={{30,92},{52,112}})));
-  Networks.Controls.AgentPump pumPlantControlNsew(
+  Buildings.Experimental.DHC.Examples.Combined.Controls.AgentPump
+    pumPlantControlNsew(
     yPumMin=0,
     dTnom=0.5,
     k=0.5,
@@ -132,7 +133,8 @@ model SeriesVariableFlowUpdate
     uLowHea=0.75,
     uHighHea=1.5,
     h=0.5) annotation (Placement(transformation(extent={{-360,-18},{-340,2}})));
-  Networks.Controls.AgentPump pumPlantControlNsewSto(
+  Buildings.Experimental.DHC.Examples.Combined.Controls.AgentPump
+    pumPlantControlNsewSto(
     yPumMin=0,
     dTnom=0.45,
     k=0.35,

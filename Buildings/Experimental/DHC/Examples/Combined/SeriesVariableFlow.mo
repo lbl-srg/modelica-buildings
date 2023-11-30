@@ -26,7 +26,7 @@ model SeriesVariableFlow
     k=fill(15 + 273.15, nBui))
     "Cold water temperature"
     annotation (Placement(transformation(extent={{-160,150},{-140,170}})));
-  Buildings.Experimental.DHC.Networks.Controls.MainPump conPum(
+  Buildings.Experimental.DHC.Examples.Combined.Controls.MainPump conPum(
     nMix=nBui,
     nSou=2,
     TMin=279.15,

@@ -1,7 +1,7 @@
 within Buildings.Experimental.DHC.Examples.Combined.BaseClasses;
 model AgentPumpExample
     extends Modelica.Icons.Example;
-  Controls.OBC.CDL.Continuous.Sources.Constant con1(k=273.15 + 10)
+  .Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(k=273.15 + 10)
     annotation (Placement(transformation(extent={{-98,2},{-78,22}})));
   Modelica.Blocks.Sources.CombiTimeTable HXtemperature(table=[0,14; 60*86400,12;
         210*86400,8; 365*86400,14],  extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
@@ -21,7 +21,8 @@ model AgentPumpExample
     annotation (Placement(transformation(extent={{-26,-24},{-6,-4}})));
   Modelica.Blocks.Math.Add add2
     annotation (Placement(transformation(extent={{-24,-66},{-4,-46}})));
-  Networks.Controls.AgentPump pumPlantControlN(
+  Buildings.Experimental.DHC.Examples.Combined.Controls.AgentPump
+    pumPlantControlN(
     yPumMin=0,
     dTnom=0.5,
     k=0.1,
