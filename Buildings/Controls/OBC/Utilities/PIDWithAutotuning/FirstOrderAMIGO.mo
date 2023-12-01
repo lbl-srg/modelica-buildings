@@ -129,6 +129,12 @@ block FirstOrderAMIGO
     message="An autotuning is ongoing and an autotuning request is ignored.")
     "Error message when an autotuning tuning is ongoing while a new autotuning request is received"
     annotation (Placement(transformation(extent={{148,-90},{168,-70}})));
+  Buildings.Controls.OBC.CDL.Logical.Edge edgReq
+    "True only when a new request is received"
+    annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay tunStaDel(final delayTime=0.001)
+    "A small time delay for the autotuning start time to avoid false alerts"
+    annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
 
 protected
   final parameter Real yHig(min=1E-6) = 1
@@ -214,7 +220,7 @@ equation
   connect(rel.y, swi.u1) annotation (Line(points={{-18,46},{-16,46},{-16,88},{130,
           88},{130,8},{138,8}},
         color={0,0,127}));
-  connect(swi.u3,con. y) annotation (Line(points={{138,-8},{128,-8},{128,-40},{-18,
+  connect(swi.u3,con. y) annotation (Line(points={{138,-8},{60,-8},{60,-40},{-18,
           -40}}, color={0,0,127}));
   connect(inTunPro.y, swi.u2) annotation (Line(points={{42,-70},{50,-70},{50,0},
           {138,0}}, color={255,0,255}));
@@ -227,10 +233,14 @@ equation
   connect(resPro.trigger, triTun) annotation (Line(points={{-2,34},{-8,34},{-8,-20},
           {8,-20},{8,-88},{60,-88},{60,-120}},color={255,0,255}));
   connect(nand.y, assMes.u) annotation (Line(points={{142,-80},{146,-80}}, color={255,0,255}));
-  connect(nand.u2, triTun) annotation (Line(points={{118,-88},{60,-88},{60,-120}},
-          color={255,0,255}));
-  connect(nand.u1, inTunPro.y) annotation (Line(points={{118,-80},{114,-80},{114,
-          -70},{42,-70}},color={255,0,255}));
+  connect(nand.u2, edgReq.y) annotation (Line(points={{118,-88},{110,-88},{110,-70},
+          {102,-70}}, color={255,0,255}));
+  connect(edgReq.u, triTun) annotation (Line(points={{78,-70},{70,-70},{70,-88},
+          {60,-88},{60,-120}}, color={255,0,255}));
+  connect(tunStaDel.y, nand.u1) annotation (Line(points={{102,-30},{112,-30},{112,
+          -80},{118,-80}}, color={255,0,255}));
+  connect(tunStaDel.u, inTunPro.y) annotation (Line(points={{78,-30},{62,-30},{62,
+          -70},{42,-70}}, color={255,0,255}));
   annotation (Documentation(info="<html>
 <p>
 This block implements a rule-based PID tuning method.
