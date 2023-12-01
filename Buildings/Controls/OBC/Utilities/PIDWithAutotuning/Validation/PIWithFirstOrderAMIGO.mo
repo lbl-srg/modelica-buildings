@@ -1,5 +1,6 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Validation;
-model PIWithFirstOrderAMIGO "Test model for an autotuning reverse-acting PI controller"
+model PIWithFirstOrderAMIGO
+ "Test model for an autotuning reverse-acting PI controller"
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant SetPoint(k=0.8)
     "Setpoint value"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));

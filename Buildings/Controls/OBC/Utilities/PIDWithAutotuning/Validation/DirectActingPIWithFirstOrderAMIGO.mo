@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Validation;
 model DirectActingPIWithFirstOrderAMIGO
-  "Test model for an autotuning reversed PID controller with direct acting"
+  "Test model for an autotuning direct-acting PI controller"
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant SetPoint(k=0.8)
     "Setpoint value"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
@@ -119,13 +119,13 @@ Buildings.Controls.OBC.Utilities.PIDWithAutotuning.FirstOrderAMIGO</a>.
 <p>
 This example is similar as <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Validation.PIWithFirstOrderAMIGO\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Validation.PIWithFirstOrderAMIGO</a>.
-However, PI controllers with direct acting are considered.
+However, direct-acting PI controllers are considered.
 </p>
 </html>",
       revisions="<html>
 <ul>
 <li>
-June 1, 2022, by Sen Huang:<br/>
+December 1, 2023, by Sen Huang:<br/>
 First implementation<br/>
 </li>
 </ul>

@@ -78,7 +78,6 @@ equation
     annotation (Line(points={{22,0},{58,0}},color={255,0,255}));
   connect(swi1.u3, u_s) annotation (Line(points={{-62,-58},{-90,-58},{-90,0},{-120,
           0}}, color={0,0,127}));
-
   connect(trigger, swi1.u2) annotation (Line(points={{-80,-120},{-80,-50},{-62,-50}},
         color={255,0,255}));
   connect(u_m, swi1.u1) annotation (Line(points={{0,-120},{0,-80},{-70,-80},{-70,
@@ -88,20 +87,15 @@ equation
    connect(conErr.u2, u_s) annotation (Line(points={{-62,14},{-90,14},{-90,0},{-120,
           0}}, color={0,0,127}));
   if reverseActing then
-
    connect(greMeaSet.reference, u_s)
-    annotation (Line(points={{-2,6},{-40,6},{-40,0},{-120,0}},  color={0,0,127}));
+    annotation (Line(points={{-2,6},{-40,6},{-40,0},{-120,0}},color={0,0,127}));
    connect(swi1.y, greMeaSet.u) annotation (Line(points={{-38,-50},{-20,-50},{-20,
           -6},{-2,-6}}, color={0,0,127}));
-
   else
-
    connect(greMeaSet.reference, swi1.y)
-    annotation (Line(points={{-2,6},{-40,6},{-40,-50},{-38,-50}},
-                                                                color={0,0,127}));
+    annotation (Line(points={{-2,6},{-40,6},{-40,-50},{-38,-50}},color={0,0,127}));
    connect(u_s, greMeaSet.u) annotation (Line(points={{-120,0},{-20,0},{-20,-6},
-            {-2,-6}},   color={0,0,127}));
-
+            {-2,-6}}, color={0,0,127}));
   end if;
   annotation (defaultComponentName = "relCon",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
@@ -136,8 +130,8 @@ equation
           fillPattern=FillPattern.Solid,
           fillColor={175,175,175},
           textString="Relay"),
-        Line(points={{-70,24},{-34,24},{-34,58},{38,58},{38,24},{66,24}}, color
-            ={28,108,200})}), Diagram(
+        Line(points={{-70,24},{-34,24},{-34,58},{38,58},{38,24},{66,24}}, color=
+             {28,108,200})}), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
 Documentation(info="<html>
 <p>
@@ -175,6 +169,12 @@ Note that this block generates an asymmetric output, meaning <code>yHig &ne; yLo
 \"Automatic Controller Tuning using Relay-based Model Identification.\"
 Department of Automatic Control, Lund Institute of Technology, Lund University.</p>
 </html>", revisions="<html>
+<ul>
+<li>
+December 1, 2023, by Sen Huang:<br/>
+Add a parameter <code>reverseActing</code><br/>
+</li>
+</ul>
 <ul>
 <li>
 June 1, 2022, by Sen Huang:<br/>

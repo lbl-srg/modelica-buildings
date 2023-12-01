@@ -122,14 +122,14 @@ Buildings.Controls.OBC.Utilities.PIDWithAutotuning.FirstOrderAMIGO</a>.
 <p>
 This example is similar as <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Validation.PIDWithFirstOrderAMIGO\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Validation.PIDWithFirstOrderAMIGO</a>.
-However, PID controllers with direct acting are considered.
+However, direct-acting PID controllers are considered.
 </p>
 </html>",
       revisions="<html>
 <ul>
 <li>
-June 1, 2022, by Sen Huang:<br/>
-First implementation<br/>
+December 1, 2023, by Sen Huang:<br/>
+<br>First implementation<br/>
 </li>
 </ul>
 </html>"),

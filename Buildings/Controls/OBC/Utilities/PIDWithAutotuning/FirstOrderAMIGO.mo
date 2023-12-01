@@ -270,7 +270,7 @@ In addition, the output of this block is limited from <i>0</i> to <i>1</i>.
 
 <h4>Brief guidance</h4>
 <p>
-To use this block, place it in an control loop as any other PI controller.
+To use this block, place it in an control loop as any other PID controller.
 Before the PID tuning process starts, this block is equivalent to <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithInputGains\">
 Buildings.Controls.OBC.Utilities.PIDWithInputGains</a>.
 This block starts the PID tuning process when a request for performing autotuning occurs, i.e.,
@@ -282,7 +282,7 @@ Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller</a>).
 The PID tuning process ends automatically
 (see details in <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.TuningMonitor\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.BaseClasses.Relay.TunMonitor</a>),
-at which point this block turns back to a PI controller but with tuned PI parameters.
+at which point this block turns back to a PID controller but with tuned PID parameters.
 </p>
 
 <p>
