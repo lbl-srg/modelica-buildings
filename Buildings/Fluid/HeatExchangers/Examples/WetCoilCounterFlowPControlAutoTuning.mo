@@ -182,6 +182,12 @@ This example is identical to
 Buildings.Fluid.HeatExchangers.Examples.WetCoilCounterFlowMassFlow</a> except that the PI controller
 is replaced by an autotuning PI controller.
 </p>
+<p>
+The autotuning is triggered at <i>400</i>s and stops automatically.
+When it stops, the tuned PI parameters are put into effect to replace the default parameter values.
+For details of the autotuning, refer to <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.FirstOrderAMIGO\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.FirstOrderAMIGO</a>.
+</p>
 </html>",
 revisions="<html>
 <ul>
