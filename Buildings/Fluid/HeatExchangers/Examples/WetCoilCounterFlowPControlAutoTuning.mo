@@ -158,7 +158,7 @@ equation
       points={{-59,64},{-42,64}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(con.y, val.y)    annotation (Line(
+  connect(con.y, val.y) annotation (Line(
       points={{22,100},{40,100},{40,72}},
       color={0,0,127},
       smooth=Smooth.None));
