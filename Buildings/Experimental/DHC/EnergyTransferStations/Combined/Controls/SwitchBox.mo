@@ -1,4 +1,4 @@
-within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Controls;
+﻿within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Controls;
 block SwitchBox "Controller for flow switch box"
   extends Modelica.Blocks.Icons.Block;
   parameter Real trueHoldDuration(

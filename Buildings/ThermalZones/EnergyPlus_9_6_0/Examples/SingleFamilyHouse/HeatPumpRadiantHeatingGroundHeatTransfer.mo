@@ -61,7 +61,7 @@ model HeatPumpRadiantHeatingGroundHeatTransfer
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TSurLivFlo
     "Surface temperature for floor of living room"
     annotation (Placement(transformation(extent={{20,-140},{40,-120}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant TSetRooHea(k(
+  Controls.OBC.CDL.Reals.Sources.Constant TSetRooHea(k(
       final unit="K",
       displayUnit="degC") = 293.15, y(final unit="K", displayUnit="degC"))
     "Room temperture set point for heating"
@@ -104,7 +104,7 @@ model HeatPumpRadiantHeatingGroundHeatTransfer
     Td=600)
     "Controller for radiant heating system"
     annotation (Placement(transformation(extent={{-280,-156},{-260,-136}})));
-  Controls.OBC.CDL.Continuous.PIDWithReset conSup(
+  Controls.OBC.CDL.Reals.PIDWithReset conSup(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=4,
     Ti(displayUnit="min") = 60,
@@ -114,9 +114,9 @@ model HeatPumpRadiantHeatingGroundHeatTransfer
     final reverseActing=true,
     y_reset=0.2) "Controller for heat pump"
     annotation (Placement(transformation(extent={{-160,-150},{-140,-130}})));
-  Controls.OBC.CDL.Continuous.Switch swiHeaPum "Switch for heat pump signal"
+  Controls.OBC.CDL.Reals.Switch swiHeaPum "Switch for heat pump signal"
     annotation (Placement(transformation(extent={{-120,-158},{-100,-138}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant off(
+  Controls.OBC.CDL.Reals.Sources.Constant off(
     final k = 0)
     "Output 0 to switch heater off"
     annotation (Placement(transformation(extent={{-320,-188},{-300,-168}})));
@@ -199,7 +199,7 @@ model HeatPumpRadiantHeatingGroundHeatTransfer
       displayUnit="kWh/m2"))
     "Electricity use per floor area"
     annotation (Placement(transformation(extent={{180,-378},{200,-358}})));
-  Controls.OBC.CDL.Continuous.Divide COP "Coefficient of performance"
+  Controls.OBC.CDL.Reals.Divide COP "Coefficient of performance"
     annotation (Placement(transformation(extent={{220,-360},{240,-340}})));
   Controls.OBC.CDL.Logical.Sources.Pulse ava(
     width=22/24,
@@ -207,7 +207,7 @@ model HeatPumpRadiantHeatingGroundHeatTransfer
     shift=7*3600)
     "Availability schedule to block heat pump operation in early morning (assuming grid is at capacity)"
     annotation (Placement(transformation(extent={{-320,-220},{-300,-200}})));
-  Controls.OBC.CDL.Continuous.Switch swiPum "Switch for circulation pumps"
+  Controls.OBC.CDL.Reals.Switch swiPum "Switch for circulation pumps"
     annotation (Placement(transformation(extent={{-240,-220},{-220,-200}})));
   Controls.OBC.CDL.Logical.And onHeaPum "On/off signal for heat pump"
     annotation (Placement(transformation(extent={{-200,-190},{-180,-170}})));

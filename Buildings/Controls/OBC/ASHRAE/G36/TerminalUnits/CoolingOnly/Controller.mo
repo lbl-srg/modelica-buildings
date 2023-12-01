@@ -106,8 +106,8 @@ block Controller "Controller for cooling only VAV box"
   parameter Real samplePeriod(unit="s")=120
     "Sample period of component, set to the same value as the trim and respond that process static pressure reset"
     annotation (__cdl(ValueInReference=false), Dialog(tab="Time-based suppresion"));
-  parameter Real chaRat=540
-    "Gain factor to calculate suppression time based on the change of the setpoint, second per degC"
+  parameter Real chaRat(final unit="s/K")=540
+    "Gain factor to calculate suppression time based on the change of the setpoint, seconds per Kelvin"
     annotation (__cdl(ValueInReference=true), Dialog(tab="Time-based suppresion"));
   parameter Real maxSupTim(unit="s")=1800
     "Maximum suppression time"
@@ -124,6 +124,14 @@ block Controller "Controller for cooling only VAV box"
     annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
   parameter Real damPosHys(unit="1")=0.005
     "Near zero damper position, below which the damper will be seen as closed"
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
+  parameter Real staTim(
+    final unit="s",
+    final quantity="Time")=1800
+    "Delay triggering alarms after enabling AHU supply fan"
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
+  parameter Real iniDam(unit="1")=0.01
+    "Initial damper position when the damper control is enabled"
     annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
   parameter Real timChe(unit="s")=30
     "Threshold time to check the zone temperature status"
@@ -311,7 +319,8 @@ block Controller "Controller for cooling only VAV box"
     final fanOffTim=fanOffTim,
     final leaFloTim=leaFloTim,
     final floHys=floHys,
-    final damPosHys=damPosHys) "Generate alarms"
+    final damPosHys=damPosHys,
+    final staTim=staTim)       "Generate alarms"
     annotation (Placement(transformation(extent={{120,-220},{140,-200}})));
   Buildings.Controls.OBC.ASHRAE.G36.Generic.TimeSuppression timSup(
     final samplePeriod=samplePeriod,
@@ -388,8 +397,8 @@ equation
           {-138,20},{-22,20}},      color={255,127,0}));
   connect(setPoi.VOccZonMin_flow, actAirSet.VOccMin_flow) annotation (Line(
         points={{-78,114},{-60,114},{-60,14},{-22,14}}, color={0,0,127}));
-  connect(VDis_flow, dam.VDis_flow) annotation (Line(points={{-200,-80},{-138,
-          -80},{-138,-54},{58,-54}}, color={0,0,127}));
+  connect(VDis_flow, dam.VDis_flow) annotation (Line(points={{-200,-80},{-132,
+          -80},{-132,-54},{58,-54}}, color={0,0,127}));
   connect(conLoo.yCoo, dam.uCoo) annotation (Line(points={{-78,186},{-50,186},{
           -50,-31},{58,-31}}, color={0,0,127}));
   connect(actAirSet.VActCooMax_flow, dam.VActCooMax_flow) annotation (Line(
@@ -409,11 +418,12 @@ equation
   connect(conLoo.yCoo, sysReq.uCoo) annotation (Line(points={{-78,186},{-50,186},
           {-50,-148},{118,-148}}, color={0,0,127}));
   connect(VDis_flow, sysReq.VDis_flow) annotation (Line(points={{-200,-80},{
-          -138,-80},{-138,-156},{118,-156}}, color={0,0,127}));
-  connect(VDis_flow, ala.VDis_flow) annotation (Line(points={{-200,-80},{-138,
-          -80},{-138,-202},{118,-202}}, color={0,0,127}));
-  connect(u1Fan, ala.u1Fan) annotation (Line(points={{-200,-240},{100,-240},{100,
-          -214},{118,-214}}, color={255,0,255}));
+          -132,-80},{-132,-156},{118,-156}}, color={0,0,127}));
+  connect(VDis_flow, ala.VDis_flow) annotation (Line(points={{-200,-80},{-132,
+          -80},{-132,-202},{118,-202}}, color={0,0,127}));
+  connect(u1Fan, ala.u1Fan) annotation (Line(points={{-200,-240},{100,-240},{
+          100,-210},{118,-210}},
+                             color={255,0,255}));
   connect(sysReq.yZonTemResReq, yZonTemResReq) annotation (Line(points={{142,-144},
           {160,-144},{160,-80},{220,-80}}, color={255,127,0}));
   connect(sysReq.yZonPreResReq, yZonPreResReq) annotation (Line(points={{142,-156},
@@ -472,6 +482,10 @@ equation
           106,-159},{118,-159}}, color={0,0,127}));
   connect(dam.yDam, ala.uDam) annotation (Line(points={{82,-49},{106,-49},{106,
           -218},{118,-218}}, color={0,0,127}));
+  connect(u1Fan, dam.u1Fan) annotation (Line(points={{-200,-240},{40,-240},{40,-44},
+          {58,-44}}, color={255,0,255}));
+  connect(uOpeMod, ala.uOpeMod) annotation (Line(points={{-200,90},{-138,90},{
+          -138,-214},{118,-214}}, color={255,127,0}));
 annotation (defaultComponentName="cooBoxCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},
             {100,200}}), graphics={

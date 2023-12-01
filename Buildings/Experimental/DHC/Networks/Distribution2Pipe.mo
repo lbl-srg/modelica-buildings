@@ -1,10 +1,11 @@
 within Buildings.Experimental.DHC.Networks;
 model Distribution2Pipe
   "Model of a two-pipe distribution network, using fixed resistance pipe model"
-  extends Buildings.Experimental.DHC.Networks.BaseClasses.PartialDistribution2Pipe(
-    redeclare Connection2Pipe con[nCon](
-      final dpDis_nominal=dpDis_nominal),
-    redeclare model Model_pipDis=Fluid.FixedResistances.LosslessPipe);
+  extends
+    Buildings.Experimental.DHC.Networks.BaseClasses.PartialDistribution2Pipe(
+      redeclare Connections.Connection2Pipe con[nCon](final dpDis_nominal=
+          dpDis_nominal), redeclare model Model_pipDis =
+        Fluid.FixedResistances.LosslessPipe);
   parameter Modelica.Units.SI.PressureDifference dpDis_nominal[nCon]
     "Pressure drop in distribution line (supply only, not counting return line)"
     annotation (Dialog(tab="General", group="Nominal condition"));

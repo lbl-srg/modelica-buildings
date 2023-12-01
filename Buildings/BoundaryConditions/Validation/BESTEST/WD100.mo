@@ -1,4 +1,4 @@
-within Buildings.BoundaryConditions.Validation.BESTEST;
+﻿within Buildings.BoundaryConditions.Validation.BESTEST;
 model WD100
   "Test model for BESTEST weather data: base case"
   extends Modelica.Icons.Example;

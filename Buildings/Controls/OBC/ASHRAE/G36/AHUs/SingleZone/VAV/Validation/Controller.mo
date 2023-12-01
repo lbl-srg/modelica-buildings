@@ -8,7 +8,7 @@ model Controller "Validation of the top-level controller"
     final freSta=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat,
     final have_winSen=true,
     final have_CO2Sen=false,
-    final buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper,
+    final buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefDamper,
     final VAreBreZon_flow=0.015,
     final VPopBreZon_flow=0.0075,
     final kHea=1,
@@ -26,7 +26,7 @@ model Controller "Validation of the top-level controller"
     final relDam_max=0.6) "Validate the cooling case"
     annotation (Placement(transformation(extent={{20,0},{60,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TZon(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TZon(
     final duration=86400,
     final height=6,
     final offset=273.15 + 16)
@@ -36,23 +36,23 @@ model Controller "Validation of the top-level controller"
     final occupancy=3600*{4,20})
     "Occupancy schedule"
     annotation (Placement(transformation(extent={{-140,130},{-120,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOut(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOut(
     final k=273.15 +17)
     "Outdoor air dry bulb temperature"
     annotation (Placement(transformation(extent={{-180,190},{-160,210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooDowTim(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant cooDowTim(
     final k=1800)
     "Cooling down time"
     annotation (Placement(transformation(extent={{-140,170},{-120,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant warUpTim(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant warUpTim(
     final k=1800)
     "Warm-up time"
     annotation (Placement(transformation(extent={{-180,150},{-160,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin cooSetAdj(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin cooSetAdj(
     final freqHz=1/28800)
     "Cooling setpoint adjustment"
     annotation (Placement(transformation(extent={{-150,-30},{-130,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin heaSetAdj(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin heaSetAdj(
     final freqHz=1/28800,
     final amplitude=0.5)
     "Heating setpoint adjustment"
@@ -62,14 +62,14 @@ model Controller "Validation of the top-level controller"
     final shift=1200)
     "Generate signal indicating window status"
     annotation (Placement(transformation(extent={{-180,-10},{-160,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerAdj(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zerAdj(
     final k=0)
     "Zero adjustment"
     annotation (Placement(transformation(extent={{-150,10},{-130,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1
     "Switch to zero adjustment when window is open"
     annotation (Placement(transformation(extent={{-70,-56},{-50,-36}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi2
+  Buildings.Controls.OBC.CDL.Reals.Switch swi2
     "Switch to zero adjustment when window is open"
     annotation (Placement(transformation(extent={{-70,-26},{-50,-6}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse occSta(
@@ -89,47 +89,47 @@ model Controller "Validation of the top-level controller"
   Buildings.Controls.OBC.CDL.Logical.Not not1
     "Logical not"
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp mixTem(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp mixTem(
     final height=-5,
     final offset=273.15 + 8,
     final duration=3600)
     "Mixed air temperature"
     annotation (Placement(transformation(extent={{-140,-150},{-120,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp outDam(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp outDam(
     final height=0.6,
     final offset=0.2,
     final duration=86400)
     "Outdoor damper position"
     annotation (Placement(transformation(extent={{-180,-170},{-160,-150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp cooCoi(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp cooCoi(
     final height=-0.3,
     final offset=0.96,
     final duration=86400,
     startTime=1000) "Cooling coil position"
     annotation (Placement(transformation(extent={{-140,-190},{-120,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaCoi(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant heaCoi(
     final k=0)
     "Heating coil position"
     annotation (Placement(transformation(extent={{-180,-210},{-160,-190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TSup(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TSup(
     final height=2,
     final duration=86400,
     final offset=273.15 + 22.5)
     "Terminal unit discharge air temperature"
     annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaSetOcc(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaSetOcc(
     final k=293.15)
     "Occupied heating setpoint"
     annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCooSetOcc(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TCooSetOcc(
     final k=297.15)
     "Occupied cooling setpoint"
     annotation (Placement(transformation(extent={{-180,70},{-160,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaSetUno(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaSetUno(
     final k=285.15)
     "Unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCooSetUno(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TCooSetUno(
     final k=303.15)
     "Unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-180,30},{-160,50}})));

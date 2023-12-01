@@ -56,7 +56,7 @@ protected
     final realTrue=1)
     "If in occupied mode, output 1"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro
     "Active cooling minimum, minimum airflow setpoint"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
   Buildings.Controls.OBC.CDL.Integers.Equal ifOcc

@@ -5,7 +5,7 @@ model Controller_Disable
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Controller
     eco(
     final minOADes=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper,
-    final buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper,
+    final buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefDamper,
     final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1,
     final ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb,
     final ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_1A,
@@ -16,7 +16,7 @@ model Controller_Disable
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Controller
     eco1(
     final minOADes=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper,
-    final buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper,
+    final buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefDamper,
     final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1,
     final ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb,
     final ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_1A,
@@ -62,22 +62,22 @@ protected
     final k=Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.occupied)
     "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hOutBelowCutoff(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant hOutBelowCutoff(
     final k=hOutCutoff - 40000) "Outdoor air enthalpy is below the cutoff"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutBelowCutoff(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOutBelowCutoff(
     final k=TOutCutoff - 30) "Outdoor air temperature is below the cutoff"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VOutMinSet_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant VOutMinSet_flow(
     final k=minVOutSet_flow)
     "Outdoor airflow rate setpoint, example assumes 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp VOut_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp VOut_flow(
     final height=incVOutSet_flow,
     final offset=VOutMin_flow,
     final duration=1800) "Measured outdoor air volumetric airflow"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp uTSup(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp uTSup(
     final duration=1800,
     final height=2,
     final offset=-1)

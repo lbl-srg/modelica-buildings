@@ -1,4 +1,4 @@
-within Buildings.Fluid.Geothermal.BuriedPipes.Examples;
+﻿within Buildings.Fluid.Geothermal.BuriedPipes.Examples;
 model TwoPipesConduit
   "Example model of a buried conduit housing a supply and return pipe"
   extends Modelica.Icons.Example;

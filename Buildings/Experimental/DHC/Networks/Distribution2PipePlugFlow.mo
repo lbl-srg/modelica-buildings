@@ -3,11 +3,11 @@ model Distribution2PipePlugFlow
   "Model of a two-pipe distribution network, using plug flow pipe models in the main line"
   extends
     Buildings.Experimental.DHC.Networks.BaseClasses.PartialDistribution2Pipe(
-    redeclare Connection2PipePlugFlow con[nCon](
+      redeclare Connections.Connection2PipePlugFlow con[nCon](
       final length=length,
       final dIns=dIns,
-      final kIns=kIns),
-    redeclare model Model_pipDis=Fluid.FixedResistances.LosslessPipe);
+      final kIns=kIns), redeclare model Model_pipDis =
+        Fluid.FixedResistances.LosslessPipe);
   parameter Modelica.Units.SI.Length length[nCon]
     "Pipe length"
     annotation (Dialog(group="Pipe"));

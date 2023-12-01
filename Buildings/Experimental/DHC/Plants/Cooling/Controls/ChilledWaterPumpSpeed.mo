@@ -1,6 +1,6 @@
 within Buildings.Experimental.DHC.Plants.Cooling.Controls;
 model ChilledWaterPumpSpeed
-  "Controller for up to two headered variable speed chilled water pumps"
+  "Controller for two headered variable speed chilled water pumps"
   extends Modelica.Blocks.Icons.Block;
   parameter Modelica.Units.SI.PressureDifference dpSetPoi(displayUnit="Pa")
     "Pressure difference setpoint";
@@ -66,7 +66,7 @@ model ChilledWaterPumpSpeed
     final deaBanSpe=deaBanSpe)
     "Chilled water pump staging control"
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conPID(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset conPID(
     final controllerType=controllerType,
     final Ti=Ti,
     final k=k,
@@ -80,7 +80,7 @@ model ChilledWaterPumpSpeed
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Modelica.Blocks.Math.RealToBoolean twoPum(threshold=1.5) "Two pumps are on"
     annotation (Placement(transformation(extent={{10,-60},{-10,-40}})));
-  Modelica.Blocks.Math.Sum totPum(nin=2) "Total number of pumps on"
+  Modelica.Blocks.Math.Sum totPum(final nin=numPum) "Total number of pumps on"
     annotation (Placement(transformation(extent={{42,-60},{22,-40}})));
   Modelica.Blocks.Interfaces.BooleanInput on
     "On signal of the plant"
@@ -161,6 +161,20 @@ equation
       revisions="<html>
 <ul>
 <li>
+August 9, 2023, by Hongxiang Fu:<br/>
+Restricted this block to a two-pump configuration as intended.
+<ul>
+<li>
+Set <code>final totPum.nin = numPum</code>.
+</li>
+<li>
+Corrected the \"up to two pumps\" language in documentation.
+</li>
+</ul>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3470\">#3470</a>.
+</li>
+<li>
 December 30, 2022, by Kathryn Hinkelman:<br/>
 Added an <code>on</code> input for a plant-level override to turn pumps off.
 </li>
@@ -193,7 +207,7 @@ reference point from the demand side. The output <code>y</code> is a vector
 of pump speeds.
 </p>
 <p>
-The model currently only supports the control of up to two variable speed pumps.
+The model currently only supports the control of two variable speed pumps.
 </p>
 </html>"));
 end ChilledWaterPumpSpeed;

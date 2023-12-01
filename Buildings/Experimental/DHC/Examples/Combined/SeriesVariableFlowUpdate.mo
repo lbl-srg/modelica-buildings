@@ -23,11 +23,11 @@ model SeriesVariableFlowUpdate
     k=datDes.mPla_flow_nominal)
     "District water flow rate to plant"
     annotation (Placement(transformation(extent={{-250,10},{-230,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THotWatSupSet[nBui](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THotWatSupSet[nBui](
     k=fill(63 + 273.15, nBui))
     "Hot water supply temperature set point"
     annotation (Placement(transformation(extent={{-190,170},{-170,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TColWat[nBui](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TColWat[nBui](
     k=fill(15 + 273.15, nBui))
     "Cold water temperature"
     annotation (Placement(transformation(extent={{-160,150},{-140,170}})));
@@ -40,7 +40,7 @@ model SeriesVariableFlowUpdate
     dTSlo=1.5,
     use_temperatureShift=true) "Main pump controller"
     annotation (Placement(transformation(extent={{-280,-70},{-260,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(k=datDes.mPumDis_flow_nominal)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(k=datDes.mPumDis_flow_nominal)
     "Scale with nominal mass flow rate"
     annotation (Placement(transformation(extent={{-240,-70},{-220,-50}})));
   Modelica.Blocks.Sources.CombiTimeTable HXmassflow(table=[0,1; 25000,0.25;
@@ -85,7 +85,7 @@ model SeriesVariableFlowUpdate
   Modelica.Blocks.Sources.Constant HXmassFlowGain(k=1)
     "mass flow rate gain for sewage heat exchanger"
     annotation (Placement(transformation(extent={{-280,-36},{-260,-16}})));
-  .Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(k=datDes.mSto_flow_nominal)
+  .Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(k=datDes.mSto_flow_nominal)
     "Scale with nominal mass flow rate"
     annotation (Placement(transformation(extent={{-240,-112},{-220,-92}})));
   parameter Modelica.Units.SI.Length diameter= 0.0381*pip1.m_flow_nominal^0.3764

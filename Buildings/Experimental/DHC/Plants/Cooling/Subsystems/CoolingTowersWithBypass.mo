@@ -110,11 +110,11 @@ model CoolingTowersWithBypass
     final T_start=Medium.T_default)
     "Temperature sensor"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetByp(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetByp(
     final k=TMin)
     "Bypass loop temperature setpoint"
     annotation (Placement(transformation(extent={{-90,-60},{-70,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset bypValCon(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset bypValCon(
     u_s(
       final unit="K",
       displayUnit="degC"),
@@ -127,7 +127,7 @@ model CoolingTowersWithBypass
     final y_reset=0)
     "Bypass valve controller"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID cooTowSpeCon(
+  Buildings.Controls.OBC.CDL.Reals.PID cooTowSpeCon(
     u_s(
       final unit="K",
       displayUnit="degC"),
@@ -140,15 +140,15 @@ model CoolingTowersWithBypass
     final Ti=Ti)
     "Cooling tower fan speed controller"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Output the input of higher value"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
     uLow=TMin-0.1,
     uHigh=TMin+0.1)
     "Compare if (TWetBul+dTApp) is greater than TMin"
     annotation (Placement(transformation(extent={{-70,40},{-50,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(
     p=dTApp)
     "Add approach temperature on top of wetbulb temperature"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));

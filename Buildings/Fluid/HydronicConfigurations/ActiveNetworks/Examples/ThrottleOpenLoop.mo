@@ -54,7 +54,7 @@ model ThrottleOpenLoop
     final TLiqEnt_nominal=TLiqEnt_nominal,
     final TLiqLvg_nominal=TLiqLvg_nominal,
     k=10) "Load" annotation (Placement(transformation(extent={{0,50},{20,70}})));
-  .Buildings.Controls.OBC.CDL.Continuous.Sources.Constant fraLoa(k=1)
+  .Buildings.Controls.OBC.CDL.Reals.Sources.Constant fraLoa(k=1)
     "Load modulating signal"
     annotation (Placement(transformation(extent={{-100,110},{-80,130}})));
   Throttle con1(
@@ -91,19 +91,19 @@ model ThrottleOpenLoop
     redeclare final package Medium = MediumLiq)
     "Differential pressure"
     annotation (Placement(transformation(extent={{60,-30},{80,-50}})));
-  .Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable ope(
+  .Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable ope(
     table=[0,1,1; 1,0,1; 2,1,0; 3,0,0],
     extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint,
     timeScale=100) "Valve opening signal"
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID conPID(
+  Buildings.Controls.OBC.CDL.Reals.PID conPID(
     k=1,
     Ti=1,
     r=1e4,
     xi_start=1)
     "Pump controller"
     annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpSetVal(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dpSetVal(
     final k=dp1Set)
     "Pressure differential set point"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));

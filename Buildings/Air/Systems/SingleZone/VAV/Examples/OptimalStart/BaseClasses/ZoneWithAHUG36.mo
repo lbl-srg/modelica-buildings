@@ -55,7 +55,7 @@ block ZoneWithAHUG36
     freSta=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat,
     have_winSen=false,
     have_CO2Sen=false,
-    buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.BarometricRelief,
+    buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.BarometricRelief,
     have_locAdj=false,
     TSupDew_max=297.15,
     maxHeaSpe=0.2,
@@ -71,9 +71,9 @@ block ZoneWithAHUG36
     TSup_max=343.15,
     TSup_min=286.15,
     uLow=0,
-    uHigh=0.5)
-    "VAV controller"
+    uHigh=0.5) "VAV controller"
     annotation (Placement(transformation(extent={{-80,-90},{-40,-10}})));
+
   Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloor sinZonFlo(
     redeclare package Medium = MediumA)
     "Single zone floor"
@@ -87,7 +87,7 @@ block ZoneWithAHUG36
     QCoo_flow_nominal=QCoo_flow_nominal,
     TSupChi_nominal=TSupChi_nominal) "HVAC system"
     annotation (Placement(transformation(extent={{40,-78},{80,-38}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysChiPla1(uLow=-1, uHigh=0)
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysChiPla1(uLow=-1, uHigh=0)
     "Hysteresis with delay to switch on cooling"
     annotation (Placement(transformation(extent={{-50,-130},{-30,-110}})));
   Modelica.Blocks.Math.Feedback errTRooCoo1
@@ -101,23 +101,23 @@ block ZoneWithAHUG36
     final k=0)
     "Cooling and heating demand imit level"
     annotation (Placement(transformation(extent={{-140,-120},{-120,-100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOccHeaSet(final k=293.15)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOccHeaSet(final k=293.15)
     "Occupied heating setpoint"
     annotation (Placement(transformation(extent={{-140,130},{-120,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOccCooSet(final k=297.15)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOccCooSet(final k=297.15)
     "Occupied cooling setpoint"
     annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TUnoHeaSet(final k=288.15)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TUnoHeaSet(final k=288.15)
     "Unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TUnoCooSet(final k=303.15)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TUnoCooSet(final k=303.15)
     "Unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-140,30},{-120,50}})));
   Modelica.Blocks.Sources.BooleanConstant freRes(k=true)
     "Freeze protection reset"
     annotation (Placement(transformation(extent={{-140,-154},{-120,-134}})));
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetSupChiConst(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetSupChiConst(
     final k=TSupChi_nominal)
     "Set point for chiller temperature"
     annotation (Placement(transformation(extent={{-20,10},{0,30}})));

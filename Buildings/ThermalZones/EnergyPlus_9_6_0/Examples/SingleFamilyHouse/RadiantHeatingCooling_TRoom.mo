@@ -57,7 +57,7 @@ model RadiantHeatingCooling_TRoom
     nPorts=1)
     "Pressure boundary condition"
     annotation (Placement(transformation(extent={{70,-190},{50,-170}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant TSetRooHea(
+  Controls.OBC.CDL.Reals.Sources.Constant TSetRooHea(
     k(final unit="K",
       displayUnit="degC")=293.15,
     y(final unit="K",
@@ -115,7 +115,7 @@ model RadiantHeatingCooling_TRoom
     nPorts=1)
     "Mass flow source for cooling water at prescribed temperature"
     annotation (Placement(transformation(extent={{-38,80},{-18,100}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant TSetRooCoo(
+  Controls.OBC.CDL.Reals.Sources.Constant TSetRooCoo(
     k(final unit="K",
       displayUnit="degC")=299.15,
     y(final unit="K",

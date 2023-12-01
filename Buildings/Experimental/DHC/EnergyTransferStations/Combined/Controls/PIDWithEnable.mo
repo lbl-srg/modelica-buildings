@@ -26,6 +26,8 @@ block PIDWithEnable
     "Set to true for reverse acting, or false for direct acting control action";
   parameter Real y_reset=yMin
     "Value to which the controller output is reset if the boolean trigger has a rising edge";
+  parameter Real y_neutral=y_reset
+    "Value to which the controller output is reset when the controller is disabled";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u_s
     "Connector of setpoint input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),iconTransformation(extent={{-140,-20},{-100,20}})));
@@ -38,7 +40,7 @@ block PIDWithEnable
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEna
     "Enable signal"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=90,origin={-60,-120}),iconTransformation(extent={{-20,-20},{20,20}},rotation=90,origin={-40,-120})));
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conPID(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset conPID(
     final k=k,
     final Ti=Ti,
     final Td=Td,
@@ -49,12 +51,12 @@ block PIDWithEnable
     final reverseActing=reverseActing,
     final y_reset=y_reset)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1
     annotation (Placement(transformation(extent={{72,-10},{92,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant valDis(
-    final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant valDis(
+    final k=y_neutral)
     "Value when disabled"
     annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
 equation
@@ -90,15 +92,15 @@ equation
       info="<html>
 <p>
 This is an update of
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.PIDWithReset\">
-Buildings.Controls.OBC.CDL.Continuous.PIDWithReset</a>
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Reals.PIDWithReset\">
+Buildings.Controls.OBC.CDL.Reals.PIDWithReset</a>
 with an additional Boolean input representing an enable signal.
 </p>
 <ul>
 <li>
 When enabled, the controller output is identical to
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.PIDWithReset\">
-Buildings.Controls.OBC.CDL.Continuous.PIDWithReset</a>
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Reals.PIDWithReset\">
+Buildings.Controls.OBC.CDL.Reals.PIDWithReset</a>
 (and the controller integral term is reset to <code>yMin</code> at
 enabling time).
 </li>

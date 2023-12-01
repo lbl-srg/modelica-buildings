@@ -1,4 +1,4 @@
-within Buildings.Fluid.HydronicConfigurations;
+﻿within Buildings.Fluid.HydronicConfigurations;
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
 

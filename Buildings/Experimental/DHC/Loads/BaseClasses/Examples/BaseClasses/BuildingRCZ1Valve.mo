@@ -136,19 +136,19 @@ model BuildingRCZ1Valve
     k=20*14)
     "Outdoor coefficient of heat transfer for windows"
     annotation (Placement(transformation(extent={{4,-4},{-4,4}},rotation=90,origin={6,116})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minTSet(
     k=293.15,
     y(final unit="K",
       displayUnit="degC"))
     "Minimum temperature set point"
     annotation (Placement(transformation(extent={{-280,250},{-260,270}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxTSet(
     k=297.15,
     y(final unit="K",
       displayUnit="degC"))
     "Maximum temperature set point"
     annotation (Placement(transformation(extent={{-280,210},{-260,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum mulSum(
     nin=2)
     annotation (Placement(transformation(extent={{240,70},{260,90}})));
   Buildings.Experimental.DHC.Loads.BaseClasses.Examples.BaseClasses.FanCoil4Pipe terUni(
@@ -187,13 +187,13 @@ model BuildingRCZ1Valve
     nPorts_b1=1)
     "Chilled water distribution system"
     annotation (Placement(transformation(extent={{-100,-270},{-80,-250}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetSecHea(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetSecHea(
     k=308.15,
     y(final unit="K",
       displayUnit="degC"))
     "Heating water secondary supply temperature set point"
     annotation (Placement(transformation(extent={{-260,-190},{-240,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetSecChi(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetSecChi(
     k=289.15,
     y(final unit="K",
       displayUnit="degC"))

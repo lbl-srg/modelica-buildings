@@ -1,4 +1,4 @@
-within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems;
+﻿within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems;
 model HeatPump "Base subsystem with water-to-water heat pump"
   replaceable package Medium1=Modelica.Media.Interfaces.PartialMedium
     "Medium model on condenser side"
@@ -150,13 +150,13 @@ model HeatPump "Base subsystem with water-to-water heat pump"
     dp_nominal=dp1_nominal)                     if have_pumCon
     "Heat pump condenser water pump"
     annotation (Placement(transformation(extent={{-70,-60},{-50,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant floConNom(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant floConNom(
     final k=m1_flow_nominal) if not have_varFloCon
     "Nominal flow rate"
     annotation (Placement(transformation(extent={{-100,80},{-120,100}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     annotation (Placement(transformation(extent={{-180,110},{-160,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant floEvaNom(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant floEvaNom(
     final k=m2_flow_nominal) if not have_varFloEva
     "Nominal flow rate"
     annotation (Placement(transformation(extent={{0,80},{-20,100}})));
@@ -179,16 +179,16 @@ model HeatPump "Base subsystem with water-to-water heat pump"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-40,-20})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch enaHeaPum(
+  Buildings.Controls.OBC.CDL.Reals.Switch enaHeaPum(
     u2(start=false))
     "Enable heat pump by switching to actual set point"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2 "Adder"
+  Buildings.Controls.OBC.CDL.Reals.Add add2 "Adder"
     annotation (Placement(transformation(extent={{140,-10},{160,10}})));
   Modelica.Blocks.Sources.Constant zer(final k=0) if not have_pumCon
     "Replacement variable"
     annotation (Placement(transformation(extent={{80,-110},{100,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold staPum[2](
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold staPum[2](
     y(each start=false),
     t=1e-2 .* {m1_flow_nominal,m2_flow_nominal},
     h=0.5e-2 .* {m1_flow_nominal, m2_flow_nominal})
@@ -200,10 +200,10 @@ model HeatPump "Base subsystem with water-to-water heat pump"
   Modelica.Blocks.Sources.Constant one(final k=1) if not have_pumCon
     "Replacement variable"
     annotation (Placement(transformation(extent={{60,-110},{40,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply floCon if have_pumCon
+  Buildings.Controls.OBC.CDL.Reals.Multiply floCon if have_pumCon
     "Zero flow rate if not enabled"
     annotation (Placement(transformation(extent={{-120,110},{-100,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply floEva
+  Buildings.Controls.OBC.CDL.Reals.Multiply floEva
     "Zero flow rate if not enabled"
     annotation (Placement(transformation(extent={{-20,110},{0,130}})));
 protected

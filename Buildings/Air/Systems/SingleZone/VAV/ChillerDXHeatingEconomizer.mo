@@ -132,7 +132,7 @@ model ChillerDXHeatingEconomizer
     final use_inputFilter=false,
     redeclare package Medium = MediumA)
     "Supply fan"
-    annotation (Placement(transformation(extent={{-30,32},{-10,52}})));
+    annotation (Placement(transformation(extent={{-30,30},{-10,50}})));
   Buildings.Fluid.FixedResistances.PressureDrop totalRes(
     final m_flow_nominal=mAir_flow_nominal,
     final dp_nominal=dp_nominal,
@@ -370,9 +370,9 @@ protected
   end IdealValve;
 
 equation
-  connect(fanSup.port_b, totalRes.port_a)    annotation (Line(points={{-10,42},
-          {0,42},{0,40},{10,40}},                                                         color={0,127,255}));
-  connect(fanSup.P, PFan) annotation (Line(points={{-9,51},{-6,51},{-6,150},{
+  connect(fanSup.port_b, totalRes.port_a)    annotation (Line(points={{-10,40},
+          {10,40}},                                                                       color={0,127,255}));
+  connect(fanSup.P, PFan) annotation (Line(points={{-9,49},{-6,49},{-6,150},{
           210,150}},         color={0,0,127}));
   connect(eff.y, QHea_flow) annotation (Line(points={{141,110},{166,110},{166,
           130},{210,130}},
@@ -385,7 +385,7 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(senTMixAir.port_b, fanSup.port_a)   annotation (Line(points={{-40,40},
-          {-36,40},{-36,42},{-30,42}},                                                              color={0,127,255}));
+          {-30,40}},                                                                                color={0,127,255}));
   connect(heaCoi.Q_flow, eff.u) annotation (Line(points={{73,46},{80,46},{80,
           110},{118,110}},                        color={0,0,127}));
   connect(heaCoi.port_b, cooCoi.port_a2)    annotation (Line(points={{72,40},{90,40}}, color={0,127,255}));
@@ -410,7 +410,7 @@ equation
       extent={{-6,3},{-6,3}}));
   connect(pumChiWat.P, PPum) annotation (Line(points={{111,-79},{111,-52},{180,
           -52},{180,90},{210,90}}, color={0,0,127}));
-  connect(chi.P, PCoo) annotation (Line(points={{89,-177},{84,-177},{84,-128},{
+  connect(chi.P, PCoo) annotation (Line(points={{89,-177},{80,-177},{80,-128},{
           98,-128},{98,-50},{178,-50},{178,110},{210,110}},
         color={0,0,127}));
   connect(ideVal.port_2, chi.port_a2)    annotation (Line(points={{86,0.2},{86,-162},{90,-162}},
@@ -425,7 +425,7 @@ equation
   connect(senTSup.port_b, supplyAir) annotation (Line(points={{148,40},{174,40},
           {174,60},{202,60}}, color={0,127,255}));
   connect(gaiFan.y, fanSup.m_flow_in)    annotation (Line(points={{-59,140},{
-          -20,140},{-20,54}},                                                                    color={0,0,127}));
+          -20,140},{-20,52}},                                                                    color={0,0,127}));
   connect(booToInt.y, pumChiWat.m_flow_in)   annotation (Line(points={{81,-90},{108,-90}}, color={0,0,127}));
   connect(booToInt.u, chiOn) annotation (Line(points={{58,-90},{40,-90},{40,-120},
           {-220,-120}}, color={255,0,255}));
@@ -455,10 +455,10 @@ equation
   connect(TRet, senTRetAir.T) annotation (Line(points={{210,-80},{174,-80},{174,
           -20},{-30,-20},{-30,-29}},     color={0,0,127}));
   connect(senTRetAir.port_a, senTraSub.port_b)    annotation (Line(points={{-20,-40},{20,-40}}, color={0,127,255}));
-  connect(senTraSub.port_a, returnAir)   annotation (Line(points={{40,-40},{120,-40},{120,-20},{202,-20}},
-                                                  color={0,127,255}));
+  connect(senTraSub.port_a, returnAir)   annotation (Line(points={{40,-40},{192,
+          -40},{192,-20},{202,-20}},              color={0,127,255}));
 
-  connect(fanSup.y_actual, y_actual) annotation (Line(points={{-9,49},{0,49},{0,
+  connect(fanSup.y_actual, y_actual) annotation (Line(points={{-9,47},{0,47},{0,
           172},{210,172}}, color={0,0,127}));
   annotation (defaultComponentName="chiDXHeaEco",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-220},

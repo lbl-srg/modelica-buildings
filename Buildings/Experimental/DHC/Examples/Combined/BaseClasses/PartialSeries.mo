@@ -54,7 +54,7 @@ partial model PartialSeries "Partial model for series network"
       extent={{10,10},{-10,-10}},
       rotation=180,
       origin={-180,-80})));
-  Buildings.Experimental.DHC.Networks.Combined.BaseClasses.ConnectionSeriesStandard
+  Buildings.Experimental.DHC.Networks.Connections.Connection1PipeStandard
     conPla(
     redeclare final package Medium = Medium,
     final mDis_flow_nominal=datDes.mPipDis_flow_nominal,
@@ -69,7 +69,7 @@ partial model PartialSeries "Partial model for series network"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-80,-10})));
-  Buildings.Experimental.DHC.Networks.Combined.BaseClasses.ConnectionSeriesStandard
+  Buildings.Experimental.DHC.Networks.Connections.Connection1PipeStandard
     conSto(
     redeclare final package Medium = Medium,
     final mDis_flow_nominal=datDes.mPipDis_flow_nominal,
@@ -93,8 +93,7 @@ partial model PartialSeries "Partial model for series network"
     final dpDis_nominal=datDes.dpPla_nominal,
     final epsHex=datDes.epsPla) "Sewage heat recovery plant"
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
-  Buildings.Experimental.DHC.Networks.Combined.UnidirectionalSeries
-    dis(
+  Buildings.Experimental.DHC.Networks.Distribution1PipeAutoSize dis(
     redeclare final package Medium = Medium,
     final nCon=nBui,
     show_TOut=true,
@@ -143,19 +142,19 @@ partial model PartialSeries "Partial model for series network"
   Modelica.Blocks.Sources.Constant TSewWat(k=273.15 + 17)
     "Sewage water temperature"
     annotation (Placement(transformation(extent={{-280,30},{-260,50}})));
- Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSupMaxSet[nBui](
+ Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupMaxSet[nBui](
     k=bui.THeaWatSup_nominal)
     "Heating water supply temperature set point - Maximum value"
     annotation (Placement(transformation(extent={{-250,210},{-230,230}})));
- Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatSupSet[nBui](
+ Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatSupSet[nBui](
     k=bui.TChiWatSup_nominal)
     "Chilled water supply temperature set point"
     annotation (Placement(transformation(extent={{-220,190},{-200,210}})));
- Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSupMinSet[nBui](
+ Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupMinSet[nBui](
     each k=28 + 273.15)
     "Heating water supply temperature set point - Minimum value"
     annotation (Placement(transformation(extent={{-280,230},{-260,250}})));
- Buildings.Controls.OBC.CDL.Continuous.MultiSum PPumETS(
+ Buildings.Controls.OBC.CDL.Reals.MultiSum PPumETS(
     final nin=nBui)
     "ETS pump power"
     annotation (Placement(transformation(extent={{140,190},{160,210}})));
@@ -174,10 +173,10 @@ partial model PartialSeries "Partial model for series network"
   Modelica.Blocks.Continuous.Integrator EPumPla(initType=Modelica.Blocks.Types.Init.InitialState)
     "Plant pump electric energy"
     annotation (Placement(transformation(extent={{220,30},{240,50}})));
- Buildings.Controls.OBC.CDL.Continuous.MultiSum EPum(nin=4)
+ Buildings.Controls.OBC.CDL.Reals.MultiSum EPum(nin=4)
     "Total pump electric energy"
     annotation (Placement(transformation(extent={{280,110},{300,130}})));
- Buildings.Controls.OBC.CDL.Continuous.MultiSum PHeaPump(
+ Buildings.Controls.OBC.CDL.Reals.MultiSum PHeaPump(
     final nin=nBui)
     "Heat pump power"
     annotation (Placement(transformation(extent={{140,150},{160,170}})));
@@ -185,7 +184,7 @@ partial model PartialSeries "Partial model for series network"
     initType=Modelica.Blocks.Types.Init.InitialState)
     "Heat pump electric energy"
     annotation (Placement(transformation(extent={{220,150},{240,170}})));
- Buildings.Controls.OBC.CDL.Continuous.MultiSum ETot(nin=2) "Total electric energy"
+ Buildings.Controls.OBC.CDL.Reals.MultiSum ETot(nin=2) "Total electric energy"
     annotation (Placement(transformation(extent={{320,150},{340,170}})));
   Buildings.Experimental.DHC.Loads.BaseClasses.ConstraintViolation conVio(
     final uMin(final unit="K", displayUnit="degC")=datDes.TLooMin,

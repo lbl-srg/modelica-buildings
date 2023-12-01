@@ -20,19 +20,19 @@ protected
     final quantity = "SpecificEnergy")=65100
     "Outdoor air enthalpy high limit cutoff";
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutBelowCutoff(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOutBelowCutoff(
     final k=TOutCutoff - 2)
     "Outdoor air temperature cutoff"
     annotation (Placement(transformation(extent={{-40,140},{-20,160}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutCut(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOutCut(
     final k=TOutCutoff)
     "Outdoor temperature high limit cutoff"
     annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hOutBelowCutoff(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant hOutBelowCutoff(
     final k=hOutCutoff - 1000)
     "Outdoor air enthalpy is slightly below the cutoff"
     annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hOutCut(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant hOutCut(
     final k=hOutCutoff) "Outdoor air enthalpy cutoff"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta(
@@ -51,11 +51,11 @@ protected
     final k=Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates.deadband)
     "Zone state is deadband"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPosMax(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant outDamPosMax(
     final k=0.9)
     "Maximal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-60,-120},{-40,-100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPosMin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant outDamPosMin(
     final k=0.1)
     "Minimal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-60,-160},{-40,-140}})));
