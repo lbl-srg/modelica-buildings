@@ -49,7 +49,7 @@ model CycleVariable
     "Nominal pressure drop of the condenser"
     annotation(Dialog(group="Condenser"));
 
-  Modelica.Units.SI.MassFlowRate mWor_flow
+  Modelica.Units.SI.MassFlowRate mWor_flow( start = m1_flow_nominal)
     "Mass flow rate of the working fluid";
 
   Modelica.Blocks.Sources.RealExpression expTConWor(y=TConWor)

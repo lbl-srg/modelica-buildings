@@ -49,7 +49,7 @@ model CycleVariable
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
   Modelica.Blocks.Sources.RealExpression expTEvaIn(y=500)
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Modelica.Blocks.Sources.RealExpression expTEvaIn1(y=290)
+  Modelica.Blocks.Sources.RealExpression expTConIn(y=290)
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
   Modelica.Blocks.Sources.RealExpression expTEvaWor(y=450)
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
@@ -64,7 +64,7 @@ equation
           -30},{-16,-6},{-10,-6}}, color={0,127,255}));
   connect(expTEvaIn.y, souEva.T_in) annotation (Line(points={{-59,30},{-50,30},{
           -50,34},{-42,34}}, color={0,0,127}));
-  connect(expTEvaIn1.y, souCon.T_in) annotation (Line(points={{61,-50},{66,-50},
+  connect(expTConIn.y, souCon.T_in) annotation (Line(points={{61,-50},{66,-50},
           {66,-26},{42,-26}}, color={0,0,127}));
   connect(expTEvaWor.y, ORC.TEvaWor) annotation (Line(points={{-59,10},{-40,10},
           {-40,2},{-11,2}}, color={0,0,127}));
