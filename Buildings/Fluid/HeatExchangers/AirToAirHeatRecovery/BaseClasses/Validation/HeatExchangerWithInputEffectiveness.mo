@@ -21,7 +21,7 @@ model HeatExchangerWithInputEffectiveness
     nPorts=1)
     "Exhaust air source"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
-    Modelica.Blocks.Sources.Ramp TSup(
+  Modelica.Blocks.Sources.Ramp TSup(
     height=10,
     duration=60,
     offset=273.15 + 30,
@@ -76,27 +76,20 @@ equation
   connect(TSup.y, sou_1.T_in)
     annotation (Line(points={{-69,64},{-50,64}}, color={0,0,127}));
   connect(sou_1.ports[1], hex.port_a1)
-    annotation (Line(
-    points={{-28,60},{-2,60},{-2,12},{6,12}},
-    color={0,127,255}));
+    annotation (Line(points={{-28,60},{-2,60},{-2,12},{6,12}}, color={0,127,255}));
   connect(hex.port_a2, sou_2.ports[1])
-    annotation (Line(
-    points={{26,5.55112e-16},{32,5.55112e-16},{32,-20},{70,-20},{70,-60},{60,
-    -60}},color={0,127,255}));
+    annotation (Line(points={{26,5.55112e-16},{32,5.55112e-16},{32,-20},{70,-20},
+        {70,-60},{60,-60}},color={0,127,255}));
   connect(hex.port_b1, sin_1.ports[1])
-    annotation (Line(
-    points={{26,12},{45,12},{45,12},{64,12}},
-    color={0,127,255}));
+    annotation (Line(points={{26,12},{45,12},{45,12},{64,12}}, color={0,127,255}));
   connect(hex.port_b2, sin_2.ports[1])
-    annotation (Line(
-    points={{6,0},{-26,0},{-26,-20},{-34,-20}},
-    color={0,127,255}));
+    annotation (Line(points={{6,0},{-26,0},{-26,-20},{-34,-20}}, color={0,127,255}));
   connect(epsSen.y, hex.epsSen)
-    annotation (Line(points={{-69,20},{-4,20},{-4,10},{4,
-    10}}, color={0,0,127}));
-  connect(hex.epsLat, epsLat.y) annotation (Line(points={{4,2},{-62,2},{-62,-40},{-69,
-    -40}}, color={0,0,127}));
- annotation(experiment(Tolerance=1e-6, StopTime=360),
+    annotation (Line(points={{-69,20},{-4,20},{-4,10},{4,10}}, color={0,0,127}));
+  connect(hex.epsLat, epsLat.y)
+    annotation (Line(points={{4,2},{-62,2},{-62,-40},{-69,-40}}, color={0,0,127}));
+
+annotation(experiment(Tolerance=1e-6, StopTime=360),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/AirToAirHeatRecovery/BaseClasses/Validation/HeatExchangerWithInputEffectiveness.mos"
         "Simulate and plot"),
 Documentation(info="<html>
@@ -110,19 +103,16 @@ The input signals are configured as follows:
 </p>
 <ul>
 <li>
-Temperature of the supply air, <i>TSup</i>, changes from <i>273.15 + 30 K</i> to <i>273.15 + 40 K</i>
- during the period from <i>120s</i> to <i>180s</i>;
+The supply air temperature <i>TSup</i> changes from <i>273.15 + 30 K</i> to
+<i>273.15 + 40 K</i> during the period from 120 seconds to 180 seconds.
 </li>
-</ul>
-<ul>
-<li>Sensible heat exchanger effectiveness, <i>epsSen</i>, changes from <i>0.7</i> to <i>0.8</i>
-during the period from <i>120s</i> to <i>180s</i>;
-</li>
-</ul>
-<ul>
 <li>
-Latent heat exchanger effectiveness, <i>epsLat</i>, changes from <i>0.7</i> to <i>0.8</i>
-during the period from <i>60s</i> to <i>120s</i>.
+The sensible heat exchanger effectiveness <i>epsSen</i> changes from <i>0.7</i>
+to <i>0.8</i> during the period from 120 seconds to 180 seconds.
+</li>
+<li>
+The latent heat exchanger effectiveness <i>epsLat</i> changes from <i>0.7</i>
+to <i>0.8</i> during the period from 60 seconds to 120 seconds.
 </li>
 </ul>
 <p>
@@ -130,14 +120,12 @@ The expected outputs are:
 </p>
 <ul>
 <li>
-The humidity of the supply air and that of the exhaust air leaving the exchanger changes 
-during the period from <i>60s</i> to <i>120s</i>;
+During the period from 60 seconds to 120 seconds, the leaving supply air humidity
+decreases while the leaving exhaust air humidity increases.
 </li>
-</ul>
-<ul>
 <li>
-The temperature of the supply air and that of the exhaust air leaving the exchanger changes 
-during the period from <i>120s</i> to <i>180s</i>.
+During the period from 120 seconds to 180 seconds, the leaving supply air temperature
+increases while the leaving exhaust air temperature decreases.
 </li>
 </ul>
 </html>", revisions="<html>

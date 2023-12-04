@@ -20,9 +20,8 @@ model WheelWithBypassDamper
     T(displayUnit="K") = 293.15,
     nPorts=1)
     "Exhaust air source"
-    annotation (Placement(transformation(extent={{40,-70},
-    {60,-50}})));
-    Modelica.Blocks.Sources.Ramp TSup(
+    annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
+  Modelica.Blocks.Sources.Ramp TSup(
     height=10,
     duration=60,
     offset=273.15 + 30,
@@ -36,8 +35,7 @@ model WheelWithBypassDamper
     p(displayUnit="Pa") = 101325 - 100,
     nPorts=1)
     "Supply air sink"
-    annotation (Placement(transformation(extent={{84,2},{
-    64,22}})));
+    annotation (Placement(transformation(extent={{84,2},{64,22}})));
   Buildings.Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = Medium1,
     T=273.15 + 50,
@@ -46,8 +44,7 @@ model WheelWithBypassDamper
     p(displayUnit="Pa") = 101325,
     nPorts=1)
     "Supply air source"
-    annotation (Placement(transformation(extent={{-60,40},
-    {-40,60}})));
+    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.WheelWithBypassDamper whe(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
@@ -61,7 +58,7 @@ model WheelWithBypassDamper
     epsLatHeaPL=0.6)
     "Wheel"
     annotation (Placement(transformation(extent={{6,-4},{26,16}})));
-    Modelica.Blocks.Sources.Ramp bypDamPos(
+  Modelica.Blocks.Sources.Ramp bypDamPos(
     height=0.2,
     duration=160,
     offset=0,
@@ -70,28 +67,23 @@ model WheelWithBypassDamper
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 equation
   connect(TSup.y, sou_1.T_in)
-    annotation (Line(points={{-73,54},{-62,54}},
-    color={0,0,127}));
+    annotation (Line(points={{-73,54},{-62,54}}, color={0,0,127}));
   connect(sou_1.ports[1],whe.port_a1)
-    annotation (Line(
-    points={{-40,50},{0,50},{0,12},{6,12}},
-    color={0,127,255}));
+    annotation (Line(points={{-40,50},{0,50},{0,12},{6,12}}, color={0,127,255}));
   connect(whe.port_a2, sou_2.ports[1])
-    annotation (Line(
-    points={{26,0},{32,0},{32,-20},{70,-20},{70,-60},{60,-60}},
-    color={0,127,255}));
+    annotation (Line(points={{26,0},{32,0},{32,-20},{70,-20},{70,-60},{60,-60}},
+        color={0,127,255}));
   connect(whe.port_b1, sin_1.ports[1])
-    annotation (Line(
-    points={{26,12},{45,12},{45,12},{64,12}},
-    color={0,127,255}));
+    annotation (Line(points={{26,12},{45,12},{45,12},{64,12}},
+        color={0,127,255}));
   connect(whe.port_b2, sin_2.ports[1])
-    annotation (Line(
-    points={{6,0},{-18,0},{-18,6.66134e-16},{-38,6.66134e-16}},
-    color={0,127,255}));
+    annotation (Line(points={{6,0},{-18,0},{-18,6.66134e-16},{-38,6.66134e-16}},
+        color={0,127,255}));
   connect(bypDamPos.y, whe.bypDamPos)
-    annotation (Line(points={{-59,-30},{-28,-30},
-    {-28,6},{4,6}}, color={0,0,127}));
- annotation(experiment(Tolerance=1e-6, StopTime=360),
+    annotation (Line(points={{-59,-30},{-28,-30},{-28,6},{4,6}},
+        color={0,0,127}));
+
+annotation(experiment(Tolerance=1e-6, StopTime=360),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/AirToAirHeatRecovery/Examples/WheelWithBypassDamper.mos"
         "Simulate and plot"),
     Documentation(info="<html>
@@ -105,18 +97,14 @@ The input signals are configured as follows:
 </p>
 <ul>
 <li>
-The temperature of the supply air, <i>TSup</i>, changes from <i>273.15 + 30 K</i> to <i>273.15 + 40 K</i> 
-during the period from <i>60s</i> to <i>120s</i>.
-On the other hand, the temperature of the exhaust air is constant;
+The supply air temperature <i>TSup</i> changes from <i>273.15 + 30 K</i> to
+<i>273.15 + 40 K</i> during the period from 60 seconds to 120 seconds.
+The exhaust air temperature keeps constant.
 </li>
-</ul>
-<ul>
 <li>
-The bypass damper position, <i>bypDamPos</i>, changes from <i>0</i> to <i>0.2</i> 
-during the period from <i>200s</i> to <i>360s</i>;
+The bypass damper position <i>bypDamPos</i> changes from <i>0</i> to <i>0.2</i> 
+during the period from 200 seconds to 360 seconds.
 </li>
-</ul>
-<ul>
 <li>
 The supply air flow rate and the exhaust air flow rate are constant.
 </li>
@@ -126,17 +114,15 @@ The expected outputs are:
 </p>
 <ul>
 <li>
-The sensible effectiveness, <code>epsSen</code>, and the latent effectiveness, 
-<code>epsLat</code>, keep relatively constant before <i>200s</i>.
-After <i>200s</i>, both <code>epsSen</code> and <code>epsLat</code> decrease; 
+The sensible effectiveness <code>epsSen</code> and the latent effectiveness 
+<code>epsLat</code> keep constant in the first 200 seconds.
+After the 200s</i>, both <code>epsSen</code> and <code>epsLat</code> decrease.
 </li>
-</ul>
-<ul>
 <li>
-The temperature of the supply air and that of the exhaust air leaving the exchanger 
-follows the change of <i>TSup</i> before <i>200s</i>.
-After <i>200s</i>, the temperature of the supply air leaving the exchanger increases.
-The temperature of the exhaust air leaving the exchanger decreases.
+The temperatures of the leaving supply air and the leaving the exhaust air 
+follows the change of <i>TSup</i> before 200 seconds.
+After the 200 seconds, the leaving supply air temperature increases and the
+leaving exhaust air temperature decreases.
 </li>
 </ul>
 </html>", revisions="<html>

@@ -50,20 +50,17 @@ model Effectiveness
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 equation
   connect(VSup.y, epsCal.VSup_flow)
-    annotation (Line(points={{-59,70},{-28,70},{
-    -28,8},{-14,8}}, color={0,0,127}));
+    annotation (Line(points={{-59,70},{-28,70},{-28,8},{-14,8}}, color={0,0,127}));
   connect(VExh.y, epsCal.VExh_flow)
-    annotation (Line(points={{-59,30},{-40,30},{
-    -40,4},{-14,4}}, color={0,0,127}));
+    annotation (Line(points={{-59,30},{-40,30},{-40,4},{-14,4}}, color={0,0,127}));
   connect(whSpe.y, epsCal.wheSpe)
     annotation (Line(points={{-59,0},{-14,0}}, color={0,0,127}));
   connect(TSup.y, epsCal.TSup)
-    annotation (Line(points={{-59,-40},{-40,-40},{-40,
-    -4},{-14,-4}}, color={0,0,127}));
+    annotation (Line(points={{-59,-40},{-40,-40},{-40,-4},{-14,-4}}, color={0,0,127}));
   connect(TExh.y, epsCal.TExh)
-    annotation (Line(points={{-59,-80},{-28,-80},{-28,
-    -8},{-14,-8}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+    annotation (Line(points={{-59,-80},{-28,-80},{-28,-8},{-14,-8}}, color={0,0,127}));
+
+annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(Tolerance=1e-6, StopTime=120),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/AirToAirHeatRecovery/BaseClasses/Validation/Effectiveness.mos"
@@ -78,24 +75,20 @@ Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.Effectiveness</a
 The input signals are configured as follows:
 </p>
 <ul>
-<li>The temperature of the supply air, <i>TSup</i>, is larger than the temperature 
-of the exhaust air, <i>TExh</i>, before <i>20s</i>;
-After that, <i>TSup</i> is less than <i>TExh</i>, leading to a heating mode;
-</li>
-</ul>
-<ul>
 <li>
-The supply air flow rate, <i>VSup</i>, and the exhaust air flow rate, <i>VExh</i>, change from 
-0.6 to 1 and 0.8 to 1 
-during the period from <i>0s</i> to <i>60s</i>, respectively.
-They then stay constant;
+In the first 20 seconds, the supply air temperature <i>TSup</i> is greater than
+the exhaust air temperature <i>TExh</i>. After that,
+<i>TSup</i> is less than <i>TExh</i>, leading to a heating mode.
 </li>
-</ul>
-<ul>
+<li>
+In the first 60 seconds, the supply air flow rate, <i>VSup</i>, and the
+exhaust air flow rate, <i>VExh</i>, change from 
+0.6 to 1 and 0.8 to 1 respectively. The flow rates then stay constant.
+</li>
 <li> 
-The wheel speed ratio, <i>wheSpe</i>, keeps constant during the period from 
-<i>0s</i> to <i>60s</i> and then increases from 0.3 to 1
-during the period from <i>60s</i> to <i>120s</i>.
+In the first 60 seonds, the wheel speed ratio, <i>wheSpe</i>, keeps constant.
+It then increases from 0.3 to 1 during the period from 60 seconds to 120
+seconds.
 </li> 
 </ul>
 <p>
@@ -103,13 +96,14 @@ The expected outputs are:
 </p>
 <ul>
 <li>
-The sensible effectiveness, <code>epsSen</code>, increases during the whole simulation period. The latent effectiveness, 
-<code>epsLat</code>, decreases from <i>0s</i> to <i>20s</i> and then increases during the rest of the time;
+The sensible effectiveness <code>epsSen</code> increases in the whole
+simulation period. The latent effectiveness <code>epsLat</code> decreases
+in the first 20 seconds. It then increases in the rest of the time.
 </li>
-</ul>
-<ul>
-<li>There are dramatic changes in the effectiveness, <code>epsSen</code> and <code>epsLat</code>, at around <i>20s</i> due to switching
-from the cooling mode to the heating mode.
+<li>
+At 20 seonds, both the effectiveness, <code>epsSen</code> and <code>epsLat</code>,
+change significantly as the exchanger changes from the cooling mode to the
+heating mode.
 </li>
 </ul>
 </html>", revisions="<html>

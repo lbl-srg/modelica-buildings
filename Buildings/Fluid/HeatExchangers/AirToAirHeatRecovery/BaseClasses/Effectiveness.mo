@@ -18,7 +18,8 @@ model Effectiveness
     "Part load (75%) sensible heat exchanger effectiveness at the heating mode";
   parameter Modelica.Units.SI.Efficiency epsLatHeaPL(final max=1) = 0.75
     "Part load (75%) latent heat exchanger effectiveness at the heating mode";
-  parameter Modelica.Units.SI.VolumeFlowRate VSup_flow_nominal(final min = 100*Modelica.Constants.eps)
+  parameter Modelica.Units.SI.VolumeFlowRate VSup_flow_nominal(
+    final min = 100*Modelica.Constants.eps)
     "Nominal supply air flow rate";
 
   Modelica.Blocks.Interfaces.RealInput TSup(
@@ -97,11 +98,11 @@ equation
 Documentation(info="<html>
 <p>
 This block calculates the sensible and latent effectiveness of the heat exchanger
-for heating and cooling conditions at different flow rates of the supply
+under heating and cooling modes at different flow rates of the supply
 air and the exhaust air.
 </p>
 <p>
-It first calculates the average volumetric flow rate through the heat exchanger by:
+It firstly calculates the average volumetric flow rate through the heat exchanger by:
 </p>
 <pre>
   rat = (VSup_flow + VExh_flow)/(2*VSup_flow_nominal),
@@ -130,7 +131,7 @@ for the latent heat transfer when <code>vRat</code> is 1 and 0.75, respectively.
 <code>epsSen_nominal</code>, <code>epsSenPL</code>, <code>epsLat_nominal</code>, and 
 <code>epsLatPL</code> are parameters.
 Depending on the cooling or heating mode, their values are different.
-In this model, if the supply air temperature is larger than the exhaust air 
+If the supply air temperature is greater than the exhaust air 
 temperature, the exchanger is considered to operate under
 the cooling mode;
 Otherwise, it operates under the heating mode.
