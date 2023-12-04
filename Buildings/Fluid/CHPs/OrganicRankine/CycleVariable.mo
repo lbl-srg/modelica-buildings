@@ -55,7 +55,7 @@ model CycleVariable
   Modelica.Blocks.Sources.RealExpression expTConWor(y=TConWor)
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   Modelica.Blocks.Sources.RealExpression expQEva_flow(y=
-    if err then 0 else QEva_flow_internal)
+    if err then 0 else -QEva_flow_internal)
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Modelica.Blocks.Sources.RealExpression expQCon_flow(y=
     if err then 0 else QCon_flow_internal)
