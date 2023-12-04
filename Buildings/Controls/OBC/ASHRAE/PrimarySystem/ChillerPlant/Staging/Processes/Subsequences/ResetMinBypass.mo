@@ -40,7 +40,7 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
     final uLow=relFloDif - 0.01,
     final uHigh=relFloDif + 0.01)
-    "Check if chiller water flow rate is different from its setpoint"
+    "Check if chiller water flow rate is greater than the minimum flow setpoint"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
   Buildings.Controls.OBC.CDL.Logical.And and1 "Logical and"
     annotation (Placement(transformation(extent={{120,70},{140,90}})));
@@ -119,17 +119,11 @@ equation
     annotation (Line(points={{-180,-20},{-140,-20},{-140,-14},{-122,-14}}, color={0,0,127}));
   connect(floDif.y, abs.u)
     annotation (Line(points={{-98,-20},{-82,-20}}, color={0,0,127}));
-  connect(abs.y, div.u1)
-    annotation (Line(points={{-58,-20},{-40,-20},{-40,-40},{-110,-40},{-110,-54},
-          {-102,-54}}, color={0,0,127}));
   connect(hys.y, not2.u)
     annotation (Line(points={{-38,-60},{-22,-60}}, color={255,0,255}));
   connect(and2.y, and3.u1)
     annotation (Line(points={{-58,80},{-10,80},{-10,-20},{-2,-20}},
       color={255,0,255}));
-  connect(not2.y, and3.u2)
-    annotation (Line(points={{2,-60},{10,-60},{10,-40},{-10,-40},{-10,-28},
-      {-2,-28}}, color={255,0,255}));
   connect(VMinChiWat_setpoint, floDif.u2) annotation (Line(points={{-180,-80},{-150,
           -80},{-150,-26},{-122,-26}}, color={0,0,127}));
   connect(and1.y, and4.u1) annotation (Line(points={{142,80},{150,80},{150,20},{
@@ -138,6 +132,10 @@ equation
     annotation (Line(points={{62,-28},{118,-28}}, color={255,0,255}));
   connect(and4.y, yMinBypRes)
     annotation (Line(points={{142,-20},{180,-20}}, color={255,0,255}));
+  connect(floDif.y, div.u1) annotation (Line(points={{-98,-20},{-90,-20},{-90,
+          -40},{-110,-40},{-110,-54},{-102,-54}}, color={0,0,127}));
+  connect(hys.y, and3.u2) annotation (Line(points={{-38,-60},{-30,-60},{-30,-28},
+          {-2,-28}}, color={255,0,255}));
 annotation (
   defaultComponentName="minBypRes",
   Icon(graphics={

@@ -99,7 +99,7 @@ block Up "Sequence for control devices when there is stage-up command"
     final unit=fill("A", nChi))
     if need_reduceChillerDemand
     "Current chiller load"
-    annotation (Placement(transformation(extent={{-280,100},{-240,140}}),
+    annotation (Placement(transformation(extent={{-280,90},{-240,130}}),
       iconTransformation(extent={{-140,100},{-100,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]
     "Chiller status: true=ON"
@@ -218,7 +218,11 @@ block Up "Sequence for control devices when there is stage-up command"
       iconTransformation(extent={{100,-160},{140,-120}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChi[nChi]
     "Chiller enabling status"
-    annotation (Placement(transformation(extent={{240,-290},{280,-250}}),
+    annotation (Placement(transformation(extent={{240,-260},{280,-220}}),
+      iconTransformation(extent={{100,-190},{140,-150}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yEndStaTri
+    "Staging end trigger"
+    annotation (Placement(transformation(extent={{240,-320},{280,-280}}),
       iconTransformation(extent={{100,-210},{140,-170}})));
 
 protected
@@ -361,7 +365,7 @@ equation
     annotation (Line(points={{-118,150},{-100,150},{-100,129},{-82,129}},
       color={255,0,255}));
   connect(chiDemRed.uChiLoa, uChiLoa)
-    annotation (Line(points={{-82,125},{-180,125},{-180,120},{-260,120}},
+    annotation (Line(points={{-82,125},{-180,125},{-180,110},{-260,110}},
       color={0,0,127}));
   connect(chiDemRed.uChi, uChi)
     annotation (Line(points={{-82,111},{-220,111},{-220,80},{-260,80}},
@@ -438,7 +442,7 @@ equation
   connect(conWatPumCon.yLeaPum, yLeaPum)
     annotation (Line(points={{82,-51},{120,-51},{120,-30},{260,-30}}, color={255,0,255}));
   connect(endUp.yChi, yChi)
-    annotation (Line(points={{42,-261},{220,-261},{220,-270},{260,-270}},
+    annotation (Line(points={{42,-261},{220,-261},{220,-240},{260,-240}},
       color={255,0,255}));
   connect(endUp.yChiWatIsoVal, swi.u1)
     annotation (Line(points={{42,-265},{184,-265},{184,-182},{198,-182}},
@@ -577,8 +581,6 @@ equation
           {60,-300},{-160,-300},{-160,-166},{118,-166}}, color={255,0,255}));
   connect(uStaSet, nexChi.uStaSet) annotation (Line(points={{-260,200},{-104,200},
           {-104,177},{-82,177}}, color={255,127,0}));
-  connect(lat.y, nexChi.chaPro) annotation (Line(points={{-118,150},{-100,150},{
-          -100,163},{-82,163}}, color={255,0,255}));
   connect(nexChi.uChiSet, uChiSet)
     annotation (Line(points={{-82,170},{-260,170}}, color={255,0,255}));
   connect(uStaSet, cha.u) annotation (Line(points={{-260,200},{-220,200},{-220,150},
@@ -625,6 +627,11 @@ equation
           {40,-36},{40,-58},{58,-58}}, color={255,0,255}));
   connect(uEnaPlaConIso, enaHeaCon.uEnaPla) annotation (Line(points={{-260,-160},
           {-52,-160},{-52,-132},{58,-132}}, color={255,0,255}));
+  connect(endUp.endStaTri, yEndStaTri) annotation (Line(points={{42,-279},{60,-279},
+          {60,-300},{260,-300}}, color={255,0,255}));
+  connect(endUp.endStaTri, nexChi.endPro) annotation (Line(points={{42,-279},{
+          60,-279},{60,-300},{-160,-300},{-160,163},{-82,163}}, color={255,0,
+          255}));
 annotation (
   defaultComponentName="upProCon",
   Diagram(coordinateSystem(preserveAspectRatio=false,
@@ -734,7 +741,7 @@ This is to avoid the initial edge.")}),
           textColor={255,0,255},
           textString="yChiHeaCon"),
         Text(
-          extent={{76,-182},{100,-194}},
+          extent={{76,-162},{100,-174}},
           textColor={255,0,255},
           textString="yChi"),
         Text(
@@ -787,7 +794,15 @@ This is to avoid the initial edge.")}),
         Text(
           extent={{-96,16},{-24,2}},
           textColor={255,0,255},
-          textString="uEnaPlaConPum")}),
+          textString="uEnaPlaConPum"),
+        Text(
+          extent={{50,-182},{98,-196}},
+          textColor={255,0,255},
+          textString="yEndStaTri"),
+        Text(
+          extent={{-100,146},{-60,134}},
+          textColor={255,0,255},
+          textString="endPro")}),
 Documentation(info="<html>
 <p>
 Block that controls devices when there is a stage-up command. This sequence is for

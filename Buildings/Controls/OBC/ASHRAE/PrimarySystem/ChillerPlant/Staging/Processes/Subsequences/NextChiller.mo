@@ -11,8 +11,8 @@ block NextChiller "Identify next enable and disable chillers"
     "Vector of chillers status setpoint"
     annotation (Placement(transformation(extent={{-260,-40},{-220,0}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput chaPro
-    "True: in the stage change process"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput endPro
+    "True: the staging process is end"
     annotation (Placement(transformation(extent={{-260,-180},{-220,-140}}),
       iconTransformation(extent={{-140,-90},{-100,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yNexEnaChi
@@ -48,9 +48,6 @@ block NextChiller "Identify next enable and disable chillers"
   Buildings.Controls.OBC.CDL.Logical.Latch enaChi[nChi]
     "True when the chiller should be enabled"
     annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
-  Buildings.Controls.OBC.CDL.Logical.FallingEdge endPro
-    "True: chiller stage change is end"
-    annotation (Placement(transformation(extent={{-200,-170},{-180,-150}})));
   Buildings.Controls.OBC.CDL.Logical.Latch disChi[nChi]
     "True when the chiller should be disabled"
     annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
@@ -130,16 +127,10 @@ protected
 equation
   connect(uChiSet, edg.u) annotation (Line(points={{-240,-20},{-210,-20},{-210,40},
           {-202,40}},       color={255,0,255}));
-  connect(uChiSet, falEdg.u) annotation (Line(points={{-240,-20},{-210,-20},{-210,
-          -100},{-202,-100}}, color={255,0,255}));
-  connect(chaPro, endPro.u)
-    annotation (Line(points={{-240,-160},{-202,-160}}, color={255,0,255}));
   connect(edg.y, enaChi.u)
     annotation (Line(points={{-178,40},{-122,40}},   color={255,0,255}));
   connect(falEdg.y, disChi.u)
     annotation (Line(points={{-178,-100},{-122,-100}}, color={255,0,255}));
-  connect(endPro.y, booRep.u)
-    annotation (Line(points={{-178,-160},{-162,-160}}, color={255,0,255}));
   connect(booRep.y, enaChi.clr) annotation (Line(points={{-138,-160},{-130,-160},
           {-130,34},{-122,34}},   color={255,0,255}));
   connect(booRep.y, disChi.clr) annotation (Line(points={{-138,-160},{-130,-160},
@@ -176,10 +167,6 @@ equation
           160},{-122,160}}, color={255,0,255}));
   connect(cha.down, dowPro.u) annotation (Line(points={{-178,124},{-140,124},{-140,
           90},{-122,90}}, color={255,0,255}));
-  connect(endPro.y, upPro.clr) annotation (Line(points={{-178,-160},{-170,-160},
-          {-170,154},{-122,154}}, color={255,0,255}));
-  connect(endPro.y, dowPro.clr) annotation (Line(points={{-178,-160},{-170,-160},
-          {-170,84},{-122,84}}, color={255,0,255}));
   connect(enaDis.y, booToInt2.u) annotation (Line(points={{2,-20},{20,-20},{20,-60},
           {38,-60}}, color={255,0,255}));
   connect(upPro.y, booToInt3.u)
@@ -218,7 +205,14 @@ equation
           -166},{178,-166}}, color={255,127,0}));
   connect(proInt7.y, yEnaSmaChi)
     annotation (Line(points={{202,-160},{240,-160}}, color={255,127,0}));
-
+  connect(endPro, dowPro.clr) annotation (Line(points={{-240,-160},{-170,-160},{
+          -170,84},{-122,84}}, color={255,0,255}));
+  connect(endPro, upPro.clr) annotation (Line(points={{-240,-160},{-170,-160},{-170,
+          154},{-122,154}}, color={255,0,255}));
+  connect(endPro, booRep.u)
+    annotation (Line(points={{-240,-160},{-162,-160}}, color={255,0,255}));
+  connect(uChiSet, falEdg.u) annotation (Line(points={{-240,-20},{-210,-20},{
+          -210,-100},{-202,-100}}, color={255,0,255}));
 annotation (
   defaultComponentName="nexChi",
   Diagram(coordinateSystem(preserveAspectRatio=false,
@@ -252,7 +246,7 @@ annotation (
           extent={{-98,-62},{-64,-74}},
           textColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="chaPro"),
+          textString="endPro"),
         Text(
           extent={{50,52},{98,32}},
           textColor={255,127,0},

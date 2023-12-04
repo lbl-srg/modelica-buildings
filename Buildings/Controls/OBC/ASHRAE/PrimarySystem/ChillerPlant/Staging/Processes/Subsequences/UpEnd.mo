@@ -389,8 +389,8 @@ equation
   connect(edg1.y, endStaTri)
     annotation (Line(points={{182,-230},{220,-230}}, color={255,0,255}));
   connect(edg1.y, lat1.clr)
-    annotation (Line(points={{182,-230},{190,-230},{190,-210},{-50,-210},{-50,140},
-          {-70,140},{-70,164},{-62,164}},       color={255,0,255}));
+    annotation (Line(points={{182,-230},{190,-230},{190,-250},{-50,-250},{-50,
+          140},{-70,140},{-70,164},{-62,164}},  color={255,0,255}));
   connect(disChiIsoVal.yEnaChiWatIsoVal, lat2.u)
     annotation (Line(points={{82,-4},{100,-4},{100,-20},{118,-20}},
       color={255,0,255}));

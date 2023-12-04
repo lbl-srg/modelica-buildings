@@ -44,7 +44,14 @@ model RP1711 "Chiller plant model with RP1711 controller"
     final desConWatPumNum={0,2,2},
     final towCelOnSet={0,2,2},
     final nTowCel=2,
+    TiHeaPreCon=100,
+    final minFloSet={0.1*mChi_flow_nominal/1000,0.1*mChi_flow_nominal/1000},
+    final maxFloSet={0.75*mChi_flow_nominal/1000,0.75*mChi_flow_nominal/1000},
+    TiMinFloBypCon=100,
+    VChiWat_flow_nominal=mChi_flow_nominal/1000,
+    TiChiWatPum=100,
     final dpChiWatPumMax={160000},
+    TiSupCon=100,
     final speChe=speChe)           "Chiller plant controller"
     annotation (Placement(transformation(extent={{-260,0},{-220,160}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold chiWatIso[2](final t=
