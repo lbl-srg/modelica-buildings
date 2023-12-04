@@ -116,7 +116,7 @@ The expected outputs are:
 <li>
 The sensible effectiveness <code>epsSen</code> and the latent effectiveness 
 <code>epsLat</code> keep constant in the first 200 seconds.
-After the 200s</i>, both <code>epsSen</code> and <code>epsLat</code> decrease.
+After the 200s, both <code>epsSen</code> and <code>epsLat</code> decrease.
 </li>
 <li>
 The temperatures of the leaving supply air and the leaving the exhaust air 
