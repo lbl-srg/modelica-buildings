@@ -1,2 +1,2 @@
-BypassDamper
-ModulateWheel
+WheelWithBypassDamper
+WheelWithVariableSpeed

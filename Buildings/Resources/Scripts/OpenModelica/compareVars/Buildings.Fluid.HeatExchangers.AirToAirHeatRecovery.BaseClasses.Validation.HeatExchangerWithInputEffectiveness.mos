@@ -2,8 +2,8 @@ compareVars :=
   {
     "hex.sta_a1.T",
     "hex.sta_b2.T",
-    "epsS.y",
-    "epsL.y",
+    "epsSen.y",
+    "epsLat.y",
     "hex.sta_b2.X[1]",
     "hex.sta_b1.X[1]"
   };

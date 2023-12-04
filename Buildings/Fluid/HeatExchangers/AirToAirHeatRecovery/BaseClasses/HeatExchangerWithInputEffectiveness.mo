@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses;
-model HeatExchagerWithInputEffectiveness
+model HeatExchangerWithInputEffectiveness
   "Heat and moisture exchanger with varying effectiveness"
   extends Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectiveness(
   redeclare replaceable package Medium1 =
@@ -10,15 +10,15 @@ model HeatExchagerWithInputEffectiveness
   sensibleOnly2=false,
   final prescribedHeatFlowRate1=true,
   final prescribedHeatFlowRate2=true,
-  Q1_flow = epsS * QMax_flow + QLat_flow,
+  Q1_flow = epsSen * QMax_flow + QLat_flow,
   Q2_flow = -Q1_flow,
   mWat1_flow = +mWat_flow,
   mWat2_flow = -mWat_flow);
 
-  Modelica.Blocks.Interfaces.RealInput epsS(unit="1")
+  Modelica.Blocks.Interfaces.RealInput epsSen(unit="1")
     "Sensible heat exchanger effectiveness"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-  Modelica.Blocks.Interfaces.RealInput epsL(unit="1")
+  Modelica.Blocks.Interfaces.RealInput epsLat(unit="1")
     "Latent heat exchanger effectiveness"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
   Modelica.Units.SI.HeatFlowRate QLat_flow
@@ -81,7 +81,7 @@ equation
 
   mMax_flow = smooth(1, min(smooth(1, gai1 * abs(m1_flow)),
                             smooth(1, gai2 * abs(m2_flow)))) * (X_w_in2 - X_w_in1);
-  mWat_flow = epsL * mMax_flow;
+  mWat_flow = epsLat * mMax_flow;
   // As enthalpyOfCondensingGas is dominated by the latent heat of phase change,
   // we simplify and use Medium1.enthalpyOfVaporization for the
   // latent heat that is exchanged among the fluid streams.
@@ -113,19 +113,20 @@ Documentation(info="<html>
 This block is identical to
 <a href=\"modelica://Buildings.Fluid.MassExchangers.ConstantEffectiveness\">
 Buildings.Fluid.MassExchangers.ConstantEffectivenesst</a>,
-except that the effectiveness are inputs rather than parameters.
+except that the sensible and latent effectiveness are inputs rather than parameters.
 </p>
 <p>
 This model transfers heat and moisture in the amount of
 </p>
 <pre>
-  QSen = epsS * Q_max,
-  m    = epsL * mWat_max,
+  QSen = epsSen * Q_max,
+  m    = epsLat * mWat_max,
 </pre>
 <p>
-where <code>epsS</code> and <code>epsL</code> are input effectiveness
-for the sensible and latent heat transfer,
-<code>Q_max</code> is the maximum sensible heat that can be transferred and
+where <code>epsSen</code> and <code>epsLat</code> are input effectiveness
+for the sensible and latent heat transfer, respectively;
+<code>Q_max</code> is the maximum sensible heat that can be transferred,
+<code>m</code> is the moisture that is transferred, and
 <code>mWat_max</code> is the maximum moisture that can be transferred.
 </p>
 <p>
@@ -138,7 +139,7 @@ revisions="<html>
 <ul>
 <li>
 September 29, 2023, by Sen Huang:<br/>
-Changing the effectiveness from parameters to inputs.
+Change the effectiveness parameters into inputs.
 </li>
 <li>
 April 30, 2018, by Filip Jorissen:<br/>
@@ -182,4 +183,4 @@ Buildings.Fluid.HeatExchangers.ConstantEffectiveness</a>.
 </li>
 </ul>
 </html>"));
-end HeatExchagerWithInputEffectiveness;
+end HeatExchangerWithInputEffectiveness;
