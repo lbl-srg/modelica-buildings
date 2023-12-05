@@ -126,8 +126,7 @@ model DXDehumidifier "DX dehumidifier"
 
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter watRemRat(
     final k=VWat_flow_nominal)
-    "Calculate water removal rate by multiplying water removal modifier by nominal
-    removal rate"
+    "Calculate water removal rate by multiplying water removal modifier by nominal removal rate"
     annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
 
   Buildings.Controls.OBC.CDL.Reals.Divide PDeh
@@ -279,15 +278,15 @@ annotation (Icon(coordinateSystem(extent={{-100,-100},{100,100}}),  graphics={
 defaultComponentName="dxDeh",
 Documentation(info="<html>
 <p>
-This is a zone air DX dehumidifier model based on the first principles and other 
-calculations as defined in the EnergyPlus model <code>ZoneHVAC:Dehumidifier:DX</code>. 
-While the EnergyPlus implementation adds the heat rejected by the condensor coil to the 
-zone air heat balance, this model assumes that this rejected heat is added to the 
+This is a zone air DX dehumidifier model based on the first principles and other
+calculations as defined in the EnergyPlus model <code>ZoneHVAC:Dehumidifier:DX</code>.
+While the EnergyPlus implementation adds the heat rejected by the condensor coil to the
+zone air heat balance, this model assumes that this rejected heat is added to the
 outlet air stream.
 </p>
 <p>
-Two performance curves <code>watRemMod</code> and <code>eneFacMod</code> are specified to 
-characterize the change in water removal and energy consumption at non-rated inlet 
+Two performance curves <code>watRemMod</code> and <code>eneFacMod</code> are specified to
+characterize the change in water removal and energy consumption at non-rated inlet
 air conditions.
 </p>
 <p>
@@ -302,7 +301,7 @@ The amount of heat added to the air stream <code>QHea</code> is equal to
 <i>Q̇<sub>hea</sub> = ṁ<sub>wat_flow</sub> * h<sub>fg</sub> + P<sub>deh</sub></i>
 </p>
 <p>
-Please note that the enthalpy of the exchanged moisture has been considered 
+Please note that the enthalpy of the exchanged moisture has been considered
 and therefore the added heat flow to the connector equals to P<sub>deh</sub>.
 </p>
 <p align=\"center\">
@@ -325,8 +324,8 @@ the air entering the dehumidifier.
 + a<sub>5</sub> phi<sub>in</sub> <sup>2</sup> + a<sub>6</sub> T<sub>in</sub> phi<sub>in</sub></i>
 </p>
 <p>
-The energy factor modifier curve <code>eneFacMod</code> 
-is a biquadratic curve with two independent variables: dry-bulb temperature 
+The energy factor modifier curve <code>eneFacMod</code>
+is a biquadratic curve with two independent variables: dry-bulb temperature
 and relative humidity of the air entering the dehumidifier.
 </p>
 <p align=\"center\">
