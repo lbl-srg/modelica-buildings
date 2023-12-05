@@ -5,6 +5,9 @@ block PLRToPulse
   parameter Real tPer = 15*60
     "Time period for PLR sampling";
 
+  parameter Real tDel = 1e-6
+    "Delay time of the enable signal";
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uPLR
     "Part load ratio input"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
@@ -30,7 +33,7 @@ protected
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
-    final width=1e-6/tPer,
+    final width=tDel/tPer,
     final period=tPer)
     "Outputs true signals for 1e-6 second duration at required timestep interval"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
@@ -57,7 +60,7 @@ protected
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
-    final delayTime=1e-6)
+    final delayTime=tDel)
     "Delay the enable signal by 1e-6 seconds, which is also the duration for 
     which the pulse signal is held. Required when PLR input is zero"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));

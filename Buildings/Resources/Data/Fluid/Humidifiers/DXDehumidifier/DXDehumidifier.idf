@@ -56,7 +56,7 @@
 ! Floor Area:              232.25 m2
 ! Number of Stories:       1
 
-  Version,23.1;
+  Version,9.6;
 
   Timestep,60;
 
@@ -158,8 +158,8 @@
 
   RunPeriod,
     Run Period 1,            !- Name
-    5,                       !- Begin Month
-    31,                      !- Begin Day of Month
+    1,                       !- Begin Month
+    1,                      !- Begin Day of Month
     ,                        !- Begin Year
     6,                       !- End Month
     30,                      !- End Day of Month
@@ -509,14 +509,8 @@
     No,                      !- Account for Dedicated Outdoor Air System
     NeutralSupplyAir,        !- Dedicated Outdoor Air System Control Strategy
     autosize,                !- Dedicated Outdoor Air Low Setpoint Temperature for Design {C}
-    autosize,                !- Dedicated Outdoor Air High Setpoint Temperature for Design {C}
-    Sensible Load Only No Latent Load,  !- Zone Load Sizing Method
-    HumidityRatioDifference, !- Zone Latent Cooling Design Supply Air Humidity Ratio Input Method
-    ,                        !- Zone Dehumidification Design Supply Air Humidity Ratio {kgWater/kgDryAir}
-    0.005,                   !- Zone Cooling Design Supply Air Humidity Ratio Difference {kgWater/kgDryAir}
-    HumidityRatioDifference, !- Zone Latent Heating Design Supply Air Humidity Ratio Input Method
-    ,                        !- Zone Humidification Design Supply Air Humidity Ratio {kgWater/kgDryAir}
-    0.005;                   !- Zone Humidification Design Supply Air Humidity Ratio Difference {kgWater/kgDryAir}
+    autosize;                !- Dedicated Outdoor Air High Setpoint Temperature for Design {C}
+
 
   Fan:OnOff,
     Zone1WindACFan,          !- Name
@@ -791,8 +785,8 @@
 
   Curve:Quadratic,
     ZoneDehumidPLFFPLR,      !- Name
-    0.95,                    !- Coefficient1 Constant
-    0.05,                    !- Coefficient2 x
+    1,                    !- Coefficient1 Constant
+    0,                    !- Coefficient2 x
     0.0,                     !- Coefficient3 x**2
     0.0,                     !- Minimum Value of x
     1.0;                     !- Maximum Value of x
@@ -826,8 +820,7 @@
     autosize,                !- Gross Rated Sensible Heat Ratio
     3.0,                     !- Gross Rated Cooling COP {W/W}
     autosize,                !- Rated Air Flow Rate {m3/s}
-    ,                        !- 2017 Rated Evaporator Fan Power Per Volume Flow Rate {W/(m3/s)}
-    ,                        !- 2023 Rated Evaporator Fan Power Per Volume Flow Rate {W/(m3/s)}
+    ,                        !- Rated Evaporator Fan Power Per Volume Flow Rate {W/(m3/s)}
     Zone1WindACFanOutletNode,!- Air Inlet Node Name
     Zone1WindACAirOutletNode,!- Air Outlet Node Name
     WindACCoolCapFT,         !- Total Cooling Capacity Function of Temperature Curve Name
@@ -931,47 +924,49 @@
   OutputControl:Table:Style,
     HTML;                    !- Column Separator
 
-  Output:Variable,*,Site Outdoor Air Drybulb Temperature,Timestep;
+  Output:Variable,*,Site Outdoor Air Drybulb Temperature, hourly;
 
-  Output:Variable,West Zone,Zone Air Temperature,Timestep;
+  Output:Variable,West Zone,Zone Air Temperature, hourly;
 
-  Output:Variable,West Zone,Zone Air Humidity Ratio,Timestep;
+  Output:Variable,West Zone,Zone Air Humidity Ratio, hourly;
 
-  Output:Variable,West Zone,Zone Air Relative Humidity,Timestep;
+  Output:Variable,West Zone,Zone Air Relative Humidity, hourly;
 
-  Output:Variable,West Zone,Zone Thermostat Heating Setpoint Temperature,Timestep;
+  Output:Variable,West Zone,Zone Thermostat Heating Setpoint Temperature, hourly;
 
-  Output:Variable,West Zone,Zone Thermostat Cooling Setpoint Temperature,Timestep;
+  Output:Variable,West Zone,Zone Thermostat Cooling Setpoint Temperature, hourly;
 
-  Output:Variable,West Zone,Zone Air System Sensible Heating Rate,Timestep;
+  Output:Variable,West Zone,Zone Air System Sensible Heating Rate, hourly;
 
-  Output:Variable,West Zone,Zone Air System Sensible Cooling Rate,Timestep;
+  Output:Variable,West Zone,Zone Air System Sensible Cooling Rate, hourly;
 
-  Output:Variable,Zone1DehumidifierInlet,System Node Mass Flow Rate,Timestep;
+  Output:Variable,Zone1DehumidifierInlet,System Node Mass Flow Rate, hourly;
 
-  Output:Variable,Zone1DehumidifierInlet,System Node Temperature,Timestep;
+  Output:Variable,Zone1DehumidifierInlet,System Node Temperature, hourly;
 
-  Output:Variable,Zone1DehumidifierInlet,System Node Humidity Ratio,Timestep;
+  Output:Variable,Zone1DehumidifierInlet,System Node Humidity Ratio, hourly;
 
-  Output:Variable,Zone1DehumidifierInlet,System Node Standard Density Volume Flow Rate,Timestep;
+  Output:Variable,Zone1DehumidifierInlet,System Node Standard Density Volume Flow Rate, hourly;
 
-  Output:Variable,Dehumidifier Outlet Node,System Node Mass Flow Rate,Timestep;
+  Output:Variable,Dehumidifier Outlet Node,System Node Mass Flow Rate, hourly;
 
-  Output:Variable,West Zone Dehumidifier,Zone Dehumidifier Outlet Air Temperature,Timestep;
+  Output:Variable,West Zone Dehumidifier,Zone Dehumidifier Outlet Air Temperature, hourly;
 
-  Output:Variable,Dehumidifier Outlet Node,System Node Humidity Ratio,Timestep;
+  Output:Variable,Dehumidifier Outlet Node,System Node Temperature, hourly;
+  
+  Output:Variable,Dehumidifier Outlet Node,System Node Humidity Ratio, hourly;
 
-  Output:Variable,Dehumidifier Outlet Node,System Node Standard Density Volume Flow Rate,Timestep;
+  Output:Variable,Dehumidifier Outlet Node,System Node Standard Density Volume Flow Rate, hourly;
 
-  Output:Variable,West Zone Dehumidifier,Zone Dehumidifier Sensible Heating Rate,Timestep;
+  Output:Variable,West Zone Dehumidifier,Zone Dehumidifier Sensible Heating Rate, hourly;
 
-  Output:Variable,West Zone Dehumidifier,Zone Dehumidifier Removed Water Mass Flow Rate,Timestep;
+  Output:Variable,West Zone Dehumidifier,Zone Dehumidifier Removed Water Mass Flow Rate, hourly;
 
-  Output:Variable,West Zone Dehumidifier,Zone Dehumidifier Electricity Rate,Timestep;
+  Output:Variable,West Zone Dehumidifier,Zone Dehumidifier Electricity Rate, hourly;
 
-  Output:Variable,West Zone Dehumidifier,Zone Dehumidifier Part Load Ratio,Timestep;
+  Output:Variable,West Zone Dehumidifier,Zone Dehumidifier Part Load Ratio, hourly;
 
-  Output:Variable,West Zone Dehumidifier,Zone Dehumidifier Runtime Fraction,Timestep;
+  Output:Variable,West Zone Dehumidifier,Zone Dehumidifier Runtime Fraction, hourly;
 
   Output:Meter:MeterFileOnly,Electricity:Facility,monthly;
 
