@@ -74,6 +74,17 @@ model CycleVariable
     start=T2_start)
     "Working fluid condenser temperature";
 
+  Modelica.Units.SI.ThermodynamicTemperature TEvaPin(
+    start=T1_start)
+    "Pinch point temperature of evaporator";
+  Modelica.Units.SI.TemperatureDifference dTEvaPin = TEvaPin - TEvaWor
+    "Pinch point temperature differential of evaporator";
+  Modelica.Units.SI.ThermodynamicTemperature TConPin(
+    start=T2_start)
+    "Pinch point temperature of condenser";
+  Modelica.Units.SI.TemperatureDifference dTConPin = TConWor - TConPin
+    "Pinch point temperature differential of condenser";
+
   // Error statuses
   /*Boolean errEva = TEvaIn - TEvaWor < 1
     "Error: incoming evaporator fluid too cold";*/
@@ -158,16 +169,17 @@ equation
   QEva_flow_internal = m1_flow * cpEva_default * (TEvaIn - TEvaOut_internal);
   QEva_flow_internal = mWor_flow * (equ.hExpInl - equ.hPum);
   QEva_flow_internal = m1_flow * cpEva_default * (TEvaIn - TConWor) * epsEva;
-  //QEva_flow_max = m1_flow*cpEva_default*(TEvaIn - TConWor);
+  // Pinch point
+  (TEvaPin - TEvaOut_internal) / (TEvaIn - TEvaOut_internal)
+  = (equ.hEvaPin - equ.hPum) / (equ.hExpInl - equ.hPum);
 
   // Condenser
   QCon_flow_internal = m2_flow * cpCon_default * (TConOut_internal - TConIn);
   QCon_flow_internal = mWor_flow * (equ.hExpOut - equ.hPum);
   QCon_flow_internal = m2_flow * cpCon_default * (equ.TExpOut - TConIn) * epsCon;
-  //QCon_flow_max = m2_flow * cpCon_default * (TConWor - TConIn);
-
-  // Cycle
-  //QEva_flow_internal * equ.etaThe = QEva_flow_internal - QCon_flow_internal;
+  // Pinch point
+  (TConPin - TConIn) / (TConOut_internal - TConIn)
+  = (equ.hConPin - equ.hPum) / (equ.hExpOut - equ.hPum);
 
   connect(expTConWor.y, equ.TCon) annotation (Line(points={{-59,-10},{-20,-10},{
           -20,-4},{-12,-4}}, color={0,0,127}));

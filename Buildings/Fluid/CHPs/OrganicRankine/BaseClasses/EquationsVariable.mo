@@ -70,6 +70,21 @@ model EquationsVariable "Core equations of a Rankine cycle"
   Modelica.Units.SI.ThermodynamicTemperature TExpOut
     "Temperature at expander outlet";
 
+  final Modelica.Units.SI.SpecificEnthalpy hEvaPin(
+    displayUnit = "kJ/kg") =
+    Buildings.Utilities.Math.Functions.smoothInterpolation(
+      x = pEva,
+      xSup = pro.p,
+      ySup = pro.hSatLiq)
+    "Specific enthalpy on evaporator-side pinch point";
+  final Modelica.Units.SI.SpecificEnthalpy hConPin(
+    displayUnit = "kJ/kg") =
+    Buildings.Utilities.Math.Functions.smoothInterpolation(
+      x = pCon,
+      xSup = pro.p,
+      ySup = pro.hSatVap)
+    "Specific enthalpy on condenser-side pinch point";
+
   final Real etaExpLim =
     (hExpInl - hSatVapCon)/(hExpInl - hExpOut_i)
     "Upper limit of expander efficiency to prevent condensation, dry fluids have >1";
