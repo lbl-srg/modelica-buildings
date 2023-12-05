@@ -154,10 +154,6 @@ protected
     start=1)
     "Energy factor modifier factor as a function of temperature and relative humidity";
 
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(final k=1) if
-       addPowerToMedium "Dummy block to conditional disable the connection"
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-
 equation
     //-------------------------Part-load performance modifiers----------------------------//
     // Compute the water removal and energy factor modifier fractions, using a biquadratic curve.
