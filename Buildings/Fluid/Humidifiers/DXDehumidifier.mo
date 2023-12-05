@@ -12,7 +12,7 @@ model DXDehumidifier "DX dehumidifier"
 
   parameter Modelica.Units.SI.VolumeFlowRate VWat_flow_nominal(
     final min=0)
-    "Rated water removal rate"
+    "Nominal water removal rate"
     annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal
@@ -21,12 +21,12 @@ model DXDehumidifier "DX dehumidifier"
 
   parameter Modelica.Units.SI.PressureDifference dp_nominal(
     displayUnit="Pa")
-    "Pressure difference"
+    "Nominal pressure difference"
     annotation (Dialog(group="Nominal condition"));
 
   parameter Real eneFac_nominal(
     final min=0)
-    "Rated energy factor, in liter/kWh"
+    "Nominal energy factor, in liter/kWh"
     annotation (Dialog(group="Nominal condition"));
 
   Modelica.Blocks.Interfaces.BooleanInput uEna
@@ -52,7 +52,7 @@ model DXDehumidifier "DX dehumidifier"
 
   Modelica.Blocks.Sources.RealExpression uWatRem(
     final y=watRemMod)
-    "Humidity removed from inlet air when component is enabled"
+    "Water removal modifier factor"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo

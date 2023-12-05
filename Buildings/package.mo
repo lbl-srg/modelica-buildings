@@ -229,14 +229,16 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Humidifiers</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.Humidifiers.DXDehumidifier
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Added direct expansion dehumidifier.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3438\">issue 3438</a>.
     </td>
-    </tr>
+</tr>
 </table>
 <!-- Backward compatible changes -->
 <p>
@@ -283,7 +285,7 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">Buildings.Templates.Components.Fans.ArrayVariable
     </td>
     <td valign=\"top\">Refactored with flow rate multiplier.<br/>
-	          This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3536\">#3536</a>.
+                  This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3536\">#3536</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
@@ -355,10 +357,10 @@ have been <b style=\"color:blue\">improved</b> in a
                      Buildings.Templates.Components.Valves
     </td>
     <td valign=\"top\">The models in these packages have been retired and replaced
-		with two container classes within <code>Buildings.Templates.Components.Actuators</code>
-		that cover all equipment types, and allow the flow characteristic to be specified
-		with one parameter.<br/>
-                     	This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3539\">#3539</a>.
+                with two container classes within <code>Buildings.Templates.Components.Actuators</code>
+                that cover all equipment types, and allow the flow characteristic to be specified
+                with one parameter.<br/>
+                             This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3539\">#3539</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
@@ -568,16 +570,6 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>Buildings.Fluid.Humidifiers</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Fluid.Humidifiers.DXDehumidifier
-    </td>
-    <td valign=\"top\">Added direct expansion dehumidifier.<br/>
-                       This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3438\">issue 3438</a>.
-    </td>
-</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>
