@@ -5,6 +5,12 @@
  * Filip Jorissen, KU Leuven
  */
 
+#ifndef IBPSA_JSONWRITERINIT_c
+#define IBPSA_JSONWRITERINIT_c
+
+#include <stdlib.h>
+#include <string.h>
+
 #include "fileWriterStructure.c"
 #include "ModelicaUtilities.h"
 
@@ -90,3 +96,5 @@ void writeJson(void *ptrFileWriter,  const double* varVals, const int numVals){
   if (fclose(fOut) == EOF)
     ModelicaFormatError("In writeJson.c: Returned an error when closing %s.", ID->fileWriterName);
 }
+
+#endif
