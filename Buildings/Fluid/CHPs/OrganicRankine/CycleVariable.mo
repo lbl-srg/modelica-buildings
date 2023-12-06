@@ -51,7 +51,8 @@ model CycleVariable
 
   Modelica.Units.SI.MassFlowRate mWor_flow( start = m1_flow_nominal)
     "Mass flow rate of the working fluid";
-
+  Modelica.Blocks.Sources.RealExpression expTEvaWor(y=TEvaWor)
+    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Modelica.Blocks.Sources.RealExpression expTConWor(y=TConWor)
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   Modelica.Blocks.Sources.RealExpression expQEva_flow(y=
@@ -61,15 +62,9 @@ model CycleVariable
     if err then 0 else QCon_flow_internal)
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 
-  Modelica.Blocks.Interfaces.RealInput TEvaWor(unit="K")
-    "Set point for working fluid evaporating temperature" annotation (Placement(
-        transformation(
-        origin={-110,10},
-        extent={{10,-10},{-10,10}},
-        rotation=180), iconTransformation(
-        extent={{10,-10},{-10,10}},
-        rotation=180,
-        origin={-110,20})));
+  Modelica.Units.SI.ThermodynamicTemperature TEvaWor(
+    start=T1_start)
+    "Working fluid evaporator temperature";
   Modelica.Units.SI.ThermodynamicTemperature TConWor(
     start=T2_start)
     "Working fluid condenser temperature";
@@ -77,12 +72,12 @@ model CycleVariable
   Modelica.Units.SI.ThermodynamicTemperature TEvaPin(
     start=T1_start)
     "Pinch point temperature of evaporator";
-  Modelica.Units.SI.TemperatureDifference dTEvaPin = TEvaPin - TEvaWor
+  Modelica.Units.SI.TemperatureDifference dTEvaPin = dTEvaPin_set
     "Pinch point temperature differential of evaporator";
   Modelica.Units.SI.ThermodynamicTemperature TConPin(
     start=T2_start)
     "Pinch point temperature of condenser";
-  Modelica.Units.SI.TemperatureDifference dTConPin = TConWor - TConPin
+  Modelica.Units.SI.TemperatureDifference dTConPin
     "Pinch point temperature differential of condenser";
 
   // Error statuses
@@ -102,6 +97,11 @@ model CycleVariable
 
 
   // Evaporator
+  Modelica.Blocks.Interfaces.RealInput dTEvaPin_set(
+    final unit="K")
+    "Set evaporator pinch point temperature differential" annotation (Placement(
+        transformation(extent={{-120,0},{-100,20}}), iconTransformation(extent={
+            {-120,10},{-100,30}})));
 protected
   Buildings.Fluid.Sensors.Temperature senTem1(
     redeclare package Medium = Medium1,
@@ -172,6 +172,7 @@ equation
   // Pinch point
   (TEvaPin - TEvaOut_internal) / (TEvaIn - TEvaOut_internal)
   = (equ.hEvaPin - equ.hPum) / (equ.hExpInl - equ.hPum);
+  dTEvaPin = TEvaPin - TEvaWor;
 
   // Condenser
   QCon_flow_internal = m2_flow * cpCon_default * (TConOut_internal - TConIn);
@@ -180,6 +181,7 @@ equation
   // Pinch point
   (TConPin - TConIn) / (TConOut_internal - TConIn)
   = (equ.hConPin - equ.hPum) / (equ.hExpOut - equ.hPum);
+  dTConPin = TConWor - TConPin;
 
   connect(expTConWor.y, equ.TCon) annotation (Line(points={{-59,-10},{-20,-10},{
           -20,-4},{-12,-4}}, color={0,0,127}));
@@ -195,8 +197,8 @@ equation
           60},{-100,60}}, color={0,127,255}));
   connect(senTem2.port, port_a2)
     annotation (Line(points={{70,-60},{100,-60}}, color={0,127,255}));
-  connect(equ.TEva, TEvaWor) annotation (Line(points={{-12,4},{-20,4},{-20,10},{
-          -110,10}}, color={0,0,127}));
+  connect(expTEvaWor.y, equ.TEva) annotation (Line(points={{-59,10},{-20,10},{-20,
+          4},{-12,4}}, color={0,0,127}));
   annotation (defaultComponentName = "ORC",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Line(
