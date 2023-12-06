@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Validation;
-model PIDWithFirstOrderAMIGO
- "Test model for an autotuning reverse-acting PID controller"
+model ReverseActingPIDWithFirstOrderAMIGO
+  "Test model for an autotuning reverse-acting PID controller"
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant SetPoint(k=0.8)
     "Setpoint value"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
@@ -90,7 +90,7 @@ equation
       StopTime=10000,
       Tolerance=1e-06),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/Utilities/PIDWithAutotuning/Validation/PIDWithFirstOrderAMIGO.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/Utilities/PIDWithAutotuning/Validation/ReverseActingPIDWithFirstOrderAMIGO.mos" "Simulate and plot"),
     Documentation(
       info="<html>
 <p>
@@ -141,4 +141,4 @@ First implementation<br/>
           fillPattern=FillPattern.Solid,
           points={{-36,60},{64,0},{-36,-60},{-36,60}})}),
     Diagram(coordinateSystem(extent={{-100,-80},{200,100}})));
-end PIDWithFirstOrderAMIGO;
+end ReverseActingPIDWithFirstOrderAMIGO;

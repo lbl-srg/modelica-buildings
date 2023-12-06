@@ -45,7 +45,7 @@ model DirectActingPIWithFirstOrderAMIGO
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse autTunSig(
     width=0.9,
     period=6000,
-    shift=500)   
+    shift=500)
     "Signal for enabling the autotuning"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract sub3
