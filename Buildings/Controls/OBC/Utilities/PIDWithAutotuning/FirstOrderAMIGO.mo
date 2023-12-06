@@ -92,7 +92,7 @@ block FirstOrderAMIGO
     final yHig=yHig,
     final yLow=yLow,
     final deaBan=deaBan,
-    reverseActing=reverseActing)
+    final reverseActing=reverseActing)
     "Relay controller"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.ResponseProcess resPro(
