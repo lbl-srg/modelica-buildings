@@ -4,20 +4,7 @@ model PartialBuildingWithETS
   extends
     Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuildingWithPartialETS(
     nPorts_heaWat=1,
-    nPorts_chiWat=1,
-    redeclare
-      Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger
-      ets(
-      final dT_nominal=dT_nominal,
-      final TDisWatMin=datDes.TLooMin,
-      final TDisWatMax=datDes.TLooMax,
-      final TChiWatSup_nominal=TChiWatSup_nominal,
-      final THeaWatSup_nominal=THeaWatSup_nominal,
-      final THotWatSup_nominal=THotWatSup_nominal,
-      final TColWat_nominal=TColWat_nominal,
-      final dp_nominal=dp_nominal,
-      final COPHeaWat_nominal=COPHeaWat_nominal,
-      final COPHotWat_nominal=COPHotWat_nominal));
+    nPorts_chiWat=1);
   outer parameter Buildings.Experimental.DHC.Examples.Combined.BaseClasses.DesignDataSeries datDes "DHC system design data"
     annotation (Placement(transformation(extent={{-250,262},{-230,282}})));
   parameter Modelica.Units.SI.TemperatureDifference dT_nominal(min=0) = 4
