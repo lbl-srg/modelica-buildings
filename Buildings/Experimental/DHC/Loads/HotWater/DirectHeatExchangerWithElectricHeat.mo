@@ -21,7 +21,7 @@ model DirectHeatExchangerWithElectricHeat
                 m_flow_nominal=mDom_flow_nominal)
     "Temperature sensor for hot water supply"
     annotation (Placement(transformation(extent={{58,50},{78,70}})));
-  Fluid.HeatExchangers.ConstantEffectiveness hex(
+  Buildings.Fluid.HeatExchangers.ConstantEffectiveness hex(
     redeclare package Medium1 = MediumDom,
     redeclare package Medium2 = MediumHea,
     m1_flow_nominal=mDom_flow_nominal,
@@ -30,7 +30,7 @@ model DirectHeatExchangerWithElectricHeat
     dp2_nominal=dpHea_nominal,
     eps=eps) "Domestic hot water heater heat exchanger"
     annotation (Placement(transformation(extent={{-60,-64},{-40,-44}})));
-  Fluid.Sensors.TemperatureTwoPort senTemHexOut(redeclare package Medium =
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemHexOut(redeclare package Medium =
         MediumDom,
                 m_flow_nominal=mDom_flow_nominal)
     "Temperature sensor for hot water leaving heat exchanger"
@@ -51,7 +51,7 @@ model DirectHeatExchangerWithElectricHeat
   Modelica.Blocks.Sources.Constant zero(k=0) if have_eleHea == false "Zero power if no heater"
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
 protected
-  Fluid.FixedResistances.LosslessPipe pip(
+  Buildings.Fluid.FixedResistances.LosslessPipe pip(
     redeclare package Medium = MediumDom,
     final m_flow_nominal=mDom_flow_nominal,
     final show_T=false) if have_eleHea == false

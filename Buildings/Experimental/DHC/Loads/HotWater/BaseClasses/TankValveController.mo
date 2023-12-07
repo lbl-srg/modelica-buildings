@@ -7,7 +7,7 @@ block TankValveController
   Modelica.Blocks.Interfaces.RealInput TRet(final unit="K", displayUnit="degC")
     "Return water temperature" annotation (Placement(transformation(extent={{-140,
             -20},{-100,20}}), iconTransformation(extent={{-120,-10},{-100,10}})));
-  Controls.OBC.CDL.Interfaces.RealOutput y "Valve position" annotation (
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y "Valve position" annotation (
       Placement(transformation(extent={{100,-20},{140,20}}), iconTransformation(
           extent={{100,-20},{140,20}})));
   Modelica.Blocks.Continuous.LimIntegrator ram(
@@ -17,10 +17,10 @@ block TankValveController
     strict=false)
                  "Ramp signal for valve position"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Controls.OBC.CDL.Conversions.BooleanToReal booToRea
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 protected
-  Controls.OBC.CDL.Reals.Hysteresis cha(uLow=TSwi - 1, uHigh=TSwi + 1)
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis cha(uLow=TSwi - 1, uHigh=TSwi + 1)
     "Outputs true if tank should be charged"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 

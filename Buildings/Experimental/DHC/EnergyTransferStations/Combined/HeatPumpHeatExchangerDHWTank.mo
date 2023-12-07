@@ -5,7 +5,7 @@ model HeatPumpHeatExchangerDHWTank
     Buildings.Experimental.DHC.EnergyTransferStations.Combined.BaseClasses.PartialHeatPumpHeatExchanger(
     volMix_b(nPorts=4),
     volMix_a(nPorts=4));
-  Fluid.Sources.Boundary_pT souDCW(
+  Buildings.Fluid.Sources.Boundary_pT souDCW(
     redeclare final package Medium = MediumBui,
     use_T_in=true,
     nPorts=1)  if have_hotWat "Source for domestic cold water"
@@ -14,7 +14,7 @@ model HeatPumpHeatExchangerDHWTank
       extent={{10,-10},{-10,10}},
       rotation=180,
       origin={-52,-56})));
-  Subsystems.HeatPumpDHWTank proHotWat(
+  Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPumpDHWTank proHotWat(
     redeclare final package Medium1 = MediumBui,
     redeclare final package Medium2 = MediumSer,
     final COP_nominal=COPHotWat_nominal,
@@ -29,10 +29,10 @@ model HeatPumpHeatExchangerDHWTank
     datWatHea=datWatHea) if have_hotWat
     "Subsystem for hot water production"
     annotation (Placement(transformation(extent={{32,24},{52,44}})));
-  parameter Loads.HotWater.Data.GenericDomesticHotWaterWithHeatExchanger
+  parameter Buildings.Experimental.DHC.Loads.HotWater.Data.GenericDomesticHotWaterWithHeatExchanger
     datWatHea "Performance data"
     annotation (Placement(transformation(extent={{36,48},{48,60}})));
-  Loads.HotWater.ThermostaticMixingValve theMixVal(
+  Buildings.Experimental.DHC.Loads.HotWater.ThermostaticMixingValve theMixVal(
     redeclare package Medium = MediumBui,
     mMix_flow_nominal=QHotWat_flow_nominal/cpBui_default/(THotWatSup_nominal - TColWat_nominal))
      if have_hotWat

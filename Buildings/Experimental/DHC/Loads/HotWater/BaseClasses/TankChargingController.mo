@@ -2,7 +2,7 @@ within Buildings.Experimental.DHC.Loads.HotWater.BaseClasses;
 block TankChargingController
   "Controller to enable or disable storage tank charging"
 
-  Controls.OBC.CDL.Interfaces.RealInput TTanTop(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TTanTop(
     final unit="K",
     displayUnit="degC") "Measured temperature at top of tank"
                                           annotation (Placement(transformation(
@@ -14,30 +14,30 @@ block TankChargingController
     "Temperature setpoint for top section of hot water tank" annotation (
       Placement(transformation(extent={{-140,50},{-100,90}}),
         iconTransformation(extent={{-120,70},{-100,90}})));
-  Controls.OBC.CDL.Interfaces.BooleanOutput charge
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput charge
     "Outputs true if tank should be charged" annotation (Placement(
         transformation(extent={{100,-20},{140,20}}), iconTransformation(extent=
             {{100,-20},{140,20}})));
-  Controls.OBC.CDL.Interfaces.RealInput TTanBot(final unit="K", displayUnit=
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TTanBot(final unit="K", displayUnit=
         "degC") "Measured temperature at bottom of tank" annotation (Placement(
         transformation(extent={{-140,-120},{-100,-80}}), iconTransformation(
           extent={{-140,-100},{-100,-60}})));
-  Controls.OBC.CDL.Logical.Latch lat
+  Buildings.Controls.OBC.CDL.Logical.Latch lat
     annotation (Placement(transformation(extent={{50,-10},{70,10}})));
-  Controls.OBC.CDL.Logical.Not not1
+  Buildings.Controls.OBC.CDL.Logical.Not not1
     annotation (Placement(transformation(extent={{30,-70},{50,-50}})));
 protected
-  Controls.OBC.CDL.Reals.Hysteresis cha(uLow=-5, uHigh=0)
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis cha(uLow=-5, uHigh=0)
     "Outputs true if tank should be charged"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Controls.OBC.CDL.Reals.Subtract sub
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
 protected
-  Controls.OBC.CDL.Reals.Hysteresis cha1(uLow=-5, uHigh=0)
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis cha1(uLow=-5, uHigh=0)
     "Outputs true if tank should be charged"
     annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
-  Controls.OBC.CDL.Reals.Subtract sub1
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
 equation
   connect(sub.u2, TTanTop) annotation (Line(points={{-42,-6},{-80,-6},{-80,0},{

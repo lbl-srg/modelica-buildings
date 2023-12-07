@@ -57,7 +57,7 @@ partial model PartialFourPortDHW
     "Fluid connector b for heating water (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-90,-70},{-110,-50}})));
 
-  Controls.OBC.CDL.Interfaces.RealInput TDomSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TDomSet(
     final unit="K",
     displayUnit="degC")
     "Temperature setpoint for heated domestic water"

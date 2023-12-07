@@ -19,7 +19,7 @@ model StorageTankWithExternalHeatExchanger
     dat.QHex_flow_nominal / CMin_flow_nominal / ( dat.TDom_nominal + dat.dTHexApp_nominal - dat.TCol_nominal)
     "Heat exchanger effectiveness"
     annotation(Dialog(tab="Advanced"));
-  Fluid.Movers.Preconfigured.FlowControlled_dp pumHex(
+  Buildings.Fluid.Movers.Preconfigured.FlowControlled_dp pumHex(
     redeclare package Medium = MediumHea,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     use_inputFilter=false,
@@ -31,7 +31,7 @@ model StorageTankWithExternalHeatExchanger
         rotation=270,
         origin={-40,0})));
 
-  Fluid.Storage.Stratified tan(
+  Buildings.Fluid.Storage.Stratified tan(
     redeclare package Medium = MediumHea,
     kIns=dat.kIns,
     final T_start=TTan_start,
@@ -46,14 +46,14 @@ model StorageTankWithExternalHeatExchanger
     "Electric power required for pumping equipment"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
-  Fluid.Sensors.TemperatureTwoPort senTemHot(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemHot(
     redeclare package Medium =  MediumDom,
     final allowFlowReversal=allowFlowReversalDom,
     m_flow_nominal=dat.mDom_flow_nominal)
     "Temperature sensor for hot water supply"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
 
-  Fluid.HeatExchangers.ConstantEffectiveness hex(
+  Buildings.Fluid.HeatExchangers.ConstantEffectiveness hex(
     redeclare package Medium1 = MediumDom,
     redeclare package Medium2 = MediumHea,
     final allowFlowReversal1=allowFlowReversalDom,
@@ -64,13 +64,13 @@ model StorageTankWithExternalHeatExchanger
     dp2_nominal=dat.dpHexDom_nominal,
     eps=eps)
     annotation (Placement(transformation(extent={{-60,44},{-40,64}})));
-  Fluid.FixedResistances.Junction junTop(
+  Buildings.Fluid.FixedResistances.Junction junTop(
     redeclare package Medium = MediumHea,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal=dat.mHex_flow_nominal*{1,1,1},
     dp_nominal=zeros(3)) "Flow junction at top of tank"
     annotation (Placement(transformation(extent={{10,20},{30,40}})));
-  Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = MediumDom)
+  Buildings.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = MediumDom)
     "Mass flow rate of domestic hot water"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TTanTop(
@@ -82,33 +82,33 @@ model StorageTankWithExternalHeatExchanger
     "Fluid temperature at the bottom of the tank"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
 
-  BaseClasses.HeatExchangerPumpController conPum(final mDom_flow_nominal=dat.mDom_flow_nominal,
+  Buildings.Experimental.DHC.Loads.HotWater.BaseClasses.HeatExchangerPumpController conPum(final mDom_flow_nominal=dat.mDom_flow_nominal,
       final dpPum_nominal=dat.dpHexHea_nominal)
     "Controller for pump of heat exchanger"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  BaseClasses.TankChargingController conCha "Controller for tank charge signal"
+  Buildings.Experimental.DHC.Loads.HotWater.BaseClasses.TankChargingController conCha "Controller for tank charge signal"
     annotation (Placement(transformation(extent={{72,-90},{92,-70}})));
 
-  Fluid.Actuators.Valves.ThreeWayLinear divVal(
+  Buildings.Fluid.Actuators.Valves.ThreeWayLinear divVal(
     redeclare package Medium = MediumHea,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     use_inputFilter=false,
     m_flow_nominal=dat.mHex_flow_nominal,
     dpValve_nominal=1000) "Diversion valve to reduce mixing in tank"
     annotation (Placement(transformation(extent={{30,-40},{10,-60}})));
-  Fluid.Sensors.TemperatureTwoPort senTemRet(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemRet(
     redeclare package Medium = MediumHea,
     final allowFlowReversal=allowFlowReversalDom,
     m_flow_nominal=dat.mHex_flow_nominal)
     "Temperature sensor for return heating water from heat exchanger"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
-  BaseClasses.TankValveController conVal "Diversion valve controller"
+  Buildings.Experimental.DHC.Loads.HotWater.BaseClasses.TankValveController conVal "Diversion valve controller"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
 
-  Controls.OBC.CDL.Reals.AddParameter dTHexApp(p=dat.dTHexApp_nominal)
+  Buildings.Controls.OBC.CDL.Reals.AddParameter dTHexApp(p=dat.dTHexApp_nominal)
     "Offset for heat exchanger approach temperature"
     annotation (Placement(transformation(extent={{34,-84},{54,-64}})));
-  Controls.OBC.CDL.Interfaces.BooleanOutput charge
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput charge
     "Output true if tank needs to be charged, false if it is sufficiently charged"
     annotation (Placement(transformation(extent={{100,-100},{140,-60}}),
         iconTransformation(extent={{100,-110},{140,-70}})));

@@ -5,7 +5,7 @@ model StorageTankWithExternalHeatExchanger
   package Medium = Buildings.Media.Water "Medium model";
   parameter Modelica.Units.SI.Temperature TCol = 273.15+10 "Temperature of domestic cold water supply";
   parameter Modelica.Units.SI.MassFlowRate mHea_flow_nominal = datWatHea.QHex_flow_nominal/4200/(55 - 50) "Tank heater water loop nominal mass flow";
-  parameter Data.GenericDomesticHotWaterWithHeatExchanger
+  parameter Buildings.Experimental.DHC.Loads.HotWater.Data.GenericDomesticHotWaterWithHeatExchanger
     datWatHea(VTan=0.1892706, mDom_flow_nominal=6.52944E-06*1000)
     "Data for heat pump water heater with tank"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
@@ -20,7 +20,7 @@ model StorageTankWithExternalHeatExchanger
     "Domestic hot water fixture draw fraction schedule"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
-  Fluid.Sources.Boundary_pT souCol(
+  Buildings.Fluid.Sources.Boundary_pT souCol(
     nPorts=2,
     redeclare package Medium = Medium,
     T(displayUnit="degC") = 283.15) "Source of domestic cold water"
@@ -37,10 +37,11 @@ model StorageTankWithExternalHeatExchanger
       MediumHea = Medium,
     dat=datWatHea)        "Storage tank with external heat exchanger"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  ThermostaticMixingValve theMixVal(redeclare package Medium = Medium,
+  Buildings.Experimental.DHC.Loads.HotWater.ThermostaticMixingValve theMixVal(redeclare
+      package                                                                                   Medium = Medium,
       mMix_flow_nominal=1.2*datWatHea.mDom_flow_nominal)
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
-  Controls.OBC.CDL.Conversions.BooleanToReal booToRea(realTrue=
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(realTrue=
         mHea_flow_nominal)
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
   Modelica.Blocks.Sources.Constant conTSetHot(k(
@@ -48,24 +49,24 @@ model StorageTankWithExternalHeatExchanger
       displayUnit="degC") = 313.15)
     "Temperature setpoint for hot water supply to fixture"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Fluid.HeatExchangers.Heater_T hea(
+  Buildings.Fluid.HeatExchangers.Heater_T hea(
     redeclare package Medium = Medium,
     m_flow_nominal=mHea_flow_nominal,
     dp_nominal=0)
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
-  Fluid.Movers.FlowControlled_m_flow mov(
+  Buildings.Fluid.Movers.FlowControlled_m_flow mov(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     nominalValuesDefineDefaultPressureCurve=true,
     m_flow_nominal=mHea_flow_nominal)
     annotation (Placement(transformation(extent={{70,14},{50,34}})));
-  Fluid.Sensors.TemperatureTwoPort senTem(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTem(
     redeclare package Medium = Medium,
     m_flow_nominal=mHea_flow_nominal,
     tau=0) annotation (Placement(transformation(extent={{10,-50},{30,-30}})));
-  Controls.OBC.CDL.Reals.AddParameter addPar(p=5) "dT for heater"
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(p=5) "dT for heater"
     annotation (Placement(transformation(extent={{14,-24},{24,-14}})));
-  Fluid.Sources.Boundary_pT preRef(
+  Buildings.Fluid.Sources.Boundary_pT preRef(
     nPorts=1,
     redeclare package Medium = Medium,
     T(displayUnit="degC")) "Reference pressure" annotation (Placement(

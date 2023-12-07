@@ -12,7 +12,7 @@ block HeatExchangerPumpController
   parameter Real Ti=60 "Integrator time constant of circulation pump controller";
   parameter Real yMin(min=0) = 0.3 "Minimum controller output when pump is on";
 
-  Controls.OBC.CDL.Interfaces.RealInput mDom_flow(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mDom_flow(
     final unit="kg/s")
     "Domestic hot water mass flow rate" annotation (Placement(transformation(
           extent={{-140,40},{-100,80}}), iconTransformation(extent={{-140,40},{-100,
@@ -29,20 +29,20 @@ block HeatExchangerPumpController
     "Measured hot water temperature" annotation (Placement(transformation(
           extent={{-140,-80},{-100,-40}}), iconTransformation(extent={{-120,-70},
             {-100,-50}})));
-  Controls.OBC.CDL.Interfaces.RealOutput dpPumHex(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput dpPumHex(
     final unit="Pa",
     displayUnit="Pa")
     "Set point for pump head on heating water side"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
-  Controls.OBC.CDL.Reals.Hysteresis hysMasFlo(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysMasFlo(
     uLow=mDom_flow_nominal/1E4,
     uHigh=2*mDom_flow_nominal/1E4,
     y(start=false))
     "Hysteresis used to switch secondary pump on and off"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 
-  Controls.OBC.CDL.Reals.PIDWithReset conPI(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset conPI(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=k,
     Ti=Ti,
@@ -51,15 +51,15 @@ block HeatExchangerPumpController
     "PI controller for pump"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
-  Controls.OBC.CDL.Reals.Switch swi "Switch for pump control"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi "Switch for pump control"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
 protected
-  Controls.OBC.CDL.Reals.MultiplyByParameter pumHea(final k=dpPum_nominal)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter pumHea(final k=dpPum_nominal)
     "Gain for hex pump head"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
-  Controls.OBC.CDL.Reals.Sources.Constant con(final k=0) "Outputs zero"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(final k=0) "Outputs zero"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 equation
   connect(conPI.y, pumHea.u)

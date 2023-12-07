@@ -5,7 +5,7 @@ model HeatPumpHeatExchanger
     Buildings.Experimental.DHC.EnergyTransferStations.Combined.BaseClasses.PartialHeatPumpHeatExchanger(
       volMix_a(nPorts=4),
       volMix_b(nPorts=4));
-  Subsystems.HeatPump proHotWat(
+  Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump proHotWat(
     redeclare final package Medium1 = MediumBui,
     redeclare final package Medium2 = MediumSer,
     final COP_nominal=COPHotWat_nominal,
@@ -19,13 +19,13 @@ model HeatPumpHeatExchanger
     final dp2_nominal=dp_nominal) if have_hotWat
     "Subsystem for hot water production"
     annotation (Placement(transformation(extent={{-10,24},{10,44}})));
-  Fluid.Sources.Boundary_pT      souColWat(
+  Buildings.Fluid.Sources.Boundary_pT      souColWat(
     redeclare final package Medium = MediumBui,
     use_T_in=true,
     nPorts=1) if have_hotWat
     "Source for cold water"
     annotation (Placement(transformation(extent={{-48,-50},{-28,-30}})));
-  Fluid.Sources.Boundary_pT sinSHW(redeclare final package Medium = MediumBui,
+  Buildings.Fluid.Sources.Boundary_pT sinSHW(redeclare final package Medium = MediumBui,
       nPorts=1)
                if have_hotWat
     "Sink for service hot water" annotation (Placement(

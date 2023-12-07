@@ -6,7 +6,7 @@ model HeatPumpDHWTank
       heaPum(
         QCon_flow_nominal=QHotWat_flow_nominal,
         QCon_flow_max=QHotWat_flow_nominal));
-  parameter Loads.HotWater.Data.GenericDomesticHotWaterWithHeatExchanger
+  parameter Buildings.Experimental.DHC.Loads.HotWater.Data.GenericDomesticHotWaterWithHeatExchanger
     datWatHea "Performance data"
     annotation (Placement(transformation(extent={{140,100},{160,120}})));
   parameter Modelica.Units.SI.HeatFlowRate QHotWat_flow_nominal(min=0)
@@ -18,7 +18,7 @@ model HeatPumpDHWTank
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal floCon(realTrue=
         mCon_flow_nominal) "Condenser mass flow rate"
     annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
-  Loads.HotWater.StorageTankWithExternalHeatExchanger heaPumTan(
+  Buildings.Experimental.DHC.Loads.HotWater.StorageTankWithExternalHeatExchanger heaPumTan(
     redeclare package MediumDom = Medium1,
     redeclare package MediumHea = Medium2,                      final dat=
         datWatHea)
@@ -28,7 +28,7 @@ model HeatPumpDHWTank
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant THotSouSet(k=datWatHea.TDom_nominal)
     "Set point of water in hot water tank"
     annotation (Placement(transformation(extent={{-180,0},{-160,20}})));
-  Fluid.Sources.Boundary_pT preRef(
+  Buildings.Fluid.Sources.Boundary_pT preRef(
     redeclare package Medium = Medium2,
     p(displayUnit="bar"),
     nPorts=1) "Reference pressure for loop" annotation (Placement(
@@ -36,7 +36,7 @@ model HeatPumpDHWTank
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-60,-20})));
-  Fluid.Sensors.TemperatureTwoPort senTemHeaPumRet(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemHeaPumRet(
     redeclare package Medium = Medium1,
     m_flow_nominal=mCon_flow_nominal,
     tau=0)

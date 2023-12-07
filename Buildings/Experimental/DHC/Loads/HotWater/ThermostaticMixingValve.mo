@@ -52,27 +52,27 @@ model ThermostaticMixingValve
         rotation=180,
         origin={-110,80})));
 
-  Fluid.Sensors.TemperatureTwoPort senTHot(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTHot(
     redeclare final package Medium = Medium,
     allowFlowReversal=false,
     final m_flow_nominal=mMix_flow_nominal,
     tau=0) "Hot water temperature"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Fluid.Sensors.TemperatureTwoPort senTCol(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTCol(
     redeclare final package Medium = Medium,
     allowFlowReversal=false,
     final m_flow_nominal=mMix_flow_nominal,
     tau=0) "Cold water temperature"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 
-  Fluid.Sensors.TemperatureTwoPort senTMix(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTMix(
     redeclare final package Medium = Medium,
     allowFlowReversal=false,
     final m_flow_nominal=mMix_flow_nominal,
     tau=0) "Mixed water temperature"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
 
-  Controls.OBC.CDL.Reals.PID conPID(
+  Buildings.Controls.OBC.CDL.Reals.PID conPID(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
@@ -80,10 +80,10 @@ model ThermostaticMixingValve
     yMax=1,
     yMin=0) annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
-  Controls.OBC.CDL.Reals.Divide ratEne
+  Buildings.Controls.OBC.CDL.Reals.Divide ratEne
     "Ratio of actual over required energy (must be near 1 if load is satisfied)"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
-  Fluid.FixedResistances.Junction jun(
+  Buildings.Fluid.FixedResistances.Junction jun(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     tau=1,
@@ -91,7 +91,7 @@ model ThermostaticMixingValve
     dp_nominal={0,0,0}) "Mixing of hot water and cold water"
     annotation (Placement(transformation(extent={{10,-50},{-10,-70}})));
 protected
-  Controls.OBC.CDL.Reals.Multiply mulMHot_flow
+  Buildings.Controls.OBC.CDL.Reals.Multiply mulMHot_flow
     "Multiplication to output required hot water mass flow rate"
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
 
@@ -163,14 +163,14 @@ First implementation.
 protected
   parameter Modelica.Units.SI.Temperature dTSmall = 0.1 "Small temperature used to avoid division by zero";
 
-  Controls.OBC.CDL.Reals.MultiplyByParameter gaiMMix_flow(final k=mMix_flow_nominal)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gaiMMix_flow(final k=mMix_flow_nominal)
     "Gain for multiplying domestic hot water schedule" annotation (Placement(
         transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-70,30})));
 
-  Fluid.Movers.BaseClasses.IdealSource floSouHot(
+  Buildings.Fluid.Movers.BaseClasses.IdealSource floSouHot(
     redeclare final package Medium = Medium,
     allowFlowReversal=false,
     m_flow_small=1E-4*mMix_flow_nominal,
@@ -178,7 +178,7 @@ protected
     final control_dp=false)
     "Forced mass flow rate for hot water"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
-  Fluid.Sources.MassFlowSource_T sinMMix(
+  Buildings.Fluid.Sources.MassFlowSource_T sinMMix(
     redeclare final package Medium = Medium,
     use_m_flow_in=true,
     nPorts=1) "Sink for mixed mass flow rate" annotation (Placement(
@@ -187,7 +187,7 @@ protected
         rotation=0,
         origin={70,-60})));
 
-  Controls.OBC.CDL.Reals.MultiplyByParameter gaiMMix_sign(final k=-1)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gaiMMix_sign(final k=-1)
     "Gain to invert sign" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,

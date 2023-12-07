@@ -24,7 +24,7 @@ model BuildingTimeSeriesWithETSDHWTank
       displayUnit="degC") = 288.15)
     "District supply temperature"
     annotation (Placement(transformation(extent={{-90,4},{-70,24}})));
-  BuildingTimeSeriesWithETSWithDHWTank bui(
+  Buildings.Experimental.DHC.Loads.Combined.BuildingTimeSeriesWithETSWithDHWTank bui(
     redeclare package MediumSer = Medium,
     redeclare package MediumBui = Medium,
     bui(facMul=10),
@@ -35,22 +35,22 @@ model BuildingTimeSeriesWithETSDHWTank
     datWatHea=datWatHea) "Building load with time series data"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
 
-  Controls.OBC.CDL.Reals.Sources.Constant TColWat(k=bui.ets.TColWat_nominal)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TColWat(k=bui.ets.TColWat_nominal)
     "Cold water temperature"
     annotation (Placement(transformation(extent={{70,70},{90,90}})));
-  Controls.OBC.CDL.Reals.Sources.Constant THotWatSupSet(k=bui.THotWatSup_nominal)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THotWatSupSet(k=bui.THotWatSup_nominal)
     "Hot water supply temperature set point"
     annotation (Placement(transformation(extent={{30,70},{50,90}})));
- Controls.OBC.CDL.Reals.Sources.Constant TChiWatSupSet(k=bui.TChiWatSup_nominal)
+ Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatSupSet(k=bui.TChiWatSup_nominal)
     "Chilled water supply temperature set point"
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
- Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupMaxSet(k=bui.THeaWatSup_nominal)
+ Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupMaxSet(k=bui.THeaWatSup_nominal)
     "Heating water supply temperature set point - Maximum value"
     annotation (Placement(transformation(extent={{-50,70},{-30,90}})));
- Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupMinSet(each k=28 + 273.15)
+ Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupMinSet(each k=28 + 273.15)
     "Heating water supply temperature set point - Minimum value"
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
-  parameter HotWater.Data.GenericDomesticHotWaterWithHeatExchanger datWatHea(VTan=0.3,
+  parameter Buildings.Experimental.DHC.Loads.HotWater.Data.GenericDomesticHotWaterWithHeatExchanger datWatHea(VTan=0.3,
       mDom_flow_nominal=0.03,
     TDom_nominal=318.15)
     "Performance data"

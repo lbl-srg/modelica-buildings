@@ -314,7 +314,7 @@ model PartialHeatPumpHeatExchanger
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold enaHea(
     trueHoldDuration=15*60) "Enable heating"
     annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
-  Subsystems.HeatPump proHeaWat(
+  Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump proHeaWat(
     redeclare final package Medium1 = MediumBui,
     redeclare final package Medium2 = MediumSer,
     dT_nominal=dT_nominal,
@@ -334,7 +334,7 @@ model PartialHeatPumpHeatExchanger
   Modelica.Blocks.Sources.Constant zer(final k=0) if not have_hotWat
     "Replacement variable"
     annotation (Placement(transformation(extent={{140,350},{160,370}})));
-  Fluid.Sensors.TemperatureTwoPort senTHeaWatRet(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTHeaWatRet(
     redeclare final package Medium = MediumBui,
     final allowFlowReversal=allowFlowReversalBui,
     final m_flow_nominal=mHeaWat_flow_nominal)
@@ -342,7 +342,7 @@ model PartialHeatPumpHeatExchanger
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={20,300})));
-  Fluid.Sensors.TemperatureTwoPort senTChiWatRet(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTChiWatRet(
     redeclare final package Medium = MediumBui,
     final allowFlowReversal=allowFlowReversalBui,
     final m_flow_nominal=mChiWat_flow_nominal)
@@ -350,7 +350,8 @@ model PartialHeatPumpHeatExchanger
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={40,-120})));
-  Fluid.Sensors.MassFlowRate senMasFloHeaWatPri(redeclare final package Medium =
+  Buildings.Fluid.Sensors.MassFlowRate senMasFloHeaWatPri(redeclare final
+      package                                                                     Medium =
         MediumBui, final allowFlowReversal=allowFlowReversalBui)
     "Primary heating water mass flow rate"
     annotation (Placement(transformation(extent={{30,270},{50,250}})));
