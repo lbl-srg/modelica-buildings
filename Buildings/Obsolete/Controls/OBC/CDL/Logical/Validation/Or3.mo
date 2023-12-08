@@ -1,6 +1,5 @@
-within Buildings.Controls.OBC.CDL.Logical.Validation;
-model Or3
-  "Validation model for the Or3 block"
+within Buildings.Obsolete.Controls.OBC.CDL.Logical.Validation;
+model Or3 "Validation model for the Or3 block"
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(
     width=0.5,
     period=1.5)
@@ -11,7 +10,7 @@ model Or3
     period=3)
     "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-26,-8},{-6,12}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or1
+  Buildings.Obsolete.Controls.OBC.CDL.Logical.Or3 or1
     "Output true if at least one input is true"
     annotation (Placement(transformation(extent={{26,-8},{46,12}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul3(
@@ -32,13 +31,13 @@ equation
       StopTime=10.0,
       Tolerance=1e-06),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Validation/Or3.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Controls/OBC/CDL/Logical/Validation/Or3.mos" "Simulate and plot"),
     Documentation(
       info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Logical.Or3\">
-Buildings.Controls.OBC.CDL.Logical.Or3</a>.
+<a href=\"modelica://Buildings.Obsolete.Controls.OBC.CDL.Logical.Or3\">
+Buildings.Obsolete.Controls.OBC.CDL.Logical.Or3</a>.
 </p>
 </html>",
       revisions="<html>
