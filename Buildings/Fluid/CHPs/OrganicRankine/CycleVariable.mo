@@ -24,24 +24,12 @@ model CycleVariable
     constrainedby Buildings.Fluid.CHPs.OrganicRankine.Data.Generic
     "Property records of the working fluid"
     annotation(choicesAllMatching = true);
-  /*parameter Modelica.Units.SI.ThermalConductance UAEva
-    "Thermal conductance of the evaporator"
-    annotation(Dialog(group="Evaporator"));*/
-  parameter Modelica.Units.SI.Efficiency epsEva=0.8
-    "Effectiveness of the evaporator"
-    annotation(Dialog(group="Evaporator"));
   parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal
     "Nominal mass flow rate of the evaporator fluid"
     annotation(Dialog(group="Evaporator"));
   parameter Modelica.Units.SI.PressureDifference dpEva_nominal = 0
     "Nominal pressure drop of the evaporator"
     annotation(Dialog(group="Evaporator"));
-  /*parameter Modelica.Units.SI.ThermalConductance UACon
-    "Thermal conductance of the condenser"
-    annotation(Dialog(group="Condenser"));*/
-  parameter Modelica.Units.SI.Efficiency epsCon=0.8
-    "Effectiveness of the condenser"
-    annotation(Dialog(group="Condenser"));
   parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal
     "Nominal mass flow rate of the condenser fluid"
     annotation(Dialog(group="Condenser"));
@@ -77,7 +65,7 @@ model CycleVariable
   Modelica.Units.SI.ThermodynamicTemperature TConPin(
     start=T2_start)
     "Pinch point temperature of condenser";
-  Modelica.Units.SI.TemperatureDifference dTConPin
+  Modelica.Units.SI.TemperatureDifference dTConPin = dTConPin_set
     "Pinch point temperature differential of condenser";
 
   // Error statuses
@@ -94,14 +82,16 @@ model CycleVariable
   Boolean err = errEva or errCon or errCyc
     "Error, to replace heat flow rates and power with zero";
 
-
-
-  // Evaporator
-  Modelica.Blocks.Interfaces.RealInput dTEvaPin_set(
-    final unit="K")
+  Modelica.Blocks.Interfaces.RealInput dTEvaPin_set(final unit="K")
     "Set evaporator pinch point temperature differential" annotation (Placement(
         transformation(extent={{-120,0},{-100,20}}), iconTransformation(extent={
             {-120,10},{-100,30}})));
+  Modelica.Blocks.Interfaces.RealInput dTConPin_set(final unit="K")
+    "Set condenser pinch point temperature differential" annotation (Placement(
+        transformation(extent={{-120,-20},{-100,0}}), iconTransformation(extent
+          ={{-120,-30},{-100,-10}})));
+
+  // Evaporator
 protected
   Buildings.Fluid.Sensors.Temperature senTem1(
     redeclare package Medium = Medium1,
@@ -119,19 +109,6 @@ protected
     "Fluid temperature out of the evaporator, intermediate variable";
   Modelica.Units.SI.HeatFlowRate QEva_flow_internal
     "Evaporator heat flow rate, intermediate variable";
-/*  Modelica.Units.SI.HeatFlowRate QEva_flow_max
-    "Maximum evaporator heat flow rate";
-/*  Modelica.Units.SI.Efficiency NTUEva=UAEva/(Buildings.Utilities.Math.Functions.smoothMax(
-      abs(m1_flow),
-      m1_flow_small,
-      m1_flow_small)*cpEva_default) "Number of transfer units of heat exchanger";
-  Modelica.Units.SI.Efficiency epsEva=Buildings.Utilities.Math.Functions.smoothMin(
-      Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_ntuZ(
-        NTUEva,
-        0,
-        Integer(Buildings.Fluid.Types.HeatExchangerFlowRegime.ConstantTemperaturePhaseChange)),
-      0.999,
-      1.0e-4) "Effectiveness of heat exchanger";*/
 
   // Condenser
   Buildings.Fluid.Sensors.Temperature senTem2(
@@ -150,25 +127,16 @@ protected
     "Fluid temperature out of the condenser, intermediate variable";
   Modelica.Units.SI.HeatFlowRate QCon_flow_internal
     "Condenser heat flow rate, intermediate variable";
-/*  Modelica.Units.SI.HeatFlowRate QCon_flow_max
-    "Maximum condenser heat flow rate";
-/*  Modelica.Units.SI.Efficiency NTUCon=UACon/(Buildings.Utilities.Math.Functions.smoothMax(
-      abs(m2_flow),
-      m2_flow_small,
-      m2_flow_small)*cpCon_default) "Number of transfer units of heat exchanger";
-  Modelica.Units.SI.Efficiency epsCon=Buildings.Utilities.Math.Functions.smoothMin(
-      Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_ntuZ(
-        NTUCon,
-        0,
-        Integer(Buildings.Fluid.Types.HeatExchangerFlowRegime.ConstantTemperaturePhaseChange)),
-      0.999,
-      1.0e-4) "Effectiveness of heat exchanger";*/
+
+  // Expander
+  Modelica.Units.SI.Power PEle_internal =
+    QEva_flow_internal - QCon_flow_internal
+    "Electric power output, intermediate variable";
 
 equation
   // Evaporator
   QEva_flow_internal = m1_flow * cpEva_default * (TEvaIn - TEvaOut_internal);
   QEva_flow_internal = mWor_flow * (equ.hExpInl - equ.hPum);
-  QEva_flow_internal = m1_flow * cpEva_default * (TEvaIn - TConWor) * epsEva;
   // Pinch point
   (TEvaPin - TEvaOut_internal) / (TEvaIn - TEvaOut_internal)
   = (equ.hEvaPin - equ.hPum) / (equ.hExpInl - equ.hPum);
@@ -177,11 +145,13 @@ equation
   // Condenser
   QCon_flow_internal = m2_flow * cpCon_default * (TConOut_internal - TConIn);
   QCon_flow_internal = mWor_flow * (equ.hExpOut - equ.hPum);
-  QCon_flow_internal = m2_flow * cpCon_default * (equ.TExpOut - TConIn) * epsCon;
   // Pinch point
   (TConPin - TConIn) / (TConOut_internal - TConIn)
   = (equ.hConPin - equ.hPum) / (equ.hExpOut - equ.hPum);
   dTConPin = TConWor - TConPin;
+
+  // Cycle
+  PEle_internal = QEva_flow_internal * equ.etaThe;
 
   connect(expTConWor.y, equ.TCon) annotation (Line(points={{-59,-10},{-20,-10},{
           -20,-4},{-12,-4}}, color={0,0,127}));
