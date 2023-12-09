@@ -308,7 +308,8 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Or3
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Or3<br/>
+                       Buildings.Controls.OBC.CDL.Logical.ZeroCrossing
     </td>
     <td valign=\"top\">Moved the block to the <code>Obsolete</code> package.<br/>
                        This is for
