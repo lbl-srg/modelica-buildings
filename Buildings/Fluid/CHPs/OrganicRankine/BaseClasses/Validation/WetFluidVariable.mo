@@ -1,6 +1,7 @@
 within Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.Validation;
-model WetFluid "Organic Rankine cycle with a wet working fluid"
-  extends DryFluid(equ(
+model WetFluidVariable
+  "Organic Rankine cycle with a wet working fluid"
+  extends Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.Validation.DryFluidVariable(equ(
         dTSup=2,
         etaExp=0.75),
     redeclare parameter
@@ -20,10 +21,10 @@ that the expander outlet state will be under the dome.
 </html>",revisions="<html>
 <ul>
 <li>
-June 13, 2023, by Hongxiang Fu:<br/>
+December 8, 2023, by Hongxiang Fu:<br/>
 First implementation. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3433\">#3433</a>.
 </li>
 </ul>
 </html>"));
-end WetFluid;
+end WetFluidVariable;
