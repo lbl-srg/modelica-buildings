@@ -96,8 +96,13 @@ is <code>true</code>.
 Otherwise the output is <code>false</code>.
 </p>
 </html>",
-      revisions="<html>
+revisions="<html>
 <ul>
+<li>
+December 8, 2023, by Jianjun Hu:<br/>
+Moved this model to the <code>Obsolete</code> package. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3595\">issue 3595</a>.
+</li>
 <li>
 April 10, 2017, by Jianjun Hu:<br/>
 First implementation, based on the implementation of the
