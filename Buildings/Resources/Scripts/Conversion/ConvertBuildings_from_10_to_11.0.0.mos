@@ -20,3 +20,7 @@ convertElement("Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.R
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3536
 convertClass("Buildings.Experimental.DHC.Plants.Combined.Subsystems.BaseClasses.MultipleCommands",
              "Buildings.Templates.Components.Controls.MultipleCommands");
+ 
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3595
+convertClass("Buildings.Controls.OBC.CDL.Logical.Or3",
+             "Buildings.Obsolete.Controls.OBC.CDL.Logical.Or3");
