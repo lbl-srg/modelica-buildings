@@ -2,19 +2,10 @@ within Buildings.Fluid.CHPs.OrganicRankine.BaseClasses;
 model EquationsVariable "Core equations of a Rankine cycle"
 
   // Input properties
-  //extends Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.Declarations;
   replaceable parameter Buildings.Fluid.CHPs.OrganicRankine.Data.Generic pro
     "Property records of the working fluid"
     annotation(Dialog(group="ORC inputs"),choicesAllMatching = true);
 
-    /*
-  Modelica.Units.SI.Temperature TEva
-    "Evaporator temperature"
-    annotation(Dialog(group="ORC inputs"));
-  Modelica.Units.SI.Temperature TCon
-    "Condenser temperature"
-    annotation(Dialog(group="ORC inputs"));
-    */
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TEva(final quantity="ThermodynamicTemperature",
       final unit="K") "Evaporator temperature" annotation (Placement(
         transformation(extent={{-140,20},{-100,60}}), iconTransformation(extent
@@ -105,13 +96,6 @@ model EquationsVariable "Core equations of a Rankine cycle"
     annotation (Placement(
         transformation(extent={{100,30},{120,50}}),   iconTransformation(extent={{100,30},
             {120,50}})));
-  Modelica.Blocks.Interfaces.RealOutput rConEva(
-    max=0,
-    final unit="1") = dhCon/dhEva
-    "Ratio of heat flow of condenser to evaporator (<0)"
-    annotation (Placement(
-        transformation(extent={{100,-50},{120,-30}}), iconTransformation(extent={{100,-50},
-            {120,-30}})));
 
 protected
   final Modelica.Units.SI.SpecificEntropy sSatVapCon =
