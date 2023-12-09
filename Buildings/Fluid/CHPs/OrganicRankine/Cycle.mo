@@ -1,5 +1,5 @@
 within Buildings.Fluid.CHPs.OrganicRankine;
-model CycleVariable
+model Cycle
 
   extends Buildings.Fluid.Interfaces.FourPortHeatMassExchanger(
     final m1_flow_nominal = mEva_flow_nominal,
@@ -15,9 +15,8 @@ model CycleVariable
     final vol1(
       final prescribedHeatFlowRate=true));
 
-  Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.EquationsVariable equ(
-    final pro = pro,
-    etaExp=0.7)
+  Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.InterpolateStates intSta(final pro
+      =pro, etaExp=0.7) "Interpolate working fluid states"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   replaceable parameter Buildings.Fluid.CHPs.OrganicRankine.Data.Generic pro
@@ -75,7 +74,7 @@ model CycleVariable
     "Error: evaporator side pinch point violation [fixme: placeholder]";
   /*Boolean errCon = TConWor - TConIn < 1
     "Error: incoming condenser fluid too warm";*/
-  Boolean errCon = equ.TExpOut - TConOut_internal < 1
+  Boolean errCon=intSta.TExpOut - TConOut_internal < 1
     "Error, condenser side pint point violation [fiexme: placeholder]";
   Boolean errCyc = TEvaWor - TConWor < 1
     "Error: Rankine cycle temperature differential reversed";
@@ -136,25 +135,25 @@ protected
 equation
   // Evaporator
   QEva_flow_internal = m1_flow * cpEva_default * (TEvaIn - TEvaOut_internal);
-  QEva_flow_internal = mWor_flow * (equ.hExpInl - equ.hPum);
+  QEva_flow_internal =mWor_flow*(intSta.hExpInl - intSta.hPum);
   // Pinch point
   (TEvaPin - TEvaOut_internal) / (TEvaIn - TEvaOut_internal)
-  = (equ.hEvaPin - equ.hPum) / (equ.hExpInl - equ.hPum);
+  =(intSta.hEvaPin - intSta.hPum)/(intSta.hExpInl - intSta.hPum);
   dTEvaPin = TEvaPin - TEvaWor;
 
   // Condenser
   QCon_flow_internal = m2_flow * cpCon_default * (TConOut_internal - TConIn);
-  QCon_flow_internal = mWor_flow * (equ.hExpOut - equ.hPum);
+  QCon_flow_internal =mWor_flow*(intSta.hExpOut - intSta.hPum);
   // Pinch point
   (TConPin - TConIn) / (TConOut_internal - TConIn)
-  = (equ.hConPin - equ.hPum) / (equ.hExpOut - equ.hPum);
+  =(intSta.hConPin - intSta.hPum)/(intSta.hExpOut - intSta.hPum);
   dTConPin = TConWor - TConPin;
 
   // Cycle
-  PEle_internal = QEva_flow_internal * equ.etaThe;
+  PEle_internal =QEva_flow_internal*intSta.etaThe;
 
-  connect(expTConWor.y, equ.TCon) annotation (Line(points={{-59,-10},{-20,-10},{
-          -20,-4},{-12,-4}}, color={0,0,127}));
+  connect(expTConWor.y, intSta.TCon) annotation (Line(points={{-59,-10},{-20,-10},
+          {-20,-4},{-12,-4}}, color={0,0,127}));
   connect(preHeaFloEva.port, vol1.heatPort) annotation (Line(points={{-19,30},{-16,
           30},{-16,60},{-10,60}}, color={191,0,0}));
   connect(expQEva_flow.y, preHeaFloEva.Q_flow)
@@ -167,8 +166,8 @@ equation
           60},{-100,60}}, color={0,127,255}));
   connect(senTem2.port, port_a2)
     annotation (Line(points={{70,-60},{100,-60}}, color={0,127,255}));
-  connect(expTEvaWor.y, equ.TEva) annotation (Line(points={{-59,10},{-20,10},{-20,
-          4},{-12,4}}, color={0,0,127}));
+  connect(expTEvaWor.y, intSta.TEva) annotation (Line(points={{-59,10},{-20,10},
+          {-20,4},{-12,4}}, color={0,0,127}));
   annotation (defaultComponentName = "ORC",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Line(
@@ -183,4 +182,4 @@ equation
           thickness=0.5,
           pattern=LinePattern.Dash)}),               Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end CycleVariable;
+end Cycle;

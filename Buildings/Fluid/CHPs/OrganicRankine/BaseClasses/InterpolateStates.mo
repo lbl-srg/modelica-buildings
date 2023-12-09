@@ -1,5 +1,5 @@
 within Buildings.Fluid.CHPs.OrganicRankine.BaseClasses;
-model EquationsVariable "Core equations of a Rankine cycle"
+model InterpolateStates "Interpolate states of a working fluid"
 
   // Input properties
   replaceable parameter Buildings.Fluid.CHPs.OrganicRankine.Data.Generic pro
@@ -180,7 +180,7 @@ equation
   (TExpOut - TCon) / pro.dTSup
     = (hExpOut - hSatVapCon) / (hSupVapCon - hSatVapCon);
 
-  annotation (defaultComponentName="equ",
+  annotation (defaultComponentName="intSta",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                Rectangle(
           extent={{-100,100},{100,-100}},
@@ -240,4 +240,4 @@ First implementation. This is for
 </li>
 </ul>
 </html>"));
-end EquationsVariable;
+end InterpolateStates;

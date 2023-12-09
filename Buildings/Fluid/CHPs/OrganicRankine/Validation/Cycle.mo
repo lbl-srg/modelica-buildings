@@ -1,5 +1,5 @@
 within Buildings.Fluid.CHPs.OrganicRankine.Validation;
-model CycleVariable
+model Cycle
   extends Modelica.Icons.Example;
 
   parameter Buildings.Fluid.CHPs.OrganicRankine.Data.WorkingFluids.Toluene pro
@@ -12,7 +12,7 @@ model CycleVariable
   parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal = 2
     "Medium flow rate in the condenser";
 
-  Buildings.Fluid.CHPs.OrganicRankine.CycleVariable ORC(
+  Buildings.Fluid.CHPs.OrganicRankine.Cycle ORC(
     redeclare package Medium1 = MediumEva,
     redeclare package Medium2 = MediumCon,
     pro=pro,
@@ -65,4 +65,4 @@ equation
           -20,-10},{-20,-2},{-11,-2}},  color={0,0,127}));
   connect(souCon.ports[1], ORC.port_a2) annotation (Line(points={{20,-30},{16,-30},
           {16,-6},{10,-6}}, color={0,127,255}));
-end CycleVariable;
+end Cycle;

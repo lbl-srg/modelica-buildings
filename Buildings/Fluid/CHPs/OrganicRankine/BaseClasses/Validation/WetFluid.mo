@@ -1,11 +1,10 @@
 within Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.Validation;
-model WetFluidVariable
+model WetFluid
   "Organic Rankine cycle with a wet working fluid"
-  extends Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.Validation.DryFluidVariable(equ(
-        dTSup=2,
-        etaExp=0.75),
-    redeclare parameter
-                Buildings.Fluid.CHPs.OrganicRankine.Data.WorkingFluids.R134a pro);
+  extends
+    Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.Validation.DryFluid(
+      intSta(dTSup=2, etaExp=0.75), redeclare parameter
+      Buildings.Fluid.CHPs.OrganicRankine.Data.WorkingFluids.R134a pro);
 annotation (experiment(StopTime=1, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/OrganicRankine/BaseClasses/Validation/WetFluid.mos"
   "Simulate and plot"),
@@ -27,4 +26,4 @@ First implementation. This is for
 </li>
 </ul>
 </html>"));
-end WetFluidVariable;
+end WetFluid;

@@ -1,10 +1,10 @@
 within Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.Validation;
-model DryFluidVariable
+model DryFluid
   "Organic Rankine cycle with a dry working fluid"
   extends Modelica.Icons.Example;
-  Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.EquationsVariable equ(
+  Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.InterpolateStates intSta(
     final pro=pro,
-    etaExp=0.85) "Thermodynamic equations of the Rankine cycle"
+    etaExp=0.85) "Interpolate working fluid states"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   replaceable parameter
             Buildings.Fluid.CHPs.OrganicRankine.Data.WorkingFluids.Toluene pro
@@ -17,10 +17,10 @@ model DryFluidVariable
   Modelica.Blocks.Sources.TimeTable TCon(table=[0,300; 1,330])
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 equation
-  connect(TEva.y, equ.TEva) annotation (Line(points={{-59,30},{-22,30},{-22,4},{
-          -12,4}}, color={0,0,127}));
-  connect(TCon.y, equ.TCon) annotation (Line(points={{-59,-30},{-22,-30},{-22,-4},
-          {-12,-4}}, color={0,0,127}));
+  connect(TEva.y, intSta.TEva) annotation (Line(points={{-59,30},{-22,30},{-22,
+          4},{-12,4}}, color={0,0,127}));
+  connect(TCon.y, intSta.TCon) annotation (Line(points={{-59,-30},{-22,-30},{-22,
+          -4},{-12,-4}}, color={0,0,127}));
 annotation(experiment(StopTime=1, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/OrganicRankine/BaseClasses/Validation/DryFluid.mos"
   "Simulate and plot"),
@@ -39,4 +39,4 @@ First implementation. This is for
 </li>
 </ul>
 </html>"));
-end DryFluidVariable;
+end DryFluid;
