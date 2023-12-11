@@ -180,6 +180,13 @@ capacity of copper.
 </html>", revisions="<html>
 <ul>
 <li>
+December 11, 2023, by Michael Wetter:<br/>
+Corrected implementation of pressure drop calculation for the situation where the collectors are in parallel,
+e.g., if <code>sysConfig == Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Parallel</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3597\">Buildings, #3597</a>.
+</li>
+<li>
 September 16, 2021, by Michael Wetter:<br/>
 Changed <code>lat</code> from being a parameter to an input from weather bus.<br/>
 This is for
