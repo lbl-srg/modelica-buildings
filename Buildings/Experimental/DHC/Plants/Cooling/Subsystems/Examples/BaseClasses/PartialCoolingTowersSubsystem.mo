@@ -32,29 +32,19 @@ partial model PartialCoolingTowersSubsystem
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{-70,40},{-50,60}})));
 
-  Buildings.Controls.OBC.CDL.Logical.OnOffController onOffCon(
-    bandwidth=2,
-    reference(
-      unit="K",
-      displayUnit="degC"),
-    u(unit="K",
-      displayUnit="degC"))
-    "On/off controller"
-    annotation (Placement(transformation(extent={{-20,-200},{0,-180}})));
-
   Buildings.Controls.OBC.CDL.Reals.Switch swi "Control switch for chilled water pump"
-    annotation (Placement(transformation(extent={{20,-200},{40,-180}})));
+    annotation (Placement(transformation(extent={{80,-200},{100,-180}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSwi(k=273.15 + 22)
     "Switch temperature for switching tower pump on"
     annotation (Placement(transformation(extent={{-80,-206},{-60,-186}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(k=0) "Zero flow rate"
-    annotation (Placement(transformation(extent={{-20,-230},{0,-210}})));
+    annotation (Placement(transformation(extent={{40,-230},{60,-210}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant m_flow(k=m_flow_nominal)
     "Water flow rate"
-    annotation (Placement(transformation(extent={{-20,-168},{0,-148}})));
+    annotation (Placement(transformation(extent={{40,-168},{60,-148}})));
 
   Buildings.Fluid.MixingVolumes.MixingVolume vol(nPorts=3,
     redeclare package Medium = Medium_W,
@@ -81,16 +71,24 @@ partial model PartialCoolingTowersSubsystem
     m_flow_nominal=m_flow_nominal)
     "Water entering temperature"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
+
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
+    final uLow=-1,
+    final uHigh=1)
+    "Pump on-off control"
+    annotation (Placement(transformation(extent={{20,-200},{40,-180}})));
+
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub "Inputs different"
+    annotation (Placement(transformation(extent={{-20,-200},{0,-180}})));
+
 equation
   connect(weaDat.weaBus, weaBus)
    annotation (Line(points={{-80,50},{-60,50}},color={255,204,51}));
-  connect(onOffCon.y, swi.u2)
-   annotation (Line(points={{2,-190},{18,-190}},color={255,0,255}));
   connect(zer.y, swi.u3)
-   annotation (Line(points={{2,-220},{8,-220},{8,-198},{18,-198}},
+   annotation (Line(points={{62,-220},{68,-220},{68,-198},{78,-198}},
      color={0,0,127}));
   connect(m_flow.y, swi.u1)
-   annotation (Line(points={{2,-158},{8,-158},{8,-182},{18,-182}},
+   annotation (Line(points={{62,-158},{68,-158},{68,-182},{78,-182}},
      color={0,0,127}));
   connect(vol.ports[1], pum.port_a)
    annotation (Line(points={{28.6667,-120},{-76,-120},{-76,-50},{-70,-50}},
@@ -104,21 +102,23 @@ equation
   connect(tow.port_b, vol.ports[2])
    annotation (Line(points={{42,-50},{60,-50},{60,-120},{30,-120}},
       color={0,127,255}));
-  connect(onOffCon.u, TSwi.y)
-   annotation (Line(points={{-22,-196},{-58,-196}},color={0,0,127}));
-  connect(TVol.T, onOffCon.reference)
-   annotation (Line(points={{-49,-150},{-40,-150},{-40,-184},{-22,-184}},
-      color={0,0,127}));
   connect(swi.y, pum.m_flow_in)
-   annotation (Line(points={{42,-190},{46,-190},{46,-240},{-100,-240},{-100,-32},
+   annotation (Line(points={{102,-190},{120,-190},{120,-240},{-100,-240},{-100,-32},
           {-60,-32},{-60,-38}},      color={0,0,127}));
   connect(exp.ports[1], vol.ports[3])
    annotation (Line(points={{80,-120},{31.3333,-120}},color={0,127,255}));
-
   connect(pum.port_b, TEnt.port_a)
     annotation (Line(points={{-50,-50},{-40,-50}}, color={0,127,255}));
   connect(TEnt.port_b, tow.port_a)
     annotation (Line(points={{-20,-50},{22,-50}},color={0,127,255}));
+  connect(sub.y, hys.u)
+    annotation (Line(points={{2,-190},{18,-190}}, color={0,0,127}));
+  connect(TVol.T, sub.u1) annotation (Line(points={{-49,-150},{-40,-150},{-40,-184},
+          {-22,-184}}, color={0,0,127}));
+  connect(TSwi.y, sub.u2)
+    annotation (Line(points={{-58,-196},{-22,-196}}, color={0,0,127}));
+  connect(hys.y, swi.u2)
+    annotation (Line(points={{42,-190},{78,-190}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-140,
             -260},{140,100}})),  Documentation(info="<html>
 <p>
@@ -130,6 +130,12 @@ on the temperature of the control volume to which the heat is added.
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 11, 2023, by Jianjun Hu:<br/>
+Reimplemented pump on-off control to avoid using the obsolete <code>OnOffController</code>.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3595\">#3595</a>.
+</li>
 <li>
 November 16, 2022, by Michael Wetter:<br/>
 Set <code>use_inputFilter=false</code>.

@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.CDL.Logical.Validation;
+within Buildings.Obsolete.Controls.OBC.CDL.Logical.Validation;
 model OnOffController
   "Validation model for the OnOffController block"
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramp1(
@@ -14,30 +14,31 @@ model OnOffController
     k=0.7)
     "Constant as source term"
     annotation (Placement(transformation(extent={{-32,18},{-12,38}})));
-  Buildings.Controls.OBC.CDL.Logical.OnOffController onOffController(
+  Buildings.Obsolete.Controls.OBC.CDL.Logical.OnOffController onOffController(
     bandwidth=0.1)
     "Delay a rising edge of the input, but do not delay a falling edge."
     annotation (Placement(transformation(extent={{26,-10},{46,10}})));
 
 equation
   connect(ramp1.y,sin1.u)
-    annotation (Line(points={{-55,-6},{-34,-6}},color={0,0,127}));
+    annotation (Line(points={{-54,-6},{-34,-6}},color={0,0,127}));
   connect(sin1.y,onOffController.u)
-    annotation (Line(points={{-11,-6},{6,-6},{24,-6}},color={0,0,127}));
+    annotation (Line(points={{-10,-6},{-10,-6},{24,-6}},
+                                                      color={0,0,127}));
   connect(cons2.y,onOffController.reference)
-    annotation (Line(points={{-11,28},{6,28},{6,6},{24,6}},color={0,0,127}));
+    annotation (Line(points={{-10,28},{6,28},{6,6},{24,6}},color={0,0,127}));
   annotation (
     experiment(
       StopTime=5.0,
       Tolerance=1e-06),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Validation/OnOffController.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete.Controls/OBC/CDL/Logical/Validation/OnOffController.mos" "Simulate and plot"),
     Documentation(
       info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Logical.OnOffController\">
-Buildings.Controls.OBC.CDL.Logical.OnOffController</a>.
+<a href=\"modelica://Buildings.Obsolete.Controls.OBC.CDL.Logical.OnOffController\">
+Buildings.Obsolete.Controls.OBC.CDL.Logical.OnOffController</a>.
 </p>
 </html>",
       revisions="<html>

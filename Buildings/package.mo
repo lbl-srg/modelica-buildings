@@ -309,7 +309,8 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Or3<br/>
-                       Buildings.Controls.OBC.CDL.Logical.ZeroCrossing
+                       Buildings.Controls.OBC.CDL.Logical.ZeroCrossing<br/>
+                       Buildings.Controls.OBC.CDL.Logical.OnOffController
     </td>
     <td valign=\"top\">Moved the block to the <code>Obsolete</code> package.<br/>
                        This is for

@@ -24,5 +24,7 @@ convertClass("Buildings.Experimental.DHC.Plants.Combined.Subsystems.BaseClasses.
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3595
 convertClass("Buildings.Controls.OBC.CDL.Logical.Or3",
              "Buildings.Obsolete.Controls.OBC.CDL.Logical.Or3");
+convertClass("Buildings.Controls.OBC.CDL.Logical.OnOffController",
+             "Buildings.Obsolete.Controls.OBC.CDL.Logical.OnOffController");
 convertClass("Buildings.Controls.OBC.CDL.Logical.ZeroCrossing",
              "Buildings.Obsolete.Controls.OBC.CDL.Logical.ZeroCrossing");
