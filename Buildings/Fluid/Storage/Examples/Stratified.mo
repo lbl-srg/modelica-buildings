@@ -118,19 +118,19 @@ equation
   connect(TBCTop2.port, tanEnh.heaPorTop) annotation (Line(points={{-28,38},{
           -26,38},{-26,-14},{-8,-14},{-8,-52.6}}, color={191,0,0}));
   connect(sin_1.ports[1], res_1.port_b) annotation (Line(
-      points={{70,-9},{64,-9},{64,-8},{54,-8}},
+      points={{70,-6},{64,-6},{64,-8},{54,-8}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sin_1.ports[2], res_2.port_b) annotation (Line(
-      points={{70,-7},{64,-7},{64,-80},{60,-80}},
+      points={{70,-10},{64,-10},{64,-80},{60,-80}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou_1.ports[1], tanSim.port_a) annotation (Line(
-      points={{-40,7},{-30,7},{-30,20},{-10,20}},
+      points={{-40,10},{-30,10},{-30,20},{-10,20}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou_1.ports[2], tanEnh.port_a) annotation (Line(
-      points={{-40,9},{-30,9},{-30,-40},{-10,-40},{-10,-50}},
+      points={{-40,6},{-30,6},{-30,-40},{-10,-40},{-10,-50}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TBCSid1.port, tanSim.heaPorSid) annotation (Line(

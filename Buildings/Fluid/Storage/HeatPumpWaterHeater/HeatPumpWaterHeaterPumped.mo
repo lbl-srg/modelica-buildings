@@ -103,18 +103,6 @@ equation
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{2,100},{-2,60}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{2,-60},{-2,-100}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
           extent={{-40,20},{40,-20}},
           lineColor={255,0,0},
           pattern=LinePattern.None,
