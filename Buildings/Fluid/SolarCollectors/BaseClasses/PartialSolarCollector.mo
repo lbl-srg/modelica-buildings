@@ -1,7 +1,9 @@
 within Buildings.Fluid.SolarCollectors.BaseClasses;
 model PartialSolarCollector "Partial model for solar collectors"
  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
-  extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(final dp_nominal = dp_nominal_final);
+  extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(
+    final dp_nominal = dp_nominal_final,
+    final computeFlowResistance=(abs(dp_nominal) > Modelica.Constants.eps));
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     final m_flow_nominal=m_flow_nominal_final);
 
@@ -250,6 +252,8 @@ revisions="<html>
 December 11, 2023, by Michael Wetter:<br/>
 Corrected implementation of pressure drop calculation for the situation where the collectors are in parallel,
 e.g., if <code>sysConfig == Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Parallel</code>.<br/>
+Changed assignment of <code>computeFlowResistance</code> to <code>final</code> based on
+<code>dp_nominal</code>.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3597\">Buildings, #3597</a>.
 </li>
