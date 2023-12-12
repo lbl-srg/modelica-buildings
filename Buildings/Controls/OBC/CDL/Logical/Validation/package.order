@@ -16,7 +16,6 @@ TimerAccumulating
 TimerAccumulatingNegativeStartTime
 TimerNegativeStartTime
 Toggle
-TriggeredTrapezoid
 TrueDelay
 TrueFalseHold
 TrueHoldWithReset
