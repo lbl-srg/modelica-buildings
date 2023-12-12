@@ -3,7 +3,7 @@ model PartialSolarCollector "Partial model for solar collectors"
  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(final dp_nominal = dp_nominal_final);
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
-    final m_flow_nominal=perPar.mperA_flow_nominal*perPar.A);
+    final m_flow_nominal=m_flow_nominal_final);
 
   constant Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(HideResult=true);
@@ -122,8 +122,13 @@ protected
     "Partial performance data"
     annotation(choicesAllMatching=true);
 
-    Modelica.Blocks.Interfaces.RealInput shaCoe_internal
+  Modelica.Blocks.Interfaces.RealInput shaCoe_internal
     "Internally used shading coefficient";
+
+  final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal_final(
+      displayUnit="kg/s") = if sysConfig == Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Parallel
+     then nPanels_internal*perPar.mperA_flow_nominal*perPar.A else perPar.mperA_flow_nominal*perPar.A
+    "Nominal mass flow rate through the system of collectors";
 
   final parameter Modelica.Units.SI.PressureDifference dp_nominal_final(
       displayUnit="Pa") = if sysConfig == Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series
@@ -180,11 +185,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
       connect(vol[nSeg].ports[2], port_b) annotation (Line(
-      points={{50,-6},{50,0},{94,0},{94,4.44089e-16},{100,4.44089e-16}},
+      points={{49,-6},{49,0},{94,0},{94,4.44089e-16},{100,4.44089e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(vol[1].ports[1], res.port_b) annotation (Line(
-      points={{46,-6},{46,0},{-40,0}},
+      points={{47,-6},{47,0},{-40,0}},
       color={0,127,255},
       smooth=Smooth.None));
       for i in 1:(nSeg - 1) loop
@@ -238,6 +243,13 @@ CEN 2006, European Standard 12975-1:2006, European Committee for Standardization
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 11, 2023, by Michael Wetter:<br/>
+Corrected implementation of pressure drop calculation for the situation where the collectors are in parallel,
+e.g., if <code>sysConfig == Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Parallel</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3597\">Buildings, #3597</a>.
+</li>
 <li>
 September 16, 2021, by Michael Wetter:<br/>
 Changed <code>lat</code> from being a parameter to an input from weather bus.<br/>
