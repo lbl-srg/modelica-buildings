@@ -379,6 +379,7 @@ protected
     "Check if the airflow setpoint should be overrided"
     annotation (Placement(transformation(extent={{20,240},{40,260}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2
+    "Check if the airflow setpoint should be overrided"
     annotation (Placement(transformation(extent={{80,260},{100,280}})));
   Buildings.Controls.OBC.CDL.Logical.Or or4
     "Check if it is in heating, cooling state, or it is in occupied mode"
