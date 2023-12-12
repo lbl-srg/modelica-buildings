@@ -4,7 +4,8 @@ model LimPIDWithReset
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal setPoi "Set point"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.ModelTime modTim "Model time"
+  Buildings.Controls.OBC.CDL.Reals.Sources.CivilTime modTim
+    "Standard time"
     annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
   Buildings.Obsolete.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
       threshold=1) "Outputs true after t=1"

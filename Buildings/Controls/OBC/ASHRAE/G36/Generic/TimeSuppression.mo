@@ -78,7 +78,7 @@ protected
     final h=0.5*dTHys)
     "Check if there is setpoint change"
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.ModelTime modTim
+  Buildings.Controls.OBC.CDL.Reals.Sources.CivilTime modTim
     "Time of the model"
     annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(

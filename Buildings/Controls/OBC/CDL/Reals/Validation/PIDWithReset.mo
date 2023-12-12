@@ -4,8 +4,8 @@ model PIDWithReset
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal setPoi
     "Set point"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.ModelTime modTim
-    "Model time"
+  Buildings.Controls.OBC.CDL.Reals.Sources.CivilTime modTim
+    "Standard time"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greEquThr(
     t=1)

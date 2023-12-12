@@ -47,24 +47,26 @@ model PIDWithInputGains
     offset=0.1)
     "Time constant signal for the derivative term"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-
-  CDL.Reals.Abs abs1 "Absolute value of controller output"
+  Buildings.Controls.OBC.CDL.Reals.Abs abs1
+    "Absolute value of controller output"
     annotation (Placement(transformation(extent={{110,-10},{130,10}})));
-  CDL.Reals.Subtract sub "Difference in controller output"
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub
+    "Difference in controller output"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
-  CDL.Reals.LessThreshold lesThr(t=1E-5, h=1E-4)
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThr(t=1E-5, h=1E-4)
     "Output true if outputs are bigger than threshold"
     annotation (Placement(transformation(extent={{140,-10},{160,10}})));
-  CDL.Utilities.Assert assMes(message="Control outputs differ more than expected")
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
+    message="Control outputs differ more than expected")
     "Make sure outputs are within expected tolerance"
     annotation (Placement(transformation(extent={{200,20},{220,40}})));
-  CDL.Reals.Sources.ModelTime modTim
-    "Model time"
+  Buildings.Controls.OBC.CDL.Reals.Sources.CivilTime modTim
+    "Standard time"
     annotation (Placement(transformation(extent={{80,40},{100,60}})));
-  CDL.Reals.GreaterThreshold greThr(t=0.59)
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(t=0.59)
     "Output true if model time is below 0.6"
     annotation (Placement(transformation(extent={{140,40},{160,60}})));
-  CDL.Logical.Or or2
+  Buildings.Controls.OBC.CDL.Logical.Or or2
     "Output true either if time is bigger than 0.59, or if tolerance is maintained"
     annotation (Placement(transformation(extent={{170,20},{190,40}})));
 equation

@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL.Reals.Sources;
-block ModelTime
-  "Standard time"
+block CivilTime "Standard time"
   Interfaces.RealOutput y(
     final unit="s")
     "Connector of Real output signal"
@@ -97,9 +96,20 @@ If a simulation starts
 at <i>t=-1</i>, then this block outputs first <i>t=-1</i>,
 and its output is advanced at the same rate as the simulation time.
 </p>
+
+<p>
+Note that the block has not been included in the ASHRAE standard 231p.
+However, in the future versions of the 231 standard, the block should be added.
+</p>
 </html>",
       revisions="<html>
 <ul>
+<li>
+December 12, 2023, by Jianjun Hu:<br/>
+Renamed the block from <code>ModelTime</code> to <code>CivilTime</code>.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3596\">issue 3596</a>.
+</li>
 <li>
 March 2, 2020, by Michael Wetter:<br/>
 Changed icon to display dynamically the output value.
@@ -125,4 +135,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end ModelTime;
+end CivilTime;
