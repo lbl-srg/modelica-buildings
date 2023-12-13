@@ -5,16 +5,16 @@ model ETS
     Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.PartialETS;
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Nominal mass flow rate";
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant souPHea(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant souPHea(
     k=1)
     annotation (Placement(transformation(extent={{260,50},{280,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant souPCoo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant souPCoo(
     k=1)
     annotation (Placement(transformation(extent={{260,10},{280,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant souPFan(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant souPFan(
     k=1)
     annotation (Placement(transformation(extent={{260,-30},{280,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant souPPum(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant souPPum(
     k=1)
     annotation (Placement(transformation(extent={{260,-70},{280,-50}})));
   Fluid.Sources.Boundary_pT sinSerAmbSup(

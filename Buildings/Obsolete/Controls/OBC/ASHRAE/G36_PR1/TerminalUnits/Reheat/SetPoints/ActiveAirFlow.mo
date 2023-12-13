@@ -100,34 +100,34 @@ block ActiveAirFlow
     annotation (Placement(transformation(extent={{280,10},{320,50}}),
         iconTransformation(extent={{100,-60},{140,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=VOutPerPer_flow) if have_occSen "Outdoor air per person"
     annotation (Placement(transformation(extent={{-140,-330},{-120,-310}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add breZon if have_occSen
+  Buildings.Controls.OBC.CDL.Reals.Add breZon if have_occSen
     "Breathing zone airflow"
     annotation (Placement(transformation(extent={{-80,-350},{-60,-330}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line co2ConLoo if have_CO2Sen
+  Buildings.Controls.OBC.CDL.Reals.Line co2ConLoo if have_CO2Sen
     "Maintain CO2 concentration at setpoint, reset 0% at (setpoint-200) and 100% at setpoint"
     annotation (Placement(transformation(extent={{-140,-190},{-120,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line lin1 if have_CO2Sen
+  Buildings.Controls.OBC.CDL.Reals.Line lin1 if have_CO2Sen
     "Reset occupied minimum airflow setpoint from 0% at VDisSetMin_flow and 100% at VDisCooSetMax_flow"
     annotation (Placement(transformation(extent={{20,-130},{40,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater gre
+  Buildings.Controls.OBC.CDL.Reals.Greater gre
     "Check if zone minimum airflow setpoint Vmin is less than the allowed controllable VDisConMin_flow"
     annotation (Placement(transformation(extent={{-20,-460},{0,-440}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr1
     "Check if zone minimum airflow setpoint VDisSetMin_flow is non-zero"
     annotation (Placement(transformation(extent={{-80,-410},{-60,-390}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Reset occupied minimum airflow according to occupancy"
     annotation (Placement(transformation(extent={{80,-290},{100,-270}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1
     "Reset occupied minimum airflow according to window status"
     annotation (Placement(transformation(extent={{200,-510},{220,-490}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi2
+  Buildings.Controls.OBC.CDL.Reals.Switch swi2
     "Reset occupied minimum airflow setpoint according to minimum controllable airflow"
     annotation (Placement(transformation(extent={{140,-410},{160,-390}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi3 if have_CO2Sen
+  Buildings.Controls.OBC.CDL.Reals.Switch swi3 if have_CO2Sen
     "Switch between zero signal and CO2 control loop signal depending on the operation mode"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-120}})));
   Buildings.Controls.OBC.CDL.Logical.And and1 "Logical and"
@@ -136,42 +136,42 @@ block ActiveAirFlow
     annotation (Placement(transformation(extent={{80,-410},{100,-390}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 if have_winSen "Logical not"
     annotation (Placement(transformation(extent={{-240,-510},{-220,-490}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     final t=0.75,
     final h=0.5) if have_occSen
     "Check if the zone becomes unpopulated"
     annotation (Placement(transformation(extent={{-140,-290},{-120,-270}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minZonAir1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minZonAir1(
     final k=VDisSetMin_flow) if not have_CO2Sen
     "Zone minimum airflow setpoint"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxZonCooAir(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxZonCooAir(
     final k=VDisCooSetMax_flow) if have_CO2Sen
     "Zone maximum cooling airflow setpoint"
     annotation (Placement(transformation(extent={{-80,-190},{-60,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant breZonAre(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant breZonAre(
     final k=VOutPerAre_flow*AFlo) if have_occSen
     "Area component of the breathing zone outdoor airflow"
     annotation (Placement(transformation(extent={{-140,-370},{-120,-350}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conVolMin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conVolMin(
     final k=VDisConMin_flow)
     "VAV box controllable minimum"
     annotation (Placement(transformation(extent={{-80,-440},{-60,-420}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minZonAir(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minZonAir(
     final k=VDisSetMin_flow)
     "Zone minimum airflow setpoint"
     annotation (Placement(transformation(extent={{-240,-60},{-220,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant setCO1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant setCO1(
     final k=CO2Set - 200) if have_CO2Sen
     "CO2 setpoints minus 200"
     annotation (Placement(transformation(extent={{-240,-140},{-220,-120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant setCO2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant setCO2(
     final k=CO2Set) if have_CO2Sen
     "CO2 setpoints"
     annotation (Placement(transformation(extent={{-240,-210},{-220,-190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerFlo(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zerFlo(final k=0)
     "Zero airflow when window is open"
     annotation (Placement(transformation(extent={{140,-540},{160,-520}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
@@ -180,37 +180,37 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(
     final k=true) if not have_winSen "Constant true"
     annotation (Placement(transformation(extent={{40,-490},{60,-470}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerCon(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zerCon(
     final k=0) "Output zero"
     annotation (Placement(transformation(extent={{-240,-170},{-220,-150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerCon1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zerCon1(
     final k=0) if have_CO2Sen
     "Output zero"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerCon2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zerCon2(
     final k=0) if have_CO2Sen
     "Output zero"
     annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerCon3(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zerCon3(
     final k=0) if not have_occSen
     "Output zero"
     annotation (Placement(transformation(extent={{0,-350},{20,-330}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oneCon(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant oneCon(
     final k=1) if have_CO2Sen
     "Output one"
     annotation (Placement(transformation(extent={{-240,-240},{-220,-220}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oneCon1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant oneCon1(
     final k=1) if have_CO2Sen "Output one"
     annotation (Placement(transformation(extent={{-80,-160},{-60,-140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooMaxAir(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant cooMaxAir(
     final k=VDisCooSetMax_flow)
     "Cooling maximum airflow"
     annotation (Placement(transformation(extent={{-240,-20},{-220,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaMaxAir(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant heaMaxAir(
     final k=VDisHeaSetMax_flow)
     "Heat maximum airflow"
     annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerCon6(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zerCon6(
     final k=0)
     "Output zero"
     annotation (Placement(transformation(extent={{-240,170},{-220,190}})));
@@ -249,60 +249,60 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu4
     "Check if current operation mode is setback mode"
     annotation (Placement(transformation(extent={{40,220},{60,240}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi4
+  Buildings.Controls.OBC.CDL.Reals.Switch swi4
     "Select cooling maximum based on operation mode"
     annotation (Placement(transformation(extent={{-100,290},{-80,310}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi8
+  Buildings.Controls.OBC.CDL.Reals.Switch swi8
     "Select heating maximum based on operation mode"
     annotation (Placement(transformation(extent={{-100,260},{-80,280}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi9
+  Buildings.Controls.OBC.CDL.Reals.Switch swi9
     "Select cooling maximum based on operation mode"
     annotation (Placement(transformation(extent={{-100,220},{-80,240}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi17
+  Buildings.Controls.OBC.CDL.Reals.Switch swi17
     "Select heating minimum based on operation mode"
     annotation (Placement(transformation(extent={{120,290},{140,310}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi18
+  Buildings.Controls.OBC.CDL.Reals.Switch swi18
     "Select heating maximum based on operation mode"
     annotation (Placement(transformation(extent={{120,260},{140,280}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi22
+  Buildings.Controls.OBC.CDL.Reals.Switch swi22
     "Select heating minimum based on operation mode"
     annotation (Placement(transformation(extent={{120,220},{140,240}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi23
+  Buildings.Controls.OBC.CDL.Reals.Switch swi23
     "Select heating maximum based on operation mode"
     annotation (Placement(transformation(extent={{120,190},{140,210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi24
+  Buildings.Controls.OBC.CDL.Reals.Switch swi24
     "Select cooling maximum based on operation mode"
     annotation (Placement(transformation(extent={{-100,150},{-80,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi25
+  Buildings.Controls.OBC.CDL.Reals.Switch swi25
     "Select cooling minimum based on operation mode"
     annotation (Placement(transformation(extent={{-100,120},{-80,140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi26
+  Buildings.Controls.OBC.CDL.Reals.Switch swi26
     "Select minimum based on operation mode"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi27
+  Buildings.Controls.OBC.CDL.Reals.Switch swi27
     "Select heating minimum based on operation mode"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi28
+  Buildings.Controls.OBC.CDL.Reals.Switch swi28
     "Select heating maximum based on operation mode"
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max maxInp "Find greater input"
+  Buildings.Controls.OBC.CDL.Reals.Max maxInp "Find greater input"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2 "Add real input"
+  Buildings.Controls.OBC.CDL.Reals.Add add2 "Add real input"
     annotation (Placement(transformation(extent={{200,170},{220,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add actCooMaxAir
+  Buildings.Controls.OBC.CDL.Reals.Add actCooMaxAir
     "Active cooling maximum airflow"
     annotation (Placement(transformation(extent={{240,160},{260,180}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add1 "Add real input"
+  Buildings.Controls.OBC.CDL.Reals.Add add1 "Add real input"
     annotation (Placement(transformation(extent={{200,80},{220,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add actHeaMinAir
+  Buildings.Controls.OBC.CDL.Reals.Add actHeaMinAir
     "Active heating minimum airflow"
     annotation (Placement(transformation(extent={{240,60},{260,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add3 "Add real input"
+  Buildings.Controls.OBC.CDL.Reals.Add add3 "Add real input"
     annotation (Placement(transformation(extent={{180,40},{200,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add actHeaMaxAir1
+  Buildings.Controls.OBC.CDL.Reals.Add actHeaMaxAir1
     "Active heating maximum airflow"
     annotation (Placement(transformation(extent={{240,20},{260,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add4 "Add real input"
+  Buildings.Controls.OBC.CDL.Reals.Add add4 "Add real input"
     annotation (Placement(transformation(extent={{180,0},{200,20}})));
 
 equation

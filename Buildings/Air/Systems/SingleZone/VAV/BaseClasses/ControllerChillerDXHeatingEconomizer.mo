@@ -200,19 +200,19 @@ model ControllerChillerDXHeatingEconomizer
     final reverseActing=false)
     "Cooling coil valve controller"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Switch the outdoor air fraction to 0 when in unoccupied mode"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOcc
     "Current occupancy period, true if it is in occupant period"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(k=0)
     "Zero outside air fraction"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swiFan "Switch fan on"
+  Buildings.Controls.OBC.CDL.Reals.Switch swiFan "Switch fan on"
     annotation (Placement(transformation(extent={{70,120},{90,140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysHea(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysHea(
     final uLow=0.01,
     final uHigh=0.05)
     "Hysteresis for heating"
@@ -222,7 +222,7 @@ model ControllerChillerDXHeatingEconomizer
     annotation (Placement(transformation(extent={{40,94},{60,114}})));
   Modelica.Blocks.Logical.And and1 "Logical and"
     annotation (Placement(transformation(extent={{70,-40},{90,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater chiOnTRoo(h=1)
+  Buildings.Controls.OBC.CDL.Reals.Greater chiOnTRoo(h=1)
     "Chiller on signal based on room temperature"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
 

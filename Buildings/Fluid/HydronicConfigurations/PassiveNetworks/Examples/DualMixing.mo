@@ -59,15 +59,15 @@ model DualMixing
     timeScale=3600,
     period=86400) "Operating mode (time schedule)"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable fraLoa(table=[0,0,0; 6,
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable fraLoa(table=[0,0,0; 6,
         0,0; 6.1,1,1; 8,1,1; 9,1,0; 14,0.5,0; 14.5,0,0; 16,0,0; 17,0,1; 21,0,1;
         22,0,0; 24,0,0], timeScale=3600) "Load modulating signal"
     annotation (Placement(transformation(extent={{-120,110},{-100,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant T2Set(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant T2Set(
     y(final unit="K", displayUnit="degC"),
     final k=TLiqEnt_nominal) "Consumer circuit temperature set point"
     annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant T1Set(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant T1Set(
     y(final unit="K", displayUnit="degC"),
     final k=TLiqSup_nominal) "Primary circuit temperature set point"
     annotation (Placement(transformation(extent={{-120,-130},{-100,-110}})));

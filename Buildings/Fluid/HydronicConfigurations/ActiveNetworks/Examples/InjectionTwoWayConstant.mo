@@ -55,7 +55,7 @@ model InjectionTwoWayConstant
     dp_nominal=dpPip_nominal)
     "Pipe pressure drop"
     annotation (Placement(transformation(extent={{70,50},{90,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant T2SetLim1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant T2SetLim1(
     final k=T2Set_nominal,
     y(final unit="K", displayUnit="degC"))
     "Consumer circuit temperature design set point " annotation (Placement(
@@ -63,7 +63,7 @@ model InjectionTwoWayConstant
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-130,70})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable fraLoa(table=[0,0,0; 6,
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable fraLoa(table=[0,0,0; 6,
         0,0; 6.1,1,1; 8,1,1; 9,1,0; 14,0.5,0; 14.5,0,0; 16,0,0; 17,0,1; 21,0,1;
         22,0,0; 24,0,0], timeScale=3600) "Load modulating signal"
     annotation (Placement(transformation(extent={{-140,170},{-120,190}})));
@@ -73,14 +73,14 @@ model InjectionTwoWayConstant
     reverseActing=false,
     y_reset=1) "PI controller for consumer circuit temperature reset"
     annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line T2SetVar(
+  Buildings.Controls.OBC.CDL.Reals.Line T2SetVar(
     y(final unit="K", displayUnit="degC")) if have_resT2
     "Consumer circuit temperature set point (reset)"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-50,110})));
-  Buildings.Controls.OBC.CDL.Continuous.Max yValMax(
+  Buildings.Controls.OBC.CDL.Reals.Max yValMax(
     y(final unit="1"))
     "Maximum valve opening"
     annotation (Placement(
@@ -88,7 +88,7 @@ model InjectionTwoWayConstant
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={50,150})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yValSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yValSet(
     k=0.9,
     y(final unit="1"))
     "Valve opening set point"
@@ -96,7 +96,7 @@ model InjectionTwoWayConstant
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-130,150})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one(
     final k=1,
     y(final unit="1"))
     "One"
@@ -104,7 +104,7 @@ model InjectionTwoWayConstant
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-50,150})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(
     final k=0,
     y(final unit="1"))
     "Zero"
@@ -112,7 +112,7 @@ model InjectionTwoWayConstant
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-90,150})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant T2SetLim0(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant T2SetLim0(
     k=T2Set_nominal + (if con.typCtl == Buildings.Fluid.HydronicConfigurations.Types.Control.Heating
     then -10 else +5), y(final unit="K", displayUnit="degC"))
     "Consumer circuit temperature limiting set point " annotation (Placement(

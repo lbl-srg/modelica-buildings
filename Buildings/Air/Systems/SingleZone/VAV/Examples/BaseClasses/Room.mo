@@ -219,7 +219,7 @@ model Room
     nPorts=1)
     "Source model for air infiltration"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable intLoad(table=[0,
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable intLoad(table=[0,
         0.1; 8*3600,0.1; 8*3600,1.0; 18*3600,1.0; 18*3600,0.1; 24*3600,0.1])
     "Internal loads"
     annotation (Placement(transformation(extent={{-120,150},{-100,170}})));
@@ -370,8 +370,8 @@ This is for
 <li>
 July 21, 2020, by Kun Zhang:<br/>
 Replaced the internal gain block from BaseClasses by directly using the block
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable\">
-Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable\">
+Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable</a>.
 </li>
 <li>
 June 21, 2017, by Michael Wetter:<br/>

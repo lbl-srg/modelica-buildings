@@ -61,7 +61,7 @@ model WetCoilCounterFlowLowWaterFlowRate
     nPorts=1)
     "sink for air"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
-  Controls.OBC.CDL.Continuous.Sources.Ramp ram(
+  Controls.OBC.CDL.Reals.Sources.Ramp ram(
     height=-mWat_flow_nominal,
     duration=1800,
     offset=mWat_flow_nominal,

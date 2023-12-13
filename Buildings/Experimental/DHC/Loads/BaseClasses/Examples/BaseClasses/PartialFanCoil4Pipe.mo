@@ -24,7 +24,7 @@ partial model PartialFanCoil4Pipe
     "Heating heat exchanger configuration";
   final parameter hexConfiguration hexConCoo=hexConfiguration.CounterFlow
     "Cooling heat exchanger configuration";
-  Buildings.Controls.OBC.CDL.Continuous.PID conHea(
+  Buildings.Controls.OBC.CDL.Reals.PID conHea(
     Ti=10,
     yMax=1,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
@@ -57,7 +57,7 @@ partial model PartialFanCoil4Pipe
     final allowFlowReversal1=allowFlowReversal,
     final allowFlowReversal2=allowFlowReversalLoa)
     annotation (Placement(transformation(extent={{-80,4},{-60,-16}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiHeaFloNom(k=
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gaiHeaFloNom(k=
         mHeaWat_flow_nominal)
     annotation (Placement(transformation(extent={{40,210},{60,230}})));
   Modelica.Blocks.Sources.RealExpression Q_flowHea(
@@ -81,10 +81,10 @@ partial model PartialFanCoil4Pipe
     annotation (Placement(transformation(extent={{0,4},{20,-16}})));
   Modelica.Blocks.Sources.RealExpression Q_flowCoo(y=hexWetNtu.Q2_flow)
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiFloNom2(k=max({
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gaiFloNom2(k=max({
         mLoaHea_flow_nominal,mLoaCoo_flow_nominal}))
     annotation (Placement(transformation(extent={{40,130},{60,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID conCoo(
+  Buildings.Controls.OBC.CDL.Reals.PID conCoo(
     Ti=10,
     yMax=1,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
@@ -92,7 +92,7 @@ partial model PartialFanCoil4Pipe
     yMin=0)
     "PI controller for cooling"
     annotation (Placement(transformation(extent={{-10,170},{10,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiCooFloNom(k=
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gaiCooFloNom(k=
         mChiWat_flow_nominal) "Scaling"
     annotation (Placement(transformation(extent={{40,170},{60,190}})));
   Utilities.Math.SmoothMax smoothMax(
