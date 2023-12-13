@@ -91,17 +91,15 @@ model Cycle
 
   // Evaporator
 protected
-  Buildings.Fluid.Sensors.Temperature senTem1(
-    redeclare package Medium = Medium1,
-    warnAboutOnePortConnection=false) "fixme: to be replaced"
-    annotation (Placement(transformation(extent={{-58,50},{-38,70}})));
   parameter Modelica.Units.SI.SpecificHeatCapacity cpEva_default =
     Medium1.specificHeatCapacityCp(sta1_nominal)
     "Constant specific heat capacity";
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloEva
     "Prescribed heat flow rate"
     annotation (Placement(transformation(extent={{-39,20},{-19,40}})));
-  Modelica.Units.SI.ThermodynamicTemperature TEvaIn=senTem1.T
+  Modelica.Units.SI.ThermodynamicTemperature TEvaIn=
+    Medium1.temperature(state=Medium1.setState_phX(
+      p=port_a1.p, h=inStream(port_a1.h_outflow), X=inStream(port_a1.Xi_outflow)))
     "Fluid temperature into the evaporator";
   Modelica.Units.SI.ThermodynamicTemperature TEvaOut_internal
     "Fluid temperature out of the evaporator, intermediate variable";
@@ -109,17 +107,15 @@ protected
     "Evaporator heat flow rate, intermediate variable";
 
   // Condenser
-  Buildings.Fluid.Sensors.Temperature senTem2(
-    redeclare package Medium = Medium2,
-    warnAboutOnePortConnection=false) "fixme: to be replaced"
-    annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
   parameter Modelica.Units.SI.SpecificHeatCapacity cpCon_default =
     Medium2.specificHeatCapacityCp(sta2_nominal)
     "Constant specific heat capacity";
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloCon
     "Prescribed heat flow rate"
     annotation (Placement(transformation(extent={{-39,-40},{-19,-20}})));
-  Modelica.Units.SI.ThermodynamicTemperature TConIn = senTem2.T
+  Modelica.Units.SI.ThermodynamicTemperature TConIn =
+    Medium2.temperature(state=Medium2.setState_phX(
+      p=port_a2.p, h=inStream(port_a2.h_outflow), X=inStream(port_a2.Xi_outflow)))
     "Fluid temperature into the condenser";
   Modelica.Units.SI.ThermodynamicTemperature TConOut_internal
     "Fluid temperature out of the condenser, intermediate variable";
@@ -161,10 +157,6 @@ equation
     annotation (Line(points={{-59,-30},{-39,-30}}, color={0,0,127}));
   connect(preHeaFloCon.port, vol2.heatPort) annotation (Line(points={{-19,-30},{
           18,-30},{18,-60},{12,-60}}, color={191,0,0}));
-  connect(senTem1.port, port_a1) annotation (Line(points={{-48,50},{-90,50},{-90,
-          60},{-100,60}}, color={0,127,255}));
-  connect(senTem2.port, port_a2)
-    annotation (Line(points={{70,-60},{100,-60}}, color={0,127,255}));
   connect(expTEvaWor.y, intSta.TEva) annotation (Line(points={{-59,10},{-20,10},
           {-20,4},{-12,4}}, color={0,0,127}));
   annotation (defaultComponentName = "ORC",
