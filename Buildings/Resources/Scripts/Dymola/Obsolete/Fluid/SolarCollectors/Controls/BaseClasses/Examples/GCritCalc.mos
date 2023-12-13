@@ -1,9 +1,9 @@
 removePlots();
-simulateModel("Buildings.Obsolete.Fluid.SolarCollectors.Controls.Examples.SolarPumpController", tolerance=1e-6, stopTime = 86400, method = "dassl", resultFile = "SolarPumpController");
+simulateModel("Buildings.Obsolete.Fluid.SolarCollectors.Controls.BaseClasses.Examples.GCritCalc", tolerance=1e-6, stopTime=100, method="dassl", resultFile="GCritCalc");
 createPlot(id = 1,
  position = {0, 0, 1000, 500},
- y = {"pumCon.on"},
- range = {0.0, 88000.0, -0.1, 1.2000000000000002},
+ y = {"criSol.G_TC"},
+ range = {0.0, 100.0, -50.0, 300.0},
  autoscale = true,
  autoerase = true,
  autoreplot = true,
@@ -11,13 +11,13 @@ createPlot(id = 1,
  grid = true,
  color = true,
  online = false,
- filename = "SolarPumpController.mat",
+ filename = "GCritCalc.mat",
  leftTitleType = 1,
  bottomTitleType = 1,
  colors = {{0,0,255}});
 createPlot(id = 1,
  position = {0, 0, 1000, 500},
- y = {"pumCon.criSol.G_TC", "pumCon.weaBus.HDirNor"},
+ y = {"criSol.TEnv", "criSol.TIn"},
  range = {0.0, 88000.0, -100.0, 700.0},
  autoscale = true,
  autoerase = true,
