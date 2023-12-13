@@ -1,9 +1,9 @@
-within Buildings.Obsolete.Fluid.SolarCollectors.Controls.Examples;
+within Buildings.Obsolete.Fluid.Obsolete.SolarCollectors.Controls.Examples;
 model SolarPumpController "Example for the solar pump controller"
   extends Modelica.Icons.Example;
-  Buildings.Obsolete.Fluid.SolarCollectors.Controls.SolarPumpController
+  Buildings.Obsolete.Fluid.Obsolete.SolarCollectors.Controls.SolarPumpController
         pumCon(per=
-        Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_ThermaLiteHS20())
+        Buildings.Fluid.Obsolete.SolarCollectors.Data.GlazedFlatPlate.FP_ThermaLiteHS20())
     "Model controlling the on/off status of the pump"
     annotation (Placement(transformation(extent={{-6,0},{14,20}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
@@ -26,14 +26,14 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation ( __Dymola_Commands(file=
-    "modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Fluid/SolarCollectors/Controls/Examples/SolarPumpController.mos"
+    "modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Fluid/Obsolete/SolarCollectors/Controls/Examples/SolarPumpController.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StopTime=86400.0),
     Documentation(info="<html>
       <p>
         This model illustrates the use of the
-        <a href=\"modelica://Buildings.Obsolete.Fluid.SolarCollectors.Controls.SolarPumpController\">
-        Buildings.Obsolete.Fluid.SolarCollectors.Controls.SolarPumpController</a> model.
+        <a href=\"modelica://Buildings.Obsolete.Fluid.Obsolete.SolarCollectors.Controls.SolarPumpController\">
+        Buildings.Obsolete.Fluid.Obsolete.SolarCollectors.Controls.SolarPumpController</a> model.
         Based on weather data and inlet temperature, the controller switches the pump on
         and off.
       </p>
