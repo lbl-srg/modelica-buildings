@@ -60,7 +60,7 @@ equation
   connect(dxDeh.port_a, sou.ports[1])
     annotation (Line(points={{-10,0},{-26,0}},color={0,127,255}));
   connect(on.y, dxDeh.uEna)
-    annotation (Line(points={{-29,-40},{-18,-40},{-18,-4},{-11,-4}},
+    annotation (Line(points={{-29,-40},{-20,-40},{-20,4},{-11,4}},
       color={255,0,255}));
   connect(sin1.ports[1], dxDeh.port_b)
     annotation (Line(points={{62,0},{10,0}}, color={0,127,255}));
