@@ -10,6 +10,10 @@ model DXDehumidifier
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=0.1
     "Nominal mass flow rate";
 
+  parameter Buildings.Fluid.Humidifiers.Examples.Data.DXDehumidifier per
+    "Data record for DX dehumidifier"
+    annotation (Placement(transformation(extent={{40,62},{60,82}})));
+
   Buildings.Fluid.Humidifiers.DXDehumidifier dxDeh(
     redeclare package Medium = Medium,
     VWat_flow_nominal=5.805556e-7,
@@ -37,10 +41,6 @@ model DXDehumidifier
     nPorts=1)
     "Flow source"
     annotation (Placement(transformation(extent={{-46,-10},{-26,10}})));
-
-  Buildings.Fluid.Humidifiers.Examples.Data.DXDehumidifier per
-    "Data record for DX dehumidifier"
-    annotation (Placement(transformation(extent={{40,62},{60,82}})));
 
   Modelica.Fluid.Sources.FixedBoundary sin1(
     redeclare package Medium = Medium,

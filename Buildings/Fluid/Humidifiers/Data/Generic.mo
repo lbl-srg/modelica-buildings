@@ -4,14 +4,6 @@ record Generic
 
   extends Modelica.Icons.Record;
 
-//   parameter Integer nWatRem
-//     "Number of coefficients for water removal modifier curve"
-//     annotation (Dialog(group="Performance curves"));
-//
-//   parameter Integer nEneFac
-//     "Number of coefficients for energy factor modifier curve"
-//     annotation (Dialog(group="Performance curves"));
-
   parameter Real watRem[:]
     "Biquadratic coefficients for water removal modifier curve"
     annotation (Dialog(group="Performance curves"));
