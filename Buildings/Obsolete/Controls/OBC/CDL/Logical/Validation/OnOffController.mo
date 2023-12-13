@@ -32,7 +32,7 @@ equation
       StopTime=5.0,
       Tolerance=1e-06),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete.Controls/OBC/CDL/Logical/Validation/OnOffController.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Controls/OBC/CDL/Logical/Validation/OnOffController.mos" "Simulate and plot"),
     Documentation(
       info="<html>
 <p>
