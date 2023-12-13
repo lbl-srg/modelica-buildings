@@ -17,6 +17,7 @@ equation
   y=u1 or u2 or u3;
   annotation (
     defaultComponentName="or3",
+    obsolete = "This model is obsolete, use two blocks of Buildings.Controls.OBC.CDL.Logical.Or stacked together instead",
     Icon(
       coordinateSystem(
         preserveAspectRatio=true,

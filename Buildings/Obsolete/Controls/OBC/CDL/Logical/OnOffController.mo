@@ -24,6 +24,7 @@ equation
                                             (u < reference-bandwidth/2);
   annotation (
     defaultComponentName="onOffCon",
+    obsolete = "This model is obsolete, use blocks of Buildings.Controls.OBC.CDL.Reals.Subtract and Buildings.Controls.OBC.CDL.Reals.Hysteresis instead",
     Icon(
       coordinateSystem(
         preserveAspectRatio=true,

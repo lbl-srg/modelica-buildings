@@ -61,6 +61,7 @@ equation
   end when;
   annotation (
     defaultComponentName="triTra",
+    obsolete = "This model is obsolete",
     Icon(
       coordinateSystem(
         preserveAspectRatio=true,

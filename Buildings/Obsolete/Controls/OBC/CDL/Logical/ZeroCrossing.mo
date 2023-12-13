@@ -29,6 +29,7 @@ equation
   y=change(u_pos) and not edge(enable) and not edge(disable);
   annotation (
     defaultComponentName="zerCro",
+    obsolete = "This model is obsolete",
     Documentation(
       info="<html>
 <p>
