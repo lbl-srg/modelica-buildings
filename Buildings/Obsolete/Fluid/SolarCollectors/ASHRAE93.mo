@@ -1,7 +1,7 @@
-within Buildings.Fluid.Obsolete.SolarCollectors;
+within Buildings.Obsolete.Fluid.SolarCollectors;
 model ASHRAE93 "Model of a flat plate solar thermal collector"
-  extends Buildings.Fluid.Obsolete.SolarCollectors.BaseClasses.PartialSolarCollector(final perPar=per);
-  parameter Buildings.Fluid.Obsolete.SolarCollectors.Data.GenericSolarCollector per
+  extends Buildings.Obsolete.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector(final perPar=per);
+  parameter Buildings.Obsolete.Fluid.SolarCollectors.Data.GenericSolarCollector per
     "Performance data" annotation(choicesAllMatching=true,
     Placement(transformation(extent={{60,-80},{80,-60}})));
 
@@ -37,7 +37,7 @@ equation
     "The heat loss coefficient from the ASHRAE ratings data must be strictly negative. Obtained slope = " + String(per.slope));
 
   connect(weaBus.TDryBul, heaLos.TEnv) annotation (Line(
-      points={{-100,96},{-88,96},{-88,22},{-22,22}},
+      points={{-99.95,96.05},{-88,96.05},{-88,22},{-22,22}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -69,18 +69,19 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(temSen.T, heaLos.TFlu) annotation (Line(
-      points={{-8,-16},{-32,-16},{-32,10},{-22,10}},
+      points={{-9,-16},{-32,-16},{-32,10},{-22,10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(temSen.T, solGai.TFlu) annotation (Line(
-      points={{-8,-16},{-32,-16},{-32,40},{-22,40}},
+      points={{-9,-16},{-32,-16},{-32,40},{-22,40}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(heaLos.QLos, QLos.Q_flow) annotation (Line(
       points={{1,16},{50,16}},
       color={0,0,127},
       smooth=Smooth.None));
-annotation (
+      annotation (
+  obsolete = "Obsolete model - use models from Buildings.Fluid.SolarCollectors instead",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}),
          graphics={
@@ -187,7 +188,7 @@ This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3604\
 <li>
 December 11, 2023, by Michael Wetter:<br/>
 Corrected implementation of pressure drop calculation for the situation where the collectors are in parallel,
-e.g., if <code>sysConfig == Buildings.Fluid.Obsolete.SolarCollectors.Types.SystemConfiguration.Parallel</code>.<br/>
+e.g., if <code>sysConfig == Buildings.Obsolete.Fluid.SolarCollectors.Types.SystemConfiguration.Parallel</code>.<br/>
 Changed assignment of <code>computeFlowResistance</code> to <code>final</code> based on
 <code>dp_nominal</code>.<br/>
 This is for

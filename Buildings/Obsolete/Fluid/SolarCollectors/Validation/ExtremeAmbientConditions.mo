@@ -1,4 +1,4 @@
-within Buildings.Fluid.Obsolete.SolarCollectors.Validation;
+within Buildings.Obsolete.Fluid.SolarCollectors.Validation;
 model ExtremeAmbientConditions
   "Validation model for to ensure that collectors do not freeze or boil"
   extends Modelica.Icons.Example;
@@ -11,9 +11,9 @@ model ExtremeAmbientConditions
     shaCoe=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     rho=0.2,
-    nColType=Buildings.Fluid.Obsolete.SolarCollectors.Types.NumberSelection.Number,
-    sysConfig=Buildings.Fluid.Obsolete.SolarCollectors.Types.SystemConfiguration.Series,
-    per=Buildings.Fluid.Obsolete.SolarCollectors.Data.GlazedFlatPlate.FP_GuangdongFSPTY95(),
+    nColType=Buildings.Obsolete.Fluid.SolarCollectors.Types.NumberSelection.Number,
+    sysConfig=Buildings.Obsolete.Fluid.SolarCollectors.Types.SystemConfiguration.Series,
+    per=Buildings.Obsolete.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_GuangdongFSPTY95(),
     nPanels=1,
     azi=0.3,
     til=0.5,
@@ -24,16 +24,16 @@ model ExtremeAmbientConditions
     shaCoe=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     rho=0.2,
-    nColType=Buildings.Fluid.Obsolete.SolarCollectors.Types.NumberSelection.Number,
-    sysConfig=Buildings.Fluid.Obsolete.SolarCollectors.Types.SystemConfiguration.Series,
+    nColType=Buildings.Obsolete.Fluid.SolarCollectors.Types.NumberSelection.Number,
+    sysConfig=Buildings.Obsolete.Fluid.SolarCollectors.Types.SystemConfiguration.Series,
     nPanels=1,
     azi=0.3,
     til=0.5,
-    per=Buildings.Fluid.Obsolete.SolarCollectors.Data.Concentrating.C_VerificationModel(),
+    per=Buildings.Obsolete.Fluid.SolarCollectors.Data.Concentrating.C_VerificationModel(),
     T_start=313.15) "Flat plate solar collector model using the EN 12975 model"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
 
-  Sources.MassFlowSource_T sou(
+  Buildings.Fluid.Sources.MassFlowSource_T sou(
     redeclare package Medium = Medium,
     nPorts=1,
     m_flow=0) "Inlet boundary conditions"
@@ -42,7 +42,7 @@ model ExtremeAmbientConditions
       extent={{10,10},{-10,-10}},
       rotation=180,
       origin={-10,-40})));
-  Sources.Boundary_pT sou1(
+  Buildings.Fluid.Sources.Boundary_pT sou1(
     redeclare package Medium = Medium,
     p(displayUnit="Pa"),
     use_p_in=false,
@@ -63,7 +63,7 @@ model ExtremeAmbientConditions
     startTime=10*3600) "Solar irradiation"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
-  Sources.MassFlowSource_T sou2(
+  Buildings.Fluid.Sources.MassFlowSource_T sou2(
     redeclare package Medium = Medium,
     nPorts=1,
     m_flow=0) "Inlet boundary conditions"
@@ -182,11 +182,11 @@ then the solar heat gain is reduced to zero.
 Ensuring these bounds is important as otherwise, the collector model
 would trigger an assertion and the simulation would stop.
 The tested collector models are
-<a href=\"modelica://Buildings.Fluid.Obsolete.SolarCollectors.ASHRAE93\">
-Buildings.Fluid.Obsolete.SolarCollectors.ASHRAE93</a>
+<a href=\"modelica://Buildings.Obsolete.Fluid.SolarCollectors.ASHRAE93\">
+Buildings.Obsolete.Fluid.SolarCollectors.ASHRAE93</a>
 and
-<a href=\"modelica://Buildings.Fluid.Obsolete.SolarCollectors.EN12975\">
-Buildings.Fluid.Obsolete.SolarCollectors.EN12975</a>.
+<a href=\"modelica://Buildings.Obsolete.Fluid.SolarCollectors.EN12975\">
+Buildings.Obsolete.Fluid.SolarCollectors.EN12975</a>.
 </p>
 <p>
 Note that the medium has been declared
@@ -217,7 +217,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Obsolete/SolarCollectors/Validation/ExtremeAmbientConditions.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Fluid/SolarCollectors/Validation/ExtremeAmbientConditions.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-06, StopTime=86400),
     Diagram(coordinateSystem(extent={{-100,-120},{100,120}})),

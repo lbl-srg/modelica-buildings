@@ -1,16 +1,16 @@
-within Buildings.Fluid.Obsolete.SolarCollectors.Examples;
+within Buildings.Obsolete.Fluid.SolarCollectors.Examples;
 model FlatPlate "Test model for FlatPlate"
   extends Modelica.Icons.Example;
   replaceable package Medium = Modelica.Media.Incompressible.Examples.Glycol47
     "Medium in the system";
 
-  Buildings.Fluid.Obsolete.SolarCollectors.ASHRAE93 solCol(
+  Buildings.Obsolete.Fluid.SolarCollectors.ASHRAE93 solCol(
     redeclare package Medium = Medium,
     shaCoe=0,
     rho=0.2,
-    nColType=Buildings.Fluid.Obsolete.SolarCollectors.Types.NumberSelection.Number,
-    sysConfig=Buildings.Fluid.Obsolete.SolarCollectors.Types.SystemConfiguration.Series,
-    per=Buildings.Fluid.Obsolete.SolarCollectors.Data.GlazedFlatPlate.FP_GuangdongFSPTY95(),
+    nColType=Buildings.Obsolete.Fluid.SolarCollectors.Types.NumberSelection.Number,
+    sysConfig=Buildings.Obsolete.Fluid.SolarCollectors.Types.SystemConfiguration.Series,
+    per=Buildings.Obsolete.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_GuangdongFSPTY95(),
     nPanels=1,
     nSeg=9,
     azi=0.3,
@@ -37,7 +37,7 @@ model FlatPlate "Test model for FlatPlate"
   Buildings.Fluid.Sensors.TemperatureTwoPort TIn(redeclare package Medium =
     Medium, m_flow_nominal=solCol.m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{-32,-20},{-12,0}})));
-  Sources.Boundary_pT sou(
+  Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
     T=273.15 + 10,
     nPorts=1,
@@ -76,8 +76,8 @@ equation
     Documentation(info="<html>
 <p>
 This example demonstrates the implementation of
-<a href=\"modelica://Buildings.Fluid.Obsolete.SolarCollectors.ASHRAE93\">
-Buildings.Fluid.Obsolete.SolarCollectors.ASHRAE93</a>
+<a href=\"modelica://Buildings.Obsolete.Fluid.SolarCollectors.ASHRAE93\">
+Buildings.Obsolete.Fluid.SolarCollectors.ASHRAE93</a>
 for a variable fluid flow rate and weather data from
 San Francisco, CA, USA.
 </p>
@@ -111,7 +111,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Obsolete/SolarCollectors/Examples/FlatPlate.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Fluid/SolarCollectors/Examples/FlatPlate.mos"
         "Simulate and plot"),
  experiment(Tolerance=1e-6, StopTime=86400.0));
 end FlatPlate;

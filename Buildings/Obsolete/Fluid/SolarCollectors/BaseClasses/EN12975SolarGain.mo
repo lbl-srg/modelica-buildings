@@ -1,6 +1,7 @@
-within Buildings.Fluid.Obsolete.SolarCollectors.BaseClasses;
+within Buildings.Obsolete.Fluid.SolarCollectors.BaseClasses;
 model EN12975SolarGain "Model calculating solar gains per the EN12975 standard"
   extends Modelica.Blocks.Icons.Block;
+  extends Buildings.Obsolete.BaseClasses.ObsoleteModel;
   extends SolarCollectors.BaseClasses.PartialParameters;
 
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium

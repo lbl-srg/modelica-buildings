@@ -1,4 +1,4 @@
-within Buildings.Fluid.Obsolete.SolarCollectors.Types;
+within Buildings.Obsolete.Fluid.SolarCollectors.Types;
 type NumberSelection = enumeration(
     Number "Number of panels",
     Area "Total panel area") "Enumeration of options for how users will specify

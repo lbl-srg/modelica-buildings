@@ -1,7 +1,9 @@
-within Buildings.Fluid.Obsolete.SolarCollectors.Data;
+within Buildings.Obsolete.Fluid.SolarCollectors.Data;
 record GenericSolarCollector
   "Generic data record providing inputs for specific collector data records"
   extends Modelica.Icons.Record;
+  extends Buildings.Obsolete.BaseClasses.ObsoleteModel;
+
 
   parameter SolarCollectors.Types.Area ATyp "Gross or aperture area";
   parameter Modelica.Units.SI.Area A "Area";
@@ -23,14 +25,15 @@ record GenericSolarCollector
     "Nominal solar irradiance specified in ratings data";
   parameter Modelica.Units.SI.TemperatureDifference dT_nominal
     "Nominal temperature difference specified in ratings data";
-annotation (
+    annotation (
+  obsolete = "Obsolete model - use models from Buildings.Fluid.SolarCollectors instead",
 defaultComponentPrefixes="parameter",
 defaultComponentName="datSolCol",
 Documentation(info="<html>
   <p>
     Generic data file which is used for the
-    <a href=\"modelica://Buildings.Fluid.Obsolete.SolarCollectors.BaseClasses.PartialSolarCollector\">
-    Buildings.Fluid.Obsolete.SolarCollectors.BaseClasses.PartialSolarCollector</a> model. It establishes
+    <a href=\"modelica://Buildings.Obsolete.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector\">
+    Buildings.Obsolete.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector</a> model. It establishes
     the base inputs needed to create model-specific data packages.
   </p>
 </html>"));

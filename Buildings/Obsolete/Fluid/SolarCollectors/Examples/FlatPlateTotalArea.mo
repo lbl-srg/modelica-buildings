@@ -1,17 +1,17 @@
-within Buildings.Fluid.Obsolete.SolarCollectors.Examples;
+within Buildings.Obsolete.Fluid.SolarCollectors.Examples;
 model FlatPlateTotalArea "Example showing the use of TotalArea and nSeg"
   extends Modelica.Icons.Example;
   replaceable package Medium = Buildings.Media.Water "Medium in the system";
 
-  Buildings.Fluid.Obsolete.SolarCollectors.ASHRAE93          solCol(
+  Buildings.Obsolete.Fluid.SolarCollectors.ASHRAE93          solCol(
     redeclare package Medium = Medium,
     shaCoe=0,
     from_dp=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     rho=0.2,
-    sysConfig=Buildings.Fluid.Obsolete.SolarCollectors.Types.SystemConfiguration.Series,
-    per=Buildings.Fluid.Obsolete.SolarCollectors.Data.GlazedFlatPlate.FP_SolahartKf(),
-    nColType=Buildings.Fluid.Obsolete.SolarCollectors.Types.NumberSelection.Number,
+    sysConfig=Buildings.Obsolete.Fluid.SolarCollectors.Types.SystemConfiguration.Series,
+    per=Buildings.Obsolete.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_SolahartKf(),
+    nColType=Buildings.Obsolete.Fluid.SolarCollectors.Types.NumberSelection.Number,
     nPanels=10,
     nSeg=9,
     azi=0.3,
@@ -48,15 +48,15 @@ model FlatPlateTotalArea "Example showing the use of TotalArea and nSeg"
         rotation=180,
         origin={-90,10})));
 
-  Buildings.Fluid.Obsolete.SolarCollectors.ASHRAE93 solCol1(
+  Buildings.Obsolete.Fluid.SolarCollectors.ASHRAE93 solCol1(
     redeclare package Medium = Medium,
     shaCoe=0,
     from_dp=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     rho=0.2,
-    sysConfig=Buildings.Fluid.Obsolete.SolarCollectors.Types.SystemConfiguration.Series,
-    per=Buildings.Fluid.Obsolete.SolarCollectors.Data.GlazedFlatPlate.FP_SolahartKf(),
-    nColType=Buildings.Fluid.Obsolete.SolarCollectors.Types.NumberSelection.Number,
+    sysConfig=Buildings.Obsolete.Fluid.SolarCollectors.Types.SystemConfiguration.Series,
+    per=Buildings.Obsolete.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_SolahartKf(),
+    nColType=Buildings.Obsolete.Fluid.SolarCollectors.Types.NumberSelection.Number,
     nPanels=10,
     nSeg=27,
     azi=0.3,
@@ -122,8 +122,8 @@ equation
       <p>
         This model uses <code>TotalArea</code> instead of <code>nPanels</code> to
         define the system size. Aside from that change, this model is identical to
-        <a href=\"modelica://Buildings.Fluid.Obsolete.SolarCollectors.Examples.FlatPlate\">
-        Buildings.Fluid.Obsolete.SolarCollectors.Examples.FlatPlate</a>.
+        <a href=\"modelica://Buildings.Obsolete.Fluid.SolarCollectors.Examples.FlatPlate\">
+        Buildings.Obsolete.Fluid.SolarCollectors.Examples.FlatPlate</a>.
       </p>
     </html>",
 revisions="<html>
@@ -152,7 +152,7 @@ First implementation.
 </ul>
 </html>"),
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Obsolete/SolarCollectors/Examples/FlatPlateTotalArea.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Fluid/SolarCollectors/Examples/FlatPlateTotalArea.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StopTime=86400.0));
 end FlatPlateTotalArea;

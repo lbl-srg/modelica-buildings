@@ -1,11 +1,11 @@
-within Buildings.Fluid.Obsolete.SolarCollectors.BaseClasses.Examples;
+within Buildings.Obsolete.Fluid.SolarCollectors.BaseClasses.Examples;
 model ASHRAESolarGain "Example showing the use of ASHRAESolarGain"
   extends Modelica.Icons.Example;
-  parameter Buildings.Fluid.Obsolete.SolarCollectors.Data.GenericSolarCollector per=
-    Buildings.Fluid.Obsolete.SolarCollectors.Data.GlazedFlatPlate.FP_ThermaLiteHS20()
+  parameter Buildings.Obsolete.Fluid.SolarCollectors.Data.GenericSolarCollector per=
+    Buildings.Obsolete.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_ThermaLiteHS20()
     "Performance data"
     annotation (choicesAllMatching=true);
-  Buildings.Fluid.Obsolete.SolarCollectors.BaseClasses.ASHRAESolarGain   solHeaGai(
+  Buildings.Obsolete.Fluid.SolarCollectors.BaseClasses.ASHRAESolarGain   solHeaGai(
     nSeg=3,
     shaCoe=0,
     use_shaCoe_in=true,
@@ -91,8 +91,8 @@ equation
     Documentation(info="<html>
       <p>
         This examples demonstrates the implementation of
-        <a href=\"modelica://Buildings.Fluid.Obsolete.SolarCollectors.BaseClasses.ASHRAESolarGain\">
-        Buildings.Fluid.Obsolete.SolarCollectors.BaseClasses.ASHRAESolarGain</a>.
+        <a href=\"modelica://Buildings.Obsolete.Fluid.SolarCollectors.BaseClasses.ASHRAESolarGain\">
+        Buildings.Obsolete.Fluid.SolarCollectors.BaseClasses.ASHRAESolarGain</a>.
       </p>
     </html>",
     revisions="<html>
@@ -104,7 +104,7 @@ equation
       </ul>
   </html>"),
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Obsolete/SolarCollectors/BaseClasses/Examples/ASHRAESolarGain.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Fluid/SolarCollectors/BaseClasses/Examples/ASHRAESolarGain.mos"
         "Simulate and plot"),
         experiment(Tolerance=1e-6, StopTime=86400));
 end ASHRAESolarGain;

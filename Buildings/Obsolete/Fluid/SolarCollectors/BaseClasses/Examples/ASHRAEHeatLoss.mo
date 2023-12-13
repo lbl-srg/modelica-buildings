@@ -1,8 +1,8 @@
-within Buildings.Fluid.Obsolete.SolarCollectors.BaseClasses.Examples;
+within Buildings.Obsolete.Fluid.SolarCollectors.BaseClasses.Examples;
 model ASHRAEHeatLoss "Example showing the use of ASHRAEHeatLoss"
   extends Modelica.Icons.Example;
-  parameter Buildings.Fluid.Obsolete.SolarCollectors.Data.GenericSolarCollector per=
-    Buildings.Fluid.Obsolete.SolarCollectors.Data.GlazedFlatPlate.FP_SolahartKf()
+  parameter Buildings.Obsolete.Fluid.SolarCollectors.Data.GenericSolarCollector per=
+    Buildings.Obsolete.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_SolahartKf()
     "Performance data"
     annotation (choicesAllMatching=true);
   Modelica.Blocks.Sources.Sine TEnv(
@@ -25,7 +25,7 @@ model ASHRAEHeatLoss "Example showing the use of ASHRAEHeatLoss"
     amplitude=15,
     offset=273.15 + 20) "Temperature in the third segment"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Buildings.Fluid.Obsolete.SolarCollectors.BaseClasses.ASHRAEHeatLoss heaLos(
+  Buildings.Obsolete.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss heaLos(
     nSeg=3,
     m_flow_nominal=per.mperA_flow_nominal*per.A,
     redeclare package Medium = Buildings.Media.Water,
@@ -57,8 +57,8 @@ equation
     Documentation(info="<html>
       <p>
         This examples demonstrates the implementation of
-        <a href=\"modelica://Buildings.Fluid.Obsolete.SolarCollectors.BaseClasses.ASHRAEHeatLoss\">
-        Buildings.Fluid.Obsolete.SolarCollectors.BaseClasses.ASHRAEHeatLoss</a>.
+        <a href=\"modelica://Buildings.Obsolete.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss\">
+        Buildings.Obsolete.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss</a>.
       </p>
     </html>",
     revisions="<html>
@@ -70,7 +70,7 @@ equation
       </ul>
     </html>"),
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Obsolete/SolarCollectors/BaseClasses/Examples/ASHRAEHeatLoss.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Fluid/SolarCollectors/BaseClasses/Examples/ASHRAEHeatLoss.mos"
         "Simulate and plot"),
         experiment(Tolerance=1e-6, StopTime=100));
 end ASHRAEHeatLoss;

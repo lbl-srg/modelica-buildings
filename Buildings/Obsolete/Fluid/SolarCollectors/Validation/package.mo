@@ -1,12 +1,12 @@
-within Buildings.Fluid.Obsolete.SolarCollectors;
+within Buildings.Obsolete.Fluid.SolarCollectors;
 package Validation "Collection of validation models"
   extends Modelica.Icons.ExamplesPackage;
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains validation models for the classes in
-<a href=\"modelica://Buildings.Fluid.Obsolete.SolarCollectors\">
-Buildings.Fluid.Obsolete.SolarCollectors</a>.
+<a href=\"modelica://Buildings.Obsolete.Fluid.SolarCollectors\">
+Buildings.Obsolete.Fluid.SolarCollectors</a>.
 </p>
 <p>
 Note that most validation models contain simple input data

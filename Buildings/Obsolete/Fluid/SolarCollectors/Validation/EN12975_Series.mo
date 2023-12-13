@@ -1,4 +1,4 @@
-within Buildings.Fluid.Obsolete.SolarCollectors.Validation;
+within Buildings.Obsolete.Fluid.SolarCollectors.Validation;
 model EN12975_Series
   "Validation model for collector according to EN12975 with different panels in series"
   extends Modelica.Icons.Example;
@@ -8,7 +8,7 @@ model EN12975_Series
       solCol.datSolCol.mperA_flow_nominal "Nominal mass flow rate";
 
   model collector
-    extends Buildings.Fluid.Obsolete.SolarCollectors.EN12975(
+    extends Buildings.Obsolete.Fluid.SolarCollectors.EN12975(
     redeclare final package Medium = Buildings.Media.Water,
     final show_T = true,
     final per=datSolCol,
@@ -16,12 +16,12 @@ model EN12975_Series
     final azi=0,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final rho=0.2,
-    final nColType=Buildings.Fluid.Obsolete.SolarCollectors.Types.NumberSelection.Number,
+    final nColType=Buildings.Obsolete.Fluid.SolarCollectors.Types.NumberSelection.Number,
     nPanels=1,
     final til=0.78539816339745,
     final C=385*perPar.mDry,
     final use_shaCoe_in=false,
-    final sysConfig=Buildings.Fluid.Obsolete.SolarCollectors.Types.SystemConfiguration.Series);
+    final sysConfig=Buildings.Obsolete.Fluid.SolarCollectors.Types.SystemConfiguration.Series);
   parameter SolarCollectors.Data.GenericSolarCollector datSolCol(
     final ATyp=Types.Area.Aperture,
     A=4.302,
@@ -91,13 +91,13 @@ model EN12975_Series
     T=303.15) "Inlet for water flow, at a prescribed flow rate and temperature"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 
-  Sensors.TemperatureTwoPort senTem(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTem(
      redeclare package Medium = Medium,
      tau=0,
      m_flow_nominal=m_flow_nominal)
     "Temperature sensor"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
-  Sensors.TemperatureTwoPort senTem1(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTem1(
     redeclare package Medium = Medium,
     tau=0,
     m_flow_nominal=m_flow_nominal)
@@ -144,8 +144,8 @@ equation
     Documentation(info="<html>
 <p>
 This model validates the solar collector model
-<a href=\"modelica://Buildings.Fluid.Obsolete.SolarCollectors.EN12975\">
-Buildings.Fluid.Obsolete.SolarCollectors.EN12975</a>
+<a href=\"modelica://Buildings.Obsolete.Fluid.SolarCollectors.EN12975\">
+Buildings.Obsolete.Fluid.SolarCollectors.EN12975</a>
 for the case where one model has multiple panels in series,
 versus the case where two models are in series, each having one panel.
 The output of the block <code>dT</code> must be zero, as both
@@ -172,7 +172,7 @@ First implementation to validate
 </ul>
 </html>"),
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Obsolete/SolarCollectors/Validation/EN12975_Series.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Fluid/SolarCollectors/Validation/EN12975_Series.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StopTime=86400));
 end EN12975_Series;

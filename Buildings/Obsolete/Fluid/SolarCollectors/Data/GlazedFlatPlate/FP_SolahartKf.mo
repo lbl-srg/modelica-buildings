@@ -1,4 +1,4 @@
-within Buildings.Fluid.Obsolete.SolarCollectors.Data.GlazedFlatPlate;
+within Buildings.Obsolete.Fluid.SolarCollectors.Data.GlazedFlatPlate;
 record FP_SolahartKf =
     SolarCollectors.Data.GenericSolarCollector (
     final ATyp=Types.Area.Gross,

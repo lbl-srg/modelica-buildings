@@ -1,4 +1,4 @@
-within Buildings.Fluid.Obsolete.SolarCollectors.Data.GlazedFlatPlate;
+within Buildings.Obsolete.Fluid.SolarCollectors.Data.GlazedFlatPlate;
 record FP_TRNSYSValidation =
     SolarCollectors.Data.GenericSolarCollector (
     ATyp=Types.Area.Gross,

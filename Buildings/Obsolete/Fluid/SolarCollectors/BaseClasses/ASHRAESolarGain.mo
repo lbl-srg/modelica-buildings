@@ -1,7 +1,8 @@
-within Buildings.Fluid.Obsolete.SolarCollectors.BaseClasses;
+within Buildings.Obsolete.Fluid.SolarCollectors.BaseClasses;
 block ASHRAESolarGain
   "Calculate the solar heat gain of a solar collector per ASHRAE Standard 93"
   extends Modelica.Blocks.Icons.Block;
+  extends Buildings.Obsolete.BaseClasses.ObsoleteModel;
   extends SolarCollectors.BaseClasses.PartialParameters;
 
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium

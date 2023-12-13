@@ -1,7 +1,8 @@
-within Buildings.Fluid.Obsolete.SolarCollectors.BaseClasses;
+within Buildings.Obsolete.Fluid.SolarCollectors.BaseClasses;
 block PartialHeatLoss
   "Partial heat loss model on which ASHRAEHeatLoss and EN12975HeatLoss are based"
   extends Modelica.Blocks.Icons.Block;
+  extends Buildings.Obsolete.BaseClasses.ObsoleteModel;
   extends SolarCollectors.BaseClasses.PartialParameters;
 
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
@@ -66,10 +67,10 @@ defaultComponentName="heaLos",
 Documentation(info="<html>
 <p>
 This component is a partial model used as the base for
-<a href=\"modelica://Buildings.Fluid.Obsolete.SolarCollectors.BaseClasses.ASHRAEHeatLoss\">
-Buildings.Fluid.Obsolete.SolarCollectors.BaseClasses.ASHRAEHeatLoss</a> and
-<a href=\"modelica://Buildings.Fluid.Obsolete.SolarCollectors.BaseClasses.EN12975HeatLoss\">
-Buildings.Fluid.Obsolete.SolarCollectors.BaseClasses.EN12975HeatLoss</a>. It contains the
+<a href=\"modelica://Buildings.Obsolete.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss\">
+Buildings.Obsolete.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss</a> and
+<a href=\"modelica://Buildings.Obsolete.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss\">
+Buildings.Obsolete.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss</a>. It contains the
 input, output and parameter declarations which are common to both models. More
 detailed information is available in the documentation for the extending classes.
 </p>

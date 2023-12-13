@@ -1,8 +1,8 @@
-within Buildings.Fluid.Obsolete.SolarCollectors.BaseClasses.Examples;
+within Buildings.Obsolete.Fluid.SolarCollectors.BaseClasses.Examples;
 model EN12975HeatLoss "Example showing the use of EN12975HeatLoss"
   extends Modelica.Icons.Example;
-  parameter Buildings.Fluid.Obsolete.SolarCollectors.Data.GenericSolarCollector per=
-    Buildings.Fluid.Obsolete.SolarCollectors.Data.Concentrating.C_VerificationModel()
+  parameter Buildings.Obsolete.Fluid.SolarCollectors.Data.GenericSolarCollector per=
+    Buildings.Obsolete.Fluid.SolarCollectors.Data.Concentrating.C_VerificationModel()
     "Performance data"
     annotation (choicesAllMatching=true);
   Modelica.Blocks.Sources.Sine TEnv(
@@ -25,7 +25,7 @@ model EN12975HeatLoss "Example showing the use of EN12975HeatLoss"
     amplitude=15,
     offset=273.15 + 20) "Temperature of the third segment"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Buildings.Fluid.Obsolete.SolarCollectors.BaseClasses.EN12975HeatLoss heaLos(
+  Buildings.Obsolete.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss heaLos(
     nSeg=3,
     redeclare package Medium = Buildings.Media.Water,
     C1=per.C1,
@@ -58,8 +58,8 @@ equation
     Documentation(info="<html>
       <p>
         This examples demonstrates the implementation of
-        <a href=\"modelica://Buildings.Fluid.Obsolete.SolarCollectors.BaseClasses.EN12975HeatLoss\">
-        Buildings.Fluid.Obsolete.SolarCollectors.BaseClasses.EN12975HeatLoss</a>.
+        <a href=\"modelica://Buildings.Obsolete.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss\">
+        Buildings.Obsolete.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss</a>.
       </p>
     </html>",
     revisions="<html>
@@ -71,7 +71,7 @@ equation
     </ul>
   </html>"),
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Obsolete/SolarCollectors/BaseClasses/Examples/EN12975HeatLoss.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Fluid/SolarCollectors/BaseClasses/Examples/EN12975HeatLoss.mos"
         "Simulate and plot"),
         experiment(Tolerance=1e-6, StopTime=100));
 end EN12975HeatLoss;

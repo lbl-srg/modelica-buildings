@@ -1,4 +1,4 @@
-within Buildings.Fluid.Obsolete.SolarCollectors.Data.Concentrating;
+within Buildings.Obsolete.Fluid.SolarCollectors.Data.Concentrating;
 record C_VerificationModel =
   SolarCollectors.Data.GenericSolarCollector (
     final ATyp=Types.Area.Aperture,

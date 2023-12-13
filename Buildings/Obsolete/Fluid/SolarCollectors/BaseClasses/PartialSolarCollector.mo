@@ -1,5 +1,6 @@
-within Buildings.Fluid.Obsolete.SolarCollectors.BaseClasses;
+within Buildings.Obsolete.Fluid.SolarCollectors.BaseClasses;
 model PartialSolarCollector "Partial model for solar collectors"
+ extends Buildings.Obsolete.BaseClasses.ObsoleteModel;
  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final dp_nominal = dp_nominal_final,
@@ -32,19 +33,19 @@ model PartialSolarCollector "Partial model for solar collectors"
     max=1.0) = 0 "Shading coefficient. 0.0: no shading, 1.0: full shading"
     annotation(Dialog(enable = not use_shaCoe_in, group = "Shading"));
 
-  parameter Buildings.Fluid.Obsolete.SolarCollectors.Types.NumberSelection nColType=
-  Buildings.Fluid.Obsolete.SolarCollectors.Types.NumberSelection.Number
+  parameter Buildings.Obsolete.Fluid.SolarCollectors.Types.NumberSelection nColType=
+  Buildings.Obsolete.Fluid.SolarCollectors.Types.NumberSelection.Number
     "Selection of area specification format"
     annotation(Dialog(group="Area declarations"));
   parameter Integer nPanels= 0 "Desired number of panels in the simulation"
-    annotation(Dialog(group="Area declarations", enable= (nColType == Buildings.Fluid.Obsolete.SolarCollectors.Types.NumberSelection.Number)));
+    annotation(Dialog(group="Area declarations", enable= (nColType == Buildings.Obsolete.Fluid.SolarCollectors.Types.NumberSelection.Number)));
 
   parameter Modelica.Units.SI.Area totalArea=0
     "Total area of panels in the simulation" annotation (Dialog(group=
-          "Area declarations", enable=(nColType == Buildings.Fluid.Obsolete.SolarCollectors.Types.NumberSelection.Area)));
+          "Area declarations", enable=(nColType == Buildings.Obsolete.Fluid.SolarCollectors.Types.NumberSelection.Area)));
 
-  parameter Buildings.Fluid.Obsolete.SolarCollectors.Types.SystemConfiguration sysConfig=
-  Buildings.Fluid.Obsolete.SolarCollectors.Types.SystemConfiguration.Series
+  parameter Buildings.Obsolete.Fluid.SolarCollectors.Types.SystemConfiguration sysConfig=
+  Buildings.Obsolete.Fluid.SolarCollectors.Types.SystemConfiguration.Series
     "Selection of system configuration"
     annotation(Dialog(group="Configuration declarations"));
 
@@ -123,7 +124,7 @@ model PartialSolarCollector "Partial model for solar collectors"
     annotation (Placement(transformation(extent={{50,6},{70,26}})));
 
 protected
-  parameter Buildings.Fluid.Obsolete.SolarCollectors.Data.GenericSolarCollector perPar
+  parameter Buildings.Obsolete.Fluid.SolarCollectors.Data.GenericSolarCollector perPar
     "Partial performance data"
     annotation(choicesAllMatching=true);
 
@@ -131,12 +132,12 @@ protected
     "Internally used shading coefficient";
 
   final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal_final(
-      displayUnit="kg/s") = if sysConfig == Buildings.Fluid.Obsolete.SolarCollectors.Types.SystemConfiguration.Parallel
+      displayUnit="kg/s") = if sysConfig == Buildings.Obsolete.Fluid.SolarCollectors.Types.SystemConfiguration.Parallel
      then nPanels_internal*perPar.mperA_flow_nominal*perPar.A else perPar.mperA_flow_nominal*perPar.A
     "Nominal mass flow rate through the system of collectors";
 
   final parameter Modelica.Units.SI.PressureDifference dp_nominal_final(
-      displayUnit="Pa") = if sysConfig == Buildings.Fluid.Obsolete.SolarCollectors.Types.SystemConfiguration.Series
+      displayUnit="Pa") = if sysConfig == Buildings.Obsolete.Fluid.SolarCollectors.Types.SystemConfiguration.Series
      then nPanels_internal*perPar.dp_nominal else perPar.dp_nominal
     "Nominal pressure loss across the system of collectors";
 
@@ -144,7 +145,7 @@ protected
     "Area used in the simulation";
 
   parameter Real nPanels_internal=
-    if nColType == Buildings.Fluid.Obsolete.SolarCollectors.Types.NumberSelection.Number then
+    if nColType == Buildings.Obsolete.Fluid.SolarCollectors.Types.NumberSelection.Number then
       nPanels
     else
       totalArea/perPar.A "Number of panels used in the simulation";
@@ -256,7 +257,7 @@ This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3604\
 <li>
 December 11, 2023, by Michael Wetter:<br/>
 Corrected implementation of pressure drop calculation for the situation where the collectors are in parallel,
-e.g., if <code>sysConfig == Buildings.Fluid.Obsolete.SolarCollectors.Types.SystemConfiguration.Parallel</code>.<br/>
+e.g., if <code>sysConfig == Buildings.Obsolete.Fluid.SolarCollectors.Types.SystemConfiguration.Parallel</code>.<br/>
 Changed assignment of <code>computeFlowResistance</code> to <code>final</code> based on
 <code>dp_nominal</code>.<br/>
 This is for

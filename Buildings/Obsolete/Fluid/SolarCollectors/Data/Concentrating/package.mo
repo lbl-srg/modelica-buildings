@@ -1,4 +1,4 @@
-within Buildings.Fluid.Obsolete.SolarCollectors.Data;
+within Buildings.Obsolete.Fluid.SolarCollectors.Data;
 package Concentrating "Package with SRCC rating information for concentrating solar thermal collectors"
   extends Modelica.Icons.MaterialPropertiesPackage;
 

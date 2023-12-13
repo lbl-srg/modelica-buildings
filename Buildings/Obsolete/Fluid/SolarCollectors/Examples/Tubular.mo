@@ -1,16 +1,16 @@
-within Buildings.Fluid.Obsolete.SolarCollectors.Examples;
+within Buildings.Obsolete.Fluid.SolarCollectors.Examples;
 model Tubular "Example showing the use of Tubular"
   extends Modelica.Icons.Example;
   replaceable package Medium = Buildings.Media.Water "Medium in the system";
-  Buildings.Fluid.Obsolete.SolarCollectors.ASHRAE93 solCol(
+  Buildings.Obsolete.Fluid.SolarCollectors.ASHRAE93 solCol(
     redeclare package Medium = Medium,
     shaCoe=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     use_shaCoe_in=false,
-    per=Buildings.Fluid.Obsolete.SolarCollectors.Data.Tubular.T_AMKCollectraAGOWR20(),
+    per=Buildings.Obsolete.Fluid.SolarCollectors.Data.Tubular.T_AMKCollectraAGOWR20(),
     nPanels=10,
-    sysConfig=Buildings.Fluid.Obsolete.SolarCollectors.Types.SystemConfiguration.Parallel,
-    nColType=Buildings.Fluid.Obsolete.SolarCollectors.Types.NumberSelection.Number,
+    sysConfig=Buildings.Obsolete.Fluid.SolarCollectors.Types.SystemConfiguration.Parallel,
+    nColType=Buildings.Obsolete.Fluid.SolarCollectors.Types.NumberSelection.Number,
     rho=0.2,
     nSeg=9,
     azi=0.3,
@@ -78,16 +78,16 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (__Dymola_Commands(file=
-    "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Obsolete/SolarCollectors/Examples/Tubular.mos"
+    "modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Fluid/SolarCollectors/Examples/Tubular.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StopTime=86400.0),
     Documentation(info="<html>
       <p>
         This example models a tubular solar thermal collector. It uses the
-        <a href=\"modelica://Buildings.Fluid.Obsolete.SolarCollectors.ASHRAE93\">
-        Buildings.Fluid.Obsolete.SolarCollectors.ASHRAE93</a> model and references
-        data in the <a href=\"modelica://Buildings.Fluid.Obsolete.SolarCollectors.Data.Tubular\">
-        Buildings.Fluid.Obsolete.SolarCollectors.Data.Tubular</a> package.
+        <a href=\"modelica://Buildings.Obsolete.Fluid.SolarCollectors.ASHRAE93\">
+        Buildings.Obsolete.Fluid.SolarCollectors.ASHRAE93</a> model and references
+        data in the <a href=\"modelica://Buildings.Obsolete.Fluid.SolarCollectors.Data.Tubular\">
+        Buildings.Obsolete.Fluid.SolarCollectors.Data.Tubular</a> package.
       </p>
     </html>",
 revisions="<html>
@@ -101,7 +101,7 @@ This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3604\
 December 11, 2023, by Michael Wetter:<br/>
 Changed design flow rate. This is due to correction for the
 implementation of the pressure drop calculation for the situation where collectors are in parallel,
-e.g., if <code>sysConfig == Buildings.Fluid.Obsolete.SolarCollectors.Types.SystemConfiguration.Parallel</code>.<br/>
+e.g., if <code>sysConfig == Buildings.Obsolete.Fluid.SolarCollectors.Types.SystemConfiguration.Parallel</code>.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3597\">Buildings, #3597</a>.
 </li>

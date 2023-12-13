@@ -1,4 +1,4 @@
-within Buildings.Fluid.Obsolete.SolarCollectors;
+within Buildings.Obsolete.Fluid.SolarCollectors;
 package Data "Data for solar thermal collectors"
 extends Modelica.Icons.MaterialPropertiesPackage;
 

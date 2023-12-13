@@ -1,16 +1,16 @@
-within Buildings.Fluid.Obsolete.SolarCollectors.Validation;
+within Buildings.Obsolete.Fluid.SolarCollectors.Validation;
 model FlatPlate "Validation model for FlatPlate"
   extends Modelica.Icons.Example;
   replaceable package Medium = Buildings.Media.Water "Medium in the system";
-  Buildings.Fluid.Obsolete.SolarCollectors.ASHRAE93
+  Buildings.Obsolete.Fluid.SolarCollectors.ASHRAE93
    solCol(
     redeclare package Medium = Medium,
     shaCoe=0,
     azi=0,
-    per=Buildings.Fluid.Obsolete.SolarCollectors.Data.GlazedFlatPlate.FP_TRNSYSValidation(),
+    per=Buildings.Obsolete.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_TRNSYSValidation(),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     rho=0.2,
-    nColType=Buildings.Fluid.Obsolete.SolarCollectors.Types.NumberSelection.Number,
+    nColType=Buildings.Obsolete.Fluid.SolarCollectors.Types.NumberSelection.Number,
     nPanels=1,
     nSeg=30,
     til=0.78539816339745)
@@ -40,7 +40,7 @@ model FlatPlate "Validation model for FlatPlate"
     tableName="TRNSYS",
     columns=2:5,
     fileName=Modelica.Utilities.Files.loadResource(
-       "modelica://Buildings/Fluid/Obsolete/SolarCollectors/Examples/ValidationData/TRNSYSAnnualData.txt"),
+       "modelica://Buildings/Obsolete/Fluid/SolarCollectors/Examples/ValidationData/TRNSYSAnnualData.txt"),
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
     "Data reader with inlet conditions from TRNSYS"
     annotation (Placement(transformation(extent={{-90,28},{-70,48}})));
@@ -86,15 +86,15 @@ equation
     Documentation(info="<html>
 <p>
 This model was used to validate the
-<a href=\"modelica://Buildings.Fluid.Obsolete.SolarCollectors.ASHRAE93\">
-Buildings.Fluid.Obsolete.SolarCollectors.ASHRAE93</a> solar collector model
+<a href=\"modelica://Buildings.Obsolete.Fluid.SolarCollectors.ASHRAE93\">
+Buildings.Obsolete.Fluid.SolarCollectors.ASHRAE93</a> solar collector model
 against TRNSYS data. Data files are used to ensure that the
-<a href=\"modelica://Buildings.Fluid.Obsolete.SolarCollectors.ASHRAE93\">
-Buildings.Fluid.Obsolete.SolarCollectors.ASHRAE93</a> solar collector model and
+<a href=\"modelica://Buildings.Obsolete.Fluid.SolarCollectors.ASHRAE93\">
+Buildings.Obsolete.Fluid.SolarCollectors.ASHRAE93</a> solar collector model and
 the TRNSYS model use the same inlet and weather conditions. The
 solar collector model must reference the
-<a href=\"modelica://Buildings.Fluid.Obsolete.SolarCollectors.Data.GlazedFlatPlate.FP_TRNSYSValidation\">
-Buildings.Fluid.Obsolete.SolarCollectors.Data.GlazedFlatPlate.FP_TRNSYSValidation</a>
+<a href=\"modelica://Buildings.Obsolete.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_TRNSYSValidation\">
+Buildings.Obsolete.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_TRNSYSValidation</a>
 data record when comparing model results to the stored TRNSYS results.
 </p>
 <p>
@@ -133,7 +133,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Obsolete/SolarCollectors/Validation/FlatPlate.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Fluid/SolarCollectors/Validation/FlatPlate.mos"
     "Simulate and plot"),
   experiment(Tolerance=1e-6, StopTime=86400));
 end FlatPlate;

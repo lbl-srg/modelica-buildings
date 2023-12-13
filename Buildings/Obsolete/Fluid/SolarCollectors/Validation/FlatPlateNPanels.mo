@@ -1,17 +1,17 @@
-within Buildings.Fluid.Obsolete.SolarCollectors.Validation;
+within Buildings.Obsolete.Fluid.SolarCollectors.Validation;
 model FlatPlateNPanels
   "Validation model for flat plate collector with different settings for nPanel"
-  extends Buildings.Fluid.Obsolete.SolarCollectors.Validation.FlatPlate;
+  extends Buildings.Obsolete.Fluid.SolarCollectors.Validation.FlatPlate;
   parameter Integer nPanels = 10 "Number of panels";
-  Buildings.Fluid.Obsolete.SolarCollectors.ASHRAE93
+  Buildings.Obsolete.Fluid.SolarCollectors.ASHRAE93
    solCol1(
     redeclare package Medium = Medium,
     shaCoe=0,
     azi=0,
-    per=Buildings.Fluid.Obsolete.SolarCollectors.Data.GlazedFlatPlate.FP_TRNSYSValidation(),
+    per=Buildings.Obsolete.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_TRNSYSValidation(),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     rho=0.2,
-    nColType=Buildings.Fluid.Obsolete.SolarCollectors.Types.NumberSelection.Number,
+    nColType=Buildings.Obsolete.Fluid.SolarCollectors.Types.NumberSelection.Number,
     nSeg=30,
     til=0.78539816339745,
     nPanels=nPanels)
@@ -66,8 +66,8 @@ equation
     Documentation(info="<html>
 <p>
 This model validates the solar collector model
-<a href=\"modelica://Buildings.Fluid.Obsolete.SolarCollectors.ASHRAE93\">
-Buildings.Fluid.Obsolete.SolarCollectors.ASHRAE93</a>
+<a href=\"modelica://Buildings.Obsolete.Fluid.SolarCollectors.ASHRAE93\">
+Buildings.Obsolete.Fluid.SolarCollectors.ASHRAE93</a>
 for the case
 where the number of panels is <i>1</i> for the instance <code>solCol</code>
 and <i>10</i> for the instance <code>solCol1</code>.
@@ -96,7 +96,7 @@ First implementation to validate
 </li>
 </ul>
 </html>"),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Obsolete/SolarCollectors/Validation/FlatPlateNPanels.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Fluid/SolarCollectors/Validation/FlatPlateNPanels.mos"
     "Simulate and plot"),
   experiment(Tolerance=1e-6, StopTime=86400));
 end FlatPlateNPanels;

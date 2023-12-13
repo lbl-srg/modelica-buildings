@@ -1,12 +1,12 @@
-within Buildings.Fluid.Obsolete.SolarCollectors;
-package UsersGuide "User's Guide for Buildings.Fluid.Obsolete.SolarCollectors"
+within Buildings.Obsolete.Fluid.SolarCollectors;
+package UsersGuide "User's Guide for Buildings.Obsolete.Fluid.SolarCollectors"
   extends Modelica.Icons.Information;
 
   annotation(preferredView="info",
   Documentation(info="<html>
   <p>
-  The package <a href=\"modelica://Buildings.Fluid.Obsolete.SolarCollectors\">
-  Buildings.Fluid.Obsolete.SolarCollectors</a> contains models used for
+  The package <a href=\"modelica://Buildings.Obsolete.Fluid.SolarCollectors\">
+  Buildings.Obsolete.Fluid.SolarCollectors</a> contains models used for
   simulation of solar thermal systems. Top-level models are
   available for solar collectors based on the ASHRAE93 and EN12975 test protocols.
   The two models use different models for solar gain, heat loss and data
@@ -15,7 +15,7 @@ package UsersGuide "User's Guide for Buildings.Fluid.Obsolete.SolarCollectors"
   containing default values for several collectors are available in packages
   for concentrating, flat plate and tubular collectors.
   </p>
-  <h4>Use of the <code>Buildings.Fluid.Obsolete.SolarCollectors</code> models</h4>
+  <h4>Use of the <code>Buildings.Obsolete.Fluid.SolarCollectors</code> models</h4>
   <p>
   A model of a solar thermal collector mainly consists of the three following
   items:
@@ -28,8 +28,8 @@ package UsersGuide "User's Guide for Buildings.Fluid.Obsolete.SolarCollectors"
   </ul>
   <p>
   Ratings data describing the parameters of individual collectors are
-  available in <a href=\"modelica://Buildings.Fluid.Obsolete.SolarCollectors.Data\">
-  Buildings.Fluid.Obsolete.SolarCollectors.Data</a>. All ratings data was taken from
+  available in <a href=\"modelica://Buildings.Obsolete.Fluid.SolarCollectors.Data\">
+  Buildings.Obsolete.Fluid.SolarCollectors.Data</a>. All ratings data was taken from
   the <a href=\"http://www.solar-rating.org\"> Solar Rating and Certification
   Corporation</a> (SRCC) website. Data for concentrating, flat plate and
   tubular collectors are currently presented in separate data packages to
@@ -45,7 +45,7 @@ package UsersGuide "User's Guide for Buildings.Fluid.Obsolete.SolarCollectors"
   Currently there are no concentrating models on the
   <a href=\"http://www.solar-rating.org\"> SRCC</a> website that provide all
   of the data necessary for accurate use in the models available in
-  <code>Buildings.Fluid.Obsolete.SolarCollectors</code>. Namely, they lack data for
+  <code>Buildings.Obsolete.Fluid.SolarCollectors</code>. Namely, they lack data for
   <code>dp_nominal</code>, <code>dT_nominal</code> and <code>G_nominal</code>.
   This data must be obtained from other sources.
   </p>
@@ -54,8 +54,8 @@ package UsersGuide "User's Guide for Buildings.Fluid.Obsolete.SolarCollectors"
   American standard is ASHRAE93 and the European standard is EN12975. Models
   calculating solar gain and heat loss using coefficients from both test
   methods are available in
-  <a href=\"modelica://Buildings.Fluid.Obsolete.SolarCollectors.BaseClasses\">
-  Buildings.Fluid.Obsolete.SolarCollectors.BaseClasses</a>. Users should be careful
+  <a href=\"modelica://Buildings.Obsolete.Fluid.SolarCollectors.BaseClasses\">
+  Buildings.Obsolete.Fluid.SolarCollectors.BaseClasses</a>. Users should be careful
   to ensure that the solar gain and heat loss models used in their simulation
   match the ratings data entered into the data package.
   </p>

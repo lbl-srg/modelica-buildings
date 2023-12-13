@@ -1,7 +1,7 @@
-within Buildings.Fluid.Obsolete.SolarCollectors;
+within Buildings.Obsolete.Fluid.SolarCollectors;
 model EN12975 "Model of a concentrating solar collector"
-extends Buildings.Fluid.Obsolete.SolarCollectors.BaseClasses.PartialSolarCollector(final perPar=per);
-    parameter Buildings.Fluid.Obsolete.SolarCollectors.Data.GenericSolarCollector per
+extends Buildings.Obsolete.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector(final perPar=per);
+    parameter Buildings.Obsolete.Fluid.SolarCollectors.Data.GenericSolarCollector per
     "Performance data"  annotation(choicesAllMatching=true,
     Placement(transformation(extent={{60,-80},{80,-60}})));
 
@@ -38,7 +38,7 @@ equation
   connect(shaCoe_internal, solGai.shaCoe_in);
 
   connect(weaBus.TDryBul, heaLos.TEnv) annotation (Line(
-      points={{-100,96},{-88,96},{-88,22},{-22,22}},
+      points={{-99.95,96.05},{-88,96.05},{-88,22},{-22,22}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -62,7 +62,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(heaLos.TFlu, temSen.T) annotation (Line(
-      points={{-22,10},{-28,10},{-28,-16},{-8,-16}},
+      points={{-22,10},{-28,10},{-28,-16},{-9,-16}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(heaLos.QLos, QLos.Q_flow) annotation (Line(
@@ -74,10 +74,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(temSen.T, solGai.TFlu) annotation (Line(
-      points={{-8,-16},{-28,-16},{-28,40},{-22,40}},
+      points={{-9,-16},{-28,-16},{-28,40},{-22,40}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
+  obsolete = "Obsolete model - use models from Buildings.Fluid.SolarCollectors instead",
   defaultComponentName="solCol",
   Documentation(info="<html>
 <h4>Overview</h4>
@@ -115,7 +116,7 @@ This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3604\
 <li>
 December 11, 2023, by Michael Wetter:<br/>
 Corrected implementation of pressure drop calculation for the situation where the collectors are in parallel,
-e.g., if <code>sysConfig == Buildings.Fluid.Obsolete.SolarCollectors.Types.SystemConfiguration.Parallel</code>.<br/>
+e.g., if <code>sysConfig == Buildings.Obsolete.Fluid.SolarCollectors.Types.SystemConfiguration.Parallel</code>.<br/>
 Changed assignment of <code>computeFlowResistance</code> to <code>final</code> based on
 <code>dp_nominal</code>.<br/>
 This is for

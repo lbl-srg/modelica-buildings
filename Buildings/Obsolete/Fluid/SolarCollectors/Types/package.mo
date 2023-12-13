@@ -1,4 +1,4 @@
-within Buildings.Fluid.Obsolete.SolarCollectors;
+within Buildings.Obsolete.Fluid.SolarCollectors;
 package Types "Package with type definitions used in solar collector data records"
   extends Modelica.Icons.TypesPackage;
 

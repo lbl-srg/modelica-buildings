@@ -1,6 +1,6 @@
-within Buildings.Fluid.Obsolete.SolarCollectors.Controls.BaseClasses;
+within Buildings.Obsolete.Fluid.SolarCollectors.Controls.BaseClasses;
 model GCritCalc "Model calculating the critical insolation level"
-
+  extends Buildings.Obsolete.BaseClasses.ObsoleteModel;
   extends Modelica.Blocks.Icons.Block;
 
   parameter Real slope(unit="W/(m2.K)") "Slope from ratings data";
@@ -20,13 +20,15 @@ model GCritCalc "Model calculating the critical insolation level"
 
 equation
   G_TC = -slope * (TIn - TEnv) / y_intercept;
-  annotation (defaultComponentName="criSol",
+  annotation (
+  obsolete = "Obsolete model - use models from Buildings.Fluid.SolarCollectors instead",
+  defaultComponentName="criSol",
   Documentation(info="<html>
     <p>
       This component calculates the solar radiation necessary for the fluid
       in the collector to gain heat. It is used in the model
-      <a href=\"modelica://Buildings.Fluid.Obsolete.SolarCollectors.Controls.CollectorPump\">
-      Buildings.Fluid.Obsolete.SolarCollectors.Controls.CollectorPump</a>.
+      <a href=\"modelica://Buildings.Obsolete.Fluid.SolarCollectors.Controls.CollectorPump\">
+      Buildings.Obsolete.Fluid.SolarCollectors.Controls.CollectorPump</a>.
     </p>
     <p>
       The critical solar radiation level is calculated using Equation 6.8.2 in Duffie

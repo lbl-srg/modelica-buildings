@@ -1,4 +1,4 @@
-within Buildings.Fluid.Obsolete.SolarCollectors.Data.Concentrating;
+within Buildings.Obsolete.Fluid.SolarCollectors.Data.Concentrating;
 record C_CogenraSunDeck =
   SolarCollectors.Data.GenericSolarCollector (
     final ATyp=Types.Area.Aperture,

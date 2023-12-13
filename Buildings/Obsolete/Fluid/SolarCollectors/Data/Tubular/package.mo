@@ -1,4 +1,4 @@
-within Buildings.Fluid.Obsolete.SolarCollectors.Data;
+within Buildings.Obsolete.Fluid.SolarCollectors.Data;
 package Tubular "Package with SRCC rating information for tubular solar thermal collectors"
 extends Modelica.Icons.MaterialPropertiesPackage;
 

@@ -1,4 +1,4 @@
-within Buildings.Fluid.Obsolete.SolarCollectors.Types;
+within Buildings.Obsolete.Fluid.SolarCollectors.Types;
 type SystemConfiguration = enumeration(
     Parallel "Panels connected in parallel",
     Series "Panels connected in series")

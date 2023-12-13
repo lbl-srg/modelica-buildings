@@ -1,4 +1,4 @@
-within Buildings.Fluid.Obsolete.SolarCollectors.Examples;
+within Buildings.Obsolete.Fluid.SolarCollectors.Examples;
 model FlatPlateWithTank
   "Example showing use of the flat plate solar collector in a complete solar thermal system"
   extends Modelica.Icons.Example;
@@ -15,14 +15,14 @@ model FlatPlateWithTank
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal = solCol.m_flow_nominal
     "Nominal mass flow rate";
 
-  Buildings.Fluid.Obsolete.SolarCollectors.ASHRAE93 solCol(
+  Buildings.Obsolete.Fluid.SolarCollectors.ASHRAE93 solCol(
     redeclare package Medium = Medium_2,
     shaCoe=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    nColType=Buildings.Fluid.Obsolete.SolarCollectors.Types.NumberSelection.Number,
+    nColType=Buildings.Obsolete.Fluid.SolarCollectors.Types.NumberSelection.Number,
     nPanels=5,
-    sysConfig=Buildings.Fluid.Obsolete.SolarCollectors.Types.SystemConfiguration.Series,
-    per=Buildings.Fluid.Obsolete.SolarCollectors.Data.GlazedFlatPlate.FP_SolahartKf(),
+    sysConfig=Buildings.Obsolete.Fluid.SolarCollectors.Types.SystemConfiguration.Series,
+    per=Buildings.Obsolete.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_SolahartKf(),
     nSeg=9,
     final azi=azi,
     final til=til,
@@ -65,8 +65,8 @@ model FlatPlateWithTank
     annotation (Placement(transformation(
       extent={{-20,-20},{20,20}},
       origin={100,-20})));
-  Buildings.Fluid.Obsolete.SolarCollectors.Controls.CollectorPump pumCon(
-    per=Buildings.Fluid.Obsolete.SolarCollectors.Data.GlazedFlatPlate.FP_ThermaLiteHS20(),
+  Buildings.Obsolete.Fluid.SolarCollectors.Controls.CollectorPump pumCon(
+    per=Buildings.Obsolete.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_ThermaLiteHS20(),
     final azi=azi,
     final til=til,
     final rho=rho)
@@ -179,7 +179,7 @@ equation
   connect(pum.m_flow_in, booToRea.y) annotation (Line(points={{-62,7.77156e-16},
           {-70,7.77156e-16},{-70,0},{-78,0}}, color={0,0,127}));
   annotation (
-   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Obsolete/SolarCollectors/Examples/FlatPlateWithTank.mos"
+   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Fluid/SolarCollectors/Examples/FlatPlateWithTank.mos"
         "Simulate and plot"),
    experiment(Tolerance=1e-6, StopTime=86400.0),
         Documentation(info="<html>
@@ -196,8 +196,8 @@ equation
             Buildings.Fluid.Storage.ExpansionVessel</a>, exp), a temperature sensor
             (<a href=\"modelica://Buildings.Fluid.Sensors.TemperatureTwoPort\">
             Buildings.Fluid.Sensors.TemperatureTwoPort</a>, TIn), the solar collector
-            (<a href=\"modelica://Buildings.Fluid.Obsolete.SolarCollectors.ASHRAE93\">
-            Buildings.Fluid.Obsolete.SolarCollectors.ASHRAE93,</a> solCol) and a second temperature
+            (<a href=\"modelica://Buildings.Obsolete.Fluid.SolarCollectors.ASHRAE93\">
+            Buildings.Obsolete.Fluid.SolarCollectors.ASHRAE93,</a> solCol) and a second temperature
             sensor
             (<a href=\"modelica://Buildings.Fluid.Sensors.TemperatureTwoPort\">
             Buildings.Fluid.Sensors.TemperatureTwoPort</a>, TOut) before re-entering the
@@ -213,8 +213,8 @@ equation
           </p>
           <p>
             The flow rate through the pump is controlled by a solar pump controller model
-            (<a href=\"modelica://Buildings.Fluid.Obsolete.SolarCollectors.Controls.CollectorPump\">
-            Buildings.Fluid.Obsolete.SolarCollectors.Controls.CollectorPump</a>, pumCon) and a
+            (<a href=\"modelica://Buildings.Obsolete.Fluid.SolarCollectors.Controls.CollectorPump\">
+            Buildings.Obsolete.Fluid.SolarCollectors.Controls.CollectorPump</a>, pumCon) and a
             gain model. The controller outputs a binary on (1) / off (0) signal. The on/off
             signal is passed through a boolean to real signal converter to set the pump
             mass flow rate.

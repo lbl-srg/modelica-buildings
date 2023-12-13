@@ -1,7 +1,7 @@
-within Buildings.Fluid.Obsolete.SolarCollectors.Controls.BaseClasses.Examples;
+within Buildings.Obsolete.Fluid.SolarCollectors.Controls.BaseClasses.Examples;
 model GCritCalc "Example showing the use of GCritCalc"
   extends Modelica.Icons.Example;
-  Buildings.Fluid.Obsolete.SolarCollectors.Controls.BaseClasses.GCritCalc criSol(slope=-3.764,
+  Buildings.Obsolete.Fluid.SolarCollectors.Controls.BaseClasses.GCritCalc criSol(slope=-3.764,
       y_intercept=0.602)
     "Calculates the critical insolation based on collector design and current weather conditions"
     annotation (Placement(transformation(extent={{-12,0},{8,20}})));
@@ -28,8 +28,8 @@ equation
   Documentation(info="<html>
     <p>
       This model provides an example of how to use the
-      <a href=\"modelica://Buildings.Fluid.Obsolete.SolarCollectors.Controls.BaseClasses.GCritCalc\">
-      Buildings.Fluid.Obsolete.SolarCollectors.Controls.BaseClasses.GCritCalc</a> model.<br/>
+      <a href=\"modelica://Buildings.Obsolete.Fluid.SolarCollectors.Controls.BaseClasses.GCritCalc\">
+      Buildings.Obsolete.Fluid.SolarCollectors.Controls.BaseClasses.GCritCalc</a> model.<br/>
     </p>
   </html>",
   revisions="<html>
@@ -41,7 +41,7 @@ equation
     </ul>
   </html>"),
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Obsolete/SolarCollectors/Controls/BaseClasses/Examples/GCritCalc.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Fluid/SolarCollectors/Controls/BaseClasses/Examples/GCritCalc.mos"
         "Simulate and plot"),
    experiment(Tolerance=1e-6, StopTime=100));
 end GCritCalc;

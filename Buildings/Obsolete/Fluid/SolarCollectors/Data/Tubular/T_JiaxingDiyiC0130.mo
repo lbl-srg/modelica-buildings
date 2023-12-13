@@ -1,4 +1,4 @@
-within Buildings.Fluid.Obsolete.SolarCollectors.Data.Tubular;
+within Buildings.Obsolete.Fluid.SolarCollectors.Data.Tubular;
 record T_JiaxingDiyiC0130 =
     SolarCollectors.Data.GenericSolarCollector (
     final ATyp=Types.Area.Gross,

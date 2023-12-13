@@ -1,7 +1,8 @@
-within Buildings.Fluid.Obsolete.SolarCollectors.Controls;
+within Buildings.Obsolete.Fluid.SolarCollectors.Controls;
 model CollectorPump
   "Controller which activates a circulation pump when solar radiation is above a critical level"
   extends Modelica.Blocks.Icons.Block;
+  extends Buildings.Obsolete.BaseClasses.ObsoleteModel;
 
   parameter Modelica.Units.SI.HeatFlowRate delQ_flow(min=1)=10
     "Required estimated heat gain per unit area of collector to switch system on";
@@ -14,7 +15,7 @@ model CollectorPump
     final max=1,
     final unit = "1") = 0.2 "Ground reflectance";
 
-  parameter Buildings.Fluid.Obsolete.SolarCollectors.Data.GenericSolarCollector per
+  parameter Buildings.Obsolete.Fluid.SolarCollectors.Data.GenericSolarCollector per
     "Performance data"
     annotation (choicesAllMatching=true, Placement(transformation(extent={{60,60},{80,80}})));
 
@@ -32,7 +33,7 @@ model CollectorPump
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data input"
     annotation (Placement(transformation(extent={{-112,50},{-92,70}})));
 
-  Buildings.Fluid.Obsolete.SolarCollectors.Controls.BaseClasses.GCritCalc criSol(
+  Buildings.Obsolete.Fluid.SolarCollectors.Controls.BaseClasses.GCritCalc criSol(
     final slope=per.slope,
     final y_intercept=per.y_intercept)
     "Calculates the critical insolation based on collector design and current weather conditions"
@@ -66,8 +67,9 @@ equation
   connect(TIn, criSol.TIn)    annotation (Line(
       points={{-120,-40},{-84,-40},{-84,-16},{-62,-16}},
       color={0,0,127}));
-  connect(weaBus.TDryBul, criSol.TEnv)    annotation (Line(points={{-102,60},{-84,
-          60},{-84,-4},{-62,-4}}, color = {255, 204, 51}, thickness = 0.5));
+  connect(weaBus.TDryBul, criSol.TEnv)    annotation (Line(points={{-101.95,60.05},
+          {-84,60.05},{-84,-4},{-62,-4}},
+                                  color = {255, 204, 51}, thickness = 0.5));
   connect(HDirTil.weaBus, weaBus) annotation (Line(
       points={{-60,30},{-84,30},{-84,60},{-102,60}},
       color={255,204,51},
@@ -89,6 +91,7 @@ equation
   connect(on, hys.y) annotation (Line(points={{120,0},{102,0},{102,0},{82,0}},
         color={255,0,255}));
   annotation (
+  obsolete = "Obsolete model - use models from Buildings.Fluid.SolarCollectors instead",
   defaultComponentName = "pumCon",
 Documentation(info="<html>
 <p>

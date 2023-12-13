@@ -1,11 +1,11 @@
-within Buildings.Fluid.Obsolete.SolarCollectors.BaseClasses.Examples;
+within Buildings.Obsolete.Fluid.SolarCollectors.BaseClasses.Examples;
 model EN12975SolarGain "Example showing the use of EN12975SolarGain"
   extends Modelica.Icons.Example;
-  parameter Buildings.Fluid.Obsolete.SolarCollectors.Data.GenericSolarCollector per=
-    Buildings.Fluid.Obsolete.SolarCollectors.Data.Concentrating.C_VerificationModel()
+  parameter Buildings.Obsolete.Fluid.SolarCollectors.Data.GenericSolarCollector per=
+    Buildings.Obsolete.Fluid.SolarCollectors.Data.Concentrating.C_VerificationModel()
     "Performance data"
     annotation (choicesAllMatching=true);
-  Buildings.Fluid.Obsolete.SolarCollectors.BaseClasses.EN12975SolarGain solHeaGai(
+  Buildings.Obsolete.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain solHeaGai(
     B0=per.B0,
     B1=per.B1,
     y_intercept=per.y_intercept,
@@ -83,8 +83,8 @@ equation
     Documentation(info="<html>
       <p>
         This examples demonstrates the implementation of
-        <a href=\"modelica://Buildings.Fluid.Obsolete.SolarCollectors.BaseClasses.EN12975SolarGain\">
-        Buildings.Fluid.Obsolete.SolarCollectors.BaseClasses.EN12975SolarGain</a>.
+        <a href=\"modelica://Buildings.Obsolete.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain\">
+        Buildings.Obsolete.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain</a>.
       </p>
     </html>",
     revisions="<html>
@@ -95,7 +95,7 @@ equation
         </li>
       </ul>
     </html>"),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Obsolete/SolarCollectors/BaseClasses/Examples/EN12975SolarGain.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Fluid/SolarCollectors/BaseClasses/Examples/EN12975SolarGain.mos"
         "Simulate and plot"),
         experiment(Tolerance=1e-6, StopTime=86400));
 end EN12975SolarGain;

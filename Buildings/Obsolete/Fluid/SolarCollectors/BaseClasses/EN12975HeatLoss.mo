@@ -1,6 +1,6 @@
-within Buildings.Fluid.Obsolete.SolarCollectors.BaseClasses;
+within Buildings.Obsolete.Fluid.SolarCollectors.BaseClasses;
 block EN12975HeatLoss "Calculate the heat loss of a solar collector per EN12975"
-  extends Buildings.Fluid.Obsolete.SolarCollectors.BaseClasses.PartialHeatLoss(
+  extends Buildings.Obsolete.Fluid.SolarCollectors.BaseClasses.PartialHeatLoss(
     final QLos_nominal = -A_c * (C1 * dT_nominal - C2 * dT_nominal^2)
       "Heat loss at nominal condition, for reporting only",
     QLos_internal = A_c/nSeg * {dT[i] * (C1 - C2 * dT[i]) for i in 1:nSeg});

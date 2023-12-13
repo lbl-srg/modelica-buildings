@@ -1,19 +1,19 @@
-within Buildings.Fluid.Obsolete.SolarCollectors.Examples;
+within Buildings.Obsolete.Fluid.SolarCollectors.Examples;
 model FlatPlateShaCoeTrue "Test model for FlatPlate with use_shaCoe_in = true"
   extends Modelica.Icons.Example;
   replaceable package Medium = Buildings.Media.Water "Medium in the system";
-  Buildings.Fluid.Obsolete.SolarCollectors.ASHRAE93          solCol(
+  Buildings.Obsolete.Fluid.SolarCollectors.ASHRAE93          solCol(
     redeclare package Medium = Medium,
     shaCoe=0,
     from_dp=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     use_shaCoe_in=true,
-    per=Buildings.Fluid.Obsolete.SolarCollectors.Data.GlazedFlatPlate.FP_GuangdongFSPTY95(),
+    per=Buildings.Obsolete.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_GuangdongFSPTY95(),
     rho=0.2,
     azi=0,
-    nColType=Buildings.Fluid.Obsolete.SolarCollectors.Types.NumberSelection.Number,
+    nColType=Buildings.Obsolete.Fluid.SolarCollectors.Types.NumberSelection.Number,
     nPanels=5,
-    sysConfig=Buildings.Fluid.Obsolete.SolarCollectors.Types.SystemConfiguration.Series,
+    sysConfig=Buildings.Obsolete.Fluid.SolarCollectors.Types.SystemConfiguration.Series,
     nSeg=9,
     til=0.5235987755983) "Flat plate solar collector with 3 segments"
     annotation (Placement(transformation(extent={{-16,-20},{4,0}})));
@@ -84,8 +84,8 @@ equation
       <p>
         This example demonstrates the use of <code>use_shaCoe_in</code>. Aside from
         changed use of <code>use_shaCoe_in</code> it is identical to
-        <a href=\"modelica://Buildings.Fluid.Obsolete.SolarCollectors.Examples.FlatPlate\">
-        Buildings.Fluid.Obsolete.SolarCollectors.Examples.FlatPlate</a>.
+        <a href=\"modelica://Buildings.Obsolete.Fluid.SolarCollectors.Examples.FlatPlate\">
+        Buildings.Obsolete.Fluid.SolarCollectors.Examples.FlatPlate</a>.
       </p>
     </html>",
 revisions="<html>
@@ -114,7 +114,7 @@ First implementation.
 </ul>
 </html>"),
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Obsolete/SolarCollectors/Examples/FlatPlateShaCoeTrue.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Fluid/SolarCollectors/Examples/FlatPlateShaCoeTrue.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StopTime=86400.0));
 end FlatPlateShaCoeTrue;

@@ -1,16 +1,16 @@
-within Buildings.Fluid.Obsolete.SolarCollectors.Examples;
+within Buildings.Obsolete.Fluid.SolarCollectors.Examples;
 model Concentrating "Example showing the use of Concentrating"
   extends Modelica.Icons.Example;
   replaceable package Medium = Buildings.Media.Water "Medium in the system";
-  Buildings.Fluid.Obsolete.SolarCollectors.EN12975 solCol(
+  Buildings.Obsolete.Fluid.SolarCollectors.EN12975 solCol(
     redeclare package Medium = Medium,
     shaCoe=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     use_shaCoe_in=false,
-    per=Buildings.Fluid.Obsolete.SolarCollectors.Data.Concentrating.C_VerificationModel(),
-    sysConfig=Buildings.Fluid.Obsolete.SolarCollectors.Types.SystemConfiguration.Series,
+    per=Buildings.Obsolete.Fluid.SolarCollectors.Data.Concentrating.C_VerificationModel(),
+    sysConfig=Buildings.Obsolete.Fluid.SolarCollectors.Types.SystemConfiguration.Series,
     rho=0.2,
-    nColType=Buildings.Fluid.Obsolete.SolarCollectors.Types.NumberSelection.Number,
+    nColType=Buildings.Obsolete.Fluid.SolarCollectors.Types.NumberSelection.Number,
     nPanels=5,
     nSeg=9,
     azi=0.3,
@@ -80,8 +80,8 @@ equation
     Documentation(info="<html>
       <p>
         This model demonstrates the implementation of
-        <a href=\"modelica://Buildings.Fluid.Obsolete.SolarCollectors.EN12975\">
-        Buildings.Fluid.Obsolete.SolarCollectors.EN12975</a>.
+        <a href=\"modelica://Buildings.Obsolete.Fluid.SolarCollectors.EN12975\">
+        Buildings.Obsolete.Fluid.SolarCollectors.EN12975</a>.
         In it water is passed through the solar thermal collector while
         being heated by the sun in the San Francisco, CA, USA climate.
       </p>
@@ -112,7 +112,7 @@ First implementation
 </ul>
 </html>"),
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Obsolete/SolarCollectors/Examples/Concentrating.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Fluid/SolarCollectors/Examples/Concentrating.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StopTime=86400.0));
 end Concentrating;

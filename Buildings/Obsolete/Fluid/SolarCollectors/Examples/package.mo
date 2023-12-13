@@ -1,4 +1,4 @@
-within Buildings.Fluid.Obsolete.SolarCollectors;
+within Buildings.Obsolete.Fluid.SolarCollectors;
 package Examples "Examples demonstrating the use of models in the SolarCollectors package"
   extends Modelica.Icons.ExamplesPackage;
 

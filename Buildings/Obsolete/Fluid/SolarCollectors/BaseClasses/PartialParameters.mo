@@ -1,4 +1,4 @@
-within Buildings.Fluid.Obsolete.SolarCollectors.BaseClasses;
+within Buildings.Obsolete.Fluid.SolarCollectors.BaseClasses;
 block PartialParameters "Partial model for parameters"
 
   parameter Modelica.Units.SI.Area A_c "Area of the collector";

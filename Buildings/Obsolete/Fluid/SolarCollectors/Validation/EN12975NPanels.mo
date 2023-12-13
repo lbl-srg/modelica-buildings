@@ -1,4 +1,4 @@
-within Buildings.Fluid.Obsolete.SolarCollectors.Validation;
+within Buildings.Obsolete.Fluid.SolarCollectors.Validation;
 model EN12975NPanels
   "Validation model for collector according to EN12975 with different settings for nPanel"
   extends Modelica.Icons.Example;
@@ -6,14 +6,14 @@ model EN12975NPanels
 
   parameter Integer nPanels=10 "Number of panels";
 
-  Buildings.Fluid.Obsolete.SolarCollectors.EN12975 solCol(
+  Buildings.Obsolete.Fluid.SolarCollectors.EN12975 solCol(
     redeclare package Medium = Medium,
     per=datSolCol,
     shaCoe=0,
     azi=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     rho=0.2,
-    nColType=Buildings.Fluid.Obsolete.SolarCollectors.Types.NumberSelection.Number,
+    nColType=Buildings.Obsolete.Fluid.SolarCollectors.Types.NumberSelection.Number,
     nPanels=1,
     nSeg=30,
     til=0.78539816339745)
@@ -39,14 +39,14 @@ model EN12975NPanels
     T=303.15) "Inlet for water flow, at a prescribed flow rate and temperature"
     annotation (Placement(transformation(extent={{-12,20},{8,40}})));
 
-  Buildings.Fluid.Obsolete.SolarCollectors.EN12975 solCol1(
+  Buildings.Obsolete.Fluid.SolarCollectors.EN12975 solCol1(
     redeclare package Medium = Medium,
     per=datSolCol,
     shaCoe=0,
     azi=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     rho=0.2,
-    nColType=Buildings.Fluid.Obsolete.SolarCollectors.Types.NumberSelection.Number,
+    nColType=Buildings.Obsolete.Fluid.SolarCollectors.Types.NumberSelection.Number,
     nSeg=30,
     til=0.78539816339745,
     nPanels=nPanels)
@@ -112,8 +112,8 @@ equation
     Documentation(info="<html>
 <p>
 This model validates the solar collector model
-<a href=\"modelica://Buildings.Fluid.Obsolete.SolarCollectors.EN12975\">
-Buildings.Fluid.Obsolete.SolarCollectors.EN12975</a>
+<a href=\"modelica://Buildings.Obsolete.Fluid.SolarCollectors.EN12975\">
+Buildings.Obsolete.Fluid.SolarCollectors.EN12975</a>
 for the case
 where the number of panels is <i>1</i> for the instance <code>solCol</code>
 and <i>10</i> for the instance <code>solCol1</code>.
@@ -142,7 +142,7 @@ First implementation to validate
 </ul>
 </html>"),
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Obsolete/SolarCollectors/Validation/EN12975NPanels.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Fluid/SolarCollectors/Validation/EN12975NPanels.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StopTime=86400));
 end EN12975NPanels;
