@@ -29,11 +29,19 @@ model Cycle
   parameter Modelica.Units.SI.PressureDifference dpEva_nominal = 0
     "Nominal pressure drop of the evaporator"
     annotation(Dialog(group="Evaporator"));
+  parameter Modelica.Units.SI.TemperatureDifference dTEvaPin_set(
+    final min = 0) = 5
+    "Set evaporator pinch point temperature differential"
+    annotation(Dialog(group="Evaporator"));
   parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal
     "Nominal mass flow rate of the condenser fluid"
     annotation(Dialog(group="Condenser"));
   parameter Modelica.Units.SI.PressureDifference dpCon_nominal = 0
     "Nominal pressure drop of the condenser"
+    annotation(Dialog(group="Condenser"));
+  parameter Modelica.Units.SI.TemperatureDifference dTConPin_set(
+    final min = 0) = 5
+    "Set condenser pinch point temperature differential"
     annotation(Dialog(group="Condenser"));
 
   Modelica.Units.SI.MassFlowRate mWor_flow( start = m1_flow_nominal)
@@ -80,15 +88,6 @@ model Cycle
     "Error: Rankine cycle temperature differential reversed";
   Boolean err = errEva or errCon or errCyc
     "Error, to replace heat flow rates and power with zero";
-
-  Modelica.Blocks.Interfaces.RealInput dTEvaPin_set(final unit="K")
-    "Set evaporator pinch point temperature differential" annotation (Placement(
-        transformation(extent={{-120,0},{-100,20}}), iconTransformation(extent={
-            {-120,10},{-100,30}})));
-  Modelica.Blocks.Interfaces.RealInput dTConPin_set(final unit="K")
-    "Set condenser pinch point temperature differential" annotation (Placement(
-        transformation(extent={{-120,-20},{-100,0}}), iconTransformation(extent
-          ={{-120,-30},{-100,-10}})));
 
   // Evaporator
 protected
