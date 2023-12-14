@@ -215,7 +215,21 @@ equation
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={175,175,175},
-          fillPattern=FillPattern.Solid)}), Diagram(
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-54,2},{54,-2}},
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          origin={154,108},
+          rotation=180),
+        Rectangle(
+          extent={{-58,2},{58,-2}},
+          fillColor={238,46,47},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          rotation=180,
+          origin={38,86})}),                Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-200,-140},{200,140}})),
     Documentation(info="<html>
 <p>
