@@ -65,13 +65,13 @@ protected
 equation
   // check if the air flows are too unbalanced.
   assert(noEvent(VSup_flow - 2*VExh_flow < 0) or noEvent(VExh_flow - 2*VSup_flow < 0),
-    "***Warning in " + getInstanceName() + ": The ratio of the supply flow rate to the exhaust flow rate should be in the range of [0.5, 2].",
+    "*** Warning in " + getInstanceName() + ": The ratio of the supply flow rate to the exhaust flow rate should be in the range of [0.5, 2].",
     level=AssertionLevel.warning);
   // calculate the average volumetric air flow and flow rate ratio.
   rat = (VSup_flow + VExh_flow)/2/VSup_flow_nominal;
   // check if the extrapolation goes too far.
   assert(noEvent(rat > 0.5) and noEvent(rat < 1.3),
-    "Warning in " + getInstanceName() + ": The ratio of the operating flow rate to the nominal supply flow rate should be in the range of [0.5, 1.3].",
+    "*** Warning in " + getInstanceName() + ": The ratio of the operating flow rate to the nominal supply flow rate should be in the range of [0.5, 1.3].",
     level=AssertionLevel.warning);
   // switch between cooling and heating modes based on the difference between the supply air temperature and the exhaust air temperature.
   epsSenPL = Buildings.Utilities.Math.Functions.regStep(TSup-TExh, epsSenCooPL, epsSenHeaPL, 1e-5);
