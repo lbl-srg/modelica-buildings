@@ -51,27 +51,27 @@ model Effectiveness
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
 
 protected
-   Real rat
-   "Ratio of the average operating volumetric air flow rate to the nominal supply air flow rate";
-   Real epsSenPL
-   "Part load (75%) sensible heat exchanger effectiveness used for calculation";
-   Real epsSen_nominal
-   "Nominal sensible heat exchanger effectiveness used for calculation";
-   Real epsLatPL
-   "Part load (75%) latent heat exchanger effectiveness used for calculation";
-   Real epsLat_nominal
-   "Nominal latent heat exchanger effectiveness used for calculation";
+  Real rat
+    "Ratio of the average operating volumetric air flow rate to the nominal supply air flow rate";
+  Real epsSenPL
+    "Part load (75%) sensible heat exchanger effectiveness used for calculation";
+  Real epsSen_nominal
+    "Nominal sensible heat exchanger effectiveness used for calculation";
+  Real epsLatPL
+    "Part load (75%) latent heat exchanger effectiveness used for calculation";
+  Real epsLat_nominal
+    "Nominal latent heat exchanger effectiveness used for calculation";
 
 equation
   // check if the air flows are too unbalanced.
-  assert(VSup_flow - 2*VExh_flow < 0 or VExh_flow - 2*VSup_flow < 0,
-    "Unbalanced air flow ratio",
+  assert(noEvent(VSup_flow - 2*VExh_flow < 0) or noEvent(VExh_flow - 2*VSup_flow < 0),
+    "***Warning in " + getInstanceName() + ": The ratio of the supply flow rate to the exhaust flow rate should be in the range of [0.5, 2].",
     level=AssertionLevel.warning);
   // calculate the average volumetric air flow and flow rate ratio.
   rat = (VSup_flow + VExh_flow)/2/VSup_flow_nominal;
   // check if the extrapolation goes too far.
-  assert(rat > 0.5 and rat < 1.3,
-    "Operating flow rate outside the full accuracy range",
+  assert(noEvent(rat > 0.5) and noEvent(rat < 1.3),
+    "Warning in " + getInstanceName() + ": The ratio of the operating flow rate to the nominal supply flow rate should be in the range of [0.5, 1.3].",
     level=AssertionLevel.warning);
   // switch between cooling and heating modes based on the difference between the supply air temperature and the exhaust air temperature.
   epsSenPL = Buildings.Utilities.Math.Functions.regStep(TSup-TExh, epsSenCooPL, epsSenHeaPL, 1e-5);
@@ -79,10 +79,8 @@ equation
   epsLatPL = Buildings.Utilities.Math.Functions.regStep(TSup-TExh, epsLatCooPL, epsLatHeaPL, 1e-5);
   epsLat_nominal = Buildings.Utilities.Math.Functions.regStep(TSup-TExh, epsLatCoo_nominal, epsLatHea_nominal, 1e-5);
   // calculate effectiveness.
-    epsSen =wheSpe*(epsSenPL + (epsSen_nominal - epsSenPL)*(rat -
-    0.75)/0.25);
-    epsLat =wheSpe*(epsLatPL + (epsLat_nominal - epsLatPL)*(rat -
-    0.75)/0.25);
+  epsSen =wheSpe*(epsSenPL + (epsSen_nominal - epsSenPL)*(rat - 0.75)/0.25);
+  epsLat =wheSpe*(epsLatPL + (epsLat_nominal - epsLatPL)*(rat - 0.75)/0.25);
   assert(epsSen > 0 and epsSen < 1,
     "Insensed value for the sensible heat exchanger effectiveness",
     level=AssertionLevel.error);
@@ -102,7 +100,8 @@ under heating and cooling modes at different flow rates of the supply
 air and the exhaust air.
 </p>
 <p>
-It firstly calculates the average volumetric flow rate through the heat exchanger by:
+It firstly calculates the ratio of the average volumetric flow rate to the nominal
+supply flow rate by:
 </p>
 <pre>
   rat = (VSup_flow + VExh_flow)/(2*VSup_flow_nominal),
