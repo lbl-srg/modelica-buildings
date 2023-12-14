@@ -1,5 +1,6 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Validation;
-model PIDWithFirstOrderAMIGO "Test model for an autotuning PID controller"
+model ReverseActingPIDWithFirstOrderAMIGO
+  "Test model for an autotuning reverse-acting PID controller"
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant SetPoint(k=0.8)
     "Setpoint value"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
@@ -11,7 +12,8 @@ model PIDWithFirstOrderAMIGO "Test model for an autotuning PID controller"
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID,
     k=1,
     Ti=0.5,
-    Td=0.1) "PID controller with constant gains"
+    Td=0.1)
+    "PID controller with constant gains"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant resSig(k=false)
     "Reset signal"
@@ -22,7 +24,7 @@ model PIDWithFirstOrderAMIGO "Test model for an autotuning PID controller"
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel1(samplePeriod=240)
     "A delay process for control process 1"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant k(k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant k(k=10)
     "Gain of the first order process"
     annotation (Placement(transformation(extent={{10,10},{30,30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant T(k=10)
@@ -43,7 +45,8 @@ model PIDWithFirstOrderAMIGO "Test model for an autotuning PID controller"
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse autTunSig(
     width=0.9,
     period=6000,
-    shift=500)   "Signal for enabling the autotuning"
+    shift=500)
+    "Signal for enabling the autotuning"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
 equation
   connect(resSig.y, PID.trigger) annotation (Line(points={{-58,70},{-30,70},{-30,
@@ -54,35 +57,30 @@ equation
           {-48,60},{-22,60}}, color={0,0,127}));
   connect(SetPoint.y, PID.u_s) annotation (Line(points={{-58,10},{-48,10},{-48,60},
           {-22,60}}, color={0,0,127}));
-  connect(PIDWitTun.y, uniDel2.u)
-    annotation (Line(points={{2,-20},{18,-20}},color={0,0,127}));
-  connect(uniDel1.u, PID.y)
-    annotation (Line(points={{18,60},{2,60}},color={0,0,127}));
+  connect(PIDWitTun.y, uniDel2.u) annotation (Line(points={{2,-20},{18,-20}},color={0,0,127}));
+  connect(uniDel1.u, PID.y) annotation (Line(points={{18,60},{2,60}},color={0,0,127}));
   connect(uniDel1.y, sub1.u1) annotation (Line(points={{42,60},{54,60},{54,86},
-          {118,86}},
-                   color={0,0,127}));
+          {118,86}}, color={0,0,127}));
   connect(k.y, derivative1.k) annotation (Line(points={{32,20},{44,20},{44,28},
           {78,28}}, color={0,0,127}));
   connect(derivative1.T, T.y) annotation (Line(points={{78,24},{60,24},{60,-56},
-          {32,-56}},                      color={0,0,127}));
+          {32,-56}}, color={0,0,127}));
   connect(derivative1.y, sub1.u2) annotation (Line(points={{102,20},{112,20},{
-          112,74},{118,74}},
-                    color={0,0,127}));
+          112,74},{118,74}}, color={0,0,127}));
   connect(sub1.y, PID.u_m) annotation (Line(points={{142,80},{150,80},{150,40},
-          {-10,40},{-10,48}},         color={0,0,127}));
+          {-10,40},{-10,48}}, color={0,0,127}));
   connect(sub2.u1, uniDel2.y) annotation (Line(points={{118,-4},{64,-4},{64,-20},
           {42,-20}}, color={0,0,127}));
   connect(derivative2.y,sub2. u2) annotation (Line(points={{102,-60},{110,-60},
-          {110,-16},{118,-16}},
-                             color={0,0,127}));
+          {110,-16},{118,-16}}, color={0,0,127}));
   connect(sub2.y, PIDWitTun.u_m) annotation (Line(points={{142,-10},{152,-10},{
-          152,-36},{-10,-36},{-10,-32}},                   color={0,0,127}));
+          152,-36},{-10,-36},{-10,-32}}, color={0,0,127}));
   connect(derivative2.T, T.y) annotation (Line(points={{78,-56},{32,-56}},
-                           color={0,0,127}));
+         color={0,0,127}));
   connect(derivative1.u, sub1.u1) annotation (Line(points={{78,20},{72,20},{72,
-          86},{118,86}},            color={0,0,127}));
+          86},{118,86}}, color={0,0,127}));
   connect(derivative2.u, uniDel2.y) annotation (Line(points={{78,-60},{64,-60},
-          {64,-20},{42,-20}},                   color={0,0,127}));
+          {64,-20},{42,-20}}, color={0,0,127}));
   connect(autTunSig.y, PIDWitTun.triTun)
     annotation (Line(points={{-58,-50},{-4,-50},{-4,-32}}, color={255,0,255}));
   connect(k.y, derivative2.k) annotation (Line(points={{32,20},{68,20},{68,-52},
@@ -92,7 +90,7 @@ equation
       StopTime=10000,
       Tolerance=1e-06),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/Utilities/PIDWithAutotuning/Validation/PIDWithFirstOrderAMIGO.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/Utilities/PIDWithAutotuning/Validation/ReverseActingPIDWithFirstOrderAMIGO.mos" "Simulate and plot"),
     Documentation(
       info="<html>
 <p>
@@ -143,4 +141,4 @@ First implementation<br/>
           fillPattern=FillPattern.Solid,
           points={{-36,60},{64,0},{-36,-60},{-36,60}})}),
     Diagram(coordinateSystem(extent={{-100,-80},{200,100}})));
-end PIDWithFirstOrderAMIGO;
+end ReverseActingPIDWithFirstOrderAMIGO;
