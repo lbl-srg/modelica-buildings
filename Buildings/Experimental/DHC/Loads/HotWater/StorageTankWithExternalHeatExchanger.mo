@@ -224,11 +224,6 @@ First implementation.
 </li>
 </ul>
 </html>"),Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-                                Rectangle(
-        extent={{-100,-100},{100,100}},
-        lineColor={0,0,127},
-        fillColor={255,255,255},
-        fillPattern=FillPattern.Solid),
         Polygon(
           points={{-140,86},{-140,86}},
           lineColor={95,95,95},
@@ -344,10 +339,6 @@ First implementation.
           extent={{-116,36},{-66,0}},
           textColor={0,0,127},
           textString="TDomSet"),
-        Text(
-          extent={{-100,140},{100,100}},
-          textString="%name",
-          textColor={0,0,255}),
         Rectangle(
           extent={{-5,2},{5,-2}},
           fillColor={28,108,200},
