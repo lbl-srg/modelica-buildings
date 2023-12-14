@@ -18,20 +18,19 @@ model Effectiveness
     "Part load (75%) sensible heat exchanger effectiveness at the heating mode";
   parameter Modelica.Units.SI.Efficiency epsLatHeaPL(final max=1) = 0.75
     "Part load (75%) latent heat exchanger effectiveness at the heating mode";
-  parameter Modelica.Units.SI.VolumeFlowRate VSup_flow_nominal(
-    final min = 100*Modelica.Constants.eps)
+  parameter Modelica.Units.SI.VolumeFlowRate VSup_flow_nominal
     "Nominal supply air flow rate";
 
   Modelica.Blocks.Interfaces.RealInput TSup(
     final min=0,
     final unit="K",
-    final displayUnit="degC")
+    displayUnit="degC")
     "Supply air temperature"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
   Modelica.Blocks.Interfaces.RealInput TExh(
     final min=0,
     final unit="K",
-    final displayUnit="degC")
+    displayUnit="degC")
     "Exhaust air temperature
     " annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
   Modelica.Blocks.Interfaces.RealInput VSup_flow(final unit="m3/s")
