@@ -1,6 +1,7 @@
 within Buildings.Experimental.DHC.Loads.HotWater.BaseClasses;
 partial model PartialFourPortDHW
   "A partial model for domestic water heating"
+  extends Modelica.Blocks.Icons.Block;
   replaceable package MediumDom =
     Modelica.Media.Interfaces.PartialMedium "Medium for domestic water in the component"
       annotation (choices(
