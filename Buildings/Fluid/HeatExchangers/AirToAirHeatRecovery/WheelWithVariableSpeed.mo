@@ -41,9 +41,12 @@ model WheelWithVariableSpeed
   parameter Modelica.Units.SI.Efficiency epsLatHeaPL(
     final max=1) = 0.75
     "Part load (75%) latent heat exchanger effectiveness at the heating mode";
-  Modelica.Blocks.Interfaces.RealInput wheSpe(
-    final unit="1")
-    "Wheel speed ratio"
+
+  Modelica.Blocks.Interfaces.RealInput uSpe(
+    final unit="1",
+    final min=0,
+    final max=1)
+    "Wheel speed"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealOutput P
     "Electric power consumed by the wheel"
@@ -146,9 +149,8 @@ equation
   connect(effCal.epsLat, hex.epsLat)
     annotation (Line(points={{-19,46},{-12,46},{-12,-4},{4,-4}},
         color={0,0,127}));
-  connect(effCal.wheSpe, wheSpe)
-    annotation (Line(points={{-42,50},{-94,50},{-94,0},{-120,0}},
-        color={0,0,127}));
+  connect(effCal.uSpe, uSpe) annotation (Line(points={{-42,50},{-94,50},{-94,0},
+          {-120,0}}, color={0,0,127}));
   connect(senSupFlow.V_flow, effCal.VSup_flow)
     annotation (Line(points={{-30,111},{-30,120},{-80,120},{-80,58},{-42,58}},
         color={0,0,127}));

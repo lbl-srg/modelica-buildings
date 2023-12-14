@@ -41,11 +41,14 @@ model WheelWithBypassDamper
   parameter Modelica.Units.SI.Efficiency epsLatHeaPL(
     final max=1) = 0.75
     "Part load (75%) latent heat exchanger effectiveness at the heating mode";
-  Modelica.Blocks.Interfaces.RealInput bypDamPos(
-    final unit="1")
+
+  Modelica.Blocks.Interfaces.RealInput uBypDamPos(
+    final unit="1",
+    final min=0,
+    final max=1)
     "Bypass damper position"
     annotation (Placement(transformation(extent={{-220,100},{-180,140}}),
-        iconTransformation(extent={{-140,-20},{-100,20}})));
+      iconTransformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealOutput P
     "Electric power consumed by the wheel"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
@@ -175,11 +178,10 @@ equation
     annotation (Line(points={{-79,14},{-12,14}}, color={0,0,127}));
   connect(effCal.epsLat, hex.epsLat)
     annotation (Line(points={{-79,6},{-12,6}},color={0,0,127}));
-  connect(bypDamSup.y, bypDamPos)
+  connect(bypDamSup.y, uBypDamPos)
     annotation (Line(points={{-28,92},{-28,120},{-200,120}}, color={0,0,127}));
-  connect(effCal.wheSpe, uni.y)
-    annotation (Line(points={{-102,10},{-130,10},{-130,40},{-139,40}},
-        color={0,0,127}));
+  connect(effCal.uSpe, uni.y) annotation (Line(points={{-102,10},{-130,10},{-130,
+          40},{-139,40}}, color={0,0,127}));
   connect(TSup.y, effCal.TSup)
     annotation (Line(points={{-139,-20},{-114,-20},{-114,6},{-102,6}},
         color={0,0,127}));
@@ -189,9 +191,8 @@ equation
   connect(damSup.port_b, hex.port_a1)
     annotation (Line(points={{-22,40},{-20,40},{-20,16},{-10,16}},
         color={0,127,255}));
-  connect(bypDamExh.y, bypDamPos)
-    annotation (Line(points={{-30,-48},{-30,-30},{40,-30},{40,120},{-200,120}},
-        color={0,0,127}));
+  connect(bypDamExh.y, uBypDamPos) annotation (Line(points={{-30,-48},{-30,-30},
+          {40,-30},{40,120},{-200,120}}, color={0,0,127}));
   connect(damSup.port_a, VSup_flow.port_b)
     annotation (Line(points={{-42,40},{-60,40}}, color={0,127,255}));
   connect(VSup_flow.port_a, port_a1)
@@ -211,9 +212,8 @@ equation
   connect(VExh_flow.V_flow, effCal.VExh_flow)
     annotation (Line(points={{-50,-9},{-50,60},{-120,60},{-120,14},{-102,14}},
         color={0,0,127}));
-  connect(sub.u2, bypDamPos)
-    annotation (Line(points={{-122,94},{-140,94},{-140,120},{-200,120}},
-        color={0,0,127}));
+  connect(sub.u2, uBypDamPos) annotation (Line(points={{-122,94},{-140,94},{-140,
+          120},{-200,120}}, color={0,0,127}));
   connect(uni.y, sub.u1)
     annotation (Line(points={{-139,40},{-130,40},{-130,106},{-122,106}},
         color={0,0,127}));

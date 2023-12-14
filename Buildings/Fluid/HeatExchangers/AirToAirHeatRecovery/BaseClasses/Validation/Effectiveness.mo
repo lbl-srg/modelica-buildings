@@ -53,7 +53,7 @@ equation
     annotation (Line(points={{-59,70},{-28,70},{-28,8},{-14,8}}, color={0,0,127}));
   connect(VExh.y, epsCal.VExh_flow)
     annotation (Line(points={{-59,30},{-40,30},{-40,4},{-14,4}}, color={0,0,127}));
-  connect(whSpe.y, epsCal.wheSpe)
+  connect(whSpe.y, epsCal.uSpe)
     annotation (Line(points={{-59,0},{-14,0}}, color={0,0,127}));
   connect(TSup.y, epsCal.TSup)
     annotation (Line(points={{-59,-40},{-40,-40},{-40,-4},{-14,-4}}, color={0,0,127}));
@@ -86,7 +86,7 @@ exhaust air flow rate, <i>VExh</i>, change from
 0.6 to 1 and 0.8 to 1 respectively. The flow rates then stay constant.
 </li>
 <li> 
-In the first 60 seonds, the wheel speed ratio, <i>wheSpe</i>, keeps constant.
+In the first 60 seonds, the wheel speed <i>uSpe</i> keeps constant.
 It then increases from 0.3 to 1 during the period from 60 seconds to 120
 seconds.
 </li> 

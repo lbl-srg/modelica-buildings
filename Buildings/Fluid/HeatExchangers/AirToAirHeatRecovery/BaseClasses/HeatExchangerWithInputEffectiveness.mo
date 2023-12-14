@@ -2,18 +2,18 @@ within Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses;
 model HeatExchangerWithInputEffectiveness
   "Heat and moisture exchanger with varying effectiveness"
   extends Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectiveness(
-  redeclare replaceable package Medium1 =
+    redeclare replaceable package Medium1 =
         Modelica.Media.Interfaces.PartialCondensingGases,
-  redeclare replaceable package Medium2 =
+    redeclare replaceable package Medium2 =
         Modelica.Media.Interfaces.PartialCondensingGases,
-  sensibleOnly1=false,
-  sensibleOnly2=false,
-  final prescribedHeatFlowRate1=true,
-  final prescribedHeatFlowRate2=true,
-  Q1_flow = epsSen * QMax_flow + QLat_flow,
-  Q2_flow = -Q1_flow,
-  mWat1_flow = +mWat_flow,
-  mWat2_flow = -mWat_flow);
+    sensibleOnly1=false,
+    sensibleOnly2=false,
+    final prescribedHeatFlowRate1=true,
+    final prescribedHeatFlowRate2=true,
+    Q1_flow = epsSen * QMax_flow + QLat_flow,
+    Q2_flow = -Q1_flow,
+    mWat1_flow = +mWat_flow,
+    mWat2_flow = -mWat_flow);
 
   Modelica.Blocks.Interfaces.RealInput epsSen(unit="1")
     "Sensible heat exchanger effectiveness"
@@ -123,7 +123,7 @@ This model transfers heat and moisture in the amount of
   m    = epsLat * mWat_max,
 </pre>
 <p>
-where <code>epsSen</code> and <code>epsLat</code> are input effectiveness
+where <code>epsSen</code> and <code>epsLat</code> are the input effectiveness
 for the sensible and latent heat transfer, respectively;
 <code>Q_max</code> is the maximum sensible heat that can be transferred,
 <code>m</code> is the moisture that is transferred, and

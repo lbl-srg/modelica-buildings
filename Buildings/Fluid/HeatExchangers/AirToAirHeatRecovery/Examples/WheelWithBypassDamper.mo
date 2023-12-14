@@ -79,9 +79,8 @@ equation
   connect(whe.port_b2, sin_2.ports[1])
     annotation (Line(points={{6,0},{-18,0},{-18,6.66134e-16},{-38,6.66134e-16}},
         color={0,127,255}));
-  connect(bypDamPos.y, whe.bypDamPos)
-    annotation (Line(points={{-59,-30},{-28,-30},{-28,6},{4,6}},
-        color={0,0,127}));
+  connect(bypDamPos.y, whe.uBypDamPos) annotation (Line(points={{-59,-30},{-28,-30},
+          {-28,6},{4,6}}, color={0,0,127}));
 
 annotation(experiment(Tolerance=1e-6, StopTime=360),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/AirToAirHeatRecovery/Examples/WheelWithBypassDamper.mos"
@@ -102,7 +101,7 @@ The supply air temperature <i>TSup</i> changes from <i>273.15 + 30 K</i> to
 The exhaust air temperature keeps constant.
 </li>
 <li>
-The bypass damper position <i>bypDamPos</i> changes from <i>0</i> to <i>0.2</i> 
+The bypass damper position <i>uBypDamPos</i> changes from <i>0</i> to <i>0.2</i> 
 during the period from 200 seconds to 360 seconds.
 </li>
 <li>

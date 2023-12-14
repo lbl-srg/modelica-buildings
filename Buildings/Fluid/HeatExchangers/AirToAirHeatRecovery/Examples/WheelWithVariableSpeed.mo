@@ -79,9 +79,8 @@ equation
   connect(whe.port_b2, sin_2.ports[1])
     annotation (Line(points={{6,5.55112e-16},{-18,5.55112e-16},{-18,0},{-38,0}},
         color={0,127,255}));
-  connect(wheSpe.y, whe.wheSpe)
-    annotation (Line(points={{-59,-30},{-28,-30},{-28,6},{4,6}},
-        color={0,0,127}));
+  connect(wheSpe.y, whe.uSpe) annotation (Line(points={{-59,-30},{-28,-30},{-28,
+          6},{4,6}}, color={0,0,127}));
 
 annotation(experiment(Tolerance=1e-6, StopTime=360),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/AirToAirHeatRecovery/Examples/WheelWithVariableSpeed.mos"
@@ -102,7 +101,7 @@ The supply air temperature <i>TSup</i> changes from <i>273.15 + 30 K</i> to
 The exhaust air temperature keeps constant.
 </li>
 <li>
-The wheel speed ratio <i>wheSpe</i> changes from <i>0.7</i> to <i>1</i> 
+The wheel speed <i>uSpe</i> changes from <i>0.7</i> to <i>1</i> 
 during the period from 200 seconds to 360 seconds.
 </li>
 <li>
