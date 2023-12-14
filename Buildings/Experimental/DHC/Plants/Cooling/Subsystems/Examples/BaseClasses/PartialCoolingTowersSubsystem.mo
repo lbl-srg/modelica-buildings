@@ -35,16 +35,19 @@ partial model PartialCoolingTowersSubsystem
   Buildings.Controls.OBC.CDL.Reals.Switch swi "Control switch for chilled water pump"
     annotation (Placement(transformation(extent={{80,-200},{100,-180}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSwi(k=273.15 + 22)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSwi(
+    k=273.15 + 22,
+    y(unit="K",
+      displayUnit="degC"))
     "Switch temperature for switching tower pump on"
     annotation (Placement(transformation(extent={{-80,-206},{-60,-186}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(k=0) "Zero flow rate"
-    annotation (Placement(transformation(extent={{40,-230},{60,-210}})));
+    annotation (Placement(transformation(extent={{20,-230},{40,-210}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant m_flow(k=m_flow_nominal)
     "Water flow rate"
-    annotation (Placement(transformation(extent={{40,-168},{60,-148}})));
+    annotation (Placement(transformation(extent={{20,-168},{40,-148}})));
 
   Buildings.Fluid.MixingVolumes.MixingVolume vol(nPorts=3,
     redeclare package Medium = Medium_W,
@@ -85,10 +88,10 @@ equation
   connect(weaDat.weaBus, weaBus)
    annotation (Line(points={{-80,50},{-60,50}},color={255,204,51}));
   connect(zer.y, swi.u3)
-   annotation (Line(points={{62,-220},{68,-220},{68,-198},{78,-198}},
+   annotation (Line(points={{42,-220},{60,-220},{60,-198},{78,-198}},
      color={0,0,127}));
   connect(m_flow.y, swi.u1)
-   annotation (Line(points={{62,-158},{68,-158},{68,-182},{78,-182}},
+   annotation (Line(points={{42,-158},{60,-158},{60,-182},{78,-182}},
      color={0,0,127}));
   connect(vol.ports[1], pum.port_a)
    annotation (Line(points={{28.6667,-120},{-76,-120},{-76,-50},{-70,-50}},
