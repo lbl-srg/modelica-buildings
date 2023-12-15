@@ -67,6 +67,12 @@ package Types "Package with type definitions"
       Propeller
       "Propeller fan")
     "Enumeration to specify the type of single fan";
+  type HeatPump = enumeration(
+      AirSource
+      "Air-source (air-to-water) heat pump",
+      WaterSource
+      "Water-source (brine or water-to-water) heat pump")
+    "Enumeration to specify the type of heat pump";
   type IconPipe = enumeration(
       None
       "No line",
@@ -75,6 +81,17 @@ package Types "Package with type definitions"
       Supply
       "Supply pipe - Solid line")
     "Enumeration to specify the pipe symbol";
+  type Pump = enumeration(
+      None
+      "No pump",
+      Single
+      "Single pump",
+      Multiple
+      "Multiple pumps in parallel")
+    "Enumeration to configure the pump";
+  type PumpArrangement = enumeration(
+      Dedicated "Dedicated pumps",
+      Headered "Headered pumps") "Enumeration to specify the pump arrangement";
   type Sensor = enumeration(
       DifferentialPressure
       "Differential pressure",

@@ -10,6 +10,16 @@ package Types "Package with type definitions"
       Constant1Variable2 "Constant primary - Variable secondary centralized",
       Variable1And2 "Variable primary - Variable secondary centralized")
       "Enumeration to specify the type of HW distribution system";
+  type PumpsPrimary = enumeration(
+      FactoryConstant "Constant speed pump provided with heat pump with factory controls",
+      FactoryVariable "Variable speed pump provided with heat pump with factory controls",
+      Constant "Constant speed pump specified separately",
+      Variable "Variable speed pump specified separately")
+      "Enumeration to specify the type of primary pumps";
+  type PumpsSecondary = enumeration(
+      None "No secondary pumps (primary-only)",
+      Centralized "Variable secondary centralized")
+      "Enumeration to specify the type of secondary HW pumps";
   type SensorLocation = enumeration(
       Return "Sensor in the return line",
       Supply "Sensor in the supply line")

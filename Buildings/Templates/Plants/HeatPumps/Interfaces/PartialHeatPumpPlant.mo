@@ -18,23 +18,49 @@ partial model PartialHeatPumpPlant
     "CHW medium"
     annotation (__ctrlFlow(enable=false));
 
-  parameter Buildings.Templates.Plants.HeatPumps.Types.HeatPump typ
+  parameter Buildings.Templates.Components.Types.HeatPump typ
     "Type of heat pump"
     annotation (Evaluate=true, Dialog(group="Heat pumps"));
+
+  parameter Buildings.Templates.Plants.HeatPumps.Configuration.HeatPumpPlant cfg(
+    final typ=typ,
+    final have_heaWat=have_heaWat,
+    final have_hotWat=have_hotWat,
+    final have_chiWat=have_chiWat,
+    final nHeaPum=nHeaPum,
+    final nPumHeaWatPri=nPumHeaWatPri,
+    final nPumHeaWatSec=nPumHeaWatSec,
+    final have_valHeaWatMinByp=have_valHeaWatMinByp,
+    final typArrPumHeaWatPri=typArrPumHeaWatPri,
+    final typPumHeaWatSec=typPumHeaWatSec,
+    final typDisHeaWat=typDisHeaWat)
+    "Configuration parameters"
+    annotation(__ctrlFlow(enable=false));
+
+  final parameter Boolean have_heaWat=true
+    "Set to true if the plant provides HW"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Boolean have_hotWat=false
+    "Set to true if the plant provides DHW"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  // RFE: To be exposed when templates include optional CHW service.
+  final parameter Boolean have_chiWat=false
+    "Set to true if the plant provides CHW"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+
   parameter Integer nHeaPum(
     start=1,
     final min=1)
-    "Number of heat pumps"
+    "Total number of heat pumps"
     annotation (Evaluate=true, Dialog(group="Heat pumps"));
   parameter Integer nHeaPumHotWat(
     final min=0,
-    final max=nHeaPum)=0
+    final max=nHeaPum)=if have_hotWat then nHeaPum else 0
     "Number of heat pumps that can provide DHW"
-    annotation (Evaluate=true, Dialog(group="Heat pumps"));
+    annotation (Evaluate=true, Dialog(group="Heat pumps", enable=have_hotWat));
 
-  parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary typPumHeaWatPri(
-    start=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable)
-    "Type of primary HW pumps"
+  parameter Buildings.Templates.Plants.HeatPumps.Types.Distribution typDisHeaWat
+    "Type of HW distribution system"
     annotation (Evaluate=true, Dialog(group="Primary HW loop"));
 
   final parameter Boolean have_bypHeaWatFix=
@@ -42,11 +68,14 @@ partial model PartialHeatPumpPlant
     "Set to true if the HW loop has a fixed bypass"
     annotation(Evaluate=true, Dialog(group="Primary HW loop"));
   final parameter Boolean have_valHeaWatMinByp=
-    have_varPumHeaWatPri and
-    typPumHeaWatSec==Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
+    typDisHeaWat==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
     "Set to true if the HW loop has a minimum flow bypass valve"
     annotation(Evaluate=true, Dialog(group="Primary HW loop"));
 
+  parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary typPumHeaWatPri(
+    start=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable)
+    "Type of primary HW pumps"
+    annotation (Evaluate=true, Dialog(group="Primary HW loop"));
   parameter Integer nPumHeaWatPri_select(
     start=0,
     final min=0)=nHeaPum
@@ -66,36 +95,29 @@ partial model PartialHeatPumpPlant
     enable= typPumHeaWatPri<>Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.FactoryVariable and
       typPumHeaWatPri<>Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.FactoryConstant));
   final parameter Buildings.Templates.Components.Types.PumpArrangement typArrPumHeaWatPri=
-    if typPumHeaWatPriCon<>Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.FactoryVariable and
-      typPumHeaWatPriCon<>Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.FactoryConstant
+    if typPumHeaWatPri<>Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.FactoryVariable and
+      typPumHeaWatPri<>Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.FactoryConstant
     then typArrPumHeaWatPri_select else
     Buildings.Templates.Components.Types.PumpArrangement.Dedicated
     "Type of primary HW pump arrangement"
     annotation (Evaluate=true, Dialog(group="Primary HW loop"));
-  final parameter Boolean have_varPumHeaWatPri=
-    typPumHeaWatPri==Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.FactoryVariable or
-    typPumHeaWatPri==Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
-    "Set to true for variable speed primary HW pumps"
-    annotation (Evaluate=true, Dialog(group="Primary HW loop"));
 
-  parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary typPumHeaWatSec(
-    start=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None)
+  // RFE: Currently, only centralized secondary HP pumps are supported for primary-secondary plants.
+  final parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary typPumHeaWatSec=
+    if typDisHeaWat==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2
+     or typDisHeaWat==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1And2 then
+     Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized
+    else Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
     "Type of secondary HW pumps"
-    annotation (Evaluate=true, Dialog(group="Secondary HW loop"),
-    choices(
-    choice=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
-      "No secondary pumps (primary-only)",
-    choice=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized
-      "Variable secondary centralized"));
-  final parameter Boolean have_pumHeaWatSec=
-    typPumHeaWatSec==Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized
-    "Set to true if the plant includes secondary HW pumps"
-    annotation(Evaluate=true, Dialog(group="Secondary HW loop"));
+    annotation (Evaluate=true, Dialog(group="Secondary HW loop"));
   parameter Integer nPumHeaWatSec(
-    start=1,
-    final min=0)=if have_pumHeaWatSec then nHeaPum else 0
-    "Number of secondary HW pumps"
-    annotation (Evaluate=true, Dialog(group="Secondary HW loop", enable=have_pumHeaWatSec));
+    final min=0)=
+    if typDisHeaWat==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only then 0
+    else nHeaPum
+    "Number of secondary CHW pumps"
+    annotation (Evaluate=true, Dialog(group="Secondary CHW loop",
+    enable=typDisHeaWat==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2
+     or typDisHeaWat==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1And2));
 
   parameter Buildings.Templates.Plants.HeatPumps.Types.Controller typCtl
     "Type of controller"
@@ -108,16 +130,7 @@ partial model PartialHeatPumpPlant
     annotation(Evaluate=true, Dialog(group="Controls"));
 
   // See derived class for additional bindings of parameters not defined at top-level.
-  parameter Buildings.Templates.Plants.HeatPumps.Data.HeatPumpPlant dat(
-    final nHeaPum=nHeaPum,
-    final typPumHeaWatSec=typPumHeaWatSec,
-    final nPumHeaWatPri=nPumHeaWatPri,
-    final nPumHeaWatSec=nPumHeaWatSec,
-    final have_valHeaWatMinByp=have_valHeaWatMinByp,
-    final typArrPumHeaWatPri=typArrPumHeaWatPri,
-    final have_varPumHeaWatPri=have_varPumHeaWatPri,
-    final typCtl=typCtl,
-    final rho_default=rho_default)
+  parameter Buildings.Templates.Plants.HeatPumps.Data.HeatPumpPlant dat(cfg=cfg)
     "Design and operating parameters"
     annotation (Placement(transformation(extent={{-280,240},{-260,260}})));
 
@@ -129,9 +142,12 @@ partial model PartialHeatPumpPlant
       then mHeaWatPri_flow_nominal
     else sum(dat.pumHeaWatSec.m_flow_nominal)
     "HW mass flow rate (total, distributed to consumers)";
-  final parameter Modelica.Units.SI.HeatFlowRate cap_nominal=
-    sum(dat.heaPum.cap_nominal)
-    "Heating capacity (total)";
+  final parameter Modelica.Units.SI.HeatFlowRate capHea_nominal=
+    sum(abs(dat.heaPum.capHea_nominal))
+    "Heating capacity - All units";
+  final parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal=
+    capHea_nominal
+    "Heating heat flow rate - All units";
   final parameter Modelica.Units.SI.Temperature THeaWatSup_nominal=
     dat.ctl.THeaWatSup_nominal
     "Maximum HW supply temperature";
@@ -151,35 +167,55 @@ partial model PartialHeatPumpPlant
     "= true, if actual temperature at port is computed"
     annotation(Dialog(tab="Advanced",group="Diagnostics"));
 
-  final parameter Medium.Density rho_default=
-    Medium.density(sta_default)
+  final parameter MediumHeaWat.Density rhoHeaWat_default=
+    MediumHeaWat.density(staHeaWat_default)
     "HW default density";
-  final parameter Medium.ThermodynamicState sta_default=
-     Medium.setState_pTX(
-       T=Buildings.Templates.Data.Defaults.THeaWatSup,
-       p=Medium.p_default,
-       X=Medium.X_default)
+  final parameter MediumHeaWat.ThermodynamicState staHeaWat_default=
+    MediumHeaWat.setState_pTX(
+      T=Buildings.Templates.Data.Defaults.THeaWatSupLow,
+      p=MediumHeaWat.p_default,
+      X=MediumHeaWat.X_default)
     "HW default state";
 
-  Modelica.Fluid.Interfaces.FluidPort_a port_a(
-    redeclare final package Medium = Medium,
+  Modelica.Fluid.Interfaces.FluidPort_a port_aHeaWat(
+    redeclare final package Medium = MediumHeaWat,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+    h_outflow(start=MediumHeaWat.h_default, nominal=MediumHeaWat.h_default))
+    if have_heaWat
     "HW return"
-    annotation (Placement(transformation(extent={{290,-250},{310,-230}}),
+    annotation (Placement(transformation(extent={{290,-50},{310,-30}}),
         iconTransformation(extent={{192,-110},{212,-90}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b(
-    redeclare final package Medium = Medium,
+  Modelica.Fluid.Interfaces.FluidPort_b port_bHeaWat(
+    redeclare final package Medium = MediumHeaWat,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    h_outflow(start = Medium.h_default, nominal = Medium.h_default))
+    h_outflow(start=MediumHeaWat.h_default, nominal=MediumHeaWat.h_default))
+    if have_heaWat
     "HW supply"
-    annotation (Placement(transformation(extent={{290,-10},{310,10}}),
+    annotation (Placement(transformation(extent={{290,30},{310,50}}),
         iconTransformation(extent={{192,-10},{212,10}})));
+
+  Modelica.Fluid.Interfaces.FluidPort_a port_aChiWat(
+    redeclare final package Medium = MediumChiWat,
+    m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
+    h_outflow(start=MediumChiWat.h_default, nominal=MediumChiWat.h_default))
+    if have_chiWat
+    "CHW return"
+    annotation (Placement(transformation(extent={{290,-290},{310,-270}}),
+        iconTransformation(extent={{192,-110},{212,-90}})));
+  Modelica.Fluid.Interfaces.FluidPort_b port_bChiWat(
+    redeclare final package Medium = MediumChiWat,
+    m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
+    h_outflow(start=MediumChiWat.h_default, nominal=MediumChiWat.h_default))
+    if have_chiWat
+    "CHW supply"
+    annotation (Placement(transformation(extent={{290,-210},{310,-190}}),
+        iconTransformation(extent={{192,-10},{212,10}})));
+
   Buildings.Templates.Plants.HeatPumps.Interfaces.Bus bus
     "Plant control bus" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
-        origin={-300,140}), iconTransformation(
+        origin={-300,200}), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={-200,100})));
@@ -188,7 +224,7 @@ partial model PartialHeatPumpPlant
     "Air handling unit control bus"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
         rotation=-90,
-        origin={300,180}), iconTransformation(extent={{-20,-20},{20,20}},
+        origin={300,240}), iconTransformation(extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={200,140})));
   Buildings.Templates.ZoneEquipment.Interfaces.Bus busEquZon[nEquZon]
@@ -196,48 +232,14 @@ partial model PartialHeatPumpPlant
     "Terminal unit control bus"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
         rotation=-90,
-        origin={300,100}),
+        origin={300,160}),
         iconTransformation(extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={202,60})));
-
-  Modelica.Units.SI.MassFlowRate m_flow(start=_m_flow_start)=port_a.m_flow
-    "Mass flow rate from port_a to port_b (m_flow > 0 is design flow direction)";
-
-  Modelica.Units.SI.PressureDifference dp(
-    start=_dp_start,
-    displayUnit="Pa")=port_a.p - port_b.p
-    "Pressure difference between port_a and port_b";
-
-  Medium.ThermodynamicState sta_a=
-    if allowFlowReversal then
-      Medium.setState_phX(port_a.p,
-                          noEvent(actualStream(port_a.h_outflow)),
-                          noEvent(actualStream(port_a.Xi_outflow)))
-    else
-      Medium.setState_phX(port_a.p,
-                          noEvent(inStream(port_a.h_outflow)),
-                          noEvent(inStream(port_a.Xi_outflow)))
-      if show_T "Medium properties in port_a";
-
-  Medium.ThermodynamicState sta_b=
-    if allowFlowReversal then
-      Medium.setState_phX(port_b.p,
-                          noEvent(actualStream(port_b.h_outflow)),
-                          noEvent(actualStream(port_b.Xi_outflow)))
-    else
-      Medium.setState_phX(port_b.p,
-                          noEvent(port_b.h_outflow),
-                          noEvent(port_b.Xi_outflow))
-       if show_T "Medium properties in port_b";
-
-protected
-  final parameter Modelica.Units.SI.MassFlowRate _m_flow_start=0
-    "Start value for m_flow, used to avoid a warning if not set in m_flow, and to avoid m_flow.start in parameter window";
-  final parameter Modelica.Units.SI.PressureDifference _dp_start(
-    displayUnit="Pa")=0
-    "Start value for dp, used to avoid a warning if not set in dp, and to avoid dp.start in parameter window";
-
+  BoundaryConditions.WeatherData.Bus busWea
+    "Weather bus"
+    annotation (Placement(transformation(extent={{-20,280},{20,320}}),
+      iconTransformation(extent={{-792,-62},{-772,-42}})));
 initial equation
   if typArrPumHeaWatPri==Buildings.Templates.Components.Types.PumpArrangement.Dedicated then
     assert(nPumHeaWatPri==nHeaPum,
@@ -270,36 +272,10 @@ initial equation
           points={{-60,100},{50,100},{50,0},{200,0}},
           color={238,46,47},
           thickness=5),
-        Rectangle(
-          extent={{-180,-40},{-60,-120}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid),
         Text(
           extent={{-149,-214},{151,-254}},
           textColor={0,0,255},
           textString="%name"),
-        Polygon(
-          points={{-121,-90},{-133,-108},{-107,-108},{-121,-90}},
-          pattern=LinePattern.None,
-          smooth=Smooth.None,
-          fillColor={255,255,0},
-          fillPattern=FillPattern.Solid,
-          lineColor={0,0,0}),
-        Rectangle(
-          extent={{-180,120},{-60,40}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{-121,70},{-133,52},{-107,52},{-121,70}},
-          pattern=LinePattern.None,
-          smooth=Smooth.None,
-          fillColor={255,255,0},
-          fillPattern=FillPattern.Solid,
-          lineColor={0,0,0}),
         Ellipse(
           extent={{130,20},{170,-20}},
           lineColor={0,0,0},
@@ -307,14 +283,14 @@ initial equation
           fillColor={0,100,199},
           startAngle=0,
           endAngle=360,
-          visible=typPumHeaWatSec == Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized),
+          visible=typPumHeaWatSec<>Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None),
         Polygon(
           points={{150,19},{150,-19},{169,0},{150,19}},
           lineColor={0,0,0},
           pattern=LinePattern.None,
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={255,255,255},
-          visible=typPumHeaWatSec == Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized),
+          visible=typPumHeaWatSec<>Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None),
         Line(
           points={{200,-100},{-60,-100}},
           color={238,46,47},
@@ -345,7 +321,33 @@ initial equation
           lineColor={0,0,0},
           pattern=LinePattern.None,
           fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={255,255,255})}),
+          fillColor={255,255,255}),
+        Rectangle(
+          extent={{-160,130},{-60,30}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-130,100},{-90,60}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Line(points={{-122,96},{-126,68}}, color={0,0,0}),
+        Line(points={{-98,96},{-94,68}}, color={0,0,0}),
+        Rectangle(
+          extent={{-160,-32},{-60,-132}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-130,-62},{-90,-102}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Line(points={{-122,-66},{-126,-94}}, color={0,0,0}),
+        Line(points={{-98,-66},{-94,-94}}, color={0,0,0})}),
    Diagram(coordinateSystem(
       preserveAspectRatio=false,
       extent={{-300,-300},{300,300}})),
