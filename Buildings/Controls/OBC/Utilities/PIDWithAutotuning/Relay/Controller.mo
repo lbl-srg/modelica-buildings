@@ -49,7 +49,7 @@ protected
     final k=-yLow)
     "Lower value for the output"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Buildings.Controls.OBC.CDL.Reals.Subtract conErr
+Buildings.Controls.OBC.CDL.Reals.Subtract conErr
     "Control error (set point - measurement)"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi1
@@ -57,16 +57,16 @@ protected
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
     origin={-50,-60})));
   Buildings.Controls.OBC.CDL.Reals.Subtract sub
-    if reverseActing "Inputs difference"
+    if reverseActing "Inputs difference for reverse acting"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
-    final uLow=-deaBa,
-    final uHigh=deaBa,
+    final uLow=-deaBan,
+    final uHigh=deaBan,
     final pre_y_start=true)
     "Check if the measured value is larger than the reference, by default the relay control is on"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract sub1
-    if not reverseActing "Inputs difference"
+    if not reverseActing "Inputs difference for direct acting"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
   Buildings.Controls.OBC.CDL.Reals.Greater gre
     "Check if the higher value is greater than the lower value"
@@ -86,9 +86,9 @@ equation
     annotation (Line(points={{-58,80},{-20,80},{-20,58},{58,58}},color={0,0,127}));
   connect(lowVal.y, swi.u3) annotation (Line(points={{-58,30},{-20,30},{-20,42},
           {58,42}},
-                color={0,0,127}));
+color={0,0,127}));
   connect(conErr.y, yErr) annotation (Line(points={{62,10},{120,10}},
-         color={0,0,127}));
+                color={0,0,127}));
   connect(swi1.u3, u_s) annotation (Line(points={{-62,-68},{-90,-68},{-90,0},{
           -120,0}},
                color={0,0,127}));
@@ -98,7 +98,7 @@ equation
   connect(u_m, swi1.u1) annotation (Line(points={{0,-120},{0,-90},{-70,-90},{
           -70,-52},{-62,-52}},
                            color={0,0,127}));
-   connect(swi1.y, conErr.u1) annotation (Line(points={{-38,-60},{-20,-60},{-20,
+  connect(swi1.y, conErr.u1) annotation (Line(points={{-38,-60},{-20,-60},{-20,
           16},{38,16}}, color={0,0,127}));
    connect(conErr.u2, u_s) annotation (Line(points={{38,4},{-42,4},{-42,0},{
           -120,0}},
@@ -131,7 +131,7 @@ equation
   connect(hys.y, yOn) annotation (Line(points={{62,-50},{80,-50},{80,-60},{120,
           -60}},
         color={255,0,255}));
-  annotation (defaultComponentName = "relCon",
+    annotation (defaultComponentName = "relCon",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
@@ -164,21 +164,25 @@ equation
           fillPattern=FillPattern.Solid,
           fillColor={175,175,175},
           textString="Relay"),
-        Line(points={{-70,24},{-34,24},{-34,58},{38,58},{38,24},{66,24}}, color
-            ={28,108,200})}), Diagram(
+        Line(points={{-70,24},{-34,24},{-34,58},{38,58},{38,24},{66,24}}, color=
+             {28,108,200})}), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
 Documentation(info="<html>
 <p>
 This block generates a real control output <code>y</code>, a
-boolean relay switch output <code>yOn</code>, and the control error
+boolean relay switch output <code>yOn</code>, a input difference 
+<code>yDif</code>, and the control error
 <code>yErr</code>. They are calculated as below:
 </p>
 <ul>
 <li>
+<code>yErr = u_s - u_m</code>,
+</li>
+<li>
 if the parameter <code>reverseActing = false</code>
 <ul>
 <li>
-<code>yErr = u_m - u_s</code>,
+<code>yDif = - yErr</code>,
 </li>
 </ul>
 </li>
@@ -186,16 +190,16 @@ if the parameter <code>reverseActing = false</code>
 else
 <ul>
 <li>
-<code>yErr = u_s - u_m </code>,
+<code>yDif = yErr</code>,
 </li>
 </ul>
 </li>
 <li>
-if <code>yErr &lt; -deaBan</code> and <code>trigger</code> is <code>true</code>,
+if <code>yDif &lt; -deaBan</code> and <code>trigger</code> is <code>true</code>,
 then <code>y = yHig</code>, <code>yOn = true</code>,
 </li>
 <li>
-else if <code>yErr &gt; deaBan</code> and <code>trigger</code> is <code>true</code>,
+else if <code>yDif &gt; deaBan</code> and <code>trigger</code> is <code>true</code>,
 then <code>y = -yLow</code>, 
 <code>yOn = false</code>,
 </li>
