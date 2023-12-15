@@ -216,6 +216,11 @@ doi.org/10.1016/j.energy.2016.04.109</a>, as well as the
 published by ASHRAE in 2022 at <a href=\"https://www.ashrae.org/technical-resources/aedgs/zero-energy-aedg-free-download\">
 https://www.ashrae.org/technical-resources/aedgs/zero-energy-aedg-free-download</a>.
 </p>
+<p>
+For a model that connects this hot water system to a heat pump, see
+<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPumpDHWTank\">
+Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPumpDHWTank</a>.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
