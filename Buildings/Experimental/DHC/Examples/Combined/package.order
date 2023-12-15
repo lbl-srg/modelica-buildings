@@ -1,5 +1,4 @@
 SeriesConstantFlow
 SeriesVariableFlow
-SeriesVariableFlowUpdate
-Controls
+SeriesVariableFlowAgentControl
 BaseClasses

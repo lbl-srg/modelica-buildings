@@ -1,4 +1,4 @@
-within Buildings.Experimental.DHC.Examples.Combined;
+within Buildings.Experimental.DHC.Networks;
 package Controls "Package of control blocks for distribution systems"
 
   annotation (
