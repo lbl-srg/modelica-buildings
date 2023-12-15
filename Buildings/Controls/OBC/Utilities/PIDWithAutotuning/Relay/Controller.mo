@@ -33,7 +33,8 @@ block Controller
     "Relay switch output, true when control output switches to the higher value"
     annotation (Placement(transformation(extent={{100,-80},{140,-40}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDif "Input difference"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDif
+    "Input difference, measurement - setpoint"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
