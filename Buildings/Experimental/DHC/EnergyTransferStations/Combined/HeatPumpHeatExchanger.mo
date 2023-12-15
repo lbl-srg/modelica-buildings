@@ -1,6 +1,7 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.Combined;
 model HeatPumpHeatExchanger "Model of a substation with heat pump and compressor-less cooling"
-  extends Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.PartialETS(
+  extends
+    Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.PartialETS(
     final typ=Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration5,
     final have_weaBus=false,
     final have_chiWat=true,
@@ -164,12 +165,12 @@ model HeatPumpHeatExchanger "Model of a substation with heat pump and compressor
         extent={{-380,-100},{-300,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput mHea_flow(final unit="kg/s")
     "District water mass flow rate used for heating service"
-    annotation ( Placement(transformation(extent={{300,-160},{340,-120}}),
-      iconTransformation(extent={{300,-160},{380,-80}})));
+    annotation ( Placement(transformation(extent={{300,-126},{340,-86}}),
+      iconTransformation(extent={{300,-152},{380,-72}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput mCoo_flow(final unit="kg/s")
     "District water mass flow rate used for cooling service"
-    annotation ( Placement(transformation(extent={{300,-200},{340,-160}}),
-      iconTransformation(extent={{300,-200},{380,-120}})));
+    annotation ( Placement(transformation(extent={{300,-156},{340,-116}}),
+      iconTransformation(extent={{300,-182},{380,-102}})));
   // COMPONENTS
   Buildings.Fluid.Delays.DelayFirstOrder volMix_a(
     redeclare final package Medium = MediumSer,
@@ -371,7 +372,7 @@ model HeatPumpHeatExchanger "Model of a substation with heat pump and compressor
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
   Buildings.Controls.OBC.CDL.Reals.MultiSum masFloHeaTot(final nin=2)
     "Compute district water mass flow rate used for heating service"
-    annotation (Placement(transformation(extent={{270,-150},{290,-130}})));
+    annotation (Placement(transformation(extent={{266,-116},{286,-96}})));
   Modelica.Blocks.Sources.Constant zer(final k=0) if not have_hotWat
     "Replacement variable"
     annotation (Placement(transformation(extent={{140,350},{160,370}})));
@@ -460,11 +461,15 @@ model HeatPumpHeatExchanger "Model of a substation with heat pump and compressor
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter toSub1(final k=-1)
     if have_hotWat "Convert to subtraction"
     annotation (Placement(transformation(extent={{-80,216},{-100,236}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput PPumCoo(final unit="W")
+    if have_pum "Power drawn by pump motors for direct cooling" annotation (
+      Placement(transformation(extent={{300,-190},{340,-150}}),
+        iconTransformation(extent={{300,-212},{380,-132}})));
 equation
   connect(TChiWatSupSet, conTChiWat.u_s) annotation (Line(points={{-320,0},{-200,
           0},{-200,-200},{-152,-200}},  color={0,0,127}));
-  connect(pum1HexChi.P, PPumCooTot.u[1]) annotation (Line(points={{89,-331},{84,
-          -331},{84,-322},{180,-322},{180,380},{188,380}}, color={0,0,127}));
+  connect(pum1HexChi.P, PPumCooTot.u[1]) annotation (Line(points={{89,-331},{88,
+          -331},{88,-328},{180,-328},{180,380},{188,380}}, color={0,0,127}));
   connect(PPumHeaTot.y, PPumTot.u[1]) annotation (Line(points={{212,420},{216,420},
           {216,399.5},{218,399.5}},
                                 color={0,0,127}));
@@ -474,7 +479,7 @@ equation
   connect(pum1HexChi.port_b, hexChi.port_a1) annotation (Line(points={{90,-340},
           {10,-340}},                              color={0,127,255}));
   connect(pum1HexChi.m_flow_actual, mCoo_flow) annotation (Line(points={{89,-335},
-          {82,-335},{82,-320},{276,-320},{276,-180},{320,-180}}, color={0,0,127}));
+          {80,-335},{80,-324},{220,-324},{220,-136},{320,-136}}, color={0,0,127}));
   connect(volMix_a.ports[1], swiFlo.port_bSup) annotation (Line(points={{-260,-360},
           {-6,-360},{-6,-370}}, color={0,127,255}));
   connect(swiFlo.port_aRet, volMix_b.ports[1]) annotation (Line(points={{6,-370},
@@ -537,18 +542,18 @@ equation
   connect(loaSHW, div1.u1) annotation (Line(points={{-320,-120},{-290,-120},{-290,
           -34},{-102,-34}}, color={0,0,127}));
   connect(masFloHeaTot.y, mHea_flow)
-    annotation (Line(points={{292,-140},{320,-140}}, color={0,0,127}));
+    annotation (Line(points={{288,-106},{320,-106}}, color={0,0,127}));
   connect(proHotWat.mEva_flow, masFloHeaTot.u[2]) annotation (Line(points={{12,31},
-          {218,31},{218,-139.5},{268,-139.5}},
+          {108,31},{108,32},{204,32},{204,-105.5},{264,-105.5}},
                                            color={0,0,127}));
-  connect(zer.y, masFloHeaTot.u[2]) annotation (Line(points={{161,360},{216,360},
-          {216,-144},{268,-144},{268,-139.5}},
+  connect(zer.y, masFloHeaTot.u[2]) annotation (Line(points={{161,360},{244,360},
+          {244,76},{220,76},{220,-105.5},{264,-105.5}},
                                             color={0,0,127}));
   connect(proHotWat.PPum, PPumHeaTot.u[2]) annotation (Line(points={{12,34},{176,
           34},{176,420},{188,420},{188,420.5}},
                                               color={0,0,127}));
   connect(proHeaWat.mEva_flow, masFloHeaTot.u[1]) annotation (Line(points={{12,211},
-          {220,211},{220,-140.5},{268,-140.5}},
+          {208,211},{208,-106.5},{264,-106.5}},
                                             color={0,0,127}));
   connect(zer.y, PPumHeaTot.u[2]) annotation (Line(points={{161,360},{174,360},{
           174,418},{188,418},{188,420.5}},
@@ -658,6 +663,8 @@ equation
           {20,226},{-78,226}}, color={0,0,127}));
   connect(toSub1.y, heaFloEvaHHW.u2) annotation (Line(points={{-102,226},{-110,
           226},{-110,234},{-102,234}}, color={0,0,127}));
+  connect(pum1HexChi.P, PPumCoo) annotation (Line(points={{89,-331},{89,-328},{
+          240,-328},{240,-170},{320,-170}}, color={0,0,127}));
   annotation (
   defaultComponentName="ets",
   Documentation(info="<html>
@@ -747,6 +754,12 @@ Energy, Volume 199, 15 May 2020, 117418.
 </html>",
   revisions="<html>
 <ul>
+<li>
+December 7, 2023, by Ettore Zanetti:<br/>
+Added output <code>PPumCoo</code><br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
+</li>
 <li>
 May 17, 2023, by David Blum:<br/>
 Assigned dp_nominal to <code>pum1HexChi</code>.<br/>
