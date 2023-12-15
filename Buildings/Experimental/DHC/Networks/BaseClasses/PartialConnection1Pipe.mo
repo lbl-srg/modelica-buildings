@@ -197,32 +197,6 @@ partial model PartialConnection1Pipe
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={80,-60})));
-  Fluid.FixedResistances.Pipe pip1(
-    redeclare package Medium = Medium,
-    T_start=281.15,
-    m_flow_nominal=70,
-    dp_nominal=0,
-    nSeg=10,
-    thicknessIns=0.02,
-    lambdaIns=0.2,
-    diameter=0.18,
-    length=100,
-    useMultipleHeatPorts=true)
-                annotation (Placement(transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=90,
-        origin={-40,34})));
-  Examples.Combined.BaseClasses.PipeGroundCouplingMulti
-                                      pipeGroundCouplingMulti(
-    lpip=100,
-    rpip=0.18,
-    rgroLay=pipeGroundCouplingMulti.rpip + 0.5,
-    nSeg=10,
-    redeclare parameter HeatTransfer.Data.Soil.Generic soiDat(
-      k=2.3,
-      c=1000,
-      d=2600))
-    annotation (Placement(transformation(extent={{-96,32},{-74,52}})));
 protected
   parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=
       Medium.specificHeatCapacityCp(Medium.setState_pTX(
@@ -274,12 +248,8 @@ equation
           -40},{60,-60},{70,-60}}, color={0,127,255}));
   connect(senTOut.T, TOut)
     annotation (Line(points={{80,-71},{80,-80},{120,-80}}, color={0,0,127}));
-  connect(pip1.heatPorts, pipeGroundCouplingMulti.heatPorts) annotation (Line(
-        points={{-45,34},{-70,34},{-70,28},{-86,28},{-86,37}}, color={127,0,0}));
-  connect(pip1.port_a, pipCon.port_b)
-    annotation (Line(points={{-40,24},{-40,20}}, color={0,127,255}));
-  connect(pip1.port_b, senMasFloCon.port_a)
-    annotation (Line(points={{-40,44},{-40,50}}, color={0,127,255}));
+  connect(pipCon.port_b, senMasFloCon.port_a)
+    annotation (Line(points={{-40,20},{-40,50}}, color={0,127,255}));
   annotation (
     defaultComponentName="con",
     Documentation(
