@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.Geothermal.BuriedPipes.Examples.SingleBuriedPipe", stopTime=63072000, method="Cvode", tolerance=1e-06, resultFile="SingleBuriedPipe");
+simulateModel("Buildings.Fluid.FixedResistances.BuriedPipes.Examples.DiscretizedBuriedPipe", stopTime=63072000, method="Cvode", tolerance=1e-06, resultFile="DiscretizedBuriedPipe");
 createPlot(
   id=1,
   position={55, 55, 1192, 772},

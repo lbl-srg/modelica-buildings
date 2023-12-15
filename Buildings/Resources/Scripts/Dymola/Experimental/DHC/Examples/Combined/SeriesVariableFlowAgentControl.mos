@@ -1,0 +1,169 @@
+removePlots();
+simulateModel("Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlowAgentControl",
+    method="cvode",
+    tolerance=1e-6,
+    startTime=0,
+    stopTime=604800,
+    resultFile="SeriesVariableFlow");
+createPlot(id=1,
+    position={15, 10, 752, 844},
+    y={"borFie.TBorAve", "bui[1].ets.volMix_a.T", "bui[1].ets.volMix_b.T", "bui[2].ets.volMix_a.T", "bui[2].ets.volMix_b.T", "bui[3].ets.volMix_a.T", "bui[3].ets.volMix_b.T"},
+    timeUnit="d",
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=2,
+    position={782, 11, 637, 839},
+    y={"ETot.y", "EHeaPum.y", "EPum.y"},
+    timeUnit="d",
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=2,
+    subPlot=2,
+    y={"EPumETS.y", "EPumPla.y", "EPumDis.y", "EPumSto.y", "EPum.y"},
+    timeUnit="d",
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=3,
+    position={26, 894, 592, 641},
+    y={"datDes.mPumDis_flow_nominal", "bui[1].ets.hexChi.m1_flow_nominal", "bui[2].ets.hexChi.m1_flow_nominal", "bui[3].ets.hexChi.m1_flow_nominal"},
+    timeUnit="d",
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=3,
+    subPlot=2,
+    y={"bui[1].ets.proHeaWat.heaPum.m2_flow_nominal", "bui[2].ets.proHeaWat.heaPum.m2_flow_nominal", "bui[3].ets.proHeaWat.heaPum.m2_flow_nominal"},
+    timeUnit="d",
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=3,
+    subPlot=3,
+    y={"bui[1].ets.proHotWat.heaPum.m2_flow_nominal", "bui[2].ets.proHotWat.heaPum.m2_flow_nominal", "bui[3].ets.proHotWat.heaPum.m2_flow_nominal"},
+    timeUnit="d",
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=4,
+    position={1448, 6, 917, 1195},
+    y={"bui[1].ets.proHeaWat.heaPum.COP", "bui[1].ets.proHotWat.heaPum.COP"},
+    timeUnit="d",
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=4,
+    subPlot=2,
+    y={"bui[2].ets.proHeaWat.heaPum.COP", "bui[2].ets.proHotWat.heaPum.COP"},
+    timeUnit="d",
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=4,
+    subPlot=3,
+    y={"bui[3].ets.proHeaWat.heaPum.COP", "bui[3].ets.proHotWat.heaPum.COP"},
+    timeUnit="d",
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+
+createPlot(
+    id=5,
+    position={35, 35, 820, 912},
+    y={"TDisWatSup.T", "TDisWatRet.T", "TDisWatBorLvg.T"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=5,
+    subPlot=2,
+    y={"pla.dH_flow", "borFie.Q_flow"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=6,
+    position={869, 37, 822, 908},
+    y={"bui[1].ets.PHea", "bui[2].ets.PHea", "bui[3].ets.PHea", "bui[1].ets.PPum", "bui[2].ets.PPum", "bui[3].ets.PPum"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=6,
+    subPlot=2,
+    y={"dis.mCon_flow[1]", "dis.mCon_flow[2]", "dis.mCon_flow[3]"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=7,
+    position={1711, 39, 824, 916},
+    y={"bui[1].ets.THeaWatSupSet", "bui[1].ets.senTHeaWatSup.T", "bui[2].ets.THeaWatSupSet","bui[2].ets.senTHeaWatSup.T", "bui[3].ets.THeaWatSupSet", "bui[3].ets.senTHeaWatSup.T"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=7,
+    subPlot=2,
+    y={"bui[1].ets.senMasFloHeaWat.m_flow", "bui[2].ets.senMasFloHeaWat.m_flow", "bui[3].ets.senMasFloHeaWat.m_flow"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=7,
+    subPlot=3,
+    y={"bui[1].ets.TChiWatSupSet", "bui[1].ets.senTChiWatSup.T", "bui[2].ets.TChiWatSupSet","bui[2].ets.senTChiWatSup.T", "bui[3].ets.TChiWatSupSet", "bui[3].ets.senTChiWatSup.T"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=7,
+    subPlot=4,
+    y={"bui[1].ets.senMasFloChiWat.m_flow", "bui[2].ets.senMasFloChiWat.m_flow", "bui[3].ets.senMasFloChiWat.m_flow"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);

@@ -1,5 +1,5 @@
-translateModel("Buildings.Fluid.Geothermal.BuriedPipes.Validation.GroundCouplingAIT");
-simulateModel("Buildings.Fluid.Geothermal.BuriedPipes.Validation.GroundCouplingAIT", stopTime=603900, numberOfIntervals=0, outputInterval=900, tolerance=1e-6, method="CVode", resultFile="GroundCouplingAIT");
+translateModel("Buildings.Fluid.FixedResistances.BuriedPipes.Validation.GroundCouplingAIT");
+simulateModel("Buildings.Fluid.FixedResistances.BuriedPipes.Validation.GroundCouplingAIT", stopTime=603900, numberOfIntervals=0, outputInterval=900, tolerance=1e-6, method="CVode", resultFile="GroundCouplingAIT");
 
 createPlot(id=1, position={0, -410, 500, 500}, y={"senTem_p1.T"}, range={0.0, 700000.0, 85.0, 110.0}, autoscale=false, grid=true, colors={{28,108,200}}, range2={0.75, 0.95}, timeUnit="s", displayUnits={"degC"});
 plotExpression(apply(GroundCouplingAIT[end].DataReader.y[1]-273.15), false, "Measured data: Temperature at point 1 in degrees", 1);
