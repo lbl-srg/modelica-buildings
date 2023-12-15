@@ -49,7 +49,7 @@ protected
     final k=-yLow)
     "Lower value for the output"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-Buildings.Controls.OBC.CDL.Reals.Subtract conErr
+  Buildings.Controls.OBC.CDL.Reals.Subtract conErr
     "Control error (set point - measurement)"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi1
@@ -85,39 +85,31 @@ equation
   connect(higVal.y, swi.u1)
     annotation (Line(points={{-58,80},{-20,80},{-20,58},{58,58}},color={0,0,127}));
   connect(lowVal.y, swi.u3) annotation (Line(points={{-58,30},{-20,30},{-20,42},
-          {58,42}},
-color={0,0,127}));
+          {58,42}},color={0,0,127}));
   connect(conErr.y, yErr) annotation (Line(points={{62,10},{120,10}},
                 color={0,0,127}));
   connect(swi1.u3, u_s) annotation (Line(points={{-62,-68},{-90,-68},{-90,0},{
-          -120,0}},
-               color={0,0,127}));
+          -120,0}},color={0,0,127}));
   connect(trigger, swi1.u2) annotation (Line(points={{-80,-120},{-80,-60},{-62,
-          -60}},
-        color={255,0,255}));
+          -60}},color={255,0,255}));
   connect(u_m, swi1.u1) annotation (Line(points={{0,-120},{0,-90},{-70,-90},{
-          -70,-52},{-62,-52}},
-                           color={0,0,127}));
+          -70,-52},{-62,-52}},color={0,0,127}));
   connect(swi1.y, conErr.u1) annotation (Line(points={{-38,-60},{-20,-60},{-20,
           16},{38,16}}, color={0,0,127}));
-   connect(conErr.u2, u_s) annotation (Line(points={{38,4},{-42,4},{-42,0},{
-          -120,0}},
-               color={0,0,127}));
+  connect(conErr.u2, u_s) annotation (Line(points={{38,4},{-42,4},{-42,0},{
+          -120,0}},color={0,0,127}));
   connect(sub1.y, hys.u) annotation (Line(points={{22,-70},{30,-70},{30,-50},{
-          38,-50}},
-                 color={0,0,127}));
+          38,-50}},color={0,0,127}));
   connect(sub.y, hys.u) annotation (Line(points={{22,-40},{30,-40},{30,-50},{38,
           -50}}, color={0,0,127}));
   connect(u_s, sub.u1) annotation (Line(points={{-120,0},{-90,0},{-90,-34},{-2,
-          -34}},
-        color={0,0,127}));
+          -34}},color={0,0,127}));
   connect(u_s, sub1.u2) annotation (Line(points={{-120,0},{-90,0},{-90,-76},{-2,
           -76}}, color={0,0,127}));
   connect(swi1.y, sub.u2) annotation (Line(points={{-38,-60},{-20,-60},{-20,-46},
           {-2,-46}}, color={0,0,127}));
   connect(swi1.y, sub1.u1) annotation (Line(points={{-38,-60},{-20,-60},{-20,
-          -64},{-2,-64}},
-                      color={0,0,127}));
+          -64},{-2,-64}},color={0,0,127}));
   connect(hys.y, swi.u2) annotation (Line(points={{62,-50},{80,-50},{80,30},{50,
           30},{50,50},{58,50}}, color={255,0,255}));
   connect(gre.y, assMes.u)
