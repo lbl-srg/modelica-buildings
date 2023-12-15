@@ -1,4 +1,4 @@
-﻿within Buildings.Fluid.Geothermal.BuriedPipes.Examples;
+﻿within Buildings.Fluid.FixedResistances.BuriedPipes.Examples;
 model TwoPipesConduit
   "Example model of a buried conduit housing a supply and return pipe"
   extends Modelica.Icons.Example;
@@ -35,7 +35,7 @@ model TwoPipesConduit
     thickness=0.0032) "Buried pipe"
     annotation (Placement(transformation(extent={{-10,50},{10,30}})));
 
-  Buildings.Fluid.Geothermal.BuriedPipes.GroundCoupling gro(
+  Buildings.Fluid.FixedResistances.BuriedPipes.GroundCoupling gro(
     nPip=1,
     cliCon=cliCon,
     soiDat=soiDat,
@@ -188,6 +188,12 @@ that contains one insulated hot water supply pipe oscillating around
 </html>", revisions="<html>
 <ul>
 <li>
+December 7, 2023, by Ettore Zanetti:<br/>
+Moved <code>BuriedPipes</code> package<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
+</li>
+<li>
 September 14, 2021, by Michael Wetter:<br/>
 Updated example for new pipe model.
 </li>
@@ -197,6 +203,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/BuriedPipes/Examples/TwoPipesConduit.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/BuriedPipes/Examples/TwoPipesConduit.mos"
         "Simulate and plot"));
 end TwoPipesConduit;

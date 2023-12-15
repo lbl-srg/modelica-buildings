@@ -1,4 +1,4 @@
-﻿within Buildings.Fluid.Geothermal.BuriedPipes.Examples;
+﻿within Buildings.Fluid.FixedResistances.BuriedPipes.Examples;
 model DiscretizedBuriedPipe
   "Example model of a buried pipe with multiple segments"
   extends Modelica.Icons.Example;
@@ -38,7 +38,7 @@ model DiscretizedBuriedPipe
     thickness=0.0032) "Buried pipe"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
 
-  Buildings.Fluid.Geothermal.BuriedPipes.GroundCoupling gro(
+  Buildings.Fluid.FixedResistances.BuriedPipes.GroundCoupling gro(
     nPip=1,
     cliCon=cliCon,
     soiDat=soiDat,
@@ -46,8 +46,8 @@ model DiscretizedBuriedPipe
     len=pip.segLen,
     dep={1.5},
     pos={0},
-    rad={pip.dh/2 + pip.thickness + pip.dIns}) "Ground coupling"
-    annotation (Placement(transformation(
+    rad={pip.dh/2 + pip.thickness + pip.dIns}) "Ground coupling" annotation (
+      Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={0,90})));
@@ -174,18 +174,24 @@ in 2 and 10 segments respectively.</p>
 This example illustrates the difference in boundary conditions that
 results from different segmentation of the pipes, since both
 pipes are representative of the same conditions (see
-<a href=\"modelica://Buildings.Fluid.Geothermal.BuriedPipes.Examples.SingleBuriedPipe\">
+<a href=\"modelica://Buildings.Fluid.FixedResistances.BuriedPipes.Examples.SingleBuriedPipe\">
 Buildings.Fluid.Geothermal.BuriedPipes.Examples.SingleBuriedPipe</a> for validation
 that direct and reverse flow result in the same modeled operation).
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
+December 7, 2023, by Ettore Zanetti:<br/>
+Moved <code>BuriedPipes</code> package<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
+</li>
+<li>
 May 17, 2021, by Baptiste Ravache:<br/>
 First implementation.
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/BuriedPipes/Examples/DiscretizedBuriedPipe.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/BuriedPipes/Examples/DiscretizedBuriedPipe.mos"
         "Simulate and plot"));
 end DiscretizedBuriedPipe;

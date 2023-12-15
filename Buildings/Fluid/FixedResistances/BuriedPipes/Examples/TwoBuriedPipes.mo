@@ -1,4 +1,4 @@
-﻿within Buildings.Fluid.Geothermal.BuriedPipes.Examples;
+﻿within Buildings.Fluid.FixedResistances.BuriedPipes.Examples;
 model TwoBuriedPipes "Example model of two buried pipes in close proximity"
   extends Modelica.Icons.Example;
 
@@ -12,7 +12,7 @@ model TwoBuriedPipes "Example model of two buried pipes in close proximity"
     soiDat(k=1.58,c=1150,d=1600) "Soil thermal properties"
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
 
-  Buildings.Fluid.Geothermal.BuriedPipes.GroundCoupling gro(
+  Buildings.Fluid.FixedResistances.BuriedPipes.GroundCoupling gro(
     nPip=2,
     cliCon=cliCon,
     soiDat=soiDat,
@@ -128,13 +128,13 @@ equation
     annotation (Line(points={{-10,20},{0,20}},
                                              color={0,127,255}));
   connect(pipChW.heatPort, gro.ports[1,1])
-    annotation (Line(points={{10,30},{10,40},{30,40},{30,60},{30,60},{30,59.5}},
-                                                       color={191,0,0}));
+    annotation (Line(points={{10,30},{10,40},{30,40},{30,60},{30,59.75},{30,
+          59.75}},                                     color={191,0,0}));
   connect(TinHotW.y, souHotW.T_in) annotation (Line(points={{-79,-40},{-72,-40},
           {-72,-36},{-68,-36}}, color={0,0,127}));
   connect(pipHotW.heatPort, gro.ports[2,1])
-    annotation (Line(points={{10,-30},{10,-20},{30,-20},{30,30},{30,30},{30,60.5}},
-                                                         color={191,0,0}));
+    annotation (Line(points={{10,-30},{10,-20},{30,-20},{30,30},{30,60.25},{30,
+          60.25}},                                       color={191,0,0}));
   connect(souHotW.ports[1], senTemHotWIn.port_a)
     annotation (Line(points={{-46,-40},{-30,-40}}, color={0,127,255}));
   connect(senTemHotWIn.port_b, pipHotW.port_a)
@@ -159,6 +159,12 @@ oscillating around <i>80</i>°C.
 </html>", revisions="<html>
 <ul>
 <li>
+December 7, 2023, by Ettore Zanetti:<br/>
+Moved <code>BuriedPipes</code> package<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
+</li>
+<li>
 September 14, 2021, by Michael Wetter:<br/>
 Updated example for new pipe model.
 </li>
@@ -168,6 +174,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/BuriedPipes/Examples/TwoBuriedPipes.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/BuriedPipes/Examples/TwoBuriedPipes.mos"
         "Simulate and plot"));
 end TwoBuriedPipes;

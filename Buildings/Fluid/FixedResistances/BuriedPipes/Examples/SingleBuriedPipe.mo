@@ -1,4 +1,4 @@
-﻿within Buildings.Fluid.Geothermal.BuriedPipes.Examples;
+﻿within Buildings.Fluid.FixedResistances.BuriedPipes.Examples;
 model SingleBuriedPipe "Example model of a single buried pipe"
   extends Modelica.Icons.Example;
 
@@ -11,7 +11,8 @@ model SingleBuriedPipe "Example model of a single buried pipe"
   parameter Modelica.Units.SI.Temperature Tin=293.15 "Mean inlet temperature";
 
   replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic
-    soiDat(k=1.58,c=1150,d=1600) "Soil thermal properties"
+    soiDat(k=1.58,c=1150,d=1600,
+    steadyState=false)           "Soil thermal properties"
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
 
   FixedResistances.PlugFlowPipe pip(
@@ -26,7 +27,7 @@ model SingleBuriedPipe "Example model of a single buried pipe"
     thickness=0.0032) "Buried pipe"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
 
-  Buildings.Fluid.Geothermal.BuriedPipes.GroundCoupling gro(
+  Buildings.Fluid.FixedResistances.BuriedPipes.GroundCoupling gro(
     nPip=1,
     cliCon=cliCon,
     soiDat=soiDat,
@@ -34,8 +35,8 @@ model SingleBuriedPipe "Example model of a single buried pipe"
     len={pip.length},
     dep={1.5},
     pos={0},
-    rad={pip.dh/2 + pip.thickness + pip.dIns}) "Ground coupling"
-    annotation (Placement(transformation(
+    rad={pip.dh/2 + pip.thickness + pip.dIns}) "Ground coupling" annotation (
+      Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={0,90})));
@@ -152,7 +153,10 @@ equation
     annotation (Line(points={{10,-40},{30,-40}}, color={0,127,255}));
   annotation (Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-140,-120},{140,120}})),
-    experiment(StopTime=63072000, Tolerance=1e-06),
+    experiment(
+      StopTime=31536000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Dassl"),
     Documentation(info="<html>
 <p>
 This example showcases the ground thermal coupling for a single uninsulated
@@ -163,6 +167,12 @@ Both design flow direction and reverse flow direction
 </html>", revisions="<html>
 <ul>
 <li>
+December 7, 2023, by Ettore Zanetti:<br/>
+Moved <code>BuriedPipes</code> package<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
+</li>
+<li>
 September 14, 2021, by Michael Wetter:<br/>
 Updated example for new pipe model.
 </li>
@@ -172,6 +182,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/BuriedPipes/Examples/SingleBuriedPipe.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/BuriedPipes/Examples/SingleBuriedPipe.mos"
         "Simulate and plot"));
 end SingleBuriedPipe;

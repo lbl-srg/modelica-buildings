@@ -1,4 +1,4 @@
-within Buildings.Fluid.Geothermal.BuriedPipes.BaseClasses;
+within Buildings.Fluid.FixedResistances.BuriedPipes.BaseClasses;
 function groundCouplingFactors
   "Geometric factors for buried pipe-ground coupling"
   extends Modelica.Icons.Function;

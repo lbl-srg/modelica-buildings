@@ -1,4 +1,4 @@
-within Buildings.Fluid.Geothermal.BuriedPipes.Validation;
+within Buildings.Fluid.FixedResistances.BuriedPipes.Validation;
 model GroundCouplingAIT
   "Validation for pipe and ground coupling against data from Austrian Institute of Technology"
   extends Modelica.Icons.Example;
@@ -407,7 +407,7 @@ equation
     Diagram(coordinateSystem(extent={{-120,-160},{160,160}})),
     Documentation(info="<html>
 <p>
-Validation of <a href=\"modelica://Buildings.Fluid.Geothermal.BuriedPipes.GroundCoupling\">
+Validation of <a href=\"modelica://Buildings.Fluid.FixedResistances.BuriedPipes.GroundCoupling\">
 Buildings.Fluid.Geothermal.BuriedPipes.GroundCoupling</a> using the experimental data collected by
 the Austrian Institute of Technology.
 </p>

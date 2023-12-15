@@ -1,11 +1,11 @@
-within Buildings.Fluid.Geothermal.BuriedPipes;
+within Buildings.Fluid.FixedResistances.BuriedPipes;
 package Examples "Collection of models that illustrate model use and test models"
   extends Modelica.Icons.ExamplesPackage;
 
 annotation (Documentation(info="<html>
 <p>
 This package contains examples for the use of models that can be found in
-<a href=\"modelica://Buildings.Fluid.Geothermal.BuriedPipes\">Buildings.Fluid.Geothermal.BuriedPipes</a>.
+<a href=\"modelica://Buildings.Fluid.FixedResistances.BuriedPipes\">Buildings.Fluid.Geothermal.BuriedPipes</a>.
 </p>
 </html>", revisions="<html>
 <ul>
