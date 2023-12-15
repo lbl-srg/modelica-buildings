@@ -4,6 +4,8 @@ block Gain "Identify the gain of a first order time delayed model"
     "Higher value for the output (assuming the reference output is 0)";
   parameter Real yLow(min=1E-6) = 0.5
     "Lower value for the output (assuming the reference output is 0)";
+  parameter Boolean reverseActing=true
+    "Set to true for reverse acting, or false for direct acting control action";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
     "Relay controller output"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
@@ -39,7 +41,7 @@ protected
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant refRelOut(
     final k=0) "Reference value of the relay control output"
-    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Reals.Divide divIyIu "Calculate the gain"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(final p=1E-3)
@@ -53,12 +55,17 @@ protected
     final k=-yLow)
     "Product of tOff and yLow"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
-
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(final k=-1)
+    if reverseActing
+    "Negative sign for reverse acting"
+    annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai2(final k=1)
+    if not reverseActing
+    "Positive sign for direct acting"
+    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
 equation
-  connect(Iy.u, u) annotation (Line(points={{-12,40},{-120,40}},
-        color={0,0,127}));
-  connect(refRelOut.y, Iy.y_reset_in) annotation (Line(points={{-38,20},{-20,20},
-          {-20,32},{-12,32}}, color={0,0,127}));
+  connect(refRelOut.y, Iy.y_reset_in) annotation (Line(points={{-38,0},{-20,0},{
+          -20,32},{-12,32}},  color={0,0,127}));
   connect(Iy.trigger, triSta) annotation (Line(points={{0,28},{0,-120}},
           color={255,0,255}));
   connect(divIyIu.u1, Iy.y) annotation (Line(points={{38,6},{18,6},{18,40},{12,
@@ -76,6 +83,14 @@ equation
           -46},{-42,-46}}, color={0,0,127}));
   connect(divIyIu.y, k)
     annotation (Line(points={{62,0},{120,0}}, color={0,0,127}));
+  connect(gai2.u, u)
+    annotation (Line(points={{-62,40},{-120,40}}, color={0,0,127}));
+  connect(gai2.y, Iy.u)
+    annotation (Line(points={{-38,40},{-12,40}}, color={0,0,127}));
+  connect(gai1.y, Iy.u) annotation (Line(points={{-38,80},{-20,80},{-20,40},{
+          -12,40}}, color={0,0,127}));
+  connect(gai1.u, u) annotation (Line(points={{-62,80},{-80,80},{-80,40},{-120,
+          40}}, color={0,0,127}));
   annotation (
         defaultComponentName = "gai",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
@@ -106,8 +121,10 @@ where <i>I<sub>y</sub></i> and <i>I<sub>u</sub></i> are the integral of the proc
 output and the integral of the relay output, respectively.
 </p>
 <p><i>I<sub>y</sub></i> is calculated by </p>
-<p>I<sub>y</sub> = &int; u(t) dt;</p>
-<p>where <i>u</i> is the process output.</p>
+<p>I<sub>y</sub> = &int; -u(t) dt;</p>
+<p>where <i>u</i> is the input difference of a relay controller, see details in <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller</a>
+</p>
 <p><i>I<sub>u</sub></i> is calculated by </p>
 <p align=\"center\" style=\"font-style:italic;\">
 I<sub>u</sub> = t<sub>on</sub> (y<sub>hig</sub> - y<sub>ref</sub>)+ t<sub>off</sub>(-y<sub>low</sub> - y<sub>ref</sub>),

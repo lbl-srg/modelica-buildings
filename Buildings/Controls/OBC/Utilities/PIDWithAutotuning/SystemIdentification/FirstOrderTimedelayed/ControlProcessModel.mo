@@ -7,6 +7,8 @@ block ControlProcessModel
     "Lower value for the output";
   parameter Real deaBan(min=0) = 0.5
     "Deadband for holding the output value";
+  parameter Boolean reverseActing=true
+    "Set to true for reverse acting, or false for direct acting control action";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tOn(
     final quantity="Time",
     final unit="s",
@@ -74,7 +76,8 @@ protected
     annotation (Placement(transformation(extent={{12,-30},{32,-10}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses.Gain gain(
     final yHig=yHig,
-    final yLow=yLow)
+    final yLow=yLow,
+    final reverseActing = reverseActing)
     "Block that calculates the gain"
     annotation (Placement(transformation(extent={{-84,10},{-64,30}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses.TimeConstantDelay
