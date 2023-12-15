@@ -44,7 +44,6 @@ model WheelWithVariableSpeed
 
   Modelica.Blocks.Interfaces.RealInput uSpe(
     final unit="1",
-    final min=0,
     final max=1)
     "Wheel speed"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));

@@ -39,7 +39,10 @@ model Effectiveness
   Modelica.Blocks.Interfaces.RealInput VExh_flow( final unit="m3/s")
     "Exhaust air volumetric flow rate"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-  Modelica.Blocks.Interfaces.RealInput uSpe(final unit="1") "Wheel speed"
+  Modelica.Blocks.Interfaces.RealInput uSpe(
+    final unit="1",
+    final max=1)
+    "Wheel speed"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealOutput epsSen(final unit="1")
     "Sensible heat exchanger effectiveness"
@@ -80,10 +83,12 @@ equation
   epsSen =uSpe*(epsSenPL + (epsSen_nominal - epsSenPL)*(rat - 0.75)/0.25);
   epsLat =uSpe*(epsLatPL + (epsLat_nominal - epsLatPL)*(rat - 0.75)/0.25);
   assert(epsSen > 0 and epsSen < 1,
-    "Insensed value for the sensible heat exchanger effectiveness",
+    "*** Error in " + getInstanceName() + ": The sensible heat exchange effectiveness should be in the range of [0, 1], 
+    check if the part load (75%) or nominal sensible heat exchanger effectiveness is too high or too low.",
     level=AssertionLevel.error);
   assert(epsLat > 0 and epsLat < 1,
-    "Insensed value for the latent heat exchanger effectiveness",
+    "*** Error in " + getInstanceName() + ": The latent heat exchange effectiveness should be in the range of [0, 1], 
+    check if the part load (75%) or nominal latent heat exchanger effectiveness is too high or too low.",
     level=AssertionLevel.error);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={Text(
           extent={{-54,28},{50,-40}},
