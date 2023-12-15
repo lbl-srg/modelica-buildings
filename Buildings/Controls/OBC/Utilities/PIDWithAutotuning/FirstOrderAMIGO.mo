@@ -116,7 +116,8 @@ block FirstOrderAMIGO
     conProMod(
     final yHig=yHig - yRef,
     final yLow=yRef + yLow,
-    final deaBan=deaBan)
+    final deaBan=deaBan,
+    final reverseActing=reverseActing)
     "Calculates the parameters of a first-order time delayed model"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
   Buildings.Controls.OBC.CDL.Logical.Latch inTunPro
@@ -179,8 +180,8 @@ equation
           {30,44},{22,44}},color={0,0,127}));
   connect(resPro.tOn, conProMod.tOn) annotation (Line(points={{22,48},{32,48},{32,
           44},{38,44}},color={0,0,127}));
-  connect(rel.yErr, conProMod.u) annotation (Line(points={{-18,40},{-12,40},{-12,
-          60},{34,60},{34,48},{38,48}},color={0,0,127}));
+  connect(rel.yDiff, conProMod.u) annotation (Line(points={{-18,40},{-12,40},{-12,
+          60},{34,60},{34,48},{38,48}}, color={0,0,127}));
   connect(PIDPar.kp, conProMod.k) annotation (Line(points={{78,46},{62,46}}, color={0,0,127}));
   connect(PIDPar.T, conProMod.T) annotation (Line(points={{78,40},{62,40}}, color={0,0,127}));
   connect(PIDPar.L, conProMod.L) annotation (Line(points={{78,34},{62,34}}, color={0,0,127}));
