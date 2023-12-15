@@ -233,10 +233,17 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-200,-140},{200,140}})),
     Documentation(info="<html>
 <p>
-This model represents a water-to-water heat pump with storage tank and an evaporator water pump.
+Model of a water-to-water heat pump with temperature control on evaporator side, with the heat pump
+being connected to a domestic hot water tank with fresh water stations.
+</p>
+<p align=\"center\">
+<img src=\"modelica://Buildings/Resources/Images/Experimental/DHC/EnergyTransferStations/Combined/Subsystems/HeatPumpDHWTank.png\"
+  alt=\"Heat pump with domestic hot water tank\"/>
+</p>
+<p>
 The heat pump model with storage tank is described in
-<a href=\"modelica://Buildings.Experimental.DHC.Loads.HotWater.HeatPumpWithTank\">
-Buildings.Experimental.DHC.Loads.HotWater.HeatPumpWithTank</a>.
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.HotWater.StorageTankWithExternalHeatExchanger\">
+Buildings.Experimental.DHC.Loads.HotWater.StorageTankWithExternalHeatExchanger</a>.
 The evaporator hydronics and control are described in
 <a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.BaseClasses.PartialHeatPump\">
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.BaseClasses.PartialHeatPump</a>.
@@ -253,7 +260,7 @@ the condenser pump is commanded on and supplies the nominal mass flow rate
 to the tank and domestic hot water system,
 </li>
 <li>
-the heat pump condenser supplies a constant temperature increase from the return to
+the heat pump evaporator supplies a constant temperature increase from the return to
 the supply equal to <code>dT_nominal</code>.
 </li>
 </ul>
