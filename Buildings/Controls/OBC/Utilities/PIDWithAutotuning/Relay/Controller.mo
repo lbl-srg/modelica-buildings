@@ -7,7 +7,7 @@ block Controller
   parameter Real yLow(
     final min=1E-6,
     final max=yHig) = 0.5
-    "Lower value for the output";
+    "Lower value for the relay output";
   parameter Real deaBan(min=1E-6) = 0.5
     "Deadband for holding the output value";
   parameter Boolean reverseActing=true
@@ -31,9 +31,10 @@ block Controller
         iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yOn
     "Relay switch output, true when control output switches to the higher value"
-    annotation (Placement(transformation(extent={{100,-80},{140,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDiff "Input difference"
-    annotation (Placement(transformation(extent={{100,-10},{140,30}}),
+    annotation (Placement(transformation(extent={{100,-80},{140,-40}}),
+        iconTransformation(extent={{100,-80},{140,-40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDif "Input difference"
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
@@ -47,76 +48,79 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant lowVal(
     final k=-yLow)
     "Lower value for the output"
-    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi1
     "Switch between a higher value and a lower value"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-    origin={-50,-60})));
-  Buildings.Controls.OBC.CDL.Reals.Subtract sub
-    if reverseActing "Inputs difference for reverse acting"
-    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
+    origin={-50,-40})));
+  Buildings.Controls.OBC.CDL.Reals.Subtract revActErr if reverseActing
+    "Control error when reverse acting, setpoint - measurement"
+    annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
   Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
     final uLow=-deaBan,
     final uHigh=deaBan,
     final pre_y_start=true)
     "Check if the input difference exceeds the thresholds, by default the relay control is on"
-    annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
-  Buildings.Controls.OBC.CDL.Reals.Subtract sub1
-    if not reverseActing "Inputs difference for direct acting"
-    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
+    annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
+  Buildings.Controls.OBC.CDL.Reals.Subtract dirActErr if not reverseActing
+    "Control error when direct acting, measurement - setpoint"
+    annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
   Buildings.Controls.OBC.CDL.Reals.Greater gre
     "Check if the higher value is greater than the lower value"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=-1) "Gain"
-    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
     final message="Warning: The higher value for the relay output should be greater than that of the lower value.")
     "Warning when the higher value is set to be less than the lower value"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
-
+  Buildings.Controls.OBC.CDL.Reals.Subtract meaSetDif
+    "Inputs difference, (measurement - setpoint)"
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 equation
   connect(swi.y, y)
     annotation (Line(points={{82,50},{120,50}}, color={0,0,127}));
   connect(higVal.y, swi.u1)
     annotation (Line(points={{-58,80},{-20,80},{-20,58},{58,58}},color={0,0,127}));
-  connect(lowVal.y, swi.u3) annotation (Line(points={{-58,30},{-20,30},{-20,42},
-          {58,42}},color={0,0,127}));
-  connect(swi1.u3, u_s) annotation (Line(points={{-62,-68},{-90,-68},{-90,0},{
-          -120,0}},color={0,0,127}));
-  connect(trigger, swi1.u2) annotation (Line(points={{-80,-120},{-80,-60},{-62,
-          -60}},color={255,0,255}));
-  connect(u_m, swi1.u1) annotation (Line(points={{0,-120},{0,-90},{-70,-90},{
-          -70,-52},{-62,-52}},color={0,0,127}));
-  connect(sub1.y, hys.u) annotation (Line(points={{22,-70},{30,-70},{30,-50},{
-          38,-50}},color={0,0,127}));
-  connect(sub.y, hys.u) annotation (Line(points={{22,-40},{30,-40},{30,-50},{38,
-          -50}}, color={0,0,127}));
-  connect(u_s, sub.u1) annotation (Line(points={{-120,0},{-90,0},{-90,-34},{-2,
-          -34}},color={0,0,127}));
-  connect(u_s, sub1.u2) annotation (Line(points={{-120,0},{-90,0},{-90,-76},{-2,
-          -76}}, color={0,0,127}));
-  connect(swi1.y, sub.u2) annotation (Line(points={{-38,-60},{-20,-60},{-20,-46},
-          {-2,-46}}, color={0,0,127}));
-  connect(swi1.y, sub1.u1) annotation (Line(points={{-38,-60},{-20,-60},{-20,
-          -64},{-2,-64}},color={0,0,127}));
-  connect(hys.y, swi.u2) annotation (Line(points={{62,-50},{80,-50},{80,30},{50,
-          30},{50,50},{58,50}}, color={255,0,255}));
+  connect(lowVal.y, swi.u3) annotation (Line(points={{-58,20},{0,20},{0,42},{58,
+          42}},    color={0,0,127}));
+  connect(swi1.u3, u_s) annotation (Line(points={{-62,-48},{-90,-48},{-90,0},{-120,
+          0}},     color={0,0,127}));
+  connect(trigger, swi1.u2) annotation (Line(points={{-80,-120},{-80,-40},{-62,-40}},
+                color={255,0,255}));
+  connect(u_m, swi1.u1) annotation (Line(points={{0,-120},{0,-90},{-70,-90},{-70,
+          -32},{-62,-32}},    color={0,0,127}));
+  connect(dirActErr.y, hys.u) annotation (Line(points={{2,-70},{10,-70},{10,-60},
+          {18,-60}}, color={0,0,127}));
+  connect(revActErr.y, hys.u) annotation (Line(points={{2,-20},{10,-20},{10,-60},
+          {18,-60}}, color={0,0,127}));
+  connect(u_s, revActErr.u1) annotation (Line(points={{-120,0},{-90,0},{-90,-14},
+          {-22,-14}}, color={0,0,127}));
+  connect(u_s, dirActErr.u2) annotation (Line(points={{-120,0},{-90,0},{-90,-76},
+          {-22,-76}}, color={0,0,127}));
+  connect(swi1.y, revActErr.u2) annotation (Line(points={{-38,-40},{-30,-40},{-30,
+          -26},{-22,-26}}, color={0,0,127}));
+  connect(swi1.y, dirActErr.u1) annotation (Line(points={{-38,-40},{-30,-40},{-30,
+          -64},{-22,-64}}, color={0,0,127}));
+  connect(hys.y, swi.u2) annotation (Line(points={{42,-60},{50,-60},{50,50},{58,
+          50}},  color={255,0,255}));
   connect(gre.y, assMes.u)
     annotation (Line(points={{22,80},{38,80}}, color={255,0,255}));
-  connect(lowVal.y, gai.u) annotation (Line(points={{-58,30},{-50,30},{-50,50},{
-          -42,50}}, color={0,0,127}));
-  connect(gai.y, gre.u2) annotation (Line(points={{-18,50},{-10,50},{-10,72},{-2,
+  connect(lowVal.y, gai.u) annotation (Line(points={{-58,20},{-50,20},{-50,40},{
+          -42,40}}, color={0,0,127}));
+  connect(gai.y, gre.u2) annotation (Line(points={{-18,40},{-10,40},{-10,72},{-2,
           72}}, color={0,0,127}));
   connect(higVal.y, gre.u1)
     annotation (Line(points={{-58,80},{-2,80}}, color={0,0,127}));
-  connect(hys.y, yOn) annotation (Line(points={{62,-50},{80,-50},{80,-60},{120,
-          -60}},color={255,0,255}));
-  connect(yDiff, sub.y) annotation (Line(points={{120,10},{36,10},{36,-40},{22,
-          -40}}, color={0,0,127}));
-  connect(sub1.y, yDiff) annotation (Line(points={{22,-70},{36,-70},{36,10},{
-          120,10}}, color={0,0,127}));
-    annotation (defaultComponentName = "relCon",
+  connect(hys.y, yOn) annotation (Line(points={{42,-60},{120,-60}}, color={255,0,255}));
+  connect(swi1.y, meaSetDif.u1) annotation (Line(points={{-38,-40},{20,-40},{20,
+          6},{58,6}}, color={0,0,127}));
+  connect(u_s, meaSetDif.u2) annotation (Line(points={{-120,0},{40,0},{40,-6},{58,
+          -6}}, color={0,0,127}));
+  connect(meaSetDif.y, yDif)
+    annotation (Line(points={{82,0},{120,0}}, color={0,0,127}));
+annotation (defaultComponentName = "relCon",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
@@ -149,47 +153,45 @@ equation
           fillPattern=FillPattern.Solid,
           fillColor={175,175,175},
           textString="Relay"),
-        Line(points={{-70,24},{-34,24},{-34,58},{38,58},{38,24},{66,24}}, color=
-             {28,108,200})}), Diagram(
+        Line(points={{-70,24},{-34,24},{-34,58},{38,58},{38,24},{66,24}}, color
+            ={28,108,200})}), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
 Documentation(info="<html>
 <p>
-This block generates a real control output <code>y</code>, a
-boolean relay switch output <code>yOn</code>, 
-and an input difference <code>yDiff</code>. 
-They are calculated as below:
+This block generates a relay output <code>yDif</code> which equals to
+<code>u_m - u_s</code>. It also generates the control output <code>y</code>,
+and a boolean relay switch output <code>yOn</code>,
+which are calculated as below.
+</p>
+<p>
+Step 1: calculate control error, 
 </p>
 <ul>
 <li>
-if the parameter <code>reverseActing = true</code>
-<ul>
-<li>
-<code>yDiff = u_s - u_m</code>,
+If the parameter <code>reverseActing = true</code>, then the control error
+(<code>err = u_s - u_m</code>),
+else the contorl error (<code>err = u_m - u_s</code>).
 </li>
 </ul>
-</li>
-<li>
-else
+<p>
+Step 2: calculate <code>y</code> and <code>yOn</code>,
+</p>
 <ul>
 <li>
-<code>yDiff = u_m - u_s</code>,
-</li>
-</ul>
-</li>
-<li>
-if <code>yDiff &gt; deaBan</code> and <code>trigger</code> is <code>true</code>,
-then <code>y = yHig</code>, <code>yOn = true</code>,
+If <code>err &gt; deaBan</code> and <code>trigger</code> is <code>true</code>,
+then <code>y = yHig</code> and <code>yOn = true</code>,
 </li>
 <li>
-else if <code>yDiff &lt; -deaBan</code> and <code>trigger</code> is <code>true</code>,
-then <code>y = -yLow</code>, 
+else if <code>err &lt; -deaBan</code> and <code>trigger</code> is <code>true</code>,
+then <code>y = -yLow</code> and
 <code>yOn = false</code>,
 </li>
 <li>
-else, <code>y</code> and <code>yOn</code> are kept as the initial values,
+else, <code>y</code> and <code>yOn</code> are kept as the initial values.
 </li>
 </ul>
-<p>where <code>deaBan</code> is a dead band, <code>yHig</code>
+<p>
+where <code>deaBan</code> is a dead band, <code>yHig</code>
 and <code>yLow</code>
 are the higher value and the lower value of the output <code>y</code>, respectively.
 </p>

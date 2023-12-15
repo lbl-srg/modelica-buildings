@@ -3,6 +3,6 @@ compareVars :=
     "relCon.u_m",
     "enaSig.y",
     "relCon.y",
-    "relCon.yDiff",
+    "relCon.yDif",
     "relCon.yOn"
   };

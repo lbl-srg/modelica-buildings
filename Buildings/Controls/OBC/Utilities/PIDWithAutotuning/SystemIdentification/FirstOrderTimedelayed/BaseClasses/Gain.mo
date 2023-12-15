@@ -7,15 +7,15 @@ block Gain "Identify the gain of a first order time delayed model"
   parameter Boolean reverseActing=true
     "Set to true for reverse acting, or false for direct acting control action";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
-    "Relay controller output"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
+    "Relay controller output, (measurement - setpoint)"
+    annotation (Placement(transformation(extent={{-140,50},{-100,90}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tOn(
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
     "Length for the on period"
-    annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
+    annotation (Placement(transformation(extent={{-140,-30},{-100,10}}),
     iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tOff(
     final quantity="Time",
@@ -38,59 +38,45 @@ protected
   Buildings.Controls.OBC.CDL.Reals.IntegratorWithReset Iy(
     final k=1, final y_start=1E-3)
     "Integral of the process output"
-    annotation (Placement(transformation(extent={{-10,30},{10,50}})));
+    annotation (Placement(transformation(extent={{-10,60},{10,80}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant refRelOut(
     final k=0) "Reference value of the relay control output"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Buildings.Controls.OBC.CDL.Reals.Divide divIyIu "Calculate the gain"
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(final p=1E-3)
     "Block that avoids a divide-by-zero error"
-    annotation (Placement(transformation(extent={{8,-50},{28,-30}})));
+    annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gaiOnyHig(
     final k=yHig)
     "Product of tOn and yHig"
-    annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
+    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gaiOffyLow(
     final k=-yLow)
     "Product of tOff and yLow"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(final k=-1)
-    if reverseActing
-    "Negative sign for reverse acting"
-    annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai2(final k=1)
-    if not reverseActing
-    "Positive sign for direct acting"
-    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
 equation
-  connect(refRelOut.y, Iy.y_reset_in) annotation (Line(points={{-38,0},{-20,0},{
-          -20,32},{-12,32}},  color={0,0,127}));
-  connect(Iy.trigger, triSta) annotation (Line(points={{0,28},{0,-120}},
+  connect(refRelOut.y, Iy.y_reset_in) annotation (Line(points={{-38,40},{-20,40},
+          {-20,62},{-12,62}}, color={0,0,127}));
+  connect(Iy.trigger, triSta) annotation (Line(points={{0,58},{0,-120}},
           color={255,0,255}));
-  connect(divIyIu.u1, Iy.y) annotation (Line(points={{38,6},{18,6},{18,40},{12,
-          40}}, color={0,0,127}));
-  connect(Iu.y, addPar.u) annotation (Line(points={{-18,-40},{6,-40}}, color={0,0,127}));
-  connect(addPar.y, divIyIu.u2) annotation (Line(points={{30,-40},{32,-40},{32,
-          -6},{38,-6}}, color={0,0,127}));
-  connect(gaiOnyHig.u, tOn) annotation (Line(points={{-82,-20},{-120,-20}},
+  connect(divIyIu.u1, Iy.y) annotation (Line(points={{58,6},{20,6},{20,70},{12,
+          70}}, color={0,0,127}));
+  connect(Iu.y, addPar.u) annotation (Line(points={{-18,-40},{18,-40}},color={0,0,127}));
+  connect(addPar.y, divIyIu.u2) annotation (Line(points={{42,-40},{50,-40},{50,
+          -6},{58,-6}}, color={0,0,127}));
+  connect(gaiOnyHig.u, tOn) annotation (Line(points={{-82,-10},{-120,-10}},
           color={0,0,127}));
-  connect(gaiOnyHig.y, Iu.u1) annotation (Line(points={{-58,-20},{-50,-20},{-50,
+  connect(gaiOnyHig.y, Iu.u1) annotation (Line(points={{-58,-10},{-50,-10},{-50,
           -34},{-42,-34}}, color={0,0,127}));
   connect(gaiOffyLow.u, tOff)
     annotation (Line(points={{-82,-80},{-120,-80}}, color={0,0,127}));
   connect(gaiOffyLow.y, Iu.u2) annotation (Line(points={{-58,-80},{-50,-80},{-50,
           -46},{-42,-46}}, color={0,0,127}));
   connect(divIyIu.y, k)
-    annotation (Line(points={{62,0},{120,0}}, color={0,0,127}));
-  connect(gai2.u, u)
-    annotation (Line(points={{-62,40},{-120,40}}, color={0,0,127}));
-  connect(gai2.y, Iy.u)
-    annotation (Line(points={{-38,40},{-12,40}}, color={0,0,127}));
-  connect(gai1.y, Iy.u) annotation (Line(points={{-38,80},{-20,80},{-20,40},{
-          -12,40}}, color={0,0,127}));
-  connect(gai1.u, u) annotation (Line(points={{-62,80},{-80,80},{-80,40},{-120,
-          40}}, color={0,0,127}));
+    annotation (Line(points={{82,0},{120,0}}, color={0,0,127}));
+  connect(u, Iy.u)
+    annotation (Line(points={{-120,70},{-12,70}}, color={0,0,127}));
   annotation (
         defaultComponentName = "gai",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
