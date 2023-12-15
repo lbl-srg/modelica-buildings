@@ -121,8 +121,7 @@ equation
   connect(higVal.y, gre.u1)
     annotation (Line(points={{-58,80},{-2,80}}, color={0,0,127}));
   connect(hys.y, yOn) annotation (Line(points={{62,-50},{80,-50},{80,-60},{120,
-          -60}},
-        color={255,0,255}));
+          -60}},color={255,0,255}));
     annotation (defaultComponentName = "relCon",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
