@@ -50,7 +50,7 @@ protected
     "Lower value for the output"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract conErr
-    "Control error (set point - measurement)"
+    "Control error (measurement - set point)"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi1
     "Switch between a higher value and a lower value"
@@ -162,16 +162,16 @@ equation
 Documentation(info="<html>
 <p>
 This block generates a real control output <code>y</code>, a
-boolean relay switch output <code>yOn</code>, a input difference 
-<code>yDif</code>, and the control error
+boolean relay switch output <code>yOn</code>, an input difference 
+<code>yDif</code>, and a control error
 <code>yErr</code>. They are calculated as below:
 </p>
 <ul>
 <li>
-<code>yErr = u_s - u_m</code>,
+<code>yErr = u_m - u_s</code>,
 </li>
 <li>
-if the parameter <code>reverseActing = false</code>
+if the parameter <code>reverseActing = true</code>
 <ul>
 <li>
 <code>yDif = - yErr</code>,
