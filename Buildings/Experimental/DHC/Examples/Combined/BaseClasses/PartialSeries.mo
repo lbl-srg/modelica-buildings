@@ -20,7 +20,7 @@ partial model PartialSeries "Partial model for series network"
   inner parameter
     Buildings.Experimental.DHC.Examples.Combined.BaseClasses.DesignDataSeries
     datDes(final mCon_flow_nominal=bui.ets.mSerWat_flow_nominal) "Design data"
-    annotation (Placement(transformation(extent={{-340,220},{-320,240}})));
+    annotation (Placement(transformation(extent={{-360,220},{-340,240}})));
   // COMPONENTS
   Buildings.Experimental.DHC.Plants.Reservoir.BoreField
     borFie(redeclare final package Medium = Medium) "Bore field" annotation (
@@ -93,18 +93,6 @@ partial model PartialSeries "Partial model for series network"
     final dpDis_nominal=datDes.dpPla_nominal,
     final epsHex=datDes.epsPla) "Sewage heat recovery plant"
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
-  Buildings.Experimental.DHC.Networks.Distribution1PipeAutoSize dis(
-    redeclare final package Medium = Medium,
-    final nCon=nBui,
-    show_TOut=true,
-    final mDis_flow_nominal=datDes.mPipDis_flow_nominal,
-    final mCon_flow_nominal=datDes.mCon_flow_nominal,
-    final dp_length_nominal=datDes.dp_length_nominal,
-    final lDis=datDes.lDis,
-    final lCon=datDes.lCon,
-    final lEnd=datDes.lEnd,
-    final allowFlowReversal=allowFlowReversalSer) "Distribution network"
-    annotation (Placement(transformation(extent={{-20,130},{20,150}})));
   Fluid.Sensors.TemperatureTwoPort TDisWatSup(
     redeclare final package Medium = Medium,
     final m_flow_nominal=datDes.mPumDis_flow_nominal)
@@ -139,21 +127,18 @@ partial model PartialSeries "Partial model for series network"
     each final allowFlowReversalBui=allowFlowReversalBui,
     each final allowFlowReversalSer=allowFlowReversalSer) "Building and ETS"
     annotation (Placement(transformation(extent={{-10,170},{10,190}})));
-  Modelica.Blocks.Sources.Constant TSewWat(k=273.15 + 17)
-    "Sewage water temperature"
-    annotation (Placement(transformation(extent={{-280,30},{-260,50}})));
  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupMaxSet[nBui](
     k=bui.THeaWatSup_nominal)
     "Heating water supply temperature set point - Maximum value"
-    annotation (Placement(transformation(extent={{-250,210},{-230,230}})));
+    annotation (Placement(transformation(extent={{-286,210},{-266,230}})));
  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatSupSet[nBui](
     k=bui.TChiWatSup_nominal)
     "Chilled water supply temperature set point"
-    annotation (Placement(transformation(extent={{-220,190},{-200,210}})));
+    annotation (Placement(transformation(extent={{-254,190},{-234,210}})));
  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupMinSet[nBui](
     each k=28 + 273.15)
     "Heating water supply temperature set point - Minimum value"
-    annotation (Placement(transformation(extent={{-280,230},{-260,250}})));
+    annotation (Placement(transformation(extent={{-320,230},{-300,250}})));
  Buildings.Controls.OBC.CDL.Reals.MultiSum PPumETS(
     final nin=nBui)
     "ETS pump power"
@@ -189,12 +174,11 @@ partial model PartialSeries "Partial model for series network"
   Buildings.Experimental.DHC.Loads.BaseClasses.ConstraintViolation conVio(
     final uMin(final unit="K", displayUnit="degC")=datDes.TLooMin,
     final uMax(final unit="K", displayUnit="degC")=datDes.TLooMax,
-    final nu=3+nBui,
+    final nu=3,
     u(each final unit="K", each displayUnit="degC"))
     "Check if loop temperatures are within given range"
     annotation (Placement(transformation(extent={{320,10},{340,30}})));
 equation
-  connect(dis.TOut, conVio.u[4:4+nBui-1]);
   connect(bou.ports[1], pumDis.port_a)
     annotation (Line(points={{102,-20},{80,-20},{80,-50}}, color={0,127,255}));
   connect(borFie.port_b, conSto.port_aCon) annotation (Line(points={{-120,-80},
@@ -214,21 +198,17 @@ equation
     annotation (Line(points={{-80,-80},{-80,-50}}, color={0,127,255}));
   connect(TDisWatBorLvg.port_b, conPla.port_aDis)
     annotation (Line(points={{-80,-30},{-80,-20}}, color={0,127,255}));
-  connect(bui.port_bSerAmb, dis.ports_aCon) annotation (Line(points={{10,180},{20,
-          180},{20,160},{12,160},{12,150}}, color={0,127,255}));
-  connect(dis.ports_bCon, bui.port_aSerAmb) annotation (Line(points={{-12,150},{
-          -12,160},{-20,160},{-20,180},{-10,180}}, color={0,127,255}));
-  connect(THeaWatSupMaxSet.y, bui.THeaWatSupMaxSet) annotation (Line(points={{-228,
+  connect(THeaWatSupMaxSet.y, bui.THeaWatSupMaxSet) annotation (Line(points={{-264,
           220},{-20,220},{-20,187},{-12,187}}, color={0,0,127}));
-  connect(TChiWatSupSet.y, bui.TChiWatSupSet) annotation (Line(points={{-198,200},
-          {-24,200},{-24,185},{-12,185}},      color={0,0,127}));
+  connect(TChiWatSupSet.y, bui.TChiWatSupSet) annotation (Line(points={{-232,
+          200},{-24,200},{-24,185},{-12,185}}, color={0,0,127}));
   connect(pla.port_bSerAmb, conPla.port_aCon) annotation (Line(points={{-140,1.33333},
           {-100,1.33333},{-100,-4},{-90,-4}}, color={0,127,255}));
   connect(conPla.port_bCon, pla.port_aSerAmb) annotation (Line(points={{-90,-10},
           {-100,-10},{-100,-20},{-200,-20},{-200,1.33333},{-160,1.33333}},
         color={0,127,255}));
-  connect(THeaWatSupMinSet.y, bui.THeaWatSupMinSet) annotation (Line(points={{-258,
-          240},{-16,240},{-16,189},{-12,189}}, color={0,0,127}));
+  connect(THeaWatSupMinSet.y, bui.THeaWatSupMinSet) annotation (Line(points={{-298,
+          240},{-12,240},{-12,189}},           color={0,0,127}));
   connect(bui.PPumETS, PPumETS.u)
     annotation (Line(points={{7,192},{7,200},{138,200}}, color={0,0,127}));
   connect(PPumETS.y, EPumETS.u)
@@ -263,16 +243,22 @@ equation
           160.5},{318,160.5}},
                            color={0,0,127}));
   connect(TDisWatSup.T, conVio.u[1]) annotation (Line(points={{-91,20},{-100,20},
-          {-100,12},{-60,12},{-60,20},{318,20}},           color={0,0,127}));
+          {-100,12},{-60,12},{-60,19.3333},{318,19.3333}}, color={0,0,127}));
   connect(TDisWatBorLvg.T, conVio.u[2]) annotation (Line(points={{-91,-40},{-100,
           -40},{-100,-30},{-60,-30},{-60,-40},{300,-40},{300,20},{318,20}},
                                                         color={0,0,127}));
-  connect(TDisWatRet.T, conVio.u[3]) annotation (Line(points={{69,6.66134e-16},{
-          60,6.66134e-16},{60,20},{318,20}},           color={0,0,127}));
+  connect(TDisWatRet.T, conVio.u[3]) annotation (Line(points={{69,6.66134e-16},
+          {60,6.66134e-16},{60,20.6667},{318,20.6667}},color={0,0,127}));
   annotation (Diagram(
     coordinateSystem(preserveAspectRatio=false, extent={{-360,-260},{360,260}})),
       Documentation(revisions="<html>
 <ul>
+<li>
+December 12, 2023, by Ettore Zanetti:<br/>
+Changed to preconfigured pump model,
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
+</li>
 <li>
 June 2, 2023, by Michael Wetter:<br/>
 Added units to <code>conVio</code>.
