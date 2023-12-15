@@ -1,22 +1,10 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses;
 model Pump_m_flow
   "Pump with prescribed mass flow rate"
-  extends Buildings.Fluid.Movers.FlowControlled_m_flow(
-    per(pressure(
-              V_flow=m_flow_nominal/rho_default*{0, 1, 2},
-              dp=if rho_default < 500
-                   then dp_nominal*{1.12, 1, 0}
-                   else dp_nominal*{1.14, 1, 0.42}),
-            powerOrEfficiencyIsHydraulic=true,
-            etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber,
-            etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve,
-      motorCooledByFluid=false),
-    inputType=Buildings.Fluid.Types.InputType.Continuous,
+  extends Buildings.Fluid.Movers.Preconfigured.FlowControlled_m_flow(
     addPowerToMedium=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    use_inputFilter=false,
-    nominalValuesDefineDefaultPressureCurve=true,
-    init=Modelica.Blocks.Types.Init.InitialOutput);
+    use_inputFilter=false);
   annotation (
     Icon(
       graphics={
@@ -37,5 +25,18 @@ model Pump_m_flow
 This is a steady-state model of a pump with ideally controlled 
 mass flow rate as input signal, and no heat added to the medium.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+December 12, 2023, by Ettore Zanetti:<br/>
+Changed to preconfigured pump model,
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
+</li>
+<li>
+July 31, 2020, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end Pump_m_flow;
