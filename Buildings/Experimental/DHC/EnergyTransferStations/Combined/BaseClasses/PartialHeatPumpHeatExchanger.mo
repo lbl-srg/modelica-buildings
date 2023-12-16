@@ -439,11 +439,12 @@ equation
   connect(bypHeaWatRet.port_3, bypHeaWatSup.port_3)
     annotation (Line(points={{100,250},{100,250}}, color={0,127,255}));
   connect(volHeaWatRet.ports[3], proHeaWat.port_a1) annotation (Line(points={{80,
-          181.333},{80,180},{-20,180},{-20,208},{-10,208}}, color={0,127,255}));
-  connect(proHeaWat.port_b2, volMix_b.ports[3]) annotation (Line(points={{10,220},
-          {262,220},{262,-360},{260,-360}},      color={0,127,255}));
-  connect(volMix_a.ports[3], proHeaWat.port_a2) annotation (Line(points={{-260,-360},
-          {-260,200},{14,200},{14,208},{10,208}},       color={0,127,255}));
+          181.333},{80,180},{-20,180},{-20,220},{-9.8,220}},color={0,127,255}));
+  connect(proHeaWat.port_b2, volMix_b.ports[3]) annotation (Line(points={{-10,208},
+          {-14,208},{-14,202},{262,202},{262,-360},{260,-360}},
+                                                 color={0,127,255}));
+  connect(volMix_a.ports[3], proHeaWat.port_a2) annotation (Line(points={{-260,
+          -360},{-260,192},{14,192},{14,208},{10,208}}, color={0,127,255}));
   connect(enaHea.y, proHeaWat.uEna) annotation (Line(points={{-118,160},{-48,160},
           {-48,223},{-12,223}}, color={255,0,255}));
   connect(THeaWatSupSet, proHeaWat.TSupSet) annotation (Line(points={{-320,40},{
@@ -469,8 +470,8 @@ equation
           {120,300},{120,240},{110,240}},      color={0,127,255}));
   connect(senMasFloChiWat.port_b, senTChiWatRet.port_a)
     annotation (Line(points={{-230,-120},{30,-120}}, color={0,127,255}));
-  connect(proHeaWat.port_b1, senMasFloHeaWatPri.port_a) annotation (Line(points=
-         {{-10,220},{-20,220},{-20,260},{30,260}}, color={0,127,255}));
+  connect(proHeaWat.port_b1, senMasFloHeaWatPri.port_a) annotation (Line(points={{10,220},
+          {14,220},{14,260},{30,260}},             color={0,127,255}));
   connect(senMasFloHeaWatPri.port_b, bypHeaWatSup.port_1)
     annotation (Line(points={{50,260},{90,260}},  color={0,127,255}));
   connect(port_aSerAmb, swiFlo.port_aSup) annotation (Line(points={{-300,-200},{

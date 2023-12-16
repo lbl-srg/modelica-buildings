@@ -56,23 +56,24 @@ model PartialHeatPump
     m_flow(max=if allowFlowReversal2 then +Modelica.Constants.inf else 0),
     h_outflow(start=Medium2.h_default, nominal=Medium2.h_default))
     "Fluid port for leaving evaporator water" annotation (Placement(
-        transformation(extent={{190,50},{210,70}}), iconTransformation(extent={{
-            90,50},{110,70}})));
+        transformation(extent={{-210,-70},{-190,-50}}),
+                                                    iconTransformation(extent={{-110,
+            -70},{-90,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a1(
     redeclare final package Medium = Medium1,
     m_flow(min=if allowFlowReversal1 then -Modelica.Constants.inf else 0),
     h_outflow(start=Medium1.h_default, nominal=Medium1.h_default))
     "Fluid port for cold domestic water"      annotation (Placement(
-        transformation(extent={{-210,-70},{-190,-50}}), iconTransformation(
-          extent={{-110,-70},{-90,-50}})));
+        transformation(extent={{-210,50},{-190,70}}),   iconTransformation(
+          extent={{-108,50},{-88,70}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b1(
     redeclare final package Medium = Medium1,
     m_flow(max=if allowFlowReversal1 then +Modelica.Constants.inf else 0),
     h_outflow(start=Medium1.h_default, nominal=Medium1.h_default))
     "Fluid port for heated domestic hot water"
                                              annotation (Placement(
-        transformation(extent={{-210,50},{-190,70}}), iconTransformation(extent=
-           {{-110,50},{-90,70}})));
+        transformation(extent={{190,50},{210,70}}),   iconTransformation(extent={{90,50},
+            {110,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PHea(
     final unit="W") "Heat pump power"
     annotation (Placement(transformation(extent={{200,20},{240,60}}),
@@ -121,7 +122,7 @@ model PartialHeatPump
     annotation (Placement(transformation(extent={{20,-70},{0,-50}})));
 
   Modelica.Blocks.Math.Add addPPum "Electricity use for pumps"
-    annotation (Placement(transformation(extent={{140,60},{160,80}})));
+    annotation (Placement(transformation(extent={{140,100},{160,120}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal floEva(realTrue=
         mEva_flow_nominal) "Evaporator mass flow rate"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
@@ -177,8 +178,6 @@ equation
     annotation (Line(points={{60,-60},{20,-60}}, color={0,127,255}));
   connect(heaPum.port_b2, senTEvaRet.port_a) annotation (Line(points={{-82,-66},
           {-90,-66},{-90,-120},{40,-120}}, color={0,127,255}));
-  connect(senTEvaRet.port_b, port_b2) annotation (Line(points={{60,-120},{180,-120},
-          {180,60},{200,60}}, color={0,127,255}));
   connect(senTDisSup.T, dT_supRet.u1) annotation (Line(points={{110,-49},{110,
           -32},{34,-32},{34,-4},{78,-4}},
                                        color={0,0,127}));
@@ -205,10 +204,13 @@ equation
     annotation (Line(points={{160,-60},{200,-60}}, color={0,127,255}));
   connect(senMasFlo.m_flow, mEva_flow)
     annotation (Line(points={{150,-49},{150,-40},{220,-40}}, color={0,0,127}));
-  connect(pumCon.P, addPPum.u1) annotation (Line(points={{-41,23},{-42,23},{-42,
-          76},{138,76}}, color={0,0,127}));
-  connect(addPPum.u2, pumEva.P) annotation (Line(points={{138,64},{-8,64},{-8,
+  connect(pumCon.P, addPPum.u1) annotation (Line(points={{-41,23},{-40,23},{-40,
+          116},{138,116}},
+                         color={0,0,127}));
+  connect(addPPum.u2, pumEva.P) annotation (Line(points={{138,104},{0,104},{0,
           -51},{-1,-51}}, color={0,0,127}));
+  connect(heaPum.port_b2, port_b2) annotation (Line(points={{-82,-66},{-160,-66},
+          {-160,-60},{-200,-60}}, color={0,127,255}));
   annotation (
   defaultComponentName="heaPum",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={

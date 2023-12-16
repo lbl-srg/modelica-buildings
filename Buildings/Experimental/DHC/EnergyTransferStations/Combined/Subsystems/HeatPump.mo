@@ -1,4 +1,4 @@
-within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems;
+﻿within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems;
 model HeatPump "Base subsystem with water-to-water heat pump"
   extends
     Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.BaseClasses.PartialHeatPump(
@@ -44,10 +44,10 @@ equation
           114},{-122,114}}, color={0,0,127}));
   connect(floConNom.y, floCon.u2) annotation (Line(points={{-122,90},{-130,90},{
           -130,114},{-122,114}}, color={0,0,127}));
-  connect(port_a1, heaPum.port_a1) annotation (Line(points={{-200,-60},{-120,
-          -60},{-120,-54},{-82,-54}}, color={0,127,255}));
-  connect(pumCon.port_b, port_b1) annotation (Line(points={{-40,14},{-120,14},{
-          -120,60},{-200,60}}, color={0,127,255}));
+  connect(port_a1, heaPum.port_a1) annotation (Line(points={{-200,60},{-120,60},
+          {-120,-54},{-82,-54}},      color={0,127,255}));
+  connect(pumCon.port_b, port_b1) annotation (Line(points={{-40,14},{-60,14},{
+          -60,60},{200,60}},   color={0,127,255}));
   connect(TSupSet, heaPum.TSet) annotation (Line(points={{-220,-20},{-100,-20},
           {-100,-51},{-84,-51}}, color={0,0,127}));
   connect(uEna, floEva.u) annotation (Line(points={{-220,120},{-190,120},{-190,
@@ -56,12 +56,63 @@ equation
     annotation (Line(points={{-98,120},{-30,120},{-30,26}}, color={0,0,127}));
   connect(conPI.trigger, floEva.u) annotation (Line(points={{124,8},{124,-2},{
           110,-2},{110,136},{-90,136},{-90,90},{-82,90}}, color={255,0,255}));
-  connect(addPPum.y, PPum) annotation (Line(points={{161,70},{174,70},{174,0},{
-          220,0}}, color={0,0,127}));
+  connect(addPPum.y, PPum) annotation (Line(points={{161,110},{174,110},{174,0},
+          {220,0}},color={0,0,127}));
   annotation (
   defaultComponentName="heaPum",
-  Icon(coordinateSystem(preserveAspectRatio=false)),
-                                            Diagram(
+  Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+        Rectangle(
+          extent={{92,-58},{18,-60}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{18,-38},{20,-60}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-14,-38},{-12,-60}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-1,42},{1,-42}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid,
+          origin={-54,-59},
+          rotation=90),
+        Rectangle(
+          extent={{-14,62},{-12,40}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{18,62},{20,40}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={238,46,47},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-1,42},{1,-42}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid,
+          origin={-54,61},
+          rotation=90),
+        Rectangle(
+          extent={{92,62},{18,60}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={238,46,47},
+          fillPattern=FillPattern.Solid)}), Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-200,-140},{200,140}})),
     Documentation(info="<html>
 <p>

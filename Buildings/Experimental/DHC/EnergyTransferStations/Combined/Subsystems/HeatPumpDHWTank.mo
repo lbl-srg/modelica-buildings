@@ -69,7 +69,8 @@ equation
   connect(senTemHeaPumRet.port_b, heaPum.port_a1)
     annotation (Line(points={{-120,-54},{-82,-54}}, color={0,127,255}));
   connect(addPPum.y, addPPum1.u1)
-    annotation (Line(points={{161,70},{168,70},{168,8}}, color={0,0,127}));
+    annotation (Line(points={{161,110},{168,110},{168,8}},
+                                                         color={0,0,127}));
   connect(heaPumTan.PEle, addPPum1.u2) annotation (Line(points={{-59,20},{-50,
           20},{-50,56},{164,56},{164,-4},{168,-4}}, color={0,0,127}));
   connect(addPPum1.y, PPum)
@@ -79,9 +80,9 @@ equation
   connect(addPar.y, heaPum.TSet) annotation (Line(points={{-98,-30},{-92,-30},{
           -92,-51},{-84,-51}}, color={0,0,127}));
   connect(heaPumTan.port_bDom, port_b1) annotation (Line(points={{-60,26},{-54,
-          26},{-54,60},{-200,60}}, color={0,127,255}));
-  connect(port_a1, heaPumTan.port_aDom) annotation (Line(points={{-200,-60},{
-          -190,-60},{-190,26},{-80,26}}, color={0,127,255}));
+          26},{-54,60},{200,60}},  color={0,127,255}));
+  connect(port_a1, heaPumTan.port_aDom) annotation (Line(points={{-200,60},{
+          -120,60},{-120,26},{-80,26}},  color={0,127,255}));
   annotation (
   defaultComponentName="heaPum",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
@@ -145,91 +146,183 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-74,52},{-60,28}},
+          extent={{-60,54},{-40,28}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-68,68},{-66,52}},
+          extent={{-46,68},{-44,54}},
           lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={175,175,175},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-1.5,9.5},{1.5,-9.5}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={175,175,175},
-          fillPattern=FillPattern.Solid,
-          origin={-57.5,66.5},
-          rotation=90),
-        Rectangle(
-          extent={{-68,28},{-66,18}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={175,175,175},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-1.5,9.5},{1.5,-9.5}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={175,175,175},
-          fillPattern=FillPattern.Solid,
-          origin={-57.5,18.5},
-          rotation=90),
-        Rectangle(
-          extent={{-1.5,5.5},{1.5,-5.5}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={175,175,175},
-          fillPattern=FillPattern.Solid,
-          origin={-11.5,18.5},
-          rotation=90),
-        Rectangle(
-          extent={{-1.5,34.5},{1.5,-34.5}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={175,175,175},
-          fillPattern=FillPattern.Solid,
-          origin={17.5,66.5},
-          rotation=90),
-        Rectangle(
-          extent={{-48,70},{-16,14}},
-          pattern=LinePattern.None,
-          fillColor={28,108,200},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-48,70},{-16,42}},
           pattern=LinePattern.None,
           fillColor={238,46,47},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-6,20},{-4,0}},
+          extent={{-1,9},{1,-9}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
-          fillColor={175,175,175},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{52,68},{50,0}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={175,175,175},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-54,2},{54,-2}},
-          fillColor={28,108,200},
-          fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None,
-          origin={154,108},
-          rotation=180),
-        Rectangle(
-          extent={{-58,2},{58,-2}},
           fillColor={238,46,47},
           fillPattern=FillPattern.Solid,
+          origin={-37,67},
+          rotation=90),
+        Rectangle(
+          extent={{-46,28},{-44,18}},
+          lineColor={0,0,255},
           pattern=LinePattern.None,
-          rotation=180,
-          origin={38,86})}),                Diagram(
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-1,9},{1,-9}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid,
+          origin={-37,19},
+          rotation=90),
+        Rectangle(
+          extent={{-1.5,13.5},{1.5,-13.5}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid,
+          origin={-3.5,18.5},
+          rotation=90),
+        Rectangle(
+          extent={{-1.5,29.5},{1.5,-29.5}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={238,46,47},
+          fillPattern=FillPattern.Solid,
+          origin={12.5,66.5},
+          rotation=90),
+        Rectangle(
+          extent={{-30,70},{2,14}},
+          pattern=LinePattern.None,
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-30,70},{2,42}},
+          pattern=LinePattern.None,
+          fillColor={238,46,47},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{8,20},{10,0}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{42,68},{40,0}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={255,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-56,84},{-54,54}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,140,72},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-56,28},{-54,18}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,140,72},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{96,-60},{74,-62}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{8,-78},{10,-88}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-1,30},{1,-30}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid,
+          origin={-20,-87},
+          rotation=90),
+        Rectangle(
+          extent={{-50,-60},{-48,-88}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-1,22},{1,-22}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid,
+          origin={-70,-59},
+          rotation=90),
+        Rectangle(
+          extent={{40,-78},{42,-88}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-1,17},{1,-17}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid,
+          origin={57,-87},
+          rotation=90),
+        Rectangle(
+          extent={{72,-60},{74,-88}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-1,64},{1,-64}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,140,72},
+          fillPattern=FillPattern.Solid,
+          origin={8,83},
+          rotation=90),
+        Rectangle(
+          extent={{70,84},{72,60}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,140,72},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{92,62},{70,60}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,140,72},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-1,10},{1,-10}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,140,72},
+          fillPattern=FillPattern.Solid,
+          origin={-64,19},
+          rotation=90),
+        Rectangle(
+          extent={{-74,62},{-72,20}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,140,72},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-72,62},{-90,60}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,140,72},
+          fillPattern=FillPattern.Solid)}), Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-200,-140},{200,140}})),
     Documentation(info="<html>
 <p>

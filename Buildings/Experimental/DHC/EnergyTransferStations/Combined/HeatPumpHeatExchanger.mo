@@ -44,9 +44,9 @@ model HeatPumpHeatExchanger
     annotation (Placement(transformation(extent={{-150,-20},{-130,0}})));
 equation
   connect(souColWat.ports[1], proHotWat.port_a1) annotation (Line(points={{-28,-40},
-          {-20,-40},{-20,28},{-10,28}}, color={0,127,255}));
+          {-20,-40},{-20,40},{-9.8,40}},color={0,127,255}));
   connect(sinSHW.ports[1], proHotWat.port_b1) annotation (Line(points={{-50,60},
-          {-20,60},{-20,40},{-10,40}}, color={0,127,255}));
+          {14,60},{14,40},{10,40}},    color={0,127,255}));
   connect(THotWatSupSet, proHotWat.TSupSet) annotation (Line(points={{-320,-40},
           {-160,-40},{-160,36},{-86,36},{-86,37},{-12,37}},
                                           color={0,0,127}));
@@ -68,7 +68,8 @@ equation
   connect(proHotWat.port_a2, volMix_a.ports[4]) annotation (Line(points={{10,28},
           {14,28},{14,20},{-260,20},{-260,-360}}, color={0,127,255}));
   connect(proHotWat.port_b2, volMix_b.ports[4])
-    annotation (Line(points={{10,40},{260,40},{260,-360}}, color={0,127,255}));
+    annotation (Line(points={{-10,28},{-14,28},{-14,0},{260,0},{260,-360}},
+                                                           color={0,127,255}));
   connect(gai.y,div1. u2) annotation (Line(points={{-98,-10},{-80,-10},{-80,-30},
           {-120,-30},{-120,-56},{-102,-56}},          color={0,0,127}));
   connect(QReqHotWat_flow,div1. u1) annotation (Line(points={{-320,-120},{-290,-120},{
