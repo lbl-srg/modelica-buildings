@@ -202,7 +202,7 @@ equation
     annotation (Line(points={{10,16},{58,16},{58,80},{100,80}},
         color={0,127,255}));
   connect(hex.port_b2, VExh_flow.port_a)
-    annotation (Line(points={{-10,4},{-22,4},{-22,-20},{-40,-20}},
+    annotation (Line(points={{-10,4},{-20,4},{-20,-20},{-40,-20}},
         color={0,127,255}));
   connect(VExh_flow.port_b, port_b2)
     annotation (Line(points={{-60,-20},{-70,-20},{-70,-60},{-180,-60}},
