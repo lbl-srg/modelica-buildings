@@ -36,8 +36,7 @@ equation
 annotation (experiment(
       StartTime=-360,
       StopTime=7200,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),
+      Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Generic/Validation/TimeSuppressionNegativeStartTime.mos"
     "Simulate and plot"),
     Documentation(info="<html>
