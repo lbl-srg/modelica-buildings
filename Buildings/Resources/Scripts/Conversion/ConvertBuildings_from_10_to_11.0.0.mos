@@ -26,5 +26,7 @@ convertClass("Buildings.Controls.OBC.CDL.Logical.Or3",
              "Buildings.Obsolete.Controls.OBC.CDL.Logical.Or3");
 convertClass("Buildings.Controls.OBC.CDL.Logical.OnOffController",
              "Buildings.Obsolete.Controls.OBC.CDL.Logical.OnOffController");
+convertClass("Buildings.Controls.OBC.CDL.Logical.TriggeredTrapezoid",
+             "Buildings.Obsolete.Controls.OBC.CDL.Logical.TriggeredTrapezoid");
 convertClass("Buildings.Controls.OBC.CDL.Logical.ZeroCrossing",
              "Buildings.Obsolete.Controls.OBC.CDL.Logical.ZeroCrossing");
