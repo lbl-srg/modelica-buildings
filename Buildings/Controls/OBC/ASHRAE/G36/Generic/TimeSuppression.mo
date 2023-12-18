@@ -289,7 +289,6 @@ Reimplemented the check of ignoring the first sampling period.
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3596\">issue 3596</a>.
 </li>
-</li>
 <li>
 August 1, 2020, by Jianjun Hu:<br/>
 First implementation.
