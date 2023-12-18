@@ -30,7 +30,7 @@ block SystemOnOff "Controller for system on/off"
     "Set point for outdoor air temperature plus half the dead band"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetRoo(k=TRooSet)
-    "Set point for room air temperature plus half the dead band"
+    "Set point for room air temperature"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Buildings.Controls.OBC.CDL.Logical.And and1
     "And operator to switch boiler on based on temperature and system on command"
