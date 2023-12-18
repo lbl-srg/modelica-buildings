@@ -1,15 +1,17 @@
-within Buildings.Controls.OBC.CDL.Logical;
-block ZeroCrossing
-  "Trigger zero crossing of input u"
-  Interfaces.RealInput u
+within Buildings.Obsolete.Controls.OBC.CDL.Logical;
+block ZeroCrossing "Trigger zero crossing of input u"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u
     "Connector of Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.BooleanOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-  Interfaces.BooleanInput enable
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput enable
     "Zero input crossing is triggered if the enable input signal is true"
-    annotation (Placement(transformation(origin={0,-120},extent={{-20,-20},{20,20}},rotation=90)));
+    annotation (Placement(transformation(
+        origin={0,-120},
+        extent={{-20,-20},{20,20}},
+        rotation=90)));
 
 protected
   Boolean disable=not enable
@@ -27,6 +29,7 @@ equation
   y=change(u_pos) and not edge(enable) and not edge(disable);
   annotation (
     defaultComponentName="zerCro",
+    obsolete = "This model is obsolete",
     Documentation(
       info="<html>
 <p>
@@ -51,8 +54,13 @@ actually working as expected, one should connect its output to, e.g.,
 component <i>Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler</i>.
 </p>
 </html>",
-      revisions="<html>
+revisions="<html>
 <ul>
+<li>
+December 8, 2023, by Jianjun Hu:<br/>
+Moved this model to the <code>Obsolete</code> package. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3595\">issue 3595</a>.
+</li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>
 First implementation, based on the implementation of the

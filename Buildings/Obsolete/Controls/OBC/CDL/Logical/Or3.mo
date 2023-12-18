@@ -1,16 +1,15 @@
-within Buildings.Controls.OBC.CDL.Logical;
-block Or3
-  "Logical 'or': y = u1 or u2 or u3"
-  Interfaces.BooleanInput u1
+within Buildings.Obsolete.Controls.OBC.CDL.Logical;
+block Or3 "Logical 'or': y = u1 or u2 or u3"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1
     "Connector of first Boolean input signal"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-  Interfaces.BooleanInput u2
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u2
     "Connector of second Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.BooleanInput u3
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u3
     "Connector of third Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-  Interfaces.BooleanOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
@@ -18,6 +17,7 @@ equation
   y=u1 or u2 or u3;
   annotation (
     defaultComponentName="or3",
+    obsolete = "This model is obsolete, use two blocks of Buildings.Controls.OBC.CDL.Logical.Or stacked together instead",
     Icon(
       coordinateSystem(
         preserveAspectRatio=true,
@@ -97,8 +97,13 @@ is <code>true</code>.
 Otherwise the output is <code>false</code>.
 </p>
 </html>",
-      revisions="<html>
+revisions="<html>
 <ul>
+<li>
+December 8, 2023, by Jianjun Hu:<br/>
+Moved this model to the <code>Obsolete</code> package. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3595\">issue 3595</a>.
+</li>
 <li>
 April 10, 2017, by Jianjun Hu:<br/>
 First implementation, based on the implementation of the

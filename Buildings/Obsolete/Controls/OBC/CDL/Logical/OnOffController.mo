@@ -1,18 +1,17 @@
-within Buildings.Controls.OBC.CDL.Logical;
-block OnOffController
-  "On-off controller"
+within Buildings.Obsolete.Controls.OBC.CDL.Logical;
+block OnOffController "On-off controller"
   parameter Real bandwidth(
     min=0)
     "Bandwidth around reference signal";
   parameter Boolean pre_y_start=false
     "Value of pre(y) at initial time";
-  Interfaces.RealInput reference
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput reference
     "Connector of Real input signal used as reference signal"
     annotation (Placement(transformation(extent={{-140,80},{-100,40}})));
-  Interfaces.RealInput u
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u
     "Connector of Real input signal used as measurement signal"
     annotation (Placement(transformation(extent={{-140,-40},{-100,-80}})));
-  Interfaces.BooleanOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Connector of Real output signal used as actuator signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
@@ -25,6 +24,7 @@ equation
                                             (u < reference-bandwidth/2);
   annotation (
     defaultComponentName="onOffCon",
+    obsolete = "This model is obsolete, use blocks of Buildings.Controls.OBC.CDL.Reals.Subtract and Buildings.Controls.OBC.CDL.Reals.Hysteresis instead",
     Icon(
       coordinateSystem(
         preserveAspectRatio=true,
@@ -91,6 +91,11 @@ previous value of the output <code>pre(y)</code>.
 </html>",
       revisions="<html>
 <ul>
+<li>
+December 11, 2023, by Jianjun Hu:<br/>
+Moved this model to the <code>Obsolete</code> package. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3595\">issue 3595</a>.
+</li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>
 First implementation, based on the implementation of the
