@@ -1,4 +1,4 @@
-﻿within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems;
+within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems;
 model HeatPump "Base subsystem with water-to-water heat pump"
   extends
     Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.BaseClasses.PartialHeatPump(
