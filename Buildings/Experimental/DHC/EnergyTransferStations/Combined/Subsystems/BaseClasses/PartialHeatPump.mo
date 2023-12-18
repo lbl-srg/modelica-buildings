@@ -102,7 +102,7 @@ model PartialHeatPump
     final dp1_nominal=dp1_nominal,
     final dp2_nominal=dp2_nominal)
     "Domestic hot water heat pump"
-    annotation (Placement(transformation(extent={{-82,-70},{-62,-50}})));
+    annotation (Placement(transformation(extent={{-80,-82},{-60,-62}})));
   Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow
                                      pumCon(
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -138,9 +138,9 @@ model PartialHeatPump
     final m_flow_nominal=mEva_flow_nominal,
     tau=0)
     "Evaporator return temperature sensor" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
+        extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={50,-120})));
+        origin={-110,-80})));
   Fluid.Sensors.TemperatureTwoPort senTDisSup(
     redeclare final package Medium = Medium2,
     final allowFlowReversal=allowFlowReversal1,
@@ -166,30 +166,24 @@ model PartialHeatPump
     "Mass flow rate drawn from ETS"
     annotation (Placement(transformation(extent={{160,-70},{140,-50}})));
 equation
-  connect(heaPum.port_b1,pumCon. port_a) annotation (Line(points={{-62,-54},{
-          -14,-54},{-14,14},{-20,14}},
+  connect(heaPum.port_b1,pumCon. port_a) annotation (Line(points={{-60,-66},{
+          -40,-66},{-40,-50},{-16,-50},{-16,14},{-20,14}},
                            color={0,127,255}));
-  connect(heaPum.P, PHea) annotation (Line(points={{-61,-60},{-20,-60},{-20,-20},
+  connect(heaPum.P, PHea) annotation (Line(points={{-59,-72},{-20,-72},{-20,-20},
           {22,-20},{22,40},{220,40}},
                 color={0,0,127}));
   connect(floEva.y, pumEva.m_flow_in)
     annotation (Line(points={{-58,90},{10,90},{10,-48}},  color={0,0,127}));
   connect(valHeaPumEva.port_2, pumEva.port_a)
     annotation (Line(points={{60,-60},{20,-60}}, color={0,127,255}));
-  connect(heaPum.port_b2, senTEvaRet.port_a) annotation (Line(points={{-82,-66},
-          {-90,-66},{-90,-120},{40,-120}}, color={0,127,255}));
   connect(senTDisSup.T, dT_supRet.u1) annotation (Line(points={{110,-49},{110,
           -32},{34,-32},{34,-4},{78,-4}},
                                        color={0,0,127}));
-  connect(senTEvaRet.T, dT_supRet.u2)
-    annotation (Line(points={{50,-109},{50,-16},{78,-16}}, color={0,0,127}));
   connect(valHeaPumEva.port_1, senTDisSup.port_b)
     annotation (Line(points={{80,-60},{100,-60}}, color={0,127,255}));
-  connect(pumEva.port_b, heaPum.port_a2) annotation (Line(points={{0,-60},{-14,
-          -60},{-14,-66},{-62,-66}},
+  connect(pumEva.port_b, heaPum.port_a2) annotation (Line(points={{0,-60},{-30,
+          -60},{-30,-78},{-60,-78}},
                                 color={0,127,255}));
-  connect(valHeaPumEva.port_3, senTEvaRet.port_b) annotation (Line(points={{70,-70},
-          {70,-120},{60,-120}}, color={0,127,255}));
   connect(conPI.u_s, dTSet.y)
     annotation (Line(points={{118,20},{102,20}},
                                                color={0,0,127}));
@@ -209,8 +203,15 @@ equation
                          color={0,0,127}));
   connect(addPPum.u2, pumEva.P) annotation (Line(points={{138,104},{0,104},{0,
           -51},{-1,-51}}, color={0,0,127}));
-  connect(heaPum.port_b2, port_b2) annotation (Line(points={{-82,-66},{-160,-66},
-          {-160,-60},{-200,-60}}, color={0,127,255}));
+  connect(heaPum.port_b2, senTEvaRet.port_a) annotation (Line(points={{-80,-78},
+          {-90,-78},{-90,-80},{-100,-80}}, color={0,127,255}));
+  connect(senTEvaRet.port_b, port_b2) annotation (Line(points={{-120,-80},{-160,
+          -80},{-160,-60},{-200,-60}}, color={0,127,255}));
+  connect(senTEvaRet.port_b, valHeaPumEva.port_3) annotation (Line(points={{
+          -120,-80},{-140,-80},{-140,-120},{70,-120},{70,-70}}, color={0,127,
+          255}));
+  connect(senTEvaRet.T, dT_supRet.u2) annotation (Line(points={{-110,-69},{-110,
+          -16},{78,-16}}, color={0,0,127}));
   annotation (
   defaultComponentName="heaPum",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={

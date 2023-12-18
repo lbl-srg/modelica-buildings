@@ -1,4 +1,4 @@
-within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems;
+﻿within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems;
 model HeatPump "Base subsystem with water-to-water heat pump"
   extends
     Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.BaseClasses.PartialHeatPump(
@@ -45,11 +45,12 @@ equation
   connect(floConNom.y, floCon.u2) annotation (Line(points={{-122,90},{-130,90},{
           -130,114},{-122,114}}, color={0,0,127}));
   connect(port_a1, heaPum.port_a1) annotation (Line(points={{-200,60},{-120,60},
-          {-120,-54},{-82,-54}},      color={0,127,255}));
+          {-120,-50},{-100,-50},{-100,-66},{-80,-66}},
+                                      color={0,127,255}));
   connect(pumCon.port_b, port_b1) annotation (Line(points={{-40,14},{-60,14},{
           -60,60},{200,60}},   color={0,127,255}));
-  connect(TSupSet, heaPum.TSet) annotation (Line(points={{-220,-20},{-100,-20},
-          {-100,-51},{-84,-51}}, color={0,0,127}));
+  connect(TSupSet, heaPum.TSet) annotation (Line(points={{-220,-20},{-90,-20},{
+          -90,-63},{-82,-63}},   color={0,0,127}));
   connect(uEna, floEva.u) annotation (Line(points={{-220,120},{-190,120},{-190,
           136},{-90,136},{-90,90},{-82,90}}, color={255,0,255}));
   connect(floCon.y, pumCon.m_flow_in)

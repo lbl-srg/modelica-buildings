@@ -40,7 +40,7 @@ model HeatPumpDHWTank
     redeclare package Medium = Medium1,
     m_flow_nominal=mCon_flow_nominal,
     tau=0)
-    annotation (Placement(transformation(extent={{-140,-64},{-120,-44}})));
+    annotation (Placement(transformation(extent={{-140,-60},{-120,-40}})));
   Buildings.Controls.OBC.CDL.Reals.AddParameter
                                       addPar(p=dT_nominal)
                                                   "dT for heater"
@@ -56,10 +56,11 @@ equation
           0,255}));
   connect(preRef.ports[1], heaPumTan.port_bHea) annotation (Line(points={{-70,-20},
           {-92,-20},{-92,14},{-80,14}}, color={0,127,255}));
-  connect(heaPumTan.port_bHea, senTemHeaPumRet.port_a) annotation (Line(points={
-          {-80,14},{-120,14},{-120,0},{-140,0},{-140,-54}}, color={0,127,255}));
-  connect(senTemHeaPumRet.T, addPar.u) annotation (Line(points={{-130,-43},{-130,
-          -30},{-122,-30}}, color={0,0,127}));
+  connect(heaPumTan.port_bHea, senTemHeaPumRet.port_a) annotation (Line(points={{-80,14},
+          {-120,14},{-120,0},{-140,0},{-140,-50}},          color={0,127,255}));
+  connect(senTemHeaPumRet.T, addPar.u) annotation (Line(points={{-130,-39},{
+          -130,-30},{-122,-30}},
+                            color={0,0,127}));
   connect(floCon.y, pumCon.m_flow_in)
     annotation (Line(points={{-58,120},{-30,120},{-30,26}}, color={0,0,127}));
   connect(floEva.u, floCon.u) annotation (Line(points={{-82,90},{-100,90},{-100,
@@ -67,7 +68,8 @@ equation
   connect(heaPumTan.port_aHea, pumCon.port_b)
     annotation (Line(points={{-60,14},{-40,14}}, color={0,127,255}));
   connect(senTemHeaPumRet.port_b, heaPum.port_a1)
-    annotation (Line(points={{-120,-54},{-82,-54}}, color={0,127,255}));
+    annotation (Line(points={{-120,-50},{-100,-50},{-100,-66},{-80,-66}},
+                                                    color={0,127,255}));
   connect(addPPum.y, addPPum1.u1)
     annotation (Line(points={{161,110},{168,110},{168,8}},
                                                          color={0,0,127}));
@@ -78,7 +80,7 @@ equation
   connect(conPI.trigger, floCon.u) annotation (Line(points={{124,8},{124,0},{
           110,0},{110,106},{-100,106},{-100,120},{-82,120}}, color={255,0,255}));
   connect(addPar.y, heaPum.TSet) annotation (Line(points={{-98,-30},{-92,-30},{
-          -92,-51},{-84,-51}}, color={0,0,127}));
+          -92,-63},{-82,-63}}, color={0,0,127}));
   connect(heaPumTan.port_bDom, port_b1) annotation (Line(points={{-60,26},{-54,
           26},{-54,60},{200,60}},  color={0,127,255}));
   connect(port_a1, heaPumTan.port_aDom) annotation (Line(points={{-200,60},{
