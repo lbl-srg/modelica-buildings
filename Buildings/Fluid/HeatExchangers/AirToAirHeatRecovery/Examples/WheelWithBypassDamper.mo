@@ -27,7 +27,7 @@ model WheelWithBypassDamper
     offset=273.15 + 30,
     startTime=60)
     "Supply air temperature"
-    annotation (Placement(transformation(extent={{-94,44},{-74,64}})));
+    annotation (Placement(transformation(extent={{-94,74},{-74,94}})));
   Buildings.Fluid.Sources.Boundary_pT sin_1(
     redeclare package Medium = Medium1,
     T=273.15 + 30,
@@ -44,7 +44,7 @@ model WheelWithBypassDamper
     p(displayUnit="Pa") = 101325,
     nPorts=1)
     "Supply air source"
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+    annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
   Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.WheelWithBypassDamper whe(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
@@ -65,11 +65,16 @@ model WheelWithBypassDamper
     startTime=200)
     "Bypass damper position"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse opeSig(
+    width=0.8,
+    period=400,
+    shift=72) "Operating signal"
+    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 equation
   connect(TSup.y, sou_1.T_in)
-    annotation (Line(points={{-73,54},{-62,54}}, color={0,0,127}));
+    annotation (Line(points={{-73,84},{-62,84}}, color={0,0,127}));
   connect(sou_1.ports[1],whe.port_a1)
-    annotation (Line(points={{-40,50},{0,50},{0,12},{6,12}}, color={0,127,255}));
+    annotation (Line(points={{-40,80},{0,80},{0,12},{6,12}}, color={0,127,255}));
   connect(whe.port_a2, sou_2.ports[1])
     annotation (Line(points={{26,0},{32,0},{32,-20},{70,-20},{70,-60},{60,-60}},
         color={0,127,255}));
@@ -81,7 +86,8 @@ equation
         color={0,127,255}));
   connect(bypDamPos.y, whe.uBypDamPos) annotation (Line(points={{-59,-30},{-28,-30},
           {-28,6},{4,6}}, color={0,0,127}));
-
+  connect(opeSig.y, whe.opeSig) annotation (Line(points={{-58,40},{-20,40},{-20,
+          14},{4,14}}, color={255,0,255}));
 annotation(experiment(Tolerance=1e-6, StopTime=360),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/AirToAirHeatRecovery/Examples/WheelWithBypassDamper.mos"
         "Simulate and plot"),
@@ -96,9 +102,12 @@ The input signals are configured as follows:
 </p>
 <ul>
 <li>
+The operating signal <i>opeSigfalse</i> changes into true at 72 seconds.
+</li>
+<li>
 The supply air temperature <i>TSup</i> changes from <i>273.15 + 30 K</i> to
 <i>273.15 + 40 K</i> during the period from 60 seconds to 120 seconds.
-The exhaust air temperature keeps constant.
+The exhaust air temperature remains constant.
 </li>
 <li>
 The bypass damper position <i>uBypDamPos</i> changes from <i>0</i> to <i>0.2</i> 
@@ -114,13 +123,17 @@ The expected outputs are:
 <ul>
 <li>
 The sensible effectiveness <code>epsSen</code> and the latent effectiveness 
-<code>epsLat</code> keep constant in the first 200 seconds.
-After the 200s, both <code>epsSen</code> and <code>epsLat</code> decrease.
+<code>epsLat</code> are 0 at the beginning.
+They become positive at 72 seconds and keep constant until 200 seconds.
+After the 200 seconds, both <code>epsSen</code> and <code>epsLat</code> decrease.
 </li>
 <li>
-The temperatures of the leaving supply air and the leaving the exhaust air 
-follows the change of <i>TSup</i> before 200 seconds.
-After the 200 seconds, the leaving supply air temperature increases and the
+Before 72 seconds, the temperature of the leaving supply air is equal to <i>TSup</i>.
+Likewise, the temperature of the leaving supply air is equal to that of the exhaust
+air temperature.
+The temperatures of the leaving supply air and the leaving exhaust air 
+follow the change of <i>TSup</i> during the period from 72 seconds to 200 seconds.
+After 200 seconds, the leaving supply air temperature increases and the
 leaving exhaust air temperature decreases.
 </li>
 </ul>

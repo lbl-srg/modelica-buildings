@@ -41,11 +41,13 @@ model WheelWithVariableSpeed
   parameter Modelica.Units.SI.Efficiency epsLatHeaPL(
     final max=1) = 0.75
     "Part load (75%) latent heat exchanger effectiveness at the heating mode";
-
+  parameter Real a[:] = {1}
+    "Coefficients for power efficiency curve (need p(a=a, uSpe=1)=1)"
+    annotation (Dialog(group="Efficiency"));
   Modelica.Blocks.Interfaces.RealInput uSpe(
     final unit="1",
     final max=1)
-    "Wheel speed"
+    "Wheel speed ratio"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealOutput P
     "Electric power consumed by the wheel"
@@ -73,17 +75,7 @@ model WheelWithVariableSpeed
     final epsLatHeaPL=epsLatHeaPL,
     final VSup_flow_nominal=m1_flow_nominal/1.293)
     "Calculate the effectiveness of heat exchange"
-    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Buildings.Fluid.Sensors.VolumeFlowRate senExhFlow(
-    redeclare package Medium = Medium2,
-    final m_flow_nominal=m2_flow_nominal)
-    "Exhaust air volume flow rate sensor"
-    annotation (Placement(transformation(extent={{70,-70},{50,-50}})));
-  Buildings.Fluid.Sensors.VolumeFlowRate senSupFlow(
-    redeclare package Medium =Medium1,
-    final m_flow_nominal=m1_flow_nominal)
-    "Supply air volume flow rate sensor"
-    annotation (Placement(transformation(extent={{-40,90},{-20,110}})));
+    annotation (Placement(transformation(extent={{-42,-10},{-22,10}})));
   Modelica.Blocks.Sources.RealExpression TSup(
     final y=Medium1.temperature(
       Medium1.setState_phX(
@@ -91,7 +83,7 @@ model WheelWithVariableSpeed
         h=inStream(port_a1.h_outflow),
         X=inStream(port_a1.Xi_outflow))))
     "Supply air temperature"
-    annotation (Placement(transformation(extent={{-90,28},{-70,48}})));
+    annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
   Modelica.Blocks.Sources.RealExpression TExh(
     final y=Medium2.temperature(
       Medium2.setState_phX(
@@ -99,15 +91,15 @@ model WheelWithVariableSpeed
         h=inStream(port_a2.h_outflow),
         X=inStream(port_a2.Xi_outflow))))
     "Exhaust air temperature"
-    annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
-  Modelica.Blocks.Sources.RealExpression PEle(
-    final y=P_nominal)
+    annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
+  Modelica.Blocks.Sources.RealExpression PEle(final y=P_nominal*
+        Buildings.Utilities.Math.Functions.polynomial(a=a, x=uSpe))
     "Electric power consumption"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a1(
     redeclare final package Medium = Medium1)
     "Fluid connector a1 of the supply air (positive design flow direction is from port_a1 to port_b1)"
-    annotation (Placement(transformation(extent={{-110,90},{-90,110}}),
+    annotation (Placement(transformation(extent={{-112,50},{-92,70}}),
         iconTransformation(extent={{-110,50},{-90,70}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b2(
     redeclare final package Medium = Medium2)
@@ -116,53 +108,58 @@ model WheelWithVariableSpeed
   Modelica.Fluid.Interfaces.FluidPort_b port_b1(
     redeclare final package Medium = Medium1)
     "Fluid connector b1 of the supply air (positive design flow direction is from port_a1 to port_b1)"
-    annotation (Placement(transformation(extent={{110,90},{90,110}}),
+    annotation (Placement(transformation(extent={{110,50},{90,70}}),
         iconTransformation(extent={{110,50},{90,70}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a2(
     redeclare final package Medium = Medium2)
     "Fluid connector a2 of the exhaust air (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
+  Modelica.Blocks.Sources.RealExpression VSup_flow(final y=port_a1.m_flow/
+        Medium1.density(state=Medium1.setState_phX(
+        p=port_a1.p,
+        h=port_a1.h_outflow,
+        X=port_a1.Xi_outflow))) "Supply air volume flow rate"
+    annotation (Placement(transformation(extent={{-90,30},{-70,50}})));
+  Modelica.Blocks.Sources.RealExpression VExh_flow(final y=port_a2.m_flow/
+        Medium2.density(state=Medium2.setState_phX(
+        p=port_a2.p,
+        h=port_a2.h_outflow,
+        X=port_a2.Xi_outflow))) "Exhaust air volume flow rate"
+    annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
 equation
-  connect(senExhFlow.port_b, hex.port_a2)
-    annotation (Line(points={{50,-60},{40,-60},{40,-6},{26,-6}},
-        color={0,127,255}));
-  connect(hex.port_a1, senSupFlow.port_b)
-    annotation (Line(points={{6,6},{0,6},{0,100},{-20,100}},
-        color={0,127,255}));
   connect(hex.port_b1, port_b1)
-    annotation (Line(points={{26,6},{40,6},{40,100},{100,100}},
+    annotation (Line(points={{26,6},{40,6},{40,60},{100,60}},
         color={0,127,255}));
   connect(hex.port_b2, port_b2)
-    annotation (Line(points={{6,-6},{-60,-6},{-60,-60},{-100,-60}},
+    annotation (Line(points={{6,-6},{0,-6},{0,-60},{-100,-60}},
         color={0,127,255}));
   connect(PEle.y, P)
     annotation (Line(points={{91,0},{110,0}}, color={0,0,127}));
-  connect(senExhFlow.port_a, port_a2)
-    annotation (Line(points={{70,-60},{100,-60}},
-        color={0,127,255}));
-  connect(senSupFlow.port_a, port_a1)
-    annotation (Line(points={{-40,100},{-100,100}},
-        color={0,127,255}));
   connect(effCal.epsSen, hex.epsSen)
-    annotation (Line(points={{-19,54},{-6,54},{-6,4},{4,4}}, color={0,0,127}));
+    annotation (Line(points={{-21,4},{4,4}},                 color={0,0,127}));
   connect(effCal.epsLat, hex.epsLat)
-    annotation (Line(points={{-19,46},{-12,46},{-12,-4},{4,-4}},
+    annotation (Line(points={{-21,-4},{4,-4}},
         color={0,0,127}));
-  connect(effCal.uSpe, uSpe) annotation (Line(points={{-42,50},{-94,50},{-94,0},
-          {-120,0}}, color={0,0,127}));
-  connect(senSupFlow.V_flow, effCal.VSup_flow)
-    annotation (Line(points={{-30,111},{-30,120},{-80,120},{-80,58},{-42,58}},
-        color={0,0,127}));
-  connect(senExhFlow.V_flow, effCal.VExh_flow)
-    annotation (Line(points={{60,-49},{60,80},{-74,80},{-74,54},{-42,54}},
+  connect(effCal.uSpe, uSpe) 
+    annotation (Line(points={{-44,0},{-120,0}},
         color={0,0,127}));
   connect(TSup.y, effCal.TSup)
-    annotation (Line(points={{-69,38},{-60,38},{-60,46},{-42,46}},
+    annotation (Line(points={{-69,-20},{-50,-20},{-50,-4},{-44,-4}},
         color={0,0,127}));
   connect(TExh.y, effCal.TExh)
-    annotation (Line(points={{-69,20},{-52,20},{-52,42},{-42,42}},
+    annotation (Line(points={{-69,-40},{-44,-40},{-44,-8}},
         color={0,0,127}));
-
+  connect(hex.port_a1, port_a1)
+    annotation (Line(points={{6,6},{0,6},{0,60},{-102,60}}, color={0,0,127}));
+  connect(hex.port_a2, port_a2) 
+    annotation (Line(points={{26,-6},{40,-6},{40,-60},
+          {100,-60}}, color={0,127,255}));
+  connect(VSup_flow.y, effCal.VSup_flow) 
+    annotation (Line(points={{-69,40},{-50,
+          40},{-50,8},{-44,8}}, color={0,0,127}));
+  connect(VExh_flow.y, effCal.VExh_flow) 
+    annotation (Line(points={{-69,20},{-58,
+          20},{-58,4},{-44,4}}, color={0,0,127}));
 annotation (
         defaultComponentName="whe",
         Icon(coordinateSystem(extent={{-100,-100},{100,
@@ -216,7 +213,7 @@ annotation (
           textColor={0,0,255},
           textString="%name")}),
           Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,140}})),
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
 Documentation(info="<html>
 <p>
 Model of a generic, sensible and latent air-to-air heat recovery wheel, which has the 
@@ -232,6 +229,18 @@ supply air flow rate in both heating and cooling conditions.
 For details, refer to
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.Effectiveness\">
 Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.Effectiveness</a>.
+</p>
+<p>
+The power consumption of this wheel is calculated by
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+  P = P<sub>nominal</sub>(a<sub>1</sub> + a<sub>2</sub> uSpe + a<sub>3</sub> uSpe<sup>2</sup> + ...),
+</p>
+<p>
+where <i>p<sub>nominal</sub></i> is the nominal wheel power consumption,
+<i>uSpe</i> is the wheel speed ratio, 
+and the coefficients <i>a<sub>i</sub></i>
+are declared by the parameter <code>a</code>.
 </p>
 </html>", revisions="<html>
 <ul>
