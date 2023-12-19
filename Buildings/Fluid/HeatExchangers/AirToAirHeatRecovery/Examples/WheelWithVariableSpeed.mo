@@ -52,6 +52,7 @@ model WheelWithVariableSpeed
     m2_flow_nominal=5,
     dp1_nominal=100,
     dp2_nominal=100,
+    P_nominal=100,
     epsLatCoo_nominal=0.7,
     epsLatCooPL=0.6,
     epsLatHea_nominal=0.7,
@@ -98,7 +99,7 @@ The input signals are configured as follows:
 <li>
 The supply air temperature <i>TSup</i> changes from <i>273.15 + 30 K</i> to
 <i>273.15 + 40 K</i> during the period from 60 seconds to 120 seconds.
-The exhaust air temperature keeps constant.
+The exhaust air temperature remains constant.
 </li>
 <li>
 The wheel speed <i>uSpe</i> changes from <i>0.7</i> to <i>1</i> 
@@ -114,13 +115,13 @@ The expected outputs are:
 <ul>
 <li>
 The sensible effectiveness <code>epsSen</code> and the latent effectiveness 
-<code>epsLat</code>, keep constant before 200 seconds.
-After the 200 seconds, both <code>epsSen</code> and <code>epsLat</code> increase.
+<code>epsLat</code>, keep constant before the 200 seconds.
+After 200 seconds, both <code>epsSen</code> and <code>epsLat</code> increase.
 </li>
 <li>
-The leaving supply air temperature and the leaving the exhaust air temperature 
-follows the change of <i>TSup</i> before 200 seconds.
-After the 200 seconds, the leaving supply air temperature decreases
+The leaving supply air temperature and the leaving exhaust air temperature 
+follow the change of <i>TSup</i> before the 200 seconds.
+After 200 seconds, the leaving supply air temperature decreases
 and the leaving exhaust air temperature increases.
 </li>
 </ul>

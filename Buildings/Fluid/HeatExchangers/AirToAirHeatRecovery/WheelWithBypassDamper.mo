@@ -15,7 +15,7 @@ model WheelWithBypassDamper
     "Nominal supply air pressure drop";
   parameter Modelica.Units.SI.PressureDifference dp2_nominal = 125
     "Nominal exhaust air pressure drop";
-  parameter Real P_nominal(final unit="W") = 100
+  parameter Real P_nominal(final unit="W")
     "Power at the design condition";
   parameter Modelica.Units.SI.Efficiency epsSenCoo_nominal(
     final max=1) = 0.8
@@ -49,6 +49,10 @@ model WheelWithBypassDamper
     "Bypass damper position"
     annotation (Placement(transformation(extent={{-220,100},{-180,140}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
+  Modelica.Blocks.Interfaces.BooleanInput opeSig
+    "True when the wheel is operating" annotation (Placement(transformation(
+          extent={{-220,-20},{-180,20}}), iconTransformation(extent={{-140,60},
+            {-100,100}})));
   Modelica.Blocks.Interfaces.RealOutput P
     "Electric power consumed by the wheel"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
@@ -62,7 +66,7 @@ model WheelWithBypassDamper
     final dp1_nominal=0,
     final dp2_nominal=0)
     "Heat exchanger"
-    annotation (Placement(transformation(extent={{-10,0},{10,20}})));
+    annotation (Placement(transformation(extent={{-10,2},{10,22}})));
   Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.Effectiveness
     effCal(
     final epsSenCoo_nominal=epsSenCoo_nominal,
@@ -75,17 +79,7 @@ model WheelWithBypassDamper
     final epsLatHeaPL=epsLatHeaPL,
     final VSup_flow_nominal=m1_flow_nominal/1.293)
     "Calculates the effectiveness of heat exchange"
-    annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
-  Buildings.Fluid.Sensors.VolumeFlowRate VExh_flow(
-    redeclare package Medium = Medium2,
-    final m_flow_nominal=m2_flow_nominal)
-    "Exhaust air volume flow rate sensor"
-    annotation (Placement(transformation(extent={{-40,-30},{-60,-10}})));
-  Buildings.Fluid.Sensors.VolumeFlowRate VSup_flow(
-    redeclare package Medium = Medium1,
-    final m_flow_nominal=m1_flow_nominal)
-    "Supply air volume flow rate sensor"
-    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
+    annotation (Placement(transformation(extent={{-100,2},{-80,22}})));
   Buildings.Fluid.Actuators.Dampers.Exponential bypDamSup(
     redeclare package Medium = Medium1,
     final m_flow_nominal=m1_flow_nominal,
@@ -128,10 +122,10 @@ model WheelWithBypassDamper
         X=inStream(port_a2.Xi_outflow))))
     "Exhaust air temperature"
     annotation (Placement(transformation(extent={{-160,-50},{-140,-30}})));
-  Modelica.Blocks.Sources.RealExpression PEle(
-    final y=P_nominal)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter PEle(
+    final k=P_nominal)
     "Calculate the electric power consumption"
-    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
+    annotation (Placement(transformation(extent={{74,-6},{86,6}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a1(
     redeclare final package Medium = Medium1)
     "Fluid connector a1 of the supply air (positive design flow direction is from port_a1 to port_b1)"
@@ -153,10 +147,26 @@ model WheelWithBypassDamper
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
   Modelica.Blocks.Sources.Constant uni(final k=1)
     "Unity signal"
-    annotation (Placement(transformation(extent={{-160,30},{-140,50}})));
+    annotation (Placement(transformation(extent={{-160,140},{-140,160}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract sub
     "Difference of the two inputs"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
+  Modelica.Blocks.Math.BooleanToReal booleanToReal(final realTrue=1.0, final realFalse=0.0)
+    annotation (Placement(transformation(extent={{-160,0},{-140,20}})));
+  Modelica.Blocks.Sources.RealExpression VSup_flow(final y=hex.port_a1.m_flow/
+        Medium1.density(state=Medium1.setState_phX(
+        p=hex.port_a1.p,
+        h=hex.port_a1.h_outflow,
+        X=hex.port_a1.Xi_outflow)))
+    "Supply air volume flow rate"
+    annotation (Placement(transformation(extent={{-160,52},{-140,72}})));
+  Modelica.Blocks.Sources.RealExpression VExh_flow(final y=hex.port_a2.m_flow/
+        Medium2.density(state=Medium2.setState_phX(
+        p=hex.port_a2.p,
+        h=hex.port_a2.h_outflow,
+        X=hex.port_a2.Xi_outflow)))
+    "Exhaust air volume flow rate"
+    annotation (Placement(transformation(extent={{-160,30},{-140,50}})));
 equation
   connect(bypDamSup.port_a, port_a1)
     annotation (Line(points={{-38,80},{-180,80}}, color={0,127,255}));
@@ -167,7 +177,7 @@ equation
   connect(bypDamExh.port_b, port_b2)
     annotation (Line(points={{-40,-60},{-180,-60}}, color={0,127,255}));
   connect(PEle.y, P)
-    annotation (Line(points={{91,0},{110,0}}, color={0,0,127}));
+    annotation (Line(points={{87.2,0},{110,0}},color={0,0,127}));
   connect(damExh.port_a, port_a2)
     annotation (Line(points={{60,-50},{60,-60},{100,-60}}, color={0,127,255}));
   connect(sub.y, damSup.y)
@@ -175,52 +185,55 @@ equation
   connect(damExh.y,sub. y)
     annotation (Line(points={{48,-40},{20,-40},{20,100},{-98,100}}, color={0,0,127}));
   connect(effCal.epsSen, hex.epsSen)
-    annotation (Line(points={{-79,14},{-12,14}}, color={0,0,127}));
+    annotation (Line(points={{-79,16},{-12,16}}, color={0,0,127}));
   connect(effCal.epsLat, hex.epsLat)
-    annotation (Line(points={{-79,6},{-12,6}},color={0,0,127}));
+    annotation (Line(points={{-79,8},{-12,8}},color={0,0,127}));
   connect(bypDamSup.y, uBypDamPos)
     annotation (Line(points={{-28,92},{-28,120},{-200,120}}, color={0,0,127}));
-  connect(effCal.uSpe, uni.y) annotation (Line(points={{-102,10},{-130,10},{-130,
-          40},{-139,40}}, color={0,0,127}));
   connect(TSup.y, effCal.TSup)
-    annotation (Line(points={{-139,-20},{-114,-20},{-114,6},{-102,6}},
+    annotation (Line(points={{-139,-20},{-114,-20},{-114,8},{-102,8}},
         color={0,0,127}));
   connect(TExh.y, effCal.TExh)
-    annotation (Line(points={{-139,-40},{-110,-40},{-110,2},{-102,2}},
+    annotation (Line(points={{-139,-40},{-110,-40},{-110,4},{-102,4}},
         color={0,0,127}));
   connect(damSup.port_b, hex.port_a1)
-    annotation (Line(points={{-22,40},{-20,40},{-20,16},{-10,16}},
+    annotation (Line(points={{-22,40},{-20,40},{-20,18},{-10,18}},
         color={0,127,255}));
   connect(bypDamExh.y, uBypDamPos) annotation (Line(points={{-30,-48},{-30,-30},
           {40,-30},{40,120},{-200,120}}, color={0,0,127}));
-  connect(damSup.port_a, VSup_flow.port_b)
-    annotation (Line(points={{-42,40},{-60,40}}, color={0,127,255}));
-  connect(VSup_flow.port_a, port_a1)
-    annotation (Line(points={{-80,40},{-100,40},{-100,80},{-180,80}},
-        color={0,127,255}));
   connect(hex.port_b1, port_b1)
-    annotation (Line(points={{10,16},{58,16},{58,80},{100,80}},
-        color={0,127,255}));
-  connect(hex.port_b2, VExh_flow.port_a)
-    annotation (Line(points={{-10,4},{-20,4},{-20,-20},{-40,-20}},
-        color={0,127,255}));
-  connect(VExh_flow.port_b, port_b2)
-    annotation (Line(points={{-60,-20},{-70,-20},{-70,-60},{-180,-60}},
+    annotation (Line(points={{10,18},{58,18},{58,80},{100,80}},
         color={0,127,255}));
   connect(hex.port_a2, damExh.port_b)
-    annotation (Line(points={{10,4},{60,4},{60,-30}}, color={0,127,255}));
-  connect(VExh_flow.V_flow, effCal.VExh_flow)
-    annotation (Line(points={{-50,-9},{-50,60},{-120,60},{-120,14},{-102,14}},
-        color={0,0,127}));
+    annotation (Line(points={{10,6},{60,6},{60,-30}}, color={0,127,255}));
   connect(sub.u2, uBypDamPos) annotation (Line(points={{-122,94},{-140,94},{-140,
           120},{-200,120}}, color={0,0,127}));
   connect(uni.y, sub.u1)
-    annotation (Line(points={{-139,40},{-130,40},{-130,106},{-122,106}},
+    annotation (Line(points={{-139,150},{-132,150},{-132,106},{-122,106}},
         color={0,0,127}));
-  connect(VSup_flow.V_flow, effCal.VSup_flow)
-    annotation (Line(points={{-70,51},{-70,56},{-114,56},{-114,18},{-102,18}},
+  connect(opeSig, booleanToReal.u)
+    annotation (Line(points={{-200,0},{-170,0},{
+          -170,10},{-162,10}}, color={255,0,255}));
+  connect(booleanToReal.y, effCal.uSpe)
+    annotation (Line(points={{-139,10},{-120,10},{-120,12},{-102,12}},
         color={0,0,127}));
-
+  connect(PEle.u, booleanToReal.y)
+    annotation (Line(points={{72.8,0},{-120,0},{-120,
+          10},{-139,10}}, color={0,0,127}));
+  connect(damSup.port_a, port_a1)
+    annotation (Line(points={{-42,40},{-100,40},{-100,
+          80},{-180,80}}, color={0,127,255}));
+  connect(port_b2, port_b2)
+    annotation (Line(points={{-180,-60},{-180,-60}}, color={0,127,255}));
+  connect(port_b2, hex.port_b2)
+    annotation (Line(points={{-180,-60},{-72,-60},{-72,
+          -6},{-10,-6},{-10,6}}, color={0,127,255}));
+  connect(VSup_flow.y, effCal.VSup_flow)
+    annotation (Line(points={{-139,62},{-120,
+          62},{-120,20},{-102,20}}, color={0,0,127}));
+  connect(VExh_flow.y, effCal.VExh_flow)
+    annotation (Line(points={{-139,40},{-124,
+          40},{-124,16},{-102,16}}, color={0,0,127}));
 annotation (
         defaultComponentName="whe",
         Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
@@ -277,24 +290,48 @@ annotation (
           textColor={0,0,255},
           textString="%name")}),
           Diagram(
-        coordinateSystem(preserveAspectRatio=true, extent={{-180,-100},{100,140}})),
+        coordinateSystem(preserveAspectRatio=true, extent={{-180,-100},{100,180}})),
 Documentation(info="<html>
 <p>
 Model of a generic, sensible and latent air-to-air heat recovery wheel, which consists of 
 a heat exchanger and two dampers to bypass the supply and exhaust airflow. 
 </p>
 <p>
-The operation of the heat recovery wheel is adjustable via bypassing supply/exhaust air 
-through the heat exchanger.
+This model does not require geometric data. The performance is defined by specifying the
+part load (75%) and nominal sensible and latent effectiveness in both heating and cooling conditions.
 </p>
+<h4>Operation</h4>
 <p>
-This model does not require geometric data. The performance is defined by specifying
-sensible and latent effectiveness at 75% and 100% of the nominal supply air flow
-rate in both heating and cooling conditions.
-For details, refer to
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.Effectiveness\">
-Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.Effectiveness</a>.
+This operation of the wheel is configured as follows.
 </p>
+<ul>
+  <li>
+  If the operating signal <code>opeSig = true</code>,
+  <ul>
+  <li>
+  the wheel power consumption is constant and equal to the nominal value.
+  </li>
+  <li>
+  The heat exchange in the heat recovery wheel is adjustable via bypassing supply/exhaust air 
+through the heat exchanger.
+  <br>
+  Accordingly, the sensible and latent effectiveness is calculated with <a href=\"modelica://Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.Effectiveness\">
+Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.Effectiveness</a>.
+  </li>
+  </ul>
+  </li>
+  <li>
+  Otherwise, 
+  <ul>
+  <li>
+  the wheel power consumption is 0.
+  </li>
+  <li>
+  In addition, there is no sensible or latent heat transfer, i.e., the sensible and latent effectiveness of the heat recovery wheel is 0.
+  </li>
+  </ul>
+  </li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>

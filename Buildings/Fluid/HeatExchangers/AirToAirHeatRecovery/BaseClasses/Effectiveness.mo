@@ -42,7 +42,7 @@ model Effectiveness
   Modelica.Blocks.Interfaces.RealInput uSpe(
     final unit="1",
     final max=1)
-    "Wheel speed"
+    "Wheel speed ratio"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealOutput epsSen(final unit="1")
     "Sensible heat exchanger effectiveness"
@@ -82,11 +82,11 @@ equation
   // calculate effectiveness.
   epsSen =uSpe*(epsSenPL + (epsSen_nominal - epsSenPL)*(rat - 0.75)/0.25);
   epsLat =uSpe*(epsLatPL + (epsLat_nominal - epsLatPL)*(rat - 0.75)/0.25);
-  assert(epsSen > 0 and epsSen < 1,
+  assert(epsSen >= 0 and epsSen < 1,
     "*** Error in " + getInstanceName() + ": The sensible heat exchange effectiveness should be in the range of [0, 1], 
     check if the part load (75%) or nominal sensible heat exchanger effectiveness is too high or too low.",
     level=AssertionLevel.error);
-  assert(epsLat > 0 and epsLat < 1,
+  assert(epsLat >= 0 and epsLat < 1,
     "*** Error in " + getInstanceName() + ": The latent heat exchange effectiveness should be in the range of [0, 1], 
     check if the part load (75%) or nominal latent heat exchanger effectiveness is too high or too low.",
     level=AssertionLevel.error);
@@ -119,8 +119,8 @@ where <code>VSup_flow</code> is the flow rate of the supply air;
 It then calculates the sensible and latent effectiveness by:
 </p>
 <pre>
-  epsSen = wheSpe * (epsSenPL + (epsSen_nominal - epsSenPL) * (rat - 0.75)/0.25),
-  epsLat = wheSpe * (epsLatPL + (epsLat_nominal - epsLatPL) * (rat - 0.75)/0.25),
+  epsSen = uSpe * (epsSenPL + (epsSen_nominal - epsSenPL) * (rat - 0.75)/0.25),
+  epsLat = uSpe * (epsLatPL + (epsLat_nominal - epsLatPL) * (rat - 0.75)/0.25),
 </pre>
 where <code>epsSen</code> and <code>epsLat</code> are the effectiveness
 for the sensible and latent heat transfer, respectively;
@@ -128,7 +128,7 @@ for the sensible and latent heat transfer, respectively;
 for the sensible heat transfer when <code>rat</code> is 1 and 0.75, respectively;
 <code>epsLat_nominal</code> and <code>epsLatPL</code> are the effectiveness 
 for the latent heat transfer when <code>Rat</code> is 1 and 0.75, respectively;
-<code>uSpe</code> is the speed of a rotary wheel.
+<code>uSpe</code> is the speed ratio of a rotary wheel.
 <p>
 The parameters <code>epsSen_nominal</code>, <code>epsSenPL</code>, <code>epsLat_nominal</code>, and 
 <code>epsLatPL</code> have different values depending on if the wheel is in
