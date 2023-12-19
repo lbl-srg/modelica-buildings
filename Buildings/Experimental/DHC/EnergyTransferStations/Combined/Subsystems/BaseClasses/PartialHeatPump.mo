@@ -65,7 +65,7 @@ model PartialHeatPump
     h_outflow(start=Medium1.h_default, nominal=Medium1.h_default))
     "Fluid port for cold domestic water"      annotation (Placement(
         transformation(extent={{-210,50},{-190,70}}),   iconTransformation(
-          extent={{-108,50},{-88,70}})));
+          extent={{-110,50},{-90,70}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b1(
     redeclare final package Medium = Medium1,
     m_flow(max=if allowFlowReversal1 then +Modelica.Constants.inf else 0),
@@ -111,7 +111,9 @@ model PartialHeatPump
     riseTime=10,
     dp_nominal=dp1_nominal)
                  "Pump for heat pump condenser"
-    annotation (Placement(transformation(extent={{-20,4},{-40,24}})));
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=270,
+        origin={-26,0})));
 
   Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumEva(
     redeclare final package Medium = Medium2,
@@ -119,13 +121,13 @@ model PartialHeatPump
     m_flow_nominal=mEva_flow_nominal,
     dp_nominal=dp2_nominal + 6000)
     "Heat pump evaporator water pump"
-    annotation (Placement(transformation(extent={{20,-70},{0,-50}})));
+    annotation (Placement(transformation(extent={{26,-70},{6,-50}})));
 
   Modelica.Blocks.Math.Add addPPum "Electricity use for pumps"
-    annotation (Placement(transformation(extent={{140,100},{160,120}})));
+    annotation (Placement(transformation(extent={{140,70},{160,90}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal floEva(realTrue=
         mEva_flow_nominal) "Evaporator mass flow rate"
-    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
+    annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
   Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valHeaPumEva(
     redeclare package Medium = Medium2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -167,22 +169,22 @@ model PartialHeatPump
     annotation (Placement(transformation(extent={{160,-70},{140,-50}})));
 equation
   connect(heaPum.port_b1,pumCon. port_a) annotation (Line(points={{-60,-66},{
-          -40,-66},{-40,-50},{-16,-50},{-16,14},{-20,14}},
+          -26,-66},{-26,-10}},
                            color={0,127,255}));
   connect(heaPum.P, PHea) annotation (Line(points={{-59,-72},{-20,-72},{-20,-20},
           {22,-20},{22,40},{220,40}},
                 color={0,0,127}));
   connect(floEva.y, pumEva.m_flow_in)
-    annotation (Line(points={{-58,90},{10,90},{10,-48}},  color={0,0,127}));
+    annotation (Line(points={{-58,120},{16,120},{16,-48}},color={0,0,127}));
   connect(valHeaPumEva.port_2, pumEva.port_a)
-    annotation (Line(points={{60,-60},{20,-60}}, color={0,127,255}));
+    annotation (Line(points={{60,-60},{26,-60}}, color={0,127,255}));
   connect(senTDisSup.T, dT_supRet.u1) annotation (Line(points={{110,-49},{110,
           -32},{34,-32},{34,-4},{78,-4}},
                                        color={0,0,127}));
   connect(valHeaPumEva.port_1, senTDisSup.port_b)
     annotation (Line(points={{80,-60},{100,-60}}, color={0,127,255}));
-  connect(pumEva.port_b, heaPum.port_a2) annotation (Line(points={{0,-60},{-30,
-          -60},{-30,-78},{-60,-78}},
+  connect(pumEva.port_b, heaPum.port_a2) annotation (Line(points={{6,-60},{0,
+          -60},{0,-78},{-60,-78}},
                                 color={0,127,255}));
   connect(conPI.u_s, dTSet.y)
     annotation (Line(points={{118,20},{102,20}},
@@ -198,17 +200,16 @@ equation
     annotation (Line(points={{160,-60},{200,-60}}, color={0,127,255}));
   connect(senMasFlo.m_flow, mEva_flow)
     annotation (Line(points={{150,-49},{150,-40},{220,-40}}, color={0,0,127}));
-  connect(pumCon.P, addPPum.u1) annotation (Line(points={{-41,23},{-40,23},{-40,
-          116},{138,116}},
-                         color={0,0,127}));
-  connect(addPPum.u2, pumEva.P) annotation (Line(points={{138,104},{0,104},{0,
-          -51},{-1,-51}}, color={0,0,127}));
+  connect(pumCon.P, addPPum.u1) annotation (Line(points={{-17,11},{-16,11},{-16,
+          86},{138,86}}, color={0,0,127}));
+  connect(addPPum.u2, pumEva.P) annotation (Line(points={{138,74},{0,74},{0,-51},
+          {5,-51}},       color={0,0,127}));
   connect(heaPum.port_b2, senTEvaRet.port_a) annotation (Line(points={{-80,-78},
           {-90,-78},{-90,-80},{-100,-80}}, color={0,127,255}));
   connect(senTEvaRet.port_b, port_b2) annotation (Line(points={{-120,-80},{-160,
           -80},{-160,-60},{-200,-60}}, color={0,127,255}));
-  connect(senTEvaRet.port_b, valHeaPumEva.port_3) annotation (Line(points={{
-          -120,-80},{-140,-80},{-140,-120},{70,-120},{70,-70}}, color={0,127,
+  connect(senTEvaRet.port_b, valHeaPumEva.port_3) annotation (Line(points={{-120,
+          -80},{-160,-80},{-160,-120},{70,-120},{70,-70}},      color={0,127,
           255}));
   connect(senTEvaRet.T, dT_supRet.u2) annotation (Line(points={{-110,-69},{-110,
           -16},{78,-16}}, color={0,0,127}));

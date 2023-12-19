@@ -250,7 +250,7 @@ First implementation.
           pattern=LinePattern.None),
         Rectangle(
           extent={{-44,64},{100,58}},
-          fillColor={0,140,72},
+          fillColor={102,44,145},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Rectangle(
@@ -335,7 +335,7 @@ First implementation.
           rotation=270),
         Rectangle(
           extent={{-12,2},{12,-2}},
-          fillColor={0,140,72},
+          fillColor={102,44,145},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
           origin={-44,52},

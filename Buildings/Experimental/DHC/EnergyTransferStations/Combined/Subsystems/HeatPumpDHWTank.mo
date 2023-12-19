@@ -17,7 +17,7 @@ model HeatPumpDHWTank
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal floCon(realTrue=
         mCon_flow_nominal) "Condenser mass flow rate"
-    annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
+    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
   Buildings.Experimental.DHC.Loads.HotWater.StorageTankWithExternalHeatExchanger heaPumTan(
     redeclare package MediumDom = Medium1,
     redeclare package MediumHea = Medium2,                      final dat=
@@ -27,7 +27,7 @@ model HeatPumpDHWTank
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant THotSouSet(k=datWatHea.TDom_nominal)
     "Set point of water in hot water tank"
-    annotation (Placement(transformation(extent={{-180,0},{-160,20}})));
+    annotation (Placement(transformation(extent={{-180,10},{-160,30}})));
   Buildings.Fluid.Sources.Boundary_pT preRef(
     redeclare package Medium = Medium2,
     p(displayUnit="bar"),
@@ -49,10 +49,10 @@ model HeatPumpDHWTank
                                    "Electricity use for pumps"
     annotation (Placement(transformation(extent={{170,-8},{190,12}})));
 equation
-  connect(THotSouSet.y, heaPumTan.TDomSet) annotation (Line(points={{-158,10},{-140,
-          10},{-140,20},{-81,20}}, color={0,0,127}));
+  connect(THotSouSet.y, heaPumTan.TDomSet) annotation (Line(points={{-158,20},{
+          -81,20}},                color={0,0,127}));
   connect(heaPumTan.charge, floCon.u) annotation (Line(points={{-58,11},{-56,11},
-          {-56,12},{-54,12},{-54,0},{-100,0},{-100,120},{-82,120}}, color={255,
+          {-56,12},{-54,12},{-54,0},{-100,0},{-100,90},{-82,90}},   color={255,
           0,255}));
   connect(preRef.ports[1], heaPumTan.port_bHea) annotation (Line(points={{-70,-20},
           {-92,-20},{-92,14},{-80,14}}, color={0,127,255}));
@@ -62,23 +62,25 @@ equation
           -130,-30},{-122,-30}},
                             color={0,0,127}));
   connect(floCon.y, pumCon.m_flow_in)
-    annotation (Line(points={{-58,120},{-30,120},{-30,26}}, color={0,0,127}));
-  connect(floEva.u, floCon.u) annotation (Line(points={{-82,90},{-100,90},{-100,
-          120},{-82,120}}, color={255,0,255}));
+    annotation (Line(points={{-58,90},{-4,90},{-4,0},{-14,0},{-14,-3.55271e-15}},
+                                                            color={0,0,127}));
+  connect(floEva.u, floCon.u) annotation (Line(points={{-82,120},{-100,120},{
+          -100,90},{-82,90}},
+                           color={255,0,255}));
   connect(heaPumTan.port_aHea, pumCon.port_b)
-    annotation (Line(points={{-60,14},{-40,14}}, color={0,127,255}));
+    annotation (Line(points={{-60,14},{-26,14},{-26,10}},
+                                                 color={0,127,255}));
   connect(senTemHeaPumRet.port_b, heaPum.port_a1)
     annotation (Line(points={{-120,-50},{-100,-50},{-100,-66},{-80,-66}},
                                                     color={0,127,255}));
   connect(addPPum.y, addPPum1.u1)
-    annotation (Line(points={{161,110},{168,110},{168,8}},
-                                                         color={0,0,127}));
+    annotation (Line(points={{161,80},{168,80},{168,8}}, color={0,0,127}));
   connect(heaPumTan.PEle, addPPum1.u2) annotation (Line(points={{-59,20},{-50,
           20},{-50,56},{164,56},{164,-4},{168,-4}}, color={0,0,127}));
   connect(addPPum1.y, PPum)
     annotation (Line(points={{191,2},{191,0},{220,0}}, color={0,0,127}));
   connect(conPI.trigger, floCon.u) annotation (Line(points={{124,8},{124,0},{
-          110,0},{110,106},{-100,106},{-100,120},{-82,120}}, color={255,0,255}));
+          110,0},{110,106},{-100,106},{-100,90},{-82,90}},   color={255,0,255}));
   connect(addPar.y, heaPum.TSet) annotation (Line(points={{-98,-30},{-92,-30},{
           -92,-63},{-82,-63}}, color={0,0,127}));
   connect(heaPumTan.port_bDom, port_b1) annotation (Line(points={{-60,26},{-54,
@@ -223,7 +225,7 @@ equation
           extent={{-56,84},{-54,54}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
-          fillColor={0,140,72},
+          fillColor={102,44,145},
           fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{-56,28},{-54,18}},
@@ -289,7 +291,7 @@ equation
           extent={{-1,64},{1,-64}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
-          fillColor={0,140,72},
+          fillColor={102,44,145},
           fillPattern=FillPattern.Solid,
           origin={8,83},
           rotation=90),
@@ -297,13 +299,13 @@ equation
           extent={{70,84},{72,60}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
-          fillColor={0,140,72},
+          fillColor={102,44,145},
           fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{92,62},{70,60}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
-          fillColor={0,140,72},
+          fillColor={102,44,145},
           fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{-1,10},{1,-10}},

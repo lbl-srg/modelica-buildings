@@ -29,34 +29,37 @@ model HeatPump "Base subsystem with water-to-water heat pump"
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant floConNom(
     final k=mCon_flow_nominal) if not have_varFloCon
     "Nominal flow rate"
-    annotation (Placement(transformation(extent={{-100,80},{-120,100}})));
+    annotation (Placement(transformation(extent={{-178,80},{-158,100}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     annotation (Placement(transformation(extent={{-180,110},{-160,130}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply floCon
     "Zero flow rate if not enabled"
-    annotation (Placement(transformation(extent={{-120,110},{-100,130}})));
+    annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
 equation
   connect(uEna, booToRea.u)
     annotation (Line(points={{-220,120},{-182,120}}, color={255,0,255}));
   connect(booToRea.y, floCon.u1) annotation (Line(points={{-158,120},{-140,120},
-          {-140,126},{-122,126}}, color={0,0,127}));
-  connect(m1_flow, floCon.u2) annotation (Line(points={{-220,80},{-140,80},{-140,
-          114},{-122,114}}, color={0,0,127}));
-  connect(floConNom.y, floCon.u2) annotation (Line(points={{-122,90},{-130,90},{
-          -130,114},{-122,114}}, color={0,0,127}));
-  connect(port_a1, heaPum.port_a1) annotation (Line(points={{-200,60},{-120,60},
-          {-120,-50},{-100,-50},{-100,-66},{-80,-66}},
-                                      color={0,127,255}));
-  connect(pumCon.port_b, port_b1) annotation (Line(points={{-40,14},{-60,14},{
-          -60,60},{200,60}},   color={0,127,255}));
+          {-140,106},{-122,106}}, color={0,0,127}));
+  connect(m1_flow, floCon.u2) annotation (Line(points={{-220,80},{-188,80},{
+          -188,70},{-140,70},{-140,94},{-122,94}},
+                            color={0,0,127}));
+  connect(floConNom.y, floCon.u2) annotation (Line(points={{-156,90},{-140,90},
+          {-140,94},{-122,94}},  color={0,0,127}));
+  connect(port_a1, heaPum.port_a1) annotation (Line(points={{-200,60},{-100,60},
+          {-100,-66},{-80,-66}},      color={0,127,255}));
+  connect(pumCon.port_b, port_b1) annotation (Line(points={{-26,10},{-26,60},{
+          200,60}},            color={0,127,255}));
   connect(TSupSet, heaPum.TSet) annotation (Line(points={{-220,-20},{-90,-20},{
           -90,-63},{-82,-63}},   color={0,0,127}));
   connect(uEna, floEva.u) annotation (Line(points={{-220,120},{-190,120},{-190,
-          136},{-90,136},{-90,90},{-82,90}}, color={255,0,255}));
+          136},{-90,136},{-90,120},{-82,120}},
+                                             color={255,0,255}));
   connect(floCon.y, pumCon.m_flow_in)
-    annotation (Line(points={{-98,120},{-30,120},{-30,26}}, color={0,0,127}));
+    annotation (Line(points={{-98,100},{12,100},{12,0},{-14,0},{-14,
+          -2.22045e-15}},                                   color={0,0,127}));
   connect(conPI.trigger, floEva.u) annotation (Line(points={{124,8},{124,-2},{
-          110,-2},{110,136},{-90,136},{-90,90},{-82,90}}, color={255,0,255}));
+          110,-2},{110,136},{-90,136},{-90,120},{-82,120}},
+                                                          color={255,0,255}));
   connect(addPPum.y, PPum) annotation (Line(points={{161,110},{174,110},{174,0},
           {220,0}},color={0,0,127}));
   annotation (
@@ -66,25 +69,25 @@ equation
           extent={{92,-58},{18,-60}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
-          fillColor={175,175,175},
+          fillColor={238,46,47},
           fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{18,-38},{20,-60}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
-          fillColor={175,175,175},
+          fillColor={238,46,47},
           fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{-14,-38},{-12,-60}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
-          fillColor={175,175,175},
+          fillColor={28,108,200},
           fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{-1,42},{1,-42}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
-          fillColor={175,175,175},
+          fillColor={28,108,200},
           fillPattern=FillPattern.Solid,
           origin={-54,-59},
           rotation=90),
@@ -92,19 +95,19 @@ equation
           extent={{-14,62},{-12,40}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
-          fillColor={28,108,200},
+          fillColor={0,140,72},
           fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{18,62},{20,40}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
-          fillColor={238,46,47},
+          fillColor={102,44,145},
           fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{-1,42},{1,-42}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
-          fillColor={28,108,200},
+          fillColor={0,140,72},
           fillPattern=FillPattern.Solid,
           origin={-54,61},
           rotation=90),
@@ -112,7 +115,7 @@ equation
           extent={{92,62},{18,60}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
-          fillColor={238,46,47},
+          fillColor={102,44,145},
           fillPattern=FillPattern.Solid)}), Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-200,-140},{200,140}})),
     Documentation(info="<html>
