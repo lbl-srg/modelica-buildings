@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "conVarFan.uFan",
+    "conVarFan.TZon",
+    "conVarFan.TCooSet",
+    "conVarFan.THeaSet",
+    "conVarFan.yFan",
+    "conVarFan.yFanSpe"
+  };
