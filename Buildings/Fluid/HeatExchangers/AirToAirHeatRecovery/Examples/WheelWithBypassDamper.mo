@@ -52,6 +52,7 @@ model WheelWithBypassDamper
     m2_flow_nominal=5,
     dp1_nominal(displayUnit="Pa") = 100,
     dp2_nominal(displayUnit="Pa") = 100,
+    P_nominal=100,
     epsLatCoo_nominal=0.7,
     epsLatCooPL=0.6,
     epsLatHea_nominal=0.7,
@@ -102,7 +103,7 @@ The input signals are configured as follows:
 </p>
 <ul>
 <li>
-The operating signal <i>opeSigfalse</i> changes into true at 72 seconds.
+The operating signal <i>opeSig</i> changes from <code>false</code> to <code>true</code> at 72 seconds.
 </li>
 <li>
 The supply air temperature <i>TSup</i> changes from <i>273.15 + 30 K</i> to

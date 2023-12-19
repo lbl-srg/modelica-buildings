@@ -52,6 +52,7 @@ model WheelWithVariableSpeed
     m2_flow_nominal=5,
     dp1_nominal=100,
     dp2_nominal=100,
+    P_nominal=100,
     epsLatCoo_nominal=0.7,
     epsLatCooPL=0.6,
     epsLatHea_nominal=0.7,

@@ -15,7 +15,7 @@ model WheelWithBypassDamper
     "Nominal supply air pressure drop";
   parameter Modelica.Units.SI.PressureDifference dp2_nominal = 125
     "Nominal exhaust air pressure drop";
-  parameter Real P_nominal(final unit="W") = 100
+  parameter Real P_nominal(final unit="W")
     "Power at the design condition";
   parameter Modelica.Units.SI.Efficiency epsSenCoo_nominal(
     final max=1) = 0.8
@@ -297,26 +297,39 @@ Model of a generic, sensible and latent air-to-air heat recovery wheel, which co
 a heat exchanger and two dampers to bypass the supply and exhaust airflow. 
 </p>
 <p>
-The operation of the heat recovery wheel is adjustable via bypassing supply/exhaust air 
-through the heat exchanger.
+This model does not require geometric data. The performance is defined by specifying the
+part load (75%) and nominal sensible and latent effectiveness in both heating and cooling conditions.
 </p>
-<p>
-This model does not require geometric data. The performance is defined by specifying
-sensible and latent effectiveness at 75% and 100% of the nominal supply air flow
-rate in both heating and cooling conditions.
-</p>
-<h4>Options</h4>
+<h4>Operation</h4>
 <p>
 This operation of the wheel is configured as follows.
 </p>
 <ul>
   <li>
-  If the operating signal <code>opeSig = true</code>, the wheel power consumption is constant.
-  The sensible and latent effectiveness is calculated with <a href=\"modelica://Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.Effectiveness\">
-Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.Effectiveness</a>.
+  If the operating signal <code>opeSig = true</code>,
+  <ul>
+  <li>
+  the wheel power consumption is constant and equal to the nominal value.
   </li>
   <li>
-  Otherwise, the wheel power consumption is 0 and there is no sensible or latent heat transfer.
+  The heat exchange in the heat recovery wheel is adjustable via bypassing supply/exhaust air 
+through the heat exchanger.
+  <br>
+  Accordingly, the sensible and latent effectiveness is calculated with <a href=\"modelica://Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.Effectiveness\">
+Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.Effectiveness</a>.
+  </li>
+  </ul>
+  </li>
+  <li>
+  Otherwise, 
+  <ul>
+  <li>
+  the wheel power consumption is 0.
+  </li>
+  <li>
+  In addition, there is no sensible or latent heat transfer, i.e., the sensible and latent effectiveness of the heat recovery wheel is 0.
+  </li>
+  </ul>
   </li>
 </ul>
 </html>", revisions="<html>

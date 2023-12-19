@@ -15,7 +15,7 @@ model WheelWithVariableSpeed
     "Nominal supply air pressure drop";
   parameter Modelica.Units.SI.PressureDifference dp2_nominal = 125
     "Nominal exhaust air pressure drop";
-  parameter Real P_nominal(final unit="W") = 100
+  parameter Real P_nominal(final unit="W")
     "Power at design condition";
   parameter Modelica.Units.SI.Efficiency epsSenCoo_nominal(
     final max=1) = 0.8
@@ -118,14 +118,24 @@ model WheelWithVariableSpeed
         Medium1.density(state=Medium1.setState_phX(
         p=port_a1.p,
         h=port_a1.h_outflow,
-        X=port_a1.Xi_outflow))) "Supply air volume flow rate"
+        X=port_a1.Xi_outflow)))
+    "Supply air volume flow rate"
     annotation (Placement(transformation(extent={{-90,30},{-70,50}})));
   Modelica.Blocks.Sources.RealExpression VExh_flow(final y=port_a2.m_flow/
         Medium2.density(state=Medium2.setState_phX(
         p=port_a2.p,
         h=port_a2.h_outflow,
-        X=port_a2.Xi_outflow))) "Exhaust air volume flow rate"
+        X=port_a2.Xi_outflow)))
+    "Exhaust air volume flow rate"
     annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
+
+initial equation
+  assert(abs(Buildings.Utilities.Math.Functions.polynomial(
+         a=a, x=uSpe)-1) < 0.01,
+         "*** Warning in " + getInstanceName() + ": Power efficiency curve is wrong. 
+         Power consumption should equal to the nominal value when uSpe = 1.",
+         level=AssertionLevel.warning);
+
 equation
   connect(hex.port_b1, port_b1)
     annotation (Line(points={{26,6},{40,6},{40,60},{100,60}},
@@ -140,7 +150,7 @@ equation
   connect(effCal.epsLat, hex.epsLat)
     annotation (Line(points={{-21,-4},{4,-4}},
         color={0,0,127}));
-  connect(effCal.uSpe, uSpe) 
+  connect(effCal.uSpe, uSpe)
     annotation (Line(points={{-44,0},{-120,0}},
         color={0,0,127}));
   connect(TSup.y, effCal.TSup)
@@ -151,13 +161,13 @@ equation
         color={0,0,127}));
   connect(hex.port_a1, port_a1)
     annotation (Line(points={{6,6},{0,6},{0,60},{-102,60}}, color={0,0,127}));
-  connect(hex.port_a2, port_a2) 
+  connect(hex.port_a2, port_a2)
     annotation (Line(points={{26,-6},{40,-6},{40,-60},
           {100,-60}}, color={0,127,255}));
-  connect(VSup_flow.y, effCal.VSup_flow) 
+  connect(VSup_flow.y, effCal.VSup_flow)
     annotation (Line(points={{-69,40},{-50,
           40},{-50,8},{-44,8}}, color={0,0,127}));
-  connect(VExh_flow.y, effCal.VExh_flow) 
+  connect(VExh_flow.y, effCal.VExh_flow)
     annotation (Line(points={{-69,20},{-58,
           20},{-58,4},{-44,4}}, color={0,0,127}));
 annotation (
@@ -220,18 +230,14 @@ Model of a generic, sensible and latent air-to-air heat recovery wheel, which ha
 wheel speed as the input to control the heat recovery.
 </p>
 <p>
+This model does not require geometric data. The performance is defined by specifying the 
+part load (75%) and nominal sensible and latent effectiveness in both heating and cooling conditions.
+</p>
+<p>
 The operation of the heat recovery wheel is adjustable by modulating the wheel speed.
 </p>
 <p>
-This model does not require geometric data. The performance is defined by
-specifying sensible and latent effectiveness at 75% and 100% of the nominal
-supply air flow rate in both heating and cooling conditions.
-For details, refer to
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.Effectiveness\">
-Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.Effectiveness</a>.
-</p>
-<p>
-The power consumption of this wheel is calculated by
+Accordingly, the power consumption of this wheel is calculated by
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
   P = P<sub>nominal</sub>(a<sub>1</sub> + a<sub>2</sub> uSpe + a<sub>3</sub> uSpe<sup>2</sup> + ...),
@@ -241,6 +247,10 @@ where <i>p<sub>nominal</sub></i> is the nominal wheel power consumption,
 <i>uSpe</i> is the wheel speed ratio, 
 and the coefficients <i>a<sub>i</sub></i>
 are declared by the parameter <code>a</code>.
+</p>
+<p>
+The sensible and latent effectiveness is calculated with <a href=\"modelica://Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.Effectiveness\">
+Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.Effectiveness</a>.
 </p>
 </html>", revisions="<html>
 <ul>
