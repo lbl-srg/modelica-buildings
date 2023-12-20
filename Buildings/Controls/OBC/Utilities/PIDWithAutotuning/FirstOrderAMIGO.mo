@@ -116,8 +116,7 @@ block FirstOrderAMIGO
     conProMod(
     final yHig=yHig - yRef,
     final yLow=yRef + yLow,
-    final deaBan=deaBan,
-    final reverseActing=reverseActing)
+    final deaBan=deaBan)
     "Calculates the parameters of a first-order time delayed model"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
   Buildings.Controls.OBC.CDL.Logical.Latch inTunPro

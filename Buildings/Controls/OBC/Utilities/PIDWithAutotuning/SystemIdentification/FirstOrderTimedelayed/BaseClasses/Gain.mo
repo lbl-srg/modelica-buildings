@@ -4,8 +4,6 @@ block Gain "Identify the gain of a first order time delayed model"
     "Higher value for the output (assuming the reference output is 0)";
   parameter Real yLow(min=1E-6) = 0.5
     "Lower value for the output (assuming the reference output is 0)";
-  parameter Boolean reverseActing=true
-    "Set to true for reverse acting, or false for direct acting control action";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
     "Relay controller output, (measurement - setpoint)"
     annotation (Placement(transformation(extent={{-140,50},{-100,90}}),
@@ -102,14 +100,13 @@ First implementation<br/>
 <p align=\"center\" style=\"font-style:italic;\">
 k = I<sub>y</sub>/I<sub>u</sub>,
 </p>
-<p>
-where <i>I<sub>y</sub></i> and <i>I<sub>u</sub></i> are the integral of the process
-output and the integral of the relay output, respectively.
-</p>
+
 <p><i>I<sub>y</sub></i> is calculated by </p>
-<p>I<sub>y</sub> = &int; -u(t) dt;</p>
-<p>where <i>u</i> is the input difference of a relay controller, see details in <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller</a>
+<p align=\"center\" style=\"font-style:italic;\">
+I<sub>y</sub> = &int; u(t) dt;</p>
+<p>
+where <i>u(t)</i> is the relay output at <i>t</i> (see details in <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller</a>).
 </p>
 <p><i>I<sub>u</sub></i> is calculated by </p>
 <p align=\"center\" style=\"font-style:italic;\">
