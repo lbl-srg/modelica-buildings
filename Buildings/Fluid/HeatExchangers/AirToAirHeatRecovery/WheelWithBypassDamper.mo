@@ -16,7 +16,7 @@ model WheelWithBypassDamper
   parameter Modelica.Units.SI.PressureDifference dp2_nominal = 125
     "Nominal exhaust air pressure drop";
   parameter Real P_nominal(final unit="W")
-    "Power at the design condition";
+    "Power consumption at the design condition";
   parameter Modelica.Units.SI.Efficiency epsSenCoo_nominal(
     final max=1) = 0.8
     "Nominal sensible heat exchanger effectiveness at the cooling mode";
@@ -50,11 +50,12 @@ model WheelWithBypassDamper
     annotation (Placement(transformation(extent={{-220,100},{-180,140}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.BooleanInput opeSig
-    "True when the wheel is operating" annotation (Placement(transformation(
-          extent={{-220,-20},{-180,20}}), iconTransformation(extent={{-140,60},
-            {-100,100}})));
-  Modelica.Blocks.Interfaces.RealOutput P
-    "Electric power consumed by the wheel"
+    "True when the wheel is operating"
+    annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
+      iconTransformation(extent={{-140,60},{-100,100}})));
+  Modelica.Blocks.Interfaces.RealOutput P(
+    final unit="W")
+    "Electric power consumption"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.HeatExchangerWithInputEffectiveness
     hex(
@@ -151,16 +152,19 @@ model WheelWithBypassDamper
   Buildings.Controls.OBC.CDL.Reals.Subtract sub
     "Difference of the two inputs"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
-  Modelica.Blocks.Math.BooleanToReal booleanToReal(final realTrue=1.0, final realFalse=0.0)
+  Modelica.Blocks.Math.BooleanToReal booleanToReal
+    "Convert boolean input to real output"
     annotation (Placement(transformation(extent={{-160,0},{-140,20}})));
-  Modelica.Blocks.Sources.RealExpression VSup_flow(final y=hex.port_a1.m_flow/
+  Modelica.Blocks.Sources.RealExpression VSup_flow(
+    final y=hex.port_a1.m_flow/
         Medium1.density(state=Medium1.setState_phX(
         p=hex.port_a1.p,
         h=hex.port_a1.h_outflow,
         X=hex.port_a1.Xi_outflow)))
     "Supply air volume flow rate"
     annotation (Placement(transformation(extent={{-160,52},{-140,72}})));
-  Modelica.Blocks.Sources.RealExpression VExh_flow(final y=hex.port_a2.m_flow/
+  Modelica.Blocks.Sources.RealExpression VExh_flow(
+    final y=hex.port_a2.m_flow/
         Medium2.density(state=Medium2.setState_phX(
         p=hex.port_a2.p,
         h=hex.port_a2.h_outflow,

@@ -16,7 +16,7 @@ model WheelWithVariableSpeed
   parameter Modelica.Units.SI.PressureDifference dp2_nominal = 125
     "Nominal exhaust air pressure drop";
   parameter Real P_nominal(final unit="W")
-    "Power at design condition";
+    "Power consumption at design condition";
   parameter Modelica.Units.SI.Efficiency epsSenCoo_nominal(
     final max=1) = 0.8
     "Nominal sensible heat exchanger effectiveness at the cooling mode";
@@ -44,6 +44,7 @@ model WheelWithVariableSpeed
   parameter Real a[:] = {1}
     "Coefficients for power efficiency curve (need p(a=a, uSpe=1)=1)"
     annotation (Dialog(group="Efficiency"));
+
   Modelica.Blocks.Interfaces.RealInput uSpe(
     final unit="1",
     final max=1)
@@ -92,8 +93,8 @@ model WheelWithVariableSpeed
         X=inStream(port_a2.Xi_outflow))))
     "Exhaust air temperature"
     annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
-  Modelica.Blocks.Sources.RealExpression PEle(final y=P_nominal*
-        Buildings.Utilities.Math.Functions.polynomial(a=a, x=uSpe))
+  Modelica.Blocks.Sources.RealExpression PEle(
+    final y=P_nominal*Buildings.Utilities.Math.Functions.polynomial(a=a, x=uSpe))
     "Electric power consumption"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a1(
@@ -114,14 +115,16 @@ model WheelWithVariableSpeed
     redeclare final package Medium = Medium2)
     "Fluid connector a2 of the exhaust air (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
-  Modelica.Blocks.Sources.RealExpression VSup_flow(final y=port_a1.m_flow/
+  Modelica.Blocks.Sources.RealExpression VSup_flow(
+    final y=port_a1.m_flow/
         Medium1.density(state=Medium1.setState_phX(
         p=port_a1.p,
         h=port_a1.h_outflow,
         X=port_a1.Xi_outflow)))
     "Supply air volume flow rate"
     annotation (Placement(transformation(extent={{-90,30},{-70,50}})));
-  Modelica.Blocks.Sources.RealExpression VExh_flow(final y=port_a2.m_flow/
+  Modelica.Blocks.Sources.RealExpression VExh_flow(
+    final y=port_a2.m_flow/
         Medium2.density(state=Medium2.setState_phX(
         p=port_a2.p,
         h=port_a2.h_outflow,
@@ -130,8 +133,8 @@ model WheelWithVariableSpeed
     annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
 
 initial equation
-  assert(abs(Buildings.Utilities.Math.Functions.polynomial(
-         a=a, x=uSpe)-1) < 0.01,
+  assert(noEvent(abs(Buildings.Utilities.Math.Functions.polynomial(
+         a=a, x=uSpe)-1) < 0.01),
          "*** Warning in " + getInstanceName() + ": Power efficiency curve is wrong. 
          Power consumption should equal to the nominal value when uSpe = 1.",
          level=AssertionLevel.warning);
