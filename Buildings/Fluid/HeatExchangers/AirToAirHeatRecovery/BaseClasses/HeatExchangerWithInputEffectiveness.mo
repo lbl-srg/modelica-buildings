@@ -139,47 +139,8 @@ revisions="<html>
 <ul>
 <li>
 September 29, 2023, by Sen Huang:<br/>
-Change the effectiveness parameters into inputs.
-</li>
-<li>
-April 30, 2018, by Filip Jorissen:<br/>
-Set <code>final prescribedHeatFlowRate1=true</code> and 
-<code>final prescribedHeatFlowRate2=true</code>.<br/>
-See
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/907\">#907</a>.
-</li>
-<li>
-April 11, 2017, by Michael Wetter:<br/>
-Corrected bug as <code>Q1_flow</code> did not include latent heat flow rate.<br/>
-This is for issue
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">Buildings #704</a>.
-</li>
-<li>
-October 14, 2013 by Michael Wetter:<br/>
-Replaced access to constant <code>Medium1.Water</code> by introducing
-the parameter <code>i1_w</code>, and used a similar construct for
-<code>Medium2</code>.
-This avoids an error during model check as these constants are not known
-in the partial medium model.
-</li>
-<li>
-August 13, 2013 by Michael Wetter:<br/>
-Corrected error in the documentation.
-</li>
-<li>
-July 30, 2013 by Michael Wetter:<br/>
-Updated model to use new variable <code>mWat_flow</code>
-in the base class.
-</li>
-<li>
-January 28, 2010, by Michael Wetter:<br/>
-Added regularization near zero flow.
-</li>
-<li>
-October 21, 2008, by Michael Wetter:<br/>
-First implementation, based on
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.ConstantEffectiveness\">
-Buildings.Fluid.HeatExchangers.ConstantEffectiveness</a>.
+First implementation based on <a href=\"modelica://Buildings.Fluid.MassExchangers.ConstantEffectiveness\">
+Buildings.Fluid.MassExchangers.ConstantEffectivenesst</a>.
 </li>
 </ul>
 </html>"));

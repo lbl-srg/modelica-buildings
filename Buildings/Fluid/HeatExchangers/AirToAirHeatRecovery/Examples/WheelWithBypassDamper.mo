@@ -12,22 +12,21 @@ model WheelWithBypassDamper
     T=273.15 + 10,
     nPorts=1)
     "Exhaust air sink"
-    annotation (Placement(transformation(extent={{-58,-10},
-    {-38,10}})));
+    annotation (Placement(transformation(extent={{-58,-18},{-38,2}})));
   Buildings.Fluid.Sources.Boundary_pT sou_2(
     redeclare package Medium = Medium2,
     p(displayUnit="Pa") = 101325 + 100,
     T(displayUnit="K") = 293.15,
     nPorts=1)
     "Exhaust air source"
-    annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
+    annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
   Modelica.Blocks.Sources.Ramp TSup(
     height=10,
     duration=60,
     offset=273.15 + 30,
     startTime=60)
     "Supply air temperature"
-    annotation (Placement(transformation(extent={{-94,74},{-74,94}})));
+    annotation (Placement(transformation(extent={{-80,64},{-60,84}})));
   Buildings.Fluid.Sources.Boundary_pT sin_1(
     redeclare package Medium = Medium1,
     T=273.15 + 30,
@@ -35,7 +34,7 @@ model WheelWithBypassDamper
     p(displayUnit="Pa") = 101325 - 100,
     nPorts=1)
     "Supply air sink"
-    annotation (Placement(transformation(extent={{84,2},{64,22}})));
+    annotation (Placement(transformation(extent={{80,20},{60,40}})));
   Buildings.Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = Medium1,
     T=273.15 + 50,
@@ -44,7 +43,7 @@ model WheelWithBypassDamper
     p(displayUnit="Pa") = 101325,
     nPorts=1)
     "Supply air source"
-    annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
+    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
   Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.WheelWithBypassDamper whe(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
@@ -58,37 +57,37 @@ model WheelWithBypassDamper
     epsLatHea_nominal=0.7,
     epsLatHeaPL=0.6)
     "Wheel"
-    annotation (Placement(transformation(extent={{6,-4},{26,16}})));
+    annotation (Placement(transformation(extent={{0,-12},{20,8}})));
   Modelica.Blocks.Sources.Ramp bypDamPos(
     height=0.2,
     duration=160,
     offset=0,
     startTime=200)
     "Bypass damper position"
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+    annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse opeSig(
     width=0.8,
     period=400,
     shift=72) "Operating signal"
-    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
+    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 equation
   connect(TSup.y, sou_1.T_in)
-    annotation (Line(points={{-73,84},{-62,84}}, color={0,0,127}));
+    annotation (Line(points={{-59,74},{-42,74}}, color={0,0,127}));
   connect(sou_1.ports[1],whe.port_a1)
-    annotation (Line(points={{-40,80},{0,80},{0,12},{6,12}}, color={0,127,255}));
+    annotation (Line(points={{-20,70},{0,70},{0,4}}, color={0,127,255}));
   connect(whe.port_a2, sou_2.ports[1])
-    annotation (Line(points={{26,0},{32,0},{32,-20},{70,-20},{70,-60},{60,-60}},
+    annotation (Line(points={{20,-8},{60,-8},{60,-60},{40,-60}},
         color={0,127,255}));
   connect(whe.port_b1, sin_1.ports[1])
-    annotation (Line(points={{26,12},{45,12},{45,12},{64,12}},
+    annotation (Line(points={{20,4},{40,4},{40,30},{60,30}},
         color={0,127,255}));
   connect(whe.port_b2, sin_2.ports[1])
-    annotation (Line(points={{6,0},{-18,0},{-18,6.66134e-16},{-38,6.66134e-16}},
+    annotation (Line(points={{0,-8},{-38,-8}},
         color={0,127,255}));
-  connect(bypDamPos.y, whe.uBypDamPos) annotation (Line(points={{-59,-30},{-28,-30},
-          {-28,6},{4,6}}, color={0,0,127}));
-  connect(opeSig.y, whe.opeSig) annotation (Line(points={{-58,40},{-20,40},{-20,
-          14},{4,14}}, color={255,0,255}));
+  connect(bypDamPos.y, whe.uBypDamPos) annotation (Line(points={{-59,-60},{-20,-60},
+          {-20,-2},{-2,-2}}, color={0,0,127}));
+  connect(opeSig.y, whe.opeSig) annotation (Line(points={{-58,30},{-20,30},{-20,
+          6},{-2,6}},  color={255,0,255}));
 annotation(experiment(Tolerance=1e-6, StopTime=360),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/AirToAirHeatRecovery/Examples/WheelWithBypassDamper.mos"
         "Simulate and plot"),

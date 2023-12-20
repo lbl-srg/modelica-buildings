@@ -149,7 +149,7 @@ equation
   connect(PEle.y, P)
     annotation (Line(points={{91,0},{110,0}}, color={0,0,127}));
   connect(effCal.epsSen, hex.epsSen)
-    annotation (Line(points={{-21,4},{4,4}},                 color={0,0,127}));
+    annotation (Line(points={{-21,4},{4,4}}, color={0,0,127}));
   connect(effCal.epsLat, hex.epsLat)
     annotation (Line(points={{-21,-4},{4,-4}},
         color={0,0,127}));
