@@ -5,6 +5,13 @@ clear
 
 convertClear();
 
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3598
+// remove parameter binding computeFlowResistance which is now final
+convertModifiers("Buildings.Fluid.SolarCollectors.ASHRAE93",
+                {"computeFlowResistance"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.SolarCollectors.EN12975",
+                {"computeFlowResistance"}, fill("",0), true);
+
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3517
 convertClass("Buildings.Controls.OBC.CDL.Discrete.Examples",
              "Buildings.Controls.OBC.CDL.Discrete.Validation");
