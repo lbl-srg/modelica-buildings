@@ -6,6 +6,9 @@
 #define GETTIMESPAN_C_
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 #include "ModelicaUtilities.h"
 
 #include "getTimeSpan.h"
