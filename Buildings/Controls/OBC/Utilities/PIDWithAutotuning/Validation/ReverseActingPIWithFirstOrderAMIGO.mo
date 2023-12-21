@@ -99,8 +99,8 @@ Validation test for the block
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.FirstOrderAMIGO</a>.
 </p>
 <p>
-This example is similar as <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Validation.PIDWithFirstOrderAMIGO\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Validation.PIDWithFirstOrderAMIGO</a>.
+This example is similar as <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Validation.ReverseActingPIDWithFirstOrderAMIGO\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Validation.ReverseActingPIDWithFirstOrderAMIGO</a>.
 However, an autotuning PI controller rather than an autotuning PID controller is considered in this example.
 </p>
 </html>",
