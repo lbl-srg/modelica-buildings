@@ -217,6 +217,12 @@ Version 11.0.0 is ...
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
+<tr><td valign=\"top\">Buildings.Controls.OBC.Utilities.PIDWithAutotuning
+    </td>
+    <td valign=\"top\">Package that contains components for the PID controller that can
+                       autotune the control gain and time constants.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Examples.Tutorial.SimpleHouse
     </td>
     <td valign=\"top\">Tutorial for how to build a simple system model.
@@ -283,7 +289,7 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">Buildings.Templates.Components.Fans.ArrayVariable
     </td>
     <td valign=\"top\">Refactored with flow rate multiplier.<br/>
-	          This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3536\">#3536</a>.
+                  This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3536\">#3536</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
@@ -368,10 +374,10 @@ have been <b style=\"color:blue\">improved</b> in a
                      Buildings.Templates.Components.Valves
     </td>
     <td valign=\"top\">The models in these packages have been retired and replaced
-		with two container classes within <code>Buildings.Templates.Components.Actuators</code>
-		that cover all equipment types, and allow the flow characteristic to be specified
-		with one parameter.<br/>
-                     	This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3539\">#3539</a>.
+                with two container classes within <code>Buildings.Templates.Components.Actuators</code>
+                that cover all equipment types, and allow the flow characteristic to be specified
+                with one parameter.<br/>
+                             This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3539\">#3539</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
@@ -504,12 +510,6 @@ See also <a href=\"https://obc.lbl.gov\">obc.lbl.gov</a>.
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
-<tr><td valign=\"top\">Buildings.Controls.OBC.Utilities.PIDWithAutotuning
-    </td>
-    <td valign=\"top\">Package that contains components for the PID controller that can
-                       autotune the control gain and time constants.
-    </td>
-</tr>
 <tr><td valign=\"top\">Buildings.Templates
     </td>
     <td valign=\"top\">Package that contains templates for HVAC systems with control sequences
