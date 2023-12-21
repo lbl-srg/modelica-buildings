@@ -2,10 +2,14 @@ within Buildings.Fluid.DXSystems.Heating.AirSource.Validation.BaseClasses;
 block PLRToPulse
   "Converts an input for part load ratio value into an enable signal"
 
-  parameter Real tPer = 15*60
+  parameter Real tPer(
+    final quantity="Time",
+    final unit="s") = 15*60
     "Time period for PLR sampling";
 
-  parameter Real tDel = 1e-6
+  parameter Real tDel(
+    final quantity="Time",
+    final unit="s") = 1e-6
     "Delay time of the enable signal";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uPLR
@@ -100,7 +104,9 @@ equation
     annotation (Line(points={{62,-10},{92,-10},{92,0},{120,0}},
       color={255,0,255}));
 
-annotation (Icon(
+annotation (
+  defaultComponentName="plrToPul",
+  Icon(
     coordinateSystem(preserveAspectRatio=false),
     graphics={Rectangle(extent={{-100,100},{100,-100}},lineColor={0,0,0},
       fillColor={255,255,255},fillPattern = FillPattern.Solid),
@@ -108,7 +114,7 @@ annotation (Icon(
         extent={{-160,140},{160,100}},
         textString="%name",
         textColor={0,0,255})}),
-  Diagram(defaultComponentName="plrToPul",
+  Diagram(
   coordinateSystem(preserveAspectRatio=false)),
   Documentation(info="<html>
 <p>
