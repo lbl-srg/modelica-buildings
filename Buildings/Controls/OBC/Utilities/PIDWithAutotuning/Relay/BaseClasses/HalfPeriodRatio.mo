@@ -32,44 +32,41 @@ protected
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler tOffSam(
     final y_start=Buildings.Controls.OBC.CDL.Constants.eps)
     "Block that samples tOff when the tuning period ends"
-    annotation (Placement(transformation(extent={{-80,-60},{-60,-80}})));
+    annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   Buildings.Controls.OBC.CDL.Reals.Min mintOntOff
     "Block that finds the smaller one between the length for the on period and the length for the off period"
-    annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
+    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Max maxtOntOff
     "Block that finds the larger one between the length for the on period and the length for the off period"
-    annotation (Placement(transformation(extent={{-20,30},{0,50}})));
+    annotation (Placement(transformation(extent={{0,30},{20,50}})));
   Buildings.Controls.OBC.CDL.Reals.Divide halPerRat
     "Block that calculates the half period ratio"
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
 equation
   connect(tOnSam.u, tOn)
     annotation (Line(points={{-82,80},{-120,80}}, color={0,0,127}));
   connect(tOffSam.u, tOff)
-    annotation (Line(points={{-82,-70},{-120,-70}}, color={0,0,127}));
-  connect(tOnSam.y, maxtOntOff.u1) annotation (Line(points={{-58,80},{-52,80},{
-          -52,46},{-22,46}},
-                         color={0,0,127}));
-  connect(maxtOntOff.u2, tOffSam.y) annotation (Line(points={{-22,34},{-40,34},
-          {-40,-70},{-58,-70}},color={0,0,127}));
-  connect(mintOntOff.u2, tOffSam.y) annotation (Line(points={{-22,-26},{-40,-26},
-          {-40,-70},{-58,-70}}, color={0,0,127}));
-  connect(maxtOntOff.y, halPerRat.u1) annotation (Line(points={{2,40},{32,40},{
-          32,6},{38,6}},
-                      color={0,0,127}));
-  connect(halPerRat.u2, mintOntOff.y) annotation (Line(points={{38,-6},{10,-6},{
-          10,-20},{2,-20}}, color={0,0,127}));
-  connect(halPerRat.y, rho) annotation (Line(points={{62,0},{102,0},{102,0},{120,
-          0}}, color={0,0,127}));
+    annotation (Line(points={{-62,-70},{-120,-70}}, color={0,0,127}));
+  connect(tOnSam.y, maxtOntOff.u1) annotation (Line(points={{-58,80},{-40,80},{-40,
+          46},{-2,46}},  color={0,0,127}));
+  connect(maxtOntOff.u2, tOffSam.y) annotation (Line(points={{-2,34},{-20,34},{-20,
+          -70},{-38,-70}}, color={0,0,127}));
+  connect(mintOntOff.u2, tOffSam.y) annotation (Line(points={{-2,-46},{-20,-46},
+          {-20,-70},{-38,-70}}, color={0,0,127}));
+  connect(maxtOntOff.y, halPerRat.u1) annotation (Line(points={{22,40},{40,40},{
+          40,6},{58,6}}, color={0,0,127}));
+  connect(halPerRat.u2, mintOntOff.y) annotation (Line(points={{58,-6},{40,-6},{
+          40,-40},{22,-40}},color={0,0,127}));
+  connect(halPerRat.y, rho) annotation (Line(points={{82,0},{120,0}},
+               color={0,0,127}));
   connect(tOnSam.y, mintOntOff.u1)
-    annotation (Line(points={{-58,80},{-52,80},{-52,
-          46},{-28,46},{-28,-14},{-22,-14}},
+    annotation (Line(points={{-58,80},{-40,80},{-40,-34},{-2,-34}},
           color={0,0,127}));
   connect(tOnSam.trigger, TunEnd)
     annotation (Line(points={{-70,68},{-70,0},{-120,0}}, color={255,0,255}));
-  connect(tOffSam.trigger, TunEnd)
-    annotation (Line(points={{-70,-58},{-70,0},{-120,0}}, color={255,0,255}));
+  connect(TunEnd, tOffSam.trigger) annotation (Line(points={{-120,0},{-70,0},{-70,
+          -90},{-50,-90},{-50,-82}}, color={255,0,255}));
   annotation (defaultComponentName = "halPerRat",
         Diagram(
            coordinateSystem(

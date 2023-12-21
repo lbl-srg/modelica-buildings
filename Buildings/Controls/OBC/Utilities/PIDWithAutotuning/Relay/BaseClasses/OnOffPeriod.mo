@@ -4,7 +4,7 @@ block OnOffPeriod "Calculate the lengths of the on period and the off period"
     final quantity="Time",
     final unit="s")
     "Simulation time"
-    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput on
    "Relay switch signal"
@@ -57,17 +57,19 @@ equation
           {-28,40}},color={0,0,127}));
   connect(lenOnCal.u2, timOn.y)
     annotation (Line(points={{10,34},{0,34},{0,40},{-28,40}},color={0,0,127}));
-  connect(lenOnCal.u1, timOff.y) annotation (Line(points={{10,46},{-4,46},{-4,0},
-          {-28,0}}, color={0,0,127}));
-  connect(lenOffCal.u2, timOff.y) annotation (Line(points={{8,-46},{-14,-46},{-14,
-          0},{-28,0}}, color={0,0,127}));
-  connect(timOn.u, tim) annotation (Line(points={{-52,40},{-80,40},{-80,60},{-120,
-          60}}, color={0,0,127}));
-  connect(timOff.u, tim) annotation (Line(points={{-52,0},{-60,0},{-60,40},{-80,
-          40},{-80,60},{-120,60}},
+  connect(lenOnCal.u1, timOff.y) annotation (Line(points={{10,46},{-20,46},{-20,
+          0},{-28,0}},
+                    color={0,0,127}));
+  connect(lenOffCal.u2, timOff.y) annotation (Line(points={{8,-46},{-20,-46},{
+          -20,0},{-28,0}},
+                       color={0,0,127}));
+  connect(timOn.u, tim) annotation (Line(points={{-52,40},{-120,40}},
+                color={0,0,127}));
+  connect(timOff.u, tim) annotation (Line(points={{-52,0},{-60,0},{-60,40},{
+          -120,40}},
           color={0,0,127}));
-  connect(timOn.trigger, on) annotation (Line(points={{-40,28},{-40,20},{-86,20},
-          {-86,0},{-120,0}}, color={255,0,255}));
+  connect(timOn.trigger, on) annotation (Line(points={{-40,28},{-40,20},{-92,20},
+          {-92,0},{-120,0}}, color={255,0,255}));
   connect(not1.u, on) annotation (Line(points={{-82,-20},{-92,-20},{-92,0},{-120,
           0}}, color={255,0,255}));
   connect(not1.y, timOff.trigger) annotation (Line(points={{-58,-20},{-40,-20},{
@@ -76,14 +78,15 @@ equation
     annotation (Line(points={{82,40},{120,40}}, color={0,0,127}));
   connect(timOffRec.y, tOff)
     annotation (Line(points={{82,-40},{120,-40}}, color={0,0,127}));
-  connect(lenOnCal.y, timOnRec.u) annotation (Line(points={{34,40},{46,40},{46,46},
-          {58,46}}, color={0,0,127}));
+  connect(lenOnCal.y, timOnRec.u) annotation (Line(points={{34,40},{40,40},{40,
+          46},{58,46}},
+                    color={0,0,127}));
   connect(lenOffCal.y, timOffRec.u) annotation (Line(points={{32,-40},{48,-40},{
           48,-34},{58,-34}}, color={0,0,127}));
   connect(timOnRec.trigger, trigger) annotation (Line(points={{58,34},{40,34},{40,
           -60},{-120,-60}}, color={255,0,255}));
-  connect(timOffRec.trigger, trigger) annotation (Line(points={{58,-46},{52,-46},
-          {52,-60},{-120,-60}}, color={255,0,255}));
+  connect(timOffRec.trigger, trigger) annotation (Line(points={{58,-46},{40,-46},
+          {40,-60},{-120,-60}}, color={255,0,255}));
   annotation (
         defaultComponentName = "onOffPer",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={

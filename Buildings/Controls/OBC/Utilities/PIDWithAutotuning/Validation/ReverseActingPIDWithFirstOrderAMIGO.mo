@@ -59,17 +59,17 @@ equation
           {-22,60}}, color={0,0,127}));
   connect(PIDWitTun.y, uniDel2.u) annotation (Line(points={{2,-20},{18,-20}},color={0,0,127}));
   connect(uniDel1.u, PID.y) annotation (Line(points={{18,60},{2,60}},color={0,0,127}));
-  connect(uniDel1.y, sub1.u1) annotation (Line(points={{42,60},{54,60},{54,86},
+  connect(uniDel1.y, sub1.u1) annotation (Line(points={{42,60},{72,60},{72,86},
           {118,86}}, color={0,0,127}));
-  connect(k.y, derivative1.k) annotation (Line(points={{32,20},{44,20},{44,28},
+  connect(k.y, derivative1.k) annotation (Line(points={{32,20},{68,20},{68,28},
           {78,28}}, color={0,0,127}));
-  connect(derivative1.T, T.y) annotation (Line(points={{78,24},{60,24},{60,-56},
+  connect(derivative1.T, T.y) annotation (Line(points={{78,24},{52,24},{52,-56},
           {32,-56}}, color={0,0,127}));
   connect(derivative1.y, sub1.u2) annotation (Line(points={{102,20},{112,20},{
           112,74},{118,74}}, color={0,0,127}));
   connect(sub1.y, PID.u_m) annotation (Line(points={{142,80},{150,80},{150,40},
           {-10,40},{-10,48}}, color={0,0,127}));
-  connect(sub2.u1, uniDel2.y) annotation (Line(points={{118,-4},{64,-4},{64,-20},
+  connect(sub2.u1, uniDel2.y) annotation (Line(points={{118,-4},{60,-4},{60,-20},
           {42,-20}}, color={0,0,127}));
   connect(derivative2.y,sub2. u2) annotation (Line(points={{102,-60},{110,-60},
           {110,-16},{118,-16}}, color={0,0,127}));
@@ -77,14 +77,14 @@ equation
           152,-36},{-10,-36},{-10,-32}}, color={0,0,127}));
   connect(derivative2.T, T.y) annotation (Line(points={{78,-56},{32,-56}},
          color={0,0,127}));
-  connect(derivative1.u, sub1.u1) annotation (Line(points={{78,20},{72,20},{72,
-          86},{118,86}}, color={0,0,127}));
-  connect(derivative2.u, uniDel2.y) annotation (Line(points={{78,-60},{64,-60},
-          {64,-20},{42,-20}}, color={0,0,127}));
+  connect(derivative2.u, uniDel2.y) annotation (Line(points={{78,-60},{60,-60},
+          {60,-20},{42,-20}}, color={0,0,127}));
   connect(autTunSig.y, PIDWitTun.triTun)
     annotation (Line(points={{-58,-50},{-4,-50},{-4,-32}}, color={255,0,255}));
   connect(k.y, derivative2.k) annotation (Line(points={{32,20},{68,20},{68,-52},
           {78,-52}}, color={0,0,127}));
+  connect(uniDel1.y, derivative1.u) annotation (Line(points={{42,60},{72,60},{
+          72,20},{78,20}}, color={0,0,127}));
   annotation (
     experiment(
       StopTime=10000,

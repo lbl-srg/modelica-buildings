@@ -39,53 +39,57 @@ block ResponseProcess
     annotation (Placement(transformation(extent={{100,-100},{140,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput tau
     "Normalized time delay"
-    annotation (Placement(transformation(extent={{100,-10},{140,30}}),
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.OnOffPeriod onOffPer
     "Block that calculates the length of the on period and the off period"
-    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.HalfPeriodRatio halPerRatio
     "Block that calculates the half period ratio"
-    annotation (Placement(transformation(extent={{0,0},{20,20}})));
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.NormalizedTimeDelay norTimDel(
      final gamma=max(yHig, yLow)/min(yLow, yHig))
     "Block that calculates the normalized time delay"
-    annotation (Placement(transformation(extent={{40,0},{60,20}})));
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.TuningMonitor
     tunMon "Block that detects when the tuning period starts and ends"
-    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
+    annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
 
 equation
-  connect(onOffPer.on,on)  annotation (Line(points={{-82,10},{-96,10},{-96,0},{-120,
-          0}}, color={255,0,255}));
-  connect(onOffPer.tim, tim) annotation (Line(points={{-82,16},{-90,16},{-90,60},
+  connect(onOffPer.on,on)  annotation (Line(points={{-82,0},{-120,0}},
+               color={255,0,255}));
+  connect(onOffPer.tim, tim) annotation (Line(points={{-82,6},{-90,6},{-90,60},
           {-120,60}}, color={0,0,127}));
-  connect(onOffPer.tOn, halPerRatio.tOn) annotation (Line(points={{-58,14},{-40,
-          14},{-40,16},{-2,16}},  color={0,0,127}));
-  connect(onOffPer.tOff, halPerRatio.tOff) annotation (Line(points={{-58,6},{-30,
-          6},{-30,4},{-2,4}}, color={0,0,127}));
-  connect(halPerRatio.rho, norTimDel.rho) annotation (Line(points={{22,10},{38,10}},
+  connect(onOffPer.tOn, halPerRatio.tOn) annotation (Line(points={{-58,4},{-30,
+          4},{-30,6},{18,6}},     color={0,0,127}));
+  connect(onOffPer.tOff, halPerRatio.tOff) annotation (Line(points={{-58,-4},{
+          -40,-4},{-40,-6},{18,-6}},
+                              color={0,0,127}));
+  connect(halPerRatio.rho, norTimDel.rho) annotation (Line(points={{42,0},{58,0}},
           color={0,0,127}));
-  connect(tOn, halPerRatio.tOn) annotation (Line(points={{120,80},{-40,80},{-40,
-          16},{-2,16}},  color={0,0,127}));
-  connect(tOff, halPerRatio.tOff) annotation (Line(points={{120,40},{-30,40},{-30,
-          4},{-2,4}}, color={0,0,127}));
-  connect(norTimDel.tau, tau) annotation (Line(points={{62,10},{120,10}},
+  connect(tOn, halPerRatio.tOn) annotation (Line(points={{120,80},{-30,80},{-30,
+          6},{18,6}},    color={0,0,127}));
+  connect(tOff, halPerRatio.tOff) annotation (Line(points={{120,40},{-40,40},{
+          -40,-6},{18,-6}},
+                      color={0,0,127}));
+  connect(norTimDel.tau, tau) annotation (Line(points={{82,0},{120,0}},
           color={0,0,127}));
-  connect(tunMon.triSta, triSta) annotation (Line(points={{-18,-24},{80,-24},{80,
+  connect(tunMon.triSta, triSta) annotation (Line(points={{2,-34},{80,-34},{80,
           -40},{120,-40}}, color={255,0,255}));
-  connect(tunMon.triEnd, triEnd) annotation (Line(points={{-18,-36},{60,-36},{60,
+  connect(tunMon.triEnd, triEnd) annotation (Line(points={{2,-46},{60,-46},{60,
           -80},{120,-80}}, color={255,0,255}));
-  connect(tunMon.tOn, onOffPer.tOn) annotation (Line(points={{-42,-24},{-52,-24},
-          {-52,14},{-58,14}}, color={0,0,127}));
-  connect(tunMon.tOff, onOffPer.tOff) annotation (Line(points={{-42,-36},{-56,-36},
-          {-56,6},{-58,6}}, color={0,0,127}));
-  connect(halPerRatio.TunEnd, tunMon.triEnd) annotation (Line(points={{-2,10},{-10,
-          10},{-10,-36},{-18,-36}}, color={255,0,255}));
-  connect(onOffPer.trigger, trigger) annotation (Line(points={{-82,4},{-90,4},{-90,
-          -60},{-120,-60}}, color={255,0,255}));
+  connect(tunMon.tOn, onOffPer.tOn) annotation (Line(points={{-22,-34},{-30,-34},
+          {-30,4},{-58,4}},   color={0,0,127}));
+  connect(tunMon.tOff, onOffPer.tOff) annotation (Line(points={{-22,-46},{-40,
+          -46},{-40,-4},{-58,-4}},
+                            color={0,0,127}));
+  connect(halPerRatio.TunEnd, tunMon.triEnd) annotation (Line(points={{18,0},{
+          10,0},{10,-46},{2,-46}},  color={255,0,255}));
+  connect(onOffPer.trigger, trigger) annotation (Line(points={{-82,-6},{-90,-6},
+          {-90,-60},{-120,-60}},
+                            color={255,0,255}));
   annotation (
         defaultComponentName = "resPro",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
