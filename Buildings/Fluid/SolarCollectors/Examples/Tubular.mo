@@ -38,14 +38,15 @@ model Tubular "Example showing the use of Tubular"
   Modelica.Blocks.Sources.Sine sine(
     f=3/86400,
     offset=101325,
-    amplitude=-1.5*solCol.dp_nominal)
+    amplitude=-0.1*solCol.dp_nominal)
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
     T=273.15 + 10,
     nPorts=1,
     use_p_in=true,
-    p(displayUnit="Pa")) "Inlet for water flow"                                annotation (Placement(
+    p(displayUnit="Pa")) "Inlet for water flow"
+    annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
@@ -91,6 +92,14 @@ equation
     </html>",
 revisions="<html>
 <ul>
+<li>
+December 11, 2023, by Michael Wetter:<br/>
+Changed design flow rate. This is due to correction for the
+implementation of the pressure drop calculation for the situation where collectors are in parallel,
+e.g., if <code>sysConfig == Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Parallel</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3597\">Buildings, #3597</a>.
+</li>
 <li>
 September 16, 2021, by Michael Wetter:<br/>
 Removed parameter assignment for <code>lat</code>.<br/>

@@ -6,7 +6,7 @@ simulateModel("Buildings.Templates.Components.Validation.Fans",
 createPlot(
     id=1,
     position={0, 0, 400, 400},
-    y={"arr.bus.y", "arr.bus.y1", "arr.bus.y1_actual", "arr.fan[1].m_flow",  "arr.m_flow_nominal"},
+    y={"arr.bus.y", "arr.bus.y1", "arr.bus.y1_actual", "arr.fan.m_flow",  "arr.m_flow_nominal"},
     autoscale=true,
     grid=true
 );
