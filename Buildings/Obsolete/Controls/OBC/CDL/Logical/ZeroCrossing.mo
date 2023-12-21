@@ -1,5 +1,7 @@
 within Buildings.Obsolete.Controls.OBC.CDL.Logical;
 block ZeroCrossing "Trigger zero crossing of input u"
+  extends Modelica.Icons.ObsoleteModel;
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
     "Connector of Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));

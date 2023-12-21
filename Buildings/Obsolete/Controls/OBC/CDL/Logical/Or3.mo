@@ -1,5 +1,7 @@
 within Buildings.Obsolete.Controls.OBC.CDL.Logical;
 block Or3 "Logical 'or': y = u1 or u2 or u3"
+  extends Modelica.Icons.ObsoleteModel;
+
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1
     "Connector of first Boolean input signal"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));

@@ -1,5 +1,7 @@
 within Buildings.Obsolete.Controls.OBC.CDL.Logical;
 block TriggeredTrapezoid "Triggered trapezoid generator"
+  extends Modelica.Icons.ObsoleteModel;
+
   parameter Real amplitude
     "Amplitude of trapezoid";
   parameter Real rising(
