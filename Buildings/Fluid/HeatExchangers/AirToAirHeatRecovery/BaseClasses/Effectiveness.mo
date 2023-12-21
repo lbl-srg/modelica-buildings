@@ -82,13 +82,13 @@ equation
   // calculate effectiveness.
   epsSen =uSpe*(epsSenPL + (epsSen_nominal - epsSenPL)*(rat - 0.75)/0.25);
   epsLat =uSpe*(epsLatPL + (epsLat_nominal - epsLatPL)*(rat - 0.75)/0.25);
-  assert(noEvent(epsSen > 0) and noEvent(epsSen < 1),
-    "*** Error in " + getInstanceName() + ": The sensible heat exchange effectiveness should be in the range of [0, 1], 
-    check if the part load (75%) or nominal sensible heat exchanger effectiveness is too high or too low.",
+  assert(noEvent(epsSen >= 0) and noEvent(epsSen < 1),
+    "*** Error in " + getInstanceName() + ": The sensible heat exchange effectiveness epsSen = " + String(epsSen) + ". It should be in the range of [0, 1].
+    Check if the part load (75%) or nominal sensible heat exchanger effectiveness is too high or too low.",
     level=AssertionLevel.error);
-  assert(noEvent(epsLat > 0) and noEvent(epsLat < 1),
-    "*** Error in " + getInstanceName() + ": The latent heat exchange effectiveness should be in the range of [0, 1], 
-    check if the part load (75%) or nominal latent heat exchanger effectiveness is too high or too low.",
+  assert(noEvent(epsLat >= 0) and noEvent(epsLat < 1),
+    "*** Error in " + getInstanceName() + ": The latent heat exchange effectiveness epsLat = " + String(epsLat) + ". It should be in the range of [0, 1], 
+    Check if the part load (75%) or nominal latent heat exchanger effectiveness is too high or too low.",
     level=AssertionLevel.error);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={Text(
           extent={{-54,28},{50,-40}},
