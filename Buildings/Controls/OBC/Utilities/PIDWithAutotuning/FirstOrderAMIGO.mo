@@ -1,23 +1,17 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning;
 block FirstOrderAMIGO
   "An autotuning PID controller with an AMIGO tuner that employs a first-order time delayed system model"
-  parameter Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController controllerType=
-    Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PI
+  parameter Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController controllerType=Buildings.Controls.OBC.Utilities.PIDWithAutotuning
+      .Types.SimpleController.PI
     "Type of controller";
   parameter Real k_start(
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)=1
     "Start value of the gain of controller"
     annotation (Dialog(group="Initial control gains, used prior to first tuning"));
-  parameter Real Ti_start(
-    final quantity="Time",
-    final unit="s",
-    min=100*Buildings.Controls.OBC.CDL.Constants.eps)=0.5
+  parameter Real Ti_start(unit="s")=0.5
     "Start value of the time constant of integrator block"
     annotation (Dialog(group="Initial control gains, used prior to first tuning"));
-  parameter Real Td_start(
-    final quantity="Time",
-    final unit="s",
-    min=100*Buildings.Controls.OBC.CDL.Constants.eps)=0.1
+  parameter Real Td_start(unit="s")=0.1
     "Start value of the time constant of derivative block"
     annotation (Dialog(group="Initial control gains, used prior to first tuning",
       enable=controllerType == Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PID));
@@ -321,7 +315,7 @@ First implementation<br/>
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-26,102},{74,62}},
+          extent={{-56,100},{36,70}},
           textString= if controllerType == Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PID then "PID" else "PI",
           fillPattern=FillPattern.Solid,
           fillColor={175,175,175}),
@@ -363,7 +357,7 @@ First implementation<br/>
             leftJustified=false,
             significantDigits=3))),
         Text(
-          extent={{62,70},{-58,20}},
+          extent={{24,50},{-74,12}},
           textColor={0,0,0},
           textString=DynamicSelect(
             "k = " + String(k_start,
@@ -373,7 +367,7 @@ First implementation<br/>
             leftJustified=false,
             significantDigits=3))),
         Text(
-          extent={{62,22},{-58,-28}},
+          extent={{40,8},{-68,-28}},
           textColor={0,0,0},
           textString=DynamicSelect(
             "Ti = " + String(Ti_start,
@@ -384,7 +378,7 @@ First implementation<br/>
             significantDigits=3))),
         Text(
           visible = controllerType == Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PID,
-          extent={{60,-22},{-60,-72}},
+          extent={{44,-34},{-62,-70}},
           textColor={0,0,0},
           textString=DynamicSelect(
             "Td = " + String(Td_start,
