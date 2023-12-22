@@ -17,16 +17,14 @@ model CoolingTowersWithBypass
     "Minimum allowed water temperature entering chiller";
 equation
   connect(weaBus.TWetBul, tow.TWetBul)
-   annotation (Line( points={{-60,50},{0,50},{0,-52},{20,-52}},
+   annotation (Line( points={{-59.95,50.05},{-8,50.05},{-8,-52},{20,-52}},
     color={255,204,51},thickness=0.5),
      Text(string="%first",index=-1,extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(onOffCon.y, tow.on[1])
-   annotation (Line(points={{2,-190},{10,-190},{10,-236},{-96,-236},{-96,-20},{
-          10,-20},{10,-46},{20,-46}},color={255,0,255}));
-  connect(onOffCon.y, tow.on[2])
-   annotation (Line(points={{2,-190},{10,-190},{10,-236},{-96,-236},{-96,-20},{
-          10,-20},{10,-46},{20,-46}},color={255,0,255}));
+  connect(hys.y, tow.on[1]) annotation (Line(points={{42,-190},{50,-190},{50,
+          -130},{0,-130},{0,-46},{20,-46}}, color={255,0,255}));
+  connect(hys.y, tow.on[2]) annotation (Line(points={{42,-190},{50,-190},{50,
+          -130},{0,-130},{0,-46},{20,-46}}, color={255,0,255}));
   annotation (
     Icon(
       coordinateSystem(
