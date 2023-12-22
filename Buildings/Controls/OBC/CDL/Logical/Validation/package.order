@@ -8,9 +8,7 @@ MultiOr
 Nand
 Nor
 Not
-OnOffController
 Or
-Or3
 Proof
 Switch
 Timer
@@ -18,11 +16,9 @@ TimerAccumulating
 TimerAccumulatingNegativeStartTime
 TimerNegativeStartTime
 Toggle
-TriggeredTrapezoid
 TrueDelay
 TrueFalseHold
 TrueHoldWithReset
 VariablePulse
 VariablePulseMinHold
 Xor
-ZeroCrossing
