@@ -10,7 +10,7 @@ model WetCoilCounterFlowPControlAutoTuning
   parameter Modelica.Units.SI.Temperature T_b2_nominal=15 + 273.15;
   parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal=0.1
     "Nominal mass flow rate medium 1";
-  parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal=m1_flow_nominal*4200
+  parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal=0.2*m1_flow_nominal*4200
       /1000*(T_a1_nominal - T_b1_nominal)/(T_b2_nominal - T_a2_nominal)
     "Nominal mass flow rate medium 2";
   Buildings.Fluid.Sources.Boundary_pT sin_2(
@@ -90,12 +90,12 @@ model WetCoilCounterFlowPControlAutoTuning
   Modelica.Blocks.Sources.Constant const1(k=T_a2_nominal)
     annotation (Placement(transformation(extent={{100,-38},{120,-18}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.FirstOrderAMIGO
-    con(controllerType=Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PI,
-    reverseActing=false)
+    con(controllerType=Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PI, final
+      reverseActing=false)
     "Controller"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
   Modelica.Blocks.Sources.Ramp TWat(
-    height=30,
+    height=5,
     offset=T_a1_nominal,
     startTime=300,
     duration=2000) "Water temperature, raised to high value at t=3000 s"
@@ -162,10 +162,10 @@ equation
       points={{22,100},{40,100},{40,72}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(resSig.y, con.triRes) annotation (Line(points={{-58,170},{-8,170},{-8,
-          82},{4,82},{4,88}}, color={255,0,255}));
-  connect(autTunSig.y, con.triTun) annotation (Line(points={{42,170},{74,170},{
-          74,82},{16,82},{16,88}}, color={255,0,255}));
+  connect(resSig.y, con.triRes) annotation (Line(points={{-58,170},{-20,170},{-20,
+          80},{4,80},{4,88}}, color={255,0,255}));
+  connect(autTunSig.y, con.triTun) annotation (Line(points={{42,170},{74,170},{74,
+          80},{16,80},{16,88}},    color={255,0,255}));
   connect(TSet.y, con.u_s)
     annotation (Line(points={{-59,100},{-2,100}}, color={0,0,127}));
   connect(temSen.T, con.u_m)
@@ -194,21 +194,6 @@ revisions="<html>
 <li>
 November 28, 2023, by Sen Huang:<br/>
 Replaced the PI controller with an autotuning PI controller.
-</li>
-<li>
-December 22, 2014 by Michael Wetter:<br/>
-Removed <code>Modelica.Fluid.System</code>
-to address issue
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
-</li>
-<li>
-March 1, 2013, by Michael Wetter:<br/>
-Added nominal pressure drop for valve as
-this parameter no longer has a default value.
-</li>
-<li>
-May 27, 2010, by Michael Wetter:<br/>
-First implementation.
 </li>
 </ul>
 </html>"));
