@@ -1,5 +1,7 @@
 within Buildings.Obsolete.Controls.OBC.CDL.Logical;
 block OnOffController "On-off controller"
+  extends Modelica.Icons.ObsoleteModel;
+
   parameter Real bandwidth(
     min=0)
     "Bandwidth around reference signal";
