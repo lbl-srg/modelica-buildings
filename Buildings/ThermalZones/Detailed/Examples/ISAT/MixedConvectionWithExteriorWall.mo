@@ -54,8 +54,8 @@ model MixedConvectionWithExteriorWall
     nSurBou = nSurBou,
     nPorts=2,
     portName={"Inlet","Outlet"},
-    samplePeriod=200,
-    massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
+    samplePeriod=60,
+    massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial) "Room model"
   annotation (Placement(transformation(extent={{80,-38},{120,2}})));
   HeatTransfer.Sources.FixedTemperature TOthWal[nSurBou](each T=283.15)
     "Temperature for other walls"
