@@ -305,7 +305,6 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>
@@ -314,6 +313,8 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Renamed the block to <code>CivilTime</code>.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3596\">issue 3596</a>.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Or3<br/>
                        Buildings.Controls.OBC.CDL.Logical.ZeroCrossing<br/>
                        Buildings.Controls.OBC.CDL.Logical.OnOffController<br/>
