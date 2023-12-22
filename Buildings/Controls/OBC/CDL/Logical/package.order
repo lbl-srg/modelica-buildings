@@ -8,9 +8,7 @@ MultiOr
 Nand
 Nor
 Not
-OnOffController
 Or
-Or3
 Pre
 Proof
 Switch
@@ -23,6 +21,5 @@ TrueFalseHold
 TrueHoldWithReset
 VariablePulse
 Xor
-ZeroCrossing
 Sources
 Validation
