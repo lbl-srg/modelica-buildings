@@ -108,7 +108,9 @@ protected
     final k=-1)
     "Product of the normalized time delay and -1"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
-
+  Buildings.Controls.OBC.CDL.Reals.Abs abs1
+    "Absolute gain value"
+    annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
 equation
   connect(gain.u, u) annotation (Line(points={{-122,28},{-140,28},{-140,80},{-180,
           80}},  color={0,0,127}));
@@ -158,8 +160,10 @@ equation
           18,-26}}, color={0,0,127}));
   connect(div.y, timConDel.rat) annotation (Line(points={{42,-20},{50,-20},{50,14},
           {58,14}}, color={0,0,127}));
-  connect(gain.k, samk.u)
-    annotation (Line(points={{-98,20},{-62,20}}, color={0,0,127}));
+  connect(gain.k, abs1.u)
+    annotation (Line(points={{-98,20},{-92,20}}, color={0,0,127}));
+  connect(abs1.y, samk.u)
+    annotation (Line(points={{-68,20},{-62,20}}, color={0,0,127}));
 annotation (
         defaultComponentName = "conProMod",
         Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,

@@ -5,9 +5,11 @@ model DirectActingPIWithFirstOrderAMIGO
     "Setpoint value"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.FirstOrderAMIGO PIWitTun(
-      controllerType=Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PID,
-      reverseActing=false) "PI controller with an autotuning feature"
+     controllerType=Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PI,
+     deaBan=0.05,
+     reverseActing=false) "PI controller with an autotuning feature"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
+
   Buildings.Controls.OBC.CDL.Reals.PIDWithReset PI(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID,
     k=1,

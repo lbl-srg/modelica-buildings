@@ -1,8 +1,8 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning;
 block FirstOrderAMIGO
   "An autotuning PID controller with an AMIGO tuner that employs a first-order time delayed system model"
-  parameter Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController controllerType=Buildings.Controls.OBC.Utilities.PIDWithAutotuning
-      .Types.SimpleController.PI
+  parameter Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController controllerType=Buildings.Controls.OBC.Utilities.PIDWithAutotuning.
+       Types.SimpleController.PI
     "Type of controller";
   parameter Real k_start(
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)=1
@@ -18,6 +18,14 @@ block FirstOrderAMIGO
   parameter Real r(
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)=1
     "Typical range of control error, used for scaling the control error";
+  parameter Real yHig = 1
+    "Higher value for the relay output";
+  parameter Real yLow = 0.1
+    "Lower value for the relay output";
+  parameter Real deaBan = 0.1
+    "Deadband for holding the output value";
+  parameter Real yRef = 0.8
+    "Reference output for the tuning process";
   final parameter Real yMax=1
     "Upper limit of output"
     annotation (Dialog(group="Limits"));
@@ -91,7 +99,7 @@ block FirstOrderAMIGO
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.ResponseProcess resPro(
     final yHig=yHig - yRef,
-    final yLow=yRef + yLow)
+    final yLow=yRef - yLow)
     "Identify the on and off period length, the half period ratio, and the moments when the tuning starts and ends"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi
@@ -109,7 +117,7 @@ block FirstOrderAMIGO
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.ControlProcessModel
     conProMod(
     final yHig=yHig - yRef,
-    final yLow=yRef + yLow,
+    final yLow=yRef - yLow,
     final deaBan=deaBan)
     "Calculates the parameters of a first-order time delayed model"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
@@ -131,14 +139,6 @@ block FirstOrderAMIGO
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
 
 protected
-  final parameter Real yHig(min=1E-6) = 1
-    "Higher value for the relay output";
-  final parameter Real yLow(min=1E-6) = 0.1
-    "Lower value for the relay output";
-  final parameter Real deaBan(min=1E-6) = 0.1
-    "Deadband for holding the output value";
-  final parameter Real yRef(min=1E-6) = 0.8
-    "Reference output for the tuning process";
   final parameter Boolean with_D=controllerType == Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PID
     "Boolean flag to enable derivative action"
     annotation (Evaluate=true,HideResult=true);
@@ -275,6 +275,9 @@ at which point this block turns back to a PID controller but with tuned PID para
 <p>
 <b>Note:</b> If an autotuning is ongoing, i.e., <code>inTunPro.y = true</code>,
 a request for performing autotuning will be ignored.
+</p>
+<p>
+In addition, this block requires an asymmetric relay output, meaning <code>yHig - yRef &ne; yRef - yLow</code>.
 </p>
 
 <h4>References</h4>
