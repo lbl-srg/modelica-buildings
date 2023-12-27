@@ -1,0 +1,3 @@
+simulateModel("Buildings.Fluid.AirFilters.BaseClasses.Validation.MassAccumulation", tolerance=1e-06, method="CVode", resultFile="MassAccumulation");
+createPlot(id=1, position={69, -7, 584, 381}, y={"massAccumulation.mCon"}, range={0.0, 1.0, -0.2, 0.6000000000000001}, grid=true, subPlot=101, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=1, position={69, -7, 584, 381}, y={"massAccumulation.mCon_flow"}, range={0.0, 1.0, -0.5, 1.5}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="s");
