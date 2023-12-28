@@ -110,18 +110,13 @@ Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller</a>).
 </p>
 <p><i>I<sub>u</sub></i> is calculated by </p>
 <p align=\"center\" style=\"font-style:italic;\">
-I<sub>u</sub> = t<sub>on</sub> (y<sub>hig</sub> - y<sub>ref</sub>)+ t<sub>off</sub>(-y<sub>low</sub> - y<sub>ref</sub>),
+I<sub>u</sub> = t<sub>on</sub> y<sub>hig</sub> - t<sub>off</sub>y<sub>low</sub>,
 </p>
 <p>
-where <i>y<sub>hig</sub></i> and <i>y<sub>low</sub></i> are the higher value
-and the lower value of the relay control output, respectively.
-<i>y<sub>ref</sub></i> is the reference value of the relay output.
+where <i>y<sub>hig</sub></i> and <i>y<sub>low</sub></i> are constants related to
+an asymmetric relay output.
 <i>t<sub>on</sub></i> and <i>t<sub>off</sub></i> are the length of the on
-period and the off period, respectively.
-</p>
-<p>
-During an On period, the relay switch signal becomes <code>true</code>.
-During an Off period, the relay switch signal becomes <code>false</code>.
+period and the off period of the same asymmetric relay output, respectively.
 </p>
 <h4>References</h4>
 <p>Josefin Berner (2017).

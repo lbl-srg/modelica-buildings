@@ -128,7 +128,7 @@ block FirstOrderAMIGO
     "Check if an autotuning is ongoing while a new autotuning request is received"
     annotation (Placement(transformation(extent={{120,-72},{140,-52}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
-    message="An autotuning is ongoing and an autotuning request is ignored.")
+    message="*** Warning in " + getInstanceName() + "An autotuning is ongoing and an autotuning request is ignored.")
     "Error message when an autotuning tuning is ongoing while a new autotuning request is received"
     annotation (Placement(transformation(extent={{148,-72},{168,-52}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edgReq
@@ -147,6 +147,13 @@ protected
       then Buildings.Controls.OBC.CDL.Types.SimpleController.PI
       else Buildings.Controls.OBC.CDL.Types.SimpleController.PID
     "Type of controller";
+
+initial equation
+    // check if the relay output is asymmetric.
+    assert(yHig + yLow - 2*yRef > 1e-3 or yHig + yLow - 2*yRef < -1e-3,
+    "*** Error in " + getInstanceName() +
+    ": the relay output needs to be asymmetric. Check the value of yHig, yLow and yRef",
+    level = AssertionLevel.error);
 
 equation
   connect(con.u_s, u_s) annotation (Line(points={{-52,-40},{-60,-40},{-60,0},{-200,
