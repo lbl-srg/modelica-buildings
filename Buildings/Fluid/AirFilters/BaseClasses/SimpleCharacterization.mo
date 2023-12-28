@@ -7,7 +7,7 @@ model SimpleCharacterization
   "Filter efficiency curve";
   parameter Real b( final min = 1 + 1E-3)
   "Resistance coefficient";
-  Modelica.Blocks.Interfaces.RealInput mCon
+  Modelica.Blocks.Interfaces.RealInput mCon(final unit="kg")
     "Mass of the contaminant held by the filter"
    annotation (Placement(
         transformation(
@@ -18,14 +18,16 @@ model SimpleCharacterization
         rotation=0,
         origin={-120,0})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput eps(
+    final unit="1",
     final min = 0,
     final max = 1) "Filter efficiency"
                         annotation (
       Placement(transformation(extent={{100,38},{140,78}}), iconTransformation(
           extent={{100,38},{140,78}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput kCor(
+    final unit="1",
     final min = 1)
-   "Flow coefficient"
+   "Flow coefficient correction"
     annotation (
       Placement(transformation(extent={{100,-60},{140,-20}}),
         iconTransformation(extent={{100,-82},{140,-42}})));
@@ -62,7 +64,7 @@ First implementation.
 <p>
 This model calculates the filter efficiency based on the mass of the contaminants held by the filter.
 </p>
-<p align=\\\"center\\\" style=\\\"font-style:italic;\\\">
+<p align=\"center\" style=\"font-style:italic;\">
   eps = epsFun<sub>1</sub> + epsFun<sub>2</sub> &#632; + epsFun<sub>3</sub> &#632;<sup>2</sup> + ...,
 </p>
 <p>
@@ -71,9 +73,9 @@ the contaminants, and the coefficients <i>epsFun<sub>i</sub></i>
 are declared by the parameter <code>epsFun</code>.
 </p>
 <p>
-This model also calculates the flow coefficiency of the filter by
+This model also calculates the flow coefficient of the filter by
 </p>
-<p align=\\\"center\\\" style=\\\"font-style:italic;\\\">
+<p align=\"center\" style=\"font-style:italic;\">
   kCor = b<sup>&#632;</sup>,
 </p>
 <p>

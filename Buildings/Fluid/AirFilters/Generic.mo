@@ -23,10 +23,14 @@ First implementation.
     "Nominal mass flow rate";
   parameter Modelica.Units.SI.PressureDifference dp_nominal
     "Nominal pressure drop";
+  Modelica.Blocks.Interfaces.BooleanInput triRep
+    "replacing the filter when trigger becomes true"
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
   Buildings.Fluid.AirFilters.BaseClasses.PressureDropInputFlowCoefficient res(
      redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=dp_nominal) "pressure resistance"
+    dp_nominal=dp_nominal)
+    "pressure resistance"
     annotation (Placement(transformation(extent={{-28,-10},{-8,10}})));
   Buildings.Fluid.AirFilters.BaseClasses.MassTransfer masTra(redeclare package
       Medium = Medium, m_flow_nominal=m_flow_nominal) "contaminant removal"
@@ -36,8 +40,10 @@ First implementation.
     final epsFun=epsFun,
     final b=b) "filter characterization"
     annotation (Placement(transformation(extent={{22,50},{42,70}})));
-  Buildings.Fluid.AirFilters.BaseClasses.MassAccumulation masAcc(final
-      mCon_nominal=mCon_nominal, final mCon_reset=0) "contaminant accumulation"
+  Buildings.Fluid.AirFilters.BaseClasses.MassAccumulation masAcc(
+    final mCon_nominal=mCon_nominal,
+    final mCon_reset=0)
+    "contaminant accumulation"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
      redeclare package Medium = Medium)
@@ -47,11 +53,9 @@ First implementation.
      redeclare package Medium = Medium)
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  Modelica.Blocks.Interfaces.BooleanInput triRep
-    "replacing the filter when trigger becomes true"
-    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-  Modelica.Blocks.Sources.RealExpression traceSubstancesFlow(y=inStream(port_a.C_outflow[
-        1]))
+
+  Modelica.Blocks.Sources.RealExpression traceSubstancesFlow(
+     y=inStream(port_a.C_outflow[1]))
     "trace substances flow rate"
     annotation (Placement(transformation(extent={{-72,70},{-52,90}})));
 equation
@@ -235,5 +239,45 @@ equation
           textColor={0,0,255},
           textString="%name")}),
           defaultComponentName="genFilter",
-          Diagram(coordinateSystem(preserveAspectRatio=false)));
+          Diagram(coordinateSystem(preserveAspectRatio=false)),
+    Documentation(revisions="<html>
+<ul>
+<li>
+December 22, 2023, by Sen Huang:<br/>
+First implementation.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+Model of a generic air filter, which captures the impacts of the contamination accumulation on
+the pressure drop and the filter efficiency. 
+</p>
+<p>
+This model does not require detailed information of filters, such as filter type or geometric data.
+Instead, its dynamic characteristics are defined by three parameters, <code>mCon_nominal</code>,<code>epsFun</code>,
+and <code>b</code>.
+</p>
+<ul>
+<li> 
+<code>mCon_nominal</code> determines the maximum mass of the contaminants that the filter can hold;
+</li> 
+<li> 
+<code>epsFun</code> is a vector of coefficients that determines how the filter efficiency changes by the accumulation 
+of contaminants;
+</li> 
+<li> 
+<code>b</code> is a constant that determines how the flow coefficient changes by the accumulation 
+of contaminants.
+</li>
+</ul>
+See more detailed descriptions in <a href=\"modelica://Buildings.Fluid.AirFilters.BaseClasses.SimpleCharacterization\">
+Buildings.Fluid.AirFilters.BaseClasses.SimpleCharacterization</a>.
+<p>
+The input boolean flag, <code>triRep</code>, triggers the filter replacement.
+Specifically, when <code>triRep</code> changes from <i>false</i> to <i>true</i>, the mass 
+of the contaminants that the filter holds, <code>mCon = 0</code>.
+</p>
+<b>Note:</b> 
+A warning will be triggered when <code>mCon > mCon_nominal</code>. 
+</html>"));
 end Generic;

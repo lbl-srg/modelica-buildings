@@ -12,7 +12,8 @@ model PressureDropInputFlowCoefficient
   Real k "Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
 
   Modelica.Blocks.Interfaces.RealInput kCor(
-   min= 1)
+   unit = "1",
+   min = 1)
    "Flow coefficient"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -95,7 +96,6 @@ m&#775; = m_flow_nominal/(&radic;<span style=\"text-decoration:overline;\">dp_no
 </p>
 where
 <i>kCor</i> is a correction factor of the flow coefficient. 
-</p>
 </html>", revisions="<html>
 <ul>
 <li>

@@ -2,7 +2,8 @@ within Buildings.Fluid.AirFilters.BaseClasses.Validation;
 model MassTransfer
   "Validation model for the MassTransfer model"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.Air(extraPropertiesNames={"CO2"}) "Medium model";
+  package Medium = Buildings.Media.Air(extraPropertiesNames={"CO2"})
+    "Air";
   Buildings.Fluid.Sources.TraceSubstancesFlowSource sou(
     redeclare package Medium = Medium,
     m_flow=1,
@@ -24,17 +25,18 @@ model MassTransfer
    Modelica.Blocks.Sources.Ramp eps(
     duration=1,
     height=-0.7,
-    offset=1) "Mass transfer efficiency"
+    offset=1)
+    "mass transfer efficiency"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Modelica.Blocks.Sources.RealExpression traceSubstancesFlow(
     y=inStream(masTra.port_a.C_outflow[1]))
     "trace substances flow rate"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
   Buildings.Fluid.Sensors.TraceSubstances C_out(redeclare package Medium = Medium)
-    "Trace substance sensor of outlet air"
+    "trace substance sensor of outlet air"
     annotation (Placement(transformation(extent={{30,10},{50,30}})));
   Buildings.Fluid.Sensors.TraceSubstances C_in(redeclare package Medium = Medium)
-    "Trace substance sensor of inlet air"
+    "trace substance sensor of inlet air"
     annotation (Placement(transformation(extent={{-38,-40},{-18,-20}})));
 equation
   connect(eps.y, masTra.eps) annotation (Line(points={{-39,50},{-24,50},{-24,6},
@@ -54,13 +56,13 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/AirF
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-The input mass tranfer efficiency <code>eps</code> changes from <i>1</i> to <i>0.3</i> from 0 to 1 sencond;
+The input mass transfer efficiency <code>eps</code> changes from <i>1</i> to <i>0.3</i> from 0 to 1 second;
 The trace substance concentration of the inlet port is fixed as <i>1</i>.
 </p>
 <p>
 The trace substance concentration of the outlet port is <i>0</i> at the 0 second when the <code>eps</code> is 1, 
 meaning all the trace substance has been removed.
-As the <code>eps</code> decreases, the trace substance concentration of the outlet port increases to <i>0.7</i>.          
+As the <code>eps</code> decreases, the trace substance concentration of the outlet port increases to <i>0.7</i>. 
 </p>
 </html>", revisions="<html>
 <ul>

@@ -4,11 +4,13 @@ model MassAccumulation
   extends Modelica.Icons.Example;
   Buildings.Fluid.AirFilters.BaseClasses.MassAccumulation masAcc(mCon_nominal=1,
       mCon_reset=0)
+    "contaminant accumulation"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.Ramp mCon_flow(
     duration=1,
     height=1.2,
-    offset=0) "contaminant mass flow rate"
+    offset=0)
+    "contaminant mass flow rate"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse RepSig(period=1, shift=0.5)
     "filter replacement signal"
@@ -31,13 +33,13 @@ First implementation.
 </html>", info="<html>
 <p>
 The input contaminant mass flow rate <code>mCon_flow</code> changes 
-from <i>0</i> to <i>1.2</i> during the period from 0 to 1 sencond;
+from <i>0</i> to <i>1.2</i> during the period from 0 to 1 second;
 The filter replacement signal changes from <i>false</i> to <i>true</i> at 0.5 seconds.
 </p>
 <p>
 The contaminant mass <code>masAcc.mCon</code> increases from <i>0</i> to <i>0.15</i> 
-during the period from 0 to 0.5 sencond;
-It drops to 0 at 0.5 seonds and keeps increase again after that.
+during the period from 0 to 0.5 seconds;
+It drops to 0 at 0.5 seconds and keeps increasing again after that.
 </p>
 </html>"));
 end MassAccumulation;

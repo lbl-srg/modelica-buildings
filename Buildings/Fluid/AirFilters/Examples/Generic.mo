@@ -1,6 +1,6 @@
 within Buildings.Fluid.AirFilters.Examples;
 model Generic
-  "Example model for the generic air filter model"
+  "Example for using the generic air filter model"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air(extraPropertiesNames={"CO2"}) "Medium model";
   Buildings.Fluid.AirFilters.Generic filter(
@@ -10,6 +10,7 @@ model Generic
     b=1.2,
     m_flow_nominal=1,
     dp_nominal(displayUnit="Pa") = 100)
+    "air filter"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
@@ -28,11 +29,11 @@ model Generic
           extent={{80,-10},{60,10}})));
   Buildings.Fluid.Sensors.TraceSubstances C_in(
     redeclare package Medium = Medium)
-    "Trace substance sensor of inlet air"
+    "trace substance sensor of inlet air"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Buildings.Fluid.Sensors.TraceSubstances C_out(
     redeclare package Medium = Medium)
-    "Trace substance sensor of outlet air"
+    "trace substance sensor of outlet air"
     annotation (Placement(transformation(extent={{30,28},{50,48}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse RepSig(
      period=1,
@@ -42,7 +43,8 @@ model Generic
   Modelica.Blocks.Sources.Ramp mCon_flow(
     duration=1,
     height=1.2,
-    offset=0) "contaminant mass flow rate"
+    offset=0)
+    "contaminant mass flow rate"
     annotation (Placement(transformation(extent={{-96,-30},{-76,-10}})));
 equation
   connect(filter.port_b, sin.ports[1])
@@ -67,5 +69,19 @@ December 22, 2023, by Sen Huang:<br/>
 First implementation.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+The input contaminant mass flow rate <code>mCon_flow</code> changes 
+from <i>0</i> to <i>1.2</i> during the period from 0 to 1 second;
+The filter replacement signal changes from <i>false</i> to <i>true</i> at 0.5 seconds.
+</p>
+<p>
+The filter efficiency <code>eps</code> decreases during the period 
+from 0 to 0.5 seconds as the accumulation of the contaminants;
+At 0.5 seconds, it gets a sudden increase as the filter is replaced;
+After 0.5 seconds, it keeps decreasing again till the end.
+The same pattern is also applied to the flow coefficient of the filter and thereby
+the mass flow rate of the air through the filter.
+</p>
 </html>"));
 end Generic;

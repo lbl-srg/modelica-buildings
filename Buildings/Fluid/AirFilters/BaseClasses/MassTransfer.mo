@@ -11,9 +11,10 @@ model MassTransfer
         rotation=270,
         origin={0,120})));
   Modelica.Blocks.Interfaces.RealInput eps(
+   final unit = "1",
    final min = 0,
    final max= 1)
-   "mass tranfer coefficient"
+   "mass transfer coefficient"
     annotation (Placement(transformation(
         extent={{20,-20},{-20,20}},
         rotation=180,
@@ -51,7 +52,7 @@ equation
     Documentation(info="<html>
 <p>
 This model sets the trace substance
-of the medium that leaves <code>port_a</code> by
+of the medium that leaves <code>port_b</code> by
 </p>
 <pre>
   port_b.C_outflow = inStream(port_a.C_outflow) - eps * m_flow_in;
@@ -62,7 +63,7 @@ where <code>eps</code> is an input mass transfer efficiency and
 </p>
 <p>
 This model has no pressure drop.
-In case of reverse flow,
+In the case of reverse flow,
 the fluid that leaves <code>port_a</code> has the same
 properties as the fluid that enters <code>port_b</code>.
 </p>

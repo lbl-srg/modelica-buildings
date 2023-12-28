@@ -3,7 +3,7 @@ model PressureDropInputFlowCoefficient
   "Validation model for flow resistances with a varying flow coefficient"
   extends Modelica.Icons.Example;
 
- package Medium = Buildings.Media.Air "Medium model";
+ package Medium = Buildings.Media.Air "Air";
 
   Modelica.Blocks.Sources.Ramp P(
     duration=1,
@@ -46,11 +46,12 @@ model PressureDropInputFlowCoefficient
     width=100,
     period=0.5,
     offset=1,
-    startTime=0.5) "flow coefficient correction factor"
+    startTime=0.5) 
+    "flow coefficient correction factor"
     annotation (Placement(transformation(extent={{-80,62},{-60,82}})));
 equation
   connect(P.y, sou.p_in) annotation (Line(points={{-71,8},{-62,8},{-52,8}},
-                    color={0,0,127}));
+        color={0,0,127}));
   connect(sou.ports[1], resFixed.port_a) annotation (Line(points={{-30,-1},{-20,
           -1},{-20,0},{-10,0}}, color={0,127,255}));
   connect(resFixed.port_b, sin.ports[1])
@@ -66,12 +67,12 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/AirF
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-Before 0.5 seconds, the flow rates of <code>resFixed</code> (pressure resistance with a constant flow coefficient) and <code>resVarying</code>
-(ressure resistance with a varying flow coefficient) are the same with the identical pressure drop.
+Before 0.5 seconds, the flow rates of the <code>resFixed</code> (pressure resistance with a constant flow coefficient) and the <code>resVarying</code>
+(pressure resistance with a varying flow coefficient) are the same with the identical pressure drop.
 </p>
 <p>
-After 0.5 seconds, however, the flow rates of <code>resVarying</code> are lower than those of <code>resFixed</code> as the flow coefficient 
-of former decreases by &radic;<span style=\"text-decoration:overline;\">2</span>.      
+After 0.5 seconds, however, the flow rate of the <code>resVarying</code> is lower than that of <code>resFixed</code> as the flow coefficient 
+of the former decreases by &radic;<span style=\"text-decoration:overline;\">2</span>.      
 </p>
 </html>", revisions="<html>
 <ul>
