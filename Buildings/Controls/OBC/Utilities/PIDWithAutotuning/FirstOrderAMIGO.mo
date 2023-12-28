@@ -59,7 +59,7 @@ block FirstOrderAMIGO
     annotation (Placement(transformation(origin={-20,-120},extent={{20,-20},{-20,20}},rotation=270),
         iconTransformation(extent={{20,-20},{-20,20}},rotation=270,origin={0,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput triRes
-    "Connector for reseting the controller output"
+    "Connector for resetting the controller output"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=90,origin={-60,-120}),
         iconTransformation(extent={{-20,-20},{20,20}},rotation=90,origin={-60,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput triTun

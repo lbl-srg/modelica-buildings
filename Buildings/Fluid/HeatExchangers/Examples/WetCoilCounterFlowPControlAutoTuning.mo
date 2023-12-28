@@ -118,11 +118,12 @@ model WetCoilCounterFlowPControlAutoTuning
     "normalize the setpoint"
     annotation (Placement(transformation(extent={{-48,92},{-32,108}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai2(k=1/298.15)
-    "normalize the measurement"                              annotation (
+    "normalize the measurement"
+    annotation (
       Placement(transformation(
-        extent={{-7,-7},{7,7}},
+        extent={{-8,-8},{8,8}},
         rotation=90,
-        origin={11,49})));
+        origin={10,48})));
 equation
   connect(hex.port_b1, res_1.port_a) annotation (Line(points={{80,32},{86,32},{
           86,60},{90,60}}, color={0,127,255}));
@@ -179,16 +180,15 @@ equation
   connect(resSig.y, con.triRes) annotation (Line(points={{-58,170},{-20,170},{-20,
           80},{4,80},{4,88}}, color={255,0,255}));
   connect(autTunSig.y, con.triTun) annotation (Line(points={{42,170},{74,170},{74,
-          80},{16,80},{16,88}},    color={255,0,255}));
+          80},{16,80},{16,88}}, color={255,0,255}));
   connect(TSet.y, gai1.u) annotation (Line(points={{-59,100},{-49.6,100}},
-                           color={0,0,127}));
+          color={0,0,127}));
   connect(gai1.y, con.u_s) annotation (Line(points={{-30.4,100},{-2,100}},
-                                color={0,0,127}));
-  connect(temSen.T, gai2.u) annotation (Line(points={{10,31},{10,35.8},{11,35.8},
-          {11,40.6}},color={0,0,127}));
-  connect(gai2.y, con.u_m) annotation (Line(points={{11,57.4},{11,72.7},{10,
-          72.7},{10,88}},
-                    color={0,0,127}));
+          color={0,0,127}));
+  connect(temSen.T, gai2.u) annotation (Line(points={{10,31},{10,38.4}},
+          color={0,0,127}));
+  connect(gai2.y, con.u_m) annotation (Line(points={{10,57.6},{10,88}},
+          color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{200,200}})),
 experiment(Tolerance=1e-6, StopTime=3600),
