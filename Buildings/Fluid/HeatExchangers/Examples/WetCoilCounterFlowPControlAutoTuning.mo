@@ -114,10 +114,11 @@ model WetCoilCounterFlowPControlAutoTuning
     shift=400)
     "Signal for enabling the autotuning"
     annotation (Placement(transformation(extent={{20,160},{40,180}})));
-  Controls.OBC.CDL.Reals.MultiplyByParameter gai1(k=1/298.15)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(k=1/298.15)
+    "normalize the setpoint"
     annotation (Placement(transformation(extent={{-48,92},{-32,108}})));
-  Controls.OBC.CDL.Reals.MultiplyByParameter gai2(k=1/298.15)
-                                                             annotation (
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai2(k=1/298.15)
+    "normalize the measurement"                              annotation (
       Placement(transformation(
         extent={{-7,-7},{7,7}},
         rotation=90,
