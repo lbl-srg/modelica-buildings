@@ -77,11 +77,11 @@ equation
   connect(lowVal.y, swi.u3) annotation (Line(points={{-58,20},{-20,20},{-20,42},
           {58,42}},color={0,0,127}));
   connect(swi1.u3, u_s) annotation (Line(points={{-62,-48},{-90,-48},{-90,0},{-120,
-          0}},     color={0,0,127}));
+          0}}, color={0,0,127}));
   connect(trigger, swi1.u2) annotation (Line(points={{-80,-120},{-80,-40},{-62,-40}},
-                color={255,0,255}));
+          color={255,0,255}));
   connect(u_m, swi1.u1) annotation (Line(points={{0,-120},{0,-90},{-70,-90},{-70,
-          -32},{-62,-32}},    color={0,0,127}));
+          -32},{-62,-32}}, color={0,0,127}));
   connect(dirActErr.y, hys.u) annotation (Line(points={{2,-70},{10,-70},{10,-60},
           {18,-60}}, color={0,0,127}));
   connect(revActErr.y, hys.u) annotation (Line(points={{2,-20},{10,-20},{10,-60},
@@ -153,7 +153,7 @@ Step 1: calculate control error,
 <li>
 If the parameter <code>reverseActing = true</code>, then the control error
 (<code>err = u_s - u_m</code>),
-else the contorl error (<code>err = u_m - u_s</code>).
+else the control error (<code>err = u_m - u_s</code>).
 </li>
 </ul>
 <p>

@@ -203,7 +203,7 @@ equation
   connect(PIPar.Ti, samTi.u) annotation (Line(points={{102,64},{112,64},{112,98},
           {-150,98},{-150,-50},{-122,-50}}, color={0,0,127}));
   connect(resPro.triEnd, conProMod.triEnd) annotation (Line(points={{22,32},{56,
-          32},{56,58}},  color={255,0,255}));
+          32},{56,58}}, color={255,0,255}));
   connect(resPro.triSta, conProMod.triSta) annotation (Line(points={{22,36},{44,
           36},{44,58}}, color={255,0,255}));
   connect(resPro.triEnd, samTi.trigger) annotation (Line(points={{22,32},{30,32},
