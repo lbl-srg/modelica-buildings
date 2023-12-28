@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "C_in.C",
+    "C_out.C",
+    "filter.simCha.eps",
+    "filter.triRep",
+    "mCon_flow.y"
+  };

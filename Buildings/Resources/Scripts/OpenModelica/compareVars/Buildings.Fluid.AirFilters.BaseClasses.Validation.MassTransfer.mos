@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "C_in.C",
+    "C_out.C",
+    "masTra.eps"
+  };
