@@ -1,24 +1,16 @@
 within Buildings.Fluid.AirFilters;
 model Generic
+  "Generic air filter model"
   replaceable package Medium =
-    Buildings.Media.Air(extraPropertiesNames={"CO2"}) "Air"
-      annotation (choices(
-        choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
-        choice(redeclare package Medium = Buildings.Media.Air(extraPropertiesNames={"CO2"}) "Moist air with CO2")),
-      Documentation(revisions="<html>
-<ul>
-<li>
-December 22, 2023, by Sen Huang:<br/>
-First implementation.
-</li>
-</ul>
-</html>"));
+    Buildings.Media.Air(extraPropertiesNames={"CO2"})
+    "air";
   parameter Real mCon_nominal
-  "Contaminant held capacity of the filter";
+    "contaminant held capacity of the filter";
   parameter Real epsFun[:]
-  "Filter efficiency curve";
-  parameter Real b( final min = 1 + 1E-3)
-  "Resistance coefficient";
+    "filter efficiency curve";
+  parameter Real b(
+    final min = 1 + 1E-3)
+    "resistance coefficient";
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Nominal mass flow rate";
   parameter Modelica.Units.SI.PressureDifference dp_nominal
@@ -27,18 +19,20 @@ First implementation.
     "replacing the filter when trigger becomes true"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
   Buildings.Fluid.AirFilters.BaseClasses.PressureDropInputFlowCoefficient res(
-     redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    dp_nominal=dp_nominal)
+    redeclare package Medium = Medium,
+    final m_flow_nominal=m_flow_nominal,
+    final dp_nominal=dp_nominal)
     "pressure resistance"
     annotation (Placement(transformation(extent={{-28,-10},{-8,10}})));
-  Buildings.Fluid.AirFilters.BaseClasses.MassTransfer masTra(redeclare package
-      Medium = Medium, m_flow_nominal=m_flow_nominal) "contaminant removal"
+  Buildings.Fluid.AirFilters.BaseClasses.MassTransfer masTra(
+    redeclare package Medium = Medium,
+    final m_flow_nominal=m_flow_nominal) "contaminant removal"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Fluid.AirFilters.BaseClasses.SimpleCharacterization simCha(
     final mCon_nominal=mCon_nominal,
     final epsFun=epsFun,
-    final b=b) "filter characterization"
+    final b=b)
+    "filter characterization"
     annotation (Placement(transformation(extent={{22,50},{42,70}})));
   Buildings.Fluid.AirFilters.BaseClasses.MassAccumulation masAcc(
     final mCon_nominal=mCon_nominal,
@@ -46,14 +40,13 @@ First implementation.
     "contaminant accumulation"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
-     redeclare package Medium = Medium)
-    "Fluid connector a (positive design flow direction is from port_a to port_b)"
+    redeclare package Medium = Medium)
+    "fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
-     redeclare package Medium = Medium)
-    "Fluid connector b (positive design flow direction is from port_a to port_b)"
+    redeclare package Medium = Medium)
+    "fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-
   Modelica.Blocks.Sources.RealExpression traceSubstancesFlow(
      y=inStream(port_a.C_outflow[1]))
     "trace substances flow rate"
@@ -69,13 +62,17 @@ equation
     annotation (Line(points={{-8,0},{40,0}}, color={0,127,255}));
   connect(masTra.port_b, port_b)
     annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
-  connect(masAcc.triRep, triRep) annotation (Line(points={{-22,53.8},{-22,54},{-94,
+  connect(masAcc.triRep, triRep)
+    annotation (Line(points={{-22,53.8},{-22,54},{-94,
           54},{-94,60},{-120,60}}, color={255,0,255}));
-  connect(traceSubstancesFlow.y, masAcc.mCon_flow) annotation (Line(points={{-51,
+  connect(traceSubstancesFlow.y, masAcc.mCon_flow)
+    annotation (Line(points={{-51,
           80},{-40,80},{-40,66},{-22,66}}, color={0,0,127}));
-  connect(simCha.eps, masTra.eps) annotation (Line(points={{44,65.8},{52,65.8},{
+  connect(simCha.eps, masTra.eps)
+    annotation (Line(points={{44,65.8},{52,65.8},{
           52,66},{60,66},{60,28},{26,28},{26,6},{38,6}}, color={0,0,127}));
-  connect(masTra.m_flow_in[1], traceSubstancesFlow.y) annotation (Line(points={{
+  connect(masTra.m_flow_in[1], traceSubstancesFlow.y)
+    annotation (Line(points={{
           50,12},{50,20},{-40,20},{-40,80},{-51,80}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
@@ -279,5 +276,6 @@ of the contaminants that the filter holds, <code>mCon = 0</code>.
 </p>
 <b>Note:</b> 
 A warning will be triggered when <code>mCon > mCon_nominal</code>. 
+In addition, this model can only be used when <code>extraPropertiesNames</code> is defined in the medium model.
 </html>"));
 end Generic;

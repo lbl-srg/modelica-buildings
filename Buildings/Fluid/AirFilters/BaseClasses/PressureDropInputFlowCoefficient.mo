@@ -5,16 +5,16 @@ model PressureDropInputFlowCoefficient
     final m_flow_turbulent = if computeFlowResistance then deltaM * m_flow_nominal_pos else 0);
 
   parameter Real deltaM(min=1E-6) = 0.3
-    "Fraction of nominal mass flow rate where transition to turbulent occurs"
+   "fraction of nominal mass flow rate where transition to turbulent occurs"
        annotation(Evaluate=true,
                   Dialog(group = "Transition to laminar",
                          enable = not linearized));
-  Real k "Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
-
+  Real k
+   "flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
   Modelica.Blocks.Interfaces.RealInput kCor(
    unit = "1",
    min = 1)
-   "Flow coefficient"
+   "flow coefficient"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=270,
@@ -91,7 +91,7 @@ Buildings.Fluid.FixedResistances.PressureDrop</a>
 and inherits most of its configuration.
 However, when calculating the mass flow rate
 <p align=\"center\" style=\"font-style:italic;\">
-m&#775; = m_flow_nominal/(&radic;<span style=\"text-decoration:overline;\">dp_nominal</span>*kCor)
+m&#775; = m_flow_nominal/(&radic;<span style=\"text-decoration:overline;\">dp_nominal*kCor</span>)
 &radic;<span style=\"text-decoration:overline;\">&Delta;p</span>,
 </p>
 where

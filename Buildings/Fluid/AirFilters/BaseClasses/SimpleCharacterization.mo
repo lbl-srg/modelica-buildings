@@ -2,13 +2,15 @@ within Buildings.Fluid.AirFilters.BaseClasses;
 model SimpleCharacterization
   "Component that calculates the filter efficiency and the flow coefficient correction factor"
   parameter Real mCon_nominal
-  "Contaminant held capacity of the filter";
+  "contaminant held capacity of the filter";
   parameter Real epsFun[:]
-  "Filter efficiency curve";
-  parameter Real b( final min = 1 + 1E-3)
-  "Resistance coefficient";
-  Modelica.Blocks.Interfaces.RealInput mCon(final unit="kg")
-    "Mass of the contaminant held by the filter"
+  "filter efficiency curve";
+  parameter Real b(
+   final min = 1 + 1E-3)
+  "resistance coefficient";
+  Modelica.Blocks.Interfaces.RealInput mCon(
+   final unit="kg")
+    "mass of the contaminant held by the filter"
    annotation (Placement(
         transformation(
         extent={{20,-20},{-20,20}},
@@ -20,9 +22,9 @@ model SimpleCharacterization
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput eps(
     final unit="1",
     final min = 0,
-    final max = 1) "Filter efficiency"
-                        annotation (
-      Placement(transformation(extent={{100,38},{140,78}}), iconTransformation(
+    final max = 1)
+    "filter efficiency"
+    annotation (Placement(transformation(extent={{100,38},{140,78}}), iconTransformation(
           extent={{100,38},{140,78}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput kCor(
     final unit="1",

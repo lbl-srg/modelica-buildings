@@ -39,7 +39,8 @@ model MassTransfer
     "trace substance sensor of inlet air"
     annotation (Placement(transformation(extent={{-38,-40},{-18,-20}})));
 equation
-  connect(eps.y, masTra.eps) annotation (Line(points={{-39,50},{-24,50},{-24,6},
+  connect(eps.y, masTra.eps) 
+    annotation (Line(points={{-39,50},{-24,50},{-24,6},
           {6,6}}, color={0,0,127}));
   connect(traceSubstancesFlow.y, masTra.m_flow_in[1])
     annotation (Line(points={{1,60},{18,60},{18,12}}, color={0,0,127}));

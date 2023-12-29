@@ -2,7 +2,7 @@ within Buildings.Fluid.AirFilters.Examples;
 model Generic
   "Example for using the generic air filter model"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.Air(extraPropertiesNames={"CO2"}) "Medium model";
+  package Medium = Buildings.Media.Air(extraPropertiesNames={"CO2"}) "Air";
   Buildings.Fluid.AirFilters.Generic filter(
     redeclare package Medium = Medium,
     mCon_nominal=1,
@@ -49,9 +49,11 @@ model Generic
 equation
   connect(filter.port_b, sin.ports[1])
     annotation (Line(points={{10,0},{60,0}}, color={0,127,255}));
-  connect(RepSig.y, filter.triRep) annotation (Line(points={{-28,50},{-20,50},{-20,
+  connect(RepSig.y, filter.triRep) 
+    annotation (Line(points={{-28,50},{-20,50},{-20,
           6},{-12,6}}, color={255,0,255}));
-  connect(C_in.port, filter.port_a) annotation (Line(points={{-30,-50},{-30,-60},
+  connect(C_in.port, filter.port_a) 
+    annotation (Line(points={{-30,-50},{-30,-60},
           {-14,-60},{-14,0},{-10,0}}, color={0,127,255}));
   connect(C_out.port, filter.port_b)
     annotation (Line(points={{40,28},{40,0},{10,0}}, color={0,127,255}));
@@ -77,7 +79,7 @@ The filter replacement signal changes from <i>false</i> to <i>true</i> at 0.5 se
 </p>
 <p>
 The filter efficiency <code>eps</code> decreases during the period 
-from 0 to 0.5 seconds as the accumulation of the contaminants;
+from 0 to 0.5 seconds due to the accumulation of the contaminants;
 At 0.5 seconds, it gets a sudden increase as the filter is replaced;
 After 0.5 seconds, it keeps decreasing again till the end.
 The same pattern is also applied to the flow coefficient of the filter and thereby

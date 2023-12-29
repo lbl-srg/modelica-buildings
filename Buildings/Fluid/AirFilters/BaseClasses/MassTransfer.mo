@@ -1,9 +1,10 @@
 within Buildings.Fluid.AirFilters.BaseClasses;
 model MassTransfer
-  "Component that sets the trace substance at port_b based on an input trace substance mass flow rate and an input mass transfer efficiency"
+  "Component that sets the trace substance at port_b based on an input trace substance mass flow rate 
+  and an input mass transfer efficiency"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
   Modelica.Blocks.Interfaces.RealInput m_flow_in[Medium.nC]
-    "Input trace substance rate" annotation (Placement(transformation(
+   "input trace substance rate" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=270,
         origin={0,120}), iconTransformation(

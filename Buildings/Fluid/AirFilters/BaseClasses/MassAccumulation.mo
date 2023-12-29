@@ -3,7 +3,8 @@ model MassAccumulation
   "Component that mimics the accumulation of the contaminants"
   parameter Real mCon_nominal
   "contaminant held capacity of the filter";
-  parameter Real mCon_reset
+  parameter Real mCon_reset(
+  final min = 0)
   "initial contaminant mass of the filter";
   Modelica.Blocks.Interfaces.BooleanInput triRep
     "replacing the filter when trigger becomes true"
@@ -17,7 +18,7 @@ model MassAccumulation
         origin={-120,-62})));
   Modelica.Blocks.Interfaces.RealInput mCon_flow(
     final unit = "kg/s")
-    "The contaminant mass flow rate"
+    "contaminant mass flow rate"
     annotation (Placement(transformation(
         extent={{20,-20},{-20,20}},
         rotation=180,
@@ -25,7 +26,6 @@ model MassAccumulation
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-120,60})));
-
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput mCon(
     final unit = "kg")
     "mass of the contaminant held by the filter"
@@ -33,7 +33,7 @@ model MassAccumulation
         transformation(extent={{100,-20},{140,20}}), iconTransformation(extent={
             {100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Reals.IntegratorWithReset intWitRes
-    "calculates the mass of contaminant"
+    "calculate the mass of contaminant"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(k=mCon_reset)
     "constant"
@@ -52,16 +52,19 @@ equation
   connect(intWitRes.u, mCon_flow) annotation (Line(points={{-12,0},{-40,0},{-40,
           60},{-120,60}}, color={0,0,127}));
   connect(intWitRes.y, mCon)
-    annotation (Line(points={{12,0},{120,0}},               color={0,0,127}));
-  connect(con.y, intWitRes.y_reset_in) annotation (Line(points={{-58,-20},{-20,-20},
+    annotation (Line(points={{12,0},{120,0}}, color={0,0,127}));
+  connect(con.y, intWitRes.y_reset_in) 
+    annotation (Line(points={{-58,-20},{-20,-20},
           {-20,-8},{-12,-8}},color={0,0,127}));
   connect(intWitRes.trigger, triRep)
     annotation (Line(points={{0,-12},{0,-60},{-120,-60}}, color={255,0,255}));
   connect(assMes.u, greater.y)
     annotation (Line(points={{70,-38},{61,-38}}, color={255,0,255}));
-  connect(greater.u2, intWitRes.y) annotation (Line(points={{38,-46},{20,-46},{20,
+  connect(greater.u2, intWitRes.y)
+    annotation (Line(points={{38,-46},{20,-46},{20,
           0},{12,0}}, color={0,0,127}));
-  connect(con1.y, greater.u1) annotation (Line(points={{22,50},{30,50},{30,-38},
+  connect(con1.y, greater.u1)
+    annotation (Line(points={{22,50},{30,50},{30,-38},
           {38,-38}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Rectangle(
@@ -81,7 +84,7 @@ equation
 This model mimics the process for a filter to capture the contaminants.
 The mass of the contaminants, <code>mCon</code>, increases by time.
 However, when the input signal <code>triRep</code> changes from <i>false</i>
-to <i>true</i>, <code>mCon</code> is reinitialized to a constant <code>mCon_reset</code>.
+to <i>true</i>, <code>mCon</code> is reinitialized to a constant, <code>mCon_reset</code>.
 </p>
 </html>", revisions="<html>
 <ul>
