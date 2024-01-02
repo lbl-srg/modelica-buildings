@@ -1,9 +1,10 @@
 within Buildings.Fluid.SolarCollectors;
 model ASHRAE93 "Model of a flat plate solar thermal collector"
   extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector(final perPar=per);
-  parameter Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector per
-    "Performance data" annotation(choicesAllMatching=true,
-    Placement(transformation(extent={{60,-80},{80,-60}})));
+  parameter
+    Buildings.Fluid.SolarCollectors.Data.GenericASHRAE93 per
+    "Performance data" annotation (choicesAllMatching=true, Placement(
+        transformation(extent={{60,-80},{80,-60}})));
 
   BaseClasses.ASHRAESolarGain solGai(
     final B0=per.B0,
@@ -37,7 +38,7 @@ equation
     "The heat loss coefficient from the ASHRAE ratings data must be strictly negative. Obtained slope = " + String(per.slope));
 
   connect(weaBus.TDryBul, heaLos.TEnv) annotation (Line(
-      points={{-100,96},{-88,96},{-88,22},{-22,22}},
+      points={{-99.95,96.05},{-88,96.05},{-88,22},{-22,22}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -69,11 +70,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(temSen.T, heaLos.TFlu) annotation (Line(
-      points={{-8,-16},{-32,-16},{-32,10},{-22,10}},
+      points={{-9,-16},{-32,-16},{-32,10},{-22,10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(temSen.T, solGai.TFlu) annotation (Line(
-      points={{-8,-16},{-32,-16},{-32,40},{-22,40}},
+      points={{-9,-16},{-32,-16},{-32,40},{-22,40}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(heaLos.QLos, QLos.Q_flow) annotation (Line(
@@ -159,14 +160,6 @@ test standard.
 </p>
 <h4>Notice</h4>
 <ul>
-<li>
-As mentioned in EnergyPlus 7.0.0 Engineering Reference, the SRCC
-incident angle modifier equation coefficients are only valid for
-incident angles of 60 degrees or less. Because these curves behave
-poorly for angles greater than 60 degrees the model does not
-calculate either direct or diffuse solar radiation gains when the
-incidence angle is greater than 60 degrees.
-</li>
 <li>
 By default, the estimated heat capacity of the collector without
 fluid is calculated based on the dry mass and the specific heat
