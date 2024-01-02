@@ -61,7 +61,7 @@ model PIDWithInputGains
     "Make sure outputs are within expected tolerance"
     annotation (Placement(transformation(extent={{200,20},{220,40}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.CivilTime modTim
-    "Standard time"
+    "Civil time"
     annotation (Placement(transformation(extent={{80,40},{100,60}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(t=0.59)
     "Output true if model time is below 0.6"

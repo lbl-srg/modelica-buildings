@@ -13,7 +13,7 @@ model Derivative
     startTime=5) "Ramp for time constant used in approximating derivative"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.CivilTime modTim
-    "Standard time"
+    "Civil time"
     annotation (Placement(transformation(extent={{-110,0},{-90,20}})));
   Buildings.Controls.OBC.CDL.Reals.IntegratorWithReset intWitRes(y_start=1)
     "Integration of input"
