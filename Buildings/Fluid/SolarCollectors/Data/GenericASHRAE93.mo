@@ -11,11 +11,11 @@ annotation (
 defaultComponentPrefixes="parameter",
 defaultComponentName="datSolCol",
 Documentation(info="<html>
-  <p>
-    Generic data file which is used for the
-    <a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector\">
-    Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector</a> model. It establishes
-    the base inputs needed to create model-specific data packages.
-  </p>
+<p>
+Generic data file which is used for the
+<a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector\"> 
+Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector</a> model.
+It establishes the base inputs needed to create model-specific data packages.
+</p>
 </html>"));
 end GenericASHRAE93;
