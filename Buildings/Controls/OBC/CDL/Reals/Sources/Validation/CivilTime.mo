@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.CDL.Reals.Sources.Validation;
 model CivilTime "Test model for the CivilTime block"
-  Buildings.Controls.OBC.CDL.Reals.Sources.CivilTime staTim
-    "Standard time"
+  Buildings.Controls.OBC.CDL.Reals.Sources.CivilTime civTim
+    "Civil time"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   annotation (
     experiment(
@@ -14,7 +14,7 @@ model CivilTime "Test model for the CivilTime block"
       info="<html>
 <p>
 This model tests the implementation of the block that outputs the
-standard time.
+civil time.
 </p>
 </html>",
       revisions="<html>

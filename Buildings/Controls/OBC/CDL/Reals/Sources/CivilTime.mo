@@ -1,14 +1,14 @@
 within Buildings.Controls.OBC.CDL.Reals.Sources;
-block CivilTime "Standard time"
+block CivilTime "Civil time"
   Interfaces.RealOutput y(
     final unit="s")
-    "Connector of Real output signal"
+    "Civil time"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
   y=time;
   annotation (
-    defaultComponentName="modTim",
+    defaultComponentName="civTim",
     Icon(
       coordinateSystem(
         preserveAspectRatio=true,
@@ -79,7 +79,7 @@ equation
             significantDigits=3)))}),
     Documentation(
       info="<html>
-<p>Block that outputs the standard time.
+<p>Block that outputs the civil time.
 </p>
 <h4>Implementation</h4>
 <p>
@@ -88,7 +88,7 @@ In the case of a building automation system, the
 building automation system synchronizes time, and hence
 need to assign a value for the output of this block.
 Daylight saving time shall not be taken into account,
-e.g, the block always outputs standard time rather than
+e.g, the block always outputs civil time rather than
 daylight savings time.
 </p>
 <p>
@@ -98,8 +98,8 @@ and its output is advanced at the same rate as the simulation time.
 </p>
 
 <p>
-Note that the block has not been included in the ASHRAE standard 231p.
-However, in the future versions of the 231 standard, the block should be added.
+Note that the block has not been included in the ASHRAE Standard 231p.
+However, in the future versions of the ASHRAE 231 Standard, the block should be added.
 </p>
 </html>",
       revisions="<html>
