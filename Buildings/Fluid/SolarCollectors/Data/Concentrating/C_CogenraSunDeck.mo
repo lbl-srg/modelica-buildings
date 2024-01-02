@@ -1,6 +1,6 @@
 within Buildings.Fluid.SolarCollectors.Data.Concentrating;
 record C_CogenraSunDeck =
-  SolarCollectors.Data.GenericSolarCollector (
+  Buildings.Fluid.SolarCollectors.Data.GenericEN12975 (
     final ATyp=Types.Area.Aperture,
     final A=4.302,
     final V=4.4/1000,

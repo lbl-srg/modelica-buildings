@@ -1,6 +1,6 @@
 within Buildings.Fluid.SolarCollectors.Data.Tubular;
 record T_JiaxingDiyiC0130 =
-    SolarCollectors.Data.GenericSolarCollector (
+    Buildings.Fluid.SolarCollectors.Data.GenericASHRAE93 (
     final ATyp=Types.Area.Gross,
     final A=4.650,
     final mDry=95,
@@ -11,9 +11,6 @@ record T_JiaxingDiyiC0130 =
     final B1=-0.9136,
     final y_intercept=0.388,
     final slope=-1.453,
-    final IAMDiff=0,
-    final C1=0,
-    final C2=0,
     final G_nominal=1000,
     final dT_nominal=10) "T - Jiaxing Diyi New Energy Co., Ltd., DIYI-C01-30"
     annotation (

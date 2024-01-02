@@ -1,6 +1,6 @@
 within Buildings.Fluid.SolarCollectors.Data.Tubular;
 record T_AMKCollectraAGOWR20 =
-    SolarCollectors.Data.GenericSolarCollector (
+    Buildings.Fluid.SolarCollectors.Data.GenericASHRAE93 (
     final ATyp=Types.Area.Gross,
     final A=3.457,
     final mDry=73,
@@ -11,9 +11,6 @@ record T_AMKCollectraAGOWR20 =
     final B1=-0.0052,
     final y_intercept=0.446,
     final slope=-1.432,
-    final IAMDiff=0,
-    final C1=0,
-    final C2=0,
     final G_nominal = 1000,
     final dT_nominal = 10) "T - AMG Collectra AG, OWR 20"
     annotation (

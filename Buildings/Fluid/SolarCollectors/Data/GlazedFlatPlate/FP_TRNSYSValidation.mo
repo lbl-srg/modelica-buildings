@@ -1,6 +1,6 @@
 within Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate;
 record FP_TRNSYSValidation =
-    SolarCollectors.Data.GenericSolarCollector (
+    Buildings.Fluid.SolarCollectors.Data.GenericASHRAE93 (
     ATyp=Types.Area.Gross,
     A=5,
     mDry=8.6,
@@ -11,9 +11,6 @@ record FP_TRNSYSValidation =
     B1=-0,
     y_intercept=0.8,
     slope=-3.6111,
-    IAMDiff=0,
-    C1=0,
-    C2=0,
     G_nominal=800,
     dT_nominal=10)
   "Default values in the TRNSYS Simulation Studio SDHW example"

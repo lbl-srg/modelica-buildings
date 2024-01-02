@@ -1,6 +1,6 @@
 within Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate;
 record FP_GuangdongFSPTY95 =
-    SolarCollectors.Data.GenericSolarCollector (
+    Buildings.Fluid.SolarCollectors.Data.GenericASHRAE93 (
     final ATyp=Types.Area.Gross,
     final A=2,
     final mDry=35,
@@ -11,9 +11,6 @@ record FP_GuangdongFSPTY95 =
     final B1=0.023,
     final y_intercept=0.678,
     final slope=-4.426,
-    final IAMDiff=0,
-    final C1=0,
-    final C2=0,
     final G_nominal = 1000,
     final dT_nominal = 10)
   "FP - Guandong Fivestar Solar Energy Co, FS-PTY95-2.0"
