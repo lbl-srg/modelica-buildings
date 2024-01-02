@@ -1,4 +1,4 @@
-﻿within Buildings.Fluid.SolarCollectors.Data;
+within Buildings.Fluid.SolarCollectors.Data;
 record GenericEN12975
   "Generic data record providing inputs for specific EN12975 collector data records"
   extends Buildings.Fluid.SolarCollectors.Data.BaseClasses.PartialSolarCollector;
