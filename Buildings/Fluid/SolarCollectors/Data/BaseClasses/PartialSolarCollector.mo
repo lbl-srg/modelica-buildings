@@ -12,12 +12,13 @@ record PartialSolarCollector
     "Pressure drop during test conditions";
   parameter Real mperA_flow_nominal(unit="kg/(s.m2)")
     "Mass flow rate per unit area of collector (for pressure drop calculations)";
-  parameter Real B0 "1st incident angle modifier coefficient";
-  parameter Real B1 "2nd incident angle modifier coefficient";
   parameter Modelica.Units.SI.Irradiance G_nominal
     "Nominal solar irradiance specified in ratings data";
   parameter Modelica.Units.SI.TemperatureDifference dT_nominal
-    "Nominal temperature difference specified in ratings data";
+    "Nominal temperature difference (between the collector inlet and outlet) specified in ratings data";
+  parameter Real B0 "1st incident angle modifier coefficient";
+  parameter Real B1 "2nd incident angle modifier coefficient";
+
 annotation (
 defaultComponentPrefixes="parameter",
 defaultComponentName="datSolCol",
