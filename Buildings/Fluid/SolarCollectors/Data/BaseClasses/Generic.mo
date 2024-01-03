@@ -9,10 +9,8 @@ record Generic
   parameter Buildings.Fluid.SolarCollectors.Types.HeatCapacity CTyp
     "Total thermal capacity or fluid volume and 'dry' thermal capacity or mass";
   parameter Modelica.Units.SI.HeatCapacity C
-    "Total thermal capacity of the solar thermal collector (i.e. including fluid)";
+    "Dry or total thermal capacity of the solar thermal collector";
   parameter Modelica.Units.SI.Volume V "Fluid volume";
-  parameter Modelica.Units.SI.HeatCapacity CDry
-    "Dry thermal capacity of the solar thermal collector";
   parameter Modelica.Units.SI.Mass mDry "Dry mass";
   parameter Real mperA_flow_nominal(unit="kg/(s.m2)")
     "Nominal mass flow rate per unit area of collector";
@@ -31,8 +29,7 @@ Documentation(info="<html>
 Partial record containing common performance parameters for ASHRAE93 and EN12975
 solar collector models.
 </p>
-</html>",
-      revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 January, 2024, by Jelger Jansen:<br/>

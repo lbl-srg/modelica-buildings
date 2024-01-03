@@ -21,6 +21,7 @@ model PartialSolarCollector "Partial model for solar collectors"
     final min=0,
     final max=1,
     final unit = "1") "Ground reflectance";
+
   parameter Modelica.Units.SI.HeatCapacity C=385*perPar.mDry
     "Heat capacity of solar collector without fluid (default: cp_copper*mDry*nPanels)";
 
@@ -83,9 +84,8 @@ model PartialSolarCollector "Partial model for solar collectors"
     final dp_nominal=dp_nominal_final) "Flow resistance"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
-  // The size of the liquid volume has been increased to also
-  // add the heat capacity of the metal. See the info section
-  // for an explanation.
+  // The size of the liquid volume has been increased to also add
+  // the heat capacity of the metal.
   Buildings.Fluid.MixingVolumes.MixingVolume vol[nSeg](
     each nPorts=2,
     redeclare package Medium = Medium,
@@ -94,7 +94,8 @@ model PartialSolarCollector "Partial model for solar collectors"
     each final p_start=p_start,
     each final T_start=T_start,
     each final m_flow_small=m_flow_small,
-    each final V=(perPar.V+C/cp_default/rho_default)*nPanels_internal/nSeg,
+    each final V=(perPar.V + perPar.mDry*385/cp_default/rho_default)*
+        nPanels_internal/nSeg,
     each final massDynamics=massDynamics,
     each final X_start=X_start,
     each final C_start=C_start,
@@ -123,7 +124,7 @@ model PartialSolarCollector "Partial model for solar collectors"
     annotation (Placement(transformation(extent={{50,6},{70,26}})));
 
 protected
-  parameter Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector perPar
+  parameter Buildings.Fluid.SolarCollectors.Data.BaseClasses.Generic perPar
     "Partial performance data"
     annotation(choicesAllMatching=true);
 
@@ -216,38 +217,24 @@ equation
     defaultComponentName="solCol",
     Documentation(info="<html>
 <p>
-This component is a partial model of a solar thermal collector. It can be
-expanded to create solar collector models based on either ASHRAE93 or
+This component is a partial model of a solar thermal collector.
+It can be expanded to create solar collector models based on either ASHRAE93 or
 EN12975 ratings data.
 </p>
-<h4>Notice</h4>
-<p>
-As mentioned in the reference, the SRCC incident angle modifier equation
-coefficients are only valid for incident angles of 60 degrees or less.
-Because these curves behave poorly for angles greater than 60 degrees
-the model does not calculatue either direct or diffuse solar radiation gains
-when the incidence angle is greater than 60 degrees.
-</p>
-<p>
-The heat capacity of the collector without fluid is
-estimated based on the dry mass and the specific heat capacity of copper.
-This heat capacity is then added to the model by increasing the size of the fluid
-volume. Note that in earlier implementations, there was a separate model to take into
-account this heat capacity. However, this led to a translation error if glycol
-was used as the medium, because during the translation, the function <code>T_ph</code> for
-<a href=\"modelica://Modelica.Media.Incompressible.Examples.Glycol47\">
-Modelica.Media.Incompressible.Examples.Glycol47</a> had to be differentiated,
-but this function is not differentiable.
-</p>
+
 <h4>References</h4>
 <p>
-<a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>,
-October 13, 2011.<br/>
-CEN 2006, European Standard 12975-1:2006, European Committee for Standardization
+<a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v23.2.0/EngineeringReference.pdf\">
+EnergyPlus 23.2.0 Engineering Reference</a>
 </p>
-</html>",
-revisions="<html>
+</html>", revisions="<html>
 <ul>
+<li>
+January, 2024, by Jelger Jansen:<br/>
+Refactor model.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3604\">Buildings, #3604</a>.
+</li>
 <li>
 December 11, 2023, by Michael Wetter:<br/>
 Corrected implementation of pressure drop calculation for the situation where the collectors are in parallel,

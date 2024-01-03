@@ -7,27 +7,25 @@ model ASHRAE93 "Model of a flat plate solar thermal collector"
         transformation(extent={{60,-80},{80,-60}})));
 
   BaseClasses.ASHRAESolarGain solGai(
-    final B0=per.B0,
-    final B1=per.B1,
-    final shaCoe=shaCoe,
-    final til=til,
+    redeclare package Medium = Medium,
     final nSeg=nSeg,
+    final til=til,
+    final b0=per.b0,
+    final b1=per.b1,
     final y_intercept=per.y_intercept,
     final use_shaCoe_in=use_shaCoe_in,
-    final A_c=TotalArea_internal,
-    redeclare package Medium = Medium)
+    final shaCoe=shaCoe,
+    final A_c=TotalArea_internal)
     "Identifies heat gained from the sun using standard ASHRAE93 calculations"
              annotation (Placement(transformation(extent={{-20,38},{0,58}})));
 
   BaseClasses.ASHRAEHeatLoss heaLos(
-    final nSeg=nSeg,
-    final slope=per.slope,
-    final y_intercept=per.y_intercept,
     redeclare package Medium = Medium,
-    final G_nominal=per.G_nominal,
-    dT_nominal=per.dT_nominal,
+    final nSeg=nSeg,
+    final m_flow_nominal=per.mperA_flow_nominal*per.A*nPanels_internal,
+    final dT_nominal=per.dT_nominal,
+    final slope=per.slope,
     final A_c=TotalArea_internal,
-    m_flow_nominal=per.mperA_flow_nominal*per.A*nPanels_internal,
     final cp_default=cp_default)
     "Calculates the heat lost to the surroundings using the ASHRAE93 standard calculations"
         annotation (Placement(transformation(extent={{-20,6},{0,26}})));
@@ -158,20 +156,24 @@ annotation (
 This component models a solar thermal collector according to the ASHRAE93
 test standard.
 </p>
-<h4>Notice</h4>
-<ul>
-<li>
-By default, the estimated heat capacity of the collector without
-fluid is calculated based on the dry mass and the specific heat
-capacity of copper.
-</li>
-</ul>
+
 <h4>References</h4>
 <p>
-<a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, October 13, 2011. <br/>
+ASHRAE 93-2010 -- Methods of Testing to Determine the Thermal Performance of
+Solar Collectors (ANSI approved)
+</p>
+<p>
+<a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v23.2.0/EngineeringReference.pdf\">
+EnergyPlus 23.2.0 Engineering Reference</a>
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January, 2024, by Jelger Jansen:<br/>
+Refactor model.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3604\">Buildings, #3604</a>.
+</li>
 <li>
 December 11, 2023, by Michael Wetter:<br/>
 Corrected implementation of pressure drop calculation for the situation where the collectors are in parallel,

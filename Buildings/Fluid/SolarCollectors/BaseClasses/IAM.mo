@@ -31,16 +31,23 @@ algorithm
 <h4>Overview</h4>
 <p>
 This function computes the incidence angle modifier for solar insolation
-striking the surface of the solar thermal collector. It is calculated using
-Eq 555 in the EnergyPlus 7.0.0 Engineering Reference.
+striking the surface of the solar thermal collector.
+It is calculated using Eq 18.298 in the EnergyPlus 23.2.0 Engineering Reference.
 </p>
+
 <h4>References</h4>
 <p>
-<a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>,
-October 13, 2011.
+<a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v23.2.0/EngineeringReference.pdf\">
+EnergyPlus 23.2.0 Engineering Reference</a>
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January, 2024, by Jelger Jansen:<br/>
+Refactor model.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3604\">Buildings, #3604</a>.
+</li>
 <li>
 May 31, 2017, by Michael Wetter and Filip Jorissen:<br/>
 Change limits for incident angle modifier to avoid dip in temperature

@@ -1,41 +1,39 @@
 within Buildings.Fluid.SolarCollectors;
 model EN12975 "Model of a concentrating solar collector"
-extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector(final perPar=per);
+  extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector(final perPar=per);
   parameter
-    Buildings.Fluid.SolarCollectors.Data.GenericEN12975 per
+  Buildings.Fluid.SolarCollectors.Data.GenericEN12975 per
     "Performance data" annotation (choicesAllMatching=true, Placement(
         transformation(extent={{60,-80},{80,-60}})));
 
-  BaseClasses.EN12975SolarGain solGai(
+  Buildings.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain solGai(
     redeclare package Medium = Medium,
-    final A_c=TotalArea_internal,
     final nSeg=nSeg,
-    final y_intercept=per.y_intercept,
-    final B0=per.B0,
-    final B1=per.B1,
-    final shaCoe=shaCoe,
+    final b0=per.b0,
+    final b1=per.b1,
     final iamDiff=per.IAMDiff,
-    final use_shaCoe_in=use_shaCoe_in)
+    final eta0=per.eta0,
+    final use_shaCoe_in=use_shaCoe_in,
+    final shaCoe=shaCoe,
+    final A_c=TotalArea_internal)
     "Identifies heat gained from the sun using standard EN12975 calculations"
      annotation (Placement(transformation(extent={{-20,38},{0,58}})));
-  BaseClasses.EN12975HeatLoss heaLos(
+  Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss heaLos(
     redeclare package Medium = Medium,
-    final A_c=TotalArea_internal,
     final nSeg=nSeg,
-    final y_intercept=per.y_intercept,
-    final C1=per.C1,
-    final C2=per.C2,
-    final G_nominal=per.G_nominal,
     final dT_nominal=per.dT_nominal,
     final m_flow_nominal=per.mperA_flow_nominal*per.A*nPanels_internal,
+    final a1=per.a1,
+    final a2=per.a2,
+    final A_c=TotalArea_internal,
     final cp_default=cp_default)
     "Calculates the heat lost to the surroundings using the EN12975 standard calculations"
       annotation (Placement(transformation(extent={{-20,6},{0,26}})));
 
 equation
-  // Make sure the model is only used with the EN ratings data, and hence C1 > 0
-  assert(per.C1 > 0,
-    "The heat loss coefficient from the EN 12975 ratings data must be strictly positive. Obtained C1 = " + String(per.C1));
+  // Make sure the model is only used with the EN ratings data, and hence a1 > 0
+  assert(per.a1 > 0,
+    "The heat loss coefficient from the EN 12975 ratings data must be strictly positive. Obtained a1 = " + String(per.a1));
   connect(shaCoe_internal, solGai.shaCoe_in);
 
   connect(weaBus.TDryBul, heaLos.TEnv) annotation (Line(
@@ -82,23 +80,27 @@ equation
   defaultComponentName="solCol",
   Documentation(info="<html>
 <p>
-This component models a solar thermal collector according
-to the EN12975 test standard.
+This component models a solar thermal collector according to the EN12975
+test standard.
 </p>
-<h4>Notice</h4>
-<ul>
-<li>
-By default, the estimated heat capacity of the collector without
-fluid is calculated based on the dry mass and the specific heat
-capacity of copper.
-</li>
-</ul>
+
 <h4>References</h4>
 <p>
-<a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, October 13, 2011.<br/>
+CEN 2022, European Standard 12975:2022, European Committee for Standardization
 </p>
-</html>", revisions="<html>
+<p>
+<a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v23.2.0/EngineeringReference.pdf\">
+EnergyPlus 23.2.0 Engineering Reference</a>
+</p>
+</html>",
+      revisions="<html>
 <ul>
+<li>
+January, 2024, by Jelger Jansen:<br/>
+Refactor model.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3604\">Buildings, #3604</a>.
+</li>
 <li>
 December 11, 2023, by Michael Wetter:<br/>
 Corrected implementation of pressure drop calculation for the situation where the collectors are in parallel,

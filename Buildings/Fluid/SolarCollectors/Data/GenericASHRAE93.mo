@@ -14,18 +14,13 @@ Documentation(info="<html>
 <p>
 Record containing performance parameters for ASHRAE93 solar collector models.
 </p>
-</html>",
-      revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 January, 2024, by Jelger Jansen:<br/>
-Refactor model.<br/>
+First implementation.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3604\">Buildings, #3604</a>.
-</li>
-<li>
-January 4, 2013, by Peter Grant:<br/>
-First implementation.
 </li>
 </ul>
 </html>"));
