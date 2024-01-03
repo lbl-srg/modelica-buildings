@@ -1,13 +1,13 @@
 within Buildings.Fluid.SolarCollectors.Data;
 record GenericEN12975
   "Generic data record providing inputs for specific EN12975 collector data records"
-  extends Buildings.Fluid.SolarCollectors.Data.BaseClasses.PartialSolarCollector;
+  extends Buildings.Fluid.SolarCollectors.Data.BaseClasses.Generic;
 
   parameter Real IAMDiff
     "Incidence angle modifier for diffuse irradiance (incidence angle of 50°)";
-  parameter Real eta_0 "Optical efficiency (Maximum efficiency)";
-  parameter Real C1 "First order heat loss coefficient";
-  parameter Real C2 "Second order heat loss coefficient";
+  parameter Real eta0 "Optical efficiency (Maximum efficiency)";
+  parameter Real a1 "First order heat loss coefficient";
+  parameter Real a2 "Second order heat loss coefficient";
 
 annotation (
 defaultComponentPrefixes="parameter",

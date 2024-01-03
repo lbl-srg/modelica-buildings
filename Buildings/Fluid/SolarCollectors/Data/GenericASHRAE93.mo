@@ -1,7 +1,7 @@
 within Buildings.Fluid.SolarCollectors.Data;
 record GenericASHRAE93
   "Generic data record providing inputs for specific ASHRAE93 collector data records"
-  extends Buildings.Fluid.SolarCollectors.Data.BaseClasses.PartialSolarCollector;
+  extends Buildings.Fluid.SolarCollectors.Data.BaseClasses.Generic;
 
   parameter Real y_intercept "Y intercept (Maximum efficiency)";
   parameter Real slope(final max=0, final unit = "W/(m2.K)")
