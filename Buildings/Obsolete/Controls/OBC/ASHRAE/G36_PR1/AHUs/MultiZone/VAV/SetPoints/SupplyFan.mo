@@ -142,7 +142,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Or or2 if have_perZonRehBox
     "Setback or warmup mode"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or3
+  Buildings.Obsolete.Controls.OBC.CDL.Logical.Or3 or3
     "Cool-down or setup or occupied mode"
     annotation (Placement(transformation(extent={{20,90},{40,110}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(

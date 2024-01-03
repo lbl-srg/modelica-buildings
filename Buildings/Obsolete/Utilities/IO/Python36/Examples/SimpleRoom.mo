@@ -17,7 +17,7 @@ model SimpleRoom
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Modelica.Blocks.Routing.Multiplex4 mul "Multiplex"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  Buildings.Controls.OBC.CDL.Logical.OnOffController onOffCon(
+  Buildings.Obsolete.Controls.OBC.CDL.Logical.OnOffController onOffCon(
     bandwidth=2,
     u(unit="K", displayUnit="degC")) "On/off controller"
     annotation (Placement(transformation(extent={{30,10},{50,30}})));

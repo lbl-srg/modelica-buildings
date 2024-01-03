@@ -1,8 +1,7 @@
 within Buildings.Controls.OBC.CDL.Reals.Sources.Validation;
-model StandardTime
-  "Test model for the StandardTime block"
-  Buildings.Controls.OBC.CDL.Reals.Sources.ModelTime staTim
-    "Standard time"
+model CivilTime "Test model for the CivilTime block"
+  Buildings.Controls.OBC.CDL.Reals.Sources.CivilTime civTim
+    "Civil time"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   annotation (
     experiment(
@@ -10,12 +9,12 @@ model StandardTime
       Tolerance=1e-6,
       StopTime=1),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Reals/Sources/Validation/StandardTime.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Reals/Sources/Validation/CivilTime.mos" "Simulate and plot"),
     Documentation(
       info="<html>
 <p>
 This model tests the implementation of the block that outputs the
-model time.
+civil time.
 </p>
 </html>",
       revisions="<html>
@@ -39,4 +38,4 @@ First implementation in CDL.
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
           points={{-36,60},{64,0},{-36,-60},{-36,60}})}));
-end StandardTime;
+end CivilTime;

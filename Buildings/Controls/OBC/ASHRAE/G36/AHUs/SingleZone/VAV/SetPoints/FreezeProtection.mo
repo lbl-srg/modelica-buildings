@@ -156,7 +156,7 @@ block FreezeProtection
     annotation (Placement(transformation(extent={{440,210},{480,250}}),
         iconTransformation(extent={{100,-170},{140,-130}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1EneCHWPum
- if have_frePro
+    if have_frePro
     "Energize chilled water pump"
     annotation (Placement(transformation(extent={{440,130},{480,170}}),
         iconTransformation(extent={{100,170},{140,210}})));
@@ -233,6 +233,7 @@ block FreezeProtection
     annotation (Placement(transformation(extent={{440,-710},{480,-670}}),
         iconTransformation(extent={{100,-210},{140,-170}})));
 
+protected
   Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThr(
     final t=273.15 + 4,
     final h=Thys) if have_frePro
@@ -323,7 +324,7 @@ block FreezeProtection
   Buildings.Controls.OBC.CDL.Logical.Timer tim3(
     final t=900) if have_frePro
     "Check if the supply air temperature has been lower than threshold value for sufficient long time"
-    annotation (Placement(transformation(extent={{-300,160},{-280,180}})));
+    annotation (Placement(transformation(extent={{-320,160},{-300,180}})));
   Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThr2(
     final t=273.15 + 1,
     final h=Thys) if have_frePro
@@ -332,8 +333,8 @@ block FreezeProtection
   Buildings.Controls.OBC.CDL.Logical.Timer tim4(
     final t=300) if have_frePro
     "Check if the supply air temperature has been lower than threshold value for sufficient long time"
-    annotation (Placement(transformation(extent={{-300,120},{-280,140}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or3 if have_frePro
+    annotation (Placement(transformation(extent={{-320,120},{-300,140}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or7 if have_frePro
     "Check if it should be in stage 3 mode"
     annotation (Placement(transformation(extent={{-240,112},{-220,132}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat1 if have_frePro
@@ -437,7 +438,7 @@ block FreezeProtection
     "Clear the latch to end the stage 2 freeze protection"
     annotation (Placement(transformation(extent={{-220,312},{-200,332}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2 if have_frePro
-                                            "Start stage 1 freeze protection mode"
+    "Start stage 1 freeze protection mode"
     annotation (Placement(transformation(extent={{-100,652},{-80,672}})));
   Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg if have_frePro
     "Switch from stage 2 to stage 1"
@@ -484,7 +485,7 @@ block FreezeProtection
     final k=false) if not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_BAS
      and have_frePro
     "Constant false"
-    annotation (Placement(transformation(extent={{-300,-10},{-280,10}})));
+    annotation (Placement(transformation(extent={{-320,-10},{-300,10}})));
   Buildings.Controls.OBC.CDL.Logical.Not norSta1 if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
      and have_frePro
     "Not in stage 3"
@@ -506,13 +507,12 @@ block FreezeProtection
     "Not in stage 3"
     annotation (Placement(transformation(extent={{120,-230},{140,-210}})));
   Buildings.Controls.OBC.CDL.Logical.Not norSta3 if have_frePro
-                                                 "Not in stage 3"
+    "Not in stage 3"
     annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
   Buildings.Controls.OBC.CDL.Logical.And and3 if not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
      and have_frePro
     "Disable supply fan when in stage 3"
     annotation (Placement(transformation(extent={{320,-100},{340,-80}})));
-
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai4(final k=1)
  if freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
      and have_frePro
@@ -569,39 +569,43 @@ block FreezeProtection
   Buildings.Controls.OBC.CDL.Logical.Pre pre if have_frePro
     "Break loop"
     annotation (Placement(transformation(extent={{-200,112},{-180,132}})));
-  CDL.Integers.Sources.Constant                        conInt9(final k=0)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt9(final k=0)
     if not have_frePro "Dummy constant"
     annotation (Placement(transformation(extent={{380,270},{400,290}})));
-  CDL.Integers.Sources.Constant                        conInt10(final k=0)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt10(final k=0)
     if not have_frePro "Dummy constant"
     annotation (Placement(transformation(extent={{380,-680},{400,-660}})));
-  CDL.Reals.MultiplyByParameter                        gai8(final k=1)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai8(final k=1)
     if not have_frePro
     "Dummy block for enabling and disabling the conditional connection"
     annotation (Placement(transformation(extent={{-300,-80},{-280,-60}})));
-  CDL.Reals.MultiplyByParameter                        gai9(final k=1)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai9(final k=1)
     if not have_frePro
     "Dummy block for enabling and disabling the conditional connection"
     annotation (Placement(transformation(extent={{-300,-130},{-280,-110}})));
-  CDL.Reals.MultiplyByParameter                        gai10(final k=1)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai10(final k=1)
     if not have_frePro
     "Dummy block for enabling and disabling the conditional connection"
     annotation (Placement(transformation(extent={{-300,-190},{-280,-170}})));
-  CDL.Reals.MultiplyByParameter                        gai11(final k=1) if (
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai11(final k=1) if (
     buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp)
      and not have_frePro
     "Dummy block for enabling and disabling the conditional connection"
     annotation (Placement(transformation(extent={{-300,-310},{-280,-290}})));
-  CDL.Reals.MultiplyByParameter                        gai12(final k=1) if (
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai12(final k=1) if (
     buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan)
      and not have_frePro
     "Dummy block for enabling and disabling the conditional connection"
     annotation (Placement(transformation(extent={{-300,-440},{-280,-420}})));
-  CDL.Reals.MultiplyByParameter                        gai13(final k=1)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai13(final k=1)
     if not have_frePro
     "Dummy block for enabling and disabling the conditional connection"
     annotation (Placement(transformation(extent={{-300,-510},{-280,-490}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or6 if have_frePro
+    "Check if it should be in stage 3 mode"
+    annotation (Placement(transformation(extent={{-280,152},{-260,172}})));
+
 equation
   connect(lesThr.y, tim.u)
     annotation (Line(points={{-338,670},{-302,670}}, color={255,0,255}));
@@ -646,13 +650,9 @@ equation
   connect(conInt1.y, intSwi1.u1) annotation (Line(points={{62,238},{100,238},{100,
           218},{118,218}}, color={255,127,0}));
   connect(lesThr1.y, tim3.u) annotation (Line(points={{-358,370},{-350,370},{-350,
-          170},{-302,170}}, color={255,0,255}));
+          170},{-322,170}}, color={255,0,255}));
   connect(TAirSup, lesThr2.u) annotation (Line(points={{-460,250},{-420,250},{
           -420,130},{-402,130}}, color={0,0,127}));
-  connect(tim3.passed, or3.u1) annotation (Line(points={{-278,162},{-260,162},{-260,
-          130},{-242,130}},   color={255,0,255}));
-  connect(tim4.passed, or3.u2)
-    annotation (Line(points={{-278,122},{-242,122}},   color={255,0,255}));
   connect(u1SofSwiRes, lat1.clr) annotation (Line(points={{-460,-30},{-160,-30},
           {-160,116},{-142,116}}, color={255,0,255}));
   connect(lat1.y, retFan.u2) annotation (Line(points={{-118,122},{20,122},{20,-260},
@@ -795,8 +795,6 @@ equation
                                  color={255,0,255}));
   connect(falEdg1.y, lat1.clr) annotation (Line(points={{-198,50},{-160,50},{-160,
           116},{-142,116}},       color={255,0,255}));
-  connect(con2.y, or3.u3) annotation (Line(points={{-278,0},{-260,0},{-260,114},
-          {-242,114}},      color={255,0,255}));
   connect(u1RelFan, and2.u1)
     annotation (Line(points={{-460,-320},{318,-320}}, color={255,0,255}));
   connect(lat1.y, norSta1.u) annotation (Line(points={{-118,122},{20,122},{20,-340},
@@ -868,10 +866,10 @@ equation
   connect(gai7.y, yHeaCoi) annotation (Line(points={{342,-590},{360,-590},{360,-560},
           {460,-560}}, color={0,0,127}));
   connect(lesThr2.y, tim4.u)
-    annotation (Line(points={{-378,130},{-302,130}}, color={255,0,255}));
+    annotation (Line(points={{-378,130},{-322,130}}, color={255,0,255}));
   connect(lat1.y, supFan.u2) annotation (Line(points={{-118,122},{20,122},{20,-140},
           {158,-140}},       color={255,0,255}));
-  connect(or3.y, pre.u)
+  connect(or7.y, pre.u)
     annotation (Line(points={{-218,122},{-202,122}}, color={255,0,255}));
   connect(pre.y, lat1.u)
     annotation (Line(points={{-178,122},{-142,122}}, color={255,0,255}));
@@ -881,8 +879,6 @@ equation
     annotation (Line(points={{-278,662},{-102,662}}, color={255,0,255}));
   connect(norFal.y, falEdg1.u)
     annotation (Line(points={{-338,50},{-222,50}}, color={255,0,255}));
-  connect(norFal.y, or3.u3) annotation (Line(points={{-338,50},{-260,50},{-260,
-          114},{-242,114}}, color={255,0,255}));
   connect(conInt9.y, yFreProSta) annotation (Line(points={{402,280},{420,280},{420,
           230},{460,230}}, color={255,127,0}));
   connect(conInt10.y, yHotWatPlaReq) annotation (Line(points={{402,-670},{420,-670},
@@ -911,6 +907,16 @@ equation
           -500},{-302,-500}}, color={0,0,127}));
   connect(gai13.y, yCooCoi) annotation (Line(points={{-278,-500},{360,-500},{360,
           -460},{460,-460}}, color={0,0,127}));
+  connect(tim3.passed, or6.u1)
+    annotation (Line(points={{-298,162},{-282,162}}, color={255,0,255}));
+  connect(tim4.passed, or6.u2) annotation (Line(points={{-298,122},{-290,122},{-290,
+          154},{-282,154}}, color={255,0,255}));
+  connect(or6.y, or7.u1) annotation (Line(points={{-258,162},{-250,162},{-250,122},
+          {-242,122}}, color={255,0,255}));
+  connect(norFal.y, or7.u2) annotation (Line(points={{-338,50},{-260,50},{-260,114},
+          {-242,114}}, color={255,0,255}));
+  connect(con2.y, or7.u2) annotation (Line(points={{-298,0},{-260,0},{-260,114},
+          {-242,114}}, color={255,0,255}));
 annotation (defaultComponentName="sinAHUFrePro",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}),
         graphics={
