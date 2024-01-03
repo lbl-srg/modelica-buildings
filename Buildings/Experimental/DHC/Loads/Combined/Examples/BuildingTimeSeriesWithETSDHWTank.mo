@@ -47,7 +47,7 @@ model BuildingTimeSeriesWithETSDHWTank
  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupMaxSet(k=bui.THeaWatSup_nominal)
     "Heating water supply temperature set point - Maximum value"
     annotation (Placement(transformation(extent={{-50,70},{-30,90}})));
- Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupMinSet(each k=28 + 273.15)
+ Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupMinSet(k=28 + 273.15)
     "Heating water supply temperature set point - Minimum value"
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
   parameter Buildings.Experimental.DHC.Loads.HotWater.Data.GenericDomesticHotWaterWithHeatExchanger datWatHea(VTan=0.3,

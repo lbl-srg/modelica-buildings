@@ -59,7 +59,7 @@ model HeatPump
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-110,0})));
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold enaHea(each t=1e-4)
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold enaHea(t=1e-4)
     "Threshold comparison to enable heating"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Fluid.Sensors.TemperatureTwoPort senTLoaSup(
