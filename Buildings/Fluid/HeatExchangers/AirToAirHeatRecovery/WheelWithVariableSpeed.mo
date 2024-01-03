@@ -146,11 +146,10 @@ model WheelWithVariableSpeed
     annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
 
 initial equation
-  assert(noEvent(abs(Buildings.Utilities.Math.Functions.polynomial(
-         a=a, x=uSpe)-1) < 0.01),
-         "*** Warning in " + getInstanceName() + ": Power efficiency curve is wrong. 
-         Power consumption should equal to the nominal value when uSpe = 1.",
-         level=AssertionLevel.warning);
+  assert(noEvent(abs(sum(a)-1) < Modelica.Constants.eps),
+         "*** Error in " + getInstanceName() + ": Power efficiency curve is wrong. 
+         The sum of the coefficients for power efficiency curve should equal to 1.",
+         level=AssertionLevel.error);
 
 equation
   connect(hex.port_b1, port_b1)

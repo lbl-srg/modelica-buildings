@@ -319,9 +319,6 @@ a heat exchanger and two dampers to bypass the supply and exhaust airflow.
 <p>
 This model does not require geometric data. The performance is defined by specifying the
 part load (75%) and nominal sensible and latent effectiveness in both heating and cooling conditions.
-</p>
-<h4>Operation</h4>
-<p>
 This operation of the wheel is configured as follows.
 </p>
 <ul>

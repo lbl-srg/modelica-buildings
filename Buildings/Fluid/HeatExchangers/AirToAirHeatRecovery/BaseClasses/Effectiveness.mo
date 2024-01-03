@@ -53,7 +53,7 @@ model Effectiveness
 
 protected
   Real rat
-    "Ratio of the average operating volumetric air flow rate to the nominal supply air flow rate";
+    "Ratio of the average operating air flow rate to the nominal supply air flow rate";
   Real epsSenPL
     "Part load (75%) sensible heat exchanger effectiveness used for calculation";
   Real epsSen_nominal
@@ -103,7 +103,7 @@ under heating and cooling modes at different flow rates of the supply
 air and the exhaust air.
 </p>
 <p>
-It firstly calculates the ratio of the average volumetric flow rate to the nominal
+It firstly calculates the ratio of the average operating flow rate to the nominal
 supply flow rate by:
 </p>
 <pre>
@@ -122,6 +122,7 @@ It then calculates the sensible and latent effectiveness by:
   epsSen = uSpe * (epsSenPL + (epsSen_nominal - epsSenPL) * (rat - 0.75)/0.25),
   epsLat = uSpe * (epsLatPL + (epsLat_nominal - epsLatPL) * (rat - 0.75)/0.25),
 </pre>
+<p>
 where <code>epsSen</code> and <code>epsLat</code> are the effectiveness
 for the sensible and latent heat transfer, respectively;
 <code>epsSen_nominal</code> and <code>epsSenPL</code> are the effectiveness 
@@ -129,6 +130,7 @@ for the sensible heat transfer when <code>rat</code> is 1 and 0.75, respectively
 <code>epsLat_nominal</code> and <code>epsLatPL</code> are the effectiveness 
 for the latent heat transfer when <code>Rat</code> is 1 and 0.75, respectively;
 <code>uSpe</code> is the speed ratio of a rotary wheel.
+</p>
 <p>
 The parameters <code>epsSen_nominal</code>, <code>epsSenPL</code>, <code>epsLat_nominal</code>, and 
 <code>epsLatPL</code> have different values depending on if the wheel is in
