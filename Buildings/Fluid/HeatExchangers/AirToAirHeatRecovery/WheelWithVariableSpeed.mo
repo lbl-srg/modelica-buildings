@@ -8,41 +8,54 @@ model WheelWithVariableSpeed
     Modelica.Media.Interfaces.PartialCondensingGases
     "Exhaust air";
   parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal
-    "Nominal supply air mass flow rate";
+    "Nominal supply air mass flow rate"
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal
-    "Nominal exhaust air mass flow rate";
+    "Nominal exhaust air mass flow rate"
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dp1_nominal = 125
-    "Nominal supply air pressure drop";
+    "Nominal supply air pressure drop"
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dp2_nominal = 125
-    "Nominal exhaust air pressure drop";
+    "Nominal exhaust air pressure drop"
+    annotation (Dialog(group="Nominal condition"));
   parameter Real P_nominal(final unit="W")
-    "Power consumption at design condition";
+    "Power consumption at design condition"
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Efficiency epsSenCoo_nominal(
     final max=1) = 0.8
-    "Nominal sensible heat exchanger effectiveness at the cooling mode";
+    "Nominal sensible heat exchanger effectiveness at the cooling mode"
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Efficiency epsLatCoo_nominal(
     final max=1) = 0.8
-    "Nominal latent heat exchanger effectiveness at the cooling mode";
-  parameter Modelica.Units.SI.Efficiency epsSenCooPL(
-    final max=1) = 0.75
-    "Part load (75%) sensible heat exchanger effectiveness at the cooling mode";
-  parameter Modelica.Units.SI.Efficiency epsLatCooPL(
-    final max=1) = 0.75
-    "Part load (75%) latent heat exchanger effectiveness at the cooling mode";
+    "Nominal latent heat exchanger effectiveness at the cooling mode"
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Efficiency epsSenHea_nominal(
     final max=1) = 0.8
-    "Nominal sensible heat exchanger effectiveness at the heating mode";
+    "Nominal sensible heat exchanger effectiveness at the heating mode"
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Efficiency epsLatHea_nominal(
     final max=1) = 0.8
-    "Nominal latent heat exchanger effectiveness at the heating mode";
+    "Nominal latent heat exchanger effectiveness at the heating mode"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.Efficiency epsSenCooPL(
+    final max=1) = 0.75
+    "Part load (75%) sensible heat exchanger effectiveness at the cooling mode"
+    annotation (Dialog(group="Part load effectiveness"));
+  parameter Modelica.Units.SI.Efficiency epsLatCooPL(
+    final max=1) = 0.75
+    "Part load (75%) latent heat exchanger effectiveness at the cooling mode"
+    annotation (Dialog(group="Part load effectiveness"));
   parameter Modelica.Units.SI.Efficiency epsSenHeaPL(
     final max=1) = 0.75
-    "Part load (75%) sensible heat exchanger effectiveness at the heating mode";
+    "Part load (75%) sensible heat exchanger effectiveness at the heating mode"
+    annotation (Dialog(group="Part load effectiveness"));
   parameter Modelica.Units.SI.Efficiency epsLatHeaPL(
     final max=1) = 0.75
-    "Part load (75%) latent heat exchanger effectiveness at the heating mode";
+    "Part load (75%) latent heat exchanger effectiveness at the heating mode"
+    annotation (Dialog(group="Part load effectiveness"));
   parameter Real a[:] = {1}
-    "Coefficients for power efficiency curve (need p(a=a, uSpe=1)=1)"
+    "Coefficients for power efficiency curve. The sum of the elements should equal to 1"
     annotation (Dialog(group="Efficiency"));
 
   Modelica.Blocks.Interfaces.RealInput uSpe(
@@ -243,13 +256,15 @@ The operation of the heat recovery wheel is adjustable by modulating the wheel s
 Accordingly, the power consumption of this wheel is calculated by
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  P = P<sub>nominal</sub>(a<sub>1</sub> + a<sub>2</sub> uSpe + a<sub>3</sub> uSpe<sup>2</sup> + ...),
+P = P_nominal * (a<sub>1</sub> + a<sub>2</sub> uSpe + a<sub>3</sub> uSpe<sup>2</sup> + ...),
 </p>
 <p>
-where <i>p<sub>nominal</sub></i> is the nominal wheel power consumption,
-<i>uSpe</i> is the wheel speed ratio, 
-and the coefficients <i>a<sub>i</sub></i>
-are declared by the parameter <code>a</code>.
+where <code>P_nominal</code> is the nominal wheel power consumption,
+<code>uSpe</code> is the wheel speed ratio, 
+and the <code>a[:]</code> are the coefficients for power efficiency curve.
+The sum of the coefficients should equal to 1.
+Thus, when the speed ratio <code>uSpe=1</code>, the power consumption equal to
+nominal consumption, <code>P=P_nominal</code>.
 </p>
 <p>
 The sensible and latent effectiveness is calculated with <a href=\"modelica://Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.Effectiveness\">

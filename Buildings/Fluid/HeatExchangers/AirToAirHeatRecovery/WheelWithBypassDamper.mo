@@ -8,39 +8,53 @@ model WheelWithBypassDamper
     Modelica.Media.Interfaces.PartialCondensingGases
     "Exhaust air";
   parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal
-    "Nominal supply air mass flow rate";
+    "Nominal supply air mass flow rate"
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal
-    "Nominal exhaust air mass flow rate";
+    "Nominal exhaust air mass flow rate"
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dp1_nominal = 125
-    "Nominal supply air pressure drop";
+    "Nominal supply air pressure drop"
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dp2_nominal = 125
-    "Nominal exhaust air pressure drop";
+    "Nominal exhaust air pressure drop"
+    annotation (Dialog(group="Nominal condition"));
   parameter Real P_nominal(final unit="W")
-    "Power consumption at the design condition";
+    "Power consumption at the design condition"
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Efficiency epsSenCoo_nominal(
     final max=1) = 0.8
-    "Nominal sensible heat exchanger effectiveness at the cooling mode";
+    "Nominal sensible heat exchanger effectiveness at the cooling mode"
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Efficiency epsLatCoo_nominal(
     final max=1) = 0.8
-    "Nominal latent heat exchanger effectiveness at the cooling mode";
-  parameter Modelica.Units.SI.Efficiency epsSenCooPL(
-    final max=1) = 0.75
-    "Part load (75%) sensible heat exchanger effectiveness at the cooling mode";
-  parameter Modelica.Units.SI.Efficiency epsLatCooPL(
-    final max=1) = 0.75
-    "Part load (75%) latent heat exchanger effectiveness at the cooling mode";
+    "Nominal latent heat exchanger effectiveness at the cooling mode"
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Efficiency epsSenHea_nominal(
     final max=1) = 0.8
-    "Nominal sensible heat exchanger effectiveness at the heating mode";
+    "Nominal sensible heat exchanger effectiveness at the heating mode"
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Efficiency epsLatHea_nominal(
     final max=1) = 0.8
-    "Nominal latent heat exchanger effectiveness at the heating mode";
+    "Nominal latent heat exchanger effectiveness at the heating mode"
+    annotation (Dialog(group="Nominal condition"));
+
+  parameter Modelica.Units.SI.Efficiency epsSenCooPL(
+    final max=1) = 0.75
+    "Part load (75%) sensible heat exchanger effectiveness at the cooling mode"
+    annotation (Dialog(group="Part load effectiveness"));
+  parameter Modelica.Units.SI.Efficiency epsLatCooPL(
+    final max=1) = 0.75
+    "Part load (75%) latent heat exchanger effectiveness at the cooling mode"
+    annotation (Dialog(group="Part load effectiveness"));
   parameter Modelica.Units.SI.Efficiency epsSenHeaPL(
     final max=1) = 0.75
-    "Part load (75%) sensible heat exchanger effectiveness at the heating mode";
+    "Part load (75%) sensible heat exchanger effectiveness at the heating mode"
+    annotation (Dialog(group="Part load effectiveness"));
   parameter Modelica.Units.SI.Efficiency epsLatHeaPL(
     final max=1) = 0.75
-    "Part load (75%) latent heat exchanger effectiveness at the heating mode";
+    "Part load (75%) latent heat exchanger effectiveness at the heating mode"
+    annotation (Dialog(group="Part load effectiveness"));
 
   Modelica.Blocks.Interfaces.RealInput uBypDamPos(
     final unit="1",
