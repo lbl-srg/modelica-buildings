@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Generic.Validation;
-model TimeSuppression
-  "Model validates the block for suppresing changes due to the setpoint change"
+model TimeSuppressionPositiveStartTime
+  "Model validates the block for suppresing changes due to the setpoint change with a positive start time"
 
   Buildings.Controls.OBC.ASHRAE.G36.Generic.TimeSuppression timSupCooReq
     "Time suppression for generating cooling request"
@@ -33,7 +33,7 @@ equation
           0,-84},{38,-84}}, color={0,0,127}));
 
 annotation (experiment(StopTime=7200.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Generic/Validation/TimeSuppression.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Generic/Validation/TimeSuppressionPositiveStartTime.mos"
     "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -61,4 +61,4 @@ First implementation.
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),
     Diagram(coordinateSystem(extent={{-100,-120},{100,120}})));
-end TimeSuppression;
+end TimeSuppressionPositiveStartTime;
