@@ -1,6 +1,6 @@
 within Buildings.Fluid.SolarCollectors.Data;
 record GenericASHRAE93
-  "Generic data record providing inputs for specific ASHRAE93 collector data records"
+  "Generic data record for ASHRAE93 solar collector models"
   extends Buildings.Fluid.SolarCollectors.Data.BaseClasses.Generic;
 
   parameter Real y_intercept "Y intercept (Maximum efficiency)";
@@ -12,10 +12,21 @@ defaultComponentPrefixes="parameter",
 defaultComponentName="datSolCol",
 Documentation(info="<html>
 <p>
-Generic data file which is used for the
-<a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector\"> 
-Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector</a> model.
-It establishes the base inputs needed to create model-specific data packages.
+Record containing performance parameters for ASHRAE93 solar collector models.
 </p>
+</html>",
+      revisions="<html>
+<ul>
+<li>
+January, 2024, by Jelger Jansen:<br/>
+Refactor model.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3604\">Buildings, #3604</a>.
+</li>
+<li>
+January 4, 2013, by Peter Grant:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end GenericASHRAE93;
