@@ -127,8 +127,8 @@ block FirstOrderAMIGO
   Buildings.Controls.OBC.CDL.Logical.Nand nand
     "Check if an autotuning is ongoing while a new autotuning request is received"
     annotation (Placement(transformation(extent={{120,-72},{140,-52}})));
-  Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
-    message="*** Warning in " + getInstanceName() + "An autotuning is ongoing and an autotuning request is ignored.")
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMes1(
+    message="*** Warning: An autotuning is ongoing and the new autotuning request is ignored.")
     "Error message when an autotuning tuning is ongoing while a new autotuning request is received"
     annotation (Placement(transformation(extent={{148,-72},{168,-52}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edgReq
@@ -147,13 +147,38 @@ protected
       then Buildings.Controls.OBC.CDL.Types.SimpleController.PI
       else Buildings.Controls.OBC.CDL.Types.SimpleController.PID
     "Type of controller";
-
-initial equation
-    // check if the relay output is asymmetric.
-    assert(yHig + yLow - 2*yRef > 1e-3 or yHig + yLow - 2*yRef < -1e-3,
-    "*** Error in " + getInstanceName() +
-    ": the relay output needs to be asymmetric. Check the value of yHig, yLow and yRef",
-    level = AssertionLevel.error);
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMes2(
+     message="*** Warning: the relay output needs to be asymmetric. 
+     Check the value of yHig, yLow and yRef.")
+    "Error message when the relay output is symmetric"
+    annotation (Placement(transformation(extent={{60,140},{80,160}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(final k=yHig)
+    "Higher value for the relay output"
+    annotation (Placement(transformation(extent={{-140,170},{-120,190}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con2(final k=yRef)
+    "Reference value for the relay output"
+    annotation (Placement(transformation(extent={{-160,140},{-140,160}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con3(final k=yLow)
+    "Lower value for the relay output"
+    annotation (Placement(transformation(extent={{-140,110},{-120,130}})));
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub
+    "Difference between the higher value and the reference value of the relay output"
+    annotation (Placement(transformation(extent={{-100,160},{-80,180}})));
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1
+    "Difference between the reference value and the lower value of the relay output"
+    annotation (Placement(transformation(extent={{-100,120},{-80,140}})));
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub2
+    "Symmetricity level of the relay output"
+    annotation (Placement(transformation(extent={{-60,140},{-40,160}})));
+  Buildings.Controls.OBC.CDL.Reals.Abs abs1
+    "Absolute value"
+    annotation (Placement(transformation(extent={{-20,140},{0,160}})));
+  Buildings.Controls.OBC.CDL.Reals.Greater gre
+    "Check the symmetricity of the relay output"
+    annotation (Placement(transformation(extent={{20,140},{40,160}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con4(final k=1e-3)
+    "Threshold for checking the symmetricity of the relay output"
+    annotation (Placement(transformation(extent={{-20,110},{0,130}})));
 
 equation
   connect(con.u_s, u_s) annotation (Line(points={{-52,-40},{-60,-40},{-60,0},{-200,
@@ -231,7 +256,8 @@ equation
           {-6,-70},{60,-70},{60,-120}}, color={255,0,255}));
   connect(resPro.trigger, triTun) annotation (Line(points={{-2,34},{-6,34},{-6,-70},
           {60,-70},{60,-120}}, color={255,0,255}));
-  connect(nand.y, assMes.u) annotation (Line(points={{142,-62},{146,-62}}, color={255,0,255}));
+  connect(nand.y, assMes1.u)
+    annotation (Line(points={{142,-62},{146,-62}}, color={255,0,255}));
   connect(nand.u2, edgReq.y)
     annotation (Line(points={{118,-70},{102,-70}}, color={255,0,255}));
   connect(edgReq.u, triTun)
@@ -240,6 +266,26 @@ equation
           -62},{118,-62}}, color={255,0,255}));
   connect(tunStaDel.u, inTunPro.y) annotation (Line(points={{78,-30},{50,-30},{50,
           -20},{42,-20}}, color={255,0,255}));
+  connect(con1.y, sub.u1) annotation (Line(points={{-118,180},{-108,180},{-108,176},
+          {-102,176}}, color={0,0,127}));
+  connect(con2.y, sub.u2) annotation (Line(points={{-138,150},{-108,150},{-108,164},
+          {-102,164}}, color={0,0,127}));
+  connect(sub1.u1, con2.y) annotation (Line(points={{-102,136},{-108,136},{-108,
+          150},{-138,150}}, color={0,0,127}));
+  connect(sub1.u2, con3.y) annotation (Line(points={{-102,124},{-108,124},{-108,
+          120},{-118,120}}, color={0,0,127}));
+  connect(sub.y, sub2.u1) annotation (Line(points={{-78,170},{-68,170},{-68,156},
+          {-62,156}}, color={0,0,127}));
+  connect(sub1.y, sub2.u2) annotation (Line(points={{-78,130},{-68,130},{-68,144},
+          {-62,144}}, color={0,0,127}));
+  connect(abs1.u, sub2.y)
+    annotation (Line(points={{-22,150},{-38,150}}, color={0,0,127}));
+  connect(abs1.y, gre.u1)
+    annotation (Line(points={{2,150},{18,150}}, color={0,0,127}));
+  connect(gre.y, assMes2.u)
+    annotation (Line(points={{42,150},{58,150}}, color={255,0,255}));
+  connect(con4.y, gre.u2) annotation (Line(points={{2,120},{10,120},{10,142},{18,
+          142}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
 This block implements a rule-based PID tuning method.
@@ -285,6 +331,10 @@ a request for performing autotuning will be ignored.
 </p>
 <p>
 In addition, this block requires an asymmetric relay output, meaning <code>yHig - yRef &ne; yRef - yLow</code>.
+</p>
+<p>
+Besides, one need to adjust <code>deaBan</code> based on the response from the control loop.
+e.g., decrease <code>deaBan</code> when the system response is slow to facilitate the tuning process.
 </p>
 
 <h4>References</h4>
@@ -397,5 +447,5 @@ First implementation<br/>
             "Td = " + String(con.Td,
             leftJustified=false,
             significantDigits=3)))}),
-    Diagram(coordinateSystem(extent={{-180,-100},{180,100}})));
+    Diagram(coordinateSystem(extent={{-180,-100},{180,200}})));
 end FirstOrderAMIGO;
