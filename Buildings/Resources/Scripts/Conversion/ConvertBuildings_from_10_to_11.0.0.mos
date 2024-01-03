@@ -37,3 +37,7 @@ convertClass("Buildings.Controls.OBC.CDL.Logical.TriggeredTrapezoid",
              "Buildings.Obsolete.Controls.OBC.CDL.Logical.TriggeredTrapezoid");
 convertClass("Buildings.Controls.OBC.CDL.Logical.ZeroCrossing",
              "Buildings.Obsolete.Controls.OBC.CDL.Logical.ZeroCrossing");
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3596
+convertClass("Buildings.Controls.OBC.CDL.Reals.Sources.ModelTime",
+             "Buildings.Controls.OBC.CDL.Reals.Sources.CivilTime");

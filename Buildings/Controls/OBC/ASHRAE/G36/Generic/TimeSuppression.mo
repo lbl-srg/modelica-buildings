@@ -42,7 +42,6 @@ block TimeSuppression
   Buildings.Controls.OBC.CDL.Reals.Min supTim
     "Calculated suppression time due to the setpoint change"
     annotation (Placement(transformation(extent={{80,0},{100,20}})));
-
 protected
   Buildings.Controls.OBC.CDL.Discrete.Sampler samSet(
     final samplePeriod=samplePeriod)
@@ -70,17 +69,11 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Timer tim
     "Time when the setpoint is being changed"
     annotation (Placement(transformation(extent={{-40,-160},{-20,-140}})));
-  Buildings.Controls.OBC.CDL.Reals.Greater gre1
-    "Check if current model time is greater than the initial period equaling the sample time"
-    annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     final t=dTHys,
     final h=0.5*dTHys)
     "Check if there is setpoint change"
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.ModelTime modTim
-    "Time of the model"
-    annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=chaRat)
     "Setpoint change rate"
@@ -88,10 +81,6 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Subtract sub1
     "Calculate difference of previous and current setpoints"
     annotation (Placement(transformation(extent={{-20,130},{0,150}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
-    final k=samplePeriod)
-    "Sample period time"
-    annotation (Placement(transformation(extent={{-140,70},{-120,90}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conZer(
     final k=0)
     "Constant zero"
@@ -125,6 +114,14 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Abs abs2
     "Absolute temperature difference"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
+    final delayTime=samplePeriod,
+    final delayOnInit=true)
+    "Ignore the first sampling period"
+    annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(
+    final k=true) "Constant true"
+    annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
 
 equation
   connect(TSet, samSet.u)
@@ -141,13 +138,6 @@ equation
   connect(edg.y,lat1. clr)
     annotation (Line(points={{-18,-120},{40,-120},{40,-86},{78,-86}},
       color={255,0,255}));
-  connect(modTim.y,gre1. u1)
-    annotation (Line(points={{-118,110},{-82,110}}, color={0,0,127}));
-  connect(con.y,gre1. u2)
-    annotation (Line(points={{-118,80},{-100,80},{-100,102},{-82,102}},
-      color={0,0,127}));
-  connect(gre1.y,swi. u2)
-    annotation (Line(points={{-58,110},{38,110}}, color={255,0,255}));
   connect(sub1.y,swi. u1)
     annotation (Line(points={{2,140},{20,140},{20,118},{38,118}},
       color={0,0,127}));
@@ -200,7 +190,10 @@ equation
           146},{-22,146}}, color={0,0,127}));
   connect(triSam1.y, temDif.u2) annotation (Line(points={{-98,-20},{-70,-20},{-70,
           24},{-62,24}}, color={0,0,127}));
-
+  connect(con1.y, truDel.u)
+    annotation (Line(points={{-118,110},{-82,110}}, color={255,0,255}));
+  connect(truDel.y, swi.u2)
+    annotation (Line(points={{-58,110},{38,110}}, color={255,0,255}));
 annotation (defaultComponentName="timSup",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
@@ -290,6 +283,12 @@ of difference (<code>chaRat</code>) but no longer than 30 minutes (<code>1800</c
 </ol>
 </html>", revisions="<html>
 <ul>
+<li>
+December 12, 2023, by Jianjun Hu:<br/>
+Reimplemented the check of ignoring the first sampling period.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3596\">issue 3596</a>.
+</li>
 <li>
 August 1, 2020, by Jianjun Hu:<br/>
 First implementation.

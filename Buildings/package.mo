@@ -308,6 +308,13 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Reals.Sources.ModelTime
+    </td>
+    <td valign=\"top\">Renamed the block to <code>CivilTime</code>.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3596\">issue 3596</a>.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Or3<br/>
                        Buildings.Controls.OBC.CDL.Logical.ZeroCrossing<br/>
                        Buildings.Controls.OBC.CDL.Logical.OnOffController<br/>
