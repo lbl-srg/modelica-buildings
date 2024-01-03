@@ -203,41 +203,43 @@ equation
   connect(damSup.port_b, hex.port_a1)
     annotation (Line(points={{-22,40},{-20,40},{-20,18},{-10,18}},
         color={0,127,255}));
-  connect(bypDamExh.y, uBypDamPos) annotation (Line(points={{-30,-48},{-30,-30},
-          {40,-30},{40,120},{-200,120}}, color={0,0,127}));
+  connect(bypDamExh.y, uBypDamPos)
+    annotation (Line(points={{-30,-48},{-30,-30},{40,-30},{40,120},{-200,120}},
+        color={0,0,127}));
   connect(hex.port_b1, port_b1)
     annotation (Line(points={{10,18},{58,18},{58,80},{100,80}},
         color={0,127,255}));
   connect(hex.port_a2, damExh.port_b)
     annotation (Line(points={{10,6},{60,6},{60,-30}}, color={0,127,255}));
-  connect(sub.u2, uBypDamPos) annotation (Line(points={{-122,94},{-140,94},{-140,
-          120},{-200,120}}, color={0,0,127}));
+  connect(sub.u2, uBypDamPos)
+    annotation (Line(points={{-122,94},{-140,94},{-140,120},{-200,120}},
+        color={0,0,127}));
   connect(uni.y, sub.u1)
     annotation (Line(points={{-139,150},{-132,150},{-132,106},{-122,106}},
         color={0,0,127}));
   connect(opeSig, booleanToReal.u)
-    annotation (Line(points={{-200,0},{-170,0},{
-          -170,10},{-162,10}}, color={255,0,255}));
+    annotation (Line(points={{-200,0},{-170,0},{-170,10},{-162,10}},
+        color={255,0,255}));
   connect(booleanToReal.y, effCal.uSpe)
     annotation (Line(points={{-139,10},{-120,10},{-120,12},{-102,12}},
         color={0,0,127}));
   connect(PEle.u, booleanToReal.y)
-    annotation (Line(points={{72.8,0},{-120,0},{-120,
-          10},{-139,10}}, color={0,0,127}));
+    annotation (Line(points={{72.8,0},{-120,0},{-120,10},{-139,10}},
+        color={0,0,127}));
   connect(damSup.port_a, port_a1)
-    annotation (Line(points={{-42,40},{-100,40},{-100,
-          80},{-180,80}}, color={0,127,255}));
+    annotation (Line(points={{-42,40},{-100,40},{-100,80},{-180,80}},
+        color={0,127,255}));
   connect(port_b2, port_b2)
     annotation (Line(points={{-180,-60},{-180,-60}}, color={0,127,255}));
   connect(port_b2, hex.port_b2)
-    annotation (Line(points={{-180,-60},{-72,-60},{-72,
-          -6},{-10,-6},{-10,6}}, color={0,127,255}));
+    annotation (Line(points={{-180,-60},{-72,-60},{-72,-6},{-10,-6},{-10,6}},
+        color={0,127,255}));
   connect(VSup_flow.y, effCal.VSup_flow)
-    annotation (Line(points={{-139,62},{-120,
-          62},{-120,20},{-102,20}}, color={0,0,127}));
+    annotation (Line(points={{-139,62},{-120,62},{-120,20},{-102,20}},
+        color={0,0,127}));
   connect(VExh_flow.y, effCal.VExh_flow)
-    annotation (Line(points={{-139,40},{-124,
-          40},{-124,16},{-102,16}}, color={0,0,127}));
+    annotation (Line(points={{-139,40},{-124,40},{-124,16},{-102,16}},
+        color={0,0,127}));
 annotation (
         defaultComponentName="whe",
         Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
@@ -309,32 +311,33 @@ part load (75%) and nominal sensible and latent effectiveness in both heating an
 This operation of the wheel is configured as follows.
 </p>
 <ul>
-  <li>
-  If the operating signal <code>opeSig = true</code>,
-  <ul>
-  <li>
-  the wheel power consumption is constant and equal to the nominal value.
-  </li>
-  <li>
-  The heat exchange in the heat recovery wheel is adjustable via bypassing supply/exhaust air 
+<li>
+If the operating signal <code>opeSig=true</code>,
+<ul>
+<li>
+The wheel power consumption is constant and equal to the nominal value.
+</li>
+<li>
+The heat exchange in the heat recovery wheel is adjustable via bypassing supply/exhaust air 
 through the heat exchanger.
-  <br>
-  Accordingly, the sensible and latent effectiveness is calculated with <a href=\"modelica://Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.Effectiveness\">
+Accordingly, the sensible and latent effectiveness is calculated with
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.Effectiveness\">
 Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.Effectiveness</a>.
-  </li>
-  </ul>
-  </li>
-  <li>
-  Otherwise, 
-  <ul>
-  <li>
-  the wheel power consumption is 0.
-  </li>
-  <li>
-  In addition, there is no sensible or latent heat transfer, i.e., the sensible and latent effectiveness of the heat recovery wheel is 0.
-  </li>
-  </ul>
-  </li>
+</li>
+</ul>
+</li>
+<li>
+Otherwise, 
+<ul>
+<li>
+The wheel power consumption is 0.
+</li>
+<li>
+In addition, there is no sensible or latent heat transfer, i.e., the sensible
+and latent effectiveness of the heat recovery wheel is 0.
+</li>
+</ul>
+</li>
 </ul>
 </html>", revisions="<html>
 <ul>

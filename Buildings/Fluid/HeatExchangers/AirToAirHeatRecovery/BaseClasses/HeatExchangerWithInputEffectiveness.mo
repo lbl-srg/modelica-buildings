@@ -70,8 +70,8 @@ equation
                   state_a2_inflow.X[i2_w],
                   state_b2_inflow.X[i2_w], m2_flow_small);
 
-  // mass exchange
-  // Compute a gain that goes to zero near zero flow rate.
+  // Mass exchange
+  // Compute a gain that goes to zero near zero flow rate
   // This is required to smoothen the heat transfer at very small flow rates.
   // Note that gaiK = 1 for abs(mK_flow) > mK_flow_small
   gai1 = Modelica.Fluid.Utilities.regStep(abs(m1_flow) - 0.75*m1_flow_small,
@@ -83,9 +83,9 @@ equation
                             smooth(1, gai2 * abs(m2_flow)))) * (X_w_in2 - X_w_in1);
   mWat_flow = epsLat * mMax_flow;
   // As enthalpyOfCondensingGas is dominated by the latent heat of phase change,
-  // we simplify and use Medium1.enthalpyOfVaporization for the
+  // we use Medium1.enthalpyOfVaporization for the
   // latent heat that is exchanged among the fluid streams.
-  // This is simply added to QSen_flow, while mass is conserved because
+  // This is added to QSen_flow, while mass is conserved because
   // of the assignment of mWat1_flow and mWat2_flow.
   QLat_flow = mWat_flow * Medium1.enthalpyOfVaporization(Medium1.T_default);
 

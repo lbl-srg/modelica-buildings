@@ -76,8 +76,7 @@ equation
   connect(TSup.y, sou_1.T_in)
     annotation (Line(points={{-59,64},{-42,64}}, color={0,0,127}));
   connect(sou_1.ports[1], hex.port_a1)
-    annotation (Line(points={{-20,60},{-10,60},{-10,12},{6,12}},
-                                                               color={0,127,255}));
+    annotation (Line(points={{-20,60},{-10,60},{-10,12},{6,12}}, color={0,127,255}));
   connect(hex.port_a2, sou_2.ports[1])
     annotation (Line(points={{26,5.55112e-16},{60,5.55112e-16},{60,-40},{40,-40}},
                            color={0,127,255}));
@@ -86,8 +85,7 @@ equation
   connect(hex.port_b2, sin_2.ports[1])
     annotation (Line(points={{6,0},{-10,0},{-10,-20},{-20,-20}}, color={0,127,255}));
   connect(epsSen.y, hex.epsSen)
-    annotation (Line(points={{-59,20},{-20,20},{-20,10},{4,10}},
-                                                               color={0,0,127}));
+    annotation (Line(points={{-59,20},{-20,20},{-20,10},{4,10}}, color={0,0,127}));
   connect(hex.epsLat, epsLat.y)
     annotation (Line(points={{4,2},{-50,2},{-50,-40},{-59,-40}}, color={0,0,127}));
 
