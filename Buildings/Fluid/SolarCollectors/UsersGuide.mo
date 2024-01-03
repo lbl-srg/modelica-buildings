@@ -1,80 +1,197 @@
 within Buildings.Fluid.SolarCollectors;
-package UsersGuide "User's Guide for Buildings.Fluid.SolarCollectors"
+package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
-
   annotation(preferredView="info",
   Documentation(info="<html>
 <p>
-The package <a href=\"modelica://Buildings.Fluid.SolarCollectors\">
-Buildings.Fluid.SolarCollectors</a> contains models used for simulation of
-solar thermal systems. Top-level models are available for solar collectors
-based on the ASHRAE93 (American) and EN12975 (European) test protocols.
-The two models use different models for solar gain, heat loss, and data
-packages. Solar gain and heat loss models are available for use with data
-obtained from ASHRAE93 and EN12975 test procedures. Data packages containing
-default values for several collectors are available in packages for 
-concentrating, flat plate and tubular collectors.
+This package contains models for solar thermal systems.
+Top-level models are available for solar thermal collectors based on the 
+ASHRAE93 (American) and EN12975 (European) test protocols.
+The two models use different models for solar gain, heat loss, and use 
+different data packages.
+The model applied to (un)glazed flat-plate solar thermal collectors, as well as
+evacuated tube collectors.
 </p>
-<h4>Use of the <code>Buildings.Fluid.SolarCollectors</code> models</h4>
+
+<h4>Model description</h4>
 <p>
-A model of a solar thermal collector mainly consists of the three following
-items:
-</p>
-<ul>
-<li>
-A package containing ratings data.
-</li>
-<li>
-Models for solar gain and heat loss corresponding to the format of the
-referenced ratings data.
-</li>
-<li>
-Parameters describing the installation of the system.
-</li>
-</ul>
-<p>
-Different sources exist to find ratings data of individual collectors.
-Some examples are:
-<ul>
-<li>
-<a href=\"http://www.solar-rating.org\"> Solar Rating and
-Certification Corporation (SRCC)</a> (data for both ASHRAE93 and EN12975)
-</li>
-<li>
-<a href=\"https://solarkeymark.eu/\"> Solar Keymark</a> (data for EN12975)
-</li>
-<li>
-<a href=\"https://www.spftesting.info/\"> SPF</a> (data for EN12975)
-</li>
-</ul>
-It is possible that not all data is available via one source (especially
-<code>dp_nominal</code> and <code>dT_nominal</code>). This data can then be
-found by consulting multiple sources and/or the manufacturer data sheet.
-</p>
-<p>
-Data for concentrating, flat plate and
-tubular collectors are currently presented in separate data packages to
-improve ease of use. The name of any given collector data package begins
-with a code stating what type of collector it is. The codes are as follows:
-</p>
-<ul>
-<li>C: Concentrating</li>
-<li>FP: Flat Place</li>
-<li>T: Tubular</li>
-</ul>
-<p>
-There are two test methods for solar thermal collectors. The American standard
-is ASHRAE93 and the European standard is EN12975. Models calculating solar
-gain and heat loss using coefficients from both test methods are available in
+The solar thermal collector model is developed based on the 
+flat-plate solar thermal collector model of EnergyPlus.
+The model determines the solar heat gain and heat loss of the collector
+seperately, and the difference of both is transferred to the collector.
+The ASHRAE93 and EN12975 collector model calculate the heat gain and heat loss
+differently.
+The details of these calculations can be found in 
 <a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses\">
-Buildings.Fluid.SolarCollectors.BaseClasses</a>. Accordingly, data records for
-both test methods are available in 
+Buildings.Fluid.SolarCollectors.BaseClasses</a>.
+Accordingly, data records for both test methods are available in 
 <a href=\"modelica://Buildings.Fluid.SolarCollectors.Data\">
-Buildings.Fluid.SolarCollectors.Data</a>
+Buildings.Fluid.SolarCollectors.Data</a>.
 </p>
 <p>
-Finally, the parameters of the system must be defined. Most of the parameters
-are self-explanatory. The complex parameters are used as follows:
+The computation of the 
+</p>
+
+<h5>Performance data</h5>
+Different sources exist to find ratings data of individual collectors.
+However, not all data might be available in one single data sheet.
+The table below specifies which input data of the model can be found in several
+well-known data sources:
+<p>
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr>
+<th>Input data</th>
+<th> <a href=\"http://www.solar-rating.org\"> SRCC</a> </th>
+<th> <a href=\"https://solarkeymark.eu/\"> Solar Keymark</a> </th>
+<th> <a href=\"https://www.spftesting.info/\"> SPF</a> </th>
+</tr>
+<tr>
+<td> A </td>
+<td> Gross area </td>
+<td> Gross area </td> 
+<td> Gross, aperture, and absorber area </td>
+</tr>
+<tr>
+<td> C </td>
+<td> (mDry*385, V) </td>
+<td> C </td>
+<td> (CDry or mDry*385, V) </td>
+</tr>
+<tr>
+<td> mperA_flow_nominal </td>
+<td> mperA_flow_nominal </td>
+<td> mperA_flow_nominal </td>
+<td> m_flow_nominal/A </td>
+</tr>
+<tr>
+<td> dp_nominal </td>
+<td> / </td>
+<td> / </td>
+<td> dp_nominal </td>
+</tr>
+<tr>
+<td> G_nominal </td>
+<td> / </td>
+<td> 1000 </td>
+<td> 800 </td>
+</tr>
+<tr>
+<td> dT_nominal </td>
+<td> / </td>
+<td> / </td>
+<td> / </td>
+</tr>
+<tr>
+<td> b0, b1 </td>
+<td> IAM({0°,10°,...,90°}) </td>
+<td> IAM({10°,20°,...,90°}) </td>
+<td> IAM(angle)-plot </td>
+</tr>
+<tr>
+<td> y_intercept, slope (ASHRAE93) </td>
+<td> y_intercept, slope </td>
+<td> / </td>
+<td> / </td>
+</tr>
+<tr>
+<td> IAMDiff, eta0, a1, a2 (EN12975) </td>
+<td> IAM(50°), eta0, a1, a2 </td>
+<td> Kd or IAM(50°), eta0, a1, a2 </td>
+<td> IAM(50°), eta0, a1, a2 </td>
+</tr>
+</table>
+</p>
+<p>
+Some extra important remarks regarding the performance data:
+<ul>
+<li>
+When the thermal capacity of the solar thermal collector without fluid is not
+known, the thermal capacity is calculated based on the dry mass of the collector
+and the specific heat capacity of copper (<i>385 J/kg/k</i>).
+</li>
+<li>
+All data sources report a nominal mass flow rate (per unit area of collector), 
+but only SPF reports a corresponding nominal pressure drop.
+If a specific collector is used that is not included in the SPF database, one
+can likely find this via the manufacturer (website or on request).
+Some examples of (<code>mperA_flow_nominal</code>, <code>dp_nominal</code> can
+be found in <a href=\"modelica://Buildings.Fluid.SolarCollectors.Data\">
+Buildings.Fluid.SolarCollectors.BaseClasses</a>.
+</li>
+<li>
+Pressure drops depend on the medium that is used in the collectors.
+If the modelled solar thermal collector uses a different medium than the medium
+that was used to determine the nominal pressure drop in a data sheet, one should
+therefore correctly take this into account (e.g. using an empirical correction 
+factor).
+</li>
+<li>
+The nominal temperature difference over the collector (<code>dT_nominal</code>)
+is not available in the aforementioned data sources.
+However, this value is only used to calculate the nominal heat loss of the 
+collector, which is only used for reporting purposes.
+The data record uses a default value of <i>10 K</i>, which is a good assumption
+for most collectors.
+</li>
+<li>
+The relation between the incidence angle modifier (IAM) and incidence angle 
+<code>&theta;</code> is currently approximated in the model by (Eq 18.298 in the
+EnergyPlus 23.2.0 Engineering Reference):
+<p align=\"center\" style=\"font-style:italic;\">
+K<sub>(&tau;&alpha;)</sub>=1+b<sub>0</sub>(1/cos(&theta;)-1)+b<sub>1</sub>(1/cos(&theta;)-1)<sup>2</sup>
+</p>
+<p>
+where <i>K<sub>(&tau;&alpha;)</sub></i> is the incidence angle modifier,
+<i>b<sub>0</sub></i> is the first incidence angle modifier coefficient, 
+<i>&theta;</i> is the incidence angle, 
+and <i>b<sub>1</sub></i> is the second incidence angle modifier coefficient.
+</p>
+<p>
+As reported in the Energyplus Engineering Reference, this relation is only valid
+for incident angles of 60 degrees or higher. However, as opposed to the EnergyPlus
+approach, the IAM is not set to 0 for incident angles greater than 60 degrees 
+(see Buildings <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/785\">issue 785</a>).
+Therefore, the simulation results for incident angles greater than 60 degrees
+should be interpreted with care.
+</p>
+</li>
+<li>
+Recent data sheets do not provide a value for <code>b0</code> or <code>b1</code>,
+but report the IAM for several incidence angles.
+The values for <code>b0</code> and <code>b1</code> can be determined by fitting
+the tabular data (e.g. using the scipy function
+<a href=\"https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.curve_fit.html\"> <i>curve_fit</i></a>)
+</li>
+<li>
+Evacuated tube collectors have bi-axial IAMs due to its axisymetric geometry.
+Therefore, data sheets report both a longitudinal and transversal IAM.
+The model however only allows the definition of one (symmetrical) IAM.
+Two possible approaches to deal with this are:
+<ul>
+<li>
+multiplying the longitudinal and transversal IAM;
+</li>
+<li>
+using either the longitudinal or transversal IAM.
+</li>
+</ul>
+The model should therefore be used with extra care when dealing with 
+evacuated tube collectors.
+</li>
+<li>
+The Solar Keymark database sometimes reports a value for <i>Kd</i> which is the
+the incident angle modifier for diffuse irradiance.
+This value differs from the IAM at an incidence angle of 50 degrees because the 
+former is determined by integrating the values of the IAM for all incidence
+angles over the hemisphere.
+</li>
+</ul>
+
+<h5> Other model parameters </h5>
+<p>
+Apart from the performance parameters, several other parameters must be defined.
+Most of the parameters are self-explanatory.
+The complex parameters are used as follows:
 </p>
 <ul>
 <li>
@@ -122,21 +239,24 @@ all panels in the system are connected in parallel. As a result the fluid
 flows through only a single panel and the <code>dp_nominal</code> for the
 system is <code>dp_nominal</code> specified in the collector data package if 
 the collector field has a mass flow rate equal to
-<code>per.m_flow_nominal</code>.
+<code>m_flow_nominal</code>.
 </li>
 </ul>
 </li>
 </ul>
+
 <h4>References</h4>
-<ul>
-<li>
-ASHRAE 93-2010 -- Methods of Testing to Determine the Thermal Performance
-of Solar Collectors (ANSI approved)
-</li>
-<li>
-CEN 2022, European Standard 12975:2022, European Committee for
-Standardization
-</li>
-</ul>
+<p>
+ASHRAE 93-2010 -- Methods of Testing to Determine the Thermal Performance of
+Solar Collectors (ANSI approved)
+</p>
+<p>
+CEN 2022, European Standard 12975:2022, European Committee for Standardization
+</p>
+<p>
+<a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v23.2.0/EngineeringReference.pdf\">
+EnergyPlus 23.2.0 Engineering Reference</a>
+</p>
 </html>"));
+
 end UsersGuide;
