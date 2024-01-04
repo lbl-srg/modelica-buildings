@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.FanCoilUnit;
+within Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit;
 package Validation "Package of validation models for fan coil unit controls"
 
   annotation (Icon(graphics={

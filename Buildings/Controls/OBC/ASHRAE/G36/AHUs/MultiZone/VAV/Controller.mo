@@ -962,8 +962,7 @@ block Controller "Multizone VAV air handling unit controller"
     annotation (Placement(transformation(extent={{-220,500},{-200,520}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.SupplySignals supSig(
     final have_heaCoi=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric,
-    final have_cooCoi=cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
-         or cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.DXCoil,
+    final have_cooCoi=cooCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased or cooCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.DXCoil,
     final controllerType=valCon,
     final kTSup=kVal,
     final TiTSup=TiVal,
