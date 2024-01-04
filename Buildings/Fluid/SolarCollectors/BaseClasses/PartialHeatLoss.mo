@@ -7,10 +7,6 @@ block PartialHeatLoss
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium in the component";
 
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
-    "Fluid flow rate at nominal conditions"
-    annotation (Dialog(group="Nominal condition"));
-
   Modelica.Blocks.Interfaces.RealInput TEnv(
     quantity="ThermodynamicTemperature",
     unit="K",
