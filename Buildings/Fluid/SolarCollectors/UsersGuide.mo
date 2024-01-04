@@ -49,7 +49,7 @@ well-known data sources:
 <td> A </td>
 <td> Gross area </td>
 <td> Gross area </td> 
-<td> Gross, aperture, and absorber area </td>
+<td> Gross, aperture, or absorber area </td>
 </tr>
 <tr>
 <td> C </td>
@@ -68,18 +68,6 @@ well-known data sources:
 <td> / </td>
 <td> / </td>
 <td> dp_nominal </td>
-</tr>
-<tr>
-<td> G_nominal </td>
-<td> / </td>
-<td> 1000 </td>
-<td> 800 </td>
-</tr>
-<tr>
-<td> dT_nominal </td>
-<td> / </td>
-<td> / </td>
-<td> / </td>
 </tr>
 <tr>
 <td> b0, b1 </td>
@@ -105,8 +93,16 @@ well-known data sources:
 Some extra important remarks regarding the performance data:
 <ul>
 <li>
-When the thermal capacity of the solar thermal collector without fluid is not
-known, the thermal capacity is calculated based on the dry mass of the collector
+Different areas can be defined for a solar collector: the gross, absorber, and
+aperture area.
+The performance parameters of the solar collector vary depending on the area
+for which they are defined.
+Therefore, the performance parameters used in the data record should match the
+area that is used.
+</li>
+<li>
+When the thermal capacity of the solar collector without fluid is not known,
+the thermal capacity is calculated based on the dry mass of the collector
 and the specific heat capacity of copper (<i>385 J/kg/k</i>).
 </li>
 <li>
@@ -126,19 +122,12 @@ therefore correctly take this into account (e.g. using an empirical correction
 factor).
 </li>
 <li>
-The nominal temperature difference over the collector (<code>dT_nominal</code>)
-is not available in the aforementioned data sources.
-However, this value is only used to calculate the nominal heat loss of the 
-collector, which is only used for reporting purposes.
-The data record uses a default value of <i>10 K</i>, which is a good assumption
-for most collectors.
-</li>
-<li>
 The relation between the incidence angle modifier (IAM) and incidence angle 
-<code>&theta;</code> is currently approximated in the model by (Eq 18.298 in the
-EnergyPlus 23.2.0 Engineering Reference):
+<code>&theta;</code> is currently approximated in the model by
+(Eq 18.298 in the EnergyPlus 23.2.0 Engineering Reference):
 <p align=\"center\" style=\"font-style:italic;\">
-K<sub>(&tau;&alpha;)</sub>=1+b<sub>0</sub>(1/cos(&theta;)-1)+b<sub>1</sub>(1/cos(&theta;)-1)<sup>2</sup>
+K<sub>(&tau;&alpha;)</sub>=1+b<sub>0</sub>(1/cos(&theta;)-1)
+  +b<sub>1</sub>(1/cos(&theta;)-1)<sup>2</sup>
 </p>
 <p>
 where <i>K<sub>(&tau;&alpha;)</sub></i> is the incidence angle modifier,
@@ -150,14 +139,16 @@ and <i>b<sub>1</sub></i> is the second incidence angle modifier coefficient.
 As reported in the Energyplus Engineering Reference, this relation is only valid
 for incident angles of 60 degrees or higher. However, as opposed to the EnergyPlus
 approach, the IAM is not set to 0 for incident angles greater than 60 degrees 
-(see Buildings <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/785\">issue 785</a>).
+(see Buildings 
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/785\">
+issue 785</a>).
 Therefore, the simulation results for incident angles greater than 60 degrees
 should be interpreted with care.
 </p>
 </li>
 <li>
-Recent data sheets do not provide a value for <code>b0</code> or <code>b1</code>,
-but report the IAM for several incidence angles.
+Recent data sheets do not provide a value for <code>b0</code> or 
+<code>b1</code>, but report the IAM for several incidence angles.
 The values for <code>b0</code> and <code>b1</code> can be determined by fitting
 the tabular data (e.g. using the scipy function
 <a href=\"https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.curve_fit.html\"> <i>curve_fit</i></a>)
@@ -179,17 +170,18 @@ The model should therefore be used with extra care when dealing with
 evacuated tube collectors.
 </li>
 <li>
-The Solar Keymark database sometimes reports a value for <i>Kd</i> which is the
+The Solar Keymark database sometimes reports a value for <i>Kd</i> which is
 the incident angle modifier for diffuse irradiance.
-This value differs from the IAM at an incidence angle of 50 degrees because the 
-former is determined by integrating the values of the IAM for all incidence
-angles over the hemisphere.
+This value differs from the IAM at an incidence angle of 50 degrees because 
+the former is determined by integrating the values of the IAM 
+for all incidence angles over the hemisphere.
 </li>
 </ul>
 
 <h5> Other model parameters </h5>
 <p>
-Apart from the performance parameters, several other parameters must be defined.
+Apart from the performance parameters, 
+several other parameters must be defined.
 Most of the parameters are self-explanatory.
 The complex parameters are used as follows:
 </p>

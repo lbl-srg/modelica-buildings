@@ -3,8 +3,6 @@ record Generic
   "Generic data record providing common inputs for ASHRAE93 and EN12975 solar collector models"
   extends Modelica.Icons.Record;
 
-  parameter Buildings.Fluid.SolarCollectors.Types.Area ATyp
-    "Gross, absorber, or aperture area";
   parameter Modelica.Units.SI.Area A "Area";
   parameter Buildings.Fluid.SolarCollectors.Types.HeatCapacity CTyp
     "Total thermal capacity or fluid volume and 'dry' thermal capacity or mass";
