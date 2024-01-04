@@ -116,7 +116,7 @@ partial model PartialSolarCollector "Partial model for solar collectors"
       rotation=180,
       origin={0,-20})));
 
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow heaGai[nSeg]
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow QGai[nSeg]
     "Rate of solar heat gain"
     annotation (Placement(transformation(extent={{50,40},{70,60}})));
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow QLos[nSeg]
@@ -205,7 +205,7 @@ equation
       points={{40,-20},{10,-20}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(heaGai.port, vol.heatPort)   annotation (Line(
+  connect(QGai.port, vol.heatPort) annotation (Line(
       points={{70,50},{90,50},{90,-40},{30,-40},{30,-20},{40,-20}},
       color={191,0,0},
       smooth=Smooth.None));

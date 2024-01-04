@@ -61,7 +61,7 @@ equation
       points={{-120,30},{-40,30},{-40,45},{-22,45}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(solGai.QSol_flow, heaGai.Q_flow) annotation (Line(
+  connect(solGai.QSol_flow, QGai.Q_flow) annotation (Line(
       points={{1,50},{50,50}},
       color={0,0,127},
       smooth=Smooth.None));
