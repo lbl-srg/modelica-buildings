@@ -14,7 +14,7 @@ model CollectorPump
     final max=1,
     final unit = "1") = 0.2 "Ground reflectance";
 
-  parameter Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector per
+  parameter Buildings.Fluid.SolarCollectors.Data.GenericASHRAE93 per
     "Performance data"
     annotation (choicesAllMatching=true, Placement(transformation(extent={{60,60},{80,80}})));
 
@@ -30,7 +30,7 @@ model CollectorPump
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data input"
-    annotation (Placement(transformation(extent={{-112,50},{-92,70}})));
+    annotation (Placement(transformation(extent={{-110,40},{-90,60}})));
 
   Buildings.Fluid.SolarCollectors.Controls.BaseClasses.GCritCalc criSol(
     final slope=per.slope,
@@ -64,16 +64,17 @@ protected
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 equation
   connect(TIn, criSol.TIn)    annotation (Line(
-      points={{-120,-40},{-84,-40},{-84,-16},{-62,-16}},
+      points={{-120,-40},{-80,-40},{-80,-16},{-62,-16}},
       color={0,0,127}));
-  connect(weaBus.TDryBul, criSol.TEnv)    annotation (Line(points={{-102,60},{-84,
-          60},{-84,-4},{-62,-4}}, color = {255, 204, 51}, thickness = 0.5));
+  connect(weaBus.TDryBul, criSol.TEnv)    annotation (Line(points={{-99.95,50.05},
+          {-80,50.05},{-80,-4},{-62,-4}},
+                                  color = {255, 204, 51}, thickness = 0.5));
   connect(HDirTil.weaBus, weaBus) annotation (Line(
-      points={{-60,30},{-84,30},{-84,60},{-102,60}},
+      points={{-60,30},{-80,30},{-80,50},{-100,50}},
       color={255,204,51},
       thickness=0.5));
   connect(HDifTilIso.weaBus, weaBus) annotation (Line(
-      points={{-60,60},{-102,60}},
+      points={{-60,60},{-80,60},{-80,50},{-100,50}},
       color={255,204,51},
       thickness=0.5));
   connect(HDifTilIso.H, HTotTil.u1) annotation (Line(points={{-39,60},{-30,60},{
@@ -86,7 +87,7 @@ equation
           -6},{18,-6}}, color={0,0,127}));
   connect(hys.u, sub.y)
     annotation (Line(points={{58,0},{42,0}}, color={0,0,127}));
-  connect(on, hys.y) annotation (Line(points={{120,0},{102,0},{102,0},{82,0}},
+  connect(on, hys.y) annotation (Line(points={{120,0},{82,0}},
         color={255,0,255}));
   annotation (
   defaultComponentName = "pumCon",

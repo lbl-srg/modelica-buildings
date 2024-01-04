@@ -18,7 +18,7 @@ model SolarPumpController "Example for the solar pump controller"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
 equation
   connect(weaDat.weaBus, pumCon.weaBus)  annotation (Line(
-      points={{-40,30},{-20,30},{-20,16},{-0.2,16}},
+      points={{-40,30},{-20,30},{-20,15},{0,15}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
