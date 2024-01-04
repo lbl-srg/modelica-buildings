@@ -1,10 +1,7 @@
 within Buildings.Fluid.SolarCollectors;
 model EN12975 "Model of a concentrating solar collector"
-  extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector(final perPar=per);
-  parameter
-  Buildings.Fluid.SolarCollectors.Data.GenericEN12975 per
-    "Performance data" annotation (choicesAllMatching=true, Placement(
-        transformation(extent={{60,-80},{80,-60}})));
+  extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector(
+    redeclare Buildings.Fluid.SolarCollectors.Data.GenericEN12975 per);
 
   Buildings.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain solGai(
     redeclare package Medium = Medium,
@@ -21,7 +18,6 @@ model EN12975 "Model of a concentrating solar collector"
   Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss heaLos(
     redeclare package Medium = Medium,
     final nSeg=nSeg,
-    final m_flow_nominal=per.mperA_flow_nominal*per.A*nPanels_internal,
     final a1=per.a1,
     final a2=per.a2,
     final A_c=TotalArea_internal)
@@ -34,7 +30,7 @@ equation
     "The heat loss coefficient from the EN 12975 ratings data must be strictly positive. Obtained a1 = " + String(per.a1));
   connect(shaCoe_internal, solGai.shaCoe_in);
 
-  connect(weaBus.TDryBul, QLos.TEnv) annotation (Line(
+  connect(weaBus.TDryBul, heaLos.TEnv) annotation (Line(
       points={{-99.95,90.05},{-90,90.05},{-90,26},{-22,26}},
       color={255,204,51},
       thickness=0.5,
@@ -58,11 +54,11 @@ equation
       points={{-120,30},{-40,30},{-40,45},{-22,45}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(QLos.TFlu, temSen.T) annotation (Line(
+  connect(heaLos.TFlu, temSen.T) annotation (Line(
       points={{-22,14},{-30,14},{-30,-20},{-11,-20}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(QLos.QLos, QLos.Q_flow) annotation (Line(
+  connect(heaLos.QLos, QLos.Q_flow) annotation (Line(
       points={{1,20},{50,20}},
       color={0,0,127},
       smooth=Smooth.None));

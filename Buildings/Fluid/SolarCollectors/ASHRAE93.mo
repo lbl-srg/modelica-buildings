@@ -1,10 +1,7 @@
 within Buildings.Fluid.SolarCollectors;
 model ASHRAE93 "Model of a flat plate solar thermal collector"
-  extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector(final perPar=per);
-  parameter
-    Buildings.Fluid.SolarCollectors.Data.GenericASHRAE93 per
-    "Performance data" annotation (choicesAllMatching=true, Placement(
-        transformation(extent={{60,-80},{80,-60}})));
+  extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector(
+    redeclare Buildings.Fluid.SolarCollectors.Data.GenericASHRAE93 per);
 
   BaseClasses.ASHRAESolarGain solGai(
     redeclare package Medium = Medium,
@@ -22,7 +19,6 @@ model ASHRAE93 "Model of a flat plate solar thermal collector"
   BaseClasses.ASHRAEHeatLoss heaLos(
     redeclare package Medium = Medium,
     final nSeg=nSeg,
-    final m_flow_nominal=per.mperA_flow_nominal*per.A*nPanels_internal,
     final slope=per.slope,
     final A_c=TotalArea_internal)
     "Calculates the heat lost to the surroundings using the ASHRAE93 standard calculations"
@@ -33,7 +29,7 @@ equation
   assert(per.slope < 0,
     "The heat loss coefficient from the ASHRAE ratings data must be strictly negative. Obtained slope = " + String(per.slope));
 
-  connect(weaBus.TDryBul, QLos.TEnv) annotation (Line(
+  connect(weaBus.TDryBul, heaLos.TEnv) annotation (Line(
       points={{-99.95,90.05},{-90,90.05},{-90,26},{-22,26}},
       color={255,204,51},
       thickness=0.5,
@@ -65,7 +61,7 @@ equation
       points={{1,50},{50,50}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(temSen.T, QLos.TFlu) annotation (Line(
+  connect(temSen.T, heaLos.TFlu) annotation (Line(
       points={{-11,-20},{-30,-20},{-30,14},{-22,14}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -73,8 +69,8 @@ equation
       points={{-11,-20},{-30,-20},{-30,42},{-22,42}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(QLos.QLos, QLos.Q_flow) annotation (Line(
-      points={{0,20},{50,20}},
+  connect(heaLos.QLos, QLos.Q_flow) annotation (Line(
+      points={{1,20},{50,20}},
       color={0,0,127},
       smooth=Smooth.None));
 annotation (

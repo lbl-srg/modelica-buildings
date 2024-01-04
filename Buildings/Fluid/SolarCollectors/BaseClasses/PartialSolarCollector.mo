@@ -22,7 +22,7 @@ partial model PartialSolarCollector "Partial model for solar collectors"
     final max=1,
     final unit = "1") "Ground reflectance";
 
-  parameter Modelica.Units.SI.HeatCapacity C=385*perPar.mDry
+  parameter Modelica.Units.SI.HeatCapacity C=385*per.mDry
     "Heat capacity of solar collector without fluid (default: cp_copper*mDry*nPanels)";
 
   parameter Boolean use_shaCoe_in = false
@@ -94,7 +94,7 @@ partial model PartialSolarCollector "Partial model for solar collectors"
     each final p_start=p_start,
     each final T_start=T_start,
     each final m_flow_small=m_flow_small,
-    each final V=(perPar.V + perPar.mDry*385/cp_default/rho_default)*
+    each final V=(per.V + per.mDry*385/cp_default/rho_default)*
         nPanels_internal/nSeg,
     each final massDynamics=massDynamics,
     each final X_start=X_start,
@@ -122,33 +122,33 @@ partial model PartialSolarCollector "Partial model for solar collectors"
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow QLos[nSeg]
     "Rate of heat loss"
     annotation (Placement(transformation(extent={{50,10},{70,30}})));
+  replaceable parameter Buildings.Fluid.SolarCollectors.Data.GenericASHRAE93 per
+    constrainedby Buildings.Fluid.SolarCollectors.Data.BaseClasses.Generic
+    "Performance data"
+    annotation(Placement(transformation(extent={{60,-80},{80,-60}})),choicesAllMatching=true);
 
 protected
-  parameter Buildings.Fluid.SolarCollectors.Data.GenericASHRAE93 perPar
-    "Partial performance data"
-    annotation(choicesAllMatching=true);
-
   Modelica.Blocks.Interfaces.RealInput shaCoe_internal
     "Internally used shading coefficient";
 
   final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal_final(
       displayUnit="kg/s") = if sysConfig == Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Parallel
-     then nPanels_internal*perPar.mperA_flow_nominal*perPar.A else perPar.mperA_flow_nominal*perPar.A
+     then nPanels_internal*per.mperA_flow_nominal*per.A else per.mperA_flow_nominal*per.A
     "Nominal mass flow rate through the system of collectors";
 
   final parameter Modelica.Units.SI.PressureDifference dp_nominal_final(
       displayUnit="Pa") = if sysConfig == Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series
-     then nPanels_internal*perPar.dp_nominal else perPar.dp_nominal
+     then nPanels_internal*per.dp_nominal else per.dp_nominal
     "Nominal pressure loss across the system of collectors";
 
-  parameter Modelica.Units.SI.Area TotalArea_internal=nPanels_internal*perPar.A
+  parameter Modelica.Units.SI.Area TotalArea_internal=nPanels_internal*per.A
     "Area used in the simulation";
 
   parameter Real nPanels_internal=
     if nColType == Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number then
       nPanels
     else
-      totalArea/perPar.A "Number of panels used in the simulation";
+      totalArea/per.A "Number of panels used in the simulation";
 
   parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(
     T=Medium.T_default,
