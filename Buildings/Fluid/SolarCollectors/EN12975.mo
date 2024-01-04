@@ -21,7 +21,6 @@ model EN12975 "Model of a concentrating solar collector"
   Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss heaLos(
     redeclare package Medium = Medium,
     final nSeg=nSeg,
-    final dT_nominal=per.dT_nominal,
     final m_flow_nominal=per.mperA_flow_nominal*per.A*nPanels_internal,
     final a1=per.a1,
     final a2=per.a2,

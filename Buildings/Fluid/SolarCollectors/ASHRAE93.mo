@@ -23,7 +23,6 @@ model ASHRAE93 "Model of a flat plate solar thermal collector"
     redeclare package Medium = Medium,
     final nSeg=nSeg,
     final m_flow_nominal=per.mperA_flow_nominal*per.A*nPanels_internal,
-    final dT_nominal=per.dT_nominal,
     final slope=per.slope,
     final A_c=TotalArea_internal,
     final cp_default=cp_default)

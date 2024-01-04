@@ -1,8 +1,6 @@
 within Buildings.Fluid.SolarCollectors.BaseClasses;
 block EN12975HeatLoss "Calculate the heat loss of a solar collector per EN12975"
   extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialHeatLoss(
-    final QLos_nominal = -A_c * (a1 * dT_nominal - a2 * dT_nominal^2)
-      "Heat loss at nominal condition, for reporting only",
     QLos_internal = A_c/nSeg * {dT[i] * (a1 - a2 * dT[i]) for i in 1:nSeg});
 
   parameter Modelica.Units.SI.CoefficientOfHeatTransfer a1(final min=0)

@@ -10,9 +10,6 @@ block PartialHeatLoss
   parameter Modelica.Units.SI.Irradiance G_nominal
     "Irradiance at nominal conditions"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.TemperatureDifference dT_nominal
-    "Ambient temperature minus fluid temperature at nominal conditions"
-    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Fluid flow rate at nominal conditions"
     annotation (Dialog(group="Nominal condition"));

@@ -16,8 +16,6 @@ record Generic
     "Nominal mass flow rate per unit area of collector";
   parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa")
     "Nominal pressure drop";
-  parameter Modelica.Units.SI.TemperatureDifference dT_nominal=10
-    "Nominal temperature difference (between the collector inlet and outlet) specified in ratings data";
   parameter Real b0 "1st incident angle modifier coefficient";
   parameter Real b1 "2nd incident angle modifier coefficient";
 
