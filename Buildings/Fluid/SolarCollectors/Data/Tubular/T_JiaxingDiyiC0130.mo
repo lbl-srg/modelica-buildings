@@ -3,6 +3,7 @@ record T_JiaxingDiyiC0130 =
     Buildings.Fluid.SolarCollectors.Data.GenericASHRAE93 (
     final A=4.650,
     final CTyp=Buildings.Fluid.SolarCollectors.Types.HeatCapacity.DryMass,
+    final C=0,
     final mDry=95,
     final V=1.7/1000,
     final dp_nominal=100,

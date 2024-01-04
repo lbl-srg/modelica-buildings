@@ -3,6 +3,7 @@ record FP_ThermaLiteHS20 =
     Buildings.Fluid.SolarCollectors.Data.GenericASHRAE93 (
     final A=1.97,
     final CTyp=Buildings.Fluid.SolarCollectors.Types.HeatCapacity.DryMass,
+    final C=0,
     final mDry=26,
     final V=2.8/1000,
     final dp_nominal=242.65,

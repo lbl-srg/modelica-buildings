@@ -4,6 +4,7 @@ record FP_GuangdongFSPTY95 =
     final A=2,
     final mDry=35,
     final CTyp=Buildings.Fluid.SolarCollectors.Types.HeatCapacity.DryMass,
+    final C=0,
     final V=1.7/1000,
     final dp_nominal=235,
     final mperA_flow_nominal=0.02,

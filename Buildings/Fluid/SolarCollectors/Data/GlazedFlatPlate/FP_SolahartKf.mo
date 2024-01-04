@@ -3,6 +3,7 @@ record FP_SolahartKf =
     Buildings.Fluid.SolarCollectors.Data.GenericASHRAE93 (
     final A=2.003,
     final CTyp=Buildings.Fluid.SolarCollectors.Types.HeatCapacity.DryMass,
+    final C=0,
     final mDry=42,
     final V=3.8/1000,
     final dp_nominal=93.89,

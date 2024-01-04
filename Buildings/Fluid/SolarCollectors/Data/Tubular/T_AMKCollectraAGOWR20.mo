@@ -3,6 +3,7 @@ record T_AMKCollectraAGOWR20 =
     Buildings.Fluid.SolarCollectors.Data.GenericASHRAE93 (
     final A=3.457,
     final CTyp=Buildings.Fluid.SolarCollectors.Types.HeatCapacity.DryMass,
+    final C=0,
     final mDry=73,
     final V=3.5/1000,
     final dp_nominal=100,

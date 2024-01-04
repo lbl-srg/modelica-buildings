@@ -3,6 +3,7 @@ record FP_VerificationModel =
   Buildings.Fluid.SolarCollectors.Data.GenericEN12975 (
     final A=4.302,
     final CTyp=Buildings.Fluid.SolarCollectors.Types.HeatCapacity.DryMass,
+    final C=0,
     final V=4.4/1000,
     final dp_nominal = 100,
     final mperA_flow_nominal=0.0241,
