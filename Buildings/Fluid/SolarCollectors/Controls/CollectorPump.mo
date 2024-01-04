@@ -64,10 +64,10 @@ protected
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 equation
   connect(TIn, criSol.TIn)    annotation (Line(
-      points={{-120,-40},{-80,-40},{-80,-16},{-62,-16}},
+      points={{-120,-40},{-80,-40},{-80,-15},{-62,-15}},
       color={0,0,127}));
-  connect(weaBus.TDryBul, criSol.TEnv)    annotation (Line(points={{-99.95,50.05},
-          {-80,50.05},{-80,-4},{-62,-4}},
+  connect(weaBus.TDryBul, criSol.TEnv)    annotation (Line(points={{-99.95,
+          50.05},{-80,50.05},{-80,-5},{-62,-5}},
                                   color = {255, 204, 51}, thickness = 0.5));
   connect(HDirTil.weaBus, weaBus) annotation (Line(
       points={{-60,30},{-80,30},{-80,50},{-100,50}},
@@ -96,24 +96,31 @@ Documentation(info="<html>
 Pump on/off controller for a solar thermal system.
 </p>
 <p>
-This controller outputs whether the pump should be commanded on or off based on the incident solar radiation,
-the collector inlet temperature,
-and the system parameters. The pump is commanded on when the incident solar radiation is
-greater than the critical radiation plus the offset <code>delQ_flow</code>, and it is switched
-off if the incident solar radiation is below the critical radiation.
+This controller outputs whether the pump should be commanded on or off 
+based on the incident solar radiation, the collector inlet temperature,
+and the system parameters.
+The pump is commanded on when the incident solar radiation is greater than 
+the critical radiation plus the offset <code>delQ_flow</code>, 
+and it is switched off if the incident solar radiation is 
+below the critical radiation.
 </p>
 <p>
-The critical radiation is defined per Equation 6.8.2 in Duffie and Beckman (2006). It is
+The critical radiation is defined per Equation 6.8.2 in 
+Duffie and Beckman (2006).
+It is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  G<sub>TC</sub>=(F<sub>R</sub>U<sub>L</sub> (T<sub>In</sub>-T<sub>Env</sub>))/(F<sub>R</sub>(&tau;&alpha;))
+G<sub>TC</sub>=(F<sub>R</sub>U<sub>L</sub> (T<sub>In</sub>-T<sub>Env</sub>))
+  /(F<sub>R</sub>(&tau;&alpha;))
 </p>
 <p>
-where <i>G<sub>TC</sub></i> is the critical solar radiation, <i>F<sub>R</sub>U<sub>L</sub></i>
-is the heat loss coefficient, <i>T<sub>In</sub></i> is the inlet temperature,
-<i>T<sub>Env</sub></i> is the ambient temperature, and <i>F<sub>R</sub>(&tau;&alpha;)</i>
-is the maximum efficiency.
+where <i>G<sub>TC</sub></i> is the critical solar radiation,
+<i>F<sub>R</sub>U<sub>L</sub></i> is the heat loss coefficient,
+<i>T<sub>In</sub></i> is the inlet temperature,
+<i>T<sub>Env</sub></i> is the ambient temperature,
+and <i>F<sub>R</sub>(&tau;&alpha;)</i> is the maximum efficiency.
 </p>
+
 <h4>References</h4>
 <p>
 J.A. Duffie and W.A. Beckman 2006, Solar Engineering of Thermal Processes (3rd Edition),
@@ -122,6 +129,12 @@ John Wiley &amp; Sons, Inc.<br/>
 </html>",
 revisions="<html>
 <ul>
+<li>
+January, 2024, by Jelger Jansen:<br/>
+Refactor model.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3604\">Buildings, #3604</a>.
+</li>
 <li>
 November 7, 2022, by Michael Wetter:<br/>
 Corrected implementation to make comparison based on total irradiation on tilted surface
