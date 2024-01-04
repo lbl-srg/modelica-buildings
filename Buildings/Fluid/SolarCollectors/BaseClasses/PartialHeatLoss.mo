@@ -7,9 +7,6 @@ block PartialHeatLoss
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium in the component";
 
-  parameter Modelica.Units.SI.Irradiance G_nominal
-    "Irradiance at nominal conditions"
-    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Fluid flow rate at nominal conditions"
     annotation (Dialog(group="Nominal condition"));
