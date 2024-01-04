@@ -79,6 +79,8 @@ model HeatPumpDHWTank
     datWatHea(VTan=0.1892706, mDom_flow_nominal=6.52944E-06*1000)
     "Data for heat pump water heater with tank"
     annotation (Placement(transformation(extent={{-10,22},{10,42}})));
+  Modelica.Blocks.Sources.BooleanConstant on "Enable"
+    annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
 equation
   connect(TDisSup.y,supAmbWat. T_in)
     annotation (Line(points={{79,-50},{76,-50},{76,-56},{72,-56}},
@@ -87,12 +89,13 @@ equation
     annotation (Line(points={{50,-60},{40,-60}}, color={0,127,255}));
   connect(senMasFlo.port_b, heaPum.port_a2) annotation (Line(points={{20,-60},{16,
           -60},{16,-8},{10,-8}}, color={0,127,255}));
-  connect(sinAmbWat.ports[1], heaPum.port_b2) annotation (Line(points={{50,10},{
-          22,10},{22,4},{10,4}}, color={0,127,255}));
+  connect(sinAmbWat.ports[1], heaPum.port_b2) annotation (Line(points={{50,10},
+          {22,10},{22,-8},{-10,-8}},
+                                 color={0,127,255}));
   connect(dcwSpl.port_1, souDCW.ports[1]) annotation (Line(points={{-32,-20},{-32,
           -30},{-60,-30}}, color={0,127,255}));
   connect(dcwSpl.port_3, heaPum.port_a1)
-    annotation (Line(points={{-22,-10},{-22,-8},{-10,-8}}, color={0,127,255}));
+    annotation (Line(points={{-22,-10},{-22,4},{-10,4}},   color={0,127,255}));
   connect(sch.y[1], theMixVal.yMixSet) annotation (Line(points={{-99,70},{-80,70},
           {-80,78},{-61,78}}, color={0,0,127}));
   connect(conTSetMix.y, theMixVal.TMixSet) annotation (Line(points={{-99,30},{-76,
@@ -100,7 +103,9 @@ equation
   connect(dcwSpl.port_2, theMixVal.port_col) annotation (Line(points={{-32,0},{-32,
           38},{-68,38},{-68,62},{-60,62}}, color={0,127,255}));
   connect(theMixVal.port_hot, heaPum.port_b1) annotation (Line(points={{-60,66},
-          {-72,66},{-72,4},{-10,4}}, color={0,127,255}));
+          {-72,66},{-72,4},{10,4}},  color={0,127,255}));
+  connect(on.y, heaPum.uEna) annotation (Line(points={{-99,-10},{-60,-10},{-60,
+          7},{-12,7}}, color={255,0,255}));
   annotation (
     Diagram(
       coordinateSystem(

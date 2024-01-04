@@ -1,4 +1,4 @@
-within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems;
+﻿within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems;
 model HeatPump "Base subsystem with water-to-water heat pump"
   extends
     Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.BaseClasses.PartialHeatPump(
@@ -9,11 +9,6 @@ model HeatPump "Base subsystem with water-to-water heat pump"
   parameter Modelica.Units.SI.HeatFlowRate Q1_flow_nominal(min=0)
     "Heating heat flow rate" annotation (Dialog(group="Nominal condition"));
   // IO CONNECTORS
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEna(start=false)
-    "Enable signal"
-    annotation (
-      Placement(transformation(extent={{-240,100},{-200,140}}),
-        iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupSet(
     final unit="K",
     displayUnit="degC")
@@ -36,8 +31,6 @@ model HeatPump "Base subsystem with water-to-water heat pump"
     "Zero flow rate if not enabled"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
 equation
-  connect(uEna, booToRea.u)
-    annotation (Line(points={{-220,120},{-182,120}}, color={255,0,255}));
   connect(booToRea.y, floCon.u1) annotation (Line(points={{-158,120},{-140,120},
           {-140,106},{-122,106}}, color={0,0,127}));
   connect(m1_flow, floCon.u2) annotation (Line(points={{-220,80},{-188,80},{
@@ -51,17 +44,18 @@ equation
           200,60}},            color={0,127,255}));
   connect(TSupSet, heaPum.TSet) annotation (Line(points={{-220,-20},{-90,-20},{
           -90,-63},{-82,-63}},   color={0,0,127}));
-  connect(uEna, floEva.u) annotation (Line(points={{-220,120},{-190,120},{-190,
-          136},{-90,136},{-90,120},{-82,120}},
-                                             color={255,0,255}));
   connect(floCon.y, pumCon.m_flow_in)
     annotation (Line(points={{-98,100},{12,100},{12,0},{-14,0},{-14,
           -2.22045e-15}},                                   color={0,0,127}));
   connect(conPI.trigger, floEva.u) annotation (Line(points={{124,8},{124,-2},{
           110,-2},{110,136},{-90,136},{-90,120},{-82,120}},
                                                           color={255,0,255}));
-  connect(addPPum.y, PPum) annotation (Line(points={{161,110},{174,110},{174,0},
-          {220,0}},color={0,0,127}));
+  connect(addPPum.y, PPum) annotation (Line(points={{161,80},{174,80},{174,0},{
+          220,0}}, color={0,0,127}));
+  connect(uEna, booToRea.u)
+    annotation (Line(points={{-220,120},{-182,120}}, color={255,0,255}));
+  connect(uEna, floEva.u) annotation (Line(points={{-220,120},{-190,120},{-190,
+          136},{-90,136},{-90,120},{-82,120}}, color={255,0,255}));
   annotation (
   defaultComponentName="heaPum",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={

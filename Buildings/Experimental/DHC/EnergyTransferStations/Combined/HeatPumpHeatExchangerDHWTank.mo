@@ -71,8 +71,8 @@ equation
   connect(souDCW.ports[1], dcwSpl.port_1) annotation (Line(points={{-42,-56},{
           -10,-56},{-10,-10}},color={0,127,255}));
   connect(dcwSpl.port_3, proHotWat.port_a1)
-    annotation (Line(points={{0,-6.66134e-16},{10,-6.66134e-16},{10,40},{30.2,
-          40}},                                            color={0,127,255}));
+    annotation (Line(points={{0,-6.66134e-16},{10,-6.66134e-16},{10,40},{30,40}},
+                                                           color={0,127,255}));
   connect(dcwSpl.port_2, theMixVal.port_col) annotation (Line(points={{-10,10},
           {-10,52.2},{-20,52.2}}, color={0,127,255}));
   connect(proHotWat.port_b1, theMixVal.port_hot) annotation (Line(points={{50,40},
@@ -89,6 +89,8 @@ equation
   connect(gai.y, theMixVal.yMixSet) annotation (Line(points={{-58,60},{-48,60},
           {-48,78},{-6,78},{-6,70},{-12,70},{-12,69.8},{-19,69.8}},
                                                   color={0,0,127}));
+  connect(enaSHW.y, proHotWat.uEna) annotation (Line(points={{-118,80},{-108,80},
+          {-108,43},{28,43}}, color={255,0,255}));
   annotation (
   Documentation(info="<html>
 <p>

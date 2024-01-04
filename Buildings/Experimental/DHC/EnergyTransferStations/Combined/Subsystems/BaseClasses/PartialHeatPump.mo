@@ -167,6 +167,11 @@ model PartialHeatPump
   Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium2)
     "Mass flow rate drawn from ETS"
     annotation (Placement(transformation(extent={{160,-70},{140,-50}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEna(start=false)
+    "Enable signal"
+    annotation (
+      Placement(transformation(extent={{-240,100},{-200,140}}),
+        iconTransformation(extent={{-140,70},{-100,110}})));
 equation
   connect(heaPum.port_b1,pumCon. port_a) annotation (Line(points={{-60,-66},{
           -26,-66},{-26,-10}},

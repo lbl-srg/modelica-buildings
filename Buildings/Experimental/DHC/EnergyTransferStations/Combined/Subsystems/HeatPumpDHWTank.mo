@@ -48,12 +48,11 @@ model HeatPumpDHWTank
   Modelica.Blocks.Math.Add addPPum1
                                    "Electricity use for pumps"
     annotation (Placement(transformation(extent={{170,-8},{190,12}})));
+  Buildings.Controls.OBC.CDL.Logical.And and2
+    annotation (Placement(transformation(extent={{-140,110},{-120,130}})));
 equation
   connect(THotSouSet.y, heaPumTan.TDomSet) annotation (Line(points={{-158,20},{
           -81,20}},                color={0,0,127}));
-  connect(heaPumTan.charge, floCon.u) annotation (Line(points={{-58,11},{-56,11},
-          {-56,12},{-54,12},{-54,0},{-100,0},{-100,90},{-82,90}},   color={255,
-          0,255}));
   connect(preRef.ports[1], heaPumTan.port_bHea) annotation (Line(points={{-70,-20},
           {-92,-20},{-92,14},{-80,14}}, color={0,127,255}));
   connect(heaPumTan.port_bHea, senTemHeaPumRet.port_a) annotation (Line(points={{-80,14},
@@ -64,9 +63,6 @@ equation
   connect(floCon.y, pumCon.m_flow_in)
     annotation (Line(points={{-58,90},{-4,90},{-4,0},{-14,0},{-14,-3.55271e-15}},
                                                             color={0,0,127}));
-  connect(floEva.u, floCon.u) annotation (Line(points={{-82,120},{-100,120},{
-          -100,90},{-82,90}},
-                           color={255,0,255}));
   connect(heaPumTan.port_aHea, pumCon.port_b)
     annotation (Line(points={{-60,14},{-26,14},{-26,10}},
                                                  color={0,127,255}));
@@ -79,14 +75,23 @@ equation
           20},{-50,56},{164,56},{164,-4},{168,-4}}, color={0,0,127}));
   connect(addPPum1.y, PPum)
     annotation (Line(points={{191,2},{191,0},{220,0}}, color={0,0,127}));
-  connect(conPI.trigger, floCon.u) annotation (Line(points={{124,8},{124,0},{
-          110,0},{110,106},{-100,106},{-100,90},{-82,90}},   color={255,0,255}));
   connect(addPar.y, heaPum.TSet) annotation (Line(points={{-98,-30},{-92,-30},{
           -92,-63},{-82,-63}}, color={0,0,127}));
   connect(heaPumTan.port_bDom, port_b1) annotation (Line(points={{-60,26},{-54,
           26},{-54,60},{200,60}},  color={0,127,255}));
   connect(port_a1, heaPumTan.port_aDom) annotation (Line(points={{-200,60},{
           -120,60},{-120,26},{-80,26}},  color={0,127,255}));
+  connect(uEna, and2.u1)
+    annotation (Line(points={{-220,120},{-142,120}}, color={255,0,255}));
+  connect(heaPumTan.charge, and2.u2) annotation (Line(points={{-58,11},{-56,11},
+          {-56,12},{-54,12},{-54,0},{-100,0},{-100,80},{-160,80},{-160,112},{
+          -142,112}}, color={255,0,255}));
+  connect(and2.y, floEva.u)
+    annotation (Line(points={{-118,120},{-82,120}}, color={255,0,255}));
+  connect(and2.y, floCon.u) annotation (Line(points={{-118,120},{-100,120},{
+          -100,90},{-82,90}}, color={255,0,255}));
+  connect(and2.y, conPI.trigger) annotation (Line(points={{-118,120},{-100,120},
+          {-100,106},{110,106},{110,0},{124,0},{124,8}}, color={255,0,255}));
   annotation (
   defaultComponentName="heaPum",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
