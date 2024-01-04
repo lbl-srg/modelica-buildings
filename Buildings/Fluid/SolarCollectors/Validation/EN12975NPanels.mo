@@ -67,8 +67,8 @@ model EN12975NPanels
     annotation (Placement(transformation(extent={{-12,-40},{8,-20}})));
   Modelica.Blocks.Math.Gain gaiNPan(k=nPanels) "Gain for number of panels"
     annotation (Placement(transformation(extent={{-52,-32},{-32,-12}})));
-  Modelica.Blocks.Sources.RealExpression difHeaGai(y=solCol.heaGai[30].Q_flow
-         - solCol1.heaGai[30].Q_flow/nPanels)
+  Modelica.Blocks.Sources.RealExpression difHeaGai(y=solCol.QGai[30].Q_flow -
+        solCol1.QGai[30].Q_flow/nPanels)
     "Difference in heat gain at last panel between model with 1 and with 30 panels"
     annotation (Placement(transformation(extent={{-68,-72},{-48,-52}})));
   Modelica.Blocks.Sources.RealExpression difHeaLos(y=solCol.QLos[30].Q_flow -
@@ -78,11 +78,11 @@ model EN12975NPanels
   Modelica.Blocks.Sources.Constant m_flow_nominal(k=datSolCol.A*datSolCol.mperA_flow_nominal)
     "Nominal flow rate for one panel"
     annotation (Placement(transformation(extent={{-88,30},{-68,50}})));
-  parameter Data.Concentrating.C_VerificationModel datSolCol
+  parameter Data.GlazedFlatPlate.FP_VerificationModel datSolCol
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 equation
   connect(weaDat.weaBus, solCol1.weaBus) annotation (Line(
-      points={{-20,70},{14,70},{14,-20},{20,-20},{20,-20.4}},
+      points={{-20,70},{14,70},{14,-20},{20,-20},{20,-21}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -101,7 +101,7 @@ equation
   connect(solCol.port_b, sou.ports[1])
     annotation (Line(points={{40,30},{60,30}}, color={0,127,255}));
   connect(solCol.weaBus, weaDat.weaBus) annotation (Line(
-      points={{20,39.6},{18,39.6},{18,40},{14,40},{14,70},{-20,70}},
+      points={{20,39},{18,39},{18,40},{14,40},{14,70},{-20,70}},
       color={255,204,51},
       thickness=0.5));
   connect(m_flow_nominal.y, bou.m_flow_in) annotation (Line(points={{-67,40},{-22,

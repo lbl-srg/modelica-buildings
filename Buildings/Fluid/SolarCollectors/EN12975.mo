@@ -1,5 +1,5 @@
 within Buildings.Fluid.SolarCollectors;
-model EN12975 "Model of a concentrating solar collector"
+model EN12975 "Model of a solar thermal collector according to the ASHRAE93 standard"
   extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector(
     redeclare Buildings.Fluid.SolarCollectors.Data.GenericEN12975 per);
 

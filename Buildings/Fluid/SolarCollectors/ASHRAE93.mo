@@ -1,5 +1,5 @@
 within Buildings.Fluid.SolarCollectors;
-model ASHRAE93 "Model of a flat plate solar thermal collector"
+model ASHRAE93 "Model of a solar thermal collector according to the ASHRAE93 standard"
   extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector(
     redeclare Buildings.Fluid.SolarCollectors.Data.GenericASHRAE93 per);
 

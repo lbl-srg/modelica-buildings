@@ -32,12 +32,12 @@ model FlatPlateNPanels
     annotation (Placement(transformation(extent={{-12,-40},{8,-20}})));
   Modelica.Blocks.Math.Gain gaiNPan(k=nPanels) "Gain for number of panels"
     annotation (Placement(transformation(extent={{-52,-32},{-32,-12}})));
-  Modelica.Blocks.Sources.RealExpression difHeaGai(
-    y=solCol.heaGai[30].Q_flow - solCol1.heaGai[30].Q_flow/nPanels)
+  Modelica.Blocks.Sources.RealExpression difHeaGai(y=solCol.QGai[30].Q_flow -
+        solCol1.QGai[30].Q_flow/nPanels)
     "Difference in heat gain at last panel between model with 1 and with 30 panels"
     annotation (Placement(transformation(extent={{-68,-72},{-48,-52}})));
-  Modelica.Blocks.Sources.RealExpression difHeaLos(
-    y=solCol.QLos[30].Q_flow - solCol1.QLos[30].Q_flow/nPanels)
+  Modelica.Blocks.Sources.RealExpression difHeaLos(y=solCol.QLos[30].Q_flow -
+        solCol1.QLos[30].Q_flow/nPanels)
     "Difference in heat loss at last panel between model with 1 and with 30 panels"
     annotation (Placement(transformation(extent={{-68,-92},{-48,-72}})));
 equation
