@@ -24,8 +24,7 @@ model EN12975 "Model of a concentrating solar collector"
     final m_flow_nominal=per.mperA_flow_nominal*per.A*nPanels_internal,
     final a1=per.a1,
     final a2=per.a2,
-    final A_c=TotalArea_internal,
-    final cp_default=cp_default)
+    final A_c=TotalArea_internal)
     "Calculates the heat lost to the surroundings using the EN12975 standard calculations"
       annotation (Placement(transformation(extent={{-20,6},{0,26}})));
 

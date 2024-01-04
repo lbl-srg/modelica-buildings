@@ -24,8 +24,7 @@ model ASHRAE93 "Model of a flat plate solar thermal collector"
     final nSeg=nSeg,
     final m_flow_nominal=per.mperA_flow_nominal*per.A*nPanels_internal,
     final slope=per.slope,
-    final A_c=TotalArea_internal,
-    final cp_default=cp_default)
+    final A_c=TotalArea_internal)
     "Calculates the heat lost to the surroundings using the ASHRAE93 standard calculations"
         annotation (Placement(transformation(extent={{-20,6},{0,26}})));
 

@@ -14,12 +14,6 @@ block PartialHeatLoss
     "Fluid flow rate at nominal conditions"
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.Units.SI.SpecificHeatCapacity cp_default
-    "Specific heat capacity of the fluid at the default temperature";
-
-  parameter Modelica.Units.SI.HeatFlowRate QLos_nominal
-    "Heat loss at nominal conditions, negative if heat flows from collector to environment";
-
   Modelica.Blocks.Interfaces.RealInput TEnv(
     quantity="ThermodynamicTemperature",
     unit="K",
