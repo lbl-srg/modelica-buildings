@@ -1,5 +1,5 @@
 within Buildings.Fluid.SolarCollectors.BaseClasses;
-model PartialSolarCollector "Partial model for solar collectors"
+partial model PartialSolarCollector "Partial model for solar collectors"
  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final dp_nominal = dp_nominal_final,
@@ -124,7 +124,7 @@ model PartialSolarCollector "Partial model for solar collectors"
     annotation (Placement(transformation(extent={{50,6},{70,26}})));
 
 protected
-  parameter Buildings.Fluid.SolarCollectors.Data.BaseClasses.Generic perPar
+  parameter Buildings.Fluid.SolarCollectors.Data.GenericASHRAE93 perPar
     "Partial performance data"
     annotation(choicesAllMatching=true);
 
