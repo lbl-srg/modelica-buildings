@@ -16,7 +16,7 @@ model EN12975 "Model of a concentrating solar collector"
     final use_shaCoe_in=use_shaCoe_in,
     final shaCoe=shaCoe,
     final A_c=TotalArea_internal)
-    "Identifies heat gained from the sun using standard EN12975 calculations"
+    "Identifies heat gained from the sun using the EN12975 standard calculations"
      annotation (Placement(transformation(extent={{-20,38},{0,58}})));
   Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss heaLos(
     redeclare package Medium = Medium,

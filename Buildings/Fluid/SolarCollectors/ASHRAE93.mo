@@ -16,7 +16,7 @@ model ASHRAE93 "Model of a flat plate solar thermal collector"
     final use_shaCoe_in=use_shaCoe_in,
     final shaCoe=shaCoe,
     final A_c=TotalArea_internal)
-    "Identifies heat gained from the sun using standard ASHRAE93 calculations"
+    "Identifies heat gained from the sun using the ASHRAE93 standard calculations"
              annotation (Placement(transformation(extent={{-20,38},{0,58}})));
 
   BaseClasses.ASHRAEHeatLoss heaLos(
