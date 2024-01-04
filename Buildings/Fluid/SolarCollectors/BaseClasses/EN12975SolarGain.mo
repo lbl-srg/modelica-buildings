@@ -21,7 +21,7 @@ model EN12975SolarGain "Model calculating solar gains per the EN12975 standard"
 
   Modelica.Blocks.Interfaces.RealInput shaCoe_in if use_shaCoe_in
     "Time varying input for the shading coefficient"
-    annotation(Placement(transformation(extent={{-140,-60},{-100,-20}})));
+    annotation(Placement(transformation(extent={{-140,-70},{-100,-30}})));
 
   Modelica.Blocks.Interfaces.RealInput HSkyDifTil(
     unit="W/m2",
@@ -32,12 +32,12 @@ model EN12975SolarGain "Model calculating solar gains per the EN12975 standard"
     quantity="Angle",
     unit="rad",
     displayUnit="deg") "Incidence angle of the sun beam on a tilted surface"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+    annotation (Placement(transformation(extent={{-140,-40},{-100,0}})));
   Modelica.Blocks.Interfaces.RealInput HDirTil(
     unit="W/m2",
     quantity="RadiantEnergyFluenceRate")
     "Direct solar irradiation on a tilted surfce"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
+    annotation (Placement(transformation(extent={{-140,0},{-100,40}})));
   Modelica.Blocks.Interfaces.RealOutput QSol_flow[nSeg](each final unit="W")
     "Solar heat gain"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));

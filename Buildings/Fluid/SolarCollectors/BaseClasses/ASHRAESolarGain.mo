@@ -35,7 +35,7 @@ block ASHRAESolarGain
   Modelica.Blocks.Interfaces.RealInput HGroDifTil(
     unit="W/m2", quantity="RadiantEnergyFluenceRate")
     "Diffuse solar irradiation on a tilted surfce from the ground"
-    annotation (Placement(transformation(extent={{-140,28},{-100,68}})));
+    annotation (Placement(transformation(extent={{-140,30},{-100,70}})));
   Modelica.Blocks.Interfaces.RealInput incAng(
     quantity="Angle",
     unit="rad",
