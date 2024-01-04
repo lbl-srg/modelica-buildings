@@ -1,8 +1,8 @@
 within Buildings.Fluid.SolarCollectors.BaseClasses.Examples;
-model EN12975HeatLoss "Example showing the use of EN12975HeatLoss"
+model ASHRAEHeatLoss "Example showing the use of ASHRAEHeatLoss"
   extends Modelica.Icons.Example;
-  parameter Buildings.Fluid.SolarCollectors.Data.GenericEN12975 per=
-    Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_VerificationModel()
+  parameter Buildings.Fluid.SolarCollectors.Data.GenericASHRAE93 per=
+    Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_ThermaLiteHS20()
     "Performance data"
     annotation (choicesAllMatching=true);
   Modelica.Blocks.Sources.Sine TEnv(
@@ -25,12 +25,11 @@ model EN12975HeatLoss "Example showing the use of EN12975HeatLoss"
     amplitude=15,
     offset=273.15 + 20) "Temperature of the third segment"
     annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
-  Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss heaLos(
+  Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss  heaLos(
     nSeg=3,
     redeclare package Medium = Buildings.Media.Water,
-    a1=per.a1,
-    a2=per.a2,
-    A_c=per.A)       "Heat loss model using EN12975 calculations"
+    A_c=per.A,
+    slope=per.slope) "Heat loss model using EN12975 calculations"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 equation
   connect(TEnv.y, heaLos.TEnv) annotation (Line(
@@ -53,8 +52,8 @@ equation
     Documentation(info="<html>
 <p>
 This examples demonstrates the implementation of
-<a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss\">
-Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss</a>.
+<a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss\">
+Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss</a>.
 </p>
 </html>",
 revisions="<html>
@@ -65,14 +64,10 @@ Refactor model.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3604\">Buildings, #3604</a>.
 </li>
-<li>
-Mar 27, 2013 by Peter Grant:<br/>
-First implementation.
-</li>
 </ul>
   </html>"),
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/SolarCollectors/BaseClasses/Examples/EN12975HeatLoss.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/SolarCollectors/BaseClasses/Examples/ASHRAEHeatLoss.mos"
         "Simulate and plot"),
         experiment(Tolerance=1e-6, StopTime=100));
-end EN12975HeatLoss;
+end ASHRAEHeatLoss;
