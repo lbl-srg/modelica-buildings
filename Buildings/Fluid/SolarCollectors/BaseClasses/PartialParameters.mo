@@ -2,7 +2,7 @@ within Buildings.Fluid.SolarCollectors.BaseClasses;
 block PartialParameters "Partial model for parameters"
 
   parameter Modelica.Units.SI.Area A_c "Area of the collector";
-  parameter Integer nSeg(min=3)=3 "Number of segments";
+  parameter Integer nSeg=3 "Number of segments";
 
   annotation(Documentation(info="<html>
 <p>
