@@ -26,12 +26,10 @@ model ExtremeAmbientConditions
     rho=0.2,
     nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
     sysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series,
-
     nPanels=1,
     azi=0.3,
     til=0.5,
     per=Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_VerificationModel(),
-
     T_start=313.15) "Flat plate solar collector model using the EN 12975 model"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
 
@@ -53,7 +51,7 @@ model ExtremeAmbientConditions
       transformation(
       extent={{-10,10},{10,-10}},
       rotation=180,
-      origin={80,-40})));
+      origin={80,-60})));
   Modelica.Blocks.Sources.Ramp TAmb(
     offset=273.15 + 40,
     height=-100,
@@ -94,13 +92,12 @@ equation
   connect(sou2.ports[1], solEn.port_a)
     annotation (Line(points={{1.77636e-15,-80},{20,-80}}, color={0,127,255}));
   connect(solAsh.port_b, sou1.ports[1])
-    annotation (Line(points={{40,-40},{70,-40},{70,-41}},
+    annotation (Line(points={{40,-40},{70,-40},{70,-61}},
                                                        color={0,127,255}));
-  connect(solEn.port_b, sou1.ports[2]) annotation (Line(points={{40,-80},{56,
-          -80},{56,-39},{70,-39}},
-                              color={0,127,255}));
+  connect(solEn.port_b, sou1.ports[2]) annotation (Line(points={{40,-80},{70,
+          -80},{70,-59}},     color={0,127,255}));
   connect(weaBus, solAsh.weaBus) annotation (Line(
-      points={{0,0},{20,0},{20,-30.4}},
+      points={{0,0},{20,0},{20,-31}},
       color={255,204,51},
       thickness=0.5), Text(
       textString="%first",
@@ -143,7 +140,7 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(solEn.weaBus, weaBus) annotation (Line(
-      points={{20,-70.4},{16,-70.4},{16,-70},{12,-70},{12,0},{0,0}},
+      points={{20,-71},{20,0},{0,0}},
       color={255,204,51},
       thickness=0.5), Text(
       textString="%second",

@@ -18,7 +18,7 @@ model EN12975NPanels
     nSeg=30,
     til=0.78539816339745)
     "Flat plate solar collector model, has been modified for validation purposes"
-    annotation (Placement(transformation(extent={{20,20},{40,40}})));
+    annotation (Placement(transformation(extent={{30,20},{50,40}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"),
@@ -30,14 +30,14 @@ model EN12975NPanels
     use_p_in=false,
     p(displayUnit="Pa") = 101325,
     nPorts=1) "Outlet for water flow"
-    annotation (Placement(transformation(extent={{80,20},{60,40}})));
+    annotation (Placement(transformation(extent={{90,20},{70,40}})));
   Buildings.Fluid.Sources.MassFlowSource_T bou(
     nPorts=1,
     redeclare package Medium = Medium,
     use_m_flow_in=true,
     use_T_in=false,
     T=303.15) "Inlet for water flow, at a prescribed flow rate and temperature"
-    annotation (Placement(transformation(extent={{-12,20},{8,40}})));
+    annotation (Placement(transformation(extent={{-10,20},{10,40}})));
 
   Buildings.Fluid.SolarCollectors.EN12975 solCol1(
     redeclare package Medium = Medium,
@@ -51,63 +51,65 @@ model EN12975NPanels
     til=0.78539816339745,
     nPanels=nPanels)
     "Flat plate solar collector model, has been modified for validation purposes"
-    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
+    annotation (Placement(transformation(extent={{30,-40},{50,-20}})));
   Buildings.Fluid.Sources.Boundary_pT sou1(
     redeclare package Medium = Medium,
     use_p_in=false,
     p(displayUnit="Pa") = 101325,
     nPorts=1) "Outlet for water flow"
-    annotation (Placement(transformation(extent={{80,-40},{60,-20}})));
+    annotation (Placement(transformation(extent={{90,-40},{70,-20}})));
   Buildings.Fluid.Sources.MassFlowSource_T bou1(
     nPorts=1,
     redeclare package Medium = Medium,
     use_m_flow_in=true,
     use_T_in=false,
     T=303.15) "Inlet for water flow, at a prescribed flow rate and temperature"
-    annotation (Placement(transformation(extent={{-12,-40},{8,-20}})));
+    annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
   Modelica.Blocks.Math.Gain gaiNPan(k=nPanels) "Gain for number of panels"
-    annotation (Placement(transformation(extent={{-52,-32},{-32,-12}})));
+    annotation (Placement(transformation(extent={{-50,-30},{-30,-10}})));
   Modelica.Blocks.Sources.RealExpression difHeaGai(y=solCol.QGai[30].Q_flow -
         solCol1.QGai[30].Q_flow/nPanels)
     "Difference in heat gain at last panel between model with 1 and with 30 panels"
-    annotation (Placement(transformation(extent={{-68,-72},{-48,-52}})));
+    annotation (Placement(transformation(extent={{-70,-70},{-50,-50}})));
   Modelica.Blocks.Sources.RealExpression difHeaLos(y=solCol.QLos[30].Q_flow -
         solCol1.QLos[30].Q_flow/nPanels)
     "Difference in heat loss at last panel between model with 1 and with 30 panels"
-    annotation (Placement(transformation(extent={{-68,-92},{-48,-72}})));
+    annotation (Placement(transformation(extent={{-70,-90},{-50,-70}})));
   Modelica.Blocks.Sources.Constant m_flow_nominal(k=datSolCol.A*datSolCol.mperA_flow_nominal)
     "Nominal flow rate for one panel"
-    annotation (Placement(transformation(extent={{-88,30},{-68,50}})));
+    annotation (Placement(transformation(extent={{-90,30},{-70,50}})));
   parameter Data.GlazedFlatPlate.FP_VerificationModel datSolCol
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 equation
   connect(weaDat.weaBus, solCol1.weaBus) annotation (Line(
-      points={{-20,70},{14,70},{14,-20},{20,-20},{20,-21}},
+      points={{-20,70},{30,70},{30,-21}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(bou1.ports[1], solCol1.port_a) annotation (Line(
-      points={{8,-30},{20,-30}},
+      points={{10,-30},{30,-30}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou1.ports[1], solCol1.port_b) annotation (Line(
-      points={{60,-30},{40,-30}},
+      points={{70,-30},{50,-30}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(gaiNPan.y, bou1.m_flow_in)
-    annotation (Line(points={{-31,-22},{-14,-22}}, color={0,0,127}));
+    annotation (Line(points={{-29,-20},{-20,-20},{-20,-22},{-12,-22}},
+                                                   color={0,0,127}));
   connect(solCol.port_a, bou.ports[1])
-    annotation (Line(points={{20,30},{8,30}}, color={0,127,255}));
+    annotation (Line(points={{30,30},{10,30}},color={0,127,255}));
   connect(solCol.port_b, sou.ports[1])
-    annotation (Line(points={{40,30},{60,30}}, color={0,127,255}));
+    annotation (Line(points={{50,30},{70,30}}, color={0,127,255}));
   connect(solCol.weaBus, weaDat.weaBus) annotation (Line(
-      points={{20,39},{18,39},{18,40},{14,40},{14,70},{-20,70}},
+      points={{30,39},{30,70},{-20,70}},
       color={255,204,51},
       thickness=0.5));
-  connect(m_flow_nominal.y, bou.m_flow_in) annotation (Line(points={{-67,40},{-22,
-          40},{-22,38},{-14,38}}, color={0,0,127}));
-  connect(gaiNPan.u, m_flow_nominal.y) annotation (Line(points={{-54,-22},{-60,
-          -22},{-60,40},{-67,40}}, color={0,0,127}));
+  connect(m_flow_nominal.y, bou.m_flow_in) annotation (Line(points={{-69,40},{
+          -20,40},{-20,38},{-12,38}},
+                                  color={0,0,127}));
+  connect(gaiNPan.u, m_flow_nominal.y) annotation (Line(points={{-52,-20},{-60,
+          -20},{-60,40},{-69,40}}, color={0,0,127}));
   annotation (
     Documentation(info="<html>
 <p>
