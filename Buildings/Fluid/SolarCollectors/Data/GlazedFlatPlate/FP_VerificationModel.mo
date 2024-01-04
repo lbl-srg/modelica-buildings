@@ -1,7 +1,6 @@
 within Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate;
 record FP_VerificationModel =
   Buildings.Fluid.SolarCollectors.Data.GenericEN12975 (
-    final ATyp=Types.Area.Aperture,
     final A=4.302,
     final CTyp=Buildings.Fluid.SolarCollectors.Types.HeatCapacity.DryMass,
     final V=4.4/1000,

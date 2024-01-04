@@ -1,7 +1,6 @@
 within Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate;
 record FP_SolahartKf =
     Buildings.Fluid.SolarCollectors.Data.GenericASHRAE93 (
-    final ATyp=Types.Area.Gross,
     final A=2.003,
     final CTyp=Buildings.Fluid.SolarCollectors.Types.HeatCapacity.DryMass,
     final mDry=42,

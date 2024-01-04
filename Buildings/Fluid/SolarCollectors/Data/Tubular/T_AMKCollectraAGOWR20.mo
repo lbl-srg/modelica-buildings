@@ -1,7 +1,6 @@
 within Buildings.Fluid.SolarCollectors.Data.Tubular;
 record T_AMKCollectraAGOWR20 =
     Buildings.Fluid.SolarCollectors.Data.GenericASHRAE93 (
-    final ATyp=Types.Area.Gross,
     final A=3.457,
     final CTyp=Buildings.Fluid.SolarCollectors.Types.HeatCapacity.DryMass,
     final mDry=73,
