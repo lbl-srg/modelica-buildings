@@ -33,7 +33,7 @@ equation
   assert(per.slope < 0,
     "The heat loss coefficient from the ASHRAE ratings data must be strictly negative. Obtained slope = " + String(per.slope));
 
-  connect(weaBus.TDryBul, heaLos.TEnv) annotation (Line(
+  connect(weaBus.TDryBul, QLos.TEnv) annotation (Line(
       points={{-99.95,90.05},{-90,90.05},{-90,26},{-22,26}},
       color={255,204,51},
       thickness=0.5,
@@ -65,7 +65,7 @@ equation
       points={{1,50},{50,50}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(temSen.T, heaLos.TFlu) annotation (Line(
+  connect(temSen.T, QLos.TFlu) annotation (Line(
       points={{-11,-20},{-30,-20},{-30,14},{-22,14}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -73,7 +73,7 @@ equation
       points={{-11,-20},{-30,-20},{-30,42},{-22,42}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(heaLos.QLos, heaLos.Q_flow) annotation (Line(
+  connect(QLos.QLos, QLos.Q_flow) annotation (Line(
       points={{0,20},{50,20}},
       color={0,0,127},
       smooth=Smooth.None));

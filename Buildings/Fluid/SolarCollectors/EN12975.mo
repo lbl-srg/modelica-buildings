@@ -34,7 +34,7 @@ equation
     "The heat loss coefficient from the EN 12975 ratings data must be strictly positive. Obtained a1 = " + String(per.a1));
   connect(shaCoe_internal, solGai.shaCoe_in);
 
-  connect(weaBus.TDryBul, heaLos.TEnv) annotation (Line(
+  connect(weaBus.TDryBul, QLos.TEnv) annotation (Line(
       points={{-99.95,90.05},{-90,90.05},{-90,26},{-22,26}},
       color={255,204,51},
       thickness=0.5,
@@ -58,11 +58,11 @@ equation
       points={{-120,30},{-40,30},{-40,45},{-22,45}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(heaLos.TFlu, temSen.T) annotation (Line(
+  connect(QLos.TFlu, temSen.T) annotation (Line(
       points={{-22,14},{-30,14},{-30,-20},{-11,-20}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(heaLos.QLos, heaLos.Q_flow) annotation (Line(
+  connect(QLos.QLos, QLos.Q_flow) annotation (Line(
       points={{1,20},{50,20}},
       color={0,0,127},
       smooth=Smooth.None));
