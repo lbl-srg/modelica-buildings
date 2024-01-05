@@ -6,12 +6,14 @@ model PlantRequests
     "Calculate plant request"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Subsequences.PlantRequests plaReq1(final
-      have_hotWatCoi=false) "Calculate plant request"
+  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Subsequences.PlantRequests plaReq1(
+    final have_hotWatCoi=false)
+    "Calculate plant request"
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Subsequences.PlantRequests plaReq2(final
-      have_chiWatCoi=false) "Calculate plant request"
+  Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Subsequences.PlantRequests plaReq2(
+    final have_chiWatCoi=false)
+    "Calculate plant request"
     annotation (Placement(transformation(extent={{60,-160},{80,-140}})));
 
 protected
@@ -107,40 +109,28 @@ protected
 equation
   connect(supTem.y, plaReq1.TAirSup) annotation (Line(points={{-58,-40},{20,-40},
           {20,-66},{58,-66}}, color={0,0,127}));
-
   connect(cooCoi.y, plaReq1.uCooCoiSet) annotation (Line(points={{-58,-80},{20,-80},
           {20,-73.8},{58,-73.8}}, color={0,0,127}));
-
   connect(supTem1.y, plaReq.TAirSup) annotation (Line(points={{-58,80},{0,80},{0,
           64},{58,64}},   color={0,0,127}));
-
   connect(cooCoi1.y, plaReq.uCooCoiSet) annotation (Line(points={{-58,40},{10,40},
           {10,56.2},{58,56.2}}, color={0,0,127}));
-
   connect(heaCoi.y, plaReq.uHeaCoiSet) annotation (Line(points={{-58,0},{30,0},{
           30,52},{58,52}}, color={0,0,127}));
-
   connect(supTemSet1.y, plaReq.TAirSupSet) annotation (Line(points={{-18,60},{0,
           60},{0,60},{58,60}}, color={0,0,127}));
-
   connect(supTemSet.y, plaReq1.TAirSupSet) annotation (Line(points={{-18,-60},{0,
           -60},{0,-70},{58,-70}}, color={0,0,127}));
-
   connect(fanSpe.y, plaReq.uFan) annotation (Line(points={{32,80},{50,80},{50,
           68},{58,68}}, color={0,0,127}));
-
   connect(fanSpe1.y, plaReq1.uFan) annotation (Line(points={{42,-20},{52,-20},
           {52,-62},{58,-62}}, color={0,0,127}));
-
   connect(supTem3.y, plaReq2.TAirSup) annotation (Line(points={{-58,-120},{20,-120},
           {20,-146},{58,-146}},         color={0,0,127}));
-
   connect(supTemSet2.y, plaReq2.TAirSupSet) annotation (Line(points={{-18,-140},
           {0,-140},{0,-150},{58,-150}}, color={0,0,127}));
-
   connect(fanSpe2.y, plaReq2.uFan) annotation (Line(points={{42,-100},{52,-100},
           {52,-142},{58,-142}}, color={0,0,127}));
-
   connect(heaCoi2.y, plaReq2.uHeaCoiSet) annotation (Line(points={{-58,-160},{52,
           -160},{52,-158},{58,-158}}, color={0,0,127}));
 
