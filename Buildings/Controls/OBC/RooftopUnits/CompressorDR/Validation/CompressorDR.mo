@@ -24,7 +24,7 @@ model CompressorDR "Validation model for CompressorDR"
     "Constant integer signal"
     annotation (Placement(transformation(extent={{-92,60},{-72,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conComSpe(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conComSpe(
     final k=1)
     "Constant real signal"
     annotation (Placement(transformation(extent={{-92,20},{-72,40}})));
@@ -36,7 +36,7 @@ model CompressorDR "Validation model for CompressorDR"
     "Constant integer signal"
     annotation (Placement(transformation(extent={{8,60},{28,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conComSpe1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conComSpe1(
     final k=1)
     "Constant real signal"
     annotation (Placement(transformation(extent={{8,20},{28,40}})));
@@ -48,7 +48,7 @@ model CompressorDR "Validation model for CompressorDR"
     "Constant integer signal"
     annotation (Placement(transformation(extent={{-90,-40},{-70,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conComSpe2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conComSpe2(
     final k=1)
     "Constant real signal"
     annotation (Placement(transformation(extent={{-90,-80},{-70,-60}})));
@@ -60,7 +60,7 @@ model CompressorDR "Validation model for CompressorDR"
     "Constant integer signal"
     annotation (Placement(transformation(extent={{8,-40},{28,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conComSpe3(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conComSpe3(
     final k=1)
     "Constant real signal"
     annotation (Placement(transformation(extent={{8,-80},{28,-60}})));

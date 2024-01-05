@@ -50,7 +50,7 @@ block Enable
       iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrCoi(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThrCoi(
     final t=uThrCoiEna,
     final h=dUHys)
     "Check if coil valve position signal is equal to or greater than threshold"
@@ -78,7 +78,7 @@ protected
     "Reset timer if coil status change is detected"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThrCoi(
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThrCoi(
     final t=uThrCoiDis,
     final h=dUHys)
     "Check if coil valve position signal is less than threshold"

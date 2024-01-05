@@ -394,7 +394,7 @@ protected
     "Integer scalar replicator"
     annotation (Placement(transformation(extent={{-30,70},{-10,90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr(
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThr(
     final t=TOutLoc,
     final h=dTHys1)
     "Check if outdoor air temperature is less than threshold"
@@ -411,7 +411,7 @@ protected
     "Convert Boolean to Real number"
     annotation (Placement(transformation(extent={{0,-118},{20,-98}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul1
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul1
     "Calculate defrost operation timestep fraction"
     annotation (Placement(transformation(extent={{-32,-176},{-12,-156}})));
 
@@ -421,11 +421,11 @@ protected
     "Convert Boolean to Real number"
     annotation (Placement(transformation(extent={{-30,4},{-10,24}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul[nCoiHea]
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul[nCoiHea]
     "Calculate compressor speed for DX heating"
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul2[nCoiHea]
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul2[nCoiHea]
     "Calculate defrost operation timestep fractions for DX coils"
     annotation (Placement(transformation(extent={{60,-170},{80,-150}})));
 
@@ -705,7 +705,7 @@ equation
             220}})),
   Documentation(info="<html>
   <p>
-  This is control sequences for rooftop unit heat pump systems. 
+  These are control sequences for rooftop unit heat pump systems. 
   The control module consists of: 
   </p>
   <ul>

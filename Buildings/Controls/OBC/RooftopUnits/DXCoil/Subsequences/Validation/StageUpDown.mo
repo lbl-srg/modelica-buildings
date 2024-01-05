@@ -20,7 +20,7 @@ model StageUpDown
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pulCoi(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse pulCoi(
     final amplitude=0.9,
     final width=0.6,
     final period=1800,
@@ -37,7 +37,7 @@ protected
     "Feedback delay"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramComSpe(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramComSpe(
     final height=1,
     final duration=1800,
     startTime=600)

@@ -20,7 +20,7 @@ protected
     "Constant integer signal"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramCoi(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramCoi(
     final height=0.2,
     final duration=3600,
     final offset=0.8)
@@ -32,7 +32,7 @@ protected
     "Constant Boolean signal"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pulComSpe[3](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse pulComSpe[3](
     final period=fill(900, 3))
     "Coil valve position"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
