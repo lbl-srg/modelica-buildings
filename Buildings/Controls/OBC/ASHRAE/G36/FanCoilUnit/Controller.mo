@@ -15,7 +15,7 @@ block Controller
     "True if the zone has window status sensor";
 
   parameter Boolean have_occSen=false
-    "True if zones have occupancy sensor";
+    "True if the zone has occupancy sensor";
 
   parameter Real heaDea(
     unit="1",
