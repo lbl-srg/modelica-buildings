@@ -3,10 +3,10 @@ block SupplyAirTemperature
   "Subsequence for calculating supply air temperature setpoint"
 
   parameter Boolean have_cooCoi
-    "Does the fan coil unit have a cooling coil? True: Yes, False: No";
+    "True if the unit has a cooling coil";
 
   parameter Boolean have_heaCoi
-    "Does the fan coil unit have a heating coil? True: Yes, False: No";
+    "True if the unit has a heating coil";
 
   parameter Real uHea_min(
     final unit="1",
@@ -58,13 +58,15 @@ block SupplyAirTemperature
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCooCoi=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of cooling coil controller"
-    annotation(Dialog(tab="PID controller parameters", group="Cooling coil"));
+    annotation(Dialog(tab="PID controller parameters", group="Cooling coil",
+                      enable=have_cooCoi));
 
   parameter Real kCooCoi(
     final unit="1",
     displayUnit="1")=1
     "Controller gain"
-    annotation(Dialog(tab="PID controller parameters", group="Cooling coil"));
+    annotation(Dialog(tab="PID controller parameters", group="Cooling coil",
+                      enable=have_cooCoi));
 
   parameter Real TiCooCoi(
     final unit="s",
@@ -72,8 +74,9 @@ block SupplyAirTemperature
     final quantity="time")=0.5
     "Integrator time constant"
     annotation(Dialog(tab="PID controller parameters", group="Cooling coil",
-      enable = controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
-      controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+      enable = (controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+                or controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
+            and have_cooCoi));
 
   parameter Real TdCooCoi(
     final unit="s",
@@ -81,18 +84,21 @@ block SupplyAirTemperature
     final quantity="time")=0.1
     "Derivative block time constant"
     annotation(Dialog(tab="PID controller parameters", group="Cooling coil",
-      enable = controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
-      controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+      enable = (controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+                or controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
+            and have_cooCoi));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeHeaCoi=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of heating coil controller"
-    annotation(Dialog(tab="PID controller parameters", group="Heating coil"));
+    annotation(Dialog(tab="PID controller parameters", group="Heating coil",
+      enable=have_heaCoi));
 
   parameter Real kHeaCoi(
     final unit="1",
     displayUnit="1")=1
     "Controller gain"
-    annotation(Dialog(tab="PID controller parameters", group="Heating coil"));
+    annotation(Dialog(tab="PID controller parameters", group="Heating coil",
+      enable=have_heaCoi));
 
   parameter Real TiHeaCoi(
     final unit="s",
@@ -100,8 +106,9 @@ block SupplyAirTemperature
     final quantity="time")=0.5
     "Integrator block time constant"
     annotation(Dialog(tab="PID controller parameters", group="Heating coil",
-      enable = controllerTypeHeaCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
-      controllerTypeHeaCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+      enable = (controllerTypeHeaCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+                or controllerTypeHeaCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
+            and have_heaCoi));
 
   parameter Real TdHeaCoi(
     final unit="s",
@@ -109,8 +116,9 @@ block SupplyAirTemperature
     final quantity="time")=0.1
     "Derivative block time constant"
     annotation(Dialog(tab="PID controller parameters", group="Heating coil",
-      enable = controllerTypeHeaCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
-      controllerTypeHeaCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+      enable = (controllerTypeHeaCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+                or controllerTypeHeaCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
+            and have_heaCoi));
 
   parameter Real deaHysLim(
     final unit="1",
@@ -374,8 +382,7 @@ equation
   connect(hysDeaHea.y, swiHeaCoi.u2) annotation (Line(points={{-58,110},{-30,110},
           {-30,90},{138,90}},color={255,0,255}));
   connect(conZer.y, swiHeaCoi.u3) annotation (Line(points={{102,-20},{120,-20},{
-          120,82},{138,82}},
-                         color={0,0,127}));
+          120,82},{138,82}}, color={0,0,127}));
   connect(conZer.y, swiCooCoi.u3) annotation (Line(points={{102,-20},{120,-20},{
           120,-148},{138,-148}},         color={0,0,127}));
   annotation (defaultComponentName="TSupAir",

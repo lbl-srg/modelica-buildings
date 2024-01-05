@@ -6,7 +6,7 @@ block FanSpeed
     "True if the unit has a cooling coil";
 
   parameter Boolean have_heaCoi
-    "true if the unit has a heating coil";
+    "True if the unit has a heating coil";
 
   parameter Real deaSpe(
     final unit="1",
