@@ -347,19 +347,20 @@ protected
     annotation (Placement(transformation(extent={{-100,290},{-80,310}})));
   Buildings.Controls.OBC.CDL.Logical.Switch logSwi1 "Logical switch"
     annotation (Placement(transformation(extent={{-40,230},{-20,250}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.ModelTime modTim
-    "Simulation time"
-    annotation (Placement(transformation(extent={{-200,220},{-180,240}})));
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(final t=1)
-    "Check if it has passed initial time"
-    annotation (Placement(transformation(extent={{-140,220},{-120,240}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu
     "Check if the stage setpoint is zero"
     annotation (Placement(transformation(extent={{-140,270},{-120,290}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
     final k=0) "Constant zero"
     annotation (Placement(transformation(extent={{-220,290},{-200,310}})));
-
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(final k=true)
+    "Constant true"
+    annotation (Placement(transformation(extent={{-200,220},{-180,240}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
+    final delayTime=1,
+    final delayOnInit=true)
+    "Check if it has passed initial time"
+    annotation (Placement(transformation(extent={{-140,220},{-120,240}})));
 equation
   connect(lat.y,chiDemRed.uDemLim)
     annotation (Line(points={{-118,150},{-100,150},{-100,129},{-82,129}},
@@ -605,8 +606,6 @@ equation
           {10,88},{58,88}},   color={255,0,255}));
   connect(or2.y, minChiWatFlo.uUpsDevSta) annotation (Line(points={{2,150},{10,150},
           {10,47},{18,47}}, color={255,0,255}));
-  connect(modTim.y, greThr.u)
-    annotation (Line(points={{-178,230},{-142,230}}, color={0,0,127}));
   connect(intEqu.y, and1.u2) annotation (Line(points={{-118,280},{-110,280},{-110,
           292},{-102,292}}, color={255,0,255}));
   connect(conInt.y, intEqu.u1) annotation (Line(points={{-198,300},{-180,300},{-180,
@@ -615,8 +614,6 @@ equation
           272},{-142,272}}, color={255,127,0}));
   connect(cha.up, and1.u1) annotation (Line(points={{-178,156},{-170,156},{-170,
           300},{-102,300}}, color={255,0,255}));
-  connect(greThr.y, logSwi1.u2) annotation (Line(points={{-118,230},{-80,230},{-80,
-          240},{-42,240}}, color={255,0,255}));
   connect(and1.y, logSwi1.u3) annotation (Line(points={{-78,300},{-60,300},{-60,
           232},{-42,232}}, color={255,0,255}));
   connect(cha.up, logSwi1.u1) annotation (Line(points={{-178,156},{-170,156},{-170,
@@ -632,6 +629,10 @@ equation
   connect(endUp.endStaTri, nexChi.endPro) annotation (Line(points={{42,-279},{
           60,-279},{60,-300},{-160,-300},{-160,163},{-82,163}}, color={255,0,
           255}));
+  connect(con2.y, truDel.u)
+    annotation (Line(points={{-178,230},{-142,230}}, color={255,0,255}));
+  connect(truDel.y, logSwi1.u2) annotation (Line(points={{-118,230},{-80,230},{
+          -80,240},{-42,240}}, color={255,0,255}));
 annotation (
   defaultComponentName="upProCon",
   Diagram(coordinateSystem(preserveAspectRatio=false,

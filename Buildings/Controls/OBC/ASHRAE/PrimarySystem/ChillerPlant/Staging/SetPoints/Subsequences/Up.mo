@@ -171,8 +171,13 @@ protected
     "Efficiency condition of the current stage"
     annotation (Placement(transformation(extent={{-100,170},{-80,190}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Or3 orStaUp "Or for staging up"
-    annotation (Placement(transformation(extent={{-20,110},{0,130}})));
+  Buildings.Controls.OBC.CDL.Logical.Or orStaUp
+    "Or for staging up"
+    annotation (Placement(transformation(extent={{20,110},{40,130}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Or or2
+    "Or for staging up"
+    annotation (Placement(transformation(extent={{-40,110},{-20,130}})));
 
   Buildings.Controls.OBC.CDL.Logical.Switch logSwi "Logical switch"
     annotation (Placement(transformation(extent={{80,70},{100,90}})));
@@ -254,13 +259,9 @@ equation
       Line(points={{-180,140},{-120,140},{-120,101},{-102,101}}, color={0,0,127}));
   connect(dpChiWatPum_local, faiSafCon.dpChiWatPum_local) annotation (Line(
         points={{-180,110},{-150,110},{-150,98},{-102,98}},   color={0,0,127}));
-  connect(effCon.y, orStaUp.u1) annotation (Line(points={{-78,180},{-40,180},{-40,
-          128},{-22,128}}, color={255,0,255}));
-  connect(faiSafCon.y, orStaUp.u2) annotation (Line(points={{-78,100},{-50,100},
-          {-50,120},{-22,120}}, color={255,0,255}));
   connect(intGreThr.y, logSwi.u2) annotation (Line(points={{-98,-100},{20,-100},
           {20,80},{78,80}}, color={255,0,255}));
-  connect(orStaUp.y, logSwi.u1) annotation (Line(points={{2,120},{10,120},{10,88},
+  connect(orStaUp.y, logSwi.u1) annotation (Line(points={{42,120},{60,120},{60,88},
           {78,88}},  color={255,0,255}));
   connect(sub1.y, hysTSup1.u)
     annotation (Line(points={{-88,-30},{-80,-30},{-80,-40},{-62,-40}}, color={0,0,127}));
@@ -288,8 +289,6 @@ equation
           {-140,-36},{-112,-36}}, color={0,0,127}));
   connect(uAvaCur, not1.u)
     annotation (Line(points={{-180,20},{-122,20}},   color={255,0,255}));
-  connect(not1.y, orStaUp.u3) annotation (Line(points={{-98,20},{-40,20},{-40,112},
-          {-22,112}},    color={255,0,255}));
   connect(dpChiWatPumSet_remote, faiSafCon.dpChiWatPumSet_remote) annotation (
       Line(points={{-180,80},{-150,80},{-150,94},{-102,94}},     color={0,0,127}));
   connect(dpChiWatPum_remote, faiSafCon.dpChiWatPum_remote) annotation (Line(
@@ -308,6 +307,14 @@ equation
           {20,-110},{20,-186},{38,-186}}, color={255,0,255}));
   connect(uPla, edg.u)
     annotation (Line(points={{-180,-180},{-22,-180}}, color={255,0,255}));
+  connect(not1.y, orStaUp.u2) annotation (Line(points={{-98,20},{10,20},{10,112},
+          {18,112}}, color={255,0,255}));
+  connect(faiSafCon.y, or2.u2) annotation (Line(points={{-78,100},{-60,100},{-60,
+          112},{-42,112}}, color={255,0,255}));
+  connect(effCon.y, or2.u1) annotation (Line(points={{-78,180},{-60,180},{-60,120},
+          {-42,120}}, color={255,0,255}));
+  connect(or2.y, orStaUp.u1)
+    annotation (Line(points={{-18,120},{18,120}}, color={255,0,255}));
   annotation (defaultComponentName = "staUp",
         Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
              graphics={

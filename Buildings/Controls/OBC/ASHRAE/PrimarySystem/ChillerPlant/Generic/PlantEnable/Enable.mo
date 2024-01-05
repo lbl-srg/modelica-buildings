@@ -94,7 +94,7 @@ protected
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
-    annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
+    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
   Buildings.Controls.OBC.CDL.Logical.And disPla
     "Disable chiller plant"
@@ -110,9 +110,9 @@ protected
     "Check if outdoor temperature is lower than chiller lockout temperature"
     annotation (Placement(transformation(extent={{-100,-140},{-80,-120}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Or3 disPlaCon
+  Buildings.Controls.OBC.CDL.Logical.Or disPlaCon
     "Disable chiller plant conditions"
-    annotation (Placement(transformation(extent={{40,-88},{60,-68}})));
+    annotation (Placement(transformation(extent={{60,-88},{80,-68}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not3 "Logical not"
     annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
@@ -133,6 +133,10 @@ protected
     "Difference between chiller lockout temperature and outdoor temperature"
     annotation (Placement(transformation(extent={{-140,-140},{-120,-120}})));
 
+  Buildings.Controls.OBC.CDL.Logical.Or or1
+    "Disable chiller plant conditions"
+    annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
+
 equation
   connect(enaSch.y[1], schOn.u)
     annotation (Line(points={{-118,50},{-102,50}},   color={0,0,127}));
@@ -150,17 +154,16 @@ equation
     annotation (Line(points={{-78,50},{0,50},{0,80.875},{38,80.875}},
       color={255,0,255}));
   connect(schOn.y, not2.u)
-    annotation (Line(points={{-78,50},{-40,50},{-40,-50},{-22,-50}},
+    annotation (Line(points={{-78,50},{-50,50},{-50,-50},{-42,-50}},
       color={255,0,255}));
   connect(enaPla.y, plaSta.u)
     annotation (Line(points={{62,80},{138,80}},color={255,0,255}));
   connect(plaSta.y, yPla)
     annotation (Line(points={{162,80},{210,80}}, color={255,0,255}));
-  connect(disPlaCon.y, disPla.u2) annotation (Line(points={{62,-78},{80,-78},{
-          80,-26},{98,-26}},                color={255,0,255}));
-  connect(not2.y, disPlaCon.u1) annotation (Line(points={{2,-50},{20,-50},{20,
-          -70},{38,-70}},
-                     color={255,0,255}));
+  connect(disPlaCon.y, disPla.u2) annotation (Line(points={{82,-78},{90,-78},{90,
+          -26},{98,-26}}, color={255,0,255}));
+  connect(not2.y, disPlaCon.u1) annotation (Line(points={{-18,-50},{20,-50},{20,
+          -78},{58,-78}}, color={255,0,255}));
   connect(hasReq.y, not3.u)
     annotation (Line(points={{-118,90},{-20,90},{-20,70},{-180,70},{-180,-70},{-142,
           -70}},   color={255,0,255}));
@@ -181,21 +184,20 @@ equation
       color={0,0,127}));
   connect(sub1.y, hys.u)
     annotation (Line(points={{-118,-130},{-102,-130}}, color={0,0,127}));
-  connect(hys.y, disPlaCon.u3) annotation (Line(points={{-78,-130},{-60,-130},{
-          -60,-86},{38,-86}},
-                          color={255,0,255}));
   connect(hys.y, notLoc.u) annotation (Line(points={{-78,-130},{-60,-130},{-60,10},
           {-22,10}}, color={255,0,255}));
   connect(notLoc.y, enaPla.u[4]) annotation (Line(points={{2,10},{20,10},{20,82.625},
           {38,82.625}},color={255,0,255}));
   connect(disPla.y, plaSta.clr) annotation (Line(points={{122,-18},{130,-18},{
-          130,74},{138,74}},
-                    color={255,0,255}));
-  connect(enaTim1.passed, disPlaCon.u2) annotation (Line(points={{-78,-78},{38,
-          -78}},                    color={255,0,255}));
+          130,74},{138,74}}, color={255,0,255}));
   connect(enaTim.passed, disPla.u1) annotation (Line(points={{-118,-18},{98,-18}},
-                               color={255,0,255}));
-
+          color={255,0,255}));
+  connect(enaTim1.passed, or1.u1) annotation (Line(points={{-78,-78},{-40,-78},{
+          -40,-100},{-22,-100}}, color={255,0,255}));
+  connect(hys.y, or1.u2) annotation (Line(points={{-78,-130},{-60,-130},{-60,-108},
+          {-22,-108}}, color={255,0,255}));
+  connect(or1.y, disPlaCon.u2) annotation (Line(points={{2,-100},{20,-100},{20,-86},
+          {58,-86}}, color={255,0,255}));
 annotation (
   defaultComponentName = "plaEna",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-180},{200,180}})),

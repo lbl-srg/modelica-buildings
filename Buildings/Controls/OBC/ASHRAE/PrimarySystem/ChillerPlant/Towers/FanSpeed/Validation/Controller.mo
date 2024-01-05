@@ -73,8 +73,10 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiSta2(final k=false)
     "Chiller two enabling status"
     annotation (Placement(transformation(extent={{-360,170},{-340,190}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or3 "Logical or"
+  Buildings.Controls.OBC.CDL.Logical.Or or3 "Logical or"
     annotation (Placement(transformation(extent={{-260,-150},{-240,-130}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or4 "Logical or"
+    annotation (Placement(transformation(extent={{-260,-90},{-240,-70}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=4) "Replicate boolean input"
     annotation (Placement(transformation(extent={{-200,-90},{-180,-70}})));
@@ -122,20 +124,11 @@ equation
   connect(ram3.y, add3.u2)
     annotation (Line(points={{-338,-190},{-320,-190},{-320,-186},{-302,-186}},
       color={0,0,127}));
-  connect(chiSta2.y, or3.u2)
-    annotation (Line(points={{-338,180},{-286,180},{-286,-140},{-262,-140}},
-      color={255,0,255}));
-  connect(wseSta.y, or3.u3)
-    annotation (Line(points={{-338,150},{-292,150},{-292,-148},{-262,-148}},
-      color={255,0,255}));
   connect(or3.y, booRep.u)
     annotation (Line(points={{-238,-140},{-220,-140},{-220,-80},{-202,-80}},
       color={255,0,255}));
   connect(chiSta1.y, not1.u)
     annotation (Line(points={{-338,210},{-322,210}}, color={255,0,255}));
-  connect(not1.y, or3.u1)
-    annotation (Line(points={{-298,210},{-280,210},{-280,-132},{-262,-132}},
-      color={255,0,255}));
   connect(not1.y, swi1.u2)
     annotation (Line(points={{-298,210},{-280,210},{-280,-20},{-242,-20}},
       color={255,0,255}));
@@ -286,7 +279,14 @@ equation
   connect(conWatPumSpe1.y, cloCouNoWse.uConWatPumSpe)
     annotation (Line(points={{-278,-220},{220,-220},{220,283},{278,283}},
       color={0,0,127}));
-
+  connect(not1.y, or4.u1) annotation (Line(points={{-298,210},{-280,210},{-280,-80},
+          {-262,-80}}, color={255,0,255}));
+  connect(chiSta2.y, or4.u2) annotation (Line(points={{-338,180},{-286,180},{-286,
+          -88},{-262,-88}}, color={255,0,255}));
+  connect(wseSta.y, or3.u2) annotation (Line(points={{-338,150},{-292,150},{-292,
+          -148},{-262,-148}}, color={255,0,255}));
+  connect(or4.y, or3.u1) annotation (Line(points={{-238,-80},{-230,-80},{-230,-100},
+          {-270,-100},{-270,-140},{-262,-140}}, color={255,0,255}));
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Towers/FanSpeed/Validation/Controller.mos"
     "Simulate and plot"),

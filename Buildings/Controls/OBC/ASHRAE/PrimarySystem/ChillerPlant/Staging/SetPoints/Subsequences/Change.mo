@@ -206,12 +206,6 @@ protected
     annotation (Placement(transformation(extent={{280,-140},{300,-120}})));
   Buildings.Controls.OBC.CDL.Logical.Switch logSwi1 "Logical switch"
     annotation (Placement(transformation(extent={{380,-132},{400,-112}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.ModelTime modTim
-    "Simulation time"
-    annotation (Placement(transformation(extent={{182,-220},{202,-200}})));
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(final t=1)
-    "Check if it has passed initial time"
-    annotation (Placement(transformation(extent={{240,-220},{260,-200}})));
   Buildings.Controls.OBC.CDL.Logical.And  and7 "Logical and"
     annotation (Placement(transformation(extent={{280,-100},{300,-80}})));
   Buildings.Controls.OBC.CDL.Logical.And and8 "Logical and"
@@ -229,7 +223,14 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and9
     "Logical and"
     annotation (Placement(transformation(extent={{-220,-90},{-200,-70}})));
-
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(final k=true)
+    "Constant true"
+    annotation (Placement(transformation(extent={{180,-220},{200,-200}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
+    final delayTime=1,
+    final delayOnInit=true)
+    "Check if it has passed initial time"
+    annotation (Placement(transformation(extent={{240,-220},{260,-200}})));
 equation
   connect(switch1.y,triSam. u)
     annotation (Line(points={{-218,70},{108,70}},  color={0,0,127}));
@@ -258,8 +259,7 @@ equation
   connect(triSam1.u,booToRea. y)
     annotation (Line(points={{178,10},{82,10}},  color={0,0,127}));
   connect(edg.y,lat1. u) annotation (Line(points={{-358,170},{-340,170},{-340,
-          200},{98,200}},
-                      color={255,0,255}));
+          200},{98,200}}, color={255,0,255}));
   connect(switch2.y,reaToInt. u)
     annotation (Line(points={{182,200},{198,200}}, color={0,0,127}));
   connect(and3.y,lat1. clr) annotation (Line(points={{62,120},{80,120},{80,194},
@@ -277,8 +277,7 @@ equation
   connect(uAvaDow, intToRea.u)
     annotation (Line(points={{-460,30},{-322,30}}, color={255,127,0}));
   connect(holIniSta.y, not3.u) annotation (Line(points={{-298,170},{-280,170},{
-          -280,-60},{-262,-60}},
-                            color={255,0,255}));
+          -280,-60},{-262,-60}}, color={255,0,255}));
   connect(and6.y, and1.u1) annotation (Line(points={{-158,-80},{-150,-80},{-150,
           -190},{-142,-190}}, color={255,0,255}));
   connect(and6.y, edg1.u)
@@ -288,16 +287,15 @@ equation
   connect(uPla, falEdg.u) annotation (Line(points={{-460,170},{-420,170},{-420,
           -20},{-82,-20}},                color={255,0,255}));
   connect(falEdg.y, or3.u1) annotation (Line(points={{-58,-20},{140,-20},{140,-50},
-          {158,-50}},      color={255,0,255}));
+          {158,-50}}, color={255,0,255}));
   connect(uPla, edg.u)
     annotation (Line(points={{-460,170},{-382,170}}, color={255,0,255}));
   connect(and3.u1, and6.y) annotation (Line(points={{38,120},{-150,120},{-150,
-          -80},{-158,-80}},
-                       color={255,0,255}));
+          -80},{-158,-80}}, color={255,0,255}));
   connect(lat1.y, switch2.u2) annotation (Line(points={{122,200},{158,200}},
                            color={255,0,255}));
   connect(or1.y, staChaHol2.u) annotation (Line(points={{62,-50},{78,-50}},
-                                               color={255,0,255}));
+          color={255,0,255}));
   connect(staChaHol2.y, triSam.trigger) annotation (Line(points={{102,-50},{120,
           -50},{120,58}},   color={255,0,255}));
   connect(edg1.y, or1.u1) annotation (Line(points={{-58,-80},{0,-80},{0,-50},{38,
@@ -315,33 +313,25 @@ equation
   connect(not2.y, and4.u2) annotation (Line(points={{-358,50},{-340,50},{-340,62},
           {-322,62}}, color={255,0,255}));
   connect(and4.y, switch1.u2) annotation (Line(points={{-298,70},{-242,70}},
-                     color={255,0,255}));
+          color={255,0,255}));
   connect(conInt.y,intEqu. u1) annotation (Line(points={{202,-160},{238,-160}},
-                            color={255,127,0}));
+          color={255,127,0}));
   connect(intEqu.y,and5. u2) annotation (Line(points={{262,-160},{270,-160},{
-          270,-138},{278,-138}},
-                            color={255,0,255}));
+          270,-138},{278,-138}}, color={255,0,255}));
   connect(and5.y,logSwi1. u3) annotation (Line(points={{302,-130},{378,-130}},
-                           color={255,0,255}));
-  connect(modTim.y,greThr. u)
-    annotation (Line(points={{204,-210},{238,-210}}, color={0,0,127}));
-  connect(greThr.y,logSwi1. u2) annotation (Line(points={{262,-210},{340,-210},
-          {340,-122},{378,-122}},
-                           color={255,0,255}));
+          color={255,0,255}));
   connect(edg2.y, and2.u2) annotation (Line(points={{-18,-170},{-10,-170},{-10,-138},
           {-2,-138}}, color={255,0,255}));
   connect(and6.y, and2.u1) annotation (Line(points={{-158,-80},{-150,-80},{-150,
           -130},{-2,-130}}, color={255,0,255}));
   connect(and7.y, logSwi2.u3) annotation (Line(points={{302,-90},{378,-90}},
-                             color={255,0,255}));
+          color={255,0,255}));
   connect(and8.y, logSwi3.u3) annotation (Line(points={{302,-50},{378,-50}},
-                             color={255,0,255}));
+          color={255,0,255}));
   connect(intEqu.y, and7.u2) annotation (Line(points={{262,-160},{270,-160},{
-          270,-98},{278,-98}},
-                           color={255,0,255}));
+          270,-98},{278,-98}}, color={255,0,255}));
   connect(intEqu.y, and8.u2) annotation (Line(points={{262,-160},{270,-160},{
-          270,-58},{278,-58}},
-                           color={255,0,255}));
+          270,-58},{278,-58}}, color={255,0,255}));
   connect(or3.y, triSam1.trigger) annotation (Line(points={{182,-50},{190,-50},{
           190,-2}}, color={255,0,255}));
   connect(triSam1.y, greThr1.u) annotation (Line(points={{202,10},{210,10},{210,
@@ -357,14 +347,9 @@ equation
   connect(cha.up, logSwi3.u1) annotation (Line(points={{322,106},{370,106},{370,
           -34},{378,-34}}, color={255,0,255}));
   connect(cha.y, logSwi2.u1) annotation (Line(points={{322,100},{360,100},{360,
-          -74},{378,-74}},
-                       color={255,0,255}));
+          -74},{378,-74}}, color={255,0,255}));
   connect(cha.down, logSwi1.u1) annotation (Line(points={{322,94},{350,94},{350,
           -114},{378,-114}}, color={255,0,255}));
-  connect(greThr.y, logSwi2.u2) annotation (Line(points={{262,-210},{340,-210},
-          {340,-82},{378,-82}},  color={255,0,255}));
-  connect(greThr.y, logSwi3.u2) annotation (Line(points={{262,-210},{340,-210},
-          {340,-42},{378,-42}},  color={255,0,255}));
   connect(logSwi1.y, yChaDowEdg)
     annotation (Line(points={{402,-122},{460,-122}}, color={255,0,255}));
   connect(logSwi2.y, yChaEdg)
@@ -393,6 +378,14 @@ equation
     annotation (Line(points={{-358,-80},{-222,-80}}, color={255,0,255}));
   connect(pre1.y, and6.u2) annotation (Line(points={{422,-250},{430,-250},{430,
           -280},{-190,-280},{-190,-88},{-182,-88}}, color={255,0,255}));
+  connect(con2.y, truDel.u)
+    annotation (Line(points={{202,-210},{238,-210}}, color={255,0,255}));
+  connect(truDel.y, logSwi3.u2) annotation (Line(points={{262,-210},{340,-210},{
+          340,-42},{378,-42}}, color={255,0,255}));
+  connect(truDel.y, logSwi2.u2) annotation (Line(points={{262,-210},{340,-210},{
+          340,-82},{378,-82}}, color={255,0,255}));
+  connect(truDel.y, logSwi1.u2) annotation (Line(points={{262,-210},{340,-210},{
+          340,-122},{378,-122}}, color={255,0,255}));
   annotation (defaultComponentName = "cha",
         Icon(graphics={
         Rectangle(
