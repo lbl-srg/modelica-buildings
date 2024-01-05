@@ -154,9 +154,9 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Or or2 if have_perZonRehBox
     "Setback or warmup mode"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or3
+  Buildings.Controls.OBC.CDL.Logical.Or or3
     "Cool-down or setup or occupied mode"
-    annotation (Placement(transformation(extent={{20,90},{40,110}})));
+    annotation (Placement(transformation(extent={{-20,90},{0,110}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
     k=false) if not have_perZonRehBox
     "Constant true"
@@ -210,6 +210,9 @@ protected
     final samplePeriod=samplePeriod)
     "Extrapolation through the values of the last two sampled input signals"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or4
+    "Cool-down or setup or occupied mode"
+    annotation (Placement(transformation(extent={{20,60},{40,80}})));
 
 equation
   connect(or2.y, or1.u2)
@@ -238,13 +241,11 @@ equation
     annotation (Line(points={{42,10},{60,10},{60,62},{78,62}},
       color={255,0,255}));
   connect(intEqu.y, or3.u1)
-    annotation (Line(points={{-38,130},{0,130},{0,108},{18,108}},
-      color={255,0,255}));
-  connect(intEqu2.y, or3.u3)
-    annotation (Line(points={{-38,70},{0,70},{0,92},{18,92}},
+    annotation (Line(points={{-38,130},{-30,130},{-30,100},{-22,100}},
       color={255,0,255}));
   connect(intEqu1.y, or3.u2)
-    annotation (Line(points={{-38,100},{18,100}}, color={255,0,255}));
+    annotation (Line(points={{-38,100},{-30,100},{-30,92},{-22,92}},
+                                                  color={255,0,255}));
   connect(conInt.y, intEqu.u2)
     annotation (Line(points={{-98,130},{-90,130},{-90,122},{-62,122}},
       color={255,127,0}));
@@ -275,9 +276,6 @@ equation
   connect(uOpeMod, intEqu4.u1)
     annotation (Line(points={{-180,120},{-140,120},{-140,150},{-80,150},
       {-80,10},{-62,10}}, color={255,127,0}));
-  connect(or3.y, or1.u1)
-    annotation (Line(points={{42,100},{60,100},{60,70},{78,70}},
-      color={255,0,255}));
   connect(intEqu3.y, or2.u1)
     annotation (Line(points={{-38,40},{18,40}}, color={255,0,255}));
   connect(intEqu4.y, or2.u2)
@@ -300,7 +298,12 @@ equation
           -116},{-72,-116}}, color={0,0,127}));
   connect(firOrdHol.y, norPSet.u1) annotation (Line(points={{-78,-50},{-76,-50},
           {-76,-64},{-72,-64}}, color={0,0,127}));
-
+  connect(intEqu2.y, or4.u1)
+    annotation (Line(points={{-38,70},{18,70}}, color={255,0,255}));
+  connect(or4.y, or1.u1)
+    annotation (Line(points={{42,70},{78,70}}, color={255,0,255}));
+  connect(or3.y, or4.u2) annotation (Line(points={{2,100},{10,100},{10,62},{18,62}},
+        color={255,0,255}));
 annotation (
   defaultComponentName="conSupFan",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{140,160}}),
@@ -312,7 +315,7 @@ annotation (
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Rectangle(
-          extent={{-156,156},{134,-6}},
+          extent={{-158,158},{132,2}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,

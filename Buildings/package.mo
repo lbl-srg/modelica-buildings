@@ -283,7 +283,7 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">Buildings.Templates.Components.Fans.ArrayVariable
     </td>
     <td valign=\"top\">Refactored with flow rate multiplier.<br/>
-	          This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3536\">#3536</a>.
+                  This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3536\">#3536</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
@@ -305,6 +305,26 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Reals.Sources.ModelTime
+    </td>
+    <td valign=\"top\">Renamed the block to <code>CivilTime</code>.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3596\">issue 3596</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Or3<br/>
+                       Buildings.Controls.OBC.CDL.Logical.ZeroCrossing<br/>
+                       Buildings.Controls.OBC.CDL.Logical.OnOffController<br/>
+                       Buildings.Controls.OBC.CDL.Logical.TriggeredTrapezoid
+    </td>
+    <td valign=\"top\">Moved the block to the <code>Obsolete</code> package.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3595\">issue 3595</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36</b>
     </td>
 </tr>
@@ -333,6 +353,19 @@ have been <b style=\"color:blue\">improved</b> in a
                      This change is supported in the conversion script.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.SolarCollectors</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.SolarCollectors.ASHRAE93<br/>
+                       Buildings.Fluid.SolarCollectors.EN12975
+    </td>
+    <td valign=\"top\">Changed assignment of <code>computeFlowResistance</code> to <code>final</code> based on
+                       <code>dp_nominal</code>.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3597\">Buildings, #3597</a>.<br/>
+                       This change is supported in the conversion script.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Templates</b>
     </td>
 </tr>
@@ -355,10 +388,10 @@ have been <b style=\"color:blue\">improved</b> in a
                      Buildings.Templates.Components.Valves
     </td>
     <td valign=\"top\">The models in these packages have been retired and replaced
-		with two container classes within <code>Buildings.Templates.Components.Actuators</code>
-		that cover all equipment types, and allow the flow characteristic to be specified
-		with one parameter.<br/>
-                     	This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3539\">#3539</a>.
+                with two container classes within <code>Buildings.Templates.Components.Actuators</code>
+                that cover all equipment types, and allow the flow characteristic to be specified
+                with one parameter.<br/>
+                             This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3539\">#3539</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
