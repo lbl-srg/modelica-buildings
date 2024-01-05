@@ -17,10 +17,12 @@ model HeatExchangerWithInputEffectiveness
 
   Modelica.Blocks.Interfaces.RealInput epsSen(unit="1")
     "Sensible heat exchanger effectiveness"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
+    annotation (Placement(transformation(extent={{-140,10},{-100,50}}),
+        iconTransformation(extent={{-140,10},{-100,50}})));
   Modelica.Blocks.Interfaces.RealInput epsLat(unit="1")
     "Latent heat exchanger effectiveness"
-    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
+    annotation (Placement(transformation(extent={{-140,-50},{-100,-10}}),
+        iconTransformation(extent={{-140,-50},{-100,-10}})));
   Modelica.Units.SI.HeatFlowRate QLat_flow
     "Latent heat exchange from medium 2 to medium 1";
   Medium1.MassFraction X_w_in1

@@ -161,18 +161,19 @@ equation
   connect(PEle.y, P)
     annotation (Line(points={{91,0},{110,0}}, color={0,0,127}));
   connect(effCal.epsSen, hex.epsSen)
-    annotation (Line(points={{-21,4},{4,4}}, color={0,0,127}));
+    annotation (Line(points={{-21,3},{-8,3},{-8,3},{4,3}},
+                                             color={0,0,127}));
   connect(effCal.epsLat, hex.epsLat)
-    annotation (Line(points={{-21,-4},{4,-4}},
+    annotation (Line(points={{-21,-3},{-8,-3},{-8,-3},{4,-3}},
         color={0,0,127}));
   connect(effCal.uSpe, uSpe)
     annotation (Line(points={{-44,0},{-120,0}},
         color={0,0,127}));
   connect(TSup.y, effCal.TSup)
-    annotation (Line(points={{-69,-20},{-50,-20},{-50,-4},{-44,-4}},
+    annotation (Line(points={{-69,-20},{-60,-20},{-60,-4},{-44,-4}},
         color={0,0,127}));
   connect(TExh.y, effCal.TExh)
-    annotation (Line(points={{-69,-40},{-44,-40},{-44,-8}},
+    annotation (Line(points={{-69,-40},{-52,-40},{-52,-8},{-44,-8}},
         color={0,0,127}));
   connect(hex.port_a1, port_a1)
     annotation (Line(points={{6,6},{0,6},{0,60},{-102,60}}, color={0,0,127}));
@@ -180,11 +181,11 @@ equation
     annotation (Line(points={{26,-6},{40,-6},{40,-60},
           {100,-60}}, color={0,127,255}));
   connect(VSup_flow.y, effCal.VSup_flow)
-    annotation (Line(points={{-69,40},{-50,
-          40},{-50,8},{-44,8}}, color={0,0,127}));
+    annotation (Line(points={{-69,40},{-54,40},{-54,8},{-44,8}},
+                                color={0,0,127}));
   connect(VExh_flow.y, effCal.VExh_flow)
-    annotation (Line(points={{-69,20},{-58,
-          20},{-58,4},{-44,4}}, color={0,0,127}));
+    annotation (Line(points={{-69,20},{-60,20},{-60,4},{-44,4}},
+                                color={0,0,127}));
 annotation (
         defaultComponentName="whe",
         Icon(coordinateSystem(extent={{-100,-100},{100,
