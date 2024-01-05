@@ -114,7 +114,7 @@ Documentation(info="<html>
 <p>
 This block is identical to
 <a href=\"modelica://Buildings.Fluid.MassExchangers.ConstantEffectiveness\">
-Buildings.Fluid.MassExchangers.ConstantEffectivenesst</a>,
+Buildings.Fluid.MassExchangers.ConstantEffectiveness</a>,
 except that the sensible and latent effectiveness are inputs rather than parameters.
 </p>
 <p>
