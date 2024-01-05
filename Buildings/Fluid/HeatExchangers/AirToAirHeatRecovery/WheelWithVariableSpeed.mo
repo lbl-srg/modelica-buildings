@@ -149,7 +149,7 @@ model WheelWithVariableSpeed
 
 initial equation
   assert(noEvent(abs(sum(a)-1) < Modelica.Constants.eps),
-         "*** Error in " + getInstanceName() + ": Power efficiency curve is wrong. 
+         "In " + getInstanceName() + ": Power efficiency curve is wrong. 
          The sum of the coefficients for power efficiency curve should equal to 1.",
          level=AssertionLevel.error);
 
