@@ -1,0 +1,4 @@
+simulateModel("Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.Validation.Enable", stopTime=3600, method="Cvode", tolerance=1e-06, resultFile="DXCoilEnable");
+createPlot(id=1, position={15, 15, 600, 400}, y={"coiEna.uCoi"}, range={0.0, 3600.0, 0.0, 1.0}, grid=true, autoscale=false, subPlot=1, colors={{28,108,200}}, thicknesses={0.5}, timeUnit="s", displayUnits={""});
+createPlot(id=1, position={15, 15, 600, 400}, y={"coiEna.uDXCoi[1]"}, range={0.0, 3600.0, -0.5, 1.5}, erase=false, autoscale=false, grid=true, subPlot=2, colors={{28,108,200}}, thicknesses={0.5}, timeUnit="s");
+createPlot(id=1, position={15, 15, 600, 400}, y={"coiEna.yDXCoi"}, range={0.0, 3600.0, -0.2, 1.2}, grid=true, autoscale=false, subPlot=3, colors={{28,108,200}}, thicknesses={0.5}, timeUnit="s");
