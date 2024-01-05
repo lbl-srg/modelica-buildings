@@ -174,7 +174,7 @@ protected
     "Absolute value"
     annotation (Placement(transformation(extent={{-20,140},{0,160}})));
   Buildings.Controls.OBC.CDL.Reals.Greater gre
-    "Check the symmetricity of the relay output"
+    "Check if the relay output is asymmetric"
     annotation (Placement(transformation(extent={{20,140},{40,160}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con4(final k=1e-3)
     "Threshold for checking the symmetricity of the relay output"
