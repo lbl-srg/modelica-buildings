@@ -28,8 +28,8 @@
     rtol: 1.0e-08
 - model_name: Buildings.Controls.DemandResponse.Examples.ClientLBNL90
   openmodelica:
-    comment: Simulation terminated due to too many, i.e. 20, event iterations..
-    simulate: false
+    comment: 'TimeoutExpired: omc timed out after 300 seconds'
+    translate: false
 - model_name: Buildings.Electrical.AC.ThreePhasesBalanced.Loads.Examples.ParallelLoads
   openmodelica:
     comment: 'division leads to inf or nan at time 0.901, (a=nan) / (b=230400), where divisor b is: varRL_P.v[1] ^ 2.0 + varRL_P.v[2] ^ 2.0'
@@ -110,6 +110,9 @@
     comment: simulation terminated by an assertion at initialization
     simulate: false
 - model_name: Buildings.Experimental.DHC.Examples.Cooling.ElectricChillersDirectETS
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization
+    simulate: false
   optimica:
     comment: 'The system is structurally singular. Modelon #2023012739000252'
     translate: false
@@ -188,6 +191,10 @@
 - model_name: Buildings.Fluid.Geothermal.BuriedPipes.Examples.SingleBuriedPipe
   openmodelica:
     comment: Simulation terminated at time 4.59003e+07.
+    simulate: false
+- model_name: Buildings.Fluid.Geothermal.BuriedPipes.Examples.TwoBuriedPipes
+  openmodelica:
+    comment: simulation returned non-zero exit status 255
     simulate: false
 - model_name: Buildings.Fluid.Geothermal.BuriedPipes.Examples.TwoPipesConduit
   openmodelica:
@@ -429,10 +436,37 @@
   openmodelica:
     comment: 'Simulation requires /lib/x86_64-linux-gnu/libc.so.6: version `GLIBC_2.34. To be updated in docker image.'
     simulate: false
+
+- model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.ASHRAE2006Spring
+  openmodelica:
+    comment: timed out after 300 seconds
+    time_out: 600
+- model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.ASHRAE2006Summer
+  openmodelica:
+    comment: timed out after 300 seconds
+    time_out: 600
+- model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.Guideline36Spring
+  openmodelica:
+    comment: timed out after 300 seconds
+    time_out: 600
+- model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.Guideline36Summer
+  openmodelica:
+    comment: timed out after 300 seconds
+    time_out: 600
+- model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.Guideline36Winter
+  openmodelica:
+    comment: Timeout on travis
+    time_out: 600
 - model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.IdealHeatingCoolingSpring
+  openmodelica:
+    comment: returned non-zero exit status 255.
+    simulate: false
   optimica:
     rtol: 1.0e-08
 - model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.IdealHeatingCoolingWinter
+  openmodelica:
+    comment: returned non-zero exit status 255.
+    simulate: false
   optimica:
     rtol: 1.0e-08
 - model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.Unconditioned
@@ -448,18 +482,30 @@
     comment: Inputs differ by more than threShold. Check output 'satisfied' for when violation(s) happened. Segmentation fault (core dumped)
     simulate: false
 - model_name: Buildings.Utilities.IO.Python_3_8.Examples.KalmanFilter
+  openmodelica:
+    translate: false
+    comment: python incompatible with docker image
   optimica:
     comment: Optimica uses Python 3.9, while the examples use Python 3.8
     translate: false
 - model_name: Buildings.Utilities.IO.Python_3_8.Examples.SimpleRoom
+  openmodelica:
+    translate: false
+    comment: python incompatible with docker image
   optimica:
     comment: Optimica uses Python 3.9, while the examples use Python 3.8
     translate: false
 - model_name: Buildings.Utilities.IO.Python_3_8.Functions.Examples.Exchange
+  openmodelica:
+    translate: false
+    comment: python incompatible with docker image
   optimica:
     comment: Optimica uses Python 3.9, while the examples use Python 3.8
     translate: false
 - model_name: Buildings.Utilities.IO.Python_3_8.Functions.Examples.ExchangeWithPassPythonObject
+  openmodelica:
+    translate: false
+    comment: python incompatible with docker image
   optimica:
     comment: Optimica uses Python 3.9, while the examples use Python 3.8
     translate: false
