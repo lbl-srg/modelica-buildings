@@ -1,6 +1,7 @@
 within Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery;
 model WheelWithBypassDamper
   "Sensible and latent air-to-air heat recovery wheel with bypass dampers"
+  extends Modelica.Blocks.Icons.Block;
   replaceable package Medium1 =
     Modelica.Media.Interfaces.PartialCondensingGases
     "Supply air";
@@ -306,11 +307,7 @@ annotation (
         Line(points={{-22,-90},{22,-90}}, color={28,108,200}),
         Line(points={{-20,88},{22,88}}, color={28,108,200}),
         Line(points={{-58,64},{-58,96},{64,96},{64,64}}, color={28,108,200}),
-        Line(points={{-58,-64},{-58,-96},{64,-96},{64,-64}}, color={28,108,200}),
-        Text(
-          extent={{-147,-104},{153,-144}},
-          textColor={0,0,255},
-          textString="%name")}),
+        Line(points={{-58,-64},{-58,-96},{64,-96},{64,-64}}, color={28,108,200})}),
           Diagram(
         coordinateSystem(preserveAspectRatio=true, extent={{-180,-100},{100,180}})),
 Documentation(info="<html>

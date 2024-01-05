@@ -1,6 +1,8 @@
 within Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery;
 model WheelWithVariableSpeed
   "Sensible and latent air-to-air heat recovery wheel with a variable speed drive"
+  extends Modelica.Blocks.Icons.Block;
+
   replaceable package Medium1 =
     Modelica.Media.Interfaces.PartialCondensingGases
     "Supply air";
@@ -233,11 +235,7 @@ annotation (
           fillColor={28,108,200},
           fillPattern=FillPattern.Solid),
         Line(points={{-22,-90},{22,-90}},   color={28,108,200}),
-        Line(points={{-20,88},{22,88}},   color={28,108,200}),
-        Text(
-          extent={{-149,-108},{151,-148}},
-          textColor={0,0,255},
-          textString="%name")}),
+        Line(points={{-20,88},{22,88}},   color={28,108,200})}),
           Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
 Documentation(info="<html>
