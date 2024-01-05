@@ -1,5 +1,5 @@
-within Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.Examples;
-model WheelWithBypassDamper
+within Buildings.Fluid.HeatExchangers.ThermalWheels.Validation;
+model BypassDampers
   "Test model for the air-to-air thermal wheel with bypass dampers"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Air
@@ -44,7 +44,7 @@ model WheelWithBypassDamper
     nPorts=1)
     "Supply air source"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-  Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.WheelWithBypassDamper whe(
+  Buildings.Fluid.HeatExchangers.ThermalWheels.BypassDampers whe(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     m1_flow_nominal=5,
@@ -90,13 +90,13 @@ equation
   connect(opeSig.y, whe.opeSig) annotation (Line(points={{-58,30},{-20,30},{-20,
           8},{-2,8}},  color={255,0,255}));
 annotation(experiment(Tolerance=1e-6, StopTime=360),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/AirToAirHeatRecovery/Examples/WheelWithBypassDamper.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ThermalWheels/Validation/BypassDampers.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 Example for using the block
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.WheelWithBypassDamper\">
-Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.WheelWithBypassDamper</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.BypassDampers\">
+Buildings.Fluid.HeatExchangers.ThermalWheels.BypassDampers</a>.
 </p>
 <p>
 The input signals are configured as follows:
@@ -146,4 +146,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end WheelWithBypassDamper;
+end BypassDampers;

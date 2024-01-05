@@ -12,10 +12,10 @@ WetCoilCounterFlow
 WetCoilDiscretized
 WetCoilEffectivenessNTU
 ActiveBeams
-AirToAirHeatRecovery
 CoolingTowers
 RadiantSlabs
 Radiators
+ThermalWheels
 Examples
 Validation
 BaseClasses

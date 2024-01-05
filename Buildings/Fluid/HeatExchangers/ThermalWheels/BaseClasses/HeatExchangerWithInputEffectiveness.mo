@@ -1,4 +1,4 @@
-within Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses;
+within Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses;
 model HeatExchangerWithInputEffectiveness
   "Heat and moisture exchanger with varying effectiveness"
   extends Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectiveness(

@@ -1,5 +1,5 @@
-within Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.Examples;
-model WheelWithVariableSpeed
+within Buildings.Fluid.HeatExchangers.ThermalWheels.Validation;
+model SpeedControlled
   "Test model for the air-to-air thermal wheel with a variable speed drive"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Air
@@ -44,7 +44,7 @@ model WheelWithVariableSpeed
     nPorts=1)
     "Supply air source"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.WheelWithVariableSpeed
+  Buildings.Fluid.HeatExchangers.ThermalWheels.SpeedControlled
     whe(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
@@ -82,13 +82,13 @@ equation
     annotation (Line(points={{-57,0},{-2,0}},                       color={0,0,127}));
 
 annotation(experiment(Tolerance=1e-6, StopTime=360),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/AirToAirHeatRecovery/Examples/WheelWithVariableSpeed.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ThermalWheels/Validation/SpeedControlled.mos"
         "Simulate and plot"),
 Documentation(info="<html>
 <p>
 Example for using the block
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.WheelWithVariableSpeed\">
-Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.WheelWithVariableSpeed</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.SpeedControlled\">
+Buildings.Fluid.HeatExchangers.ThermalWheels.SpeedControlled</a>.
 </p>
 <p>
 The input signals are configured as follows:
@@ -131,4 +131,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end WheelWithVariableSpeed;
+end SpeedControlled;

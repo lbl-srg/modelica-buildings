@@ -1,8 +1,8 @@
-within Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.Validation;
+within Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.Validation;
 model Effectiveness
   "Test model for calculating the input effectiveness of a sensible and latent heat exchanger"
   extends Modelica.Icons.Example;
-  Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.Effectiveness
+  Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.Effectiveness
     epsCal(
     epsLatCoo_nominal=0.6,
     epsLatCooPL=0.7,
@@ -63,13 +63,13 @@ equation
 annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(Tolerance=1e-6, StopTime=120),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/AirToAirHeatRecovery/BaseClasses/Validation/Effectiveness.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ThermalWheels/BaseClasses/Validation/Effectiveness.mos"
         "Simulate and plot"),
 Documentation(info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.Effectiveness\">
-Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses.Effectiveness</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.Effectiveness\">
+Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.Effectiveness</a>.
 </p>
 <p>
 The input signals are configured as follows:

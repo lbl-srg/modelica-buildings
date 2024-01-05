@@ -1,4 +1,4 @@
-within Buildings.Fluid.HeatExchangers.AirToAirHeatRecovery.BaseClasses;
+within Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses;
 model Effectiveness
   "Model for calculating the heat exchange effectiveness"
   extends Modelica.Blocks.Icons.Block;
