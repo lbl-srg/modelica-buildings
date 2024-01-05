@@ -47,7 +47,7 @@ protected
     "Higher value for the output"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant lowVal(
-    final k=-yLow)
+    final k=yLow)
     "Lower value for the output"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi1
@@ -66,16 +66,6 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Subtract dirActErr if not reverseActing
     "Control error when direct acting, measurement - setpoint"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
-  Buildings.Controls.OBC.CDL.Reals.Greater gre
-    "Check if the higher value is greater than the lower value"
-    annotation (Placement(transformation(extent={{0,70},{20,90}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
-    final k=-1) "Gain"
-    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
-  Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
-    final message="Warning: The higher value for the relay output should be greater than that of the lower value.")
-    "Warning when the higher value is set to be less than the lower value"
-    annotation (Placement(transformation(extent={{40,70},{60,90}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract meaSetDif
     "Inputs difference, (measurement - setpoint)"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
@@ -84,14 +74,14 @@ equation
     annotation (Line(points={{82,50},{120,50}}, color={0,0,127}));
   connect(higVal.y, swi.u1)
     annotation (Line(points={{-58,80},{-20,80},{-20,58},{58,58}},color={0,0,127}));
-  connect(lowVal.y, swi.u3) annotation (Line(points={{-58,20},{0,20},{0,42},{58,
-          42}},    color={0,0,127}));
+  connect(lowVal.y, swi.u3) annotation (Line(points={{-58,20},{-20,20},{-20,42},
+          {58,42}},color={0,0,127}));
   connect(swi1.u3, u_s) annotation (Line(points={{-62,-48},{-90,-48},{-90,0},{-120,
-          0}},     color={0,0,127}));
+          0}}, color={0,0,127}));
   connect(trigger, swi1.u2) annotation (Line(points={{-80,-120},{-80,-40},{-62,-40}},
-                color={255,0,255}));
+          color={255,0,255}));
   connect(u_m, swi1.u1) annotation (Line(points={{0,-120},{0,-90},{-70,-90},{-70,
-          -32},{-62,-32}},    color={0,0,127}));
+          -32},{-62,-32}}, color={0,0,127}));
   connect(dirActErr.y, hys.u) annotation (Line(points={{2,-70},{10,-70},{10,-60},
           {18,-60}}, color={0,0,127}));
   connect(revActErr.y, hys.u) annotation (Line(points={{2,-20},{10,-20},{10,-60},
@@ -106,14 +96,6 @@ equation
           -64},{-22,-64}}, color={0,0,127}));
   connect(hys.y, swi.u2) annotation (Line(points={{42,-60},{50,-60},{50,50},{58,
           50}},  color={255,0,255}));
-  connect(gre.y, assMes.u)
-    annotation (Line(points={{22,80},{38,80}}, color={255,0,255}));
-  connect(lowVal.y, gai.u) annotation (Line(points={{-58,20},{-50,20},{-50,40},{
-          -42,40}}, color={0,0,127}));
-  connect(gai.y, gre.u2) annotation (Line(points={{-18,40},{-10,40},{-10,72},{-2,
-          72}}, color={0,0,127}));
-  connect(higVal.y, gre.u1)
-    annotation (Line(points={{-58,80},{-2,80}}, color={0,0,127}));
   connect(hys.y, yOn) annotation (Line(points={{42,-60},{120,-60}}, color={255,0,255}));
   connect(swi1.y, meaSetDif.u1) annotation (Line(points={{-38,-40},{20,-40},{20,
           6},{58,6}}, color={0,0,127}));
@@ -154,8 +136,8 @@ annotation (defaultComponentName = "relCon",
           fillPattern=FillPattern.Solid,
           fillColor={175,175,175},
           textString="Relay"),
-        Line(points={{-70,24},{-34,24},{-34,58},{38,58},{38,24},{66,24}}, color
-            ={28,108,200})}), Diagram(
+        Line(points={{-70,24},{-34,24},{-34,58},{38,58},{38,24},{66,24}}, color=
+             {28,108,200})}), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
 Documentation(info="<html>
 <p>
@@ -171,7 +153,7 @@ Step 1: calculate control error,
 <li>
 If the parameter <code>reverseActing = true</code>, then the control error
 (<code>err = u_s - u_m</code>),
-else the contorl error (<code>err = u_m - u_s</code>).
+else the control error (<code>err = u_m - u_s</code>).
 </li>
 </ul>
 <p>
@@ -184,7 +166,7 @@ then <code>y = yHig</code> and <code>yOn = true</code>,
 </li>
 <li>
 else if <code>err &lt; -deaBan</code> and <code>trigger</code> is <code>true</code>,
-then <code>y = -yLow</code> and
+then <code>y = yLow</code> and
 <code>yOn = false</code>,
 </li>
 <li>
@@ -196,9 +178,7 @@ where <code>deaBan</code> is a dead band, <code>yHig</code>
 and <code>yLow</code>
 are the higher value and the lower value of the output <code>y</code>, respectively.
 </p>
-<p>
-Note that this block generates an asymmetric output, meaning <code>yHig &ne; yLow</code>.
-</p>
+
 <h4>References</h4>
 <p>Josefin Berner (2017)
 \"Automatic Controller Tuning using Relay-based Model Identification.\"

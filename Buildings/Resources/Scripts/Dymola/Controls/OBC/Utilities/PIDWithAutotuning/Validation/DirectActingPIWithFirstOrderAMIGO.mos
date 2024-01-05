@@ -1,4 +1,4 @@
-simulateModel("Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Validation.DirectActingPIWithFirstOrderAMIGO", stopTime=10000, method="Cvode", tolerance=1e-06, resultFile="PIWithFirstOrderAMIGO");
+simulateModel("Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Validation.DirectActingPIWithFirstOrderAMIGO", stopTime=10000, method="Cvode", tolerance=1e-06, resultFile="DirectActingPIWithFirstOrderAMIGO");
 createPlot(id=1, position={58, 0, 954, 958}, y={"PI.u_s", "PI.u_m"}, range={0.0, 10000.0, -1.0, 2.0}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}}, timeUnit="s");
 createPlot(id=1, position={58, 0, 954, 958}, y={"PIWitTun.u_s", "PIWitTun.u_m"}, range={0.0, 10000.0, -1.0, 2.0}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="s");
 createPlot(id=1, position={58, 0, 954, 958}, y={"autTunSig.y"}, range={0.0, 10000.0, -1.0, 2.0}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s");

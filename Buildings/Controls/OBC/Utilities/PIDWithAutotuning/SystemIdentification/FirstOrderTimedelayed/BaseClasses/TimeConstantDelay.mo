@@ -166,10 +166,10 @@ The time constant, <code>T</code>, is calculated by
 T = t<sub>on</sub>/(ln((&delta;/|k|-y<sub>hig</sub>+exp(&tau;/(1 - &tau;))(y<sub>hig</sub> + y<sub>low</sub>))/(y<sub>hig</sub>-&delta;/|k|))),
 </p>
 <p>
-where <code>y<sub>hig</sub></code> and <code>y<sub>low</sub></code> are the higher value
-and the lower value of the relay control output, respectively.
-<code>t<sub>on</sub></code> is the length of the on period.
-<code>&delta;</code> is the dead band of a relay controller.
+where <i>y<sub>hig</sub></i> and <i>y<sub>low</sub></i> are constants related to
+an asymmetric relay output.
+<code>t<sub>on</sub></code> is the length of the on period of the same asymmetric relay output.
+<code>&delta;</code> is the dead band of the same asymmetric relay output.
 <code>k</code> is the gain of the first-order time delayed model.
 <code>&tau;</code> is the normalized time delay.
 </p>
