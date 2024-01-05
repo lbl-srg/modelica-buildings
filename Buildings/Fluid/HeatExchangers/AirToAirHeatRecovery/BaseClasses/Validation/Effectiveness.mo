@@ -86,7 +86,7 @@ exhaust air flow rate, <i>VExh</i>, change from
 0.6 to 1 and 0.8 to 1 respectively. The flow rates then stay constant.
 </li>
 <li> 
-In the first 60 seonds, the wheel speed <i>uSpe</i> keeps constant.
+In the first 60 seconds, the wheel speed <i>uSpe</i> keeps constant.
 It then increases from 0.3 to 1 during the period from 60 seconds to 120
 seconds.
 </li> 
@@ -101,7 +101,7 @@ simulation period. The latent effectiveness <code>epsLat</code> decreases
 in the first 20 seconds. It then increases in the rest of the time.
 </li>
 <li>
-At 20 seonds, both the effectiveness, <code>epsSen</code> and <code>epsLat</code>,
+At 20 seconds, both the effectiveness, <code>epsSen</code> and <code>epsLat</code>,
 change significantly as the exchanger changes from the cooling mode to the
 heating mode.
 </li>
