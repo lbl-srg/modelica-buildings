@@ -140,31 +140,10 @@ is determined according to the following equation:
 <ul>
 <li>
 September 13, 2023, by David Blum:<br/>
-Extended from partial base class.
+First implementation, extended from partial base class.
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3063\">
 issue 3063</a>.
-</li>
-<li>
-May 17, 2023, by David Blum:<br/>
-Assigned dp_nominal to <code>pum1HexChi</code>.<br/>
-Corrected calculation of heat pump evaporator mass flow control.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3379\">
-issue 3379</a>.
-</li>
-<li>
-February 23, 2021, by Antoine Gautier:<br/>
-Refactored with subsystem models and partial ETS base class.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1769\">
-issue 1769</a>.
-</li>
-<li>
-December 12, 2017, by Michael Wetter:<br/>
-Removed call to <code>Modelica.Utilities.Files.loadResource</code>.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1097\">issue 1097</a>.
 </li>
 </ul>
 </html>"), Icon(graphics={

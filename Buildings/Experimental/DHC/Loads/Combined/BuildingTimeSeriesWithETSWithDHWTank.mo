@@ -125,6 +125,9 @@ Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger
 <li>
 September 13, 2022, by David Blum:<br/>
 First implementation.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3063\">
+issue 3063</a>.
 </li>
 </ul>
 </html>"),

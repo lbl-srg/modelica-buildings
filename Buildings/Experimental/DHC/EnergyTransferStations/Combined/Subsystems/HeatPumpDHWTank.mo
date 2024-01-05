@@ -370,15 +370,11 @@ the supply equal to <code>dT_nominal</code>.
 <ul>
 <li>
 November 28, 2023, by David Blum:<br/>
-Changed to extend partial base class with added condenser hydronics and control.
-</li>
-<li>
-November 16, 2022, by Michael Wetter:<br/>
-Set <code>pumEva.dp_nominal</code> to correct value.
-</li>
-<li>
-February 23, 2021, by Antoine Gautier:<br/>
-First implementation.
+First implementation, extended from partial base class with added 
+condenser hydronics and control.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3063\">
+issue 3063</a>.
 </li>
 </ul>
 </html>"));
