@@ -15,7 +15,7 @@ model BypassDampers
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
   Buildings.Fluid.Sources.Boundary_pT sou_2(
     redeclare package Medium = Medium2,
-    p(displayUnit="Pa") = 101325 + 100,
+    p(displayUnit="Pa") = 101325 + 500,
     T(displayUnit="K") = 293.15,
     nPorts=1)
     "Exhaust air source"
@@ -31,7 +31,7 @@ model BypassDampers
     redeclare package Medium = Medium1,
     T=273.15 + 30,
     X={0.012,1 - 0.012},
-    p(displayUnit="Pa") = 101325 - 100,
+    p(displayUnit="Pa") = 101325 - 500,
     nPorts=1)
     "Supply air sink"
     annotation (Placement(transformation(extent={{80,20},{60,40}})));
@@ -49,8 +49,8 @@ model BypassDampers
     redeclare package Medium2 = Medium2,
     m1_flow_nominal=5,
     m2_flow_nominal=5,
-    dp1_nominal(displayUnit="Pa") = 100,
-    dp2_nominal(displayUnit="Pa") = 100,
+    dp1_nominal(displayUnit="Pa"),
+    dp2_nominal(displayUnit="Pa"),
     P_nominal=100,
     epsLatCoo_nominal=0.7,
     epsLatCooPL=0.6,
@@ -87,7 +87,7 @@ equation
         color={0,127,255}));
   connect(bypDamPos.y, whe.uBypDamPos) annotation (Line(points={{-59,0},{-2,0}},
                              color={0,0,127}));
-  connect(opeSig.y, whe.opeSig) annotation (Line(points={{-58,30},{-20,30},{-20,
+  connect(opeSig.y, whe.opeSig) annotation (Line(points={{-58,30},{-10,30},{-10,
           8},{-2,8}},  color={255,0,255}));
 annotation(experiment(Tolerance=1e-6, StopTime=360),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ThermalWheels/Latent/Validation/BypassDampers.mos"

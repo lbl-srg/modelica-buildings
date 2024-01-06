@@ -15,7 +15,7 @@ model SpeedControlled
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
   Buildings.Fluid.Sources.Boundary_pT sou_2(
     redeclare package Medium = Medium2,
-    p(displayUnit="Pa") = 101325 + 100,
+    p(displayUnit="Pa") = 101325 + 500,
     T(displayUnit="K") = 293.15,
     nPorts=1)
     "Exhaust air source"
@@ -31,7 +31,7 @@ model SpeedControlled
     redeclare package Medium = Medium1,
     T=273.15 + 30,
     X={0.012,1 - 0.012},
-    p(displayUnit="Pa") = 101325 - 100,
+    p(displayUnit="Pa") = 101325 - 500,
     nPorts=1)
     "Supply air sink"
     annotation (Placement(transformation(extent={{80,20},{60,40}})));
@@ -50,8 +50,6 @@ model SpeedControlled
     redeclare package Medium2 = Medium2,
     m1_flow_nominal=5,
     m2_flow_nominal=5,
-    dp1_nominal=100,
-    dp2_nominal=100,
     P_nominal=100,
     epsLatCoo_nominal=0.7,
     epsLatCooPL=0.6,
@@ -65,7 +63,7 @@ model SpeedControlled
     offset=0.7,
     startTime=200)
     "Wheel speed"
-    annotation (Placement(transformation(extent={{-78,-10},{-58,10}})));
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 equation
   connect(TSup.y, sou_1.T_in)
     annotation (Line(points={{-59,34},{-42,34}}, color={0,0,127}));
@@ -79,7 +77,7 @@ equation
     annotation (Line(points={{0,-6},{-8,-6},{-8,-30},{-20,-30}},
                                                color={0,127,255}));
   connect(wheSpe.y, whe.uSpe)
-    annotation (Line(points={{-57,0},{-2,0}},                       color={0,0,127}));
+    annotation (Line(points={{-59,0},{-2,0}},                       color={0,0,127}));
 
 annotation(experiment(Tolerance=1e-6, StopTime=360),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ThermalWheels/Latent/Validation/SpeedControlled.mos"

@@ -1,243 +1,49 @@
 within Buildings.Fluid.HeatExchangers.ThermalWheels.Latent;
 model SpeedControlled
   "Sensible and latent air-to-air heat recovery wheel with a variable speed drive"
-  extends Modelica.Blocks.Icons.Block;
-
-  replaceable package Medium1 =
-    Modelica.Media.Interfaces.PartialCondensingGases
-    "Supply air";
-  replaceable package Medium2 =
-    Modelica.Media.Interfaces.PartialCondensingGases
-    "Exhaust air";
-  parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal
-    "Nominal supply air mass flow rate"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal
-    "Nominal exhaust air mass flow rate"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference dp1_nominal(displayUnit="Pa") = 500
-    "Nominal supply air pressure drop"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference dp2_nominal(displayUnit="Pa") = dp2_nominal
-    "Nominal exhaust air pressure drop"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Real P_nominal(final unit="W")
-    "Power consumption at design condition"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Efficiency epsSenCoo_nominal(
-    final max=1) = 0.8
-    "Nominal sensible heat exchanger effectiveness at the cooling mode"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Efficiency epsLatCoo_nominal(
-    final max=1) = 0.8
-    "Nominal latent heat exchanger effectiveness at the cooling mode"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Efficiency epsSenHea_nominal(
-    final max=1) = 0.8
-    "Nominal sensible heat exchanger effectiveness at the heating mode"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Efficiency epsLatHea_nominal(
-    final max=1) = 0.8
-    "Nominal latent heat exchanger effectiveness at the heating mode"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Efficiency epsSenCooPL(
-    final max=1) = 0.75
-    "Part load (75%) sensible heat exchanger effectiveness at the cooling mode"
-    annotation (Dialog(group="Part load effectiveness"));
-  parameter Modelica.Units.SI.Efficiency epsLatCooPL(
-    final max=1) = 0.75
-    "Part load (75%) latent heat exchanger effectiveness at the cooling mode"
-    annotation (Dialog(group="Part load effectiveness"));
-  parameter Modelica.Units.SI.Efficiency epsSenHeaPL(
-    final max=1) = 0.75
-    "Part load (75%) sensible heat exchanger effectiveness at the heating mode"
-    annotation (Dialog(group="Part load effectiveness"));
-  parameter Modelica.Units.SI.Efficiency epsLatHeaPL(
-    final max=1) = 0.75
-    "Part load (75%) latent heat exchanger effectiveness at the heating mode"
-    annotation (Dialog(group="Part load effectiveness"));
+  extends Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.PartialWheel;
   parameter Real a[:] = {1}
-    "Coefficients for power consumption curve, P/P_nominal = sum a_i uSpe^(i-1). The sum(a) of the elements must be equal to 1"
+    "Coefficients for power consumption curve for rotor, P/P_nominal = sum a_i uSpe^(i-1). The sum(a) of the elements must be equal to 1"
     annotation (Dialog(group="Efficiency"));
 
   Modelica.Blocks.Interfaces.RealInput uSpe(
     final unit="1",
     final max=1)
     "Wheel speed ratio"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Modelica.Blocks.Interfaces.RealOutput P
-    "Electric power consumed by the wheel"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.HeatExchangerWithInputEffectiveness
-    hex(
-    redeclare package Medium1 = Medium1,
-    redeclare package Medium2 = Medium2,
-    final m1_flow_nominal=m1_flow_nominal,
-    final m2_flow_nominal=m2_flow_nominal,
-    final show_T=true,
-    final dp1_nominal=dp1_nominal,
-    final dp2_nominal=dp2_nominal)
-    "Heat exchanger"
-    annotation (Placement(transformation(extent={{6,-10},{26,10}})));
-  Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.Effectiveness
-    effCal(
-    final epsSenCoo_nominal=epsSenCoo_nominal,
-    final epsLatCoo_nominal=epsLatCoo_nominal,
-    final epsSenCooPL=epsSenCooPL,
-    final epsLatCooPL=epsLatCooPL,
-    final epsSenHea_nominal=epsSenHea_nominal,
-    final epsLatHea_nominal=epsLatHea_nominal,
-    final epsSenHeaPL=epsSenHeaPL,
-    final epsLatHeaPL=epsLatHeaPL,
-    final VSup_flow_nominal=m1_flow_nominal/1.293)
-    "Calculate the effectiveness of heat exchange"
-    annotation (Placement(transformation(extent={{-42,-10},{-22,10}})));
-  Modelica.Blocks.Sources.RealExpression TSup(
-    final y=Medium1.temperature(
-      Medium1.setState_phX(
-        p=port_a1.p,
-        h=inStream(port_a1.h_outflow),
-        X=inStream(port_a1.Xi_outflow))))
-    "Supply air temperature"
-    annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
-  Modelica.Blocks.Sources.RealExpression TExh(
-    final y=Medium2.temperature(
-      Medium2.setState_phX(
-        p=port_a2.p,
-        h=inStream(port_a2.h_outflow),
-        X=inStream(port_a2.Xi_outflow))))
-    "Exhaust air temperature"
-    annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
+    annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
+        iconTransformation(extent={{-140,-20},{-100,20}})));
+protected
   Modelica.Blocks.Sources.RealExpression PEle(
     final y=P_nominal*Buildings.Utilities.Math.Functions.polynomial(a=a, x=uSpe))
     "Electric power consumption"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_a1(
-    redeclare final package Medium = Medium1)
-    "Fluid connector a1 of the supply air (positive design flow direction is from port_a1 to port_b1)"
-    annotation (Placement(transformation(extent={{-112,50},{-92,70}}),
-        iconTransformation(extent={{-110,50},{-90,70}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b2(
-    redeclare final package Medium = Medium2)
-    "Fluid connector b2 of the exhaust air (positive design flow direction is from port_a2 to port_b2)"
-    annotation (Placement(transformation(extent={{-90,-70},{-110,-50}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b1(
-    redeclare final package Medium = Medium1)
-    "Fluid connector b1 of the supply air (positive design flow direction is from port_a1 to port_b1)"
-    annotation (Placement(transformation(extent={{110,50},{90,70}}),
-        iconTransformation(extent={{110,50},{90,70}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_a2(
-    redeclare final package Medium = Medium2)
-    "Fluid connector a2 of the exhaust air (positive design flow direction is from port_a2 to port_b2)"
-    annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
-  Modelica.Blocks.Sources.RealExpression VSup_flow(
-    final y=port_a1.m_flow/
-        Medium1.density(state=Medium1.setState_phX(
-        p=port_a1.p,
-        h=port_a1.h_outflow,
-        X=port_a1.Xi_outflow)))
-    "Supply air volume flow rate"
-    annotation (Placement(transformation(extent={{-90,30},{-70,50}})));
-  Modelica.Blocks.Sources.RealExpression VExh_flow(
-    final y=port_a2.m_flow/
-        Medium2.density(state=Medium2.setState_phX(
-        p=port_a2.p,
-        h=port_a2.h_outflow,
-        X=port_a2.Xi_outflow)))
-    "Exhaust air volume flow rate"
-    annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
 
 initial equation
-  assert(noEvent(abs(sum(a)-1) < Modelica.Constants.eps),
+  assert(abs(sum(a)-1) < Modelica.Constants.eps,
          "In " + getInstanceName() + ": Power efficiency curve is wrong. 
          The sum of the coefficients for power efficiency curve should equal to 1.",
          level=AssertionLevel.error);
 
 equation
-  connect(hex.port_b1, port_b1)
-    annotation (Line(points={{26,6},{40,6},{40,60},{100,60}},
-        color={0,127,255}));
-  connect(hex.port_b2, port_b2)
-    annotation (Line(points={{6,-6},{0,-6},{0,-60},{-100,-60}},
-        color={0,127,255}));
-  connect(PEle.y, P)
-    annotation (Line(points={{91,0},{110,0}}, color={0,0,127}));
-  connect(effCal.epsSen, hex.epsSen)
-    annotation (Line(points={{-21,3},{-8,3},{-8,3},{4,3}},
-                                             color={0,0,127}));
-  connect(effCal.epsLat, hex.epsLat)
-    annotation (Line(points={{-21,-3},{-8,-3},{-8,-3},{4,-3}},
-        color={0,0,127}));
-  connect(effCal.uSpe, uSpe)
-    annotation (Line(points={{-44,0},{-120,0}},
-        color={0,0,127}));
-  connect(TSup.y, effCal.TSup)
-    annotation (Line(points={{-69,-20},{-60,-20},{-60,-4},{-44,-4}},
-        color={0,0,127}));
-  connect(TExh.y, effCal.TExh)
-    annotation (Line(points={{-69,-40},{-52,-40},{-52,-8},{-44,-8}},
-        color={0,0,127}));
-  connect(hex.port_a1, port_a1)
-    annotation (Line(points={{6,6},{0,6},{0,60},{-102,60}}, color={0,0,127}));
-  connect(hex.port_a2, port_a2)
-    annotation (Line(points={{26,-6},{40,-6},{40,-60},
+  connect(P, PEle.y)
+    annotation (Line(points={{110,0},{91,0}}, color={0,0,127}));
+  connect(port_a1, hex.port_a1) annotation (Line(points={{-180,80},{-60,80},{-60,
+          6},{-10,6}}, color={0,127,255}));
+  connect(hex.port_a2, port_a2) annotation (Line(points={{10,-6},{60,-6},{60,-60},
           {100,-60}}, color={0,127,255}));
-  connect(VSup_flow.y, effCal.VSup_flow)
-    annotation (Line(points={{-69,40},{-54,40},{-54,8},{-44,8}},
-                                color={0,0,127}));
-  connect(VExh_flow.y, effCal.VExh_flow)
-    annotation (Line(points={{-69,20},{-60,20},{-60,4},{-44,4}},
-                                color={0,0,127}));
+  connect(effCal.uSpe, uSpe)
+    annotation (Line(points={{-102,0},{-200,0}}, color={0,0,127}));
 annotation (
         defaultComponentName="whe",
-        Icon(coordinateSystem(extent={{-100,-100},{100,
-            100}}), graphics={
-        Rectangle(
-          extent={{32,-56},{94,-64}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{32,64},{94,56}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-92,-55},{-32,-64}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-94,65},{-32,56}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
-        Ellipse(extent={{6,88},{38,-90}},   lineColor={28,108,200},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
+        Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
+    graphics={
         Polygon(
           points={{0,100},{0,100}},
           lineColor={28,108,200},
           fillColor={255,255,255},
-          fillPattern=FillPattern.None),
-        Rectangle(
-          extent={{-2,88},{22,-98}},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None),
-        Ellipse(
-          extent={{-38,88},{-4,-90}},
-          lineColor={28,108,200},
-          fillColor={28,108,200},
-          fillPattern=FillPattern.Solid),
-        Line(points={{-22,-90},{22,-90}},   color={28,108,200}),
-        Line(points={{-20,88},{22,88}},   color={28,108,200})}),
+          fillPattern=FillPattern.None)}),
           Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
+        coordinateSystem(preserveAspectRatio=false, extent={{-180,-100},{100,100}})),
 Documentation(info="<html>
 <p>
 Model of a generic, sensible and latent air-to-air heat recovery wheel, which has the 
