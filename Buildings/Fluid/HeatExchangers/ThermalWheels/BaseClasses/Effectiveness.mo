@@ -2,21 +2,21 @@ within Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses;
 model Effectiveness
   "Model for calculating the heat exchange effectiveness"
   extends Modelica.Blocks.Icons.Block;
-  parameter Modelica.Units.SI.Efficiency epsSenCoo_nominal(final max=1) = 0.8
+  parameter Modelica.Units.SI.Efficiency epsSenCoo_nominal(final max=1)
     "Nominal sensible heat exchanger effectiveness at the cooling mode";
-  parameter Modelica.Units.SI.Efficiency epsLatCoo_nominal(final max=1) = 0.8
+  parameter Modelica.Units.SI.Efficiency epsLatCoo_nominal(final max=1)
     "Nominal latent heat exchanger effectiveness at the cooling mode";
-  parameter Modelica.Units.SI.Efficiency epsSenCooPL(final max=1) = 0.75
+  parameter Modelica.Units.SI.Efficiency epsSenCooPL(final max=1)
     "Part load (75%) sensible heat exchanger effectiveness at the cooling mode";
-  parameter Modelica.Units.SI.Efficiency epsLatCooPL(final max=1) = 0.75
+  parameter Modelica.Units.SI.Efficiency epsLatCooPL(final max=1)
     "Part load (75%) latent heat exchanger effectiveness at the cooling mode";
-  parameter Modelica.Units.SI.Efficiency epsSenHea_nominal(final max=1) = 0.8
+  parameter Modelica.Units.SI.Efficiency epsSenHea_nominal(final max=1)
     "Nominal sensible heat exchanger effectiveness at the heating mode";
-  parameter Modelica.Units.SI.Efficiency epsLatHea_nominal(final max=1) = 0.8
+  parameter Modelica.Units.SI.Efficiency epsLatHea_nominal(final max=1)
     "Nominal latent heat exchanger effectiveness at the heating mode";
-  parameter Modelica.Units.SI.Efficiency epsSenHeaPL(final max=1) = 0.75
+  parameter Modelica.Units.SI.Efficiency epsSenHeaPL(final max=1)
     "Part load (75%) sensible heat exchanger effectiveness at the heating mode";
-  parameter Modelica.Units.SI.Efficiency epsLatHeaPL(final max=1) = 0.75
+  parameter Modelica.Units.SI.Efficiency epsLatHeaPL(final max=1)
     "Part load (75%) latent heat exchanger effectiveness at the heating mode";
   parameter Modelica.Units.SI.VolumeFlowRate VSup_flow_nominal
     "Nominal supply air flow rate";

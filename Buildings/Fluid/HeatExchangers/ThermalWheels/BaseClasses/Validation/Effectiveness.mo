@@ -4,7 +4,9 @@ model Effectiveness
   extends Modelica.Icons.Example;
   Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.Effectiveness
     epsCal(
+    epsSenCoo_nominal=0.8,
     epsLatCoo_nominal=0.6,
+    epsSenCooPL=0.75,
     epsLatCooPL=0.7,
     epsSenHea_nominal=0.7,
     epsLatHea_nominal=0.6,

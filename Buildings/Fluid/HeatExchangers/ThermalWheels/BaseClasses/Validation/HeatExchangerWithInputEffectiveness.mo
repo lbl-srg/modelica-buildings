@@ -49,8 +49,6 @@ model HeatExchangerWithInputEffectiveness
     hex(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
-    m1_flow(start=5),
-    m2_flow(start=5),
     m1_flow_nominal=5,
     m2_flow_nominal=5,
     dp1_nominal=100,
@@ -85,9 +83,9 @@ equation
   connect(hex.port_b2, sin_2.ports[1])
     annotation (Line(points={{6,0},{-10,0},{-10,-20},{-20,-20}}, color={0,127,255}));
   connect(epsSen.y, hex.epsSen)
-    annotation (Line(points={{-59,20},{-20,20},{-20,10},{4,10}}, color={0,0,127}));
+    annotation (Line(points={{-59,20},{-20,20},{-20,9},{4,9}},   color={0,0,127}));
   connect(hex.epsLat, epsLat.y)
-    annotation (Line(points={{4,2},{-50,2},{-50,-40},{-59,-40}}, color={0,0,127}));
+    annotation (Line(points={{4,3},{-50,3},{-50,-40},{-59,-40}}, color={0,0,127}));
 
 annotation(experiment(Tolerance=1e-6, StopTime=360),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ThermalWheels/BaseClasses/Validation/HeatExchangerWithInputEffectiveness.mos"
