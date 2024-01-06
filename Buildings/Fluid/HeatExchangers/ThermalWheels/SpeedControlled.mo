@@ -15,10 +15,10 @@ model SpeedControlled
   parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal
     "Nominal exhaust air mass flow rate"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference dp1_nominal = 125
+  parameter Modelica.Units.SI.PressureDifference dp1_nominal(displayUnit="Pa") = 125
     "Nominal supply air pressure drop"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference dp2_nominal = 125
+  parameter Modelica.Units.SI.PressureDifference dp2_nominal(displayUnit="Pa") = dp2_nominal
     "Nominal exhaust air pressure drop"
     annotation (Dialog(group="Nominal condition"));
   parameter Real P_nominal(final unit="W")
@@ -57,7 +57,7 @@ model SpeedControlled
     "Part load (75%) latent heat exchanger effectiveness at the heating mode"
     annotation (Dialog(group="Part load effectiveness"));
   parameter Real a[:] = {1}
-    "Coefficients for power efficiency curve. The sum of the elements should equal to 1"
+    "Coefficients for power consumption curve, P/P_nominal = sum a_i uSpe^(i-1). The sum(a) of the elements must be equal to 1"
     annotation (Dialog(group="Efficiency"));
 
   Modelica.Blocks.Interfaces.RealInput uSpe(
