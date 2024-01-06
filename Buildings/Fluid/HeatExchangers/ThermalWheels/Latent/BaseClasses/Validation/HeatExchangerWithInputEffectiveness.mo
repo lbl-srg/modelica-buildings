@@ -45,8 +45,7 @@ model HeatExchangerWithInputEffectiveness
     nPorts=1)
     "Supply air source"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
-  Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.HeatExchangerWithInputEffectiveness
-    hex(
+  Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.HeatExchangerWithInputEffectiveness hex(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     m1_flow_nominal=5,
