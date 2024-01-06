@@ -14,7 +14,7 @@ model BypassDampers
   parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal
     "Nominal exhaust air mass flow rate"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference dp1_nominal(displayUnit="Pa") = 125
+  parameter Modelica.Units.SI.PressureDifference dp1_nominal(displayUnit="Pa") = 500
     "Nominal supply air pressure drop"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dp2_nominal(displayUnit="Pa") = dp2_nominal
