@@ -1,4 +1,4 @@
-within Buildings.Fluid.HeatExchangers.ThermalWheels;
+within Buildings.Fluid.HeatExchangers.ThermalWheels.Latent;
 model SpeedControlled
   "Sensible and latent air-to-air heat recovery wheel with a variable speed drive"
   extends Modelica.Blocks.Icons.Block;
@@ -68,7 +68,7 @@ model SpeedControlled
   Modelica.Blocks.Interfaces.RealOutput P
     "Electric power consumed by the wheel"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.HeatExchangerWithInputEffectiveness
+  Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.HeatExchangerWithInputEffectiveness
     hex(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
@@ -79,7 +79,7 @@ model SpeedControlled
     final dp2_nominal=dp2_nominal)
     "Heat exchanger"
     annotation (Placement(transformation(extent={{6,-10},{26,10}})));
-  Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.Effectiveness
+  Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.Effectiveness
     effCal(
     final epsSenCoo_nominal=epsSenCoo_nominal,
     final epsLatCoo_nominal=epsLatCoo_nominal,
@@ -265,8 +265,8 @@ Thus, when the speed ratio <code>uSpe=1</code>, the power consumption equal to
 nominal consumption, <code>P=P_nominal</code>.
 </p>
 <p>
-The sensible and latent effectiveness is calculated with <a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.Effectiveness\">
-Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.Effectiveness</a>.
+The sensible and latent effectiveness is calculated with <a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.Effectiveness\">
+Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.Effectiveness</a>.
 </p>
 </html>", revisions="<html>
 <ul>

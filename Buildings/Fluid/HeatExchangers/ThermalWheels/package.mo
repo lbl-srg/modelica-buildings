@@ -1,10 +1,9 @@
 within Buildings.Fluid.HeatExchangers;
-package ThermalWheels "Package with air-to-air heat recovery devices"
-  extends Modelica.Icons.VariantsPackage;
-
-annotation (Documentation(info="<html>
+package ThermalWheels "fixme: add brief description"
+  extends Modelica.Icons.Package;
+annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains component models for air-to-air enthalpy recovery wheels.
+This package contains component models for enthalpy recovery wheels. 
 </p>
 </html>"));
 end ThermalWheels;

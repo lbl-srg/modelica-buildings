@@ -1,4 +1,4 @@
-within Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.Validation;
+within Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.Validation;
 model HeatExchangerWithInputEffectiveness
   "Test model for the heat exchanger with input effectiveness"
   extends Modelica.Icons.Example;
@@ -45,7 +45,7 @@ model HeatExchangerWithInputEffectiveness
     nPorts=1)
     "Supply air source"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
-  Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.HeatExchangerWithInputEffectiveness
+  Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.HeatExchangerWithInputEffectiveness
     hex(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
@@ -88,13 +88,13 @@ equation
     annotation (Line(points={{4,3},{-50,3},{-50,-40},{-59,-40}}, color={0,0,127}));
 
 annotation(experiment(Tolerance=1e-6, StopTime=360),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ThermalWheels/BaseClasses/Validation/HeatExchangerWithInputEffectiveness.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ThermalWheels/Latent/BaseClasses/Validation/HeatExchangerWithInputEffectiveness.mos"
         "Simulate and plot"),
 Documentation(info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.HeatExchangerWithInputEffectiveness\">
-Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.HeatExchangerWithInputEffectiveness</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.HeatExchangerWithInputEffectiveness\">
+Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.HeatExchangerWithInputEffectiveness</a>.
 </p>
 <p>
 The input signals are configured as follows:

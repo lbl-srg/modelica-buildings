@@ -1,4 +1,4 @@
-within Buildings.Fluid.HeatExchangers.ThermalWheels;
+within Buildings.Fluid.HeatExchangers.ThermalWheels.Latent;
 model BypassDampers
   "Sensible and latent air-to-air heat recovery wheel with bypass dampers"
   extends Modelica.Blocks.Icons.Block;
@@ -72,7 +72,7 @@ model BypassDampers
     final unit="W")
     "Electric power consumption"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.HeatExchangerWithInputEffectiveness
+  Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.HeatExchangerWithInputEffectiveness
     hex(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
@@ -83,7 +83,7 @@ model BypassDampers
     final dp2_nominal=0)
     "Heat exchanger"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
-  Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.Effectiveness
+  Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.Effectiveness
     effCal(
     final epsSenCoo_nominal=epsSenCoo_nominal,
     final epsLatCoo_nominal=epsLatCoo_nominal,
@@ -331,8 +331,8 @@ The wheel power consumption is constant and equal to the nominal value.
 The heat exchange in the heat recovery wheel is adjustable via bypassing supply/exhaust air 
 through the heat exchanger.
 Accordingly, the sensible and latent effectiveness is calculated with
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.Effectiveness\">
-Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.Effectiveness</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.Effectiveness\">
+Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.Effectiveness</a>.
 </li>
 </ul>
 </li>
