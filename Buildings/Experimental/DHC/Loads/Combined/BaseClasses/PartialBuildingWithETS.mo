@@ -1,19 +1,10 @@
 within Buildings.Experimental.DHC.Loads.Combined.BaseClasses;
 model PartialBuildingWithETS
   "Partial model with ETS model and partial building model"
-  extends Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuildingWithPartialETS(
+  extends
+    Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuildingWithPartialETS(
     nPorts_heaWat=1,
-    nPorts_chiWat=1,
-    redeclare
-      Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger ets(
-      final dT_nominal=dT_nominal,
-      final TDisWatMin=datDes.TLooMin,
-      final TDisWatMax=datDes.TLooMax,
-      final TChiWatSup_nominal=TChiWatSup_nominal,
-      final THeaWatSup_nominal=THeaWatSup_nominal,
-      final dp_nominal=dp_nominal,
-      final COPHeaWat_nominal=COPHeaWat_nominal,
-      final COPHotWat_nominal=COPHotWat_nominal));
+    nPorts_chiWat=1);
   outer parameter Buildings.Experimental.DHC.Examples.Combined.BaseClasses.DesignDataSeries datDes "DHC system design data"
     annotation (Placement(transformation(extent={{-250,262},{-230,282}})));
   parameter Modelica.Units.SI.TemperatureDifference dT_nominal(min=0) = 4
@@ -25,6 +16,12 @@ model PartialBuildingWithETS
   parameter Modelica.Units.SI.Temperature THeaWatSup_nominal=38 + 273.15
     "Heating water supply temperature"
     annotation (Dialog(group="ETS model parameters"));
+  parameter Modelica.Units.SI.Temperature THotWatSup_nominal=63 + 273.15
+    "Domestic hot water supply temperature to fixtures"
+    annotation (Dialog(group="ETS model parameters", enable=have_hotWat));
+  parameter Modelica.Units.SI.Temperature TColWat_nominal=288.15
+    "Cold water temperature (for hot water production)"
+    annotation (Dialog(group="ETS model parameters", enable=have_hotWat));
   parameter Modelica.Units.SI.Pressure dp_nominal=50000
     "Pressure difference at nominal flow rate (for each flow leg)"
     annotation (Dialog(group="ETS model parameters"));
@@ -114,7 +111,7 @@ equation
     Documentation(info="<html>
 <p>
 This model is composed of a heat pump based energy transfer station model 
-<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger\">
+<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger_Current\">
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger</a>
 connected to a repleacable building load model. 
 </p>

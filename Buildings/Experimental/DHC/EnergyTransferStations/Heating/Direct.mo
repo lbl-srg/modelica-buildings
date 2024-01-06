@@ -30,7 +30,7 @@ cooling network is at or above the minimum specified value. This configuration
 naturally results in a fluctuating building supply tempearture. 
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Experimental/DHC/EnergyTransferStations/Cooling/Direct.PNG\" alt=\"DC ETS Direct\"/> 
+<img src=\"modelica://Buildings/Resources/Images/Experimental/DHC/EnergyTransferStations/Cooling/Direct.png\" alt=\"DC ETS Direct\"/> 
 </p>
 <h4>
 Reference
