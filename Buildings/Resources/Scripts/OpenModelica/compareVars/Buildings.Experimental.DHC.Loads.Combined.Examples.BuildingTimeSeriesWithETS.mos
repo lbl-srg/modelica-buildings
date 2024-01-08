@@ -6,6 +6,8 @@ compareVars :=
     "bui.ets.proHotWat.heaPum.QCon_flow",
     "bui.PHea",
     "bui.PPum",
-    "bui.QHea_flow",
-    "bui.QCoo_flow"
+    "bui.bui.QReqHea_flow",
+    "bui.bui.QReqCoo_flow",
+    "bui.bui.QHea_flow",
+    "bui.bui.QCoo_flow"
   };

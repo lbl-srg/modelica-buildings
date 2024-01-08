@@ -5,6 +5,10 @@ clear
 
 convertClear();
 
+// Conversion of hot water load
+convertElement("Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger",
+               "loaSHW", "QReqHotWat_flow");
+
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3598
 // remove parameter binding computeFlowResistance which is now final
 convertModifiers("Buildings.Fluid.SolarCollectors.ASHRAE93",
