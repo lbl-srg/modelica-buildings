@@ -81,7 +81,9 @@ double U-tube parallel configuration.
 <li>
 January 8, 2024, by David Blum:<br/>
 Moved to <code>Buildings.Experimental.DHC.Examples.Combined.BaseClasses.BoreField</code>.
-This is for xxxx.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3628\">
+issue 3628</a>.
 </li>
 <li>
 May 31, 2023, by Michael Wetter:<br/>

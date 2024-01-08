@@ -44,7 +44,9 @@ Chapter 5: Consumer Interconnection. In <i>District Heating Guide</i>.
 <li>
 January 8, 2024, by David Blum:<br/>
 Correct documentation to describe heating.
-This is for xxxx.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3628\">
+issue 3628</a>.
 </li>
 <li>
 April 7, 2023, by David Blum:<br/>
