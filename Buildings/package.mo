@@ -475,6 +475,14 @@ have been <b style=\"color:blue\">improved</b> in a
                      This change is supported in the conversion script.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Plants.Reservoir.Borefield
+    </td>
+    <td valign=\"top\">Moved to Buildings.Experimental.DHC.Examples.Combined.BaseClasses.BoreField
+                       <a href=\"Modelica://Buildings.Experimental.DHC.Examples.Combined.BaseClasses.BoreField\">.<br/>
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/xxxx\">#xxxx</a>.<br/>
+                     This change is supported in the conversion script.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.SolarCollectors</b>
     </td>
 </tr>
