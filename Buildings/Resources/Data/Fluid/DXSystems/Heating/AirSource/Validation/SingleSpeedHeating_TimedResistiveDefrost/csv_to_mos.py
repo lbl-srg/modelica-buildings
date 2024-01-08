@@ -10,7 +10,8 @@ def check():
 
 def main():
     args = sys.argv[1:]
-    dat_fil = args[0].replace(".idf", ".dat")
+    dat_fil = "DXCoilSystemAuto.idf"
+    #dat_fil = args[0].replace(".idf", ".dat")
     output_list =[
     'Environment:Site Outdoor Air Drybulb Temperature [C](Hourly)',
       'HEAT PUMP DX HEATING COIL 1:Heating Coil Heating Rate [W](Hourly)',

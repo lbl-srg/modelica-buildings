@@ -1,0 +1,6 @@
+﻿simulateModel("Buildings.Fluid.Storage.HeatPumpWaterHeater.Validation.HeatPumpWaterHeaterWrapped", startTime=18316800, stopTime=19526400, method="Cvode", tolerance=1e-06, resultFile="HeatPumpWaterHeaterWrapped");
+createPlot(id=1, position={0, 0, 1477, 690}, y={"heaPumWatHeaWra.sinSpeDXCoo.P", "datRea.y[23]"}, range={18300000.0, 19550000.0, -1000.0, 2000.0}, grid=true, colors={{28,108,200}, {238,46,47}}, displayUnits={"W", ""});
+createPlot(id=1, position={0, 0, 1477, 690}, y={"datRea.y[11]", "datRea.y[22]", "heaPumWatHeaWra.tan1.vol[1].T", 
+"heaPumWatHeaWra.tan1.vol[12].T"}, range={18300000.0, 19550000.0, 0.0, 80.0}, grid=true, subPlot=102, colors={{28,108,200}, {244,125,35}, {28,108,200}, {238,46,47}}, patterns={LinePattern.Solid, LinePattern.Solid, LinePattern.Dash, LinePattern.Dash}, displayUnits={"", "", "degC", "degC"});
+createPlot(id=1, position={0, 0, 1477, 690}, y={"datRea.y[5]", "senTemOut.port_b.m_flow"}, range={18300000.0, 19550000.0, -0.1, 0.20000000000000004}, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}}, displayUnits={"", "kg/s"});
+

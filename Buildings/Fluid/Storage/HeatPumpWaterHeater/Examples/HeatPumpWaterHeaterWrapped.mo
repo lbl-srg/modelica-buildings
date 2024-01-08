@@ -88,8 +88,7 @@ model HeatPumpWaterHeaterWrapped
     use_p_in=true,
     p=300000,
     nPorts=1)
-    annotation (Placement(transformation(extent={{82,-14},
-            {62,6}})));
+    annotation (Placement(transformation(extent={{84,-14},{64,6}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature TBCTop1
     "Boundary condition for tank" annotation (Placement(transformation(extent={{-40,-66},
             {-28,-54}})));
@@ -128,10 +127,10 @@ equation
       points={{-79,0},{-72,0}},
       color={0,0,127}));
   connect(P.y,sin_1. p_in) annotation (Line(
-      points={{81,40},{92,40},{92,4},{84,4}},
+      points={{81,40},{92,40},{92,4},{86,4}},
       color={0,0,127}));
   connect(res_1.port_b, sin_1.ports[1])
-    annotation (Line(points={{58,-4},{62,-4}}, color={0,127,255}));
+    annotation (Line(points={{58,-4},{64,-4}}, color={0,127,255}));
   connect(sine.y,TBCSid1. T) annotation (Line(points={{-53,-60},{-47.5,-60},{-47.5,
           -42},{-41.2,-42}},     color={0,0,127}));
   connect(sine.y,TBCTop1. T) annotation (Line(points={{-53,-60},{-41.2,-60}},

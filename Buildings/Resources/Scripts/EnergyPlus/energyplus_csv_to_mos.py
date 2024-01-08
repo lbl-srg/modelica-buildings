@@ -64,7 +64,10 @@ def energyplus_csv_to_mos(output_list, dat_file_name, step_size, final_time, sta
         for ele in di:
             if len(rowdata) > 0:
                 rowdata.append(",")
-            rowdata.append(ele['x'][start_index + i])
+            if ele == di[0]:
+                rowdata.append(ele['x'][start_index + i])
+            else:
+                rowdata.append(ele['x'][i])
         data.append(rowdata)
 
 

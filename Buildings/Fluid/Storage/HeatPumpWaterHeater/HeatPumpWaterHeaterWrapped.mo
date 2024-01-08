@@ -45,8 +45,8 @@ annotation(Dialog(group="Nominal conditions"));
             50,-10},{70,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorTop1
     "Heat port tank top (outside insulation)" annotation (Placement(
-        transformation(extent={{-12,68},{8,88}}),  iconTransformation(extent={{-12,68},
-            {8,88}})));
+        transformation(extent={{-10,70},{10,90}}), iconTransformation(extent={{-10,70},
+            {10,90}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow hea[datWT.nSegCon]
     "Heat input to the hot water tank"
     annotation (Placement(transformation(extent={{-26,-36},{-6,-16}})));
@@ -56,7 +56,7 @@ annotation(Dialog(group="Nominal conditions"));
 
   Modelica.Blocks.Math.Gain gai_m_flow(k=mAir_flow_nominal)
     "Nominal mass flow rate"
-    annotation (Placement(transformation(extent={{-24,10},{-4,30}})));
+    annotation (Placement(transformation(extent={{-30,10},{-10,30}})));
   Modelica.Blocks.Interfaces.BooleanInput on
     "Heat pump water heater on/off signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
@@ -97,11 +97,17 @@ annotation(Dialog(group="Nominal conditions"));
     annotation (Placement(transformation(extent={{24,50},{44,70}})));
 
   Modelica.Blocks.Math.Add add
-    annotation (Placement(transformation(extent={{72,-50},{92,-30}})));
+    annotation (Placement(transformation(extent={{70,-50},{90,-30}})));
 
+  Buildings.Utilities.IO.SignalExchange.Overwrite overwrite(description=
+        "Water heating coil condenser temperature")
+    annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TConSen
+    "Temperature that represents the condensing temperature"
+    annotation (Placement(transformation(extent={{-32,-84},{-52,-64}})));
 protected
   Modelica.Blocks.Sources.RealExpression QCon[datWT.nSegCon](each final y=(-
-        sinSpeDXCoo.dxCoi.Q_flow + sinSpeDXCoo.P)/datWT.nSegCon)
+        sinSpeDXCoo.dxCoi.Q_flow)/datWT.nSegCon)
     "Signal of total heat flow removed by condenser" annotation (Placement(
         transformation(extent={{-10,-10},{10,10}}, origin={-50,-26})));
 
@@ -118,8 +124,6 @@ equation
     annotation (Line(points={{100,-60},{36,-60},{36,-36}}, color={0,127,255}));
   connect(tan1.port_a, port_b2) annotation (Line(points={{36,-16},{36,-10},{-80,
           -10},{-80,-60},{-100,-60}}, color={0,127,255}));
-  connect(TSen.T, sinSpeDXCoo.TOut) annotation (Line(points={{-51,-48},{-72,-48},
-          {-72,63},{-51,63}},color={0,0,127}));
   connect(TSen.port, tan1.heaPorVol[datWT.segTemSen]) annotation (Line(points={{-30,-48},{14,-48},
           {14,-26},{36,-26}},
                             color={191,0,0}));
@@ -128,11 +132,11 @@ equation
   connect(tan1.heaPorSid, heaPorSid1) annotation (Line(points={{41.6,-26},{70,
           -26},{70,0},{60,0}}, color={191,0,0}));
   connect(tan1.heaPorTop, heaPorTop1) annotation (Line(points={{38,-18.6},{38,2},
-          {-2,2},{-2,78}},    color={191,0,0}));
+          {0,2},{0,80}},      color={191,0,0}));
   connect(yMov.y, gai_m_flow.u)
-    annotation (Line(points={{-39,20},{-26,20}},
+    annotation (Line(points={{-39,20},{-32,20}},
                                               color={0,0,127}));
-  connect(gai_m_flow.y, fan.m_flow_in) annotation (Line(points={{-3,20},{20,20},
+  connect(gai_m_flow.y, fan.m_flow_in) annotation (Line(points={{-9,20},{20,20},
           {20,76},{34,76},{34,72}}, color={0,0,127}));
   connect(TSen.T, TWat) annotation (Line(points={{-51,-48},{-64,-48},{-64,0},{110,
           0}}, color={0,0,127}));
@@ -141,10 +145,10 @@ equation
   connect(on, sinSpeDXCoo.on) annotation (Line(points={{-120,0},{-80,0},{-80,68},
           {-51,68}}, color={255,0,255}));
   connect(add.y, P)
-    annotation (Line(points={{93,-40},{110,-40}}, color={0,0,127}));
-  connect(add.u1, fan.P) annotation (Line(points={{70,-34},{48,-34},{48,69},{45,
+    annotation (Line(points={{91,-40},{110,-40}}, color={0,0,127}));
+  connect(add.u1, fan.P) annotation (Line(points={{68,-34},{48,-34},{48,69},{45,
           69}}, color={0,0,127}));
-  connect(add.u2, sinSpeDXCoo.P) annotation (Line(points={{70,-46},{8,-46},{8,
+  connect(add.u2, sinSpeDXCoo.P) annotation (Line(points={{68,-46},{8,-46},{8,
           69},{-29,69}}, color={0,0,127}));
   connect(port_b2, port_b2) annotation (Line(points={{-100,-60},{-92,-60},{-92,
           -60},{-100,-60}}, color={0,127,255}));
@@ -153,6 +157,14 @@ equation
                                                  color={191,0,0}));
   connect(QCon.y, hea.Q_flow) annotation (Line(points={{-39,-26},{-32,-26},{-32,
           -26},{-26,-26}}, color={0,0,127}));
+  connect(heaPorTop1, heaPorTop1)
+    annotation (Line(points={{0,80},{0,80}}, color={191,0,0}));
+  connect(overwrite.y, sinSpeDXCoo.TOut) annotation (Line(points={{-99,40},{-74,
+          40},{-74,63},{-51,63}}, color={0,0,127}));
+  connect(TConSen.port, tan1.heaPorVol[9]) annotation (Line(points={{-32,-74},{
+          2,-74},{2,-26},{36,-26}}, color={191,0,0}));
+  connect(TConSen.T, overwrite.u) annotation (Line(points={{-53,-74},{-142,-74},
+          {-142,40},{-122,40}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -80},{100,80}}),                                    graphics={
         Rectangle(
