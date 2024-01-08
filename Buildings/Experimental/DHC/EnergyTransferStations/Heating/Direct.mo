@@ -1,5 +1,5 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.Heating;
-model Direct "Direct cooling ETS model for district energy systems with in-building 
+model Direct "Direct heating ETS model for district energy systems with in-building 
   pumping and deltaT control"
   extends
     Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.PartialDirect(
@@ -21,12 +21,12 @@ equation
     defaultComponentName="etsCoo",
     Documentation(info="<html>
 <p>
-Direct cooling energy transfer station (ETS) model with in-building pumping and 
-deltaT control. The design is based on a typical district cooling ETS described 
-in ASHRAE's <a href=\"https://www.ashrae.org/technical-resources/bookstore/district-heating-and-cooling-guides\">District Cooling Guide</a>. 
+Direct heating energy transfer station (ETS) model with in-building pumping and 
+deltaT control. The design is based on a typical district heating ETS described 
+in ASHRAE's <a href=\"https://www.ashrae.org/technical-resources/bookstore/district-heating-and-cooling-guides\">District Heating Guide</a>. 
 As shown in the figure below, the district and building piping are hydronically 
 coupled. The control valve ensures that the return temperature to the district 
-cooling network is at or above the minimum specified value. This configuration 
+heating network is at or below the maximum specified value. This configuration 
 naturally results in a fluctuating building supply tempearture. 
 </p>
 <p align=\"center\">
@@ -35,13 +35,18 @@ naturally results in a fluctuating building supply tempearture.
 <h4>
 Reference
 </h4>
-<p>American Society of Heating, Refrigeration and Air-Conditioning Engineers. (2019). 
-Chapter 5: End User Interface. In <i>District Cooling Guide</i>, Second Edition and 
-<i>Owner's Guide for Buildings Served by District Cooling</i>. 
+<p>
+American Society of Heating, Refrigeration and Air-Conditioning Engineers. (2013). 
+Chapter 5: Consumer Interconnection. In <i>District Heating Guide</i>. 
 </p>
 </html>",
       revisions="<html>
 <ul>
+<li>
+January 8, 2024, by David Blum:<br/>
+Correct documentation to describe heating.
+This is for xxxx.
+</li>
 <li>
 April 7, 2023, by David Blum:<br/>
 First implementation.
