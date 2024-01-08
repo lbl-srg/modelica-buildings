@@ -495,7 +495,7 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">Buildings.Experimental.DHC.Plants.Reservoir.Borefield
     </td>
     <td valign=\"top\">Moved to Buildings.Experimental.DHC.Examples.Combined.BaseClasses.BoreField
-                       <a href=\"Modelica://Buildings.Experimental.DHC.Examples.Combined.BaseClasses.BoreField\">.<br/>
+                       <a href=\"Modelica://Buildings.Experimental.DHC.Examples.Combined.BaseClasses.BoreField\"></a>.<br/>
                      This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3628\">#3628</a>.<br/>
                      This change is supported in the conversion script.
     </td>
