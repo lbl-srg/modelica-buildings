@@ -339,6 +339,23 @@ have been <b style=\"color:blue\">improved</b> in a
                      This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1781\">IBPSA, #1781</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.EnergyTransferStations.Heating</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.Heating.Direct
+    </td>
+    <td valign=\"top\">Documentation corrected for heating.
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3628\">issue 3628</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.Heating.Indirect
+    </td>
+    <td valign=\"top\">Documentation corrected for heating.
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3628\">issue 3628</a>.
+    </td>
+</tr>    
 <tr><td colspan=\"2\"><b>Buildings.Templates</b>
     </td>
 </tr>
@@ -472,6 +489,14 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">The class has been moved to Buildings.Templates.Components.Controls.MultipleCommands.<br/>
                      This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3536\">#3536</a>.<br/>
+                     This change is supported in the conversion script.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Plants.Reservoir.Borefield
+    </td>
+    <td valign=\"top\">Moved to Buildings.Experimental.DHC.Examples.Combined.BaseClasses.BoreField
+                       <a href=\"Modelica://Buildings.Experimental.DHC.Examples.Combined.BaseClasses.BoreField\"></a>.<br/>
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3628\">#3628</a>.<br/>
                      This change is supported in the conversion script.
     </td>
 </tr>
