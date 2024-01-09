@@ -9,8 +9,9 @@ The package <code>Buildings.Experimental.DHC</code> consists of models
 for district heating and cooling (DHC) systems. The package contains models 
 at the component, sub-system, and system level, which can be used as 
 templates and/or for generating custom system models.  Generally, the 
-models are capable of representing any generation of DHC (1st-5th), 
-though template models are not specifically available for all system types.  
+model structures are capable of representing any generation of DHC (1st-5th), 
+though template models are not specifically available for all system types
+and combinations of technology.  
 </p>
 <p>
 The structure of the package is such that it decomposes a DHC into four 
