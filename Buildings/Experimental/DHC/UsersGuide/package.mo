@@ -223,16 +223,26 @@ details.
     Buildings.Experimental.DHC.Networks</a>
     </td>
 </tr>
-<tr><td valign=\"top\" rowspan=\"2\">xxxx
+<tr><td valign=\"top\" rowspan=\"4\">xxxx
     </td>
-    <td valign=\"top\">xxxx
+    <td valign=\"top\">Distribution1PipeAutosize
     </td>
-    <td valign=\"top\">This is a description.
+    <td valign=\"top\">1-Pipe distribution system with flow friction modeled between ETS determined with autosizing.
     </td>
 </tr>
-<tr><td valign=\"top\">xxxx
+<tr><td valign=\"top\">Distribution1PipePlugFlow
     </td>
-    <td valign=\"top\">This is a description.
+    <td valign=\"top\">1-Pipe distribution system with fluid heat transfer modeled between ETS determined by external model (e.g. ground).
+    </td>
+</tr>   
+<tr><td valign=\"top\">Distribution2PipeAutosize
+    </td>
+    <td valign=\"top\">2-Pipe distribution system with flow friction modeled between ETS determined with autosizing.
+    </td>
+</tr>   
+<tr><td valign=\"top\">Distribution2PipePlugFlow
+    </td>
+    <td valign=\"top\">2-Pipe distribution system with fluid heat transfer modeled between ETS determined by external model (e.g. ground).
     </td>
 </tr>        
     
