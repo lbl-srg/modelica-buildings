@@ -135,7 +135,7 @@ equation
 <p>
 This model represents a hydronic arrangement avoid flow reversal in the service line,
 for instance when connecting an energy transfer station such as the one modeled in
-<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger\">
+<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger_Current\">
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger</a>.
 For that intent, two three-port two-position directional valves are used. The valves are
 actuated based on the logic described in
