@@ -1,4 +1,4 @@
-within Buildings.Experimental.DHC.Plants.Reservoir;
+within Buildings.Experimental.DHC.Examples.Combined.BaseClasses;
 model BoreField "Geothermal borefield model"
   extends Buildings.Fluid.Geothermal.Borefields.TwoUTubes(
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -78,6 +78,13 @@ double U-tube parallel configuration.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+January 8, 2024, by David Blum:<br/>
+Moved to <code>Buildings.Experimental.DHC.Examples.Combined.BaseClasses.BoreField</code>.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3628\">
+issue 3628</a>.
+</li>
 <li>
 May 31, 2023, by Michael Wetter:<br/>
 Removed <code>final</code> modifier for <code>borFieDat</code> to allow record to be replaced

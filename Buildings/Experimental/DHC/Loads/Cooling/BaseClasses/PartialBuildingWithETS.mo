@@ -50,14 +50,14 @@ model PartialBuildingWithETS
   parameter Real yMin=0
     "Lower limit of output"
     annotation (Dialog(group="PID controller"));
-  Modelica.Blocks.Interfaces.RealInput TSetDisRet(
+  Modelica.Blocks.Interfaces.RealInput TDisRetSet(
      final unit="K",
      displayUnit="degC")
     "Setpoint for the minimum district return temperature"
     annotation (Placement(transformation(extent={{-340,20},{-300,-20}}),
         iconTransformation(extent={{-120,60},{-100,80}})));
 equation
-  connect(TSetDisRet, ets.TSetDisRet) annotation (Line(points={{-320,0},{-64,0},
+  connect(TDisRetSet,ets.TDisRetSet)  annotation (Line(points={{-320,0},{-64,0},
           {-64,-56},{-31.8,-56}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
