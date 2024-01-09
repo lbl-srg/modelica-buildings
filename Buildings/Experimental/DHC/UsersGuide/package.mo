@@ -16,7 +16,7 @@ though template models are not specifically available for all system types.
 The structure of the package is such that it decomposes a DHC into four 
 primary sub-systems each with their own sub-packages 
 as described in the Table below: 
-Energy Transfer Stations, Loads, Networks, and Plants.  
+Energy Transfer Stations (ETS), Loads, Networks, and Plants.  
 In addition to these sub-packages, the sub-package 
 <a href=\"modelica://Buildings.Experimental.DHC.Examples\">
 Buildings.Experimental.DHC.Examples</a>
@@ -123,26 +123,26 @@ details.
     </td>
     <td valign=\"top\">BuildingTimeSeriesWithETS
     </td>
-    <td valign=\"top\">Model of a building with loads provided as time series, connected to an ETS.
+    <td valign=\"top\">Building with loads provided as time series, connected to an ETS with heat pump for space heating, heat pump for domestic hot water, and a heat exchanger for cooling water.
     </td>
 </tr>
 <tr><td valign=\"top\">BuildingTimeSeriesWithETSWithDHWTank
     </td>
-    <td valign=\"top\">Model of a building with loads provided as time series, connected to an ETS with domestic hot water storage tank.
+    <td valign=\"top\">Building with loads provided as time series, connected to an ETS with heat pump for space heating, heat pump with storage tank and heat exchanger for domestic hot water, and a heat exchanger for cooling water.
     </td>
 </tr>
 <tr><td valign=\"top\" rowspan=\"1\">Cooling
     </td>
     <td valign=\"top\">BuildingTimeSeriesWithETS
     </td>
-    <td valign=\"top\">Model of a building with loads provided as time series, connected to an ETS for cooling.
+    <td valign=\"top\">Building with loads provided as time series, connected to an ETS with direct connection for chilled water supply to the building.
     </td>
 </tr>       
 <tr><td valign=\"top\" rowspan=\"1\">Heating
     </td>
     <td valign=\"top\">BuildingTimeSeriesWithETS
     </td>
-    <td valign=\"top\">Model of a building with loads provided as time series, connected to an ETS for heating.
+    <td valign=\"top\">Building with loads provided as time series, connected to an ETS with direct connection for heating water supply to the building.
     </td>
 </tr>
 <tr><td valign=\"top\" rowspan=\"3\">HotWater
@@ -179,41 +179,41 @@ details.
     </td>
     <td valign=\"top\">ChillerBorefield
     </td>
-    <td valign=\"top\">ETS model for 5GDHC systems with heat recovery chiller and optional borefield.
+    <td valign=\"top\">ETS with heat recovery chiller and optional borefield.
     </td>
 </tr>
 <tr><td valign=\"top\">HeatPumpHeatExchanger
     </td>
-    <td valign=\"top\">Model of a substation with heat pump for heating, heat pump for domestic hot water, and compressor-less cooling.
+    <td valign=\"top\">ETS with heat pump for heating, heat pump for domestic hot water, and compressor-less cooling by heat exchanger.
     </td>
 </tr>
 <tr><td valign=\"top\">HeatPumpHeatExchangerDHWTank
     </td>
-    <td valign=\"top\">Model of a substation with heat pump for heating, heat pump with storage tank for domestic hot water, and compressor-less cooling.
+    <td valign=\"top\">ETS with heat pump for heating, heat pump with storage tank and heat exchanger for domestic hot water, and compressor-less cooling by heat exchanger.
     </td>
 </tr>
 <tr><td valign=\"top\" rowspan=\"2\">Cooling
     </td>
     <td valign=\"top\">Direct
     </td>
-    <td valign=\"top\">Direct cooling ETS model for district energy systems with in-building pumping and deltaT control.
+    <td valign=\"top\">ETS with direct connection and district return water temperature control. In-building pumping not modeled.
     </td>
 </tr>
 <tr><td valign=\"top\">Indirect
     </td>
-    <td valign=\"top\">Indirect cooling energy transfer station for district energy systems.
+    <td valign=\"top\">ETS with indirect connection with heat exchanger and building supply water temperature control. In-building pumping not modeled.
     </td>
 </tr>    
 <tr><td valign=\"top\" rowspan=\"2\">Heating
     </td>
     <td valign=\"top\">Direct
     </td>
-    <td valign=\"top\">Direct heating ETS model for district energy systems with in-building pumping and deltaT control.
+    <td valign=\"top\">ETS with direct connection and district return water temperature control. In-building pumping not modeled.
     </td>
 </tr>
 <tr><td valign=\"top\">Indirect
     </td>
-    <td valign=\"top\">Indirect heating energy transfer station for district energy systems.
+    <td valign=\"top\">ETS with indirect connection with heat exchanger and building supply water temperature control. In-building pumping not modeled.
     </td>
 </tr>
 
@@ -244,33 +244,33 @@ details.
     </td>
     <td valign=\"top\">AllElectricCWStorage
     </td>
-    <td valign=\"top\">All-electric CHW and HW plant with CW storage.
+    <td valign=\"top\">All-electric chilled water and heating water production plant with heat recovery chillers and condenser water storage.
     </td>
 </tr>     
 <tr><td valign=\"top\" rowspan=\"2\">Cooling
     </td>
     <td valign=\"top\">ElectricChillerParallel
     </td>
-    <td valign=\"top\">District cooling plant model.
+    <td valign=\"top\">Chilled water production plant with parallel chillers and parallel cooling towers.
     </td>
 </tr>
 <tr><td valign=\"top\">StoragePlant
     </td>
-    <td valign=\"top\">Model of a storage plant with a chiller and a CHW tank.
+    <td valign=\"top\">Chilled water storage tank system which can be charged by local chiller or remotely from district.
     </td>
 </tr>
 <tr><td valign=\"top\" rowspan=\"1\">Heating
     </td>
     <td valign=\"top\">SewageHeatRecovery
     </td>
-    <td valign=\"top\">Model for sewage heat recovery plant.
+    <td valign=\"top\">Heating water production plant using sewage heat recovery.
     </td>
 </tr>
 <tr><td valign=\"top\" rowspan=\"1\">Steam
     </td>
     <td valign=\"top\">SingleBoiler
     </td>
-    <td valign=\"top\">A generic steam plant with a single boiler that discharges saturated steam.
+    <td valign=\"top\">Steam plant with a single boiler that discharges saturated steam.
     </td>
 </tr>
 
@@ -283,12 +283,12 @@ details.
     </td>
     <td valign=\"top\">SeriesConstantFlow
     </td>
-    <td valign=\"top\">Example of series connection with constant district water mass flow rate.
+    <td valign=\"top\">Example of ambient network, so-called \"Reservoir Network\", with constant district water mass flow rate.
     </td>
 </tr>
 <tr><td valign=\"top\">SeriesVariableFlow
     </td>
-    <td valign=\"top\">Example of series connection with variable district water mass flow rate.
+    <td valign=\"top\">Example of ambient network, so-called \"Reservoir Network\", with variable district water mass flow rate.
     </td>
 </tr>
 <tr><td valign=\"top\" rowspan=\"1\">Cooling
@@ -302,7 +302,7 @@ details.
     </td>
     <td valign=\"top\">SingleBoiler
     </td>
-    <td valign=\"top\">Example model for a complete steam district heating system with a central plant that contains a single boiler.
+    <td valign=\"top\">Example model for a steam district heating system with a central plant boiler producing steam that is distributed to each building.
     </td>
 </tr>
 
