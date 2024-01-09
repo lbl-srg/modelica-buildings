@@ -298,11 +298,10 @@ protected
   Buildings.Controls.OBC.CDL.Routing.RealExtractor curDisChi(
     final nin=nChi)
     "Current disabling chiller"
-    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
+    annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
   Buildings.Controls.OBC.CDL.Reals.LessThreshold lesEquThr(
-    final t=0.5)
-    "Check if the disabled chiller has chilled water request"
-    annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
+    final t=0.5) "Check if the disabled chiller has not chilled water request"
+    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Buildings.Controls.OBC.CDL.Logical.And and4 "Logical and"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Buildings.Controls.OBC.CDL.Logical.Switch logSwi2 "Logical switch"
@@ -312,7 +311,7 @@ protected
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep4(
     final nout=nChi)
     "Replicate boolean input"
-    annotation (Placement(transformation(extent={{40,70},{60,90}})));
+    annotation (Placement(transformation(extent={{60,70},{80,90}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi[nChi]
     "Chilled water isolvation valve position"
     annotation (Placement(transformation(extent={{140,70},{160,90}})));
@@ -322,13 +321,13 @@ protected
   Buildings.Controls.OBC.CDL.Routing.RealExtractor curDisChi1(
     final nin=nChi)
     "Current disabling chiller"
-    annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
+    annotation (Placement(transformation(extent={{-100,-130},{-80,-110}})));
   Buildings.Controls.OBC.CDL.Reals.LessThreshold lesEquThr1(
     final t=0.5)
     "Check if the disabled chiller is not requiring condenser water"
-    annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));
+    annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
   Buildings.Controls.OBC.CDL.Logical.And and5 "Logical and"
-    annotation (Placement(transformation(extent={{60,-130},{80,-110}})));
+    annotation (Placement(transformation(extent={{80,-130},{100,-110}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(
     final nout=nChi)
     "Replicate boolean input"
@@ -371,6 +370,10 @@ protected
     "Logical and"
     annotation (Placement(transformation(extent={{120,-130},{140,-110}})));
 
+  CDL.Logical.And                        and6 "Logical and"
+    annotation (Placement(transformation(extent={{60,-20},{80,0}})));
+  CDL.Logical.And                        and7 "Logical and"
+    annotation (Placement(transformation(extent={{-26,-130},{-6,-110}})));
 equation
   connect(nexChi.yEnaSmaChi,dowSta. nexEnaChi)
     annotation (Line(points={{-18,331},{30,331},{30,226},{58,226}},
@@ -379,41 +382,38 @@ equation
     annotation (Line(points={{58,222},{-60,222},{-60,100},{-300,100}},
       color={0,0,127}));
   connect(nexChi.yLasDisChi,dowSta. nexDisChi)
-    annotation (Line(points={{-18,336},{20,336},{20,220},{58,220}},
+    annotation (Line(points={{-18,334},{20,334},{20,220},{58,220}},
       color={255,127,0}));
   connect(uChiWatReq, booToRea1.u)
     annotation (Line(points={{-300,-10},{-242,-10}}, color={255,0,255}));
   connect(booToRea1.y, curDisChi.u)
-    annotation (Line(points={{-218,-10},{-82,-10}}, color={0,0,127}));
+    annotation (Line(points={{-218,-10},{-102,-10}},color={0,0,127}));
   connect(curDisChi.y, lesEquThr.u)
-    annotation (Line(points={{-58,-10},{-42,-10}}, color={0,0,127}));
+    annotation (Line(points={{-78,-10},{-62,-10}}, color={0,0,127}));
   connect(nexChi.yOnOff, logSwi2.u2)
-    annotation (Line(points={{-18,340},{0,340},{0,20},{58,20}},
+    annotation (Line(points={{-18,337},{0,337},{0,20},{58,20}},
       color={255,0,255}));
   connect(and4.y, logSwi2.u1)
     annotation (Line(points={{-18,30},{40,30},{40,28},{58,28}},
       color={255,0,255}));
   connect(nexChi.yLasDisChi, curDisChi.index)
-    annotation (Line(points={{-18,336},{20,336},{20,120},{-140,120},{-140,-30},{
-          -70,-30},{-70,-22}},
+    annotation (Line(points={{-18,334},{20,334},{20,120},{-140,120},{-140,-30},
+          {-90,-30},{-90,-22}},
                             color={255,127,0}));
-  connect(lesEquThr.y, and1.u2)
-    annotation (Line(points={{-18,-10},{120,-10},{120,12},{138,12}},
-      color={255,0,255}));
   connect(logSwi2.y, and1.u1)
     annotation (Line(points={{82,20},{138,20}}, color={255,0,255}));
   connect(nexChi.yLasDisChi, disChiIsoVal.nexChaChi)
-    annotation (Line(points={{-18,336},{20,336},{20,68},{198,68}},
+    annotation (Line(points={{-18,334},{20,334},{20,68},{198,68}},
       color={255,127,0}));
   connect(and1.y,disChiIsoVal.uUpsDevSta)
     annotation (Line(points={{162,20},{180,20},{180,55},{198,55}},
       color={255,0,255}));
   connect(nexChi.yOnOff, booRep4.u)
-    annotation (Line(points={{-18,340},{0,340},{0,80},{38,80}}, color={255,0,255}));
+    annotation (Line(points={{-18,337},{0,337},{0,80},{58,80}}, color={255,0,255}));
   connect(booRep4.y, swi.u2)
-    annotation (Line(points={{62,80},{138,80}}, color={255,0,255}));
+    annotation (Line(points={{82,80},{138,80}}, color={255,0,255}));
   connect(uChiWatIsoVal, swi.u3)
-    annotation (Line(points={{-300,100},{80,100},{80,72},{138,72}},
+    annotation (Line(points={{-300,100},{88,100},{88,72},{138,72}},
       color={0,0,127}));
   connect(dowSta.yChiWatIsoVal, swi.u1)
     annotation (Line(points={{82,228},{96,228},{96,88},{138,88}},
@@ -424,21 +424,23 @@ equation
   connect(uConWatReq, booToRea2.u)
     annotation (Line(points={{-300,-120},{-242,-120}}, color={255,0,255}));
   connect(booToRea2.y, curDisChi1.u)
-    annotation (Line(points={{-218,-120},{-82,-120}},color={0,0,127}));
+    annotation (Line(points={{-218,-120},{-102,-120}},
+                                                     color={0,0,127}));
   connect(curDisChi1.y, lesEquThr1.u)
-    annotation (Line(points={{-58,-120},{-42,-120}}, color={0,0,127}));
+    annotation (Line(points={{-78,-120},{-62,-120}}, color={0,0,127}));
   connect(logSwi2.y, and5.u1)
-    annotation (Line(points={{82,20},{90,20},{90,-20},{10,-20},{10,-120},{58,-120}},
+    annotation (Line(points={{82,20},{90,20},{90,-50},{50,-50},{50,-120},{78,
+          -120}},
       color={255,0,255}));
   connect(uChi,dowSta. uChi)
     annotation (Line(points={{-300,220},{-200,220},{-200,234},{58,234}},
       color={255,0,255}));
   connect(nexChi.yLasDisChi, curDisChi1.index)
-    annotation (Line(points={{-18,336},{20,336},{20,120},{-140,120},{-140,-140},
-          {-70,-140},{-70,-132}},
+    annotation (Line(points={{-18,334},{20,334},{20,120},{-140,120},{-140,-140},
+          {-90,-140},{-90,-132}},
                               color={255,127,0}));
   connect(nexChi.yOnOff, booRep1.u)
-    annotation (Line(points={{-18,340},{0,340},{0,-70},{58,-70}},
+    annotation (Line(points={{-18,337},{0,337},{0,-70},{58,-70}},
       color={255,0,255}));
   connect(booRep1.y, logSwi.u2)
     annotation (Line(points={{82,-70},{138,-70}}, color={255,0,255}));
@@ -446,7 +448,7 @@ equation
     annotation (Line(points={{82,232},{100,232},{100,-62},{138,-62}},
       color={255,0,255}));
   connect(nexChi.yLasDisChi, disHeaCon.nexChaChi)
-    annotation (Line(points={{-18,336},{20,336},{20,-104},{198,-104}},
+    annotation (Line(points={{-18,334},{20,334},{20,-104},{198,-104}},
       color={255,127,0}));
   connect(logSwi.y, disHeaCon.uChiHeaCon)
     annotation (Line(points={{162,-70},{180,-70},{180,-108},{198,-108}},
@@ -476,7 +478,7 @@ equation
     annotation (Line(points={{-138,200},{-120,200},{-120,-311},{98,-311}},
       color={255,0,255}));
   connect(nexChi.yOnOff, minChiWatFlo.uOnOff)
-    annotation (Line(points={{-18,340},{0,340},{0,-327},{98,-327}},
+    annotation (Line(points={{-18,337},{0,337},{0,-327},{98,-327}},
       color={255,0,255}));
   connect(dowSta.yChiDem, yChiDem)
     annotation (Line(points={{82,239},{179.5,239},{179.5,260},{300,260}},
@@ -512,8 +514,8 @@ equation
     annotation (Line(points={{-158,360},{-140,360},{-140,328},{-260,328},{-260,12},
           {58,12}},       color={255,0,255}));
   connect(lat.y, disHeaCon.chaPro)
-    annotation (Line(points={{-158,360},{-140,360},{-140,328},{-260,328},{-260,-100},
-          {198,-100}},      color={255,0,255}));
+    annotation (Line(points={{-158,360},{-140,360},{-140,328},{-260,328},{-260,
+          -100},{198,-100}},color={255,0,255}));
   connect(lat.y, minChiWatFlo.uStaDow)
     annotation (Line(points={{-158,360},{-140,360},{-140,328},{-260,328},{-260,-329},
           {98,-329}},         color={255,0,255}));
@@ -544,7 +546,7 @@ equation
     annotation (Line(points={{-300,220},{-200,220},{-200,-316},{98,-316}},
       color={255,0,255}));
   connect(nexChi.yLasDisChi, minChiWatFlo.nexDisChi)
-    annotation (Line(points={{-18,336},{20,336},{20,-321},{98,-321}},
+    annotation (Line(points={{-18,334},{20,334},{20,-321},{98,-321}},
       color={255,127,0}));
   connect(nexChi.yEnaSmaChi, minChiWatFlo.nexEnaChi)
     annotation (Line(points={{-18,331},{30,331},{30,-319},{98,-319}},
@@ -610,7 +612,7 @@ equation
     annotation (Line(points={{222,-330},{240,-330},{240,-350},{60,-350},
       {60,-378},{98,-378}}, color={0,0,127}));
   connect(nexChi.yOnOff, dowSta.uOnOff)
-    annotation (Line(points={{-18,340},{0,340},{0,228},{58,228}},
+    annotation (Line(points={{-18,337},{0,337},{0,228},{58,228}},
       color={255,0,255}));
   connect(edg1.y, dowSta.clr)
     annotation (Line(points={{222,-370},{260,-370},{260,-390},{-190,-390},
@@ -622,8 +624,8 @@ equation
     annotation (Line(points={{222,-370},{260,-370},{260,-390},{-190,-390},
       {-190,-36},{198,-36}}, color={255,0,255}));
   connect(disHeaCon.yEnaHeaCon, lat4.u)
-    annotation (Line(points={{222,-94},{240,-94},{240,-114},{180,-114},
-      {180,-130},{198,-130}}, color={255,0,255}));
+    annotation (Line(points={{222,-94},{240,-94},{240,-114},{180,-114},{180,
+          -130},{198,-130}},  color={255,0,255}));
   connect(lat4.y, yTowStaDow)
     annotation (Line(points={{222,-130},{250,-130},{250,-60},{300,-60}},
       color={255,0,255}));
@@ -653,28 +655,40 @@ equation
   connect(uChiSta, disNexCWP.uChiSta)
     annotation (Line(points={{-300,160},{-150,160},{-150,-165},{98,-165}},
       color={255,127,0}));
-  connect(dowSta.uChiHeaCon, uChiHeaCon) annotation (Line(points={{58,224},{-100,
-          224},{-100,130},{-300,130}}, color={255,0,255}));
-  connect(uChiHeaCon, logSwi.u3) annotation (Line(points={{-300,130},{-100,130},
-          {-100,-86},{120,-86},{120,-78},{138,-78}}, color={255,0,255}));
+  connect(dowSta.uChiHeaCon, uChiHeaCon) annotation (Line(points={{58,224},{
+          -110,224},{-110,130},{-300,130}},
+                                       color={255,0,255}));
+  connect(uChiHeaCon, logSwi.u3) annotation (Line(points={{-300,130},{-110,130},
+          {-110,-86},{120,-86},{120,-78},{138,-78}}, color={255,0,255}));
   connect(conWatPumCon.uConWatPum, uConWatPum) annotation (Line(points={{138,-191},
           {70,-191},{70,-380},{-300,-380}}, color={255,0,255}));
-  connect(con.y, disHeaCon.uEnaPla) annotation (Line(points={{-138,200},{-120,200},
-          {-120,-92},{198,-92}}, color={255,0,255}));
+  connect(con.y, disHeaCon.uEnaPla) annotation (Line(points={{-138,200},{-120,
+          200},{-120,-92},{198,-92}},
+                                 color={255,0,255}));
   connect(con.y, conWatPumCon.uEnaPla) annotation (Line(points={{-138,200},{
           -120,200},{-120,-180},{138,-180}}, color={255,0,255}));
   connect(and5.y, and3.u1)
-    annotation (Line(points={{82,-120},{118,-120}}, color={255,0,255}));
+    annotation (Line(points={{102,-120},{118,-120}},color={255,0,255}));
   connect(and3.y, disHeaCon.uUpsDevSta) annotation (Line(points={{142,-120},{
           160,-120},{160,-96},{198,-96}}, color={255,0,255}));
   connect(lat3.y, and3.u2) annotation (Line(points={{222,-30},{240,-30},{240,
           -50},{110,-50},{110,-128},{118,-128}}, color={255,0,255}));
-  connect(lesEquThr1.y, and5.u2) annotation (Line(points={{-18,-120},{-10,-120},
-          {-10,-128},{58,-128}}, color={255,0,255}));
   connect(edg1.y, yEndStaTri)
     annotation (Line(points={{222,-370},{300,-370}}, color={255,0,255}));
   connect(edg1.y, nexChi.endPro) annotation (Line(points={{222,-370},{260,-370},
           {260,-390},{-190,-390},{-190,333},{-42,333}}, color={255,0,255}));
+  connect(lesEquThr.y, and6.u1)
+    annotation (Line(points={{-38,-10},{58,-10}}, color={255,0,255}));
+  connect(and6.y, and1.u2) annotation (Line(points={{82,-10},{120,-10},{120,12},
+          {138,12}}, color={255,0,255}));
+  connect(nexChi.yDow, and6.u2) annotation (Line(points={{-18,347},{10,347},{10,
+          -18},{58,-18}}, color={255,0,255}));
+  connect(and7.y, and5.u2) annotation (Line(points={{-4,-120},{40,-120},{40,
+          -128},{78,-128}}, color={255,0,255}));
+  connect(lesEquThr1.y, and7.u1)
+    annotation (Line(points={{-38,-120},{-28,-120}}, color={255,0,255}));
+  connect(nexChi.yDow, and7.u2) annotation (Line(points={{-18,347},{10,347},{10,
+          -18},{-32,-18},{-32,-128},{-28,-128}}, color={255,0,255}));
 annotation (
   defaultComponentName="dowProCon",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-280,-400},{280,400}})),

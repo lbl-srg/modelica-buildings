@@ -5,218 +5,267 @@ block NextChiller "Identify next enable and disable chillers"
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uStaSet
     "Chiller stage setpoint"
-    annotation (Placement(transformation(extent={{-260,110},{-220,150}}),
+    annotation (Placement(transformation(extent={{-280,110},{-240,150}}),
       iconTransformation(extent={{-140,50},{-100,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiSet[nChi]
     "Vector of chillers status setpoint"
-    annotation (Placement(transformation(extent={{-260,-40},{-220,0}}),
+    annotation (Placement(transformation(extent={{-280,-40},{-240,0}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput endPro
     "True: the staging process is end"
-    annotation (Placement(transformation(extent={{-260,-180},{-220,-140}}),
+    annotation (Placement(transformation(extent={{-280,-180},{-240,-140}}),
       iconTransformation(extent={{-140,-90},{-100,-50}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yUp
+    "True if it is in staging up process"
+    annotation (Placement(transformation(extent={{240,180},{280,220}}),
+        iconTransformation(extent={{100,70},{140,110}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDow
+    "True if it is in staging down process"
+    annotation (Placement(transformation(extent={{240,120},{280,160}}),
+        iconTransformation(extent={{100,50},{140,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yNexEnaChi
     "Next enabling chiller index"
-    annotation (Placement(transformation(extent={{220,140},{260,180}}),
-      iconTransformation(extent={{100,70},{140,110}})));
+    annotation (Placement(transformation(extent={{240,70},{280,110}}),
+      iconTransformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yDisSmaChi
     "Smaller chiller to be disabled in staging-up process"
-    annotation (Placement(transformation(extent={{220,90},{260,130}}),
-      iconTransformation(extent={{100,20},{140,60}})));
+    annotation (Placement(transformation(extent={{240,20},{280,60}}),
+      iconTransformation(extent={{100,-12},{140,28}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yOnOff
     "True: if the stage change require one chiller to be enabled while another is disabled"
-    annotation (Placement(transformation(extent={{220,-40},{260,0}}),
-      iconTransformation(extent={{100,-20},{140,20}})));
+    annotation (Placement(transformation(extent={{240,-40},{280,0}}),
+      iconTransformation(extent={{100,-50},{140,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yLasDisChi
     "Disable last chiller when it is in stage-down process"
-    annotation (Placement(transformation(extent={{220,-120},{260,-80}}),
-      iconTransformation(extent={{100,-60},{140,-20}})));
+    annotation (Placement(transformation(extent={{240,-120},{280,-80}}),
+      iconTransformation(extent={{100,-80},{140,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yEnaSmaChi
     "Smaller chiller to be enabled in stage-down process"
-    annotation (Placement(transformation(extent={{220,-180},{260,-140}}),
+    annotation (Placement(transformation(extent={{240,-170},{280,-130}}),
       iconTransformation(extent={{100,-110},{140,-70}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Change cha
-    "Check if it is stage up or stage down"
-    annotation (Placement(transformation(extent={{-200,120},{-180,140}})));
-  Buildings.Controls.OBC.CDL.Logical.Edge edg[nChi]
-    "Check if the chiller is being enabled"
-    annotation (Placement(transformation(extent={{-200,30},{-180,50}})));
-  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg[nChi]
-    "Check if the chiller is being disabled"
-    annotation (Placement(transformation(extent={{-200,-110},{-180,-90}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch enaChi[nChi]
-    "True when the chiller should be enabled"
-    annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch disChi[nChi]
-    "True when the chiller should be disabled"
-    annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr anyEnaChi(final nin=nChi)
-    "Check if there is any enabling chiller"
-    annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr anyDisChi(final nin=nChi)
-    "Check if there is any disabling chiller"
-    annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
-  Buildings.Controls.OBC.CDL.Logical.And enaDis
-    "Check if enabling and disabling chillers at the same process"
-    annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
-  Buildings.Controls.OBC.CDL.Integers.Multiply proInt[nChi]
-    "Find out the index of enabling chiller"
-    annotation (Placement(transformation(extent={{-20,30},{0,50}})));
-  Buildings.Controls.OBC.CDL.Integers.Multiply proInt1[nChi]
-    "Find out the index of disabling chiller"
-    annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
-  Buildings.Controls.OBC.CDL.Integers.MultiSum enaChiInd(final nin = nChi)
-    "Enabling chiller index"
-    annotation (Placement(transformation(extent={{20,30},{40,50}})));
-  Buildings.Controls.OBC.CDL.Integers.MultiSum disChiInd(final nin = nChi)
-    "Disabling chiller index"
-    annotation (Placement(transformation(extent={{20,-110},{40,-90}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch upPro
-    "True when it is in stage up process"
-    annotation (Placement(transformation(extent={{-120,150},{-100,170}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch dowPro
-    "True when it is in stage down process"
-    annotation (Placement(transformation(extent={{-120,80},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Integers.Multiply proInt2
-    "Find out the index of enabling chiller"
-    annotation (Placement(transformation(extent={{120,150},{140,170}})));
-  Buildings.Controls.OBC.CDL.Integers.Multiply proInt3
-    "Staging up process and it requires chiller on and off"
-    annotation (Placement(transformation(extent={{120,110},{140,130}})));
-  Buildings.Controls.OBC.CDL.Integers.Multiply proInt4
-    "Disabling chiller during stage up process"
-    annotation (Placement(transformation(extent={{180,100},{200,120}})));
-  Buildings.Controls.OBC.CDL.Integers.Multiply proInt5
-    "Find out the index of disabling chiller"
-    annotation (Placement(transformation(extent={{120,-110},{140,-90}})));
-  Buildings.Controls.OBC.CDL.Integers.Multiply proInt6
-    "Staging down process and it requires chiller on and off"
-    annotation (Placement(transformation(extent={{120,-150},{140,-130}})));
-  Buildings.Controls.OBC.CDL.Integers.Multiply proInt7
-    "Enabling chiller during stage down process"
-    annotation (Placement(transformation(extent={{180,-170},{200,-150}})));
 
 protected
   parameter Integer chiInd[nChi]={i for i in 1:nChi}
     "Chiller index, {1,2,...,n}";
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nChi]
     "Boolean to integer"
-    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
+    annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1[nChi]
     "Boolean to integer"
-    annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
+    annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt2
     "Boolean to integer"
-    annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
+    annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt3
     "Boolean to integer"
-    annotation (Placement(transformation(extent={{-80,150},{-60,170}})));
+    annotation (Placement(transformation(extent={{-100,150},{-80,170}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt4
     "Boolean to integer"
-    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
+    annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant chiIndVec[nChi](
-    final k=chiInd)
-    "Vector of chiller index"
-    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
+    final k=chiInd) "Vector of chiller index"
+    annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=nChi)
     "Replicate boolean input"
-    annotation (Placement(transformation(extent={{-160,-170},{-140,-150}})));
+    annotation (Placement(transformation(extent={{-180,-170},{-160,-150}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant one(
+    final k=1) "Constant 1"
+    annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
+  Buildings.Controls.OBC.CDL.Integers.Change cha
+    "Check if it is stage up or stage down"
+    annotation (Placement(transformation(extent={{-220,120},{-200,140}})));
+  Buildings.Controls.OBC.CDL.Logical.Edge edg[nChi]
+    "Check if the chiller is being enabled"
+    annotation (Placement(transformation(extent={{-220,30},{-200,50}})));
+  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg[nChi]
+    "Check if the chiller is being disabled"
+    annotation (Placement(transformation(extent={{-220,-110},{-200,-90}})));
+  Buildings.Controls.OBC.CDL.Logical.Latch enaChi[nChi]
+    "True when the chiller should be enabled"
+    annotation (Placement(transformation(extent={{-140,30},{-120,50}})));
+  Buildings.Controls.OBC.CDL.Logical.Latch disChi[nChi]
+    "True when the chiller should be disabled"
+    annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
+  Buildings.Controls.OBC.CDL.Logical.MultiOr anyEnaChi(final nin=nChi)
+    "Check if there is any enabling chiller"
+    annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
+  Buildings.Controls.OBC.CDL.Logical.MultiOr anyDisChi(final nin=nChi)
+    "Check if there is any disabling chiller"
+    annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
+  Buildings.Controls.OBC.CDL.Logical.And enaDis
+    "Check if enabling and disabling chillers at the same process"
+    annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
+  Buildings.Controls.OBC.CDL.Integers.Multiply proInt[nChi]
+    "Find out the index of enabling chiller"
+    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
+  Buildings.Controls.OBC.CDL.Integers.Multiply proInt1[nChi]
+    "Find out the index of disabling chiller"
+    annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
+  Buildings.Controls.OBC.CDL.Integers.MultiSum enaChiInd(final nin = nChi)
+    "Enabling chiller index"
+    annotation (Placement(transformation(extent={{0,30},{20,50}})));
+  Buildings.Controls.OBC.CDL.Integers.MultiSum disChiInd(final nin = nChi)
+    "Disabling chiller index"
+    annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
+  Buildings.Controls.OBC.CDL.Logical.Latch upPro
+    "True when it is in stage up process"
+    annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
+  Buildings.Controls.OBC.CDL.Logical.Latch dowPro
+    "True when it is in stage down process"
+    annotation (Placement(transformation(extent={{-140,70},{-120,90}})));
+  Buildings.Controls.OBC.CDL.Integers.Multiply proInt2
+    "Find out the index of enabling chiller"
+    annotation (Placement(transformation(extent={{80,80},{100,100}})));
+  Buildings.Controls.OBC.CDL.Integers.Multiply proInt3
+    "Staging up process and it requires chiller on and off"
+    annotation (Placement(transformation(extent={{80,20},{100,40}})));
+  Buildings.Controls.OBC.CDL.Integers.Multiply proInt4
+    "Disabling chiller during stage up process"
+    annotation (Placement(transformation(extent={{120,10},{140,30}})));
+  Buildings.Controls.OBC.CDL.Integers.Multiply proInt5
+    "Find out the index of disabling chiller"
+    annotation (Placement(transformation(extent={{80,-110},{100,-90}})));
+  Buildings.Controls.OBC.CDL.Integers.Multiply proInt6
+    "Staging down process and it requires chiller on and off"
+    annotation (Placement(transformation(extent={{80,-160},{100,-140}})));
+  Buildings.Controls.OBC.CDL.Integers.Multiply proInt7
+    "Enabling chiller during stage down process"
+    annotation (Placement(transformation(extent={{120,-180},{140,-160}})));
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi
+    "Output 1 when it is not in the staging up process"
+    annotation (Placement(transformation(extent={{200,30},{220,50}})));
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi1
+    "Output 1 when it is not in the staging up process"
+    annotation (Placement(transformation(extent={{200,80},{220,100}})));
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi2
+    "Output 1 when it is not in the staging down process"
+    annotation (Placement(transformation(extent={{200,-160},{220,-140}})));
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi3
+    "Output 1 when it is not in the staging down process"
+    annotation (Placement(transformation(extent={{200,-110},{220,-90}})));
 
 equation
-  connect(uChiSet, edg.u) annotation (Line(points={{-240,-20},{-210,-20},{-210,40},
-          {-202,40}},       color={255,0,255}));
+  connect(uChiSet, edg.u) annotation (Line(points={{-260,-20},{-230,-20},{-230,40},
+          {-222,40}},       color={255,0,255}));
   connect(edg.y, enaChi.u)
-    annotation (Line(points={{-178,40},{-122,40}},   color={255,0,255}));
+    annotation (Line(points={{-198,40},{-142,40}},   color={255,0,255}));
   connect(falEdg.y, disChi.u)
-    annotation (Line(points={{-178,-100},{-122,-100}}, color={255,0,255}));
-  connect(booRep.y, enaChi.clr) annotation (Line(points={{-138,-160},{-130,-160},
-          {-130,34},{-122,34}},   color={255,0,255}));
-  connect(booRep.y, disChi.clr) annotation (Line(points={{-138,-160},{-130,-160},
-          {-130,-106},{-122,-106}}, color={255,0,255}));
-  connect(enaChi.y, anyEnaChi.u) annotation (Line(points={{-98,40},{-90,40},{-90,
-          -20},{-82,-20}},color={255,0,255}));
-  connect(anyEnaChi.y, enaDis.u1) annotation (Line(points={{-58,-20},{-22,-20}},
+    annotation (Line(points={{-198,-100},{-142,-100}}, color={255,0,255}));
+  connect(booRep.y, enaChi.clr) annotation (Line(points={{-158,-160},{-150,-160},
+          {-150,34},{-142,34}},   color={255,0,255}));
+  connect(booRep.y, disChi.clr) annotation (Line(points={{-158,-160},{-150,-160},
+          {-150,-106},{-142,-106}}, color={255,0,255}));
+  connect(enaChi.y, anyEnaChi.u) annotation (Line(points={{-118,40},{-110,40},{-110,
+          -20},{-102,-20}}, color={255,0,255}));
+  connect(anyEnaChi.y, enaDis.u1) annotation (Line(points={{-78,-20},{-42,-20}},
                           color={255,0,255}));
-  connect(disChi.y, anyDisChi.u) annotation (Line(points={{-98,-100},{-90,-100},
-          {-90,-60},{-82,-60}},color={255,0,255}));
-  connect(anyDisChi.y, enaDis.u2) annotation (Line(points={{-58,-60},{-30,-60},{
-          -30,-28},{-22,-28}}, color={255,0,255}));
-  connect(enaDis.y, yOnOff) annotation (Line(points={{2,-20},{240,-20}},
+  connect(disChi.y, anyDisChi.u) annotation (Line(points={{-118,-100},{-110,-100},
+          {-110,-60},{-102,-60}}, color={255,0,255}));
+  connect(anyDisChi.y, enaDis.u2) annotation (Line(points={{-78,-60},{-50,-60},{
+          -50,-28},{-42,-28}}, color={255,0,255}));
+  connect(enaDis.y, yOnOff) annotation (Line(points={{-18,-20},{260,-20}},
                color={255,0,255}));
   connect(uStaSet, cha.u)
-    annotation (Line(points={{-240,130},{-202,130}}, color={255,127,0}));
+    annotation (Line(points={{-260,130},{-222,130}}, color={255,127,0}));
   connect(disChi.y, booToInt1.u)
-    annotation (Line(points={{-98,-100},{-82,-100}}, color={255,0,255}));
+    annotation (Line(points={{-118,-100},{-102,-100}}, color={255,0,255}));
   connect(enaChi.y, booToInt.u)
-    annotation (Line(points={{-98,40},{-82,40}}, color={255,0,255}));
-  connect(booToInt.y, proInt.u1) annotation (Line(points={{-58,40},{-40,40},{-40,
-          46},{-22,46}}, color={255,127,0}));
-  connect(booToInt1.y, proInt1.u2) annotation (Line(points={{-58,-100},{-40,-100},
-          {-40,-106},{-22,-106}}, color={255,127,0}));
-  connect(chiIndVec.y, proInt.u2) annotation (Line(points={{-98,0},{-40,0},{-40,
-          34},{-22,34}}, color={255,127,0}));
+    annotation (Line(points={{-118,40},{-102,40}}, color={255,0,255}));
+  connect(booToInt.y, proInt.u1) annotation (Line(points={{-78,40},{-60,40},{-60,
+          46},{-42,46}}, color={255,127,0}));
+  connect(booToInt1.y, proInt1.u2) annotation (Line(points={{-78,-100},{-60,-100},
+          {-60,-106},{-42,-106}}, color={255,127,0}));
+  connect(chiIndVec.y, proInt.u2) annotation (Line(points={{-118,0},{-60,0},{-60,
+          34},{-42,34}}, color={255,127,0}));
   connect(proInt.y, enaChiInd.u)
-    annotation (Line(points={{2,40},{18,40}}, color={255,127,0}));
-  connect(chiIndVec.y, proInt1.u1) annotation (Line(points={{-98,0},{-40,0},{-40,
-          -94},{-22,-94}}, color={255,127,0}));
+    annotation (Line(points={{-18,40},{-2,40}}, color={255,127,0}));
+  connect(chiIndVec.y, proInt1.u1) annotation (Line(points={{-118,0},{-60,0},{-60,
+          -94},{-42,-94}}, color={255,127,0}));
   connect(proInt1.y, disChiInd.u)
-    annotation (Line(points={{2,-100},{18,-100}}, color={255,127,0}));
-  connect(cha.up, upPro.u) annotation (Line(points={{-178,136},{-140,136},{-140,
-          160},{-122,160}}, color={255,0,255}));
-  connect(cha.down, dowPro.u) annotation (Line(points={{-178,124},{-140,124},{-140,
-          90},{-122,90}}, color={255,0,255}));
-  connect(enaDis.y, booToInt2.u) annotation (Line(points={{2,-20},{20,-20},{20,-60},
-          {38,-60}}, color={255,0,255}));
+    annotation (Line(points={{-18,-100},{-2,-100}}, color={255,127,0}));
+  connect(cha.up, upPro.u) annotation (Line(points={{-198,136},{-160,136},{-160,
+          160},{-142,160}}, color={255,0,255}));
+  connect(cha.down, dowPro.u) annotation (Line(points={{-198,124},{-160,124},{-160,
+          80},{-142,80}}, color={255,0,255}));
+  connect(enaDis.y, booToInt2.u) annotation (Line(points={{-18,-20},{-10,-20},{-10,
+          -60},{-2,-60}}, color={255,0,255}));
   connect(upPro.y, booToInt3.u)
-    annotation (Line(points={{-98,160},{-82,160}}, color={255,0,255}));
-  connect(booToInt3.y, proInt2.u1) annotation (Line(points={{-58,160},{-20,160},
-          {-20,166},{118,166}}, color={255,127,0}));
-  connect(enaChiInd.y, proInt2.u2) annotation (Line(points={{42,40},{80,40},{80,
-          154},{118,154}}, color={255,127,0}));
-  connect(proInt2.y, yNexEnaChi)
-    annotation (Line(points={{142,160},{240,160}}, color={255,127,0}));
-  connect(booToInt3.y, proInt3.u1) annotation (Line(points={{-58,160},{-20,160},
-          {-20,126},{118,126}},color={255,127,0}));
-  connect(booToInt2.y, proInt3.u2) annotation (Line(points={{62,-60},{70,-60},{70,
-          114},{118,114}},color={255,127,0}));
-  connect(proInt3.y, proInt4.u1) annotation (Line(points={{142,120},{160,120},{160,
-          116},{178,116}}, color={255,127,0}));
-  connect(disChiInd.y, proInt4.u2) annotation (Line(points={{42,-100},{90,-100},
-          {90,104},{178,104}}, color={255,127,0}));
-  connect(proInt4.y, yDisSmaChi)
-    annotation (Line(points={{202,110},{240,110}}, color={255,127,0}));
+    annotation (Line(points={{-118,160},{-102,160}}, color={255,0,255}));
+  connect(booToInt3.y, proInt2.u1) annotation (Line(points={{-78,160},{70,160},{
+          70,96},{78,96}},      color={255,127,0}));
+  connect(enaChiInd.y, proInt2.u2) annotation (Line(points={{22,40},{40,40},{40,
+          84},{78,84}},    color={255,127,0}));
+  connect(booToInt3.y, proInt3.u1) annotation (Line(points={{-78,160},{70,160},{
+          70,36},{78,36}},     color={255,127,0}));
+  connect(booToInt2.y, proInt3.u2) annotation (Line(points={{22,-60},{60,-60},{60,
+          24},{78,24}},       color={255,127,0}));
+  connect(proInt3.y, proInt4.u1) annotation (Line(points={{102,30},{110,30},{110,
+          26},{118,26}},   color={255,127,0}));
+  connect(disChiInd.y, proInt4.u2) annotation (Line(points={{22,-100},{50,-100},
+          {50,14},{118,14}},   color={255,127,0}));
   connect(dowPro.y, booToInt4.u)
-    annotation (Line(points={{-98,90},{-82,90}}, color={255,0,255}));
-  connect(booToInt4.y, proInt5.u1) annotation (Line(points={{-58,90},{100,90},{100,
-          -94},{118,-94}}, color={255,127,0}));
-  connect(disChiInd.y, proInt5.u2) annotation (Line(points={{42,-100},{90,-100},
-          {90,-106},{118,-106}}, color={255,127,0}));
-  connect(proInt5.y, yLasDisChi)
-    annotation (Line(points={{142,-100},{240,-100}}, color={255,127,0}));
-  connect(booToInt2.y, proInt6.u2) annotation (Line(points={{62,-60},{70,-60},{70,
-          -146},{118,-146}}, color={255,127,0}));
-  connect(booToInt4.y, proInt6.u1) annotation (Line(points={{-58,90},{100,90},{100,
-          -134},{118,-134}}, color={255,127,0}));
-  connect(proInt6.y, proInt7.u1) annotation (Line(points={{142,-140},{160,-140},
-          {160,-154},{178,-154}}, color={255,127,0}));
-  connect(enaChiInd.y, proInt7.u2) annotation (Line(points={{42,40},{80,40},{80,
-          -166},{178,-166}}, color={255,127,0}));
-  connect(proInt7.y, yEnaSmaChi)
-    annotation (Line(points={{202,-160},{240,-160}}, color={255,127,0}));
-  connect(endPro, dowPro.clr) annotation (Line(points={{-240,-160},{-170,-160},{
-          -170,84},{-122,84}}, color={255,0,255}));
-  connect(endPro, upPro.clr) annotation (Line(points={{-240,-160},{-170,-160},{-170,
-          154},{-122,154}}, color={255,0,255}));
+    annotation (Line(points={{-118,80},{-102,80}}, color={255,0,255}));
+  connect(booToInt4.y, proInt5.u1) annotation (Line(points={{-78,80},{30,80},{30,
+          -94},{78,-94}},  color={255,127,0}));
+  connect(disChiInd.y, proInt5.u2) annotation (Line(points={{22,-100},{50,-100},
+          {50,-106},{78,-106}},  color={255,127,0}));
+  connect(booToInt2.y, proInt6.u2) annotation (Line(points={{22,-60},{60,-60},{60,
+          -156},{78,-156}},      color={255,127,0}));
+  connect(booToInt4.y, proInt6.u1) annotation (Line(points={{-78,80},{30,80},{30,
+          -144},{78,-144}},  color={255,127,0}));
+  connect(proInt6.y, proInt7.u1) annotation (Line(points={{102,-150},{110,-150},
+          {110,-164},{118,-164}}, color={255,127,0}));
+  connect(enaChiInd.y, proInt7.u2) annotation (Line(points={{22,40},{40,40},{40,
+          -176},{118,-176}}, color={255,127,0}));
+  connect(endPro, dowPro.clr) annotation (Line(points={{-260,-160},{-190,-160},{
+          -190,74},{-142,74}}, color={255,0,255}));
+  connect(endPro, upPro.clr) annotation (Line(points={{-260,-160},{-190,-160},{-190,
+          154},{-142,154}}, color={255,0,255}));
   connect(endPro, booRep.u)
-    annotation (Line(points={{-240,-160},{-162,-160}}, color={255,0,255}));
-  connect(uChiSet, falEdg.u) annotation (Line(points={{-240,-20},{-210,-20},{
-          -210,-100},{-202,-100}}, color={255,0,255}));
+    annotation (Line(points={{-260,-160},{-182,-160}}, color={255,0,255}));
+  connect(uChiSet, falEdg.u) annotation (Line(points={{-260,-20},{-230,-20},{-230,
+          -100},{-222,-100}},      color={255,0,255}));
+  connect(upPro.y, yUp) annotation (Line(points={{-118,160},{-110,160},{-110,200},
+          {260,200}},color={255,0,255}));
+  connect(dowPro.y, yDow) annotation (Line(points={{-118,80},{-110,80},{-110,140},
+          {260,140}},color={255,0,255}));
+  connect(upPro.y, intSwi1.u2) annotation (Line(points={{-118,160},{-110,160},{-110,
+          200},{160,200},{160,90},{198,90}}, color={255,0,255}));
+  connect(proInt2.y, intSwi1.u1) annotation (Line(points={{102,90},{140,90},{140,
+          98},{198,98}}, color={255,127,0}));
+  connect(one.y, intSwi1.u3) annotation (Line(points={{102,-40},{180,-40},{180,82},
+          {198,82}}, color={255,127,0}));
+  connect(intSwi1.y, yNexEnaChi)
+    annotation (Line(points={{222,90},{260,90}}, color={255,127,0}));
+  connect(upPro.y, intSwi.u2) annotation (Line(points={{-118,160},{-110,160},{-110,
+          200},{160,200},{160,40},{198,40}}, color={255,0,255}));
+  connect(proInt4.y, intSwi.u1) annotation (Line(points={{142,20},{170,20},{170,
+          48},{198,48}}, color={255,127,0}));
+  connect(one.y, intSwi.u3) annotation (Line(points={{102,-40},{180,-40},{180,32},
+          {198,32}}, color={255,127,0}));
+  connect(intSwi.y, yDisSmaChi)
+    annotation (Line(points={{222,40},{260,40}}, color={255,127,0}));
+  connect(intSwi3.y, yLasDisChi)
+    annotation (Line(points={{222,-100},{260,-100}}, color={255,127,0}));
+  connect(dowPro.y, intSwi3.u2) annotation (Line(points={{-118,80},{-110,80},{-110,
+          140},{150,140},{150,-100},{198,-100}}, color={255,0,255}));
+  connect(dowPro.y, intSwi2.u2) annotation (Line(points={{-118,80},{-110,80},{-110,
+          140},{150,140},{150,-150},{198,-150}}, color={255,0,255}));
+  connect(proInt5.y, intSwi3.u1) annotation (Line(points={{102,-100},{140,-100},
+          {140,-92},{198,-92}}, color={255,127,0}));
+  connect(proInt7.y, intSwi2.u1) annotation (Line(points={{142,-170},{160,-170},
+          {160,-142},{198,-142}}, color={255,127,0}));
+  connect(intSwi2.y, yEnaSmaChi)
+    annotation (Line(points={{222,-150},{260,-150}}, color={255,127,0}));
+  connect(one.y, intSwi3.u3) annotation (Line(points={{102,-40},{180,-40},{180,-108},
+          {198,-108}}, color={255,127,0}));
+  connect(one.y, intSwi2.u3) annotation (Line(points={{102,-40},{180,-40},{180,-158},
+          {198,-158}}, color={255,127,0}));
 annotation (
   defaultComponentName="nexChi",
   Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-220,-180},{220,180}})),
+          extent={{-240,-220},{240,220}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
          graphics={
         Rectangle(
@@ -238,7 +287,7 @@ annotation (
           pattern=LinePattern.Dash,
           textString="uChiSet"),
         Text(
-          extent={{50,100},{98,80}},
+          extent={{50,50},{98,30}},
           textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="yNexEnaChi"),
@@ -248,12 +297,12 @@ annotation (
           pattern=LinePattern.Dash,
           textString="endPro"),
         Text(
-          extent={{50,52},{98,32}},
+          extent={{50,20},{98,0}},
           textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="yDisSmaChi"),
         Text(
-          extent={{50,-28},{98,-48}},
+          extent={{50,-48},{98,-68}},
           textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="yDisLasChi"),
@@ -263,14 +312,24 @@ annotation (
           pattern=LinePattern.Dash,
           textString="yEnaSmaChi"),
         Text(
-          extent={{54,8},{96,-4}},
+          extent={{54,-22},{96,-34}},
           textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="yOnOff"),
       Text(
         extent={{-100,100},{100,-100}},
         textColor={0,0,0},
-          textString="?")}),
+          textString="?"),
+        Text(
+          extent={{60,96},{102,84}},
+          textColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="yUp"),
+        Text(
+          extent={{60,76},{102,64}},
+          textColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="yDow")}),
 Documentation(info="<html>
 <p>
 This block identifies index of next enable (<code>yNexEnaChi</code> and 

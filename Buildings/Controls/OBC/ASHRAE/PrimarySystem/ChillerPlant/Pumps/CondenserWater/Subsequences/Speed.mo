@@ -108,6 +108,11 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1 if fixSpe
     "Convert real input to integer output"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
+  Buildings.Controls.OBC.CDL.Integers.AddParameter addPar(
+    final p=1)
+    if fixSpe
+    "Change the chiller stage index to the index for downstream selection"
+    annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 
 equation
   connect(con1.y,conWatPumSpe. u)
@@ -144,8 +149,6 @@ equation
       color={255,127,0}));
   connect(con4.y, add2.u2)
     annotation (Line(points={{-98,0},{-90,0},{-90,94},{-82,94}}, color={0,0,127}));
-  connect(uChiSta, conWatPumOn1.index) annotation (Line(points={{-160,100},{-130,
-          100},{-130,-80},{30,-80},{30,-72}},color={255,127,0}));
   connect(con5.y, conWatPumOn1.u)
     annotation (Line(points={{2,-60},{18,-60}}, color={0,0,127}));
   connect(conWatPumOn1.y, reaToInt1.u)
@@ -157,6 +160,10 @@ equation
   connect(con3.y, sub1.u2) annotation (Line(points={{-18,60},{-10,60},{-10,74},{
           -2,74}}, color={0,0,127}));
 
+  connect(addPar.y, conWatPumOn1.index)
+    annotation (Line(points={{-58,-80},{30,-80},{30,-72}}, color={255,127,0}));
+  connect(uChiSta, addPar.u) annotation (Line(points={{-160,100},{-130,100},{-130,
+          -80},{-82,-80}}, color={255,127,0}));
 annotation (
   defaultComponentName="conPumSpe",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
