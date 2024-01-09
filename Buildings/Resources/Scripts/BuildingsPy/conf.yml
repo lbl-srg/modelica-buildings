@@ -105,15 +105,9 @@
   openmodelica:
     comment: simulation terminated by an assertion at initialization
     simulate: false
-  optimica:
-    comment: FMUException Failed to update the events at time 0.000000E+00.
-    simulate: false
 - model_name: Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlow
   openmodelica:
     comment: simulation terminated by an assertion at initialization
-    simulate: false
-  optimica:
-    comment: FMUException Failed to update the events at time 0.000000E+00.
     simulate: false
 - model_name: Buildings.Experimental.DHC.Examples.Cooling.ElectricChillersDirectETS
   openmodelica:
@@ -141,9 +135,6 @@
 - model_name: Buildings.Experimental.DHC.Loads.Combined.Examples.BuildingTimeSeriesWithETSDHWTank
   openmodelica:
     comment: simulation terminated by an assertion at initialization [works ok in Ubuntu 20 with OM 1.22.0]
-    simulate: false
-  optimica:
-    comment: FMUException Failed to update the events at time 4.306206E+04
     simulate: false
 - model_name: Buildings.Experimental.DHC.Loads.Cooling.Examples.BuildingTimeSeriesWithETS
   openmodelica:
