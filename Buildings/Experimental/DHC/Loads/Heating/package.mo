@@ -5,7 +5,7 @@ package Heating "This package contains models for loads used in district heating
 annotation (Documentation(info="<html>
 <p>
 This package contains models of building loads that are used to
-build example models of district cooling systems.
+build example models of district heating systems.
 </p>
 </html>"));
 end Heating;
