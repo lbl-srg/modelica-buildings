@@ -33,18 +33,24 @@ partial model PartialHeatPumpPlant
     final have_valHeaWatMinByp=have_valHeaWatMinByp,
     final typArrPumHeaWatPri=typArrPumHeaWatPri,
     final typPumHeaWatSec=typPumHeaWatSec,
-    final typDisHeaWat=typDisHeaWat)
+    final typDisHeaWat=typDisHeaWat,
+    final nPumChiWatPri=nPumChiWatPri,
+    final nPumChiWatSec=nPumChiWatSec,
+    final have_valChiWatMinByp=have_valChiWatMinByp,
+    final typArrPumChiWatPri=typArrPumChiWatPri,
+    final typPumChiWatSec=typPumChiWatSec,
+    final typDisChiWat=typDisChiWat)
     "Configuration parameters"
     annotation(__ctrlFlow(enable=false));
 
-  final parameter Boolean have_heaWat=true
+  parameter Boolean have_heaWat=true
     "Set to true if the plant provides HW"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   // RFE: To be exposed for templates that include optional DHW service.
   final parameter Boolean have_hotWat=false
     "Set to true if the plant provides DHW"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Boolean have_chiWat=false
+  parameter Boolean have_chiWat=true
     "Set to true if the plant provides CHW"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
@@ -53,39 +59,45 @@ partial model PartialHeatPumpPlant
     "Total number of heat pumps"
     annotation (Evaluate=true, Dialog(group="Heat pumps"));
 
-  parameter Buildings.Templates.Plants.HeatPumps.Types.Distribution typDisHeaWat(start=
-        Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2)
+  // HW loop
+  parameter Buildings.Templates.Plants.HeatPumps.Types.Distribution typDisHeaWat(
+    start=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2)
     "Type of HW distribution system"
     annotation (Evaluate=true, Dialog(group="Primary HW loop", enable=have_heaWat));
   final parameter Boolean have_bypHeaWatFix=
+    have_heaWat and
     typPumHeaWatSec <> Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
     "Set to true if the HW loop has a fixed bypass"
     annotation(Evaluate=true, Dialog(group="Primary HW loop"));
   final parameter Boolean have_valHeaWatMinByp=
+    have_heaWat and
     typDisHeaWat==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
     "Set to true if the HW loop has a minimum flow bypass valve"
     annotation(Evaluate=true, Dialog(group="Primary HW loop"));
-  parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary typPumHeaWatPri(start=
-        Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable)
+  parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary typPumHeaWatPri(
+    start=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable)
     "Type of primary HW pumps"
-    annotation (Evaluate=true, Dialog(group="Primary HW loop"));
+    annotation (Evaluate=true, Dialog(group="Primary HW loop", enable=have_heaWat));
   parameter Integer nPumHeaWatPri_select(
-    min=0,
-    start=0)=nHeaPum
+    final min=0, start=0)=nHeaPum
     "Number of primary HW pumps"
     annotation (Evaluate=true, Dialog(group="Primary HW loop",
-    enable=typArrPumHeaWatPri==Buildings.Templates.Components.Types.PumpArrangement.Headered));
+    enable=have_heaWat and
+    typArrPumHeaWatPri==Buildings.Templates.Components.Types.PumpArrangement.Headered));
   final parameter Integer nPumHeaWatPri=
-    if typArrPumHeaWatPri==Buildings.Templates.Components.Types.PumpArrangement.Headered
+    if have_heaWat then (
+      if typArrPumHeaWatPri==Buildings.Templates.Components.Types.PumpArrangement.Headered
       then nPumHeaWatPri_select
-    else nHeaPum
+      else nHeaPum)
+    else 0
     "Number of primary HW pumps"
     annotation (Evaluate=true, Dialog(group="Primary HW loop"));
-  parameter Buildings.Templates.Components.Types.PumpArrangement typArrPumHeaWatPri_select(start=
-        Buildings.Templates.Components.Types.PumpArrangement.Headered)
+  parameter Buildings.Templates.Components.Types.PumpArrangement typArrPumHeaWatPri_select(
+    start=Buildings.Templates.Components.Types.PumpArrangement.Headered)
     "Type of primary HW pump arrangement"
     annotation (Evaluate=true, Dialog(group="Primary HW loop",
-    enable= typPumHeaWatPri<>Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.FactoryVariable and
+    enable=have_heaWat and
+      typPumHeaWatPri<>Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.FactoryVariable and
       typPumHeaWatPri<>Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.FactoryConstant));
   final parameter Buildings.Templates.Components.Types.PumpArrangement typArrPumHeaWatPri=
     if typPumHeaWatPri<>Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.FactoryVariable and
@@ -96,50 +108,61 @@ partial model PartialHeatPumpPlant
     annotation (Evaluate=true, Dialog(group="Primary HW loop"));
   // RFE: Currently, only centralized secondary HW pumps are supported for primary-secondary plants.
   final parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary typPumHeaWatSec=
-    if typDisHeaWat==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2
-     or typDisHeaWat==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1And2 then
-     Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized
+    if have_heaWat and (
+      typDisHeaWat==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2
+      or typDisHeaWat==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1And2)
+    then Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized
     else Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
     "Type of secondary HW pumps"
     annotation (Evaluate=true, Dialog(group="Secondary HW loop"));
-  parameter Integer nPumHeaWatSec(min=0)=if typDisHeaWat == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
-     then 0 else nHeaPum
+  parameter Integer nPumHeaWatSec_select(final min=0)=nHeaPum
     "Number of secondary HW pumps"
     annotation (Evaluate=true, Dialog(group="Secondary HW loop",
-    enable=typDisHeaWat==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2
-     or typDisHeaWat==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1And2));
+    enable=have_heaWat and
+      (typDisHeaWat==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2
+       or typDisHeaWat==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1And2)));
+  final parameter Integer nPumHeaWatSec(final min=0)=
+    if not have_heaWat or
+    typDisHeaWat == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
+    then 0 else nPumHeaWatSec_select
+    "Number of secondary HW pumps"
+    annotation (Evaluate=true, Dialog(group="Secondary HW loop"));
 
-  parameter Buildings.Templates.Plants.HeatPumps.Types.Distribution typDisChiWat(start=
-        Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2)
+  // CHW loop
+  parameter Buildings.Templates.Plants.HeatPumps.Types.Distribution typDisChiWat(
+    start=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2)
     =typDisHeaWat
     "Type of CHW distribution system"
     annotation (Evaluate=true, Dialog(group="Primary CHW loop", enable=have_chiWat));
   final parameter Boolean have_bypChiWatFix=
+    have_chiWat and
     typPumChiWatSec <> Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
     "Set to true if the CHW loop has a fixed bypass"
     annotation(Evaluate=true, Dialog(group="Primary CHW loop"));
   final parameter Boolean have_valChiWatMinByp=
+    have_chiWat and
     typDisChiWat==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
     "Set to true if the CHW loop has a minimum flow bypass valve"
     annotation(Evaluate=true, Dialog(group="Primary CHW loop"));
-  parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary typPumChiWatPri(start=
-        Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable)
+  parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary typPumChiWatPri(
+    start=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable)
     "Type of primary CHW pumps"
     annotation (Evaluate=true, Dialog(group="Primary CHW loop", enable=have_chiWat));
   parameter Integer nPumChiWatPri_select(
-    min=0,
-    start=0)=nHeaPum
+    final min=0, start=0)=nHeaPum
     "Number of primary CHW pumps"
     annotation (Evaluate=true, Dialog(group="Primary CHW loop", enable=have_chiWat and
       typArrPumChiWatPri==Buildings.Templates.Components.Types.PumpArrangement.Headered));
   final parameter Integer nPumChiWatPri=
-    if typArrPumChiWatPri==Buildings.Templates.Components.Types.PumpArrangement.Headered
+    if have_chiWat then (
+      if typArrPumChiWatPri==Buildings.Templates.Components.Types.PumpArrangement.Headered
       then nPumChiWatPri_select
-    else nHeaPum
+      else nHeaPum)
+    else 0
     "Number of primary CHW pumps"
     annotation (Evaluate=true, Dialog(group="Primary CHW loop"));
-  parameter Buildings.Templates.Components.Types.PumpArrangement typArrPumChiWatPri_select(start=
-        Buildings.Templates.Components.Types.PumpArrangement.Headered)
+  parameter Buildings.Templates.Components.Types.PumpArrangement typArrPumChiWatPri_select(
+    start=Buildings.Templates.Components.Types.PumpArrangement.Headered)
     "Type of primary CHW pump arrangement"
     annotation (Evaluate=true, Dialog(group="Primary CHW loop",
     enable=have_chiWat and
@@ -160,13 +183,20 @@ partial model PartialHeatPumpPlant
     else Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
     "Type of secondary CHW pumps"
     annotation (Evaluate=true, Dialog(group="Secondary CHW loop"));
-  parameter Integer nPumChiWatSec(min=0)=if typDisChiWat == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
-     then 0 else nHeaPum
+  parameter Integer nPumChiWatSec_select(final min=0)=nHeaPum
     "Number of secondary CHW pumps"
-    annotation (Evaluate=true, Dialog(group="Secondary CHW loop", enable=have_chiWat
-      and (typDisChiWat==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2
+    annotation (Evaluate=true, Dialog(group="Secondary CHW loop",
+      enable=have_chiWat and
+      (typDisChiWat==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2
       or typDisChiWat==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1And2)));
+  final parameter Integer nPumChiWatSec(final min=0)=
+    if not have_chiWat or
+    typDisChiWat == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
+    then 0 else nPumChiWatSec_select
+    "Number of secondary CHW pumps"
+    annotation (Evaluate=true, Dialog(group="Secondary CHW loop"));
 
+  // Controls
   parameter Buildings.Templates.Plants.HeatPumps.Types.Controller typCtl
     "Type of controller"
     annotation (Evaluate=true, Dialog(group="Controls"));
@@ -183,15 +213,17 @@ partial model PartialHeatPumpPlant
     annotation (Placement(transformation(extent={{-280,240},{-260,260}})));
 
   final parameter Modelica.Units.SI.MassFlowRate mHeaWatPri_flow_nominal=
-    sum(dat.pumHeaWatPri.m_flow_nominal)
+    if have_heaWat then sum(dat.pumHeaWatPri.m_flow_nominal) else 0
     "Primary HW mass flow rate";
   final parameter Modelica.Units.SI.MassFlowRate mHeaWat_flow_nominal=
-    if typPumHeaWatSec==Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
-      then mHeaWatPri_flow_nominal
-    else sum(dat.pumHeaWatSec.m_flow_nominal)
+    if have_heaWat then
+    (if typPumHeaWatSec==Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
+     then mHeaWatPri_flow_nominal
+     else sum(dat.pumHeaWatSec.m_flow_nominal))
+    else 0
     "HW mass flow rate (total, distributed to consumers)";
   final parameter Modelica.Units.SI.HeatFlowRate capHea_nominal=
-    sum(abs(dat.heaPum.capHea_nominal))
+    if have_heaWat then sum(abs(dat.heaPum.capHea_nominal)) else 0
     "Heating capacity - All units";
   final parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal=
     capHea_nominal
@@ -199,6 +231,25 @@ partial model PartialHeatPumpPlant
   final parameter Modelica.Units.SI.Temperature THeaWatSup_nominal=
     dat.ctl.THeaWatSup_nominal
     "Maximum HW supply temperature";
+  final parameter Modelica.Units.SI.MassFlowRate mChiWatPri_flow_nominal=
+    if have_chiWat then sum(dat.pumChiWatPri.m_flow_nominal) else 0
+    "Primary CHW mass flow rate";
+  final parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_nominal=
+    if have_chiWat then
+    (if typPumChiWatSec==Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
+     then mChiWatPri_flow_nominal
+     else sum(dat.pumChiWatSec.m_flow_nominal))
+    else 0
+    "CHW mass flow rate (total, distributed to consumers)";
+  final parameter Modelica.Units.SI.HeatFlowRate capCoo_nominal=
+    if have_chiWat then sum(abs(dat.heaPum.capCoo_nominal)) else 0
+    "Cooling capacity - All units";
+  final parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal=
+    -capCoo_nominal
+    "Cooling heat flow rate - All units";
+  final parameter Modelica.Units.SI.Temperature TChiWatSup_nominal=
+    dat.ctl.TChiWatSup_nominal
+    "Minimum CHW supply temperature";
 
   parameter Modelica.Units.SI.Time tau=30
     "Time constant at nominal flow"
@@ -240,32 +291,32 @@ partial model PartialHeatPumpPlant
     h_outflow(start=MediumHeaWat.h_default, nominal=MediumHeaWat.h_default))
     if have_heaWat
     "HW return"
-    annotation (Placement(transformation(extent={{290,-50},{310,-30}}),
-        iconTransformation(extent={{190,-50},{210,-30}})));
+    annotation (Placement(transformation(extent={{290,-290},{310,-270}}),
+        iconTransformation(extent={{190,-190},{210,-170}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bHeaWat(
     redeclare final package Medium = MediumHeaWat,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     h_outflow(start=MediumHeaWat.h_default, nominal=MediumHeaWat.h_default))
     if have_heaWat
     "HW supply"
-    annotation (Placement(transformation(extent={{290,30},{310,50}}),
-        iconTransformation(extent={{190,30},{210,50}})));
+    annotation (Placement(transformation(extent={{290,-250},{310,-230}}),
+        iconTransformation(extent={{190,-110},{210,-90}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aChiWat(
     redeclare final package Medium = MediumChiWat,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=MediumChiWat.h_default, nominal=MediumChiWat.h_default))
     if have_chiWat
     "CHW return"
-    annotation (Placement(transformation(extent={{290,-290},{310,-270}}),
-        iconTransformation(extent={{190,-190},{210,-170}})));
+    annotation (Placement(transformation(extent={{290,-10},{310,10}}),
+        iconTransformation(extent={{190,-50},{210,-30}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bChiWat(
     redeclare final package Medium = MediumChiWat,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     h_outflow(start=MediumChiWat.h_default, nominal=MediumChiWat.h_default))
     if have_chiWat
     "CHW supply"
-    annotation (Placement(transformation(extent={{290,-210},{310,-190}}),
-        iconTransformation(extent={{190,-110},{210,-90}})));
+    annotation (Placement(transformation(extent={{290,30},{310,50}}),
+        iconTransformation(extent={{190,30},{210,50}})));
 
   Buildings.Templates.Plants.HeatPumps.Interfaces.Bus bus
     "Plant control bus" annotation (Placement(transformation(
@@ -291,7 +342,7 @@ partial model PartialHeatPumpPlant
         origin={300,160}),
         iconTransformation(extent={{-20,-20},{20,20}},
         rotation=-90,
-        origin={200,100})));
+        origin={200,120})));
   BoundaryConditions.WeatherData.Bus busWea
     "Weather bus"
     annotation (Placement(transformation(extent={{-20,280},{20,320}}),
@@ -335,69 +386,25 @@ initial equation
           lineColor={0,0,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Line(
-          points={{-60,-60},{60,-60},{60,40}},
-          color={238,46,47},
-          thickness=5),
-        Ellipse(
-          extent={{-40,-40},{0,-80}},
-          lineColor={0,0,0},
-          fillPattern=FillPattern.Sphere,
-          fillColor={0,100,199}),
-        Line(
-          points={{-60,100},{60,100},{60,40},{200,40}},
-          color={238,46,47},
-          thickness=5),
         Text(
           extent={{-151,-212},{149,-252}},
           textColor={0,0,255},
           textString="%name"),
-        Ellipse(
-          extent={{130,60},{170,20}},
-          lineColor={0,0,0},
-          fillPattern=FillPattern.Sphere,
-          fillColor={0,100,199},
-          startAngle=0,
-          endAngle=360,
-          visible=typPumHeaWatSec<>Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None),
-        Polygon(
-          points={{150,59},{150,21},{169,40},{150,59}},
-          lineColor={0,0,0},
-          pattern=LinePattern.None,
-          fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={255,255,255},
-          visible=typPumHeaWatSec<>Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None),
         Line(
-          points={{200,-40},{20,-40},{20,-100},{-60,-100}},
+          points={{20,-40},{20,-100},{-60,-100}},
           color={238,46,47},
           pattern=LinePattern.Dash,
           thickness=5),
-        Ellipse(
-          extent={{-40,120},{0,80}},
-          lineColor={0,0,0},
-          fillPattern=FillPattern.Sphere,
-          fillColor={0,100,199}),
-        Polygon(
-          points={{-20,119},{-20,81},{-1,100},{-20,119}},
-          lineColor={0,0,0},
-          pattern=LinePattern.None,
-          fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={255,255,255}),
         Line(
           points={{-60,60},{20,60},{20,-40}},
           color={238,46,47},
           thickness=5,
           pattern=LinePattern.Dash),
         Line(
-          points={{100,40},{100,-40}},
+          points={{100,-100},{100,-180}},
           color={238,46,47},
-          thickness=5),
-        Polygon(
-          points={{-20,-41},{-20,-79},{-1,-60},{-20,-41}},
-          lineColor={0,0,0},
-          pattern=LinePattern.None,
-          fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={255,255,255}),
+          thickness=5,
+          visible=have_heaWat),
         Rectangle(
           extent={{-160,130},{-60,30}},
           lineColor={0,0,255},
@@ -424,6 +431,71 @@ initial equation
           fillPattern=FillPattern.Solid),
         Line(points={{-122,-66},{-126,-94}}, color={0,0,0}),
         Line(points={{-98,-66},{-94,-94}}, color={0,0,0}),
+        Line(
+          points={{100,38},{100,-42}},
+          color={28,108,200},
+          thickness=5,
+          visible=have_chiWat),
+        Line(
+          points={{0,40},{0,-100}},
+          color={28,108,200},
+          thickness=5,
+          visible=have_chiWat,
+          origin={160,40},
+          rotation=-90),
+        Line(
+          points={{0,40},{0,-140}},
+          color={28,108,200},
+          thickness=5,
+          visible=have_chiWat,
+          origin={160,-40},
+          rotation=-90,
+          pattern=LinePattern.Dash),
+        Line(
+          points={{-60,-60},{60,-60},{60,40}},
+          color={238,46,47},
+          thickness=5),
+        Line(
+          points={{-60,100},{60,100},{60,40}},
+          color={238,46,47},
+          thickness=5),
+        Ellipse(
+          extent={{-40,-40},{0,-80}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={0,100,199}),
+        Polygon(
+          points={{-20,-41},{-20,-79},{-1,-60},{-20,-41}},
+          lineColor={0,0,0},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={255,255,255}),
+        Ellipse(
+          extent={{-40,120},{0,80}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={0,100,199}),
+        Polygon(
+          points={{-20,119},{-20,81},{-1,100},{-20,119}},
+          lineColor={0,0,0},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={255,255,255}),
+        Line(
+          points={{0,40},{0,-100},{-40,-100}},
+          color={238,46,47},
+          thickness=5,
+          visible=have_heaWat,
+          origin={160,-100},
+          rotation=-90),
+        Line(
+          points={{0,40},{0,-140},{-80,-140}},
+          color={238,46,47},
+          thickness=5,
+          visible=have_heaWat,
+          pattern=LinePattern.Dash,
+          origin={160,-180},
+          rotation=-90),
         Ellipse(
           extent={{130,-80},{170,-120}},
           lineColor={0,0,0},
@@ -431,19 +503,71 @@ initial equation
           fillColor={0,100,199},
           startAngle=0,
           endAngle=360,
-          visible=have_chiWat and typPumChiWatSec <> Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None),
-        Line(
-          points={{100,-100},{100,-180}},
-          color={28,108,200},
-          thickness=5,
-          visible=have_chiWat),
+          visible=have_heaWat and typPumHeaWatSec <> Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None),
         Polygon(
           points={{150,-81},{150,-119},{169,-100},{150,-81}},
           lineColor={0,0,0},
           pattern=LinePattern.None,
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={255,255,255},
-          visible=have_chiWat and typPumChiWatSec <> Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None)}),
+          visible=have_heaWat and typPumHeaWatSec <> Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None),
+        Ellipse(
+          extent={{130,60},{170,20}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={0,100,199},
+          startAngle=0,
+          endAngle=360,
+          visible=have_chiWat and typPumChiWatSec <> Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None),
+        Polygon(
+          points={{150,59},{150,21},{169,40},{150,59}},
+          lineColor={0,0,0},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={255,255,255},
+          visible=have_chiWat and typPumChiWatSec <> Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None),
+        Rectangle(
+          extent={{90,10},{110,-10}},
+          lineColor={28,108,200},
+          pattern=LinePattern.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          visible=have_chiWat and typDisChiWat == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only),
+        Polygon(
+          points={{90,18},{100,-2},{110,18},{90,18}},
+          lineColor={238,46,47},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid,
+          visible=have_chiWat and typDisChiWat == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only),
+        Polygon(
+          points={{90,-18},{100,2},{110,-18},{90,-18}},
+          lineColor={238,46,47},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid,
+          visible=have_chiWat and typDisChiWat == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only),
+        Rectangle(
+          extent={{90,-130},{110,-150}},
+          lineColor={28,108,200},
+          pattern=LinePattern.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          visible=have_heaWat and typDisHeaWat == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only),
+        Polygon(
+          points={{90,-122},{100,-142},{110,-122},{90,-122}},
+          lineColor={238,46,47},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid,
+          visible=have_heaWat and typDisHeaWat == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only),
+        Polygon(
+          points={{90,-158},{100,-138},{110,-158},{90,-158}},
+          lineColor={238,46,47},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid,
+          visible=have_heaWat and typDisHeaWat == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only)}),
    Diagram(coordinateSystem(
       preserveAspectRatio=false,
       extent={{-300,-300},{300,300}})),

@@ -205,7 +205,6 @@ First implementation.
       visible=typ<>Buildings.Templates.Components.Types.Pump.None and not have_var and nPum>=6,
         extent={{-100, 5*icon_dy+60},{0, 5*icon_dy+160}},
         rotation=text_rotation,
-          fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/MotorStarter.svg")
-}));
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/MotorStarter.svg")}));
 
 end PartialPumpMultiple;

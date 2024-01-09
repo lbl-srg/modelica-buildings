@@ -5,6 +5,9 @@ record HeatPump "Record for heat pump model"
   parameter Buildings.Templates.Components.Types.HeatPump typ
     "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+  parameter Boolean is_rev
+    "Set to true for reversible heat pumps, false for heating only"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
   parameter Modelica.Units.SI.MassFlowRate mHeaWat_flow_nominal(
     final min=0)
@@ -26,12 +29,33 @@ record HeatPump "Record for heat pump model"
     each final min=273.15)
     "(Highest) HW supply temperature"
     annotation(Dialog(group="Nominal condition"));
+
+  parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_nominal(
+    final min=0)
+    "CHW mass flow rate"
+    annotation(Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.HeatFlowRate capCoo_nominal
+    "Cooling capacity"
+    annotation(Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.HeatFlowRate PCoo_nominal(
+    final min=0)
+    "Input power in cooling mode"
+    annotation(Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.Temperature TChiWatSup_nominal(
+    each final min=253.15)
+    "(Lowest) CHW supply temperature"
+    annotation(Dialog(group="Nominal condition"));
+
   replaceable parameter Buildings.Fluid.HeatPumps.Data.EquationFitReversible.Generic per
     constrainedby Buildings.Fluid.HeatPumps.Data.EquationFitReversible.Generic(
       hea(
         Q_flow=abs(capHea_nominal),
         P=PHea_nominal,
-        mLoa_flow=mHeaWat_flow_nominal))
+        mLoa_flow=mHeaWat_flow_nominal),
+      coo(
+        Q_flow=if is_rev then -abs(capCoo_nominal) else 0,
+        P=if is_rev then PCoo_nominal else 0,
+        mLoa_flow=mChiWat_flow_nominal))
     "Heat pump performance data"
     annotation (choicesAllMatching=true);
 

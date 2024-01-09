@@ -2,32 +2,20 @@ within Buildings.Templates.Plants.HeatPumps.Data;
 record HeatPumpPlant "Record for heat pump plant"
   extends Modelica.Icons.Record;
 
+  // Generic
   parameter
     Buildings.Templates.Plants.HeatPumps.Configuration.HeatPumpPlant cfg
     "Configuration parameters"
     annotation (Dialog(enable=false));
-
   parameter String id=""
     "System tag"
     annotation (Dialog(tab="Advanced"));
-
   parameter Modelica.Units.SI.Density rho_default=
     Modelica.Media.Water.ConstantPropertyLiquidWater.d_const
     "HW default density"
     annotation(Dialog(enable=false));
-
   parameter Buildings.Templates.Plants.HeatPumps.Components.Data.Controller ctl(
-    final typ=cfg.typCtl,
-    final nHeaPum=cfg.nHeaPum,
-    final typPumHeaWatSec=cfg.typPumHeaWatSec,
-    final nPumHeaWatPri=cfg.nPumHeaWatPri,
-    final nPumHeaWatSec=cfg.nPumHeaWatSec,
-    final have_valHeaWatMinByp=cfg.have_valHeaWatMinByp,
-    final have_senDpHeaWatLoc=cfg.have_senDpHeaWatLoc,
-    final nSenDpHeaWatRem=cfg.nSenDpHeaWatRem,
-    final have_senVHeaWatSec=cfg.have_senVHeaWatSec,
-    final typArrPumHeaWatPri=cfg.typArrPumHeaWatPri,
-    final typDisHeaWat=cfg.typDisHeaWat)
+    final cfg=cfg)
     "Controller"
     annotation(Dialog(group="Controls"));
 
@@ -35,6 +23,7 @@ record HeatPumpPlant "Record for heat pump plant"
     "Heat pump characteritics - Single unit"
     annotation (Dialog(group="Heat pumps"));
 
+  // HW loop
   parameter Buildings.Templates.Components.Data.PumpMultiple pumHeaWatPri(
     final nPum=cfg.nPumHeaWatPri,
     final rho_default=rho_default,
@@ -42,7 +31,7 @@ record HeatPumpPlant "Record for heat pump plant"
     m_flow_nominal=fill(sum(heaPum.mHeaWat_flow_nominal) / max(cfg.nPumHeaWatPri, 1),
       cfg.nPumHeaWatPri))
     "Primary HW pumps"
-    annotation(Dialog(group="Primary HW loop"));
+    annotation(Dialog(group="Primary HW loop", enable=cfg.have_heaWat));
   parameter Buildings.Templates.Components.Data.Valve valHeaWatMinByp(
     final typ=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
     m_flow_nominal=
@@ -50,8 +39,8 @@ record HeatPumpPlant "Record for heat pump plant"
       else 0,
     dpValve_nominal=Buildings.Templates.Data.Defaults.dpValBypMin)
     "HW minimum flow bypass valve"
-    annotation(Dialog(group="Primary HW loop"));
-
+    annotation(Dialog(group="Primary HW loop", enable=cfg.have_heaWat and
+    cfg.have_valHeaWatMinByp));
   parameter Buildings.Templates.Components.Data.PumpMultiple pumHeaWatSec(
     final nPum=cfg.nPumHeaWatSec,
     final rho_default=rho_default,
@@ -60,8 +49,36 @@ record HeatPumpPlant "Record for heat pump plant"
       else Buildings.Templates.Components.Types.Pump.None)
     "Secondary HW pumps"
     annotation(Dialog(group="Secondary HW loop",
-    enable=cfg.typPumHeaWatSec==Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized));
+    enable=cfg.have_heaWat and
+    cfg.typPumHeaWatSec==Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized));
 
+  // CHW loop
+  parameter Buildings.Templates.Components.Data.PumpMultiple pumChiWatPri(
+    final nPum=cfg.nPumChiWatPri,
+    final rho_default=rho_default,
+    final typ=Buildings.Templates.Components.Types.Pump.Multiple,
+    m_flow_nominal=fill(sum(heaPum.mChiWat_flow_nominal) / max(cfg.nPumChiWatPri, 1),
+      cfg.nPumChiWatPri))
+    "Primary CHW pumps"
+    annotation(Dialog(group="Primary CHW loop", enable=cfg.have_chiWat));
+  parameter Buildings.Templates.Components.Data.Valve valChiWatMinByp(
+    final typ=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
+    m_flow_nominal=
+      if cfg.have_valChiWatMinByp then max(ctl.VChiWatHeaPum_flow_min) * rho_default
+      else 0,
+    dpValve_nominal=Buildings.Templates.Data.Defaults.dpValBypMin)
+    "CHW minimum flow bypass valve"
+    annotation(Dialog(group="Primary CHW loop", enable=cfg.have_chiWat));
+  parameter Buildings.Templates.Components.Data.PumpMultiple pumChiWatSec(
+    final nPum=cfg.nPumChiWatSec,
+    final rho_default=rho_default,
+    final typ=if cfg.typPumChiWatSec==Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized
+      then Buildings.Templates.Components.Types.Pump.Multiple
+      else Buildings.Templates.Components.Types.Pump.None)
+    "Secondary CHW pumps"
+    annotation(Dialog(group="Secondary CHW loop",
+    enable=cfg.have_chiWat and
+    cfg.typPumChiWatSec==Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized));
   annotation (
   defaultComponentName="dat",
   Documentation(info="<html>
