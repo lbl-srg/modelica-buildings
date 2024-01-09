@@ -69,7 +69,7 @@ block FirstOrderAMIGO
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
     "Connector for actuator output signal"
     annotation (Placement(transformation(extent={{180,-20},{220,20}}),iconTransformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.ModelTime modTim
+  Buildings.Controls.OBC.CDL.Reals.Sources.CivilTime modTim
     "Simulation time"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Buildings.Controls.OBC.Utilities.PIDWithInputGains con(

@@ -5,7 +5,7 @@ model ResponseProcess "Test model for processing the response of a relay control
     final yLow=0.2)
     "Calculate the length of the on period and the off period"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.ModelTime modTim
+  Buildings.Controls.OBC.CDL.Reals.Sources.CivilTime modTim
     "Simulation time"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse relSwi(
