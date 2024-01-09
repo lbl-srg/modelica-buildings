@@ -41,19 +41,19 @@ contains system level models which may be used as examples or templates.
   <td><a href=\"modelica://Buildings.Experimental.DHC.Loads\">
       Buildings.Experimental.DHC.Loads</a></td>
   <td>Timeseries or physics-based representation of space heating and cooling 
-      as well as domestic hot water loads in buildings.</td>
+      and domestic hot water loads in buildings, and connected to an ETS.</td>
 </tr>
 <tr>
   <td><a href=\"modelica://Buildings.Experimental.DHC.Networks\">
       Buildings.Experimental.DHC.Networks</a></td>
   <td>Distribution system between buildings and plants which contains 
-      long-distance pipes, ground-heat exchange, and service lines to the 
+      long-distance pipes and service lines to the 
       energy transfer stations.</td>
 </tr>
 <tr>
   <td><a href=\"modelica://Buildings.Experimental.DHC.Plants\">
       Buildings.Experimental.DHC.Plants</a></td>
-  <td>Sources of cooling or heating for the DHC including boilers, chillers, 
+  <td>Sources of cooling or heating for the DHC such as boilers, chillers, 
       heat pumps, waste heat, tank storage, and geothermal storage. </td>
 </tr>
 </table>
