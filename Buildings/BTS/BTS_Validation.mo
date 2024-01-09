@@ -1,4 +1,4 @@
-within Buildings.Experimental.DHC.Loads.BaseClasses.Validation;
+within Buildings.BTS;
 model BTS_Validation
   "Validation model comparing BuildingTimeSeries with MixedAir"
   //fixme: to be renamed
