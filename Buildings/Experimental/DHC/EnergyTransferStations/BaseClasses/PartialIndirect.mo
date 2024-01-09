@@ -84,7 +84,7 @@ model PartialIndirect
   parameter Real yMin=0.01
     "Lower limit of output"
     annotation (Dialog(group="PID controller"));
-  Modelica.Blocks.Interfaces.RealInput TSetBuiSup
+  Modelica.Blocks.Interfaces.RealInput TBuiSupSet
     "Setpoint temperature for building supply"
     annotation (Placement(transformation(extent={{-340,-20},{-300,20}})));
   Modelica.Blocks.Interfaces.RealOutput Q_flow(
@@ -201,7 +201,7 @@ equation
     annotation (Line(points={{-26,-193},{-26,-180},{-140,-180},{-140,-240},{-120,
           -240},{-120,-232}},
                           color={0,0,127}));
-  connect(TSetBuiSup, con.u_s)
+  connect(TBuiSupSet, con.u_s)
     annotation (Line(points={{-320,0},{-240,0},{-240,-220},{-132,-220}},
                                                  color={0,0,127}));
   connect(con.y, conVal.y)

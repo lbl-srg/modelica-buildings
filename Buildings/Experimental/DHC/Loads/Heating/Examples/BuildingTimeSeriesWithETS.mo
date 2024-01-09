@@ -35,7 +35,7 @@ equation
     annotation (Line(points={{-40,10},{-20,10}}, color={0,127,255}));
   connect(TDisSup.y,supHeaWat. T_in)
     annotation (Line(points={{-69,14},{-62,14}}, color={0,0,127}));
-  connect(TDisRetSet.y, buiWitETS.TSetDisRet) annotation (Line(points={{21,50},
+  connect(TDisRetSet.y,buiWitETS.TDisRetSet)  annotation (Line(points={{21,50},
           {30,50},{30,-3},{39,-3}}, color={0,0,127}));
   connect(senMasFlo.port_b, buiWitETS.port_aSerHea) annotation (Line(points={{0,
           10},{20,10},{20,-14},{40,-14}}, color={0,127,255}));

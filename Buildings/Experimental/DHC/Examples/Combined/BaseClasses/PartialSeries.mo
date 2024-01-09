@@ -22,8 +22,8 @@ partial model PartialSeries "Partial model for series network"
     datDes(final mCon_flow_nominal=bui.ets.mSerWat_flow_nominal) "Design data"
     annotation (Placement(transformation(extent={{-340,220},{-320,240}})));
   // COMPONENTS
-  Buildings.Experimental.DHC.Plants.Reservoir.BoreField
-    borFie(redeclare final package Medium = Medium) "Bore field" annotation (
+  Buildings.Experimental.DHC.Examples.Combined.BaseClasses.BoreField borFie(
+      redeclare final package Medium = Medium) "Bore field" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
