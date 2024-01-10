@@ -73,6 +73,10 @@ package Types "Package with type definitions"
       WaterSource
       "Water-source (brine or water-to-water) heat pump")
     "Enumeration to specify the type of heat pump";
+  type HeatPumpModel = enumeration(
+      EquationFit
+      "Model for reversible heat pump based on the equation fit method")
+    "Enumeration to specify the heat pump model";
   type IconPipe = enumeration(
       None
       "No line",

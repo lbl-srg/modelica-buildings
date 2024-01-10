@@ -1,6 +1,7 @@
 Bus
 PartialCoil
 PartialFan
+PartialHeatPump
 PartialPump
 PartialPumpMultiple
 PartialPumpSingle
