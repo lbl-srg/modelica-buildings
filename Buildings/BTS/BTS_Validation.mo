@@ -6,7 +6,7 @@ model BTS_Validation
 
 
 
-  Buildings.Air.Systems.SingleZone.VAV.Examples.ChillerDXHeatingEconomizer
+  Buildings.BTS.ChillerDXHeatingEconomizerDuplicate
     chillerDXHeatingEconomizer
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
   Buildings.Experimental.DHC.Loads.BaseClasses.Examples.CouplingTimeSeries
