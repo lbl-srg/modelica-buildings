@@ -221,7 +221,14 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
     </td>
     <td valign=\"top\">Tutorial for how to build a simple system model.
     </td>
-    </tr>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Loads.HotWater
+    </td>
+    <td valign=\"top\">Package of models for domestic hot water generation and loads served by district networks.
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3063\">issue 3063</a>.
+    </td>
+</tr>    
 </table>
 <!-- New components for existing libraries -->
 <p>
@@ -229,7 +236,6 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-
 <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
     </td>
 </tr>
@@ -239,15 +245,69 @@ to <b style=\"color:blue\">existing</b> libraries:
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3538\">issue 3538</a>.
     </td>
 </tr>
-
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.EnergyTransferStations.Combined</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.Combined.BaseClasses.PartialHeatPumpHeatExchanger
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Created partial base class to support two versions of the 
+                       energy transfer station.  One that heats domestic hot 
+                       water with a heat pump, and one that heats domestic 
+                       hot water with a heat pump plus storage tank and heat exchanger. 
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3063\">issue 3063</a>.
     </td>
-    </tr>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchangerDHWTank
+    </td>
+    <td valign=\"top\">Version of 
+                       <a href=\"Modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger\">
+                       Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger</a>
+                       that heats domestic hot water with a heat pump plus storage tank and heat exchanger.
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3063\">issue 3063</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.BaseClasses.PartialHeatPump
+    </td>
+    <td valign=\"top\">Partial base class to support two versions of heat pump subsystem.  
+                       One which directly heats water through condenser, and 
+                       one which uses the heat pump to heat water in a storage tank, 
+                       which can be circulated to heat water through a heat exchanger.
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3063\">issue 3063</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPumpDHWTank
+    </td>
+    <td valign=\"top\">Uses a heat pump to heat water in a storage tank, 
+                       which can be circulated to heat domestic hot water through a heat exchanger,
+                       modeled with 
+                       <a href=\"Modelica://Buildings.Experimental.DHC.Loads.HotWater.StorageTankWithExternalHeatExchanger\">
+                       Buildings.Experimental.DHC.Loads.HotWater.StorageTankWithExternalHeatExchanger</a>.
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3063\">issue 3063</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Loads.Combined.BuildingTimeSeriesWithETSWithDHWTank
+    </td>
+    <td valign=\"top\">Similar to <a href=\"Modelica://Buildings.Experimental.DHC.Loads.Combined.BuildingTimeSeriesWithETS\">
+                       Buildings.Experimental.DHC.Loads.Combined.BuildingTimeSeriesWithETS</a>,
+                       but uses <a href=\"Modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchangerDHWTank\">
+                       Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchangerDHWTank</a>
+                       as the ETS.
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3063\">issue 3063</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Loads.Combined.Examples.BuildingTimeSeriesWithETSDHWTank
+    </td>
+    <td valign=\"top\">Example model for use of <a href=\"Modelica://Buildings.Experimental.DHC.Loads.Combined.BuildingTimeSeriesWithETSWithDHWTank\">
+                       Buildings.Experimental.DHC.Loads.Combined.BuildingTimeSeriesWithETSWithDHWTank</a>.
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3063\">issue 3063</a>.
+    </td>
+</tr>                 
 </table>
 <!-- Backward compatible changes -->
 <p>
@@ -288,6 +348,23 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1781\">IBPSA, #1781</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.EnergyTransferStations.Heating</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.Heating.Direct
+    </td>
+    <td valign=\"top\">Documentation corrected for heating.
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3628\">issue 3628</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.Heating.Indirect
+    </td>
+    <td valign=\"top\">Documentation corrected for heating.
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3628\">issue 3628</a>.
+    </td>
+</tr>    
 <tr><td colspan=\"2\"><b>Buildings.Templates</b>
     </td>
 </tr>
@@ -357,10 +434,78 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Experimental.DHC</b>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.PartialDirect
+    </td>
+    <td valign=\"top\">Change input <code>TSetDisRet</code> to <code>TDisRetSet</code>.
+    </td>
+</tr>
+    <tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.PartialIndirect
+    </td>
+    <td valign=\"top\">Change input <code>TSetBuiSup</code> to <code>TBuiSupSet</code>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger
+    </td>
+    <td valign=\"top\">Extend from new partial base class 
+                       <a href=\"Modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.BaseClasses.PartialHeatPumpHeatExchanger\">
+                       Buildings.Experimental.DHC.EnergyTransferStations.Combined.BaseClasses.PartialHeatPumpHeatExchanger</a>.
+                       Evaporator water flow through space heating and domestic how water heat 
+                       pumps is constant, with dT across district supply and return controlled by three-way mixing valve.
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3063\">issue 3063</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump
+    </td>
+    <td valign=\"top\">Extend from new partial base class 
+                       <a href=\"Modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.BaseClasses.PartialHeatPump\">
+                       Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.BaseClasses.PartialHeatPump</a>.
+                       Evaporator water flow through heat pump 
+                       is constant, with dT across district supply and return controlled by three-way mixing valve.
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3063\">issue 3063</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.Validation.HeatPump
+    </td>
+    <td valign=\"top\">Validation test for 
+                       <a href=\"Modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump\">
+                       Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump</a>.
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3063\">issue 3063</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.Validation.HeatPumpDHWTank
+    </td>
+    <td valign=\"top\">Validation test for 
+                       <a href=\"Modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPumpDHWTank\">
+                       Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPumpDHWTank</a>.
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3063\">issue 3063</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Loads.Combined.BuildingTimeSeriesWithETS
+    </td>
+    <td valign=\"top\">Updated to use new version of 
+                       <a href=\"Modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger\">
+                       Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger</a>
+                       as the ETS.
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3063\">issue 3063</a>.
+    </td>
+</tr>      
 <tr><td valign=\"top\">Buildings.Experimental.DHC.Plants.Combined.Subsystems.BaseClasses.MultipleCommands
     </td>
     <td valign=\"top\">The class has been moved to Buildings.Templates.Components.Controls.MultipleCommands.<br/>
                      This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3536\">#3536</a>.<br/>
+                     This change is supported in the conversion script.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Plants.Reservoir.Borefield
+    </td>
+    <td valign=\"top\">Moved to Buildings.Experimental.DHC.Examples.Combined.BaseClasses.BoreField
+                       <a href=\"Modelica://Buildings.Experimental.DHC.Examples.Combined.BaseClasses.BoreField\"></a>.<br/>
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3628\">#3628</a>.<br/>
                      This change is supported in the conversion script.
     </td>
 </tr>

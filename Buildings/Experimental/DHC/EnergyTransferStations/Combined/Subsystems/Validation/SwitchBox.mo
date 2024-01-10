@@ -67,24 +67,24 @@ model SwitchBox "Validation of flow switch box"
     annotation (Placement(transformation(extent={{-46,30},{-26,50}})));
 equation
   connect(pum1.port_b, volSup.ports[1]) annotation (Line(points={{-10,0},{-60,0},
-          {-60,-2.66667}}, color={0,127,255}));
+          {-60,-1.33333}}, color={0,127,255}));
   connect(volSup.ports[2], pum2.port_a) annotation (Line(points={{-60,-4.44089e-16},
           {-60,60},{-10,60}}, color={0,127,255}));
   connect(pum2.port_b, volRet.ports[1]) annotation (Line(points={{10,60},{60,60},
-          {60,-2.66667}}, color={0,127,255}));
+          {60,-1.33333}}, color={0,127,255}));
   connect(volRet.ports[2], pum1.port_a) annotation (Line(points={{60,8.88178e-16},
           {60,0},{10,0}}, color={0,127,255}));
   connect(floSwiBox.port_bSup, volSup.ports[3]) annotation (Line(points={{-6,-40},
-          {-6,-20},{-60,-20},{-60,2.66667}}, color={0,127,255}));
+          {-6,-20},{-60,-20},{-60,1.33333}}, color={0,127,255}));
   connect(floSwiBox.port_aRet, volRet.ports[3]) annotation (Line(points={{6,-40},
-          {6,-20},{60,-20},{60,2.66667}}, color={0,127,255}));
+          {6,-20},{60,-20},{60,1.33333}}, color={0,127,255}));
   connect(floSwiBox.port_bRet, senMasFlo.port_a) annotation (Line(points={{6,-60},
           {6,-80},{60,-80},{60,-100},{10,-100}},
                                        color={0,127,255}));
   connect(senMasFlo.port_b, disWatBou.ports[1]) annotation (Line(points={{-10,
-          -100},{-60,-100},{-60,-88}},
+          -100},{-60,-100},{-60,-91}},
                                      color={0,127,255}));
-  connect(disWatBou.ports[2], floSwiBox.port_aSup) annotation (Line(points={{-60,-92},
+  connect(disWatBou.ports[2], floSwiBox.port_aSup) annotation (Line(points={{-60,-89},
           {-60,-80},{-6,-80},{-6,-60}},
                                     color={0,127,255}));
   connect(pum1.m_flow_actual, floSwiBox.mRev_flow) annotation (Line(points={{-11,
