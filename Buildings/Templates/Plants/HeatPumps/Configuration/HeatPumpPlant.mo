@@ -22,6 +22,16 @@ record HeatPumpPlant "Configuration parameters for heat pump plant"
     "Type of controller"
     annotation (Evaluate=true);
 
+  // Default fluid properties
+  parameter Modelica.Units.SI.Density rhoHeaWat_default
+    "HW default density";
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpHeaWat_default
+    "HW default specific heat capacity";
+  parameter Modelica.Units.SI.Density rhoChiWat_default
+    "CHW default density";
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpChiWat_default
+    "CHW default specific heat capacity";
+
   // HW loop
   parameter Integer nPumHeaWatPri
     "Number of primary HW pumps"

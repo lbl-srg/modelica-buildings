@@ -1,0 +1,27 @@
+simulateModel("Buildings.Templates.Components.Validation.HeatPumpsRecord",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=1.0,
+    resultFile="HeatPumpsRecord");
+createPlot(
+    id=2,
+    position={5, 5, 600, 550},
+    subPlot=101,
+    y={"datHeaPumRevAss.mHeaWat_flow_nominal", "datHeaPumRevAss.per.hea.mLoa_flow", "datHeaPumRevAss.mChiWat_flow_nominal", "datHeaPumRevAss.per.coo.mLoa_flow"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=102,
+    y={"datHeaPumRevRed.mHeaWat_flow_nominal", "datHeaPumRevRed.per.hea.mLoa_flow", "datHeaPumRevRed.mChiWat_flow_nominal", "datHeaPumRevRed.per.coo.mLoa_flow"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=103,
+    y={"datHeaPumNonRevLoc.mHeaWat_flow_nominal", "datHeaPumNonRevLoc.per.hea.mLoa_flow", "datHeaPumNonRevLoc.mChiWat_flow_nominal", "datHeaPumNonRevLoc.per.coo.mLoa_flow"},
+    autoscale=true,
+    grid=true
+);

@@ -68,10 +68,10 @@ package Types "Package with type definitions"
       "Propeller fan")
     "Enumeration to specify the type of single fan";
   type HeatPump = enumeration(
-      AirSource
-      "Air-source (air-to-water) heat pump",
-      WaterSource
-      "Water-source (brine or water-to-water) heat pump")
+      AirToWater
+      "Air-to-water heat pump",
+      WaterToWater
+      "Water(or brine)-to-water heat pump")
     "Enumeration to specify the type of heat pump";
   type HeatPumpModel = enumeration(
       EquationFit

@@ -21,7 +21,7 @@ record Controller "Record for plant controller"
     annotation(Dialog(group="Temperature setpoints", enable=cfg.have_heaWat));
   parameter Modelica.Units.SI.Temperature TOutHeaWatLck(
     displayUnit="degC",
-    final min=273.15)=Buildings.Templates.Data.Defaults.TOutHeaLck
+    final min=273.15)=Buildings.Templates.Data.Defaults.TOutHeaWatLck
     "Outdoor air lockout temperature above which the HW loop is prevented from operating"
     annotation(Dialog(group="Temperature setpoints", enable=cfg.have_heaWat and
     cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.ClosedLoop));
@@ -109,7 +109,7 @@ record Controller "Record for plant controller"
     annotation(Dialog(group="Temperature setpoints", enable=cfg.have_chiWat));
   parameter Modelica.Units.SI.Temperature TOutChiWatLck(
     displayUnit="degC",
-    final min=273.15)=Buildings.Templates.Data.Defaults.TOutHeaLck
+    final min=273.15)=Buildings.Templates.Data.Defaults.TOutChiWatLck
     "Outdoor air lockout temperature above which the CHW loop is prevented from operating"
     annotation(Dialog(group="Temperature setpoints", enable=cfg.have_chiWat and
     cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.ClosedLoop));

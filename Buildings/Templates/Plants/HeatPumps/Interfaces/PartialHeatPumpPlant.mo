@@ -28,20 +28,30 @@ partial model PartialHeatPumpPlant
     final have_hotWat=have_hotWat,
     final have_chiWat=have_chiWat,
     final nHeaPum=nHeaPum,
+    final typCtl=typCtl,
+    final rhoHeaWat_default=rhoHeaWat_default,
+    final cpHeaWat_default=cpHeaWat_default,
+    final rhoChiWat_default=rhoChiWat_default,
+    final cpChiWat_default=cpChiWat_default,
     final nPumHeaWatPri=nPumHeaWatPri,
     final nPumHeaWatSec=nPumHeaWatSec,
     final have_valHeaWatMinByp=have_valHeaWatMinByp,
     final typArrPumHeaWatPri=typArrPumHeaWatPri,
+    final have_varPumHeaWatPri=have_varPumHeaWatPri,
     final typPumHeaWatSec=typPumHeaWatSec,
     final typDisHeaWat=typDisHeaWat,
     final nPumChiWatPri=nPumChiWatPri,
     final nPumChiWatSec=nPumChiWatSec,
     final have_valChiWatMinByp=have_valChiWatMinByp,
     final typArrPumChiWatPri=typArrPumChiWatPri,
+    final have_varPumChiWatPri=have_varPumChiWatPri,
     final typPumChiWatSec=typPumChiWatSec,
     final typDisChiWat=typDisChiWat)
     "Configuration parameters"
-    annotation(__ctrlFlow(enable=false));
+    annotation(Dialog(enable=false), __ctrlFlow(enable=false));
+  parameter Buildings.Templates.Plants.HeatPumps.Data.HeatPumpPlant dat(cfg=cfg)
+    "Design and operating parameters"
+    annotation (Placement(transformation(extent={{-280,240},{-260,260}})));
 
   parameter Boolean have_heaWat=true
     "Set to true if the plant provides HW"
@@ -74,10 +84,36 @@ partial model PartialHeatPumpPlant
     typDisHeaWat==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
     "Set to true if the HW loop has a minimum flow bypass valve"
     annotation(Evaluate=true, Dialog(group="Primary HW loop"));
-  parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary typPumHeaWatPri(
+  parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary typPumHeaWatPri_select1(
     start=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable)
     "Type of primary HW pumps"
-    annotation (Evaluate=true, Dialog(group="Primary HW loop", enable=have_heaWat));
+    annotation (Evaluate=true, Dialog(group="Primary HW loop", enable=have_heaWat and
+    typDisHeaWat==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2));
+  parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary typPumHeaWatPri_select2(
+    start=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable)
+    "Type of primary HW pumps"
+    annotation (Evaluate=true, Dialog(group="Primary HW loop", enable=have_heaWat and (
+    typDisHeaWat==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
+    or typDisHeaWat==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1And2)),
+    choices(
+      choice=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.FactoryVariable
+        "Variable speed pump provided with heat pump with factory controls",
+      choice=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
+        "Variable speed pump specified separately"));
+  final parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary typPumHeaWatPri=
+    if typDisHeaWat==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2
+    then typPumHeaWatPri_select1
+    elseif typDisHeaWat==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
+    or typDisHeaWat==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1And2
+    then typPumHeaWatPri_select2
+    else Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant
+    "Type of primary HW pumps"
+    annotation (Evaluate=true);
+  final parameter Boolean have_varPumHeaWatPri=
+    typPumHeaWatPri==Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
+    or typPumHeaWatPri==Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.FactoryVariable
+    "Set to true for variable speed primary HW pumps"
+    annotation (Evaluate=true);
   parameter Integer nPumHeaWatPri_select(
     final min=0, start=0)=nHeaPum
     "Number of primary HW pumps"
@@ -144,10 +180,36 @@ partial model PartialHeatPumpPlant
     typDisChiWat==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
     "Set to true if the CHW loop has a minimum flow bypass valve"
     annotation(Evaluate=true, Dialog(group="Primary CHW loop"));
-  parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary typPumChiWatPri(
+  parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary typPumChiWatPri_select1(
     start=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable)
     "Type of primary CHW pumps"
-    annotation (Evaluate=true, Dialog(group="Primary CHW loop", enable=have_chiWat));
+    annotation (Evaluate=true, Dialog(group="Primary CHW loop", enable=have_chiWat and
+    typDisChiWat==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2));
+  parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary typPumChiWatPri_select2(
+    start=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable)
+    "Type of primary CHW pumps"
+    annotation (Evaluate=true, Dialog(group="Primary CHW loop", enable=have_chiWat and (
+    typDisChiWat==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
+    or typDisChiWat==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1And2)),
+    choices(
+      choice=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.FactoryVariable
+        "Variable speed pump provided with heat pump with factory controls",
+      choice=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
+        "Variable speed pump specified separately"));
+  final parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary typPumChiWatPri=
+    if typDisChiWat==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2
+    then typPumChiWatPri_select1
+    elseif typDisChiWat==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
+    or typDisChiWat==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1And2
+    then typPumChiWatPri_select2
+    else Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant
+    "Type of primary CHW pumps"
+    annotation (Evaluate=true);
+  final parameter Boolean have_varPumChiWatPri=
+    typPumChiWatPri==Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
+    or typPumChiWatPri==Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.FactoryVariable
+    "Set to true for variable speed primary CHW pumps"
+    annotation (Evaluate=true);
   parameter Integer nPumChiWatPri_select(
     final min=0, start=0)=nHeaPum
     "Number of primary CHW pumps"
@@ -207,11 +269,6 @@ partial model PartialHeatPumpPlant
     "Number of terminal units (zone equipment) served by the plant"
     annotation(Evaluate=true, Dialog(group="Controls"));
 
-  // See derived class for additional bindings of parameters not defined at top-level.
-  parameter Buildings.Templates.Plants.HeatPumps.Data.HeatPumpPlant dat(cfg=cfg)
-    "Design and operating parameters"
-    annotation (Placement(transformation(extent={{-280,240},{-260,260}})));
-
   final parameter Modelica.Units.SI.MassFlowRate mHeaWatPri_flow_nominal=
     if have_heaWat then sum(dat.pumHeaWatPri.m_flow_nominal) else 0
     "Primary HW mass flow rate";
@@ -269,18 +326,24 @@ partial model PartialHeatPumpPlant
   final parameter MediumHeaWat.Density rhoHeaWat_default=
     MediumHeaWat.density(staHeaWat_default)
     "HW default density";
+  final parameter MediumHeaWat.SpecificHeatCapacity cpHeaWat_default=
+    MediumHeaWat.specificHeatCapacityCp(staHeaWat_default)
+    "HW default specific heat capacity";
   final parameter MediumHeaWat.ThermodynamicState staHeaWat_default=
     MediumHeaWat.setState_pTX(
-      T=Buildings.Templates.Data.Defaults.THeaWatSupLow,
+      T=THeaWatSup_nominal,
       p=MediumHeaWat.p_default,
       X=MediumHeaWat.X_default)
     "HW default state";
   final parameter MediumChiWat.Density rhoChiWat_default=
     MediumChiWat.density(staChiWat_default)
     "CHW default density";
+  final parameter MediumChiWat.SpecificHeatCapacity cpChiWat_default=
+    MediumChiWat.specificHeatCapacityCp(staChiWat_default)
+    "CHW default specific heat capacity";
   final parameter MediumChiWat.ThermodynamicState staChiWat_default=
     MediumChiWat.setState_pTX(
-      T=Buildings.Templates.Data.Defaults.TChiWatSup,
+      T=TChiWatSup_nominal,
       p=MediumChiWat.p_default,
       X=MediumChiWat.X_default)
     "CHW default state";

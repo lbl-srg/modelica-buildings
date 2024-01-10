@@ -3,17 +3,17 @@ package Defaults "Package with default sizing parameters"
   extends Modelica.Icons.MaterialPropertiesPackage;
 
   constant Modelica.Units.SI.Temperature TChiWatSup=7+273.15
-    "CHW supply temperature";
+    "CHW supply temperature (AHRI 551/591)";
   constant Modelica.Units.SI.Temperature TChiWatSup_max=16+273.15
     "Maximum CHW supply temperature (typical)";
   constant Modelica.Units.SI.Temperature TChiWatRet=12+273.15
-    "CHW return temperature";
-  constant Modelica.Units.SI.Temperature TConWatSup=29.4+273.15
-    "CW supply temperature";
+    "CHW return temperature (AHRI 551/591)";
+  constant Modelica.Units.SI.Temperature TConWatSup=30+273.15
+    "CW supply temperature (AHRI 551/591)";
   constant Modelica.Units.SI.Temperature TConWatRet=35+273.15
-    "CW return temperature";
-  constant Modelica.Units.SI.Temperature TConAirEnt=35+273.15
-    "Condenser entering air temperature for air-cooled chillers";
+    "CW return temperature (AHRI 551/591)";
+  constant Modelica.Units.SI.Temperature TOutChi=35+273.15
+    "Outdoor air temperature for air-cooled chiller (AHRI 551/591)";
   constant Modelica.Units.SI.Temperature TConEnt_min=13+273.15
     "Minimum condenser entering fluid temperature (air or water)";
   constant Modelica.Units.SI.Temperature TConEnt_max=45+273.15
@@ -26,13 +26,13 @@ package Defaults "Package with default sizing parameters"
     "WSE entering CW temperature";
   constant Modelica.Units.SI.Temperature TConWatEcoLvg=16+273.15
     "WSE leaving CW temperature";
-  constant Modelica.Units.SI.Temperature TOutChiLoc=16+273.15
-    "Outdoor air lockout temperature below which the CHW plant is prevented from operating";
+  constant Modelica.Units.SI.Temperature TOutChiWatLck=16+273.15
+    "Outdoor air lockout temperature below which the CHW system is prevented from operating";
   constant Modelica.Units.SI.TemperatureDifference dTLifChi_min=5
     "Minimum chiller lift at minimum load";
-  constant Modelica.Units.SI.Temperature TAirDryCooEnt=TConAirEnt
+  constant Modelica.Units.SI.Temperature TOutDryCoo=TOutChi
     "Dry cooler entering air drybulb temperature";
-  constant Modelica.Units.SI.Temperature TWetBulTowEnt=23.9+273.15
+  constant Modelica.Units.SI.Temperature TWetBulTowEnt=24+273.15
     "CT entering air wetbulb temperature";
   constant Real PFanByFloConWatTow(unit="W/(kg/s)")=340
     "CT fan power divided by CW mass flow rate";
@@ -46,10 +46,10 @@ package Defaults "Package with default sizing parameters"
     "CW flow-friction losses through closed-circuit tower and piping only (without valve)";
   constant Real mConAirByCapChi(unit="(kg/s)/W")=1E-4
     "Air mass flow rate at condenser divided by chiller capacity";
-  constant Real COPChiAirCoo(unit="1")=3.0
-    "Air-cooled chiller COP";
-  constant Real COPChiWatCoo(unit="1")=5.0
-    "Water-cooled chiller COP";
+  constant Real COPChiAirCoo(unit="1")=2.99
+    "Air-cooled chiller COP (ASHRAE 90.1 2022 at 7 °C CHWST, 35 °C OAT)";
+  constant Real COPChiWatCoo(unit="1")=5.33
+    "Water-cooled chiller COP (ASHRAE 90.1 2022 at 7 °C CHWST, 35 °C source LWT)";
   constant Modelica.Units.SI.PressureDifference dpValIso=1E3
     "Isolation or bypass valve pressure drop";
   constant Modelica.Units.SI.PressureDifference dpValBypMin=5E3
@@ -72,10 +72,10 @@ package Defaults "Package with default sizing parameters"
     "WSE CHW pressure drop";
   constant Modelica.Units.SI.PressureDifference dpConWatEco=3E4
     "WSE CW pressure drop";
-  constant Modelica.Units.SI.PressureDifference pChiWat_rel_min=1.0E5
-    "CHW circuit minimum pressure";
-  constant Modelica.Units.SI.PressureDifference pHeaWat_rel_min=1.5E5
-    "HHW circuit minimum pressure";
+  constant Modelica.Units.SI.PressureDifference pChiWat_rel_nominal=1.0E5
+    "CHW system gauge pressure at design conditions";
+  constant Modelica.Units.SI.PressureDifference pHeaWat_rel_nominal=2.5E5
+    "HHW system gauge pressure at design conditions";
   constant Modelica.Units.SI.PressureDifference dpHeaWatBoi=5E3
     "Boiler HW pressure drop";
   constant Modelica.Units.SI.Temperature THeaWatSup=80+273.15
@@ -84,8 +84,8 @@ package Defaults "Package with default sizing parameters"
     "HW supply temperature for condensing boilers";
   constant Modelica.Units.SI.Temperature THeaWatRet=55+273.15
     "HW return temperature";
-  constant Modelica.Units.SI.Temperature TOutHeaLck=24+273.15
-    "Outdoor air lockout temperature above which the HW plant is prevented from operating";
+  constant Modelica.Units.SI.Temperature TOutHeaWatLck=24+273.15
+    "Outdoor air lockout temperature above which the HW system is prevented from operating";
   constant Modelica.Units.SI.PressureDifference dpHeaWatSet_min=3.5E4
     "Minimum HW differential pressure setpoint used in HW plant reset logic";
   constant Modelica.Units.SI.PressureDifference dpHeaWatSet_max=5E4
@@ -94,10 +94,32 @@ package Defaults "Package with default sizing parameters"
     "Maximum HW differential pressure setpoint local to the CHW plant";
   constant Modelica.Units.SI.PressureDifference dpHeaWatHeaPum=5E4
     "Heat pump HW pressure drop across condenser barrel";
-  constant Modelica.Units.SI.Temperature THeaWatSupLow=45+273.15
-    "HW supply temperature - Low temperature systems";
-  constant Modelica.Units.SI.Temperature THeaWatRetLow=40+273.15
-    "HW return temperature - Low temperature systems";
+  constant Modelica.Units.SI.Temperature THeaWatSupHig=60+273.15
+    "HW supply temperature - High temperature level (AHRI 551/591)";
+  constant Modelica.Units.SI.Temperature THeaWatRetHig=50+273.15
+    "HW return temperature - High temperature level (AHRI 551/591)";
+  constant Modelica.Units.SI.Temperature THeaWatSupMed=50+273.15
+    "HW supply temperature - Medium temperature level (AHRI 551/591)";
+  constant Modelica.Units.SI.Temperature THeaWatRetMed=42+273.15
+    "HW return temperature - Medium temperature level (AHRI 551/591)";
+  constant Modelica.Units.SI.Temperature THeaWatSupLow=40+273.15
+    "HW supply temperature - Low temperature level (AHRI 551/591)";
+  constant Modelica.Units.SI.Temperature THeaWatRetLow=35+273.15
+    "HW return temperature - Low temperature level (AHRI 551/591)";
+  constant Modelica.Units.SI.Temperature TOutHeaPumCoo=TOutChi
+    "Outdoor air temperature for air-to-water heat pump rating - Cooling (AHRI 551/591)";
+  constant Modelica.Units.SI.Temperature TOutHeaPumHeaHig=8+273.15
+    "Outdoor air temperature for air-to-water heat pump rating - High heating (AHRI 551/591)";
+  constant Modelica.Units.SI.Temperature TOutHeaPumHeaLow=-8+273.15
+    "Outdoor air temperature for air-to-water heat pump rating - Low heating (AHRI 551/591)";
+  constant Real COPHeaPumAirWatHea(unit="1")=1.75
+    "Air-to-water heat pump heating COP (ASHRAE 90.1 2022 at 50 °C HWST, -8 °C OAT)";
+  constant Real COPHeaPumAirWatCoo(unit="1")=2.84
+    "Air-to-water heat pump cooling COP (ASHRAE 90.1 2022 at 7 °C CHWST, 35 °C OAT)";
+  constant Real COPHeaPumWatWatHea(unit="1")=3.61
+    "Water(brine)-to-water heat pump heating COP (ASHRAE 90.1 2022 at 50 °C HWST, 7 °C source LWT)";
+  constant Real COPHeaPumWatWatCoo(unit="1")=5.07
+    "Water(brine)-to-water heat pump cooling COP (ASHRAE 90.1 2022 at 7 °C CHWST, 35 °C source LWT)";
   annotation (Documentation(info="<html>
 <p>
 This package defines some constants that are either
@@ -111,8 +133,8 @@ Buildings.Templates</a>, or
 </li>
 <li>
 arbitrary values used for validation purposes only.
-Those are typically project-specific characteristics (e.g., 
-chiller COP at nominal conditions) and should not 
+Those are typically project-specific characteristics (e.g.,
+chiller COP at nominal conditions) and should not
 be considered as generic default values.
 </li>
 </ul>

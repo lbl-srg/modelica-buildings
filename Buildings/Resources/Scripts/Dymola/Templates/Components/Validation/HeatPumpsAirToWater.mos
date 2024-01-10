@@ -1,0 +1,56 @@
+simulateModel("Buildings.Templates.Components.Validation.HeatPumpsAirToWater",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=3000.0,
+    resultFile="HeatPumpsAirToWater");
+createPlot(
+    id=1,
+    position={5, 5, 300, 200},
+    y={"y1.y[1]", "y1Hea.y[1]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    position={310, 5, 300, 600},
+    subPlot=101,
+    y={"TRet.T", "TSup.T", "heaPumNonRev.bus.TSet"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=102,
+    y={"heaPumNonRev.port_a.m_flow", "heaPumNonRev.mHeaWat_flow_nominal", "heaPumNonRev.mChiWat_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=103,
+    y={"heaPumNonRev.heaPum.PLR"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=3,
+    position={620, 5, 300, 600},
+    subPlot=101,
+    y={"TRet1.T", "TSup1.T", "heaPumRev.bus.TSet"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=3,
+    subPlot=102,
+    y={"heaPumRev.port_a.m_flow", "heaPumRev.mHeaWat_flow_nominal", "heaPumRev.mChiWat_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=3,
+    subPlot=103,
+    y={"heaPumRev.heaPum.PLR"},
+    autoscale=true,
+    grid=true
+);
