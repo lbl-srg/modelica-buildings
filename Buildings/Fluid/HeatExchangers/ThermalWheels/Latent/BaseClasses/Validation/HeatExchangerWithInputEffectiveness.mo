@@ -17,7 +17,6 @@ model HeatExchangerWithInputEffectiveness
   Buildings.Fluid.Sources.Boundary_pT sou_2(
     redeclare package Medium = Medium2,
     p(displayUnit="Pa") = 101325 + 100,
-    T=566.3,
     nPorts=1)
     "Exhaust air source"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
@@ -52,14 +51,14 @@ model HeatExchangerWithInputEffectiveness
     m2_flow_nominal=5,
     dp1_nominal=100,
     dp2_nominal=100,
-    show_T=true)
+    show_T=true) 
     "Heat exchanger"
     annotation (Placement(transformation(extent={{6,-4},{26,16}})));
   Modelica.Blocks.Sources.Ramp epsSen(
     height=0.1,
     duration=60,
     offset=0.7,
-    startTime=120)
+    startTime=120) 
     "Sensible heat exchanger effectiveness"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Modelica.Blocks.Sources.Ramp epsLat(
@@ -76,7 +75,7 @@ equation
     annotation (Line(points={{-20,60},{-10,60},{-10,12},{6,12}}, color={0,127,255}));
   connect(hex.port_a2, sou_2.ports[1])
     annotation (Line(points={{26,5.55112e-16},{60,5.55112e-16},{60,-40},{40,-40}},
-                           color={0,127,255}));
+    color={0,127,255}));
   connect(hex.port_b1, sin_1.ports[1])
     annotation (Line(points={{26,12},{40,12},{40,40},{60,40}}, color={0,127,255}));
   connect(hex.port_b2, sin_2.ports[1])

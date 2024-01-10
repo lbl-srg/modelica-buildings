@@ -16,7 +16,7 @@ protected
   Modelica.Blocks.Sources.RealExpression PEle(
     final y=P_nominal*Buildings.Utilities.Math.Functions.polynomial(a=a, x=uSpe))
     "Electric power consumption"
-    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
+    annotation (Placement(transformation(extent={{70,-30},{90,-10}})));
 
 initial equation
   assert(abs(sum(a)-1) < Modelica.Constants.eps,
@@ -26,7 +26,7 @@ initial equation
 
 equation
   connect(P, PEle.y)
-    annotation (Line(points={{110,0},{91,0}}, color={0,0,127}));
+    annotation (Line(points={{110,-20},{91,-20}}, color={0,0,127}));
   connect(port_a1, hex.port_a1) annotation (Line(points={{-180,80},{-60,80},{-60,
           6},{-10,6}}, color={0,127,255}));
   connect(hex.port_a2, port_a2) annotation (Line(points={{10,-6},{60,-6},{60,-60},
@@ -46,7 +46,7 @@ annotation (
         coordinateSystem(preserveAspectRatio=false, extent={{-180,-100},{100,100}})),
 Documentation(info="<html>
 <p>
-Model of a generic, sensible and latent air-to-air heat recovery wheel, which has the 
+Model of an enthalpy heat recovery wheel, which has the 
 wheel speed as the input to control the heat recovery.
 </p>
 <p>

@@ -7,17 +7,17 @@ model Effectiveness
   parameter Modelica.Units.SI.Efficiency epsLatCoo_nominal(final max=1)
     "Nominal latent heat exchanger effectiveness at the cooling mode";
   parameter Modelica.Units.SI.Efficiency epsSenCooPL(final max=1)
-    "Part load (75%) sensible heat exchanger effectiveness at the cooling mode";
+    "Part load (75% of the nominal supply flow rate) sensible heat exchanger effectiveness at the cooling mode";
   parameter Modelica.Units.SI.Efficiency epsLatCooPL(final max=1)
-    "Part load (75%) latent heat exchanger effectiveness at the cooling mode";
+    "Part load (75% of the nominal supply flow rate) latent heat exchanger effectiveness at the cooling mode";
   parameter Modelica.Units.SI.Efficiency epsSenHea_nominal(final max=1)
     "Nominal sensible heat exchanger effectiveness at the heating mode";
   parameter Modelica.Units.SI.Efficiency epsLatHea_nominal(final max=1)
     "Nominal latent heat exchanger effectiveness at the heating mode";
   parameter Modelica.Units.SI.Efficiency epsSenHeaPL(final max=1)
-    "Part load (75%) sensible heat exchanger effectiveness at the heating mode";
+    "Part load (75% of the nominal supply flow rate) sensible heat exchanger effectiveness at the heating mode";
   parameter Modelica.Units.SI.Efficiency epsLatHeaPL(final max=1)
-    "Part load (75%) latent heat exchanger effectiveness at the heating mode";
+    "Part load (75% of the nominal supply flow rate) latent heat exchanger effectiveness at the heating mode";
   parameter Modelica.Units.SI.VolumeFlowRate VSup_flow_nominal
     "Nominal supply air flow rate";
 
@@ -57,24 +57,24 @@ protected
   Real rat
     "Ratio of the average operating air flow rate to the nominal supply air flow rate";
   Real epsSenPL
-    "Part load (75%) sensible heat exchanger effectiveness used for calculation";
+    "Part load sensible heat exchanger effectiveness used for calculation";
   Real epsSen_nominal
     "Nominal sensible heat exchanger effectiveness used for calculation";
   Real epsLatPL
-    "Part load (75%) latent heat exchanger effectiveness used for calculation";
+    "Part load latent heat exchanger effectiveness used for calculation";
   Real epsLat_nominal
     "Nominal latent heat exchanger effectiveness used for calculation";
 
 equation
   // Check if the air flows are too unbalanced
-  assert(noEvent(VSup_flow - 2*VExh_flow < 0) or noEvent(VExh_flow - 2*VSup_flow < 0),
-    "*** Warning in " + getInstanceName() + ": The ratio of the supply flow rate to the exhaust flow rate should be in the range of [0.5, 2].",
+  assert(VSup_flow - 2*VExh_flow < 0 or VExh_flow - 2*VSup_flow < 0,
+    "In " + getInstanceName() + ": The ratio of the supply flow rate to the exhaust flow rate should be in the range of [0.5, 2].",
     level=AssertionLevel.warning);
   // Calculate the average volumetric air flow and flow rate ratio.
   rat = (VSup_flow + VExh_flow)/2/VSup_flow_nominal;
   // Check if the extrapolation goes too far
-  assert(noEvent(rat > 0.5) and noEvent(rat < 1.3),
-    "*** Warning in " + getInstanceName() + ": The ratio of the operating flow rate to the nominal supply flow rate should be in the range of [0.5, 1.3].",
+  assert(rat > 0.5 and rat < 1.3,
+    "In " + getInstanceName() + ": The ratio of the operating flow rate to the nominal supply flow rate should be in the range of [0.5, 1.3].",
     level=AssertionLevel.warning);
   // Switch between cooling and heating modes based on the difference between the supply air temperature and the exhaust air temperature
   epsSenPL = Buildings.Utilities.Math.Functions.regStep(TSup-TExh, epsSenCooPL, epsSenHeaPL, 1e-5);
@@ -84,11 +84,11 @@ equation
   // Calculate effectiveness
   epsSen =uSpe*(epsSenPL + (epsSen_nominal - epsSenPL)*(rat - 0.75)/0.25);
   epsLat =uSpe*(epsLatPL + (epsLat_nominal - epsLatPL)*(rat - 0.75)/0.25);
-  assert(noEvent(epsSen >= 0) and noEvent(epsSen < 1),
+  assert(epsSen >= 0 and epsSen < 1,
     "In " + getInstanceName() + ": The sensible heat exchange effectiveness epsSen = " + String(epsSen) + ". It should be in the range of [0, 1].
     Check if the part load (75%) or nominal sensible heat exchanger effectiveness is too high or too low.",
     level=AssertionLevel.error);
-  assert(noEvent(epsLat >= 0) and noEvent(epsLat < 1),
+  assert(epsLat >= 0 and epsLat < 1,
     "In " + getInstanceName() + ": The latent heat exchange effectiveness epsLat = " + String(epsLat) + ". It should be in the range of [0, 1], 
     Check if the part load (75%) or nominal latent heat exchanger effectiveness is too high or too low.",
     level=AssertionLevel.error);
