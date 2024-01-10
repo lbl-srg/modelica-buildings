@@ -11,7 +11,7 @@ model BTS_Validation
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
   Buildings.Experimental.DHC.Loads.BaseClasses.Examples.CouplingTimeSeries
     couplingTimeSeries(bui(
-    filNam    ="modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Validation/BTS_validation_test.mos"))
+    filNam    ="modelica://Buildings/Resources/Data/BTS/BTS_validation_test.mos"))
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
   annotation(experiment(
       StartTime=11145600,
