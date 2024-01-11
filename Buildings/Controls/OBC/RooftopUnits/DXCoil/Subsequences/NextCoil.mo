@@ -29,12 +29,12 @@ block NextCoil "Find next available coil to enable"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yStaUp
     "Signal indicating coil to be enabled has been found"
     annotation (Placement(transformation(extent={{420,-20},{460,20}}),
-      iconTransformation(extent={{100,0},{140,40}})));
+      iconTransformation(extent={{100,20},{140,60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yNexCoi
     "Next coil to be enabled"
     annotation (Placement(transformation(extent={{420,-60},{460,-20}}),
-      iconTransformation(extent={{100,-40},{140,0}})));
+      iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uCoiSeq[nCoi]
     "DX coil available sequence order"
@@ -88,7 +88,8 @@ block NextCoil "Find next available coil to enable"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Round rou[nCoi](
-    final n=0) "Round off time-value to nearest second"
+    final n=fill(0, nCoi))
+    "Round off time-value to nearest second"
     annotation (Placement(transformation(extent={{40,100},{60,120}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MultiMax mulMax(
@@ -232,7 +233,8 @@ block NextCoil "Find next available coil to enable"
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea2[nCoi]
     "Convert skip times from Integer to Real, for compatibility with mulMax block"
     annotation (Placement(transformation(extent={{40,130},{60,150}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1[nCoi](realTrue=1e6)
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1[nCoi](
+    final realTrue=fill(1e6, nCoi))
     "Convert non-available coils to high value before passing it through minimum block, so that they are not prioritized for enabling"
     annotation (Placement(transformation(extent={{232,180},{252,200}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2[nCoi]
@@ -241,6 +243,13 @@ block NextCoil "Find next available coil to enable"
   Buildings.Controls.OBC.CDL.Logical.Not not3[nCoi]
     "Identify coils that are not on list of skipped, currently-available coils"
     annotation (Placement(transformation(extent={{160,20},{180,40}})));
+  CDL.Interfaces.IntegerOutput yLasCoi "Last coil that was enabled" annotation (
+     Placement(transformation(extent={{420,-220},{460,-180}}),
+        iconTransformation(extent={{100,-60},{140,-20}})));
+  CDL.Routing.IntegerExtractor                        extIndIntOriSeq1(final nin=
+       nCoi)
+    "Index of next coil to be enabled if there are no skipped coils to be prioritized"
+    annotation (Placement(transformation(extent={{330,-210},{350,-190}})));
 protected
   parameter Integer coiInd[nCoi]={i for i in 1:nCoi}
     "DX coil index, {1,2,...,n}";
@@ -416,6 +425,12 @@ equation
     annotation (Line(points={{62,30},{158,30}}, color={255,0,255}));
   connect(not3.y, booToRea1.u) annotation (Line(points={{182,30},{224,30},{224,190},
           {230,190}}, color={255,0,255}));
+  connect(extIndIntOriSeq1.y, yLasCoi) annotation (Line(points={{352,-200},{392,
+          -200},{392,-200},{440,-200}}, color={255,127,0}));
+  connect(mulSumInt.y, extIndIntOriSeq1.index) annotation (Line(points={{302,-120},
+          {304,-120},{304,-220},{340,-220},{340,-212}}, color={255,127,0}));
+  connect(uCoiSeq, extIndIntOriSeq1.u) annotation (Line(points={{-160,60},{100,60},
+          {100,-200},{328,-200}}, color={255,127,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-100,-100},{100,100}}),
       graphics={Rectangle(
@@ -427,7 +442,8 @@ equation
         extent={{-150,140},{150,100}},
         textString="%name",
         textColor={0,0,255})}),
-        Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-180},{420,340}})),
+        Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-280},
+            {420,340}})),
   Documentation(info="<html>
   <p>
   This is a control module for determining the next coil to be enabled, given a 
