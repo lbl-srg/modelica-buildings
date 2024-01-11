@@ -103,6 +103,8 @@ block Controller
     annotation (Placement(transformation(extent={{220,40},{260,80}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
+  Subsequences.NextCoil nexCoi(nCoi=nCoi)
+    annotation (Placement(transformation(extent={{74,66},{94,86}})));
 protected
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea[nCoi]
     "Convert integer to real number"
@@ -118,15 +120,6 @@ protected
     "DX coil index"
     annotation (Placement(transformation(extent={{-150,110},{-130,130}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch logSwi[nCoi]
-    "Logical Switch"
-    annotation (Placement(transformation(extent={{180,50},{200,70}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[nCoi](
-    final k=fill(false,nCoi))
-    "Constant Boolean False signal"
-    annotation (Placement(transformation(extent={{130,30},{150,50}})));
-
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
     "Convert real input to integer output"
     annotation (Placement(transformation(extent={{-100,110},{-80,130}})));
@@ -140,10 +133,6 @@ protected
     "Sum of integer inputs"
     annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Add addInt
-    "Integer Add"
-    annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
-
   Buildings.Controls.OBC.CDL.Integers.GreaterEqualThreshold intGreEquThr(
     final t=1)
     "Output true Boolean signal if integer is greater or equal than threshold"
@@ -156,33 +145,15 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.And and2
     "Logical And"
-    annotation (Placement(transformation(extent={{40,80},{60,100}})));
+    annotation (Placement(transformation(extent={{40,30},{60,50}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not1
     "Logical Not"
-    annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
+    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
 
   Buildings.Controls.OBC.CDL.Logical.Or or2
     "Logical Or"
-    annotation (Placement(transformation(extent={{40,20},{60,40}})));
-
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor nexDXCoi(
-    final nin=nCoi)
-    "Next DX coil"
-    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
-
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor lasDXCoi(
-    final nin=nCoi)
-    "Last DX coil"
-    annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
-
-  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1
-    "Convert real input to integer output"
-    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
-
-  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt2
-    "Convert real input to integer output"
-    annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
   Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.StageUpDown DXCoiSta(
     final nCoi=nCoi,
@@ -204,10 +175,6 @@ protected
     "DX coil enable and disable"
     annotation (Placement(transformation(extent={{-150,-10},{-130,10}})));
 
-  Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.ZeroIndexCorrection zerStaIndCor
-    "Pass the correct input details when index signal is zero"
-    annotation (Placement(transformation(extent={{-50,-90},{-30,-70}})));
-
   Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.ChangeStatus chaSta(
     final nCoi=nCoi)
     "Change DX coil status"
@@ -216,7 +183,7 @@ protected
   Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.ChangeStatus chaSta1(
     final nCoi=nCoi)
     "Change DX coil status"
-    annotation (Placement(transformation(extent={{140,80},{160,100}})));
+    annotation (Placement(transformation(extent={{140,50},{160,70}})));
 
 equation
   connect(uCoiSeq, intToRea.u)
@@ -229,11 +196,6 @@ equation
     annotation (Line(points={{-128,120},{-102,120}}, color={0,0,127}));
   connect(booToInt.y, mulSumInt.u)
     annotation (Line(points={{-126,-40},{-112,-40}}, color={255,127,0}));
-  connect(conInt.y, addInt.u1)
-    annotation (Line(points={{-168,80},{-110,80},{-110,6},{-102,6}}, color={255,127,0}));
-  connect(mulSumInt.y, addInt.u2)
-    annotation (Line(points={{-88,-40},{-74,-40},{-74,-20},{-110,-20},{-110,-6}, {-102,-6}},
-                color={255,127,0}));
   connect(reaToInt.y, chaSta.uNexDXCoi)
     annotation (Line(points={{-78,120},{-40,120},{-40,126},{-2,126}},
                                                   color={255,127,0}));
@@ -250,7 +212,7 @@ equation
   connect(DXCoiEna.yDXCoi, chaSta.uLasDXCoiSta) annotation (Line(points={{-128,0},
           {-120,0},{-120,106},{-60,106},{-60,134},{-2,134}},color={255,0,255}));
   connect(chaSta.yDXCoi, chaSta1.uDXCoil) annotation (Line(points={{22,130},{
-          118,130},{118,90},{138,90}},
+          134,130},{134,60},{138,60}},
                                    color={255,0,255}));
   connect(DXCoiSta.uCoi, uCoi) annotation (Line(points={{-152,34},{-180,34},{-180,
           -60},{-240,-60}}, color={0,0,127}));
@@ -260,56 +222,41 @@ equation
           {-60,0},{-52,0}}, color={255,127,0}));
   connect(mulSumInt.y, intLesEquThr.u)
     annotation (Line(points={{-88,-40},{-52,-40}}, color={255,127,0}));
-  connect(DXCoiSta.yUp, and2.u1) annotation (Line(points={{-128,40},{-60,40},{-60,
-          90},{38,90}}, color={255,0,255}));
-  connect(intGreEquThr.y, and2.u2) annotation (Line(points={{-28,0},{30,0},{30,82},
-          {38,82}}, color={255,0,255}));
-  connect(intLesEquThr.y, or2.u2) annotation (Line(points={{-28,-40},{-20,-40},{
-          -20,22},{38,22}}, color={255,0,255}));
-  connect(or2.y, chaSta1.uLasDXCoiSta) annotation (Line(points={{62,30},{100,30},
-          {100,94},{138,94}}, color={255,0,255}));
-  connect(and2.y, chaSta1.uNexDXCoiSta)
-    annotation (Line(points={{62,90},{96,90},{96,98},{138,98}},
-                                               color={255,0,255}));
-  connect(chaSta1.yDXCoi, logSwi.u1) annotation (Line(points={{162,90},{170,90},
-          {170,68},{178,68}},   color={255,0,255}));
-  connect(con.y, logSwi.u3) annotation (Line(points={{152,40},{160,40},{160,52},
-          {178,52}}, color={255,0,255}));
-  connect(uDXCoiAva, logSwi.u2) annotation (Line(points={{-240,100},{20,100},{20,
-          60},{178,60}},                              color={255,0,255}));
-  connect(intToRea.y, nexDXCoi.u) annotation (Line(points={{-168,120},{-160,120},
-          {-160,96},{-10,96},{-10,-40},{-2,-40}}, color={0,0,127}));
-  connect(intToRea.y, lasDXCoi.u) annotation (Line(points={{-168,120},{-160,120},
-          {-160,96},{-10,96},{-10,-80},{-2,-80}}, color={0,0,127}));
-  connect(addInt.y, nexDXCoi.index) annotation (Line(points={{-78,0},{-68,0},{-68,
-          -56},{10,-56},{10,-52}}, color={255,127,0}));
-  connect(nexDXCoi.y, reaToInt1.u) annotation (Line(points={{22,-40},{50,-40},{50,
-          0},{78,0}}, color={0,0,127}));
-  connect(reaToInt2.y, chaSta1.uLasDXCoi) annotation (Line(points={{102,-40},{
-          120,-40},{120,82},{138,82}},
-                                   color={255,127,0}));
-  connect(logSwi.y, yDXCoi)
-    annotation (Line(points={{202,60},{240,60}},   color={255,0,255}));
-  connect(mulSumInt.y, zerStaIndCor.uInd) annotation (Line(points={{-88,-40},{-74,
-          -40},{-74,-76},{-52,-76}}, color={255,127,0}));
-  connect(zerStaIndCor.yIndMod, lasDXCoi.index) annotation (Line(points={{-28,-76},
-          {-14,-76},{-14,-96},{10,-96},{10,-92}}, color={255,127,0}));
-  connect(lasDXCoi.y, zerStaIndCor.uRea) annotation (Line(points={{22,-80},{30,-80},
-          {30,-100},{-60,-100},{-60,-84},{-52,-84}}, color={0,0,127}));
-  connect(zerStaIndCor.yReaMod, reaToInt2.u) annotation (Line(points={{-28,-84},
-          {-20,-84},{-20,-108},{60,-108},{60,-40},{78,-40}}, color={0,0,127}));
+  connect(DXCoiSta.yUp, and2.u1) annotation (Line(points={{-128,40},{38,40}},
+                        color={255,0,255}));
+  connect(intGreEquThr.y, and2.u2) annotation (Line(points={{-28,0},{0,0},{0,32},
+          {38,32}}, color={255,0,255}));
+  connect(intLesEquThr.y, or2.u2) annotation (Line(points={{-28,-40},{-20,-40},
+          {-20,-8},{38,-8}},color={255,0,255}));
+  connect(or2.y, chaSta1.uLasDXCoiSta) annotation (Line(points={{62,0},{100,0},
+          {100,64},{138,64}}, color={255,0,255}));
   connect(DXCoiSta.yDow, not1.u)
-    annotation (Line(points={{-128,28},{-90,28},{-90,30},{-52,30}},
+    annotation (Line(points={{-128,28},{-90,28},{-90,20},{-82,20}},
                                                   color={255,0,255}));
   connect(not1.y, or2.u1)
-    annotation (Line(points={{-28,30},{38,30}}, color={255,0,255}));
-  connect(reaToInt1.y, chaSta1.uNexDXCoi) annotation (Line(points={{102,0},{110,
-          0},{110,86},{138,86}},  color={255,127,0}));
+    annotation (Line(points={{-58,20},{6,20},{6,0},{38,0}},
+                                                color={255,0,255}));
   connect(uDXCoi, booToInt.u) annotation (Line(points={{-240,40},{-190,40},{-190,
           -40},{-150,-40}}, color={255,0,255}));
   connect(uComSpe, DXCoiSta.uComSpe) annotation (Line(points={{-240,-100},{-170,
           -100},{-170,28},{-152,28}}, color={0,0,127}));
 
+  connect(and2.y, nexCoi.uStaUp) annotation (Line(points={{62,40},{64,40},{64,
+          78},{72,78}}, color={255,0,255}));
+  connect(nexCoi.yNexCoi, chaSta1.uNexDXCoi) annotation (Line(points={{96,76},{
+          120,76},{120,56},{138,56}}, color={255,127,0}));
+  connect(nexCoi.yStaUp, chaSta1.uNexDXCoiSta) annotation (Line(points={{96,80},
+          {128,80},{128,68},{138,68}}, color={255,0,255}));
+  connect(uDXCoiAva, nexCoi.uDXCoiAva) annotation (Line(points={{-240,100},{20,
+          100},{20,74},{72,74}}, color={255,0,255}));
+  connect(uDXCoi, nexCoi.uDXCoi) annotation (Line(points={{-240,40},{-160,40},{
+          -160,70},{72,70}}, color={255,0,255}));
+  connect(uCoiSeq, nexCoi.uCoiSeq) annotation (Line(points={{-240,0},{-200,0},{
+          -200,104},{68,104},{68,82},{72,82}}, color={255,127,0}));
+  connect(nexCoi.yLasCoi, chaSta1.uLasDXCoi) annotation (Line(points={{96,72},{
+          106,72},{106,52},{138,52}}, color={255,127,0}));
+  connect(chaSta1.yDXCoi, yDXCoi)
+    annotation (Line(points={{162,60},{240,60}}, color={255,0,255}));
   annotation (defaultComponentName="DXCoiCon",
     Icon(coordinateSystem(preserveAspectRatio=false,
       extent={{-100,-100},{100,100}}),
