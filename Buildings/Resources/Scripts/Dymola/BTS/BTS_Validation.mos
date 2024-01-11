@@ -1,0 +1,10 @@
+simulateModel("Buildings.BTS.BTS_Validation", startTime=11145600, stopTime=11750400, outputInterval=3600, method="Radau", tolerance=1e-06, resultFile="BTS_Validation");
+createPlot(id=1,
+ position={35, 35, 701, 371},
+ y={"chillerDXHeatingEconomizer.hvac.cooCoi.m1_flow", "couplingTimeSeries.bui.disFloCoo.m_flow"},
+ range={11100000.0, 11800000.0, -0.02, 0.18},
+ grid=true,
+ colors={{28,108,200}, {238,46,47}},
+ timeUnit="s",
+ displayUnits={"kg/s", "kg/s"});
+

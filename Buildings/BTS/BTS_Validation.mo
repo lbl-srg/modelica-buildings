@@ -16,5 +16,7 @@ model BTS_Validation
   annotation(experiment(
       StartTime=11145600,
       StopTime=11750400,
-      Tolerance=1e-06));
+      Tolerance=1e-06),
+      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BTS/BTS_Validation.mos"
+        "Simulate and plot"));
 end BTS_Validation;

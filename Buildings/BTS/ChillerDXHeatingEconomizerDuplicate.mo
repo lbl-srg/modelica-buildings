@@ -91,7 +91,7 @@ equation
       StopTime=504800,
       Interval=3600,
       Tolerance=1e-06),
-      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Air/Systems/SingleZone/VAV/Examples/ChillerDXHeatingEconomizer.mos"
+      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BTS/ChillerDXHeatingEconomizerDuplicate.mos"
         "Simulate and plot"),
      Documentation(info="<html>
 <p>
