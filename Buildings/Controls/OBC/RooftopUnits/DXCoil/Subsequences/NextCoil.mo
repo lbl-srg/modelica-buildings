@@ -1,7 +1,8 @@
 within Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences;
 block NextCoil "Find next available coil to enable"
 
-  parameter Integer nCoi
+  parameter Integer nCoi(
+    final min= 1)
     "Number of coils";
 
   parameter Real tDel(
@@ -203,8 +204,8 @@ block NextCoil "Find next available coil to enable"
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "Hold Treu signal until coil available for enable is found"
     annotation (Placement(transformation(extent={{0,160},{20,180}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(realTrue=1 - (1
-        /tDel))
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(realTrue=1 - (1/
+        tDel))
     "Convert Boolean signal into Real value which will determine pulse transmitter operation"
     annotation (Placement(transformation(extent={{30,160},{50,180}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre
@@ -426,5 +427,37 @@ equation
         extent={{-150,140},{150,100}},
         textString="%name",
         textColor={0,0,255})}),
-        Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-180},{420,340}})));
+        Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-180},{420,340}})),
+  Documentation(info="<html>
+  <p>
+  This is a control module for determining the next coil to be enabled, given a 
+  coil staging sequence <code>uCoiSeq</code>, the current enable status of the 
+  coils <code>uDXCoi</code> and the current availability of the coils <code>uDXCoiAva</code>.
+  <br>
+  The search logic is triggered when the module receives a Boolean <code>true</code>
+  signal through the input <code>uStaUp</code>.
+  When the next coil as per the defined sequence is not available, the controller
+  uses pulses from the block <code>varPul</code> to drive a search logic that traverses
+  through the following lists as ordered below to determine the next coil to enable.
+  <ol>
+  <li>
+  the coils that were skipped over because thy were previously unable, but are 
+  now available for enabling.
+  </li>
+  <li>
+  the coils that are not yet enabled as per the input coil sequence, 
+  and are available for enabling.
+  </li>
+  </ol>
+  When the logic finds an appropriate coil, it outputs the coil index through the
+  output <code>yNexCoi</code> and sends a Boolean stage up signal through the output
+  <code>yStaUp</code>.
+  </html>", revisions="<html>
+  <ul>
+  <li>
+  August 4, 2023, by Junke Wang and Karthik Devaprasad:<br/>
+  First implementation.
+  </li>
+  </ul>
+  </html>"));
 end NextCoil;
