@@ -4,7 +4,7 @@ model MassTransfer
   and an input mass transfer efficiency"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
   Modelica.Blocks.Interfaces.RealInput m_flow_in[Medium.nC]
-   "input trace substance rate" annotation (Placement(transformation(
+   "Input trace substance rate" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=270,
         origin={0,120}), iconTransformation(
@@ -15,7 +15,7 @@ model MassTransfer
    final unit = "1",
    final min = 0,
    final max= 1)
-   "mass transfer coefficient"
+   "Mass transfer coefficient"
     annotation (Placement(transformation(
         extent={{20,-20},{-20,20}},
         rotation=180,
@@ -26,7 +26,7 @@ model MassTransfer
 equation
   if allowFlowReversal then
     port_b.C_outflow = inStream(port_a.C_outflow) - eps * m_flow_in;
-    port_a.C_outflow = inStream(port_b.C_outflow) + eps * m_flow_in;
+    port_a.C_outflow = inStream(port_a.C_outflow);
   else
     port_b.C_outflow = inStream(port_a.C_outflow);
     port_a.C_outflow = inStream(port_b.C_outflow);
@@ -43,7 +43,7 @@ equation
 
   if not allowFlowReversal then
     assert(m_flow > -m_flow_small,
-      "*** Error in " + getInstanceName() + ":Reverting flow occurs even though allowFlowReversal is false",
+      "In " + getInstanceName() + ":Reverting flow occurs even though allowFlowReversal is false",
       level=AssertionLevel.error);
   end if;
 

@@ -4,16 +4,18 @@ model MassAccumulation
   extends Modelica.Icons.Example;
   Buildings.Fluid.AirFilters.BaseClasses.MassAccumulation masAcc(mCon_nominal=1,
       mCon_reset=0)
-    "contaminant accumulation"
+    "Contaminant accumulation"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.Ramp mCon_flow(
     duration=1,
     height=1.2,
     offset=0)
-    "contaminant mass flow rate"
+    "Contaminant mass flow rate"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse RepSig(period=1, shift=0.5)
-    "filter replacement signal"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse RepSig(
+    period=1,
+    shift=0.5)
+    "Filter replacement signal"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 equation
   connect(RepSig.y, masAcc.triRep) annotation (Line(points={{-38,-20},{-20,-20},

@@ -1,6 +1,5 @@
 compareVars :=
   {
     "mCon.y",
-    "simCha.eps",
-    "simCha.kCor"
+    "eps.y"
   };

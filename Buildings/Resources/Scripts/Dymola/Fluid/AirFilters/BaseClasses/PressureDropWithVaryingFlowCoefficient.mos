@@ -1,5 +1,4 @@
-simulateModel("Buildings.Fluid.AirFilters.BaseClasses.Validation.PressureDropInputFlowCoefficient", tolerance=1e-06, method="CVode", resultFile="PressureDropInputFlowCoefficient");
+simulateModel("Buildings.Fluid.AirFilters.BaseClasses.Validation.PressureDropWithVaryingFlowCoefficient", tolerance=1e-06, method="CVode", resultFile="PressureDropInputFlowCoefficient");
 createPlot(id=1, position={13, 36, 845, 624}, y={"resFixed.m_flow", "resVarying.port_a.m_flow"}, range={0.0, 1.0, -0.4, 0.4}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"kg/s", "kg/s"});
 createPlot(id=1, position={13, 36, 845, 624}, y={"resFixed.k", "resVarying.k"}, range={0.0, 1.0, 0.04, 0.065}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="s");
 createPlot(id=1, position={13, 36, 845, 624}, y={"kCor.y"}, range={0.0, 1.0, 0.5, 2.5}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s");
-

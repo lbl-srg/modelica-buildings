@@ -2,12 +2,12 @@ within Buildings.Fluid.AirFilters.BaseClasses;
 model MassAccumulation
   "Component that mimics the accumulation of the contaminants"
   parameter Real mCon_nominal
-  "contaminant held capacity of the filter";
+    "Maximum mass of the contaminant captured by the filter";
   parameter Real mCon_reset(
-  final min = 0)
-  "initial contaminant mass of the filter";
+    final min = 0)
+    "Initial contaminant mass of the filter after replacement";
   Modelica.Blocks.Interfaces.BooleanInput triRep
-    "replacing the filter when trigger becomes true"
+    "Replacing the filter when trigger becomes true"
      annotation (Placement(
         transformation(
         extent={{20,-20},{-20,20}},
@@ -18,7 +18,7 @@ model MassAccumulation
         origin={-120,-62})));
   Modelica.Blocks.Interfaces.RealInput mCon_flow(
     final unit = "kg/s")
-    "contaminant mass flow rate"
+    "Contaminant mass flow rate"
     annotation (Placement(transformation(
         extent={{20,-20},{-20,20}},
         rotation=180,
@@ -28,32 +28,34 @@ model MassAccumulation
         origin={-120,60})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput mCon(
     final unit = "kg")
-    "mass of the contaminant held by the filter"
+    "Mass of the contaminant captured by the filter"
     annotation (Placement(
         transformation(extent={{100,-20},{140,20}}), iconTransformation(extent={
             {100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Reals.IntegratorWithReset intWitRes
-    "calculate the mass of contaminant"
+    "Calculate the mass of contaminant"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(k=mCon_reset)
-    "constant"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
+    final k=mCon_reset)
+    "Constant"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   Modelica.Blocks.Logical.Greater greater
-    "check if the filter is full"
+    "Check if the filter is full"
     annotation (Placement(transformation(extent={{40,-48},{60,-28}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(k=mCon_nominal)
-    "constant"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(
+     final k=mCon_nominal)
+    "Constant"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
-  Buildings.Controls.OBC.CDL.Utilities.Assert assMes(message="*** Warning in " +
-        getInstanceName() + ":the filter needs to be replaced")
-    "Error message when the filter is full, i.e., the mass held by the filter is larger than its capacity"
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
+  message="In " + getInstanceName() + ":the filter needs to be replaced")
+    "Error message when the filter is full, i.e., the mass captured by the filter is larger than the nominal value"
     annotation (Placement(transformation(extent={{72,-48},{92,-28}})));
 equation
   connect(intWitRes.u, mCon_flow) annotation (Line(points={{-12,0},{-40,0},{-40,
           60},{-120,60}}, color={0,0,127}));
   connect(intWitRes.y, mCon)
     annotation (Line(points={{12,0},{120,0}}, color={0,0,127}));
-  connect(con.y, intWitRes.y_reset_in) 
+  connect(con.y, intWitRes.y_reset_in)
     annotation (Line(points={{-58,-20},{-20,-20},
           {-20,-8},{-12,-8}},color={0,0,127}));
   connect(intWitRes.trigger, triRep)

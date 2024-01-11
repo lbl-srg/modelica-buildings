@@ -1,5 +1,5 @@
 within Buildings.Fluid.AirFilters.BaseClasses;
-model PressureDropInputFlowCoefficient
+model PressureDropWithVaryingFlowCoefficient
   "Flow resistance with a varying flow coefficient"
   extends Buildings.Fluid.BaseClasses.PartialResistance(
     final m_flow_turbulent = if computeFlowResistance then deltaM * m_flow_nominal_pos else 0);
@@ -12,8 +12,8 @@ model PressureDropInputFlowCoefficient
   Real k
    "flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
   Modelica.Blocks.Interfaces.RealInput kCor(
-   unit = "1",
-   min = 1)
+   final unit = "1",
+   final min = 1)
    "flow coefficient"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -180,4 +180,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end PressureDropInputFlowCoefficient;
+end PressureDropWithVaryingFlowCoefficient;

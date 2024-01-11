@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "C_in.C",
+    "C_out.C",
+    "fil.eps",
+    "fil.triRep",
+    "C_inflow.y"
+  };

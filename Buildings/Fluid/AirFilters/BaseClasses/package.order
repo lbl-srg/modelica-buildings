@@ -1,5 +1,6 @@
+FiltrationEfficiency
+FlowCoefficientCorrection
 MassAccumulation
 MassTransfer
-PressureDropInputFlowCoefficient
-SimpleCharacterization
+PressureDropWithVaryingFlowCoefficient
 Validation
