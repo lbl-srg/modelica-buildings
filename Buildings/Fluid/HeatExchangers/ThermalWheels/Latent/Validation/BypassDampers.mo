@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.Validation;
 model BypassDampers
-  "Test model for the air-to-air thermal wheel with bypass dampers"
+  "Test model for the enthalpy recovery wheel with bypass dampers"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Air
     "Supply air";
@@ -135,7 +135,7 @@ The expected outputs are:
 </p>
 <ul>
 <li>
-The sensible effectiveness <code>epsSen</code> and the latent effectiveness 
+The sensible heat exchanger effectiveness <code>epsSen</code> and the latent effectiveness 
 <code>epsLat</code> are 0 at the beginning.
 They become positive at 72 seconds and keep constant until 200 seconds.
 After the 200 seconds, both <code>epsSen</code> and <code>epsLat</code> decrease.

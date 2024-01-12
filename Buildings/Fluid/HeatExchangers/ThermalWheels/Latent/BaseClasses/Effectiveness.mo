@@ -31,8 +31,8 @@ model Effectiveness
     final min=0,
     final unit="K",
     displayUnit="degC")
-    "Exhaust air temperature
-    " annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
+    "Exhaust air temperature"
+    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
   Modelica.Blocks.Interfaces.RealInput VSup_flow(final unit="m3/s")
     "Supply air volumetric flow rate"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
@@ -118,7 +118,7 @@ where <code>VSup_flow</code> is the flow rate of the supply air;
 <code>rat</code> is the flow ratio.
 </p>
 <p>
-It then calculates the sensible and latent effectiveness by:
+It then calculates the sensible and latent heat exchanger effectiveness by:
 </p>
 <pre>
   epsSen = uSpe * (epsSenPL + (epsSen_nominal - epsSenPL) * (rat - 0.75)/0.25),

@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.Validation;
 model Effectiveness
-  "Test model for calculating the input effectiveness of a sensible and latent heat exchanger"
+  "Test model for calculating the input effectiveness of a sensible heat exchanger"
   extends Modelica.Icons.Example;
   Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.Effectiveness
     epsCal(
@@ -65,8 +65,8 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
 Documentation(info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.Effectiveness\">
-Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.Effectiveness</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.Effectiveness\">
+Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.Effectiveness</a>.
 </p>
 <p>
 The input signals are configured as follows:
@@ -97,7 +97,7 @@ The sensible effectiveness <code>eps</code> increases in the whole
 simulation period. 
 </li>
 <li>
-At 20 seconds, <code>eps</code> change significantly as the exchanger
+At 20 seconds, <code>eps</code> changes significantly as the exchanger
 changes from the cooling mode to the heating mode.
 </li>
 </ul>

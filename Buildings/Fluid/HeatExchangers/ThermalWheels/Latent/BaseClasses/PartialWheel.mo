@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses;
 partial model PartialWheel
-  "Partial model for sensible and latent air-to-air heat recovery wheel"
+  "Partial model for enthalpy recovery wheel"
   extends Modelica.Blocks.Icons.Block;
   replaceable package Medium1 =
     Modelica.Media.Interfaces.PartialCondensingGases
@@ -232,7 +232,7 @@ annotation (
         coordinateSystem(preserveAspectRatio=true, extent={{-180,-100},{100,180}})),
 Documentation(info="<html>
 <p>
-Partial model of a generic, sensible and latent air-to-air heat recovery wheel.
+Partial model of an enthalpy recovery wheel.
 </p>
 </html>", revisions="<html>
 <ul>

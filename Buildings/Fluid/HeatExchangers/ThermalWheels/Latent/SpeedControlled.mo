@@ -1,7 +1,8 @@
 within Buildings.Fluid.HeatExchangers.ThermalWheels.Latent;
 model SpeedControlled
-  "Sensible and latent air-to-air heat recovery wheel with a variable speed drive"
-  extends Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.PartialWheel;
+  "Enthalpy recovery wheel with a variable speed drive"
+  extends
+    Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.PartialWheel;
   parameter Real a[:] = {1}
     "Coefficients for power consumption curve for rotor, P/P_nominal = sum a_i uSpe^(i-1). The sum(a) of the elements must be equal to 1"
     annotation (Dialog(group="Efficiency"));
@@ -46,12 +47,12 @@ annotation (
         coordinateSystem(preserveAspectRatio=false, extent={{-180,-100},{100,100}})),
 Documentation(info="<html>
 <p>
-Model of an enthalpy heat recovery wheel, which has the 
+Model of an enthalpy recovery wheel, which has the 
 wheel speed as the input to control the heat recovery.
 </p>
 <p>
 This model does not require geometric data. The performance is defined by specifying the 
-part load (75%) and nominal sensible and latent effectiveness in both heating and cooling conditions.
+part load (75% of the nominal supply flow rate) and nominal sensible and latent heat exchanger effectiveness in both heating and cooling conditions.
 </p>
 <p>
 The operation of the heat recovery wheel is adjustable by modulating the wheel speed.

@@ -1,7 +1,8 @@
 within Buildings.Fluid.HeatExchangers.ThermalWheels.Latent;
 model BypassDampers
-  "Sensible and latent air-to-air heat recovery wheel with bypass dampers"
-  extends Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.PartialWheel;
+  "Enthalpy recovery wheel with bypass dampers"
+  extends
+    Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.PartialWheel;
   Modelica.Blocks.Interfaces.RealInput uBypDamPos(
     final unit="1",
     final min=0,
@@ -122,7 +123,7 @@ a heat exchanger and two dampers to bypass the supply and exhaust airflow.
 </p>
 <p>
 This model does not require geometric data. The performance is defined by specifying the
-part load (75%) and nominal sensible and latent effectiveness in both heating and cooling conditions.
+part load (75% of the nominal supply flow rate) and nominal sensible and latent heat exchanger effectiveness in both heating and cooling conditions.
 This operation of the wheel is configured as follows.
 </p>
 <ul>
@@ -135,7 +136,7 @@ The wheel power consumption is constant and equal to the nominal value.
 <li>
 The heat exchange in the heat recovery wheel is adjustable via bypassing supply/exhaust air 
 through the heat exchanger.
-Accordingly, the sensible and latent effectiveness is calculated with
+Accordingly, the sensible and latent heat exchanger effectiveness are calculated with
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.Effectiveness\">
 Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.Effectiveness</a>.
 </li>

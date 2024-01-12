@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible;
 model SpeedControlled
-  "Sensible and latent air-to-air heat recovery wheel with a variable speed drive"
+  "Sensible heat recovery wheel with a variable speed drive"
   extends
     Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.PartialWheel;
   parameter Real a[:] = {1}
@@ -48,12 +48,12 @@ annotation (
         coordinateSystem(preserveAspectRatio=false, extent={{-180,-100},{100,100}})),
 Documentation(info="<html>
 <p>
-Model of a generic, sensible and latent air-to-air heat recovery wheel, which has the 
+Model of a generic, sensible heat recovery wheel, which has the 
 wheel speed as the input to control the heat recovery.
 </p>
 <p>
 This model does not require geometric data. The performance is defined by specifying the 
-part load (75%) and nominal sensible and latent effectiveness in both heating and cooling conditions.
+part load (75% of the nominal supply flow rate) and nominal sensible heat exchanger effectiveness in both heating and cooling conditions.
 </p>
 <p>
 The operation of the heat recovery wheel is adjustable by modulating the wheel speed.
@@ -73,8 +73,8 @@ Thus, when the speed ratio <code>uSpe=1</code>, the power consumption equal to
 nominal consumption, <code>P=P_nominal</code>.
 </p>
 <p>
-The sensible and latent effectiveness is calculated with <a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.Effectiveness\">
-Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.Effectiveness</a>.
+The sensible heat exchanger effectiveness is calculated with <a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.Effectiveness\">
+Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.Effectiveness</a>.
 </p>
 </html>", revisions="<html>
 <ul>

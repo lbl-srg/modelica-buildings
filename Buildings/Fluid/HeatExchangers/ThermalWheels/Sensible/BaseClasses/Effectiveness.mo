@@ -95,7 +95,7 @@ where <code>VSup_flow</code> is the flow rate of the supply air;
 <code>rat</code> is the flow ratio.
 </p>
 <p>
-It then calculates the sensible effectiveness by:
+It then calculates the sensible heat exchanger effectiveness by:
 </p>
 <pre>
   eps = uSpe * (epsPL + (eps_nominal - epsPL) * (rat - 0.75)/0.25),

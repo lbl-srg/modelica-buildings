@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.Validation;
 model BypassDampers
-  "Test model for the air-to-air thermal wheel with bypass dampers"
+  "Test model for the sensible heat recovery wheel with bypass dampers"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Air
     "Supply air";
@@ -80,12 +80,12 @@ equation
     annotation (Line(points={{-59,74},{-42,74}}, color={0,0,127}));
   connect(sou_1.ports[1],whe.port_a1)
     annotation (Line(points={{-20,70},{-14,70},{-14,6},{0,6}},
-                                                     color={0,127,255}));
+    color={0,127,255}));
   connect(whe.port_a2, sou_2.ports[1])
     annotation (Line(points={{20,-6},{40,-6},{40,-30},{60,-30}},
-        color={0,127,255}));
+color={0,127,255}));
   connect(bypDamPos.y, whe.uBypDamPos) annotation (Line(points={{-59,0},{-2,0}},
-                             color={0,0,127}));
+    color={0,0,127}));
   connect(opeSig.y, whe.uRot) annotation (Line(points={{-58,30},{-10,30},{-10,8},
           {-2,8}}, color={255,0,255}));
   connect(whe.port_b2, senExhTem.port_a) annotation (Line(points={{0,-6},{-20,-6},
@@ -102,8 +102,8 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Heat
     Documentation(info="<html>
 <p>
 Example for using the block
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BypassDampers\">
-Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BypassDampers</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BypassDampers\">
+Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BypassDampers</a>.
 </p>
 <p>
 The input signals are configured as follows:
@@ -130,7 +130,7 @@ The expected outputs are:
 </p>
 <ul>
 <li>
-The sensible effectiveness <code>eps</code> is 0 at the beginning.
+The sensible heat exchanger effectiveness <code>eps</code> is 0 at the beginning.
 They become positive at 72 seconds and keep constant until 200 seconds.
 After the 200 seconds, it decrease.
 </li>

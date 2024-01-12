@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.Validation;
 model SpeedControlled
-  "Test model for the air-to-air thermal wheel with a variable speed drive"
+  "Test model for the sensible heat recovery wheel with a variable speed drive"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Air
     "Supply air";
@@ -76,8 +76,7 @@ equation
   connect(whe.port_a2, sou_2.ports[1])
     annotation (Line(points={{20,-6},{40,-6},{40,-30},{60,-30}}, color={0,127,255}));
   connect(wheSpe.y, whe.uSpe)
-    annotation (Line(points={{-59,0},{-2,0}},                       color={0,0,127}));
-
+    annotation (Line(points={{-59,0},{-2,0}}, color={0,0,127}));
   connect(whe.port_b2, senExhTem.port_a) annotation (Line(points={{0,-6},{-6,-6},
           {-6,-40},{-20,-40}}, color={0,127,255}));
   connect(senExhTem.port_b, sin_2.ports[1])
@@ -92,8 +91,8 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Heat
 Documentation(info="<html>
 <p>
 Example for using the block
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.SpeedControlled\">
-Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.SpeedControlled</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.SpeedControlled\">
+Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.SpeedControlled</a>.
 </p>
 <p>
 The input signals are configured as follows:
@@ -117,7 +116,7 @@ The expected outputs are:
 </p>
 <ul>
 <li>
-The sensible effectiveness <code>eps</code> keeps constant before 
+The sensible heat exchanger effectiveness <code>eps</code> keeps constant before 
 the 200 seconds; after 200 seconds, it increases.
 </li>
 <li>

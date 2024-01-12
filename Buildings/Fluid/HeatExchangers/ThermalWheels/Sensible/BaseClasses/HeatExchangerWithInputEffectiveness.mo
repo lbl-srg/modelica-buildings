@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses;
 model HeatExchangerWithInputEffectiveness
-  "Heat and moisture exchanger with varying effectiveness"
+  "Heat exchanger with varying effectiveness"
   extends Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectiveness(
     sensibleOnly1 = true,
     sensibleOnly2 = true,
@@ -35,7 +35,7 @@ Documentation(info="<html>
 This block is identical to
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.ConstantEffectiveness\">
 Buildings.Fluid.HeatExchangers.ConstantEffectiveness</a>,
-except that the sensible effectiveness is a input rather than a parameter.
+except that the sensible heat exchanger effectiveness is a input rather than a parameter.
 </p>
 </html>",
 revisions="<html>

@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers;
-package ThermalWheels "fixme: add brief description"
+package ThermalWheels "Package with thermal wheels (both enthalpy and sensible heat recovery) models"
   extends Modelica.Icons.VariantsPackage;
 
 annotation (preferredView="info", Documentation(info="<html>

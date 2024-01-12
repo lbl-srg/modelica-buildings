@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.ThermalWheels.Latent;
-package BaseClasses "Package with base classes for air-to-air heat recovery devices"
+package BaseClasses "Package with base classes for enthalpy recovery devices"
   extends Modelica.Icons.BasesPackage;
 
 annotation (Documentation(info="<html>

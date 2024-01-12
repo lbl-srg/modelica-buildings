@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.ThermalWheels;
-package Latent "Package with air-to-air heat recovery devices"
+package Latent "Package with enthalpy recovery wheels"
   extends Modelica.Icons.VariantsPackage;
 
 annotation (Documentation(info="<html>

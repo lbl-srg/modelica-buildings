@@ -115,7 +115,7 @@ Documentation(info="<html>
 This block is identical to
 <a href=\"modelica://Buildings.Fluid.MassExchangers.ConstantEffectiveness\">
 Buildings.Fluid.MassExchangers.ConstantEffectiveness</a>,
-except that the sensible and latent effectiveness are inputs rather than parameters.
+except that the sensible and latent heat exchanger effectiveness are inputs rather than parameters.
 </p>
 <p>
 This model transfers heat and moisture in the amount of

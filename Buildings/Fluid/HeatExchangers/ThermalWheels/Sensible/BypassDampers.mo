@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible;
 model BypassDampers
-  "Sensible and latent air-to-air heat recovery wheel with bypass dampers"
+  "Sensible heat recovery wheel with bypass dampers"
   extends
     Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.PartialWheel;
   Modelica.Blocks.Interfaces.RealInput uBypDamPos(
@@ -85,7 +85,7 @@ equation
         color={0,127,255}));
   connect(hex.port_a2, damExh.port_b)
     annotation (Line(points={{10,-6},{54,-6},{54,-30}},
-                                                      color={0,127,255}));
+        color={0,127,255}));
   connect(sub.u2, uBypDamPos)
     annotation (Line(points={{-122,94},{-160,94},{-160,140},{-202,140}},
         color={0,0,127}));
@@ -120,12 +120,12 @@ annotation (
         coordinateSystem(preserveAspectRatio=true, extent={{-180,-100},{100,180}})),
 Documentation(info="<html>
 <p>
-Model of a generic, sensible and latent air-to-air heat recovery wheel, which consists of 
+Model of a sensible heat recovery wheel, which consists of 
 a heat exchanger and two dampers to bypass the supply and exhaust airflow. 
 </p>
 <p>
 This model does not require geometric data. The performance is defined by specifying the
-part load (75%) and nominal sensible and latent effectiveness in both heating and cooling conditions.
+part load (75% of the nominal supply flow rate) and nominal sensible heat exchanger effectiveness in both heating and cooling conditions.
 This operation of the wheel is configured as follows.
 </p>
 <ul>
@@ -138,9 +138,9 @@ The wheel power consumption is constant and equal to the nominal value.
 <li>
 The heat exchange in the heat recovery wheel is adjustable via bypassing supply/exhaust air 
 through the heat exchanger.
-Accordingly, the sensible and latent effectiveness is calculated with
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.Effectiveness\">
-Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.Effectiveness</a>.
+Accordingly, the sensible heat exchanger effectiveness is calculated with
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.Effectiveness\">
+Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.Effectiveness</a>.
 </li>
 </ul>
 </li>
@@ -151,8 +151,8 @@ Otherwise,
 The wheel power consumption is 0.
 </li>
 <li>
-In addition, there is no sensible or latent heat transfer, i.e., the sensible
-and latent effectiveness of the heat recovery wheel is 0.
+In addition, there is no heat transfer, i.e., the sensible
+heat exchanger effectiveness of the heat recovery wheel is 0.
 </li>
 </ul>
 </li>

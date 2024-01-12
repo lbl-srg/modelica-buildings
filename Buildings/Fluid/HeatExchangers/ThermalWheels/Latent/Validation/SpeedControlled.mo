@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.Validation;
 model SpeedControlled
-  "Test model for the air-to-air thermal wheel with a variable speed drive"
+  "Test model for the enthalpy recovery wheel with a variable speed drive"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Air
     "Supply air";
@@ -123,7 +123,7 @@ The expected outputs are:
 </p>
 <ul>
 <li>
-The sensible effectiveness <code>epsSen</code> and the latent effectiveness 
+The sensible heat exchanger effectiveness <code>epsSen</code> and the latent effectiveness 
 <code>epsLat</code>, keep constant before the 200 seconds.
 After 200 seconds, both <code>epsSen</code> and <code>epsLat</code> increase.
 </li>
