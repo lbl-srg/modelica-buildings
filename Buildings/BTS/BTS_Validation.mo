@@ -1,17 +1,15 @@
 within Buildings.BTS;
 model BTS_Validation
   "Validation model comparing BuildingTimeSeries with MixedAir"
-  //fixme: to be renamed
   extends Modelica.Icons.Example;
-
-
 
   Buildings.BTS.ChillerDXHeatingEconomizerDuplicate
     chillerDXHeatingEconomizer
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
-  Buildings.Experimental.DHC.Loads.BaseClasses.Examples.CouplingTimeSeries
+  Buildings.BTS.CouplingTimeSeriesDuplicate
     couplingTimeSeries(bui(
-    filNam    ="modelica://Buildings/Resources/Data/BTS/BTS_validation_test.mos"))
+    filNam    ="modelica://Buildings/Resources/Data/BTS/BTS_validation_test.mos",
+    T_aChiWat_nominal = chillerDXHeatingEconomizer.TSupChi_nominal))
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
   annotation(experiment(
       StartTime=11145600,
