@@ -1,4 +1,6 @@
 BTS_Validation
+BuildingTimeSeriesDuplicate
 ChillerDXHeatingEconomizerDuplicate
 ControllerChillerDXHeatingEconomizerDuplicate
 CouplingTimeSeriesDuplicate
+FanCoil2PipeCoolingDuplicate

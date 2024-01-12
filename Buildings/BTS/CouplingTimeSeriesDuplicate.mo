@@ -6,7 +6,7 @@ model CouplingTimeSeriesDuplicate
     "Source side medium";
   parameter Modelica.Units.SI.Time perAve=600
     "Period for time averaged variables";
-  Buildings.Experimental.DHC.Loads.BaseClasses.Examples.BaseClasses.BuildingTimeSeries bui(
+  Buildings.BTS.BuildingTimeSeriesDuplicate bui(
     filNam="modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/BTS_validation_test.mos",
     nPorts_aHeaWat=1,
     nPorts_aChiWat=1,
