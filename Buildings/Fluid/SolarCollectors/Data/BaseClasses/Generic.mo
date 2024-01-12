@@ -8,8 +8,11 @@ record Generic
     "Total thermal capacity or fluid volume and 'dry' thermal capacity or mass";
   parameter Modelica.Units.SI.HeatCapacity C
     "Dry or total thermal capacity of the solar thermal collector";
-  parameter Modelica.Units.SI.Volume V "Fluid volume";
-  parameter Modelica.Units.SI.Mass mDry "Dry mass";
+                                             //if not CTyp==Buildings.Fluid.SolarCollectors.Types.HeatCapacity.DryMass
+  parameter Modelica.Units.SI.Volume V
+    "Fluid volume";                   // if not CTyp==Buildings.Fluid.SolarCollectors.Types.HeatCapacity.TotalCapacity
+  parameter Modelica.Units.SI.Mass mDry
+    "Dry mass";                         //if CTyp==Buildings.Fluid.SolarCollectors.Types.HeatCapacity.DryMass
   parameter Real mperA_flow_nominal(unit="kg/(s.m2)")
     "Nominal mass flow rate per unit area of collector";
   parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa")

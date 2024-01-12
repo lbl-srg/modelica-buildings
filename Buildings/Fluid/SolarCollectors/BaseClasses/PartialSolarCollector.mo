@@ -22,8 +22,14 @@ partial model PartialSolarCollector "Partial model for solar collectors"
     final max=1,
     final unit = "1") "Ground reflectance";
 
-  parameter Modelica.Units.SI.HeatCapacity C=385*per.mDry
-    "Heat capacity of solar collector without fluid (default: cp_copper*mDry*nPanels)";
+  parameter Modelica.Units.SI.HeatCapacity CTot=
+    if per.CTyp==Buildings.Fluid.SolarCollectors.Types.HeatCapacity.TotalCapacity then
+      per.C
+    elseif per.CTyp==Buildings.Fluid.SolarCollectors.Types.HeatCapacity.DryCapacity then
+      per.C+rho_default*per.V*cp_default
+    else
+      385*per.mDry+rho_default*per.V*cp_default
+    "Heat capacity of solar collector with fluid";
 
   parameter Boolean use_shaCoe_in = false
     "Enables an input connector for shaCoe"
@@ -94,8 +100,7 @@ partial model PartialSolarCollector "Partial model for solar collectors"
     each final p_start=p_start,
     each final T_start=T_start,
     each final m_flow_small=m_flow_small,
-    each final V=(per.V + per.mDry*385/cp_default/rho_default)*
-        nPanels_internal/nSeg,
+    each final V=CTot/cp_default/rho_default*nPanels_internal/nSeg,
     each final massDynamics=massDynamics,
     each final X_start=X_start,
     each final C_start=C_start,
