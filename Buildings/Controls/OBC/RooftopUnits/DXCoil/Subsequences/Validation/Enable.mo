@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.Validation;
 model Enable
-  "Validate sequence for enabling and disabling DX coil using cooling coil valve postion signal"
+  "Validate sequence for enabling and disabling DX coils"
 
   Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.Enable coiEna(
     final nCoi=1,

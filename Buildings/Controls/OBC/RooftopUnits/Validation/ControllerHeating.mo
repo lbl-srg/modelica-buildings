@@ -453,14 +453,13 @@ annotation (
     Simulation results are observed as follows: 
     <ul>
     <li>
-    In Plot[1] when <code>RTUCon.TOut</code> drops to <i>-15</i>&deg;C, lower than the outdoor air lockout temperature 
-    <code>RTUCon.TLocOut</code> (e.g., <i>-12.2</i>&deg;C), and <code>RTUCon.uDXHeaCoi</code> exceeds a threshold 
-    <code>RTUCon.uThrHeaCoi</code> value of 0.9, the controller deactivates DX coils <code>conAuxCoi.yDXCoi=false</code>
-    and outputs <code>conAuxCoi.yAuxHea</code> ranging from 0.9 to 1, depending on the value of <code>RTUCon.uDXHeaCoi</code>. 
-    Additionally, when <code>RTUCon.uDXHeaCoi</code> falls below the threshold value of 0.9, the controller outputs 0.
+    In Plot[1], when the outdoor air temperature <code>RTUCon.TOut</code> drops to <i>-15</i>&deg;C, lower than the 
+    outdoor air lockout temperature <code>RTUCon.TLocOut</code> (e.g., <i>-12.2</i>&deg;C), the controller deactivates 
+    DX coils <code>RTUCon.yDXHeaCoi=false</code> and utilizes the heating coil valve position signal 
+    <code>RTUCon.uHeaCoi</code> as the auxiliary heating coil operation signal <code>RTUCon.yAuxHea</code>.
     </li>
     <li>
-    Compared to Plot[1], Plot[2] shows that as <code>RTUCon.TOut</code> increaes to <i>-5</i>&deg;C, the controller initiates 
+    Compared to Plot[1], Plot[2] shows that as <code>RTUCon1.TOut</code> increaes to <i>-5</i>&deg;C, the controller initiates 
     the staging of DX coils <code>RTUCon1.yDXHeaCoi</code> along with adjusting the corresponding compressor speed
     <code>RTUCon1.yComSpeHea</code>. Additionally, the controller calculates the defrost timestamp fraction 
     <code>RTUCon1.yDefFra</code>. 
@@ -471,7 +470,7 @@ annotation (
     to operate at 90% of its initial speed. 
     </li>
     <li>
-    Compared to Plot[3], Plot[4] represents that as <code>RTUCon.TOut</code> rises to <i>5</i>&deg;C, the controller
+    Compared to Plot[3], Plot[4] represents that as <code>RTUCon3.TOut</code> rises to <i>5</i>&deg;C, the controller
     outpus <code>RTUCon3.yDefFra=0</code>. This signifies that there is no requirement for a defrost operation.
     </li>
     </ul>

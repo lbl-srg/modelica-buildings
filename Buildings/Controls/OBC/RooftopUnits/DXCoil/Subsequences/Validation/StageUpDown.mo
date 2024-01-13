@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.Validation;
 model StageUpDown
-  "Validate sequence for staging up and down DX coil using coil valve postion signal"
+  "Validate sequence for staging up and down DX coils"
 
   Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.StageUpDown DXCoiSta(
     final nCoi=1,
@@ -45,7 +45,8 @@ protected
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep(
-    final nout=DXCoiSta.nCoi) "Replicate speed signal for number of coils"
+    final nout=DXCoiSta.nCoi)
+    "Replicate speed signal for number of coils"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
 
 equation

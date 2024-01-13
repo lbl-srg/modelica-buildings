@@ -1,5 +1,6 @@
 within Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences;
-block NextCoil "Find next available coil to enable"
+block NextCoil
+  "Sequence for finding and enabling next available coil"
 
   parameter Integer nCoi(
     final min= 1)
@@ -87,13 +88,14 @@ block NextCoil "Find next available coil to enable"
     "Check time since coil was skipped over"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Round rou[nCoi](
+  Buildings.Controls.OBC.CDL.Reals.Round rou[nCoi](
     final n=fill(0, nCoi))
     "Round off time-value to nearest second"
     annotation (Placement(transformation(extent={{40,100},{60,120}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax mulMax(
-    final nin=nCoi) "Find maximum time for which a coil has been skipped"
+  Buildings.Controls.OBC.CDL.Reals.MultiMax mulMax(
+    final nin=nCoi)
+    "Find maximum time for which a coil has been skipped"
     annotation (Placement(transformation(extent={{80,130},{100,150}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nCoi]
@@ -133,126 +135,176 @@ block NextCoil "Find next available coil to enable"
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi1
     "Switch that outputs single coil index irrespective of whether a single coil or multiple coils have been prioritized"
     annotation (Placement(transformation(extent={{332,120},{352,140}})));
+
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr1(t=1)
     "Check if more then one coil has been prioritized"
     annotation (Placement(transformation(extent={{300,120},{320,140}})));
+
   Buildings.Controls.OBC.CDL.Integers.Multiply mulInt1[nCoi]
     "Generate non-zero values only for coils that are prioritized for enabling"
     annotation (Placement(transformation(extent={{260,70},{280,90}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[nCoi](k=coiInd)
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[nCoi](
+    final k=coiInd)
     "Coil indices"
     annotation (Placement(transformation(extent={{-120,250},{-100,270}})));
+
   Buildings.Controls.OBC.CDL.Integers.MultiSum mulSumInt2(nin=nCoi)
     "Transmit index of the only coil prioritized for enabling"
     annotation (Placement(transformation(extent={{300,70},{320,90}})));
+
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea1[nCoi]
     "Convert indices of prioritized coils to Real number"
     annotation (Placement(transformation(extent={{292,160},{312,180}})));
-  Buildings.Controls.OBC.CDL.Integers.MultiSum mulSumInt3(nin=nCoi)
+
+  Buildings.Controls.OBC.CDL.Integers.MultiSum mulSumInt3(
+    final nin=nCoi)
     "Number of skipped coils that are prioritized for enable"
     annotation (Placement(transformation(extent={{148,-50},{168,-30}})));
+
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr2
     "Check if any skipped coils have been prioritized for enable"
     annotation (Placement(transformation(extent={{180,-50},{200,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMin mulMin(nin=nCoi)
+
+  Buildings.Controls.OBC.CDL.Reals.MultiMin mulMin(
+    final nin=nCoi)
     "Identify lowest index between coils that were skipped at the same time"
     annotation (Placement(transformation(extent={{330,160},{350,180}})));
+
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt3
     "Convert index signal back to Integer"
     annotation (Placement(transformation(extent={{360,160},{380,180}})));
-  Buildings.Controls.OBC.CDL.Integers.AddParameter addPar1(p=1)
+
+  Buildings.Controls.OBC.CDL.Integers.AddParameter addPar1(
+    final p=1)
     "Sequence index of next coil to be enabled if there are no skipped coils to be prioritized"
     annotation (Placement(transformation(extent={{310,-130},{330,-110}})));
+
   Buildings.Controls.OBC.CDL.Logical.Or or2
     "Transmit true signal when a coil is available for stage up"
     annotation (Placement(transformation(extent={{150,240},{170,260}})));
+
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu1[nCoi]
     "Return array identifying next coil to be enabled"
     annotation (Placement(transformation(extent={{-60,260},{-40,280}})));
-  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intScaRep1(nout=nCoi)
+
+  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intScaRep1(
+    final nout=nCoi)
     "Change sequence index to a vector of integer values"
     annotation (Placement(transformation(extent={{360,-130},{380,-110}})));
+
   Buildings.Controls.OBC.CDL.Logical.And and1[nCoi]
     "Transmit True array for coils that are enabled next, and if they are currently available"
     annotation (Placement(transformation(extent={{0,240},{20,260}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(nin=nCoi)
+
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
+    final nin=nCoi)
     "Transmit True if next coil to be enabled is available"
     annotation (Placement(transformation(extent={{80,240},{100,260}})));
+
   Buildings.Controls.OBC.CDL.Logical.And and3
     "Transmit stage up signal when a coil is available for stage up"
     annotation (Placement(transformation(extent={{200,220},{220,240}})));
+
   Buildings.Controls.OBC.CDL.Logical.Not not1
     "Transmit True if neither next coil or previously skipped coil is available for staging up"
     annotation (Placement(transformation(extent={{240,260},{260,280}})));
+
   Buildings.Controls.OBC.CDL.Logical.And and4
     "Transmit True pulse when no coil is available for staging, and pulse signal is received or generated"
     annotation (Placement(transformation(extent={{280,260},{300,280}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep(nout=nCoi)
+
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep(
+    final nout=nCoi)
     "Replicate staging pulse signal for use in Boolean vector"
     annotation (Placement(transformation(extent={{320,260},{340,280}})));
+
   Buildings.Controls.OBC.CDL.Logical.And and5[nCoi]
     "Transmit True signal for coil that is being skipped due to non-availability"
     annotation (Placement(transformation(extent={{0,280},{20,300}})));
-  Buildings.Controls.OBC.CDL.Logical.VariablePulse varPul(period=tDel)
+
+  Buildings.Controls.OBC.CDL.Logical.VariablePulse varPul(
+    final period=tDel)
     "Generate a periodic pulse signal until coil available for enable is found"
     annotation (Placement(transformation(extent={{60,160},{80,180}})));
+
   Buildings.Controls.OBC.CDL.Logical.Or or1
     "Transmit True if stage up signal is received from input interface or from internal pulse signal"
     annotation (Placement(transformation(extent={{110,210},{130,230}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr1(nin=nCoi)
+
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr1(
+    final nin=nCoi)
     "Check if no coils got enabled because next coil is not available"
     annotation (Placement(transformation(extent={{-40,160},{-20,180}})));
+
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "Hold Treu signal until coil available for enable is found"
     annotation (Placement(transformation(extent={{0,160},{20,180}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(realTrue=1 - (1/
-        tDel))
+
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(
+    realTrue=1 - (1/tDel))
     "Convert Boolean signal into Real value which will determine pulse transmitter operation"
     annotation (Placement(transformation(extent={{30,160},{50,180}})));
+
   Buildings.Controls.OBC.CDL.Logical.Pre pre
     "Pre block to break algebraic loops"
     annotation (Placement(transformation(extent={{150,160},{170,180}})));
+
   Buildings.Controls.OBC.CDL.Logical.Pre pre1[nCoi]
     "Pre block to break algebraic loops"
     annotation (Placement(transformation(extent={{-30,260},{-10,280}})));
+
   Buildings.Controls.OBC.CDL.Logical.Pre pre2[nCoi]
     "Pre block to break algebraic loops"
     annotation (Placement(transformation(extent={{348,260},{368,280}})));
+
   Buildings.Controls.OBC.CDL.Logical.Not not2
     "Use not signal to move True pulse at input to end of pulse generator timeperiod"
     annotation (Placement(transformation(extent={{90,160},{110,180}})));
+
   Buildings.Controls.OBC.CDL.Logical.And and6
     "Transmit True pulse signal only when no coils are available for staging up"
     annotation (Placement(transformation(extent={{118,160},{138,180}})));
+
   Buildings.Controls.OBC.CDL.Logical.Or or3[nCoi]
     "Check if a coil either becomews unavailable or is enabled"
     annotation (Placement(transformation(extent={{8,-80},{28,-60}})));
+
   Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg[nCoi]
     "Check if coils become unavailable"
     annotation (Placement(transformation(extent={{-40,-76},{-20,-56}})));
+
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea2[nCoi]
     "Convert skip times from Integer to Real, for compatibility with mulMax block"
     annotation (Placement(transformation(extent={{40,130},{60,150}})));
+
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1[nCoi](
     final realTrue=fill(1e6, nCoi))
     "Convert non-available coils to high value before passing it through minimum block, so that they are not prioritized for enabling"
     annotation (Placement(transformation(extent={{232,180},{252,200}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2[nCoi]
+
+  Buildings.Controls.OBC.CDL.Reals.Add add2[nCoi]
     "Add large number to non-prioritized coil indices"
     annotation (Placement(transformation(extent={{310,200},{330,220}})));
+
   Buildings.Controls.OBC.CDL.Logical.Not not3[nCoi]
     "Identify coils that are not on list of skipped, currently-available coils"
     annotation (Placement(transformation(extent={{160,20},{180,40}})));
-  CDL.Interfaces.IntegerOutput yLasCoi "Last coil that was enabled" annotation (
-     Placement(transformation(extent={{420,-220},{460,-180}}),
-        iconTransformation(extent={{100,-60},{140,-20}})));
-  CDL.Routing.IntegerExtractor                        extIndIntOriSeq1(final nin=
-       nCoi)
+
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yLasCoi
+    "Last coil that was enabled"
+    annotation (Placement(transformation(extent={{420,-220},{460,-180}}),
+      iconTransformation(extent={{100,-60},{140,-20}})));
+
+  Buildings.Controls.OBC.CDL.Routing.IntegerExtractor extIndIntOriSeq1(
+    final nin=nCoi)
     "Index of next coil to be enabled if there are no skipped coils to be prioritized"
     annotation (Placement(transformation(extent={{330,-210},{350,-190}})));
+
 protected
   parameter Integer coiInd[nCoi]={i for i in 1:nCoi}
     "DX coil index, {1,2,...,n}";
+
 equation
   connect(latSki.y, and2.u1)
     annotation (Line(points={{-18,30},{-2,30}}, color={255,0,255}));
@@ -457,7 +509,7 @@ equation
   through the following lists as ordered below to determine the next coil to enable.
   <ol>
   <li>
-  the coils that were skipped over because thy were previously unable, but are 
+  the coils that were skipped over because they were previously unable, but are 
   now available for enabling.
   </li>
   <li>

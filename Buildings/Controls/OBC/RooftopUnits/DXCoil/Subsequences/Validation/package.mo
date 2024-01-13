@@ -3,7 +3,9 @@ package Validation "Collection of validation models"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains validaton models for DX coil and compressor speed control sequences.
+This package contains validation models for the classes in
+<a href=\"modelica://Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences\">
+Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences</a>.
 </p>
 </html>"),
   Icon(graphics={

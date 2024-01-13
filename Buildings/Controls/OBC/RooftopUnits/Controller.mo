@@ -258,7 +258,8 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature") "Outdoor air temperature"
+    final quantity="ThermodynamicTemperature")
+    "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-140,-120},{-100,-80}}),
       iconTransformation(extent={{-140,-120},{-100,-80}})));
 

@@ -15,7 +15,7 @@ block Controller
   parameter Real uThrCoiDow(
     final min=0,
     final max=1)=0.2
-    "Threshold of coil valve position signal below which DX coil staged down"
+    "Threshold of coil valve position signal below which DX coil is staged down"
     annotation (Dialog(group="DX coil parameters"));
 
   parameter Real uThrCoiEna(
@@ -103,8 +103,11 @@ block Controller
     annotation (Placement(transformation(extent={{220,40},{260,80}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-  Subsequences.NextCoil nexCoi(nCoi=nCoi)
+  Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.NextCoil nexCoi(
+    final nCoi=nCoi)
+    "Find next available DX coil to enable"
     annotation (Placement(transformation(extent={{74,66},{94,86}})));
+
 protected
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea[nCoi]
     "Convert integer to real number"
@@ -301,8 +304,8 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,-140},{220,160}})),
   Documentation(info="<html>
   <p>
-  This is a control module for enabling and disabling DX coil arrays, as well as 
-  enabling and disabling different coils in each stage.
+  This is a control module for enabling and disabling DX coil arrays, enabling and disabling different coils in each stage, 
+  as well as finding and enabling next available DX coil.
   The control module consists of: 
   </p>
   <ul>
@@ -315,6 +318,11 @@ equation
   Subsequences to enable and disable DX coils 
   <a href=\"modelica://Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.Enable\">
   Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.Enable</a>.
+  </li>
+  <li>
+  Subsequences to find and enable next available DX coil
+  <a href=\"modelica://Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.NextCoil\">
+  Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.NextCoil</a>.
   </li>
   </ul>
   </html>", revisions="<html>
