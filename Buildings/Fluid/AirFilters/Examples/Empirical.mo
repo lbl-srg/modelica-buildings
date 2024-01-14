@@ -41,7 +41,8 @@ model Empirical "Example for using the empirical air filter model"
     "Contaminant mass flow rate fraction"
     annotation (Placement(transformation(extent={{-94,12},{-74,32}})));
   Buildings.Fluid.Sensors.TraceSubstancesTwoPort C_out(
-    redeclare package Medium = Medium, m_flow_nominal=1)
+    redeclare package Medium = Medium,
+    m_flow_nominal=1)
     "Trace substance sensor of outlet air"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 equation
@@ -74,7 +75,9 @@ First implementation.
 </html>", info="<html>
 <p>
 From 0 to 12 seconds, the testing case is warming-up and the trace substance of the inlet <code>C_inflow</code> is fixed at <i>1</i>.
-From 20 to 50 seconds, the <code>C_inflow</code> changes from <i>1</i> to <i>0.7</i>.
+</p>
+<p>
+From 20 to 50 seconds, the <code>C_inflow</code> changes from <i>1</i> to <i>0.7kg/kg</i>.
 At the 30 seconds, the filter replacement signal <code>repSig</code> changes from <i>false</i> to <i>true</i>.
 </p>
 <p>

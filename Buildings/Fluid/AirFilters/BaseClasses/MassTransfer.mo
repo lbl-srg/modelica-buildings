@@ -3,8 +3,8 @@ model MassTransfer
   "Component that sets the trace substance at port_b based on an input trace substance mass flow rate 
   and an input mass transfer efficiency"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
-  Modelica.Blocks.Interfaces.RealInput m_flow_in[Medium.nC]
-   "Input trace substance rate" annotation (Placement(transformation(
+  Modelica.Blocks.Interfaces.RealInput C_inflow[Medium.nC]
+    "Input trace substance rate" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=270,
         origin={0,120}), iconTransformation(
@@ -25,7 +25,7 @@ model MassTransfer
         origin={-120,60})));
 equation
   if allowFlowReversal then
-    port_b.C_outflow = inStream(port_a.C_outflow) - eps * m_flow_in;
+    port_b.C_outflow =inStream(port_a.C_outflow) - eps*C_inflow;
     port_a.C_outflow = inStream(port_a.C_outflow);
   else
     port_b.C_outflow = inStream(port_a.C_outflow);
@@ -56,11 +56,11 @@ This model sets the trace substance
 of the medium that leaves <code>port_b</code> by
 </p>
 <pre>
-  port_b.C_outflow = inStream(port_a.C_outflow) - eps * m_flow_in;
+  port_b.C_outflow = inStream(port_a.C_outflow) - eps * C_inflow;
 </pre>
 <p>
 where <code>eps</code> is an input mass transfer efficiency and 
-<code>m_flow_in</code> is an input trace substance mass flow rate.
+<code>C_inflow</code> is an input trace substance rate.
 </p>
 <p>
 This model has no pressure drop.

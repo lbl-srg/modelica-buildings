@@ -45,7 +45,7 @@ equation
   connect(eps.y, masTra.eps)
     annotation (Line(points={{-39,50},{-24,50},{-24,6},
     {6,6}}, color={0,0,127}));
-  connect(traceSubstancesFlow.y, masTra.m_flow_in[1])
+  connect(traceSubstancesFlow.y, masTra.C_inflow[1])
     annotation (Line(points={{1,60},{18,60},{18,12}}, color={0,0,127}));
   connect(C_out.port_b, sin.ports[1])
     annotation (Line(points={{60,0},{76,0}}, color={0,127,255}));
@@ -61,11 +61,13 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/AirF
     Documentation(info="<html>
 <p>
 From 0 to 5 seconds, the testing case is warming-up and the input mass transfer efficiency <code>eps</code> is fixed at <i>0.9</i>.
+</p>
+<p>
 From 5 to 25 seconds, the input mass transfer efficiency <code>eps</code> changes from <i>0.9</i> to <i>0.2</i>.
 After 25 seconds, the input mass transfer efficiency <code>eps</code> is fixed at <i>0.2</i>.
 </p>
 <p>
-The trace substance of the outlet port changes from <i>0.1</i> to <i>0.8</i> during the period from 
+The trace substance of the outlet port changes from <i>0.1</i> to <i>0.8kg/kg</i> during the period from 
 5 seconds to 30 seconds.
 </p>
 </html>", revisions="<html>

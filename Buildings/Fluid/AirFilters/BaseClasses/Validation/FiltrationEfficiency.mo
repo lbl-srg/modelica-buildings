@@ -1,8 +1,8 @@
 within Buildings.Fluid.AirFilters.BaseClasses.Validation;
 model FiltrationEfficiency
-  "Validation model for the calculation of the filter efficiency and the flow coefficient correction factor"
+  "Validation model for the calculation of the filtration efficiency"
   extends Modelica.Icons.Example;
-  Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency eps(
+   Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency eps(
     mCon_nominal=1,
     epsFun={0.98,-0.1})
     "Filtration efficiency"
@@ -22,7 +22,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/AirF
     Documentation(info="<html>
 <p>
 The input mass of the contaminant captured by the filter <code>mCon</code> 
-changes from <i>0</i> to <i>1.2</i> from 0 to 1 second.
+changes from <i>0</i> to <i>1.2kg/s</i> from 0 to 1 second.
 </p>
 <p>
 The filtration efficiency, <code>eps.y</code>, changes from 0.98 to 0.88 during the period from

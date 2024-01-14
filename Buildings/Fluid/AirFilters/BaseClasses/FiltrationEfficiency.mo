@@ -3,12 +3,12 @@ model FiltrationEfficiency
   "Component that calculates the filtration efficiency"
   parameter Real mCon_nominal(
    final unit="kg")
-   "Maximum mass of the contaminant captured by the filter";
+   "Maximum mass of the contaminant can be captured by the filter";
   parameter Real epsFun[:]
    "Filtration efficiency curve";
   Modelica.Blocks.Interfaces.RealInput mCon(
    final unit="kg")
-    "Mass of the contaminant captured by the filter"
+   "Mass of the contaminant captured by the filter"
    annotation (Placement(
         transformation(
         extent={{20,-20},{-20,20}},
@@ -68,6 +68,8 @@ eps = epsFun<sub>1</sub> + epsFun<sub>2</sub>rat + epsFun<sub>3</sub> rat<sup>2<
 </p>
 <p>
 where the coefficients <i>epsFun<sub>i</sub></i> are declared by the parameter <i>epsFun</i>;
+</p>
+<p>
 <i>rat</i> is the relative mass of the contaminant captured by the filter and is calculated by
 </p>
 <p align=\"center\" style=\"font-style:italic;\">

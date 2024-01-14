@@ -1,6 +1,6 @@
 within Buildings.Fluid.AirFilters.BaseClasses.Validation;
 model FlowCoefficientCorrection
-  "Validation model for the calculation of the filter efficiency and the flow coefficient correction factor"
+  "Validation model for the calculation of the flow coefficient correction factor"
   extends Modelica.Icons.Example;
    Modelica.Blocks.Sources.Ramp rat(
     duration=1,

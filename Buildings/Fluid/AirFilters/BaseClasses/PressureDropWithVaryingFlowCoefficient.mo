@@ -5,16 +5,16 @@ model PressureDropWithVaryingFlowCoefficient
     final m_flow_turbulent = if computeFlowResistance then deltaM * m_flow_nominal_pos else 0);
 
   parameter Real deltaM(min=1E-6) = 0.3
-   "fraction of nominal mass flow rate where transition to turbulent occurs"
-       annotation(Evaluate=true,
+   "Fraction of nominal mass flow rate where transition to turbulent occurs"
+   annotation(Evaluate=true,
                   Dialog(group = "Transition to laminar",
                          enable = not linearized));
   Real k
-   "flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
+   "Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
   Modelica.Blocks.Interfaces.RealInput kCor(
    final unit = "1",
    final min = 1)
-   "flow coefficient"
+   "Flow coefficient"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=270,

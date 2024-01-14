@@ -5,13 +5,13 @@ model Empirical "Empirical air filter model"
     "Air";
   parameter Real mCon_nominal(
     final unit = "kg")
-    "Maximum mass of the contaminant captured by the filter";
+    "Maximum mass of the contaminant can be captured by the filter";
   parameter Real epsFun[:]
-    "filter efficiency curve"
+    "Filter efficiency curve"
     annotation (Dialog(group="Efficiency"));
   parameter Real b(
     final min = 1 + 1E-3)
-    "resistance coefficient"
+    "Resistance coefficient"
     annotation (Dialog(group="Pressure"));
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Nominal mass flow rate"
@@ -58,8 +58,8 @@ protected
     final mCon_reset=0)
     "Contaminant accumulation"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-  Modelica.Blocks.Sources.RealExpression traceSubstancesFlow(y(unit="kg/s")=
-      inStream(port_a.C_outflow[1])*port_a.m_flow)
+  Modelica.Blocks.Sources.RealExpression traceSubstancesFlow(
+    y(unit="kg/s")= inStream(port_a.C_outflow[1])*port_a.m_flow)
     "Trace substances flow rate"
     annotation (Placement(transformation(extent={{-92,70},{-72,90}})));
   Buildings.Fluid.AirFilters.BaseClasses.FlowCoefficientCorrection kCor(
@@ -82,9 +82,8 @@ equation
     color={0,0,127}));
   connect(epsCal.y, masTra.eps)
     annotation (Line(points={{14,74},{28,74},{28,6},{38,6}}, color={0,0,127}));
-  connect(masTra.m_flow_in[1], traceSubstancesFlow.y)
-    annotation (Line(points={{50,12},{50,28},{-60,28},{-60,80},{-71,80}},
-    color={0,0,127}));
+  connect(masTra.C_inflow[1], traceSubstancesFlow.y) annotation (Line(points={{
+          50,12},{50,28},{-60,28},{-60,80},{-71,80}}, color={0,0,127}));
   connect(epsCal.rat, kCor.rat)
     annotation (Line(points={{14,86},{32,86},{32,80},
     {38,80}}, color={0,0,127}));

@@ -2,8 +2,8 @@ within Buildings.Fluid.AirFilters.BaseClasses;
 model FlowCoefficientCorrection
   "Component that calculates the flow coefficient correction factor"
   parameter Real b(
-   final min = 1 + 1E-3)
-  "resistance coefficient";
+    final min = 1 + 1E-3)
+    "Resistance coefficient";
   Modelica.Blocks.Interfaces.RealInput rat(
     final unit="1",
     final min=0,

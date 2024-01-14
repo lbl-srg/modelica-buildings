@@ -38,7 +38,8 @@ model PressureDropWithVaryingFlowCoefficient
     resVarying(
     redeclare package Medium = Medium,
     m_flow_nominal=0.2,
-    dp_nominal=10) "Varying resistance"
+    dp_nominal=10)
+    "Varying resistance"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   Modelica.Blocks.Sources.Pulse kCor(
     width=100,
