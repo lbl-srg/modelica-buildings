@@ -1,0 +1,4 @@
+simulateModel("Buildings.Fluid.HeatPumps.ModularReversible.Validation.TableData2D", tolerance=1e-6, stopTime=14365, method="CVode", resultFile="TableData2D");
+createPlot(id=2, position={75, 70, 1210, 980}, y={"TConOutMea", "TConOutSim"}, range={0.0, 14365.0, 293.15, 363.15}, grid=true, filename="TableData2D.mat", colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={75, 70, 1210, 191}, y={"PEleMea", "PEleSim"}, range={0.0, 14365.0, 0.0, 3000.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={75, 70, 1210, 192}, y={"TEvaOutMea", "TEvaOutSim"}, range={0.0, 14365.0, 273.15, 303.15}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});

@@ -222,7 +222,17 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
     <td valign=\"top\">Tutorial for how to build a simple system model.
     </td>
     </tr>
-</table>
+    <tr><td valign=\"top\">Buildings.Fluid.Chillers.ModularReversible<br/>
+                           Buildings.Fluid.HeatPumps.ModularReversible
+    </td>
+    <td valign=\"top\">Package with models of reversible heat pumps and reversible chillers.
+                       The models are modular to allow modeling different functionalities,
+                       such as a table-based or Carnot-based performance, and with steady-state
+                       or approximate dynamics of vapor compression cycle.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">IBPSA, #1576</a>.
+    </td>
+    </tr>
+    </table>
 <!-- New components for existing libraries -->
 <p>
 The following <b style=\"color:blue\">new components</b> have been added
@@ -283,7 +293,7 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">Buildings.Templates.Components.Fans.ArrayVariable
     </td>
     <td valign=\"top\">Refactored with flow rate multiplier.<br/>
-	          This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3536\">#3536</a>.
+           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3536\">#3536</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
@@ -355,9 +365,9 @@ have been <b style=\"color:blue\">improved</b> in a
                      Buildings.Templates.Components.Valves
     </td>
     <td valign=\"top\">The models in these packages have been retired and replaced
-		with two container classes within <code>Buildings.Templates.Components.Actuators</code>
-		that cover all equipment types, and allow the flow characteristic to be specified
-		with one parameter.<br/>
+  with two container classes within <code>Buildings.Templates.Components.Actuators</code>
+  that cover all equipment types, and allow the flow characteristic to be specified
+  with one parameter.<br/>
                      	This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3539\">#3539</a>.
     </td>
 </tr>
