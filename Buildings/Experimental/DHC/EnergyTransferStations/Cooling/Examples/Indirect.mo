@@ -127,7 +127,7 @@ equation
   connect(cooETS.port_bSerCoo, sinDis.ports[1]) annotation (Line(points={{40,
           -39.3333},{60,-39.3333},{60,-70},{80,-70}},
                                             color={0,127,255}));
-  connect(TSetCHWS.y, cooETS.TSetBuiSup)
+  connect(TSetCHWS.y,cooETS.TBuiSupSet)
     annotation (Line(points={{-59,-30},{19.3333,-30}}, color={0,0,127}));
   connect(pumBui.port_a, souBui.ports[1]) annotation (Line(points={{80,50},{94,50},
           {94,74},{108,74}}, color={0,127,255}));
