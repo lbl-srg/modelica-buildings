@@ -180,8 +180,7 @@ for all incidence angles over the hemisphere.
 
 <h5> Other model parameters </h5>
 <p>
-Apart from the performance parameters, 
-several other parameters must be defined.
+Apart from the performance parameters, several other parameters must be defined.
 Most of the parameters are self-explanatory.
 The complex parameters are used as follows:
 </p>
