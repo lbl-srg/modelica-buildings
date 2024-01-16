@@ -13331,6 +13331,10 @@ particular package.<br/>
    </td>
    <td valign=\"top\">Package with valves and air dampers.</td>
 </tr>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.Chillers.ModularReversible.UsersGuide\">Buildings.Fluid.Chillers.ModularReversible</a>
+   </td>
+   <td valign=\"top\">Package with models for reversible chillers.</td>
+</tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.DXSystems.Cooling\">Fluid.DXSystems.Cooling</a>
    </td>
    <td valign=\"top\">Package with components for DX systems for cooling.</td>
@@ -13346,6 +13350,10 @@ particular package.<br/>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.UsersGuide\">Fluid.HeatExchangers.ActiveBeams</a>
    </td>
    <td valign=\"top\">Package with active beams.</td>
+</tr>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.UsersGuide\">Buildings.Fluid.HeatPumps.ModularReversible</a>
+   </td>
+   <td valign=\"top\">Package with models for reversible heat pumps.</td>
 </tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.HydronicConfigurations.UsersGuide\">Fluid.HydronicConfigurations.UsersGuide</a>
    </td>
