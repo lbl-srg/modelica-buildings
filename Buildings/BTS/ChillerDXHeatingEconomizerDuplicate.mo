@@ -36,7 +36,7 @@ model ChillerDXHeatingEconomizerDuplicate
   Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable TSetRooCoo(
     table=[
       0,       30 + 273.15;
-      8*3600,  25 + 273.15;
+      8*3600,  24 + 273.15;
       18*3600, 30 + 273.15;
       24*3600, 30 + 273.15],
     smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
