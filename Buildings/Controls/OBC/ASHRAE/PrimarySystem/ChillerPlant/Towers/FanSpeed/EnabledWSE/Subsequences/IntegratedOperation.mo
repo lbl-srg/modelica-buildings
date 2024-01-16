@@ -54,6 +54,10 @@ block IntegratedOperation
     annotation (Placement(transformation(extent={{160,-100},{200,-60}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
+  Buildings.Controls.OBC.CDL.Reals.Switch fanSpe
+    "Switch from the holding maximum speed to regulated speed"
+    annotation (Placement(transformation(extent={{120,-90},{140,-70}})));
+
 protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiMinCycLoa[nChi](
     final k=chiMinCap)
@@ -90,9 +94,10 @@ protected
     annotation (Placement(transformation(extent={{40,90},{60,110}})));
   Buildings.Controls.OBC.CDL.Reals.Divide div1 "Output first input divided by second input"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(final nin=nChi) "Logical or"
+  Buildings.Controls.OBC.CDL.Logical.MultiOr chiOn(final nin=nChi)
+    "Check if there is any chiller running"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
-  Buildings.Controls.OBC.CDL.Reals.Line lin "Linear interpolation"
+  Buildings.Controls.OBC.CDL.Reals.Line regFanSpe "Regulated fan speed"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer1(
     final k=yMin) "Load control minimum limit"
@@ -114,8 +119,6 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and1
     "Check if it switches from WSE only mode to integrated operation mode"
     annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch fanSpe "Logical switch"
-    annotation (Placement(transformation(extent={{120,-90},{140,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "Logical latch, maintain ON signal until condition changes"
     annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
@@ -153,18 +156,17 @@ equation
     annotation (Line(points={{62,100},{78,100}}, color={0,0,127}));
   connect(div1.y, loaCon.u_m)
     annotation (Line(points={{62,60},{90,60},{90,88}}, color={0,0,127}));
-  connect(loaCon.y, lin.u)
-    annotation (Line(points={{102,100},{120,100},{120,0},{40,0},{40,-40},
-      {58,-40}}, color={0,0,127}));
-  connect(zer1.y, lin.x1)
-    annotation (Line(points={{22,-20},{30,-20},{30,-32},{58,-32}}, color={0,0,127}));
-  connect(minTowSpe.y, lin.f1)
-    annotation (Line(points={{-18,-20},{-10,-20},{-10,-36},{58,-36}}, color={0,0,127}));
-  connect(maxTowSpe.y, lin.f2)
-    annotation (Line(points={{22,-60},{30,-60},{30,-48},{58,-48}}, color={0,0,127}));
-  connect(one.y, lin.x2)
-    annotation (Line(points={{-18,-60},{-10,-60},{-10,-44},{58,-44}}, color={0,0,127}));
-  connect(mulOr.y, edg.u)
+  connect(loaCon.y, regFanSpe.u) annotation (Line(points={{102,100},{120,100},{120,
+          0},{40,0},{40,-40},{58,-40}}, color={0,0,127}));
+  connect(zer1.y, regFanSpe.x1) annotation (Line(points={{22,-20},{30,-20},{30,-32},
+          {58,-32}}, color={0,0,127}));
+  connect(minTowSpe.y, regFanSpe.f1) annotation (Line(points={{-18,-20},{-10,-20},
+          {-10,-36},{58,-36}}, color={0,0,127}));
+  connect(maxTowSpe.y, regFanSpe.f2) annotation (Line(points={{22,-60},{30,-60},
+          {30,-48},{58,-48}}, color={0,0,127}));
+  connect(one.y, regFanSpe.x2) annotation (Line(points={{-18,-60},{-10,-60},{-10,
+          -44},{58,-44}}, color={0,0,127}));
+  connect(chiOn.y, edg.u)
     annotation (Line(points={{-98,20},{-90,20},{-90,-140},{-62,-140}}, color={255,0,255}));
   connect(uWse, and1.u1)
     annotation (Line(points={{-180,0},{-70,0},{-70,-110},{-2,-110}}, color={255,0,255}));
@@ -176,7 +178,7 @@ equation
     annotation (Line(points={{62,-110},{78,-110}}, color={255,0,255}));
   connect(lat.y, fanSpe.u2)
     annotation (Line(points={{62,-110},{70,-110},{70,-80},{118,-80}}, color={255,0,255}));
-  connect(lin.y, fanSpe.u3)
+  connect(regFanSpe.y, fanSpe.u3)
     annotation (Line(points={{82,-40},{100,-40},{100,-88},{118,-88}}, color={0,0,127}));
   connect(maxTowSpe.y, fanSpe.u1)
     annotation (Line(points={{22,-60},{30,-60},{30,-72},{118,-72}}, color={0,0,127}));
@@ -188,13 +190,13 @@ equation
     annotation (Line(points={{-38,100},{-22,100}}, color={0,0,127}));
   connect(chiLoa, totLoa.u)
     annotation (Line(points={{-180,60},{-22,60}},  color={0,0,127}));
-  connect(uChi, mulOr.u)
+  connect(uChi,chiOn. u)
     annotation (Line(points={{-180,100},{-140,100},{-140,20},{-122,20}},
       color={255,0,255}));
   connect(lat.y, falEdg.u)
     annotation (Line(points={{62,-110},{70,-110},{70,-80},{-140,-80},{-140,-60},
       {-122,-60}}, color={255,0,255}));
-  connect(mulOr.y, and3.u1)
+  connect(chiOn.y, and3.u1)
     annotation (Line(points={{-98,20},{-62,20}}, color={255,0,255}));
   connect(falEdg.y, and3.u2)
     annotation (Line(points={{-98,-60},{-80,-60},{-80,12},{-62,12}},
@@ -207,8 +209,8 @@ equation
       {-10,-140},{-2,-140}}, color={255,0,255}));
   connect(and3.y, and2.u1)
     annotation (Line(points={{-38,20},{-2,20}}, color={255,0,255}));
-  connect(uWse, and2.u2) annotation (Line(points={{-180,0},{-20,0},{-20,12},{-2,
-          12}}, color={255,0,255}));
+  connect(uWse, and2.u2)
+    annotation (Line(points={{-180,0},{-20,0},{-20,12},{-2,12}}, color={255,0,255}));
   connect(and2.y, loaCon.trigger)
     annotation (Line(points={{22,20},{84,20},{84,88}}, color={255,0,255}));
 annotation (

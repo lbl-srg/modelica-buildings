@@ -3,108 +3,79 @@ model Controller
   "Validation sequence of controlling tower fan speed when waterside economizer is enabled"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.EnabledWSE.Controller
-    wseOpe "Tower fan speed control when waterside economizer is enabled"
+    wseOpe(
+    kWSE=0.1,
+    TiWSE=5)
+    "Tower fan speed control when waterside economizer is enabled"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
-    final width=0.05,
-    final period=3600) "Boolean pulse"
-    annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Not fanSpeSwi "Two fan speed switch"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Sin chiSup(
-    final amplitude=0.5,
-    final freqHz=1/1800,
-    final offset=273.15 + 7.1) "Chilled water supply temperature"
-    annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiSupSet(
-    final k=273.15 + 7)
+    k=273.15 + 7)
     "Chilled water supply water setpoint"
-    annotation (Placement(transformation(extent={{0,-150},{20,-130}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch swi "Logical switch"
-    annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(final k=0.1)
-    "Minimum fan speed"
-    annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ram(
-    final height=0.2,
-    final duration=3600,
-    final offset=0.1,
-    final startTime=1750) "Tower speed"
-    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ram1(
-    final height=3,
-    final duration=3600,
-    final startTime=1500) "Ramp"
-    annotation (Placement(transformation(extent={{-100,-150},{-80,-130}})));
-  Buildings.Controls.OBC.CDL.Reals.Add add2 "Add real inputs"
-    annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));
+    annotation (Placement(transformation(extent={{-100,-140},{-80,-120}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi1 "Logical switch"
-    annotation (Placement(transformation(extent={{0,100},{20,120}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(final k=0)
+    annotation (Placement(transformation(extent={{20,100},{40,120}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(k=0)
     "Zero constant"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin(
-    final amplitude=0.2*1e4,
-    final freqHz=1/1200,
-    final offset=1.1*1e4,
-    final startTime=180) "Chiller load"
+    amplitude=0.1*1e4,
+    freqHz=1/1200,
+    offset=1.05*1e4,
+    startTime=180) "Chiller load"
     annotation (Placement(transformation(extent={{-100,120},{-80,140}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(final width=0.5,
-    final period=3600) "Boolean pulse"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(
+    width=0.5,
+    period=4000)
+    "Boolean pulse"
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
   Buildings.Controls.OBC.CDL.Logical.Not chiSta1 "First chiller status"
-    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
+    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiSta2(
-    final k=false) "Second chiller status"
-    annotation (Placement(transformation(extent={{0,60},{20,80}})));
+    k=false) "Second chiller status"
+    annotation (Placement(transformation(extent={{20,60},{40,80}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse wseSta(
-    final width=0.95,
-    final period=3600)
+    width=0.95,
+    period=3700)
     "Waterside economizer enabling status"
-    annotation (Placement(transformation(extent={{0,0},{20,20}})));
+    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
+  Buildings.Controls.OBC.CDL.Discrete.UnitDelay fanSpe(
+    samplePeriod=1)
+    "Current fan speed"
+    annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable timTab(
+    table=[0,280.4; 400,279.9; 1000,281.65; 1600,280.4],
+    smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
+    extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
+    "Chilled water supply temperature"
+    annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
 
 equation
-  connect(booPul.y, fanSpeSwi.u)
-    annotation (Line(points={{-78,0},{-62,0}}, color={255,0,255}));
-  connect(con.y, swi.u3)
-    annotation (Line(points={{-78,-70},{-40,-70},{-40,-58},{-2,-58}},
-      color={0,0,127}));
-  connect(fanSpeSwi.y, swi.u2)
-    annotation (Line(points={{-38,0},{-20,0},{-20,-50},{-2,-50}}, color={255,0,255}));
-  connect(ram.y, swi.u1)
-    annotation (Line(points={{-78,-30},{-40,-30},{-40,-42},{-2,-42}},
-      color={0,0,127}));
-  connect(chiSup.y, add2.u1)
-    annotation (Line(points={{-78,-100},{-60,-100},{-60,-114},{-42,-114}},
-      color={0,0,127}));
-  connect(ram1.y, add2.u2)
-    annotation (Line(points={{-78,-140},{-60,-140},{-60,-126},{-42,-126}},
-      color={0,0,127}));
   connect(booPul1.y, chiSta1.u)
-    annotation (Line(points={{-78,40},{-62,40}}, color={255,0,255}));
+    annotation (Line(points={{-78,40},{-42,40}}, color={255,0,255}));
   connect(con1.y, swi1.u3)
-    annotation (Line(points={{-78,90},{-60,90},{-60,102},{-2,102}}, color={0,0,127}));
+    annotation (Line(points={{-78,90},{-60,90},{-60,102},{18,102}}, color={0,0,127}));
   connect(sin.y, swi1.u1)
-    annotation (Line(points={{-78,130},{-60,130},{-60,118},{-2,118}}, color={0,0,127}));
+    annotation (Line(points={{-78,130},{-60,130},{-60,118},{18,118}}, color={0,0,127}));
   connect(chiSta1.y, swi1.u2)
-    annotation (Line(points={{-38,40},{-20,40},{-20,110},{-2,110}}, color={255,0,255}));
+    annotation (Line(points={{-18,40},{0,40},{0,110},{18,110}}, color={255,0,255}));
   connect(chiSta2.y, wseOpe.uChi[2])
-    annotation (Line(points={{22,70},{50,70},{50,6},{98,6}}, color={255,0,255}));
+    annotation (Line(points={{42,70},{70,70},{70,6},{98,6}}, color={255,0,255}));
   connect(chiSta1.y, wseOpe.uChi[1])
-    annotation (Line(points={{-38,40},{50,40},{50,6},{98,6}}, color={255,0,255}));
+    annotation (Line(points={{-18,40},{70,40},{70,6},{98,6}}, color={255,0,255}));
   connect(swi1.y, wseOpe.chiLoa[1])
-    annotation (Line(points={{22,110},{60,110},{60,9},{98,9}},   color={0,0,127}));
+    annotation (Line(points={{42,110},{80,110},{80,9},{98,9}}, color={0,0,127}));
   connect(con1.y, wseOpe.chiLoa[2])
-    annotation (Line(points={{-78,90},{60,90},{60,9},{98,9}},   color={0,0,127}));
+    annotation (Line(points={{-78,90},{-60,90},{-60,9},{98,9}}, color={0,0,127}));
   connect(wseSta.y, wseOpe.uWse)
-    annotation (Line(points={{22,10},{40,10},{40,2},{98,2}}, color={255,0,255}));
-  connect(swi.y,wseOpe.uFanSpe)
-    annotation (Line(points={{22,-50},{60,-50},{60,-2},{98,-2}}, color={0,0,127}));
-  connect(add2.y, wseOpe.TChiWatSup)
-    annotation (Line(points={{-18,-120},{70,-120},{70,-6},{98,-6}}, color={0,0,127}));
+    annotation (Line(points={{-18,-30},{40,-30},{40,2},{98,2}}, color={255,0,255}));
   connect(chiSupSet.y, wseOpe.TChiWatSupSet)
-    annotation (Line(points={{22,-140},{80,-140},{80,-9},{98,-9}},   color={0,0,127}));
-
+    annotation (Line(points={{-78,-130},{70,-130},{70,-9},{98,-9}},  color={0,0,127}));
+  connect(wseOpe.ySpeSet, fanSpe.u) annotation (Line(points={{122,0},{130,0},{130,
+          -80},{-110,-80},{-110,-60},{-102,-60}}, color={0,0,127}));
+  connect(fanSpe.y, wseOpe.uFanSpe) annotation (Line(points={{-78,-60},{50,-60},
+          {50,-2},{98,-2}},color={0,0,127}));
+  connect(timTab.y[1], wseOpe.TChiWatSup) annotation (Line(points={{-38,-100},{60,
+          -100},{60,-6},{98,-6}},color={0,0,127}));
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Towers/FanSpeed/EnabledWSE/Validation/Controller.mos"
     "Simulate and plot"),
@@ -114,6 +85,42 @@ This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.EnabledWSE.Controller\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.EnabledWSE.Controller</a>.
 </p>
+<p>
+In this example, at 2000 seconds the plant changes from economizer-only mode to integration mode which
+have both the chiller and economizer operating. It then changes to chiller-only mode at 3530 seconds.
+It implements following processes:
+</p>
+<ul>
+<li>
+From 0 to 400 seconds, the chilled water supply temperature is greater than the setpoint. The direct PID controller
+increases the output to the maximum output and the fan speed setpoint becomes 1.
+</li>
+<li>
+From 400 to 1000 seconds, the chilled water supply temperature becomes lower than the setpoint. The PID controller decreases
+the output to the minimum and the fan speed setpoint becomes the minimum. After the fan stays at minimum speed for 300
+seconds and the chilled water supply temperature is lower than the setpoint, the fan cycles off.
+</li>
+<li>
+From 1000 to 1600 seconds, the chilled water supply temperature becomes greater than the setpoint by 1.5 &deg;C. In the
+meantime, the fan has been cycled off for 180 seconds (ranging from 895 seconds to 1075 seconds). The fan starts to run
+again and the PID control increases the output to maximum and the fan speed setpoint becomes 1.
+</li>
+<li>
+From 1600 to 2000 seconds, the chilled water supply temperature is reduced but still keeps higher than
+the setpoint and the fan speed setpoint keeps to be 1.
+</li>
+<li>
+At 2000 seconds, the plant changes from economizer-only mode to integration mode. It keeps the fan speed
+setpoint to be maximum for 10 minutes (ranging from 2000 seconds to 2600 seconds).
+</li>
+<li>
+From 2600 to 3515 seconds, the direct acting PID maintains to the chiller load at 110% of the sum of the minimum
+cycling load for the operating chiller. 
+</li>
+<li>
+After the 3515 seconds, it becomes chiller only mode and the fan speed control becomes invalide.
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>
