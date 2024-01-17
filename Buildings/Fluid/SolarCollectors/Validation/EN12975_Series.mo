@@ -19,7 +19,6 @@ model EN12975_Series
     final nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
     nPanels=1,
     final til=0.78539816339745,
-    final C=385*per.mDry,
     final use_shaCoe_in=false,
     final sysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series);
 
