@@ -2,7 +2,7 @@ within Buildings.Fluid.SolarCollectors.BaseClasses.Examples;
 model ASHRAEHeatLoss "Example showing the use of ASHRAEHeatLoss"
   extends Modelica.Icons.Example;
   parameter Buildings.Fluid.SolarCollectors.Data.GenericASHRAE93 per=
-    Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_ThermaLiteHS20()
+    Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_SolahartKf()
     "Performance data"
     annotation (choicesAllMatching=true);
   Modelica.Blocks.Sources.Sine TEnv(
@@ -11,7 +11,7 @@ model ASHRAEHeatLoss "Example showing the use of ASHRAEHeatLoss"
     amplitude=15) "Temperature of the surrounding environment"
     annotation (Placement(transformation(extent={{30,70},{50,90}})));
   Modelica.Blocks.Sources.Sine T1(
-    amplitude=15,
+    amplitude=7.5,
     f=0.1,
     offset=273.15 + 10) "Temperature of the first segment"
     annotation (Placement(transformation(extent={{30,-90},{50,-70}})));
