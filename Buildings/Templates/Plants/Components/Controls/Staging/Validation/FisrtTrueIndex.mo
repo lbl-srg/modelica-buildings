@@ -1,0 +1,50 @@
+within Buildings.Templates.Plants.Components.Controls.Staging.Validation;
+model FisrtTrueIndex
+  FirstTrueIndex idxFirTru(nin=3)
+    annotation (Placement(transformation(extent={{-10,50},{10,70}})));
+  FirstTrueIndex idxFirTru1(nin=3)
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[3](k={false,true,
+        false}) "Constant array"
+    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1[3](k={false,false,
+        false}) "Constant array"
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+equation
+  connect(con1.y, idxFirTru1.u1)
+    annotation (Line(points={{-38,0},{-12,0}}, color={255,0,255}));
+  connect(con.y, idxFirTru.u1)
+    annotation (Line(points={{-38,60},{-12,60}}, color={255,0,255}));
+  annotation (
+    experiment(StopTime=100.0,
+      Tolerance=1e-06),
+    Documentation(
+      info="<html>
+<p>
+Validation test for the block
+<a href=\"modelica://Buildings.Templates.Plants.Components.Controls.Staging.FirstTrueIndex\">
+Buildings.Templates.Plants.Components.Controls.Staging.FirstTrueIndex</a>.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+FIXME, 2024, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
+    Icon(
+      graphics={
+        Ellipse(
+          lineColor={75,138,73},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          extent={{-100,-100},{100,100}}),
+        Polygon(
+          lineColor={0,0,255},
+          fillColor={75,138,73},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.Solid,
+          points={{-36,60},{64,0},{-36,-60},{-36,60}})}));
+end FisrtTrueIndex;

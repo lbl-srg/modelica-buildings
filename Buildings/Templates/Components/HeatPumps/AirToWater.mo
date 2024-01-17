@@ -1,21 +1,21 @@
 within Buildings.Templates.Components.HeatPumps;
 model AirToWater "Air-to-water heat pump"
   extends Buildings.Templates.Components.Interfaces.PartialHeatPump(
-    redeclare replaceable package MediumSou=Buildings.Media.Air,
+    redeclare final package MediumSou = Buildings.Media.Air,
     final typ=Buildings.Templates.Components.Types.HeatPump.AirToWater,
     final typMod=Buildings.Templates.Components.Types.HeatPumpModel.EquationFit,
-    bou(nPorts=3));
+    sinAir(nPorts=3));
 
   Buildings.Fluid.HeatPumps.EquationFitReversible heaPum(
     uMod(start=0),
-    redeclare final package Medium1 = MediumLoa,
-    redeclare final package Medium2 = MediumSou,
+    redeclare final package Medium1=MediumHeaWat,
+    redeclare final package Medium2=MediumAir,
     final per=dat.per,
     final energyDynamics=energyDynamics)
     "Heat pump"
     annotation (Placement(transformation(extent={{-10,-44},{10,-24}})));
   Buildings.Fluid.Sources.MassFlowSource_WeatherData souAir(
-    redeclare final package Medium=MediumSou,
+    redeclare final package Medium=MediumAir,
     final use_m_flow_in=true,
     nPorts=1)
     "Air flow source"
@@ -88,7 +88,7 @@ equation
     color={0,127,255}));
   connect(souAir.ports[1], heaPum.port_a2)
     annotation (Line(points={{40,-50},{40,-40},{10,-40}}, color={0,127,255}));
-  connect(heaPum.port_b2, bou.ports[3])
+  connect(heaPum.port_b2, sinAir.ports[3])
     annotation (Line(points={{-10,-40},{-40,-40},{-40,-80},{0,-80}}, color={0,127,255}));
   connect(busWea, souAir.weaBus) annotation (Line(
       points={{-60,100},{-60,90},{-90,90},{-90,-70},{40.2,-70}},

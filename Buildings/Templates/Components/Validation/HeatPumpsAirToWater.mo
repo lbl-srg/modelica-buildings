@@ -79,7 +79,7 @@ model HeatPumpsAirToWater
     "HW supply temperature setpoint"
     annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
   Buildings.Templates.Components.HeatPumps.AirToWater heaPumRev(
-    redeclare final package MediumLoa=Medium,
+    redeclare final package MediumHeaWat=Medium,
     final dat=datHeaPumRev,
     final is_rev=true,
     final energyDynamics=energyDynamics)
@@ -129,7 +129,7 @@ model HeatPumpsAirToWater
     nPorts=2) "Boundary condition at distribution system supply"
     annotation (Placement(transformation(extent={{140,-70},{120,-50}})));
   HeatPumps.AirToWater heaPumNonRev(
-    redeclare final package MediumLoa=Medium,
+    redeclare final package MediumHeaWat=Medium,
     final dat=datHeaPumNonRev,
     final is_rev=false,
     final energyDynamics=energyDynamics)

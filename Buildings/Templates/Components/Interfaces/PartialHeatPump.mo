@@ -1,23 +1,25 @@
 within Buildings.Templates.Components.Interfaces;
 model PartialHeatPump
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
-    redeclare final package Medium=MediumLoa,
+    redeclare final package Medium=MediumHeaWat,
     final m_flow_nominal=max(mHeaWat_flow_nominal, mChiWat_flow_nominal));
 
-  replaceable package MediumLoa=Buildings.Media.Water
+  replaceable package MediumHeaWat=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
-    "Load-side medium"
+    "HW medium"
     annotation(__Linkage(enable=false));
-
-  /*
-  The following definition is needed only for Dymola that does not allow
-  port_aSou and port_bSou to be instantiated without redeclaring their medium
-  to a non-partial class (which is done only in the derived class).
-  */
-  replaceable package MediumSou=Buildings.Media.Air
+  replaceable package MediumChiWat=MediumHeaWat
     constrainedby Modelica.Media.Interfaces.PartialMedium
-    "Source-side medium"
-    annotation(__Linkage(enable=false));
+    "Evaporator-side medium for non-reversible WWHP"
+    annotation(Dialog(enable=
+    typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater and not is_rev),
+    __Linkage(enable=false));
+  replaceable package MediumAir=Buildings.Media.Air
+    constrainedby Modelica.Media.Interfaces.PartialMedium
+    "Air medium"
+    annotation(Dialog(enable=
+    typ==Buildings.Templates.Components.Types.HeatPump.AirToWater),
+    __Linkage(enable=false));
 
   parameter Buildings.Templates.Components.Types.HeatPump typ
     "Equipment type"
@@ -72,23 +74,23 @@ model PartialHeatPump
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab="Dynamics", group="Conservation equations"));
 
-  final parameter MediumLoa.SpecificHeatCapacity cpHeaWat_default=
-    MediumLoa.specificHeatCapacityCp(staHeaWat_default)
+  final parameter MediumHeaWat.SpecificHeatCapacity cpHeaWat_default=
+    MediumHeaWat.specificHeatCapacityCp(staHeaWat_default)
     "HW default specific heat capacity";
-  final parameter MediumLoa.ThermodynamicState staHeaWat_default=
-    MediumLoa.setState_pTX(
+  final parameter MediumHeaWat.ThermodynamicState staHeaWat_default=
+    MediumHeaWat.setState_pTX(
       T=THeaWatSup_nominal,
-      p=MediumLoa.p_default,
-      X=MediumLoa.X_default)
+      p=MediumHeaWat.p_default,
+      X=MediumHeaWat.X_default)
     "HW default state";
-  final parameter MediumLoa.SpecificHeatCapacity cpChiWat_default=
-    MediumLoa.specificHeatCapacityCp(staChiWat_default)
+  final parameter MediumChiWat.SpecificHeatCapacity cpChiWat_default=
+    MediumChiWat.specificHeatCapacityCp(staChiWat_default)
     "CHW default specific heat capacity";
-  final parameter MediumLoa.ThermodynamicState staChiWat_default=
-    MediumLoa.setState_pTX(
+  final parameter MediumChiWat.ThermodynamicState staChiWat_default=
+    MediumChiWat.setState_pTX(
       T=TChiWatSup_nominal,
-      p=MediumLoa.p_default,
-      X=MediumLoa.X_default)
+      p=MediumChiWat.p_default,
+      X=MediumChiWat.X_default)
     "CHW default state";
 
   Modelica.Fluid.Interfaces.FluidPort_a port_aSou(
@@ -109,21 +111,24 @@ model PartialHeatPump
     "Control bus"
     annotation (Placement(transformation(extent={{-20,80},{20,120}}),
      iconTransformation(extent={{-20,80},{20, 120}})));
-  BoundaryConditions.WeatherData.Bus busWea
+  Buildings.BoundaryConditions.WeatherData.Bus busWea
     if typ==Buildings.Templates.Components.Types.HeatPump.AirToWater
     "Weather bus"
     annotation (Placement(transformation(extent={{-80,80},{-40,120}}),
         iconTransformation(extent={{-80,80},{-40,120}})));
-  Fluid.Sources.Boundary_pT bou(
-    redeclare final package Medium=MediumSou,
-    nPorts=2)
-    if typ==Buildings.Templates.Components.Types.HeatPump.AirToWater
-    "Outdoor air"
-    annotation (Placement(
-        transformation(
+  Buildings.Fluid.Sources.Boundary_pT sinAir(
+    redeclare final package Medium =MediumAir, nPorts=2)
+    if typ == Buildings.Templates.Components.Types.HeatPump.AirToWater
+    "Air sink"
+    annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={0,-90})));
+protected
+  replaceable package MediumSou=Modelica.Media.Interfaces.PartialMedium
+    constrainedby Modelica.Media.Interfaces.PartialMedium
+    "Source-side medium"
+    annotation(__Linkage(enable=false));
 initial equation
   // For reversible heat pumps, check that placeholder parameter values in cooling
   // mode are not used.
@@ -158,10 +163,10 @@ initial equation
       level = AssertionLevel.warning);
   end if;
 equation
-  connect(bou.ports[1], port_bSou)
-    annotation (Line(points={{-1,-80},{-40,-80},{-40,-100}}, color={0,127,255}));
-  connect(bou.ports[2], port_aSou) annotation (
-    Line(points={{1,-80},{40,-80},{40,-100}}, color={0,127,255}));
+  connect(sinAir.ports[1], port_bSou) annotation (Line(points={{-1,-80},{-40,-80},
+          {-40,-100}}, color={0,127,255}));
+  connect(sinAir.ports[2], port_aSou)
+    annotation (Line(points={{1,-80},{40,-80},{40,-100}}, color={0,127,255}));
 annotation (
 Icon(graphics={
     Rectangle(
