@@ -109,7 +109,7 @@ equation
         color={0,0,127}));
   connect(pumBui.port_a, souBui.ports[1]) annotation (Line(points={{80,50},{94,50},
           {94,74},{108,74}}, color={0,127,255}));
-  connect(TSetHWS.y, heaETS.TSetBuiSup)
+  connect(TSetHWS.y,heaETS.TBuiSupSet)
     annotation (Line(points={{-59,-30},{19.3333,-30}}, color={0,0,127}));
   connect(souDis.ports[1], heaETS.port_aSerHea) annotation (Line(points={{-20,-70},
           {14,-70},{14,-38},{20,-38}}, color={0,127,255}));
