@@ -8,13 +8,13 @@ model Enable_TOut_hOut
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant hOutCut1(
     final k=hOutCutoff) "Outdoor air enthalpy cutoff"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Buildings.Controls.OBC.CDL.Logical.TriggeredTrapezoid TOut(
+  Buildings.Obsolete.Controls.OBC.CDL.Logical.TriggeredTrapezoid TOut(
     final rising=1000,
     final falling=800,
     final amplitude=4,
     final offset=TOutCutoff - 2) "Outoor air temperature"
     annotation (Placement(transformation(extent={{-160,150},{-140,170}})));
-  Buildings.Controls.OBC.CDL.Logical.TriggeredTrapezoid hOut(
+  Buildings.Obsolete.Controls.OBC.CDL.Logical.TriggeredTrapezoid hOut(
     final amplitude=4000,
     final offset=hOutCutoff - 2200,
     final rising=1000,
