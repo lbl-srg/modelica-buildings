@@ -1,4 +1,4 @@
-within Buildings.Templates.Plants.Components.Controls.Staging;
+within Buildings.Templates.Plants.Components.Controls.Pumps.Primary;
 package Validation "Collection of validation models"
 
   annotation (

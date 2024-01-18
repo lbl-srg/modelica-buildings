@@ -1,0 +1,30 @@
+simulateModel("Buildings.Templates.Plants.Components.Controls.Enabling.Validation.Enable",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=7200.0,
+    resultFile="TemplatesPlantsEnable");
+createPlot(
+    id=1,
+    subPlot=1,
+    position={5, 5, 400, 500},
+    y={"req.y", "sch.y"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"TOut.y", "enaHea.TOutLck", "enaCoo.TOutLck"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
+createPlot(
+    id=1,
+    subPlot=3,
+    y={"enaHea.y1", "enaCoo.y1", "enaCooSch.y1"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);

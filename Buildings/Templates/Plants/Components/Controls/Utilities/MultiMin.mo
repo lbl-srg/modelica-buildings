@@ -1,4 +1,4 @@
-within Buildings.Templates.Plants.Components.Controls.Staging;
+within Buildings.Templates.Plants.Components.Controls.Utilities;
 block MultiMin "Output the minimum element of the input vector"
   parameter Integer nin(min=0)=0
     "Size of input array"

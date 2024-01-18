@@ -1,6 +1,14 @@
 within Buildings.Templates.Plants.Components.Controls;
-package Staging "Package of sequences for system staging"
-annotation (
+package Utilities "Package with utility blocks"
+
+  annotation (Documentation(info="<html>
+<p>
+This package contains utility blocks that are used to implement
+the control sequences within
+<a href=\"modelica://Buildings.Templates.Plants.Components.Controls\">
+Buildings.Templates.Plants.Components.Controls</a>.
+</p>
+</html>"),
   Icon(graphics={
     Rectangle(
       lineColor={200,200,200},
@@ -35,4 +43,4 @@ annotation (
       lineColor={128,128,128},
       extent={{-100.0,-100.0},{100.0,100.0}},
       radius=25.0)}));
-end Staging;
+end Utilities;

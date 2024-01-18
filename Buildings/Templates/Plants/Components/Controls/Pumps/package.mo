@@ -1,5 +1,5 @@
 within Buildings.Templates.Plants.Components.Controls;
-package Staging "Package of sequences for system staging"
+package Pumps "Package of sequences for primary and secondary pumps"
 annotation (
   Icon(graphics={
     Rectangle(
@@ -35,4 +35,4 @@ annotation (
       lineColor={128,128,128},
       extent={{-100.0,-100.0},{100.0,100.0}},
       radius=25.0)}));
-end Staging;
+end Pumps;

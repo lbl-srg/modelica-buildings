@@ -1,0 +1,12 @@
+simulateModel("Buildings.Templates.Plants.Components.Controls.Utilities.Validation.MultiMin",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=7200.0,
+    resultFile="TemplatesPlantsMultiMin");
+createPlot(
+    id=1,
+    position={5, 5, 400, 300},
+    y={"mulMin.y"},
+    autoscale=true,
+    grid=true
+);

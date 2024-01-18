@@ -1,4 +1,4 @@
-within Buildings.Templates.Plants.Components.Controls.Staging;
+within Buildings.Templates.Plants.Components.Controls.Utilities;
 block Pre
   "Breaks algebraic loops by an infinitesimal small time delay (y = pre(u): event iteration continues until u = pre(u))"
   parameter Integer pre_u_start=0

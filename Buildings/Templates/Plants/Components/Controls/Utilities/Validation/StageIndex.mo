@@ -1,0 +1,125 @@
+within Buildings.Templates.Plants.Components.Controls.Utilities.Validation;
+model StageIndex
+  parameter Integer nSta=4
+    "Number of stages"
+    annotation(Evaluate=true);
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse ena(
+    width=0.9,
+    period=160,
+    shift=10)
+    "Enable signal"
+    annotation (Placement(transformation(extent={{-90,50},{-70,70}})));
+  Buildings.Templates.Plants.Components.Controls.Utilities.StageIndex idxSta(
+      final nSta=nSta)
+    "Compute stage index - No minimum runtime, all stages available"
+    annotation (Placement(transformation(extent={{20,50},{40,70}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger upPul(period=20)
+    "Stage up command pulse"
+    annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger dowPul(period=20)
+    "Stage down command pulse"
+    annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant ava[nSta](k=fill(true,
+        nSta)) "Stage available signal"
+    annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
+  Buildings.Templates.Plants.Components.Controls.Utilities.StageIndex idxStaUna(
+      final nSta=nSta)
+    "Compute stage index - No minimum runtime, some unavailable stages"
+    annotation (Placement(transformation(extent={{62,20},{82,40}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant ava1[nSta](k={false,false,
+        true,true})
+               "Stage available signal"
+    annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
+  Buildings.Templates.Plants.Components.Controls.Utilities.StageIndex idxStaRun(
+      final nSta=nSta, dtRun=25)
+    "Compute stage index - Minimum runtime, all stages available"
+    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
+  Buildings.Templates.Plants.Components.Controls.Utilities.StageIndex
+    idxStaRunUna(final nSta=nSta, dtRun=25)
+    "Compute stage index - Minimum runtime, some unavailable stages"
+    annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable booTimTab(table=[0,0,0; 10,
+        1,0; 70,0,1], period=160) "Signal to inhibit up and down commands"
+    annotation (Placement(transformation(extent={{-90,80},{-70,100}})));
+  Buildings.Controls.OBC.CDL.Logical.And up "Stage up command"
+    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
+  Buildings.Controls.OBC.CDL.Logical.And dow "Stage up command"
+    annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
+equation
+  connect(ena.y, idxSta.u1Lea) annotation (Line(points={{-68,60},{0,60},{0,66},{
+          18,66}},      color={255,0,255}));
+  connect(ava.y, idxSta.u1Ava) annotation (Line(points={{-68,-60},{4,-60},{4,54},
+          {18,54}}, color={255,0,255}));
+  connect(ena.y, idxStaUna.u1Lea) annotation (Line(points={{-68,60},{0,60},{0,36},
+          {60,36}},     color={255,0,255}));
+  connect(ena.y, idxStaRun.u1Lea) annotation (Line(points={{-68,60},{0,60},{0,-24},
+          {18,-24}},      color={255,0,255}));
+  connect(ava.y, idxStaRun.u1Ava) annotation (Line(points={{-68,-60},{4,-60},{4,
+          -36},{18,-36}}, color={255,0,255}));
+  connect(ava1.y, idxStaUna.u1Ava) annotation (Line(points={{-38,-80},{50,-80},{
+          50,24},{60,24}}, color={255,0,255}));
+  connect(ena.y, idxStaRunUna.u1Lea) annotation (Line(points={{-68,60},{0,60},{0,
+          -54},{58,-54}},      color={255,0,255}));
+  connect(ava1.y, idxStaRunUna.u1Ava) annotation (Line(points={{-38,-80},{50,-80},
+          {50,-66},{58,-66}}, color={255,0,255}));
+  connect(upPul.y, up.u2) annotation (Line(points={{-68,20},{-60,20},{-60,12},{-42,
+          12}}, color={255,0,255}));
+  connect(dowPul.y, dow.u2) annotation (Line(points={{-68,-20},{-60,-20},{-60,-28},
+          {-42,-28}}, color={255,0,255}));
+  connect(booTimTab.y[2], dow.u1) annotation (Line(points={{-68,90},{-50,90},{-50,
+          -20},{-42,-20}}, color={255,0,255}));
+  connect(up.y, idxSta.u1Up) annotation (Line(points={{-18,20},{-10,20},{-10,62},
+          {18,62}}, color={255,0,255}));
+  connect(dow.y, idxSta.u1Dow) annotation (Line(points={{-18,-20},{-4,-20},{-4,58},
+          {18,58}}, color={255,0,255}));
+  connect(up.y, idxStaUna.u1Up) annotation (Line(points={{-18,20},{30,20},{30,32},
+          {60,32}}, color={255,0,255}));
+  connect(dow.y, idxStaUna.u1Dow) annotation (Line(points={{-18,-20},{-4,-20},{-4,
+          28},{60,28}}, color={255,0,255}));
+  connect(dow.y, idxStaRun.u1Dow) annotation (Line(points={{-18,-20},{-4,-20},{-4,
+          -32},{18,-32}}, color={255,0,255}));
+  connect(dow.y, idxStaRunUna.u1Dow) annotation (Line(points={{-18,-20},{-4,-20},
+          {-4,-62},{58,-62}}, color={255,0,255}));
+  connect(up.y, idxStaRun.u1Up) annotation (Line(points={{-18,20},{-10,20},{-10,
+          -28},{18,-28}}, color={255,0,255}));
+  connect(up.y, idxStaRunUna.u1Up) annotation (Line(points={{-18,20},{-10,20},{-10,
+          -58},{58,-58}}, color={255,0,255}));
+  connect(booTimTab.y[1], up.u1) annotation (Line(points={{-68,90},{-50,90},{-50,
+          20},{-42,20}}, color={255,0,255}));
+  annotation (
+  __Dymola_Commands(
+  file="modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Components/Controls/Utilities/Validation/StageIndex.mos"
+  "Simulate and plot"),
+  experiment(StopTime=160.0,Tolerance=1e-06),
+  Documentation(
+  info="<html>
+<p>
+Validation test for the block
+<a href=\"modelica://Buildings.Templates.Plants.Components.Controls.Utilities.StageIndex\">
+Buildings.Templates.Plants.Components.Controls.Utilities.StageIndex</a>.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+FIXME, 2024, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
+Icon(
+  graphics={
+    Ellipse(
+      lineColor={75,138,73},
+      fillColor={255,255,255},
+      fillPattern=FillPattern.Solid,
+      extent={{-100,-100},{100,100}}),
+    Polygon(
+      lineColor={0,0,255},
+      fillColor={75,138,73},
+      pattern=LinePattern.None,
+      fillPattern=FillPattern.Solid,
+      points={{-36,60},{64,0},{-36,-60},{-36,60}})}),
+    Diagram(coordinateSystem(extent={{-120,-120},{120,120}})));
+end StageIndex;
