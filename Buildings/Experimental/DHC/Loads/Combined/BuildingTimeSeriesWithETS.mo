@@ -4,13 +4,25 @@ model BuildingTimeSeriesWithETS
   extends
     Buildings.Experimental.DHC.Loads.Combined.BaseClasses.PartialBuildingWithETS(
     redeclare Buildings.Experimental.DHC.Loads.BaseClasses.Examples.BaseClasses.BuildingTimeSeries bui(
-      final filNam=filNam,
+      filNam=filNam,
       have_hotWat=true,
       T_aHeaWat_nominal=ets.THeaWatSup_nominal,
       T_bHeaWat_nominal=ets.THeaWatRet_nominal,
       T_aChiWat_nominal=ets.TChiWatSup_nominal,
       T_bChiWat_nominal=ets.TChiWatRet_nominal),
-    ets(
+    redeclare
+      Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger
+      ets(
+      final dT_nominal=dT_nominal,
+      final TDisWatMin=datDes.TLooMin,
+      final TDisWatMax=datDes.TLooMax,
+      final TChiWatSup_nominal=TChiWatSup_nominal,
+      final THeaWatSup_nominal=THeaWatSup_nominal,
+      final THotWatSup_nominal=THotWatSup_nominal,
+      final TColWat_nominal=TColWat_nominal,
+      final dp_nominal=dp_nominal,
+      final COPHeaWat_nominal=COPHeaWat_nominal,
+      final COPHotWat_nominal=COPHotWat_nominal,
       have_hotWat=true,
       QChiWat_flow_nominal=QCoo_flow_nominal,
       QHeaWat_flow_nominal=QHea_flow_nominal,
@@ -81,7 +93,7 @@ model BuildingTimeSeriesWithETS
       final k=facMul) if bui.have_cooLoa "Scaling"
     annotation (Placement(transformation(extent={{266,-50},{286,-30}})));
 equation
-  connect(bui.QReqHotWat_flow, ets.loaSHW) annotation (Line(points={{28,4},{28,
+  connect(bui.QReqHotWat_flow, ets.QReqHotWat_flow) annotation (Line(points={{28,4},{28,
           -10},{-64,-10},{-64,-74},{-34,-74}}, color={0,0,127}));
   connect(THotWatSupSet, ets.THotWatSupSet) annotation (Line(points={{-320,40},
           {-136,40},{-136,-66},{-34,-66}},  color={0,0,127}));

@@ -22,8 +22,8 @@ partial model PartialSeries "Partial model for series network"
     datDes(final mCon_flow_nominal=bui.ets.mSerWat_flow_nominal) "Design data"
     annotation (Placement(transformation(extent={{-360,220},{-340,240}})));
   // COMPONENTS
-  Buildings.Experimental.DHC.Plants.Reservoir.BoreField
-    borFie(redeclare final package Medium = Medium) "Bore field" annotation (
+  Buildings.Experimental.DHC.Examples.Combined.BaseClasses.BoreField borFie(
+      redeclare final package Medium = Medium) "Bore field" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -54,30 +54,26 @@ partial model PartialSeries "Partial model for series network"
       extent={{10,10},{-10,-10}},
       rotation=180,
       origin={-180,-80})));
-  Buildings.Experimental.DHC.Networks.Connections.Connection1PipeStandard
+  Buildings.Experimental.DHC.Networks.Connections.Connection1PipeAutosize
     conPla(
     redeclare final package Medium = Medium,
     final mDis_flow_nominal=datDes.mPipDis_flow_nominal,
     final mCon_flow_nominal=datDes.mPla_flow_nominal,
-    lDis=0,
-    lCon=0,
+    lDis=50,
     final dhDis=0.2,
-    final dhCon=0.2,
     final allowFlowReversal=allowFlowReversalSer)
     "Connection to the plant (pressure drop lumped in plant and network model)"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-80,-10})));
-  Buildings.Experimental.DHC.Networks.Connections.Connection1PipeStandard
+  Buildings.Experimental.DHC.Networks.Connections.Connection1PipeAutosize
     conSto(
     redeclare final package Medium = Medium,
     final mDis_flow_nominal=datDes.mPipDis_flow_nominal,
     final mCon_flow_nominal=datDes.mSto_flow_nominal,
-    lDis=0,
-    lCon=0,
+    lDis=50,
     final dhDis=0.2,
-    final dhCon=0.2,
     final allowFlowReversal=allowFlowReversalSer)
     "Connection to the bore field (pressure drop lumped in plant and network model)"
     annotation (Placement(transformation(

@@ -107,7 +107,7 @@ model System3
     redeclare package Medium = MediumW,
     use_m_flow_in=true,
     T=TWSup_nominal) "Source for water flow rate"
-    annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
+    annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
   Buildings.Fluid.Sources.Boundary_pT sinWat(nPorts=1, redeclare package Medium =
         MediumW) "Sink for water circuit"
     annotation (Placement(transformation(extent={{-80,-76},{-60,-56}})));
@@ -131,18 +131,23 @@ model System3
         MediumA, m_flow_nominal=mA_flow_nominal)
     "Temperature sensor for supply air"
     annotation (Placement(transformation(extent={{6,-26},{18,-14}})));
-  Buildings.Controls.OBC.CDL.Logical.OnOffController con(bandwidth=1)
-    "Controller for coil water flow rate"
-    annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TRooSetPoi(k=TRooSet)
     "Room temperature set point"
-    annotation (Placement(transformation(extent={{-170,-90},{-150,-70}})));
+    annotation (Placement(transformation(extent={{-170,-104},{-150,-84}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTemRoo
     "Room temperature sensor"
     annotation (Placement(transformation(extent={{70,70},{90,90}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal mWat_flow(realTrue=0, realFalse=
         mW_flow_nominal) "Conversion from boolean to real for water flow rate"
-    annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
+    annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1
+    "Inputs different"
+    annotation (Placement(transformation(extent={{-130,-110},{-110,-90}})));
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis con1(
+    final uLow=-0.5,
+    final uHigh=0.5)
+    "Controller for coil water flow rate"
+    annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
 equation
   connect(theCon.port_b, vol.heatPort) annotation (Line(
       points={{40,50},{50,50},{50,30},{60,30}},
@@ -153,24 +158,24 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(fan.port_b, vol.ports[1]) annotation (Line(
-      points={{60,-20},{68,-20},{68,20}},
+      points={{60,-20},{69,-20},{69,20}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(vol.ports[2], hex.port_a2) annotation (Line(
-      points={{72,20},{72,-46},{-90,-46},{-90,-32}},
+      points={{71,20},{71,-46},{-90,-46},{-90,-32}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(out.ports[1], hex.port_a1) annotation (Line(
-      points={{-120,-20},{-110,-20}},
+      points={{-120,-23},{-116,-23},{-116,-20},{-110,-20}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(out.ports[2], hex.port_b2) annotation (Line(
-      points={{-120,-24},{-110,-24},{-110,-32}},
+      points={{-120,-21},{-110,-21},{-110,-32}},
       color={0,127,255},
       smooth=Smooth.None));
 
   connect(souWat.ports[1], cooCoi.port_a1)   annotation (Line(
-      points={{-20,-100},{0,-100},{0,-32},{-20,-32}},
+      points={{0,-100},{20,-100},{20,-32},{-20,-32}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(cooCoi.port_b1, sinWat.ports[1])    annotation (Line(
@@ -191,7 +196,7 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(weaBus.TDryBul, TOut.T) annotation (Line(
-      points={{-110,50},{-22,50}},
+      points={{-109.95,50.05},{-66,50.05},{-66,50},{-22,50}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -222,26 +227,22 @@ equation
       points={{5.55112e-16,50},{20,50}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(TRooSetPoi.y, con.reference) annotation (Line(
-      points={{-148,-80},{-136,-80},{-136,-94},{-122,-94}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(vol.heatPort, senTemRoo.port) annotation (Line(
       points={{60,30},{50,30},{50,80},{70,80}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(senTemRoo.T, con.u) annotation (Line(
-      points={{90,80},{100,80},{100,-140},{-140,-140},{-140,-106},{-122,-106}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(con.y, mWat_flow.u) annotation (Line(
-      points={{-98,-100},{-82,-100}},
-      color={255,0,255},
-      smooth=Smooth.None));
   connect(mWat_flow.y, souWat.m_flow_in) annotation (Line(
-      points={{-58,-100},{-50,-100},{-50,-92},{-42,-92}},
+      points={{-38,-100},{-30,-100},{-30,-92},{-22,-92}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(sub1.y, con1.u)
+    annotation (Line(points={{-108,-100},{-102,-100}}, color={0,0,127}));
+  connect(con1.y, mWat_flow.u)
+    annotation (Line(points={{-78,-100},{-62,-100}}, color={255,0,255}));
+  connect(TRooSetPoi.y, sub1.u1)
+    annotation (Line(points={{-148,-94},{-132,-94}}, color={0,0,127}));
+  connect(senTemRoo.T, sub1.u2) annotation (Line(points={{91,80},{100,80},{100,-140},
+          {-140,-140},{-140,-106},{-132,-106}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
 This part of the system model modifies
@@ -359,6 +360,12 @@ Buildings.Controls.OBC.CDL.Reals.PID</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 11, 2023, by Jianjun Hu:<br/>
+Reimplemented on-off control to avoid using the obsolete <code>OnOffController</code>.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3595\">#3595</a>.
+</li>
 <li>
 September 20, 2021 by David Blum:<br/>
 Correct supply and return water parameterization.<br/>

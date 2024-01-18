@@ -177,12 +177,16 @@ model Valve "Multiple-configuration valve"
         rotation=0,
         origin={0,100})));
 
-  Controls.OBC.CDL.Conversions.BooleanToReal y1(final realTrue=1, final
-      realFalse=0) if is_actTwo "Two-position signal" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-80,120})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal y1(
+    final realTrue=1,
+    final realFalse=0)
+    if is_actTwo
+    "Two-position signal"
+    annotation (Placement(
+      transformation(
+      extent={{-10,-10},{10,10}},
+      rotation=-90,
+      origin={-80,120})));
   Modelica.Blocks.Routing.RealPassThrough y if is_actMod
     "Modulating signal"
     annotation (Placement(transformation(
@@ -195,14 +199,14 @@ model Valve "Multiple-configuration valve"
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={0,120})));
-  Controls.OBC.CDL.Reals.GreaterThreshold y1_actual(t=0.99, h=0.5E-2)
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold y1_actual(t=0.99, h=0.5E-2)
     if is_actTwo
     "Open end switch status"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={80,120})));
-  Controls.OBC.CDL.Reals.LessThreshold y0_actual(t=0.01, h=0.5E-2)
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold y0_actual(t=0.01, h=0.5E-2)
     if is_actTwo
     "Closed end switch status"
     annotation (Placement(transformation(

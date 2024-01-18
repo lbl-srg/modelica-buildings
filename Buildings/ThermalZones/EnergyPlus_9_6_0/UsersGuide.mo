@@ -267,7 +267,7 @@ based on the room temperature.
   bottom of the slab is connected to a ground heat transfer model in Modelica.
   Heating is provided with a geothermal heat pump that is connected to a borehole heat exchanger.
   </li>
-  
+
   </ol>
 </html>"));
   end GettingStarted;
@@ -584,6 +584,12 @@ for how to install EnergyPlus and how EnergyPlus is invoked.
 </p>
 <h4>References</h4>
 <ul>
+<li>
+Michael Wetter, Kyle Benne, Hubertus Tummescheit and Christian Winther.<br/>
+<a href=\"https://doi.org/10.1080/19401493.2023.2266414\">
+Spawn: coupling Modelica Buildings Library and EnergyPlus to enable new energy system and control applications.</a><br/>
+Journal of Building Performance Simulation. P. 1-19. 2023.
+</li>
 <li>
 Michael Wetter, Kyle Benne, Antoine Gautier, Thierry S. Nouidui,
 Agnes Ramle, Amir Roth, Hubertus Tummescheit, Stuart Mentzer and Christian Winther.<br/>

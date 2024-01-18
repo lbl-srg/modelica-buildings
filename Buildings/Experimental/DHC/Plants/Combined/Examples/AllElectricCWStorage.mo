@@ -254,9 +254,9 @@ equation
           -140},{-160,-180},{-148,-180}}, color={0,0,127}));
   connect(loaHea.QHea_flow, QTotHea_flow.u) annotation (Line(points={{-5,98},{-4,
           98},{-4,94},{-50,94},{-50,130},{-58,130}}, color={0,0,127}));
-  connect(TChiWatRet.y, loaCoo.TSetDisRet) annotation (Line(points={{-168,-100},
+  connect(TChiWatRet.y,loaCoo.TDisRetSet)  annotation (Line(points={{-168,-100},
           {20,-100},{20,-113},{11,-113}}, color={0,0,127}));
-  connect(THeaWatRet.y, loaHea.TSetDisRet) annotation (Line(points={{-168,50},{-44,
+  connect(THeaWatRet.y,loaHea.TDisRetSet)  annotation (Line(points={{-168,50},{-44,
           50},{-44,126},{20,126},{20,117},{11,117}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(

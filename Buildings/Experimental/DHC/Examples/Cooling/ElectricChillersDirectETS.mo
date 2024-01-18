@@ -159,7 +159,7 @@ equation
           {160,42},{160,0},{132,0}},
                                   color={0,127,255}));
   for i in 1:nLoa loop
-    connect(TDisRetSet.y, buiETS[i].TSetDisRet)
+    connect(TDisRetSet.y,buiETS[i].TDisRetSet)
      annotation (Line(points={{91,70},{100,70},{100,57},{119,57}},
                                                                color={0,0,127}));
   end for;
