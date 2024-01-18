@@ -39,7 +39,6 @@ model SeriesConstantFlow
     final mCon_flow_nominal=datDes.mCon_flow_nominal,
     final dp_length_nominal=datDes.dp_length_nominal,
     final lDis=datDes.lDis,
-    final lCon=datDes.lCon,
     final lEnd=datDes.lEnd,
     final allowFlowReversal=allowFlowReversalSer) "Distribution network"
     annotation (Placement(transformation(extent={{-20,130},{20,150}})));

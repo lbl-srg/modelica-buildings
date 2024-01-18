@@ -82,13 +82,18 @@ for range of flow rates and pressure drops per unit length.
 </html>", revisions="<html>
 <ul>
 <li>
+December 20, 2023, by Ettore Zanetti:<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
+</li>
+<li>
 November 18, 2022 by David Blum:<br/>
 First implementation.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2510\">issue 2510</a>.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Networks/Combined/BaseClasses/Validation/Pipe.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Networks/Pipes/Validation/Pipe.mos"
         "Simulate and plot"),
 experiment(
       StopTime=1,

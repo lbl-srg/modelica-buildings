@@ -31,13 +31,6 @@ model FlowDistributionPumpControl
   parameter Modelica.Units.SI.Time tau=120
     "Time constant of fluid temperature variation at nominal flow rate"
     annotation (Dialog(tab="Dynamics", group="Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference dpDis_nominal[nLoa](
-    each min=0,
-    each displayUnit="Pa") = 1/2 .* cat(
-    1,
-    {dp_nominal*0.2},
-    fill(dp_nominal*0.8/(nLoa - 1), nLoa - 1))
-    "Pressure drop between each connected unit at nominal conditions (supply line)";
   parameter Modelica.Units.SI.PressureDifference dpSet=max(terUniHea.dpSou_nominal)
     "Pressure difference set point";
   final parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal[nLoa]=
@@ -90,14 +83,15 @@ model FlowDistributionPumpControl
     nout=nLoa)
     "Repeat input to output an array"
     annotation (Placement(transformation(extent={{-128,20},{-108,40}})));
-  Buildings.Experimental.DHC.Networks.Distribution2Pipe dis(
+  Buildings.Experimental.DHC.Networks.Distribution2PipeAutoSize dis(
     redeclare final package Medium=Medium1,
     final nCon=nLoa,
     final allowFlowReversal=false,
     final iConDpSen=nLoa,
     final mDis_flow_nominal=m_flow_nominal,
     final mCon_flow_nominal=mCon_flow_nominal,
-    final dpDis_nominal=dpDis_nominal)
+    lDis=fill(25, nLoa),
+    lEnd=1)
     "Distribution network"
     annotation (Placement(transformation(extent={{40,-180},{80,-160}})));
   Buildings.Fluid.Movers.Preconfigured.FlowControlled_dp pumCstDp(
@@ -238,11 +232,13 @@ equation
   connect(pumCstDp.port_b,dis.port_aDisSup)
     annotation (Line(points={{10,-160},{20,-160},{20,-170},{40,-170}},color={0,127,255}));
   connect(vol.ports[1],pumCstDp.port_a)
-    annotation (Line(points={{-51,-160},{-10,-160}},color={0,127,255}));
+    annotation (Line(points={{-50,-160},{-10,-160}},color={0,127,255}));
   connect(disCstDp.port_b,sinHeaWat.ports[1])
-    annotation (Line(points={{10,-60},{120,-60},{120,2.66667},{140,2.66667}},color={0,127,255}));
+    annotation (Line(points={{10,-60},{120,-60},{120,-1.33333},{140,-1.33333}},
+                                                                             color={0,127,255}));
   connect(supHeaWat1.ports[1],disCstDp.port_a)
-    annotation (Line(points={{-120,2.66667},{-100,2.66667},{-100,-60},{-10,-60}},color={0,127,255}));
+    annotation (Line(points={{-120,-1.33333},{-100,-1.33333},{-100,-60},{-10,-60}},
+                                                                                 color={0,127,255}));
   connect(terUniHea1.port_bHeaWat,disCstDp.ports_a1)
     annotation (Line(points={{10,-20.3333},{20,-20.3333},{20,-54},{10,-54}},color={0,127,255}));
   connect(disCstDp.ports_b1,terUniHea1.port_aHeaWat)
@@ -264,14 +260,15 @@ equation
   connect(one1.y,pumCstSpe.y)
     annotation (Line(points={{-158,200},{-70,200},{-70,192}},color={0,0,127}));
   connect(supHeaWat1.ports[3],disCstSpe.port_a)
-    annotation (Line(points={{-120,-2.66667},{-116,-2.66667},{-116,-2},{-100,-2},{-100,80},{-10,80}},color={0,127,255}));
+    annotation (Line(points={{-120,1.33333},{-116,1.33333},{-116,-2},{-100,-2},{
+          -100,80},{-10,80}},                                                                        color={0,127,255}));
   connect(disCstSpe.port_b,sinHeaWat.ports[3])
-    annotation (Line(points={{10,80},{120,80},{120,-2.66667},{140,-2.66667}},color={0,127,255}));
+    annotation (Line(points={{10,80},{120,80},{120,1.33333},{140,1.33333}},  color={0,127,255}));
   connect(disCstSpe.ports_b1[1:5],terUniHea2.port_aHeaWat)
-    annotation (Line(points={{-10,89.2},{-20,89.2},{-20,120},{-10,120},{-10,
+    annotation (Line(points={{-10,87.6},{-20,87.6},{-20,120},{-10,120},{-10,
           119.667}},                                                                  color={0,127,255}));
   connect(terUniHea2.port_bHeaWat,disCstSpe.ports_a1[1:5])
-    annotation (Line(points={{10,119.667},{20,119.667},{20,89.2},{10,89.2}},color={0,127,255}));
+    annotation (Line(points={{10,119.667},{20,119.667},{20,87.6},{10,87.6}},color={0,127,255}));
   connect(terUniHea2.mReqHeaWat_flow,disCstSpe.mReq_flow)
     annotation (Line(points={{10.8333,124.667},{26,124.667},{26,60},{-20,60},{
           -20,76},{-11,76}},                                                                    color={0,0,127}));
@@ -286,9 +283,10 @@ equation
   connect(THeaWatSup.y,supHeaWat1.T_in)
     annotation (Line(points={{-158,0},{-152,0},{-152,4},{-142,4}},color={0,0,127}));
   connect(dis.port_bDisRet,supHeaWat.ports[1])
-    annotation (Line(points={{40,-176},{20,-176},{20,-200},{-120,-200},{-120,-178}},color={0,127,255}));
+    annotation (Line(points={{40,-176},{20,-176},{20,-200},{-120,-200},{-120,-181}},color={0,127,255}));
   connect(supHeaWat.ports[2],vol.ports[2])
-    annotation (Line(points={{-120,-182},{-120,-174},{-80,-174},{-80,-160},{-47,-160}},color={0,127,255}));
+    annotation (Line(points={{-120,-179},{-120,-174},{-80,-174},{-80,-160},{-48,
+          -160}},                                                                      color={0,127,255}));
   connect(THeaWatSup.y,supHeaWat.T_in)
     annotation (Line(points={{-158,0},{-152,0},{-152,-176},{-142,-176}},color={0,0,127}));
   connect(minTSet.y,reaRep.u)

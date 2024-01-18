@@ -5,37 +5,34 @@ model Connection2PipePlugFlow
     Buildings.Experimental.DHC.Networks.BaseClasses.PartialConnection2Pipe(
     redeclare model Model_pipDisSup =
         Buildings.Fluid.FixedResistances.PlugFlowPipe (
-      final length=length,
+      final length=lDis,
       final dIns=dIns,
       final kIns=kIns),
     redeclare model Model_pipDisRet =
         Buildings.Fluid.FixedResistances.PlugFlowPipe (
-      final length=length,
+      final length=lDis,
       final dIns=dIns,
       final kIns=kIns),
     redeclare model Model_pipCon=Fluid.FixedResistances.LosslessPipe);
-  parameter Modelica.Units.SI.Length length
-    "Pipe length"
-    annotation (Dialog(group="Pipe"));
+ parameter Modelica.Units.SI.Length lDis
+    "Length of the distribution pipe before the connection";
   parameter Modelica.Units.SI.Length dIns
-    "Thickness of pipe insulation, used to compute R"
-    annotation (Dialog(group="Pipe"));
+    "Thickness of pipe insulation, used to compute R";
   parameter Modelica.Units.SI.ThermalConductivity kIns
-    "Heat conductivity of pipe insulation, used to compute R"
-    annotation (Dialog(group="Pipe"));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
-    "Heat transfer to or from surroundings (positive if pipe is colder than surrounding)"
-    annotation (Placement(transformation(extent={{-110,60},{-90,80}})));
+    "Heat conductivity of pipe insulation, used to compute R";
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortDis
+    "Heat transfer to or from surroundings for distribution pipe(positive if pipe is colder than surrounding)"
+    annotation (Placement(transformation(extent={{-110,44},{-90,64}}),
+        iconTransformation(extent={{-110,44},{-90,64}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortRet
+    "Heat transfer to or from surroundings for return pipe (positive if pipe is colder than surrounding)"
+    annotation (Placement(transformation(extent={{-110,80},{-90,100}}),
+        iconTransformation(extent={{-110,80},{-90,100}})));
 equation
-  connect(pipDisRet.heatPort, heatPort) annotation (Line(points={{-70,-70},{-70,
-          -60},{-52,-60},{-52,70},{-100,70}},
-                                    color={191,0,0}));
-  connect(pipDisSup.heatPort, heatPort) annotation (Line(points={{-70,-30},{-70,
-          -20},{-52,-20},{-52,70},{-100,70}}, color={191,0,0}));
-  connect(pipDisSup.port_b, junConSup.port_1)
-    annotation (Line(points={{-60,-40},{-30,-40}}, color={0,127,255}));
-  connect(pipDisRet.port_a, junConRet.port_2)
-    annotation (Line(points={{-60,-80},{10,-80}}, color={0,127,255}));
+  connect(pipDisSup.heatPort, heatPortDis)
+    annotation (Line(points={{-70,-30},{-70,54},{-100,54}}, color={191,0,0}));
+  connect(pipDisRet.heatPort, heatPortRet) annotation (Line(points={{-70,-70},{-50,
+          -70},{-50,90},{-100,90}}, color={191,0,0}));
   annotation (
     Documentation(
       info="<html>

@@ -9,34 +9,29 @@ model Distribution1PipeAutoSize
       con[nCon](
       each final dp_length_nominal=dp_length_nominal,
       final lDis=lDis,
-      final lCon=lCon,
-      final dhDis=dhDis,
-      final dhCon=dhCon),
+      final dhDis=dhDis),
     redeclare model Model_pipDis =
         Buildings.Experimental.DHC.Networks.Pipes.PipeAutosize (
         roughness=7e-6,
         fac=1.5,
         final dp_length_nominal=dp_length_nominal,
         final dh(fixed=true) = dhEnd,
-        final length=lEnd));
+        final length=lEnd),
+    pipEnd(fac=1));
   parameter Real dp_length_nominal(final unit="Pa/m") = 250
     "Pressure drop per pipe length at nominal flow rate";
   parameter Modelica.Units.SI.Length lDis[nCon]
     "Length of the distribution pipe before each connection";
-  parameter Modelica.Units.SI.Length lCon[nCon]
-    "Length of each connection pipe (supply only, not counting return line)";
+
   parameter Modelica.Units.SI.Length lEnd
     "Length of the end of the distribution line (after last connection)";
-  parameter Modelica.Units.SI.Length dhDis[nCon](
+  final parameter Modelica.Units.SI.Length dhDis[nCon](
     each fixed=false,
     each start=0.05,
     each min=0.01)
     "Hydraulic diameter of the distribution pipe before each connection";
-  parameter Modelica.Units.SI.Length dhCon[nCon](
-    each fixed=false,
-    each start=0.05,
-    each min=0.01) "Hydraulic diameter of each connection pipe";
-  parameter Modelica.Units.SI.Length dhEnd(
+
+  final parameter Modelica.Units.SI.Length dhEnd(
     fixed=false,
     start=0.05,
     min=0.01)
@@ -60,6 +55,11 @@ a parameter binding with a scalar variable.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 20, 2023, by Ettore Zanetti:<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
+</li>
 <li>
 February 23, 2021, by Antoine Gautier:<br/>
 First implementation.

@@ -11,8 +11,7 @@ model Connection1PipePlugFlow
       final kIns=kIns),
     redeclare replaceable model Model_pipCon =
         Buildings.Fluid.FixedResistances.LosslessPipe);
-  parameter Real dp_length_nominal(final unit="Pa/m") = 250
-    "Pressure drop per pipe length at nominal flow rate";
+
   parameter Modelica.Units.SI.Length dIns
     "Thickness of pipe insulation, used to compute R"
     annotation (Dialog(group="Pipe"));
@@ -27,8 +26,6 @@ model Connection1PipePlugFlow
         transformation(extent={{-106,70},{-86,90}}), iconTransformation(extent={{-60,16},
             {-40,36}})));
 equation
-  connect(pipDis.port_b, junConSup.port_1)
-    annotation (Line(points={{-60,-40},{-50,-40}}, color={0,127,255}));
   connect(pipDis.heatPort, heatPortDis)
     annotation (Line(points={{-70,-30},{-70,80},{-96,80}}, color={191,0,0}));
   annotation (Documentation(revisions="<html>

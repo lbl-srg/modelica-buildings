@@ -183,6 +183,22 @@
   openmodelica:
     comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
     simulate: false
+- model_name: Buildings.Fluid.FixedResistances.BuriedPipes.Examples.DiscretizedBuriedPipe
+  openmodelica:
+    comment: timed out after 300 seconds
+    simulate: false
+- model_name: Buildings.Fluid.FixedResistances.BuriedPipes.Examples.SingleBuriedPipe
+  openmodelica:
+    comment: Simulation terminated at time 4.59003e+07.
+    simulate: false
+- model_name: Buildings.Fluid.FixedResistances.BuriedPipes.Examples.TwoBuriedPipes
+  openmodelica:
+    comment: returned non-zero exit status 255.
+    simulate: false
+- model_name: Buildings.Fluid.FixedResistances.BuriedPipes.Validation.GroundCouplingAIT
+  openmodelica:
+    comment: Timed out after 300 seconds, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/559381269#L479
+    simulate: false
 - model_name: Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.MSLAIT
   dymola:
     time_out: 600
@@ -196,22 +212,6 @@
   openmodelica:
     comment: Timeout after 300 s
     time_out: 600
-- model_name: Buildings.Fluid.Geothermal.BuriedPipes.Examples.DiscretizedBuriedPipe
-  openmodelica:
-    comment: timed out after 300 seconds
-    simulate: false
-- model_name: Buildings.Fluid.Geothermal.BuriedPipes.Examples.SingleBuriedPipe
-  openmodelica:
-    comment: Simulation terminated at time 4.59003e+07.
-    simulate: false
-- model_name: Buildings.Fluid.Geothermal.BuriedPipes.Examples.TwoBuriedPipes
-  openmodelica:
-    comment: returned non-zero exit status 255.
-    simulate: false
-- model_name: Buildings.Fluid.Geothermal.BuriedPipes.Validation.GroundCouplingAIT
-  openmodelica:
-    comment: Timed out after 300 seconds, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/559381269#L479
-    simulate: false
 - model_name: Buildings.Fluid.HeatExchangers.Validation.WetCoilEffectivenessNTUHeating
   openmodelica:
     comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
@@ -318,14 +318,14 @@
     translate: false
 - model_name: Buildings.Templates.AirHandlersFans.Validation.VAVMZControlG36Airflow
   optimica:
-    comment: 'Array size mismatch in modification of the attribute quantity for the variable TZon. This is a bug in OCT tracked under Modelon#2023022839000276.'
+    comment: Array size mismatch in modification of the attribute quantity for the variable TZon. This is a bug in OCT tracked under Modelon#2023022839000276.
     translate: false
   openmodelica:
     comment: Translation failed.
     translate: false
 - model_name: Buildings.Templates.AirHandlersFans.Validation.VAVMZControlG36Pressure
   optimica:
-    comment: 'Array size mismatch in modification of the attribute quantity for the variable TZon. This is a bug in OCT tracked under Modelon#2023022839000276.'
+    comment: Array size mismatch in modification of the attribute quantity for the variable TZon. This is a bug in OCT tracked under Modelon#2023022839000276.
     translate: false
   openmodelica:
     comment: Translation failed.

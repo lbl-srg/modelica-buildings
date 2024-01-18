@@ -418,6 +418,12 @@ Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT</a> for mo
 </html>", revisions="<html>
 <ul>
 <li>
+December 7, 2023, by Ettore Zanetti:<br/>
+Moved <code>BuriedPipes</code> package<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
+</li>
+<li>
 February 11, 2022, by Michael Wetter:<br/>
 Changed declaration of <code>cliCon</code> to be parameter.
 This is required to avoid a translation error in OpenModelica which

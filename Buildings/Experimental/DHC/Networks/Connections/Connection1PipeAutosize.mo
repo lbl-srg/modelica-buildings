@@ -1,6 +1,7 @@
 within Buildings.Experimental.DHC.Networks.Connections;
 model Connection1PipeAutosize "Model for connecting an agent to the DHC system"
-  extends Connection1PipeStandard(
+  extends
+    Buildings.Experimental.DHC.Networks.BaseClasses.PartialConnection1Pipe(
     tau=5*60,
     redeclare replaceable model Model_pipDis = Pipes.PipeAutosize (
         roughness=7e-6,
@@ -8,19 +9,22 @@ model Connection1PipeAutosize "Model for connecting an agent to the DHC system"
         final length=lDis,
         final dh(fixed=true) = dhDis,
         final dp_length_nominal=dp_length_nominal),
-    redeclare replaceable model Model_pipCon = Pipes.PipeAutosize (
-        roughness=2.5e-5,
-        fac=2,
-        final length=2*lCon,
-        final dh(fixed=true) = dhCon,
-        final dp_length_nominal=dp_length_nominal));
+    redeclare replaceable model Model_pipCon =
+        Buildings.Fluid.FixedResistances.LosslessPipe,
+    pipDis(fac=1));
   parameter Real dp_length_nominal(final unit="Pa/m") = 250
     "Pressure drop per pipe length at nominal flow rate";
-equation
-  connect(pipDis.port_b, junConSup.port_1)
-    annotation (Line(points={{-60,-40},{-50,-40}}, color={0,127,255}));
+  parameter Modelica.Units.SI.Length lDis
+    "Length of the distribution pipe before the connection";
+  parameter Modelica.Units.SI.Length dhDis
+    "Hydraulic diameter of the distribution pipe";
   annotation (Documentation(revisions="<html>
 <ul>
+<li>
+December 20, 2023, by Ettore Zanetti:<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
+</li>
 <li>
 February 23, 2021, by Antoine Gautier:<br/>
 First implementation.

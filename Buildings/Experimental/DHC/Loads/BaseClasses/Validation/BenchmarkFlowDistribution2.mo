@@ -86,15 +86,14 @@ model BenchmarkFlowDistribution2
     nPorts=2)
     "Heating water supply"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-50,-80})));
-  Buildings.Experimental.DHC.Networks.Distribution2Pipe dis(
+  Buildings.Experimental.DHC.Networks.Distribution2PipeAutoSize dis(
     redeclare final package Medium=Medium1,
     nCon=nLoa,
     allowFlowReversal=false,
     mDis_flow_nominal=m_flow_nominal,
     mCon_flow_nominal=mCon_flow_nominal,
-    dpDis_nominal=fill(
-      1500,
-      nLoa))
+    lDis=fill(6, nLoa),
+    lEnd=1)
     annotation (Placement(transformation(extent={{40,-90},{80,-70}})));
   Fluid.Movers.FlowControlled_dp pum(
     redeclare package Medium=Medium1,
@@ -147,11 +146,11 @@ equation
   connect(pum.port_b,dis.port_aDisSup)
     annotation (Line(points={{30,-80},{40,-80}},color={0,127,255}));
   connect(dis.port_bDisRet,supHeaWat.ports[1])
-    annotation (Line(points={{40,-86},{32,-86},{32,-100},{-40,-100},{-40,-78}},color={0,127,255}));
+    annotation (Line(points={{40,-86},{32,-86},{32,-100},{-40,-100},{-40,-81}},color={0,127,255}));
   connect(vol.ports[1],pum.port_a)
-    annotation (Line(points={{-23,-80},{10,-80}},color={0,127,255}));
+    annotation (Line(points={{-22,-80},{10,-80}},color={0,127,255}));
   connect(supHeaWat.ports[2],vol.ports[2])
-    annotation (Line(points={{-40,-82},{-40,-80},{-19,-80}},color={0,127,255}));
+    annotation (Line(points={{-40,-79},{-40,-80},{-20,-80}},color={0,127,255}));
   connect(THeaWatSup.y,supHeaWat.T_in)
     annotation (Line(points={{-78,-80},{-70,-80},{-70,-76},{-62,-76}},color={0,0,127}));
   connect(dpPum.y,pum.dp_in)

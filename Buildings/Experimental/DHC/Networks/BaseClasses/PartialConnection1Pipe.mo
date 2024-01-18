@@ -250,6 +250,8 @@ equation
     annotation (Line(points={{80,-71},{80,-80},{120,-80}}, color={0,0,127}));
   connect(pipCon.port_b, senMasFloCon.port_a)
     annotation (Line(points={{-40,20},{-40,50}}, color={0,127,255}));
+  connect(pipDis.port_b, junConSup.port_1)
+    annotation (Line(points={{-60,-40},{-50,-40}}, color={0,127,255}));
   annotation (
     defaultComponentName="con",
     Documentation(

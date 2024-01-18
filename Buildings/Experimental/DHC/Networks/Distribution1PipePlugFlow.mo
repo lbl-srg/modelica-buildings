@@ -21,11 +21,9 @@ model Distribution1PipePlugFlow
   parameter Modelica.Units.SI.Length lEnd
     "Length of the end of the distribution line (after last connection)";
   parameter Modelica.Units.SI.Length dIns
-    "Thickness of pipe insulation, used to compute R"
-    annotation (Dialog(group="Pipe"));
+    "Thickness of pipe insulation, used to compute R";
   parameter Modelica.Units.SI.ThermalConductivity kIns
-    "Heat conductivity of pipe insulation, used to compute R"
-    annotation (Dialog(group="Pipe"));
+    "Heat conductivity of pipe insulation, used to compute R";
   Modelica.Fluid.Interfaces.HeatPorts_a heatPorts[nCon + 1]
     "Multiple heat ports that connect to outside of pipe wall" annotation (
       Placement(transformation(

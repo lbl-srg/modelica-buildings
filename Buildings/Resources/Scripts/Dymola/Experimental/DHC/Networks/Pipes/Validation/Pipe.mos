@@ -1,5 +1,5 @@
 // Simulate
-simulateModel("Buildings.Experimental.DHC.Networks.Combined.BaseClasses.Validation.Pipe", 
+simulateModel("Buildings.Experimental.DHC.Networks.Pipes.Validation.Pipe", 
     stopTime=1, 
     method="Cvode", 
     tolerance=1e-06,
