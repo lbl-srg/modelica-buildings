@@ -77,6 +77,11 @@ model CouplingTimeSeriesDuplicate
     m_flow_nominal=bui.mChiWat_flow_nominal,
     tau=0) "Chilled water outgoing temperature"
     annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
+  Fluid.Sensors.TemperatureTwoPort TOutHeaWat(
+    redeclare package Medium = Medium1,
+    m_flow_nominal=bui.mChiWat_flow_nominal,
+    tau=0) "Heating hot water outgoing temperature"
+    annotation (Placement(transformation(extent={{80,10},{100,30}})));
 equation
   connect(supHeaWat.T_in,THeaWatSup.y)
     annotation (Line(points={{-62,24},{-80,24},{-80,20},{-99,20}},color={0,0,127}));
@@ -86,8 +91,6 @@ equation
     annotation (Line(points={{-40,20},{0,20},{0,4},{10,4}},color={0,127,255}));
   connect(supChiWat.ports[1],bui.ports_aChiWat[1])
     annotation (Line(points={{-40,-20},{0,-20},{0,0},{10,0}},color={0,127,255}));
-  connect(bui.ports_bHeaWat[1],sinHeaWat.ports[1])
-    annotation (Line(points={{30,4},{60,4},{60,20},{120,20}},color={0,127,255}));
   connect(bui.QHea_flow,EHeaAct.u)
     annotation (Line(points={{30.6667,14.6667},{40,14.6667},{40,60},{90,60},{90,
           80},{98,80}},                                                                      color={0,0,127}));
@@ -115,6 +118,10 @@ equation
     annotation (Line(points={{120,-20},{100,-20}}, color={0,127,255}));
   connect(TOutChiWat.port_a, bui.ports_bChiWat[1]) annotation (Line(points={{80,
           -20},{60,-20},{60,0},{30,0}}, color={0,127,255}));
+  connect(bui.ports_bHeaWat[1], TOutHeaWat.port_a) annotation (Line(points={{30,
+          4},{60,4},{60,20},{80,20}}, color={0,127,255}));
+  connect(TOutHeaWat.port_b, sinHeaWat.ports[1])
+    annotation (Line(points={{100,20},{120,20}}, color={0,127,255}));
   annotation (
     experiment(
       StopTime=604800,

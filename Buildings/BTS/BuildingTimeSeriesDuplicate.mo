@@ -167,7 +167,7 @@ model BuildingTimeSeriesDuplicate
     if have_chiWat
     "Maximum temperature set point"
     annotation (Placement(transformation(extent={{-280,210},{-260,230}})));
-  replaceable Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BaseClasses.FanCoil2PipeHeating terUniHea(
+  replaceable Buildings.BTS.FanCoil2PipeHeatingDuplicate terUniHea(
     final k=k,
     final Ti=Ti) if have_heaWat
   constrainedby

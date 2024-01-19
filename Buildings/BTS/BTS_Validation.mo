@@ -9,7 +9,8 @@ model BTS_Validation
   Buildings.BTS.CouplingTimeSeriesDuplicate
     couplingTimeSeries(bui(
     filNam    ="modelica://Buildings/Resources/Data/BTS/BTS_validation_test.mos",
-    T_aChiWat_nominal = chillerDXHeatingEconomizer.TSupChi_nominal))
+    T_aChiWat_nominal = chillerDXHeatingEconomizer.TSupChi_nominal,
+    T_aHeaWat_nominal = chillerDXHeatingEconomizer.hvac.heaSou.T))
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
   annotation(experiment(
       StartTime=11145600,
