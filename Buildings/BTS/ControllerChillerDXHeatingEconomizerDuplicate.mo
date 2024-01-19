@@ -211,8 +211,7 @@ model ControllerChillerDXHeatingEconomizerDuplicate
   Buildings.Controls.OBC.CDL.Reals.Switch swiFan "Switch fan on"
     annotation (Placement(transformation(extent={{70,120},{90,140}})));
   Buildings.Controls.OBC.CDL.Reals.Hysteresis hysHea(
-    final uLow=0.01,
-    final uHigh=0.05)
+    final uLow=0.01, final uHigh=0.2)
     "Hysteresis for heating"
     annotation (Placement(transformation(extent={{-30,120},{-10,140}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr orFan(nin=3)

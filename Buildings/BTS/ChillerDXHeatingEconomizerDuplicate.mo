@@ -4,7 +4,8 @@ model ChillerDXHeatingEconomizerDuplicate
   extends Modelica.Icons.Example;
   extends
     Buildings.Air.Systems.SingleZone.VAV.Examples.BaseClasses.PartialOpenLoop(
-    hvac(QCoo_flow_nominal=-10000));
+    hvac(QHea_flow_nominal=20000,
+         QCoo_flow_nominal=-10000));
   parameter Modelica.Units.SI.Temperature TSupChi_nominal=279.15
     "Design value for chiller leaving water temperature";
 
@@ -19,7 +20,7 @@ model ChillerDXHeatingEconomizerDuplicate
     kFan=4,
     controllerTypeEco=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     kEco=4,
-    kHea=4,
+    kHea=0.2,
     TSupChi_nominal=TSupChi_nominal,
     TSetSupAir=286.15) "Controller for single zone VAV system"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
@@ -89,8 +90,9 @@ equation
   annotation (
     experiment(
       StopTime=504800,
-      Interval=3600,
-      Tolerance=1e-06),
+      Interval=300,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Dassl"),
       __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BTS/ChillerDXHeatingEconomizerDuplicate.mos"
         "Simulate and plot"),
      Documentation(info="<html>

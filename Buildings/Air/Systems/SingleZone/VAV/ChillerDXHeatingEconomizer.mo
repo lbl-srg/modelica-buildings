@@ -31,6 +31,9 @@ model ChillerDXHeatingEconomizer
   final parameter Modelica.Units.SI.MassFlowRate mChiCon_flow_nominal=-
       QCoo_flow_nominal*(1 + 1/COP_nominal)/Buildings.Utilities.Psychrometrics.Constants.cpAir
       /10 "Design condenser air flow";
+  final parameter Modelica.Units.SI.MassFlowRate mHea_flow_nominal=
+      QHea_flow_nominal/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq/5
+    "Design chilled water supply flow";
 
   Modelica.Blocks.Interfaces.BooleanInput chiOn "On signal for chiller plant"
     annotation (Placement(transformation(extent={{-240,-140},{-200,-100}}),
@@ -108,18 +111,6 @@ model ChillerDXHeatingEconomizer
     redeclare package Medium = MediumA)
     "Supply air temperature sensor"
     annotation (Placement(transformation(extent={{128,30},{148,50}})));
-  Buildings.Fluid.HeatExchangers.HeaterCooler_u heaCoi(
-    final m_flow_nominal=mAir_flow_nominal,
-    final Q_flow_nominal=QHea_flow_nominal,
-    final u(start=0),
-    final dp_nominal=0,
-    final allowFlowReversal=false,
-    final tau=90,
-    redeclare package Medium = MediumA,
-    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    final show_T=true)
-    "Air heating coil"
-    annotation (Placement(transformation(extent={{52,30},{72,50}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow fanSup(
     final m_flow_nominal=mAir_flow_nominal,
     final nominalValuesDefineDefaultPressureCurve=true,
@@ -169,8 +160,7 @@ model ChillerDXHeatingEconomizer
     final m1_flow_nominal=mChiEva_flow_nominal,
     final show_T=true,
     final T_a1_nominal=279.15,
-    final T_a2_nominal=298.15)
-    "Cooling coil"
+    final T_a2_nominal=298.15) "Cooling coil"
     annotation (Placement(transformation(extent={{110,44},{90,24}})));
   Buildings.Fluid.Sources.MassFlowSource_T souChiWat(
     redeclare package Medium = MediumA,
@@ -277,6 +267,38 @@ model ChillerDXHeatingEconomizer
 
   Modelica.Blocks.Interfaces.RealOutput y_actual "Actual supply fan speed"
     annotation (Placement(transformation(extent={{200,162},{220,182}})));
+  IdealValve ideVal1(redeclare package Medium = MediumW, final m_flow_nominal=
+        mChiEva_flow_nominal)
+    "Ideal valve"
+    annotation (Placement(transformation(extent={{20,-18},{40,2}})));
+  Fluid.HeatExchangers.DryCoilEffectivenessNTU heaCoi(
+    redeclare package Medium1 = MediumW,
+    redeclare package Medium2 = MediumA,
+    final dp1_nominal=0,
+    final dp2_nominal=0,
+    final m2_flow_nominal=mAir_flow_nominal,
+    final Q_flow_nominal=QHea_flow_nominal,
+    final configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
+    final allowFlowReversal1=false,
+    final allowFlowReversal2=false,
+    final m1_flow_nominal=mHea_flow_nominal,
+    final show_T=true,
+    final T_a1_nominal=338.15,
+    final T_a2_nominal=293.15) "Heating coil"
+    annotation (Placement(transformation(extent={{60,44},{40,24}})));
+
+  Fluid.Sources.Boundary_pT           bouPreChi1(redeclare package Medium =
+        MediumW, nPorts=1)
+    "Pressure boundary condition for chilled water loop"
+    annotation (Placement(transformation(extent={{-10,-86},{10,-66}})));
+  Fluid.Sources.MassFlowSource_T heaSou(
+    redeclare package Medium = MediumW,
+    m_flow=mHea_flow_nominal,
+    T=338.15,
+    nPorts=1) "Heating source"
+    annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
+  Modelica.Blocks.Sources.RealExpression realExpression(y=heaCoi.Q2_flow)
+    annotation (Placement(transformation(extent={{56,100},{76,120}})));
 protected
   model IdealValve
     extends Modelica.Blocks.Icons.Block;
@@ -386,9 +408,6 @@ equation
       extent={{-6,3},{-6,3}}));
   connect(senTMixAir.port_b, fanSup.port_a)   annotation (Line(points={{-40,40},
           {-30,40}},                                                                                color={0,127,255}));
-  connect(heaCoi.Q_flow, eff.u) annotation (Line(points={{73,46},{80,46},{80,
-          110},{118,110}},                        color={0,0,127}));
-  connect(heaCoi.port_b, cooCoi.port_a2)    annotation (Line(points={{72,40},{90,40}}, color={0,127,255}));
   connect(cooCoi.port_b2, senTSup.port_a)    annotation (Line(points={{110,40},{128,40}},          color={0,127,255}));
   connect(cooCoi.port_b1, ideVal.port_1) annotation (Line(
       points={{90,28},{86,28},{86,19.8}},
@@ -421,7 +440,6 @@ equation
           28},{120,10},{90,10}}, color={0,127,255}));
   connect(bouPreChi.ports[1], chi.port_a2) annotation (Line(points={{70,-162},{90,
           -162}},              color={0,127,255}));
-  connect(totalRes.port_b, heaCoi.port_a)    annotation (Line(points={{30,40},{52,40}}, color={0,127,255}));
   connect(senTSup.port_b, supplyAir) annotation (Line(points={{148,40},{174,40},
           {174,60},{202,60}}, color={0,127,255}));
   connect(gaiFan.y, fanSup.m_flow_in)    annotation (Line(points={{-59,140},{
@@ -433,8 +451,6 @@ equation
           {120,-188},{120,-171},{112,-171}}, color={255,0,255}));
   connect(gaiFan.u, uFan)   annotation (Line(points={{-82,140},{-152,140},{-152,160},{-220,160}},
                                                     color={0,0,127}));
-  connect(heaCoi.u, uHea) annotation (Line(points={{50,46},{40,46},{40,100},{-220,
-          100}},color={0,0,127}));
   connect(ideVal.y, uCooVal)   annotation (Line(points={{69,10},{-76,10},{-76,30},{-220,30}},
                                                  color={0,0,127}));
   connect(chi.TSet, TSetChi) annotation (Line(points={{112,-165},{124,-165},{124,
@@ -460,6 +476,22 @@ equation
 
   connect(fanSup.y_actual, y_actual) annotation (Line(points={{-9,47},{0,47},{0,
           172},{210,172}}, color={0,0,127}));
+  connect(totalRes.port_b, heaCoi.port_a2)
+    annotation (Line(points={{30,40},{40,40}}, color={0,127,255}));
+  connect(heaCoi.port_b2, cooCoi.port_a2)
+    annotation (Line(points={{60,40},{90,40}}, color={0,127,255}));
+  connect(ideVal1.port_1, heaCoi.port_b1)
+    annotation (Line(points={{36,1.8},{36,28},{40,28}}, color={0,127,255}));
+  connect(ideVal1.port_3, heaCoi.port_a1)
+    annotation (Line(points={{40,-8},{60,-8},{60,28}}, color={0,127,255}));
+  connect(bouPreChi1.ports[1], ideVal1.port_2) annotation (Line(points={{10,-76},
+          {50,-76},{50,-28},{36,-28},{36,-17.8}}, color={0,127,255}));
+  connect(heaSou.ports[1], heaCoi.port_a1)
+    annotation (Line(points={{10,-100},{60,-100},{60,28}}, color={0,127,255}));
+  connect(uHea, ideVal1.y) annotation (Line(points={{-220,100},{4,100},{4,-8},{19,
+          -8}}, color={0,0,127}));
+  connect(realExpression.y, eff.u)
+    annotation (Line(points={{77,110},{118,110}}, color={0,0,127}));
   annotation (defaultComponentName="chiDXHeaEco",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-220},
             {200,180}}), graphics={
