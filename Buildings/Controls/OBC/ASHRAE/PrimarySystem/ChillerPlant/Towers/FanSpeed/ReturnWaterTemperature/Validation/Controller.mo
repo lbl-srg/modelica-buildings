@@ -7,75 +7,79 @@ model Controller
     "Tow fan speed for close coupled plants that have waterside economizer"
     annotation (Placement(transformation(extent={{-120,180},{-80,220}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.ReturnWaterTemperature.Controller
-    towFanSpe1(final closeCoupledPlant=false)
+    towFanSpe1(
+    closeCoupledPlant=false)
     "Tow fan speed for less coupled plants that have waterside economizer"
     annotation (Placement(transformation(extent={{100,180},{140,220}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.ReturnWaterTemperature.Controller
-    towFanSpe2(final have_WSE=false)
+    towFanSpe2(
+    have_WSE=false)
     "Tow fan speed for close coupled plants that have no waterside economizer"
     annotation (Placement(transformation(extent={{320,180},{360,220}})));
 
 protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp speWSE(
-    final height=0.9, final duration=3600)
+    height=0.9,
+    duration=3600)
     "Tower fan speed when waterside economizer is enabled"
     annotation (Placement(transformation(extent={{-360,150},{-340,170}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse wseSta(
-    final width=0.2, final period=3600,
+    width=0.2,
+    period=3600,
     shift=-3000)
     "Waterside economizer enabling status"
     annotation (Placement(transformation(extent={{-360,50},{-340,70}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp plaCap(
-    final height=8e5,
-    final duration=3600,
-    final offset=1e5) "Real operating chiller plant capacity"
+    height=8e5,
+    duration=3600,
+    offset=1e5) "Real operating chiller plant capacity"
     annotation (Placement(transformation(extent={{-360,20},{-340,40}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin conSup(
-    final amplitude=2,
-    final freqHz=1/1800,
-    final offset=273.15 + 29) "Condenser water supply temperature"
+    amplitude=2,
+    freqHz=1/1800,
+    offset=273.15 + 29) "Condenser water supply temperature"
     annotation (Placement(transformation(extent={{-360,-250},{-340,-230}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ram2(
-    final height=3,
-    final duration=3600,
-    final startTime=1500) "Ramp"
+    height=3,
+    duration=3600,
+    startTime=1500) "Ramp"
     annotation (Placement(transformation(extent={{-360,-290},{-340,-270}})));
   Buildings.Controls.OBC.CDL.Reals.Add add1 "Add real inputs"
     annotation (Placement(transformation(extent={{-300,-270},{-280,-250}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ram3(
-    final height=3,
-    final duration=3600,
-    final startTime=1500) "Ramp"
+    height=3,
+    duration=3600,
+    startTime=1500) "Ramp"
     annotation (Placement(transformation(extent={{-360,-200},{-340,-180}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin conRet2(
-    final amplitude=2,
-    final freqHz=1/1800,
-    final offset=273.15 + 28) "Condenser water return temperature"
+    amplitude=2,
+    freqHz=1/1800,
+    offset=273.15 + 28) "Condenser water return temperature"
     annotation (Placement(transformation(extent={{-360,-170},{-340,-150}})));
   Buildings.Controls.OBC.CDL.Reals.Add add3 "Add real inputs"
     annotation (Placement(transformation(extent={{-300,-190},{-280,-170}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp conWatPumSpe1[2](
-    final height=fill(0.5, 2),
-    final duration=fill(3600, 2),
-    final startTime=fill(300, 2)) "Measured condenser water pump speed"
+    height=fill(0.5, 2),
+    duration=fill(3600, 2),
+    startTime=fill(300, 2)) "Measured condenser water pump speed"
     annotation (Placement(transformation(extent={{-300,-230},{-280,-210}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant hpTowSpe1(final k=0.5)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant hpTowSpe1(k=0.5)
     "Head pressure control maximum tower speed"
     annotation (Placement(transformation(extent={{-320,0},{-300,20}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant hpTowSpe2(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant hpTowSpe2(k=0)
     "Head pressure control maximum tower speed"
     annotation (Placement(transformation(extent={{-360,-40},{-340,-20}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant towFanSpe3(final k=0.2)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant towFanSpe3(k=0.2)
     "Measured tower fan speed"
     annotation (Placement(transformation(extent={{-320,-60},{-300,-40}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiWatSupSet(
-    final k=273.15 + 6.5)
+    k=273.15 + 6.5)
     "Chilled water supply setpoint"
     annotation (Placement(transformation(extent={{-360,-120},{-340,-100}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse chiSta1(
-    final width=0.2, final period=3600) "Chiller one enabling status"
+    width=0.2, period=3600) "Chiller one enabling status"
     annotation (Placement(transformation(extent={{-360,110},{-340,130}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiSta2(final k=false)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiSta2(k=false)
     "Chiller two enabling status"
     annotation (Placement(transformation(extent={{-360,80},{-340,100}})));
   Buildings.Controls.OBC.CDL.Logical.Or or3 "Logical or"
@@ -83,12 +87,12 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Or or4 "Logical or"
     annotation (Placement(transformation(extent={{-260,-90},{-240,-70}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
-    final nout=4) "Replicate boolean input"
+    nout=4) "Replicate boolean input"
     annotation (Placement(transformation(extent={{-200,-90},{-180,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{-320,110},{-300,130}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(
-    final k=0) "Constant zero"
+    k=0) "Constant zero"
     annotation (Placement(transformation(extent={{-320,180},{-300,200}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{-240,150},{-220,170}})));
@@ -102,8 +106,9 @@ equation
   connect(conSup.y,add1. u1)
     annotation (Line(points={{-338,-240},{-320,-240},{-320,-254},{-302,-254}},
       color={0,0,127}));
-  connect(wseSta.y, towFanSpe.uWse) annotation (Line(points={{-338,60},{-188,60},
-          {-188,212},{-122,212}}, color={255,0,255}));
+  connect(wseSta.y, towFanSpe.uWse)
+    annotation (Line(points={{-338,60},{-188,60},{-188,212},{-122,212}},
+      color={255,0,255}));
   connect(plaCap.y, towFanSpe.reqPlaCap)
     annotation (Line(points={{-338,30},{-182,30},{-182,209},{-122,209}},
       color={0,0,127}));
@@ -125,34 +130,48 @@ equation
   connect(conWatPumSpe1.y, towFanSpe.uConWatPumSpe)
     annotation (Line(points={{-278,-220},{-140,-220},{-140,185},{-122,185}},
       color={0,0,127}));
-  connect(wseSta.y, towFanSpe1.uWse) annotation (Line(points={{-338,60},{32,60},
-          {32,212},{98,212}}, color={255,0,255}));
+  connect(wseSta.y, towFanSpe1.uWse)
+    annotation (Line(points={{-338,60},{32,60},{32,212},{98,212}},
+      color={255,0,255}));
   connect(plaCap.y, towFanSpe1.reqPlaCap)
-    annotation (Line(points={{-338,30},{38,30},{38,209},{98,209}}, color={0,0,127}));
+    annotation (Line(points={{-338,30},{38,30},{38,209},{98,209}},
+      color={0,0,127}));
   connect(towFanSpe3.y,towFanSpe1.uFanSpe)
-    annotation (Line(points={{-298,-50},{50,-50},{50,203},{98,203}}, color={0,0,127}));
+    annotation (Line(points={{-298,-50},{50,-50},{50,203},{98,203}},
+      color={0,0,127}));
   connect(chiWatSupSet.y, towFanSpe1.TChiWatSupSet)
-    annotation (Line(points={{-338,-110},{62,-110},{62,194},{98,194}}, color={0,0,127}));
+    annotation (Line(points={{-338,-110},{62,-110},{62,194},{98,194}},
+      color={0,0,127}));
   connect(add3.y, towFanSpe1.TConWatRet)
-    annotation (Line(points={{-278,-180},{74,-180},{74,188},{98,188}}, color={0,0,127}));
+    annotation (Line(points={{-278,-180},{74,-180},{74,188},{98,188}},
+      color={0,0,127}));
   connect(conWatPumSpe1.y, towFanSpe1.uConWatPumSpe)
-    annotation (Line(points={{-278,-220},{80,-220},{80,185},{98,185}}, color={0,0,127}));
+    annotation (Line(points={{-278,-220},{80,-220},{80,185},{98,185}},
+      color={0,0,127}));
   connect(add1.y, towFanSpe1.TConWatSup)
-    annotation (Line(points={{-278,-260},{86,-260},{86,182},{98,182}}, color={0,0,127}));
+    annotation (Line(points={{-278,-260},{86,-260},{86,182},{98,182}},
+      color={0,0,127}));
   connect(plaCap.y, towFanSpe2.reqPlaCap)
-    annotation (Line(points={{-338,30},{246,30},{246,209},{318,209}}, color={0,0,127}));
+    annotation (Line(points={{-338,30},{246,30},{246,209},{318,209}},
+      color={0,0,127}));
   connect(towFanSpe3.y,towFanSpe2.uFanSpe)
-    annotation (Line(points={{-298,-50},{258,-50},{258,203},{318,203}}, color={0,0,127}));
+    annotation (Line(points={{-298,-50},{258,-50},{258,203},{318,203}},
+      color={0,0,127}));
   connect(chiWatSupSet.y, towFanSpe2.TChiWatSupSet)
-    annotation (Line(points={{-338,-110},{270,-110},{270,194},{318,194}}, color={0,0,127}));
+    annotation (Line(points={{-338,-110},{270,-110},{270,194},{318,194}},
+      color={0,0,127}));
   connect(add3.y, towFanSpe2.TConWatRet)
-    annotation (Line(points={{-278,-180},{282,-180},{282,188},{318,188}}, color={0,0,127}));
+    annotation (Line(points={{-278,-180},{282,-180},{282,188},{318,188}},
+      color={0,0,127}));
   connect(conWatPumSpe1.y, towFanSpe2.uConWatPumSpe)
-    annotation (Line(points={{-278,-220},{288,-220},{288,185},{318,185}}, color={0,0,127}));
+    annotation (Line(points={{-278,-220},{288,-220},{288,185},{318,185}},
+      color={0,0,127}));
   connect(chiSta2.y, towFanSpe.uChi[2])
-    annotation (Line(points={{-338,90},{-194,90},{-194,215},{-122,215}}, color={255,0,255}));
+    annotation (Line(points={{-338,90},{-194,90},{-194,215},{-122,215}},
+      color={255,0,255}));
   connect(chiSta2.y, towFanSpe1.uChi[2])
-    annotation (Line(points={{-338,90},{26,90},{26,215},{98,215}}, color={255,0,255}));
+    annotation (Line(points={{-338,90},{26,90},{26,215},{98,215}},
+      color={255,0,255}));
   connect(chiSta2.y, towFanSpe2.uChi[2])
     annotation (Line(points={{-338,90},{240,90},{240,215},{318,215}},
       color={255,0,255}));
@@ -243,6 +262,39 @@ This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.ReturnWaterTemperature.Controller\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.ReturnWaterTemperature.Controller</a>.
 </p>
+<p>
+It shows the calculations of the fan speed setpoint for the three different plants,
+including the close coupled plants that have waterside economizer (<code>towFanSpe</code>),
+the less coupled plants that have waterside economizer (<code>towFanSpe1</code>),
+and the close coupled plants that have no waterside economizer (<code>towFanSpe2</code>).
+</p>
+<ul>
+<li>
+For the close and less coupled plants with waterside economizer,
+<ul>
+<li>
+if the plant is not enabled, the tower fan speed setpoint is 0.
+</li>
+<li>
+if the economizer is enabled, the fan speed setpoint equals to the
+<code>uTowSpeWSE</code>.
+</li>
+<li>
+in the period when the chiller runs only, the speed setpoint
+is minium of the <code>plrTowMaxSpeSet</code>, <code>uMaxTowSpeSet</code>
+and the mapped setpoint.
+</li>
+</ul>
+</li>
+<li>
+For the close coupled plants without waterside economizer,
+the setpoint calculation is same as the one with economizer
+except there is no economizer enabled period. So when the chiller
+is enabled, the setpoint equals to the
+<code>plrTowMaxSpeSet</code>, <code>uMaxTowSpeSet</code>
+and the mapped setpoint.
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>

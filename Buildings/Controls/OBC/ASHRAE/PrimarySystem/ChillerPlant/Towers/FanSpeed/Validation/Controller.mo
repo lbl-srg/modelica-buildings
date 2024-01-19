@@ -3,15 +3,15 @@ model Controller "Validation sequence of controlling tower fan speed"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.Controller
     cloCouWitWse
-    "Tower fan speed controller of plant that is close coupled plant and has waterside economizer"
+    "Tower fan speed controller of plant that is close coupled and has waterside economizer"
     annotation (Placement(transformation(extent={{-80,280},{-60,320}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.Controller
     lesCouWitWse(final closeCoupledPlant=false)
-    "Tower fan speed controller of plant that is less coupled plant and has waterside economizer"
+    "Tower fan speed controller of plant that is less coupled and has waterside economizer"
     annotation (Placement(transformation(extent={{100,280},{120,320}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.Controller
     cloCouNoWse(final have_WSE=false)
-    "Tower fan speed controller of plant that is close coupled plant and has no waterside economizer"
+    "Tower fan speed controller of plant that is close coupled and has no waterside economizer"
     annotation (Placement(transformation(extent={{280,280},{300,320}})));
 
 protected
@@ -296,6 +296,40 @@ This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.Controller\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.Controller</a>.
 </p>
+<p>
+It shows the calculations of the fan speed setpoint for the three different plants,
+including the close coupled plants that have waterside economizer (<code>cloCouWitWse</code>),
+the less coupled plants that have waterside economizer (<code>lesCouWitWse</code>),
+and the close coupled plants that have no waterside economizer (<code>cloCouNoWse</code>).
+</p>
+<ul>
+<li>
+For the close and less coupled plants with waterside economizer,
+<ul>
+<li>
+if the plant is not enabled (before 600 seconds), the tower fan
+speed setpoint is 0.
+</li>
+<li>
+if the economizer is enabled (600 seconds to 1320 seconds), the
+fan speed setpoint equals to the <code>uTowSpeWSE</code>.
+</li>
+<li>
+in the period when the chiller runs only (after 1320 seconds), the
+speed setpoint is minium of the <code>plrTowMaxSpeSet</code>,
+<code>uMaxTowSpeSet</code> and the mapped setpoint.
+</li>
+</ul>
+</li>
+<li>
+For the close coupled plants without waterside economizer,
+the setpoint calculation is same as the one with economizer
+except there is no economizer enabled period. So when the chiller
+is enabled, the setpoint equals to the
+<code>plrTowMaxSpeSet</code>, <code>uMaxTowSpeSet</code>
+and the mapped setpoint.
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>

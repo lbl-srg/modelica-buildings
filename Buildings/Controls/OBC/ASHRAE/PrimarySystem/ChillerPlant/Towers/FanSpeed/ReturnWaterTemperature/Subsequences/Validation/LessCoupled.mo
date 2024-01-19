@@ -7,67 +7,69 @@ model LessCoupled
     "Tower fan speed control based on the condenser water return temperature control for close coupled plants"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin conRet(
-    final amplitude=2,
-    final freqHz=1/1800,
-    final offset=273.15 + 32) "Condenser water return temperature"
+    amplitude=2,
+    freqHz=1/1800,
+    offset=273.15 + 32) "Condenser water return temperature"
     annotation (Placement(transformation(extent={{-80,130},{-60,150}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ram1(
-    final height=3,
-    final duration=3600,
-    final startTime=1500) "Ramp"
+    height=3,
+    duration=3600,
+    startTime=1500) "Ramp"
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
   Buildings.Controls.OBC.CDL.Reals.Add add2 "Add real inputs"
     annotation (Placement(transformation(extent={{-20,100},{0,120}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conRetSet(
-    final k=273.15 + 32) "Condenser water return temperature setpoint"
+    k=273.15 + 32) "Condenser water return temperature setpoint"
     annotation (Placement(transformation(extent={{-20,130},{0,150}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp conWatPumSpe[2](
-    final height=fill(0.5, 2),
-    final duration=fill(3600, 2),
-    final startTime=fill(300, 2)) "Measured condenser water pump speed"
+    height=fill(0.5, 2),
+    duration=fill(3600, 2),
+    startTime=fill(300, 2)) "Measured condenser water pump speed"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp towMaxSpe(
-    final height=0.25,
-    final duration=3600,
-    final offset=0.5) "Maximum tower speed specified by head pressure control loop"
+    height=0.25,
+    duration=3600,
+    offset=0.5) "Maximum tower speed specified by head pressure control loop"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp towMaxSpe1(
-    final height=-0.25,
-    final duration=3600,
-    final offset=0.8) "Maximum tower speed specified by head pressure control loop"
+    height=-0.25,
+    duration=3600,
+    offset=0.8) "Maximum tower speed specified by head pressure control loop"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp plrTowMaxSpe(
-    final height=-0.3,
-    final duration=3600,
-    final offset=0.9) "Maximum tower speed reset based on the partial load"
+    height=-0.3,
+    duration=3600,
+    offset=0.9) "Maximum tower speed reset based on the partial load"
     annotation (Placement(transformation(extent={{50,-140},{70,-120}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin conSup(
-    final amplitude=2,
-    final freqHz=1/1800,
-    final offset=273.15 + 29) "Condenser water supply temperature"
+    amplitude=2,
+    freqHz=1/1800,
+    offset=273.15 + 29) "Condenser water supply temperature"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ram2(
-    final height=3,
-    final duration=3600,
-    final startTime=1500) "Ramp"
+    height=3,
+    duration=3600,
+    startTime=1500) "Ramp"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Controls.OBC.CDL.Reals.Add add1 "Add real inputs"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi[2] "Logical switch"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer[2](
-    final k=fill(0,2))   "Constant zero"
+    k=fill(0,2))   "Constant zero"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1[2] "Logical not"
     annotation (Placement(transformation(extent={{-40,-140},{-20,-120}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse chiSta1(
-    final width=0.2, final period=3600) "Chiller one enabling status"
+    width=0.2,
+    period=3600) "Chiller one enabling status"
     annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse chiSta2(
-    final width=0.1, final period=3600)  "Chiller one enabling status"
+    width=0.1,
+    period=3600)  "Chiller one enabling status"
     annotation (Placement(transformation(extent={{-80,-150},{-60,-130}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant plaEna(
-    final k=true) "Plant enable status"
+    k=true) "Plant enable status"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
 
 equation
@@ -128,6 +130,46 @@ This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.ReturnWaterTemperature.Subsequences.LessCoupled\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.ReturnWaterTemperature.Subsequences.LessCoupled</a>.
 </p>
+<p>
+It shows the calculation of the condenser water supply temperature setpoint and
+the tower fan speed setpoint.
+</p>
+<ul>
+<li>
+At the first 5 minutes when the plant just enabled, the condenser water supply
+temperature setpoint equals to the condenser water return temperature setpoint
+minus 50% of the difference between design condenser water supply 
+(<code>TConWatSup_nominal</code>) and return (<code>TConWatRet_nominal</code>)
+temperature of the enabled chiller. Note that in this period,
+the chiller are not enabled so the fan speed setpoint is 0.
+</li>
+<li>
+After 5 minutes, the condenser water supply temperature setpoint equals to
+condenser water return temperature setpoint TConWatRetSet minus a temperature
+difference that equals 5 minute rolling average of common condenser water
+return temperature <code>TConWatRet</code> less condenser water supply
+temperature <code>TConWatSup</code>, sampled at minimum once every 30
+seconds.
+</li>
+<li>
+The fan speed setpoint is the minimum of:
+<ul>
+<li>
+the maximum cooling tower speed setpoint from head pressure control loop
+of the enabled chiller, <code>uMaxTowSpeSet</code>,
+</li>
+<li>
+the tower maximum speed that reset based on plant partial load ratio,
+<code>plrTowMaxSpe</code>,
+</li>
+<li>
+and the tower speed from the loop mapping based on the PID control
+for maintaining the condenser water supply temperature to be at its
+setpoint.
+</li>
+</ul>
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>

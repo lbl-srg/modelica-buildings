@@ -1,10 +1,13 @@
 simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.ReturnWaterTemperature.Subsequences.Validation.Enable", method="Cvode", stopTime=3600, tolerance=1e-06, resultFile="towFanEna");
-createPlot(id=1, position={10, 10, 1000, 1200}, y={"enaTow.uMaxTowSpeSet[1]", "enaTow.uMaxTowSpeSet[2]"}, range={0.0, 3600, 0, 0.5}, grid=true, subPlot=1, colors={{28,108,200},{0,140,72}});
-createPlot(id=1, position={10, 10, 1000, 1200}, y={"enaTow.TTowSet", "enaTow.TTow"}, range={0.0, 3600, 0, 0.5}, grid=true, subPlot=2, colors={{28,108,200},{0,140,72}});
-createPlot(id=1, position={10, 10, 1000, 1200}, y={"enaTow.uTow[1]"}, range={0.0, 3600, 0, 0.5}, grid=true, subPlot=3, colors={{28,108,200}});
-createPlot(id=1, position={10, 10, 1000, 1200}, y={"enaTow.yTow"}, range={0.0, 3600, 0, 0.5}, grid=true, subPlot=4, colors={{28,108,200}});
-createPlot(id=2, position={1020, 10, 1000, 1200}, y={"disTow.uMaxTowSpeSet[1]", "disTow.uMaxTowSpeSet[2]", "disTow.fanSpeMin"}, range={0.0, 3600, 0, 0.5}, grid=true, subPlot=1, colors={{28,108,200},{0,140,72},{238,46,47}});
-createPlot(id=2, position={1020, 10, 1000, 1200}, y={"disTow.yTow"}, range={0.0, 3600, 0, 0.5}, grid=true, subPlot=2, colors={{28,108,200}});
-createPlot(id=2, position={1020, 10, 1000, 1200}, y={"disTow1.uFanSpe","disTow1.fanSpeMin"}, range={0.0, 3600, 0, 0.5}, grid=true, subPlot=3, colors={{28,108,200},{238,46,47}});
-createPlot(id=2, position={1020, 10, 1000, 1200}, y={"disTow1.TTow", "disTow1.TTowSet"}, range={0.0, 3600, 0, 0.5}, grid=true, subPlot=4, colors={{28,108,200},{0,140,72}});
-createPlot(id=2, position={1020, 10, 1000, 1200}, y={"disTow1.yTow"}, range={0.0, 3600, 0, 0.5}, grid=true, subPlot=5, colors={{28,108,200}});
+createPlot(id=1, position={10, 10, 724, 1182}, y={"enaTow.uMaxTowSpeSet[1]", "enaTow.uMaxTowSpeSet[2]", "enaTow.fanSpeMin"}, range={0.0, 4000.0, -0.1, 0.3}, grid=true, subPlot=101, colors={{28,108,200}, {0,140,72}, {238,46,47}}, timeUnit="s", displayUnits={"1", "1", "1"});
+createPlot(id=1, position={10, 10, 724, 1182}, y={"enaTow.TTowSet", "enaTow.TTow"}, range={0.0, 4000.0, 31.0, 35.0}, grid=true, subPlot=102, colors={{28,108,200}, {0,140,72}}, timeUnit="s", displayUnits={"degC", "degC"});
+createPlot(id=1, position={10, 10, 724, 1182}, y={"enaTow.uTow[1]"}, range={0.0, 4000.0, -2.0, 2.0}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=1, position={10, 10, 724, 1182}, y={"enaTow.yTow"}, range={0.0, 4000.0, -0.5, 1.5}, grid=true, subPlot=104, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=2, position={741, 14, 690, 1180}, y={"disTow.uMaxTowSpeSet[1]", "disTow.uMaxTowSpeSet[2]", "disTow.fanSpeMin"}, range={0.0, 4000.0, 0.08, 0.22}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}, {0,140,72}}, timeUnit="s", displayUnits={"1", "1", "1"});
+createPlot(id=2, position={741, 14, 690, 1180}, y={"disTow.uTow[1]", "disTow.uTow[4]"}, range={0.0, 4000.0, 0.85, 1.15}, grid=true, subPlot=102, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=2, position={741, 14, 690, 1180}, y={"disTow.yTow"}, range={0.0, 4000.0, -0.2, 1.2}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=3, position={1444, 14, 867, 1182}, y={"disTow1.uFanSpe", "disTow1.fanSpeMin"}, range={0.0, 3600.0, 0.085, 0.115}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"1", "1"});
+createPlot(id=3, position={1444, 14, 867, 1182}, y={"disTow1.TTow", "disTow1.TTowSet"}, range={0.0, 3600.0, 30.0, 33.0}, grid=true, subPlot=102, colors={{28,108,200}, {0,140,72}}, timeUnit="s", displayUnits={"degC", "degC"});
+createPlot(id=3, position={1444, 14, 867, 1182}, y={"disTow1.yTow"}, range={0.0, 3600.0, -0.2, 1.2}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s");
+
+

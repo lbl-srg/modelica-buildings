@@ -94,10 +94,10 @@ protected
 
 equation
   connect(hpTowSpe1.y, enaTow.uMaxTowSpeSet[1])
-    annotation (Line(points={{-198,90},{-180,90},{-180,60},{-142,60}},
+    annotation (Line(points={{-198,90},{-180,90},{-180,59},{-142,59}},
       color={0,0,127}));
   connect(hpTowSpe2.y, enaTow.uMaxTowSpeSet[2])
-    annotation (Line(points={{-238,70},{-180,70},{-180,60},{-142,60}},
+    annotation (Line(points={{-238,70},{-180,70},{-180,59},{-142,59}},
       color={0,0,127}));
   connect(towFanSpe.y,enaTow.uFanSpe)
     annotation (Line(points={{-198,40},{-180,40},{-180,56},{-142,56}},
@@ -109,12 +109,12 @@ equation
   connect(offTowSta.y, enaTow.uTow) annotation (Line(points={{-198,-50},{-162,-50},
           {-162,44},{-142,44}}, color={255,0,255}));
   connect(opeConPum.y, enaTow.uConWatPumNum)
-    annotation (Line(points={{-238,-80},{-156,-80},{-156,40},{-142,40}},
+    annotation (Line(points={{-238,-80},{-156,-80},{-156,41},{-142,41}},
       color={255,127,0}));
   connect(hpTowSpe3.y, disTow.uMaxTowSpeSet[1])
-    annotation (Line(points={{-18,90},{0,90},{0,60},{38,60}}, color={0,0,127}));
+    annotation (Line(points={{-18,90},{0,90},{0,59},{38,59}}, color={0,0,127}));
   connect(hpTowSpe4.y, disTow.uMaxTowSpeSet[2])
-    annotation (Line(points={{-58,70},{0,70},{0,60},{38,60}}, color={0,0,127}));
+    annotation (Line(points={{-58,70},{0,70},{0,59},{38,59}}, color={0,0,127}));
   connect(towFanSpe1.y,disTow.uFanSpe)
     annotation (Line(points={{-18,40},{0,40},{0,56},{38,56}}, color={0,0,127}));
   connect(conRetSet1.y, disTow.TTowSet)
@@ -124,13 +124,13 @@ equation
   connect(onTowSta1.y, disTow.uTow) annotation (Line(points={{-18,-60},{18,-60},
           {18,44},{38,44}}, color={255,0,255}));
   connect(opeConPum1.y, disTow.uConWatPumNum)
-    annotation (Line(points={{-58,-80},{24,-80},{24,40},{38,40}},
+    annotation (Line(points={{-58,-80},{24,-80},{24,41},{38,41}},
       color={255,127,0}));
   connect(hpTowSpe5.y, disTow1.uMaxTowSpeSet[1])
-    annotation (Line(points={{162,90},{180,90},{180,60},{218,60}},
+    annotation (Line(points={{162,90},{180,90},{180,59},{218,59}},
       color={0,0,127}));
   connect(hpTowSpe6.y, disTow1.uMaxTowSpeSet[2])
-    annotation (Line(points={{122,70},{180,70},{180,60},{218,60}},
+    annotation (Line(points={{122,70},{180,70},{180,59},{218,59}},
       color={0,0,127}));
   connect(towFanSpe2.y,disTow1.uFanSpe)
     annotation (Line(points={{162,40},{180,40},{180,56},{218,56}},
@@ -142,7 +142,7 @@ equation
   connect(onTowSta2.y, disTow1.uTow) annotation (Line(points={{162,-60},{198,-60},
           {198,44},{218,44}}, color={255,0,255}));
   connect(opeConPum2.y, disTow1.uConWatPumNum)
-    annotation (Line(points={{122,-80},{204,-80},{204,40},{218,40}},
+    annotation (Line(points={{122,-80},{204,-80},{204,41},{218,41}},
       color={255,127,0}));
 
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
@@ -153,7 +153,39 @@ annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.ReturnWaterTemperature.Subsequences.Enable\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.ReturnWaterTemperature.Subsequences.Enable</a>.
+It shows the sequences for enabling and disabling the tower fans under
+different conditions.
 </p>
+<ol>
+<li>
+The instance <code>enaTow</code> shows that the tower fans will be enabled when:
+<ul>
+<li>
+The enabled chiller's head pressure control maximum tower fan speed is greater
+than the tower minium speed <code>fanSpeMin</code>, and
+</li>
+<li>
+The tower temperature <code>TTow</code> rises above setpoint <code>TTowSet</code>
+by 1 &deg;F, and
+</li>
+<li>
+The tower fan has been OFF for at least 1 minute.
+</li>
+</ul>
+</li>
+<li>
+The instance <code>disTow</code> shows that all the tower fans should be disabled
+when the enabled chiller's head pressure control maximum tower fan speed
+<code>uMaxTowSpeSet</code> has equaled tower minimum speed <code>fanSpeMin</code>
+for 5 minutes.
+</li>
+<li>
+The instance <code>disTow1</code> shows that all the tower fans should be disabled
+when the tower fans speed <code>uFanSpe</code> have been at minimum speed for
+5 minutes and the tower temperature <code>TTow</code> drops below the setpoint
+minus 1 &deg;F.
+</li>
+</ol>
 </html>", revisions="<html>
 <ul>
 <li>

@@ -19,200 +19,208 @@ block Setpoint "Calculate condener return water temperature setpoint"
     displayUnit=fill("degC",nChi)) = {278.15, 278.15}
     "Minimum chilled water supply temperature of each chiller"
     annotation (Evaluate=true);
-  parameter Real iniPlaTim(final quantity="Time", final unit="s")= 600
+  parameter Real iniPlaTim(
+    final quantity="Time",
+    final unit="s")= 600
     "Time to hold return temperature to initial setpoint after plant being enabled"
     annotation (Dialog(tab="Advanced"));
-  parameter Real ramTim(final quantity="Time", final unit="s") = 600
+  parameter Real ramTim(
+    final quantity="Time",
+    final unit="s") = 600
     "Time to ramp return water temperature setpoint from initial value to calculated one"
     annotation (Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]
     "Vector of chillers proven on status: true=ON"
-    annotation (Placement(transformation(extent={{-220,60},{-180,100}}),
+    annotation (Placement(transformation(extent={{-340,20},{-300,60}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOpeParLoaRat(
     final unit="1",
     final min=0,
     final max=1) "Current plant partial load ratio"
-    annotation (Placement(transformation(extent={{-220,0},{-180,40}}),
+    annotation (Placement(transformation(extent={{-340,-60},{-300,-20}}),
       iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Chilled water supply setpoint temperature"
-    annotation (Placement(transformation(extent={{-220,-70},{-180,-30}}),
+    annotation (Placement(transformation(extent={{-340,-110},{-300,-70}}),
       iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla
     "Plant enabling status"
-    annotation (Placement(transformation(extent={{-220,-130},{-180,-90}}),
+    annotation (Placement(transformation(extent={{-340,-170},{-300,-130}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TConWatRetSet(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Condenser water return temperature setpoint"
-    annotation (Placement(transformation(extent={{180,-130},{220,-90}}),
+    annotation (Placement(transformation(extent={{300,-170},{340,-130}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Reals.Add conWatRet
     "Condenser water return temperature"
-    annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
+    annotation (Placement(transformation(extent={{220,18},{240,38}})));
 
 protected
   Buildings.Controls.OBC.CDL.Reals.MultiMin lifMax(
     final nin=nChi) "Maximum chiller LIFT"
-    annotation (Placement(transformation(extent={{-80,130},{-60,150}})));
+    annotation (Placement(transformation(extent={{-120,130},{-100,150}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiLifMin[nChi](
     final k=LIFT_min)
     "Minimum LIFT of chillers"
-    annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
+    annotation (Placement(transformation(extent={{-280,60},{-260,80}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant zeoCon[nChi](
     final k=fill(0, nChi)) "Zero constant"
-    annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
+    annotation (Placement(transformation(extent={{-280,0},{-260,20}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi[nChi] "Logical switch"
-    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
+    annotation (Placement(transformation(extent={{-160,30},{-140,50}})));
   Buildings.Controls.OBC.CDL.Reals.MultiMax lifMin(
     final nin=nChi) "Minimum enabled chiller LIFT"
-    annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
+    annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract coeA
     "Coefficient A"
-    annotation (Placement(transformation(extent={{0,90},{20,110}})));
+    annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract coeB "Coefficient B"
-    annotation (Placement(transformation(extent={{80,130},{100,150}})));
+    annotation (Placement(transformation(extent={{40,124},{60,144}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply pro "Product of inputs"
-    annotation (Placement(transformation(extent={{80,40},{100,60}})));
+    annotation (Placement(transformation(extent={{40,-44},{60,-24}})));
   Buildings.Controls.OBC.CDL.Reals.Add add2
-    annotation (Placement(transformation(extent={{120,40},{140,60}})));
+    annotation (Placement(transformation(extent={{80,-38},{100,-18}})));
   Buildings.Controls.OBC.CDL.Reals.Min min "Minimum value of two inputs"
-    annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
+    annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
   Buildings.Controls.OBC.CDL.Reals.Max tarLif "Target chiller LIFT"
-    annotation (Placement(transformation(extent={{20,-20},{40,0}})));
+    annotation (Placement(transformation(extent={{180,24},{200,44}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant zeoTim(
     final k=0) "Zero constant"
-    annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
+    annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxRamTim(
     final k=ramTim)
     "Time to change the return water temperature from initial value to setpoint"
-    annotation (Placement(transformation(extent={{-20,-150},{0,-130}})));
+    annotation (Placement(transformation(extent={{-100,-190},{-80,-170}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay delPlaEna(
     final delayTime=iniPlaTim)
     "Delay plant enabling status"
-    annotation (Placement(transformation(extent={{-140,-120},{-120,-100}})));
+    annotation (Placement(transformation(extent={{-220,-160},{-200,-140}})));
   Buildings.Controls.OBC.CDL.Logical.Timer chaTim
     "Count the time after starting to ramp condenser water return temperature setpoint"
-    annotation (Placement(transformation(extent={{-80,-120},{-60,-100}})));
+    annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));
   Buildings.Controls.OBC.CDL.Reals.Line lin
     "Condenser water return temperature setpoint"
-    annotation (Placement(transformation(extent={{140,-120},{160,-100}})));
+    annotation (Placement(transformation(extent={{260,-160},{280,-140}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant desConWatRet[nChi](
     final k=TConWatRet_nominal)
     "Design condenser water return (condenser leaving) temperature of each chiller"
-    annotation (Placement(transformation(extent={{-160,130},{-140,150}})));
+    annotation (Placement(transformation(extent={{-240,160},{-220,180}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant minChiWatSup[nChi](
     final k=TChiWatSupMin)
     "Lowest chilled water supply temperature setpoint"
-    annotation (Placement(transformation(extent={{-160,90},{-140,110}})));
+    annotation (Placement(transformation(extent={{-240,100},{-220,120}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract maxLif[nChi]
     "Maximum LIFT of each chiller"
-    annotation (Placement(transformation(extent={{-120,130},{-100,150}})));
+    annotation (Placement(transformation(extent={{-160,130},{-140,150}})));
   Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(
     final p=-10*5/9)
     "Output sum of input and a parameter"
-    annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
+    annotation (Placement(transformation(extent={{-100,-130},{-80,-110}})));
   Buildings.Controls.OBC.CDL.Reals.MultiMin lowDesConWatRet(
     final nin=nChi)
     "Lowest design condenser water return temperature"
-    annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
+    annotation (Placement(transformation(extent={{-160,-130},{-140,-110}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=1.1) "Gain factor"
-    annotation (Placement(transformation(extent={{40,90},{60,110}})));
+    annotation (Placement(transformation(extent={{-20,90},{0,110}})));
 
 equation
   connect(uChi, swi.u2)
-    annotation (Line(points={{-200,80},{-82,80}},  color={255,0,255}));
+    annotation (Line(points={{-320,40},{-162,40}}, color={255,0,255}));
   connect(zeoCon.y, swi.u3)
-    annotation (Line(points={{-98,60},{-90,60},{-90,72},{-82,72}},
+    annotation (Line(points={{-258,10},{-220,10},{-220,32},{-162,32}},
       color={0,0,127}));
   connect(chiLifMin.y, swi.u1)
-    annotation (Line(points={{-98,100},{-90,100},{-90,88},{-82,88}},
+    annotation (Line(points={{-258,70},{-220,70},{-220,48},{-162,48}},
       color={0,0,127}));
   connect(lifMax.y, coeA.u1)
-    annotation (Line(points={{-58,140},{-10,140},{-10,106},{-2,106}}, color={0,0,127}));
+    annotation (Line(points={{-98,140},{-80,140},{-80,106},{-62,106}},
+      color={0,0,127}));
   connect(lifMin.y, coeA.u2)
-    annotation (Line(points={{-18,80},{-10,80},{-10,94},{-2,94}}, color={0,0,127}));
+    annotation (Line(points={{-98,40},{-70,40},{-70,94},{-62,94}},color={0,0,127}));
   connect(lifMax.y, coeB.u1)
-    annotation (Line(points={{-58,140},{-10,140},{-10,146},{78,146}}, color={0,0,127}));
+    annotation (Line(points={{-98,140},{38,140}},  color={0,0,127}));
   connect(coeB.y, add2.u1)
-    annotation (Line(points={{102,140},{110,140},{110,56},{118,56}}, color={0,0,127}));
+    annotation (Line(points={{62,134},{70,134},{70,-22},{78,-22}}, color={0,0,127}));
   connect(pro.y, add2.u2)
-    annotation (Line(points={{102,50},{110,50},{110,44},{118,44}}, color={0,0,127}));
+    annotation (Line(points={{62,-34},{78,-34}}, color={0,0,127}));
   connect(lifMax.y, min.u2)
-    annotation (Line(points={{-58,140},{-50,140},{-50,-16},{-22,-16}},
+    annotation (Line(points={{-98,140},{-80,140},{-80,-66},{118,-66}},
       color={0,0,127}));
   connect(add2.y, min.u1)
-    annotation (Line(points={{142,50},{160,50},{160,20},{-40,20},{-40,-4},{-22,-4}},
+    annotation (Line(points={{102,-28},{110,-28},{110,-54},{118,-54}},
       color={0,0,127}));
   connect(min.y, tarLif.u2)
-    annotation (Line(points={{2,-10},{10,-10},{10,-16},{18,-16}},
+    annotation (Line(points={{142,-60},{160,-60},{160,28},{178,28}},
       color={0,0,127}));
   connect(lifMin.y, tarLif.u1)
-    annotation (Line(points={{-18,80},{10,80},{10,-4},{18,-4}}, color={0,0,127}));
+    annotation (Line(points={{-98,40},{178,40}}, color={0,0,127}));
   connect(tarLif.y, conWatRet.u1)
-    annotation (Line(points={{42,-10},{60,-10},{60,-24},{78,-24}},
+    annotation (Line(points={{202,34},{218,34}},
       color={0,0,127}));
   connect(TChiWatSupSet, conWatRet.u2)
-    annotation (Line(points={{-200,-50},{60,-50},{60,-36},{78,-36}},
+    annotation (Line(points={{-320,-90},{210,-90},{210,22},{218,22}},
       color={0,0,127}));
   connect(swi.y, lifMin.u)
-    annotation (Line(points={{-58,80},{-42,80}}, color={0,0,127}));
+    annotation (Line(points={{-138,40},{-122,40}}, color={0,0,127}));
   connect(uPla, delPlaEna.u)
-    annotation (Line(points={{-200,-110},{-142,-110}},
+    annotation (Line(points={{-320,-150},{-222,-150}},
       color={255,0,255}));
   connect(delPlaEna.y, chaTim.u)
-    annotation (Line(points={{-118,-110},{-82,-110}}, color={255,0,255}));
+    annotation (Line(points={{-198,-150},{-162,-150}},color={255,0,255}));
   connect(zeoTim.y, lin.x1)
-    annotation (Line(points={{62,-80},{80,-80},{80,-102},{138,-102}},
+    annotation (Line(points={{-18,-120},{0,-120},{0,-142},{258,-142}},
       color={0,0,127}));
   connect(chaTim.y, lin.u)
-    annotation (Line(points={{-58,-110},{138,-110}}, color={0,0,127}));
+    annotation (Line(points={{-138,-150},{258,-150}},color={0,0,127}));
   connect(maxRamTim.y, lin.x2)
-    annotation (Line(points={{2,-140},{20,-140},{20,-114},{138,-114}},
+    annotation (Line(points={{-78,-180},{-60,-180},{-60,-154},{258,-154}},
       color={0,0,127}));
   connect(conWatRet.y, lin.f2)
-    annotation (Line(points={{102,-30},{120,-30},{120,-118},{138,-118}},
+    annotation (Line(points={{242,28},{250,28},{250,-158},{258,-158}},
       color={0,0,127}));
   connect(lin.y, TConWatRetSet)
-    annotation (Line(points={{162,-110},{200,-110}}, color={0,0,127}));
+    annotation (Line(points={{282,-150},{320,-150}}, color={0,0,127}));
   connect(uOpeParLoaRat, pro.u2)
-    annotation (Line(points={{-200,20},{-60,20},{-60,44},{78,44}}, color={0,0,127}));
+    annotation (Line(points={{-320,-40},{38,-40}}, color={0,0,127}));
   connect(desConWatRet.y, maxLif.u1)
-    annotation (Line(points={{-138,140},{-130,140},{-130,146},{-122,146}}, color={0,0,127}));
-  connect(maxLif.y,lifMax.u)
-    annotation (Line(points={{-98,140},{-82,140}}, color={0,0,127}));
-  connect(lowDesConWatRet.y, addPar.u)
-    annotation (Line(points={{-58,-80},{-22,-80}}, color={0,0,127}));
-  connect(addPar.y, lin.f1)
-    annotation (Line(points={{2,-80},{20,-80},{20,-106},{138,-106}}, color={0,0,127}));
-  connect(desConWatRet.y, lowDesConWatRet.u)
-    annotation (Line(points={{-138,140},{-130,140},{-130,-80},{-82,-80}},
+    annotation (Line(points={{-218,170},{-200,170},{-200,146},{-162,146}},
       color={0,0,127}));
-  connect(minChiWatSup.y, maxLif.u2) annotation (Line(points={{-138,100},{-134,100},
-          {-134,134},{-122,134}}, color={0,0,127}));
+  connect(maxLif.y,lifMax.u)
+    annotation (Line(points={{-138,140},{-122,140}}, color={0,0,127}));
+  connect(lowDesConWatRet.y, addPar.u)
+    annotation (Line(points={{-138,-120},{-102,-120}}, color={0,0,127}));
+  connect(addPar.y, lin.f1)
+    annotation (Line(points={{-78,-120},{-60,-120},{-60,-146},{258,-146}},
+      color={0,0,127}));
+  connect(desConWatRet.y, lowDesConWatRet.u)
+    annotation (Line(points={{-218,170},{-200,170},{-200,-120},{-162,-120}},
+      color={0,0,127}));
+  connect(minChiWatSup.y, maxLif.u2) annotation (Line(points={{-218,110},{-180,
+          110},{-180,134},{-162,134}},
+                                  color={0,0,127}));
   connect(coeA.y, gai.u)
-    annotation (Line(points={{22,100},{38,100}}, color={0,0,127}));
-  connect(gai.y, coeB.u2) annotation (Line(points={{62,100},{70,100},{70,134},{78,
-          134}}, color={0,0,127}));
-  connect(gai.y, pro.u1) annotation (Line(points={{62,100},{70,100},{70,56},{78,
-          56}}, color={0,0,127}));
+    annotation (Line(points={{-38,100},{-22,100}}, color={0,0,127}));
+  connect(gai.y, coeB.u2) annotation (Line(points={{2,100},{20,100},{20,128},{38,
+          128}}, color={0,0,127}));
+  connect(gai.y, pro.u1) annotation (Line(points={{2,100},{20,100},{20,-28},{38,
+          -28}},color={0,0,127}));
 annotation (
   defaultComponentName="conWatRetSet",
   Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-180,-160},{180,160}})),
+          extent={{-300,-200},{300,200}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
          graphics={
         Text(
-          extent={{-120,146},{100,108}},
+          extent={{-100,140},{100,100}},
           textColor={0,0,255},
           textString="%name"),
         Rectangle(

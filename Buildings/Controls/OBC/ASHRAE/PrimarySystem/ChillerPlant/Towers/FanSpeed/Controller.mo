@@ -53,8 +53,7 @@ block Controller "Tower fan speed control"
                                             chiWatCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real LIFT_min[nChi](
     final unit=fill("K",nChi),
-    final quantity=fill("TemperatureDifference",nChi),
-    displayUnit=fill("degC",nChi))={12,12} "Minimum LIFT of each chiller"
+    final quantity=fill("TemperatureDifference",nChi))={12,12} "Minimum LIFT of each chiller"
       annotation (Dialog(tab="Return temperature control", group="Setpoint"));
   parameter Real TConWatSup_nominal[nChi](
     final unit=fill("K",nChi),
@@ -173,7 +172,7 @@ block Controller "Tower fan speed control"
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Chilled water supply temperature setpoint"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
+    annotation (Placement(transformation(extent={{-140,10},{-100,50}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput reqPlaCap(
     final unit="W",
@@ -185,7 +184,7 @@ block Controller "Tower fan speed control"
     final max=fill(1, nChi),
     final unit=fill("1", nChi))
     "Maximum cooling tower speed setpoint from each chiller head pressure control loop"
-    annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
+    annotation (Placement(transformation(extent={{-140,-50},{-100,-10}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uTow[nTowCel]
     "Cooling tower cell operating status: true=running tower cell"
@@ -219,7 +218,7 @@ block Controller "Tower fan speed control"
     final min=0,
     final max=1,
     final unit="1") "Fan speed setpoint of each cooling tower cell"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+    annotation (Placement(transformation(extent={{100,-60},{140,-20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.ReturnWaterTemperature.Controller
@@ -291,7 +290,7 @@ equation
     annotation (Line(points={{-42,44},{-76,44},{-76,60},{-120,60}},
       color={0,0,127}));
   connect(fanSpeWse.TChiWatSupSet, TChiWatSupSet)
-    annotation (Line(points={{-42,41},{-82,41},{-82,40},{-120,40}},
+    annotation (Line(points={{-42,41},{-60,41},{-60,30},{-120,30}},
                                                   color={0,0,127}));
   connect(uChi, fanSpeRetTem.uChi)
     annotation (Line(points={{-120,120},{-64,120},{-64,-25},{18,-25}},
@@ -302,7 +301,7 @@ equation
     annotation (Line(points={{18,-31},{-76,-31},{-76,0},{-120,0}},
       color={0,0,127}));
   connect(fanSpeRetTem.uMaxTowSpeSet, uMaxTowSpeSet)
-    annotation (Line(points={{18,-34},{-80,-34},{-80,-20},{-120,-20}},
+    annotation (Line(points={{18,-34},{-80,-34},{-80,-30},{-120,-30}},
       color={0,0,127}));
   connect(uFanSpe,fanSpeRetTem.uFanSpe)
     annotation (Line(points={{-120,80},{-72,80},{-72,-37},{18,-37}},
@@ -310,7 +309,7 @@ equation
   connect(fanSpeRetTem.uTow, uTow) annotation (Line(points={{18,-40},{-68,-40},{
           -68,-60},{-120,-60}}, color={255,0,255}));
   connect(TChiWatSupSet, fanSpeRetTem.TChiWatSupSet)
-    annotation (Line(points={{-120,40},{-60,40},{-60,-46},{18,-46}},
+    annotation (Line(points={{-120,30},{-60,30},{-60,-46},{18,-46}},
       color={0,0,127}));
   connect(fanSpeRetTem.uPla, uPla)
     annotation (Line(points={{18,-49},{-60,-49},{-60,-100},{-120,-100}},
@@ -325,7 +324,7 @@ equation
     annotation (Line(points={{18,-58},{-48,-58},{-48,-160},{-120,-160}},
       color={0,0,127}));
   connect(fanSpeRetTem.ySpeSet,ySpeSet)
-    annotation (Line(points={{62,-40},{80,-40},{80,0},{120,0}},
+    annotation (Line(points={{62,-40},{120,-40}},
       color={0,0,127}));
 
 annotation (

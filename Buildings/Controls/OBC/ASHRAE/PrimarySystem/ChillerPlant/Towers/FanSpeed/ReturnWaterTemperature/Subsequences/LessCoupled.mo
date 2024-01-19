@@ -6,7 +6,10 @@ block LessCoupled
   parameter Integer nConWatPum = 2 "Total number of condenser water pumps";
   parameter Real pumSpeChe = 0.01
     "Lower threshold value to check if condenser water pump is proven on";
-  parameter Real fanSpeMin = 0.1
+  parameter Real fanSpeMin(
+     final unit="1",
+     final min=0,
+     final max=1)= 0.1
     "Minimum cooling tower fan speed";
 
   parameter Real samplePeriod(
@@ -15,7 +18,9 @@ block LessCoupled
     final max=30) = 30
     "Period of sampling condenser water supply and return temperature difference"
     annotation (Dialog(group="Return water temperature controller"));
-  parameter Real iniPlaTim(final quantity="Time", final unit="s") = 300
+  parameter Real iniPlaTim(
+    final quantity="Time",
+    final unit="s") = 300
     "Threshold time to hold the initial temperature difference at the plant initial stage"
     annotation (Dialog(group="Return water temperature controller"));
   parameter Real TConWatSup_nominal[nChi](
@@ -37,9 +42,13 @@ block LessCoupled
     annotation (Dialog(group="Supply water temperature controller"));
   parameter Real kSupCon=1 "Gain of controller"
     annotation (Dialog(group="Supply water temperature controller"));
-  parameter Real TiSupCon(final quantity="Time", final unit="s")=0.5 "Time constant of integrator block"
+  parameter Real TiSupCon(
+    final quantity="Time",
+    final unit="s")=0.5 "Time constant of integrator block"
     annotation (Dialog(group="Supply water temperature controller"));
-  parameter Real TdSupCon(final quantity="Time", final unit="s")=0.1 "Time constant of derivative block"
+  parameter Real TdSupCon(
+    final quantity="Time",
+    final unit="s")=0.1 "Time constant of derivative block"
     annotation (Dialog(group="Supply water temperature controller", enable=
           supWatCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
           supWatCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
@@ -178,7 +187,9 @@ protected
   Buildings.Controls.OBC.CDL.Reals.MultiMax multiMax(nin=nChi)
     "Difference of the design supply and return condenser water temperature of the enabled chiller"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer tim(final t=iniPlaTim)
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
+    final delayTime=iniPlaTim,
+    final delayOnInit=true)
     "Count the time after plant being enabled"
     annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
   Buildings.Controls.OBC.CDL.Reals.Switch delTem "Temperature difference value"
@@ -264,7 +275,7 @@ equation
           {-50,56},{-42,56}}, color={0,0,127}));
   connect(enaDesConWatSup.y, sub2.u2) annotation (Line(points={{-58,30},{-50,30},
           {-50,44},{-42,44}}, color={0,0,127}));
-  connect(uPla, tim.u)
+  connect(uPla, truDel.u)
     annotation (Line(points={{-200,100},{-142,100}}, color={255,0,255}));
   connect(multiMax.y, delTem.u3) annotation (Line(points={{42,50},{50,50},{50,92},
           {58,92}}, color={0,0,127}));
@@ -286,13 +297,13 @@ equation
           {90,144},{98,144}}, color={0,0,127}));
   connect(conWatSupSet.y, supCon.u_s) annotation (Line(points={{122,150},{140,150},
           {140,20},{-40,20},{-40,-30},{-22,-30}}, color={0,0,127}));
-  connect(tim.passed, delTem.u2) annotation (Line(points={{-118,92},{-40,92},{-40,
-          100},{58,100}}, color={255,0,255}));
   connect(sub2.y, gai.u)
     annotation (Line(points={{-18,50},{-12,50}}, color={0,0,127}));
   connect(gai.y, multiMax.u)
     annotation (Line(points={{12,50},{18,50}}, color={0,0,127}));
 
+  connect(truDel.y, delTem.u2)
+    annotation (Line(points={{-118,100},{58,100}}, color={255,0,255}));
 annotation (
   defaultComponentName="lesCouTowSpe",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-200},{160,200}})),
