@@ -1,12 +1,16 @@
 compareVars :=
   {
     "conAuxCoi.TOut",
+    "conAuxCoi.TLocOut",
     "conAuxCoi.uHeaCoi",
+    "conAuxCoi.uThrHeaCoi",
     "conAuxCoi.yAuxHea",
     "conAuxCoi.yDXCoi[1]",
     "conAuxCoi.yDXCoi[2]",
     "conAuxCoi1.TOut",
+    "conAuxCoi1.TLocOut",
     "conAuxCoi1.uHeaCoi",
+    "conAuxCoi1.uThrHeaCoi",
     "conAuxCoi1.yAuxHea",
     "conAuxCoi1.yDXCoi[1]",
     "conAuxCoi1.yDXCoi[2]"
