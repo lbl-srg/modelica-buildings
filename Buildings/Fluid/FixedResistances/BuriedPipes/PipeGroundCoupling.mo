@@ -165,8 +165,8 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-This model considers the conduction heat transfer between the buried pipe wall and the undisutbred ground temperature by adding a dynamic ground layer.
-The dynamic ground model uses the radial heat conduction model through a hollow cilinder <a href=\"modelica://Buildings.HeatTransfer.Conduction.SingleLayerCylinder\"> Buildings.HeatTransfer.Conduction.SingleLayerCylinder</a>. The undisturbed ground temperature is calculated
+This model considers the conduction heat transfer between the buried pipe wall and the undisturbed ground temperature by adding a dynamic ground layer.
+The dynamic ground layer is modeled using the radial heat conduction model through a hollow cylinder <a href=\"modelica://Buildings.HeatTransfer.Conduction.SingleLayerCylinder\"> Buildings.HeatTransfer.Conduction.SingleLayerCylinder</a>. The undisturbed ground temperature is calculated
 by the model <a href=\"modelica://Buildings.BoundaryConditions.GroundTemperature.UndisturbedSoilTemperature\">Buildings.BoundaryConditions.GroundTemperature.UndisturbedSoilTemperature</a>. This model can consider an axial discretization of the pipe, a figure highlighting the main variables and parameters is reported
 below:
 </p>
