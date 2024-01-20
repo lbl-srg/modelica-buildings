@@ -22,7 +22,8 @@ model Cycle
     T1_start(displayUnit="K") = 500,
     T2_start(displayUnit="K") = 290,
     mEva_flow_nominal=mEva_flow_nominal,
-    mCon_flow_nominal=mCon_flow_nominal) "Organic Rankine cycle"
+    mCon_flow_nominal=mCon_flow_nominal,
+    TEvaWor=473.15)                      "Organic Rankine cycle"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Fluid.Sources.MassFlowSource_T souEva(
     redeclare final package Medium = MediumEva,

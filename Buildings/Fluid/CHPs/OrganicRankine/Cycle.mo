@@ -29,10 +29,10 @@ model Cycle
   parameter Modelica.Units.SI.PressureDifference dpEva_nominal = 0
     "Nominal pressure drop of the evaporator"
     annotation(Dialog(group="Evaporator"));
-  parameter Modelica.Units.SI.TemperatureDifference dTEvaPin_set(
+/*  parameter Modelica.Units.SI.TemperatureDifference dTEvaPin_set(
     final min = 0) = 5
     "Set evaporator pinch point temperature differential"
-    annotation(Dialog(group="Evaporator"));
+    annotation(Dialog(group="Evaporator"));*/
   parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal
     "Nominal mass flow rate of the condenser fluid"
     annotation(Dialog(group="Condenser"));
@@ -44,7 +44,7 @@ model Cycle
     "Set condenser pinch point temperature differential"
     annotation(Dialog(group="Condenser"));
 
-  Modelica.Units.SI.MassFlowRate mWor_flow( start = m1_flow_nominal)
+  Modelica.Units.SI.MassFlowRate mWor_flow = 0.1
     "Mass flow rate of the working fluid";
   Modelica.Blocks.Sources.RealExpression expTEvaWor(y=TEvaWor)
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
@@ -57,9 +57,9 @@ model Cycle
     if err then 0 else QCon_flow_internal)
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 
-  Modelica.Units.SI.ThermodynamicTemperature TEvaWor(
-    start=T1_start)
-    "Working fluid evaporator temperature";
+  parameter Modelica.Units.SI.ThermodynamicTemperature TEvaWor
+    "Working fluid evaporator temperature"
+    annotation(Dialog(group="Evaporator"));
   Modelica.Units.SI.ThermodynamicTemperature TConWor(
     start=T2_start)
     "Working fluid condenser temperature";
@@ -67,7 +67,7 @@ model Cycle
   Modelica.Units.SI.ThermodynamicTemperature TEvaPin(
     start=T1_start)
     "Pinch point temperature of evaporator";
-  Modelica.Units.SI.TemperatureDifference dTEvaPin = dTEvaPin_set
+  Modelica.Units.SI.TemperatureDifference dTEvaPin
     "Pinch point temperature differential of evaporator";
   Modelica.Units.SI.ThermodynamicTemperature TConPin(
     start=T2_start)
@@ -143,9 +143,6 @@ equation
   (TConPin - TConIn) / (TConOut_internal - TConIn)
   =(intSta.hConPin - intSta.hPum)/(intSta.hExpOut - intSta.hPum);
   dTConPin = TConWor - TConPin;
-
-  // Cycle
-  PEle_internal =QEva_flow_internal*intSta.etaThe;
 
   connect(expTConWor.y, intSta.TCon) annotation (Line(points={{-59,-10},{-20,-10},
           {-20,-4},{-12,-4}}, color={0,0,127}));
