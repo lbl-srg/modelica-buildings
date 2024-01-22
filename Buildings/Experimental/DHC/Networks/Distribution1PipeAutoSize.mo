@@ -12,8 +12,6 @@ model Distribution1PipeAutoSize
       final dhDis=dhDis),
     redeclare model Model_pipDis =
         Buildings.Experimental.DHC.Networks.Pipes.PipeAutosize (
-        roughness=7e-6,
-        fac=1.5,
         final dp_length_nominal=dp_length_nominal,
         final dh(fixed=true) = dhEnd,
         final length=lEnd),

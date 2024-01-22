@@ -5,13 +5,11 @@ model Connection2PipeAutosize "Model for connecting an agent to the DHC system"
     tau=5*60,
     redeclare replaceable model Model_pipDisSup = Pipes.PipeAutosize (
         roughness=7e-6,
-        fac=1.5,
         dh(fixed=true) = dhDis,
         final length=lDis,
         final dp_length_nominal=dp_length_nominal),
     redeclare replaceable model Model_pipDisRet = Pipes.PipeAutosize (
         roughness=7e-6,
-        fac=1.5,
         dh(fixed=true) = dhDisRet,
         final length=lDis,
         final dp_length_nominal=dp_length_nominal),

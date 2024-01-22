@@ -14,6 +14,10 @@ partial model PartialSeries "Partial model for series network"
   parameter Boolean allowFlowReversalBui = false
     "Set to true to allow flow reversal for in-building systems"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
+  parameter Modelica.Units.SI.Length dhSto(fixed=false,start=0.05,min=0.01)
+    "Hydraulic diameter of the distribution pipe before each connection";
+  parameter Modelica.Units.SI.Length dhPla(fixed=false,start=0.05,min=0.01)
+    "Hydraulic diameter of the distribution pipe before each connection";
   parameter Integer nBui = datDes.nBui
     "Number of buildings connected to DHC system"
     annotation (Evaluate=true);
@@ -60,8 +64,8 @@ partial model PartialSeries "Partial model for series network"
     final mDis_flow_nominal=datDes.mPipDis_flow_nominal,
     final mCon_flow_nominal=datDes.mPla_flow_nominal,
     lDis=50,
-    final dhDis=0.2,
-    final allowFlowReversal=allowFlowReversalSer)
+    final allowFlowReversal=allowFlowReversalSer,
+    dhDis=dhPla)
     "Connection to the plant (pressure drop lumped in plant and network model)"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -73,8 +77,8 @@ partial model PartialSeries "Partial model for series network"
     final mDis_flow_nominal=datDes.mPipDis_flow_nominal,
     final mCon_flow_nominal=datDes.mSto_flow_nominal,
     lDis=50,
-    final dhDis=0.2,
-    final allowFlowReversal=allowFlowReversalSer)
+    final allowFlowReversal=allowFlowReversalSer,
+    dhDis=dhSto)
     "Connection to the bore field (pressure drop lumped in plant and network model)"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

@@ -92,6 +92,7 @@ model BenchmarkFlowDistribution2
     allowFlowReversal=false,
     mDis_flow_nominal=m_flow_nominal,
     mCon_flow_nominal=mCon_flow_nominal,
+    mEnd_flow_nominal=m_flow_nominal,
     lDis=fill(6, nLoa),
     lEnd=1)
     annotation (Placement(transformation(extent={{40,-90},{80,-70}})));
