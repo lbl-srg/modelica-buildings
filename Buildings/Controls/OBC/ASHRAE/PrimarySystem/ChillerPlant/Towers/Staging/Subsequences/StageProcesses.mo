@@ -73,11 +73,12 @@ protected
     final uLow=fill(0.925, nTowCel),
     final uHigh=fill(0.975, nTowCel)) "Check if isolation valve is open more than 95%"
     annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd1(final nin=nTowCel)
-    "Logical and"
+  Buildings.Controls.OBC.CDL.Logical.MultiAnd fulOpe(
+    final nin=nTowCel)
+    "Enabled valves are fully open"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
   Buildings.Controls.OBC.CDL.Logical.And and5
-    "Check if the isolation valve has been fully open"
+    "Check if it has fully open the valve and the opening process time has past the threshold"
     annotation (Placement(transformation(extent={{100,-100},{120,-80}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greEquThr(
     final t=chaTowCelIsoTim)
@@ -108,7 +109,7 @@ protected
     annotation (Placement(transformation(extent={{60,140},{80,160}})));
   Buildings.Controls.OBC.CDL.Logical.And enaPro "Enabling cells process"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical and"
+  Buildings.Controls.OBC.CDL.Logical.Not disCel "Disable cell"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Buildings.Controls.OBC.CDL.Logical.And disPro "Disabling cells process"
     annotation (Placement(transformation(extent={{-20,80},{0,100}})));
@@ -216,7 +217,7 @@ equation
     annotation (Line(points={{122,-90},{138,-90}},   color={255,0,255}));
   connect(booRep1.y, and1.u1)
     annotation (Line(points={{162,-90},{180,-90},{180,-132},{0,-132},{0,-160},{18,
-          -160}},     color={255,0,255}));
+          -160}}, color={255,0,255}));
   connect(and1.y, enaNexCel.u2)
     annotation (Line(points={{42,-160},{78,-160}}, color={255,0,255}));
   connect(con1.y, enaNexCel.u1) annotation (Line(points={{-38,-140},{60,-140},{60,
@@ -230,7 +231,7 @@ equation
   connect(and2.y, not1.u)
     annotation (Line(points={{-98,150},{-62,150}}, color={255,0,255}));
   connect(not1.y, enaCel.u) annotation (Line(points={{-38,150},{-22,150}},
-                      color={255,0,255}));
+          color={255,0,255}));
   connect(enaCel.y, celPosSet.u2)
     annotation (Line(points={{2,150},{58,150}}, color={255,0,255}));
   connect(lin1.y, celPosSet.u1) annotation (Line(points={{42,220},{50,220},{50,158},
@@ -239,14 +240,14 @@ equation
           142},{58,142}}, color={0,0,127}));
   connect(enaCel.y, enaPro.u1) annotation (Line(points={{2,150},{20,150},{20,120},
           {-120,120},{-120,0},{-62,0}},   color={255,0,255}));
-  connect(enaCel.y, not2.u) annotation (Line(points={{2,150},{20,150},{20,120},{
-          -120,120},{-120,90},{-102,90}},  color={255,0,255}));
-  connect(not2.y, disPro.u1)
-    annotation (Line(points={{-78,90},{-22,90}},   color={255,0,255}));
+  connect(enaCel.y, disCel.u) annotation (Line(points={{2,150},{20,150},{20,120},
+          {-120,120},{-120,90},{-102,90}}, color={255,0,255}));
+  connect(disCel.y, disPro.u1)
+    annotation (Line(points={{-78,90},{-22,90}}, color={255,0,255}));
   connect(booRep2.y, newTowCell.u2)
     annotation (Line(points={{102,-200},{158,-200}}, color={255,0,255}));
   connect(enaNexCel.y, newTowCell.u1) annotation (Line(points={{102,-160},{120,-160},
-          {120,-192},{158,-192}},                    color={255,0,255}));
+          {120,-192},{158,-192}}, color={255,0,255}));
   connect(booRep3.y, disExiCel.u2)
     annotation (Line(points={{22,-240},{78,-240}},  color={255,0,255}));
   connect(uTowSta, disExiCel.u3) annotation (Line(points={{-220,-180},{60,-180},
@@ -275,14 +276,14 @@ equation
     annotation (Line(points={{22,-50},{38,-50}}, color={255,127,0}));
   connect(booToInt1.y, intEqu.u2) annotation (Line(points={{22,-80},{30,-80},{30,
           -58},{38,-58}}, color={255,127,0}));
-  connect(intEqu.y, mulAnd1.u) annotation (Line(points={{62,-50},{78,-50}},
-    color={255,0,255}));
+  connect(intEqu.y, fulOpe.u)
+    annotation (Line(points={{62,-50},{78,-50}}, color={255,0,255}));
   connect(hys3.y, opeVal.u) annotation (Line(points={{-118,-50},{-20,-50},{-20,-20},
           {-2,-20}}, color={255,0,255}));
   connect(opeVal.y, and3.u1)
     annotation (Line(points={{22,-20},{138,-20}}, color={255,0,255}));
-  connect(mulAnd1.y, and3.u2) annotation (Line(points={{102,-50},{120,-50},{120,
-          -28},{138,-28}}, color={255,0,255}));
+  connect(fulOpe.y, and3.u2) annotation (Line(points={{102,-50},{120,-50},{120,-28},
+          {138,-28}}, color={255,0,255}));
   connect(and3.y, and5.u1) annotation (Line(points={{162,-20},{180,-20},{180,-70},
           {70,-70},{70,-90},{98,-90}},   color={255,0,255}));
   connect(staPro.y, booRep.u) annotation (Line(points={{82,290},{100,290},{100,260},

@@ -284,7 +284,8 @@ and disabled.
 </li>
 </ul>
 <p>
-The number of enabled tower cells shall be set by chiller stage per the table below.
+The number of enabled tower cells shall be set by plant stage (chiller and economizer)
+per the table below.
 Note that the table would need to be edited by the system design team for each plant 
 based on the condenser water flow per stage, number of towers in the plant, and 
 tower minimum flow requirements.

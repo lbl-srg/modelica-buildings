@@ -91,7 +91,29 @@ annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.Staging.Subsequences.StageProcesses\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.Staging.Subsequences.StageProcesses</a>.
+It demonstrates the process of enabling (<code>enaPro</code>) and
+disabling (<code>disPro</code>) tower cells.
 </p>
+<ul>
+<li>
+For enabling process in instance <code>enaPro</code>, at 380 seconds,
+the input <code>uChaCel[2]</code> and <code>uChaCel[3]</code> are
+true, indicating that the status of cell 2 and 3 should be changed.
+As the cell 2 and 3 are initially disabled, thus the cell 2 and 3
+are being enabled. After the isolation valve of cell 2 and 3 being
+slowly open from 380 seconds to fully open at 470 seconds, the two
+cells are enabled.
+</li>
+<li>
+For disabling process in instance <code>disPro</code>, at 380 seconds,
+the input <code>uChaCel[2]</code> and <code>uChaCel[3]</code> are
+true, indicating that the status of cell 2 and 3 should be changed.
+As the cell 2 and 3 are initially enabled, thus the cell 2 and 3
+are being disabled. Different from the enabling process, in the
+disabling process, it shuts the isolation valve with no delay.
+At the meantime, the two cells are disabled.
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>
