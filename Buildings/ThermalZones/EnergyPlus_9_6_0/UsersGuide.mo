@@ -480,7 +480,7 @@ The first day of the simulation is repeated, but Spawn uses a different criteria
 the iteration compared to a conventional EnergyPlus simulation. In EnergyPlus, the first day is repeated
 until the zone air temperature reaches a periodic steady state as indicated by the minimum and maximum temperatures
 for the warmup day stablizing. In Spawn, the exit criteria is similarly based on reaching a periodic steady state,
-however Spawn exits warmup when the wall temperatures stablize instead of the air temperature.
+however Spawn exits warmup when the surface temperatures stabilize instead of the air temperature.
 </p>
 </li>
 </ol>
