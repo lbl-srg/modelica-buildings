@@ -949,7 +949,7 @@ This is for
 </li>
 <li>
 August 23, 2023, by Jianjun Hu:<br/>
-Added delay <code>staTim</code> to allow the system becoming stablized.
+Added delay <code>staTim</code> to allow the system becoming stabilized.
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3257\">issue 3257</a>.
 </li>
 <li>
