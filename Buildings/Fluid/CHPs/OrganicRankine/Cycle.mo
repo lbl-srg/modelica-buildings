@@ -51,11 +51,11 @@ model Cycle
 
   Modelica.Units.SI.MassFlowRate mWor_flow = gai.y
     "Mass flow rate of the working fluid";
-  Modelica.Blocks.Sources.RealExpression expQEva_flow(y=
-    if err then 0 else -QEva_flow_internal)
+  Modelica.Blocks.Sources.RealExpression expQEva_flow(
+    y=-QEva_flow_internal)
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Modelica.Blocks.Sources.RealExpression expQCon_flow(y=
-    if err then 0 else QCon_flow_internal)
+  Modelica.Blocks.Sources.RealExpression expQCon_flow(
+    y=QCon_flow_internal)
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 
   parameter Modelica.Units.SI.ThermodynamicTemperature TEvaWor
@@ -75,20 +75,6 @@ model Cycle
     "Pinch point temperature of condenser";
   Modelica.Units.SI.TemperatureDifference dTConPin = dTConPin_set
     "Pinch point temperature differential of condenser";
-
-  // Error statuses
-  /*Boolean errEva = TEvaIn - TEvaWor < 1
-    "Error: incoming evaporator fluid too cold";*/
-  Boolean errEva = TEvaOut_internal - TConWor < 1
-    "Error: evaporator side pinch point violation [fixme: placeholder]";
-  /*Boolean errCon = TConWor - TConIn < 1
-    "Error: incoming condenser fluid too warm";*/
-  Boolean errCon=intSta.TExpOut - TConOut_internal < 1
-    "Error, condenser side pint point violation [fiexme: placeholder]";
-  Boolean errCyc = TEvaWor - TConWor < 1
-    "Error: Rankine cycle temperature differential reversed";
-  Boolean err = errEva or errCon or errCyc
-    "Error, to replace heat flow rates and power with zero";
 
   // Evaporator
   IBPSA.Controls.Continuous.LimPID conPI(
