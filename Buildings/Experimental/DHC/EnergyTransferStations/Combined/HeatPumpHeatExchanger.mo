@@ -42,10 +42,6 @@ model HeatPumpHeatExchanger
   Buildings.Controls.OBC.CDL.Reals.Subtract delT if have_hotWat
     "Compute DeltaT needed on condenser side"
     annotation (Placement(transformation(extent={{-150,-20},{-130,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput PPumCoo(final unit="W")
-    if have_pum "Power drawn by pump motors for direct cooling" annotation (
-      Placement(transformation(extent={{300,-350},{340,-310}}),
-        iconTransformation(extent={{300,-352},{380,-272}})));
 equation
   connect(souColWat.ports[1], proHotWat.port_a1) annotation (Line(points={{-28,-40},
           {-20,-40},{-20,40},{-10,40}}, color={0,127,255}));
@@ -89,9 +85,6 @@ equation
                             color={0,0,127}));
   connect(div1.y, proHotWat.m1_flow) annotation (Line(points={{-78,-50},{-70,
           -50},{-70,34},{-12,34}}, color={0,0,127}));
-  connect(pum1HexChi.P,PPumCoo)  annotation (Line(points={{89,-331},{84,-331},{
-          84,-324},{284,-324},{284,-330},{320,-330}},
-                                            color={0,0,127}));
   annotation (
   Documentation(info="<html>
 <p>

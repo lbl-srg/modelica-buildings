@@ -49,10 +49,6 @@ model HeatPumpHeatExchangerDHWTank
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     k=1/QHotWat_flow_nominal) if have_hotWat
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput PPumCoo(final unit="W")
-    if have_pum "Power drawn by pump motors for direct cooling" annotation (
-      Placement(transformation(extent={{300,-352},{340,-312}}),
-        iconTransformation(extent={{300,-352},{380,-272}})));
 equation
 
   connect(proHotWat.port_b2, volMix_b.ports[4])
@@ -95,9 +91,6 @@ equation
                                                   color={0,0,127}));
   connect(enaSHW.y, proHotWat.uEna) annotation (Line(points={{-118,80},{-108,80},
           {-108,43},{28,43}}, color={255,0,255}));
-  connect(pum1HexChi.P,PPumCoo)  annotation (Line(points={{89,-331},{84,-331},{
-          84,-324},{284,-324},{284,-332},{320,-332}},
-                                            color={0,0,127}));
   annotation (
   Documentation(info="<html>
 <p>

@@ -7,7 +7,7 @@ model SeriesVariableFlow
       bui[nBui](final filNam=filNam), datDes(
       mPumDis_flow_nominal=97.3,
       mPipDis_flow_nominal=69.5,
-      dp_length_nominal=250,
+      dp_length_nominal=69.3,
       epsPla=0.91),
     pumSto(dp_nominal=30000));
   parameter String filNam[nBui]={
@@ -27,7 +27,7 @@ model SeriesVariableFlow
     k=fill(15 + 273.15, nBui))
     "Cold water temperature"
     annotation (Placement(transformation(extent={{-322,150},{-302,170}})));
-  Buildings.Experimental.DHC.Networks.Controls.MainPump conPum(
+  Buildings.Experimental.DHC.Networks.Controls.MainPump1Pipe conPum(
     nMix=nBui,
     nSou=2,
     nBui=nBui,
@@ -88,12 +88,12 @@ equation
           {-80,120},{-22,120}},          color={0,127,255}));
   connect(TDisWatRet.port_a, dis.port_bDisSup) annotation (Line(points={{80,10},
           {80,120},{18,120}},         color={0,127,255}));
-  connect(bui.PPumCoo, conPum.PpumCoo) annotation (Line(points={{3,168},{3,140},
-          {-328,140},{-328,-75.6},{-281.692,-75.6}},color={0,0,127}));
   connect(bui.port_aSerAmb, dis.ports_bCon) annotation (Line(points={{-10,180},
           {-14,180},{-14,130}}, color={0,127,255}));
   connect(bui.port_bSerAmb, dis.ports_aCon) annotation (Line(points={{10,180},{
           20,180},{20,130},{10,130}}, color={0,127,255}));
+  connect(bui.QCoo_flow, conPum.QCoo_flow) annotation (Line(points={{7,168},{7,
+          140},{-318,140},{-318,-75.6},{-281.692,-75.6}}, color={0,0,127}));
   annotation (
   Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-360,-260},{360,260}})),

@@ -7,7 +7,7 @@ model SeriesConstantFlow
       bui[nBui](final filNam=filNam), datDes(
       mPumDis_flow_nominal=95,
       mPipDis_flow_nominal=95,
-      dp_length_nominal=250,
+      dp_length_nominal=69.3,
       epsPla=0.935),
     pumSto(dp_nominal=30000));
   parameter String filNam[nBui]={

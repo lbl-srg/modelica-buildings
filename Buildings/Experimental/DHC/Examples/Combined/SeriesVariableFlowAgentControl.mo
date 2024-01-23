@@ -38,7 +38,7 @@ model SeriesVariableFlowAgentControl
     k=fill(15 + 273.15, nBui))
     "Cold water temperature"
     annotation (Placement(transformation(extent={{-344,150},{-324,170}})));
-  Buildings.Experimental.DHC.Networks.Controls.MainPump conPum(
+  Buildings.Experimental.DHC.Networks.Controls.MainPump1Pipe conPum(
     nMix=nBui,
     nSou=2,
     nBui=nBui,
@@ -59,14 +59,14 @@ model SeriesVariableFlowAgentControl
     "Scale with nominal mass flow rate"
     annotation (Placement(transformation(extent={{-242,-110},{-222,-90}})));
 
-  Fluid.Sensors.TemperatureTwoPort TDisWatSup1(redeclare final package Medium =
-        Medium, final m_flow_nominal=datDes.mPumDis_flow_nominal)
+  Fluid.Sensors.TemperatureTwoPort TDisWatSup1(redeclare final package Medium
+      = Medium, final m_flow_nominal=datDes.mPumDis_flow_nominal)
     "District water supply temperature"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-80,128})));
-  Fluid.Sensors.TemperatureTwoPort TDisWatRet1(redeclare final package Medium =
-        Medium, final m_flow_nominal=datDes.mPumDis_flow_nominal)
+  Fluid.Sensors.TemperatureTwoPort TDisWatRet1(redeclare final package Medium
+      = Medium, final m_flow_nominal=datDes.mPumDis_flow_nominal)
     "District water return temperature"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -82,7 +82,8 @@ model SeriesVariableFlowAgentControl
       each c=1000,
       each d=2600))
     annotation (Placement(transformation(extent={{-10,100},{12,80}})));
-  Buildings.Experimental.DHC.Networks.Controls.AgentPump pumPlantControlNsew(
+  Buildings.Experimental.DHC.Networks.Controls.AgentPump1Pipe
+    pumPlantControlNsew(
     yPumMin=0,
     dToff=0.5,
     k=0.8,
@@ -90,7 +91,8 @@ model SeriesVariableFlowAgentControl
     uLowHea=0.75,
     uHighHea=1.5,
     h=0.5) annotation (Placement(transformation(extent={{-280,-10},{-260,10}})));
-  Buildings.Experimental.DHC.Networks.Controls.AgentPump pumPlantControlNsewSto(
+  Buildings.Experimental.DHC.Networks.Controls.AgentPump1Pipe
+    pumPlantControlNsewSto(
     yPumMin=0,
     dToff=0.45,
     k=1.1,
@@ -196,9 +198,6 @@ equation
   connect(pumPlantControlNsew.y, product1.u2) annotation (Line(points={{
           -258.462,0},{-220,0},{-220,8},{-218,8}},
                                  color={0,0,127}));
-  connect(bui.PPumCoo, conPum.PpumCoo) annotation (Line(points={{3,168},{-4,168},
-          {-4,156},{-280,156},{-280,140},{-392,140},{-392,-190.8},{-54.0308,
-          -190.8}},                                              color={0,0,127}));
   connect(TDisWatSup1.port_b, dis.port_aDisSup) annotation (Line(points={{-80,138},
           {-80,142},{-20,142}}, color={0,127,255}));
   connect(dis.port_bDisSup, TDisWatRet1.port_a)
@@ -233,6 +232,9 @@ equation
   connect(HXtemperature.y[1], pumPlantControlNsew.TSou) annotation (Line(points={{-267,40},
           {-260,40},{-260,20},{-288,20},{-288,3},{-281.538,3}},
                      color={0,0,127}));
+  connect(bui.QCoo_flow, conPum.QCoo_flow) annotation (Line(points={{7,168},{7,
+          154},{-306,154},{-306,138},{-388,138},{-388,-190.8},{-54.0308,-190.8}},
+        color={0,0,127}));
   annotation (
   Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-400,-260},{360,260}})),

@@ -1,5 +1,6 @@
 within Buildings.Experimental.DHC.Networks.Controls;
-model MainPump "Main pump controller"
+model MainPump1Pipe
+  "Main pump controller for 1 pipe networks, developed for reservoir network main circulation loop"
   parameter Integer nMix(min=1) "Number of mixing points after the substations";
   parameter Integer nSou(min=1) "Number of heat sources (and heat sinks)";
   parameter Integer nBui(min=1) "Number of heat sources (and heat sinks)";
@@ -43,8 +44,8 @@ model MainPump "Main pump controller"
     each displayUnit="degC") "Temperatures at the outlets of the sources"
     annotation (Placement(transformation(extent={{-142,-80},{-102,-40}}),
         iconTransformation(extent={{-142,-80},{-102,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput PpumCoo[nBui](final unit="W")
-    "Power drawn by pump motors for direct cooling" annotation (Placement(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput QCoo_flow[nBui](final unit=
+        "W") "Cooling power required by each building" annotation (Placement(
         transformation(extent={{-140,-220},{-100,-180}}), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
@@ -129,19 +130,19 @@ model MainPump "Main pump controller"
     annotation (Placement(transformation(extent={{102,-190},{122,-210}})));
   Modelica.Blocks.Sources.BooleanExpression booleanExpression(y=
         use_constantHeaTemShift) "Boolean parameter to activate mode"
-    annotation (Placement(transformation(extent={{-10,-222},{10,-202}})));
+    annotation (Placement(transformation(extent={{-6,-222},{14,-202}})));
 
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     t=PpumCooThr,
     h=hysPpumCoo,
     pre_y_start=false)
     "Check pump consumption higher than zero"
-    annotation (Placement(transformation(extent={{-42,-210},{-22,-190}})));
+    annotation (Placement(transformation(extent={{-36,-210},{-16,-190}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
-    annotation (Placement(transformation(extent={{20,-210},{40,-190}})));
+    annotation (Placement(transformation(extent={{22,-210},{42,-190}})));
   Buildings.Controls.OBC.CDL.Reals.MultiSum mulSum1(          k=fill(1,
         nBui), nin=nBui) "Sum of all pump consumptions"
-    annotation (Placement(transformation(extent={{-78,-210},{-58,-190}})));
+    annotation (Placement(transformation(extent={{-92,-210},{-72,-190}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(final k=-delta)
     "Gain factor"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
@@ -160,6 +161,9 @@ model MainPump "Main pump controller"
   parameter Real PpumCooThr=100
     "Threshold for comparison for pump cooling power";
   parameter Real hysPpumCoo=10 "Hysteresis for cooling pump power threshold";
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(final k=-1)
+    "Gain factor"
+    annotation (Placement(transformation(extent={{-64,-210},{-44,-190}})));
 equation
   connect(TMix, TMixMin.u) annotation (Line(points={{-122,120},{-80,120},{-80,-20},
           {-72,-20}}, color={0,0,127}));
@@ -230,18 +234,16 @@ equation
   connect(TSouIn, dTSou.u2) annotation (Line(points={{-122,40},{-90,40},{-90,-86},
           {-104,-86},{-104,-126},{-94,-126}},
                        color={0,0,127}));
-  connect(booleanExpression.y, and2.u2) annotation (Line(points={{11,-212},{18,-212},
-          {18,-208}},                            color={255,0,255}));
-  connect(and2.y, swi2.u2) annotation (Line(points={{42,-200},{100,-200}},
+  connect(booleanExpression.y, and2.u2) annotation (Line(points={{15,-212},{20,
+          -212},{20,-208}},                      color={255,0,255}));
+  connect(and2.y, swi2.u2) annotation (Line(points={{44,-200},{100,-200}},
                        color={255,0,255}));
   connect(dTSou.y, mulSum.u)
     annotation (Line(points={{-70,-120},{-52,-120}}, color={0,0,127}));
-  connect(greThr.y, and2.u1) annotation (Line(points={{-20,-200},{18,-200}},
+  connect(greThr.y, and2.u1) annotation (Line(points={{-14,-200},{20,-200}},
                             color={255,0,255}));
-  connect(mulSum1.y, greThr.u) annotation (Line(points={{-56,-200},{-44,-200}},
-                  color={0,0,127}));
-  connect(PpumCoo, mulSum1.u) annotation (Line(points={{-120,-200},{-80,-200}},
-                                    color={0,0,127}));
+  connect(QCoo_flow, mulSum1.u)
+    annotation (Line(points={{-120,-200},{-94,-200}}, color={0,0,127}));
   connect(sPos.y, gai.u)
     annotation (Line(points={{82,-60},{98,-60}}, color={0,0,127}));
   connect(sNeg.y, gai2.u)
@@ -258,6 +260,10 @@ equation
           90,-192},{100,-192}}, color={0,0,127}));
   connect(zer.y, swi2.u1) annotation (Line(points={{-28,-80},{46,-80},{46,-208},
           {100,-208}}, color={0,0,127}));
+  connect(mulSum1.y, gai1.u)
+    annotation (Line(points={{-70,-200},{-66,-200}}, color={0,0,127}));
+  connect(gai1.y, greThr.u)
+    annotation (Line(points={{-42,-200},{-38,-200}}, color={0,0,127}));
   annotation (
     defaultComponentName="conPum",
     Diagram(coordinateSystem(extent={{-100,-220},{160,180}})), Icon(
@@ -366,8 +372,8 @@ Note that this controller must be configured to be slow reacting, as it requires
 feedback from the district heating and cooling loop. Furthermore, if the parameter 
 <code>use_constantHeaTemShift</code> is set to <code>true</code>, then a constant temperature 
 offset <code>offTMax</code> is added when only heating is present, this determination is done 
-by checking that the cooling circulation pump consumption for each energy transfer station via 
-<code>PpumCoo</code> is close to zero. This mode can used by itself or in conjuction with <code>use_temperatureShift</code>.
+by checking that the cooling demand for each energy transfer station via 
+<code>QCoo</code> is close to zero. This mode can used by itself or in conjuction with <code>use_temperatureShift</code>.
 </p>
 <p>
 For a typical usage of this controller, see
@@ -375,4 +381,4 @@ For a typical usage of this controller, see
 Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlow</a>.
 </p>
 </html>"));
-end MainPump;
+end MainPump1Pipe;

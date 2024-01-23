@@ -82,16 +82,6 @@ model BuildingTimeSeriesWithETS
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter loaCooNor(k=1/
         QCoo_flow_nominal) "Normalized cooling load"
     annotation (Placement(transformation(extent={{-200,-150},{-180,-130}})));
-  Controls.OBC.CDL.Interfaces.RealOutput PPumCoo(final unit="W")
-    if bui.have_cooLoa "Power drawn by pump motors for direct cooling"
-    annotation (Placement(transformation(extent={{300,-60},{340,-20}}),
-        iconTransformation(
-        extent={{-20,-20},{20,20}},
-        rotation=-90,
-        origin={30,-120})));
-  Controls.OBC.CDL.Reals.MultiplyByParameter mulPPumCoo(u(final unit="W"),
-      final k=facMul) if bui.have_cooLoa "Scaling"
-    annotation (Placement(transformation(extent={{266,-50},{286,-30}})));
 equation
   connect(bui.QReqHotWat_flow, ets.QReqHotWat_flow) annotation (Line(points={{28,4},{28,
           -10},{-64,-10},{-64,-74},{-34,-74}}, color={0,0,127}));
@@ -115,10 +105,6 @@ equation
           {-220,-4},{-220,-140},{-202,-140}}, color={0,0,127}));
   connect(loaHeaNor.y, resTHeaWatSup.u) annotation (Line(points={{-178,-100},{
           -120,-100},{-120,-40},{-112,-40}},  color={0,0,127}));
-  connect(mulPPumCoo.y, PPumCoo)
-    annotation (Line(points={{288,-40},{320,-40}}, color={0,0,127}));
-  connect(mulPPumCoo.u, ets.PPumCoo) annotation (Line(points={{264,-40},{262,
-          -40},{262,-72},{34,-72},{34,-73.2}}, color={0,0,127}));
   annotation (
     Documentation(info="<html>
 <p>

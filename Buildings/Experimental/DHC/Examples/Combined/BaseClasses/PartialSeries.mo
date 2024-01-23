@@ -23,7 +23,8 @@ partial model PartialSeries "Partial model for series network"
     annotation (Evaluate=true);
   inner parameter
     Buildings.Experimental.DHC.Examples.Combined.BaseClasses.DesignDataSeries
-    datDes(final mCon_flow_nominal=bui.ets.mSerWat_flow_nominal) "Design data"
+    datDes(final mCon_flow_nominal=bui.ets.mSerWat_flow_nominal, lEnd=100)
+                                                                 "Design data"
     annotation (Placement(transformation(extent={{-360,220},{-340,240}})));
   // COMPONENTS
   Buildings.Experimental.DHC.Examples.Combined.BaseClasses.BoreField borFie(
@@ -43,13 +44,12 @@ partial model PartialSeries "Partial model for series network"
       rotation=90,
       origin={80,-60})));
   Buildings.Fluid.Sources.Boundary_pT bou(
-    redeclare final package Medium=Medium,
-    final nPorts=1)
+    redeclare final package Medium=Medium, nPorts=1)
     "Boundary pressure condition representing the expansion vessel"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
-        origin={112,-20})));
+        origin={112,-98})));
   Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumSto(
     redeclare final package Medium = Medium,
     m_flow_nominal=datDes.mSto_flow_nominal)
@@ -179,8 +179,6 @@ partial model PartialSeries "Partial model for series network"
     "Check if loop temperatures are within given range"
     annotation (Placement(transformation(extent={{320,10},{340,30}})));
 equation
-  connect(bou.ports[1], pumDis.port_a)
-    annotation (Line(points={{102,-20},{80,-20},{80,-50}}, color={0,127,255}));
   connect(borFie.port_b, conSto.port_aCon) annotation (Line(points={{-120,-80},
           {-100,-80},{-100,-84},{-90,-84}}, color={0,127,255}));
   connect(pumDis.port_b, conSto.port_aDis) annotation (Line(points={{80,-70},{
@@ -249,6 +247,8 @@ equation
                                                         color={0,0,127}));
   connect(TDisWatRet.T, conVio.u[3]) annotation (Line(points={{69,6.66134e-16},
           {60,6.66134e-16},{60,20.6667},{318,20.6667}},color={0,0,127}));
+  connect(bou.ports[1], pumDis.port_b)
+    annotation (Line(points={{102,-98},{80,-98},{80,-70}}, color={0,127,255}));
   annotation (Diagram(
     coordinateSystem(preserveAspectRatio=false, extent={{-360,-260},{360,260}})),
       Documentation(revisions="<html>

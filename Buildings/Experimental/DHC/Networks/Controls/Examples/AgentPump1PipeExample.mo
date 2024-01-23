@@ -1,12 +1,12 @@
 within Buildings.Experimental.DHC.Networks.Controls.Examples;
-model AgentPumpExample
+model AgentPump1PipeExample
     extends Modelica.Icons.Example;
     parameter Modelica.Units.SI.Temperature TSou(displayUnit="degC") = 283.15
     "Agent source temperature";
   Modelica.Blocks.Sources.CombiTimeTable TSouIn(table=[0,TSou; 900,TSou + 3; 2700,
         TSou - 3; 3600,TSou], extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     annotation (Placement(transformation(extent={{-80,58},{-60,78}})));
-  Buildings.Experimental.DHC.Networks.Controls.AgentPump AgentPump(
+  Buildings.Experimental.DHC.Networks.Controls.AgentPump1Pipe AgentPump(
     yPumMin=0,
     dToff=0.5,
     k=1,
@@ -50,7 +50,7 @@ First implementation.
 </ul>
 </html>", info="<html>
 This model is used to test the controller 
-<a href=\"modelica://Buildings.Experimental.DHC.Networks.Controls.AgentPump\">Buildings.Experimental.DHC.Networks.Controls.AgentPump</a>.
+<a href=\"modelica://Buildings.Experimental.DHC.Networks.Controls.AgentPump1Pipe\">Buildings.Experimental.DHC.Networks.Controls.AgentPump</a>.
 For a practical application of the model check <a href=\"modelica://Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlowAgentControl\">Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlowUpdate</a>.
 </html>"));
-end AgentPumpExample;
+end AgentPump1PipeExample;

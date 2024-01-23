@@ -1,5 +1,6 @@
 within Buildings.Experimental.DHC.Networks.Controls;
-block AgentPump "Ambient network storage and plants agent pump control"
+block AgentPump1Pipe
+  "Ambient network storage and plants agent pump control, developed for reservoir network"
    parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
       Buildings.Controls.OBC.CDL.Types.SimpleController.P "Type of controller";
    parameter Real yPumMin(min=0, max=1, final unit="1") = 0.05
@@ -15,7 +16,6 @@ block AgentPump "Ambient network storage and plants agent pump control"
    parameter Real uLowCoo = 1 "if y=true and u<uLow, switch to y=false";
    parameter Real uHighCoo = 2 "if y=false and u>uHigh, switch to y=true";
    parameter Real h = 0.15 "Hysteresis for net demand temperature calculation";
-
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSouIn(each final unit="K",
       each displayUnit="degC") "Temperatures at the inlet of the source"
@@ -229,4 +229,4 @@ by default used as P, controls the pump control input by using <code>TSouOut</co
 the nominal value of the agent heat exchanger pinch point temperature difference.
 </p>
 </html>"));
-end AgentPump;
+end AgentPump1Pipe;
