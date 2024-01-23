@@ -237,7 +237,7 @@ equation
         color={0,0,127}));
   annotation (
   Diagram(
-  coordinateSystem(preserveAspectRatio=false, extent={{-400,-260},{360,260}})),
+  coordinateSystem(preserveAspectRatio=false, extent={{-400,-260},{400,260}})),
     __Dymola_Commands(
   file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Examples/Combined/SeriesVariableFlowAgentControl.mos"
   "Simulate and plot"),
@@ -264,5 +264,5 @@ If these mixing temperatures are sufficiently far away from the minimum or maxim
 allowed loop temperature, then the mass flow rate is reduced to save pump energy.
 </p>
 </html>"),
-    Icon(coordinateSystem(extent={{-400,-260},{360,260}})));
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end SeriesVariableFlowAgentControl;
