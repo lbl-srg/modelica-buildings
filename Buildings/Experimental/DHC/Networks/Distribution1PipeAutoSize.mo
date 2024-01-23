@@ -38,7 +38,8 @@ model Distribution1PipeAutoSize
 <p>
 This model represents a one-pipe distribution network with built-in computation
 of the pipe diameter based on the pressure drop per pipe length
-at nominal flow rate.
+at nominal flow rate in the main distribution line. The same pipe model is also used at the end of
+the distribution line (after the last connection).
 </p>
 <h4>Modeling considerations</h4>
 <p>

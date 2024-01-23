@@ -43,18 +43,21 @@ model Distribution2PipeAutoSize
     min=0.01) "Hydraulic diameter of the end of the distribution line";
   annotation (Documentation(info="<html>
 <p>
-This is a model of a two-pipe distribution network using
+This is a model of a two-pipe distribution network using a connection model with an auto-sized pipe in the main line whose hydraulic diameter 
+is calculated at initialization based on the pressure drop per pipe length at nominal flow rate. The same pipe model is also used
+at the end of the distribution line (after the last connection) only on the supply side.
 </p>
-<ul>
-<li>
-a connection model with an auto-sized pipe in the main line whose hydraulic diameter is calculated at initialization based on the pressure drop per pipe length
-at nominal flow rate, and
-</li>
-<li>
-a dummy pipe model with no hydraulic resistance and no heat loss for the end of
-the distribution line (after the last connection).
-</li>
-</ul>
+<h4>Modeling considerations</h4>
+<p>
+Note that <code>dhDis</code> needs to be vectorized, even if the same value
+is computed for each array element in case of a one-pipe network.
+This is because the pipe diameter is computed at initialization by the model
+<a href=\"modelica://Buildings.Experimental.DHC.Networks.Connections.Connection1PipeAutosize\">
+Buildings.Experimental.DHC.Networks.Combined.BaseClasses.ConnectionSeriesAutosize</a>
+which is instantiated for each connection.
+So the initialization system of equations would be overdetermined if using
+a parameter binding with a scalar variable.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

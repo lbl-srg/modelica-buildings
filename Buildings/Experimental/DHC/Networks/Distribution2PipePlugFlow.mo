@@ -49,18 +49,10 @@ equation
     Documentation(
       info="<html>
 <p>
-This is a model of a two-pipe distribution network using
+This is a model of a two-pipe distribution network using a connection model with a plug flow pipe
+model (pressure drop, heat transfer, transport delays)in the main line. The same pipe model is also used
+at the end of the distribution line (after the last connection) only on the supply side.
 </p>
-<ul>
-<li>
-a connection model with a plug flow pipe
-model (pressure drop, heat transfer, transport delays)in the main line, and
-</li>
-<li>
-a dummy pipe model with no hydraulic resistance and no heat loss for the end of
-the distribution line (after the last connection).
-</li>
-</ul>
 </html>",
       revisions="<html>
 <ul>

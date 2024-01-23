@@ -41,8 +41,7 @@ equation
   annotation (Documentation(info="<html>
 <p>
 This model represents a one-pipe distribution network using a connection model with a plug flow pipe
-model (pressure drop, heat transfer, transport delays)in the main line, and
-a dummy pipe model with no hydraulic resistance and no heat loss for the end of
+model (pressure drop, heat transfer, transport delays)in the main line. The same pipe model at the end of
 the distribution line (after the last connection).
 </p>
 </html>", revisions="<html>
