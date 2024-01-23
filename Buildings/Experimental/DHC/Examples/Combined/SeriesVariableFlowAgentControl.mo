@@ -254,14 +254,25 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-This model is identical to
-<a href=\"modelica://Buildings.Experimental.DHC.Examples.Combined.SeriesConstantFlow\">
-Buildings.Experimental.DHC.Examples.Combined.SeriesConstantFlow</a>
-except for the pipe diameter and the control of the main circulation pump.
-Rather than having a constant mass flow rate, the mass flow rate is varied
-based on the mixing temperatures after each agent.
-If these mixing temperatures are sufficiently far away from the minimum or maximum
-allowed loop temperature, then the mass flow rate is reduced to save pump energy.
+This model is an updated version of
+<a href=\"modelica://Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlow\">
+Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlow</a>.
+In particular the following have been updated:
+<li>
+The sewage water temperature, mass flow rate and ground temperature are not constant and instead have a seasonal yearly profile.
+</li>
+<li>
+The distribution network pripes now use the plug-flow model to add transport delay and ground coupling to the distribution network.
+</li>
+<li>
+The borefield and sewagre heat exchanger circulation pumps are controlled by an agent specific controller <a href=\"modelica://Buildings.Experimental.DHC.Networks.Controls.AgentPump1Pipe\">
+Buildings.Experimental.DHC.Networks.Controls.AgentPump1Pipe</a>.
+</li>
+<h4>References</h4>
+<p>
+Ettore Zanetti, David Blum, Michael Wetter <a href=\"https://www.conftool.com/modelica2023/index.php/Zanetti-Control_development_and_sizing_analysis_for_a_5th_generation_district_heating_and_cooling_network_a.pdf?page=downloadPaper&filename=Zanetti-Control_development_and_sizing_analysis_for_a_5th_generation_district_heating_and_cooling_network_a.pdf&form_id=183&form_version=final\">
+Control development and sizing analysis for a 5th generation district heating and cooling network using Modelica</a>, 2023 International Modelica conference proceedings.
+</p>
 </p>
 </html>"),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
