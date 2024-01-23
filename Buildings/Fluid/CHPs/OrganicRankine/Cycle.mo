@@ -15,8 +15,11 @@ model Cycle
     final vol1(
       final prescribedHeatFlowRate=true));
 
-  Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.InterpolateStates intSta(final pro
-      =pro, etaExp=0.7) "Interpolate working fluid states"
+  Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.InterpolateStates intSta(
+    final pro=pro,
+    etaExp=0.7,
+    TEva=TEvaWor,
+    TCon=TConWor) "Interpolate working fluid states"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   replaceable parameter Buildings.Fluid.CHPs.OrganicRankine.Data.Generic pro
@@ -48,10 +51,6 @@ model Cycle
 
   Modelica.Units.SI.MassFlowRate mWor_flow = gai.y
     "Mass flow rate of the working fluid";
-  Modelica.Blocks.Sources.RealExpression expTEvaWor(y=TEvaWor)
-    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Modelica.Blocks.Sources.RealExpression expTConWor(y=TConWor)
-    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   Modelica.Blocks.Sources.RealExpression expQEva_flow(y=
     if err then 0 else -QEva_flow_internal)
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
@@ -160,8 +159,6 @@ equation
   =(intSta.hConPin - intSta.hPum) * (TConOut_internal - TConIn);
   dTConPin = TConWor - TConPin;
 
-  connect(expTConWor.y, intSta.TCon) annotation (Line(points={{-59,-10},{-20,-10},
-          {-20,-4},{-12,-4}}, color={0,0,127}));
   connect(preHeaFloEva.port, vol1.heatPort) annotation (Line(points={{-19,30},{-16,
           30},{-16,60},{-10,60}}, color={191,0,0}));
   connect(expQEva_flow.y, preHeaFloEva.Q_flow)
@@ -170,8 +167,6 @@ equation
     annotation (Line(points={{-59,-30},{-39,-30}}, color={0,0,127}));
   connect(preHeaFloCon.port, vol2.heatPort) annotation (Line(points={{-19,-30},{
           18,-30},{18,-60},{12,-60}}, color={191,0,0}));
-  connect(expTEvaWor.y, intSta.TEva) annotation (Line(points={{-59,10},{-20,10},
-          {-20,4},{-12,4}}, color={0,0,127}));
   connect(u_s.y, conPI.u_s)
     annotation (Line(points={{41,30},{48,30}}, color={0,0,127}));
   connect(u_m.y, conPI.u_m)

@@ -6,14 +6,11 @@ model InterpolateStates "Interpolate states of a working fluid"
     "Property records of the working fluid"
     annotation(Dialog(group="ORC inputs"),choicesAllMatching = true);
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TEva(final quantity="ThermodynamicTemperature",
-      final unit="K") "Evaporator temperature" annotation (Placement(
-        transformation(extent={{-140,20},{-100,60}}), iconTransformation(extent
-          ={{-140,20},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TCon(final quantity="ThermodynamicTemperature",
-      final unit="K") "Condenser temperature" annotation (Placement(
-        transformation(extent={{-140,-60},{-100,-20}}), iconTransformation(
-          extent={{-140,-60},{-100,-20}})));
+  input Modelica.Units.SI.ThermodynamicTemperature TEva
+    "Evaporating temperature";
+  input Modelica.Units.SI.ThermodynamicTemperature TCon
+    "Condenser temperature";
+
   parameter Modelica.Units.SI.TemperatureDifference dTSup = 0
     "Superheating differential temperature"
     annotation(Dialog(group="ORC inputs"));
@@ -90,12 +87,8 @@ model InterpolateStates "Interpolate states of a working fluid"
   final Modelica.Units.SI.SpecificEnergy dhCon = -dhEva - dhExp
     "Enthalpy differential at the condenser (negative)";
 
-  Modelica.Blocks.Interfaces.RealOutput etaThe(
-    min=0,
-    final unit="1") = -dhExp/dhEva "Thermal efficiency"
-    annotation (Placement(
-        transformation(extent={{100,30},{120,50}}),   iconTransformation(extent={{100,30},
-            {120,50}})));
+  Modelica.Units.SI.Efficiency etaThe(min=0) = -dhExp/dhEva
+    "Thermal efficiency";
 
 protected
   final Modelica.Units.SI.SpecificEntropy sSatVapCon =
