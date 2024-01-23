@@ -52,8 +52,8 @@ package Defaults "Package with default sizing parameters"
     "Water-cooled chiller COP (ASHRAE 90.1 2022 at 7 °C CHWST, 35 °C source LWT)";
   constant Modelica.Units.SI.PressureDifference dpValIso=1E3
     "Isolation or bypass valve pressure drop";
-  constant Modelica.Units.SI.PressureDifference dpValBypMin=5E3
-    "Minimum flow bypass valve ";
+  constant Modelica.Units.SI.PressureDifference dpValBypMin=3E4
+    "Minimum flow bypass valve pressure drop at design minimum flow for the largest chiller";
   constant Modelica.Units.SI.PressureDifference dpValChe=1E4
     "Check valve pressure drop";
   constant Modelica.Units.SI.PressureDifference dpChiWatChi=5E4
