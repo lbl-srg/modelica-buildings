@@ -148,16 +148,16 @@ equation
   QEva_flow_internal = m1_flow * cpEva_default * (TEvaIn - TEvaOut_internal);
   QEva_flow_internal =mWor_flow*(intSta.hExpInl - intSta.hPum);
   // Pinch point
-  (TEvaPin - TEvaOut_internal) / (TEvaIn - TEvaOut_internal)
-  =(intSta.hEvaPin - intSta.hPum)/(intSta.hExpInl - intSta.hPum);
+  (TEvaPin - TEvaOut_internal) * (intSta.hExpInl - intSta.hPum)
+  = (intSta.hEvaPin - intSta.hPum) * (TEvaIn - TEvaOut_internal);
   dTEvaPin = TEvaPin - TEvaWor;
 
   // Condenser
   QCon_flow_internal = m2_flow * cpCon_default * (TConOut_internal - TConIn);
   QCon_flow_internal =mWor_flow*(intSta.hExpOut - intSta.hPum);
   // Pinch point
-  (TConPin - TConIn) / (TConOut_internal - TConIn)
-  =(intSta.hConPin - intSta.hPum)/(intSta.hExpOut - intSta.hPum);
+  (TConPin - TConIn) * (intSta.hExpOut - intSta.hPum)
+  =(intSta.hConPin - intSta.hPum) * (TConOut_internal - TConIn);
   dTConPin = TConWor - TConPin;
 
   connect(expTConWor.y, intSta.TCon) annotation (Line(points={{-59,-10},{-20,-10},
