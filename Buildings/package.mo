@@ -658,7 +658,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanCVF.Subsequences.Alarms<br/>
                        Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanVVF.Subsequences.Alarms
     </td>
-    <td valign=\"top\">Added delay triggering alarms after enabling AHU supply fan, to allow the system becoming stablized.<br/>
+    <td valign=\"top\">Added delay triggering alarms after enabling AHU supply fan, to allow the system becoming stabilized.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3257\">issue 3257</a>.
     </td>
 </tr>
