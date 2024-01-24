@@ -29,10 +29,10 @@ model Cycle
   parameter Modelica.Units.SI.PressureDifference dpEva_nominal = 0
     "Nominal pressure drop of the evaporator"
     annotation(Dialog(group="Evaporator"));
-/*  parameter Modelica.Units.SI.TemperatureDifference dTEvaPin_set(
+  parameter Modelica.Units.SI.TemperatureDifference dTEvaPin_set(
     final min = 0) = 5
     "Set evaporator pinch point temperature differential"
-    annotation(Dialog(group="Evaporator"));*/
+    annotation(Dialog(group="Evaporator"));
   parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal
     "Nominal mass flow rate of the condenser fluid"
     annotation(Dialog(group="Condenser"));
@@ -43,8 +43,10 @@ model Cycle
     final min = 0) = 5
     "Set condenser pinch point temperature differential"
     annotation(Dialog(group="Condenser"));
+  parameter Modelica.Units.SI.MassFlowRate mWor_flow_nominal = m1_flow_nominal
+    "Nominal working fluid flow rate";
 
-  Modelica.Units.SI.MassFlowRate mWor_flow = 0.1
+  Modelica.Units.SI.MassFlowRate mWor_flow = gai.y
     "Mass flow rate of the working fluid";
   Modelica.Blocks.Sources.RealExpression expTEvaWor(y=TEvaWor)
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
@@ -90,6 +92,20 @@ model Cycle
     "Error, to replace heat flow rates and power with zero";
 
   // Evaporator
+  IBPSA.Controls.Continuous.LimPID conPI(
+    Td=1,
+    k=5,
+    Ti=15,
+    reverseActing=false)
+           annotation (Placement(transformation(extent={{50,20},{70,40}})));
+  Modelica.Blocks.Sources.RealExpression u_s(y=dTEvaPin_set)
+    annotation (Placement(transformation(extent={{20,20},{40,40}})));
+  Modelica.Blocks.Sources.RealExpression u_m(y=dTEvaPin)
+    annotation (Placement(transformation(extent={{20,-20},{40,0}})));
+  Controls.OBC.CDL.Reals.MultiplyByParameter           gai(final k=
+        mWor_flow_nominal)
+    "Heat transfer to the water control volume"
+    annotation (Placement(transformation(extent={{80,20},{100,40}})));
 protected
   parameter Modelica.Units.SI.SpecificHeatCapacity cpEva_default =
     Medium1.specificHeatCapacityCp(sta1_nominal)
@@ -156,6 +172,12 @@ equation
           18,-30},{18,-60},{12,-60}}, color={191,0,0}));
   connect(expTEvaWor.y, intSta.TEva) annotation (Line(points={{-59,10},{-20,10},
           {-20,4},{-12,4}}, color={0,0,127}));
+  connect(u_s.y, conPI.u_s)
+    annotation (Line(points={{41,30},{48,30}}, color={0,0,127}));
+  connect(u_m.y, conPI.u_m)
+    annotation (Line(points={{41,-10},{60,-10},{60,18}}, color={0,0,127}));
+  connect(gai.u, conPI.y)
+    annotation (Line(points={{78,30},{71,30}}, color={0,0,127}));
   annotation (defaultComponentName = "ORC",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Line(
