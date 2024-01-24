@@ -1,0 +1,9 @@
+// Simulate
+simulateModel("Buildings.Experimental.DHC.Networks.Connections.Examples.Connection1PipeExample", stopTime=3600,method="Cvode", tolerance=1e-06, resultFile="Connection1PipeExample");
+// Plot commands
+createPlot(id=1, position={52, -7, 1644, 1128}, y={"pumDisAutoSize.m_flow_actual", "pumDisPlugFlow.m_flow_actual", 
+"pumConAutoSize.m_flow_actual", "pumConPlugFlow.m_flow_actual"}, range={0.0, 3600.0, -0.1, 1.1}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, timeUnit="s", displayUnits={"kg/s", "kg/s", "kg/s", "kg/s"});
+createPlot(id=1, position={52, -7, 1644, 1128}, y={"pumDisAutoSize.port_a.p", "pumDisAutoSize.port_b.p", "pumDisPlugFlow.port_a.p",
+ "pumDisPlugFlow.port_b.p"}, range={660.0, 1130.0, 2.3000000000000003, 3.1000000000000005}, autoscale=false, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, range2={0.30000000000000004, 1.0}, timeUnit="s", displayUnits={"bar", "bar", "bar", "bar"});
+
+

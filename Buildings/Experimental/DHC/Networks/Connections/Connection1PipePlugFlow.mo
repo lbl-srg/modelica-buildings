@@ -8,7 +8,12 @@ model Connection1PipePlugFlow
         Buildings.Fluid.FixedResistances.PlugFlowPipe (
       final length=lDis,
       final dIns=dIns,
-      final kIns=kIns),
+      final kIns=kIns,
+      v_nominal=v_nominal,
+      roughness=roughness,
+      cPip=cPip,
+      rhoPip=rhoPip,
+      thickness=thickness),
     redeclare replaceable model Model_pipCon =
         Buildings.Fluid.FixedResistances.LosslessPipe);
 
@@ -20,11 +25,20 @@ model Connection1PipePlugFlow
     annotation (Dialog(group="Pipe"));
   parameter Modelica.Units.SI.Length lDis
     "Length of the distribution pipe before the connection";
-
+  parameter Modelica.Units.SI.Velocity v_nominal=1.5
+    "Velocity at m_flow_nominal (used to compute default value for hydraulic diameter dh)";
+  parameter Modelica.Units.SI.Height roughness=2.5e-5
+    "Average height of surface asperities (default: smooth steel pipe)";
+  parameter Modelica.Units.SI.SpecificHeatCapacity cPip=2300
+    "Specific heat of pipe wall material. 2300 for PE, 500 for steel";
+  parameter Modelica.Units.SI.Density rhoPip=930
+    "Density of pipe wall material. 930 for PE, 8000 for steel";
+  parameter Modelica.Units.SI.Length thickness=0.0035 "Pipe wall thickness";
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortDis
     "Heat transfer to and from the distribution pipe" annotation (Placement(
         transformation(extent={{-106,70},{-86,90}}), iconTransformation(extent={{-60,16},
             {-40,36}})));
+
 equation
   connect(pipDis.heatPort, heatPortDis)
     annotation (Line(points={{-70,-30},{-70,80},{-96,80}}, color={191,0,0}));

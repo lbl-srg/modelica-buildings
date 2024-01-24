@@ -6,12 +6,22 @@ model Distribution2PipePlugFlow
       redeclare Connections.Connection2PipePlugFlow con[nCon](
       final lDis=lDis,
       each final dIns=dIns,
-      each final kIns=kIns),
+      each final kIns=kIns,
+      each final v_nominal=v_nominal,
+      each final roughness=roughness,
+      each final cPip=cPip,
+      each final rhoPip=rhoPip,
+      each final thickness=thickness),
       redeclare model Model_pipDis =
         Buildings.Fluid.FixedResistances.PlugFlowPipe (
       final length=lEnd,
       final dIns=dIns,
-      final kIns=kIns));
+      final kIns=kIns,
+      final v_nominal=v_nominal,
+      final roughness=roughness,
+      final cPip=cPip,
+      final rhoPip=rhoPip,
+      final thickness=thickness));
    parameter Modelica.Units.SI.Length lDis[nCon]
     "Length of the distribution pipe before each connection (supply only, not counting return line)";
    parameter Modelica.Units.SI.Length lEnd
@@ -20,6 +30,15 @@ model Distribution2PipePlugFlow
     "Thickness of pipe insulation, used to compute R";
    parameter Modelica.Units.SI.ThermalConductivity kIns=0.028
     "Heat conductivity of pipe insulation, used to compute R";
+   parameter Modelica.Units.SI.Velocity v_nominal=1.5
+    "Velocity at m_flow_nominal (used to compute default value for hydraulic diameter dh)";
+   parameter Modelica.Units.SI.Height roughness=2.5e-5
+    "Average height of surface asperities (default: smooth steel pipe)";
+   parameter Modelica.Units.SI.SpecificHeatCapacity cPip=2300
+    "Specific heat of pipe wall material. 2300 for PE, 500 for steel";
+   parameter Modelica.Units.SI.Density rhoPip=930
+    "Density of pipe wall material. 930 for PE, 8000 for steel";
+   parameter Modelica.Units.SI.Length thickness=0.0035 "Pipe wall thickness";
   Modelica.Fluid.Interfaces.HeatPorts_a heatPortsDis[nCon + 1]
     "Multiple heat ports that connect to outside of pipe wall for distribution pipe"
     annotation (Placement(transformation(

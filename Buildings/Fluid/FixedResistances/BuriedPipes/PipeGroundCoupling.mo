@@ -61,92 +61,87 @@ equation
   connect(groActLay.port_b, groTem.port)
     annotation (Line(points={{-58,0},{-40,0}}, color={191,0,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {120,100}}), graphics={
+            {100,100}}), graphics={
         Rectangle(
-          extent={{-104,38},{120,-100}},
+          extent={{-100,38},{100,-100}},
           fillColor={154,139,114},
           fillPattern=FillPattern.Backward,
           pattern=LinePattern.None,
           lineColor={0,0,0}),
         Rectangle(
-          extent={{120,44},{-104,38}},
+          extent={{100,44},{-100,38}},
           pattern=LinePattern.None,
           fillColor={0,140,72},
           fillPattern=FillPattern.Solid,
           lineColor={0,0,0}),
         Rectangle(
-          extent={{120,100},{-104,44}},
+          extent={{100,100},{-100,44}},
           pattern=LinePattern.None,
           fillColor={170,213,255},
           fillPattern=FillPattern.Solid,
           lineColor={0,0,0}),
         Rectangle(
-          extent={{-104,-14},{120,-48}},
+          extent={{-100,-14},{100,-48}},
           fillColor={138,138,138},
           fillPattern=FillPattern.HorizontalCylinder,
           pattern=LinePattern.None),
         Line(
-          points={{-90,-14},{-90,-48}},
+          points={{-88,-14},{-88,-48}},
           color={0,0,0},
           thickness=0.5,
           pattern=LinePattern.Dash),
         Line(
-          points={{-74,-14},{-74,-48}},
+          points={{-72,-14},{-72,-48}},
           color={0,0,0},
           thickness=0.5,
           pattern=LinePattern.Dash),
         Line(
-          points={{-42,-14},{-42,-48}},
+          points={{-40,-14},{-40,-48}},
           color={0,0,0},
           thickness=0.5,
           pattern=LinePattern.Dash),
         Line(
-          points={{-58,-14},{-58,-48}},
+          points={{-56,-14},{-56,-48}},
           color={0,0,0},
           thickness=0.5,
           pattern=LinePattern.Dash),
         Line(
-          points={{-26,-14},{-26,-48}},
+          points={{-24,-14},{-24,-48}},
           color={0,0,0},
           thickness=0.5,
           pattern=LinePattern.Dash),
         Line(
-          points={{-10,-14},{-10,-48}},
+          points={{-8,-14},{-8,-48}},
           color={0,0,0},
           thickness=0.5,
           pattern=LinePattern.Dash),
         Line(
-          points={{6,-14},{6,-48}},
+          points={{8,-14},{8,-48}},
           color={0,0,0},
           thickness=0.5,
           pattern=LinePattern.Dash),
         Line(
-          points={{22,-14},{22,-48}},
+          points={{24,-14},{24,-48}},
           color={0,0,0},
           thickness=0.5,
           pattern=LinePattern.Dash),
         Line(
-          points={{102,-14},{102,-48}},
+          points={{88,-14},{88,-48}},
           color={0,0,0},
           thickness=0.5,
           pattern=LinePattern.Dash),
         Line(
-          points={{86,-14},{86,-48}},
+          points={{72,-14},{72,-48}},
           color={0,0,0},
           thickness=0.5,
           pattern=LinePattern.Dash),
         Line(
-          points={{70,-14},{70,-48}},
+          points={{56,-14},{56,-48}},
           color={0,0,0},
           thickness=0.5,
           pattern=LinePattern.Dash),
         Line(
-          points={{54,-14},{54,-48}},
-          color={0,0,0},
-          thickness=0.5,
-          pattern=LinePattern.Dash),
-        Line(
-          points={{38,-14},{38,-48}},
+          points={{40,-14},{40,-48}},
           color={0,0,0},
           thickness=0.5,
           pattern=LinePattern.Dash),
