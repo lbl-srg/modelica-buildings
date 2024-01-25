@@ -36,7 +36,8 @@ model ComputeCycle "Thermodynamic computations of the ORC"
     "Fluid temperature out of the evaporator, intermediate variable";
   Modelica.Units.SI.HeatFlowRate QEva_flow_internal
     "Evaporator heat flow rate, intermediate variable";
-  Modelica.Units.SI.ThermodynamicTemperature TEvaPin
+  Modelica.Units.SI.ThermodynamicTemperature TEvaPin(
+    start = TEvaWor + dTEvaPin_set)
     "Pinch point temperature of evaporator";
   Modelica.Units.SI.TemperatureDifference dTEvaPin
     "Pinch point temperature differential of evaporator";
@@ -72,7 +73,8 @@ model ComputeCycle "Thermodynamic computations of the ORC"
     "Fluid temperature out of the condenser, intermediate variable";
   Modelica.Units.SI.HeatFlowRate QCon_flow_internal
     "Condenser heat flow rate, intermediate variable";
-  Modelica.Units.SI.ThermodynamicTemperature TConPin
+  Modelica.Units.SI.ThermodynamicTemperature TConPin(
+    start = 300)
     "Pinch point temperature of condenser";
   Modelica.Units.SI.TemperatureDifference dTConPin = dTConPin_set
     "Pinch point temperature differential of condenser";
