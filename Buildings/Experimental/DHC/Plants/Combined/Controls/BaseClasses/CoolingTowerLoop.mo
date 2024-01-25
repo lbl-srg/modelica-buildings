@@ -1,4 +1,4 @@
-﻿within Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses;
+within Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses;
 block CoolingTowerLoop "Cooling tower loop control"
 
   parameter Modelica.Units.SI.MassFlowRate mConWatHexCoo_flow_nominal
@@ -240,7 +240,8 @@ block CoolingTowerLoop "Cooling tower loop control"
     annotation (Placement(transformation(extent={{-30,190},{-10,210}})));
   Buildings.Controls.OBC.CDL.Reals.Line fan "Compute fan speed"
     annotation (Placement(transformation(extent={{150,-70},{170,-50}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant xFan1    [2](k={0,1})
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant xFan1
+                                                             [2](k={0,1})
     "x-value for fan speed reset"
     annotation (Placement(transformation(extent={{110,-50},{130,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant yFan1(final k=0)

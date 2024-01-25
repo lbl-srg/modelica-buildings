@@ -1,7 +1,7 @@
 within Buildings.Fluid.DXSystems.Cooling.AirSource.Data.SingleSpeed;
 record Lennox_TCA060S2 =
-  Buildings.Fluid.DXSystems.Cooling.AirSource.Data.SingleSpeed.Generic (
-                                                                  sta = {
+  Buildings.Fluid.DXSystems.Cooling.AirSource.Data.SingleSpeed.Generic
+    (                                                             sta = {
    Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.Stage(
                                                                          spe=1800,
    nomVal = Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.NominalValues(

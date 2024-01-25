@@ -1,4 +1,4 @@
-﻿within Buildings.Examples.Tutorial.SimpleHouse;
+within Buildings.Examples.Tutorial.SimpleHouse;
 model SimpleHouse6 "Free cooling model"
   extends SimpleHouse5(
     zon(nPorts=2),

@@ -1,4 +1,4 @@
-﻿within Buildings.Examples.Tutorial.SimpleHouse;
+within Buildings.Examples.Tutorial.SimpleHouse;
 model SimpleHouse4 "Heating model"
   extends SimpleHouse3;
 

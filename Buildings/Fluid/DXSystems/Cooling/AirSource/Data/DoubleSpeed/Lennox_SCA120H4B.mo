@@ -1,7 +1,7 @@
 within Buildings.Fluid.DXSystems.Cooling.AirSource.Data.DoubleSpeed;
 record Lennox_SCA120H4B =
-  Buildings.Fluid.DXSystems.Cooling.AirSource.Data.DoubleSpeed.Generic (
-                                                                  sta = {
+  Buildings.Fluid.DXSystems.Cooling.AirSource.Data.DoubleSpeed.Generic
+    (                                                             sta = {
    Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.Stage(
                                                                          spe = 1200,
    nomVal = Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.NominalValues(

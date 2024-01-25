@@ -1,4 +1,4 @@
-﻿within Buildings.Experimental.DHC.BaseClasses.Steam;
+within Buildings.Experimental.DHC.BaseClasses.Steam;
 partial model PartialTwoPortTwoMedium
   "Partial model with two ports with two separate medium models without storing mass or energy"
 

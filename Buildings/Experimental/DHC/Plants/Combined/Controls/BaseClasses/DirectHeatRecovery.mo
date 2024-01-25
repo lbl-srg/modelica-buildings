@@ -1,4 +1,4 @@
-﻿within Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses;
+within Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses;
 block DirectHeatRecovery
   "Block controlling HRC in direct heat recovery mode"
 
@@ -102,11 +102,13 @@ block DirectHeatRecovery
   Buildings.Controls.OBC.CDL.Reals.MultiMin min1(nin=nChiHea)
     "Minimum evaporator flow setpoint"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant xFlo1    [nChiHea, 2](final k=
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant xFlo1
+                                                             [nChiHea, 2](final k=
         fill({0.33,0.67}, nChiHea))
     "x-value for flow reset"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yFlo1    [nChiHea, 2](final k=
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yFlo1
+                                                             [nChiHea, 2](final k=
         fill(1.2 .* {mChiWatChiHea_flow_nominal,mChiWatChiHea_flow_min}, nChiHea))
     "y-value for flow reset"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
@@ -117,7 +119,8 @@ block DirectHeatRecovery
   Buildings.Controls.OBC.CDL.Reals.Line chiHeaConTemRes[nChiHea]
     "HRC condenser entering temperature reset"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant xFlo2    [nChiHea, 2](final k=
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant xFlo2
+                                                             [nChiHea, 2](final k=
         fill({0.67,1.0}, nChiHea))
     "x-value for flow reset"
     annotation (Placement(transformation(extent={{0,-70},{20,-50}})));

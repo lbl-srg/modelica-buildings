@@ -1,4 +1,4 @@
-﻿within Buildings.Fluid.DXSystems.Cooling.BaseClasses;
+within Buildings.Fluid.DXSystems.Cooling.BaseClasses;
 block CapacityWaterCooled
   "Calculates cooling capacity at given temperature and flow fraction for water source DX coils"
   extends

@@ -1,6 +1,5 @@
 within Buildings.Fluid.DXSystems;
 package Heating "Package with DX heating coil models"
-
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains air-source DX heating coil models.
@@ -51,4 +50,5 @@ This package contains air-source DX heating coil models.
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid)}));
+
 end Heating;

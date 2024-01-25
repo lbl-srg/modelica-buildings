@@ -1,7 +1,7 @@
 within Buildings.Fluid.DXSystems.Cooling.AirSource.Data.SingleSpeed;
 record Carrier_Comfort_50ES060 =
-  Buildings.Fluid.DXSystems.Cooling.AirSource.Data.SingleSpeed.Generic (
-                                                                  sta = {
+  Buildings.Fluid.DXSystems.Cooling.AirSource.Data.SingleSpeed.Generic
+    (                                                             sta = {
    Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.Stage(
                                                                          spe=1800,
    nomVal = Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.NominalValues(

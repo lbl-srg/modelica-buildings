@@ -1,4 +1,4 @@
-﻿within Buildings.Occupants.BaseClasses;
+within Buildings.Occupants.BaseClasses;
 function exponentialVariableGeneration "Random variable generator from the exponential distribution"
   extends Modelica.Icons.Function;
     input Real mu  "Mean exponential distribution";

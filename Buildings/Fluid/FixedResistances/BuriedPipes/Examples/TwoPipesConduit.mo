@@ -1,4 +1,4 @@
-﻿within Buildings.Fluid.FixedResistances.BuriedPipes.Examples;
+within Buildings.Fluid.FixedResistances.BuriedPipes.Examples;
 model TwoPipesConduit
   "Example model of a buried conduit housing a supply and return pipe"
   extends Modelica.Icons.Example;

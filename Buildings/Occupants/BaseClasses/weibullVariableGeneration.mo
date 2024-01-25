@@ -1,4 +1,4 @@
-﻿within Buildings.Occupants.BaseClasses;
+within Buildings.Occupants.BaseClasses;
 function weibullVariableGeneration "Random variable generator from the Weibull distribution"
   extends Modelica.Icons.Function;
 
