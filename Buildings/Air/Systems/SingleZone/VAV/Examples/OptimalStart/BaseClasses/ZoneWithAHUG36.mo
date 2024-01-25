@@ -48,14 +48,18 @@ block ZoneWithAHUG36
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Controller con(
     eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1,
     venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1,
+
     VAreBreZon_flow=0.4989,
     VPopBreZon_flow=0.2075,
     ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb,
+
     ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_6B,
+
     freSta=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat,
     have_winSen=false,
     have_CO2Sen=false,
     buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.BarometricRelief,
+
     have_locAdj=false,
     TSupDew_max=297.15,
     maxHeaSpe=0.2,
@@ -73,7 +77,6 @@ block ZoneWithAHUG36
     uLow=0,
     uHigh=0.5) "VAV controller"
     annotation (Placement(transformation(extent={{-80,-90},{-40,-10}})));
-
   Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloor sinZonFlo(
     redeclare package Medium = MediumA)
     "Single zone floor"

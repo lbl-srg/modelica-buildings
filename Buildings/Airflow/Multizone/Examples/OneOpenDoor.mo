@@ -31,8 +31,7 @@ model OneOpenDoor "Model with one open and one closed door"
   Modelica.Blocks.Math.Gain gai(k=100)
     "Gain for heat flow rate boundary condition"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
-  Buildings.Airflow.Multizone.DoorDiscretizedOperable dooOpeClo(redeclare
-      package
+  Buildings.Airflow.Multizone.DoorDiscretizedOperable dooOpeClo(redeclare package
       Medium = Medium, LClo=20*1E-4) "Discretized door"
     annotation (Placement(transformation(extent={{10,-44},{30,-24}})));
   Modelica.Blocks.Sources.Ramp ramp(
