@@ -257,7 +257,7 @@ equation
         + String(firstYear+size(timeStampsNewYear,1)));
 
     // update the month when passing the last day of the current month
-    if unixTimeStampLocal - ( pre(epochLastMonth) + (if pre(month)==2 and isLeapYear[yearIndex] then 1 + dayInMonth[pre(month)] else dayInMonth[pre(month)])*3600*24)  > -eps_time then
+    if unixTimeStampLocal - ( pre(epochLastMonth) + (if pre(month)==2 and isLeapYear[yearIndex] then 1 + dayInMonth[pre(month)] else dayInMonth[pre(month)])*3600*24 ) > -eps_time then
       month = if pre(month) == 12 then 1 else pre(month) + 1;
       // Use floor(0.1 + ...) to avoid floating point errors when accumulating epochLastMonth.
       epochLastMonth = floor(0.1 + pre(epochLastMonth) +

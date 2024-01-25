@@ -1,5 +1,5 @@
 within Buildings.ThermalZones.ISO13790.Data;
-record Light = ISO13790.Data.Generic (
+record Light = ISO13790.Data.Generic(
     heaC=110000,
     facMas=2.5) "Light"
      annotation (

@@ -22,14 +22,14 @@ model Temperature_u
                d=1000,
                k=1,
                x=0.2) "Phase change material with non-monotone u-T relation";
-  parameter Modelica.Units.SI.SpecificInternalEnergy ud[Buildings.HeatTransfer.Conduction.nSupPCM](
-     each fixed=false) "Support points";
-  parameter Modelica.Units.SI.SpecificInternalEnergy udMonotone[Buildings.HeatTransfer.Conduction.nSupPCM](
-     each fixed=false) "Support points";
-  parameter Modelica.Units.SI.Temperature Td[Buildings.HeatTransfer.Conduction.nSupPCM](
-     each fixed=false) "Support points";
-  parameter Modelica.Units.SI.Temperature TdMonotone[Buildings.HeatTransfer.Conduction.nSupPCM](
-     each fixed=false) "Support points";
+  parameter Modelica.Units.SI.SpecificInternalEnergy ud[Buildings.HeatTransfer.Conduction.nSupPCM]
+    (each fixed=false) "Support points";
+  parameter Modelica.Units.SI.SpecificInternalEnergy udMonotone[Buildings.HeatTransfer.Conduction.nSupPCM]
+    (each fixed=false) "Support points";
+  parameter Modelica.Units.SI.Temperature Td[Buildings.HeatTransfer.Conduction.nSupPCM]
+    (each fixed=false) "Support points";
+  parameter Modelica.Units.SI.Temperature TdMonotone[Buildings.HeatTransfer.Conduction.nSupPCM]
+    (each fixed=false) "Support points";
   parameter Real dT_du[Buildings.HeatTransfer.Conduction.nSupPCM](each fixed=false, each unit="kg.K2/J")
     "Derivatives at the support points - non-monotone, default in Modelica PCM";
   parameter Real dT_duMonotone[Buildings.HeatTransfer.Conduction.nSupPCM](each fixed=false, each unit="kg.K2/J")
