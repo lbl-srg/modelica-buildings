@@ -15,11 +15,15 @@ model Cycle
     final vol1(
       final prescribedHeatFlowRate=true));
 
-  Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.InterpolateStates intSta(
+  Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.ComputeCycle intSta(
     final pro=pro,
-    etaExp=0.7,
-    TEva=TEvaWor,
-    TCon=TConWor) "Interpolate working fluid states"
+    final mWor_flow_nominal=mWor_flow_nominal,
+    final TEvaWor=TEvaWor,
+    final dTEvaPin_set=dTEvaPin_set,
+    final dTConPin_set=dTConPin_set,
+    final cpEva=Medium1.specificHeatCapacityCp(sta1_nominal),
+    final cpCon=Medium2.specificHeatCapacityCp(sta2_nominal),
+    etaExp=0.7) "Interpolate working fluid states"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   replaceable parameter Buildings.Fluid.CHPs.OrganicRankine.Data.Generic pro
@@ -36,6 +40,9 @@ model Cycle
     final min = 0) = 5
     "Set evaporator pinch point temperature differential"
     annotation(Dialog(group="Evaporator"));
+  parameter Modelica.Units.SI.ThermodynamicTemperature TEvaWor
+    "Evaporating temperature of the working fluid"
+    annotation(Dialog(group="Evaporator"));
   parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal
     "Nominal mass flow rate of the condenser fluid"
     annotation(Dialog(group="Condenser"));
@@ -43,122 +50,59 @@ model Cycle
     "Nominal pressure drop of the condenser"
     annotation(Dialog(group="Condenser"));
   parameter Modelica.Units.SI.TemperatureDifference dTConPin_set(
-    final min = 0) = 5
+    final min = 0) = 10
     "Set condenser pinch point temperature differential"
     annotation(Dialog(group="Condenser"));
-  parameter Modelica.Units.SI.MassFlowRate mWor_flow_nominal = m1_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mWor_flow_nominal(
+    final min=0)= m1_flow_nominal
     "Nominal working fluid flow rate";
 
-  Modelica.Units.SI.MassFlowRate mWor_flow = gai.y
-    "Mass flow rate of the working fluid";
-  Modelica.Blocks.Sources.RealExpression expQEva_flow(
-    y=-QEva_flow_internal)
-    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Modelica.Blocks.Sources.RealExpression expQCon_flow(
-    y=QCon_flow_internal)
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-
-  parameter Modelica.Units.SI.ThermodynamicTemperature TEvaWor
-    "Working fluid evaporator temperature"
-    annotation(Dialog(group="Evaporator"));
-  Modelica.Units.SI.ThermodynamicTemperature TConWor(
-    start=T2_start)
-    "Working fluid condenser temperature";
-
-  Modelica.Units.SI.ThermodynamicTemperature TEvaPin(
-    start=T1_start)
-    "Pinch point temperature of evaporator";
-  Modelica.Units.SI.TemperatureDifference dTEvaPin
-    "Pinch point temperature differential of evaporator";
-  Modelica.Units.SI.ThermodynamicTemperature TConPin(
-    start=T2_start)
-    "Pinch point temperature of condenser";
-  Modelica.Units.SI.TemperatureDifference dTConPin = dTConPin_set
-    "Pinch point temperature differential of condenser";
-
   // Evaporator
-  IBPSA.Controls.Continuous.LimPID conPI(
-    Td=1,
-    k=5,
-    Ti=15,
-    reverseActing=false)
-           annotation (Placement(transformation(extent={{50,20},{70,40}})));
-  Modelica.Blocks.Sources.RealExpression u_s(y=dTEvaPin_set)
-    annotation (Placement(transformation(extent={{20,20},{40,40}})));
-  Modelica.Blocks.Sources.RealExpression u_m(y=dTEvaPin)
-    annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  Controls.OBC.CDL.Reals.MultiplyByParameter           gai(final k=
-        mWor_flow_nominal)
-    "Heat transfer to the water control volume"
-    annotation (Placement(transformation(extent={{80,20},{100,40}})));
+  Modelica.Blocks.Sources.RealExpression expTEvaIn(y=Medium1.temperature(
+        state=Medium1.setState_phX(
+          p=port_a1.p,
+          h=inStream(port_a1.h_outflow),
+          X=inStream(port_a1.Xi_outflow))))
+    "Expression for evaporator hot fluid incoming temperature"
+    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
+  Modelica.Blocks.Sources.RealExpression expMEva_flow(y=m1_flow)
+    "Expression for evaporator hot fluid flow rate"
+    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
+  Modelica.Blocks.Sources.RealExpression expTConIn(y=Medium2.temperature(
+        state=Medium2.setState_phX(
+          p=port_a2.p,
+          h=inStream(port_a2.h_outflow),
+          X=inStream(port_a2.Xi_outflow))))
+    "Expression for condenser cold fluid incoming temperature"
+    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
+  Modelica.Blocks.Sources.RealExpression expMCon_flow1(y=m2_flow)
+    "Expression for condenser cold fluid flow rate"
+    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
+
 protected
-  parameter Modelica.Units.SI.SpecificHeatCapacity cpEva_default =
-    Medium1.specificHeatCapacityCp(sta1_nominal)
-    "Constant specific heat capacity";
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloEva
     "Prescribed heat flow rate"
-    annotation (Placement(transformation(extent={{-39,20},{-19,40}})));
-  Modelica.Units.SI.ThermodynamicTemperature TEvaIn=
-    Medium1.temperature(state=Medium1.setState_phX(
-      p=port_a1.p, h=inStream(port_a1.h_outflow), X=inStream(port_a1.Xi_outflow)))
-    "Fluid temperature into the evaporator";
-  Modelica.Units.SI.ThermodynamicTemperature TEvaOut_internal
-    "Fluid temperature out of the evaporator, intermediate variable";
-  Modelica.Units.SI.HeatFlowRate QEva_flow_internal
-    "Evaporator heat flow rate, intermediate variable";
-
-  // Condenser
-  parameter Modelica.Units.SI.SpecificHeatCapacity cpCon_default =
-    Medium2.specificHeatCapacityCp(sta2_nominal)
-    "Constant specific heat capacity";
+    annotation (Placement(transformation(extent={{39,30},{19,50}})));
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloCon
     "Prescribed heat flow rate"
-    annotation (Placement(transformation(extent={{-39,-40},{-19,-20}})));
-  Modelica.Units.SI.ThermodynamicTemperature TConIn =
-    Medium2.temperature(state=Medium2.setState_phX(
-      p=port_a2.p, h=inStream(port_a2.h_outflow), X=inStream(port_a2.Xi_outflow)))
-    "Fluid temperature into the condenser";
-  Modelica.Units.SI.ThermodynamicTemperature TConOut_internal
-    "Fluid temperature out of the condenser, intermediate variable";
-  Modelica.Units.SI.HeatFlowRate QCon_flow_internal
-    "Condenser heat flow rate, intermediate variable";
-
-  // Expander
-  Modelica.Units.SI.Power PEle_internal =
-    QEva_flow_internal - QCon_flow_internal
-    "Electric power output, intermediate variable";
-
+    annotation (Placement(transformation(extent={{41,-70},{21,-50}})));
 equation
-  // Evaporator
-  QEva_flow_internal = m1_flow * cpEva_default * (TEvaIn - TEvaOut_internal);
-  QEva_flow_internal =mWor_flow*(intSta.hExpInl - intSta.hPum);
-  // Pinch point
-  (TEvaPin - TEvaOut_internal) * (intSta.hExpInl - intSta.hPum)
-  = (intSta.hEvaPin - intSta.hPum) * (TEvaIn - TEvaOut_internal);
-  dTEvaPin = TEvaPin - TEvaWor;
-
-  // Condenser
-  QCon_flow_internal = m2_flow * cpCon_default * (TConOut_internal - TConIn);
-  QCon_flow_internal =mWor_flow*(intSta.hExpOut - intSta.hPum);
-  // Pinch point
-  (TConPin - TConIn) * (intSta.hExpOut - intSta.hPum)
-  =(intSta.hConPin - intSta.hPum) * (TConOut_internal - TConIn);
-  dTConPin = TConWor - TConPin;
-
-  connect(preHeaFloEva.port, vol1.heatPort) annotation (Line(points={{-19,30},{-16,
-          30},{-16,60},{-10,60}}, color={191,0,0}));
-  connect(expQEva_flow.y, preHeaFloEva.Q_flow)
-    annotation (Line(points={{-59,30},{-39,30}}, color={0,0,127}));
-  connect(expQCon_flow.y, preHeaFloCon.Q_flow)
-    annotation (Line(points={{-59,-30},{-39,-30}}, color={0,0,127}));
-  connect(preHeaFloCon.port, vol2.heatPort) annotation (Line(points={{-19,-30},{
-          18,-30},{18,-60},{12,-60}}, color={191,0,0}));
-  connect(u_s.y, conPI.u_s)
-    annotation (Line(points={{41,30},{48,30}}, color={0,0,127}));
-  connect(u_m.y, conPI.u_m)
-    annotation (Line(points={{41,-10},{60,-10},{60,18}}, color={0,0,127}));
-  connect(gai.u, conPI.y)
-    annotation (Line(points={{78,30},{71,30}}, color={0,0,127}));
+  connect(preHeaFloEva.port, vol1.heatPort) annotation (Line(points={{19,40},{-16,
+          40},{-16,60},{-10,60}}, color={191,0,0}));
+  connect(preHeaFloCon.port, vol2.heatPort) annotation (Line(points={{21,-60},{12,
+          -60}},                      color={191,0,0}));
+  connect(intSta.QCon_flow, preHeaFloCon.Q_flow) annotation (Line(points={{12,-6},
+          {50,-6},{50,-60},{41,-60}}, color={0,0,127}));
+  connect(expTEvaIn.y, intSta.TEvaIn) annotation (Line(points={{-39,30},{-20,30},
+          {-20,8},{-12,8}}, color={0,0,127}));
+  connect(expMEva_flow.y, intSta.mEva_flow) annotation (Line(points={{-39,10},{-30,
+          10},{-30,4},{-12,4}}, color={0,0,127}));
+  connect(expTConIn.y, intSta.TConIn) annotation (Line(points={{-39,-10},{-30,-10},
+          {-30,-4},{-12,-4}}, color={0,0,127}));
+  connect(expMCon_flow1.y, intSta.mCon_flow) annotation (Line(points={{-39,-30},
+          {-20,-30},{-20,-8},{-12,-8}}, color={0,0,127}));
+  connect(intSta.QEva_flow, preHeaFloEva.Q_flow)
+    annotation (Line(points={{12,6},{50,6},{50,40},{39,40}}, color={0,0,127}));
   annotation (defaultComponentName = "ORC",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Line(
