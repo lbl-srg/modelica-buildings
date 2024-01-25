@@ -60,6 +60,9 @@ block WSEOperation
     annotation (Placement(transformation(extent={{240,140},{280,180}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
+  Buildings.Controls.OBC.CDL.Logical.Latch fanCycOff "Cycle off fan"
+    annotation (Placement(transformation(extent={{100,150},{120,170}})));
+
 protected
   Buildings.Controls.OBC.CDL.Logical.And and2
     "Check if the fan is at minimum speed and the chiller water supply temperature is lower than the setpoint"
@@ -87,8 +90,6 @@ protected
     annotation (Placement(transformation(extent={{-100,150},{-80,170}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{-60,150},{-40,170}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch fanCycOff "Cycle off fan"
-    annotation (Placement(transformation(extent={{100,150},{120,170}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{200,150},{220,170}})));
   Buildings.Controls.OBC.CDL.Reals.Hysteresis hys3(

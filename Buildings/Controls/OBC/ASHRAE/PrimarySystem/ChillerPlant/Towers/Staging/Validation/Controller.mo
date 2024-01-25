@@ -9,81 +9,69 @@ model Controller "Validation sequence of tower cell controller"
     final staVec={0,0.5,1,1.5,2},
     final towCelOnSet={0,1,1,2,2})
     "Cooling tower staging control, specifies total number of cells and the staging process"
-    annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
+    annotation (Placement(transformation(extent={{40,-20},{60,0}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre1[2] "Actual cells status"
-    annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
+    annotation (Placement(transformation(extent={{80,-24},{100,-4}})));
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol[2](
     final samplePeriod=fill(2, 2))     "Actual isolation valve positions"
-    annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
+    annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse wseSta(
     final width=0.15,
     final period=3600,
     final shift=300) "Water side economizer status"
-    annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
+    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp chiStaGen(
     final height=1.2,
     final duration=3600,
     final offset=1) "Generate chiller stage"
-    annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
+    annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger chiStaSet
     "Chiller stage setpoint"
-    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
+    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul2(
     final width=0.75,
     final period=3600) "Boolean pulse"
-    annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
+    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
   Buildings.Controls.OBC.CDL.Logical.Not StaTow "Stage tower cells"
-    annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conWatPumSpe[2](
     final k=fill(0.5, 2)) "Condenser water pump speed"
-    annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
+    annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(
     final k=false)
     "Constant false"
-    annotation (Placement(transformation(extent={{-120,120},{-100,140}})));
+    annotation (Placement(transformation(extent={{-120,110},{-100,130}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant chiStaSet2(
     final k=1)
     "Chiller stage setpoint"
-    annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Pulse pul1(
-    final width=0.001,
-    final period=3600)
-    "Block that generates pulse signal of type Integer at simulation start time and has infinite number of periods"
-    annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Integers.Subtract intSub
-    "Chiller stage setpoint"
-    annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
+    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 equation
   connect(pre1.y, towSta.uTowSta)
-    annotation (Line(points={{102,-50},{120,-50},{120,-10},{-14,-10},{-14,-39},{
-          38,-39}}, color={255,0,255}));
+    annotation (Line(points={{102,-14},{120,-14},{120,10},{-14,10},{-14,-19},{38,
+          -19}},    color={255,0,255}));
   connect(towSta.yIsoVal, zerOrdHol.u)
-    annotation (Line(points={{62,-30},{72,-30},{72,-90},{78,-90}}, color={0,0,127}));
+    annotation (Line(points={{62,-10},{70,-10},{70,-70},{78,-70}}, color={0,0,127}));
   connect(zerOrdHol.y, towSta.uIsoVal)
-    annotation (Line(points={{102,-90},{120,-90},{120,-110},{-20,-110},{-20,-37},
-          {38,-37}}, color={0,0,127}));
+    annotation (Line(points={{102,-70},{120,-70},{120,-90},{-20,-90},{-20,-17},{
+          38,-17}},  color={0,0,127}));
   connect(chiStaGen.y,chiStaSet. u)
-    annotation (Line(points={{-98,20},{-82,20}}, color={0,0,127}));
+    annotation (Line(points={{-98,40},{-82,40}}, color={0,0,127}));
   connect(booPul2.y,StaTow. u)
-    annotation (Line(points={{-98,-20},{-82,-20}}, color={255,0,255}));
-  connect(chiStaSet.y, towSta.uChiStaSet) annotation (Line(points={{-58,20},{24,
-          20},{24,-23},{38,-23}}, color={255,127,0}));
-  connect(StaTow.y, towSta.uTowStaCha) annotation (Line(points={{-58,-20},{-40,-20},
-          {-40,-25},{38,-25}}, color={255,0,255}));
-  connect(wseSta.y, towSta.uWse) annotation (Line(points={{-58,-60},{-34,-60},{-34,
-          -27},{38,-27}}, color={255,0,255}));
-  connect(conWatPumSpe.y, towSta.uConWatPumSpe) annotation (Line(points={{-58,-120},
-          {-26,-120},{-26,-33},{38,-33}}, color={0,0,127}));
-  connect(towSta.yTowSta, pre1.u) annotation (Line(points={{62,-34},{68,-34},{68,
-          -50},{78,-50}}, color={255,0,255}));
-  connect(con1.y, towSta.uEnaPla) annotation (Line(points={{-98,130},{0,130},{0,
-          -29},{38,-29}}, color={255,0,255}));
-  connect(pul1.y, intSub.u2) annotation (Line(points={{-98,60},{-48,60},{-48,74},
-          {-42,74}}, color={255,127,0}));
-  connect(chiStaSet2.y, intSub.u1) annotation (Line(points={{-58,100},{-52,100},
-          {-52,86},{-42,86}}, color={255,127,0}));
-  connect(intSub.y, towSta.uChiSta) annotation (Line(points={{-18,80},{20,80},{20,
-          -21},{38,-21}}, color={255,127,0}));
+    annotation (Line(points={{-98,0},{-82,0}}, color={255,0,255}));
+  connect(chiStaSet.y, towSta.uChiStaSet) annotation (Line(points={{-58,40},{20,
+          40},{20,-3},{38,-3}},   color={255,127,0}));
+  connect(StaTow.y, towSta.uTowStaCha) annotation (Line(points={{-58,0},{-40,0},
+          {-40,-5},{38,-5}}, color={255,0,255}));
+  connect(wseSta.y, towSta.uWse) annotation (Line(points={{-58,-40},{-34,-40},{-34,
+          -7},{38,-7}},   color={255,0,255}));
+  connect(conWatPumSpe.y, towSta.uConWatPumSpe) annotation (Line(points={{-58,-100},
+          {-26,-100},{-26,-13},{38,-13}}, color={0,0,127}));
+  connect(towSta.yTowSta, pre1.u) annotation (Line(points={{62,-14},{78,-14}},
+          color={255,0,255}));
+  connect(con1.y, towSta.uEnaPla) annotation (Line(points={{-98,120},{0,120},{0,
+          -9},{38,-9}},   color={255,0,255}));
+  connect(chiStaSet2.y, towSta.uChiSta) annotation (Line(points={{-58,80},{30,80},
+          {30,-1},{38,-1}}, color={255,127,0}));
 annotation (experiment(
       StopTime=3600,
       Tolerance=1e-06),
@@ -94,7 +82,50 @@ annotation (experiment(
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.Staging.Controller\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.Staging.Controller</a>.
+It shows the process of staging tower cells when there is chiller stage
+setpoint change and the enabling-disabling waterside economizer.
 </p>
+<ul>
+<li>
+At begining, the current chiller stage is 1 and it starts to staging up tower cell 1.
+During the begining stage, according to the vector <code>staVec</code> current plant
+stage is 1 (the 3rd element of vector <code>staVec</code>). Thus according to the
+vector <code>towCelOnSet</code>,
+the total number of cell is 1. It takes 90 seconds to fully open the isolation
+valve 1 (<code>yIsoVal[1]=1</code>) and then the cell 1 becomes enabled
+(<code>uTowSta[1]=true</code>) at 90 seconds.
+</li>
+<li>
+At 300 seconds, the waterside economizer is enabled. Thus the current plant stage
+is 1.5 (the 4th element of vector <code>staVec</code>). Thus according to the
+vector <code>towCelOnSet</code>, the total number of cell is 2. It takes 90
+seconds to fully open the isolation valve 2 (<code>yIsoVal[2]=1</code>) and
+then the cell 2 becomes enabled (<code>uTowSta[2]=true</code>) at 390 seconds.
+</li>
+<li>
+At 840 seconds, the waterside economizer becomes disabled. Thus the current
+plant stage changes to 1 (the 3rd element of vector <code>staVec</code>).
+Thus according to the vector <code>towCelOnSet</code>, the total number of
+cell is 1. The isolation valve 2 becomes closed (<code>yIsoVal[2]=0</code>)
+and the cell 2 becomes disabled (<code>uTowSta[2]=false</code>) at 840
+seconds.
+</li>
+<li>
+At 1500 seconds, the chiller stage setpoint changes to 2 and the current stage
+is still 1. Therefore the chiller plant begins staging up. However, the plant
+staging up process has not yet been into the step of staging up the tower
+(<code>uTowStaCha=false</code>). Thus there is no change to the tower cells
+and their valves.
+</li>
+<li>
+At 2700 seconds, it is still in the plant staging up process and it now requires
+staging up tower cells. The plant stage is 2 (the 5th element of vector
+<code>staVec</code>). Thus according to the vector <code>towCelOnSet</code>,
+the total number of cell is 2. It takes 90 seconds to fully open the isolation
+valve 2 (<code>yIsoVal[2]=1</code>) and then the cell 2 becomes enabled
+(<code>uTowSta[2]=true</code>) at 2790 seconds.
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>

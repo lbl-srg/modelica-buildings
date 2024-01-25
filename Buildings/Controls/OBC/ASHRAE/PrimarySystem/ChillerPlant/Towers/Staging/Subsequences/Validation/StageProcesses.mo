@@ -32,8 +32,8 @@ model StageProcesses
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre[4] "Tower cell actual status"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol1[4](
-    final samplePeriod=fill(10, 4)) "Isolation valve actual position"
+  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol1[4](final
+      samplePeriod=fill(10, 4))     "Isolation valve actual position"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre1[4](
     pre_u_start={false,true,true,false}) "Tower cell actual status"

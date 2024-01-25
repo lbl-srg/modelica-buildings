@@ -8,5 +8,9 @@ compareVars :=
     "enaTowCel.yChaCel[1]",
     "enaTowCel.yChaCel[2]",
     "enaTowCel.yChaCel[3]",
-    "enaTowCel.yChaCel[4]"
+    "enaTowCel.yChaCel[4]",
+    "enaTowCel.yTowSta[1]",
+    "enaTowCel.yTowSta[2]",
+    "enaTowCel.yTowSta[3]",
+    "enaTowCel.yTowSta[4]"
   };
