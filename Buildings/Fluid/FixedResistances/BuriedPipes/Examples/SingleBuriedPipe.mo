@@ -154,7 +154,7 @@ equation
   annotation (Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-140,-120},{140,120}})),
     experiment(
-      StopTime=31536000,
+      StopTime=63072000,
       Tolerance=1e-06),
     Documentation(info="<html>
 <p>
