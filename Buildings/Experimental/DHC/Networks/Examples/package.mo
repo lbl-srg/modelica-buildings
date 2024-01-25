@@ -4,8 +4,8 @@ package Examples "This package contains example models"
   annotation (Documentation(info="<html>
 <p>
 This package contains an example illustrating the use of the model in
-<a href=\"modelica://Buildings.Experimental.DHC.Loads.Combined\">
-Buildings.Experimental.DHC.Loads.Combined</a>.
+<a href=\"modelica://Buildings.Experimental.DHC.Networks\">
+Buildings.Experimental.DHC.Networks</a>.
 </p>
 </html>"));
 end Examples;

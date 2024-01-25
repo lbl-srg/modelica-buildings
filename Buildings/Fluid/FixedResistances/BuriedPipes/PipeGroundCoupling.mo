@@ -168,14 +168,10 @@ below:
 <p>
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/FixedResistances/BuriedPipes/PipeGroundCoupling.png\" style = \"max-width:50%;\" />
 </p>
-
 <h4>References</h4>
 <p>
- 
-Ettore Zanetti, David Blum, Michael Wetter <a href=\"https://www.conftool.com/modelica2023/index.php/Zanetti-Control_development_and_sizing_analysis_for_a_5th_generation_district_heating_and_cooling_network_a.pdf?page=downloadPaper&filename=Zanetti-Control_development_and_sizing_analysis_for_a_5th_generation_district_heating_and_cooling_network_a.pdf&form_id=183&form_version=final\">
-Control development and sizing analysis for a 5th generation district heating and cooling network using Modelica</a>, 2023 International Modelica conference proceedings.
-
+Ettore Zanetti, David Blum, Michael Wetter <a href=\"https://www.conftool.com/modelica2023/index.php?page=browseSessions\">
+Control development and sizing analysis for a 5th generation district heating and cooling network using Modelica</a>, 2023 International Modelica conference proceedings, Session 1-A: Large-scale system modelling 1.
 </p>
-
 </html>"));
 end PipeGroundCoupling;

@@ -1,2 +1,2 @@
 simulateModel("Buildings.Fluid.FixedResistances.BuriedPipes.Examples.PipeGroundCoupling", stopTime=3600, tolerance=1e-06, resultFile="PipeGroundCoupling");
-plot({"senTemIn.T","senTemOut.T","senTemInNoGro.T"}, colors={{28,108,200},{238,46,47},{0,140,72}});
+createPlot(id=1, position={15, 15, 592, 371}, y={"senTemIn.T", "senTemOut.T", "senTemInNoGro.T"}, range={0.0, 4000.0, 4.0, 18.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}}, timeUnit="s", displayUnits={"degC", "degC", "degC"});

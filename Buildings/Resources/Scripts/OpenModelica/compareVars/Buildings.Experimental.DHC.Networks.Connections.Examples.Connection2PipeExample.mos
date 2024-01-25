@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "pumDisAutoSize.m_flow_actual",
+    "pumDisPlugFlow.m_flow_actual",
+    "pumConAutoSize.m_flow_actual",
+    "pumConPlugFlow.m_flow_actual",
+    "senMasFloDisAutosize.m_flow",
+    "senMasFloDisPlugFlow.m_flow",
+    "pumDisAutoSize.port_a.p",
+    "pumDisAutoSize.port_b.p",
+    "pumDisPlugFlow.port_a.p",
+    "pumDisPlugFlow.port_b.p"
+  };

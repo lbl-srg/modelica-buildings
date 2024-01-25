@@ -32,7 +32,7 @@ equation
                               color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Networks/Controls/Examples/MainPumpExample.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Networks/Controls/Examples/MainPump1PipeExample.mos"
   "Simulate and plot"),
     experiment(StopTime=3600, __Dymola_Algorithm="Dassl",Tolerance=1e-06),
     Documentation(revisions="<html>

@@ -230,7 +230,7 @@ the nominal value of the agent heat exchanger pinch point temperature difference
 </p>
 <h4>References</h4>
 <p>
-Ettore Zanetti, David Blum, Michael Wetter <a href=\"https://www.conftool.com/modelica2023/index.php/Zanetti-Control_development_and_sizing_analysis_for_a_5th_generation_district_heating_and_cooling_network_a.pdf?page=downloadPaper&filename=Zanetti-Control_development_and_sizing_analysis_for_a_5th_generation_district_heating_and_cooling_network_a.pdf&form_id=183&form_version=final\">
+Ettore Zanetti, David Blum, Michael Wetter <a href=\"https://www.conftool.com/modelica2023/index.php?page=browseSessions\">
 Control development and sizing analysis for a 5th generation district heating and cooling network using Modelica</a>, 2023 International Modelica conference proceedings.
 </p>
 

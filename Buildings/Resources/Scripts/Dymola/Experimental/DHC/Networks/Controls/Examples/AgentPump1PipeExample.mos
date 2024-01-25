@@ -1,5 +1,5 @@
 // Simulate
-simulateModel("Buildings.Experimental.DHC.Networks.Controls.Examples.AgentPumpExample", stopTime=3600,method="Cvode", tolerance=1e-06, resultFile="AgentPumpExample");
+simulateModel("Buildings.Experimental.DHC.Networks.Controls.Examples.AgentPump1PipeExample", stopTime=3600,method="Cvode", tolerance=1e-06, resultFile="AgentPump1PipeExample");
 // Plot commands
 createPlot(id=1, position={55, 55, 1174, 550}, y={"AgentPump.TSouIn", "AgentPump.TSouOut", "AgentPump.TSou", "AgentPump.TsupDis", "AgentPump.TretDis"}, range={0.0, 3600.0, 6.0, 14.0}, autoscale=false, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}}, timeUnit="s", displayUnits={"degC", "degC", "degC", "degC", "degC"});
 createPlot(id=1, position={55, 55, 1174, 550}, y={"AgentPump.y"}, range={0.0, 3600.0, -0.1, 0.6000000000000001}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});

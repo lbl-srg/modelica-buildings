@@ -258,6 +258,8 @@ This model is an updated version of
 <a href=\"modelica://Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlow\">
 Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlow</a>.
 In particular the following have been updated:
+</p>
+<ul>
 <li>
 The sewage water temperature, mass flow rate and ground temperature are not constant and instead have a seasonal yearly profile.
 </li>
@@ -268,12 +270,16 @@ The distribution network pripes now use the plug-flow model to add transport del
 The borefield and sewagre heat exchanger circulation pumps are controlled by an agent specific controller <a href=\"modelica://Buildings.Experimental.DHC.Networks.Controls.AgentPump1Pipe\">
 Buildings.Experimental.DHC.Networks.Controls.AgentPump1Pipe</a>.
 </li>
+</ul>
+
+
 <h4>References</h4>
+
 <p>
-Ettore Zanetti, David Blum, Michael Wetter <a href=\"https://www.conftool.com/modelica2023/index.php/Zanetti-Control_development_and_sizing_analysis_for_a_5th_generation_district_heating_and_cooling_network_a.pdf?page=downloadPaper&filename=Zanetti-Control_development_and_sizing_analysis_for_a_5th_generation_district_heating_and_cooling_network_a.pdf&form_id=183&form_version=final\">
+Ettore Zanetti, David Blum, Michael Wetter <a href=\"https://www.conftool.com/modelica2023/index.php?page=browseSessions\">
 Control development and sizing analysis for a 5th generation district heating and cooling network using Modelica</a>, 2023 International Modelica conference proceedings.
 </p>
-</p>
+
 </html>"),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end SeriesVariableFlowAgentControl;
