@@ -90,6 +90,7 @@ model FlowDistributionPumpControl
     final iConDpSen=nLoa,
     final mDis_flow_nominal=m_flow_nominal,
     final mCon_flow_nominal=mCon_flow_nominal,
+    mEnd_flow_nominal=m_flow_nominal,
     lDis=fill(25, nLoa),
     lEnd=1)
     "Distribution network"
@@ -122,7 +123,6 @@ model FlowDistributionPumpControl
     have_pum=true,
     typCtr=Buildings.Experimental.DHC.Loads.BaseClasses.Types.PumpControlType.ConstantDp,
     dp_nominal=dp_nominal,
-    dpDis_nominal=dpDis_nominal,
     dpMin=dpSet,
     mUni_flow_nominal=mCon_flow_nominal,
     nPorts_a1=nLoa,
@@ -186,7 +186,6 @@ model FlowDistributionPumpControl
     have_pum=true,
     typCtr=Buildings.Experimental.DHC.Loads.BaseClasses.Types.PumpControlType.ConstantSpeed,
     dp_nominal=dp_nominal,
-    dpDis_nominal=dpDis_nominal,
     dpMin=dpSet,
     mUni_flow_nominal=mCon_flow_nominal,
     nPorts_a1=5,

@@ -119,9 +119,9 @@ model PartialHeatPump
     redeclare final package Medium = Medium2,
     final allowFlowReversal=allowFlowReversal2,
     m_flow_nominal=mEva_flow_nominal,
-    dp_nominal=dp2_nominal + 6000)
+    dp_nominal=dp2_nominal + 30000)
     "Heat pump evaporator water pump"
-    annotation (Placement(transformation(extent={{26,-70},{6,-50}})));
+    annotation (Placement(transformation(extent={{8,-88},{-12,-68}})));
 
   Modelica.Blocks.Math.Add addPPum "Electricity use for pumps"
     annotation (Placement(transformation(extent={{140,70},{160,90}})));
@@ -172,6 +172,10 @@ model PartialHeatPump
     annotation (
       Placement(transformation(extent={{-240,100},{-200,140}}),
         iconTransformation(extent={{-140,70},{-100,110}})));
+  Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Junction
+    junction(redeclare package Medium = Medium2, m_flow_nominal={
+        mEva_flow_nominal,-mEva_flow_nominal,mEva_flow_nominal})
+    annotation (Placement(transformation(extent={{-130,-90},{-150,-70}})));
 equation
   connect(heaPum.port_b1,pumCon. port_a) annotation (Line(points={{-60,-66},{
           -26,-66},{-26,-10}},
@@ -180,17 +184,13 @@ equation
           {22,-20},{22,40},{220,40}},
                 color={0,0,127}));
   connect(floEva.y, pumEva.m_flow_in)
-    annotation (Line(points={{-58,120},{16,120},{16,-48}},color={0,0,127}));
-  connect(valHeaPumEva.port_2, pumEva.port_a)
-    annotation (Line(points={{60,-60},{26,-60}}, color={0,127,255}));
+    annotation (Line(points={{-58,120},{-50,120},{-50,0},{-2,0},{-2,-66}},
+                                                          color={0,0,127}));
   connect(senTDisSup.T, dT_supRet.u1) annotation (Line(points={{110,-49},{110,
           -32},{34,-32},{34,-4},{78,-4}},
                                        color={0,0,127}));
   connect(valHeaPumEva.port_1, senTDisSup.port_b)
     annotation (Line(points={{80,-60},{100,-60}}, color={0,127,255}));
-  connect(pumEva.port_b, heaPum.port_a2) annotation (Line(points={{6,-60},{0,
-          -60},{0,-78},{-60,-78}},
-                                color={0,127,255}));
   connect(conPI.u_s, dTSet.y)
     annotation (Line(points={{118,20},{102,20}},
                                                color={0,0,127}));
@@ -207,17 +207,23 @@ equation
     annotation (Line(points={{150,-49},{150,-40},{220,-40}}, color={0,0,127}));
   connect(pumCon.P, addPPum.u1) annotation (Line(points={{-17,11},{-16,11},{-16,
           86},{138,86}}, color={0,0,127}));
-  connect(addPPum.u2, pumEva.P) annotation (Line(points={{138,74},{0,74},{0,-51},
-          {5,-51}},       color={0,0,127}));
+  connect(addPPum.u2, pumEva.P) annotation (Line(points={{138,74},{-180,74},{
+          -180,-44},{-13,-44},{-13,-69}},
+                          color={0,0,127}));
   connect(heaPum.port_b2, senTEvaRet.port_a) annotation (Line(points={{-80,-78},
           {-90,-78},{-90,-80},{-100,-80}}, color={0,127,255}));
-  connect(senTEvaRet.port_b, port_b2) annotation (Line(points={{-120,-80},{-160,
-          -80},{-160,-60},{-200,-60}}, color={0,127,255}));
-  connect(senTEvaRet.port_b, valHeaPumEva.port_3) annotation (Line(points={{-120,
-          -80},{-160,-80},{-160,-120},{70,-120},{70,-70}},      color={0,127,
-          255}));
   connect(senTEvaRet.T, dT_supRet.u2) annotation (Line(points={{-110,-69},{-110,
           -16},{78,-16}}, color={0,0,127}));
+  connect(heaPum.port_a2, pumEva.port_b)
+    annotation (Line(points={{-60,-78},{-12,-78}}, color={0,127,255}));
+  connect(junction.port_2, port_b2) annotation (Line(points={{-150,-80},{-180,
+          -80},{-180,-60},{-200,-60}}, color={0,127,255}));
+  connect(junction.port_1, senTEvaRet.port_b)
+    annotation (Line(points={{-130,-80},{-120,-80}}, color={0,127,255}));
+  connect(valHeaPumEva.port_2, pumEva.port_a) annotation (Line(points={{60,-60},
+          {40,-60},{40,-78},{8,-78}}, color={0,127,255}));
+  connect(junction.port_3, valHeaPumEva.port_3) annotation (Line(points={{-140,
+          -90},{-140,-100},{70,-100},{70,-70}}, color={0,127,255}));
   annotation (
   defaultComponentName="heaPum",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
