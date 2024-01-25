@@ -243,8 +243,7 @@ equation
   "Simulate and plot"),
   experiment(
       StopTime=604800,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),
+      Tolerance=1e-06),
     Documentation(revisions="<html>
 <ul>
 <li>

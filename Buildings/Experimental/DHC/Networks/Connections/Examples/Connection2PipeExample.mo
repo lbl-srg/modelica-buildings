@@ -164,8 +164,7 @@ equation
       file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Networks/Connections/Examples/Connection2PipeExample.mos" "Simulate and plot"),
     experiment(
       StopTime=3600,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),
+      Tolerance=1e-06),
     Documentation(info="<html>
 <p>
 Example model of two connection models.  It uses 

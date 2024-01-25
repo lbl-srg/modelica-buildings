@@ -1,4 +1,4 @@
-﻿within Buildings.Fluid.FixedResistances.BuriedPipes.Examples;
+within Buildings.Fluid.FixedResistances.BuriedPipes.Examples;
 model SingleBuriedPipe "Example model of a single buried pipe"
   extends Modelica.Icons.Example;
 
@@ -155,8 +155,7 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-140,-120},{140,120}})),
     experiment(
       StopTime=31536000,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),
+      Tolerance=1e-06),
     Documentation(info="<html>
 <p>
 This example showcases the ground thermal coupling for a single uninsulated

@@ -300,8 +300,7 @@ First implementation.
 </html>"),
     experiment(
       StopTime=3600,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),
+      Tolerance=1e-06),
     Icon(
       coordinateSystem(
         preserveAspectRatio=false, extent={{-120,-120},{140,120}})),

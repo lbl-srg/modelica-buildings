@@ -136,8 +136,7 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     experiment(
       StopTime=3600,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),
+      Tolerance=1e-06),
     Documentation(info="<html>
 <p>
 This example shows how to use model <a href=\"modelica://Buildings.Fluid.FixedResistances.BuriedPipes.PipeGroundCoupling\">Buildings.Fluid.FixedResistances.BuriedPipes.PipeGroundCoupling</a>

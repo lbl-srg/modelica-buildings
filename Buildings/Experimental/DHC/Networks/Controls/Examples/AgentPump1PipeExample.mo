@@ -40,7 +40,7 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Networks/Controls/Examples/AgentPump1PipeExample.mos"
     "Simulate and plot"),
-    experiment(StopTime=3600, __Dymola_Algorithm="Dassl",Tolerance=1e-06),
+    experiment(StopTime=3600,Tolerance=1e-06),
     Documentation(revisions="<html>
 <ul>
 <li>
