@@ -5,6 +5,6 @@ compareVars :=
     "conPum.TSouOut[1]",
     "conPum.TMin_lower.y",
     "conPum.TMax_upper.y",
-    "conPum.PpumCoo[1]",
+    "conPum.QCoo_flow[1]",
     "conPum.y"
   };
