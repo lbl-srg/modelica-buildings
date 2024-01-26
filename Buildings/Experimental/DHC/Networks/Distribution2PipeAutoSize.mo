@@ -1,6 +1,6 @@
 within Buildings.Experimental.DHC.Networks;
 model Distribution2PipeAutoSize
-  "Hydronic network for unidirectional parallel DHC system"
+  "Model of a two-pipe distribution network using auto-size pipe models in the main lines"
   extends
     Buildings.Experimental.DHC.Networks.BaseClasses.PartialDistribution2Pipe(
     tau=5*60,
@@ -43,8 +43,8 @@ model Distribution2PipeAutoSize
     min=0.01) "Hydraulic diameter of the end of the distribution line";
   annotation (Documentation(info="<html>
 <p>
-This is a model of a two-pipe distribution network using a connection model with an auto-sized pipe in the main line whose hydraulic diameter 
-is calculated at initialization based on the pressure drop per pipe length at nominal flow rate. The same pipe model is also used
+This is a model of a two-pipe distribution network using a connection model with an auto-sized pipe in the main lines whose hydraulic diameters 
+are calculated at initialization based on the pressure drop per pipe length at nominal flow rate. The same pipe model is also used
 at the end of the distribution line (after the last connection) only on the supply side.
 </p>
 <h4>Modeling considerations</h4>

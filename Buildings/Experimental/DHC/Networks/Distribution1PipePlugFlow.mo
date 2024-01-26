@@ -1,6 +1,6 @@
 within Buildings.Experimental.DHC.Networks;
 model Distribution1PipePlugFlow
-  "Model of a one-pipe distribution network with plug flow pipes"
+  "Model of a one-pipe distribution network with plug flow pipes in the main line"
   extends
     Buildings.Experimental.DHC.Networks.BaseClasses.PartialDistribution1Pipe(
     tau=5*60,

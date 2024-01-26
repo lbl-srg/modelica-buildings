@@ -160,18 +160,25 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-This model considers the conduction heat transfer between the buried pipe wall and the undisturbed ground temperature by adding a dynamic ground layer.
-The dynamic ground layer is modeled using the radial heat conduction model through a hollow cylinder <a href=\"modelica://Buildings.HeatTransfer.Conduction.SingleLayerCylinder\"> Buildings.HeatTransfer.Conduction.SingleLayerCylinder</a>. The undisturbed ground temperature is calculated
-by the model <a href=\"modelica://Buildings.BoundaryConditions.GroundTemperature.UndisturbedSoilTemperature\">Buildings.BoundaryConditions.GroundTemperature.UndisturbedSoilTemperature</a>. This model can consider an axial discretization of the pipe, a figure highlighting the main variables and parameters is reported
-below:
+This model considers the conduction heat transfer between the buried pipe 
+wall and the undisturbed ground temperature by adding a dynamic ground layer.
+The dynamic ground layer is modeled using the radial heat conduction model 
+through a hollow cylinder 
+<a href=\"modelica://Buildings.HeatTransfer.Conduction.SingleLayerCylinder\"> Buildings.HeatTransfer.Conduction.SingleLayerCylinder</a>. 
+The undisturbed ground temperature is calculated
+by the model 
+<a href=\"modelica://Buildings.BoundaryConditions.GroundTemperature.UndisturbedSoilTemperature\">Buildings.BoundaryConditions.GroundTemperature.UndisturbedSoilTemperature</a>. 
+This model can consider an axial discretization of the pipe.  
+A figure highlighting the main variables and parameters is shown below:
 </p>
 <p>
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/FixedResistances/BuriedPipes/PipeGroundCoupling.png\" style = \"max-width:50%;\" />
 </p>
 <h4>References</h4>
 <p>
-Ettore Zanetti, David Blum, Michael Wetter <a href=\"https://www.conftool.com/modelica2023/index.php?page=browseSessions\">
-Control development and sizing analysis for a 5th generation district heating and cooling network using Modelica</a>, 2023 International Modelica conference proceedings, Session 1-A: Large-scale system modelling 1.
+Ettore Zanetti, David Blum, Michael Wetter (2023) <a href=\"https://https://2023.international.conference.modelica.org/proceedings.html\">
+Control development and sizing analysis for a 5th generation district heating and cooling network using Modelica</a>, 
+In Proceedings of the 15th International Modelica Conference. Aachen, Germany, Oct 9-11, 2023. 
 </p>
 </html>"));
 end PipeGroundCoupling;

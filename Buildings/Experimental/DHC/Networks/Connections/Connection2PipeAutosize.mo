@@ -40,9 +40,8 @@ First implementation.
 <p>
 This model represents the supply and return lines to connect an
 agent (e.g., an energy transfer station) to a two-pipe main distribution
-system.
-The instances of the pipe model are autosized based on the pressure 
-drop per pipe length at nominal flow rate.
+system. The instances of the pipe model are autosized based on the pressure drop per pipe length 
+at nominal flow rate and are not used in the connection to the building as the length is typically relatively short.
 </p>
 </html>"));
 end Connection2PipeAutosize;

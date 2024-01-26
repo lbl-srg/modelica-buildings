@@ -56,12 +56,10 @@ equation
     Documentation(
       info="<html>
 <p>
-This is a model of a connection with a two-pipe distribution network using 
-a plug flow pipe model that includes pressure drop, heat transfer, and transport
-delays.
-</p>
-<p>
-The plug flow pipe model is used in the main distribution line,
+This model represents the supply and return lines to connect an
+agent (e.g. an energy transfer station) to a two-pipe main distribution
+system.  A plug flow pipe model that includes pressure drop, heat transfer, and transport
+delays is used in the main distribution line,
 but not in the connection to the building, as the latter is typically short.
 </p>
 </html>",

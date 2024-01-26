@@ -1,6 +1,6 @@
 within Buildings.Experimental.DHC.Networks;
 model Distribution2PipePlugFlow
-  "Model of a two-pipe distribution network, using plug flow pipe models in the main line"
+  "Model of a two-pipe distribution network using plug flow pipe models in the main lines"
   extends
     Buildings.Experimental.DHC.Networks.BaseClasses.PartialDistribution2Pipe(
       redeclare Connections.Connection2PipePlugFlow con[nCon](
@@ -69,7 +69,7 @@ equation
       info="<html>
 <p>
 This is a model of a two-pipe distribution network using a connection model with a plug flow pipe
-model (pressure drop, heat transfer, transport delays)in the main line. The same pipe model is also used
+model (pressure drop, heat transfer, transport delays) in the main lines. The same pipe model is also used
 at the end of the distribution line (after the last connection) only on the supply side.
 </p>
 </html>",

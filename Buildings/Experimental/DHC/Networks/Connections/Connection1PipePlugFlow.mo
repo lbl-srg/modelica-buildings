@@ -52,9 +52,9 @@ First implementation.
 </html>", info="<html>
 <p>
 This model represents the supply and return lines to connect an
-agent (e.g., an energy transfer station) to a one-pipe main distribution
-system.
-The plug flow pipe model is used in the main distribution line,
+agent (e.g. an energy transfer station) to a one-pipe main distribution
+system.  A plug flow pipe model that includes pressure drop, heat transfer, and transport
+delays is used in the main distribution line,
 but not in the connection to the building, as the latter is typically short.
 </p>
 </html>"));

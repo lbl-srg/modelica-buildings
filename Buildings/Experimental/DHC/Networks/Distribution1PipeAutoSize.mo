@@ -1,6 +1,6 @@
 within Buildings.Experimental.DHC.Networks;
 model Distribution1PipeAutoSize
-  "Model of a one-pipe distribution network with auto-size pipes"
+  "Model of a one-pipe distribution network with auto-size pipes in the main line"
   extends
     Buildings.Experimental.DHC.Networks.BaseClasses.PartialDistribution1Pipe(
     tau=5*60,
@@ -36,10 +36,9 @@ model Distribution1PipeAutoSize
     "Hydraulic diameter of of the end of the distribution line (after last connection)";
   annotation (Documentation(info="<html>
 <p>
-This model represents a one-pipe distribution network with built-in computation
-of the pipe diameter based on the pressure drop per pipe length
-at nominal flow rate in the main distribution line. The same pipe model is also used at the end of
-the distribution line (after the last connection).
+This is a model of a one-pipe distribution network using a connection model with an auto-sized pipe in the main line whose hydraulic diameter 
+is calculated at initialization based on the pressure drop per pipe length at nominal flow rate. The same pipe model is also used
+at the end of the distribution line (after the last connection) only on the supply side.
 </p>
 <h4>Modeling considerations</h4>
 <p>
