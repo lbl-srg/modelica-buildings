@@ -54,19 +54,19 @@ block PredictedOutletTemperature
 protected
   Buildings.Controls.OBC.CDL.Reals.Divide heaExcPlr
     "Heat exchanger flow part load ratio"
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant heaExcDes_flow(
     final k= VHeaExcDes_flow) "Heat exchanger design flow"
-    annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
+    annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant heaAppDes(
     final k=heaExcAppDes)
     "Heat exchanger design approach"
-    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
+    annotation (Placement(transformation(extent={{0,20},{20,40}})));
 
   Buildings.Controls.OBC.CDL.Reals.Multiply pro "Product"
-    annotation (Placement(transformation(extent={{0,44},{20,64}})));
+    annotation (Placement(transformation(extent={{60,40},{80,60}})));
 
   Buildings.Controls.OBC.CDL.Reals.Subtract sub1 "Subtraction"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
@@ -77,58 +77,60 @@ protected
     annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
 
   Buildings.Controls.OBC.CDL.Reals.Multiply pro1 "Product"
-    annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
+    annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant towAppDes(
     final k=cooTowAppDes)
     "Cooling tower design approach"
-    annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
+    annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
 
   Buildings.Controls.OBC.CDL.Reals.MultiSum mulSum(
     final nin=4)
     "Sum of multiple inputs"
-    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
+    annotation (Placement(transformation(extent={{120,-10},{140,10}})));
 
   Buildings.Controls.OBC.CDL.Reals.Min min1
     "Lesser of the input"
-    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
+    annotation (Placement(transformation(extent={{0,60},{20,80}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
     final k=1) "Constant one"
-    annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
+    annotation (Placement(transformation(extent={{-60,100},{-40,120}})));
 
 equation
-  connect(heaExcPlr.u2, heaExcDes_flow.y) annotation (Line(points={{-82,64},{-90,
-          64},{-90,50},{-98,50}},        color={0,0,127}));
+  connect(heaExcPlr.u2, heaExcDes_flow.y) annotation (Line(points={{-62,44},{
+          -80,44},{-80,20},{-98,20}},    color={0,0,127}));
   connect(VChiWat_flow, heaExcPlr.u1) annotation (Line(points={{-180,0},{-140,0},
-          {-140,76},{-82,76}}, color={0,0,127}));
-  connect(heaAppDes.y, pro.u2) annotation (Line(points={{-18,30},{-10,30},{-10,48},
-          {-2,48}},      color={0,0,127}));
-  connect(sub1.y, pro1.u1) annotation (Line(points={{-38,-50},{-20,-50},{-20,-44},
-          {-2,-44}},       color={0,0,127}));
-  connect(uTunPar, pro1.u2) annotation (Line(points={{-180,-140},{-20,-140},{-20,
-          -56},{-2,-56}},  color={0,0,127}));
-  connect(TOutWet, mulSum.u[1]) annotation (Line(points={{-180,140},{60,140},{60,
-          -0.75},{78,-0.75}},
+          {-140,56},{-62,56}}, color={0,0,127}));
+  connect(heaAppDes.y, pro.u2) annotation (Line(points={{22,30},{40,30},{40,44},
+          {58,44}},      color={0,0,127}));
+  connect(sub1.y, pro1.u1) annotation (Line(points={{-38,-50},{0,-50},{0,-64},{
+          58,-64}},        color={0,0,127}));
+  connect(uTunPar, pro1.u2) annotation (Line(points={{-180,-140},{20,-140},{20,
+          -76},{58,-76}},  color={0,0,127}));
+  connect(TOutWet, mulSum.u[1]) annotation (Line(points={{-180,140},{100,140},{
+          100,-0.75},{118,-0.75}},
                             color={0,0,127}));
-  connect(pro.y, mulSum.u[2]) annotation (Line(points={{22,54},{40,54},{40,-0.25},
-          {78,-0.25}},color={0,0,127}));
-  connect(pro1.y, mulSum.u[3]) annotation (Line(points={{22,-50},{40,-50},{40,0.25},
-          {78,0.25}},       color={0,0,127}));
-  connect(towAppDes.y, mulSum.u[4]) annotation (Line(points={{42,-90},{60,-90},{
-          60,-2},{78,-2},{78,0.75}},  color={0,0,127}));
+  connect(pro.y, mulSum.u[2]) annotation (Line(points={{82,50},{90,50},{90,
+          -0.25},{118,-0.25}},
+                      color={0,0,127}));
+  connect(pro1.y, mulSum.u[3]) annotation (Line(points={{82,-70},{90,-70},{90,
+          0.25},{118,0.25}},color={0,0,127}));
+  connect(towAppDes.y, mulSum.u[4]) annotation (Line(points={{62,-110},{100,
+          -110},{100,-2},{118,-2},{118,0.75}},
+                                      color={0,0,127}));
   connect(mulSum.y, y)
-    annotation (Line(points={{102,0},{180,0}}, color={0,0,127}));
+    annotation (Line(points={{142,0},{180,0}}, color={0,0,127}));
   connect(TOutWet, sub1.u2) annotation (Line(points={{-180,140},{-150,140},{-150,
           -56},{-62,-56}}, color={0,0,127}));
   connect(TWetDes.y, sub1.u1) annotation (Line(points={{-98,-30},{-80,-30},{-80,
           -44},{-62,-44}}, color={0,0,127}));
-  connect(heaExcPlr.y, min1.u2) annotation (Line(points={{-58,70},{-50,70},{-50,
-          64},{-42,64}}, color={0,0,127}));
-  connect(con.y, min1.u1) annotation (Line(points={{-58,110},{-50,110},{-50,76},
-          {-42,76}}, color={0,0,127}));
-  connect(min1.y, pro.u1) annotation (Line(points={{-18,70},{-10,70},{-10,60},{-2,
-          60}}, color={0,0,127}));
+  connect(heaExcPlr.y, min1.u2) annotation (Line(points={{-38,50},{-20,50},{-20,
+          64},{-2,64}},  color={0,0,127}));
+  connect(con.y, min1.u1) annotation (Line(points={{-38,110},{-20,110},{-20,76},
+          {-2,76}},  color={0,0,127}));
+  connect(min1.y, pro.u1) annotation (Line(points={{22,70},{40,70},{40,56},{58,
+          56}}, color={0,0,127}));
     annotation (defaultComponentName = "wseTOut",
         Icon(graphics={
         Rectangle(

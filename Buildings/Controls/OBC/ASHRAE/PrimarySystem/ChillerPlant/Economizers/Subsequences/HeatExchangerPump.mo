@@ -148,9 +148,9 @@ annotation (defaultComponentName = "wsePum",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{160,160}})),
   Documentation(info="<html>
 <p>
-Waterside economizer valves control when the chilled water flow through the economizer
-is controlled by variable speed heat exchanger pump. It is implemented
-according to ASHRAE RP-1711, March 2020, section 5.2.3.7-10. 
+It implements the control of the waterside economizer valves when the chilled water
+flow through the economizer is controlled by variable speed heat exchanger pump.
+It is implemented according to ASHRAE RP-1711, March 2020, section 5.2.3.7-10. 
 </p>
 <p>
 When economizer is enabled (<code>uWSE=true</code>), start next condenser water
@@ -168,7 +168,7 @@ and economizer heat exchanger entering chilled water temperature.
 <ol>
 <li>
 If the temperature difference exceeeds 2 &deg;F (1.11 &deg;K), send 2 requests
-unit the difference is less than 1.2 &deg;F (0.67 &deg;F).
+until the difference is less than 1.2 &deg;F (0.67 &deg;F).
 </li>
 <li>
 Else if the temperature difference exceeds 1 &deg;F (0.56 &deg;K), send 1 request

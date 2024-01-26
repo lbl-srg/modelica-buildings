@@ -53,7 +53,25 @@ annotation (
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Subsequences.HeatExchangerPump\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Subsequences.HeatExchangerPump</a>.
+It demonstrates the process of controlling the heat exhcnager pump in following scenarios:
 </p>
+<ul>
+<li>
+At 720 seconds, the plant is enabled in waterside economizer mode. The heat exchange pump becomes enabled
+(<code>yPumOn=true</code>) and the condenser water isolation valve becomes fully open
+(<code>yConWatIsoVal=1</code>).
+</li>
+<li>
+From 720 seconds to 2880 seconds, the pump speed is adjusted by the Trim and Respond sequence
+based on the speed reset requests that are generated based on the temperature difference between
+chilled water return temperature upstream of the economizer and chilled water temperature
+entering heat exchanger.
+</li>
+<li>
+At 2880 seconds, the economizer becomes disabled. Thus, the pump is disabled and the pump
+speed setpoint becomes 0.
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>

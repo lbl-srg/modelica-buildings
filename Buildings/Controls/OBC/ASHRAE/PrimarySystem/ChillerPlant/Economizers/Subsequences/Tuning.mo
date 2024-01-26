@@ -34,8 +34,8 @@ block Tuning
     final min=minTunPar,
     final start=initTunPar)
     "Tuning parameter for the waterside economizer outlet temperature prediction"
-    annotation (Placement(transformation(extent={{320,-10},{340,10}}),
-        iconTransformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{320,50},{360,90}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
   final parameter Integer larInt=65535 "Large integer used to reset counters";
@@ -138,7 +138,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea1
     "Type converter"
-    annotation (Placement(transformation(extent={{60,0},{80,20}})));
+    annotation (Placement(transformation(extent={{0,0},{20,20}})));
 
   Buildings.Controls.OBC.CDL.Integers.Max maxInt
     "Greater or equal a threshold"
@@ -226,11 +226,11 @@ equation
   connect(and2.y, disCou.trigger)
     annotation (Line(points={{-118,150},{-102,150}}, color={255,0,255}));
   connect(disCou1.y, intToRea1.u)
-    annotation (Line(points={{-58,10},{58,10}}, color={255,127,0}));
+    annotation (Line(points={{-58,10},{-2,10}}, color={255,127,0}));
   connect(truHol.y, and2.u1)
     annotation (Line(points={{-158,150},{-142,150}}, color={255,0,255}));
   connect(lim.y, y)
-    annotation (Line(points={{182,70},{300,70},{300,0},{330,0}}, color={0,0,127}));
+    annotation (Line(points={{182,70},{340,70}},                 color={0,0,127}));
   connect(mulSum.y, lim.u)
     annotation (Line(points={{142,70},{158,70}}, color={0,0,127}));
   connect(lim.y, sub1.u1) annotation (Line(points={{182,70},{190,70},{190,36},{198,
@@ -247,10 +247,11 @@ equation
           74},{-42,74}}, color={255,127,0}));
   connect(intToRea.y, mulSum.u[1]) annotation (Line(points={{82,150},{100,150},
           {100,69.3333},{118,69.3333}},color={0,0,127}));
-  connect(intToRea1.y, mulSum.u[2]) annotation (Line(points={{82,10},{100,10},{100,
-          70},{118,70}}, color={0,0,127}));
+  connect(intToRea1.y, mulSum.u[2]) annotation (Line(points={{22,10},{80,10},{
+          80,70},{118,70}},
+                         color={0,0,127}));
   connect(intWitRes.y, mulSum.u[3]) annotation (Line(points={{262,10},{280,10},
-          {280,-40},{100,-40},{100,70.6667},{118,70.6667}},color={0,0,127}));
+          {280,-40},{110,-40},{110,70.6667},{118,70.6667}},color={0,0,127}));
   connect(intGreEquThr1.y, preRes.u)
     annotation (Line(points={{12,80},{18,80}}, color={255,0,255}));
   connect(preRes.y, disCou.reset) annotation (Line(points={{42,80},{50,80},{50,
