@@ -78,7 +78,7 @@ model ComputeCycle "Thermodynamic computations of the ORC"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PEleOut(
     final quantity="Power",
     final unit="W")
-    = - QEva_flow + QCon_flow
+    = QEva_flow - QCon_flow
     "Electrical power output" annotation (Placement(transformation(
           extent={{100,-20},{140,20}}), iconTransformation(extent={{100,-20},{140,
             20}})));
