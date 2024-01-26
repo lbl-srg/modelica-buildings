@@ -63,11 +63,11 @@ model ComputeCycle "Thermodynamic computations of the ORC"
     "Working fluid condenser temperature";
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput QCon_flow(
     final quantity="HeatFlowRate",
-    final unit="W")
-    = QCon_flow_internal
-                        "Condenser heat flow rate" annotation (Placement(
+    final unit="W") "Condenser heat flow rate" annotation (Placement(
         transformation(extent={{100,-80},{140,-40}}), iconTransformation(extent
           ={{100,-80},{140,-40}})));
+  Modelica.Units.SI.ThermodynamicTemperature TConOut
+    "Fluid temperature out of the condenser, intermediate variable";
   Modelica.Units.SI.ThermodynamicTemperature TConPin(
     start = 300)
     "Pinch point temperature of condenser";
@@ -118,10 +118,6 @@ protected
     "Fluid temperature out of the evaporator, intermediate variable";
   Modelica.Units.SI.HeatFlowRate QEva_flow_internal
     "Evaporator heat flow rate, intermediate variable";
-  Modelica.Units.SI.ThermodynamicTemperature TConOut_internal
-    "Fluid temperature out of the condenser, intermediate variable";
-  Modelica.Units.SI.HeatFlowRate QCon_flow_internal
-    "Condenser heat flow rate, intermediate variable";
 
 equation
   // Evaporator
@@ -135,17 +131,16 @@ equation
   // Evaporator internal computation
   QEva_flow_internal = mEva_flow * cpEva * (TEvaIn - TEvaOut_internal);
   QEva_flow_internal = mWor_flow_internal * (hExpInl - hPum);
-  // Pinch point
   (TEvaPin_internal - TEvaOut_internal) * (hExpInl - hPum)
   = (hEvaPin - hPum) * (TEvaIn - TEvaOut_internal);
   dTEvaPin_set = TEvaPin_internal - TEvaWor;
 
   // Condenser
-  QCon_flow_internal = mCon_flow * cpCon * (TConOut_internal - TConIn);
-  QCon_flow_internal = mWor_flow * (hExpOut - hPum);
+  QCon_flow = mCon_flow * cpCon * (TConOut - TConIn);
+  QCon_flow = mWor_flow * (hExpOut - hPum);
   // Pinch point
   (TConPin - TConIn) * (hExpOut - hPum)
-  =(hConPin - hPum) * (TConOut_internal - TConIn);
+  =(hConPin - hPum) * (TConOut - TConIn);
   dTConPin = TConWor - TConPin;
 
 end ComputeCycle;
