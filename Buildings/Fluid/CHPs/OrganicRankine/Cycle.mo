@@ -17,7 +17,6 @@ model Cycle
 
   Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.ComputeCycle intSta(
     final pro=pro,
-    final mWor_flow_nominal=mWor_flow_nominal,
     final mWor_flow_max=mWor_flow_max,
     final mWor_flow_min=mWor_flow_min,
     final TEvaWor=TEvaWor,
@@ -58,16 +57,21 @@ model Cycle
     final min = 0) = 10
     "Set condenser pinch point temperature differential"
     annotation(Dialog(group="Condenser"));
-  parameter Modelica.Units.SI.MassFlowRate mWor_flow_nominal(
-    final min=0)= _mWor_flow_nominal
-    "Nominal working fluid flow rate";
   parameter Modelica.Units.SI.MassFlowRate mWor_flow_max(
     final min = 0)
-    = mWor_flow_nominal * 2
+    = QEva_flow_nominal / (
+        Buildings.Utilities.Math.Functions.smoothInterpolation(
+          x = TEvaWor,
+          xSup = pro.T,
+          ySup = pro.hSatVap) -
+        Buildings.Utilities.Math.Functions.smoothInterpolation(
+          x = 310,
+          xSup = pro.T,
+          ySup = pro.hSatLiq))
     "Upper bound of working fluid flow rate";
   parameter Modelica.Units.SI.MassFlowRate mWor_flow_min(
     final min = 0)
-    = mWor_flow_nominal / 5
+    = mWor_flow_max / 10
     "Lower bound of working fluid flow rate";
 
   Modelica.Blocks.Sources.RealExpression expTEvaIn(y=Medium1.temperature(
@@ -98,17 +102,6 @@ protected
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloCon
     "Prescribed heat flow rate"
     annotation (Placement(transformation(extent={{41,-70},{21,-50}})));
-  parameter Modelica.Units.SI.MassFlowRate _mWor_flow_nominal
-    = QEva_flow_nominal / (
-        Buildings.Utilities.Math.Functions.smoothInterpolation(
-          x = TEvaWor,
-          xSup = pro.T,
-          ySup = pro.hSatVap) -
-        Buildings.Utilities.Math.Functions.smoothInterpolation(
-          x = 310,
-          xSup = pro.T,
-          ySup = pro.hSatLiq))
-    "Guess value for mWor_flow_nominal";
 equation
   connect(preHeaFloEva.port, vol1.heatPort) annotation (Line(points={{19,40},{-16,
           40},{-16,60},{-10,60}}, color={191,0,0}));

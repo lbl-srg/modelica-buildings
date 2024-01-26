@@ -89,9 +89,6 @@ model ComputeCycle "Thermodynamic computations of the ORC"
             20}})));
 
 // Cycle
-  parameter Modelica.Units.SI.MassFlowRate mWor_flow_nominal(
-    final min = 0)
-    "Nominal working fluid flow rate";
   parameter Modelica.Units.SI.MassFlowRate mWor_flow_max(
     final min = 0)
     "Upper bound of working fluid flow rate";
@@ -109,7 +106,7 @@ model ComputeCycle "Thermodynamic computations of the ORC"
   Modelica.Blocks.Sources.RealExpression u_m(y=dTEvaPin)
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
-    final k=mWor_flow_nominal) "Gain"
+    final k=mWor_flow_max) "Gain"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Modelica.Units.SI.MassFlowRate mWor_flow = gai.y
     "Mass flow rate of the working fluid";
