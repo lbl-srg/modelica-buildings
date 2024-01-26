@@ -1,7 +1,9 @@
 within Buildings.Templates.Plants.Components.Controls;
-package Enabling "Package of sequences for system enabling"
+package Enabling
+  "Package of sequences for system enabling"
   annotation (
-    Icon(graphics={
+    Icon(
+      graphics={
         Rectangle(
           lineColor={200,200,200},
           fillColor={248,248,248},

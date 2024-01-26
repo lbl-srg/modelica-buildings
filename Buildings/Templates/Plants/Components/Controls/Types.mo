@@ -1,17 +1,23 @@
 within Buildings.Templates.Plants.Components.Controls;
-package Types "Package with type definitions"
+package Types
+  "Package with type definitions"
   extends Modelica.Icons.TypesPackage;
-
-  type Application = enumeration(
-    Cooling "Cooling system",
-    Heating "Heating system")
+  type Application=enumeration(
+    Cooling
+      "Cooling system",
+    Heating
+      "Heating system")
     "Enumeration to specify the type of application";
-  type Actuator = enumeration(
-    Modulating "Modulating",
-    TwoPosition "Two-position")
+  type Actuator=enumeration(
+    Modulating
+      "Modulating",
+    TwoPosition
+      "Two-position")
     "Enumeration to specify the type of actuator";
-  type EquipmentConnection = enumeration(
-    Parallel "Parallel piped",
-    Series "Series piped")
+  type EquipmentConnection=enumeration(
+    Parallel
+      "Parallel piped",
+    Series
+      "Series piped")
     "Enumeration to specify the type of connection between equipment and primary loop";
 end Types;

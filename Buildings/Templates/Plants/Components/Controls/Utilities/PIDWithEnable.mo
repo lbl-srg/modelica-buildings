@@ -1,21 +1,25 @@
 within Buildings.Templates.Plants.Components.Controls.Utilities;
-block PIDWithEnable "PID controller with enable signal"
+block PIDWithEnable
+  "PID controller with enable signal"
   extends Modelica.Blocks.Icons.Block;
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller";
   parameter Real k(
     min=0)=1
     "Gain of controller";
-  parameter Modelica.Units.SI.Time Ti(min=Buildings.Controls.OBC.CDL.Constants.small)
-     = 0.5 "Time constant of integrator block" annotation (Dialog(enable=
-          controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Modelica.Units.SI.Time Td(min=0) = 0.1
-    "Time constant of derivative block" annotation (Dialog(enable=
-          controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.Units.SI.Time Ti(
+    min=Buildings.Controls.OBC.CDL.Constants.small)=0.5
+    "Time constant of integrator block"
+    annotation (Dialog(enable=controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+      or controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Modelica.Units.SI.Time Td(
+    min=0)=0.1
+    "Time constant of derivative block"
+    annotation (Dialog(enable=controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+      or controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real r(
-    min=100*Modelica.Constants.eps)=1
+    min=100 * Modelica.Constants.eps)=1
     "Typical range of control error, used for scaling the control error";
   parameter Real yMin=0
     "Lower limit of output";
@@ -33,7 +37,8 @@ block PIDWithEnable "PID controller with enable signal"
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u_m
     "Connector of measurement input signal"
-    annotation (Placement(transformation(origin={0,-120},extent={{20,-20},{-20,20}},rotation=270),
+    annotation (Placement(transformation(origin={0,-120},extent={{20,-20},{-20,20}},
+      rotation=270),
       iconTransformation(extent={{20,-20},{-20,20}},rotation=270,origin={0,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
     "Connector of actuator output signal"
@@ -41,7 +46,8 @@ block PIDWithEnable "PID controller with enable signal"
       iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEna
     "Enable signal"
-    annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=90,origin={-60,-120}),
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=90,
+      origin={-60,-120}),
       iconTransformation(extent={{-20,-20},{20,20}},rotation=90,origin={-40,-120})));
   Buildings.Controls.OBC.CDL.Reals.PIDWithReset conPID(
     final k=k,
@@ -63,25 +69,25 @@ block PIDWithEnable "PID controller with enable signal"
     "Value when disabled"
     annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
 equation
-  connect(conPID.u_s,swi.y)
+  connect(conPID.u_s, swi.y)
     annotation (Line(points={{-12,0},{-18,0}},color={0,0,127}));
-  connect(uEna,swi.u2)
+  connect(uEna, swi.u2)
     annotation (Line(points={{-60,-120},{-60,-21.5625},{-60,0},{-42,0}},color={255,0,255}));
-  connect(u_s,swi.u1)
+  connect(u_s, swi.u1)
     annotation (Line(points={{-120,0},{-80,0},{-80,8},{-42,8}},color={0,0,127}));
-  connect(u_m,swi.u3)
+  connect(u_m, swi.u3)
     annotation (Line(points={{0,-120},{0,-80},{-50,-80},{-50,-8},{-42,-8}},color={0,0,127}));
-  connect(uEna,conPID.trigger)
+  connect(uEna, conPID.trigger)
     annotation (Line(points={{-60,-120},{-60,-20},{-6,-20},{-6,-12}},color={255,0,255}));
-  connect(u_m,conPID.u_m)
+  connect(u_m, conPID.u_m)
     annotation (Line(points={{0,-120},{0,-12}},color={0,0,127}));
-  connect(conPID.y,swi1.u1)
+  connect(conPID.y, swi1.u1)
     annotation (Line(points={{12,0},{40,0},{40,8},{70,8}},color={0,0,127}));
-  connect(swi1.y,y)
+  connect(swi1.y, y)
     annotation (Line(points={{94,0},{120,0}},color={0,0,127}));
-  connect(uEna,swi1.u2)
+  connect(uEna, swi1.u2)
     annotation (Line(points={{-60,-120},{-60,-20},{60,-20},{60,0},{70,0}},color={255,0,255}));
-  connect(valDis.y,swi1.u3)
+  connect(valDis.y, swi1.u3)
     annotation (Line(points={{52,-40},{64,-40},{64,-8},{70,-8}},color={0,0,127}));
   annotation (
     defaultComponentName="conPID",
@@ -101,28 +107,28 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          visible=(controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.P),
+          visible=(controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.P),
           extent={{-32,-22},{68,-62}},
           textColor={0,0,0},
           textString="P",
           fillPattern=FillPattern.Solid,
           fillColor={175,175,175}),
         Text(
-          visible=(controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI),
+          visible=(controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PI),
           extent={{-26,-22},{74,-62}},
           textColor={0,0,0},
           textString="PI",
           fillPattern=FillPattern.Solid,
           fillColor={175,175,175}),
         Text(
-          visible=(controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD),
+          visible=(controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PD),
           extent={{-16,-22},{88,-62}},
           textColor={0,0,0},
           fillPattern=FillPattern.Solid,
           fillColor={175,175,175},
           textString="P D"),
         Text(
-          visible=(controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID),
+          visible=(controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID),
           extent={{-14,-22},{86,-62}},
           textColor={0,0,0},
           textString="PID",

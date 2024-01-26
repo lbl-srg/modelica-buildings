@@ -1,8 +1,10 @@
 within Buildings.Templates.Plants.HeatPumps;
-package Validation "Package with validation models"
-extends Modelica.Icons.ExamplesPackage;
-
-  annotation (Documentation(info="<html>
+package Validation
+  "Package with validation models"
+  extends Modelica.Icons.ExamplesPackage;
+  annotation (
+    Documentation(
+      info="<html>
 <p>
 This package contains models validating the templates within
 <a href=\"modelica://Buildings.Templates.Plants.HeatPumps\">

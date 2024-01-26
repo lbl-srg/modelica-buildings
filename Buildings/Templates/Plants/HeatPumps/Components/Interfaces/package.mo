@@ -1,7 +1,10 @@
 within Buildings.Templates.Plants.HeatPumps.Components;
-package Interfaces "Interface classes"
+package Interfaces
+  "Interface classes"
   extends Modelica.Icons.InterfacesPackage;
-  annotation (Documentation(info="<html>
+  annotation (
+    Documentation(
+      info="<html>
 <p>
 This package contains interface classes.
 </p>

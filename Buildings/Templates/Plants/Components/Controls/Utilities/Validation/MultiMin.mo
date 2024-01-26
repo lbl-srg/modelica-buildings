@@ -1,19 +1,24 @@
 within Buildings.Templates.Plants.Components.Controls.Utilities.Validation;
 model MultiMin
-  Buildings.Templates.Plants.Components.Controls.Utilities.MultiMin mulMin(nin=5)
+  Buildings.Templates.Plants.Components.Controls.Utilities.MultiMin mulMin(
+    nin=5)
     "Block that outputs the minimum element of the input vector"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant con[5](k={1,2,3,4,5})
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant con[5](
+    k={1, 2, 3, 4, 5})
     "Constant vector"
     annotation (Placement(transformation(extent={{-48,-10},{-28,10}})));
 equation
-  connect(con.y,mulMin.u)
-    annotation (Line(points={{-26,0},{-2,0}}, color={255,127,0}));
+  connect(con.y, mulMin.u)
+    annotation (Line(points={{-26,0},{-2,0}},color={255,127,0}));
   annotation (
-  __Dymola_Commands(
-  file="modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Components/Controls/Utilities/Validation/MultiMin.mos"
-  "Simulate and plot"),
-  experiment(StopTime=1.0,Tolerance=1e-06),
+    __Dymola_Commands(
+      file=
+        "modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Components/Controls/Utilities/Validation/MultiMin.mos"
+        "Simulate and plot"),
+    experiment(
+      StopTime=1.0,
+      Tolerance=1e-06),
     Documentation(
       info="<html>
 <p>
@@ -22,7 +27,7 @@ Validation test for the block
 Buildings.Templates.Plants.Components.Controls.Utilities.MultiMin</a>.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 FIXME, 2024, by Antoine Gautier:<br/>

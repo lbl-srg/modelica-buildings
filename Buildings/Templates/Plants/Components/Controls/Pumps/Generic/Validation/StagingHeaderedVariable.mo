@@ -7,17 +7,17 @@ model StagingHeaderedVariable
     "Design primary flow rate";
   Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable ratFlo(
     table=[
-      0,0;
-      1,1;
-      1.5,1;
-      2,0],
+      0, 0;
+      1, 1;
+      1.5, 1;
+      2, 0],
     timeScale=3600)
     "Primary flow ratio to design value"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable enaLea(
     table=[
-      0,1;
-      8000,0],
+      0, 1;
+      8000, 0],
     period=8400)
     "Lead pump enable signal"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
@@ -46,27 +46,29 @@ model StagingHeaderedVariable
     "Replicate signal"
     annotation (Placement(transformation(extent={{60,50},{40,70}})));
 equation
-  connect(ratFlo.y[1],VPri_flow.u)
+  connect(ratFlo.y[1], VPri_flow.u)
     annotation (Line(points={{-58,0},{-42,0}},color={0,0,127}));
-  connect(VPri_flow.y,sta.VPri_flow)
+  connect(VPri_flow.y, sta.VPri_flow)
     annotation (Line(points={{-18,0},{-2,0}},color={0,0,127}));
-  connect(sta.y1Up,idxSta.u1Up)
+  connect(sta.y1Up, idxSta.u1Up)
     annotation (Line(points={{22,4},{40,4},{40,2},{48,2}},color={255,0,255}));
-  connect(sta.y1Dow,idxSta.u1Dow)
+  connect(sta.y1Dow, idxSta.u1Dow)
     annotation (Line(points={{22,-4},{40,-4},{40,-2},{48,-2}},color={255,0,255}));
-  connect(ava.y,idxSta.u1Ava)
+  connect(ava.y, idxSta.u1Ava)
     annotation (Line(points={{-58,-40},{40,-40},{40,-6},{48,-6}},color={255,0,255}));
-  connect(idxSta.y,rep.u)
+  connect(idxSta.y, rep.u)
     annotation (Line(points={{72,0},{80,0},{80,60},{62,60}},color={255,127,0}));
-  connect(rep.y,staPum.u)
+  connect(rep.y, staPum.u)
     annotation (Line(points={{38,60},{22,60}},color={255,127,0}));
-  connect(staPum.y,sta.y1_actual)
+  connect(staPum.y, sta.y1_actual)
     annotation (Line(points={{-2,60},{-10,60},{-10,4},{-2,4}},color={255,0,255}));
-  connect(enaLea.y[1],idxSta.u1Lea)
+  connect(enaLea.y[1], idxSta.u1Lea)
     annotation (Line(points={{-58,40},{40,40},{40,6},{48,6}},color={255,0,255}));
   annotation (
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Components/Controls/Pumps/Generic/Validation/StagingHeaderedVariable.mos" "Simulate and plot"),
+      file=
+        "modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Components/Controls/Pumps/Generic/Validation/StagingHeaderedVariable.mos"
+        "Simulate and plot"),
     experiment(
       StopTime=8400.0,
       Tolerance=1e-06),

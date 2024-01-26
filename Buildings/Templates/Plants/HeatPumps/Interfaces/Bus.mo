@@ -1,9 +1,11 @@
 within Buildings.Templates.Plants.HeatPumps.Interfaces;
-expandable connector Bus "Control bus for heat pump plant"
+expandable connector Bus
+  "Control bus for heat pump plant"
   extends Modelica.Icons.SignalBus;
-
   annotation (
-    defaultComponentName="bus", Documentation(info="<html>
+    defaultComponentName="bus",
+    Documentation(
+      info="<html>
   <p>
   This expandable connector provides a standard interface for
   all control signals of the heat pump plant models within

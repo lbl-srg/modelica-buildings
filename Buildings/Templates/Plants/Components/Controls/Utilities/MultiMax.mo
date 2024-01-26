@@ -1,9 +1,11 @@
 within Buildings.Templates.Plants.Components.Controls.Utilities;
-block MultiMax "Output the maximum element of the input vector"
-  parameter Integer nin(min=0)=0
+block MultiMax
+  "Output the maximum element of the input vector"
+  parameter Integer nin(
+    min=0)=0
     "Size of input array"
     annotation (Evaluate=true,
-    Dialog(connectorSizing=true), HideResult=true);
+    Dialog(connectorSizing=true),HideResult=true);
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u[nin]
     "Integer input signal"
     annotation (Placement(transformation(extent={{-140,20},{-100,-20}})));

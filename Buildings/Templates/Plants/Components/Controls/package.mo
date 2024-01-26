@@ -1,14 +1,17 @@
 within Buildings.Templates.Plants.Components;
-package Controls "Control blocks"
-
-  annotation (Documentation(info="<html>
+package Controls
+  "Control blocks"
+  annotation (
+    Documentation(
+      info="<html>
 <p>
 This package contains control blocks that comply with the CDL specification:
 <a href=\\\"modelica://https://obc.lbl.gov/specification/cdl.html\\\">
 https://obc.lbl.gov/specification/cdl.html</a>.
 </p>
 </html>"),
-  Icon(graphics={
+    Icon(
+      graphics={
         Rectangle(
           lineColor={200,200,200},
           fillColor={248,248,248},

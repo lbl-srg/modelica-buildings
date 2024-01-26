@@ -9,10 +9,8 @@ block Pre
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y
     "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-
 initial equation
   pre(u)=pre_u_start;
-
 equation
   y=pre(u);
   annotation (

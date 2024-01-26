@@ -1,6 +1,6 @@
 within Buildings.Templates.Plants.Components.Controls.Staging;
-package Validation "Collection of validation models"
-
+package Validation
+  "Collection of validation models"
   annotation (
     Icon(
       graphics={

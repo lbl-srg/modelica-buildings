@@ -1,7 +1,7 @@
 within Buildings.Templates.Plants.HeatPumps.Configuration;
-record HeatPumpPlant "Configuration parameters for heat pump plant"
+record HeatPumpPlant
+  "Configuration parameters for heat pump plant"
   extends Modelica.Icons.Record;
-
   // Generic
   parameter Buildings.Templates.Components.Types.HeatPump typ
     "Type of heat pump"
@@ -21,7 +21,6 @@ record HeatPumpPlant "Configuration parameters for heat pump plant"
   parameter Buildings.Templates.Plants.HeatPumps.Types.Controller typCtl
     "Type of controller"
     annotation (Evaluate=true);
-
   // Default fluid properties
   parameter Modelica.Units.SI.Density rhoHeaWat_default
     "HW default density";
@@ -31,7 +30,6 @@ record HeatPumpPlant "Configuration parameters for heat pump plant"
     "CHW default density";
   parameter Modelica.Units.SI.SpecificHeatCapacity cpChiWat_default
     "CHW default specific heat capacity";
-
   // HW loop
   parameter Integer nPumHeaWatPri
     "Number of primary HW pumps"
@@ -63,7 +61,6 @@ record HeatPumpPlant "Configuration parameters for heat pump plant"
   parameter Buildings.Templates.Plants.HeatPumps.Types.Distribution typDisHeaWat
     "Type of HW distribution system"
     annotation (Evaluate=true);
-
   // CHW loop
   parameter Integer nPumChiWatPri
     "Number of primary CHW pumps"
@@ -95,8 +92,9 @@ record HeatPumpPlant "Configuration parameters for heat pump plant"
   parameter Buildings.Templates.Plants.HeatPumps.Types.Distribution typDisChiWat
     "Type of CHW distribution system"
     annotation (Evaluate=true);
-
-  annotation (Documentation(info="<html>
+  annotation (
+    Documentation(
+      info="<html>
 <p>
 This record provides the set of configuration parameters for 
 the heat pump plant models within  
