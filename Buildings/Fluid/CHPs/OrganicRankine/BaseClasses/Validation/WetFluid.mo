@@ -10,10 +10,10 @@ annotation (experiment(StopTime=1, Tolerance=1e-6),
   "Simulate and plot"),
   Documentation(info="<html>
 <p>
-This model demonstrates the handling of wet working fluids by
-<a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.Equations\">
-Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.Equations</a>.
-If the user modifies the expander efficiency <code>equ.etaExp</code> to be
+This model validates the handling of wet working fluids by
+<a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.InterpolateStates\">
+Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.InterpolateStates</a>.
+If the user modifies the expander efficiency <code>intSta.etaExp</code> to
 a large number (e.g. 0.95), it will trigger an error with a message
 that the expander outlet state will be under the dome.
 </p>
