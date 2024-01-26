@@ -133,11 +133,11 @@ equation
       Tolerance=1e-06),
     Documentation(info="<html>
 <p>
-Example model of two connection models.  It uses 
+Example model of two one-pipe connection models that could be used i.e for building a reservoir network to connect one agent in series.  It uses 
 <a href=\"modelica://Buildings.Experimental.DHC.Networks.Connections.Connection1PipeAutosize\">
 Buildings.Experimental.DHC.Networks.Connections.Connection1PipeAutosize</a> and 
 <a href=\"modelica://Buildings.Experimental.DHC.Networks.Connections.Connection1PipePlugFlow\">
-Buildings.Experimental.DHC.Networks.Connections.Connection1PipePlugFlow</a>.
+Buildings.Experimental.DHC.Networks.Connections.Connection1PipePlugFlow</a>. The agent, in this example just a pump, will draw water from the distribution pipe and release it in the same pipe.
 </p>
 </html>", revisions="<html>
 <ul>

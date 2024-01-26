@@ -44,7 +44,8 @@ model Distribution2PipeAutoSize
   annotation (Documentation(info="<html>
 <p>
 This is a model of a two-pipe distribution network using a connection model with an auto-sized pipe in the main lines whose hydraulic diameters 
-are calculated at initialization based on the pressure drop per pipe length at nominal flow rate. The same pipe model is also used
+are calculated at initialization based on the pressure drop per pipe length at nominal flow rate <a href=\"modelica://Buildings.Experimental.DHC.Networks.Connections.Connection2PipeAutosize\">
+Buildings.Experimental.DHC.Networks.Connections.Connection2PipeAutosize</a>. The same pipe model is also used
 at the end of the distribution line (after the last connection) only on the supply side.
 </p>
 <h4>Modeling considerations</h4>
@@ -52,8 +53,8 @@ at the end of the distribution line (after the last connection) only on the supp
 Note that <code>dhDis</code> needs to be vectorized, even if the same value
 is computed for each array element in case of a one-pipe network.
 This is because the pipe diameter is computed at initialization by the model
-<a href=\"modelica://Buildings.Experimental.DHC.Networks.Connections.Connection1PipeAutosize\">
-Buildings.Experimental.DHC.Networks.Combined.BaseClasses.ConnectionSeriesAutosize</a>
+<a href=\"modelica://Buildings.Experimental.DHC.Networks.Pipes.PipeAutosize\">
+Buildings.Experimental.DHC.Networks.Pipes.PipeAutosize</a>
 which is instantiated for each connection.
 So the initialization system of equations would be overdetermined if using
 a parameter binding with a scalar variable.

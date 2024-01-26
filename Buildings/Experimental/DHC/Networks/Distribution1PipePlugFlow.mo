@@ -60,7 +60,8 @@ equation
   annotation (Documentation(info="<html>
 <p>
 This model represents a one-pipe distribution network using a connection model with a plug flow pipe
-model (pressure drop, heat transfer, transport delays)in the main line. The same pipe model at the end of
+model (pressure drop, heat transfer, transport delays)in the main line <a href=\"modelica://Buildings.Experimental.DHC.Networks.Connections.Connection1PipePlugFlow\">
+Buildings.Experimental.DHC.Networks.Connections.Connection1PipePlugFlow</a>. The same pipe model at the end of
 the distribution line (after the last connection).
 </p>
 </html>", revisions="<html>

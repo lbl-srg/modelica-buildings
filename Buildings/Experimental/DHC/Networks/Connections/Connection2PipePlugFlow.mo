@@ -58,7 +58,8 @@ equation
 <p>
 This model represents the supply and return lines to connect an
 agent (e.g. an energy transfer station) to a two-pipe main distribution
-system.  A plug flow pipe model that includes pressure drop, heat transfer, and transport
+system.  A plug flow pipe model <a href=\"modelica://Buildings.Fluid.FixedResistances.PlugFlowPipe\">
+Buildings.Fluid.FixedResistances.PlugFlowPipe</a> that includes pressure drop, heat transfer, and transport
 delays is used in the main distribution line,
 but not in the connection to the building, as the latter is typically short.
 </p>

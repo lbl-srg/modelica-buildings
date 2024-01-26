@@ -402,7 +402,7 @@ equation
       StopTime=603900,
       Interval=900,
       Tolerance=1e-006),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/BuriedPipes/Validation/GroundCouplingAIT.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/BuriedPipes/Validation/GroundCouplingAIT.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(extent={{-120,-160},{160,160}})),
     Documentation(info="<html>

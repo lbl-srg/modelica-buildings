@@ -44,7 +44,7 @@ model MainPump1Pipe
     each displayUnit="degC") "Temperatures at the outlets of the sources"
     annotation (Placement(transformation(extent={{-142,-80},{-102,-40}}),
         iconTransformation(extent={{-142,-80},{-102,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput QCoo_flow[nBui](final unit=
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput QCoo_flow[nBui](each final unit=
         "W") "Cooling power required by each building" annotation (Placement(
         transformation(extent={{-140,-220},{-100,-180}}), iconTransformation(
         extent={{-20,-20},{20,20}},

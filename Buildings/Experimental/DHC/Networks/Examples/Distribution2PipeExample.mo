@@ -108,15 +108,6 @@ model Distribution2PipeExample
     use_inputFilter=false,
     dp_nominal=dp_nominal)
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  Buildings.Fluid.MixingVolumes.MixingVolume volAutoSize(
-    final prescribedHeatFlowRate=true,
-    redeclare final package Medium = Medium1,
-    V=m_flow_nominal*tau/rho_default,
-    final mSenFac=1,
-    final m_flow_nominal=m_flow_nominal,
-    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    nPorts=2) "Volume for fluid stream"
-    annotation (Placement(transformation(extent={{-31,20},{-11,40}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant dpPum(
     k=dp_nominal)
     "Prescribed head"
@@ -153,15 +144,6 @@ model Distribution2PipeExample
     use_inputFilter=false,
     dp_nominal=dp_nominal)
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
-  Buildings.Fluid.MixingVolumes.MixingVolume volPlugFlow(
-    final prescribedHeatFlowRate=true,
-    redeclare final package Medium = Medium1,
-    V=m_flow_nominal*tau/rho_default,
-    final mSenFac=1,
-    final m_flow_nominal=m_flow_nominal,
-    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    nPorts=2) "Volume for fluid stream"
-    annotation (Placement(transformation(extent={{-31,-80},{-11,-60}})));
   Buildings.Fluid.Sources.Boundary_pT supHeaWatPlugFlow(
     redeclare package Medium = Medium1,
     use_T_in=true,
@@ -209,8 +191,6 @@ equation
         points={{48,40},{46,40},{46,81.6667},{50,81.6667}}, color={0,127,255}));
   connect(pumAutoSize.port_b, disAutoSize.port_aDisSup)
     annotation (Line(points={{20,30},{40,30}}, color={0,127,255}));
-  connect(volAutoSize.ports[1], pumAutoSize.port_a) annotation (Line(points={{-22,20},
-          {-8,20},{-8,30},{0,30}},     color={0,127,255}));
   connect(THeaWatSup.y, supHeaWatAutoSize.T_in) annotation (Line(points={{-78,10},
           {-72,10},{-72,14},{-62,14}}, color={0,0,127}));
   connect(dpPum.y, pumAutoSize.dp_in) annotation (Line(points={{-78,40},{-60,40},
@@ -230,34 +210,35 @@ equation
           0,127,255}));
   connect(pumPlugFlow.port_b, disPlugFlow.port_aDisSup)
     annotation (Line(points={{20,-70},{40,-70}}, color={0,127,255}));
-  connect(volPlugFlow.ports[1], pumPlugFlow.port_a) annotation (Line(points={{-22,-80},
-          {-6,-80},{-6,-70},{0,-70}},                          color={0,127,255}));
   connect(dpPum.y, pumPlugFlow.dp_in) annotation (Line(points={{-78,40},{-68,40},
           {-68,-46},{10,-46},{10,-58}},                 color={0,0,127}));
   connect(THeaWatSup.y, supHeaWatPlugFlow.T_in) annotation (Line(points={{-78,10},
           {-74,10},{-74,-92},{-50,-92},{-50,-94}}, color={0,0,127}));
-  connect(volAutoSize.ports[2], supHeaWatAutoSize.ports[1]) annotation (Line(
-        points={{-20,20},{-22,20},{-22,9},{-40,9}}, color={0,127,255}));
-  connect(disAutoSize.port_bDisRet, supHeaWatAutoSize.ports[2]) annotation (
-      Line(points={{40,24},{40,4},{-40,4},{-40,11}}, color={0,127,255}));
-  connect(volPlugFlow.ports[2], supHeaWatPlugFlow.ports[1]) annotation (Line(
-        points={{-20,-80},{-22,-80},{-22,-99},{-28,-99}}, color={0,127,255}));
-  connect(disPlugFlow.port_bDisRet, supHeaWatPlugFlow.ports[2]) annotation (
-      Line(points={{40,-76},{40,-100},{-28,-100},{-28,-97}}, color={0,127,255}));
+  connect(disAutoSize.port_bDisRet, supHeaWatAutoSize.ports[1]) annotation (
+      Line(points={{40,24},{40,4},{-40,4},{-40,9}},  color={0,127,255}));
+  connect(disPlugFlow.port_bDisRet, supHeaWatPlugFlow.ports[1]) annotation (
+      Line(points={{40,-76},{40,-100},{-28,-100},{-28,-99}}, color={0,127,255}));
   connect(pipeGroundCouplingRet.heatPorts, disPlugFlow.heatPortsRet)
     annotation (Line(points={{53,-95},{53,-94},{52.6,-94},{52.6,-77.6}}, color=
           {127,0,0}));
   connect(pipeGroundCouplingSup.heatPorts, disPlugFlow.heatPortsDis)
     annotation (Line(points={{89,-95},{89,-68.4},{67.8,-68.4}}, color={127,0,0}));
+  connect(supHeaWatAutoSize.ports[2], pumAutoSize.port_a) annotation (Line(
+        points={{-40,11},{-40,10},{-20,10},{-20,30},{0,30}}, color={0,127,255}));
+  connect(supHeaWatPlugFlow.ports[2], pumPlugFlow.port_a) annotation (Line(
+        points={{-28,-97},{-28,-96},{-20,-96},{-20,-70},{0,-70}}, color={0,127,
+          255}));
   annotation (
     Documentation(
       info="<html>
 <p>
-Example model of two distribution models.  It uses 
+Example model of two two-pipe distribution models that can be used i.e. for building a bi-directional network to connect several agents in series.  It showcases 
 <a href=\"modelica://Buildings.Experimental.DHC.Networks.Distribution2PipeAutoSize\">
 Buildings.Experimental.DHC.Networks.Distribution2PipeAutoSize</a> and 
 <a href=\"modelica://Buildings.Experimental.DHC.Networks.Distribution2PipePlugFlow\">
-Buildings.Experimental.DHC.Networks.Distribution2PipePlugFlow</a>.
+Buildings.Experimental.DHC.Networks.Distribution2PipePlugFlow</a>. The distribution models create a vector of nLoa connection models <a href=\"modelica://Buildings.Experimental.DHC.Networks.Connections\">
+Buildings.Experimental.DHC.Networks.Connections</a> that are connected to a vector of nLoa agents made up by time series heating loads <a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BaseClasses.FanCoil2PipeHeatingValve\">
+Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BaseClasses.FanCoil2PipeHeatingValve</a>. Each agent will draw water from the supply distribution pipe and release it in the return pipe.
 </p>
 </html>",
       revisions="<html>

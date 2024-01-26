@@ -167,11 +167,11 @@ equation
       Tolerance=1e-06),
     Documentation(info="<html>
 <p>
-Example model of two connection models.  It uses 
+Example model of two two-pipe connection models that could be used i.e for building a bi-directional network to connect one agent in series.  It uses 
 <a href=\"modelica://Buildings.Experimental.DHC.Networks.Connections.Connection2PipeAutosize\">
 Buildings.Experimental.DHC.Networks.Connections.Connection2PipeAutosize</a> and 
 <a href=\"modelica://Buildings.Experimental.DHC.Networks.Connections.Connection2PipePlugFlow\">
-Buildings.Experimental.DHC.Networks.Connections.Connection2PipePlugFlow</a>.
+Buildings.Experimental.DHC.Networks.Connections.Connection2PipePlugFlow</a>.The agent, in this example just a pump, will draw water from the distribution pipe and release it in the same pipe.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -34,7 +34,8 @@ First implementation.
 This model represents the supply and return lines to connect an
 agent (e.g., an energy transfer station) to a one-pipe main distribution
 system. The instances of the pipe model are autosized based on the pressure drop per pipe length 
-at nominal flow rate and are not used in the connection to the building as the length is typically relatively short.
+at nominal flow rate based on the model <a href=\"modelica://Buildings.Experimental.DHC.Networks.Pipes.PipeAutosize\">
+Buildings.Experimental.DHC.Networks.Pipes.PipeAutosize</a> for the distribution line. The connection to the building as the length is typically relatively short so a losssless pipe is considered.
 </p>
 </html>"));
 end Connection1PipeAutosize;
