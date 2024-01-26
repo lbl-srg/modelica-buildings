@@ -92,6 +92,12 @@ model ComputeCycle "Thermodynamic computations of the ORC"
   parameter Modelica.Units.SI.MassFlowRate mWor_flow_nominal(
     final min = 0)
     "Nominal working fluid flow rate";
+  parameter Modelica.Units.SI.MassFlowRate mWor_flow_max(
+    final min = 0)
+    "Upper bound of working fluid flow rate";
+  parameter Modelica.Units.SI.MassFlowRate mWor_flow_min(
+    final min = 0)
+    "Lower bound of working fluid flow rate";
   Buildings.Controls.Continuous.LimPID conPI(
     Td=1,
     k=5,

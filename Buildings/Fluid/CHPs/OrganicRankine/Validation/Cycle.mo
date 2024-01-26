@@ -21,6 +21,7 @@ model Cycle
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     T1_start(displayUnit="K") = 500,
     T2_start(displayUnit="K") = 290,
+    QEva_flow_nominal=1E5,
     mEva_flow_nominal=mEva_flow_nominal,
     mCon_flow_nominal=mCon_flow_nominal,
     TEvaWor=473.15)                      "Organic Rankine cycle"
