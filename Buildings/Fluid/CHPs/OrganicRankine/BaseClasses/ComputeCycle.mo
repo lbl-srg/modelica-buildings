@@ -37,7 +37,7 @@ model ComputeCycle "Thermodynamic computations of the ORC"
   Modelica.Units.SI.ThermodynamicTemperature TEvaPin(
     start = TEvaWor + dTEvaPin_set)
     "Pinch point temperature of evaporator";
-  Modelica.Units.SI.TemperatureDifference dTEvaPin
+  Modelica.Units.SI.TemperatureDifference dTEvaPin(start = dTEvaPin_set)
     "Pinch point temperature differential of evaporator";
 
 // Condenser

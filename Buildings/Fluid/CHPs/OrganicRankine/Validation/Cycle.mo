@@ -48,10 +48,8 @@ model Cycle
   Modelica.Blocks.Sources.RealExpression expTEvaIn(y=500)
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 
-  Modelica.Blocks.Sources.Sine sine(
-    amplitude=mEva_flow_nominal*2,
-    f=1/200,
-    offset=mEva_flow_nominal)
+  Modelica.Blocks.Sources.Sine sine(amplitude=mEva_flow_nominal*3,
+    f=1/200)
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 equation
   connect(souEva.ports[1], ORC.port_a1) annotation (Line(points={{-20,30},{-16,30},

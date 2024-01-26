@@ -30,7 +30,7 @@ model Cycle
   replaceable parameter Buildings.Fluid.CHPs.OrganicRankine.Data.Generic pro
     constrainedby Buildings.Fluid.CHPs.OrganicRankine.Data.Generic
     "Property records of the working fluid"
-    annotation(choicesAllMatching = true);
+    annotation(choicesAllMatching = true,Dialog(group="Cycle"));
   parameter Modelica.Units.SI.HeatFlowRate QEva_flow_nominal
     "Nominal heat flow rate of the evaporator"
     annotation(Dialog(group="Evaporator"));
@@ -68,12 +68,21 @@ model Cycle
           x = 310,
           xSup = pro.T,
           ySup = pro.hSatLiq))
-    "Upper bound of working fluid flow rate";
+    "Upper bound of working fluid flow rate"
+    annotation(Dialog(group="Cycle"));
   parameter Modelica.Units.SI.MassFlowRate mWor_flow_min(
     final min = 0)
     = mWor_flow_max / 10
-    "Lower bound of working fluid flow rate";
+    "Lower bound of working fluid flow rate"
+    annotation(Dialog(group="Cycle"));
 
+protected
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloEva
+    "Prescribed heat flow rate"
+    annotation (Placement(transformation(extent={{39,30},{19,50}})));
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloCon
+    "Prescribed heat flow rate"
+    annotation (Placement(transformation(extent={{41,-70},{21,-50}})));
   Modelica.Blocks.Sources.RealExpression expTEvaIn(y=Medium1.temperature(
         state=Medium1.setState_phX(
           p=port_a1.p,
@@ -94,14 +103,6 @@ model Cycle
   Modelica.Blocks.Sources.RealExpression expMCon_flow(y=m2_flow)
     "Expression for condenser cold fluid flow rate"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-
-protected
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloEva
-    "Prescribed heat flow rate"
-    annotation (Placement(transformation(extent={{39,30},{19,50}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloCon
-    "Prescribed heat flow rate"
-    annotation (Placement(transformation(extent={{41,-70},{21,-50}})));
 equation
   connect(preHeaFloEva.port, vol1.heatPort) annotation (Line(points={{19,40},{-16,
           40},{-16,60},{-10,60}}, color={191,0,0}));
