@@ -7,9 +7,11 @@ model ComputeCycle "Thermodynamic computations of the ORC"
 // Evaporator
   parameter Modelica.Units.SI.TemperatureDifference dTEvaPin_set(
     final min = 0)
-    "Set evaporator pinch point temperature differential";
+    "Set evaporator pinch point temperature differential"
+    annotation(Dialog(group="Evaporator"));
   parameter Modelica.Units.SI.SpecificHeatCapacity cpEva
-    "Constant specific heat capacity";
+    "Constant specific heat capacity"
+    annotation(Dialog(group="Evaporator"));
   parameter Modelica.Units.SI.ThermodynamicTemperature TEvaWor
     "Working fluid evaporator temperature"
     annotation(Dialog(group="Evaporator"));
@@ -27,15 +29,11 @@ model ComputeCycle "Thermodynamic computations of the ORC"
         iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput QEva_flow(
     final quantity="HeatFlowRate",
-    final unit="W")
-    = - QEva_flow_internal
-                        "Evaporator heat flow rate"
+    final unit="W") "Evaporator heat flow rate"
     annotation (Placement(transformation(extent={{100,40},{140,80}}),
                              iconTransformation(extent={{100,40},{140,80}})));
-  Modelica.Units.SI.ThermodynamicTemperature TEvaOut_internal
-    "Fluid temperature out of the evaporator, intermediate variable";
-  Modelica.Units.SI.HeatFlowRate QEva_flow_internal
-    "Evaporator heat flow rate, intermediate variable";
+  Modelica.Units.SI.ThermodynamicTemperature TEvaOut
+    "Outgoing temperature of the evaporator hot fluid";
   Modelica.Units.SI.ThermodynamicTemperature TEvaPin(
     start = TEvaWor + dTEvaPin_set)
     "Pinch point temperature of evaporator";
@@ -48,7 +46,8 @@ model ComputeCycle "Thermodynamic computations of the ORC"
     "Set condenser pinch point temperature differential"
     annotation(Dialog(group="Condenser"));
   parameter Modelica.Units.SI.SpecificHeatCapacity cpCon
-    "Constant specific heat capacity";
+    "Constant specific heat capacity"
+    annotation(Dialog(group="Condenser"));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConIn(
     final quantity="ThermodynamicTemperature",
     final unit="K",
@@ -69,10 +68,6 @@ model ComputeCycle "Thermodynamic computations of the ORC"
                         "Condenser heat flow rate" annotation (Placement(
         transformation(extent={{100,-80},{140,-40}}), iconTransformation(extent
           ={{100,-80},{140,-40}})));
-  Modelica.Units.SI.ThermodynamicTemperature TConOut_internal
-    "Fluid temperature out of the condenser, intermediate variable";
-  Modelica.Units.SI.HeatFlowRate QCon_flow_internal
-    "Condenser heat flow rate, intermediate variable";
   Modelica.Units.SI.ThermodynamicTemperature TConPin(
     start = 300)
     "Pinch point temperature of condenser";
@@ -91,34 +86,59 @@ model ComputeCycle "Thermodynamic computations of the ORC"
 // Cycle
   parameter Modelica.Units.SI.MassFlowRate mWor_flow_max(
     final min = 0)
-    "Upper bound of working fluid flow rate";
+    "Upper bound of working fluid flow rate"
+    annotation(Dialog(group="Cycle"));
   parameter Modelica.Units.SI.MassFlowRate mWor_flow_min(
     final min = 0)
-    "Lower bound of working fluid flow rate";
-  Buildings.Controls.Continuous.LimPID conPI(
-    Td=1,
-    k=5,
-    Ti=15,
-    reverseActing=false)
-           annotation (Placement(transformation(extent={{-10,20},{10,40}})));
-  Modelica.Blocks.Sources.RealExpression u_s(y=dTEvaPin_set)
-    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  Modelica.Blocks.Sources.RealExpression u_m(y=dTEvaPin)
-    annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
-    final k=mWor_flow_max) "Gain"
-    annotation (Placement(transformation(extent={{20,20},{40,40}})));
-  Modelica.Units.SI.MassFlowRate mWor_flow = gai.y
-    "Mass flow rate of the working fluid";
+    "Lower bound of working fluid flow rate"
+    annotation(Dialog(group="Cycle"));
+  Modelica.Units.SI.MassFlowRate mWor_flow
+    = Buildings.Utilities.Math.Functions.regStep(
+        x = mWor_flow_internal - mWor_flow_min,
+        y1 = Buildings.Utilities.Math.Functions.smoothMin(
+               x1 = mWor_flow_internal,
+               x2 = mWor_flow_max,
+               deltaX = mWor_flow_small),
+        y2 = 0,
+        x_small = mWor_flow_small)
+    "Mass flow rate of the working fluid"
+    annotation(Dialog(group="Cycle"));
+  parameter Modelica.Units.SI.MassFlowRate mWor_flow_small
+    = mWor_flow_min * 1E-2
+    "A small value for regularisation"
+    annotation(Dialog(group="Cycle"));
+
+protected
+  Modelica.Units.SI.MassFlowRate mWor_flow_internal(
+    start = (mWor_flow_max + mWor_flow_min) / 2)
+    "Intermediate variable";
+  Modelica.Units.SI.ThermodynamicTemperature TEvaPin_internal
+    "Intermedaite variable";
+  Modelica.Units.SI.ThermodynamicTemperature TEvaOut_internal
+    "Fluid temperature out of the evaporator, intermediate variable";
+  Modelica.Units.SI.HeatFlowRate QEva_flow_internal
+    "Evaporator heat flow rate, intermediate variable";
+  Modelica.Units.SI.ThermodynamicTemperature TConOut_internal
+    "Fluid temperature out of the condenser, intermediate variable";
+  Modelica.Units.SI.HeatFlowRate QCon_flow_internal
+    "Condenser heat flow rate, intermediate variable";
 
 equation
   // Evaporator
-  QEva_flow_internal = mEva_flow * cpEva * (TEvaIn - TEvaOut_internal);
-  QEva_flow_internal = mWor_flow * (hExpInl - hPum);
+  QEva_flow = mEva_flow * cpEva * (TEvaIn - TEvaOut);
+  QEva_flow = mWor_flow * (hExpInl - hPum);
   // Pinch point
-  (TEvaPin - TEvaOut_internal) * (hExpInl - hPum)
-  = (hEvaPin - hPum) * (TEvaIn - TEvaOut_internal);
+  (TEvaPin - TEvaOut) * (hExpInl - hPum)
+  = (hEvaPin - hPum) * (TEvaIn - TEvaOut);
   dTEvaPin = TEvaPin - TEvaWor;
+
+  // Evaporator internal computation
+  QEva_flow_internal = mEva_flow * cpEva * (TEvaIn - TEvaOut_internal);
+  QEva_flow_internal = mWor_flow_internal * (hExpInl - hPum);
+  // Pinch point
+  (TEvaPin_internal - TEvaOut_internal) * (hExpInl - hPum)
+  = (hEvaPin - hPum) * (TEvaIn - TEvaOut_internal);
+  dTEvaPin_set = TEvaPin_internal - TEvaWor;
 
   // Condenser
   QCon_flow_internal = mCon_flow * cpCon * (TConOut_internal - TConIn);
@@ -128,11 +148,4 @@ equation
   =(hConPin - hPum) * (TConOut_internal - TConIn);
   dTConPin = TConWor - TConPin;
 
-  connect(u_s.y,conPI. u_s)
-    annotation (Line(points={{-19,30},{-12,30}},
-                                               color={0,0,127}));
-  connect(u_m.y,conPI. u_m)
-    annotation (Line(points={{-19,-10},{0,-10},{0,18}},  color={0,0,127}));
-  connect(gai.u,conPI. y)
-    annotation (Line(points={{18,30},{11,30}}, color={0,0,127}));
 end ComputeCycle;
