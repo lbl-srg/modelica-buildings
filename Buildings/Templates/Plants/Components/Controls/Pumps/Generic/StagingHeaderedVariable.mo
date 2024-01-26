@@ -146,26 +146,27 @@ equation
           textColor={0,0,255})}),
     Documentation(
       info="<html>
-<p>Used in Guideline 36 for:
+<p>Used in Guideline 36 for staging:
 </p>
 <ul>
 <li>
-primary-only chiller and boiler plants with headered variable speed 
-primary pumps using differential pressure pump speed control,
+headered variable speed primary pumps in primary-only chiller 
+and boiler plants using differential pressure pump speed control,
 </li>
 <li>
-primary-secondary chiller plants plants with one or more sets of 
-secondary loop pumps serving downstream control valves,
+variable speed secondary pumps in primary-secondary chiller plants 
+with one or more sets of secondary loop pumps serving downstream 
+control valves,
 </li>
 <li>
-primary-secondary boiler plants plants with variable speed 
-secondary pumps serving a secondary loop with a flow meter.
+variable speed secondary pumps in primary-secondary boiler plants 
+plants with serving a secondary loop with a flow meter.
 </li>
 </ul>
 <p>
-For other plant configurations, the pumps are staged with the equipment, i.e.,
-the number of pumps matches the number of chillers or boilers.
-The actual logic to generate the pump enable commands is part of the 
+For other plant configurations, the pumps are staged with the equipment, 
+i.e., the number of pumps matches the number of chillers or boilers.
+The actual logic for generating the pump enable commands is part of the 
 staging event sequencing. 
 </p>
 <p>

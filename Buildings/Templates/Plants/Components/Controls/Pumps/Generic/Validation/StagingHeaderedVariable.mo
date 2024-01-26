@@ -1,6 +1,6 @@
 within Buildings.Templates.Plants.Components.Controls.Pumps.Generic.Validation;
 model StagingHeaderedVariable
-  "Validation model"
+  "Validation model for the staging of headered variable speed pumps"
   parameter Integer nPum=4
     "Number of primary pumps that operate at design conditions";
   parameter Real VPri_flow_nominal=0.1
@@ -75,9 +75,22 @@ equation
     Documentation(
       info="<html>
 <p>
-Validation test for the block
-<a href=\"modelica://Buildings.Templates.Plants.Components.Controls.Pumps.Generic.StagingHeaderedVariable\">
-Buildings.Templates.Plants.Components.Controls.Pumps.Generic.StagingHeadered</a>.
+This model validates
+<a href=\"modelica://Buildings.Templates.Plants.Components.Controls.Pumps.Generic.StagingHeaderedVar\">
+Buildings.Templates.Plants.Components.Controls.Pumps.Generic.StagingHeaderedVar</a>
+in a configuration with four pumps.
+</p>
+<p>
+The simulation of this model shows that when the lead pump is enabled,
+the output of the staging controller is greater than or equal to one.
+The number of enabled pumps increases and decreases with the varying
+flow rate and under the condition of a minimum runtime of <i>10</i>&nbsp;min.
+It remains greater than or equal to one as long as the lead pump remains
+enabled.
+</p>
+<p>
+When the lead pump is disabled, the number of enabled pumps is set
+to <i>0</i>. This transition is not subject to the minimum runtime.
 </p>
 </html>",
       revisions="<html>

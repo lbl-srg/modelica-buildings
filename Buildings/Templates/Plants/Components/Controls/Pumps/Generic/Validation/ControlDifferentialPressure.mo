@@ -1,6 +1,6 @@
 within Buildings.Templates.Plants.Components.Controls.Pumps.Generic.Validation;
 model ControlDifferentialPressure
-  "Validation model"
+  "Validation model for the differential pressure control of variable speed pumps"
   parameter Integer nPum=4
     "Number of primary pumps that operate at design conditions";
   parameter Real VPri_flow_nominal=0.1
@@ -16,18 +16,19 @@ model ControlDifferentialPressure
     annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1Pum(
     table=[
-      0, 1, 0;
+      0, 0, 0;
+      2000, 1, 0;
       6000, 0, 1;
       8000, 0, 0],
     period=8400)
     "Pump status"
     annotation (Placement(transformation(extent={{-90,50},{-70,70}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter dpRemSet[2](
-    k={3E4, 1E4})
+    k={3E4, 2E4})
     "Differential pressure setpoint"
     annotation (Placement(transformation(extent={{-48,10},{-28,30}})));
   Buildings.Templates.Plants.Components.Controls.Pumps.Generic.ControlDifferentialPressure ctlDpRem(
-    have_senDpLoc=false,
+    have_senDpRemHar=true,
     nPum=2,
     nSenDpRem=2)
     "Differential pressure control with remote sensors hardwired to the plant controller"
@@ -41,7 +42,7 @@ model ControlDifferentialPressure
     "Differential pressure local to the plant"
     annotation (Placement(transformation(extent={{30,-70},{50,-50}})));
   Buildings.Templates.Plants.Components.Controls.Pumps.Generic.ControlDifferentialPressure ctlDpLoc(
-    have_senDpLoc=true,
+    have_senDpRemHar=false,
     nPum=2,
     nSenDpRem=2,
     dpLocSet_max=1E5)
@@ -49,7 +50,8 @@ model ControlDifferentialPressure
     annotation (Placement(transformation(extent={{70,-50},{90,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin[2](
     amplitude=0.1 * dpRemSet.k,
-    freqHz={2 / 8000, 5 / 8000})
+    freqHz={2 / 8000, 4 / 8000},
+    phase=3.1415926535898)
     "Source signal used to generate measurement values"
     annotation (Placement(transformation(extent={{-88,-50},{-68,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Add dpRem[2]
@@ -92,18 +94,33 @@ equation
     Documentation(
       info="<html>
 <p>
-Validation test for the block
+This model validates
 <a href=\"modelica://Buildings.Templates.Plants.Components.Controls.Pumps.Generic.ControlDifferentialPressure\">
-Buildings.Templates.Plants.Components.Controls.Pumps.Generic.ControlDifferentialPressure</a>.
+Buildings.Templates.Plants.Components.Controls.Pumps.Generic.ControlDifferentialPressure</a>
+in a configuration with two pumps and two remote DP sensors that either are
+hardwired to the controller (component <code>ctlDpRem</code>)
+or are not hardwired to the controller, which uses a local DP sensor instead
+(component <code>ctlDpLoc</code>).
 </p>
 <p>
-Shows that control output is driven by the most demanding loop.
-Decreases only when both loop input measurements are below setpoints.
-Without remote sensors hardwired to the controller, the local dp
-setpoint is reset similarly as the loop output in the case with 
-hardwired remote sensors.
-The loop output is bounded by the lower limit y_min except when
-the control loop is disabled &ndash; no operating pump.
+The simulation of this model shows that when any pump is proven on, 
+the controller is enabled and its output is 
+initially set to the neutral value corresponding to the minimum pump speed 
+<code>y_min</code>.
+The minimum pump speed sets the lower limit of the controller output 
+for the entire time that the controller is enabled.
+The output of the controller <code>ctlDpRem</code> is driven by the most 
+demanding remote DP control loop, e.g.,
+the controller output only drops when both loop input measurements are 
+below setpoints.
+Without remote sensors hardwired to the controller, the local DP
+setpoint is reset by the controller <code>ctlDpLoc</code> in a similar way 
+to the output of the controller <code>ctlDpRem</code>.
+</p>
+<p>
+When no pump is proven on, the controller is disabled and its output
+is set to <i>0&nbsp;%</i>.
+</p>
 </html>",
       revisions="<html>
 <ul>

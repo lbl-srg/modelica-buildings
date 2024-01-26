@@ -1,0 +1,22 @@
+simulateModel("Buildings.Templates.Plants.Components.Controls.Pumps.Primary.Validation.DisableLeadDedicated",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=3600.0,
+    resultFile="DisableLeadDedicated");
+createPlot(
+    id=1,
+    subPlot=1,
+    position={5, 5, 400, 400},
+    y={"y1.y", "y1EquLea.y", "y1EquLea_actual.y", "y1ReqEquLea.y"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"disLea.y1", "disLeaReq.y1"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);

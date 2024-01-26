@@ -174,7 +174,7 @@ equation
         preserveAspectRatio=false)),
     Documentation(
       info="<html>
-FIXME: Replace 
+FIXME: Replace
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.Controls.PIDWithEnable
 with this class.
 <p>
@@ -192,8 +192,8 @@ and the integral term is reset to <code>y_reset</code> at
 enable time.
 </li>
 <li>
-When disabled, the output of the controller is set to <code>y_neutral</code> 
-and the setpoint is overridden by the measurement signal in order to avoid 
+When disabled, the output of the controller is set to <code>y_neutral</code>
+and the setpoint is overridden by the measurement signal in order to avoid
 time integration of the control error.
 </li>
 </ul>

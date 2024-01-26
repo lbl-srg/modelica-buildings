@@ -1,8 +1,8 @@
 within Buildings.Templates.Plants.Components.Controls.Pumps.Generic;
 block ControlDifferentialPressure
   "Differential pressure control for variable speed pumps"
-  parameter Boolean have_senDpLoc
-    "Set to true for local differential pressure sensor hardwired to plant controller"
+  parameter Boolean have_senDpRemHar
+    "Set to true remote differential pressure sensor(s) hardwired to controller"
     annotation (Evaluate=true);
   parameter Integer nPum(
     final min=1)
@@ -17,13 +17,13 @@ block ControlDifferentialPressure
     final unit="Pa",
     final min=0)=5 * 6895
     "Minimum loop differential pressure setpoint local to the plant"
-    annotation (Dialog(enable=have_senDpLoc));
+    annotation (Dialog(enable=not have_senDpRemHar));
   parameter Real dpLocSet_max(
     start=1E5,
     final unit="Pa",
     final min=0)
     "Maximum loop differential pressure setpoint local to the plant"
-    annotation (Dialog(enable=have_senDpLoc));
+    annotation (Dialog(enable=not have_senDpRemHar));
   parameter Real y_min(
     final unit="1",
     final min=0,
@@ -55,7 +55,7 @@ block ControlDifferentialPressure
       iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpLoc(
     final unit="Pa")
-    if have_senDpLoc
+    if not have_senDpRemHar
     "Loop differential pressure local to the plant"
     annotation (Placement(transformation(extent={{-160,-140},{-120,-100}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
@@ -83,7 +83,7 @@ block ControlDifferentialPressure
     final k=k,
     final Ti=Ti,
     r=dpLocSet_max)
-    if have_senDpLoc
+    if not have_senDpRemHar
     "Local loop differential pressure controller"
     annotation (Placement(transformation(extent={{30,-70},{50,-50}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator repEna(
@@ -91,7 +91,7 @@ block ControlDifferentialPressure
     "Replicate"
     annotation (Placement(transformation(extent={{-70,90},{-50,110}})));
   Buildings.Controls.OBC.CDL.Reals.Line dpLocSet
-    if have_senDpLoc
+    if not have_senDpRemHar
     "Local loop differential pressure setpoint"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
   Buildings.Controls.OBC.CDL.Reals.MultiMax maxY(
@@ -117,7 +117,7 @@ block ControlDifferentialPressure
   Buildings.Controls.OBC.CDL.Routing.RealVectorFilter pas(
     final nin=1,
     final nout=1)
-    if not have_senDpLoc
+    if have_senDpRemHar
     "Direct pass-through"
     annotation (Placement(transformation(extent={{50,90},{70,110}})));
   Buildings.Controls.OBC.CDL.Reals.Line out
@@ -218,38 +218,36 @@ equation
           textColor={0,0,255})}),
     Documentation(
       info="<html>
-<p>Used in Guideline 36 for:
+<p>Used in Guideline 36 for controlling:
 </p>
 <ul>
 <li>
-primary-only chiller and boiler plants with variable speed primary pumps
-where the remote DP sensor(s) is hardwired to the plant controller,
+variable speed primary pumps in primary-only chiller and boiler plants 
+where the remote DP sensor(s) is hardwired to the plant controller
+(<code>have_senDpRemHar=true</code>),
 </li>
 <li>
-primary-only chiller and boiler plants with variable speed primary pumps where
-the remote DP sensor(s) is not hardwired to the plant controller, but a local
-DP sensor is hardwired to the plant controller,
+variable speed primary pumps in primary-only chiller and boiler plants 
+where the remote DP sensor(s) is not hardwired to the plant controller, but 
+a local DP sensor is hardwired to the plant controller
+(<code>have_senDpRemHar=false</code>),
 </li>
 <li>
-primary-secondary chiller and boiler plants plants with variable speed
-secondary pumps where a remote DP sensor(s) is hardwired to the secondary pump
-controller,
+variable speed secondary pumps in primary-secondary chiller and boiler plants 
+plants where a remote DP sensor(s) is hardwired to the secondary pump controller
+(<code>have_senDpRemHar=true</code>),
 </li>
 <li>
-primary-secondary chiller and boiler plants plants with variable speed
-secondary pumps where a remote DP sensor is not hardwired to the secondary pump controller,
-but a local DP sensor is hardwired to the secondary pump controller.
+variable speed secondary pumps in primary-secondary chiller and boiler plants plants 
+where a remote DP sensor is not hardwired to the secondary pump controller,
+but a local DP sensor is hardwired to the secondary pump controller
+(<code>have_senDpRemHar=false</code>).
 </li>
 </ul>
 <p>
-Where more than one remote DP sensor serves a given set of primary or secondary pumps,
-remote DP setpoints for all remote sensors serving those pumps shall increase in unison.
-Note: if remote sensors have different CHW-DPmax values, then the amount each DP setpoint
-changes per percent loop output will differ.
-</p>
-<p>
-The minimum local differential pressure setpoint <code>dpLocSet_min</code> is dictated
-by minimum flow control in primary-only plants but has no lower
+For configurations using a local DP sensor,
+the minimum local differential pressure setpoint <code>dpLocSet_min</code> is 
+dictated by minimum flow control in primary-only plants but has no lower
 limit in primary-secondary plants.
 In primary-only plants, the minimum setpoint needs to be high enough to drive design
 minimum flow for the largest equipment through the minimum flow bypass valve.

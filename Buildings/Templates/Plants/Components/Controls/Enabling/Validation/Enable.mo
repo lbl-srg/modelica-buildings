@@ -1,6 +1,6 @@
 within Buildings.Templates.Plants.Components.Controls.Enabling.Validation;
 model Enable
-  "Validation model for system enable/disable logic"
+  "Validation model for system enabling logic"
   Buildings.Templates.Plants.Components.Controls.Enabling.Enable enaHea(
     typ=Buildings.Templates.Plants.Components.Controls.Types.Application.Heating,
     nReqIgn=1)
