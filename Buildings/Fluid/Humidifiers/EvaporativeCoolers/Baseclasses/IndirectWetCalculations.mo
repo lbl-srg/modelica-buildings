@@ -114,7 +114,6 @@ block IndirectWetCalculations
     final quantity="ThermodynamicTemperature")
     "Dry bulb temperature of the outlet air"
     annotation (Placement(
-     visible=true,
      transformation(
        origin={120,0},
        extent={{-20,-20},{20,20}},
