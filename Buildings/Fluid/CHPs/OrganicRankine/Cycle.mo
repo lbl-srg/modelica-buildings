@@ -75,7 +75,7 @@ model Cycle
           X=inStream(port_a2.Xi_outflow))))
     "Expression for condenser cold fluid incoming temperature"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  Modelica.Blocks.Sources.RealExpression expMCon_flow1(y=m2_flow)
+  Modelica.Blocks.Sources.RealExpression expMCon_flow(y=m2_flow)
     "Expression for condenser cold fluid flow rate"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 
@@ -99,8 +99,8 @@ equation
           10},{-30,4},{-12,4}}, color={0,0,127}));
   connect(expTConIn.y, intSta.TConIn) annotation (Line(points={{-39,-10},{-30,-10},
           {-30,-4},{-12,-4}}, color={0,0,127}));
-  connect(expMCon_flow1.y, intSta.mCon_flow) annotation (Line(points={{-39,-30},
-          {-20,-30},{-20,-8},{-12,-8}}, color={0,0,127}));
+  connect(expMCon_flow.y, intSta.mCon_flow) annotation (Line(points={{-39,-30},{
+          -20,-30},{-20,-8},{-12,-8}}, color={0,0,127}));
   connect(intSta.QEva_flow, preHeaFloEva.Q_flow)
     annotation (Line(points={{12,6},{50,6},{50,40},{39,40}}, color={0,0,127}));
   annotation (defaultComponentName = "ORC",
