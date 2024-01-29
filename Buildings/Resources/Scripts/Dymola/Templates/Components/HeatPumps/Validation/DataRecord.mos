@@ -1,8 +1,8 @@
-simulateModel("Buildings.Templates.Components.Validation.HeatPumpsRecord",
+simulateModel("Buildings.Templates.Components.HeatPumps.Validation.DataRecord",
     method="cvode",
     tolerance=1e-6,
     stopTime=1.0,
-    resultFile="HeatPumpsRecord");
+    resultFile="HeatPumpsDataRecord");
 createPlot(
     id=2,
     position={5, 5, 600, 550},

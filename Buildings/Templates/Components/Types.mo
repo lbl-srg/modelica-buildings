@@ -74,8 +74,8 @@ package Types "Package with type definitions"
       "Water(or brine)-to-water heat pump")
     "Enumeration to specify the type of heat pump";
   type HeatPumpModel = enumeration(
-      EquationFit
-      "Model for reversible heat pump based on the equation fit method")
+      ModularTableData2D
+      "Heat pump model based on the modular approach with 2D table performance data")
     "Enumeration to specify the heat pump model";
   type IconPipe = enumeration(
       None

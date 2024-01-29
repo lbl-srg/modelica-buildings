@@ -2,6 +2,8 @@ Bus
 PartialCoil
 PartialFan
 PartialHeatPump
+PartialHeatPumpModular
+PartialHeatPumpModularController
 PartialPump
 PartialPumpMultiple
 PartialPumpSingle

@@ -8,11 +8,23 @@ model PartialHeatPump
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "HW medium"
     annotation(__Linkage(enable=false));
-  replaceable package MediumChiWat=MediumHeaWat
+  /*
+  MediumChiWat is for internal use only.
+  It is the same as MediumHeaWat for reversible HP.
+  Non-reversible HP that can be controlled to produce either HW or CHW
+  shall be modeled with chiller components (as a chiller/heater).
+  */
+  final package MediumChiWat=MediumHeaWat
+    "CHW medium";
+  /*
+  Derived classes representing AWHP shall use: 
+  redeclare final package MediumSou = MediumAir
+  */
+  replaceable package MediumSou=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
-    "Evaporator-side medium for non-reversible WWHP"
+    "Source-side medium"
     annotation(Dialog(enable=
-    typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater and not is_rev),
+    typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater),
     __Linkage(enable=false));
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
@@ -27,7 +39,8 @@ model PartialHeatPump
   parameter Boolean is_rev
     "Set to true for reversible heat pumps, false for heating only"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Buildings.Templates.Components.Types.HeatPumpModel typMod
+  parameter Buildings.Templates.Components.Types.HeatPumpModel typMod=
+    Buildings.Templates.Components.Types.HeatPumpModel.ModularTableData2D
     "Type of heat pump model"
     annotation (Evaluate=true, Dialog(group="Configuration"),
     __ctrlFlow(enable=false));
@@ -37,7 +50,7 @@ model PartialHeatPump
     is_rev=is_rev,
     typMod=typMod,
     cpHeaWat_default=cpHeaWat_default,
-    cpChiWat_default=cpHeaWat_default)
+    cpSou_default=cpSou_default)
     "Design and operating parameters"
     annotation (
     Placement(transformation(extent={{70,80},{90,100}})),
@@ -45,34 +58,69 @@ model PartialHeatPump
 
   final parameter Modelica.Units.SI.MassFlowRate mHeaWat_flow_nominal=
     dat.mHeaWat_flow_nominal
-    "HW mass flow rate";
+    "Design HW mass flow rate";
   final parameter Modelica.Units.SI.HeatFlowRate capHea_nominal=
     dat.capHea_nominal
-    "Heating capacity";
+    "Design heating capacity";
+  final parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal=
+    abs(capHea_nominal)
+    "Design heating heat flow rate";
   final parameter Modelica.Units.SI.PressureDifference dpHeaWat_nominal=
     dat.dpHeaWat_nominal
-    "Pressure drop at design HW mass flow rate";
+    "Design HW pressure drop";
   final parameter Modelica.Units.SI.Temperature THeaWatSup_nominal=
     dat.THeaWatSup_nominal
-    "HW supply temperature";
+    "Design HW supply temperature";
+  final parameter Modelica.Units.SI.Temperature THeaWatRet_nominal=
+    dat.THeaWatRet_nominal
+    "Design HW return temperature";
   final parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_nominal=
     dat.mChiWat_flow_nominal
-    "CHW mass flow rate"
+    "Design CHW mass flow rate"
     annotation(Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.PressureDifference dpChiWat_nominal=
-    dpHeaWat_nominal * (mChiWat_flow_nominal / mHeaWat_flow_nominal)^2
-    "Pressure drop at design HW mass flow rate";
+    dat.dpChiWat_nominal
+    "Design CHW pressure drop";
   final parameter Modelica.Units.SI.HeatFlowRate capCoo_nominal=
     dat.capCoo_nominal
-    "Cooling capacity";
+    "Design cooling capacity";
+  final parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal=
+    -abs(capCoo_nominal)
+    "Design cooling heat flow rate";
   final parameter Modelica.Units.SI.Temperature TChiWatSup_nominal=
     dat.TChiWatSup_nominal
-    "(Lowest) CHW supply temperature";
+    "Design CHW supply temperature";
+  final parameter Modelica.Units.SI.Temperature TChiWatRet_nominal=
+    dat.TChiWatRet_nominal
+    "Design CHW return temperature";
+  final parameter Modelica.Units.SI.MassFlowRate mSouHea_flow_nominal=
+    dat.datTabHea.mEva_flow_nominal
+    "Design source fluid mass flow rate in heating mode";
+  final parameter Modelica.Units.SI.PressureDifference dpSouHea_nominal=
+    dat.datTabHea.dpEva_nominal
+    "Design source fluid pressure drop in heating mode"
+    annotation (Dialog(group="Nominal condition",
+    enable=typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater));
+  final parameter Modelica.Units.SI.MassFlowRate mSouCoo_flow_nominal=
+    dat.datTabCoo.mCon_flow_nominal
+    "Design source fluid mass flow rate in cooling mode";
+  final parameter Modelica.Units.SI.PressureDifference dpSouCoo_nominal=
+    dat.datTabCoo.dpCon_nominal
+    "Designs source fluid pressure drop in cooling mode";
+  final parameter Modelica.Units.SI.Temperature TSouCoo_nominal=
+    dat.TSouCoo_nominal
+    "Design OAT or source fluid supply temperature (condenser entering) in cooling mode";
+  final parameter Modelica.Units.SI.Temperature TSouHea_nominal=
+    dat.TSouHea_nominal
+    "Design OAT or source fluid supply temperature (evaporator entering) in heating mode";
 
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab="Dynamics", group="Conservation equations"));
+  parameter Boolean allowFlowReversalSou = true
+    "Source side flow reversal: false to simplify equations, assuming, but not enforcing, no flow reversal"
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
   final parameter MediumHeaWat.SpecificHeatCapacity cpHeaWat_default=
     MediumHeaWat.specificHeatCapacityCp(staHeaWat_default)
@@ -92,16 +140,25 @@ model PartialHeatPump
       p=MediumChiWat.p_default,
       X=MediumChiWat.X_default)
     "CHW default state";
+  final parameter MediumSou.SpecificHeatCapacity cpSou_default=
+    MediumSou.specificHeatCapacityCp(staSou_default)
+    "Source fluid default specific heat capacity";
+  final parameter MediumSou.ThermodynamicState staSou_default=
+    MediumSou.setState_pTX(
+      T=TSouHea_nominal,
+      p=MediumSou.p_default,
+      X=MediumSou.X_default)
+    "Source fluid default state";
 
   Modelica.Fluid.Interfaces.FluidPort_a port_aSou(
-    redeclare package Medium = MediumSou)
+    redeclare final package Medium = MediumSou)
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(
       iconVisible=typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater,
       transformation(extent={{30,-110},{50,-90}}),
       iconTransformation(extent={{40,-110},{60,-90}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bSou(
-    redeclare package Medium = MediumSou)
+    redeclare final package Medium = MediumSou)
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(
       iconVisible=typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater,
@@ -117,51 +174,14 @@ model PartialHeatPump
     annotation (Placement(transformation(extent={{-80,80},{-40,120}}),
         iconTransformation(extent={{-80,80},{-40,120}})));
   Buildings.Fluid.Sources.Boundary_pT sinAir(
-    redeclare final package Medium =MediumAir, nPorts=2)
+    redeclare final package Medium =MediumAir,
+    nPorts=2)
     if typ == Buildings.Templates.Components.Types.HeatPump.AirToWater
     "Air sink"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={0,-90})));
-protected
-  replaceable package MediumSou=Modelica.Media.Interfaces.PartialMedium
-    constrainedby Modelica.Media.Interfaces.PartialMedium
-    "Source-side medium"
-    annotation(__Linkage(enable=false));
-initial equation
-  // For reversible heat pumps, check that placeholder parameter values in cooling
-  // mode are not used.
-  if is_rev and typMod==Buildings.Templates.Components.Types.HeatPumpModel.EquationFit then
-    assert(abs(dat.per.coo.TRefSou-273.15)>Modelica.Constants.eps,
-      "In " + getInstanceName() +
-      ": The parameter dat.per.coo.TRefSou has not been modified from its default value (" +
-      String(273.15) + " K)" +
-      "although the model is configured for reversible heat pumps." +
-      "This is likely an error that will yield incorrect results.",
-      level = AssertionLevel.warning);
-    assert(abs(dat.per.coo.P)>Modelica.Constants.eps,
-      "In " + getInstanceName() +
-      ": The parameter dat.per.coo.P has not been modified from its default value (" +
-      "0)" +
-      "although the model is configured for reversible heat pumps." +
-      "This is likely an error that will yield incorrect results.",
-      level = AssertionLevel.warning);
-    assert(not Modelica.Math.Vectors.isEqual(dat.per.coo.coeQ, {1,0,0,0,0}),
-      "In " + getInstanceName() +
-      ": The parameter dat.per.coo.coeQ has not been modified from its default value (" +
-      "{1,0,0,0,0})" +
-      "although the model is configured for reversible heat pumps." +
-      "This is likely an error that will yield incorrect results.",
-      level = AssertionLevel.warning);
-    assert(not Modelica.Math.Vectors.isEqual(dat.per.coo.coeP, {1,0,0,0,0}),
-      "In " + getInstanceName() +
-      ": The parameter dat.per.coo.coeP has not been modified from its default value (" +
-      "{1,0,0,0,0})" +
-      "although the model is configured for reversible heat pumps." +
-      "This is likely an error that will yield incorrect results.",
-      level = AssertionLevel.warning);
-  end if;
 equation
   connect(sinAir.ports[1], port_bSou) annotation (Line(points={{-1,-80},{-40,-80},
           {-40,-100}}, color={0,127,255}));

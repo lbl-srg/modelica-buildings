@@ -1,0 +1,42 @@
+simulateModel("Buildings.Templates.Components.HeatPumps.Validation.IdealModularReversibleTableData2D",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=300.0,
+    resultFile="IdealModularReversibleTableData2D");
+createPlot(
+    id=1,
+    subPlot=1,
+    position={5, 5, 400, 600},
+    y={"ctl.u1", "ctl.u1Hea"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"ctl.QReqHea_flow.y", "hea.QCon_flow", "hea.QHea_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=3,
+    y={"ctl.QReqCoo_flow.y", "coo.QEva_flow", "coo.QCoo_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=1,
+    position={410, 5, 400, 400},
+    y={"TConInMea.y", "TSetAct.y", "TEvaInMea.y"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=2,
+    y={"ctl.y"},
+    autoscale=true,
+    grid=true
+);

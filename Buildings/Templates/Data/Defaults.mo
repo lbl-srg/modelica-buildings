@@ -37,7 +37,7 @@ package Defaults
   constant Real PFanByFloConWatTow(
     unit="W/(kg/s)")=340
     "CT fan power divided by CW mass flow rate";
-  constant Real ratFloWatByAirTow(
+  constant Real mConWatFloByAirTow(
     unit="1")=1.45
     "CT CW mass flow rate divided by air mass flow rate";
   constant Modelica.Units.SI.PressureDifference dpConWatFriTow=1E4
@@ -46,9 +46,9 @@ package Defaults
     "CW elevation head (for open cooling towers only)";
   constant Modelica.Units.SI.PressureDifference dpConWatTowClo=5E4
     "CW flow-friction losses through closed-circuit tower and piping only (without valve)";
-  constant Real mConAirByCapChi(
+  constant Real mAirFloByCapChi(
     unit="(kg/s)/W")=1E-4
-    "Air mass flow rate at condenser divided by chiller capacity";
+    "Air mass flow rate divided by capacity for air-cooled chiller";
   constant Real COPChiAirCoo(
     unit="1")=2.99
     "Air-cooled chiller COP (ASHRAE 90.1 2022 at 7 °C CHWST, 35 °C OAT)";
@@ -71,8 +71,8 @@ package Defaults
     "Maximum CHW differential pressure setpoint local to the CHW plant";
   constant Modelica.Units.SI.PressureDifference dpConWatChi=5E4
     "Chiller CW pressure drop (water-cooled)";
-  constant Modelica.Units.SI.PressureDifference dpConAirChi=2000
-    "Chiller air pressure drop through condenser (air-cooled)";
+  constant Modelica.Units.SI.PressureDifference dpAirChi=500
+    "Chiller air pressure drop across condenser (air-cooled)";
   constant Modelica.Units.SI.PressureDifference dpChiWatEco=3E4
     "WSE CHW pressure drop";
   constant Modelica.Units.SI.PressureDifference dpConWatEco=3E4
@@ -115,8 +115,12 @@ package Defaults
     "Outdoor air temperature for air-to-water heat pump rating - Cooling (AHRI 551/591)";
   constant Modelica.Units.SI.Temperature TOutHeaPumHeaHig=8 + 273.15
     "Outdoor air temperature for air-to-water heat pump rating - High heating (AHRI 551/591)";
-  constant Modelica.Units.SI.Temperature TOutHeaPumHeaLow=- 8 + 273.15
+  constant Modelica.Units.SI.Temperature TOutHeaPumHeaLow=-8 + 273.15
     "Outdoor air temperature for air-to-water heat pump rating - Low heating (AHRI 551/591)";
+  constant Modelica.Units.SI.Temperature TSouHeaPumCoo=30 + 273.15
+    "Source fluid entering temperature for water-to-water heat pump rating - Cooling (AHRI 551/591)";
+  constant Modelica.Units.SI.Temperature TSouHeaPumHea=12 + 273.15
+    "Source fluid entering temperature for water-to-water heat pump rating - Heating (AHRI 551/591)";
   constant Real COPHeaPumAirWatHea(
     unit="1")=1.75
     "Air-to-water heat pump heating COP (ASHRAE 90.1 2022 at 50 °C HWST, -8 °C OAT)";
