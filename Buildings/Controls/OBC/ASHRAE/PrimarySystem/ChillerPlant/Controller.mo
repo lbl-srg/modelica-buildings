@@ -1126,7 +1126,6 @@ block Controller "Chiller plant controller"
     annotation(Placement(transformation(extent={{-700,300},{-660,340}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable.Enable plaEna(
-    final have_WSE=have_WSE,
     final schTab=schTab,
     final TChiLocOut=TChiLocOut,
     final plaThrTim=plaThrTim,
@@ -1573,9 +1572,7 @@ block Controller "Chiller plant controller"
     final nChi=nChi,
     final nChiWatPum=nChiWatPum,
     final nConWatPum=nConWatPum,
-    final nTowCel=nTowCel,
-    final have_WSE=have_WSE)
-                           "Disable devices when plant is disabled"
+    final nTowCel=nTowCel) "Disable devices when plant is disabled"
     annotation (Placement(transformation(extent={{740,-480},{760,-460}})));
 
   Buildings.Controls.OBC.CDL.Logical.And celCom[nTowCel]
@@ -2065,8 +2062,6 @@ equation
           -24},{-140,280},{-740,280},{-740,312},{-704,312}}, color={255,127,0}));
   connect(chaProUpDown.y, disChi.chaPro) annotation (Line(points={{402,-80},{
           410,-80},{410,-479},{738,-479}}, color={255,0,255}));
-  connect(wseSta.y, disChi.uWSE) annotation (Line(points={{-656,326},{-630,326},
-          {-630,-461},{738,-461}}, color={255,0,255}));
   connect(uChiStaPro.y, yChi)
     annotation (Line(points={{662,350},{940,350}}, color={255,0,255}));
   connect(disChi.yTowCel, booScaRep3.u) annotation (Line(points={{762,-479},{

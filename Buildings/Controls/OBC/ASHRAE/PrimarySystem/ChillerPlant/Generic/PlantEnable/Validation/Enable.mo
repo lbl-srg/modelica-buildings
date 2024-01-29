@@ -9,17 +9,27 @@ model Enable
       "Chilled water supply set temperature";
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable.Enable
-    disPlaSch(final schTab=[0,0; 6*3600,1; 19*3600,0; 24*3600,0], ignReq=1)
+    disPlaSch(
+    final schTab=[0,0;
+                  10*60,1;
+                  19*3600,0;
+                  24*3600,0],
+    ignReq=1)
     "Disable plant without waterside economizer, due to schedule"
     annotation (Placement(transformation(extent={{40,90},{60,110}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable.Enable
-    disPlaReq(final schTab=[0,0; 6*3600,1; 19*3600,0; 24*3600,0], ignReq=1)
+    disPlaReq(
+    final schTab=[0,0;
+                  6*3600,1;
+                  19*3600,0;
+                  24*3600,0],
+    ignReq=1)
     "Disable plant without waterside economizer, due to lack of request"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable.Enable
-    disPlaOutTem(final schTab=[0,0; 6*3600,1; 19*3600,0; 24*3600,0])
+    disPlaOutTem(final schTab=[0,0; 1*3600,1; 19*3600,0; 24*3600,0])
     "Disable plant without waterside economizer, due to low outdoor temperature"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
 
@@ -34,7 +44,12 @@ protected
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable chiPlaReq2(
-    final table=[0,1; 6.5*3600,1; 9*3600,2;14*3600,0; 19*3600,0; 24*3600,1],
+    final table=[0,1;
+                 6.5*3600,1;
+                 9*3600,2;
+                 9*3600 + 600,0;
+                 19*3600,0;
+                 24*3600,1],
     final smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments)
     "Number of chiller plant request"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
@@ -49,7 +64,12 @@ protected
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable chiPlaReq3(
-    final table=[0,1; 6.5*3600,1; 9*3600,2;14*3600,3; 19*3600,3; 24*3600,1],
+    final table=[0,1;
+                 6.5*3600,1;
+                 9*3600,2;
+                 14*3600,3;
+                 19*3600,3;
+                 24*3600,1],
     final smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments)
     "Number of chiller plant request"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
@@ -61,7 +81,7 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin outTem1(
     final amplitude=7.5,
     final freqHz=1/(24*3600),
-    final offset=280.15) "Outdoor temperature"
+    final offset=275.15) "Outdoor temperature"
     annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
 
 equation
@@ -90,7 +110,31 @@ annotation (
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable.Enable\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable.Enable</a>.
+It shows different conditions to enable and disable the plant.
 </p>
+<ul>
+<li>
+For instance <code>disPlaReq</code>, the input <code>chiPlaReq</code> becomes
+greater than the ignorable request <code>ignReq</code> at 32400 seconds and
+becomes less than the ignorable request at 33000 seconds. The plant is enabled
+at 32400 seconds, but becomes disabled at 33300 seconds. It allows the plant
+being enabled for 15 minutes and then becomes disabled.
+</li>
+<li>
+For instance <code>disPlaOutTem</code>, the input <code>TOut</code> becomes
+greater than the lockout temperature <code>TChiLocOut</code> at 4382.seconds.
+The plant becomes enabled. At 39877.7 seconds, the input <code>TOut</code>
+becomes lower than the lockeout temperature <code>TChiLocOut</code> by 0.556
+&deg;C. The plant becomes disabled.
+</li>
+<li>
+For instance <code>disPlaSch</code>, the chiller enabing schedule specifies
+that the plant should be enabled at 600 seconds. However, the plant becomes
+enabled at 900 seconds as it allows the plant being disabled for 15 minutes.
+The plant becomes disabled at 68400 seconds, which is specified as in the
+plant scheduling.
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>

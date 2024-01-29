@@ -3,20 +3,14 @@ model DisableChillers
   "Validation sequence for disabling chillers and the associated devices"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable.DisableChillers
-    disPlaFroEco(have_WSE=true)
-    "Disable plant from the economizer mode"
-    annotation (Placement(transformation(extent={{60,40},{80,60}})));
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable.DisableChillers
-    disPlaFroChi(have_WSE=false)
+    disPlaFroChi
     "Disable plant from chiller mode"
-    annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
+    annotation (Placement(transformation(extent={{60,0},{80,20}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant staPro(final k=false)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant staPro(
+    final k=false)
     "Staging change process"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse wseSta(final width=0.7,
-      final period=3600) "Waterside economizer"
-    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiIsoVal[2](
     final k={1,0})
     "Chilled water isolation valve"
@@ -36,40 +30,22 @@ model DisableChillers
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
 
 equation
-  connect(wseSta.y, disPlaFroEco.uWSE) annotation (Line(points={{-58,80},{48,80},
-          {48,59},{58,59}}, color={255,0,255}));
-  connect(chiSta.y, disPlaFroEco.uChi) annotation (Line(points={{-38,50},{44,50},
-          {44,57},{58,57}}, color={255,0,255}));
-  connect(chiSta.y, disPlaFroEco.uChiWatReq) annotation (Line(points={{-38,50},{
-          40,50},{40,55},{58,55}}, color={255,0,255}));
-  connect(chiIsoVal.y, disPlaFroEco.uChiWatIsoVal) annotation (Line(points={{-58,
-          20},{20,20},{20,53},{58,53}}, color={0,0,127}));
-  connect(chiSta.y, disPlaFroEco.uConWatReq)
-    annotation (Line(points={{-38,50},{58,50}}, color={255,0,255}));
-  connect(pumSpe.y, disPlaFroEco.uConWatPumSpe) annotation (Line(points={{-58,-40},
-          {32,-40},{32,43},{58,43}}, color={0,0,127}));
-  connect(staPro.y, disPlaFroEco.chaPro) annotation (Line(points={{-18,-70},{36,
-          -70},{36,41},{58,41}}, color={255,0,255}));
-  connect(conIsoVal1.y, disPlaFroEco.uConWatIsoVal) annotation (Line(points={{-38,
-          -10},{24,-10},{24,47},{58,47}}, color={0,0,127}));
-  connect(pumSpe.y, disPlaFroEco.uChiWatPumSpe) annotation (Line(points={{-58,-40},
-          {28,-40},{28,45},{58,45}}, color={0,0,127}));
   connect(chiSta.y, disPlaFroChi.uChi) annotation (Line(points={{-38,50},{44,50},
-          {44,-43},{58,-43}}, color={255,0,255}));
+          {44,17},{58,17}},   color={255,0,255}));
   connect(chiSta.y, disPlaFroChi.uChiWatReq) annotation (Line(points={{-38,50},{
-          40,50},{40,-45},{58,-45}}, color={255,0,255}));
+          40,50},{40,15},{58,15}}, color={255,0,255}));
   connect(chiSta.y, disPlaFroChi.uConWatReq) annotation (Line(points={{-38,50},{
-          48,50},{48,-50},{58,-50}}, color={255,0,255}));
-  connect(chiIsoVal.y, disPlaFroChi.uChiWatIsoVal) annotation (Line(points={{-58,
-          20},{20,20},{20,-47},{58,-47}}, color={0,0,127}));
-  connect(conIsoVal1.y, disPlaFroChi.uConWatIsoVal) annotation (Line(points={{-38,
-          -10},{24,-10},{24,-53},{58,-53}}, color={0,0,127}));
+          48,50},{48,10},{58,10}},   color={255,0,255}));
+  connect(chiIsoVal.y, disPlaFroChi.uChiWatIsoVal) annotation (Line(points={{-58,20},
+          {20,20},{20,13},{58,13}}, color={0,0,127}));
+  connect(conIsoVal1.y, disPlaFroChi.uConWatIsoVal) annotation (Line(points={{-38,-10},
+          {24,-10},{24,7},{58,7}}, color={0,0,127}));
   connect(pumSpe.y, disPlaFroChi.uChiWatPumSpe) annotation (Line(points={{-58,-40},
-          {28,-40},{28,-55},{58,-55}}, color={0,0,127}));
+          {28,-40},{28,5},{58,5}}, color={0,0,127}));
   connect(pumSpe.y, disPlaFroChi.uConWatPumSpe) annotation (Line(points={{-58,-40},
-          {32,-40},{32,-57},{58,-57}}, color={0,0,127}));
+          {32,-40},{32,3},{58,3}}, color={0,0,127}));
   connect(staPro.y, disPlaFroChi.chaPro) annotation (Line(points={{-18,-70},{36,
-          -70},{36,-59},{58,-59}}, color={255,0,255}));
+          -70},{36,1},{58,1}}, color={255,0,255}));
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Generic/PlantEnable/Validation/DisableChillers.mos"
@@ -79,7 +55,21 @@ annotation (
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable.DisableChillers\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable.DisableChillers</a>.
+It demonstrates the control of disabling plants from chiller mode (<code>disPlaFroChi</code>).
 </p>
+<ul>
+<li>
+Bofore 1800 seconds, the chiller 1 is enabled and the chiller 2 is disabled.
+The chilled water isolation valve is fully open and the chiller water pump
+speed equals the input speed setpoint.
+</li>
+<li>
+After 1800 seconds, the chillers are disabled. Thus both the
+chilled and condenser water isolation valves are closed, the
+chilled and condenser water pump speed setpoint becomes 0, and
+all the tower cells are disabled.
+</li>
+</ul?
 </html>", revisions="<html>
 <ul>
 <li>

@@ -1,9 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable;
 block Enable "Sequence to enable and disable plant"
 
-  parameter Boolean have_WSE = true
-    "Flag to indicate if the plant has waterside economizer";
-
   parameter Real schTab[4,2] = [0,1; 6*3600,1; 19*3600,1; 24*3600,1]
     "Plant enabling schedule allowing operators to lock out the plant during off-hour";
 
@@ -23,7 +20,9 @@ block Enable "Sequence to enable and disable plant"
   parameter Integer ignReq = 0
     "Ignorable chiller plant requests";
 
-  parameter Real locDt = 1
+  parameter Real locDt(
+    final unit="K",
+    final quantity="TemperatureDifference") = 5/9
     "Offset temperature for lockout chiller"
     annotation (Dialog(tab="Advanced"));
 
@@ -35,7 +34,7 @@ block Enable "Sequence to enable and disable plant"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
     final quantity="ThermodynamicTemperature",
-    final displayUnit="degC")
+    displayUnit="degC")
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-240,-170},{-200,-130}}),
       iconTransformation(extent={{-140,-62},{-100,-22}})));
@@ -47,20 +46,20 @@ block Enable "Sequence to enable and disable plant"
 
   Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable enaSch(
     final table=schTab,
-    final smoothness=tabSmo,
-    final extrapolation=extrapolation)
+    final smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
+    final extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.Periodic)
     "Plant enabling schedule allowing operators to lock out the plant during off-hour"
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
 
+//   final parameter Buildings.Controls.OBC.CDL.Types.Smoothness tabSmo=
+//     Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments
+//     "Smoothness of table interpolation";
+//
+//   final parameter Buildings.Controls.OBC.CDL.Types.Extrapolation extrapolation=
+//     Buildings.Controls.OBC.CDL.Types.Extrapolation.Periodic
+//     "Extrapolation of data outside the definition range";
+
 protected
-  final parameter Buildings.Controls.OBC.CDL.Types.Smoothness tabSmo=
-    Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments
-    "Smoothness of table interpolation";
-
-  final parameter Buildings.Controls.OBC.CDL.Types.Extrapolation extrapolation=
-    Buildings.Controls.OBC.CDL.Types.Extrapolation.Periodic
-    "Extrapolation of data outside the definition range";
-
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold schOn(
     final t=0.5)
     "Check if enabling schedule is active"
@@ -88,8 +87,7 @@ protected
     "Check if chiller plant has been enabled more than threshold time"
     annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Timer enaTim1(
-    final t=reqThrTim)
+  CDL.Logical.TrueDelay                    enaTim1(final delayTime=reqThrTim)
     "Check if number of chiller plant request has been less than ignorable request by more than threshold time"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
 
@@ -114,7 +112,8 @@ protected
     "Disable chiller plant conditions"
     annotation (Placement(transformation(extent={{60,-88},{80,-68}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Not not3 "Logical not"
+  Buildings.Controls.OBC.CDL.Logical.Not lesReq
+    "Check if it is less than the ignorable request"
     annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not notLoc
@@ -164,10 +163,9 @@ equation
           -26},{98,-26}}, color={255,0,255}));
   connect(not2.y, disPlaCon.u1) annotation (Line(points={{-18,-50},{20,-50},{20,
           -78},{58,-78}}, color={255,0,255}));
-  connect(hasReq.y, not3.u)
-    annotation (Line(points={{-118,90},{-20,90},{-20,70},{-180,70},{-180,-70},{-142,
-          -70}},   color={255,0,255}));
-  connect(not3.y, enaTim1.u)
+  connect(hasReq.y, lesReq.u) annotation (Line(points={{-118,90},{-20,90},{-20,70},
+          {-180,70},{-180,-70},{-142,-70}}, color={255,0,255}));
+  connect(lesReq.y, enaTim1.u)
     annotation (Line(points={{-118,-70},{-102,-70}}, color={255,0,255}));
   connect(plaSta.y, pre1.u) annotation (Line(points={{162,80},{180,80},{180,140},
           {-190,140},{-190,120},{-182,120}}, color={255,0,255}));
@@ -192,12 +190,12 @@ equation
           130,74},{138,74}}, color={255,0,255}));
   connect(enaTim.passed, disPla.u1) annotation (Line(points={{-118,-18},{98,-18}},
           color={255,0,255}));
-  connect(enaTim1.passed, or1.u1) annotation (Line(points={{-78,-78},{-40,-78},{
-          -40,-100},{-22,-100}}, color={255,0,255}));
   connect(hys.y, or1.u2) annotation (Line(points={{-78,-130},{-60,-130},{-60,-108},
           {-22,-108}}, color={255,0,255}));
   connect(or1.y, disPlaCon.u2) annotation (Line(points={{2,-100},{20,-100},{20,-86},
           {58,-86}}, color={255,0,255}));
+  connect(enaTim1.y, or1.u1) annotation (Line(points={{-78,-70},{-40,-70},{-40,-100},
+          {-22,-100}}, color={255,0,255}));
 annotation (
   defaultComponentName = "plaEna",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-180},{200,180}})),
