@@ -143,4 +143,32 @@ equation
   =(hConPin - hPum) * (TConOut - TConIn);
   dTConPin = TConWor - TConPin;
 
+  annotation(defaultComponentName="comCyc",
+  Documentation(info="<html>
+<p>
+Adding to
+<a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.InterpolateStates\">
+Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.InterpolateStates</a>,
+this model computes the pinch points, computes the energy exchange,
+and interfaces the input and output variables.
+See the documentation of
+<a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.Cycle\">
+Buildings.Fluid.CHPs.OrganicRankine.Cycle</a>
+for more details.
+</html>", revisions="<html>
+<ul>
+<li>
+January 29, 2024, by Hongxiang Fu:<br/>
+First implementation. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3433\">#3433</a>.
+</li>
+</ul>
+</html>"),
+    Icon(graphics={Line(
+          points={{-28,20},{66,50}},
+          color={238,46,47},
+          thickness=1), Line(
+          points={{-30,-54},{64,-24}},
+          color={28,108,200},
+          thickness=1)}));
 end ComputeCycle;

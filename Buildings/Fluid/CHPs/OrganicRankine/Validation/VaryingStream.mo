@@ -108,7 +108,8 @@ If the hot fluid carries more heat than the cycle's capacity
 If the hot fluid carries too little heat
 (because its flow rate or temperature is too low),
 <i>m&#775;<sub>W</sub></i> would be lower than a threshold.
-<i>m&#775;<sub>W</sub></i> is then set to zero and
+<i>m&#775;<sub>W</sub></i> is then set to zero
+(effectively shutting down the cycle) and
 the set point of <i>&Delta;T<sub>eva,pin</sub></i> is ignored.
 </li>
 </ul>

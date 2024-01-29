@@ -218,11 +218,10 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
         Documentation(info="<html>
 <p>
-Implemented in this model are the core equations of an organic Rankine cycle,
-especially the property interpolation scheme.
+This model performs the property interpolations of a given working fluid.
 See the documentation of
-<a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.BottomingCycle\">
-Buildings.Fluid.CHPs.OrganicRankine.BottomingCycle</a>
+<a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.Cycle\">
+Buildings.Fluid.CHPs.OrganicRankine.Cycle</a>
 for more details.
 </html>", revisions="<html>
 <ul>
