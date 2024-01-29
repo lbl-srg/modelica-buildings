@@ -36,36 +36,39 @@ model ControlDifferentialPressure
   Buildings.Controls.OBC.CDL.Reals.MultiMax mulMax(
     nin=2)
     "Maximum value"
-    annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
+    annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter dpLoc(
     final k=5)
     "Differential pressure local to the plant"
-    annotation (Placement(transformation(extent={{30,-70},{50,-50}})));
+    annotation (Placement(transformation(extent={{30,-90},{50,-70}})));
   Buildings.Templates.Plants.Components.Controls.Pumps.Generic.ControlDifferentialPressure ctlDpLoc(
     have_senDpRemHar=false,
     nPum=2,
-    nSenDpRem=2,
-    dpLocSet_max=1E5)
+    nSenDpRem=2)
     "Differential pressure control without remote sensors hardwired to the plant controller"
     annotation (Placement(transformation(extent={{70,-50},{90,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin[2](
     amplitude=0.1 * dpRemSet.k,
     freqHz={2 / 8000, 4 / 8000},
-    phase=3.1415926535898)
+    each phase=3.1415926535898)
     "Source signal used to generate measurement values"
     annotation (Placement(transformation(extent={{-88,-50},{-68,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Add dpRem[2]
     "Differential pressure at remote location"
     annotation (Placement(transformation(extent={{-48,-30},{-28,-10}})));
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter dpLocSet[2](
+    each final k=5)
+    "Local differential pressure setpoint"
+    annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
 equation
   connect(y1Pum.y, ctlDpRem.y1_actual)
     annotation (Line(points={{-68,60},{60,60},{60,28},{68,28}},color={255,0,255}));
   connect(mulMax.y, dpLoc.u)
-    annotation (Line(points={{12,-60},{28,-60}},color={0,0,127}));
+    annotation (Line(points={{12,-80},{28,-80}},color={0,0,127}));
   connect(y1Pum.y, ctlDpLoc.y1_actual)
     annotation (Line(points={{-68,60},{60,60},{60,-32},{68,-32}},color={255,0,255}));
   connect(dpLoc.y, ctlDpLoc.dpLoc)
-    annotation (Line(points={{52,-60},{60,-60},{60,-44},{68,-44}},color={0,0,127}));
+    annotation (Line(points={{52,-80},{60,-80},{60,-48},{68,-48}},color={0,0,127}));
   connect(ratDp.y, dpRemSet.u)
     annotation (Line(points={{-68,20},{-50,20}},color={0,0,127}));
   connect(sin.y, dpRem.u2)
@@ -75,14 +78,14 @@ equation
       color={0,0,127}));
   connect(dpRemSet.y, ctlDpRem.dpRemSet)
     annotation (Line(points={{-26,20},{40,20},{40,24},{68,24}},color={0,0,127}));
-  connect(dpRemSet.y, ctlDpLoc.dpRemSet)
-    annotation (Line(points={{-26,20},{40,20},{40,-34},{68,-34},{68,-36}},color={0,0,127}));
   connect(dpRem.y, ctlDpRem.dpRem)
     annotation (Line(points={{-26,-20},{50,-20},{50,20},{68,20}},color={0,0,127}));
-  connect(dpRem.y, ctlDpLoc.dpRem)
-    annotation (Line(points={{-26,-20},{50,-20},{50,-40},{68,-40}},color={0,0,127}));
   connect(dpRem.y, mulMax.u)
-    annotation (Line(points={{-26,-20},{-20,-20},{-20,-60},{-12,-60}},color={0,0,127}));
+    annotation (Line(points={{-26,-20},{-20,-20},{-20,-80},{-12,-80}},color={0,0,127}));
+  connect(dpRemSet.y, dpLocSet.u)
+    annotation (Line(points={{-26,20},{20,20},{20,-40},{28,-40}},color={0,0,127}));
+  connect(dpLocSet.y, ctlDpLoc.dpLocSet)
+    annotation (Line(points={{52,-40},{60,-40},{60,-44},{68,-44}},color={0,0,127}));
   annotation (
     __Dymola_Commands(
       file=
@@ -105,17 +108,15 @@ or are not hardwired to the controller, which uses a local DP sensor instead
 <p>
 The simulation of this model shows that when any pump is proven on, 
 the controller is enabled and its output is 
-initially set to the neutral value corresponding to the minimum pump speed 
-<code>y_min</code>.
+initially set to the minimum pump speed <code>y_min</code>.
 The minimum pump speed sets the lower limit of the controller output 
 for the entire time that the controller is enabled.
 The output of the controller <code>ctlDpRem</code> is driven by the most 
 demanding remote DP control loop, e.g.,
 the controller output only drops when both loop input measurements are 
-below setpoints.
-Without remote sensors hardwired to the controller, the local DP
-setpoint is reset by the controller <code>ctlDpLoc</code> in a similar way 
-to the output of the controller <code>ctlDpRem</code>.
+above setpoints.
+Without remote sensors hardwired to the controller, the pump speed is
+driven by the highest local DP setpoint.
 </p>
 <p>
 When no pump is proven on, the controller is disabled and its output

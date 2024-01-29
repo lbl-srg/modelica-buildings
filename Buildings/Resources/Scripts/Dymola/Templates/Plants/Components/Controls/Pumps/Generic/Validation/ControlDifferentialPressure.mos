@@ -32,7 +32,7 @@ createPlot(
     id=2,
     subPlot=1,
     position={410, 5, 400, 400},
-    y={"ctlDpLoc.dpLocSet.y", "dpLoc.y", "ctlDpLoc.dpLocSet_min", "ctlDpLoc.dpLocSet_max"},
+    y={"dpLocSet[1].y", "dpLocSet[2].y", "dpLoc.y"},
     autoscale=true,
     grid=true,
     timeUnit="min"

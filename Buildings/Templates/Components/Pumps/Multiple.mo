@@ -43,7 +43,7 @@ model Multiple "Multiple pumps in parallel"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={20,-50})));
-  Controls.OBC.CDL.Routing.RealScalarReplicator reaSpe(
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaSpe(
     final nout=nPum) if have_var and have_varCom
     "Replicate signal in case of common unique commanded speed" annotation (
       Placement(transformation(
@@ -57,7 +57,7 @@ model Multiple "Multiple pumps in parallel"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={60,70})));
-  Controls.OBC.CDL.Routing.RealExtractSignal pasSpe(
+  Buildings.Controls.OBC.CDL.Routing.RealExtractSignal pasSpe(
     final nin=nPum,
     final nout=nPum) if have_var and not have_varCom
     "Direct pass through for dedicated speed signals" annotation (Placement(

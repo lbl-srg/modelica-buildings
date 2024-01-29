@@ -1,0 +1,22 @@
+simulateModel("Buildings.Templates.Plants.Components.Controls.Pumps.Generic.Validation.ResetLocalDifferentialPressure",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=8400.0,
+    resultFile="ResetLocalDifferentialPressure");
+createPlot(
+    id=1,
+    subPlot=1,
+    position={5, 5, 400, 400},
+    y={"dpRemSet.y", "dpRem.y"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"resDpLoc.dpLocSet", "resDpLoc.dpLocSet_min", "resDpLoc.dpLocSet_max"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
