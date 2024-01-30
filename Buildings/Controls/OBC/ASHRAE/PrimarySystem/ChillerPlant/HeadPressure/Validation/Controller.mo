@@ -8,7 +8,7 @@ model Controller "Validation head pressure controller"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Controller
     conSpePum(
-    final have_WSE=false)
+    final have_WSE=false, have_fixSpeConWatPum=true)
     "Head pressure for plant without waterside economizer, constant speed condenser water pump"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Controller
@@ -80,8 +80,6 @@ equation
   connect(desPumSpe.y, varSpePum.desConWatPumSpe)
     annotation (Line(points={{-98,-20},{10,-20},{10,-102},{98,-102}}, color={0,0,127}));
 
-  connect(desPumSpe.y, conSpePum.desConWatPumSpe) annotation (Line(points={{-98,
-          -20},{10,-20},{10,38},{98,38}}, color={0,0,127}));
 annotation (
   experiment(StopTime=5.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/HeadPressure/Validation/Controller.mos"
@@ -91,7 +89,80 @@ annotation (
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Controller\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Controller</a>.
+It demonstrates the setpoint controls according to the head
+pressure control. It has four instances:
 </p>
+
+<table summary=\"summary\" border=\"1\">
+<tr>
+<th>Instance</th>
+<th>Waterside economizer</th>
+<th>Condenser water pump speed</th>
+<th>Note</th>
+</tr>
+<tr>
+<td align=\"center\"><code>enaWSE</code></td>
+<td align=\"center\">Yes</td>
+<td align=\"center\">Variable</td>
+<td align=\"center\">Economizer enabled</td>
+</tr>
+<tr>
+<td align=\"center\"><code>disWSE</code></td>
+<td align=\"center\">Yes</td>
+<td align=\"center\">Variable</td>
+<td align=\"center\">Economizer disabled</td>
+</tr>
+<tr>
+<td align=\"center\"><code>conSpePum</code></td>
+<td align=\"center\">No</td>
+<td align=\"center\">Constant</td>
+<td align=\"center\">n/a</td>
+</tr>
+<tr>
+<td align=\"center\"><code>varSpePum</code></td>
+<td align=\"center\">No</td>
+<td align=\"center\">Variable</td>
+<td align=\"center\">n/a</td>
+</tr>
+</table>
+<br/>
+
+<p>
+It shows following process:
+</p>
+
+<ul>
+<li>
+For instance <code>enaWSE</code>, since the economizer is enabled, the
+condenser water pump speed setpoint <code>yConWatPumSpeSet</code>
+equals to the design condenser water pump speed; the maximum tower
+speed setpoint is maximum (1); and the head pressure control valve
+setpoint is mapped from the loop output.
+</li>
+<li>
+For instance <code>disWSE</code>, the economizer is disabled.
+The head pressure control valve is fully open. The maximum
+tower speed setpoint and the condenser water pump speed setpoint
+is mapped from the loop output, which ranges from 0 to 0.4. Thus the
+maximum tower speed setpoint is from 1 to 0.28 and the pump speed setpoint
+keeps at maximum (1).
+</li>
+
+<li>
+For instance <code>conSpePum</code>, the pump speed is constant.
+The maximum tower speed setpoint and the head pressure control valve
+setpoint is mapped from the loop output, which ranges from 0 to 0.4. Thus the
+maximum tower speed setpoint is from 1 to 0.28 and the head pressure
+control valve setpoint keeps at maximum (1).
+</li>
+<li>
+For instance <code>varSpePum</code>, the pump speed is variable.
+The maximum tower speed setpoint and the condenser water pump speed setpoint
+is mapped from the loop output, which ranges from 0 to 0.4. Thus the
+maximum tower speed setpoint is from 1 to 0.28 and the pump speed setpoint
+keeps at the design condenser water pump speed.
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>

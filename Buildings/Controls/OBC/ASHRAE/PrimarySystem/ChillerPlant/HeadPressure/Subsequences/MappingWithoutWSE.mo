@@ -37,13 +37,15 @@ block MappingWithoutWSE
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaPreConVal(
     final unit="1",
     final min=0,
-    final max=1) if have_fixSpeConWatPum "Head pressure control valve position"
+    final max=1) if have_fixSpeConWatPum
+    "Head pressure control valve position"
     annotation (Placement(transformation(extent={{160,-60},{200,-20}}),
       iconTransformation(extent={{100,-60},{140,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yConWatPumSpeSet(
     final unit="1",
     final min=0,
-    final max=1) if not have_fixSpeConWatPum "Condenser water pump speed setpoint"
+    final max=1) if not have_fixSpeConWatPum
+    "Condenser water pump speed setpoint"
     annotation (Placement(transformation(extent={{160,-120},{200,-80}}),
       iconTransformation(extent={{100,-100},{140,-60}})));
 
@@ -79,22 +81,19 @@ protected
     final k=minHeaPreValPos) if have_fixSpeConWatPum
     "Minimum head pressure control valve position"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch swi "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
+    "Switch the setpoint to 0 if the head pressure control loop is disabled"
     annotation (Placement(transformation(extent={{120,-110},{140,-90}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant minPumSpe(
     final k=minConWatPumSpe) if not have_fixSpeConWatPum
     "Minimum condenser water pump speed"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch swi1 "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1
+    "Switch the setpoint to 0 if the head pressure control loop is disabled"
     annotation (Placement(transformation(extent={{120,20},{140,40}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant zero(final k=0)
-    if have_fixSpeConWatPum
     "Constant zero"
     annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
-    final k=1) if not have_fixSpeConWatPum
-    "Dummy gain so can disable the connection"
-    annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
 equation
   connect(zer.y, maxCooTowSpeSet.x1)
     annotation (Line(points={{-18,120},{40,120},{40,98},{58,98}}, color={0,0,127}));
@@ -141,14 +140,10 @@ equation
       color={0,0,127}));
   connect(swi1.y, yMaxTowSpeSet)
     annotation (Line(points={{142,30},{180,30}},  color={0,0,127}));
-  connect(one.y, swi1.u3)
-    annotation (Line(points={{-98,120},{-80,120},{-80,22},{118,22}}, color={0,0,127}));
-  connect(zero.y, swi.u3) annotation (Line(points={{22,-130},{40,-130},{40,-108},
+  connect(zero.y, swi.u3) annotation (Line(points={{22,-130},{110,-130},{110,-108},
           {118,-108}}, color={0,0,127}));
-  connect(desConWatPumSpe, gai.u) annotation (Line(points={{-180,10},{-140,10},{
-          -140,-130},{-62,-130}}, color={0,0,127}));
-  connect(gai.y, swi.u3) annotation (Line(points={{-38,-130},{-20,-130},{-20,-108},
-          {118,-108}}, color={0,0,127}));
+  connect(zero.y, swi1.u3) annotation (Line(points={{22,-130},{110,-130},{110,22},
+          {118,22}}, color={0,0,127}));
 annotation (
   defaultComponentName= "heaPreConEqu",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
@@ -232,7 +227,8 @@ reset shall be independent for each chiller.
 
 <p>
 2. When the head pressure control loop is disabled (<code>uHeaPreEna</code> = false), 
-the head pressure control valve shall be closed, or the pump should be disabled. 
+the head pressure control valve shall be closed, or the pump should be disabled; the
+maximum tower speed setpoint becomes 0. 
 </p>
 </html>",
 revisions="<html>

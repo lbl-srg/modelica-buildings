@@ -1,6 +1,8 @@
 simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.Validation.MappingWithoutWSE", method="Cvode", stopTime=5, tolerance=1e-06, resultFile="MappingWithoutWSE");
-createPlot(id=1, position={20, 10, 700, 850}, subPlot=1, y={"fixPumSpe.uHeaPreCon"}, range={0.0, 5.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
-createPlot(id=1, position={20, 10, 700, 850}, subPlot=2, y={"fixPumSpe.yMaxTowSpeSet","fixPumSpe.yHeaPreConVal"}, range={0.0, 5.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=1, position={20, 10, 700, 844}, y={"fixPumSpe.uHeaPreCon"}, range={0.0, 5.0, -0.5, 1.5}, grid=true, subPlot=101, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
+createPlot(id=1, position={20, 10, 700, 844}, y={"fixPumSpe.yMaxTowSpeSet", "fixPumSpe.yHeaPreConVal"}, range={0.0, 5.0, -0.5, 1.5}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"1", "1"});
+createPlot(id=1, position={20, 10, 700, 844}, y={"fixPumSpe.uHeaPreEna"}, range={0.0, 5.0, -0.5, 1.5}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=2, position={740, 10, 700, 844}, y={"varPumSpe.uHeaPreCon"}, range={0.0, 5.0, -0.5, 1.5}, grid=true, subPlot=101, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
+createPlot(id=2, position={740, 10, 700, 844}, y={"varPumSpe.yMaxTowSpeSet", "varPumSpe.yConWatPumSpeSet", "varPumSpe.desConWatPumSpe"}, range={0.0, 5.0, -0.5, 1.5}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}, {0,140,72}}, timeUnit="s", displayUnits={"1", "1", "1"});
+createPlot(id=2, position={740, 10, 700, 844}, y={"varPumSpe.uHeaPreEna"}, range={0.0, 5.0, -0.5, 1.5}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s");
 
-createPlot(id=2, position={740, 10, 700, 850}, subPlot=1, y={"varPumSpe.uHeaPreCon"}, range={0.0, 5.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
-createPlot(id=2, position={740, 10, 700, 850}, subPlot=2, y={"varPumSpe.yMaxTowSpeSet","varPumSpe.yConWatPumSpeSet"}, range={0.0, 5.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{238,46,47}});

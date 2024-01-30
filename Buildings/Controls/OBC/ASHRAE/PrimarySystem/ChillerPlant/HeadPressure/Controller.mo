@@ -9,17 +9,21 @@ block Controller "Head pressure controller for plants with headered condenser wa
   parameter Boolean have_fixSpeConWatPum=false
     "Flag indicating if the plant has fixed speed condenser water pumps"
     annotation (Dialog(group="Plant", enable=not have_WSE));
-  parameter Real minTowSpe=0.1 "Minimum cooling tower fan speed"
+  parameter Real minTowSpe=0.1
+    "Minimum cooling tower fan speed"
     annotation (Dialog(group="Setpoints"));
-  parameter Real minConWatPumSpe=0.1 "Minimum condenser water pump speed"
+  parameter Real minConWatPumSpe=0.1
+    "Minimum condenser water pump speed"
     annotation (Dialog(group="Setpoints", enable= not ((not have_WSE) and have_fixSpeConWatPum)));
-  parameter Real minHeaPreValPos=0.1 "Minimum head pressure control valve position"
+  parameter Real minHeaPreValPos=0.1
+    "Minimum head pressure control valve position"
     annotation (Dialog(group="Setpoints", enable= (not ((not have_WSE) and (not have_fixSpeConWatPum)))));
   parameter Real minChiLif=10
-      "Minimum allowable lift at minimum load for chiller"
+    "Minimum allowable lift at minimum load for chiller"
     annotation (Dialog(tab="Loop signal", enable=not have_heaPreConSig));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
-    Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller"
     annotation (Dialog(tab="Loop signal", group="PID controller", enable=not have_heaPreConSig));
   parameter Real k=1 "Gain of controller"
     annotation (Dialog(tab="Loop signal", group="PID controller", enable=not have_heaPreConSig));
@@ -85,7 +89,7 @@ block Controller "Head pressure controller for plants with headered condenser wa
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaPreConVal(
     final min=0,
     final max=1,
-    final unit="1") if have_WSE or (not have_WSE and have_fixSpeConWatPum)
+    final unit="1") if have_WSE or ((not have_WSE) and have_fixSpeConWatPum)
     "Head pressure control valve position"
     annotation (Placement(transformation(extent={{100,10},{140,50}}),
       iconTransformation(extent={{100,-20},{140,20}})));
@@ -130,7 +134,7 @@ protected
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes1(
     final message="If the plant has waterside economizer, the condenser water pump cannot be fix speed.")
-    "Asserts if the plant has waterside economizer and the condenser water pump has fix speed"
+    "Generate alert if the plant has waterside economizer and the condenser water pump has fix speed"
     annotation (Placement(transformation(extent={{60,-110},{80,-90}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant havWSE(
     final k=have_WSE)
@@ -140,7 +144,7 @@ protected
     final k=have_fixSpeConWatPum)
     "Fix speed condenser water pump"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
-  Buildings.Controls.OBC.CDL.Logical.And and2
+  Buildings.Controls.OBC.CDL.Logical.And fixSpeWSE
     "The plant has waterside economizer and the condenser water pump is fix speed"
     annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
@@ -186,11 +190,11 @@ equation
     annotation (Line(points={{62,46},{90,46},{90,30},{120,30}}, color={0,0,127}));
   connect(desConWatPumSpe, noWSE.desConWatPumSpe)
     annotation (Line(points={{-120,30},{0,30},{0,50},{38,50}}, color={0,0,127}));
-  connect(havWSE.y, and2.u1) annotation (Line(points={{-38,-90},{-30,-90},{-30,-100},
-          {-22,-100}}, color={255,0,255}));
-  connect(fixSpe.y, and2.u2) annotation (Line(points={{-38,-120},{-30,-120},{-30,
-          -108},{-22,-108}}, color={255,0,255}));
-  connect(and2.y, not1.u)
+  connect(havWSE.y, fixSpeWSE.u1) annotation (Line(points={{-38,-90},{-30,-90},{
+          -30,-100},{-22,-100}}, color={255,0,255}));
+  connect(fixSpe.y, fixSpeWSE.u2) annotation (Line(points={{-38,-120},{-30,-120},
+          {-30,-108},{-22,-108}}, color={255,0,255}));
+  connect(fixSpeWSE.y, not1.u)
     annotation (Line(points={{2,-100},{18,-100}}, color={255,0,255}));
   connect(not1.y, assMes1.u)
     annotation (Line(points={{42,-100},{58,-100}}, color={255,0,255}));
