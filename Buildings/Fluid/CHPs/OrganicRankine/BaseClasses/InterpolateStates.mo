@@ -18,14 +18,14 @@ model InterpolateStates "Interpolate states of a working fluid"
     annotation(Dialog(group="ORC inputs"));
 
   // Computed properties
-  final Modelica.Units.SI.AbsolutePressure pEva(
+  Modelica.Units.SI.AbsolutePressure pEva(
     displayUnit = "kPa") =
     Buildings.Utilities.Math.Functions.smoothInterpolation(
       x = TEva,
       xSup = pro.T,
       ySup = pro.p)
     "Evaporator pressure";
-  final Modelica.Units.SI.AbsolutePressure pCon(
+  Modelica.Units.SI.AbsolutePressure pCon(
     displayUnit = "kPa") =
     Buildings.Utilities.Math.Functions.smoothInterpolation(
       x = TCon,
@@ -34,7 +34,7 @@ model InterpolateStates "Interpolate states of a working fluid"
     "Condenser pressure";
   Modelica.Units.SI.SpecificEntropy sExpInl
     "Specific entropy at expander inlet";
-  final Modelica.Units.SI.SpecificEntropy sPum =
+  Modelica.Units.SI.SpecificEntropy sPum =
     Buildings.Utilities.Math.Functions.smoothInterpolation(
       x = TCon,
       xSup = pro.T,
@@ -42,7 +42,7 @@ model InterpolateStates "Interpolate states of a working fluid"
     "Specific entropy at pump, neglecting difference between inlet and outlet";
   Modelica.Units.SI.SpecificEnthalpy hExpInl(displayUnit = "kJ/kg")
     "Specific enthalpy at expander inlet";
-  final Modelica.Units.SI.SpecificEnthalpy hPum(
+  Modelica.Units.SI.SpecificEnthalpy hPum(
     displayUnit = "kJ/kg") =
     Buildings.Utilities.Math.Functions.smoothInterpolation(
       x = TCon,
@@ -52,20 +52,20 @@ model InterpolateStates "Interpolate states of a working fluid"
   Modelica.Units.SI.SpecificEnthalpy hExpOut_i(displayUnit = "kJ/kg", start = (max(pro.hSatVap)+min(pro.hSatVap))/2)
     "Estimated specific enthalpy at expander outlet assuming isentropic";
 
-  final Modelica.Units.SI.SpecificEnthalpy hExpOut(
+  Modelica.Units.SI.SpecificEnthalpy hExpOut(
     displayUnit = "kJ/kg") = hExpInl - (hExpInl - hExpOut_i) * etaExp
     "Specific enthalpy at expander outlet";
   Modelica.Units.SI.ThermodynamicTemperature TExpOut
     "Temperature at expander outlet";
 
-  final Modelica.Units.SI.SpecificEnthalpy hEvaPin(
+  Modelica.Units.SI.SpecificEnthalpy hEvaPin(
     displayUnit = "kJ/kg") =
     Buildings.Utilities.Math.Functions.smoothInterpolation(
       x = pEva,
       xSup = pro.p,
       ySup = pro.hSatLiq)
     "Specific enthalpy on evaporator-side pinch point";
-  final Modelica.Units.SI.SpecificEnthalpy hConPin(
+  Modelica.Units.SI.SpecificEnthalpy hConPin(
     displayUnit = "kJ/kg") =
     Buildings.Utilities.Math.Functions.smoothInterpolation(
       x = pCon,
@@ -73,70 +73,70 @@ model InterpolateStates "Interpolate states of a working fluid"
       ySup = pro.hSatVap)
     "Specific enthalpy on condenser-side pinch point";
 
-  final Real etaExpLim =
+  Real etaExpLim =
     (hExpInl - hSatVapCon)/(hExpInl - hExpOut_i)
     "Upper limit of expander efficiency to prevent condensation, dry fluids have >1";
 
   // Enthalpy differentials,
   //   taking positive sign when flowing into the cycle
-  final Modelica.Units.SI.SpecificEnthalpy dhEva = hExpInl - hPum
+  Modelica.Units.SI.SpecificEnthalpy dhEva = hExpInl - hPum
     "Enthalpy differential at the evaporator (positive)";
-  final Modelica.Units.SI.SpecificEnthalpy dhExp =
+  Modelica.Units.SI.SpecificEnthalpy dhExp =
     (hExpOut_i - hExpInl) * etaExp
     "Enthalpy differential at the expander (negative)";
-  final Modelica.Units.SI.SpecificEnthalpy dhCon = -dhEva - dhExp
+  Modelica.Units.SI.SpecificEnthalpy dhCon = -dhEva - dhExp
     "Enthalpy differential at the condenser (negative)";
 
   Modelica.Units.SI.Efficiency etaThe(min=0) = -dhExp/dhEva
     "Thermal efficiency";
 
 protected
-  final Modelica.Units.SI.SpecificEntropy sSatVapCon =
+  Modelica.Units.SI.SpecificEntropy sSatVapCon =
     Buildings.Utilities.Math.Functions.smoothInterpolation(
       x = pCon,
       xSup = pro.p,
       ySup = pro.sSatVap)
     "Specific entropy of saturated vapour at the condenser";
-  final Modelica.Units.SI.SpecificEntropy sSupVapCon =
+  Modelica.Units.SI.SpecificEntropy sSupVapCon =
     Buildings.Utilities.Math.Functions.smoothInterpolation(
       x = pCon,
       xSup = pro.p,
       ySup = pro.sSupVap)
     "Specific entropy of superheated vapour on condenser side";
-  final Modelica.Units.SI.SpecificEntropy sSatVapEva =
+  Modelica.Units.SI.SpecificEntropy sSatVapEva =
     Buildings.Utilities.Math.Functions.smoothInterpolation(
       x = pEva,
       xSup = pro.p,
       ySup = pro.sSatVap)
     "Specific entropy of saturated vapour in evaporator";
-  final Modelica.Units.SI.SpecificEntropy sSupVapEva =
+  Modelica.Units.SI.SpecificEntropy sSupVapEva =
     Buildings.Utilities.Math.Functions.smoothInterpolation(
       x = pEva,
       xSup = pro.p,
       ySup = pro.sSupVap)
     "Specific entropy of superheated vapour on evaporator side";
-  final Modelica.Units.SI.SpecificEnthalpy hSatVapCon(
+  Modelica.Units.SI.SpecificEnthalpy hSatVapCon(
     displayUnit = "kJ/kg") =
     Buildings.Utilities.Math.Functions.smoothInterpolation(
       x = pCon,
       xSup = pro.p,
       ySup = pro.hSatVap)
     "Specific enthalpy of saturated vapour at the condenser as reference point";
-  final Modelica.Units.SI.SpecificEnthalpy hSupVapCon(
+  Modelica.Units.SI.SpecificEnthalpy hSupVapCon(
     displayUnit = "kJ/kg") =
     Buildings.Utilities.Math.Functions.smoothInterpolation(
       x = pCon,
       xSup = pro.p,
       ySup = pro.hSupVap)
     "Specific enthalpy of superheated vapour on condenser side";
-  final Modelica.Units.SI.SpecificEnthalpy hSatVapEva(
+  Modelica.Units.SI.SpecificEnthalpy hSatVapEva(
     displayUnit = "kJ/kg") =
     Buildings.Utilities.Math.Functions.smoothInterpolation(
       x = pEva,
       xSup = pro.p,
       ySup = pro.hSatVap)
     "Specific enthalpy of saturated vapour in evaporator";
-  final Modelica.Units.SI.SpecificEnthalpy hSupVapEva(
+  Modelica.Units.SI.SpecificEnthalpy hSupVapEva(
     displayUnit = "kJ/kg") =
     Buildings.Utilities.Math.Functions.smoothInterpolation(
       x = pEva,
