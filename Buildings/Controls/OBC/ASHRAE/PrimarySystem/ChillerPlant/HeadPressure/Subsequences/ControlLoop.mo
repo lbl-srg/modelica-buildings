@@ -14,8 +14,18 @@ block ControlLoop
     annotation (Dialog(group="PID controller"));
   parameter Real Ti(
     final unit="s",
-    final quantity="Time")=0.5 "Time constant of integrator block"
-      annotation (Dialog(group="PID controller"));
+    final quantity="Time")=0.5
+    "Time constant of integrator block"
+    annotation (Dialog(group="PID controller",
+                       enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+                           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Real Td(
+    final unit="s",
+    final quantity="Time")=0.5
+    "Time constant of derivative block"
+    annotation (Dialog(group="PID controller",
+                       enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+                           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHeaPreEna
     "Status of head pressure control: true = ON, false = OFF"
@@ -46,38 +56,40 @@ block ControlLoop
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
+    final Td=Td,
     final yMax=1,
     final yMin=0,
-    final y_reset=0) "Generate head pressure control signal"
+    final y_reset=0)
+    "Generate head pressure control signal"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
 
 protected
   Buildings.Controls.OBC.CDL.Reals.Subtract sub1
-    annotation (Placement(transformation(extent={{-70,-30},{-50,-10}})));
+    annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(final k=1)
     "Constant one"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(final k=1/minChiLif)
     "Normalized by minimum allowable lift at minimum load for chiller"
-    annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
+    annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
 
 equation
   connect(TConWatRet, sub1.u1)
-    annotation (Line(points={{-120,-20},{-80,-20},{-80,-14},{-72,-14}},
-                                                    color={0,0,127}));
+    annotation (Line(points={{-120,-20},{-80,-20},{-80,-34},{-62,-34}},
+      color={0,0,127}));
   connect(con.y, conPID.u_s)
     annotation (Line(points={{-18,60},{18,60}}, color={0,0,127}));
   connect(conPID.y, yHeaPreCon)
     annotation (Line(points={{42,60},{60,60},{60,0},{120,0}}, color={0,0,127}));
   connect(sub1.y, gai.u)
-    annotation (Line(points={{-48,-20},{-22,-20}}, color={0,0,127}));
+    annotation (Line(points={{-38,-40},{-22,-40}}, color={0,0,127}));
   connect(gai.y, conPID.u_m)
-    annotation (Line(points={{2,-20},{30,-20},{30,48}}, color={0,0,127}));
+    annotation (Line(points={{2,-40},{30,-40},{30,48}}, color={0,0,127}));
   connect(uHeaPreEna, conPID.trigger)
     annotation (Line(points={{-120,20},{24,20},{24,48}}, color={255,0,255}));
+  connect(TChiWatSup, sub1.u2) annotation (Line(points={{-120,-80},{-80,-80},{-80,
+          -46},{-62,-46}}, color={0,0,127}));
 
-  connect(TChiWatSup, sub1.u2) annotation (Line(points={{-120,-80},{-80,-80},{
-          -80,-26},{-72,-26}}, color={0,0,127}));
 annotation (
   defaultComponentName= "chiHeaPreLoo",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={

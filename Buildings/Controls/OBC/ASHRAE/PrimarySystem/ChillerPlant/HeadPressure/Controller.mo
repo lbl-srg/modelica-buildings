@@ -26,7 +26,18 @@ block Controller "Head pressure controller for plants with headered condenser wa
   parameter Real Ti(
     final unit="s",
     final quantity="Time")=0.5 "Time constant of integrator block"
-    annotation (Dialog(tab="Loop signal", group="PID controller", enable=not have_heaPreConSig));
+    annotation (Dialog(tab="Loop signal", group="PID controller",
+                       enable= not have_heaPreConSig
+                               and (controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+                                 or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+  parameter Real Td(
+    final unit="s",
+    final quantity="Time")=0.5
+    "Time constant of derivative block"
+    annotation (Dialog(tab="Loop signal", group="PID controller",
+                       enable= not have_heaPreConSig
+                               and (controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+                                 or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiHeaCon
     "Chillers head pressure control status: true = ON, false = OFF"
@@ -91,7 +102,8 @@ block Controller "Head pressure controller for plants with headered condenser wa
     final minChiLif=minChiLif,
     final controllerType=controllerType,
     final k=k,
-    final Ti=Ti) if not have_heaPreConSig
+    final Ti=Ti,
+    final Td=Td) if not have_heaPreConSig
     "Generate chiller head pressure control loop signal"
     annotation (Placement(transformation(extent={{-20,80},{0,100}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.MappingWithoutWSE
