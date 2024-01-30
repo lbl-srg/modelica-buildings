@@ -9,7 +9,7 @@ record Generic "Generic data record for working fluid properties"
   parameter Modelica.Units.SI.TemperatureDifference dTSup
     "Superheating differential temperature";
   parameter Modelica.Units.SI.SpecificEntropy sSatLiq[size(T,1)]
-    "Specific entropy of saturated vapour";
+    "Specific entropy of saturated liquid";
   parameter Modelica.Units.SI.SpecificEntropy sSatVap[size(T,1)]
     "Specific entropy of saturated vapour";
   parameter Modelica.Units.SI.SpecificEntropy sSupVap[size(T,1)]
