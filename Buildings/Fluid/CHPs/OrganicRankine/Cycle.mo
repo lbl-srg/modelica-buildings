@@ -76,6 +76,12 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
     "Lower bound of working fluid flow rate"
     annotation(Dialog(group="Cycle"));
 
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput PEleOut(
+    final quantity="Power",
+    final unit="W")
+    "Electrical power output" annotation (Placement(transformation(
+          extent={{100,-20},{140,20}}), iconTransformation(extent={{70,-20},{
+            110,20}})));
 protected
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloEva
     "Prescribed heat flow rate"
@@ -125,6 +131,8 @@ equation
     annotation (Line(points={{12,6},{14,6},{14,20},{18,20}}, color={0,0,127}));
   connect(gai.y, preHeaFloEva.Q_flow) annotation (Line(points={{41,20},{50,20},{
           50,40},{39,40}}, color={0,0,127}));
+  connect(comCyc.PEleOut, PEleOut)
+    annotation (Line(points={{12,0},{120,0}}, color={0,0,127}));
   annotation (defaultComponentName = "ORC",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Line(
