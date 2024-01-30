@@ -63,7 +63,31 @@ annotation (
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable.EnableDevices\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable.EnableDevices</a>.
+It shows how to control devices when the plant is just enabled.
 </p>
+<ul>
+<li>
+At 360 seconds, the plant becomes enabled and the initial plant
+stage is 1. Thus the plant is enabled in chiller mode. The
+associated isolation valves, lead primary chiller and condenser
+water pumps are enabled.
+From 360 seconds to 2880 seconds, the chiller stage <code>uChiSta</code>
+equals the initial plant stage <code>uIni</code> thus it is
+in the plant enabling process.
+</li>
+<li>
+At 1080 seconds, which it is still in the plant enabling process,
+the chilled water and condenser water pumps are proven on.
+Thus, the lead chiller becomes enabled.
+</li>
+<li>
+At 2880 seconds, the plant enabling process is ended.
+Thus the control after the moment becomes invalid.
+</li>
+</ul>
+
+
+
 </html>", revisions="<html>
 <ul>
 <li>

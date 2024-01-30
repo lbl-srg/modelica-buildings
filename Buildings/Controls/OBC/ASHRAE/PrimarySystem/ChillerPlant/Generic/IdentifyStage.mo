@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic;
 block IdentifyStage
-  "Identify current stage according to the proven on status of the chillers"
+  "Identify current chiller stage according to the proven on status of the chillers"
 
   parameter Integer nSta = 3
     "Number of chiller stages";
@@ -117,9 +117,10 @@ sequences for any number of chillers and stages provided by the
 user.
 </p>
 <p>
-The subsequence outputs the current stage index <code>ySta</code> according
-to the chillers proven on status <code>uChi</code>
-given a staging matrix <code>staMat</code>.
+The subsequence outputs the current chiller stage index <code>ySta</code> according
+to the current chillers proven on status <code>uChi</code>
+and the given a staging matrix <code>staMat</code> which specified which chillers
+should be enabled at each stage.
 </p>
 </html>",
 revisions="<html>

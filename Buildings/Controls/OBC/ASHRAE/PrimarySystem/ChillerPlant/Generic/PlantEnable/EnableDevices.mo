@@ -85,12 +85,10 @@ block EnableDevices
   Buildings.Controls.OBC.CDL.Logical.And and1
     "Enabled devices associate with chiller mode operation"
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    final nin=nChiWatPum)
+  Buildings.Controls.OBC.CDL.Logical.MultiOr chiWatPumOn(final nin=nChiWatPum)
     "Check if there is any chilled water pump proven on"
     annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr1(
-    final nin=nConWatPum)
+  Buildings.Controls.OBC.CDL.Logical.MultiOr conWatPumOn(final nin=nConWatPum)
     "Check if there is any condenser water pump proven on"
     annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
@@ -123,14 +121,14 @@ equation
     annotation (Line(points={{122,30},{180,30}}, color={255,0,255}));
   connect(and1.y, yConWatIsoVal) annotation (Line(points={{122,30},{140,30},{140,
           0},{180,0}},     color={255,0,255}));
-  connect(uChiWatPum, mulOr.u)
+  connect(uChiWatPum, chiWatPumOn.u)
     annotation (Line(points={{-180,-60},{-122,-60}}, color={255,0,255}));
-  connect(uConWatPum, mulOr1.u)
+  connect(uConWatPum, conWatPumOn.u)
     annotation (Line(points={{-180,-110},{-122,-110}}, color={255,0,255}));
-  connect(mulOr.y, and2.u1)
+  connect(chiWatPumOn.y, and2.u1)
     annotation (Line(points={{-98,-60},{-62,-60}}, color={255,0,255}));
-  connect(mulOr1.y, and2.u2) annotation (Line(points={{-98,-110},{-80,-110},{-80,
-          -68},{-62,-68}}, color={255,0,255}));
+  connect(conWatPumOn.y, and2.u2) annotation (Line(points={{-98,-110},{-80,-110},
+          {-80,-68},{-62,-68}}, color={255,0,255}));
   connect(and2.y, and3.u2) annotation (Line(points={{-38,-60},{-20,-60},{-20,-128},
           {18,-128}}, color={255,0,255}));
   connect(and1.y, and3.u1) annotation (Line(points={{122,30},{140,30},{140,0},{0,
@@ -171,7 +169,10 @@ Open the isolation valves,
 <ul>
 <li>
 If the plant is enabled in waterside economizer mode,
-open the condenser water isolation valve of the waterside economizer.
+open the condenser water isolation valve of the waterside economizer. This control
+is implemented in
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Controller\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Controller</a>.
 </li>
 <li>
 If the plant is enabled in chiller mode,
