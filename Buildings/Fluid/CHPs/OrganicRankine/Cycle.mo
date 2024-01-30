@@ -152,11 +152,16 @@ Documentation(info="<html>
 [fixme: remake the second figure for style consistency.]
 Implemented in this model is a steady-state organic Rankine cycle
 as a bottoming cycle.
+The fluid stream 1 (using <code>Medium1</code>, <code>port_a1</code>, etc.)
+is the evaporator hot fluid carrying waste heat
+and the stream 2 is the condenser cold fluid carrying the cooling fluid.
+The working fluid (WF) of the cycle is not based on a medium model.
+See the Thermodynamic Properties section of this document.
 </p>
 <h4>Cycle Architecture and Governing Equations</h4>
 <p>
 The implemented ORC assumes a simple architecture shown in the figure below.
-For any given working fluid (WF), the cycle is determined by providing
+For any given WF, the cycle is determined by providing
 the working fluid evaporating temperature <i>T<sub>w,Eva</sub></i>,
 the working fluid condensing temperature <i>T<sub>w,Con</sub></i>,
 the expander efficiency <i>&eta;<sub>Exp</sub></i>,
