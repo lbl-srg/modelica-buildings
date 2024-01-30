@@ -15,7 +15,7 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
     final vol1(
       final prescribedHeatFlowRate=true));
 
-  Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.ComputeCycle intSta(
+  Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.ComputeCycle comCyc(
     final pro=pro,
     final mWor_flow_max=mWor_flow_max,
     final mWor_flow_min=mWor_flow_min,
@@ -24,7 +24,7 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
     final dTConPin_set=dTConPin_set,
     final cpEva=Medium1.specificHeatCapacityCp(sta1_nominal),
     final cpCon=Medium2.specificHeatCapacityCp(sta2_nominal),
-    etaExp=0.7) "Interpolate working fluid states"
+    etaExp=0.7) "Thermodynamic computations"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   replaceable parameter Buildings.Fluid.CHPs.OrganicRankine.Data.Generic pro
@@ -111,17 +111,17 @@ equation
           40},{-16,60},{-10,60}}, color={191,0,0}));
   connect(preHeaFloCon.port, vol2.heatPort) annotation (Line(points={{21,-60},{12,
           -60}},                      color={191,0,0}));
-  connect(intSta.QCon_flow, preHeaFloCon.Q_flow) annotation (Line(points={{12,-6},
+  connect(comCyc.QCon_flow, preHeaFloCon.Q_flow) annotation (Line(points={{12,-6},
           {50,-6},{50,-60},{41,-60}}, color={0,0,127}));
-  connect(expTEvaIn.y, intSta.TEvaIn) annotation (Line(points={{-39,30},{-20,30},
+  connect(expTEvaIn.y,comCyc. TEvaIn) annotation (Line(points={{-39,30},{-20,30},
           {-20,8},{-12,8}}, color={0,0,127}));
-  connect(expMEva_flow.y, intSta.mEva_flow) annotation (Line(points={{-39,10},{-30,
+  connect(expMEva_flow.y,comCyc. mEva_flow) annotation (Line(points={{-39,10},{-30,
           10},{-30,4},{-12,4}}, color={0,0,127}));
-  connect(expTConIn.y, intSta.TConIn) annotation (Line(points={{-39,-10},{-30,-10},
+  connect(expTConIn.y,comCyc. TConIn) annotation (Line(points={{-39,-10},{-30,-10},
           {-30,-4},{-12,-4}}, color={0,0,127}));
-  connect(expMCon_flow.y, intSta.mCon_flow) annotation (Line(points={{-39,-30},{
+  connect(expMCon_flow.y,comCyc. mCon_flow) annotation (Line(points={{-39,-30},{
           -20,-30},{-20,-8},{-12,-8}}, color={0,0,127}));
-  connect(intSta.QEva_flow, gai.u)
+  connect(comCyc.QEva_flow, gai.u)
     annotation (Line(points={{12,6},{14,6},{14,20},{18,20}}, color={0,0,127}));
   connect(gai.y, preHeaFloEva.Q_flow) annotation (Line(points={{41,20},{50,20},{
           50,40},{39,40}}, color={0,0,127}));

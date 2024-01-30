@@ -2,7 +2,7 @@ simulateModel("Buildings.Fluid.CHPs.OrganicRankine.Validation.VaryingStream",
     method="dassl", stopTime=300, tolerance=1e-06, resultFile="VaryingStream");
 // Plot commands
 createPlot(id=3, position={6, 2, 624, 593}, y={"mEva_flow_set.y"}, range={0.0, 300.0, -2.0, 4.0}, grid=true, subPlot=101, colors={{28,108,200}}, timeUnit="s");
-createPlot(id=3, position={6, 2, 624, 593}, y={"TEvaIn_set.y", "ORC.intSta.TEvaWor"}, range={0.0, 300.0, 460.0, 500.0}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"", "K"});
-createPlot(id=3, position={6, 2, 624, 593}, y={"ORC.intSta.mWor_flow", "ORC.intSta.mWor_flow_max", "ORC.intSta.mWor_flow_min"}, range={0.0, 300.0, -0.1, 0.20000000000000004}, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}, {0,140,72}}, timeUnit="s", displayUnits={"kg/s", "kg/s", "kg/s"});
-createPlot(id=3, position={6, 2, 624, 593}, y={"ORC.intSta.dTEvaPin"}, range={0.0, 300.0, -20.0, 40.0}, autoscale=false, grid=true, subPlot=104, colors={{28,108,200}}, timeUnit="s", displayUnits={"K"});
+createPlot(id=3, position={6, 2, 624, 593}, y={"TEvaIn_set.y", "ORC.comCyc.TEvaWor"}, range={0.0, 300.0, 460.0, 500.0}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"", "K"});
+createPlot(id=3, position={6, 2, 624, 593}, y={"ORC.comCyc.mWor_flow", "ORC.comCyc.mWor_flow_max", "ORC.comCyc.mWor_flow_min"}, range={0.0, 300.0, -0.1, 0.20000000000000004}, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}, {0,140,72}}, timeUnit="s", displayUnits={"kg/s", "kg/s", "kg/s"});
+createPlot(id=3, position={6, 2, 624, 593}, y={"ORC.comCyc.dTEvaPin"}, range={0.0, 300.0, -20.0, 40.0}, autoscale=false, grid=true, subPlot=104, colors={{28,108,200}}, timeUnit="s", displayUnits={"K"});
 
