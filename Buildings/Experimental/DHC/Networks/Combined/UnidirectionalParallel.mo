@@ -11,8 +11,7 @@ model UnidirectionalParallel
       final dhDisRet=dhDisRet,
       final dhCon=dhCon),
     redeclare model Model_pipDis =
-        Buildings.Experimental.DHC.Networks.Combined.BaseClasses.PipeAutosize
-        (
+        Buildings.Experimental.DHC.Networks.Combined.BaseClasses.PipeAutosize (
       roughness=7e-6,
       fac=1.5,
       final dp_length_nominal=dp_length_nominal,

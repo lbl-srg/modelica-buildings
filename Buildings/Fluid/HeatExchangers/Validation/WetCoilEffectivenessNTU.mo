@@ -59,8 +59,8 @@ model WetCoilEffectivenessNTU
     annotation (Placement(transformation(extent={{70,-30},{50,-10}})));
   Modelica.Blocks.Sources.RealExpression pAir(y=pAtm) "Air pressure"
     annotation (Placement(transformation(extent={{140,-2},{120,22}})));
-  Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi wetBulIn(redeclare package
-              Medium = Medium_A) "Computation of wet bulb temperature"
+  Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi wetBulIn(redeclare
+      package Medium = Medium_A) "Computation of wet bulb temperature"
     annotation (Placement(transformation(extent={{120,30},{140,50}})));
   Sensors.MassFractionTwoPort senMasFraIn(redeclare package Medium = Medium_A,
       m_flow_nominal=m2_flow_nominal) "Water mass fraction of entering air"
@@ -71,8 +71,8 @@ model WetCoilEffectivenessNTU
   Sensors.TemperatureTwoPort TDryBulOut(redeclare package Medium = Medium_A,
       m_flow_nominal=m2_flow_nominal) "Dry bulb temperature of leaving air"
     annotation (Placement(transformation(extent={{-50,30},{-70,50}})));
-  Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi wetBulOut(redeclare package
-              Medium = Medium_A) "Computation of wet bulb temperature"
+  Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi wetBulOut(redeclare
+      package Medium = Medium_A) "Computation of wet bulb temperature"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Modelica.Blocks.Sources.RealExpression pAir1(y=pAtm) "Air pressure"
     annotation (Placement(transformation(extent={{-100,-72},{-80,-48}})));

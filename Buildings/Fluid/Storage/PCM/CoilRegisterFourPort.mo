@@ -21,26 +21,26 @@ model CoilRegisterFourPort
   parameter Boolean allowFlowReversal = true
     "= true to allow flow reversal in medium, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
-  Modelica.Fluid.Interfaces.FluidPort_a port_a1(redeclare each package Medium
-      =        Medium, each m_flow(start=0, min=if allowFlowReversal then -
+  Modelica.Fluid.Interfaces.FluidPort_a port_a1(redeclare each package Medium =
+               Medium, each m_flow(start=0, min=if allowFlowReversal then -
           Constants.inf else 0))
     "Fluid connector a for medium (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-110,32},{-90,52}}),
         iconTransformation(extent={{-110,32},{-90,52}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b1(redeclare each package Medium
-      =        Medium, each m_flow(start=0, max=if allowFlowReversal then +
+  Modelica.Fluid.Interfaces.FluidPort_b port_b1(redeclare each package Medium =
+               Medium, each m_flow(start=0, max=if allowFlowReversal then +
           Constants.inf else 0))
     "Fluid connector b for medium (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{110,32},{90,52}}),
         iconTransformation(extent={{110,32},{90,52}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_a2(redeclare each package Medium
-      =        Medium, each m_flow(start=0, min=if allowFlowReversal then -
+  Modelica.Fluid.Interfaces.FluidPort_a port_a2(redeclare each package Medium =
+               Medium, each m_flow(start=0, min=if allowFlowReversal then -
           Constants.inf else 0))
     "Fluid connector a for medium (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{90,-52},{110,-32}}),
         iconTransformation(extent={{90,-52},{110,-32}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b2(redeclare each package Medium
-      =        Medium, each m_flow(start=0, max=if allowFlowReversal then +
+  Modelica.Fluid.Interfaces.FluidPort_b port_b2(redeclare each package Medium =
+               Medium, each m_flow(start=0, max=if allowFlowReversal then +
           Constants.inf else 0))
     "Fluid connector b for medium (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-90,-52},{-110,-32}}),
@@ -54,14 +54,14 @@ model CoilRegisterFourPort
   Buildings.Fluid.Sensors.TemperatureTwoPort TInDom(redeclare package Medium =
         Medium, m_flow_nominal=m1_flow_nominal)
     annotation (Placement(transformation(extent={{-78,42},{-62,58}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TOutDom(redeclare package Medium
-      = Medium, m_flow_nominal=m1_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TOutDom(redeclare package Medium =
+        Medium, m_flow_nominal=m1_flow_nominal)
     annotation (Placement(transformation(extent={{62,42},{78,58}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TInPro(redeclare package Medium =
         Medium, m_flow_nominal=m2_flow_nominal)
     annotation (Placement(transformation(extent={{62,-42},{78,-58}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TOutPro(redeclare package Medium
-      = Medium, m_flow_nominal=m2_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TOutPro(redeclare package Medium =
+        Medium, m_flow_nominal=m2_flow_nominal)
     annotation (Placement(transformation(extent={{-78,-42},{-62,-58}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a tubHeaPort_a1 annotation (Placement(transformation(extent={{-108,26},
             {-94,12}}), iconTransformation(extent={{-108,26},{-94,12}})));
