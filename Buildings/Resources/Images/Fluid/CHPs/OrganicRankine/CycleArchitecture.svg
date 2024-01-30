@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="69.994919mm"
+   height="52.187073mm"
+   viewBox="0 0 69.994919 52.187073"
+   version="1.1"
+   id="svg1"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1">
+    <marker
+       style="overflow:visible"
+       id="Triangle"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Triangle-4"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-9" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Triangle-8"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-0" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Triangle-8-9"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-0-0" />
+    </marker>
+  </defs>
+  <g
+     id="layer1"
+     transform="translate(-2.1262645,-1.4126729)">
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.3;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#Triangle-4);marker-end:url(#Triangle-4)"
+       d="M 3.0495723,2.4779954 V 52.676437 H 71.055861"
+       id="path2" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.430372;stroke-dasharray:none;stroke-opacity:1"
+       d="M 58.84179,105.84759 C 67.296071,91.306224 75.750349,76.764864 82.570186,69.437819 89.390023,62.110775 94.575213,61.998053 95.702421,69.268881 96.829629,76.539708 93.898871,91.1935 90.968054,105.84759"
+       id="path3"
+       transform="matrix(1.3087991,0,0,1.0312852,-69.68137,-61.987234)" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.3;stroke-dasharray:none;stroke-opacity:1"
+       d="m 31.428757,16.417043 h 24.243804 l 4.27407,15.951057 -7.9816,4.608177 H 14.750768"
+       id="path4" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.3;stroke-dasharray:none;stroke-opacity:1"
+       d="M 14.332664,14.953683 59.666051,5.7523544"
+       id="path5" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.3;stroke-dasharray:none;stroke-opacity:1"
+       d="M 12.986128,48.617087 60.339321,40.762295"
+       id="path6" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:none;stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
+       x="57.421822"
+       y="17.422329"
+       id="text6"><tspan
+         id="tspan6"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583"
+         x="57.421822"
+         y="17.422329">ExpInl</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:none;stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
+       x="29.60774"
+       y="22.846502"
+       id="text6-0"><tspan
+         id="tspan6-6"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583"
+         x="29.60774"
+         y="22.846502">EvaPin</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:none;stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
+       x="41.019272"
+       y="31.075516"
+       id="text6-0-9"><tspan
+         id="tspan6-6-7"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583"
+         x="41.019272"
+         y="31.075516">ConPin</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:none;stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
+       x="36.991776"
+       y="14.145505"
+       id="text6-55"><tspan
+         id="tspan6-4"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583"
+         x="36.991776"
+         y="14.145505">Evaporator</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:none;stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
+       x="20.891024"
+       y="35.116619"
+       id="text6-55-3"><tspan
+         id="tspan6-4-9"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583"
+         x="20.891024"
+         y="35.116619">Condenser</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:none;stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
+       x="8.0791912"
+       y="37.098995"
+       id="text6-5"><tspan
+         id="tspan8"
+         style="font-style:italic"
+         x="8.0791912"
+         y="37.098995">Pum</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:none;stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
+       x="4.335516"
+       y="5.9099779"
+       id="text6-5-1"><tspan
+         id="tspan9"
+         x="4.335516"
+         y="5.9099779">T</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:none;stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
+       x="60.484032"
+       y="6.5365114"
+       id="text6-5-1-8"><tspan
+         id="tspan13"
+         x="60.484032"
+         y="6.5365114">T<tspan
+   style="font-size:65%;baseline-shift:sub"
+   id="tspan14">h,in</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:none;stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
+       x="15.171217"
+       y="11.701863"
+       id="text6-5-1-8-4"><tspan
+         id="tspan19"
+         x="15.171217"
+         y="11.701863">ΔT<tspan
+   style="font-size:65%;baseline-shift:sub"
+   id="tspan20">Eva,pin</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:none;stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
+       x="26.826849"
+       y="9.6281404"
+       id="text6-5-1-8-4-7"><tspan
+         id="tspan19-9"
+         x="26.826849"
+         y="9.6281404">T<tspan
+   style="font-size:65%;baseline-shift:sub"
+   id="tspan20-5">h,pin</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:none;stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
+       x="42.103851"
+       y="19.369396"
+       id="text6-5-1-8-4-7-3"><tspan
+         id="tspan19-9-9"
+         x="42.103851"
+         y="19.369396">T<tspan
+   style="font-size:65%;baseline-shift:sub"
+   id="tspan20-5-5">w,Eva</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:none;stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
+       x="8.4678669"
+       y="16.223011"
+       id="text6-5-1-8-8"><tspan
+         id="tspan13-6"
+         x="8.4678669"
+         y="16.223011">T<tspan
+   style="font-size:65%;baseline-shift:sub"
+   id="tspan21">h,out</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:none;stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
+       x="60.517105"
+       y="41.548908"
+       id="text6-5-1-8-8-0"><tspan
+         id="tspan15"
+         x="60.517105"
+         y="41.548908">T<tspan
+   style="font-size:65%;baseline-shift:sub"
+   id="tspan16">c,out</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:none;stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
+       x="8.240694"
+       y="49.876797"
+       id="text6-5-1-8-8-0-5"><tspan
+         id="tspan15-7"
+         x="8.240694"
+         y="49.876797">T<tspan
+   style="font-size:65%;baseline-shift:sub"
+   id="tspan16-3">c,in</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:none;stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
+       x="68.96727"
+       y="50.345333"
+       id="text6-5-1-6"><tspan
+         id="tspan10"
+         x="68.96727"
+         y="50.345333">s</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:none;stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
+       x="60.49897"
+       y="33.786968"
+       id="text6-8"><tspan
+         id="tspan7"
+         style="font-style:italic"
+         x="60.49897"
+         y="33.786968">ExpOut</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.2;stroke-dasharray:0.8, 0.8;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 31.545131,11.299141 H 25.732833"
+       id="path16" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.2;stroke-dasharray:0.8, 0.8;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 31.383264,16.397526 H 25.570966"
+       id="path16-8" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-start:url(#Triangle);marker-end:url(#Triangle)"
+       d="m 31.601051,12.031037 v 3.767729"
+       id="path17-7" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-start:url(#Triangle-8)"
+       d="m 32.252806,17.402051 1.595627,2.497458"
+       id="path17-7-7" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-start:url(#Triangle-8-9)"
+       d="M 50.628332,35.222318 49.085443,32.691939"
+       id="path17-7-7-8" />
+    <text
+       xml:space="preserve"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:none;stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
+       x="38.438316"
+       y="40.564442"
+       id="text6-5-1-8-4-72"><tspan
+         id="tspan19-0"
+         x="38.438316"
+         y="40.564442">ΔT<tspan
+   style="font-size:65%;baseline-shift:sub"
+   id="tspan20-9">Con,pin</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:none;stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
+       x="50.640511"
+       y="45.049488"
+       id="text6-5-1-8-4-7-0"><tspan
+         id="tspan19-9-7"
+         x="50.640511"
+         y="45.049488">T<tspan
+   style="font-size:65%;baseline-shift:sub"
+   id="tspan20-5-1">c,pin</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:none;stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
+       x="37.807121"
+       y="35.531734"
+       id="text6-5-1-8-4-7-3-6"><tspan
+         id="tspan19-9-9-0"
+         x="37.807121"
+         y="35.531734">T<tspan
+   style="font-size:65%;baseline-shift:sub"
+   id="tspan20-5-5-9">w,Con</tspan></tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.2;stroke-dasharray:0.8, 0.8;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 49.549091,42.345087 H 43.736794"
+       id="path16-8-9" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.2;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-start:url(#Triangle-4);marker-end:url(#Triangle-4)"
+       d="m 49.766881,37.9786 v 3.767727"
+       id="path17-7-6" />
+  </g>
+</svg>

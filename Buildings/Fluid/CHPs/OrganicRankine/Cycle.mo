@@ -1,5 +1,5 @@
 within Buildings.Fluid.CHPs.OrganicRankine;
-model Cycle
+model Cycle "Organic Rankine cycle as a bottoming cycle"
 
   extends Buildings.Fluid.Interfaces.FourPortHeatMassExchanger(
     final m1_flow_nominal = mEva_flow_nominal,
@@ -138,5 +138,275 @@ equation
           color={255,255,255},
           thickness=0.5,
           pattern=LinePattern.Dash)}),               Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+Documentation(info="<html>
+<p>
+[fixme: remake the second figure for style consistency.]
+Implemented in this model is a steady-state organic Rankine cycle
+as a bottoming cycle.
+</p>
+<h4>Cycle Architecture and Governing Equations</h4>
+<p>
+The implemented ORC assumes a simple architecture shown in the figure below.
+For any given working fluid (WF), the cycle is determined by providing
+the working fluid evaporating temperature <i>T<sub>w,Eva</sub></i>,
+the working fluid condensing temperature <i>T<sub>w,Con</sub></i>,
+the expander efficiency <i>&eta;<sub>Exp</sub></i>,
+and optionally the superheating temperature differential
+<i>&Delta;T<sub>Sup</sub></i> (default zero).
+The model neglects the property difference between the pump inlet and outlet
+or the pressure loss along any pipe of the cycle components.
+While the model considers optional superheating before the expander inlet,
+it does not consider subcooling before the pump inlet.
+The Thermodynamic Properties section of this document details how these
+state points are found.
+</p>
+<p align=\"center\">
+<img src=\"modelica://Buildings/Resources/Images/Fluid/CHPs/OrganicRankine/CycleArchitecture.png\"
+alt=\"CycleArchitecture\" width=\"400\" height=\"300\"/></p>
+<p>
+As the waste heat stream comes in as the evaporator hot fluid,
+the cycle processes the heat at a fixed
+<i>T<sub>w,Eva</sub></i> provided by the user.
+The evaporator heat exchange is governed by the following equations:
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+Q&#775;<sub>Eva</sub> = m&#775;<sub>h</sub>&nbsp;c<sub>p,h</sub>&nbsp;(T<sub>h,in</sub> - T<sub>h,out</sub>),<br/>
+Q&#775;<sub>Eva</sub> = m&#775;<sub>w</sub>&nbsp;(h<sub>ExpInl</sub> - h<sub>Pum</sub>),
+</p>
+<p>
+where the subscripts are:<br/>
+<i>Eva</i> - evaporator;<br/>
+<i>h</i> - hot fluid of the evaporator, i.e. the fluid carrying waste heat;<br/>
+<i>w</i> - working fluid.
+</p>
+<p>
+The cycle attemps to accommodate varying flow rate and temperature
+of the waste heat stream. To do so, the model solves for a
+<i>m&#775;<sub>w</sub></i> that would maintain a constant pinch point (PP)
+temperature differential at the evaporator <i>&Delta;T<sub>Eva,pin</sub></i>.
+This differential is found by the following equations:
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+(T<sub>Eva,pin</sub> - T<sub>h,out</sub>)&nbsp;(h<sub>ExpInl</sub> - h<sub>Pum</sub>)
+= (T<sub>h,in</sub> - T<sub>h,out</sub>)&nbsp;(h<sub>EvaPin</sub> - h<sub>Pum</sub>),<br/>
+&Delta;T<sub>Eva,pin</sub> = T<sub>Eva,pin</sub> - T<sub>w,Eva</sub>.
+</p>
+<p>
+The model solves for a <i>m&#775;<sub>w</sub></i> that would maintain a fixed
+evaporator PP differential, under certain constraints.
+An important underlying assumption is that all generated power can
+be consumed or otherwise dissipated,
+i.e. the cycle is not controlled to satisfy a certain load.
+</p>
+<p>
+The condenser side uses same equations with the evaporator variables
+replaced by their condenser counterparts where appropriate:
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+Q&#775;<sub>Con</sub> = m&#775;<sub>c</sub>&nbsp;c<sub>p,c</sub>&nbsp;(T<sub>c,in</sub> - T<sub>c,out</sub>),<br/>
+Q&#775;<sub>Con</sub> = m&#775;<sub>w</sub>&nbsp;(h<sub>ExpOut</sub> - h<sub>Pum</sub>),<br/>
+(T<sub>Con,pin</sub> - T<sub>c,in</sub>)&nbsp;(h<sub>ExpOut</sub> - h<sub>Pum</sub>)
+= (T<sub>c,out</sub> - T<sub>c,in</sub>)&nbsp;(h<sub>ConPin</sub> - h<sub>Pum</sub>),<br/>
+&Delta;T<sub>Con,pin</sub> = T<sub>w,Con</sub> - T<sub>Con,pin</sub>,
+</p>
+<p>
+where the subscripts are:<br/>
+<i>Con</i> - condenser;<br/>
+<i>c</i> - cold fluid of the condenser.<br/>
+</p>
+<p>
+On this side, to maintain the PP differential, <i>T<sub>w,Con</sub></i>
+is solved for.
+</p>
+<p>
+Finally, the electric power output of the cycle is found by
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+W&#775; = Q&#775;<sub>Eva</sub> - Q&#775;<sub>Con</sub>.
+</p>
+<p>
+In summary, the model has the following information flow:
+</p>
+<ul>
+<li>
+User-specified parameters:
+<ul>
+<li>
+working fluid evaporating temperature <i>T<sub>w,Eva</sub></i>,
+</li>
+<li>
+evaporator pinch point temperature differntial <i>&Delta;T<sub>Eva,pin</sub></i>, and
+</li>
+<li>
+condenser pinch point temperature differntial <i>&Delta;T<sub>Eva,pin</sub></i>.
+</li>
+</ul>
+</li>
+<li>
+Inputs or disturbances:
+<ul>
+<li>
+evaporator hot fluid incoming temperature <i>T<sub>h,in</sub></i>,
+</li>
+<li>
+evaporator hot fluid flow rate <i>m&#775;<sub>h</sub></i>,
+</li>
+<li>
+condenser cold fluid incoming temperature <i>T<sub>c,in</sub></i>, and
+</li>
+<li>
+condenser cold fluid flow rate <i>m&#775;<sub>c</sub></i>.
+</li>
+</ul>
+</li>
+<li>
+Outputs:
+<ul>
+<li>
+working fluid flow rate <i>m&#775;<sub>w</sub></i>,
+</li>
+<li>
+working fluid condensing temperature <i>T<sub>w,Con</sub></i>,
+</li>
+<li>
+evaporator hot fluid outgoing temperature <i>T<sub>h,out</sub></i>,
+</li>
+<li>
+condenser cold fluid outgoing temperature <i>T<sub>c,out</sub></i>,
+</li>
+<li>
+evaporator heat flow rate <i>Q&#775;<sub>Eva</sub></i>,
+</li>
+<li>
+condenser heat flow rate <i>Q&#775;<sub>Con</sub></i>, and
+</li>
+<li>
+cycle power output <i>W&#775;</i>.
+</li>
+</ul>
+</li>
+</ul>
+<h4>Constraints</h4>
+<p>
+This model solves for <i>m&#775;<sub>w</sub></i> to maintain the prescribed
+evaporator PP temperature differential set point. An upper limit and
+a lower limit are imposed to reflect constraints of a sized real-world cycle.
+</p>
+<ul>
+<li>
+If the flow rate required for <i>&Delta;T<sub>Eva,pin</sub></i> to
+be maintained at the set value is higher than the upper limit,
+<i>m&#775;<sub>w</sub></i> stays at this limit and
+<i>&Delta;T<sub>Eva,pin</sub></i> is allowed to go higher than its set point.
+This may happen when the incoming waste heat fluid has a high flow rate
+or a high incoming temperature, i.e. carries more energy than the system
+is sized to process.
+</li>
+<li>
+If the flow rate required for <i>&Delta;T<sub>Eva,pin</sub></i> to
+be maintained at the set value is lower than the lower limit,
+<i>m&#775;<sub>w</sub></i> is reset to zero and
+the <i>&Delta;T<sub>Eva,pin</sub></i> set point is ignored.
+This may happen when the incoming waste heat fluid has a low flow rate
+or a low incoming temperature, i.e. carries too little energy.
+This limit also protects the cycle from losing heat through the evaporator
+when the incoming fluid is colder than the set evaporating temperature.
+</li>
+</ul>
+<p>
+How these constraints affect the cycle's behaviour reacting to
+a varying waste heat fluid stream is demonstrated in
+<a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.Validation.VaryingStream\">
+Buildings.Fluid.CHPs.OrganicRankine.Validation.VaryingStream</a>
+</p>
+<h4>Thermodynamic Properties</h4>
+<p align=\"center\">
+<img src=\"modelica://Buildings/Resources/Images/Fluid/CHPs/OrganicRankine/DryWet.png\"
+alt=\"DryWet\"/></p>
+<p>
+The property queries of the working fluid are not performed by medium models,
+but by interpolating data records in
+<a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.Data\">
+Buildings.Fluid.CHPs.OrganicRankine.Data</a>.
+Specific enthalpy and specific entropy values are provided as support points
+on the saturated liquid line, the saturated vapour line,
+and a superheated vapour line.
+The property points of these data records are found using CoolProp
+(<a href=\"https://www.coolprop.org\">https://www.coolprop.org</a>;
+Bell et al., 2014) under its Python wrapper.
+</p>
+<p>
+Important state points in the Rankine cycle are determined by various schemes
+of inter-/extrapolation along isobaric lines (assumed near linear):
+</p>
+<ul>
+<li>
+The pump <code>Pum</code> and expander inlet <code>ExpInl</code>
+are both located on a saturation line. They are determined simply by
+smooth interpolation.
+</li>
+<li>
+When there is superheating (determined by <i>&Delta;T<sub>Sup</sub> > 0.1 K</i>),
+<code>ExpInl</code> is elevated. Its specific enthaply and specific entropy
+are then found by linear inter-/extrapolation between the saturated and
+superheated (\"ref\") vapour lines along the isobaric line at the evaporator
+pressure:<br/>
+<p align=\"center\" style=\"font-style:italic;\">
+(s<sub>ExpInl</sub> - s<sub>SatVap</sub>)
+&frasl; &Delta;T<sub>Sup</sub>
+= (s<sub>SupVap,ref</sub> - s<sub>SatVap</sub>)
+&frasl; &Delta;T<sub>Sup,ref</sub><br/>
+(h<sub>ExpInl</sub> - h<sub>SatVap</sub>)
+&frasl; &Delta;T<sub>Sup</sub>
+= (h<sub>SupVap,ref</sub> - h<sub>SatVap</sub>)
+&frasl; &Delta;T<sub>Sup,ref</sub>
+</p>
+</li>
+<li>
+The isentropic expander outlet <code>ExpOut_i</code> is found also by linear
+inter-/extrapolation, but with entropy instead of temperature.
+<ul>
+<li>
+If <code>ExpOut_i</code> lands outside of the dome, the inter-/extrapolation
+is performed between the saturated and superheated (\"ref\") lines:<br/>
+<p align=\"center\" style=\"font-style:italic;\">
+(h<sub>ExpOut_i</sub> - h<sub>SatVap</sub>)
+&frasl; (s<sub>ExpInl</sub> - s<sub>SatVap</sub>)
+= (h<sub>SupVap,ref</sub> - h<sub>SatVap</sub>)
+&frasl; (s<sub>SupVap,ref</sub> - s<sub>SatVap</sub>)
+</p>
+</li>
+<li>
+If it lands inside the dome, interpolation is performed between
+the two saturation lines:<br/>
+<p align=\"center\" style=\"font-style:italic;\">
+(h<sub>ExpOut_i</sub> - h<sub>Pum</sub>)
+&frasl; (s<sub>ExpInl</sub> - s<sub>Pum</sub>)
+= (h<sub>SatVap</sub> - h<sub>Pum</sub>)
+&frasl; (s<sub>SatVap</sub> - s<sub>Pum</sub>)
+</p>
+In this case the results are accurate.
+</li>
+</ul>
+</li>
+</ul>
+<h4>References</h4>
+<p>
+Bell IH, Wronski J, Quoilin S, Lemort V.
+Pure and pseudo-pure fluid thermophysical property evaluation and the open-source thermophysical property library CoolProp.
+<i>Industrial &amp; engineering chemistry research.
+</i>
+2014 Feb 12;53(6):2498-508.
+<a href=\"https://doi.org/10.1021/ie4033999\">https://doi.org/10.1021/ie4033999</a>
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 29, 2024, by Hongxiang Fu:<br/>
+First implementation. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3433\">#3433</a>.
+</li>
+</ul>
+</html>"));
 end Cycle;
