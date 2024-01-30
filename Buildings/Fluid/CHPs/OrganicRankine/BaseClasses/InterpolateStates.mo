@@ -79,12 +79,12 @@ model InterpolateStates "Interpolate states of a working fluid"
 
   // Enthalpy differentials,
   //   taking positive sign when flowing into the cycle
-  final Modelica.Units.SI.SpecificEnergy dhEva = hExpInl - hPum
+  final Modelica.Units.SI.SpecificEnthalpy dhEva = hExpInl - hPum
     "Enthalpy differential at the evaporator (positive)";
-  final Modelica.Units.SI.SpecificEnergy dhExp =
+  final Modelica.Units.SI.SpecificEnthalpy dhExp =
     (hExpOut_i - hExpInl) * etaExp
     "Enthalpy differential at the expander (negative)";
-  final Modelica.Units.SI.SpecificEnergy dhCon = -dhEva - dhExp
+  final Modelica.Units.SI.SpecificEnthalpy dhCon = -dhEva - dhExp
     "Enthalpy differential at the condenser (negative)";
 
   Modelica.Units.SI.Efficiency etaThe(min=0) = -dhExp/dhEva
