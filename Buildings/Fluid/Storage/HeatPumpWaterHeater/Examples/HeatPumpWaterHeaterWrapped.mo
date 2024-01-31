@@ -67,7 +67,7 @@ model HeatPumpWaterHeaterWrapped
     datCoi=datCoi,
     datWT=datWT,
     redeclare Buildings.Fluid.Storage.HeatPumpWaterHeater.Data.FanData fanPer)
-    annotation (Placement(transformation(extent={{-14,-6},{8,12}})));
+    annotation (Placement(transformation(extent={{-12,-6},{10,12}})));
   Buildings.Fluid.Sources.Boundary_pT sou_1(
     p=300000 + 5000,
     T=273.15 + 50,
@@ -139,33 +139,32 @@ equation
       points={{-79,64},{-62,64}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(heaPumWatHeaWra.port_b1, sin1.ports[1]) annotation (Line(points={{8,9.75},
+  connect(heaPumWatHeaWra.port_b1, sin1.ports[1]) annotation (Line(points={{10,9.75},
           {16,9.75},{16,60},{32,60}},
                                    color={0,127,255}));
   connect(TBCSid1.port, heaPumWatHeaWra.heaPorSid1)
-    annotation (Line(points={{-28,-42},{12,-42},{12,3},{3.6,3}},
+    annotation (Line(points={{-28,-42},{12,-42},{12,3},{5.6,3}},
                                                        color={191,0,0}));
   connect(TBCTop1.port, heaPumWatHeaWra.heaPorTop1) annotation (Line(points={{-28,-60},
-          {-20,-60},{-20,11.775},{-3.22,11.775}},
-                                               color={191,0,0}));
+          {-20,-60},{-20,12},{-1,12}},         color={191,0,0}));
   connect(not1.u,onOffHea. y)
     annotation (Line(points={{58,-60},{51,-60}}, color={255,0,255}));
-  connect(heaPumWatHeaWra.TWat, onOffHea.u) annotation (Line(points={{9.1,3},{
-          16,3},{16,-60},{28,-60}},
+  connect(heaPumWatHeaWra.TWat, onOffHea.u) annotation (Line(points={{11.1,1.65},
+          {16,1.65},{16,-60},{28,-60}},
                                  color={0,0,127}));
   connect(not1.y,heaPumWatHeaWra.on)  annotation (Line(points={{81,-60},{94,-60},
-          {94,-26},{-28,-26},{-28,3},{-16.2,3}},           color={255,0,255}));
-  connect(heaPumWatHeaWra.port_a1, sou.ports[1]) annotation (Line(points={{-14,
+          {94,-26},{-28,-26},{-28,3},{-14.2,3}},           color={255,0,255}));
+  connect(heaPumWatHeaWra.port_a1, sou.ports[1]) annotation (Line(points={{-12,
           9.75},{-28,9.75},{-28,60},{-40,60}},
                                       color={0,127,255}));
-  connect(senTemOut.port_b, heaPumWatHeaWra.port_b2) annotation (Line(points={{
-          -22,-4},{-18,-4},{-18,-3.75},{-14,-3.75}}, color={0,127,255}));
+  connect(senTemOut.port_b, heaPumWatHeaWra.port_b2) annotation (Line(points={{-22,-4},
+          {-18,-4},{-18,-3.75},{-12,-3.75}},         color={0,127,255}));
   connect(senTemOut.port_a, sou_1.ports[1])
     annotation (Line(points={{-42,-4},{-50,-4}}, color={0,127,255}));
   connect(senTemIn.port_b, res_1.port_a)
     annotation (Line(points={{34,-4},{38,-4}}, color={0,127,255}));
-  connect(senTemIn.port_a, heaPumWatHeaWra.port_a2) annotation (Line(points={{
-          14,-4},{12,-4},{12,-3.75},{8,-3.75}}, color={0,127,255}));
+  connect(senTemIn.port_a, heaPumWatHeaWra.port_a2) annotation (Line(points={{14,-4},
+          {12,-4},{12,-3.75},{10,-3.75}},       color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(

@@ -52,7 +52,7 @@ annotation(Dialog(group="Nominal conditions"));
     annotation (Placement(transformation(extent={{-26,-36},{-6,-16}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TSen
     "Temperature tank sensor"
-    annotation (Placement(transformation(extent={{-30,-58},{-50,-38}})));
+    annotation (Placement(transformation(extent={{-30,-56},{-50,-36}})));
 
   Modelica.Blocks.Math.Gain gai_m_flow(k=mAir_flow_nominal)
     "Nominal mass flow rate"
@@ -63,7 +63,7 @@ annotation(Dialog(group="Nominal conditions"));
   Modelica.Blocks.Interfaces.RealOutput TWat(
     final unit="K",
     displayUnit="degC") "Absolute temperature as output signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-22},{120,-2}})));
   Modelica.Blocks.Interfaces.RealOutput P(
     final quantity="Power",
     final unit="W")
@@ -99,21 +99,22 @@ annotation(Dialog(group="Nominal conditions"));
   Modelica.Blocks.Math.Add add
     annotation (Placement(transformation(extent={{70,-50},{90,-30}})));
 
-  Buildings.Utilities.IO.SignalExchange.Overwrite overwrite(description=
-        "Water heating coil condenser temperature")
-    annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TConSen
-    "Temperature that represents the condensing temperature"
-    annotation (Placement(transformation(extent={{-32,-84},{-52,-64}})));
-protected
-  Modelica.Blocks.Sources.RealExpression QCon[datWT.nSegCon](each final y=(-
-        sinSpeDXCoo.dxCoi.Q_flow)/datWT.nSegCon)
-    "Signal of total heat flow removed by condenser" annotation (Placement(
-        transformation(extent={{-10,-10},{10,10}}, origin={-50,-26})));
 
+  Modelica.Blocks.Sources.RealExpression QCon[datWT.nSegCon](y={-
+        sinSpeDXCoo.dxCoi.Q_flow*datWT.conHeaFraSca[i] for i in 1:datWT.nSegCon})
+    "Condenser heat for each node"
+    annotation (Placement(transformation(extent={{-62,-36},{-42,-16}})));
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TConWat[datWT.nSegCon]
+    "Water temperatures that the condenser see"
+    annotation (Placement(transformation(extent={{-30,-80},{-50,-60}})));
 
+  Modelica.Blocks.Math.MultiSum TConWatAve(k=datWT.conHeaFraSca, nu=datWT.nSegCon)
+    annotation (Placement(transformation(extent={{-54,-76},{-66,-64}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorVol[size(tan1.heaPorVol,
+    1)] "Heat port that connects to the control volumes of the tank"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}}),
+        iconTransformation(extent={{-10,-10},{10,10}})));
 equation
-
   connect(port_a1, sinSpeDXCoo.port_a)
     annotation (Line(points={{-100,60},{-50,60}}, color={0,127,255}));
   connect(fan.port_b, port_b1)
@@ -124,23 +125,25 @@ equation
     annotation (Line(points={{100,-60},{36,-60},{36,-36}}, color={0,127,255}));
   connect(tan1.port_a, port_b2) annotation (Line(points={{36,-16},{36,-10},{-80,
           -10},{-80,-60},{-100,-60}}, color={0,127,255}));
-  connect(TSen.port, tan1.heaPorVol[datWT.segTemSen]) annotation (Line(points={{-30,-48},{14,-48},
-          {14,-26},{36,-26}},
+  connect(TSen.port, tan1.heaPorVol[datWT.segTemSen]) annotation (Line(points={{-30,-46},
+          {14,-46},{14,-26},{36,-26}},
                             color={191,0,0}));
   connect(tan1.heaPorBot, heaPorBot1) annotation (Line(points={{38,-33.4},{32,
           -33.4},{32,-80},{0,-80}}, color={191,0,0}));
   connect(tan1.heaPorSid, heaPorSid1) annotation (Line(points={{41.6,-26},{70,
           -26},{70,0},{60,0}}, color={191,0,0}));
-  connect(tan1.heaPorTop, heaPorTop1) annotation (Line(points={{38,-18.6},{38,2},
-          {0,2},{0,80}},      color={191,0,0}));
+  connect(tan1.heaPorTop, heaPorTop1) annotation (Line(points={{38,-18.6},{38,
+          14},{0,14},{0,80}}, color={191,0,0}));
   connect(yMov.y, gai_m_flow.u)
     annotation (Line(points={{-39,20},{-32,20}},
                                               color={0,0,127}));
-  connect(gai_m_flow.y, fan.m_flow_in) annotation (Line(points={{-9,20},{20,20},
-          {20,76},{34,76},{34,72}}, color={0,0,127}));
-  connect(TSen.T, TWat) annotation (Line(points={{-51,-48},{-64,-48},{-64,0},{110,
-          0}}, color={0,0,127}));
-  connect(on, yMov.u) annotation (Line(points={{-120,0},{-84,0},{-84,20},{-62,20}},
+  connect(gai_m_flow.y, fan.m_flow_in) annotation (Line(points={{-9,20},{14,20},
+          {14,76},{34,76},{34,72}}, color={0,0,127}));
+  connect(TSen.T, TWat) annotation (Line(points={{-51,-46},{-70,-46},{-70,-12},
+          {110,-12}},
+               color={0,0,127}));
+  connect(on, yMov.u) annotation (Line(points={{-120,0},{-76,0},{-76,20},{-62,
+          20}},
         color={255,0,255}));
   connect(on, sinSpeDXCoo.on) annotation (Line(points={{-120,0},{-80,0},{-80,68},
           {-51,68}}, color={255,0,255}));
@@ -153,18 +156,21 @@ equation
   connect(port_b2, port_b2) annotation (Line(points={{-100,-60},{-92,-60},{-92,
           -60},{-100,-60}}, color={0,127,255}));
   connect(hea.port, tan1.heaPorVol[datWT.segTop:datWT.segBot])
-    annotation (Line(points={{-6,-26},{16,-26},{16,-26},{36,-26}},
-                                                 color={191,0,0}));
-  connect(QCon.y, hea.Q_flow) annotation (Line(points={{-39,-26},{-32,-26},{-32,
-          -26},{-26,-26}}, color={0,0,127}));
+    annotation (Line(points={{-6,-26},{36,-26}}, color={191,0,0}));
   connect(heaPorTop1, heaPorTop1)
     annotation (Line(points={{0,80},{0,80}}, color={191,0,0}));
-  connect(overwrite.y, sinSpeDXCoo.TOut) annotation (Line(points={{-99,40},{-74,
-          40},{-74,63},{-51,63}}, color={0,0,127}));
-  connect(TConSen.port, tan1.heaPorVol[9]) annotation (Line(points={{-32,-74},{
-          2,-74},{2,-26},{36,-26}}, color={191,0,0}));
-  connect(TConSen.T, overwrite.u) annotation (Line(points={{-53,-74},{-142,-74},
-          {-142,40},{-122,40}}, color={0,0,127}));
+
+  connect(QCon.y, hea.Q_flow)
+    annotation (Line(points={{-41,-26},{-26,-26}}, color={0,0,127}));
+  connect(TConWat.port, tan1.heaPorVol[datWT.segTop:datWT.segBot]) annotation (Line(points={{-30,-70},
+          {24,-70},{24,-26},{36,-26}},
+                                    color={191,0,0}));
+  connect(TConWatAve.u, TConWat.T)
+    annotation (Line(points={{-54,-70},{-51,-70}}, color={0,0,127}));
+  connect(TConWatAve.y, sinSpeDXCoo.TOut) annotation (Line(points={{-67.02,-70},
+          {-78,-70},{-78,63},{-51,63}}, color={0,0,127}));
+  connect(tan1.heaPorVol, heaPorVol) annotation (Line(points={{36,-26},{16,-26},
+          {16,0},{0,0}}, color={191,0,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -80},{100,80}}),                                    graphics={
         Rectangle(

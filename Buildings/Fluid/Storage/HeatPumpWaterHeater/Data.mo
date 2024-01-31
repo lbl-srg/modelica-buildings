@@ -54,6 +54,12 @@ Initial version
     final parameter Integer nSegCon = segBot - segTop + 1 "Number of each condenser node";
     final parameter Integer segTemSen = integer(nSeg - floor(hTemSen / hSeg)) "Node number where the temperature sensor is located";
 
+    final parameter Real conHeaFraTop = (hSegTop - (nSeg - segTop)*hSeg)/hSeg "Heating fraction of condenser top node";
+    final parameter Real conHeaFraBot = ((nSeg + 1 - segBot)*hSeg - hSegBot)/hSeg "Heating fraction of condenser bottom node";
+
+    final parameter Real conHeaFra[nSegCon] = cat(1, {conHeaFraTop}, fill(1.0, nSegCon-2), {conHeaFraBot}) "Heating fraction for each condenser node";
+    final parameter Real conHeaFraSca[nSegCon] = conHeaFra/sum(conHeaFra) "Scaled heating fraction for each condenser node, sum up to 1";
+
   annotation (preferredView="info",
   defaultComponentName="datHPWH",
   defaultComponentPrefixes="parameter",
@@ -65,5 +71,7 @@ Initial version
 
 </ul>
 </html>"));
+
+
   end WaterTankData;
 end Data;
