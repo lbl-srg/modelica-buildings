@@ -137,10 +137,9 @@ equation
   connect(TDryBulIn, XiIn.TDryBul);
   connect(TWetBulIn, XiIn.TWetBul);
   connect(p, XiIn.p);
-  TDryBulOut = XiOut.TDryBul;
-  //connect(TDryBulOut, XiOut.TDryBul);
   connect(TWetBulIn, XiOut.TWetBul);
   connect(p, XiOut.p);
+  TDryBulOut = XiOut.TDryBul;
   dmWat_flow = (XiOut.Xi[1] - XiIn.Xi[1])*V_flow*rho_default;
   annotation (Documentation(info="<html>
   <p>Block that calculates the water vapor mass flow rate addition in the 
