@@ -1,35 +1,39 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Validation;
 model Controller "Validate control of minimum bypass valve"
 
-  parameter Integer nChi=3 "Total number of chillers";
-
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Controller
-    minBypValCon(final nChi=3, final minFloSet={0.005,0.005,0.005})
-                       "Minimum bypass valve position"
+    minBypValCon(
+    nChi=3,
+    minFloSet={0.005,0.005,0.005})
+    "Minimum bypass valve position"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Pulse chiFloSet(
-    final amplitude=-0.005,
-    final period=3,
-    final offset=0.015) "Minimum flow setpoint"
+    amplitude=-0.005,
+    period=3,
+    offset=0.015)
+    "Minimum flow setpoint"
     annotation (Placement(transformation(extent={{-80,-82},{-60,-60}})));
 
 protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse chiWatPum(
-    final width=0.15,
-    final period=4,
-    final shift=0.1) "Chilled water pump on command"
+    width=0.15,
+    period=4,
+    shift=0.1)
+    "Chilled water pump on command"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   Buildings.Controls.OBC.CDL.Logical.Not not4 "Logical not"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin(
-    final amplitude=0.0025,
-    final freqHz=1/2,
-    final offset=0.005) "Output sine wave value"
+    amplitude=0.0025,
+    freqHz=1/2,
+    offset=0.005)
+    "Output sine wave value"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ram(
-    final height=0.015,
-    final duration=2,
-    final startTime=1.2) "Output ramp value"
+    height=0.015,
+    duration=2,
+    startTime=1.2)
+    "Output ramp value"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   Buildings.Controls.OBC.CDL.Reals.Add add2
     "Measured minimum bypass flow rate"
@@ -62,7 +66,23 @@ annotation (
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Controller\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Controller</a>.
+It demonstrates the bypass valve control to maintain the minimum
+chilled water flow through the chillers.
 </p>
+<ul>
+<li>
+From 0.1 seconds to 0.7 seconds, there is no chilled water pump proven on
+(<code>uChiWatPum=false</code>). Thus the bypass valve position setpoint
+is 1.
+</li>
+<li>
+From 0.7 seconds to the end, there is chilled water pump proven on.
+When the measured chilled water flow is less than the setpoint, the
+bypass valve position setpoint is 1. After the measured chilled water
+flow is greater than the setpoint, the bypass valve setpoint gradually
+decreases.
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>

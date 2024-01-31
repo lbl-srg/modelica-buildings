@@ -32,27 +32,27 @@ block Controller
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiWatPum
     "Maximum status feedback of all the chilled water pumps: true means at least one pump is proven on"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
+    annotation (Placement(transformation(extent={{-180,30},{-140,70}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VChiWat_flow(
     final min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate")
     "Measured chilled water flow rate through chillers"
-    annotation (Placement(transformation(extent={{-140,-10},{-100,30}}),
+    annotation (Placement(transformation(extent={{-180,-10},{-140,30}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VChiWatSet_flow(
     final min=0,
     final unit="m3/s",
     quantity="VolumeFlowRate") "Chiller water minimum flow setpoint"
-    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
+    annotation (Placement(transformation(extent={{-180,-60},{-140,-20}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValPos(
     final min=0,
     final max=1,
     final unit="1") "Chilled water minimum flow bypass valve position"
-    annotation (Placement(transformation(extent={{100,60},{140,100}}),
+    annotation (Placement(transformation(extent={{140,30},{180,70}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Reals.PIDWithReset valPos(
@@ -63,58 +63,58 @@ block Controller
     final yMax=yMax,
     final yMin=yMin,
     final y_reset=1) "Bypass valve position PI controller"
-    annotation (Placement(transformation(extent={{40,20},{60,40}})));
+    annotation (Placement(transformation(extent={{40,70},{60,90}})));
 
 protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant minFlo[nChi](
     final k=minFloSet) "Minimum bypass flow rate at each stage"
-    annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
+    annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Reals.MultiSum mulSum(
     final nin=nChi)
     "Sum of minimum chilled water flow of all chillers"
-    annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
+    annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
   Buildings.Controls.OBC.CDL.Reals.Divide div
     "Normalized minimum flow setpoint"
-    annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
+    annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
   Buildings.Controls.OBC.CDL.Reals.Divide div1
     "Normalized minimum bypass flow "
-    annotation (Placement(transformation(extent={{20,-20},{40,0}})));
+    annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi "Logical switch"
-    annotation (Placement(transformation(extent={{40,70},{60,90}})));
+    annotation (Placement(transformation(extent={{100,40},{120,60}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant opeVal(
     final k=1) "Valve open"
-    annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
+    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 
 equation
   connect(minFlo.y, mulSum.u)
-    annotation (Line(points={{-58,-80},{-42,-80}},color={0,0,127}));
+    annotation (Line(points={{-98,-80},{-82,-80}},color={0,0,127}));
   connect(VChiWat_flow, div1.u1)
-    annotation (Line(points={{-120,10},{-80,10},{-80,-4},{18,-4}}, color={0,0,127}));
+    annotation (Line(points={{-160,10},{-80,10},{-80,-4},{-22,-4}},color={0,0,127}));
   connect(mulSum.y, div1.u2)
-    annotation (Line(points={{-18,-80},{10,-80},{10,-16},{18,-16}},
+    annotation (Line(points={{-58,-80},{-40,-80},{-40,-16},{-22,-16}},
       color={0,0,127}));
   connect(mulSum.y, div.u2)
-    annotation (Line(points={{-18,-80},{10,-80},{10,-66},{18,-66}},
+    annotation (Line(points={{-58,-80},{-40,-80},{-40,-66},{-22,-66}},
       color={0,0,127}));
   connect(div1.y, valPos.u_m)
-    annotation (Line(points={{42,-10},{50,-10},{50,18}}, color={0,0,127}));
+    annotation (Line(points={{2,-10},{50,-10},{50,68}},  color={0,0,127}));
   connect(div.y, valPos.u_s)
-    annotation (Line(points={{42,-60},{50,-60},{50,-40},{0,-40},{0,30},{38,30}},
+    annotation (Line(points={{2,-60},{20,-60},{20,80},{38,80}},
       color={0,0,127}));
   connect(uChiWatPum, swi.u2)
-    annotation (Line(points={{-120,80},{38,80}}, color={255,0,255}));
+    annotation (Line(points={{-160,50},{98,50}}, color={255,0,255}));
   connect(opeVal.y, swi.u3)
-    annotation (Line(points={{-18,60},{0,60},{0,72},{38,72}}, color={0,0,127}));
+    annotation (Line(points={{-38,30},{80,30},{80,42},{98,42}}, color={0,0,127}));
   connect(swi.y, yValPos)
-    annotation (Line(points={{62,80},{120,80}}, color={0,0,127}));
+    annotation (Line(points={{122,50},{160,50}},color={0,0,127}));
   connect(div.u1, VChiWatSet_flow)
-    annotation (Line(points={{18,-54},{-80,-54},{-80,-40},{-120,-40}},
+    annotation (Line(points={{-22,-54},{-80,-54},{-80,-40},{-160,-40}},
       color={0,0,127}));
   connect(uChiWatPum, valPos.trigger)
-    annotation (Line(points={{-120,80},{-60,80},{-60,10},{44,10},{44,18}},
+    annotation (Line(points={{-160,50},{44,50},{44,68}},
       color={255,0,255}));
   connect(valPos.y, swi.u1)
-    annotation (Line(points={{62,30},{80,30},{80,60},{20,60},{20,88},{38,88}},
+    annotation (Line(points={{62,80},{80,80},{80,58},{98,58}},
       color={0,0,127}));
 
 annotation (
@@ -161,7 +161,7 @@ annotation (
           pattern=LinePattern.Dash,
           textString="VChiWatSet_flow")}),
   Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}})),
+          extent={{-140,-100},{140,100}})),
   Documentation(info="<html>
 <p>
 Block that controls chilled water minimum flow for primary-only
