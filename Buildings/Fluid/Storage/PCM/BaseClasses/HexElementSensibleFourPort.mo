@@ -52,7 +52,7 @@ model HexElementSensibleFourPort
         port_a1.m_flow))/(3.14159*Design.di*Design.muw))^(4/5)*Design.Prw^0.4)*
         Design.kw/(Design.di))*(A_tubeDom)) "Dittus-Boelter correlation for turbulent heat transfer in smooth tube"
     annotation (Placement(transformation(extent={{42,10},{22,30}})));
-  Modelica.Thermal.HeatTransfer.Components.Convection conPro annotation (
+  Modelica.Thermal.HeatTransfer.Components.Convection conDom annotation (
       Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
@@ -61,7 +61,7 @@ model HexElementSensibleFourPort
         port_a2.m_flow))/(3.14159*Design.di*Design.muw))^(4/5)*Design.Prw^0.4)*
         Design.kw/(Design.di))*(A_tubePro)) "Dittus-Boelter correlation for turbulent heat transfer in smooth tube"
     annotation (Placement(transformation(extent={{42,-20},{22,0}})));
-  Modelica.Thermal.HeatTransfer.Components.Convection conDom annotation (
+  Modelica.Thermal.HeatTransfer.Components.Convection conPro annotation (
       Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
@@ -80,11 +80,11 @@ equation
   connect(heaFloPro.Q_flow,QpcmPro)  annotation (Line(points={{-64,-16.6},{-64,-20},
           {-80,-20},{-80,-21},{-107,-21}},
                                       color={0,0,127}));
-  connect(Qvol1.port_b,conPro. fluid)
+  connect(Qvol1.port_b, conDom.fluid)
     annotation (Line(points={{-38,88},{-40,88},{-40,82}}, color={191,0,0}));
   connect(Qvol1.port_a, heaPor1)
     annotation (Line(points={{-26,88},{0,88},{0,100}}, color={191,0,0}));
-  connect(conDom.fluid, Qvol2.port_b)
+  connect(conPro.fluid, Qvol2.port_b)
     annotation (Line(points={{-40,-82},{-40,-86},{-28,-86}}, color={191,0,0}));
   connect(Qvol2.port_a, vol2.heatPort) annotation (Line(points={{-16,-86},{20,
           -86},{20,-60},{12,-60}}, color={191,0,0}));
@@ -94,14 +94,14 @@ equation
   connect(Qvol2.Q_flow,QvolPro)
     annotation (Line(points={{-22,-92.6},{-22,-108}},
                                                     color={0,0,127}));
-  connect(tubeDom.port_b,conPro. solid)
+  connect(tubeDom.port_b, conDom.solid)
     annotation (Line(points={{-40,58},{-40,62}}, color={191,0,0}));
-  connect(tubePro.port_b,conDom. solid)
+  connect(tubePro.port_b,conPro. solid)
     annotation (Line(points={{-40,-58},{-40,-62}}, color={191,0,0}));
-  connect(conDom.Gc,realExpressionPro. y) annotation (Line(points={{-30,-72},{
+  connect(conPro.Gc,realExpressionPro. y) annotation (Line(points={{-30,-72},{
           -22,-72},{-22,-10},{21,-10}}, color={0,0,127}));
-  connect(conPro.Gc,realExpressionDom. y) annotation (Line(points={{-30,72},{
-          -22,72},{-22,20},{21,20}}, color={0,0,127}));
+  connect(conDom.Gc, realExpressionDom.y) annotation (Line(points={{-30,72},{-22,
+          72},{-22,20},{21,20}}, color={0,0,127}));
   connect(USum.y, Upcm)
     annotation (Line(points={{-101,8},{-118,8}}, color={0,0,127}));
   connect(mSum.y, mpcm)

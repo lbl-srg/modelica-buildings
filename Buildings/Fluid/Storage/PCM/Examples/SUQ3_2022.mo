@@ -5,14 +5,15 @@ model SUQ3_2022
   replaceable package Medium=Buildings.Media.Water "Water medium";
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=0.2
     "Nominal mass flowrate of Tes";
+parameter Modelica.Units.SI.Temperature pcm_Tstart = 311.05;
   Buildings.Fluid.Sources.Boundary_pT sinHPC(redeclare package Medium =
         Medium, nPorts=1) "Flow sink"
     annotation (Placement(transformation(extent={{90,20},{70,0}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TInHPC(redeclare package Medium =
         Medium, m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TOutHPC(redeclare package Medium
-      = Medium, m_flow_nominal=m_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TOutHPC(redeclare package Medium =
+        Medium, m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Buildings.Fluid.Sources.MassFlowSource_T HPCPum(
     use_T_in=true,
@@ -23,7 +24,8 @@ model SUQ3_2022
   Modelica.Blocks.Sources.CombiTimeTable HPCdata(
     tableOnFile=true,
     tableName="tab1",
-    fileName=ModelicaServices.ExternalReferences.loadResource("modelica://RTUPCM/48_dual_6lpm_40C_55C_Run2_all.txt"),
+    fileName=
+        "C:/git/rtu-pcm/modelica-rtu-pcm/RTUPCM/48_dual_6lpm_40C_55C_Run2_all.txt",
     columns={2,4,7},
     timeScale=60)
     annotation (Placement(transformation(extent={{-150,4},{-130,24}})));
@@ -47,8 +49,8 @@ model SUQ3_2022
   CoilRegisterFourPort pcmFourPort(
     m1_flow_nominal=m_flow_nominal,
     m2_flow_nominal=m_flow_nominal,
-    TStart_pcm=273.15 + 37.9,
-    Design(Tes_nominal=3.5*3600000, PCM(
+    TStart_pcm=pcm_Tstart,
+    Design(TesNominal=3.5*3600000, PCM(
         k=matPro.kPCMLow,
         c=matPro.cPCMLow,
         d=matPro.dPCMLow,
@@ -61,8 +63,8 @@ model SUQ3_2022
   Buildings.Fluid.Sensors.TemperatureTwoPort TInLPC(redeclare package Medium =
         Medium, m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{60,-20},{40,-40}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TOutLPC(redeclare package Medium
-      = Medium, m_flow_nominal=m_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TOutLPC(redeclare package Medium =
+        Medium, m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{0,-20},{-20,-40}})));
   Buildings.Fluid.Sources.Boundary_pT sinLPC(redeclare package Medium =
         Medium, nPorts=1) "Flow sink"
@@ -79,7 +81,8 @@ model SUQ3_2022
   Modelica.Blocks.Sources.CombiTimeTable LPCdata(
     tableOnFile=true,
     tableName="tab1",
-    fileName=ModelicaServices.ExternalReferences.loadResource("modelica://RTUPCM/48_dual_6lpm_40C_55C_Run2_all.txt"),
+    fileName=
+        "C:/git/rtu-pcm/modelica-rtu-pcm/RTUPCM/48_dual_6lpm_40C_55C_Run2_all.txt",
     columns={3,6,5},
     timeScale=60)
     annotation (Placement(transformation(extent={{-8,-90},{12,-70}})));
@@ -108,6 +111,7 @@ model SUQ3_2022
     annotation (Placement(transformation(extent={{132,8},{152,28}})));
   Data.HeatExchanger.MAPR matPro
     annotation (Placement(transformation(extent={{-10,80},{10,100}})));
+
 equation
   connect(toKelvin.Kelvin,HPCPum. T_in)
     annotation (Line(points={{-95,2},{-94,2},{-94,14},{-92,14}},
@@ -178,8 +182,8 @@ equation
     annotation (Line(points={{13,-80},{68,-80}}, color={0,0,127}));
   connect(pcmFourPort.QDom, QHPC) annotation (Line(points={{35.3,2.7},{100,2.7},
           {100,46},{142,46}}, color={0,0,127}));
-  connect(pcmFourPort.QPro, QLPC) annotation (Line(points={{35.3,-0.42},{104,
-          -0.42},{104,32},{142,32}}, color={0,0,127}));
+  connect(pcmFourPort.QPro, QLPC) annotation (Line(points={{35.3,-0.42},{104,-0.42},
+          {104,32},{142,32}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,
             -100},{160,100}})),                                  Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-100},{160,
