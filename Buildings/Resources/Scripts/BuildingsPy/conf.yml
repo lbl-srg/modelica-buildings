@@ -115,6 +115,13 @@
   optimica:
     comment: FMUException Failed to update the events at time 0.000000E+00.
     simulate: false
+- model_name: Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlowAgentControl
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization
+    simulate: false
+  optimica:
+    comment: FMUException Failed to update the events at time 0.000000E+00.
+    simulate: false
 - model_name: Buildings.Experimental.DHC.Examples.Cooling.ElectricChillersDirectETS
   openmodelica:
     comment: simulation terminated by an assertion at initialization

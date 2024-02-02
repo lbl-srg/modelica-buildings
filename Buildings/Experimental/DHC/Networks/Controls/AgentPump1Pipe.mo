@@ -17,20 +17,20 @@ block AgentPump1Pipe
    parameter Real uHighCoo = 2 "if y=false and u>uHigh, switch to y=true";
    parameter Real h = 0.15 "Hysteresis for net demand temperature calculation";
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSouIn(each final unit="K",
-      each displayUnit="degC") "Temperatures at the inlet of the source"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSouIn(final unit="K",
+       displayUnit="degC") "Temperatures at the inlet of the source"
     annotation (Placement(transformation(extent={{-160,50},{-120,90}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSouOut(each final unit="K",
-      each displayUnit="degC") "Agent supply temperature"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSouOut(final unit="K",
+      displayUnit="degC") "Agent supply temperature"
     annotation (Placement(transformation(extent={{-160,-30},{-120,10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSou(each final unit="K",
-      each displayUnit="degC") "Average temperature available at source"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSou(final unit="K",
+      displayUnit="degC") "Average temperature available at source"
     annotation (Placement(transformation(extent={{-160,10},{-120,50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TretDis(each final unit="K",
-      each displayUnit="degC") "District return temperature"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TretDis(final unit="K",
+      displayUnit="degC") "District return temperature"
     annotation (Placement(transformation(extent={{-160,-70},{-120,-30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TsupDis(each final unit="K",
-      each displayUnit="degC") "Plant supply temperature"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TsupDis(final unit="K",
+      displayUnit="degC") "Plant supply temperature"
     annotation (Placement(transformation(extent={{-160,-100},{-120,-60}}),
         iconTransformation(extent={{-160,-100},{-120,-60}})));
 
