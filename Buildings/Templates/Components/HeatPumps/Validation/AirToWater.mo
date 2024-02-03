@@ -32,16 +32,14 @@ model AirToWater
     annotation (Placement(transformation(extent={{120,-40},{140,-20}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatSupSet(
     k=datHeaPumRev.TChiWatSup_nominal,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "CHWST setpoint"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,
       origin={-130,20})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupSet(
     k=datHeaPumRev.THeaWatSup_nominal,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "HW supply temperature setpoint"
     annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
@@ -52,8 +50,7 @@ model AirToWater
     "Reversible heat pump"
     annotation (Placement(transformation(extent={{40,-110},{60,-90}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp THeaWatRet(
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"),
     height=4,
     duration=500,
@@ -83,8 +80,7 @@ model AirToWater
     "Heat pump heating mode signal"
     annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
   Buildings.Controls.OBC.CDL.Reals.Switch TSetAct(
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "Active supply temperature setpoint"
     annotation (Placement(transformation(extent={{-90,30},{-70,50}})));
@@ -95,8 +91,7 @@ model AirToWater
     "Boundary condition at distribution system supply"
     annotation (Placement(transformation(extent={{140,-70},{120,-50}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TChiWatRet(
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"),
     height=- 4,
     duration=500,

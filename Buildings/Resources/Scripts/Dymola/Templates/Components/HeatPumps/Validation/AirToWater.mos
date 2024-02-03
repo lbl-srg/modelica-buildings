@@ -28,7 +28,7 @@ createPlot(
 createPlot(
     id=2,
     subPlot=103,
-    y={"heaPumRev.heaPum.PLR"},
+    y={"heaPumRev.heaPum.ySet"},
     autoscale=true,
     grid=true
 );
