@@ -150,6 +150,18 @@ model PartialHeatPump
       X=MediumSou.X_default)
     "Source fluid default state";
 
+  // Diagnostics
+  MediumSou.ThermodynamicState sta_aSou=
+      MediumSou.setState_phX(port_aSou.p,
+                          noEvent(actualStream(port_aSou.h_outflow)),
+                          noEvent(actualStream(port_aSou.Xi_outflow)))
+      if show_T "Source medium properties in port_aSou";
+  MediumSou.ThermodynamicState sta_bSou=
+      MediumSou.setState_phX(port_bSou.p,
+                          noEvent(actualStream(port_bSou.h_outflow)),
+                          noEvent(actualStream(port_bSou.Xi_outflow)))
+      if show_T "Source medium properties in port_bSou";
+
   Modelica.Fluid.Interfaces.FluidPort_a port_aSou(
     redeclare final package Medium = MediumSou)
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
@@ -173,20 +185,21 @@ model PartialHeatPump
     "Weather bus"
     annotation (Placement(transformation(extent={{-80,80},{-40,120}}),
         iconTransformation(extent={{-80,80},{-40,120}})));
-  Buildings.Fluid.Sources.Boundary_pT sinAir(
-    redeclare final package Medium =MediumAir,
-    nPorts=2)
+  Fluid.Sources.Outside air(redeclare final package Medium = MediumAir, nPorts=2)
     if typ == Buildings.Templates.Components.Types.HeatPump.AirToWater
-    "Air sink"
-    annotation (Placement(transformation(
+    "Outdoor air" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={0,-90})));
 equation
-  connect(sinAir.ports[1], port_bSou) annotation (Line(points={{-1,-80},{-40,-80},
-          {-40,-100}}, color={0,127,255}));
-  connect(sinAir.ports[2], port_aSou)
+  connect(air.ports[1], port_bSou) annotation (Line(points={{-1,-80},{-40,-80},{
+          -40,-100}}, color={0,127,255}));
+  connect(air.ports[2], port_aSou)
     annotation (Line(points={{1,-80},{40,-80},{40,-100}}, color={0,127,255}));
+  connect(busWea, air.weaBus) annotation (Line(
+      points={{-60,100},{-60,-90},{0.2,-90},{0.2,-100}},
+      color={255,204,51},
+      thickness=0.5));
 annotation (
 Icon(graphics={
     Rectangle(

@@ -29,7 +29,7 @@ model AirToWater
     redeclare Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN14511.Vitocal251A08 hea,
     redeclare Buildings.Fluid.Chillers.ModularReversible.Data.TableData2D.EN14511.Vitocal251A08 coo)
     "Heat pump performance data"
-    annotation (Placement(transformation(extent={{120,-40},{140,-20}})));
+    annotation (Placement(transformation(extent={{120,-38},{140,-18}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatSupSet(
     k=datHeaPumRev.TChiWatSup_nominal,
     y(final unit="K",
@@ -44,9 +44,11 @@ model AirToWater
     "HW supply temperature setpoint"
     annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
   Buildings.Templates.Components.HeatPumps.AirToWaterReversible heaPumRev(
+    show_T=true,
     redeclare final package MediumHeaWat=Medium,
     final dat=datHeaPumRev,
-    final energyDynamics=energyDynamics)
+    final energyDynamics=energyDynamics,
+    heaPum(use_intSafCtr=false))
     "Reversible heat pump"
     annotation (Placement(transformation(extent={{40,-110},{60,-90}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp THeaWatRet(
@@ -193,6 +195,12 @@ equation
       StopTime=3000),
     Documentation(
       info="<html>
+FIXME: disable safety controls for now de to a bug,  see #6 in 
+https://docs.google.com/document/d/130SBzYK3YHHSzFvr5FyW_WOXmNGoXKzUJ3Wahq1rx9U/edit.
+
+FIXME: bug in computation of QCooNoSca_flow_nominal in ModularReversible. This yields 
+a net heating heat flow in cooling moden, see #1 in 
+https://docs.google.com/document/d/130SBzYK3YHHSzFvr5FyW_WOXmNGoXKzUJ3Wahq1rx9U/edit
 <p>
 This model validates the model
 <a href=\"modelica://Buildings.Templates.Components.HeatPumps.AirToWaterReversible\">

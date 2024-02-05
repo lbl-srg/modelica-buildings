@@ -51,13 +51,6 @@ model AirToWaterReversible
         final smoothness=heaPum.refCyc.refCycHeaPumCoo.smoothness,
         final TEva_nominal=heaPum.refCyc.refCycHeaPumCoo.TEva_nominal,
         final TCon_nominal=heaPum.refCyc.refCycHeaPumCoo.TCon_nominal)));
-  Fluid.Sources.MassFlowSource_WeatherData souAir(
-    redeclare final package Medium=MediumAir,
-    final use_m_flow_in=true,
-    nPorts=1)
-    "Air flow source"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=-90,
-      origin={50,-60})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter mAir_flow(
     final k=mSouHea_flow_nominal)
     "Air mass flow rate"
@@ -67,18 +60,28 @@ model AirToWaterReversible
     "Convert on/off command into real"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=-90,
       origin={80,40})));
+  Fluid.Movers.BaseClasses.IdealSource floSou(
+    redeclare final package Medium=MediumAir,
+    final m_flow_small=1E-4*mSouHea_flow_nominal,
+    final allowFlowReversal=allowFlowReversalSou,
+    final control_m_flow=true,
+    final control_dp=false)
+    "Air flow source"
+    annotation (Placement(transformation(
+        extent={{-10,10},{10,-10}},
+        rotation=90,
+        origin={40,-60})));
 equation
   connect(bus.y1, y1Rea.u)
     annotation (Line(points={{0,100},{0,60},{80,60},{80,52}},color={255,204,51},thickness=0.5));
   connect(y1Rea.y, mAir_flow.u)
     annotation (Line(points={{80,28},{80,-28}},color={0,0,127}));
-  connect(mAir_flow.y, souAir.m_flow_in)
-    annotation (Line(points={{80,-52},{80,-80},{58,-80},{58,-70}},color={0,0,127}));
-  connect(busWea, souAir.weaBus)
-    annotation (Line(points={{-60,100},{-60,96},{-96,96},{-96,-70},{50.2,-70}},
-      color={255,204,51},thickness=0.5));
-  connect(souAir.ports[1], TSouEnt.port_a)
-    annotation (Line(points={{50,-50},{50,-40},{40,-40}},color={0,127,255}));
+  connect(floSou.port_b, TSouEnt.port_a)
+    annotation (Line(points={{40,-50},{40,-40}}, color={0,127,255}));
+  connect(port_aSou, floSou.port_a)
+    annotation (Line(points={{40,-100},{40,-70}}, color={0,127,255}));
+  connect(mAir_flow.y, floSou.m_flow_in)
+    annotation (Line(points={{80,-52},{80,-66},{48,-66}}, color={0,0,127}));
   annotation (
     defaultComponentName="heaPum",
     Documentation(
