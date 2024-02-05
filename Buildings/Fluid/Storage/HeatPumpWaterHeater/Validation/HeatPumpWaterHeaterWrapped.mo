@@ -1,5 +1,5 @@
 within Buildings.Fluid.Storage.HeatPumpWaterHeater.Validation;
-model HeatPumpWaterHeaterWrapped
+model HeatPumpWaterHeaterWrapped "Validation model for heat pump water heater"
     extends Modelica.Icons.Example;
   package MediumAir = Buildings.Media.Air;
   package MediumTan = Buildings.Media.Water "Medium in the tank";
@@ -28,8 +28,7 @@ model HeatPumpWaterHeaterWrapped
           TEvaInMax=322.04))},
                 nSta=1) "Coil data"
     annotation (Placement(transformation(extent={{-18,80},{2,100}})));
-
-  parameter Buildings.Fluid.Storage.HeatPumpWaterHeater.Data.WaterTankData
+  parameter Buildings.Fluid.Storage.HeatPumpWaterHeater.Data.WaterHeaterData
     datWT(
     hTan=1.594,
     VTan=0.287691,
@@ -37,50 +36,9 @@ model HeatPumpWaterHeaterWrapped
     kIns=0.03939,
     nSeg=12,
     hSegBot=0.066416667,
-    hSegTop=0.863416667)
+    hSegTop=0.863416667) "Heat pump water heater data"
     annotation (Placement(transformation(extent={{22,80},{42,100}})));
 
-  Buildings.Fluid.Storage.HeatPumpWaterHeater.HeatPumpWaterHeaterWrapped
-    heaPumWatHeaWra(
-    mAir_flow_nominal=0.2279,
-    mWat_flow_nominal=0.1,
-    dpAir_nominal(displayUnit="Pa") = 65,
-    datCoi=datCoi,
-    datWT=datWT,
-    redeclare Buildings.Fluid.Storage.HeatPumpWaterHeater.Data.FanData fanPer,
-    tan1(vol(each T_start=322.14)))
-    annotation (Placement(transformation(extent={{-10,-6},{10,10}})));
-
-  Buildings.Fluid.FixedResistances.PressureDrop res_1(
-    from_dp=true,
-    redeclare package Medium = MediumTan,
-    dp_nominal=5000,
-    m_flow_nominal=0.1)
-    annotation (Placement(transformation(extent={{42,-14},{62,6}})));
-  Buildings.Fluid.Sources.Boundary_pT sin_1(
-    redeclare package Medium = MediumTan,
-    T=273.15 + 20,
-    nPorts=1)
-    annotation (Placement(transformation(extent={{-122,-14},{-102,6}})));
-  Buildings.HeatTransfer.Sources.PrescribedTemperature TBCTop1
-    "Boundary condition for tank" annotation (Placement(transformation(extent={{-58,-80},
-            {-46,-68}})));
-  Buildings.HeatTransfer.Sources.PrescribedTemperature TBCSid1
-    "Boundary condition for tank" annotation (Placement(transformation(extent={{-58,-62},
-            {-46,-50}})));
-  Buildings.Fluid.Sources.Boundary_pT sin1(
-    redeclare package Medium = MediumAir,
-    final p(displayUnit="Pa"),
-    final nPorts=1)
-    "Sink"
-    annotation (Placement(transformation(extent={{60,14},{40,34}})));
-
-  Sensors.TemperatureTwoPort senTemOut(redeclare package Medium = MediumTan,
-      m_flow_nominal=0.1)
-    annotation (Placement(transformation(extent={{-52,-14},{-32,6}})));
-  Sensors.TemperatureTwoPort senTemIn(redeclare package Medium = MediumTan,
-      m_flow_nominal=0.1)
-    annotation (Placement(transformation(extent={{18,-14},{38,6}})));
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     final fileName=ModelicaServices.ExternalReferences.loadResource(
         "modelica://Buildings/Resources/Data/Fluid/Storage/HeatPumpWaterHeater/Validation/HeatPumpWaterHeaterWrapped/WaterHeaterHeatPumpWrappedCondenser.dat"),
@@ -90,10 +48,57 @@ model HeatPumpWaterHeaterWrapped
     final smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
     "Reader for EnergyPlus example results"
     annotation (Placement(transformation(extent={{-118,60},{-98,80}})));
+  Modelica.Blocks.Math.Mean PMea(final f=1/3600)
+    "Mean of power"
+    annotation (Placement(transformation(extent={{120,40},{140,60}})));
+  Modelica.Blocks.Math.RealToBoolean realToBoolean(threshold=0.2)
+    "Convert real to boolean"
+    annotation (Placement(transformation(extent={{-80,-38},{-60,-18}})));
 
+  Buildings.Fluid.Storage.HeatPumpWaterHeater.HeatPumpWaterHeaterWrapped
+    heaPumWatHeaWra(
+    tan(vol(each T_start=322.14)),
+    mAir_flow_nominal=0.2279,
+    mWat_flow_nominal=0.1,
+    dpAir_nominal(displayUnit="Pa") = 65,
+    datCoi=datCoi,
+    datWT=datWT,
+    redeclare Buildings.Fluid.Storage.HeatPumpWaterHeater.Data.FanData fanPer)
+    "Heat pump water heater"
+    annotation (Placement(transformation(extent={{-10,-6},{10,10}})));
+  Buildings.Fluid.FixedResistances.PressureDrop res(
+    from_dp=true,
+    redeclare package Medium = MediumTan,
+    dp_nominal=5000,
+    m_flow_nominal=0.1) "Resistance in the water loop"
+    annotation (Placement(transformation(extent={{42,-14},{62,6}})));
+  Buildings.Fluid.Sources.Boundary_pT sin_1(
+    redeclare package Medium = MediumTan,
+    T=273.15 + 20,
+    nPorts=1) "Sink of water"
+    annotation (Placement(transformation(extent={{-122,-14},{-102,6}})));
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TBCTop
+    "Boundary condition for top of tank"
+    annotation (Placement(transformation(extent={{-58,-80},{-46,-68}})));
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TBCSid
+    "Boundary condition for side of tank"
+    annotation (Placement(transformation(extent={{-58,-62},{-46,-50}})));
+  Buildings.Fluid.Sources.Boundary_pT sin(
+    redeclare package Medium = MediumAir,
+    final p(displayUnit="Pa"),
+    final nPorts=1) "Sink of air"
+    annotation (Placement(transformation(extent={{60,14},{40,34}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemOut(redeclare package Medium
+      =                                                                           MediumTan,
+      m_flow_nominal=0.1) "Water outlet temperature sensor"
+    annotation (Placement(transformation(extent={{-52,-14},{-32,6}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemIn(redeclare package Medium
+      =                                                                          MediumTan,
+      m_flow_nominal=0.1) "Water inlet temperature sensor"
+    annotation (Placement(transformation(extent={{18,-14},{38,6}})));
   Buildings.Utilities.IO.BCVTB.From_degC TEvaIn_K "Converts degC to K"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  Sources.Boundary_pT      bouAir(
+  Buildings.Fluid.Sources.Boundary_pT bouAir(
     redeclare package Medium = MediumAir,
     final use_Xi_in=true,
     final use_T_in=true,
@@ -102,47 +107,42 @@ model HeatPumpWaterHeaterWrapped
   Buildings.Utilities.Psychrometrics.ToTotalAir toTotAirIn
     "Convert humidity ratio per kg dry air to humidity ratio per kg total air for coil inlet air"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  Sources.MassFlowSource_T boundary(
+  Buildings.Fluid.Sources.MassFlowSource_T boundary(
     redeclare package Medium = MediumTan,
     final use_m_flow_in=true,
     final use_T_in=true,
     final nPorts=1) "Mass flow source for DHW"
     annotation (Placement(transformation(extent={{90,-14},{70,6}})));
-  Controls.OBC.CDL.Discrete.UnitDelay PCoiEPlu(final samplePeriod=
+  Buildings.Controls.OBC.CDL.Discrete.UnitDelay PCoiEPlu(final samplePeriod=
         3600) "Heat pump water heater power consumption from EnergyPlus"
-    annotation (Placement(transformation(extent={{122,-20},{142,0}})));
-  Modelica.Blocks.Math.Mean PMea(final f=1/3600)
-    "Mean of power"
-    annotation (Placement(transformation(extent={{122,40},{142,60}})));
-  HeatTransfer.Sources.PrescribedTemperature TBCBot
-    "Boundary condition for tank"
+    annotation (Placement(transformation(extent={{120,-20},{140,0}})));
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TBCBot
+    "Boundary condition for bottom of tank"
     annotation (Placement(transformation(extent={{-58,-100},{-46,-88}})));
-  Controls.OBC.CDL.Discrete.UnitDelay TTanOutEPlu(final samplePeriod=3600)
+  Buildings.Controls.OBC.CDL.Discrete.UnitDelay TTanOutEPlu(final samplePeriod=3600)
     "Water tank temperature from EnergyPlus"
-    annotation (Placement(transformation(extent={{122,-60},{142,-40}})));
-  Modelica.Blocks.Math.RealToBoolean realToBoolean(threshold=0.2)
-    annotation (Placement(transformation(extent={{-78,-40},{-58,-20}})));
+    annotation (Placement(transformation(extent={{120,-60},{140,-40}})));
   Buildings.Utilities.IO.BCVTB.From_degC TOut_K "Converts degC to K"
     annotation (Placement(transformation(extent={{-88,-86},{-68,-66}})));
   Buildings.Utilities.IO.BCVTB.From_degC TWat_K "Converts degC to K"
     annotation (Placement(transformation(extent={{62,80},{82,100}})));
   Buildings.Utilities.IO.BCVTB.From_degC TConCoi_K "Converts degC to K"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
+
 equation
-  connect(heaPumWatHeaWra.port_b1, sin1.ports[1]) annotation (Line(points={{10,8},{
-          22,8},{22,24},{40,24}},  color={0,127,255}));
-  connect(TBCSid1.port, heaPumWatHeaWra.heaPorSid1)
-    annotation (Line(points={{-46,-56},{16,-56},{16,2},{6,2}},
-                                                       color={191,0,0}));
-  connect(TBCTop1.port, heaPumWatHeaWra.heaPorTop1) annotation (Line(points={{-46,-74},
-          {-16,-74},{-16,10},{0,10}},          color={191,0,0}));
-  connect(senTemIn.port_b, res_1.port_a)
+  connect(heaPumWatHeaWra.port_b1, sin.ports[1]) annotation (Line(points={{10,8},
+          {22,8},{22,24},{40,24}}, color={0,127,255}));
+  connect(TBCSid.port, heaPumWatHeaWra.heaPorSid) annotation (Line(points={{-46,-56},
+          {8,-56},{8,2},{6,2}},        color={191,0,0}));
+  connect(TBCTop.port, heaPumWatHeaWra.heaPorTop) annotation (Line(points={{-46,
+          -74},{-16,-74},{-16,10},{0,10}}, color={191,0,0}));
+  connect(senTemIn.port_b, res.port_a)
     annotation (Line(points={{38,-4},{42,-4}}, color={0,127,255}));
   connect(senTemIn.port_a, heaPumWatHeaWra.port_a2) annotation (Line(points={{18,-4},
           {10,-4}},                             color={0,127,255}));
   connect(sin_1.ports[1], senTemOut.port_a)
     annotation (Line(points={{-102,-4},{-52,-4}},color={0,127,255}));
-  connect(res_1.port_b, boundary.ports[1])
+  connect(res.port_b, boundary.ports[1])
     annotation (Line(points={{62,-4},{70,-4}}, color={0,127,255}));
   connect(heaPumWatHeaWra.port_a1, bouAir.ports[1]) annotation (Line(points={{-10,8},
           {-18,8},{-18,24},{-26,24}},        color={0,127,255}));
@@ -156,27 +156,27 @@ equation
           70},{-86,49.6},{-82,49.6}},        color={0,0,127}));
   connect(TEvaIn_K.Kelvin, bouAir.T_in) annotation (Line(points={{-59,49.8},{
           -58,49.8},{-58,50},{-54,50},{-54,28},{-48,28}}, color={0,0,127}));
-  connect(TBCBot.port, heaPumWatHeaWra.heaPorBot1) annotation (Line(points={{-46,-94},
-          {-14,-94},{-14,-6},{0,-6}},            color={191,0,0}));
+  connect(TBCBot.port, heaPumWatHeaWra.heaPorBot) annotation (Line(points={{-46,
+          -94},{-14,-94},{-14,-6},{0,-6}}, color={191,0,0}));
   connect(datRea.y[3], boundary.m_flow_in) annotation (Line(points={{-97,70},{
           102,70},{102,4},{92,4}},
                                  color={0,0,127}));
   connect(heaPumWatHeaWra.P, PMea.u) annotation (Line(points={{11,-2},{16,-2},{
-          16,50},{120,50}}, color={0,0,127}));
-  connect(PCoiEPlu.u, datRea.y[23]) annotation (Line(points={{120,-10},{112,-10},
+          16,50},{118,50}}, color={0,0,127}));
+  connect(PCoiEPlu.u, datRea.y[23]) annotation (Line(points={{118,-10},{112,-10},
           {112,70},{-97,70}}, color={0,0,127}));
-  connect(TTanOutEPlu.u, datRea.y[11]) annotation (Line(points={{120,-50},{110,
+  connect(TTanOutEPlu.u, datRea.y[11]) annotation (Line(points={{118,-50},{110,
           -50},{110,70},{-97,70}}, color={0,0,127}));
-  connect(realToBoolean.y, heaPumWatHeaWra.on) annotation (Line(points={{-57,-30},
-          {-24,-30},{-24,2},{-12,2}},      color={255,0,255}));
-  connect(realToBoolean.u, datRea.y[7]) annotation (Line(points={{-80,-30},{-94,
-          -30},{-94,70},{-97,70}},        color={0,0,127}));
+  connect(realToBoolean.y, heaPumWatHeaWra.on) annotation (Line(points={{-59,-28},
+          {-24,-28},{-24,2},{-12,2}},      color={255,0,255}));
+  connect(realToBoolean.u, datRea.y[7]) annotation (Line(points={{-82,-28},{-94,
+          -28},{-94,70},{-97,70}},        color={0,0,127}));
   connect(TOut_K.Celsius, datRea.y[1]) annotation (Line(points={{-90,-76.4},{
           -90,-76},{-94,-76},{-94,70},{-97,70}},     color={0,0,127}));
-  connect(TOut_K.Kelvin, TBCSid1.T) annotation (Line(points={{-67,-76.2},{-67,
-          -76},{-64,-76},{-64,-56},{-59.2,-56}}, color={0,0,127}));
-  connect(TOut_K.Kelvin, TBCTop1.T) annotation (Line(points={{-67,-76.2},{-63.5,
-          -76.2},{-63.5,-74},{-59.2,-74}}, color={0,0,127}));
+  connect(TOut_K.Kelvin, TBCSid.T) annotation (Line(points={{-67,-76.2},{-67,-76},
+          {-64,-76},{-64,-56},{-59.2,-56}}, color={0,0,127}));
+  connect(TOut_K.Kelvin, TBCTop.T) annotation (Line(points={{-67,-76.2},{-63.5,-76.2},
+          {-63.5,-74},{-59.2,-74}}, color={0,0,127}));
   connect(TOut_K.Kelvin, TBCBot.T) annotation (Line(points={{-67,-76.2},{-68,
           -76.2},{-68,-76},{-64,-76},{-64,-94},{-59.2,-94}}, color={0,0,127}));
   connect(TWat_K.Kelvin, boundary.T_in) annotation (Line(points={{83,89.8},{104,
@@ -185,8 +185,8 @@ equation
           89.6},{58,90},{52,90},{52,70},{-97,70}},  color={0,0,127}));
   connect(datRea.y[28], TConCoi_K.Celsius) annotation (Line(points={{-97,70},{
           -92,70},{-92,90},{-82,90},{-82,89.6}},   color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-140,
-            -100},{160,100}})),                                  Diagram(
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}})),                                  Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-140,-100},{160,
             100}})),
     experiment(
@@ -196,6 +196,9 @@ equation
       __Dymola_Algorithm="Cvode"),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/Storage/HeatPumpWaterHeater/Validation/HeatPumpWaterHeaterWrapped.mos"
-        "Simulate and Plot", file="Resources/Scripts/Dymola/Fluid/Storage/HeatPumpWaterHeater/Validation/Debug.mos"
-        "Debug"));
+        "Simulate and Plot"),
+    Documentation(info="<html>
+<p>This model validates the model Buildings.Fluid.Storage.HeatPumpWaterHeater.HeatPumpWaterHeaterWrapped. </p>
+<p>The EnergyPlus results were generated using the example file WaterHeaterHeatPumpWrappedCondenser.idf from EnergyPlus 9.6. The results were then used to set-up the boundary conditions for the model as well as the input signals.</p>
+</html>"));
 end HeatPumpWaterHeaterWrapped;
