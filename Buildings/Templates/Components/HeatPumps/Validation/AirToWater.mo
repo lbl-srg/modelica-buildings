@@ -26,8 +26,8 @@ model AirToWater
     TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
     TSouCoo_nominal=Buildings.Templates.Data.Defaults.TOutHeaPumCoo,
     TSouHea_nominal=Buildings.Templates.Data.Defaults.TOutHeaPumHeaLow,
-    redeclare Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN14511.Vitocal251A08 datTabHea,
-    redeclare Buildings.Fluid.Chillers.ModularReversible.Data.TableData2D.EN14511.Vitocal251A08 datTabCoo)
+    redeclare Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN14511.Vitocal251A08 hea,
+    redeclare Buildings.Fluid.Chillers.ModularReversible.Data.TableData2D.EN14511.Vitocal251A08 coo)
     "Heat pump performance data"
     annotation (Placement(transformation(extent={{120,-40},{140,-20}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatSupSet(
@@ -123,7 +123,7 @@ model AirToWater
       origin={-130,-140})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam=Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+      "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     annotation (Placement(transformation(extent={{10,50},{30,70}})));
   Fluid.Sensors.TemperatureTwoPort TRet(
     redeclare final package Medium=Medium,

@@ -1,34 +1,42 @@
 simulateModel("Buildings.Templates.Components.HeatPumps.Validation.AirToWater",
     method="cvode",
     tolerance=1e-6,
-    stopTime=3000.0,
+    startTime=10497600.0,
+    stopTime=10500600.0,
     resultFile="HeatPumpsAirToWater");
 createPlot(
     id=1,
-    position={5, 5, 300, 200},
+    position={5, 5, 300, 400},
     y={"y1.y[1]", "y1Hea.y[1]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"weaDat.weaBus.TDryBul"},
     autoscale=true,
     grid=true
 );
 createPlot(
     id=2,
     position={310, 5, 300, 600},
-    subPlot=101,
+    subPlot=1,
     y={"TRet.T", "TSup.T", "heaPumRev.bus.TSet"},
     autoscale=true,
     grid=true
 );
 createPlot(
     id=2,
-    subPlot=102,
+    subPlot=2,
     y={"heaPumRev.port_a.m_flow", "heaPumRev.mHeaWat_flow_nominal", "heaPumRev.mChiWat_flow_nominal"},
     autoscale=true,
     grid=true
 );
 createPlot(
     id=2,
-    subPlot=103,
-    y={"heaPumRev.heaPum.ySet"},
+    subPlot=3,
+    y={"heaPumRev.heaPum.ySet", "heaPumRev.heaPum.safCtr.yOut"},
     autoscale=true,
     grid=true
 );

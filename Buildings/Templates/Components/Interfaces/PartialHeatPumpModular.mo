@@ -23,11 +23,18 @@ model PartialHeatPumpModular
     use_conCap=false,
     use_evaCap=false,
     use_intSafCtr=true,
+    redeclare replaceable parameter
+    Buildings.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021 safCtrPar
+      constrainedby Buildings.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Generic(
+      tabUppHea=dat.hea.tabUppBou,
+      tabLowCoo=dat.coo.tabLowBou,
+      use_TUseSidOut=dat.hea.use_TConOutForOpeEnv,
+      use_TAmbSidOut=dat.coo.use_TEvaOutForOpeEnv),
     final use_rev=is_rev,
     redeclare model RefrigerantCycleHeatPumpHeating =
     Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D (
       redeclare Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting iceFacCal,
-      final datTab=dat.datTabHea),
+      final datTab=dat.hea),
     redeclare model RefrigerantCycleInertia =
       Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Inertias.NoInertia)
     "Heat pump"
@@ -104,7 +111,7 @@ equation
   connect(y1Hea.y, ctl.u1Hea)
     annotation (Line(points={{-76,49},{-76,24},{-52,24}}, color={255,0,255}));
   connect(bus.TSet, ctl.TSupSet) annotation (Line(
-      points={{0,100},{0,80},{-60,80},{-60,20},{-52,20}},
+      points={{0.1,100.1},{0.1,80},{-60,80},{-60,20},{-52,20}},
       color={255,204,51},
       thickness=0.5));
   connect(bus.y1, ctl.u1) annotation (Line(

@@ -4,9 +4,12 @@ model AirToWaterReversible
   extends Buildings.Templates.Components.Interfaces.PartialHeatPumpModular(
     redeclare final package MediumSou=Buildings.Media.Air,
     heaPum(
-      redeclare model RefrigerantCycleHeatPumpCooling=Buildings.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2D(
+      safCtrPar(use_minOnTime=false, use_minOffTime=false, use_maxCycRat=false),
+      redeclare model RefrigerantCycleHeatPumpCooling =
+          Buildings.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2D
+          (
         redeclare Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting iceFacCal,
-        final datTab=dat.datTabCoo)),
+        final datTab=dat.coo)),
     final typ=Buildings.Templates.Components.Types.HeatPump.AirToWater,
     final typMod=Buildings.Templates.Components.Types.HeatPumpModel.ModularTableData2D,
     final is_rev=true,

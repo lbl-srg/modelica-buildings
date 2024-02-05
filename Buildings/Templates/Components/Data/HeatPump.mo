@@ -116,7 +116,7 @@ record HeatPump "Record for heat pump model"
     enable=typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater and
     is_rev));
   replaceable parameter
-    Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump datTabHea(
+    Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump hea(
       mCon_flow_nominal=mHeaWat_flow_nominal,
       mEva_flow_nominal=if typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater then
         mSouHea_flow_nominal else
@@ -129,7 +129,7 @@ record HeatPump "Record for heat pump model"
     annotation (choicesAllMatching=true,
       Placement(transformation(extent={{-38,2},{-22,18}})));
 
-  replaceable parameter Buildings.Fluid.Chillers.ModularReversible.Data.TableData2D.Generic datTabCoo(
+  replaceable parameter Buildings.Fluid.Chillers.ModularReversible.Data.TableData2D.Generic coo(
       mCon_flow_nominal=if typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater then
         mSouCoo_flow_nominal else
         Buildings.Templates.Data.Defaults.mAirFloByCapChi * abs(capCoo_nominal),

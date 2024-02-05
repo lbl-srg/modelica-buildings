@@ -94,18 +94,18 @@ model PartialHeatPump
     dat.TChiWatRet_nominal
     "Design CHW return temperature";
   final parameter Modelica.Units.SI.MassFlowRate mSouHea_flow_nominal=
-    dat.datTabHea.mEva_flow_nominal
+    dat.hea.mEva_flow_nominal
     "Design source fluid mass flow rate in heating mode";
   final parameter Modelica.Units.SI.PressureDifference dpSouHea_nominal=
-    dat.datTabHea.dpEva_nominal
+    dat.hea.dpEva_nominal
     "Design source fluid pressure drop in heating mode"
     annotation (Dialog(group="Nominal condition",
     enable=typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater));
   final parameter Modelica.Units.SI.MassFlowRate mSouCoo_flow_nominal=
-    dat.datTabCoo.mCon_flow_nominal
+    dat.coo.mCon_flow_nominal
     "Design source fluid mass flow rate in cooling mode";
   final parameter Modelica.Units.SI.PressureDifference dpSouCoo_nominal=
-    dat.datTabCoo.dpCon_nominal
+    dat.coo.dpCon_nominal
     "Designs source fluid pressure drop in cooling mode";
   final parameter Modelica.Units.SI.Temperature TSouCoo_nominal=
     dat.TSouCoo_nominal
