@@ -59,14 +59,14 @@ model SeriesVariableFlowAgentControl
     "Scale with nominal mass flow rate"
     annotation (Placement(transformation(extent={{-242,-110},{-222,-90}})));
 
-  Fluid.Sensors.TemperatureTwoPort TDisWatSup1(redeclare final package Medium
-      = Medium, final m_flow_nominal=datDes.mPumDis_flow_nominal)
+  Fluid.Sensors.TemperatureTwoPort TDisWatSup1(redeclare final package Medium =
+        Medium, final m_flow_nominal=datDes.mPumDis_flow_nominal)
     "District water supply temperature"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-80,128})));
-  Fluid.Sensors.TemperatureTwoPort TDisWatRet1(redeclare final package Medium
-      = Medium, final m_flow_nominal=datDes.mPumDis_flow_nominal)
+  Fluid.Sensors.TemperatureTwoPort TDisWatRet1(redeclare final package Medium =
+        Medium, final m_flow_nominal=datDes.mPumDis_flow_nominal)
     "District water return temperature"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -146,9 +146,9 @@ equation
   connect(conPum.y, gai.u)
     annotation (Line(points={{-26.1538,-180},{22,-180}},
                                                  color={0,0,127}));
-  connect(TDisWatRet.T, conPum.TSouIn[1]) annotation (Line(points={{69,
-          7.21645e-16},{20,7.21645e-16},{20,-152},{-68,-152},{-68,-175.05},{
-          -54.0308,-175.05}},               color={0,0,127}));
+  connect(TDisWatRet.T, conPum.TSouIn[1]) annotation (Line(points={{69,0},{20,0},
+          {20,-152},{-68,-152},{-68,-175.05},{-54.0308,-175.05}},
+                                            color={0,0,127}));
   connect(TDisWatBorLvg.T, conPum.TSouIn[2]) annotation (Line(points={{-91,-40},
           {-100,-40},{-100,-174},{-76,-174},{-76,-174.15},{-54.0308,-174.15}},
                                                   color={0,0,127}));
@@ -178,9 +178,8 @@ equation
           -75.6},{-108,-75.6},{-108,-60},{-336,-60},{-336,-96},{-331.538,-96},{
           -331.538,-97}},
         color={0,0,127}));
-  connect(TDisWatRet.T, pumPlantControlNsewSto.TSouIn) annotation (Line(points={{69,
-          7.21645e-16},{22,7.21645e-16},{22,-150},{-340,-150},{-340,-92},{
-          -331.538,-92},{-331.538,-93}},
+  connect(TDisWatRet.T, pumPlantControlNsewSto.TSouIn) annotation (Line(points={{69,0},{
+          22,0},{22,-150},{-340,-150},{-340,-92},{-331.538,-92},{-331.538,-93}},
         color={0,0,127}));
   connect(TDisWatBorLvg.T,pumPlantControlNsewSto.TSouOut)  annotation (Line(
         points={{-91,-40},{-348,-40},{-348,-101},{-331.538,-101}},
@@ -219,13 +218,13 @@ equation
   connect(retDisPluFlo.port_b, TDisWatRet.port_a) annotation (Line(points={{80,82},
           {80,10}},                 color={0,127,255}));
   connect(pipeGroundCouplingMulti[1:(nBui+1)].heatPorts[1], dis.heatPorts)
-    annotation (Line(points={{0,95},{0,96},{0.4,96},{0.4,139.8}},
+    annotation (Line(points={{1,95},{1,96},{0.4,96},{0.4,139.8}},
         color={127,0,0}));
   connect(supDisPluFlo.heatPort, pipeGroundCouplingMulti[nBui + 2].heatPorts[1])
-    annotation (Line(points={{-70,92},{0,92},{0,95}},
+    annotation (Line(points={{-70,92},{1,92},{1,95}},
         color={191,0,0}));
   connect(retDisPluFlo.heatPort, pipeGroundCouplingMulti[nBui + 3].heatPorts[1])
-    annotation (Line(points={{70,92},{0,92},{0,95}},                     color={
+    annotation (Line(points={{70,92},{1,92},{1,95}},                     color={
           191,0,0}));
   connect(HXtemperature.y[1], pla.TSewWat) annotation (Line(points={{-267,40},{
           -172,40},{-172,7.33333},{-161.333,7.33333}}, color={0,0,127}));
@@ -275,8 +274,9 @@ Buildings.Experimental.DHC.Networks.Controls.AgentPump1Pipe</a>.
 <h4>References</h4>
 
 <p>
-Ettore Zanetti, David Blum, Michael Wetter <a href=\"https://www.conftool.com/modelica2023/index.php?page=browseSessions\">
-Control development and sizing analysis for a 5th generation district heating and cooling network using Modelica</a>, 2023 International Modelica conference proceedings.
+Ettore Zanetti, David Blum, Michael Wetter (2023) <a href=\"https://https://2023.international.conference.modelica.org/proceedings.html\">
+Control development and sizing analysis for a 5th generation district heating and cooling network using Modelica</a>, 
+In Proceedings of the 15th International Modelica Conference. Aachen, Germany, Oct 9-11, 2023.
 </p>
 
 </html>"),

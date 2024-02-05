@@ -137,7 +137,7 @@ Example model of two one-pipe connection models that could be used i.e for build
 <a href=\"modelica://Buildings.Experimental.DHC.Networks.Connections.Connection1PipeAutosize\">
 Buildings.Experimental.DHC.Networks.Connections.Connection1PipeAutosize</a> and 
 <a href=\"modelica://Buildings.Experimental.DHC.Networks.Connections.Connection1PipePlugFlow\">
-Buildings.Experimental.DHC.Networks.Connections.Connection1PipePlugFlow</a>. The agent, in this example just a pump, will draw water from the distribution pipe and release it in the same pipe.
+Buildings.Experimental.DHC.Networks.Connections.Connection1PipePlugFlow</a>. The agent, in this example just a pump, will draw water from the distribution pipe and release it to the same pipe.
 </p>
 </html>", revisions="<html>
 <ul>

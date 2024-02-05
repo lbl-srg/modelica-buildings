@@ -171,7 +171,7 @@ Example model of two two-pipe connection models that could be used i.e for build
 <a href=\"modelica://Buildings.Experimental.DHC.Networks.Connections.Connection2PipeAutosize\">
 Buildings.Experimental.DHC.Networks.Connections.Connection2PipeAutosize</a> and 
 <a href=\"modelica://Buildings.Experimental.DHC.Networks.Connections.Connection2PipePlugFlow\">
-Buildings.Experimental.DHC.Networks.Connections.Connection2PipePlugFlow</a>.The agent, in this example just a pump, will draw water from the distribution pipe and release it in the same pipe.
+Buildings.Experimental.DHC.Networks.Connections.Connection2PipePlugFlow</a>. The agent, in this example just a pump, will draw water from the distribution supply pipe and release it in the return pipe.
 </p>
 </html>", revisions="<html>
 <ul>
