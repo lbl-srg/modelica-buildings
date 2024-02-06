@@ -87,10 +87,10 @@ protected
     if material.steadyState then zeros(nSta) else {1/C[i] for i in 1:nSta}
     "Inverse of heat capacity associated with the temperature state";
 
-  parameter Modelica.Units.SI.SpecificInternalEnergy ud[Buildings.HeatTransfer.Conduction.nSupPCM]
-    (each fixed=false) "Support points for derivatives (used for PCM)";
-  parameter Modelica.Units.SI.Temperature Td[Buildings.HeatTransfer.Conduction.nSupPCM]
-    (each fixed=false) "Support points for derivatives (used for PCM)";
+  parameter Modelica.Units.SI.SpecificInternalEnergy ud[Buildings.HeatTransfer.Conduction.nSupPCM](
+     each fixed=false) "Support points for derivatives (used for PCM)";
+  parameter Modelica.Units.SI.Temperature Td[Buildings.HeatTransfer.Conduction.nSupPCM](
+     each fixed=false) "Support points for derivatives (used for PCM)";
   parameter Real dT_du[Buildings.HeatTransfer.Conduction.nSupPCM](
     each fixed=false,
     each unit="kg.K2/J")

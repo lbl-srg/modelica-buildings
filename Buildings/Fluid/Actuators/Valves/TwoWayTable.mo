@@ -17,7 +17,6 @@ protected
         1,
         {max(flowCharacteristics.phi[1], 1E-8)},
         {flowCharacteristics.phi[i] for i in 2:size(flowCharacteristics.phi, 1)})],
-
     final columns=2:2,
     final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
     "Normalized mass flow rate for the given valve position under the assumption of a constant pressure"

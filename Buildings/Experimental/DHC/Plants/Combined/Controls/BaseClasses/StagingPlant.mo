@@ -296,8 +296,7 @@ block StagingPlant
   Buildings.Controls.OBC.CDL.Reals.Subtract errDpHeaWat
     "Compute tracking error"
     annotation (Placement(transformation(extent={{-200,-290},{-180,-270}})));
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold
-                                                      cmpErrLim2(t=+1, h=1E-4)
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold   cmpErrLim2(t=+1, h=1E-4)
     "Check tracking error limit"
     annotation (Placement(transformation(extent={{-170,-230},{-150,-210}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold cmpErrLim3(t=1.5E4, h=1E-1)

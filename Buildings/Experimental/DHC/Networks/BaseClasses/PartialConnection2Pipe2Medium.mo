@@ -17,7 +17,7 @@ partial model PartialConnection2Pipe2Medium "Partial model for connecting an
     "Interface for inlet pipe for the distribution supply";
   replaceable model Model_pipDisRet =
       Buildings.Fluid.Interfaces.PartialTwoPortInterface
-      constrainedby Buildings.Fluid.Interfaces.PartialTwoPortInterface (
+      constrainedby Buildings.Fluid.Interfaces.PartialTwoPortInterface(
         redeclare final package Medium = MediumRet,
         final m_flow_nominal=mDis_flow_nominal,
         final allowFlowReversal=allowFlowReversal)

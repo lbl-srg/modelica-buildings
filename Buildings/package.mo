@@ -13263,7 +13263,9 @@ preferredView="info",
 version="11.0.0",
 versionDate="2023-09-05",
 dateModified="2023-09-05",
-uses(Modelica(version="4.0.0")),
+uses(Modelica(version="4.0.0"),
+      ModelicaServices(version="4.0.0"),
+      RTUPCM(version="2")),
 conversion(
   from(
     version={"10.0.0"},

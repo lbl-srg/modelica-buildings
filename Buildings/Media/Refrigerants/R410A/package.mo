@@ -13,7 +13,7 @@ final constant Modelica.Units.SI.Temperature T_min=173.15
 final constant Modelica.Units.SI.AbsolutePressure pCri=4926.1e3
   "Critical pressure";
 
-protected 
+protected
   final constant Real A[:] = {-1.721781e2, 2.381558e-1, -4.329207e-4, -6.241072e-7}
     "Coefficients A for Martin-Hou equation of state";
 

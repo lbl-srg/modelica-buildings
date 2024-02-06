@@ -1,7 +1,7 @@
 within Buildings.Fluid.DXSystems.Cooling.AirSource.Data.SingleSpeed;
 record York_Sunline_DJ240 =
-  Buildings.Fluid.DXSystems.Cooling.AirSource.Data.SingleSpeed.Generic
-    (                                                             sta = {
+  Buildings.Fluid.DXSystems.Cooling.AirSource.Data.SingleSpeed.Generic (
+                                                                  sta = {
    Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.Stage(
                                                                          spe=1800,
    nomVal = Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.NominalValues(
