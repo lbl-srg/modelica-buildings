@@ -66,7 +66,7 @@ def parse_args():
 def get_experiment_attributes(model_name, conf=CONF):
     """Get experiment attributes from mos script and conf.yml file."""
     default_attributes = dict(
-        method="CVode",
+        method='CVode',
         tolerance=1e-6,
         startTime=0,
         stopTime=1,
@@ -74,7 +74,7 @@ def get_experiment_attributes(model_name, conf=CONF):
     )
 
     # We start by overwriting default attributes with the ones from the mos script.
-    mos_path = re.sub('\.', os.path.sep, model_name) + '.mos'
+    mos_path = re.sub(r'\.', os.path.sep, model_name) + '.mos'
     mos_path = re.sub(
         'Buildings', os.path.join('Resources', 'Scripts', 'Dymola'), mos_path
     )
@@ -91,7 +91,12 @@ def get_experiment_attributes(model_name, conf=CONF):
     simu_args = re.finditer(r'(.*)=(.*)', simu_clause)
     for arg in simu_args:
         if (key := re.sub(r'\s', '', arg.group(1))) in default_attributes:
-            default_attributes[key] = re.sub(r',|\)|;| |\n', '', arg.group(2))
+            value = re.sub(r',|\)|;| |\n|"', '', arg.group(2))
+            if value.lower() == 'cvode':
+                value = 'CVode'  # This is for optimica which only accepts case-sensitive solver names.
+            if key in ['tolerance', 'startTime', 'stopTime']:
+                value = float(value)
+            default_attributes[key] = value
 
     # We apply the default attributes for all Modelica tools.
     # .copy() is required otherwise any subsequent modification of e.g. attributes['dymola']['simulate'] will modify all attributes[*]['simulate'] the same way.
