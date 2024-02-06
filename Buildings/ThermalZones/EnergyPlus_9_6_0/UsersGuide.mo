@@ -267,7 +267,7 @@ based on the room temperature.
   bottom of the slab is connected to a ground heat transfer model in Modelica.
   Heating is provided with a geothermal heat pump that is connected to a borehole heat exchanger.
   </li>
-  
+
   </ol>
 </html>"));
   end GettingStarted;
@@ -476,21 +476,14 @@ in the same way as a conventional EnergyPlus simulation.
 </li>
 <li>
 <p>
-The first day of the simulation is repeated until the minimum and maximum air temperatures
-during the warmup day remain nearly the same between two successive iterations.
+The first day of the simulation is repeated, but Spawn uses a different criteria for stopping
+the iteration compared to a conventional EnergyPlus simulation. In EnergyPlus, the first day is repeated
+until the zone air temperature reaches a periodic steady state as indicated by the minimum and maximum temperatures
+for the warmup day stablizing. In Spawn, the exit criteria is similarly based on reaching a periodic steady state,
+however Spawn exits warmup when the surface temperatures stabilize instead of the air temperature.
 </p>
 </li>
 </ol>
-<p>
-The Spawn warmup procedure is still invoked even if there are no unconnected zones defined in the model.
-However, in this case the warmup convergence criteria will be met after only two iterations of the warmup day
-because all zone temperature and humidity values are fixed to the initial values defined in Modelica.
-It is possible for startup transients to still exist after Spawn warmup due thermal mass
-in the wall materials not being fully exposed to the surface boundary conditions
-defined by the outdoor environment and the initial zone air conditions.
-A future enhancement may define a new warmup convergence criteria that takes into account
-the internal wall temperatures.
-</p>
 </html>"));
   end EnergyPlusWarmUp;
 
@@ -584,6 +577,12 @@ for how to install EnergyPlus and how EnergyPlus is invoked.
 </p>
 <h4>References</h4>
 <ul>
+<li>
+Michael Wetter, Kyle Benne, Hubertus Tummescheit and Christian Winther.<br/>
+<a href=\"https://doi.org/10.1080/19401493.2023.2266414\">
+Spawn: coupling Modelica Buildings Library and EnergyPlus to enable new energy system and control applications.</a><br/>
+Journal of Building Performance Simulation. P. 1-19. 2023.
+</li>
 <li>
 Michael Wetter, Kyle Benne, Antoine Gautier, Thierry S. Nouidui,
 Agnes Ramle, Amir Roth, Hubertus Tummescheit, Stuart Mentzer and Christian Winther.<br/>

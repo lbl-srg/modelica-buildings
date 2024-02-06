@@ -13,7 +13,6 @@ block SystemOnOff "Controller for system on/off"
     displayUnit="degC") = 289.15
     "Outdoor temperature below which system is allowed to switch on";
 
-
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
     displayUnit="degC")
@@ -27,36 +26,46 @@ block SystemOnOff "Controller for system on/off"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput onSys
     "System on command"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Logical.OnOffController onTOut(bandwidth=1)
-    "On/off control based on outside air temperature"
-    annotation (Placement(transformation(extent={{-40,56},{-20,76}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetOut(k=TOutLow + 0.5)
     "Set point for outdoor air temperature plus half the dead band"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  Buildings.Controls.OBC.CDL.Logical.OnOffController onTRoo(bandwidth=1)
-    "On/off control based on room air temperature"
-    annotation (Placement(transformation(extent={{-40,-64},{-20,-44}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetRoo(k=TRooSet)
-                 "Set point for room air temperature plus half the dead band"
+    "Set point for room air temperature"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Buildings.Controls.OBC.CDL.Logical.And and1
     "And operator to switch boiler on based on temperature and system on command"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub "Inputs different"
+    annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis onTOut(
+    final uLow=-0.5,
+    final uHigh=0.5) "On/off control based on outside air temperature"
+    annotation (Placement(transformation(extent={{0,50},{20,70}})));
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1 "Inputs different"
+    annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis onTRoo(
+    final uLow=-0.5,
+    final uHigh=0.5) "On/off control based on room air temperature"
+    annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
 equation
-  connect(onTOut.u, TOut)
-    annotation (Line(points={{-42,60},{-120,60}}, color={0,0,127}));
-  connect(TSetOut.y, onTOut.reference) annotation (Line(points={{-58,80},{-50,
-          80},{-50,72},{-42,72}}, color={0,0,127}));
-  connect(onTRoo.u, TRoo)
-    annotation (Line(points={{-42,-60},{-120,-60}}, color={0,0,127}));
-  connect(TSetRoo.y, onTRoo.reference) annotation (Line(points={{-58,-30},{-50,-30},
-          {-50,-48},{-42,-48}}, color={0,0,127}));
-  connect(and1.u2, onTRoo.y) annotation (Line(points={{58,-8},{-10,-8},{-10,-54},
-          {-18,-54}}, color={255,0,255}));
   connect(and1.y, onSys)
     annotation (Line(points={{82,0},{120,0}}, color={255,0,255}));
-  connect(onTOut.y, and1.u1) annotation (Line(points={{-18,66},{-10,66},{-10,0},
-          {58,0}}, color={255,0,255}));
+  connect(TSetOut.y, sub.u1) annotation (Line(points={{-58,80},{-50,80},{-50,66},
+          {-42,66}}, color={0,0,127}));
+  connect(TOut, sub.u2) annotation (Line(points={{-120,60},{-60,60},{-60,54},{-42,
+          54}}, color={0,0,127}));
+  connect(sub.y, onTOut.u)
+    annotation (Line(points={{-18,60},{-2,60}}, color={0,0,127}));
+  connect(onTOut.y, and1.u1) annotation (Line(points={{22,60},{40,60},{40,0},{58,
+          0}}, color={255,0,255}));
+  connect(TSetRoo.y, sub1.u1) annotation (Line(points={{-58,-30},{-50,-30},{-50,
+          -54},{-42,-54}}, color={0,0,127}));
+  connect(TRoo, sub1.u2) annotation (Line(points={{-120,-60},{-60,-60},{-60,-66},
+          {-42,-66}}, color={0,0,127}));
+  connect(sub1.y, onTRoo.u)
+    annotation (Line(points={{-18,-60},{-2,-60}}, color={0,0,127}));
+  connect(onTRoo.y, and1.u2) annotation (Line(points={{22,-60},{40,-60},{40,-8},
+          {58,-8}}, color={255,0,255}));
   annotation (
   defaultComponentName="conSysSta",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
@@ -105,6 +114,12 @@ Otherwise, the system on command is <code>false</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 11, 2023, by Jianjun Hu:<br/>
+Reimplemented on-off control to avoid using the obsolete <code>OnOffController</code>.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3595\">#3595</a>.
+</li>
 <li>
 February 18, 2020, by Michael Wetter:<br/>
 First implementation.

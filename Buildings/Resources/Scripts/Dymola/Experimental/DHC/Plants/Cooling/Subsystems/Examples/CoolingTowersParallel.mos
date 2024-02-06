@@ -29,7 +29,7 @@ createPlot(id=1,
 createPlot(
 	id=1, 
 	position={21, 7, 758, 606}, 
-	y={"onOffCon.reference", "onOffCon.u"}, 
+	y={"TVol.T", "TSwi.y"},
 	range={4320.0, 4370.0, 18.0, 24.0}, 
 	grid=true, 
 	subPlot=3, 

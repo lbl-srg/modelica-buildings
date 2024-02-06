@@ -59,9 +59,9 @@ protected
     final k=Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.setUp)
     "Setup mode"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or3
+  Buildings.Controls.OBC.CDL.Logical.Or or3
     "Check if it is in occupied, cooldown, or setup mode"
-    annotation (Placement(transformation(extent={{40,130},{60,150}})));
+    annotation (Placement(transformation(extent={{0,130},{20,150}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal actCooMax(
     final realTrue=VCooMax_flow)
     "Active cooling maximum flow"
@@ -100,9 +100,9 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal ifSetBac
     "Check if current operation mode is setback mode"
     annotation (Placement(transformation(extent={{-80,-150},{-60,-130}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or1
+  Buildings.Controls.OBC.CDL.Logical.Or or1
     "Check if it is in occupied, warm-up, or setback mode"
-    annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
+    annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
   Buildings.Controls.OBC.CDL.Reals.Add add2
     "Sum of minimum flow and cooling maximum flow"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
@@ -122,6 +122,12 @@ protected
     final k=VCooMax_flow)
     "Cooling maximum flow"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or2
+    "Check if it is in occupied, cooldown, or setup mode"
+    annotation (Placement(transformation(extent={{40,130},{60,150}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or4
+    "Check if it is in occupied, warm-up, or setback mode"
+    annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
 
 equation
   connect(occMod.y, ifOcc.u1)
@@ -144,14 +150,10 @@ equation
           -148},{-82,-148}}, color={255,127,0}));
   connect(setBacMod.y, ifSetBac.u1)
     annotation (Line(points={{-98,-140},{-82,-140}}, color={255,127,0}));
-  connect(ifOcc.y, or3.u1) annotation (Line(points={{-58,130},{-30,130},{-30,148},
-          {38,148}},  color={255,0,255}));
-  connect(ifCooDow.y, or3.u2) annotation (Line(points={{-58,60},{-20,60},{-20,140},
-          {38,140}},  color={255,0,255}));
-  connect(ifSetUp.y, or3.u3) annotation (Line(points={{-58,-10},{-10,-10},{-10,132},
-          {38,132}},  color={255,0,255}));
-  connect(or3.y, actCooMax.u)
-    annotation (Line(points={{62,140},{98,140}}, color={255,0,255}));
+  connect(ifOcc.y, or3.u1) annotation (Line(points={{-58,130},{-30,130},{-30,140},
+          {-2,140}},  color={255,0,255}));
+  connect(ifCooDow.y, or3.u2) annotation (Line(points={{-58,60},{-20,60},{-20,132},
+          {-2,132}},  color={255,0,255}));
   connect(ifOcc.y, occModInd.u) annotation (Line(points={{-58,130},{-30,130},{-30,
           100},{38,100}},  color={255,0,255}));
   connect(VOccMin_flow, pro.u2)
@@ -162,14 +164,10 @@ equation
     annotation (Line(points={{122,140},{160,140}}, color={0,0,127}));
   connect(pro.y, VActMin_flow) annotation (Line(points={{122,90},{160,90}},
           color={0,0,127}));
-  connect(ifOcc.y, or1.u1) annotation (Line(points={{-58,130},{-30,130},{-30,-102},
-          {38,-102}},color={255,0,255}));
-  connect(ifWarUp.y, or1.u2) annotation (Line(points={{-58,-80},{-40,-80},{-40,-110},
-          {38,-110}}, color={255,0,255}));
-  connect(ifSetBac.y, or1.u3) annotation (Line(points={{-58,-140},{-20,-140},{-20,
-          -118},{38,-118}}, color={255,0,255}));
-  connect(or1.y, heaMaxFlo.u)
-    annotation (Line(points={{62,-110},{98,-110}}, color={255,0,255}));
+  connect(ifOcc.y, or1.u1) annotation (Line(points={{-58,130},{-30,130},{-30,-110},
+          {-2,-110}},color={255,0,255}));
+  connect(ifWarUp.y, or1.u2) annotation (Line(points={{-58,-80},{-40,-80},{-40,-118},
+          {-2,-118}}, color={255,0,255}));
   connect(heaMaxFlo.y, VActHeaMax_flow)
     annotation (Line(points={{122,-110},{160,-110}}, color={0,0,127}));
   connect(heaMax.y, add2.u2) annotation (Line(points={{2,-70},{10,-70},{10,-56},
@@ -182,7 +180,18 @@ equation
     annotation (Line(points={{82,10},{98,10}}, color={255,0,255}));
   connect(VOccMin_flow, add2.u1) annotation (Line(points={{-160,84},{-50,84},{-50,
           -44},{18,-44}}, color={0,0,127}));
-
+  connect(or3.y, or2.u1)
+    annotation (Line(points={{22,140},{38,140}}, color={255,0,255}));
+  connect(or2.y, actCooMax.u)
+    annotation (Line(points={{62,140},{98,140}}, color={255,0,255}));
+  connect(ifSetUp.y, or2.u2) annotation (Line(points={{-58,-10},{30,-10},{30,132},
+          {38,132}}, color={255,0,255}));
+  connect(or4.y, heaMaxFlo.u)
+    annotation (Line(points={{62,-110},{98,-110}}, color={255,0,255}));
+  connect(or1.y, or4.u1)
+    annotation (Line(points={{22,-110},{38,-110}}, color={255,0,255}));
+  connect(ifSetBac.y, or4.u2) annotation (Line(points={{-58,-140},{30,-140},{30,
+          -118},{38,-118}}, color={255,0,255}));
 annotation (
   defaultComponentName="actAirSet",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-160},{140,160}})),

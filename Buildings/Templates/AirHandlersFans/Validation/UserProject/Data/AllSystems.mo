@@ -13,9 +13,9 @@ class AllSystems "Top-level (whole building) system parameters"
     damRel(dp_nominal=15),
     damRet(dp_nominal=15),
     mOutMin_flow_nominal=0.2,
-    fanSup(m_flow_nominal=1, dp_nominal=500),
-    fanRel(m_flow_nominal=1, dp_nominal=200),
-    fanRet(m_flow_nominal=1, dp_nominal=200),
+    fanSup(m_flow_nominal=1, dp_nominal=500, nFan=VAV_1.nFanSup),
+    fanRel(m_flow_nominal=1, dp_nominal=200, nFan=VAV_1.nFanRel),
+    fanRet(m_flow_nominal=1, dp_nominal=200, nFan=VAV_1.nFanRet),
     coiHeaPre(
       cap_nominal=1e4,
       dpAir_nominal=100,
