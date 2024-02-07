@@ -20,6 +20,16 @@ record OutdoorReliefReturnSection "Record for outdoor/relief/return air section"
   parameter Buildings.Templates.Components.Types.Fan typFanRet
     "Type of return fan"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+  parameter Integer nFanRet(
+    start=if typFanRet==Buildings.Templates.Components.Types.Fan.None then 0 else 1)
+    "Number of return fans"
+    annotation (Evaluate=true,
+    Dialog(group="Configuration", enable=false));
+  parameter Integer nFanRel(
+    start=if typFanRel==Buildings.Templates.Components.Types.Fan.None then 0 else 1)
+    "Number of relief fans"
+    annotation (Evaluate=true,
+    Dialog(group="Configuration", enable=false));
 
   parameter Modelica.Units.SI.MassFlowRate mOutMin_flow_nominal(
     final min=0,
@@ -49,12 +59,14 @@ record OutdoorReliefReturnSection "Record for outdoor/relief/return air section"
     annotation (Dialog(group="Dampers and economizers",
     enable=typDamRet <> Buildings.Templates.Components.Types.Damper.None));
   parameter Buildings.Templates.Components.Data.Fan fanRel(
-    final typ=typFanRel)
+    final typ=typFanRel,
+    final nFan=nFanRel)
     "Relief fan"
     annotation (Dialog(group="Fans",
     enable=typFanRel <>Buildings.Templates.Components.Types.Fan.None));
   parameter Buildings.Templates.Components.Data.Fan fanRet(
-    final typ=typFanRet)
+    final typ=typFanRet,
+    final nFan=nFanRet)
     "Return fan"
     annotation (Dialog(group="Fans",
     enable=typFanRet <>Buildings.Templates.Components.Types.Fan.None));
