@@ -26,14 +26,14 @@ protected
     "Constant Boolean signal"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp HeaCoi(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp HeaCoi(
     final height=1,
     final offset=0,
     final duration=1200)
     "Heating coil signal"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOut(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOut(
     final k=273.15 - 15)
     "Outdoor air dry bulb temperature"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
@@ -43,12 +43,12 @@ protected
     "Constant Boolean signal"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOut1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOut1(
     final k=273.15 + 5)
     "Outdoor air dry bulb temperature"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp HeaCoi1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp HeaCoi1(
     final height=1,
     final offset=0,
     final duration=1200)

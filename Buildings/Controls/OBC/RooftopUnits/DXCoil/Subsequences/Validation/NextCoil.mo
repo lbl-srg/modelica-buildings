@@ -1,44 +1,44 @@
 within Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.Validation;
 model NextCoil
-  CDL.Integers.Sources.Constant conInt[4](k=coiInd) "Enable sequence for coils"
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[4](k=coiInd) "Enable sequence for coils"
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
-  CDL.Logical.Sources.Constant con(k=true) "Coil availability signal"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(k=true) "Coil availability signal"
     annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
-  CDL.Logical.Sources.SampleTrigger samTri(period=60, shift=10)
+  Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger samTri(period=60, shift=10)
     "Periodically trigger stage up process"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
 
-  CDL.Logical.TrueFalseHold uStaUp(trueHoldDuration=10, falseHoldDuration=0)
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold uStaUp(trueHoldDuration=10, falseHoldDuration=0)
     "Hold stage up signal from periodic trigger for visualization"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
   Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.NextCoil nexCoi(nCoi=
         nCoi) "Next coil calculator-1"
               annotation (Placement(transformation(extent={{20,0},{40,20}})));
-  CDL.Logical.Pre pre1
+  Buildings.Controls.OBC.CDL.Logical.Pre pre1
                      [4] "Pre block for feeding back coil enable status"
     annotation (Placement(transformation(extent={{94,0},{114,20}})));
   ChangeStatus chaSta1(nCoi=4) "Change enable status of coils"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
-  CDL.Logical.TrueDelay truDel1(delayTime=10) "Delay coil availability signal"
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel1(delayTime=10) "Delay coil availability signal"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  CDL.Logical.TrueDelay truDel2(delayTime=10) "Delay coil availability signal"
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel2(delayTime=10) "Delay coil availability signal"
     annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
   Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.NextCoil nexCoi1(nCoi=
        nCoi) "Next coil calculator-2"
              annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
   ChangeStatus chaSta2(nCoi=4) "Change enable status of coils"
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
-  CDL.Logical.Pre pre2
+  Buildings.Controls.OBC.CDL.Logical.Pre pre2
                      [4] "Pre block for feeding back coil enable status"
     annotation (Placement(transformation(extent={{94,-80},{114,-60}})));
-  CDL.Logical.TrueDelay truDel3(delayTime=10) "Delay coil availability signal"
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel3(delayTime=10) "Delay coil availability signal"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
-  CDL.Logical.TrueDelay truDel4(delayTime=10) "Delay coil availability signal"
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel4(delayTime=10) "Delay coil availability signal"
     annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
-  CDL.Logical.TrueFalseHold yStaUp(trueHoldDuration=10, falseHoldDuration=0)
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold yStaUp(trueHoldDuration=10, falseHoldDuration=0)
     "Hold stage up signal from controller for visualization"
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
-  CDL.Logical.TrueFalseHold yStaUp1(trueHoldDuration=10, falseHoldDuration=0)
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold yStaUp1(trueHoldDuration=10, falseHoldDuration=0)
     "Hold stage up signal from controller for visualization"
     annotation (Placement(transformation(extent={{60,-130},{80,-110}})));
 protected

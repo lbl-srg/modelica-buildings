@@ -71,7 +71,7 @@ block StageUpDown
     "Logical MultiOr"
     annotation (Placement(transformation(extent={{-10,-64},{10,-44}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrCoiUp(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThrCoiUp(
     final t=uThrCoiUp,
     final h=dUHys)
     "Check if coil valve position signal is equal to or greater than threshold"
@@ -108,7 +108,7 @@ block StageUpDown
     "Reset timer when coil status changes"
     annotation (Placement(transformation(extent={{30,-42},{50,-22}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThrCoiDow[nCoi](
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThrCoiDow[nCoi](
     final t=fill(uThrCoiDow, nCoi),
     final h=fill(dUHys, nCoi))
     "Check if compressor speed is less than a threshold of coil valve postition"
@@ -120,7 +120,7 @@ block StageUpDown
     "Check DX coil signal"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add2[nCoi]
+  Buildings.Controls.OBC.CDL.Reals.Add add2[nCoi]
     "Product of DX coil signal and compressor speed"
     annotation (Placement(transformation(extent={{-80,-64},{-60,-44}})));
 

@@ -87,12 +87,12 @@ block NextCoil "Find next available coil to enable"
     "Check time since coil was skipped over"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Round rou[nCoi](
+  Buildings.Controls.OBC.CDL.Reals.Round rou[nCoi](
     final n=fill(0, nCoi))
     "Round off time-value to nearest second"
     annotation (Placement(transformation(extent={{40,100},{60,120}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax mulMax(
+  Buildings.Controls.OBC.CDL.Reals.MultiMax mulMax(
     final nin=nCoi) "Find maximum time for which a coil has been skipped"
     annotation (Placement(transformation(extent={{80,130},{100,150}})));
 
@@ -154,7 +154,7 @@ block NextCoil "Find next available coil to enable"
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr2
     "Check if any skipped coils have been prioritized for enable"
     annotation (Placement(transformation(extent={{180,-50},{200,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMin mulMin(nin=nCoi)
+  Buildings.Controls.OBC.CDL.Reals.MultiMin mulMin(nin=nCoi)
     "Identify lowest index between coils that were skipped at the same time"
     annotation (Placement(transformation(extent={{330,160},{350,180}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt3
@@ -237,16 +237,16 @@ block NextCoil "Find next available coil to enable"
     final realTrue=fill(1e6, nCoi))
     "Convert non-available coils to high value before passing it through minimum block, so that they are not prioritized for enabling"
     annotation (Placement(transformation(extent={{232,180},{252,200}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2[nCoi]
+  Buildings.Controls.OBC.CDL.Reals.Add add2[nCoi]
     "Add large number to non-prioritized coil indices"
     annotation (Placement(transformation(extent={{310,200},{330,220}})));
   Buildings.Controls.OBC.CDL.Logical.Not not3[nCoi]
     "Identify coils that are not on list of skipped, currently-available coils"
     annotation (Placement(transformation(extent={{160,20},{180,40}})));
-  CDL.Interfaces.IntegerOutput yLasCoi "Last coil that was enabled" annotation (
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yLasCoi "Last coil that was enabled" annotation (
      Placement(transformation(extent={{420,-220},{460,-180}}),
         iconTransformation(extent={{100,-60},{140,-20}})));
-  CDL.Routing.IntegerExtractor                        extIndIntOriSeq1(final nin=
+  Buildings.Controls.OBC.CDL.Routing.IntegerExtractor                        extIndIntOriSeq1(final nin=
        nCoi)
     "Index of next coil to be enabled if there are no skipped coils to be prioritized"
     annotation (Placement(transformation(extent={{330,-210},{350,-190}})));

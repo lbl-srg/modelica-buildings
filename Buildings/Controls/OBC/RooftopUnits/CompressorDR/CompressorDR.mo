@@ -69,29 +69,29 @@ protected
     "Output true Boolean signal if two integer inputs are equal"
     annotation (Placement(transformation(extent={{-48,-6},{-28,14}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(
     final k=kDR1)
     "Constant gain"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1
     "Logic Switch"
     annotation (Placement(transformation(extent={{80,74},{100,94}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi2
+  Buildings.Controls.OBC.CDL.Reals.Switch swi2
     "Logic Switch"
     annotation (Placement(transformation(extent={{40,34},{60,54}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi3
+  Buildings.Controls.OBC.CDL.Reals.Switch swi3
     "Logic Switch"
     annotation (Placement(transformation(extent={{0,-6},{20,14}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai2(
     final k=kDR2)
     "Constant gain"
     annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai3(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai3(
     final k=kDR3)
     "Constant gain"
     annotation (Placement(transformation(extent={{-48,-100},{-28,-80}})));

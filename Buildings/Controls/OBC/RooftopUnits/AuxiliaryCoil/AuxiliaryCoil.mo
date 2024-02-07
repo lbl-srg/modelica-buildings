@@ -97,17 +97,17 @@ protected
     "Logical Not"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mulSupHeaEng
+  Buildings.Controls.OBC.CDL.Reals.Multiply mulSupHeaEng
     "Enable auxiliary heating if DX coil is unable to meet heating load"
     annotation (Placement(transformation(extent={{30,-96},{50,-76}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThrLocOut(
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThrLocOut(
     final t=TLocOut,
     final h=dTHys)
     "Check if outdoor air lockout temperature is less than threshold"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrHeaCoi(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThrHeaCoi(
     final t=uThrHeaCoi,
     final h=dUHys)
     "Check if heating coil signal is equal to or greater than threshold"
@@ -121,11 +121,11 @@ protected
     "Check for heating coil signal and outdoor air temperature lockout"
     annotation (Placement(transformation(extent={{-46,-10},{-26,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Max maxSupHea
+  Buildings.Controls.OBC.CDL.Reals.Max maxSupHea
     "Output higher of the two auxiliary heating signals"
     annotation (Placement(transformation(extent={{70,-30},{90,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conHeaCoiSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conHeaCoiSig(
     final k=uThrHeaCoi)
     "Constant heating coil signal"
     annotation (Placement(transformation(extent={{-50,-100},{-30,-80}})));
@@ -139,7 +139,7 @@ protected
     "Regulate supply air temperature at or above its setpoint"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mulSupHeaEng1
+  Buildings.Controls.OBC.CDL.Reals.Multiply mulSupHeaEng1
     "Enable auxiliary heating when DX coil is locked out"
     annotation (Placement(transformation(extent={{30,44},{50,64}})));
 
@@ -147,12 +147,12 @@ protected
     "Convert Boolean auxiliary heating enable signal to real value"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conHeaCoiSigZer(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conHeaCoiSigZer(
     final k=0)
     "Constant zero heating coil signal"
     annotation (Placement(transformation(extent={{-46,40},{-26,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrHeaCoi1(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThrHeaCoi1(
     final t=dUHys,
     final h=dUHys/2)
     "Check if heating coil signal is greater than zero during lockout mode"

@@ -79,12 +79,12 @@ protected
     "Constant Integer"
     annotation (Placement(transformation(extent={{-140,200},{-120,220}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conCooCoi(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conCooCoi(
     final k=0)
     "Cooiling coil signal"
     annotation (Placement(transformation(extent={{-140,170},{-120,190}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramHeaCoi(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramHeaCoi(
     final height=0.5,
     final duration=3600,
     final offset=0.5,
@@ -92,12 +92,12 @@ protected
     "Heating coil signal"
     annotation (Placement(transformation(extent={{-140,140},{-120,160}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOut(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOut(
     final k=273.15 - 15)
     "Outdoor air dry bulb temperature"
     annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant Xout(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant Xout(
     final k=0.03)
     "Outdoor air humidity ratio"
     annotation (Placement(transformation(extent={{-140,70},{-120,90}})));
@@ -122,12 +122,12 @@ protected
     "Constant Integer"
     annotation (Placement(transformation(extent={{20,200},{40,220}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conCooCoi1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conCooCoi1(
     final k=0)
     "Cooiling coil signal"
     annotation (Placement(transformation(extent={{20,170},{40,190}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramHeaCoi1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramHeaCoi1(
     final height=0.5,
     final duration=3600,
     final offset=0.5,
@@ -135,12 +135,12 @@ protected
     "Heating coil signal"
     annotation (Placement(transformation(extent={{20,140},{40,160}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOut1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOut1(
     final k=273.15 - 5)
     "Outdoor air dry bulb temperature"
     annotation (Placement(transformation(extent={{20,110},{40,130}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant Xout1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant Xout1(
     final k=0.03)
     "Outdoor air humidity ratio"
     annotation (Placement(transformation(extent={{20,80},{40,100}})));
@@ -165,12 +165,12 @@ protected
     "Constant Integer"
     annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conCooCoi2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conCooCoi2(
     final k=0)
     "Cooiling coil signal"
     annotation (Placement(transformation(extent={{-140,-130},{-120,-110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramHeaCoi2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramHeaCoi2(
     final height=0.5,
     final duration=3600,
     final offset=0.5,
@@ -178,12 +178,12 @@ protected
     "Heating coil signal"
     annotation (Placement(transformation(extent={{-140,-160},{-120,-140}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOut2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOut2(
     final k=273.15 - 5)
     "Outdoor air dry bulb temperature"
     annotation (Placement(transformation(extent={{-140,-190},{-120,-170}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant Xout2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant Xout2(
     final k=0.03)
     "Outdoor air humidity ratio"
     annotation (Placement(transformation(extent={{-140,-220},{-120,-200}})));
@@ -208,12 +208,12 @@ protected
     "Constant Integer"
     annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conCooCoi3(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conCooCoi3(
     final k=0)
     "Cooiling coil signal"
     annotation (Placement(transformation(extent={{20,-130},{40,-110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramHeaCoi3(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramHeaCoi3(
     final height=0.5,
     final duration=3600,
     final offset=0.5,
@@ -221,12 +221,12 @@ protected
     "Heating coil signal"
     annotation (Placement(transformation(extent={{20,-160},{40,-140}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOut3(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOut3(
     final k=273.15 + 5)
     "Outdoor air dry bulb temperature"
     annotation (Placement(transformation(extent={{20,-190},{40,-170}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant Xout3(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant Xout3(
     final k=0.03)
     "Outdoor air humidity ratio"
     annotation (Placement(transformation(extent={{20,-220},{40,-200}})));
@@ -251,49 +251,49 @@ protected
     "Logical Pre block"
     annotation (Placement(transformation(extent={{120,-180},{140,-160}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TSup[3](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TSup[3](
     final height=fill(4,3),
     final duration=fill(1800,3),
     final offset=fill(10,3))
     "Supply air temperature"
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupSet(final k=12)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSupSet(final k=12)
     "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TSup1[3](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TSup1[3](
     final height=fill(4,3),
     final duration=fill(1800,3),
     final offset=fill(10,3))
     "Supply air temperature"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupSet1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSupSet1(
     final k=12)
     "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TSup2[3](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TSup2[3](
     final height=fill(4,3),
     final duration=fill(1800,3),
     final offset=fill(10,3))
     "Supply air temperature"
     annotation (Placement(transformation(extent={{-140,-250},{-120,-230}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupSet2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSupSet2(
     final k=12)
     "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-140,-280},{-120,-260}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TSup3[3](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TSup3[3](
     final height=fill(4,3),
     final duration=fill(1800,3),
     final offset=fill(10,3))
     "Supply air temperature"
     annotation (Placement(transformation(extent={{20,-250},{40,-230}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupSet3(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSupSet3(
     final k=12)
     "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{20,-280},{40,-260}})));

@@ -9,7 +9,7 @@ model Enable
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pulCooCoi(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse pulCooCoi(
     final amplitude=0.9,
     final width=0.6,
     final period=1800,

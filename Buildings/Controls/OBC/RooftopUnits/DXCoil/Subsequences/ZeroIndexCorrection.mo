@@ -44,7 +44,7 @@ protected
     "Pass an integer one signal to the index modifier"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul
     "Multiply the input value by zero when the index signal is zero"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
 
