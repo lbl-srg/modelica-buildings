@@ -2,24 +2,12 @@ within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subseque
 model Enable_TOut_hOut
   "Model validates economizer disable in case outdoor air conditions are above cutoff"
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutCut(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOutCut(
     final k=TOutCutoff) "Outdoor air temperature cutoff"
     annotation (Placement(transformation(extent={{-160,80},{-140,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hOutCut1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant hOutCut1(
     final k=hOutCutoff) "Outdoor air enthalpy cutoff"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Buildings.Controls.OBC.CDL.Logical.TriggeredTrapezoid TOut(
-    final rising=1000,
-    final falling=800,
-    final amplitude=4,
-    final offset=TOutCutoff - 2) "Outoor air temperature"
-    annotation (Placement(transformation(extent={{-160,150},{-140,170}})));
-  Buildings.Controls.OBC.CDL.Logical.TriggeredTrapezoid hOut(
-    final amplitude=4000,
-    final offset=hOutCutoff - 2200,
-    final rising=1000,
-    final falling=800) "Outdoor air enthalpy"
-    annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Enable enaDis
     "Multi zone VAV AHU economizer enable disable sequence"
@@ -31,7 +19,18 @@ model Enable_TOut_hOut
     final use_enthalpy=false)
     "Multi zone VAV AHU economizer enable disable sequence"
     annotation (Placement(transformation(extent={{220,-44},{240,-16}})));
-
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin TOut(
+    final amplitude=4,
+    final freqHz=1/3600,
+    final offset=TOutCutoff - 2,
+    final startTime=10) "Outdoor air temperature"
+    annotation (Placement(transformation(extent={{-160,140},{-140,160}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin hOut(
+    final amplitude=4000,
+    final freqHz=1/3600,
+    final offset=hOutCutoff - 2200,
+    final startTime=10) "Outdoor air enthalpy"
+    annotation (Placement(transformation(extent={{-40,82},{-20,102}})));
 protected
   final parameter Real TOutCutoff(
     final unit="K",
@@ -43,33 +42,33 @@ protected
     final quantity="SpecificEnergy")=65100
     "Outdoor air enthalpy high limit cutoff";
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hOutCut(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant hOutCut(
     final k=hOutCutoff) "Outdoor air enthalpy cutoff"
     annotation (Placement(transformation(extent={{-240,80},{-220,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutCut1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOutCut1(
     final k=TOutCutoff) "Outdoor air temperature cutoff"
     annotation (Placement(transformation(extent={{0,80},{20,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hOutBelowCutoff(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant hOutBelowCutoff(
     final k=hOutCutoff - 1000)
     "Outdoor air enthalpy is slightly below the cutoff"
     annotation (Placement(transformation(extent={{-240,118},{-220,138}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutBelowCutoff(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOutBelowCutoff(
     final k=TOutCutoff - 2)
     "Outdoor air temperature is slightly below the cutoff"
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPosMax(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant outDamPosMax(
     final k=0.9) "Maximal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-240,-80},{-220,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPosMin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant outDamPosMin(
     final k=0.1) "Minimal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-240,-120},{-220,-100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamPosMax(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant retDamPosMax(
     final k=0.8) "Maximal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamPosMin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant retDamPosMin(
     final k=0) "Minimal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-160,-200},{-140,-180}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamPhyPosMax(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant retDamPhyPosMax(
     final k=1) "Maximal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-160,-120},{-140,-100}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant freProSta(
@@ -79,12 +78,6 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant supFanSta(
     final k=true) "Supply fan status signal"
       annotation (Placement(transformation(extent={{-200,-42},{-180,-22}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(final shift=10,
-    final period=2000) "Boolean pulse signal"
-    annotation (Placement(transformation(extent={{-200,150},{-180,170}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(final shift=10,
-    final period=2000) "Boolean pulse signal"
-    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
 
 equation
   connect(TOutCut.y, enaDis.TOutCut)
@@ -114,14 +107,6 @@ equation
           {-82,-22}},      color={0,0,127}));
   connect(TOutBelowCutoff.y, enaDis1.TOut)
     annotation (Line(points={{62,90},{70,90},{70,-20},{78,-20},{78,-17}}, color={0,0,127}));
-  connect(booPul.y, TOut.u)
-    annotation (Line(points={{-178,160},{-162,160}}, color={255,0,255}));
-  connect(TOut.y, enaDis.TOut)
-    annotation (Line(points={{-138,160},{-110,160},{-110,-17},{-82,-17}}, color={0,0,127}));
-  connect(booPul1.y, hOut.u)
-    annotation (Line(points={{-58,90},{-58,90},{-42,90}}, color={255,0,255}));
-  connect(hOut.y, enaDis1.hOut)
-    annotation (Line(points={{-18,90},{-10,90},{-10,60},{20,60},{20,-22},{78,-22}}, color={0,0,127}));
   connect(freProSta.y, enaDis1.uFreProSta)
     annotation (Line(points={{-178,30},{-46,30},{-46,-29},{78,-29}}, color={255,127,0}));
   connect(outDamPosMax.y, enaDis1.uOutDam_max) annotation (Line(points={{-218,-70},
@@ -134,8 +119,6 @@ equation
           {20,-150},{20,-41},{78,-41}}, color={0,0,127}));
   connect(retDamPosMin.y, enaDis1.uRetDam_min) annotation (Line(points={{-138,-190},
           {30,-190},{30,-43},{78,-43}}, color={0,0,127}));
-  connect(TOut.y, enaDis2.TOut)
-    annotation (Line(points={{-138,160},{200,160},{200,-17},{218,-17}}, color={0,0,127}));
   connect(TOutCut.y, enaDis2.TOutCut)
     annotation (Line(points={{-138,90},{-120,90},{-120,120},{188,120},{188,-19},
           {218,-19}},  color={0,0,127}));
@@ -157,7 +140,12 @@ equation
           -32},{-160,-12},{-20,-12},{-20,-27},{78,-27}}, color={255,0,255}));
   connect(supFanSta.y, enaDis2.u1SupFan) annotation (Line(points={{-178,-32},{-160,
           -32},{-160,-12},{140,-12},{140,-27},{218,-27}}, color={255,0,255}));
-
+  connect(TOut.y, enaDis.TOut) annotation (Line(points={{-138,150},{-100,150},{-100,
+          -17},{-82,-17}}, color={0,0,127}));
+  connect(TOut.y, enaDis2.TOut) annotation (Line(points={{-138,150},{196,150},{196,
+          -17},{218,-17}}, color={0,0,127}));
+  connect(hOut.y, enaDis1.hOut) annotation (Line(points={{-18,92},{-10,92},{-10,
+          60},{20,60},{20,-22},{78,-22}}, color={0,0,127}));
 annotation (
   experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV/Economizers/Subsequences/Validation/Enable_TOut_hOut.mos"

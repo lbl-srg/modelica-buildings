@@ -128,47 +128,47 @@ block SystemRequests
     "Heating plant request"
     annotation (Placement(transformation(extent={{180,-450},{220,-410}}),
         iconTransformation(extent={{100,-110},{140,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
     final uLow=errTZonCoo_1 - 0.1,
     final uHigh=errTZonCoo_1 + 0.1)
     "Check if zone temperature is greater than cooling setpoint by errTZonCoo_1"
     annotation (Placement(transformation(extent={{-60,190},{-40,210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys3(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys3(
     final uLow=errTZonCoo_2 - 0.1,
     final uHigh=errTZonCoo_2 + 0.1)
     "Check if zone temperature is greater than cooling setpoint by errTZonCoo_2"
     annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys4(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys4(
     final uLow=0.85,
     final uHigh=0.95)
     "Check if damper position is greater than 0.95"
     annotation (Placement(transformation(extent={{-60,-160},{-40,-140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys5(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys5(
     final uLow=0.85,
     final uHigh=0.95)
     "Check if cooling loop signal is greater than 0.95"
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys7(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys7(
     final uHigh=0.01,
     final uLow=0.005)
     "Check if discharge airflow setpoint is greater than 0"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys8(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys8(
     final uLow=-0.1,
     final uHigh=0.1) if have_heaWatCoi
     "Check if discharge air temperature is errTDis_1 less than setpoint"
     annotation (Placement(transformation(extent={{-40,-250},{-20,-230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys9(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys9(
     final uLow=-0.1,
     final uHigh=0.1) if have_heaWatCoi
     "Check if discharge air temperature is errTDis_2 less than setpoint"
     annotation (Placement(transformation(extent={{-40,-310},{-20,-290}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys10(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys10(
     final uLow=0.85,
     final uHigh=0.95) if have_heaWatCoi
     "Check if valve position is greater than 0.95"
     annotation (Placement(transformation(extent={{-140,-360},{-120,-340}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys11(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys11(
     final uHigh=0.95,
     final uLow=0.1) if (have_heaWatCoi and have_heaPla)
     "Check if valve position is greater than 0.95"
@@ -183,7 +183,7 @@ protected
     final samplePeriod=samplePeriod)
     "Delay value to record input value"
     annotation (Placement(transformation(extent={{-80,450},{-60,470}})));
-  Buildings.Controls.OBC.CDL.Continuous.Abs abs "Absolute change of the setpoint temperature"
+  Buildings.Controls.OBC.CDL.Reals.Abs abs "Absolute change of the setpoint temperature"
     annotation (Placement(transformation(extent={{100,400},{120,420}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam
     "Sample the setpoint changed value when there is change"
@@ -196,47 +196,48 @@ protected
     annotation (Placement(transformation(extent={{60,260},{80,280}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim "Calculate time"
     annotation (Placement(transformation(extent={{0,330},{20,350}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater gre1
+  Buildings.Controls.OBC.CDL.Reals.Greater gre1
     "Check if current model time is greater than the sample period"
     annotation (Placement(transformation(extent={{-80,400},{-60,420}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys2(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys2(
     final uLow=0.05,
     final uHigh=0.15)
     "Check if there is setpoint change"
     annotation (Placement(transformation(extent={{-120,330},{-100,350}})));
-  Buildings.Controls.OBC.CDL.Continuous.Min supTim "Suppression time"
+  Buildings.Controls.OBC.CDL.Reals.Min supTim "Suppression time"
     annotation (Placement(transformation(extent={{0,270},{20,290}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.ModelTime modTim "Time of the model"
+  Buildings.Controls.OBC.CDL.Reals.Sources.CivilTime modTim
+    "Civil time"
     annotation (Placement(transformation(extent={{-140,400},{-120,420}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(final k=540)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(final k=540)
     "Convert change of degC to change of degF and find out suppression time (5 min/degF))"
     annotation (Placement(transformation(extent={{-80,270},{-60,290}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(final k=0.5)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(final k=0.5)
     "50% of setpoint"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(final k=0.7)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai2(final k=0.7)
     "70% of setpoint"
     annotation (Placement(transformation(extent={{-100,-98},{-80,-78}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1
     "Calculate difference of previous and current setpoints"
     annotation (Placement(transformation(extent={{-20,424},{0,444}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub2
     "Calculate difference between zone temperature and cooling setpoint"
     annotation (Placement(transformation(extent={{-100,190},{-80,210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub3
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub3
     "Calculate difference between zone temperature and cooling setpoint"
     annotation (Placement(transformation(extent={{-100,130},{-80,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub6 if have_heaWatCoi
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub6 if have_heaWatCoi
     "Calculate difference of discharge temperature (plus errTDis_1) and its setpoint"
     annotation (Placement(transformation(extent={{-80,-250},{-60,-230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub7 if have_heaWatCoi
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub7 if have_heaWatCoi
     "Calculate difference of discharge temperature (plus errTDis_2) and its setpoint"
     annotation (Placement(transformation(extent={{-80,-310},{-60,-290}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(
     final p=errTDis_1) if have_heaWatCoi
     "Discharge temperature plus errTDis_1"
     annotation (Placement(transformation(extent={{-140,-272},{-120,-252}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar1(
     final p=errTDis_2) if have_heaWatCoi
     "Discharge temperature plus errTDis_2"
     annotation (Placement(transformation(extent={{-140,-330},{-120,-310}})));
@@ -259,91 +260,91 @@ protected
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
   Buildings.Controls.OBC.CDL.Logical.And and4 "Logical and"
     annotation (Placement(transformation(extent={{40,-110},{60,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
     final k=samplePeriod) "Sample period time"
     annotation (Placement(transformation(extent={{-140,370},{-120,390}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conZer(final k=0.0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conZer(final k=0.0)
                "Constant zero"
     annotation (Placement(transformation(extent={{-20,370},{0,390}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant thrCooResReq(final k=
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant thrCooResReq(final k=
         3.0)   "Constant 3"
     annotation (Placement(transformation(extent={{40,220},{60,240}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant twoCooResReq(final k=
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant twoCooResReq(final k=
         2.0)   "Constant 2"
     annotation (Placement(transformation(extent={{40,160},{60,180}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oneCooResReq(final k=1.0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant oneCooResReq(final k=1.0)
                "Constant 1"
     annotation (Placement(transformation(extent={{40,100},{60,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerCooReq(final k=0.0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zerCooReq(final k=0.0)
                "Constant 0"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant thrPreResReq(final k=
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant thrPreResReq(final k=
         3.0)   "Constant 3"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant twoPreResReq(final k=
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant twoPreResReq(final k=
         2.0)   "Constant 2"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerPreResReq(final k=
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zerPreResReq(final k=
         0.0)   "Constant 0"
     annotation (Placement(transformation(extent={{40,-180},{60,-160}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant onePreResReq(final k=
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant onePreResReq(final k=
         1.0)   "Constant 1"
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant thrHeaResReq(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant thrHeaResReq(
     final k=3) if have_heaWatCoi
     "Constant 3"
     annotation (Placement(transformation(extent={{40,-220},{60,-200}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant twoHeaResReq(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant twoHeaResReq(
     final k=2) if have_heaWatCoi
     "Constant 2"
     annotation (Placement(transformation(extent={{40,-280},{60,-260}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oneHeaResReq(final k=
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant oneHeaResReq(final k=
         1.0)   if have_heaWatCoi
     "Constant 1"
     annotation (Placement(transformation(extent={{40,-340},{60,-320}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerHeaResReq(final k=
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zerHeaResReq(final k=
         0.0)   if have_heaWatCoi
     "Constant 0"
     annotation (Placement(transformation(extent={{40,-380},{60,-360}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerBoiPlaReq(final k=
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zerBoiPlaReq(final k=
         0.0)   if (have_heaWatCoi
      and have_heaPla)
     "Constant 0"
     annotation (Placement(transformation(extent={{40,-460},{60,-440}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oneBoiPlaReq(final k=
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant oneBoiPlaReq(final k=
         1.0)   if (have_heaWatCoi and have_heaPla)
     "Constant 1"
     annotation (Placement(transformation(extent={{40,-420},{60,-400}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxSupTim(k=1800)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxSupTim(k=1800)
     "Maximum suppression time 30 minutes"
     annotation (Placement(transformation(extent={{-80,240},{-60,260}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con5(k=true) "Constant true"
     annotation (Placement(transformation(extent={{60,290},{80,310}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Use setpoint different value when half sample period time has passed"
     annotation (Placement(transformation(extent={{40,400},{60,420}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1 "Output 3 or other request "
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1 "Output 3 or other request "
     annotation (Placement(transformation(extent={{100,190},{120,210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi2 "Output 2 or other request "
+  Buildings.Controls.OBC.CDL.Reals.Switch swi2 "Output 2 or other request "
     annotation (Placement(transformation(extent={{100,130},{120,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi3 "Output 0 or 1 request "
+  Buildings.Controls.OBC.CDL.Reals.Switch swi3 "Output 0 or 1 request "
     annotation (Placement(transformation(extent={{100,80},{120,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi4 "Output 3 or other request "
+  Buildings.Controls.OBC.CDL.Reals.Switch swi4 "Output 3 or other request "
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi5 "Output 2 or other request "
+  Buildings.Controls.OBC.CDL.Reals.Switch swi5 "Output 2 or other request "
     annotation (Placement(transformation(extent={{100,-110},{120,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi6 "Output 0 or 1 request "
+  Buildings.Controls.OBC.CDL.Reals.Switch swi6 "Output 0 or 1 request "
     annotation (Placement(transformation(extent={{100,-160},{120,-140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi7 if have_heaWatCoi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi7 if have_heaWatCoi
     "Output 3 or other request "
     annotation (Placement(transformation(extent={{100,-250},{120,-230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi8 if have_heaWatCoi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi8 if have_heaWatCoi
     "Output 2 or other request "
     annotation (Placement(transformation(extent={{100,-310},{120,-290}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi9 if have_heaWatCoi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi9 if have_heaWatCoi
     "Output 0 or 1 request "
     annotation (Placement(transformation(extent={{100,-360},{120,-340}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi10 if (have_heaWatCoi and
+  Buildings.Controls.OBC.CDL.Reals.Switch swi10 if (have_heaWatCoi and
     have_heaPla)
     "Output 0 or 1 request "
     annotation (Placement(transformation(extent={{100,-440},{120,-420}})));
@@ -383,13 +384,13 @@ protected
     final samplePeriod=samplePeriod)
     "Sample input signal, as the output signal will go to the trim and respond which also samples at samplePeriod"
     annotation (Placement(transformation(extent={{-160,80},{-140,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater greVDis50
+  Buildings.Controls.OBC.CDL.Reals.Greater greVDis50
     "Check if discharge airflow is less than 50% of setpoint"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater greVDis70
+  Buildings.Controls.OBC.CDL.Reals.Greater greVDis70
     "Check if discharge airflow is less than 70% of setpoint"
     annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Less les
+  Buildings.Controls.OBC.CDL.Reals.Less les
     "Check if the suppression time has not yet passed"
     annotation (Placement(transformation(extent={{38,330},{58,350}})));
   Buildings.Controls.OBC.CDL.Logical.Not notLes

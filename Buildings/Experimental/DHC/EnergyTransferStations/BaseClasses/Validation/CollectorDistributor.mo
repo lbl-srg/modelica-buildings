@@ -30,13 +30,13 @@ model CollectorDistributor
     nPorts=2)
     "Boundary pressure"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-190,320})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp m1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp m1(
     height=1.1,
     duration=1000,
     startTime=0)
     "Primary flow"
     annotation (Placement(transformation(extent={{-240,370},{-220,390}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant T1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant T1(
     k=40+273.15)
     "Primary supply temperature"
     annotation (Placement(transformation(extent={{-240,270},{-220,290}})));
@@ -87,11 +87,11 @@ model CollectorDistributor
     Q_flow_nominal=-1E5)
     "Heat exchange with water stream"
     annotation (Placement(transformation(extent={{100,290},{80,310}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant T2_1Ret(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant T2_1Ret(
     k=30+273.15)
     "First secondary return temperature"
     annotation (Placement(transformation(extent={{60,370},{80,390}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID conTChiWat1(
+  Buildings.Controls.OBC.CDL.Reals.PID conTChiWat1(
     k=0.1,
     Ti=10,
     yMax=1,
@@ -100,7 +100,7 @@ model CollectorDistributor
     reverseActing=false)
     "PI controller for chilled water supply"
     annotation (Placement(transformation(extent={{90,370},{110,390}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp m2_1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp m2_1(
     height=0.5,
     duration=1000,
     offset=0.5,
@@ -149,11 +149,11 @@ model CollectorDistributor
     Q_flow_nominal=-1E5)
     "Heat exchange with water stream"
     annotation (Placement(transformation(extent={{100,150},{80,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant T2_2Ret(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant T2_2Ret(
     k=35+273.15)
     "Second secondary return temperature"
     annotation (Placement(transformation(extent={{60,230},{80,250}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID conTChiWat2(
+  Buildings.Controls.OBC.CDL.Reals.PID conTChiWat2(
     k=0.1,
     Ti=10,
     yMax=1,
@@ -162,7 +162,7 @@ model CollectorDistributor
     reverseActing=false)
     "PI controller for chilled water supply"
     annotation (Placement(transformation(extent={{90,230},{110,250}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant m2_2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant m2_2(
     k=0.5)
     "Second secondary mass flow rate signal"
     annotation (Placement(transformation(extent={{220,230},{200,250}})));
@@ -190,7 +190,7 @@ model CollectorDistributor
     nPorts=2)
     "Boundary pressure"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-190,40})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant T2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant T2(
     k=40+273.15)
     "Primary supply temperature"
     annotation (Placement(transformation(extent={{-240,-10},{-220,10}})));
@@ -241,11 +241,11 @@ model CollectorDistributor
     Q_flow_nominal=-1E5)
     "Heat exchange with water stream"
     annotation (Placement(transformation(extent={{100,10},{80,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant T2_1Ret1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant T2_1Ret1(
     k=30+273.15)
     "First secondary return temperature"
     annotation (Placement(transformation(extent={{60,90},{80,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID conTChiWat3(
+  Buildings.Controls.OBC.CDL.Reals.PID conTChiWat3(
     k=0.1,
     Ti=10,
     yMax=1,
@@ -254,7 +254,7 @@ model CollectorDistributor
     reverseActing=false)
     "PI controller for chilled water supply"
     annotation (Placement(transformation(extent={{90,90},{110,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp m2_3(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp m2_3(
     height=0.5,
     duration=1000,
     offset=0.5,
@@ -294,11 +294,11 @@ model CollectorDistributor
     Q_flow_nominal=-1E5)
     "Heat exchange with water stream"
     annotation (Placement(transformation(extent={{100,-130},{80,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant T2_2Ret1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant T2_2Ret1(
     k=35+273.15)
     "Second secondary return temperature"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID conTChiWat4(
+  Buildings.Controls.OBC.CDL.Reals.PID conTChiWat4(
     k=0.1,
     Ti=10,
     yMax=1,
@@ -307,7 +307,7 @@ model CollectorDistributor
     reverseActing=false)
     "PI controller for chilled water supply"
     annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant m2_4(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant m2_4(
     k=0.5)
     "Second secondary mass flow rate signal"
     annotation (Placement(transformation(extent={{220,-50},{200,-30}})));
@@ -348,7 +348,7 @@ model CollectorDistributor
     nPorts=2)
     "Boundary pressure"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-190,-240})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant T3(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant T3(
     k=40+273.15)
     "Primary supply temperature"
     annotation (Placement(transformation(extent={{-240,-290},{-220,-270}})));
@@ -399,11 +399,11 @@ model CollectorDistributor
     Q_flow_nominal=-1E5)
     "Heat exchange with water stream"
     annotation (Placement(transformation(extent={{100,-270},{80,-250}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant T2_1Ret2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant T2_1Ret2(
     k=30+273.15)
     "First secondary return temperature"
     annotation (Placement(transformation(extent={{60,-190},{80,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID conTChiWat5(
+  Buildings.Controls.OBC.CDL.Reals.PID conTChiWat5(
     k=0.1,
     Ti=10,
     yMax=1,
@@ -412,7 +412,7 @@ model CollectorDistributor
     reverseActing=false)
     "PI controller for chilled water supply"
     annotation (Placement(transformation(extent={{90,-190},{110,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp m2_5(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp m2_5(
     height=0.5,
     duration=1000,
     offset=0.5,
@@ -461,11 +461,11 @@ model CollectorDistributor
     Q_flow_nominal=-1E5)
     "Heat exchange with water stream"
     annotation (Placement(transformation(extent={{100,-410},{80,-390}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant T2_2Ret2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant T2_2Ret2(
     k=35+273.15)
     "Second secondary return temperature"
     annotation (Placement(transformation(extent={{60,-330},{80,-310}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID conTChiWat6(
+  Buildings.Controls.OBC.CDL.Reals.PID conTChiWat6(
     k=0.1,
     Ti=10,
     yMax=1,
@@ -474,7 +474,7 @@ model CollectorDistributor
     reverseActing=false)
     "PI controller for chilled water supply"
     annotation (Placement(transformation(extent={{90,-330},{110,-310}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant m2_6(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant m2_6(
     k=0.5)
     "Second secondary mass flow rate signal"
     annotation (Placement(transformation(extent={{220,-330},{200,-310}})));

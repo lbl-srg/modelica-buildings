@@ -9,21 +9,22 @@ model VAVMultiZone "Multiple-zone VAV"
 */
   extends Buildings.Templates.AirHandlersFans.Interfaces.PartialAirHandler(
     nZon(final min=2),
-    redeclare Buildings.Templates.AirHandlersFans.Data.VAVMultiZone dat(
-      typCoiHeaPre=coiHeaPre.typ,
-      typCoiCoo=coiCoo.typ,
-      typCoiHeaReh=coiHeaReh.typ,
-      typValCoiHeaPre=coiHeaPre.typVal,
-      typValCoiCoo=coiCoo.typVal,
-      typValCoiHeaReh=coiHeaReh.typVal,
-      typDamOut=secOutRel.typDamOut,
-      typDamOutMin=secOutRel.typDamOutMin,
-      typDamRet=secOutRel.typDamRet,
-      typDamRel=secOutRel.typDamRel,
-      typSecOut=secOutRel.typSecOut,
-      typCtl=ctl.typ,
-      buiPreCon=ctl.buiPreCon,
-      stdVen=ctl.stdVen),
+    redeclare final Buildings.Templates.AirHandlersFans.Configuration.VAVMultiZone cfg(
+      final typCoiHeaPre=coiHeaPre.typ,
+      final typCoiCoo=coiCoo.typ,
+      final typCoiHeaReh=coiHeaReh.typ,
+      final typValCoiHeaPre=coiHeaPre.typVal,
+      final typValCoiCoo=coiCoo.typVal,
+      final typValCoiHeaReh=coiHeaReh.typVal,
+      final typDamOut=secOutRel.typDamOut,
+      final typDamOutMin=secOutRel.typDamOutMin,
+      final typDamRet=secOutRel.typDamRet,
+      final typDamRel=secOutRel.typDamRel,
+      final typSecOut=secOutRel.typSecOut,
+      final typCtl=ctl.typ,
+      final buiPreCon=ctl.buiPreCon,
+      final stdVen=ctl.stdVen),
+    redeclare Buildings.Templates.AirHandlersFans.Data.VAVMultiZone dat,
     final typ=Buildings.Templates.AirHandlersFans.Types.Configuration.SingleDuct,
     final have_porRel=secOutRel.typ <> Types.OutdoorReliefReturnSection.MixedAirNoRelief,
     final have_souChiWat=coiCoo.have_sou,
@@ -34,6 +35,12 @@ model VAVMultiZone "Multiple-zone VAV"
       then fanSupBlo.typ else Buildings.Templates.Components.Types.Fan.None,
     final typFanRel=secOutRel.typFanRel,
     final typFanRet=secOutRel.typFanRet,
+    final nFanSup=if
+      fanSupDra.typ <> Buildings.Templates.Components.Types.Fan.None then
+      fanSupDra.nFan elseif fanSupBlo.typ <> Buildings.Templates.Components.Types.Fan.None
+      then fanSupBlo.nFan else 0,
+    final nFanRel=secOutRel.nFanRel,
+    final nFanRet=secOutRel.nFanRet,
     final mChiWat_flow_nominal=if coiCoo.have_sou then dat.coiCoo.mWat_flow_nominal else 0,
     final mHeaWat_flow_nominal=(if coiHeaPre.have_sou then dat.coiHeaPre.mWat_flow_nominal else 0) +
       (if coiHeaReh.have_sou then dat.coiHeaReh.mWat_flow_nominal else 0),
@@ -54,7 +61,7 @@ model VAVMultiZone "Multiple-zone VAV"
   Hence, no choices annotation, but still replaceable to access parameter
   dialog box of the component.
   */
-  inner Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.MixedAirWithDamper
+  inner replaceable Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.MixedAirWithDamper
     secOutRel(
     redeclare final package MediumAir = MediumAir,
     final typCtlFanRet=ctl.typCtlFanRet,
@@ -71,8 +78,8 @@ model VAVMultiZone "Multiple-zone VAV"
       final fanRet=dat.fanRet))
      "Outdoor/relief/return air section"
      annotation (
-     Dialog(group="Configuration"), Placement(transformation(extent={{-280,-220},
-            {-120,-60}})));
+     Dialog(group="Configuration"),
+     Placement(transformation(extent={{-280,-220},{-120,-60}})));
 
   Buildings.Templates.Components.Sensors.Temperature TAirMix(
     redeclare final package Medium = MediumAir,
@@ -217,7 +224,7 @@ model VAVMultiZone "Multiple-zone VAV"
 
   inner replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHeaPre(
     redeclare final package MediumHeaWat=MediumHeaWat,
-    redeclare final Buildings.Templates.Components.Valves.TwoWayModulating val)
+    final typVal=Buildings.Templates.Components.Types.Valve.TwoWayModulating)
     constrainedby Buildings.Templates.Components.Interfaces.PartialCoil(
       final dat=dat.coiHeaPre,
       redeclare final package MediumAir=MediumAir,
@@ -234,7 +241,7 @@ model VAVMultiZone "Multiple-zone VAV"
       choice(
         redeclare replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHeaPre(
           redeclare final package MediumHeaWat=MediumHeaWat,
-          redeclare final Buildings.Templates.Components.Valves.TwoWayModulating val)
+          final typVal=Buildings.Templates.Components.Types.Valve.TwoWayModulating)
         "Hot water coil with two-way valve"),
       choice(
         redeclare replaceable Buildings.Templates.Components.Coils.ElectricHeating coiHeaPre
@@ -245,7 +252,7 @@ model VAVMultiZone "Multiple-zone VAV"
 
   inner replaceable Buildings.Templates.Components.Coils.WaterBasedCooling coiCoo(
     redeclare final package MediumChiWat=MediumChiWat,
-    redeclare final Buildings.Templates.Components.Valves.TwoWayModulating val)
+    final typVal=Buildings.Templates.Components.Types.Valve.TwoWayModulating)
     constrainedby Buildings.Templates.Components.Interfaces.PartialCoil(
       final dat=dat.coiCoo,
       redeclare final package MediumAir=MediumAir,
@@ -260,7 +267,7 @@ model VAVMultiZone "Multiple-zone VAV"
         "No coil"),
       choice(redeclare replaceable Buildings.Templates.Components.Coils.WaterBasedCooling coiCoo(
         redeclare final package MediumChiWat=MediumChiWat,
-        redeclare final Buildings.Templates.Components.Valves.TwoWayModulating val)
+        final typVal=Buildings.Templates.Components.Types.Valve.TwoWayModulating)
         "Chilled water coil with two-way valve")),
     Dialog(group="Configuration"),
     Placement(transformation(extent={{70,-210},{90,-190}})));
@@ -329,7 +336,13 @@ model VAVMultiZone "Multiple-zone VAV"
     constrainedby
     Buildings.Templates.AirHandlersFans.Components.Interfaces.PartialControllerVAVMultizone(
       final dat=dat.ctl,
-      final nZon=nZon)
+      final nZon=nZon,
+      final typFanSup=typFanSup,
+      final typFanRel=typFanRel,
+      final typFanRet=typFanRet,
+      final nFanSup=nFanSup,
+      final nFanRel=nFanRel,
+      final nFanRet=nFanRet)
     "Control selections"
     annotation (
       Dialog(group="Controls"),
@@ -447,6 +460,7 @@ equation
   connect(fanSupBlo.port_b, coiHeaPre.port_a)
     annotation (Line(points={{-30,-200},{10,-200}}, color={0,127,255}));
   annotation (
+    __ctrlFlow_template,
     defaultComponentName="VAV",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
@@ -762,6 +776,11 @@ for HVAC Systems. Atlanta, GA.
 </html>",
         revisions="<html>
 <ul>
+<li>
+September 5, 2023, by Antoine Gautier:<br/>
+Refactored with a record class for configuration parameters.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3500\">#3500</a>.
+</li>
 <li>
 February 11, 2022, by Antoine Gautier:<br/>
 First implementation.

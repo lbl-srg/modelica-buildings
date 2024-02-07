@@ -183,15 +183,15 @@ model PartialParallel
         extent={{20,-10},{-20,10}},
         rotation=180,
         origin={0,-106})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum totPPum(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum totPPum(
     nin=1)
     "Total pump power"
     annotation (Placement(transformation(extent={{260,-70},{280,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum totPHea(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum totPHea(
     nin=1)
     "Total power drawn by heating system"
     annotation (Placement(transformation(extent={{260,50},{280,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum totPCoo(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum totPCoo(
     nin=1)
     "Total power drawn by cooling system"
     annotation (Placement(transformation(extent={{260,10},{280,30}})));
@@ -223,9 +223,11 @@ equation
     annotation (Line(points={{282,-60},{290,-60},{290,-40},{320,-40}},
                                                   color={0,0,127}));
   connect(hex.yValIso_actual[1],valIsoCon.y_actual)
-    annotation (Line(points={{-12,-251},{-40,-251},{-40,-113},{-55,-113}},color={0,0,127}));
+    annotation (Line(points={{-12,-251.5},{-40,-251.5},{-40,-113},{-55,-113}},
+                                                                          color={0,0,127}));
   connect(hex.yValIso_actual[2],valIsoEva.y_actual)
-    annotation (Line(points={{-12,-253},{-16,-253},{-16,-240},{40,-240},{40,-113},{55,-113}},color={0,0,127}));
+    annotation (Line(points={{-12,-252.5},{-16,-252.5},{-16,-240},{40,-240},{40,
+          -113},{55,-113}},                                                                  color={0,0,127}));
   connect(valIsoEva.port_b,colAmbWat.port_bDisSup)
     annotation (Line(points={{50,-120},{30,-120},{30,-106},{20,-106}},color={0,127,255}));
   connect(valIsoCon.port_b,colAmbWat.port_aDisSup)

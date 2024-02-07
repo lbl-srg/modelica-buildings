@@ -192,7 +192,7 @@ model ChillerGroup
     final use_input=true)
     "Flow rate multiplier"
     annotation (Placement(transformation(extent={{-30,-70},{-50,-50}})));
-  BaseClasses.MultipleCommands com(
+  Buildings.Templates.Components.Controls.MultipleCommands com(
     final nUni=nUni)
     "Convert command signals"
     annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
@@ -230,7 +230,7 @@ model ChillerGroup
     final show_T=show_T)
     "Chiller condenser isolation valves"
     annotation (Placement(transformation(extent={{70,50},{90,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mulP "Scale power"
+  Buildings.Controls.OBC.CDL.Reals.Multiply mulP "Scale power"
     annotation (Placement(transformation(extent={{70,30},{90,10}})));
   Fluid.Sensors.TemperatureTwoPort temConLvg(
     redeclare final package Medium = Medium1,

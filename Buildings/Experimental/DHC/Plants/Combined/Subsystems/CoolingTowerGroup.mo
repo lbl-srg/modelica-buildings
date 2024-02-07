@@ -93,10 +93,10 @@ model CoolingTowerGroup "Model of multiple identical cooling towers in parallel"
     final use_input=false,
     final k=nUni)         "Flow rate multiplier"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  BaseClasses.MultipleCommands com(final nUni=nUni)
+  Buildings.Templates.Components.Controls.MultipleCommands com(final nUni=nUni)
     "Convert command signals"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mulP "Scale power"
+  Buildings.Controls.OBC.CDL.Reals.Multiply mulP "Scale power"
     annotation (Placement(transformation(extent={{60,90},{80,70}})));
 
   Fluid.HeatExchangers.CoolingTowers.Merkel coo(
@@ -124,7 +124,7 @@ model CoolingTowerGroup "Model of multiple identical cooling towers in parallel"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-14,80})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply inp
+  Buildings.Controls.OBC.CDL.Reals.Multiply inp
     "Compute pump input signal"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -222,7 +222,7 @@ The following input and output points are available.
 </p>
 <ul>
 <li>
-Start command (VFD Run) <code>y1</code>: 
+Start command (VFD Run) <code>y1</code>:
 DO signal dedicated to each unit, with a dimensionality of one
 </li>
 <li>
@@ -230,7 +230,7 @@ Speed command <code>y</code>:
 AO signal common to all units, with a dimensionality of zero
 </li>
 <li>
-CW supply temperature <code>TConWatSup</code>: 
+CW supply temperature <code>TConWatSup</code>:
 AI signal common to all units, with a dimensionality of zero
 </li>
 </ul>

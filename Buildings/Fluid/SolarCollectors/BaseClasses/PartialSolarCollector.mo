@@ -1,9 +1,11 @@
 within Buildings.Fluid.SolarCollectors.BaseClasses;
 model PartialSolarCollector "Partial model for solar collectors"
  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
-  extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(final dp_nominal = dp_nominal_final);
+  extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(
+    final dp_nominal = dp_nominal_final,
+    final computeFlowResistance=(abs(dp_nominal) > Modelica.Constants.eps));
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
-    final m_flow_nominal=perPar.mperA_flow_nominal*perPar.A);
+    final m_flow_nominal=m_flow_nominal_final);
 
   constant Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(HideResult=true);
@@ -125,8 +127,13 @@ protected
     "Partial performance data"
     annotation(choicesAllMatching=true);
 
-    Modelica.Blocks.Interfaces.RealInput shaCoe_internal
+  Modelica.Blocks.Interfaces.RealInput shaCoe_internal
     "Internally used shading coefficient";
+
+  final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal_final(
+      displayUnit="kg/s") = if sysConfig == Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Parallel
+     then nPanels_internal*perPar.mperA_flow_nominal*perPar.A else perPar.mperA_flow_nominal*perPar.A
+    "Nominal mass flow rate through the system of collectors";
 
   final parameter Modelica.Units.SI.PressureDifference dp_nominal_final(
       displayUnit="Pa") = if sysConfig == Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series
@@ -241,6 +248,15 @@ CEN 2006, European Standard 12975-1:2006, European Committee for Standardization
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 11, 2023, by Michael Wetter:<br/>
+Corrected implementation of pressure drop calculation for the situation where the collectors are in parallel,
+e.g., if <code>sysConfig == Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Parallel</code>.<br/>
+Changed assignment of <code>computeFlowResistance</code> to <code>final</code> based on
+<code>dp_nominal</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3597\">Buildings, #3597</a>.
+</li>
 <li>
 September 16, 2021, by Michael Wetter:<br/>
 Changed <code>lat</code> from being a parameter to an input from weather bus.<br/>

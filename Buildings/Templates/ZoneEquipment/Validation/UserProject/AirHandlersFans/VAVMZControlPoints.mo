@@ -14,13 +14,13 @@ block VAVMZControlPoints "Emulation of multiple-zone VAV control points"
         rotation=90,
         origin={100,0})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TAirSupSet[nZon](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TAirSupSet[nZon](
     each k=15 + 273.15) "AHU supply air temperature setpoint"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant yOpeMod[nZon](each k=1)
     "Group operating mode"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VDesUncOutAir_flow[nZon](each k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant VDesUncOutAir_flow[nZon](each k=1)
     "VDesUncOutAir_flow from AHU controller"
     annotation (Placement(transformation(extent={{0,130},{20,150}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant yReqOutAir[nZon](each k=true)
@@ -29,7 +29,7 @@ block VAVMZControlPoints "Emulation of multiple-zone VAV control points"
   Controls.OBC.CDL.Logical.Sources.Constant y1FanSup_actual[nZon](each k=true)
     "y1FanSup_actual from AHU controller"
     annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant TAirSup[nZon](each k=15 + 273.15)
+  Controls.OBC.CDL.Reals.Sources.Constant TAirSup[nZon](each k=15 + 273.15)
     "AHU supply air temperature"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
 equation

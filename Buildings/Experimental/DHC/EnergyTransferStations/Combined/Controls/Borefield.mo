@@ -31,7 +31,7 @@ model Borefield
     "Borefield water entering temperature"
     annotation (Placement(transformation(extent={{-140,-120},{-100,-80}}),
     iconTransformation(extent={{-140,-80},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conMix(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset conMix(
     final yMin=0,
     final yMax=1,
     final reverseActing=true,
@@ -42,55 +42,55 @@ model Borefield
       displayUnit="s")=120)
     "Mixing valve controller"
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxTBorWatEnt(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxTBorWatEnt(
     y(final unit="K",
       displayUnit="degC"),
     final k=TBorWatEntMax)
     "Maximum value of borefield water entering temperature"
     annotation (Placement(transformation(extent={{-50,-90},{-30,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold opeVal(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold opeVal(
     final t=0.9,
     final h=0.1)
     "True if at least one isolation valve is open"
     annotation (Placement(transformation(extent={{-50,-58},{-30,-38}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax multiMax1(
+  Buildings.Controls.OBC.CDL.Reals.MultiMax multiMax1(
     final nin=2)
     "Maximum opening"
     annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold enaSup(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold enaSup(
     final t=0.05,
     final h=0.025)
     "Borefield enabled from supervisory"
     annotation (Placement(transformation(extent={{-50,-30},{-30,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch runBor
+  Buildings.Controls.OBC.CDL.Reals.Switch runBor
     "Enable borefield system pump"
     annotation (Placement(transformation(extent={{70,50},{90,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant limVal(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant limVal(
     final k=0.3)
     "Control signal value for full opening of the valve"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant speMin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant speMin(
     final k=spePumBorMin)
     "Minimum pump speed"
     annotation (Placement(transformation(extent={{-40,74},{-20,94}})));
   Buildings.Controls.OBC.CDL.Logical.And enaBor
     "Borefield enable signal"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line mapSpe
+  Buildings.Controls.OBC.CDL.Reals.Line mapSpe
     "Mapping function for pump speed"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one(
     final k=1)
     "One"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(
     final k=0)
     "Zero"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line mapVal
+  Buildings.Controls.OBC.CDL.Reals.Line mapVal
     "Mapping function for valve opening"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Min min1
+  Buildings.Controls.OBC.CDL.Reals.Min min1
     "Minimum"
     annotation (Placement(transformation(extent={{70,-70},{90,-50}})));
 equation

@@ -100,19 +100,19 @@ model AllElectricCWStorage
     "CHW and HW plant"
     annotation (Placement(transformation(extent={{-30,-30},{30,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatSupSet(final k=pla.TChiWatSup_nominal,
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatSupSet(final k=pla.TChiWatSup_nominal,
     y(final unit="K", displayUnit="degC"))
                    "Source signal for setpoint"
     annotation (Placement(transformation(extent={{-220,10},{-200,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSupSet(final k=pla.THeaWatSup_nominal,
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupSet(final k=pla.THeaWatSup_nominal,
     y(final unit="K", displayUnit="degC"))
                    "Source signal for setpoint"
     annotation (Placement(transformation(extent={{-190,-10},{-170,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpHeaWatSet_max(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dpHeaWatSet_max(
     k=pla.dpHeaWatSet_max,
     y(final unit="Pa")) "Source signal for setpoint"
     annotation (Placement(transformation(extent={{-190,-70},{-170,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpChiWatSet_max(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dpChiWatSet_max(
     k=pla.dpChiWatSet_max,
     y(final unit="Pa")) "Source signal for setpoint"
     annotation (Placement(transformation(extent={{-220,-50},{-200,-30}})));
@@ -125,7 +125,7 @@ model AllElectricCWStorage
         rotation=0,
         origin={-210,120})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatRet[2](each k=pla.TChiWatRet_nominal)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatRet[2](each k=pla.TChiWatRet_nominal)
     "Source signal for CHW return temperature"
     annotation (Placement(transformation(extent={{-190,-110},{-170,-90}})));
   Loads.Heating.BuildingTimeSeriesWithETS loaHea[2](
@@ -139,7 +139,7 @@ model AllElectricCWStorage
     each bui(w_aLoaCoo_nominal=0.015)) "Building cooling load"
     annotation (Placement(transformation(extent={{10,-130},{-10,-110}})));
     // dpCheVal_nominal to avoid freezing in building waterr supply due to problem of temperature drop in Dymola
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatRet[2](each k=pla.THeaWatRet_nominal)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatRet[2](each k=pla.THeaWatRet_nominal)
     "Source signal for HW return temperature"
     annotation (Placement(transformation(extent={{-190,40},{-170,60}})));
   Buildings.Controls.OBC.CDL.Logical.Not
@@ -148,7 +148,7 @@ model AllElectricCWStorage
   Buildings.Controls.OBC.CDL.Logical.Timer
                                  tim(t=3600)
     annotation (Placement(transformation(extent={{-104,154},{-84,174}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold offHea(t=1e-4)
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold offHea(t=1e-4)
     "Threshold comparison to disable the plant"
     annotation (Placement(transformation(extent={{-144,154},{-124,174}})));
   Modelica.Blocks.Math.Gain norQFloHea(k=1/sum(loaHea.QHea_flow_nominal))
@@ -161,7 +161,7 @@ model AllElectricCWStorage
   Buildings.Controls.OBC.CDL.Logical.Timer
                                  tim1(t=3600)
     annotation (Placement(transformation(extent={{-66,-190},{-46,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold offCoo1(t=1e-4)
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold offCoo1(t=1e-4)
     "Threshold comparison to disable the plant"
     annotation (Placement(transformation(extent={{-106,-190},{-86,-170}})));
   Modelica.Blocks.Math.Gain norQFloCoo(k=1/sum(loaCoo.QCoo_flow_nominal))
@@ -250,9 +250,9 @@ equation
           -140},{-160,-180},{-148,-180}}, color={0,0,127}));
   connect(loaHea.QHea_flow, QTotHea_flow.u) annotation (Line(points={{-5,98},{-4,
           98},{-4,94},{-50,94},{-50,130},{-58,130}}, color={0,0,127}));
-  connect(TChiWatRet.y, loaCoo.TSetDisRet) annotation (Line(points={{-168,-100},
+  connect(TChiWatRet.y,loaCoo.TDisRetSet)  annotation (Line(points={{-168,-100},
           {20,-100},{20,-113},{11,-113}}, color={0,0,127}));
-  connect(THeaWatRet.y, loaHea.TSetDisRet) annotation (Line(points={{-168,50},{-44,
+  connect(THeaWatRet.y,loaHea.TDisRetSet)  annotation (Line(points={{-168,50},{-44,
           50},{-44,126},{20,126},{20,117},{11,117}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(

@@ -102,7 +102,8 @@ partial model PartialMultiplePumps
     final per=per,
     addPowerToMedium=false) "Pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  MultipleCommands com(final nUni=nPum) "Convert command signal"
+  Buildings.Templates.Components.Controls.MultipleCommands com(final nUni=nPum)
+    "Convert command signal"
     annotation (Placement(transformation(extent={{-50,90},{-30,110}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
@@ -110,17 +111,17 @@ partial model PartialMultiplePumps
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={10,100})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul "Compute total power"
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul "Compute total power"
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply inp
+  Buildings.Controls.OBC.CDL.Reals.Multiply inp
     "Compute pump input signal" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={0,40})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cst
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant cst
                if not have_var "Constant setpoint"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold isOpe(t=1E-2, h=0.5E-2)
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold isOpe(t=1E-2, h=0.5E-2)
     "Evaluate if pump is operating"
     annotation (Placement(transformation(extent={{30,-70},{50,-50}})));
   Fluid.FixedResistances.CheckValve cheVal(
@@ -241,7 +242,7 @@ equation
 <p>
 This base class represents multiple identical pumps that are piped in parallel.
 An optional check valve in series with each pump is included.
-This class is used to construct the various multiple-pump models within 
+This class is used to construct the various multiple-pump models within
 <a href=\"modelica://Buildings.Experimental.DHC.Plants.Combined.Subsystems\">
 Buildings.Experimental.DHC.Plants.Combined.Subsystems</a>.
 </p>
@@ -249,7 +250,7 @@ Buildings.Experimental.DHC.Plants.Combined.Subsystems</a>.
 <p>
 In a parallel arrangement, all operating units have the same operating point.
 This allows modeling the multiple pumps with a single instance of any
-class derived from 
+class derived from
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine\">
 Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine</a>.
 Hydronics are resolved with mass flow rate multiplier components.

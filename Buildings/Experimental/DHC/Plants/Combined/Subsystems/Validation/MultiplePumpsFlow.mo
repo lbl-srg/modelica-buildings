@@ -10,10 +10,10 @@ model MultiplePumpsFlow
       final m_flow_nominal=mPum_flow_nominal,
       final dp_nominal=dpPum_nominal));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp floSet(height=
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp floSet(height=
         mPum_flow_nominal, duration=500) "Mass flow rate setpoint (each pump)"
     annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add floTotSet
+  Buildings.Controls.OBC.CDL.Reals.Add floTotSet
     "Compute total flow rate setpoint (all pumps)" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},

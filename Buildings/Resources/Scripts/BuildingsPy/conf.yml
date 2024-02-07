@@ -36,36 +36,36 @@
     simulate: false
 - model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepDown.DD
   openmodelica:
-    comment: Internal error IndexReduction.pantelidesIndexReduction failed
-    translate: false
+    comment: simulation terminated by an assertion at initialization.
+    simulate: false
 - model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepDown.YD
   openmodelica:
-    comment: returned non-zero exit status 10.
-    translate: false
+    comment: simulation terminated by an assertion at initialization.
+    simulate: false
 - model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepUp.DD
   openmodelica:
-    comment: returned non-zero exit status 10.
-    translate: false
+    comment: simulation terminated by an assertion at initialization.
+    simulate: false
 - model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepUp.YD
   openmodelica:
-    comment: returned non-zero exit status 10.
-    translate: false
+    comment: simulation terminated by an assertion at initialization.
+    simulate: false
 - model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepDown.DD
   openmodelica:
-    comment: returned non-zero exit status 10.
-    translate: false
+    comment: simulation terminated by an assertion at initialization.
+    simulate: false
 - model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepDown.YD
   openmodelica:
-    comment: returned non-zero exit status 10.
-    translate: false
+    comment: simulation terminated by an assertion at initialization.
+    simulate: false
 - model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepUp.DD
   openmodelica:
-    comment: returned non-zero exit status 10.
-    translate: false
+    comment: simulation terminated by an assertion at initialization.
+    simulate: false
 - model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepUp.YD
   openmodelica:
-    comment: returned non-zero exit status 10.
-    translate: false
+    comment: simulation terminated by an assertion at initialization.
+    simulate: false
 - model_name: Buildings.Electrical.DC.Loads.Examples.LinearizedLoad
   openmodelica:
     comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
@@ -79,8 +79,8 @@
     simulate: false
 - model_name: Buildings.Examples.VAVCO2.VAVSystemCTControl
   openmodelica:
-    comment: Times out after 300 seconds.
-    time_out: 600
+    comment: Times out after 900 seconds.
+    time_out: 900
   optimica:
     comment: Fails with 'The rootfinding function failed in an unrecoverable manner.' Since oct-r26446
     simulate: false
@@ -95,15 +95,25 @@
     time_out: 600
 - model_name: Buildings.Experimental.DHC.EnergyTransferStations.Combined.Validation.ChillerBorefield
   openmodelica:
-    comment: returned non-zero exit status 139.
+    comment: Timeout on travis after 900 seconds, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/615261271
+    simulate: false
+- model_name: Buildings.Experimental.DHC.EnergyTransferStations.Cooling.Examples.Indirect
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization.
     simulate: false
 - model_name: Buildings.Experimental.DHC.Examples.Combined.SeriesConstantFlow
   openmodelica:
     comment: simulation terminated by an assertion at initialization
     simulate: false
+  optimica:
+    comment: FMUException Failed to update the events at time 0.000000E+00.
+    simulate: false
 - model_name: Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlow
   openmodelica:
     comment: simulation terminated by an assertion at initialization
+    simulate: false
+  optimica:
+    comment: FMUException Failed to update the events at time 0.000000E+00.
     simulate: false
 - model_name: Buildings.Experimental.DHC.Examples.Cooling.ElectricChillersDirectETS
   openmodelica:
@@ -114,7 +124,7 @@
     translate: false
 - model_name: Buildings.Experimental.DHC.Loads.BaseClasses.Examples.CouplingTimeSeries
   openmodelica:
-    comment: simulation terminated by an assertion at initialization
+    comment: "simulation terminated by an assertion at initialization, Invalid root: (0)^(-1.5), corrected in OMC 1.23.0~dev-206-g00d3636"
     simulate: false
 - model_name: Buildings.Experimental.DHC.Loads.BaseClasses.Examples.CouplingTimeSeriesSingleLoop
   openmodelica:
@@ -126,7 +136,14 @@
     simulate: false
 - model_name: Buildings.Experimental.DHC.Loads.Combined.Examples.BuildingTimeSeriesWithETS
   openmodelica:
-    comment: simulates ok with OMEdit 1.22.0~dev-51-ge506fbc
+    comment: simulation terminated by an assertion at initialization
+    simulate: false
+- model_name: Buildings.Experimental.DHC.Loads.Combined.Examples.BuildingTimeSeriesWithETSDHWTank
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization [works ok in Ubuntu 20 with OM 1.22.0]
+    simulate: false
+  optimica:
+    comment: FMUException Failed to update the events at time 4.306206E+04
     simulate: false
 - model_name: Buildings.Experimental.DHC.Loads.Cooling.Examples.BuildingTimeSeriesWithETS
   openmodelica:
@@ -137,6 +154,8 @@
     comment: Internal error BackendDAETransform.analyseStrongComponentBlock failed (Purely discrete algebraic loops cannot be solved by iterative processes. Try to break them open using the delay() operator.)
     translate: false
 - model_name: Buildings.Experimental.DHC.Plants.Combined.Examples.AllElectricCWStorage
+  dymola:
+    time_out: 600
   openmodelica:
     comment: Internal error NFCeval.evalBinaryMul failed to evaluate {0.0, 0.03359309597916374, 0.06718619195832748, 0.09151222697772191}[pressure.n] * 0.0
     translate: false
@@ -190,6 +209,10 @@
   openmodelica:
     comment: timed out after 300 seconds
     time_out: 600
+- model_name: Buildings.Fluid.Geothermal.Aquifer.Validation.SimulationTest
+  openmodelica:
+    comment: Timeout after 300 s
+    time_out: 600
 - model_name: Buildings.Fluid.Geothermal.BuriedPipes.Examples.DiscretizedBuriedPipe
   openmodelica:
     comment: timed out after 300 seconds
@@ -200,15 +223,15 @@
     simulate: false
 - model_name: Buildings.Fluid.Geothermal.BuriedPipes.Examples.TwoBuriedPipes
   openmodelica:
-    comment: returned non-zero exit status 255.
+    comment: simulation returned non-zero exit status 255
+    simulate: false
+- model_name: Buildings.Fluid.Geothermal.BuriedPipes.Examples.TwoPipesConduit
+  openmodelica:
+    comment: 'CalledProcessError: Command ''[''omc'', ''Buildings.Fluid.Geothermal.BuriedPipes.Examples.TwoPipesConduit_simulate.mos'']'' returned non-zero exit status 255.'
     simulate: false
 - model_name: Buildings.Fluid.Geothermal.BuriedPipes.Validation.GroundCouplingAIT
   openmodelica:
     comment: Timed out after 300 seconds, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/559381269#L479
-    simulate: false
-- model_name: Buildings.Fluid.HeatExchangers.Validation.WetCoilEffectivenessNTUHeating
-  openmodelica:
-    comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
     simulate: false
 - model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DecouplingMixing
   openmodelica:
@@ -312,14 +335,14 @@
     translate: false
 - model_name: Buildings.Templates.AirHandlersFans.Validation.VAVMZControlG36Airflow
   optimica:
-    comment: 'Array size mismatch in modification of the attribute quantity for the variable TZon. This is a bug in OCT tracked under Modelon#2023022839000276.'
+    comment: Array size mismatch in modification of the attribute quantity for the variable TZon. This is a bug in OCT tracked under Modelon#2023022839000276.
     translate: false
   openmodelica:
     comment: Translation failed.
     translate: false
 - model_name: Buildings.Templates.AirHandlersFans.Validation.VAVMZControlG36Pressure
   optimica:
-    comment: 'Array size mismatch in modification of the attribute quantity for the variable TZon. This is a bug in OCT tracked under Modelon#2023022839000276.'
+    comment: Array size mismatch in modification of the attribute quantity for the variable TZon. This is a bug in OCT tracked under Modelon#2023022839000276.
     translate: false
   openmodelica:
     comment: Translation failed.
@@ -399,24 +422,28 @@
     time_out: 600
 - model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case620
   openmodelica:
-    comment: Timeout on travis, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/583642309#L376
-    simulate: false
+    comment: Timeout on travis
+    time_out: 600
 - model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case630
   openmodelica:
-    comment: Timeout on travis, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/571321984#L379
-    simulate: false
+    comment: Timeout on travis
+    time_out: 600
 - model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx.Case920
   openmodelica:
     comment: Timeout on travis
     time_out: 600
 - model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx.Case930
   openmodelica:
-    comment: Timeout on travis, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/571321984#L379
-    simulate: false
+    comment: Timeout on travis
+    time_out: 600
 - model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx.Case980
   openmodelica:
-    comment: Timeout on travis, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/604300629#L376
-    simulate: false
+    comment: Timeout on travis, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/615261256
+    time_out: 600
+- model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx.Case995
+  openmodelica:
+    comment: Timeout on travis, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/615261256
+    time_out: 600
 - model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.Validation.FMUZoneAdapterZones1
   dymola:
     comment: Requires docker update to Ubuntu 22.04 due to libgc.
@@ -438,22 +465,26 @@
   openmodelica:
     comment: 'Simulation requires /lib/x86_64-linux-gnu/libc.so.6: version `GLIBC_2.34. To be updated in docker image.'
     simulate: false
+- model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.ASHRAE2006Spring
+  openmodelica:
+    comment: timed out after 300 seconds
+    time_out: 600
 - model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.ASHRAE2006Summer
   openmodelica:
     comment: timed out after 300 seconds
-    simulate: false
+    time_out: 600
 - model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.Guideline36Spring
   openmodelica:
     comment: timed out after 300 seconds
-    simulate: false
+    time_out: 600
 - model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.Guideline36Summer
   openmodelica:
     comment: timed out after 300 seconds
-    simulate: false
+    time_out: 600
 - model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.Guideline36Winter
   openmodelica:
-    comment: timed out after 300 seconds
-    simulate: false
+    comment: Timeout on travis
+    time_out: 600
 - model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.IdealHeatingCoolingSpring
   openmodelica:
     comment: returned non-zero exit status 255.
@@ -465,6 +496,9 @@
     comment: returned non-zero exit status 255.
     simulate: false
 - model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.IdealHeatingCoolingWinter
+  openmodelica:
+    comment: returned non-zero exit status 255.
+    simulate: false
   optimica:
     rtol: 1.0e-08
 - model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.Unconditioned
@@ -481,29 +515,29 @@
     simulate: false
 - model_name: Buildings.Utilities.IO.Python_3_8.Examples.KalmanFilter
   openmodelica:
-    comment: Ubuntu 22.04 uses Python 3.10, while the examples use Python 3.8
     translate: false
+    comment: python incompatible with docker image
   optimica:
     comment: Optimica uses Python 3.9, while the examples use Python 3.8
     translate: false
 - model_name: Buildings.Utilities.IO.Python_3_8.Examples.SimpleRoom
   openmodelica:
-    comment: Ubuntu 22.04 uses Python 3.10, while the examples use Python 3.8
     translate: false
+    comment: python incompatible with docker image
   optimica:
     comment: Optimica uses Python 3.9, while the examples use Python 3.8
     translate: false
 - model_name: Buildings.Utilities.IO.Python_3_8.Functions.Examples.Exchange
   openmodelica:
-    comment: Ubuntu 22.04 uses Python 3.10, while the examples use Python 3.8
     translate: false
+    comment: python incompatible with docker image
   optimica:
     comment: Optimica uses Python 3.9, while the examples use Python 3.8
     translate: false
 - model_name: Buildings.Utilities.IO.Python_3_8.Functions.Examples.ExchangeWithPassPythonObject
   openmodelica:
-    comment: Ubuntu 22.04 uses Python 3.10, while the examples use Python 3.8
     translate: false
+    comment: python incompatible with docker image
   optimica:
     comment: Optimica uses Python 3.9, while the examples use Python 3.8
     translate: false

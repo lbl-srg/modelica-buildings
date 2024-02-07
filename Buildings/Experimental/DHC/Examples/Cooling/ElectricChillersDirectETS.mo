@@ -118,7 +118,7 @@ model ElectricChillersDirectETS "Example model for district cooling system with
   Modelica.Blocks.Math.Sum QTotCoo_flow(nin=nLoa)
     "Total cooling flow rate for all buildings "
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold offCoo(t=1e-4)
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold offCoo(t=1e-4)
     "Threshold comparison to disable the plant"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Modelica.Blocks.Math.Gain norQFlo(k=1/sum(QCoo_flow_nominal))
@@ -156,7 +156,7 @@ equation
           {160,42},{160,0},{132,0}},
                                   color={0,127,255}));
   for i in 1:nLoa loop
-    connect(TDisRetSet.y, buiETS[i].TSetDisRet)
+    connect(TDisRetSet.y,buiETS[i].TDisRetSet)
      annotation (Line(points={{91,70},{100,70},{100,57},{119,57}},
                                                                color={0,0,127}));
   end for;

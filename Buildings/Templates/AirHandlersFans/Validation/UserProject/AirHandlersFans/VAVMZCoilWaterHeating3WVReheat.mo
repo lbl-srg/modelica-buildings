@@ -1,13 +1,14 @@
 within Buildings.Templates.AirHandlersFans.Validation.UserProject.AirHandlersFans;
 model VAVMZCoilWaterHeating3WVReheat "Configuration of multiple-zone VAV"
   extends Buildings.Templates.AirHandlersFans.VAVMultiZone(
+    redeclare replaceable
+      Buildings.Templates.Components.Coils.WaterBasedHeating coiHeaReh(typVal=
+          Buildings.Templates.Components.Types.Valve.ThreeWayModulating,
+        redeclare final package MediumHeaWat = MediumHeaWat) "Hot water coil",
+    redeclare replaceable Buildings.Templates.Components.Coils.None coiHeaPre
+      "No coil",
     redeclare replaceable Buildings.Templates.AirHandlersFans.Components.Controls.OpenLoop ctl
       "Open loop controller",
-    redeclare replaceable Buildings.Templates.Components.Coils.None coiHeaPre,
-    redeclare replaceable
-      Buildings.Templates.Components.Coils.WaterBasedHeating coiHeaReh(
-        redeclare final package MediumHeaWat = MediumHeaWat,
-        redeclare Buildings.Templates.Components.Valves.ThreeWayModulating val),
     nZon=2);
   annotation (
     defaultComponentName="ahu", Documentation(info="<html>

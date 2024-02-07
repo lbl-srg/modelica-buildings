@@ -173,11 +173,11 @@ model ChillerBorefield "ETS model for 5GDHC systems with heat recovery chiller a
     "Borefield"
     annotation (Dialog(group="Borefield",enable=have_borFie),
     Placement(transformation(extent={{-80,-230},{-60,-210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerPPum(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zerPPum(
     final k=0) if not have_borFie
     "Zero power"
     annotation (Placement(transformation(extent={{220,-90},{240,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerPHea(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zerPHea(
     final k=0)
     "Zero power"
     annotation (Placement(transformation(extent={{220,50},{240,70}})));
@@ -266,9 +266,11 @@ equation
   connect(conSup.yAmb[1],borFie.u)
     annotation (Line(points={{-238,25},{-200,25},{-200,-212},{-82,-212}},color={0,0,127}));
   connect(valIsoCon.y_actual,borFie.yValIso_actual[1])
-    annotation (Line(points={{-55,-113},{-40,-113},{-40,-198},{-90,-198},{-90,-217},{-82,-217}},color={0,0,127}));
+    annotation (Line(points={{-55,-113},{-40,-113},{-40,-198},{-90,-198},{-90,
+          -216.5},{-82,-216.5}},                                                                color={0,0,127}));
   connect(valIsoEva.y_actual,borFie.yValIso_actual[2])
-    annotation (Line(points={{55,-113},{40,-113},{40,-200},{-88,-200},{-88,-215},{-82,-215}},color={0,0,127}));
+    annotation (Line(points={{55,-113},{40,-113},{40,-200},{-88,-200},{-88,
+          -215.5},{-82,-215.5}},                                                             color={0,0,127}));
   connect(borFie.PPum,totPPum.u[3])
     annotation (Line(points={{-58,-216},{250,-216},{250,-62},{258,-62},{258,-60}},color={0,0,127}));
   connect(zerPPum.y,totPPum.u[3])

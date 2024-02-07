@@ -13,8 +13,7 @@ block ControllerG36VAVBox "Guideline 36 controller for VAV terminal unit"
 
   final parameter Boolean have_hotWatCoi=
     coiHea.typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating
-    "Set to true if the system has hot water coil"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+    "Set to true if the system has hot water coil";
 
   final parameter Modelica.Units.SI.VolumeFlowRate VAirCooSet_flow_max=
     dat.VAirCooSet_flow_max
@@ -88,7 +87,8 @@ block ControllerG36VAVBox "Guideline 36 controller for VAV terminal unit"
     final VHeaMax_flow=VAirHeaSet_flow_max,
     final dTDisZonSetMax=dTAirDisHea_max,
     final zonDisEff_cool=effAirDisCoo,
-    final zonDisEff_heat=effAirDisHea) if typ == Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat
+    final zonDisEff_heat=effAirDisHea)
+    if typ == Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat
     "Terminal unit with reheat controller"
     annotation (Placement(transformation(extent={{0,-20},{20,20}})));
 
@@ -104,7 +104,8 @@ block ControllerG36VAVBox "Guideline 36 controller for VAV terminal unit"
     final VMin_flow=VAirSet_flow_min,
     final VCooMax_flow=VAirCooSet_flow_max,
     final zonDisEff_cool=effAirDisCoo,
-    final zonDisEff_heat=effAirDisHea) if typ == Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxCoolingOnly
+    final zonDisEff_heat=effAirDisHea)
+    if typ == Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxCoolingOnly
     "Terminal unit cooling only controller"
     annotation (Placement(transformation(extent={{0,40},{20,80}})));
 
@@ -119,16 +120,16 @@ block ControllerG36VAVBox "Guideline 36 controller for VAV terminal unit"
     "Evaluate zone temperature status"
     annotation (Placement(transformation(extent={{0,-120},{20,-92}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooDowWarUpTim(k=3600)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant cooDowWarUpTim(k=3600)
     "RFE: Optimal start (using global OA temperature not associated with any AHU) not implemented"
     annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant setAdj(k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant setAdj(k=0)
     "RFE: Setpoint adjustment by the occupant is not implemented in the template"
     annotation (Placement(transformation(extent={{-160,170},{-140,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooSetAdj(k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant cooSetAdj(k=0)
     "RFE: Setpoint adjustment by the occupant is not implemented in the template"
     annotation (Placement(transformation(extent={{-160,130},{-140,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaSetAdj(k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant heaSetAdj(k=0)
     "RFE: Setpoint adjustment by the occupant is not implemented in the template"
     annotation (Placement(transformation(extent={{-160,90},{-140,110}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant uCooDemLimLev(k=0)

@@ -2,7 +2,8 @@ within Buildings.Experimental.DHC.Plants.Cooling.Subsystems.Examples;
 model CoolingTowersParallel
   "Example model for parallel cooling tower model"
   extends Modelica.Icons.Example;
-  extends Buildings.Experimental.DHC.Plants.Cooling.Subsystems.Examples.BaseClasses.PartialCoolingTowersSubsystem(
+  extends
+    Buildings.Experimental.DHC.Plants.Cooling.Subsystems.Examples.BaseClasses.PartialCoolingTowersSubsystem(
     redeclare Buildings.Experimental.DHC.Plants.Cooling.Subsystems.CoolingTowersParallel tow(
       TAirInWB_nominal=273.15+25.55,
       TWatIn_nominal=273.15+35,
@@ -13,11 +14,11 @@ model CoolingTowersParallel
       use_inputFilter=false),
     weaDat(final computeWetBulbTemperature=true));
 
-   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetLea(
+   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetLea(
     k=273.15+18)
     "Setpoint for leaving temperature"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conFan(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset conFan(
     k=1,
     Ti=60,
     Td=10,
@@ -36,23 +37,20 @@ equation
   connect(tow.TLvg, conFan.u_m)
     annotation (Line(points={{43,-47},{50,-47},{50,-20},{-30,-20},{-30,-2}},
       color={0,0,127}));
-  connect(onOffCon.y, tow.on[1])
-    annotation (Line(points={{2,-190},{12,-190},{12,-236},{-96,-236},{-96,-26},
-          {14,-26},{14,-44},{20,-44}},color={255,0,255}));
-  connect(onOffCon.y, tow.on[2])
-    annotation (Line(points={{2,-190},{12,-190},{12,-236},{-96,-236},{-96,-26},
-          {14,-26},{14,-44},{20,-44}},color={255,0,255}));
   connect(conFan.y, tow.uFanSpe)
     annotation (Line(points={{-18,10},{10,10},{10,-48},{20,-48}},
       color={0,0,127}));
   connect(weaBus.TWetBul, tow.TWetBul)
-   annotation (Line(points={{-60,50},{-4,50},{-4,-56},{20,-56}},
+   annotation (Line(points={{-59.95,50.05},{-4,50.05},{-4,-56},{20,-56}},
     color={255,204,51},thickness=0.5),
      Text(string="%first",index=-1,extent={{-6,3},{-6,3}},
      horizontalAlignment=TextAlignment.Right));
-  connect(conFan.trigger, onOffCon.y) annotation (Line(points={{-36,-2},{-36,
-          -26},{-96,-26},{-96,-236},{12,-236},{12,-190},{2,-190}},
-                                                              color={255,0,255}));
+  connect(hys.y, tow.on[1]) annotation (Line(points={{42,-190},{50,-190},{50,
+          -132},{0,-132},{0,-44},{20,-44}}, color={255,0,255}));
+  connect(hys.y, tow.on[2]) annotation (Line(points={{42,-190},{50,-190},{50,
+          -132},{0,-132},{0,-44},{20,-44}}, color={255,0,255}));
+  connect(hys.y, conFan.trigger) annotation (Line(points={{42,-190},{50,-190},{
+          50,-132},{0,-132},{0,-12},{-36,-12},{-36,-2}}, color={255,0,255}));
   annotation (
     Icon(
       coordinateSystem(

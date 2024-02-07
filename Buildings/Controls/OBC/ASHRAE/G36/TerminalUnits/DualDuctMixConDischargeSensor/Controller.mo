@@ -102,8 +102,8 @@ block Controller "Controller for dual-duct terminal unit using mixing control wi
     "Threshold time to check damper leaking airflow"
     annotation (__cdl(ValueInReference=true), Dialog(tab="Alarms"));
   // ---------------- Parameters for time-based suppression ----------------
-  parameter Real chaRat=540
-    "Gain factor to calculate suppression time based on the change of the setpoint, second per degC"
+  parameter Real chaRat(final unit="s/K")=540
+    "Gain factor to calculate suppression time based on the change of the setpoint, seconds per Kelvin"
     annotation (__cdl(ValueInReference=true), Dialog(tab="Time-based suppresion"));
   parameter Real maxSupTim(unit="s")=1800
     "Maximum suppression time"
@@ -120,6 +120,14 @@ block Controller "Controller for dual-duct terminal unit using mixing control wi
     annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
   parameter Real damPosHys(unit="1")=0.005
     "Near zero damper position, below which the damper will be seen as closed"
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
+  parameter Real staTim(
+    final unit="s",
+    final quantity="Time")=1800
+    "Delay triggering alarms after enabling AHU supply fan"
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
+  parameter Real iniDam(unit="1")=0.01
+    "Initial damper position when the damper control is enabled"
     annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
   parameter Real timChe(unit="s")=30
     "Threshold time to check the zone temperature status"
@@ -386,7 +394,8 @@ block Controller "Controller for dual-duct terminal unit using mixing control wi
     final TdDam=TdDam,
     final kHeaMaxDam=kHeaMaxDam,
     final dTHys=dTHys,
-    final looHys=looHys)
+    final looHys=looHys,
+    final iniDam=iniDam)
     "Dampers control when the unit has single dual airflow sensor"
     annotation (Placement(transformation(extent={{0,0},{20,40}})));
   Buildings.Controls.OBC.ASHRAE.G36.Generic.TimeSuppression timSupHea(
@@ -556,6 +565,8 @@ equation
           112,-96},{112,-157},{138,-157}}, color={0,0,127}));
   connect(setOve.yHeaDam, ala.uHeaDam) annotation (Line(points={{82,-96},{112,
           -96},{112,-239},{138,-239}}, color={0,0,127}));
+  connect(uOpeMod, ala.uOpeMod) annotation (Line(points={{-260,130},{-200,130},
+          {-200,-227},{138,-227}}, color={255,127,0}));
 annotation (defaultComponentName="duaDucCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}), graphics={
         Rectangle(

@@ -5,7 +5,7 @@ partial model PartialOutdoorReliefReturnSection
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air medium"
-    annotation(__ctrl_flow(enable=false));
+    annotation(__ctrlFlow(enable=false));
 
   parameter Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection typ
     "Outdoor/relief/return air section type"
@@ -34,24 +34,32 @@ partial model PartialOutdoorReliefReturnSection
   parameter Buildings.Templates.Components.Types.Fan typFanRet
     "Return fan type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Integer nFanRel
+    "Number of relief fans"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Integer nFanRet
+    "Number of return fans"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_eco
     "Set to true in case of economizer function"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  inner parameter Boolean have_recHea = false
+  parameter Boolean have_recHea = false
     "Set to true in case of heat recovery"
     annotation (Evaluate=true,
       Dialog(group="Configuration"));
-  inner parameter Buildings.Templates.AirHandlersFans.Types.ControlFanReturn typCtlFanRet=
+  parameter Buildings.Templates.AirHandlersFans.Types.ControlFanReturn typCtlFanRet=
     Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured
     "Return fan control type"
-    annotation (Evaluate=true,
+    annotation (__ctrlFlow(enable=false),
+      Evaluate=true,
       Dialog(
         group="Configuration",
         enable=typFanRet<>Buildings.Templates.Components.Types.Fan.None));
-  inner parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer typCtlEco=
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer typCtlEco=
     Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb
     "Economizer control type"
-    annotation (Evaluate=true,
+    annotation (__ctrlFlow(enable=false),
+      Evaluate=true,
       Dialog(
         group="Configuration",
         enable=have_eco));
@@ -95,11 +103,11 @@ partial model PartialOutdoorReliefReturnSection
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"),
-      __ctrl_flow(enable=false));
+      __ctrlFlow(enable=false));
 
   parameter Boolean allowFlowReversal = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
-    annotation(Dialog(tab="Assumptions"), Evaluate=true, __ctrl_flow(enable=false));
+    annotation(Dialog(tab="Assumptions"), Evaluate=true, __ctrlFlow(enable=false));
 
   Modelica.Fluid.Interfaces.FluidPort_b port_Rel(
     redeclare final package Medium = MediumAir,
