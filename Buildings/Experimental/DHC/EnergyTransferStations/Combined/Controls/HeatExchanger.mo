@@ -30,20 +30,20 @@ model HeatExchanger
     final unit="1")
     "District heat exchanger secondary valve control signal"
     annotation (Placement(transformation(extent={{220,-80},{260,-40}}),iconTransformation(extent={{100,-80},{140,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max max1
+  Buildings.Controls.OBC.CDL.Reals.Max max1
     "Maximum between control signal and minimum speed or opening"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swiOff1
+  Buildings.Controls.OBC.CDL.Reals.Switch swiOff1
     "Output zero if not enabled"
     annotation (Placement(transformation(extent={{160,-70},{180,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant min1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant min1(
     final k=if have_val1 then 0 else spePum1Min)
     "Minimum pump speed or actuator opening"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
     "Control signal for secondary side (from supervisory)"
     annotation (Placement(transformation(extent={{-260,20},{-220,60}}),  iconTransformation(extent={{-140,30},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     final t=0.01,
     final h=0.005)
     "Check for heat or cold rejection demand"
@@ -51,12 +51,12 @@ model HeatExchanger
   Buildings.Controls.OBC.CDL.Logical.And and2
     "At least one valve is open and HX circuit is enabled"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold heaRej(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold heaRej(
     final t=0.9,
     final h=0.1)
     "Heat rejection if condenser isolation valve is open"
     annotation (Placement(transformation(extent={{-170,-10},{-150,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold cooRej(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold cooRej(
     final t=0.9,
     final h=0.1)
     "Cold rejection if evaporator isolation valve is open"
@@ -64,29 +64,29 @@ model HeatExchanger
   Buildings.Controls.OBC.CDL.Logical.Or or1
     "At least one valve is open "
     annotation (Placement(transformation(extent={{-110,-30},{-90,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant speMin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant speMin(
     final k=spePum2Min)
     "Minimum pump speed"
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swiOff2
+  Buildings.Controls.OBC.CDL.Reals.Switch swiOff2
     "Output zero if not enabled"
     annotation (Placement(transformation(extent={{160,50},{180,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line mapSpe
+  Buildings.Controls.OBC.CDL.Reals.Line mapSpe
     "Mapping function for pump speed"
     annotation (Placement(transformation(extent={{90,50},{110,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one(
     final k=1)
     "One"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(
     final k=0)
     "Zero"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hal(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant hal(
     final k=0.3)
     "Control signal value for full opening of the valve"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line mapVal
+  Buildings.Controls.OBC.CDL.Reals.Line mapVal
     "Mapping function for valve opening"
     annotation (Placement(transformation(extent={{90,10},{110,30}})));
 protected

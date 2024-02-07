@@ -3,7 +3,7 @@ model HighMassSupplyTemperature_TSurRelHum
   "Validation model for the room temperature controller that takes the surface temperature set point as an input"
   extends Modelica.Icons.Example;
 
-  Controls.OBC.CDL.Continuous.Sources.TimeTable TPhiRooMea(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable TPhiRooMea(
     table=[0.0, 18, 0.5;
            0.5, 28, 0.5;
            1.0, 18, 0.5;
@@ -20,14 +20,14 @@ model HighMassSupplyTemperature_TSurRelHum
       TSupSet_min=291.15) "Controller"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
-  Controls.OBC.CDL.Continuous.Sources.Constant TSurSet(final k(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSurSet(final k(
       final unit="K",
       displayUnit="degC") = 293.15) "Set point temperature for surface"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
 
   CDL.Psychrometrics.DewPoint_TDryBulPhi dewPoi "Dew point temperature"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
-  CDL.Continuous.Sources.Ramp     TSur(
+  CDL.Reals.Sources.Ramp     TSur(
     height=1,
     duration=1800,
     offset=293.15)                  "Measured surface temperature"

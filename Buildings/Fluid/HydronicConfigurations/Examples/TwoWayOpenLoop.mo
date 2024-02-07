@@ -23,7 +23,7 @@ model TwoWayOpenLoop
     nPorts=7)
     "Pressure boundary condition at return"
     annotation (Placement(transformation(extent={{-160,-90},{-140,-70}})));
-  .Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ope(duration=100)
+  .Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ope(duration=100)
     "Valve opening signal"
     annotation (Placement(transformation(extent={{-160,90},{-140,110}})));
   FixedResistances.PressureDrop ter50(

@@ -31,21 +31,21 @@ model BuildingTimeSeriesWithETS
     allowFlowReversalSer=true,
     filNam="modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissOffice_20190916.mos")
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TColWat(k=bui.ets.TColWat_nominal)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TColWat(k=bui.ets.TColWat_nominal)
     "Cold water temperature"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THotWatSupSet(k=bui.ets.THotWatSup_nominal)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THotWatSupSet(k=bui.ets.THotWatSup_nominal)
     "Hot water supply temperature set point"
     annotation (Placement(transformation(extent={{-90,20},{-70,40}})));
- Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatSupSet(k=bui.TChiWatSup_nominal)
+ Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatSupSet(k=bui.TChiWatSup_nominal)
     "Chilled water supply temperature set point"
     annotation (Placement(transformation(extent={{-90,60},{-70,80}})));
- Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSupMaxSet(k=bui.THeaWatSup_nominal)
+ Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupMaxSet(k=bui.THeaWatSup_nominal)
     "Heating water supply temperature set point - Maximum value"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
- Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSupMinSet(each k(
-   final unit="K",
-   displayUnit="degC") = 301.15)
+ Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupMinSet(
+   k(final unit="K",
+     displayUnit="degC") = 301.15)
    "Heating water supply temperature set point - Minimum value"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
 equation
@@ -83,7 +83,7 @@ equation
       Tolerance=1e-06),
     Documentation(info="<html>
 <p>
-Example model of a building with loads provided as time series for heat 
+Example model of a building with loads provided as time series for heat
 pump space heating, heat pump domestic hot water heating,
 and free cooling in an ambient district network.
 </p>

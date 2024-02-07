@@ -422,7 +422,8 @@ Set nominalValuesDefineDefaultPressureCurve=true to suppress this warning.",
 "*** Warning in " + getInstanceName() +
 ": Mover has per.etaHydMet=.Power_VolumeFlowRate or per.etaHydMet=.EulerNumber.
 This requires per.pressure to be provided.
-Because it is not, the model overrides this setting by using per.etaHydMet=.NotProvided.",
+Because it is not, the model overrides this setting by using per.etaHydMet=.NotProvided.
+Also consider using models under Movers.Preconfigured which autopopulate a pressure curve.",
          level=AssertionLevel.warning);
 
   assert(per.havePressureCurve or per.haveWMot_nominal or
@@ -433,7 +434,8 @@ Because it is not, the model overrides this setting by using per.etaHydMet=.NotP
 "*** Warning in " + getInstanceName() +
 ": Mover has per.etaMotMet=.Efficiency_MotorPartLoadRatio or per.etaMotMet=.GenericCurve.
 This requires per.WMot_nominal or per.pressure to be provided. Because neither is provided,
-the model overrides this setting and by using per.etaMotMet=.NotProvided.",
+the model overrides this setting and by using per.etaMotMet=.NotProvided.
+Also consider using models under Movers.Preconfigured which autopopulate a pressure curve.",
          level=AssertionLevel.warning);
 
   assert(per.powerOrEfficiencyIsHydraulic or

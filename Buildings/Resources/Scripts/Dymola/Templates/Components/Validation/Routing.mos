@@ -1,0 +1,40 @@
+simulateModel("Buildings.Templates.Components.Validation.Routing",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=1,
+    resultFile="Routing");
+createPlot(
+    id=1,
+    position={0, 0, 400, 600},
+    y={"mulMul.ports_a[1].m_flow",  "mulMul.ports_b[1].m_flow", "mulMul.m_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"mulMulCom.ports_a[1].m_flow",  "mulMulCom.ports_b[1].m_flow", "mulMulCom.m_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=3,
+    y={"mulSin.ports_a[1].m_flow",  "mulSin.port_b.m_flow", "mulSin.m_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=4,
+    y={"sinMul.port_a.m_flow",  "sinMul.ports_b[1].m_flow", "sinMul.m_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=5,
+    y={"pas.port_a.m_flow"},
+    autoscale=true,
+    grid=true
+);

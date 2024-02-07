@@ -32,10 +32,10 @@ model CouplingTimeSeriesSingleLoop
     y(unit="J"))
     "Time integral of cooling load"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.MovingAverage QAveCooReq_flow(y(unit=
+  Buildings.Controls.OBC.CDL.Reals.MovingAverage QAveCooReq_flow(y(unit=
           "W"), final delta=perAve) "Time average of cooling load"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.MovingAverage QAveCooAct_flow(y(unit=
+  Buildings.Controls.OBC.CDL.Reals.MovingAverage QAveCooAct_flow(y(unit=
           "W"), final delta=perAve) "Time average of cooling heat flow rate"
     annotation (Placement(transformation(extent={{80,20},{100,40}})));
   Modelica.Blocks.Continuous.Integrator ECooAct(
@@ -66,7 +66,7 @@ model CouplingTimeSeriesSingleLoop
     nPorts=1)
     "Sink for heating water"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={110,-12})));
-  Buildings.Controls.OBC.CDL.Continuous.MovingAverage QAveHeaReq_flow(y(unit=
+  Buildings.Controls.OBC.CDL.Reals.MovingAverage QAveHeaReq_flow(y(unit=
           "W"), final delta=perAve) "Time average of heating load"
     annotation (Placement(transformation(extent={{40,-110},{60,-90}})));
   Modelica.Blocks.Continuous.Integrator EHeaReq(
@@ -77,7 +77,7 @@ model CouplingTimeSeriesSingleLoop
     y(unit="J"))
     "Actual energy used for heating"
     annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.MovingAverage QAveHeaAct_flow(y(unit=
+  Buildings.Controls.OBC.CDL.Reals.MovingAverage QAveHeaAct_flow(y(unit=
           "W"), final delta=perAve) "Time average of heating heat flow rate"
     annotation (Placement(transformation(extent={{80,-110},{100,-90}})));
 equation

@@ -70,25 +70,25 @@ block ReliefFanGroup
     annotation (Placement(transformation(extent={{500,60},{540,100}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MatrixGain enaRel(
+  Buildings.Controls.OBC.CDL.Reals.MatrixGain enaRel(
     final K=relFanMat)
     "Vector of relief fans with the enabled one denoted by 1"
     annotation (Placement(transformation(extent={{-460,340},{-440,360}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nSupFan]
     "Convert boolean to real"
     annotation (Placement(transformation(extent={{-500,340},{-480,360}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai[nRelFan](
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai[nRelFan](
     final k=staVec)
     "Vector of enabling fan, along with its staging order"
     annotation (Placement(transformation(extent={{-420,340},{-400,360}})));
-  Buildings.Controls.OBC.CDL.Continuous.MovingAverage movMea(
+  Buildings.Controls.OBC.CDL.Reals.MovingAverage movMea(
     final delta=300)
     "Average building static pressure measurement"
     annotation (Placement(transformation(extent={{-500,240},{-480,260}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide div1
+  Buildings.Controls.OBC.CDL.Reals.Divide div1
     "Normalized the control error"
     annotation (Placement(transformation(extent={{-400,200},{-380,220}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID conP(
+  Buildings.Controls.OBC.CDL.Reals.PID conP(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     final k=k,
     final reverseActing=false)
@@ -101,10 +101,10 @@ block ReliefFanGroup
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1
     "Convert boolean to real"
     annotation (Placement(transformation(extent={{-460,300},{-440,320}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro
     "Set controller output to zero when the relief system is disabled"
     annotation (Placement(transformation(extent={{140,294},{160,314}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     final t=0.05,
     final h=hys)
     "Check if the controller output is greater than threshold"
@@ -114,7 +114,7 @@ block ReliefFanGroup
     annotation (Placement(transformation(extent={{-260,140},{-240,160}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat "Enable damper"
     annotation (Placement(transformation(extent={{-220,140},{-200,160}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr(
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThr(
     final t=0.005,
     final h=hys)
     "Check if the controller output is near zero"
@@ -127,14 +127,14 @@ block ReliefFanGroup
     final nout=nRelFan)
     "Boolean replicator"
     annotation (Placement(transformation(extent={{-160,140},{-140,160}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1[nRelFan](
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr1[nRelFan](
     final t=fill(0.5, nRelFan))
     "Check if a relief fan should be enabled"
     annotation (Placement(transformation(extent={{-160,170},{-140,190}})));
   Buildings.Controls.OBC.CDL.Logical.And enaDam[nRelFan]
     "Enable damper"
     annotation (Placement(transformation(extent={{-80,170},{-60,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr2(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr2(
     final t=relFanSpe_min + 0.15,
     final h=hys)
     "Check if the controller output is greater than minimum speed plus threshold"
@@ -150,37 +150,37 @@ block ReliefFanGroup
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea2[nRelFan]
     "Convert boolean to real"
     annotation (Placement(transformation(extent={{-460,-16},{-440,4}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2[nRelFan]
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub2[nRelFan]
     "Identify relief fans that have been enabled but not yet operating"
     annotation (Placement(transformation(extent={{-400,-10},{-380,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro1[nRelFan]
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro1[nRelFan]
     "List of standby fans, along with their staging order"
     annotation (Placement(transformation(extent={{-320,10},{-300,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMin mulMin(nin=nRelFan)
+  Buildings.Controls.OBC.CDL.Reals.MultiMin mulMin(nin=nRelFan)
     "Identify current order of staging"
     annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
     final nout=nRelFan)
     "Replicate real number"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1[nRelFan]
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1[nRelFan]
     "Identify next operating fan"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr1[nRelFan](
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThr1[nRelFan](
     final t=fill(0.5, nRelFan))
     "Check if the input is less than threshold"
     annotation (Placement(transformation(extent={{-260,-20},{-240,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar[nRelFan](
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar[nRelFan](
     final p=fill(nRelFan + 1, nRelFan))
     "Add value to the input"
     annotation (Placement(transformation(extent={{-260,10},{-240,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi[nRelFan]
+  Buildings.Controls.OBC.CDL.Reals.Switch swi[nRelFan]
     "Switch input values"
     annotation (Placement(transformation(extent={{-220,-20},{-200,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Abs abs1[nRelFan]
+  Buildings.Controls.OBC.CDL.Reals.Abs abs1[nRelFan]
     "Find absolute value"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr2[nRelFan](
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThr2[nRelFan](
     final t=fill(0.5, nRelFan))
     "Identify next operating fan"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
@@ -190,7 +190,7 @@ block ReliefFanGroup
   Buildings.Controls.OBC.CDL.Logical.Latch lat2
     "Stage up next relief fan"
     annotation (Placement(transformation(extent={{240,-80},{260,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr3(
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThr3(
     final t=relFanSpe_min,
     final h=hys)
     "Check if the controller output is less than minimum speed"
@@ -203,30 +203,30 @@ block ReliefFanGroup
     final pre_u_start=true)
     "Break algebraic loop"
     annotation (Placement(transformation(extent={{0,-338},{20,-318}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro2[nRelFan]
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro2[nRelFan]
     "List of operating fans, along with their staging order"
     annotation (Placement(transformation(extent={{-320,-220},{-300,-200}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1[nRelFan](
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar1[nRelFan](
     final p=fill(nRelFan + 1, nRelFan))
     "Add value to the input"
     annotation (Placement(transformation(extent={{-260,-220},{-240,-200}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr4[nRelFan](
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThr4[nRelFan](
     final t=fill(0.5, nRelFan))
     "Check if the input is less than threshold"
     annotation (Placement(transformation(extent={{-260,-250},{-240,-230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1[nRelFan]
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1[nRelFan]
     "Switch input values"
     annotation (Placement(transformation(extent={{-220,-250},{-200,-230}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMin mulMin1(
+  Buildings.Controls.OBC.CDL.Reals.MultiMin mulMin1(
     final nin=nRelFan) "Minimum staging order of the running relief fans"
     annotation (Placement(transformation(extent={{-140,-250},{-120,-230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub3[nRelFan]
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub3[nRelFan]
     "Identify next operating fan"
     annotation (Placement(transformation(extent={{-40,-220},{-20,-200}})));
-  Buildings.Controls.OBC.CDL.Continuous.Abs abs2[nRelFan]
+  Buildings.Controls.OBC.CDL.Reals.Abs abs2[nRelFan]
     "Find absolute value"
     annotation (Placement(transformation(extent={{0,-220},{20,-200}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr5[nRelFan](
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThr5[nRelFan](
     final t=fill(0.5, nRelFan))
     "Identify next fan to be off"
     annotation (Placement(transformation(extent={{40,-220},{60,-200}})));
@@ -280,7 +280,7 @@ block ReliefFanGroup
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea3[nRelFan]
     "Convert boolean to real"
     annotation (Placement(transformation(extent={{400,-80},{420,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Limiter lim(
+  Buildings.Controls.OBC.CDL.Reals.Limiter lim(
     final uMax=1,
     final uMin=relFanSpe_min)
     "Limit the controller output"
@@ -289,25 +289,25 @@ block ReliefFanGroup
     final nout=nRelFan)
     "Replicate real input"
     annotation (Placement(transformation(extent={{400,226},{420,246}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro3[nRelFan]
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro3[nRelFan]
     "Relief fan speed"
     annotation (Placement(transformation(extent={{460,220},{480,240}})));
   Buildings.Controls.OBC.CDL.Logical.Switch logSwi2[nRelFan]
     "Vector of relief fan status after staging up"
     annotation (Placement(transformation(extent={{400,130},{420,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpBuiSetPoi(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dpBuiSetPoi(
     final k=dpBuiSet)
     "Building pressure setpoint"
     annotation (Placement(transformation(extent={{-460,170},{-440,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conOne(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conOne(
     final k=1)
     "Constant one"
     annotation (Placement(transformation(extent={{-420,270},{-400,290}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
     final k=0)
     "Zero fan speed when it is in stage 0"
     annotation (Placement(transformation(extent={{180,200},{200,220}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi2
+  Buildings.Controls.OBC.CDL.Reals.Switch swi2
     "Switch input values"
     annotation (Placement(transformation(extent={{360,226},{380,246}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(nin=nRelFan)
@@ -344,17 +344,17 @@ block ReliefFanGroup
     final realFalse=fill(1, nRelFan))
     "Convert boolean to real"
     annotation (Placement(transformation(extent={{-260,60},{-240,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul[nRelFan]
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul[nRelFan]
     "Product of inputs"
     annotation (Placement(transformation(extent={{460,70},{480,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr3[nRelFan](
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr3[nRelFan](
     final t=fill(0.5, nRelFan))
     "Check if the relief fan is enabled"
     annotation (Placement(transformation(extent={{-40,226},{-20,246}})));
   Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd1(
     final nin=nRelFan) "Check if all the fans are proven off"
     annotation (Placement(transformation(extent={{-320,-70},{-300,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi3[nRelFan]
+  Buildings.Controls.OBC.CDL.Reals.Switch swi3[nRelFan]
     "Switch input values"
     annotation (Placement(transformation(extent={{-160,-70},{-140,-50}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep4(

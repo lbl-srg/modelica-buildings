@@ -3,13 +3,18 @@ model ConnectionParallelAutosize
   "Model for connecting an agent to the DHC system"
   extends ConnectionParallelStandard(
     tau=5*60,
-    redeclare replaceable model Model_pipDis = PipeAutosize (
+    redeclare replaceable model Model_pipDisSup = PipeAutosize (
       roughness=7e-6,
       fac=1.5,
       dh(fixed=true)=dhDis,
       final length=lDis,
       final dp_length_nominal=dp_length_nominal),
-    pipDisRet(dh=dhDisRet),
+    redeclare replaceable model Model_pipDisRet = PipeAutosize (
+      roughness=7e-6,
+      fac=1.5,
+      dh(fixed=true)=dhDisRet,
+      final length=lDis,
+      final dp_length_nominal=dp_length_nominal),
     redeclare replaceable model Model_pipCon = PipeAutosize (
       roughness=2.5e-5,
       fac=2,

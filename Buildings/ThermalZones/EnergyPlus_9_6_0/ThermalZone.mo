@@ -196,7 +196,7 @@ protected
   Utilities.Psychrometrics.Phi_pTX relHum
     "Relative humidity"
     annotation (Placement(transformation(extent={{156,12},{176,32}})));
-  Controls.OBC.CDL.Continuous.Divide X_w
+  Controls.OBC.CDL.Reals.Divide X_w
     "Water vapor mass fraction per kg total air"
     annotation (Placement(transformation(extent={{40,-32},{60,-12}})));
 

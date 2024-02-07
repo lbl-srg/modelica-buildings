@@ -34,13 +34,13 @@ partial model PartialChillerBorefield
     TConEntMin=298.15,
     TConEntMax=328.15) "Chiller performance data"
     annotation (Placement(transformation(extent={{20,180},{40,200}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSupSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupSet(
     k=45+273.15,
     y(final unit="K",
       displayUnit="degC"))
     "Heating water supply temperature set point"
     annotation (Placement(transformation(extent={{-140,130},{-120,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatSupSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatSupSet(
     k=7+273.15,
     y(final unit="K",
       displayUnit="degC"))
@@ -105,10 +105,10 @@ partial model PartialChillerBorefield
     final m_flow_nominal=mChiWat_flow_nominal,
     dp_nominal=100E3) "Chilled water distribution pump"
     annotation (Placement(transformation(extent={{110,30},{130,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(final k=
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai2(final k=
         mChiWat_flow_nominal) "Scale to nominal mass flow rate"
     annotation (Placement(transformation(extent={{90,90},{110,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(final k=
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(final k=
         mHeaWat_flow_nominal) "Scale to nominal mass flow rate"
     annotation (Placement(transformation(extent={{40,90},{20,110}})));
   DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumHeaWat(
@@ -129,7 +129,7 @@ partial model PartialChillerBorefield
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={-111,0})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai3(final k=-ets.QHeaWat_flow_nominal)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai3(final k=-ets.QHeaWat_flow_nominal)
     "Scale to nominal heat flow rate"
     annotation (Placement(transformation(extent={{-180,50},{-160,70}})));
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow loaHea
@@ -148,18 +148,18 @@ partial model PartialChillerBorefield
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={149,0})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai4(final k=-ets.QChiWat_flow_nominal)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai4(final k=-ets.QChiWat_flow_nominal)
     "Scale to nominal heat flow rate"
     annotation (Placement(transformation(extent={{220,50},{200,70}})));
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow loaCoo
     "Cooling load as prescribed heat flow rate"
     annotation (Placement(transformation(extent={{182,50},{162,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold uHea(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold uHea(
     final t=0.01,
     final h=0.005)
     "Enable heating"
     annotation (Placement(transformation(extent={{-200,-30},{-180,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold uCoo(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold uCoo(
     final t=0.01,
     final h=0.005)
     "Enable cooling"

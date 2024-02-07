@@ -42,7 +42,7 @@ model FanCoil2PipeHeatingValve
     final dp_nominal=dpLoa_nominal)
     "Fan"
     annotation (Placement(transformation(extent={{70,-10},{50,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID con(
+  Buildings.Controls.OBC.CDL.Reals.PID con(
     Ti=10,
     yMax=1,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
@@ -68,7 +68,7 @@ model FanCoil2PipeHeatingValve
   Modelica.Blocks.Sources.RealExpression Q_flowHea(
     y=hex.Q2_flow)
     annotation (Placement(transformation(extent={{120,210},{140,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiFloNom2(k=
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gaiFloNom2(k=
         mLoaHea_flow_nominal)
     annotation (Placement(transformation(extent={{56,170},{76,190}})));
   Fluid.Sources.Boundary_pT sinAir(
@@ -100,22 +100,22 @@ model FanCoil2PipeHeatingValve
     redeclare final package Medium=Medium1,
     final allowFlowReversal=allowFlowReversal)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=-90,origin={-40,-120})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiHeaFlo(k=1/
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gaiHeaFlo(k=1/
         QHea_flow_nominal)
     annotation (Placement(transformation(extent={{-40,210},{-20,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiHeaFlo1(k=1/
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gaiHeaFlo1(k=1/
         QHea_flow_nominal) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,190})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one(
     k=1)
     "One constant"
     annotation (Placement(transformation(extent={{-10,130},{10,150}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(
     k=have_speVar)
     annotation (Placement(transformation(extent={{-60,160},{-40,180}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Logical switch"
     annotation (Placement(transformation(extent={{30,170},{50,190}})));
   Fluid.FixedResistances.PressureDrop resLoa(

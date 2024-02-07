@@ -1,0 +1,7 @@
+simulateModel("Buildings.Controls.OBC.CDL.Reals.Validation.MatrixGain", method="Cvode", tolerance=1e-06, stopTime=1.0, resultFile="MatrixGain");
+
+createPlot(id=1, position={10, 15, 1000, 750}, subPlot=1, y={"matGai.y[1]", "matGai.y[2]", "matGai.y[3]"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{238,46,47}, {0,0,127}});
+createPlot(id=1, position={10, 15, 1000, 750}, subPlot=2, y={"matGai.u[1]", "matGai.u[2]"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=1, position={10, 15, 1000, 750}, subPlot=3, y={"matGai1.y[1]", "matGai1.y[2]"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=1, position={10, 15, 1000, 750}, subPlot=4, y={"matGai1.u[1]", "matGai1.u[2]"}, range={0.0, 0.05, -0.2, 0.6}, grid=true, colors={{28,108,200},{0,140,72}});
+

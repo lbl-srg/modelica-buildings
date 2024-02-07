@@ -2,11 +2,11 @@ within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subseque
 model Common_VOut_flow
   "Validation model for the multi zone VAV AHU minimum outdoor air control - damper position limits"
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VOutMinSet_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant VOutMinSet_flow(
     final k=minVOutSet_flow)
     "Outdoor volumetric airflow rate setpoint, 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp VOut_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp VOut_flow(
     final duration=1800,
     final offset=VOutMin_flow,
     final height=incVOutSet_flow)
