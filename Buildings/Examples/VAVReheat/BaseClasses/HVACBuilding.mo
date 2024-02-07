@@ -62,7 +62,7 @@ partial model HVACBuilding
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
    filNam=Modelica.Utilities.Files.loadResource(
-        "./Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
+        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
       computeWetBulbTemperature=false) "Weather data reader"
     annotation (Placement(transformation(extent={{-90,0},{-70,20}})));
   Fluid.Sources.Boundary_pT souHeaTer1(
@@ -74,7 +74,7 @@ partial model HVACBuilding
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={50,-80})));
-  Fluid.Sources.Boundary_pT sinHeaTer(
+  Fluid.Sources.Boundary_pT sinHeaTer1(
     redeclare package Medium = MediumW,
     p(displayUnit="Pa") = 300000,
     T=THeaWatInl_nominal,
@@ -88,38 +88,39 @@ equation
       points={{-70,10},{-56,10},{-56,11.4444},{-40.225,11.4444}},
       color={255,204,51},
       thickness=0.5));
-  connect(flo.TRooAir, hvac.TRoo) annotation (Line(points={{91.5217,60},{96,60},
-          {96,92},{-60,92},{-60,16.4444},{-48.75,16.4444}}, color={0,0,127}));
+  connect(flo.TRooAir, hvac.TRoo) annotation (Line(points={{91.5217,61.6667},{
+          96,61.6667},{96,92},{-60,92},{-60,16.4444},{-48.75,16.4444}},
+                                                            color={0,0,127}));
   connect(hvac.port_supAir[1], flo.portsSou[1]) annotation (Line(points={{42.275,
-          19.2222},{45.5652,19.2222},{45.5652,48.6154}}, color={0,127,255}));
+          19.2222},{45.5652,19.2222},{45.5652,49.3333}}, color={0,127,255}));
   connect(hvac.port_supAir[2], flo.portsEas[1]) annotation (Line(points={{42.275,
-          19.2222},{80.2609,19.2222},{80.2609,60.9231}}, color={0,127,255}));
+          19.2222},{80.2609,19.2222},{80.2609,62.6667}}, color={0,127,255}));
   connect(hvac.port_supAir[3], flo.portsNor[1]) annotation (Line(points={{42.275,
-          19.2222},{56,19.2222},{56,71.3846},{45.5652,71.3846}}, color={0,127,255}));
+          19.2222},{56,19.2222},{56,74},{45.5652,74}},           color={0,127,255}));
   connect(hvac.port_supAir[4], flo.portsWes[1]) annotation (Line(points={{42.275,
-          19.2222},{56,19.2222},{56,36},{26.6957,36},{26.6957,60.9231}}, color={
+          19.2222},{56,19.2222},{56,36},{26.6957,36},{26.6957,62.6667}}, color={
           0,127,255}));
   connect(hvac.port_supAir[5], flo.portsCor[1]) annotation (Line(points={{42.275,
-          19.2222},{56,19.2222},{56,60.9231},{45.5652,60.9231}}, color={0,127,255}));
+          19.2222},{56,19.2222},{56,62.6667},{45.5652,62.6667}}, color={0,127,255}));
   connect(hvac.port_retAir[1], flo.portsSou[2]) annotation (Line(points={{42.275,
-          -4.38889},{48.6087,-4.38889},{48.6087,48.6154}}, color={0,127,255}));
+          -4.38889},{48.6087,-4.38889},{48.6087,49.3333}}, color={0,127,255}));
   connect(hvac.port_retAir[2], flo.portsEas[2]) annotation (Line(points={{42.275,
-          -4.38889},{83.3043,-4.38889},{83.3043,60.9231}}, color={0,127,255}));
+          -4.38889},{83.3043,-4.38889},{83.3043,62.6667}}, color={0,127,255}));
   connect(hvac.port_retAir[3], flo.portsNor[2]) annotation (Line(points={{42.275,
-          -4.38889},{58,-4.38889},{58,71.3846},{48.6087,71.3846}}, color={0,127,
+          -4.38889},{58,-4.38889},{58,74},{48.6087,74}},           color={0,127,
           255}));
   connect(hvac.port_retAir[4], flo.portsWes[2]) annotation (Line(points={{42.275,
-          -4.38889},{60,-4.38889},{60,34},{29.7391,34},{29.7391,60.9231}},
+          -4.38889},{60,-4.38889},{60,34},{29.7391,34},{29.7391,62.6667}},
         color={0,127,255}));
   connect(hvac.port_retAir[5], flo.portsCor[2]) annotation (Line(points={{42.275,
-          -4.38889},{60,-4.38889},{60,58},{48.6087,58},{48.6087,60.9231}},
+          -4.38889},{60,-4.38889},{60,58},{48.6087,58},{48.6087,62.6667}},
         color={0,127,255}));
   connect(weaDat.weaBus, flo.weaBus) annotation (Line(
-      points={{-70,10},{-66,10},{-66,86.1538},{64.1304,86.1538}},
+      points={{-70,10},{-66,10},{-66,90},{64.1304,90}},
       color={255,204,51},
       thickness=0.5));
-  connect(hvac.portHeaTerSup, souHeaTer1.ports[1]) annotation (Line(points={{
-          17.25,-28},{18,-28},{18,-56},{50,-56},{50,-78}}, color={0,127,255}));
+  connect(hvac.portHeaTerSup, souHeaTer1.ports[1]) annotation (Line(points={{17.25,
+          -28},{18,-28},{18,-56},{50,-56},{50,-70}},       color={0,127,255}));
   connect(hvac.portHeaTerRet, sinHeaTer1.ports[1]) annotation (Line(points={{
           25.5,-28},{26,-28},{26,-54},{80,-54},{80,-78}}, color={0,127,255}));
   annotation (
