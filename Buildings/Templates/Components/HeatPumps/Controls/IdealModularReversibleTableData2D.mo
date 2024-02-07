@@ -1,8 +1,7 @@
 within Buildings.Templates.Components.HeatPumps.Controls;
 block IdealModularReversibleTableData2D
   "Ideal controller for modular model of reversible heat pump with 2D table performance data"
-  extends
-    Buildings.Templates.Components.Interfaces.PartialHeatPumpModularController;
+  extends Buildings.Templates.Components.Interfaces.PartialHeatPumpModularController;
   replaceable Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D hea(
     final calEff=false)
     "Compute performance in heating mode"
@@ -29,10 +28,11 @@ block IdealModularReversibleTableData2D
     "Condenser (load side) inlet temperature"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=-90,
       origin={-80,80})));
-  Modelica.Blocks.Sources.RealExpression QReqCoo_flow(
-    y(start=0,
+  Modelica.Blocks.Sources.RealExpression QReqCoo_flow(y(
+      start=0,
       final unit="W",
-      final min=0)=if (u1 and not u1Hea) then min(0, dTFlo.y * coo.cpEva) else 0)
+      final min=0) = if (u1 and not u1Hea) then min(0, dTFlo.y*coo.cpEva) else
+      0)
     "Required cooling capacity"
     annotation (Placement(transformation(extent={{-40,-76},{-20,-56}})));
   replaceable Buildings.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2D coo(
@@ -81,8 +81,8 @@ block IdealModularReversibleTableData2D
     annotation (Placement(transformation(extent={{-150,-110},{-130,-90}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi
     annotation (Placement(transformation(extent={{150,-10},{170,10}})));
-  Modelica.Blocks.Sources.BooleanExpression enaHeaAndNoCapMar(y=u1 and u1Hea
-         and not isCapMarHea.y)
+  Modelica.Blocks.Sources.BooleanExpression enaHeaAndNoCapMar(
+    y=u1 and u1Hea and not isCapMarHea.y)
     "Return true if heating enabled and required capacity unmet at current conditions"
     annotation (Placement(transformation(extent={{80,-130},{100,-110}})));
   Modelica.Blocks.Routing.RealPassThrough TConOut
@@ -110,14 +110,16 @@ block IdealModularReversibleTableData2D
     final mCon_flow_nominal=coo.mCon_flow_nominal)
     "Compute performance in cooling mode at maximum compressor speed"
     annotation (Placement(transformation(extent={{-70,-50},{-50,-30}})));
-  Modelica.Blocks.Sources.BooleanExpression enaCooAndNoCapMar(y=u1 and not
-        u1Hea and not isCapMarCoo.y)
+  Modelica.Blocks.Sources.BooleanExpression enaCooAndNoCapMar(
+    y=u1 and not u1Hea and not isCapMarCoo.y)
     "Return true if cooling enabled and required capacity unmet at current conditions"
     annotation (Placement(transformation(extent={{80,-170},{100,-150}})));
   Buildings.Controls.OBC.CDL.Logical.Or enaAndNoCapMar
     "Return true if cooling or heating enabled and required capacity unmet at current conditions"
     annotation (Placement(transformation(extent={{110,-130},{130,-110}})));
-  Buildings.Controls.OBC.CDL.Reals.Hysteresis isCapMarHea(uLow=0, uHigh=1E2)
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis isCapMarHea(
+    uLow=0,
+    uHigh=1E2)
     "Return true if there is some capacity margin"
     annotation (Placement(transformation(extent={{40,-130},{60,-110}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract capMarHea
@@ -126,7 +128,9 @@ block IdealModularReversibleTableData2D
   Buildings.Controls.OBC.CDL.Reals.Subtract capMarCoo
     "Compute cooling capacity margin: >0 means capacity reserve"
     annotation (Placement(transformation(extent={{0,-170},{20,-150}})));
-  Buildings.Controls.OBC.CDL.Reals.Hysteresis isCapMarCoo(uLow=0, uHigh=1E2)
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis isCapMarCoo(
+    uLow=0,
+    uHigh=1E2)
     "Return true if there is some capacity margin"
     annotation (Placement(transformation(extent={{40,-170},{60,-150}})));
 protected
@@ -163,7 +167,7 @@ equation
   connect(bus.TEvaInMea, TEvaInMea.u)
     annotation (Line(points={{0,180},{0,100},{-40,100},{-40,92}},color={255,204,51},thickness=0.5));
   connect(bus.TConInMea, TConInMea.u)
-    annotation (Line(points={{0,180},{0,100},{-82,100},{-82,92},{-80,92}},color={255,204,51},thickness=0.5));
+    annotation (Line(points={{0,180},{0,100},{-80,100},{-80,92}},         color={255,204,51},thickness=0.5));
   connect(QReqCoo_flow.y, inverseBlockConstraints1.u1)
     annotation (Line(points={{-19,-66},{-6.3,-66}},color={0,0,127}));
   connect(inverseBlockConstraints.y1, maxHeaCoo.u1)
@@ -235,31 +239,33 @@ equation
   connect(TEvaOutMea.y, busCoo.TEvaOutMea)
     annotation (Line(points={{0,69},{0,30},{60,30},{60,0}},color={0,0,127}));
   connect(enaHeaAndNoCapMar.y, enaAndNoCapMar.u1)
-    annotation (Line(points={{101,-120},{108,-120}}, color={255,0,255}));
-  connect(enaCooAndNoCapMar.y, enaAndNoCapMar.u2) annotation (Line(points={{101,
-          -160},{104,-160},{104,-128},{108,-128}}, color={255,0,255}));
-  connect(enaAndNoCapMar.y, swi.u2) annotation (Line(points={{132,-120},{136,
-          -120},{136,0},{148,0}}, color={255,0,255}));
+    annotation (Line(points={{101,-120},{108,-120}},color={255,0,255}));
+  connect(enaCooAndNoCapMar.y, enaAndNoCapMar.u2)
+    annotation (Line(points={{101,-160},{104,-160},{104,-128},{108,-128}},color={255,0,255}));
+  connect(enaAndNoCapMar.y, swi.u2)
+    annotation (Line(points={{132,-120},{136,-120},{136,0},{148,0}},color={255,0,255}));
   connect(one.y, busCooMax.ySet)
     annotation (Line(points={{-128,-100},{-80,-100},{-80,0},{-60,0}},color={0,0,127}));
   connect(TConOut.y, busHea.TConOutMea)
     annotation (Line(points={{-120,69},{-120,60},{20,60},{20,0}},color={0,0,127}));
-  connect(heaMax.QCon_flow, capMarHea.u1) annotation (Line(points={{-106.667,
-          -50.8333},{-106.667,-114},{-2,-114}}, color={0,0,127}));
-  connect(QReqHea_flow.y, capMarHea.u2) annotation (Line(points={{-19,-26},{-12,
-          -26},{-12,-126},{-2,-126}}, color={0,0,127}));
-  connect(QReqCoo_flow.y, capMarCoo.u1) annotation (Line(points={{-19,-66},{-16,
-          -66},{-16,-154},{-2,-154}}, color={0,0,127}));
-  connect(cooMax.QEva_flow, capMarCoo.u2) annotation (Line(points={{-53.3333,
-          -50.8333},{-53.3333,-166},{-2,-166}}, color={0,0,127}));
+  connect(heaMax.QCon_flow, capMarHea.u1)
+    annotation (Line(points={{-106.667,-50.8333},{-106.667,-114},{-2,-114}},
+      color={0,0,127}));
+  connect(QReqHea_flow.y, capMarHea.u2)
+    annotation (Line(points={{-19,-26},{-12,-26},{-12,-126},{-2,-126}},color={0,0,127}));
+  connect(QReqCoo_flow.y, capMarCoo.u1)
+    annotation (Line(points={{-19,-66},{-16,-66},{-16,-154},{-2,-154}},color={0,0,127}));
+  connect(cooMax.QEva_flow, capMarCoo.u2)
+    annotation (Line(points={{-53.3333,-50.8333},{-53.3333,-166},{-2,-166}},
+      color={0,0,127}));
   connect(capMarCoo.y, isCapMarCoo.u)
-    annotation (Line(points={{22,-160},{38,-160}}, color={0,0,127}));
+    annotation (Line(points={{22,-160},{38,-160}},color={0,0,127}));
   connect(capMarHea.y, isCapMarHea.u)
-    annotation (Line(points={{22,-120},{38,-120}}, color={0,0,127}));
-  connect(lim.y, swi.u3) annotation (Line(points={{121,-46},{140,-46},{140,-8},
-          {148,-8}}, color={0,0,127}));
-  connect(one.y, swi.u1) annotation (Line(points={{-128,-100},{132,-100},{132,8},
-          {148,8}}, color={0,0,127}));
+    annotation (Line(points={{22,-120},{38,-120}},color={0,0,127}));
+  connect(lim.y, swi.u3)
+    annotation (Line(points={{121,-46},{140,-46},{140,-8},{148,-8}},color={0,0,127}));
+  connect(one.y, swi.u1)
+    annotation (Line(points={{-128,-100},{132,-100},{132,8},{148,8}},color={0,0,127}));
   annotation (
     defaultComponentName="ctl",
     Documentation(

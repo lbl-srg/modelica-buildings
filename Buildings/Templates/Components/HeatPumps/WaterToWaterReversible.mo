@@ -1,9 +1,8 @@
 within Buildings.Templates.Components.HeatPumps;
-model AirToWaterReversible
-  "Reversible air-to-water heat pump"
+model WaterToWaterReversible
+  "Reversible water-to-water heat pump"
   extends Buildings.Templates.Components.Interfaces.PartialHeatPumpModular(
-    redeclare final package MediumSou = Buildings.Media.Air,
-    final typ=Buildings.Templates.Components.Types.HeatPump.AirToWater,
+    final typ=Buildings.Templates.Components.Types.HeatPump.WaterToWater,
     heaPum(safCtrPar(
         use_minOnTime=false,
         use_minOffTime=false,
@@ -13,7 +12,6 @@ model AirToWaterReversible
             Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
             iceFacCal, final datTab=dat.modCoo)),
     final is_rev=true,
-    final allowFlowReversalSou=false,
     redeclare
       Buildings.Templates.Components.HeatPumps.Controls.IdealModularReversibleTableData2D
       ctl(hea(
@@ -39,61 +37,27 @@ model AirToWaterReversible
         final cpEva=cpChiWat_default,
         final QCooNoSca_flow_nominal=heaPum.refCyc.refCycHeaPumCoo.QCooNoSca_flow_nominal,
         final dTCon_nominal=heaPum.refCyc.refCycHeaPumCoo.dTCon_nominal,
-        final dTEva_nominal=heaPum.refCyc.refCycHeaPumCoo.dTEva_nominal,
         final PEle_nominal=heaPum.refCyc.refCycHeaPumCoo.PEle_nominal,
-        final TCon_nominal=heaPum.refCyc.refCycHeaPumCoo.TCon_nominal,
-        final mEva_flow_nominal=heaPum.refCyc.refCycHeaPumCoo.mEva_flow_nominal,
-        final useInChi=heaPum.refCyc.refCycHeaPumCoo.useInChi,
-        final TEva_nominal=heaPum.refCyc.refCycHeaPumCoo.TEva_nominal,
+        final dTEva_nominal=heaPum.refCyc.refCycHeaPumCoo.dTEva_nominal,
         final scaFac=heaPum.refCyc.refCycHeaPumCoo.scaFac,
+        final extrapolation=heaPum.refCyc.refCycHeaPumCoo.extrapolation,
+        final QCoo_flow_nominal=heaPum.refCyc.refCycHeaPumCoo.QCoo_flow_nominal,
+        final datTab=heaPum.refCyc.refCycHeaPumCoo.datTab,
+        final useInChi=heaPum.refCyc.refCycHeaPumCoo.useInChi,
+        final mEva_flow_nominal=heaPum.refCyc.refCycHeaPumCoo.mEva_flow_nominal,
         final y_nominal=heaPum.refCyc.refCycHeaPumCoo.y_nominal,
         final mCon_flow_nominal=heaPum.refCyc.refCycHeaPumCoo.mCon_flow_nominal,
-        final datTab=heaPum.refCyc.refCycHeaPumCoo.datTab,
-        final extrapolation=heaPum.refCyc.refCycHeaPumCoo.extrapolation,
         final smoothness=heaPum.refCyc.refCycHeaPumCoo.smoothness,
-        final QCoo_flow_nominal=heaPum.refCyc.refCycHeaPumCoo.QCoo_flow_nominal)));
+        final TEva_nominal=heaPum.refCyc.refCycHeaPumCoo.TEva_nominal,
+        final TCon_nominal=heaPum.refCyc.refCycHeaPumCoo.TCon_nominal)));
 
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter mAir_flow(
-    final k=mSouHea_flow_nominal)
-    "Air mass flow rate"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=-90,
-      origin={60,-60})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal y1Rea
-    "Convert on/off command into real"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=-90,
-      origin={60,70})));
-  Fluid.Movers.BaseClasses.IdealSource floSou(
-    redeclare final package Medium=MediumAir,
-    final m_flow_small=1E-4 * mSouHea_flow_nominal,
-    final allowFlowReversal=allowFlowReversalSou,
-    final control_m_flow=true,
-    final control_dp=false)
-    "Air flow source"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=90,
-      origin={80,-90})));
 equation
-  connect(y1Rea.y, mAir_flow.u)
-    annotation (Line(points={{60,58},{60,-48}},color={0,0,127}));
-  connect(floSou.port_b, TSouEnt.port_a)
-    annotation (Line(points={{80,-80},{80,-20},{40,-20}},color={0,127,255}));
-  connect(port_aSou, floSou.port_a)
-    annotation (Line(points={{80,-140},{80,-100}},color={0,127,255}));
-  connect(mAir_flow.y, floSou.m_flow_in)
-    annotation (Line(points={{60,-72},{60,-96},{72,-96}},color={0,0,127}));
-  connect(ctl.y1, y1Rea.u)
-    annotation (Line(points={{-28,88},{60,88},{60,82}},color={255,0,255}));
+  connect(port_aSou, TSouEnt.port_a)
+    annotation (Line(points={{80,-140},{80,-20},{40,-20}},color={0,127,255}));
   annotation (
     defaultComponentName="heaPum",
     Documentation(
       info="<html>
-FIXME: Currently bindings involve heaPum.refCyc.refCycHeaPumCoo which is conditional.
-This is to be corrected in the HP models, see #3 in
-https://docs.google.com/document/d/130SBzYK3YHHSzFvr5FyW_WOXmNGoXKzUJ3Wahq1rx9U/edit
-<br/>
-FIXME: We use these bindings 
-coo(final cpCon=cpSou_default, final cpEva=cpChiWat_default) instead
-of bindings to parameters of heaPum.refCyc.refCycHeaPumCoo due to a bug
-in the HP model, see #1 in above document.
 <p>
 This is a model for an air-to-water heat pump where the capacity
 and drawn power are computed based on the equation fit method.
@@ -131,4 +95,4 @@ DI signal, with a dimensionality of zero
 </li>
 </ul>
 </html>"));
-end AirToWaterReversible;
+end WaterToWaterReversible;

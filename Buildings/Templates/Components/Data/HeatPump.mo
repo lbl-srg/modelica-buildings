@@ -78,74 +78,108 @@ record HeatPump "Record for heat pump model"
     else Buildings.Templates.Data.Defaults.TChiWatRet
     "CHW return temperature"
     annotation(Dialog(group="Nominal condition", enable=is_rev));
-
   parameter Modelica.Units.SI.Temperature TSouHea_nominal(
     start=Buildings.Templates.Data.Defaults.TOutHeaPumHeaLow,
     final min=220)
     "OAT or source fluid supply temperature (evaporator entering) in heating mode"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.MassFlowRate mSouHea_flow_nominal(
+  parameter Modelica.Units.SI.MassFlowRate mSouWatHea_flow_nominal(
     start=mHeaWat_flow_nominal,
     final min=0)
     "Source fluid mass flow rate in heating mode"
     annotation(Dialog(group="Nominal condition",
     enable=typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater));
-  parameter Modelica.Units.SI.PressureDifference dpSouHea_nominal(
+  parameter Modelica.Units.SI.PressureDifference dpSouWatHea_nominal(
     min=0,
     start=Buildings.Templates.Data.Defaults.dpChiWatChi)
     "Source fluid pressure drop in heating mode"
     annotation (Dialog(group="Nominal condition",
     enable=typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater));
+  final parameter Modelica.Units.SI.MassFlowRate mSouHea_flow_nominal=
+    if typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater then
+      mSouWatHea_flow_nominal else
+      Buildings.Templates.Data.Defaults.mAirFloByCapChi * abs(capHea_nominal)
+    "Source fluid mass flow rate in heating mode";
+  final parameter Modelica.Units.SI.PressureDifference dpSouHea_nominal=
+    if typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater then
+      dpSouWatHea_nominal else Buildings.Templates.Data.Defaults.dpAirChi
+    "Source fluid pressure drop in heating mode";
   parameter Modelica.Units.SI.Temperature TSouCoo_nominal(
     start=Buildings.Templates.Data.Defaults.TOutHeaPumCoo,
     final min=273.15)
     "OAT or source fluid supply temperature (condenser entering) in cooling mode"
     annotation(Dialog(group="Nominal condition",
     enable=is_rev));
-  parameter Modelica.Units.SI.MassFlowRate mSouCoo_flow_nominal(
-    start=mHeaWat_flow_nominal,
+  parameter Modelica.Units.SI.MassFlowRate mSouWatCoo_flow_nominal(
+    start=mChiWat_flow_nominal,
     final min=0)
     "Source fluid mass flow rate in cooling mode"
     annotation(Dialog(group="Nominal condition",
     enable=typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater and
     is_rev));
+  final parameter Modelica.Units.SI.MassFlowRate mSouCoo_flow_nominal=
+    if typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater then
+      mSouWatCoo_flow_nominal else
+      Buildings.Templates.Data.Defaults.mAirFloByCapChi * abs(capCoo_nominal)
+    "Source fluid mass flow rate in cooling mode";
   final parameter Modelica.Units.SI.PressureDifference dpSouCoo_nominal=
     dpSouHea_nominal * (mSouCoo_flow_nominal/mSouHea_flow_nominal)^2
-    "Source fluid pressure drop in cooling mode"
-    annotation (Dialog(group="Nominal condition",
-    enable=typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater and
-    is_rev));
+    "Source fluid pressure drop in cooling mode";
   replaceable parameter
-    Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump hea(
+    Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump modHea(
       mCon_flow_nominal=mHeaWat_flow_nominal,
-      mEva_flow_nominal=if typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater then
-        mSouHea_flow_nominal else
-        Buildings.Templates.Data.Defaults.mAirFloByCapChi * abs(capHea_nominal),
+      mEva_flow_nominal=mSouHea_flow_nominal,
       dpCon_nominal=dpHeaWat_nominal,
-      dpEva_nominal=if typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater then
-        dpSouHea_nominal else Buildings.Templates.Data.Defaults.dpAirChi)
+      dpEva_nominal=dpSouHea_nominal)
     constrainedby Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump
-    "Performance data in heating mode"
-    annotation (choicesAllMatching=true,
-      Placement(transformation(extent={{-38,2},{-22,18}})));
-
-  replaceable parameter Buildings.Fluid.Chillers.ModularReversible.Data.TableData2D.Generic coo(
-      mCon_flow_nominal=if typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater then
-        mSouCoo_flow_nominal else
-        Buildings.Templates.Data.Defaults.mAirFloByCapChi * abs(capCoo_nominal),
+    "Performance data in heating mode - Modular model"
+    annotation (Dialog(
+      enable=typMod==Buildings.Templates.Components.Types.HeatPumpModel.ModularTableData2D),
+      choicesAllMatching=true,
+      Placement(transformation(extent={{-38,0},{-22,16}})));
+  replaceable parameter Buildings.Fluid.Chillers.ModularReversible.Data.TableData2D.Generic modCoo(
+      mCon_flow_nominal=mSouCoo_flow_nominal,
       mEva_flow_nominal=mChiWat_flow_nominal,
-      dpCon_nominal=if typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater then
-        dpSouCoo_nominal else Buildings.Templates.Data.Defaults.dpAirChi,
+      dpCon_nominal=dpSouCoo_nominal,
       dpEva_nominal=dpChiWat_nominal)
     constrainedby Buildings.Fluid.Chillers.ModularReversible.Data.TableData2D.Generic
-    "Performance data in cooling mode"
-    annotation (Dialog(enable=is_rev),
+    "Performance data in cooling mode - Modular model"
+    annotation (Dialog(
+    enable=typMod==Buildings.Templates.Components.Types.HeatPumpModel.ModularTableData2D and is_rev),
     choicesAllMatching=true,
-    Placement(transformation(extent={{22,2},{38,18}})));
+    Placement(transformation(extent={{22,0},{38,16}})));
+  replaceable parameter
+    Buildings.Fluid.HeatPumps.Data.EquationFitReversible.Generic perFit(
+    dpHeaLoa_nominal=dpHeaWat_nominal,
+    dpHeaSou_nominal=dpSouHea_nominal,
+    hea(
+      Q_flow=abs(capHea_nominal),
+      P=0,
+      mLoa_flow=mHeaWat_flow_nominal,
+      mSou_flow=mSouHea_flow_nominal,
+      coeQ={1,0,0,0,0},
+      coeP={1,0,0,0,0},
+      TRefLoa=THeaWatRet_nominal,
+      TRefSou=TSouHea_nominal),
+    coo(
+      Q_flow=if is_rev then -abs(capCoo_nominal) else -1,
+      P=0,
+      mLoa_flow=mChiWat_flow_nominal,
+      mSou_flow=mSouCoo_flow_nominal,
+      coeQ={1,0,0,0,0},
+      coeP={1,0,0,0,0},
+      TRefLoa=TChiWatRet_nominal,
+      TRefSou=TSouCoo_nominal)) constrainedby
+    Buildings.Fluid.HeatPumps.Data.EquationFitReversible.Generic
+    "Performance data - Equation fit model"
+    annotation (
+    Dialog(enable=typMod == Buildings.Templates.Components.Types.HeatPumpModel.EquationFit),
+    choicesAllMatching=true,
+    Placement(transformation(extent={{-8,-40},{8,-24}})));
 
 annotation (
   defaultComponentPrefixes="parameter",
-  defaultComponentName="datHeaPum",
+  defaultComponentName="dat",
   Documentation(info="<html>
 <p>
 This record provides the set of sizing and operating parameters for 

@@ -53,7 +53,7 @@ model PartialHeatPump
     cpSou_default=cpSou_default)
     "Design and operating parameters"
     annotation (
-    Placement(transformation(extent={{70,80},{90,100}})),
+    Placement(transformation(extent={{70,140},{90,160}})),
     __ctrlFlow(enable=false));
 
   final parameter Modelica.Units.SI.MassFlowRate mHeaWat_flow_nominal=
@@ -94,18 +94,16 @@ model PartialHeatPump
     dat.TChiWatRet_nominal
     "Design CHW return temperature";
   final parameter Modelica.Units.SI.MassFlowRate mSouHea_flow_nominal=
-    dat.hea.mEva_flow_nominal
+    dat.mSouHea_flow_nominal
     "Design source fluid mass flow rate in heating mode";
   final parameter Modelica.Units.SI.PressureDifference dpSouHea_nominal=
-    dat.hea.dpEva_nominal
-    "Design source fluid pressure drop in heating mode"
-    annotation (Dialog(group="Nominal condition",
-    enable=typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater));
+    dat.dpSouHea_nominal
+    "Design source fluid pressure drop in heating mode";
   final parameter Modelica.Units.SI.MassFlowRate mSouCoo_flow_nominal=
-    dat.coo.mCon_flow_nominal
+    dat.mSouCoo_flow_nominal
     "Design source fluid mass flow rate in cooling mode";
   final parameter Modelica.Units.SI.PressureDifference dpSouCoo_nominal=
-    dat.coo.dpCon_nominal
+    dat.dpSouCoo_nominal
     "Designs source fluid pressure drop in cooling mode";
   final parameter Modelica.Units.SI.Temperature TSouCoo_nominal=
     dat.TSouCoo_nominal
@@ -150,6 +148,37 @@ model PartialHeatPump
       X=MediumSou.X_default)
     "Source fluid default state";
 
+  Modelica.Fluid.Interfaces.FluidPort_a port_aSou(
+    redeclare final package Medium = MediumSou)
+    "Fluid connector a (positive design flow direction is from port_a to port_b)"
+    annotation (Placement(
+      iconVisible=typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater,
+      transformation(extent={{70,-150},{90,-130}}),
+      iconTransformation(extent={{90,-110},{110,-90}})));
+  Modelica.Fluid.Interfaces.FluidPort_b port_bSou(
+    redeclare final package Medium = MediumSou)
+    "Fluid connector b (positive design flow direction is from port_a to port_b)"
+    annotation (Placement(
+      iconVisible=typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater,
+      transformation(extent={{-70,-150},{-90,-130}}),
+      iconTransformation(extent={{-90,-110},{-110,-90}})));
+  Buildings.Templates.Components.Interfaces.Bus bus
+    "Control bus"
+    annotation (Placement(transformation(extent={{-20,140},{20,180}}),
+     iconTransformation(extent={{-20,80},{20, 120}})));
+  Buildings.BoundaryConditions.WeatherData.Bus busWea
+    if typ==Buildings.Templates.Components.Types.HeatPump.AirToWater
+    "Weather bus"
+    annotation (Placement(transformation(extent={{-60,-160},{-20,-120}}),
+        iconTransformation(extent={{-80,80},{-40,120}})));
+  Fluid.Sources.Outside air(redeclare final package Medium = MediumAir, nPorts=
+        2)
+    if typ == Buildings.Templates.Components.Types.HeatPump.AirToWater
+    "Outdoor air" annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=-90,
+        origin={0,-130})));
+
   // Diagnostics
   MediumSou.ThermodynamicState sta_aSou=
       MediumSou.setState_phX(port_aSou.p,
@@ -161,45 +190,15 @@ model PartialHeatPump
                           noEvent(actualStream(port_bSou.h_outflow)),
                           noEvent(actualStream(port_bSou.Xi_outflow)))
       if show_T "Source medium properties in port_bSou";
-
-  Modelica.Fluid.Interfaces.FluidPort_a port_aSou(
-    redeclare final package Medium = MediumSou)
-    "Fluid connector a (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(
-      iconVisible=typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater,
-      transformation(extent={{30,-110},{50,-90}}),
-      iconTransformation(extent={{40,-110},{60,-90}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_bSou(
-    redeclare final package Medium = MediumSou)
-    "Fluid connector b (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(
-      iconVisible=typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater,
-      transformation(extent={{-30,-110},{-50,-90}}),
-      iconTransformation(extent={{-40,-110},{-60,-90}})));
-  Buildings.Templates.Components.Interfaces.Bus bus
-    "Control bus"
-    annotation (Placement(transformation(extent={{-20,80},{20,120}}),
-     iconTransformation(extent={{-20,80},{20, 120}})));
-  Buildings.BoundaryConditions.WeatherData.Bus busWea
-    if typ==Buildings.Templates.Components.Types.HeatPump.AirToWater
-    "Weather bus"
-    annotation (Placement(transformation(extent={{-80,80},{-40,120}}),
-        iconTransformation(extent={{-80,80},{-40,120}})));
-  Fluid.Sources.Outside air(redeclare final package Medium = MediumAir, nPorts=2)
-    if typ == Buildings.Templates.Components.Types.HeatPump.AirToWater
-    "Outdoor air" annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=-90,
-        origin={0,-90})));
 equation
-  connect(air.ports[1], port_bSou) annotation (Line(points={{-1,-80},{-40,-80},{
-          -40,-100}}, color={0,127,255}));
-  connect(air.ports[2], port_aSou)
-    annotation (Line(points={{1,-80},{40,-80},{40,-100}}, color={0,127,255}));
   connect(busWea, air.weaBus) annotation (Line(
-      points={{-60,100},{-60,-90},{0.2,-90},{0.2,-100}},
+      points={{-40,-140},{0.2,-140}},
       color={255,204,51},
       thickness=0.5));
+  connect(port_aSou, air.ports[1]) annotation (Line(points={{80,-140},{80,-120},
+          {-1,-120}}, color={0,127,255}));
+  connect(port_bSou, air.ports[2]) annotation (Line(points={{-80,-140},{-80,
+          -120},{1,-120}}, color={0,127,255}));
 annotation (
 Icon(graphics={
     Rectangle(
@@ -213,5 +212,6 @@ Icon(graphics={
           textString="HP")}), Documentation(info="<html>
 RFE: Add check for design capacity below the one computed
 from reference values (per record).
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(extent={{-100,-140},{100,160}})));
 end PartialHeatPump;
