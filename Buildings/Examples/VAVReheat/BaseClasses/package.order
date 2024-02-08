@@ -1,9 +1,15 @@
 ASHRAE2006
 Floor
 Guideline36
+Guideline36_DXSystems
 HVACBuilding
+HVAC_Interface
+ParallelDXCoilCoo
+ParallelDXCoilHea
 PartialFloor
 PartialHVAC
+PartialHVAC_DXSystems
+PartialParallelDXCoiInterface
 RoomLeakage
 VAVReheatBox
 Controls

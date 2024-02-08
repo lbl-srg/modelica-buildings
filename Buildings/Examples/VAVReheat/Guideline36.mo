@@ -22,6 +22,48 @@ model Guideline36
     "Design air change per hour north";
   parameter Real ACHWes(final unit="1/h")=7
     "Design air change per hour west";
+  Fluid.Sources.Boundary_pT sinHea1(
+    redeclare package Medium = MediumW,
+    p=300000,
+    T=THeaWatInl_nominal,
+    nPorts=1) "Sink for heating coil" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-50,-88})));
+  Fluid.Sources.Boundary_pT souHea1(
+    redeclare package Medium = MediumW,
+    p(displayUnit="Pa") = 300000 + 6000,
+    T=THeaWatInl_nominal,
+    nPorts=1) "Source for heating coil" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-82,-88})));
+  Fluid.Sources.Boundary_pT sinCoo1(
+    redeclare package Medium = MediumW,
+    p=300000,
+    T=279.15,
+    nPorts=1) "Sink for cooling coil" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={8,-88})));
+  Fluid.Sources.Boundary_pT souCoo1(
+    redeclare package Medium = MediumW,
+    p(displayUnit="Pa") = 300000 + 6000,
+    T=279.15,
+    nPorts=1) "Source for cooling coil loop" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-28,-90})));
+equation
+  connect(souHea1.ports[1], hvac.portHeaCoiSup) annotation (Line(points={{-82,
+          -78},{-82,-48},{-21.25,-48},{-21.25,-28}}, color={0,127,255}));
+  connect(sinHea1.ports[1], hvac.portHeaCoiRet) annotation (Line(points={{-50,
+          -78},{-50,-50},{-13,-50},{-13,-28}}, color={0,127,255}));
+  connect(souCoo1.ports[1], hvac.portCooCoiSup) annotation (Line(points={{-28,
+          -80},{-28,-60},{-2,-60},{-2,-28}}, color={0,127,255}));
+  connect(sinCoo1.ports[1], hvac.portCooCoiRet) annotation (Line(points={{8,-78},
+          {8,-62},{6.25,-62},{6.25,-28}}, color={0,127,255}));
   annotation (
     Documentation(info="<html>
 <p>
