@@ -452,13 +452,13 @@ annotation (
     Simulation results are observed as follows: 
     <ul>
     <li>
-    In Plot[1], when the coil valve position <code>RTUCon.uDXCooCoi</code> exceeds the threshold 
-    <code>RTUCon.uThrCoi2</code> set at 0.8 for a duration of <code>RTUCon.timPer2</code> 
+    In Plot[1], when the coil valve position <code>RTUCon.uCooCoi</code> exceeds a threshold 
+    <code>RTUCon.uThrCoiEna</code> set at 0.8 for a duration of <code>RTUCon.timPerEna</code> 
     amounting to 300 seconds, the controller initiates enabling the first available DX coil 
     <code>RTUCon.yDXCooCoi[1]=true</code>. 
     </li>
     <li>
-    Compared to Plot[1], Plot[2] shows that when <code>RTUCon1.uDXCooCoi</code> surpasses
+    Compared to Plot[1], Plot[2] shows that when <code>RTUCon1.uCooCoi</code> surpasses
     0.8 for an additional duration of 480 seconds, the controller initiates staging up the 
     next DX coil <code>RTUCon1.yDXCooCoi[2]=true</code>. 
     </li>

@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.RooftopUnits.AuxiliaryCoil;
 block AuxiliaryCoil
-  "Sequences to control auxiliary heating coils"
+  "Sequences to control auxiliary heating coil"
 
   parameter Integer nCoi(min=1)
     "Number of DX coils"
@@ -248,22 +248,20 @@ equation
   Documentation(info="<html>
   <p>
   This is a control module for adjusting auxiliary heating coil operation signal. 
-  The control module is operated as follows: 
+  The control module operates as follows: 
   </p>
   <ul>
   <li>
-  When the outdoor air temperature <code>TOut</code> falls below a outdoor air lockout temperature 
-  <code>TLocOut</code>, the controller deactivates DX coils. It then utilizes the heating coil valve 
+  When the outdoor air temperature <code>TOut</code> falls below an outdoor air lockout temperature 
+  <code>TLocOut</code>, the controller deactivates DX coils and utilizes the heating coil valve 
   position signal <code>uHeaCoi</code> as an auxiliary heating coil operation signal 
-  <code>yAuxHea</code> if <code>uHeaCoi</code> exceeds the heating coil valve signal threshold 
-  <code>uThrHeaCoi</code> with a hysteresis value <code>dTHys</code>. Conversely, the controller 
-  disables the auxiliary heating if <code>uHeaCoi</code> falls below <code>uThrHeaCoi</code>.
+  <code>yAuxHea</code>.
   </li>
   <li>
   When <code>TOut</code> exceeds <code>TLocOut</code>, the controller maps <code>yAuxHea</code> 
-  from <code>uThrHeaCoi</code> to 100% of <code>uHeaCoi</code> if <code>uHeaCoi</code> exceeds 
-  <code>uThrHeaCoi</code>. This ensures that the auxiliary heating is only employed during coil 
-  staging or when the coils are unable to meet the heating load.
+  from the heating coil valve signal threshold <code>uThrHeaCoi</code> to 100% of <code>uHeaCoi</code> 
+  if <code>uHeaCoi</code> exceeds <code>uThrHeaCoi</code>. This ensures that the auxiliary heating
+  is only employed during coil staging or when the coils are unable to meet the heating load.
   </li>
   </ul>
   </html>", revisions="<html>

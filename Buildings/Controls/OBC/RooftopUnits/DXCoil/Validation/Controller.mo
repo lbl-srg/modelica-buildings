@@ -1,5 +1,6 @@
 within Buildings.Controls.OBC.RooftopUnits.DXCoil.Validation;
-model Controller "Validation model for DX coil controller"
+model Controller
+  "Validation model for DX coil controller"
 
   Buildings.Controls.OBC.RooftopUnits.DXCoil.Controller DXCoiCon(
     final nCoi=3,

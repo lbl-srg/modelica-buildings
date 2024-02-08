@@ -77,27 +77,28 @@ equation
     <p>
     This is a validation model for the controller
     <a href=\"modelica://Buildings.Fluid.RooftopUnits.Controls.AuxiliaryCoil\">
-    Buildings.Fluid.RooftopUnits.Controls.AuxiliaryCoil</a>. The model comprises the controllers
-    <code>conAuxCoi</code> and <code>conAuxCoi1</code>, which receives input signals 
-    including outdoor air temperatures <code>TOut</code> and <code>TOut1</code> and heating 
-    coil valve position signals <code>heaSetPoi</code> and <code>heaSetPoi1</code>, respectively.
+    Buildings.Fluid.RooftopUnits.Controls.AuxiliaryCoil</a>.
     </p>
     <p>
     Simulation results are observed as follows: 
     <ul>
     <li>
-    When <code>TOut</code> drops to <i>-15</i>&deg;C, which is below the outdoor air lockout temperature 
-    <code>TLocOut</code> (e.g., <i>-12.2</i>&deg;C), and <code>uHeaCoi</code> exceeds a threshold 
-    <code>uThrHeaCoi</code> value of 0.9, the controller deactivates DX coils <code>conAuxCoi.yDXCoi=false</code>
-    and outputs <code>conAuxCoi.yAuxHea</code> from 0.9 to 1 depending on the value of <code>uHeaCoi</code>. 
-    Additionally, the controller outputs 0 when <code>uHeaCoi</code> falls below the threshold value of 0.9.
+    When the outdoor air temperature <code>conAuxCoi.TOut</code> drops to <i>-15</i>&deg;C, 
+    which is below the outdoor air lockout temperature <code>TLocOut</code> 
+    (e.g., <i>-12.2</i>&deg;C), the controller deactivates DX coils 
+    <code>conAuxCoi.yDXCoi=false</code> and utilizes the heating coil valve position 
+    signal <code>conAuxCoi.uHeaCoi</code> as the auxiliary heating coil operation signal 
+    <code>conAuxCoi.yAuxHea</code>.
     </li>
     <li>
-    When <code>TOut1</code> reaches <i>-10</i>&deg;C, which is above <code>TLocOut</code> of <i>-12.2</i>&deg;C, 
-    and <code>uHeaCoi1</code> exceeds the threshold value of 0.9, the controller outputs 
+    When <code>conAuxCoi1.TOut</code> reaches <i>5</i>&deg;C, which is above 
+    <code>TLocOut</code> of <i>-12.2</i>&deg;C, and <code>conAuxCoi1.uHeaCoi</code> 
+    exceeds a threshold <code>conAuxCoi1.uThrHeaCoi</code> of 0.9, the controller outputs 
     <code>conAuxCoi1.yAuxHea</code> based on the product of the P controller output 
-    <code>conAuxCoi1.conPHeaHig.y</code> and the difference between <code>uHeaCoi1</code> and 0.9. 
-    Additionally, the controller outputs 0 when <code>uHeaCoi1</code> falls below the threshold value of 0.9.
+    <code>conAuxCoi1.conPHeaHig.y</code> and the difference between 
+    <code>conAuxCoi1.uHeaCoi</code> and the threshold <code>uThrHeaCoi</code> of 0.9. 
+    Additionally, the controller outputs 0 when <code>conAuxCoi1.uHeaCoi</code> falls 
+    below the threshold value.
     </li>
     </ul>
     </p>

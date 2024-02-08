@@ -3,7 +3,9 @@ package Validation "Collection of validation models"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains a validation model of a control module for compressor demand response.
+This package contains a validation model for the class in
+<a href=\"modelica://Buildings.Controls.OBC.RooftopUnits.CompressorDR\">
+Buildings.Controls.OBC.RooftopUnits.CompressorDR</a>..
 </p>
 </html>"),
   Icon(graphics={

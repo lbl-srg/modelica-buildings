@@ -9,7 +9,7 @@ block ZeroIndexCorrection
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uRea "Input real signal"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
-        iconTransformation(extent={{-140,-60},{-100,-20}})));
+      iconTransformation(extent={{-140,-60},{-100,-20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yIndMod
     "Modified index value to avoid assert errors"
@@ -17,8 +17,9 @@ block ZeroIndexCorrection
       iconTransformation(extent={{100,20},{140,60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yReaMod
-    "Modified input value" annotation (Placement(transformation(extent={{100,-60},
-            {140,-20}}), iconTransformation(extent={{100,-60},{140,-20}})));
+    "Modified input value"
+    annotation (Placement(transformation(extent={{100,-60},{140,-20}}),
+      iconTransformation(extent={{100,-60},{140,-20}})));
 
 protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu

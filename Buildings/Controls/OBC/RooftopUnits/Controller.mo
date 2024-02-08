@@ -258,7 +258,8 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature") "Outdoor air temperature"
+    final quantity="ThermodynamicTemperature")
+    "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-140,-120},{-100,-80}}),
       iconTransformation(extent={{-140,-120},{-100,-80}})));
 
@@ -705,7 +706,7 @@ equation
             220}})),
   Documentation(info="<html>
   <p>
-  This is control sequences for rooftop unit heat pump systems. 
+  These are control sequences for rooftop unit heat pump systems. 
   The control module consists of: 
   </p>
   <ul>

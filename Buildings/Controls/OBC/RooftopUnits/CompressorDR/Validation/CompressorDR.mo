@@ -1,5 +1,6 @@
 within Buildings.Controls.OBC.RooftopUnits.CompressorDR.Validation;
-model CompressorDR "Validation model for CompressorDR"
+model CompressorDR
+  "Validation model of compressor speed control sequences for demand response"
 
   Buildings.Controls.OBC.RooftopUnits.CompressorDR.CompressorDR ComSpeDR
     "Regulate compressor speed for demand response"

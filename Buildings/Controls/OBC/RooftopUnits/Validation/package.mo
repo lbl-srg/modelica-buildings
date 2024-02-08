@@ -3,7 +3,9 @@ package Validation "Collection of validation models"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains validation models for rooftop units.
+This package contains validation models for the classes in
+<a href=\"modelica://Buildings.Controls.OBC.RooftopUnits\">
+Buildings.Controls.OBC.RooftopUnits</a>.
 </p>
 </html>"),
   Icon(graphics={

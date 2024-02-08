@@ -3,7 +3,7 @@ package AuxiliaryCoil "Sequences for auxiliary heating coil control"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains control sequences for auxiliary heating coils.
+This package contains control sequences for auxiliary heating coil.
 </p>
 </html>"),
   Icon(graphics={

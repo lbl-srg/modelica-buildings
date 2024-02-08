@@ -1,5 +1,6 @@
 within Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences;
-block ChangeStatus "Sequence for changing DX coil status"
+block ChangeStatus
+  "Sequence for changing DX coil status"
 
   parameter Integer nCoi = 2
     "Total number of DX coils";
@@ -15,7 +16,7 @@ block ChangeStatus "Sequence for changing DX coil status"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLasDXCoiSta
     "Status of last DX coil"
     annotation (Placement(transformation(extent={{-140,30},{-100,70}}),
-        iconTransformation(extent={{-140,20},{-100,60}})));
+      iconTransformation(extent={{-140,20},{-100,60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uNexDXCoi
     "Index of next DX coil"
@@ -28,7 +29,7 @@ block ChangeStatus "Sequence for changing DX coil status"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDXCoi[nCoi]
     "DX coil status"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
-        iconTransformation(extent={{100,-20},{140,20}})));
+      iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
   parameter Integer coiInd[nCoi]={i for i in 1:nCoi}
