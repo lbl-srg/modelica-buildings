@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "intPul.y",
+    "intPul1.y",
+    "intPul2.y",
+    "intPul3.y",
+    "ComSpeDR.yComSpe",
+    "ComSpeDR1.yComSpe",
+    "ComSpeDR2.yComSpe",
+    "ComSpeDR3.yComSpe"
+  };

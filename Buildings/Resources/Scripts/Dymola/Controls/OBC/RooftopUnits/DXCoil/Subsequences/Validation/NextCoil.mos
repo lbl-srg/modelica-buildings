@@ -1,0 +1,12 @@
+simulateModel("Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.Validation.NextCoil", stopTime=500, method="Cvode", tolerance=1e-06, resultFile="NextCoil");
+createPlot(id=1, position={0, 0, 1393, 975}, y={"nexCoi.uDXCoiAva[1]", "nexCoi.uDXCoiAva[2]", "nexCoi.uDXCoiAva[3]", "nexCoi.uDXCoiAva[4]"}, range={0.0, 500.0, -1.0, 2.0}, grid=true, colors={{28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}});
+createPlot(id=1, position={0, 0, 1393, 158}, y={"nexCoi.uDXCoi[1]", "nexCoi.uDXCoi[2]", "nexCoi.uDXCoi[3]", "nexCoi.uDXCoi[4]"}, range={0.0, 500.0, -1.0, 2.0}, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}});
+createPlot(id=1, position={0, 0, 1393, 158}, y={"uStaUp.y"}, range={0.0, 500.0, -1.0, 2.0}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1393, 159}, y={"nexCoi.yNexCoi"}, range={0.0, 500.0, 0.0, 6.0}, grid=true, subPlot=4, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1393, 158}, y={"yStaUp.y"}, range={0.0, 500.0, -1.0, 2.0}, grid=true, subPlot=5, colors={{28,108,200}});
+
+createPlot(id=2, position={0, 0, 1393, 975}, y={"nexCoi1.uDXCoiAva[1]", "nexCoi1.uDXCoiAva[2]", "nexCoi1.uDXCoiAva[3]", "nexCoi1.uDXCoiAva[4]"}, range={0.0, 500.0, -1.0, 2.0}, grid=true, colors={{28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}});
+createPlot(id=2, position={0, 0, 1393, 158}, y={"nexCoi1.uDXCoi[1]", "nexCoi1.uDXCoi[2]", "nexCoi1.uDXCoi[3]", "nexCoi1.uDXCoi[4]"}, range={0.0, 500.0, -1.0, 2.0}, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}});
+createPlot(id=2, position={0, 0, 1393, 158}, y={"uStaUp.y"}, range={0.0, 500.0, -1.0, 2.0}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=2, position={0, 0, 1393, 159}, y={"nexCoi1.yNexCoi"}, range={0.0, 500.0, 0.0, 6.0}, grid=true, subPlot=4, colors={{28,108,200}});
+createPlot(id=2, position={0, 0, 1393, 158}, y={"yStaUp1.y"}, range={0.0, 500.0, -1.0, 2.0}, grid=true, subPlot=5, colors={{28,108,200}});

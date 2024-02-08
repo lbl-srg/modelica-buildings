@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "DXCoiSta.uCoi",
+    "DXCoiSta.uComSpe[1]",
+    "DXCoiSta.uDXCoi[1]",
+    "nexDXCoi.y",
+    "preDXCoi.y"
+  };

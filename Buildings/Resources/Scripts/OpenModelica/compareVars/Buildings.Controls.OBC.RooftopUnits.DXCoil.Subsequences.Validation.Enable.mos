@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "coiEna.uCoi",
+    "coiEna.uDXCoi[1]",
+    "coiEna.yDXCoi"
+  };
