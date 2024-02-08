@@ -135,7 +135,7 @@ model Guideline36_DXSystems
   </ul>
   </html>"),
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/Guideline36_RTU.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/Guideline36_DXSystems.mos"
         "Simulate and plot"),
     experiment(
       StartTime=15552000,
