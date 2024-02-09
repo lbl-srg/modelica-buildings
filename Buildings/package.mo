@@ -228,17 +228,7 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3063\">issue 3063</a>.
     </td>
-    </tr>
-<tr><td valign=\"top\">Buildings.Fluid.Chillers.ModularReversible<br/>
-                           Buildings.Fluid.HeatPumps.ModularReversible
-    </td>
-    <td valign=\"top\">Package with models of reversible heat pumps and reversible chillers.
-                       The models are modular to allow modeling different functionalities,
-                       such as a table-based or Carnot-based performance, and with steady-state
-                       or approximate dynamics of vapor compression cycle.<br/>
-                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">IBPSA, #1576</a>.
-    </td>
-    </tr>  
+</tr>
 </table>
 <!-- New components for existing libraries -->
 <p>
@@ -251,17 +241,17 @@ to <b style=\"color:blue\">existing</b> libraries:
 </tr>
 <tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.Combined.BaseClasses.PartialHeatPumpHeatExchanger
     </td>
-    <td valign=\"top\">Created partial base class to support two versions of the 
-                       energy transfer station.  One that heats domestic hot 
-                       water with a heat pump, and one that heats domestic 
-                       hot water with a heat pump plus storage tank and heat exchanger. 
+    <td valign=\"top\">Created partial base class to support two versions of the
+                       energy transfer station.  One that heats domestic hot
+                       water with a heat pump, and one that heats domestic
+                       hot water with a heat pump plus storage tank and heat exchanger.
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3063\">issue 3063</a>.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchangerDHWTank
     </td>
-    <td valign=\"top\">Version of 
+    <td valign=\"top\">Version of
                        <a href=\"Modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger\">
                        Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger</a>
                        that heats domestic hot water with a heat pump plus storage tank and heat exchanger.
@@ -271,9 +261,9 @@ to <b style=\"color:blue\">existing</b> libraries:
 </tr>
 <tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.BaseClasses.PartialHeatPump
     </td>
-    <td valign=\"top\">Partial base class to support two versions of heat pump subsystem.  
-                       One which directly heats water through condenser, and 
-                       one which uses the heat pump to heat water in a storage tank, 
+    <td valign=\"top\">Partial base class to support two versions of heat pump subsystem.
+                       One which directly heats water through condenser, and
+                       one which uses the heat pump to heat water in a storage tank,
                        which can be circulated to heat water through a heat exchanger.
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3063\">issue 3063</a>.
@@ -281,9 +271,9 @@ to <b style=\"color:blue\">existing</b> libraries:
 </tr>
 <tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPumpDHWTank
     </td>
-    <td valign=\"top\">Uses a heat pump to heat water in a storage tank, 
+    <td valign=\"top\">Uses a heat pump to heat water in a storage tank,
                        which can be circulated to heat domestic hot water through a heat exchanger,
-                       modeled with 
+                       modeled with
                        <a href=\"Modelica://Buildings.Experimental.DHC.Loads.HotWater.StorageTankWithExternalHeatExchanger\">
                        Buildings.Experimental.DHC.Loads.HotWater.StorageTankWithExternalHeatExchanger</a>.
                        This is for
@@ -308,7 +298,7 @@ to <b style=\"color:blue\">existing</b> libraries:
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3063\">issue 3063</a>.
     </td>
-</tr>                 
+</tr>
 </table>
 <!-- Backward compatible changes -->
 <p>
@@ -365,7 +355,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3628\">issue 3628</a>.
     </td>
-</tr>    
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Templates</b>
     </td>
 </tr>
@@ -447,10 +437,10 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger
     </td>
-    <td valign=\"top\">Extend from new partial base class 
+    <td valign=\"top\">Extend from new partial base class
                        <a href=\"Modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.BaseClasses.PartialHeatPumpHeatExchanger\">
                        Buildings.Experimental.DHC.EnergyTransferStations.Combined.BaseClasses.PartialHeatPumpHeatExchanger</a>.
-                       Evaporator water flow through space heating and domestic how water heat 
+                       Evaporator water flow through space heating and domestic how water heat
                        pumps is constant, with dT across district supply and return controlled by three-way mixing valve.
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3063\">issue 3063</a>.
@@ -458,10 +448,10 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump
     </td>
-    <td valign=\"top\">Extend from new partial base class 
+    <td valign=\"top\">Extend from new partial base class
                        <a href=\"Modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.BaseClasses.PartialHeatPump\">
                        Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.BaseClasses.PartialHeatPump</a>.
-                       Evaporator water flow through heat pump 
+                       Evaporator water flow through heat pump
                        is constant, with dT across district supply and return controlled by three-way mixing valve.
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3063\">issue 3063</a>.
@@ -469,7 +459,7 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.Validation.HeatPump
     </td>
-    <td valign=\"top\">Validation test for 
+    <td valign=\"top\">Validation test for
                        <a href=\"Modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump\">
                        Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump</a>.
                        This is for
@@ -478,7 +468,7 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.Validation.HeatPumpDHWTank
     </td>
-    <td valign=\"top\">Validation test for 
+    <td valign=\"top\">Validation test for
                        <a href=\"Modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPumpDHWTank\">
                        Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPumpDHWTank</a>.
                        This is for
@@ -487,14 +477,14 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td valign=\"top\">Buildings.Experimental.DHC.Loads.Combined.BuildingTimeSeriesWithETS
     </td>
-    <td valign=\"top\">Updated to use new version of 
+    <td valign=\"top\">Updated to use new version of
                        <a href=\"Modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger\">
                        Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger</a>
                        as the ETS.
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3063\">issue 3063</a>.
     </td>
-</tr>      
+</tr>
 <tr><td valign=\"top\">Buildings.Experimental.DHC.Plants.Combined.Subsystems.BaseClasses.MultipleCommands
     </td>
     <td valign=\"top\">The class has been moved to Buildings.Templates.Components.Controls.MultipleCommands.<br/>
@@ -566,6 +556,28 @@ The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., 
 that can lead to wrong simulation results):
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Templates</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.AirHandlersFans.Components.Controls.G36VAVMultiZone<br/>
+                       Buildings.Templates.AirHandlersFans.Components.Data.OutdoorReliefReturnSection<br/>
+                       Buildings.Templates.AirHandlersFans.Components.Interfaces.PartialOutdoorReliefReturnSection<br/>
+                       Buildings.Templates.AirHandlersFans.Components.Interfaces.PartialReliefReturnSection<br/>
+                       Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.MixedAirWithDamper<br/>
+                       Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.NoRelief<br/>
+                       Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.NoReturn<br/>
+                       Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.ReliefDamper<br/>
+                       Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.ReliefFan<br/>
+                       Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.ReturnFan<br/>
+                       Buildings.Templates.AirHandlersFans.Configuration.PartialAirHandler<br/>
+                       Buildings.Templates.AirHandlersFans.Data.VAVMultiZone<br/>
+                       Buildings.Templates.AirHandlersFans.VAVMultiZone
+    </td>
+    <td valign=\"top\">Added support for additional configurations.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3526\">#3526</a>
+                       and <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3520\">#3520</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
