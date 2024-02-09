@@ -1,47 +1,8 @@
 within Buildings.Templates.Components.Interfaces;
-model PartialHeatPumpModular
-  "Interface for heat pump using modular model"
+model PartialHeatPumpEquationFit
+  "Interface for heat pump using equation fit model"
   extends Buildings.Templates.Components.Interfaces.PartialHeatPump(
-    final typMod=Buildings.Templates.Components.Types.HeatPumpModel.ModularTableData2D);
-
-  replaceable Buildings.Fluid.HeatPumps.ModularReversible.ModularReversible heaPum(
-    redeclare final package MediumCon = MediumHeaWat,
-    redeclare final package MediumEva = MediumSou,
-    final QCoo_flow_nominal=QCoo_flow_nominal,
-    final QHea_flow_nominal=QHea_flow_nominal,
-    final TCon_nominal=THeaWatSup_nominal,
-    final TEva_nominal=TSouHea_nominal,
-    final allowFlowReversalCon=allowFlowReversal,
-    final allowFlowReversalEva=allowFlowReversalSou,
-    final dTCon_nominal=THeaWatSup_nominal - THeaWatRet_nominal,
-    dTEva_nominal=0,
-    final dpCon_nominal=dpHeaWat_nominal,
-    final dpEva_nominal=dpSouHea_nominal,
-    final energyDynamics=energyDynamics,
-    final mCon_flow_nominal=mHeaWat_flow_nominal,
-    final mEva_flow_nominal=mSouHea_flow_nominal,
-    final show_T=show_T,
-    use_conCap=false,
-    use_evaCap=false,
-    use_intSafCtr=true,
-    redeclare replaceable parameter
-      Buildings.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
-      safCtrPar constrainedby
-      Buildings.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Generic(
-      tabUppHea=dat.modHea.tabUppBou,
-      tabLowCoo=dat.modCoo.tabLowBou,
-      use_TUseSidOut=dat.modHea.use_TConOutForOpeEnv,
-      use_TAmbSidOut=dat.modCoo.use_TEvaOutForOpeEnv),
-    final use_rev=is_rev,
-    redeclare model RefrigerantCycleHeatPumpHeating =
-        Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D
-        (redeclare
-          Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
-          iceFacCal, final datTab=dat.modHea),
-    redeclare model RefrigerantCycleInertia =
-        Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Inertias.NoInertia)
-    "Heat pump"
-    annotation (Placement(transformation(extent={{-10,-16},{10,4}})));
+    final typMod=Buildings.Templates.Components.Types.HeatPumpModel.EquationFit);
 
   Modelica.Blocks.Routing.BooleanPassThrough y1Hea if is_rev
     "Operating mode command: true=heating, false=cooling"
@@ -49,7 +10,7 @@ model PartialHeatPumpModular
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-76,130})));
+        origin={-80,130})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant y1HeaNonRev(
     final k=true) if not is_rev
     "Placeholder signal for non-reversible heat pumps"
@@ -62,9 +23,6 @@ model PartialHeatPumpModular
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={60,130})));
-  replaceable PartialHeatPumpModularController ctl
-    "Heat pump controller"
-    annotation (Placement(transformation(extent={{-50,70},{-30,90}})));
   Fluid.Sensors.MassFlowRate mChiHeaWat_flow(redeclare final package Medium =
         MediumHeaWat) "CHW/HW mass flow rate"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
@@ -88,65 +46,81 @@ model PartialHeatPumpModular
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-30,-20})));
-protected
-  Fluid.HeatPumps.ModularReversible.BaseClasses.RefrigerantMachineControlBus
-    busRef "Refrigerant machine bus" annotation (Placement(transformation(
-          extent={{-20,80},{20,120}}),iconTransformation(extent={{-220,-70},{-180,
-            -30}})));
+  Buildings.Fluid.HeatPumps.EquationFitReversible heaPum(
+    uMod(start=0),
+    redeclare final package Medium1=MediumHeaWat,
+    redeclare final package Medium2=MediumSou,
+    final per=dat.perFit,
+    final energyDynamics=energyDynamics)
+    "Heat pump"
+    annotation (Placement(transformation(extent={{-10,-16},{10,4}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger y1Int
+    "Convert on/off command into integer"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-20,90})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger y1HeaInt(
+    y(start=0),
+    final integerTrue=1,
+    final integerFalse=-1)
+    "Convert heating mode command into integer"
+    annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-80,90})));
+  Buildings.Controls.OBC.CDL.Integers.Multiply mulInt
+    "Combine on/off and operating mode command signals"
+    annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-20,50})));
 equation
   /* Control point connection - start */
-  connect(TChiHeaWatLvg.T, busRef.TConOutMea);
-  connect(TSouEnt.T, busRef.TEvaInMea);
-  connect(TSouLvg.T, busRef.TEvaOutMea);
-  connect(TChiHeaWatEnt.T, busRef.TConInMea);
-  connect(mChiHeaWat_flow.m_flow, busRef.mConMea_flow);
   /* Control point connection - stop */
   connect(bus.y1Heat, y1Hea.u) annotation (Line(
-      points={{0,160},{0,156},{-76,156},{-76,142}},
+      points={{0,160},{0,156},{-80,156},{-80,142}},
       color={255,204,51},
       thickness=0.5));
   connect(y1_actual.y, bus.y1_actual) annotation (Line(points={{60,142},{60,156},
           {0,156},{0,160}},
                           color={255,0,255}));
-  connect(ctl.y, heaPum.ySet) annotation (Line(points={{-28,80},{-16,80},{-16,-4},
-          {-11.2,-4}}, color={0,0,127}));
-  connect(ctl.y1Hea, heaPum.hea) annotation (Line(points={{-28,84},{-14,84},{-14,
-          -7.9},{-11.1,-7.9}}, color={255,0,255}));
-  connect(y1HeaNonRev.y, ctl.u1Hea) annotation (
-      Line(points={{-40,118},{-40,110},{-76,110},{-76,84},{-52,84}},
-                                                                  color={255,0,255}));
-  connect(y1Hea.y, ctl.u1Hea)
-    annotation (Line(points={{-76,119},{-76,84},{-52,84}},color={255,0,255}));
-  connect(bus.TSet, ctl.TSupSet) annotation (Line(
-      points={{0.1,160.1},{0.1,156},{-56,156},{-56,80},{-52,80}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(bus.y1, ctl.u1) annotation (Line(
-      points={{0,160},{0,156},{-56,156},{-56,88},{-52,88}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(TChiHeaWatEnt.port_b, heaPum.port_a1)
-    annotation (Line(points={{-40,0},{-10,0}}, color={0,127,255}));
   connect(port_a, mChiHeaWat_flow.port_a)
     annotation (Line(points={{-100,0},{-90,0}}, color={0,127,255}));
   connect(mChiHeaWat_flow.port_b, TChiHeaWatEnt.port_a)
     annotation (Line(points={{-70,0},{-60,0}}, color={0,127,255}));
-  connect(heaPum.port_b1, TChiHeaWatLvg.port_a)
-    annotation (Line(points={{10,0},{70,0}}, color={0,127,255}));
   connect(TChiHeaWatLvg.port_b, port_b)
     annotation (Line(points={{90,0},{100,0}}, color={0,127,255}));
-  connect(TSouEnt.port_b, heaPum.port_a2)
-    annotation (Line(points={{20,-20},{20,-12},{10,-12}}, color={0,127,255}));
-  connect(heaPum.port_b2, TSouLvg.port_a) annotation (Line(points={{-10,-12},{-20,
-          -12},{-20,-20}}, color={0,127,255}));
-  connect(busRef, ctl.bus) annotation (Line(
-      points={{0,100},{0,90},{-40,90}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(ctl.y1, y1_actual.u)
-    annotation (Line(points={{-28,88},{60,88},{60,118}}, color={255,0,255}));
   connect(TSouLvg.port_b, port_bSou) annotation (Line(points={{-40,-20},{-80,-20},
           {-80,-140}},      color={0,127,255}));
+  connect(y1Hea.y, y1HeaInt.u) annotation (Line(points={{-80,119},{-80,110.5},{-80,
+          110.5},{-80,102}}, color={255,0,255}));
+  connect(y1HeaNonRev.y, y1HeaInt.u) annotation (Line(points={{-40,118},{-40,110},
+          {-80,110},{-80,102}}, color={255,0,255}));
+  connect(y1HeaInt.y, mulInt.u2) annotation (Line(points={{-80,78},{-80,70},{-26,
+          70},{-26,62}}, color={255,127,0}));
+  connect(y1Int.y, mulInt.u1) annotation (Line(points={{-20,78},{-20,70},{-14,70},
+          {-14,62}}, color={255,127,0}));
+  connect(mulInt.y, heaPum.uMod)
+    annotation (Line(points={{-20,38},{-20,-6},{-11,-6}}, color={255,127,0}));
+  connect(TChiHeaWatEnt.port_b, heaPum.port_a1)
+    annotation (Line(points={{-40,0},{-10,0}}, color={0,127,255}));
+  connect(heaPum.port_b1, TChiHeaWatLvg.port_a)
+    annotation (Line(points={{10,0},{70,0}}, color={0,127,255}));
+  connect(TSouLvg.port_a, heaPum.port_b2) annotation (Line(points={{-20,-20},{-20,
+          -12},{-10,-12}}, color={0,127,255}));
+  connect(TSouEnt.port_b, heaPum.port_a2)
+    annotation (Line(points={{20,-20},{20,-12},{10,-12}}, color={0,127,255}));
+  connect(bus.y1, y1Int.u) annotation (Line(
+      points={{0,160},{0,110},{-20,110},{-20,102}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(bus.y1, y1_actual.u) annotation (Line(
+      points={{0,160},{0,110},{60,110},{60,118}},
+      color={255,204,51},
+      thickness=0.5));
   annotation (
   defaultComponentName="heaPum",
   Documentation(info="<html>
@@ -188,4 +162,4 @@ DI signal, with a dimensionality of zero
 </li>
 </ul>
 </html>"));
-end PartialHeatPumpModular;
+end PartialHeatPumpEquationFit;

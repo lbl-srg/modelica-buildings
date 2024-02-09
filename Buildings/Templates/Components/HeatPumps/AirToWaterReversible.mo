@@ -1,22 +1,21 @@
 within Buildings.Templates.Components.HeatPumps;
 model AirToWaterReversible
-  "Reversible air-to-water heat pump"
+  "Reversible air-to-water heat pump - Modular model"
   extends Buildings.Templates.Components.Interfaces.PartialHeatPumpModular(
-    redeclare final package MediumSou = Buildings.Media.Air,
+    redeclare final package MediumSou=Buildings.Media.Air,
     final typ=Buildings.Templates.Components.Types.HeatPump.AirToWater,
-    heaPum(safCtrPar(
+    heaPum(
+      safCtrPar(
         use_minOnTime=false,
         use_minOffTime=false,
-        use_maxCycRat=false), redeclare model RefrigerantCycleHeatPumpCooling =
-          Buildings.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2D
-          (redeclare
-            Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
-            iceFacCal, final datTab=dat.modCoo)),
+        use_maxCycRat=false),
+      redeclare model RefrigerantCycleHeatPumpCooling=Buildings.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2D(
+        redeclare Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting iceFacCal,
+        final datTab=dat.modCoo)),
     final is_rev=true,
     final allowFlowReversalSou=false,
-    redeclare
-      Buildings.Templates.Components.HeatPumps.Controls.IdealModularReversibleTableData2D
-      ctl(hea(
+    redeclare Buildings.Templates.Components.HeatPumps.Controls.IdealModularReversibleTableData2D ctl(
+      hea(
         final cpCon=cpHeaWat_default,
         final cpEva=cpSou_default,
         final dTCon_nominal=heaPum.refCyc.refCycHeaPumHea.dTCon_nominal,
@@ -34,7 +33,7 @@ model AirToWaterReversible
         final smoothness=heaPum.refCyc.refCycHeaPumHea.smoothness,
         final TEva_nominal=heaPum.refCyc.refCycHeaPumHea.TEva_nominal,
         final TCon_nominal=heaPum.refCyc.refCycHeaPumHea.TCon_nominal),
-        coo(
+      coo(
         final cpCon=cpSou_default,
         final cpEva=cpChiWat_default,
         final QCooNoSca_flow_nominal=heaPum.refCyc.refCycHeaPumCoo.QCooNoSca_flow_nominal,
@@ -52,7 +51,6 @@ model AirToWaterReversible
         final extrapolation=heaPum.refCyc.refCycHeaPumCoo.extrapolation,
         final smoothness=heaPum.refCyc.refCycHeaPumCoo.smoothness,
         final QCoo_flow_nominal=heaPum.refCyc.refCycHeaPumCoo.QCoo_flow_nominal)));
-
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter mAir_flow(
     final k=mSouHea_flow_nominal)
     "Air mass flow rate"

@@ -1,20 +1,19 @@
 within Buildings.Templates.Components.HeatPumps;
 model WaterToWaterReversible
-  "Reversible water-to-water heat pump"
+  "Reversible water-to-water heat pump - Modular model"
   extends Buildings.Templates.Components.Interfaces.PartialHeatPumpModular(
     final typ=Buildings.Templates.Components.Types.HeatPump.WaterToWater,
-    heaPum(safCtrPar(
+    heaPum(
+      safCtrPar(
         use_minOnTime=false,
         use_minOffTime=false,
-        use_maxCycRat=false), redeclare model RefrigerantCycleHeatPumpCooling =
-          Buildings.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2D
-          (redeclare
-            Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
-            iceFacCal, final datTab=dat.modCoo)),
+        use_maxCycRat=false),
+      redeclare model RefrigerantCycleHeatPumpCooling=Buildings.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2D(
+        redeclare Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting iceFacCal,
+        final datTab=dat.modCoo)),
     final is_rev=true,
-    redeclare
-      Buildings.Templates.Components.HeatPumps.Controls.IdealModularReversibleTableData2D
-      ctl(hea(
+    redeclare Buildings.Templates.Components.HeatPumps.Controls.IdealModularReversibleTableData2D ctl(
+      hea(
         final cpCon=cpHeaWat_default,
         final cpEva=cpSou_default,
         final dTCon_nominal=heaPum.refCyc.refCycHeaPumHea.dTCon_nominal,
@@ -32,7 +31,7 @@ model WaterToWaterReversible
         final smoothness=heaPum.refCyc.refCycHeaPumHea.smoothness,
         final TEva_nominal=heaPum.refCyc.refCycHeaPumHea.TEva_nominal,
         final TCon_nominal=heaPum.refCyc.refCycHeaPumHea.TCon_nominal),
-        coo(
+      coo(
         final cpCon=cpSou_default,
         final cpEva=cpChiWat_default,
         final QCooNoSca_flow_nominal=heaPum.refCyc.refCycHeaPumCoo.QCooNoSca_flow_nominal,
@@ -50,7 +49,6 @@ model WaterToWaterReversible
         final smoothness=heaPum.refCyc.refCycHeaPumCoo.smoothness,
         final TEva_nominal=heaPum.refCyc.refCycHeaPumCoo.TEva_nominal,
         final TCon_nominal=heaPum.refCyc.refCycHeaPumCoo.TCon_nominal)));
-
 equation
   connect(port_aSou, TSouEnt.port_a)
     annotation (Line(points={{80,-140},{80,-20},{40,-20}},color={0,127,255}));

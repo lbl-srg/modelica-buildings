@@ -49,13 +49,15 @@ protected
       iconTransformation(extent={{-176,-92},{-136,-52}})));
 public
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TConInMeaHea(
-    y(unit="K",
+    y(
+      unit="K",
       displayUnit="degC"),
     k=hea.TCon_nominal - hea.dTCon_nominal)
     "Condenser inlet temperature in heating mode"
     annotation (Placement(transformation(extent={{-90,30},{-70,50}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin TEvaInMea(
-    y(unit="K",
+    y(
+      unit="K",
       displayUnit="degC"),
     amplitude=40,
     freqHz=10 / 300,
@@ -63,7 +65,8 @@ public
     "Evaporator inlet temperature"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin THeaWatSupSet(
-    y(unit="K",
+    y(
+      unit="K",
       displayUnit="degC"),
     amplitude=8,
     freqHz=5 / 300,
@@ -80,12 +83,14 @@ public
     "Enable and heating/cooling mode command signal"
     annotation (Placement(transformation(extent={{-120,110},{-100,130}})));
   Buildings.Controls.OBC.CDL.Reals.Switch TSetAct(
-    y(unit="K",
+    y(
+      unit="K",
       displayUnit="degC"))
     "Actual setpoint"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin TChiWatSupSet(
-    y(unit="K",
+    y(
+      unit="K",
       displayUnit="degC"),
     amplitude=15,
     freqHz=5 / 300,
@@ -106,7 +111,8 @@ public
     "Compute performance in cooling mode"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin TEvaOutMea(
-    y(unit="K",
+    y(
+      unit="K",
       displayUnit="degC"),
     amplitude=10,
     freqHz=10 / 300,
@@ -114,13 +120,15 @@ public
     "Evaporator outlet temperature - Placeholder value"
     annotation (Placement(transformation(extent={{-92,-50},{-72,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TConInMeaCoo(
-    y(unit="K",
+    y(
+      unit="K",
       displayUnit="degC"),
     k=coo.TEva_nominal - coo.dTEva_nominal)
     "Condenser inlet temperature in cooling mode"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Reals.Switch TConInMea(
-    y(unit="K",
+    y(
+      unit="K",
       displayUnit="degC"))
     "Condenser inlet temperature"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
@@ -154,8 +162,7 @@ equation
   connect(THeaWatSupSet.y, bus.TConOutMea)
     annotation (Line(points={{-98,-80},{-40,-80},{-40,40},{60,40}},color={0,0,127}));
   connect(bus, coo.sigBus)
-    annotation (Line(points={{60,40},{90,40},{90,-20},{110.083,-20},{110.083,
-          -30}},
+    annotation (Line(points={{60,40},{90,40},{90,-20},{110.083,-20},{110.083,-30}},
       color={255,204,51},thickness=0.5));
   connect(TEvaOutMea.y, bus.TEvaOutMea)
     annotation (Line(points={{-70,-40},{-40,-40},{-40,40},{60,40}},color={0,0,127}));

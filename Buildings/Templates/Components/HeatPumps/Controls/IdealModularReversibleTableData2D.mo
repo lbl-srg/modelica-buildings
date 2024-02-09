@@ -9,7 +9,8 @@ block IdealModularReversibleTableData2D
   Modelica.Blocks.Math.InverseBlockConstraints inverseBlockConstraints
     annotation (Placement(transformation(extent={{-4,-44},{42,-8}})));
   Modelica.Blocks.Sources.RealExpression QReqHea_flow(
-    y(start=0,
+    y(
+      start=0,
       final unit="W",
       final min=0)=if (u1 and u1Hea) then max(0, dTFlo.y * hea.cpCon) else 0)
     "Required heating capacity"
@@ -28,11 +29,11 @@ block IdealModularReversibleTableData2D
     "Condenser (load side) inlet temperature"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=-90,
       origin={-80,80})));
-  Modelica.Blocks.Sources.RealExpression QReqCoo_flow(y(
+  Modelica.Blocks.Sources.RealExpression QReqCoo_flow(
+    y(
       start=0,
       final unit="W",
-      final min=0) = if (u1 and not u1Hea) then min(0, dTFlo.y*coo.cpEva) else
-      0)
+      final min=0)=if (u1 and not u1Hea) then min(0, dTFlo.y * coo.cpEva) else 0)
     "Required cooling capacity"
     annotation (Placement(transformation(extent={{-40,-76},{-20,-56}})));
   replaceable Buildings.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2D coo(
@@ -152,8 +153,7 @@ protected
       iconTransformation(extent={{-20,80},{20,120}})));
 equation
   connect(hea.QCon_flow, inverseBlockConstraints.u2)
-    annotation (Line(points={{13.3333,-36.8333},{13.3333,-40},{6,-40},{6,-26},{
-          0.6,-26}},
+    annotation (Line(points={{13.3333,-36.8333},{13.3333,-40},{6,-40},{6,-26},{0.6,-26}},
       color={0,0,127}));
   connect(dT.y, dTFlo.u2)
     annotation (Line(points={{62,80},{70,80},{70,74},{88,74}},color={0,0,127}));
@@ -167,7 +167,7 @@ equation
   connect(bus.TEvaInMea, TEvaInMea.u)
     annotation (Line(points={{0,180},{0,100},{-40,100},{-40,92}},color={255,204,51},thickness=0.5));
   connect(bus.TConInMea, TConInMea.u)
-    annotation (Line(points={{0,180},{0,100},{-80,100},{-80,92}},         color={255,204,51},thickness=0.5));
+    annotation (Line(points={{0,180},{0,100},{-80,100},{-80,92}},color={255,204,51},thickness=0.5));
   connect(QReqCoo_flow.y, inverseBlockConstraints1.u1)
     annotation (Line(points={{-19,-66},{-6.3,-66}},color={0,0,127}));
   connect(inverseBlockConstraints.y1, maxHeaCoo.u1)
@@ -185,8 +185,7 @@ equation
   connect(QReqHea_flow.y, inverseBlockConstraints.u1)
     annotation (Line(points={{-19,-26},{-6.3,-26}},color={0,0,127}));
   connect(coo.QEva_flow, inverseBlockConstraints1.u2)
-    annotation (Line(points={{26.6667,-74.8333},{26.6667,-80},{6,-80},{6,-66},{
-          0.6,-66}},
+    annotation (Line(points={{26.6667,-74.8333},{26.6667,-80},{6,-80},{6,-66},{0.6,-66}},
       color={0,0,127}));
   connect(inverseBlockConstraints.y2, busHea.ySet)
     annotation (Line(points={{38.55,-26},{34,-26},{34,0},{20,0}},color={0,0,127}));
