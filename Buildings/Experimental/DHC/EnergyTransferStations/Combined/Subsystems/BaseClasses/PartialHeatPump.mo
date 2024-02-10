@@ -115,18 +115,21 @@ model PartialHeatPump
         rotation=270,
         origin={-26,0})));
 
-  Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumEva(
+  Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y pumEva(
     redeclare final package Medium = Medium2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final allowFlowReversal=allowFlowReversal2,
+    addPowerToMedium=false,
+    use_inputFilter=false,
     m_flow_nominal=mEva_flow_nominal,
-    dp_nominal=dp2_nominal + 30000)
+    dp_nominal=dp2_nominal + 6000)
     "Heat pump evaporator water pump"
     annotation (Placement(transformation(extent={{8,-88},{-12,-68}})));
 
   Modelica.Blocks.Math.Add addPPum "Electricity use for pumps"
     annotation (Placement(transformation(extent={{140,70},{160,90}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal floEva(realTrue=
-        mEva_flow_nominal) "Evaporator mass flow rate"
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal floEva
+                           "Evaporator mass flow rate"
     annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
   Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valHeaPumEva(
     redeclare package Medium = Medium2,
@@ -183,9 +186,6 @@ equation
   connect(heaPum.P, PHea) annotation (Line(points={{-59,-72},{-20,-72},{-20,-20},
           {22,-20},{22,40},{220,40}},
                 color={0,0,127}));
-  connect(floEva.y, pumEva.m_flow_in)
-    annotation (Line(points={{-58,120},{-50,120},{-50,0},{-2,0},{-2,-66}},
-                                                          color={0,0,127}));
   connect(senTDisSup.T, dT_supRet.u1) annotation (Line(points={{110,-49},{110,
           -32},{34,-32},{34,-4},{78,-4}},
                                        color={0,0,127}));
@@ -224,6 +224,8 @@ equation
           {40,-60},{40,-78},{8,-78}}, color={0,127,255}));
   connect(junction.port_3, valHeaPumEva.port_3) annotation (Line(points={{-140,
           -90},{-140,-100},{70,-100},{70,-70}}, color={0,127,255}));
+  connect(floEva.y, pumEva.y)
+    annotation (Line(points={{-58,120},{-2,120},{-2,-66}}, color={0,0,127}));
   annotation (
   defaultComponentName="heaPum",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
