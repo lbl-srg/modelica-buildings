@@ -1,5 +1,5 @@
 within Buildings.Fluid.SolarCollectors;
-model ASHRAE93 "Model of a solar thermal collector according to the ASHRAE93 standard"
+model ASHRAE93 "Model of a solar thermal collector according to the ASHRAE Standard 93"
   extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector(
     redeclare Buildings.Fluid.SolarCollectors.Data.GenericASHRAE93 per);
 
@@ -13,7 +13,7 @@ model ASHRAE93 "Model of a solar thermal collector according to the ASHRAE93 sta
     final use_shaCoe_in=use_shaCoe_in,
     final shaCoe=shaCoe,
     final A_c=ATot_internal)
-    "Identifies heat gained from the sun using the ASHRAE93 standard calculations"
+    "Identifies heat gained from the sun using the ASHRAE Standard 93 calculations"
              annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 
   BaseClasses.ASHRAEHeatLoss heaLos(
@@ -21,7 +21,7 @@ model ASHRAE93 "Model of a solar thermal collector according to the ASHRAE93 sta
     final nSeg=nSeg,
     final slope=per.slope,
     final A_c=ATot_internal)
-    "Calculates the heat lost to the surroundings using the ASHRAE93 standard calculations"
+    "Calculates the heat lost to the surroundings using the ASHRAE Standard 93 calculations"
         annotation (Placement(transformation(extent={{-20,10},{0,30}})));
 
 equation
