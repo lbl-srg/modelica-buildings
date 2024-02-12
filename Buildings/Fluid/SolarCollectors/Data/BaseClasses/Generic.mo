@@ -32,7 +32,7 @@ The choice of CTyp determines which parameters are used to calculate the
 representative heat capacity of the entire solar collector (including fluid).
 When the dry mass of the solar collector is used to calculate the heat capacity,
 the collector is assumed to be made fully out of copper
-(specific heat capacity of <i>385 J/kg/k</i>).
+(specific heat capacity of <i>385 J/kg/K</i>).
 <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr>
 <th>CTyp</th>

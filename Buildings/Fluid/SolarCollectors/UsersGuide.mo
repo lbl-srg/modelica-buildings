@@ -103,7 +103,7 @@ area that is used.
 <li>
 When the thermal capacity of the solar collector without fluid is not known,
 the thermal capacity is calculated based on the dry mass of the collector
-and the specific heat capacity of copper (<i>385 J/kg/k</i>).
+and the specific heat capacity of copper (<i>385 J/kg/K</i>).
 </li>
 <li>
 All data sources report a nominal mass flow rate (per unit area of collector),
