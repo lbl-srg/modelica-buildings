@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Validation;
-model Controller
-    "Validation model for boiler plant control sequence"
+model SecondaryController
+  "Validation model for boiler plant secondary control sequence"
 
   parameter Integer nSchRow(
     final min=1) = 4
@@ -625,4 +625,4 @@ equation
       </li>
       </ul>
       </html>"));
-end Controller;
+end SecondaryController;
