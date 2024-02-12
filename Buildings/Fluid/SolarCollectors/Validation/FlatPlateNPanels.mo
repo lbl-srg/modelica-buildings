@@ -42,7 +42,7 @@ model FlatPlateNPanels
     annotation (Placement(transformation(extent={{-70,-90},{-50,-70}})));
 equation
   connect(weaDat.weaBus, solCol1.weaBus) annotation (Line(
-      points={{-20,70},{30,70},{30,-31}},
+      points={{-20,70},{20,70},{20,-32},{30,-32}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));

@@ -5,7 +5,7 @@ model GCritCalc "Model calculating the critical insolation level"
 
   parameter Real slope(
     final unit="W/(m2.K)") "Slope from ratings data";
-  parameter Real y_intercept(final unit="1")(final unit="1") "y_intercept from ratings data";
+  parameter Real y_intercept(final unit="1") "y_intercept from ratings data";
 
   Modelica.Blocks.Interfaces.RealInput TIn(
     final unit="K",

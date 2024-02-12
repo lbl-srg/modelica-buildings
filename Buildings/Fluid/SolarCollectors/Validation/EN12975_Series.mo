@@ -85,7 +85,7 @@ model EN12975_Series
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
 equation
   connect(weaDat.weaBus, solCol1.weaBus) annotation (Line(
-      points={{-68,70},{-50,70},{-50,-21}},
+      points={{-68,70},{-50,70},{-50,-22}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -96,14 +96,14 @@ equation
   connect(solCol.port_a, bou.ports[1]) annotation (Line(points={{-20,30},{-60,30}},
                            color={0,127,255}));
   connect(solCol.weaBus, weaDat.weaBus) annotation (Line(
-      points={{-20,39},{-20,70},{-68,70}},
+      points={{-20,38},{-24,38},{-24,70},{-68,70}},
       color={255,204,51},
       thickness=0.5));
   connect(solCol2.port_a, solCol1.port_b)
     annotation (Line(points={{-20,-30},{-30,-30}},
                                                 color={0,127,255}));
   connect(weaDat.weaBus, solCol2.weaBus) annotation (Line(
-      points={{-68,70},{-20,70},{-20,-21}},
+      points={{-68,70},{-24,70},{-24,-22},{-20,-22}},
       color={255,204,51},
       thickness=0.5));
   connect(solCol.port_b, senTem.port_a)

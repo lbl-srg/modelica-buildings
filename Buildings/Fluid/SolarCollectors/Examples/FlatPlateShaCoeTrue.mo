@@ -52,7 +52,7 @@ model FlatPlateShaCoeTrue "Test model for FlatPlate with use_shaCoe_in = true"
     startTime=34040,
     height=1,
     duration=24193) "Varying shading coefficient"
-    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
+    annotation (Placement(transformation(extent={{-58,30},{-38,50}})));
 equation
   connect(solCol.port_b, TOut.port_a) annotation (Line(
       points={{10,0},{20,0}},
@@ -71,11 +71,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(shaCoe.y, solCol.shaCoe_in) annotation (Line(
-      points={{-19,40},{-12,40},{-12,3}},
+      points={{-37,40},{-16,40},{-16,4},{-12,4},{-12,4}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(weaDat.weaBus, solCol.weaBus) annotation (Line(
-      points={{-20,70},{-10,70},{-10,9}},
+      points={{-20,70},{-10,70},{-10,8}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));

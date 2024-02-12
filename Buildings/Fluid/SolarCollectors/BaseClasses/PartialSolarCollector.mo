@@ -57,11 +57,11 @@ partial model PartialSolarCollector "Partial model for solar collectors"
 
   Modelica.Blocks.Interfaces.RealInput shaCoe_in if use_shaCoe_in
     "Shading coefficient"
-    annotation(Placement(transformation(extent={{-140,50},{-100,10}})));
+    annotation(Placement(transformation(extent={{-140,60},{-100,20}})));
 
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(
-    transformation(extent={{-110,80},{-90,100}})));
+    transformation(extent={{-110,70},{-90,90}})));
   Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez HDifTilIso(
     final outSkyCon=true,
     final outGroCon=true,
@@ -178,12 +178,12 @@ equation
   end if;
 
   connect(weaBus, HDifTilIso.weaBus) annotation (Line(
-      points={{-100,90},{-90,90},{-90,80},{-80,80}},
+      points={{-100,80},{-80,80}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(weaBus, HDirTil.weaBus) annotation (Line(
-      points={{-100,90},{-90,90},{-90,50},{-80,50}},
+      points={{-100,80},{-90,80},{-90,50},{-80,50}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
