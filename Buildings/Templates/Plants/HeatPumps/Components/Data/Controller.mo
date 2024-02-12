@@ -2,21 +2,16 @@ within Buildings.Templates.Plants.HeatPumps.Components.Data;
 record Controller
   "Record for plant controller"
   extends Modelica.Icons.Record;
-  // Generic
-  parameter Buildings.Templates.Plants.HeatPumps.Configuration.HeatPumpPlant cfg
-    "Configuration parameters";
-  parameter Real PLRHeaPum_min[cfg.nHeaPum](
-    start=fill(0.5, cfg.nHeaPum),
-    final unit=fill("1", cfg.nHeaPum))
-    "Heat pump minimum part load ratio"
-    annotation (Dialog(group="Capacity",
-      enable=cfg.have_heaWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.ClosedLoop));
+  replaceable parameter Buildings.Templates.Plants.HeatPumps.Configuration.HeatPumpPlant cfg
+    "Plant configuration parameters";
   // HW loop
-  parameter Modelica.Units.SI.Temperature THeaWatSup_nominal(
+  // RFE: Declare array parameters for unequally sized units.
+  // The current implementation only supports equally sized units.
+  parameter Modelica.Units.SI.Temperature THeaWatSupHp_nominal(
     displayUnit="degC",
-    start=Buildings.Templates.Data.Defaults.THeaWatSup,
+    start=Buildings.Templates.Data.Defaults.THeaWatSupMed,
     final min=273.15)
-    "Design (highest) HW supply temperature setpoint"
+    "Design heat pump HW supply temperature setpoint"
     annotation (Dialog(group="Temperature setpoints",
       enable=cfg.have_heaWat));
   parameter Modelica.Units.SI.Temperature TOutHeaWatLck(
@@ -25,36 +20,36 @@ record Controller
     "Outdoor air lockout temperature above which the HW loop is prevented from operating"
     annotation (Dialog(group="Temperature setpoints",
       enable=cfg.have_heaWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.ClosedLoop));
-  parameter Modelica.Units.SI.VolumeFlowRate VHeaWatHeaPum_flow_nominal[cfg.nHeaPum](
-    start=fill(0.1, cfg.nHeaPum),
-    displayUnit=fill("L/s", cfg.nHeaPum),
-    final min=fill(0, cfg.nHeaPum))
+  parameter Modelica.Units.SI.VolumeFlowRate VHeaWatHp_flow_nominal(
+    start=0.1,
+    displayUnit="L/s",
+    final min=0)
     "Design HW volume flow rate - Each heat pump"
     annotation (Dialog(group="Heat pump flow setpoints",
       enable=cfg.have_heaWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.ClosedLoop
         and cfg.have_valHeaWatMinByp));
-  parameter Modelica.Units.SI.VolumeFlowRate VHeaWatHeaPum_flow_min[cfg.nHeaPum](
-    start=fill(0.1, cfg.nHeaPum),
-    displayUnit=fill("L/s", cfg.nHeaPum),
-    final min=fill(0, cfg.nHeaPum))
+  parameter Modelica.Units.SI.VolumeFlowRate VHeaWatHp_flow_min(
+    start=0.1,
+    displayUnit="L/s",
+    final min=0)
     "Minimum HW volume flow rate - Each heat pump"
     annotation (Dialog(group="Heat pump flow setpoints",
       enable=cfg.have_heaWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.ClosedLoop));
-  parameter Modelica.Units.SI.HeatFlowRate capHeaHeaPum_nominal[cfg.nHeaPum](
-    start=fill(1, cfg.nHeaPum),
-    final min=fill(0, cfg.nHeaPum))
+  parameter Modelica.Units.SI.HeatFlowRate capHeaHp_nominal(
+    start=1,
+    final min=0)
     "Design heating capacity - Each heat pump"
     annotation (Dialog(group="Capacity",
       enable=cfg.have_heaWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.ClosedLoop));
   parameter Modelica.Units.SI.VolumeFlowRate VHeaWatPri_flow_nominal(
     start=0.01,
     displayUnit="L/s",
-    final min=0)
+    final min=0)=VHeaWatHp_flow_nominal * cfg.nHp
     "Design primary HW volume flow rate - Total"
     annotation (Dialog(group="Capacity",
       enable=cfg.have_heaWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.ClosedLoop
-        and cfg.typDisHeaWat==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
-        and cfg.typArrPumHeaWatPri==Buildings.Templates.Components.Types.PumpArrangement.Headered));
+        and cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
+        and cfg.typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Headered));
   parameter Modelica.Units.SI.VolumeFlowRate VHeaWatSec_flow_nominal(
     start=0.01,
     displayUnit="L/s",
@@ -71,7 +66,7 @@ record Controller
     annotation (Dialog(group=
       "Information provided by testing, adjusting, and balancing contractor",
       enable=cfg.have_heaWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.ClosedLoop
-        and (cfg.typDisHeaWat==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
+        and (cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
         or cfg.typPumHeaWatSec<>Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None)));
   parameter Modelica.Units.SI.PressureDifference dpHeaWatLocSet_nominal(
     start=Buildings.Templates.Data.Defaults.dpHeaWatLocSet_max,
@@ -89,7 +84,7 @@ record Controller
     annotation (Dialog(group=
       "Information provided by testing, adjusting, and balancing contractor",
       enable=cfg.have_heaWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.ClosedLoop
-        and cfg.typDisHeaWat==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only));
+        and cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only));
   parameter Real yPumHeaWatSec_min(
     final unit="1",
     final min=0,
@@ -100,11 +95,11 @@ record Controller
       enable=cfg.have_heaWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.ClosedLoop
         and cfg.typPumHeaWatSec<>Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None));
   // CHW loop
-  parameter Modelica.Units.SI.Temperature TChiWatSup_nominal(
+  parameter Modelica.Units.SI.Temperature TChiWatSupHp_nominal(
     displayUnit="degC",
     start=Buildings.Templates.Data.Defaults.TChiWatSup,
     final min=273.15)
-    "Design (highest) CHW supply temperature setpoint"
+    "Design heat pump CHW supply temperature setpoint"
     annotation (Dialog(group="Temperature setpoints",
       enable=cfg.have_chiWat));
   parameter Modelica.Units.SI.Temperature TOutChiWatLck(
@@ -113,36 +108,36 @@ record Controller
     "Outdoor air lockout temperature above which the CHW loop is prevented from operating"
     annotation (Dialog(group="Temperature setpoints",
       enable=cfg.have_chiWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.ClosedLoop));
-  parameter Modelica.Units.SI.VolumeFlowRate VChiWatHeaPum_flow_nominal[cfg.nHeaPum](
-    start=fill(0.1, cfg.nHeaPum),
-    displayUnit=fill("L/s", cfg.nHeaPum),
-    final min=fill(0, cfg.nHeaPum))
+  parameter Modelica.Units.SI.VolumeFlowRate VChiWatHp_flow_nominal(
+    start=0.1,
+    displayUnit="L/s",
+    final min=0)
     "Design CHW volume flow rate - Each heat pump"
     annotation (Dialog(group="Heat pump flow setpoints",
       enable=cfg.have_chiWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.ClosedLoop
         and cfg.have_valChiWatMinByp));
-  parameter Modelica.Units.SI.VolumeFlowRate VChiWatHeaPum_flow_min[cfg.nHeaPum](
-    start=fill(0.1, cfg.nHeaPum),
-    displayUnit=fill("L/s", cfg.nHeaPum),
-    final min=fill(0, cfg.nHeaPum))
+  parameter Modelica.Units.SI.VolumeFlowRate VChiWatHp_flow_min(
+    start=0.1,
+    displayUnit="L/s",
+    final min=0)
     "Minimum CHW volume flow rate - Each heat pump"
     annotation (Dialog(group="Heat pump flow setpoints",
       enable=cfg.have_chiWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.ClosedLoop));
-  parameter Modelica.Units.SI.HeatFlowRate capCooHeaPum_nominal[cfg.nHeaPum](
-    start=fill(1, cfg.nHeaPum),
-    final min=fill(0, cfg.nHeaPum))
+  parameter Modelica.Units.SI.HeatFlowRate capCooHp_nominal(
+    start=1,
+    final min=0)
     "Design cooling capacity - Each heat pump"
     annotation (Dialog(group="Capacity",
       enable=cfg.have_chiWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.ClosedLoop));
   parameter Modelica.Units.SI.VolumeFlowRate VChiWatPri_flow_nominal(
     start=0.01,
     displayUnit="L/s",
-    final min=0)
+    final min=0)=VChiWatHp_flow_nominal*cfg.nHp
     "Design primary CHW volume flow rate - Total"
     annotation (Dialog(group="Capacity",
       enable=cfg.have_chiWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.ClosedLoop
-        and cfg.typDisChiWat==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
-        and cfg.typArrPumChiWatPri==Buildings.Templates.Components.Types.PumpArrangement.Headered));
+        and cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
+        and cfg.typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Headered));
   parameter Modelica.Units.SI.VolumeFlowRate VChiWatSec_flow_nominal(
     start=0.01,
     displayUnit="L/s",
@@ -159,7 +154,7 @@ record Controller
     annotation (Dialog(group=
       "Information provided by testing, adjusting, and balancing contractor",
       enable=cfg.have_chiWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.ClosedLoop
-        and (cfg.typDisChiWat==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
+        and (cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
         or cfg.typPumChiWatSec<>Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None)));
   parameter Modelica.Units.SI.PressureDifference dpChiWatLocSet_nominal(
     start=Buildings.Templates.Data.Defaults.dpChiWatLocSet_max,
@@ -177,7 +172,7 @@ record Controller
     annotation (Dialog(group=
       "Information provided by testing, adjusting, and balancing contractor",
       enable=cfg.have_chiWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.ClosedLoop
-        and cfg.typDisChiWat==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only));
+        and cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only));
   parameter Real yPumChiWatSec_min(
     final unit="1",
     final min=0,

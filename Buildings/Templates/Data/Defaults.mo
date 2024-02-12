@@ -97,7 +97,7 @@ package Defaults
     "Maximum HW differential pressure setpoint remote from the HW plant";
   constant Modelica.Units.SI.PressureDifference dpHeaWatLocSet_max=15E4
     "Maximum HW differential pressure setpoint local to the CHW plant";
-  constant Modelica.Units.SI.PressureDifference dpHeaWatHeaPum=5E4
+  constant Modelica.Units.SI.PressureDifference dpHeaWatHp=5E4
     "Heat pump HW pressure drop across condenser barrel";
   constant Modelica.Units.SI.Temperature THeaWatSupHig=60 + 273.15
     "HW supply temperature - High temperature level (AHRI 551/591)";
@@ -111,26 +111,26 @@ package Defaults
     "HW supply temperature - Low temperature level (AHRI 551/591)";
   constant Modelica.Units.SI.Temperature THeaWatRetLow=35 + 273.15
     "HW return temperature - Low temperature level (AHRI 551/591)";
-  constant Modelica.Units.SI.Temperature TOutHeaPumCoo=TOutChi
+  constant Modelica.Units.SI.Temperature TOutHpCoo=TOutChi
     "Outdoor air temperature for air-to-water heat pump rating - Cooling (AHRI 551/591)";
-  constant Modelica.Units.SI.Temperature TOutHeaPumHeaHig=8 + 273.15
+  constant Modelica.Units.SI.Temperature TOutHpHeaHig=8 + 273.15
     "Outdoor air temperature for air-to-water heat pump rating - High heating (AHRI 551/591)";
-  constant Modelica.Units.SI.Temperature TOutHeaPumHeaLow=-8 + 273.15
+  constant Modelica.Units.SI.Temperature TOutHpHeaLow=-8 + 273.15
     "Outdoor air temperature for air-to-water heat pump rating - Low heating (AHRI 551/591)";
-  constant Modelica.Units.SI.Temperature TSouHeaPumCoo=30 + 273.15
+  constant Modelica.Units.SI.Temperature TSouHpCoo=30 + 273.15
     "Source fluid entering temperature for water-to-water heat pump rating - Cooling (AHRI 551/591)";
-  constant Modelica.Units.SI.Temperature TSouHeaPumHea=12 + 273.15
+  constant Modelica.Units.SI.Temperature TSouHpHea=12 + 273.15
     "Source fluid entering temperature for water-to-water heat pump rating - Heating (AHRI 551/591)";
-  constant Real COPHeaPumAirWatHea(
+  constant Real COPHpAwHea(
     unit="1")=1.75
     "Air-to-water heat pump heating COP (ASHRAE 90.1 2022 at 50 °C HWST, -8 °C OAT)";
-  constant Real COPHeaPumAirWatCoo(
+  constant Real COPHpAwCoo(
     unit="1")=2.84
     "Air-to-water heat pump cooling COP (ASHRAE 90.1 2022 at 7 °C CHWST, 35 °C OAT)";
-  constant Real COPHeaPumWatWatHea(
+  constant Real COPHpWwHea(
     unit="1")=3.61
     "Water(brine)-to-water heat pump heating COP (ASHRAE 90.1 2022 at 50 °C HWST, 7 °C source LWT)";
-  constant Real COPHeaPumWatWatCoo(
+  constant Real COPHpWwCoo(
     unit="1")=5.07
     "Water(brine)-to-water heat pump cooling COP (ASHRAE 90.1 2022 at 7 °C CHWST, 35 °C source LWT)";
   annotation (

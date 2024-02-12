@@ -46,13 +46,12 @@ model PartialHeatPumpEquationFit
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-30,-20})));
-  Buildings.Fluid.HeatPumps.EquationFitReversible heaPum(
+  Buildings.Fluid.HeatPumps.EquationFitReversible hp(
     uMod(start=0),
-    redeclare final package Medium1=MediumHeaWat,
-    redeclare final package Medium2=MediumSou,
+    redeclare final package Medium1 = MediumHeaWat,
+    redeclare final package Medium2 = MediumSou,
     final per=dat.perFit,
-    final energyDynamics=energyDynamics)
-    "Heat pump"
+    final energyDynamics=energyDynamics) "Heat pump"
     annotation (Placement(transformation(extent={{-10,-16},{10,4}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger y1Int
     "Convert on/off command into integer"
@@ -80,7 +79,7 @@ model PartialHeatPumpEquationFit
 equation
   /* Control point connection - start */
   /* Control point connection - stop */
-  connect(bus.y1Heat, y1Hea.u) annotation (Line(
+  connect(bus.y1Hea, y1Hea.u) annotation (Line(
       points={{0,160},{0,156},{-80,156},{-80,142}},
       color={255,204,51},
       thickness=0.5));
@@ -103,15 +102,15 @@ equation
           70},{-26,62}}, color={255,127,0}));
   connect(y1Int.y, mulInt.u1) annotation (Line(points={{-20,78},{-20,70},{-14,70},
           {-14,62}}, color={255,127,0}));
-  connect(mulInt.y, heaPum.uMod)
+  connect(mulInt.y, hp.uMod)
     annotation (Line(points={{-20,38},{-20,-6},{-11,-6}}, color={255,127,0}));
-  connect(TChiHeaWatEnt.port_b, heaPum.port_a1)
+  connect(TChiHeaWatEnt.port_b, hp.port_a1)
     annotation (Line(points={{-40,0},{-10,0}}, color={0,127,255}));
-  connect(heaPum.port_b1, TChiHeaWatLvg.port_a)
+  connect(hp.port_b1, TChiHeaWatLvg.port_a)
     annotation (Line(points={{10,0},{70,0}}, color={0,127,255}));
-  connect(TSouLvg.port_a, heaPum.port_b2) annotation (Line(points={{-20,-20},{-20,
-          -12},{-10,-12}}, color={0,127,255}));
-  connect(TSouEnt.port_b, heaPum.port_a2)
+  connect(TSouLvg.port_a, hp.port_b2) annotation (Line(points={{-20,-20},{-20,-12},
+          {-10,-12}}, color={0,127,255}));
+  connect(TSouEnt.port_b, hp.port_a2)
     annotation (Line(points={{20,-20},{20,-12},{10,-12}}, color={0,127,255}));
   connect(bus.y1, y1Int.u) annotation (Line(
       points={{0,160},{0,110},{-20,110},{-20,102}},
@@ -119,6 +118,10 @@ equation
       thickness=0.5));
   connect(bus.y1, y1_actual.u) annotation (Line(
       points={{0,160},{0,110},{60,110},{60,118}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(bus.TSet, hp.TSet) annotation (Line(
+      points={{0.1,160.1},{0.1,86},{0,86},{0,10},{-16,10},{-16,3},{-11.4,3}},
       color={255,204,51},
       thickness=0.5));
   annotation (

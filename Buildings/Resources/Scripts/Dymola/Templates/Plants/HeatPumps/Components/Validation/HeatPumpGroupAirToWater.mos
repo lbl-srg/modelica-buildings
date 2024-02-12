@@ -1,0 +1,64 @@
+simulateModel("Buildings.Templates.Plants.HeatPumps.Components.Validation.HeatPumpGroupAirToWater",
+    method="cvode",
+    tolerance=1e-6,
+    startTime=10497600.0,
+    stopTime=10505600.0,
+    resultFile="HeatPumpGroupAirToWater");
+createPlot(
+    id=1,
+    position={5, 5, 300, 400},
+    y={"ctlHpAw.bus.hp[1].y1", "ctlHpAw.bus.hp[1].y1Hea", "ctlHpAwNrv.bus.hp[1].y1"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"weaDat.weaBus.TDryBul", "hpAw.TSouHeaHp_nominal", "hpAw.TSouCooHp_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    position={310, 5, 300, 600},
+    subPlot=1,
+    y={"TRet[1].T", "TSup[1].T", "hpAw.bus.hp[1].TSet", "hpAw.THeaWatRetHp_nominal", "hpAw.TChiWatRetHp_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=2,
+    y={"hpAw.hp[1].port_a.m_flow", "hpAw.mHeaWatHp_flow_nominal", "hpAw.mChiWatHp_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=3,
+    y={"hpAw.hp[1].hp.PLR", "hpAw.hp[1].hp.COP"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=3,
+    position={615, 5, 300, 600},
+    subPlot=1,
+    y={"TRet1[1].T", "TSup1[1].T", "hpAwNrv.bus.hp[1].TSet", "hpAwNrv.THeaWatRetHp_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=3,
+    subPlot=2,
+    y={"hpAwNrv.hp[1].port_a.m_flow", "hpAwNrv.mHeaWatHp_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=3,
+    subPlot=3,
+    y={"hpAwNrv.hp[1].hp.PLR", "hpAwNrv.hp[1].hp.COP"},
+    autoscale=true,
+    grid=true
+);

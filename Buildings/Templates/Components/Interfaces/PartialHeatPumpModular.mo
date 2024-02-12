@@ -4,7 +4,7 @@ model PartialHeatPumpModular
   extends Buildings.Templates.Components.Interfaces.PartialHeatPump(
     final typMod=Buildings.Templates.Components.Types.HeatPumpModel.ModularTableData2D);
 
-  replaceable Buildings.Fluid.HeatPumps.ModularReversible.ModularReversible heaPum(
+  replaceable Buildings.Fluid.HeatPumps.ModularReversible.ModularReversible hp(
     redeclare final package MediumCon = MediumHeaWat,
     redeclare final package MediumEva = MediumSou,
     final QCoo_flow_nominal=QCoo_flow_nominal,
@@ -108,10 +108,10 @@ equation
   connect(y1_actual.y, bus.y1_actual) annotation (Line(points={{60,142},{60,156},
           {0,156},{0,160}},
                           color={255,0,255}));
-  connect(ctl.y, heaPum.ySet) annotation (Line(points={{-28,80},{-16,80},{-16,-4},
-          {-11.2,-4}}, color={0,0,127}));
-  connect(ctl.y1Hea, heaPum.hea) annotation (Line(points={{-28,84},{-14,84},{-14,
-          -7.9},{-11.1,-7.9}}, color={255,0,255}));
+  connect(ctl.y, hp.ySet) annotation (Line(points={{-28,80},{-16,80},{-16,-4},{
+          -11.2,-4}}, color={0,0,127}));
+  connect(ctl.y1Hea, hp.hea) annotation (Line(points={{-28,84},{-14,84},{-14,-7.9},
+          {-11.1,-7.9}}, color={255,0,255}));
   connect(y1HeaNonRev.y, ctl.u1Hea) annotation (
       Line(points={{-40,118},{-40,110},{-76,110},{-76,84},{-52,84}},
                                                                   color={255,0,255}));
@@ -125,20 +125,20 @@ equation
       points={{0,160},{0,156},{-56,156},{-56,88},{-52,88}},
       color={255,204,51},
       thickness=0.5));
-  connect(TChiHeaWatEnt.port_b, heaPum.port_a1)
+  connect(TChiHeaWatEnt.port_b, hp.port_a1)
     annotation (Line(points={{-40,0},{-10,0}}, color={0,127,255}));
   connect(port_a, mChiHeaWat_flow.port_a)
     annotation (Line(points={{-100,0},{-90,0}}, color={0,127,255}));
   connect(mChiHeaWat_flow.port_b, TChiHeaWatEnt.port_a)
     annotation (Line(points={{-70,0},{-60,0}}, color={0,127,255}));
-  connect(heaPum.port_b1, TChiHeaWatLvg.port_a)
+  connect(hp.port_b1, TChiHeaWatLvg.port_a)
     annotation (Line(points={{10,0},{70,0}}, color={0,127,255}));
   connect(TChiHeaWatLvg.port_b, port_b)
     annotation (Line(points={{90,0},{100,0}}, color={0,127,255}));
-  connect(TSouEnt.port_b, heaPum.port_a2)
+  connect(TSouEnt.port_b, hp.port_a2)
     annotation (Line(points={{20,-20},{20,-12},{10,-12}}, color={0,127,255}));
-  connect(heaPum.port_b2, TSouLvg.port_a) annotation (Line(points={{-10,-12},{-20,
-          -12},{-20,-20}}, color={0,127,255}));
+  connect(hp.port_b2, TSouLvg.port_a) annotation (Line(points={{-10,-12},{-20,-12},
+          {-20,-20}}, color={0,127,255}));
   connect(busRef, ctl.bus) annotation (Line(
       points={{0,100},{0,90},{-40,90}},
       color={255,204,51},

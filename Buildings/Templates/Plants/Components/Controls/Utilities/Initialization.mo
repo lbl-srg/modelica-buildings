@@ -22,10 +22,15 @@ block Initialization
     "Return model time"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
-    final t=0,
+    final t=startTime,
     final h=0)
     "Time comparison to trigger the change from initial to actual value"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
+protected
+  parameter Real startTime(fixed=false)
+    "Time at initialization";
+initial equation
+  startTime=time;
 equation
   connect(logSwi.y, y1)
     annotation (Line(points={{44,0},{120,0}},color={255,0,255}));
@@ -41,8 +46,9 @@ equation
     defaultComponentName="ini",
     Documentation(
       info="<html>
+FIXME: Not CDL compliant as it uses Buildings.Utilities.Time.ModelTime.
 <p>
-At initial time (<code>time=0</code>), this block returns the 
+At initial time (<code>time=0</code>), this block returns the
 value specified by the parameter <code>y1Ini</code>, which
 is set to <code>false</code> by default.
 Otherwise (<code>time&gt;0</code>), this block returns the

@@ -2,7 +2,7 @@ within Buildings.Templates.Components.HeatPumps;
 model AirToWater
   "Air-to-water heat pump - Equation fit model"
   extends Buildings.Templates.Components.Interfaces.PartialHeatPumpEquationFit(
-    redeclare final package MediumSou=Buildings.Media.Air,
+    redeclare final package MediumSou=MediumAir,
     final typ=Buildings.Templates.Components.Types.HeatPump.AirToWater,
     final allowFlowReversalSou=false);
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter mAir_flow(
@@ -34,18 +34,15 @@ equation
     annotation (Line(points={{60,-72},{60,-96},{72,-96}},color={0,0,127}));
   connect(bus.y1, y1Rea.u)
     annotation (Line(points={{0,160},{0,110},{60,110},{60,102}},color={255,204,51},thickness=0.5));
-  connect(bus.TSet, heaPum.TSet)
-    annotation (Line(points={{0.1,160.1},{0,160.1},{0,20},{-16,20},{-16,3},{-11.4,3}},
-      color={255,204,51},thickness=0.5));
   annotation (
-    defaultComponentName="heaPum",
+    defaultComponentName="hp",
     Documentation(
       info="<html>
 FIXME: Currently bindings involve heaPum.refCyc.refCycHeaPumCoo which is conditional.
 This is to be corrected in the HP models, see #3 in
 https://docs.google.com/document/d/130SBzYK3YHHSzFvr5FyW_WOXmNGoXKzUJ3Wahq1rx9U/edit
 <br/>
-FIXME: We use these bindings 
+FIXME: We use these bindings
 coo(final cpCon=cpSou_default, final cpEva=cpChiWat_default) instead
 of bindings to parameters of heaPum.refCyc.refCycHeaPumCoo due to a bug
 in the HP model, see #1 in above document.
@@ -53,9 +50,9 @@ in the HP model, see #1 in above document.
 This is a model for an air-to-water heat pump where the capacity
 and drawn power are computed based on the equation fit method.
 The model can be configured with the parameter <code>is_rev</code>
-to represent either a non-reversible heat pump (heating only) or a 
+to represent either a non-reversible heat pump (heating only) or a
 reversible heat pump.
-This model uses 
+This model uses
 <a href=\\\"modelica://Buildings.Fluid.HeatPumps.EquationFitReversible\\\">
 Buildings.Fluid.HeatPumps.EquationFitReversible</a>,
 which the user may refer to for the modeling assumptions.
@@ -72,7 +69,7 @@ DO signal, with a dimensionality of zero
 <li>For reversible heat pumps only (<code>is_rev=true</code>),
 Heat pump operating mode command signal <code>y1Hea</code>:
 DO signal, with a dimensionality of zero<br/>
-(<code>y1Hea=true</code> for heating mode, 
+(<code>y1Hea=true</code> for heating mode,
 <code>y1Hea=false</code> for cooling mode)
 <li>
 Heat pump supply temperature setpoint <code>TSet</code>:

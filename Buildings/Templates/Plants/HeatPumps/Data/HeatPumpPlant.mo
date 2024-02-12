@@ -13,24 +13,34 @@ record HeatPumpPlant
     final cfg=cfg)
     "Controller"
     annotation (Dialog(group="Controls"));
-  // RFE: Support unequally sized units with array instance.
-  parameter Buildings.Templates.Components.Data.HeatPump heaPum(
+  parameter Buildings.Templates.Plants.HeatPumps.Components.Data.HeatPumpGroup hp(
+    final typ=cfg.typ,
+    final nHp=cfg.nHp,
+    final is_rev=cfg.is_rev,
+    final typMod=cfg.typMod,
     final cpHeaWat_default=cfg.cpHeaWat_default,
-    final cpChiWat_default=cfg.cpChiWat_default)
-    "Heat pump characteritics - Single unit"
+    final cpSou_default=cfg.cpSou_default,
+    TChiWatSupHp_nominal=ctl.TChiWatSupHp_nominal,
+    capCooHp_nominal=ctl.capCooHp_nominal,
+    mHeaWatHp_flow_nominal=ctl.VHeaWatHp_flow_nominal * cfg.rhoHeaWat_default,
+    capHeaHp_nominal=ctl.capHeaHp_nominal,
+    mChiWatHp_flow_nominal=ctl.VChiWatHp_flow_nominal * cfg.rhoChiWat_default,
+    THeaWatSupHp_nominal=ctl.THeaWatSupHp_nominal)
+    "Heat pumps"
     annotation (Dialog(group="Heat pumps"));
+
   // HW loop
   parameter Buildings.Templates.Components.Data.PumpMultiple pumHeaWatPri(
     final nPum=cfg.nPumHeaWatPri,
     final rho_default=cfg.rhoHeaWat_default,
     final typ=Buildings.Templates.Components.Types.Pump.Multiple,
-    m_flow_nominal=fill(sum(heaPum.mHeaWat_flow_nominal) / max(cfg.nPumHeaWatPri, 1), cfg.nPumHeaWatPri))
+    m_flow_nominal=fill(sum(hp.mHeaWatHp_flow_nominal) / max(cfg.nPumHeaWatPri, 1), cfg.nPumHeaWatPri))
     "Primary HW pumps"
     annotation (Dialog(group="Primary HW loop",
       enable=cfg.have_heaWat));
   parameter Buildings.Templates.Components.Data.Valve valHeaWatMinByp(
     final typ=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
-    m_flow_nominal=if cfg.have_valHeaWatMinByp then max(ctl.VHeaWatHeaPum_flow_min) * cfg.rhoHeaWat_default
+    m_flow_nominal=if cfg.have_valHeaWatMinByp then max(ctl.VHeaWatHp_flow_min) * cfg.rhoHeaWat_default
       else 0,
     dpValve_nominal=Buildings.Templates.Data.Defaults.dpValBypMin)
     "HW minimum flow bypass valve"
@@ -49,13 +59,13 @@ record HeatPumpPlant
     final nPum=cfg.nPumChiWatPri,
     final rho_default=cfg.rhoChiWat_default,
     final typ=Buildings.Templates.Components.Types.Pump.Multiple,
-    m_flow_nominal=fill(sum(heaPum.mChiWat_flow_nominal) / max(cfg.nPumChiWatPri, 1), cfg.nPumChiWatPri))
+    m_flow_nominal=fill(sum(hp.mChiWatHp_flow_nominal) / max(cfg.nPumChiWatPri, 1), cfg.nPumChiWatPri))
     "Primary CHW pumps"
     annotation (Dialog(group="Primary CHW loop",
       enable=cfg.have_chiWat));
   parameter Buildings.Templates.Components.Data.Valve valChiWatMinByp(
     final typ=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
-    m_flow_nominal=if cfg.have_valChiWatMinByp then max(ctl.VChiWatHeaPum_flow_min) * cfg.rhoChiWat_default
+    m_flow_nominal=if cfg.have_valChiWatMinByp then max(ctl.VChiWatHp_flow_min) * cfg.rhoChiWat_default
       else 0,
     dpValve_nominal=Buildings.Templates.Data.Defaults.dpValBypMin)
     "CHW minimum flow bypass valve"
@@ -75,7 +85,7 @@ record HeatPumpPlant
       info="<html>
 <p>
 This record provides the set of sizing and operating parameters for
-the heat pump plant models within 
+the heat pump plant models within
 <a href=\"modelica://Buildings.Templates.Plants.HeatPumps\">
 Buildings.Templates.Plants.HeatPumps</a>.
 </p>

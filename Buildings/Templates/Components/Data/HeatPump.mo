@@ -79,7 +79,7 @@ record HeatPump "Record for heat pump model"
     "CHW return temperature"
     annotation(Dialog(group="Nominal condition", enable=is_rev));
   parameter Modelica.Units.SI.Temperature TSouHea_nominal(
-    start=Buildings.Templates.Data.Defaults.TOutHeaPumHeaLow,
+    start=Buildings.Templates.Data.Defaults.TOutHpHeaLow,
     final min=220)
     "OAT or source fluid supply temperature (evaporator entering) in heating mode"
     annotation(Dialog(group="Nominal condition"));
@@ -105,7 +105,7 @@ record HeatPump "Record for heat pump model"
       dpSouWatHea_nominal else Buildings.Templates.Data.Defaults.dpAirChi
     "Source fluid pressure drop in heating mode";
   parameter Modelica.Units.SI.Temperature TSouCoo_nominal(
-    start=Buildings.Templates.Data.Defaults.TOutHeaPumCoo,
+    start=Buildings.Templates.Data.Defaults.TOutHpCoo,
     final min=273.15)
     "OAT or source fluid supply temperature (condenser entering) in cooling mode"
     annotation(Dialog(group="Nominal condition",
@@ -198,43 +198,43 @@ annotation (
   defaultComponentName="dat",
   Documentation(info="<html>
 <p>
-This record provides the set of sizing and operating parameters for 
-heat pump models that can be found within 
+This record provides the set of sizing and operating parameters for
+heat pump models that can be found within
 <a href=\"modelica://Buildings.Templates.Components.HeatPumps\">
 Buildings.Templates.Components.HeatPumps</a>.
 </p>
 <h4>Performance data for the equation fit model</h4>
-<p>When using 
-<code>typMod=Buildings.Templates.Components.Types.HeatPumpModel.EquationFit</code>, 
-the design values declared at the top-level 
-are propagated by default to the performance data record <code>per</code> 
-under the assumption that the reference conditions used for assessing the 
+<p>When using
+<code>typMod=Buildings.Templates.Components.Types.HeatPumpModel.EquationFit</code>,
+the design values declared at the top-level
+are propagated by default to the performance data record <code>per</code>
+under the assumption that the reference conditions used for assessing the
 performance data match the design conditions.
 This avoids duplicate parameter assignments when manually entering
-the performance curve coefficients. 
+the performance curve coefficients.
 </p>
 <p>
 Note that this propagation does not persist when redeclaring or
 reassigning the record.
 This is because the equation fit method uses reference values that
-must match the ones used to compute the performance curve coefficients. 
+must match the ones used to compute the performance curve coefficients.
 <p>
 <p>
 Also note that placeholders values are assigned to the performance curves,
-the reference source temperature and the input power in 
+the reference source temperature and the input power in
 cooling mode to avoid assigning these parameters in case of non-reversible
 heat pumps.
 These values are unrealistic and must be overwritten for reversible heat pumps, which
 is always the case when redeclaring or
 reassigning the performance record <code>per</code>.
-Models that use this record will issue a warning if these placeholders values 
+Models that use this record will issue a warning if these placeholders values
 are not overwritten in case of reversible heat pumps.
 </p>
 <p>
 The validation model
 <a href=\"modelica://Buildings.Templates.Components.HeatPumps.Validation.DataRecord\">
-Buildings.Templates.Components.Validation.HeatPumpsRecord</a> 
-illustrates how the default bindings from this class may be 
+Buildings.Templates.Components.Validation.HeatPumpsRecord</a>
+illustrates how the default bindings from this class may be
 overwritten and how specific performance curves may be assigned.
 </p>
 </html>"));

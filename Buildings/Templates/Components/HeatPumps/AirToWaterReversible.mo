@@ -2,55 +2,58 @@ within Buildings.Templates.Components.HeatPumps;
 model AirToWaterReversible
   "Reversible air-to-water heat pump - Modular model"
   extends Buildings.Templates.Components.Interfaces.PartialHeatPumpModular(
-    redeclare final package MediumSou=Buildings.Media.Air,
-    final typ=Buildings.Templates.Components.Types.HeatPump.AirToWater,
-    heaPum(
-      safCtrPar(
+    hp(safCtrPar(
         use_minOnTime=false,
         use_minOffTime=false,
-        use_maxCycRat=false),
-      redeclare model RefrigerantCycleHeatPumpCooling=Buildings.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2D(
-        redeclare Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting iceFacCal,
-        final datTab=dat.modCoo)),
+        use_maxCycRat=false), redeclare model RefrigerantCycleHeatPumpCooling
+        = Buildings.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2D
+          (redeclare
+            Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
+            iceFacCal, final datTab=dat.modCoo)),
+    redeclare final package MediumSou = MediumAir,
+    final typ=Buildings.Templates.Components.Types.HeatPump.AirToWater,
     final is_rev=true,
     final allowFlowReversalSou=false,
-    redeclare Buildings.Templates.Components.HeatPumps.Controls.IdealModularReversibleTableData2D ctl(
-      hea(
+    redeclare
+      Buildings.Templates.Components.HeatPumps.Controls.IdealModularReversibleTableData2D
+      ctl(hea(
         final cpCon=cpHeaWat_default,
         final cpEva=cpSou_default,
-        final dTCon_nominal=heaPum.refCyc.refCycHeaPumHea.dTCon_nominal,
-        final PEle_nominal=heaPum.refCyc.refCycHeaPumHea.PEle_nominal,
-        final dTEva_nominal=heaPum.refCyc.refCycHeaPumHea.dTEva_nominal,
-        final scaFac=heaPum.refCyc.refCycHeaPumHea.scaFac,
-        final mEva_flow_nominal=heaPum.refCyc.refCycHeaPumHea.mEva_flow_nominal,
-        final useInHeaPum=heaPum.refCyc.refCycHeaPumHea.useInHeaPum,
-        final extrapolation=heaPum.refCyc.refCycHeaPumHea.extrapolation,
-        final QHeaNoSca_flow_nominal=heaPum.refCyc.refCycHeaPumHea.QHeaNoSca_flow_nominal,
-        final datTab=heaPum.refCyc.refCycHeaPumHea.datTab,
-        final y_nominal=heaPum.refCyc.refCycHeaPumHea.y_nominal,
-        final mCon_flow_nominal=heaPum.refCyc.refCycHeaPumHea.mCon_flow_nominal,
-        final QHea_flow_nominal=heaPum.refCyc.refCycHeaPumHea.QHea_flow_nominal,
-        final smoothness=heaPum.refCyc.refCycHeaPumHea.smoothness,
-        final TEva_nominal=heaPum.refCyc.refCycHeaPumHea.TEva_nominal,
-        final TCon_nominal=heaPum.refCyc.refCycHeaPumHea.TCon_nominal),
-      coo(
+        final dTCon_nominal=hp.refCyc.refCycHeaPumHea.dTCon_nominal,
+        final PEle_nominal=hp.refCyc.refCycHeaPumHea.PEle_nominal,
+        final dTEva_nominal=hp.refCyc.refCycHeaPumHea.dTEva_nominal,
+        final scaFac=hp.refCyc.refCycHeaPumHea.scaFac,
+        final mEva_flow_nominal=hp.refCyc.refCycHeaPumHea.mEva_flow_nominal,
+        final useInHeaPum=hp.refCyc.refCycHeaPumHea.useInHeaPum,
+        final extrapolation=hp.refCyc.refCycHeaPumHea.extrapolation,
+        final QHeaNoSca_flow_nominal=hp.refCyc.refCycHeaPumHea.QHeaNoSca_flow_nominal,
+
+        final datTab=hp.refCyc.refCycHeaPumHea.datTab,
+        final y_nominal=hp.refCyc.refCycHeaPumHea.y_nominal,
+        final mCon_flow_nominal=hp.refCyc.refCycHeaPumHea.mCon_flow_nominal,
+        final QHea_flow_nominal=hp.refCyc.refCycHeaPumHea.QHea_flow_nominal,
+        final smoothness=hp.refCyc.refCycHeaPumHea.smoothness,
+        final TEva_nominal=hp.refCyc.refCycHeaPumHea.TEva_nominal,
+        final TCon_nominal=hp.refCyc.refCycHeaPumHea.TCon_nominal), coo(
         final cpCon=cpSou_default,
         final cpEva=cpChiWat_default,
-        final QCooNoSca_flow_nominal=heaPum.refCyc.refCycHeaPumCoo.QCooNoSca_flow_nominal,
-        final dTCon_nominal=heaPum.refCyc.refCycHeaPumCoo.dTCon_nominal,
-        final dTEva_nominal=heaPum.refCyc.refCycHeaPumCoo.dTEva_nominal,
-        final PEle_nominal=heaPum.refCyc.refCycHeaPumCoo.PEle_nominal,
-        final TCon_nominal=heaPum.refCyc.refCycHeaPumCoo.TCon_nominal,
-        final mEva_flow_nominal=heaPum.refCyc.refCycHeaPumCoo.mEva_flow_nominal,
-        final useInChi=heaPum.refCyc.refCycHeaPumCoo.useInChi,
-        final TEva_nominal=heaPum.refCyc.refCycHeaPumCoo.TEva_nominal,
-        final scaFac=heaPum.refCyc.refCycHeaPumCoo.scaFac,
-        final y_nominal=heaPum.refCyc.refCycHeaPumCoo.y_nominal,
-        final mCon_flow_nominal=heaPum.refCyc.refCycHeaPumCoo.mCon_flow_nominal,
-        final datTab=heaPum.refCyc.refCycHeaPumCoo.datTab,
-        final extrapolation=heaPum.refCyc.refCycHeaPumCoo.extrapolation,
-        final smoothness=heaPum.refCyc.refCycHeaPumCoo.smoothness,
-        final QCoo_flow_nominal=heaPum.refCyc.refCycHeaPumCoo.QCoo_flow_nominal)));
+        final QCooNoSca_flow_nominal=hp.refCyc.refCycHeaPumCoo.QCooNoSca_flow_nominal,
+
+        final dTCon_nominal=hp.refCyc.refCycHeaPumCoo.dTCon_nominal,
+        final dTEva_nominal=hp.refCyc.refCycHeaPumCoo.dTEva_nominal,
+        final PEle_nominal=hp.refCyc.refCycHeaPumCoo.PEle_nominal,
+        final TCon_nominal=hp.refCyc.refCycHeaPumCoo.TCon_nominal,
+        final mEva_flow_nominal=hp.refCyc.refCycHeaPumCoo.mEva_flow_nominal,
+        final useInChi=hp.refCyc.refCycHeaPumCoo.useInChi,
+        final TEva_nominal=hp.refCyc.refCycHeaPumCoo.TEva_nominal,
+        final scaFac=hp.refCyc.refCycHeaPumCoo.scaFac,
+        final y_nominal=hp.refCyc.refCycHeaPumCoo.y_nominal,
+        final mCon_flow_nominal=hp.refCyc.refCycHeaPumCoo.mCon_flow_nominal,
+        final datTab=hp.refCyc.refCycHeaPumCoo.datTab,
+        final extrapolation=hp.refCyc.refCycHeaPumCoo.extrapolation,
+        final smoothness=hp.refCyc.refCycHeaPumCoo.smoothness,
+        final QCoo_flow_nominal=hp.refCyc.refCycHeaPumCoo.QCoo_flow_nominal)));
+
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter mAir_flow(
     final k=mSouHea_flow_nominal)
     "Air mass flow rate"
@@ -81,14 +84,14 @@ equation
   connect(ctl.y1, y1Rea.u)
     annotation (Line(points={{-28,88},{60,88},{60,82}},color={255,0,255}));
   annotation (
-    defaultComponentName="heaPum",
+    defaultComponentName="hp",
     Documentation(
       info="<html>
 FIXME: Currently bindings involve heaPum.refCyc.refCycHeaPumCoo which is conditional.
 This is to be corrected in the HP models, see #3 in
 https://docs.google.com/document/d/130SBzYK3YHHSzFvr5FyW_WOXmNGoXKzUJ3Wahq1rx9U/edit
 <br/>
-FIXME: We use these bindings 
+FIXME: We use these bindings
 coo(final cpCon=cpSou_default, final cpEva=cpChiWat_default) instead
 of bindings to parameters of heaPum.refCyc.refCycHeaPumCoo due to a bug
 in the HP model, see #1 in above document.
@@ -96,9 +99,9 @@ in the HP model, see #1 in above document.
 This is a model for an air-to-water heat pump where the capacity
 and drawn power are computed based on the equation fit method.
 The model can be configured with the parameter <code>is_rev</code>
-to represent either a non-reversible heat pump (heating only) or a 
+to represent either a non-reversible heat pump (heating only) or a
 reversible heat pump.
-This model uses 
+This model uses
 <a href=\\\"modelica://Buildings.Fluid.HeatPumps.EquationFitReversible\\\">
 Buildings.Fluid.HeatPumps.EquationFitReversible</a>,
 which the user may refer to for the modeling assumptions.
@@ -115,7 +118,7 @@ DO signal, with a dimensionality of zero
 <li>For reversible heat pumps only (<code>is_rev=true</code>),
 Heat pump operating mode command signal <code>y1Hea</code>:
 DO signal, with a dimensionality of zero<br/>
-(<code>y1Hea=true</code> for heating mode, 
+(<code>y1Hea=true</code> for heating mode,
 <code>y1Hea=false</code> for cooling mode)
 <li>
 Heat pump supply temperature setpoint <code>TSet</code>:

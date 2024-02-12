@@ -7,7 +7,7 @@ model PartialHeatPump
   replaceable package MediumHeaWat=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "HW medium"
-    annotation(__Linkage(enable=false));
+    annotation(__ctrlFlow(enable=false));
   /*
   MediumChiWat is for internal use only.
   It is the same as MediumHeaWat for reversible HP.
@@ -25,13 +25,13 @@ model PartialHeatPump
     "Source-side medium"
     annotation(Dialog(enable=
     typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater),
-    __Linkage(enable=false));
+    __ctrlFlow(enable=false));
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air medium"
     annotation(Dialog(enable=
     typ==Buildings.Templates.Components.Types.HeatPump.AirToWater),
-    __Linkage(enable=false));
+    __ctrlFlow(enable=false));
 
   parameter Buildings.Templates.Components.Types.HeatPump typ
     "Equipment type"
