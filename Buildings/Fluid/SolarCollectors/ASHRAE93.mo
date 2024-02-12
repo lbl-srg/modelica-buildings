@@ -12,7 +12,7 @@ model ASHRAE93 "Model of a solar thermal collector according to the ASHRAE93 sta
     final y_intercept=per.y_intercept,
     final use_shaCoe_in=use_shaCoe_in,
     final shaCoe=shaCoe,
-    final A_c=TotalArea_internal)
+    final A_c=ATot_internal)
     "Identifies heat gained from the sun using the ASHRAE93 standard calculations"
              annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 
@@ -20,7 +20,7 @@ model ASHRAE93 "Model of a solar thermal collector according to the ASHRAE93 sta
     redeclare package Medium = Medium,
     final nSeg=nSeg,
     final slope=per.slope,
-    final A_c=TotalArea_internal)
+    final A_c=ATot_internal)
     "Calculates the heat lost to the surroundings using the ASHRAE93 standard calculations"
         annotation (Placement(transformation(extent={{-20,10},{0,30}})));
 

@@ -12,7 +12,7 @@ model EN12975 "Model of a solar thermal collector according to the ASHRAE93 stan
     final eta0=per.eta0,
     final use_shaCoe_in=use_shaCoe_in,
     final shaCoe=shaCoe,
-    final A_c=TotalArea_internal)
+    final A_c=ATot_internal)
     "Identifies heat gained from the sun using the EN12975 standard calculations"
      annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss heaLos(
@@ -20,7 +20,7 @@ model EN12975 "Model of a solar thermal collector according to the ASHRAE93 stan
     final nSeg=nSeg,
     final a1=per.a1,
     final a2=per.a2,
-    final A_c=TotalArea_internal)
+    final A_c=ATot_internal)
     "Calculates the heat lost to the surroundings using the EN12975 standard calculations"
       annotation (Placement(transformation(extent={{-20,10},{0,30}})));
 

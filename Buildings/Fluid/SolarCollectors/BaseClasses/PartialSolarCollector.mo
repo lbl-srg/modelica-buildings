@@ -146,7 +146,7 @@ protected
      then nPanels_internal*per.dp_nominal else per.dp_nominal
     "Nominal pressure loss across the system of collectors";
 
-  parameter Modelica.Units.SI.Area TotalArea_internal=nPanels_internal*per.A
+  parameter Modelica.Units.SI.Area ATot_internal=nPanels_internal*per.A
     "Area used in the simulation";
 
   parameter Real nPanels_internal=
