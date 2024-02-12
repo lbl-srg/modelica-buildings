@@ -10,7 +10,7 @@ record Generic
     "Dry or total thermal capacity of the solar thermal collector";
   parameter Modelica.Units.SI.Volume V "Fluid volume ";
   parameter Modelica.Units.SI.Mass mDry "Dry mass";
-  parameter Real mperA_flow_nominal(unit="kg/(s.m2)")
+  parameter Real mperA_flow_nominal(final unit="kg/(s.m2)")
     "Nominal mass flow rate per unit area of collector";
   parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa")
     "Nominal pressure drop";
@@ -28,7 +28,7 @@ solar collector models.
 <p>
 Depending on the data source that is used, different parameters are available to
 model the thermal capacity of the solar collector.
-The choice of CTyp determines which parameters are used to calculate the 
+The choice of CTyp determines which parameters are used to calculate the
 representative heat capacity of the entire solar collector (including fluid).
 When the dry mass of the solar collector is used to calculate the heat capacity,
 the collector is assumed to be made fully out of copper
@@ -43,7 +43,7 @@ the collector is assumed to be made fully out of copper
 <tr>
 <td> TotalCapacity </td>
 <td> CTot </td>
-<td> / </td> 
+<td> / </td>
 <td> / </td>
 </tr>
 <tr>

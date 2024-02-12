@@ -154,11 +154,11 @@ test standard.
 <h4>References</h4>
 <p>
 ASHRAE 93-2010 -- Methods of Testing to Determine the Thermal Performance of
-Solar Collectors (ANSI approved)
+Solar Collectors (ANSI approved).
 </p>
 <p>
 <a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v23.2.0/EngineeringReference.pdf\">
-EnergyPlus 23.2.0 Engineering Reference</a>
+EnergyPlus 23.2.0 Engineering Reference</a>.
 </p>
 </html>", revisions="<html>
 <ul>

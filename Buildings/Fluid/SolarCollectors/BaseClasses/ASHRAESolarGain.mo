@@ -123,10 +123,10 @@ equation
     Documentation(info="<html>
 <p>
 This component computes the solar heat gain of the solar thermal collector.
-It only calculates the solar heat gain without considering the heat loss 
+It only calculates the solar heat gain without considering the heat loss
 to the environment.
 This model uses ratings data according to ASHRAE93.
-The solar heat gain is calculated using Equations 18.298-18.302 in the 
+The solar heat gain is calculated using Equations 18.298-18.302 in the
 referenced EnergyPlus documentation.
 </p>
 <p>
@@ -139,7 +139,7 @@ Q<sub>flow</sub>[i]=A<sub>c</sub>/nSeg (F<sub>R</sub>(&tau;&alpha;)
   (1-shaCoe)+G<sub>dif</sub>+G<sub>gnd</sub>))
 </p>
 <p>
-where <i>Q<sub>flow</sub>[i]</i> is the heat gain in each segment, 
+where <i>Q<sub>flow</sub>[i]</i> is the heat gain in each segment,
 <i>A<sub>c</sub></i> is the area of the collector,
 <i>nSeg</i> is the user-specified number of segments in the simulation,
 <i>F<sub>R</sub>(&tau;&alpha;)</i> is the maximum collector efficiency,
@@ -212,7 +212,7 @@ These two equations must be evaluated in degrees.
 The necessary unit conversions are made internally.
 </p>
 <p>
-This model reduces the heat gain rate to 0 W when the fluid temperature is 
+This model reduces the heat gain rate to 0 W when the fluid temperature is
 within 1 degree C of the maximum temperature of the medium model.
 The calculation is performed using the
 <a href=\"modelica://Buildings.Utilities.Math.Functions.smoothHeaviside\">
@@ -222,11 +222,11 @@ Buildings.Utilities.Math.Functions.smoothHeaviside</a> function.
 <h4>References</h4>
 <p>
 ASHRAE 93-2010 -- Methods of Testing to Determine the Thermal Performance of Solar
-Collectors (ANSI approved)
+Collectors (ANSI approved).
 </p>
 <p>
 <a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v23.2.0/EngineeringReference.pdf\">
-EnergyPlus 23.2.0 Engineering Reference</a>
+EnergyPlus 23.2.0 Engineering Reference</a>.
 </p>
 </html>", revisions="<html>
 <ul>
