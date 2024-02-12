@@ -27,7 +27,7 @@ model EN12975 "Model of a solar thermal collector according to the ASHRAE Standa
 equation
   // Make sure the model is only used with the EN ratings data, and hence a1 > 0
   assert(per.a1 > 0,
-    "The heat loss coefficient from the EN 12975 ratings data must be strictly positive. Obtained a1 = " + String(per.a1));
+    "In " + getInstanceName() + ": The heat loss coefficient from the EN 12975 ratings data must be strictly positive. Obtained a1 = " + String(per.a1));
   connect(shaCoe_internal, solGai.shaCoe_in);
 
   connect(weaBus.TDryBul, heaLos.TEnv) annotation (Line(

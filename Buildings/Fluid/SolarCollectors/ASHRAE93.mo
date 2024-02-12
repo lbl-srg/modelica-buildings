@@ -27,7 +27,7 @@ model ASHRAE93 "Model of a solar thermal collector according to the ASHRAE Stand
 equation
   // Make sure the model is only used with the ASHRAE ratings data, and slope < 0
   assert(per.slope < 0,
-    "The heat loss coefficient from the ASHRAE ratings data must be strictly negative. Obtained slope = " + String(per.slope));
+    "In " + getInstanceName() + ": The heat loss coefficient from the ASHRAE ratings data must be strictly negative. Obtained slope = " + String(per.slope));
 
   connect(weaBus.TDryBul, heaLos.TEnv) annotation (Line(
       points={{-99.95,90.05},{-90,90.05},{-90,26},{-22,26}},
