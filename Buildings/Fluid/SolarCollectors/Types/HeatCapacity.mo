@@ -9,7 +9,6 @@ type HeatCapacity = enumeration(
   "Enumeration to define how the heat capacity of the solar collector is calculated"
   annotation(Documentation(info="<html>
 <p>
-Enumeration used to define the different types of area measurements used
-in solar collector testing.
+Enumeration used to define the different types of solar collector capacity specification.
 </p>
 </html>"));
