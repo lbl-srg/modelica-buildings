@@ -3,18 +3,24 @@ model GCritCalc "Model calculating the critical insolation level"
 
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Real slope(unit="W/(m2.K)") "Slope from ratings data";
-  parameter Real y_intercept "y_intercept from ratings data";
+  parameter Real slope(
+    final unit="W/(m2.K)") "Slope from ratings data";
+  parameter Real y_intercept(final unit="1")(final unit="1") "y_intercept from ratings data";
 
-  Modelica.Blocks.Interfaces.RealInput TIn(unit="K",
-  displayUnit = "degC", quantity = "ThermodynamicTemperature")
+  Modelica.Blocks.Interfaces.RealInput TIn(
+    final unit="K",
+    displayUnit = "degC",
+    quantity = "ThermodynamicTemperature")
     "Temperature of water entering the collector"
     annotation (Placement(transformation(extent={{-140,-70},{-100,-30}})));
-  Modelica.Blocks.Interfaces.RealOutput G_TC(unit="W/m2",
-  quantity = "RadiantEnergyFluenceRate") "Critical radiation level"
+  Modelica.Blocks.Interfaces.RealOutput G_TC(
+    final unit="W/m2",
+    quantity = "RadiantEnergyFluenceRate") "Critical radiation level"
     annotation (Placement(transformation(extent={{100,-16},{132,16}})));
-  Modelica.Blocks.Interfaces.RealInput TEnv(unit="K",
-  displayUnit = "degC", quantity = "ThermodynamicTemperature")
+  Modelica.Blocks.Interfaces.RealInput TEnv(
+    final unit="K",
+    displayUnit = "degC",
+    quantity = "ThermodynamicTemperature")
     "Ambient temperature at the collector"
     annotation (Placement(transformation(extent={{-140,30},{-100,70}})));
 

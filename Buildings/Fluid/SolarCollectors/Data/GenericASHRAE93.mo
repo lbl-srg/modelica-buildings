@@ -3,7 +3,7 @@ record GenericASHRAE93
   "Generic data record for ASHRAE93 solar collector models"
   extends Buildings.Fluid.SolarCollectors.Data.BaseClasses.Generic;
 
-  parameter Real y_intercept "Y intercept (Maximum efficiency)";
+  parameter Real y_intercept "y intercept (Maximum efficiency)";
   parameter Real slope(final max=0, final unit = "W/(m2.K)")
     "Slope from rating data";
 

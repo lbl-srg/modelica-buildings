@@ -7,9 +7,11 @@ block ASHRAESolarGain
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium in the system";
 
-  parameter Real y_intercept "Y intercept (maximum efficiency)";
-  parameter Real b0 "1st incident angle modifer coefficient";
-  parameter Real b1 "2nd incident angle modifer coefficient";
+  parameter Real y_intercept(final unit="1") "y intercept(maximum efficiency)";
+  parameter Real b0(final min=0, final max=1, final unit="1")
+    "1st incident angle modifer coefficient";
+  parameter Real b1(final min=0, final max=1, final unit="1")
+    "2nd incident angle modifer coefficient";
   parameter Boolean use_shaCoe_in = false "Enable input connector for shaCoe"
     annotation(Dialog(group="Shading"));
 
