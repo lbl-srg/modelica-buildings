@@ -73,7 +73,7 @@ model HeatPumpWaterHeaterWrapped
     datWT=datWT,
     redeclare Buildings.Fluid.Storage.HeatPumpWaterHeater.Data.FanData fanPer)
     "Heat pump water heater"
-    annotation (Placement(transformation(extent={{-12,-6},{10,12}})));
+    annotation (Placement(transformation(extent={{-12,-6},{8,10}})));
   Buildings.Fluid.Sources.Boundary_pT souWat(
     p=300000 + 5000,
     T=273.15 + 50,
@@ -137,29 +137,28 @@ equation
       points={{-79,64},{-62,64}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(heaPumWatHeaWra.port_b1, sinAir.ports[1]) annotation (Line(points={{10,
-          9.75},{16,9.75},{16,60},{32,60}}, color={0,127,255}));
+  connect(heaPumWatHeaWra.port_b1, sinAir.ports[1]) annotation (Line(points={{8,8},{
+          16,8},{16,60},{32,60}},           color={0,127,255}));
   connect(TBCSid.port, heaPumWatHeaWra.heaPorSid) annotation (Line(points={{-28,-42},
-          {8,-42},{8,3},{5.6,3}},        color={191,0,0}));
-  connect(TBCTop.port, heaPumWatHeaWra.heaPorTop) annotation (Line(points={{-28,
-          -60},{-20,-60},{-20,12},{-1,12}}, color={191,0,0}));
+          {4,-42},{4,2}},                color={191,0,0}));
+  connect(TBCTop.port, heaPumWatHeaWra.heaPorTop) annotation (Line(points={{-28,-60},
+          {-20,-60},{-20,10},{-2,10}},      color={191,0,0}));
   connect(not1.u,onOffHea. y)
     annotation (Line(points={{58,-60},{51,-60}}, color={255,0,255}));
-  connect(heaPumWatHeaWra.TWat, onOffHea.u) annotation (Line(points={{11.1,
-          1.875},{16,1.875},{16,-60},{28,-60}},
-                                 color={0,0,127}));
+  connect(heaPumWatHeaWra.TWat, onOffHea.u) annotation (Line(points={{9,1},{16,
+          1},{16,-60},{28,-60}}, color={0,0,127}));
   connect(not1.y,heaPumWatHeaWra.on)  annotation (Line(points={{81,-60},{94,-60},
-          {94,-26},{-28,-26},{-28,3},{-14.2,3}},           color={255,0,255}));
-  connect(heaPumWatHeaWra.port_a1, souAir.ports[1]) annotation (Line(points={{-12,
-          9.75},{-28,9.75},{-28,60},{-40,60}}, color={0,127,255}));
+          {94,-26},{-28,-26},{-28,2},{-14,2}},             color={255,0,255}));
+  connect(heaPumWatHeaWra.port_a1, souAir.ports[1]) annotation (Line(points={{-12,8},
+          {-28,8},{-28,60},{-40,60}},          color={0,127,255}));
   connect(senTemOut.port_b, heaPumWatHeaWra.port_b2) annotation (Line(points={{-22,-4},
-          {-18,-4},{-18,-3.75},{-12,-3.75}},         color={0,127,255}));
+          {-12,-4}},                                 color={0,127,255}));
   connect(senTemOut.port_a, souWat.ports[1])
     annotation (Line(points={{-42,-4},{-50,-4}}, color={0,127,255}));
   connect(senTemIn.port_b, res.port_a)
     annotation (Line(points={{34,-4},{38,-4}}, color={0,127,255}));
   connect(senTemIn.port_a, heaPumWatHeaWra.port_a2) annotation (Line(points={{14,-4},
-          {12,-4},{12,-3.75},{10,-3.75}},       color={0,127,255}));
+          {8,-4}},                              color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(
@@ -169,6 +168,6 @@ equation
     __Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/Storage/HeatPumpWaterHeater/Examples/HeatPumpWaterHeaterWrapped.mos"
         "Simulate and Plot"),
     Documentation(info="<html>
-<p>This model tests a wrapped heat pump water heater.</p>
+<p>This model tests a wrapped heat pump water heater. An on-off controller keeps the tank temperature in the range of 40-43.89 degC.</p>
 </html>"));
 end HeatPumpWaterHeaterWrapped;
