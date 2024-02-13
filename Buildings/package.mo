@@ -230,12 +230,15 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Sensors</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.Sensors.HeatMeter
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Sensor to measure the heat flow rate between a supply and return pipe in a fluid circuit.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1831\">IBPSA, #1831</a>.
+    
     </td>
     </tr>
 </table>
@@ -246,7 +249,26 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>Buildings.Occupants</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.FMI</b>
+    </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.FMI.AirToOutlet<br/>
+                           Buildings.Fluid.FMI.InletToAir
+    </td>
+    <td valign=\"top\">Added missing causality which is required for language compliance and for
+                       Wolfram System Modeler.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1829\">#1829</a>.
+    </td>
+    <tr><td colspan=\"2\"><b>Buildings.Fluid.Sensors.Examples</b>
+    </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.Sensors.Examples.PPM
+    </td>
+    <td valign=\"top\">Added pressure drop to avoid redundant initial conditions for pressure of control volume.
+                       This corrects an issue in Wolfram System Modeler.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1830\"> #1830</a>.
+    </td>
+    <tr><td colspan=\"2\"><b>Buildings.Occupants</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Occupants.BaseClasses.binaryVariableGeneration<br/>
