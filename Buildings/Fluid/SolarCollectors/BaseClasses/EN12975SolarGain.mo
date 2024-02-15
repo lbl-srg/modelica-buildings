@@ -6,9 +6,9 @@ model EN12975SolarGain "Model calculating solar gains per the EN12975 standard"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium in the system";
 
-  parameter Real eta0 "Optical efficiency (maximum efficiency)";
-  parameter Real b0 "1st incident angle modifer coefficient";
-  parameter Real b1 "2nd incident angle modifer coefficient";
+  parameter Real eta0(final unit="1") "Optical efficiency (maximum efficiency)";
+  parameter Real b0(final unit="1") "1st incident angle modifer coefficient";
+  parameter Real b1(final unit="1") "2nd incident angle modifer coefficient";
   parameter Boolean use_shaCoe_in = false
     "Enables an input connector for shaCoe"
     annotation(Dialog(group="Shading"));

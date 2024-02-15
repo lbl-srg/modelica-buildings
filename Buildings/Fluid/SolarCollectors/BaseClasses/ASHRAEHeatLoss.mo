@@ -4,7 +4,7 @@ block ASHRAEHeatLoss
   extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialHeatLoss(
     QLos_internal = -slope * A_c/nSeg * {dT[i] for i in 1:nSeg});
 
-  parameter Real slope(final max=0, final unit = "W/(m2.K)")
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer slope(final max=0)
     "Slope from ratings data";
 
 annotation (

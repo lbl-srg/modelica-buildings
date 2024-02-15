@@ -14,8 +14,10 @@ record Generic
     "Nominal mass flow rate per unit area of collector";
   parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa")
     "Nominal pressure drop";
-  parameter Real b0 "1st incident angle modifier coefficient";
-  parameter Real b1 "2nd incident angle modifier coefficient";
+  parameter Real b0(final min=0, final max=1, final unit="1")
+    "1st incident angle modifier coefficient";
+  parameter Real b1(final min=0, final max=1, final unit="1")
+    "2nd incident angle modifier coefficient";
 
 annotation (
 defaultComponentPrefixes="parameter",
