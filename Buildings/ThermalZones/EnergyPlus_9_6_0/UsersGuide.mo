@@ -249,29 +249,30 @@ temperature, and based on these values, actuates the window shading control
 using an EMS actuator.
 </li>
 <li>
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.RadiantHeatingWithGroundHeatTransfer\">
-Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.RadiantHeatingWithGroundHeatTransfer</a>
-illustrates how to couple a radiant slab for heating in a configuration in which the
-bottom of the slab is connected to a ground heat transfer model in Modelica.
-</li>
-<li>
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TSurface\">
 Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TSurface</a>
 and
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TRoom\">
 Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TRoom</a>
-are similar to the previous model, but they add a radiant slab for cooling which interfaces
+  illustrate how to couple a radiant slab for heating and cooling which interfaces
 two surfaces in EnergyPlus: The floor that connects the slab to the zone above, and the ceiling
 that connects the slab to the zone below.
 In the first model, cooling is controlled based on the surface temperature, and in the second model, it is controlled
 based on the room temperature.
 </li>
 <li>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer\">
+Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer</a>
+illustrates how to couple a radiant slab for heating in a configuration in which the
+bottom of the slab is connected to a ground heat transfer model in Modelica.
+Heating is provided with a geothermal heat pump that is connected to a borehole heat exchanger.
+</li>
+<li>
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Radiator\">
 Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Radiator</a>
 shows how to couple a radiator to a thermal zone.
 </li>
-</ol>
+  </ol>
 </html>"));
   end GettingStarted;
 
@@ -587,6 +588,12 @@ for how to install EnergyPlus and how EnergyPlus is invoked.
 </p>
 <h4>References</h4>
 <ul>
+<li>
+Michael Wetter, Kyle Benne, Hubertus Tummescheit and Christian Winther.<br/>
+<a href=\"https://doi.org/10.1080/19401493.2023.2266414\">
+Spawn: coupling Modelica Buildings Library and EnergyPlus to enable new energy system and control applications.</a><br/>
+Journal of Building Performance Simulation. P. 1-19. 2023.
+</li>
 <li>
 Michael Wetter, Kyle Benne, Antoine Gautier, Thierry S. Nouidui,
 Agnes Ramle, Amir Roth, Hubertus Tummescheit, Stuart Mentzer and Christian Winther.<br/>
