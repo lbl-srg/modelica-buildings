@@ -139,8 +139,7 @@ equation
   connect(TSet.y,conPID.u_s)
     annotation (Line(points={{-118,-50},{-102,-50}},  color={0,0,127}));
   connect(conPID.u_m,zon.TAir)
-    annotation (Line(points={{-90,-62},{-90,-100},{128,-100},{128,76},{86,76},{
-          86,78},{41,78}},                                                          color={0,0,127}));
+    annotation (Line(points={{-90,-62},{-90,-98},{128,-98},{128,78},{41,78}},       color={0,0,127}));
   connect(duc.port_a,zon.ports[1])
     annotation (Line(points={{-10,20},{19,20},{19,40.9}},
                                                         color={0,127,255}));
