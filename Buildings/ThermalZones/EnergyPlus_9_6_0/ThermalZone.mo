@@ -212,7 +212,7 @@ protected
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor radHeaFloSen
     "Radiative heat flow sensor"
-    annotation (Placement(transformation(extent={{20,50},{0,70}})));
+    annotation (Placement(transformation(extent={{10,50},{-10,70}})));
   Modelica.Blocks.Math.Add QRad_flow(
     final k1=1,
     final k2=1,
@@ -302,9 +302,10 @@ equation
   connect(heaGai.QLat_flow, QLat_flow.u2) annotation (Line(points={{-158,94},{-144,
           94},{-144,24},{-122,24}}, color={0,0,127}));
   connect(radHeaFloSen.port_b, preRadTem.port)
-    annotation (Line(points={{0,60},{-20,60}}, color={191,0,0}));
+    annotation (Line(points={{-10,60},{-20,60}},
+                                               color={191,0,0}));
   connect(radHeaFloSen.port_a, heaPorRad)
-    annotation (Line(points={{20,60},{20,-40},{0,-40}},
+    annotation (Line(points={{10,60},{10,-40},{0,-40}},
                                                       color={191,0,0}));
   connect(fmuZon.TRad, preRadTem.T) annotation (Line(points={{101,-44},{106,-44},
           {106,76},{-52,76},{-52,60},{-42,60}}, color={0,0,127}));
@@ -312,8 +313,8 @@ equation
           -58},{74,110},{61,110}}, color={0,0,127}));
   connect(QRad_flow.u1, heaGai.QRad_flow) annotation (Line(points={{38,116},{-140,
           116},{-140,106},{-158,106}}, color={0,0,127}));
-  connect(QRad_flow.u2, radHeaFloSen.Q_flow) annotation (Line(points={{38,104},{
-          26,104},{26,40},{10,40},{10,49}}, color={0,0,127}));
+  connect(QRad_flow.u2, radHeaFloSen.Q_flow) annotation (Line(points={{38,104},
+          {26,104},{26,40},{0,40},{0,49}},  color={0,0,127}));
   annotation (
     defaultComponentName="zon",
     Icon(
