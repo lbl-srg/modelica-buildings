@@ -2,8 +2,8 @@ within Buildings.Fluid.SolarCollectors.BaseClasses;
 function IAM "Function for incident angle modifer"
 
   input Modelica.Units.SI.Angle incAng "Incident angle";
-  input Real B0(final min=0, final max=1, final unit="1") "1st incident angle modifer coefficient";
-  input Real B1(final min=0, final max=1, final unit="1") "2nd incident angle modifer coefficient";
+  input Real b0(final min=0, final max=1, final unit="1") "1st incident angle modifer coefficient";
+  input Real b1(final min=0, final max=1, final unit="1") "2nd incident angle modifer coefficient";
   output Real incAngMod "Incident angle modifier coefficient";
 protected
   constant Modelica.Units.SI.Angle incAngMin=Modelica.Constants.pi/2 - 0.1
@@ -20,7 +20,7 @@ algorithm
 
   incAngMod :=
   Buildings.Utilities.Math.Functions.smoothLimit(
-    x = (1 + B0*k + B1*k^2),
+    x = (1 + b0*k + b1*k^2),
     l = 0,
     u = 1,
     deltaX = delta);
