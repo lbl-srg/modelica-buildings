@@ -94,7 +94,7 @@ model Radiator
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     Q_flow_nominal=QRad_flow_nominal,
     T_a_nominal=TSup_nominal,
-    T_b_nominal=TRet_nominal)                                  "Radiator"
+    T_b_nominal=TRet_nominal) "Radiator"
     annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
   Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = MediumW,
@@ -220,8 +220,7 @@ This is for
       file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_9_6_0/Examples/SingleFamilyHouse/Radiator.mos" "Simulate and plot"),
     experiment(
       StopTime=259200,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
     Diagram(
       coordinateSystem(
         extent={{-160,-120},{140,100}})),
