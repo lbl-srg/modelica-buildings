@@ -1,7 +1,8 @@
 within Buildings.ThermalZones.EnergyPlus_9_6_0;
 model ThermalZone
   "Model to connect to an EnergyPlus thermal zone"
-  extends Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.PartialEnergyPlusObject;
+  extends
+    Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.PartialEnergyPlusObject;
   parameter String zoneName
     "Name of the thermal zone as specified in the EnergyPlus input";
   parameter Integer nPorts=0
@@ -55,9 +56,15 @@ model ThermalZone
   Modelica.Blocks.Interfaces.RealInput[Medium.nC] C_flow if use_C_flow
     "Trace substance mass flow rate added to the medium"
     annotation (Placement(transformation(extent={{-240,-140},{-200,-100}}),iconTransformation(extent={{-240,-120},{-200,-80}})));
+
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorAir
     "Heat port to air volume"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorRad
+    "Heat port to radiative temperature and radiative energy balance"
+    annotation (Placement(transformation(extent={{-10,-50},{10,-30}}),
+        iconTransformation(extent={{-10,-70},{10,-50}})));
+
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
     redeclare each package Medium=Medium)
     "Fluid inlets and outlets"
@@ -96,7 +103,7 @@ protected
     final fmuName=fmuName,
     final logLevel=logLevel)
     "FMU zone adapter"
-    annotation (Placement(transformation(extent={{82,-60},{102,-40}})));
+    annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
   Buildings.Fluid.Interfaces.ConservationEquation vol(
     redeclare final package Medium=Medium,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -112,7 +119,7 @@ protected
     final fluidVolume=V,
     final nPorts=nPorts)
     "Air volume of the thermal zone"
-    annotation (Placement(transformation(extent={{-10,-52},{10,-32}})));
+    annotation (Placement(transformation(extent={{-10,-80},{10,-60}})));
   Buildings.ThermalZones.Detailed.BaseClasses.HeatGain heaGai(
     final AFlo=AFlo)
     "Model to convert internal heat gains"
@@ -123,7 +130,7 @@ protected
     u(final unit="W"),
     y(final unit="kg/s"))
     "Water flow rate due to latent heat gain"
-    annotation (Placement(transformation(extent={{-82,-64},{-62,-44}})));
+    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Modelica.Blocks.Math.Add QLat_flow(final k1=1, final k2=1)
     "Total latent heat gains of the zone"
     annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
@@ -131,7 +138,7 @@ protected
     final k1=1,
     final k2=1)
     "Sensible and latent heat gains of the zone"
-    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
+    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Modelica.Blocks.Math.Add QConSen_flow(
     final k1=1,
     final k2=1)
@@ -139,7 +146,7 @@ protected
     annotation (Placement(transformation(extent={{-120,52},{-100,72}})));
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow conQCon_flow
     "Converter for convective heat flow rate"
-    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
+    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   final parameter String substanceName="CO2"
     "Name of trace substance";
   final parameter Modelica.Units.SI.MolarMass MM=Modelica.Media.IdealGases.Common.SingleGasesData.CO2.MM
@@ -167,7 +174,7 @@ protected
     redeclare each final package Medium=Medium,
     each final allowFlowReversal=true)
     "Mass flow rate sensor"
-    annotation (Placement(transformation(extent={{-10,10},{10,-10}},rotation=90,origin={0,-100})));
+    annotation (Placement(transformation(extent={{-10,10},{10,-10}},rotation=90,origin={0,-110})));
   Modelica.Blocks.Sources.RealExpression TAirIn[nPorts](
     y=Medium.temperature(
       state=Medium.setState_phX(
@@ -178,28 +185,42 @@ protected
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloSen
     "Heat flow sensor"
-    annotation (Placement(transformation(extent={{-20,-20},{-40,0}})));
+    annotation (Placement(transformation(extent={{-20,-10},{-40,10}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature preTem
     "Port temperature"
-    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Modelica.Blocks.Sources.RealExpression TFlu(
     y=Medium.temperature_phX(
       p=vol.medium.p,
       h=vol.hOut,
       X=cat(1,vol.XiOut,{1-sum(vol.XiOut)})))
     "Air temperature of control volume"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Modelica.Blocks.Sources.RealExpression pFlu(
     y=vol.medium.p)
     "Air pressure"
     annotation (Placement(transformation(extent={{122,2},{142,22}})));
   Utilities.Psychrometrics.Phi_pTX relHum
     "Relative humidity"
-    annotation (Placement(transformation(extent={{156,12},{176,32}})));
+    annotation (Placement(transformation(extent={{160,12},{180,32}})));
   Controls.OBC.CDL.Reals.Divide X_w
     "Water vapor mass fraction per kg total air"
     annotation (Placement(transformation(extent={{40,-32},{60,-12}})));
 
+  HeatTransfer.Sources.PrescribedTemperature preRadTem
+    "Prescribed radiative temperature"
+    annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
+  Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor radHeaFloSen
+    "Radiative heat flow sensor"
+    annotation (Placement(transformation(extent={{20,50},{0,70}})));
+  Modelica.Blocks.Math.Add QRad_flow(
+    final k1=1,
+    final k2=1,
+    u1(final unit="W"),
+    u2(final unit="W"),
+    y(final unit="W"))
+    "Total radiant heat gains of the zone"
+    annotation (Placement(transformation(extent={{40,100},{60,120}})));
 initial equation
   assert(
     idfName <> "",
@@ -213,73 +234,86 @@ equation
   connect(heaGai.qGai_flow,qGai_flow)
     annotation (Line(points={{-182,100},{-220,100}},color={0,0,127}));
   connect(fmuZon.TRad,TRad)
-    annotation (Line(points={{103,-44},{180,-44},{180,-40},{210,-40}},color={0,0,127}));
-  connect(heaGai.QRad_flow,fmuZon.QGaiRad_flow)
-    annotation (Line(points={{-158,106},{74,106},{74,-58},{80,-58}},color={0,0,127}));
+    annotation (Line(points={{101,-44},{180,-44},{180,-40},{210,-40}},color={0,0,127}));
   connect(QGaiSenLat_flow.u1,QConSen_flow.y)
-    annotation (Line(points={{-82,46},{-90,46},{-90,62},{-99,62}},color={0,0,127}));
-  connect(QGaiSenLat_flow.u2, QLat_flow.y) annotation (Line(points={{-82,34},{-90,
-          34},{-90,30},{-99,30}}, color={0,0,127}));
+    annotation (Line(points={{-82,36},{-90,36},{-90,62},{-99,62}},color={0,0,127}));
+  connect(QGaiSenLat_flow.u2, QLat_flow.y) annotation (Line(points={{-82,24},{-90,
+          24},{-90,30},{-99,30}}, color={0,0,127}));
   connect(QGaiSenLat_flow.y,conQCon_flow.Q_flow)
-    annotation (Line(points={{-59,40},{-40,40}},color={0,0,127}));
+    annotation (Line(points={{-59,30},{-40,30}},color={0,0,127}));
   connect(conQCon_flow.port,heaPorAir)
-    annotation (Line(points={{-20,40},{0,40},{0,0}},color={191,0,0}));
+    annotation (Line(points={{-20,30},{0,30},{0,0}},color={191,0,0}));
   connect(QLat_flow.y, mWat_flow.u) annotation (Line(points={{-99,30},{-96,30},{
-          -96,-54},{-84,-54}}, color={0,0,127}));
+          -96,-40},{-82,-40}}, color={0,0,127}));
   connect(mWat_flow.y,vol.mWat_flow)
-    annotation (Line(points={{-61,-54},{-36,-54},{-36,-40},{-12,-40}},color={0,0,127}));
+    annotation (Line(points={{-59,-40},{-36,-40},{-36,-68},{-12,-68}},color={0,0,127}));
   connect(CTot_flow.y,vol.C_flow)
-    annotation (Line(points={{-59,-90},{-26,-90},{-26,-46},{-12,-46}},color={0,0,127}));
+    annotation (Line(points={{-59,-90},{-26,-90},{-26,-74},{-12,-74}},color={0,0,127}));
   connect(C_flow,CTot_flow.u1)
     annotation (Line(points={{-220,-120},{-142,-120},{-142,-84},{-82,-84}},color={0,0,127}));
   for i in 1:nPorts loop
     connect(ports[i],senMasFlo[i].port_a)
-      annotation (Line(points={{0,-150},{0,-110}},color={0,127,255}));
+      annotation (Line(points={{0,-150},{0,-120}},color={0,127,255}));
     connect(fmuZon.m_flow[i],senMasFlo[i].m_flow)
-      annotation (Line(points={{80,-50},{30,-50},{30,-100},{11,-100}},color={0,0,127}));
+      annotation (Line(points={{78,-50},{30,-50},{30,-110},{11,-110}},color={0,0,127}));
     connect(senMasFlo[i].port_b,vol.ports[i])
-      annotation (Line(points={{5.55112e-16,-90},{0,-90},{0,-52}},color={0,127,255}));
+      annotation (Line(points={{0,-100},{0,-80}},                 color={0,127,255}));
   end for;
   connect(fmuZon.TInlet,TAirIn.y)
-    annotation (Line(points={{80,-54},{64,-54},{64,-70},{61,-70}},color={0,0,127}));
+    annotation (Line(points={{78,-54},{64,-54},{64,-70},{61,-70}},color={0,0,127}));
   connect(TFlu.y,preTem.T)
-    annotation (Line(points={{41,0},{50,0},{50,18},{-90,18},{-90,-10},{-82,-10}},color={0,0,127}));
+    annotation (Line(points={{61,0},{70,0},{70,16},{-90,16},{-90,0},{-82,0}},    color={0,0,127}));
   connect(heaFloSen.port_b,preTem.port)
-    annotation (Line(points={{-40,-10},{-60,-10}},color={191,0,0}));
+    annotation (Line(points={{-40,0},{-60,0}},    color={191,0,0}));
   connect(heaFloSen.port_a,heaPorAir)
-    annotation (Line(points={{-20,-10},{-10,-10},{-10,0},{0,0}},color={191,0,0}));
+    annotation (Line(points={{-20,0},{0,0}},                    color={191,0,0}));
   connect(TFlu.y,fmuZon.T)
-    annotation (Line(points={{41,0},{70,0},{70,-42},{80,-42}},color={0,0,127}));
+    annotation (Line(points={{61,0},{70,0},{70,-42},{78,-42}},color={0,0,127}));
   connect(TFlu.y,TAir)
-    annotation (Line(points={{41,0},{210,0}},color={0,0,127}));
+    annotation (Line(points={{61,0},{210,0}},color={0,0,127}));
   connect(heaFloSen.Q_flow,vol.Q_flow)
-    annotation (Line(points={{-30,-21},{-30,-36},{-12,-36}},color={0,0,127}));
+    annotation (Line(points={{-30,-11},{-30,-64},{-12,-64}},color={0,0,127}));
   connect(vol.XiOut[1],fmuZon.X_w)
-    annotation (Line(points={{0,-31},{0,-24},{30,-24},{30,-46},{80,-46}},color={0,0,127}));
+    annotation (Line(points={{0,-59},{0,-46},{78,-46}},                  color={0,0,127}));
   connect(X_w.y,relHum.X_w)
-    annotation (Line(points={{62,-22},{64,-22},{64,22},{155,22}},color={0,0,127}));
+    annotation (Line(points={{62,-22},{64,-22},{64,22},{159,22}},color={0,0,127}));
   connect(vol.mXiOut[1],X_w.u1)
-    annotation (Line(points={{11,-44},{20,-44},{20,-16},{38,-16}},color={0,0,127}));
+    annotation (Line(points={{11,-72},{20,-72},{20,-16},{38,-16}},color={0,0,127}));
   connect(vol.mOut,X_w.u2)
-    annotation (Line(points={{11,-36},{24,-36},{24,-28},{38,-28}},color={0,0,127}));
+    annotation (Line(points={{11,-64},{24,-64},{24,-28},{38,-28}},color={0,0,127}));
   connect(TFlu.y,relHum.T)
-    annotation (Line(points={{41,0},{120,0},{120,30},{155,30}},color={0,0,127}));
+    annotation (Line(points={{61,0},{120,0},{120,30},{159,30}},color={0,0,127}));
   connect(pFlu.y,relHum.p)
-    annotation (Line(points={{143,12},{150,12},{150,14},{155,14}},color={0,0,127}));
+    annotation (Line(points={{143,12},{150,12},{150,14},{159,14}},color={0,0,127}));
   connect(relHum.phi,phi)
-    annotation (Line(points={{177,22},{192,22},{192,-120},{210,-120}},color={0,0,127}));
+    annotation (Line(points={{181,22},{192,22},{192,-120},{210,-120}},color={0,0,127}));
   connect(QPeaRep.y,CTot_flow.u2)
     annotation (Line(points={{-99,-110},{-90,-110},{-90,-96},{-82,-96}},color={0,0,127}));
   connect(QPeaRep.u,fmuZon.QPeo_flow)
-    annotation (Line(points={{-122,-110},{-132,-110},{-132,-130},{110,-130},{110,-56},{103,-56}},color={0,0,127}));
+    annotation (Line(points={{-122,-110},{-132,-110},{-132,-130},{110,-130},{110,
+          -56},{101,-56}},                                                                       color={0,0,127}));
   connect(QConSen_flow.u2,heaGai.QCon_flow)
     annotation (Line(points={{-122,56},{-134,56},{-134,100},{-158,100}},color={0,0,127}));
   connect(fmuZon.QCon_flow,QConSen_flow.u1)
-    annotation (Line(points={{103,-48},{110,-48},{110,80},{-130,80},{-130,68},{-122,68}},color={0,0,127}));
-  connect(fmuZon.QLat_flow, QLat_flow.u1) annotation (Line(points={{103,-52},{114,
+    annotation (Line(points={{101,-48},{110,-48},{110,80},{-130,80},{-130,68},{-122,
+          68}},                                                                          color={0,0,127}));
+  connect(fmuZon.QLat_flow, QLat_flow.u1) annotation (Line(points={{101,-52},{114,
           -52},{114,84},{-140,84},{-140,36},{-122,36}}, color={0,0,127}));
   connect(heaGai.QLat_flow, QLat_flow.u2) annotation (Line(points={{-158,94},{-144,
           94},{-144,24},{-122,24}}, color={0,0,127}));
+  connect(radHeaFloSen.port_b, preRadTem.port)
+    annotation (Line(points={{0,60},{-20,60}}, color={191,0,0}));
+  connect(radHeaFloSen.port_a, heaPorRad)
+    annotation (Line(points={{20,60},{20,-40},{0,-40}},
+                                                      color={191,0,0}));
+  connect(fmuZon.TRad, preRadTem.T) annotation (Line(points={{101,-44},{106,-44},
+          {106,76},{-52,76},{-52,60},{-42,60}}, color={0,0,127}));
+  connect(fmuZon.QGaiRad_flow, QRad_flow.y) annotation (Line(points={{78,-58},{74,
+          -58},{74,110},{61,110}}, color={0,0,127}));
+  connect(QRad_flow.u1, heaGai.QRad_flow) annotation (Line(points={{38,116},{-140,
+          116},{-140,106},{-158,106}}, color={0,0,127}));
+  connect(QRad_flow.u2, radHeaFloSen.Q_flow) annotation (Line(points={{38,104},{
+          26,104},{26,40},{10,40},{10,49}}, color={0,0,127}));
   annotation (
     defaultComponentName="zon",
     Icon(
@@ -358,7 +392,13 @@ equation
           fillColor={61,61,61},
           fillPattern=FillPattern.Solid,
           extent={{132,114},{182,86}},
-          textString="phi")}),
+          textString="phi"),
+        Text(
+          fillColor={61,61,61},
+          fillPattern=FillPattern.Solid,
+          extent={{-56,-48},{-20,-68}},
+          textString="rad",
+          textColor={0,0,0})}),
     Diagram(
       coordinateSystem(
         preserveAspectRatio=false,
@@ -405,6 +445,23 @@ The zone uses a volume of air that is fully mixed. The size of this volume,
 and its floor area, which is used to scale the heat gains <code>q_flow</code>,
 are obtained from the EnergyPlus model.
 </p>
+<p>
+The zone has a fluid port <code>fluPor</code> that can be used to connect one or several
+HVAC inlets, flow paths for air infiltration and exfiltration,
+or for interzonal air exchange, using for example models from
+<a href=\"modelica://Buildings.Airflow.Multizone\">Buildings.Airflow.Multizone</a>.
+</p>
+<p>
+The model also has a heat port <code>heaPorAir</code> that connects to the sensible heat balance of the room air,
+and a heat port <code>heaPorRad</code> that connects to the radiative heat balance of the room inside surfaces.
+If heat is added to <code>heaPorRad.Q_flow</code>, then this heat is sent to EnergyPlus as if it were
+a radiant heat gain of the zone.
+The heat port temperature <code>heaPorRad.T</code> is the radiant temperature
+of the room. Hence, these two ports <code>heatPorAir</code> and <code>heaPorRad</code> could
+be used to connect a radiator. Note, however, that such a coupling is an approximation
+as the surface temperature of the radiator will not be reflected in the radiative temperature
+of the room.
+</p>
 
 <h5>Contaminant balance</h5>
 <p>
@@ -448,6 +505,12 @@ by people.)
 </html>",
       revisions="<html>
 <ul>
+<li>
+February 14, 2024, by Michael Wetter:<br/>
+Added heat port to radiative balance <code>heaPorRad</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3659\">Buildings, #3659</a>.
+</li>
 <li>
 November 22, 2019, by Michael Wetter:<br/>
 Replaced volume with dynamic balance.<br/>
