@@ -17,7 +17,7 @@ model HeatPumpEquationFit
     final typMod=hpAwNrv.typMod,
     mHeaWat_flow_nominal=datHpAw.capHea_nominal/abs(datHpAw.THeaWatSup_nominal -
         Buildings.Templates.Data.Defaults.THeaWatRetMed)/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
-    dpHeaWat_nominal=Buildings.Templates.Data.Defaults.dpConWatChi,
+    dpHeaWat_nominal=Buildings.Templates.Data.Defaults.dpHeaWatHp,
     capHea_nominal=500E3,
     THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
     TSouHea_nominal=Buildings.Templates.Data.Defaults.TOutHpHeaLow,
@@ -38,7 +38,7 @@ model HeatPumpEquationFit
     final typMod=hpAw.typMod,
     mHeaWat_flow_nominal=datHpAw.capHea_nominal/abs(datHpAw.THeaWatSup_nominal -
         Buildings.Templates.Data.Defaults.THeaWatRetMed)/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
-    dpHeaWat_nominal=Buildings.Templates.Data.Defaults.dpConWatChi,
+    dpHeaWat_nominal=Buildings.Templates.Data.Defaults.dpHeaWatHp,
     capHea_nominal=500E3,
     THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
     mChiWat_flow_nominal=datHpAw.capCoo_nominal/abs(datHpAw.TChiWatSup_nominal -
@@ -168,7 +168,10 @@ model HeatPumpEquationFit
     show_T=true,
     redeclare final package MediumHeaWat = Medium,
     final dat=datHpWw,
-    final energyDynamics=energyDynamics) "Reversible WWHP"
+    final energyDynamics=energyDynamics,
+    have_preDroChiHeaWat=false,
+    have_preDroSou=false)
+    "Reversible WWHP - CHW/HW and source fluid pressure drops computed externally"
     annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
   parameter Data.HeatPump datHpWw(
     final cpHeaWat_default=hpWw.cpHeaWat_default,
@@ -178,7 +181,7 @@ model HeatPumpEquationFit
     final typMod=hpWw.typMod,
     mHeaWat_flow_nominal=datHpAw.capHea_nominal/abs(datHpAw.THeaWatSup_nominal -
         Buildings.Templates.Data.Defaults.THeaWatRetMed)/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
-    dpHeaWat_nominal=Buildings.Templates.Data.Defaults.dpConWatChi,
+    dpHeaWat_nominal=Buildings.Templates.Data.Defaults.dpHeaWatHp,
     capHea_nominal=500E3,
     THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
     mChiWat_flow_nominal=datHpAw.capCoo_nominal/abs(datHpAw.TChiWatSup_nominal -
@@ -187,9 +190,9 @@ model HeatPumpEquationFit
     TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
     TSouCoo_nominal=Buildings.Templates.Data.Defaults.TSouHpCoo,
     TSouHea_nominal=Buildings.Templates.Data.Defaults.TSouHpHea,
-    dpSouWatHea_nominal=Buildings.Templates.Data.Defaults.dpChiWatChi,
-    mSouWatCoo_flow_nominal=datHpWw.mSouWatHea_flow_nominal,
-    mSouWatHea_flow_nominal=datHpWw.mHeaWat_flow_nominal,
+    dpSouWwHea_nominal=Buildings.Templates.Data.Defaults.dpChiWatChi,
+    mSouWwCoo_flow_nominal=datHpWw.mSouWwHea_flow_nominal,
+    mSouWwHea_flow_nominal=datHpWw.mHeaWat_flow_nominal,
     perFit(hea(
         P=datHpAw.capHea_nominal/Buildings.Templates.Data.Defaults.COPHpWwHea,
         coeQ={-4.2670305442,-0.7381077035,6.0049480456,0,0},
@@ -253,6 +256,18 @@ model HeatPumpEquationFit
     nPorts=1)
     "Boundary condition at source system return"
     annotation (Placement(transformation(extent={{190,-130},{170,-110}})));
+  Fluid.FixedResistances.PressureDrop res(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=datHpWw.mHeaWat_flow_nominal,
+    final dp_nominal=datHpWw.dpHeaWat_nominal)
+    "CHW/HW pressure drop computed externally"
+    annotation (Placement(transformation(extent={{70,-90},{90,-70}})));
+  Fluid.FixedResistances.PressureDrop resSou(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=datHpWw.mSouWwHea_flow_nominal,
+    final dp_nominal=datHpWw.dpSouWwHea_nominal)
+    "Source fluid pressure drop computed externally"
+    annotation (Placement(transformation(extent={{70,-110},{90,-90}})));
 protected
   Interfaces.Bus bus "HP control bus"
     annotation (Placement(transformation(extent={{60,20},{100,60}}),
@@ -331,8 +346,6 @@ equation
     annotation (Line(points={{120,-80},{130,-80}}, color={0,127,255}));
   connect(TSup2.port_b, sup.ports[3])
     annotation (Line(points={{150,-80},{170,-80},{170,41.3333}},color={0,127,255}));
-  connect(TRet2.port_b, hpWw.port_a)
-    annotation (Line(points={{70,-80},{100,-80}}, color={0,127,255}));
   connect(inlHp.ports[3], TRet2.port_a) annotation (Line(points={{30,1.33333},{
           30,0},{40,0},{40,-80},{50,-80}}, color={0,127,255}));
   connect(bus2, hpWw.bus) annotation (Line(
@@ -352,10 +365,8 @@ equation
     annotation (Line(points={{-108,-160},{-60,-160},{-60,-148},{-42,-148}},color={0,0,127}));
   connect(y1Hea.y[1], pInl_rel1.u2)
     annotation (Line(points={{-158,100},{-50,100},{-50,-140},{-42,-140}},color={255,0,255}));
-  connect(inlHpSou.ports[1], hpWw.port_aSou) annotation (Line(points={{30,-100},
-          {120,-100},{120,-90}}, color={0,127,255}));
-  connect(retSou.ports[1], hpWw.port_bSou) annotation (Line(points={{170,-120},
-          {80,-120},{80,-90},{100,-90}}, color={0,127,255}));
+  connect(retSou.ports[1], hpWw.port_bSou) annotation (Line(points={{170,-120},{
+          94,-120},{94,-90},{100,-90}},  color={0,127,255}));
   connect(TSouAct.y, inlHpSou.T_in) annotation (Line(points={{-18,-82},{0,-82},
           {0,-96},{8,-96}}, color={0,0,127}));
   connect(pInl_rel1.y, inlHpSou.p_in) annotation (Line(points={{-18,-140},{-20,
@@ -367,6 +378,14 @@ equation
     annotation (Line(points={{-158,140},{-50,140},{-50,-40},{80,-40}},color={255,0,255}));
   connect(y1Hea.y[1], bus2.y1Hea)
     annotation (Line(points={{-158,100},{-50,100},{-50,-40},{80,-40}},color={255,0,255}));
+  connect(TRet2.port_b, res.port_a)
+    annotation (Line(points={{70,-80},{70,-80}}, color={0,127,255}));
+  connect(res.port_b, hpWw.port_a)
+    annotation (Line(points={{90,-80},{100,-80}}, color={0,127,255}));
+  connect(hpWw.port_aSou, resSou.port_b) annotation (Line(points={{120,-90},{126,
+          -90},{126,-100},{90,-100}}, color={0,127,255}));
+  connect(inlHpSou.ports[1], resSou.port_a) annotation (Line(points={{30,-100},
+          {50,-100},{50,-100},{70,-100}}, color={0,127,255}));
   annotation (
     Diagram(
       coordinateSystem(

@@ -28,7 +28,6 @@ record HeatPumpPlant
     THeaWatSupHp_nominal=ctl.THeaWatSupHp_nominal)
     "Heat pumps"
     annotation (Dialog(group="Heat pumps"));
-
   // HW loop
   parameter Buildings.Templates.Components.Data.PumpMultiple pumHeaWatPri(
     final nPum=cfg.nPumHeaWatPri,
@@ -40,8 +39,8 @@ record HeatPumpPlant
       enable=cfg.have_heaWat));
   parameter Buildings.Templates.Components.Data.Valve valHeaWatMinByp(
     final typ=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
-    m_flow_nominal=if cfg.have_valHeaWatMinByp then max(ctl.VHeaWatHp_flow_min) * cfg.rhoHeaWat_default
-      else 0,
+    m_flow_nominal=if cfg.have_valHeaWatMinByp then max(ctl.VHeaWatHp_flow_min) *
+      cfg.rhoHeaWat_default else 0,
     dpValve_nominal=Buildings.Templates.Data.Defaults.dpValBypMin)
     "HW minimum flow bypass valve"
     annotation (Dialog(group="Primary HW loop",
@@ -65,8 +64,8 @@ record HeatPumpPlant
       enable=cfg.have_chiWat));
   parameter Buildings.Templates.Components.Data.Valve valChiWatMinByp(
     final typ=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
-    m_flow_nominal=if cfg.have_valChiWatMinByp then max(ctl.VChiWatHp_flow_min) * cfg.rhoChiWat_default
-      else 0,
+    m_flow_nominal=if cfg.have_valChiWatMinByp then max(ctl.VChiWatHp_flow_min) *
+      cfg.rhoChiWat_default else 0,
     dpValve_nominal=Buildings.Templates.Data.Defaults.dpValBypMin)
     "CHW minimum flow bypass valve"
     annotation (Dialog(group="Primary CHW loop",

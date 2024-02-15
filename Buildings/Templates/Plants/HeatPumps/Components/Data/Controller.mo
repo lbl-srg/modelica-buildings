@@ -11,7 +11,7 @@ record Controller
     displayUnit="degC",
     start=Buildings.Templates.Data.Defaults.THeaWatSupMed,
     final min=273.15)
-    "Design heat pump HW supply temperature setpoint"
+    "Design heat pump HW supply temperature setpoint - Each heat pump"
     annotation (Dialog(group="Temperature setpoints",
       enable=cfg.have_heaWat));
   parameter Modelica.Units.SI.Temperature TOutHeaWatLck(
@@ -99,7 +99,7 @@ record Controller
     displayUnit="degC",
     start=Buildings.Templates.Data.Defaults.TChiWatSup,
     final min=273.15)
-    "Design heat pump CHW supply temperature setpoint"
+    "Design heat pump CHW supply temperature setpoint - Each heat pump"
     annotation (Dialog(group="Temperature setpoints",
       enable=cfg.have_chiWat));
   parameter Modelica.Units.SI.Temperature TOutChiWatLck(
@@ -132,7 +132,7 @@ record Controller
   parameter Modelica.Units.SI.VolumeFlowRate VChiWatPri_flow_nominal(
     start=0.01,
     displayUnit="L/s",
-    final min=0)=VChiWatHp_flow_nominal*cfg.nHp
+    final min=0)=VChiWatHp_flow_nominal * cfg.nHp
     "Design primary CHW volume flow rate - Total"
     annotation (Dialog(group="Capacity",
       enable=cfg.have_chiWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.ClosedLoop

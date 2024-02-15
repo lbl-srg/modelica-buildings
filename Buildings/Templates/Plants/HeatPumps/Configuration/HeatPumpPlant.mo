@@ -24,6 +24,12 @@ record HeatPumpPlant
   parameter Boolean is_rev
     "Set to true for reversible heat pumps, false for heating only"
     annotation (Evaluate=true);
+  parameter Boolean have_valHpInlIso
+    "Set to true for isolation valves at HP inlet"
+    annotation (Evaluate=true);
+  parameter Boolean have_valHpOutIso
+    "Set to true for isolation valves at HP outlet"
+    annotation (Evaluate=true);
   parameter Buildings.Templates.Plants.HeatPumps.Types.Controller typCtl
     "Type of controller"
     annotation (Evaluate=true);
@@ -78,8 +84,8 @@ record HeatPumpPlant
     "Set to true if secondary HW loop is equipped with a flow meter"
     annotation (Evaluate=true);
   // CHW loop
-  parameter Boolean have_pumChiWatSep
-    "Set to true for plants with separate dedicated primary CHW and HW pumps"
+  parameter Boolean have_pumChiWatPriDed
+    "Set to true for plants with separate dedicated primary CHW pumps"
     annotation (Evaluate=true);
   parameter Integer nPumChiWatPri
     "Number of primary CHW pumps"
@@ -106,7 +112,7 @@ record HeatPumpPlant
     "Set to true if secondary CHW loop is equipped with a flow meter"
     annotation (Evaluate=true);
   annotation (
-  defaultComponentPrefixes="parameter",
+    defaultComponentPrefixes="parameter",
     defaultComponentName="cfg",
     Documentation(
       info="<html>

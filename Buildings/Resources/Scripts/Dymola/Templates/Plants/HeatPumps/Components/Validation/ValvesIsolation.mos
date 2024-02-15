@@ -1,0 +1,62 @@
+simulateModel("Buildings.Templates.Plants.HeatPumps.Components.Validation.ValvesIsolation",
+    method="cvode",
+    tolerance=1e-6,
+    startTime=0.0,
+    stopTime=5000.0,
+    resultFile="ValvesIsolation");
+createPlot(
+    id=1,
+    position={5, 5, 300, 600},
+    y={"valIso.bus.valHeaWatHpInlIso[1].y1", "valIso.bus.valHeaWatHpInlIso[2].y1", "valIso.bus.valChiWatHpInlIso[1].y1", "valIso.bus.valChiWatHpInlIso[2].y1"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"valIso.port_aHeaWat.m_flow", "hp[1].m_flow", "hp[2].m_flow", "datHp.mHeaWatHp_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=3,
+    y={"valIso.port_aChiWat.m_flow", "datHp.mChiWatHp_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    position={310, 5, 300, 400},
+    y={"valIsoHeaInl.bus.valHeaWatHpInlIso[1].y1", "valIsoHeaInl.bus.valHeaWatHpInlIso[2].y1"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=2,
+    y={"valIsoHeaInl.port_aHeaWat.m_flow", "hpHea[1].m_flow", "hpHea[2].m_flow", "datHp.mHeaWatHp_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=3,
+    position={615, 5, 300, 600},
+    y={"valIsoSep.bus.valHeaWatHpInlIso[1].y1", "valIsoSep.bus.valHeaWatHpInlIso[2].y1", "valIsoSep.bus.valChiWatHpInlIso[1].y1", "valIsoSep.bus.valChiWatHpInlIso[2].y1", "busPumHeaWatPri.y1[1]", "busPumChiWatPri.y1[1]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=3,
+    subPlot=2,
+    y={"valIsoSep.port_aHeaWat.m_flow", "hpSep[1].m_flow", "hpSep[2].m_flow", "datHp.mHeaWatHp_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=3,
+    subPlot=3,
+    y={"valIsoSep.port_aChiWat.m_flow", "datHp.mChiWatHp_flow_nominal"},
+    autoscale=true,
+    grid=true
+);

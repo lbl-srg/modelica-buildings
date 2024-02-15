@@ -4,6 +4,27 @@ model PartialHeatPumpEquationFit
   extends Buildings.Templates.Components.Interfaces.PartialHeatPump(
     final typMod=Buildings.Templates.Components.Types.HeatPumpModel.EquationFit);
 
+  final parameter Buildings.Fluid.HeatPumps.Data.EquationFitReversible.Generic datPerFit(
+    dpHeaSou_nominal = if have_preDroSou then dat.perFit.dpHeaSou_nominal else 0,
+    dpHeaLoa_nominal = if have_preDroChiHeaWat then dat.perFit.dpHeaLoa_nominal else 0,
+    hea(
+      TRefLoa = dat.perFit.hea.TRefLoa,
+      TRefSou = dat.perFit.hea.TRefSou,
+      Q_flow = dat.perFit.hea.Q_flow,
+      P = dat.perFit.hea.P,
+      mSou_flow = dat.perFit.hea.mSou_flow,
+      mLoa_flow = dat.perFit.hea.mLoa_flow,
+      coeQ = dat.perFit.hea.coeQ,
+      coeP = dat.perFit.hea.coeP),
+    coo(
+      TRefSou = dat.perFit.coo.TRefSou,
+      TRefLoa =  dat.perFit.coo.TRefLoa,
+      Q_flow = dat.perFit.coo.Q_flow,
+      P = dat.perFit.coo.P,
+      coeQ = dat.perFit.coo.coeQ,
+      coeP = dat.perFit.coo.coeP))
+  "Performance data - Equation fit model";
+
   Modelica.Blocks.Routing.BooleanPassThrough y1Hea if is_rev
     "Operating mode command: true=heating, false=cooling"
     annotation (Placement(
@@ -50,7 +71,7 @@ model PartialHeatPumpEquationFit
     uMod(start=0),
     redeclare final package Medium1 = MediumHeaWat,
     redeclare final package Medium2 = MediumSou,
-    final per=dat.perFit,
+    final per=datPerFit,
     final energyDynamics=energyDynamics) "Heat pump"
     annotation (Placement(transformation(extent={{-10,-16},{10,4}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger y1Int
@@ -102,8 +123,6 @@ equation
           70},{-26,62}}, color={255,127,0}));
   connect(y1Int.y, mulInt.u1) annotation (Line(points={{-20,78},{-20,70},{-14,70},
           {-14,62}}, color={255,127,0}));
-  connect(mulInt.y, hp.uMod)
-    annotation (Line(points={{-20,38},{-20,-6},{-11,-6}}, color={255,127,0}));
   connect(TChiHeaWatEnt.port_b, hp.port_a1)
     annotation (Line(points={{-40,0},{-10,0}}, color={0,127,255}));
   connect(hp.port_b1, TChiHeaWatLvg.port_a)
@@ -124,6 +143,8 @@ equation
       points={{0.1,160.1},{0.1,86},{0,86},{0,10},{-16,10},{-16,3},{-11.4,3}},
       color={255,204,51},
       thickness=0.5));
+  connect(mulInt.y, hp.uMod)
+    annotation (Line(points={{-20,38},{-20,-6},{-11,-6}}, color={255,127,0}));
   annotation (
   defaultComponentName="heaPum",
   Documentation(info="<html>

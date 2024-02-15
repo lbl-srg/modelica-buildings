@@ -9,7 +9,7 @@ model DataRecord
     final typMod=Buildings.Templates.Components.Types.HeatPumpModel.EquationFit,
     mHeaWat_flow_nominal=datHeaPumRevAss.capHea_nominal / abs(Buildings.Templates.Data.Defaults.THeaWatSupMed -
       Buildings.Templates.Data.Defaults.THeaWatRetMed) / Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
-    dpHeaWat_nominal=Buildings.Templates.Data.Defaults.dpConWatChi,
+    dpHeaWat_nominal=Buildings.Templates.Data.Defaults.dpHeaWatHp,
     capHea_nominal=500E3,
     THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
     mChiWat_flow_nominal=datHeaPumRevAss.capCoo_nominal / abs(Buildings.Templates.Data.Defaults.TChiWatSup -
@@ -25,7 +25,7 @@ model DataRecord
     final typMod=Buildings.Templates.Components.Types.HeatPumpModel.EquationFit,
     mHeaWat_flow_nominal=datHeaPumRevRed.capHea_nominal / abs(Buildings.Templates.Data.Defaults.THeaWatSupMed -
       Buildings.Templates.Data.Defaults.THeaWatRetMed) / Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
-    dpHeaWat_nominal=Buildings.Templates.Data.Defaults.dpConWatChi,
+    dpHeaWat_nominal=Buildings.Templates.Data.Defaults.dpHeaWatHp,
     capHea_nominal=500E3,
     THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
     mChiWat_flow_nominal=datHeaPumRevRed.capCoo_nominal / abs(Buildings.Templates.Data.Defaults.TChiWatSup -
@@ -48,7 +48,7 @@ model DataRecord
     final typMod=Buildings.Templates.Components.Types.HeatPumpModel.EquationFit,
     mHeaWat_flow_nominal=datHeaPumNonRevLoc.capHea_nominal / abs(Buildings.Templates.Data.Defaults.THeaWatSupMed -
       Buildings.Templates.Data.Defaults.THeaWatRetMed) / Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
-    dpHeaWat_nominal=Buildings.Templates.Data.Defaults.dpConWatChi,
+    dpHeaWat_nominal=Buildings.Templates.Data.Defaults.dpHeaWatHp,
     capHea_nominal=500E3,
     THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed)
     "Parameters for non-reversible AWHP using local assignment of the performance curves"
@@ -72,13 +72,13 @@ It illustrates
 </p>
 <ul>
 <li>
-how to assign a value to the performance curves either manually 
-(<code>datHeaPumNonRevLoc.hea</code>) or by means of a record 
-redeclaration (<code>datHeaPumRevRed.per</code>) or record binding 
+how to assign a value to the performance curves either manually
+(<code>datHeaPumNonRevLoc.hea</code>) or by means of a record
+redeclaration (<code>datHeaPumRevRed.per</code>) or record binding
 (<code>datHeaPumRevAss.per</code>),
 </li>
 <li>
-how the original bindings for design parameters such as the 
+how the original bindings for design parameters such as the
 HW flow rate and capacity do not persist when redeclaring the performance record
 <code>datHeaPumRevRed.per</code> or reassigning it (<code>datHeaPumRevAss.per</code>).
 </li>

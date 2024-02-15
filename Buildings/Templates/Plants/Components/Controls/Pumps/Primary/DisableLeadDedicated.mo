@@ -61,7 +61,7 @@ block DisableLeadDedicated
     "Return true if no flow request"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Utilities.Initialization ini(
-    final y1Ini=false)
+    final yIni=false)
     "Force false clear signal at initial time"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
 equation
@@ -89,11 +89,11 @@ equation
     annotation (Line(points={{12,-60},{14,-60},{14,-68},{28,-68}},color={255,0,255}));
   connect(disAndOffOrNotReq.y, edg.u)
     annotation (Line(points={{52,-60},{58,-60}},color={255,0,255}));
-  connect(ini.y1, lat.clr)
-    annotation (Line(points={{61.8,-20},{66,-20},{66,-6},{70,-6}},color={255,0,255}));
   connect(edg.y, ini.u)
     annotation (Line(points={{82,-60},{88,-60},{88,-34},{30,-34},{30,-20},{38,-20}},
       color={255,0,255}));
+  connect(ini.y, lat.clr)
+    annotation (Line(points={{61.8,-20},{66,-20},{66,-6},{70,-6}},color={255,0,255}));
   annotation (
     defaultComponentName="disLea",
     Icon(

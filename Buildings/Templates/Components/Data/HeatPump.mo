@@ -83,13 +83,13 @@ record HeatPump "Record for heat pump model"
     final min=220)
     "OAT or source fluid supply temperature (evaporator entering) in heating mode"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.MassFlowRate mSouWatHea_flow_nominal(
+  parameter Modelica.Units.SI.MassFlowRate mSouWwHea_flow_nominal(
     start=mHeaWat_flow_nominal,
     final min=0)
     "Source fluid mass flow rate in heating mode"
     annotation(Dialog(group="Nominal condition",
     enable=typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater));
-  parameter Modelica.Units.SI.PressureDifference dpSouWatHea_nominal(
+  parameter Modelica.Units.SI.PressureDifference dpSouWwHea_nominal(
     min=0,
     start=Buildings.Templates.Data.Defaults.dpChiWatChi)
     "Source fluid pressure drop in heating mode"
@@ -97,12 +97,12 @@ record HeatPump "Record for heat pump model"
     enable=typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater));
   final parameter Modelica.Units.SI.MassFlowRate mSouHea_flow_nominal=
     if typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater then
-      mSouWatHea_flow_nominal else
+      mSouWwHea_flow_nominal else
       Buildings.Templates.Data.Defaults.mAirFloByCapChi * abs(capHea_nominal)
     "Source fluid mass flow rate in heating mode";
   final parameter Modelica.Units.SI.PressureDifference dpSouHea_nominal=
     if typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater then
-      dpSouWatHea_nominal else Buildings.Templates.Data.Defaults.dpAirChi
+      dpSouWwHea_nominal else Buildings.Templates.Data.Defaults.dpAirChi
     "Source fluid pressure drop in heating mode";
   parameter Modelica.Units.SI.Temperature TSouCoo_nominal(
     start=Buildings.Templates.Data.Defaults.TOutHpCoo,
@@ -110,7 +110,7 @@ record HeatPump "Record for heat pump model"
     "OAT or source fluid supply temperature (condenser entering) in cooling mode"
     annotation(Dialog(group="Nominal condition",
     enable=is_rev));
-  parameter Modelica.Units.SI.MassFlowRate mSouWatCoo_flow_nominal(
+  parameter Modelica.Units.SI.MassFlowRate mSouWwCoo_flow_nominal(
     start=mChiWat_flow_nominal,
     final min=0)
     "Source fluid mass flow rate in cooling mode"
@@ -119,7 +119,7 @@ record HeatPump "Record for heat pump model"
     is_rev));
   final parameter Modelica.Units.SI.MassFlowRate mSouCoo_flow_nominal=
     if typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater then
-      mSouWatCoo_flow_nominal else
+      mSouWwCoo_flow_nominal else
       Buildings.Templates.Data.Defaults.mAirFloByCapChi * abs(capCoo_nominal)
     "Source fluid mass flow rate in cooling mode";
   final parameter Modelica.Units.SI.PressureDifference dpSouCoo_nominal=
