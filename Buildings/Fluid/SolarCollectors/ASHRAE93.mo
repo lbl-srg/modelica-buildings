@@ -30,7 +30,7 @@ equation
     "In " + getInstanceName() + ": The heat loss coefficient from the ASHRAE ratings data must be strictly negative. Obtained slope = " + String(per.slope));
 
   connect(weaBus.TDryBul, heaLos.TEnv) annotation (Line(
-      points={{-99.95,90.05},{-90,90.05},{-90,26},{-22,26}},
+      points={{-99.95,80.05},{-90,80.05},{-90,26},{-22,26}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -54,7 +54,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(shaCoe_in, solGai.shaCoe_in) annotation (Line(
-      points={{-120,30},{-40,30},{-40,45},{-22,45}},
+      points={{-120,40},{-40,40},{-40,45},{-22,45}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(solGai.QSol_flow, QGai.Q_flow) annotation (Line(
@@ -163,7 +163,7 @@ EnergyPlus 23.2.0 Engineering Reference</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-January, 2024, by Jelger Jansen:<br/>
+February 15, 2024, by Jelger Jansen:<br/>
 Refactor model.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3604\">Buildings, #3604</a>.

@@ -65,7 +65,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(weaDat.weaBus, solCol.weaBus) annotation (Line(
-      points={{-20,70},{-10,70},{-10,9}},
+      points={{-20,70},{-10,70},{-10,8}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -93,7 +93,7 @@ equation
 revisions="<html>
 <ul>
 <li>
-January, 2024, by Jelger Jansen:<br/>
+February 15, 2024, by Jelger Jansen:<br/>
 Refactor model.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3604\">Buildings, #3604</a>.
