@@ -317,8 +317,6 @@ equation
           -216},{-260,-140},{-242,-140}}, color={255,0,255}));
   connect(TMix.T, freSta.u) annotation (Line(points={{40,-29},{40,-20},{20,-20},
           {20,-70},{-100,-70},{-100,-110},{-92,-110}}, color={0,0,127}));
-  connect(TRet.port_b, amb.ports[3]) annotation (Line(points={{90,140},{-100,140},
-          {-100,-45},{-114,-45}}, color={0,127,255}));
   connect(optSta.TZon, TRoo) annotation (Line(points={{-302,406},{-368,406},{-368,
           320},{-400,320}}, color={0,0,127}));
   connect(occSch.tNexOcc, tZonNexOcc.u) annotation (Line(points={{-299,-204},{

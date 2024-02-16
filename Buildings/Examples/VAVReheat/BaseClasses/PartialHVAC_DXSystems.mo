@@ -1,7 +1,7 @@
 within Buildings.Examples.VAVReheat.BaseClasses;
 partial model PartialHVAC_DXSystems
   "Partial model of variable air volume flow system with terminal reheat that serves five thermal zones"
-  extends Buildings.Examples.VAVReheat.BaseClasses.HVAC_Interface;
+  extends Buildings.Examples.VAVReheat.BaseClasses.HVAC_Interface(amb(nPorts=3));
 
   parameter Modelica.Units.SI.Time samplePeriod=120
     "Sample period of component, set to the same value as the trim and respond that process yPreSetReq";
@@ -136,12 +136,6 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
 
-  for i in 1:numZon loop
-  end for;
-
-  for i in 1:(numZon - 2) loop
-  end for;
-
   connect(weaBus.pAtm, x_pTphi.p_in) annotation (Line(
       points={{-319.95,180.05},{-319.95,106},{-302,106}},
       color={255,204,51},
@@ -180,6 +174,8 @@ equation
     annotation (Line(points={{200,-40},{214,-40}}, color={0,127,255}));
   connect(ParDXCoiHea.port_a, TMix.port_b)
     annotation (Line(points={{100,-40},{50,-40}}, color={0,127,255}));
+  connect(TRet.port_b, amb.ports[3]) annotation (Line(points={{90,140},{-106,
+          140},{-106,-45},{-114,-45}}, color={0,127,255}));
   annotation (Diagram(
     coordinateSystem(
     preserveAspectRatio=false,
