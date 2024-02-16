@@ -100,7 +100,8 @@ model PartialHeatPump
     TCon_nominal=TCon_nominal,
     TEva_nominal=TEva_nominal,
     final dp1_nominal=dp1_nominal,
-    final dp2_nominal=dp2_nominal)
+    final dp2_nominal=dp2_nominal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
     "Domestic hot water heat pump"
     annotation (Placement(transformation(extent={{-80,-82},{-60,-62}})));
   Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow
@@ -314,6 +315,10 @@ the district supply and return flows.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+February 15, 2024, by Ettore Zanetti:<br/>
+Made heat pump model dynamic and added junction.
+</li> 
 <li>
 November 15, 2023, by David Blum:<br/>
 Changed to partial base class with evaporator hydronics and control.
