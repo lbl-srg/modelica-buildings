@@ -17,7 +17,8 @@ record VAVMultiZone "Record for multiple-zone VAV"
       then fanSup.m_flow_nominal else 0);
 
   parameter Buildings.Templates.Components.Data.Fan fanSup(
-    final typ=cfg.typFanSup)
+    final typ=cfg.typFanSup,
+    final nFan=cfg.nFanSup)
     "Supply fan"
     annotation (Dialog(
     group="Fans", enable=cfg.typFanSup <> Buildings.Templates.Components.Types.Fan.None));
@@ -30,6 +31,8 @@ record VAVMultiZone "Record for multiple-zone VAV"
     final typDamRet=cfg.typDamRet,
     final typFanRel=cfg.typFanRel,
     final typFanRet=cfg.typFanRet,
+    final nFanRel=cfg.nFanRel,
+    final nFanRet=cfg.nFanRet,
     fanRel,
     fanRet,
     damOut(

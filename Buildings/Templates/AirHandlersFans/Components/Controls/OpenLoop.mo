@@ -130,5 +130,12 @@ for the templates within
 Buildings.Templates.AirHandlersFans</a>.
 It is mainly used for testing purposes.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 11, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end OpenLoop;

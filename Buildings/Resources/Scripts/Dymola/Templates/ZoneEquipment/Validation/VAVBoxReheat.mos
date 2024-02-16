@@ -1,8 +1,8 @@
-simulateModel("Buildings.Templates.ZoneEquipment.Validation.VAVBoxCoolingOnly",
+simulateModel("Buildings.Templates.ZoneEquipment.Validation.VAVBoxReheat",
     method="cvode",
     tolerance=1e-6,
     stopTime=3600,
-    resultFile="VAVBoxCoolingOnly");
+    resultFile="VAVBoxReheat");
 createPlot(
     id=1,
     subPlot=1,
