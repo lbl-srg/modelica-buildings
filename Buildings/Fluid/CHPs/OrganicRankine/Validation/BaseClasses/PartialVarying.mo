@@ -5,7 +5,7 @@ partial model PartialVarying
     "Property record of the working fluid"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
   package MediumEva = Buildings.Media.Air "Medium in the evaporator";
-  package MediumCon = Buildings.Media.Air "Medium in the condenser";
+  package MediumCon = Buildings.Media.Water "Medium in the condenser";
   parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal = 1
     "Medium flow rate in the evaporator";
   parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal = 2
