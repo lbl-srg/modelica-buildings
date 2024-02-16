@@ -330,8 +330,8 @@ when the incoming fluid is colder than the set evaporating temperature.
 <p>
 How these constraints affect the cycle's behaviour reacting to
 a varying waste heat fluid stream is demonstrated in
-<a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.Validation.VaryingStream\">
-Buildings.Fluid.CHPs.OrganicRankine.Validation.VaryingStream</a>
+<a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.Validation.VaryingHot\">
+Buildings.Fluid.CHPs.OrganicRankine.Validation.VaryingHot</a>
 </p>
 <h4>Thermodynamic Properties</h4>
 <p align=\"center\">

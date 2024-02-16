@@ -1,5 +1,5 @@
 within Buildings.Fluid.CHPs.OrganicRankine.Validation;
-model VaryingStream
+model VaryingHot
   "ORC with waste heat stream with varying flow rate and temperature"
   extends
     Buildings.Fluid.CHPs.OrganicRankine.Validation.BaseClasses.PartialVarying(
@@ -23,7 +23,7 @@ equation
   connect(TEvaIn_set.y, souEva.T_in) annotation (Line(points={{-59,10},{-50,10},
           {-50,34},{-42,34}}, color={0,0,127}));
   annotation(experiment(StopTime=300,Tolerance=1E-6),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/OrganicRankine/Validation/Cycle.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/OrganicRankine/Validation/VaryingHot.mos"
   "Simulate and plot"),
   Documentation(info="<html>
 <p>
@@ -61,4 +61,4 @@ First implementation. This is for
 </li>
 </ul>
 </html>"));
-end VaryingStream;
+end VaryingHot;
