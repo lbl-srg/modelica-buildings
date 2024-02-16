@@ -7,22 +7,6 @@ block PartialHeatLoss
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium in the component";
 
-  parameter Modelica.Units.SI.Irradiance G_nominal
-    "Irradiance at nominal conditions"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.TemperatureDifference dT_nominal
-    "Ambient temperature minus fluid temperature at nominal conditions"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
-    "Fluid flow rate at nominal conditions"
-    annotation (Dialog(group="Nominal condition"));
-
-  parameter Modelica.Units.SI.SpecificHeatCapacity cp_default
-    "Specific heat capacity of the fluid at the default temperature";
-
-  parameter Modelica.Units.SI.HeatFlowRate QLos_nominal
-    "Heat loss at nominal conditions, negative if heat flows from collector to environment";
-
   Modelica.Blocks.Interfaces.RealInput TEnv(
     quantity="ThermodynamicTemperature",
     unit="K",
@@ -52,8 +36,6 @@ protected
     "Fluid temperature below which there will be no heat loss computed to prevent TFlu < Medium.T_min";
   final parameter Modelica.Units.SI.Temperature TMedMin2=TMedMin + dTMin
     "Fluid temperature below which there will be no heat loss computed to prevent TFlu < Medium.T_min";
-//  final parameter Modelica.Units.SI.HeatFlowRate QUse_nominal(min=0) = G_nominal * A_c * y_intercept + QLos_nominal
-//    "Useful heat gain at nominal conditions";
 
   input Modelica.Units.SI.HeatFlowRate QLos_internal[nSeg]
     "Heat loss rate at current conditions for each segment";
@@ -71,10 +53,16 @@ Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss</a> and
 <a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss\">
 Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss</a>. It contains the
 input, output and parameter declarations which are common to both models. More
-detailed information is available in the documentation for the extending classes.
+detailed information is available in the documentation of the extending classes.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 15, 2024, by Jelger Jansen:<br/>
+Refactor model.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3604\">Buildings, #3604</a>.
+</li>
 <li>
 December 17, 2017, by Michael Wetter:<br/>
 Revised computation of heat loss.<br/>

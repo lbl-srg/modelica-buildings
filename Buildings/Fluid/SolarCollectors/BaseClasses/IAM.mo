@@ -2,8 +2,8 @@ within Buildings.Fluid.SolarCollectors.BaseClasses;
 function IAM "Function for incident angle modifer"
 
   input Modelica.Units.SI.Angle incAng "Incident angle";
-  input Real B0 "1st incident angle modifer coefficient";
-  input Real B1 "2nd incident angle modifer coefficient";
+  input Real b0(final min=0, final max=1, final unit="1") "1st incident angle modifer coefficient";
+  input Real b1(final min=0, final max=1, final unit="1") "2nd incident angle modifer coefficient";
   output Real incAngMod "Incident angle modifier coefficient";
 protected
   constant Modelica.Units.SI.Angle incAngMin=Modelica.Constants.pi/2 - 0.1
@@ -20,7 +20,7 @@ algorithm
 
   incAngMod :=
   Buildings.Utilities.Math.Functions.smoothLimit(
-    x = (1 + B0*k + B1*k^2),
+    x = (1 + b0*k + b1*k^2),
     l = 0,
     u = 1,
     deltaX = delta);
@@ -31,22 +31,23 @@ algorithm
 <h4>Overview</h4>
 <p>
 This function computes the incidence angle modifier for solar insolation
-striking the surface of the solar thermal collector. It is calculated using
-Eq 555 in the EnergyPlus 7.0.0 Engineering Reference.
+striking the surface of the solar thermal collector.
+It is calculated using Eq 18.298 in the EnergyPlus 23.2.0 Engineering Reference.
 </p>
-<h4>Notice</h4>
-<p>
-As stated in EnergyPlus7.0.0 the incidence angle equation performs poorly
-at angles greater than 60 degrees. This model outputs 0 whenever the incidence
-angle is greater than 60 degrees.
-</p>
+
 <h4>References</h4>
 <p>
-<a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>,
-October 13, 2011.
+<a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v23.2.0/EngineeringReference.pdf\">
+EnergyPlus 23.2.0 Engineering Reference</a>
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 15, 2024, by Jelger Jansen:<br/>
+Refactor model.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3604\">Buildings, #3604</a>.
+</li>
 <li>
 May 31, 2017, by Michael Wetter and Filip Jorissen:<br/>
 Change limits for incident angle modifier to avoid dip in temperature
