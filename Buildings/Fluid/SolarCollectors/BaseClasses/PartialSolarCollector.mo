@@ -10,7 +10,7 @@ partial model PartialSolarCollector "Partial model for solar collectors"
   constant Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(HideResult=true);
 
-  parameter Integer nSeg(min=3) = 3
+  parameter Integer nSeg = 3
     "Number of segments used to discretize the collector model";
 
   parameter Modelica.Units.SI.Angle azi(displayUnit="deg")
@@ -235,7 +235,7 @@ EnergyPlus 23.2.0 Engineering Reference</a>
 </html>", revisions="<html>
 <ul>
 <li>
-January, 2024, by Jelger Jansen:<br/>
+February 15, 2024, by Jelger Jansen:<br/>
 Refactor model.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3604\">Buildings, #3604</a>.
