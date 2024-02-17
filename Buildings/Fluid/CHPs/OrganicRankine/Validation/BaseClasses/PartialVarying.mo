@@ -64,7 +64,8 @@ equation
           {16,6},{10,6}}, color={0,127,255}));
   connect(TConOut.port_a,ORC. port_b2) annotation (Line(points={{-30,-30},{-16,-30},
           {-16,-6},{-10,-6}}, color={0,127,255}));
-  connect(sinCon.ports[1],TConOut. port_b);
+  connect(sinCon.ports[1], TConOut.port_b)
+    annotation (Line(points={{-60,-30},{-50,-30}}, color={0,127,255}));
     annotation (
     Documentation(info="<html>
 <p>
