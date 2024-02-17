@@ -59,8 +59,20 @@ model ComputeCycle "Thermodynamic computations of the ORC"
     final unit="kg/s") "Condenser cold fluid flow rate" annotation (Placement(
         transformation(extent={{-140,-100},{-100,-60}}), iconTransformation(
           extent={{-140,-100},{-100,-60}})));
-  Modelica.Units.SI.ThermodynamicTemperature TConWor
+  Modelica.Units.SI.ThermodynamicTemperature TConWor =
+    Buildings.Utilities.Math.Functions.smoothLimit(
+      x = TConWor_internal,
+      l = TConWor_min,
+      u = TConWor_max,
+      deltaX = 1)
     "Working fluid condenser temperature";
+  parameter Modelica.Units.SI.ThermodynamicTemperature TConWor_max =
+    TEvaWor - 10
+    "Upper bound of working fluid condensing temperature"
+    annotation(Dialog(group="Condenser"));
+  parameter Modelica.Units.SI.ThermodynamicTemperature TConWor_min = 273.15
+    "Lower bound of working fluid condensing temperature"
+    annotation(Dialog(group="Condenser"));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput QCon_flow(
     final quantity="HeatFlowRate",
     final unit="W") "Condenser heat flow rate" annotation (Placement(
@@ -71,7 +83,7 @@ model ComputeCycle "Thermodynamic computations of the ORC"
   Modelica.Units.SI.ThermodynamicTemperature TConPin(
     start = 300)
     "Pinch point temperature of condenser";
-  Modelica.Units.SI.TemperatureDifference dTConPin = dTConPin_set
+  Modelica.Units.SI.TemperatureDifference dTConPin(start = dTConPin_set)
     "Pinch point temperature differential of condenser";
 
 // Expander
@@ -115,9 +127,17 @@ protected
   Modelica.Units.SI.ThermodynamicTemperature TEvaPin_internal
     "Intermedaite variable";
   Modelica.Units.SI.ThermodynamicTemperature TEvaOut_internal
-    "Fluid temperature out of the evaporator, intermediate variable";
+    "intermediate variable";
   Modelica.Units.SI.HeatFlowRate QEva_flow_internal
     "Evaporator heat flow rate, intermediate variable";
+  Modelica.Units.SI.ThermodynamicTemperature TConWor_internal
+    "Intermedaite variable";
+  Modelica.Units.SI.ThermodynamicTemperature TConPin_internal
+    "Intermedaite variable";
+  Modelica.Units.SI.ThermodynamicTemperature TConOut_internal
+    "intermediate variable";
+  Modelica.Units.SI.HeatFlowRate QCon_flow_internal
+    "Condenser heat flow rate, intermediate variable";
 
 equation
   // Evaporator
@@ -140,8 +160,15 @@ equation
   QCon_flow = mWor_flow * (hExpOut - hPum);
   // Pinch point
   (TConPin - TConIn) * (hExpOut - hPum)
-  =(hConPin - hPum) * (TConOut - TConIn);
+  = (hConPin - hPum) * (TConOut - TConIn);
   dTConPin = TConWor - TConPin;
+
+  // Condenser internal computation
+  QCon_flow_internal = mCon_flow * cpCon * (TConOut_internal - TConIn);
+  QCon_flow_internal = mWor_flow_internal * (hExpOut - hPum);
+  (TConPin_internal - TConIn) * (hExpOut - hPum)
+  = (hConPin - hPum) * (TConOut_internal - TConIn);
+  dTConPin_set = TConWor_internal - TConPin_internal;
 
   annotation(defaultComponentName="comCyc",
   Documentation(info="<html>
