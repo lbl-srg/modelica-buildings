@@ -84,7 +84,7 @@ equation
   defaultComponentName="ParDXCoiInt", Documentation(revisions="<html>
   <ul>
   <li>
-  October 5, 2023, by Junke Wang:<br/>
+  February 15, 2024, by Junke Wang and Karthik Devaprasad:<br/>
   First implementation.
   </li>
   </ul>

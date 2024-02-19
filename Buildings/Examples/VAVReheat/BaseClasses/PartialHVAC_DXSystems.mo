@@ -174,24 +174,35 @@ equation
     annotation (Line(points={{200,-40},{214,-40}}, color={0,127,255}));
   connect(ParDXCoiHea.port_a, TMix.port_b)
     annotation (Line(points={{100,-40},{50,-40}}, color={0,127,255}));
-  connect(TRet.port_b, amb.ports[3]) annotation (Line(points={{90,140},{-106,
-          140},{-106,-45},{-114,-45}}, color={0,127,255}));
+  connect(TRet.port_b, amb.ports[3]) annotation (Line(points={{90,140},{-106,140},
+          {-106,-45},{-114,-45}}, color={0,127,255}));
   annotation (Diagram(
     coordinateSystem(
     preserveAspectRatio=false,
     extent={{-380,-300},{1420,360}})),
     Documentation(info="<html>
   <p>
-  This partial model replaced an air handler unit (AHU) within a variable air flow (VAV) system,
-  as reported in 
-  <a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.PartialHVAC\">
-  Buildings.Examples.VAVReheat.BaseClasses.PartialHVAC</a>, 
-  with a rooftop unit (RTU). 
+  This partial model consist of an HVAC system that serves multiple thermal zones. 
+  </p>
+  <p>
+  The HVAC system is a variable air volume (VAV) flow system with economizer
+  and a direct expansion (DX) heating and cooling coil in the rooftop unit (RTU). 
+  There is also a reheat coil and an air damper in each of the zone inlet branches.
+  The figure below shows the schematic diagram of an HVAC system that supplies 5 zones:
+  </p>
+  <p align=\"center\">
+  <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/VAVReheat/rtuSchematics.png\" border=\"1\"/>
+  </p>
+  <p>
+  The control sequences for this HVAC system are added in
+  the model that extends this model, namely
+  <a href=\"modelica://Buildings.Examples.VAVReheat.Guideline36_DXSystems\">
+  Buildings.Examples.VAVReheat.Guideline36_DXSystems</a>.
   </p>
   </html>", revisions="<html>
   <ul>
   <li>
-  August 28, 2023, by Junke Wang and Karthik Devaprasad:<br/>
+  February 15, 2024, by Junke Wang and Karthik Devaprasad:<br/>
   First implementation.
   </li>
   </ul>

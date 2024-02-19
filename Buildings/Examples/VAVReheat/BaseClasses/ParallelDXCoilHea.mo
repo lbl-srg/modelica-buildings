@@ -122,7 +122,9 @@ equation
   connect(damPreInd.port_b, HeaCoi.port_a)
     annotation (Line(points={{-30,0},{-10,0}}, color={0,127,255}));
 
-  annotation (Icon(graphics={
+  annotation (defaultComponentName="ParallelDXCoilHea",
+    Icon(coordinateSystem(preserveAspectRatio=false),
+      graphics={
         Rectangle(
           extent={{-70,60},{70,-60}},
           lineColor={0,0,255},
@@ -249,5 +251,27 @@ equation
           Text(
           extent={{80,90},{150,66}},
           textColor={0,0,127},
-          textString="TAirSupCoi")}));
+          textString="TAirSupCoi")}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
+  Documentation(info="<html>
+  <p>
+  This model consists of parallel DX heating coils and associated control components, including: 
+  </p>
+  <ul>
+  <li>
+  Two junctions and a damper that controls airflow bypassing DX coils by input signal <code>uDam</code>
+  </li>
+  <li>
+  Vectorized temperature sensors after coil outlets and damplers that control airflow passing DX coils by 
+  on/off signals generated from Boolean signals <code>on</code>.
+  </li>
+  </ul>
+  </html>", revisions="<html>
+  <ul>
+  <li>
+  February 15, 2024, by Junke Wang and Karthik Devaprasad:<br/>
+  First implementation.
+  </li>
+  </ul>
+  </html>"));
 end ParallelDXCoilHea;

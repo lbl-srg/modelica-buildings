@@ -609,16 +609,28 @@ equation
             680}})),
     Documentation(info="<html>
   <p>
-  This model replaced an air handler unit (AHU) within a variable air flow (VAV) system,
-  as introduced in 
+  This model consist of an HVAC system is a variable air volume (VAV) flow system with economizer
+  and a direct expansion (DX) heating and cooling coil in the rooftop unit (RTU). There is also a
+  reheat coil and an air damper in each of the five zone inlet branches.
+  </p>
+  <p>
+  See the model
+  <a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.PartialHVAC_DXSystems\">
+  Buildings.Examples.VAVReheat.BaseClasses.PartialHVAC_DXSystems</a>
+  for a description of the HVAC system.
+  </p>
+  <p>
+  The control for RTU is introduced in
+  <a href=\"modelica://Buildings.Controls.OBC.RooftopUnits.Controller\">
+  Buildings.Controls.OBC.RooftopUnits.Controller</a>, 
+  in additon to the control for multi-zone VAV systems with economizer introduced in 
   <a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.Guideline36\">
-  Buildings.Examples.VAVReheat.BaseClasses.Guideline36</a>, 
-  with a rooftop unit (RTU). 
+  Buildings.Examples.VAVReheat.BaseClasses.Guideline36</a>. 
   </p>
   </html>", revisions="<html>
   <ul>
   <li>
-  August 28, 2023, by Junke Wang and Karthik Devaprasad:<br/>
+  February 15, 2024, by Junke Wang and Karthik Devaprasad:<br/>
   First implementation.
   </li>
   </ul>
