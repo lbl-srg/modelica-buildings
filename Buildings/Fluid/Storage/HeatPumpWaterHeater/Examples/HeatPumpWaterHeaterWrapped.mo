@@ -37,13 +37,10 @@ model HeatPumpWaterHeaterWrapped
     hSegTop=0.863416667) "Heat pump water heater data"
     annotation (Placement(transformation(extent={{70,80},{90,100}})));
 
-  Modelica.Blocks.Sources.TimeTable P(table=[0,300000; 4200,300000; 4200,305000;
-        7200,305000; 7200,310000; 10800,310000; 10800,305000])
+  Modelica.Blocks.Sources.TimeTable P(table=[0,310000; 1800,310000; 1800,305000;
+        7200,305000; 7200,310000; 10800,310000; 10800,310000])
     "Pressure boundary condition"
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
-  Modelica.Blocks.Sources.TimeTable TWat(table=[0,273.15 + 40; 3600,273.15 + 40;
-        3600,273.15 + 20; 7200,273.15 + 20]) "Water temperature"
-    annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Modelica.Blocks.Sources.Ramp TEvaIn(
     final duration=600,
     final startTime=2400,
@@ -63,7 +60,6 @@ model HeatPumpWaterHeaterWrapped
     offset=273.15 + 20) "Sine signal for the outdoor temperature"
     annotation (Placement(transformation(extent={{-74,-70},{-54,-50}})));
 
-
   Buildings.Fluid.Storage.HeatPumpWaterHeater.HeatPumpWaterHeaterWrapped
     heaPumWatHeaWra(
     mAir_flow_nominal=0.2279,
@@ -71,28 +67,27 @@ model HeatPumpWaterHeaterWrapped
     dpAir_nominal(displayUnit="Pa") = 65,
     datCoi=datCoi,
     datWT=datWT,
-    redeclare Buildings.Fluid.Storage.HeatPumpWaterHeater.Data.FanData fanPer)
+    redeclare Buildings.Fluid.Storage.HeatPumpWaterHeater.Data.FanData fanPer,
+    tan(T_start=318.15))
     "Heat pump water heater"
     annotation (Placement(transformation(extent={{-12,-6},{8,10}})));
-  Buildings.Fluid.Sources.Boundary_pT souWat(
+  Buildings.Fluid.Sources.Boundary_pT sinWat(
     p=300000 + 5000,
-    T=273.15 + 50,
     redeclare package Medium = MediumTan,
-    use_T_in=true,
-    nPorts=1) "Source of water"
+    nPorts=1) "Sink of water"
     annotation (Placement(transformation(extent={{-70,-14},{-50,6}})));
   Buildings.Fluid.FixedResistances.PressureDrop res(
     from_dp=true,
     redeclare package Medium = MediumTan,
     dp_nominal=5000,
     m_flow_nominal=0.1) "Resistance in the water loop"
-    annotation (Placement(transformation(extent={{38,-14},{58,6}})));
-  Buildings.Fluid.Sources.Boundary_pT sinWat(
+    annotation (Placement(transformation(extent={{36,-14},{56,6}})));
+  Buildings.Fluid.Sources.Boundary_pT souWat(
     redeclare package Medium = MediumTan,
     T=273.15 + 20,
     use_p_in=true,
     p=300000,
-    nPorts=1) "Sink of water"
+    nPorts=1) "Source of water"
     annotation (Placement(transformation(extent={{84,-14},{64,6}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature TBCTop
     "Boundary condition for top of tank"
@@ -106,39 +101,34 @@ model HeatPumpWaterHeaterWrapped
     final use_T_in=true,
     final T=299.85,
     nPorts=1) "Source of air"
-    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
+    annotation (Placement(transformation(extent={{-70,50},{-50,70}})));
   Buildings.Fluid.Sources.Boundary_pT sinAir(
     redeclare package Medium = MediumAir,
     final p(displayUnit="Pa") = 101325,
-    final nPorts=1,
-    final T=303.15) "Sink of air"
-    annotation (Placement(transformation(extent={{52,50},{32,70}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTemOut(redeclare package Medium
-      =                                                                           MediumTan,
+    final nPorts=1) "Sink of air"
+    annotation (Placement(transformation(extent={{50,50},{30,70}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemOut(redeclare package Medium = MediumTan,
       m_flow_nominal=0.1) "Water outlet temperature sensor"
     annotation (Placement(transformation(extent={{-42,-14},{-22,6}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTemIn(redeclare package Medium
-      =                                                                          MediumTan,
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemIn(redeclare package Medium = MediumTan,
       m_flow_nominal=0.1) "Water inlet temperature sensor"
     annotation (Placement(transformation(extent={{14,-14},{34,6}})));
 
 equation
-  connect(TWat.y, souWat.T_in)
-    annotation (Line(points={{-79,0},{-72,0}}, color={0,0,127}));
-  connect(P.y, sinWat.p_in)
+  connect(P.y, souWat.p_in)
     annotation (Line(points={{81,40},{92,40},{92,4},{86,4}}, color={0,0,127}));
-  connect(res.port_b, sinWat.ports[1])
-    annotation (Line(points={{58,-4},{64,-4}}, color={0,127,255}));
+  connect(res.port_b, souWat.ports[1])
+    annotation (Line(points={{56,-4},{64,-4}}, color={0,127,255}));
   connect(sine.y, TBCSid.T) annotation (Line(points={{-53,-60},{-47.5,-60},{-47.5,
           -42},{-41.2,-42}}, color={0,0,127}));
   connect(sine.y, TBCTop.T)
     annotation (Line(points={{-53,-60},{-41.2,-60}}, color={0,0,127}));
   connect(TEvaIn.y, souAir.T_in) annotation (Line(
-      points={{-79,64},{-62,64}},
+      points={{-79,64},{-72,64}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(heaPumWatHeaWra.port_b1, sinAir.ports[1]) annotation (Line(points={{8,8},{
-          16,8},{16,60},{32,60}},           color={0,127,255}));
+          16,8},{16,60},{30,60}},           color={0,127,255}));
   connect(TBCSid.port, heaPumWatHeaWra.heaPorSid) annotation (Line(points={{-28,-42},
           {4,-42},{4,2}},                color={191,0,0}));
   connect(TBCTop.port, heaPumWatHeaWra.heaPorTop) annotation (Line(points={{-28,-60},
@@ -150,13 +140,13 @@ equation
   connect(not1.y,heaPumWatHeaWra.on)  annotation (Line(points={{81,-60},{94,-60},
           {94,-26},{-28,-26},{-28,2},{-14,2}},             color={255,0,255}));
   connect(heaPumWatHeaWra.port_a1, souAir.ports[1]) annotation (Line(points={{-12,8},
-          {-28,8},{-28,60},{-40,60}},          color={0,127,255}));
+          {-28,8},{-28,60},{-50,60}},          color={0,127,255}));
   connect(senTemOut.port_b, heaPumWatHeaWra.port_b2) annotation (Line(points={{-22,-4},
           {-12,-4}},                                 color={0,127,255}));
-  connect(senTemOut.port_a, souWat.ports[1])
+  connect(senTemOut.port_a,sinWat. ports[1])
     annotation (Line(points={{-42,-4},{-50,-4}}, color={0,127,255}));
   connect(senTemIn.port_b, res.port_a)
-    annotation (Line(points={{34,-4},{38,-4}}, color={0,127,255}));
+    annotation (Line(points={{34,-4},{36,-4}}, color={0,127,255}));
   connect(senTemIn.port_a, heaPumWatHeaWra.port_a2) annotation (Line(points={{14,-4},
           {8,-4}},                              color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
@@ -165,7 +155,8 @@ equation
       StopTime=10800,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
-    __Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/Storage/HeatPumpWaterHeater/Examples/HeatPumpWaterHeaterWrapped.mos"
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Fluid/Storage/HeatPumpWaterHeater/Examples/HeatPumpWaterHeaterWrapped.mos"
         "Simulate and Plot"),
     Documentation(info="<html>
 <p>This model tests a wrapped heat pump water heater. An on-off controller keeps the tank temperature in the range of 40-43.89 degC.</p>

@@ -27,7 +27,7 @@ model HeatPumpWaterHeaterWrapped "Validation model for heat pump water heater"
           TEvaInMin=280.35,
           TEvaInMax=322.04))},
                 nSta=1) "Coil data"
-    annotation (Placement(transformation(extent={{-18,80},{2,100}})));
+    annotation (Placement(transformation(extent={{-10,40},{10,60}})));
   parameter Buildings.Fluid.Storage.HeatPumpWaterHeater.Data.WaterHeaterData
     datWT(
     hTan=1.594,
@@ -37,7 +37,7 @@ model HeatPumpWaterHeaterWrapped "Validation model for heat pump water heater"
     nSeg=12,
     hSegBot=0.066416667,
     hSegTop=0.863416667) "Heat pump water heater data"
-    annotation (Placement(transformation(extent={{22,80},{42,100}})));
+    annotation (Placement(transformation(extent={{30,40},{50,60}})));
 
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     final fileName=ModelicaServices.ExternalReferences.loadResource(
@@ -47,10 +47,10 @@ model HeatPumpWaterHeaterWrapped "Validation model for heat pump water heater"
     final tableName="EnergyPlus",
     final smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
     "Reader for EnergyPlus example results"
-    annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
+    annotation (Placement(transformation(extent={{-110,60},{-90,80}})));
   Modelica.Blocks.Math.RealToBoolean realToBoolean(threshold=0.2)
     "Convert real to boolean"
-    annotation (Placement(transformation(extent={{-80,-38},{-60,-18}})));
+    annotation (Placement(transformation(extent={{-70,-40},{-50,-20}})));
 
   Buildings.Fluid.Storage.HeatPumpWaterHeater.HeatPumpWaterHeaterWrapped
     heaPumWatHeaWra(
@@ -62,114 +62,111 @@ model HeatPumpWaterHeaterWrapped "Validation model for heat pump water heater"
     datWT=datWT,
     redeclare Buildings.Fluid.Storage.HeatPumpWaterHeater.Data.FanData fanPer)
     "Heat pump water heater"
-    annotation (Placement(transformation(extent={{-10,-6},{10,10}})));
+    annotation (Placement(transformation(extent={{0,-6},{20,10}})));
   Buildings.Fluid.FixedResistances.PressureDrop res(
     from_dp=true,
     redeclare package Medium = MediumTan,
     dp_nominal=5000,
     m_flow_nominal=0.1) "Resistance in the water loop"
-    annotation (Placement(transformation(extent={{40,-14},{60,6}})));
+    annotation (Placement(transformation(extent={{50,-14},{70,6}})));
   Buildings.Fluid.Sources.Boundary_pT sin_1(
     redeclare package Medium = MediumTan,
     T=273.15 + 20,
     nPorts=1) "Sink of water"
-    annotation (Placement(transformation(extent={{-120,-14},{-100,6}})));
+    annotation (Placement(transformation(extent={{-70,-14},{-50,6}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature TBCTop
     "Boundary condition for top of tank"
-    annotation (Placement(transformation(extent={{-58,-80},{-46,-68}})));
+    annotation (Placement(transformation(extent={{-48,-74},{-36,-62}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature TBCSid
     "Boundary condition for side of tank"
-    annotation (Placement(transformation(extent={{-58,-62},{-46,-50}})));
+    annotation (Placement(transformation(extent={{-48,-56},{-36,-44}})));
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = MediumAir,
     final p(displayUnit="Pa"),
     final nPorts=1) "Sink of air"
-    annotation (Placement(transformation(extent={{60,14},{40,34}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTemOut(redeclare package Medium
-      =                                                                           MediumTan,
+    annotation (Placement(transformation(extent={{70,14},{50,34}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemOut(redeclare package Medium = MediumTan,
       m_flow_nominal=0.1) "Water outlet temperature sensor"
-    annotation (Placement(transformation(extent={{-52,-14},{-32,6}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTemIn(redeclare package Medium
-      =                                                                          MediumTan,
+    annotation (Placement(transformation(extent={{-42,-14},{-22,6}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemIn(redeclare package Medium = MediumTan,
       m_flow_nominal=0.1) "Water inlet temperature sensor"
-    annotation (Placement(transformation(extent={{18,-14},{38,6}})));
+    annotation (Placement(transformation(extent={{28,-14},{48,6}})));
   Buildings.Utilities.IO.BCVTB.From_degC TEvaIn_K "Converts degC to K"
-    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
+    annotation (Placement(transformation(extent={{-70,40},{-50,60}})));
   Buildings.Fluid.Sources.Boundary_pT bouAir(
     redeclare package Medium = MediumAir,
     final use_Xi_in=true,
     final use_T_in=true,
     nPorts=1) "Mass flow source for coil inlet air"
-    annotation (Placement(transformation(extent={{-46,14},{-26,34}})));
+    annotation (Placement(transformation(extent={{-36,14},{-16,34}})));
   Buildings.Utilities.Psychrometrics.ToTotalAir toTotAirIn
     "Convert humidity ratio per kg dry air to humidity ratio per kg total air for coil inlet air"
-    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
+    annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
   Buildings.Fluid.Sources.MassFlowSource_T boundary(
     redeclare package Medium = MediumTan,
     final use_m_flow_in=true,
     final use_T_in=true,
     final nPorts=1) "Mass flow source for DHW"
-    annotation (Placement(transformation(extent={{96,-14},{76,6}})));
+    annotation (Placement(transformation(extent={{100,-14},{80,6}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature TBCBot
     "Boundary condition for bottom of tank"
-    annotation (Placement(transformation(extent={{-58,-100},{-46,-88}})));
+    annotation (Placement(transformation(extent={{-48,-94},{-36,-82}})));
   Buildings.Utilities.IO.BCVTB.From_degC TOut_K "Converts degC to K"
-    annotation (Placement(transformation(extent={{-88,-86},{-68,-66}})));
+    annotation (Placement(transformation(extent={{-78,-80},{-58,-60}})));
   Buildings.Utilities.IO.BCVTB.From_degC TWat_K "Converts degC to K"
-    annotation (Placement(transformation(extent={{62,80},{82,100}})));
-  Buildings.Utilities.IO.BCVTB.From_degC TConCoi_K "Converts degC to K"
-    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
+    annotation (Placement(transformation(extent={{70,40},{90,60}})));
 
 equation
-  connect(heaPumWatHeaWra.port_b1, sin.ports[1]) annotation (Line(points={{10,8},
-          {22,8},{22,24},{40,24}}, color={0,127,255}));
-  connect(TBCSid.port, heaPumWatHeaWra.heaPorSid) annotation (Line(points={{-46,-56},
-          {6,-56},{6,2}},              color={191,0,0}));
-  connect(TBCTop.port, heaPumWatHeaWra.heaPorTop) annotation (Line(points={{-46,
-          -74},{-16,-74},{-16,10},{0,10}}, color={191,0,0}));
+  connect(heaPumWatHeaWra.port_b1, sin.ports[1]) annotation (Line(points={{20,8},{
+          32,8},{32,24},{50,24}},  color={0,127,255}));
+  connect(TBCSid.port, heaPumWatHeaWra.heaPorSid) annotation (Line(points={{-36,-50},
+          {16,-50},{16,2}},            color={191,0,0}));
+  connect(TBCTop.port, heaPumWatHeaWra.heaPorTop) annotation (Line(points={{-36,-68},
+          {-6,-68},{-6,10},{10,10}},       color={191,0,0}));
   connect(senTemIn.port_b, res.port_a)
-    annotation (Line(points={{38,-4},{40,-4}}, color={0,127,255}));
-  connect(senTemIn.port_a, heaPumWatHeaWra.port_a2) annotation (Line(points={{18,-4},
-          {10,-4}},                             color={0,127,255}));
+    annotation (Line(points={{48,-4},{50,-4}}, color={0,127,255}));
+  connect(senTemIn.port_a, heaPumWatHeaWra.port_a2) annotation (Line(points={{28,-4},
+          {20,-4}},                             color={0,127,255}));
   connect(sin_1.ports[1], senTemOut.port_a)
-    annotation (Line(points={{-100,-4},{-52,-4}},color={0,127,255}));
+    annotation (Line(points={{-50,-4},{-42,-4}}, color={0,127,255}));
   connect(res.port_b, boundary.ports[1])
-    annotation (Line(points={{60,-4},{76,-4}}, color={0,127,255}));
-  connect(heaPumWatHeaWra.port_a1, bouAir.ports[1]) annotation (Line(points={{-10,8},
-          {-18,8},{-18,24},{-26,24}},        color={0,127,255}));
+    annotation (Line(points={{70,-4},{80,-4}}, color={0,127,255}));
+  connect(heaPumWatHeaWra.port_a1, bouAir.ports[1]) annotation (Line(points={{0,8},{
+          -8,8},{-8,24},{-16,24}},           color={0,127,255}));
   connect(senTemOut.port_b, heaPumWatHeaWra.port_b2)
-    annotation (Line(points={{-32,-4},{-10,-4}}, color={0,127,255}));
-  connect(datRea.y[8], toTotAirIn.XiDry) annotation (Line(points={{-99,70},{-92,
-          70},{-92,20},{-81,20}},        color={0,0,127}));
+    annotation (Line(points={{-22,-4},{0,-4}},   color={0,127,255}));
+  connect(datRea.y[8], toTotAirIn.XiDry) annotation (Line(points={{-89,70},{-82,
+          70},{-82,20},{-71,20}},        color={0,0,127}));
   connect(toTotAirIn.XiTotalAir, bouAir.Xi_in[1])
-    annotation (Line(points={{-59,20},{-48,20}}, color={0,0,127}));
-  connect(datRea.y[6], TEvaIn_K.Celsius) annotation (Line(points={{-99,70},{-86,
-          70},{-86,49.6},{-82,49.6}},        color={0,0,127}));
-  connect(TEvaIn_K.Kelvin, bouAir.T_in) annotation (Line(points={{-59,49.8},{
-          -58,49.8},{-58,50},{-54,50},{-54,28},{-48,28}}, color={0,0,127}));
-  connect(TBCBot.port, heaPumWatHeaWra.heaPorBot) annotation (Line(points={{-46,
-          -94},{-14,-94},{-14,-6},{0,-6}}, color={191,0,0}));
-  connect(datRea.y[3], boundary.m_flow_in) annotation (Line(points={{-99,70},{
-          106,70},{106,4},{98,4}},
+    annotation (Line(points={{-49,20},{-38,20}}, color={0,0,127}));
+  connect(datRea.y[6], TEvaIn_K.Celsius) annotation (Line(points={{-89,70},{-80,
+          70},{-80,49.6},{-72,49.6}},        color={0,0,127}));
+  connect(TEvaIn_K.Kelvin, bouAir.T_in) annotation (Line(points={{-49,49.8},{
+          -48,49.8},{-48,50},{-44,50},{-44,28},{-38,28}}, color={0,0,127}));
+  connect(TBCBot.port, heaPumWatHeaWra.heaPorBot) annotation (Line(points={{-36,-88},
+          {-4,-88},{-4,-6},{10,-6}},       color={191,0,0}));
+  connect(datRea.y[3], boundary.m_flow_in) annotation (Line(points={{-89,70},{
+          110,70},{110,4},{102,4}},
                                  color={0,0,127}));
-  connect(realToBoolean.y, heaPumWatHeaWra.on) annotation (Line(points={{-59,-28},
-          {-24,-28},{-24,2},{-12,2}},      color={255,0,255}));
-  connect(realToBoolean.u, datRea.y[7]) annotation (Line(points={{-82,-28},{-94,
-          -28},{-94,70},{-99,70}},        color={0,0,127}));
-  connect(TOut_K.Celsius, datRea.y[1]) annotation (Line(points={{-90,-76.4},{
-          -90,-76},{-94,-76},{-94,70},{-99,70}},     color={0,0,127}));
-  connect(TOut_K.Kelvin, TBCSid.T) annotation (Line(points={{-67,-76.2},{-67,-76},
-          {-64,-76},{-64,-56},{-59.2,-56}}, color={0,0,127}));
-  connect(TOut_K.Kelvin, TBCTop.T) annotation (Line(points={{-67,-76.2},{-63.5,-76.2},
-          {-63.5,-74},{-59.2,-74}}, color={0,0,127}));
-  connect(TOut_K.Kelvin, TBCBot.T) annotation (Line(points={{-67,-76.2},{-68,
-          -76.2},{-68,-76},{-64,-76},{-64,-94},{-59.2,-94}}, color={0,0,127}));
-  connect(TWat_K.Kelvin, boundary.T_in) annotation (Line(points={{83,89.8},{112,
-          89.8},{112,0},{98,0}},color={0,0,127}));
-  connect(TWat_K.Celsius, datRea.y[2]) annotation (Line(points={{60,89.6},{58,
-          89.6},{58,90},{52,90},{52,70},{-99,70}},  color={0,0,127}));
-  connect(datRea.y[28], TConCoi_K.Celsius) annotation (Line(points={{-99,70},{
-          -92,70},{-92,90},{-82,90},{-82,89.6}},   color={0,0,127}));
+  connect(realToBoolean.y, heaPumWatHeaWra.on) annotation (Line(points={{-49,-30},
+          {-14,-30},{-14,2},{-2,2}},       color={255,0,255}));
+  connect(realToBoolean.u, datRea.y[7]) annotation (Line(points={{-72,-30},{-84,
+          -30},{-84,70},{-89,70}},        color={0,0,127}));
+  connect(TOut_K.Celsius, datRea.y[1]) annotation (Line(points={{-80,-70.4},{
+          -80,-70},{-84,-70},{-84,70},{-89,70}},     color={0,0,127}));
+  connect(TOut_K.Kelvin, TBCSid.T) annotation (Line(points={{-57,-70.2},{-58,
+          -70.2},{-58,-70},{-54,-70},{-54,-50},{-49.2,-50}},
+                                            color={0,0,127}));
+  connect(TOut_K.Kelvin, TBCTop.T) annotation (Line(points={{-57,-70.2},{-54,
+          -70.2},{-54,-68},{-49.2,-68}},
+                                    color={0,0,127}));
+  connect(TOut_K.Kelvin, TBCBot.T) annotation (Line(points={{-57,-70.2},{-58,
+          -70.2},{-58,-70},{-54,-70},{-54,-88},{-49.2,-88}}, color={0,0,127}));
+  connect(TWat_K.Kelvin, boundary.T_in) annotation (Line(points={{91,49.8},{112,
+          49.8},{112,0},{102,0}},
+                                color={0,0,127}));
+  connect(TWat_K.Celsius, datRea.y[2]) annotation (Line(points={{68,49.6},{68,
+          50},{62,50},{62,70},{-89,70}},            color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,
             -100},{120,100}})),                                  Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{120,

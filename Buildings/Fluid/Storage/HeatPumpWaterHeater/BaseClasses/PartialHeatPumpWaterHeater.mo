@@ -21,7 +21,7 @@ partial model PartialHeatPumpWaterHeater
   annotation(Dialog(group="Nominal conditions"));
   replaceable parameter Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil datCoi(nSta=1)
     "Water heating coil data"
-    annotation (Placement(transformation(extent={{56,20},{76,40}})));
+    annotation (Placement(transformation(extent={{52,20},{72,40}})));
   replaceable parameter Buildings.Fluid.Storage.HeatPumpWaterHeater.Data.WaterHeaterData
     datWT "Water tank data"
     annotation (Placement(transformation(extent={{80,20},{100,40}})));

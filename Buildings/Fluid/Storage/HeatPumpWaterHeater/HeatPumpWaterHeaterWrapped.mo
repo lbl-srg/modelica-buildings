@@ -10,7 +10,7 @@ model HeatPumpWaterHeaterWrapped "Wrapped heat pump water heater model"
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TConWat[datWT.nSegCon]
     "Water temperatures that the condenser see"
     annotation (Placement(transformation(extent={{-30,-80},{-50,-60}})));
-    Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow hea[datWT.nSegCon]
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow hea[datWT.nSegCon]
     "Heat input to the hot water tank"
     annotation (Placement(transformation(extent={{-26,-36},{-6,-16}})));
   Modelica.Blocks.Math.MultiSum TConWatAve(k=datWT.conHeaFraSca, nu=datWT.nSegCon)
@@ -19,6 +19,9 @@ model HeatPumpWaterHeaterWrapped "Wrapped heat pump water heater model"
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorVol[datWT.nSeg]
     "Heat port that connects to the control volumes of the tank"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+  Modelica.Blocks.Math.Add add "Addition of power"
+    annotation (Placement(transformation(extent={{66,-50},{86,-30}})));
+
   Buildings.Fluid.DXSystems.Cooling.AirSource.SingleSpeed sinSpeDXCoo(
     datCoi=datCoi,
     redeclare package Medium = MediumAir,
@@ -44,6 +47,12 @@ equation
       Line(points={{-30,-70},{24,-70},{24,-26},{36,-26}}, color={191,0,0}));
   connect(TConWatAve.u, TConWat.T)
     annotation (Line(points={{-54,-70},{-51,-70}}, color={0,0,127}));
+  connect(add.y, P)
+    annotation (Line(points={{87,-40},{110,-40}}, color={0,0,127}));
+  connect(add.u1, fan.P) annotation (Line(points={{64,-34},{48,-34},{48,69},{45,
+          69}}, color={0,0,127}));
+  connect(add.u2, sinSpeDXCoo.P) annotation (Line(points={{64,-46},{8,-46},{8,69},
+          {-39,69}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-80},
             {100,80}}),                                         graphics={
         Rectangle(
