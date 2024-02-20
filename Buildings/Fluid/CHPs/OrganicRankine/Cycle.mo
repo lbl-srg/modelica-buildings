@@ -210,8 +210,6 @@ This differential is found by the following equations:
 &Delta;T<sub>Eva,pin</sub> = T<sub>Eva,pin</sub> - T<sub>w,Eva</sub>.
 </p>
 <p>
-The model solves for a <i>m&#775;<sub>w</sub></i> that would maintain a fixed
-evaporator PP differential, under certain constraints.
 An important underlying assumption is that all generated power can
 be consumed or otherwise dissipated,
 i.e. the cycle is not controlled to satisfy a certain load.
@@ -307,14 +305,19 @@ cycle power output <i>W&#775;</i>.
 <h4>Constraints</h4>
 <p>
 This model solves for <i>m&#775;<sub>w</sub></i> to maintain the prescribed
-evaporator PP temperature differential set point. An upper limit and
-a lower limit are imposed to reflect constraints of a sized real-world cycle.
+evaporator PP temperature differential set point,
+and <i>T<sub>w,Con</sub></i> for the condenser PP.
+Some constraints apply.
+</p>
+<p>
+On the evaporator side, an upper limit and a lower limit are imposed on
+<i>m&#775;<sub>w</sub></i> to reflect the charicteristics of a sized cycle.
 </p>
 <ul>
 <li>
 If the flow rate required for <i>&Delta;T<sub>Eva,pin</sub></i> to
 be maintained at the set value is higher than the upper limit,
-<i>m&#775;<sub>w</sub></i> stays at this limit and
+<i>m&#775;<sub>w</sub></i> stays at this upper limit and
 <i>&Delta;T<sub>Eva,pin</sub></i> is allowed to go higher than its set point.
 This may happen when the incoming waste heat fluid has a high flow rate
 or a high incoming temperature, i.e. carries more energy than the system
@@ -336,6 +339,18 @@ How these constraints affect the cycle's behaviour reacting to
 a varying waste heat fluid stream is demonstrated in
 <a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.Validation.VaryingHot\">
 Buildings.Fluid.CHPs.OrganicRankine.Validation.VaryingHot</a>
+</p>
+<p>
+On the condenser side, a lower limit is imposed on <i>T<sub>w,Con</sub></i>.
+This is usually imposed to prevent the condenser pressure going too low.
+This is demonstrated in
+<a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.Validation.VaryingHot\">
+Buildings.Fluid.CHPs.OrganicRankine.Validation.VaryingHot</a>
+</p>
+<p>
+In principle, an upper limit should also exist for <i>T<sub>w,Con</sub></i>.
+This is simply implemented as an <code>assert()</code> statement,
+because this is not expected to happen under normal operation.
 </p>
 <h4>Thermodynamic Properties</h4>
 <p align=\"center\">

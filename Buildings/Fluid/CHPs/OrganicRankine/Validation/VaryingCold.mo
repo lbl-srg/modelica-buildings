@@ -22,7 +22,7 @@ equation
 This model demonstrates how the ORC model reacts to varying flow rate
 and temperature of the incoming cold fluid carrying cooling water.
 Normally, the working fluid condensing temperature of the cycle
-<i>T<sub>Con</sub></i> is solved from
+<i>T<sub>w,Con</sub></i> is solved from
 the set point for the condenser pinch point temperature differential
 <i>&Delta;T<sub>con,pin</sub></i>.
 This constraint is released under the following condition:
@@ -31,8 +31,8 @@ This constraint is released under the following condition:
 <li>
 If the cold fluid carries so much cooling capacity
 (because the cold fluid's flow rate is too high or temperature is too low)
-that <i>T<sub>Con</sub></i> would be lower than a lower limit,
-<i>T<sub>Con</sub></i> is then fixed at its lower limit and
+that <i>T<sub>w,Con</sub></i> would be lower than a lower limit,
+<i>T<sub>w,Con</sub></i> is then fixed at its lower limit and
 <i>&Delta;T<sub>con,pin</sub></i> is allowed higher than its set point.
 </li>
 </ul>
