@@ -26,10 +26,12 @@ model ValvesIsolation
     "Set to true for isolation valves at HP outlet"
     annotation (Evaluate=true,
     Dialog(group="Configuration"));
-  parameter Boolean have_pumChiWatPriDed(start=false)
+  parameter Boolean have_pumChiWatPriDed(
+    start=false)
     "Set to true for plants with separate dedicated primary CHW pumps"
     annotation (Evaluate=true,
-    Dialog(group="Configuration", enable=have_chiWat));
+    Dialog(group="Configuration",
+      enable=have_chiWat));
   parameter Modelica.Units.SI.MassFlowRate mHeaWatHp_flow_nominal[nHp](
     each final min=0,
     each start=0)
@@ -51,15 +53,17 @@ model ValvesIsolation
     annotation (Dialog(group="Nominal condition",
       enable=have_chiWat));
   final parameter Modelica.Units.SI.PressureDifference dpChiWatHp_nominal[nHp]=
-    dpHeaWatHp_nominal .* (mChiWatHp_flow_nominal ./ mHeaWatHp_flow_nominal) .^ 2
+    dpHeaWatHp_nominal .*(mChiWatHp_flow_nominal ./ mHeaWatHp_flow_nominal) .^ 2
     "Pressure drop at design CHW mass flow rate - Each heat pump"
-    annotation (Dialog(group="Nominal condition", enable=have_chiWat));
+    annotation (Dialog(group="Nominal condition",
+      enable=have_chiWat));
   parameter Modelica.Units.SI.PressureDifference dpBalChiWatHp_nominal[nHp](
-    each final min=0, each start=0)=fill(0, nHp)
+    each final min=0,
+    each start=0)=fill(0, nHp)
     "Balancing valve pressure drop at design CHW mass flow rate - Each heat pump"
-    annotation (Dialog(group="Nominal condition", enable=have_chiWat));
-  parameter Modelica.Units.SI.PressureDifference dpValveHeaWat_nominal[nHp]=
-    fill(Buildings.Templates.Data.Defaults.dpValIso, nHp)
+    annotation (Dialog(group="Nominal condition",
+      enable=have_chiWat));
+  parameter Modelica.Units.SI.PressureDifference dpValveHeaWat_nominal[nHp]=fill(Buildings.Templates.Data.Defaults.dpValIso, nHp)
     "HW isolation valve pressure drop: identical for inlet and outlet valves"
     annotation (Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.PressureDifference dpFixedHeaWat_nominal[nHp]=
@@ -72,20 +76,22 @@ model ValvesIsolation
     "Total HW pressure drop: fixed + valves"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpValveChiWat_nominal[nHp](
-    each start=0)=
-    fill(Buildings.Templates.Data.Defaults.dpValIso, nHp)
+    each start=0)=fill(Buildings.Templates.Data.Defaults.dpValIso, nHp)
     "Isolation valve CHW pressure drop: identical for inlet and outlet valves"
-    annotation (Dialog(group="Nominal condition", enable=have_chiWat));
+    annotation (Dialog(group="Nominal condition",
+      enable=have_chiWat));
   final parameter Modelica.Units.SI.PressureDifference dpFixedChiWat_nominal[nHp]=
     if have_chiWat then dpChiWatHp_nominal + dpBalChiWatHp_nominal else fill(0, nHp)
     "Total fixed CHW pressure drop"
-    annotation (Dialog(group="Nominal condition", enable=have_chiWat));
+    annotation (Dialog(group="Nominal condition",
+      enable=have_chiWat));
   final parameter Modelica.Units.SI.PressureDifference dpChiWat_nominal[nHp]=
     dpFixedChiWat_nominal +(if have_chiWat and have_valHpOutIso then dpValveChiWat_nominal
     else fill(0, nHp)) +(if have_chiWat and have_valHpInlIso then dpValveChiWat_nominal
     else fill(0, nHp))
     "Total CHW pressure drop: fixed + valves"
-    annotation (Dialog(group="Nominal condition", enable=have_chiWat));
+    annotation (Dialog(group="Nominal condition",
+      enable=have_chiWat));
   final parameter Buildings.Templates.Components.Data.Valve datValHeaWatHpOutIso[nHp](
     each typ=typ,
     m_flow_nominal=mHeaWatHp_flow_nominal,
@@ -129,36 +135,36 @@ model ValvesIsolation
     "Set to false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation (Dialog(tab="Assumptions"),
     Evaluate=true);
-  parameter Boolean use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState
+  parameter Boolean use_inputFilter=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState
     "= true, if opening is filtered with a 2nd order CriticalDamping filter"
-    annotation(__ctrlFlow(enable=false),
-    Dialog(tab="Dynamics", group="Filtered opening",
-    enable= have_valHpInlIso or have_valHpOutIso));
+    annotation (__ctrlFlow(enable=false),
+  Dialog(tab="Dynamics",group="Filtered opening",
+    enable=have_valHpInlIso or have_valHpOutIso));
   parameter Modelica.Units.SI.Time riseTime=120
     "Rise time of the filter (time to reach 99.6 % of an opening step)"
     annotation (__ctrlFlow(enable=false),
-    Dialog(
-      tab="Dynamics",
-      group="Filtered opening",
-      enable=use_inputFilter and have_valHpInlIso or have_valHpOutIso));
+  Dialog(tab="Dynamics",group="Filtered opening",
+    enable=use_inputFilter and have_valHpInlIso or have_valHpOutIso));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
-    annotation(__ctrlFlow(enable=false),
-    Dialog(tab="Dynamics", group="Filtered opening",
-    enable=use_inputFilter  and have_valHpInlIso or have_valHpOutIso));
-  parameter Real y_start=1 "Initial position of actuator"
-    annotation(__ctrlFlow(enable=false),
-    Dialog(tab="Dynamics", group="Filtered opening",
-    enable=use_inputFilter  and have_valHpInlIso or have_valHpOutIso));
-  parameter Boolean from_dp = true
+    annotation (__ctrlFlow(enable=false),
+  Dialog(tab="Dynamics",group="Filtered opening",
+    enable=use_inputFilter and have_valHpInlIso or have_valHpOutIso));
+  parameter Real y_start=1
+    "Initial position of actuator"
+    annotation (__ctrlFlow(enable=false),
+  Dialog(tab="Dynamics",group="Filtered opening",
+    enable=use_inputFilter and have_valHpInlIso or have_valHpOutIso));
+  parameter Boolean from_dp=true
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
-    annotation (Evaluate=true, Dialog(tab="Advanced",
-    enable=have_valHpInlIso or have_valHpOutIso));
-  parameter Boolean linearized = false
+    annotation (Evaluate=true,
+    Dialog(tab="Advanced",
+      enable=have_valHpInlIso or have_valHpOutIso));
+  parameter Boolean linearized=true
     "= true, use linear relation between m_flow and dp for any flow rate"
-    annotation(Evaluate=true, Dialog(tab="Advanced",
-    enable=have_valHpInlIso or have_valHpOutIso));
-
+    annotation (Evaluate=true,
+    Dialog(tab="Advanced",
+      enable=have_valHpInlIso or have_valHpOutIso));
   Modelica.Fluid.Interfaces.FluidPort_b port_bChiWat(
     redeclare final package Medium=Medium,
     m_flow(
@@ -313,14 +319,15 @@ model ValvesIsolation
     annotation (Placement(transformation(extent={{10,10},{-10,-10}},rotation=90,
       origin={180,0})));
   Buildings.Templates.Components.Routing.PassThroughFluid pasHeaWatHpOut[nHp](
-      redeclare each final package Medium = Medium) if not have_valHpOutIso
-    "Direct fluid pass-through" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-160,0})));
+    redeclare each final package Medium=Medium)
+    if not have_valHpOutIso
+    "Direct fluid pass-through"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=90,
+      origin={-160,0})));
   Buildings.Templates.Components.Routing.PassThroughFluid pasChiWatHpOut[nHp](
     redeclare each final package Medium=Medium)
-    if not have_valHpOutIso and have_chiWat "Direct fluid pass-through"
+    if not have_valHpOutIso and have_chiWat
+    "Direct fluid pass-through"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=90,
       origin={-80,0})));
   Fluid.Delays.DelayFirstOrder junHeaWatSup(
@@ -360,27 +367,23 @@ model ValvesIsolation
   /*
   HW pressure drop computed in this component in the absence of isolation valves
   at both inlet and outlet.
-  */
-  Fluid.FixedResistances.PressureDrop pasHeaWatHpInl[nHp](
-    redeclare each final package Medium = Medium,
+  */Fluid.FixedResistances.PressureDrop pasHeaWatHpInl[nHp](
+    redeclare each final package Medium=Medium,
     final m_flow_nominal=mHeaWatHp_flow_nominal,
     final dp_nominal=if not have_valHpInlIso and not have_valHpOutIso then dpFixedHeaWat_nominal
-    else fill(0, nHp))
+      else fill(0, nHp))
     if not have_valHpInlIso
-    "Direct fluid pass-through with optional fluid resistance" annotation (
-      Placement(transformation(
-        extent={{10,10},{-10,-10}},
-        rotation=90,
-        origin={80,0})));
+    "Direct fluid pass-through with optional fluid resistance"
+    annotation (Placement(transformation(extent={{10,10},{-10,-10}},rotation=90,
+      origin={80,0})));
   /*
   CHW pressure drop computed in this component in the absence of isolation valves
   at both inlet and outlet.
-  */
-  Fluid.FixedResistances.PressureDrop pasChiWatHpInl[nHp](
+  */Fluid.FixedResistances.PressureDrop pasChiWatHpInl[nHp](
     redeclare each final package Medium=Medium,
     final m_flow_nominal=mChiWatHp_flow_nominal,
     final dp_nominal=if not have_valHpInlIso and not have_valHpOutIso then dpFixedChiWat_nominal
-    else fill(0, nHp))
+      else fill(0, nHp))
     if not have_valHpInlIso and have_chiWat
     "Direct fluid pass-through with optional fluid resistance"
     annotation (Placement(transformation(extent={{10,10},{-10,-10}},rotation=90,
@@ -436,11 +439,11 @@ equation
     annotation (Line(points={{-100,-200},{-100,-200},{-100,-10}},color={0,127,255}));
   connect(ports_aChiWatHp, valChiWatHpOutIso.port_a)
     annotation (Line(points={{-20,-200},{-20,-180},{-100,-180},{-100,-10}},color={0,127,255}));
-  connect(ports_aHeaWatHp, pasHeaWatHpOut.port_a) annotation (Line(points={{-180,
-          -200},{-180,-20},{-160,-20},{-160,-10}}, color={0,127,255}));
-  connect(ports_aChiHeaWatHp, pasHeaWatHpOut.port_a) annotation (Line(points={{-100,
-          -200},{-100,-180},{-180,-180},{-180,-20},{-160,-20},{-160,-10}},
-        color={0,127,255}));
+  connect(ports_aHeaWatHp, pasHeaWatHpOut.port_a)
+    annotation (Line(points={{-180,-200},{-180,-20},{-160,-20},{-160,-10}},color={0,127,255}));
+  connect(ports_aChiHeaWatHp, pasHeaWatHpOut.port_a)
+    annotation (Line(points={{-100,-200},{-100,-180},{-180,-180},{-180,-20},{-160,-20},{-160,-10}},
+      color={0,127,255}));
   connect(ports_aChiHeaWatHp, pasChiWatHpOut.port_a)
     annotation (Line(points={{-100,-200},{-100,-20},{-80,-20},{-80,-10}},color={0,127,255}));
   connect(ports_aChiWatHp, pasChiWatHpOut.port_a)
@@ -449,7 +452,7 @@ equation
   connect(valHeaWatHpOutIso.port_b, junHeaWatSup.ports[1:nHp])
     annotation (Line(points={{-180,10},{-180,20},{-160,20},{-160,40}},color={0,127,255}));
   connect(pasHeaWatHpOut.port_b, junHeaWatSup.ports[1:nHp])
-    annotation (Line(points={{-160,10},{-160,40}}, color={0,127,255}));
+    annotation (Line(points={{-160,10},{-160,40}},color={0,127,255}));
   connect(junHeaWatSup.ports[nHp + 1], port_bHeaWat)
     annotation (Line(points={{-160,40},{-180,40},{-180,200}},color={0,127,255}));
   connect(valChiWatHpOutIso.port_b, junChiWatSup.ports[1:nHp])
@@ -462,16 +465,16 @@ equation
     annotation (Line(points={{100,200},{100,40},{80,40}},color={0,127,255}));
   connect(junHeaWatRet.ports[1:nHp], valHeaWatHpInlIso.port_a)
     annotation (Line(points={{80,40},{80,20},{100,20},{100,10}},color={0,127,255}));
-  connect(pasHeaWatHpInl.port_a, junHeaWatRet.ports[1:nHp]) annotation (Line(
-        points={{80,10},{80,26},{80,40},{80,40}}, color={0,127,255}));
+  connect(pasHeaWatHpInl.port_a, junHeaWatRet.ports[1:nHp])
+    annotation (Line(points={{80,10},{80,26},{80,40},{80,40}},color={0,127,255}));
   connect(port_aChiWat, junChiWatRet.ports[nHp + 1])
     annotation (Line(points={{180,200},{180,40},{160,40}},color={0,127,255}));
   connect(valChiWatHpInlIso.port_a, junChiWatRet.ports[1:nHp])
     annotation (Line(points={{180,10},{180,20},{160,20},{160,40}},color={0,127,255}));
   connect(pasChiWatHpInl.port_a, junChiWatRet.ports[1:nHp])
     annotation (Line(points={{160,10},{160,26},{160,40},{160,40}},color={0,127,255}));
-  connect(pasHeaWatHpInl.port_b, ports_bChiHeaWatHp) annotation (Line(points={{80,
-          -10},{80,-20},{100,-20},{100,-200}}, color={0,127,255}));
+  connect(pasHeaWatHpInl.port_b, ports_bChiHeaWatHp)
+    annotation (Line(points={{80,-10},{80,-20},{100,-20},{100,-200}},color={0,127,255}));
   connect(valHeaWatHpInlIso.port_b, ports_bChiHeaWatHp)
     annotation (Line(points={{100,-10},{100,-200}},color={0,127,255}));
   connect(pasChiWatHpInl.port_b, ports_bChiHeaWatHp)
@@ -496,9 +499,12 @@ equation
       coordinateSystem(
         preserveAspectRatio=false,
         extent={{-1000,-400},{1000,400}})),
-    Documentation(info="<html>
+    Documentation(
+      info="<html>
 <p>
 By default
 <code>from_dp=true</code> 
+<code>linearized=true</code>:
+careful when auto sizing balancing valves!
 </html>"));
 end ValvesIsolation;

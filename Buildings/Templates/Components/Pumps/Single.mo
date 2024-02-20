@@ -37,7 +37,8 @@ model Single "Single pump"
   Fluid.FixedResistances.CheckValve valChe(
     redeclare final package Medium = Medium,
     final m_flow_nominal=dat.m_flow_nominal,
-    dpValve_nominal=Buildings.Templates.Data.Defaults.dpValChe) if have_valChe
+    final dpValve_nominal=dpValChe_nominal)
+    if have_valChe
     "Check valve"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
   Routing.PassThroughFluid pas(

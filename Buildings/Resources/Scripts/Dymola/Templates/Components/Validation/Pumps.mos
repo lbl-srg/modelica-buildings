@@ -1,0 +1,89 @@
+simulateModel("Buildings.Templates.Components.Validation.Pumps",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=300.0,
+    resultFile="Pumps");
+createPlot(
+    id=1,
+    position={5, 5, 300, 600},
+    y={"pum1.bus.y1", "pum2.bus.y1"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"pum1.m_flow", "pum2.m_flow", "datPum.m_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=3,
+    y={"res.m_flow", "res.m_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    position={310, 5, 300, 600},
+    y={"pumMul.bus.y1[1]", "pumMul.bus.y1[2]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=2,
+    y={"pumMul.pum[1].m_flow", "pumMul.pum[2].m_flow", "pumMul.pum[1].m_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=3,
+    y={"resMul.m_flow", "resMul.m_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=3,
+    position={615, 5, 300, 600},
+    y={"pumMulCst.bus.y1[1]", "pumMulCst.bus.y1[2]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=3,
+    subPlot=2,
+    y={"pumMulCst.pum[1].m_flow", "pumMulCst.pum[2].m_flow", "pumMulCst.pum[1].m_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=3,
+    subPlot=3,
+    y={"resMulCst.m_flow", "resMulCst.m_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=4,
+    position={920, 5, 300, 600},
+    y={"pumMulDed.bus.y1[1]", "pumMulDed.bus.y1[2]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=4,
+    subPlot=2,
+    y={"pumMulDed.pum[1].m_flow", "pumMulDed.pum[2].m_flow", "pumMulDed.pum[1].m_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=4,
+    subPlot=3,
+    y={"resMulDed.m_flow", "resMulDed.m_flow_nominal"},
+    autoscale=true,
+    grid=true
+);

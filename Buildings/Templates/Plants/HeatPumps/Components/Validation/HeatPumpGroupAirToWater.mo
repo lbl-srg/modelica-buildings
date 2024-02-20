@@ -9,8 +9,11 @@ model HeatPumpGroupAirToWater
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation (Evaluate=true,
     Dialog(tab="Dynamics",group="Conservation equations"));
-  parameter Data.Controller datCtlPlaAwNrv(cfg(
+  parameter Data.Controller datCtlPlaAwNrv(
+    cfg(
       have_chiWat=false,
+      typPumHeaWatPri=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
+      typPumChiWatPri=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None,
       typPumHeaWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None,
       typDis=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Only,
       have_pumChiWatPriDed=false,
@@ -28,10 +31,8 @@ model HeatPumpGroupAirToWater
       have_valHpOutIso=false,
       typMod=hpAwNrv.typMod,
       have_senVHeaWatSec=false,
-      have_varPumChiWatPri=false,
       cpHeaWat_default=hpAwNrv.cpHeaWat_default,
       cpSou_default=hpAwNrv.cpSou_default,
-      have_varPumHeaWatPri=false,
       have_senDpChiWatLoc=false,
       typArrPumPri=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
       nHp=hpAwNrv.nHp,
@@ -47,13 +48,14 @@ model HeatPumpGroupAirToWater
       nSenDpChiWatRem=0,
       nAirHan=0,
       nEquZon=0),
-      THeaWatSupHp_nominal=datHpAwNrv.THeaWatSupHp_nominal)
+    THeaWatSupHp_nominal=datHpAwNrv.THeaWatSupHp_nominal)
     "Controller parameters"
     annotation (Placement(transformation(extent={{-170,40},{-150,60}})));
-
   parameter Data.Controller datCtlPlaAw(
     cfg(
       have_chiWat=true,
+      typPumHeaWatPri=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
+      typPumChiWatPri=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
       typPumHeaWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None,
       typDis=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Only,
       have_pumChiWatPriDed=false,
@@ -71,10 +73,8 @@ model HeatPumpGroupAirToWater
       have_valHpOutIso=true,
       typMod=hpAw.typMod,
       have_senVHeaWatSec=false,
-      have_varPumChiWatPri=false,
       cpHeaWat_default=hpAw.cpHeaWat_default,
       cpSou_default=hpAw.cpSou_default,
-      have_varPumHeaWatPri=false,
       have_senDpChiWatLoc=false,
       typArrPumPri=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
       nHp=hpAw.nHp,
@@ -91,9 +91,9 @@ model HeatPumpGroupAirToWater
       nAirHan=0,
       nEquZon=0),
     THeaWatSupHp_nominal=datHpAw.THeaWatSupHp_nominal,
-    TChiWatSupHp_nominal=datHpAw.TChiWatSupHp_nominal) "Controller parameters"
+    TChiWatSupHp_nominal=datHpAw.TChiWatSupHp_nominal)
+    "Controller parameters"
     annotation (Placement(transformation(extent={{-170,-140},{-150,-120}})));
-
   parameter Buildings.Templates.Plants.HeatPumps.Components.Data.HeatPumpGroup datHpAwNrv(
     final cpHeaWat_default=hpAwNrv.cpHeaWat_default,
     final cpSou_default=hpAwNrv.cpSou_default,
@@ -177,8 +177,10 @@ model HeatPumpGroupAirToWater
     each final m_flow_nominal=datHpAwNrv.mHeaWatHp_flow_nominal)
     "Supply temperature"
     annotation (Placement(transformation(extent={{60,130},{80,150}})));
-  Controls.OpenLoop ctlPlaAwNrv(final cfg=datCtlPlaAwNrv.cfg, final dat=
-        datCtlPlaAwNrv) "Plant controller"
+  Controls.OpenLoop ctlPlaAwNrv(
+    final cfg=datCtlPlaAwNrv.cfg,
+    final dat=datCtlPlaAwNrv)
+    "Plant controller"
     annotation (Placement(transformation(extent={{-20,130},{-40,150}})));
   HeatPumpGroups.AirToWater hpAwNrv(
     redeclare final package MediumHeaWat=Medium,
@@ -191,7 +193,8 @@ model HeatPumpGroupAirToWater
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin THeaWatRet(
     amplitude=datHpAwNrv.THeaWatSupHp_nominal - datHpAwNrv.THeaWatRetHp_nominal,
     freqHz=3 / 3000,
-    y(final unit="K",
+    y(
+      final unit="K",
       displayUnit="degC"),
     offset=datHpAwNrv.THeaWatRetHp_nominal,
     startTime=0)
@@ -209,7 +212,9 @@ model HeatPumpGroupAirToWater
     final energyDynamics=energyDynamics)
     "Reversible AWHP"
     annotation (Placement(transformation(extent={{100,-140},{-100,-60}})));
-  Controls.OpenLoop ctlPlaAw(final cfg=datCtlPlaAw.cfg, final dat=datCtlPlaAw)
+  Controls.OpenLoop ctlPlaAw(
+    final cfg=datCtlPlaAw.cfg,
+    final dat=datCtlPlaAw)
     "Plant controller"
     annotation (Placement(transformation(extent={{-20,-50},{-40,-30}})));
   Fluid.Sources.Boundary_pT inlHp(
@@ -238,7 +243,8 @@ model HeatPumpGroupAirToWater
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin THeaWatRet1(
     amplitude=datHpAw.THeaWatSupHp_nominal - datHpAw.THeaWatRetHp_nominal,
     freqHz=3 / 3000,
-    y(final unit="K",
+    y(
+      final unit="K",
       displayUnit="degC"),
     offset=datHpAw.THeaWatRetHp_nominal,
     startTime=0)
@@ -247,7 +253,8 @@ model HeatPumpGroupAirToWater
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin TChiWatRet(
     amplitude=datHpAw.TChiWatRetHp_nominal - datHpAw.TChiWatSupHp_nominal,
     freqHz=3 / 3000,
-    y(final unit="K",
+    y(
+      final unit="K",
       displayUnit="degC"),
     offset=datHpAw.TChiWatRetHp_nominal,
     startTime=0)
@@ -277,10 +284,8 @@ model HeatPumpGroupAirToWater
     annotation (Placement(iconVisible=false,transformation(extent={{-120,-20},{-80,20}}),
       iconTransformation(extent={{-536,100},{-496,140}})));
 equation
-  connect(ctlPlaAwNrv.bus, hpAwNrv.bus) annotation (Line(
-      points={{-20,140},{0,140},{0,120}},
-      color={255,204,51},
-      thickness=0.5));
+  connect(ctlPlaAwNrv.bus, hpAwNrv.bus)
+    annotation (Line(points={{-20,140},{0,140},{0,120}},color={255,204,51},thickness=0.5));
   connect(inlHp1.ports, TRet1.port_a)
     annotation (Line(points={{-100,140},{-80,140}},color={0,127,255}));
   connect(TRet1.port_b, hpAwNrv.ports_aChiHeaWat)
@@ -290,17 +295,15 @@ equation
   connect(TSup1.port_b, sup.ports)
     annotation (Line(points={{80,140},{100,140}},color={0,127,255}));
   connect(weaDat.weaBus, hpAwNrv.busWea)
-    annotation (Line(points={{170,160},{24,160},{24,120}},color={255,204,51},thickness=0.5));
+    annotation (Line(points={{170,160},{20,160},{20,120}},color={255,204,51},thickness=0.5));
   connect(THeaWatRet.y, inlHp1.T_in)
     annotation (Line(points={{-148,120},{-140,120},{-140,144},{-122,144}},color={0,0,127}));
   connect(pHeaWatInl.y, inlHp1.p_in)
     annotation (Line(points={{-148,160},{-140,160},{-140,148},{-122,148}},color={0,0,127}));
   connect(weaDat.weaBus, hpAw.busWea)
-    annotation (Line(points={{170,160},{160,160},{160,0},{24,0},{24,-60}},color={255,204,51},thickness=0.5));
-  connect(ctlPlaAw.bus, hpAw.bus) annotation (Line(
-      points={{-20,-40},{0,-40},{0,-60}},
-      color={255,204,51},
-      thickness=0.5));
+    annotation (Line(points={{170,160},{160,160},{160,0},{20,0},{20,-60}},color={255,204,51},thickness=0.5));
+  connect(ctlPlaAw.bus, hpAw.bus)
+    annotation (Line(points={{-20,-40},{0,-40},{0,-60}},color={255,204,51},thickness=0.5));
   connect(inlHp.ports, TRet.port_a)
     annotation (Line(points={{-100,-40},{-80,-40}},color={0,127,255}));
   connect(TRet.port_b, hpAw.ports_aChiHeaWat)
@@ -322,10 +325,8 @@ equation
     annotation (Line(points={{-138,0},{-132,0},{-132,-32},{-122,-32}},color={0,0,127}));
   connect(TRetAct.y, inlHp.T_in)
     annotation (Line(points={{-138,-80},{-132,-80},{-132,-36},{-122,-36}},color={0,0,127}));
-  connect(busPla, ctlPlaAw.bus) annotation (Line(
-      points={{0,0},{0,-40},{-20,-40}},
-      color={255,204,51},
-      thickness=0.5));
+  connect(busPla, ctlPlaAw.bus)
+    annotation (Line(points={{0,0},{0,-40},{-20,-40}},color={255,204,51},thickness=0.5));
   connect(busPla.hp, busHp)
     annotation (Line(points={{0,0},{-100,0}},color={255,204,51},thickness=0.5));
   connect(busHp[1].y1Hea, pInl_rel.u2)

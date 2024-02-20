@@ -41,18 +41,27 @@ record HeatPumpPlant
     annotation (Evaluate=true);
   // Default fluid properties
   parameter Modelica.Units.SI.Density rhoHeaWat_default
-    "HW default density";
+    "HW default density"
+    annotation (Evaluate=true);
   parameter Modelica.Units.SI.SpecificHeatCapacity cpHeaWat_default
-    "HW default specific heat capacity";
+    "HW default specific heat capacity"
+    annotation (Evaluate=true);
   parameter Modelica.Units.SI.Density rhoChiWat_default
-    "CHW default density";
+    "CHW default density"
+    annotation (Evaluate=true);
   parameter Modelica.Units.SI.SpecificHeatCapacity cpChiWat_default
-    "CHW default specific heat capacity";
+    "CHW default specific heat capacity"
+    annotation (Evaluate=true);
   parameter Modelica.Units.SI.Density rhoSou_default
-    "Source fluid default density";
+    "Source fluid default density"
+    annotation (Evaluate=true);
   parameter Modelica.Units.SI.SpecificHeatCapacity cpSou_default
-    "Source fluid default specific heat capacity";
+    "Source fluid default specific heat capacity"
+    annotation (Evaluate=true);
   // HW loop
+  parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary typPumHeaWatPri
+    "Type of primary HW pumps"
+    annotation (Evaluate=true);
   parameter Integer nPumHeaWatPri
     "Number of primary HW pumps"
     annotation (Evaluate=true);
@@ -65,7 +74,8 @@ record HeatPumpPlant
   parameter Buildings.Templates.Components.Types.PumpArrangement typArrPumPri
     "Type of primary pump arrangement"
     annotation (Evaluate=true);
-  parameter Boolean have_varPumHeaWatPri
+  final parameter Boolean have_varPumHeaWatPri=typPumHeaWatPri == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
+    or typPumHeaWatPri == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.FactoryVariable
     "Set to true for variable speed primary HW pumps"
     annotation (Evaluate=true);
   parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary typPumHeaWatSec
@@ -87,6 +97,9 @@ record HeatPumpPlant
   parameter Boolean have_pumChiWatPriDed
     "Set to true for plants with separate dedicated primary CHW pumps"
     annotation (Evaluate=true);
+  parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary typPumChiWatPri
+    "Type of primary CHW pumps"
+    annotation (Evaluate=true);
   parameter Integer nPumChiWatPri
     "Number of primary CHW pumps"
     annotation (Evaluate=true);
@@ -96,7 +109,8 @@ record HeatPumpPlant
   parameter Boolean have_valChiWatMinByp
     "Set to true if the CHW loop has a minimum flow bypass valve"
     annotation (Evaluate=true);
-  parameter Boolean have_varPumChiWatPri
+  final parameter Boolean have_varPumChiWatPri=typPumChiWatPri == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
+    or typPumChiWatPri == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.FactoryVariable
     "Set to true for variable speed primary CHW pumps"
     annotation (Evaluate=true);
   parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary typPumChiWatSec

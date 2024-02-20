@@ -25,7 +25,8 @@ record Controller
     displayUnit="L/s",
     final min=0)
     "Design HW volume flow rate - Each heat pump"
-    annotation (Dialog(group="Heat pump flow setpoints",
+    annotation (Evaluate=true,
+    Dialog(group="Heat pump flow setpoints",
       enable=cfg.have_heaWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.ClosedLoop
         and cfg.have_valHeaWatMinByp));
   parameter Modelica.Units.SI.VolumeFlowRate VHeaWatHp_flow_min(
@@ -46,7 +47,8 @@ record Controller
     displayUnit="L/s",
     final min=0)=VHeaWatHp_flow_nominal * cfg.nHp
     "Design primary HW volume flow rate - Total"
-    annotation (Dialog(group="Capacity",
+    annotation (Evaluate=true,
+    Dialog(group="Capacity",
       enable=cfg.have_heaWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.ClosedLoop
         and cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
         and cfg.typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Headered));
@@ -55,7 +57,8 @@ record Controller
     displayUnit="L/s",
     final min=0)
     "Design secondary HW volume flow rate"
-    annotation (Dialog(group="Capacity",
+    annotation (Evaluate=true,
+    Dialog(group="Capacity",
       enable=cfg.have_heaWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.ClosedLoop
         and cfg.typPumHeaWatSec<>Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
         and cfg.have_senVHeaWatSec));
@@ -113,7 +116,8 @@ record Controller
     displayUnit="L/s",
     final min=0)
     "Design CHW volume flow rate - Each heat pump"
-    annotation (Dialog(group="Heat pump flow setpoints",
+    annotation (Evaluate=true,
+    Dialog(group="Heat pump flow setpoints",
       enable=cfg.have_chiWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.ClosedLoop
         and cfg.have_valChiWatMinByp));
   parameter Modelica.Units.SI.VolumeFlowRate VChiWatHp_flow_min(
@@ -134,7 +138,8 @@ record Controller
     displayUnit="L/s",
     final min=0)=VChiWatHp_flow_nominal * cfg.nHp
     "Design primary CHW volume flow rate - Total"
-    annotation (Dialog(group="Capacity",
+    annotation (Evaluate=true,
+    Dialog(group="Capacity",
       enable=cfg.have_chiWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.ClosedLoop
         and cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
         and cfg.typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Headered));
@@ -143,7 +148,8 @@ record Controller
     displayUnit="L/s",
     final min=0)
     "Design secondary CHW volume flow rate"
-    annotation (Dialog(group="Capacity",
+    annotation (Evaluate=true,
+    Dialog(group="Capacity",
       enable=cfg.have_chiWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.ClosedLoop
         and cfg.typPumChiWatSec<>Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
         and cfg.have_senVChiWatSec));

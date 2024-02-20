@@ -47,11 +47,10 @@ block IdealModularReversibleTableData2D
     "Evaporator (source side) outlet temperature"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=-90,
       origin={0,80})));
-  Utilities.Math.SmoothLimit lim(
+  Buildings.Utilities.Math.SmoothLimit lim(
     deltaX=1E-3,
     final upper=1,
-    final lower=0)
-    "Limit output"
+    final lower=0) "Limit output"
     annotation (Placement(transformation(extent={{100,-56},{120,-36}})));
   replaceable Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D heaMax(
     final dTEva_nominal=hea.dTEva_nominal,

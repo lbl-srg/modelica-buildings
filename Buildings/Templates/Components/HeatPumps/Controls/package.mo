@@ -1,6 +1,5 @@
 within Buildings.Templates.Components.HeatPumps;
-package Controls
-  "Heat pump control blocks"
+package Controls "Heat pump control blocks"
   extends Modelica.Icons.VariantsPackage;
   annotation (
     Documentation(

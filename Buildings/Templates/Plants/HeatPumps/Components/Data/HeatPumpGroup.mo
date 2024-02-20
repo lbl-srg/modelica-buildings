@@ -32,8 +32,7 @@ record HeatPumpGroup
   It is the same as cpChiWat_default for reversible HP.
   Non-reversible HP that can be controlled to produce either HW or CHW
   shall be modeled with chiller components (as a chiller/heater).
-  */
-    final parameter Modelica.Units.SI.SpecificHeatCapacity cpChiWat_default=
+  */final parameter Modelica.Units.SI.SpecificHeatCapacity cpChiWat_default=
     cpHeaWat_default
     "CHW default specific heat capacity";
   parameter Modelica.Units.SI.SpecificHeatCapacity cpSou_default=if typ ==
@@ -47,7 +46,8 @@ record HeatPumpGroup
   parameter Modelica.Units.SI.MassFlowRate mHeaWatHp_flow_nominal(
     final min=0)
     "HW mass flow rate - Each heat pump"
-    annotation (Dialog(group="Nominal condition"));
+    annotation (Evaluate=true,
+    Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpHeaWatHp_nominal(
     min=0,
     start=Buildings.Templates.Data.Defaults.dpChiWatChi)
@@ -69,10 +69,11 @@ record HeatPumpGroup
     start=0,
     final min=0)
     "CHW mass flow rate - Each heat pump"
-    annotation (Dialog(group="Nominal condition",
+    annotation (Evaluate=true,
+    Dialog(group="Nominal condition",
       enable=is_rev));
   final parameter Modelica.Units.SI.PressureDifference dpChiWatHp_nominal=
-    dpHeaWatHp_nominal * (mChiWatHp_flow_nominal / mHeaWatHp_flow_nominal) ^ 2
+    dpHeaWatHp_nominal *(mChiWatHp_flow_nominal / mHeaWatHp_flow_nominal) ^ 2
     "Pressure drop at design CHW mass flow rate - Each heat pump"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.HeatFlowRate capCooHp_nominal(
@@ -101,7 +102,8 @@ record HeatPumpGroup
     start=mHeaWatHp_flow_nominal,
     final min=0)
     "Source fluid mass flow rate in heating mode - Each heat pump"
-    annotation (Dialog(group="Nominal condition",
+    annotation (Evaluate=true,
+    Dialog(group="Nominal condition",
       enable=typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater));
   parameter Modelica.Units.SI.PressureDifference dpSouWwHeaHp_nominal(
     min=0,
@@ -112,7 +114,8 @@ record HeatPumpGroup
   final parameter Modelica.Units.SI.MassFlowRate mSouHeaHp_flow_nominal=if typ ==
     Buildings.Templates.Components.Types.HeatPump.WaterToWater then mSouWwHeaHp_flow_nominal
     else Buildings.Templates.Data.Defaults.mAirFloByCapChi * abs(capHeaHp_nominal)
-    "Source fluid mass flow rate in heating mode - Each heat pump";
+    "Source fluid mass flow rate in heating mode - Each heat pump"
+    annotation (Evaluate=true);
   final parameter Modelica.Units.SI.PressureDifference dpSouHeaHp_nominal=if typ ==
     Buildings.Templates.Components.Types.HeatPump.WaterToWater then dpSouWwHeaHp_nominal
     else Buildings.Templates.Data.Defaults.dpAirChi
@@ -127,12 +130,14 @@ record HeatPumpGroup
     start=mChiWatHp_flow_nominal,
     final min=0)
     "Source fluid mass flow rate in cooling mode - Each heat pump"
-    annotation (Dialog(group="Nominal condition",
+    annotation (Evaluate=true,
+    Dialog(group="Nominal condition",
       enable=typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater and is_rev));
   final parameter Modelica.Units.SI.MassFlowRate mSouCooHp_flow_nominal=if typ ==
     Buildings.Templates.Components.Types.HeatPump.WaterToWater then mSouWwCooHp_flow_nominal
     else Buildings.Templates.Data.Defaults.mAirFloByCapChi * abs(capCooHp_nominal)
-    "Source fluid mass flow rate in cooling mode - Each heat pump";
+    "Source fluid mass flow rate in cooling mode - Each heat pump"
+    annotation (Evaluate=true);
   final parameter Modelica.Units.SI.PressureDifference dpSouCooHp_nominal=
     dpSouHeaHp_nominal *(mSouCooHp_flow_nominal / mSouHeaHp_flow_nominal) ^ 2
     "Source fluid pressure drop in cooling mode - Each heat pump";

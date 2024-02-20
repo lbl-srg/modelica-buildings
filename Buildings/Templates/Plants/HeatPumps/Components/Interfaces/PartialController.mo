@@ -5,8 +5,7 @@ block PartialController
   from the controller to the plant configuration record.
   All other configuration parameters (e.g. nHp) are propagated *down*
   from the plant configuration record to the controller.
-  */
-  parameter Buildings.Templates.Plants.HeatPumps.Configuration.HeatPumpPlant cfg(
+  */ parameter Buildings.Templates.Plants.HeatPumps.Configuration.HeatPumpPlant cfg(
     typCtl=typ,
     nAirHan=nAirHan,
     nEquZon=nEquZon,
@@ -126,26 +125,12 @@ block PartialController
     annotation (Evaluate=true,
     Dialog(group="Configuration",
       enable=cfg.have_chiWat));
-  parameter Buildings.Templates.Plants.HeatPumps.Types.SensorLocation locSenVChiWatPri=
-    locSenVHeaWatPri
-    "Location of primary CHW flow sensor"
-    annotation (Evaluate=true,
-    Dialog(group="Configuration",
-      enable=cfg.have_chiWat and typ==Buildings.Templates.Plants.HeatPumps.Types.Controller.ClosedLoop
-        and have_senVChiWatPri));
   final parameter Boolean have_senVChiWatSec=cfg.typPumChiWatSec <> Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
     and typMeaCtlChiWatPri == Buildings.Templates.Plants.Components.Controls.Types.PrimaryOverflowMeasurement.FlowDifference
     "Set to true for secondary CHW flow sensor"
     annotation (Evaluate=true,
     Dialog(group="Configuration",
       enable=cfg.have_chiWat));
-  parameter Buildings.Templates.Plants.HeatPumps.Types.SensorLocation locSenVChiWatSec=
-    locSenVHeaWatSec
-    "Location of secondary CHW flow sensor"
-    annotation (Evaluate=true,
-    Dialog(group="Configuration",
-      enable=cfg.have_chiWat and typ==Buildings.Templates.Plants.HeatPumps.Types.Controller.ClosedLoop
-        and have_senVChiWatSec));
   final parameter Boolean have_senTChiWatPriSup=if cfg.typPumChiWatSec <>
     Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None then typMeaCtlChiWatPri ==
     Buildings.Templates.Plants.Components.Controls.Types.PrimaryOverflowMeasurement.TemperatureSupplySensor
@@ -244,8 +229,7 @@ protected
     annotation (Placement(transformation(extent={{-260,-140},{-220,-100}}),
       iconTransformation(extent={{-466,50},{-426,90}})));
 equation
-  /* Control point connection - start */
-  connect(busPumHeaWatPri, bus.pumHeaWatPri);
+  /* Control point connection - start */ connect(busPumHeaWatPri, bus.pumHeaWatPri);
   connect(busPumChiWatSec, bus.pumChiWatSec);
   connect(busPumHeaWatSec, bus.pumHeaWatSec);
   connect(busHp, bus.hp);
@@ -254,8 +238,7 @@ equation
   connect(busValChiWatHpInlIso, bus.valChiWatHpInlIso);
   connect(busValChiWatHpOutIso, bus.valChiWatHpOutIso);
   connect(busPumChiWatPri, bus.pumChiWatPri);
-  /* Control point connection - stop */
-                                       annotation (
+  /* Control point connection - stop */annotation (
     Icon(
       coordinateSystem(
         preserveAspectRatio=false),

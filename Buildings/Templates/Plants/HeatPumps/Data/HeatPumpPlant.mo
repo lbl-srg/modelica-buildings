@@ -32,15 +32,32 @@ record HeatPumpPlant
   parameter Buildings.Templates.Components.Data.PumpMultiple pumHeaWatPri(
     final nPum=cfg.nPumHeaWatPri,
     final rho_default=cfg.rhoHeaWat_default,
-    final typ=Buildings.Templates.Components.Types.Pump.Multiple,
-    m_flow_nominal=fill(sum(hp.mHeaWatHp_flow_nominal) / max(cfg.nPumHeaWatPri, 1), cfg.nPumHeaWatPri))
+    final typ=if cfg.typPumHeaWatPri <> Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
+      then Buildings.Templates.Components.Types.Pump.Multiple else Buildings.Templates.Components.Types.Pump.None,
+    m_flow_nominal=fill(hp.mHeaWatHp_flow_nominal * hp.nHp / max(cfg.nPumHeaWatPri, 1), cfg.nPumHeaWatPri))
     "Primary HW pumps"
     annotation (Dialog(group="Primary HW loop",
       enable=cfg.have_heaWat));
+  final parameter Buildings.Templates.Components.Data.PumpSingle pumHeaWatPriSin[max(pumHeaWatPri.nPum, 1)](
+    each typ=pumHeaWatPri.typ,
+    m_flow_nominal=if pumHeaWatPri.typ == Buildings.Templates.Components.Types.Pump.None
+      then {0} else pumHeaWatPri.m_flow_nominal,
+    dp_nominal=if pumHeaWatPri.typ == Buildings.Templates.Components.Types.Pump.None
+      then {0} else pumHeaWatPri.dp_nominal,
+    per(
+      pressure(
+        V_flow=if pumHeaWatPri.typ == Buildings.Templates.Components.Types.Pump.None
+          then[
+          0] else pumHeaWatPri.per.pressure.V_flow,
+        dp=if pumHeaWatPri.typ == Buildings.Templates.Components.Types.Pump.None
+          then[
+          0] else pumHeaWatPri.per.pressure.dp)),
+    each rho_default=pumHeaWatPri.rho_default)
+    "Cast multiple pump record into single pump record array";
   parameter Buildings.Templates.Components.Data.Valve valHeaWatMinByp(
     final typ=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
-    m_flow_nominal=if cfg.have_valHeaWatMinByp then max(ctl.VHeaWatHp_flow_min) *
-      cfg.rhoHeaWat_default else 0,
+    m_flow_nominal=if cfg.have_valHeaWatMinByp then ctl.VHeaWatHp_flow_min * cfg.rhoHeaWat_default
+      else 0,
     dpValve_nominal=Buildings.Templates.Data.Defaults.dpValBypMin)
     "HW minimum flow bypass valve"
     annotation (Dialog(group="Primary HW loop",
@@ -57,15 +74,32 @@ record HeatPumpPlant
   parameter Buildings.Templates.Components.Data.PumpMultiple pumChiWatPri(
     final nPum=cfg.nPumChiWatPri,
     final rho_default=cfg.rhoChiWat_default,
-    final typ=Buildings.Templates.Components.Types.Pump.Multiple,
-    m_flow_nominal=fill(sum(hp.mChiWatHp_flow_nominal) / max(cfg.nPumChiWatPri, 1), cfg.nPumChiWatPri))
+    final typ=if cfg.typPumChiWatPri <> Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
+      then Buildings.Templates.Components.Types.Pump.Multiple else Buildings.Templates.Components.Types.Pump.None,
+    m_flow_nominal=fill(hp.mChiWatHp_flow_nominal * hp.nHp / max(cfg.nPumChiWatPri, 1), cfg.nPumChiWatPri))
     "Primary CHW pumps"
     annotation (Dialog(group="Primary CHW loop",
-      enable=cfg.have_chiWat));
+      enable=cfg.typPumChiWatPri<>Buildings.Templates.Components.Types.None));
+  final parameter Buildings.Templates.Components.Data.PumpSingle pumChiWatPriSin[max(pumChiWatPri.nPum, 1)](
+    each typ=pumChiWatPri.typ,
+    m_flow_nominal=if pumChiWatPri.typ == Buildings.Templates.Components.Types.Pump.None
+      then {0} else pumChiWatPri.m_flow_nominal,
+    dp_nominal=if pumChiWatPri.typ == Buildings.Templates.Components.Types.Pump.None
+      then {0} else pumChiWatPri.dp_nominal,
+    per(
+      pressure(
+        V_flow=if pumChiWatPri.typ == Buildings.Templates.Components.Types.Pump.None
+          then[
+          0] else pumChiWatPri.per.pressure.V_flow,
+        dp=if pumChiWatPri.typ == Buildings.Templates.Components.Types.Pump.None
+          then[
+          0] else pumChiWatPri.per.pressure.dp)),
+    each rho_default=pumChiWatPri.rho_default)
+    "Cast multiple pump record into single pump record array";
   parameter Buildings.Templates.Components.Data.Valve valChiWatMinByp(
     final typ=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
-    m_flow_nominal=if cfg.have_valChiWatMinByp then max(ctl.VChiWatHp_flow_min) *
-      cfg.rhoChiWat_default else 0,
+    m_flow_nominal=if cfg.have_valChiWatMinByp then ctl.VChiWatHp_flow_min * cfg.rhoChiWat_default
+      else 0,
     dpValve_nominal=Buildings.Templates.Data.Defaults.dpValBypMin)
     "CHW minimum flow bypass valve"
     annotation (Dialog(group="Primary CHW loop",
@@ -77,7 +111,7 @@ record HeatPumpPlant
       then Buildings.Templates.Components.Types.Pump.Multiple else Buildings.Templates.Components.Types.Pump.None)
     "Secondary CHW pumps"
     annotation (Dialog(group="Secondary CHW loop",
-      enable=cfg.have_chiWat and cfg.typPumChiWatSec==Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized));
+      enable=cfg.typPumChiWatSec==Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized));
   annotation (
     defaultComponentName="dat",
     Documentation(

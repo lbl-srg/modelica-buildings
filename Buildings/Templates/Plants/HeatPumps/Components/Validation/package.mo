@@ -1,5 +1,6 @@
 within Buildings.Templates.Plants.HeatPumps.Components;
-package Validation "Package with validation models"
+package Validation
+  "Package with validation models"
   extends Modelica.Icons.ExamplesPackage;
   annotation (
     Documentation(

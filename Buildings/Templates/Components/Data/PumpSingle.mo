@@ -18,7 +18,7 @@ record PumpSingle "Record for single pump model"
     "Total pressure rise"
     annotation (Dialog(group="Nominal condition",
       enable=typ<>Buildings.Templates.Components.Types.Pump.None));
-  replaceable parameter Fluid.Movers.Data.Generic per(
+  replaceable parameter Buildings.Fluid.Movers.Data.Generic per(
     pressure(
       V_flow={0, 1, 2} * m_flow_nominal / rho_default,
       dp={1.14, 1, 0.42} * dp_nominal))

@@ -1,0 +1,27 @@
+simulateModel("Buildings.Templates.Plants.HeatPumps.Validation.AirToWater",
+    method="cvode",
+    tolerance=1e-6,
+    startTime=0.0,
+    stopTime=14400.0,
+    resultFile="AirToWater");
+createPlot(
+    id=1,
+    position={5, 5, 300, 600},
+    y={"pla.bus.hp[1].y1", "pla.bus.hp[1].y1Hea"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"pla.hp.hp[1].TChiHeaWatEnt.T", "pla.hp.hp[1].TChiHeaWatLvg.T"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=3,
+    y={"pla.VHeaWatPri_flow.m_flow", "pla.VHeaWatSec_flow.m_flow", "pla.VChiWatPri_flow.m_flow", "pla.VChiWatSec_flow.m_flow"},
+    autoscale=true,
+    grid=true
+);

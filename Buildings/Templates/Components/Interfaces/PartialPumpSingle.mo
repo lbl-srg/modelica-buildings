@@ -18,6 +18,18 @@ partial model PartialPumpSingle "Interface class for single pump"
     annotation (Dialog(group="Nominal condition",
       enable=typ<>Buildings.Templates.Components.Types.Pump.None));
 
+  // This parameter is declared outside the parameter record dat as
+  // it is considered to be an advanced parameter for which a default
+  // value can probably be used.
+  parameter Modelica.Units.SI.PressureDifference dpValChe_nominal(
+    final min=0,
+    start=Buildings.Templates.Data.Defaults.dpValChe,
+    displayUnit="Pa")=Buildings.Templates.Data.Defaults.dpValChe
+    "Check valve pressure drop at design conditions"
+    annotation (Dialog(group="Nominal condition",
+      enable=typ<>Buildings.Templates.Components.Types.Pump.None
+      and have_valChe));
+
   annotation (
   Icon(coordinateSystem(preserveAspectRatio=false)),
   Documentation(info="<html>

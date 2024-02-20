@@ -32,7 +32,17 @@ partial model PartialPumpMultiple
     "Pump head at design conditions"
     annotation (Dialog(group="Nominal condition",
       enable=typ<>Buildings.Templates.Components.Types.Pump.None));
-
+  // This parameter is declared outside the parameter record dat as
+  // it is considered to be an advanced parameter for which a default
+  // value can probably be used.
+  parameter Modelica.Units.SI.PressureDifference dpValChe_nominal[nPum](
+    each final min=0,
+    each start=Buildings.Templates.Data.Defaults.dpValChe,
+    each displayUnit="Pa")=fill(Buildings.Templates.Data.Defaults.dpValChe, nPum)
+    "Check valve pressure drop at design conditions"
+    annotation (Dialog(group="Nominal condition",
+      enable=typ<>Buildings.Templates.Components.Types.Pump.None
+      and have_valChe));
   Modelica.Fluid.Interfaces.FluidPorts_a ports_a[nPum](
     redeclare each final package Medium = Medium,
      each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),

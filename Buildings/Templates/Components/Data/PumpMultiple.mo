@@ -7,7 +7,7 @@ record PumpMultiple "Record for multiple-pump models"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Integer nPum(
     final min=0,
-    start=1)
+    start=0)
     "Number of pumps"
     annotation (Dialog(group="Configuration", enable=false));
 

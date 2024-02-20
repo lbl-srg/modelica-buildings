@@ -12,9 +12,7 @@ model PumpsPrimaryDedicated
     Dialog(group="Configuration"));
   /* RFE: Add support for multiple pumps for each heat pump.
   Currently, only one dedicated CHW or HW pump per each HP is supported.
-  */
-  final parameter Integer nPum=
-    if typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+  */final parameter Integer nPum=if typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated
     then nHp else 0
     "Number of primary pumps"
     annotation (Evaluate=true,
@@ -23,46 +21,54 @@ model PumpsPrimaryDedicated
     "Type of primary pump arrangement"
     annotation (Evaluate=true,
     Dialog(group="Configuration"));
-  parameter Boolean have_pumChiWatPriDed(start=false)
+  parameter Boolean have_pumChiWatPriDed(
+    start=false)
     "Set to true for plants with separate dedicated primary CHW pumps"
     annotation (Evaluate=true,
     Dialog(group="Configuration",
-    enable=typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Dedicated));
-  parameter Boolean have_varPumHeaWatPri(start=false)
+      enable=typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Dedicated));
+  parameter Boolean have_varPumHeaWatPri(
+    start=false)
     "Set to true for variable speed primary HW pumps"
     annotation (Evaluate=true,
     Dialog(group="Configuration",
-    enable=typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Dedicated));
-  parameter Boolean have_varPumChiWatPri(start=false)
+      enable=typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Dedicated));
+  parameter Boolean have_varPumChiWatPri(
+    start=false)
     "Set to true for variable speed primary CHW pumps"
     annotation (Evaluate=true,
     Dialog(group="Configuration",
-    enable=typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
-    have_pumChiWatPriDed));
+      enable=typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+        and have_pumChiWatPriDed));
   // RFE: Add support for unequally sized units that may require dedicated speed command signals.
   final parameter Boolean have_varCom=true
     "Set to true for single common speed signal, false for dedicated signals"
-    annotation (Evaluate=true, Dialog(group="Configuration",
-    enable=typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
-    (have_varPumHeaWatPri or have_varPumChiWatPri)));
+    annotation (Evaluate=true,
+    Dialog(group="Configuration",
+      enable=typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+        and (have_varPumHeaWatPri or have_varPumChiWatPri)));
   parameter Buildings.Templates.Components.Data.PumpMultiple datPumHeaWat(
-    typ=if have_pumChiWatPriDed then Buildings.Templates.Components.Types.Pump.Multiple
- else
-     Buildings.Templates.Components.Types.Pump.None,
+    typ=if typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+      then Buildings.Templates.Components.Types.Pump.Multiple else Buildings.Templates.Components.Types.Pump.None,
     nPum=nPum)
     "HW pump parameters"
-    annotation (
-    Dialog(enable=typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Dedicated),
-    Placement(transformation(extent={{170,170},{190,190}})));
+    annotation (Dialog(enable=typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Dedicated),
+  Placement(transformation(extent={{170,170},{190,190}})));
   parameter Buildings.Templates.Components.Data.PumpMultiple datPumChiWat(
     typ=if have_pumChiWatPriDed then Buildings.Templates.Components.Types.Pump.Multiple
-     else  Buildings.Templates.Components.Types.Pump.None,
+      else Buildings.Templates.Components.Types.Pump.None,
     nPum=if have_pumChiWatPriDed then nPum else 0)
     "CHW pump parameters"
-    annotation (
-    Dialog(enable=typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
-    have_pumChiWatPriDed),
-    Placement(transformation(extent={{170,130},{190,150}})));
+    annotation (Dialog(enable=typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+      and have_pumChiWatPriDed),
+  Placement(transformation(extent={{170,130},{190,150}})));
+  parameter Modelica.Units.SI.PressureDifference dpValChe_nominal[nPum](
+    each final min=0,
+    each start=Buildings.Templates.Data.Defaults.dpValChe,
+    each displayUnit="Pa")=fill(Buildings.Templates.Data.Defaults.dpValChe, nPum)
+    "Check valve pressure drop at design conditions"
+    annotation (Dialog(group="Nominal condition",
+      enable=typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Dedicated));
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation (Evaluate=true,
@@ -83,9 +89,9 @@ model PumpsPrimaryDedicated
     each h_outflow(
       start=Medium.h_default,
       nominal=Medium.h_default))
-    if typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Headered or
-    typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
-    not have_pumChiWatPriDed
+    if typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
+      or typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+      and not have_pumChiWatPriDed
     "CHW/HW supply (to primary loop)"
     annotation (Placement(transformation(extent={{-10,-40},{10,40}},rotation=90,
       origin={-100,200}),
@@ -113,31 +119,31 @@ model PumpsPrimaryDedicated
       origin={100,-200}),
       iconTransformation(extent={{-10,-40},{10,40}},rotation=90,origin={500,-400})));
   Modelica.Fluid.Interfaces.FluidPorts_b ports_bHeaWat[nHp](
-    redeclare each final package Medium = Medium,
-    each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    each h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if
-    typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated
-     and have_pumChiWatPriDed "HW supply (to primary loop)" annotation (
-      Placement(transformation(
-        extent={{-10,-40},{10,40}},
-        rotation=90,
-        origin={-180,200}), iconTransformation(
-        extent={{-10,-40},{10,40}},
-        rotation=90,
-        origin={-660,400})));
+    redeclare each final package Medium=Medium,
+    each m_flow(
+      min=if allowFlowReversal then - Modelica.Constants.inf else 0),
+    each h_outflow(
+      start=Medium.h_default,
+      nominal=Medium.h_default))
+    if typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+      and have_pumChiWatPriDed
+    "HW supply (to primary loop)"
+    annotation (Placement(transformation(extent={{-10,-40},{10,40}},rotation=90,
+      origin={-180,200}),
+      iconTransformation(extent={{-10,-40},{10,40}},rotation=90,origin={-660,400})));
   Modelica.Fluid.Interfaces.FluidPorts_b ports_bChiWat[nHp](
-    redeclare each final package Medium = Medium,
-    each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    each h_outflow(start=Medium.h_default, nominal=Medium.h_default)) if
-    typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated
-     and have_pumChiWatPriDed "CHW supply (to primary loop)" annotation (
-      Placement(transformation(
-        extent={{-10,-40},{10,40}},
-        rotation=90,
-        origin={-20,200}), iconTransformation(
-        extent={{-10,-40},{10,40}},
-        rotation=90,
-        origin={-340,400})));
+    redeclare each final package Medium=Medium,
+    each m_flow(
+      min=if allowFlowReversal then - Modelica.Constants.inf else 0),
+    each h_outflow(
+      start=Medium.h_default,
+      nominal=Medium.h_default))
+    if typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+      and have_pumChiWatPriDed
+    "CHW supply (to primary loop)"
+    annotation (Placement(transformation(extent={{-10,-40},{10,40}},rotation=90,
+      origin={-20,200}),
+      iconTransformation(extent={{-10,-40},{10,40}},rotation=90,origin={-340,400})));
   Modelica.Fluid.Interfaces.FluidPorts_a ports_aChiHeaWatHp[nHp](
     redeclare each final package Medium=Medium,
     each m_flow(
@@ -159,6 +165,7 @@ model PumpsPrimaryDedicated
     final have_varCom=have_varCom,
     final nPum=nPum,
     final dat=datPumHeaWat,
+    final dpValChe_nominal=dpValChe_nominal,
     final allowFlowReversal=allowFlowReversal,
     final tau=tau,
     final energyDynamics=energyDynamics)
@@ -169,22 +176,21 @@ model PumpsPrimaryDedicated
     redeclare final package Medium=Medium,
     final have_var=have_varPumChiWatPri,
     final have_varCom=have_varCom,
-    final nPum=nPum,
+    final nPum=if have_pumChiWatPriDed then nPum else 0,
     final dat=datPumChiWat,
+    final dpValChe_nominal=dpValChe_nominal,
     final allowFlowReversal=allowFlowReversal,
     final tau=tau,
-    final energyDynamics=energyDynamics) if have_pumChiWatPriDed
+    final energyDynamics=energyDynamics)
+    if have_pumChiWatPriDed
     "Dedicated primary CHW pumps - Optional"
     annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
   Buildings.Templates.Components.Routing.PassThroughFluid pas[nHp](
     redeclare each final package Medium=Medium)
     if typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
     "Direct fluid pass-through in case of headered primary pumps"
-    annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-100,120})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=90,
+      origin={-100,120})));
 protected
   Buildings.Templates.Components.Interfaces.Bus busPumHeaWatPri
     "Primary HW pump control bus"
@@ -199,34 +205,33 @@ equation
   connect(bus.pumHeaWatPri, busPumHeaWatPri)
     annotation (Line(points={{40,200},{40,-20},{0,-20}},color={255,204,51},thickness=0.5));
   connect(bus.pumChiWatPri, busPumChiWatPri)
-    annotation (Line(points={{40,200},{40,-50},{0,-50}},
-                                                       color={255,204,51},thickness=0.5));
-  connect(ports_aChiHeaWatHp, pumHeaWat.ports_a) annotation (Line(points={{-100,
-          -200},{-100,-60},{-110,-60}}, color={0,127,255}));
-  connect(pumHeaWat.ports_b, ports_bHeaWat) annotation (Line(points={{-130,-60},
-          {-140,-60},{-140,180},{-180,180},{-180,200}}, color={0,127,255}));
-  connect(pumHeaWat.ports_b, ports_bChiHeaWat) annotation (Line(points={{-130,-60},
-          {-140,-60},{-140,180},{-100,180},{-100,200}}, color={0,127,255}));
-  connect(ports_aChiHeaWatHp, pumChiWat.ports_a) annotation (Line(points={{-100,
-          -200},{-100,-60},{-90,-60}}, color={0,127,255}));
-  connect(pumChiWat.ports_b, ports_bChiWat) annotation (Line(points={{-70,-60},
-          {-60,-60},{-60,180},{-20,180},{-20,200}}, color={0,127,255}));
-  connect(pumChiWat.ports_b, ports_bChiHeaWat) annotation (Line(points={{-70,-60},
-          {-60,-60},{-60,180},{-100,180},{-100,200}}, color={0,127,255}));
-  connect(busPumHeaWatPri, pumHeaWat.bus) annotation (Line(
-      points={{0,-20},{-40,-20},{-40,-50},{-120,-50}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(busPumChiWatPri, pumChiWat.bus) annotation (Line(
-      points={{0,-50},{-80,-50}},
-      color={255,204,51},
-      thickness=0.5));
+    annotation (Line(points={{40,200},{40,-50},{0,-50}},color={255,204,51},thickness=0.5));
+  connect(ports_aChiHeaWatHp, pumHeaWat.ports_a)
+    annotation (Line(points={{-100,-200},{-100,-60},{-110,-60}},color={0,127,255}));
+  connect(pumHeaWat.ports_b, ports_bHeaWat)
+    annotation (Line(points={{-130,-60},{-140,-60},{-140,180},{-180,180},{-180,200}},
+      color={0,127,255}));
+  connect(pumHeaWat.ports_b, ports_bChiHeaWat)
+    annotation (Line(points={{-130,-60},{-140,-60},{-140,180},{-100,180},{-100,200}},
+      color={0,127,255}));
+  connect(ports_aChiHeaWatHp, pumChiWat.ports_a)
+    annotation (Line(points={{-100,-200},{-100,-60},{-90,-60}},color={0,127,255}));
+  connect(pumChiWat.ports_b, ports_bChiWat)
+    annotation (Line(points={{-70,-60},{-60,-60},{-60,180},{-20,180},{-20,200}},
+      color={0,127,255}));
+  connect(pumChiWat.ports_b, ports_bChiHeaWat)
+    annotation (Line(points={{-70,-60},{-60,-60},{-60,180},{-100,180},{-100,200}},
+      color={0,127,255}));
+  connect(busPumHeaWatPri, pumHeaWat.bus)
+    annotation (Line(points={{0,-20},{-40,-20},{-40,-50},{-120,-50}},color={255,204,51},thickness=0.5));
+  connect(busPumChiWatPri, pumChiWat.bus)
+    annotation (Line(points={{0,-50},{-80,-50}},color={255,204,51},thickness=0.5));
   connect(ports_aChiHeaWat, ports_bChiHeaWatHp)
-    annotation (Line(points={{100,200},{100,-200}}, color={0,127,255}));
+    annotation (Line(points={{100,200},{100,-200}},color={0,127,255}));
   connect(ports_aChiHeaWatHp, pas.port_a)
-    annotation (Line(points={{-100,-200},{-100,110}}, color={0,127,255}));
+    annotation (Line(points={{-100,-200},{-100,110}},color={0,127,255}));
   connect(pas.port_b, ports_bChiHeaWat)
-    annotation (Line(points={{-100,130},{-100,200}}, color={0,127,255}));
+    annotation (Line(points={{-100,130},{-100,200}},color={0,127,255}));
   annotation (
     defaultComponentName="pumPri",
     Diagram(

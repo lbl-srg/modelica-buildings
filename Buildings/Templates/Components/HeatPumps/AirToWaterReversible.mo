@@ -5,8 +5,8 @@ model AirToWaterReversible
     hp(safCtrPar(
         use_minOnTime=false,
         use_minOffTime=false,
-        use_maxCycRat=false), redeclare model RefrigerantCycleHeatPumpCooling
-        = Buildings.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2D
+        use_maxCycRat=false), redeclare model RefrigerantCycleHeatPumpCooling =
+          Buildings.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2D
           (redeclare
             Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
             iceFacCal, final datTab=dat.modCoo)),
@@ -27,7 +27,6 @@ model AirToWaterReversible
         final useInHeaPum=hp.refCyc.refCycHeaPumHea.useInHeaPum,
         final extrapolation=hp.refCyc.refCycHeaPumHea.extrapolation,
         final QHeaNoSca_flow_nominal=hp.refCyc.refCycHeaPumHea.QHeaNoSca_flow_nominal,
-
         final datTab=hp.refCyc.refCycHeaPumHea.datTab,
         final y_nominal=hp.refCyc.refCycHeaPumHea.y_nominal,
         final mCon_flow_nominal=hp.refCyc.refCycHeaPumHea.mCon_flow_nominal,
@@ -38,7 +37,6 @@ model AirToWaterReversible
         final cpCon=cpSou_default,
         final cpEva=cpChiWat_default,
         final QCooNoSca_flow_nominal=hp.refCyc.refCycHeaPumCoo.QCooNoSca_flow_nominal,
-
         final dTCon_nominal=hp.refCyc.refCycHeaPumCoo.dTCon_nominal,
         final dTEva_nominal=hp.refCyc.refCycHeaPumCoo.dTEva_nominal,
         final PEle_nominal=hp.refCyc.refCycHeaPumCoo.PEle_nominal,

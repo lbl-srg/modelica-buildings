@@ -26,7 +26,9 @@ package Types
     Constant
       "Constant speed pump specified separately",
     Variable
-      "Variable speed pump specified separately")
+      "Variable speed pump specified separately",
+    None
+      "No pump")
     "Enumeration to specify the type of primary pumps";
   type PumpsSecondary=enumeration(
     None

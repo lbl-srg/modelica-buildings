@@ -135,27 +135,22 @@ model HeatPumpModular
     final typ=hpWw.typ,
     final is_rev=hpWw.is_rev,
     final typMod=Buildings.Templates.Components.Types.HeatPumpModel.ModularTableData2D,
-
     mHeaWat_flow_nominal=datHpWw.capHea_nominal/abs(datHpWw.THeaWatSup_nominal
          - Buildings.Templates.Data.Defaults.THeaWatRetMed)/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
-
     dpHeaWat_nominal=Buildings.Templates.Data.Defaults.dpHeaWatHp,
     capHea_nominal=5E3,
     THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
     mChiWat_flow_nominal=datHpWw.capCoo_nominal/abs(datHpWw.TChiWatSup_nominal
          - Buildings.Templates.Data.Defaults.TChiWatRet)/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
-
     capCoo_nominal=5E3,
     TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
     mSouWwHea_flow_nominal=(Buildings.Templates.Data.Defaults.COPHpWwHea - 1)
         /Buildings.Templates.Data.Defaults.COPHpWwHea*datHpWw.mHeaWat_flow_nominal,
-
     dpSouWwHea_nominal=Buildings.Templates.Data.Defaults.dpHeaWatHp,
     TSouCoo_nominal=Buildings.Templates.Data.Defaults.TSouHpCoo,
     TSouHea_nominal=Buildings.Templates.Data.Defaults.TSouHpHea,
     mSouWwCoo_flow_nominal=(Buildings.Templates.Data.Defaults.COPHpWwCoo + 1)
         /Buildings.Templates.Data.Defaults.COPHpWwCoo*datHpWw.mChiWat_flow_nominal,
-
     redeclare
       Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN14511.Vitocal251A08
       modHea,

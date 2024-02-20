@@ -9,18 +9,16 @@ model PartialHeatPumpGroup
   It is the same as MediumHeaWat for reversible HP.
   Non-reversible HP that can be controlled to produce either HW or CHW
   shall be modeled with chiller components (as a chiller/heater).
-  */
-    final package MediumChiWat=MediumHeaWat
+  */final package MediumChiWat=MediumHeaWat
     "CHW medium";
   /*
   Derived classes representing AWHP shall use:
   redeclare final package MediumSou = MediumAir
-  */
-  replaceable package MediumSou=Buildings.Media.Water
+  */replaceable package MediumSou=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Source-side medium"
     annotation (Dialog(enable=typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater),
-      __ctrlFlow(enable=false));
+  __ctrlFlow(enable=false));
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air medium"
@@ -124,7 +122,7 @@ model PartialHeatPumpGroup
   parameter Boolean allowFlowReversalSou=true
     "Source side flow reversal: false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation (Dialog(tab="Assumptions",
-    enable=Buildings.Templates.Components.Types.HeatPump.WaterToWater),
+      enable=Buildings.Templates.Components.Types.HeatPump.WaterToWater),
     Evaluate=true);
   parameter Boolean have_preDroChiHeaWat=true
     "Set to true for CHW/HW pressure drop computed by this model, false for external computation"
@@ -134,8 +132,7 @@ model PartialHeatPumpGroup
     "Set to true for source fluid pressure drop computed by this model, false for external computation"
     annotation (Evaluate=true,
     Dialog(tab="Assumptions",
-    enable=Buildings.Templates.Components.Types.HeatPump.WaterToWater));
-
+      enable=Buildings.Templates.Components.Types.HeatPump.WaterToWater));
   final parameter MediumHeaWat.SpecificHeatCapacity cpHeaWat_default=
     MediumHeaWat.specificHeatCapacityCp(staHeaWat_default)
     "HW default specific heat capacity";
@@ -211,7 +208,7 @@ model PartialHeatPumpGroup
     if typ == Buildings.Templates.Components.Types.HeatPump.AirToWater
     "Weather bus"
     annotation (Placement(transformation(extent={{20,180},{60,220}}),
-      iconTransformation(extent={{-260,380},{-220,420}})));
+      iconTransformation(extent={{-220,380},{-180,420}})));
   // Diagnostics
   parameter Boolean show_T=false
     "= true, if actual temperature at port is computed"

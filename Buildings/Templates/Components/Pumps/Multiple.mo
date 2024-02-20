@@ -16,7 +16,7 @@ model Multiple "Multiple pumps in parallel"
   Fluid.FixedResistances.CheckValve valChe[nPum](
     redeclare each final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
-    each dpValve_nominal=Buildings.Templates.Data.Defaults.dpValChe)
+    final dpValve_nominal=dpValChe_nominal)
     if have_valChe "Check valve"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
   Routing.PassThroughFluid pas[nPum](
