@@ -41,7 +41,7 @@ block DirectCalculations
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
-    "Dry bulb temperature of the air at the inlet"
+    "Dry bulb temperature of the inlet air"
     annotation (Placement(
       visible=true,
       transformation(
@@ -134,13 +134,13 @@ equation
     effCoe[11]*(dep^3*vel^2);
   TDryBulOut = TDryBulIn - eff*(TDryBulIn - TWetBulIn);
   mWat_flowOut = XiOut.Xi[1]*V_flow*rho_default;
-  dmWat_flow = (XiOut.Xi[1] - XiIn.Xi[1])*V_flow*rho_default;
-  TDryBulIn = XiIn.TDryBul;
-  TWetBulIn = XiIn.TWetBul;
-  p = XiIn.p;
+  connect(TDryBulIn, XiIn.TDryBul);
+  connect(TWetBulIn, XiIn.TWetBul);
+  connect(p, XiIn.p);
+  connect(TWetBulIn, XiOut.TWetBul);
+  connect(p, XiOut.p);
   TDryBulOut = XiOut.TDryBul;
-  TWetBulIn = XiOut.TWetBul;
-  p = XiOut.p;
+  dmWat_flow = (XiOut.Xi[1] - XiIn.Xi[1])*V_flow*rho_default;
   annotation (Documentation(info="<html>
   <p>Block that calculates the water vapor mass flow rate addition in the 
   direct evaporative cooler component. The calculations are based on the direct 

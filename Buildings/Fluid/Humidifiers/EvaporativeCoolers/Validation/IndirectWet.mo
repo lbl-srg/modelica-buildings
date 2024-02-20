@@ -1,5 +1,4 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers.Validation;
-
 model IndirectWet "Validation model for indirect wet evaporative cooler"
   extends Modelica.Icons.Example;
 
@@ -153,50 +152,50 @@ model IndirectWet "Validation model for indirect wet evaporative cooler"
     annotation (Placement(transformation(extent={{-140,-120},{-120,-100}})));
 
 equation
-  connect(combiTimeTable.y[5], from_degCPriIn.u) annotation(
+  connect(combiTimeTable.y[5], from_degCPriIn.u) annotation (
     Line(points = {{-167, 90}, {-150, 90}, {-150, 50}, {-142, 50}}, color = {0, 0, 127}));
-  connect(from_degCPriIn.y, souPri.T_in) annotation(
+  connect(from_degCPriIn.y, souPri.T_in) annotation (
     Line(points = {{-119, 50}, {-114, 50}, {-114, 14}, {-92, 14}}, color = {0, 0, 127}));
-  connect(senMasFra.X, XOut_mean.u) annotation(
+  connect(senMasFra.X, XOut_mean.u) annotation (
     Line(points = {{60, 31}, {60, 60}, {78, 60}}, color = {0, 0, 127}));
-  connect(from_degCSecIn.y, souSec.T_in) annotation(
+  connect(from_degCSecIn.y, souSec.T_in) annotation (
     Line(points = {{-119, -30}, {-110, -30}, {-110, -26}, {-92, -26}}, color = {0, 0, 127}));
-  connect(indWetEvaCoo.port_b1, senTem.port_a) annotation(
+  connect(indWetEvaCoo.port_b1, senTem.port_a) annotation (
     Line(points = {{8, 6}, {12, 6}, {12, 20}, {20, 20}}, color = {0, 127, 255}));
-  connect(combiTimeTable.y[6], toTotAirPriIn.XiDry) annotation(
+  connect(combiTimeTable.y[6], toTotAirPriIn.XiDry) annotation (
     Line(points = {{-167, 90}, {-160, 90}, {-160, 10}, {-141, 10}}, color = {0, 0, 127}));
-  connect(toTotAirPriIn.XiTotalAir, souPri.Xi_in[1]) annotation(
+  connect(toTotAirPriIn.XiTotalAir, souPri.Xi_in[1]) annotation (
     Line(points = {{-119, 10}, {-100, 10}, {-100, 6}, {-92, 6}}, color = {0, 0, 127}));
-  connect(toTotAirSecIn.XiTotalAir, souSec.Xi_in[1]) annotation(
+  connect(toTotAirSecIn.XiTotalAir, souSec.Xi_in[1]) annotation (
     Line(points = {{-119, -70}, {-104, -70}, {-104, -34}, {-92, -34}}, color = {0, 0, 127}));
-  connect(senTem.port_b, senMasFra.port_a) annotation(
+  connect(senTem.port_b, senMasFra.port_a) annotation (
     Line(points = {{40, 20}, {50, 20}}, color = {0, 127, 255}));
-  connect(combiTimeTable.y[8], toTotAirPriOut.XiDry) annotation(
+  connect(combiTimeTable.y[8], toTotAirPriOut.XiDry) annotation (
     Line(points = {{-167, 90}, {-81, 90}}, color = {0, 0, 127}));
-  connect(combiTimeTable.y[9], souPri.m_flow_in) annotation(
+  connect(combiTimeTable.y[9], souPri.m_flow_in) annotation (
     Line(points = {{-167, 90}, {-100, 90}, {-100, 18}, {-92, 18}}, color = {0, 0, 127}));
-  connect(senMasFra.port_b, sin.ports[1]) annotation(
+  connect(senMasFra.port_b, sin.ports[1]) annotation (
     Line(points = {{70, 20}, {106, 20}, {106, 6.66134e-16}, {120, 6.66134e-16}}, color = {0, 127, 255}));
-  connect(to_degC.y, TOut_mean.u) annotation(
+  connect(to_degC.y, TOut_mean.u) annotation (
     Line(points = {{61, 90}, {78, 90}}, color = {0, 0, 127}));
-  connect(to_degC.u, senTem.T) annotation(
+  connect(to_degC.u, senTem.T) annotation (
     Line(points = {{38, 90}, {30, 90}, {30, 31}}, color = {0, 0, 127}));
-  connect(con.y, souSec.m_flow_in) annotation(
+  connect(con.y, souSec.m_flow_in) annotation (
     Line(points = {{-118, -110}, {-106, -110}, {-106, -22}, {-92, -22}}, color = {0, 0, 127}));
-  connect(combiTimeTable.y[1], from_degCSecIn.u) annotation(
+  connect(combiTimeTable.y[1], from_degCSecIn.u) annotation (
     Line(points = {{-167, 90}, {-150, 90}, {-150, -30}, {-142, -30}}, color = {0, 0, 127}));
-  connect(combiTimeTable.y[11], toTotAirSecIn.XiDry) annotation(
+  connect(combiTimeTable.y[11], toTotAirSecIn.XiDry) annotation (
     Line(points = {{-167, 90}, {-160, 90}, {-160, -70}, {-141, -70}}, color = {0, 0, 127}));
-  connect(indWetEvaCoo.port_b2, sin1.ports[1]) annotation(
+  connect(indWetEvaCoo.port_b2, sin1.ports[1]) annotation (
     Line(points = {{8, -6}, {46, -6}, {46, -36}, {120, -36}}, color = {0, 127, 255}));
-  connect(souPri.ports[1], indWetEvaCoo.port_a1) annotation(
+  connect(souPri.ports[1], indWetEvaCoo.port_a1) annotation (
     Line(points = {{-70, 10}, {-40, 10}, {-40, 6}, {-12, 6}}, color = {0, 127, 255}));
-  connect(souSec.ports[1], indWetEvaCoo.port_a2) annotation(
+  connect(souSec.ports[1], indWetEvaCoo.port_a2) annotation (
     Line(points = {{-70, -30}, {-40, -30}, {-40, -6}, {-12, -6}}, color = {0, 127, 255}));
-  annotation(
+  annotation (
     Diagram(coordinateSystem(extent = {{-200, -180}, {180, 180}})),
     Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}})),
-    experiment(StopTime = 604800, Interval = 600, __Dymola_Algorithm = "Cvode", Tolerance = 1e-6),
+    experiment(StopTime = 604800, Interval = 600, Tolerance = 1e-6),
     __Dymola_Commands(file = "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Humidifiers/EvaporativeCoolers/Validation/IndirectWet.mos" "Simulate and plot"),
     Documentation(info = "<html>
     <p>This model validates the indirect wet evaporative cooler model 

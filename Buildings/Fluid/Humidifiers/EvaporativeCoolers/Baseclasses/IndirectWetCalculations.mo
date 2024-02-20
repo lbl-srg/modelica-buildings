@@ -48,7 +48,7 @@ block IndirectWetCalculations
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
-    "Dry bulb temperature of the air at the inlet"
+    "Dry bulb temperature of the primary inlet air"
     annotation (Placement(
       visible=true,
       transformation(
@@ -64,7 +64,7 @@ block IndirectWetCalculations
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
-    "Wet bulb temperature of the inlet air"
+    "Wet bulb temperature of the primary inlet air"
     annotation (Placement(
       visible=true,
       transformation(
@@ -80,7 +80,7 @@ block IndirectWetCalculations
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
-    "Dry bulb temperature of the air at the inlet"
+    "Dry bulb temperature of the secondary inlet air"
     annotation (Placement(
       visible=true,
       transformation(
@@ -96,7 +96,7 @@ block IndirectWetCalculations
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
-    "Wet bulb temperature of the inlet air"
+    "Wet bulb temperature of the secondary inlet air"
     annotation (Placement(
       visible=true,
       transformation(
@@ -114,7 +114,6 @@ block IndirectWetCalculations
     final quantity="ThermodynamicTemperature")
     "Dry bulb temperature of the outlet air"
     annotation (Placement(
-     visible=true,
      transformation(
        origin={120,0},
        extent={{-20,-20},{20,20}},
