@@ -5,15 +5,23 @@ partial model PartialAirTerminal
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air medium"
-    annotation(__ctrl_flow(enable=false));
+    annotation(__ctrlFlow(enable=false));
   replaceable package MediumHeaWat=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "HHW medium"
-    annotation(Dialog(enable=have_souHeaWat), __ctrl_flow(enable=false));
+    annotation(Dialog(enable=have_souHeaWat), __ctrlFlow(enable=false));
 
   parameter Buildings.Templates.ZoneEquipment.Types.Configuration typ
     "Type of system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
+
+  replaceable parameter
+    Buildings.Templates.ZoneEquipment.Configuration.PartialAirTerminal cfg(
+    final typ=typ,
+    final have_souChiWat=have_souChiWat,
+    final have_souHeaWat=have_souHeaWat)
+    "Configuration parameters"
+    annotation(__ctrlFlow(enable=false));
 
   final parameter String id=dat.id
    "System tag"
@@ -26,10 +34,7 @@ partial model PartialAirTerminal
     "Set to true if system uses HHW"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  replaceable parameter Buildings.Templates.ZoneEquipment.Data.PartialAirTerminal dat(
-    final typ=typ,
-    final have_souChiWat=have_souChiWat,
-    final have_souHeaWat=have_souHeaWat)
+  replaceable parameter Buildings.Templates.ZoneEquipment.Data.PartialAirTerminal dat
     "Design and operating parameters"
     annotation (Placement(transformation(extent={{270,250},{290,270}})));
 
@@ -58,20 +63,20 @@ partial model PartialAirTerminal
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"),
-      __ctrl_flow(enable=false));
+      __ctrlFlow(enable=false));
   final parameter Boolean allowFlowReversalAir=true
     "= true to allow flow reversal, false restricts to design direction - Air side"
     annotation (Dialog(tab="Assumptions"), Evaluate=true,
-      __ctrl_flow(enable=false));
+      __ctrlFlow(enable=false));
   parameter Boolean allowFlowReversalLiq=true
     "= true to allow flow reversal, false restricts to design direction - CHW and HW side"
     annotation (Dialog(tab="Assumptions", enable=have_souChiWat or have_souHeaWat),
       Evaluate=true,
-      __ctrl_flow(enable=false));
+      __ctrlFlow(enable=false));
   parameter Boolean show_T = false
     "= true, if actual temperature at ports of subcomponents is computed"
     annotation(Dialog(tab="Advanced",group="Diagnostics"),
-      __ctrl_flow(enable=false));
+      __ctrlFlow(enable=false));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_Sup(
     redeclare final package Medium = MediumAir,

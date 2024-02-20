@@ -108,9 +108,12 @@ block Enable
     annotation (Placement(transformation(extent={{180,-260},{220,-220}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And3 andEnaDis
+  Buildings.Controls.OBC.CDL.Logical.And andFrePro
+    "Logical and that checks freeze protection stage"
+    annotation (Placement(transformation(extent={{-10,30},{10,50}})));
+  Buildings.Controls.OBC.CDL.Logical.And andEnaDis
     "Logical and that checks freeze protection stage and zone state"
-     annotation (Placement(transformation(extent={{40,30},{60,50}})));
+    annotation (Placement(transformation(extent={{40,30},{60,50}})));
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
     trueHoldDuration=600) "10 min on/off delay"
     annotation (Placement(transformation(extent={{120,210},{140,230}})));
@@ -209,16 +212,13 @@ equation
           {-60,-132},{38,-132}}, color={0,0,127}));
   connect(uOutDam_max, maxOutDam.u3) annotation (Line(points={{-200,-130},{-80,-130},
           {-80,-148},{38,-148}}, color={0,0,127}));
-  connect(andEnaDis.y, not2.u)
-    annotation (Line(points={{62,40},{72,40},{72,-20},{-20,-20},{-20,-60},{-12,-60}},
-        color={255,0,255}));
+  connect(andEnaDis.y, not2.u) annotation (Line(points={{62,40},{72,40},{72,-20},
+          {-20,-20},{-20,-60},{-12,-60}}, color={255,0,255}));
   connect(minRetDam.y, yRetDam_min)
     annotation (Line(points={{62,-240},{200,-240}}, color={0,0,127}));
   connect(truFalHol.y, and1.u1)
     annotation (Line(points={{142,220},{164,220},{164,130},{-26,130},{-26,110},{2,110}},
         color={255,0,255}));
-  connect(and1.y, andEnaDis.u1)
-    annotation (Line(points={{26,110},{30,110},{30,48},{38,48}}, color={255,0,255}));
   connect(u1SupFan, and1.u2) annotation (Line(points={{-200,110},{-102,110},{-102,
           102},{2,102}}, color={255,0,255}));
   connect(retDamPhyMax.y, minRetDam.u1) annotation (Line(points={{-118,-210},
@@ -241,10 +241,6 @@ equation
     annotation (Line(points={{-200,0},{-82,0}}, color={255,127,0}));
   connect(uFreProSta, intEqu.u1)
     annotation (Line(points={{-200,60},{-82,60}}, color={255,127,0}));
-  connect(intEqu.y, andEnaDis.u2)
-    annotation (Line(points={{-58,60},{-10,60},{-10,40},{38,40}}, color={255,0,255}));
-  connect(not3.y, andEnaDis.u3)
-    annotation (Line(points={{-22,0},{8,0},{8,32},{38,32}}, color={255,0,255}));
   connect(hysOutTem.y, or2.u1)
     annotation (Line(points={{-78,250},{-20,250},{-20,220},{38,220}},
                                                   color={255,0,255}));
@@ -254,6 +250,14 @@ equation
           {38,212}}, color={255,0,255}));
   connect(or2.y, truFalHol.u) annotation (Line(points={{62,220},{118,220}},
                       color={255,0,255}));
+  connect(not3.y, andFrePro.u2) annotation (Line(points={{-22,0},{-16,0},{-16,
+          32},{-12,32}}, color={255,0,255}));
+  connect(andFrePro.u1, intEqu.y) annotation (Line(points={{-12,40},{-48,40},{-48,
+          60},{-58,60}}, color={255,0,255}));
+  connect(and1.y, andEnaDis.u1) annotation (Line(points={{26,110},{32,110},{32,
+          40},{38,40}}, color={255,0,255}));
+  connect(andEnaDis.u2, andFrePro.y) annotation (Line(points={{38,32},{20,32},{
+          20,40},{12,40}}, color={255,0,255}));
 annotation (
   defaultComponentName = "enaDis",
   Icon(graphics={
@@ -380,6 +384,13 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/AHUs/SingleZ
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 29, 2023, by Hongxiang Fu:<br/>
+Because of the removal of <code>Logical.And3</code> based on ASHRAE 231P,
+replaced it with a stack of two <code>Logical.And</code> blocks.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2465\">#2465</a>.
+</li>
 <li>
 August 1, 2020, by Jianjun Hu:<br/>
 Updated according to ASHRAE G36, May 2020.

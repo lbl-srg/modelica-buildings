@@ -2,31 +2,23 @@ within Buildings.Templates.ZoneEquipment.Data;
 record PartialAirTerminal "Record for air terminal unit interface class"
   extends Modelica.Icons.Record;
 
-  parameter Buildings.Templates.ZoneEquipment.Types.Configuration typ
-    "Type of system"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Boolean have_souChiWat
-    "Set to true if system uses CHW"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Boolean have_souHeaWat
-    "Set to true if system uses HHW"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Buildings.Templates.ZoneEquipment.Types.Controller typCtl
-    "Type of controller"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+  replaceable parameter
+    Buildings.Templates.ZoneEquipment.Configuration.PartialAirTerminal cfg
+    "Configuration parameters"
+    annotation (Dialog(enable=false));
 
   parameter String id=""
    "System tag"
-    annotation (Dialog(group="Advanced"));
+    annotation (Dialog(tab="Advanced"));
   parameter String id_souAir=""
     "Air supply system tag"
-    annotation (Dialog(group="Advanced"));
+    annotation (Dialog(tab="Advanced"));
   parameter String id_souChiWat=""
     "CHW supply system tag"
-    annotation (Dialog(group="Advanced", enable=have_souChiWat));
+    annotation (Dialog(tab="Advanced", enable=cfg.have_souChiWat));
   parameter String id_souHeaWat=""
     "HHW supply system tag"
-    annotation (Dialog(group="Advanced", enable=have_souHeaWat));
+    annotation (Dialog(tab="Advanced", enable=cfg.have_souHeaWat));
 
   parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal(
     final min=0,
@@ -34,8 +26,9 @@ record PartialAirTerminal "Record for air terminal unit interface class"
     "Discharge air mass flow rate"
     annotation (Dialog(group="Nominal condition"));
 
-  replaceable parameter Buildings.Templates.ZoneEquipment.Components.Data.PartialController
-    ctl(final typ=typCtl)
+  replaceable parameter
+    Buildings.Templates.ZoneEquipment.Components.Data.PartialController ctl(
+      final typ=cfg.typCtl)
     "Controller"
     annotation (Dialog(group="Controls"));
 

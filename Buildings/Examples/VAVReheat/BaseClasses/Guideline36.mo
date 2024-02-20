@@ -25,8 +25,7 @@ model Guideline36
     final k=fill(1800, numZon)) "Warm up and cool down time"
     annotation (Placement(transformation(extent={{-300,370},{-280,390}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant falSta[numZon](
-    final k=fill(false, numZon))
-    "All windows are closed, no zone has override switch"
+    final k=fill(false, numZon)) "No zone has override switch"
     annotation (Placement(transformation(extent={{-300,330},{-280,350}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(nout=numZon)
     "Assume all zones have same occupancy schedule"
@@ -69,12 +68,19 @@ model Guideline36
     annotation (Placement(transformation(extent={{-340,430},{-320,450}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Controller conAHU(
     final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1,
+
     final venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1,
+
     final ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_5A,
+
     final freSta=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat,
+
     final minOADes=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper,
-    final buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.BarometricRelief,
+
+    final buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.BarometricRelief,
+
     final ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb,
+
     final have_perZonRehBox=true,
     final VUncDesOutAir_flow=0.644,
     final VDesTotOutAir_flow=1.107) "Air handler unit controller"
@@ -169,6 +175,11 @@ model Guideline36
     final nGro=1)
     "AHU operating mode"
     annotation (Placement(transformation(extent={{240,630},{260,650}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant truSta[numZon](
+    final k=fill(true, numZon))
+    "All windows are closed"
+    annotation (Placement(transformation(extent={{-300,290},{-280,310}})));
+
 equation
   connect(yFreHeaCoi.y, swiFreStaPum.u1) annotation (Line(points={{-18,-90},{10,
           -90},{10,-102},{18,-102}}, color={0,0,127}));
@@ -224,8 +235,6 @@ equation
           383},{-148,383},{-148,391},{-122,391}}, color={255,0,255}));
   connect(zonSta.yEndSetUp, groSta.u1EndSetUp) annotation (Line(points={{-198,381},
           {-144,381},{-144,387},{-122,387}}, color={255,0,255}));
-  connect(falSta.y, groSta.u1Win) annotation (Line(points={{-278,340},{-140,340},
-          {-140,381},{-122,381}}, color={255,0,255}));
   connect(falSta.y, groSta.zonOcc) annotation (Line(points={{-278,340},{-140,
           340},{-140,419},{-122,419}}, color={255,0,255}));
   connect(optSta.tOpt, zonSta.cooDowTim) annotation (Line(points={{-278,414},{
@@ -293,8 +302,7 @@ equation
   connect(demLimLev.y, TZonSet.uHeaDemLimLev) annotation (Line(points={{-278,
           240},{0,240},{0,249},{78,249}}, color={255,127,0}));
   connect(TRoo, conVAV.TZon) annotation (Line(points={{-400,320},{-136,320},{
-          -136,221},{616,221}},
-                           color={0,0,127}));
+          -136,221},{616,221}}, color={0,0,127}));
   connect(TZonSet.TCooSet, conVAV.TCooSet) annotation (Line(points={{102,268},{
           160,268},{160,219},{616,219}}, color={0,0,127}));
   connect(TZonSet.THeaSet, conVAV.THeaSet) annotation (Line(points={{102,260},{
@@ -366,10 +374,6 @@ equation
           602,548},{602,-316},{-68,-316},{-68,-134},{-42,-134}}, color={255,0,255}));
   connect(conAHU.y1SupFan, sysHysCoo.sysOn) annotation (Line(points={{544,548},{
           602,548},{602,-316},{-8,-316},{-8,-244},{18,-244}}, color={255,0,255}));
-  connect(valHeaCoi.y_actual, conAHU.uHeaCoi_actual) annotation (Line(points={{121,
-          -205},{121,-190},{432,-190},{432,462},{456,462}}, color={0,0,127}));
-  connect(valCooCoi.y_actual, conAHU.uCooCoi_actual) annotation (Line(points={{213,
-          -205},{213,-190},{432,-190},{432,466},{456,466}}, color={0,0,127}));
   connect(conAHU.yRetDam, damRet.y) annotation (Line(points={{544,574},{566,574},
           {566,40},{-20,40},{-20,-10},{-12,-10}}, color={0,0,127}));
   connect(conAHU.yOutDam, damOut.y) annotation (Line(points={{544,562},{560,562},
@@ -402,6 +406,8 @@ equation
           -160,530},{-160,389},{-122,389}}, color={0,0,127}));
   connect(TUnoHeaSet.y, groSta.THeaSetOff) annotation (Line(points={{-318,570},{
           -152,570},{-152,397},{-122,397}}, color={0,0,127}));
+  connect(truSta.y, groSta.u1Win) annotation (Line(points={{-278,300},{-132,300},
+          {-132,381},{-122,381}}, color={255,0,255}));
   annotation (
   defaultComponentName="hvac",
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-320},{1420,
@@ -443,6 +449,12 @@ its input.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 21, 2023, by Jianjun Hu:<br/>
+Changed the indication of the status when window is closed. In default, it should be true (closed dry contact) rather than false.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3257\">issue #3257</a>.
+</li>
 <li>
 December 20, 2021, by Michael Wetter:<br/>
 Changed parameter declarations and added optimal start up.

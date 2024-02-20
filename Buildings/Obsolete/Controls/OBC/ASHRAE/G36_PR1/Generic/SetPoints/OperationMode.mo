@@ -234,13 +234,13 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Or or1
     "Check if the number of cold zone is more than 5 or all zones are cold"
     annotation (Placement(transformation(extent={{-220,20},{-200,40}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or3
+  Buildings.Obsolete.Controls.OBC.CDL.Logical.Or3 or3
     "Check if it is in occupied, cooldown, or warm-up mode"
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
   Buildings.Controls.OBC.CDL.Logical.Or or4
     "Check if the number of hot zone is more than 5 or all zones are hot"
     annotation (Placement(transformation(extent={{-220,-200},{-200,-180}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or5
+  Buildings.Obsolete.Controls.OBC.CDL.Logical.Or3 or5
     "Check if it is in Setback, Setback_freezeProtection, or Setup mode"
     annotation (Placement(transformation(extent={{-20,-350},{0,-330}})));
   Buildings.Controls.OBC.CDL.Logical.Or or6

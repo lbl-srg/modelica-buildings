@@ -1,12 +1,13 @@
 within Buildings.Templates.ZoneEquipment.Interfaces;
 model VAVBox "Interface class for VAV terminal unit"
   extends Buildings.Templates.ZoneEquipment.Interfaces.PartialAirTerminal(
-    redeclare Buildings.Templates.ZoneEquipment.Data.VAVBox dat(
+    redeclare final Buildings.Templates.ZoneEquipment.Configuration.VAVBox cfg(
       typCoiHea=coiHea.typ,
       typValCoiHea=coiHea.typVal,
       typDamVAV=damVAV.typ,
       typCtl=ctl.typ,
       stdVen=ctl.stdVen),
+    redeclare Buildings.Templates.ZoneEquipment.Data.VAVBox dat,
     final have_souChiWat=false,
     final have_souHeaWat=coiHea.have_sou,
     final mAirPri_flow_nominal=mAir_flow_nominal,
@@ -16,8 +17,8 @@ model VAVBox "Interface class for VAV terminal unit"
     final QHeaWat_flow_nominal=if coiHea.have_sou then dat.coiHea.Q_flow_nominal else 0);
 
   inner replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHea(
-      redeclare final package MediumHeaWat = MediumHeaWat,
-      redeclare final Buildings.Templates.Components.Valves.TwoWayModulating val)
+    redeclare final package MediumHeaWat=MediumHeaWat,
+    final typVal=Buildings.Templates.Components.Types.Valve.TwoWayModulating)
     constrainedby Buildings.Templates.Components.Interfaces.PartialCoil(
       redeclare final package MediumAir = MediumAir,
       final dat=datCoiHea,
@@ -30,22 +31,23 @@ model VAVBox "Interface class for VAV terminal unit"
     choices(
       choice(redeclare replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHea(
         redeclare final package MediumHeaWat = MediumHeaWat,
-        redeclare final Buildings.Templates.Components.Valves.TwoWayModulating val)
+        final typVal=Buildings.Templates.Components.Types.Valve.TwoWayModulating)
         "Hot water coil with two-way valve"),
       choice(redeclare replaceable Buildings.Templates.Components.Coils.ElectricHeating coiHea
         "Modulating electric heating coil")),
-    Dialog(group="Heating coil"),
+    Dialog(group="Configuration"),
     Placement(transformation(extent={{-10,-210},{10,-190}})));
 
-  inner replaceable Buildings.Templates.Components.Dampers.Modulating damVAV
-    constrainedby Buildings.Templates.Components.Interfaces.PartialDamper(
+  Buildings.Templates.Components.Actuators.Damper damVAV(
       redeclare final package Medium = MediumAir,
+      final typ=Buildings.Templates.Components.Types.Damper.Modulating,
       use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
       final allowFlowReversal=allowFlowReversalAir,
       final show_T=show_T,
-      final dat=datDamVAV)
+      final dat=datDamVAV,
+      typBla=Buildings.Templates.Components.Types.DamperBlades.VAV)
     "VAV damper"
-    annotation (Dialog(group="VAV damper"),
+    annotation (Dialog(group="Configuration"),
       Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -135,6 +137,18 @@ equation
 <p>
 This partial class provides a standard interface for VAV terminal unit templates.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+September 5, 2023, by Antoine Gautier:<br/>
+Refactored with a record class for configuration parameters.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3500\">#3500</a>.
+</li>
+<li>
+February 11, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"),
     Icon(graphics={
         Rectangle(

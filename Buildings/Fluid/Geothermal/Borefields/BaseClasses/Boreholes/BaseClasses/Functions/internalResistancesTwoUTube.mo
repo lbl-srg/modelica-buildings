@@ -88,7 +88,7 @@ algorithm
       i := i + 1;
     end while;
   end if;
-  assert(test, "In " + getInstanceName() + ":\n" +
+  assert(test, "In " + instanceName + ":\n" +
   "Maximum number of iterations exceeded. Check the borehole geometry.
   The tubes may be too close to the borehole wall.
   Input to the function
@@ -128,6 +128,13 @@ HVAC&amp;R Research,
 International Journal of Energy Research, 35:312&ndash;320, 2011.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 22, 2023, by Michael Wetter:<br/>
+Corrected use of <code>getInstanceName()</code> which was called inside a function which
+is not allowed.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1814\">IBPSA, #1814</a>.
+</li>
 <li>
 February 7, 2022, by Michael Wetter:<br/>
 Changed function to be <code>pure</code>.<br/>
