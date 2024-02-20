@@ -13,6 +13,22 @@ model IndirectDry
   parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal=2
     "Primary air nominal mass flow rate";
 
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.IndirectDry indDryEvaCoo(
+    redeclare final package Medium1 = MediumA,
+    redeclare final package Medium2 = MediumA,
+    final dp1_nominal=200,
+    final dp2_nominal=200,
+    final m1_flow_nominal=m1_flow_nominal,
+    final m2_flow_nominal=m2_flow_nominal,
+    final eps=0.67,
+    final padAre=0.6,
+    final dep=0.2)
+    "Indirect dry evaporative cooler"
+    annotation (Placement(visible=true,
+      transformation(origin={-2,0},
+      extent={{-10,-10},{10,10}},
+      rotation=0)));
+
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare final package Medium = MediumA,
     final nPorts=1)
@@ -117,22 +133,6 @@ model IndirectDry
     annotation (Placement(visible=true,
       transformation(
       origin={-130,-30},
-      extent={{-10,-10},{10,10}},
-      rotation=0)));
-
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.IndirectDry indDryEvaCoo(
-    redeclare final package Medium1 = MediumA,
-    redeclare final package Medium2 = MediumA,
-    final dp1_nominal=200,
-    final dp2_nominal=200,
-    final m1_flow_nominal=m1_flow_nominal,
-    final m2_flow_nominal=m2_flow_nominal,
-    final eps=0.67,
-    final padAre=0.6,
-    final dep=0.2)
-    "Indirect dry evaporative cooler"
-    annotation (Placement(visible=true,
-      transformation(origin={-2,0},
       extent={{-10,-10},{10,10}},
       rotation=0)));
 

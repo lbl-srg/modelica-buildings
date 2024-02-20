@@ -11,6 +11,21 @@ model IndirectWet "Validation model for indirect wet evaporative cooler"
   parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal=1*1.225
     "Secondary nominal mass flow rate";
 
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.IndirectWet indWetEvaCoo(
+    redeclare final package Medium1 = MediumA,
+    redeclare final package Medium2 = MediumA,
+    final dp1_nominal = 200,
+    final dp2_nominal = 200,
+    final m1_flow_nominal=m1_flow_nominal,
+    final m2_flow_nominal=m2_flow_nominal,
+    final maxEff=0.8,
+    final floRat=0.16)
+    "Indirect wet evaporative cooler"
+    annotation (Placement(visible=true,
+      transformation(origin={-2,0},
+      extent={{-10,-10},{10,10}},
+      rotation=0)));
+
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare final package Medium = MediumA,
     final nPorts=1)
@@ -112,21 +127,6 @@ model IndirectWet "Validation model for indirect wet evaporative cooler"
     annotation (Placement(visible=true,
       transformation(
       origin={-130,-30},
-      extent={{-10,-10},{10,10}},
-      rotation=0)));
-
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.IndirectWet indWetEvaCoo(
-    redeclare final package Medium1 = MediumA,
-    redeclare final package Medium2 = MediumA,
-    final dp1_nominal = 200,
-    final dp2_nominal = 200,
-    final m1_flow_nominal=m1_flow_nominal,
-    final m2_flow_nominal=m2_flow_nominal,
-    final maxEff=0.8,
-    final floRat=0.16)
-    "Indirect wet evaporative cooler"
-    annotation (Placement(visible=true,
-      transformation(origin={-2,0},
       extent={{-10,-10},{10,10}},
       rotation=0)));
 
