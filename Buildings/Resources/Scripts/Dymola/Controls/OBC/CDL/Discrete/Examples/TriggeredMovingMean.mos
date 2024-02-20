@@ -1,5 +1,0 @@
-simulateModel("Buildings.Controls.OBC.CDL.Discrete.Examples.TriggeredMovingMean", startTime = -0.5, stopTime=15.0, method="Cvode", tolerance=1e-06, resultFile="TriggeredMovingMean1");
-createPlot(id=1, position={15, 10, 590, 420}, subPlot=1, y={"triMovMea.u", "triMovMea.y", "triMovMea1.y"}, range={-1, 15.0, -2.0, 2.0}, grid=true, colors={{0,0,255}, {255,0,0}, {0,255,0}});
-createPlot(id=1, position={15, 10, 590, 420}, subPlot=2, y={"booPul.y"}, range={-1, 15.0, -1, 1}, grid=true, colors={{0,0,255}});
-createPlot(id=1, position={15, 10, 590, 420}, subPlot=3, y={"triMovMea.u", "triMovMea2.y"}, range={-1, 15.0, -2.0, 2.0}, grid=true, colors={{0,0,255}, {255,0,0}});
-createPlot(id=1, position={15, 10, 590, 420}, subPlot=4, y={"booPul1.y"}, range={-1, 15.0, -1, 1}, grid=true, colors={{0,0,255}});

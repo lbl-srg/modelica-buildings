@@ -1,7 +1,7 @@
 within Buildings.Templates.Components.Interfaces;
 partial model PartialSensor "Interface class for sensor"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface
-    annotation(__ctrl_flow(enable=false));
+    annotation(__ctrlFlow(enable=false));
 
   parameter Boolean have_sen=true
     "Set to true for sensor, false for direct pass through"

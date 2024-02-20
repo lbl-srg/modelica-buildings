@@ -28,6 +28,9 @@ block Dampers
   parameter Real dTHys(unit="K")=0.25
     "Delta between the temperature hysteresis high and low limit"
     annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
+  parameter Real iniDam(unit="1")=0.01
+    "Initial damper position when the damper control is enabled"
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VActMin_flow(
     final min=0,
@@ -68,12 +71,16 @@ block Dampers
     "Index of overriding flow setpoint, 1: set to zero; 2: set to cooling maximum; 3: set to minimum flow"
     annotation (Placement(transformation(extent={{-300,20},{-260,60}}),
         iconTransformation(extent={{-140,-110},{-100,-70}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Fan
+    "AHU supply fan status"
+    annotation (Placement(transformation(extent={{-300,-170},{-260,-130}}),
+        iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis_flow(
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate")
     "Measured primary discharge airflow rate"
-    annotation (Placement(transformation(extent={{-300,-190},{-260,-150}}),
+    annotation (Placement(transformation(extent={{-300,-200},{-260,-160}}),
         iconTransformation(extent={{-140,-160},{-100,-120}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput oveDamPos
     "Index of overriding damper position, 1: set to close; 2: set to open"
@@ -93,6 +100,7 @@ block Dampers
     annotation (Placement(transformation(extent={{260,-280},{300,-240}}),
         iconTransformation(extent={{100,-110},{140,-70}})));
 
+protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
     final k=0) "Constant zero"
     annotation (Placement(transformation(extent={{-220,210},{-200,230}})));
@@ -112,13 +120,14 @@ block Dampers
   Buildings.Controls.OBC.CDL.Reals.Switch actFlo
     "Specify active flow setpoint based on the zone status"
     annotation (Placement(transformation(extent={{-20,150},{0,170}})));
-  Buildings.Controls.OBC.CDL.Reals.PID conPID(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset conPID(
     final controllerType=damCon,
     final k=kDam,
     final Ti=TiDam,
-    final Td=TdDam)
+    final Td=TdDam,
+    final y_reset=iniDam)
     "Damper controller"
-    annotation (Placement(transformation(extent={{150,-160},{170,-140}})));
+    annotation (Placement(transformation(extent={{150,-120},{170,-100}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
     final k=Buildings.Controls.OBC.ASHRAE.G36.Types.ZoneStates.cooling)
     "Cooling state value"
@@ -129,10 +138,10 @@ block Dampers
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant nomFlow(
     final k=VCooMax_flow)
     "Nominal volume flow rate"
-    annotation (Placement(transformation(extent={{0,-150},{20,-130}})));
+    annotation (Placement(transformation(extent={{0,-130},{20,-110}})));
   Buildings.Controls.OBC.CDL.Reals.Divide VDisSet_flowNor
     "Normalized setpoint for discharge volume flow rate"
-    annotation (Placement(transformation(extent={{100,-160},{120,-140}})));
+    annotation (Placement(transformation(extent={{100,-140},{120,-120}})));
   Buildings.Controls.OBC.CDL.Reals.Divide VDis_flowNor
     "Normalized discharge volume flow rate"
     annotation (Placement(transformation(extent={{100,-200},{120,-180}})));
@@ -178,9 +187,9 @@ block Dampers
   Buildings.Controls.OBC.CDL.Reals.Switch swi1
     "Airflow setpoint after considering override"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or3
+  Buildings.Controls.OBC.CDL.Logical.Or or3
     "Check if the airflow setpoint should be overrided"
-    annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
+    annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt4(
     final k=1)
     "Constant 1"
@@ -211,6 +220,9 @@ block Dampers
   Buildings.Controls.OBC.CDL.Reals.Switch swi2
     "Damper setpoint position after considering override"
     annotation (Placement(transformation(extent={{220,-270},{240,-250}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or1
+    "Check if the airflow setpoint should be overrided"
+    annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
 
 equation
   connect(conInt.y, cooSta.u1)
@@ -243,16 +255,17 @@ equation
           {-230,152},{-22,152}}, color={0,0,127}));
   connect(swi.y, actFlo.u1) annotation (Line(points={{-38,260},{-30,260},{-30,168},
           {-22,168}}, color={0,0,127}));
-  connect(nomFlow.y, VDisSet_flowNor.u2) annotation (Line(points={{22,-140},{60,
-          -140},{60,-156},{98,-156}}, color={0,0,127}));
-  connect(nomFlow.y, VDis_flowNor.u2) annotation (Line(points={{22,-140},{60,-140},
-          {60,-196},{98,-196}}, color={0,0,127}));
-  connect(VDis_flow, VDis_flowNor.u1) annotation (Line(points={{-280,-170},{80,-170},
+  connect(nomFlow.y, VDisSet_flowNor.u2) annotation (Line(points={{22,-120},{60,
+          -120},{60,-136},{98,-136}}, color={0,0,127}));
+  connect(nomFlow.y, VDis_flowNor.u2) annotation (Line(points={{22,-120},{60,
+          -120},{60,-196},{98,-196}}, color={0,0,127}));
+  connect(VDis_flow, VDis_flowNor.u1) annotation (Line(points={{-280,-180},{80,-180},
           {80,-184},{98,-184}}, color={0,0,127}));
   connect(VDisSet_flowNor.y, conPID.u_s)
-    annotation (Line(points={{122,-150},{148,-150}}, color={0,0,127}));
-  connect(VDis_flowNor.y, conPID.u_m) annotation (Line(points={{122,-190},{160,-190},
-          {160,-162}},color={0,0,127}));
+    annotation (Line(points={{122,-130},{136,-130},{136,-110},{148,-110}},
+          color={0,0,127}));
+  connect(VDis_flowNor.y, conPID.u_m) annotation (Line(points={{122,-190},{160,
+          -190},{160,-122}}, color={0,0,127}));
   connect(oveFloSet,forZerFlo. u1)
     annotation (Line(points={{-280,40},{-182,40}},  color={255,127,0}));
   connect(conInt1.y, forZerFlo.u2) annotation (Line(points={{-198,20},{-190,20},
@@ -279,14 +292,6 @@ equation
           {-42,26}}, color={0,0,127}));
   connect(add2.y,add1. u2) annotation (Line(points={{-58,-20},{-50,-20},{-50,14},
           {-42,14}}, color={0,0,127}));
-  connect(forZerFlo.y,or3. u1) annotation (Line(points={{-158,40},{-140,40},{-140,
-          -72},{-82,-72}},  color={255,0,255}));
-  connect(forCooMax.y,or3. u2) annotation (Line(points={{-158,0},{-140,0},{-140,
-          -80},{-82,-80}}, color={255,0,255}));
-  connect(forMinFlo.y,or3. u3) annotation (Line(points={{-158,-40},{-140,-40},{-140,
-          -88},{-82,-88}}, color={255,0,255}));
-  connect(or3.y, swi1.u2)
-    annotation (Line(points={{-58,-80},{38,-80}}, color={255,0,255}));
   connect(add1.y, swi1.u1) annotation (Line(points={{-18,20},{0,20},{0,-72},{38,
           -72}}, color={0,0,127}));
   connect(swi1.y, VSet_flow)
@@ -294,7 +299,7 @@ equation
   connect(actFlo.y, swi1.u3) annotation (Line(points={{2,160},{10,160},{10,-88},
           {38,-88}}, color={0,0,127}));
   connect(swi1.y, VDisSet_flowNor.u1) annotation (Line(points={{62,-80},{80,-80},
-          {80,-144},{98,-144}}, color={0,0,127}));
+          {80,-124},{98,-124}}, color={0,0,127}));
   connect(oveDamPos,intEqu3. u1)
     annotation (Line(points={{-280,-220},{-62,-220}}, color={255,127,0}));
   connect(oveDamPos,intEqu4. u1) annotation (Line(points={{-280,-220},{-70,-220},
@@ -316,14 +321,28 @@ equation
           color={255,0,255}));
   connect(swi2.y, yDam)
     annotation (Line(points={{242,-260},{280,-260}}, color={0,0,127}));
-  connect(conPID.y, swi2.u3) annotation (Line(points={{172,-150},{180,-150},{180,
-          -268},{218,-268}}, color={0,0,127}));
+  connect(conPID.y, swi2.u3) annotation (Line(points={{172,-110},{180,-110},{
+          180,-268},{218,-268}}, color={0,0,127}));
   connect(conInt5.y, intEqu4.u2) annotation (Line(points={{-98,-280},{-80,-280},
           {-80,-268},{-62,-268}}, color={255,127,0}));
   connect(conInt4.y, intEqu3.u2) annotation (Line(points={{-98,-240},{-80,-240},
           {-80,-228},{-62,-228}}, color={255,127,0}));
   connect(add3.y, swi2.u1) annotation (Line(points={{82,-240},{160,-240},{160,-252},
           {218,-252}}, color={0,0,127}));
+  connect(u1Fan, conPID.trigger) annotation (Line(points={{-280,-150},{154,-150},
+          {154,-122}}, color={255,0,255}));
+  connect(or1.y, swi1.u2)
+    annotation (Line(points={{-18,-80},{38,-80}}, color={255,0,255}));
+  connect(or3.y, or1.u2) annotation (Line(points={{-98,-100},{-60,-100},{-60,-88},
+          {-42,-88}}, color={255,0,255}));
+  connect(forMinFlo.y, or1.u1) annotation (Line(points={{-158,-40},{-134,-40},{-134,
+          -80},{-42,-80}}, color={255,0,255}));
+  connect(forCooMax.y, or3.u1) annotation (Line(points={{-158,0},{-140,0},{-140,
+          -100},{-122,-100}},
+                            color={255,0,255}));
+  connect(forZerFlo.y, or3.u2) annotation (Line(points={{-158,40},{-146,40},{
+          -146,-108},{-122,-108}},
+                              color={255,0,255}));
 annotation (
   defaultComponentName="damCon",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-260,-300},{260,300}})),
@@ -415,7 +434,12 @@ annotation (
           extent={{-96,-172},{-52,-184}},
           textColor={255,127,0},
           pattern=LinePattern.Dash,
-          textString="oveDamPos")}),
+          textString="oveDamPos"),
+        Text(
+          extent={{-98,-34},{-68,-46}},
+          textColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="u1Fan")}),
 Documentation(info="<html>
 <p>
 This sequence sets the damper position for VAV cooling only terminal unit. The
@@ -480,6 +504,11 @@ when <code>oveDamPos</code> equals to 2, force the damper to full open by settin
 </ol>
 </html>", revisions="<html>
 <ul>
+<li>
+August 24, 2023, by Jianjun Hu:<br/>
+Added AHU supply fan status for damper position reset.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3257\">issue 3257</a>.
+</li>
 <li>
 January 12, 2023, by Jianjun Hu:<br/>
 Removed the parameter <code>have_preIndDam</code> to exclude the option of using pressure independant damper.<br/>

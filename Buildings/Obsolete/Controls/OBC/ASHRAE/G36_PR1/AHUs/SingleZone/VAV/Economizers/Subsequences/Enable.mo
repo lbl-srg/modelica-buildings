@@ -114,7 +114,7 @@ block Enable
      annotation (Placement(transformation(extent={{180,-230},{220,-190}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And3 andEnaDis
+  Buildings.Obsolete.Controls.OBC.CDL.Logical.And3 andEnaDis
     "Logical and that checks freeze protection stage and zone state"
      annotation (Placement(transformation(extent={{40,30},{60,50}})));
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(

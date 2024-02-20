@@ -201,8 +201,11 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu
     "Check if operation mode is occupied"
     annotation (Placement(transformation(extent={{-160,20},{-140,40}})));
-  Buildings.Controls.OBC.CDL.Logical.And3 enaMinDam
-    "Check if the minimum outdoor air damper should be enabled"
+  Buildings.Controls.OBC.CDL.Logical.And enaMinDam1
+    "Check if the minimum outdoor air damper should be enabled, one of two stacked And blocks"
+    annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
+  Buildings.Controls.OBC.CDL.Logical.And enaMinDam2
+    "Check if the minimum outdoor air damper should be enabled, one of two stacked And blocks"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant one(
     final k=1) "Constant"
@@ -315,24 +318,20 @@ equation
           {-42,-98}}, color={0,0,127}));
   connect(moaP.y, gai.u) annotation (Line(points={{-98,-90},{-90,-90},{-90,-120},
           {-82,-120}}, color={0,0,127}));
-  connect(enaMinDam.y, enaRetDamMin.u1) annotation (Line(points={{-18,70},{-10,70},
-          {-10,10},{38,10}},         color={255,0,255}));
+  connect(enaMinDam2.y, enaRetDamMin.u1) annotation (Line(points={{-18,70},{-10,
+          70},{-10,10},{38,10}}, color={255,0,255}));
   connect(les.y, enaRetDamMin.u2) annotation (Line(points={{-18,-30},{10,-30},{10,
           2},{38,2}},      color={255,0,255}));
   connect(enaRetDamMin.y, enaDis.u)
     annotation (Line(points={{62,10},{78,10}},  color={255,0,255}));
-  connect(enaMinDam.y, disMinDam.u) annotation (Line(points={{-18,70},{-10,70},{
-          -10,-60},{-2,-60}}, color={255,0,255}));
+  connect(enaMinDam2.y, disMinDam.u) annotation (Line(points={{-18,70},{-10,70},
+          {-10,-60},{-2,-60}}, color={255,0,255}));
   connect(disMinDam.y, disRetDamMin.u1)
     annotation (Line(points={{22,-60},{38,-60}}, color={255,0,255}));
   connect(gre.y, disRetDamMin.u2) annotation (Line(points={{-18,-90},{30,-90},{30,
           -68},{38,-68}},color={255,0,255}));
   connect(disRetDamMin.y, enaDis.clr) annotation (Line(points={{62,-60},{70,-60},
           {70,4},{78,4}},   color={255,0,255}));
-  connect(greThr.y, enaMinDam.u1) annotation (Line(points={{-58,150},{-50,150},{
-          -50,78},{-42,78}},   color={255,0,255}));
-  connect(intEqu.y, enaMinDam.u3) annotation (Line(points={{-138,30},{-60,30},{-60,
-          62},{-42,62}},   color={255,0,255}));
   connect(minDp.y, maxRetDam.u_s) annotation (Line(points={{-98,170},{118,170}},
                                 color={0,0,127}));
   connect(dpMinOutDam, maxRetDam.u_m)
@@ -361,10 +360,8 @@ equation
     annotation (Line(points={{-178,-170},{240,-170}}, color={0,0,127}));
   connect(outDamPhyPosMaxSig.y, yOutDam_max)
     annotation (Line(points={{-178,-210},{240,-210}}, color={0,0,127}));
-  connect(enaMinDam.y, y1MinOutDam)
+  connect(enaMinDam2.y, y1MinOutDam)
     annotation (Line(points={{-18,70},{240,70}}, color={255,0,255}));
-  connect(u1SupFan, enaMinDam.u2)
-    annotation (Line(points={{-240,70},{-42,70}}, color={255,0,255}));
   connect(effAbsOutAir_normalized, pro1.u1) annotation (Line(points={{-240,300},
           {-200,300},{-200,306},{-182,306}}, color={0,0,127}));
   connect(effAbsOutAir_normalized, pro1.u2) annotation (Line(points={{-240,300},
@@ -401,6 +398,14 @@ equation
           170},{-90,170},{-90,150},{-82,150}}, color={0,0,127}));
   connect(one2.y, minDp1.u) annotation (Line(points={{-98,250},{-80,250},{-80,270},
           {18,270}}, color={0,0,127}));
+  connect(intEqu.y, enaMinDam1.u2) annotation (Line(points={{-138,30},{-112,30},
+          {-112,62},{-102,62}}, color={255,0,255}));
+  connect(u1SupFan, enaMinDam1.u1)
+    annotation (Line(points={{-240,70},{-102,70}}, color={255,0,255}));
+  connect(greThr.y, enaMinDam2.u1) annotation (Line(points={{-58,150},{-52,150},
+          {-52,70},{-42,70}}, color={255,0,255}));
+  connect(enaMinDam1.y, enaMinDam2.u2) annotation (Line(points={{-78,70},{-60,70},
+          {-60,62},{-42,62}}, color={255,0,255}));
 annotation (
   defaultComponentName="ecoLim",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
@@ -551,6 +556,13 @@ point.
 </html>",
 revisions="<html>
 <ul>
+<li>
+August 29, 2023, by Hongxiang Fu:<br/>
+Because of the removal of <code>Logical.And3</code> based on ASHRAE 231P,
+replaced it with a stack of two <code>Logical.And</code> blocks.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2465\">#2465</a>.
+</li>
 <li>
 August 1, 2020, by Jianjun Hu:<br/>
 First implementation.

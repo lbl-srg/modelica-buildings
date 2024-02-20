@@ -184,7 +184,9 @@ protected
     annotation (Placement(transformation(extent={{-140,-160},{-120,-140}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu1 "Check if operation mode is occupied"
     annotation (Placement(transformation(extent={{-100,-140},{-80,-120}})));
-  Buildings.Controls.OBC.CDL.Logical.And3 and3 "Logical and"
+  Buildings.Controls.OBC.CDL.Logical.And and1 "Logical and"
+    annotation (Placement(transformation(extent={{-70,-120},{-50,-100}})));
+  Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   Buildings.Controls.OBC.CDL.Reals.Switch enaDis2
     "Zero minimum damper position when the min OA is near zero"
@@ -253,13 +255,7 @@ equation
     annotation (Line(points={{-102,-98},{-110,-98},{-110,-110},{-118,-110}}, color={255,127,0}));
   connect(uFreProSta, intLesEqu.u1)
     annotation (Line(points={{-180,-90},{-102,-90}},   color={255,127,0}));
-  connect(u1SupFan, and3.u1) annotation (Line(points={{-180,-40},{-80,-40},{-80,
-          -62},{-62,-62}}, color={255,0,255}));
-  connect(intLesEqu.y, and3.u2) annotation (Line(points={{-78,-90},{-74,-90},{-74,
-          -70},{-62,-70}},      color={255,0,255}));
-  connect(intEqu1.y, and3.u3) annotation (Line(points={{-78,-130},{-68,-130},{-68,
-          -78},{-62,-78}},     color={255,0,255}));
-  connect(and3.y, not1.u)
+  connect(and2.y, not1.u)
     annotation (Line(points={{-38,-70},{-22,-70}}, color={255,0,255}));
   connect(VOutMinSet_flow, noZerMin.u) annotation (Line(points={{-180,180},{-30,
           180},{-30,-160},{18,-160}}, color={0,0,127}));
@@ -272,6 +268,14 @@ equation
   connect(zer.y, enaDis2.u3) annotation (Line(points={{102,-190},{110,-190},{110,
           -168},{118,-168}}, color={0,0,127}));
 
+  connect(intLesEqu.y, and1.u1) annotation (Line(points={{-78,-90},{-74,-90},{-74,
+          -110},{-72,-110}}, color={255,0,255}));
+  connect(and1.u2, intEqu1.y) annotation (Line(points={{-72,-118},{-74,-118},{-74,
+          -130},{-78,-130}}, color={255,0,255}));
+  connect(and1.y, and2.u2) annotation (Line(points={{-48,-110},{-40,-110},{-40,-86},
+          {-66,-86},{-66,-78},{-62,-78}}, color={255,0,255}));
+  connect(u1SupFan, and2.u1) annotation (Line(points={{-180,-40},{-66,-40},{-66,
+          -70},{-62,-70}}, color={255,0,255}));
 annotation (
     defaultComponentName = "damLim",
     Icon(graphics={
@@ -443,6 +447,13 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/AHUs/SingleZ
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 29, 2023, by Hongxiang Fu:<br/>
+Because of the removal of <code>Logical.And3</code> based on ASHRAE 231P,
+replaced it with a stack of two <code>Logical.And</code> blocks.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2465\">#2465</a>.
+</li>
 <li>
 August 1, 2020, by Jianjun Hu:<br/>
 Updated according to ASHRAE G36, May 2020.

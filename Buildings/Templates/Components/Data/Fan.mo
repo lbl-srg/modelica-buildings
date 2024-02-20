@@ -14,7 +14,7 @@ record Fan "Record for fan model"
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(
     final min=0,
     start=1)
-    "Air mass flow rate"
+    "Total air mass flow rate"
     annotation (
       Dialog(group="Nominal condition",
         enable=typ <> Buildings.Templates.Components.Types.Fan.None));
@@ -39,7 +39,7 @@ record Fan "Record for fan model"
       Placement(transformation(extent={{-90,-88},{-70,-68}})));
   annotation (Documentation(info="<html>
 <p>
-This record provides the set of sizing and operating parameters for
+This record provides the set of sizing parameters for
 the classes within
 <a href=\"modelica://Buildings.Templates.Components.Fans\">
 Buildings.Templates.Components.Fans</a>.

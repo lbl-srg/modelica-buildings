@@ -4,7 +4,7 @@ partial model PartialReliefReturnSection "Interface class for relief/return air 
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air medium"
-    annotation(__ctrl_flow(enable=false));
+    annotation(__ctrlFlow(enable=false));
 
   parameter Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection typ
     "Relief/return air section type"
@@ -18,12 +18,18 @@ partial model PartialReliefReturnSection "Interface class for relief/return air 
   parameter Buildings.Templates.Components.Types.Fan typFanRet
     "Return fan type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Integer nFanRel
+    "Number of relief fans"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Integer nFanRet
+    "Number of return fans"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  outer parameter Buildings.Templates.AirHandlersFans.Types.ControlFanReturn typCtlFanRet
-    "Return fan control type";
-  outer parameter Boolean have_recHea
+  parameter Boolean have_recHea
     "Set to true in case of heat recovery";
-  outer parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer typCtlEco
+  parameter Buildings.Templates.AirHandlersFans.Types.ControlFanReturn typCtlFanRet
+    "Return fan control type";
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer typCtlEco
     "Economizer control type";
 
   parameter
@@ -54,11 +60,11 @@ partial model PartialReliefReturnSection "Interface class for relief/return air 
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"),
-      __ctrl_flow(enable=false));
+      __ctrlFlow(enable=false));
 
   parameter Boolean allowFlowReversal = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
-    annotation(Dialog(tab="Assumptions"), Evaluate=true, __ctrl_flow(enable=false));
+    annotation(Dialog(tab="Assumptions"), Evaluate=true, __ctrlFlow(enable=false));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare final package Medium = MediumAir,
