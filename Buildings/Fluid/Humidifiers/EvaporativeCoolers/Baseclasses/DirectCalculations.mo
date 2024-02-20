@@ -116,9 +116,6 @@ block DirectCalculations
     displayUnit="degC")
     "Dry bulb temperature of the outlet air";
 
-  Modelica.Units.SI.MassFlowRate mWat_flowOut
-    "Water mass flow rate at the outlet";
-
 protected
   parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
     T=Medium.T_default, p=Medium.p_default, X=Medium.X_default)
@@ -133,7 +130,6 @@ equation
     effCoe[8]*(dep*vel^3) + effCoe[9]*(dep^3*vel) + effCoe[10]*(vel^3*dep^2) +
     effCoe[11]*(dep^3*vel^2);
   TDryBulOut = TDryBulIn - eff*(TDryBulIn - TWetBulIn);
-  mWat_flowOut = XiOut.Xi[1]*V_flow*rho_default;
   connect(TDryBulIn, XiIn.TDryBul);
   connect(TWetBulIn, XiIn.TWetBul);
   connect(p, XiIn.p);
