@@ -55,6 +55,8 @@ partial model PartialVarying
     nPorts=1) "Sink on the condenser side"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 
+  Modelica.Blocks.Sources.BooleanConstant tru(k=true) "Constant true"
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 equation
   connect(souEva.ports[1],ORC. port_a1) annotation (Line(points={{-20,30},{-16,30},
           {-16,6},{-10,6}}, color={0,127,255}));
@@ -68,6 +70,8 @@ equation
           {-16,-6},{-10,-6}}, color={0,127,255}));
   connect(sinCon.ports[1], TConOut.port_b)
     annotation (Line(points={{-60,-30},{-50,-30}}, color={0,127,255}));
+  connect(tru.y, ORC.on)
+    annotation (Line(points={{-19,0},{-8,0}}, color={255,0,255}));
     annotation (
     Documentation(info="<html>
 <p>

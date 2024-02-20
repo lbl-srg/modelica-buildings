@@ -91,6 +91,19 @@ model ComputeCycle "Thermodynamic computations of the ORC"
             20}})));
 
 // Cycle
+  Modelica.Units.SI.MassFlowRate mWor_flow
+    = if on then
+      Buildings.Utilities.Math.Functions.regStep(
+        x = mWor_flow_internal - mWor_flow_min,
+        y1 = Buildings.Utilities.Math.Functions.smoothMin(
+               x1 = mWor_flow_internal,
+               x2 = mWor_flow_max,
+               deltaX = mWor_flow_small),
+        y2 = 0,
+        x_small = mWor_flow_small)
+    else 0
+    "Mass flow rate of the working fluid"
+    annotation(Dialog(group="Cycle"));
   parameter Modelica.Units.SI.MassFlowRate mWor_flow_max(
     final min = 0)
     "Upper bound of working fluid flow rate"
@@ -99,21 +112,14 @@ model ComputeCycle "Thermodynamic computations of the ORC"
     final min = 0)
     "Lower bound of working fluid flow rate"
     annotation(Dialog(group="Cycle"));
-  Modelica.Units.SI.MassFlowRate mWor_flow
-    = Buildings.Utilities.Math.Functions.regStep(
-        x = mWor_flow_internal - mWor_flow_min,
-        y1 = Buildings.Utilities.Math.Functions.smoothMin(
-               x1 = mWor_flow_internal,
-               x2 = mWor_flow_max,
-               deltaX = mWor_flow_small),
-        y2 = 0,
-        x_small = mWor_flow_small)
-    "Mass flow rate of the working fluid"
-    annotation(Dialog(group="Cycle"));
   parameter Modelica.Units.SI.MassFlowRate mWor_flow_small
     = mWor_flow_min * 1E-2
     "A small value for regularisation"
     annotation(Dialog(group="Cycle"));
+  Modelica.Blocks.Interfaces.BooleanInput on
+    "Cycle on; set false to force working fluid flow to zero"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
+        iconTransformation(extent={{-120,-10},{-100,10}})));
 
 protected
   Modelica.Units.SI.MassFlowRate mWor_flow_internal(
