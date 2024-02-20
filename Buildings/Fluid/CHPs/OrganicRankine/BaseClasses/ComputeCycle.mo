@@ -60,16 +60,11 @@ model ComputeCycle "Thermodynamic computations of the ORC"
         transformation(extent={{-140,-100},{-100,-60}}), iconTransformation(
           extent={{-140,-100},{-100,-60}})));
   Modelica.Units.SI.ThermodynamicTemperature TConWor =
-    Buildings.Utilities.Math.Functions.smoothLimit(
-      x = TConWor_internal,
-      l = TConWor_min,
-      u = TConWor_max,
+    Buildings.Utilities.Math.Functions.smoothMax(
+      x1 = TConWor_internal,
+      x2 = TConWor_min,
       deltaX = 1)
-    "Working fluid condenser temperature";
-  parameter Modelica.Units.SI.ThermodynamicTemperature TConWor_max =
-    TEvaWor - 10
-    "Upper bound of working fluid condensing temperature"
-    annotation(Dialog(group="Condenser"));
+    "Working fluid condensing temperature";
   parameter Modelica.Units.SI.ThermodynamicTemperature TConWor_min = 273.15
     "Lower bound of working fluid condensing temperature"
     annotation(Dialog(group="Condenser"));
@@ -140,6 +135,12 @@ protected
     "Condenser heat flow rate, intermediate variable";
 
 equation
+
+  assert(TConWor < TEvaWor - 1,
+"*** In " + getInstanceName() +
+": Working fluid condensing temperature is too high and close to evaporating temperature.
+This is likely is a parameterisation error.");
+
   // Evaporator
   QEva_flow = mEva_flow * cpEva * (TEvaIn - TEvaOut);
   QEva_flow = mWor_flow * (hExpInl - hPum);

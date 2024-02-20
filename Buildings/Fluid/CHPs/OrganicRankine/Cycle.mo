@@ -21,7 +21,6 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
     final mWor_flow_min=mWor_flow_min,
     final TEvaWor=TEvaWor,
     final dTEvaPin_set=dTEvaPin_set,
-    final TConWor_max=TConWor_max,
     final TConWor_min=TConWor_min,
     final dTConPin_set=dTConPin_set,
     final cpEva=Medium1.specificHeatCapacityCp(sta1_nominal),
@@ -58,10 +57,6 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
   parameter Modelica.Units.SI.TemperatureDifference dTConPin_set(
     final min = 0) = 10
     "Set condenser pinch point temperature differential"
-    annotation(Dialog(group="Condenser"));
-  parameter Modelica.Units.SI.ThermodynamicTemperature TConWor_max =
-    TEvaWor - 10
-    "Upper bound of working fluid condensing temperature"
     annotation(Dialog(group="Condenser"));
   parameter Modelica.Units.SI.ThermodynamicTemperature TConWor_min = 273.15
     "Lower bound of working fluid condensing temperature"
