@@ -27,6 +27,8 @@ partial model PartialVarying
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Fluid.Sources.MassFlowSource_T souEva(
     redeclare final package Medium = MediumEva,
+    m_flow=mEva_flow_nominal,
+    T=ORC.TEvaWor + 20,
     nPorts=1) "Source on the evaporator side"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Buildings.Fluid.Sources.Boundary_pT sinEva(
