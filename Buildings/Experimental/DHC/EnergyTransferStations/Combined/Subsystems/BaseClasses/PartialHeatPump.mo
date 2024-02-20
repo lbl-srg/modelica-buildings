@@ -101,7 +101,7 @@ model PartialHeatPump
     TEva_nominal=TEva_nominal,
     final dp1_nominal=dp1_nominal,
     final dp2_nominal=dp2_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Domestic hot water heat pump"
     annotation (Placement(transformation(extent={{-80,-82},{-60,-62}})));
   Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow
