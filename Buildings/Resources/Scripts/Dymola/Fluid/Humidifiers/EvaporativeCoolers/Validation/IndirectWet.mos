@@ -1,0 +1,5 @@
+﻿simulateModel("Buildings.Fluid.Humidifiers.EvaporativeCoolers.Validation.IndirectWet", method="CVode", tolerance=1e-6, startTime=350000,stopTime=900000, resultFile="IndirectWetEvaporativeCooler");
+
+createPlot(id=1, position={0, 0, 1093, 791}, y={"souPri.m_flow_in"}, range={0.0, 620000.0, -0.5, 2.0}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1093, 261}, y={"TOut_mean.y", "combiTimeTable.y[7]"}, range={0.0, 620000.0, -10.0, 40.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={0, 0, 1093, 260}, y={"XOut_mean.y", "toTotAirPriOut.XiTotalAir"}, range={0.0, 620000.0, -0.005, 0.02}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
