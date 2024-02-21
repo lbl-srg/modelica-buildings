@@ -12,7 +12,8 @@ model PumpsPrimaryDedicated
     Dialog(group="Configuration"));
   /* RFE: Add support for multiple pumps for each heat pump.
   Currently, only one dedicated CHW or HW pump per each HP is supported.
-  */final parameter Integer nPum=if typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+  */
+    final parameter Integer nPum=if typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated
     then nHp else 0
     "Number of primary pumps"
     annotation (Evaluate=true,

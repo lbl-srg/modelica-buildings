@@ -1,6 +1,5 @@
 within Buildings.Templates.Plants.HeatPumps.Components;
-package Controls
-  "Controllers"
+package Controls "Controllers"
   extends Modelica.Icons.VariantsPackage;
   annotation (
     Documentation(

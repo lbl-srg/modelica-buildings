@@ -32,7 +32,8 @@ record HeatPumpGroup
   It is the same as cpChiWat_default for reversible HP.
   Non-reversible HP that can be controlled to produce either HW or CHW
   shall be modeled with chiller components (as a chiller/heater).
-  */final parameter Modelica.Units.SI.SpecificHeatCapacity cpChiWat_default=
+  */
+    final parameter Modelica.Units.SI.SpecificHeatCapacity cpChiWat_default=
     cpHeaWat_default
     "CHW default specific heat capacity";
   parameter Modelica.Units.SI.SpecificHeatCapacity cpSou_default=if typ ==

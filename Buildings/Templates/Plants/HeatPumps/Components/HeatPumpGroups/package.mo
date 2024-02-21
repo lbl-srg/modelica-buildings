@@ -1,6 +1,5 @@
 within Buildings.Templates.Plants.HeatPumps.Components;
-package HeatPumpGroups
-  "Models for heat pump groups"
+package HeatPumpGroups "Models for heat pump groups"
   extends Modelica.Icons.VariantsPackage;
   annotation (
     Documentation(

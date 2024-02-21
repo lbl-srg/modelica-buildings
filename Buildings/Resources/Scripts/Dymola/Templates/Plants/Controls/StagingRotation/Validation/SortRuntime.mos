@@ -1,0 +1,27 @@
+simulateModel("Buildings.Templates.Plants.Controls.StagingRotation.Validation.SortRuntime",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=1000.0,
+    resultFile="SortRuntime");
+createPlot(
+    id=1,
+    position={5, 5, 300, 500},
+    subPlot=1,
+    y={"idxSta.y", "u1Run.y1[1]", "u1Run.y1[2]", "u1Run.y1[3]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"sorRunTim.runTim[1].y", "sorRunTim.runTim[2].y", "sorRunTim.runTim[3].y"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    position={310, 5, 300, 500},
+    y={"sorRunTim.yIdx[1]", "sorRunTim.yIdx[2]", "sorRunTim.yIdx[3]"},
+    autoscale=true,
+    grid=true
+);

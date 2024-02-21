@@ -367,7 +367,8 @@ model ValvesIsolation
   /*
   HW pressure drop computed in this component in the absence of isolation valves
   at both inlet and outlet.
-  */Fluid.FixedResistances.PressureDrop pasHeaWatHpInl[nHp](
+  */
+    Fluid.FixedResistances.PressureDrop pasHeaWatHpInl[nHp](
     redeclare each final package Medium=Medium,
     final m_flow_nominal=mHeaWatHp_flow_nominal,
     final dp_nominal=if not have_valHpInlIso and not have_valHpOutIso then dpFixedHeaWat_nominal
@@ -379,7 +380,8 @@ model ValvesIsolation
   /*
   CHW pressure drop computed in this component in the absence of isolation valves
   at both inlet and outlet.
-  */Fluid.FixedResistances.PressureDrop pasChiWatHpInl[nHp](
+  */
+    Fluid.FixedResistances.PressureDrop pasChiWatHpInl[nHp](
     redeclare each final package Medium=Medium,
     final m_flow_nominal=mChiWatHp_flow_nominal,
     final dp_nominal=if not have_valHpInlIso and not have_valHpOutIso then dpFixedChiWat_nominal
