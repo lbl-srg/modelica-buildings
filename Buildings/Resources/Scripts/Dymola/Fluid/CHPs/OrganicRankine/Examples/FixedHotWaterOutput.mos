@@ -1,0 +1,7 @@
+simulateModel("Buildings.Fluid.CHPs.OrganicRankine.Examples.FixedHotWaterOutput",
+    method="dassl", stopTime=300, tolerance=1e-06, resultFile="FixedHotWaterOutput");
+// Plot commands
+createPlot(id=1, position={36, 9, 650, 546}, y={"ORC.Q1_flow"}, range={0.0, 300.0, -100000.0, 50000.0}, grid=true, subPlot=101, colors={{28,108,200}}, timeUnit="s", displayUnits={"W"});
+createPlot(id=1, position={36, 9, 650, 546}, y={"souCon.m_flow_in"}, range={0.0, 300.0, 0.0, 1.5}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="s", displayUnits={"kg/s"});
+createPlot(id=1, position={36, 9, 650, 546}, y={"TConOut.T"}, range={0.0, 300.0, 20.0, 50.0}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s", displayUnits={"degC"});
+
