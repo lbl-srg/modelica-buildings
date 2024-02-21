@@ -355,8 +355,9 @@ Buildings.Fluid.CHPs.OrganicRankine.Validation.VaryingHot</a>
 </p>
 <p>
 In principle, an upper limit should also exist for <i>T<sub>w,Con</sub></i>.
-This is simply implemented as an <code>assert()</code> statement,
-because this is not expected to happen under normal operation.
+This is simply implemented as an <code>assert()</code> statement.
+Such a situation should not occur as long as an appropriate minimum
+cooling fluid flow is maintained in the condenser whenever the cycle is on.
 </p>
 <h4>Thermodynamic Properties</h4>
 <p align=\"center\">
