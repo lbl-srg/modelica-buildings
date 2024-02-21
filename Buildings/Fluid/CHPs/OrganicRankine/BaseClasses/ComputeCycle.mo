@@ -145,7 +145,7 @@ equation
   assert(TConWor < TEvaWor - 1,
 "*** In " + getInstanceName() +
 ": Working fluid condensing temperature is too high and close to evaporating temperature.
-This is likely is a parameterisation error.");
+This is likely caused by the flow rate of cooling fluid in the condenser being too low.");
 
   // Evaporator
   QEva_flow = mEva_flow * cpEva * (TEvaIn - TEvaOut);
