@@ -4,7 +4,9 @@ model VaryingCold
   extends
     Buildings.Fluid.CHPs.OrganicRankine.Validation.BaseClasses.PartialVarying(
     souCol(
-      use_T_in=true), ORC(TWorCon_min=303.15));
+      use_T_in=true),
+      ORC(useCondensingPressure=true,
+          pWorCon_min = 4000));
   extends Modelica.Icons.Example;
 
   Modelica.Blocks.Sources.TimeTable TColIn_set(table=[0,310; 100,310; 150,280; 200,

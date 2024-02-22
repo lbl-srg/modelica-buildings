@@ -19,9 +19,21 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
     final pro=pro,
     final mWor_flow_max=mWor_flow_max,
     final mWor_flow_min=mWor_flow_min,
-    final TWorEva=TWorEva,
+    final TWorEva =
+            if useEvaporatingPressure
+            then Buildings.Utilities.Math.Functions.smoothInterpolation(
+                   x = pWorEva,
+                   xSup = pro.p,
+                   ySup = pro.T)
+            else TWorEva,
     final dTPinEva_set=dTPinEva_set,
-    final TWorCon_min=TWorCon_min,
+    final TWorCon_min =
+            if useCondensingPressure
+            then Buildings.Utilities.Math.Functions.smoothInterpolation(
+                   x = pWorCon_min,
+                   xSup = pro.p,
+                   ySup = pro.T)
+            else TWorCon_min,
     final dTPinCon_set=dTPinCon_set,
     final cpHot=Medium1.specificHeatCapacityCp(sta1_nominal),
     final cpCol=Medium2.specificHeatCapacityCp(sta2_nominal),
@@ -45,8 +57,16 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
     final min = 0) = 5
     "Set evaporator pinch point temperature differential"
     annotation(Dialog(group="Evaporator"));
-  parameter Modelica.Units.SI.ThermodynamicTemperature TWorEva
+  parameter Boolean useEvaporatingPressure = false
+    "Set true to specify working fluid evaporating pressure instead of temperature"
+    annotation(Dialog(group="Evaporator"));
+  parameter Modelica.Units.SI.ThermodynamicTemperature TWorEva =
+    max(pro.T)*2/3 + min(pro.T)*1/3
     "Evaporating temperature of the working fluid"
+    annotation(Dialog(group="Evaporator"));
+  parameter Modelica.Units.SI.Pressure pWorEva(displayUnit="kPa") =
+    max(pro.p)*2/3 + min(pro.p)*1/3
+    "Evaporating pressure of the working fluid"
     annotation(Dialog(group="Evaporator"));
   parameter Modelica.Units.SI.MassFlowRate mCol_flow_nominal
     "Nominal mass flow rate of the condenser fluid"
@@ -58,8 +78,16 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
     final min = 0) = 10
     "Set condenser pinch point temperature differential"
     annotation(Dialog(group="Condenser"));
-  parameter Modelica.Units.SI.ThermodynamicTemperature TWorCon_min = 273.15
+  parameter Boolean useCondensingPressure = false
+    "Set true to specify working fluid condensing pressure instead of temperature"
+    annotation(Dialog(group="Condenser"));
+  parameter Modelica.Units.SI.ThermodynamicTemperature TWorCon_min =
+    min(pro.T) + 1
     "Lower bound of working fluid condensing temperature"
+    annotation(Dialog(group="Condenser"));
+  parameter Modelica.Units.SI.Pressure pWorCon_min(displayUnit="kPa") =
+    min(pro.p) + 100
+    "Condensing pressure of the working fluid"
     annotation(Dialog(group="Condenser"));
   parameter Modelica.Units.SI.MassFlowRate mWor_flow_max(
     final min = 0)
