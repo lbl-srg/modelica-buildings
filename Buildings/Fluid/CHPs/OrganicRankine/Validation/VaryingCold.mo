@@ -3,16 +3,16 @@ model VaryingCold
   "ORC with cooling water stream with varying flow rate and temperature"
   extends
     Buildings.Fluid.CHPs.OrganicRankine.Validation.BaseClasses.PartialVarying(
-    souCon(
-      use_T_in=true), ORC(TConWor_min=303.15));
+    souCol(
+      use_T_in=true), ORC(TWorCon_min=303.15));
   extends Modelica.Icons.Example;
 
-  Modelica.Blocks.Sources.TimeTable TConIn_set(table=[0,310; 100,310; 150,280; 200,
+  Modelica.Blocks.Sources.TimeTable TColIn_set(table=[0,310; 100,310; 150,280; 200,
         310; 300,310])
                 "Sets the cooling fluid incoming temperature in the condenser"
     annotation (Placement(transformation(extent={{80,-40},{60,-20}})));
 equation
-  connect(TConIn_set.y, souCon.T_in) annotation (Line(points={{59,-30},{52,-30},
+  connect(TColIn_set.y, souCol.T_in) annotation (Line(points={{59,-30},{52,-30},
           {52,-26},{42,-26}}, color={0,0,127}));
   annotation(experiment(StopTime=300,Tolerance=1E-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/OrganicRankine/Validation/VaryingCold.mos"

@@ -3,24 +3,24 @@ model VaryingHot
   "ORC with waste heat stream with varying flow rate and temperature"
   extends
     Buildings.Fluid.CHPs.OrganicRankine.Validation.BaseClasses.PartialVarying(
-    souEva(
+    souHot(
       use_m_flow_in=true,
       use_T_in=true));
   extends Modelica.Icons.Example;
 
-  Modelica.Blocks.Sources.TimeTable mEva_flow_set(table=[0,0; 50,
-        mEva_flow_nominal*3; 250,mEva_flow_nominal*3; 300,0])
+  Modelica.Blocks.Sources.TimeTable mHot_flow_set(table=[0,0; 50,
+        mHot_flow_nominal*3; 250,mHot_flow_nominal*3; 300,0])
     "Sets the hot fluid flow rate in the evaporator"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  Modelica.Blocks.Sources.TimeTable TEvaIn_set(table=[0,ORC.TEvaWor + 20; 100,
-        ORC.TEvaWor + 20; 150,ORC.TEvaWor - 5; 200,ORC.TEvaWor + 20; 300,ORC.TEvaWor
+  Modelica.Blocks.Sources.TimeTable THotIn_set(table=[0,ORC.TWorEva + 20; 100,
+        ORC.TWorEva + 20; 150,ORC.TWorEva - 5; 200,ORC.TWorEva + 20; 300,ORC.TWorEva
          + 20])
     "Sets the hot fluid incoming temperature in the evaporator"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
 equation
-  connect(mEva_flow_set.y, souEva.m_flow_in) annotation (Line(points={{-59,50},{
+  connect(mHot_flow_set.y, souHot.m_flow_in) annotation (Line(points={{-59,50},{
           -50,50},{-50,38},{-42,38}}, color={0,0,127}));
-  connect(TEvaIn_set.y, souEva.T_in) annotation (Line(points={{-59,10},{-50,10},
+  connect(THotIn_set.y, souHot.T_in) annotation (Line(points={{-59,10},{-50,10},
           {-50,34},{-42,34}}, color={0,0,127}));
   annotation(experiment(StopTime=300,Tolerance=1E-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/OrganicRankine/Validation/VaryingHot.mos"

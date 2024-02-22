@@ -2,9 +2,9 @@ within Buildings.Fluid.CHPs.OrganicRankine;
 model Cycle "Organic Rankine cycle as a bottoming cycle"
 
   extends Buildings.Fluid.Interfaces.FourPortHeatMassExchanger(
-    final m1_flow_nominal = mEva_flow_nominal,
+    final m1_flow_nominal = mHot_flow_nominal,
     final dp1_nominal = dpEva_nominal,
-    final m2_flow_nominal = mCon_flow_nominal,
+    final m2_flow_nominal = mCol_flow_nominal,
     final dp2_nominal = dpCon_nominal,
     T1_start = (max(pro.T) + min(pro.T))/2,
     T2_start = 300,
@@ -19,12 +19,12 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
     final pro=pro,
     final mWor_flow_max=mWor_flow_max,
     final mWor_flow_min=mWor_flow_min,
-    final TEvaWor=TEvaWor,
-    final dTEvaPin_set=dTEvaPin_set,
-    final TConWor_min=TConWor_min,
-    final dTConPin_set=dTConPin_set,
-    final cpEva=Medium1.specificHeatCapacityCp(sta1_nominal),
-    final cpCon=Medium2.specificHeatCapacityCp(sta2_nominal),
+    final TWorEva=TWorEva,
+    final dTPinEva_set=dTPinEva_set,
+    final TWorCon_min=TWorCon_min,
+    final dTPinCon_set=dTPinCon_set,
+    final cpHot=Medium1.specificHeatCapacityCp(sta1_nominal),
+    final cpCol=Medium2.specificHeatCapacityCp(sta2_nominal),
     etaExp=0.7) "Thermodynamic computations"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
@@ -35,41 +35,41 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
   parameter Modelica.Units.SI.HeatFlowRate QEva_flow_nominal
     "Nominal heat flow rate of the evaporator"
     annotation(Dialog(group="Evaporator"));
-  parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mHot_flow_nominal
     "Nominal mass flow rate of the evaporator fluid"
     annotation(Dialog(group="Evaporator"));
   parameter Modelica.Units.SI.PressureDifference dpEva_nominal = 0
     "Nominal pressure drop of the evaporator"
     annotation(Dialog(group="Evaporator"));
-  parameter Modelica.Units.SI.TemperatureDifference dTEvaPin_set(
+  parameter Modelica.Units.SI.TemperatureDifference dTPinEva_set(
     final min = 0) = 5
     "Set evaporator pinch point temperature differential"
     annotation(Dialog(group="Evaporator"));
-  parameter Modelica.Units.SI.ThermodynamicTemperature TEvaWor
+  parameter Modelica.Units.SI.ThermodynamicTemperature TWorEva
     "Evaporating temperature of the working fluid"
     annotation(Dialog(group="Evaporator"));
-  parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mCol_flow_nominal
     "Nominal mass flow rate of the condenser fluid"
     annotation(Dialog(group="Condenser"));
   parameter Modelica.Units.SI.PressureDifference dpCon_nominal = 0
     "Nominal pressure drop of the condenser"
     annotation(Dialog(group="Condenser"));
-  parameter Modelica.Units.SI.TemperatureDifference dTConPin_set(
+  parameter Modelica.Units.SI.TemperatureDifference dTPinCon_set(
     final min = 0) = 10
     "Set condenser pinch point temperature differential"
     annotation(Dialog(group="Condenser"));
-  parameter Modelica.Units.SI.ThermodynamicTemperature TConWor_min = 273.15
+  parameter Modelica.Units.SI.ThermodynamicTemperature TWorCon_min = 273.15
     "Lower bound of working fluid condensing temperature"
     annotation(Dialog(group="Condenser"));
   parameter Modelica.Units.SI.MassFlowRate mWor_flow_max(
     final min = 0)
     = QEva_flow_nominal / (
         Buildings.Utilities.Math.Functions.smoothInterpolation(
-          x = TEvaWor,
+          x = TWorEva,
           xSup = pro.T,
           ySup = pro.hSatVap) -
         Buildings.Utilities.Math.Functions.smoothInterpolation(
-          x = TConWor_min,
+          x = TWorCon_min,
           xSup = pro.T,
           ySup = pro.hSatLiq))
     "Upper bound of working fluid flow rate"
@@ -97,24 +97,24 @@ protected
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloCon
     "Prescribed heat flow rate"
     annotation (Placement(transformation(extent={{41,-70},{21,-50}})));
-  Modelica.Blocks.Sources.RealExpression expTEvaIn(y=Medium1.temperature(
+  Modelica.Blocks.Sources.RealExpression expTHotIn(y=Medium1.temperature(
         state=Medium1.setState_phX(
           p=port_a1.p,
           h=inStream(port_a1.h_outflow),
           X=inStream(port_a1.Xi_outflow))))
     "Expression for evaporator hot fluid incoming temperature"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Modelica.Blocks.Sources.RealExpression expMEva_flow(y=m1_flow)
+  Modelica.Blocks.Sources.RealExpression expMHot_flow(y=m1_flow)
     "Expression for evaporator hot fluid flow rate"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Modelica.Blocks.Sources.RealExpression expTConIn(y=Medium2.temperature(
+  Modelica.Blocks.Sources.RealExpression expTColIn(y=Medium2.temperature(
         state=Medium2.setState_phX(
           p=port_a2.p,
           h=inStream(port_a2.h_outflow),
           X=inStream(port_a2.Xi_outflow))))
     "Expression for condenser cold fluid incoming temperature"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  Modelica.Blocks.Sources.RealExpression expMCon_flow(y=m2_flow)
+  Modelica.Blocks.Sources.RealExpression expMCol_flow(y=m2_flow)
     "Expression for condenser cold fluid flow rate"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   Modelica.Blocks.Math.Gain gai(k=-1)
@@ -127,13 +127,13 @@ equation
           -60}},                      color={191,0,0}));
   connect(comCyc.QCon_flow, preHeaFloCon.Q_flow) annotation (Line(points={{12,-6},
           {50,-6},{50,-60},{41,-60}}, color={0,0,127}));
-  connect(expTEvaIn.y,comCyc. TEvaIn) annotation (Line(points={{-39,30},{-20,30},
+  connect(expTHotIn.y,comCyc. THotIn) annotation (Line(points={{-39,30},{-20,30},
           {-20,8},{-12,8}}, color={0,0,127}));
-  connect(expMEva_flow.y,comCyc. mEva_flow) annotation (Line(points={{-39,10},{-30,
+  connect(expMHot_flow.y,comCyc. mHot_flow) annotation (Line(points={{-39,10},{-30,
           10},{-30,4},{-12,4}}, color={0,0,127}));
-  connect(expTConIn.y,comCyc. TConIn) annotation (Line(points={{-39,-10},{-30,-10},
+  connect(expTColIn.y,comCyc. TColIn) annotation (Line(points={{-39,-10},{-30,-10},
           {-30,-4},{-12,-4}}, color={0,0,127}));
-  connect(expMCon_flow.y,comCyc. mCon_flow) annotation (Line(points={{-39,-30},{
+  connect(expMCol_flow.y,comCyc. mCol_flow) annotation (Line(points={{-39,-30},{
           -20,-30},{-20,-8},{-12,-8}}, color={0,0,127}));
   connect(comCyc.QEva_flow, gai.u)
     annotation (Line(points={{12,6},{14,6},{14,20},{18,20}}, color={0,0,127}));
