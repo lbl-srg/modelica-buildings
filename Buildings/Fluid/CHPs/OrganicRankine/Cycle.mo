@@ -207,13 +207,13 @@ where the subscripts are:<br/>
 The cycle attemps to accommodate varying flow rate and temperature
 of the waste heat stream. To do so, the model solves for a
 <i>m&#775;<sub>w</sub></i> that would maintain a constant pinch point (PP)
-temperature differential at the evaporator <i>&Delta;T<sub>Eva,pin</sub></i>.
+temperature differential at the evaporator <i>&Delta;T<sub>pin,Eva</sub></i>.
 This differential is found by the following equations:
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-(T<sub>Eva,pin</sub> - T<sub>h,out</sub>)&nbsp;(h<sub>ExpInl</sub> - h<sub>Pum</sub>)
+(T<sub>pin,Eva</sub> - T<sub>h,out</sub>)&nbsp;(h<sub>ExpInl</sub> - h<sub>Pum</sub>)
 = (T<sub>h,in</sub> - T<sub>h,out</sub>)&nbsp;(h<sub>EvaPin</sub> - h<sub>Pum</sub>),<br/>
-&Delta;T<sub>Eva,pin</sub> = T<sub>Eva,pin</sub> - T<sub>w,Eva</sub>.
+&Delta;T<sub>pin,Eva</sub> = T<sub>pin,Eva</sub> - T<sub>w,Eva</sub>.
 </p>
 <p>
 An important underlying assumption is that all generated power can
@@ -227,9 +227,9 @@ replaced by their condenser counterparts where appropriate:
 <p align=\"center\" style=\"font-style:italic;\">
 Q&#775;<sub>Con</sub> = m&#775;<sub>c</sub>&nbsp;c<sub>p,c</sub>&nbsp;(T<sub>c,in</sub> - T<sub>c,out</sub>),<br/>
 Q&#775;<sub>Con</sub> = m&#775;<sub>w</sub>&nbsp;(h<sub>ExpOut</sub> - h<sub>Pum</sub>),<br/>
-(T<sub>Con,pin</sub> - T<sub>c,in</sub>)&nbsp;(h<sub>ExpOut</sub> - h<sub>Pum</sub>)
+(T<sub>pin,Con</sub> - T<sub>c,in</sub>)&nbsp;(h<sub>ExpOut</sub> - h<sub>Pum</sub>)
 = (T<sub>c,out</sub> - T<sub>c,in</sub>)&nbsp;(h<sub>ConPin</sub> - h<sub>Pum</sub>),<br/>
-&Delta;T<sub>Con,pin</sub> = T<sub>w,Con</sub> - T<sub>Con,pin</sub>,
+&Delta;T<sub>pin,Con</sub> = T<sub>w,Con</sub> - T<sub>pin,Con</sub>,
 </p>
 <p>
 where the subscripts are:<br/>
@@ -257,10 +257,10 @@ User-specified parameters:
 working fluid evaporating temperature <i>T<sub>w,Eva</sub></i>,
 </li>
 <li>
-evaporator pinch point temperature differntial <i>&Delta;T<sub>Eva,pin</sub></i>, and
+evaporator pinch point temperature differntial <i>&Delta;T<sub>pin,Eva</sub></i>, and
 </li>
 <li>
-condenser pinch point temperature differntial <i>&Delta;T<sub>Eva,pin</sub></i>.
+condenser pinch point temperature differntial <i>&Delta;T<sub>pin,Eva</sub></i>.
 </li>
 </ul>
 </li>
@@ -321,19 +321,19 @@ On the evaporator side, an upper limit and a lower limit are imposed on
 </p>
 <ul>
 <li>
-If the flow rate required for <i>&Delta;T<sub>Eva,pin</sub></i> to
+If the flow rate required for <i>&Delta;T<sub>pin,Eva</sub></i> to
 be maintained at the set value is higher than the upper limit,
 <i>m&#775;<sub>w</sub></i> stays at this upper limit and
-<i>&Delta;T<sub>Eva,pin</sub></i> is allowed to go higher than its set point.
+<i>&Delta;T<sub>pin,Eva</sub></i> is allowed to go higher than its set point.
 This may happen when the incoming waste heat fluid has a high flow rate
 or a high incoming temperature, i.e. carries more energy than the system
 is sized to process.
 </li>
 <li>
-If the flow rate required for <i>&Delta;T<sub>Eva,pin</sub></i> to
+If the flow rate required for <i>&Delta;T<sub>pin,Eva</sub></i> to
 be maintained at the set value is lower than the lower limit,
 <i>m&#775;<sub>w</sub></i> is reset to zero and
-the <i>&Delta;T<sub>Eva,pin</sub></i> set point is ignored.
+the <i>&Delta;T<sub>pin,Eva</sub></i> set point is ignored.
 This may happen when the incoming waste heat fluid has a low flow rate
 or a low incoming temperature, i.e. carries too little energy.
 This limit also protects the cycle from losing heat through the evaporator

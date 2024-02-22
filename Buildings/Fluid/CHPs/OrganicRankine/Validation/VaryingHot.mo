@@ -32,7 +32,7 @@ and temperature of the incoming hot fluid carrying waste heat.
 Normally, the working fluid flow rate of the cycle
 <i>m&#775;<sub>W</sub></i> is solved from
 the set point for the evaporator pinch point temperature differential
-<i>&Delta;T<sub>eva,pin</sub></i>.
+<i>&Delta;T<sub>pin,Eva</sub></i>.
 This constraint is released under any of the following two conditions:
 </p>
 <ul>
@@ -41,7 +41,7 @@ If the hot fluid carries more heat than the cycle's capacity
 (because the hot fluid's flow rate or temperature is too high),
 <i>m&#775;<sub>W</sub></i> would exceed its upper limit.
 <i>m&#775;<sub>W</sub></i> is then fixed at its upper limit and
-<i>&Delta;T<sub>eva,pin</sub></i> is allowed higher than its set point.
+<i>&Delta;T<sub>pin,Eva</sub></i> is allowed higher than its set point.
 </li>
 <li>
 If the hot fluid carries too little heat
@@ -49,7 +49,7 @@ If the hot fluid carries too little heat
 <i>m&#775;<sub>W</sub></i> would be lower than a threshold.
 <i>m&#775;<sub>W</sub></i> is then set to zero
 (effectively shutting down the cycle) and
-the set point of <i>&Delta;T<sub>eva,pin</sub></i> is ignored.
+the set point of <i>&Delta;T<sub>pin,Eva</sub></i> is ignored.
 </li>
 </ul>
 </html>",revisions="<html>
