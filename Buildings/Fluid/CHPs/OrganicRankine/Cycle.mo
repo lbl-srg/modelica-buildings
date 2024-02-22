@@ -3,9 +3,9 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
 
   extends Buildings.Fluid.Interfaces.FourPortHeatMassExchanger(
     final m1_flow_nominal = mHot_flow_nominal,
-    final dp1_nominal = dpEva_nominal,
+    final dp1_nominal = dpHot_nominal,
     final m2_flow_nominal = mCol_flow_nominal,
-    final dp2_nominal = dpCon_nominal,
+    final dp2_nominal = dpCol_nominal,
     T1_start = (max(pro.T) + min(pro.T))/2,
     T2_start = 300,
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol2(
@@ -38,8 +38,8 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
   parameter Modelica.Units.SI.MassFlowRate mHot_flow_nominal
     "Nominal mass flow rate of the evaporator fluid"
     annotation(Dialog(group="Evaporator"));
-  parameter Modelica.Units.SI.PressureDifference dpEva_nominal = 0
-    "Nominal pressure drop of the evaporator"
+  parameter Modelica.Units.SI.PressureDifference dpHot_nominal = 0
+    "Nominal pressure drop of the hot fluid in evaporator"
     annotation(Dialog(group="Evaporator"));
   parameter Modelica.Units.SI.TemperatureDifference dTPinEva_set(
     final min = 0) = 5
@@ -51,8 +51,8 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
   parameter Modelica.Units.SI.MassFlowRate mCol_flow_nominal
     "Nominal mass flow rate of the condenser fluid"
     annotation(Dialog(group="Condenser"));
-  parameter Modelica.Units.SI.PressureDifference dpCon_nominal = 0
-    "Nominal pressure drop of the condenser"
+  parameter Modelica.Units.SI.PressureDifference dpCol_nominal = 0
+    "Nominal pressure drop of the cold fluid in condenser"
     annotation(Dialog(group="Condenser"));
   parameter Modelica.Units.SI.TemperatureDifference dTPinCon_set(
     final min = 0) = 10
