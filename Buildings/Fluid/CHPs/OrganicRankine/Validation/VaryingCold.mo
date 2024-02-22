@@ -6,11 +6,11 @@ model VaryingCold
     souCol(
       use_T_in=true),
       ORC(useCondensingPressure=true,
-          pWorCon_min = 4000));
+          pWorCon_min = 1.2E5));
   extends Modelica.Icons.Example;
 
-  Modelica.Blocks.Sources.TimeTable TColIn_set(table=[0,310; 100,310; 150,280; 200,
-        310; 300,310])
+  Modelica.Blocks.Sources.TimeTable TColIn_set(table=[0,300; 100,300; 150,274; 200,
+        300; 300,300])
                 "Sets the cooling fluid incoming temperature in the condenser"
     annotation (Placement(transformation(extent={{80,-40},{60,-20}})));
 equation

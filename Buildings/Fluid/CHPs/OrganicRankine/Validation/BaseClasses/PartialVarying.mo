@@ -1,7 +1,7 @@
 within Buildings.Fluid.CHPs.OrganicRankine.Validation.BaseClasses;
 partial model PartialVarying
   "Partial class for the validation models"
-  parameter Buildings.Fluid.CHPs.OrganicRankine.Data.WorkingFluids.Toluene pro
+  parameter Buildings.Fluid.CHPs.OrganicRankine.Data.WorkingFluids.R245fa pro
     "Property record of the working fluid"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
   package MediumHot = Buildings.Media.Air "Medium in the evaporator";
@@ -18,12 +18,12 @@ partial model PartialVarying
     tau1=0,
     tau2=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    T1_start(displayUnit="K") = 500,
+    T1_start(displayUnit="K") = 350,
     T2_start(displayUnit="K") = 290,
     QEva_flow_nominal=1E5,
     mHot_flow_nominal=mHot_flow_nominal,
     mCol_flow_nominal=mCol_flow_nominal,
-    TWorEva=473.15)                      "Organic Rankine cycle"
+    TWorEva=350)                      "Organic Rankine cycle"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Fluid.Sources.MassFlowSource_T souHot(
     redeclare final package Medium = MediumHot,
