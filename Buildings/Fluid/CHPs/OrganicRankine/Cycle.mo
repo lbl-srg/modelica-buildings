@@ -69,7 +69,7 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
           xSup = pro.T,
           ySup = pro.hSatVap) -
         Buildings.Utilities.Math.Functions.smoothInterpolation(
-          x = 310,
+          x = TConWor_min,
           xSup = pro.T,
           ySup = pro.hSatLiq))
     "Upper bound of working fluid flow rate"
