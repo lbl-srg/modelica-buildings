@@ -73,24 +73,6 @@ model InterpolateStates "Interpolate states of a working fluid"
       ySup = pro.hSatVap)
     "Specific enthalpy on condenser-side pinch point";
 
-  Real etaExpLim =
-    (hExpInl - hSatVapCon)/(hExpInl - hExpOut_i)
-    "Upper limit of expander efficiency to prevent condensation, dry fluids have >1";
-
-  // Enthalpy differentials,
-  //   taking positive sign when flowing into the cycle
-  Modelica.Units.SI.SpecificEnthalpy dhEva = hExpInl - hPum
-    "Enthalpy differential at the evaporator (positive)";
-  Modelica.Units.SI.SpecificEnthalpy dhExp =
-    (hExpOut_i - hExpInl) * etaExp
-    "Enthalpy differential at the expander (negative)";
-  Modelica.Units.SI.SpecificEnthalpy dhCon = -dhEva - dhExp
-    "Enthalpy differential at the condenser (negative)";
-
-  Modelica.Units.SI.Efficiency etaThe(min=0) = -dhExp/dhEva
-    "Thermal efficiency";
-
-protected
   Modelica.Units.SI.SpecificEntropy sSatVapCon =
     Buildings.Utilities.Math.Functions.smoothInterpolation(
       x = TCon,
@@ -143,6 +125,22 @@ protected
       xSup = pro.p,
       ySup = pro.hSupVap)
     "Specific enthalpy of superheated vapour on evaporator side";
+
+  // Enthalpy differentials,
+  //   taking positive sign when flowing into the cycle
+  Modelica.Units.SI.SpecificEnthalpy dhEva = hExpInl - hPum
+    "Enthalpy differential at the evaporator (positive)";
+  Modelica.Units.SI.SpecificEnthalpy dhExp =
+    (hExpOut_i - hExpInl) * etaExp
+    "Enthalpy differential at the expander (negative)";
+  Modelica.Units.SI.SpecificEnthalpy dhCon = -dhEva - dhExp
+    "Enthalpy differential at the condenser (negative)";
+
+  Modelica.Units.SI.Efficiency etaThe(min=0) = -dhExp/dhEva
+    "Thermal efficiency";
+  Modelica.Units.SI.Efficiency etaExpLim =
+    (hExpInl - hSatVapCon)/(hExpInl - hExpOut_i)
+    "Upper limit of expander efficiency to prevent condensation, dry fluids have >1";
 
 initial equation
   assert(etaExp < etaExpLim,
