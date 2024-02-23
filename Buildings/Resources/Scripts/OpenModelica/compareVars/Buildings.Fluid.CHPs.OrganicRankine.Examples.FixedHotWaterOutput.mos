@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "ORC.Q1_flow",
+    "souCol.m_flow_in",
+    "TColOut.T"
+  };

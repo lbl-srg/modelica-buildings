@@ -1,0 +1,10 @@
+compareVars :=
+  {
+    "mHot_flow_set.y",
+    "THotIn_set.y",
+    "ORC.comCyc.TWorEva",
+    "ORC.comCyc.mWor_flow",
+    "ORC.comCyc.mWor_flow_max",
+    "ORC.comCyc.mWor_flow_min",
+    "ORC.comCyc.dTPinEva"
+  };

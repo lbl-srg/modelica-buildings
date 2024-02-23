@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "TColIn_set.y",
+    "ORC.comCyc.TWorCon",
+    "ORC.comCyc.dTPinCon"
+  };
