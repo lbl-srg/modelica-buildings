@@ -3,10 +3,11 @@ model DryFluid
   "Organic Rankine cycle with a dry working fluid"
   extends Modelica.Icons.Example;
   Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.InterpolateStates intSta(
-    final pro=pro,
-    TEva = TEva.y,
-    TCon = TCon.y,
-    etaExp=0.85) "Interpolate working fluid states"
+    final pro = pro,
+    final TEva = TEva,
+    final TCon = TCon,
+    final dTSup = dTSup,
+    final etaExp = etaExp) "Interpolate working fluid states"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   replaceable parameter
             Buildings.Fluid.CHPs.OrganicRankine.Data.WorkingFluids.Toluene pro
@@ -14,10 +15,15 @@ model DryFluid
     "Property record of the working fluid"
     annotation (Placement(transformation(extent={{60,60},{80,80}})),
       choicesAllMatching=true);
-  Modelica.Blocks.Sources.TimeTable TEva(table=[0,330; 1,360])
-    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Modelica.Blocks.Sources.TimeTable TCon(table=[0,300; 1,330])
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+
+  parameter Modelica.Units.SI.ThermodynamicTemperature TEva = 450
+    "Evaporating temperature";
+  parameter Modelica.Units.SI.ThermodynamicTemperature TCon = 310
+    "Condensing temperature";
+  parameter Modelica.Units.SI.TemperatureDifference dTSup = 0
+    "Superheating temperature differential";
+  parameter Modelica.Units.SI.Efficiency etaExp = 0.85
+    "Expander efficiency";
 annotation(experiment(StopTime=1, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/OrganicRankine/BaseClasses/Validation/DryFluid.mos"
   "Simulate and plot"),
