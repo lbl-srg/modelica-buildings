@@ -9,7 +9,7 @@ model InterpolateStates "Interpolate states of a working fluid"
   input Modelica.Units.SI.ThermodynamicTemperature TEva
     "Evaporating temperature";
   input Modelica.Units.SI.ThermodynamicTemperature TCon
-    "Condenser temperature";
+    "Condensing temperature";
 
   parameter Modelica.Units.SI.TemperatureDifference dTSup = 0
     "Superheating differential temperature"
@@ -24,14 +24,14 @@ model InterpolateStates "Interpolate states of a working fluid"
       x = TEva,
       xSup = pro.T,
       ySup = pro.p)
-    "Evaporator pressure";
+    "Evaporating pressure";
   Modelica.Units.SI.AbsolutePressure pCon(
     displayUnit = "kPa") =
     Buildings.Utilities.Math.Functions.smoothInterpolation(
       x = TCon,
       xSup = pro.T,
       ySup = pro.p)
-    "Condenser pressure";
+    "Condensing pressure";
   Modelica.Units.SI.SpecificEntropy sExpInl
     "Specific entropy at expander inlet";
   Modelica.Units.SI.SpecificEntropy sPum =
