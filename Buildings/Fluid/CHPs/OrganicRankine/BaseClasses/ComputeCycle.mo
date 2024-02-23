@@ -152,14 +152,14 @@ This is likely caused by the flow rate of cooling fluid in the condenser being t
   QEva_flow = mWor_flow * (hExpInl - hPum);
   // Pinch point
   (TPinEva - THotOut) * (hExpInl - hPum)
-  = (hEvaPin - hPum) * (THotIn - THotOut);
+  = (hPinEva - hPum) * (THotIn - THotOut);
   dTPinEva = TPinEva - TWorEva;
 
   // Evaporator internal computation
   QEva_flow_internal = mHot_flow * cpHot * (THotIn - THotOut_internal);
   QEva_flow_internal = mWor_flow_internal * (hExpInl - hPum);
   (TPinEva_internal - THotOut_internal) * (hExpInl - hPum)
-  = (hEvaPin - hPum) * (THotIn - THotOut_internal);
+  = (hPinEva - hPum) * (THotIn - THotOut_internal);
   dTPinEva_set = TPinEva_internal - TWorEva;
 
   // Condenser
@@ -167,14 +167,14 @@ This is likely caused by the flow rate of cooling fluid in the condenser being t
   QCon_flow = mWor_flow * (hExpOut - hPum);
   // Pinch point
   (TPinCon - TColIn) * (hExpOut - hPum)
-  = (hConPin - hPum) * (TColOut - TColIn);
+  = (hPinCon - hPum) * (TColOut - TColIn);
   dTPinCon = TWorCon - TPinCon;
 
   // Condenser internal computation
   QCon_flow_internal = mCol_flow * cpCol * (TColOut_internal - TColIn);
   QCon_flow_internal = mWor_flow_internal * (hExpOut - hPum);
   (TPinCon_internal - TColIn) * (hExpOut - hPum)
-  = (hConPin - hPum) * (TColOut_internal - TColIn);
+  = (hPinCon - hPum) * (TColOut_internal - TColIn);
   dTPinCon_set = TWorCon_internal - TPinCon_internal;
 
   annotation(defaultComponentName="comCyc",

@@ -240,7 +240,7 @@ This differential is found by the following equations:
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 (T<sub>pin,Eva</sub> - T<sub>h,out</sub>)&nbsp;(h<sub>ExpInl</sub> - h<sub>Pum</sub>)
-= (T<sub>h,in</sub> - T<sub>h,out</sub>)&nbsp;(h<sub>EvaPin</sub> - h<sub>Pum</sub>),<br/>
+= (T<sub>h,in</sub> - T<sub>h,out</sub>)&nbsp;(h<sub>PinEva</sub> - h<sub>Pum</sub>),<br/>
 &Delta;T<sub>pin,Eva</sub> = T<sub>pin,Eva</sub> - T<sub>w,Eva</sub>.
 </p>
 <p>
@@ -256,7 +256,7 @@ replaced by their condenser counterparts where appropriate:
 Q&#775;<sub>Con</sub> = m&#775;<sub>c</sub>&nbsp;c<sub>p,c</sub>&nbsp;(T<sub>c,in</sub> - T<sub>c,out</sub>),<br/>
 Q&#775;<sub>Con</sub> = m&#775;<sub>w</sub>&nbsp;(h<sub>ExpOut</sub> - h<sub>Pum</sub>),<br/>
 (T<sub>pin,Con</sub> - T<sub>c,in</sub>)&nbsp;(h<sub>ExpOut</sub> - h<sub>Pum</sub>)
-= (T<sub>c,out</sub> - T<sub>c,in</sub>)&nbsp;(h<sub>ConPin</sub> - h<sub>Pum</sub>),<br/>
+= (T<sub>c,out</sub> - T<sub>c,in</sub>)&nbsp;(h<sub>PinCon</sub> - h<sub>Pum</sub>),<br/>
 &Delta;T<sub>pin,Con</sub> = T<sub>w,Con</sub> - T<sub>pin,Con</sub>,
 </p>
 <p>

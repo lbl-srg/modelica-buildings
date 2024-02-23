@@ -58,14 +58,14 @@ model InterpolateStates "Interpolate states of a working fluid"
   Modelica.Units.SI.ThermodynamicTemperature TExpOut
     "Temperature at expander outlet";
 
-  Modelica.Units.SI.SpecificEnthalpy hEvaPin(
+  Modelica.Units.SI.SpecificEnthalpy hPinEva(
     displayUnit = "kJ/kg") =
     Buildings.Utilities.Math.Functions.smoothInterpolation(
       x = pEva,
       xSup = pro.p,
       ySup = pro.hSatLiq)
     "Specific enthalpy on evaporator-side pinch point";
-  Modelica.Units.SI.SpecificEnthalpy hConPin(
+  Modelica.Units.SI.SpecificEnthalpy hPinCon(
     displayUnit = "kJ/kg") =
     Buildings.Utilities.Math.Functions.smoothInterpolation(
       x = pCon,
