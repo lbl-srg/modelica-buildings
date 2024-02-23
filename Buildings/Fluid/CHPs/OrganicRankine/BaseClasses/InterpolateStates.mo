@@ -61,15 +61,15 @@ model InterpolateStates "Interpolate states of a working fluid"
   Modelica.Units.SI.SpecificEnthalpy hPinEva(
     displayUnit = "kJ/kg") =
     Buildings.Utilities.Math.Functions.smoothInterpolation(
-      x = pEva,
-      xSup = pro.p,
+      x = TEva,
+      xSup = pro.T,
       ySup = pro.hSatLiq)
     "Specific enthalpy on evaporator-side pinch point";
   Modelica.Units.SI.SpecificEnthalpy hPinCon(
     displayUnit = "kJ/kg") =
     Buildings.Utilities.Math.Functions.smoothInterpolation(
-      x = pCon,
-      xSup = pro.p,
+      x = TCon,
+      xSup = pro.T,
       ySup = pro.hSatVap)
     "Specific enthalpy on condenser-side pinch point";
 
@@ -93,8 +93,8 @@ model InterpolateStates "Interpolate states of a working fluid"
 protected
   Modelica.Units.SI.SpecificEntropy sSatVapCon =
     Buildings.Utilities.Math.Functions.smoothInterpolation(
-      x = pCon,
-      xSup = pro.p,
+      x = TCon,
+      xSup = pro.T,
       ySup = pro.sSatVap)
     "Specific entropy of saturated vapour at the condenser";
   Modelica.Units.SI.SpecificEntropy sSupVapCon =
@@ -105,8 +105,8 @@ protected
     "Specific entropy of superheated vapour on condenser side";
   Modelica.Units.SI.SpecificEntropy sSatVapEva =
     Buildings.Utilities.Math.Functions.smoothInterpolation(
-      x = pEva,
-      xSup = pro.p,
+      x = TEva,
+      xSup = pro.T,
       ySup = pro.sSatVap)
     "Specific entropy of saturated vapour in evaporator";
   Modelica.Units.SI.SpecificEntropy sSupVapEva =
@@ -118,8 +118,8 @@ protected
   Modelica.Units.SI.SpecificEnthalpy hSatVapCon(
     displayUnit = "kJ/kg") =
     Buildings.Utilities.Math.Functions.smoothInterpolation(
-      x = pCon,
-      xSup = pro.p,
+      x = TCon,
+      xSup = pro.T,
       ySup = pro.hSatVap)
     "Specific enthalpy of saturated vapour at the condenser as reference point";
   Modelica.Units.SI.SpecificEnthalpy hSupVapCon(
@@ -132,8 +132,8 @@ protected
   Modelica.Units.SI.SpecificEnthalpy hSatVapEva(
     displayUnit = "kJ/kg") =
     Buildings.Utilities.Math.Functions.smoothInterpolation(
-      x = pEva,
-      xSup = pro.p,
+      x = TEva,
+      xSup = pro.T,
       ySup = pro.hSatVap)
     "Specific enthalpy of saturated vapour in evaporator";
   Modelica.Units.SI.SpecificEnthalpy hSupVapEva(
