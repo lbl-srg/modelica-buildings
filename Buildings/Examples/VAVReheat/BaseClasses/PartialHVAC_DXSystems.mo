@@ -170,12 +170,19 @@ equation
       horizontalAlignment=TextAlignment.Right));
   connect(ParDXCoiHea.port_b, ParDXCoiCoo.port_a)
     annotation (Line(points={{120,-40},{180,-40}}, color={0,127,255}));
+
   connect(ParDXCoiCoo.port_b, AuxHeaCoi.port_a)
     annotation (Line(points={{200,-40},{214,-40}}, color={0,127,255}));
+
   connect(ParDXCoiHea.port_a, TMix.port_b)
     annotation (Line(points={{100,-40},{50,-40}}, color={0,127,255}));
+
   connect(TRet.port_b, amb.ports[3]) annotation (Line(points={{90,140},{-106,140},
           {-106,-45},{-114,-45}}, color={0,127,255}));
+
+  connect(AuxHeaCoi.port_b, dpSupDuc.port_a)
+    annotation (Line(points={{234,-40},{250,-40}}, color={0,127,255}));
+
   annotation (Diagram(
     coordinateSystem(
     preserveAspectRatio=false,

@@ -150,8 +150,8 @@ model Guideline36_DXSystems
           "modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/Guideline36_DXSystems.mos"
         "Simulate and plot"),
     experiment(
-      StartTime=15552000,
-      StopTime=15724800,
+      StartTime=16848000,
+      StopTime=17020800,
       Interval=3600,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),

@@ -485,8 +485,8 @@ equation
           {800,270},{800,360},{404,360},{404,630},{456,630}}, color={255,127,0}));
   connect(temResReq.y, conAHU.uZonTemResReq) annotation (Line(points={{782,220},
           {808,220},{808,368},{412,368},{412,614},{456,614}}, color={255,127,0}));
-  connect(freSta.y, falEdg.u) annotation (Line(points={{-68,-110},{-32,-110},{
-          -32,360},{338,360}}, color={255,0,255}));
+  connect(freSta.y, falEdg.u) annotation (Line(points={{-68,-110},{-26,-110},{-26,
+          360},{338,360}},     color={255,0,255}));
   connect(falEdg.y, conAHU.u1SofSwiRes) annotation (Line(points={{362,360},{396,
           360},{396,508},{456,508}}, color={255,0,255}));
   connect(opeModSel.yOpeMod, sumZon.uOpeMod[1]) annotation (Line(points={{-18,
@@ -511,9 +511,8 @@ equation
   connect(RTUCon.uDemLimLev, demLimLev1.y) annotation (Line(points={{978,
           536.333},{978,536},{930,536},{930,550},{922,550}},
                                                     color={255,127,0}));
-  connect(x_pTphi.X[1], RTUCon.XOut) annotation (Line(points={{-279,100},{-160,
-          100},{-160,160},{142,160},{142,380},{930,380},{930,528.75},{978,
-          528.75}}, color={0,0,127}));
+  connect(x_pTphi.X[1], RTUCon.XOut) annotation (Line(points={{-279,100},{-160,100},
+          {-160,160},{148,160},{148,380},{930,380},{930,528.75},{978,528.75}}, color={0,0,127}));
   connect(RTUCon.TOut, TOut.y) annotation (Line(points={{978,530.5},{920,530.5},
           {920,390},{122,390},{122,180},{-279,180}}, color={0,0,127}));
   connect(RTUCon.yDXCooCoi, booToRea.u) annotation (Line(points={{1002,544.5},{
@@ -533,17 +532,16 @@ equation
           440,464},{440,466},{456,466}}, color={0,0,127}));
   connect(con[2].y, conAHU.uHeaCoi_actual) annotation (Line(points={{382,464},{
           440,464},{440,462},{456,462}}, color={0,0,127}));
-  connect(mulOr.y, not1.u)
-    annotation (Line(points={{122,-100},{138,-100}}, color={255,0,255}));
-  connect(not1.y, booToRea2.u)
-    annotation (Line(points={{162,-100},{178,-100}}, color={255,0,255}));
-  connect(RTUCon.yDXHeaCoi[1:nCoiHea], mulOr.u[1:nCoiHea])
-    annotation (Line(points={{1002, 539.95},{1040,539.95},{1040,-190},{90,-190},
-      {90,-100},{98,-100}}, color={255,0,255}));
-  connect(not2.y, booToRea3.u)
-    annotation (Line(points={{302,-100},{318,-100}}, color={255,0,255}));
-  connect(mulOr1.y, not2.u)
-    annotation (Line(points={{262,-100},{278,-100}}, color={255,0,255}));
+  connect(mulOr.y, not1.u) annotation (Line(points={{122,-100},
+          {138,-100}}, color={255,0,255}));
+  connect(not1.y, booToRea2.u) annotation (Line(points={{162,-100},
+          {178,-100}}, color={255,0,255}));
+  connect(RTUCon.yDXHeaCoi[1:nCoiHea], mulOr.u[1:nCoiHea]) annotation (Line(points={
+          {1002, 539.95},{1040,539.95},{1040,-190},{90,-190},{90,-100},{98,-100}}, color={255,0,255}));
+  connect(not2.y, booToRea3.u) annotation (Line(points={{302,-100},
+          {318,-100}}, color={255,0,255}));
+  connect(mulOr1.y, not2.u) annotation (Line(points={{262,-100},{278,-100}},
+          color={255,0,255}));
   connect(mulOr1.u[1:nCoiCoo], RTUCon.yDXCooCoi[1:nCoiCoo]) annotation (Line(points={{238,
           -100},{230,-100},{230,-180},{1050,-180},{1050,544.5},{1002,544.5}}, color={255,0,255}));
   connect(RTUCon.uCooCoiAva, con1.y) annotation (Line(points={{978,543.333},{
@@ -564,22 +562,21 @@ equation
           {978,522},{700,522},{700,640},{580,640},{580,616},{544,616}}, color={0,0,127}));
   connect(falSta1.y, groSta.u1Win) annotation (Line(points={{-278,300},{-128,
           300},{-128,380},{-122,380},{-122,381}}, color={255,0,255}));
-  connect(booToRea5.y, mul2.u2) annotation (Line(points={{486,-128},{486,-120},
-          {498,-120}}, color={0,0,127}));
+  connect(booToRea5.y, mul2.u2) annotation (Line(points={{486,-128},{494,-128},{
+          494,-120},{498,-120}}, color={0,0,127}));
   connect(mul2.u1, RTUCon.yAuxHea) annotation (Line(points={{498,-108},{494,
           -108},{494,-90},{1010,-90},{1010,528},{1002,528},{1002,528.283}},
-                                                      color={0,0,127}));
-  connect(mul2.y, AuxHeaCoi.u) annotation (Line(points={{522,-114},{528,-114},{
-          528,-54},{212,-54},{212,-34}}, color={0,0,127}));
-  connect(hys2.y, booToRea5.u)
-    annotation (Line(points={{454,-128},{462,-128}}, color={255,0,255}));
+                                                                      color={0,0,127}));
+  connect(mul2.y, AuxHeaCoi.u) annotation (Line(points={{522,-114},{528,-114},{528,
+          -58},{208,-58},{208,-34},{212,-34}}, color={0,0,127}));
+  connect(hys2.y, booToRea5.u) annotation (Line(points={{454,-128},{462,-128}},
+          color={255,0,255}));
   connect(fanSup.y_actual, hys2.u) annotation (Line(points={{321,-33},{321,-34},
-          {420,-34},{420,-128},{430,-128}}, color={0,0,127}));
+          {326,-34},{326,-80},{420,-80},{420,-128},{430,-128}}, color={0,0,127}));
   connect(booToRea3.y, ParDXCoiCoo.uDam) annotation (Line(points={{342,-100},{
-          376,-100},{376,-26},{218,-26},{218,-36},{178,-36}},
-                                                          color={0,0,127}));
-  connect(ParDXCoiCoo.TOut, TOut.y) annotation (Line(points={{179,-44},{212,-44},
-          {212,180},{-279,180}}, color={0,0,127}));
+          360,-100},{360,-66},{168,-66},{168,-36},{178,-36}}, color={0,0,127}));
+  connect(ParDXCoiCoo.TOut, TOut.y) annotation (Line(points={{179,-44},{160,-44},
+          {160,180},{-279,180}}, color={0,0,127}));
   connect(Phi.y, ParDXCoiHea.phi) annotation (Line(points={{-279,140},{-260,140},
           {-260,120},{90,120},{90,-32},{99,-32}}, color={0,0,127}));
   connect(TOut.y, ParDXCoiHea.TOut) annotation (Line(points={{-279,180},{80,180},
@@ -591,18 +588,15 @@ equation
           -48}}, color={255,0,255}));
   connect(ParDXCoiHea.P, hys.u) annotation (Line(points={{121,-32},{130,-32},{130,
           -160},{138,-160}}, color={0,0,127}));
-  connect(ParDXCoiCoo.P, hys1.u) annotation (Line(points={{201,-48},{270,-48},{
-          270,-150},{278,-150}},
-                             color={0,0,127}));
+  connect(ParDXCoiCoo.P, hys1.u) annotation (Line(points={{201,-48},{206,-48},{206,
+          -76},{220,-76},{220,-150},{278,-150}}, color={0,0,127}));
   connect(mul.y, ParDXCoiCoo.speRat) annotation (Line(points={{1132,520},{1140,
-          520},{1140,-70},{230,-70},{230,-32},{179,-32}},
-                                                     color={0,0,127}));
+          520},{1140,-72},{152,-72},{152,-32},{179,-32}}, color={0,0,127}));
   connect(RTUCon.TSupCoiHea, ParDXCoiHea.TAirSupCoi) annotation (Line(points={{978,
-          525.25},{940,525.25},{940,402},{312,402},{312,396},{144,396},{144,-46},
+          525.25},{940,525.25},{940,402},{312,402},{312,396},{140,396},{140,-46},
           {122,-46}}, color={0,0,127}));
   connect(RTUCon.TSupCoiCoo, ParDXCoiCoo.TAirSupCoi) annotation (Line(points={{978,
-          523.5},{946,523.5},{946,384},{270,384},{270,-34},{202,-34}}, color={0,
-          0,127}));
+          523.5},{946,523.5},{946,384},{206,384},{206,-34},{202,-34}}, color={0,0,127}));
   annotation (
   defaultComponentName="hvac",
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-320},{1420,
