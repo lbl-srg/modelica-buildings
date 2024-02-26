@@ -1843,6 +1843,7 @@ Buildings/Fluid/Sensors/EntropyFlowRate.mo
 Buildings/Fluid/Sensors/Examples/Density.mo
 Buildings/Fluid/Sensors/Examples/EnthalpyFlowRate.mo
 Buildings/Fluid/Sensors/Examples/EntropyFlowRate.mo
+Buildings/Fluid/Sensors/Examples/HeatMeter.mo
 Buildings/Fluid/Sensors/Examples/MassFraction.mo
 Buildings/Fluid/Sensors/Examples/MoistAirEnthalpyFlowRate.mo
 Buildings/Fluid/Sensors/Examples/PPM.mo
@@ -1857,6 +1858,7 @@ Buildings/Fluid/Sensors/Examples/Velocity.mo
 Buildings/Fluid/Sensors/Examples/VolumeFlowRate.mo
 Buildings/Fluid/Sensors/Examples/package.mo
 Buildings/Fluid/Sensors/Examples/package.order
+Buildings/Fluid/Sensors/HeatMeter.mo
 Buildings/Fluid/Sensors/LatentEnthalpyFlowRate.mo
 Buildings/Fluid/Sensors/MassFlowRate.mo
 Buildings/Fluid/Sensors/MassFraction.mo
@@ -2896,6 +2898,7 @@ Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Conversions/Examples/To_VolumeF
 Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/Density.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/EnthalpyFlowRate.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/EntropyFlowRate.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/HeatMeter.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/MassFraction.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/MoistAirEnthalpyFlowRate.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/PPM.mos
