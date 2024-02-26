@@ -195,7 +195,7 @@ equation
           100,40},{100,20},{40,20},{40,0},{48,0}},
                                                color={255,0,255}));
           annotation (
- defaultComponentName="equEna",
+ defaultComponentName="enaEqu",
  Icon(
   coordinateSystem(
     preserveAspectRatio=true,

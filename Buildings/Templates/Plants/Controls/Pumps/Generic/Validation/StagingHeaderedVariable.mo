@@ -55,14 +55,14 @@ equation
     annotation (Line(points={{22,-4},{40,-4},{40,-2},{48,-2}},color={255,0,255}));
   connect(ava.y, idxSta.u1Ava)
     annotation (Line(points={{-58,-40},{40,-40},{40,-6},{48,-6}},color={255,0,255}));
-  connect(idxSta.y, rep.u)
-    annotation (Line(points={{72,0},{80,0},{80,60},{62,60}},color={255,127,0}));
   connect(rep.y, staPum.u)
     annotation (Line(points={{38,60},{22,60}},color={255,127,0}));
   connect(staPum.y, sta.y1_actual)
     annotation (Line(points={{-2,60},{-10,60},{-10,4},{-2,4}},color={255,0,255}));
   connect(enaLea.y[1], idxSta.u1Lea)
     annotation (Line(points={{-58,40},{40,40},{40,6},{48,6}},color={255,0,255}));
+  connect(idxSta.y, rep.u) annotation (Line(points={{72,0},{80,0},{80,60},{62,
+          60}}, color={255,127,0}));
   annotation (
     __Dymola_Commands(
       file=

@@ -1,5 +1,6 @@
 CountTrue
 FirstTrueIndex
+HoldValue
 Initialization
 LastTrueIndex
 MultiMax
@@ -9,6 +10,6 @@ PlaceHolder
 Pre
 SortWithIndices
 StageIndex
+TimerWithReset
 TrueArrayConditional
-TrueFalseDelay
 Validation

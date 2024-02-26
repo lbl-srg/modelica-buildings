@@ -54,13 +54,6 @@ block StageIndex
     each final enableTimer=false)
     "Transition enabling lag unit"
     annotation (Placement(transformation(extent={{90,130},{110,150}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer tim[nSta](
-    passed(
-      each start=false),
-    each final t=dtRun)
-    if dtRun > 0
-    "Timer for minimum runtime"
-    annotation (Placement(transformation(extent={{-30,50},{-10,70}})));
   Buildings.Controls.OBC.CDL.Logical.MultiAnd runAndUp[nSta](
     each final nin=3)
     "Runtime condition met AND stage up command AND higher stage available"
@@ -145,13 +138,15 @@ block StageIndex
   Buildings.Controls.OBC.CDL.Logical.And staDowAndUna
     "Staging down AND stage unavailable"
     annotation (Placement(transformation(extent={{0,-190},{20,-170}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanVectorFilter booVecFil(
-    final nin=nSta,
-    final nout=nSta)
-    if dtRun <= 0
+  PlaceHolder pas[nSta](
+    each final have_inp=dtRun > 0,
+    each final have_inpPla=true)
     "Direct pass-through when no minimum runtime"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=-90,
-      origin={20,80})));
+    annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={0,70})));
   FirstTrueIndex idxFirAva(
     nin=nSta)
     "Return index of first available stage"
@@ -174,6 +169,9 @@ block StageIndex
     final nout=nSta)
     "Replicate"
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
+  Buildings.Controls.OBC.CDL.Logical.Timer tim[nSta](passed(each start=false),
+      each final t=dtRun) if dtRun > 0 "Timer for minimum runtime"
+    annotation (Placement(transformation(extent={{-50,60},{-30,80}})));
 equation
   for i in 1:(nSta - 1) loop
     connect(enaLag[i].outPort, sta[i + 1].inPort[1])
@@ -210,8 +208,6 @@ equation
   connect(sta.outPort[3], disLag.inPort)
     annotation (Line(points={{10.5,140.167},{20,140.167},{20,120},{116,120}},
       color={0,0,0}));
-  connect(sta.active, tim.u)
-    annotation (Line(points={{0,129},{0,100},{-40,100},{-40,60},{-32,60}},color={255,0,255}));
   connect(u1Lea, notEna.u)
     annotation (Line(points={{-240,120},{-200,120},{-200,40},{-162,40}},color={255,0,255}));
   connect(notEna.y, rep2.u)
@@ -277,14 +273,10 @@ equation
       color={255,127,0}));
   connect(u1Lea, enaLea.condition)
     annotation (Line(points={{-240,120},{-60,120},{-60,128}},color={255,0,255}));
-  connect(sta.active, booVecFil.u)
-    annotation (Line(points={{0,129},{0,100},{20,100},{20,92}},color={255,0,255}));
   connect(rep2.y, runAndEna.u2)
     annotation (Line(points={{-58,40},{0,40},{0,32},{28,32}},color={255,0,255}));
-  connect(booVecFil.y, runAndEna.u1)
-    annotation (Line(points={{20,68},{20,40},{28,40}},color={255,0,255}));
-  connect(tim.passed, runAndEna.u1)
-    annotation (Line(points={{-8,52},{8,52},{8,40},{28,40}},color={255,0,255}));
+  connect(pas.y, runAndEna.u1) annotation (Line(points={{12,70},{20,70},{20,40},
+          {28,40}}, color={255,0,255}));
   connect(idxFirAct.y, y)
     annotation (Line(points={{172,100},{240,100}},color={255,127,0}));
   connect(u1Ava, idxFirAva.u1)
@@ -312,24 +304,27 @@ equation
       color={255,0,255}));
   connect(rep5.y, runAndUp.u[3])
     annotation (Line(points={{-58,-80},{0,-80},{0,2.33333},{28,2.33333}},color={255,0,255}));
-  connect(booVecFil.y, runAndUp.u[1])
-    annotation (Line(points={{20,68},{20,-2.33333},{28,-2.33333}},color={255,0,255}));
-  connect(tim.passed, runAndUp.u[1])
-    annotation (Line(points={{-8,52},{8,52},{8,-2.33333},{28,-2.33333}},color={255,0,255}));
-  connect(tim.passed, runAndDow.u[1])
-    annotation (Line(points={{-8,52},{8,52},{8,-42.3333},{28,-42.3333}},color={255,0,255}));
+  connect(pas.y, runAndUp.u[1]) annotation (Line(points={{12,70},{20,70},{20,-2},
+          {22,-2},{22,-2.33333},{28,-2.33333}},
+                                          color={255,0,255}));
   connect(rep.y, runAndUp.u[2])
     annotation (Line(points={{-58,0},{28,0},{28,0}},color={255,0,255}));
   connect(rep1.y, runAndDow.u[2])
     annotation (Line(points={{-58,-40},{28,-40},{28,-40}},color={255,0,255}));
-  connect(booVecFil.y, runAndDow.u[1])
-    annotation (Line(points={{20,68},{20,-42.3333},{28,-42.3333}},color={255,0,255}));
+  connect(pas.y, runAndDow.u[1]) annotation (Line(points={{12,70},{20,70},{20,
+          -42},{28,-42},{28,-42.3333}},      color={255,0,255}));
   connect(one.y, maxInt.u1)
     annotation (Line(points={{-188,-180},{-184,-180},{-184,-194},{-182,-194}},
       color={255,127,0}));
   connect(idxFirAct.y, maxInt.u2)
     annotation (Line(points={{172,100},{200,100},{200,-200},{-120,-200},{-120,-220},{-184,-220},{-184,-206},{-182,-206}},
       color={255,127,0}));
+  connect(sta.active, tim.u) annotation (Line(points={{0,129},{0,100},{-60,100},
+          {-60,70},{-52,70}}, color={255,0,255}));
+  connect(tim.passed, pas.u) annotation (Line(points={{-28,62},{-16,62},{-16,70},
+          {-12,70}}, color={255,0,255}));
+  connect(sta.active, pas.uPla) annotation (Line(points={{0,129},{0,100},{-20,100},
+          {-20,66},{-12,66}}, color={255,0,255}));
   annotation (
     __cdl(
       extensionBlock=true),

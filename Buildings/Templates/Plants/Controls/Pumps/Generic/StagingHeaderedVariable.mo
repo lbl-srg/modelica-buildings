@@ -68,11 +68,11 @@ block StagingHeaderedVariable
     p=- dVOffUp)
     "Calculate stage up flow point "
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
-  Buildings.Controls.OBC.CDL.Logical.TimerAccumulating runUp(
+  Buildings.Templates.Plants.Controls.Utilities.TimerWithReset runUp(
     final t=dtRun)
     "Return true if stage up condition is true for specified duration"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
-  Buildings.Controls.OBC.CDL.Logical.TimerAccumulating runDow(
+  Buildings.Templates.Plants.Controls.Utilities.TimerWithReset runDow(
     final t=dtRun)
     "Return true if stage down condition is true for specified duration"
     annotation (Placement(transformation(extent={{70,-50},{90,-30}})));

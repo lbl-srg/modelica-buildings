@@ -2,79 +2,85 @@ within Buildings.Templates.Plants.Controls.StagingRotation.Validation;
 model SortRuntime
   Buildings.Templates.Plants.Controls.StagingRotation.SortRuntime
     sorRunTim(nin=3)
-          annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
+          annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Utilities.TrueArrayConditional u1Run(nin=3)
     "Equipment enable signal"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[3]
-    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+    "Convert command signal to real value"
+    annotation (Placement(transformation(extent={{30,-10},{50,10}})));
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol[3](each
-      samplePeriod=1)
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+      samplePeriod=1) "Hold signal value"
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr[3]
-    annotation (Placement(transformation(extent={{140,-10},{160,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable  u1Ava(
+    "Compare to zero to compute equipment status"
+    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable u1AvaEqu(
     table=[0,1,1,1; 35,1,1,1],
     timeScale=1,
     period=35) "Equipment available signal"
-    annotation (Placement(transformation(extent={{-90,-90},{-70,-70}})));
+    annotation (Placement(transformation(extent={{-130,-110},{-110,-90}})));
   Utilities.StageIndex idxSta(nSta=3, dtRun=10)
-    annotation (Placement(transformation(extent={{-30,30},{-10,50}})));
+    annotation (Placement(transformation(extent={{-38,30},{-18,50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant u1Lea(k=true)
     "Lead equipment enable signal"
-    annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
+    annotation (Placement(transformation(extent={{-130,90},{-110,110}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger upPul(period=20)
     "Stage up command pulse"
-    annotation (Placement(transformation(extent={{-200,30},{-180,50}})));
+    annotation (Placement(transformation(extent={{-130,-30},{-110,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger dowPul(period=20)
     "Stage down command pulse"
-    annotation (Placement(transformation(extent={{-200,-10},{-180,10}})));
+    annotation (Placement(transformation(extent={{-130,-70},{-110,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable booTimTab(table=[0,0,0;
         10,1,0; 70,0,1], period=160)
     "Signal to inhibit up and down commands"
-    annotation (Placement(transformation(extent={{-200,70},{-180,90}})));
+    annotation (Placement(transformation(extent={{-130,10},{-110,30}})));
   Buildings.Controls.OBC.CDL.Logical.And up
     "Stage up command"
-    annotation (Placement(transformation(extent={{-150,30},{-130,50}})));
+    annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   Buildings.Controls.OBC.CDL.Logical.And dow
     "Stage up command"
-    annotation (Placement(transformation(extent={{-150,-10},{-130,10}})));
+    annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant u1AvaSta[3](each k=true)
     "Stage available signal"
-    annotation (Placement(transformation(extent={{-90,38},{-70,58}})));
+    annotation (Placement(transformation(extent={{-130,50},{-110,70}})));
 equation
-  connect(sorRunTim.yIdx, u1Run.uIdx) annotation (Line(points={{-8,0},{0,0},{0,-6},
-          {18,-6}},                                  color={255,127,0}));
+  connect(sorRunTim.yIdx, u1Run.uIdx) annotation (Line(points={{-18,0},{-10,0},
+          {-10,-6},{-2,-6}},                         color={255,127,0}));
   connect(u1Run.y1, booToRea.u)
-    annotation (Line(points={{42,0},{50,0},{50,0},{58,0}}, color={255,0,255}));
+    annotation (Line(points={{22,0},{28,0}},               color={255,0,255}));
   connect(booToRea.y, zerOrdHol.u)
-    annotation (Line(points={{82,0},{98,0}}, color={0,0,127}));
+    annotation (Line(points={{52,0},{58,0}}, color={0,0,127}));
   connect(zerOrdHol.y, greThr.u)
-    annotation (Line(points={{122,0},{138,0}}, color={0,0,127}));
-  connect(greThr.y, sorRunTim.u1Run) annotation (Line(points={{162,0},{180,0},{180,
-          -20},{-40,-20},{-40,0},{-32,0}}, color={255,0,255}));
-  connect(u1Ava.y[1:3], sorRunTim.u1Ava[1:3]) annotation (Line(points={{-68,-80},
-          {-60,-80},{-60,-5.33333},{-32,-5.33333}}, color={255,0,255}));
-  connect(u1Lea.y, idxSta.u1Lea) annotation (Line(points={{-68,80},{-40,80},{
-          -40,46},{-32,46}}, color={255,0,255}));
+    annotation (Line(points={{82,0},{88,0}},   color={0,0,127}));
+  connect(greThr.y, sorRunTim.u1Run) annotation (Line(points={{112,0},{120,0},{
+          120,20},{-44,20},{-44,0},{-42,0}},
+                                           color={255,0,255}));
+  connect(u1AvaEqu.y[1:3], sorRunTim.u1Ava[1:3]) annotation (Line(points={{-108,
+          -100},{-44,-100},{-44,-5.33333},{-42,-5.33333}}, color={255,0,255}));
+  connect(u1Lea.y, idxSta.u1Lea) annotation (Line(points={{-108,100},{-50,100},
+          {-50,46},{-40,46}},color={255,0,255}));
   connect(upPul.y,up. u2)
-    annotation (Line(points={{-178,40},{-170,40},{-170,32},{-152,32}},
+    annotation (Line(points={{-108,-20},{-100,-20},{-100,-28},{-82,-28}},
                                                                   color={255,0,255}));
   connect(booTimTab.y[2],dow. u1)
-    annotation (Line(points={{-178,80},{-160,80},{-160,0},{-152,0}},color={255,0,255}));
+    annotation (Line(points={{-108,20},{-90,20},{-90,-60},{-82,-60}},
+                                                                    color={255,0,255}));
   connect(booTimTab.y[1],up. u1)
-    annotation (Line(points={{-178,80},{-160,80},{-160,40},{-152,40}},
+    annotation (Line(points={{-108,20},{-90,20},{-90,-20},{-82,-20}},
                                                                   color={255,0,255}));
-  connect(dowPul.y, dow.u2) annotation (Line(points={{-178,0},{-170,0},{-170,-8},
-          {-152,-8}}, color={255,0,255}));
-  connect(up.y, idxSta.u1Up) annotation (Line(points={{-128,40},{-40,40},{-40,
-          42},{-32,42}}, color={255,0,255}));
-  connect(dow.y, idxSta.u1Dow) annotation (Line(points={{-128,0},{-120,0},{-120,
-          38},{-32,38}}, color={255,0,255}));
-  connect(u1AvaSta.y, idxSta.u1Ava) annotation (Line(points={{-68,48},{-60,48},
-          {-60,34},{-32,34}}, color={255,0,255}));
-  connect(idxSta.y, u1Run.u) annotation (Line(points={{-8,40},{10,40},{10,0},{
-          18,0}}, color={255,127,0}));
+  connect(dowPul.y, dow.u2) annotation (Line(points={{-108,-60},{-100,-60},{
+          -100,-68},{-82,-68}},
+                      color={255,0,255}));
+  connect(up.y, idxSta.u1Up) annotation (Line(points={{-58,-20},{-50,-20},{-50,
+          42},{-40,42}}, color={255,0,255}));
+  connect(dow.y, idxSta.u1Dow) annotation (Line(points={{-58,-60},{-48,-60},{
+          -48,38},{-40,38}},
+                         color={255,0,255}));
+  connect(u1AvaSta.y, idxSta.u1Ava) annotation (Line(points={{-108,60},{-52,60},
+          {-52,34},{-40,34}}, color={255,0,255}));
+  connect(idxSta.y, u1Run.u) annotation (Line(points={{-16,40},{-6,40},{-6,0},{
+          -2,0}}, color={255,127,0}));
   annotation (
     __Dymola_Commands(
       file=
@@ -95,5 +101,6 @@ equation
           fillColor={75,138,73},
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
-          points={{-36,60},{64,0},{-36,-60},{-36,60}})}));
+          points={{-36,60},{64,0},{-36,-60},{-36,60}})}),
+    Diagram(coordinateSystem(extent={{-140,-120},{140,120}})));
 end SortRuntime;
