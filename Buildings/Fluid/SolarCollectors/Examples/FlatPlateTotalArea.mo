@@ -21,7 +21,7 @@ model FlatPlateTotalArea "Example showing the use of TotalArea and nSeg"
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
     Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     "Weather data input file"
-    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
+    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     use_p_in=false,
@@ -89,7 +89,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(weaDat.weaBus, solCol.weaBus) annotation (Line(
-      points={{-20,70},{-10,70},{-10,39}},
+      points={{-40,70},{-14,70},{-14,38},{-10,38},{-10,38}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -105,7 +105,7 @@ equation
       smooth=Smooth.None));
   connect(weaDat.weaBus, solCol1.weaBus)
                                         annotation (Line(
-      points={{-20,70},{-10,70},{-10,-21}},
+      points={{-40,70},{-14,70},{-14,-22},{-10,-22}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -130,7 +130,7 @@ Buildings.Fluid.SolarCollectors.Examples.FlatPlate</a>.
 revisions="<html>
 <ul>
 <li>
-January, 2024, by Jelger Jansen:<br/>
+February 15, 2024, by Jelger Jansen:<br/>
 Refactor model.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3604\">Buildings, #3604</a>.

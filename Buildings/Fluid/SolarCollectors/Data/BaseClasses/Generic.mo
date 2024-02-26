@@ -10,12 +10,14 @@ record Generic
     "Dry or total thermal capacity of the solar thermal collector";
   parameter Modelica.Units.SI.Volume V "Fluid volume ";
   parameter Modelica.Units.SI.Mass mDry "Dry mass";
-  parameter Real mperA_flow_nominal(unit="kg/(s.m2)")
+  parameter Real mperA_flow_nominal(final unit="kg/(s.m2)")
     "Nominal mass flow rate per unit area of collector";
   parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa")
     "Nominal pressure drop";
-  parameter Real b0 "1st incident angle modifier coefficient";
-  parameter Real b1 "2nd incident angle modifier coefficient";
+  parameter Real b0(final min=0, final max=1, final unit="1")
+    "1st incident angle modifier coefficient";
+  parameter Real b1(final min=0, final max=1, final unit="1")
+    "2nd incident angle modifier coefficient";
 
 annotation (
 defaultComponentPrefixes="parameter",
@@ -28,11 +30,11 @@ solar collector models.
 <p>
 Depending on the data source that is used, different parameters are available to
 model the thermal capacity of the solar collector.
-The choice of CTyp determines which parameters are used to calculate the 
+The choice of CTyp determines which parameters are used to calculate the
 representative heat capacity of the entire solar collector (including fluid).
 When the dry mass of the solar collector is used to calculate the heat capacity,
 the collector is assumed to be made fully out of copper
-(specific heat capacity of <i>385 J/kg/k</i>).
+(specific heat capacity of <i>385 J/kg/K</i>).
 <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr>
 <th>CTyp</th>
@@ -43,7 +45,7 @@ the collector is assumed to be made fully out of copper
 <tr>
 <td> TotalCapacity </td>
 <td> CTot </td>
-<td> / </td> 
+<td> / </td>
 <td> / </td>
 </tr>
 <tr>
@@ -62,7 +64,7 @@ the collector is assumed to be made fully out of copper
 </html>", revisions="<html>
 <ul>
 <li>
-January, 2024, by Jelger Jansen:<br/>
+February 15, 2024, by Jelger Jansen:<br/>
 Refactor model.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3604\">Buildings, #3604</a>.

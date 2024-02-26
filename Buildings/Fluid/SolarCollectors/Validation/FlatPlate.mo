@@ -54,7 +54,7 @@ model FlatPlate "Validation model for FlatPlate"
 
 equation
   connect(weaDat.weaBus, solCol.weaBus) annotation (Line(
-      points={{-20,70},{30,70},{30,9}},
+      points={{-20,70},{20,70},{20,8},{30,8}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));

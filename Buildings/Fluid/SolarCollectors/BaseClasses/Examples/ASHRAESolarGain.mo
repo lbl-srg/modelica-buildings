@@ -98,7 +98,7 @@ Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAESolarGain</a>.
 revisions="<html>
 <ul>
 <li>
-January, 2024, by Jelger Jansen:<br/>
+February 15, 2024, by Jelger Jansen:<br/>
 Refactor model.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3604\">Buildings, #3604</a>.

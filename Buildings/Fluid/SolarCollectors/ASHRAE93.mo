@@ -1,5 +1,5 @@
 within Buildings.Fluid.SolarCollectors;
-model ASHRAE93 "Model of a solar thermal collector according to the ASHRAE93 standard"
+model ASHRAE93 "Model of a solar thermal collector according to the ASHRAE Standard 93"
   extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector(
     redeclare Buildings.Fluid.SolarCollectors.Data.GenericASHRAE93 per);
 
@@ -12,25 +12,25 @@ model ASHRAE93 "Model of a solar thermal collector according to the ASHRAE93 sta
     final y_intercept=per.y_intercept,
     final use_shaCoe_in=use_shaCoe_in,
     final shaCoe=shaCoe,
-    final A_c=TotalArea_internal)
-    "Identifies heat gained from the sun using the ASHRAE93 standard calculations"
+    final A_c=ATot_internal)
+    "Identifies heat gained from the sun using the ASHRAE Standard 93 calculations"
              annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 
   BaseClasses.ASHRAEHeatLoss heaLos(
     redeclare package Medium = Medium,
     final nSeg=nSeg,
     final slope=per.slope,
-    final A_c=TotalArea_internal)
-    "Calculates the heat lost to the surroundings using the ASHRAE93 standard calculations"
+    final A_c=ATot_internal)
+    "Calculates the heat lost to the surroundings using the ASHRAE Standard 93 calculations"
         annotation (Placement(transformation(extent={{-20,10},{0,30}})));
 
 equation
   // Make sure the model is only used with the ASHRAE ratings data, and slope < 0
   assert(per.slope < 0,
-    "The heat loss coefficient from the ASHRAE ratings data must be strictly negative. Obtained slope = " + String(per.slope));
+    "In " + getInstanceName() + ": The heat loss coefficient from the ASHRAE ratings data must be strictly negative. Obtained slope = " + String(per.slope));
 
   connect(weaBus.TDryBul, heaLos.TEnv) annotation (Line(
-      points={{-99.95,90.05},{-90,90.05},{-90,26},{-22,26}},
+      points={{-99.95,80.05},{-90,80.05},{-90,26},{-22,26}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -54,7 +54,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(shaCoe_in, solGai.shaCoe_in) annotation (Line(
-      points={{-120,30},{-40,30},{-40,45},{-22,45}},
+      points={{-120,40},{-40,40},{-40,45},{-22,45}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(solGai.QSol_flow, QGai.Q_flow) annotation (Line(
@@ -154,16 +154,16 @@ test standard.
 <h4>References</h4>
 <p>
 ASHRAE 93-2010 -- Methods of Testing to Determine the Thermal Performance of
-Solar Collectors (ANSI approved)
+Solar Collectors (ANSI approved).
 </p>
 <p>
 <a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v23.2.0/EngineeringReference.pdf\">
-EnergyPlus 23.2.0 Engineering Reference</a>
+EnergyPlus 23.2.0 Engineering Reference</a>.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-January, 2024, by Jelger Jansen:<br/>
+February 15, 2024, by Jelger Jansen:<br/>
 Refactor model.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3604\">Buildings, #3604</a>.

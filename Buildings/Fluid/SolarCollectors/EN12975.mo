@@ -1,5 +1,5 @@
 within Buildings.Fluid.SolarCollectors;
-model EN12975 "Model of a solar thermal collector according to the ASHRAE93 standard"
+model EN12975 "Model of a solar thermal collector according to the ASHRAE Standard 93"
   extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector(
     redeclare Buildings.Fluid.SolarCollectors.Data.GenericEN12975 per);
 
@@ -12,7 +12,7 @@ model EN12975 "Model of a solar thermal collector according to the ASHRAE93 stan
     final eta0=per.eta0,
     final use_shaCoe_in=use_shaCoe_in,
     final shaCoe=shaCoe,
-    final A_c=TotalArea_internal)
+    final A_c=ATot_internal)
     "Identifies heat gained from the sun using the EN12975 standard calculations"
      annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss heaLos(
@@ -20,18 +20,18 @@ model EN12975 "Model of a solar thermal collector according to the ASHRAE93 stan
     final nSeg=nSeg,
     final a1=per.a1,
     final a2=per.a2,
-    final A_c=TotalArea_internal)
+    final A_c=ATot_internal)
     "Calculates the heat lost to the surroundings using the EN12975 standard calculations"
       annotation (Placement(transformation(extent={{-20,10},{0,30}})));
 
 equation
   // Make sure the model is only used with the EN ratings data, and hence a1 > 0
   assert(per.a1 > 0,
-    "The heat loss coefficient from the EN 12975 ratings data must be strictly positive. Obtained a1 = " + String(per.a1));
+    "In " + getInstanceName() + ": The heat loss coefficient from the EN 12975 ratings data must be strictly positive. Obtained a1 = " + String(per.a1));
   connect(shaCoe_internal, solGai.shaCoe_in);
 
   connect(weaBus.TDryBul, heaLos.TEnv) annotation (Line(
-      points={{-99.95,90.05},{-90,90.05},{-90,26},{-22,26}},
+      points={{-99.95,80.05},{-90,80.05},{-90,26},{-22,26}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -51,7 +51,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(shaCoe_in, solGai.shaCoe_in) annotation (Line(
-      points={{-120,30},{-40,30},{-40,45},{-22,45}},
+      points={{-120,40},{-40,40},{-40,45},{-22,45}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(heaLos.TFlu, temSen.T) annotation (Line(
@@ -90,7 +90,7 @@ EnergyPlus 23.2.0 Engineering Reference</a>
       revisions="<html>
 <ul>
 <li>
-January, 2024, by Jelger Jansen:<br/>
+February 15, 2024, by Jelger Jansen:<br/>
 Refactor model.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3604\">Buildings, #3604</a>.

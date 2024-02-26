@@ -6,9 +6,9 @@ model EN12975SolarGain "Model calculating solar gains per the EN12975 standard"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium in the system";
 
-  parameter Real eta0 "Optical efficiency (maximum efficiency)";
-  parameter Real b0 "1st incident angle modifer coefficient";
-  parameter Real b1 "2nd incident angle modifer coefficient";
+  parameter Real eta0(final unit="1") "Optical efficiency (maximum efficiency)";
+  parameter Real b0(final unit="1") "1st incident angle modifer coefficient";
+  parameter Real b1(final unit="1") "2nd incident angle modifer coefficient";
   parameter Boolean use_shaCoe_in = false
     "Enables an input connector for shaCoe"
     annotation(Dialog(group="Shading"));
@@ -82,11 +82,11 @@ equation
 <p>
 This component computes the solar heat gain of the solar thermal collector.
 It only calculates the solar heat gain without considering the heat loss
-to the environment. 
+to the environment.
 This model uses ratings data according to EN12975.
 The solar heat gain is calculated using Equations 18.298 and 18.302 in the
 referenced EnergyPlus documentation.
-The calculation is somewhat modified to use coefficients from EN12975.
+The calculation is modified to use coefficients from EN12975.
 </p>
 <p>
 The equation used to calculate solar gain is a modified version of Eq 18.302
@@ -103,11 +103,11 @@ where <i>Q<sub>flow</sub>[i]</i> is the heat gained in each segment,
 <i>A<sub>c</sub></i> is the area of the collector,
 <code>nSeg</code> is the number of segments in the collector,
 <i>&eta;<sub>0</sub></i> is the maximum efficiency of the collector,
-<i>K<sub>(&tau;&alpha;),dir</sub> </i>is the incidence angle modifier 
+<i>K<sub>(&tau;&alpha;),dir</sub> </i>is the incidence angle modifier
 for (direct) beam radiation,
 <i>G<sub>dir</sub></i> is the current beam radiation on the collector,
 <code>shaCoe</code> is the shading coefficient,
-<i>K<sub>dif</sub></i> is the incidence angle modifier 
+<i>K<sub>dif</sub></i> is the incidence angle modifier
 for diffuse radiation,
 and <i>G<sub>dif</sub></i> is the diffuse radiation striking the surface.
 </p>
@@ -121,9 +121,9 @@ The term <code>shaCoe</code> is used to define the percentage of the collector
 that is shaded.
 </p>
 <p>
-The main difference between this model and the ASHRAE model is the handling of 
+The main difference between this model and the ASHRAE model is the handling of
 diffuse radiation.
-The ASHRAE model contains calculated incidence angle modifiers for 
+The ASHRAE model contains calculated incidence angle modifiers for
 both sky and ground diffuse radiation,
 while this model uses a coefficient from test data for diffuse radiation.
 </p>
@@ -137,14 +137,14 @@ K<sub>(&tau;&alpha;),x</sub>=1+b<sub>0</sub> (1/cos(&theta;)-1)+b<sub>1</sub>
 </p>
 <p>
 where <i>K<sub>(&tau;&alpha;),dir</sub></i> is the incidence angle modifier
-for beam radiation, 
+for beam radiation,
 <i>b<sub>0</sub></i> is the first incidence angle modifier coefficient,
 <i>b<sub>1</sub></i> is the second incidence angle modifier coefficient,
 and <i>&theta;</i> is the incidence angle.
 </p>
 <p>
 This model reduces the heat gain rate to 0 W when the fluid temperature is
-within 1 degree C of the maximum temperature of the medium model. 
+within 1 degree C of the maximum temperature of the medium model.
 The calculation is performed using the
 <a href=\"modelica://Buildings.Utilities.Math.Functions.smoothHeaviside\">
 Buildings.Utilities.Math.Functions.smoothHeaviside</a> function.
@@ -161,7 +161,7 @@ EnergyPlus 23.2.0 Engineering Reference</a>
 </html>", revisions="<html>
 <ul>
 <li>
-January, 2024, by Jelger Jansen:<br/>
+February 15, 2024, by Jelger Jansen:<br/>
 Refactor model.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3604\">Buildings, #3604</a>.

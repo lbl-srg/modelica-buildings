@@ -10,7 +10,7 @@ partial model PartialSolarCollector "Partial model for solar collectors"
   constant Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(HideResult=true);
 
-  parameter Integer nSeg(min=3) = 3
+  parameter Integer nSeg = 3
     "Number of segments used to discretize the collector model";
 
   parameter Modelica.Units.SI.Angle azi(displayUnit="deg")
@@ -57,11 +57,11 @@ partial model PartialSolarCollector "Partial model for solar collectors"
 
   Modelica.Blocks.Interfaces.RealInput shaCoe_in if use_shaCoe_in
     "Shading coefficient"
-    annotation(Placement(transformation(extent={{-140,50},{-100,10}})));
+    annotation(Placement(transformation(extent={{-140,60},{-100,20}})));
 
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(
-    transformation(extent={{-110,80},{-90,100}})));
+    transformation(extent={{-110,70},{-90,90}})));
   Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez HDifTilIso(
     final outSkyCon=true,
     final outGroCon=true,
@@ -146,7 +146,7 @@ protected
      then nPanels_internal*per.dp_nominal else per.dp_nominal
     "Nominal pressure loss across the system of collectors";
 
-  parameter Modelica.Units.SI.Area TotalArea_internal=nPanels_internal*per.A
+  parameter Modelica.Units.SI.Area ATot_internal=nPanels_internal*per.A
     "Area used in the simulation";
 
   parameter Real nPanels_internal=
@@ -178,12 +178,12 @@ equation
   end if;
 
   connect(weaBus, HDifTilIso.weaBus) annotation (Line(
-      points={{-100,90},{-90,90},{-90,80},{-80,80}},
+      points={{-100,80},{-80,80}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(weaBus, HDirTil.weaBus) annotation (Line(
-      points={{-100,90},{-90,90},{-90,50},{-80,50}},
+      points={{-100,80},{-90,80},{-90,50},{-80,50}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -235,7 +235,7 @@ EnergyPlus 23.2.0 Engineering Reference</a>
 </html>", revisions="<html>
 <ul>
 <li>
-January, 2024, by Jelger Jansen:<br/>
+February 15, 2024, by Jelger Jansen:<br/>
 Refactor model.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3604\">Buildings, #3604</a>.

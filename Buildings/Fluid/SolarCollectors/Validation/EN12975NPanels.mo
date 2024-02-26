@@ -82,7 +82,7 @@ model EN12975NPanels
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 equation
   connect(weaDat.weaBus, solCol1.weaBus) annotation (Line(
-      points={{-20,70},{30,70},{30,-21}},
+      points={{-20,70},{20,70},{20,-22},{30,-22}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -102,7 +102,7 @@ equation
   connect(solCol.port_b, sou.ports[1])
     annotation (Line(points={{50,30},{70,30}}, color={0,127,255}));
   connect(solCol.weaBus, weaDat.weaBus) annotation (Line(
-      points={{30,39},{30,70},{-20,70}},
+      points={{30,38},{20,38},{20,70},{-20,70}},
       color={255,204,51},
       thickness=0.5));
   connect(m_flow_nominal.y, bou.m_flow_in) annotation (Line(points={{-69,40},{

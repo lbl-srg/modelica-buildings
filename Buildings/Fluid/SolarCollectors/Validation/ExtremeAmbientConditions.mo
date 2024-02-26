@@ -97,7 +97,7 @@ equation
   connect(solEn.port_b, sou1.ports[2]) annotation (Line(points={{40,-80},{70,
           -80},{70,-59}},     color={0,127,255}));
   connect(weaBus, solAsh.weaBus) annotation (Line(
-      points={{0,0},{20,0},{20,-31}},
+      points={{0,0},{16,0},{16,-32},{20,-32}},
       color={255,204,51},
       thickness=0.5), Text(
       textString="%first",
@@ -140,7 +140,7 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(solEn.weaBus, weaBus) annotation (Line(
-      points={{20,-71},{20,0},{0,0}},
+      points={{20,-72},{16,-72},{16,0},{0,0}},
       color={255,204,51},
       thickness=0.5), Text(
       textString="%second",
