@@ -20,17 +20,19 @@ model InterpolateStates "Interpolate states of a working fluid"
   // Computed properties
   Modelica.Units.SI.AbsolutePressure pEva(
     displayUnit = "kPa") =
-    Buildings.Utilities.Math.Functions.smoothInterpolation(
-      x = TEva,
-      xSup = pro.T,
-      ySup = pro.p)
+    Buildings.Airflow.Multizone.BaseClasses.interpolate(
+      u = TEva,
+      xd = pro.T,
+      yd = pro.p,
+      d = pDer_T)
     "Evaporating pressure";
   Modelica.Units.SI.AbsolutePressure pCon(
     displayUnit = "kPa") =
-    Buildings.Utilities.Math.Functions.smoothInterpolation(
-      x = TCon,
-      xSup = pro.T,
-      ySup = pro.p)
+    Buildings.Airflow.Multizone.BaseClasses.interpolate(
+      u = TCon,
+      xd = pro.T,
+      yd = pro.p,
+      d = pDer_T)
     "Condensing pressure";
   Modelica.Units.SI.SpecificEntropy sExpInl
     "Specific entropy at expander inlet";
@@ -141,6 +143,14 @@ model InterpolateStates "Interpolate states of a working fluid"
   Modelica.Units.SI.Efficiency etaExpLim =
     (hExpInl - hSatVapCon)/(hExpInl - hExpOut_i)
     "Upper limit of expander efficiency to prevent condensation, dry fluids have >1";
+
+protected
+    final parameter Real pDer_T[pro.n]=
+      Buildings.Utilities.Math.Functions.splineDerivatives(
+        x = pro.T,
+        y = pro.p,
+        ensureMonotonicity = true)
+    "Coefficients for cubic spline of saturation pressure vs. saturation temperature";
 
 initial equation
   assert(etaExp < etaExpLim,
