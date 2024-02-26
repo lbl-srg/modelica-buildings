@@ -261,13 +261,17 @@ In the first model, cooling is controlled based on the surface temperature, and 
 based on the room temperature.
 </li>
 <li>
-  <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer\">
-  Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer</a>
-  illustrates how to couple a radiant slab for heating in a configuration in which the
-  bottom of the slab is connected to a ground heat transfer model in Modelica.
-  Heating is provided with a geothermal heat pump that is connected to a borehole heat exchanger.
-  </li>
-
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer\">
+Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer</a>
+illustrates how to couple a radiant slab for heating in a configuration in which the
+bottom of the slab is connected to a ground heat transfer model in Modelica.
+Heating is provided with a geothermal heat pump that is connected to a borehole heat exchanger.
+</li>
+<li>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Radiator\">
+Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Radiator</a>
+shows how to couple a radiator to a thermal zone.
+</li>
   </ol>
 </html>"));
   end GettingStarted;
