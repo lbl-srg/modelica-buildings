@@ -266,6 +266,11 @@ that connects the slab to the zone below.
 In the first model, cooling is controlled based on the surface temperature, and in the second model, it is controlled
 based on the room temperature.
 </li>
+<li>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Radiator\">
+Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Radiator</a>
+shows how to couple a radiator to a thermal zone.
+</li>
 </ol>
 </html>"));
   end GettingStarted;
