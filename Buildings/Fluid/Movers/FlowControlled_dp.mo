@@ -77,7 +77,7 @@ model FlowControlled_dp
 
   Modelica.Blocks.Interfaces.RealInput dpMea(
     final quantity="PressureDifference",
-    final displayUnit="Pa",
+    displayUnit="Pa",
     final unit="Pa")=gain.u if prescribeSystemPressure
     "Measurement of pressure difference between two points where the set point should be obtained"
     annotation (Placement(transformation(
