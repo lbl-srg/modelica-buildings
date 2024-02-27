@@ -238,7 +238,7 @@ to <b style=\"color:blue\">existing</b> libraries:
     <td valign=\"top\">Sensor to measure the heat flow rate between a supply and return pipe in a fluid circuit.<br/>
                        This is for
                        <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1831\">IBPSA, #1831</a>.
-    
+
     </td>
     </tr>
 <tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus_9_6_0</b>
@@ -267,7 +267,7 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Added missing causality which is required for language compliance and for
                        Wolfram System Modeler.<br/>
-                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1829\">#1829</a>.
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1829\">IBPSA, #1829</a>.
     </td>
     <tr><td colspan=\"2\"><b>Buildings.Fluid.Sensors.Examples</b>
     </td>
@@ -276,7 +276,7 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Added pressure drop to avoid redundant initial conditions for pressure of control volume.
                        This corrects an issue in Wolfram System Modeler.<br/>
-                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1830\"> #1830</a>.
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1830\">#1830</a>.
     </td>
     <tr><td colspan=\"2\"><b>Buildings.Occupants</b>
     </td>
@@ -349,12 +349,14 @@ that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
 units are wrong or errors in documentation):
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Airflow.Multizone</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Airflow.Multizone.MediumColumn<br/>
+                       Buildings.Airflow.Multizone.MediumColumnDynamic
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Corrected wrong annotation.
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1842\">IBPSA, #1842</a>.
     </td>
 </tr>
 </table>
