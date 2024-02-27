@@ -232,6 +232,14 @@ system is <code>dp_nominal</code> specified in the collector data package if
 the collector field has a mass flow rate equal to
 <code>m_flow_nominal</code>.
 </li>
+<li>
+<code>Array</code>: If <code>Array</code> is selected it is assumed that the
+panels are mounted as a rectangular array with <code>nPanelsPar</code> rows, 
+each having <code>nPanelsSer</code> panels in series. As a result there is a 
+pressure drop corresponding to <code>dp_nominal</code> for each panel per row 
+and the effective <code>dp_nominal</code> for the system is
+<code>dp_nominal</code> * <code>nPanelsSer</code>.
+</li>
 </ul>
 </li>
 </ul>
