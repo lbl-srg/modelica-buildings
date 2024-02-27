@@ -20,7 +20,7 @@ model InterpolateStates "Interpolate states of a working fluid"
   // Computed properties
   Modelica.Units.SI.AbsolutePressure pEva(
     displayUnit = "kPa") =
-    Buildings.Airflow.Multizone.BaseClasses.interpolate(
+    Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.interpolate(
       u = TEva,
       xd = pro.T,
       yd = pro.p,
@@ -28,7 +28,7 @@ model InterpolateStates "Interpolate states of a working fluid"
     "Evaporating pressure";
   Modelica.Units.SI.AbsolutePressure pCon(
     displayUnit = "kPa") =
-    Buildings.Airflow.Multizone.BaseClasses.interpolate(
+    Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.interpolate(
       u = TCon,
       xd = pro.T,
       yd = pro.p,
