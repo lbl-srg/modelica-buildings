@@ -37,19 +37,21 @@ model InterpolateStates "Interpolate states of a working fluid"
   Modelica.Units.SI.SpecificEntropy sExpInl
     "Specific entropy at expander inlet";
   Modelica.Units.SI.SpecificEntropy sPum =
-    Buildings.Utilities.Math.Functions.smoothInterpolation(
-      x = TCon,
-      xSup = pro.T,
-      ySup = pro.sSatLiq)
+    Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.interpolate(
+      u = TCon,
+      xd = pro.T,
+      yd = pro.sSatLiq,
+      d = sSatLiqDer_T)
     "Specific entropy at pump, neglecting difference between inlet and outlet";
   Modelica.Units.SI.SpecificEnthalpy hExpInl(displayUnit = "kJ/kg")
     "Specific enthalpy at expander inlet";
   Modelica.Units.SI.SpecificEnthalpy hPum(
     displayUnit = "kJ/kg") =
-    Buildings.Utilities.Math.Functions.smoothInterpolation(
-      x = TCon,
-      xSup = pro.T,
-      ySup = pro.hSatLiq)
+    Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.interpolate(
+      u = TCon,
+      xd = pro.T,
+      yd = pro.hSatLiq,
+      d = hSatLiqDer_T)
     "Specific enthalpy at pump, neglecting difference between inlet and outlet";
   Modelica.Units.SI.SpecificEnthalpy hExpOut_i(displayUnit = "kJ/kg", start = (max(pro.hSatVap)+min(pro.hSatVap))/2)
     "Estimated specific enthalpy at expander outlet assuming isentropic";
@@ -62,70 +64,80 @@ model InterpolateStates "Interpolate states of a working fluid"
 
   Modelica.Units.SI.SpecificEnthalpy hPinEva(
     displayUnit = "kJ/kg") =
-    Buildings.Utilities.Math.Functions.smoothInterpolation(
-      x = TEva,
-      xSup = pro.T,
-      ySup = pro.hSatLiq)
+    Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.interpolate(
+      u = TEva,
+      xd = pro.T,
+      yd = pro.hSatLiq,
+      d = hSatLiqDer_T)
     "Specific enthalpy on evaporator-side pinch point";
   Modelica.Units.SI.SpecificEnthalpy hPinCon(
     displayUnit = "kJ/kg") =
-    Buildings.Utilities.Math.Functions.smoothInterpolation(
-      x = TCon,
-      xSup = pro.T,
-      ySup = pro.hSatVap)
+    Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.interpolate(
+      u = TCon,
+      xd = pro.T,
+      yd = pro.hSatVap,
+      d = hSatVapDer_T)
     "Specific enthalpy on condenser-side pinch point";
 
   Modelica.Units.SI.SpecificEntropy sSatVapCon =
-    Buildings.Utilities.Math.Functions.smoothInterpolation(
-      x = TCon,
-      xSup = pro.T,
-      ySup = pro.sSatVap)
+    Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.interpolate(
+      u = TCon,
+      xd = pro.T,
+      yd = pro.sSatVap,
+      d = sSatVapDer_T)
     "Specific entropy of saturated vapour at the condenser";
   Modelica.Units.SI.SpecificEntropy sSupVapCon =
-    Buildings.Utilities.Math.Functions.smoothInterpolation(
-      x = pCon,
-      xSup = pro.p,
-      ySup = pro.sSupVap)
+    Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.interpolate(
+      u = pCon,
+      xd = pro.p,
+      yd = pro.sSupVap,
+      d = sSupVapDer_p)
     "Specific entropy of superheated vapour on condenser side";
   Modelica.Units.SI.SpecificEntropy sSatVapEva =
-    Buildings.Utilities.Math.Functions.smoothInterpolation(
-      x = TEva,
-      xSup = pro.T,
-      ySup = pro.sSatVap)
+    Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.interpolate(
+      u = TEva,
+      xd = pro.T,
+      yd = pro.sSatVap,
+      d = sSatVapDer_T)
     "Specific entropy of saturated vapour in evaporator";
   Modelica.Units.SI.SpecificEntropy sSupVapEva =
-    Buildings.Utilities.Math.Functions.smoothInterpolation(
-      x = pEva,
-      xSup = pro.p,
-      ySup = pro.sSupVap)
+    Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.interpolate(
+      u = pEva,
+      xd = pro.p,
+      yd = pro.sSupVap,
+      d = sSupVapDer_p)
     "Specific entropy of superheated vapour on evaporator side";
   Modelica.Units.SI.SpecificEnthalpy hSatVapCon(
     displayUnit = "kJ/kg") =
-    Buildings.Utilities.Math.Functions.smoothInterpolation(
-      x = TCon,
-      xSup = pro.T,
-      ySup = pro.hSatVap)
+    Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.interpolate(
+      u = TCon,
+      xd = pro.T,
+      yd = pro.hSatVap,
+      d = hSatVapDer_T)
     "Specific enthalpy of saturated vapour at the condenser as reference point";
   Modelica.Units.SI.SpecificEnthalpy hSupVapCon(
     displayUnit = "kJ/kg") =
-    Buildings.Utilities.Math.Functions.smoothInterpolation(
-      x = pCon,
-      xSup = pro.p,
-      ySup = pro.hSupVap)
+    Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.interpolate(
+      u = pCon,
+      xd = pro.p,
+      yd = pro.hSupVap,
+      d = hSupVapDer_p)
     "Specific enthalpy of superheated vapour on condenser side";
   Modelica.Units.SI.SpecificEnthalpy hSatVapEva(
     displayUnit = "kJ/kg") =
-    Buildings.Utilities.Math.Functions.smoothInterpolation(
-      x = TEva,
-      xSup = pro.T,
-      ySup = pro.hSatVap)
+    Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.interpolate(
+      u = TEva,
+      xd = pro.T,
+      yd = pro.hSatVap,
+      d = hSatVapDer_T)
     "Specific enthalpy of saturated vapour in evaporator";
   Modelica.Units.SI.SpecificEnthalpy hSupVapEva(
     displayUnit = "kJ/kg") =
-    Buildings.Utilities.Math.Functions.smoothInterpolation(
-      x = pEva,
-      xSup = pro.p,
-      ySup = pro.hSupVap)
+    Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.interpolate(
+      u = pEva,
+      xd = pro.p,
+      yd = pro.hSupVap,
+      d = hSupVapDer_p)
     "Specific enthalpy of superheated vapour on evaporator side";
 
   // Enthalpy differentials,
@@ -145,12 +157,48 @@ model InterpolateStates "Interpolate states of a working fluid"
     "Upper limit of expander efficiency to prevent condensation, dry fluids have >1";
 
 protected
-    final parameter Real pDer_T[pro.n]=
-      Buildings.Utilities.Math.Functions.splineDerivatives(
-        x = pro.T,
-        y = pro.p,
-        ensureMonotonicity = true)
-    "Coefficients for cubic spline of saturation pressure vs. saturation temperature";
+  final parameter Real pDer_T[pro.n]=
+    Buildings.Utilities.Math.Functions.splineDerivatives(
+      x = pro.T,
+      y = pro.p,
+      ensureMonotonicity = true)
+  "Derivative of saturation pressure vs. saturation temperature for cubic spline";
+  final parameter Real sSatLiqDer_T[pro.n]=
+    Buildings.Utilities.Math.Functions.splineDerivatives(
+      x = pro.T,
+      y = pro.sSatLiq,
+      ensureMonotonicity = true)
+  "Derivative of saturated liquid entropy vs. temperature for cubic spline";
+  final parameter Real sSatVapDer_T[pro.n]=
+    Buildings.Utilities.Math.Functions.splineDerivatives(
+      x = pro.T,
+      y = pro.sSatVap,
+      ensureMonotonicity = false)
+  "Derivative of saturated vapour entropy vs. temperature for cubic spline";
+  final parameter Real sSupVapDer_p[pro.n]=
+    Buildings.Utilities.Math.Functions.splineDerivatives(
+      x = pro.p,
+      y = pro.sSupVap,
+      ensureMonotonicity = false)
+  "Derivative of superheated vapour entropy vs. pressure for cubic spline";
+  final parameter Real hSatLiqDer_T[pro.n]=
+    Buildings.Utilities.Math.Functions.splineDerivatives(
+      x = pro.T,
+      y = pro.hSatLiq,
+      ensureMonotonicity = true)
+  "Derivative of saturated liquid enthalpy vs. temperature for cubic spline";
+  final parameter Real hSatVapDer_T[pro.n]=
+    Buildings.Utilities.Math.Functions.splineDerivatives(
+      x = pro.T,
+      y = pro.hSatVap,
+      ensureMonotonicity = false)
+  "Derivative of saturated vapour enthalpy vs. temperature for cubic spline";
+  final parameter Real hSupVapDer_p[pro.n]=
+    Buildings.Utilities.Math.Functions.splineDerivatives(
+      x = pro.p,
+      y = pro.hSupVap,
+      ensureMonotonicity = false)
+  "Derivative of superheated vapour enthaly vs. pressure for cubic spline";
 
 initial equation
   assert(etaExp < etaExpLim,
