@@ -341,6 +341,16 @@ that can lead to wrong simulation results):
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3597\">Buildings, #3597</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Airflow.Multizone</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Airflow.Multizone.BaseClasses.interpolate
+    </td>
+    <td valign=\"top\">Corrected implementation to ensure that the function is first-order smooth.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1840\">IBPSA, #1840</a>.
+    </td>
+</tr>
 </table>
 <!-- Uncritical errors -->
 <p>
