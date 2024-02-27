@@ -56,13 +56,13 @@ def doStep(dblInp, state):
     # update TOUGH input files for each TOUGH call:
     #   -- update the INFILE to specify begining and ending TOUGH simulation time
     #   -- update the GENER for specifying the heat flow boundary condition
-    os.system(\"./writeincon < writeincon.inp\")
+    write_incon() os.system(\"< writeincon.inp\")
 
     # conduct one step TOUGH simulation
     os.system(\"/.../tough3-install/bin/tough3-eos1\")
 
     # extract borehole wall temperature for Modelica simulation
-    os.system(\"./readsave < readsave.inp > out.txt\")
+    readsave() os.system(\" < readsave.inp > out.txt\")
     data = extract_data('out.txt')
     T_tough = data['T_Bor']
     
@@ -115,7 +115,7 @@ In the first invocation of Python, this object is not yet initialized. Python th
 the initial temperature from the Modelica to initialize the object.
 </li>
 <li>
-With the utility program <code>writeincon</code>, it then updates the TOUGH input files.
+With the function <code>write_incon</code>, it then updates the TOUGH input files.
 Note that the initial input files are in <code>\"Path_To_Buildings_Library\"/Resources/Python-Sources/ToughFiles</code>:
 <ul>
 <li>
@@ -142,7 +142,7 @@ be updated with the one in <code>writeincon.inp</code>.
 Then it invokes TOUGH simulator.
 </li>
 <li>
-With the utility program <code>readsave</code>, it extracts the borehole wall temperature and
+With the function <code>readsave</code>, it extracts the borehole wall temperature and
 the temperature of ground on the interested points, from TOUGH simulation result file SAVE.
 </li>
 <li>
@@ -153,13 +153,28 @@ new borehole wall temperatures at each section.
 </ol>
 
 <p>
-The utility program are written in Fortran and the source code are in
-<code>\"Path_To_Buildings_Library\"/Resources/src/Fluid/Geothermal</code>.
 The programs should be updated if there is change in the TOUGH inputs
-files <code>MESH</code> and <code>INFILE</code>.
-Also, when there is change on the assumed number (<code>nSeg</code>) of borehole section and when
-there is new TOUGH mesh file, the data mapping between Modelica grid and TOUGH
-grid will be different. The Python interface function should be updated.
+files <code>MESH</code> and <code>INFILE</code>. The reason is that the Python script hardcodes
+the position of the nodes in the MESH and INFILE. In particular the assumption  if that all the revelant
+nodes are at the top of <code>MESH</code> and <code>INFILE</code>. The functions that need to be updated are:
+<ul>
+<li>
+<code>modelica_mesh</code>: This function finds the size of the modelica mesh.
+</li>
+<li>
+<code>mesh_to_mesh</code>: This function maps the mesh difference between TOUGH and modelica and calculates 
+<code>T</code> and <code>Q</code> for the respective nodes.
+</li>
+The code assumes that the <code>MESH</code> is bidimensional on the x-z axis. If a different type of mesh is used (i.e.
+radial), these functions also need to be updated:
+<li>
+<code>find_layer_depth</code>: This function finds the depth of the borehole.
+</li>
+<li>
+<code>add_grid_boundary</code>: This function finds the bounds of the TOUGH mesh.
+</li>
+</ul>
+In order to test the changes, the Python script can be used without Modelica and simply calling the <code>doStep</code> function with dummy <code>Q</code> inputs.
 </p>
 
 <h4>Assumptions</h4>
