@@ -346,7 +346,7 @@ that can lead to wrong simulation results):
 </tr>
 <tr><td valign=\"top\">Buildings.Airflow.Multizone.BaseClasses.interpolate
     </td>
-    <td valign=\"top\">Corrected implementation to ensure that the function is first-order smooth.<br/>
+    <td valign=\"top\">Corrected implementation to ensure that the function is once continuously differentiable.<br/>
                        This is for
                        <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1840\">IBPSA, #1840</a>.
     </td>
