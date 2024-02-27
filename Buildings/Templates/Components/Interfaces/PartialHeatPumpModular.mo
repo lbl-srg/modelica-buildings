@@ -56,7 +56,7 @@ model PartialHeatPumpModular
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-40,130})));
-  Buildings.Controls.OBC.CDL.Logical.Pre y1_actual
+  Controls.StatusEmulator                y1_actual
     "Compute heat pump status"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -105,9 +105,6 @@ equation
       points={{0,160},{0,156},{-76,156},{-76,142}},
       color={255,204,51},
       thickness=0.5));
-  connect(y1_actual.y, bus.y1_actual) annotation (Line(points={{60,142},{60,156},
-          {0,156},{0,160}},
-                          color={255,0,255}));
   connect(ctl.y, hp.ySet) annotation (Line(points={{-28,80},{-16,80},{-16,-4},{
           -11.2,-4}}, color={0,0,127}));
   connect(ctl.y1Hea, hp.hea) annotation (Line(points={{-28,84},{-14,84},{-14,-7.9},
@@ -118,7 +115,7 @@ equation
   connect(y1Hea.y, ctl.u1Hea)
     annotation (Line(points={{-76,119},{-76,84},{-52,84}},color={255,0,255}));
   connect(bus.TSet, ctl.TSupSet) annotation (Line(
-      points={{0.1,160.1},{0.1,156},{-56,156},{-56,80},{-52,80}},
+      points={{0,160},{0,156},{-56,156},{-56,80},{-52,80}},
       color={255,204,51},
       thickness=0.5));
   connect(bus.y1, ctl.u1) annotation (Line(
@@ -143,10 +140,12 @@ equation
       points={{0,100},{0,90},{-40,90}},
       color={255,204,51},
       thickness=0.5));
-  connect(ctl.y1, y1_actual.u)
-    annotation (Line(points={{-28,88},{60,88},{60,118}}, color={255,0,255}));
   connect(TSouLvg.port_b, port_bSou) annotation (Line(points={{-40,-20},{-80,-20},
           {-80,-140}},      color={0,127,255}));
+  connect(ctl.y1, y1_actual.y1)
+    annotation (Line(points={{-28,88},{60,88},{60,118}}, color={255,0,255}));
+  connect(y1_actual.y1_actual, bus.y1_actual) annotation (Line(points={{60,142},
+          {60,156},{0,156},{0,160}}, color={255,0,255}));
   annotation (
   defaultComponentName="heaPum",
   Documentation(info="<html>

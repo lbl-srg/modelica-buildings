@@ -38,7 +38,7 @@ model PartialHeatPumpEquationFit
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-40,130})));
-  Buildings.Controls.OBC.CDL.Logical.Pre y1_actual
+  Controls.StatusEmulator                y1_actual
     "Compute heat pump status"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -104,9 +104,6 @@ equation
       points={{0,160},{0,156},{-80,156},{-80,142}},
       color={255,204,51},
       thickness=0.5));
-  connect(y1_actual.y, bus.y1_actual) annotation (Line(points={{60,142},{60,156},
-          {0,156},{0,160}},
-                          color={255,0,255}));
   connect(port_a, mChiHeaWat_flow.port_a)
     annotation (Line(points={{-100,0},{-90,0}}, color={0,127,255}));
   connect(mChiHeaWat_flow.port_b, TChiHeaWatEnt.port_a)
@@ -135,16 +132,18 @@ equation
       points={{0,160},{0,110},{-20,110},{-20,102}},
       color={255,204,51},
       thickness=0.5));
-  connect(bus.y1, y1_actual.u) annotation (Line(
-      points={{0,160},{0,110},{60,110},{60,118}},
-      color={255,204,51},
-      thickness=0.5));
   connect(bus.TSet, hp.TSet) annotation (Line(
-      points={{0.1,160.1},{0.1,86},{0,86},{0,10},{-16,10},{-16,3},{-11.4,3}},
+      points={{0,160},{0,86},{0,86},{0,10},{-16,10},{-16,3},{-11.4,3}},
       color={255,204,51},
       thickness=0.5));
   connect(mulInt.y, hp.uMod)
     annotation (Line(points={{-20,38},{-20,-6},{-11,-6}}, color={255,127,0}));
+  connect(y1_actual.y1_actual, bus.y1_actual)
+    annotation (Line(points={{60,142},{60,160},{0,160}}, color={255,0,255}));
+  connect(bus.y1, y1_actual.y1) annotation (Line(
+      points={{0,160},{0,110},{60,110},{60,118}},
+      color={255,204,51},
+      thickness=0.5));
   annotation (
   defaultComponentName="heaPum",
   Documentation(info="<html>

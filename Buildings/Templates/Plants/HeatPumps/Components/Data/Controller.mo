@@ -192,6 +192,9 @@ record Controller
     defaultComponentName="datCtl",
     Documentation(
       info="<html>
+FIXME: Consider have_senV(Hea|Chi)WatSec=true systematically for primary-secondary 
+plants. We don't want to stage sceondary pumps based on speed, see
+the caveats in G36 Section 5.21.7.4.
 <p>
 This record provides the set of sizing and operating parameters for
 heat pump plant controllers that can be found within

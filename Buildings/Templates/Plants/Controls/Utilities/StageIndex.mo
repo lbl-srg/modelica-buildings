@@ -6,8 +6,10 @@ block StageIndex
     final min=1)
     "Number of stages"
     annotation (Evaluate=true);
-  parameter Modelica.Units.SI.Time dtRun(
-    final min=0)=0
+  parameter Real dtRun(
+    final unit="s",
+    final min=0,
+    displayUnit="min")=0
     "Minimum runtime of each stage"
     annotation (Evaluate=true);
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Lea

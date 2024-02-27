@@ -1,22 +1,18 @@
 within Buildings.Templates.Plants.Controls.StagingRotation.Validation;
 model StageChangeCommand
-  parameter Real cp_default(final unit="J/(kg.K)")=
-    Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
+  parameter Real cp_default(final unit="J/(kg.K)")=4184
     "Default specific heat capacity"
     annotation (Dialog(group="Configuration", enable=false));
-  parameter Real rho_default(final unit="kg/m3")=
-    Buildings.Media.Water.d_const
+  parameter Real rho_default(final unit="kg/m3")=996
     "Default specific heat capacity"
     annotation (Dialog(group="Configuration", enable=false));
   final parameter Real capHea_nominal(final unit="W")=sum(chaSta.capEqu)
     "Installed heating capacity"
     annotation(Dialog(group="Nominal condition"));
-  parameter Real THeaWatSup_nominal(final unit="K", displayUnit="degC")=
-    Buildings.Templates.Data.Defaults.THeaWatSupMed
+  parameter Real THeaWatSup_nominal(final unit="K", displayUnit="degC")=50+273.15
     "Design HW supply temperature"
     annotation(Dialog(group="Nominal condition"));
-  final parameter Real THeaWatRet_nominal(final unit="K", displayUnit="degC")=
-    Buildings.Templates.Data.Defaults.THeaWatRetMed
+  final parameter Real THeaWatRet_nominal(final unit="K", displayUnit="degC")=42 + 273.15
     "Design HW return temperature"
     annotation(Dialog(group="Nominal condition"));
   parameter Real VHeaWat_flow_nominal(final unit="m3/s")=

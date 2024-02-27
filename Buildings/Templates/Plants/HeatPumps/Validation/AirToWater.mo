@@ -98,7 +98,7 @@ model AirToWater
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.PlantRequests
     mulAHUPlaReq "Plant request generator"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TPla(k=293.15, y(final unit
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TDum(k=293.15, y(final unit
         ="K", displayUnit="degC")) "Placeholder signal for request generator"
     annotation (Placement(transformation(extent={{-120,130},{-100,150}})));
 initial equation
@@ -139,9 +139,9 @@ equation
           60},{0,60},{0,77},{18,77}}, color={0,0,127}));
   connect(ratFlo.y[2], mulAHUPlaReq.uHeaCoiSet) annotation (Line(points={{-98,
           60},{0,60},{0,72},{18,72}}, color={0,0,127}));
-  connect(TPla.y, mulAHUPlaReq.TAirSup) annotation (Line(points={{-98,140},{0,
+  connect(TDum.y, mulAHUPlaReq.TAirSup) annotation (Line(points={{-98,140},{0,
           140},{0,88},{18,88}}, color={0,0,127}));
-  connect(TPla.y, mulAHUPlaReq.TAirSupSet) annotation (Line(points={{-98,140},{
+  connect(TDum.y, mulAHUPlaReq.TAirSupSet) annotation (Line(points={{-98,140},{
           0,140},{0,83},{18,83}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(

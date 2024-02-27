@@ -7,7 +7,7 @@ block StageChangeCommand "Generate stage change command"
     start=0.9,
     final unit="1", final min=0, final max=1)
     "Staging part load ratio"
-    annotation(Evaluate=true, Dialog(enable=not have_inpPlrSta));
+    annotation(Dialog(enable=not have_inpPlrSta));
   final parameter Real traStaEqu[nEqu, nSta]=
     {{staEqu[i, j] for i in 1:nSta} for j in 1:nEqu}
     "Tranpose of staging matrix";
@@ -29,7 +29,7 @@ block StageChangeCommand "Generate stage change command"
   parameter Real dtRun(
     final unit="s",
     final min=0)=900
-    "Runtime with exceeded capacity threshold before staging event is triggered";
+    "Runtime with exceeded staging part load ratio before staging event is triggered";
   parameter Real dtMea(
     final unit="s",
     final min=0)=300

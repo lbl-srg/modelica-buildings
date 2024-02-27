@@ -1,6 +1,7 @@
 within Buildings.Templates.Plants.HeatPumps.Components.Controls;
 model AirToWater "Controller for AWHP plant"
-  extends Buildings.Templates.Plants.HeatPumps.Components.Interfaces.PartialController(
+  extends
+    Buildings.Templates.Plants.HeatPumps.Components.Interfaces.PartialController(
       final typ=Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater);
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupSet[nHp](
     y(each final unit="K",
@@ -14,48 +15,6 @@ model AirToWater "Controller for AWHP plant"
     each k=Buildings.Templates.Data.Defaults.TChiWatSup)
     "Heat pump CHW supply temperature set point"
     annotation (Placement(transformation(extent={{-80,150},{-100,170}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1ValHeaWatHpInlIso[nHp](
-    each table=[
-      0, 0;
-      1, 1;
-      3, 0;
-      5, 0],
-    each timeScale=1000,
-    each period=5000)
-    if cfg.have_heaWat and cfg.have_valHpInlIso
-    "Heat pump inlet HW isolation valve opening signal"
-    annotation (Placement(transformation(extent={{-180,110},{-200,130}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1ValHeaWatHpOutIso[nHp](
-    each table=[
-      0, 0;
-      1, 1;
-      3, 0;
-      5, 0],
-    each timeScale=1000,
-    each period=5000)
-    if cfg.have_heaWat and cfg.have_valHpOutIso
-    "Heat pump outlet HW isolation valve opening signal"
-    annotation (Placement(transformation(extent={{-180,70},{-200,90}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1ValChiWatHpInlIso[nHp](
-    each table=[
-      0, 0;
-      3.1, 1;
-      5, 0],
-    each timeScale=1000,
-    each period=5000)
-    if cfg.have_chiWat and cfg.have_valHpInlIso
-    "Heat pump inlet CHW isolation valve opening signal"
-    annotation (Placement(transformation(extent={{-180,-90},{-200,-70}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1ValChiWatHpOutIso[nHp](
-    each table=[
-      0, 0;
-      3.1, 1;
-      5, 0],
-    each timeScale=1000,
-    each period=5000)
-    if cfg.have_chiWat and cfg.have_valHpOutIso
-    "Heat pump outlet CHW isolation valve opening signal"
-    annotation (Placement(transformation(extent={{-180,-130},{-200,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1Hp[nHp](
     each table=[
       0, 0;
@@ -76,55 +35,6 @@ model AirToWater "Controller for AWHP plant"
     if cfg.is_rev
     "Heat pump heating mode command"
     annotation (Placement(transformation(extent={{-180,150},{-200,170}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1PumHeaWatPri[cfg.nPumHeaWatPri](
-    each table=if cfg.have_pumChiWatPriDed or not cfg.have_chiWat then
-                                                                      [
-      0, 0;
-      1, 1;
-      3, 0;
-      5, 0] else
-                [
-      0, 0;
-      1, 1;
-      3, 0;
-      3.1, 1;
-      5, 0],
-    each timeScale=1000,
-    each period=5000)
-    if cfg.have_heaWat
-    "Primary CHW pump start/stop command"
-    annotation (Placement(transformation(extent={{30,130},{50,150}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1PumChiWatPri[cfg.nPumChiWatPri](
-    each table=[
-      0, 0;
-      3.1, 1;
-      5, 0],
-    each timeScale=1000,
-    each period=5000)
-    if cfg.have_pumChiWatPriDed
-    "Primary CHW pump start/stop command"
-    annotation (Placement(transformation(extent={{30,-70},{50,-50}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1PumHeaWatSec[cfg.nPumHeaWatSec](
-    each table=[
-      0, 0;
-      1, 1;
-      3, 0;
-      5, 0],
-    each timeScale=1000,
-    each period=5000)
-    if cfg.typPumHeaWatSec <> Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
-    "Secondary HW pump start/stop command"
-    annotation (Placement(transformation(extent={{30,70},{50,90}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1PumChiWatSec[cfg.nPumChiWatSec](
-    each table=[
-      0, 0;
-      3, 1;
-      5, 1],
-    each timeScale=1000,
-    each period=5000)
-    if cfg.typPumChiWatSec <> Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
-    "Secondary CHW pump start/stop command"
-    annotation (Placement(transformation(extent={{30,-130},{50,-110}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant yPumHeaWatSec(
     k=1)
     if cfg.typPumHeaWatSec <> Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
@@ -155,20 +65,15 @@ model AirToWater "Controller for AWHP plant"
     if cfg.have_pumChiWatPriDed and cfg.have_varPumHeaWatPri
     "Primary CHW pump speed signal"
     annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
+  Buildings.Templates.Plants.Controls.HeatPumps.AirToWater ctl
+    "Plant controller"
+    annotation (Placement(transformation(extent={{-10,-20},{10,20}})));
 equation
   /* Control point connection - start */
-                                         connect(y1PumHeaWatPri.y[1], busPumHeaWatPri.y1);
   connect(yPumHeaWatPri.y, busPumHeaWatPri.y);
-  connect(y1PumHeaWatSec.y[1], busPumHeaWatSec.y1);
   connect(yPumHeaWatSec.y, busPumHeaWatSec.y);
-  connect(y1ValHeaWatHpInlIso.y[1], busValHeaWatHpInlIso.y1);
-  connect(y1ValHeaWatHpOutIso.y[1], busValHeaWatHpOutIso.y1);
   connect(yPumChiWatSec.y, busPumChiWatSec.y);
-  connect(y1ValChiWatHpOutIso.y[1], busValChiWatHpOutIso.y1);
-  connect(y1PumChiWatPri.y[1], busPumChiWatPri.y1);
   connect(yPumChiWatPri.y, busPumChiWatPri.y);
-  connect(y1ValChiWatHpInlIso.y[1], busValChiWatHpInlIso.y1);
-  connect(y1PumChiWatSec.y[1], busPumChiWatSec.y1);
   connect(y1Hp.y[1], busHp.y1);
   connect(y1HeaHp.y[1], busHp.y1Hea);
   connect(TSet.y, busHp.TSet);

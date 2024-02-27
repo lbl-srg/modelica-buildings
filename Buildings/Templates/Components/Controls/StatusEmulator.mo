@@ -16,7 +16,7 @@ block StatusEmulator "Block that emulates the status of an equipment"
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1_actual
     "Equipment status" annotation (Placement(transformation(extent={{100,-20},{140,
-            20}}), iconTransformation(extent={{-140,-20},{-100,20}})));
+            20}}), iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(final realTrue=1,
       final realFalse=0) "Convert to real"
     annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));

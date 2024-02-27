@@ -12,7 +12,7 @@ block EventSequencing "Events sequencing when the system is enabled"
   parameter Boolean have_valOutIso
     "Set to true if the system as outlet isolation valves"
     annotation(Evaluate=true);
-  final parameter Boolean have_pumHeaWatPri=have_heaWat
+  parameter Boolean have_pumHeaWatPri
     "Set to true for plants with primary HW pumps"
     annotation(Evaluate=true);
   parameter Boolean have_pumChiWatPri(start=false)
@@ -34,38 +34,34 @@ block EventSequencing "Events sequencing when the system is enabled"
     "Nominal valve timing"
     annotation(Dialog(enable=have_valInlIso or have_valOutIso));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1
-    "Enable command"
-    annotation (Placement(transformation(extent={{-200,120},{-160,160}}),
-        iconTransformation(extent={{-140,100},{-100,140}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Hea if have_heaWat
+    "Enable command from heating mode sequence" annotation (Placement(
+        transformation(extent={{-200,120},{-160,160}}), iconTransformation(
+          extent={{-140,100},{-100,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumHeaWatPri_actual
     if have_pumHeaWatPri
     "Primary HW pump status (dedicated or lead headered pump)"
     annotation (
-      Placement(transformation(extent={{-200,0},{-160,40}}),
-        iconTransformation(extent={{-140,-60},{-100,-20}})));
+      Placement(transformation(extent={{-200,10},{-160,50}}),
+        iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumChiWatPri_actual
     if have_pumChiWatPri
     "Primary CHW pump status – Dedicated or lead headered pump"
     annotation (
-      Placement(transformation(extent={{-200,-40},{-160,0}}),iconTransformation(
-          extent={{-140,-80},{-100,-40}})));
+      Placement(transformation(extent={{-200,-30},{-160,10}}),
+                                                             iconTransformation(
+          extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumHeaWatSec_actual
     if have_pumHeaWatSec
     "Lead headered secondary HW pump status" annotation (Placement(
-        transformation(extent={{-200,-80},{-160,-40}}),
+        transformation(extent={{-200,-70},{-160,-30}}),
                                                       iconTransformation(extent={{-140,
-            -120},{-100,-80}})));
+            -80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumChiWatSec_actual
     if have_pumChiWatSec
     "Lead headered secondary CHW pump status" annotation (Placement(
-        transformation(extent={{-200,-120},{-160,-80}}),iconTransformation(
-          extent={{-140,-140},{-100,-100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Hea
-    if have_heaWat and have_chiWat
-    "Heating/cooling mode command: true=heating, false=cooling"
-    annotation (Placement(transformation(extent={
-            {-200,80},{-160,120}}), iconTransformation(extent={{-140,78},{-100,118}})));
+        transformation(extent={{-200,-110},{-160,-70}}),iconTransformation(
+          extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ValHeaWatInlIso
     if have_heaWat and have_valInlIso "Inlet HW inlet isolation valve command"
                                              annotation (Placement(
@@ -108,8 +104,8 @@ block EventSequencing "Events sequencing when the system is enabled"
                                                       iconTransformation(extent={{100,
             -140},{140,-100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1
-    "Equipment enable command" annotation (Placement(transformation(extent={{160,100},
-            {200,140}}),       iconTransformation(extent={{100,100},{140,140}})));
+    "Equipment enable command" annotation (Placement(transformation(extent={{160,120},
+            {200,160}}),       iconTransformation(extent={{100,100},{140,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Hea
     if have_heaWat and have_chiWat
     "Heating/cooling mode command: true=heating, false=cooling" annotation (
@@ -118,130 +114,128 @@ block EventSequencing "Events sequencing when the system is enabled"
 
   Buildings.Controls.OBC.CDL.Logical.Timer timVal(final t=dtVal_nominal)
     "Return true when nominal valve timing elapsed"
-    annotation (Placement(transformation(extent={{-130,110},{-110,130}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiAnd heaValPum(nin=4)
+    annotation (Placement(transformation(extent={{-50,90},{-30,110}})));
+  Buildings.Controls.OBC.CDL.Logical.MultiAnd heaValPum(nin=3)
     "Return true if heating AND valve timing elapsed AND lead HW pumps on"
-    annotation (Placement(transformation(extent={{-10,110},{10,130}})));
+    annotation (Placement(transformation(extent={{60,110},{80,130}})));
   Buildings.Controls.OBC.CDL.Logical.Or ena "Return true if enabled"
-    annotation (Placement(transformation(extent={{40,110},{60,130}})));
+    annotation (Placement(transformation(extent={{110,110},{130,130}})));
   Buildings.Controls.OBC.CDL.Logical.MultiAnd cooValPum(nin=4)
     "Return true if cooling AND valve timing elapsed AND lead CHW pumps on"
-    annotation (Placement(transformation(extent={{-10,50},{10,70}})));
-  Buildings.Controls.OBC.CDL.Logical.Not coo if have_heaWat and have_chiWat
-    "Return true if cooling mode enabled"
-    annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
+    annotation (Placement(transformation(extent={{60,70},{80,90}})));
   Utilities.PlaceHolder u1PumChiWatSec_internal(
     final have_inp=have_pumChiWatSec,
     final have_inpPla=false,
     final u_internal=true)
     "Replace with placeholder value if input signal is not available"
-    annotation (Placement(transformation(extent={{-110,-110},{-90,-90}})));
+    annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
   Utilities.PlaceHolder timVal_internal(
-    final have_inp=not
-                      (have_valInlIso or have_valOutIso),
+    final have_inp=have_valInlIso or have_valOutIso,
     final have_inpPla=true,
     final u_internal=true)
     "Replace with placeholder value if input signal is not available"
-    annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
-  Utilities.PlaceHolder coo_internal(
-    final have_inp=have_heaWat and have_chiWat,
-    final have_inpPla=false,
-    final u_internal=true)
-    "Replace with placeholder value if input signal is not available"
-    annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
-  Utilities.PlaceHolder hea_internal(
-    final have_inp=have_heaWat and have_chiWat,
-    final have_inpPla=false,
-    final u_internal=true)
-    "Replace with placeholder value if input signal is not available"
-    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
+    annotation (Placement(transformation(extent={{-10,90},{10,110}})));
   Utilities.PlaceHolder u1PumHeaWatSec_internal(
     final have_inp=have_pumHeaWatSec,
     final have_inpPla=false,
     final u_internal=true)
     "Replace with placeholder value if input signal is not available"
-    annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
+    annotation (Placement(transformation(extent={{-140,-60},{-120,-40}})));
   Utilities.PlaceHolder u1PumChiWatPri_internal(
     final have_inp=have_pumChiWatPri,
     final have_inpPla=false,
     final u_internal=true)
     "Replace with placeholder value if input signal is not available"
-    annotation (Placement(transformation(extent={{-110,-30},{-90,-10}})));
+    annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
   Utilities.PlaceHolder u1PumHeaWatPri_internal(
     final have_inp=have_pumHeaWatPri,
     final have_inpPla=false,
     final u_internal=true)
     "Replace with placeholder value if input signal is not available"
-    annotation (Placement(transformation(extent={{-110,10},{-90,30}})));
+    annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Coo if have_chiWat
+    "Enable command from cooling mode sequence" annotation (Placement(
+        transformation(extent={{-200,60},{-160,100}}), iconTransformation(
+          extent={{-140,60},{-100,100}})));
+  Utilities.PlaceHolder u1Coo_internal(
+    final have_inp=have_chiWat,
+    final have_inpPla=false,
+    final u_internal=false)
+    "Replace with placeholder value if input signal is not available"
+    annotation (Placement(transformation(extent={{-140,70},{-120,90}})));
+  Buildings.Controls.OBC.CDL.Logical.Or u1HeaOrCoo
+    "Return true if enabled from heating or cooling mode sequence"
+    annotation (Placement(transformation(extent={{-90,110},{-70,130}})));
+  Utilities.PlaceHolder u1Hea_internal(
+    final have_inp=have_heaWat,
+    final have_inpPla=false,
+    final u_internal=false)
+    "Replace with placeholder value if input signal is not available"
+    annotation (Placement(transformation(extent={{-140,130},{-120,150}})));
 equation
-  connect(u1, y1ValHeaWatInlIso)
-    annotation (Line(points={{-180,140},{140,140},{140,42},{160,42},{160,40},{180,
-          40}},                                     color={255,0,255}));
-  connect(u1, y1ValHeaWatOutIso) annotation (Line(points={{-180,140},{140,140},
-          {140,20},{180,20}}, color={255,0,255}));
-  connect(u1, y1ValChiWatInlIso) annotation (Line(points={{-180,140},{140,140},{
-          140,0},{180,0}},     color={255,0,255}));
-  connect(u1, y1ValChiWatOutIso) annotation (Line(points={{-180,140},{140,140},{
-          140,-20},{180,-20}},
-                             color={255,0,255}));
-  connect(u1, y1PumHeaWatPri) annotation (Line(points={{-180,140},{140,140},{140,
-          -60},{180,-60}},
-                         color={255,0,255}));
-  connect(u1, y1PumChiWatPri) annotation (Line(points={{-180,140},{140,140},{140,
-          -80},{180,-80}},
-                         color={255,0,255}));
-  connect(u1, y1PumHeaWatSec) annotation (Line(points={{-180,140},{140,140},{140,
-          -120},{180,-120}},
-                           color={255,0,255}));
-  connect(u1, y1PumChiWatSec) annotation (Line(points={{-180,140},{140,140},{140,
-          -140},{180,-140}},
-                           color={255,0,255}));
-  connect(u1, timVal.u) annotation (Line(points={{-180,140},{-140,140},{-140,120},
-          {-132,120}}, color={255,0,255}));
-  connect(u1Hea, y1Hea) annotation (Line(points={{-180,100},{180,100}},
-                       color={255,0,255}));
-  connect(u1Hea, coo.u) annotation (Line(points={{-180,100},{-150,100},{-150,60},
-          {-142,60}}, color={255,0,255}));
-  connect(heaValPum.y, ena.u1) annotation (Line(points={{12,120},{38,120}},
+  connect(heaValPum.y, ena.u1) annotation (Line(points={{82,120},{108,120}},
                      color={255,0,255}));
-  connect(cooValPum.y, ena.u2) annotation (Line(points={{12,60},{20,60},{20,112},
-          {38,112}}, color={255,0,255}));
-  connect(timVal.passed, timVal_internal.u) annotation (Line(points={{-108,112},
-          {-100,112},{-100,120},{-82,120}}, color={255,0,255}));
-  connect(u1, timVal_internal.uPla) annotation (Line(points={{-180,140},{-90,
-          140},{-90,116},{-82,116}},
-                                color={255,0,255}));
-  connect(coo.y, coo_internal.u)
-    annotation (Line(points={{-118,60},{-112,60}},color={255,0,255}));
-  connect(u1Hea, hea_internal.u) annotation (Line(points={{-180,100},{-90,100},
-          {-90,80},{-82,80}},color={255,0,255}));
-  connect(hea_internal.y, heaValPum.u[1]) annotation (Line(points={{-58,80},{-20,
-          80},{-20,117.375},{-12,117.375}}, color={255,0,255}));
-  connect(timVal_internal.y, heaValPum.u[2]) annotation (Line(points={{-58,120},
-          {-18,120},{-18,119.125},{-12,119.125}}, color={255,0,255}));
+  connect(cooValPum.y, ena.u2) annotation (Line(points={{82,80},{100,80},{100,
+          112},{108,112}},
+                     color={255,0,255}));
+  connect(timVal.passed, timVal_internal.u) annotation (Line(points={{-28,92},{
+          -16,92},{-16,100},{-12,100}},     color={255,0,255}));
+  connect(timVal_internal.y, heaValPum.u[1]) annotation (Line(points={{12,100},
+          {54,100},{54,117.667},{58,117.667}},    color={255,0,255}));
   connect(u1PumChiWatSec_actual, u1PumChiWatSec_internal.u)
-    annotation (Line(points={{-180,-100},{-112,-100}}, color={255,0,255}));
+    annotation (Line(points={{-180,-90},{-142,-90}},   color={255,0,255}));
   connect(u1PumHeaWatPri_actual, u1PumHeaWatPri_internal.u) annotation (Line(
-        points={{-180,20},{-112,20}},           color={255,0,255}));
+        points={{-180,30},{-142,30}},           color={255,0,255}));
   connect(u1PumChiWatPri_actual, u1PumChiWatPri_internal.u)
-    annotation (Line(points={{-180,-20},{-112,-20}}, color={255,0,255}));
+    annotation (Line(points={{-180,-10},{-142,-10}}, color={255,0,255}));
   connect(u1PumHeaWatSec_actual, u1PumHeaWatSec_internal.u)
-    annotation (Line(points={{-180,-60},{-112,-60}}, color={255,0,255}));
-  connect(u1PumHeaWatPri_internal.y, heaValPum.u[3]) annotation (Line(points={{-88,20},
-          {-28,20},{-28,120.875},{-12,120.875}},     color={255,0,255}));
-  connect(u1PumHeaWatSec_internal.y, heaValPum.u[4]) annotation (Line(points={{-88,-60},
-          {-22,-60},{-22,122},{-16,122},{-16,122.625},{-12,122.625}},
+    annotation (Line(points={{-180,-50},{-142,-50}}, color={255,0,255}));
+  connect(u1PumHeaWatPri_internal.y, heaValPum.u[2]) annotation (Line(points={{-118,30},
+          {44,30},{44,120},{58,120}},                color={255,0,255}));
+  connect(u1PumHeaWatSec_internal.y, heaValPum.u[3]) annotation (Line(points={{-118,
+          -50},{50,-50},{50,122},{56,122},{56,122.333},{58,122.333}},
                                                        color={255,0,255}));
-  connect(coo_internal.y, cooValPum.u[1]) annotation (Line(points={{-88,60},{-22,
-          60},{-22,57.375},{-12,57.375}},   color={255,0,255}));
-  connect(timVal_internal.y, cooValPum.u[2]) annotation (Line(points={{-58,120},
-          {-24,120},{-24,59.125},{-12,59.125}},   color={255,0,255}));
-  connect(u1PumChiWatPri_internal.y, cooValPum.u[3]) annotation (Line(points={{-88,-20},
-          {-24,-20},{-24,60.875},{-12,60.875}},        color={255,0,255}));
-  connect(u1PumChiWatSec_internal.y, cooValPum.u[4]) annotation (Line(points={{-88,
-          -100},{-18,-100},{-18,62.625},{-12,62.625}},   color={255,0,255}));
-  connect(ena.y, y1) annotation (Line(points={{62,120},{180,120}},
+  connect(timVal_internal.y, cooValPum.u[1]) annotation (Line(points={{12,100},
+          {48,100},{48,77.375},{58,77.375}},      color={255,0,255}));
+  connect(u1PumChiWatPri_internal.y, cooValPum.u[2]) annotation (Line(points={{-118,
+          -10},{48,-10},{48,79.125},{58,79.125}},      color={255,0,255}));
+  connect(u1PumChiWatSec_internal.y, cooValPum.u[3]) annotation (Line(points={{-118,
+          -90},{54,-90},{54,80.875},{58,80.875}},        color={255,0,255}));
+  connect(ena.y, y1) annotation (Line(points={{132,120},{148,120},{148,140},{
+          180,140}},
                  color={255,0,255}));
+  connect(u1Hea, u1Hea_internal.u)
+    annotation (Line(points={{-180,140},{-142,140}}, color={255,0,255}));
+  connect(u1Coo_internal.y, u1HeaOrCoo.u2) annotation (Line(points={{-118,80},{
+          -100,80},{-100,112},{-92,112}}, color={255,0,255}));
+  connect(u1Hea_internal.y, u1HeaOrCoo.u1) annotation (Line(points={{-118,140},
+          {-100,140},{-100,120},{-92,120}}, color={255,0,255}));
+  connect(u1HeaOrCoo.y, timVal.u) annotation (Line(points={{-68,120},{-60,120},
+          {-60,100},{-52,100}}, color={255,0,255}));
+  connect(u1HeaOrCoo.y, timVal_internal.uPla) annotation (Line(points={{-68,120},
+          {-20,120},{-20,96},{-12,96}}, color={255,0,255}));
+  connect(u1Coo, u1Coo_internal.u)
+    annotation (Line(points={{-180,80},{-142,80}}, color={255,0,255}));
+  connect(u1Coo_internal.y, cooValPum.u[4]) annotation (Line(points={{-118,80},
+          {58,80},{58,82.625}}, color={255,0,255}));
+  connect(u1Hea_internal.y, y1Hea) annotation (Line(points={{-118,140},{140,140},
+          {140,100},{180,100}}, color={255,0,255}));
+  connect(u1HeaOrCoo.y, y1ValHeaWatInlIso) annotation (Line(points={{-68,120},{
+          -60,120},{-60,40},{180,40}}, color={255,0,255}));
+  connect(u1HeaOrCoo.y, y1ValHeaWatOutIso) annotation (Line(points={{-68,120},{
+          -60,120},{-60,20},{180,20}}, color={255,0,255}));
+  connect(u1HeaOrCoo.y, y1ValChiWatInlIso) annotation (Line(points={{-68,120},{
+          -60,120},{-60,0},{180,0}}, color={255,0,255}));
+  connect(u1HeaOrCoo.y, y1ValChiWatOutIso) annotation (Line(points={{-68,120},{
+          -60,120},{-60,-20},{180,-20}}, color={255,0,255}));
+  connect(u1HeaOrCoo.y, y1PumHeaWatPri) annotation (Line(points={{-68,120},{-60,
+          120},{-60,-60},{180,-60}}, color={255,0,255}));
+  connect(u1HeaOrCoo.y, y1PumChiWatPri) annotation (Line(points={{-68,120},{-60,
+          120},{-60,-80},{180,-80}}, color={255,0,255}));
+  connect(u1HeaOrCoo.y, y1PumHeaWatSec) annotation (Line(points={{-68,120},{-60,
+          120},{-60,-120},{180,-120}}, color={255,0,255}));
+  connect(u1HeaOrCoo.y, y1PumChiWatSec) annotation (Line(points={{-68,120},{-60,
+          120},{-60,-140},{180,-140}}, color={255,0,255}));
   annotation (
     defaultComponentName="eveSeqEna",
     Icon(
