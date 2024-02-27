@@ -417,16 +417,16 @@ smooth interpolation.
 When there is superheating (determined by <i>&Delta;T<sub>Sup</sub> > 0.1 K</i>),
 <code>ExpInl</code> is elevated. Its specific enthaply and specific entropy
 are then found by linear inter-/extrapolation between the saturated and
-superheated (\"ref\") vapour lines along the isobaric line at the evaporator
+superheated vapour reference lines along the isobaric line at the evaporator
 pressure:<br/>
 <p align=\"center\" style=\"font-style:italic;\">
 (s<sub>ExpInl</sub> - s<sub>SatVap</sub>)
 &frasl; &Delta;T<sub>Sup</sub>
-= (s<sub>SupVap,ref</sub> - s<sub>SatVap</sub>)
+= (s<sub>Ref</sub> - s<sub>SatVap</sub>)
 &frasl; &Delta;T<sub>Sup,ref</sub><br/>
 (h<sub>ExpInl</sub> - h<sub>SatVap</sub>)
 &frasl; &Delta;T<sub>Sup</sub>
-= (h<sub>SupVap,ref</sub> - h<sub>SatVap</sub>)
+= (h<sub>Ref</sub> - h<sub>SatVap</sub>)
 &frasl; &Delta;T<sub>Sup,ref</sub>
 </p>
 </li>
@@ -440,8 +440,8 @@ is performed between the saturated and superheated (\"ref\") lines:<br/>
 <p align=\"center\" style=\"font-style:italic;\">
 (h<sub>ExpOut_i</sub> - h<sub>SatVap</sub>)
 &frasl; (s<sub>ExpInl</sub> - s<sub>SatVap</sub>)
-= (h<sub>SupVap,ref</sub> - h<sub>SatVap</sub>)
-&frasl; (s<sub>SupVap,ref</sub> - s<sub>SatVap</sub>)
+= (h<sub>Ref</sub> - h<sub>SatVap</sub>)
+&frasl; (s<sub>Ref</sub> - s<sub>SatVap</sub>)
 </p>
 </li>
 <li>
