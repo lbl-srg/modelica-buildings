@@ -10,6 +10,11 @@ model VAVMultiZone "Multiple-zone VAV"
   extends Buildings.Templates.AirHandlersFans.Interfaces.PartialAirHandler(
     nZon(final min=2),
     redeclare final Buildings.Templates.AirHandlersFans.Configuration.VAVMultiZone cfg(
+      final nFanSup=if fanSupDra.typ <> Buildings.Templates.Components.Types.Fan.None then
+        fanSupDra.nFan elseif fanSupBlo.typ <> Buildings.Templates.Components.Types.Fan.None
+        then fanSupBlo.nFan else 0,
+      final nFanRet=secOutRel.nFanRet,
+      final nFanRel=secOutRel.nFanRel,
       final typCoiHeaPre=coiHeaPre.typ,
       final typCoiCoo=coiCoo.typ,
       final typCoiHeaReh=coiHeaReh.typ,
@@ -35,6 +40,12 @@ model VAVMultiZone "Multiple-zone VAV"
       then fanSupBlo.typ else Buildings.Templates.Components.Types.Fan.None,
     final typFanRel=secOutRel.typFanRel,
     final typFanRet=secOutRel.typFanRet,
+    final nFanSup=if
+      fanSupDra.typ <> Buildings.Templates.Components.Types.Fan.None then
+      fanSupDra.nFan elseif fanSupBlo.typ <> Buildings.Templates.Components.Types.Fan.None
+      then fanSupBlo.nFan else 0,
+    final nFanRel=secOutRel.nFanRel,
+    final nFanRet=secOutRel.nFanRet,
     final mChiWat_flow_nominal=if coiCoo.have_sou then dat.coiCoo.mWat_flow_nominal else 0,
     final mHeaWat_flow_nominal=(if coiHeaPre.have_sou then dat.coiHeaPre.mWat_flow_nominal else 0) +
       (if coiHeaReh.have_sou then dat.coiHeaReh.mWat_flow_nominal else 0),
@@ -218,7 +229,7 @@ model VAVMultiZone "Multiple-zone VAV"
 
   inner replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHeaPre(
     redeclare final package MediumHeaWat=MediumHeaWat,
-    redeclare final Buildings.Templates.Components.Valves.TwoWayModulating val)
+    final typVal=Buildings.Templates.Components.Types.Valve.TwoWayModulating)
     constrainedby Buildings.Templates.Components.Interfaces.PartialCoil(
       final dat=dat.coiHeaPre,
       redeclare final package MediumAir=MediumAir,
@@ -235,7 +246,7 @@ model VAVMultiZone "Multiple-zone VAV"
       choice(
         redeclare replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHeaPre(
           redeclare final package MediumHeaWat=MediumHeaWat,
-          redeclare final Buildings.Templates.Components.Valves.TwoWayModulating val)
+          final typVal=Buildings.Templates.Components.Types.Valve.TwoWayModulating)
         "Hot water coil with two-way valve"),
       choice(
         redeclare replaceable Buildings.Templates.Components.Coils.ElectricHeating coiHeaPre
@@ -246,7 +257,7 @@ model VAVMultiZone "Multiple-zone VAV"
 
   inner replaceable Buildings.Templates.Components.Coils.WaterBasedCooling coiCoo(
     redeclare final package MediumChiWat=MediumChiWat,
-    redeclare final Buildings.Templates.Components.Valves.TwoWayModulating val)
+    final typVal=Buildings.Templates.Components.Types.Valve.TwoWayModulating)
     constrainedby Buildings.Templates.Components.Interfaces.PartialCoil(
       final dat=dat.coiCoo,
       redeclare final package MediumAir=MediumAir,
@@ -261,7 +272,7 @@ model VAVMultiZone "Multiple-zone VAV"
         "No coil"),
       choice(redeclare replaceable Buildings.Templates.Components.Coils.WaterBasedCooling coiCoo(
         redeclare final package MediumChiWat=MediumChiWat,
-        redeclare final Buildings.Templates.Components.Valves.TwoWayModulating val)
+        final typVal=Buildings.Templates.Components.Types.Valve.TwoWayModulating)
         "Chilled water coil with two-way valve")),
     Dialog(group="Configuration"),
     Placement(transformation(extent={{70,-210},{90,-190}})));
@@ -330,7 +341,13 @@ model VAVMultiZone "Multiple-zone VAV"
     constrainedby
     Buildings.Templates.AirHandlersFans.Components.Interfaces.PartialControllerVAVMultizone(
       final dat=dat.ctl,
-      final nZon=nZon)
+      final nZon=nZon,
+      final typFanSup=typFanSup,
+      final typFanRel=typFanRel,
+      final typFanRet=typFanRet,
+      final nFanSup=nFanSup,
+      final nFanRel=nFanRel,
+      final nFanRet=nFanRet)
     "Control selections"
     annotation (
       Dialog(group="Controls"),

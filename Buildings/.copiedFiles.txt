@@ -1064,6 +1064,20 @@ Buildings/Fluid/FixedResistances/Validation/package.mo
 Buildings/Fluid/FixedResistances/Validation/package.order
 Buildings/Fluid/FixedResistances/package.mo
 Buildings/Fluid/FixedResistances/package.order
+Buildings/Fluid/Geothermal/Aquifer/Data/Rock.mo
+Buildings/Fluid/Geothermal/Aquifer/Data/Template.mo
+Buildings/Fluid/Geothermal/Aquifer/Data/package.mo
+Buildings/Fluid/Geothermal/Aquifer/Data/package.order
+Buildings/Fluid/Geothermal/Aquifer/Examples/CoolingOffice.mo
+Buildings/Fluid/Geothermal/Aquifer/Examples/package.mo
+Buildings/Fluid/Geothermal/Aquifer/Examples/package.order
+Buildings/Fluid/Geothermal/Aquifer/MultiWell.mo
+Buildings/Fluid/Geothermal/Aquifer/Validation/NumberWells.mo
+Buildings/Fluid/Geothermal/Aquifer/Validation/SimulationTest.mo
+Buildings/Fluid/Geothermal/Aquifer/Validation/package.mo
+Buildings/Fluid/Geothermal/Aquifer/Validation/package.order
+Buildings/Fluid/Geothermal/Aquifer/package.mo
+Buildings/Fluid/Geothermal/Aquifer/package.order
 Buildings/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Examples/InternalHEXOneUTube.mo
 Buildings/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Examples/InternalHEXTwoUTube.mo
 Buildings/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Examples/InternalResistancesOneUTube.mo
@@ -1668,6 +1682,7 @@ Buildings/Fluid/Sensors/EntropyFlowRate.mo
 Buildings/Fluid/Sensors/Examples/Density.mo
 Buildings/Fluid/Sensors/Examples/EnthalpyFlowRate.mo
 Buildings/Fluid/Sensors/Examples/EntropyFlowRate.mo
+Buildings/Fluid/Sensors/Examples/HeatMeter.mo
 Buildings/Fluid/Sensors/Examples/MassFraction.mo
 Buildings/Fluid/Sensors/Examples/MoistAirEnthalpyFlowRate.mo
 Buildings/Fluid/Sensors/Examples/PPM.mo
@@ -1682,6 +1697,7 @@ Buildings/Fluid/Sensors/Examples/Velocity.mo
 Buildings/Fluid/Sensors/Examples/VolumeFlowRate.mo
 Buildings/Fluid/Sensors/Examples/package.mo
 Buildings/Fluid/Sensors/Examples/package.order
+Buildings/Fluid/Sensors/HeatMeter.mo
 Buildings/Fluid/Sensors/LatentEnthalpyFlowRate.mo
 Buildings/Fluid/Sensors/MassFlowRate.mo
 Buildings/Fluid/Sensors/MassFraction.mo
@@ -2051,6 +2067,11 @@ Buildings/Resources/Images/Fluid/FixedResistances/Junction.svg
 Buildings/Resources/Images/Fluid/FixedResistances/PressureDrop.png
 Buildings/Resources/Images/Fluid/FixedResistances/Validation/PlugFlowPipes/AITTestBench.png
 Buildings/Resources/Images/Fluid/FixedResistances/Validation/PlugFlowPipes/ULgTestBench.png
+Buildings/Resources/Images/Fluid/Geothermal/Aquifer/Geometry.png
+Buildings/Resources/Images/Fluid/Geothermal/Aquifer/Geometry.svg
+Buildings/Resources/Images/Fluid/Geothermal/Aquifer/PressureCircuit.png
+Buildings/Resources/Images/Fluid/Geothermal/Aquifer/PressureCircuit.svg
+Buildings/Resources/Images/Fluid/Geothermal/Aquifer/results.png
 Buildings/Resources/Images/Fluid/Geothermal/Borefields/BorefieldGeometry_01.png
 Buildings/Resources/Images/Fluid/Geothermal/Borefields/BorefieldGeometry_01.tex
 Buildings/Resources/Images/Fluid/Geothermal/Borefields/BoreholeResistances_01.png
@@ -2484,6 +2505,9 @@ Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PressureDro
 Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PressureDropsExplicitLinearized.mos
 Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PressureDropsParallel.mos
 Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PressureDropsSeries.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Aquifer/Examples/CoolingOffice.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Aquifer/Validation/NumberWells.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Aquifer/Validation/SimulationTest.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Examples/InternalHEXOneUTube.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Examples/InternalHEXTwoUTube.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Examples/InternalResistancesOneUTube.mos
@@ -2668,6 +2692,7 @@ Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Conversions/Examples/To_VolumeF
 Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/Density.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/EnthalpyFlowRate.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/EntropyFlowRate.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/HeatMeter.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/MassFraction.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/MoistAirEnthalpyFlowRate.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/PPM.mos

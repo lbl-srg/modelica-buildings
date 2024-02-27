@@ -5,6 +5,47 @@ clear
 
 convertClear();
 
+// Conversion of hot water load
+convertElement("Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger",
+               "loaSHW", "QReqHotWat_flow");
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3598
+// remove parameter binding computeFlowResistance which is now final
+convertModifiers("Buildings.Fluid.SolarCollectors.ASHRAE93",
+                {"computeFlowResistance"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.SolarCollectors.EN12975",
+                {"computeFlowResistance"}, fill("",0), true);
+
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3517
 convertClass("Buildings.Controls.OBC.CDL.Discrete.Examples",
              "Buildings.Controls.OBC.CDL.Discrete.Validation");
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3526
+convertElement("Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.PlantRequests",
+               "uCooCoi_actual", "uCooCoiSet");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.PlantRequests",
+               "uHeaCoi_actual", "uHeaCoiSet");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReliefFan",
+               "yDam", "y1RelDam");
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3536
+convertClass("Buildings.Experimental.DHC.Plants.Combined.Subsystems.BaseClasses.MultipleCommands",
+             "Buildings.Templates.Components.Controls.MultipleCommands");
+ 
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3595
+convertClass("Buildings.Controls.OBC.CDL.Logical.Or3",
+             "Buildings.Obsolete.Controls.OBC.CDL.Logical.Or3");
+convertClass("Buildings.Controls.OBC.CDL.Logical.OnOffController",
+             "Buildings.Obsolete.Controls.OBC.CDL.Logical.OnOffController");
+convertClass("Buildings.Controls.OBC.CDL.Logical.TriggeredTrapezoid",
+             "Buildings.Obsolete.Controls.OBC.CDL.Logical.TriggeredTrapezoid");
+convertClass("Buildings.Controls.OBC.CDL.Logical.ZeroCrossing",
+             "Buildings.Obsolete.Controls.OBC.CDL.Logical.ZeroCrossing");
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3596
+convertClass("Buildings.Controls.OBC.CDL.Reals.Sources.ModelTime",
+             "Buildings.Controls.OBC.CDL.Reals.Sources.CivilTime");
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/xxxx
+convertClass("Buildings.Experimental.DHC.Plants.Reservoir.Borefield",
+             "Buildings.Experimental.DHC.Examples.Combined.BaseClasses.BoreField");

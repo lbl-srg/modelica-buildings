@@ -98,7 +98,7 @@ record Generic "Generic data record for movers"
   parameter Boolean motorCooledByFluid=true
     "If true, then motor heat is added to fluid stream"
     annotation(Dialog(group="Motor heat rejection"));
-  parameter Modelica.Units.SI.Power WMot_nominal(final displayUnit="W")=
+  parameter Modelica.Units.SI.Power WMot_nominal=
     if max(power.P)>Modelica.Constants.eps
     then
       if powerOrEfficiencyIsHydraulic
