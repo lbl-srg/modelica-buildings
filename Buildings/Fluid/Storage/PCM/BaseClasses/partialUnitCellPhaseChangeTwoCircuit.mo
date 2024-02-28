@@ -1,14 +1,13 @@
 within Buildings.Fluid.Storage.PCM.BaseClasses;
 model partialUnitCellPhaseChangeTwoCircuit
-  replaceable parameter
-    Buildings.Fluid.Storage.PCM.Data.HeatExchanger.Generic Design
-    "Design of HX";
+  replaceable parameter Buildings.Fluid.Storage.PCM.Data.HeatExchanger.Generic Design "Design of HX";
+  replaceable parameter Buildings.Fluid.Storage.PCM.Data.PhaseChangeMaterial.PCM58 Material "Phase Change Material";
   parameter Modelica.Units.SI.Area A_tubePro = Design.A_tubePro "Heat transfer area of process circuit tube";
   parameter Modelica.Units.SI.Area A_tubeDom = Design.A_tubeDom "Heat transfer area of domestic circuit tube";
   parameter Modelica.Units.SI.Area A_fin = Design.A_fin "Heat transfer area of fin";
   parameter Modelica.Units.SI.Area A_pcm = Design.A_pcm "Heat transfer area of pcm";
   parameter Modelica.Units.SI.Temperature TStart_pcm "Starting temperature of pcm" annotation(Dialog(tab="General", group="Initialization"));
-  replaceable parameter Buildings.HeatTransfer.Data.SolidsPCM.Generic PCM = Design.PCM "Storage material record" annotation (Placement(transformation(extent={{60,80},{80,100}})));
+  replaceable parameter Buildings.HeatTransfer.Data.SolidsPCM.Generic PCM(x=Design.sfin, k=Material.kPCM, c=Material.cPCM, d=Material.dPCM, LHea=Material.LHea, TSol=Material.TSol, TLiq=Material.TLiq) "Storage material record" annotation (Placement(transformation(extent={{60,80},{80,100}})));
   replaceable parameter Buildings.HeatTransfer.Data.Solids.Generic Copper = Design.Copper "Tube material record" annotation (Placement(transformation(extent={{4,80},{24,100}})));
   replaceable parameter Buildings.HeatTransfer.Data.Solids.Generic Aluminum = Design.Aluminum "Fin material record" annotation (Placement(transformation(extent={{32,80},{52,100}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a tubHeaPort_b2 annotation (Placement(transformation(extent={{-110,-48},{-90,-28}})));

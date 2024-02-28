@@ -49,7 +49,7 @@ model HexElementSensibleFourPort
         rotation=90,
         origin={-22,-108})));
   Modelica.Blocks.Sources.RealExpression realExpressionDom(y=((0.023*((4*abs(
-        port_a1.m_flow))/(3.14159*Design.di*Design.muw))^(4/5)*Design.Prw^0.4)*
+        port_a1.m_flow))/(Modelica.Constants.pi*Design.di*Design.muw))^(4/5)*Design.Prw^0.4)*
         Design.kw/(Design.di))*(A_tubeDom)) "Dittus-Boelter correlation for turbulent heat transfer in smooth tube"
     annotation (Placement(transformation(extent={{42,10},{22,30}})));
   Modelica.Thermal.HeatTransfer.Components.Convection conDom annotation (
@@ -58,7 +58,7 @@ model HexElementSensibleFourPort
         rotation=90,
         origin={-40,72})));
   Modelica.Blocks.Sources.RealExpression realExpressionPro(y=((0.023*((4*abs(
-        port_a2.m_flow))/(3.14159*Design.di*Design.muw))^(4/5)*Design.Prw^0.4)*
+        port_a2.m_flow))/(Modelica.Constants.pi*Design.di*Design.muw))^(4/5)*Design.Prw^0.4)*
         Design.kw/(Design.di))*(A_tubePro)) "Dittus-Boelter correlation for turbulent heat transfer in smooth tube"
     annotation (Placement(transformation(extent={{42,-20},{22,0}})));
   Modelica.Thermal.HeatTransfer.Components.Convection conPro annotation (

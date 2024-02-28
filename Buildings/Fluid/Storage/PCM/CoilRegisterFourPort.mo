@@ -2,10 +2,11 @@ within Buildings.Fluid.Storage.PCM;
 model CoilRegisterFourPort
   "Four port register for a pcm heat exchanger"
   import Modelica.Constants;
+  replaceable parameter Buildings.Fluid.Storage.PCM.Data.HeatExchanger.Generic Design "Heat Exchanger Design";
+  replaceable parameter Buildings.Fluid.Storage.PCM.Data.PhaseChangeMaterial.PCM58 Material "Phase Change Material";
   parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal "mass flowrate through HPC";
   parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal "mass flowrate through LPC";
   parameter Modelica.Units.SI.Temperature TStart_pcm "Starting temperature of pcm";
-  replaceable parameter Buildings.Fluid.Storage.PCM.Data.HeatExchanger.Generic Design "Design of HX";
   Buildings.Fluid.Storage.PCM.BaseClasses.HexElementSensibleFourPort eleHex(
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium,
@@ -112,16 +113,16 @@ model CoilRegisterFourPort
   Modelica.Blocks.Sources.RealExpression calcSOC(y=Buildings.Fluid.Storage.PCM.BaseClasses.SOC(
         Upcm=eleHex.Upcm,
         mpcm=eleHex.mpcm,
-        TSol=Design.PCM.TSol,
-        cSol=Design.PCM.c,
-        LHea=Design.PCM.LHea))
+        TSol=Material.TSol,
+        cSol=Material.cPCM,
+        LHea=Material.LHea))
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
   Modelica.Blocks.Interfaces.RealOutput EPCM "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,-76},{120,-56}}),
         iconTransformation(extent={{100,-76},{120,-56}})));
   Modelica.Blocks.Sources.RealExpression calcTesCap(y=Buildings.Fluid.Storage.PCM.BaseClasses.Ufg(
-                                                                    mpcm=eleHex.mpcm,
-        LHea=Design.PCM.LHea))
+        mpcm=eleHex.mpcm,
+        LHea=Material.LHea))
     annotation (Placement(transformation(extent={{-50,-102},{-70,-82}})));
   Modelica.Blocks.Interfaces.RealOutput Ufg "Value of Real output"
     annotation (Placement(transformation(extent={{-100,-102},{-120,-82}})));
