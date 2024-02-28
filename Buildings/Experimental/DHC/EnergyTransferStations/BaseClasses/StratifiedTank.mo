@@ -5,8 +5,7 @@ model StratifiedTank
     "Medium model"
     annotation (choices(
       choice(redeclare package Medium=Buildings.Media.Water "Water"),
-      choice(redeclare package Medium =
-            Buildings.Media.Antifreeze.PropyleneGlycolWater (                            property_T=293.15,X_a=0.40)
+      choice(redeclare package Medium = Buildings.Media.Antifreeze.PropyleneGlycolWater (property_T=293.15,X_a=0.40)
         "Propylene glycol water, 40% mass fraction")));
   final parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
