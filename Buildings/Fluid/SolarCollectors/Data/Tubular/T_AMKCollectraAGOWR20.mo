@@ -8,8 +8,8 @@ record T_AMKCollectraAGOWR20 =
     final V=3.5/1000,
     final dp_nominal=100,
     final mperA_flow_nominal=0.0201,
-    final b0=0.5722,
-    final b1=-0.0052,
+    final incAngDatDeg={0,10,20,30,40,50,60,70,80,90},
+    final incAngModDat={1.0,1.0088,1.0367,1.0884,1.1743,1.3164,1.567,2.0816,3.6052,0.0},
     final y_intercept=0.446,
     final slope=-1.432) "T - AMG Collectra AG, OWR 20"
     annotation (
