@@ -24,8 +24,7 @@ parameter Modelica.Units.SI.Temperature pcm_Tstart = 311.05;
   Modelica.Blocks.Sources.CombiTimeTable HPCdata(
     tableOnFile=true,
     tableName="tab1",
-    fileName=
-        "C:/Users/Xiwang_LBL/Documents/Dymola/ccc-hp-plus-tes/validation_scripts/meas_58c/all-runs/58_single_6lpm_12C_65C_Run1_all.txt",
+    fileName="C:/Users/Xiwang_LBL/Documents/Dymola/ccc-hp-plus-tes/validation_scripts/meas_58c/all-runs/58_single_6lpm_12C_65C_Run1_all.txt",
     columns={2,4,7},
     timeScale=60)
     annotation (Placement(transformation(extent={{-150,4},{-130,24}})));
@@ -51,14 +50,7 @@ parameter Modelica.Units.SI.Temperature pcm_Tstart = 311.05;
   CoilRegisterFourPort pcmFourPort(
     m1_flow_nominal=m_flow_nominal,
     m2_flow_nominal=m_flow_nominal,
-    TStart_pcm=pcm_Tstart,
-    Design(TesNominal=3.5*3600000, PCM(
-        k=matPro.kPCM,
-        c=matPro.cPCM,
-        d=matPro.dPCM,
-        LHea=matPro.LHea,
-        TSol=matPro.TSol,
-        TLiq=matPro.TLiq))) annotation (Placement(transformation(
+    TStart_pcm=pcm_Tstart) annotation (Placement(transformation(
         extent={{13,13},{-13,-13}},
         rotation=180,
         origin={21,-9})));
@@ -84,8 +76,7 @@ parameter Modelica.Units.SI.Temperature pcm_Tstart = 311.05;
   Modelica.Blocks.Sources.CombiTimeTable LPCdata(
     tableOnFile=true,
     tableName="tab1",
-    fileName=
-        "C:/Users/Xiwang_LBL/Documents/Dymola/ccc-hp-plus-tes/validation_scripts/meas_58c/all-runs/58_single_6lpm_12C_65C_Run1_all.txt",
+    fileName="C:/Users/Xiwang_LBL/Documents/Dymola/ccc-hp-plus-tes/validation_scripts/meas_58c/all-runs/58_single_6lpm_12C_65C_Run1_all.txt",
     columns={3,6,5},
     timeScale=60)
     annotation (Placement(transformation(extent={{-8,-90},{12,-70}})));
@@ -117,8 +108,6 @@ parameter Modelica.Units.SI.Temperature pcm_Tstart = 311.05;
     "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
-  Data.PhaseChangeMaterial.PCM58 matPro
-    annotation (Placement(transformation(extent={{-10,54},{10,74}})));
 
 equation
   connect(toKelvin.Kelvin,HPCPum. T_in)

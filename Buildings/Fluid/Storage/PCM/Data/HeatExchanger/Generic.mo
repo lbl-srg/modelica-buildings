@@ -67,7 +67,7 @@ record Generic
                                                                                                                                                         annotation(Dialog(group="PCM"));
 
   replaceable parameter
-    Buildings.HeatTransfer.Data.SolidsPCM.Generic PCM(x=sfin, d=Material.dPCM, LHea=Material.LHea) "Storage material record" annotation(Dialog(group="Materials"));
+    Buildings.HeatTransfer.Data.SolidsPCM.Generic PCM(x=sfin, d=Material.dPCM, c=Material.cPCM, k=Material.kPCM, LHea=Material.LHea, TSol=Material.TSol, TLiq=Material.TLiq) "Storage material record" annotation(Dialog(group="Materials"));
   replaceable parameter
     Buildings.HeatTransfer.Data.Solids.Generic Aluminum(x=t_fin, k=235, c=904, d=2700) "Aluminum fin material record"
                                                                                                                      annotation(Dialog(group="Materials"));
