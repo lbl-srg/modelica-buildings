@@ -7,8 +7,8 @@ model EN12975SolarGain "Example showing the use of EN12975SolarGain"
     annotation (choicesAllMatching=true);
   Buildings.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain solGai(
     eta0=per.eta0,
-    b0=per.b0,
-    b1=per.b1,
+    incAngDat=per.incAngDat,
+    incAngModDat=per.incAngModDat,
     nSeg=3,
     A_c=per.A,
     iamDiff=per.IAMDiff,

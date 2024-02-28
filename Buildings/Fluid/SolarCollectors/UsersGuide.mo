@@ -123,17 +123,8 @@ factor).
 </li>
 <li>
 The relation between the incidence angle modifier (IAM) and incidence angle
-<code>&theta;</code> is currently approximated in the model by
-(Eq 18.298 in the EnergyPlus 23.2.0 Engineering Reference):
-<p align=\"center\" style=\"font-style:italic;\">
-K<sub>(&tau;&alpha;)</sub>=1+b<sub>0</sub>(1/cos(&theta;)-1)
-  +b<sub>1</sub>(1/cos(&theta;)-1)<sup>2</sup>
-</p>
-<p>
-where <i>K<sub>(&tau;&alpha;)</sub></i> is the incidence angle modifier,
-<i>b<sub>0</sub></i> is the first incidence angle modifier coefficient,
-<i>&theta;</i> is the incidence angle,
-and <i>b<sub>1</sub></i> is the second incidence angle modifier coefficient.
+<code>&theta;</code> is calculated using cubic splines and measurement data
+provided in the data sheets.
 </p>
 <p>
 As reported in the Energyplus Engineering Reference, this relation is only valid

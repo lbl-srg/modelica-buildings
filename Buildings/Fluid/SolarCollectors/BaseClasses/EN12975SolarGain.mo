@@ -7,8 +7,8 @@ model EN12975SolarGain "Model calculating solar gains per the EN12975 standard"
     "Medium in the system";
 
   parameter Real eta0(final unit="1") "Optical efficiency (maximum efficiency)";
-  parameter Real b0(final unit="1") "1st incident angle modifer coefficient";
-  parameter Real b1(final unit="1") "2nd incident angle modifer coefficient";
+  parameter Modelica.Units.SI.Angle[:] incAngDat "Incidence angle modifier spline derivative coefficients";
+  parameter Real[size(incAngDat,1)] incAngModDat(final unit="1") "Incidence angle modifier spline derivative coefficients";
   parameter Boolean use_shaCoe_in = false
     "Enables an input connector for shaCoe"
     annotation(Dialog(group="Shading"));
@@ -57,6 +57,14 @@ protected
   Real iamBea "Incidence angle modifier for director solar radiation";
   Modelica.Blocks.Interfaces.RealInput shaCoe_internal "Internally used shaCoe";
 
+  parameter Real[size(incAngDat, 1)] dMonotone(each fixed=false) "Derivatives";
+
+initial algorithm
+  dMonotone := Buildings.Utilities.Math.Functions.splineDerivatives(
+    x=incAngDat,
+    y=incAngModDat,
+    ensureMonotonicity=false);
+
 equation
   connect(shaCoe_internal, shaCoe_in);
 
@@ -65,7 +73,7 @@ equation
   end if;
 
   // EnergyPlus 23.2.0 Engineering Reference Eq 18.298
-  iamBea = SolarCollectors.BaseClasses.IAM(incAng, b0, b1);
+  iamBea = SolarCollectors.BaseClasses.IAM(incAng, incAngDat, incAngModDat, dMonotone);
   // Modified from EnergyPlus 23.2.0 Engineering Reference Eq 18.302
   // by applying shade effect for direct solar radiation
   // Only solar heat gain is considered here
@@ -161,7 +169,7 @@ EnergyPlus 23.2.0 Engineering Reference</a>
 </html>", revisions="<html>
 <ul>
 <li>
-February 15, 2024, by Jelger Jansen:<br/>
+February 28, 2024, by Jelger Jansen:<br/>
 Refactor model.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3604\">Buildings, #3604</a>.

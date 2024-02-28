@@ -7,8 +7,8 @@ model ASHRAESolarGain "Example showing the use of ASHRAESolarGain"
     annotation (choicesAllMatching=true);
   Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAESolarGain solGai(
     nSeg=3,
-    b0=per.b0,
-    b1=per.b1,
+    incAngDat=per.incAngDat,
+    incAngModDat=per.incAngModDat,
     shaCoe=0,
     use_shaCoe_in=true,
     A_c=per.A,
