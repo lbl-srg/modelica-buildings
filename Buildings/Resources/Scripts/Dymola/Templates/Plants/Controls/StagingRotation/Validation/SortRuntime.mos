@@ -28,7 +28,7 @@ createPlot(
 createPlot(
     id=2,
     subPlot=2,
-    y={"sorRunTim.timRun[1].y", "sorRunTim.timRun[2].y", "sorRunTim.timRun[3].y"},
+    y={"sorRunTim.yRunTimSta[1]", "sorRunTim.yRunTimSta[2]", "sorRunTim.yRunTimSta[3]"},
     autoscale=true,
     grid=true
 );

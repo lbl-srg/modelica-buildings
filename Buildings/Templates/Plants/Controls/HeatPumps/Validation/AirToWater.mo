@@ -51,8 +51,9 @@ model AirToWater
     staEqu=[1,0,0; 0,0.5,0.5; 1,0.5,0.5; 0,1,1; 1,1,1],
     idxEquAlt={2,3}) "Plant controller"
     annotation (Placement(transformation(extent={{-10,-20},{10,20}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable ratV_flow(table=[0,0,0; 5,0,
-        0; 6,1,0; 12,0.2,0.2; 16,0,1; 22,0.1,0.1; 24,0,0], timeScale=3600)
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable ratV_flow(table=[0,0,0; 5,
+        0,0; 6,1,0; 12,0.2,0.2; 15,0,1; 22,0.1,0.1; 24,0,0],
+                                                           timeScale=3600)
     "Source signal for volume flow rate ratio – Index 1 for heating, 2 for cooling"
     annotation (Placement(transformation(extent={{-160,-150},{-140,-130}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatRet(final k=
@@ -84,17 +85,24 @@ model AirToWater
   Components.Controls.StatusEmulator y1PumChiWatSec_actual[ctl.nPumChiWatSec]
     if ctl.have_pumChiWatSec "Secondary CHW pump status"
     annotation (Placement(transformation(extent={{30,-70},{50,-50}})));
-  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.PlantRequests
-    mulAHUPlaReq "Plant request generator"
-    annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TDum(k=293.15, y(final unit
-        ="K", displayUnit="degC")) "Placeholder signal for request generator"
-    annotation (Placement(transformation(extent={{-160,10},{-140,30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin TOut(
     amplitude=10,
     freqHz=0.5/24/3600,
+    phase=-0.43633231299858,
     offset=10 + 273.15) "OAT"
     annotation (Placement(transformation(extent={{-160,-30},{-140,-10}})));
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold isDemHea(t=1E-2, h=0.5E-2)
+    "Return true if heating demand"
+    annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold isDemCoo(t=1E-2, h=0.5E-2)
+    "Return true if cooling demand"
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger reqPlaHeaWat
+    "Generate HW plant request"
+    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger reqPlaChiWat
+    "Generate CHW plant request"
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 equation
   connect(TChiWatRet.y, ctl.TChiWatRet) annotation (Line(points={{-138,-100},{-20,
           -100},{-20,-15.8},{-12,-15.8}}, color={0,0,127}));
@@ -132,24 +140,22 @@ equation
   connect(y1PumChiWatSec_actual.y1_actual, ctl.u1PumChiWatSec_actual)
     annotation (Line(points={{52,-60},{90,-60},{90,48},{-28,48},{-28,-2},{-12,-2}},
         color={255,0,255}));
-  connect(TDum.y,mulAHUPlaReq. TAirSup) annotation (Line(points={{-138,20},{-120,
-          20},{-120,28},{-102,28}},
-                                color={0,0,127}));
-  connect(TDum.y,mulAHUPlaReq. TAirSupSet) annotation (Line(points={{-138,20},{-120,
-          20},{-120,23},{-102,23}},
-                                  color={0,0,127}));
-  connect(ratV_flow.y[2], mulAHUPlaReq.uCooCoiSet) annotation (Line(points={{-138,
-          -140},{-120,-140},{-120,17},{-102,17}}, color={0,0,127}));
-  connect(ratV_flow.y[1], mulAHUPlaReq.uHeaCoiSet) annotation (Line(points={{-138,
-          -140},{-120,-140},{-120,12},{-102,12}}, color={0,0,127}));
-  connect(mulAHUPlaReq.yChiPlaReq, ctl.nReqChiWat) annotation (Line(points={{-78,
-          23},{-40,23},{-40,12},{-12,12}}, color={255,127,0}));
-  connect(mulAHUPlaReq.yHotWatPlaReq, ctl.nReqHeaWat) annotation (Line(points={{
-          -78,12},{-46,12},{-46,14},{-12,14}}, color={255,127,0}));
   connect(u1Ava.y, ctl.u1Ava) annotation (Line(points={{-138,60},{-18,60},{-18,18},
           {-12,18}}, color={255,0,255}));
   connect(TOut.y, ctl.TOut) annotation (Line(points={{-138,-20},{-32,-20},{-32,-6},
           {-12,-6}}, color={0,0,127}));
+  connect(ratV_flow.y[1], isDemHea.u) annotation (Line(points={{-138,-140},{
+          -120,-140},{-120,40},{-112,40}}, color={0,0,127}));
+  connect(ratV_flow.y[2], isDemCoo.u) annotation (Line(points={{-138,-140},{
+          -120,-140},{-120,0},{-112,0}}, color={0,0,127}));
+  connect(isDemCoo.y, reqPlaChiWat.u)
+    annotation (Line(points={{-88,0},{-82,0}}, color={255,0,255}));
+  connect(isDemHea.y, reqPlaHeaWat.u)
+    annotation (Line(points={{-88,40},{-82,40}}, color={255,0,255}));
+  connect(reqPlaHeaWat.y, ctl.nReqHeaWat) annotation (Line(points={{-58,40},{
+          -40,40},{-40,14},{-12,14}}, color={255,127,0}));
+  connect(reqPlaChiWat.y, ctl.nReqChiWat) annotation (Line(points={{-58,0},{-40,
+          0},{-40,12},{-12,12}}, color={255,127,0}));
   annotation (
       __Dymola_Commands(
       file=

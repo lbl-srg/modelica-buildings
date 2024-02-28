@@ -113,8 +113,8 @@ block EquipmentEnable
   Buildings.Controls.OBC.CDL.Integers.Max maxInt
     "Maximum between stage index and 1"
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
-  Buildings.Controls.OBC.CDL.Integers.LessEqualThreshold isZer(final t=0)
-    "Check if stage is equal to zero"
+  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold greZer(final t=0)
+    "Check if stage index is greater than zero"
     annotation (Placement(transformation(extent={{-170,-50},{-150,-30}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(final realTrue=
         1, final realFalse=0) "Cast to real"
@@ -213,9 +213,9 @@ equation
           {-162,-6}}, color={255,127,0}));
   connect(maxInt.y, intScaRep.u)
     annotation (Line(points={{-138,0},{-132,0}}, color={255,127,0}));
-  connect(uSta, isZer.u) annotation (Line(points={{-220,0},{-180,0},{-180,-40},
+  connect(uSta, greZer.u) annotation (Line(points={{-220,0},{-190,0},{-190,-40},
           {-172,-40}}, color={255,127,0}));
-  connect(isZer.y, booToRea.u)
+  connect(greZer.y, booToRea.u)
     annotation (Line(points={{-148,-40},{-142,-40}}, color={255,0,255}));
   connect(booToRea.y, reaScaRep.u)
     annotation (Line(points={{-118,-40},{-112,-40}}, color={0,0,127}));

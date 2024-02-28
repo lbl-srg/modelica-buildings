@@ -1,0 +1,54 @@
+simulateModel("Buildings.Templates.Plants.Controls.HeatPumps.Validation.AirToWater",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=86400.0,
+    resultFile="AirToWaterControls");
+createPlot(
+    id=1,
+    position={5, 5, 300, 500},
+    y={"ctl.chaStaHea.capReq.y", "ctl.chaStaCoo.capReq.y", "capHea_nominal", "capCoo_nominal"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"ctl.TOut", "ctl.TOutChiWatLck", "ctl.TOutHeaWatLck"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=2,
+    position={310, 5, 300, 500},
+    y={"mulAHUPlaReq.yHotWatPlaReq", "mulAHUPlaReq.yChiPlaReq", "ctl.enaHea.y1", "ctl.enaCoo.y1"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=2,
+    subPlot=2,
+    y={"ctl.idxStaHea.y", "ctl.idxStaCoo.y"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=3,
+    position={615, 5, 300, 500},
+    subPlot=1,
+    y={"ctl.y1[1]", "ctl.y1[2]", "ctl.y1[3]"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=3,
+    subPlot=2,
+    y={"ctl.y1Hea[1]", "ctl.y1Hea[2]", "ctl.y1Hea[3]"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);

@@ -32,23 +32,31 @@ block AirToWater "Controller for AWHP plant"
     "Set to true for plants with secondary CHW pumps"
     annotation(Evaluate=true,
     Dialog(enable=have_chiWat, group="Plant configuration"));
-  parameter Integer nHp(final min=1)
+  parameter Integer nHp(min=1)
     "Number of heat pumps"
     annotation(Evaluate=true,
     Dialog(group="Plant configuration"));
-  parameter Integer nPumHeaWatPri(final min=1, start=0)=nHp
+  parameter Integer nPumHeaWatPri(
+    min=1,
+    start=0)=nHp
     "Number of primary HW pumps"
     annotation(Evaluate=true,
     Dialog(group="Plant configuration", enable=have_pumHeaWatPri));
-  parameter Integer nPumChiWatPri(final min=1, start=0)=nHp
+  parameter Integer nPumChiWatPri(
+    min=1,
+    start=0)=nHp
     "Number of primary CHW pumps"
     annotation(Evaluate=true,
     Dialog(group="Plant configuration", enable=have_pumChiWatPri));
-  parameter Integer nPumHeaWatSec(final min=1, start=0)=nHp
+  parameter Integer nPumHeaWatSec(
+    min=1,
+    start=0)=nHp
     "Number of secondary HW pumps"
     annotation(Evaluate=true,
     Dialog(group="Plant configuration", enable=have_pumHeaWatSec));
-  parameter Integer nPumChiWatSec(final min=1, start=0)=nHp
+  parameter Integer nPumChiWatSec(
+    min=1,
+    start=0)=nHp
     "Number of secondary CHW pumps"
     annotation(Evaluate=true,
     Dialog(group="Plant configuration", enable=have_pumChiWatSec));
@@ -221,7 +229,7 @@ block AirToWater "Controller for AWHP plant"
       for j in 1:nHp}) for i in 1:nSta})
     "Number of lead/lag alternate equipment"
     annotation(Evaluate=true);
-  // RFE: The following could be evaluted with a function such as Modelica.Math.BooleanVectors.index.
+  // RFE: The following could be evaluted from staEqu with a function such as Modelica.Math.BooleanVectors.index.
   parameter Integer idxEquAlt[nEquAlt]
     "Indices of lead/lag alternate equipment"
     annotation(Evaluate=true, Dialog(group="Equipment staging and rotation"));
@@ -245,6 +253,11 @@ block AirToWater "Controller for AWHP plant"
     unit="s",
     displayUnit="min")=900
     "Minimum runtime of each stage"
+    annotation (Dialog(tab="Advanced", group="Equipment staging and rotation"));
+  parameter Real dtOff(
+    final unit="s",
+    final min=0)=900
+    "Off time required before equipment is deemed available again"
     annotation (Dialog(tab="Advanced", group="Equipment staging and rotation"));
 
   Enabling.Enable enaHea(
@@ -392,7 +405,8 @@ block AirToWater "Controller for AWHP plant"
     final rho_default=rho_default) if have_heaWat
     "Generate heating stage transition command"
     annotation (Placement(transformation(extent={{-40,308},{-20,332}})));
-  StagingRotation.SortRuntime sorRunTimHea(final nin=nEquAlt) if have_heaWat
+  StagingRotation.SortRuntime sorRunTimHea(idxEquAlt=idxEquAlt, nin=nHp)
+                                                              if have_heaWat
     "Sort lead/lag alternate equipment by staging runtime – Heating mode"
     annotation (Placement(transformation(extent={{-40,280},{-20,300}})));
   Buildings.Controls.OBC.CDL.Logical.Pre y1Pre[nHp]
@@ -444,34 +458,31 @@ block AirToWater "Controller for AWHP plant"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1_actual[nHp]
     "Heat pump status" annotation (Placement(transformation(extent={{-300,280},{
             -260,320}}), iconTransformation(extent={{-140,40},{-100,80}})));
-  StagingRotation.EquipmentAvailability avaHeaCoo[nHp](each final have_heaWat=
-        have_heaWat, each final have_chiWat=have_chiWat)
+  StagingRotation.EquipmentAvailability_state avaHeaCoo[nHp](
+    each final have_heaWat=have_heaWat,
+    each final have_chiWat=have_chiWat,
+    each final dtOff=dtOff)
     "Evaluate equipment availability in heating or cooling mode"
     annotation (Placement(transformation(extent={{-150,250},{-130,270}})));
   Buildings.Controls.OBC.CDL.Logical.Pre y1HeaPre[nHp]
     "Left-limit of command signal to break algebraic loop"
     annotation (Placement(transformation(extent={{160,350},{140,370}})));
-  StagingRotation.SortRuntime sorRunTimCoo(final nin=nEquAlt) if have_chiWat
+  StagingRotation.SortRuntime sorRunTimCoo(final idxEquAlt=idxEquAlt, nin=nHp)
+                                                              if have_chiWat
     "Sort lead/lag alternate equipment by staging runtime – Cooling mode"
     annotation (Placement(transformation(extent={{-40,90},{-20,110}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanExtractSignal y1PreEquAlt(
-    final nin=nHp,
-    final nout=nEquAlt,
-    final extract=idxEquAlt)
-    "Extract signal for lead/lag alternate equipment only"
-    annotation (Placement(transformation(extent={{190,370},{170,390}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanExtractSignal avaHeaEquAlt(
-    final nin=nHp,
-    final nout=nEquAlt,
-    final extract=idxEquAlt) if have_heaWat
-    "Extract signal for lead/lag alternate equipment only"
-    annotation (Placement(transformation(extent={{-110,274},{-90,294}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanExtractSignal avaCooEquAlt(
-    final nin=nHp,
-    final nout=nEquAlt,
-    final extract=idxEquAlt) if have_chiWat
-    "Extract signal for lead/lag alternate equipment only"
-    annotation (Placement(transformation(extent={{-110,84},{-90,104}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold DEBUG_y1UpHea(
+      trueHoldDuration=1, falseHoldDuration=0)
+    annotation (Placement(transformation(extent={{42,316},{62,336}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold DEBUG_y1DowHea(
+      trueHoldDuration=1, falseHoldDuration=0)
+    annotation (Placement(transformation(extent={{42,288},{62,308}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold DEBUG_y1UpCoo(
+      trueHoldDuration=1, falseHoldDuration=0)
+    annotation (Placement(transformation(extent={{40,132},{60,152}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold DEBUG_y1DowCoo(
+      trueHoldDuration=1, falseHoldDuration=0)
+    annotation (Placement(transformation(extent={{40,104},{60,124}})));
 equation
   connect(u1SchHea, enaHea.u1Sch) annotation (Line(points={{-280,382},{-180,382},
           {-180,364},{-112,364}}, color={255,0,255}));
@@ -590,23 +601,25 @@ equation
           {36,254},{36,174},{38,174}}, color={255,0,255}));
   connect(sorRunTimCoo.yIdx, enaEquCoo.uIdxAltSor) annotation (Line(
         points={{-18,100},{32,100},{32,186},{38,186}}, color={255,127,0}));
-  connect(y1Pre.y, y1PreEquAlt.u)
-    annotation (Line(points={{198,380},{192,380}}, color={255,0,255}));
-  connect(y1PreEquAlt.y, sorRunTimHea.u1Run) annotation (Line(points={{168,380},
-          {-60,380},{-60,290},{-42,290}},      color={255,0,255}));
-  connect(y1PreEquAlt.y, sorRunTimCoo.u1Run) annotation (Line(points={{168,380},
-          {-60,380},{-60,100},{-42,100}},      color={255,0,255}));
-  connect(avaHeaCoo.y1Hea, avaHeaEquAlt.u) annotation (Line(points={{-128,266},{
-          -120,266},{-120,284},{-112,284}}, color={255,0,255}));
-  connect(avaHeaEquAlt.y, sorRunTimHea.u1Ava)
-    annotation (Line(points={{-88,284},{-42,284}}, color={255,0,255}));
-  connect(avaCooEquAlt.y, sorRunTimCoo.u1Ava)
-    annotation (Line(points={{-88,94},{-42,94}},   color={255,0,255}));
-  connect(avaHeaCoo.y1Coo, avaCooEquAlt.u) annotation (Line(points={{-128,254},{
-          -120,254},{-120,94},{-112,94}},   color={255,0,255}));
   connect(idxStaCoo.y, chaStaCoo.uSta) annotation (Line(points={{12,180},{24,
           180},{24,160},{-48,160},{-48,152},{-42,152}},
                                                    color={255,127,0}));
+  connect(chaStaHea.y1Up, DEBUG_y1UpHea.u) annotation (Line(points={{-18,324},{14,
+          324},{14,326},{40,326}}, color={255,0,255}));
+  connect(chaStaHea.y1Dow, DEBUG_y1DowHea.u) annotation (Line(points={{-18,316},
+          {12,316},{12,298},{40,298}}, color={255,0,255}));
+  connect(chaStaCoo.y1Up, DEBUG_y1UpCoo.u) annotation (Line(points={{-18,146},{10,
+          146},{10,142},{38,142}}, color={255,0,255}));
+  connect(chaStaCoo.y1Dow, DEBUG_y1DowCoo.u) annotation (Line(points={{-18,138},
+          {12,138},{12,114},{38,114}}, color={255,0,255}));
+  connect(y1Pre.y, sorRunTimHea.u1Run) annotation (Line(points={{198,380},{-60,380},
+          {-60,290},{-42,290}}, color={255,0,255}));
+  connect(y1Pre.y, sorRunTimCoo.u1Run) annotation (Line(points={{198,380},{-60,380},
+          {-60,100},{-42,100}}, color={255,0,255}));
+  connect(avaHeaCoo.y1Hea, sorRunTimHea.u1Ava) annotation (Line(points={{-128,266},
+          {-120,266},{-120,284},{-42,284}}, color={255,0,255}));
+  connect(avaHeaCoo.y1Coo, sorRunTimCoo.u1Ava) annotation (Line(points={{-128,254},
+          {-120,254},{-120,94},{-42,94}}, color={255,0,255}));
   annotation (
     defaultComponentName="ctl",
     Icon(
