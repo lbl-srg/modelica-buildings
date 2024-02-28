@@ -36,12 +36,12 @@ model Connection1PipePlugFlow
   parameter Modelica.Units.SI.Length thickness=0.0035 "Pipe wall thickness";
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortDis
     "Heat transfer to and from the distribution pipe" annotation (Placement(
-        transformation(extent={{-106,70},{-86,90}}), iconTransformation(extent={{-60,16},
+        transformation(extent={{-110,70},{-90,90}}), iconTransformation(extent={{-60,16},
             {-40,36}})));
 
 equation
   connect(pipDis.heatPort, heatPortDis)
-    annotation (Line(points={{-70,-30},{-70,80},{-96,80}}, color={191,0,0}));
+    annotation (Line(points={{-70,-30},{-70,80},{-100,80}},color={191,0,0}));
   annotation (Documentation(revisions="<html>
 <ul>
 <li>
