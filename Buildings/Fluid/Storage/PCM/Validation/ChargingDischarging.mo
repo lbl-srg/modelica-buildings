@@ -1,9 +1,9 @@
-within Buildings.Fluid.Storage.PCM.Examples;
-model SUQ3_2022
-  "Validating the 11C, 48C, and 58C PCM HXs with single circuit charge / discharge at 3, 6, 9 Lpm and dual circuit charge / discharge at 6, 12, 18 Lpm"
+within Buildings.Fluid.Storage.PCM.Validation;
+model ChargingDischarging
+  "Test stand to validate PCM HXs with single circuit or dual circuit charge / discharge"
   extends Modelica.Icons.Example;
   replaceable package Medium=Buildings.Media.Water "Water medium";
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=0.2
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=0.1
     "Nominal mass flowrate of Tes";
 parameter Modelica.Units.SI.Temperature pcm_Tstart = 311.05;
   Buildings.Fluid.Sources.Boundary_pT sinHPC(redeclare package Medium =
@@ -20,12 +20,12 @@ parameter Modelica.Units.SI.Temperature pcm_Tstart = 311.05;
     nPorts=1,
     redeclare package Medium = Medium,
     use_m_flow_in=true) "Flow source"
-    annotation (Placement(transformation(extent={{-90,0},{-70,20}})));
+    annotation (Placement(transformation(extent={{-76,0},{-56,20}})));
   Modelica.Blocks.Sources.CombiTimeTable HPCdata(
     tableOnFile=true,
     tableName="tab1",
     fileName=
-        "C:/git/rtu-pcm/modelica-rtu-pcm/RTUPCM/48_dual_6lpm_40C_55C_Run2_all.txt",
+        "C:/Users/Xiwang_LBL/Documents/Dymola/ccc-hp-plus-tes/validation_scripts/meas_58c/all-runs/58_single_6lpm_12C_65C_Run1_all.txt",
     columns={2,4,7},
     timeScale=60)
     annotation (Placement(transformation(extent={{-150,4},{-130,24}})));
@@ -33,30 +33,32 @@ parameter Modelica.Units.SI.Temperature pcm_Tstart = 311.05;
     annotation (Placement(transformation(extent={{-116,-8},{-96,12}})));
   Modelica.Blocks.Interfaces.RealOutput TOutHPCMod
     "Modeled outlet fluid temperature"
-    annotation (Placement(transformation(extent={{132,50},{152,70}})));
+    annotation (Placement(transformation(extent={{100,50},{120,70}}),
+        iconTransformation(extent={{100,50},{120,70}})));
   Modelica.Blocks.Interfaces.RealOutput TOutHPCMea
     "Measured outlet fluid temperature"
-    annotation (Placement(transformation(extent={{132,66},{152,86}})));
+    annotation (Placement(transformation(extent={{100,70},{120,90}}),
+        iconTransformation(extent={{100,70},{120,90}})));
   Modelica.Thermal.HeatTransfer.Celsius.ToKelvin toKelvin1
-    annotation (Placement(transformation(extent={{98,66},{118,86}})));
+    annotation (Placement(transformation(extent={{38,70},{58,90}})));
   Buildings.Fluid.Sensors.DensityTwoPort senDen(redeclare package Medium =
         Medium, m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{-50,0},{-30,20}})));
   Modelica.Blocks.Math.Gain Lmin_m3s(k=0.001/60)
     annotation (Placement(transformation(extent={{-110,70},{-90,90}})));
   Modelica.Blocks.Math.Product m3s_kgs
-    annotation (Placement(transformation(extent={{-50,40},{-70,60}})));
+    annotation (Placement(transformation(extent={{-46,40},{-66,60}})));
   CoilRegisterFourPort pcmFourPort(
     m1_flow_nominal=m_flow_nominal,
     m2_flow_nominal=m_flow_nominal,
     TStart_pcm=pcm_Tstart,
     Design(TesNominal=3.5*3600000, PCM(
-        k=matPro.kPCMLow,
-        c=matPro.cPCMLow,
-        d=matPro.dPCMLow,
-        LHea=matPro.LHeaLow,
-        TSol=matPro.TSolLow,
-        TLiq=matPro.TLiqLow))) annotation (Placement(transformation(
+        k=matPro.kPCM,
+        c=matPro.cPCM,
+        d=matPro.dPCM,
+        LHea=matPro.LHea,
+        TSol=matPro.TSol,
+        TLiq=matPro.TLiq))) annotation (Placement(transformation(
         extent={{13,13},{-13,-13}},
         rotation=180,
         origin={21,-9})));
@@ -71,7 +73,8 @@ parameter Modelica.Units.SI.Temperature pcm_Tstart = 311.05;
     annotation (Placement(transformation(extent={{-50,-40},{-30,-20}})));
   Modelica.Blocks.Interfaces.RealOutput TOutLPCMod
     "Modeled outlet fluid temperature"
-    annotation (Placement(transformation(extent={{-90,-60},{-110,-40}})));
+    annotation (Placement(transformation(extent={{-100,-60},{-120,-40}}),
+        iconTransformation(extent={{-100,-60},{-120,-40}})));
   Buildings.Fluid.Sources.MassFlowSource_T LPCPum(
     use_T_in=true,
     nPorts=1,
@@ -82,7 +85,7 @@ parameter Modelica.Units.SI.Temperature pcm_Tstart = 311.05;
     tableOnFile=true,
     tableName="tab1",
     fileName=
-        "C:/git/rtu-pcm/modelica-rtu-pcm/RTUPCM/48_dual_6lpm_40C_55C_Run2_all.txt",
+        "C:/Users/Xiwang_LBL/Documents/Dymola/ccc-hp-plus-tes/validation_scripts/meas_58c/all-runs/58_single_6lpm_12C_65C_Run1_all.txt",
     columns={3,6,5},
     timeScale=60)
     annotation (Placement(transformation(extent={{-8,-90},{12,-70}})));
@@ -97,24 +100,29 @@ parameter Modelica.Units.SI.Temperature pcm_Tstart = 311.05;
     annotation (Placement(transformation(extent={{90,-40},{110,-60}})));
   Modelica.Blocks.Interfaces.RealOutput TOutLPCMea
     "Measured outlet fluid temperature"
-    annotation (Placement(transformation(extent={{-90,-80},{-110,-60}})));
+    annotation (Placement(transformation(extent={{-100,-80},{-120,-60}}),
+        iconTransformation(extent={{-100,-80},{-120,-60}})));
   Modelica.Thermal.HeatTransfer.Celsius.ToKelvin toKelvin3
     annotation (Placement(transformation(extent={{-58,-80},{-78,-60}})));
   Modelica.Blocks.Interfaces.RealOutput SOC "state of charge"
-    annotation (Placement(transformation(extent={{132,-6},{152,14}})));
+    annotation (Placement(transformation(extent={{100,-30},{120,-10}}),
+        iconTransformation(extent={{100,-30},{120,-10}})));
   Modelica.Blocks.Interfaces.RealOutput QHPC "heat flow from HPC into PCM"
-    annotation (Placement(transformation(extent={{132,36},{152,56}})));
+    annotation (Placement(transformation(extent={{100,30},{120,50}}),
+        iconTransformation(extent={{100,30},{120,50}})));
   Modelica.Blocks.Interfaces.RealOutput QLPC "heat flow from LPC into PCM"
-    annotation (Placement(transformation(extent={{132,22},{152,42}})));
+    annotation (Placement(transformation(extent={{100,10},{120,30}}),
+        iconTransformation(extent={{100,10},{120,30}})));
   Modelica.Blocks.Interfaces.RealOutput EPCM
     "Connector of Real output signal"
-    annotation (Placement(transformation(extent={{132,8},{152,28}})));
-  Data.HeatExchanger.MAPR matPro
-    annotation (Placement(transformation(extent={{-10,80},{10,100}})));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
+        iconTransformation(extent={{100,-10},{120,10}})));
+  Data.PhaseChangeMaterial.PCM58 matPro
+    annotation (Placement(transformation(extent={{-10,54},{10,74}})));
 
 equation
   connect(toKelvin.Kelvin,HPCPum. T_in)
-    annotation (Line(points={{-95,2},{-94,2},{-94,14},{-92,14}},
+    annotation (Line(points={{-95,2},{-84,2},{-84,14},{-78,14}},
                                                color={0,0,127}));
   connect(TOutHPC.port_b, sinHPC.ports[1])
     annotation (Line(points={{60,10},{70,10}}, color={0,127,255}));
@@ -122,31 +130,30 @@ equation
     annotation (Line(points={{-129,14},{-124,14},{-124,2},{-118,2}},
                                                    color={0,0,127}));
   connect(TOutHPC.T, TOutHPCMod)
-    annotation (Line(points={{50,21},{50,60},{142,60}}, color={0,0,127}));
+    annotation (Line(points={{50,21},{50,60},{110,60}}, color={0,0,127}));
   connect(toKelvin1.Kelvin, TOutHPCMea)
-    annotation (Line(points={{119,76},{142,76}}, color={0,0,127}));
-  connect(HPCdata.y[3], toKelvin1.Celsius) annotation (Line(points={{-129,14},
-          {-124,14},{-124,38},{-10,38},{-10,76},{96,76}},
-                                                    color={0,0,127}));
+    annotation (Line(points={{59,80},{110,80}},  color={0,0,127}));
+  connect(HPCdata.y[3], toKelvin1.Celsius) annotation (Line(points={{-129,14},{-90,
+          14},{-90,74},{-16,74},{-16,80},{36,80}},  color={0,0,127}));
   connect(HPCPum.ports[1], senDen.port_a)
-    annotation (Line(points={{-70,10},{-50,10}},
+    annotation (Line(points={{-56,10},{-50,10}},
                                                color={0,127,255}));
   connect(senDen.port_b, TInHPC.port_a)
     annotation (Line(points={{-30,10},{-20,10}}, color={0,127,255}));
   connect(HPCdata.y[1], Lmin_m3s.u) annotation (Line(points={{-129,14},{-124,14},
           {-124,80},{-112,80}}, color={0,0,127}));
   connect(Lmin_m3s.y, m3s_kgs.u1) annotation (Line(points={{-89,80},{-40,80},{-40,
-          56},{-48,56}},      color={0,0,127}));
+          56},{-44,56}},      color={0,0,127}));
   connect(senDen.d, m3s_kgs.u2)
-    annotation (Line(points={{-40,21},{-40,44},{-48,44}}, color={0,0,127}));
-  connect(m3s_kgs.y,HPCPum. m_flow_in) annotation (Line(points={{-71,50},{-98,50},
-          {-98,18},{-92,18}},   color={0,0,127}));
+    annotation (Line(points={{-40,21},{-40,44},{-44,44}}, color={0,0,127}));
+  connect(m3s_kgs.y,HPCPum. m_flow_in) annotation (Line(points={{-67,50},{-84,50},
+          {-84,18},{-78,18}},   color={0,0,127}));
   connect(TOutLPC.port_b, sinLPC.ports[1])
     annotation (Line(points={{-20,-30},{-30,-30}}, color={0,127,255}));
-  connect(TOutLPC.T, TOutLPCMod) annotation (Line(points={{-10,-41},{-10,-50},{-100,
+  connect(TOutLPC.T, TOutLPCMod) annotation (Line(points={{-10,-41},{-10,-50},{-110,
           -50}}, color={0,0,127}));
-  connect(toKelvin2.Kelvin, LPCPum.T_in) annotation (Line(points={{91,-80},{142,
-          -80},{142,-26},{132,-26}}, color={0,0,127}));
+  connect(toKelvin2.Kelvin, LPCPum.T_in) annotation (Line(points={{91,-80},{138,
+          -80},{138,-26},{132,-26}}, color={0,0,127}));
   connect(LPCPum.ports[1], senDen1.port_a)
     annotation (Line(points={{110,-30},{90,-30}}, color={0,127,255}));
   connect(LPCdata.y[1], Lmin_m3s1.u) annotation (Line(points={{13,-80},{42,-80},
@@ -160,7 +167,7 @@ equation
   connect(senDen1.port_b, TInLPC.port_a)
     annotation (Line(points={{70,-30},{60,-30}}, color={0,127,255}));
   connect(TOutLPCMea, toKelvin3.Kelvin)
-    annotation (Line(points={{-100,-70},{-79,-70}}, color={0,0,127}));
+    annotation (Line(points={{-110,-70},{-79,-70}}, color={0,0,127}));
   connect(LPCdata.y[3], toKelvin3.Celsius) annotation (Line(points={{13,-80},
           {42,-80},{42,-62},{-20,-62},{-20,-70},{-56,-70}},
                                                       color={0,0,127}));
@@ -173,24 +180,24 @@ equation
           {38,-30},{38,-14.46},{34,-14.46}}, color={0,127,255}));
   connect(TOutHPC.port_a, pcmFourPort.port_b1) annotation (Line(points={{40,10},
           {38,10},{38,-3.54},{34,-3.54}}, color={0,127,255}));
-  connect(pcmFourPort.SOC, SOC) annotation (Line(points={{35.3,-20.7},{112,
-          -20.7},{112,4},{142,4}},
+  connect(pcmFourPort.SOC, SOC) annotation (Line(points={{35.3,-20.7},{102,-20.7},
+          {102,-20},{110,-20}},
                              color={0,0,127}));
-  connect(pcmFourPort.EPCM, EPCM) annotation (Line(points={{35.3,-17.58},{108,
-          -17.58},{108,18},{142,18}}, color={0,0,127}));
+  connect(pcmFourPort.EPCM, EPCM) annotation (Line(points={{35.3,-17.58},{42,-17.58},
+          {42,-12},{64,-12},{64,-6},{96,-6},{96,0},{110,0}},
+                                      color={0,0,127}));
   connect(LPCdata.y[2], toKelvin2.Celsius)
     annotation (Line(points={{13,-80},{68,-80}}, color={0,0,127}));
-  connect(pcmFourPort.QDom, QHPC) annotation (Line(points={{35.3,2.7},{100,2.7},
-          {100,46},{142,46}}, color={0,0,127}));
-  connect(pcmFourPort.QPro, QLPC) annotation (Line(points={{35.3,-0.42},{104,-0.42},
-          {104,32},{142,32}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,
-            -100},{160,100}})),                                  Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-160,-100},{160,
-            100}})),
+  connect(pcmFourPort.QDom, QHPC) annotation (Line(points={{35.3,2.7},{44,2.7},{
+          44,40},{110,40}},   color={0,0,127}));
+  connect(pcmFourPort.QPro, QLPC) annotation (Line(points={{35.3,-0.42},{92,-0.42},
+          {92,20},{110,20}},  color={0,0,127}));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+            {100,100}})),                                        Diagram(
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
     experiment(
       StopTime=8100,
       Interval=60,
       Tolerance=1e-06,
       __Dymola_Algorithm="Radau"));
-end SUQ3_2022;
+end ChargingDischarging;
