@@ -17,7 +17,7 @@ model InterpolateStates "Interpolate states of a working fluid"
   parameter Modelica.Units.SI.Efficiency etaExp "Expander efficiency"
     annotation(Dialog(group="ORC inputs"));
 
-  // Computed properties
+  // Once-interpolated properties
   Modelica.Units.SI.AbsolutePressure pEva(
     displayUnit = "kPa") =
     Buildings.Airflow.Multizone.BaseClasses.interpolate(
@@ -34,8 +34,6 @@ model InterpolateStates "Interpolate states of a working fluid"
       yd = pro.p,
       d = pDer_T)
     "Condensing pressure";
-  Modelica.Units.SI.SpecificEntropy sExpInl
-    "Specific entropy at expander inlet";
   Modelica.Units.SI.SpecificEntropy sPum =
     Buildings.Airflow.Multizone.BaseClasses.interpolate(
       u = TCon,
@@ -43,8 +41,6 @@ model InterpolateStates "Interpolate states of a working fluid"
       yd = pro.sSatLiq,
       d = sSatLiqDer_T)
     "Specific entropy at pump, neglecting difference between inlet and outlet";
-  Modelica.Units.SI.SpecificEnthalpy hExpInl(displayUnit = "kJ/kg")
-    "Specific enthalpy at expander inlet";
   Modelica.Units.SI.SpecificEnthalpy hPum(
     displayUnit = "kJ/kg") =
     Buildings.Airflow.Multizone.BaseClasses.interpolate(
@@ -53,15 +49,6 @@ model InterpolateStates "Interpolate states of a working fluid"
       yd = pro.hSatLiq,
       d = hSatLiqDer_T)
     "Specific enthalpy at pump, neglecting difference between inlet and outlet";
-  Modelica.Units.SI.SpecificEnthalpy hExpOut_i(displayUnit = "kJ/kg", start = (max(pro.hSatVap)+min(pro.hSatVap))/2)
-    "Estimated specific enthalpy at expander outlet assuming isentropic";
-
-  Modelica.Units.SI.SpecificEnthalpy hExpOut(
-    displayUnit = "kJ/kg") = hExpInl - (hExpInl - hExpOut_i) * etaExp
-    "Specific enthalpy at expander outlet";
-  Modelica.Units.SI.ThermodynamicTemperature TExpOut
-    "Temperature at expander outlet";
-
   Modelica.Units.SI.SpecificEnthalpy hPinEva(
     displayUnit = "kJ/kg") =
     Buildings.Airflow.Multizone.BaseClasses.interpolate(
@@ -78,7 +65,6 @@ model InterpolateStates "Interpolate states of a working fluid"
       yd = pro.hSatVap,
       d = hSatVapDer_T)
     "Specific enthalpy on condenser-side pinch point";
-
   Modelica.Units.SI.SpecificEntropy sSatVapCon =
     Buildings.Airflow.Multizone.BaseClasses.interpolate(
       u = TCon,
@@ -140,6 +126,21 @@ model InterpolateStates "Interpolate states of a working fluid"
       d = hRefDer_p)
     "Specific enthalpy of reference line on evaporator side";
 
+  // Computed properties not interpolated
+  Modelica.Units.SI.SpecificEntropy sExpInl
+    "Specific entropy at expander inlet";
+  Modelica.Units.SI.SpecificEnthalpy hExpInl(displayUnit = "kJ/kg")
+    "Specific enthalpy at expander inlet";
+  Modelica.Units.SI.SpecificEnthalpy hExpOut_i(
+      displayUnit = "kJ/kg",
+      start = (max(pro.hSatVap)+min(pro.hSatVap))/2)
+    "Estimated specific enthalpy at expander outlet assuming isentropic";
+  Modelica.Units.SI.SpecificEnthalpy hExpOut(
+    displayUnit = "kJ/kg") = hExpInl - (hExpInl - hExpOut_i) * etaExp
+    "Specific enthalpy at expander outlet";
+  Modelica.Units.SI.ThermodynamicTemperature TExpOut
+    "Temperature at expander outlet";
+
   // Enthalpy differentials,
   //   taking positive sign when flowing into the cycle
   Modelica.Units.SI.SpecificEnthalpy dhEva = hExpInl - hPum
@@ -156,6 +157,7 @@ model InterpolateStates "Interpolate states of a working fluid"
     (hExpInl - hSatVapCon)/(hExpInl - hExpOut_i)
     "Upper limit of expander efficiency to prevent condensation, dry fluids have >1";
 
+  // Derivatives
 protected
   final parameter Real pDer_T[pro.n]=
     Buildings.Utilities.Math.Functions.splineDerivatives(
