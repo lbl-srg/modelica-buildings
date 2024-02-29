@@ -1,10 +1,10 @@
 within Buildings.Templates.Plants.Controls.Pumps.Generic.Validation;
-model StagingHeaderedVariable
-  "Validation model for the staging of headered variable speed pumps"
+model StagingHeaderedDeltaP
+  "Validation model for staging of headered variable speed pumps using ∆p pump speed control"
   parameter Integer nPum=4
-    "Number of primary pumps that operate at design conditions";
-  parameter Real VPri_flow_nominal=0.1
-    "Design primary flow rate";
+    "Number of pumps that operate at design conditions";
+  parameter Real V_flow_nominal=0.1
+    "Design flow rate";
   Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable ratFlo(
     table=[
       0, 0;
@@ -12,7 +12,7 @@ model StagingHeaderedVariable
       1.5, 1;
       2, 0],
     timeScale=3600)
-    "Primary flow ratio to design value"
+    "Flow ratio to design value"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable enaLea(
     table=[
@@ -22,11 +22,11 @@ model StagingHeaderedVariable
     "Lead pump enable signal"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter VPri_flow(
-    final k=VPri_flow_nominal)
-    "Primary flow rate"
+    final k=V_flow_nominal)
+    "Flow rate"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Buildings.Templates.Plants.Controls.Pumps.Generic.StagingHeaderedVariable sta(final
-      nPum=nPum, final VPri_flow_nominal=VPri_flow_nominal)
+  Buildings.Templates.Plants.Controls.Pumps.Generic.StagingHeaderedDeltaP staPum(final
+      nPum=nPum, final V_flow_nominal=V_flow_nominal) "Pump staging"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Utilities.StageIndex idxSta(
     final nSta=nPum)
@@ -36,9 +36,8 @@ model StagingHeaderedVariable
     each k=true)
     "Equipment available status"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Buildings.Controls.OBC.CDL.Integers.GreaterEqualThreshold staPum[nPum](
-    final t={i for i in 1:nPum})
-    "Evaluate pump status"
+  Buildings.Controls.OBC.CDL.Integers.GreaterEqualThreshold y1_actual[nPum](
+      final t={i for i in 1:nPum}) "Evaluate pump status"
     annotation (Placement(transformation(extent={{20,50},{0,70}})));
   Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator rep(
     nout=nPum)
@@ -47,18 +46,18 @@ model StagingHeaderedVariable
 equation
   connect(ratFlo.y[1], VPri_flow.u)
     annotation (Line(points={{-58,0},{-42,0}},color={0,0,127}));
-  connect(VPri_flow.y, sta.VPri_flow)
-    annotation (Line(points={{-18,0},{-2,0}},color={0,0,127}));
-  connect(sta.y1Up, idxSta.u1Up)
-    annotation (Line(points={{22,4},{40,4},{40,2},{48,2}},color={255,0,255}));
-  connect(sta.y1Dow, idxSta.u1Dow)
-    annotation (Line(points={{22,-4},{40,-4},{40,-2},{48,-2}},color={255,0,255}));
+  connect(VPri_flow.y, staPum.V_flow) annotation (Line(points={{-18,0},{-10,0},
+          {-10,-6},{-2,-6}}, color={0,0,127}));
+  connect(staPum.y1Up, idxSta.u1Up)
+    annotation (Line(points={{22,6},{40,6},{40,2},{48,2}}, color={255,0,255}));
+  connect(staPum.y1Dow, idxSta.u1Dow) annotation (Line(points={{22,-6},{40,-6},
+          {40,-2},{48,-2}}, color={255,0,255}));
   connect(ava.y, idxSta.u1Ava)
     annotation (Line(points={{-58,-40},{40,-40},{40,-6},{48,-6}},color={255,0,255}));
-  connect(rep.y, staPum.u)
-    annotation (Line(points={{38,60},{22,60}},color={255,127,0}));
-  connect(staPum.y, sta.y1_actual)
-    annotation (Line(points={{-2,60},{-10,60},{-10,4},{-2,4}},color={255,0,255}));
+  connect(rep.y, y1_actual.u)
+    annotation (Line(points={{38,60},{22,60}}, color={255,127,0}));
+  connect(y1_actual.y, staPum.u1_actual) annotation (Line(points={{-2,60},{-10,
+          60},{-10,6},{-2,6}}, color={255,0,255}));
   connect(enaLea.y[1], idxSta.u1Lea)
     annotation (Line(points={{-58,40},{40,40},{40,6},{48,6}},color={255,0,255}));
   connect(idxSta.y, rep.u) annotation (Line(points={{72,0},{80,0},{80,60},{62,
@@ -66,7 +65,7 @@ equation
   annotation (
     __Dymola_Commands(
       file=
-        "modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Controls/Pumps/Generic/Validation/StagingHeaderedVariable.mos"
+        "modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Controls/Pumps/Generic/Validation/StagingHeaderedDeltaP.mos"
         "Simulate and plot"),
     experiment(
       StopTime=8400.0,
@@ -75,8 +74,8 @@ equation
       info="<html>
 <p>
 This model validates
-<a href=\"modelica://Buildings.Templates.Plants.Controls.Pumps.Generic.StagingHeaderedVar\">
-Buildings.Templates.Plants.Controls.Pumps.Generic.StagingHeaderedVar</a>
+<a href=\"modelica://Buildings.Templates.Plants.Controls.Pumps.Generic.StagingHeaderedDeltaP\">
+Buildings.Templates.Plants.Controls.Pumps.Generic.StagingHeaderedDeltaP</a>
 in a configuration with four pumps.
 </p>
 <p>
@@ -118,4 +117,4 @@ First implementation.
         Polygon(
           points={{214,66},{214,66}},
           lineColor={28,108,200})}));
-end StagingHeaderedVariable;
+end StagingHeaderedDeltaP;

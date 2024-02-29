@@ -1,6 +1,9 @@
 within Buildings.Templates.Plants.Controls.Utilities;
 block StageIndex
   "Evaluation of stage index from staging signals"
+  parameter Boolean have_inpAva=true
+    "Set to true if stage availability is provided with input signal, false for stages always available"
+    annotation(Evaluate=true);
   parameter Integer nSta(
     start=1,
     final min=1)
@@ -14,26 +17,26 @@ block StageIndex
     annotation (Evaluate=true);
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Lea
     "Lead unit enable signal"
-    annotation (Placement(transformation(extent={{-260,100},{-220,140}}),
+    annotation (Placement(transformation(extent={{-280,100},{-240,140}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Up
     "Stage up command"
-    annotation (Placement(transformation(extent={{-260,-20},{-220,20}}),
+    annotation (Placement(transformation(extent={{-280,-20},{-240,20}}),
       iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Dow
     "Stage down command"
-    annotation (Placement(transformation(extent={{-260,-60},{-220,-20}}),
+    annotation (Placement(transformation(extent={{-280,-60},{-240,-20}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Ava[nSta]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Ava[nSta] if have_inpAva
     "Stage available signal"
-    annotation (Placement(transformation(extent={{-260,-180},{-220,-140}}),
+    annotation (Placement(transformation(extent={{-280,-180},{-240,-140}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y "Stage index"
-    annotation (Placement(transformation(extent={{220,80},{260,120}}),
+    annotation (Placement(transformation(extent={{240,80},{280,120}}),
       iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yPre
     "Left limit (in discrete-time) of stage index"
-    annotation (Placement(transformation(extent={{220,40},{260,80}}),
+    annotation (Placement(transformation(extent={{240,40},{280,80}}),
       iconTransformation(extent={{100,-80},{140,-40}})));
   Modelica.StateGraph.InitialStepWithSignal sta0(
     final nOut=1,
@@ -85,10 +88,10 @@ block StageIndex
   Utilities.FirstTrueIndex idxFirAct(
     nin=nSta)
     "Return index of first active stage"
-    annotation (Placement(transformation(extent={{150,90},{170,110}})));
+    annotation (Placement(transformation(extent={{160,90},{180,110}})));
   Utilities.Pre pre
     "Return pre(idxSta)"
-    annotation (Placement(transformation(extent={{150,50},{170,70}})));
+    annotation (Placement(transformation(extent={{160,50},{180,70}})));
   Buildings.Controls.OBC.CDL.Logical.Not una[nSta]
     "True if stage is not available"
     annotation (Placement(transformation(extent={{-200,-170},{-180,-150}})));
@@ -141,12 +144,10 @@ block StageIndex
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-40,80})));
-  FirstTrueIndex idxFirAva(
-    nin=nSta)
+  FirstTrueIndex idxFirAva(nin=nSta)
     "Return index of first available stage"
     annotation (Placement(transformation(extent={{-200,-130},{-180,-110}})));
-  LastTrueIndex idxLasAva(
-    nin=nSta)
+  LastTrueIndex idxLasAva(nin=nSta)
     "Return index of last available stage"
     annotation (Placement(transformation(extent={{-200,-90},{-180,-70}})));
   Buildings.Controls.OBC.CDL.Integers.Greater higAva
@@ -186,6 +187,12 @@ block StageIndex
   Buildings.Controls.OBC.CDL.Logical.And leaAnyAva
     "True if lead enabled AND any stage available"
     annotation (Placement(transformation(extent={{-150,110},{-130,130}})));
+  PlaceHolder pla[nSta](
+    each final have_inp=have_inpAva,
+    each final have_inpPla=false,
+    each final u_internal=true)
+    "Replace with placeholder value if input signal is not available"
+    annotation (Placement(transformation(extent={{-230,-170},{-210,-150}})));
 equation
   for i in 1:(nSta - 1) loop
     connect(toHig[i].outPort, sta[i + 1].inPort[1]) annotation (Line(points={{101.5,
@@ -222,26 +229,24 @@ equation
   connect(sta.outPort[3], toLow.inPort) annotation (Line(points={{-9.5,140.167},
           {20,140.167},{20,120},{116,120}}, color={0,0,0}));
   connect(u1Lea,notLea. u)
-    annotation (Line(points={{-240,120},{-200,120},{-200,40},{-192,40}},color={255,0,255}));
+    annotation (Line(points={{-260,120},{-200,120},{-200,40},{-192,40}},color={255,0,255}));
   connect(u1Lea, upAndEna.u2)
-    annotation (Line(points={{-240,120},{-200,120},{-200,-8},{-192,-8}},color={255,0,255}));
+    annotation (Line(points={{-260,120},{-200,120},{-200,-8},{-192,-8}},color={255,0,255}));
   connect(u1Up, upAndEna.u1)
-    annotation (Line(points={{-240,0},{-192,0}},color={255,0,255}));
+    annotation (Line(points={{-260,0},{-192,0}},color={255,0,255}));
   connect(upAndEna.y, rep.u)
     annotation (Line(points={{-168,0},{-82,0}},color={255,0,255}));
   connect(pre.y,yPre)
-    annotation (Line(points={{172,60},{240,60}},color={255,127,0}));
-  connect(u1Ava, una.u)
-    annotation (Line(points={{-240,-160},{-202,-160}},color={255,0,255}));
+    annotation (Line(points={{182,60},{260,60}},color={255,127,0}));
   connect(runAndEna.y,toSta0. condition)
     annotation (Line(points={{12,40},{60,40},{60,148}},color={255,0,255}));
   connect(runAndUp.y, orUna.u1)
     annotation (Line(points={{12,0},{20,0},{20,-20},{28,-20}},color={255,0,255}));
   connect(sta.active, idxFirAct.u1)
-    annotation (Line(points={{-20,129},{-20,100},{148,100}},
+    annotation (Line(points={{-20,129},{-20,100},{158,100}},
                                                         color={255,0,255}));
   connect(u1Dow, rep1.u)
-    annotation (Line(points={{-240,-40},{-82,-40}},color={255,0,255}));
+    annotation (Line(points={{-260,-40},{-82,-40}},color={255,0,255}));
   connect(runAndDow.y, orUna1.u1)
     annotation (Line(points={{12,-40},{14,-40},{14,-60},{28,-60}},  color={255,0,255}));
   connect(maxInt.y, staUna.index)
@@ -262,19 +267,23 @@ equation
     annotation (Line(points={{42,-180},{52,-180},{52,-98},{22,-98},{22,-68},{28,
           -68}},                                                      color={255,0,255}));
   connect(idxFirAct.y, staUp.u1)
-    annotation (Line(points={{172,100},{200,100},{200,-200},{-90,-200},{-90,-140},{-52,-140}},
+    annotation (Line(points={{182,100},{220,100},{220,-200},{-92,-200},{-92,
+          -140},{-52,-140}},
       color={255,127,0}));
   connect(idxFirAct.y, staDow.u1)
-    annotation (Line(points={{172,100},{200,100},{200,-200},{-90,-200},{-90,-180},{-52,-180}},
+    annotation (Line(points={{182,100},{220,100},{220,-200},{-92,-200},{-92,
+          -180},{-52,-180}},
       color={255,127,0}));
   connect(staUp.y, staUpAndUna.u1)
     annotation (Line(points={{-28,-140},{-12,-140}},
                                                    color={255,0,255}));
   connect(pre.y, staDow.u2)
-    annotation (Line(points={{172,60},{180,60},{180,-220},{-80,-220},{-80,-188},{-52,-188}},
+    annotation (Line(points={{182,60},{200,60},{200,-220},{-82,-220},{-82,-188},
+          {-52,-188}},
       color={255,127,0}));
   connect(pre.y, staUp.u2)
-    annotation (Line(points={{172,60},{180,60},{180,-220},{-80,-220},{-80,-148},{-52,-148}},
+    annotation (Line(points={{182,60},{200,60},{200,-220},{-82,-220},{-82,-148},
+          {-52,-148}},
       color={255,127,0}));
   connect(staDow.y, staDowAndUna.u2)
     annotation (Line(points={{-28,-180},{-24,-180},{-24,-188},{-12,-188}},
@@ -283,7 +292,8 @@ equation
     annotation (Line(points={{-124,-160},{-20,-160},{-20,-180},{-12,-180}},
                                                                           color={255,0,255}));
   connect(idxFirAct.y, pre.u)
-    annotation (Line(points={{172,100},{200,100},{200,80},{140,80},{140,60},{148,60}},
+    annotation (Line(points={{182,100},{200,100},{200,80},{150,80},{150,60},{
+          158,60}},
       color={255,127,0}));
   connect(rep2.y, runAndEna.u2)
     annotation (Line(points={{-58,40},{-40,40},{-40,32},{-12,32}},
@@ -291,22 +301,18 @@ equation
   connect(pas.y, runAndEna.u1) annotation (Line(points={{-28,80},{-20,80},{-20,40},
           {-12,40}},color={255,0,255}));
   connect(idxFirAct.y, y)
-    annotation (Line(points={{172,100},{240,100}},color={255,127,0}));
-  connect(u1Ava, idxFirAva.u1)
-    annotation (Line(points={{-240,-160},{-210,-160},{-210,-120},{-202,-120}},
-      color={255,0,255}));
-  connect(u1Ava, idxLasAva.u1)
-    annotation (Line(points={{-240,-160},{-210,-160},{-210,-80},{-202,-80}},
-      color={255,0,255}));
+    annotation (Line(points={{182,100},{260,100}},color={255,127,0}));
   connect(idxLasAva.y, higAva.u1)
     annotation (Line(points={{-178,-80},{-112,-80}},color={255,127,0}));
   connect(idxFirAva.y, lowAva.u1)
     annotation (Line(points={{-178,-120},{-112,-120}},color={255,127,0}));
   connect(idxFirAct.y, higAva.u2)
-    annotation (Line(points={{172,100},{200,100},{200,-200},{-120,-200},{-120,-88},{-112,-88}},
+    annotation (Line(points={{182,100},{220,100},{220,-200},{-120,-200},{-120,
+          -88},{-112,-88}},
       color={255,127,0}));
   connect(idxFirAct.y, lowAva.u2)
-    annotation (Line(points={{172,100},{200,100},{200,-200},{-120,-200},{-120,-128},{-112,-128}},
+    annotation (Line(points={{182,100},{220,100},{220,-200},{-120,-200},{-120,
+          -128},{-112,-128}},
       color={255,127,0}));
   connect(lowAva.y, rep6.u)
     annotation (Line(points={{-88,-120},{-82,-120}},color={255,0,255}));
@@ -316,7 +322,8 @@ equation
     annotation (Line(points={{-188,-200},{-184,-200},{-184,-194},{-182,-194}},
       color={255,127,0}));
   connect(idxFirAct.y, maxInt.u2)
-    annotation (Line(points={{172,100},{200,100},{200,-200},{-120,-200},{-120,-220},{-184,-220},{-184,-206},{-182,-206}},
+    annotation (Line(points={{182,100},{220,100},{220,-200},{-120,-200},{-120,
+          -220},{-184,-220},{-184,-206},{-182,-206}},
       color={255,127,0}));
   connect(sta.active, tim.u) annotation (Line(points={{-20,129},{-20,100},{-100,
           100},{-100,80},{-92,80}},
@@ -357,11 +364,19 @@ equation
   connect(allUna.y, anyAva.u) annotation (Line(points={{-148,-140},{-140,-140},
           {-140,68}}, color={255,0,255}));
   connect(u1Lea, leaAnyAva.u1)
-    annotation (Line(points={{-240,120},{-152,120}}, color={255,0,255}));
+    annotation (Line(points={{-260,120},{-152,120}}, color={255,0,255}));
   connect(leaAnyAva.y, toSta1.condition) annotation (Line(points={{-128,120},{
           -60,120},{-60,128}}, color={255,0,255}));
   connect(anyAva.y, leaAnyAva.u2) annotation (Line(points={{-140,92},{-140,100},
           {-160,100},{-160,112},{-152,112}}, color={255,0,255}));
+  connect(u1Ava, pla.u)
+    annotation (Line(points={{-260,-160},{-232,-160}}, color={255,0,255}));
+  connect(pla.y, una.u)
+    annotation (Line(points={{-208,-160},{-202,-160}}, color={255,0,255}));
+  connect(pla.y, idxLasAva.u1) annotation (Line(points={{-208,-160},{-206,-160},
+          {-206,-80},{-202,-80}}, color={255,0,255}));
+  connect(pla.y, idxFirAva.u1) annotation (Line(points={{-208,-160},{-206,-160},
+          {-206,-120},{-202,-120}}, color={255,0,255}));
   annotation (
     __cdl(
       extensionBlock=true),
@@ -386,7 +401,7 @@ equation
     Diagram(
       coordinateSystem(
         preserveAspectRatio=false,
-        extent={{-220,-240},{220,240}})),
+        extent={{-240,-240},{240,240}})),
     Documentation(
       info="<html>
 <p>

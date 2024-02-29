@@ -14,12 +14,12 @@ block EnableLeadHeadered
     if typValIso == Buildings.Templates.Plants.Controls.Types.Actuator.TwoPosition
     "Isolation valve command"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
-      iconTransformation(extent={{-140,20},{-100,60}})));
+      iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uValIso[nValIso]
     if typValIso == Buildings.Templates.Plants.Controls.Types.Actuator.Modulating
     "Isolation valve command"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
-      iconTransformation(extent={{-140,-60},{-100,-20}})));
+      iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1
     "Lead pump enable signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),

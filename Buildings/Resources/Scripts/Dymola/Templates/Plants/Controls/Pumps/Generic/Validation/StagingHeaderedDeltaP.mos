@@ -1,8 +1,8 @@
-simulateModel("Buildings.Templates.Plants.Controls.Pumps.Generic.Validation.StagingHeaderedVariable",
+simulateModel("Buildings.Templates.Plants.Controls.Pumps.Generic.Validation.StagingHeaderedDeltaP",
     method="cvode",
     tolerance=1e-6,
     stopTime=8400.0,
-    resultFile="StagingHeaderedVariable");
+    resultFile="StagingHeaderedDeltaP");
 createPlot(
     id=1,
     subPlot=1,

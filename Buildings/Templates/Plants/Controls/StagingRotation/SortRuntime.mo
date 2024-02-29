@@ -14,20 +14,20 @@ block SortRuntime "Sort equipment by increasing staging runtime"
     "Boolean signal used to assess equipment runtime"
     annotation (Placement(
         transformation(extent={{-240,20},{-200,60}}),  iconTransformation(
-          extent={{-140,-20},{-100,20}})));
+          extent={{-140,40},{-100,80}})));
       Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Ava[nin]
     "Equipment available signal" annotation (Placement(transformation(extent={{-240,
             -60},{-200,-20}}),  iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRunTimLif[nEquAlt]
     "Lifetime runtime" annotation (Placement(transformation(extent={{200,60},{240,
-            100}}), iconTransformation(extent={{100,60},{140,100}})));
+            100}}), iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRunTimSta[nEquAlt]
     "Staging runtime"           annotation (Placement(transformation(extent={{200,20},
-            {240,60}}),         iconTransformation(extent={{100,20},{140,60}})));
+            {240,60}}),         iconTransformation(extent={{100,-20},{140,20}})));
     Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yIdx[nEquAlt]
     "Indices of equipment sorted by increasing staging runtime"
     annotation (Placement(transformation(extent={{200,-20},{240,20}}),
-        iconTransformation(extent={{100,-20},{140,20}})));
+        iconTransformation(extent={{100,-80},{140,-40}})));
   Buildings.Controls.OBC.CDL.Logical.TimerAccumulating timRun[nEquAlt]
     "Compute staging runtime"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));

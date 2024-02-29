@@ -45,6 +45,7 @@ equation
   connect(fil.y, greThr.u)
     annotation (Line(points={{11,0},{48,0}}, color={0,0,127}));
   annotation (
+  defaultComponentName="sta",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),                                        graphics={
         Rectangle(

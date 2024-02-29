@@ -7,6 +7,7 @@ MultiMax
 MultiMin
 PIDWithEnable
 PlaceHolder
+PlaceHolderReal
 Pre
 SortWithIndices
 StageIndex

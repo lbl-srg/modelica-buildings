@@ -1,15 +1,14 @@
 within Buildings.Templates.Plants.Controls.Pumps.Generic;
-block StagingHeaderedVariable
-  "Staging logic for headered variable speed pumps"
+block StagingHeaderedDeltaP
+  "Staging logic for headered variable speed pumps using ∆p pump speed control"
   parameter Integer nPum(
     final min=1)
     "Number of pumps that operate at design conditions"
     annotation (Evaluate=true);
-  parameter Real VPri_flow_nominal(
+  parameter Real V_flow_nominal(
     final min=1E-6,
     final unit="m3/s")
-    "Design flow rate"
-    annotation (Evaluate=true);
+    "Design flow rate";
   parameter Real dtRun(
     final min=0,
     final unit="s")=10 * 60
@@ -18,33 +17,29 @@ block StagingHeaderedVariable
     final min=0,
     final max=1,
     final unit="1")=0.03
-    "Stage up flow point offset"
-    annotation (Evaluate=true);
+    "Stage up flow point offset";
   parameter Real dVOffDow(
     final min=0,
     final max=1,
     final unit="1")=dVOffUp
-    "Stage down flow point offset"
-    annotation (Evaluate=true);
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VPri_flow(
-    final unit="m3/s")
-    "Flow rate"
-    annotation (Placement(transformation(extent={{-160,-20},{-120,20}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
+    "Stage down flow point offset";
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput V_flow(final unit="m3/s")
+    "Flow rate" annotation (Placement(transformation(extent={{-160,-20},{-120,20}}),
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Up
     "Stage up command"
     annotation (Placement(transformation(extent={{120,20},{160,60}}),
-      iconTransformation(extent={{100,20},{140,60}})));
+      iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Dow
     "Stage down command"
     annotation (Placement(transformation(extent={{120,-60},{160,-20}}),
-      iconTransformation(extent={{100,-60},{140,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput y1_actual[nPum]
+      iconTransformation(extent={{100,-80},{140,-40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1_actual[nPum]
     "Pump status"
     annotation (Placement(transformation(extent={{-160,80},{-120,120}}),
-      iconTransformation(extent={{-140,20},{-100,60}})));
+      iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter norV(
-    final k=1 / VPri_flow_nominal)
+    final k=1 / V_flow_nominal)
     "Normalize to design value"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter norN(
@@ -62,11 +57,11 @@ block StagingHeaderedVariable
     annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
   Buildings.Controls.OBC.CDL.Reals.AddParameter poiDow(
     p=- 1 / nPum - dVOffDow)
-    "Calculate stage down flow point "
+    "Calculate stage down flow point"
     annotation (Placement(transformation(extent={{-20,10},{0,30}})));
   Buildings.Controls.OBC.CDL.Reals.AddParameter poiUp(
     p=- dVOffUp)
-    "Calculate stage up flow point "
+    "Calculate stage up flow point"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
   Buildings.Templates.Plants.Controls.Utilities.TimerWithReset runUp(
     final t=dtRun)
@@ -102,8 +97,8 @@ equation
     annotation (Line(points={{-38,0},{0,0},{0,-40},{28,-40}},color={0,0,127}));
   connect(les.y, runDow.u)
     annotation (Line(points={{52,-40},{68,-40}},color={255,0,255}));
-  connect(VPri_flow, norV.u)
-    annotation (Line(points={{-140,0},{-62,0}},color={0,0,127}));
+  connect(V_flow, norV.u)
+    annotation (Line(points={{-140,0},{-62,0}}, color={0,0,127}));
   connect(gre.y, runUp.u)
     annotation (Line(points={{52,0},{68,0}},color={255,0,255}));
   connect(runUp.passed, y1Up)
@@ -112,9 +107,9 @@ equation
     annotation (Line(points={{92,-48},{100,-48},{100,-40},{140,-40}},color={255,0,255}));
   connect(booToRea.y, nOpe.u)
     annotation (Line(points={{-68,100},{-62,100}},color={0,0,127}));
-  connect(y1_actual, booToRea.u)
+  connect(u1_actual, booToRea.u)
     annotation (Line(points={{-140,100},{-92,100}},color={255,0,255}));
-  connect(y1_actual, cha.u)
+  connect(u1_actual, cha.u)
     annotation (Line(points={{-140,100},{-100,100},{-100,-60},{-92,-60}},color={255,0,255}));
   connect(nOpe.y, norN.u)
     annotation (Line(points={{-38,100},{-30,100},{-30,70},{-70,70},{-70,40},{-62,40}},
@@ -126,7 +121,7 @@ equation
   connect(anyCha.y, runDow.reset)
     annotation (Line(points={{-28,-60},{60,-60},{60,-48},{68,-48}},color={255,0,255}));
   annotation (
-    defaultComponentName="sta",
+    defaultComponentName="staPum",
     Icon(
       coordinateSystem(
         preserveAspectRatio=true,
@@ -182,4 +177,4 @@ This is necessary to ensure the minimum pump runtime with rapidly changing loads
 "), Diagram(
       coordinateSystem(
         extent={{-120,-120},{120,120}})));
-end StagingHeaderedVariable;
+end StagingHeaderedDeltaP;

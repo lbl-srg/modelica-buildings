@@ -93,7 +93,7 @@ equation
     annotation (Line(points={{82,-60},{88,-60},{88,-34},{30,-34},{30,-20},{38,-20}},
       color={255,0,255}));
   connect(ini.y, lat.clr)
-    annotation (Line(points={{61.8,-20},{66,-20},{66,-6},{70,-6}},color={255,0,255}));
+    annotation (Line(points={{62,-20},{66,-20},{66,-6},{70,-6}},  color={255,0,255}));
   annotation (
     defaultComponentName="disLea",
     Icon(

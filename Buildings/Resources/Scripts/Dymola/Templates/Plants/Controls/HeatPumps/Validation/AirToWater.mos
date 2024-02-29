@@ -39,7 +39,7 @@ createPlot(
     id=3,
     position={615, 5, 300, 500},
     subPlot=1,
-    y={"ctl.y1[1]", "ctl.y1[2]", "ctl.y1[3]"},
+    y={"ctl.y1Hp[1]", "ctl.y1Hp[2]", "ctl.y1Hp[3]"},
     autoscale=true,
     grid=true,
     timeUnit="h"
@@ -48,6 +48,39 @@ createPlot(
     id=3,
     subPlot=2,
     y={"ctl.y1Hea[1]", "ctl.y1Hea[2]", "ctl.y1Hea[3]"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=4,
+    position={920, 5, 300, 600},
+    subPlot=1,
+    y={"ctl.y1PumHeaWatPri[1]", "ctl.y1PumHeaWatPri[2]", "ctl.y1PumHeaWatPri[3]"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=4,
+    subPlot=2,
+    y={"ctl.y1PumHeaWatSec[1]", "ctl.y1PumHeaWatSec[2]", "ctl.y1PumHeaWatSec[3]"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=4,
+    subPlot=3,
+    y={"ctl.y1PumChiWatPri[1]", "ctl.y1PumChiWatPri[2]", "ctl.y1PumChiWatPri[3]"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=4,
+    subPlot=4,
+    y={"ctl.y1PumChiWatSec[1]", "ctl.y1PumChiWatSec[2]", "ctl.y1PumChiWatSec[3]"},
     autoscale=true,
     grid=true,
     timeUnit="h"
