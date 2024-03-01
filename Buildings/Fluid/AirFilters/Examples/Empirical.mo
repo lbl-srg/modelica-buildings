@@ -61,9 +61,8 @@ equation
     annotation (Line(points={{-40,0},{-30,0}}, color={0,127,255}));
   annotation (experiment(
       StopTime=50,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),
-        __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/AirFilters/Examples/Empirical.mos"
+      Tolerance=1e-06),
+      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/AirFilters/Examples/Empirical.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
