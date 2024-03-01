@@ -39,10 +39,15 @@ partial model PartialWheel
     final max=1) = 0.75
     "Part load (75% of the nominal supply flow rate) sensible heat exchanger effectiveness at the heating mode"
     annotation (Dialog(group="Part load effectiveness"));
-  Modelica.Blocks.Interfaces.RealOutput P(
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput P(
     final unit="W") "Electric power consumption"
-    annotation (Placement(transformation(extent={{100,-30},{120,-10}}),
-        iconTransformation(extent={{100,-30},{120,-10}})));
+    annotation (Placement(transformation(extent={{100,-40},{140,0}}),
+        iconTransformation(extent={{100,-40},{140,0}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput eps(final unit="1")
+    "Sensible heat exchanger effectiveness"
+    annotation (Placement(transformation(extent={{100,0},{140,40}}),
+        iconTransformation(extent={{100,0},{140,40}})));
   Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.HeatExchangerWithInputEffectiveness
     hex(
     redeclare package Medium1 = Medium1,
@@ -72,17 +77,13 @@ partial model PartialWheel
     "Fluid connector a2 of the exhaust air (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
 
-  Modelica.Blocks.Interfaces.RealOutput eps(final unit="1")
-    "Sensible heat exchanger effectiveness"
-    annotation (Placement(transformation(extent={{100,10},{120,30}}),
-        iconTransformation(extent={{100,10},{120,30}})));
 protected
-    parameter Medium1.ThermodynamicState sta_nominal=Medium1.setState_pTX(
+  parameter Medium1.ThermodynamicState sta_nominal=Medium1.setState_pTX(
       T=Buildings.Utilities.Psychrometrics.Constants.T_ref,
       p=101325,
       X=Medium1.X_default)
    "State of the supply air at the default properties";
-    Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.Effectiveness
+  Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.Effectiveness
     effCal(
     final epsCoo_nominal=epsCoo_nominal,
     final epsCooPL=epsCooPL,
@@ -92,7 +93,7 @@ protected
     "Calculates the effectiveness of heat exchange"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Modelica.Blocks.Sources.RealExpression VSup_flow(
-        final y(final unit="m3/s")=hex.port_a1.m_flow/
+    final y(final unit="m3/s")=hex.port_a1.m_flow/
         Medium1.density(state=Medium1.setState_phX(
         p=hex.port_a1.p,
         h=hex.port_a1.h_outflow,
@@ -100,7 +101,7 @@ protected
     "Supply air volume flow rate"
     annotation (Placement(transformation(extent={{-160,30},{-140,50}})));
   Modelica.Blocks.Sources.RealExpression VExh_flow(
-        final y(final unit="m3/s")=hex.port_a2.m_flow/
+    final y(final unit="m3/s")=hex.port_a2.m_flow/
         Medium2.density(state=Medium2.setState_phX(
         p=hex.port_a2.p,
         h=hex.port_a2.h_outflow,
@@ -124,10 +125,9 @@ protected
     "Exhaust air temperature"
     annotation (Placement(transformation(extent={{-160,-50},{-140,-30}})));
 
-
 equation
   connect(TSup.y, effCal.TSup)
-    annotation (Line(points={{-139,-20},{-114,-20},{-114,-4},{-102,-4}},
+    annotation (Line(points={{-139,-20},{-120,-20},{-120,-4},{-102,-4}},
         color={0,0,127}));
   connect(TExh.y, effCal.TExh)
     annotation (Line(points={{-139,-40},{-110,-40},{-110,-8},{-102,-8}},
@@ -141,15 +141,15 @@ equation
     annotation (Line(points={{-180,-60},{-60,-60},{-60,-6},{-10,-6}},
         color={0,127,255}));
   connect(VSup_flow.y, effCal.VSup_flow)
-    annotation (Line(points={{-139,40},{-108,40},{-108,8},{-102,8}},
+    annotation (Line(points={{-139,40},{-110,40},{-110,8},{-102,8}},
         color={0,0,127}));
   connect(VExh_flow.y, effCal.VExh_flow)
-    annotation (Line(points={{-139,20},{-114,20},{-114,4},{-102,4}},
+    annotation (Line(points={{-139,20},{-120,20},{-120,4},{-102,4}},
         color={0,0,127}));
   connect(effCal.eps, hex.eps)
-    annotation (Line(points={{-79,0},{-12,0}}, color={0,0,127}));
-  connect(effCal.eps, eps) annotation (Line(points={{-79,0},{-40,0},{-40,20},{
-          110,20}}, color={0,0,127}));
+    annotation (Line(points={{-78,0},{-12,0}}, color={0,0,127}));
+  connect(effCal.eps, eps) annotation (Line(points={{-78,0},{-40,0},{-40,20},{120,
+          20}}, color={0,0,127}));
 annotation (
         defaultComponentName="whe",
         Icon(coordinateSystem(extent={{-100,-100},{100,100}}),

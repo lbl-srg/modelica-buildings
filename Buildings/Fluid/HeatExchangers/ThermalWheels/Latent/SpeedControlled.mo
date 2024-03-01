@@ -7,7 +7,7 @@ model SpeedControlled
     "Coefficients for power consumption curve for rotor, P/P_nominal = sum a_i uSpe^(i-1). The sum(a) of the elements must be equal to 1"
     annotation (Dialog(group="Efficiency"));
 
-  Modelica.Blocks.Interfaces.RealInput uSpe(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uSpe(
     final unit="1",
     final max=1)
     "Wheel speed ratio"
@@ -27,7 +27,7 @@ initial equation
 
 equation
   connect(P, PEle.y)
-    annotation (Line(points={{110,-20},{91,-20}}, color={0,0,127}));
+    annotation (Line(points={{120,-20},{91,-20}}, color={0,0,127}));
   connect(port_a1, hex.port_a1) annotation (Line(points={{-180,80},{-60,80},{-60,
           6},{-10,6}}, color={0,127,255}));
   connect(hex.port_a2, port_a2) annotation (Line(points={{10,-6},{60,-6},{60,-60},
@@ -35,9 +35,9 @@ equation
   connect(effCal.uSpe, uSpe)
     annotation (Line(points={{-102,0},{-200,0}}, color={0,0,127}));
 annotation (
-        defaultComponentName="whe",
+   defaultComponentName="whe",
         Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
-    graphics={
+   graphics={
         Polygon(
           points={{0,100},{0,100}},
           lineColor={28,108,200},
@@ -51,8 +51,9 @@ Model of an enthalpy recovery wheel, which has the
 wheel speed as the input to control the heat recovery.
 </p>
 <p>
-This model does not require geometric data. The performance is defined by specifying the 
-part load (75% of the nominal supply flow rate) and nominal sensible and latent heat exchanger effectiveness in both heating and cooling conditions.
+This model does not require geometric data. The performance is defined by specifying
+the part load (75% of the nominal supply flow rate) and nominal sensible and latent
+heat exchanger effectiveness in both heating and cooling conditions.
 </p>
 <p>
 The operation of the heat recovery wheel is adjustable by modulating the wheel speed.
@@ -72,7 +73,8 @@ Thus, when the speed ratio <code>uSpe=1</code>, the power consumption equal to
 nominal consumption, <code>P=P_nominal</code>.
 </p>
 <p>
-The sensible and latent effectiveness is calculated with <a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.Effectiveness\">
+The sensible and latent effectiveness is calculated with
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.Effectiveness\">
 Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.Effectiveness</a>.
 </p>
 </html>", revisions="<html>

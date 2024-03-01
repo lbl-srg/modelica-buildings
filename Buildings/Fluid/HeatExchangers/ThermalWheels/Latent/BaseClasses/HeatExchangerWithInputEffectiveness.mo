@@ -15,11 +15,11 @@ model HeatExchangerWithInputEffectiveness
     mWat1_flow = +mWat_flow,
     mWat2_flow = -mWat_flow);
 
-  Modelica.Blocks.Interfaces.RealInput epsSen(unit="1")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput epsSen(unit="1")
     "Sensible heat exchanger effectiveness"
     annotation (Placement(transformation(extent={{-140,10},{-100,50}}),
         iconTransformation(extent={{-140,10},{-100,50}})));
-  Modelica.Blocks.Interfaces.RealInput epsLat(unit="1")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput epsLat(unit="1")
     "Latent heat exchanger effectiveness"
     annotation (Placement(transformation(extent={{-140,-50},{-100,-10}}),
         iconTransformation(extent={{-140,-50},{-100,-10}})));

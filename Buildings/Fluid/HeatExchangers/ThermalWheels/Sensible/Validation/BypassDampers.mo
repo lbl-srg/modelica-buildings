@@ -66,14 +66,14 @@ model BypassDampers
     shift=72) "Operating signal"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senExhTem(
-     redeclare package Medium = Medium2,
-     m_flow_nominal=5)
-     "Temperature of the exhaust air"
+    redeclare package Medium = Medium2,
+    m_flow_nominal=5)
+    "Temperature of the exhaust air"
     annotation (Placement(transformation(extent={{-30,-44},{-50,-24}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senSupTem(
-     redeclare package Medium = Medium1,
-     m_flow_nominal=5)
-     "Temperature of the supply air"
+    redeclare package Medium = Medium1,
+    m_flow_nominal=5)
+    "Temperature of the supply air"
     annotation (Placement(transformation(extent={{60,20},{40,40}})));
 equation
   connect(TSup.y, sou_1.T_in)
@@ -82,8 +82,7 @@ equation
     annotation (Line(points={{-20,70},{-14,70},{-14,6},{0,6}},
     color={0,127,255}));
   connect(whe.port_a2, sou_2.ports[1])
-    annotation (Line(points={{20,-6},{40,-6},{40,-30},{60,-30}},
-color={0,127,255}));
+    annotation (Line(points={{20,-6},{40,-6},{40,-30},{60,-30}}, color={0,127,255}));
   connect(bypDamPos.y, whe.uBypDamPos) annotation (Line(points={{-59,0},{-2,0}},
     color={0,0,127}));
   connect(opeSig.y, whe.uRot) annotation (Line(points={{-58,30},{-10,30},{-10,8},

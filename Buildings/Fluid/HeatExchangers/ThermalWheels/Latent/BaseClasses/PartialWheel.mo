@@ -39,7 +39,6 @@ partial model PartialWheel
     final max=1) = 0.8
     "Nominal latent heat exchanger effectiveness at the heating mode"
     annotation (Dialog(group="Nominal condition"));
-
   parameter Modelica.Units.SI.Efficiency epsSenCooPL(
     final max=1) = 0.75
     "Part load (75% of the nominal supply flow rate) sensible heat exchanger effectiveness at the cooling mode"
@@ -57,11 +56,19 @@ partial model PartialWheel
     "Part load (75% of the nominal supply flow rate) latent heat exchanger effectiveness at the heating mode"
     annotation (Dialog(group="Part load effectiveness"));
 
-  Modelica.Blocks.Interfaces.RealOutput P(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput P(
     final unit="W")
     "Electric power consumption"
-    annotation (Placement(transformation(extent={{100,-30},{120,-10}}),
-        iconTransformation(extent={{100,-30},{120,-10}})));
+    annotation (Placement(transformation(extent={{100,-40},{140,0}}),
+        iconTransformation(extent={{100,-40},{140,0}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput epsSen(final unit="1")
+    "Sensible heat exchanger effectiveness"
+    annotation (Placement(transformation(extent={{100,20},{140,60}}),
+        iconTransformation(extent={{100,10},{140,50}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput epsLat(final unit="1")
+    "Latent heat exchanger effectiveness"
+    annotation (Placement(transformation(extent={{100,-100},{140,-60}}),
+        iconTransformation(extent={{100,-110},{140,-70}})));
   Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.HeatExchangerWithInputEffectiveness hex(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
@@ -91,13 +98,6 @@ partial model PartialWheel
     "Fluid connector a2 of the exhaust air (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
 
-  Modelica.Blocks.Interfaces.RealOutput epsSen(final unit="1")
-    "Sensible heat exchanger effectiveness"
-    annotation (Placement(transformation(extent={{100,22},{120,42}}),
-        iconTransformation(extent={{100,22},{120,42}})));
-  Modelica.Blocks.Interfaces.RealOutput epsLat(final unit="1")
-    "Latent heat exchanger effectiveness"
-    annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
 protected
     parameter Medium1.ThermodynamicState sta_nominal=Medium1.setState_pTX(
       T=Buildings.Utilities.Psychrometrics.Constants.T_ref,
@@ -151,12 +151,11 @@ protected
 
 equation
   connect(effCal.epsSen, hex.epsSen)
-    annotation (Line(points={{-79,3},{-12,3}},   color={0,0,127}));
+    annotation (Line(points={{-78,3},{-12,3}}, color={0,0,127}));
   connect(effCal.epsLat, hex.epsLat)
-    annotation (Line(points={{-79,-3},{-12,-3}},
-                                              color={0,0,127}));
+    annotation (Line(points={{-78,-3},{-12,-3}}, color={0,0,127}));
   connect(TSup.y, effCal.TSup)
-    annotation (Line(points={{-139,-20},{-114,-20},{-114,-4},{-102,-4}},
+    annotation (Line(points={{-139,-20},{-120,-20},{-120,-4},{-102,-4}},
         color={0,0,127}));
   connect(TExh.y, effCal.TExh)
     annotation (Line(points={{-139,-40},{-110,-40},{-110,-8},{-102,-8}},
@@ -167,18 +166,18 @@ equation
   connect(port_b2, port_b2)
     annotation (Line(points={{-180,-60},{-180,-60}}, color={0,127,255}));
   connect(port_b2, hex.port_b2)
-    annotation (Line(points={{-180,-60},{-60,-60},{-60,-6},{-10,-6}},
+    annotation (Line(points={{-180,-60},{-40,-60},{-40,-6},{-10,-6}},
         color={0,127,255}));
   connect(VSup_flow.y, effCal.VSup_flow)
-    annotation (Line(points={{-139,40},{-108,40},{-108,8},{-102,8}},
+    annotation (Line(points={{-139,40},{-110,40},{-110,8},{-102,8}},
         color={0,0,127}));
   connect(VExh_flow.y, effCal.VExh_flow)
-    annotation (Line(points={{-139,20},{-114,20},{-114,4},{-102,4}},
+    annotation (Line(points={{-139,20},{-120,20},{-120,4},{-102,4}},
         color={0,0,127}));
-  connect(epsSen, effCal.epsSen) annotation (Line(points={{110,32},{-40,32},{
-          -40,3},{-79,3}}, color={0,0,127}));
-  connect(effCal.epsLat, epsLat) annotation (Line(points={{-79,-3},{-40,-3},{
-          -40,-80},{110,-80}}, color={0,0,127}));
+  connect(epsSen, effCal.epsSen) annotation (Line(points={{120,40},{-60,40},{
+          -60,3},{-78,3}}, color={0,0,127}));
+  connect(effCal.epsLat, epsLat) annotation (Line(points={{-78,-3},{-60,-3},{
+          -60,-80},{120,-80}}, color={0,0,127}));
 annotation (
         defaultComponentName="whe",
         Icon(coordinateSystem(extent={{-100,-100},{100,100}}),

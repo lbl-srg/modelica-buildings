@@ -11,11 +11,12 @@ model HeatExchangerWithInputEffectiveness
     mWat1_flow = 0,
     mWat2_flow = 0);
 
-  Modelica.Blocks.Interfaces.RealInput eps(unit="1")
-    "Sensible heat exchanger effectiveness" annotation (Placement(
-        transformation(extent={{-140,-20},{-100,20}}), iconTransformation(
-          extent={{-140,-20},{-100,20}})));
-  annotation (
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput eps(unit="1")
+    "Sensible heat exchanger effectiveness"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
+        iconTransformation(extent={{-140,-20},{-100,20}})));
+
+annotation (
         Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(

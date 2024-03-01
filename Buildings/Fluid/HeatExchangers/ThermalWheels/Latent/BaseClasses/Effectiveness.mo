@@ -21,37 +21,37 @@ model Effectiveness
   parameter Modelica.Units.SI.VolumeFlowRate VSup_flow_nominal
     "Nominal supply air flow rate";
 
-  Modelica.Blocks.Interfaces.RealInput TSup(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final min=0,
     final unit="K",
     displayUnit="degC")
     "Supply air temperature"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
-  Modelica.Blocks.Interfaces.RealInput TExh(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TExh(
     final min=0,
     final unit="K",
     displayUnit="degC")
     "Exhaust air temperature"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-  Modelica.Blocks.Interfaces.RealInput VSup_flow(final unit="m3/s")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VSup_flow(final unit="m3/s")
     "Supply air volumetric flow rate"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-  Modelica.Blocks.Interfaces.RealInput VExh_flow( final unit="m3/s")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VExh_flow( final unit="m3/s")
     "Exhaust air volumetric flow rate"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-  Modelica.Blocks.Interfaces.RealInput uSpe(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uSpe(
     final unit="1",
     final max=1)
     "Wheel speed ratio"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Modelica.Blocks.Interfaces.RealOutput epsSen(final unit="1")
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput epsSen(final unit="1")
     "Sensible heat exchanger effectiveness"
-    annotation (Placement(transformation(extent={{100,30},{120,50}}),
-        iconTransformation(extent={{100,20},{120,40}})));
-  Modelica.Blocks.Interfaces.RealOutput epsLat(final unit="1")
+    annotation (Placement(transformation(extent={{100,20},{140,60}}),
+        iconTransformation(extent={{100,10},{140,50}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput epsLat(final unit="1")
     "Latent heat exchanger effectiveness"
-    annotation (Placement(transformation(extent={{100,-50},{120,-30}}),
-        iconTransformation(extent={{100,-40},{120,-20}})));
+    annotation (Placement(transformation(extent={{100,-60},{140,-20}}),
+        iconTransformation(extent={{100,-50},{140,-10}})));
 
 protected
   Real rat

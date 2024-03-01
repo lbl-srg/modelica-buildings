@@ -59,14 +59,14 @@ model SpeedControlled
     "Wheel speed"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senExhTem(
-      redeclare package Medium = Medium2,
-      m_flow_nominal=5)
-      "Temperature of the exhaust air"
+    redeclare package Medium = Medium2,
+    m_flow_nominal=5)
+    "Temperature of the exhaust air"
     annotation (Placement(transformation(extent={{-20,-50},{-40,-30}})));
-   Buildings.Fluid.Sensors.TemperatureTwoPort senSupTem(
-     redeclare package Medium = Medium1,
-     m_flow_nominal=5)
-     "Temperature of the supply air"
+  Buildings.Fluid.Sensors.TemperatureTwoPort senSupTem(
+    redeclare package Medium = Medium1,
+    m_flow_nominal=5)
+    "Temperature of the supply air"
     annotation (Placement(transformation(extent={{60,20},{40,40}})));
 equation
   connect(TSup.y, sou_1.T_in)

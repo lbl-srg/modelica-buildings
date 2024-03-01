@@ -13,33 +13,33 @@ model Effectiveness
   parameter Modelica.Units.SI.VolumeFlowRate VSup_flow_nominal
     "Nominal supply air flow rate";
 
-  Modelica.Blocks.Interfaces.RealInput TSup(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final min=0,
     final unit="K",
     displayUnit="degC")
     "Supply air temperature"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
-  Modelica.Blocks.Interfaces.RealInput TExh(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TExh(
     final min=0,
     final unit="K",
     displayUnit="degC")
     "Exhaust air temperature
     " annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-  Modelica.Blocks.Interfaces.RealInput VSup_flow(final unit="m3/s")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VSup_flow(final unit="m3/s")
     "Supply air volumetric flow rate"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-  Modelica.Blocks.Interfaces.RealInput VExh_flow( final unit="m3/s")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VExh_flow( final unit="m3/s")
     "Exhaust air volumetric flow rate"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-  Modelica.Blocks.Interfaces.RealInput uSpe(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uSpe(
     final unit="1",
     final max=1)
     "Wheel speed ratio"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Modelica.Blocks.Interfaces.RealOutput eps(final unit="1")
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput eps(final unit="1")
     "Sensible heat exchanger effectiveness"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
-        iconTransformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
   Real rat
