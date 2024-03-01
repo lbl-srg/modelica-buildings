@@ -64,8 +64,7 @@ where <code>eps</code> is an input mass transfer efficiency and
 <code>C_inflow</code> is an input trace substance rate.
 </p>
 <p>
-This model has no pressure drop.
-In the case of reverse flow,
+This model has no pressure drop. In the case of reverse flow,
 the fluid that leaves <code>port_a</code> has the same
 properties as the fluid that enters <code>port_b</code>.
 </p>

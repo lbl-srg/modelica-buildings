@@ -52,12 +52,11 @@ equation
   connect(C_out.port_a, masTra.port_b)
     annotation (Line(points={{20,0},{10,0}}, color={0,127,255}));
   connect(C_in.port_b, masTra.port_a)
-    annotation (Line(points={{-30,0},{-10,0}},
-                                             color={0,127,255}));
+    annotation (Line(points={{-30,0},{-10,0}}, color={0,127,255}));
   connect(C_in.port_a, sou.ports[1])
-    annotation (Line(points={{-50,0},{-60,0}},         color={0,127,255}));
+    annotation (Line(points={{-50,0},{-60,0}}, color={0,127,255}));
   annotation (experiment(Tolerance=1e-6, StopTime=30),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/AirFilters/BaseClasses/MassTransfer.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/AirFilters/BaseClasses/Validation/MassTransfer.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>

@@ -24,7 +24,7 @@ equation
   connect(mCon_flow.y, masAcc.mCon_flow) annotation (Line(points={{-39,30},{-20,
           30},{-20,6},{-12,6}}, color={0,0,127}));
   annotation (experiment(Tolerance=1e-6, StopTime=1.0),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/AirFilters/BaseClasses/MassAccumulation.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/AirFilters/BaseClasses/Validation/MassAccumulation.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>

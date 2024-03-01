@@ -60,7 +60,7 @@ equation
   connect(kCor.y, resVarying.kCor)
     annotation (Line(points={{-59,72},{0,72},{0,52}}, color={0,0,127}));
   annotation (experiment(Tolerance=1e-6, StopTime=1.0),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/AirFilters/BaseClasses/PressureDropWithVaryingFlowCoefficient.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/AirFilters/BaseClasses/Validation/PressureDropWithVaryingFlowCoefficient.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
