@@ -2,14 +2,14 @@ within Buildings.Fluid.AirFilters.BaseClasses;
 model FiltrationEfficiency
   "Component that calculates the filtration efficiency"
   parameter Real mCon_nominal(
-   final unit="kg")
-   "Maximum mass of the contaminant can be captured by the filter";
+    final unit="kg")
+    "Maximum mass of the contaminant can be captured by the filter";
   parameter Real epsFun[:]
-   "Filtration efficiency curve";
-  Modelica.Blocks.Interfaces.RealInput mCon(
-   final unit="kg")
-   "Mass of the contaminant captured by the filter"
-   annotation (Placement(
+    "Filtration efficiency curve";
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mCon(
+    final unit="kg")
+    "Mass of the contaminant captured by the filter"
+    annotation (Placement(
         transformation(
         extent={{20,-20},{-20,20}},
         rotation=180,
@@ -21,16 +21,16 @@ model FiltrationEfficiency
     final unit="1",
     final min=0,
     final max=1)
-    "Filtration efficiency" annotation (Placement(transformation(
-          extent={{100,-80},{140,-40}}), iconTransformation(extent={{100,-80},{
-            140,-40}})));
+    "Filtration efficiency"
+    annotation (Placement(transformation(extent={{100,-80},{140,-40}}),
+        iconTransformation(extent={{100,-80},{140,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput rat(
     final unit="1",
     final min=0,
     final max=1)
     "Relative mass of the contaminant captured by the filter"
-   annotation (Placement(transformation(extent={{100,40},{140,80}}), iconTransformation(
-          extent={{100,40},{140,80}})));
+   annotation (Placement(transformation(extent={{100,40},{140,80}}),
+       iconTransformation(extent={{100,40},{140,80}})));
 
 equation
   rat = Buildings.Utilities.Math.Functions.smoothMin(x1=1, x2= mCon/mCon_nominal, deltaX=0.1);
@@ -40,7 +40,8 @@ equation
     "In " + getInstanceName() + ": The filter efficiency should be in the range of [0, 1], 
     check the filter efficiency curve.",
     level=AssertionLevel.error);
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+
+annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={28,108,200},
@@ -51,8 +52,8 @@ equation
           textColor={0,0,255},
           textString="%name")}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
-    defaultComponentName="eps",
-    Documentation(revisions="<html>
+  defaultComponentName="eps",
+Documentation(revisions="<html>
 <ul>
 <li>
 December 22, 2023, by Sen Huang:<br/>
@@ -70,7 +71,8 @@ eps = epsFun<sub>1</sub> + epsFun<sub>2</sub>rat + epsFun<sub>3</sub> rat<sup>2<
 where the coefficients <i>epsFun<sub>i</sub></i> are declared by the parameter <i>epsFun</i>;
 </p>
 <p>
-<i>rat</i> is the relative mass of the contaminant captured by the filter and is calculated by
+The <i>rat</i> is the relative mass of the contaminant captured by the filter
+and is calculated by
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 rat =  mCon/mCon_nominal,

@@ -2,13 +2,13 @@ within Buildings.Fluid.AirFilters.BaseClasses.Validation;
 model FlowCoefficientCorrection
   "Validation model for the calculation of the flow coefficient correction factor"
   extends Modelica.Icons.Example;
-   Modelica.Blocks.Sources.Ramp rat(
+  Modelica.Blocks.Sources.Ramp rat(
     duration=1,
     height=1,
     offset=0)
    "Relative mass of the contaminant captured by the filter"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-   Buildings.Fluid.AirFilters.BaseClasses.FlowCoefficientCorrection kCor(
+  Buildings.Fluid.AirFilters.BaseClasses.FlowCoefficientCorrection kCor(
     b=1.2)
     "Flow coefficient correction"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

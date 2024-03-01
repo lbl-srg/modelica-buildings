@@ -19,14 +19,17 @@ model Empirical "Empirical air filter model"
   parameter Modelica.Units.SI.PressureDifference dp_nominal
     "Nominal pressure drop"
     annotation (Dialog(group="Nominal"));
-  Modelica.Blocks.Interfaces.BooleanInput triRep
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput triRep
     "Replacing the filter when trigger becomes true"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput eps(
     final unit="1",
     final min=0,
-    final max=1) "Filtration efficiency" annotation (Placement(transformation(
-    extent={{100,40},{140,80}}), iconTransformation(extent={{100,-80},{140,-40}})));
+    final max=1)
+    "Filtration efficiency"
+    annotation (Placement(transformation(extent={{100,40},{140,80}}),
+        iconTransformation(extent={{100,-80},{140,-40}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare package Medium = Medium)
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
@@ -76,24 +79,30 @@ equation
     annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
   connect(masAcc.triRep, triRep)
     annotation (Line(points={{-42,73.8},{-42,74},{-68,74},{-68,60},{-120,60}},
-    color={255,0,255}));
+        color={255,0,255}));
   connect(traceSubstancesFlow.y, masAcc.mCon_flow)
     annotation (Line(points={{-71,80},{-60,80},{-60,86},{-42,86}},
-    color={0,0,127}));
+        color={0,0,127}));
   connect(epsCal.y, masTra.eps)
     annotation (Line(points={{14,74},{28,74},{28,6},{38,6}}, color={0,0,127}));
-  connect(masTra.C_inflow[1], traceSubstancesFlow.y) annotation (Line(points={{
-          50,12},{50,28},{-60,28},{-60,80},{-71,80}}, color={0,0,127}));
+  connect(masTra.C_inflow[1], traceSubstancesFlow.y)
+    annotation (Line(points={{50,12},{50,28},{-60,28},{-60,80},{-71,80}},
+        color={0,0,127}));
   connect(epsCal.rat, kCor.rat)
-    annotation (Line(points={{14,86},{32,86},{32,80},
-    {38,80}}, color={0,0,127}));
+    annotation (Line(points={{14,86},{32,86},{32,80},{38,80}}, color={0,0,127}));
   connect(kCor.y, res.kCor)
-    annotation (Line(points={{62,80},{80,80},{80,60},{-20,
-    60},{-20,12}}, color={0,0,127}));
+    annotation (Line(points={{62,80},{80,80},{80,60},{-20,60},{-20,12}},
+        color={0,0,127}));
   connect(epsCal.y, eps)
-    annotation (Line(points={{14,74},{34,74},{34,38},{88,38},
-    {88,60},{120,60}}, color={0,0,127}));
+    annotation (Line(points={{14,74},{34,74},{34,38},{88,38},{88,60},{120,60}},
+        color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+        Rectangle(
+          extent={{-100,100},{100,-100}},
+          lineColor={28,108,200},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
         Rectangle(
           extent={{-20,90},{22,-80}},
           lineColor={28,108,200},
@@ -265,38 +274,45 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-An empirical model of air filters, which considers the impacts of the contamination accumulation on
-the pressure drop and the filtration efficiency. 
+An empirical model of air filters, which considers the impacts of the contamination
+accumulation on the pressure drop and the filtration efficiency. 
 </p>
 <p>
-This model does not require detailed information of filters, such as filter type or geometric data.
-Instead, its dynamic characteristics are defined by three parameters, <code>mCon_nominal</code>,<code>epsFun</code>,
-and <code>b</code>.
+This model does not require detailed information of filters, such as filter type
+or geometric data. Instead, its dynamic characteristics are defined by three
+parameters, <code>mCon_nominal</code>,<code>epsFun</code>, and <code>b</code>.
 </p>
 <ul>
 <li> 
-<code>mCon_nominal</code> determines the maximum mass of the contaminants that the filter can capture;
+The <code>mCon_nominal</code> determines the maximum mass of the contaminants that the
+filter can capture;
 </li> 
 <li> 
-<code>epsFun</code> is a vector of coefficients that determines how the filtration efficiency changes by the accumulation 
-of contaminants;
+The <code>epsFun</code> is a vector of coefficients that determines how the
+filtration efficiency changes by the accumulation of contaminants;
 </li> 
 <li> 
-<code>b</code> is a constant that determines how the flow coefficient changes by the accumulation 
-of contaminants.
+The <code>b</code> is a constant that determines how the flow coefficient changes
+by the accumulation of contaminants.
 </li>
 </ul>
-See more detailed descriptions in <a href=\"modelica://Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency\">
+<p>
+See more detailed descriptions in
+<a href=\"modelica://Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency\">
 Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency</a> and 
 <a href=\"modelica://Buildings.Fluid.AirFilters.BaseClasses.FlowCoefficientCorrection\">
 Buildings.Fluid.AirFilters.BaseClasses.FlowCoefficientCorrection</a>.
+</p>
 <p>
 The input boolean flag, <code>triRep</code>, triggers the filter replacement.
-Specifically, when <code>triRep</code> changes from <i>false</i> to <i>true</i>, the mass 
-of the contaminants that the filter holds, <code>mCon = 0</code>.
+Specifically, when <code>triRep</code> changes from <i>false</i> to <i>true</i>, the
+mass of the contaminants that the filter holds, <code>mCon = 0</code>.
 </p>
-<b>Note:</b> 
+<b>Note:</b>
+<p>
 A warning will be triggered when <code>mCon > mCon_nominal</code>. 
-In addition, this model can only be used when <code>extraPropertiesNames</code> is defined in the medium model.
+In addition, this model can only be used when <code>extraPropertiesNames</code>
+is defined in the medium model.
+</p>
 </html>"));
 end Empirical;

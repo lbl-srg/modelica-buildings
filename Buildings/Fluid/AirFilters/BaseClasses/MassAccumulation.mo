@@ -6,7 +6,7 @@ model MassAccumulation
   parameter Real mCon_reset(
     final min = 0)
     "Initial contaminant mass of the filter after replacement";
-  Modelica.Blocks.Interfaces.BooleanInput triRep
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput triRep
     "Replacing the filter when trigger becomes true"
      annotation (Placement(
         transformation(
@@ -16,7 +16,7 @@ model MassAccumulation
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-120,-62})));
-  Modelica.Blocks.Interfaces.RealInput mCon_flow(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mCon_flow(
     final unit = "kg/s")
     "Contaminant mass flow rate"
     annotation (Placement(transformation(
@@ -29,9 +29,8 @@ model MassAccumulation
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput mCon(
     final unit = "kg")
     "Mass of the contaminant captured by the filter"
-    annotation (Placement(
-        transformation(extent={{100,-20},{140,20}}), iconTransformation(extent={
-            {100,-20},{140,20}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Reals.IntegratorWithReset intWitRes
     "Calculate the mass of contaminant"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

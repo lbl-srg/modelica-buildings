@@ -2,12 +2,12 @@ within Buildings.Fluid.AirFilters.BaseClasses.Validation;
 model FiltrationEfficiency
   "Validation model for the calculation of the filtration efficiency"
   extends Modelica.Icons.Example;
-   Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency eps(
+  Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency eps(
     mCon_nominal=1,
     epsFun={0.98,-0.1})
     "Filtration efficiency"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-   Modelica.Blocks.Sources.Ramp mCon(
+  Modelica.Blocks.Sources.Ramp mCon(
     duration=1,
     height=1.2,
     offset=0)
@@ -28,7 +28,8 @@ changes from <i>0</i> to <i>1.2kg/s</i> from 0 to 1 second.
 The filtration efficiency, <code>eps.y</code>, changes from 0.98 to 0.88 during the period from
 0 to 0.85 seconds.
 After 0.85 seconds, the <code>eps.y</code> remains unchanged when <code>mCon</code> changes.
-This is because the relative mass of contaminant captured by the filter already reaches the maximum value.          
+This is because the relative mass of contaminant captured by the filter already
+reaches the maximum value.          
 </p>
 </html>", revisions="<html>
 <ul>

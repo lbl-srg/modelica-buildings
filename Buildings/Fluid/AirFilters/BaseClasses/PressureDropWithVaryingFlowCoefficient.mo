@@ -11,7 +11,7 @@ model PressureDropWithVaryingFlowCoefficient
                          enable = not linearized));
   Real k
    "Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
-  Modelica.Blocks.Interfaces.RealInput kCor(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput kCor(
    final unit = "1",
    final min = 1)
    "Flow coefficient"

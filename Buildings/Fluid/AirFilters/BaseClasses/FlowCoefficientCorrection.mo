@@ -4,7 +4,7 @@ model FlowCoefficientCorrection
   parameter Real b(
     final min = 1 + 1E-3)
     "Resistance coefficient";
-  Modelica.Blocks.Interfaces.RealInput rat(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput rat(
     final unit="1",
     final min=0,
     final max=1)

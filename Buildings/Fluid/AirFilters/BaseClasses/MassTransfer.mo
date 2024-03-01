@@ -3,19 +3,20 @@ model MassTransfer
   "Component that sets the trace substance at port_b based on an input trace substance mass flow rate 
   and an input mass transfer efficiency"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
-  Modelica.Blocks.Interfaces.RealInput C_inflow[Medium.nC]
-    "Input trace substance rate" annotation (Placement(transformation(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput C_inflow[Medium.nC]
+    "Input trace substance rate"
+    annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=270,
         origin={0,120}), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=270,
         origin={0,120})));
-  Modelica.Blocks.Interfaces.RealInput eps(
-   final unit = "1",
-   final min = 0,
-   final max= 1)
-   "Mass transfer coefficient"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput eps(
+    final unit = "1",
+    final min = 0,
+    final max= 1)
+    "Mass transfer coefficient"
     annotation (Placement(transformation(
         extent={{20,-20},{-20,20}},
         rotation=180,
@@ -36,7 +37,7 @@ equation
   port_b.Xi_outflow = inStream(port_a.Xi_outflow);
   port_a.m_flow = -port_b.m_flow;
   // Pressure balance (no pressure drop).
-  port_a. p = port_b.p;
+  port_a.p = port_b.p;
   // Energy balance (no heat exchange).
   port_a.h_outflow = inStream(port_b.h_outflow);
   port_b.h_outflow = inStream(port_a.h_outflow);
