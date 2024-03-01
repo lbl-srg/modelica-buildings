@@ -1,0 +1,2 @@
+simulateModel("Buildings.Fluid.Sensors.Examples.HeatMeter", stopTime=60, tolerance=1e-06, resultFile="HeatMeter");
+createPlot(id=1, position={551, 169, 592, 371}, y={"senHeaFlo.Q_flow", "heaFloRat.Q_flow"}, range={0.0, 60.0, -50000.0, 450000.0}, grid=true, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"W", "W"});
