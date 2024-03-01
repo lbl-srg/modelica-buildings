@@ -206,7 +206,8 @@ protected
     annotation (Placement(transformation(extent={{-120,330},{-100,350}})));
   Buildings.Controls.OBC.CDL.Reals.Min supTim "Suppression time"
     annotation (Placement(transformation(extent={{0,270},{20,290}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.ModelTime modTim "Time of the model"
+  Buildings.Controls.OBC.CDL.Reals.Sources.CivilTime modTim
+    "Civil time"
     annotation (Placement(transformation(extent={{-140,400},{-120,420}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(final k=540)
     "Convert change of degC to change of degF and find out suppression time (5 min/degF))"

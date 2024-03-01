@@ -84,7 +84,7 @@ model Direct "Example model for direct heating energy transfer station
     "Multiplier gain for calculating m_flow"
     annotation (Placement(transformation(extent={{0,80},{20,100}})));
 equation
-  connect(TSetDisRet_max.y,heaETS. TSetDisRet)
+  connect(TSetDisRet_max.y,heaETS.TDisRetSet)
     annotation (Line(points={{-99,-10},{-0.6,-10}}, color={0,0,127}));
   connect(TDisSupNoi.y, souDis.T_in)
     annotation (Line(points={{-99,-66},{-62,-66}}, color={0,0,127}));
