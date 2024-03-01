@@ -6,7 +6,6 @@ compareVars :=
     "sou_2.T",
     "whe.port_a1.m_flow",
     "whe.port_a2.m_flow",
-    "whe.uBypDamPos",
-    "whe.epsSen",
-    "whe.epsLat"
+    "whe.uSpe",
+    "whe.eps"
   };

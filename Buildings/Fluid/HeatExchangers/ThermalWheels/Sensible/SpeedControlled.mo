@@ -1,8 +1,8 @@
-within Buildings.Fluid.HeatExchangers.ThermalWheels.Latent;
+within Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible;
 model SpeedControlled
-  "Enthalpy recovery wheel with a variable speed drive"
+  "Sensible heat recovery wheel with a variable speed drive"
   extends
-    Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.PartialWheel;
+    Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.PartialWheel;
   parameter Real a[:] = {1}
     "Coefficients for power consumption curve for rotor, P/P_nominal = sum a_i uSpe^(i-1). The sum(a) of the elements must be equal to 1"
     annotation (Dialog(group="Efficiency"));
@@ -17,7 +17,7 @@ protected
   Modelica.Blocks.Sources.RealExpression PEle(
     final y=P_nominal*Buildings.Utilities.Math.Functions.polynomial(a=a, x=uSpe))
     "Electric power consumption"
-    annotation (Placement(transformation(extent={{70,-30},{90,-10}})));
+    annotation (Placement(transformation(extent={{72,-30},{92,-10}})));
 
 initial equation
   assert(abs(sum(a)-1) < Modelica.Constants.eps,
@@ -27,7 +27,8 @@ initial equation
 
 equation
   connect(P, PEle.y)
-    annotation (Line(points={{110,-20},{91,-20}}, color={0,0,127}));
+    annotation (Line(points={{110,-20},{93,-20}},
+                                              color={0,0,127}));
   connect(port_a1, hex.port_a1) annotation (Line(points={{-180,80},{-60,80},{-60,
           6},{-10,6}}, color={0,127,255}));
   connect(hex.port_a2, port_a2) annotation (Line(points={{10,-6},{60,-6},{60,-60},
@@ -47,12 +48,12 @@ annotation (
         coordinateSystem(preserveAspectRatio=false, extent={{-180,-100},{100,100}})),
 Documentation(info="<html>
 <p>
-Model of an enthalpy recovery wheel, which has the 
+Model of a generic, sensible heat recovery wheel, which has the 
 wheel speed as the input to control the heat recovery.
 </p>
 <p>
 This model does not require geometric data. The performance is defined by specifying the 
-part load (75% of the nominal supply flow rate) and nominal sensible and latent heat exchanger effectiveness in both heating and cooling conditions.
+part load (75% of the nominal supply flow rate) and nominal sensible heat exchanger effectiveness in both heating and cooling conditions.
 </p>
 <p>
 The operation of the heat recovery wheel is adjustable by modulating the wheel speed.
@@ -72,13 +73,13 @@ Thus, when the speed ratio <code>uSpe=1</code>, the power consumption equal to
 nominal consumption, <code>P=P_nominal</code>.
 </p>
 <p>
-The sensible and latent effectiveness is calculated with <a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.Effectiveness\">
-Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.Effectiveness</a>.
+The sensible heat exchanger effectiveness is calculated with <a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.Effectiveness\">
+Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.Effectiveness</a>.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-September 29, 2023, by Sen Huang:<br/>
+January 8, 2024, by Sen Huang:<br/>
 First implementation.
 </li>
 </ul>

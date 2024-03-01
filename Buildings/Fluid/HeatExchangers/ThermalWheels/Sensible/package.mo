@@ -1,10 +1,10 @@
 within Buildings.Fluid.HeatExchangers.ThermalWheels;
-package Latent "Package with enthalpy recovery wheels"
+package Sensible "Package with sensible heat recovery devices"
   extends Modelica.Icons.VariantsPackage;
 
 annotation (Documentation(info="<html>
 <p>
-This package contains component models for enthalpy recovery wheels.
+This package contains component models for sensible heat recovery wheels.
 </p>
 </html>"));
-end Latent;
+end Sensible;
