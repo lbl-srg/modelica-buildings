@@ -28,7 +28,7 @@ model Empirical "Empirical air filter model"
     final min=0,
     final max=1)
     "Filtration efficiency"
-    annotation (Placement(transformation(extent={{100,40},{140,80}}),
+    annotation (Placement(transformation(extent={{100,20},{140,60}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare package Medium = Medium)
@@ -50,51 +50,48 @@ protected
     redeclare package Medium = Medium,
     final m_flow_nominal=m_flow_nominal)
     "Contaminant removal"
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+    annotation (Placement(transformation(extent={{50,-10},{70,10}})));
   Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency epsCal(
     final mCon_nominal=mCon_nominal,
     final epsFun=epsFun)
     "Filter characterization"
-    annotation (Placement(transformation(extent={{-8,70},{12,90}})));
+    annotation (Placement(transformation(extent={{0,70},{20,90}})));
   Buildings.Fluid.AirFilters.BaseClasses.MassAccumulation masAcc(
     final mCon_nominal=mCon_nominal,
     final mCon_reset=0)
     "Contaminant accumulation"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-  Modelica.Blocks.Sources.RealExpression traceSubstancesFlow(
-    y(unit="kg/s")= inStream(port_a.C_outflow[1])*port_a.m_flow)
-    "Trace substances flow rate"
+  Modelica.Blocks.Sources.RealExpression traSubFlo(y(unit="kg/s") = inStream(
+      port_a.C_outflow[1])*port_a.m_flow) "Trace substances flow rate"
     annotation (Placement(transformation(extent={{-92,70},{-72,90}})));
   Buildings.Fluid.AirFilters.BaseClasses.FlowCoefficientCorrection kCor(
     final b=b)
-    annotation (Placement(transformation(extent={{40,70},{60,90}})));
+    annotation (Placement(transformation(extent={{60,70},{80,90}})));
 equation
   connect(masAcc.mCon, epsCal.mCon)
-    annotation (Line(points={{-18,80},{-10,80}}, color={0,0,127}));
+    annotation (Line(points={{-18,80},{-2,80}},  color={0,0,127}));
   connect(res.port_a, port_a)
     annotation (Line(points={{-30,0},{-100,0}}, color={0,127,255}));
   connect(res.port_b, masTra.port_a)
-    annotation (Line(points={{-10,0},{40,0}},color={0,127,255}));
+    annotation (Line(points={{-10,0},{50,0}},color={0,127,255}));
   connect(masTra.port_b, port_b)
-    annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
+    annotation (Line(points={{70,0},{100,0}}, color={0,127,255}));
   connect(masAcc.triRep, triRep)
-    annotation (Line(points={{-42,73.8},{-42,74},{-68,74},{-68,60},{-120,60}},
+    annotation (Line(points={{-42,73.8},{-42,74},{-70,74},{-70,60},{-120,60}},
         color={255,0,255}));
-  connect(traceSubstancesFlow.y, masAcc.mCon_flow)
-    annotation (Line(points={{-71,80},{-60,80},{-60,86},{-42,86}},
-        color={0,0,127}));
+  connect(traSubFlo.y, masAcc.mCon_flow) annotation (Line(points={{-71,80},{-60,
+          80},{-60,86},{-42,86}}, color={0,0,127}));
   connect(epsCal.y, masTra.eps)
-    annotation (Line(points={{14,74},{28,74},{28,6},{38,6}}, color={0,0,127}));
-  connect(masTra.C_inflow[1], traceSubstancesFlow.y)
-    annotation (Line(points={{50,12},{50,28},{-60,28},{-60,80},{-71,80}},
-        color={0,0,127}));
+    annotation (Line(points={{22,74},{40,74},{40,6},{48,6}}, color={0,0,127}));
+  connect(masTra.C_inflow[1], traSubFlo.y) annotation (Line(points={{60,12},{60,
+          28},{-60,28},{-60,80},{-71,80}}, color={0,0,127}));
   connect(epsCal.rat, kCor.rat)
-    annotation (Line(points={{14,86},{32,86},{32,80},{38,80}}, color={0,0,127}));
+    annotation (Line(points={{22,86},{40,86},{40,80},{58,80}}, color={0,0,127}));
   connect(kCor.y, res.kCor)
-    annotation (Line(points={{62,80},{80,80},{80,60},{-20,60},{-20,12}},
+    annotation (Line(points={{82,80},{90,80},{90,50},{-20,50},{-20,12}},
         color={0,0,127}));
   connect(epsCal.y, eps)
-    annotation (Line(points={{14,74},{34,74},{34,38},{88,38},{88,60},{120,60}},
+    annotation (Line(points={{22,74},{40,74},{40,40},{120,40}},
         color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
