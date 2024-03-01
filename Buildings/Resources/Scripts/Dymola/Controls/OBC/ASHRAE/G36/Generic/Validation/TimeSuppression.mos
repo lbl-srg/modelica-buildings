@@ -1,9 +1,0 @@
-simulateModel("Buildings.Controls.OBC.ASHRAE.G36.Generic.Validation.TimeSuppression", method="Cvode", stopTime=7200, tolerance=1e-06, resultFile="timSup");
-createPlot(id=1, position={9, 3, 924, 1042}, y={"timSupCooReq.supTim.u1", "timSupCooReq.supTim.u2", "timSupCooReq.supTim.y"}, range={0.0, 7500.0, -500.0, 2500.0}, grid=true, subPlot=1, colors={{28,108,200}, {238,46,47}, {0,140,72}}, timeUnit="s", displayUnits={"", "s", "s"});
-createPlot(id=1, position={9, 3, 924, 1042}, y={"timSupCooReq.TSet", "timSupCooReq.TZon"}, range={0.0, 7500.0, 20.0, 28.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"degC", "degC"});
-createPlot(id=1, position={9, 3, 924, 1042}, y={"timSupCooReq.yAftSup"}, range={0.0, 7500.0, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}}, timeUnit="s");
-createPlot(id=2, position={943, 1, 1030, 1048}, y={"timSupAla.supTim.u1", "timSupAla.supTim.u2", "timSupAla.supTim.y"}, range={0.0, 7500.0, -2000.0, 8000.0}, grid=true, subPlot=1, colors={{28,108,200}, {238,46,47}, {0,140,72}}, timeUnit="s", displayUnits={"", "s", "s"});
-createPlot(id=2, position={943, 1, 1030, 1048}, y={"timSupAla.TSet", "timSupAla.TZon"}, range={0.0, 7500.0, 21.0, 28.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"degC", "degC"});
-createPlot(id=2, position={943, 1, 1030, 1048}, y={"timSupAla.yAftSup"}, range={0.0, 7500.0, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}}, timeUnit="s");
-
-
