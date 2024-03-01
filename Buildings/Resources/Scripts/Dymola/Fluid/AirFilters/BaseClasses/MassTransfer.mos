@@ -1,0 +1,3 @@
+simulateModel("Buildings.Fluid.AirFilters.BaseClasses.Validation.MassTransfer", stopTime=30, tolerance=1e-06, method="CVode", resultFile="MassTransfer");
+createPlot(id=1, position={49, 30, 734, 454}, y={"C_in.C", "C_out.C"}, range={0.0, 1.0, -0.5, 1.5}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}}, timeUnit="s");
+createPlot(id=1, position={49, 30, 734, 454}, y={"masTra.eps"}, range={0.0, 1.0, 0.2, 1.2}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="s");
