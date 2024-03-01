@@ -14,6 +14,21 @@ record PartialAirHandler "Configuration parameters for air handler interface cla
   parameter Buildings.Templates.Components.Types.Fan typFanRel
     "Type of relief fan"
     annotation (Evaluate=true);
+  parameter Integer nFanSup(
+    start=if typFanSup==Buildings.Templates.Components.Types.Fan.None then 0 else 1)
+    "Number of supply fans"
+    annotation (Evaluate=true,
+    Dialog(enable=typFanSup==Buildings.Templates.Components.Types.Fan.ArrayVariable));
+  parameter Integer nFanRet(
+    start=if typFanRet==Buildings.Templates.Components.Types.Fan.None then 0 else 1)
+    "Number of return fans"
+    annotation (Evaluate=true,
+    Dialog(enable=typFanRet==Buildings.Templates.Components.Types.Fan.ArrayVariable));
+  parameter Integer nFanRel(
+    start=if typFanRel==Buildings.Templates.Components.Types.Fan.None then 0 else 1)
+    "Number of relief fans"
+    annotation (Evaluate=true,
+    Dialog(enable=typFanRel==Buildings.Templates.Components.Types.Fan.ArrayVariable));
   parameter Boolean have_souChiWat
     "Set to true if cooling coil requires fluid ports on the source side"
     annotation (Evaluate=true);

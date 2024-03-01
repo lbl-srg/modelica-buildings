@@ -1,5 +1,5 @@
 within Buildings.Airflow.Multizone.BaseClasses.Examples;
-model Interpolate "Test model for the function flowElementData"
+model Interpolate "Test model for the interpolation function"
   extends Modelica.Icons.Example;
 
   parameter Real table[:,:]=[-50,-0.08709; -25,-0.06158; -10,-0.03895; -5,-0.02754;
