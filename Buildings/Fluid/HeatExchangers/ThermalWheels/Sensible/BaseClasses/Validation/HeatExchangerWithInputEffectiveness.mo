@@ -1,4 +1,4 @@
-within Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.Validation;
+within Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.Validation;
 model HeatExchangerWithInputEffectiveness
   "Test model for the heat exchanger with input effectiveness"
   extends Modelica.Icons.Example;
@@ -44,30 +44,22 @@ model HeatExchangerWithInputEffectiveness
     nPorts=1)
     "Supply air source"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
-  Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.HeatExchangerWithInputEffectiveness hex(
+  Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.HeatExchangerWithInputEffectiveness
+    hex(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     m1_flow_nominal=5,
     m2_flow_nominal=5,
     dp1_nominal=100,
     dp2_nominal=100,
-    show_T=true)
-    "Heat exchanger"
+    show_T=true) "Heat exchanger"
     annotation (Placement(transformation(extent={{6,-4},{26,16}})));
-  Modelica.Blocks.Sources.Ramp epsSen(
+  Modelica.Blocks.Sources.Ramp eps(
     height=0.1,
     duration=60,
     offset=0.7,
-    startTime=120)
-    "Sensible heat exchanger effectiveness"
-    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  Modelica.Blocks.Sources.Ramp epsLat(
-    height=0.1,
-    duration=60,
-    offset=0.7,
-    startTime=60)
-    "Latent heat exchanger effectiveness"
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+    startTime=120) "Sensible heat exchanger effectiveness"
+    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
 equation
   connect(TSup.y, sou_1.T_in)
     annotation (Line(points={{-59,64},{-42,64}}, color={0,0,127}));
@@ -80,19 +72,17 @@ equation
     annotation (Line(points={{26,12},{40,12},{40,40},{60,40}}, color={0,127,255}));
   connect(hex.port_b2, sin_2.ports[1])
     annotation (Line(points={{6,0},{-10,0},{-10,-20},{-20,-20}}, color={0,127,255}));
-  connect(epsSen.y, hex.epsSen)
-    annotation (Line(points={{-59,20},{-20,20},{-20,9},{4,9}},   color={0,0,127}));
-  connect(hex.epsLat, epsLat.y)
-    annotation (Line(points={{4,3},{-50,3},{-50,-40},{-59,-40}}, color={0,0,127}));
+  connect(eps.y, hex.eps)
+    annotation (Line(points={{-59,10},{-4,10},{-4,6},{4,6}}, color={0,0,127}));
 
 annotation(experiment(Tolerance=1e-6, StopTime=360),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ThermalWheels/Latent/BaseClasses/Validation/HeatExchangerWithInputEffectiveness.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ThermalWheels/Sensible/BaseClasses/Validation/HeatExchangerWithInputEffectiveness.mos"
         "Simulate and plot"),
 Documentation(info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.HeatExchangerWithInputEffectiveness\">
-Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.HeatExchangerWithInputEffectiveness</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.HeatExchangerWithInputEffectiveness\">
+Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.HeatExchangerWithInputEffectiveness</a>.
 </p>
 <p>
 The input signals are configured as follows:
@@ -103,31 +93,19 @@ The supply air temperature <i>TSup</i> changes from <i>273.15 + 30 K</i> to
 <i>273.15 + 40 K</i> during the period from 120 seconds to 180 seconds.
 </li>
 <li>
-The sensible heat exchanger effectiveness <i>epsSen</i> changes from <i>0.7</i>
+The sensible heat exchanger effectiveness <i>eps</i> changes from <i>0.7</i>
 to <i>0.8</i> during the period from 120 seconds to 180 seconds.
-</li>
-<li>
-The latent heat exchanger effectiveness <i>epsLat</i> changes from <i>0.7</i>
-to <i>0.8</i> during the period from 60 seconds to 120 seconds.
 </li>
 </ul>
 <p>
 The expected outputs are:
-</p>
-<ul>
-<li>
-During the period from 60 seconds to 120 seconds, the leaving supply air humidity
-decreases while the leaving exhaust air humidity increases.
-</li>
-<li>
-During the period from 120 seconds to 180 seconds, the leaving supply air temperature
+during the period from 120 seconds to 180 seconds, the leaving supply air temperature
 increases while the leaving exhaust air temperature decreases.
-</li>
-</ul>
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
-September 29, 2023, by Sen Huang:<br/>
+January 8, 2024, by Sen Huang:<br/>
 First implementation.
 </li>
 </ul>

@@ -1,6 +1,6 @@
-within Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.Validation;
+within Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.Validation;
 model BypassDampers
-  "Test model for the enthalpy recovery wheel with bypass dampers"
+  "Test model for the sensible heat recovery wheel with bypass dampers"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Air
     "Supply air";
@@ -12,7 +12,7 @@ model BypassDampers
     T=273.15 + 10,
     nPorts=1)
     "Exhaust air sink"
-    annotation (Placement(transformation(extent={{-78,-50},{-58,-30}})));
+    annotation (Placement(transformation(extent={{-80,-44},{-60,-24}})));
   Buildings.Fluid.Sources.Boundary_pT sou_2(
     redeclare package Medium = Medium2,
     p(displayUnit="Pa") = 101325 + 500,
@@ -44,19 +44,14 @@ model BypassDampers
     nPorts=1)
     "Supply air source"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-  Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BypassDampers whe(
+  Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BypassDampers whe(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     m1_flow_nominal=5,
     m2_flow_nominal=5,
     dp1_nominal(displayUnit="Pa"),
     dp2_nominal(displayUnit="Pa"),
-    P_nominal=100,
-    epsLatCoo_nominal=0.7,
-    epsLatCooPL=0.6,
-    epsLatHea_nominal=0.7,
-    epsLatHeaPL=0.6)
-    "Wheel"
+    P_nominal=100) "Wheel"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Modelica.Blocks.Sources.Ramp bypDamPos(
     height=0.2,
@@ -71,51 +66,51 @@ model BypassDampers
     shift=72) "Operating signal"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senExhTem(
-      redeclare package Medium =Medium2,
-      m_flow_nominal=5)
-      "Temperature of the exhaust air"
-    annotation (Placement(transformation(extent={{-20,-50},{-40,-30}})));
+     redeclare package Medium = Medium2,
+     m_flow_nominal=5)
+     "Temperature of the exhaust air"
+    annotation (Placement(transformation(extent={{-30,-44},{-50,-24}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senSupTem(
-      redeclare package Medium = Medium1,
-      m_flow_nominal=5)
-      "Temperature of the supply air"
-    annotation (Placement(transformation(extent={{40,20},{60,40}})));
+     redeclare package Medium = Medium1,
+     m_flow_nominal=5)
+     "Temperature of the supply air"
+    annotation (Placement(transformation(extent={{60,20},{40,40}})));
 equation
   connect(TSup.y, sou_1.T_in)
     annotation (Line(points={{-59,74},{-42,74}}, color={0,0,127}));
   connect(sou_1.ports[1],whe.port_a1)
     annotation (Line(points={{-20,70},{-14,70},{-14,6},{0,6}},
-                                                     color={0,127,255}));
+    color={0,127,255}));
   connect(whe.port_a2, sou_2.ports[1])
     annotation (Line(points={{20,-6},{40,-6},{40,-30},{60,-30}},
-        color={0,127,255}));
+color={0,127,255}));
   connect(bypDamPos.y, whe.uBypDamPos) annotation (Line(points={{-59,0},{-2,0}},
-                             color={0,0,127}));
+    color={0,0,127}));
   connect(opeSig.y, whe.uRot) annotation (Line(points={{-58,30},{-10,30},{-10,8},
           {-2,8}}, color={255,0,255}));
+  connect(whe.port_b2, senExhTem.port_a) annotation (Line(points={{0,-6},{-20,-6},
+          {-20,-34},{-30,-34}}, color={0,127,255}));
   connect(senExhTem.port_b, sin_2.ports[1])
-    annotation (Line(points={{-40,-40},{-58,-40}}, color={0,127,255}));
-  connect(senExhTem.port_a, whe.port_b2) annotation (Line(points={{-20,-40},{-8,
-          -40},{-8,-6},{0,-6}}, color={0,127,255}));
-  connect(senSupTem.port_b, sin_1.ports[1])
+    annotation (Line(points={{-50,-34},{-60,-34}}, color={0,127,255}));
+  connect(senSupTem.port_a, sin_1.ports[1])
     annotation (Line(points={{60,30},{70,30}}, color={0,127,255}));
-  connect(senSupTem.port_a, whe.port_b1) annotation (Line(points={{40,30},{28,30},
-          {28,6},{20,6}}, color={0,127,255}));
+  connect(senSupTem.port_b, whe.port_b1) annotation (Line(points={{40,30},{30,30},
+          {30,6},{20,6}}, color={0,127,255}));
 annotation(experiment(Tolerance=1e-6, StopTime=360),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ThermalWheels/Latent/Validation/BypassDampers.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ThermalWheels/Sensible/Validation/BypassDampers.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 Example for using the block
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BypassDampers\">
-Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BypassDampers</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BypassDampers\">
+Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BypassDampers</a>.
 </p>
 <p>
 The input signals are configured as follows:
 </p>
 <ul>
 <li>
-The operating signal <i>uRot</i> changes from <code>false</code> to <code>true</code> at 72 seconds.
+The operating signal <i>opeSig</i> changes from <code>false</code> to <code>true</code> at 72 seconds.
 </li>
 <li>
 The supply air temperature <i>TSup</i> changes from <i>273.15 + 30 K</i> to
@@ -135,10 +130,9 @@ The expected outputs are:
 </p>
 <ul>
 <li>
-The sensible heat exchanger effectiveness <code>epsSen</code> and the latent effectiveness 
-<code>epsLat</code> are 0 at the beginning.
+The sensible heat exchanger effectiveness <code>eps</code> is 0 at the beginning.
 They become positive at 72 seconds and keep constant until 200 seconds.
-After the 200 seconds, both <code>epsSen</code> and <code>epsLat</code> decrease.
+After the 200 seconds, it decrease.
 </li>
 <li>
 Before 72 seconds, the temperature of the leaving supply air is equal to <i>TSup</i>.
@@ -153,7 +147,7 @@ leaving exhaust air temperature decreases.
 </html>", revisions="<html>
 <ul>
 <li>
-September 29, 2023, by Sen Huang:<br/>
+January 8, 2024, by Sen Huang:<br/>
 First implementation.
 </li>
 </ul>

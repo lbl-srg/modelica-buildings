@@ -239,9 +239,9 @@ to <b style=\"color:blue\">existing</b> libraries:
 <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.ThermalWheels.Latent
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.ThermalWheels
     </td>
-    <td valign=\"top\">Package of models for air-to-air heat recovery devices.<br/>
+    <td valign=\"top\">Package of models for thermal wheel (both enthalpy and sensible heat recovery) devices.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3538\">issue 3538</a>.
     </td>
 </tr>

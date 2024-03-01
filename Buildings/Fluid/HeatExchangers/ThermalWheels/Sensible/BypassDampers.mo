@@ -1,8 +1,8 @@
-within Buildings.Fluid.HeatExchangers.ThermalWheels.Latent;
+within Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible;
 model BypassDampers
-  "Enthalpy recovery wheel with bypass dampers"
+  "Sensible heat recovery wheel with bypass dampers"
   extends
-    Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.PartialWheel;
+    Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.PartialWheel;
   Modelica.Blocks.Interfaces.RealInput uBypDamPos(
     final unit="1",
     final min=0,
@@ -39,12 +39,12 @@ model BypassDampers
     final m_flow_nominal=m2_flow_nominal,
     final dpDamper_nominal=dp2_nominal)
     "Exhaust air bypass damper"
-    annotation (Placement(transformation(extent={{0,-70},{-20,-50}})));
+    annotation (Placement(transformation(extent={{-20,-70},{-40,-50}})));
 protected
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter PEle(
     final k=P_nominal)
     "Calculate the electric power consumption"
-    annotation (Placement(transformation(extent={{76,-28},{92,-12}})));
+    annotation (Placement(transformation(extent={{74,-28},{90,-12}})));
   Modelica.Blocks.Sources.Constant uni(final k=1)
     "Unity signal"
     annotation (Placement(transformation(extent={{-150,108},{-130,128}})));
@@ -60,11 +60,12 @@ equation
   connect(bypDamSup.port_b, port_b1)
     annotation (Line(points={{-40,80},{100,80}}, color={0,127,255}));
   connect(bypDamExh.port_a, port_a2)
-    annotation (Line(points={{0,-60},{100,-60}},  color={0,127,255}));
+    annotation (Line(points={{-20,-60},{100,-60}},color={0,127,255}));
   connect(bypDamExh.port_b, port_b2)
-    annotation (Line(points={{-20,-60},{-180,-60}}, color={0,127,255}));
+    annotation (Line(points={{-40,-60},{-180,-60}}, color={0,127,255}));
   connect(PEle.y, P)
-    annotation (Line(points={{93.6,-20},{110,-20}}, color={0,0,127}));
+    annotation (Line(points={{91.6,-20},{110,-20}},
+                                               color={0,0,127}));
   connect(damExh.port_a, port_a2)
     annotation (Line(points={{54,-50},{54,-60},{100,-60}}, color={0,127,255}));
   connect(sub.y, damSup.y)
@@ -77,13 +78,14 @@ equation
     annotation (Line(points={{-40,40},{-20,40},{-20,6},{-10,6}},
         color={0,127,255}));
   connect(bypDamExh.y, uBypDamPos)
-    annotation (Line(points={{-10,-48},{-10,-30},{40,-30},{40,140},{-202,140}},
+    annotation (Line(points={{-30,-48},{-30,-30},{40,-30},{40,140},{-202,140}},
         color={0,0,127}));
   connect(hex.port_b1, port_b1)
     annotation (Line(points={{10,6},{60,6},{60,80},{100,80}},
         color={0,127,255}));
   connect(hex.port_a2, damExh.port_b)
-    annotation (Line(points={{10,-6},{54,-6},{54,-30}}, color={0,127,255}));
+    annotation (Line(points={{10,-6},{54,-6},{54,-30}},
+        color={0,127,255}));
   connect(sub.u2, uBypDamPos)
     annotation (Line(points={{-122,94},{-160,94},{-160,140},{-202,140}},
         color={0,0,127}));
@@ -96,7 +98,7 @@ equation
     annotation (Line(points={{-139,0},{-120,0},{-120,0},{-102,0}},
         color={0,0,127}));
   connect(PEle.u, booleanToReal.y)
-    annotation (Line(points={{74.4,-20},{-112,-20},{-112,0},{-139,0}},
+    annotation (Line(points={{72.4,-20},{-112,-20},{-112,0},{-139,0}},
         color={0,0,127}));
   connect(damSup.port_a, port_a1)
     annotation (Line(points={{-60,40},{-100,40},{-100,80},{-180,80}},
@@ -118,12 +120,12 @@ annotation (
         coordinateSystem(preserveAspectRatio=true, extent={{-180,-100},{100,180}})),
 Documentation(info="<html>
 <p>
-Model of an enthalpy recovery wheel, which consists of 
+Model of a sensible heat recovery wheel, which consists of 
 a heat exchanger and two dampers to bypass the supply and exhaust airflow. 
 </p>
 <p>
 This model does not require geometric data. The performance is defined by specifying the
-part load (75% of the nominal supply flow rate) and nominal sensible and latent heat exchanger effectiveness in both heating and cooling conditions.
+part load (75% of the nominal supply flow rate) and nominal sensible heat exchanger effectiveness in both heating and cooling conditions.
 This operation of the wheel is configured as follows.
 </p>
 <ul>
@@ -136,9 +138,9 @@ The wheel power consumption is constant and equal to the nominal value.
 <li>
 The heat exchange in the heat recovery wheel is adjustable via bypassing supply/exhaust air 
 through the heat exchanger.
-Accordingly, the sensible and latent heat exchanger effectiveness are calculated with
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.Effectiveness\">
-Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.Effectiveness</a>.
+Accordingly, the sensible heat exchanger effectiveness is calculated with
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.Effectiveness\">
+Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.Effectiveness</a>.
 </li>
 </ul>
 </li>
@@ -149,8 +151,8 @@ Otherwise,
 The wheel power consumption is 0.
 </li>
 <li>
-In addition, there is no sensible or latent heat transfer, i.e., the sensible
-and latent effectiveness of the heat recovery wheel is 0.
+In addition, there is no heat transfer, i.e., the sensible
+heat exchanger effectiveness of the heat recovery wheel is 0.
 </li>
 </ul>
 </li>
@@ -158,7 +160,7 @@ and latent effectiveness of the heat recovery wheel is 0.
 </html>", revisions="<html>
 <ul>
 <li>
-September 29, 2023, by Sen Huang:<br/>
+January 8, 2024, by Sen Huang:<br/>
 First implementation.
 </li>
 </ul>
