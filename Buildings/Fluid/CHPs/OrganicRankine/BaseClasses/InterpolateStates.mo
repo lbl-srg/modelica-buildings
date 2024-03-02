@@ -17,6 +17,11 @@ model InterpolateStates "Interpolate states of a working fluid"
   parameter Modelica.Units.SI.Efficiency etaExp "Expander efficiency"
     annotation(Dialog(group="ORC inputs"));
 
+  parameter Modelica.Units.SI.SpecificEnthalpy h_small =
+    (max(pro.hSatVap) - min(pro.hSatLiq)) * 1E-4
+    "A small value for specific enthalpy regularisation"
+    annotation(Dialog(tab="Advanced"));
+
   // Once-interpolated properties
   Modelica.Units.SI.AbsolutePressure pEva(
     displayUnit = "kPa") =
@@ -85,7 +90,15 @@ model InterpolateStates "Interpolate states of a working fluid"
       xd = pro.T,
       yd = pro.sSatVap,
       d = sSatVapDer_T)
-    "Specific entropy of saturated vapour in evaporator";
+    "Specific entropy of saturated vapour at evaporating pressure";
+  Modelica.Units.SI.SpecificEnthalpy hSatVapEva(
+    displayUnit = "kJ/kg") =
+    Buildings.Airflow.Multizone.BaseClasses.interpolate(
+      u = TEva,
+      xd = pro.T,
+      yd = pro.hSatVap,
+      d = hSatVapDer_T)
+    "Specific enthalpy of saturated vapour at evaporating pressure";
   Modelica.Units.SI.SpecificEntropy sRefEva =
     Buildings.Airflow.Multizone.BaseClasses.interpolate(
       u = pEva,
@@ -109,14 +122,6 @@ model InterpolateStates "Interpolate states of a working fluid"
       yd = pro.hRef,
       d = hRefDer_p)
     "Specific enthalpy of reference line on condenser side";
-  Modelica.Units.SI.SpecificEnthalpy hSatVapEva(
-    displayUnit = "kJ/kg") =
-    Buildings.Airflow.Multizone.BaseClasses.interpolate(
-      u = TEva,
-      xd = pro.T,
-      yd = pro.hSatVap,
-      d = hSatVapDer_T)
-    "Specific enthalpy of saturated vapour in evaporator";
   Modelica.Units.SI.SpecificEnthalpy hRefEva(
     displayUnit = "kJ/kg") =
     Buildings.Airflow.Multizone.BaseClasses.interpolate(
@@ -127,20 +132,34 @@ model InterpolateStates "Interpolate states of a working fluid"
     "Specific enthalpy of reference line on evaporator side";
 
   // Computed properties not interpolated
-  Modelica.Units.SI.SpecificEntropy sExpInl
-    "Specific entropy at expander inlet";
-  Modelica.Units.SI.SpecificEnthalpy hExpInl(displayUnit = "kJ/kg")
+  Modelica.Units.SI.SpecificEnthalpy hExpInl(displayUnit = "kJ/kg") =
+    Buildings.Utilities.Math.Functions.regStep(
+      x = h_reg,
+      y1 = hSatVapEva,
+      y2 = hExpInlWet,
+      x_small = h_small)
     "Specific enthalpy at expander inlet";
-  Modelica.Units.SI.SpecificEnthalpy hExpOut_i(
-      displayUnit = "kJ/kg",
-      start = (max(pro.hSatVap)+min(pro.hSatVap))/2)
-    "Estimated specific enthalpy at expander outlet assuming isentropic";
-  Modelica.Units.SI.SpecificEnthalpy hExpOut(
-    displayUnit = "kJ/kg") = hExpInl - (hExpInl - hExpOut_i) * etaExp
-    "Specific enthalpy at expander outlet";
-  Modelica.Units.SI.ThermodynamicTemperature TExpOut
-    "Temperature at expander outlet";
+  Modelica.Units.SI.SpecificEnthalpy hExpOut(displayUnit = "kJ/kg") =
+    Buildings.Utilities.Math.Functions.regStep(
+      x = h_reg,
+      y1 = hExpOutDry,
+      y2 = hSatVapCon,
+      x_small = h_small)
+    "Specific enthalpy at expander inlet";
+  Modelica.Units.SI.ThermodynamicTemperature TExpOut =
+    (hExpOut - hSatVapCon) * pro.dTRef / (hRefCon - hSatVapCon)
+    "Estimated temperature at expander outlet";
 
+  // Energy exchange
+  Modelica.Units.SI.SpecificEnergy qEva = hExpInl - hPum
+    "Evaporator energy transfer (positive)";
+  Modelica.Units.SI.SpecificEnergy qCon = hExpOut - hPum
+    "Condenser energy transfer (positive)";
+  Modelica.Units.SI.SpecificEnergy wExp = hExpInl - hExpOut
+    "Expander work (positive)";
+  Modelica.Units.SI.Efficiency etaThe(min=0) =
+    wExp / qEva "Thermal efficiency";
+/*
   // Enthalpy differentials,
   //   taking positive sign when flowing into the cycle
   Modelica.Units.SI.SpecificEnthalpy dhEva = hExpInl - hPum
@@ -156,9 +175,50 @@ model InterpolateStates "Interpolate states of a working fluid"
   Modelica.Units.SI.Efficiency etaExpLim =
     (hExpInl - hSatVapCon)/(hExpInl - hExpOut_i)
     "Upper limit of expander efficiency to prevent condensation, dry fluids have >1";
+*/
+
+protected
+  Modelica.Units.SI.SpecificEnthalpy h_reg = hExpOutDry - hSatVapCon
+    "For regularisation; if > 0, dry expansion";
+
+  // Intermediate property computation
+  // 1. Dry expansion
+  //      expander inlet = saturated vapour at evaporating pressure (known),
+  //      expander outlet = superheated vapour at condensing pressure (solved).
+  Modelica.Units.SI.SpecificEntropy sExpOutDryIse = sSatVapEva
+    "Specific entropy at expander outlet, assuming dry expansion, isentropic";
+  Modelica.Units.SI.SpecificEnthalpy hExpOutDryIse(
+    displayUnit = "kJ/kg") =
+    if sExpOutDryIse > sSatVapCon
+    then (hRefCon - hSatVapCon) * (sExpOutDryIse - sSatVapCon)
+         / (sRefCon - sSatVapCon) + hSatVapCon
+    else (hSatVapCon - hPum) * (sExpOutDryIse - sPum)
+         / (sSatVapCon - sPum) + hPum
+    "Specific enthalpy at expander outlet, assuming dry expansion";
+  Modelica.Units.SI.SpecificEnthalpy hExpOutDry(
+    displayUnit = "kJ/kg") =
+    hSatVapEva - (hSatVapEva - hExpOutDryIse) * etaExp
+    "Specific enthalpy at expander outlet, assuming dry expansion";
+  // 2. Wet expansion
+  //      expander inlet = superheated vapour at evaporating pressure (solved),
+  //      expander outlet = saturated vapour at condensing pressure (known).
+  Modelica.Units.SI.SpecificEntropy sExpInlWetIse = sSatVapCon
+    "Specific entropy at expander inlet, assuming wet expansion, isentropic";
+  Modelica.Units.SI.SpecificEnthalpy hExpInlWetIse(
+    displayUnit = "kJ/kg") =
+    (hRefEva - hSatVapEva) * (sExpInlWetIse - sSatVapEva)
+    / (sRefEva - sSatVapEva) + hSatVapEva
+    "Specific enthalpy at expander inlet, assuming wet expansion";
+  Modelica.Units.SI.SpecificEnthalpy hExpInlWet(
+    displayUnit = "kJ/kg") =
+    (hExpInlWetIse - hSatVapCon) * etaExp + hSatVapCon
+    "Specific enthalpy at expander inlet, assuming wet expansion";
+  Modelica.Units.SI.TemperatureDifference dTSupWet(
+    displayUnit = "K") =
+    (hExpInlWet - hSatVapEva) * pro.dTRef / (hRefEva - hSatVapEva)
+    "Superheating temperature differential, assuming wet expansion";
 
   // Derivatives
-protected
   final parameter Real pDer_T[pro.n]=
     Buildings.Utilities.Math.Functions.splineDerivatives(
       x = pro.T,
@@ -201,35 +261,6 @@ protected
       y = pro.hRef,
       ensureMonotonicity = false)
   "Derivative of reference enthaly vs. pressure for cubic spline";
-
-initial equation
-  assert(etaExp < etaExpLim,
-"Expander outlet state is under the dome! Based on the input parameters,
-the expander effciency can be assumed at maximum to be " + String(etaExpLim) + ".
-Or use a higher superheating differential temperature.");
-
-equation
-  // Estimate the overheated expander inlet state
-  if dTSup > 0.1 then
-    (sExpInl - sSatVapEva) / dTSup = (sRefEva - sSatVapEva) / pro.dTRef;
-    (hExpInl - hSatVapEva) / dTSup = (hRefEva - hSatVapEva) / pro.dTRef;
-  else
-    sExpInl = sSatVapEva;
-    hExpInl = hSatVapEva;
-  end if;
-
-  // Estimate the isentropic expander outlet state
-  if sExpInl > sSatVapCon then
-    (hExpOut_i - hSatVapCon) / (sExpInl - sSatVapCon)
-      =  (hRefCon - hSatVapCon) / (sRefCon - sSatVapCon);
-  else
-    (hExpOut_i - hPum) / (sExpInl - sPum)
-      = (hSatVapCon - hPum) / (sSatVapCon - sPum);
-  end if;
-
-  // Estimate temperature at expander outlet
-  (TExpOut - TCon) / pro.dTRef
-    = (hExpOut - hSatVapCon) / (hRefCon - hSatVapCon);
 
   annotation (defaultComponentName="intSta",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
