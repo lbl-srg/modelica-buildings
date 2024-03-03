@@ -288,14 +288,19 @@ block AirToWater "Controller for AWHP plant"
   parameter Integer idxEquAlt[nEquAlt]
     "Indices of lead/lag alternate equipment"
     annotation(Evaluate=true, Dialog(group="Equipment staging and rotation"));
-  parameter Real dtVal_nominal(
-    min=0,
+  parameter Real dtVal(
+    final min=0,
     start=90,
-    unit="s")=90
+    final unit="s")=90
     "Nominal valve timing"
     annotation(Dialog(
     tab="Advanced", group="Equipment staging and rotation",
     enable=have_valInlIso or have_valOutIso));
+  parameter Real dtHp(
+    final min=0,
+    final unit="s")=180
+    annotation(Dialog(
+    tab="Advanced", group="Equipment staging and rotation"));
   parameter Real plrSta(
     max=1,
     min=0,
@@ -396,7 +401,9 @@ block AirToWater "Controller for AWHP plant"
     each final have_pumChiWatPri=have_pumChiWatPri,
     each final have_pumHeaWatSec=have_pumHeaWatSec,
     each final have_pumChiWatSec=have_pumChiWatSec,
-    each final dtVal_nominal=dtVal_nominal) "Event sequencing for enabled equipment"
+    each final dtVal=dtVal,
+    each final dtHp=dtHp)
+    "Event sequencing for enabled equipment"
     annotation (Placement(transformation(extent={{140,284},{160,312}})));
   StagingRotation.StageAvailability avaStaCoo(final staEqu=staEqu)
     if have_chiWat
