@@ -146,7 +146,7 @@ lead/lag alternate is available.
 <li>
 The number of equipment required to run at that stage –
 with or without lead/lag alternate – that are available
-is higher than the number of equipment required to run 
+is greater or equal to the number of equipment required to run 
 at that stage.
 </li>
 </ul>

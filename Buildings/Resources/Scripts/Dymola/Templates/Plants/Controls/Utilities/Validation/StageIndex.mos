@@ -7,26 +7,48 @@ createPlot(
     id=1,
     subPlot=1,
     position={5, 5, 400, 500},
-    y={"idxSta.y"},
+    y={"ena.y"},
     autoscale=true,
     grid=true
 );
 createPlot(
     id=1,
     subPlot=2,
-    y={"idxStaUna.y"},
+    y={"holUp.y", "holDow.y"},
     autoscale=true,
     grid=true
 );
 createPlot(
     id=1,
     subPlot=3,
+    y={"ava[1].y", "ava[2].y", "ava[3].y", "ava[4].y"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=1,
+    position={410, 5, 400, 500},
+    y={"idxSta.y"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=2,
+    y={"idxStaUna.y"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=3,
     y={"idxStaRun.y"},
     autoscale=true,
     grid=true
 );
 createPlot(
-    id=1,
+    id=2,
     subPlot=4,
     y={"idxStaRunUna.y"},
     autoscale=true,

@@ -365,5 +365,12 @@ release the hold on the required capacity.
 <p>
 \"Timers shall reset to zero at the completion of every stage change.\"
 </p>
+<p>
+The availability condition, which consists of staging up when  
+the equipment necessary to operate the current stage are unavailable,
+is implemented in 
+<a href=\"modelica://Buildings.Templates.Plants.Controls.Utilities.StageIndex\">
+Buildings.Templates.Plants.Controls.Utilities.StageIndex</a>.
+</p>
 </html>"));
 end StageChangeCommand;

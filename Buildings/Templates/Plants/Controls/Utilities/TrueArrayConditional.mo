@@ -15,7 +15,8 @@ block TrueArrayConditional
     annotation (Placement(transformation(extent={{-140,
             -20},{-100,20}}), iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uIdx[nin]
-    "Array of indices by order of priority to be true" annotation (Placement(
+    "Array of indices by order of priority to be true"
+    annotation (Placement(
         transformation(extent={{-140,-80},{-100,-40}}), iconTransformation(
           extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1[nout]
@@ -35,7 +36,9 @@ algorithm
   i := 1;
   y1 := fill(false, nout);
   while i <= u loop
-    y1[uIdx[i]] := true;
+    if uIdx[i] >= 1 and uIdx[i] <= nout then
+      y1[uIdx[i]] := true;
+    end if;
     i := i + 1;
   end while;
   annotation (
@@ -58,5 +61,12 @@ algorithm
           textString="%name",
           textColor={0,0,255})}),
     Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>
+Accepts indices of true elements that may not be within the
+range of indices of the output vector.
+In this, the number of true elements will not be met.
+</p>
+</html>"));
 end TrueArrayConditional;

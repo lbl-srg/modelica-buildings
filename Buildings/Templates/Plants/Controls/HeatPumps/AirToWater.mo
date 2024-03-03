@@ -541,7 +541,7 @@ block AirToWater "Controller for AWHP plant"
     annotation (Placement(transformation(extent={{-150,250},{-130,270}})));
   Buildings.Controls.OBC.CDL.Logical.Pre y1HeaPre[nHp]
     "Left-limit of command signal to break algebraic loop"
-    annotation (Placement(transformation(extent={{232,350},{212,370}})));
+    annotation (Placement(transformation(extent={{230,350},{210,370}})));
   StagingRotation.SortRuntime sorRunTimCoo(final idxEquAlt=idxEquAlt, nin=nHp)
                                                               if have_chiWat
     "Sort lead/lag alternate equipment by staging runtime – Cooling mode"
@@ -640,6 +640,9 @@ block AirToWater "Controller for AWHP plant"
   Utilities.PlaceHolderReal VChiWat_flow(have_inp=have_senPri, have_inpPla=true)
     if have_chiWat "Select CHW flow sensor"
     annotation (Placement(transformation(extent={{-200,-50},{-180,-30}})));
+  Buildings.Controls.OBC.CDL.Logical.Pre y1HpPre[nHp]
+    "Left-limit of command signal to break algebraic loop"
+    annotation (Placement(transformation(extent={{200,370},{180,390}})));
 equation
   connect(u1SchHea, enaHea.u1Sch) annotation (Line(points={{-280,380},{-180,380},
           {-180,364},{-112,364}}, color={255,0,255}));
@@ -709,12 +712,10 @@ equation
           282},{-52,282},{-52,322},{-42,322}}, color={0,0,127}));
   connect(u1HpAva, avaEquHeaCoo.u1Ava)
     annotation (Line(points={{-280,260},{-152,260}}, color={255,0,255}));
-  connect(u1Hp_actual, avaEquHeaCoo.u1_actual) annotation (Line(points={{-280,
-          300},{-184,300},{-184,266},{-152,266}}, color={255,0,255}));
   connect(y1Hea, y1HeaPre.u)
-    annotation (Line(points={{280,360},{234,360}}, color={255,0,255}));
-  connect(y1HeaPre.y, avaEquHeaCoo.u1Hea_actual) annotation (Line(points={{210,
-          360},{200,360},{200,380},{-158,380},{-158,254},{-152,254}}, color={
+    annotation (Line(points={{280,360},{232,360}}, color={255,0,255}));
+  connect(y1HeaPre.y, avaEquHeaCoo.u1Hea_actual) annotation (Line(points={{208,360},
+          {160,360},{160,378},{-156,378},{-156,254},{-152,254}},      color={
           255,0,255}));
   connect(avaEquHeaCoo.y1Hea, avaStaHea.u1AvaEqu) annotation (Line(points={{-128,
           266},{-120,266},{-120,320},{-112,320}}, color={255,0,255}));
@@ -832,6 +833,10 @@ equation
           {-60,300},{-60,296},{-42,296}}, color={255,0,255}));
   connect(u1Hp_actual, sorRunTimCoo.u1Run) annotation (Line(points={{-280,300},
           {-60,300},{-60,26},{-42,26}}, color={255,0,255}));
+  connect(y1Hp, y1HpPre.u)
+    annotation (Line(points={{280,380},{202,380}}, color={255,0,255}));
+  connect(y1HpPre.y, avaEquHeaCoo.u1_actual) annotation (Line(points={{178,380},
+          {-158,380},{-158,266},{-152,266}}, color={255,0,255}));
   annotation (
     defaultComponentName="ctl",
     Icon(

@@ -1,5 +1,5 @@
 within Buildings.Templates.Plants.Controls.Utilities.Validation;
-model StageIndex
+model StageIndex_bck
   parameter Integer nSta=4
     "Number of stages"
     annotation (Evaluate=true);
@@ -9,7 +9,7 @@ model StageIndex
     shift=10)
     "Enable signal"
     annotation (Placement(transformation(extent={{-90,50},{-70,70}})));
-  Buildings.Templates.Plants.Controls.Utilities.StageIndex idxSta(have_inpAva=
+  Buildings.Templates.Plants.Controls.Utilities.StageIndex_bck idxSta(have_inpAva=
         false,                                                    final nSta=
         nSta) "Compute stage index - No minimum runtime, all stages available"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
@@ -21,20 +21,21 @@ model StageIndex
     period=20)
     "Stage down command pulse"
     annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
-  Buildings.Templates.Plants.Controls.Utilities.StageIndex idxStaUna(final nSta
+  Buildings.Templates.Plants.Controls.Utilities.StageIndex_bck idxStaUna(final nSta
       =nSta)
     "Compute stage index - No minimum runtime, some unavailable stages"
     annotation (Placement(transformation(extent={{62,20},{82,40}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant ava[nSta](k={false,false,
-        true,true}) "Stage available signal"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant ava1[nSta](
+    k={false, false, true, true})
+    "Stage available signal"
     annotation (Placement(transformation(extent={{-90,-90},{-70,-70}})));
-  Buildings.Templates.Plants.Controls.Utilities.StageIndex idxStaRun(
+  Buildings.Templates.Plants.Controls.Utilities.StageIndex_bck idxStaRun(
     have_inpAva=false,                                               final nSta
       =nSta,
     dtRun=25)
     "Compute stage index - Minimum runtime, all stages available"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
-  Buildings.Templates.Plants.Controls.Utilities.StageIndex idxStaRunUna(final
+  Buildings.Templates.Plants.Controls.Utilities.StageIndex_bck idxStaRunUna(final
       nSta=nSta, dtRun=25)
     "Compute stage index - Minimum runtime, some unavailable stages"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
@@ -52,12 +53,6 @@ model StageIndex
   Buildings.Controls.OBC.CDL.Logical.And dow
     "Stage up command"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold holUp(trueHoldDuration=0.1,
-      falseHoldDuration=0) "Hold stage up command for plotting"
-    annotation (Placement(transformation(extent={{0,90},{20,110}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold holDow(trueHoldDuration=0.1,
-      falseHoldDuration=0) "Hold stage down command for plotting"
-    annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
 equation
   connect(ena.y, idxSta.u1Lea)
     annotation (Line(points={{-68,60},{0,60},{0,66},{18,66}},color={255,0,255}));
@@ -65,12 +60,12 @@ equation
     annotation (Line(points={{-68,60},{0,60},{0,36},{60,36}},color={255,0,255}));
   connect(ena.y, idxStaRun.u1Lea)
     annotation (Line(points={{-68,60},{0,60},{0,-24},{18,-24}},color={255,0,255}));
-  connect(ava.y, idxStaUna.u1Ava) annotation (Line(points={{-68,-80},{50,-80},{
-          50,24},{60,24}}, color={255,0,255}));
+  connect(ava1.y, idxStaUna.u1Ava)
+    annotation (Line(points={{-68,-80},{50,-80},{50,24},{60,24}},color={255,0,255}));
   connect(ena.y, idxStaRunUna.u1Lea)
     annotation (Line(points={{-68,60},{0,60},{0,-54},{58,-54}},color={255,0,255}));
-  connect(ava.y, idxStaRunUna.u1Ava) annotation (Line(points={{-68,-80},{50,-80},
-          {50,-66},{58,-66}}, color={255,0,255}));
+  connect(ava1.y, idxStaRunUna.u1Ava)
+    annotation (Line(points={{-68,-80},{50,-80},{50,-66},{58,-66}},color={255,0,255}));
   connect(upPul.y, up.u2)
     annotation (Line(points={{-68,20},{-60,20},{-60,12},{-42,12}},color={255,0,255}));
   connect(dowPul.y, dow.u2)
@@ -95,15 +90,7 @@ equation
     annotation (Line(points={{-18,20},{-10,20},{-10,-58},{58,-58}},color={255,0,255}));
   connect(booTimTab.y[1], up.u1)
     annotation (Line(points={{-68,90},{-50,90},{-50,20},{-42,20}},color={255,0,255}));
-  connect(up.y, holUp.u) annotation (Line(points={{-18,20},{-10,20},{-10,100},{
-          -2,100}}, color={255,0,255}));
-  connect(dow.y, holDow.u) annotation (Line(points={{-18,-20},{-4,-20},{-4,-100},
-          {-2,-100}}, color={255,0,255}));
   annotation (
-    __Dymola_Commands(
-      file=
-        "modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Controls/Utilities/Validation/StageIndex.mos"
-        "Simulate and plot"),
     experiment(
       StopTime=160.0,
       Tolerance=1e-06),
@@ -139,4 +126,4 @@ First implementation.
     Diagram(
       coordinateSystem(
         extent={{-120,-120},{120,120}})));
-end StageIndex;
+end StageIndex_bck;
