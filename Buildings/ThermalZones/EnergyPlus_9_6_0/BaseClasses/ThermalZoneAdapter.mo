@@ -150,7 +150,9 @@ protected
     "Last time of data exchange";
   discrete Modelica.Units.SI.Time dtLast
     "Time step since the last synchronization";
-  discrete Modelica.Units.SI.MassFlowRate mInlet_flow
+  discrete Modelica.Units.SI.MassFlowRate mInlet_flow(
+    start=0,
+    fixed=true)
     "Time averaged inlet mass flow rate";
   discrete Modelica.Units.SI.Temperature TAveInlet
     "Time averaged inlet temperature";
@@ -231,7 +233,7 @@ equation
       adapter=adapter,
       initialCall=false,
       nY=nY,
-      u={T,X_w/(1.-X_w),mInlet_flow,TAveInlet,QGaiRad_flow,round(time,1E-3)},
+      u={T,X_w/(1.-X_w),pre(mInlet_flow),TAveInlet,pre(QGaiRad_flow),round(time,1E-3)},
       dummy=AFlo);
     TRad=yEP[1];
     QConLast_flow=yEP[2];
@@ -263,6 +265,13 @@ of its class <code>adapter</code>, of EnergyPlus.
 </html>",
       revisions="<html>
 <ul>
+<li>
+February 14, 2024, by Michael Wetter:<br/>
+Added <code>pre()</code> operator for inlet mass flow rate and for convective heat gain
+to avoid an algebraic loop on discrete variables.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3659\">Buildings, #3659</a>.
+</li>
 <li>
 February 18, 2021, by Michael Wetter:<br/>
 Refactor synchronization of constructors.<br/>
