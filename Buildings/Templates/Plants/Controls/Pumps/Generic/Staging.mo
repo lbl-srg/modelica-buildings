@@ -81,9 +81,10 @@ block Staging
   StagingRotation.SortRuntime sorRunTimHdr(nin=nPum)       if is_hdr
     "Sort by increasing staging runtime"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
-  Utilities.TrueArrayConditional comHdr(final nout=nPum, final nin=nPum) if is_hdr
+  Utilities.TrueArrayConditional comHdr(
+    final is_fix=true,                  final nout=nPum, final nin=nPum) if is_hdr
     "Generate pump command signal"
-    annotation (Placement(transformation(extent={{112,-10},{132,10}})));
+    annotation (Placement(transformation(extent={{110,-10},{130,10}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nEqu](each final
             integerTrue=1, each final integerFalse=0)
     if is_pri and is_hdr and not is_ctlDp             "Convert to integer"
@@ -182,10 +183,11 @@ equation
   connect(staHdrDp.y1Dow, nPumHdrDp.u1Dow) annotation (Line(points={{-118,-6},{-100,
           -6},{-100,-22},{-12,-22}},
                                    color={255,0,255}));
-  connect(comHdr.y1, y1) annotation (Line(points={{134,0},{140,0},{140,-60},{180,
-          -60}}, color={255,0,255}));
+  connect(comHdr.y1, y1) annotation (Line(points={{132,0},{140,0},{140,-60},{
+          180,-60}},
+                 color={255,0,255}));
   connect(nPumHdrDp.y, comHdr.u)
-    annotation (Line(points={{12,-20},{60,-20},{60,0},{110,0}},
+    annotation (Line(points={{12,-20},{60,-20},{60,0},{108,0}},
                                               color={255,127,0}));
   connect(u1Pum, booToInt.u)
     annotation (Line(points={{-180,120},{-142,120}}, color={255,0,255}));
@@ -247,14 +249,14 @@ equation
           {20,120},{20,126},{28,126}}, color={255,127,0}));
   connect(booToInt1.y, voiPumLeaDis.u2) annotation (Line(points={{12,100},{20,100},
           {20,114},{28,114}}, color={255,127,0}));
-  connect(voiPumLeaDis.y, comHdr.u) annotation (Line(points={{52,120},{60,120},{
-          60,0},{110,0}}, color={255,127,0}));
+  connect(voiPumLeaDis.y, comHdr.u) annotation (Line(points={{52,120},{60,120},
+          {60,0},{108,0}},color={255,127,0}));
   connect(sorRunTimHdr.yIdx[1], y1LeaHdr_actual.index)
     annotation (Line(points={{12,14},{80,14},{80,28}}, color={255,127,0}));
   connect(u1Pum_actual, sorRunTimHdr.u1Run) annotation (Line(points={{-180,20},{
           -40,20},{-40,26},{-12,26}}, color={255,0,255}));
   connect(sorRunTimHdr.yIdx, comHdr.uIdx) annotation (Line(points={{12,14},{80,
-          14},{80,-6},{110,-6},{110,-6}},       color={255,127,0}));
+          14},{80,-6},{108,-6}},                color={255,127,0}));
   annotation (
     defaultComponentName="staPum",
     Icon(

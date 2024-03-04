@@ -29,8 +29,8 @@ model StageIndex
         true,true}) "Stage available signal"
     annotation (Placement(transformation(extent={{-90,-90},{-70,-70}})));
   Buildings.Templates.Plants.Controls.Utilities.StageIndex idxStaRun(
-    have_inpAva=false,                                               final nSta
-      =nSta,
+    have_inpAva=false,
+    final nSta=nSta,
     dtRun=25)
     "Compute stage index - Minimum runtime, all stages available"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));

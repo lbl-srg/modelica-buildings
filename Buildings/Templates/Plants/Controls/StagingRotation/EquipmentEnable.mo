@@ -104,8 +104,9 @@ block EquipmentEnable
     "Indices of lead/lag alternate equipment sorted by increasing runtime"
     annotation (Placement(transformation(extent={{-240,80},{-200,120}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
-  Utilities.TrueArrayConditional truArrCon(final nout=nEqu, nin=nEquAlt)
-    "Generate nEqu-array of nAltReq true elements at uIdxAltSor indices "
+  Utilities.TrueArrayConditional truArrCon(
+    final is_fix=true,                     final nout=nEqu, nin=nEquAlt)
+    "Generate array of size nEqu with nAltReq true elements at uIdxAltSor indices "
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant one(final k=1)
     "Constant"

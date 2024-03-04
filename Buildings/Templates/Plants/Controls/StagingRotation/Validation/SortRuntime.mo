@@ -3,7 +3,8 @@ model SortRuntime
   Buildings.Templates.Plants.Controls.StagingRotation.SortRuntime
     sorRunTim(nin=3) "Sort runtime"
           annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Utilities.TrueArrayConditional u1Ena(nin=3)
+  Utilities.TrueArrayConditional u1Ena(is_fix=true,
+                                       nin=3)
     "Equipment enable signal"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[3]
@@ -19,7 +20,7 @@ model SortRuntime
     table=[0,1,1,1; 2000,0,1,1; 2500,0,1,0; 3000,1,1,1],
     timeScale=1,
     period=3000)
-               "Equipment available signal"
+    "Equipment available signal"
     annotation (Placement(transformation(extent={{-130,-110},{-110,-90}})));
   Utilities.StageIndex idxSta(nSta=3, dtRun=60)
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
@@ -55,11 +56,10 @@ equation
     annotation (Line(points={{82,0},{88,0}}, color={0,0,127}));
   connect(zerOrdHol.y, greThr.u)
     annotation (Line(points={{112,0},{118,0}}, color={0,0,127}));
-  connect(greThr.y, sorRunTim.u1Run) annotation (Line(points={{142,0},{150,0},{
-          150,20},{-46,20},{-46,6},{-42,6}},
-                                           color={255,0,255}));
+  connect(greThr.y, sorRunTim.u1Run) annotation (Line(points={{142,0},{150,0},{150,
+          20},{-46,20},{-46,6},{-42,6}},   color={255,0,255}));
   connect(u1AvaEqu.y[1:3], sorRunTim.u1Ava[1:3]) annotation (Line(points={{-108,
-          -100},{-46,-100},{-46,-4},{-42,-4},{-42,-5.33333}},
+          -100},{-46,-100},{-46,-6},{-42,-6},{-42,-5.33333}},
                                                            color={255,0,255}));
   connect(u1Lea.y, idxSta.u1Lea) annotation (Line(points={{-108,100},{-50,100},{
           -50,46},{-42,46}}, color={255,0,255}));
@@ -81,8 +81,8 @@ equation
           38},{-42,38}}, color={255,0,255}));
   connect(u1AvaSta.y, idxSta.u1Ava) annotation (Line(points={{-108,60},{-52,60},
           {-52,34},{-42,34}}, color={255,0,255}));
-  connect(idxSta.y,u1Ena. u) annotation (Line(points={{-18,40},{-6,40},{-6,0},{-2,
-          0}},    color={255,127,0}));
+  connect(idxSta.y,u1Ena. u) annotation (Line(points={{-18,40},{-10,40},{-10,0},
+          {-2,0}},color={255,127,0}));
   connect(u1Ena.y1, run.u1)
     annotation (Line(points={{22,0},{28,0}}, color={255,0,255}));
   connect(u1AvaEqu.y[1:3], run.u2) annotation (Line(points={{-108,-100},{24,-100},
@@ -116,7 +116,10 @@ equation
 The simulation shows that even wear is achieved among available equipment.
 When it becomes unavailable, equipment #1 is sent to last position,
 and automatically moves up in the staging order only if another 
-equipment (#2) becomes unavailable.
+equipment (#3) becomes unavailable.
+</p>
+<p>
+We can verify that no equipment gets \"hot swapped\".
 </p>
 </html>"));
 end SortRuntime;

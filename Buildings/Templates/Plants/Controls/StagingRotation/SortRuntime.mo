@@ -10,6 +10,8 @@ block SortRuntime "Sort equipment by increasing staging runtime"
   final parameter Integer nEquAlt = size(idxEquAlt, 1)
     "Number of lead/lag alternate equipment"
     annotation(Evaluate=true);
+  parameter Real runTim_start[nEquAlt]={60 + i for i in 1:nEquAlt}
+    "Staging runtime initial values";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Run[nin]
     "Boolean signal used to assess equipment runtime"
     annotation (Placement(
@@ -22,21 +24,22 @@ block SortRuntime "Sort equipment by increasing staging runtime"
     "Lifetime runtime" annotation (Placement(transformation(extent={{200,60},{240,
             100}}), iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRunTimSta[nEquAlt]
-    "Staging runtime"           annotation (Placement(transformation(extent={{200,20},
+    "Staging runtime"
+    annotation (Placement(transformation(extent={{200,20},
             {240,60}}),         iconTransformation(extent={{100,-20},{140,20}})));
-    Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yIdx[nEquAlt]
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yIdx[nEquAlt](start={i for i in 1:nEquAlt})
     "Indices of equipment sorted by increasing staging runtime"
     annotation (Placement(transformation(extent={{200,-20},{240,20}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
   Buildings.Controls.OBC.CDL.Logical.TimerAccumulating timRun[nEquAlt]
     "Compute staging runtime"
-    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
+    annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
   Buildings.Controls.OBC.CDL.Logical.Not off[nEquAlt]
     "Return true if equipment off"
     annotation (Placement(transformation(extent={{-130,30},{-110,50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant u1Res[nEquAlt](each k=false)
     "FIXME: Add input signal for reset"
-    annotation (Placement(transformation(extent={{-150,-150},{-130,-130}})));
+    annotation (Placement(transformation(extent={{-180,-110},{-160,-90}})));
   Utilities.SortWithIndices sor(final ascending=true, nin=nEquAlt)
     "Sort equipment by increasing weighted runtime"
     annotation (Placement(transformation(extent={{110,-10},{130,10}})));
@@ -104,17 +107,21 @@ block SortRuntime "Sort equipment by increasing staging runtime"
     nEquAlt](final k={idxEquAlt for i in 1:nEquAlt})
     "Indices of lead/lag alternate equipment repeated nEquAlt times"
     annotation (Placement(transformation(extent={{110,-50},{130,-30}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant runTimSta[nEquAlt](final k=
+        runTim_start) "Staging runtime initial values"
+    annotation (Placement(transformation(extent={{-100,110},{-80,130}})));
+  Buildings.Controls.OBC.CDL.Reals.Max iniRunTim[nEquAlt]
+    "Fix runtime until it exceeds the initial value"
+    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
 equation
-  connect(u1Res.y,timRun. reset) annotation (Line(points={{-128,-140},{-60,-140},
-          {-60,-8},{-52,-8}},     color={255,0,255}));
+  connect(u1Res.y,timRun. reset) annotation (Line(points={{-158,-100},{-140,-100},
+          {-140,-8},{-92,-8}},    color={255,0,255}));
   connect(weiOffAva.y, appWeiOffAva.u1) annotation (Line(points={{-28,40},{-26,
           40},{-26,6},{-12,6}},      color={0,0,127}));
   connect(off.y, offAva.u1)
     annotation (Line(points={{-108,40},{-92,40}},color={255,0,255}));
   connect(offAva.y, weiOffAva.u)
     annotation (Line(points={{-68,40},{-52,40}}, color={255,0,255}));
-  connect(timRun.y, appWeiOffAva.u2) annotation (Line(points={{-28,0},{-20,0},{
-          -20,-6},{-12,-6}},      color={0,0,127}));
   connect(appWeiOffAva.y,voiRunUna. u1) annotation (Line(points={{12,0},{20,0},
           {20,6},{28,6}},            color={0,0,127}));
   connect(zerUna.y,voiRunUna.u2) annotation (Line(points={{-28,-40},{20,-40},{
@@ -142,8 +149,6 @@ equation
     annotation (Line(points={{-28,80},{220,80}}, color={0,0,127}));
   connect(fal.y, timRunLif.reset) annotation (Line(points={{-128,100},{-60,100},
           {-60,72},{-52,72}}, color={255,0,255}));
-  connect(timRun.y,yRunTimSta)  annotation (Line(points={{-28,0},{-20,0},{-20,40},
-          {220,40}},     color={0,0,127}));
   connect(u1Run, u1RunEquAlt.u)
     annotation (Line(points={{-220,40},{-182,40}}, color={255,0,255}));
   connect(u1RunEquAlt.y, off.u)
@@ -151,7 +156,7 @@ equation
   connect(u1RunEquAlt.y, timRunLif.u) annotation (Line(points={{-158,40},{-140,40},
           {-140,80},{-52,80}}, color={255,0,255}));
   connect(u1RunEquAlt.y, timRun.u) annotation (Line(points={{-158,40},{-140,40},
-          {-140,0},{-52,0}}, color={255,0,255}));
+          {-140,0},{-92,0}}, color={255,0,255}));
   connect(u1Ava, u1AvaEquAlt.u)
     annotation (Line(points={{-220,-40},{-182,-40}}, color={255,0,255}));
   connect(u1AvaEquAlt.y, una.u)
@@ -166,6 +171,14 @@ equation
           {144,-16},{160,-16},{160,-12}}, color={255,127,0}));
   connect(resIdxInp.y, yIdx)
     annotation (Line(points={{172,0},{220,0}}, color={255,127,0}));
+  connect(runTimSta.y, iniRunTim.u1) annotation (Line(points={{-78,120},{-66,120},
+          {-66,6},{-52,6}}, color={0,0,127}));
+  connect(timRun.y, iniRunTim.u2) annotation (Line(points={{-68,0},{-60,0},{-60,
+          -6},{-52,-6}}, color={0,0,127}));
+  connect(iniRunTim.y, appWeiOffAva.u2) annotation (Line(points={{-28,0},{-20,0},
+          {-20,-6},{-12,-6}}, color={0,0,127}));
+  connect(timRun.y, yRunTimSta) annotation (Line(points={{-68,0},{-60,0},{-60,20},
+          {180,20},{180,40},{220,40}}, color={0,0,127}));
   annotation (
    defaultComponentName="sorRunTim",
  Icon(
@@ -187,7 +200,7 @@ equation
       textColor={0,0,255})}),
       Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-200,-160},{200,160}})),
-    Documentation(info="<html>
+    Documentation(info="<html> 
 FIXME: Add input signal for staging runtime reset.
 <p>
 This block implements the rotation logic for identical parallel 
@@ -215,6 +228,22 @@ In the case of unavailable equipment,
 the equipment that alarmed most recently is sent to the last position.
 The equipment in alarm automatically moves up in the staging order 
 only if another equipment goes into alarm.
+</p>
+<h4>Staging runtime initialization</h4>
+<p>
+When the controller is initialized, the choice of the first equipment to run 
+is random since all runtimes are equal to zero.
+So, before this first equipment reports status, all equipment will be 
+considered off and only this first equipment will increase runtime and be 
+queued in the staging order.
+At next stage change, another equipment will then be staged on instead,
+resulting in the first running equipment being \"hot swapped\".
+To avoid this behavior, the vector parameter <code>runTim_start</code> is used
+to initialize the staging runtime, which will be fixed at this parameter
+value until it becomes higher. 
+The parameter <code>runTim_start</code> should be set to a vector of
+strictly increasing values, where the minimum value is greater than 
+the time needed for the equipment to report status.
 </p>
 <h4>Implementation details</h4>
 <p>

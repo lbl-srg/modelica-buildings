@@ -173,8 +173,10 @@ block StageIndex
     "Stage up command or active stage unavailable"
     annotation (Placement(transformation(extent={{-10,-130},{10,-110}})));
   TrueArrayConditional truIdxNex(
+    final is_fix=false,
     final nout=nSta,
     nin=1)
+    "Generate array with true value at index of next stage to be enabled"
     annotation (Placement(transformation(extent={{150,-190},{170,-170}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanVectorReplicator repVec(
     final nin=nSta,
@@ -200,9 +202,10 @@ block StageIndex
     "Replicate"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   TrueArrayConditional truNexHigAva(
+    final is_fix=false,
     final nout=nSta,
     nin=1)
-    "Return true at index of next higher available stage (if any, otherwise all false)"
+    "Generate array with true element at index of next higher available stage (if any, otherwise all false)"
     annotation (Placement(transformation(extent={{-150,110},{-130,130}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt(
     final integerTrue=1,
