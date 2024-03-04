@@ -27,16 +27,17 @@ block HoldValue "Hold a value based on Boolean input signal"
     annotation (Placement(transformation(extent={{72,70},{92,90}})));
   Modelica.StateGraph.InitialStepWithSignal useAct(nOut=1, nIn=1)
     "Use actual value – Initial state"
-    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
+    annotation (Placement(transformation(extent={{-70,60},{-50,80}})));
   Modelica.StateGraph.StepWithSignal useFix(nIn=1, nOut=1) "Use fixed value"
-    annotation (Placement(transformation(extent={{0,60},{20,80}})));
-  Modelica.StateGraph.TransitionWithSignal toFix "Transition to fixed value"
     annotation (Placement(transformation(extent={{-30,60},{-10,80}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer tim(final t=dtHol_max) "Timer"
+  Modelica.StateGraph.TransitionWithSignal toFix "Transition to fixed value"
+    annotation (Placement(transformation(extent={{-50,60},{-30,80}})));
+  Buildings.Controls.OBC.CDL.Logical.Timer tim(final t=dtHol_max)
+    if dtHol_max > 0                                              "Timer"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={10,30})));
+        origin={-20,30})));
   Modelica.StateGraph.TransitionWithSignal toAct "Transition to actual value"
     annotation (Placement(transformation(extent={{30,60},{50,80}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2
@@ -45,36 +46,47 @@ block HoldValue "Hold a value based on Boolean input signal"
   Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Switch between actual and fixed value"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
+  PlaceHolder pla(
+    final have_inp=dtHol_max > 0,
+    final have_inpPla=false,
+    final u_internal=false) "Placeholder value if dtHol_max=0"
+    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 equation
-  connect(u, triSam.u) annotation (Line(points={{-120,-40},{-40,-40},{-40,-60},{
-          -12,-60}}, color={0,0,127}));
+  connect(u, triSam.u) annotation (Line(points={{-120,-40},{-20,-40},{-20,-60},
+          {-12,-60}},color={0,0,127}));
   connect(u1, toFix.condition)
-    annotation (Line(points={{-120,40},{-20,40},{-20,58}}, color={255,0,255}));
+    annotation (Line(points={{-120,40},{-40,40},{-40,58}}, color={255,0,255}));
   connect(toFix.outPort, useFix.inPort[1])
-    annotation (Line(points={{-18.5,70},{-1,70}}, color={0,0,0}));
+    annotation (Line(points={{-38.5,70},{-31,70}},color={0,0,0}));
   connect(useFix.active, tim.u)
-    annotation (Line(points={{10,59},{10,42}}, color={255,0,255}));
+    annotation (Line(points={{-20,59},{-20,42}},
+                                               color={255,0,255}));
   connect(useFix.outPort[1], toAct.inPort)
-    annotation (Line(points={{20.5,70},{36,70}}, color={0,0,0}));
-  connect(u1, triSam.trigger) annotation (Line(points={{-120,40},{-20,40},{-20,-80},
-          {0,-80},{0,-72}}, color={255,0,255}));
-  connect(tim.passed, or2.u1)
-    annotation (Line(points={{2,18},{2,0},{8,0}}, color={255,0,255}));
-  connect(u1Rel, or2.u2) annotation (Line(points={{-120,0},{-10,0},{-10,-8},{8,-8}},
+    annotation (Line(points={{-9.5,70},{36,70}}, color={0,0,0}));
+  connect(u1, triSam.trigger) annotation (Line(points={{-120,40},{-40,40},{-40,
+          -80},{0,-80},{0,-72}},
+                            color={255,0,255}));
+  connect(u1Rel, or2.u2) annotation (Line(points={{-120,0},{-60,0},{-60,-20},{4,
+          -20},{4,-8},{8,-8}},
         color={255,0,255}));
   connect(or2.y, toAct.condition)
     annotation (Line(points={{32,0},{40,0},{40,58}}, color={255,0,255}));
   connect(useAct.outPort[1], toFix.inPort)
-    annotation (Line(points={{-39.5,70},{-24,70}}, color={0,0,0}));
-  connect(toAct.outPort, useAct.inPort[1]) annotation (Line(points={{41.5,70},{52,
-          70},{52,90},{-70,90},{-70,70},{-61,70}}, color={0,0,0}));
+    annotation (Line(points={{-49.5,70},{-44,70}}, color={0,0,0}));
+  connect(toAct.outPort, useAct.inPort[1]) annotation (Line(points={{41.5,70},{
+          60,70},{60,90},{-80,90},{-80,70},{-71,70}},
+                                                   color={0,0,0}));
   connect(swi.y, y) annotation (Line(points={{92,0},{120,0}}, color={0,0,127}));
   connect(triSam.y, swi.u3) annotation (Line(points={{12,-60},{60,-60},{60,-8},{
           68,-8}}, color={0,0,127}));
-  connect(useAct.active, swi.u2) annotation (Line(points={{-50,59},{-50,50},{60,
+  connect(useAct.active, swi.u2) annotation (Line(points={{-60,59},{-60,50},{60,
           50},{60,0},{68,0}}, color={255,0,255}));
   connect(u, swi.u1) annotation (Line(points={{-120,-40},{54,-40},{54,8},{68,8}},
         color={0,0,127}));
+  connect(tim.passed, pla.u)
+    annotation (Line(points={{-28,18},{-28,0},{-22,0}}, color={255,0,255}));
+  connect(pla.y, or2.u1)
+    annotation (Line(points={{2,0},{8,0}}, color={255,0,255}));
   annotation (
   DefaultComponentName="hol",
   Icon(

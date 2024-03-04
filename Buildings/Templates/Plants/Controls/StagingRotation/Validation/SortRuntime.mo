@@ -49,14 +49,15 @@ model SortRuntime
     "Returns true if equipment is enabled and available"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
 equation
-  connect(sorRunTim.yIdx,u1Ena. uIdx) annotation (Line(points={{-18,0},{-12,0},{
-          -12,-6},{-2,-6}},                          color={255,127,0}));
+  connect(sorRunTim.yIdx,u1Ena. uIdx) annotation (Line(points={{-18,-6},{-12,-6},
+          {-12,-6},{-2,-6}},                         color={255,127,0}));
   connect(booToRea.y, zerOrdHol.u)
     annotation (Line(points={{82,0},{88,0}}, color={0,0,127}));
   connect(zerOrdHol.y, greThr.u)
     annotation (Line(points={{112,0},{118,0}}, color={0,0,127}));
-  connect(greThr.y, sorRunTim.u1Run) annotation (Line(points={{142,0},{150,0},{150,
-          20},{-46,20},{-46,0},{-42,0}},   color={255,0,255}));
+  connect(greThr.y, sorRunTim.u1Run) annotation (Line(points={{142,0},{150,0},{
+          150,20},{-46,20},{-46,6},{-42,6}},
+                                           color={255,0,255}));
   connect(u1AvaEqu.y[1:3], sorRunTim.u1Ava[1:3]) annotation (Line(points={{-108,
           -100},{-46,-100},{-46,-4},{-42,-4},{-42,-5.33333}},
                                                            color={255,0,255}));

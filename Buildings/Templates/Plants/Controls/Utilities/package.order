@@ -1,6 +1,7 @@
 CountTrue
 FirstTrueIndex
 HoldValue
+HoldValueInteger
 Initialization
 LastTrueIndex
 MultiMax

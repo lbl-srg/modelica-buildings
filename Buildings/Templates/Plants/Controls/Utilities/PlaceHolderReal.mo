@@ -41,29 +41,14 @@ annotation (
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}),
       graphics={
+        Line(
+          points={{-90,-80.3976},{68,-80.3976}},
+          color={192,192,192}),
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
-          lineThickness=5.0,
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
-          borderPattern=BorderPattern.Raised),
-        Ellipse(
-          extent={{71,7},{85,-7}},
-          lineColor=DynamicSelect({235,235,235},
-            if y then
-              {0,255,0}
-            else
-              {235,235,235}),
-          fillColor=DynamicSelect({235,235,235},
-            if y then
-              {0,255,0}
-            else
-              {235,235,235}),
+          fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{-120,140},{-120,140}},
-          lineColor={28,108,200}),
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",

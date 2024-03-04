@@ -10,8 +10,7 @@ block PlaceHolder "Output a placeholder signal"
     "Placeholder value if input signal is not available"
     annotation(Dialog(enable=not have_inpPla));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u
-    if have_inp
-    "Input"
+    if have_inp "Input"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla

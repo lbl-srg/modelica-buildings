@@ -10,7 +10,7 @@ block TrueArrayConditional
     min=0)=nin
     "Size of output array"
     annotation (Evaluate=true);
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u(start=0, fixed=true)
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u(start=0)
     "Number of true elements"
     annotation (Placement(transformation(extent={{-140,
             -20},{-100,20}}), iconTransformation(extent={{-140,-20},{-100,20}})));
@@ -24,22 +24,20 @@ block TrueArrayConditional
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 protected
-  Integer uIdx_internal[nin]
-    "Internal variable keeping uIdx unchanged when u changes";
-  Integer i
-    "Iteration variable";
-initial equation
-  pre(uIdx) = {i for i in 1:nin};
-equation
-  uIdx_internal = if change(u) then pre(uIdx) else uIdx;
+  Integer iTru
+    "Iteration variable - Count number of true elements";
+  Integer iIdx
+    "Iteration variable - Count number of indices in input vector";
 algorithm
-  i := 1;
+  iTru := 0;
+  iIdx := 1;
   y1 := fill(false, nout);
-  while i <= u loop
-    if uIdx[i] >= 1 and uIdx[i] <= nout then
-      y1[uIdx[i]] := true;
+  while (iTru < u) and (iIdx <= nin) loop
+    if (uIdx[iIdx] >= 1) and (uIdx[iIdx] <= nout) then
+      y1[uIdx[iIdx]] := true;
+      iTru := iTru + 1;
     end if;
-    i := i + 1;
+    iIdx := iIdx + 1;
   end while;
   annotation (
     defaultComponentName="truArrCon",
