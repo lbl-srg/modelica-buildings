@@ -386,6 +386,15 @@ units are wrong or errors in documentation):
     <td valign=\"top\">Corrected wrong use <code>displayUnit</code> attribute.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Examples</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.DualFanDualDuct.ClosedLoop<br/>
+                       Buildings.Examples.VAVReheat.BaseClasses.ASHRAE2006
+    </td>
+    <td valign=\"top\">Corrected wrong use <code>displayUnit</code> attribute.
+    </td>
+</tr>
 </table>
 <p>
 Note:
