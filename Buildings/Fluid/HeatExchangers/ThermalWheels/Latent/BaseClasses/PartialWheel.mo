@@ -69,15 +69,6 @@ partial model PartialWheel
     "Latent heat exchanger effectiveness"
     annotation (Placement(transformation(extent={{100,-100},{140,-60}}),
         iconTransformation(extent={{100,-110},{140,-70}})));
-  Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.HeatExchangerWithInputEffectiveness hex(
-    redeclare package Medium1 = Medium1,
-    redeclare package Medium2 = Medium2,
-    final m1_flow_nominal=m1_flow_nominal,
-    final m2_flow_nominal=m2_flow_nominal,
-    final dp1_nominal=dp1_nominal,
-    final dp2_nominal=dp2_nominal)
-    "Heat exchanger"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a1(
     redeclare final package Medium = Medium1)
     "Fluid connector a1 of the supply air (positive design flow direction is from port_a1 to port_b1)"
@@ -99,7 +90,7 @@ partial model PartialWheel
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
 
 protected
-    parameter Medium1.ThermodynamicState sta_nominal=Medium1.setState_pTX(
+  parameter Medium1.ThermodynamicState sta_nominal=Medium1.setState_pTX(
       T=Buildings.Utilities.Psychrometrics.Constants.T_ref,
       p=101325,
       X=Medium1.X_default)
@@ -116,6 +107,15 @@ protected
     final VSup_flow_nominal=m1_flow_nominal/Medium1.density(sta_nominal))
     "Calculates the effectiveness of heat exchange"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
+  Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.HeatExchangerWithInputEffectiveness hex(
+    redeclare package Medium1 = Medium1,
+    redeclare package Medium2 = Medium2,
+    final m1_flow_nominal=m1_flow_nominal,
+    final m2_flow_nominal=m2_flow_nominal,
+    final dp1_nominal=dp1_nominal,
+    final dp2_nominal=dp2_nominal)
+    "Heat exchanger"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.RealExpression VSup_flow(
     final y(final unit="m3/s")=hex.port_a1.m_flow/
         Medium1.density(state=Medium1.setState_phX(
@@ -174,8 +174,8 @@ equation
   connect(VExh_flow.y, effCal.VExh_flow)
     annotation (Line(points={{-139,20},{-120,20},{-120,4},{-102,4}},
         color={0,0,127}));
-  connect(epsSen, effCal.epsSen) annotation (Line(points={{120,40},{-60,40},{
-          -60,3},{-78,3}}, color={0,0,127}));
+  connect(epsSen, effCal.epsSen) annotation (Line(points={{120,40},{-40,40},{-40,
+          3},{-78,3}},     color={0,0,127}));
   connect(effCal.epsLat, epsLat) annotation (Line(points={{-78,-3},{-60,-3},{
           -60,-80},{120,-80}}, color={0,0,127}));
 annotation (

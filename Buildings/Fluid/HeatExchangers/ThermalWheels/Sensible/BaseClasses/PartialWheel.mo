@@ -46,7 +46,7 @@ partial model PartialWheel
         iconTransformation(extent={{100,-40},{140,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput eps(final unit="1")
     "Sensible heat exchanger effectiveness"
-    annotation (Placement(transformation(extent={{100,0},{140,40}}),
+    annotation (Placement(transformation(extent={{100,20},{140,60}}),
         iconTransformation(extent={{100,0},{140,40}})));
   Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.HeatExchangerWithInputEffectiveness
     hex(
@@ -148,8 +148,9 @@ equation
         color={0,0,127}));
   connect(effCal.eps, hex.eps)
     annotation (Line(points={{-78,0},{-12,0}}, color={0,0,127}));
-  connect(effCal.eps, eps) annotation (Line(points={{-78,0},{-40,0},{-40,20},{120,
-          20}}, color={0,0,127}));
+  connect(effCal.eps, eps) annotation (Line(points={{-78,0},{-40,0},{-40,40},{
+          120,40}},
+                color={0,0,127}));
 annotation (
         defaultComponentName="whe",
         Icon(coordinateSystem(extent={{-100,-100},{100,100}}),

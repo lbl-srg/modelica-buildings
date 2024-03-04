@@ -4,7 +4,7 @@ model SpeedControlled
   extends
     Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.PartialWheel;
   parameter Real a[:] = {1}
-    "Coefficients for power consumption curve for rotor, P/P_nominal = sum a_i uSpe^(i-1). The sum(a) of the elements must be equal to 1"
+    "Coefficients for power consumption curve for rotor. The sum of the elements must be equal to 1"
     annotation (Dialog(group="Efficiency"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uSpe(

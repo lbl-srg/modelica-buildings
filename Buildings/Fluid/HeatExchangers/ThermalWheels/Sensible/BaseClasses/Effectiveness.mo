@@ -67,7 +67,7 @@ equation
   eps =uSpe*(epsPL + (eps_nominal - epsPL)*(rat - 0.75)/0.25);
   assert(eps >= 0 and eps < 1,
     "In " + getInstanceName() + ": The sensible heat exchange effectiveness eps = " + String(eps) + ". It should be in the range of [0, 1].
-    Check if the part load (75%) or nominal sensible heat exchanger effectiveness is too high or too low.",
+    Check if the part load (75% of the nominal supply flow rate) or nominal sensible heat exchanger effectiveness is too high or too low.",
     level=AssertionLevel.error);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={Text(
           extent={{-54,28},{50,-40}},

@@ -86,11 +86,11 @@ equation
   epsLat =uSpe*(epsLatPL + (epsLat_nominal - epsLatPL)*(rat - 0.75)/0.25);
   assert(epsSen >= 0 and epsSen < 1,
     "In " + getInstanceName() + ": The sensible heat exchange effectiveness epsSen = " + String(epsSen) + ". It should be in the range of [0, 1].
-    Check if the part load (75%) or nominal sensible heat exchanger effectiveness is too high or too low.",
+    Check if the part load (75% of the nominal supply flow rate) or nominal sensible heat exchanger effectiveness is too high or too low.",
     level=AssertionLevel.error);
   assert(epsLat >= 0 and epsLat < 1,
     "In " + getInstanceName() + ": The latent heat exchange effectiveness epsLat = " + String(epsLat) + ". It should be in the range of [0, 1], 
-    Check if the part load (75%) or nominal latent heat exchanger effectiveness is too high or too low.",
+    Check if the part load (75% of the nominal supply flow rate) or nominal latent heat exchanger effectiveness is too high or too low.",
     level=AssertionLevel.error);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={Text(
           extent={{-54,28},{50,-40}},
