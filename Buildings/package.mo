@@ -390,7 +390,8 @@ units are wrong or errors in documentation):
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Examples.DualFanDualDuct.ClosedLoop<br/>
-                       Buildings.Examples.VAVReheat.BaseClasses.ASHRAE2006
+                       Buildings.Examples.VAVReheat.BaseClasses.ASHRAE2006<br/>
+                       Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.OneFloor_OneZone
     </td>
     <td valign=\"top\">Corrected wrong use <code>displayUnit</code> attribute.
     </td>
