@@ -1,12 +1,6 @@
 simulateModel("Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.Validation.WetFluid",
     method="dassl", stopTime=1, tolerance=1e-06, resultFile="WetFluid");
 // Plot commands
-createPlot(id=1,
- position={95, 95, 592, 371},
- y={"intSta.etaThe"},
- range={0.0, 1.0, 0.13, 0.165},
- grid=true,
- colors={{28,108,200}},
- timeUnit="s",
- displayUnits={"1"});
+createPlot(id=1, position={120, 7, 595, 507}, y={"intSta.etaThe"}, range={0.0, 1.0, 0.08, 0.10500000000000001}, grid=true, subPlot=101, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
+createPlot(id=1, position={120, 7, 595, 507}, y={"intSta.dTSup"}, range={0.0, 1.0, 3.6, 4.800000000000001}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="s", displayUnits={"K"});
 

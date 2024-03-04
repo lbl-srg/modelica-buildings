@@ -4,8 +4,6 @@ model WetFluid
   extends
     Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.Validation.DryFluid(
       TEva = 350,
-      dTSup = 2,
-      etaExp = 0.65,
       redeclare parameter
         Buildings.Fluid.CHPs.OrganicRankine.Data.WorkingFluids.R134a pro);
 annotation (experiment(StopTime=1, Tolerance=1e-6),
@@ -13,17 +11,17 @@ annotation (experiment(StopTime=1, Tolerance=1e-6),
   "Simulate and plot"),
   Documentation(info="<html>
 <p>
-This model validates the handling of wet working fluids by
-<a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.InterpolateStates\">
-Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.InterpolateStates</a>.
-If the user modifies the expander efficiency <code>etaExp</code> to
-a large number (e.g. 0.95), it will trigger an error with a message
-that the expander outlet state will be under the dome.
+This model is largely the same as
+<a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.Validation.DryFluid\">
+Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.Validation.DryFluid</a>,
+except that it validates the handling of wet working fluids.
+As a result, a minimum superheating temperature is computed that ensures
+the expansion does not land under the dome.
 </p>
 </html>",revisions="<html>
 <ul>
 <li>
-December 8, 2023, by Hongxiang Fu:<br/>
+March 04, 2023, by Hongxiang Fu:<br/>
 First implementation. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3433\">#3433</a>.
 </li>

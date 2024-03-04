@@ -1,4 +1,5 @@
 compareVars :=
   {
-    "intSta.etaThe"
+    "intSta.etaThe",
+    "intSta.dTSup"
   };
