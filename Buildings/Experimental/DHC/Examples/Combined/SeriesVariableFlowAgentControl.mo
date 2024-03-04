@@ -1,12 +1,9 @@
 within Buildings.Experimental.DHC.Examples.Combined;
 model SeriesVariableFlowAgentControl
   "Example of series connection with variable district water mass flow rate with updated agent controller"
-  extends
-    Buildings.Experimental.DHC.Examples.Combined.BaseClasses.PartialSeries(
-    redeclare
-      Buildings.Experimental.DHC.Loads.Combined.BuildingTimeSeriesWithETS bui[
-      nBui](final filNam=filNam),
-    datDes(
+  extends Buildings.Experimental.DHC.Examples.Combined.BaseClasses.PartialSeries(redeclare
+      Buildings.Experimental.DHC.Loads.Combined.BuildingTimeSeriesWithETS bui[nBui](final filNam=filNam),
+      datDes(
       mPumDis_flow_nominal=97.3,
       mPipDis_flow_nominal=69.5,
       mSto_flow_nominal=75,
@@ -82,8 +79,7 @@ model SeriesVariableFlowAgentControl
       each c=1000,
       each d=2600))
     annotation (Placement(transformation(extent={{-10,100},{12,80}})));
-  Buildings.Experimental.DHC.Networks.Controls.AgentPump1Pipe
-    pumPlantControlNsew(
+  Buildings.Experimental.DHC.Networks.Controls.AgentPump1Pipe pumPlantControlNsew(
     yPumMin=0,
     dToff=0.5,
     k=0.8,
@@ -91,8 +87,7 @@ model SeriesVariableFlowAgentControl
     uLowHea=0.75,
     uHighHea=1.5,
     h=0.5) annotation (Placement(transformation(extent={{-280,-10},{-260,10}})));
-  Buildings.Experimental.DHC.Networks.Controls.AgentPump1Pipe
-    pumPlantControlNsewSto(
+  Buildings.Experimental.DHC.Networks.Controls.AgentPump1Pipe pumPlantControlNsewSto(
     yPumMin=0,
     dToff=0.45,
     k=1.1,
@@ -169,9 +164,9 @@ equation
   connect(TDisWatSup.T,pumPlantControlNsew.TSouOut)  annotation (Line(points={{-91,20},
           {-100,20},{-100,60},{-296,60},{-296,-1},{-281.538,-1}},     color={0,0,
           127}));
-  connect(TDisWatSup1.T, pumPlantControlNsew.TsupDis) annotation (Line(points={{-91,128},
+  connect(TDisWatSup1.T,pumPlantControlNsew.TSupDis)  annotation (Line(points={{-91,128},
           {-312,128},{-312,-8},{-281.538,-8}},          color={0,0,127}));
-  connect(TDisWatRet1.T, pumPlantControlNsew.TretDis) annotation (Line(points={{69,128},
+  connect(TDisWatRet1.T,pumPlantControlNsew.TRetDis)  annotation (Line(points={{69,128},
           {40,128},{40,112},{-308,112},{-308,-5},{-281.538,-5}},
         color={0,0,127}));
   connect(borFie.TBorAve, pumPlantControlNsewSto.TSou) annotation (Line(points={{-119,
@@ -184,10 +179,10 @@ equation
   connect(TDisWatBorLvg.T,pumPlantControlNsewSto.TSouOut)  annotation (Line(
         points={{-91,-40},{-348,-40},{-348,-101},{-331.538,-101}},
         color={0,0,127}));
-  connect(TDisWatSup1.T, pumPlantControlNsewSto.TsupDis) annotation (Line(
+  connect(TDisWatSup1.T,pumPlantControlNsewSto.TSupDis)  annotation (Line(
         points={{-91,128},{-370,128},{-370,-108},{-331.538,-108}},
                                                                color={0,0,127}));
-  connect(TDisWatRet1.T, pumPlantControlNsewSto.TretDis) annotation (Line(
+  connect(TDisWatRet1.T,pumPlantControlNsewSto.TRetDis)  annotation (Line(
         points={{69,128},{40,128},{40,112},{-310,112},{-310,-20},{-354,-20},{
           -354,-105},{-331.538,-105}},
         color={0,0,127}));

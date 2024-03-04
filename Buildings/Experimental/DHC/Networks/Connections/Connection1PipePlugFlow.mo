@@ -1,8 +1,7 @@
 within Buildings.Experimental.DHC.Networks.Connections;
 model Connection1PipePlugFlow
   "Model for connecting an agent to the DHC system"
-  extends
-    Buildings.Experimental.DHC.Networks.BaseClasses.PartialConnection1Pipe(
+  extends Buildings.Experimental.DHC.Networks.BaseClasses.PartialConnection1Pipe(
     tau=5*60,
     redeclare replaceable model Model_pipDis =
         Buildings.Fluid.FixedResistances.PlugFlowPipe (

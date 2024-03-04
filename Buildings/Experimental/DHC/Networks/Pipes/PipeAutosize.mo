@@ -1,9 +1,8 @@
 within Buildings.Experimental.DHC.Networks.Pipes;
-model PipeAutosize
-  "Pipe model parameterized with pressure drop per pipe length"
+model PipeAutosize "Pipe model parameterized with pressure drop per pipe length"
   extends Buildings.Fluid.FixedResistances.PressureDrop(
-    final deltaM =  eta_default*dh/4*Modelica.Constants.pi*ReC/m_flow_nominal_pos,
-    final dp_nominal=dp_length_nominal*length);
+    final deltaM = eta_default*dh/4*Modelica.Constants.pi*ReC/m_flow_nominal_pos,
+    final dp_nominal = dp_length_nominal*length);
 
   parameter Modelica.Units.SI.Length dh(
     fixed=false,
@@ -15,7 +14,7 @@ model PipeAutosize
 
   parameter Modelica.Units.SI.Length length "Length of the pipe";
 
-  parameter Real ReC(min=0)=4000
+  parameter Real ReC(min=0) = 4000
     "Reynolds number where transition to turbulence starts";
   parameter Modelica.Units.SI.Length roughness(min=0) = 2.5e-5
     "Absolute roughness of pipe, with a default for a smooth steel pipe (PE100: 7E-6)";
@@ -24,8 +23,7 @@ model PipeAutosize
     "Factor to take into account resistance of bends etc., fac=dp_nominal/dpStraightPipe_nominal";
 
   final parameter Modelica.Units.SI.PressureDifference dpStraightPipe_nominal(
-      displayUnit="Pa")=
-    Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
+      displayUnit="Pa")=Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
     m_flow=m_flow_nominal,
     rho_a=rho_default,
     rho_b=rho_default,
@@ -37,19 +35,18 @@ model PipeAutosize
     m_flow_small=m_flow_small)
     "Pressure loss of a straight pipe at m_flow_nominal";
 
-  Modelica.Units.SI.Velocity v=m_flow/(rho_default*ARound)
+  Modelica.Units.SI.Velocity v = m_flow/(rho_default*ARound)
     "Flow velocity (assuming a round cross section area)";
 
 protected
-  parameter Modelica.Units.SI.Area ARound=dh^2*Modelica.Constants.pi/4
+  parameter Modelica.Units.SI.Area ARound = dh^2*Modelica.Constants.pi/4
     "Cross sectional area (assuming a round cross section area)";
 
-  parameter Modelica.Units.SI.Velocity v_nominal=m_flow_nominal/(rho_default*
+  parameter Modelica.Units.SI.Velocity v_nominal = m_flow_nominal/(rho_default*
       ARound)
     "Velocity at m_flow_nominal (used to compute default value for hydraulic diameter dh)";
 
-  parameter Medium.ThermodynamicState state_default=
-    Medium.setState_pTX(
+  parameter Medium.ThermodynamicState state_default= Medium.setState_pTX(
       T=Medium.T_default,
       p=Medium.p_default,
       X=Medium.X_default[1:Medium.nXi]) "Default state";
@@ -57,14 +54,13 @@ protected
   parameter Modelica.Units.SI.Density rho_default=Medium.density(state_default)
     "Density at nominal condition";
 
-  parameter Modelica.Units.SI.DynamicViscosity mu_default=
-      Medium.dynamicViscosity(state_default)
+  parameter Modelica.Units.SI.DynamicViscosity mu_default = Medium.dynamicViscosity(state_default)
     "Dynamic viscosity at nominal condition";
 initial equation
   dp_nominal = fac*dpStraightPipe_nominal;
 
 annotation (
-    DefaultComponentName="pipCon",
+    defaultComponentName="pipCon",
     Icon(graphics={
         Rectangle(
           extent={{-100,22},{100,-24}},

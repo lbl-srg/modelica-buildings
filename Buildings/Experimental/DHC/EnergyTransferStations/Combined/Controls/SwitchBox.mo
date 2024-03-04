@@ -21,8 +21,7 @@ block SwitchBox "Controller for flow switch box"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(final unit="1")
     "Control output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold
-                                       posDom(final t, h=0.001*m_flow_nominal)
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold posDom(final t, h=0.001*m_flow_nominal)
     "Output true in case of dominating positive flow"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Modelica.Blocks.Logical.Switch swi "Switch to select the mode"

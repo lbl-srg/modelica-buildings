@@ -1,13 +1,12 @@
 within Buildings.Experimental.DHC.Networks.Pipes;
-model PipeStandard
-  "Pipe model parameterized with hydraulic diameter"
+model PipeStandard "Pipe model parameterized with hydraulic diameter"
   extends Buildings.Fluid.FixedResistances.HydraulicDiameter(
-    dp(nominal=1E5),
-    final linearized=false,
-    final v_nominal=m_flow_nominal * 4 / (rho_default * dh^2 * Modelica.Constants.pi));
+    dp(nominal = 1E5),
+    final linearized = false,
+    final v_nominal = m_flow_nominal*4/(rho_default * dh^2 * Modelica.Constants.pi));
 
 annotation (
-  DefaultComponentName="pipDis",
+  defaultComponentName="pipDis",
     Documentation(revisions="<html>
 <ul>
 <li>

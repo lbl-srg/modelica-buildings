@@ -7,14 +7,13 @@ model Connection1PipeExample
     fixed=false,
     start=0.01,
     min=0.001) "Hydraulic diameter (assuming a round cross section area)";
-  parameter Modelica.Units.SI.MassFlowRate mDis_flow_nominal=1
+  parameter Modelica.Units.SI.MassFlowRate mDis_flow_nominal = 1
     "Nominal mass flow rate in the distribution line";
-  parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal=0.5
+  parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal = 0.5
     "Nominal mass flow rate in the connection line";
-  parameter Modelica.Units.SI.Length lDis=100
+  parameter Modelica.Units.SI.Length lDis = 100
     "Length of the distribution pipe before the connection";
-  Buildings.Experimental.DHC.Networks.Connections.Connection1PipeAutosize
-    connection1PipeAutosize(
+  Buildings.Experimental.DHC.Networks.Connections.Connection1PipeAutosize connection1PipeAutosize(
     redeclare package Medium = MediumW,
     mDis_flow_nominal=mDis_flow_nominal,
     mCon_flow_nominal=mCon_flow_nominal,
@@ -60,7 +59,7 @@ model Connection1PipeExample
   Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumDisPlugFlow(
     dp_nominal=100000,
     redeclare final package Medium = MediumW,
-    m_flow_nominal=mDis_flow_nominal) "Distribution network pump" annotation (
+    m_flow_nominal = mDis_flow_nominal) "Distribution network pump" annotation (
       Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
@@ -73,7 +72,7 @@ model Connection1PipeExample
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={30,-20})));
-  Fluid.FixedResistances.BuriedPipes.PipeGroundCoupling           pipeGroundCoupling(
+  Fluid.FixedResistances.BuriedPipes.PipeGroundCoupling pipeGroundCoupling(
     lPip=lDis,
     rPip=0.04,
     thiGroLay=1.1,
@@ -119,14 +118,7 @@ equation
         points={{-59,80},{0,80},{0,98},{30,98},{30,92}}, color={0,0,127}));
   connect(pumConPlugFlow.m_flow_in, pumConAutoSize.m_flow_in) annotation (Line(
         points={{30,-8},{30,-4},{60,-4},{60,98},{30,98},{30,92}}, color={0,0,127}));
-  annotation (
-    Icon(
-      coordinateSystem(
-        preserveAspectRatio=false)),
-    Diagram(
-        coordinateSystem(
-        preserveAspectRatio=false)),
-    __Dymola_Commands(
+  annotation (__Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Networks/Connections/Examples/Connection1PipeExample.mos" "Simulate and plot"),
     experiment(
       StopTime=3600,

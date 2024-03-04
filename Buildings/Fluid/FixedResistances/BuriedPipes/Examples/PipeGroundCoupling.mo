@@ -4,11 +4,10 @@ model PipeGroundCoupling "Example model for pipe ground coupling model"
   replaceable package Medium = Buildings.Media.Water "Medium in the pipe" annotation (
       choicesAllMatching=true);
   parameter Integer nSoi = 4 "Number of probed depths";
-  parameter Modelica.Units.SI.Length dep[nSoi]={0,2,5,9} "Probed depths";
-  parameter Modelica.Units.SI.Length length=100 "Pipe length";
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=3
-    "Mass flow rate";
-  parameter Modelica.Units.SI.Temperature Tin=273.15+11.5 "Mean inlet temperature";
+  parameter Modelica.Units.SI.Length dep[nSoi] = {0,2,5,9} "Probed depths";
+  parameter Modelica.Units.SI.Length length = 100 "Pipe length";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal = 3 "Mass flow rate";
+  parameter Modelica.Units.SI.Temperature Tin = 273.15+11.5 "Mean inlet temperature";
 
   Buildings.Fluid.FixedResistances.BuriedPipes.PipeGroundCoupling pipeGroundCoupling(
     lPip=length,
@@ -21,20 +20,20 @@ model PipeGroundCoupling "Example model for pipe ground coupling model"
     cliCon=cliCon,
     soiDat=soiDat)
     annotation (Placement(transformation(extent={{10,60},{32,80}})));
-  Fluid.Sources.MassFlowSource_T           sou(
-    redeclare package Medium = Medium,
+  Fluid.Sources.MassFlowSource_T sou(
+  redeclare package Medium = Medium,
     use_T_in=true,
     m_flow=m_flow_nominal,
     T=293.15,
     nPorts=1) "Flow source"
     annotation (Placement(transformation(extent={{-62,30},{-42,50}})));
-  Fluid.Sensors.TemperatureTwoPort           senTemIn(
+  Fluid.Sensors.TemperatureTwoPort senTemIn(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     tau=0,
     T_start=Tin) "Temperature sensor"
     annotation (Placement(transformation(extent={{-30,30},{-10,50}})));
-  Fluid.FixedResistances.PlugFlowPipe           pip(
+  Fluid.FixedResistances.PlugFlowPipe pip(
     redeclare package Medium = Medium,
     dh=0.1,
     length=length,
@@ -49,14 +48,13 @@ model PipeGroundCoupling "Example model for pipe ground coupling model"
     T_start_in=Tin,
     T_start_out=Tin) "Pipe"
     annotation (Placement(transformation(extent={{10,30},{30,50}})));
-  Fluid.Sensors.TemperatureTwoPort           senTemOut(
+  Fluid.Sensors.TemperatureTwoPort senTemOut(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     tau=0,
     T_start=Tin) "Temperature sensor"
     annotation (Placement(transformation(extent={{46,30},{66,50}})));
-  Fluid.Sources.Boundary_pT
-                      sin(
+  Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     T=273.15 + 10,
     nPorts=2,

@@ -5,8 +5,7 @@ model TankBranch "Model of the tank branch of a storage plant"
     redeclare final package Medium1 = Medium,
     redeclare final package Medium2 = Medium);
 
-  replaceable package Medium =
-    Modelica.Media.Interfaces.PartialMedium "Medium package";
+  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium "Medium package";
 
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(min=0)
     "Nominal mass flow rate"

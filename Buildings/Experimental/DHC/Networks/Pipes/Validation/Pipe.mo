@@ -2,12 +2,12 @@ within Buildings.Experimental.DHC.Networks.Pipes.Validation;
 model Pipe "Validates the PipeAutosize model initialization"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water "Medium model";
-  parameter Real dp1_length_nominal(final unit="Pa/m")=1000 "Pressure drop per unit length 1";
-  parameter Real dp2_length_nominal(final unit="Pa/m")=0.1 "Pressure drop per unit length 2";
-  parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal=0.01 "Nominal mass flow rate 1";
-  parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal=1000 "Nominal mass flow rate 2";
-  Buildings.Fluid.Sources.Boundary_pT sin(redeclare final package Medium =
-        Medium, nPorts=4) "Sink for water flow" annotation (Placement(
+  parameter Real dp1_length_nominal(final unit="Pa/m") = 1000 "Pressure drop per unit length 1";
+  parameter Real dp2_length_nominal(final unit="Pa/m") = 0.1 "Pressure drop per unit length 2";
+  parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal = 0.01 "Nominal mass flow rate 1";
+  parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal = 1000 "Nominal mass flow rate 2";
+  Buildings.Fluid.Sources.Boundary_pT sin(redeclare final package Medium = Medium,
+   nPorts=4) "Sink for water flow" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,

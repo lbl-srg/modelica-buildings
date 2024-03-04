@@ -1,7 +1,7 @@
 within Buildings.Experimental.DHC.Networks.Controls;
 block AgentPump1Pipe
   "Ambient network storage and plants agent pump control, developed for reservoir network"
-   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
+   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType =
       Buildings.Controls.OBC.CDL.Types.SimpleController.P "Type of controller";
    parameter Real yPumMin(min=0, max=1, final unit="1") = 0.05
     "Minimum pump speed";
@@ -26,10 +26,10 @@ block AgentPump1Pipe
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSou(final unit="K",
       displayUnit="degC") "Average temperature available at source"
     annotation (Placement(transformation(extent={{-160,10},{-120,50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TretDis(final unit="K",
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TRetDis(final unit="K",
       displayUnit="degC") "District return temperature"
     annotation (Placement(transformation(extent={{-160,-70},{-120,-30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TsupDis(final unit="K",
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupDis(final unit="K",
       displayUnit="degC") "Plant supply temperature"
     annotation (Placement(transformation(extent={{-160,-100},{-120,-60}}),
         iconTransformation(extent={{-160,-100},{-120,-60}})));
@@ -66,8 +66,7 @@ block AgentPump1Pipe
     "Controller to track target cooling setpoint temperature"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(uLow=uLowCoo, uHigh=
-        uHighCoo)
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(uLow=uLowCoo, uHigh=uHighCoo)
     "Turn on pump when source temperature lower than inlet temperature"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi1
@@ -75,8 +74,7 @@ block AgentPump1Pipe
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant Zero(k=0) "Pump off signal"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys1(uLow=uLowHea, uHigh=
-        uHighHea)
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys1(uLow=uLowHea, uHigh=uHighHea)
     "Turn on pump when source temperature higher than inlet temperature"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi2
@@ -85,32 +83,32 @@ block AgentPump1Pipe
     "Change sign for hysteresis"
     annotation (Placement(transformation(extent={{-8,-40},{12,-20}})));
 
-  Buildings.Controls.OBC.CDL.Reals.AddParameter Tsou_negshift(final p=-
-        dToff, y(final unit="K", displayUnit="degC"))
+  Buildings.Controls.OBC.CDL.Reals.AddParameter Tsou_negshift(final p=-dToff,
+  y(final unit="K", displayUnit="degC"))
     "Source temperature after negative shift"
     annotation (Placement(transformation(extent={{-40,69},{-20,91}})));
-  Buildings.Controls.OBC.CDL.Reals.AddParameter Tsou_posshift(final p=
-        dToff, y(final unit="K", displayUnit="degC"))
+  Buildings.Controls.OBC.CDL.Reals.AddParameter Tsou_posshift(final p=dToff,
+  y(final unit="K", displayUnit="degC"))
     "Source temperature after positive shift"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract dTSouSup
     "Temperature difference between source and source inlet"
     annotation (Placement(transformation(extent={{-100,40},{-80,20}})));
-  Buildings.Controls.OBC.CDL.Reals.AddParameter dTSouSupHea(final p=-dToff, y(
-        final unit="K", displayUnit="degC"))
+  Buildings.Controls.OBC.CDL.Reals.AddParameter dTSouSupHea(final p=-dToff,
+  y(final unit="K", displayUnit="degC"))
     "Temperature difference between source and source inlet corrected for heating"
     annotation (Placement(transformation(extent={{-40,19},{-20,41}})));
-  Buildings.Controls.OBC.CDL.Reals.AddParameter dTSouSupCoo(final p=dToff,  y(
-        final unit="K", displayUnit="degC"))
+  Buildings.Controls.OBC.CDL.Reals.AddParameter dTSouSupCoo(final p=dToff,
+  y(final unit="K", displayUnit="degC"))
     "Temperature difference between source and source inlet corrected for cooling"
     annotation (Placement(transformation(extent={{-40,-41},{-20,-19}})));
 
 equation
   connect(NetDemBool.y, swi.u2) annotation (Line(points={{-80,-90},{98,-90},{98,
           0},{108,0}}, color={255,0,255}));
-  connect(TretDis, NetDemBool.u1) annotation (Line(points={{-140,-50},{-110,-50},
+  connect(TRetDis, NetDemBool.u1) annotation (Line(points={{-140,-50},{-110,-50},
           {-110,-90},{-104,-90}},                        color={0,0,127}));
-  connect(TsupDis, NetDemBool.u2) annotation (Line(points={{-140,-80},{-112,-80},
+  connect(TSupDis, NetDemBool.u2) annotation (Line(points={{-140,-80},{-112,-80},
           {-112,-98},{-104,-98}},  color={0,0,127}));
   connect(hys.y, swi1.u2) annotation (Line(points={{42,-30},{58,-30}},
                  color={255,0,255}));
@@ -220,12 +218,12 @@ Controller for balacing agents (i.e. reservoirs and plants) pump.
 </p>
 <p>
 This controller decides to turn on or off the agent pump depending on the current net demand of the
-district <code>if TretDis > TsupDis cooling else heating </code> and the temperature differential 
+district <code>if TRetDis > TSupDis cooling else heating </code> and the temperature differential 
 between the agent source temperature <code>TSou</code> and the agent inlet temperature <code>TSouIn</code>
-adjusted by the offset <code>dToff</code>. In particular the pump turns on : <code>if heating and TSou - TsouIn - dToff > 0</code>
+adjusted by the offset <code>dToff</code>. In particular the pump turns on : <code>if heating and TSou - TSouIn - dToff > 0</code>
 or <code>if cooling and TSouIn - Tsou - dToff > 0</code>. Then if the pump is turned on a PID controller, 
 by default used as P, controls the pump control input by using <code>TSouOut</code> as measurement and as setpoint 
-<code>Tsou - dToff</code> for heating or <code>Tsou + dToff</code> for cooling. <code>dToff</code> can be considered
+<code>TSou - dToff</code> for heating or <code>TSou + dToff</code> for cooling. <code>dToff</code> can be considered
 the nominal value of the agent heat exchanger pinch point temperature difference.
 </p>
 <h4>References</h4>
@@ -233,6 +231,5 @@ the nominal value of the agent heat exchanger pinch point temperature difference
 Ettore Zanetti, David Blum, Michael Wetter <a href=\"https://www.conftool.com/modelica2023/index.php?page=browseSessions\">
 Control development and sizing analysis for a 5th generation district heating and cooling network using Modelica</a>, 2023 International Modelica conference proceedings.
 </p>
-
 </html>"));
 end AgentPump1Pipe;

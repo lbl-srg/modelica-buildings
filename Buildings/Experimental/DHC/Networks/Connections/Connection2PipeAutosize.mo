@@ -1,19 +1,18 @@
 within Buildings.Experimental.DHC.Networks.Connections;
 model Connection2PipeAutosize "Model for connecting an agent to the DHC system"
-  extends
-    Buildings.Experimental.DHC.Networks.BaseClasses.PartialConnection2Pipe(
+  extends Buildings.Experimental.DHC.Networks.BaseClasses.PartialConnection2Pipe(
     tau=5*60,
     redeclare replaceable model Model_pipDisSup = Pipes.PipeAutosize (
-        roughness=7e-6,
+        roughness = 7e-6,
         dh(fixed=true) = dhDis,
-        final length=lDis,
-        final dp_length_nominal=dp_length_nominal),
+        final length = lDis,
+        final dp_length_nominal = dp_length_nominal),
     redeclare replaceable model Model_pipDisRet = Pipes.PipeAutosize (
         roughness=7e-6,
         dh(fixed=true) = dhDisRet,
         final length=lDis,
         final dp_length_nominal=dp_length_nominal),
-     redeclare model Model_pipCon=Fluid.FixedResistances.LosslessPipe,
+     redeclare model Model_pipCon = Fluid.FixedResistances.LosslessPipe,
     pipDisSup(fac=1),
     pipDisRet(fac=1));
   parameter Real dp_length_nominal(final unit="Pa/m") = 250

@@ -1,12 +1,10 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.Combined;
 model ChillerBorefield "ETS model for 5GDHC systems with heat recovery chiller and optional borefield"
-  extends
-    Buildings.Experimental.DHC.EnergyTransferStations.Combined.BaseClasses.PartialParallel(
+  extends Buildings.Experimental.DHC.EnergyTransferStations.Combined.BaseClasses.PartialParallel(
     final have_eleCoo=true,
     final have_fan=false,
     redeclare replaceable Buildings.Experimental.DHC.EnergyTransferStations.Combined.Controls.Supervisory conSup
-      constrainedby
-      Buildings.Experimental.DHC.EnergyTransferStations.Combined.Controls.Supervisory(
+      constrainedby Buildings.Experimental.DHC.EnergyTransferStations.Combined.Controls.Supervisory(
         final controllerType=controllerType,
         final kHot=kHot,
         final kCol=kCol,

@@ -37,8 +37,7 @@ model AllElectricCWStorage
     annotation (
       Dialog(group="CHW loop and cooling-only chillers"),
       Placement(transformation(extent={{140,200},{160,220}})));
-  replaceable parameter Fluid.Chillers.Data.ElectricReformulatedEIR.Generic datChiHea=
-    datChi
+  replaceable parameter Fluid.Chillers.Data.ElectricReformulatedEIR.Generic datChiHea = datChi
     constrainedby Buildings.Fluid.Chillers.Data.BaseClasses.Chiller
     "Chiller parameters (each unit)"
     annotation (

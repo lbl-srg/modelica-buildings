@@ -2,16 +2,16 @@ within Buildings.Experimental.DHC.Networks.Examples;
 model Distribution2PipeExample
   "Example of distribution network with 2 pipes for Distribution2PipeAutosize and Distribution2PipePlugFlow"
   extends Modelica.Icons.Example;
-  package Medium1=Buildings.Media.Water
+  package Medium1 = Buildings.Media.Water
     "Source side medium";
-  package Medium2=Buildings.Media.Air
+  package Medium2 = Buildings.Media.Air
     "Load side medium";
-  parameter String filNam="modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissResidential_20190916.mos"
+  parameter String filNam = "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissResidential_20190916.mos"
     "File name with thermal loads as time series";
-  parameter Integer nLoa=5
+  parameter Integer nLoa = 5
     "Number of served loads"
     annotation (Evaluate=true);
-  parameter Modelica.Units.SI.Temperature T_aHeaWat_nominal=273.15 + 40
+  parameter Modelica.Units.SI.Temperature T_aHeaWat_nominal = 273.15 + 40
     "Heating water inlet temperature at nominal conditions"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Temperature T_bHeaWat_nominal(
@@ -19,19 +19,19 @@ model Distribution2PipeExample
     displayUnit="degC") = T_aHeaWat_nominal - 5
     "Heating water outlet temperature at nominal conditions"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Temperature T_aLoaHea_nominal=273.15 + 20
+  parameter Modelica.Units.SI.Temperature T_aLoaHea_nominal = 273.15 + 20
     "Load side inlet temperature at nominal conditions in heating mode"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.MassFlowRate mLoaHea_flow_nominal=1
+  parameter Modelica.Units.SI.MassFlowRate mLoaHea_flow_nominal = 1
     "Load side mass flow rate at nominal conditions in heating mode"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Time tau=120
+  parameter Modelica.Units.SI.Time tau = 120
     "Time constant of fluid temperature variation at nominal flow rate"
     annotation (Dialog(tab="Dynamics", group="Nominal condition"));
-  parameter Real facMul=10
+  parameter Real facMul = 10
     "Mulitplier factor for terminal units"
     annotation (Dialog(group="Scaling"));
-  final parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal[nLoa]=
+  final parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal[nLoa] =
       terAutoSize.mHeaWat_flow_nominal*facMul
     "Nominal mass flow rate in each connection line";
   final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=sum(
@@ -41,8 +41,8 @@ model Distribution2PipeExample
        + max(terAutoSize.dpSou_nominal)
     "Nominal pressure drop in the distribution line";
   final parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal=
-      Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(string="#Peak space heating load", filNam=
-      Modelica.Utilities.Files.loadResource(filNam))/facMul
+      Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(string="#Peak space heating load",
+      filNam = Modelica.Utilities.Files.loadResource(filNam))/facMul
     "Design heating heat flow rate (>=0)"
     annotation (Dialog(group="Design parameter"));
   Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BaseClasses.FanCoil2PipeHeatingValve
@@ -112,8 +112,8 @@ model Distribution2PipeExample
     k=dp_nominal)
     "Prescribed head"
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSup(k=max(
-        terAutoSize.T_aHeaWat_nominal)) "Supply temperature"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSup(
+  k=max(terAutoSize.T_aHeaWat_nominal)) "Supply temperature"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
   Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BaseClasses.FanCoil2PipeHeatingValve terPlugFlow[nLoa](
     each final facMul=facMul,
@@ -232,13 +232,14 @@ equation
     Documentation(
       info="<html>
 <p>
-Example model of two two-pipe distribution models that can be used i.e. for building a bi-directional network to connect several agents in series.  It showcases 
-<a href=\"modelica://Buildings.Experimental.DHC.Networks.Distribution2PipeAutoSize\">
-Buildings.Experimental.DHC.Networks.Distribution2PipeAutoSize</a> and 
-<a href=\"modelica://Buildings.Experimental.DHC.Networks.Distribution2PipePlugFlow\">
-Buildings.Experimental.DHC.Networks.Distribution2PipePlugFlow</a>. The distribution models create a vector of nLoa connection models <a href=\"modelica://Buildings.Experimental.DHC.Networks.Connections\">
-Buildings.Experimental.DHC.Networks.Connections</a> that are connected to a vector of nLoa agents made up by time series heating loads <a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BaseClasses.FanCoil2PipeHeatingValve\">
-Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BaseClasses.FanCoil2PipeHeatingValve</a>. Each agent will draw water from the supply distribution pipe and release it in the return pipe.
+Example model of two two-pipe distribution models that can be used i.e. for building a bi-directional network to connect several agents in series. 
+It showcases <a href=\"modelica://Buildings.Experimental.DHC.Networks.Distribution2PipeAutoSize\"> Buildings.Experimental.DHC.Networks.Distribution2PipeAutoSize</a> 
+and <a href=\"modelica://Buildings.Experimental.DHC.Networks.Distribution2PipePlugFlow\"> Buildings.Experimental.DHC.Networks.Distribution2PipePlugFlow</a>.
+ The distribution models create a vector of <code>nLoa</code> connection models <a href=\"modelica://Buildings.Experimental.DHC.Networks.Connections\">
+Buildings.Experimental.DHC.Networks.Connections</a> that are connected to a vector of <code>nLoa</code> agents made up by time series heating loads 
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BaseClasses.FanCoil2PipeHeatingValve\"> 
+Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BaseClasses.FanCoil2PipeHeatingValve</a>. Each agent will draw water from the supply distribution pipe 
+and release it in the return pipe.
 </p>
 </html>",
       revisions="<html>

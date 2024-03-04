@@ -17,8 +17,7 @@ model Connection2PipeExample
     "Nominal mass flow rate in the connection line";
   parameter Modelica.Units.SI.Length lDis=100
     "Length of the distribution pipe before the connection";
-  Buildings.Experimental.DHC.Networks.Connections.Connection2PipeAutosize
-    connection2PipeAutosize(
+  Buildings.Experimental.DHC.Networks.Connections.Connection2PipeAutosize connection2PipeAutosize(
     redeclare package Medium = MediumW,
     mDis_flow_nominal=mDis_flow_nominal,
     mCon_flow_nominal=mCon_flow_nominal,
@@ -78,7 +77,7 @@ model Connection2PipeExample
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={30,-20})));
-  Fluid.FixedResistances.BuriedPipes.PipeGroundCoupling           pipeGroundCoupling(
+  Fluid.FixedResistances.BuriedPipes.PipeGroundCoupling pipeGroundCoupling(
     lPip=lDis,
     rPip=0.04,
     thiGroLay=1.1,
@@ -153,14 +152,7 @@ equation
           255}));
   connect(bouDisAutoSize.ports[1], connection2PipeAutosize.port_aDisSup)
     annotation (Line(points={{-30,20},{-24,20},{-24,50},{20,50}}, color={0,127,255}));
-  annotation (
-    Icon(
-      coordinateSystem(
-        preserveAspectRatio=false)),
-    Diagram(
-        coordinateSystem(
-        preserveAspectRatio=false)),
-    __Dymola_Commands(
+  annotation (__Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Networks/Connections/Examples/Connection2PipeExample.mos" "Simulate and plot"),
     experiment(
       StopTime=3600,

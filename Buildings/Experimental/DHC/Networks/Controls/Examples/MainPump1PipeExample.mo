@@ -3,11 +3,13 @@ model MainPump1PipeExample
     extends Modelica.Icons.Example;
     parameter Modelica.Units.SI.Temperature TSou(displayUnit="degC") = 284.65
     "Agent source temperature";
-  Modelica.Blocks.Sources.CombiTimeTable TMixandTSouIn(table=[0,TSou; 900,TSou +
-        6.5; 2700,TSou - 6.5; 3600,TSou], extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
+  Modelica.Blocks.Sources.CombiTimeTable TMixandTSouIn(
+  table=[0,TSou; 900,TSou + 6.5; 2700,TSou - 6.5; 3600,TSou],
+  extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  Modelica.Blocks.Sources.CombiTimeTable TSouOut(table=[0,TSou; 900,TSou + 4; 2700,
-        TSou - 4; 3600,TSou], extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
+  Modelica.Blocks.Sources.CombiTimeTable TSouOut(
+  table=[0,TSou; 900,TSou + 4; 2700,TSou - 4; 3600,TSou],
+  extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   MainPump1Pipe conPum(
     nMix=1,
@@ -43,7 +45,9 @@ First implementation.
 </li>
 </ul>
 </html>", info="<html>
+<p>
 This model is used to test the controller 
 <a href=\"modelica://Buildings.Experimental.DHC.Networks.Controls.MainPump1Pipe\">Buildings.Experimental.DHC.Networks.Controls.MainPump1Pipe</a>.For a practical application of the model check <a href=\"modelica://Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlow\">Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlow</a>.
+</p>
 </html>"));
 end MainPump1PipeExample;

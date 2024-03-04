@@ -1,10 +1,9 @@
 within Buildings.Experimental.DHC.Examples.Combined;
 model SeriesVariableFlow
   "Example of series connection with variable district water mass flow rate"
-  extends
-    Buildings.Experimental.DHC.Examples.Combined.BaseClasses.PartialSeries(      redeclare
-      Buildings.Experimental.DHC.Loads.Combined.BuildingTimeSeriesWithETS
-      bui[nBui](final filNam=filNam), datDes(
+  extends Buildings.Experimental.DHC.Examples.Combined.BaseClasses.PartialSeries(redeclare
+      Buildings.Experimental.DHC.Loads.Combined.BuildingTimeSeriesWithETS bui[nBui](final filNam=filNam),
+      datDes(
       mPumDis_flow_nominal=97.3,
       mPipDis_flow_nominal=69.5,
       dp_length_nominal=69.3,
@@ -66,10 +65,9 @@ equation
   connect(dis.TOut, conPum.TMix) annotation (Line(points={{20,114},{32,114},{32,
           100},{-300,100},{-300,-54.8},{-281.692,-54.8}},
                                          color={0,0,127}));
-  connect(TDisWatRet.T, conPum.TSouIn[1]) annotation (Line(points={{69,
-          7.21645e-16},{60,7.21645e-16},{60,-56},{-212,-56},{-212,-40},{-292,
-          -40},{-292,-61.6},{-281.692,-61.6}},
-                                            color={0,0,127}));
+  connect(TDisWatRet.T, conPum.TSouIn[1]) annotation (Line(points={{69,0},{60,0},
+          {60,-56},{-212,-56},{-212,-40},{-292,-40},{-292,-61.6},{-281.692,
+          -61.6}},                          color={0,0,127}));
   connect(TDisWatBorLvg.T, conPum.TSouIn[2]) annotation (Line(points={{-91,-40},
           {-292,-40},{-292,-60.8},{-281.692,-60.8}},
                                                   color={0,0,127}));

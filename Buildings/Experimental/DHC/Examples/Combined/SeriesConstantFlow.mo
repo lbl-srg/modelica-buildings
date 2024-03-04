@@ -1,10 +1,9 @@
 within Buildings.Experimental.DHC.Examples.Combined;
 model SeriesConstantFlow
   "Example of series connection with constant district water mass flow rate"
-  extends
-    Buildings.Experimental.DHC.Examples.Combined.BaseClasses.PartialSeries(      redeclare
-      Buildings.Experimental.DHC.Loads.Combined.BuildingTimeSeriesWithETS
-      bui[nBui](final filNam=filNam), datDes(
+  extends Buildings.Experimental.DHC.Examples.Combined.BaseClasses.PartialSeries(redeclare
+      Buildings.Experimental.DHC.Loads.Combined.BuildingTimeSeriesWithETS bui[nBui](final filNam=filNam),
+      datDes(
       mPumDis_flow_nominal=95,
       mPipDis_flow_nominal=95,
       dp_length_nominal=69.3,

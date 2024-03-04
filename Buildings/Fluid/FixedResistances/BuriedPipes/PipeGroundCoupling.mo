@@ -6,18 +6,17 @@ model PipeGroundCoupling
   final parameter Modelica.Units.SI.Radius rGroLay = rPip + thiGroLay "Pipe radius plus dynamic ground layer";
   parameter Integer nSeg(min=1) = 10 "Number of pipe discretization segments axial direction";
   parameter Integer nSta=1 "Number of state variables for dynamic ground layer";
-  parameter Modelica.Units.SI.Temperature TpipSta=280.15
+  parameter Modelica.Units.SI.Temperature TpipSta = 280.15
     "Initial temperature for the pipe, used if steadyStateInitial = false" annotation (Dialog(group="Initialization", enable=not steadyStateInitial));
-  parameter Modelica.Units.SI.Temperature TGrouBouSta=283.15
+  parameter Modelica.Units.SI.Temperature TGrouBouSta = 283.15
     "Initial temperature at ground final layer, used if steadyStateInitial = false" annotation (Dialog(group="Initialization", enable=not steadyStateInitial));
-  parameter Boolean steadyStateInitial=false
+  parameter Boolean steadyStateInitial = false
     "true initializes dT(0)/dt=0, false initializes T(0) at fixed temperature using TpipSta and TGrouBouSta" annotation (Dialog(group="Initialization", enable=not steadyStateInitial));
-  parameter Modelica.Units.SI.Length dep=10 "Depth of buried pipe to calculate ground temperature";
+  parameter Modelica.Units.SI.Length dep = 10 "Depth of buried pipe to calculate ground temperature";
   replaceable parameter Buildings.Experimental.DHC.Examples.Combined.BaseClasses.Zurich cliCon
     "Surface temperature climatic conditions";
   replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic soiDat(
-    k=1.58,c=1150,d=1600)                      "Soil thermal properties"
-    annotation (Placement(transformation(extent={{-90,72},{-70,92}})));
+    k=1.58,c=1150,d=1600) "Soil thermal properties" annotation (Placement(transformation(extent={{-90,72},{-70,92}})));
   Buildings.HeatTransfer.Conduction.SingleLayerCylinder groActLay[nSeg](
     each material = soiDat,
     each h = lPip,
@@ -34,22 +33,20 @@ model PipeGroundCoupling
   BoundaryConditions.GroundTemperature.UndisturbedSoilTemperature soiTem(
     dep=dep,
     soiDat=soiDat,
-    cliCon=cliCon)
-    annotation (Placement(transformation(extent={{60,20},{80,40}})));
+    cliCon=cliCon) annotation (Placement(transformation(extent={{60,20},{80,40}})));
 
   Modelica.Blocks.Sources.RealExpression soiTemExp(y=soiTem.T)
-    "Soil undisturbed temperature"
-    annotation (Placement(transformation(extent={{74,-12},{44,12}})));
+    "Soil undisturbed temperature" annotation (Placement(transformation(extent={{74,-12},{44,12}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature groTem[nSeg]
+    "Prescribed ground temperature"
     annotation (Placement(transformation(extent={{-20,-10},{-40,10}})));
   Modelica.Fluid.Interfaces.HeatPorts_a heatPorts[nSeg]
-    "Multiple heat ports that connect to outside of pipe wall"
-    annotation (Placement(transformation(extent={{-10.5,-10},{10.5,10}},
+    "Multiple heat ports that connect to outside of pipe wall" annotation (Placement(transformation(extent={{-10.5,-10},{10.5,10}},
         rotation=90,
         origin={-99.5,0}),
         iconTransformation(extent={{-30,-60},{30,-40}})));
   Modelica.Blocks.Routing.Replicator groTemDup(nout=nSeg)
-    annotation (Placement(transformation(extent={{20,-10},{0,10}})));
+    "Ground temperature replicator"                       annotation (Placement(transformation(extent={{20,-10},{0,10}})));
 
 equation
   connect(groTem.T, groTemDup.y)
