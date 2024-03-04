@@ -41,7 +41,7 @@ annotation(experiment(StopTime=300,Tolerance=1E-6),
 In this example model, the cooling water flow rate is controlled via
 a feedback loop that maintains a fixed temperature of water coming out of
 the condenser, unless when the heat flow from the waste heat stream is
-too little. In the latter case, this temperature set point is not met,
+too little. In the latter case, this temperature set point is not enforced,
 because a minimum cooling fluid flow rate must be maintained at all times
 when the cycle is on.
 </p>
