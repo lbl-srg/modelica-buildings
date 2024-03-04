@@ -11,9 +11,6 @@ model InterpolateStates "Interpolate states of a working fluid"
   input Modelica.Units.SI.ThermodynamicTemperature TCon
     "Condensing temperature";
 
-  parameter Modelica.Units.SI.TemperatureDifference dTSup = 0
-    "Superheating differential temperature"
-    annotation(Dialog(group="ORC inputs"));
   parameter Modelica.Units.SI.Efficiency etaExp "Expander efficiency"
     annotation(Dialog(group="ORC inputs"));
 
@@ -149,6 +146,8 @@ model InterpolateStates "Interpolate states of a working fluid"
   Modelica.Units.SI.ThermodynamicTemperature TExpOut =
     (hExpOut - hSatVapCon) * pro.dTRef / (hRefCon - hSatVapCon)
     "Estimated temperature at expander outlet";
+  Modelica.Units.SI.TemperatureDifference dTSup = max(0, dTSupWet)
+    "Superheating temperature differential";
 
   // Energy exchange
   Modelica.Units.SI.SpecificEnergy qEva = hExpInl - hPum
@@ -159,23 +158,6 @@ model InterpolateStates "Interpolate states of a working fluid"
     "Expander work (positive)";
   Modelica.Units.SI.Efficiency etaThe(min=0) =
     wExp / qEva "Thermal efficiency";
-/*
-  // Enthalpy differentials,
-  //   taking positive sign when flowing into the cycle
-  Modelica.Units.SI.SpecificEnthalpy dhEva = hExpInl - hPum
-    "Enthalpy differential at the evaporator (positive)";
-  Modelica.Units.SI.SpecificEnthalpy dhExp =
-    (hExpOut_i - hExpInl) * etaExp
-    "Enthalpy differential at the expander (negative)";
-  Modelica.Units.SI.SpecificEnthalpy dhCon = -dhEva - dhExp
-    "Enthalpy differential at the condenser (negative)";
-
-  Modelica.Units.SI.Efficiency etaThe(min=0) = -dhExp/dhEva
-    "Thermal efficiency";
-  Modelica.Units.SI.Efficiency etaExpLim =
-    (hExpInl - hSatVapCon)/(hExpInl - hExpOut_i)
-    "Upper limit of expander efficiency to prevent condensation, dry fluids have >1";
-*/
 
 protected
   Modelica.Units.SI.SpecificEnthalpy h_reg = hExpOutDry - hSatVapCon

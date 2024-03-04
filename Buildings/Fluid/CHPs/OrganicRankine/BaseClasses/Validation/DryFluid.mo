@@ -6,7 +6,6 @@ model DryFluid
     final pro = pro,
     final TEva = TEva,
     final TCon = TCon,
-    final dTSup = dTSup,
     final etaExp = etaExp) "Interpolate working fluid states"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   replaceable parameter
@@ -20,10 +19,9 @@ model DryFluid
     "Evaporating temperature";
   parameter Modelica.Units.SI.ThermodynamicTemperature TCon = 310
     "Condensing temperature";
-  parameter Modelica.Units.SI.TemperatureDifference dTSup = 0
-    "Superheating temperature differential";
   parameter Modelica.Units.SI.Efficiency etaExp = 0.85
     "Expander efficiency";
+
 annotation(experiment(StopTime=1, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/OrganicRankine/BaseClasses/Validation/DryFluid.mos"
   "Simulate and plot"),
