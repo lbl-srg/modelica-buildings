@@ -3,7 +3,7 @@ block CFDExchange "Block that exchanges data with the CFD code"
 extends Buildings.ThermalZones.Detailed.BaseClasses.PartialExchange;
 
   CFDThread CFDThre = CFDThread()
-   "Allocate memory for cosimulation variables via constructor and send stop command to FFD via destructor";
+    "Allocate memory for cosimulation variables via constructor and send stop command to FFD via destructor";
 
 protected
   function sendParameters

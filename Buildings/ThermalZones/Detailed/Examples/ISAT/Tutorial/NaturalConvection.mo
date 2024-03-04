@@ -50,7 +50,7 @@ model NaturalConvection "Tutorial for the natural convection case"
    nConPar = nConPar,
    nConBou = nConBou,
    nSurBou = nSurBou,
-    samplePeriod=200,
+    samplePeriod=60,
    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Room model"
   annotation (Placement(transformation(extent={{60,-58},{100,-18}})));
   HeatTransfer.Sources.FixedTemperature           TWesWal(T=274.15)

@@ -3,7 +3,7 @@ block ISATExchange "Block that exchanges data with the ISAT code"
   extends Buildings.ThermalZones.Detailed.BaseClasses.PartialExchange;
 
   ISATThread CFDThre = ISATThread()
-   "Allocate memory for cosimulation variables via constructor and send stop command to FFD via destructor";
+    "Allocate memory for cosimulation variables via constructor and send stop command to FFD via destructor";
 
   ///////////////////////////////////////////////////////////////////////////
   // Function that sends the parameters of the model from Modelica to CFD
