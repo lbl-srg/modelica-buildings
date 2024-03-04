@@ -206,26 +206,24 @@ block SetpointController
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaChaProEnd
     "Signal indicating end of stage change process"
     annotation (Placement(transformation(extent={{-440,-280},{-400,-240}}),
-      iconTransformation(extent={{-140,150},{-100,190}},
-        rotation=90,
-        origin={80,-80})));
+      iconTransformation(extent={{-140,-260},{-100,-220}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uBoiAva[nBoi]
     "Boiler availability status vector"
     annotation (Placement(transformation(extent={{-440,-190},{-400,-150}}),
-      iconTransformation(extent={{-140,-180},{-100,-140}})));
+      iconTransformation(extent={{-140,-220},{-100,-180}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla
     "Plant enable signal"
     annotation (Placement(transformation(extent={{-440,-100},{-400,-60}}),
-      iconTransformation(extent={{-140,-120},{-100,-80}})));
+      iconTransformation(extent={{-140,-140},{-100,-100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u(
     final min=0,
     final max=nSta)
     "Boiler stage"
     annotation (Placement(transformation(extent={{-440,-130},{-400,-90}}),
-      iconTransformation(extent={{-140,-150},{-100,-110}})));
+      iconTransformation(extent={{-140,-180},{-100,-140}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THotWatRetPri(
     final unit="K",
@@ -233,7 +231,7 @@ block SetpointController
     final quantity="ThermodynamicTemperature") if not have_priOnl
     "Measured temperature of return hot water in primary circuit"
     annotation (Placement(transformation(extent={{-440,30},{-400,70}}),
-      iconTransformation(extent={{-140,-30},{-100,10}})));
+      iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THotWatRetSec(
     final unit="K",
@@ -249,7 +247,7 @@ block SetpointController
     final quantity="ThermodynamicTemperature")
     "Hot water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-440,270},{-400,310}}),
-      iconTransformation(extent={{-140,150},{-100,190}})));
+      iconTransformation(extent={{-140,220},{-100,260}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THotWatSup(
     final unit="K",
@@ -257,7 +255,7 @@ block SetpointController
     final quantity="ThermodynamicTemperature")
     "Measured hot water supply temperature"
     annotation (Placement(transformation(extent={{-440,150},{-400,190}}),
-      iconTransformation(extent={{-140,60},{-100,100}})));
+      iconTransformation(extent={{-140,100},{-100,140}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THotWatRet(
     final unit="K",
@@ -265,7 +263,7 @@ block SetpointController
     final quantity="ThermodynamicTemperature")
     "Hot water return temperature"
     annotation (Placement(transformation(extent={{-440,230},{-400,270}}),
-      iconTransformation(extent={{-140,120},{-100,160}})));
+      iconTransformation(extent={{-140,180},{-100,220}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VHotWat_flow(
     final quantity="VolumeFlowRate",
@@ -273,7 +271,7 @@ block SetpointController
     displayUnit="m3/s")
     "Measured hot water flow rate"
     annotation (Placement(transformation(extent={{-440,190},{-400,230}}),
-      iconTransformation(extent={{-140,90},{-100,130}})));
+      iconTransformation(extent={{-140,140},{-100,180}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VMinSet_flow[nSta](
     final unit=fill("m3/s",nSta),
@@ -281,52 +279,66 @@ block SetpointController
     final quantity=fill("VolumeFlowRate",nSta))
     "Vector with primary circuit minimum flow setpoint for all stages"
     annotation (Placement(transformation(extent={{-440,110},{-400,150}}),
-      iconTransformation(extent={{-140,30},{-100,70}})));
+      iconTransformation(extent={{-140,60},{-100,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uBypValPos(
     final unit="1",
     displayUnit="1") if have_priOnl
     "Bypass valve position"
     annotation (Placement(transformation(extent={{-440,70},{-400,110}}),
-      iconTransformation(extent={{-140,0},{-100,40}})));
+      iconTransformation(extent={{-140,20},{-100,60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uPumSpe(
     final unit="1",
     displayUnit="1") if not have_priOnl
     "Pump speed signal"
     annotation (Placement(transformation(extent={{-440,-50},{-400,-10}}),
-        iconTransformation(extent={{-140,-90},{-100,-50}})));
+        iconTransformation(extent={{-140,-100},{-100,-60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChaUpEdg
     "Boiler stage change higher edge signal"
-    annotation (Placement(transformation(extent={{120,-90},{160,-50}}),
-      iconTransformation(extent={{100,0},{140,40}})));
+    annotation (Placement(transformation(extent={{120,80},{160,120}}),
+      iconTransformation(extent={{100,40},{140,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChaDowEdg
     "Boiler stage change lower edge signal"
-    annotation (Placement(transformation(extent={{120,-210},{160,-170}}),
-      iconTransformation(extent={{100,-80},{140,-40}})));
+    annotation (Placement(transformation(extent={{120,-40},{160,0}}),
+      iconTransformation(extent={{100,-40},{140,0}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yBoi[nBoi]
     "Boiler status setpoint vector for the current boiler stage setpoint"
-    annotation (Placement(transformation(extent={{120,-280},{160,-240}}),
-      iconTransformation(extent={{100,-120},{140,-80}})));
+    annotation (Placement(transformation(extent={{120,-80},{160,-40}}),
+      iconTransformation(extent={{100,-80},{140,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChaEdg
     "Boiler stage change edge signal"
-    annotation (Placement(transformation(extent={{120,-150},{160,-110}}),
-      iconTransformation(extent={{100,-40},{140,0}})));
+    annotation (Placement(transformation(extent={{120,20},{160,60}}),
+      iconTransformation(extent={{100,0},{140,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput ySta(
     final min=0,
     final max=nSta) "Boiler stage integer setpoint"
-    annotation (Placement(transformation(extent={{120,-20},{160,20}}),
-      iconTransformation(extent={{100,40},{140,80}})));
+    annotation (Placement(transformation(extent={{120,120},{160,160}}),
+      iconTransformation(extent={{100,80},{140,120}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yStaTyp[nSta]
     "Boiler stage type vector"
-    annotation (Placement(transformation(extent={{120,40},{160,80}}),
-      iconTransformation(extent={{100,80},{140,120}})));
+    annotation (Placement(transformation(extent={{120,180},{160,220}}),
+      iconTransformation(extent={{100,120},{140,160}})));
+
+  CDL.Interfaces.RealOutput yCapMinFir(
+    final unit="W",
+    final quantity="Power")
+    "First stage minimum capacity of this primary loop"
+    annotation (Placement(transformation(extent={{120,-240},{160,-200}}),
+      iconTransformation(extent={{100,-120},{140,-80}})));
+
+  CDL.Interfaces.RealOutput yCapDesHig(
+    final unit="W",
+    final quantity="Power")
+    "Highest stage design capacity of this primary loop"
+    annotation (Placement(transformation(extent={{120,-280},{160,-240}}),
+      iconTransformation(extent={{100,-160},{140,-120}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.CapacityRequirement capReq1(
     final avePer=avePer)
@@ -377,8 +389,7 @@ protected
     final delEffCon=delEffCon,
     final TDif=TDif,
     final TDifHys=TDifHys,
-    final delFaiCon=delFaiCon)
-    "Staging up calculator"
+    final delFaiCon=delFaiCon) "Staging up calculator"
     annotation (Placement(transformation(extent={{-140,-120},{-120,-88}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Down staDow(
@@ -397,8 +408,7 @@ protected
     final dTemp=dTemp,
     final TDif=TDif,
     final delFaiCon=delFaiCon,
-    final boiMinPriPumSpeSta=boiMinPriPumSpeSta)
-    "Staging down calculator"
+    final boiMinPriPumSpeSta=boiMinPriPumSpeSta) "Staging down calculator"
     annotation (Placement(transformation(extent={{-140,-256},{-120,-221}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor extIndSig(
@@ -409,10 +419,10 @@ protected
 equation
   connect(uPla, cha.uPla) annotation (Line(points={{-420,-80},{-280,-80},{-280,-140},
           {-60,-140},{-60,-165},{-22,-165}}, color={255,0,255}));
-  connect(cha.ySta, ySta) annotation (Line(points={{2,-164},{20,-164},{20,0},{
-          140,0}},   color={255,127,0}));
+  connect(cha.ySta, ySta) annotation (Line(points={{2,-164},{20,-164},{20,140},{
+          140,140}}, color={255,127,0}));
   connect(boiInd.yBoi,yBoi)
-    annotation (Line(points={{62,-200},{80,-200},{80,-260},{140,-260}},
+    annotation (Line(points={{62,-200},{102,-200},{102,-60},{140,-60}},
                                                      color={255,0,255}));
   connect(cha.ySta,boiInd. u) annotation (Line(points={{2,-164},{20,-164},{20,
           -200},{38,-200}},  color={255,127,0}));
@@ -504,32 +514,37 @@ equation
           {-150,-260},{-150,-222},{-142,-222}},               color={255,0,255}));
   connect(uStaChaProEnd, cha.uStaChaProEnd) annotation (Line(points={{-420,-260},
           {-19,-260},{-19,-182}}, color={255,0,255}));
-  connect(cha.yChaEdg, yChaEdg) annotation (Line(points={{2,-172},{110,-172},{
-          110,-130},{140,-130}}, color={255,0,255}));
+  connect(cha.yChaEdg, yChaEdg) annotation (Line(points={{2,-172},{110,-172},{110,
+          40},{140,40}},         color={255,0,255}));
   connect(cha.yChaUpEdg, yChaUpEdg) annotation (Line(points={{2,-168},{100,-168},
-          {100,-70},{140,-70}}, color={255,0,255}));
-  connect(cha.yChaDowEdg, yChaDowEdg) annotation (Line(points={{2,-176},{100,
-          -176},{100,-190},{140,-190}}, color={255,0,255}));
+          {100,100},{140,100}}, color={255,0,255}));
+  connect(cha.yChaDowEdg, yChaDowEdg) annotation (Line(points={{2,-176},{72,-176},
+          {72,-20},{140,-20}},          color={255,0,255}));
   connect(uStaChaProEnd, staUp.uStaChaProEnd) annotation (Line(points={{-420,-260},
           {-150,-260},{-150,-119},{-142,-119}},         color={255,0,255}));
   connect(conf.yAva, cha.uStaAva) annotation (Line(points={{-338,-178},{-332,
           -178},{-332,-280},{-30,-280},{-30,-162},{-22,-162}}, color={255,0,255}));
-  connect(conf.yTyp, yStaTyp) annotation (Line(points={{-338,-174},{-336,-174},
-          {-336,60},{140,60}}, color={255,127,0}));
+  connect(conf.yTyp, yStaTyp) annotation (Line(points={{-338,-174},{-336,-174},{
+          -336,200},{140,200}},color={255,127,0}));
+  connect(conf.yCapDes[1], yCapDesHig) annotation (Line(points={{-338,-162},{-320,
+          -162},{-320,-268},{100,-268},{100,-260},{140,-260}}, color={0,0,127}));
+  connect(conf.yCapMin[1], yCapMinFir) annotation (Line(points={{-338,-166},{
+          -324,-166},{-324,-264},{80,-264},{80,-220},{140,-220}}, color={0,0,
+          127}));
   annotation (defaultComponentName = "staSetCon",
-        Icon(coordinateSystem(extent={{-100,-180},{100,180}}),
+        Icon(coordinateSystem(extent={{-100,-260},{100,260}}),
              graphics={
         Rectangle(
-        extent={{-100,-180},{100,180}},
+        extent={{-100,-260},{100,260}},
         lineColor={0,0,127},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Text(
-          extent={{-110,210},{110,172}},
+          extent={{-110,300},{110,260}},
           textColor={0,0,255},
           textString="%name")}), Diagram(
         coordinateSystem(preserveAspectRatio=false,
-        extent={{-400,-300},{120,320}})),
+        extent={{-400,-300},{120,420}})),
 Documentation(info="<html>
 <p>
 The sequence is a boiler stage status setpoint controller that outputs the 

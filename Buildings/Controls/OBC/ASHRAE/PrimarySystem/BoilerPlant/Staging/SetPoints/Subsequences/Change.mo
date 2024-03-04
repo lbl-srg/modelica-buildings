@@ -113,7 +113,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold holIniSta(
     final trueHoldDuration=delStaCha,
     final falseHoldDuration=0)
-    "Holds stage switched to initial upon plant start"
+    "Holds stage switched to initially upon plant start"
     annotation (Placement(transformation(extent={{-320,150},{-300,170}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Switch switch2
