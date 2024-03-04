@@ -374,8 +374,16 @@ units are wrong or errors in documentation):
 </tr>
 <tr><td valign=\"top\">Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.SkyClearness
     </td>
-    <td valign=\"top\">Corrected wrong <code>displayUnit</code> attribute.
+    <td valign=\"top\">Corrected wrong <code>displayUnit</code> attribute.<br/>
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1848\">IBPSA, #1848</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36</b>
+    </td>
+</tr
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReliefFanGrou
+    </td>
+    <td valign=\"top\">Corrected wrong use <code>displayUnit</code> attribute.
     </td>
 </tr>
 </table>
