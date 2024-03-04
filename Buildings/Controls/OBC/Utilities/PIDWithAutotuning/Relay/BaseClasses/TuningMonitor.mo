@@ -28,10 +28,10 @@ block TuningMonitor "Monitor the tuning process"
 protected
   Buildings.Controls.OBC.CDL.Reals.Max tMax
     "Maximum value of the length for the on and Off period "
-    annotation (Placement(transformation(origin={-50,-10},  extent = {{-80, 60}, {-60, 80}})));
+    annotation (Placement(transformation(origin={-50,-10}, extent = {{-80, 60}, {-60, 80}})));
   Buildings.Controls.OBC.CDL.Reals.Greater greThr
     "Check if either the length for the on period or the length for the off period are larger than 0"
-    annotation (Placement(transformation(origin={-40,10},  extent = {{-40, 40}, {-20, 60}})));
+    annotation (Placement(transformation(origin={-40,10}, extent = {{-40, 40}, {-20, 60}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant minLen(
     final k=minHorLen)
     "Minimum value for the horizon length"

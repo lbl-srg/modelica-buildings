@@ -16,9 +16,9 @@ block ResponseProcess
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput trigger
-    "Reset the output when trigger becomes true" annotation (Placement(
-        transformation(extent={{-140,-80},{-100,-40}}), iconTransformation(
-          extent={{-140,-80},{-100,-40}})));
+    "Reset the output when trigger becomes true"
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput tOn(
     final quantity="Time",
     final unit="s",
@@ -63,17 +63,15 @@ equation
   connect(onOffPer.tim, tim) annotation (Line(points={{-82,6},{-90,6},{-90,60},
           {-120,60}}, color={0,0,127}));
   connect(onOffPer.tOn, halPerRatio.tOn) annotation (Line(points={{-58,4},{-30,
-          4},{-30,6},{18,6}},     color={0,0,127}));
+          4},{-30,6},{18,6}}, color={0,0,127}));
   connect(onOffPer.tOff, halPerRatio.tOff) annotation (Line(points={{-58,-4},{
-          -40,-4},{-40,-6},{18,-6}},
-                              color={0,0,127}));
+          -40,-4},{-40,-6},{18,-6}}, color={0,0,127}));
   connect(halPerRatio.rho, norTimDel.rho) annotation (Line(points={{42,0},{58,0}},
           color={0,0,127}));
   connect(tOn, halPerRatio.tOn) annotation (Line(points={{120,80},{-30,80},{-30,
-          6},{18,6}},    color={0,0,127}));
+          6},{18,6}}, color={0,0,127}));
   connect(tOff, halPerRatio.tOff) annotation (Line(points={{120,40},{-40,40},{
-          -40,-6},{18,-6}},
-                      color={0,0,127}));
+          -40,-6},{18,-6}}, color={0,0,127}));
   connect(norTimDel.tau, tau) annotation (Line(points={{82,0},{120,0}},
           color={0,0,127}));
   connect(tunMon.triSta, triSta) annotation (Line(points={{2,-34},{80,-34},{80,
@@ -83,13 +81,11 @@ equation
   connect(tunMon.tOn, onOffPer.tOn) annotation (Line(points={{-22,-34},{-30,-34},
           {-30,4},{-58,4}},   color={0,0,127}));
   connect(tunMon.tOff, onOffPer.tOff) annotation (Line(points={{-22,-46},{-40,
-          -46},{-40,-4},{-58,-4}},
-                            color={0,0,127}));
+          -46},{-40,-4},{-58,-4}}, color={0,0,127}));
   connect(halPerRatio.TunEnd, tunMon.triEnd) annotation (Line(points={{18,0},{
           10,0},{10,-46},{2,-46}},  color={255,0,255}));
   connect(onOffPer.trigger, trigger) annotation (Line(points={{-82,-6},{-90,-6},
-          {-90,-60},{-120,-60}},
-                            color={255,0,255}));
+          {-90,-60},{-120,-60}}, color={255,0,255}));
   annotation (
         defaultComponentName = "resPro",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={

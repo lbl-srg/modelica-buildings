@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses;
 block NormalizedTimeDelay
   "Calculate the normalized time delay of a response from a relay controller"
   parameter Real gamma(min=1+1E-6) = 4
-  "Asymmetry level of the relay controller";
+    "Asymmetry level of the relay controller";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput rho
     "Half period ratio"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
@@ -48,17 +48,15 @@ protected
 
 equation
   connect(subGamRho.u1, asyLev.y) annotation (Line(points={{18,26},{-50,26},{
-          -50,80},{-58,80}},
-                         color={0,0,127}));
+          -50,80},{-58,80}}, color={0,0,127}));
   connect(subGamRho.u2, rho) annotation (Line(points={{18,14},{-94,14},{-94,0},
-          {-120,0}},                  color={0,0,127}));
+          {-120,0}}, color={0,0,127}));
   connect(gai.u, rho) annotation (Line(points={{-82,-60},{-94,-60},{-94,0},{-120,
           0}}, color={0,0,127}));
   connect(div.u1, subGamRho.y)
     annotation (Line(points={{58,6},{50,6},{50,20},{42,20}}, color={0,0,127}));
   connect(div.u2, mul.y) annotation (Line(points={{58,-6},{50,-6},{50,-38},{42,
-          -38}},
-        color={0,0,127}));
+          -38}}, color={0,0,127}));
   connect(div.y, tau)
     annotation (Line(points={{82,0},{120,0}}, color={0,0,127}));
   connect(gai.y, addPar2.u)
@@ -66,8 +64,7 @@ equation
   connect(addPar2.y, mul.u2) annotation (Line(points={{-18,-60},{0,-60},{0,-44},
           {18,-44}}, color={0,0,127}));
   connect(addPar1.u, asyLev.y) annotation (Line(points={{-42,-10},{-50,-10},{
-          -50,80},{-58,80}},
-                         color={0,0,127}));
+          -50,80},{-58,80}}, color={0,0,127}));
   connect(addPar1.y, mul.u1) annotation (Line(points={{-18,-10},{0,-10},{0,-32},
           {18,-32}}, color={0,0,127}));
   connect(asyLev.y, gre.u1) annotation (Line(points={{-58,80},{-50,80},{-50,60},
