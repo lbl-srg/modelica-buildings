@@ -3,7 +3,7 @@ compareVars :=
     "AgentPump.TSouIn",
     "AgentPump.TSouOut",
     "AgentPump.TSou",
-    "AgentPump.TsupDis",
-    "AgentPump.TretDis",
+    "AgentPump.TSupDis",
+    "AgentPump.TRetDis",
     "AgentPump.y"
   };
