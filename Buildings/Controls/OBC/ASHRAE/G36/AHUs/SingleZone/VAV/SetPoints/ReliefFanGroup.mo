@@ -32,6 +32,7 @@ block ReliefFanGroup
     annotation (Placement(transformation(extent={{-560,330},{-520,370}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpBui(
+    final unit="Pa",
     displayUnit="Pa",
     final quantity="PressureDifference")
     "Building static pressure difference, relative to ambient (positive if pressurized)"
@@ -46,6 +47,7 @@ block ReliefFanGroup
     annotation (Placement(transformation(extent={{-560,-190},{-520,-150}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDpBui(
+    final unit="Pa",
     displayUnit="Pa",
     final quantity="PressureDifference")
     "Building static pressure difference, relative to ambient (positive if pressurized)"
@@ -779,6 +781,10 @@ is above Stage 0.
 </ol>
 </html>", revisions="<html>
 <ul>
+<li>
+March 5, 2024, by Michael Wetter:<br/>
+Corrected wrong use of <code>displayUnit</code>.
+</li>
 <li>
 July 15, 2021, by Jianjun Hu:<br/>
 First implementation.

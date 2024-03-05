@@ -381,7 +381,9 @@ units are wrong or errors in documentation):
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReliefFanGrou
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReliefFan<br/>
+                       Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.ReliefFan<br/>
+                       Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.ReliefFanGroup
     </td>
     <td valign=\"top\">Corrected wrong use <code>displayUnit</code> attribute.
     </td>
