@@ -112,8 +112,9 @@ model TankBranch "Model of the tank branch of a storage plant"
     annotation (Placement(transformation(extent={{-26,-26},{-14,-14}}),
         iconTransformation(extent={{-6,-6},{6,6}})));
   Modelica.Blocks.Interfaces.RealOutput TTan[2](
+    each final unit="K",
     each final quantity="Temperature",
-    each displayUnit="C") "Temperatures at the tank 1: top and 2: bottom"
+    each displayUnit="degC") "Temperatures at the tank 1: top and 2: bottom"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -167,9 +168,10 @@ equation
   connect(junRet.port_3, senFlo.port_a)
     annotation (Line(points={{-50,-50},{-50,-40}}, color={0,127,255}));
   connect(senFlo.port_b, tan.port_a)
-    annotation (Line(points={{-50,-20},{-50,0},{-10,0}}, color={0,127,255}));
+    annotation (Line(points={{-50,-20},{-50,10},{0,10}}, color={0,127,255}));
   connect(tan.port_b, junSup.port_3)
-    annotation (Line(points={{10,0},{50,0},{50,50}}, color={0,127,255}));
+    annotation (Line(points={{0,-10},{50,-10},{50,50}},
+                                                     color={0,127,255}));
   connect(tan.heaPorTop, senTemTop.port)
     annotation (Line(points={{2,7.4},{2,30},{20,30}}, color={191,0,0}));
   connect(tan.heaPorBot, senTemBot.port)
@@ -225,6 +227,10 @@ CHW network, or by a chiller that is local to the energy transfer station that c
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 5, 2024, by Michael Wetter:<br/>
+Corrected wrong use of <code>displayUnit</code>.
+</li>
 <li>
 October 4, 2022 by Hongxiang Fu:<br/>
 First implementation. This is for
