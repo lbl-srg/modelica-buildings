@@ -5,23 +5,16 @@ model DistributionCondensatePipe
 
   package MediumSte = Buildings.Media.Steam "Steam medium";
   package MediumWat =
-    Buildings.Media.Specialized.Water.TemperatureDependentDensity
+      Buildings.Media.Specialized.Water.TemperatureDependentDensity
     "Water medium";
 
-  parameter Modelica.Units.SI.AbsolutePressure pSat=150000
+  parameter Modelica.Units.SI.AbsolutePressure pSat = 150000
     "Saturation pressure";
-  parameter Modelica.Units.SI.Temperature TSat=
-     MediumSte.saturationTemperature(pSat)
+  parameter Modelica.Units.SI.Temperature TSat = MediumSte.saturationTemperature(pSat)
      "Saturation temperature";
-  parameter Modelica.Units.SI.SpecificEnthalpy dh_nominal=
-    MediumSte.specificEnthalpy(MediumSte.setState_pTX(
-        p=pSat,
-        T=TSat,
-        X=MediumSte.X_default)) -
-      MediumWat.specificEnthalpy(MediumWat.setState_pTX(
-        p=pSat,
-        T=TSat,
-        X=MediumWat.X_default))
+  parameter Modelica.Units.SI.SpecificEnthalpy dh_nominal = MediumSte.specificEnthalpy(
+  MediumSte.setState_pTX(p=pSat,T=TSat,X=MediumSte.X_default)) -
+  MediumWat.specificEnthalpy(MediumWat.setState_pTX(p=pSat,T=TSat,X=MediumWat.X_default))
     "Nominal change in enthalpy due to vaporization";
   parameter Modelica.Units.SI.Power Q1_flow_nominal=200E3
     "Nominal heat flow rate, building 1";

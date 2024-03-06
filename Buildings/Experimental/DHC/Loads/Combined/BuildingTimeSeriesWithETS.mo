@@ -138,6 +138,12 @@ the building and ETS multiplier factor <code>facMul</code>.
 </html>", revisions="<html>
 <ul>
 <li>
+December 7, 2023, by Ettore Zanetti:<br/>
+Added output <code>PPumCoo</code><br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
+</li>
+<li>
 November 21, 2022, by David Blum:<br/>
 Change <code>bui.facMulHea</code> and <code>bui.facMulCoo</code> to be default.<br/>
 This is for

@@ -2,12 +2,13 @@ within Buildings.Experimental.DHC.Examples.Combined;
 model SeriesConstantFlow
   "Example of series connection with constant district water mass flow rate"
   extends Buildings.Experimental.DHC.Examples.Combined.BaseClasses.PartialSeries(redeclare
-      Buildings.Experimental.DHC.Loads.Combined.BuildingTimeSeriesWithETS
-      bui[nBui](final filNam=filNam), datDes(
+      Buildings.Experimental.DHC.Loads.Combined.BuildingTimeSeriesWithETS bui[nBui](final filNam=filNam),
+      datDes(
       mPumDis_flow_nominal=95,
       mPipDis_flow_nominal=95,
-      dp_length_nominal=250,
-      epsPla=0.935));
+      dp_length_nominal=69.3,
+      epsPla=0.935),
+    pumSto(dp_nominal=30000));
   parameter String filNam[nBui]={
     "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissOffice_20190916.mos",
     "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissResidential_20190916.mos",
@@ -24,11 +25,25 @@ model SeriesConstantFlow
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant THotWatSupSet[nBui](
     k=fill(63 + 273.15, nBui))
     "Hot water supply temperature set point"
-    annotation (Placement(transformation(extent={{-190,170},{-170,190}})));
+    annotation (Placement(transformation(extent={{-336,172},{-316,192}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TColWat[nBui](
     k=fill(15 + 273.15, nBui))
     "Cold water temperature"
-    annotation (Placement(transformation(extent={{-160,150},{-140,170}})));
+    annotation (Placement(transformation(extent={{-298,150},{-278,170}})));
+  Networks.Distribution1PipeAutoSize dis(
+    redeclare final package Medium = Medium,
+    final nCon=nBui,
+    show_TOut=true,
+    final mDis_flow_nominal=datDes.mPipDis_flow_nominal,
+    final mCon_flow_nominal=datDes.mCon_flow_nominal,
+    final dp_length_nominal=datDes.dp_length_nominal,
+    final lDis=datDes.lDis,
+    final lEnd=datDes.lEnd,
+    final allowFlowReversal=allowFlowReversalSer) "Distribution network"
+    annotation (Placement(transformation(extent={{-20,130},{20,150}})));
+  Modelica.Blocks.Sources.Constant TSewWat(k=273.15 + 17)
+    "Sewage water temperature"
+    annotation (Placement(transformation(extent={{-312,30},{-292,50}})));
 equation
   connect(masFloMaiPum.y, pumDis.m_flow_in) annotation (Line(points={{-259,-60},
           {60,-60},{60,-60},{68,-60}}, color={0,0,127}));
@@ -37,10 +52,21 @@ equation
   connect(masFloDisPla.y, pla.mPum_flow) annotation (Line(points={{-229,20},{
           -184,20},{-184,4.66667},{-161.333,4.66667}},
                                   color={0,0,127}));
-  connect(THotWatSupSet.y, bui.THotWatSupSet) annotation (Line(points={{-168,
-          180},{-24,180},{-24,183},{-12,183}}, color={0,0,127}));
-  connect(TColWat.y, bui.TColWat) annotation (Line(points={{-138,160},{-40,160},
-          {-40,164},{-8,164},{-8,168}}, color={0,0,127}));
+  connect(THotWatSupSet.y, bui.THotWatSupSet) annotation (Line(points={{-314,
+          182},{-14,182},{-14,183},{-12,183}}, color={0,0,127}));
+  connect(TColWat.y, bui.TColWat) annotation (Line(points={{-276,160},{-8,160},
+          {-8,168}},                    color={0,0,127}));
+  connect(TDisWatSup.port_b, dis.port_aDisSup) annotation (Line(points={{-80,30},
+          {-80,140},{-20,140}},                    color={0,127,255}));
+  connect(dis.port_bDisSup, TDisWatRet.port_a)
+    annotation (Line(points={{20,140},{80,140},{80,10}}, color={0,127,255}));
+  connect(TSewWat.y, pla.TSewWat) annotation (Line(points={{-291,40},{-174,40},
+          {-174,7.33333},{-161.333,7.33333}},                     color={0,0,
+          127}));
+  connect(bui.port_bSerAmb, dis.ports_aCon) annotation (Line(points={{10,180},{
+          20,180},{20,150},{12,150}}, color={0,127,255}));
+  connect(dis.ports_bCon, bui.port_aSerAmb) annotation (Line(points={{-12,150},
+          {-20,150},{-20,180},{-10,180}}, color={0,127,255}));
   annotation (
   Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-360,-260},{360,260}})),
@@ -72,6 +98,11 @@ Energy, Volume 199, 15 May 2020, 117418.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 12, 2023, by Ettore Zanetti:<br/>
+Updated partial class, this is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
+</li>
 <li>
 February 23, 2021, by Antoine Gautier:<br/>
 Refactored with base classes from the <code>DHC</code> package.<br/>

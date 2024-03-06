@@ -5,8 +5,7 @@ model TankBranch "Model of the tank branch of a storage plant"
     redeclare final package Medium1 = Medium,
     redeclare final package Medium2 = Medium);
 
-  replaceable package Medium =
-    Modelica.Media.Interfaces.PartialMedium "Medium package";
+  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium "Medium package";
 
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(min=0)
     "Nominal mass flow rate"
@@ -198,8 +197,8 @@ equation
         Line(points={{-100,-60},{100,-60}}, color={28,108,200}),
         Line(points={{-100,60},{100,60}}, color={28,108,200}),
         Line(points={{-42,-60}}, color={28,108,200}),
-        Line(points={{-60,-58},{-60,50},{0,50},{0,-52},{60,-52},{60,60}}, color
-            ={28,108,200}),
+        Line(points={{-60,-58},{-60,50},{0,50},{0,-52},{60,-52},{60,60}}, color=
+             {28,108,200}),
         Rectangle(
           extent={{-28,40},{32,-40}},
           lineColor={0,0,0},
