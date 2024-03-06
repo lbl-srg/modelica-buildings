@@ -276,23 +276,27 @@ W&#775; = Q&#775;<sub>Eva</sub> - Q&#775;<sub>Con</sub>.
 <p>
 In summary, the model has the following information flow:
 </p>
-<ul>
-<li>
-User-specified parameters:
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr>
+<th>User-specified parameters</th>
+<th>Inputs or disturbances</th>
+<th>Outputs</th>
+</tr>
+<tr>
+<td>
 <ul>
 <li>
 working fluid evaporating temperature <i>T<sub>w,Eva</sub></i>,
 </li>
 <li>
-evaporator pinch point temperature differntial <i>&Delta;T<sub>pin,Eva</sub></i>, and
+evaporator pinch point temperature differntial <i>&Delta;T<sub>pin,Eva</sub></i>
 </li>
 <li>
 condenser pinch point temperature differntial <i>&Delta;T<sub>pin,Eva</sub></i>.
 </li>
 </ul>
-</li>
-<li>
-Inputs or disturbances:
+</td>
+<td>
 <ul>
 <li>
 evaporator hot fluid incoming temperature <i>T<sub>h,in</sub></i>,
@@ -301,15 +305,14 @@ evaporator hot fluid incoming temperature <i>T<sub>h,in</sub></i>,
 evaporator hot fluid flow rate <i>m&#775;<sub>h</sub></i>,
 </li>
 <li>
-condenser cold fluid incoming temperature <i>T<sub>c,in</sub></i>, and
+condenser cold fluid incoming temperature <i>T<sub>c,in</sub></i>
 </li>
 <li>
 condenser cold fluid flow rate <i>m&#775;<sub>c</sub></i>.
 </li>
 </ul>
-</li>
-<li>
-Outputs:
+</td>
+<td>
 <ul>
 <li>
 working fluid flow rate <i>m&#775;<sub>w</sub></i>,
@@ -327,14 +330,15 @@ condenser cold fluid outgoing temperature <i>T<sub>c,out</sub></i>,
 evaporator heat flow rate <i>Q&#775;<sub>Eva</sub></i>,
 </li>
 <li>
-condenser heat flow rate <i>Q&#775;<sub>Con</sub></i>, and
+condenser heat flow rate <i>Q&#775;<sub>Con</sub></i>
 </li>
 <li>
 cycle power output <i>W&#775;</i>.
 </li>
 </ul>
-</li>
-</ul>
+</td>
+</tr>
+</table>
 <h4>Constraints</h4>
 <p>
 This model solves for <i>m&#775;<sub>w</sub></i> to maintain the prescribed
