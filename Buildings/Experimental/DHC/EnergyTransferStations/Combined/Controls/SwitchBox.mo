@@ -1,6 +1,9 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Controls;
 block SwitchBox "Controller for flow switch box"
   extends Modelica.Blocks.Icons.Block;
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
+    "Nominal mass flow rate, used for scaling to avoid chattering"
+    annotation (Dialog(group="Nominal condition"));
   parameter Real trueHoldDuration(
     final quantity="Time",
     final unit="s")
@@ -18,7 +21,7 @@ block SwitchBox "Controller for flow switch box"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(final unit="1")
     "Control output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-  Modelica.Blocks.Logical.GreaterEqual posDom
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold posDom(final t, h=0.001*m_flow_nominal)
     "Output true in case of dominating positive flow"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Modelica.Blocks.Logical.Switch swi "Switch to select the mode"
@@ -34,21 +37,27 @@ block SwitchBox "Controller for flow switch box"
   Modelica.Blocks.Sources.Constant revModOn(final k=0)
     "Output signal in case of dominating reverse flow"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
+protected
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub
+    "Differences in mass flow rates"
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 equation
   connect(posModOn.y, swi.u1)
     annotation (Line(points={{21,80},{40,80},{40,8},{58,8}}, color={0,0,127}));
   connect(swi.y, y) annotation (Line(points={{81,0},{120,0}}, color={0,0,127}));
-  connect(mRev_flow, posDom.u2) annotation (Line(points={{-120,-80},{-80,-80},{-80,
-          -8},{-42,-8}}, color={0,0,127}));
   connect(posDom.y, truFalHol.u)
-    annotation (Line(points={{-19,0},{-2,0}},
+    annotation (Line(points={{-18,0},{-2,0}},
                                             color={255,0,255}));
   connect(truFalHol.y, swi.u2)
     annotation (Line(points={{22,0},{58,0}}, color={255,0,255}));
-  connect(mPos_flow, posDom.u1) annotation (Line(points={{-120,80},{-80,80},{-80,
-          0},{-42,0}}, color={0,0,127}));
   connect(revModOn.y, swi.u3) annotation (Line(points={{21,-80},{40,-80},{40,-8},
           {58,-8}}, color={0,0,127}));
+  connect(posDom.u, sub.y)
+    annotation (Line(points={{-42,0},{-58,0}}, color={0,0,127}));
+  connect(mPos_flow, sub.u1) annotation (Line(points={{-120,80},{-90,80},{-90,6},
+          {-82,6}}, color={0,0,127}));
+  connect(mRev_flow, sub.u2) annotation (Line(points={{-120,-80},{-90,-80},{-90,
+          -6},{-82,-6}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
 This block implements a control logic preventing flow reversal in the 
@@ -67,6 +76,10 @@ Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.Validation
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 28, 2024, by Michael Wetter:<br/>
+Added hysteresis to avoid chattering if signals are near zero and have numerical noise.
+</li>
 <li>
 February 23, 2021, by Antoine Gautier:<br/>
 Refactored with CDL connectors.
