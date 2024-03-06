@@ -96,6 +96,9 @@
     comment: simulation terminated by an assertion at initialization
     simulate: false
     time_out: 600
+  optimica:
+    comment: timeout on travis after 300s, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/618700275
+    time_out: 600
 - model_name: Buildings.Experimental.DHC.EnergyTransferStations.Combined.Validation.ChillerBorefield
   openmodelica:
     comment: Timeout on travis after 900 seconds, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/615261271
