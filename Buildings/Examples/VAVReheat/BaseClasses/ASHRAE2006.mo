@@ -9,7 +9,7 @@ model ASHRAE2006
 
   Controls.FanVFD conFanSup(
     xSet_nominal(
-      final unit="Pa",
+      unit="Pa",
       displayUnit="Pa") = 410,
     r_N_min=yFanMin)
     "Controller for fan"

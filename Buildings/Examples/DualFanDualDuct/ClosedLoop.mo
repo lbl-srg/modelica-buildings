@@ -150,7 +150,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=yFan_start,
     xSet_nominal(
-      final unit="Pa",
+      unit="Pa",
       displayUnit="Pa") = 30,
     r_N_min=0.2,
     controllerType=Modelica.Blocks.Types.SimpleController.P,
@@ -273,7 +273,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     annotation (Placement(transformation(extent={{1102,46},{1170,114}})));
   Buildings.Examples.VAVReheat.BaseClasses.Controls.FanVFD conFanRet(
     xSet_nominal(
-      final unit="Pa",
+      unit="Pa",
       displayUnit="Pa") = 30,
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=yFan_start,
@@ -522,7 +522,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=yFan_start,
     xSet_nominal(
-      final unit="Pa",
+      unit="Pa",
       displayUnit="Pa") = 30,
     r_N_min=0.2) "Controller for fan of cold deck"
     annotation (Placement(transformation(extent={{100,60},{120,80}})));

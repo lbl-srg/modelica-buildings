@@ -112,7 +112,7 @@ model TankBranch "Model of the tank branch of a storage plant"
     annotation (Placement(transformation(extent={{-26,-26},{-14,-14}}),
         iconTransformation(extent={{-6,-6},{6,6}})));
   Modelica.Blocks.Interfaces.RealOutput TTan[2](
-    each final unit="K",
+    each unit="K",
     each final quantity="Temperature",
     each displayUnit="degC") "Temperatures at the tank 1: top and 2: bottom"
     annotation (Placement(transformation(

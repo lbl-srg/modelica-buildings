@@ -21,7 +21,7 @@ block ReliefFan "Sequence for control of relief fan in AHU"
     annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpBui(
-    final unit="Pa",
+    unit="Pa",
     displayUnit="Pa",
     final quantity="PressureDifference")
     "Building static pressure difference, relative to ambient (positive if pressurized)"
@@ -32,7 +32,7 @@ block ReliefFan "Sequence for control of relief fan in AHU"
     annotation (Placement(transformation(extent={{-280,12},{-240,52}}),
         iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDpBui(
-    final unit="Pa",
+    unit="Pa",
     displayUnit="Pa",
     final quantity="PressureDifference")
     "Building static pressure difference, relative to ambient (positive if pressurized)"
