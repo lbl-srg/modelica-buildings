@@ -111,15 +111,9 @@
   openmodelica:
     comment: simulation terminated by an assertion at initialization
     simulate: false
-  optimica:
-    comment: FMUException Failed to update the events at time 0.000000E+00.
-    simulate: false
 - model_name: Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlow
   openmodelica:
     comment: simulation terminated by an assertion at initialization
-    simulate: false
-  optimica:
-    comment: FMUException Failed to update the events at time 0.000000E+00.
     simulate: false
 - model_name: Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlowAgentControl
   openmodelica:
@@ -151,9 +145,6 @@
   openmodelica:
     comment: simulation terminated by an assertion at initialization [works ok in Ubuntu 20 with OM 1.22.0]
     simulate: false
-  optimica:
-    comment: FMUException Failed to update the events at time 4.306206E+04
-    simulate: false
 - model_name: Buildings.Experimental.DHC.Loads.Cooling.Examples.BuildingTimeSeriesWithETS
   openmodelica:
     comment: simulation terminated by an assertion at initialization
@@ -168,9 +159,6 @@
   openmodelica:
     comment: Internal error NFCeval.evalBinaryMul failed to evaluate {0.0, 0.03359309597916374, 0.06718619195832748, 0.09151222697772191}[pressure.n] * 0.0
     translate: false
-  optimica:
-    comment: pyfmi.fmi.FMUException Failed to update the events at time 3.024307E+06
-    simulate: false
 - model_name: Buildings.Experimental.DHC.Plants.Combined.Validation.AllElectricCWStorage
   openmodelica:
     comment: Internal error NFCeval.evalBinaryMul failed to evaluate {0.0, 0.03359309597916374, 0.06718619195832748, 0.09151222697772191}[pressure.n] * 0.0
