@@ -202,7 +202,7 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
     "Computes lowest room temperature"
     annotation (Placement(transformation(extent={{108,94},{120,106}})));
   Buildings.Examples.VAVReheat.BaseClasses.Controls.FanVFD conFanRet[nFlo](
-    each xSet_nominal(final unit="m3/s") = m_flow_nominal/1.2,
+    each xSet_nominal(unit="m3/s") = m_flow_nominal/1.2,
     each r_N_min=0.2) "Controller for fan"
     annotation (Placement(transformation(extent={{14,152},{28,166}})));
   Buildings.Examples.ScalableBenchmarks.BuildingVAV.BaseClasses.ControlBus controlBus[nFlo]
