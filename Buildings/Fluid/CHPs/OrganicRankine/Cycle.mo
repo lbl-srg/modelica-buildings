@@ -187,7 +187,6 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
 Documentation(info="<html>
 <p>
-[fixme: remake the second figure for style consistency.]
 Implemented in this model is a steady-state organic Rankine cycle
 as a bottoming cycle.
 The fluid stream 1 (using <code>Medium1</code>, <code>port_a1</code>, etc.)
@@ -202,13 +201,13 @@ The implemented ORC assumes a simple architecture shown in the figure below.
 For any given WF, the cycle is determined by providing
 the working fluid evaporating temperature <i>T<sub>w,Eva</sub></i>,
 the working fluid condensing temperature <i>T<sub>w,Con</sub></i>,
-the expander efficiency <i>&eta;<sub>Exp</sub></i>,
-and optionally the superheating temperature differential
-<i>&Delta;T<sub>Sup</sub></i> (default zero).
-The model neglects the property difference between the pump inlet and outlet
-or the pressure loss along any pipe of the cycle components.
-While the model considers optional superheating before the expander inlet,
-it does not consider subcooling before the pump inlet.
+the expander efficiency <i>&eta;<sub>Exp</sub></i>.
+The superheating temperature differential <i>&Delta;T<sub>Sup</sub></i>
+is minimises, meaning it is zero whenever possible; otherwise it assumes
+the smallest value not to cause the expander outlet state to fall
+under the dome. The model neglects the property difference between
+the pump inlet and outlet or the pressure loss along any pipe of
+the cycle components. Subcooling after the condenser is not considered.
 The Thermodynamic Properties section of this document details how these
 state points are found.
 </p>
@@ -245,8 +244,8 @@ This differential is found by the following equations:
 </p>
 <p>
 An important underlying assumption is that all generated power can
-be consumed or otherwise dissipated,
-i.e. the cycle is not controlled to satisfy a certain load.
+be consumed or otherwise dissipated, i.e. the cycle is not controlled
+to satisfy a certain load, electrical or thermal.
 </p>
 <p>
 The condenser side uses same equations with the evaporator variables
@@ -388,74 +387,100 @@ Such a situation should not occur as long as an appropriate minimum
 cooling fluid flow is maintained in the condenser whenever the cycle is on.
 </p>
 <h4>Thermodynamic Properties</h4>
-<p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Fluid/CHPs/OrganicRankine/DryWet.png\"
-alt=\"DryWet\"/></p>
 <p>
-The property queries of the working fluid are not performed by medium models,
-but by interpolating data records in
+The thermodynamic properties of the working fluid are not computed
+by medium models, but by interpolating data records in
 <a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.Data\">
 Buildings.Fluid.CHPs.OrganicRankine.Data</a>.
 Specific enthalpy and specific entropy values are provided as support points
-on the saturated liquid line, the saturated vapour line,
-and a superheated vapour line.
-The property points of these data records are found using CoolProp
+on the saturated liquid line, the saturated vapour line, and
+a superheated vapour line (the reference line).
+The values of these support points are found using CoolProp
 (<a href=\"https://www.coolprop.org\">https://www.coolprop.org</a>;
 Bell et al., 2014) under its Python wrapper.
 </p>
 <p>
-Important state points in the Rankine cycle are determined by various schemes
-of inter-/extrapolation along isobaric lines (assumed near linear):
+Thermodynamic state points in the cycle are determined by various schemes
+of interpolation and extrapolation.
 </p>
+<p align=\"center\">
+<img src=\"modelica://Buildings/Resources/Images/Fluid/CHPs/OrganicRankine/SupportCurves.png\"
+alt=\"SupportCurves\" width=\"400\" height=\"300\"/></p>
 <ul>
 <li>
-The pump <code>Pum</code> and expander inlet <code>ExpInl</code>
-are both located on a saturation line. They are determined simply by
-smooth interpolation.
+For any point <i>A</i> on a support curve, its property <i>y<sub>A</sub></i>
+(enthalpy or entropy) is found by
+<p align=\"center\" style=\"font-style:italic;\">
+y<sub>A</sub> = s(u<sub>A</sub>,d),
+</p>
+where <i>s(&middot;,&middot;)</i> is a cubic hermit spline,
+<i>u<sub>A</sub></i> is the input property,
+and <i>d</i> defines the support points.
+For the saturation curves, <i>u</i> can be either the saturation pressure
+or the saturation temperature;
+for the reference line, <i>u</i> is the pressure.
 </li>
 <li>
-When there is superheating (determined by <i>&Delta;T<sub>Sup</sub> > 0.1 K</i>),
-<code>ExpInl</code> is elevated. Its specific enthaply and specific entropy
-are then found by linear inter-/extrapolation between the saturated and
-superheated vapour reference lines along the isobaric line at the evaporator
-pressure:<br/>
+<i>B</i> is a point in between the two saturation lines.
+The only scenario where it needs to be found is when it is
+the isentropic expander outlet (<i>ExpOutIse</i>). In this case,
+its enthalpy <i>h<sub>B</sub></i> is found by
 <p align=\"center\" style=\"font-style:italic;\">
-(s<sub>ExpInl</sub> - s<sub>SatVap</sub>)
-&frasl; &Delta;T<sub>Sup</sub>
-= (s<sub>Ref</sub> - s<sub>SatVap</sub>)
-&frasl; &Delta;T<sub>Sup,ref</sub><br/>
-(h<sub>ExpInl</sub> - h<sub>SatVap</sub>)
-&frasl; &Delta;T<sub>Sup</sub>
-= (h<sub>Ref</sub> - h<sub>SatVap</sub>)
-&frasl; &Delta;T<sub>Sup,ref</sub>
+(h<sub>B</sub> - h<sub>1</sub>) / (s<sub>B</sub> - s<sub>1</sub>)
+= (h<sub>2</sub> - h<sub>1</sub>) / (s<sub>2</sub> - s<sub>1</sub>)
 </p>
+where <i>s<sub>B</sub></i> is known because it is the same as the expander
+inlet entropy, and all other points are on saturation lines and
+therefore can be found using the method for A.
 </li>
 <li>
-The isentropic expander outlet <code>ExpOut_i</code> is found also by linear
-inter-/extrapolation, but with entropy instead of temperature.
-<ul>
-<li>
-If <code>ExpOut_i</code> lands outside of the dome, the inter-/extrapolation
-is performed between the saturated and superheated (\"ref\") lines:<br/>
-<p align=\"center\" style=\"font-style:italic;\">
-(h<sub>ExpOut_i</sub> - h<sub>SatVap</sub>)
-&frasl; (s<sub>ExpInl</sub> - s<sub>SatVap</sub>)
-= (h<sub>Ref</sub> - h<sub>SatVap</sub>)
-&frasl; (s<sub>Ref</sub> - s<sub>SatVap</sub>)
-</p>
-</li>
-<li>
-If it lands inside the dome, interpolation is performed between
-the two saturation lines:<br/>
-<p align=\"center\" style=\"font-style:italic;\">
-(h<sub>ExpOut_i</sub> - h<sub>Pum</sub>)
-&frasl; (s<sub>ExpInl</sub> - s<sub>Pum</sub>)
-= (h<sub>SatVap</sub> - h<sub>Pum</sub>)
-&frasl; (s<sub>SatVap</sub> - s<sub>Pum</sub>)
-</p>
-In this case the results are accurate.
+<i>C</i> is a point in between the saturated vapour line and the reference line.
+The isobaric lines are not straight in this section, but they are assumed
+near linear to apply the same method as B, albeit with less accuracy.
 </li>
 </ul>
+<p>
+For the cycle, subcooling is ignored and superheating is always minimised.
+Minimising superheating means that <i>&Delta;T<sub>Sup</sub> = 0</i>
+as long as it does not cause ExpOut to be under the dome;
+if this cannot be satisfied, <i>&Delta;T<sub>Sup</sub></i> assumes
+the smallest value so that ExpOut is exactly on the saturated vapour line.
+[fixme: Move this to somewhere else of the documentation?]
+</p>
+<p>
+The cycle can be completely defined by providing the following three variables:
+evaporating temperature <i>T<sub>Eva</sub></i> or pressure <i>p<sub>Eva</sub></i>,
+condensing temperature <i>T<sub>Con</sub></i> or pressure <i>p<sub>Con</sub></i>,
+and expander efficiency <i>&eta;Exp</i>.
+Most of the important state points can be found via the interpolation schemes
+described above. The only exceptions are <i>ExpInl</i> and <i>ExpOut</i>
+which depend on the type of the fluid and <i>&eta;Exp</i>.
+</p>
+<p align=\"center\">
+<img src=\"modelica://Buildings/Resources/Images/Fluid/CHPs/OrganicRankine/ComputationPaths.png\"
+alt=\"ComputationPaths\" width=\"1200\" height=\"300\"/></p>
+<ul>
+<li>
+A dry cycle is a cycle where the expansion starts from
+the saturated vapour line and ends in the superheated vapour region.
+For either a dry fluid (a) or a wet fluid (b) undergoing such a cycle,
+<p align=\"center\" style=\"font-style:italic;\">
+h<sub>ExpOut</sub> - h<sub>ExpInl</sub>
+= (h<sub>ExpOutIse</sub> - h<sub>ExpInl</sub>) &eta;<sub>Exp</sub>
+</p>
+where h_ExpOut is solved and h_ExpInl is known.
+</li>
+<li>
+A wet cycle is a cycle where the expansion starts from
+the superheated vapour region and ends on the saturated vapour line.
+For this fluid and this <i>&eta;<sub>Exp</sub></i>,
+if the expansion started from the saturated vapour line,
+the outlet point would end up under the dome. In this scenario,
+<p align=\"center\" style=\"font-style:italic;\">
+h<sub>ExpOut</sub> - h<sub>ExpInl</sub>
+= (h<sub>ExpOut</sub> - h<sub>ExpInlIse</sub>) &eta;<sub>Exp</sub>
+</p>
+where h_ExpOut is known and h_ExpInl is solved.
 </li>
 </ul>
 <h4>References</h4>
