@@ -161,14 +161,14 @@ model InterpolateStates "Interpolate states of a working fluid"
 
 protected
   Modelica.Units.SI.SpecificEnthalpy h_reg = hExpOutDry - hSatVapCon
-    "For regularisation; if > 0, dry expansion";
+    "For regularisation; if > 0, dry cycle";
 
   // Intermediate property computation
-  // 1. Dry expansion
+  // 1. Dry cycle
   //      expander inlet = saturated vapour at evaporating pressure (known),
   //      expander outlet = superheated vapour at condensing pressure (solved).
   Modelica.Units.SI.SpecificEntropy sExpOutDryIse = sSatVapEva
-    "Specific entropy at expander outlet, assuming dry expansion, isentropic";
+    "Specific entropy at expander outlet, assuming dry cycle, isentropic";
   Modelica.Units.SI.SpecificEnthalpy hExpOutDryIse(
     displayUnit = "kJ/kg") =
     if sExpOutDryIse > sSatVapCon
@@ -176,29 +176,29 @@ protected
          / (sRefCon - sSatVapCon) + hSatVapCon
     else (hSatVapCon - hPum) * (sExpOutDryIse - sPum)
          / (sSatVapCon - sPum) + hPum
-    "Specific enthalpy at expander outlet, assuming dry expansion";
+    "Specific enthalpy at expander outlet, assuming dry cycle";
   Modelica.Units.SI.SpecificEnthalpy hExpOutDry(
     displayUnit = "kJ/kg") =
     hSatVapEva - (hSatVapEva - hExpOutDryIse) * etaExp
-    "Specific enthalpy at expander outlet, assuming dry expansion";
-  // 2. Wet expansion
+    "Specific enthalpy at expander outlet, assuming dry cycle";
+  // 2. Wet cycle
   //      expander inlet = superheated vapour at evaporating pressure (solved),
   //      expander outlet = saturated vapour at condensing pressure (known).
   Modelica.Units.SI.SpecificEntropy sExpInlWetIse = sSatVapCon
-    "Specific entropy at expander inlet, assuming wet expansion, isentropic";
+    "Specific entropy at expander inlet, assuming wet cycle, isentropic";
   Modelica.Units.SI.SpecificEnthalpy hExpInlWetIse(
     displayUnit = "kJ/kg") =
     (hRefEva - hSatVapEva) * (sExpInlWetIse - sSatVapEva)
     / (sRefEva - sSatVapEva) + hSatVapEva
-    "Specific enthalpy at expander inlet, assuming wet expansion";
+    "Specific enthalpy at expander inlet, assuming wet cycle";
   Modelica.Units.SI.SpecificEnthalpy hExpInlWet(
     displayUnit = "kJ/kg") =
     (hExpInlWetIse - hSatVapCon) * etaExp + hSatVapCon
-    "Specific enthalpy at expander inlet, assuming wet expansion";
+    "Specific enthalpy at expander inlet, assuming wet cycle";
   Modelica.Units.SI.TemperatureDifference dTSupWet(
     displayUnit = "K") =
     (hExpInlWet - hSatVapEva) * pro.dTRef / (hRefEva - hSatVapEva)
-    "Superheating temperature differential, assuming wet expansion";
+    "Superheating temperature differential, assuming wet cycle";
 
   // Derivatives
   final parameter Real pDer_T[pro.n]=
