@@ -218,11 +218,11 @@ Controller for balacing agents (i.e. reservoirs and plants) pump.
 </p>
 <p>
 This controller decides to turn on or off the agent pump depending on the current net demand of the
-district <code>if TRetDis > TSupDis cooling else heating </code> and the temperature differential 
+district <code>if TRetDis > TSupDis cooling else heating </code> and the temperature differential
 between the agent source temperature <code>TSou</code> and the agent inlet temperature <code>TSouIn</code>
 adjusted by the offset <code>dToff</code>. In particular the pump turns on : <code>if heating and TSou - TSouIn - dToff > 0</code>
-or <code>if cooling and TSouIn - Tsou - dToff > 0</code>. Then if the pump is turned on a PID controller, 
-by default used as P, controls the pump control input by using <code>TSouOut</code> as measurement and as setpoint 
+or <code>if cooling and TSouIn - Tsou - dToff > 0</code>. Then if the pump is turned on a PID controller,
+by default used as P, controls the pump control input by using <code>TSouOut</code> as measurement and as setpoint
 <code>TSou - dToff</code> for heating or <code>TSou + dToff</code> for cooling. <code>dToff</code> can be considered
 the nominal value of the agent heat exchanger pinch point temperature difference.
 </p>
