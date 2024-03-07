@@ -114,9 +114,9 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
                               annotation (Placement(transformation(
           extent={{100,-20},{140,20}}), iconTransformation(extent={{70,-20},{
             110,20}})));
-  Modelica.Blocks.Interfaces.BooleanInput on
-    "Cycle on; set false to force working fluid flow to zero"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
+  Modelica.Blocks.Interfaces.BooleanInput ena
+    "Enable cycle; set false to force working fluid flow to zero" annotation (
+      Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-90,-10},{-70,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput QEva_flow(final quantity=
         "HeatFlowRate",
@@ -128,6 +128,9 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
     final unit="W") "Condenser heat flow rate (positive)" annotation (
       Placement(transformation(extent={{100,-60},{140,-20}}),
         iconTransformation(extent={{70,-50},{110,-10}})));
+  Modelica.Blocks.Interfaces.BooleanOutput on_actual
+    "Actual on off status of the cycle" annotation (Placement(transformation(
+          extent={{100,80},{140,120}}), iconTransformation(extent={{70,80},{90,100}})));
 protected
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloEva
     "Prescribed heat flow rate"
@@ -157,14 +160,16 @@ protected
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   Modelica.Blocks.Math.Gain gai(k=-1)
     "Change the sign of evaporator heat flow rate"
-    annotation (Placement(transformation(extent={{20,10},{40,30}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={50,30})));
 equation
   connect(preHeaFloEva.port, vol1.heatPort) annotation (Line(points={{19,40},{-16,
           40},{-16,60},{-10,60}}, color={191,0,0}));
   connect(preHeaFloCon.port, vol2.heatPort) annotation (Line(points={{21,-60},{12,
           -60}},                      color={191,0,0}));
-  connect(comCyc.QCon_flow, preHeaFloCon.Q_flow) annotation (Line(points={{12,-6},
-          {50,-6},{50,-60},{41,-60}}, color={0,0,127}));
+  connect(comCyc.QCon_flow, preHeaFloCon.Q_flow) annotation (Line(points={{12,-4},
+          {50,-4},{50,-60},{41,-60}}, color={0,0,127}));
   connect(expTHotIn.y,comCyc. THotIn) annotation (Line(points={{-39,30},{-20,30},
           {-20,8},{-12,8}}, color={0,0,127}));
   connect(expMHot_flow.y,comCyc. mHot_flow) annotation (Line(points={{-39,10},{-30,
@@ -174,17 +179,19 @@ equation
   connect(expMCol_flow.y,comCyc. mCol_flow) annotation (Line(points={{-39,-30},{
           -20,-30},{-20,-8},{-12,-8}}, color={0,0,127}));
   connect(comCyc.QEva_flow, gai.u)
-    annotation (Line(points={{12,6},{14,6},{14,20},{18,20}}, color={0,0,127}));
-  connect(gai.y, preHeaFloEva.Q_flow) annotation (Line(points={{41,20},{50,20},{
-          50,40},{39,40}}, color={0,0,127}));
+    annotation (Line(points={{12,4},{50,4},{50,18}},         color={0,0,127}));
+  connect(gai.y, preHeaFloEva.Q_flow) annotation (Line(points={{50,41},{50,40},{
+          39,40}},         color={0,0,127}));
   connect(comCyc.PEleOut, PEleOut)
     annotation (Line(points={{12,0},{120,0}}, color={0,0,127}));
-  connect(on, comCyc.on)
+  connect(ena, comCyc.ena)
     annotation (Line(points={{-120,0},{-11,0}}, color={255,0,255}));
-  connect(comCyc.QEva_flow, QEva_flow) annotation (Line(points={{12,6},{80,6},{80,
+  connect(comCyc.QEva_flow, QEva_flow) annotation (Line(points={{12,4},{90,4},{90,
           40},{120,40}}, color={0,0,127}));
-  connect(comCyc.QCon_flow, QCon_flow) annotation (Line(points={{12,-6},{50,-6},
+  connect(comCyc.QCon_flow, QCon_flow) annotation (Line(points={{12,-4},{50,-4},
           {50,-40},{120,-40}}, color={0,0,127}));
+  connect(comCyc.on_actual, on_actual) annotation (Line(points={{11,8},{80,8},{80,
+          100},{120,100}}, color={255,0,255}));
   annotation (defaultComponentName = "orc",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Line(

@@ -30,8 +30,8 @@ model ComputeCycle "Thermodynamic computations of the ORC"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput QEva_flow(
     final quantity="HeatFlowRate",
     final unit="W") "Evaporator heat flow rate"
-    annotation (Placement(transformation(extent={{100,40},{140,80}}),
-                             iconTransformation(extent={{100,40},{140,80}})));
+    annotation (Placement(transformation(extent={{100,20},{140,60}}),
+                             iconTransformation(extent={{100,20},{140,60}})));
   Modelica.Units.SI.ThermodynamicTemperature THotOut
     "Outgoing temperature of the evaporator hot fluid";
   Modelica.Units.SI.ThermodynamicTemperature TPinEva(
@@ -71,8 +71,8 @@ model ComputeCycle "Thermodynamic computations of the ORC"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput QCon_flow(
     final quantity="HeatFlowRate",
     final unit="W") "Condenser heat flow rate" annotation (Placement(
-        transformation(extent={{100,-80},{140,-40}}), iconTransformation(extent
-          ={{100,-80},{140,-40}})));
+        transformation(extent={{100,-60},{140,-20}}), iconTransformation(extent={{100,-60},
+            {140,-20}})));
   Modelica.Units.SI.ThermodynamicTemperature TColOut
     "Fluid temperature out of the condenser, intermediate variable";
   Modelica.Units.SI.ThermodynamicTemperature TPinCon(
@@ -91,16 +91,15 @@ model ComputeCycle "Thermodynamic computations of the ORC"
             20}})));
 
 // Cycle
-  Modelica.Units.SI.MassFlowRate mWor_flow
-    = if on and hys.y
-      then
-        Buildings.Utilities.Math.Functions.smoothMin(
-               x1 = mWor_flow_internal,
-               x2 = mWor_flow_max,
-               deltaX = mWor_flow_min * 1E-2)
-      else 0
-    "Mass flow rate of the working fluid"
-    annotation(Dialog(group="Cycle"));
+  Modelica.Units.SI.MassFlowRate mWor_flow =
+    if ena and hys.y
+    then
+      Buildings.Utilities.Math.Functions.smoothMin(
+      x1=mWor_flow_internal,
+      x2=mWor_flow_max,
+      deltaX=mWor_flow_min*1E-2)
+    else 0 "Mass flow rate of the working fluid"
+    annotation (Dialog(group="Cycle"));
   parameter Modelica.Units.SI.MassFlowRate mWor_flow_max(
     final min = 0)
     "Upper bound of working fluid flow rate"
@@ -113,8 +112,8 @@ model ComputeCycle "Thermodynamic computations of the ORC"
     = mWor_flow_min + (mWor_flow_max - mWor_flow_min) * 0.2
     "Hysteresis for turning off the cycle when flow too low"
     annotation(Dialog(group="Cycle"));
-  Modelica.Blocks.Interfaces.BooleanInput on
-    "Cycle on; set false to force working fluid flow to zero"
+  Modelica.Blocks.Interfaces.BooleanInput ena
+    "Enable cycle; set false to force working fluid flow to zero"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-120,-10},{-100,10}})));
   Modelica.Blocks.Logical.Hysteresis hys(
@@ -122,6 +121,10 @@ model ComputeCycle "Thermodynamic computations of the ORC"
     uHigh = mWor_flow_min + mWor_flow_hysteresis,
     u = mWor_flow_internal)
     "Hysteresis for turning off cycle when working fluid flow too low";
+  Modelica.Blocks.Interfaces.BooleanOutput on_actual = ena and hys.y
+    "Actual on off status of the cycle" annotation (Placement(transformation(
+          extent={{100,60},{140,100}}), iconTransformation(extent={{100,70},{120,
+            90}})));
 
 protected
   Modelica.Units.SI.MassFlowRate mWor_flow_internal(
