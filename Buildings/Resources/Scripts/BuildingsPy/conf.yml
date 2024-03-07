@@ -159,6 +159,8 @@
   openmodelica:
     comment: Internal error NFCeval.evalBinaryMul failed to evaluate {0.0, 0.03359309597916374, 0.06718619195832748, 0.09151222697772191}[pressure.n] * 0.0
     translate: false
+  optimica:
+    time_out: 600
 - model_name: Buildings.Experimental.DHC.Plants.Combined.Validation.AllElectricCWStorage
   openmodelica:
     comment: Internal error NFCeval.evalBinaryMul failed to evaluate {0.0, 0.03359309597916374, 0.06718619195832748, 0.09151222697772191}[pressure.n] * 0.0
