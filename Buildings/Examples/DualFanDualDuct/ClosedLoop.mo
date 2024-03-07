@@ -147,7 +147,9 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Buildings.Examples.VAVReheat.BaseClasses.Controls.FanVFD conFanSupHot(
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=yFan_start,
-    xSet_nominal(displayUnit="Pa") = 30,
+    xSet_nominal(
+      unit="Pa",
+      displayUnit="Pa") = 30,
     r_N_min=0.2,
     controllerType=Modelica.Blocks.Types.SimpleController.P,
     k=1) "Controller for fan of hot deck"
@@ -268,7 +270,9 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     from_dp=true) "West-facing thermal zone"
     annotation (Placement(transformation(extent={{1102,46},{1170,114}})));
   Buildings.Examples.VAVReheat.BaseClasses.Controls.FanVFD conFanRet(
-                        xSet_nominal(displayUnit="Pa") = 30,
+    xSet_nominal(
+      unit="Pa",
+      displayUnit="Pa") = 30,
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=yFan_start,
     r_N_min=0.2,
@@ -509,13 +513,18 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Splitter for room supply"
     annotation (Placement(transformation(extent={{1000,-30},{1020,-50}})));
-  Modelica.Blocks.Sources.Constant pStaPre_Set(      y(final unit="Pa", min=0), k=30)
+  Modelica.Blocks.Sources.Constant pStaPre_Set(
+    y(unit="Pa",
+      min=0),
+    k=30)
     "Setpoint for static pressure"
     annotation (Placement(transformation(extent={{60,110},{80,130}})));
   Buildings.Examples.VAVReheat.BaseClasses.Controls.FanVFD conFanSupCol(
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=yFan_start,
-    xSet_nominal(displayUnit="Pa") = 30,
+    xSet_nominal(
+      unit="Pa",
+      displayUnit="Pa") = 30,
     r_N_min=0.2) "Controller for fan of cold deck"
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
   Modelica.Blocks.Sources.Constant pStaBui_Set(y(final unit="Pa", min=0), k=30)
@@ -965,8 +974,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(splSupNorHot.port_2, wes.port_aHot) annotation (Line(
-      points={{1000,-6.10623e-16},{1058,-6.10623e-16},{1058,0},{1124.21,0},{
-          1124.21,46}},
+      points={{1000,0},{1058,0},{1058,0},{1124.21,0},{1124.21,46}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(splSupNorCol.port_2, wes.port_aCol) annotation (Line(
@@ -1238,6 +1246,10 @@ shading devices, Technical Report, Oct. 17, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 4, 2024, by Michael Wetter:<br/>
+Corrected wrong use of <code>displayUnit</code>.
+</li>
 <li>
 September 16, 2021, by Michael Wetter:<br/>
 Removed assignment of parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>

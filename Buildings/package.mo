@@ -369,6 +369,35 @@ units are wrong or errors in documentation):
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1842\">IBPSA, #1842</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.SkyClearness
+    </td>
+    <td valign=\"top\">Corrected wrong <code>displayUnit</code> attribute.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1848\">IBPSA, #1848</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReliefFan<br/>
+                       Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.ReliefFan<br/>
+                       Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.ReliefFanGroup
+    </td>
+    <td valign=\"top\">Corrected wrong use <code>displayUnit</code> attribute.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Examples</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.DualFanDualDuct.ClosedLoop<br/>
+                       Buildings.Examples.VAVReheat.BaseClasses.ASHRAE2006<br/>
+                       Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.OneFloor_OneZone
+    </td>
+    <td valign=\"top\">Corrected wrong use <code>displayUnit</code> attribute.
+    </td>
+</tr>
 </table>
 <p>
 Note:
