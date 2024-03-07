@@ -209,7 +209,7 @@
     simulate: false
 - model_name: Buildings.Fluid.FixedResistances.BuriedPipes.Examples.TwoPipesConduit
   openmodelica:
-    comment: 'Assertion due to what looks like wrong results, see https://github.com/lbl-srg/modelica-buildings/issues/3687'.
+    comment: Assertion due to what looks like wrong results, see https://github.com/lbl-srg/modelica-buildings/issues/3687
     simulate: false
 - model_name: Buildings.Fluid.FixedResistances.BuriedPipes.Validation.GroundCouplingAIT
   openmodelica:
