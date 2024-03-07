@@ -12,9 +12,12 @@ model VaryingHot
         mHot_flow_nominal*7; 250,mHot_flow_nominal*7; 300,0])
     "Sets the hot fluid flow rate in the evaporator"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  Modelica.Blocks.Sources.TimeTable THotIn_set(table=[0,orc.TWorEva + 20; 100,orc.TWorEva
-                    + 20; 150,orc.TWorEva - 5; 200,orc.TWorEva + 20; 300,orc.TWorEva
-         + 20])
+  Modelica.Blocks.Sources.TimeTable THotIn_set(table=[
+    0,orc.TWorEva + 20;
+    100,orc.TWorEva + 20;
+    150,orc.TWorEva - 5;
+    200,orc.TWorEva + 20;
+    300,orc.TWorEva + 20])
     "Sets the hot fluid incoming temperature in the evaporator"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
 equation

@@ -9,9 +9,12 @@ model VaryingCold
       use_T_in=true));
   extends Modelica.Icons.Example;
 
-  Modelica.Blocks.Sources.TimeTable TColIn_set(table=[0,300; 100,300; 150,274; 200,
-        300; 300,300])
-                "Sets the cooling fluid incoming temperature in the condenser"
+  Modelica.Blocks.Sources.TimeTable TColIn_set(table=[
+    0,300;
+    100,300;
+    150,274;
+    200,300;
+    300,300]) "Sets the cooling fluid incoming temperature in the condenser"
     annotation (Placement(transformation(extent={{80,-40},{60,-20}})));
 equation
   connect(TColIn_set.y, souCol.T_in) annotation (Line(points={{59,-30},{52,-30},
