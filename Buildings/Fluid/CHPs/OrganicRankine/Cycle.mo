@@ -122,12 +122,12 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
     final quantity="Power",
     final unit="W") "Evaporator heat flow rate (positive)" annotation (
       Placement(transformation(extent={{100,20},{140,60}}), iconTransformation(
-          extent={{70,-20},{110,20}})));
+          extent={{70,10},{110,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput QCon_flow(
     final quantity="Power",
     final unit="W") "Condenser heat flow rate (positive)" annotation (
       Placement(transformation(extent={{100,-60},{140,-20}}),
-        iconTransformation(extent={{70,-20},{110,20}})));
+        iconTransformation(extent={{70,-50},{110,-10}})));
 protected
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloEva
     "Prescribed heat flow rate"
