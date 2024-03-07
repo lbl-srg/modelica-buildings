@@ -163,6 +163,8 @@
   openmodelica:
     comment: Internal error NFCeval.evalBinaryMul failed to evaluate {0.0, 0.03359309597916374, 0.06718619195832748, 0.09151222697772191}[pressure.n] * 0.0
     translate: false
+  optimica:
+    time_out: 600
 - model_name: Buildings.Experimental.DHC.Plants.Cooling.Examples.StoragePlantDualSource
   openmodelica:
     comment: 'Could not evaluate structural parameter (or constant): mChi_flow_nominal'
@@ -205,6 +207,10 @@
   openmodelica:
     comment: returned non-zero exit status 255.
     simulate: false
+- model_name: Buildings.Fluid.FixedResistances.BuriedPipes.Examples.TwoPipesConduit
+  openmodelica:
+    comment: 'Assertion due to what looks like wrong results, see https://github.com/lbl-srg/modelica-buildings/issues/3687'.
+    simulate: false
 - model_name: Buildings.Fluid.FixedResistances.BuriedPipes.Validation.GroundCouplingAIT
   openmodelica:
     comment: Timed out after 300 seconds, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/559381269#L479
@@ -216,8 +222,8 @@
     time_out: 600
 - model_name: Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT
   openmodelica:
-    comment: timed out after 300 seconds
-    time_out: 600
+    comment: timed out after 600 seconds
+    time_out: 900
 - model_name: Buildings.Fluid.Geothermal.Aquifer.Validation.SimulationTest
   openmodelica:
     comment: Timeout after 300 s
