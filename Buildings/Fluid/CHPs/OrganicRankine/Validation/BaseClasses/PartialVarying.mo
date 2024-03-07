@@ -11,7 +11,7 @@ partial model PartialVarying
   parameter Modelica.Units.SI.MassFlowRate mCol_flow_nominal = 2
     "Medium flow rate in the condenser";
 
-  Buildings.Fluid.CHPs.OrganicRankine.Cycle ORC(
+  Buildings.Fluid.CHPs.OrganicRankine.Cycle orc(
     redeclare package Medium1 = MediumHot,
     redeclare package Medium2 = MediumCol,
     pro=pro,
@@ -28,7 +28,7 @@ partial model PartialVarying
   Buildings.Fluid.Sources.MassFlowSource_T souHot(
     redeclare final package Medium = MediumHot,
     m_flow=mHot_flow_nominal,
-    T=ORC.TWorEva + 20,
+    T=orc.TWorEva + 20,
     nPorts=1) "Source on the evaporator side"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Buildings.Fluid.Sources.Boundary_pT sinHot(
@@ -58,19 +58,19 @@ partial model PartialVarying
   Modelica.Blocks.Sources.BooleanConstant tru(k=true) "Constant true"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 equation
-  connect(souHot.ports[1],ORC. port_a1) annotation (Line(points={{-20,30},{-16,30},
+  connect(souHot.ports[1],orc. port_a1) annotation (Line(points={{-20,30},{-16,30},
           {-16,6},{-10,6}}, color={0,127,255}));
-  connect(souCol.ports[1],ORC. port_a2) annotation (Line(points={{20,-30},{16,-30},
+  connect(souCol.ports[1],orc. port_a2) annotation (Line(points={{20,-30},{16,-30},
           {16,-6},{10,-6}}, color={0,127,255}));
   connect(sinHot.ports[1],THotOut. port_b)
     annotation (Line(points={{60,30},{50,30}}, color={0,127,255}));
-  connect(THotOut.port_a,ORC. port_b1) annotation (Line(points={{30,30},{16,30},
+  connect(THotOut.port_a,orc. port_b1) annotation (Line(points={{30,30},{16,30},
           {16,6},{10,6}}, color={0,127,255}));
-  connect(TColOut.port_a,ORC. port_b2) annotation (Line(points={{-30,-30},{-16,-30},
+  connect(TColOut.port_a,orc. port_b2) annotation (Line(points={{-30,-30},{-16,-30},
           {-16,-6},{-10,-6}}, color={0,127,255}));
   connect(sinCol.ports[1], TColOut.port_b)
     annotation (Line(points={{-60,-30},{-50,-30}}, color={0,127,255}));
-  connect(tru.y, ORC.on)
+  connect(tru.y,orc. on)
     annotation (Line(points={{-19,0},{-8,0}}, color={255,0,255}));
     annotation (
     Documentation(info="<html>

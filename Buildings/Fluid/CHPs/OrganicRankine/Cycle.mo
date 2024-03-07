@@ -185,7 +185,7 @@ equation
           40},{120,40}}, color={0,0,127}));
   connect(comCyc.QCon_flow, QCon_flow) annotation (Line(points={{12,-6},{50,-6},
           {50,-40},{120,-40}}, color={0,0,127}));
-  annotation (defaultComponentName = "ORC",
+  annotation (defaultComponentName = "orc",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Line(
           points={{-60,-60},{-28,-20},{16,32},{40,60},{52,60},{54,30},{48,2},{

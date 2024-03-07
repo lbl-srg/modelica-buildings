@@ -2,11 +2,11 @@ within Buildings.Fluid.CHPs.OrganicRankine.Validation;
 model VaryingCold
   "ORC with cooling water stream with varying flow rate and temperature"
   extends
-    Buildings.Fluid.CHPs.OrganicRankine.Validation.BaseClasses.PartialVarying(
+    Buildings.Fluid.CHPs.OrganicRankine.Validation.BaseClasses.PartialVarying(orc(
+          useCondensingPressure=true,
+          pWorCon_min = 1.2E5),
     souCol(
-      use_T_in=true),
-      ORC(useCondensingPressure=true,
-          pWorCon_min = 1.2E5));
+      use_T_in=true));
   extends Modelica.Icons.Example;
 
   Modelica.Blocks.Sources.TimeTable TColIn_set(table=[0,300; 100,300; 150,274; 200,
