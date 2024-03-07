@@ -110,14 +110,24 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PEleOut(
     final quantity="Power",
-    final unit="W")
-    "Electrical power output" annotation (Placement(transformation(
+    final unit="W") "Electrical power output"
+                              annotation (Placement(transformation(
           extent={{100,-20},{140,20}}), iconTransformation(extent={{70,-20},{
             110,20}})));
   Modelica.Blocks.Interfaces.BooleanInput on
     "Cycle on; set false to force working fluid flow to zero"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-90,-10},{-70,10}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QEva_flow(
+    final quantity="Power",
+    final unit="W") "Evaporator heat flow rate (positive)" annotation (
+      Placement(transformation(extent={{100,20},{140,60}}), iconTransformation(
+          extent={{70,-20},{110,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QCon_flow(
+    final quantity="Power",
+    final unit="W") "Condenser heat flow rate (positive)" annotation (
+      Placement(transformation(extent={{100,-60},{140,-20}}),
+        iconTransformation(extent={{70,-20},{110,20}})));
 protected
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloEva
     "Prescribed heat flow rate"
@@ -171,6 +181,10 @@ equation
     annotation (Line(points={{12,0},{120,0}}, color={0,0,127}));
   connect(on, comCyc.on)
     annotation (Line(points={{-120,0},{-11,0}}, color={255,0,255}));
+  connect(comCyc.QEva_flow, QEva_flow) annotation (Line(points={{12,6},{80,6},{80,
+          40},{120,40}}, color={0,0,127}));
+  connect(comCyc.QCon_flow, QCon_flow) annotation (Line(points={{12,-6},{50,-6},
+          {50,-40},{120,-40}}, color={0,0,127}));
   annotation (defaultComponentName = "ORC",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Line(
