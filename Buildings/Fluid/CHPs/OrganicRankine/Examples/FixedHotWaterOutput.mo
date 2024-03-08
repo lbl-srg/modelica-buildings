@@ -12,10 +12,10 @@ model FixedHotWaterOutput
     y_start=1,
     reverseActing=false) "PI controller"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
+  Modelica.Blocks.Math.Gain gai(
     k=mCol_flow_nominal) "Gain"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
-  Buildings.Controls.OBC.CDL.Reals.Max max1 "Max"
+  Modelica.Blocks.Math.Max max1 "Max"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
   Modelica.Blocks.Sources.Constant TWatOut_set(k=40 + 273.15)
     "Set point of hot water output"
@@ -26,10 +26,11 @@ model FixedHotWaterOutput
 equation
   connect(conPID.y, gai.u)
     annotation (Line(points={{-19,-70},{-2,-70}}, color={0,0,127}));
-  connect(gai.y, max1.u2) annotation (Line(points={{22,-70},{30,-70},{30,-66},{38,
-          -66}}, color={0,0,127}));
-  connect(max1.y, souCol.m_flow_in) annotation (Line(points={{62,-60},{70,-60},{
-          70,-22},{42,-22}}, color={0,0,127}));
+  connect(gai.y, max1.u2) annotation (Line(points={{21,-70},{30,-70},{30,-66},{
+          38,-66}},
+                 color={0,0,127}));
+  connect(max1.y, souCol.m_flow_in) annotation (Line(points={{61,-60},{70,-60},
+          {70,-22},{42,-22}},color={0,0,127}));
   connect(TWatOut_set.y, conPID.u_s)
     annotation (Line(points={{-59,-70},{-42,-70}}, color={0,0,127}));
   connect(TColOut.T, conPID.u_m) annotation (Line(points={{-40,-19},{-40,-14},{-88,

@@ -15,19 +15,19 @@ model ComputeCycle "Thermodynamic computations of the ORC"
   parameter Modelica.Units.SI.ThermodynamicTemperature TWorEva
     "Working fluid evaporator temperature"
     annotation(Dialog(group="Evaporator"));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput THotIn(
+  Modelica.Blocks.Interfaces.RealInput THotIn(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC") "Incoming temperature of hot fluid in evaporator"
     annotation (Placement(
         transformation(extent={{-140,60},{-100,100}}),  iconTransformation(
           extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput mHot_flow(
+  Modelica.Blocks.Interfaces.RealInput mHot_flow(
     final quantity="MassFlowRate",
     final unit="kg/s") "Evaporator hot fluid flow rate"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QEva_flow(
+  Modelica.Blocks.Interfaces.RealOutput QEva_flow(
     final quantity="HeatFlowRate",
     final unit="W") "Evaporator heat flow rate"
     annotation (Placement(transformation(extent={{100,20},{140,60}}),
@@ -48,13 +48,13 @@ model ComputeCycle "Thermodynamic computations of the ORC"
   parameter Modelica.Units.SI.SpecificHeatCapacity cpCol
     "Constant specific heat capacity"
     annotation(Dialog(group="Condenser"));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TColIn(
+  Modelica.Blocks.Interfaces.RealInput TColIn(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC") "Incoming temperature of cold fluid in condenser"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput mCol_flow(
+  Modelica.Blocks.Interfaces.RealInput mCol_flow(
     final quantity="MassFlowRate",
     final unit="kg/s") "Condenser cold fluid flow rate" annotation (Placement(
         transformation(extent={{-140,-100},{-100,-60}}), iconTransformation(
@@ -68,7 +68,7 @@ model ComputeCycle "Thermodynamic computations of the ORC"
   parameter Modelica.Units.SI.ThermodynamicTemperature TWorCon_min = 273.15
     "Lower bound of working fluid condensing temperature"
     annotation(Dialog(group="Condenser"));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QCon_flow(
+  Modelica.Blocks.Interfaces.RealOutput QCon_flow(
     final quantity="HeatFlowRate",
     final unit="W") "Condenser heat flow rate" annotation (Placement(
         transformation(extent={{100,-60},{140,-20}}), iconTransformation(extent={{100,-60},
@@ -82,7 +82,7 @@ model ComputeCycle "Thermodynamic computations of the ORC"
     "Pinch point temperature differential of condenser";
 
 // Expander
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput PEleOut(
+  Modelica.Blocks.Interfaces.RealOutput PEleOut(
     final quantity="Power",
     final unit="W")
     = QEva_flow - QCon_flow

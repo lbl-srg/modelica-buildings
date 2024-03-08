@@ -111,7 +111,7 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
     "Expander efficiency"
     annotation(Dialog(group="Cycle"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput PEleOut(
+  Modelica.Blocks.Interfaces.RealOutput PEleOut(
     final quantity="Power",
     final unit="W") "Electrical power output"
                               annotation (Placement(transformation(
@@ -121,13 +121,13 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
     "Enable cycle; set false to force working fluid flow to zero" annotation (
       Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-90,-10},{-70,10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QEva_flow(final quantity=
-        "HeatFlowRate",
+  Modelica.Blocks.Interfaces.RealOutput QEva_flow(
+    final quantity="HeatFlowRate",
     final unit="W") "Evaporator heat flow rate (positive)" annotation (
       Placement(transformation(extent={{100,20},{140,60}}), iconTransformation(
           extent={{70,10},{110,50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QCon_flow(final quantity=
-        "HeatFlowRate",
+  Modelica.Blocks.Interfaces.RealOutput QCon_flow(
+    final quantity="HeatFlowRate",
     final unit="W") "Condenser heat flow rate (positive)" annotation (
       Placement(transformation(extent={{100,-60},{140,-20}}),
         iconTransformation(extent={{70,-50},{110,-10}})));
