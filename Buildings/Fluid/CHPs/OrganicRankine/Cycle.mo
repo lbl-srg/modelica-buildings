@@ -224,7 +224,7 @@ the working fluid evaporating temperature <i>T<sub>w,Eva</sub></i>,
 the working fluid condensing temperature <i>T<sub>w,Con</sub></i>,
 the expander efficiency <i>&eta;<sub>Exp</sub></i>.
 The superheating temperature differential <i>&Delta;T<sub>Sup</sub></i>
-is minimises, meaning it is zero whenever possible; otherwise it assumes
+is minimised, meaning it is zero whenever possible; otherwise it assumes
 the smallest value not to cause the expander outlet state to fall
 under the dome. The model neglects the property difference between
 the pump inlet and outlet or the pressure loss along any pipe of
@@ -252,7 +252,7 @@ where the subscripts are:<br/>
 <i>w</i> - working fluid.
 </p>
 <p>
-The cycle attemps to accommodate varying flow rate and temperature
+The cycle attempts to accommodate the varying flow rate and temperature
 of the waste heat stream. To do so, the model solves for a
 <i>m&#775;<sub>w</sub></i> that would maintain a constant pinch point (PP)
 temperature differential at the evaporator <i>&Delta;T<sub>pin,Eva</sub></i>.
@@ -310,10 +310,10 @@ In summary, the model has the following information flow:
 working fluid evaporating temperature <i>T<sub>w,Eva</sub></i>,
 </li>
 <li>
-evaporator pinch point temperature differntial <i>&Delta;T<sub>pin,Eva</sub></i>
+evaporator pinch point temperature differential <i>&Delta;T<sub>pin,Eva</sub></i>
 </li>
 <li>
-condenser pinch point temperature differntial <i>&Delta;T<sub>pin,Eva</sub></i>.
+condenser pinch point temperature differential <i>&Delta;T<sub>pin,Eva</sub></i>.
 </li>
 </ul>
 </td>
@@ -369,7 +369,7 @@ Some constraints apply.
 </p>
 <p>
 On the evaporator side, an upper limit and a lower limit are imposed on
-<i>m&#775;<sub>w</sub></i> to reflect the charicteristics of a sized cycle.
+<i>m&#775;<sub>w</sub></i> to reflect the characteristics of a sized cycle.
 </p>
 <ul>
 <li>
@@ -468,10 +468,10 @@ near linear to apply the same method as B, albeit with less accuracy.
 The cycle can be completely defined by providing the following three variables:
 evaporating temperature <i>T<sub>Eva</sub></i> or pressure <i>p<sub>Eva</sub></i>,
 condensing temperature <i>T<sub>Con</sub></i> or pressure <i>p<sub>Con</sub></i>,
-and expander efficiency <i>&eta;Exp</i>.
+and expander efficiency <i>&eta;<sub>Exp</sub></i>.
 Most of the important state points can be found via the interpolation schemes
 described above. The only exceptions are <i>ExpInl</i> and <i>ExpOut</i>
-which depend on the type of the fluid and <i>&eta;Exp</i>.
+which depend on the type of the fluid and <i>&eta;<sub>Exp</sub></i>.
 </p>
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Fluid/CHPs/OrganicRankine/ComputationPaths.png\"
@@ -485,7 +485,7 @@ For either a dry fluid (a) or a wet fluid (b) undergoing such a cycle,
 h<sub>ExpOut</sub> - h<sub>ExpInl</sub>
 = (h<sub>ExpOutIse</sub> - h<sub>ExpInl</sub>) &eta;<sub>Exp</sub>
 </p>
-where h_ExpOut is solved and h_ExpInl is known.
+where <i>h<sub>ExpOut</sub></i> is solved and <i>h<sub>ExpInl</sub></i> is known.
 </li>
 <li>
 A wet cycle is a cycle where the expansion starts from
@@ -497,7 +497,7 @@ the outlet point would end up under the dome. In this scenario,
 h<sub>ExpOut</sub> - h<sub>ExpInl</sub>
 = (h<sub>ExpOut</sub> - h<sub>ExpInlIse</sub>) &eta;<sub>Exp</sub>
 </p>
-where h_ExpOut is known and h_ExpInl is solved.
+where <i>h<sub>ExpOut</sub></i> is known and <i>h<sub>ExpInl</sub></i> is solved.
 </li>
 </ul>
 <h4>References</h4>
