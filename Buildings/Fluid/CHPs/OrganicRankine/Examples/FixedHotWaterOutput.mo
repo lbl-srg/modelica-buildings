@@ -4,7 +4,8 @@ model FixedHotWaterOutput
   extends Buildings.Fluid.CHPs.OrganicRankine.Validation.VaryingHot(
     souCol(
       use_m_flow_in=true,
-      T=298.15));
+      T=298.15),
+    TColOut(tau=2));
   Buildings.Controls.Continuous.LimPID conPID(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     initType=Modelica.Blocks.Types.Init.InitialOutput,
