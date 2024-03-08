@@ -37,7 +37,7 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
     final dTPinCon_set=dTPinCon_set,
     final cpHot=Medium1.specificHeatCapacityCp(sta1_nominal),
     final cpCol=Medium2.specificHeatCapacityCp(sta2_nominal),
-    etaExp=0.7) "Thermodynamic computations"
+    final etaExp=etaExp) "Thermodynamic computations"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   replaceable parameter Buildings.Fluid.CHPs.OrganicRankine.Data.Generic pro
@@ -106,6 +106,9 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
     final min = 0)
     = mWor_flow_max / 10
     "Lower bound of working fluid flow rate"
+    annotation(Dialog(group="Cycle"));
+  parameter Modelica.Units.SI.Efficiency etaExp
+    "Expander efficiency"
     annotation(Dialog(group="Cycle"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PEleOut(

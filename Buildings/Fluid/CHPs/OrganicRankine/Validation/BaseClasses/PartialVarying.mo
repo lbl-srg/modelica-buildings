@@ -23,7 +23,8 @@ partial model PartialVarying
     QEva_flow_nominal=1E5,
     mHot_flow_nominal=mHot_flow_nominal,
     mCol_flow_nominal=mCol_flow_nominal,
-    TWorEva=350)                      "Organic Rankine cycle"
+    TWorEva=350,
+    etaExp=0.7)                       "Organic Rankine cycle"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Fluid.Sources.MassFlowSource_T souHot(
     redeclare final package Medium = MediumHot,

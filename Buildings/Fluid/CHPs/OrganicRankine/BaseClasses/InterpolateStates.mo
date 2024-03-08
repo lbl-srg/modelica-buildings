@@ -10,9 +10,8 @@ model InterpolateStates "Interpolate states of a working fluid"
     "Evaporating temperature";
   input Modelica.Units.SI.ThermodynamicTemperature TCon
     "Condensing temperature";
-
-  parameter Modelica.Units.SI.Efficiency etaExp "Expander efficiency"
-    annotation(Dialog(group="ORC inputs"));
+  input Modelica.Units.SI.Efficiency etaExp
+    "Expander efficiency";
 
   parameter Modelica.Units.SI.SpecificEnthalpy h_small =
     (max(pro.hSatVap) - min(pro.hSatLiq)) * 1E-4
