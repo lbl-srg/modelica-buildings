@@ -22,7 +22,7 @@ block FirstOrderAMIGO
     "Higher value for the relay output";
   parameter Real yLow = 0.1
     "Lower value for the relay output";
-  parameter Real deaBan = 0.1
+  parameter Real deaBan(min=1E-6) = 0.1
     "Deadband for holding the output value";
   parameter Real yRef = 0.8
     "Reference output for the tuning process";
@@ -149,7 +149,7 @@ protected
       else Buildings.Controls.OBC.CDL.Types.SimpleController.PID
     "Type of controller";
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes2(
-     message="*** Warning: the relay output needs to be asymmetric. 
+     message="*** Warning: the relay output needs to be asymmetric.
      Check the value of yHig, yLow and yRef.")
     "Error message when the relay output is symmetric"
     annotation (Placement(transformation(extent={{60,140},{80,160}})));

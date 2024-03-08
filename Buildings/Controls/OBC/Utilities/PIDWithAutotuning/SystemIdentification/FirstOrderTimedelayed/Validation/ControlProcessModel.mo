@@ -2,7 +2,10 @@ within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.F
 model ControlProcessModel
   "Test model for identifying the reduced-order model of the control process"
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.ControlProcessModel
-    conProMod(yLow=0.1, deaBan=0.05)
+    conProMod(
+      yHig=1,
+      yLow=0.1,
+      deaBan=0.05)
     "Calculate the parameters of a first-order model"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Pulse u(

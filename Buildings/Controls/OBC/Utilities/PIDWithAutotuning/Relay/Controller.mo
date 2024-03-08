@@ -10,7 +10,7 @@ block Controller
     final min=1E-6,
     final max=yHig) = 0.5
     "Lower value for the relay output";
-  parameter Real deaBan(min=1E-6) = 0.5
+  parameter Real deaBan(min=1E-6)
     "Deadband for holding the output value";
   parameter Boolean reverseActing=true
     "Set to true for reverse acting, or false for direct acting control action";
@@ -204,6 +204,10 @@ are the higher value and the lower value of the output <code>y</code>, respectiv
 Department of Automatic Control, Lund Institute of Technology, Lund University.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 8, 2024, by Michael Wetter:<br/>
+Changed deadband to be consistent within the package.
+</li>
 <li>
 March 8, 2024, by Michael Wetter:<br/>
 Propagated range of control error <code>r</code> to relay controller.
