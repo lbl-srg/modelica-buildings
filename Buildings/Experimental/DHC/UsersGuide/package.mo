@@ -11,7 +11,9 @@ at the component, sub-system, and system level, which can be used as
 templates and/or for generating custom system models.  Generally, the 
 model structures are capable of representing any generation of DHC (1st-5th), 
 though template models are not specifically available for all system types
-and combinations of technology.  
+and combinations of technology.  Note also that some components typically
+seen in district networks have been implemented elsewhere in the
+library (e.g. <a href=\"modelica://Buildings.Fluid.Geothermal\">geothermal storage</a>). 
 </p>
 <p>
 The structure of the package is such that it decomposes a DHC into four 
