@@ -10,11 +10,12 @@ model FixedHotWaterOutput
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     initType=Modelica.Blocks.Types.Init.InitialOutput,
     y_start=1,
-    reverseActing=false)
+    reverseActing=false) "PI controller"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(k=mCol_flow_nominal)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
+    k=mCol_flow_nominal) "Gain"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
-  Buildings.Controls.OBC.CDL.Reals.Max max1
+  Buildings.Controls.OBC.CDL.Reals.Max max1 "Max"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
   Modelica.Blocks.Sources.Constant TWatOut_set(k=40 + 273.15)
     "Set point of hot water output"

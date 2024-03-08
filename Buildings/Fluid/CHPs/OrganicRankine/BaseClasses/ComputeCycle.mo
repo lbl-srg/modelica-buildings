@@ -129,19 +129,19 @@ model ComputeCycle "Thermodynamic computations of the ORC"
 protected
   Modelica.Units.SI.MassFlowRate mWor_flow_internal(
     start = (mWor_flow_max + mWor_flow_min) / 2)
-    "Intermediate variable";
+    "Working fluid flow rate, intermediate variable";
   Modelica.Units.SI.ThermodynamicTemperature TPinEva_internal
-    "Intermedaite variable";
+    "Evaporator pinch point temperature, intermedaite variable";
   Modelica.Units.SI.ThermodynamicTemperature THotOut_internal
-    "intermediate variable";
+    "Hot fluid outgoing temperature, intermediate variable";
   Modelica.Units.SI.HeatFlowRate QEva_flow_internal
     "Evaporator heat flow rate, intermediate variable";
   Modelica.Units.SI.ThermodynamicTemperature TWorCon_internal
-    "Intermedaite variable";
+    "Working fluid condensing temperature, intermedaite variable";
   Modelica.Units.SI.ThermodynamicTemperature TPinCon_internal
-    "Intermedaite variable";
+    "Condenser pinch point temperature, intermedaite variable";
   Modelica.Units.SI.ThermodynamicTemperature TColOut_internal
-    "intermediate variable";
+    "Cold fluid outgoing temperature, intermediate variable";
   Modelica.Units.SI.HeatFlowRate QCon_flow_internal
     "Condenser heat flow rate, intermediate variable";
 

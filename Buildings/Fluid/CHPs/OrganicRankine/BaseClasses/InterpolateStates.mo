@@ -58,7 +58,7 @@ model InterpolateStates "Interpolate states of a working fluid"
       xd = pro.T,
       yd = pro.hSatLiq,
       d = hSatLiqDer_T)
-    "Specific enthalpy on evaporator-side pinch point";
+    "Specific enthalpy at evaporator-side pinch point";
   Modelica.Units.SI.SpecificEnthalpy hPinCon(
     displayUnit = "kJ/kg") =
     Buildings.Airflow.Multizone.BaseClasses.interpolate(
@@ -66,7 +66,7 @@ model InterpolateStates "Interpolate states of a working fluid"
       xd = pro.T,
       yd = pro.hSatVap,
       d = hSatVapDer_T)
-    "Specific enthalpy on condenser-side pinch point";
+    "Specific enthalpy at condenser-side pinch point";
   Modelica.Units.SI.SpecificEntropy sSatVapCon(
     start = max(pro.sSatVap) * 0.1 + min(pro.sSatVap) * 0.9) =
     Buildings.Airflow.Multizone.BaseClasses.interpolate(
@@ -81,14 +81,14 @@ model InterpolateStates "Interpolate states of a working fluid"
       xd = pro.p,
       yd = pro.sRef,
       d = sRefDer_p)
-    "Specific entropy of reference line on condenser side";
+    "Specific entropy on reference line at condensing pressure";
   Modelica.Units.SI.SpecificEntropy sSatVapEva =
     Buildings.Airflow.Multizone.BaseClasses.interpolate(
       u = TEva,
       xd = pro.T,
       yd = pro.sSatVap,
       d = sSatVapDer_T)
-    "Specific entropy of saturated vapour at evaporating pressure";
+    "Specific entropy of saturated vapour at evaporating temperature";
   Modelica.Units.SI.SpecificEnthalpy hSatVapEva(
     displayUnit = "kJ/kg") =
     Buildings.Airflow.Multizone.BaseClasses.interpolate(
@@ -96,14 +96,14 @@ model InterpolateStates "Interpolate states of a working fluid"
       xd = pro.T,
       yd = pro.hSatVap,
       d = hSatVapDer_T)
-    "Specific enthalpy of saturated vapour at evaporating pressure";
+    "Specific enthalpy of saturated vapour at evaporating temperature";
   Modelica.Units.SI.SpecificEntropy sRefEva =
     Buildings.Airflow.Multizone.BaseClasses.interpolate(
       u = pEva,
       xd = pro.p,
       yd = pro.sRef,
       d = sRefDer_p)
-    "Specific entropy of reference line on evaporator side";
+    "Specific entropy on reference line at evaporating pressure";
   Modelica.Units.SI.SpecificEnthalpy hSatVapCon(
     displayUnit = "kJ/kg") =
     Buildings.Airflow.Multizone.BaseClasses.interpolate(
@@ -111,7 +111,7 @@ model InterpolateStates "Interpolate states of a working fluid"
       xd = pro.T,
       yd = pro.hSatVap,
       d = hSatVapDer_T)
-    "Specific enthalpy of saturated vapour at the condenser as reference point";
+    "Specific enthalpy of saturated vapour at the condensing temperature";
   Modelica.Units.SI.SpecificEnthalpy hRefCon(
     displayUnit = "kJ/kg") =
     Buildings.Airflow.Multizone.BaseClasses.interpolate(
@@ -119,7 +119,7 @@ model InterpolateStates "Interpolate states of a working fluid"
       xd = pro.p,
       yd = pro.hRef,
       d = hRefDer_p)
-    "Specific enthalpy of reference line on condenser side";
+    "Specific enthalpy on reference line at condensing pressure";
   Modelica.Units.SI.SpecificEnthalpy hRefEva(
     displayUnit = "kJ/kg") =
     Buildings.Airflow.Multizone.BaseClasses.interpolate(
@@ -127,7 +127,7 @@ model InterpolateStates "Interpolate states of a working fluid"
       xd = pro.p,
       yd = pro.hRef,
       d = hRefDer_p)
-    "Specific enthalpy of reference line on evaporator side";
+    "Specific enthalpy on reference line at evaporating pressure";
 
   // Computed properties not interpolated
   Modelica.Units.SI.SpecificEnthalpy hExpInl(displayUnit = "kJ/kg") =
@@ -169,7 +169,7 @@ protected
   //      expander inlet = saturated vapour at evaporating pressure (known),
   //      expander outlet = superheated vapour at condensing pressure (solved).
   Modelica.Units.SI.SpecificEntropy sExpOutDryIse = sSatVapEva
-    "Specific entropy at expander outlet, assuming dry cycle, isentropic";
+    "Specific entropy at isentropic expander outlet, assuming dry cycle";
   Modelica.Units.SI.SpecificEnthalpy hExpOutDryIse(
     displayUnit = "kJ/kg") =
     if sExpOutDryIse > sSatVapCon
@@ -186,7 +186,7 @@ protected
   //      expander inlet = superheated vapour at evaporating pressure (solved),
   //      expander outlet = saturated vapour at condensing pressure (known).
   Modelica.Units.SI.SpecificEntropy sExpInlWetIse = sSatVapCon
-    "Specific entropy at expander inlet, assuming wet cycle, isentropic";
+    "Specific entropy at isentropic expander inlet, assuming wet cycle";
   Modelica.Units.SI.SpecificEnthalpy hExpInlWetIse(
     displayUnit = "kJ/kg") =
     (hRefEva - hSatVapEva) * (sExpInlWetIse - sSatVapEva)
