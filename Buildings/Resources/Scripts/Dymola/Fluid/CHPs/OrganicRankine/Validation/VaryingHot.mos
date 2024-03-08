@@ -1,8 +1,9 @@
 simulateModel("Buildings.Fluid.CHPs.OrganicRankine.Validation.VaryingHot",
     method="dassl", stopTime=300, tolerance=1e-06, resultFile="VaryingHot");
 // Plot commands
-createPlot(id=3, position={6, 2, 624, 596}, y={"mHot_flow_set.y"}, range={0.0, 300.0, -5.0, 10.0}, autoscale=false, grid=true, subPlot=101, colors={{28,108,200}}, timeUnit="s");
-createPlot(id=3, position={6, 2, 624, 596}, y={"THotIn_set.y", "orc.comCyc.TWorEva"}, range={0.0, 300.0, 340.0, 380.0}, autoscale=false, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"", "K"});
-createPlot(id=3, position={6, 2, 624, 596}, y={"orc.comCyc.mWor_flow", "orc.comCyc.mWor_flow_max", "orc.comCyc.mWor_flow_min"}, range={0.0, 300.0, -0.2, 0.4000000000000001}, autoscale=false, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}, {0,140,72}}, timeUnit="s", displayUnits={"kg/s", "kg/s", "kg/s"});
-createPlot(id=3, position={6, 2, 624, 596}, y={"orc.comCyc.dTPinEva"}, range={0.0, 300.0, -10.0, 30.0}, autoscale=false, grid=true, subPlot=104, colors={{28,108,200}}, timeUnit="s", displayUnits={"K"});
+createPlot(id=3, position={11, 52, 624, 346}, y={"mHot_flow_set.y"}, range={0.0, 300.0, -5.0, 10.0}, autoscale=false, grid=true, subPlot=101, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=3, position={11, 52, 624, 346}, y={"THotIn_set.y", "orc.comCyc.TWorEva"}, range={0.0, 300.0, 340.0, 380.0}, autoscale=false, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"", "K"});
+createPlot(id=4, position={627, 10, 618, 458}, y={"orc.comCyc.mWor_flow", "orc.comCyc.mWor_flow_max", "orc.comCyc.mWor_flow_min"}, range={0.0, 300.0, -0.2, 0.4000000000000001}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}, {0,140,72}}, timeUnit="s", displayUnits={"kg/s", "kg/s", "kg/s"});
+createPlot(id=4, position={627, 10, 618, 458}, y={"orc.comCyc.dTPinEva", "orc.comCyc.dTPinEva_set"}, range={0.0, 300.0, -20.0, 40.0}, autoscale=false, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"K", "K"});
+createPlot(id=4, position={627, 10, 618, 458}, y={"orc.ena", "orc.on_actual"}, range={0.0, 300.0, -1.0, 2.0}, grid=true, subPlot=103, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
 
