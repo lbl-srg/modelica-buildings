@@ -94,7 +94,6 @@ model WetCoilCounterFlowPControlAutoTuning
     con(controllerType=Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PI,
     yLow=0.2,
     yRef=0.5,
-    deaBan=1/298.15,
     reverseActing=false)
     "Controller"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
@@ -113,16 +112,6 @@ model WetCoilCounterFlowPControlAutoTuning
     shift=400)
     "Signal for enabling the autotuning"
     annotation (Placement(transformation(extent={{20,160},{40,180}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(k=1/298.15)
-    "normalize the setpoint"
-    annotation (Placement(transformation(extent={{-48,92},{-32,108}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai2(k=1/298.15)
-    "normalize the measurement"
-    annotation (
-      Placement(transformation(
-        extent={{-8,-8},{8,8}},
-        rotation=90,
-        origin={10,48})));
 equation
   connect(hex.port_b1, res_1.port_a) annotation (Line(points={{80,32},{86,32},{
           86,60},{90,60}}, color={0,127,255}));
@@ -180,14 +169,10 @@ equation
           80},{4,80},{4,88}}, color={255,0,255}));
   connect(autTunSig.y, con.triTun) annotation (Line(points={{42,170},{74,170},{74,
           80},{16,80},{16,88}}, color={255,0,255}));
-  connect(TSet.y, gai1.u) annotation (Line(points={{-59,100},{-49.6,100}},
-          color={0,0,127}));
-  connect(gai1.y, con.u_s) annotation (Line(points={{-30.4,100},{-2,100}},
-          color={0,0,127}));
-  connect(temSen.T, gai2.u) annotation (Line(points={{10,31},{10,38.4}},
-          color={0,0,127}));
-  connect(gai2.y, con.u_m) annotation (Line(points={{10,57.6},{10,88}},
-          color={0,0,127}));
+  connect(TSet.y, con.u_s)
+    annotation (Line(points={{-59,100},{-2,100}}, color={0,0,127}));
+  connect(temSen.T, con.u_m)
+    annotation (Line(points={{10,31},{10,88}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{200,200}})),
 experiment(Tolerance=1e-6, StopTime=3600),
@@ -209,6 +194,10 @@ Buildings.Controls.OBC.Utilities.PIDWithAutotuning.FirstOrderAMIGO</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 8, 2024, by Michael Wetter:<br/>
+Removed wrong normalization.
+</li>
 <li>
 November 28, 2023, by Sen Huang:<br/>
 Replaced the PI controller with an autotuning PI controller.
