@@ -465,14 +465,6 @@ near linear to apply the same method as B, albeit with less accuracy.
 </li>
 </ul>
 <p>
-For the cycle, subcooling is ignored and superheating is always minimised.
-Minimising superheating means that <i>&Delta;T<sub>Sup</sub> = 0</i>
-as long as it does not cause ExpOut to be under the dome;
-if this cannot be satisfied, <i>&Delta;T<sub>Sup</sub></i> assumes
-the smallest value so that ExpOut is exactly on the saturated vapour line.
-[fixme: Move this to somewhere else of the documentation?]
-</p>
-<p>
 The cycle can be completely defined by providing the following three variables:
 evaporating temperature <i>T<sub>Eva</sub></i> or pressure <i>p<sub>Eva</sub></i>,
 condensing temperature <i>T<sub>Con</sub></i> or pressure <i>p<sub>Con</sub></i>,
