@@ -63,11 +63,11 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
   parameter Modelica.Units.SI.ThermodynamicTemperature TWorEva =
     max(pro.T)*2/3 + min(pro.T)*1/3
     "Evaporating temperature of the working fluid"
-    annotation(Dialog(group="Evaporator"));
+    annotation(Dialog(group="Evaporator", enable = not useEvaporatingPressure));
   parameter Modelica.Units.SI.Pressure pWorEva(displayUnit="kPa") =
     max(pro.p)*2/3 + min(pro.p)*1/3
     "Evaporating pressure of the working fluid"
-    annotation(Dialog(group="Evaporator"));
+    annotation(Dialog(group="Evaporator", enable = useEvaporatingPressure));
   parameter Modelica.Units.SI.MassFlowRate mCol_flow_nominal
     "Nominal mass flow rate of the condenser fluid"
     annotation(Dialog(group="Condenser"));
@@ -84,11 +84,11 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
   parameter Modelica.Units.SI.ThermodynamicTemperature TWorCon_min =
     min(pro.T) + 1
     "Lower bound of working fluid condensing temperature"
-    annotation(Dialog(group="Condenser"));
+    annotation(Dialog(group="Condenser", enable = not useCondensingPressure));
   parameter Modelica.Units.SI.Pressure pWorCon_min(displayUnit="kPa") =
     min(pro.p) + 100
     "Condensing pressure of the working fluid"
-    annotation(Dialog(group="Condenser"));
+    annotation(Dialog(group="Condenser", enable = useCondensingPressure));
   parameter Modelica.Units.SI.MassFlowRate mWor_flow_max(
     final min = 0)
     = QEva_flow_nominal / (
