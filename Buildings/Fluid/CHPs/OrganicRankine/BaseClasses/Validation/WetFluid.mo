@@ -15,7 +15,7 @@ This model is largely the same as
 <a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.Validation.DryFluid\">
 Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.Validation.DryFluid</a>,
 except that it validates the handling of wet working fluids.
-As a result, a minimum superheating temperature is computed that ensures
+As a result, a superheating temperature is computed that ensures
 the expansion does not land under the dome.
 </p>
 </html>",revisions="<html>
