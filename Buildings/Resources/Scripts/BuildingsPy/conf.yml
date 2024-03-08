@@ -115,6 +115,13 @@
   optimica:
     comment: FMUException Failed to update the events at time 0.000000E+00.
     simulate: false
+- model_name: Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlowAgentControl
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization
+    simulate: false
+  optimica:
+    comment: FMUException Failed to update the events at time 0.000000E+00.
+    simulate: false
 - model_name: Buildings.Experimental.DHC.Examples.Cooling.ElectricChillersDirectETS
   openmodelica:
     comment: simulation terminated by an assertion at initialization
@@ -124,7 +131,7 @@
     translate: false
 - model_name: Buildings.Experimental.DHC.Loads.BaseClasses.Examples.CouplingTimeSeries
   openmodelica:
-    comment: simulation terminated by an assertion at initialization
+    comment: "simulation terminated by an assertion at initialization, Invalid root: (0)^(-1.5), corrected in OMC 1.23.0~dev-206-g00d3636"
     simulate: false
 - model_name: Buildings.Experimental.DHC.Loads.BaseClasses.Examples.CouplingTimeSeriesSingleLoop
   openmodelica:
@@ -200,6 +207,22 @@
   openmodelica:
     comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
     simulate: false
+- model_name: Buildings.Fluid.FixedResistances.BuriedPipes.Examples.DiscretizedBuriedPipe
+  openmodelica:
+    comment: timed out after 300 seconds
+    simulate: false
+- model_name: Buildings.Fluid.FixedResistances.BuriedPipes.Examples.SingleBuriedPipe
+  openmodelica:
+    comment: Simulation terminated at time 4.59003e+07.
+    simulate: false
+- model_name: Buildings.Fluid.FixedResistances.BuriedPipes.Examples.TwoBuriedPipes
+  openmodelica:
+    comment: returned non-zero exit status 255.
+    simulate: false
+- model_name: Buildings.Fluid.FixedResistances.BuriedPipes.Validation.GroundCouplingAIT
+  openmodelica:
+    comment: Timed out after 300 seconds, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/559381269#L479
+    simulate: false
 - model_name: Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.MSLAIT
   dymola:
     time_out: 600
@@ -213,26 +236,6 @@
   openmodelica:
     comment: Timeout after 300 s
     time_out: 600
-- model_name: Buildings.Fluid.Geothermal.BuriedPipes.Examples.DiscretizedBuriedPipe
-  openmodelica:
-    comment: timed out after 300 seconds
-    simulate: false
-- model_name: Buildings.Fluid.Geothermal.BuriedPipes.Examples.SingleBuriedPipe
-  openmodelica:
-    comment: Simulation terminated at time 4.59003e+07.
-    simulate: false
-- model_name: Buildings.Fluid.Geothermal.BuriedPipes.Examples.TwoBuriedPipes
-  openmodelica:
-    comment: simulation returned non-zero exit status 255
-    simulate: false
-- model_name: Buildings.Fluid.Geothermal.BuriedPipes.Examples.TwoPipesConduit
-  openmodelica:
-    comment: 'CalledProcessError: Command ''[''omc'', ''Buildings.Fluid.Geothermal.BuriedPipes.Examples.TwoPipesConduit_simulate.mos'']'' returned non-zero exit status 255.'
-    simulate: false
-- model_name: Buildings.Fluid.Geothermal.BuriedPipes.Validation.GroundCouplingAIT
-  openmodelica:
-    comment: Timed out after 300 seconds, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/559381269#L479
-    simulate: false
 - model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DecouplingMixing
   openmodelica:
     comment: Timeout after 600 s on travis, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/600714398#L489
@@ -313,49 +316,10 @@
   optimica:
     comment: See https://github.com/lbl-srg/modelica-buildings/issues/2235
     translate: false
-- model_name: Buildings.Templates.AirHandlersFans.Validation.VAVMZBase
-  openmodelica:
-    comment: Translation failed.
-    translate: false
-- model_name: Buildings.Templates.AirHandlersFans.Validation.VAVMZCoilElectricHeating
-  openmodelica:
-    comment: Translation failed.
-    translate: false
-- model_name: Buildings.Templates.AirHandlersFans.Validation.VAVMZCoilEvaporatorMultiStage
-  openmodelica:
-    comment: Translation failed.
-    translate: false
-- model_name: Buildings.Templates.AirHandlersFans.Validation.VAVMZCoilEvaporatorVariable
-  openmodelica:
-    comment: Translation failed.
-    translate: false
-- model_name: Buildings.Templates.AirHandlersFans.Validation.VAVMZCoilWaterHeating3WVReheat
-  openmodelica:
-    comment: Time out after 300 s.
-    translate: false
-- model_name: Buildings.Templates.AirHandlersFans.Validation.VAVMZControlG36Airflow
+- model_name: Buildings.Templates.AirHandlersFans.Validation.VAVMultiZone
   optimica:
     comment: Array size mismatch in modification of the attribute quantity for the variable TZon. This is a bug in OCT tracked under Modelon#2023022839000276.
     translate: false
-  openmodelica:
-    comment: Translation failed.
-    translate: false
-- model_name: Buildings.Templates.AirHandlersFans.Validation.VAVMZControlG36Pressure
-  optimica:
-    comment: Array size mismatch in modification of the attribute quantity for the variable TZon. This is a bug in OCT tracked under Modelon#2023022839000276.
-    translate: false
-  openmodelica:
-    comment: Translation failed.
-    translate: false
-- model_name: Buildings.Templates.AirHandlersFans.Validation.VAVMZDedicatedDampersPressure
-  openmodelica:
-    comment: Time out after 300 s.
-    translate: false
-- model_name: Buildings.Templates.AirHandlersFans.Validation.VAVMZFanRelief
-  openmodelica:
-    comment: Time out after 300 s.
-    translate: false
-- model_name: Buildings.Templates.AirHandlersFans.Validation.VAVMZFanSupplyBlowThrough
   openmodelica:
     comment: Translation failed.
     translate: false
@@ -365,13 +329,9 @@
     translate: false
 - model_name: Buildings.Templates.ZoneEquipment.Validation.VAVBoxCoolingOnly
   openmodelica:
-    comment: Time out after 300 s.
-    translate: false
-- model_name: Buildings.Templates.ZoneEquipment.Validation.VAVBoxCoolingOnlyControlG36
-  openmodelica:
     comment: Translation failed.
     translate: false
-- model_name: Buildings.Templates.ZoneEquipment.Validation.VAVBoxReheatControlG36
+- model_name: Buildings.Templates.ZoneEquipment.Validation.VAVBoxReheat
   openmodelica:
     comment: Time out after 300 s.
     translate: false
@@ -496,6 +456,9 @@
     comment: returned non-zero exit status 255.
     simulate: false
 - model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.IdealHeatingCoolingWinter
+  openmodelica:
+    comment: returned non-zero exit status 255.
+    simulate: false
   optimica:
     rtol: 1.0e-08
 - model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.Unconditioned
