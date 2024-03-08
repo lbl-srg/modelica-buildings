@@ -1,6 +1,6 @@
 simulateModel("Buildings.Fluid.CHPs.OrganicRankine.Validation.VaryingCold",
     method="dassl", stopTime=300, tolerance=1e-06, resultFile="VaryingCold");
 // Plot commands
-createPlot(id=3, position={49, 49, 624, 470}, y={"TColIn_set.y", "ORC.comCyc.TWorCon"}, range={0.0, 300.0, 260.0, 340.0}, autoscale=false, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"", "K"});
-createPlot(id=3, position={49, 49, 624, 470}, y={"ORC.comCyc.dTPinCon"}, range={0.0, 300.0, 5.0, 25.0}, autoscale=false, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="s", displayUnits={"K"});
+createPlot(id=3, position={49, 49, 624, 470}, y={"TColIn_set.y", "orc.comCyc.TWorCon"}, range={0.0, 300.0, 260.0, 340.0}, autoscale=false, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"", "K"});
+createPlot(id=3, position={49, 49, 624, 470}, y={"orc.comCyc.dTPinCon"}, range={0.0, 300.0, 5.0, 25.0}, autoscale=false, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="s", displayUnits={"K"});
 
