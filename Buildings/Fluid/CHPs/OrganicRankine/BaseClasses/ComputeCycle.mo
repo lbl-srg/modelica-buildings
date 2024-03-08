@@ -34,9 +34,9 @@ model ComputeCycle "Thermodynamic computations of the ORC"
                              iconTransformation(extent={{100,20},{140,60}})));
   Modelica.Units.SI.ThermodynamicTemperature THotOut
     "Outgoing temperature of the evaporator hot fluid";
-  Modelica.Units.SI.ThermodynamicTemperature TPinEva(
+  Modelica.Units.SI.ThermodynamicTemperature THotPin(
     start = TWorEva + dTPinEva_set)
-    "Pinch point temperature of evaporator";
+    "Hot fluid temperature at pinch point";
   Modelica.Units.SI.TemperatureDifference dTPinEva(start = dTPinEva_set)
     "Pinch point temperature differential of evaporator";
 
@@ -75,9 +75,9 @@ model ComputeCycle "Thermodynamic computations of the ORC"
             {140,-20}})));
   Modelica.Units.SI.ThermodynamicTemperature TColOut
     "Fluid temperature out of the condenser, intermediate variable";
-  Modelica.Units.SI.ThermodynamicTemperature TPinCon(
+  Modelica.Units.SI.ThermodynamicTemperature TColPin(
     start = 300)
-    "Pinch point temperature of condenser";
+    "Cold fluid temperature at pinch point";
   Modelica.Units.SI.TemperatureDifference dTPinCon(start = dTPinCon_set)
     "Pinch point temperature differential of condenser";
 
@@ -130,16 +130,16 @@ protected
   Modelica.Units.SI.MassFlowRate mWor_flow_internal(
     start = (mWor_flow_max + mWor_flow_min) / 2)
     "Working fluid flow rate, intermediate variable";
-  Modelica.Units.SI.ThermodynamicTemperature TPinEva_internal
-    "Evaporator pinch point temperature, intermedaite variable";
+  Modelica.Units.SI.ThermodynamicTemperature THotPin_internal
+    "Hot fluid temperature at pinch point, intermedaite variable";
   Modelica.Units.SI.ThermodynamicTemperature THotOut_internal
     "Hot fluid outgoing temperature, intermediate variable";
   Modelica.Units.SI.HeatFlowRate QEva_flow_internal
     "Evaporator heat flow rate, intermediate variable";
   Modelica.Units.SI.ThermodynamicTemperature TWorCon_internal
     "Working fluid condensing temperature, intermedaite variable";
-  Modelica.Units.SI.ThermodynamicTemperature TPinCon_internal
-    "Condenser pinch point temperature, intermedaite variable";
+  Modelica.Units.SI.ThermodynamicTemperature TColPin_internal
+    "Cold fluid temperature at pinch point, intermedaite variable";
   Modelica.Units.SI.ThermodynamicTemperature TColOut_internal
     "Cold fluid outgoing temperature, intermediate variable";
   Modelica.Units.SI.HeatFlowRate QCon_flow_internal
@@ -156,31 +156,31 @@ This is likely caused by the flow rate of cooling fluid in the condenser being t
   QEva_flow = mHot_flow * cpHot * (THotIn - THotOut);
   QEva_flow = mWor_flow * (hExpInl - hPum);
   // Pinch point
-  (TPinEva - THotOut) * (hExpInl - hPum)
+  (THotPin - THotOut) * (hExpInl - hPum)
   = (hPinEva - hPum) * (THotIn - THotOut);
-  dTPinEva = TPinEva - TWorEva;
+  dTPinEva = THotPin - TWorEva;
 
   // Evaporator internal computation
   QEva_flow_internal = mHot_flow * cpHot * (THotIn - THotOut_internal);
   QEva_flow_internal = mWor_flow_internal * (hExpInl - hPum);
-  (TPinEva_internal - THotOut_internal) * (hExpInl - hPum)
+  (THotPin_internal - THotOut_internal) * (hExpInl - hPum)
   = (hPinEva - hPum) * (THotIn - THotOut_internal);
-  dTPinEva_set = TPinEva_internal - TWorEva;
+  dTPinEva_set = THotPin_internal - TWorEva;
 
   // Condenser
   QCon_flow = mCol_flow * cpCol * (TColOut - TColIn);
   QCon_flow = mWor_flow * (hExpOut - hPum);
   // Pinch point
-  (TPinCon - TColIn) * (hExpOut - hPum)
+  (TColPin - TColIn) * (hExpOut - hPum)
   = (hPinCon - hPum) * (TColOut - TColIn);
-  dTPinCon = TWorCon - TPinCon;
+  dTPinCon = TWorCon - TColPin;
 
   // Condenser internal computation
   QCon_flow_internal = mCol_flow * cpCol * (TColOut_internal - TColIn);
   QCon_flow_internal = mWor_flow_internal * (hExpOut - hPum);
-  (TPinCon_internal - TColIn) * (hExpOut - hPum)
+  (TColPin_internal - TColIn) * (hExpOut - hPum)
   = (hPinCon - hPum) * (TColOut_internal - TColIn);
-  dTPinCon_set = TWorCon_internal - TPinCon_internal;
+  dTPinCon_set = TWorCon_internal - TColPin_internal;
 
   annotation(defaultComponentName="comCyc",
   Documentation(info="<html>
