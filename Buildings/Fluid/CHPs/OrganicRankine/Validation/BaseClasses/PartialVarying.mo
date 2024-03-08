@@ -70,7 +70,7 @@ equation
           {-16,-6},{-10,-6}}, color={0,127,255}));
   connect(sinCol.ports[1], TColOut.port_b)
     annotation (Line(points={{-60,-30},{-50,-30}}, color={0,127,255}));
-  connect(tru.y,orc. on)
+  connect(tru.y, orc.ena)
     annotation (Line(points={{-19,0},{-8,0}}, color={255,0,255}));
     annotation (
     Documentation(info="<html>
