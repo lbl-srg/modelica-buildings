@@ -67,7 +67,8 @@ model InterpolateStates "Interpolate states of a working fluid"
       yd = pro.hSatVap,
       d = hSatVapDer_T)
     "Specific enthalpy on condenser-side pinch point";
-  Modelica.Units.SI.SpecificEntropy sSatVapCon =
+  Modelica.Units.SI.SpecificEntropy sSatVapCon(
+    start = max(pro.sSatVap) * 0.1 + min(pro.sSatVap) * 0.9) =
     Buildings.Airflow.Multizone.BaseClasses.interpolate(
       u = TCon,
       xd = pro.T,
