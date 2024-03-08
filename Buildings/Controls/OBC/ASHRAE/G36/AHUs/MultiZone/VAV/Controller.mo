@@ -7,341 +7,421 @@ block Controller "Multizone VAV air handling unit controller"
     "Ventilation standard, ASHRAE 62.1 or Title 24";
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Not_Specified
     "ASHRAE climate zone"
-    annotation (Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1));
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone tit24CliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Not_Specified
     "California Title 24 climate zone"
-    annotation (Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24));
   parameter Boolean have_frePro=true
-    "True: enable freeze protection";
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat freSta=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
+    "True: enable freeze protection"
+    annotation (__cdl(ValueInReference=false));
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat freSta=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
     "Type of freeze stat"
-    annotation (Dialog(enable=have_frePro));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(enable=have_frePro));
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection minOADes=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
     "Type of outdoor air section"
-    annotation (Dialog(group="Economizer design"));
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.BarometricRelief
-    "Type of building pressure control system"
-    annotation (Dialog(group="Economizer design"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="Economizer design"));
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl buiPreCon=
+      Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
+    "Type of building pressure control system" annotation (__cdl(
+        ValueInReference=false), Dialog(group="Economizer design"));
   parameter Boolean have_ahuRelFan=true
     "True: relief fan is part of AHU; False: the relief fans group that may associate multiple AHUs"
-    annotation (Dialog(group="Economizer design",
-                       enable=buiPreCon==Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan));
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer ecoHigLimCon=
-    Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="Economizer design",
+                       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan));
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.
+      FixedDryBulb
     "Economizer high limit control device"
-    annotation (Dialog(group="Economizer design"));
-  parameter Real aveTimRan(unit="s")=5
-    "Time horizon over which the outdoor air flow measurement is averaged"
-    annotation (Dialog(group="Economizer design"));
-  parameter Boolean have_hotWatCoi=true
-    "True: the AHU has hot water heating coil"
-    annotation (Dialog(group="System and building parameters"));
-  parameter Boolean have_eleHeaCoi=false
-    "True: the AHU has electric heating coil"
-    annotation (Dialog(group="System and building parameters"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="Economizer design"));
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil cooCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
+    "Cooling coil type"
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="System and building parameters"));
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+    "Heating coil type"
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="System and building parameters"));
+
   parameter Boolean have_perZonRehBox=false
     "Check if there is any VAV-reheat boxes on perimeter zones"
-    annotation (Dialog(group="System and building parameters"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="System and building parameters"));
 
   parameter Real VUncDesOutAir_flow(unit="m3/s")=0
     "Uncorrected design outdoor airflow rate, including diversity where applicable. It can be determined using the 62MZCalc spreadsheet from ASHRAE 62.1 User's Manual"
-    annotation (Dialog(group="Minimum outdoor air setpoint",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="Minimum outdoor air setpoint",
                        enable=venStd==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1));
   parameter Real VDesTotOutAir_flow(unit="m3/s")=0
     "Design total outdoor airflow rate. It can be determined using the 62MZCalc spreadsheet from ASHRAE 62.1 User's Manual"
-    annotation (Dialog(group="Minimum outdoor air setpoint",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="Minimum outdoor air setpoint",
                        enable=venStd==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1));
   parameter Real VAbsOutAir_flow(unit="m3/s")=0
     "Design outdoor airflow rate when all zones with CO2 sensors or occupancy sensors are unpopulated. Needed when complying with Title 24 requirements"
-    annotation (Dialog(group="Minimum outdoor air setpoint",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="Minimum outdoor air setpoint",
                        enable=venStd==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24));
   parameter Real VDesOutAir_flow(unit="m3/s")=0
     "Design minimum outdoor airflow rate with the areas served by the system are occupied at their design population, including diversity where applicable. Needed when complying with Title 24 requirements"
-    annotation (Dialog(group="Minimum outdoor air setpoint",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="Minimum outdoor air setpoint",
                        enable=venStd==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24));
   // ----------- parameters for fan speed control  -----------
   parameter Real pIniSet(
     unit="Pa",
     displayUnit="Pa")=120
     "Initial pressure setpoint for fan speed control"
-    annotation (Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
   parameter Real pMinSet(
     unit="Pa",
     displayUnit="Pa")=25
     "Minimum pressure setpoint for fan speed control"
-    annotation (Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
   parameter Real pMaxSet(
     unit="Pa",
     displayUnit="Pa")=1000
     "Duct design maximum static pressure. It is the Max_DSP shown in Section 3.2.1.1 of Guideline 36"
-    annotation (Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
   parameter Real pDelTim(unit="s")=600
     "Delay time after which trim and respond is activated"
-    annotation (Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
   parameter Real pSamplePeriod(unit="s")=120
     "Sample period"
-    annotation (Dialog(tab="Fan speed",group="Trim and respond for reseting duct static pressure setpoint"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Fan speed",group="Trim and respond for reseting duct static pressure setpoint"));
   parameter Integer pNumIgnReq=2
     "Number of ignored requests"
-    annotation (Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
   parameter Real pTriAmo(
     unit="Pa",
     displayUnit="Pa")=-12.0
     "Trim amount"
-    annotation (Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
   parameter Real pResAmo(
     unit="Pa",
     displayUnit="Pa")=15
     "Respond amount (must be opposite in to trim amount)"
-    annotation (Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
   parameter Real pMaxRes(
     unit="Pa",
     displayUnit="Pa")=32
     "Maximum response per time interval (same sign as respond amount)"
-    annotation (Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController fanSpeCon=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Supply fan speed PID controller"
-    annotation (Dialog(tab="Fan speed", group="PID controller"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Fan speed", group="PID controller"));
   parameter Real kFanSpe(unit="1")=0.1
     "Gain of supply fan speed PID controller"
-    annotation (Dialog(tab="Fan speed", group="PID controller"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Fan speed", group="PID controller"));
   parameter Real TiFanSpe(unit="s")=60
     "Time constant of integrator block for supply fan speed PID controller"
-    annotation (Dialog(tab="Fan speed", group="PID controller",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Fan speed", group="PID controller",
       enable=fanSpeCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
           or fanSpeCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real TdFanSpe(unit="s")=0.1
     "Time constant of derivative block for supply fan speed PID controller"
-    annotation (Dialog(tab="Fan speed", group="PID controller",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Fan speed", group="PID controller",
       enable=fanSpeCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or fanSpeCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   final parameter Real supFanSpe_max=1
     "Maximum allowed supply fan speed"
-    annotation (Dialog(tab="Fan speed", group="PID controller"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Fan speed", group="PID controller"));
   parameter Real supFanSpe_min=0.1
     "Lowest allowed supply fan speed if fan is on"
-    annotation (Dialog(tab="Fan speed", group="PID controller"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Fan speed", group="PID controller"));
+  parameter Real iniFanSpe(unit="1")=supFanSpe_min
+    "Initial speed when fan is enabled. It has to be greater than the lowest allowed speed"
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Fan speed", group="PID controller"));
 
   // ----------- parameters for supply air temperature control  -----------
   parameter Real TSupCoo_min(
     unit="K",
     displayUnit="degC")=285.15
     "Lowest cooling supply air temperature setpoint when the outdoor air temperature is at the higher value of the reset range and above"
-    annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Supply air temperature", group="Temperature limits"));
   parameter Real TSupCoo_max(
     unit="K",
     displayUnit="degC")=291.15
     "Highest cooling supply air temperature setpoint. It is typically 18 degC (65 degF)
     in mild and dry climates, 16 degC (60 degF) or lower in humid climates"
-    annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Supply air temperature", group="Temperature limits"));
   parameter Real TOut_min(
     unit="K",
     displayUnit="degC")=289.15
     "Lower value of the outdoor air temperature reset range. Typically value is 16 degC (60 degF)"
-    annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Supply air temperature", group="Temperature limits"));
   parameter Real TOut_max(
     unit="K",
     displayUnit="degC")=294.15
     "Higher value of the outdoor air temperature reset range. Typically value is 21 degC (70 degF)"
-    annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Supply air temperature", group="Temperature limits"));
   parameter Real TSupWarUpSetBac(
     unit="K",
     displayUnit="degC")=308.15
     "Supply temperature in warm up and set back mode"
-    annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Supply air temperature", group="Temperature limits"));
   parameter Real delTimSupTem(unit="s")=600
     "Delay timer"
-    annotation (Dialog(tab="Supply air temperature", group="Trim and respond for reseting supply air temperature setpoint"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Supply air temperature", group="Trim and respond for reseting supply air temperature setpoint"));
   parameter Real samPerSupTem(unit="s")=120
     "Sample period of component"
-    annotation (Dialog(tab="Supply air temperature", group="Trim and respond for reseting supply air temperature setpoint"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Supply air temperature", group="Trim and respond for reseting supply air temperature setpoint"));
   parameter Integer ignReqSupTem=2
     "Number of ignorable requests for TrimResponse logic"
-    annotation (Dialog(tab="Supply air temperature", group="Trim and respond for reseting supply air temperature setpoint"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Supply air temperature", group="Trim and respond for reseting supply air temperature setpoint"));
   parameter Real triAmoSupTem(
     unit="K",
     displayUnit="K")=0.1
     "Trim amount"
-    annotation (Dialog(tab="Supply air temperature", group="Trim and respond for reseting supply air temperature setpoint"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Supply air temperature", group="Trim and respond for reseting supply air temperature setpoint"));
   parameter Real resAmoSupTem(
     unit="K",
     displayUnit="K")=-0.2
     "Response amount"
-    annotation (Dialog(tab="Supply air temperature", group="Trim and respond for reseting supply air temperature setpoint"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Supply air temperature", group="Trim and respond for reseting supply air temperature setpoint"));
   parameter Real maxResSupTem(
     unit="K",
     displayUnit="K")=-0.6
     "Maximum response per time interval"
-    annotation (Dialog(tab="Supply air temperature", group="Trim and respond for reseting supply air temperature setpoint"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Supply air temperature", group="Trim and respond for reseting supply air temperature setpoint"));
 
   // ----------- parameters for heating and cooling coil control  -----------
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController valCon=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller for coil valves control"
-    annotation (Dialog(tab="Coils", group="Valves PID controller"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Coils", group="Valves PID controller"));
   parameter Real kVal(unit="1")=0.05
     "Gain of controller for valve control"
-    annotation (Dialog(tab="Coils", group="Valves PID controller"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Coils", group="Valves PID controller"));
   parameter Real TiVal(unit="s")=600
     "Time constant of integrator block for valve control"
-    annotation (Dialog(tab="Coils", group="Valves PID controller",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Coils", group="Valves PID controller",
       enable=valCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
           or valCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real TdVal(unit="s")=0.1
     "Time constant of derivative block for valve control"
-    annotation (Dialog(tab="Coils", group="Valves PID controller",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Coils", group="Valves PID controller",
       enable=valCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or valCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real uHeaCoi_max=-0.25
     "Upper limit of controller signal when heating coil is off. Require -1 < uHea_max < uCoo_min < 1."
-    annotation (Dialog(tab="Coils", group="Limits"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Coils", group="Limits"));
   parameter Real uCooCoi_min=0.25
     "Lower limit of controller signal when cooling coil is off. Require -1 < uHea_max < uCoo_min < 1."
-    annotation (Dialog(tab="Coils", group="Limits"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Coils", group="Limits"));
 
   // ----------- parameters for economizer control  -----------
   // Limits
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController minOAConTyp=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of minimum outdoor air controller"
-    annotation (Dialog(tab="Economizer", group="Limits, separated with AFMS",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Economizer", group="Limits, separated with AFMS",
       enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
            or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper));
   parameter Real kMinOA(unit="1")=0.03
     "Gain of controller"
-    annotation (Dialog(tab="Economizer", group="Limits, separated with AFMS",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Economizer", group="Limits, separated with AFMS",
       enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
            or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper));
   parameter Real TiMinOA(unit="s")=120
     "Time constant of integrator block"
-    annotation (Dialog(tab="Economizer", group="Limits, separated with AFMS",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Economizer", group="Limits, separated with AFMS",
       enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
            or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper)
            and (minOAConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
            or minOAConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real TdMinOA(unit="s")=0.1
     "Time constant of derivative block"
-    annotation (Dialog(tab="Economizer", group="Limits, separated with AFMS",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Economizer", group="Limits, separated with AFMS",
       enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
            or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper)
            and (minOAConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
            or minOAConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Boolean have_CO2Sen=false
     "True: some zones have CO2 sensor"
-    annotation (Dialog(tab="Economizer", group="Limits, separated with DP",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Economizer", group="Limits, separated with DP",
       enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure
            and venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24)));
   parameter Real dpAbsMinOutDam=5
     "Absolute minimum pressure difference across the minimum outdoor air damper. It provides the absolute minimum outdoor airflow"
-    annotation (Dialog(tab="Economizer", group="Limits, separated with DP",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Economizer", group="Limits, separated with DP",
       enable=(venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24
            and minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure)));
   parameter Real dpDesMinOutDam(unit="Pa")=20
     "Design minimum pressure difference across the minimum outdoor air damper. It provides the design minimum outdoor airflow"
-    annotation (Dialog(tab="Economizer", group="Limits, separated with DP",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Economizer", group="Limits, separated with DP",
       enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController dpConTyp=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of differential pressure setpoint controller"
-    annotation (Dialog(tab="Economizer", group="Limits, separated with DP",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Economizer", group="Limits, separated with DP",
       enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure));
   parameter Real kDp(unit="1")=1
     "Gain of controller"
-    annotation (Dialog(tab="Economizer", group="Limits, separated with DP",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Economizer", group="Limits, separated with DP",
       enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure));
   parameter Real TiDp(unit="s")=0.5
     "Time constant of integrator block"
-    annotation (Dialog(tab="Economizer", group="Limits, separated with DP",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Economizer", group="Limits, separated with DP",
       enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure)
            and (dpConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
            or dpConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real TdDp(unit="s")=0.1
     "Time constant of derivative block"
-    annotation (Dialog(tab="Economizer", group="Limits, separated with DP",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Economizer", group="Limits, separated with DP",
       enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure)
            and (dpConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
            or dpConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real uRetDam_min(unit="1")=0.5
     "Loop signal value to start decreasing the maximum return air damper position"
-    annotation (Dialog(tab="Economizer", group="Limits, Common",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Economizer", group="Limits, Common",
       enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper));
   // Enable
   parameter Real delTOutHis(
     unit="K",
     displayUnit="K")=1
     "Delta between the temperature hysteresis high and low limit"
-    annotation (Dialog(tab="Economizer", group="Enable"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Economizer", group="Enable"));
   parameter Real delEntHis(unit="J/kg")=1000
     "Delta between the enthalpy hysteresis high and low limits"
-    annotation (Dialog(tab="Economizer", group="Enable",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Economizer", group="Enable",
                        enable=ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb
                            or ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb));
   parameter Real retDamFulOpeTim(unit="s")=180
     "Time period to keep return air damper fully open before releasing it for minimum outdoor airflow control
     at disable to avoid pressure fluctuations"
-    annotation (Dialog(tab="Economizer", group="Enable"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Economizer", group="Enable"));
   parameter Real disDel(unit="s")=15
     "Short time delay before closing the outdoor air damper at disable to avoid pressure fluctuations"
-    annotation (Dialog(tab="Economizer", group="Enable"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Economizer", group="Enable"));
   // Commissioning
-  parameter Real retDamPhy_max(unit="1")=1
+  parameter Real retDamPhy_max(unit="1")=1.0
     "Physically fixed maximum position of the return air damper"
-    annotation (Dialog(tab="Economizer", group="Commissioning, limits"));
-  parameter Real retDamPhy_min(unit="1")=0
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Economizer", group="Commissioning, limits"));
+  parameter Real retDamPhy_min(unit="1")=0.0
     "Physically fixed minimum position of the return air damper"
-    annotation (Dialog(tab="Economizer", group="Commissioning, limits"));
-  parameter Real outDamPhy_max(unit="1")=1
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Economizer", group="Commissioning, limits"));
+  parameter Real outDamPhy_max(unit="1")=1.0
     "Physically fixed maximum position of the outdoor air damper"
-    annotation (Dialog(tab="Economizer", group="Commissioning, limits"));
-  parameter Real outDamPhy_min(unit="1")=0
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Economizer", group="Commissioning, limits"));
+  parameter Real outDamPhy_min(unit="1")=0.0
     "Physically fixed minimum position of the outdoor air damper"
-    annotation (Dialog(tab="Economizer", group="Commissioning, limits"));
-  parameter Real minOutDamPhy_max(unit="1")=1
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Economizer", group="Commissioning, limits"));
+  parameter Real minOutDamPhy_max(unit="1")=1.0
     "Physically fixed maximum position of the minimum outdoor air damper"
-    annotation (Dialog(tab="Economizer", group="Commissioning, limits",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Economizer", group="Commissioning, limits",
       enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow));
-  parameter Real minOutDamPhy_min(unit="1")=0
+  parameter Real minOutDamPhy_min(unit="1")=0.0
     "Physically fixed minimum position of the minimum outdoor air damper"
-    annotation (Dialog(tab="Economizer", group="Commissioning, limits",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Economizer", group="Commissioning, limits",
       enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow));
   parameter Real uHeaMax(unit="1")=-0.25
     "Lower limit of controller input when outdoor damper opens (see diagram)"
-    annotation (Dialog(tab="Economizer", group="Commissioning, modulation"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Economizer", group="Commissioning, modulation"));
   parameter Real uCooMin(unit="1")=+0.25
     "Upper limit of controller input when return damper is closed (see diagram)"
-    annotation (Dialog(tab="Economizer", group="Commissioning, modulation"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Economizer", group="Commissioning, modulation"));
 
   // ----------- parameters for freeze protection -----------
   parameter Integer minHotWatReq=2
     "Minimum heating hot-water plant request to active the heating plant"
-    annotation (Dialog(tab="Freeze protection", enable=have_frePro));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Freeze protection", enable=have_frePro));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController freProHeaCoiCon=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Freeze protection heating coil controller"
-    annotation (Dialog(tab="Freeze protection", group="Heating coil PID Controller",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Freeze protection", group="Heating coil PID Controller",
                        enable=have_frePro));
   parameter Real kFrePro(unit="1")=0.05
     "Gain of coil controller"
-    annotation (Dialog(tab="Freeze protection", group="Heating coil PID Controller",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Freeze protection", group="Heating coil PID Controller",
                        enable=have_frePro));
   parameter Real TiFrePro(unit="s")=120
     "Time constant of integrator block"
-    annotation (Dialog(tab="Freeze protection", group="Heating coil PID Controller",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Freeze protection", group="Heating coil PID Controller",
       enable=have_frePro and
              (freProHeaCoiCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
               or freProHeaCoiCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real TdFrePro(unit="s")=0.1
     "Time constant of derivative block"
-    annotation (Dialog(tab="Freeze protection", group="Heating coil PID Controller",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Freeze protection", group="Heating coil PID Controller",
       enable=have_frePro and
              (freProHeaCoiCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
               or freProHeaCoiCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real yMaxFrePro=1
     "Upper limit of output"
-    annotation (Dialog(tab="Freeze protection", group="Heating coil PID Controller",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Freeze protection", group="Heating coil PID Controller",
                        enable=have_frePro));
   parameter Real yMinFrePro=0
     "Lower limit of output"
-    annotation (Dialog(tab="Freeze protection", group="Heating coil PID Controller",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Freeze protection", group="Heating coil PID Controller",
                        enable=have_frePro));
 
   // ----------- Building pressure control parameters -----------
@@ -349,93 +429,110 @@ block Controller "Multizone VAV air handling unit controller"
     unit="Pa",
     displayUnit="Pa")=12
     "Building static pressure difference relative to ambient (positive to pressurize the building)"
-    annotation (Dialog(tab="Pressure control",
-      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
-             or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
-             or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Pressure control",
+      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefDamper
+           or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
+           or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp));
   parameter Real kRelDam(unit="1")=0.5
     "Gain, applied to building pressure control error normalized with dpBuiSet"
-    annotation (Dialog(tab="Pressure control", group="Relief damper",
-      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Pressure control", group="Relief damper",
+      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefDamper));
 //   parameter Real kRelFan(unit="1")=1
 //     "Gain, normalized using dpBuiSet"
 //     annotation (Dialog(tab="Pressure control", group="Relief fans",
-//       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan));
+//       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan));
 //   parameter Real minSpeRelFan(unit="1")=0.1
 //     "Minimum relief fan speed"
 //     annotation (Dialog(tab="Pressure control", group="Relief fans",
-//       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan));
+//       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan));
   parameter Real difFloSet(unit="m3/s")=0.1
     "Airflow differential between supply air and return air fans required to maintain building pressure at desired pressure"
-    annotation (Dialog(tab="Pressure control", group="Return fan",
-      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Pressure control", group="Return fan",
+      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController retFanCon=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller for return fan"
-    annotation (Dialog(tab="Pressure control", group="Return fan",
-      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
-             or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Pressure control", group="Return fan",
+      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
+           or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp));
   parameter Real kRetFan(unit="1")=1
     "Gain, normalized using dpBuiSet"
-    annotation (Dialog(tab="Pressure control", group="Return fan",
-      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
-             or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Pressure control", group="Return fan",
+      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
+           or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp));
   parameter Real TiRetFan(unit="s")=0.5
     "Time constant of integrator block"
-    annotation (Dialog(tab="Pressure control", group="Return fan",
-      enable=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
-              or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
-         and (retFanCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-              or retFanCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Pressure control", group="Return fan",
+      enable=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
+           or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp)
+           and (retFanCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+           or retFanCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real TdRetFan(unit="s")=0.1
     "Time constant of derivative block"
-    annotation (Dialog(tab="Pressure control", group="Return fan",
-      enable=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
-              or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
-         and (retFanCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-              or retFanCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Pressure control", group="Return fan",
+      enable=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
+           or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp)
+           and (retFanCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+           or retFanCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   final parameter Real retFanSpe_max=1
     "Maximum return fan speed"
     annotation (Dialog(tab="Pressure control", group="Return fan",
-      enable=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
-              or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)));
+      enable=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
+           or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp)));
   parameter Real retFanSpe_min=0.1
     "Minimum return fan speed"
-    annotation (Dialog(tab="Pressure control", group="Return fan",
-      enable=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
-              or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Pressure control", group="Return fan",
+      enable=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
+           or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp)));
 
   parameter Real p_rel_RetFan_min(
     unit="Pa",
     displayUnit="Pa")=2.4
     "Minimum return fan discharge static pressure difference setpoint"
-    annotation (Dialog(tab="Pressure control", group="Return fan",
-      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Pressure control", group="Return fan",
+      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp));
   parameter Real p_rel_RetFan_max(
     unit="Pa",
     displayUnit="Pa")=40
     "Maximum return fan discharge static pressure difference setpoint"
-    annotation (Dialog(tab="Pressure control", group="Return fan",
-        enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Pressure control", group="Return fan",
+        enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp));
   parameter Real relFanSpe_min(
     final min=0,
     final max=1)= 0.1
     "Relief fan minimum speed"
-    annotation (Dialog(tab="Pressure control", group="Relief fan",
-      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan and have_ahuRelFan));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Pressure control", group="Relief fan",
+      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
+           and have_ahuRelFan));
   parameter Real kRelFan(unit="1")=1
     "Gain of relief fan controller, normalized using dpBuiSet"
-    annotation (Dialog(tab="Pressure control", group="Relief fan",
-      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan and have_ahuRelFan));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Pressure control", group="Relief fan",
+      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
+           and have_ahuRelFan));
 
   // ----------- Advanced parameters -----------
   parameter Real Thys=0.25 "Hysteresis for checking temperature difference"
-    annotation (Dialog(tab="Advanced"));
-  parameter Real posHys=0.05
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Advanced"));
+  parameter Real posHys=0.01
     "Hysteresis for checking valve position difference"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Advanced"));
   parameter Real hys = 0.005
     "Hysteresis for checking the relief fan controller output value"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uAhuOpeMod
     "Operation mode for AHU operation"
@@ -546,8 +643,8 @@ block Controller "Multizone VAV air handling unit controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TAirRet(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature")
-    if ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialDryBulb
+    final quantity="ThermodynamicTemperature") if (ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialDryBulb
+     or ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulbWithDifferentialDryBulb)
     "Used only for fixed plus differential dry bulb temperature high limit cutoff"
     annotation (Placement(transformation(extent={{-400,-100},{-360,-60}}),
         iconTransformation(extent={{-240,-100},{-200,-60}})));
@@ -567,26 +664,30 @@ block Controller "Multizone VAV air handling unit controller"
     "OA enthalpy high limit cutoff. For differential enthalpy use return air enthalpy measurement"
     annotation (Placement(transformation(extent={{-400,-160},{-360,-120}}),
         iconTransformation(extent={{-240,-140},{-200,-100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1FreSta if freSta ==
-    Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_BAS
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1FreSta
+    if freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_BAS and
+    have_frePro
     "Freeze protection stat signal. The stat is normally close (the input is normally true), when enabling freeze protection, the input becomes false"
     annotation (Placement(transformation(extent={{-400,-190},{-360,-150}}),
         iconTransformation(extent={{-240,-180},{-200,-140}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1SofSwiRes
-    if (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
-     or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1SofSwiRes if (freSta ==
+    Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat or freSta ==
+    Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
+     and have_frePro
     "Freeze protection reset signal from software switch"
     annotation (Placement(transformation(extent={{-400,-230},{-360,-190}}),
         iconTransformation(extent={{-240,-220},{-200,-180}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1RelFan if buiPreCon ==
-    Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
-     and not have_ahuRelFan "Relief fan status"
+    Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan and not
+    have_ahuRelFan          "Relief fan status"
     annotation (Placement(transformation(extent={{-400,-260},{-360,-220}}),
         iconTransformation(extent={{-240,-250},{-200,-210}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TAirMix(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature") if have_hotWatCoi
+    final quantity="ThermodynamicTemperature")
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+       or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric
     "Measured mixed air temperature"
     annotation (Placement(transformation(extent={{-400,-330},{-360,-290}}),
         iconTransformation(extent={{-240,-300},{-200,-260}})));
@@ -594,9 +695,9 @@ block Controller "Multizone VAV air handling unit controller"
     final unit="Pa",
     displayUnit="Pa",
     final quantity="PressureDifference")
-    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
-     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
-     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
+    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefDamper
+     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
+     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp)
     "Measured building static pressure difference, relative to ambient (positive if pressurized)"
     annotation (Placement(transformation(extent={{-400,-364},{-360,-324}}),
         iconTransformation(extent={{-240,-330},{-200,-290}})));
@@ -604,7 +705,7 @@ block Controller "Multizone VAV air handling unit controller"
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate")
-    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
     "Measured AHU supply airflow rate"
     annotation (Placement(transformation(extent={{-400,-400},{-360,-360}}),
         iconTransformation(extent={{-240,-360},{-200,-320}})));
@@ -612,24 +713,10 @@ block Controller "Multizone VAV air handling unit controller"
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate")
-    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
     "Measured AHU return airflow rate"
     annotation (Placement(transformation(extent={{-400,-460},{-360,-420}}),
         iconTransformation(extent={{-240,-380},{-200,-340}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCooCoi_actual(
-    final min=0,
-    final max=1,
-    final unit="1")
-    "Actual cooling coil valve position"
-    annotation (Placement(transformation(extent={{-400,-530},{-360,-490}}),
-        iconTransformation(extent={{-240,-430},{-200,-390}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaCoi_actual(
-    final min=0,
-    final max=1,
-    final unit="1") if have_hotWatCoi
-    "Actual heating coil valve position"
-    annotation (Placement(transformation(extent={{-400,-580},{-360,-540}}),
-        iconTransformation(extent={{-240,-450},{-200,-410}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TAirSupSet(
     final unit="K",
     displayUnit="degC",
@@ -668,8 +755,10 @@ block Controller "Multizone VAV air handling unit controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelDam(
     final min=0,
     final max=1,
-    final unit="1") if not ((buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
-     and not have_ahuRelFan) or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.BarometricRelief)
+    final unit="1")
+    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefDamper
+       or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
+       or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp
     "Relief air damper commanded position"
     annotation (Placement(transformation(extent={{360,40},{400,80}}),
         iconTransformation(extent={{200,80},{240,120}})));
@@ -694,9 +783,9 @@ block Controller "Multizone VAV air handling unit controller"
     final unit="1") "Air handler supply fan commanded speed"
     annotation (Placement(transformation(extent={{360,-90},{400,-50}}),
         iconTransformation(extent={{200,-42},{240,-2}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1RetFan
-    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
-     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1RetFan if (buiPreCon ==
+    Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
+     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp)
     "Return fan commanded on"
     annotation (Placement(transformation(extent={{360,-120},{400,-80}}),
         iconTransformation(extent={{200,-70},{240,-30}})));
@@ -704,13 +793,13 @@ block Controller "Multizone VAV air handling unit controller"
     final min=0,
     final max=1,
     final unit="1")
-    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
-     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
+    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
+        or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp)
     "Return fan commanded speed"
     annotation (Placement(transformation(extent={{360,-152},{400,-112}}),
         iconTransformation(extent={{200,-90},{240,-50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1RelFan
-    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1RelFan if buiPreCon ==
+    Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
     "Relief fan commanded on"
     annotation (Placement(transformation(extent={{360,-180},{400,-140}}),
         iconTransformation(extent={{200,-120},{240,-80}})));
@@ -718,64 +807,80 @@ block Controller "Multizone VAV air handling unit controller"
     final min=0,
     final max=1,
     final unit="1")
-    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
     "Relief fan commanded speed"
     annotation (Placement(transformation(extent={{360,-210},{400,-170}}),
         iconTransformation(extent={{200,-140},{240,-100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1RelDam if buiPreCon ==
+    Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
+    "True: 2-position relief damper is commanded open"
+    annotation (Placement(transformation(extent={{360,-250},{400,-210}}),
+        iconTransformation(extent={{200,-170},{240,-130}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCooCoi(
     final min=0,
     final max=1,
-    final unit="1") "Cooling coil valve commanded position"
-    annotation (Placement(transformation(extent={{360,-250},{400,-210}}),
-        iconTransformation(extent={{200,-170},{240,-130}})));
+    final unit="1") if (cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
+     or cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.DXCoil)
+                    "Cooling coil valve commanded position"
+    annotation (Placement(transformation(extent={{360,-290},{400,-250}}),
+        iconTransformation(extent={{200,-210},{240,-170}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaCoi(
     final min=0,
     final max=1,
     final unit="1")
-    if have_hotWatCoi "Heating coil valve commanded position"
-    annotation (Placement(transformation(extent={{360,-280},{400,-240}}),
-        iconTransformation(extent={{200,-200},{240,-160}})));
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+    or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric
+    "Heating coil valve commanded position"
+    annotation (Placement(transformation(extent={{360,-320},{400,-280}}),
+        iconTransformation(extent={{200,-240},{240,-200}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yAla if have_frePro
     "Alarm level"
-    annotation (Placement(transformation(extent={{360,-310},{400,-270}}),
-        iconTransformation(extent={{200,-220},{240,-180}})));
+    annotation (Placement(transformation(extent={{360,-350},{400,-310}}),
+        iconTransformation(extent={{200,-270},{240,-230}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDpBui(
     final unit="Pa",
     displayUnit="Pa",
-    final quantity="PressureDifference") if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
-     and have_ahuRelFan) or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp
+    final quantity="PressureDifference")
+    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
+        and have_ahuRelFan) or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp
     "Building static pressure difference, relative to ambient (positive if pressurized)"
     annotation (Placement(transformation(extent={{360,-400},{400,-360}}),
-        iconTransformation(extent={{200,-250},{240,-210}})));
+        iconTransformation(extent={{200,-300},{240,-260}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dpDisSet(
     final unit="Pa",
     displayUnit="Pa",
     final quantity="PressureDifference")
-    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp
+    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp
     "Return fan discharge static pressure setpoint"
     annotation (Placement(transformation(extent={{360,-440},{400,-400}}),
-        iconTransformation(extent={{200,-290},{240,-250}})));
+        iconTransformation(extent={{200,-330},{240,-290}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yChiWatResReq
+    if cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
     "Chilled water reset request"
     annotation (Placement(transformation(extent={{360,-480},{400,-440}}),
-        iconTransformation(extent={{200,-330},{240,-290}})));
+        iconTransformation(extent={{200,-360},{240,-320}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yChiPlaReq
+    if cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
     "Chiller plant request"
     annotation (Placement(transformation(extent={{360,-510},{400,-470}}),
-        iconTransformation(extent={{200,-370},{240,-330}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatResReq if have_hotWatCoi
+        iconTransformation(extent={{200,-390},{240,-350}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatResReq
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Hot water reset request"
     annotation (Placement(transformation(extent={{360,-560},{400,-520}}),
-        iconTransformation(extent={{200,-410},{240,-370}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatPlaReq if have_hotWatCoi
+        iconTransformation(extent={{200,-420},{240,-380}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatPlaReq
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Hot water plant request"
     annotation (Placement(transformation(extent={{360,-590},{400,-550}}),
         iconTransformation(extent={{200,-450},{240,-410}})));
 
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold freProMod
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Check if it is in freeze protection mode"
     annotation (Placement(transformation(extent={{180,-570},{200,-550}})));
-  Buildings.Controls.OBC.CDL.Integers.Switch intSwi if have_hotWatCoi
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi
+    if heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Hot water plant request"
     annotation (Placement(transformation(extent={{300,-580},{320,-560}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.FreezeProtection frePro(
@@ -783,7 +888,8 @@ block Controller "Multizone VAV air handling unit controller"
     final buiPreCon=buiPreCon,
     final minOADes=minOADes,
     final freSta=freSta,
-    final have_hotWatCoi=have_hotWatCoi,
+    final heaCoi=heaCoi,
+    final cooCoi=cooCoi,
     final minHotWatReq=minHotWatReq,
     final heaCoiCon=freProHeaCoiCon,
     final k=kFrePro,
@@ -794,7 +900,8 @@ block Controller "Multizone VAV air handling unit controller"
     final Thys=Thys) "Freeze protection"
     annotation (Placement(transformation(extent={{180,-220},{200,-180}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.PlantRequests plaReq(
-    final have_hotWatCoi=have_hotWatCoi,
+    final heaCoi=heaCoi,
+    final cooCoi=cooCoi,
     final Thys=Thys,
     final posHys=posHys) "Plant requests"
     annotation (Placement(transformation(extent={{-20,-540},{0,-520}})));
@@ -805,7 +912,6 @@ block Controller "Multizone VAV air handling unit controller"
     final ecoHigLimCon=ecoHigLimCon,
     final ashCliZon=ashCliZon,
     final tit24CliZon=tit24CliZon,
-    final aveTimRan=aveTimRan,
     final minSpe=supFanSpe_min,
     final minOAConTyp=minOAConTyp,
     final kMinOA=kMinOA,
@@ -851,10 +957,13 @@ block Controller "Multizone VAV air handling unit controller"
     final Ti=TiFanSpe,
     final Td=TdFanSpe,
     final maxSpe=supFanSpe_max,
-    final minSpe=supFanSpe_min) "Supply fan speed setpoint"
+    final minSpe=supFanSpe_min,
+    final iniSpe=iniFanSpe)     "Supply fan speed setpoint"
     annotation (Placement(transformation(extent={{-220,500},{-200,520}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.SupplySignals supSig(
-    final have_heaCoi=have_hotWatCoi or have_eleHeaCoi,
+    final have_heaCoi=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric,
+    final have_cooCoi=cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
+         or cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.DXCoil,
     final controllerType=valCon,
     final kTSup=kVal,
     final TiTSup=TiVal,
@@ -884,8 +993,7 @@ block Controller "Multizone VAV air handling unit controller"
     annotation (Placement(transformation(extent={{-80,180},{-60,200}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReliefDamper relDam(
     final dpBuiSet=dpBuiSet,
-    final k=kRelDam)
-    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
+    final k=kRelDam) if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefDamper
     "Relief damper control for AHUs using actuated dampers without fan"
     annotation (Placement(transformation(extent={{-160,-360},{-140,-340}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReturnFanDirectPressure retFanDpCon(
@@ -897,8 +1005,7 @@ block Controller "Multizone VAV air handling unit controller"
     final conTyp=retFanCon,
     final k=kRetFan,
     final Ti=TiRetFan,
-    final Td=TdRetFan)
-    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp
+    final Td=TdRetFan) if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp
     "Return fan control with direct building pressure control, using the minimum outdoor air damper"
     annotation (Placement(transformation(extent={{-160,-480},{-140,-460}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReturnFanAirflowTracking retFanAirTra(
@@ -908,8 +1015,7 @@ block Controller "Multizone VAV air handling unit controller"
     final Ti=TiRetFan,
     final Td=TdRetFan,
     final maxSpe=retFanSpe_max,
-    final minSpe=retFanSpe_min)
-    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+    final minSpe=retFanSpe_min) if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
     "Return fan control for AHUs using return fan with airflow tracking"
     annotation (Placement(transformation(extent={{-160,-410},{-140,-390}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.Title24.AHU tit24OutAirSet(
@@ -924,8 +1030,7 @@ block Controller "Multizone VAV air handling unit controller"
     final relFanSpe_min=relFanSpe_min,
     final dpBuiSet=dpBuiSet,
     final k=kRelFan,
-    final hys=hys)
-    if have_ahuRelFan and buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+    final hys=hys) if have_ahuRelFan and buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
     "Control of relief fan when it is part of AHU"
     annotation (Placement(transformation(extent={{0,-270},{20,-250}})));
 
@@ -954,10 +1059,6 @@ equation
           -527},{340,-490},{380,-490}},     color={255,127,0}));
   connect(plaReq.yHotWatResReq, yHotWatResReq) annotation (Line(points={{2,-533},
           {340,-533},{340,-540},{380,-540}},       color={255,127,0}));
-  connect(plaReq.uCooCoi_actual, uCooCoi_actual) annotation (Line(points={{-22,-533},
-          {-320,-533},{-320,-510},{-380,-510}}, color={0,0,127}));
-  connect(uHeaCoi_actual, plaReq.uHeaCoi_actual) annotation (Line(points={{-380,
-          -560},{-320,-560},{-320,-538},{-22,-538}}, color={0,0,127}));
   connect(ashOutAirSet.effOutAir_normalized, ecoCon.VOutMinSet_flow_normalized)
     annotation (Line(points={{-58,187},{40,187},{40,-21},{60,-21}}, color={0,0,127}));
   connect(ecoCon.dpMinOutDam, dpMinOutDam) annotation (Line(points={{60,-38},{
@@ -1002,29 +1103,29 @@ equation
           404},{152,-217},{178,-217}}, color={0,0,127}));
   connect(frePro.y1EneCHWPum, y1EneCHWPum) annotation (Line(points={{202,-181},{
           280,-181},{280,-10},{380,-10}}, color={255,0,255}));
-  connect(frePro.yRetDam, yRetDam) annotation (Line(points={{202,-185},{250,-185},
+  connect(frePro.yRetDam, yRetDam) annotation (Line(points={{202,-184},{250,-184},
           {250,90},{380,90}}, color={0,0,127}));
-  connect(frePro.yOutDam, yOutDam) annotation (Line(points={{202,-187},{270,-187},
+  connect(frePro.yOutDam, yOutDam) annotation (Line(points={{202,-186},{270,-186},
           {270,30},{380,30}}, color={0,0,127}));
   connect(ecoCon.yMinOutDam, frePro.uMinOutDam) annotation (Line(points={{84,-27},
           {116,-27},{116,-189},{178,-189}}, color={0,0,127}));
-  connect(frePro.yMinOutDam, yMinOutDam) annotation (Line(points={{202,-190},{230,
-          -190},{230,160},{380,160}}, color={0,0,127}));
-  connect(frePro.ySupFan, ySupFan) annotation (Line(points={{202,-197},{300,-197},
+  connect(frePro.yMinOutDam, yMinOutDam) annotation (Line(points={{202,-189},{230,
+          -189},{230,160},{380,160}}, color={0,0,127}));
+  connect(frePro.ySupFan, ySupFan) annotation (Line(points={{202,-196},{300,-196},
           {300,-70},{380,-70}},   color={0,0,127}));
-  connect(frePro.yRetFan, yRetFan) annotation (Line(points={{202,-202},{320,-202},
+  connect(frePro.yRetFan, yRetFan) annotation (Line(points={{202,-201},{320,-201},
           {320,-132},{380,-132}}, color={0,0,127}));
   connect(frePro.yCooCoi, yCooCoi) annotation (Line(points={{202,-210},{310,-210},
-          {310,-230},{380,-230}}, color={0,0,127}));
+          {310,-270},{380,-270}}, color={0,0,127}));
   connect(frePro.yHeaCoi, yHeaCoi) annotation (Line(points={{202,-212},{300,-212},
-          {300,-260},{380,-260}}, color={0,0,127}));
+          {300,-300},{380,-300}}, color={0,0,127}));
   connect(intSwi.y, yHotWatPlaReq)
     annotation (Line(points={{322,-570},{380,-570}}, color={255,127,0}));
   connect(plaReq.yHotWatPlaReq, intSwi.u3) annotation (Line(points={{2,-538},{160,
           -538},{160,-578},{298,-578}}, color={255,127,0}));
   connect(freProMod.y, intSwi.u2) annotation (Line(points={{202,-560},{220,-560},
           {220,-570},{298,-570}}, color={255,0,255}));
-  connect(frePro.yRelFan, yRelFan) annotation (Line(points={{202,-207},{340,-207},
+  connect(frePro.yRelFan, yRelFan) annotation (Line(points={{202,-206},{340,-206},
           {340,-190},{380,-190}}, color={0,0,127}));
   connect(relDam.dpBui, dpBui)
     annotation (Line(points={{-162,-344},{-380,-344}}, color={0,0,127}));
@@ -1038,8 +1139,8 @@ equation
           {-280,-464},{-162,-464}}, color={0,0,127}));
   connect(retFanDpCon.yDpBui, yDpBui) annotation (Line(points={{-138,-462},{160,
           -462},{160,-380},{380,-380}},                color={0,0,127}));
-  connect(retFanDpCon.dpDisSet, dpDisSet) annotation (Line(points={{-138,-472},{
-          310,-472},{310,-420},{380,-420}}, color={0,0,127}));
+  connect(retFanDpCon.dpDisSet, dpDisSet) annotation (Line(points={{-138,-472},
+          {280,-472},{280,-420},{380,-420}},color={0,0,127}));
   connect(u1SupFan, relDam.u1SupFan) annotation (Line(points={{-380,380},{-300,
           380},{-300,-356},{-162,-356}}, color={255,0,255}));
   connect(u1SupFan, retFanAirTra.u1SupFan) annotation (Line(points={{-380,380},{
@@ -1057,7 +1158,7 @@ equation
   connect(retFanDpCon.yRetFan, frePro.uRetFan) annotation (Line(points={{-138,-477},
           {128,-477},{128,-210},{178,-210}}, color={0,0,127}));
   connect(frePro.yAla, yAla) annotation (Line(points={{202,-219},{292,-219},{292,
-          -290},{380,-290}}, color={255,127,0}));
+          -330},{380,-330}}, color={255,127,0}));
   connect(conTSupSet.TAirSupSet, TAirSupSet) annotation (Line(points={{-138,450},
           {120,450},{120,500},{380,500}}, color={0,0,127}));
   connect(tit24OutAirSet.effAbsOutAir_normalized, ecoCon.effAbsOutAir_normalized)
@@ -1098,8 +1199,8 @@ equation
           560},{-240,-57},{60,-57}}, color={255,127,0}));
   connect(ecoCon.y1MinOutDam, frePro.u1MinOutDam) annotation (Line(points={{84,-29},
           {108,-29},{108,-191},{178,-191}},      color={255,0,255}));
-  connect(frePro.y1MinOutDam, y1MinOutDam) annotation (Line(points={{202,-192},{
-          240,-192},{240,130},{380,130}}, color={255,0,255}));
+  connect(frePro.y1MinOutDam, y1MinOutDam) annotation (Line(points={{202,-191},{
+          240,-191},{240,130},{380,130}}, color={255,0,255}));
   connect(retFanDpCon.yRelDam, yRelDam) annotation (Line(points={{-138,-468},{168,
           -468},{168,60},{380,60}},     color={0,0,127}));
   connect(u1RelFan, frePro.u1RelFan) annotation (Line(points={{-380,-240},{112,
@@ -1108,15 +1209,15 @@ equation
           -409},{120,-409},{120,-208},{178,-208}}, color={255,0,255}));
   connect(retFanDpCon.y1RetFan, frePro.u1RetFan) annotation (Line(points={{-138,
           -479},{120,-479},{120,-208},{178,-208}}, color={255,0,255}));
-  connect(frePro.y1RelFan, y1RelFan) annotation (Line(points={{202,-205},{330,-205},
+  connect(frePro.y1RelFan, y1RelFan) annotation (Line(points={{202,-204},{330,-204},
           {330,-160},{380,-160}}, color={255,0,255}));
-  connect(frePro.yFreProSta, freProMod.u) annotation (Line(points={{202,-215},{220,
-          -215},{220,-500},{170,-500},{170,-560},{178,-560}}, color={255,127,0}));
+  connect(frePro.yFreProSta, freProMod.u) annotation (Line(points={{202,-215},{
+          220,-215},{220,-514},{170,-514},{170,-560},{178,-560}}, color={255,127,0}));
   connect(conSupFan.y1SupFan, frePro.u1SupFan) annotation (Line(points={{-198,
           517},{100,517},{100,-203},{178,-203}}, color={255,0,255}));
-  connect(frePro.y1SupFan, y1SupFan) annotation (Line(points={{202,-195},{290,-195},
+  connect(frePro.y1SupFan, y1SupFan) annotation (Line(points={{202,-194},{290,-194},
           {290,-40},{380,-40}}, color={255,0,255}));
-  connect(frePro.y1RetFan, y1RetFan) annotation (Line(points={{202,-200},{310,-200},
+  connect(frePro.y1RetFan, y1RetFan) annotation (Line(points={{202,-199},{310,-199},
           {310,-100},{380,-100}}, color={255,0,255}));
   connect(ecoCon.yEnaMinOut, retFanDpCon.u1MinOutAirDam) annotation (Line(
         points={{84,-23},{122,-23},{122,-160},{-180,-160},{-180,-470},{-162,
@@ -1131,10 +1232,16 @@ equation
           {136,-263},{136,-214},{178,-214}}, color={0,0,127}));
   connect(relFanCon.y1RelFan, frePro.u1RelFan) annotation (Line(points={{22,
           -268},{112,-268},{112,-212},{178,-212}}, color={255,0,255}));
-  connect(relFanCon.yDam, yRelDam) annotation (Line(points={{22,-257},{210,-257},
-          {210,60},{380,60}}, color={0,0,127}));
   connect(conSupFan.ySupFan, ecoCon.uSupFan) annotation (Line(points={{-198,510},
           {-114,510},{-114,-28},{60,-28}}, color={0,0,127}));
+  connect(frePro.yCooCoi, plaReq.uCooCoiSet) annotation (Line(points={{202,-210},
+          {310,-210},{310,-500},{-40,-500},{-40,-533},{-22,-533}}, color={0,0,
+          127}));
+  connect(frePro.yHeaCoi, plaReq.uHeaCoiSet) annotation (Line(points={{202,-212},
+          {300,-212},{300,-490},{-48,-490},{-48,-538},{-22,-538}}, color={0,0,
+          127}));
+  connect(frePro.y1RelDam, y1RelDam) annotation (Line(points={{202,-208},{320,-208},
+          {320,-230},{380,-230}}, color={255,0,255}));
 annotation (
   defaultComponentName="mulAHUCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-440},{200,440}}),
@@ -1195,7 +1302,8 @@ annotation (
           extent={{-196,-70},{-160,-90}},
           textColor={0,0,0},
           textString="TAirRet",
-          visible=ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialDryBulb),
+          visible=(ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialDryBulb
+                or ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulbWithDifferentialDryBulb)),
        Text(
           extent={{-196,-90},{-160,-108}},
           textColor={0,0,0},
@@ -1212,31 +1320,29 @@ annotation (
           extent={{-198,-270},{-158,-288}},
           textColor={0,0,0},
           textString="TAirMix",
-          visible=have_hotWatCoi),
-       Text(extent={{-196,-398},{-112,-420}},
-          textColor={0,0,0},
-          textString="uCooCoi_actual"),
-       Text(extent={{-196,-420},{-112,-440}},
-          textColor={0,0,0},
-          textString="uHeaCoi_actual",
-          visible=have_hotWatCoi),
-       Text(extent={{142,-168},{200,-188}},
+          visible=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+               or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric),
+       Text(extent={{142,-208},{200,-228}},
           textColor={0,0,0},
           textString="yHeaCoi",
-          visible=have_hotWatCoi),
-       Text(extent={{142,-140},{200,-160}},
+          visible=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased),
+       Text(
+          extent={{142,-180},{200,-200}},
           textColor={0,0,0},
-          textString="yCooCoi"),
-       Text(extent={{142,-108},{204,-128}},
+          textString="yCooCoi",
+          visible=(cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
+               or cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.DXCoil)),
+       Text(
+          extent={{142,-108},{204,-128}},
           textColor={0,0,0},
           textString="yRelFan",
-          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan),
+          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan),
        Text(
           extent={{144,-58},{200,-78}},
           textColor={0,0,0},
           textString="yRetFan",
-          visible=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
-                   or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)),
+          visible=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
+               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp)),
        Text(extent={{140,-6},{198,-28}},
           textColor={0,0,0},
           textString="ySupFan"),
@@ -1247,8 +1353,9 @@ annotation (
           extent={{142,112},{202,94}},
           textColor={0,0,0},
           textString="yRelDam",
-          visible=not ((buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
-               and not have_ahuRelFan) or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.BarometricRelief)),
+          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefDamper
+               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
+               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp),
        Text(extent={{140,142},{202,124}},
           textColor={0,0,0},
           textString="yRetDam"),
@@ -1269,20 +1376,24 @@ annotation (
        Text(extent={{-194,340},{-106,320}},
           textColor={255,127,0},
           textString="uZonTemResReq"),
-       Text(extent={{106,-298},{194,-318}},
+       Text(
+          extent={{106,-328},{194,-348}},
           textColor={255,127,0},
-          textString="yChiWatResReq"),
-       Text(extent={{124,-338},{202,-356}},
+          textString="yChiWatResReq",
+          visible=cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased),
+       Text(
+          extent={{124,-358},{202,-376}},
           textColor={255,127,0},
-          textString="yChiPlaReq"),
-       Text(extent={{108,-378},{196,-398}},
+          textString="yChiPlaReq",
+          visible=cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased),
+       Text(extent={{108,-388},{196,-408}},
           textColor={255,127,0},
           textString="yHotWatResReq",
-          visible=have_hotWatCoi),
+          visible=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased),
        Text(extent={{108,-418},{196,-438}},
           textColor={255,127,0},
           textString="yHotWatPlaReq",
-          visible=have_hotWatCoi),
+          visible=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased),
        Text(
           extent={{118,172},{196,152}},
           textColor={255,0,255},
@@ -1298,13 +1409,15 @@ annotation (
           extent={{-196,-148},{-142,-168}},
           textColor={255,0,255},
           textString="u1FreSta",
-          visible=freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_BAS),
+          visible=freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_BAS
+               and have_frePro),
        Text(
           extent={{-196,-188},{-122,-208}},
           textColor={255,0,255},
           textString="u1SofSwiRes",
           visible=(freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
-               or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)),
+               or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
+               and have_frePro),
        Text(
           extent={{112,50},{200,32}},
           textColor={255,0,255},
@@ -1314,32 +1427,32 @@ annotation (
           extent={{-202,-300},{-158,-318}},
           textColor={0,0,0},
           textString="dpBui",
-          visible=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
-               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
-               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)),
+          visible=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefDamper
+               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
+               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp)),
        Text(
           extent={{-196,-352},{-136,-368}},
           textColor={0,0,0},
-          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir,
+          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir,
           textString="VAirRet_flow"),
        Text(
           extent={{-196,-332},{-136,-348}},
           textColor={0,0,0},
-          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir,
+          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir,
           textString="VAirSup_flow"),
        Text(
-          extent={{150,-218},{204,-236}},
+          extent={{150,-268},{204,-286}},
           textColor={0,0,0},
-          visible=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
-               and have_ahuRelFan) or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp,
+          visible=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
+               and have_ahuRelFan) or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp,
           textString="yDpBui"),
        Text(
-          extent={{138,-260},{200,-278}},
+          extent={{138,-300},{200,-318}},
           textColor={0,0,0},
-          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp,
+          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp,
           textString="dpDisSet"),
        Text(
-          extent={{166,-190},{196,-208}},
+          extent={{166,-240},{196,-258}},
           textColor={255,127,0},
           textString="yAla",
           visible=have_frePro),
@@ -1360,19 +1473,24 @@ annotation (
           extent={{134,-36},{202,-56}},
           textColor={255,0,255},
           textString="y1RetFan",
-          visible=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
-                or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)),
+          visible=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
+               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp)),
        Text(
           extent={{134,-86},{202,-106}},
           textColor={255,0,255},
           textString="y1RelFan",
-          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan),
+          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan),
        Text(
           extent={{-198,-218},{-130,-238}},
           textColor={255,0,255},
           textString="u1RelFan",
-          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
-               and not have_ahuRelFan)}),
+          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
+               and not have_ahuRelFan),
+       Text(
+          extent={{130,-138},{198,-158}},
+          textColor={255,0,255},
+          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan,
+          textString="y1RelDam")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-360,-600},{360,600}})),
   Documentation(info="<html>
 <p>
@@ -1488,6 +1606,20 @@ for more detailed description.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 18, 2023, by Jianjun Hu:<br/>
+Removed the connectors <code>uCooCoi_actual</code> and <code>uHeaCoi_actual</code>,
+added 2-position relief damper position output <code>y1RelDam</code>,
+added coil type enumeration so to avoid using flag parameters.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3526\">issue 3526</a>.
+</li>
+<li>
+March 1, 2023, by Michael Wetter:<br/>
+Changed constants from <code>0</code> to <code>0.0</code> and <code>1</code> to <code>1.0</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/pull/3267#issuecomment-1450587671\">#3267</a>.
+</li>
 <li>
 December 15, 2022, by Jianjun Hu:<br/>
 Removed input connectors <code>uRelFan</code> and <code>uSupFanSpe_actual</code>.<br/>

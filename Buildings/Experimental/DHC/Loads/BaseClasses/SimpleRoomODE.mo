@@ -70,11 +70,11 @@ infiltration and ventilation) is assessed from the steady-state energy balance
 at heating nominal conditions as
 </p>
 <p style=\"font-style:italic;\">
-0 = Q&#775;<sub>heating, nom</sub> + G (dT<sub>out, heating, nom</sub> - T<sub>ind, heating, nom</sub>).
+0 = Q&#775;<sub>heating, nom</sub> + G (T<sub>out, heating, nom</sub> - T<sub>ind, heating, nom</sub>).
 </p>
 <p>
-Note that it is important for the model representativeness that
-Q&#775;<sub>heating, nom</sub> be evaluated in close to steady-state conditions
+Note that for model representativeness, it is important
+for Q&#775;<sub>heating, nom</sub> to be evaluated in close to steady-state conditions
 with no internal heat gains and no solar heat gains.
 </p>
 <p>
@@ -91,7 +91,7 @@ G (T<sub>out</sub> - T<sub>ind, set</sub>) +
 Q&#775;<sub>various</sub>,
 </p>
 <p>
-where <i>Q&#775;<sub>various</sub></i> represent the miscellaneous heat gains.
+where <i>Q&#775;<sub>various</sub></i> represents the miscellaneous heat gains.
 The indoor temperature variation rate due to an unmet load is given by
 </p>
 <p style=\"font-style:italic;\">

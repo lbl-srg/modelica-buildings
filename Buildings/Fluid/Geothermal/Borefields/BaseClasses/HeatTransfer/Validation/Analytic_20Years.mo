@@ -32,6 +32,7 @@ model Analytic_20Years
   Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.GroundTemperatureResponse groTemRes(
     tLoaAgg=3600,
     nCel=5,
+    nSeg=12,
     borFieDat=borFieDat,
     forceGFunCalc=true) "Ground temperature response of borehole"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
@@ -104,9 +105,9 @@ Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFa
 </p>
 <h4>References</h4>
 <p>
-Pinel, P. 2003. <i>Am&eacute;lioration, validation et implantation d’un algorithme de calcul
+Pinel, P. 2003. <i>Am&eacute;lioration, validation et implantation d&#8217;un algorithme de calcul
 pour &eacute;valuer le transfert thermique dans les puits verticaux de syst&egrave;mes de pompes &agrave; chaleur g&eacute;othermiques</i>,
-M.A.Sc. Thesis, &Eacute;cole Polytechnique de Montréal.
+M.A.Sc. Thesis, &Eacute;cole Polytechnique de Montr&eacute;al.
 </p>
 </html>", revisions="<html>
 <ul>

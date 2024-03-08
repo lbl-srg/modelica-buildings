@@ -3,17 +3,20 @@ block SupplyFan  "Block to control multi zone VAV AHU supply fan"
 
   parameter Boolean have_perZonRehBox = false
     "Check if there is any VAV-reheat boxes on perimeter zones"
-    annotation(Dialog(group="System configuration"));
+    annotation(__cdl(ValueInReference=false),
+                Dialog(group="System configuration"));
   parameter Real iniSet(
     final unit="Pa",
     final quantity="PressureDifference") = 120
     "Initial setpoint"
-    annotation (Dialog(group="Trim and respond for pressure setpoint"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(group="Trim and respond for pressure setpoint"));
   parameter Real minSet(
     final unit="Pa",
     final quantity="PressureDifference") = 25
     "Minimum setpoint"
-    annotation (Dialog(group="Trim and respond for pressure setpoint"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(group="Trim and respond for pressure setpoint"));
   parameter Real maxSet(
     final unit="Pa",
     final quantity="PressureDifference")
@@ -23,41 +26,50 @@ block SupplyFan  "Block to control multi zone VAV AHU supply fan"
     final unit="s",
     final quantity="Time")= 600
    "Delay time after which trim and respond is activated"
-    annotation (Dialog(group="Trim and respond for pressure setpoint"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(group="Trim and respond for pressure setpoint"));
   parameter Real samplePeriod(
     final unit="s",
     final quantity="Time") = 120  "Sample period"
-    annotation (Dialog(group="Trim and respond for pressure setpoint"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(group="Trim and respond for pressure setpoint"));
   parameter Integer numIgnReq = 2
     "Number of ignored requests"
-    annotation (Dialog(group="Trim and respond for pressure setpoint"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(group="Trim and respond for pressure setpoint"));
   parameter Real triAmo(
     final unit="Pa",
     final quantity="PressureDifference") = -12.0
     "Trim amount"
-    annotation (Dialog(group="Trim and respond for pressure setpoint"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(group="Trim and respond for pressure setpoint"));
   parameter Real resAmo(
     final unit="Pa",
     final quantity="PressureDifference") = 15
     "Respond amount (must be opposite in to triAmo)"
-    annotation (Dialog(group="Trim and respond for pressure setpoint"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(group="Trim and respond for pressure setpoint"));
   parameter Real maxRes(
     final unit="Pa",
     final quantity="PressureDifference") = 32
     "Maximum response per time interval (same sign as resAmo)"
-    annotation (Dialog(group="Trim and respond for pressure setpoint"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(group="Trim and respond for pressure setpoint"));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
-    annotation (Dialog(group="Fan PID controller"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="Fan PID controller"));
   parameter Real k(final unit="1")=0.1
     "Gain of controller, normalized using maxSet"
-    annotation (Dialog(group="Fan PID controller"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="Fan PID controller"));
   parameter Real Ti(
     final unit="s",
     final quantity="Time",
     min=0)=60
     "Time constant of integrator block"
-    annotation (Dialog(group="Fan PID controller",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="Fan PID controller",
       enable=controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PI
          or  controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real Td(
@@ -65,15 +77,22 @@ block SupplyFan  "Block to control multi zone VAV AHU supply fan"
     final quantity="Time",
     final min=0) = 0.1
     "Time constant of derivative block"
-    annotation (Dialog(group="Fan PID controller",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="Fan PID controller",
       enable=controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real maxSpe(min=0.1, max=1, unit="1") = 1
     "Maximum allowed fan speed"
-    annotation (Dialog(group="Fan PID controller"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="Fan PID controller"));
   parameter Real minSpe(min=0.1, max=1, unit="1") = 0.1
     "Lowest allowed fan speed if fan is on"
-    annotation (Dialog(group="Fan PID controller"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="Fan PID controller"));
+  parameter Real iniSpe(min=minSpe, max=1, unit="1") = 0.1
+    "Initial speed when fan is enabled. It has to be greater than the lowest allowed speed"
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="Fan PID controller"));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
    "System operation mode"
@@ -112,21 +131,21 @@ block SupplyFan  "Block to control multi zone VAV AHU supply fan"
     final maxRes=maxRes)
     "Static pressure setpoint reset using trim and respond logic"
     annotation (Placement(transformation(extent={{-130,-60},{-110,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conSpe(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset conSpe(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
     final Td=Td,
     final yMax=maxSpe,
     final yMin=minSpe,
-    final y_reset=minSpe) "Supply fan speed control"
+    final y_reset=iniSpe) "Supply fan speed control"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerSpe(k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zerSpe(k=0)
     "Zero fan speed when it becomes OFF"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     "If fan is OFF, fan speed outputs to zero"
     annotation (Placement(transformation(extent={{80,-90},{100,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Or or1
@@ -135,9 +154,9 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Or or2 if have_perZonRehBox
     "Setback or warmup mode"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or3
+  Buildings.Controls.OBC.CDL.Logical.Or or3
     "Cool-down or setup or occupied mode"
-    annotation (Placement(transformation(extent={{20,90},{40,110}})));
+    annotation (Placement(transformation(extent={{-20,90},{0,110}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
     k=false) if not have_perZonRehBox
     "Constant true"
@@ -177,20 +196,23 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu4
     "Check if current operation mode is warmup mode"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant gaiNor(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant gaiNor(
     final k=maxSet)
     "Gain for normalization of controller input"
     annotation (Placement(transformation(extent={{-130,-100},{-110,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide norPSet
+  Buildings.Controls.OBC.CDL.Reals.Divide norPSet
     "Normalization for pressure set point"
     annotation (Placement(transformation(extent={{-70,-80},{-50,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide norPMea
+  Buildings.Controls.OBC.CDL.Reals.Divide norPMea
     "Normalization of pressure measurement"
     annotation (Placement(transformation(extent={{-70,-120},{-50,-100}})));
   Buildings.Controls.OBC.CDL.Discrete.FirstOrderHold firOrdHol(
     final samplePeriod=samplePeriod)
     "Extrapolation through the values of the last two sampled input signals"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or4
+    "Cool-down or setup or occupied mode"
+    annotation (Placement(transformation(extent={{20,60},{40,80}})));
 
 equation
   connect(or2.y, or1.u2)
@@ -219,13 +241,11 @@ equation
     annotation (Line(points={{42,10},{60,10},{60,62},{78,62}},
       color={255,0,255}));
   connect(intEqu.y, or3.u1)
-    annotation (Line(points={{-38,130},{0,130},{0,108},{18,108}},
-      color={255,0,255}));
-  connect(intEqu2.y, or3.u3)
-    annotation (Line(points={{-38,70},{0,70},{0,92},{18,92}},
+    annotation (Line(points={{-38,130},{-30,130},{-30,100},{-22,100}},
       color={255,0,255}));
   connect(intEqu1.y, or3.u2)
-    annotation (Line(points={{-38,100},{18,100}}, color={255,0,255}));
+    annotation (Line(points={{-38,100},{-30,100},{-30,92},{-22,92}},
+                                                  color={255,0,255}));
   connect(conInt.y, intEqu.u2)
     annotation (Line(points={{-98,130},{-90,130},{-90,122},{-62,122}},
       color={255,127,0}));
@@ -256,9 +276,6 @@ equation
   connect(uOpeMod, intEqu4.u1)
     annotation (Line(points={{-180,120},{-140,120},{-140,150},{-80,150},
       {-80,10},{-62,10}}, color={255,127,0}));
-  connect(or3.y, or1.u1)
-    annotation (Line(points={{42,100},{60,100},{60,70},{78,70}},
-      color={255,0,255}));
   connect(intEqu3.y, or2.u1)
     annotation (Line(points={{-38,40},{18,40}}, color={255,0,255}));
   connect(intEqu4.y, or2.u2)
@@ -281,7 +298,12 @@ equation
           -116},{-72,-116}}, color={0,0,127}));
   connect(firOrdHol.y, norPSet.u1) annotation (Line(points={{-78,-50},{-76,-50},
           {-76,-64},{-72,-64}}, color={0,0,127}));
-
+  connect(intEqu2.y, or4.u1)
+    annotation (Line(points={{-38,70},{18,70}}, color={255,0,255}));
+  connect(or4.y, or1.u1)
+    annotation (Line(points={{42,70},{78,70}}, color={255,0,255}));
+  connect(or3.y, or4.u2) annotation (Line(points={{2,100},{10,100},{10,62},{18,62}},
+        color={255,0,255}));
 annotation (
   defaultComponentName="conSupFan",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{140,160}}),
@@ -293,7 +315,7 @@ annotation (
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Rectangle(
-          extent={{-156,156},{134,-6}},
+          extent={{-158,158},{132,2}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
@@ -399,6 +421,10 @@ that are occupied, etc.).
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 23, 2023, by Jianjun Hu:<br/>
+Added parameter to set the initial fan speed.
+</li>
 <li>
 August 1, 2020, by Jianjun Hu:<br/>
 First implementation.

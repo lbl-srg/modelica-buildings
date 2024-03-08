@@ -260,7 +260,7 @@ control law to compute the input signal <code>y</code>.
 <h4>Assumptions and limitations</h4>
 <p>
 This model requires a medium that has the same computation of the enthalpy as
-<a href=\"Buildings.Media.Water\">
+<a href=\"modelica://Buildings.Media.Water\">
 Buildings.Media.Water</a>,
 which computes
 </p>

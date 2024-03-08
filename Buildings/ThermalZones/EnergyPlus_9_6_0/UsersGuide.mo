@@ -27,14 +27,14 @@ the binaries can be downloaded from the following links:
 </tr>
 <tr>
 <td>Linux</td>
-<td><a href=\"https://spawn.s3.amazonaws.com/builds/Spawn-light-0.3.0-0fa49be497-Linux.tar.gz\">
-https://spawn.s3.amazonaws.com/builds/Spawn-light-0.3.0-0fa49be497-Linux.tar.gz</a>
+<td><a href=\"https://spawn.s3.amazonaws.com/builds/Spawn-light-0.4.3-7048a72798-Linux.tar.gz\">
+https://spawn.s3.amazonaws.com/builds/Spawn-light-0.4.3-7048a72798-Linux.tar.gz</a>
 </td>
 </tr>
 <tr>
 <td>Windows</td>
-<td><a href=\"https://spawn.s3.amazonaws.com/builds/Spawn-light-0.3.0-0fa49be497-win64.zip\">
-https://spawn.s3.amazonaws.com/builds/Spawn-light-0.3.0-0fa49be497-win64.zip</a>
+<td><a href=\"https://spawn.s3.amazonaws.com/builds/Spawn-light-0.4.3-7048a72798-win64.zip\">
+https://spawn.s3.amazonaws.com/builds/Spawn-light-0.4.3-7048a72798-win64.zip</a>
 </td>
 </tr>
 </table>
@@ -51,9 +51,9 @@ To install, proceed as follows:
 Run from a terminal
 </p>
 <pre>
-wget https://spawn.s3.amazonaws.com/builds/Spawn-light-0.3.0-0fa49be497-Linux.tar.gz;
-tar xzf Spawn-light-0.3.0-0fa49be497-Linux.tar.gz;
-export PATH=${PATH}:`pwd`/Spawn-light-0.3.0-0fa49be497-Linux/bin
+wget https://spawn.s3.amazonaws.com/builds/Spawn-light-0.4.3-7048a72798-Linux.tar.gz;
+tar xzf Spawn-light-0.4.3-7048a72798-Linux.tar.gz;
+export PATH=${PATH}:`pwd`/Spawn-light-0.4.3-7048a72798-Linux/bin
 </pre>
 <p>
 and restart your Modelica environment. You may put the last line in your <code>${HOME}/.bashrc</code> file
@@ -69,10 +69,10 @@ to make the setting persistent when you log in the next time.
 Download the binary from the link above.
 </li>
 <li>
-Unzip <code>Spawn-light-0.3.0-0fa49be497-win64.zip</code> at your desired location.
+Unzip <code>Spawn-light-0.4.3-7048a72798-win64.zip</code> at your desired location.
 </li>
 <li>
-Add the directory <code>xyz/Spawn-light-0.3.0-0fa49be497-win64/bin</code>
+Add the directory <code>xyz/Spawn-light-0.4.3-7048a72798-win64/bin</code>
 to your <code>PATH</code> environment variable.
 </li>
 <li>
@@ -85,17 +85,17 @@ Restart your Modelica environment.
 
 <h4>How is spawn invoked?</h4>
 <p>
-Modelica tries to invoke <code>spawn-0.3.0-0fa49be497[.exe]</code> in this order:
+Modelica tries to invoke <code>spawn-0.4.3-7048a72798[.exe]</code> in this order:
 </p>
 <ol>
 <li>
 On Linux, it searches for
 <pre>
-Buildings[ x.y.z]/Resources/bin/spawn-0.3.0-0fa49be497/linux64/bin/spawn-0.3.0-0fa49be497
+Buildings[ x.y.z]/Resources/bin/spawn-0.4.3-7048a72798/linux64/bin/spawn-0.4.3-7048a72798
 </pre>
 and on Windows, it searches for
 <pre>
-Buildings[ x.y.z]/Resources/bin/spawn-0.3.0-0fa49be497/win64/bin/spawn-0.3.0-0fa49be497.exe
+Buildings[ x.y.z]/Resources/bin/spawn-0.4.3-7048a72798/win64/bin/spawn-0.4.3-7048a72798.exe
 </pre>
 where <code>Buildings[ x.y.z]</code> is the installation folder of the Modelica Buildings Library.
 This file is distributed with the Modelica Buildings Library installation,
@@ -103,11 +103,11 @@ together with all files needed to translate and simulate a model in a Modelica e
 </li>
 <li>
 If not found, it searches on the environment variable <code>SPAWNPATH</code> for
-<code>spawn-0.3.0-0fa49be497[.exe]</code>.
+<code>spawn-0.4.3-7048a72798[.exe]</code>.
 </li>
 <li>
 If not found, it searches on the environment variable <code>PATH</code> for
-<code>spawn-0.3.0-0fa49be497[.exe]</code>.
+<code>spawn-0.4.3-7048a72798[.exe]</code>.
 </li>
 </ol>
 <p>
@@ -261,14 +261,18 @@ In the first model, cooling is controlled based on the surface temperature, and 
 based on the room temperature.
 </li>
 <li>
-  <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer\">
-  Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer</a>
-  illustrates how to couple a radiant slab for heating in a configuration in which the
-  bottom of the slab is connected to a ground heat transfer model in Modelica.
-  Heating is provided with a geothermal heat pump that is connected to a borehole heat exchanger.
-  </li>
-  
-  </ol>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer\">
+Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer</a>
+illustrates how to couple a radiant slab for heating in a configuration in which the
+bottom of the slab is connected to a ground heat transfer model in Modelica.
+Heating is provided with a geothermal heat pump that is connected to a borehole heat exchanger.
+</li>
+<li>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Radiator\">
+Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Radiator</a>
+shows how to couple a radiator to a thermal zone.
+</li>
+</ol>
 </html>"));
   end GettingStarted;
 
@@ -476,21 +480,14 @@ in the same way as a conventional EnergyPlus simulation.
 </li>
 <li>
 <p>
-The first day of the simulation is repeated until the minimum and maximum air temperatures
-during the warmup day remain nearly the same between two successive iterations.
+The first day of the simulation is repeated, but Spawn uses a different criteria for stopping
+the iteration compared to a conventional EnergyPlus simulation. In EnergyPlus, the first day is repeated
+until the zone air temperature reaches a periodic steady state as indicated by the minimum and maximum temperatures
+for the warmup day stablizing. In Spawn, the exit criteria is similarly based on reaching a periodic steady state,
+however Spawn exits warmup when the surface temperatures stabilize instead of the air temperature.
 </p>
 </li>
 </ol>
-<p>
-The Spawn warmup procedure is still invoked even if there are no unconnected zones defined in the model.
-However, in this case the warmup convergence criteria will be met after only two iterations of the warmup day
-because all zone temperature and humidity values are fixed to the initial values defined in Modelica.
-It is possible for startup transients to still exist after Spawn warmup due thermal mass
-in the wall materials not being fully exposed to the surface boundary conditions
-defined by the outdoor environment and the initial zone air conditions.
-A future enhancement may define a new warmup convergence criteria that takes into account
-the internal wall temperatures.
-</p>
 </html>"));
   end EnergyPlusWarmUp;
 
@@ -584,6 +581,12 @@ for how to install EnergyPlus and how EnergyPlus is invoked.
 </p>
 <h4>References</h4>
 <ul>
+<li>
+Michael Wetter, Kyle Benne, Hubertus Tummescheit and Christian Winther.<br/>
+<a href=\"https://doi.org/10.1080/19401493.2023.2266414\">
+Spawn: coupling Modelica Buildings Library and EnergyPlus to enable new energy system and control applications.</a><br/>
+Journal of Building Performance Simulation. P. 1-19. 2023.
+</li>
 <li>
 Michael Wetter, Kyle Benne, Antoine Gautier, Thierry S. Nouidui,
 Agnes Ramle, Amir Roth, Hubertus Tummescheit, Stuart Mentzer and Christian Winther.<br/>

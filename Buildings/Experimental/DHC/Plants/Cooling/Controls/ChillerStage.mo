@@ -71,7 +71,7 @@ model ChillerStage
     "Condition of transition from one chiller to off"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
       rotation=90,origin={40,60})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis thrOneToTwo(uLow=-staDowThr/
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis thrOneToTwo(uLow=-staDowThr/
         QChi_nominal, uHigh=-staUpThr/QChi_nominal)
                     "Threshold of turning two chillers on"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));

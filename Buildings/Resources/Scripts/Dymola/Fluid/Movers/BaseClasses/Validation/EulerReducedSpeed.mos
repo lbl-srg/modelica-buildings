@@ -1,0 +1,20 @@
+simulateModel("Buildings.Fluid.Movers.BaseClasses.Validation.EulerReducedSpeed",
+  method="Dassl",
+  tolerance=1e-06, 
+  resultFile="EulerReducedSpeed");
+// Plot commands
+createPlot(
+ id=1,
+ position={53, 37, 881, 372},
+ y={"pow1", "eff1.WHyd", "pow2", "eff2.WHyd", "pow3", "eff3.WHyd"},
+ range={0.0, 1.0, 0.0, 14000.0},
+ grid=true,
+ legends={"Measured y=1", "Euler", "Measured y=0.83", "Euler", "Measured y=0.61", "Euler"},
+ leftTitleType=2,
+ leftTitle="Hydraulic Work [W]",
+ colors={{238,46,47}, {238,46,47}, {28,108,200}, {28,108,200}, {0,140,72}, {0,140,72}},
+ patterns={LinePattern.Dash, LinePattern.Solid, LinePattern.Solid,
+           LinePattern.Dash, LinePattern.Solid, LinePattern.Dash},
+ thicknesses={0.5, 0.5, 0.5, 0.5, 0.5, 0.5},
+ timeUnit="s",
+ displayUnits={"W", "W", "W", "W", "W", "W"});

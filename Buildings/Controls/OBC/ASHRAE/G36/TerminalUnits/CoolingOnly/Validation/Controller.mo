@@ -8,7 +8,6 @@ model Controller
     final VPopBreZon_flow=0.005,
     final VMin_flow=0.5,
     final VCooMax_flow=1.5,
-    final have_preIndDam=true,
     final staPreMul=1,
     final floHys=0.01,
     final looHys=0.01,
@@ -16,13 +15,13 @@ model Controller
     final VOccMin_flow=0,
     final VAreMin_flow=0) "Cooling only unit controller"
     annotation (Placement(transformation(extent={{100,-10},{120,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TZon(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin TZon(
     final freqHz=1/86400,
     final amplitude=4,
     final offset=299.15)
     "Zone temperature"
     annotation (Placement(transformation(extent={{-120,150},{-100,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp disAirTem(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp disAirTem(
     final height=2,
     final duration=43200,
     final offset=273.15 + 15,
@@ -35,11 +34,11 @@ model Controller
     final shift=43200)
     "Window opening status"
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant cooSet(
     final k=273.15 + 24)
     "Zone cooling setpoint temperature"
     annotation (Placement(transformation(extent={{-80,130},{-60,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant heaSet(
     final k=273.15 + 20)
     "Zone heating setpoint temperature"
     annotation (Placement(transformation(extent={{-120,110},{-100,130}})));
@@ -48,7 +47,7 @@ model Controller
     final period=43200,
     final shift=28800) "Occupancy status"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp opeMod(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp opeMod(
     final offset=1,
     final height=2,
     final duration=28800,
@@ -58,27 +57,27 @@ model Controller
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt2
     "Convert real to integer"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Round round2(
+  Buildings.Controls.OBC.CDL.Reals.Round round2(
     final n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine CO2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin CO2(
     final amplitude=400,
     final freqHz=1/28800,
     final offset=600) "CO2 concentration"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp supAirTem(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp supAirTem(
     final height=2,
     final duration=43200,
     final offset=273.15 + 14)
     "Supply air temperature from air handling unit"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine VDis_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin VDis_flow(
     final offset=1.2,
     final amplitude=0.6,
     final freqHz=1/28800) "Discharge airflow rate"
     annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp oveFlo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp oveFlo(
     final height=2,
     final duration=10000,
     final startTime=35000)
@@ -87,11 +86,11 @@ model Controller
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1
     "Convert real to integer"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Round round1(
+  Buildings.Controls.OBC.CDL.Reals.Round round1(
     final n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp oveDam(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp oveDam(
     final height=2,
     final duration=5000,
     startTime=60000) "Override damper position"
@@ -99,7 +98,7 @@ model Controller
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt3
     "Convert real to integer"
     annotation (Placement(transformation(extent={{-40,-120},{-20,-100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Round round3(
+  Buildings.Controls.OBC.CDL.Reals.Round round3(
     final n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-80,-120},{-60,-100}})));
@@ -108,12 +107,11 @@ model Controller
     final period=73200,
     final shift=18800) "Supply fan status"
     annotation (Placement(transformation(extent={{-80,-170},{-60,-150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant CO2Set(final k=894)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant CO2Set(final k=894)
     "CO2 concentration setpoint"
     annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
-    annotation (Placement(transformation(extent={{-20,90},{0,110}})));
-
+  Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
+    annotation (Placement(transformation(extent={{-40,90},{-20,110}})));
 equation
   connect(TZon.y, cooBoxCon.TZon) annotation (Line(points={{-98,160},{60,160},{60,
           28},{98,28}}, color={0,0,127}));
@@ -154,10 +152,10 @@ equation
           -160},{64,-8},{98,-8}}, color={255,0,255}));
   connect(CO2Set.y, cooBoxCon.ppmCO2Set) annotation (Line(points={{-98,30},{36,30},
           {36,15},{98,15}}, color={0,0,127}));
-  connect(winSta.y, not1.u)
-    annotation (Line(points={{-58,100},{-22,100}}, color={255,0,255}));
-  connect(not1.y, cooBoxCon.u1Win) annotation (Line(points={{2,100},{48,100},{48,
-          21},{98,21}}, color={255,0,255}));
+  connect(winSta.y, not2.u)
+    annotation (Line(points={{-58,100},{-42,100}}, color={255,0,255}));
+  connect(not2.y, cooBoxCon.u1Win) annotation (Line(points={{-18,100},{48,100},{
+          48,21},{98,21}}, color={255,0,255}));
 annotation (
   experiment(StopTime=86400, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/TerminalUnits/CoolingOnly/Validation/Controller.mos"

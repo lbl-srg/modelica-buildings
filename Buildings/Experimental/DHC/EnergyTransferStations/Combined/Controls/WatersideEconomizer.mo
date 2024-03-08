@@ -50,7 +50,7 @@ model WatersideEconomizer
     "Secondary valve control signal"
     annotation (Placement(transformation(extent={{180,-60},{220,-20}}),
       iconTransformation(extent={{100,-70},{140,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addDelTem(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addDelTem(
     final p=dTEna)
     "Add threshold for enabling WSE"
     annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
@@ -64,9 +64,9 @@ model WatersideEconomizer
     annotation (Placement(transformation(extent={{50,30},{70,50}})));
   Modelica.StateGraph.TransitionWithSignal dis "Transition to disabled state"
     annotation (Placement(transformation(extent={{90,30},{110,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract delT1 "Add delta-T"
+  Buildings.Controls.OBC.CDL.Reals.Subtract delT1 "Add delta-T"
     annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold delTemDis(t=dTDis)
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold delTemDis(t=dTDis)
     "Compare to threshold for disabling WSE"
     annotation (Placement(transformation(extent={{-50,-110},{-30,-90}})));
   PredictLeavingTemperature calTemLvg(
@@ -74,7 +74,7 @@ model WatersideEconomizer
     final m2_flow_nominal=m2_flow_nominal)
     "Compute predicted leaving water temperature"
     annotation (Placement(transformation(extent={{-140,-50},{-120,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Less delTemDis1
+  Buildings.Controls.OBC.CDL.Reals.Less delTemDis1
     "Compare to threshold for enabling WSE"
     annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(
@@ -84,17 +84,17 @@ model WatersideEconomizer
     annotation (Placement(transformation(extent={{140,-50},{160,-30}})));
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot "Root of state graph"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant min1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant min1(
     final k=y1Min)
     "Minimum signal"
     annotation (Placement(transformation(extent={{-10,130},{10,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line lin
+  Buildings.Controls.OBC.CDL.Reals.Line lin
     "Linear variation bounded by minimum and 1"
     annotation (Placement(transformation(extent={{60,90},{80,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swiOff1
+  Buildings.Controls.OBC.CDL.Reals.Switch swiOff1
     "Output zero if cooling not enabled or isolation valve open (cold rejection)"
     annotation (Placement(transformation(extent={{100,150},{120,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0) "Zero"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(final k=0) "Zero"
     annotation (Placement(transformation(extent={{60,130},{80,150}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uCoo
     "Cooling enable signal"
@@ -122,7 +122,7 @@ model WatersideEconomizer
   Buildings.Controls.OBC.CDL.Logical.And and2
     "Cooling disabled or temperature criterion verified"
     annotation (Placement(transformation(extent={{70,-102},{90,-82}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold isValIsoEvaClo(
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold isValIsoEvaClo(
     final t=1E-6, h=0.5E-6)
     "True if valve closed"
     annotation (Placement(transformation(extent={{-140,-170},{-120,-150}})));
@@ -134,13 +134,13 @@ model WatersideEconomizer
     annotation (Placement(transformation(extent={{-50,-150},{-30,-130}})));
   Buildings.Controls.OBC.CDL.Logical.And and1 "Cooling disabled or temperature criterion verified"
     annotation (Placement(transformation(extent={{-90,150},{-70,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter nor2(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter nor2(
     k=1/m2_flow_nominal) "Normalize"
     annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swiOff2
+  Buildings.Controls.OBC.CDL.Reals.Switch swiOff2
     "Switch between enabled and disabled mode"
     annotation (Placement(transformation(extent={{140,90},{160,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(final k=1) "One"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one(final k=1) "One"
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
 equation
   connect(T2WatEnt, delT1.u1)

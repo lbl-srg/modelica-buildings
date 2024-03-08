@@ -26,7 +26,7 @@ model ChilledWaterBypass
     "Bypass valve opening ratio"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset
                                        bypValCon(
     controllerType=controllerType,
     final k=k,

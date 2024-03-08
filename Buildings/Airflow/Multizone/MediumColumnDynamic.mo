@@ -75,10 +75,10 @@ model MediumColumnDynamic
 
 equation
   connect(colBot.port_a, vol.ports[1]) annotation (Line(
-      points={{0,-40},{0,-40},{0,-2},{-10,-2}},
+      points={{0,-40},{0,-40},{0,-1},{-10,-1}},
       color={0,127,255}));
   connect(vol.ports[2], colTop.port_b) annotation (Line(
-      points={{-10,2},{0,2},{0,40},{0,40}},
+      points={{-10,1},{0,1},{0,40},{0,40}},
       color={0,127,255}));
   connect(colTop.port_a, port_a) annotation (Line(
       points={{0,60},{0,80},{0,80},{0,100}},
@@ -109,45 +109,23 @@ equation
           fillColor={255,0,0},
           fillPattern=FillPattern.Solid,
           textString="h=%h"),
-        Rectangle(
-          visible=densitySelection == Buildings.Airflow.Multizone.Types.densitySelection.fromTop,
-          extent={{-16,78},{16,-2}},
-          fillColor={85,170,255},
-          fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None,
-          lineColor={0,0,0}),
         Text(
           extent={{-50.5,20.5},{50.5,-20.5}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           origin={-72.5,-12.5},
           rotation=90,
           textString="%name"),
         Rectangle(
-          visible=densitySelection == Buildings.Airflow.Multizone.Types.densitySelection.actual,
-          extent={{-16,80},{16,54}},
-          fillColor={85,170,255},
-          fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None,
-          lineColor={0,0,0}),
-        Rectangle(
-          visible=densitySelection == Buildings.Airflow.Multizone.Types.densitySelection.fromBottom,
-          extent={{-16,0},{16,-82}},
-          fillColor={85,170,255},
-          fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None,
-          lineColor={0,0,0}),
-        Rectangle(
-          visible=densitySelection == Buildings.Airflow.Multizone.Types.densitySelection.actual,
-          extent={{-16,-55},{16,-80}},
-          fillColor={85,170,255},
+          extent={{-16,80},{16,-80}},
+          fillColor={0,66,132},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
           lineColor={0,0,0}),
         Ellipse(
           extent={{-40,40},{40,-40}},
-          lineColor={0,0,0},
           fillPattern=FillPattern.Sphere,
-          fillColor={0,128,255}),
+          fillColor={0,128,255},
+          pattern=LinePattern.None),
         Line(
           visible=use_HeatTransfer,
           points={{-90,0},{-40,0}},
@@ -181,6 +159,12 @@ at the top of the column.
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 27, 2024, by Michael Wetter:<br/>
+Removed wrong annotation that used a non-existent parameter.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1842\">#1842</a>.
+</li>
 <li>
 March 7, 2022, by Michael Wetter:<br/>
 Set <code>final massDynamics=energyDynamics</code>.<br/>

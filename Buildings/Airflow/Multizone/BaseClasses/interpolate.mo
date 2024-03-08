@@ -21,29 +21,22 @@ algorithm
     end if;
   end for;
 
-  // Extrapolate or interpolate the data
-  if i == 1 then
-    z:=yd[1]+(u-xd[1])*(yd[2]-yd[1])/(xd[2]-xd[1]); //Interpolate linearly between first and second point
-  elseif i == (size(xd, 1) - 1) then
-    z:=yd[end-1]+(u-xd[end-1])*(yd[end]-yd[end-1])/(xd[end]-xd[end-1]); //Interpolate linearly between last and second-to-last point.
+  z :=Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
+      x=u,
+      x1=xd[i],
+      x2=xd[i + 1],
+      y1=yd[i],
+      y2=yd[i + 1],
+      y1d=d[i],
+      y2d=d[i + 1]);
 
-  else
-    z :=Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
-        x=u,
-        x1=xd[i],
-        x2=xd[i + 1],
-        y1=yd[i],
-        y2=yd[i + 1],
-        y1d=d[i],
-        y2d=d[i + 1]);
-  end if;
-
-  annotation (
+  annotation (smoothOrder = 1,
     Documentation(info="<html>
 <p>
 This function returns the value on a cubic hermite spline through the given support points
 and provided spline derivatives at these points with monotonically increasing values.
-The last 2 points in the table are linearly interpolated.
+Outside the provided support points, the function returns a linear extrapolation with
+the same slope as the cubic spline has at the respective support point.
 </p>
 <p>
 A similar model is also used in the CONTAM software (Dols and Walton, 2015).
@@ -66,6 +59,12 @@ National Institute of Standards and Technology, NIST TN 1887, Sep. 2015. doi:
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+February 26, 2024, by Hongxiang Fu:<br/>
+Correct implementation to make it smooth.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1840\">IBPSA, #1840</a>.
+</li>
 <li>
 February 2, 2022, by Michael Wetter:<br/>
 Revised implementation.<br/>

@@ -3,6 +3,9 @@ model GroundTemperatureResponse "Model calculating discrete load aggregation"
   parameter Modelica.Units.SI.Time tLoaAgg(final min=Modelica.Constants.eps)=
     3600 "Time resolution of load aggregation";
   parameter Integer nCel(min=1)=5 "Number of cells per aggregation level";
+  parameter Integer nSeg=12
+    "Number of segments per borehole for g-function calculation";
+  parameter Integer nClu=5 "Number of clusters for g-function calculation";
   parameter Boolean forceGFunCalc = false
     "Set to true to force the thermal response to be calculated at the start instead of checking whether it has been pre-computed";
   parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Template borFieDat
@@ -19,9 +22,6 @@ model GroundTemperatureResponse "Model calculating discrete load aggregation"
         iconTransformation(extent={{-120,-10},{-100,10}})));
 
 protected
-  constant Integer nSegMax = 1500 "Max total number of segments in g-function calculation";
-  final parameter Integer nSeg = integer(if 12*borFieDat.conDat.nBor<nSegMax then 12 else floor(nSegMax/borFieDat.conDat.nBor))
-    "Number of segments per borehole for g-function calculation";
   constant Integer nTimSho = 26 "Number of time steps in short time region";
   constant Integer nTimLon = 50 "Number of time steps in long time region";
   constant Real ttsMax = exp(5) "Maximum non-dimensional time for g-function calculation";
@@ -38,6 +38,7 @@ protected
       rBor=borFieDat.conDat.rBor,
       aSoi=borFieDat.soiDat.aSoi,
       nSeg=nSeg,
+      nClu=nClu,
       nTimSho=nTimSho,
       nTimLon=nTimLon,
       ttsMax=ttsMax) "String with encrypted g-function arguments";
@@ -114,6 +115,7 @@ initial equation
       aSoi=borFieDat.soiDat.aSoi,
       kSoi=borFieDat.soiDat.kSoi,
       nSeg=nSeg,
+      nClu=nClu,
       nTimSho=nTimSho,
       nTimLon=nTimLon,
       nTimTot=nTimTot,
@@ -331,8 +333,20 @@ Ph.D. Thesis, &Eacute;cole Polytechnique de Montr&eacute;al.
 <p>
 Claesson, J. and Javed, S. 2012. <i>A load-aggregation method to calculate extraction temperatures of borehole heat exchangers</i>. ASHRAE Transactions 118(1): 530-539.
 </p>
+<p>
+Prieto, C. and Cimmino, M. 2021. <i>Thermal interactions in large irregular
+fields of geothermal boreholes: the method of equivalent boreholes</i>. Journal
+of Building Performance Simulation 14(4): 446-460.
+<a href=\"https://doi.org/10.1080/19401493.2021.1968953\">
+doi:10.1080/19401493.2021.1968953</a>.
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 9, 2022 by Massimo Cimmino:<br/>
+Updated the function to use the more efficient method of Prieto and Cimmino
+(2021).
+</li>
 <li>
 August 30, 2018, by Michael Wetter:<br/>
 Refactored model to compute the temperature difference relative to the initial temperature,

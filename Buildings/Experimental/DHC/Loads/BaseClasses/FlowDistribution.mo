@@ -8,15 +8,6 @@ model FlowDistribution
     "Types of distribution system";
   import Type_ctr=Buildings.Experimental.DHC.Loads.BaseClasses.Types.PumpControlType
     "Types of distribution pump control";
-  replaceable parameter Buildings.Fluid.Movers.Data.Generic per(
-    pressure(
-      V_flow=m_flow_nominal/rho_default .* {0,1,2},
-      dp=dp_nominal .* {1.5,1,0.5}),
-    motorCooledByFluid=false)
-    constrainedby Buildings.Fluid.Movers.Data.Generic
-    "Record with performance data"
-    annotation (choicesAllMatching=true,
-      Placement(transformation(extent={{70,-100},{90,-80}})));
   parameter Integer nPorts_a1=0
     "Number of terminal units return ports"
     annotation (Dialog(connectorSizing=true),Evaluate=true);
@@ -146,7 +137,7 @@ model FlowDistribution
     annotation (Placement(transformation(extent={{100,60},{140,100}}),
       iconTransformation(extent={{100,-90},{120,-70}})));
   // COMPONENTS
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum sumMasFloReq(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum sumMasFloReq(
     final k=fill(
       1,
       nUni),
@@ -165,7 +156,7 @@ model FlowDistribution
     final nPorts=nUni)
     "Sink for terminal units return flow rate"
     annotation (Placement(transformation(extent={{-60,190},{-80,210}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum Q_flowSum(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum Q_flowSum(
     final nin=nUni)
     "Total heat flow rate"
     annotation (Placement(transformation(extent={{-50,130},{-30,150}})));
@@ -284,41 +275,20 @@ model FlowDistribution
       final unit="1")=spePum_nominal)
     "Pump speed (fractional)"
     annotation (Placement(transformation(extent={{10,10},{-10,-10}},rotation=180,origin={-80,80})));
-  Buildings.Fluid.Movers.FlowControlled_m_flow pumFlo(
+  Buildings.Fluid.Movers.Preconfigured.FlowControlled_m_flow pumFlo(
     redeclare final package Medium=Medium,
-    per(
-      pressure(
-        final V_flow = per.pressure.V_flow,
-        final dp = per.pressure.dp),
-      final hydraulicEfficiency=per.hydraulicEfficiency,
-      final motorEfficiency=per.motorEfficiency,
-      final motorCooledByFluid=per.motorCooledByFluid,
-      final speed_nominal=per.speed_nominal,
-      final constantSpeed=per.constantSpeed,
-      final speeds=per.speeds,
-      final power=per.power),
-    final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=dp_nominal,
+    final allowFlowReversal=allowFlowReversal,
     addPowerToMedium=false,
-    nominalValuesDefineDefaultPressureCurve=true,
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) if have_pum and typCtr <> Type_ctr.ConstantSpeed
     "Distribution pump with prescribed mass flow rate"
     annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
-  Buildings.Fluid.Movers.SpeedControlled_y pumSpe(
+  Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y pumSpe(
     redeclare final package Medium=Medium,
-    per(
-      pressure(
-        final V_flow=per.pressure.V_flow,
-        final dp=per.pressure.dp),
-      final hydraulicEfficiency=per.hydraulicEfficiency,
-      final motorEfficiency=per.motorEfficiency,
-      final motorCooledByFluid=per.motorCooledByFluid,
-      final speed_nominal=per.speed_nominal,
-      final constantSpeed=per.constantSpeed,
-      final speeds=per.speeds,
-      final power=per.power),
+    final m_flow_nominal=m_flow_nominal,
+    final dp_nominal=dp_nominal,
     final allowFlowReversal=allowFlowReversal,
     addPowerToMedium=false,
     use_inputFilter=false,
@@ -673,6 +643,13 @@ src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Loads/FlowDistribut
 </html>",
       revisions="<html>
 <ul>
+<li>
+August 30, 2022, by Hongxiang Fu:<br/>
+Swapped the pump models for preconfigured versions and removed the pump curve
+record <code>per</code>.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3099\">#3099</a>.
+</li>
 <li>
 December 12, 2021, by Michael Wetter:<br/>
 Added parameter assignment for <code>pumFlo.per.V_flow</code> and <code>pumFlo.per.pressure</code>.

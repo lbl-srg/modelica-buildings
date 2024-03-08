@@ -43,7 +43,7 @@ model Chiller
     nPorts=2)
     "Condenser water boundary conditions"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-110,-62})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatSupSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatSupSet(
     k=7+273.15,
     y(final unit="K",
       displayUnit="degC"))
@@ -109,19 +109,19 @@ equation
   connect(chi.port_bHeaWat,senTHeaWatSup.port_a)
     annotation (Line(points={{-10,-56},{-40,-56},{-40,-40},{-70,-40}},color={0,127,255}));
   connect(senTHeaWatSup.port_b,conWat.ports[1])
-    annotation (Line(points={{-90,-40},{-100,-40},{-100,-60}},color={0,127,255}));
+    annotation (Line(points={{-90,-40},{-100,-40},{-100,-63}},color={0,127,255}));
   connect(evaWat.ports[1],senTChiWatSup.port_b)
-    annotation (Line(points={{100,-60},{100,-40},{80,-40}},color={0,127,255}));
+    annotation (Line(points={{100,-63},{100,-40},{80,-40}},color={0,127,255}));
   connect(senTChiWatSup.port_a,chi.port_bChiWat)
     annotation (Line(points={{60,-40},{40,-40},{40,-56},{10,-56}},color={0,127,255}));
   connect(conWat.ports[2],senTHeaWatRet.port_a)
-    annotation (Line(points={{-100,-64},{-100,-80},{-90,-80}},color={0,127,255}));
+    annotation (Line(points={{-100,-61},{-100,-80},{-90,-80}},color={0,127,255}));
   connect(senTHeaWatRet.port_b,chi.port_aHeaWat)
     annotation (Line(points={{-70,-80},{-40,-80},{-40,-68},{-10,-68}},color={0,127,255}));
   connect(chi.port_aChiWat,senTChiWatRet.port_b)
     annotation (Line(points={{10,-68},{40,-68},{40,-80},{60,-80}},color={0,127,255}));
   connect(senTChiWatRet.port_a,evaWat.ports[2])
-    annotation (Line(points={{80,-80},{100,-80},{100,-64}},color={0,127,255}));
+    annotation (Line(points={{80,-80},{100,-80},{100,-61}},color={0,127,255}));
   connect(uCoo.y,chi.uCoo)
     annotation (Line(points={{-99,80},{-24,80},{-24,-60},{-12,-60}},color={255,0,255}));
   connect(uHea.y,chi.uHea)

@@ -247,25 +247,25 @@ block Controller
   parameter Real outDamPhyPosMax(
     final min=0,
     final max=1,
-    final unit="1") = 1
+    final unit="1") = 1.0
     "Physically fixed maximum position of the outdoor air damper"
     annotation(Dialog(tab="Economizer", group="Commissioning"));
   parameter Real outDamPhyPosMin(
     final min=0,
     final max=1,
-    final unit="1") = 0
+    final unit="1") = 0.0
     "Physically fixed minimum position of the outdoor air damper"
     annotation(Dialog(tab="Economizer", group="Commissioning"));
   parameter Real retDamPhyPosMax(
     final min=0,
     final max=1,
-    final unit="1") = 1
+    final unit="1") = 1.0
     "Physically fixed maximum position of the return air damper"
     annotation(Dialog(tab="Economizer", group="Commissioning"));
   parameter Real retDamPhyPosMin(
     final min=0,
     final max=1,
-    final unit="1") = 0
+    final unit="1") = 0.0
     "Physically fixed minimum position of the return air damper"
     annotation(Dialog(tab="Economizer", group="Commissioning"));
   parameter Boolean cooAdj=false
@@ -527,7 +527,7 @@ block Controller
     final yCooMax=yCooMax)
     "Supply air set point and fan signal for single zone VAV system"
     annotation (Placement(transformation(extent={{40,180},{60,200}})));
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset cooPI(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset cooPI(
     final reverseActing=false,
     final controllerType=controllerTypeCoo,
     final k=kCoo,
@@ -535,14 +535,14 @@ block Controller
     final Td=TdCoo)
     "Zone cooling control signal"
     annotation (Placement(transformation(extent={{-40,150},{-20,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset heaPI(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset heaPI(
     final controllerType=controllerTypeHea,
     final k=kHea,
     final Ti=TiHea,
     final Td=TdHea)
     "Zone heating control signal"
     annotation (Placement(transformation(extent={{-80,210},{-60,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Average ave
+  Buildings.Controls.OBC.CDL.Reals.Average ave
     "Average of zone heating and cooling setpoint"
     annotation (Placement(transformation(extent={{-40,190},{-20,210}})));
   Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Economizers.Controller
@@ -610,7 +610,7 @@ block Controller
     final k=false) if not have_winSen
     "Window status"
     annotation (Placement(transformation(extent={{-180,-140},{-160,-120}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold havOcc(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold havOcc(
     final t=0.5) if have_occSen "Check if there is occupant"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
 
@@ -981,6 +981,12 @@ Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Mod
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 1, 2023, by Michael Wetter:<br/>
+Changed constants from <code>0</code> to <code>0.0</code> and <code>1</code> to <code>1.0</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/pull/3267#issuecomment-1450587671\">#3267</a>.
+</li>
 <li>
 June 20, 2020, by Jianjun Hu:<br/>
 Updated the block of specifying operating mode and setpoints.<br/>

@@ -8,7 +8,7 @@ ASHRAE Guideline 36 (G36).
 All sequences are created using blocks from the
 <a href=\"modelica://Buildings.Controls.OBC.CDL\">
 Buildings.Controls.OBC.CDL</a> library, following the
-<a href=\"http://obc.lbl.gov/specification/cdl.html\">
+<a href=\"https://obc.lbl.gov/specification/cdl.html\">
 CDL specification</a>.
 </p>
 <p>
@@ -39,8 +39,8 @@ actuator signals for the terminal unit dampers.
 <h4>Implementation of PID controllers</h4>
 <p>
 For the PID controllers, the implementation in
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.PID\">
-Buildings.Controls.OBC.CDL.Continuous.PID</a>
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Reals.PID\">
+Buildings.Controls.OBC.CDL.Reals.PID</a>
 is used.
 Hence, the PID controllers are in the standard form
 </p>

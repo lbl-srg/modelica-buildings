@@ -9,7 +9,6 @@ model Controller
     final VMin_flow=0.5,
     final VCooMax_flow=1.5,
     final VHeaMax_flow=1.2,
-    final have_preIndDam=false,
     final staPreMul=1,
     final floHys=0.01,
     final looHys=0.01,
@@ -18,13 +17,13 @@ model Controller
     final VAreMin_flow=0)
     "Dual duct unit controller"
     annotation (Placement(transformation(extent={{100,40},{120,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TZon(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin TZon(
     final freqHz=1/86400,
     final amplitude=4,
     final offset=299.15)
     "Zone temperature"
     annotation (Placement(transformation(extent={{-120,210},{-100,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp disAirTem(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp disAirTem(
     final height=2,
     final duration=43200,
     final offset=273.15 + 15,
@@ -37,11 +36,11 @@ model Controller
     final shift=43200)
     "Window opening status"
     annotation (Placement(transformation(extent={{-80,150},{-60,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant cooSet(
     final k=273.15 + 24)
     "Zone cooling setpoint temperature"
     annotation (Placement(transformation(extent={{-80,190},{-60,210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant heaSet(
     final k=273.15 + 20)
     "Zone heating setpoint temperature"
     annotation (Placement(transformation(extent={{-120,170},{-100,190}})));
@@ -50,7 +49,7 @@ model Controller
     final period=43200,
     final shift=28800) "Occupancy status"
     annotation (Placement(transformation(extent={{-120,130},{-100,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp opeMod(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp opeMod(
     final offset=1,
     final height=2,
     final duration=28800,
@@ -60,27 +59,27 @@ model Controller
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt2
     "Convert real to integer"
     annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Round round2(
+  Buildings.Controls.OBC.CDL.Reals.Round round2(
     final n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine CO2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin CO2(
     final amplitude=400,
     final freqHz=1/28800,
     final offset=600) "CO2 concentration"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp colSupAirTem(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp colSupAirTem(
     final height=2,
     final duration=43200,
     final offset=273.15 + 14)
     "Cold-duct supply air temperature from air handling unit"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine VDis_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin VDis_flow(
     final offset=1.2,
     final amplitude=0.6,
     final freqHz=1/28800) "Discharge airflow rate"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp oveFlo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp oveFlo(
     final height=2,
     final duration=10000,
     final startTime=35000)
@@ -89,11 +88,11 @@ model Controller
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1
     "Convert real to integer"
     annotation (Placement(transformation(extent={{-40,-120},{-20,-100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Round round1(
+  Buildings.Controls.OBC.CDL.Reals.Round round1(
     final n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-80,-120},{-60,-100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp oveColDam(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp oveColDam(
     final height=2,
     final duration=5000,
     startTime=60000) "Override cold-duct damper position"
@@ -101,7 +100,7 @@ model Controller
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt3
     "Convert real to integer"
     annotation (Placement(transformation(extent={{-40,-150},{-20,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Round round3(
+  Buildings.Controls.OBC.CDL.Reals.Round round3(
     final n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-80,-150},{-60,-130}})));
@@ -111,7 +110,7 @@ model Controller
     final shift=18800) "Cooling supply fan status"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp oveHotDam(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp oveHotDam(
     final height=2,
     final duration=5000,
     final startTime=60000) "Override hot-duct damper position"
@@ -119,7 +118,7 @@ model Controller
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt4
     "Convert real to integer"
     annotation (Placement(transformation(extent={{-40,-180},{-20,-160}})));
-  Buildings.Controls.OBC.CDL.Continuous.Round round4(
+  Buildings.Controls.OBC.CDL.Reals.Round round4(
     final n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-80,-180},{-60,-160}})));
@@ -128,18 +127,17 @@ model Controller
     final period=73200,
     final shift=18800) "Heating supply fan status"
     annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp hotSupAirTem(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp hotSupAirTem(
     final height=2,
     final duration=43200,
     final offset=273.15 + 24)
     "Hot-duct supply air temperature from air handling unit"
     annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant CO2Set(final k=894)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant CO2Set(final k=894)
     "CO2 concentration setpoint"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
-    annotation (Placement(transformation(extent={{-20,150},{0,170}})));
-
+  Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
+    annotation (Placement(transformation(extent={{-40,150},{-20,170}})));
 equation
   connect(TZon.y,duaDucCon. TZon) annotation (Line(points={{-98,220},{60,220},{60,
           79},{98,79}}, color={0,0,127}));
@@ -190,10 +188,10 @@ equation
           44,0},{44,56},{98,56}}, color={0,0,127}));
   connect(CO2Set.y, duaDucCon.ppmCO2Set) annotation (Line(points={{-98,80},{36,
           80},{36,64},{98,64}}, color={0,0,127}));
-  connect(winSta.y, not1.u)
-    annotation (Line(points={{-58,160},{-22,160}}, color={255,0,255}));
-  connect(not1.y, duaDucCon.u1Win) annotation (Line(points={{2,160},{48,160},{48,
-          70},{98,70}}, color={255,0,255}));
+  connect(winSta.y, not2.u)
+    annotation (Line(points={{-58,160},{-42,160}}, color={255,0,255}));
+  connect(not2.y, duaDucCon.u1Win) annotation (Line(points={{-18,160},{48,160},{
+          48,70},{98,70}}, color={255,0,255}));
 annotation (
   experiment(StopTime=86400, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/TerminalUnits/DualDuctMixConDischargeSensor/Validation/Controller.mos"

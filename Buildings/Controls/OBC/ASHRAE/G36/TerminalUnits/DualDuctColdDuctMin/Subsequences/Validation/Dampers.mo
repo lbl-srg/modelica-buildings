@@ -2,40 +2,34 @@ within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctColdDuctMin.Subse
 model Dampers
   "Validate model for controlling damper position of dual-duct unit with cold-duct minimum control"
 
-  Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctColdDuctMin.Subsequences.Dampers dam(
-    final VCooMax_flow=0.08,
-    final VHeaMax_flow=0.06,
-    final kDam=1) "Output signal for controlling damper position"
-    annotation (Placement(transformation(extent={{80,-10},{100,30}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctColdDuctMin.Subsequences.Dampers dam1(
-    final have_preIndDam=false,
     final VCooMax_flow=0.08,
     final VHeaMax_flow=0.06,
     final kDam=1) "Output signal for controlling damper position"
     annotation (Placement(transformation(extent={{80,-90},{100,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp uCoo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp uCoo(
     final height=-1,
     final duration=3600,
     final offset=1,
     final startTime=900) "Cooling control signal"
     annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZon(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TZon(
     final k=273.15 + 22)
     "Zone temperature"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCooSup(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TCooSup(
     final k=273.15 + 13)
     "AHU supply air temperature"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VActMin_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant VActMin_flow(
     final k=0.01)
     "Active minimum airflow setpoint"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VActCooMax_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant VActCooMax_flow(
     final k=0.075)
     "Active cooling maximum airflow setpoint"
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine VColDuc(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin VColDuc(
     final offset=0.015,
     final amplitude=0.002,
     final freqHz=1/3600)
@@ -46,18 +40,18 @@ model Dampers
     final period=7200)
     "Cold air handling unit status"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaSup(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaSup(
     final k=273.15 + 25)
     "AHU supply air temperature"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp uHea(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp uHea(
     final height=1,
     final duration=3600,
     final offset=0,
     final startTime=5500)
     "Heating control signal"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VActHeaMax_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant VActHeaMax_flow(
     final k=0.07)
     "Active heating maximum airflow setpoint"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
@@ -67,7 +61,7 @@ model Dampers
     final shift=5000)
     "Hot air handling unit status"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine VHotDuc(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin VHotDuc(
     final offset=0.015,
     final amplitude=0.002,
     final freqHz=1/3600)
@@ -75,14 +69,6 @@ model Dampers
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
 
 equation
-  connect(uCoo.y, dam.uCoo) annotation (Line(points={{-78,110},{60,110},{60,29},
-          {78,29}}, color={0,0,127}));
-  connect(TZon.y, dam.TZon) annotation (Line(points={{-38,10},{40,10},{40,8},{78,
-          8}},  color={0,0,127}));
-  connect(VActCooMax_flow.y, dam.VActCooMax_flow) annotation (Line(points={{-38,90},
-          {56,90},{56,26},{78,26}},   color={0,0,127}));
-  connect(VActMin_flow.y, dam.VActMin_flow) annotation (Line(points={{-78,30},{44,
-          30},{44,12},{78,12}}, color={0,0,127}));
   connect(VActMin_flow.y, dam1.VActMin_flow) annotation (Line(points={{-78,30},{
           44,30},{44,-68},{78,-68}}, color={0,0,127}));
   connect(TZon.y, dam1.TZon) annotation (Line(points={{-38,10},{40,10},{40,-72},
@@ -91,24 +77,14 @@ equation
           {56,90},{56,-54},{78,-54}},   color={0,0,127}));
   connect(uCoo.y, dam1.uCoo) annotation (Line(points={{-78,110},{60,110},{60,-51},
           {78,-51}}, color={0,0,127}));
-  connect(TCooSup.y, dam.TColSup) annotation (Line(points={{-78,70},{52,70},{52,
-          23},{78,23}}, color={0,0,127}));
   connect(TCooSup.y, dam1.TColSup) annotation (Line(points={{-78,70},{52,70},{52,
           -57},{78,-57}},    color={0,0,127}));
-  connect(cooAhu.y, dam.u1CooAHU) annotation (Line(points={{-38,50},{48,50},{48,
-          17},{78,17}}, color={255,0,255}));
   connect(cooAhu.y, dam1.u1CooAHU) annotation (Line(points={{-38,50},{48,50},{
           48,-63},{78,-63}}, color={255,0,255}));
-  connect(THeaSup.y, dam.THotSup) annotation (Line(points={{-78,-10},{36,-10},{36,
-          3},{78,3}},   color={0,0,127}));
   connect(THeaSup.y, dam1.THotSup) annotation (Line(points={{-78,-10},{36,-10},{
           36,-77},{78,-77}},  color={0,0,127}));
-  connect(uHea.y, dam.uHea) annotation (Line(points={{-38,-30},{32,-30},{32,0},{
-          78,0}},  color={0,0,127}));
   connect(uHea.y, dam1.uHea) annotation (Line(points={{-38,-30},{32,-30},{32,-80},
           {78,-80}},  color={0,0,127}));
-  connect(VActHeaMax_flow.y, dam.VActHeaMax_flow) annotation (Line(points={{-78,-50},
-          {28,-50},{28,-3},{78,-3}},      color={0,0,127}));
   connect(VActHeaMax_flow.y, dam1.VActHeaMax_flow) annotation (Line(points={{-78,-50},
           {28,-50},{28,-83},{78,-83}},      color={0,0,127}));
   connect(heaAhu.y, dam1.u1HeaAHU) annotation (Line(points={{-38,-70},{24,-70},
@@ -117,8 +93,6 @@ equation
           56,-100},{56,-60},{78,-60}}, color={0,0,127}));
   connect(VHotDuc.y, dam1.VHotDucDis_flow) annotation (Line(points={{-38,-120},{
           60,-120},{60,-86},{78,-86}},  color={0,0,127}));
-  connect(heaAhu.y, dam.u1HeaAHU) annotation (Line(points={{-38,-70},{24,-70},{
-          24,-9},{78,-9}}, color={255,0,255}));
 annotation (
   experiment(StopTime=7200, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/TerminalUnits/DualDuctColdDuctMin/Subsequences/Validation/Dampers.mos"

@@ -1,15 +1,28 @@
 within Buildings.Experimental.DHC.Loads.Combined;
 model BuildingTimeSeriesWithETS
   "Model of a building with loads provided as time series, connected to an ETS"
-  extends Buildings.Experimental.DHC.Loads.Combined.BaseClasses.PartialBuildingWithETS(
+  extends
+    Buildings.Experimental.DHC.Loads.Combined.BaseClasses.PartialBuildingWithETS(
     redeclare Buildings.Experimental.DHC.Loads.BaseClasses.Examples.BaseClasses.BuildingTimeSeries bui(
-      final filNam=filNam,
+      filNam=filNam,
       have_hotWat=true,
       T_aHeaWat_nominal=ets.THeaWatSup_nominal,
       T_bHeaWat_nominal=ets.THeaWatRet_nominal,
       T_aChiWat_nominal=ets.TChiWatSup_nominal,
       T_bChiWat_nominal=ets.TChiWatRet_nominal),
-    ets(
+    redeclare
+      Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger
+      ets(
+      final dT_nominal=dT_nominal,
+      final TDisWatMin=datDes.TLooMin,
+      final TDisWatMax=datDes.TLooMax,
+      final TChiWatSup_nominal=TChiWatSup_nominal,
+      final THeaWatSup_nominal=THeaWatSup_nominal,
+      final THotWatSup_nominal=THotWatSup_nominal,
+      final TColWat_nominal=TColWat_nominal,
+      final dp_nominal=dp_nominal,
+      final COPHeaWat_nominal=COPHeaWat_nominal,
+      final COPHotWat_nominal=COPHotWat_nominal,
       have_hotWat=true,
       QChiWat_flow_nominal=QCoo_flow_nominal,
       QHeaWat_flow_nominal=QHea_flow_nominal,
@@ -56,21 +69,21 @@ model BuildingTimeSeriesWithETS
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={-80,-120})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter loaHeaNor(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter loaHeaNor(
     k=1/QHea_flow_nominal) "Normalized heating load"
     annotation (Placement(transformation(extent={{-200,-110},{-180,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold enaHeaCoo[2](each t=1e-4)
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold enaHeaCoo[2](each t=1e-4)
     "Threshold comparison to enable heating and cooling"
     annotation (Placement(transformation(extent={{-110,-130},{-90,-110}})));
   Modelica.Blocks.Sources.BooleanConstant enaSHW(
     final k=true) if have_hotWat
     "SHW production enable signal"
     annotation (Placement(transformation(extent={{0,-130},{-20,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter loaCooNor(k=1/
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter loaCooNor(k=1/
         QCoo_flow_nominal) "Normalized cooling load"
     annotation (Placement(transformation(extent={{-200,-150},{-180,-130}})));
 equation
-  connect(bui.QReqHotWat_flow, ets.loaSHW) annotation (Line(points={{28,4},{28,
+  connect(bui.QReqHotWat_flow, ets.QReqHotWat_flow) annotation (Line(points={{28,4},{28,
           -10},{-64,-10},{-64,-74},{-34,-74}}, color={0,0,127}));
   connect(THotWatSupSet, ets.THotWatSupSet) annotation (Line(points={{-320,40},
           {-136,40},{-136,-66},{-34,-66}},  color={0,0,127}));
@@ -124,6 +137,12 @@ the building and ETS multiplier factor <code>facMul</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 7, 2023, by Ettore Zanetti:<br/>
+Added output <code>PPumCoo</code><br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
+</li>
 <li>
 November 21, 2022, by David Blum:<br/>
 Change <code>bui.facMulHea</code> and <code>bui.facMulCoo</code> to be default.<br/>

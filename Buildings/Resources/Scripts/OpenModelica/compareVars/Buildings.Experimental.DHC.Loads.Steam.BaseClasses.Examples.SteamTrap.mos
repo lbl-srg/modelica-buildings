@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "steTra.port_a.p",
+    "steTra.port_b.p",
+    "steTra.sta_a.T",
+    "steTra.sta_b.T",
+    "hIn.h_out",
+    "hOut.h_out",
+    "steTra.m_flow",
+    "steTra.QLos_flow"
+  };

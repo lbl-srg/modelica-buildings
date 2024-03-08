@@ -56,18 +56,6 @@ model ChillerBorefield "ETS model for 5GDHC systems with heat recovery chiller a
     "Chiller performance data"
     annotation (Dialog(group="Chiller"),choicesAllMatching=true,
     Placement(transformation(extent={{20,222},{40,242}})));
-  replaceable parameter Buildings.Fluid.Movers.Data.Generic perPumCon(
-    motorCooledByFluid=false)
-    constrainedby Buildings.Fluid.Movers.Data.Generic
-    "Record with performance data for condenser pump"
-    annotation (Dialog(group="Chiller"),choicesAllMatching=true,
-    Placement(transformation(extent={{60,222},{80,242}})));
-  replaceable parameter Buildings.Fluid.Movers.Data.Generic perPumEva(
-    motorCooledByFluid=false)
-    constrainedby Buildings.Fluid.Movers.Data.Generic
-    "Record with performance data for evaporator pump"
-    annotation (Dialog(group="Chiller"),choicesAllMatching=true,
-    Placement(transformation(extent={{100,222},{120,242}})));
   parameter Modelica.Units.SI.PressureDifference dp1WSE_nominal(displayUnit=
         "Pa") = 40E3
     "Nominal pressure drop across heat exchanger on district side"
@@ -94,13 +82,6 @@ model ChillerBorefield "ETS model for 5GDHC systems with heat recovery chiller a
   parameter Real y1WSEMin(unit="1")=0.05
     "Minimum pump flow rate or valve opening for temperature measurement (fractional)"
     annotation (Dialog(group="Waterside economizer", enable=have_WSE));
-  replaceable parameter Fluid.Movers.Data.Generic perPum1WSE(
-    motorCooledByFluid=false) constrainedby Fluid.Movers.Data.Generic
-    "Record with performance data for primary pump of waterside economizer"
-    annotation (
-      Dialog(group="Waterside economizer", enable=not have_val1Hex and have_WSE),
-      choicesAllMatching=true,
-      Placement(transformation(extent={{220,222},{240,242}})));
   final parameter Modelica.Units.SI.MassFlowRate m1WSE_flow_nominal=abs(
       QWSE_flow_nominal/4200/(T_b1WSE_nominal - T_a1WSE_nominal))
     "WSE primary mass flow rate"
@@ -119,12 +100,6 @@ model ChillerBorefield "ETS model for 5GDHC systems with heat recovery chiller a
     "Borefield parameters"
     annotation (Dialog(group="Borefield",enable=have_borFie),
     choicesAllMatching=true,Placement(transformation(extent={{140,222},{160,242}})));
-  replaceable parameter Buildings.Fluid.Movers.Data.Generic perPumBorFie(
-    motorCooledByFluid=false)
-    constrainedby Buildings.Fluid.Movers.Data.Generic
-    "Record with performance data for borefield pump"
-    annotation (Dialog(group="Borefield",enable=have_borFie),
-    choicesAllMatching=true,Placement(transformation(extent={{180,222},{200,242}})));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
@@ -154,30 +129,29 @@ model ChillerBorefield "ETS model for 5GDHC systems with heat recovery chiller a
     "Minimum value of chilled water supply temperature set point"
     annotation (Dialog(group="Supervisory controller"));
 
-  replaceable Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.Chiller chi(
-    redeclare final package Medium=MediumBui,
-    final perPumCon=perPumCon,
-    final perPumEva=perPumEva,
+  replaceable
+    Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.Chiller
+    chi(
+    redeclare final package Medium = MediumBui,
     final dpCon_nominal=dpCon_nominal,
     final dpEva_nominal=dpEva_nominal,
-    final dat=datChi)
-    "Chiller"
-    annotation (Dialog(group="Chiller"),Placement(transformation(extent={{-10,-16},{10,4}})));
-  replaceable Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.Borefield borFie(
-    redeclare final package Medium=MediumBui,
+    final dat=datChi) "Chiller" annotation (Dialog(group="Chiller"), Placement(
+        transformation(extent={{-10,-16},{10,4}})));
+  replaceable
+    Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.Borefield
+    borFie(
+    redeclare final package Medium = MediumBui,
     final datBorFie=datBorFie,
-    final perPum=perPumBorFie,
     final TBorWatEntMax=TBorWatEntMax,
     final spePumBorMin=spePumBorMin,
-    final dp_nominal=dpBorFie_nominal) if have_borFie
-    "Borefield"
-    annotation (Dialog(group="Borefield",enable=have_borFie),
-    Placement(transformation(extent={{-80,-230},{-60,-210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerPPum(
+    final dp_nominal=dpBorFie_nominal) if have_borFie "Borefield" annotation (
+      Dialog(group="Borefield", enable=have_borFie), Placement(transformation(
+          extent={{-80,-230},{-60,-210}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zerPPum(
     final k=0) if not have_borFie
     "Zero power"
     annotation (Placement(transformation(extent={{220,-90},{240,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerPHea(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zerPHea(
     final k=0)
     "Zero power"
     annotation (Placement(transformation(extent={{220,50},{240,70}})));
@@ -207,10 +181,10 @@ model ChillerBorefield "ETS model for 5GDHC systems with heat recovery chiller a
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
         rotation=90,
         origin={274,130})));
-  Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.WatersideEconomizer WSE(
+  Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.WatersideEconomizer
+    WSE(
     redeclare final package Medium1 = MediumSer,
     redeclare final package Medium2 = MediumBui,
-    final perPum1=perPum1WSE,
     final allowFlowReversal1=allowFlowReversalSer,
     final allowFlowReversal2=allowFlowReversalBui,
     final conCon=conCon,
@@ -221,8 +195,7 @@ model ChillerBorefield "ETS model for 5GDHC systems with heat recovery chiller a
     final T_b1_nominal=T_b1WSE_nominal,
     final T_a2_nominal=T_a2WSE_nominal,
     final T_b2_nominal=T_b2WSE_nominal,
-    final y1Min=y1WSEMin) if have_WSE
-    "Waterside economizer"
+    final y1Min=y1WSEMin) if have_WSE "Waterside economizer"
     annotation (Placement(transformation(extent={{220,116},{240,136}})));
   Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Junction splWSE(
     redeclare final package Medium = MediumSer,
@@ -266,9 +239,11 @@ equation
   connect(conSup.yAmb[1],borFie.u)
     annotation (Line(points={{-238,25},{-200,25},{-200,-212},{-82,-212}},color={0,0,127}));
   connect(valIsoCon.y_actual,borFie.yValIso_actual[1])
-    annotation (Line(points={{-55,-113},{-40,-113},{-40,-198},{-90,-198},{-90,-217},{-82,-217}},color={0,0,127}));
+    annotation (Line(points={{-55,-113},{-40,-113},{-40,-198},{-90,-198},{-90,
+          -216.5},{-82,-216.5}},                                                                color={0,0,127}));
   connect(valIsoEva.y_actual,borFie.yValIso_actual[2])
-    annotation (Line(points={{55,-113},{40,-113},{40,-200},{-88,-200},{-88,-215},{-82,-215}},color={0,0,127}));
+    annotation (Line(points={{55,-113},{40,-113},{40,-200},{-88,-200},{-88,
+          -215.5},{-82,-215.5}},                                                             color={0,0,127}));
   connect(borFie.PPum,totPPum.u[3])
     annotation (Line(points={{-58,-216},{250,-216},{250,-62},{258,-62},{258,-60}},color={0,0,127}));
   connect(zerPPum.y,totPPum.u[3])

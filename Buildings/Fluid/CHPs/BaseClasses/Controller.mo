@@ -57,19 +57,19 @@ model Controller "Define current operation mode"
     annotation (Placement(transformation(extent={{160,-90},{180,-70}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minWatFlo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minWatFlo(
     final k=per.mWatMin_flow) "Minimum water mass flow rate"
     annotation (Placement(transformation(extent={{-220,190},{-200,210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
     final k=0.001) "Constant value"
     annotation (Placement(transformation(extent={{-220,150},{-200,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max max
+  Buildings.Controls.OBC.CDL.Reals.Max max
     "Maximum between minimum flow rate and 0.001"
     annotation (Placement(transformation(extent={{-160,170},{-140,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1
     "Mass flow rate difference between actual and minimum value"
     annotation (Placement(transformation(extent={{-100,170},{-80,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
     final uLow=0.01*per.mWatMin_flow - 1e-6,
     final uHigh=0.015*per.mWatMin_flow)
     "Check if actual mass flow rate is larger than the minimum value"

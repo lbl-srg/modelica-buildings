@@ -13,16 +13,6 @@ model Chiller
   replaceable parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic dat
     "Chiller performance data"
     annotation (choicesAllMatching=true,Placement(transformation(extent={{60,160},{80,180}})));
-  replaceable parameter Buildings.Fluid.Movers.Data.Generic perPumCon(
-    motorCooledByFluid=false)
-    constrainedby Buildings.Fluid.Movers.Data.Generic
-    "Record with performance data for condenser pump"
-    annotation (choicesAllMatching=true,Placement(transformation(extent={{100,160},{120,180}})));
-  replaceable parameter Buildings.Fluid.Movers.Data.Generic perPumEva(
-    motorCooledByFluid=false)
-    constrainedby Buildings.Fluid.Movers.Data.Generic
-    "Record with performance data for evaporator pump"
-    annotation (choicesAllMatching=true,Placement(transformation(extent={{140,160},{160,180}})));
   parameter Modelica.Units.SI.PressureDifference dpCon_nominal(displayUnit="Pa")
     "Nominal pressure drop accross condenser"
     annotation (Dialog(group="Nominal condition"));
@@ -137,7 +127,6 @@ model Chiller
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumCon(
     redeclare final package Medium=Medium,
-    final per=perPumCon,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=dat.mCon_flow_nominal,
     final dp_nominal=dpCon_nominal+dpValCon_nominal)
@@ -145,7 +134,6 @@ model Chiller
     annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
   Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumEva(
     redeclare final package Medium=Medium,
-    final per=perPumEva,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=dat.mEva_flow_nominal,
     final dp_nominal=dpEva_nominal+dpValEva_nominal)
@@ -217,14 +205,14 @@ model Chiller
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     "Constant speed primary pumps control signal"
     annotation (Placement(transformation(extent={{-60,170},{-80,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2
+  Buildings.Controls.OBC.CDL.Reals.Add add2
     annotation (Placement(transformation(extent={{160,-150},{180,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(final k=dat.mCon_flow_nominal)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(final k=dat.mCon_flow_nominal)
     "Scale to nominal mass flow rate" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-100,114})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(final k=dat.mEva_flow_nominal)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai2(final k=dat.mEva_flow_nominal)
     "Scale to nominal mass flow rate" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,

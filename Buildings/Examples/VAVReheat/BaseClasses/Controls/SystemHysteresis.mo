@@ -12,14 +12,14 @@ model SystemHysteresis
     "Control signal for pump" annotation (Placement(transformation(extent={{100,
             -90},{140,-50}}), iconTransformation(extent={{100,-90},{140,-50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     t=0.1,
     h=0.09)
     "Threshold to switch on system"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Switch for control signal"
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+  Buildings.Controls.OBC.CDL.Reals.Switch swi "Switch for control signal"
     annotation (Placement(transformation(extent={{30,-2},{50,18}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(final k=0)
     "Zero output signal"
     annotation (Placement(transformation(extent={{-30,-88},{-10,-68}})));
 
@@ -34,22 +34,23 @@ model SystemHysteresis
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput sysOn
     "System on signal, set for example to true if fan is on"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swiSysOff
+  Buildings.Controls.OBC.CDL.Reals.Switch swiSysOff
     "Switch to overide if system is off"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swiSysOff1
+  Buildings.Controls.OBC.CDL.Reals.Switch swiSysOff1
     "Switch to overide if system is off"
     annotation (Placement(transformation(extent={{68,-80},{88,-60}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(final delayTime=30)
+    "Short delay to ignore spike inputs that trigger pump to operate"
+    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
 equation
   connect(greThr.u, u)
-    annotation (Line(points={{-62,0},{-120,0}}, color={0,0,127}));
+    annotation (Line(points={{-82,0},{-120,0}}, color={0,0,127}));
   connect(swi.u1, u) annotation (Line(points={{28,16},{6,16},{6,40},{-88,40},{
           -88,0},{-120,0}},
                         color={0,0,127}));
   connect(con.y, swi.u3) annotation (Line(points={{-8,-78},{20,-78},{20,0},{28,
           0}},  color={0,0,127}));
-  connect(greThr.y, truFalHol1.u) annotation (Line(points={{-38,0},{-22,0}},
-                         color={255,0,255}));
   connect(truFalHol1.y, swi.u2)
     annotation (Line(points={{2,0},{10,0},{10,8},{28,8}},
                                             color={255,0,255}));
@@ -71,6 +72,10 @@ equation
     annotation (Line(points={{66,-78},{-8,-78}}, color={0,0,127}));
   connect(sysOn, swiSysOff1.u2) annotation (Line(points={{-120,60},{60,60},{60,
           -70},{66,-70}}, color={255,0,255}));
+  connect(truFalHol1.u, truDel.y)
+    annotation (Line(points={{-22,0},{-28,0}}, color={255,0,255}));
+  connect(greThr.y, truDel.u)
+    annotation (Line(points={{-58,0},{-52,0}}, color={255,0,255}));
   annotation (
     defaultComponentName="sysHys",
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),
@@ -121,6 +126,10 @@ Block that ensure that the system runs for a minimum time once it is switched on
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 31, 2023, by Jianjun Hu:<br/>
+Added a true delay block to avoid triggering the pump operation by a spike input.
+</li>
 <li>
 August 24, 2021, by Michael Wetter:<br/>
 First version.<br/>

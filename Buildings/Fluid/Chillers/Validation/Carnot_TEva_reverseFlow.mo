@@ -24,7 +24,6 @@ model Carnot_TEva_reverseFlow
     dTEva_nominal=dTEva_nominal,
     dTCon_nominal=dTCon_nominal,
     use_eta_Carnot_nominal=true,
-    etaCarnot_nominal=0.3,
     m1_flow_nominal=m1_flow_nominal,
     m2_flow_nominal=m2_flow_nominal,
     show_T=true,
@@ -130,6 +129,12 @@ This example checks the correct behavior if a mass flow rate attains zero.
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 10, 2023, by Michael Wetter:<br/>
+Removed binding of parameter with same value as the default.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1692\">#1692</a>.
+</li>
 <li>
 May 15, 2019, by Jianjun Hu:<br/>
 Replaced fluid source. This is for

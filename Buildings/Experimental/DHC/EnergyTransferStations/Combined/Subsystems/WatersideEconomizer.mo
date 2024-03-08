@@ -6,12 +6,6 @@ model WatersideEconomizer
     final m2_flow_nominal=abs(Q_flow_nominal/4200/(T_b2_nominal - T_a2_nominal)));
   parameter DHC.EnergyTransferStations.Types.ConnectionConfiguration conCon
     "District connection configuration" annotation (Evaluate=true);
-  replaceable parameter Buildings.Fluid.Movers.Data.Generic perPum1(
-    motorCooledByFluid=false)
-    constrainedby Buildings.Fluid.Movers.Data.Generic
-    "Record with performance data for primary pump"
-    annotation (Dialog(enable=not have_val1),choicesAllMatching=true,
-    Placement(transformation(extent={{-40,-140},{-20,-120}})));
   parameter Modelica.Units.SI.PressureDifference dp1Hex_nominal(displayUnit=
         "Pa") "Nominal pressure drop across heat exchanger on district side"
     annotation (Dialog(group="Nominal condition"));
@@ -91,7 +85,6 @@ model WatersideEconomizer
         transformation(extent={{10,10},{-10,-10}}, rotation=180)));
   DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pum1(
     redeclare final package Medium = Medium1,
-    final per=perPum1,
     final m_flow_nominal=m1_flow_nominal,
     final dp_nominal=dp1Hex_nominal,
     final allowFlowReversal=allowFlowReversal1) if not have_val1
@@ -127,7 +120,7 @@ model WatersideEconomizer
     use_inputFilter=false) if have_val1
     "Heat exchanger primary control valve"
     annotation (Placement(transformation(extent={{70,70},{90,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(final k=
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(final k=
         m1_flow_nominal) if not have_val1 "Scale to nominal mass flow rate"
     annotation (Placement(transformation(extent={{10,100},{-10,120}})));
   Buildings.Fluid.Actuators.Valves.ThreeWayLinear val2(

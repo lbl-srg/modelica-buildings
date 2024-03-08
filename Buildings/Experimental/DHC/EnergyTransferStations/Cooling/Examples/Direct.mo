@@ -91,7 +91,7 @@ model Direct "Example model for direct cooling energy transfer station
     "Multiplier gain for calculating m_flow"
     annotation (Placement(transformation(extent={{0,80},{20,100}})));
 equation
-  connect(TSetDisRet_min.y, cooETS.TSetDisRet)
+  connect(TSetDisRet_min.y,cooETS.TDisRetSet)
     annotation (Line(points={{-99,-10},{-0.6,-10}}, color={0,0,127}));
   connect(TDisSupNoi.y, souDis.T_in)
     annotation (Line(points={{-99,-66},{-62,-66}}, color={0,0,127}));
@@ -157,8 +157,6 @@ This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2912\
 <li>November 15, 2022, by Kathryn Hinkelman:<br/>
 Corrected pressure balance across bypass leg and system.
 </li>
-</ul>
-<ul>
 <li>March 20, 2022, by Chengnan Shi:<br/>First implementation.</li>
 </ul>
 </html>"));

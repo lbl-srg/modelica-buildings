@@ -140,23 +140,51 @@ the EnergyPlus chiller model <code>Chiller:Electric:EIR</code>.
 </p>
 <p> This model uses three functions to predict capacity and power consumption:
 </p>
-<ul>
-<li>
-A biquadratic function is used to predict cooling capacity as a function of
-condenser entering and evaporator leaving fluid temperature.
-</li>
-<li>
-A quadratic function is used to predict power input to cooling capacity ratio with respect to the part load ratio.
-</li>
-<li>
-A biquadratic function is used to predict power input to cooling capacity ratio as a function of
-condenser entering and evaporator leaving fluid temperature.
-</li>
-</ul>
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<thead>
+  <tr>
+    <th rowspan=\"2\">Function</th>
+    <th rowspan=\"2\">Description</th>
+    <th colspan=\"2\">Formulation</th>
+  </tr>
+  <tr>
+  <th><code><a href=\"Modelica://Buildings.Fluid.Chillers.ElectricEIR\">ElectricEIR</a></code> (this model)</th>
+    <th><code><a href=\"Modelica://Buildings.Fluid.Chillers.ElectricReformulatedEIR\">ElectricReformulatedEIR</a></code></th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td><code>capFunT</code></td>
+    <td>Adjusts cooling capacity for current fluid temperatures</td>
+    <td>Biquadratic on <code>TConEnt</code> and <code>TEvaLvg</code></td>
+    <td>Biquadratic on <code>TConLvg</code> and <code>TEvaLvg</code></td>
+  </tr>
+  <tr>
+    <td><code>EIRFunPLR</code></td>
+    <td>Adjusts EIR for the current PLR</td>
+    <td>Quadratic on PLR</td>
+    <td>Bicubic on <code>TConLvg</code> and PLR</td>
+  </tr>
+  <tr>
+    <td><code>EIRFunT</code></td>
+    <td>Adjusts EIR for current fluid temperatures</td>
+    <td>Biquadratic on <code>TConEnt</code> and <code>TEvaLvg</code></td>
+    <td>Biquadratic on <code>TConLvg</code> and <code>TEvaLvg</code></td>
+  </tr>
+</tbody>
+</table>
 <p>
+These functions take the same form as documented in
+<a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v22.1.0/EngineeringReference.pdf\">
+EnergyPlus v22.1.0 Engineering Reference</a>
+section 14.3.9.2 (equations 14.231 through 14.233).
 These curves are stored in the data record <code>per</code> and are available from
-<a href=\"Buildings.Fluid.Chillers.Data.ElectricEIR\">
+<a href=\"modelica://Buildings.Fluid.Chillers.Data.ElectricEIR\">
 Buildings.Fluid.Chillers.Data.ElectricEIR</a>.
+How they are used to compute the adjusted capacity and compressor power
+can be found in the documentation of
+<a href=\"modelica://Buildings.Fluid.Chillers.BaseClasses.PartialElectric\">
+Buildings.Fluid.Chillers.BaseClasses.PartialElectric</a>.
 Additional performance curves can be developed using
 two available techniques (Hydeman and Gillespie, 2002). The first technique is called the
 Least-squares Linear Regression method and is used when sufficient performance data exist
@@ -220,7 +248,7 @@ outlet of the evaporator barrel if <code>coo</code> is <code>true</code>.
 Otherwise, if <code>coo</code> is <code>false</code>, the chiller is tracking
 a hot water supply temperature setpoint at the outlet of the condenser barrel.
 See
-<a href=\"Buildings.Fluid.Chillers.Examples.ElectricEIR_HeatRecovery\">
+<a href=\"modelica://Buildings.Fluid.Chillers.Examples.ElectricEIR_HeatRecovery\">
 Buildings.Fluid.Chillers.Examples.ElectricEIR_HeatRecovery</a>
 for an example with a chiller operating in heating mode.
 </p>
@@ -229,6 +257,10 @@ for an example with a chiller operating in heating mode.
 <li>
 Hydeman, M. and K.L. Gillespie. 2002. Tools and Techniques to Calibrate Electric Chiller
 Component Models. <i>ASHRAE Transactions</i>, AC-02-9-1.
+</li>
+<li>
+<a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v22.1.0/EngineeringReference.pdf\">
+EnergyPlus v22.1.0 Engineering Reference</a>
 </li>
 </ul>
 </html>",

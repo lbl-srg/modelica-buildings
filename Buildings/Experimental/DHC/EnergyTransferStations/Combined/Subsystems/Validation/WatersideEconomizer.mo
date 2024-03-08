@@ -153,7 +153,7 @@ model WatersideEconomizer
     m_flow_nominal=hexPum.m2_flow_nominal,
     dp_nominal=20E4) "Pipe flow resistance"
     annotation (Placement(transformation(extent={{-100,-50},{-120,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp     dpSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp     dpSet(
     height=15E4,
     duration=1000,
     offset=10E4,
@@ -180,11 +180,11 @@ equation
   connect(hexPum.port_b1,senT1OutPum.port_a)
     annotation (Line(points={{40,-54},{70,-54},{70,-80},{90,-80}},color={0,127,255}));
   connect(senT1OutPum.port_b, bou1Pum.ports[1]) annotation (Line(points={{110,-80},
-          {130,-80},{130,-60}}, color={0,127,255}));
+          {130,-80},{130,-63}}, color={0,127,255}));
   connect(hexPum.port_a1,senT1InlPum.port_b)
     annotation (Line(points={{20,-54},{10,-54},{10,-40},{90,-40}},   color={0,127,255}));
   connect(senT1InlPum.port_a, bou1Pum.ports[2]) annotation (Line(points={{110,-40},
-          {130,-40},{130,-64}}, color={0,127,255}));
+          {130,-40},{130,-61}}, color={0,127,255}));
   connect(hexPum.port_b2,senT2OutPum.port_a)
     annotation (Line(points={{20,-66},{-10,-66},{-10,-40},{-30,-40}}, color={0,127,255}));
   connect(senT2InlPum.port_b,hexPum.port_a2)
@@ -211,8 +211,9 @@ equation
           {170,44},{152,44}}, color={0,0,127}));
   connect(uCoo.y, hexVal.uCoo) annotation (Line(points={{-179,80},{0,80},{0,20},{18,20}},      color={255,0,255}));
   connect(uCoo.y, hexPum.uCoo) annotation (Line(points={{-179,80},{0,80},{0,-60},{18,-60}},      color={255,0,255}));
-  connect(bou2.ports[1], senT2InlVal.port_a) annotation (Line(points={{-140,3},
-          {-120,3},{-120,0},{-50,0}}, color={0,127,255}));
+  connect(bou2.ports[1], senT2InlVal.port_a) annotation (Line(points={{-140,
+          -1.5},{-120,-1.5},{-120,0},{-50,0}},
+                                      color={0,127,255}));
   connect(TChiWatRet.y, bou2.T_in) annotation (Line(points={{-179,20},{-172,20},
           {-172,4},{-162,4}}, color={0,0,127}));
   connect(pum2Pum.port_a, senT2OutPum.port_b)
@@ -228,16 +229,17 @@ equation
   connect(dpSet.y, pum2Val.dp_in) annotation (Line(points={{-178,-30},{-90,-30},
           {-90,60},{-70,60},{-70,52}}, color={0,0,127}));
   connect(resVal.port_b, bou2.ports[2]) annotation (Line(points={{-120,40},{
-          -140,40},{-140,1}}, color={0,127,255}));
+          -140,40},{-140,-0.5}},
+                              color={0,127,255}));
   connect(yEva.y, hexVal.yValIsoEva_actual) annotation (Line(points={{-179,60},
           {-6,60},{-6,17},{18,17}}, color={0,0,127}));
   connect(yEva.y, hexPum.yValIsoEva_actual) annotation (Line(points={{-179,60},
           {-6.07143,60},{-6.07143,17.1429},{-6,17.1429},{-6,-63},{18,-63}},
         color={0,0,127}));
-  connect(bou2.ports[3], resPum.port_b) annotation (Line(points={{-140,-1},{
+  connect(bou2.ports[3], resPum.port_b) annotation (Line(points={{-140,0.5},{
           -140,-2},{-130,-2},{-130,-40},{-120,-40}}, color={0,127,255}));
   connect(senT2InlPum.port_a, bou2.ports[4]) annotation (Line(points={{-50,-80},
-          {-140,-80},{-140,-3}}, color={0,127,255}));
+          {-140,-80},{-140,1.5}},color={0,127,255}));
   annotation (
     Diagram(
       coordinateSystem(
