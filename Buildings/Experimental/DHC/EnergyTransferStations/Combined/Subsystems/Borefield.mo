@@ -18,11 +18,6 @@ model Borefield
         dp_nominal=0))
     "Borefield parameters"
     annotation (choicesAllMatching=true,Placement(transformation(extent={{0,60},{20,80}})));
-  replaceable parameter Buildings.Fluid.Movers.Data.Generic perPum(
-    motorCooledByFluid=false)
-    constrainedby Buildings.Fluid.Movers.Data.Generic
-    "Record with performance data for borefield pump"
-    annotation (choicesAllMatching=true,Placement(transformation(extent={{40,60},{60,80}})));
   parameter Modelica.Units.SI.Pressure dp_nominal(displayUnit="Pa")
     "Pressure losses for the entire borefield (control valve excluded)"
     annotation (Dialog(group="Nominal condition"));
@@ -56,7 +51,6 @@ model Borefield
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-80,0})));
   Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pum(
     redeclare final package Medium=Medium,
-    final per=perPum,
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=dpValBorFie_nominal+dp_nominal)
     "Pump with prescribed mass flow rate"

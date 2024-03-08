@@ -299,6 +299,14 @@ to <b style=\"color:blue\">existing</b> libraries:
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3063\">issue 3063</a>.
     </td>
 </tr>
+<tr><td valign=\"top\">BBuildings.Fluid.FixedResistances.BuriedPipes.PipeGroundCoupling
+    </td>
+    <td valign=\"top\">Ground coupling model <a href=\"Modelica://Buildings.Fluid.FixedResistances.BuriedPipes.PipeGroundCoupling\">
+                       Buildings.Fluid.FixedResistances.BuriedPipes.PipeGroundCoupling</a>.
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
+    </td>
+</tr>    
 </table>
 <!-- Backward compatible changes -->
 <p>
@@ -539,6 +547,14 @@ have been <b style=\"color:blue\">improved</b> in a
                 that cover all equipment types, and allow the flow characteristic to be specified
                 with one parameter.<br/>
                              This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3539\">#3539</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Geothermal.BuriedPipes
+    </td>
+    <td valign=\"top\">Moved to Buildings.Fluid.FixedResistances.BuriedPipes
+                       <a href=\"Modelica://Buildings.Fluid.FixedResistances.BuriedPipes\"></a>.<br/>
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">#3431</a>.<br/>
+                     This change is supported in the conversion script.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>

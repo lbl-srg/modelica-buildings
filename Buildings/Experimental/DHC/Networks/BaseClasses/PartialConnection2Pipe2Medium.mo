@@ -17,7 +17,7 @@ partial model PartialConnection2Pipe2Medium "Partial model for connecting an
     "Interface for inlet pipe for the distribution supply";
   replaceable model Model_pipDisRet =
       Buildings.Fluid.Interfaces.PartialTwoPortInterface
-      constrainedby Buildings.Fluid.Interfaces.PartialTwoPortInterface (
+      constrainedby Buildings.Fluid.Interfaces.PartialTwoPortInterface(
         redeclare final package Medium = MediumRet,
         final m_flow_nominal=mDis_flow_nominal,
         final allowFlowReversal=allowFlowReversal)
@@ -132,12 +132,8 @@ protected
       X = MediumRet.X_default))
     "Specific heat capacity of medium at default medium state";
 equation
-  connect(pipDisSup.port_b, junConSup.port_1)
-    annotation (Line(points={{-60,-40},{-30,-40}}, color={0,127,255}));
   connect(port_aDisSup, pipDisSup.port_a)
     annotation (Line(points={{-100,-40},{-80,-40}}, color={0,127,255}));
-  connect(junConRet.port_2, pipDisRet.port_a)
-    annotation (Line(points={{10,-80},{-60,-80}}, color={0,127,255}));
   connect(pipDisRet.port_b, port_bDisRet)
     annotation (Line(points={{-80,-80},{-100,-80}}, color={0,127,255}));
   connect(junConSup.port_2, port_bDisSup)
