@@ -56,18 +56,6 @@ model PartialParallel
     min=0.01)=0.1
     "Heat exchanger secondary pump minimum speed (fractional)"
     annotation (Dialog(group="District heat exchanger"));
-  replaceable parameter Buildings.Fluid.Movers.Data.Generic perPum1Hex(
-    motorCooledByFluid=false)
-    constrainedby Buildings.Fluid.Movers.Data.Generic
-    "Record with performance data for primary pump"
-    annotation (Dialog(group="District heat exchanger", enable=not have_val1Hex),
-      choicesAllMatching=true,Placement(transformation(extent={{-80,222},{-60,242}})));
-  replaceable parameter Buildings.Fluid.Movers.Data.Generic perPum2Hex(
-    motorCooledByFluid=false)
-    constrainedby Buildings.Fluid.Movers.Data.Generic
-    "Record with performance data for secondary pump"
-    annotation (Dialog(group="District heat exchanger"),
-      choicesAllMatching=true,Placement(transformation(extent={{-40,222},{-20,242}})));
   parameter Modelica.Units.SI.Volume VTanHeaWat "Heating water tank volume"
     annotation (Dialog(group="Buffer Tank"));
   parameter Modelica.Units.SI.Length hTanHeaWat=(VTanHeaWat*16/Modelica.Constants.pi)
@@ -125,8 +113,6 @@ model PartialParallel
   Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatExchanger hex(
     redeclare final package Medium1=MediumSer,
     redeclare final package Medium2=MediumBui,
-    final perPum1=perPum1Hex,
-    final perPum2=perPum2Hex,
     final allowFlowReversal1=allowFlowReversalSer,
     final allowFlowReversal2=allowFlowReversalBui,
     final conCon=conCon,
