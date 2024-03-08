@@ -7,7 +7,8 @@ model FixedHotWaterOutput
       T=298.15));
   Buildings.Controls.Continuous.LimPID conPID(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    initType=Modelica.Blocks.Types.Init.SteadyState,
+    initType=Modelica.Blocks.Types.Init.InitialOutput,
+    y_start=1,
     reverseActing=false)
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(k=mCol_flow_nominal)
