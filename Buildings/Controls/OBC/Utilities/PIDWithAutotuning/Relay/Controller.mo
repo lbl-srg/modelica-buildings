@@ -147,17 +147,17 @@ and a boolean relay switch output <code>yOn</code>,
 which are calculated as below.
 </p>
 <p>
-Step 1: calculate control error, 
+Step 1: Calculate control error,
 </p>
 <ul>
 <li>
-If the parameter <code>reverseActing = true</code>, then the control error
-(<code>err = u_s - u_m</code>),
-else the control error (<code>err = u_m - u_s</code>).
+If the parameter <code>reverseActing = true</code>, set the control error to
+<code>err = u_s - u_m</code>,
+else set it to <code>err = u_m - u_s</code>.
 </li>
 </ul>
 <p>
-Step 2: calculate <code>y</code> and <code>yOn</code>,
+Step 2: Calculate <code>y</code> and <code>yOn</code>,
 </p>
 <ul>
 <li>
