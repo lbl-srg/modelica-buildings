@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning;
 block FirstOrderAMIGO
-  "An autotuning PID controller with an AMIGO tuner that employs a first-order time delayed system model"
+  "Autotuning PID controller with an AMIGO tuner that employs a first-order time delayed system model"
   parameter Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController controllerType=Buildings.Controls.OBC.Utilities.PIDWithAutotuning.
        Types.SimpleController.PI
     "Type of controller";
@@ -91,6 +91,7 @@ block FirstOrderAMIGO
     if not with_D "Autotuner of gains for a PI controller"
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller rel(
+    final r=r,
     final yHig=yHig,
     final yLow=yLow,
     final deaBan=deaBan,
@@ -346,6 +347,10 @@ Department of Automatic Control, Lund University.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 8, 2024, by Michael Wetter:<br/>
+Propagated range of control error <code>r</code> to relay controller.
+</li>
 <li>
 October 23, 2023, by Michael Wetter:<br/>
 Revised implmenentation. Made initial control gains public so that a stable operation can be made
