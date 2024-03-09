@@ -2,11 +2,11 @@ within Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.Validation;
 model DryFluid
   "Organic Rankine cycle with a dry working fluid"
   extends Modelica.Icons.Example;
-  Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.InterpolateStates intSta(
+  Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.InterpolateStates cyc(
     final pro = pro,
     final TEva = TEva,
     final TCon = TCon,
-    final etaExp = etaExp) "Interpolate working fluid states"
+    final etaExp = etaExp) "Interpolate working fluid states in the cycle"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   replaceable parameter
             Buildings.Fluid.CHPs.OrganicRankine.Data.WorkingFluids.Toluene pro

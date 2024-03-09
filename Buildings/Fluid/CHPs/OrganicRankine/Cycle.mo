@@ -15,7 +15,7 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
     final vol1(
       final prescribedHeatFlowRate=true));
 
-  Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.FixedEvaporating comCyc(
+  Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.FixedEvaporating cyc(
     final pro=pro,
     final mWor_flow_max=mWor_flow_max,
     final mWor_flow_min=mWor_flow_min,
@@ -37,7 +37,8 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
     final dTPinCon_set=dTPinCon_set,
     final cpHot=Medium1.specificHeatCapacityCp(sta1_nominal),
     final cpCol=Medium2.specificHeatCapacityCp(sta2_nominal),
-    final etaExp=etaExp) "Thermodynamic computations"
+    final etaExp=etaExp)
+    "Thermodynamic computations of the organic Rankine cycle"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   replaceable parameter Buildings.Fluid.CHPs.OrganicRankine.Data.Generic pro
@@ -171,29 +172,29 @@ equation
           40},{-16,60},{-10,60}}, color={191,0,0}));
   connect(preHeaFloCon.port, vol2.heatPort) annotation (Line(points={{21,-60},{12,
           -60}},                      color={191,0,0}));
-  connect(comCyc.QCon_flow, preHeaFloCon.Q_flow) annotation (Line(points={{12,-4},
+  connect(cyc.QCon_flow, preHeaFloCon.Q_flow) annotation (Line(points={{12,-4},
           {50,-4},{50,-60},{41,-60}}, color={0,0,127}));
-  connect(expTHotIn.y,comCyc. THotIn) annotation (Line(points={{-39,30},{-20,30},
-          {-20,8},{-12,8}}, color={0,0,127}));
-  connect(expMHot_flow.y,comCyc. mHot_flow) annotation (Line(points={{-39,10},{-30,
+  connect(expTHotIn.y, cyc.THotIn) annotation (Line(points={{-39,30},{-20,30},{
+          -20,8},{-12,8}}, color={0,0,127}));
+  connect(expMHot_flow.y, cyc.mHot_flow) annotation (Line(points={{-39,10},{-30,
           10},{-30,4},{-12,4}}, color={0,0,127}));
-  connect(expTColIn.y,comCyc. TColIn) annotation (Line(points={{-39,-10},{-30,-10},
+  connect(expTColIn.y, cyc.TColIn) annotation (Line(points={{-39,-10},{-30,-10},
           {-30,-4},{-12,-4}}, color={0,0,127}));
-  connect(expMCol_flow.y,comCyc. mCol_flow) annotation (Line(points={{-39,-30},{
-          -20,-30},{-20,-8},{-12,-8}}, color={0,0,127}));
-  connect(comCyc.QEva_flow, gai.u)
-    annotation (Line(points={{12,4},{50,4},{50,18}},         color={0,0,127}));
+  connect(expMCol_flow.y, cyc.mCol_flow) annotation (Line(points={{-39,-30},{-20,
+          -30},{-20,-8},{-12,-8}}, color={0,0,127}));
+  connect(cyc.QEva_flow, gai.u)
+    annotation (Line(points={{12,4},{50,4},{50,18}}, color={0,0,127}));
   connect(gai.y, preHeaFloEva.Q_flow) annotation (Line(points={{50,41},{50,40},{
           39,40}},         color={0,0,127}));
-  connect(comCyc.PEleOut, PEleOut)
+  connect(cyc.PEleOut, PEleOut)
     annotation (Line(points={{12,0},{120,0}}, color={0,0,127}));
-  connect(ena, comCyc.ena)
+  connect(ena, cyc.ena)
     annotation (Line(points={{-120,0},{-11,0}}, color={255,0,255}));
-  connect(comCyc.QEva_flow, QEva_flow) annotation (Line(points={{12,4},{90,4},{90,
+  connect(cyc.QEva_flow, QEva_flow) annotation (Line(points={{12,4},{90,4},{90,
           40},{120,40}}, color={0,0,127}));
-  connect(comCyc.QCon_flow, QCon_flow) annotation (Line(points={{12,-4},{50,-4},
-          {50,-40},{120,-40}}, color={0,0,127}));
-  connect(comCyc.on_actual, on_actual) annotation (Line(points={{11,8},{80,8},{80,
+  connect(cyc.QCon_flow, QCon_flow) annotation (Line(points={{12,-4},{50,-4},{
+          50,-40},{120,-40}}, color={0,0,127}));
+  connect(cyc.on_actual, on_actual) annotation (Line(points={{11,8},{80,8},{80,
           100},{120,100}}, color={255,0,255}));
   annotation (defaultComponentName = "orc",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={

@@ -3,7 +3,7 @@ simulateModel("Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.Validation.DryFlu
 // Plot commands
 createPlot(id=1,
  position={95, 95, 592, 371},
- y={"intSta.etaThe"},
+ y={"cyc.etaThe"},
  range={0.0, 1.0, 0.13, 0.165},
  grid=true,
  colors={{28,108,200}},

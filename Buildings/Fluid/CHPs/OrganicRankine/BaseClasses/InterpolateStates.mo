@@ -244,7 +244,7 @@ protected
       ensureMonotonicity = false)
   "Derivative of reference enthaly vs. pressure for cubic spline";
 
-  annotation (defaultComponentName="intSta",
+  annotation (defaultComponentName="cyc",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                Rectangle(
           extent={{-100,100},{100,-100}},

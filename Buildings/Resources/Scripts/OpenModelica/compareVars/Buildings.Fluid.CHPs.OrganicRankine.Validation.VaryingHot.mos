@@ -2,12 +2,12 @@ compareVars :=
   {
     "mHot_flow_set.y",
     "THotIn_set.y",
-    "orc.comCyc.TWorEva",
-    "orc.comCyc.mWor_flow",
-    "orc.comCyc.mWor_flow_max",
-    "orc.comCyc.mWor_flow_min",
-    "orc.comCyc.dTPinEva",
-    "orc.comCyc.dTPinEva_set",
+    "orc.cyc.TWorEva",
+    "orc.cyc.mWor_flow",
+    "orc.cyc.mWor_flow_max",
+    "orc.cyc.mWor_flow_min",
+    "orc.cyc.dTPinEva",
+    "orc.cyc.dTPinEva_set",
     "orc.ena",
     "orc.on_actual"
   };

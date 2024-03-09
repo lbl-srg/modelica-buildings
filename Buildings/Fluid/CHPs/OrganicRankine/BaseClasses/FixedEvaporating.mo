@@ -182,7 +182,7 @@ This is likely caused by the flow rate of cooling fluid in the condenser being t
   = (hPinCon - hPum) * (TColOut_internal - TColIn);
   dTPinCon_set = TWorCon_internal - TColPin_internal;
 
-  annotation(defaultComponentName="comCyc",
+  annotation(defaultComponentName="cyc",
   Documentation(info="<html>
 <p>
 Adding to
