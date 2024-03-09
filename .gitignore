@@ -76,5 +76,6 @@ Buildings/spawn-*
 
 # Temporary files needed for TOUGH simulation
 #########################################
-Buildings/Resources/Python-Sources/toughTemp
+Buildings/Resources/Python-Sources/toughTemp/*
+!Buildings/Resources/Python-Sources/toughTemp/Dummy.txt
 
