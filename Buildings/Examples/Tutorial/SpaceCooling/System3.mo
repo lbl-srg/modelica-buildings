@@ -309,7 +309,7 @@ set point into the instance <code>sub</code>.
 </li>
 <li>
 <p>
-The output of the instance <code>sub</code> was then fed as the input to the instance
+The output of the instance <code>sub</code> was then fed as the input to
 <code>con</code>, which is an instance of
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Reals.Hysteresis\">
 Buildings.Controls.OBC.CDL.Reals.Hysteresis</a>.
