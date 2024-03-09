@@ -1,5 +1,5 @@
 within Buildings.Fluid.CHPs.OrganicRankine.BaseClasses;
-model ComputeCycle "Thermodynamic computations of the ORC"
+model FixedEvaporating "Thermodynamic computations of the ORC"
   extends Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.InterpolateStates(
     TEva=TWorEva,
     TCon=TWorCon);
@@ -210,4 +210,4 @@ First implementation. This is for
           points={{-30,-54},{64,-24}},
           color={28,108,200},
           thickness=1)}));
-end ComputeCycle;
+end FixedEvaporating;

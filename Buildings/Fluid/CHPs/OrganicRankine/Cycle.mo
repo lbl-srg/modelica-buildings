@@ -15,7 +15,7 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
     final vol1(
       final prescribedHeatFlowRate=true));
 
-  Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.ComputeCycle comCyc(
+  Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.FixedEvaporating comCyc(
     final pro=pro,
     final mWor_flow_max=mWor_flow_max,
     final mWor_flow_min=mWor_flow_min,
