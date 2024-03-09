@@ -24,7 +24,8 @@ model GroundResponse
   Modelica.Blocks.Interfaces.RealInput TOut(
     final unit="K",
     displayUnit="degC",
-    quantity="ThermodynamicTemperature") "Outdoor air temperature"
+    quantity="ThermodynamicTemperature")
+    "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-120,-70},{-100,-50}})));
   Modelica.Blocks.Interfaces.RealOutput TBorWal[nSeg](
@@ -36,9 +37,8 @@ model GroundResponse
       iconTransformation(extent={{100,50},{120,70}})));
   Modelica.Blocks.Interfaces.RealOutput pInt[nInt]
     "Pressure of the interested points"
-    annotation (Placement(transformation(
-          extent={{100,0},{140,40}}),  iconTransformation(extent={{100,10},{120,
-            30}})));
+    annotation (Placement(transformation(extent={{100,0},{140,40}}),
+      iconTransformation(extent={{100,10},{120,30}})));
   Modelica.Blocks.Interfaces.RealOutput xInt[nInt]
     "Satuation of the interested points"
     annotation (Placement(transformation(extent={{100,-40},{140,0}}),
@@ -61,9 +61,11 @@ model GroundResponse
     passPythonObject=true)
     "Python interface model to call TOUGH simulator"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Modelica.Blocks.Routing.Multiplex mul(final n=2*nSeg+2)       "Multiplex"
+  Modelica.Blocks.Routing.Multiplex mul(final n=2*nSeg+2)
+    "Multiplex"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Modelica.Blocks.Sources.ContinuousClock clock
+    "Current time"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
 
 equation
@@ -75,8 +77,8 @@ equation
     annotation (Line(points={{-120,80},{-40,80},{-40,0},{-20,0}}, color={0,0,127}));
   connect(TBorWal_start, mul.u[nSeg+1:2*nSeg]) annotation (Line(points={{-120,40},{-60,40},
           {-60,0},{-20,0}}, color={0,0,127}));
-  connect(TOut, mul.u[2*nSeg+1]) annotation (Line(points={{-120,0},{-20,0}},
-               color={0,0,127}));
+  connect(TOut, mul.u[2*nSeg+1])
+    annotation (Line(points={{-120,0},{-20,0}}, color={0,0,127}));
   connect(clock.y, mul.u[2*nSeg+2]) annotation (Line(points={{-59,-50},{-40,-50},{-40,
           0},{-20,0}}, color={0,0,127}));
   connect(pyt.yR[nSeg + 1:nSeg + nInt], pInt) annotation (Line(points={{41,0},{60,
@@ -114,9 +116,33 @@ Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-151,147},{149,107}},
-          lineColor={0,0,255},
+          color={0,0,255},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255},
             textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=
-           false)));
+           false)),
+ Documentation(info="<html>
+<p>
+This model calculates the ground temperature response to obtain the temperature
+at the borehole wall in a geothermal system where heat is being injected into or
+extracted from the ground.
+</p>
+<p>
+The instance <code>pyt</code> finds the ground response with the
+<a href=\"https://tough.lbl.gov/software/tough3\">TOUGH</a> simulator
+through the Python interface
+<a href=\"modelica://Buildings.Utilities.IO.Python_3_8.Real_Real\">
+Buildings.Utilities.IO.Python_3_8.Real_Real</a>. See
+<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.UsersGuide\">
+Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.UsersGuide</a>
+for instructions.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 8, 2024, by Jianjun Hu:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end GroundResponse;

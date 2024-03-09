@@ -8,11 +8,11 @@ model Borefields
   parameter Modelica.Units.SI.Temperature TGro = 283.15
     "Ground temperature";
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine floRat(freqHz=1/21600,
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin floRat(freqHz=1/21600,
       offset=1.2)
     "Mass flow rate to the borefield"
     annotation (Placement(transformation(extent={{-150,10},{-130,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine watTem(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin watTem(
     amplitude=5,
     freqHz=1/10800,
     offset=273.15 + 10) "Water temperature to the borefield"
@@ -74,7 +74,7 @@ model Borefields
     "Source"
     annotation (Placement(transformation(extent={{-92,-70},{-72,-50}},
         rotation=0)));
-  Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.OneUTubeWithTough borFieUTubWitTou(
+  Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.OneUTube borFieUTubWitTou(
     redeclare package Medium = Medium,
     show_T=true,
     borFieDat=borFieUTubDat,
@@ -95,7 +95,7 @@ model Borefields
     nPorts=1) "Sink"
     annotation (Placement(transformation(extent={{70,-70},{50,-50}},
         rotation=0)));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine ambTem(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin ambTem(
     amplitude=5,
     freqHz=1/72000,
     offset=273.15 + 15)
@@ -167,7 +167,7 @@ equation
     annotation (Line(points={{-72,0},{-20,0}}, color={0,127,255}));
   connect(sou1.ports[1], borFieUTubWitTou.port_a)
     annotation (Line(points={{-72,-60},{-20,-60}}, color={0,127,255}));
-annotation (__Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/TOUGHResponse/Examples/Borefields.mos"
+annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/TOUGHResponse/Examples/Borefields.mos"
         "Simulate and plot"),
   experiment(StopTime=72000, Tolerance=1e-06),
   Documentation(info="<html>
