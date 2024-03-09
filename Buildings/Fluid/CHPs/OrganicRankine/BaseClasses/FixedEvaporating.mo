@@ -1,5 +1,6 @@
 within Buildings.Fluid.CHPs.OrganicRankine.BaseClasses;
-model FixedEvaporating "Thermodynamic computations of the ORC"
+model FixedEvaporating
+  "Thermodynamic computations of the ORC with fixed evaporating temperature"
   extends Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.InterpolateStates(
     TEva=TWorEva,
     TCon=TWorCon);
@@ -190,6 +191,7 @@ Adding to
 Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.InterpolateStates</a>,
 this model computes the pinch points, computes the energy exchange,
 and interfaces the input and output variables.
+The evaporating temperature is fixed as a parameter at this level.
 See the documentation of
 <a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.Cycle\">
 Buildings.Fluid.CHPs.OrganicRankine.Cycle</a>
