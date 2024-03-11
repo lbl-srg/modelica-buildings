@@ -112,10 +112,10 @@ def doStep(dblInp, state):
             #   -- the INFILE for specifying the ground properties and the initial and end simulation time,
             #   -- the GENER file for the heat flux bounday condition at the borehole wall
             # The simulation will generate a SAVE file.
-            os.system("/opt/esd-tough/tough3-serial/tough3-install/bin/tough3-eos3")
+            # os.system("/opt/esd-tough/tough3-serial/tough3-install/bin/tough3-eos3")
             # Dummy code to imitate the TOUGH simulation. It is to demonstrate the
             # Modelica-TOUGH coupling process
-            # tough_avatar(Q_toTough, T_out)
+            tough_avatar(Q_toTough, T_out)
 
             # Extract borehole wall temperature
             # os.system("./readsave < readsave.inp > out.txt")
