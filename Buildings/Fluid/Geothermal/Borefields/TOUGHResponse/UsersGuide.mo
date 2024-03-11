@@ -56,15 +56,15 @@ def doStep(dblInp, state):
     # update TOUGH input files for each TOUGH call:
     #   -- update the INFILE to specify begining and ending TOUGH simulation time
     #   -- update the GENER for specifying the heat flow boundary condition
-    os.system(\"./writeincon < writeincon.inp\")
-    # write_incon()
+    # os.system(\"./writeincon < writeincon.inp\")
+    write_incon()
 
     # conduct one step TOUGH simulation
     os.system(\"/.../tough3-install/bin/tough3-eos1\")
 
     # extract borehole wall temperature for Modelica simulation
-    os.system(\" ./readsave < readsave.inp > out.txt\")
-    # readsave()
+    # os.system(\" ./readsave < readsave.inp > out.txt\")
+    readsave()
 
     data = extract_data('out.txt')
     T_tough = data['T_Bor']
