@@ -140,7 +140,7 @@ edge (i.e., the input changes from true to false), the output is falling
 during <i>falling</i> to a value of <i>offset</i>.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Logical/TriggeredTrapezoid.png\"
+<img src=\"modelica://Buildings/Resources/Images/Obsolete/Controls/OBC/CDL/Logical/TriggeredTrapezoid.png\"
      alt=\"TriggeredTrapezoid.png\" />
 </p>
 <p>
