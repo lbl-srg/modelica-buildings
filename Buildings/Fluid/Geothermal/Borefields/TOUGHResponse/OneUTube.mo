@@ -1,10 +1,9 @@
 within Buildings.Fluid.Geothermal.Borefields.TOUGHResponse;
 model OneUTube
   "Borefield model containing single U-tube boreholes, with ground response calcuted by TOUGH"
-  extends
-    Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.BaseClasses.PartialBorefieldWithTough(
-    redeclare Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.OneUTube borHol, toughRes(
-        samplePeriod=samplePeriod));
+  extends Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.BaseClasses.PartialBorefieldWithTough(
+    touRes(samplePeriod=samplePeriod),
+    redeclare Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.OneUTube borHol);
 
   parameter Modelica.Units.SI.Time samplePeriod=30 "Sample period of component";
   annotation (
@@ -25,12 +24,7 @@ between each pipe and the borehole wall.
 </html>", revisions="<html>
 <ul>
 <li>
-July 2018, by Alex Laferri&egrave;re:<br/>
-Extended partial model and changed documentation to reflect the new approach
-used by the borefield models.
-</li>
-<li>
-July 2014, by Damien Picard:<br/>
+March 8, 2024, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>

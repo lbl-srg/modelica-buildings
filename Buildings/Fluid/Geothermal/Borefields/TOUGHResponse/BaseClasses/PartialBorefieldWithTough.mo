@@ -68,10 +68,11 @@ partial model PartialBorefieldWithTough
     "Set to false to remove the dynamics of the filling material."
     annotation (Dialog(tab="Dynamics"));
 
-  Modelica.Blocks.Interfaces.RealOutput TBorAve(final quantity="ThermodynamicTemperature",
-                                                final unit="K",
-                                                displayUnit = "degC",
-                                                start=TExt0_start)
+  Modelica.Blocks.Interfaces.RealOutput TBorAve(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit = "degC",
+    start=TExt0_start)
     "Average borehole wall temperature in the borefield"
     annotation (Placement(transformation(extent={{100,40},{120,60}}),
         iconTransformation(extent={{100,34},{120,54}})));
@@ -98,16 +99,18 @@ partial model PartialBorefieldWithTough
     final TGro_start=TGro_start) "Borehole"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 
-  Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.BaseClasses.GroundResponse toughRes(
-    final nSeg=nSeg)
+  Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.BaseClasses.GroundResponse
+    touRes(final nSeg=nSeg)
     "Ground response calculated by TOUGH simulator"
     annotation (Placement(transformation(extent={{8,40},{28,60}})));
+
   Modelica.Blocks.Interfaces.RealInput TOut(
     final unit="K",
     displayUnit="degC",
     quantity="ThermodynamicTemperature") "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
         iconTransformation(extent={{-120,40},{-100,60}})));
+
 protected
   parameter Modelica.Units.SI.Height z[nSeg]={borFieDat.conDat.hBor/nSeg*(i - 0.5) for i in 1:nSeg}
     "Distance from the surface to the considered segment";
@@ -126,16 +129,16 @@ protected
     "Average temperature of all the borehole segments"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
 
-  Modelica.Blocks.Sources.Constant TBorHol_start[nSeg](k=TExt_start, y(each
-        unit="K", each displayUnit="degC"))
+  Modelica.Blocks.Sources.Constant TBorHol_start[nSeg](
+    k=TExt_start,
+    y(each unit="K", each displayUnit="degC"))
     "Borehole outer wall start temperature"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
 
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor QBorHol[nSeg]
     "Heat flow rate of all segments of the borehole"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
-        rotation=90,
-        origin={0,-10})));
+        rotation=90, origin={0,-10})));
 
   Buildings.HeatTransfer.Sources.PrescribedTemperature TemBorWal[nSeg]
     "Borewall temperature"
@@ -144,32 +147,30 @@ protected
 equation
   connect(masFloMul.port_b, port_b)
     annotation (Line(points={{80,-40},{90,-40},{90,0},{100,0}},
-                                                     color={0,127,255}));
+        color={0,127,255}));
   connect(masFloDiv.port_b, port_a)
     annotation (Line(points={{-80,-40},{-90,-40},{-90,0},{-100,0}},
-                                                color={0,127,255}));
+        color={0,127,255}));
   connect(masFloDiv.port_a, borHol.port_a)
-    annotation (Line(points={{-60,-40},{-10,-40}},     color={0,127,255}));
+    annotation (Line(points={{-60,-40},{-10,-40}}, color={0,127,255}));
   connect(borHol.port_b, masFloMul.port_a)
-    annotation (Line(points={{10,-40},{60,-40}},    color={0,127,255}));
+    annotation (Line(points={{10,-40},{60,-40}}, color={0,127,255}));
   connect(QBorHol.port_a, borHol.port_wall)
-    annotation (Line(points={{-4.44089e-16,-20},{0,-20},{0,-30}},
-                                                        color={191,0,0}));
+    annotation (Line(points={{-4.44089e-16,-20},{0,-20},{0,-30}}, color={191,0,0}));
   connect(QBorHol.port_b, TemBorWal.port) annotation (Line(points={{4.44089e-16,
           0},{0,0},{0,4},{90,4},{90,20},{80,20}},   color={191,0,0}));
   connect(AveTBor.y, TBorAve)
     annotation (Line(points={{81,50},{110,50}}, color={0,0,127}));
-  connect(toughRes.TBorWal, AveTBor.u)
-    annotation (Line(points={{29,56},{44,56},{44,50},{58,50}},
-                                               color={0,0,127}));
-  connect(toughRes.TBorWal, TemBorWal.T) annotation (Line(points={{29,56},{40,56},
+  connect(touRes.TBorWal, AveTBor.u) annotation (Line(points={{29,56},{44,56},{44,
+          50},{58,50}}, color={0,0,127}));
+  connect(touRes.TBorWal, TemBorWal.T) annotation (Line(points={{29,56},{40,56},
           {40,20},{58,20}}, color={0,0,127}));
-  connect(TBorHol_start.y, toughRes.TBorWal_start)
+  connect(TBorHol_start.y, touRes.TBorWal_start)
     annotation (Line(points={{-19,20},{0,20},{0,50},{7,50}}, color={0,0,127}));
-  connect(QBorHol.Q_flow, toughRes.QBor_flow) annotation (Line(points={{-11,-10},
-          {-60,-10},{-60,56},{7,56}}, color={0,0,127}));
-  connect(toughRes.TOut, TOut) annotation (Line(points={{7,44},{-80,44},{-80,40},
-          {-120,40}}, color={0,0,127}));
+  connect(QBorHol.Q_flow, touRes.QBor_flow) annotation (Line(points={{-11,-10},{
+          -60,-10},{-60,56},{7,56}}, color={0,0,127}));
+  connect(touRes.TOut, TOut) annotation (Line(points={{7,44},{-80,44},{-80,40},{
+          -120,40}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
@@ -259,37 +260,13 @@ is modeled using
 <a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.GroundTemperatureResponse\">
 Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.GroundTemperatureResponse</a>,
 which uses a cell-shifting load aggregation technique to calculate the borehole wall
-temperature after calculating and/or read (from a previous calculation) the borefield's thermal response factor.
+temperature after calculating and/or read (from a previous calculation) the borefield's
+thermal response factor.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-June 7, 2019, by Massimo Cimmino:<br/>
-Converted instances that are not of interest to user to be <code>protected</code>.
-</li>
-<li>
-June 4, 2019, by Massimo Cimmino:<br/>
-Added an output for the average borehole wall temperature.
-See
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1107\">#1107</a>.
-</li>
-<li>
-April 11, 2019, by Filip Jorissen:<br/>
-Added <code>choicesAllMatching</code> for <code>borFieDat</code>.
-See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1117\">#1117</a>.
-</li>
-<li>
-January 18, 2019, by Jianjun Hu:<br/>
-Limited the media choice to water and glycolWater.
-See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
-</li>
-<li>
-July 2018, by Alex Laferri&egrave;re:<br/>
-Changed into a partial model and changed documentation to reflect the new approach
-used by the borefield models.
-</li>
-<li>
-July 2014, by Damien Picard:<br/>
+March 8, 2024, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>

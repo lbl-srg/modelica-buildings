@@ -46,6 +46,10 @@ This model demonstrates the calculation of ground response through TOUGH simulat
 <a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.BaseClasses.GroundResponse\">
 Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.BaseClasses.GroundResponse</a>.
 </p>
+<p>
+Note that in this model, the dummy function <code>def tough_avatar(heatFlux, T_out)</code>
+is used to imitate the ground response calculated by TOUGH simulator. 
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

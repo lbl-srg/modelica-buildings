@@ -179,12 +179,14 @@ Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.GroundTemperature
 with different <code>nCel</code> (Number of cells per aggregation level) and
 <code>tLoaAgg</code> (Time resolution of load aggregation). The third one calls
 TOUGH simulator to calculate the ground response.
+However in this example, the dummy function <code>def tough_avatar(heatFlux, T_out)</code>
+is used to imitate the ground response calculated by TOUGH simulator. 
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-December 06, 2019, by Jianjun Hu:<br/>
+March 8, 2024, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>
