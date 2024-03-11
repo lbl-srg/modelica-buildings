@@ -27,8 +27,7 @@ model ControlDifferentialPressure
     k={3E4, 2E4})
     "Differential pressure setpoint"
     annotation (Placement(transformation(extent={{-48,10},{-28,30}})));
-  Buildings.Templates.Plants.Controls.Pumps.Generic.ControlDifferentialPressure
-    ctlDpRem(
+  Buildings.Templates.Plants.Controls.Pumps.Generic.ControlDifferentialPressure ctlDpRem(
     have_senDpRemHar=true,
     nPum=2,
     nSenDpRem=2)
@@ -42,8 +41,7 @@ model ControlDifferentialPressure
     final k=5)
     "Differential pressure local to the plant"
     annotation (Placement(transformation(extent={{30,-90},{50,-70}})));
-  Buildings.Templates.Plants.Controls.Pumps.Generic.ControlDifferentialPressure
-    ctlDpLoc(
+  Buildings.Templates.Plants.Controls.Pumps.Generic.ControlDifferentialPressure ctlDpLoc(
     have_senDpRemHar=false,
     nPum=2,
     nSenDpRem=2)

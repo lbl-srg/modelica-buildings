@@ -1,7 +1,6 @@
 CountTrue
 FirstTrueIndex
 HoldValue
-HoldValueInteger
 Initialization
 LastTrueIndex
 MultiMax
@@ -9,10 +8,8 @@ MultiMin
 PIDWithEnable
 PlaceHolder
 PlaceHolderReal
-Pre
 SortWithIndices
 StageIndex
-StageIndex_bck
 TimerWithReset
 TrueArrayConditional
 Validation

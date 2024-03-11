@@ -47,12 +47,10 @@ record HeatPumpPlant
     per(
       pressure(
         V_flow=if pumHeaWatPri.typ == Buildings.Templates.Components.Types.Pump.None
-          then
-              [
+          then[
           0] else pumHeaWatPri.per.pressure.V_flow,
         dp=if pumHeaWatPri.typ == Buildings.Templates.Components.Types.Pump.None
-          then
-              [
+          then[
           0] else pumHeaWatPri.per.pressure.dp)),
     each rho_default=pumHeaWatPri.rho_default)
     "Cast multiple pump record into single pump record array";
@@ -91,12 +89,10 @@ record HeatPumpPlant
     per(
       pressure(
         V_flow=if pumChiWatPri.typ == Buildings.Templates.Components.Types.Pump.None
-          then
-              [
+          then[
           0] else pumChiWatPri.per.pressure.V_flow,
         dp=if pumChiWatPri.typ == Buildings.Templates.Components.Types.Pump.None
-          then
-              [
+          then[
           0] else pumChiWatPri.per.pressure.dp)),
     each rho_default=pumChiWatPri.rho_default)
     "Cast multiple pump record into single pump record array";

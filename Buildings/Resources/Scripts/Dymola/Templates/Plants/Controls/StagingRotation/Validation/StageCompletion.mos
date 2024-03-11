@@ -1,0 +1,22 @@
+simulateModel("Buildings.Templates.Plants.Controls.StagingRotation.Validation.StageCompletion",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=1800.0,
+    resultFile="StageCompletion");
+createPlot(
+    id=1,
+    position={5, 5, 300, 600},
+    subPlot=1,
+    y={"comSta.uSta", "comSta.u1[1]", "comSta.u1[2]", "comSta.u1_actual[1]", "comSta.u1_actual[2]"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"y1ComSta.y", "comSta.y0"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);

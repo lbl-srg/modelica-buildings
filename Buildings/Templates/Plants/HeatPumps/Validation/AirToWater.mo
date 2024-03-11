@@ -13,7 +13,7 @@ model AirToWater
     pla(
       final cfg=pla.cfg))
     "Plant parameters"
-    annotation (Placement(transformation(extent={{-80,-38},{-60,-18}})));
+    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation (Dialog(tab="Assumptions"),
@@ -47,12 +47,18 @@ model AirToWater
     if have_chiWat
     "CHW system system approximated by prescribed return temperature"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  .Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatRet(k=pla.THeaWatRet_nominal,
-      y(final unit="K", displayUnit="degC"))
+  .Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatRet(
+    k=pla.THeaWatRet_nominal,
+    y(
+      final unit="K",
+      displayUnit="degC"))
     "Source signal for HW return temperature"
     annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
-  .Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatRet(k=pla.TChiWatRet_nominal,
-      y(final unit="K", displayUnit="degC"))
+  .Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatRet(
+    k=pla.TChiWatRet_nominal,
+    y(
+      final unit="K",
+      displayUnit="degC"))
     "Source signal for CHW return temperature"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
   Fluid.Actuators.Valves.TwoWayPressureIndependent valDisHeaWat(
@@ -70,9 +76,22 @@ model AirToWater
     if have_chiWat
     "Distribution system approximated by variable flow resistance"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  .Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable ratFlo(table=[0,0,0; 15,0,
-        0; 25,0.3,0.1; 38,1,0.1; 60,0.1,0.1; 75,0.1,1; 98,1,0.3; 120,0.1,0.1;
-        135,0.1,1; 158,0.1,0.3; 180,0,0; 195,0,1; 240,0,0], timeScale=60)
+  .Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable ratFlo(
+    table=[
+      0, 0, 0;
+      15, 0, 0;
+      25, 0.3, 0.1;
+      38, 1, 0.1;
+      60, 0.1, 0.1;
+      75, 0.1, 1;
+      98, 1, 0.3;
+      120, 0.1, 0.1;
+      135, 0.1, 1;
+      158, 0.1, 0.3;
+      180, 0, 0;
+      195, 0, 1;
+      240, 0, 0],
+    timeScale=60)
     "Source signal: y[1] for cooling load, y[2] for heating load"
     annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
   Buildings.Templates.Plants.HeatPumps.AirToWater pla(
@@ -88,18 +107,22 @@ model AirToWater
     final allowFlowReversal=allowFlowReversal,
     show_T=true)
     "Heat pump plant"
-    annotation (Placement(transformation(extent={{-40,-36},{0,4}})));
+    annotation (Placement(transformation(extent={{-40,-40},{0,0}})));
   // FIXME: Prototype implementation for calculating pump speed to meet design flow.
   parameter Real r_N[pla.nPumHeaWatPri](
     each unit="1",
     each start=1,
     each fixed=false)
     "Relative revolution, r_N=N/N_nominal";
-  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.PlantRequests
-    mulAHUPlaReq "Plant request generator"
+  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.PlantRequests mulAHUPlaReq
+    "Plant request generator"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TDum(k=293.15, y(final unit
-        ="K", displayUnit="degC")) "Placeholder signal for request generator"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TDum(
+    k=293.15,
+    y(
+      final unit="K",
+      displayUnit="degC"))
+    "Placeholder signal for request generator"
     annotation (Placement(transformation(extent={{-120,130},{-100,150}})));
 initial equation
   fill(0, pla.nPumHeaWatPri)=Buildings.Templates.Utilities.computeBalancingPressureDrop(
@@ -110,39 +133,37 @@ initial equation
     r_N=r_N);
 equation
   connect(weaDat.weaBus, pla.busWea)
-    annotation (Line(points={{-100,100},{-20,100},{-20,4}},
-                                                         color={255,204,51},thickness=0.5));
+    annotation (Line(points={{-100,100},{-20,100},{-20,0}},color={255,204,51},thickness=0.5));
   connect(THeaWatRet.y, loaHeaWat.TSet)
     annotation (Line(points={{-98,-80},{50,-80},{50,-32},{58,-32}},color={0,0,127}));
   connect(ratFlo.y[1], valDisChiWat.y)
     annotation (Line(points={{-98,60},{100,60},{100,12}},color={0,0,127}));
   connect(ratFlo.y[2], valDisHeaWat.y)
-    annotation (Line(points={{-98,60},{120,60},{120,-24},{100,-24},{100,-28}},
+    annotation (Line(points={{-98,60},{120,60},{120,-20},{100,-20},{100,-28}},
       color={0,0,127}));
   connect(pla.port_bChiWat, loaChiWat.port_a)
-    annotation (Line(points={{0,-12},{40,-12},{40,0},{60,0}},  color={0,127,255}));
+    annotation (Line(points={{0,-16},{40,-16},{40,0},{60,0}},color={0,127,255}));
   connect(loaChiWat.port_b, valDisChiWat.port_a)
-    annotation (Line(points={{80,0},{90,0}},  color={0,127,255}));
+    annotation (Line(points={{80,0},{90,0}},color={0,127,255}));
   connect(valDisChiWat.port_b, pla.port_aChiWat)
-    annotation (Line(points={{110,0},{140,0},{140,-20},{0,-20}},  color={0,127,255}));
+    annotation (Line(points={{110,0},{140,0},{140,-24},{0,-24}},color={0,127,255}));
   connect(loaHeaWat.port_b, valDisHeaWat.port_a)
     annotation (Line(points={{80,-40},{90,-40}},color={0,127,255}));
   connect(pla.port_bHeaWat, loaHeaWat.port_a)
-    annotation (Line(points={{0,-26},{40,-26},{40,-40},{60,-40}},color={0,127,255}));
+    annotation (Line(points={{0,-30},{40,-30},{40,-40},{60,-40}},color={0,127,255}));
   connect(valDisHeaWat.port_b, pla.port_aHeaWat)
-    annotation (Line(points={{110,-40},{140,-40},{140,-60},{20,-60},{20,-34},{0,
-          -34}},
+    annotation (Line(points={{110,-40},{140,-40},{140,-60},{20,-60},{20,-38},{0,-38}},
       color={0,127,255}));
-  connect(TChiWatRet.y, loaChiWat.TSet) annotation (Line(points={{-98,20},{40,
-          20},{40,8},{58,8}}, color={0,0,127}));
-  connect(ratFlo.y[1], mulAHUPlaReq.uCooCoiSet) annotation (Line(points={{-98,
-          60},{0,60},{0,77},{18,77}}, color={0,0,127}));
-  connect(ratFlo.y[2], mulAHUPlaReq.uHeaCoiSet) annotation (Line(points={{-98,
-          60},{0,60},{0,72},{18,72}}, color={0,0,127}));
-  connect(TDum.y, mulAHUPlaReq.TAirSup) annotation (Line(points={{-98,140},{0,
-          140},{0,88},{18,88}}, color={0,0,127}));
-  connect(TDum.y, mulAHUPlaReq.TAirSupSet) annotation (Line(points={{-98,140},{
-          0,140},{0,83},{18,83}}, color={0,0,127}));
+  connect(TChiWatRet.y, loaChiWat.TSet)
+    annotation (Line(points={{-98,20},{40,20},{40,8},{58,8}},color={0,0,127}));
+  connect(ratFlo.y[1], mulAHUPlaReq.uCooCoiSet)
+    annotation (Line(points={{-98,60},{0,60},{0,77},{18,77}},color={0,0,127}));
+  connect(ratFlo.y[2], mulAHUPlaReq.uHeaCoiSet)
+    annotation (Line(points={{-98,60},{0,60},{0,72},{18,72}},color={0,0,127}));
+  connect(TDum.y, mulAHUPlaReq.TAirSup)
+    annotation (Line(points={{-98,140},{0,140},{0,88},{18,88}},color={0,0,127}));
+  connect(TDum.y, mulAHUPlaReq.TAirSupSet)
+    annotation (Line(points={{-98,140},{0,140},{0,83},{18,83}},color={0,0,127}));
   annotation (
     __Dymola_Commands(
       file=

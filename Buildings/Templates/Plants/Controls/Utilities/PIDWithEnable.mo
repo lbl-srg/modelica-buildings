@@ -174,9 +174,7 @@ equation
         preserveAspectRatio=false)),
     Documentation(
       info="<html>
-FIXME: Replace
-Buildings.Experimental.DHC.EnergyTransferStations.Combined.Controls.PIDWithEnable
-with this class.
+FIXME: Replace Experimental.DHC...PIDWithEnable with this class.
 <p>
 This is an update of
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Reals.PIDWithReset\">

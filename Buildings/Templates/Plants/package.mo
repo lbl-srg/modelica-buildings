@@ -1,5 +1,6 @@
 within Buildings.Templates;
-package Plants "Central plants"
+package Plants
+  "Central plants"
   extends Modelica.Icons.Package;
   annotation (
     Documentation(

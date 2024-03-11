@@ -1,14 +1,16 @@
 within Buildings.Templates.Plants.Controls.Utilities;
-block PlaceHolderReal "Output a placeholder signal"
+block PlaceHolderReal
+  "Output a placeholder signal"
   parameter Boolean have_inp=true
     "Set to true if input signal is available"
-    annotation(Evaluate=true);
+    annotation (Evaluate=true);
   parameter Boolean have_inpPla=false
     "Set to true if placeholder value is provided with input signal"
-    annotation(Evaluate=true);
-  parameter Real u_internal(start=0)
+    annotation (Evaluate=true);
+  parameter Real u_internal(
+    start=0)
     "Placeholder value if input signal is not available"
-    annotation(Dialog(enable=not have_inpPla));
+    annotation (Dialog(enable=not have_inpPla));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
     if have_inp
     "Input"
@@ -29,21 +31,19 @@ block PlaceHolderReal "Output a placeholder signal"
     "Placeholder signal if input signal is not available"
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
 equation
-  connect(u, y) annotation (Line(points={{-120,0},{120,0}}, color={0,0,127}));
-  connect(pla.y, y) annotation (Line(points={{12,-80},{80,-80},{80,0},{120,0}},
-        color={0,0,127}));
-  connect(uPla, y) annotation (Line(points={{-120,-40},{60,-40},{60,0},{120,0}},
-        color={0,0,127}));
-annotation (
+  connect(u, y)
+    annotation (Line(points={{-120,0},{120,0}},color={0,0,127}));
+  connect(pla.y, y)
+    annotation (Line(points={{12,-80},{80,-80},{80,0},{120,0}},color={0,0,127}));
+  connect(uPla, y)
+    annotation (Line(points={{-120,-40},{60,-40},{60,0},{120,0}},color={0,0,127}));
+  annotation (
     defaultComponentName="pla",
     Icon(
       coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}),
       graphics={
-        Line(
-          points={{-90,-80.3976},{68,-80.3976}},
-          color={192,192,192}),
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},

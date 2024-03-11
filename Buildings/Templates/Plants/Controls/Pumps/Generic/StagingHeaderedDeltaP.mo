@@ -23,9 +23,11 @@ block StagingHeaderedDeltaP
     final max=1,
     final unit="1")=dVOffUp
     "Stage down flow point offset";
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput V_flow(final unit="m3/s")
-    "Flow rate" annotation (Placement(transformation(extent={{-160,-20},{-120,20}}),
-        iconTransformation(extent={{-140,-80},{-100,-40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput V_flow(
+    final unit="m3/s")
+    "Flow rate"
+    annotation (Placement(transformation(extent={{-160,-20},{-120,20}}),
+      iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Up
     "Stage up command"
     annotation (Placement(transformation(extent={{120,20},{160,60}}),
@@ -98,7 +100,7 @@ equation
   connect(les.y, runDow.u)
     annotation (Line(points={{52,-40},{68,-40}},color={255,0,255}));
   connect(V_flow, norV.u)
-    annotation (Line(points={{-140,0},{-62,0}}, color={0,0,127}));
+    annotation (Line(points={{-140,0},{-62,0}},color={0,0,127}));
   connect(gre.y, runUp.u)
     annotation (Line(points={{52,0},{68,0}},color={255,0,255}));
   connect(runUp.passed, y1Up)
@@ -127,9 +129,6 @@ equation
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}),
       graphics={
-        Line(
-          points={{-90,-80.3976},{68,-80.3976}},
-          color={192,192,192}),
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
@@ -145,33 +144,45 @@ equation
 </p>
 <ul>
 <li>
-headered variable speed primary pumps in primary-only chiller 
+headered variable speed primary pumps in primary-only chiller
 and boiler plants using differential pressure pump speed control,
 </li>
 <li>
-variable speed secondary pumps in primary-secondary chiller plants 
-with one or more sets of secondary loop pumps serving downstream 
+variable speed secondary pumps in primary-secondary chiller plants
+with one or more sets of secondary loop pumps serving downstream
 control valves,
 </li>
 <li>
-variable speed secondary pumps in primary-secondary boiler plants 
+variable speed secondary pumps in primary-secondary boiler plants
 plants with serving a secondary loop with a flow meter.
 </li>
 </ul>
 <p>
-For other plant configurations, the pumps are staged with the equipment, 
+For other plant configurations, the pumps are staged with the equipment,
 i.e., the number of pumps matches the number of chillers or boilers.
-The actual logic for generating the pump enable commands is part of the 
-staging event sequencing. 
+The actual logic for generating the pump enable commands is part of the
+staging event sequencing.
 </p>
 <p>
-If desired, the stage down flow point <code>dVOffDow</code> can be 
-offset slightly below the stage up point <code>dVOffUp</code> to 
+If desired, the stage down flow point <code>dVOffDow</code> can be
+offset slightly below the stage up point <code>dVOffUp</code> to
 prevent cycling between pump stages in applications with highly variable loads.
 </p>
 <p>
 The timers are reset to zero when the status of a pump changes.
-This is necessary to ensure the minimum pump runtime with rapidly changing loads. 
+This is necessary to ensure the minimum pump runtime with rapidly changing loads.
+</p>
+<h4>Implementation details</h4>
+<p>
+A \"if\" condition is used to generate the stage up and down command as opposed
+to a \"when\" condition. This means that the command remains true as long as the
+condition is verified. This is necessary, for example, if no higher stage is 
+available when a stage up command is triggered. Using a \"when\" condition &ndash;
+which is only valid at the point in time at which the condition becomes true &ndash; 
+would prevent the plant from staging when a higher stage becomes available again.
+To avoid multiple consecutive stage changes, the block that receives the stage up
+and down command and computes the stage index must enforce a minimum stage runtime
+of <code>dtRun</code>.
 </p>
 </html>
 "), Diagram(

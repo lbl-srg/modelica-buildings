@@ -15,6 +15,8 @@ block MultiMin
 equation
   y=min(u);
   annotation (
+      __cdl(
+      extensionBlock=true),
     defaultComponentName="mulMin",
     Icon(
       coordinateSystem(

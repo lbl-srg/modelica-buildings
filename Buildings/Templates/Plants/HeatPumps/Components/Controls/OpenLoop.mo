@@ -4,13 +4,15 @@ block OpenLoop
   extends Buildings.Templates.Plants.HeatPumps.Components.Interfaces.PartialController(
     final typ=Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop);
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupSet[nHp](
-    y(each final unit="K",
+    y(
+      each final unit="K",
       each displayUnit="degC"),
     each k=Buildings.Templates.Data.Defaults.THeaWatSupMed)
     "Heat pump HW supply temperature set point"
     annotation (Placement(transformation(extent={{-80,190},{-100,210}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatSupSet[nHp](
-    y(each final unit="K",
+    y(
+      each final unit="K",
       each displayUnit="degC"),
     each k=Buildings.Templates.Data.Defaults.TChiWatSup)
     "Heat pump CHW supply temperature set point"
@@ -78,13 +80,11 @@ block OpenLoop
     "Heat pump heating mode command"
     annotation (Placement(transformation(extent={{-180,150},{-200,170}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1PumHeaWatPri[cfg.nPumHeaWatPri](
-    each table=if cfg.have_pumChiWatPriDed or not cfg.have_chiWat then
-                                                                      [
+    each table=if cfg.have_pumChiWatPriDed or not cfg.have_chiWat then[
       0, 0;
       1, 1;
       3, 0;
-      5, 0] else
-                [
+      5, 0] else[
       0, 0;
       1, 1;
       3, 0;
@@ -137,7 +137,8 @@ block OpenLoop
     "Secondary CHW pump speed signal"
     annotation (Placement(transformation(extent={{60,-150},{80,-130}})));
   Buildings.Controls.OBC.CDL.Reals.Switch TSet[nHp](
-    y(each final unit="K",
+    y(
+      each final unit="K",
       each displayUnit="degC"))
     "Active supply temperature setpoint"
     annotation (Placement(transformation(extent={{-140,170},{-160,190}})));
@@ -157,8 +158,7 @@ block OpenLoop
     "Primary CHW pump speed signal"
     annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
 equation
-  /* Control point connection - start */
-                                         connect(y1PumHeaWatPri.y[1], busPumHeaWatPri.y1);
+  /* Control point connection - start */ connect(y1PumHeaWatPri.y[1], busPumHeaWatPri.y1);
   connect(yPumHeaWatPri.y, busPumHeaWatPri.y);
   connect(y1PumHeaWatSec.y[1], busPumHeaWatSec.y1);
   connect(yPumHeaWatSec.y, busPumHeaWatSec.y);
@@ -173,8 +173,7 @@ equation
   connect(y1Hp.y[1], busHp.y1);
   connect(y1HeaHp.y[1], busHp.y1Hea);
   connect(TSet.y, busHp.TSet);
-  /* Control point connection - stop */
-                                       connect(TChiWatSupSet.y, TSet.u3)
+  /* Control point connection - stop */connect(TChiWatSupSet.y, TSet.u3)
     annotation (Line(points={{-102,160},{-120,160},{-120,172},{-138,172}},color={0,0,127}));
   connect(THeaWatSupSet.y, TSet.u1)
     annotation (Line(points={{-102,200},{-120,200},{-120,188},{-138,188}},color={0,0,127}));

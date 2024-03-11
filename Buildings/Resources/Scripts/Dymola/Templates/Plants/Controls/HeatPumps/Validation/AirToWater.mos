@@ -47,7 +47,7 @@ createPlot(
 createPlot(
     id=3,
     subPlot=2,
-    y={"ctl.y1Hea[1]", "ctl.y1Hea[2]", "ctl.y1Hea[3]"},
+    y={"ctl.y1HeaHp[1]", "ctl.y1HeaHp[2]", "ctl.y1HeaHp[3]"},
     autoscale=true,
     grid=true,
     timeUnit="h"
@@ -81,6 +81,31 @@ createPlot(
     id=4,
     subPlot=4,
     y={"ctl.y1PumChiWatSec[1]", "ctl.y1PumChiWatSec[2]", "ctl.y1PumChiWatSec[3]"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=5,
+    position={1225, 5, 300, 600},
+    subPlot=1,
+    y={"ctl.uReqResHeaWat", "ctl.uReqResChiWat"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=5,
+    subPlot=2,
+    y={"ctl.THeaWatSupSet", "ctl.TChiWatSupSet", "ctl.THeaWatSup_nominal", "ctl.THeaWatSupSet_min", "ctl.TChiWatSup_nominal", "ctl.TChiWatSupSet_max"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=5,
+    subPlot=3,
+    y={"ctl.dpHeaWatRemSet[1]", "ctl.dpChiWatRemSet[1]", "ctl.dpHeaWatRemSet_max[1]", "ctl.dpHeaWatRemSet_min", "ctl.dpChiWatRemSet_max[1]", "ctl.dpChiWatRemSet_min"},
     autoscale=true,
     grid=true,
     timeUnit="h"

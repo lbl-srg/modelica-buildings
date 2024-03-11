@@ -32,7 +32,7 @@ block PartialController
     annotation (Evaluate=true,
     Dialog(group="Configuration"));
   parameter Integer nAirHan(
-    final min=if typ<>Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop
+    final min=if typ <> Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop
       and nEquZon == 0 then 1 else 0,
     start=0)
     "Number of air handling units served by the plant"
@@ -40,23 +40,23 @@ block PartialController
     Dialog(group="Configuration",
       enable=typ<>Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop));
   parameter Integer nEquZon(
-    final min=if typ<>Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop
+    final min=if typ <> Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop
       and nAirHan == 0 then 1 else 0,
     start=0)
     "Number of terminal units (zone equipment) served by the plant"
     annotation (Evaluate=true,
     Dialog(group="Configuration",
       enable=typ<>Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop));
-  parameter
-    Buildings.Templates.Plants.Controls.Types.PrimaryOverflowMeasurement
-    typMeaCtlHeaWatPri(start=Buildings.Templates.Plants.Controls.Types.PrimaryOverflowMeasurement.FlowDecoupler)
+  parameter Buildings.Templates.Plants.Controls.Types.PrimaryOverflowMeasurement typMeaCtlHeaWatPri(
+    start=Buildings.Templates.Plants.Controls.Types.PrimaryOverflowMeasurement.FlowDecoupler)
     "Type of sensors for primary HW pump control in variable primary-variable secondary plants"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=typ <>
-          Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop and (
-          cfg.typDis == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1And2)));
+    annotation (Evaluate=true,
+    Dialog(group="Configuration",
+      enable=typ<>Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop
+        and (cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1And2)));
   final parameter Boolean have_senVHeaWatPri=if cfg.have_varPumHeaWatPri and cfg.typPumHeaWatSec <>
-    Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None then typMeaCtlHeaWatPri ==Buildings.Templates.Plants.Controls.Types.PrimaryOverflowMeasurement
-      .FlowDifference
+    Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None then typMeaCtlHeaWatPri ==
+    Buildings.Templates.Plants.Controls.Types.PrimaryOverflowMeasurement.FlowDifference
     else cfg.typPumHeaWatSec == Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
     "Set to true for primary HW flow sensor"
     annotation (Evaluate=true,
@@ -69,7 +69,7 @@ block PartialController
       enable=typ<>Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop
         and have_senVHeaWatPri));
   final parameter Boolean have_senVHeaWatSec=cfg.typPumHeaWatSec <> Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
-    and typMeaCtlHeaWatPri ==Buildings.Templates.Plants.Controls.Types.PrimaryOverflowMeasurement.FlowDifference
+    and typMeaCtlHeaWatPri == Buildings.Templates.Plants.Controls.Types.PrimaryOverflowMeasurement.FlowDifference
     "Set to true for secondary HW flow sensor"
     annotation (Evaluate=true,
     Dialog(group="Configuration"));
@@ -81,8 +81,8 @@ block PartialController
       enable=typ<>Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop
         and have_senVHeaWatSec));
   final parameter Boolean have_senTHeaWatPriSup=if cfg.typPumHeaWatSec <>
-    Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None then typMeaCtlHeaWatPri ==Buildings.Templates.Plants.Controls.Types.PrimaryOverflowMeasurement
-      .TemperatureSupplySensor
+    Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None then typMeaCtlHeaWatPri ==
+    Buildings.Templates.Plants.Controls.Types.PrimaryOverflowMeasurement.TemperatureSupplySensor
     else cfg.have_varPumHeaWatPri
     "Set to true for primary HW supply temperature sensor"
     annotation (Evaluate=true,
@@ -105,36 +105,36 @@ block PartialController
     Dialog(group="Configuration",
       enable=typ<>Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop));
   parameter Integer nSenDpHeaWatRem(
-    final min=if typ<>Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop
+    final min=if typ <> Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop
       then 1 else 0)=1
     "Number of remote HW differential pressure sensors used for HW pump speed control"
     annotation (Evaluate=true,
     Dialog(group="Configuration",
       enable=typ<>Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop));
-  parameter
-    Buildings.Templates.Plants.Controls.Types.PrimaryOverflowMeasurement
-    typMeaCtlChiWatPri=typMeaCtlHeaWatPri
+  parameter Buildings.Templates.Plants.Controls.Types.PrimaryOverflowMeasurement typMeaCtlChiWatPri=
+    typMeaCtlHeaWatPri
     "Type of sensors for primary CHW pump control in variable primary-variable secondary plants"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=cfg.have_chiWat
-           and typ <> Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop
-           and (cfg.typDis == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1And2)));
+    annotation (Evaluate=true,
+    Dialog(group="Configuration",
+      enable=cfg.have_chiWat and typ<>Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop
+        and (cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1And2)));
   final parameter Boolean have_senVChiWatPri=if cfg.have_varPumChiWatPri and cfg.typPumChiWatSec <>
-    Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None then typMeaCtlChiWatPri ==Buildings.Templates.Plants.Controls.Types.PrimaryOverflowMeasurement
-      .FlowDifference
+    Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None then typMeaCtlChiWatPri ==
+    Buildings.Templates.Plants.Controls.Types.PrimaryOverflowMeasurement.FlowDifference
     else cfg.typPumChiWatSec == Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
     "Set to true for primary CHW flow sensor"
     annotation (Evaluate=true,
     Dialog(group="Configuration",
       enable=cfg.have_chiWat));
   final parameter Boolean have_senVChiWatSec=cfg.typPumChiWatSec <> Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
-    and typMeaCtlChiWatPri ==Buildings.Templates.Plants.Controls.Types.PrimaryOverflowMeasurement.FlowDifference
+    and typMeaCtlChiWatPri == Buildings.Templates.Plants.Controls.Types.PrimaryOverflowMeasurement.FlowDifference
     "Set to true for secondary CHW flow sensor"
     annotation (Evaluate=true,
     Dialog(group="Configuration",
       enable=cfg.have_chiWat));
   final parameter Boolean have_senTChiWatPriSup=if cfg.typPumChiWatSec <>
-    Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None then typMeaCtlChiWatPri ==Buildings.Templates.Plants.Controls.Types.PrimaryOverflowMeasurement
-      .TemperatureSupplySensor
+    Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None then typMeaCtlChiWatPri ==
+    Buildings.Templates.Plants.Controls.Types.PrimaryOverflowMeasurement.TemperatureSupplySensor
     else cfg.have_varPumChiWatPri
     "Set to true for primary CHW supply temperature sensor"
     annotation (Evaluate=true,
@@ -161,7 +161,7 @@ block PartialController
     Dialog(group="Configuration",
       enable=cfg.have_chiWat and typ<>Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop));
   parameter Integer nSenDpChiWatRem(
-    final min=if typ<>Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop
+    final min=if typ <> Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop
       then 1 else 0)=1
     "Number of remote CHW differential pressure sensors used for CHW pump speed control"
     annotation (Evaluate=true,
@@ -271,7 +271,7 @@ By default, the control options are supposed identical between the CHW and the H
       revisions="<html>
 <ul>
 <li>
-FIXME, by Antoine Gautier:<br/>
+XXXX, 2024, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>

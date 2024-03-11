@@ -1,16 +1,19 @@
 within Buildings.Templates.Plants.Controls.Utilities;
-block PlaceHolder "Output a placeholder signal"
+block PlaceHolder
+  "Output a placeholder signal"
   parameter Boolean have_inp=true
     "Set to true if input signal is available"
-    annotation(Evaluate=true);
+    annotation (Evaluate=true);
   parameter Boolean have_inpPla=false
     "Set to true if placeholder value is provided with input signal"
-    annotation(Evaluate=true);
-  parameter Boolean u_internal(start=true)
+    annotation (Evaluate=true);
+  parameter Boolean u_internal(
+    start=true)
     "Placeholder value if input signal is not available"
-    annotation(Dialog(enable=not have_inpPla));
+    annotation (Dialog(enable=not have_inpPla));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u
-    if have_inp "Input"
+    if have_inp
+    "Input"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla
@@ -28,13 +31,13 @@ block PlaceHolder "Output a placeholder signal"
     "Placeholder signal if input signal is not available"
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
 equation
-  connect(u, y) annotation (Line(points={{-120,0},{-6,0},{-6,0},{120,0}}, color
-        ={255,0,255}));
-  connect(pla.y, y) annotation (Line(points={{12,-80},{80,-80},{80,0},{120,0}},
-        color={255,0,255}));
-  connect(uPla, y) annotation (Line(points={{-120,-40},{60,-40},{60,0},{120,0}},
-        color={255,0,255}));
-annotation (
+  connect(u, y)
+    annotation (Line(points={{-120,0},{-6,0},{-6,0},{120,0}},color={255,0,255}));
+  connect(pla.y, y)
+    annotation (Line(points={{12,-80},{80,-80},{80,0},{120,0}},color={255,0,255}));
+  connect(uPla, y)
+    annotation (Line(points={{-120,-40},{60,-40},{60,0},{120,0}},color={255,0,255}));
+  annotation (
     defaultComponentName="pla",
     Icon(
       coordinateSystem(
@@ -50,16 +53,12 @@ annotation (
           borderPattern=BorderPattern.Raised),
         Ellipse(
           extent={{71,7},{85,-7}},
-          lineColor=DynamicSelect({235,235,235},
-            if y then
-              {0,255,0}
-            else
-              {235,235,235}),
-          fillColor=DynamicSelect({235,235,235},
-            if y then
-              {0,255,0}
-            else
-              {235,235,235}),
+          lineColor=DynamicSelect({235,235,235},if y then
+                                                         {0,255,0} else
+                                                                      {235,235,235}),
+          fillColor=DynamicSelect({235,235,235},if y then
+                                                         {0,255,0} else
+                                                                      {235,235,235}),
           fillPattern=FillPattern.Solid),
         Polygon(
           points={{-120,140},{-120,140}},

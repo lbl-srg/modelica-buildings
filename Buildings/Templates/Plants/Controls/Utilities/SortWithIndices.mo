@@ -1,5 +1,6 @@
 within Buildings.Templates.Plants.Controls.Utilities;
-block SortWithIndices "Sort elements of input vector in ascending or descending order"
+block SortWithIndices
+  "Sort elements of input vector in ascending or descending order"
   parameter Integer nin(
     final min=0)=0
     "Number of input connections"
@@ -15,12 +16,13 @@ block SortWithIndices "Sort elements of input vector in ascending or descending 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yIdx[nin]
     "Indices of the sorted vector with respect to the original vector"
     annotation (Placement(transformation(extent={{100,-80},{140,-40}}),
-        iconTransformation(extent={{100,-80},{140,-40}})));
+      iconTransformation(extent={{100,-80},{140,-40}})));
 equation
-  (y, yIdx)=Modelica.Math.Vectors.sort(
-    u,
+  (y, yIdx)=Modelica.Math.Vectors.sort(u,
     ascending=ascending);
   annotation (
+    __cdl(
+      extensionBlock=true),
     defaultComponentName="sort",
     Icon(
       coordinateSystem(

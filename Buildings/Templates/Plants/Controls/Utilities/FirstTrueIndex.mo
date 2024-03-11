@@ -54,7 +54,7 @@ equation
     Documentation(
       info="<html>
 <p>
-Returns the index of the first <code>true</code> element of the Boolean 
+Returns the index of the first <code>true</code> element of the Boolean
 input vector.
 If no element is <code>true</code>, the block returns <i>0</i>.
 </p>
@@ -64,9 +64,6 @@ If no element is <code>true</code>, the block returns <i>0</i>.
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}),
       graphics={
-        Line(
-          points={{-90,-80.3976},{68,-80.3976}},
-          color={192,192,192}),
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},

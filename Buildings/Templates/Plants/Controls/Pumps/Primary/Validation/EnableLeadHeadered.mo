@@ -11,7 +11,6 @@ model EnableLeadHeadered
     nValIso=2)
     "Enable lead pump - Series piped equipment wth two-position isolation valves"
     annotation (Placement(transformation(extent={{50,-30},{70,-10}})));
-
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[2]
     "Convert to real"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
@@ -25,21 +24,18 @@ model EnableLeadHeadered
     nValIso=2)
     "Enable lead pump - Series piped equipment with modulating isolation valves"
     annotation (Placement(transformation(extent={{50,-70},{70,-50}})));
-
   Buildings.Templates.Plants.Controls.Pumps.Primary.EnableLeadHeadered enaParTwo(
     typCon=Buildings.Templates.Plants.Controls.Types.EquipmentConnection.Parallel,
     typValIso=Buildings.Templates.Plants.Controls.Types.Actuator.TwoPosition,
     nValIso=2)
     "Enable lead pump - Parallel piped equipment wth two-position isolation valves"
     annotation (Placement(transformation(extent={{52,50},{72,70}})));
-
   Buildings.Templates.Plants.Controls.Pumps.Primary.EnableLeadHeadered enaParMod(
     typCon=Buildings.Templates.Plants.Controls.Types.EquipmentConnection.Parallel,
     typValIso=Buildings.Templates.Plants.Controls.Types.Actuator.Modulating,
     nValIso=2)
     "Enable lead pump - Parallel piped equipment with modulating isolation valves"
     annotation (Placement(transformation(extent={{52,10},{72,30}})));
-
 equation
   connect(u1ValIso.y, booToRea.u)
     annotation (Line(points={{-58,0},{-50,0},{-50,-40},{-42,-40}},color={255,0,255}));

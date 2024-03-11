@@ -2,7 +2,8 @@ within Buildings.Templates.Plants.Controls.Enabling;
 block Enable
   "Evaluation of system enable command"
   parameter Buildings.Templates.Plants.Controls.Types.Application typ
-    "Type of application" annotation (Evaluate=true);
+    "Type of application"
+    annotation (Evaluate=true);
   parameter Boolean have_inpSch=false
     "Set to true to provide schedule via software input point"
     annotation (Evaluate=true);
@@ -12,31 +13,31 @@ block Enable
     "Enable schedule"
     annotation (Dialog(enable=not have_inpSch));
   parameter Real TOutLck(
-    final min=100,
-    final unit="K",
-    displayUnit="degC")=if typ ==Buildings.Templates.Plants.Controls.Types.Application.Heating
-    then 18 + 273.15 else 15 + 273.15
+    min=100,
+    unit="K")=if typ == Buildings.Templates.Plants.Controls.Types.Application.Heating
+     then 18 + 273.15 else 15 + 273.15
     "Outdoor air lockout temperature";
   parameter Real dTOutLck(
-    final min=0,
-    final unit="K")=0.5
+    min=0,
+    unit="K")=0.5
     "Hysteresis for outdoor air lockout temperature";
-  parameter Integer nReqIgn(
-    final min=0)=0
+  parameter Integer nReqIgn(min=0)=0
     "Number of ignored requests";
   parameter Real dtRun(
-    final min=0,
-    final unit="s")=15 * 60
+    min=0,
+    unit="s")=15*60
     "Minimum runtime of enable and disable states";
   parameter Real dtReq(
-    final min=0,
-    final unit="s")=3 * 60
+    min=0,
+    unit="s")=3*60
     "Runtime with low number of request before disabling";
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Sch if have_inpSch
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Sch
+    if have_inpSch
     "System enable via schedule"
     annotation (Placement(transformation(extent={{-200,80},{-160,120}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nReq "Number of requests"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nReq
+    "Number of requests"
     annotation (Placement(transformation(extent={{-200,-20},{-160,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(

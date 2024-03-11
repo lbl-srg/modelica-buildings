@@ -93,7 +93,7 @@ equation
     annotation (Line(points={{82,-60},{88,-60},{88,-34},{30,-34},{30,-20},{38,-20}},
       color={255,0,255}));
   connect(ini.y, lat.clr)
-    annotation (Line(points={{62,-20},{66,-20},{66,-6},{70,-6}},  color={255,0,255}));
+    annotation (Line(points={{62,-20},{66,-20},{66,-6},{70,-6}},color={255,0,255}));
   annotation (
     defaultComponentName="disLea",
     Icon(
@@ -101,9 +101,6 @@ equation
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}),
       graphics={
-        Line(
-          points={{-90,-80.3976},{68,-80.3976}},
-          color={192,192,192}),
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},

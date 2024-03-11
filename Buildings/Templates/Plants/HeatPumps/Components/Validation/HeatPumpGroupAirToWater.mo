@@ -193,7 +193,8 @@ model HeatPumpGroupAirToWater
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin THeaWatRet(
     amplitude=datHpAwNrv.THeaWatSupHp_nominal - datHpAwNrv.THeaWatRetHp_nominal,
     freqHz=3 / 3000,
-    y(final unit="K",
+    y(
+      final unit="K",
       displayUnit="degC"),
     offset=datHpAwNrv.THeaWatRetHp_nominal,
     startTime=0)
@@ -242,7 +243,8 @@ model HeatPumpGroupAirToWater
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin THeaWatRet1(
     amplitude=datHpAw.THeaWatSupHp_nominal - datHpAw.THeaWatRetHp_nominal,
     freqHz=3 / 3000,
-    y(final unit="K",
+    y(
+      final unit="K",
       displayUnit="degC"),
     offset=datHpAw.THeaWatRetHp_nominal,
     startTime=0)
@@ -251,7 +253,8 @@ model HeatPumpGroupAirToWater
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin TChiWatRet(
     amplitude=datHpAw.TChiWatRetHp_nominal - datHpAw.TChiWatSupHp_nominal,
     freqHz=3 / 3000,
-    y(final unit="K",
+    y(
+      final unit="K",
       displayUnit="degC"),
     offset=datHpAw.TChiWatRetHp_nominal,
     startTime=0)

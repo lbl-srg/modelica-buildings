@@ -3,7 +3,8 @@ block Initialization
   "Force signal value at initial time"
   parameter Boolean yIni=false
     "Initial value";
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u "Input"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u
+    "Input"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
@@ -13,6 +14,8 @@ block Initialization
 equation
   y=if initial() then yIni else u;
   annotation (
+      __cdl(
+      extensionBlock=true),
     defaultComponentName="ini",
     Documentation(
       info="<html>
@@ -29,9 +32,6 @@ value of the input value, i.e., it acts as a direct pass-through.
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}),
       graphics={
-        Line(
-          points={{-90,-80.3976},{68,-80.3976}},
-          color={192,192,192}),
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},

@@ -18,8 +18,10 @@ model ResetLocalDifferentialPressure
     k=3E4)
     "Differential pressure setpoint"
     annotation (Placement(transformation(extent={{-48,10},{-28,30}})));
-  Buildings.Templates.Plants.Controls.Pumps.Generic.ResetLocalDifferentialPressure
-    resDpLoc(each dpLocSet_max=1E5, Ti=10) "Local differential pressure reset"
+  Buildings.Templates.Plants.Controls.Pumps.Generic.ResetLocalDifferentialPressure resDpLoc(
+    each dpLocSet_max=1E5,
+    Ti=10)
+    "Local differential pressure reset"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin(
     amplitude=0.1 * dpRemSet.k,

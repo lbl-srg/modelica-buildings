@@ -11,26 +11,25 @@ block TimerWithReset
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput reset
     "Reset signal"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
-        iconTransformation(extent={{-140,-100},{-100,-60}})));
+      iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
     final quantity="Time",
     final unit="s")
     "Elapsed time"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}}),iconTransformation(extent={{100,-20},{140,20}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+      iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput passed
     "True if the elapsed time is greater than threshold"
-    annotation (Placement(transformation(extent={{100,-100},{140,-60}}),iconTransformation(extent={{100,-100},{140,-60}})));
-
+    annotation (Placement(transformation(extent={{100,-100},{140,-60}}),
+      iconTransformation(extent={{100,-100},{140,-60}})));
 protected
   discrete Real entryTime(
     final quantity="Time",
     final unit="s")
     "Time instant when u became true";
-
 initial equation
   pre(entryTime)=time;
   pre(passed)=t <= 0;
-
 equation
   when u and not reset then
     entryTime=time;
@@ -41,7 +40,7 @@ equation
     entryTime=time;
     passed=false;
   elsewhen
-          (u and time >= t+pre(entryTime)) then
+          (u and time >= t + pre(entryTime)) then
     passed=true;
     entryTime=pre(entryTime);
   elsewhen not u then
@@ -50,11 +49,10 @@ equation
     passed=false;
     entryTime=pre(entryTime);
   end when;
-  y=if u then
-      time-entryTime
-    else
-      0.0;
+  y=if u then time - entryTime else 0.0;
   annotation (
+    __cdl(
+      extensionBlock=true),
     defaultComponentName="tim",
     Icon(
       coordinateSystem(
@@ -99,29 +97,21 @@ equation
           textString="t=%t"),
         Ellipse(
           extent={{-83,7},{-69,-7}},
-          lineColor=DynamicSelect({235,235,235},
-            if u then
-              {0,255,0}
-            else
-              {235,235,235}),
-          fillColor=DynamicSelect({235,235,235},
-            if u then
-              {0,255,0}
-            else
-              {235,235,235}),
+          lineColor=DynamicSelect({235,235,235},if u then
+                                                         {0,255,0} else
+                                                                      {235,235,235}),
+          fillColor=DynamicSelect({235,235,235},if u then
+                                                         {0,255,0} else
+                                                                      {235,235,235}),
           fillPattern=FillPattern.Solid),
         Ellipse(
           extent={{71,-73},{85,-87}},
-          lineColor=DynamicSelect({235,235,235},
-            if passed then
-              {0,255,0}
-            else
-              {235,235,235}),
-          fillColor=DynamicSelect({235,235,235},
-            if passed then
-              {0,255,0}
-            else
-              {235,235,235}),
+          lineColor=DynamicSelect({235,235,235},if passed then
+                                                              {0,255,0} else
+                                                                           {235,235,235}),
+          fillColor=DynamicSelect({235,235,235},if passed then
+                                                              {0,255,0} else
+                                                                           {235,235,235}),
           fillPattern=FillPattern.Solid),
         Text(
           extent={{226,60},{106,10}},
@@ -129,6 +119,7 @@ equation
           textString=DynamicSelect("",String(y,
             leftJustified=false,
             significantDigits=3)))}),
-  Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+    Diagram(
+      coordinateSystem(
+        preserveAspectRatio=false)));
 end TimerWithReset;

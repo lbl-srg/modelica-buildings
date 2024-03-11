@@ -1,7 +1,7 @@
 within Buildings.Templates.Plants.Controls.HeatPumps;
 package Validation "Collection of validation models"
-annotation (
-      Icon(
+  annotation (
+    Icon(
       graphics={
         Rectangle(
           lineColor={200,200,200},

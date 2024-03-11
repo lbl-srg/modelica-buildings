@@ -86,8 +86,7 @@ model AirToWater
     redeclare final package Medium=MediumChiWat,
     final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply,
     final allowFlowReversal=allowFlowReversal)
-    if not
-          (have_chiWat and typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered)
+    if not(have_chiWat and typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered)
     "Primary CHW supply pipe - Plant with dedicated primary CHW pumps"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
   Buildings.Templates.Components.Actuators.Valve valChiWatMinByp(
@@ -138,19 +137,16 @@ model AirToWater
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,
       origin={110,40})));
   Buildings.Templates.Components.Sensors.VolumeFlowRate VChiWatByp_flow(
-    redeclare final package Medium = MediumChiWat,
+    redeclare final package Medium=MediumChiWat,
     final m_flow_nominal=mChiWatPri_flow_nominal,
     final allowFlowReversal=allowFlowReversal,
     final have_sen=typDis == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1And2
-         and ctl.typMeaCtlChiWatPri == Buildings.Templates.Plants.Controls.Types.PrimaryOverflowMeasurement.FlowDecoupler,
-
+      and ctl.typMeaCtlChiWatPri == Buildings.Templates.Plants.Controls.Types.PrimaryOverflowMeasurement.FlowDecoupler,
     final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter,
-
     final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply)
-    "Decoupler CHW volume flow rate" annotation (Placement(transformation(
-        extent={{10,10},{-10,-10}},
-        rotation=90,
-        origin={140,-20})));
+    "Decoupler CHW volume flow rate"
+    annotation (Placement(transformation(extent={{10,10},{-10,-10}},rotation=90,
+      origin={140,-20})));
   Buildings.Templates.Components.Routing.Junction junChiWatBypRet(
     redeclare final package Medium=MediumChiWat,
     final tau=tau,
@@ -243,8 +239,7 @@ model AirToWater
     redeclare final package Medium=MediumHeaWat,
     final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply,
     final allowFlowReversal=allowFlowReversal)
-    if not
-          (have_heaWat and typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered)
+    if not(have_heaWat and typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered)
     "Primary HW supply pipe - Plant with dedicated primary HW pumps"
     annotation (Placement(transformation(extent={{40,-230},{60,-210}})));
   Buildings.Templates.Components.Actuators.Valve valHeaWatMinByp(
@@ -295,19 +290,16 @@ model AirToWater
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,
       origin={110,-200})));
   Buildings.Templates.Components.Sensors.VolumeFlowRate VHeaWatByp_flow(
-    redeclare final package Medium = MediumHeaWat,
+    redeclare final package Medium=MediumHeaWat,
     final m_flow_nominal=mHeaWatPri_flow_nominal,
     final allowFlowReversal=allowFlowReversal,
     final have_sen=typDis == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1And2
-         and ctl.typMeaCtlHeaWatPri == Buildings.Templates.Plants.Controls.Types.PrimaryOverflowMeasurement.FlowDecoupler,
-
+      and ctl.typMeaCtlHeaWatPri == Buildings.Templates.Plants.Controls.Types.PrimaryOverflowMeasurement.FlowDecoupler,
     final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter,
-
     final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply)
-    "Decoupler HW volume flow rate" annotation (Placement(transformation(
-        extent={{10,10},{-10,-10}},
-        rotation=90,
-        origin={140,-260})));
+    "Decoupler HW volume flow rate"
+    annotation (Placement(transformation(extent={{10,10},{-10,-10}},rotation=90,
+      origin={140,-260})));
   Buildings.Templates.Components.Routing.Junction junHeaWatBypRet(
     redeclare final package Medium=MediumHeaWat,
     final tau=tau,
@@ -392,8 +384,7 @@ model AirToWater
     "Primary HW pumps inlet manifold"
     annotation (Placement(transformation(extent={{20,-210},{40,-190}})));
 equation
-  /* Control point connection - start */
-                                         connect(bus, hp.bus);
+  /* Control point connection - start */ connect(bus, hp.bus);
   connect(busWea, hp.busWea);
   connect(bus, pumPri.bus);
   connect(bus, valIso.bus);
@@ -409,8 +400,7 @@ equation
   connect(VHeaWatSec_flow.y, bus.VHeaWatSec_flow);
   connect(TChiWatPriSup.y, bus.TChiWatPriSup);
   connect(THeaWatPriSup.y, bus.THeaWatPriSup);
-  /* Control point connection - stop */
-                                       connect(pumChiWatPri.ports_b, outPumChiWatPri.ports_a)
+  /* Control point connection - stop */connect(pumChiWatPri.ports_b, outPumChiWatPri.ports_a)
     annotation (Line(points={{60,40},{60,40}},color={0,127,255}));
   connect(inlPumChiWatPri.ports_b, pumChiWatPri.ports_a)
     annotation (Line(points={{40,40},{40,40}},color={0,127,255}));

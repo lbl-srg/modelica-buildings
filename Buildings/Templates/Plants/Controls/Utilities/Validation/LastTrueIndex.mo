@@ -1,10 +1,12 @@
 within Buildings.Templates.Plants.Controls.Utilities.Validation;
 model LastTrueIndex
   "Validation model"
-  Buildings.Templates.Plants.Controls.Utilities.LastTrueIndex idxLasTru(nin=6)
+  Buildings.Templates.Plants.Controls.Utilities.LastTrueIndex idxLasTru(
+    nin=6)
     "Return last true index"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
-  Buildings.Templates.Plants.Controls.Utilities.LastTrueIndex idxLasTru1(nin=6)
+  Buildings.Templates.Plants.Controls.Utilities.LastTrueIndex idxLasTru1(
+    nin=6)
     "Return last true index"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1[6](

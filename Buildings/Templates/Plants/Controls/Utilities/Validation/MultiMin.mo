@@ -1,6 +1,7 @@
 within Buildings.Templates.Plants.Controls.Utilities.Validation;
 model MultiMin
-  Buildings.Templates.Plants.Controls.Utilities.MultiMin mulMin(nin=5)
+  Buildings.Templates.Plants.Controls.Utilities.MultiMin mulMin(
+    nin=5)
     "Block that outputs the minimum element of the input vector"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant con[5](

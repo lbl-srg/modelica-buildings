@@ -104,7 +104,7 @@ block ControlDifferentialPressure
     nin=nSenDpRem)
     if have_senDpRemHar
     "Maximum control loop output"
-    annotation (Placement(transformation(extent={{42,30},{62,50}})));
+    annotation (Placement(transformation(extent={{40,30},{60,50}})));
 protected
   parameter Real dpSca(
     final unit="Pa",
@@ -131,11 +131,11 @@ equation
     annotation (Line(points={{-68,80},{-60,80},{-60,-60},{-4,-60},{-4,-52}},
       color={255,0,255}));
   connect(ctlDpRem.y, maxY.u)
-    annotation (Line(points={{12,40},{40,40}},color={0,0,127}));
+    annotation (Line(points={{12,40},{38,40}},color={0,0,127}));
   connect(ctlDpLoc.y, y)
     annotation (Line(points={{12,-40},{80,-40},{80,0},{120,0}},color={0,0,127}));
   connect(maxY.y, y)
-    annotation (Line(points={{64,40},{80,40},{80,0},{120,0}},color={0,0,127}));
+    annotation (Line(points={{62,40},{80,40},{80,0},{120,0}},color={0,0,127}));
   annotation (
     defaultComponentName="ctlDp",
     Icon(
@@ -143,9 +143,6 @@ equation
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}),
       graphics={
-        Line(
-          points={{-90,-80.3976},{68,-80.3976}},
-          color={192,192,192}),
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},

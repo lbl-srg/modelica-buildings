@@ -85,9 +85,6 @@ equation
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}),
       graphics={
-        Line(
-          points={{-90,-80.3976},{68,-80.3976}},
-          color={192,192,192}),
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
@@ -100,13 +97,13 @@ equation
     Documentation(
       info="<html>
 <p>
-For plants where the remote DP sensor(s) is not hardwired to the plant controller, but 
+For plants where the remote DP sensor(s) is not hardwired to the plant controller, but
 a local DP sensor is hardwired to the plant controller,
-remote DP is maintained at setpoint by a reverse acting PI loop <i>running in the controller 
+remote DP is maintained at setpoint by a reverse acting PI loop <i>running in the controller
 to which the remote sensor is wired</i>.
 </p>
 <p>
-The loop output is a DP setpoint for the local primary loop DP sensor hardwired to the 
+The loop output is a DP setpoint for the local primary loop DP sensor hardwired to the
 plant controller.
 </p>
 <p>
@@ -114,7 +111,7 @@ The local DP setpoint is reset from <code>dpLocSet_min</code> at <i>0&nbsp;%</i>
 to <code>dpLocSet_max</code> at <i>100&nbsp;%</i> loop output.
 </p>
 <p>
-The minimum local differential pressure setpoint <code>dpLocSet_min</code> is 
+The minimum local differential pressure setpoint <code>dpLocSet_min</code> is
 dictated by minimum flow control in primary-only plants but has no lower
 limit in primary-secondary plants.
 In primary-only plants, the minimum setpoint needs to be high enough to drive design
@@ -125,12 +122,12 @@ minimum flow for the largest equipment through the minimum flow bypass valve.
 </p>
 <ul>
 <li>
-variable speed primary pumps in primary-only chiller and boiler plants 
-where the remote DP sensor(s) is not hardwired to the plant controller, but 
+variable speed primary pumps in primary-only chiller and boiler plants
+where the remote DP sensor(s) is not hardwired to the plant controller, but
 a local DP sensor is hardwired to the plant controller,
 </li>
 <li>
-variable speed secondary pumps in primary-secondary chiller and boiler plants plants 
+variable speed secondary pumps in primary-secondary chiller and boiler plants plants
 where a remote DP sensor is not hardwired to the secondary pump controller,
 but a local DP sensor is hardwired to the secondary pump controller.
 </li>

@@ -9,18 +9,16 @@ model PartialHeatPumpGroup
   It is the same as MediumHeaWat for reversible HP.
   Non-reversible HP that can be controlled to produce either HW or CHW
   shall be modeled with chiller components (as a chiller/heater).
-  */
-    final package MediumChiWat=MediumHeaWat
+  */final package MediumChiWat=MediumHeaWat
     "CHW medium";
   /*
   Derived classes representing AWHP shall use:
   redeclare final package MediumSou = MediumAir
-  */
-    replaceable package MediumSou=Buildings.Media.Water
+  */replaceable package MediumSou=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Source-side medium"
     annotation (Dialog(enable=typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater),
-      __ctrlFlow(enable=false));
+  __ctrlFlow(enable=false));
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air medium"

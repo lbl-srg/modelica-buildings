@@ -1,8 +1,10 @@
 within Buildings.Templates.Plants.Controls.Enabling.Validation;
 model Enable
   "Validation model for system enabling logic"
-  Buildings.Templates.Plants.Controls.Enabling.Enable enaHea(typ=Buildings.Templates.Plants.Controls.Types.Application.Heating,
-      nReqIgn=1) "Enable heating system"
+  Buildings.Templates.Plants.Controls.Enabling.Enable enaHea(
+    typ=Buildings.Templates.Plants.Controls.Types.Application.Heating,
+    nReqIgn=1)
+    "Enable heating system"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Pulse req(
     amplitude=1,
@@ -18,13 +20,16 @@ model Enable
     final offset=285.15)
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Templates.Plants.Controls.Enabling.Enable enaCoo(typ=Buildings.Templates.Plants.Controls.Types.Application.Cooling,
-      nReqIgn=1) "Enable cooling system"
+  Buildings.Templates.Plants.Controls.Enabling.Enable enaCoo(
+    typ=Buildings.Templates.Plants.Controls.Types.Application.Cooling,
+    nReqIgn=1)
+    "Enable cooling system"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.Templates.Plants.Controls.Enabling.Enable enaCooSch(
     typ=Buildings.Templates.Plants.Controls.Types.Application.Cooling,
     have_inpSch=true,
-    nReqIgn=1) "Enable cooling system with input schedule"
+    nReqIgn=1)
+    "Enable cooling system with input schedule"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse sch(
     width=0.4,

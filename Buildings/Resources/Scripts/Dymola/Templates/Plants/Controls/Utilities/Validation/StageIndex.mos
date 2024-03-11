@@ -14,14 +14,14 @@ createPlot(
 createPlot(
     id=1,
     subPlot=2,
-    y={"holUp.y", "holDow.y"},
+    y={"u1UpHol.y", "u1DowHol.y"},
     autoscale=true,
     grid=true
 );
 createPlot(
     id=1,
     subPlot=3,
-    y={"ava[1].y", "ava[2].y", "ava[3].y", "ava[4].y"},
+    y={"u1AvaSta[1].y", "u1AvaSta[2].y", "u1AvaSta[3].y", "u1AvaSta[4].y"},
     autoscale=true,
     grid=true
 );

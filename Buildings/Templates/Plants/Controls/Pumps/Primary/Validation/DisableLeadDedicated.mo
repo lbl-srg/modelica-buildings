@@ -8,8 +8,9 @@ model DisableLeadDedicated
   Buildings.Templates.Plants.Controls.Pumps.Primary.DisableLeadDedicated disLea
     "Disable lead pump - Without flow request"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
-  Buildings.Templates.Plants.Controls.Pumps.Primary.DisableLeadDedicated disLeaReq(have_req=
-        true) "Disable lead pump - With flow request"
+  Buildings.Templates.Plants.Controls.Pumps.Primary.DisableLeadDedicated disLeaReq(
+    have_req=true)
+    "Disable lead pump - With flow request"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse y1ReqEquLea(
     period=y1EquLea.period + 4 * 60,
