@@ -2,8 +2,8 @@ within Buildings.Fluid.Storage.PCM;
 model CoilRegisterFourPort
   "Four port register for a pcm heat exchanger"
   import Modelica.Constants;
-  replaceable parameter Buildings.Fluid.Storage.PCM.Data.HeatExchanger.Generic Design "Heat Exchanger Design";
-  replaceable parameter Buildings.Fluid.Storage.PCM.Data.PhaseChangeMaterial.PCM58 Material "Phase Change Material";
+  replaceable parameter Buildings.Fluid.Storage.PCM.Data.HeatExchanger.Generic Design "Heat Exchanger Design"  annotation (choicesAllMatching = true);
+replaceable parameter Buildings.Fluid.Storage.PCM.Data.PhaseChangeMaterial.Generic Material "Phase Change Material" annotation (choicesAllMatching = true);
   parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal "mass flowrate through HPC";
   parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal "mass flowrate through LPC";
   parameter Modelica.Units.SI.Temperature TStart_pcm "Starting temperature of pcm";
@@ -15,6 +15,7 @@ model CoilRegisterFourPort
     dp1_nominal=Design.dp1_nominal,
     dp2_nominal=Design.dp2_nominal,
     Design=Design,
+    Material=Material,
     TStart_pcm=TStart_pcm)
     annotation (Placement(transformation(extent={{-12,-12},{12,12}})));
   replaceable package Medium = Buildings.Media.Water "Medium in the component"
@@ -114,7 +115,7 @@ model CoilRegisterFourPort
         Upcm=eleHex.Upcm,
         mpcm=eleHex.mpcm,
         TSol=Material.TSol,
-        cSol=Material.cPCM,
+        cSol=Material.c,
         LHea=Material.LHea))
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
   Modelica.Blocks.Interfaces.RealOutput EPCM "Connector of Real output signal"
