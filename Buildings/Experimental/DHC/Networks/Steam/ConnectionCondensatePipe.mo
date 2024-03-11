@@ -25,6 +25,10 @@ equation
     annotation (Line(points={{20,-20},{20,-70}}, color={0,127,255}));
   connect(port_bCon, junConSup.port_3)
     annotation (Line(points={{-20,120},{-20,-30}}, color={0,127,255}));
+  connect(pipDisSup.port_b, junConSup.port_1)
+    annotation (Line(points={{-60,-40},{-30,-40}}, color={0,127,255}));
+  connect(pipDisRet.port_a, junConRet.port_2)
+    annotation (Line(points={{-60,-80},{10,-80}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{48,76},{72,24}},
