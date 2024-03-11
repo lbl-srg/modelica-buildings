@@ -12,8 +12,6 @@ replaceable parameter Buildings.Fluid.Storage.PCM.Data.PhaseChangeMaterial.Gener
     redeclare package Medium2 = Medium,
     m1_flow_nominal=m1_flow_nominal,
     m2_flow_nominal=m2_flow_nominal,
-    dp1_nominal=Design.dp1_nominal,
-    dp2_nominal=Design.dp2_nominal,
     Design=Design,
     Material=Material,
     TStart_pcm=TStart_pcm)

@@ -6,10 +6,11 @@ model HexElementSensibleFourPort
      prescribedHeatFlowRate=false),
   redeclare final Buildings.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatPort vol2(
      prescribedHeatFlowRate=false),
-     dp1_nominal = Design.dp1_nominal,
-     dp2_nominal = Design.dp2_nominal);
+     dp1_nominal = TesScale*10000,
+     dp2_nominal = TesScale*10000);
   extends
     Buildings.Fluid.Storage.PCM.BaseClasses.partialUnitCellPhaseChangeTwoCircuit;
+
   parameter Boolean initialize_p1 = not Medium1.singleState
     "Set to true to initialize the pressure of volume 1"
     annotation(HideResult=true, Evaluate=true, Dialog(tab="Advanced"));
