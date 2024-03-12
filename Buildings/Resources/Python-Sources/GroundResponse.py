@@ -131,7 +131,7 @@ def doStep(dblInp, state):
             # Update state
             state = {'tLast': tim, 'Q': Q, 'T_tough': T_tough}
 
-            # Empty the 'toughTemp' folder
+            # Delete the files in the 'toughTemp' folder, except the file "Dummy.txt"
             empty_folder(tou_tmp)
             
             # Save files from temp directory to temp tough folder
@@ -207,7 +207,9 @@ def empty_folder(folder):
     # empty the 'toughTemp' folder
     touTmpFil = os.listdir(folder)
     for f in touTmpFil:
-        os.remove(os.path.join(folder, f))
+        # os.remove(os.path.join(folder, f))
+        if 'Dummy' not in f:
+            os.remove(os.path.join(folder, f))
 
 ''' Create working directory
 '''
