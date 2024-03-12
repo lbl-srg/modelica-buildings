@@ -73,7 +73,7 @@ model PartialDirect
   Modelica.Blocks.Interfaces.RealOutput Q(
     final quantity="Energy",
     final unit="J",
-    displayUnit="kWh")
+    displayUnit="kW.h")
     "Measured energy consumption at the ETS"
      annotation (Placement(transformation(
           extent={{300,-180},{340,-140}}), iconTransformation(extent={{300,-130},
@@ -236,6 +236,10 @@ Chapter 5: End User Interface. In <i>District Cooling Guide</i>, Second Edition 
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 11, 2024, by Michael Wetter:<br/>
+Corrected wrong <code>displayUnit</code> string.
+</li>
 <li>
 April 7, 2023, by David Blum:<br/>
 Changed to partial base class for direct so can extend to heating and cooling ETS.

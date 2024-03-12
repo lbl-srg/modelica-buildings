@@ -342,6 +342,13 @@ units are wrong or errors in documentation):
 <tr><td colspan=\"2\"><b>Buildings.Experimental.DHC</b>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.PartialDirect<br/>
+                       Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.PartialIndirect<br/>
+                       Buildings.Experimental.DHC.Loads.Steam.BuildingTimeSeriesAtETS
+    </td>
+    <td valign=\"top\">Corrected wrong <code>displayUnit</code> string.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.TankBranch
     </td>
     <td valign=\"top\">Corrected wrong use of <code>displayUnit</code>.
@@ -357,6 +364,14 @@ units are wrong or errors in documentation):
                        these functions. This does not conform with the Modelica Language Standard, and causes
                        the compilation to fail in OpenModelica 1.22.0.<br/>
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1814\">IBPSA, #1814</a>
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus_9_6_0</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer
+    </td>
+    <td valign=\"top\">Corrected wrong <code>displayUnit</code> string.
     </td>
 </tr>
 </table>

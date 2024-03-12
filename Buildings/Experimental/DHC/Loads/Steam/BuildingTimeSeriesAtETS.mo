@@ -146,7 +146,7 @@ model BuildingTimeSeriesAtETS
   Modelica.Blocks.Interfaces.RealOutput EHea(
     final quantity="HeatFlow",
     final unit="J",
-    displayUnit="kWh")
+    displayUnit="kW.h")
     "Total heating energy"
     annotation (Placement(transformation(extent={{100,40},{120,60}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
@@ -355,6 +355,10 @@ Energy Systems (OSMSES 2022)</i>, Aachen, German, April 4-5, 2022.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 11, 2024, by Michael Wetter:<br/>
+Corrected wrong <code>displayUnit</code> string.
+</li>
 <li>
 September 15, 2023, by Kathryn Hinkelman:<br/>
 Added publication references.
