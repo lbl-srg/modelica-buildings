@@ -143,7 +143,7 @@ equation
           lineColor={0,0,0}),
         Rectangle(
           visible=densitySelection == Buildings.Airflow.Multizone.Types.densitySelection.fromBottom,
-          extent={{-16,0},{16,-82}},
+          extent={{-16,0},{16,-80}},
           fillColor={85,170,255},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
