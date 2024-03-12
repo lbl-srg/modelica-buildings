@@ -1,5 +1,5 @@
 within Buildings.Experimental.DHC;
-package Networks "Package of models for district energy network"
+package Networks "Package of models for district energy distribution networks"
   extends Modelica.Icons.VariantsPackage;
 
   annotation (
@@ -7,7 +7,8 @@ package Networks "Package of models for district energy network"
     Documentation(
       info="<html>
 <p>
-This package contains models for elements that form the district network.
+This package contains models for elements that form district energy distribution
+networks.
 </p>
 </html>"));
 end Networks;

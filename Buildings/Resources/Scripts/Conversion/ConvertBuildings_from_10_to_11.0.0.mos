@@ -49,3 +49,6 @@ convertClass("Buildings.Controls.OBC.CDL.Reals.Sources.ModelTime",
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/xxxx
 convertClass("Buildings.Experimental.DHC.Plants.Reservoir.Borefield",
              "Buildings.Experimental.DHC.Examples.Combined.BaseClasses.BoreField");
+             
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3431
+convertClass("Buildings.Fluid.Geothermal.BuriedPipes","Buildings.Fluid.FixedResistances.BuriedPipes");
