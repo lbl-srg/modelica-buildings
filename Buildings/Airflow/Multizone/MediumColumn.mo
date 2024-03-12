@@ -103,11 +103,13 @@ equation
         Text(
           extent={{24,-78},{106,-100}},
           textColor={0,0,127},
-          textString="Bottom"),
+          textString="Bottom",
+          fontSize=36),
         Text(
           extent={{32,104},{98,70}},
           textColor={0,0,127},
-          textString="Top"),
+          textString="Top",
+          fontSize=36),
         Text(
           extent={{36,26},{88,-10}},
           textColor={0,0,127},
@@ -129,7 +131,7 @@ equation
         Text(
           extent={{-50.5,20.5},{50.5,-20.5}},
           textColor={0,0,127},
-          origin={-72.5,-12.5},
+          origin={-72.5,-0.5},
           rotation=90,
           textString="%name"),
         Rectangle(

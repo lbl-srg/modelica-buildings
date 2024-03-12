@@ -98,11 +98,13 @@ equation
         Text(
           extent={{24,-78},{106,-100}},
           textColor={0,0,127},
-          textString="Bottom"),
+          textString="Bottom",
+          fontSize=36),
         Text(
           extent={{32,104},{98,70}},
           textColor={0,0,127},
-          textString="Top"),
+          textString="Top",
+          fontSize=36),
         Text(
           extent={{42,26},{94,-10}},
           textColor={0,0,127},
@@ -112,12 +114,12 @@ equation
         Text(
           extent={{-50.5,20.5},{50.5,-20.5}},
           textColor={0,0,127},
-          origin={-72.5,-12.5},
+          origin={-72.5,-0.5},
           rotation=90,
           textString="%name"),
         Rectangle(
           extent={{-16,80},{16,-80}},
-          fillColor={0,66,132},
+          fillColor={85,170,255},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
           lineColor={0,0,0}),
