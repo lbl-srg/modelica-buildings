@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.CDL.Integers;
 block Stage "Output total stages that should be enabled"
 
   parameter Integer n(final min=1)
-    "Maximum stages that could be enabled";
+    "Number of stages that could be enabled";
 
   parameter Real holdDuration(
     final quantity="Time",
