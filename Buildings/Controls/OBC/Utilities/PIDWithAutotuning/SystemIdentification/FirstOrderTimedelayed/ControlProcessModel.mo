@@ -1,11 +1,11 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed;
 block ControlProcessModel
   "Identify the parameters of a first-order time delayed model for the control process"
-  parameter Real yHig(min=1E-6) = 1
+  parameter Real yHig(min=1E-6)
     "Higher value for the output";
-  parameter Real yLow(min=1E-6) = 0.5
+  parameter Real yLow(min=1E-6)
     "Lower value for the output";
-  parameter Real deaBan(min=0) = 0.5
+  parameter Real deaBan(min=1E-6)
     "Deadband for holding the output value";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tOn(
     final quantity="Time",
@@ -79,9 +79,9 @@ protected
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses.TimeConstantDelay
     timConDel(
-    final yHig=yHig,
-    final yLow=yLow,
-    deaBan=deaBan)
+      final yHig=yHig,
+      final yLow=yLow,
+      final deaBan=deaBan)
     "Block that calculate the time constant and the time delay"
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samk(
@@ -196,6 +196,10 @@ annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-100},{160,100}})),
     Documentation(revisions="<html>
 <ul>
+<li>
+March 8, 2024, by Michael Wetter:<br/>
+Changed deadband to be consistent within the package.
+</li>
 <li>
 June 1, 2022, by Sen Huang:<br/>
 First implementation<br/>

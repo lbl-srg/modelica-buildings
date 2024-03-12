@@ -1,11 +1,11 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses;
 block TimeConstantDelay
   "Calculate the time constant and the time delay of a first order time delayed model"
-  parameter Real yHig(min=1E-6) = 1
+  parameter Real yHig(min=1E-6)
     "Higher value for the output (assuming the reference output is 0)";
-  parameter Real yLow(min=1E-6) = 0.5
+  parameter Real yLow(min=1E-6)
     "Lower value for the output (assuming the reference output is 0)";
-  parameter Real deaBan(min=0) = 0.5
+  parameter Real deaBan(min=1E-6)
     "Deadband for holding the output value";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tOn(
     final quantity="Time",
@@ -149,6 +149,10 @@ equation
             {-180,-140},{180,140}})),
     Documentation(revisions="<html>
 <ul>
+<li>
+March 8, 2024, by Michael Wetter:<br/>
+Changed deadband to be consistent within the package.
+</li>
 <li>
 June 1, 2022, by Sen Huang:<br/>
 First implementation<br/>
