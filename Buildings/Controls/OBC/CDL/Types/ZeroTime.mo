@@ -65,6 +65,14 @@ This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1847\">#1847</a>.
 </li>
 <li>
+March 14, 2017, by Michael Wetter:<br/>
+Revised documentation.
+</li>
+<li>
+February 23, 2017, by Milica Grahovac:<br/>
+Initial CDL implementation.
+</li>
+<li>
 September 10, 2016, by Michael Wetter:<br/>
 Revised implementation and moved to new package
 <a href=\"modelica://Buildings.Utilities.Time.CalendarTime.Types\">
