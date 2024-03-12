@@ -62,10 +62,10 @@ while [[ "$1" != "" ]]; do
       ;;
     * )
         echo "Invalid option: $1"
-        echo "Usage: checkandrun.sh [--local] [--checksum] [--tool tool_name] [--cover test_coverage]"
+        echo "Usage: checkandrun.sh --checksum [--local] [--skip] [--tool SIMULATOR] [--cover FRACTION_TEST_COVERAGE]"
+        echo "     --checksum triggers testing based on checksum verification (only method currently available, mandatory option)."
         echo "     --local is for local execution (use this option to update the checksums and run simulations)."
         echo "     --skip disables all simulations (use this option to simply update the checksums locally)."
-        echo "     --checksum triggers testing based on checksum verification (only method currently available, mandatory option)."
         echo "     --tool allows specifying the Modelica tool to be used, defaulting to Dymola."
         echo "     --cover allows specifying the fraction of test coverage, defaulting to 1."
         exit
