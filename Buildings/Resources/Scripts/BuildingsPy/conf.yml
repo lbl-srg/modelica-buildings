@@ -233,6 +233,20 @@
   optimica:
     comment: Timeout after 300 s
     time_out: 600
+- model_name: Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.Examples.Borefields
+  openmodelica:
+    translate: false
+    comment: python incompatible with docker image
+  optimica:
+    comment: Optimica uses Python 3.9, while the examples use Python 3.8
+    translate: false
+- model_name: Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.BaseClasses.Validation.GroundResponse
+  openmodelica:
+    translate: false
+    comment: python incompatible with docker image
+  optimica:
+    comment: Optimica uses Python 3.9, while the examples use Python 3.8
+    translate: false
 - model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DecouplingMixing
   openmodelica:
     comment: Timeout after 600 s on travis, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/600714398#L489
