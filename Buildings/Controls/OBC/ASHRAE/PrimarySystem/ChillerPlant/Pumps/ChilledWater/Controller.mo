@@ -314,18 +314,21 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Or or2
     "Check if the lead pump is enabled"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
-  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr
+  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr if have_heaPum
     "Check if there is any pump running"
     annotation (Placement(transformation(extent={{-160,-170},{-140,-150}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(final k=1)
+    if have_heaPum
     "Dummy index"
     annotation (Placement(transformation(extent={{-200,-190},{-180,-170}})));
-  Buildings.Controls.OBC.CDL.Integers.Switch intSwi
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi if have_heaPum
     "Output 1 when there is no pump running, to avoid warning downstream"
     annotation (Placement(transformation(extent={{-100,-170},{-80,-150}})));
-  Buildings.Controls.OBC.CDL.Integers.Multiply mulInt
+  Buildings.Controls.OBC.CDL.Integers.Multiply mulInt if have_heaPum
+    "Output zero when there is no pump running"
     annotation (Placement(transformation(extent={{-10,-100},{10,-80}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt2
+    if have_heaPum
     "Convert boolean to integer"
     annotation (Placement(transformation(extent={{-50,-130},{-30,-110}})));
 
