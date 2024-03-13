@@ -2,6 +2,8 @@ within Buildings.Fluid.Storage.PCM.Validation;
 model ChargingDischarging
   "Test stand to validate PCM HXs with single circuit or dual circuit charge / discharge"
   extends Modelica.Icons.Example;
+  //replaceable parameter Buildings.Fluid.Storage.PCM.Data.HeatExchanger.Generic Design "Heat Exchanger Design"  annotation (choicesAllMatching = true);
+  //replaceable parameter Buildings.Fluid.Storage.PCM.Data.PhaseChangeMaterial.Generic Material "Phase Change Material" annotation (choicesAllMatching = true);
   replaceable package Medium=Buildings.Media.Water "Water medium";
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=0.1
     "Nominal mass flowrate of Tes";
@@ -24,7 +26,8 @@ parameter Modelica.Units.SI.Temperature pcm_Tstart = 311.05;
   Modelica.Blocks.Sources.CombiTimeTable HPCdata(
     tableOnFile=true,
     tableName="tab1",
-    fileName="C:/Users/Xiwang_LBL/Documents/Dymola/ccc-hp-plus-tes/validation_scripts/meas_58c/all-runs/58_single_6lpm_12C_65C_Run1_all.txt",
+    fileName=
+        "C:/git/ccc-hp-plus-tes/validation_scripts/meas_58c/all-runs/58_single_6lpm_12C_65C_Run1_all.txt",
     columns={2,4,7},
     timeScale=60)
     annotation (Placement(transformation(extent={{-150,4},{-130,24}})));
@@ -48,6 +51,8 @@ parameter Modelica.Units.SI.Temperature pcm_Tstart = 311.05;
   Modelica.Blocks.Math.Product m3s_kgs
     annotation (Placement(transformation(extent={{-46,40},{-66,60}})));
   CoilRegisterFourPort pcmFourPort(
+    redeclare Buildings.Fluid.Storage.PCM.Data.PhaseChangeMaterial.PCM11_a
+      Material,
     m1_flow_nominal=m_flow_nominal,
     m2_flow_nominal=m_flow_nominal,
     TStart_pcm=pcm_Tstart) annotation (Placement(transformation(
@@ -76,7 +81,8 @@ parameter Modelica.Units.SI.Temperature pcm_Tstart = 311.05;
   Modelica.Blocks.Sources.CombiTimeTable LPCdata(
     tableOnFile=true,
     tableName="tab1",
-    fileName="C:/Users/Xiwang_LBL/Documents/Dymola/ccc-hp-plus-tes/validation_scripts/meas_58c/all-runs/58_single_6lpm_12C_65C_Run1_all.txt",
+    fileName=
+        "C:/git/ccc-hp-plus-tes/validation_scripts/meas_58c/all-runs/58_single_6lpm_12C_65C_Run1_all.txt",
     columns={3,6,5},
     timeScale=60)
     annotation (Placement(transformation(extent={{-8,-90},{12,-70}})));
