@@ -90,9 +90,9 @@ equation
   connect(m_flow2.y, add_m_flow.u2) annotation (Line(points={{-79,40},{-76,40},{
           -76,44},{-70,44}},  color={0,0,127}));
   connect(sin.ports[1], temDynLoss.port_b)
-    annotation (Line(points={{90,-12},{84,-12},{76,-12}}, color={0,127,255}));
-  connect(sin.ports[2], senRelTem.port_b) annotation (Line(points={{90,-16},{80,
-          -16},{80,-60},{50,-60}}, color={0,127,255}));
+    annotation (Line(points={{90,-15},{84,-12},{76,-12}}, color={0,127,255}));
+  connect(sin.ports[2], senRelTem.port_b) annotation (Line(points={{90,-13},{80,
+          -13},{80,-60},{50,-60}}, color={0,127,255}));
     annotation (experiment(Tolerance=1e-6, StopTime=60),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/TemperatureDryBulb.mos"
         "Simulate and plot"),
