@@ -52,3 +52,9 @@ convertClass("Buildings.Experimental.DHC.Plants.Reservoir.Borefield",
              
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3431
 convertClass("Buildings.Fluid.Geothermal.BuriedPipes","Buildings.Fluid.FixedResistances.BuriedPipes");
+
+// Conversion for https://github.com/ibpsa/modelica-ibpsa/issues/1844
+convertClass("Buildings.Airflow.Multizone.BaseClasses.interpolate",
+             "Buildings.Utilities.Math.Functions.interpolate");
+convertClass("Buildings.Airflow.Multizone.BaseClasses.Examples.interpolate",
+             "Buildings.Utilities.Math.Functions.Examples.interpolate");
