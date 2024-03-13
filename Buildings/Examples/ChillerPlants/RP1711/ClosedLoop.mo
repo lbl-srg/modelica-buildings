@@ -203,8 +203,7 @@ equation
   connect(hys.y, truDel.u)
     annotation (Line(points={{-158,120},{-142,120}}, color={255,0,255}));
   connect(conInt1.y, intSwi1.u1) annotation (Line(points={{-118,80},{-70,80},{
-          -70,58},{-62,58}},
-                         color={255,127,0}));
+          -70,58},{-62,58}}, color={255,127,0}));
   connect(truDel1.y, intSwi1.u2) annotation (Line(points={{-118,50},{-62,50}},
                          color={255,0,255}));
   connect(intSwi1.y, chiWatResReq.u3) annotation (Line(points={{-38,50},{-30,50},
@@ -220,12 +219,9 @@ equation
   connect(conInt3.y, intSwi2.u3) annotation (Line(points={{-118,-80},{-110,-80},
           {-110,-48},{-102,-48}}, color={255,127,0}));
   connect(intSwi2.y, intSwi1.u3) annotation (Line(points={{-78,-40},{-70,-40},{
-          -70,42},{-62,42}},
-                         color={255,127,0}));
+          -70,42},{-62,42}}, color={255,127,0}));
   connect(weaDat.weaBus, chiPla.weaBus) annotation (Line(
-      points={{60,70},{80,70},{80,77},{109,77}},
-      color={255,204,51},
-      thickness=0.5));
+      points={{60,70},{80,70},{80,77},{109,77}}, color={255,204,51}, thickness=0.5));
   connect(cooCoi.port_b1, bou.ports[1])
     annotation (Line(points={{130,-4},{180,-4}}, color={0,127,255},
       thickness=0.5));
@@ -245,7 +241,6 @@ equation
           -30,-12},{-22,-12}}, color={255,127,0}));
   connect(conInt3.y, chiPlaReq.u3) annotation (Line(points={{-118,-80},{-30,-80},
           {-30,-28},{-22,-28}}, color={255,127,0}));
-
   connect(chiWatResReq.y, chiPla.TChiWatSupResReq) annotation (Line(points={{2,
           120},{20,120},{20,47},{102,47}}, color={255,127,0}));
   connect(chiPlaReq.y, chiPla.chiPlaReq) annotation (Line(points={{2,-20},{20,
@@ -253,8 +248,7 @@ equation
 annotation (experiment(
       StartTime=15638400,
       StopTime=15897600,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlants/RP1711/ClosedLoop.mos"
     "Simulate and plot"),
   Diagram(coordinateSystem(extent={{-280,-220},{280,220}})), Icon(

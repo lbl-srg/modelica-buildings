@@ -69,7 +69,7 @@ chilled and condenser water isolation valves are closed, the
 chilled and condenser water pump speed setpoint becomes 0, and
 all the tower cells are disabled.
 </li>
-</ul?
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>
