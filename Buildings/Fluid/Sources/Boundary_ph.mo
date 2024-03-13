@@ -5,14 +5,14 @@ model Boundary_ph
 
   parameter Boolean use_p_in = false
     "Get the pressure from the input connector"
-    annotation(Evaluate=true, HideResult=true, Dialog(group="Conditional inputs"));
+    annotation(Evaluate=true, Dialog(group="Conditional inputs"));
   parameter Medium.AbsolutePressure p = Medium.p_default
     "Fixed value of pressure"
     annotation (Dialog(enable = not use_p_in, group="Fixed inputs"));
 
   parameter Boolean use_h_in= false
     "Get the specific enthalpy from the input connector"
-    annotation(Evaluate=true, HideResult=true, Dialog(group="Conditional inputs"));
+    annotation(Evaluate=true, Dialog(group="Conditional inputs"));
   parameter Medium.SpecificEnthalpy h = Medium.h_default
     "Fixed value of specific enthalpy"
     annotation (Dialog(enable = not use_h_in, group="Fixed inputs"));
@@ -124,6 +124,12 @@ with exception of boundary pressure, do not have an effect.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 11, 2024, by Michael Wetter:<br/>
+Corrected use of <code>HideResult</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1850\">#1850</a>.
+</li>
 <li>
 Juni 7, 2019, by Michael Wetter:<br/>
 Added constant boolean expressions to avoid a potential string comparison in an equation section.<br/>
