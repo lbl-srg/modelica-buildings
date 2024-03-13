@@ -306,7 +306,20 @@ to <b style=\"color:blue\">existing</b> libraries:
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
     </td>
-</tr>    
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Utilities.Math.Interpolate<br/>
+                       Buildings.Utilities.Math.Examples.Interpolate
+    </td>
+    <td valign=\"top\">Created a block with an example model for
+                       <a href=\"modelica://Buildings.Utilities.Math.Functions.interpolate\">
+                       Buildings.Utilities.Math.Functions.interpolate</a>.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1844\">IBPSA, #1844</a>.
+    </td>
+</tr>
 </table>
 <!-- Backward compatible changes -->
 <p>
@@ -555,6 +568,23 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"Modelica://Buildings.Fluid.FixedResistances.BuriedPipes\"></a>.<br/>
                      This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">#3431</a>.<br/>
                      This change is supported in the conversion script.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Utilities.Math.Functions.interpolate<br/>
+                       Buildings.Utilities.Math.Functions.Examples.Interpolate
+    </td>
+    <td valign=\"top\">Moved these classes to
+                       <a href=\"modelica://Buildings.Utilities.Math.Functions\">
+                       Buildings.Utilities.Math.Functions</a>
+                       from
+                       <a href=\"modelica://Buildings.Airflow.Multizone.BaseClasses\">
+                       Buildings.Airflow.Multizone.BaseClasses</a>.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1844\">IBPSA, #1844</a>.<br/>
+                       This change is supported in the conversion script.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
