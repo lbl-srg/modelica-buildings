@@ -33,17 +33,19 @@ block Controller "Chiller plant controller"
     "Chiller type. Recommended staging order: positive displacement, variable speed centrifugal, constant speed centrifugal"
     annotation (Dialog(tab="General", group="Chillers configuration"));
 
-  parameter Real chiDesCap[nChi](unit="W")
+  parameter Real chiDesCap[nChi](
+    final unit=fill("W",nChi))
     "Design chiller capacities vector"
     annotation (Dialog(tab="General", group="Chillers configuration"));
 
-  parameter Real chiMinCap[nChi](unit="W")
+  parameter Real chiMinCap[nChi](
+    final unit=fill("W",nChi))
     "Chiller minimum cycling loads vector"
     annotation (Dialog(tab="General", group="Chillers configuration"));
 
   parameter Real TChiWatSupMin[nChi](
-    unit="K",
-    displayUnit="degC")={278.15,278.15}
+    final unit=fill("K",nChi),
+    displayUnit=fill("degC",nChi))={278.15,278.15}
     "Minimum chilled water supply temperature"
     annotation (Dialog(tab="General", group="Chillers configuration"));
 
@@ -293,11 +295,13 @@ block Controller "Chiller plant controller"
     "Time constant for resetting minimum bypass flow"
     annotation(Dialog(tab="Minimum flow bypass", group="Time parameters"));
 
-  parameter Real minFloSet[nChi](unit="m3/s")={0.0089,0.0089}
+  parameter Real minFloSet[nChi](
+    final unit=fill("m3/s",nChi))={0.0089,0.0089}
     "Minimum chilled water flow through each chiller"
     annotation(Dialog(tab="Minimum flow bypass", group="Flow limits"));
 
-  parameter Real maxFloSet[nChi](unit="m3/s")={0.025,0.025}
+  parameter Real maxFloSet[nChi](
+    final unit=fill("m3/s",nChi))={0.025,0.025}
     "Maximum chilled water flow through each chiller"
     annotation(Dialog(tab="Minimum flow bypass", group="Flow limits"));
 
@@ -359,8 +363,7 @@ block Controller "Chiller plant controller"
     "Type of controller"
     annotation (Dialog(tab="Chilled water pumps", group="Speed controller"));
 
-  parameter Real kChiWatPum=0.1
-                              "Gain of controller"
+  parameter Real kChiWatPum=0.1 "Gain of controller"
     annotation (Dialog(tab="Chilled water pumps", group="Speed controller"));
 
   parameter Real TiChiWatPum(unit="s")=10
@@ -420,7 +423,9 @@ block Controller "Chiller plant controller"
     "Minimum chilled water pump differential static pressure, default 5 psi"
     annotation (Dialog(tab="Plant Reset", group="Chilled water supply"));
 
-  parameter Real dpChiWatPumMax[nSenChiWatPum](unit="Pa", displayUnit="Pa")
+  parameter Real dpChiWatPumMax[nSenChiWatPum](
+    final unit=fill("Pa",nSenChiWatPum),
+    displayUnit=fill("Pa",nSenChiWatPum))
     "Maximum chilled water pump differential static pressure, the array size equals to the number of remote pressure sensor"
     annotation (Dialog(tab="Plant Reset", group="Chilled water supply"));
 
@@ -564,8 +569,7 @@ block Controller "Chiller plant controller"
     annotation (Dialog(tab="Cooling Towers", group="Fan speed controller with WSE enabled",
                        enable=have_WSE));
 
-  parameter Real kIntOpeTowFan=0.1
-                                 "Gain of controller"
+  parameter Real kIntOpeTowFan=0.1 "Gain of controller"
     annotation (Dialog(tab="Cooling Towers", group="Fan speed controller with WSE enabled",
                        enable=have_WSE));
 
@@ -586,8 +590,7 @@ block Controller "Chiller plant controller"
     "Controller in the mode when only WSE is enabled"
     annotation (Dialog(tab="Cooling Towers", group="Fan speed controller with WSE enabled", enable=have_WSE));
 
-  parameter Real kWSETowFan=0.1
-                              "Gain of controller"
+  parameter Real kWSETowFan=0.1 "Gain of controller"
     annotation (Dialog(tab="Cooling Towers", group="Fan speed controller with WSE enabled", enable=have_WSE));
 
   parameter Real TiWSETowFan(unit="s")=10
@@ -603,19 +606,20 @@ block Controller "Chiller plant controller"
                                             chiWatConTowFan==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
 
   // Fan speed control: controlling condenser return water temperature when WSE is not enabled
-  parameter Real LIFT_min[nChi](unit="K")={12,12}
+  parameter Real LIFT_min[nChi](
+    final unit=fill("K",nChi))={12,12}
     "Minimum LIFT of each chiller"
     annotation (Evaluate=true, Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control"));
 
   parameter Real TConWatSup_nominal[nChi](
-    unit="K",
-    displayUnit="degC")={293.15,293.15}
+    final unit=fill("K",nChi),
+    displayUnit=fill("degC",nChi))={293.15,293.15}
     "Condenser water supply temperature (condenser entering) of each chiller"
     annotation (Evaluate=true, Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control"));
 
   parameter Real TConWatRet_nominal[nChi](
-    unit="K",
-    displayUnit="degC")={303.15,303.15}
+    final unit=fill("K",nChi),
+    displayUnit=fill("degC",nChi))={303.15,303.15}
     "Condenser water return temperature (condenser leaving) of each chiller"
     annotation (Evaluate=true, Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control"));
 
@@ -662,8 +666,7 @@ block Controller "Chiller plant controller"
     annotation (Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control",
                        enable=not closeCoupledPlant));
 
-  parameter Real kSupCon=0.1
-                           "Gain of controller"
+  parameter Real kSupCon=0.1 "Gain of controller"
     annotation (Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control",
                        enable=not closeCoupledPlant));
 

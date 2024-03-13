@@ -56,10 +56,14 @@ block Down
   parameter Real byPasSetTim(unit="s", displayUnit="s")
     "Time to reset minimum by-pass flow"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
-  parameter Real minFloSet[nChi](unit="m3/s", displayUnit="m3/s")
+  parameter Real minFloSet[nChi](
+    unit=fill("m3/s",nChi),
+    displayUnit=fill("m3/s",nChi))
     "Minimum chilled water flow through each chiller"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
-  parameter Real maxFloSet[nChi](unit="m3/s", displayUnit="m3/s")
+  parameter Real maxFloSet[nChi](
+    unit=fill("m3/s",nChi),
+    displayUnit=fill("m3/s",nChi))
     "Maximum chilled water flow through each chiller"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
   parameter Real aftByPasSetTim(

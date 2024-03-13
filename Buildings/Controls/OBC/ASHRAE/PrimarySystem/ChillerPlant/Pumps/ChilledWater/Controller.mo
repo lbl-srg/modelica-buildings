@@ -261,9 +261,6 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1[nPum] if have_heaPum
     "Convert boolean to integer"
     annotation (Placement(transformation(extent={{-240,-80},{-220,-60}})));
-  Buildings.Controls.OBC.CDL.Logical.Edge edg1 if have_heaPum
-    "Rising edge"
-    annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre1[nPum] if have_heaPum
     "Breaks algebraic loops"
     annotation (Placement(transformation(extent={{220,-130},{240,-110}})));
@@ -491,14 +488,6 @@ equation
     annotation (Line(points={{-18,0},{-2,0}}, color={255,0,255}));
   connect(not2.y, booRep2.u)
     annotation (Line(points={{22,0},{58,0}}, color={255,0,255}));
-  connect(mulAnd.y, edg1.u)
-    annotation (Line(points={{-118,-20},{-102,-20}}, color={255,0,255}));
-  connect(edg1.y, enaNexLag.clr) annotation (Line(points={{-78,-20},{-60,-20},{-60,
-          24},{-2,24}}, color={255,0,255}));
-  connect(edg1.y, disLasLag.clr) annotation (Line(points={{-78,-20},{-60,-20},{-60,
-          -6},{-42,-6}}, color={255,0,255}));
-  connect(pre1.y, booToInt1.u) annotation (Line(points={{242,-120},{260,-120},{260,
-          -140},{-250,-140},{-250,-70},{-242,-70}}, color={255,0,255}));
   connect(pumSpeLocDp.dpChiWatPumSet_local, dpChiWatPumSet_local) annotation (
       Line(points={{22,-216},{200,-216},{200,-240},{300,-240}},  color={0,0,127}));
   connect(booRep.y, pumSta1.u1) annotation (Line(points={{22,100},{90,100},{90,40},
@@ -541,6 +530,12 @@ equation
           -20,-84},{-12,-84}}, color={255,127,0}));
   connect(mulInt.y, intRep2.u)
     annotation (Line(points={{12,-90},{18,-90}}, color={255,127,0}));
+  connect(mulAnd.y, disLasLag.clr) annotation (Line(points={{-118,-20},{-100,
+          -20},{-100,-6},{-42,-6}}, color={255,0,255}));
+  connect(mulAnd.y, enaNexLag.clr) annotation (Line(points={{-118,-20},{-100,
+          -20},{-100,24},{-2,24}}, color={255,0,255}));
+  connect(pre1.y, booToInt1.u) annotation (Line(points={{242,-120},{260,-120},{
+          260,-140},{-250,-140},{-250,-70},{-242,-70}}, color={255,0,255}));
 annotation (
   defaultComponentName="chiWatPum",
   Diagram(coordinateSystem(preserveAspectRatio=false,

@@ -268,9 +268,6 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Subtract sub2 "Subtract"
     annotation (Placement(transformation(extent={{-20,156},{0,176}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Pre pre "Logical pre"
-    annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
-
   Buildings.Controls.OBC.CDL.Reals.Subtract sub1 "Subtract"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
 
@@ -334,9 +331,6 @@ protected
     "Check if initial stage is 0"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Edge edg
-    "Plant enable edge"
-    annotation (Placement(transformation(extent={{-18,-30},{2,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "Plant enabled with economizer-only operation"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
@@ -348,10 +342,6 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not not1
     "Not in initial stage"
     annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Edge edg1
-    "Becoming not initial stage"
-    annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
 
   Buildings.Controls.OBC.CDL.Logical.Or enaEco "Economizer enabled"
     annotation (Placement(transformation(extent={{120,-30},{140,-10}})));
@@ -369,9 +359,6 @@ equation
   connect(VChiWat_flow, wseTOut.VChiWat_flow)
     annotation (Line(points={{-200,70},{-120,70},{-120,160},{-102,160}},
     color={0,0,127}));
-  connect(pre.y,wseTun.uWseSta)
-    annotation (Line(points={{142,-60},{150,-60},{150,-120},{-160,-120},{-160,35},
-          {-142,35}}, color={255,0,255}));
   connect(TChiWatRet, sub1.u1)
     annotation (Line(points={{-200,170},{-170,170},{-170,106},{-102,106}},
           color={0,0,127}));
@@ -389,8 +376,9 @@ equation
     annotation (Line(points={{-78,100},{-62,100}},color={0,0,127}));
   connect(enaTChiWatRet.y, and2.u2) annotation (Line(points={{82,100},{90,100},{
           90,158},{98,158}}, color={255,0,255}));
-  connect(wseTun.y, wseTOut.uTunPar) annotation (Line(points={{-119,30},{-110,30},
-          {-110,152},{-102,152}}, color={0,0,127}));
+  connect(wseTun.y, wseTOut.uTunPar) annotation (Line(points={{-118,30},{-110,
+          30},{-110,152},{-102,152}},
+                                  color={0,0,127}));
   connect(wseTOut.y, sub2.u2) annotation (Line(points={{-78,160},{-22,160}},
                      color={0,0,127}));
   connect(TChiWatRet, sub2.u1) annotation (Line(points={{-200,170},{-170,170},{-170,
@@ -398,7 +386,7 @@ equation
   connect(sub2.y, enaTWet.u)
     annotation (Line(points={{2,166},{18,166}}, color={0,0,127}));
   connect(wseTun.y, yTunPar)
-    annotation (Line(points={{-119,30},{200,30}},   color={0,0,127}));
+    annotation (Line(points={{-118,30},{200,30}},   color={0,0,127}));
   connect(nor.y, timer.u)
     annotation (Line(points={{2,100},{18,100}}, color={255,0,255}));
   connect(hys.y, nor.u1)
@@ -407,8 +395,6 @@ equation
           {-22,92}},       color={255,0,255}));
   connect(falEdg.y, truHol.u)
     annotation (Line(points={{-78,60},{-62,60}},   color={255,0,255}));
-  connect(pre.y, falEdg.u) annotation (Line(points={{142,-60},{150,-60},{150,-120},
-          {-160,-120},{-160,60},{-102,60}},       color={255,0,255}));
   connect(wseTOut.y, TWsePre) annotation (Line(points={{-78,160},{-60,160},{-60,
           130},{200,130}},           color={0,0,127}));
   connect(uIni, intEqu.u1)
@@ -423,8 +409,6 @@ equation
     annotation (Line(points={{-200,-108},{-102,-108}}, color={255,127,0}));
   connect(intEqu1.y, not1.u)
     annotation (Line(points={{-78,-100},{-62,-100}}, color={255,0,255}));
-  connect(not1.y, edg1.u)
-    annotation (Line(points={{-38,-100},{-22,-100}}, color={255,0,255}));
   connect(truFalHol.y, enaEco.u1) annotation (Line(points={{162,166},{170,166},{
           170,70},{110,70},{110,-20},{118,-20}},  color={255,0,255}));
   connect(enaEco.y, y)
@@ -451,24 +435,24 @@ equation
           -154,-134},{118,-134}}, color={255,0,255}));
   connect(uPla, wsePum.uPla) annotation (Line(points={{-200,-20},{-154,-20},{
           -154,-172},{118,-172}}, color={255,0,255}));
-  connect(and1.y, edg.u)
-    annotation (Line(points={{-38,-20},{-20,-20}}, color={255,0,255}));
-  connect(edg.y, lat.u)
-    annotation (Line(points={{4,-20},{18,-20}}, color={255,0,255}));
   connect(uPla, and1.u1)
     annotation (Line(points={{-200,-20},{-62,-20}}, color={255,0,255}));
   connect(lat.y, pre2.u)
     annotation (Line(points={{42,-20},{58,-20}}, color={255,0,255}));
-  connect(pre2.y, enaEco.u2) annotation (Line(points={{82,-20},{100,-20},{100,-28},
-          {118,-28}}, color={255,0,255}));
-  connect(edg1.y, lat.clr) annotation (Line(points={{2,-100},{10,-100},{10,-26},
-          {18,-26}}, color={255,0,255}));
-  connect(enaEco.y, pre.u) annotation (Line(points={{142,-20},{150,-20},{150,-40},
-          {110,-40},{110,-60},{118,-60}}, color={255,0,255}));
   connect(enaEco.y, wseVal.uWSE) annotation (Line(points={{142,-20},{150,-20},{150,
           -40},{110,-40},{110,-140},{118,-140}}, color={255,0,255}));
   connect(enaEco.y, wsePum.uWSE) annotation (Line(points={{142,-20},{150,-20},{150,
           -40},{110,-40},{110,-176},{118,-176}}, color={255,0,255}));
+  connect(enaEco.y, falEdg.u) annotation (Line(points={{142,-20},{150,-20},{150,
+          0},{-160,0},{-160,60},{-102,60}}, color={255,0,255}));
+  connect(enaEco.y, wseTun.uWseSta) annotation (Line(points={{142,-20},{150,-20},
+          {150,0},{-160,0},{-160,35},{-142,35}}, color={255,0,255}));
+  connect(pre2.y, enaEco.u2) annotation (Line(points={{82,-20},{100,-20},{100,
+          -28},{118,-28}}, color={255,0,255}));
+  connect(not1.y, lat.clr) annotation (Line(points={{-38,-100},{0,-100},{0,-26},
+          {18,-26}}, color={255,0,255}));
+  connect(and1.y, lat.u)
+    annotation (Line(points={{-38,-20},{18,-20}}, color={255,0,255}));
   annotation (defaultComponentName = "wseSta",
         Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
              graphics={

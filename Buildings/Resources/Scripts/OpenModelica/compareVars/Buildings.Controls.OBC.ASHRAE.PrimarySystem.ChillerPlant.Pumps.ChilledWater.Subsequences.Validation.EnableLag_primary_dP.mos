@@ -4,10 +4,10 @@ compareVars :=
     "enaLagChiPum.addPar2.y",
     "enaLagChiPum.hys.y",
     "enaLagChiPum.yUp",
-    "enaLagChiPum.tim.y",
+    "enaLagChiPum.truDel.y",
     "nexLagPumTri.y",
     "enaLagChiPum.hys1.y",
     "enaLagChiPum.yDown",
-    "enaLagChiPum.tim1.y",
+    "enaLagChiPum.truDel1.y",
     "lasLagPumTri.y"
   };

@@ -23,12 +23,14 @@ model Controller "Validate chiller water pump control sequence"
     "Pump speed control for plant with dedicated primary chilled water pump and with local DP sensor"
     annotation (Placement(transformation(extent={{80,-90},{100,-70}})));
 
+  CDL.Logical.TrueFalseHold truFalHol[3](trueHoldDuration=fill(5, 3))
+    annotation (Placement(transformation(extent={{0,110},{20,130}})));
 protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp isoVal[2](
     duration=fill(1200, 2),
     startTime={0,300})
     "Chilled water isolation valve position"
-    annotation (Placement(transformation(extent={{-100,120},{-80,140}})));
+    annotation (Placement(transformation(extent={{-100,130},{-80,150}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[3](
     final k={2,1,3})
     "Chilled water pump operating priority"
@@ -59,10 +61,6 @@ protected
     final startTime=2,
     final amplitude=0.2*6894.75) "Local pressure difference sensor reading"
     annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre enaStaRet[3](
-    final pre_u_start={true,true,false})
-    "Pump enabled status return"
-    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
   Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset leaChiProOn(
     final duration=2000)
     "Lead chiller proven on status"
@@ -110,10 +108,6 @@ equation
   connect(remPreSen2.y, dedLoc.dpChiWat_remote[2])
     annotation (Line(points={{-38,-90},{52,-90},{52,-88},{78,-88}},
       color={0,0,127}));
-  connect(enaStaRet.y, heaNoLoc.uChiWatPum) annotation (Line(points={{-38,90},{44,
-          90},{44,166},{78,166}},     color={255,0,255}));
-  connect(heaNoLoc.yChiWatPum, enaStaRet.u) annotation (Line(points={{102,160},{
-          120,160},{120,110},{-80,110},{-80,90},{-62,90}},   color={255,0,255}));
   connect(enaPla.y, dedNoLoc.uPla) annotation (Line(points={{-38,60},{20,60},{20,
           78},{78,78}}, color={255,0,255}));
   connect(enaPla.y, dedLoc.uPla) annotation (Line(points={{-38,60},{20,60},{20,-72},
@@ -146,8 +140,12 @@ equation
           {56,-130},{56,60},{78,60}}, color={0,0,127}));
   connect(reaRep.y, dedLoc.dpChiWatSet_remote) annotation (Line(points={{2,-130},
           {56,-130},{56,-90},{78,-90}}, color={0,0,127}));
-  connect(isoVal.y, heaNoLoc.uChiWatIsoVal) annotation (Line(points={{-78,130},{
-          40,130},{40,158},{78,158}}, color={0,0,127}));
+  connect(isoVal.y, heaNoLoc.uChiWatIsoVal) annotation (Line(points={{-78,140},
+          {40,140},{40,158},{78,158}},color={0,0,127}));
+  connect(heaNoLoc.yChiWatPum, truFalHol.u) annotation (Line(points={{102,160},
+          {120,160},{120,100},{-20,100},{-20,120},{-2,120}}, color={255,0,255}));
+  connect(truFalHol.y, heaNoLoc.uChiWatPum) annotation (Line(points={{22,120},{
+          44,120},{44,166},{78,166}}, color={255,0,255}));
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Pumps/ChilledWater/Validation/Controller.mos"
