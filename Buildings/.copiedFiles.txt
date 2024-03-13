@@ -3,7 +3,6 @@
 Buildings/Airflow/Multizone/BaseClasses/Door.mo
 Buildings/Airflow/Multizone/BaseClasses/DoorDiscretized.mo
 Buildings/Airflow/Multizone/BaseClasses/ErrorControl.mo
-Buildings/Airflow/Multizone/BaseClasses/Examples/Interpolate.mo
 Buildings/Airflow/Multizone/BaseClasses/Examples/PowerLaw.mo
 Buildings/Airflow/Multizone/BaseClasses/Examples/PowerLawFixedM.mo
 Buildings/Airflow/Multizone/BaseClasses/Examples/WindPressureLowRise.mo
@@ -15,7 +14,6 @@ Buildings/Airflow/Multizone/BaseClasses/PowerLawResistanceParameters.mo
 Buildings/Airflow/Multizone/BaseClasses/TwoWayFlowElement.mo
 Buildings/Airflow/Multizone/BaseClasses/TwoWayFlowElementBuoyancy.mo
 Buildings/Airflow/Multizone/BaseClasses/ZonalFlow.mo
-Buildings/Airflow/Multizone/BaseClasses/interpolate.mo
 Buildings/Airflow/Multizone/BaseClasses/package.mo
 Buildings/Airflow/Multizone/BaseClasses/package.order
 Buildings/Airflow/Multizone/BaseClasses/powerLaw.mo
@@ -2185,7 +2183,8 @@ Buildings/Resources/Images/Utilities/Math/Functions/Examples/cubicHermite.png
 Buildings/Resources/Images/Utilities/Math/Functions/SmoothExponentialXPower.png
 Buildings/Resources/Images/Utilities/Math/int.pdf
 Buildings/Resources/Images/Utilities/Math/int.png
-Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/Interpolate.mos
+Buildings/Resources/ReferenceResults/Dymola/Buildings_Utilities_Math_Examples_Interpolate.txt
+Buildings/Resources/ReferenceResults/Dymola/Buildings_Utilities_Math_Functions_Examples_Interpolate.txt
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLaw.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLawFixedM.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/WindPressureLowRise.mos
@@ -2803,6 +2802,7 @@ Buildings/Resources/Scripts/Dymola/Utilities/Math/Examples/Factorial.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Examples/FallingFactorial.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Examples/IntegerReplicator.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Examples/IntegratorWithReset.mos
+Buildings/Resources/Scripts/Dymola/Utilities/Math/Examples/Interpolate.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Examples/InverseXRegularized.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Examples/Polynomial.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Examples/PowerLinearized.mos
@@ -2824,6 +2824,7 @@ Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/CubicHermit
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/ExponentialIntegralE1.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/Factorial.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/FallingFactorial.mos
+Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/Interpolate.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/InverseXDerivativeCheck.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/InverseXDerivative_2_Check.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/InverseXRegularized.mos
@@ -3079,6 +3080,7 @@ Buildings/Utilities/Math/Examples/Factorial.mo
 Buildings/Utilities/Math/Examples/FallingFactorial.mo
 Buildings/Utilities/Math/Examples/IntegerReplicator.mo
 Buildings/Utilities/Math/Examples/IntegratorWithReset.mo
+Buildings/Utilities/Math/Examples/Interpolate.mo
 Buildings/Utilities/Math/Examples/InverseXRegularized.mo
 Buildings/Utilities/Math/Examples/Polynomial.mo
 Buildings/Utilities/Math/Examples/PowerLinearized.mo
@@ -3114,6 +3116,7 @@ Buildings/Utilities/Math/Functions/Examples/CubicHermite.mo
 Buildings/Utilities/Math/Functions/Examples/ExponentialIntegralE1.mo
 Buildings/Utilities/Math/Functions/Examples/Factorial.mo
 Buildings/Utilities/Math/Functions/Examples/FallingFactorial.mo
+Buildings/Utilities/Math/Functions/Examples/Interpolate.mo
 Buildings/Utilities/Math/Functions/Examples/InverseXDerivativeCheck.mo
 Buildings/Utilities/Math/Functions/Examples/InverseXDerivative_2_Check.mo
 Buildings/Utilities/Math/Functions/Examples/InverseXRegularized.mo
@@ -3147,6 +3150,7 @@ Buildings/Utilities/Math/Functions/exponentialIntegralE1.mo
 Buildings/Utilities/Math/Functions/factorial.mo
 Buildings/Utilities/Math/Functions/fallingFactorial.mo
 Buildings/Utilities/Math/Functions/integerReplicator.mo
+Buildings/Utilities/Math/Functions/interpolate.mo
 Buildings/Utilities/Math/Functions/inverseXRegularized.mo
 Buildings/Utilities/Math/Functions/isMonotonic.mo
 Buildings/Utilities/Math/Functions/package.mo
@@ -3168,6 +3172,7 @@ Buildings/Utilities/Math/Functions/splineDerivatives.mo
 Buildings/Utilities/Math/Functions/trapezoidalIntegration.mo
 Buildings/Utilities/Math/IntegerReplicator.mo
 Buildings/Utilities/Math/IntegratorWithReset.mo
+Buildings/Utilities/Math/Interpolate.mo
 Buildings/Utilities/Math/InverseXRegularized.mo
 Buildings/Utilities/Math/Max.mo
 Buildings/Utilities/Math/Min.mo
