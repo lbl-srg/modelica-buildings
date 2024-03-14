@@ -50,20 +50,29 @@ protected
   final constant Integer firstYear = 2010
     "First year that is supported, i.e. the first year in timeStampsNewYear[:]";
   final constant Integer lastYear = firstYear + size(timeStampsNewYear,1) - 1;
-  constant Modelica.Units.SI.Time timeStampsNewYear[22]={1262304000.0,
-      1293840000.0,1325376000.0,1356998400.0,1388534400.0,1420070400.0,
-      1451606400.0,1483228800.0,1514764800.0,1546300800.0,1577836800.0,
-      1609459200.0,1640995200.0,1672531200.0,1704067200.0,1735689600.0,
-      1767225600.0,1798761600.0,1830297600.0,1861920000.0,1893456000.0,
-      1924992000.0} "Epoch time stamps for new years day 2010 to 2031";
-  constant Boolean isLeapYear[21] = {
+  constant Modelica.Units.SI.Time timeStampsNewYear[42]={1262304000.0,
+    1293840000.0,1325376000.0,1356998400.0,1388534400.0,1420070400.0,
+    1451606400.0,1483228800.0,1514764800.0,1546300800.0,1577836800.0,
+    1609459200.0,1640995200.0,1672531200.0,1704067200.0,1735689600.0,
+    1767225600.0,1798761600.0,1830297600.0,1861920000.0,1893456000.0,
+    1924992000.0,1956528000.0,1988150400.0,2019686400.0,2051222400.0,
+    2082758400.0,2114380800.0,2145916800.0,2177452800.0,2208988800.0,
+    2240611200.0,2272147200.0,2303683200.0,2335219200.0,2366841600.0,
+    2398377600.0,2429913600.0,2461449600.0,2493072000.0,2524608000.0,
+    2556144000.0} "Epoch time stamps for new years day 2010 to 2051";
+  constant Boolean isLeapYear[41] = {
+    false, false, true, false,
+    false, false, true, false,
+    false, false, true, false,
+    false, false, true, false,
+    false, false, true, false,
     false, false, true, false,
     false, false, true, false,
     false, false, true, false,
     false, false, true, false,
     false, false, true, false,
     false}
-    "List of leap years starting from firstYear (2010), up to and including 2030";
+    "List of leap years starting from firstYear (2010), up to and including 2050";
   final constant Integer dayInMonth[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}
     "Number of days in each month";
   parameter Modelica.Units.SI.Time timOff(fixed=false) "Time offset";
@@ -150,6 +159,96 @@ initial algorithm
   elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2020 or
     zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2020 then
       timOff :=timeStampsNewYear[11];
+  elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2021 or
+    zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2021 then
+      timOff :=timeStampsNewYear[12];
+  elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2022 or
+    zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2022 then
+      timOff :=timeStampsNewYear[13];
+  elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2023 or
+    zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2023 then
+      timOff :=timeStampsNewYear[14];
+  elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2024 or
+    zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2024 then
+      timOff := timeStampsNewYear[14];
+  elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2025 or
+    zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2025 then
+      timOff := timeStampsNewYear[15];
+  elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2026 or
+    zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2026 then
+      timOff := timeStampsNewYear[16];
+  elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2027 or
+    zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2027 then
+      timOff := timeStampsNewYear[17];
+  elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2028 or
+    zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2028 then
+      timOff := timeStampsNewYear[18];
+  elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2029 or
+    zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2029 then
+      timOff := timeStampsNewYear[19];
+  elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2030 or
+    zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2030 then
+      timOff := timeStampsNewYear[20];
+  elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2031 or
+    zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2031 then
+      timOff := timeStampsNewYear[21];
+  elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2032 or
+    zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2032 then
+      timOff := timeStampsNewYear[22];
+  elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2033 or
+    zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2033 then
+      timOff := timeStampsNewYear[23];
+  elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2034 or
+    zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2034 then
+      timOff := timeStampsNewYear[24];
+  elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2035 or
+    zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2035 then
+      timOff := timeStampsNewYear[25];
+  elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2036 or
+    zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2036 then
+      timOff := timeStampsNewYear[26];
+  elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2037 or
+    zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2037 then
+      timOff := timeStampsNewYear[27];
+  elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2038 or
+    zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2038 then
+      timOff := timeStampsNewYear[28];
+  elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2039 or
+    zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2039 then
+      timOff := timeStampsNewYear[29];
+  elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2040 or
+    zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2040 then
+      timOff := timeStampsNewYear[30];
+  elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2041 or
+    zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2041 then
+      timOff := timeStampsNewYear[31];
+  elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2042 or
+    zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2042 then
+      timOff := timeStampsNewYear[32];
+  elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2043 or
+    zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2043 then
+      timOff := timeStampsNewYear[33];
+  elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2044 or
+    zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2044 then
+      timOff := timeStampsNewYear[34];
+  elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2045 or
+    zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2045 then
+      timOff := timeStampsNewYear[35];
+  elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2046 or
+    zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2046 then
+      timOff := timeStampsNewYear[36];
+  elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2047 or
+    zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2047 then
+      timOff := timeStampsNewYear[37];
+  elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2048 or
+    zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2048 then
+      timOff := timeStampsNewYear[38];
+  elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2049 or
+    zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2049 then
+      timOff := timeStampsNewYear[39];
+  elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2050 or
+    zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2050 then
+      timOff := timeStampsNewYear[40];
   else
     timOff :=0;
     // this code should not be reachable
@@ -257,7 +356,7 @@ equation
         + String(firstYear+size(timeStampsNewYear,1)));
 
     // update the month when passing the last day of the current month
-    if unixTimeStampLocal - ( pre(epochLastMonth) + (if pre(month)==2 and isLeapYear[yearIndex] then 1 + dayInMonth[pre(month)] else dayInMonth[pre(month)])*3600*24 ) > -eps_time then
+    if unixTimeStampLocal - ( pre(epochLastMonth) + (if pre(month)==2 and isLeapYear[yearIndex] then 1 + dayInMonth[pre(month)] else dayInMonth[pre(month)])*3600*24)  > -eps_time then
       month = if pre(month) == 12 then 1 else pre(month) + 1;
       // Use floor(0.1 + ...) to avoid floating point errors when accumulating epochLastMonth.
       epochLastMonth = floor(0.1 + pre(epochLastMonth) +
@@ -280,6 +379,12 @@ equation
     defaultComponentName="calTim",
   Documentation(revisions="<html>
 <ul>
+<li>
+March 8, 2024, by Jelger Jansen:<br/>
+Allow reference years later than 2020 and extend functionality to year 2050.<br/>
+This is for 
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1847\">#1847</a>.
+</li>  
 <li>
 December 19, 2022, by Michael Wetter:<br/>
 Refactored implementation to avoid wrong day number due to rounding errors that caused simultaneous events
@@ -351,14 +456,14 @@ Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a>
 must also be defined with GMT as the time stamp.
 
 The user can choose from new year, midnight for a number of years:
-2010 to 2030 and also 1970.
+2010 to 2050 and also 1970.
 The latter corresponds to a unix stamp of <i>0</i>.
 (Note that when choosing the reference time equal to 0 at 1970,
-the actual simulation time must be within the 2010-2030 range.
+the actual simulation time must be within the 2010-2051 range.
 For instance <code>startTime = 1262304000</code> corresponds
 to the simulation starting on the 1st of January 2010
 when setting <code>zerTim = ZeroTime.UnixTimeStamp</code>.
-This is within the 2010-2020 range and is therefore allowed.)
+This is within the 2010-2050 range and is therefore allowed.)
 The unix time stamp is formally defined as the number of
 seconds since midnight of new year in 1970 GMT.
 To output the correct unix time stamp, set <code>outputUnixTimeStamp=true</code>
