@@ -3,7 +3,9 @@ model RP1711 "Chiller plant model with RP1711 controller"
 
   extends
     Buildings.Examples.ChillerPlants.RP1711.BaseClasses.PartialChillerPlant(
-      senVolFlo(tau=10));
+      senVolFlo(tau=10),
+    chi1(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
+    chi2(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
 //   parameter Modelica.Units.SI.MassFlowRate mChi_flow_nominal = 10
 //     "Nominal mass flow rate in chilled water loop";
 //   parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal = 10

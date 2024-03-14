@@ -54,6 +54,7 @@ model ClosedLoop
         extent={{10,-10},{-10,10}},rotation=90,origin={80,20})));
   Buildings.Fluid.FixedResistances.Junction mixAir(
     redeclare package Medium = MediumA,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final m_flow_nominal={0.7*mAir_flow_nominal,mAir_flow_nominal,0.3*mAir_flow_nominal},
     final dp_nominal=fill(0, 3))
     "Mix return air and outdoor air"
@@ -121,7 +122,7 @@ model ClosedLoop
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     t=0.95,
     h=0.1)
-    "Send one request when the input is greater than threshold unit it is less than threshold minus hysteresis"
+    "Send one request when the input is greater than threshold and it is less than threshold minus hysteresis"
     annotation (Placement(transformation(extent={{-140,-50},{-120,-30}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2(
     final k=1) "Constant one"
@@ -142,7 +143,7 @@ model ClosedLoop
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr1(
     t=0.95,
     h=0.85)
-    "Send one request when the input is greater than threshold unit it is less than threshold minus hysteresis"
+    "Send one request when the input is greater than threshold and it is less than threshold minus hysteresis"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 equation
   connect(weaDat.weaBus, weaBus) annotation (Line(
@@ -252,5 +253,75 @@ annotation (experiment(
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlants/RP1711/ClosedLoop.mos"
     "Simulate and plot"),
   Diagram(coordinateSystem(extent={{-280,-220},{280,220}})), Icon(
-        coordinateSystem(extent={{-100,-100},{100,100}})));
+        coordinateSystem(extent={{-100,-100},{100,100}})),
+Documentation(info="<html>
+<h4>System Configuration</h4>
+<p>This example demonstrates the implementation of a primary-only chiller plant 
+with two identical chillers, two headed variable speed chilled water pumps,
+and two headed constant speed condenser water pumps.
+The system schematics is as shown below.
+</p>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/ChillerPlant/RP1711/chillerSchematics.png\" border=\"1\"/>
+</p>
+<p>
+The model makes following assumptions:
+</p>
+<ul>
+<li>
+The room supply air flow rate equals the nominal air flow rate
+<code>mAir_flow_nominal</code>.
+</li>
+<li>
+The air flow returns to the cooling coil includes 70% of the return room air and
+30% of the outdoor air.
+</li>
+<li>
+The room air supply temperature setpoint is 18 &degC.
+</li>
+<li>
+The return room air temperature is 28 &degC.
+</li>
+<li>
+The room air supply temperature is controlled by a direct acting PID controller. It
+modulates the valve that controlles the chilled water flow into the cooling coil.
+</li>
+<li>
+The chilled water reset request is generated as below:
+<ol>
+<li>
+If the air supply temperature is 3 &degC higher than its setpoint by more than 2 minutes,
+it generates 3 requests.
+</li>
+<li>
+If the air supply temperature is 2 &degC higher than its setpoint by more than 2 minutes,
+it generates 2 requests.
+</li>
+<li>
+If the output of the PID controller that controls the supply air temperature is greater
+than 0.95, it generates 1 request. When it becomes less than 0.85, it generates 0
+request.
+</li>
+</ol>
+</li>
+<li>
+For the chiller plant request, if the output of the PID controller that controls the
+supply air temperature is greater than 0.95, it generates 1 request. When it becomes
+less than 0.1, it generates 0 request.
+</li>
+</ul>
+<p>
+The chiller plant is controlled based on the ASHRAE Guideline 36, and implemented
+using the sequence
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Controller\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Controller</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 12, 2024, by Jianjun Hu:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end ClosedLoop;

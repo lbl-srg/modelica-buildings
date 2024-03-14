@@ -24,8 +24,8 @@ equation
       pattern=LinePattern.Dash));
   annotation (
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlant/DataCenter/DiscreteTimeControl.mos"
-        "Simulate and plot"), Documentation(info="<html>
+          "modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlants/DataCenter/DiscreteTimeControl.mos"
+        "Simulate and plot"), Documentation(info="<html> 
 <p>
 This model is the chilled water plant with trim and respond control,
 which is a discrete time control logic.
