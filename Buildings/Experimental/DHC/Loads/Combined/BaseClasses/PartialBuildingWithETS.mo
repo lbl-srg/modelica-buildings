@@ -5,8 +5,11 @@ model PartialBuildingWithETS
     Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuildingWithPartialETS(
     nPorts_heaWat=1,
     nPorts_chiWat=1);
-  outer parameter Buildings.Experimental.DHC.Examples.Combined.BaseClasses.DesignDataSeries datDes "DHC system design data"
     annotation (Placement(transformation(extent={{-250,262},{-230,282}})));
+  parameter Modelica.Units.SI.Temperature TDisWatMin=6 + 273.15
+    "District water minimum temperature" annotation (Dialog(group="ETS model parameters"));
+  parameter Modelica.Units.SI.Temperature TDisWatMax=17 + 273.15
+    "District water maximum temperature" annotation (Dialog(group="ETS model parameters"));
   parameter Modelica.Units.SI.TemperatureDifference dT_nominal(min=0) = 4
     "Water temperature drop/increase accross load and source-side HX (always positive)"
     annotation (Dialog(group="ETS model parameters"));
