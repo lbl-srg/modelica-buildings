@@ -9,7 +9,7 @@ model RadiantHeatingCooling_TSurface
   package MediumW=Buildings.Media.Water
     "Water medium";
   constant Modelica.Units.SI.Area AFlo=185.8 "Floor area";
-  parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal=4000
+  parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal=8000
     "Nominal heat flow rate for heating";
   parameter Modelica.Units.SI.MassFlowRate mHea_flow_nominal=QHea_flow_nominal/
       4200/10 "Design water mass flow rate for heating";
@@ -45,7 +45,7 @@ model RadiantHeatingCooling_TSurface
     iLayPip=1,
     pipe=Fluid.Data.Pipes.PEX_DN_15(),
     sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
-    disPip=0.15,
+    disPip=0.3,
     nCir=3,
     A=AFlo,
     m_flow_nominal=mHea_flow_nominal,
@@ -137,7 +137,7 @@ model RadiantHeatingCooling_TSurface
         origin={100,-180})));
 
   Controls.OBC.RadiantSystems.Heating.HighMassSupplyTemperature_TRoom conHea(
-      TSupSet_max=318.15)
+      TSupSet_max=313.15)
     "Controller for radiant heating system" annotation (Placement(
         transformation(rotation=0, extent={{-140,-160},{-120,-140}})));
   Controls.OBC.RadiantSystems.Cooling.HighMassSupplyTemperature_TSurRelHum

@@ -8,7 +8,7 @@ model HeatPumpRadiantHeatingGroundHeatTransfer
   package MediumG=Buildings.Media.Antifreeze.EthyleneGlycolWater(property_T=293.15, X_a=0.40)
     "Water glycol";
   constant Modelica.Units.SI.Area AFlo=185.8 "Floor area";
-  parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal=4000
+  parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal=8000
     "Nominal heat flow rate for heating";
   parameter Modelica.Units.SI.MassFlowRate mHea_flow_nominal=QHea_flow_nominal/
       4200/5 "Design water mass flow rate for heating";
@@ -97,7 +97,7 @@ model HeatPumpRadiantHeatingGroundHeatTransfer
                                                                 origin={60,-380})));
 
   Controls.OBC.RadiantSystems.Heating.HighMassSupplyTemperature_TRoom conHea(
-    TSupSet_max=318.15,
+    TSupSet_max=313.15,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     k=2,
     Ti=7200,

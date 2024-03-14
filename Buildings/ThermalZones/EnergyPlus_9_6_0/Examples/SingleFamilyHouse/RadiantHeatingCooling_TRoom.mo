@@ -1,13 +1,15 @@
 within Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse;
 model RadiantHeatingCooling_TRoom
   "Example model with one thermal zone with a radiant floor where the cooling is controlled based on the room air temperature"
-  extends Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Unconditioned(building(
+  extends
+    Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Unconditioned(
+     building(
         idfName=Modelica.Utilities.Files.loadResource(
           "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus_9_6_0/Examples/SingleFamilyHouse_TwoSpeed_ZoneAirBalance/SingleFamilyHouse_TwoSpeed_ZoneAirBalance_aboveSoil.idf")));
   package MediumW=Buildings.Media.Water
     "Water medium";
   constant Modelica.Units.SI.Area AFlo=185.8 "Floor area";
-  parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal=4000
+  parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal=8000
     "Nominal heat flow rate for heating";
   parameter Modelica.Units.SI.MassFlowRate mHea_flow_nominal=QHea_flow_nominal/
       4200/10 "Design water mass flow rate for heating";
@@ -137,7 +139,7 @@ model RadiantHeatingCooling_TRoom
         origin={100,-180})));
 
   Controls.OBC.RadiantSystems.Heating.HighMassSupplyTemperature_TRoom conHea(
-      TSupSet_max=318.15)
+      TSupSet_max=313.15)
     "Controller for radiant heating system" annotation (Placement(
         transformation(rotation=0, extent={{-140,-160},{-120,-140}})));
   Controls.OBC.RadiantSystems.Cooling.HighMassSupplyTemperature_TRoomRelHum
