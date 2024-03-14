@@ -6,8 +6,8 @@ model HexElementSensibleFourPort
      prescribedHeatFlowRate=false),
   redeclare final Buildings.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatPort vol2(
      prescribedHeatFlowRate=false),
-     dp1_nominal = TesScale*10000,
-     dp2_nominal = TesScale*10000);
+     dp1_nominal = TesScale*Design.dp1_coeff,
+     dp2_nominal = TesScale*Design.dp2_coeff);
   extends
     Buildings.Fluid.Storage.PCM.BaseClasses.partialUnitCellPhaseChangeTwoCircuit;
 

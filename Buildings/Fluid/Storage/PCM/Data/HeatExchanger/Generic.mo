@@ -16,6 +16,8 @@ record Generic
                                                                            annotation(Dialog(group="Tubes"));
   parameter Integer Ntubes_bank = 6 "Number of tubes per bank in heat exchanger"
                                                                                 annotation(Dialog(group="Tubes"));
+  parameter Real NPro_coeff = 1/2 "Coefficient to calculate the number of process water tubes in heat exchanger" annotation(Dialog(group="Tubes"));
+  parameter Real NDom_coeff = 1/2 "Coefficient to calculate the number of domestic water tubes in heat exchanger" annotation(Dialog(group="Tubes"));
 
   parameter Modelica.Units.SI.Length do = 0.0045 "Outer diameter of tube in heat exchanger"
                                                                                            annotation(Dialog(group="Tubes"));
@@ -26,6 +28,9 @@ record Generic
                                                                                                   annotation(Dialog(group="Fins"));
   parameter Modelica.Units.SI.Length t_fin = 0.0001 "Thickness of each fin"
                                                                            annotation(Dialog(group="Fins"));
+
+  parameter Modelica.Units.SI.PressureDifference dp1_coeff = 10000 "Coefficient to calculate the pressure drop in domestic circuit" annotation(Dialog(group="Fluid Flow"));
+  parameter Modelica.Units.SI.PressureDifference dp2_coeff = 10000 "Coefficient to calculate the pressure drop in process circuit" annotation(Dialog(group="Fluid Flow"));
 
   // parameter Modelica.Units.SI.DynamicViscosity muw = 8.9e-4 "Dynamic viscosity of working fluid at 25 C" annotation(Dialog(group="Convection Correlation"));
   // parameter Modelica.Units.SI.SpecificHeatCapacity cpw = 4138  "Specific heat capacity of working fluid at 25 C" annotation(Dialog(group="Convection Correlation"));

@@ -73,3 +73,5 @@ Buildings/Resources/src/fluid/heatpumps/calibration/doc/build/doctrees
 eplus*
 sqlite*
 Buildings/spawn-*
+!Buildings/Fluid/Storage/PCM/Data/HeatExchanger/Generic.mo
+Buildings/Fluid/Storage/PCM/Data/HeatExchanger

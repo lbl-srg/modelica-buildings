@@ -16,10 +16,10 @@ model partialUnitCellPhaseChangeTwoCircuit
 
   parameter Integer Ntubes = Design.Ntubebanks*Design.Ntubes_bank "Number of tubes in heat exchanger"
                                                                                                      annotation(Dialog(group="Tubes"));
-  parameter Integer NPro = integer(Ntubes*(1/2)) "Number of process water tubes in heat exchanger"
-                                                                                                  annotation(Dialog(group="Tubes"));
-  parameter Integer NDom = integer(Ntubes*(1/2)) "Number of domestic water tubes in heat exchanger"
-                                                                                                   annotation(Dialog(group="Tubes"));
+  parameter Integer NPro = integer(Ntubes*Design.NPro_coeff) "Number of process water tubes in heat exchanger"
+                                                                                                              annotation(Dialog(group="Tubes"));
+  parameter Integer NDom = integer(Ntubes*Design.NDom_coeff) "Number of domestic water tubes in heat exchanger"
+                                                                                                               annotation(Dialog(group="Tubes"));
   parameter Modelica.Units.SI.Area A_tubeDom = Design.di*Modelica.Constants.pi*NDom*Design.D "Area of tubes in domestic circuit"
                                                                                                                                 annotation(Dialog(group="Tubes"));
   parameter Modelica.Units.SI.Area A_tubePro = Design.di*Modelica.Constants.pi*NPro*Design.D "Area of tubes in process circuit"
