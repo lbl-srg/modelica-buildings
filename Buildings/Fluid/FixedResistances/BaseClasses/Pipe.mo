@@ -75,7 +75,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(preDro.port_b, vol[1].ports[1]) annotation (Line(
-      points={{-10,6.10623e-16},{7,6.10623e-16},{7,-18}},
+      points={{-10,0},{8,0},{8,-18}},
       color={0,127,255},
       smooth=Smooth.None));
   if nSeg > 1 then
@@ -84,7 +84,7 @@ equation
     end for;
   end if;
   connect(vol[nSeg].ports[2], port_b) annotation (Line(
-      points={{11,-18},{12,-18},{12,5.55112e-16},{100,5.55112e-16}},
+      points={{10,-18},{12,-18},{12,0},{100,0}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (

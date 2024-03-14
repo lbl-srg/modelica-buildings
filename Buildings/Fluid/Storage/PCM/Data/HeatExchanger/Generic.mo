@@ -27,10 +27,10 @@ record Generic
   parameter Modelica.Units.SI.Length t_fin = 0.0001 "Thickness of each fin"
                                                                            annotation(Dialog(group="Fins"));
 
-  parameter Modelica.Units.SI.DynamicViscosity muw = 8.9e-4 "Dynamic viscosity of working fluid at 25 C" annotation(Dialog(group="Convection Correlation"));
-  parameter Modelica.Units.SI.SpecificHeatCapacity cpw = 4138  "Specific heat capacity of working fluid at 25 C" annotation(Dialog(group="Convection Correlation"));
-  parameter Modelica.Units.SI.ThermalConductivity kw = 0.607 "Thermal conductivity of working fluid at 25 C" annotation(Dialog(group="Convection Correlation"));
-  parameter Modelica.Units.SI.DimensionlessRatio Prw = (muw*cpw)/kw "Prandtl number of working fluid" annotation(Dialog(group="Convection Correlation"));
+  // parameter Modelica.Units.SI.DynamicViscosity muw = 8.9e-4 "Dynamic viscosity of working fluid at 25 C" annotation(Dialog(group="Convection Correlation"));
+  // parameter Modelica.Units.SI.SpecificHeatCapacity cpw = 4138  "Specific heat capacity of working fluid at 25 C" annotation(Dialog(group="Convection Correlation"));
+  // parameter Modelica.Units.SI.ThermalConductivity kw = 0.607 "Thermal conductivity of working fluid at 25 C" annotation(Dialog(group="Convection Correlation"));
+  // parameter Modelica.Units.SI.DimensionlessRatio Prw = (muw*cpw)/kw "Prandtl number of working fluid" annotation(Dialog(group="Convection Correlation"));
 
 
 end Generic;

@@ -1,7 +1,7 @@
-within Buildings.Fluid.Storage.PCM.Examples;
+within Buildings.Fluid.Storage.PCM.Examples.test_four;
 model material_test1
   import Media;
-  BaseClasses.HexElementSensibleFourPort hexElementSensibleFourPort(
+  HexElementSensibleFourPort             hexElementSensibleFourPort(
     redeclare package Medium1 = Buildings.Media.Water,
     redeclare package Medium2 = Buildings.Media.Water,
     m1_flow_nominal=2,

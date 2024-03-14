@@ -1,4 +1,4 @@
-within Buildings.Fluid.Storage.PCM.BaseClasses;
+within Buildings.Fluid.Storage.PCM.Examples.test_four;
 model HexElementSensibleFourPort
   "Element of a heat exchanger w PCM between flow channels"
   extends Buildings.Fluid.Interfaces.FourPortHeatMassExchanger(
@@ -11,21 +11,16 @@ model HexElementSensibleFourPort
   extends
     Buildings.Fluid.Storage.PCM.BaseClasses.partialUnitCellPhaseChangeTwoCircuit;
 
+    Real TT = port_a2.m_flow;
   parameter Boolean initialize_p1 = not Medium1.singleState
     "Set to true to initialize the pressure of volume 1"
     annotation(HideResult=true, Evaluate=true, Dialog(tab="Advanced"));
   parameter Boolean initialize_p2 = not Medium2.singleState
     "Set to true to initialize the pressure of volume 2"
     annotation(HideResult=true, Evaluate=true, Dialog(tab="Advanced"));
-    Medium1.ThermodynamicState sta1 = Medium1.setState_phX(p=port_a1.p, h=port_a1.h_outflow, X=port_a1.Xi_outflow);
-    Medium2.ThermodynamicState sta2 = Medium2.setState_phX(p=port_a2.p, h=port_a2.h_outflow, X=port_a2.Xi_outflow);
-
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPor1
     "Heat port for heat exchange with the control volume j-1"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPor2
-    "Heat port for heat exchange with the control volume j+1"
-    annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
   Modelica.Blocks.Interfaces.RealOutput QpcmDom
     "heat flow into PCM from domestic circuit"
     annotation (Placement(transformation(
@@ -40,73 +35,36 @@ model HexElementSensibleFourPort
         origin={-107,-21})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor Qvol1
     annotation (Placement(transformation(extent={{-26,94},{-38,82}})));
-  Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor Qvol2
-    annotation (Placement(transformation(extent={{-16,-92},{-28,-80}})));
   Modelica.Blocks.Interfaces.RealOutput QvolDom "convective heat flow from domestic circuit"
     annotation (Placement(transformation(
         extent={{-8,-8},{8,8}},
         rotation=90,
         origin={-32,108})));
-  Modelica.Blocks.Interfaces.RealOutput QvolPro "convective heat flow from process circuit"
-    annotation (Placement(transformation(
-        extent={{8,-8},{-8,8}},
-        rotation=90,
-        origin={-22,-108})));
   Modelica.Blocks.Sources.RealExpression realExpressionDom(y=((0.023*((4*abs(
-        port_a1.m_flow))/(Modelica.Constants.pi*Design.di*Medium1.dynamicViscosity(state=sta1)))^(4/5)* Medium1.prandtlNumber(state=sta1)^0.4)*
-        Medium1.thermalConductivity(state=sta1)/(Design.di))*(A_tubeDom)) "Dittus-Boelter correlation for turbulent heat transfer in smooth tube"
+        port_a1.m_flow))/(Modelica.Constants.pi*Design.di*Medium1.eta_const))^(4/5)*Design.Prw^0.4)*
+        Design.kw/(Design.di))*(A_tubeDom)) "Dittus-Boelter correlation for turbulent heat transfer in smooth tube"
     annotation (Placement(transformation(extent={{42,10},{22,30}})));
-  Modelica.Thermal.HeatTransfer.Components.Convection conDom annotation (
-      Placement(transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=90,
-        origin={-40,72})));
   Modelica.Blocks.Sources.RealExpression realExpressionPro(y=((0.023*((4*abs(
-        port_a2.m_flow))/(Modelica.Constants.pi*Design.di*Medium2.dynamicViscosity(state=sta2)))^(4/5)*Medium2.prandtlNumber(state=sta2)^0.4)*
-        Medium2.thermalConductivity(state=sta2)/(Design.di))*(A_tubePro)) "Dittus-Boelter correlation for turbulent heat transfer in smooth tube"
+        port_a2.m_flow))/(Modelica.Constants.pi*Design.di*Design.muw))^(4/5)*Design.Prw^0.4)*
+        Design.kw/(Design.di))*(A_tubePro)) "Dittus-Boelter correlation for turbulent heat transfer in smooth tube"
     annotation (Placement(transformation(extent={{42,-20},{22,0}})));
-  Modelica.Thermal.HeatTransfer.Components.Convection conPro annotation (
-      Placement(transformation(
-        extent={{10,10},{-10,-10}},
-        rotation=90,
-        origin={-40,-72})));
   Modelica.Blocks.Interfaces.RealOutput Upcm "Value of Real output"
     annotation (Placement(transformation(extent={{-110,0},{-126,16}})));
   Modelica.Blocks.Interfaces.RealOutput mpcm "Value of Real output"
     annotation (Placement(transformation(extent={{-110,-16},{-126,0}})));
 equation
-
   connect(heaFloDom.Q_flow,QpcmDom)  annotation (Line(points={{-64,20.6},{-82,20.6},
           {-82,21},{-107,21}}, color={0,0,127}));
   connect(vol1.heatPort, heaPor1) annotation (Line(points={{-10,60},{-20,60},{-20,
           88},{0,88},{0,100}}, color={191,0,0}));
-  connect(vol2.heatPort, heaPor2) annotation (Line(points={{12,-60},{18,-60},{20,
-          -60},{20,-90},{0,-90},{0,-100}}, color={191,0,0}));
   connect(heaFloPro.Q_flow,QpcmPro)  annotation (Line(points={{-64,-16.6},{-64,-20},
           {-80,-20},{-80,-21},{-107,-21}},
                                       color={0,0,127}));
-  connect(Qvol1.port_b, conDom.fluid)
-    annotation (Line(points={{-38,88},{-40,88},{-40,82}}, color={191,0,0}));
   connect(Qvol1.port_a, heaPor1)
     annotation (Line(points={{-26,88},{0,88},{0,100}}, color={191,0,0}));
-  connect(conPro.fluid, Qvol2.port_b)
-    annotation (Line(points={{-40,-82},{-40,-86},{-28,-86}}, color={191,0,0}));
-  connect(Qvol2.port_a, vol2.heatPort) annotation (Line(points={{-16,-86},{20,
-          -86},{20,-60},{12,-60}}, color={191,0,0}));
   connect(QvolDom, Qvol1.Q_flow)
     annotation (Line(points={{-32,108},{-32,94.6}},
                                                   color={0,0,127}));
-  connect(Qvol2.Q_flow,QvolPro)
-    annotation (Line(points={{-22,-92.6},{-22,-108}},
-                                                    color={0,0,127}));
-  connect(tubeDom.port_b, conDom.solid)
-    annotation (Line(points={{-40,58},{-40,62}}, color={191,0,0}));
-  connect(tubePro.port_b,conPro. solid)
-    annotation (Line(points={{-40,-58},{-40,-62}}, color={191,0,0}));
-  connect(conPro.Gc,realExpressionPro. y) annotation (Line(points={{-30,-72},{
-          -22,-72},{-22,-10},{21,-10}}, color={0,0,127}));
-  connect(conDom.Gc, realExpressionDom.y) annotation (Line(points={{-30,72},{-22,
-          72},{-22,20},{21,20}}, color={0,0,127}));
   connect(USum.y, Upcm)
     annotation (Line(points={{-101,8},{-118,8}}, color={0,0,127}));
   connect(mSum.y, mpcm)
