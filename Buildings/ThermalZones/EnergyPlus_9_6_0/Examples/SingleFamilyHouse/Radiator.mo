@@ -23,7 +23,7 @@ model Radiator
   parameter Modelica.Units.SI.MassFlowRate mRec_flow_nominal=8*VRoo*1.2/3600
     "Nominal mass flow rate for recirculated air";
 
-  parameter Modelica.Units.SI.HeatFlowRate QRad_flow_nominal = 15000
+  parameter Modelica.Units.SI.HeatFlowRate QRad_flow_nominal = 10000
     "Radiator design heat flow rate (at 50/40)";
   parameter Modelica.Units.SI.Temperature TSup_nominal = 323.15
     "Water supply temperature";
@@ -152,8 +152,8 @@ equation
     annotation (Line(points={{-2,70},{-39,70}},   color={0,0,127}));
   connect(rad.heatPortCon, zon.heaPorAir) annotation (Line(points={{68,-72.8},{
           68,60},{20,60}},                color={191,0,0}));
-  connect(rad.heatPortRad, zon.heaPorRad) annotation (Line(points={{72,-72.8},{
-          72,54},{20.2,54}},     color={191,0,0}));
+  connect(rad.heatPortRad, zon.heaPorRad) annotation (Line(points={{72,-72.8},{72,
+          54},{20,54}},          color={191,0,0}));
   connect(sou.ports[1], val.port_a)
     annotation (Line(points={{0,-80},{20,-80}},  color={0,127,255}));
   connect(val.port_b, rad.port_a)
@@ -175,7 +175,7 @@ equation
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(weaBus.TDryBul, watRes.TOut) annotation (Line(
-      points={{-88,-10},{-90,-10},{-90,-28},{-150,-28},{-150,-76},{-62,-76}},
+      points={{-87.95,-9.95},{-90,-9.95},{-90,-28},{-150,-28},{-150,-76},{-62,-76}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -207,6 +207,12 @@ the radiative temperature of the thermal zone.
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 13, 2024, by Michael Wetter:<br/>
+Updated <code>idf</code> file to add insulation, and resized system.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3707\">issue 3707</a>.
+</li>
 <li>
 February 14, 2024, by Michael Wetter:<br/>
 First implementation.<br/>
