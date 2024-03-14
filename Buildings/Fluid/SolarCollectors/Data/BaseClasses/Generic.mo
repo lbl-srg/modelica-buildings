@@ -22,6 +22,11 @@ record Generic
   parameter Real[size(incAngDatDeg,1)] incAngModDat(final min=0, final unit="1")
     "Incident angle modifier data";
 
+  final parameter Boolean validated = validateAngles(
+    incAngDatDeg=incAngDatDeg,
+    incAngModDat=incAngModDat)
+    "True if data are valid, otherwise an assertion is issued";
+
 annotation (
 defaultComponentPrefixes="parameter",
 defaultComponentName="datSolCol",
