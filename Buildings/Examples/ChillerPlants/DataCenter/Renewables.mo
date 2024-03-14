@@ -50,7 +50,7 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(weaBus.winSpe, winTur.vWin)            annotation (Line(
-      points={{-60,40},{-30,40},{-30,32}},
+      points={{-59.95,40.05},{-30,40.05},{-30,32}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(

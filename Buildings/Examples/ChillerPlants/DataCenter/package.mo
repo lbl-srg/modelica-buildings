@@ -11,7 +11,7 @@ annotation (Documentation(info="<html>
 The system schematics is as shown below.
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/ChillerPlant/chillerSchematics.png\" border=\"1\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/ChillerPlant/DataCenter/chillerSchematics.png\" border=\"1\"/>
 </p>
 <p>
 The system is a primary-only chiller plant with integrated WSE.

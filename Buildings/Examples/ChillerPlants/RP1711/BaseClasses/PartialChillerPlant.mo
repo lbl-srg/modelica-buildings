@@ -1,5 +1,5 @@
 within Buildings.Examples.ChillerPlants.RP1711.BaseClasses;
-partial model PartialChillerPlant "Chiller plant model for closed-loop test"
+partial model PartialChillerPlant "Partial model of the chiller plant for the closed-loop test"
 
   package MediumW = Buildings.Media.Water;
   parameter Modelica.Units.SI.MassFlowRate mChi_flow_nominal
@@ -464,5 +464,22 @@ equation
  annotation (
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-580,-440},{580,440}})),
   Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-580,-440},{580,440}}),
-    graphics={Line(points={{290,46}},color={28,108,200})}));
+    graphics={Line(points={{290,46}},color={28,108,200})}),
+Documentation(info="<HTML>
+<p>
+This is a partial model for a primary-only chiller plant with two parallel chillers.
+It has two headed variable speed chilled water pumps, two headed constant speed
+condenser water pumps, and two cooling tower units.
+Detailed description can be found in
+<a href=\"modelica://Buildings.Examples.ChillerPlants.RP1711\">
+Buildings.Examples.ChillerPlants.RP1711</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 12, 2024, by Jianjun Hu:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end PartialChillerPlant;

@@ -64,7 +64,7 @@ equation
       smooth=Smooth.None));
   connect(TAir.port, rooVol.heatPort) annotation (Line(points={{40,0},{30,0},{
           30,-30},{41,-30}}, color={191,0,0}));
-  connect(TAir.T, TRooAir) annotation (Line(points={{60,0},{76,0},{110,0}},
+  connect(TAir.T, TRooAir) annotation (Line(points={{61,0},{61,0},{110,0}},
                color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
