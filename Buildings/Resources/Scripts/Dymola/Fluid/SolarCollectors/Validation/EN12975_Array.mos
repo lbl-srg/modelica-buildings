@@ -1,0 +1,6 @@
+simulateModel("Buildings.Fluid.SolarCollectors.Validation.EN12975_Array", stopTime=86400, method="Cvode", tolerance=1e-06, resultFile="EN12975_Array");
+createPlot(id=1, position = {39, -2, 802, 524}, y={"solCol.sta_b.T","solCol1.sta_b.T","solCol2.sta_b.T"}, range={0.0, 86400.0, 15.0, 45.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=1, position = {39, -2, 802, 524}, y={"dT.y"}, range={0.0, 86400.0, -0.025, 0.005}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=1, position = {39, -2, 802, 524}, y={"solCol.m_flow","solCol1.m_flow","solCol2.m_flow"}, range={0.0, 86400.0, 0.0, 0.15}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=1, position = {39, -2, 802, 524}, y={"solCol.dp","solCol1.dp","solCol2.dp"}, range={0.0, 86400.0, 0.0, 50.0}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+

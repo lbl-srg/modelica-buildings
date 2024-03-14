@@ -6,8 +6,8 @@ model EN12975 "Model of a solar thermal collector according to the ASHRAE Standa
   Buildings.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain solGai(
     redeclare package Medium = Medium,
     final nSeg=nSeg,
-    final b0=per.b0,
-    final b1=per.b1,
+    final incAngDat=per.incAngDat,
+    final incAngModDat=per.incAngModDat,
     final iamDiff=per.IAMDiff,
     final eta0=per.eta0,
     final use_shaCoe_in=use_shaCoe_in,
@@ -90,7 +90,7 @@ EnergyPlus 23.2.0 Engineering Reference</a>
       revisions="<html>
 <ul>
 <li>
-February 15, 2024, by Jelger Jansen:<br/>
+February 28, 2024, by Jelger Jansen:<br/>
 Refactor model.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3604\">Buildings, #3604</a>.

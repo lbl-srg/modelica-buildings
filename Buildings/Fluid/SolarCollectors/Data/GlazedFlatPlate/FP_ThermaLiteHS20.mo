@@ -8,8 +8,8 @@ record FP_ThermaLiteHS20 =
     final V=2.8/1000,
     final dp_nominal=242.65,
     final mperA_flow_nominal=0.1777,
-    final b0=-0.0693,
-    final b1=-0.2372,
+    final incAngDatDeg={0,10,20,30,40,50,60,70,80,90},
+    final incAngModDat={1.0,0.9989,0.9946,0.9836,0.9567,0.8882,0.6935,0.0,0.0,0.0},
     final y_intercept=0.762,
     final slope=-3.710) "FP - Therma-Lite, HS-20"
     annotation (

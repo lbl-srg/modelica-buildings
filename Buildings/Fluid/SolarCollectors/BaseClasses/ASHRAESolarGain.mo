@@ -8,10 +8,8 @@ block ASHRAESolarGain
     "Medium in the system";
 
   parameter Real y_intercept(final unit="1") "y intercept(maximum efficiency)";
-  parameter Real b0(final unit="1")
-    "1st incident angle modifer coefficient";
-  parameter Real b1(final unit="1")
-    "2nd incident angle modifer coefficient";
+  parameter Modelica.Units.SI.Angle[:] incAngDat "Incidence angle modifier spline derivative coefficients";
+  parameter Real[size(incAngDat,1)] incAngModDat(final unit="1") "Incidence angle modifier spline derivative coefficients";
   parameter Boolean use_shaCoe_in = false "Enable input connector for shaCoe"
     annotation(Dialog(group="Shading"));
 
@@ -81,19 +79,27 @@ protected
   Modelica.Blocks.Interfaces.RealInput shaCoe_internal
     "Internally used shading coefficient";
 
+  parameter Real[size(incAngDat, 1)] dMonotone(each fixed=false) "Derivatives";
+
+initial algorithm
+  dMonotone := Buildings.Utilities.Math.Functions.splineDerivatives(
+    x=incAngDat,
+    y=incAngModDat,
+    ensureMonotonicity=false);
+
 initial equation
   // EnergyPlus 23.2.0 Engineering Reference Eq 18.300
   incAngSky =Modelica.Units.Conversions.from_deg(59.68 - 0.1388*(tilDeg) +
     0.001497*(tilDeg)^2);
   // Diffuse radiation from the sky
   // EnergyPlus 23.2.0 Engineering Reference Eq 18.298
-  iamSky = SolarCollectors.BaseClasses.IAM(incAngSky, b0, b1);
+  iamSky = SolarCollectors.BaseClasses.IAM(incAngSky, incAngDat, incAngModDat, dMonotone);
   // EnergyPlus 23.2.0 Engineering Reference Eq 18.301
   incAngGro =Modelica.Units.Conversions.from_deg(90 - 0.5788*(tilDeg) +
     0.002693*(tilDeg)^2);
   // Diffuse radiation from the ground
   // EnergyPlus 23.2.0 Engineering Reference Eq 18.298
-  iamGro = SolarCollectors.BaseClasses.IAM(incAngGro, b0, b1);
+  iamGro = SolarCollectors.BaseClasses.IAM(incAngGro, incAngDat, incAngModDat, dMonotone);
 
 equation
 
@@ -104,7 +110,7 @@ equation
   end if;
 
   // EnergyPlus 23.2.0 Engineering Reference Eq 18.298
-  iamBea = SolarCollectors.BaseClasses.IAM(incAng, b0, b1);
+  iamBea = SolarCollectors.BaseClasses.IAM(incAng, incAngDat, incAngModDat, dMonotone);
   // EnergyPlus 23.2.0 Engineering Reference Eq 18.299
   iam = (HDirTil*iamBea + HSkyDifTil*iamSky + HGroDifTil*iamGro)/
       Buildings.Utilities.Math.Functions.smoothMax((
@@ -233,7 +239,7 @@ EnergyPlus 23.2.0 Engineering Reference</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-February 15, 2024, by Jelger Jansen:<br/>
+February 28, 2024, by Jelger Jansen:<br/>
 Refactor model.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3604\">Buildings, #3604</a>.

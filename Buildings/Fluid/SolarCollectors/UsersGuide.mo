@@ -123,17 +123,8 @@ factor).
 </li>
 <li>
 The relation between the incidence angle modifier (IAM) and incidence angle
-<code>&theta;</code> is currently approximated in the model by
-(Eq 18.298 in the EnergyPlus 23.2.0 Engineering Reference):
-<p align=\"center\" style=\"font-style:italic;\">
-K<sub>(&tau;&alpha;)</sub>=1+b<sub>0</sub>(1/cos(&theta;)-1)
-  +b<sub>1</sub>(1/cos(&theta;)-1)<sup>2</sup>
-</p>
-<p>
-where <i>K<sub>(&tau;&alpha;)</sub></i> is the incidence angle modifier,
-<i>b<sub>0</sub></i> is the first incidence angle modifier coefficient,
-<i>&theta;</i> is the incidence angle,
-and <i>b<sub>1</sub></i> is the second incidence angle modifier coefficient.
+<code>&theta;</code> is calculated using cubic splines and measurement data
+provided in the data sheets.
 </p>
 <p>
 As reported in the Energyplus Engineering Reference, this relation is only valid
@@ -231,6 +222,14 @@ flows through only a single panel and the <code>dp_nominal</code> for the
 system is <code>dp_nominal</code> specified in the collector data package if
 the collector field has a mass flow rate equal to
 <code>m_flow_nominal</code>.
+</li>
+<li>
+<code>Array</code>: If <code>Array</code> is selected it is assumed that the
+panels are mounted as a rectangular array with <code>nPanelsPar</code> rows, 
+each having <code>nPanelsSer</code> panels in series. As a result there is a 
+pressure drop corresponding to <code>dp_nominal</code> for each panel per row 
+and the effective <code>dp_nominal</code> for the system is
+<code>dp_nominal</code> * <code>nPanelsSer</code>.
 </li>
 </ul>
 </li>

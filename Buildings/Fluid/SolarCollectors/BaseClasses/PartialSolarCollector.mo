@@ -54,6 +54,10 @@ partial model PartialSolarCollector "Partial model for solar collectors"
   Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series
     "Selection of system configuration"
     annotation(Dialog(group="Configuration declarations"));
+  parameter Integer nPanelsSer=0 "Number of array panels in series"
+    annotation(Dialog(group="Configuration declarations", enable= (sysConfig == Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Array)));
+  parameter Integer nPanelsPar=0 "Number of array panels in parallel"
+    annotation(Dialog(group="Configuration declarations", enable= (sysConfig == Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Array)));
 
   Modelica.Blocks.Interfaces.RealInput shaCoe_in if use_shaCoe_in
     "Shading coefficient"
@@ -137,13 +141,11 @@ protected
     "Internally used shading coefficient";
 
   final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal_final(
-      displayUnit="kg/s") = if sysConfig == Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Parallel
-     then nPanels_internal*per.mperA_flow_nominal*per.A else per.mperA_flow_nominal*per.A
+      displayUnit="kg/s") = nPanelsPar_internal*per.mperA_flow_nominal*per.A
     "Nominal mass flow rate through the system of collectors";
 
   final parameter Modelica.Units.SI.PressureDifference dp_nominal_final(
-      displayUnit="Pa") = if sysConfig == Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series
-     then nPanels_internal*per.dp_nominal else per.dp_nominal
+      displayUnit="Pa") = nPanelsSer_internal*per.dp_nominal
     "Nominal pressure loss across the system of collectors";
 
   parameter Modelica.Units.SI.Area ATot_internal=nPanels_internal*per.A
@@ -154,6 +156,20 @@ protected
       nPanels
     else
       totalArea/per.A "Number of panels used in the simulation";
+  parameter Real nPanelsSer_internal=
+    if sysConfig == Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series then
+      nPanels
+    else if sysConfig == Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Parallel then
+      1
+    else
+      nPanelsSer "Number of panels in series";
+  parameter Real nPanelsPar_internal=
+    if sysConfig == Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Parallel then
+      nPanels
+    else if sysConfig == Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series then
+      1
+    else
+      nPanelsPar "Number of panels in parallel";
 
   parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(
     T=Medium.T_default,
@@ -169,6 +185,13 @@ initial equation
   assert(homotopyInitialization, "In " + getInstanceName() +
     ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
     level = AssertionLevel.warning);
+
+  if sysConfig==Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Array then
+    assert(nPanelsPar_internal*nPanelsSer_internal==nPanels_internal,
+      "In " + getInstanceName() +
+      ": The product of the number of panels in series and parallel is not equal to the total number of panels in the array.",
+      level = AssertionLevel.error);
+  end if;
 
 equation
   connect(shaCoe_internal,shaCoe_in);
@@ -235,7 +258,7 @@ EnergyPlus 23.2.0 Engineering Reference</a>
 </html>", revisions="<html>
 <ul>
 <li>
-February 15, 2024, by Jelger Jansen:<br/>
+February 27, 2024, by Jelger Jansen:<br/>
 Refactor model.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3604\">Buildings, #3604</a>.

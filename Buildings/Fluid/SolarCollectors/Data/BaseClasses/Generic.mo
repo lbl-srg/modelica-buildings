@@ -14,10 +14,13 @@ record Generic
     "Nominal mass flow rate per unit area of collector";
   parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa")
     "Nominal pressure drop";
-  parameter Real b0(final min=0, final max=1, final unit="1")
-    "1st incident angle modifier coefficient";
-  parameter Real b1(final min=0, final max=1, final unit="1")
-    "2nd incident angle modifier coefficient";
+  parameter Modelica.Units.NonSI.Angle_deg[:] incAngDatDeg={0,10,20,30,40,50,60,70,80,90}
+    "Incident angle data in degrees";
+  final parameter Modelica.Units.SI.Angle[size(incAngDatDeg,1)] incAngDat=
+    Modelica.Units.Conversions.from_deg(incAngDatDeg)
+    "Incident angle data in radians";
+  parameter Real[size(incAngDatDeg,1)] incAngModDat(final min=0, final unit="1")
+    "Incident angle modifier data";
 
 annotation (
 defaultComponentPrefixes="parameter",
@@ -64,7 +67,7 @@ the collector is assumed to be made fully out of copper
 </html>", revisions="<html>
 <ul>
 <li>
-February 15, 2024, by Jelger Jansen:<br/>
+February 28, 2024, by Jelger Jansen:<br/>
 Refactor model.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3604\">Buildings, #3604</a>.
