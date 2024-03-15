@@ -2,10 +2,10 @@ within Buildings.Controls.OBC.CDL.Routing;
 block RealVectorReplicator "Real vector signal replicator"
   parameter Integer nin=1 "Size of input vector";
   parameter Integer nout=1 "Number of row in output";
-  Interfaces.RealInput    u[nin]
+  Interfaces.RealInput u[nin]
     "Connector of Real vector input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.RealOutput    y[nout, nin]
+  Interfaces.RealOutput y[nout, nin]
     "Connector of Real matrix output signals"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
