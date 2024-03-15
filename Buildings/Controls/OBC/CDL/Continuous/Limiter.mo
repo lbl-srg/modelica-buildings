@@ -40,11 +40,15 @@ and
 <code>uMax</code> and <code>uMin</code> are parameters.
 </p>
 <p>
-If <code>uMax &lt; uMin</code>, an error occurs and no output is produced.
+If <code>uMax &lt; uMin</code>, an error occurs.
 </p>
 </html>",
       revisions="<html>
 <ul>
+<li>
+February 15, 2024, by Michael Wetter:<br/>
+Updated documentation.
+</li>
 <li>
 March 2, 2020, by Michael Wetter:<br/>
 Changed icon to display dynamically the output value.
