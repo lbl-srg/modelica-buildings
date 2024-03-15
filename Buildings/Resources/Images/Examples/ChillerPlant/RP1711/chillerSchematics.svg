@@ -10,8 +10,8 @@
    sodipodi:docname="chillerSchematics.svg"
    inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
    inkscape:export-filename="/home/jianjunhu/GitFolder/modelica-buildings/Buildings/Resources/Images/Examples/ChillerPlant/RP1711/chillerSchematics.png"
-   inkscape:export-xdpi="150"
-   inkscape:export-ydpi="150"
+   inkscape:export-xdpi="100"
+   inkscape:export-ydpi="100"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -162,8 +162,8 @@
      inkscape:zoom="2"
      inkscape:cx="554"
      inkscape:cy="266.25"
-     inkscape:window-width="3410"
-     inkscape:window-height="2043"
+     inkscape:window-width="3666"
+     inkscape:window-height="1963"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
@@ -1110,7 +1110,7 @@
        inkscape:export-ydpi="150"><tspan
          x="-140"
          y="-140.88"
-         id="tspan99344">Cooling Tower</tspan></text>
+         id="tspan815">Cooling Tower</tspan></text>
     <text
        xml:space="preserve"
        id="text22052-0"
@@ -1121,7 +1121,7 @@
        inkscape:export-ydpi="150"><tspan
          x="-140"
          y="-140.88"
-         id="tspan99346">Chiller 1</tspan></text>
+         id="tspan817">Chiller 1</tspan></text>
     <text
        xml:space="preserve"
        id="text22052-0-8"
@@ -1132,11 +1132,11 @@
        inkscape:export-ydpi="150"><tspan
          x="-140"
          y="-140.88"
-         id="tspan99348">CHW
+         id="tspan819">CHW
 </tspan><tspan
          x="-140"
          y="-90.88"
-         id="tspan99350">isolation valve</tspan></text>
+         id="tspan821">isolation valve</tspan></text>
     <text
        xml:space="preserve"
        id="text22052-0-8-3"
@@ -1149,15 +1149,15 @@
        inkscape:export-ydpi="150"><tspan
          x="176.4801"
          y="-140.88"
-         id="tspan99354"><tspan
+         id="tspan825"><tspan
            style="text-align:end;text-anchor:end"
-           id="tspan99352">CW
+           id="tspan823">CW
 </tspan></tspan><tspan
          x="4.6807098"
          y="-90.88"
-         id="tspan99358"><tspan
+         id="tspan829"><tspan
            style="text-align:end;text-anchor:end"
-           id="tspan99356">isolation valve</tspan></tspan></text>
+           id="tspan827">isolation valve</tspan></tspan></text>
     <text
        xml:space="preserve"
        id="text22052-0-4"
@@ -1168,7 +1168,7 @@
        inkscape:export-ydpi="150"><tspan
          x="-140"
          y="-140.88"
-         id="tspan99360">Chiller 2</tspan></text>
+         id="tspan831">Chiller 2</tspan></text>
     <text
        xml:space="preserve"
        id="text22052-8"
@@ -1179,11 +1179,11 @@
        inkscape:export-ydpi="150"><tspan
          x="-140"
          y="-140.88"
-         id="tspan99362">Condenser
+         id="tspan833">Condenser
 </tspan><tspan
          x="-140"
          y="-90.88"
-         id="tspan99364">water pump</tspan></text>
+         id="tspan835">water pump</tspan></text>
     <text
        xml:space="preserve"
        id="text22052-8-2"
@@ -1194,11 +1194,11 @@
        inkscape:export-ydpi="150"><tspan
          x="-140"
          y="-140.88"
-         id="tspan99366">Chilled
+         id="tspan837">Chilled
 </tspan><tspan
          x="-140"
          y="-90.88"
-         id="tspan99368">water pump</tspan></text>
+         id="tspan839">water pump</tspan></text>
     <text
        xml:space="preserve"
        id="text22052-8-2-2"
@@ -1209,11 +1209,11 @@
        inkscape:export-ydpi="150"><tspan
          x="-140"
          y="-140.88"
-         id="tspan99370">Bypass
+         id="tspan841">Bypass
 </tspan><tspan
          x="-140"
          y="-90.88"
-         id="tspan99372">valve</tspan></text>
+         id="tspan843">valve</tspan></text>
     <text
        xml:space="preserve"
        id="text22052-8-2-2-4"
@@ -1224,7 +1224,7 @@
        inkscape:export-ydpi="150"><tspan
          x="-140"
          y="-140.88"
-         id="tspan99374">CHWST</tspan></text>
+         id="tspan845">CHWST</tspan></text>
     <text
        xml:space="preserve"
        id="text22052-8-2-2-4-1"
@@ -1235,7 +1235,7 @@
        inkscape:export-ydpi="150"><tspan
          x="-140"
          y="-140.88"
-         id="tspan99376">T_airSup</tspan></text>
+         id="tspan847">T_airSup</tspan></text>
     <text
        xml:space="preserve"
        id="text22052-8-2-2-4-1-9"
@@ -1246,7 +1246,7 @@
        inkscape:export-ydpi="150"><tspan
          x="-140"
          y="-140.88"
-         id="tspan99378">70%</tspan></text>
+         id="tspan849">70%</tspan></text>
     <text
        xml:space="preserve"
        id="text22052-8-2-2-4-1-9-9"
@@ -1257,7 +1257,7 @@
        inkscape:export-ydpi="150"><tspan
          x="-140"
          y="-140.88"
-         id="tspan99380">30%</tspan></text>
+         id="tspan851">30%</tspan></text>
     <text
        xml:space="preserve"
        id="text22052-8-2-2-4-2"
@@ -1268,7 +1268,7 @@
        inkscape:export-ydpi="150"><tspan
          x="-140"
          y="-140.88"
-         id="tspan99382">CHWRT</tspan></text>
+         id="tspan853">CHWRT</tspan></text>
     <text
        xml:space="preserve"
        id="text22052-8-2-2-4-2-2"
@@ -1279,7 +1279,7 @@
        inkscape:export-ydpi="150"><tspan
          x="-140"
          y="-140.88"
-         id="tspan99384">CWRT</tspan></text>
+         id="tspan855">CWRT</tspan></text>
     <text
        xml:space="preserve"
        id="text22052-8-2-2-4-2-2-9"
@@ -1290,7 +1290,7 @@
        inkscape:export-ydpi="150"><tspan
          x="-140"
          y="-140.88"
-         id="tspan99386">CWST</tspan></text>
+         id="tspan857">CWST</tspan></text>
     <text
        xml:space="preserve"
        id="text22052-8-2-8"
@@ -1301,11 +1301,11 @@
        inkscape:export-ydpi="150"><tspan
          x="-140"
          y="-140.88"
-         id="tspan99388">Cooling
+         id="tspan859">Cooling
 </tspan><tspan
          x="-140"
          y="-90.88"
-         id="tspan99390">coil</tspan></text>
+         id="tspan861">coil</tspan></text>
     <text
        xml:space="preserve"
        id="text22052-8-2-8-3"
@@ -1316,11 +1316,11 @@
        inkscape:export-ydpi="150"><tspan
          x="-140"
          y="-140.88"
-         id="tspan99392">Ideal
+         id="tspan863">Ideal
 </tspan><tspan
          x="-140"
          y="-90.88"
-         id="tspan99394">room</tspan></text>
+         id="tspan865">room</tspan></text>
     <text
        xml:space="preserve"
        id="text22052-8-2-8-3-0"
@@ -1331,7 +1331,7 @@
        inkscape:export-ydpi="150"><tspan
          x="-140"
          y="-140.88"
-         id="tspan99396">Ambient</tspan></text>
+         id="tspan867">Ambient</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:4, 4;stroke-dashoffset:0;stroke-opacity:1"
        d="M 590,50 V 205"
@@ -1366,6 +1366,6 @@
        inkscape:export-ydpi="150"><tspan
          x="-140"
          y="-140.88"
-         id="tspan99398">P</tspan></text>
+         id="tspan869">P</tspan></text>
   </g>
 </svg>
