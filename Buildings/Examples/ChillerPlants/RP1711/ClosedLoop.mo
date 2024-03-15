@@ -277,10 +277,10 @@ The air flow returns to the cooling coil includes 70% of the return room air and
 30% of the outdoor air.
 </li>
 <li>
-The room air supply temperature setpoint is 18 &degC.
+The room air supply temperature setpoint is 18 &deg;C.
 </li>
 <li>
-The return room air temperature is 28 &degC.
+The return room air temperature is 28 &deg;C.
 </li>
 <li>
 The room air supply temperature is controlled by a direct acting PID controller. It
@@ -290,11 +290,11 @@ modulates the valve that controlles the chilled water flow into the cooling coil
 The chilled water reset request is generated as below:
 <ol>
 <li>
-If the air supply temperature is 3 &degC higher than its setpoint by more than 2 minutes,
+If the air supply temperature is 3 &deg;C higher than its setpoint by more than 2 minutes,
 it generates 3 requests.
 </li>
 <li>
-If the air supply temperature is 2 &degC higher than its setpoint by more than 2 minutes,
+If the air supply temperature is 2 &deg;C higher than its setpoint by more than 2 minutes,
 it generates 2 requests.
 </li>
 <li>
