@@ -236,6 +236,16 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Humidifiers</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Humidifiers.DXDehumidifier
+    </td>
+    <td valign=\"top\">Added direct expansion dehumidifier.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3438\">issue 3438</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.EnergyTransferStations.Combined</b>
     </td>
 </tr>
@@ -794,7 +804,10 @@ to <b style=\"color:blue\">existing</b> libraries:
     <td valign=\"top\">Added new CDL blocks as suggested by ASHRAE 231p committee.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3256\">issue 3256</a>.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.VariablePulse
+    </td>                
     <td valign=\"top\">Added new CDL blocks as suggested by ASHRAE 231p committee.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3042\">issue 3042</a>.

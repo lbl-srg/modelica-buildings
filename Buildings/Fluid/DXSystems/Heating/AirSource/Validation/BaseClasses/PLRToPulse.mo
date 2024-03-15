@@ -2,8 +2,15 @@ within Buildings.Fluid.DXSystems.Heating.AirSource.Validation.BaseClasses;
 block PLRToPulse
   "Converts an input for part load ratio value into an enable signal"
 
-  parameter Real tPer = 15*60
+  parameter Real tPer(
+    final quantity="Time",
+    final unit="s") = 15*60
     "Time period for PLR sampling";
+
+  parameter Real tDel(
+    final quantity="Time",
+    final unit="s") = 1e-6
+    "Delay time of the enable signal";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uPLR
     "Part load ratio input"
@@ -30,7 +37,7 @@ protected
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
-    final width=1e-6/tPer,
+    final width=tDel/tPer,
     final period=tPer)
     "Outputs true signals for 1e-6 second duration at required timestep interval"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
@@ -57,7 +64,7 @@ protected
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
-    final delayTime=1e-6)
+    final delayTime=tDel)
     "Delay the enable signal by 1e-6 seconds, which is also the duration for 
     which the pulse signal is held. Required when PLR input is zero"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
@@ -97,7 +104,9 @@ equation
     annotation (Line(points={{62,-10},{92,-10},{92,0},{120,0}},
       color={255,0,255}));
 
-annotation (Icon(
+annotation (
+  defaultComponentName="plrToPul",
+  Icon(
     coordinateSystem(preserveAspectRatio=false),
     graphics={Rectangle(extent={{-100,100},{100,-100}},lineColor={0,0,0},
       fillColor={255,255,255},fillPattern = FillPattern.Solid),
@@ -105,14 +114,14 @@ annotation (Icon(
         extent={{-160,140},{160,100}},
         textString="%name",
         textColor={0,0,255})}),
-  Diagram(defaultComponentName="plrToPul",
+  Diagram(
   coordinateSystem(preserveAspectRatio=false)),
   Documentation(info="<html>
 <p>
 This block calculates the time duration for which the DX coil needs to be kept enabled
 based on the part-load ratio input signal <code>uPLR</code> for the constant simulation
-run period <code>tPer</code>, and then generates an output enable signal 
-<code>yEna</code> for that duration. Once the component has been kept enabled for 
+run period <code>tPer</code>, and then generates an output enable signal
+<code>yEna</code> for that duration. Once the component has been kept enabled for
 the calculated duration, the component is kept disabled until the start of the next period.
 </p>
 </html>",
