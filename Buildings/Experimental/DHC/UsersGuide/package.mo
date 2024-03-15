@@ -124,41 +124,41 @@ details.
 </tr>
 <tr><td valign=\"top\" rowspan=\"3\">Combined
     </td>
-    <td valign=\"top\">ChillerBorefield
+    <td valign=\"top\"><a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.ChillerBorefield\">ChillerBorefield</a>
     </td>
     <td valign=\"top\">ETS with heat recovery chiller and optional borefield.
     </td>
 </tr>
-<tr><td valign=\"top\">HeatPumpHeatExchanger
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger\">HeatPumpHeatExchanger</a>
     </td>
     <td valign=\"top\">ETS with heat pump for heating, heat pump for domestic hot water, and compressor-less cooling by heat exchanger.
     </td>
 </tr>
-<tr><td valign=\"top\">HeatPumpHeatExchangerDHWTank
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchangerDHWTank\">HeatPumpHeatExchangerDHWTank</a>
     </td>
     <td valign=\"top\">ETS with heat pump for heating, heat pump with storage tank and heat exchanger for domestic hot water, and compressor-less cooling by heat exchanger.
     </td>
 </tr>
 <tr><td valign=\"top\" rowspan=\"2\">Cooling
     </td>
-    <td valign=\"top\">Direct
+    <td valign=\"top\"><a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Cooling.Direct\">Direct</a>
     </td>
     <td valign=\"top\">ETS with direct connection and district return water temperature control. In-building pumping not modeled.
     </td>
 </tr>
-<tr><td valign=\"top\">Indirect
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Cooling.Indirect\">Indirect</a>
     </td>
     <td valign=\"top\">ETS with indirect connection with heat exchanger and building supply water temperature control. In-building pumping not modeled.
     </td>
 </tr>    
 <tr><td valign=\"top\" rowspan=\"2\">Heating
     </td>
-    <td valign=\"top\">Direct
+    <td valign=\"top\"><a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Heating.Direct\">Direct</a>
     </td>
     <td valign=\"top\">ETS with direct connection and district return water temperature control. In-building pumping not modeled.
     </td>
 </tr>
-<tr><td valign=\"top\">Indirect
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Heating.Indirect\">Indirect</a>
     </td>
     <td valign=\"top\">ETS with indirect connection with heat exchanger and building supply water temperature control. In-building pumping not modeled.
     </td>
@@ -171,50 +171,50 @@ details.
 </tr>
 <tr><td valign=\"top\" rowspan=\"2\">Combined
     </td>
-    <td valign=\"top\">BuildingTimeSeriesWithETS
+    <td valign=\"top\"><a href=\"modelica://Buildings.Experimental.DHC.Loads.Combined.BuildingTimeSeriesWithETS\">BuildingTimeSeriesWithETS</a>
     </td>
     <td valign=\"top\">Building with loads provided as time series, connected to an ETS with heat pump for space heating, heat pump for domestic hot water, and a heat exchanger for cooling water.
     </td>
 </tr>
-<tr><td valign=\"top\">BuildingTimeSeriesWithETSWithDHWTank
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Experimental.DHC.Loads.Combined.BuildingTimeSeriesWithETSWithDHWTank\">BuildingTimeSeriesWithETSWithDHWTank</a>
     </td>
     <td valign=\"top\">Building with loads provided as time series, connected to an ETS with heat pump for space heating, heat pump with storage tank and heat exchanger for domestic hot water, and a heat exchanger for cooling water.
     </td>
 </tr>
 <tr><td valign=\"top\" rowspan=\"1\">Cooling
     </td>
-    <td valign=\"top\">BuildingTimeSeriesWithETS
+    <td valign=\"top\"><a href=\"modelica://Buildings.Experimental.DHC.Loads.Cooling.BuildingTimeSeriesWithETS\">BuildingTimeSeriesWithETS</a>
     </td>
     <td valign=\"top\">Building with loads provided as time series, connected to an ETS with direct connection for chilled water supply to the building.
     </td>
 </tr>       
 <tr><td valign=\"top\" rowspan=\"1\">Heating
     </td>
-    <td valign=\"top\">BuildingTimeSeriesWithETS
+    <td valign=\"top\"><a href=\"modelica://Buildings.Experimental.DHC.Loads.Heating.BuildingTimeSeriesWithETS\">BuildingTimeSeriesWithETS</a>
     </td>
     <td valign=\"top\">Building with loads provided as time series, connected to an ETS with direct connection for heating water supply to the building.
     </td>
 </tr>
 <tr><td valign=\"top\" rowspan=\"3\">HotWater
     </td>
-    <td valign=\"top\">DirectHeatExchangerWithElectricHeat
+    <td valign=\"top\"><a href=\"modelica://Buildings.Experimental.DHC.Loads.HotWater.DirectHeatExchangerWithElectricHeat\">DirectHeatExchangerWithElectricHeat</a>
     </td>
     <td valign=\"top\">A model for generating hot water using a district heat exchanger and supplemental electric resistance.
     </td>
 </tr>
-<tr><td valign=\"top\">StorageTankWithExternalHeatExchanger
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Experimental.DHC.Loads.HotWater.StorageTankWithExternalHeatExchanger\">StorageTankWithExternalHeatExchanger</a>
     </td>
     <td valign=\"top\">A model of a storage tank with external heat exchanger to produce hot water.
     </td>
 </tr>
-<tr><td valign=\"top\">ThermostaticMixingValve
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Experimental.DHC.Loads.HotWater.ThermostaticMixingValve\">ThermostaticMixingValve</a>
     </td>
     <td valign=\"top\">A model for a thermostatic mixing valve.
     </td>
 </tr>
 <tr><td valign=\"top\" rowspan=\"1\">Steam
     </td>
-    <td valign=\"top\">BuildingTimeSeriesAtETS
+    <td valign=\"top\"><a href=\"modelica://Buildings.Experimental.DHC.Loads.Steam.BuildingTimeSeriesAtETS\">BuildingTimeSeriesAtETS</a>
     </td>
     <td valign=\"top\">Steam heating building interconnection with the district piping only and the load at the ETS provided as a time series.
     </td>
@@ -227,29 +227,29 @@ details.
 </tr>
 <tr><td valign=\"top\" rowspan=\"4\">
     </td>
-    <td valign=\"top\">Distribution1PipeAutoSize
+    <td valign=\"top\"><a href=\"modelica://Buildings.Experimental.DHC.Networks.Distribution1PipeAutoSize\">Distribution1PipeAutoSize</a>
     </td>
     <td valign=\"top\">1-Pipe distribution network with flow friction modeled in the main lines between ETS determined with autosizing.
     </td>
 </tr>
-<tr><td valign=\"top\">Distribution1PipePlugFlow
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Experimental.DHC.Networks.Distribution1PipePlugFlow\">Distribution1PipePlugFlow</a>
     </td>
     <td valign=\"top\">1-Pipe distribution network with fluid heat transfer modeled in the main lines between ETS determined by external model (e.g. ground).
     </td>
 </tr>   
-<tr><td valign=\"top\">Distribution2PipeAutoSize
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Experimental.DHC.Networks.Distribution2PipeAutoSize\">Distribution2PipeAutoSize</a>
     </td>
     <td valign=\"top\">2-Pipe distribution network with flow friction modeled in the main lines between ETS determined with autosizing.
     </td>
 </tr>   
-<tr><td valign=\"top\">Distribution2PipePlugFlow
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Experimental.DHC.Networks.Distribution2PipePlugFlow\">Distribution2PipePlugFlow</a>
     </td>
     <td valign=\"top\">2-Pipe distribution network with fluid heat transfer modeled in the main lines between ETS determined by external model (e.g. ground).
     </td>
 </tr>        
 <tr><td valign=\"top\" rowspan=\"1\">Steam
     </td>
-    <td valign=\"top\">DistributionCondensatePipe
+    <td valign=\"top\"><a href=\"modelica://Buildings.Experimental.DHC.Networks.Steam.DistributionCondensatePipe\">DistributionCondensatePipe</a>
     </td>
     <td valign=\"top\">2-Pipe distribution network with steam supply and condensate return using a fixed resistance pipe model for condensate returns.
     </td>
@@ -262,33 +262,33 @@ details.
 </tr>
 <tr><td valign=\"top\" rowspan=\"1\">Combined
     </td>
-    <td valign=\"top\">AllElectricCWStorage
+    <td valign=\"top\"><a href=\"modelica://Buildings.Experimental.DHC.Plants.Combined.AllElectricCWStorage\">AllElectricCWStorage</a>
     </td>
     <td valign=\"top\">All-electric chilled water and heating water production plant with heat recovery chillers and condenser water storage.
     </td>
 </tr>     
 <tr><td valign=\"top\" rowspan=\"2\">Cooling
     </td>
-    <td valign=\"top\">ElectricChillerParallel
+    <td valign=\"top\"><a href=\"modelica://Buildings.Experimental.DHC.Plants.Cooling.ElectricChillerParallel\">ElectricChillerParallel</a>
     </td>
     <td valign=\"top\">Chilled water production plant with parallel chillers and parallel cooling towers.
     </td>
 </tr>
-<tr><td valign=\"top\">StoragePlant
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Experimental.DHC.Plants.Cooling.StoragePlant\">StoragePlant</a>
     </td>
     <td valign=\"top\">Chilled water storage tank system which can be charged by local chiller or remotely from district.
     </td>
 </tr>
 <tr><td valign=\"top\" rowspan=\"1\">Heating
     </td>
-    <td valign=\"top\">SewageHeatRecovery
+    <td valign=\"top\"><a href=\"modelica://Buildings.Experimental.DHC.Plants.Heating.SewageHeatRecovery\">SewageHeatRecovery</a>
     </td>
     <td valign=\"top\">Heating water production plant using sewage heat recovery.
     </td>
 </tr>
 <tr><td valign=\"top\" rowspan=\"1\">Steam
     </td>
-    <td valign=\"top\">SingleBoiler
+    <td valign=\"top\"><a href=\"modelica://Buildings.Experimental.DHC.Plants.Steam.SingleBoiler\">SingleBoiler</a>
     </td>
     <td valign=\"top\">Steam plant with a single boiler that discharges saturated steam.
     </td>
@@ -301,31 +301,31 @@ details.
 </tr>
 <tr><td valign=\"top\" rowspan=\"3\">Combined
     </td>
-    <td valign=\"top\">SeriesConstantFlow
+    <td valign=\"top\"><a href=\"modelica://Buildings.Experimental.DHC.Examples.Combined.SeriesConstantFlow\">SeriesConstantFlow</a>
     </td>
     <td valign=\"top\">Example of ambient network, so-called \"Reservoir Network\", with constant district water mass flow rate.
     </td>
 </tr>
-<tr><td valign=\"top\">SeriesVariableFlow
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlow\">SeriesVariableFlow</a>
     </td>
     <td valign=\"top\">Example of ambient network, so-called \"Reservoir Network\", with variable district water mass flow rate.
     </td>
 </tr>
-<tr><td valign=\"top\">SeriesVariableFlowAgentControl
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlowAgentControl\">SeriesVariableFlowAgentControl</a>
     </td>
     <td valign=\"top\">Example of ambient network, so-called \"Reservoir Network\", with variable district water mass flow rate with updated agent controller.
     </td>
 </tr>    
 <tr><td valign=\"top\" rowspan=\"1\">Cooling
     </td>
-    <td valign=\"top\">ElectricChillersDirectETS
+    <td valign=\"top\"><a href=\"modelica://Buildings.Experimental.DHC.Examples.Cooling.ElectricChillersDirectETS\">ElectricChillersDirectETS</a>
     </td>
     <td valign=\"top\">Example model for district cooling system with an electric chiller plant and a direct controlled ETS at each building.
     </td>
 </tr>
 <tr><td valign=\"top\" rowspan=\"1\">Steam
     </td>
-    <td valign=\"top\">SingleBoiler
+    <td valign=\"top\"><a href=\"modelica://Buildings.Experimental.DHC.Examples.Steam.SingleBoiler\">SingleBoiler</a>
     </td>
     <td valign=\"top\">Example model for a steam district heating system with a central plant boiler producing steam that is distributed to each building.
     </td>
