@@ -1,11 +1,11 @@
 within Buildings.Experimental.DHC.Networks;
-model Distribution1PipePlugFlow
-  "Model of a one-pipe distribution network with plug flow pipes in the main line"
+model Distribution1PipePlugFlow_v
+  "Model of a one-pipe distribution network with plug flow pipes in the main line with hydraulic diameter calculated from nominal velocity"
   extends
     Buildings.Experimental.DHC.Networks.BaseClasses.PartialDistribution1Pipe(
     tau=5*60,
     redeclare
-      Buildings.Experimental.DHC.Networks.Connections.Connection1PipePlugFlow
+      Buildings.Experimental.DHC.Networks.Connections.Connection1PipePlugFlow_v
       con[nCon](
       each final dIns=dIns,
       each final kIns=kIns,
@@ -16,15 +16,15 @@ model Distribution1PipePlugFlow
       each final thickness=thickness,
       final lDis=lDis),
     redeclare model Model_pipDis =
-       Buildings.Fluid.FixedResistances.PlugFlowPipe (
-      final length=lEnd,
-      final dIns=dIns,
-      final kIns=kIns,
-      final v_nominal=v_nominal,
-      final roughness=roughness,
-      final cPip=cPip,
-      final rhoPip=rhoPip,
-      final thickness=thickness));
+        Buildings.Fluid.FixedResistances.PlugFlowPipe (
+        final length=lEnd,
+        final dIns=dIns,
+        final kIns=kIns,
+        final v_nominal=v_nominal,
+        final roughness=roughness,
+        final cPip=cPip,
+        final rhoPip=rhoPip,
+        final thickness=thickness));
 
   parameter Modelica.Units.SI.Length lDis[nCon]
     "Length of the distribution pipe before each connection";
@@ -60,16 +60,23 @@ equation
   annotation (Documentation(info="<html>
 <p>
 This model represents a one-pipe distribution network using a connection model with a plug flow pipe
-model (pressure drop, heat transfer, transport delays) in the main line <a href=\"modelica://Buildings.Experimental.DHC.Networks.Connections.Connection1PipePlugFlow\">
+model (pressure drop, heat transfer, transport delays) in the main line whose hydraulic diameters 
+are calculated based on nominal velocity at nominal flow rate  <a href=\"modelica://Buildings.Experimental.DHC.Networks.Connections.Connection1PipePlugFlow_v\">
 Buildings.Experimental.DHC.Networks.Connections.Connection1PipePlugFlow</a>. The same pipe model at the end of
 the distribution line (after the last connection).
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
+March 15, 2024, by David Blum:<br/>
+Renamed.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3712\">issue 3712</a>.
+</li>
+<li>
 December 10, 2023, by Ettore Zanetti:<br/>
 First implementation.
 </li>
 </ul>
 </html>"));
-end Distribution1PipePlugFlow;
+end Distribution1PipePlugFlow_v;

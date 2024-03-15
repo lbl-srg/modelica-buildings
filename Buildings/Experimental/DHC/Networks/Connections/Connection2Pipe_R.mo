@@ -1,6 +1,8 @@
 within Buildings.Experimental.DHC.Networks.Connections;
-model Connection2PipeAutosize "Model for connecting an agent to the DHC system"
-  extends Buildings.Experimental.DHC.Networks.BaseClasses.PartialConnection2Pipe(
+model Connection2Pipe_R
+  "Model for connecting an agent to the DHC system"
+  extends
+    Buildings.Experimental.DHC.Networks.BaseClasses.PartialConnection2Pipe(
     tau=5*60,
     redeclare replaceable model Model_pipDisSup = Pipes.PipeAutosize (
         roughness = 7e-6,
@@ -26,6 +28,12 @@ model Connection2PipeAutosize "Model for connecting an agent to the DHC system"
   annotation (Documentation(revisions="<html>
 <ul>
 <li>
+March 15, 2024, by David Blum:<br/>
+Renamed.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3712\">issue 3712</a>.
+</li>
+<li>
 December 20, 2023, by Ettore Zanetti:<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
@@ -44,4 +52,4 @@ at nominal flow rate based on the model <a href=\"modelica://Buildings.Experimen
 Buildings.Experimental.DHC.Networks.Pipes.PipeAutosize</a> for the distribution line. The connection to the building as the length is typically relatively short so a losssless pipe is considered.
 </p>
 </html>"));
-end Connection2PipeAutosize;
+end Connection2Pipe_R;

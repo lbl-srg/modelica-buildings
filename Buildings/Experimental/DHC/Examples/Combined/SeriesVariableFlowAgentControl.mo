@@ -98,7 +98,7 @@ model SeriesVariableFlowAgentControl
     uHighCoo=0.4)
     annotation (Placement(transformation(extent={{-330,-110},{-310,-90}})));
 
-  Networks.Distribution1PipePlugFlow dis(
+  Networks.Distribution1PipePlugFlow_v dis(
     nCon=nBui,
     allowFlowReversal=allowFlowReversalSer,
     redeclare package Medium = Medium,

@@ -166,28 +166,28 @@ model AllElectricCWStorage
   Modelica.Blocks.Math.Gain norQFloCoo(k=1/sum(loaCoo.QCoo_flow_nominal))
     "Normalized Q_flow"
     annotation (Placement(transformation(extent={{-146,-190},{-126,-170}})));
-  Buildings.Experimental.DHC.Networks.Distribution2PipeAutoSize disHea(
+  Buildings.Experimental.DHC.Networks.Distribution2Pipe_R disHea(
     redeclare final package Medium = Medium,
     nCon=2,
     allowFlowReversal=false,
     mDis_flow_nominal=sum(loaHea.mBui_flow_nominal),
     mCon_flow_nominal={loaHea[1].mBui_flow_nominal,loaHea[2].mBui_flow_nominal},
+
     mEnd_flow_nominal=sum(loaHea.mBui_flow_nominal),
     lDis={800,200},
-    lEnd=200)
-    "Distribution network for district heating system"
+    lEnd=200) "Distribution network for district heating system"
     annotation (Placement(transformation(extent={{20,62},{-20,82}})));
 
-  Buildings.Experimental.DHC.Networks.Distribution2PipeAutoSize disCoo(
+  Buildings.Experimental.DHC.Networks.Distribution2Pipe_R disCoo(
     redeclare final package Medium = Medium,
     nCon=2,
     allowFlowReversal=false,
     mDis_flow_nominal=sum(loaCoo.mBui_flow_nominal),
     mCon_flow_nominal={loaCoo[1].mBui_flow_nominal,loaCoo[2].mBui_flow_nominal},
+
     mEnd_flow_nominal=sum(loaCoo.mBui_flow_nominal),
     lDis={80,20},
-    lEnd=20)
-    "Distribution network for district cooling system"
+    lEnd=20) "Distribution network for district cooling system"
     annotation (Placement(transformation(extent={{20,-60},{-20,-80}})));
 
   Modelica.Blocks.Math.Sum QTotHea_flow(nin=2)

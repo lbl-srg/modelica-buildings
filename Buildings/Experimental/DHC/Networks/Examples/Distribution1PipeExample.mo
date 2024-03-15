@@ -87,7 +87,7 @@ model Distribution1PipeExample
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-70,10})));
-  Buildings.Experimental.DHC.Networks.Distribution1PipeAutoSize disAutoSize(
+  Buildings.Experimental.DHC.Networks.Distribution1Pipe_R disAutoSize(
     redeclare final package Medium = Medium1,
     nCon=nLoa,
     allowFlowReversal=false,
@@ -122,7 +122,7 @@ model Distribution1PipeExample
     each final T_bHeaWat_nominal=T_bHeaWat_nominal,
     each final T_aLoaHea_nominal=T_aLoaHea_nominal) "Heating terminal unit"
     annotation (Placement(transformation(extent={{30,-16},{50,4}})));
-  Buildings.Experimental.DHC.Networks.Distribution1PipePlugFlow disPlugFlow(
+  Buildings.Experimental.DHC.Networks.Distribution1PipePlugFlow_v disPlugFlow(
     nCon=nLoa,
     redeclare final package Medium = Medium1,
     allowFlowReversal=false,
@@ -131,8 +131,7 @@ model Distribution1PipeExample
     lDis=fill(6, nLoa),
     lEnd=1,
     dIns=0.02,
-    kIns=0.2)
-            annotation (Placement(transformation(extent={{20,-80},{60,-60}})));
+    kIns=0.2) annotation (Placement(transformation(extent={{20,-80},{60,-60}})));
   Buildings.Fluid.Movers.FlowControlled_dp pumPlugFlow(
     redeclare package Medium = Medium1,
     per(final motorCooledByFluid=false),
@@ -263,13 +262,13 @@ equation
     Documentation(
       info="<html>
 <p>
-Example model of two one-pipe distribution models that could be used i.e for building a reservoir network to connect several agents in series.
-It showcases <a href=\"modelica://Buildings.Experimental.DHC.Networks.Distribution1PipeAutoSize\">
-Buildings.Experimental.DHC.Networks.Distribution1PipeAutoSize</a> and <a href=\"modelica://Buildings.Experimental.DHC.Networks.Distribution1PipePlugFlow\">
-Buildings.Experimental.DHC.Networks.Distribution1PipePlugFlow</a>. The distribution models create a vector of <code>nLoa</code> connection models
-<a href=\"modelica://Buildings.Experimental.DHC.Networks.Connections\"> Buildings.Experimental.DHC.Networks.Connections</a> that are connected to a vector
+Example model of two one-pipe distribution models that could be used i.e for building a reservoir network to connect several agents in series. 
+It showcases <a href=\"modelica://Buildings.Experimental.DHC.Networks.Distribution1Pipe_R\">
+Buildings.Experimental.DHC.Networks.Distribution1PipeAutoSize</a> and <a href=\"modelica://Buildings.Experimental.DHC.Networks.Distribution1PipePlugFlow_v\">
+Buildings.Experimental.DHC.Networks.Distribution1PipePlugFlow</a>. The distribution models create a vector of <code>nLoa</code> connection models 
+<a href=\"modelica://Buildings.Experimental.DHC.Networks.Connections\"> Buildings.Experimental.DHC.Networks.Connections</a> that are connected to a vector 
 of <code>nLoa</code> agents made up by time series heating loads <a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BaseClasses.FanCoil2PipeHeatingValve\">
-Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BaseClasses.FanCoil2PipeHeatingValve</a>. Each agent will draw water from the distribution pipe and release
+Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BaseClasses.FanCoil2PipeHeatingValve</a>. Each agent will draw water from the distribution pipe and release 
 it to the same pipe.
 </p>
 </html>",
