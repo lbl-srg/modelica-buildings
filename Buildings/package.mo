@@ -236,6 +236,15 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.ThermalWheels
+    </td>
+    <td valign=\"top\">Package of models for thermal wheel (both enthalpy and sensible heat recovery) devices.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3538\">issue 3538</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.EnergyTransferStations.Combined</b>
     </td>
 </tr>
@@ -338,13 +347,13 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.Interfaces.PartialFourPort<br/>
-                     Buildings.Fluid.Interfaces.PartialTwoPort<br/>
-                     Buildings.Fluid.Interfaces.PartialTwoPortVector
+                       Buildings.Fluid.Interfaces.PartialTwoPort<br/>
+                       Buildings.Fluid.Interfaces.PartialTwoPortVector
     </td>
     <td valign=\"top\">Changed implementation to allow moving fluid connector.
-                     This accomodates implementation of models that should have connectors on the top and bottom (such as a tank)
-                     and moving of connectors for models that need larger icons.<br/>
-                     This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1781\">IBPSA, #1781</a>.
+                       This accomodates implementation of models that should have connectors on the top and bottom (such as a tank)
+                       and moving of connectors for models that need larger icons.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1781\">IBPSA, #1781</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.EnergyTransferStations.Heating</b>
@@ -377,11 +386,11 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007<br/>
-                     Buildings.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007
+                       Buildings.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007
     </td>
     <td valign=\"top\">Changed implementation to allow ground temperature to be taken from an input rather than using
-                     a constant value.<br/>
-                     This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1744\">IBPSA, #1744</a>.
+                       a constant value.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1744\">IBPSA, #1744</a>.
     </td>
 </tr>
 </table>
