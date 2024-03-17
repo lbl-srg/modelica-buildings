@@ -499,6 +499,33 @@ however Spawn exits warmup when the surface temperatures stabilize instead of th
       Documentation(
         info="<html>
 <h4>Known issues</h4>
+<h5>Models with connections to the radiative heat port <code>heaPorRad</code> fail to converge</h5>
+<p>
+Models in which a component is connected to the radiative heat port <code>heaPorRad</code> may cause
+convergence problems if that component computes the radiative heat exchange <code>heaPorRad.Q_flow</code>
+based on the temperature <code>heaPorRad.T</code>.
+An example of such a model is
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Radiator\">
+Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Radiator</a>.
+This model forms a nonlinear equation between the radiator temperature,
+which is used to compute the radiative heat flow rate between radiator and room radiative temperature, and the
+room surface temperature. The radiator temperature is computed in Modelica and the room surface
+temperature is computed in EnergyPlus. The latter requires the iterative solution of the
+radiative heat balance equation. Hence, evaluating the residuals for this nonlinear equation
+requires an iteration in EnergyPlus.
+As a rule of thumb, such nested solvers require one order of magnitude higher precision for the inner
+solver.
+By default, the tolerance of the radiative heat balance solver in EnergyPlus is set to <code>1E-7</code>,
+which should suffice. However, if a model does not converge -- in which case the error message may involve
+variables <code>TRad</code>, <code>QGaiRad_flow</code> or <code>yEP[1}</code> --
+the tolerance can be increased by setting the parameter <code>relativeSurfaceTolerance</code>
+in the instance <code>building</code>.
+</p>
+<p>
+Because a Modelica model does not have knowledge of the solver tolerance, automatically tightening
+<code>relativeSurfaceTolerance</code> as a function of the Modelica solver tolerance
+is not possible.
+</p>
 <h5>Signals to time schedules and actuators</h5>
 <p>
 If Modelica overrides a time schedule or an actuator at a time instant that does not
