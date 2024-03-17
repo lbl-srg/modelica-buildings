@@ -149,6 +149,15 @@ must be provided. When starting the simulation, EnergyPlus will
 be run with the weather file whose name is identical to <code>epwName</code>,
 while Modelica will use the file specified by <code>weaName</code>.
 </p>
+<p>
+To configure models that connect components for radiative heat exchange to the thermal zone model,
+the parameter <code>relativeSurfaceTolerance</code> in the <i>Advanced</i> tab may have to be tightended.
+See the section <i>Notes about modeling components that are connected to the radiative heat port</i>
+in the model
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone\">
+Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone</a>
+for details.
+</p>
 </html>",
       revisions="<html>
 <ul>
@@ -156,7 +165,7 @@ while Modelica will use the file specified by <code>weaName</code>.
 March 16, 2024, by Michael Wetter:<br/>
 Increased the default value for <code>relativeSurfaceTolerance</code>.
 This is required for
-<a href=\"modelica:Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Radiator\">
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Radiator\">
 Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Radiator</a>
 with OpenModelica. This model forms a nonlinear equation between the radiator temperature,
 which is used to compute the radiative heat flow rate between radiator and room radiative temperature, and the
