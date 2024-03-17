@@ -187,7 +187,7 @@ model HeatPumpRadiantHeatingGroundHeatTransfer
     y_start=0,
     u(final unit="W"),
     y(final unit="J/m2",
-      displayUnit="kWh/m2"))
+      displayUnit="kW.h/m2"))
     "Produced heat per unit area of floor"
     annotation (Placement(transformation(extent={{180,-340},{200,-320}})));
   Modelica.Blocks.Continuous.Integrator EEle(
@@ -196,7 +196,7 @@ model HeatPumpRadiantHeatingGroundHeatTransfer
     y_start=1E-10,
     u(final unit="W"),
     y(final unit="J/m2",
-      displayUnit="kWh/m2"))
+      displayUnit="kW.h/m2"))
     "Electricity use per floor area"
     annotation (Placement(transformation(extent={{180,-378},{200,-358}})));
   Controls.OBC.CDL.Reals.Divide COP "Coefficient of performance"
@@ -383,6 +383,10 @@ which computes the heat transfer to the soil because this building has no baseme
 </p>
 </html>", revisions = "<html>
 <ul>
+<li>
+March 11, 2024, by Michael Wetter:<br/>
+Corrected wrong <code>displayUnit</code> string.
+</li>
 <li>
 December 1, 2022, by Michael Wetter:<br/>
 Replaced idealized heating with geothermal heat pump,

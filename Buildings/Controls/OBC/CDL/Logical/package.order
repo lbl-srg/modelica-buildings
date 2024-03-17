@@ -15,7 +15,6 @@ Switch
 Timer
 TimerAccumulating
 Toggle
-TriggeredTrapezoid
 TrueDelay
 TrueFalseHold
 TrueHoldWithReset
