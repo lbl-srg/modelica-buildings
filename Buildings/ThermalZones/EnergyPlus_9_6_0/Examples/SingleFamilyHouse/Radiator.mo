@@ -13,7 +13,7 @@ model Radiator
     epwName=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"),
     computeWetBulbTemperature=false)
-    "Building model"
+      "Building model"
     annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
   constant Modelica.Units.SI.Volume VRoo=453.138 "Room volume";
   constant Modelica.Units.SI.Area AFlo=185.834
