@@ -5,7 +5,6 @@ model PartialBuildingWithETS
     Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuildingWithPartialETS(
     nPorts_heaWat=1,
     nPorts_chiWat=1);
-    annotation (Placement(transformation(extent={{-250,262},{-230,282}})));
   parameter Modelica.Units.SI.Temperature TDisWatMin=6 + 273.15
     "District water minimum temperature" annotation (Dialog(group="ETS model parameters"));
   parameter Modelica.Units.SI.Temperature TDisWatMax=17 + 273.15
