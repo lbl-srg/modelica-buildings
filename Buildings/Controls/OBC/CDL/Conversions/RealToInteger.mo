@@ -57,8 +57,8 @@ as the nearest integer value of the input <code>u</code>.
 The block outputs
 </p>
 <pre>
-    y = integer( floor( u + 0.5 ) )  for  u &gt; 0,
-    y = integer( ceil ( u - 0.5 ) )  for  u &lt; 0.
+    y = integer( floor( u + 0.5 ) )  if u &gt; 0,
+    y = integer( ceil ( u - 0.5 ) )  otherwise.
 </pre>
 </html>",
       revisions="<html>
