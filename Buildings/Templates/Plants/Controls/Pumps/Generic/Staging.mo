@@ -1,23 +1,28 @@
 within Buildings.Templates.Plants.Controls.Pumps.Generic;
 block Staging
   "Generic staging logic for all pump arrangements and routing of pump status"
-  parameter Boolean is_pri(start=true)
+  parameter Boolean is_pri(
+    start=true)
     "Set to true for primary pumps, false for secondary pumps"
     annotation (Evaluate=true,
     Dialog(enable=nPum > 0));
-  parameter Boolean is_hdr(start=false)
+  parameter Boolean is_hdr(
+    start=false)
     "Set to true for headered pumps, false for dedicated pumps"
     annotation (Evaluate=true,
     Dialog(enable=nPum > 0));
-  parameter Boolean is_ctlDp(start=false)
+  parameter Boolean is_ctlDp(
+    start=false)
     "Set to true for headered variable speed pumps using ∆p pump speed control"
     annotation (Evaluate=true,
     Dialog(enable=is_hdr));
-  parameter Boolean have_valInlIso(start=false)
+  parameter Boolean have_valInlIso(
+    start=false)
     "Set to true if the system as inlet isolation valves"
     annotation (Evaluate=true,
     Dialog(enable=is_pri));
-  parameter Boolean have_valOutIso(start=false)
+  parameter Boolean have_valOutIso(
+    start=false)
     "Set to true if the system as outlet isolation valves"
     annotation (Evaluate=true,
     Dialog(enable=is_pri));
@@ -56,7 +61,7 @@ block Staging
   final parameter Real staPum[nPum, nPum](
     each unit="1",
     each min=0,
-    each max=1)={fill(i/nPum, nPum) for i in 1:nPum}
+    each max=1)={fill(i / nPum, nPum) for i in 1:nPum}
     "Pump staging matrix";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Pum[nEqu]
     if is_pri and (not is_hdr or is_hdr and not is_ctlDp)
@@ -102,7 +107,8 @@ block Staging
     if is_pri and is_hdr and not is_ctlDp
     "Convert to integer"
     annotation (Placement(transformation(extent={{-140,110},{-120,130}})));
-  Buildings.Controls.OBC.CDL.Integers.MultiSum nPumHdrPriNotDp0(nin=nEqu)
+  Buildings.Controls.OBC.CDL.Integers.MultiSum nPumHdrPriNotDp0(
+    nin=nEqu)
     if is_pri and is_hdr and not is_ctlDp
     "Compute number of pumps to be staged on – Headered primary pumps not using ∆p control"
     annotation (Placement(transformation(extent={{-100,110},{-80,130}})));
@@ -207,15 +213,16 @@ block Staging
     final integerFalse=0)
     if is_pri and is_hdr and not is_ctlDp
     "Convert lead pump enable signal to integer"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-40,100})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=90,
+      origin={-40,100})));
   Buildings.Controls.OBC.CDL.Integers.Multiply nPumHdrPriNotDp
     if is_pri and is_hdr and not is_ctlDp
     "Reset number of enabled pumps to zero if lead pump disabled"
     annotation (Placement(transformation(extent={{-10,110},{10,130}})));
-  StagingRotation.EquipmentEnable enaHdr(final staEqu=staPum)
-                                         if is_hdr "Enable headered pumps"
+  StagingRotation.EquipmentEnable enaHdr(
+    final staEqu=staPum)
+    if is_hdr
+    "Enable headered pumps"
     annotation (Placement(transformation(extent={{50,-30},{70,-10}})));
 equation
   connect(u1Pum_actual, staHdrDp.u1_actual)
@@ -227,10 +234,9 @@ equation
   connect(u1Pum, booToInt.u)
     annotation (Line(points={{-180,120},{-142,120}},color={255,0,255}));
   connect(booToInt.y, nPumHdrPriNotDp0.u)
-    annotation (Line(points={{-118,120},{-102,120}}, color={255,127,0}));
+    annotation (Line(points={{-118,120},{-102,120}},color={255,127,0}));
   connect(u1Ava.y, sorRunTimHdr.u1Ava)
-    annotation (Line(points={{-178,60},{-20,60},{-20,14},{-12,14}},
-                                                                color={255,0,255}));
+    annotation (Line(points={{-178,60},{-20,60},{-20,14},{-12,14}},color={255,0,255}));
   connect(V_flow, staHdrDp.V_flow)
     annotation (Line(points={{-180,0},{-146,0},{-146,-6},{-142,-6}},color={0,0,127}));
   connect(u1Pum, sigPumPriDed.u)
@@ -243,9 +249,9 @@ equation
   connect(u1Pum_actual, y1LeaHdr_actual.u)
     annotation (Line(points={{-180,20},{-152,20},{-152,40},{28,40}},color={255,0,255}));
   connect(y1LeaHdr_actual.y, booScaRep.u)
-    annotation (Line(points={{52,40},{68,40}}, color={255,0,255}));
+    annotation (Line(points={{52,40},{68,40}},color={255,0,255}));
   connect(booScaRep.y, y1_actual)
-    annotation (Line(points={{92,40},{140,40},{140,60},{180,60}}, color={255,0,255}));
+    annotation (Line(points={{92,40},{140,40},{140,60},{180,60}},color={255,0,255}));
   connect(u1Equ_actual, sigEqu_actual.u)
     annotation (Line(points={{-180,-140},{-154,-140}},color={255,0,255}));
   connect(u1Equ, sigEqu.u)
@@ -255,7 +261,7 @@ equation
   connect(sigEqu.y, disDed.u1EquLea)
     annotation (Line(points={{-98,-120},{-62,-120},{-62,-136},{-52,-136}},color={255,0,255}));
   connect(sigEqu_actual.y, disDed.u1EquLea_actual)
-    annotation (Line(points={{-130,-140},{-52,-140}},                      color={255,0,255}));
+    annotation (Line(points={{-130,-140},{-52,-140}},color={255,0,255}));
   connect(sigPumPriDed.y, enaPriDed.u)
     annotation (Line(points={{-130,-100},{-20,-100},{-20,-140},{-12,-140}},color={255,0,255}));
   connect(disDed.y1, enaPriDed.clr)
@@ -279,26 +285,26 @@ equation
   connect(u1Pla, nPumHdrDp.u1Lea)
     annotation (Line(points={{-180,-80},{-20,-80},{-20,-14},{-12,-14}},color={255,0,255}));
   connect(enaLeaHdrPri.y1, booToInt1.u)
-    annotation (Line(points={{-48,-60},{-40,-60},{-40,88}},           color={255,0,255}));
-  connect(nPumHdrPriNotDp0.y, nPumHdrPriNotDp.u1) annotation (Line(points={{-78,
-          120},{-20,120},{-20,126},{-12,126}}, color={255,127,0}));
-  connect(booToInt1.y, nPumHdrPriNotDp.u2) annotation (Line(points={{-40,112},{-40,
-          114},{-12,114}}, color={255,127,0}));
+    annotation (Line(points={{-48,-60},{-40,-60},{-40,88}},color={255,0,255}));
+  connect(nPumHdrPriNotDp0.y, nPumHdrPriNotDp.u1)
+    annotation (Line(points={{-78,120},{-20,120},{-20,126},{-12,126}},color={255,127,0}));
+  connect(booToInt1.y, nPumHdrPriNotDp.u2)
+    annotation (Line(points={{-40,112},{-40,114},{-12,114}},color={255,127,0}));
   connect(sorRunTimHdr.yIdx[1], y1LeaHdr_actual.index)
     annotation (Line(points={{12,14},{40,14},{40,28}},color={255,127,0}));
   connect(u1Pum_actual, sorRunTimHdr.u1Run)
     annotation (Line(points={{-180,20},{-16,20},{-16,26},{-12,26}},color={255,0,255}));
-  connect(enaHdr.y1, y1) annotation (Line(points={{72,-20},{140,-20},{140,-60},
-          {180,-60}}, color={255,0,255}));
+  connect(enaHdr.y1, y1)
+    annotation (Line(points={{72,-20},{140,-20},{140,-60},{180,-60}},color={255,0,255}));
   connect(nPumHdrDp.y, enaHdr.uSta)
-    annotation (Line(points={{12,-20},{48,-20}}, color={255,127,0}));
-  connect(nPumHdrPriNotDp.y, enaHdr.uSta) annotation (Line(points={{12,120},{20,
-          120},{20,-20},{48,-20}}, color={255,127,0}));
-  connect(u1Ava.y, enaHdr.u1Ava) annotation (Line(points={{-178,60},{-20,60},{
-          -20,0},{28,0},{28,-26},{48,-26}},
-                                        color={255,0,255}));
-  connect(sorRunTimHdr.yIdx, enaHdr.uIdxAltSor) annotation (Line(points={{12,14},
-          {40,14},{40,-14},{48,-14}}, color={255,127,0}));
+    annotation (Line(points={{12,-20},{48,-20}},color={255,127,0}));
+  connect(nPumHdrPriNotDp.y, enaHdr.uSta)
+    annotation (Line(points={{12,120},{20,120},{20,-20},{48,-20}},color={255,127,0}));
+  connect(u1Ava.y, enaHdr.u1Ava)
+    annotation (Line(points={{-178,60},{-20,60},{-20,0},{28,0},{28,-26},{48,-26}},
+      color={255,0,255}));
+  connect(sorRunTimHdr.yIdx, enaHdr.uIdxAltSor)
+    annotation (Line(points={{12,14},{40,14},{40,-14},{48,-14}},color={255,127,0}));
   annotation (
     defaultComponentName="staPum",
     Icon(

@@ -15,7 +15,7 @@ block MultiMax
 equation
   y=max(u);
   annotation (
-      __cdl(
+    __cdl(
       extensionBlock=true),
     defaultComponentName="mulMax",
     Icon(

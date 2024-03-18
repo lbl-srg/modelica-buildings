@@ -13,7 +13,8 @@ model Enable
     "System request"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin TOut(
-    y(displayUnit="degC",
+    y(
+      displayUnit="degC",
       unit="K"),
     final amplitude=12,
     final freqHz=1 /(10000),

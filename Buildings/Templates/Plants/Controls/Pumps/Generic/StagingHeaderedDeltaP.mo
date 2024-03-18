@@ -185,7 +185,8 @@ and down command and computes the stage index must enforce a minimum stage runti
 of <code>dtRun</code>.
 </p>
 </html>
-"), Diagram(
+"),
+    Diagram(
       coordinateSystem(
         extent={{-120,-120},{120,120}})));
 end StagingHeaderedDeltaP;

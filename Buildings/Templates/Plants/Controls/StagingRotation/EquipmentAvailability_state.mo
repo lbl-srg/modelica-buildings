@@ -12,17 +12,19 @@ block EquipmentAvailability_state
     final unit="s")=900
     "Off time required before equipment is deemed available again";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1
-    "Equipment enable command" annotation (Placement(transformation(extent={{-240,
-            -20},{-200,20}}), iconTransformation(extent={{-140,40},{-100,80}})));
+    "Equipment enable command"
+    annotation (Placement(transformation(extent={{-240,-20},{-200,20}}),
+      iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Hea
     if have_heaWat
     "Equipment available for heating"
     annotation (Placement(transformation(extent={{200,-20},{240,20}}),
       iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Hea
-    if have_heaWat and have_chiWat "Equipment operating mode command"
+    if have_heaWat and have_chiWat
+    "Equipment operating mode command"
     annotation (Placement(transformation(extent={{-240,-140},{-200,-100}}),
-        iconTransformation(extent={{-140,-80},{-100,-40}})));
+      iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Coo
     if have_chiWat
     "Equipment available for cooling"
@@ -115,20 +117,20 @@ block EquipmentAvailability_state
 equation
   connect(coo.y, onAndCoo.u2)
     annotation (Line(points={{-128,-100},{-116,-100},{-116,-8},{-112,-8}},color={255,0,255}));
-  connect(u1, onAndHea.u1) annotation (Line(points={{-220,0},{-120,0},{-120,-140},
-          {-112,-140}}, color={255,0,255}));
+  connect(u1, onAndHea.u1)
+    annotation (Line(points={{-220,0},{-120,0},{-120,-140},{-112,-140}},color={255,0,255}));
   connect(u1, onAndCoo.u1)
-    annotation (Line(points={{-220,0},{-112,0}}, color={255,0,255}));
+    annotation (Line(points={{-220,0},{-112,0}},color={255,0,255}));
   connect(u1Hea, pla.u)
-    annotation (Line(points={{-220,-120},{-192,-120}}, color={255,0,255}));
+    annotation (Line(points={{-220,-120},{-192,-120}},color={255,0,255}));
   connect(pla.y, onAndHea.u2)
     annotation (Line(points={{-168,-120},{-140,-120},{-140,-148},{-112,-148}},
       color={255,0,255}));
   connect(pla.y, coo.u)
     annotation (Line(points={{-168,-120},{-160,-120},{-160,-100},{-152,-100}},
       color={255,0,255}));
-  connect(u1, off.u) annotation (Line(points={{-220,0},{-160,0},{-160,-40},{-152,
-          -40}}, color={255,0,255}));
+  connect(u1, off.u)
+    annotation (Line(points={{-220,0},{-160,0},{-160,-40},{-152,-40}},color={255,0,255}));
   connect(avaMod.outPort[1], trnToCoo.inPort)
     annotation (Line(points={{-49.5,159.833},{-40,159.833},{-40,120},{-4,120}},
       color={0,0,0}));
@@ -174,8 +176,7 @@ equation
   connect(u1Ava, una.u)
     annotation (Line(points={{-220,-60},{-140,-60},{-140,-80},{-112,-80}},color={255,0,255}));
   connect(avaMod.outPort[3], trnToUna.inPort)
-    annotation (Line(points={{-49.5,160.167},{-49.5,160},{-40,160},{-40,80},{
-          -30,80}},
+    annotation (Line(points={{-49.5,160.167},{-49.5,160},{-40,160},{-40,80},{-30,80}},
       color={0,0,0}));
   connect(una.y, trnToUna.condition)
     annotation (Line(points={{-88,-80},{-26,-80},{-26,68}},color={255,0,255}));
@@ -187,8 +188,7 @@ equation
   connect(u1Ava, trnToAva.condition)
     annotation (Line(points={{-220,-60},{180,-60},{180,88}},color={255,0,255}));
   connect(trnToAva.outPort, avaMod.inPort[2])
-    annotation (Line(points={{181.5,100},{190,100},{190,190},{-90,190},{-90,
-          160.25},{-71,160.25}},
+    annotation (Line(points={{181.5,100},{190,100},{190,190},{-90,190},{-90,160.25},{-71,160.25}},
       color={0,0,0}));
   connect(avaMod.active, avaAllCoo.u1)
     annotation (Line(points={{-60,149},{-60,-120},{168,-120}},color={255,0,255}));

@@ -1,5 +1,6 @@
 within Buildings.Templates.Plants;
-package Controls "Control blocks"
+package Controls
+  "Control blocks"
   annotation (
     Documentation(
       info="<html>

@@ -24,7 +24,8 @@ model ControlDifferentialPressure
     "Pump status"
     annotation (Placement(transformation(extent={{-90,50},{-70,70}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter dpRemSet[2](
-    k={3E4, 2E4}) "Differential pressure setpoint"
+    k={3E4, 2E4})
+    "Differential pressure setpoint"
     annotation (Placement(transformation(extent={{-48,10},{-28,30}})));
   Buildings.Templates.Plants.Controls.Pumps.Generic.ControlDifferentialPressure ctlDpRem(
     have_senDpRemWir=true,
@@ -37,7 +38,8 @@ model ControlDifferentialPressure
     "Maximum value"
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter dpLoc(
-    final k=5) "Differential pressure local to the plant"
+    final k=5)
+    "Differential pressure local to the plant"
     annotation (Placement(transformation(extent={{30,-90},{50,-70}})));
   Buildings.Templates.Plants.Controls.Pumps.Generic.ControlDifferentialPressure ctlDpLoc(
     have_senDpRemWir=false,

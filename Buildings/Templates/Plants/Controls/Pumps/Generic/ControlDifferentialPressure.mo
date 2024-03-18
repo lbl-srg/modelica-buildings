@@ -4,10 +4,12 @@ block ControlDifferentialPressure
   parameter Boolean have_senDpRemWir
     "Set to true for remote differential pressure sensor(s) hardwired to controller"
     annotation (Evaluate=true);
-  parameter Integer nPum(min=1)
+  parameter Integer nPum(
+    min=1)
     "Number of pumps that operate at design conditions"
     annotation (Evaluate=true);
-  parameter Integer nSenDpRem(min=1)
+  parameter Integer nSenDpRem(
+    min=1)
     "Number of remote loop differential pressure sensors used for pump speed control"
     annotation (Evaluate=true);
   parameter Real y_min(
@@ -20,11 +22,12 @@ block ControlDifferentialPressure
     final min=0,
     final max=1)=1
     "Maximum pump speed";
-  parameter Real k(min=100*Buildings.Controls.OBC.CDL.Constants.eps)=1
+  parameter Real k(
+    min=100 * Buildings.Controls.OBC.CDL.Constants.eps)=1
     "Gain of controller"
     annotation (Dialog(group="Control gains"));
   parameter Real Ti(
-    min=100*Buildings.Controls.OBC.CDL.Constants.eps,
+    min=100 * Buildings.Controls.OBC.CDL.Constants.eps,
     unit="s")=60
     "Time constant of integrator block"
     annotation (Dialog(group="Control gains"));
@@ -209,7 +212,8 @@ but a local DP sensor is hardwired to the secondary pump controller.
 </li>
 </ul>
 </html>
-"), Diagram(
+"),
+    Diagram(
       coordinateSystem(
         extent={{-100,-100},{100,100}})));
 end ControlDifferentialPressure;

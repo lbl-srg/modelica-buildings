@@ -16,7 +16,8 @@ block EventSequencing
   parameter Boolean have_pumHeaWatPri
     "Set to true for plants with primary HW pumps"
     annotation (Evaluate=true);
-  parameter Boolean have_pumChiWatPri(start=false)
+  parameter Boolean have_pumChiWatPri(
+    start=false)
     "Set to true for plants with separate primary CHW pumps"
     annotation (Evaluate=true,
     Dialog(enable=have_chiWat));
@@ -236,8 +237,7 @@ equation
   connect(u1PumHeaWatPri_internal.y, heaValPum.u[2])
     annotation (Line(points={{-128,-10},{44,-10},{44,120},{58,120}},color={255,0,255}));
   connect(u1PumHeaWatSec_internal.y, heaValPum.u[3])
-    annotation (Line(points={{-128,-90},{50,-90},{50,122},{56,122},{56,122.333},
-          {58,122.333}},
+    annotation (Line(points={{-128,-90},{50,-90},{50,122},{56,122},{56,122.333},{58,122.333}},
       color={255,0,255}));
   connect(timVal_internal.y, cooValPum.u[1])
     annotation (Line(points={{12,100},{48,100},{48,77.375},{58,77.375}},color={255,0,255}));

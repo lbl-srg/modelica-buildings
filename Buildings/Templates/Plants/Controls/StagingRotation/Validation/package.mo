@@ -1,5 +1,6 @@
 within Buildings.Templates.Plants.Controls.StagingRotation;
-package Validation "Collection of validation models"
+package Validation
+  "Collection of validation models"
   annotation (
     Icon(
       graphics={

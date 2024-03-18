@@ -96,15 +96,18 @@ block StageChangeCommand
     annotation (Placement(transformation(extent={{200,-100},{240,-60}}),
       iconTransformation(extent={{100,-60},{140,-20}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract delT(
-    y(final unit="K"))
+    y(
+      final unit="K"))
     "Compute ∆T"
     annotation (Placement(transformation(extent={{-170,-90},{-150,-70}})));
   Buildings.Controls.OBC.CDL.Reals.Abs absDelT(
-    y(final unit="K"))
+    y(
+      final unit="K"))
     "Compute absolute value of ∆T"
     annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter capFlo(
-    y(final unit="W/K"),
+    y(
+      final unit="W/K"),
     final k=rho_default * cp_default)
     "Compute capacity flow rate"
     annotation (Placement(transformation(extent={{-168,-150},{-148,-130}})));

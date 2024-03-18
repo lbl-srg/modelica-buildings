@@ -39,8 +39,7 @@ equation
   elsewhen reset then
     entryTime=time;
     passed=false;
-  elsewhen
-          (u and time >= t + pre(entryTime)) then
+  elsewhen(u and time >= t + pre(entryTime)) then
     passed=true;
     entryTime=pre(entryTime);
   elsewhen not u then
@@ -97,21 +96,13 @@ equation
           textString="t=%t"),
         Ellipse(
           extent={{-83,7},{-69,-7}},
-          lineColor=DynamicSelect({235,235,235},if u then
-                                                         {0,255,0} else
-                                                                      {235,235,235}),
-          fillColor=DynamicSelect({235,235,235},if u then
-                                                         {0,255,0} else
-                                                                      {235,235,235}),
+          lineColor=DynamicSelect({235,235,235},if u then{0,255,0}else{235,235,235}),
+          fillColor=DynamicSelect({235,235,235},if u then{0,255,0}else{235,235,235}),
           fillPattern=FillPattern.Solid),
         Ellipse(
           extent={{71,-73},{85,-87}},
-          lineColor=DynamicSelect({235,235,235},if passed then
-                                                              {0,255,0} else
-                                                                           {235,235,235}),
-          fillColor=DynamicSelect({235,235,235},if passed then
-                                                              {0,255,0} else
-                                                                           {235,235,235}),
+          lineColor=DynamicSelect({235,235,235},if passed then{0,255,0}else{235,235,235}),
+          fillColor=DynamicSelect({235,235,235},if passed then{0,255,0}else{235,235,235}),
           fillPattern=FillPattern.Solid),
         Text(
           extent={{226,60},{106,10}},

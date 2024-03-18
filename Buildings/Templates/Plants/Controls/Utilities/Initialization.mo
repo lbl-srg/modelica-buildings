@@ -14,7 +14,7 @@ block Initialization
 equation
   y=if initial() then yIni else u;
   annotation (
-      __cdl(
+    __cdl(
       extensionBlock=true),
     defaultComponentName="ini",
     Documentation(

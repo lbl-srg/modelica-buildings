@@ -12,7 +12,8 @@ model SortRuntime
     "Convert command signal to real value"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol[3](
-    each samplePeriod=1) "Hold signal value"
+    each samplePeriod=1)
+    "Hold signal value"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr[3]
     "Compare to zero to compute equipment status"
@@ -28,7 +29,8 @@ model SortRuntime
     "Equipment available signal"
     annotation (Placement(transformation(extent={{-130,-110},{-110,-90}})));
   Utilities.StageIndex idxSta(
-    nSta=3, dtRun=60)
+    nSta=3,
+    dtRun=60)
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant u1Lea(
     k=true)
@@ -90,8 +92,8 @@ equation
     annotation (Line(points={{-58,-20},{-50,-20},{-50,42},{-42,42}},color={255,0,255}));
   connect(dow.y, idxSta.u1Dow)
     annotation (Line(points={{-58,-60},{-48,-60},{-48,38},{-42,38}},color={255,0,255}));
-  connect(u1AvaSta.y, idxSta.u1AvaSta) annotation (Line(points={{-108,60},{-52,
-          60},{-52,34},{-42,34}}, color={255,0,255}));
+  connect(u1AvaSta.y, idxSta.u1AvaSta)
+    annotation (Line(points={{-108,60},{-52,60},{-52,34},{-42,34}},color={255,0,255}));
   connect(idxSta.y, u1Ena.u)
     annotation (Line(points={{-18,40},{-10,40},{-10,0},{-2,0}},color={255,127,0}));
   connect(u1Ena.y1, run.u1)

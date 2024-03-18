@@ -13,9 +13,9 @@ block StageAvailability
     "Number of equipment"
     annotation (Evaluate=true);
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Ava[nEqu]
-    "Equipment available signal" annotation (Placement(transformation(extent={{
-            -180,-80},{-140,-40}}), iconTransformation(extent={{-140,-20},{-100,
-            20}})));
+    "Equipment available signal"
+    annotation (Placement(transformation(extent={{-180,-80},{-140,-40}}),
+      iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1[nSta]
     "Stage available signal"
     annotation (Placement(transformation(extent={{140,-20},{180,20}}),
@@ -106,7 +106,7 @@ equation
   connect(nEquStaInt.y, isReqAltAvaGreReq.u2)
     annotation (Line(points={{-18,80},{60,80},{60,32},{68,32}},color={255,127,0}));
   connect(u1Ava, booVecRep.u)
-    annotation (Line(points={{-160,-60},{-132,-60}}, color={255,0,255}));
+    annotation (Line(points={{-160,-60},{-132,-60}},color={255,0,255}));
   connect(isReqPosAlt.y, isReqAltAva.u1)
     annotation (Line(points={{-58,40},{-42,40}},color={255,0,255}));
   connect(isReqAltAva.y, booToInt.u)

@@ -2,25 +2,25 @@ within Buildings.Templates.Plants.Controls;
 package Types
   "Package with type definitions"
   extends Modelica.Icons.TypesPackage;
-  type Application = enumeration(
+  type Application=enumeration(
     Cooling
       "Cooling system",
     Heating
       "Heating system")
     "Enumeration to specify the type of application";
-  type Actuator = enumeration(
+  type Actuator=enumeration(
     Modulating
       "Modulating",
     TwoPosition
       "Two-position")
     "Enumeration to specify the type of actuator";
-  type EquipmentConnection = enumeration(
+  type EquipmentConnection=enumeration(
     Parallel
       "Parallel piped",
     Series
       "Series piped")
     "Enumeration to specify the type of connection between equipment and primary loop";
-  type PrimaryOverflowMeasurement = enumeration(
+  type PrimaryOverflowMeasurement=enumeration(
     FlowDecoupler
       "Flow meter in the decoupler",
     FlowDifference

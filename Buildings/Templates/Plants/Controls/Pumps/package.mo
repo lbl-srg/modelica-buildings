@@ -1,5 +1,6 @@
 within Buildings.Templates.Plants.Controls;
-package Pumps "Package of sequences for primary and secondary pumps"
+package Pumps
+  "Package of sequences for primary and secondary pumps"
   annotation (
     Icon(
       graphics={

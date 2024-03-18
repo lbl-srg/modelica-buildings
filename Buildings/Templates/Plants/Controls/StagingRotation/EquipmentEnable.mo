@@ -1,5 +1,6 @@
 within Buildings.Templates.Plants.Controls.StagingRotation;
-block EquipmentEnable "Return array of equipment to enable at given stage"
+block EquipmentEnable
+  "Return array of equipment to enable at given stage"
   parameter Real staEqu[:,:](
     each unit="1",
     each min=0,
@@ -22,9 +23,9 @@ block EquipmentEnable "Return array of equipment to enable at given stage"
     annotation (Placement(transformation(extent={{-240,-20},{-200,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Ava[nEqu]
-    "Equipment available signal" annotation (Placement(transformation(extent={{
-            -240,-100},{-200,-60}}), iconTransformation(extent={{-140,-80},{-100,
-            -40}})));
+    "Equipment available signal"
+    annotation (Placement(transformation(extent={{-240,-100},{-200,-60}}),
+      iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant traMatStaEqu[nEqu, nSta](
     final k=traStaEqu)
     "Transpose of staging matrix"
@@ -86,7 +87,8 @@ block EquipmentEnable "Return array of equipment to enable at given stage"
     "Switch to newly computed value at stage change"
     annotation (Placement(transformation(extent={{160,-10},{180,10}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep(
-    final nout=nEqu) "Replicate signal"
+    final nout=nEqu)
+    "Replicate signal"
     annotation (Placement(transformation(extent={{110,-70},{130,-50}})));
   Utilities.CountTrue nReq(
     nin=nEqu)
@@ -149,15 +151,16 @@ equation
     annotation (Line(points={{-168,80},{-162,80}},color={0,0,127}));
   connect(isReq.y, isReqAva.u1)
     annotation (Line(points={{-38,-40},{-12,-40}},color={255,0,255}));
-  connect(u1Ava, isReqAva.u2) annotation (Line(points={{-220,-80},{-30,-80},{-30,
-          -48},{-12,-48}}, color={255,0,255}));
+  connect(u1Ava, isReqAva.u2)
+    annotation (Line(points={{-220,-80},{-30,-80},{-30,-48},{-12,-48}},color={255,0,255}));
   connect(isReqPosAlt.y, isReqAltAva.u[1])
     annotation (Line(points={{-38,40},{-30,40},{-30,37.6667},{-12,37.6667}},
       color={255,0,255}));
   connect(isNotReqNoAlt.y, isReqAltAva.u[2])
     annotation (Line(points={{-38,0},{-32,0},{-32,40},{-12,40}},color={255,0,255}));
-  connect(u1Ava, isReqAltAva.u[3]) annotation (Line(points={{-220,-80},{-30,-80},
-          {-30,42.3333},{-12,42.3333}}, color={255,0,255}));
+  connect(u1Ava, isReqAltAva.u[3])
+    annotation (Line(points={{-220,-80},{-30,-80},{-30,42.3333},{-12,42.3333}},
+      color={255,0,255}));
   connect(isReqAva.y, ena.u2)
     annotation (Line(points={{12,-40},{104,-40},{104,-8},{108,-8}},color={255,0,255}));
   connect(nEquStaRea.y, nEquSta.u)
@@ -185,8 +188,7 @@ equation
   connect(isReq.y, nReq.u1)
     annotation (Line(points={{-38,-40},{-20,-40},{-20,0},{-12,0}},color={255,0,255}));
   connect(nEnaAvaPre.y, intLes.u1)
-    annotation (Line(points={{78,-100},{70,-100},{70,-84},{24,-84},{24,-100},{
-          28,-100}},
+    annotation (Line(points={{78,-100},{70,-100},{70,-84},{24,-84},{24,-100},{28,-100}},
       color={255,127,0}));
   connect(nEquSta.y, intLes.u2)
     annotation (Line(points={{12,80},{20,80},{20,-108},{28,-108}},color={255,127,0}));
@@ -200,8 +202,8 @@ equation
     annotation (Line(points={{108,-100},{102,-100}},color={255,0,255}));
   connect(y1Pre.y, isEnaPreAva.u2)
     annotation (Line(points={{158,-60},{150,-60},{150,-108},{132,-108}},color={255,0,255}));
-  connect(u1Ava, isEnaPreAva.u1) annotation (Line(points={{-220,-80},{140,-80},
-          {140,-100},{132,-100}}, color={255,0,255}));
+  connect(u1Ava, isEnaPreAva.u1)
+    annotation (Line(points={{-220,-80},{140,-80},{140,-100},{132,-100}},color={255,0,255}));
   connect(nAltReq.y, truArrCon.u)
     annotation (Line(points={{82,40},{98,40}},color={255,127,0}));
   connect(uIdxAltSor, truArrCon.uIdx)

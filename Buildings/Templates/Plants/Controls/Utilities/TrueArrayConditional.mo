@@ -33,8 +33,7 @@ algorithm
   iTru := 0;
   iIdx := 1;
   y1 := fill(false, nout);
-  while
-       (iTru < u) and (iIdx <= nin) loop
+  while(iTru < u) and (iIdx <= nin) loop
     if (uIdx[iIdx] >= 1) and (uIdx[iIdx] <= nout) then
       y1[uIdx[iIdx]] := true;
       iTru := iTru + 1;

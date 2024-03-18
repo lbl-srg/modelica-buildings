@@ -41,7 +41,8 @@ block SortRuntime
     "Return true if equipment off"
     annotation (Placement(transformation(extent={{-130,30},{-110,50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant u1Res[nEquAlt](
-    each k=false) "FIXME: Add input signal for staging runtime reset"
+    each k=false)
+    "FIXME: Add input signal for staging runtime reset"
     annotation (Placement(transformation(extent={{-180,-110},{-160,-90}})));
   Utilities.SortWithIndices sor(
     final ascending=true,

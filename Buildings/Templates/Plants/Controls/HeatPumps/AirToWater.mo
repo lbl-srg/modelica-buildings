@@ -20,7 +20,8 @@ block AirToWater
   final parameter Boolean have_pumHeaWatPri=have_heaWat
     "Set to true for plants with primary HW pumps"
     annotation (Evaluate=true);
-  parameter Boolean have_pumChiWatPri(start=false)
+  parameter Boolean have_pumChiWatPri(
+    start=false)
     "Set to true for plants with separate primary CHW pumps"
     annotation (Evaluate=true,
     Dialog(enable=have_chiWat,group="Plant configuration"));
@@ -55,12 +56,14 @@ block AirToWater
     "Set to true for secondary headered variable speed pumps using ∆p pump speed control"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration"));
-  parameter Boolean have_hrc(start=false)=false
+  parameter Boolean have_hrc(
+    start=false)=false
     "Set to true for plants with a sidestream heat recovery chiller"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration",
       enable=have_heaWat and have_chiWat));
-  parameter Boolean have_senPri_select(start=true)=true
+  parameter Boolean have_senPri_select(
+    start=true)=true
     "Set to true for plants with primary flow and return temperature sensors"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration",
@@ -69,17 +72,18 @@ block AirToWater
     else have_senPri_select
     "Set to true for plants with primary flow and return temperature sensors"
     annotation (Evaluate=true);
-  parameter Boolean have_senSec_select(start=true)=true
+  parameter Boolean have_senSec_select(
+    start=true)=true
     "Set to true for plants with secondary flow and return temperature sensors"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration",
-      enable=(have_pumHeaWatSec or have_pumChiWatSec) and have_senPri_select));
-  final parameter Boolean have_senSec=if not
-                                            (have_pumHeaWatSec or have_pumChiWatSec)
+      enable=(have_pumHeaWatSec or have_pumChiWatSec)and have_senPri_select));
+  final parameter Boolean have_senSec=if not(have_pumHeaWatSec or have_pumChiWatSec)
     then false elseif not have_senPri_select then true else have_senSec_select
     "Set to true for plants with secondary flow and return temperature sensors"
     annotation (Evaluate=true);
-  parameter Integer nHp(min=1)
+  parameter Integer nHp(
+    min=1)
     "Number of heat pumps"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration"));
@@ -111,24 +115,28 @@ block AirToWater
     annotation (Evaluate=true,
     Dialog(group="Plant configuration",
       enable=have_pumChiWatSec));
-  parameter Boolean have_senDpHeaWatRemWir(start=true) = true
+  parameter Boolean have_senDpHeaWatRemWir(
+    start=true)=true
     "Set to true for remote HW differential pressure sensor(s) hardwired to plant or pump controller"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration",
       enable=have_heaWat and have_pumHeaWatSec));
-  parameter Integer nSenDpHeaWatRem(min=if have_heaWat and have_pumHeaWatSec
-         then 1 else 0, start=0)
+  parameter Integer nSenDpHeaWatRem(
+    min=if have_heaWat and have_pumHeaWatSec then 1 else 0,
+    start=0)
     "Number of remote HW differential pressure sensors used for HW pump speed control"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration",
       enable=have_heaWat and have_pumHeaWatSec));
-  parameter Boolean have_senDpChiWatRemWir(start=true) = true
+  parameter Boolean have_senDpChiWatRemWir(
+    start=true)=true
     "Set to true for remote CHW differential pressure sensor(s) hardwired to plant or pump controller"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration",
       enable=have_chiWat and have_pumChiWatSec));
-  parameter Integer nSenDpChiWatRem(min=if have_chiWat and have_pumChiWatSec
-         then 1 else 0, start=0)
+  parameter Integer nSenDpChiWatRem(
+    min=if have_chiWat and have_pumChiWatSec then 1 else 0,
+    start=0)
     "Number of remote CHW differential pressure sensors used for CHW pump speed control"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration",
@@ -147,7 +155,7 @@ block AirToWater
     final unit="K",
     displayUnit="degC")
     "Minimum value to which the HW supply temperature can be reset"
-        annotation (Dialog(group="Information provided by designer",
+    annotation (Dialog(group="Information provided by designer",
       enable=have_heaWat));
   parameter Real TOutHeaWatLck(
     final min=273.15,
@@ -198,10 +206,10 @@ block AirToWater
       enable=have_heaWat and have_pumHeaWatSec and not have_senDpHeaWatRemWir));
   parameter Real dpHeaWatRemSet_min(
     final min=0,
-    final unit="Pa")=5*6894
+    final unit="Pa")=5 * 6894
     "Minimum value to which the HW differential pressure can be reset"
     annotation (Dialog(group=
-          "Information provided by testing, adjusting, and balancing contractor",
+      "Information provided by testing, adjusting, and balancing contractor",
       enable=have_heaWat and have_pumHeaWatSec));
   parameter Real TChiWatSup_nominal(
     final min=273.15,
@@ -217,7 +225,7 @@ block AirToWater
     final unit="K",
     displayUnit="degC")
     "Maximum value to which the CHW supply temperature can be reset"
-        annotation (Dialog(group="Information provided by designer",
+    annotation (Dialog(group="Information provided by designer",
       enable=have_chiWat));
   parameter Real TOutChiWatLck(
     final min=273.15,
@@ -286,10 +294,10 @@ block AirToWater
       enable=have_chiWat and have_pumChiWatSec and not have_senDpChiWatRemWir));
   parameter Real dpChiWatRemSet_min(
     final min=0,
-    final unit="Pa")=5*6894
+    final unit="Pa")=5 * 6894
     "Minimum value to which the CHW differential pressure can be reset"
     annotation (Dialog(group=
-          "Information provided by testing, adjusting, and balancing contractor",
+      "Information provided by testing, adjusting, and balancing contractor",
       enable=have_chiWat and have_pumChiWatSec));
   parameter Real cp_default(
     final min=0,
@@ -317,10 +325,12 @@ block AirToWater
     24 * 3600, 1]
     "Cooling mode enable schedule"
     annotation (Dialog(enable=not have_inpSch,group="Plant enable"));
-  parameter Integer nReqIgnHeaWat(min=0)=0
+  parameter Integer nReqIgnHeaWat(
+    min=0)=0
     "Number of ignored HW plant requests"
     annotation (Dialog(tab="Advanced",group="Plant enable"));
-  parameter Integer nReqIgnChiWat(min=0)=0
+  parameter Integer nReqIgnChiWat(
+    min=0)=0
     "Number of ignored CHW plant requests"
     annotation (Dialog(tab="Advanced",group="Plant enable"));
   parameter Real dTOutLck(
@@ -330,12 +340,12 @@ block AirToWater
     annotation (Dialog(tab="Advanced",group="Plant enable"));
   parameter Real dtRunEna(
     final min=0,
-    final unit="s")=15*60
+    final unit="s")=15 * 60
     "Minimum runtime of enable and disable states"
     annotation (Dialog(tab="Advanced",group="Plant enable"));
   parameter Real dtReqDis(
     final min=0,
-    final unit="s")=3*60
+    final unit="s")=3 * 60
     "Runtime with low number of request before disabling"
     annotation (Dialog(tab="Advanced",group="Plant enable"));
   parameter Real staEqu[:, nHp](
@@ -349,8 +359,7 @@ block AirToWater
     "Number of stages"
     annotation (Evaluate=true);
   final parameter Integer nEquAlt(
-    final min=0)=max({sum({(if staEqu[i, j] > 0 and staEqu[i, j] < 1
-    then 1 else 0) for j in 1:nHp}) for i in 1:nSta})
+    final min=0)=max({sum({(if staEqu[i, j] > 0 and staEqu[i, j] < 1 then 1 else 0) for j in 1:nHp}) for i in 1:nSta})
     "Number of lead/lag alternate equipment"
     annotation (Evaluate=true);
   // RFE: The following could be evaluted from staEqu with a function such as Modelica.Math.BooleanVectors.index.
@@ -393,8 +402,7 @@ block AirToWater
     final unit="s")=600
     "Runtime before triggering stage command"
     annotation (Dialog(tab="Advanced",group="Pump staging",
-      enable=have_pumPriHdr and have_pumPriCtlDp or have_pumSecHdr and
-          have_pumSecCtlDp));
+      enable=have_pumPriHdr and have_pumPriCtlDp or have_pumSecHdr and have_pumSecCtlDp));
   parameter Real dVOffUpPumSta(
     final max=1,
     final min=0,
@@ -402,8 +410,7 @@ block AirToWater
     final unit="1")=0.03
     "Stage up flow point offset"
     annotation (Dialog(tab="Advanced",group="Pump staging",
-      enable=have_pumPriHdr and have_pumPriCtlDp or have_pumSecHdr and
-          have_pumSecCtlDp));
+      enable=have_pumPriHdr and have_pumPriCtlDp or have_pumSecHdr and have_pumSecCtlDp));
   parameter Real dVOffDowPumSta(
     final max=1,
     final min=0,
@@ -411,175 +418,168 @@ block AirToWater
     final unit="1")=dVOffUpPumSta
     "Stage down flow point offset"
     annotation (Dialog(tab="Advanced",group="Pump staging",
-      enable=have_pumPriHdr and have_pumPriCtlDp or have_pumSecHdr and
-          have_pumSecCtlDp));
-
+      enable=have_pumPriHdr and have_pumPriCtlDp or have_pumSecHdr and have_pumSecCtlDp));
   parameter Real dtHol(
     final min=0,
     final unit="s")=900
     "Minimum hold time during stage change"
-    annotation(Dialog(tab="Advanced", group="Plant reset",
-    enable=have_heaWat and have_pumHeaWatSec or
-    have_chiWat and have_pumChiWatSec));
+    annotation (Dialog(tab="Advanced",group="Plant reset",
+      enable=have_heaWat and have_pumHeaWatSec or have_chiWat and have_pumChiWatSec));
   parameter Real resDpHeaWat_max(
     final max=1,
     final min=0,
     final unit="1")=0.5
     "Upper limit of plant reset interval for HW differential pressure reset"
-    annotation(Dialog(tab="Advanced", group="Plant reset",
-    enable=have_heaWat and have_pumHeaWatSec));
+    annotation (Dialog(tab="Advanced",group="Plant reset",
+      enable=have_heaWat and have_pumHeaWatSec));
   parameter Real resTHeaWatSup_min(
     final max=1,
     final min=0,
     final unit="1")=resDpHeaWat_max
     "Lower limit of plant reset interval for HW supply temperature reset"
-    annotation(Dialog(tab="Advanced", group="Plant reset",
-    enable=have_heaWat and have_pumHeaWatSec));
+    annotation (Dialog(tab="Advanced",group="Plant reset",
+      enable=have_heaWat and have_pumHeaWatSec));
   parameter Real resDpChiWat_max(
     final max=1,
     final min=0,
     final unit="1")=0.5
     "Upper limit of plant reset interval for CHW differential pressure reset"
-    annotation(Dialog(tab="Advanced", group="Plant reset",
-    enable=have_chiWat and have_pumChiWatSec));
+    annotation (Dialog(tab="Advanced",group="Plant reset",
+      enable=have_chiWat and have_pumChiWatSec));
   parameter Real resTChiWatSup_min(
     final max=1,
     final min=0,
     final unit="1")=resDpChiWat_max
     "Lower limit of plant reset interval for CHW supply temperature reset"
-    annotation(Dialog(tab="Advanced", group="Plant reset",
-    enable=have_chiWat and have_pumChiWatSec));
+    annotation (Dialog(tab="Advanced",group="Plant reset",
+      enable=have_chiWat and have_pumChiWatSec));
   parameter Real res_init(
     final max=1,
     final min=0,
     final unit="1")=1
     "Initial reset value"
-    annotation(Dialog(tab="Advanced", group="Plant reset",
-    enable=have_heaWat and have_pumHeaWatSec or
-    have_chiWat and have_pumChiWatSec));
+    annotation (Dialog(tab="Advanced",group="Plant reset",
+      enable=have_heaWat and have_pumHeaWatSec or have_chiWat and have_pumChiWatSec));
   parameter Real res_min(
     final max=1,
     final min=0,
     final unit="1")=0
     "Minimum reset value"
-    annotation(Dialog(tab="Advanced", group="Plant reset",
-    enable=have_heaWat and have_pumHeaWatSec or
-    have_chiWat and have_pumChiWatSec));
+    annotation (Dialog(tab="Advanced",group="Plant reset",
+      enable=have_heaWat and have_pumHeaWatSec or have_chiWat and have_pumChiWatSec));
   parameter Real res_max(
     final max=1,
     final min=0,
     final unit="1")=1
     "Maximum reset value"
-    annotation(Dialog(tab="Advanced", group="Plant reset",
-    enable=have_heaWat and have_pumHeaWatSec or
-    have_chiWat and have_pumChiWatSec));
+    annotation (Dialog(tab="Advanced",group="Plant reset",
+      enable=have_heaWat and have_pumHeaWatSec or have_chiWat and have_pumChiWatSec));
   parameter Real dtDel(
-    final min=100*1E-15,
+    final min=100 * 1E-15,
     final unit="s")=900
     "Delay time before the reset begins"
-    annotation(Dialog(tab="Advanced", group="Plant reset",
-    enable=have_heaWat and have_pumHeaWatSec or
-    have_chiWat and have_pumChiWatSec));
+    annotation (Dialog(tab="Advanced",group="Plant reset",
+      enable=have_heaWat and have_pumHeaWatSec or have_chiWat and have_pumChiWatSec));
   parameter Real dtResHeaWat(
     final min=1E-3,
     final unit="s")=300
     "Reset period for HW plant reset"
-    annotation(Dialog(tab="Advanced", group="Plant reset",
-    enable=have_heaWat and have_pumHeaWatSec));
-  parameter Integer nReqResIgnHeaWat(min=0)=2
+    annotation (Dialog(tab="Advanced",group="Plant reset",
+      enable=have_heaWat and have_pumHeaWatSec));
+  parameter Integer nReqResIgnHeaWat(
+    min=0)=2
     "Number of ignored requests for HW plant reset"
-    annotation(Dialog(tab="Advanced", group="Plant reset",
-    enable=have_heaWat and have_pumHeaWatSec));
+    annotation (Dialog(tab="Advanced",group="Plant reset",
+      enable=have_heaWat and have_pumHeaWatSec));
   parameter Real triHeaWat(
     final max=0,
-    final unit="1")=-0.02
+    final unit="1")=- 0.02
     "Trim amount for HW plant reset"
-    annotation(Dialog(tab="Advanced", group="Plant reset",
-    enable=have_heaWat and have_pumHeaWatSec));
+    annotation (Dialog(tab="Advanced",group="Plant reset",
+      enable=have_heaWat and have_pumHeaWatSec));
   parameter Real rspHeaWat(
     final min=0,
     final unit="1")=0.03
     "Respond amount for HW plant reset"
-    annotation(Dialog(tab="Advanced", group="Plant reset",
-    enable=have_heaWat and have_pumHeaWatSec));
+    annotation (Dialog(tab="Advanced",group="Plant reset",
+      enable=have_heaWat and have_pumHeaWatSec));
   parameter Real rspHeaWat_max(
     final min=0,
     final unit="1")=0.07
     "Maximum response per reset period for HW plant reset"
-    annotation(Dialog(tab="Advanced", group="Plant reset",
-    enable=have_heaWat and have_pumHeaWatSec));
+    annotation (Dialog(tab="Advanced",group="Plant reset",
+      enable=have_heaWat and have_pumHeaWatSec));
   parameter Real dtResChiWat(
     final min=1E-3,
     final unit="s")=300
     "Reset period for CHW plant reset"
-    annotation(Dialog(tab="Advanced", group="Plant reset",
-    enable=have_chiWat and have_pumChiWatSec));
-  parameter Integer nReqResIgnChiWat(min=0)=2
+    annotation (Dialog(tab="Advanced",group="Plant reset",
+      enable=have_chiWat and have_pumChiWatSec));
+  parameter Integer nReqResIgnChiWat(
+    min=0)=2
     "Number of ignored requests for CHW plant reset"
-    annotation(Dialog(tab="Advanced", group="Plant reset",
-    enable=have_chiWat and have_pumChiWatSec));
+    annotation (Dialog(tab="Advanced",group="Plant reset",
+      enable=have_chiWat and have_pumChiWatSec));
   parameter Real triChiWat(
     final max=0,
-    final unit="1")=-0.02
+    final unit="1")=- 0.02
     "Trim amount for CHW plant reset"
-    annotation(Dialog(tab="Advanced", group="Plant reset",
-    enable=have_chiWat and have_pumChiWatSec));
+    annotation (Dialog(tab="Advanced",group="Plant reset",
+      enable=have_chiWat and have_pumChiWatSec));
   parameter Real rspChiWat(
     final min=0,
     final unit="1")=0.03
     "Respond amount for CHW plant reset"
-    annotation(Dialog(tab="Advanced", group="Plant reset",
-    enable=have_chiWat and have_pumChiWatSec));
+    annotation (Dialog(tab="Advanced",group="Plant reset",
+      enable=have_chiWat and have_pumChiWatSec));
   parameter Real rspChiWat_max(
     final min=0,
     final unit="1")=0.07
     "Maximum response per reset period for CHW plant reset"
-    annotation(Dialog(tab="Advanced", group="Plant reset",
-    enable=have_chiWat and have_pumChiWatSec));
-
+    annotation (Dialog(tab="Advanced",group="Plant reset",
+      enable=have_chiWat and have_pumChiWatSec));
   parameter Real yPumHeaWatSec_min(
     final max=1,
     final min=0,
     start=0.1,
     final unit="1")=0.1
     "Minimum pump speed"
-    annotation(Dialog(tab="Advanced", group="Secondary HW pumps",
-    enable=have_pumHeaWatSec));
+    annotation (Dialog(tab="Advanced",group="Secondary HW pumps",
+      enable=have_pumHeaWatSec));
   parameter Real kPumHeaWatSec(
-    final min=100*Buildings.Controls.OBC.CDL.Constants.eps,
+    final min=100 * Buildings.Controls.OBC.CDL.Constants.eps,
     start=1)=1
     "Gain of controller"
-    annotation (Dialog(tab="Advanced", group="Secondary HW pumps",
-    enable=have_pumHeaWatSec));
+    annotation (Dialog(tab="Advanced",group="Secondary HW pumps",
+      enable=have_pumHeaWatSec));
   parameter Real TiPumHeaWatSec(
-    final min=100*Buildings.Controls.OBC.CDL.Constants.eps,
+    final min=100 * Buildings.Controls.OBC.CDL.Constants.eps,
     start=60,
     final unit="s")=60
     "Time constant of integrator block"
-    annotation (Dialog(tab="Advanced", group="Secondary HW pumps",
-    enable=have_pumHeaWatSec));
+    annotation (Dialog(tab="Advanced",group="Secondary HW pumps",
+      enable=have_pumHeaWatSec));
   parameter Real yPumChiWatSec_min(
     final max=1,
     final min=0,
     start=0.1,
     final unit="1")=0.1
     "Minimum pump speed"
-    annotation(Dialog(tab="Advanced", group="Secondary CHW pumps",
-    enable=have_pumChiWatSec));
+    annotation (Dialog(tab="Advanced",group="Secondary CHW pumps",
+      enable=have_pumChiWatSec));
   parameter Real kPumChiWatSec(
-    final min=100*Buildings.Controls.OBC.CDL.Constants.eps,
+    final min=100 * Buildings.Controls.OBC.CDL.Constants.eps,
     start=1)=1
     "Gain of controller"
-    annotation (Dialog(tab="Advanced", group="Secondary CHW pumps",
-    enable=have_pumChiWatSec));
+    annotation (Dialog(tab="Advanced",group="Secondary CHW pumps",
+      enable=have_pumChiWatSec));
   parameter Real TiPumChiWatSec(
-    final min=100*Buildings.Controls.OBC.CDL.Constants.eps,
+    final min=100 * Buildings.Controls.OBC.CDL.Constants.eps,
     start=60,
     final unit="s")=60
     "Time constant of integrator block"
-    annotation (Dialog(tab="Advanced", group="Secondary CHW pumps",
-    enable=have_pumChiWatSec));
-
+    annotation (Dialog(tab="Advanced",group="Secondary CHW pumps",
+      enable=have_pumChiWatSec));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1AvaHp[nHp]
     "FIXME(AntoineGautier): Heat pump available signal – Should rather be a fault code signal (AI)?"
     annotation (Placement(transformation(extent={{-300,220},{-260,260}}),
@@ -591,7 +591,8 @@ block AirToWater
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
     final quantity="ThermodynamicTemperature",
-    displayUnit="degC") "Outdoor air temperature"
+    displayUnit="degC")
+    "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-300,60},{-260,100}}),
       iconTransformation(extent={{-240,-18},{-200,22}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1SchHea
@@ -609,13 +610,15 @@ block AirToWater
     annotation (Placement(transformation(extent={{-300,340},{-260,380}}),
       iconTransformation(extent={{-240,240},{-200,280}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uReqResHeaWat
-    if have_heaWat "Sum of HW reset requests of all heating loads served"
+    if have_heaWat
+    "Sum of HW reset requests of all heating loads served"
     annotation (Placement(transformation(extent={{-300,-360},{-260,-320}}),
-        iconTransformation(extent={{-240,40},{-200,80}})));
+      iconTransformation(extent={{-240,40},{-200,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uReqResChiWat
-    if have_chiWat "Sum of CHW reset requests of all heating loads served"
+    if have_chiWat
+    "Sum of CHW reset requests of all heating loads served"
     annotation (Placement(transformation(extent={{-300,-380},{-260,-340}}),
-        iconTransformation(extent={{-240,20},{-200,60}})));
+      iconTransformation(extent={{-240,20},{-200,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumHeaWatPri_actual[nPumHeaWatPri]
     if have_pumHeaWatPri
     "Primary HW pump status"
@@ -706,7 +709,8 @@ block AirToWater
     annotation (Placement(transformation(extent={{260,240},{300,280}}),
       iconTransformation(extent={{200,120},{240,160}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumHeaWatPri[nPumHeaWatPri]
-    if have_pumHeaWatPri "Primary HW pump start command"
+    if have_pumHeaWatPri
+    "Primary HW pump start command"
     annotation (Placement(transformation(extent={{260,180},{300,220}}),
       iconTransformation(extent={{200,80},{240,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumChiWatPri[nPumChiWatPri]
@@ -732,50 +736,61 @@ block AirToWater
     if have_heaWat and have_chiWat
     "Heat pump heating/cooling mode command: true=heating, false=cooling"
     annotation (Placement(transformation(extent={{260,340},{300,380}}),
-        iconTransformation(extent={{200,220},{240,260}})));
+      iconTransformation(extent={{200,220},{240,260}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput THeaWatSupSet(
     final unit="K",
     final quantity="ThermodynamicTemperature",
-    displayUnit="degC") if have_heaWat "HW supply temperature setpoint"
+    displayUnit="degC")
+    if have_heaWat
+    "HW supply temperature setpoint"
     annotation (Placement(transformation(extent={{260,-140},{300,-100}}),
-        iconTransformation(extent={{200,-220},{240,-180}})));
+      iconTransformation(extent={{200,-220},{240,-180}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TChiWatSupSet(
     final unit="K",
     final quantity="ThermodynamicTemperature",
-    displayUnit="degC") if have_chiWat "CHW supply temperature setpoint"
+    displayUnit="degC")
+    if have_chiWat
+    "CHW supply temperature setpoint"
     annotation (Placement(transformation(extent={{260,-160},{300,-120}}),
-        iconTransformation(extent={{200,-240},{240,-200}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput dpHeaWatRemSet[
-    nSenDpHeaWatRem](each final min=0, each final unit="Pa")
-    if have_heaWat and have_pumHeaWatSec "HW differential pressure setpoint"
+      iconTransformation(extent={{200,-240},{240,-200}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput dpHeaWatRemSet[nSenDpHeaWatRem](
+    each final min=0,
+    each final unit="Pa")
+    if have_heaWat and have_pumHeaWatSec
+    "HW differential pressure setpoint"
     annotation (Placement(transformation(extent={{260,-80},{300,-40}}),
-        iconTransformation(extent={{200,-180},{240,-140}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput dpChiWatRemSet[
-    nSenDpChiWatRem](each final min=0, each final unit="Pa")
-    if have_chiWat and have_pumChiWatSec "CHW differential pressure setpoint"
+      iconTransformation(extent={{200,-180},{240,-140}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput dpChiWatRemSet[nSenDpChiWatRem](
+    each final min=0,
+    each final unit="Pa")
+    if have_chiWat and have_pumChiWatSec
+    "CHW differential pressure setpoint"
     annotation (Placement(transformation(extent={{260,-100},{300,-60}}),
-        iconTransformation(extent={{200,-200},{240,-160}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumHeaWatPriHdr(final unit=
-        "1") if have_heaWat and have_pumPriVar and have_pumPriHdr
-    "Primary headered HW pump speed command" annotation (Placement(
-        transformation(extent={{260,80},{300,120}}), iconTransformation(extent={{200,-40},
-            {240,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumChiWatPriHdr(final unit=
-        "1") if have_pumChiWatPri and have_pumPriVar and have_pumPriHdr
-    "Primary headered CHW pump speed command" annotation (Placement(
-        transformation(extent={{260,60},{300,100}}), iconTransformation(extent={{200,-60},
-            {240,-20}})));
+      iconTransformation(extent={{200,-200},{240,-160}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumHeaWatPriHdr(
+    final unit="1")
+    if have_heaWat and have_pumPriVar and have_pumPriHdr
+    "Primary headered HW pump speed command"
+    annotation (Placement(transformation(extent={{260,80},{300,120}}),
+      iconTransformation(extent={{200,-40},{240,0}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumChiWatPriHdr(
+    final unit="1")
+    if have_pumChiWatPri and have_pumPriVar and have_pumPriHdr
+    "Primary headered CHW pump speed command"
+    annotation (Placement(transformation(extent={{260,60},{300,100}}),
+      iconTransformation(extent={{200,-60},{240,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumHeaWatSec(
-    final unit="1") if have_heaWat and have_pumHeaWatSec
+    final unit="1")
+    if have_heaWat and have_pumHeaWatSec
     "Primary HW pump speed command"
     annotation (Placement(transformation(extent={{260,-20},{300,20}}),
-        iconTransformation(extent={{200,-120},{240,-80}})));
+      iconTransformation(extent={{200,-120},{240,-80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumChiWatSec(
-    final unit="1") if have_chiWat and have_pumChiWatSec
+    final unit="1")
+    if have_chiWat and have_pumChiWatSec
     "Primary CHW pump speed command"
     annotation (Placement(transformation(extent={{260,-40},{300,0}}),
-        iconTransformation(extent={{200,-140},{240,-100}})));
-
+      iconTransformation(extent={{200,-140},{240,-100}})));
   Enabling.Enable enaHea(
     final typ=Buildings.Templates.Plants.Controls.Types.Application.Heating,
     final TOutLck=TOutHeaWatLck,
@@ -930,7 +945,8 @@ block AirToWater
     final V_flow_nominal=VHeaWatPri_flow_nominal,
     final dtRun=dtRunPumSta,
     final dVOffUp=dVOffUpPumSta,
-    final dVOffDow=dVOffDowPumSta) if have_pumHeaWatPri
+    final dVOffDow=dVOffDowPumSta)
+    if have_pumHeaWatPri
     "Primary HW pump staging"
     annotation (Placement(transformation(extent={{140,190},{160,210}})));
   Pumps.Generic.Staging staPumChiWatPri(
@@ -944,7 +960,8 @@ block AirToWater
     final V_flow_nominal=VChiWatPri_flow_nominal,
     final dtRun=dtRunPumSta,
     final dVOffUp=dVOffUpPumSta,
-    final dVOffDow=dVOffDowPumSta) if have_pumChiWatPri
+    final dVOffDow=dVOffDowPumSta)
+    if have_pumChiWatPri
     "Primary CHW pump staging"
     annotation (Placement(transformation(extent={{190,170},{210,190}})));
   Pumps.Generic.Staging staPumChiWatSec(
@@ -956,7 +973,8 @@ block AirToWater
     final V_flow_nominal=VChiWatSec_flow_nominal,
     final dtRun=dtRunPumSta,
     final dVOffUp=dVOffUpPumSta,
-    final dVOffDow=dVOffDowPumSta) if have_pumChiWatSec
+    final dVOffDow=dVOffDowPumSta)
+    if have_pumChiWatSec
     "Secondary CHW pump staging"
     annotation (Placement(transformation(extent={{190,130},{210,150}})));
   Pumps.Generic.Staging staPumHeaWatSec(
@@ -968,7 +986,8 @@ block AirToWater
     final V_flow_nominal=VHeaWatSec_flow_nominal,
     final dtRun=dtRunPumSta,
     final dVOffUp=dVOffUpPumSta,
-    final dVOffDow=dVOffDowPumSta) if have_pumHeaWatSec
+    final dVOffDow=dVOffDowPumSta)
+    if have_pumHeaWatSec
     "Secondary HW pump staging"
     annotation (Placement(transformation(extent={{140,150},{160,170}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSecRet(
@@ -1051,7 +1070,9 @@ block AirToWater
     final res_min=res_min,
     final rsp=rspHeaWat,
     final rsp_max=rspHeaWat_max,
-    final tri=triHeaWat) if have_heaWat "HW plant reset"
+    final tri=triHeaWat)
+    if have_heaWat
+    "HW plant reset"
     annotation (Placement(transformation(extent={{90,230},{110,250}})));
   Setpoints.PlantReset resChiWat(
     final TSup_nominal=TChiWatSup_nominal,
@@ -1070,20 +1091,22 @@ block AirToWater
     final res_min=res_min,
     final rsp=rspChiWat,
     final rsp_max=rspChiWat_max,
-    final tri=triChiWat) if have_chiWat "CHW plant reset"
+    final tri=triChiWat)
+    if have_chiWat
+    "CHW plant reset"
     annotation (Placement(transformation(extent={{90,-30},{110,-10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumHeaWatPriDed[
-    nPumHeaWatPri](final unit="1")
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumHeaWatPriDed[nPumHeaWatPri](
+    final unit="1")
     if have_heaWat and have_pumPriVar and not have_pumPriHdr
-    "Primary dedicated HW pump speed command" annotation (Placement(
-        transformation(extent={{260,40},{300,80}}), iconTransformation(extent={{200,-80},
-            {240,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumChiWatPriDed[
-    nPumChiWatPri](final unit="1")
+    "Primary dedicated HW pump speed command"
+    annotation (Placement(transformation(extent={{260,40},{300,80}}),
+      iconTransformation(extent={{200,-80},{240,-40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumChiWatPriDed[nPumChiWatPri](
+    final unit="1")
     if have_pumChiWatPri and have_pumPriVar and not have_pumPriHdr
-    "Primary dedicated CHW pump speed command" annotation (Placement(
-        transformation(extent={{260,20},{300,60}}), iconTransformation(extent={{200,
-            -100},{240,-60}})));
+    "Primary dedicated CHW pump speed command"
+    annotation (Placement(transformation(extent={{260,20},{300,60}}),
+      iconTransformation(extent={{200,-100},{240,-60}})));
   Pumps.Primary.VariableSpeedNoDpControl ctlPumPri(
     final have_heaWat=have_heaWat,
     final have_chiWat=have_chiWat,
@@ -1094,7 +1117,8 @@ block AirToWater
     final nPumHeaWatPri=nPumHeaWatPri,
     final nPumChiWatPri=nPumChiWatPri,
     final yPumHeaWatPriSet=yPumHeaWatPriSet,
-    final yPumChiWatPriSet=yPumChiWatPriSet) "Primary pump speed control"
+    final yPumChiWatPriSet=yPumChiWatPriSet)
+    "Primary pump speed control"
     annotation (Placement(transformation(extent={{190,70},{210,90}})));
   Pumps.Generic.ControlDifferentialPressure ctlPumHeaWatSec(
     final have_senDpRemWir=have_senDpHeaWatRemWir,
@@ -1102,8 +1126,9 @@ block AirToWater
     final nSenDpRem=nSenDpHeaWatRem,
     final y_min=yPumHeaWatSec_min,
     final k=kPumHeaWatSec,
-    final Ti=TiPumHeaWatSec)                                if
-    have_pumHeaWatSec "Secondary HW pump speed control"
+    final Ti=TiPumHeaWatSec)
+    if have_pumHeaWatSec
+    "Secondary HW pump speed control"
     annotation (Placement(transformation(extent={{140,10},{160,30}})));
   Pumps.Generic.ControlDifferentialPressure ctlPumChiWatSec(
     final have_senDpRemWir=have_senDpChiWatRemWir,
@@ -1111,8 +1136,9 @@ block AirToWater
     final nSenDpRem=nSenDpChiWatRem,
     final y_min=yPumChiWatSec_min,
     final k=kPumChiWatSec,
-    final Ti=TiPumChiWatSec)                                if
-    have_pumChiWatSec "Secondary CHW pump speed control"
+    final Ti=TiPumChiWatSec)
+    if have_pumChiWatSec
+    "Secondary CHW pump speed control"
     annotation (Placement(transformation(extent={{190,-10},{210,10}})));
 equation
   connect(u1SchHea, enaHea.u1Sch)
@@ -1123,14 +1149,14 @@ equation
     annotation (Line(points={{-280,80},{-170,80},{-170,356},{-112,356}},color={0,0,127}));
   connect(enaHea.y1, idxStaHea.u1Lea)
     annotation (Line(points={{-88,360},{-56,360},{-56,366},{-12,366}},color={255,0,255}));
-  connect(avaStaHea.y1, idxStaHea.u1AvaSta) annotation (Line(points={{-88,330},
-          {-56,330},{-56,354},{-12,354}}, color={255,0,255}));
+  connect(avaStaHea.y1, idxStaHea.u1AvaSta)
+    annotation (Line(points={{-88,330},{-56,330},{-56,354},{-12,354}},color={255,0,255}));
   connect(idxStaHea.y, enaEquHea.uSta)
     annotation (Line(points={{12,360},{38,360}},color={255,127,0}));
   connect(eveSeqEna.y1, y1Hp)
     annotation (Line(points={{162,312},{236,312},{236,380},{280,380}},color={255,0,255}));
-  connect(eveSeqEna.y1Hea, y1HeaHp) annotation (Line(points={{162,310},{238,310},
-          {238,360},{280,360}}, color={255,0,255}));
+  connect(eveSeqEna.y1Hea, y1HeaHp)
+    annotation (Line(points={{162,310},{238,310},{238,360},{280,360}},color={255,0,255}));
   connect(eveSeqEna.y1ValHeaWatOutIso, y1ValHeaWatOutIso)
     annotation (Line(points={{162,300},{240,300},{240,300},{280,300}},color={255,0,255}));
   connect(eveSeqEna.y1ValHeaWatInlIso, y1ValHeaWatInlIso)
@@ -1171,23 +1197,22 @@ equation
   connect(enaEquCoo.y1, eveSeqEna.u1Coo)
     annotation (Line(points={{62,100},{80,100},{80,306},{138,306}},color={255,0,255}));
   connect(u1AvaHp, avaEquHeaCoo.u1Ava)
-    annotation (Line(points={{-280,240},{-240,240},{-240,220},{-154,220}},
-                                                    color={255,0,255}));
+    annotation (Line(points={{-280,240},{-240,240},{-240,220},{-154,220}},color={255,0,255}));
   connect(y1HeaHp, y1HeaPre.u)
-    annotation (Line(points={{280,360},{232,360}}, color={255,0,255}));
-  connect(y1HeaPre.y, avaEquHeaCoo.u1Hea) annotation (Line(points={{208,360},{
-          160,360},{160,378},{-156,378},{-156,214},{-154,214}}, color={255,0,
-          255}));
-  connect(avaEquHeaCoo.y1Hea, avaStaHea.u1Ava) annotation (Line(points={{-130,
-          226},{-120,226},{-120,330},{-112,330}}, color={255,0,255}));
-  connect(avaEquHeaCoo.y1Coo, avaStaCoo.u1Ava) annotation (Line(points={{-130,
-          214},{-120,214},{-120,70},{-112,70}}, color={255,0,255}));
-  connect(avaStaCoo.y1, idxStaCoo.u1AvaSta) annotation (Line(points={{-88,70},{
-          -56,70},{-56,94},{-12,94}}, color={255,0,255}));
-  connect(avaEquHeaCoo.y1Hea, enaEquHea.u1Ava) annotation (Line(points={{-130,
-          226},{36,226},{36,354},{38,354}}, color={255,0,255}));
-  connect(avaEquHeaCoo.y1Coo, enaEquCoo.u1Ava) annotation (Line(points={{-130,
-          214},{36,214},{36,94},{38,94}}, color={255,0,255}));
+    annotation (Line(points={{280,360},{232,360}},color={255,0,255}));
+  connect(y1HeaPre.y, avaEquHeaCoo.u1Hea)
+    annotation (Line(points={{208,360},{160,360},{160,378},{-156,378},{-156,214},{-154,214}},
+      color={255,0,255}));
+  connect(avaEquHeaCoo.y1Hea, avaStaHea.u1Ava)
+    annotation (Line(points={{-130,226},{-120,226},{-120,330},{-112,330}},color={255,0,255}));
+  connect(avaEquHeaCoo.y1Coo, avaStaCoo.u1Ava)
+    annotation (Line(points={{-130,214},{-120,214},{-120,70},{-112,70}},color={255,0,255}));
+  connect(avaStaCoo.y1, idxStaCoo.u1AvaSta)
+    annotation (Line(points={{-88,70},{-56,70},{-56,94},{-12,94}},color={255,0,255}));
+  connect(avaEquHeaCoo.y1Hea, enaEquHea.u1Ava)
+    annotation (Line(points={{-130,226},{36,226},{36,354},{38,354}},color={255,0,255}));
+  connect(avaEquHeaCoo.y1Coo, enaEquCoo.u1Ava)
+    annotation (Line(points={{-130,214},{36,214},{36,94},{38,94}},color={255,0,255}));
   connect(sorRunTimCoo.yIdx, enaEquCoo.uIdxAltSor)
     annotation (Line(points={{-18,24},{32,24},{32,106},{38,106}},color={255,127,0}));
   connect(idxStaCoo.y, chaStaCoo.uSta)
@@ -1239,11 +1264,9 @@ equation
     annotation (Line(points={{162,166},{166,166},{166,264},{124,264},{124,292},{138,292}},
       color={255,0,255}));
   connect(VHeaWatSec_flow, staPumHeaWatSec.V_flow)
-    annotation (Line(points={{-280,-100},{-156,-100},{-156,152},{138,152}},
-                                                                         color={0,0,127}));
+    annotation (Line(points={{-280,-100},{-156,-100},{-156,152},{138,152}},color={0,0,127}));
   connect(VChiWatSec_flow, staPumChiWatSec.V_flow)
-    annotation (Line(points={{-280,-160},{-154,-160},{-154,132},{188,132}},
-                                                                         color={0,0,127}));
+    annotation (Line(points={{-280,-160},{-154,-160},{-154,132},{188,132}},color={0,0,127}));
   connect(THeaWatPriRet, THeaWatRet.u)
     annotation (Line(points={{-280,40},{-232,40}},color={0,0,127}));
   connect(THeaWatRet.y, chaStaHea.TRet)
@@ -1261,8 +1284,7 @@ equation
   connect(TChiWatPriRet, TChiWatRet.u)
     annotation (Line(points={{-280,-20},{-232,-20}},color={0,0,127}));
   connect(TChiWatRet.y, chaStaCoo.TRet)
-    annotation (Line(points={{-208,-20},{-164,-20},{-164,48},{-50,48},{-50,56},
-          {-42,56}},
+    annotation (Line(points={{-208,-20},{-164,-20},{-164,48},{-50,48},{-50,56},{-42,56}},
       color={0,0,127}));
   connect(TChiWatSecRet, TChiWatRet.uPla)
     annotation (Line(points={{-280,-140},{-238,-140},{-238,-24},{-232,-24}},
@@ -1270,8 +1292,7 @@ equation
   connect(VChiWatPri_flow, VChiWat_flow.u)
     annotation (Line(points={{-280,-40},{-202,-40}},color={0,0,127}));
   connect(VChiWat_flow.y, chaStaCoo.V_flow)
-    annotation (Line(points={{-178,-40},{-162,-40},{-162,38},{-48,38},{-48,54},
-          {-42,54}},
+    annotation (Line(points={{-178,-40},{-162,-40},{-162,38},{-48,38},{-48,54},{-42,54}},
       color={0,0,127}));
   connect(VChiWatSec_flow, VChiWat_flow.uPla)
     annotation (Line(points={{-280,-160},{-204,-160},{-204,-44},{-202,-44}},
@@ -1307,8 +1328,8 @@ equation
     annotation (Line(points={{-280,300},{-60,300},{-60,36},{-42,36}},color={255,0,255}));
   connect(y1Hp, y1HpPre.u)
     annotation (Line(points={{280,380},{202,380}},color={255,0,255}));
-  connect(y1HpPre.y, avaEquHeaCoo.u1) annotation (Line(points={{178,380},{-158,
-          380},{-158,226},{-154,226}}, color={255,0,255}));
+  connect(y1HpPre.y, avaEquHeaCoo.u1)
+    annotation (Line(points={{178,380},{-158,380},{-158,226},{-154,226}},color={255,0,255}));
   connect(idxStaCoo.y, comStaCoo.uSta)
     annotation (Line(points={{12,100},{20,100},{20,-12},{-46,-12},{-46,4},{-42,4}},
       color={255,127,0}));
@@ -1335,75 +1356,72 @@ equation
   connect(comStaHea.y1, chaStaCoo.u1StaAltPro)
     annotation (Line(points={{-18,254},{-10,254},{-10,120},{-44,120},{-44,62},{-42,62}},
       color={255,0,255}));
-  connect(resChiWat.TSupSet, TChiWatSupSet) annotation (Line(points={{112,-26},
-          {228,-26},{228,-140},{280,-140}},
-                                          color={0,0,127}));
-  connect(resHeaWat.TSupSet, THeaWatSupSet) annotation (Line(points={{112,234},
-          {236,234},{236,-120},{280,-120}},
-                                      color={0,0,127}));
-  connect(resHeaWat.dpSet, dpHeaWatRemSet) annotation (Line(points={{112,246},{
-          240,246},{240,-60},{280,-60}},
-                                       color={0,0,127}));
-  connect(resChiWat.dpSet, dpChiWatRemSet) annotation (Line(points={{112,-14},{
-          232,-14},{232,-80},{280,-80}},
-                                       color={0,0,127}));
-  connect(uReqResHeaWat, resHeaWat.uReqRes) annotation (Line(points={{-280,-340},
-          {76,-340},{76,246},{88,246}}, color={255,127,0}));
-  connect(uReqResChiWat, resChiWat.uReqRes) annotation (Line(points={{-280,-360},
-          {80,-360},{80,-14},{88,-14}}, color={255,127,0}));
-  connect(enaCoo.y1, resChiWat.u1Ena) annotation (Line(points={{-88,100},{-80,
-          100},{-80,-20},{88,-20}}, color={255,0,255}));
-  connect(enaHea.y1, resHeaWat.u1Ena) annotation (Line(points={{-88,360},{-80,
-          360},{-80,240},{88,240}}, color={255,0,255}));
-  connect(comStaHea.y1, resHeaWat.u1StaPro) annotation (Line(points={{-18,254},
-          {-10,254},{-10,234},{88,234}}, color={255,0,255}));
-  connect(comStaCoo.y1, resChiWat.u1StaPro) annotation (Line(points={{-18,-6},{
-          -10,-6},{-10,-26},{88,-26}}, color={255,0,255}));
-  connect(resChiWat.TSupSet, chaStaCoo.TSupSet) annotation (Line(points={{112,-26},
-          {114,-26},{114,-40},{-52,-40},{-52,58},{-42,58}},      color={0,0,127}));
-  connect(resHeaWat.TSupSet, chaStaHea.TSupSet) annotation (Line(points={{112,234},
-          {114,234},{114,220},{-52,220},{-52,316},{-42,316}},      color={0,0,
-          127}));
-  connect(ctlPumPri.yPumHeaWatPriHdr, yPumHeaWatPriHdr) annotation (Line(points
-        ={{212,86},{222,86},{222,100},{280,100}}, color={0,0,127}));
-  connect(ctlPumPri.yPumChiWatPriHdr, yPumChiWatPriHdr) annotation (Line(points
-        ={{212,82},{220,82},{220,80},{280,80}}, color={0,0,127}));
-  connect(ctlPumPri.yPumHeaWatPriDed, yPumHeaWatPriDed) annotation (Line(points
-        ={{212,78},{220,78},{220,60},{280,60},{280,60}}, color={0,0,127}));
-  connect(ctlPumPri.yPumChiWatPriDed, yPumChiWatPriDed) annotation (Line(points
-        ={{212,74},{216,74},{216,40},{280,40}}, color={0,0,127}));
-  connect(staPumHeaWatPri.y1, ctlPumPri.u1PumHeaWatPri) annotation (Line(points
-        ={{162,200},{176,200},{176,86},{188,86}}, color={255,0,255}));
-  connect(staPumChiWatPri.y1, ctlPumPri.u1PumChiWatPri) annotation (Line(points
-        ={{212,180},{220,180},{220,100},{180,100},{180,80},{188,80}}, color={
-          255,0,255}));
-  connect(eveSeqEna.y1Hea, ctlPumPri.u1Hea) annotation (Line(points={{162,310},
-          {174,310},{174,74},{188,74}}, color={255,0,255}));
-  connect(ctlPumHeaWatSec.y, yPumHeaWatSec) annotation (Line(points={{161.8,20},
-          {248,20},{248,0},{280,0}}, color={0,0,127}));
-  connect(ctlPumChiWatSec.y, yPumChiWatSec) annotation (Line(points={{211.8,0},
-          {244,0},{244,-20},{280,-20}}, color={0,0,127}));
-  connect(u1PumHeaWatSec_actual, ctlPumHeaWatSec.y1_actual) annotation (Line(
-        points={{-280,160},{120,160},{120,28},{138,28}}, color={255,0,255}));
-  connect(u1PumChiWatSec_actual, ctlPumChiWatSec.y1_actual) annotation (Line(
-        points={{-280,140},{180,140},{180,8},{188,8}}, color={255,0,255}));
-  connect(resChiWat.dpSet, ctlPumChiWatSec.dpRemSet) annotation (Line(points={{112,-14},
-          {178,-14},{178,4},{188,4}},      color={0,0,127}));
-  connect(dpHeaWatRem, ctlPumHeaWatSec.dpRem) annotation (Line(points={{-280,-200},
-          {130,-200},{130,20},{138,20}}, color={0,0,127}));
-  connect(resHeaWat.dpSet, ctlPumHeaWatSec.dpRemSet) annotation (Line(points={{112,
-          246},{122,246},{122,24},{138,24}}, color={0,0,127}));
-  connect(dpHeaWatLoc, ctlPumHeaWatSec.dpLoc) annotation (Line(points={{-280,-240},
-          {134,-240},{134,12},{138,12}}, color={0,0,127}));
-  connect(dpHeaWatLocSet, ctlPumHeaWatSec.dpLocSet) annotation (Line(points={{-280,
-          -220},{132,-220},{132,16},{138,16}}, color={0,0,127}));
-  connect(dpChiWatRem, ctlPumChiWatSec.dpRem) annotation (Line(points={{-280,-260},
-          {180,-260},{180,0},{188,0}}, color={0,0,127}));
-  connect(dpChiWatLocSet, ctlPumChiWatSec.dpLocSet) annotation (Line(points={{-280,
-          -280},{182,-280},{182,-4},{188,-4}}, color={0,0,127}));
-  connect(dpChiWatLoc, ctlPumChiWatSec.dpLoc) annotation (Line(points={{-280,-300},
-          {184,-300},{184,-8},{188,-8}}, color={0,0,127}));
-    annotation (
+  connect(resChiWat.TSupSet, TChiWatSupSet)
+    annotation (Line(points={{112,-26},{228,-26},{228,-140},{280,-140}},color={0,0,127}));
+  connect(resHeaWat.TSupSet, THeaWatSupSet)
+    annotation (Line(points={{112,234},{236,234},{236,-120},{280,-120}},color={0,0,127}));
+  connect(resHeaWat.dpSet, dpHeaWatRemSet)
+    annotation (Line(points={{112,246},{240,246},{240,-60},{280,-60}},color={0,0,127}));
+  connect(resChiWat.dpSet, dpChiWatRemSet)
+    annotation (Line(points={{112,-14},{232,-14},{232,-80},{280,-80}},color={0,0,127}));
+  connect(uReqResHeaWat, resHeaWat.uReqRes)
+    annotation (Line(points={{-280,-340},{76,-340},{76,246},{88,246}},color={255,127,0}));
+  connect(uReqResChiWat, resChiWat.uReqRes)
+    annotation (Line(points={{-280,-360},{80,-360},{80,-14},{88,-14}},color={255,127,0}));
+  connect(enaCoo.y1, resChiWat.u1Ena)
+    annotation (Line(points={{-88,100},{-80,100},{-80,-20},{88,-20}},color={255,0,255}));
+  connect(enaHea.y1, resHeaWat.u1Ena)
+    annotation (Line(points={{-88,360},{-80,360},{-80,240},{88,240}},color={255,0,255}));
+  connect(comStaHea.y1, resHeaWat.u1StaPro)
+    annotation (Line(points={{-18,254},{-10,254},{-10,234},{88,234}},color={255,0,255}));
+  connect(comStaCoo.y1, resChiWat.u1StaPro)
+    annotation (Line(points={{-18,-6},{-10,-6},{-10,-26},{88,-26}},color={255,0,255}));
+  connect(resChiWat.TSupSet, chaStaCoo.TSupSet)
+    annotation (Line(points={{112,-26},{114,-26},{114,-40},{-52,-40},{-52,58},{-42,58}},
+      color={0,0,127}));
+  connect(resHeaWat.TSupSet, chaStaHea.TSupSet)
+    annotation (Line(points={{112,234},{114,234},{114,220},{-52,220},{-52,316},{-42,316}},
+      color={0,0,127}));
+  connect(ctlPumPri.yPumHeaWatPriHdr, yPumHeaWatPriHdr)
+    annotation (Line(points={{212,86},{222,86},{222,100},{280,100}},color={0,0,127}));
+  connect(ctlPumPri.yPumChiWatPriHdr, yPumChiWatPriHdr)
+    annotation (Line(points={{212,82},{220,82},{220,80},{280,80}},color={0,0,127}));
+  connect(ctlPumPri.yPumHeaWatPriDed, yPumHeaWatPriDed)
+    annotation (Line(points={{212,78},{220,78},{220,60},{280,60},{280,60}},color={0,0,127}));
+  connect(ctlPumPri.yPumChiWatPriDed, yPumChiWatPriDed)
+    annotation (Line(points={{212,74},{216,74},{216,40},{280,40}},color={0,0,127}));
+  connect(staPumHeaWatPri.y1, ctlPumPri.u1PumHeaWatPri)
+    annotation (Line(points={{162,200},{176,200},{176,86},{188,86}},color={255,0,255}));
+  connect(staPumChiWatPri.y1, ctlPumPri.u1PumChiWatPri)
+    annotation (Line(points={{212,180},{220,180},{220,100},{180,100},{180,80},{188,80}},
+      color={255,0,255}));
+  connect(eveSeqEna.y1Hea, ctlPumPri.u1Hea)
+    annotation (Line(points={{162,310},{174,310},{174,74},{188,74}},color={255,0,255}));
+  connect(ctlPumHeaWatSec.y, yPumHeaWatSec)
+    annotation (Line(points={{161.8,20},{248,20},{248,0},{280,0}},color={0,0,127}));
+  connect(ctlPumChiWatSec.y, yPumChiWatSec)
+    annotation (Line(points={{211.8,0},{244,0},{244,-20},{280,-20}},color={0,0,127}));
+  connect(u1PumHeaWatSec_actual, ctlPumHeaWatSec.y1_actual)
+    annotation (Line(points={{-280,160},{120,160},{120,28},{138,28}},color={255,0,255}));
+  connect(u1PumChiWatSec_actual, ctlPumChiWatSec.y1_actual)
+    annotation (Line(points={{-280,140},{180,140},{180,8},{188,8}},color={255,0,255}));
+  connect(resChiWat.dpSet, ctlPumChiWatSec.dpRemSet)
+    annotation (Line(points={{112,-14},{178,-14},{178,4},{188,4}},color={0,0,127}));
+  connect(dpHeaWatRem, ctlPumHeaWatSec.dpRem)
+    annotation (Line(points={{-280,-200},{130,-200},{130,20},{138,20}},color={0,0,127}));
+  connect(resHeaWat.dpSet, ctlPumHeaWatSec.dpRemSet)
+    annotation (Line(points={{112,246},{122,246},{122,24},{138,24}},color={0,0,127}));
+  connect(dpHeaWatLoc, ctlPumHeaWatSec.dpLoc)
+    annotation (Line(points={{-280,-240},{134,-240},{134,12},{138,12}},color={0,0,127}));
+  connect(dpHeaWatLocSet, ctlPumHeaWatSec.dpLocSet)
+    annotation (Line(points={{-280,-220},{132,-220},{132,16},{138,16}},color={0,0,127}));
+  connect(dpChiWatRem, ctlPumChiWatSec.dpRem)
+    annotation (Line(points={{-280,-260},{180,-260},{180,0},{188,0}},color={0,0,127}));
+  connect(dpChiWatLocSet, ctlPumChiWatSec.dpLocSet)
+    annotation (Line(points={{-280,-280},{182,-280},{182,-4},{188,-4}},color={0,0,127}));
+  connect(dpChiWatLoc, ctlPumChiWatSec.dpLoc)
+    annotation (Line(points={{-280,-300},{184,-300},{184,-8},{188,-8}},color={0,0,127}));
+  annotation (
     defaultComponentName="ctl",
     Icon(
       coordinateSystem(

@@ -46,7 +46,12 @@ model StageChangeCommand
     annotation (Placement(transformation(extent={{-130,-50},{-110,-30}})));
   Buildings.Templates.Plants.Controls.StagingRotation.StageChangeCommand chaSta(
     plrSta=0.9,
-    staEqu=[1,0,0; 0,1/2,1/2; 1,1/2,1/2; 0,1,1; 1,1,1],
+    staEqu=[
+      1, 0, 0;
+      0, 1 / 2, 1 / 2;
+      1, 1 / 2, 1 / 2;
+      0, 1, 1;
+      1, 1, 1],
     capEqu=1E3 * {100, 450, 450},
     cp_default=cp_default,
     rho_default=rho_default)
@@ -61,7 +66,8 @@ model StageChangeCommand
     "HWRT"
     annotation (Placement(transformation(extent={{-130,-10},{-110,10}})));
   Utilities.StageIndex idxSta(
-    final nSta=nSta, dtRun=900)
+    final nSta=nSta,
+    dtRun=900)
     "Compute stage index"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant u1Lea(
@@ -92,15 +98,17 @@ model StageChangeCommand
     final k={2, 3})
     "Indices of lead/lag equipment"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant u1AvaEqu[3](each final k=
-        true) "Equipment available signal"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant u1AvaEqu[3](
+    each final k=true)
+    "Equipment available signal"
     annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
   Components.Controls.StatusEmulator staEqu[3](
     each riseTime=60)
     "Evaluate equipment status"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Buildings.Templates.Plants.Controls.StagingRotation.StageCompletion comSta(
-    nin=3) "Check completion of stage change"
+    nin=3)
+    "Check completion of stage change"
     annotation (Placement(transformation(extent={{-30,50},{-50,70}})));
 equation
   connect(TRet.y, chaSta.TRet)
@@ -113,8 +121,8 @@ equation
     annotation (Line(points={{-28,-4},{-20,-4},{-20,-2},{-2,-2}},color={255,0,255}));
   connect(u1Lea.y, idxSta.u1Lea)
     annotation (Line(points={{-108,80},{-10,80},{-10,6},{-2,6}},color={255,0,255}));
-  connect(u1AvaSta.y, idxSta.u1AvaSta) annotation (Line(points={{-108,-80},{-10,
-          -80},{-10,-6},{-2,-6}}, color={255,0,255}));
+  connect(u1AvaSta.y, idxSta.u1AvaSta)
+    annotation (Line(points={{-108,-80},{-10,-80},{-10,-6},{-2,-6}},color={255,0,255}));
   connect(idxSta.y, chaSta.uSta)
     annotation (Line(points={{22,0},{40,0},{40,18},{-60,18},{-60,10},{-52,10}},
       color={255,127,0}));
@@ -132,8 +140,8 @@ equation
     annotation (Line(points={{22,0},{58,0}},color={255,127,0}));
   connect(idxEquLeaLag.y, enaEqu.uIdxAltSor)
     annotation (Line(points={{-78,100},{54,100},{54,6},{58,6}},color={255,127,0}));
-  connect(u1AvaEqu.y, enaEqu.u1Ava) annotation (Line(points={{-78,-100},{54,-100},
-          {54,-6},{58,-6}}, color={255,0,255}));
+  connect(u1AvaEqu.y, enaEqu.u1Ava)
+    annotation (Line(points={{-78,-100},{54,-100},{54,-6},{58,-6}},color={255,0,255}));
   connect(enaEqu.y1, staEqu.y1)
     annotation (Line(points={{82,0},{98,0}},color={255,0,255}));
   connect(comSta.y1, chaSta.u1StaPro)

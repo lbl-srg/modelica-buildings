@@ -15,21 +15,22 @@ block Enable
   parameter Real TOutLck(
     final min=100,
     final unit="K")=if typ == Buildings.Templates.Plants.Controls.Types.Application.Heating
-     then 18 + 273.15 else 15 + 273.15
+    then 18 + 273.15 else 15 + 273.15
     "Outdoor air lockout temperature";
   parameter Real dTOutLck(
     final min=0,
     final unit="K")=0.5
     "Hysteresis for outdoor air lockout temperature";
-  parameter Integer nReqIgn(min=0)=0
+  parameter Integer nReqIgn(
+    min=0)=0
     "Number of ignored requests";
   parameter Real dtRun(
     final min=0,
-    final unit="s")=15*60
+    final unit="s")=15 * 60
     "Minimum runtime of enable and disable states";
   parameter Real dtReq(
     final min=0,
-    final unit="s")=3*60
+    final unit="s")=3 * 60
     "Runtime with low number of request before disabling";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Sch
     if have_inpSch

@@ -13,8 +13,13 @@ model EquipmentEnable
     period=25)
     "Equipment available signal"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable equEnaOneTwo(staEqu=[1,
-        0,0; 0,1/2,1/2; 1,1/2,1/2; 0,1,1; 1,1,1])
+  Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable equEnaOneTwo(
+    staEqu=[
+      1, 0, 0;
+      0, 1 / 2, 1 / 2;
+      1, 1 / 2, 1 / 2;
+      0, 1, 1;
+      1, 1, 1])
     "Compute array of enabled equipment – One small equipment, two large equally sized equipment"
     annotation (Placement(transformation(extent={{70,-50},{90,-30}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable uSta(
@@ -28,8 +33,11 @@ model EquipmentEnable
     period=25)
     "Stage index"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable equEnaEqu(staEqu=[1
-        /3,1/3,1/3; 2/3,2/3,2/3; 1,1,1])
+  Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable equEnaEqu(
+    staEqu=[
+      1 / 3, 1 / 3, 1 / 3;
+      2 / 3, 2 / 3, 2 / 3;
+      1, 1, 1])
     "Compute array of enabled equipment – Equally sized units"
     annotation (Placement(transformation(extent={{70,30},{90,50}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable uSta1(
@@ -62,14 +70,14 @@ model EquipmentEnable
     "Restore indices with respect to original vector u1AvaEqu"
     annotation (Placement(transformation(extent={{30,-90},{50,-70}})));
 equation
-  connect(u1AvaEqu.y, equEnaOneTwo.u1Ava) annotation (Line(points={{-58,-40},{-40,
-          -40},{-40,-46},{68,-46}}, color={255,0,255}));
+  connect(u1AvaEqu.y, equEnaOneTwo.u1Ava)
+    annotation (Line(points={{-58,-40},{-40,-40},{-40,-46},{68,-46}},color={255,0,255}));
   connect(uSta.y[1], equEnaOneTwo.uSta)
     annotation (Line(points={{-58,0},{40,0},{40,-40},{68,-40}},color={255,127,0}));
   connect(uSta1.y[1], equEnaEqu.uSta)
     annotation (Line(points={{-58,40},{30,40},{30,40},{68,40}},color={255,127,0}));
-  connect(u1AvaEqu.y, equEnaEqu.u1Ava) annotation (Line(points={{-58,-40},{-40,
-          -40},{-40,34},{68,34}}, color={255,0,255}));
+  connect(u1AvaEqu.y, equEnaEqu.u1Ava)
+    annotation (Line(points={{-58,-40},{-40,-40},{-40,34},{68,34}},color={255,0,255}));
   connect(u1AvaEqu.y, booToRea.u)
     annotation (Line(points={{-58,-40},{-40,-40},{-40,60},{-30,60}},color={255,0,255}));
   connect(booToRea.y, sort.u)
