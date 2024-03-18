@@ -5,7 +5,6 @@ model SortRuntime
     "Sort runtime"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Utilities.TrueArrayConditional u1Ena(
-    is_fix=true,
     nin=3)
     "Equipment enable signal"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));

@@ -174,7 +174,6 @@ block StageIndex
     "Stage up command or active stage unavailable"
     annotation (Placement(transformation(extent={{-10,-130},{10,-110}})));
   TrueArrayConditional truIdxNex(
-    final is_fix=false,
     final nout=nSta,
     nin=1)
     "Generate array with true value at index of next stage to be enabled"
@@ -203,7 +202,6 @@ block StageIndex
     "Replicate"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   TrueArrayConditional truNexHigAva(
-    final is_fix=false,
     final nout=nSta,
     nin=1)
     "Generate array with true element at index of next higher available stage (if any, otherwise all false)"

@@ -1,6 +1,5 @@
 within Buildings.Templates.Plants.Controls.StagingRotation;
-block EquipmentEnable
-  "Return array of equipment to enable at given stage"
+block EquipmentEnable "Return array of equipment to enable at given stage"
   parameter Real staEqu[:,:](
     each unit="1",
     each min=0,
@@ -63,7 +62,7 @@ block EquipmentEnable
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Logical.MultiAnd isReqAltAva[nEqu](
     each final nin=3)
-    "Return true if equipment required with lead/lag alternate and available"
+    "Return true if lead/lag alternate equipment required and available"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   Buildings.Controls.OBC.CDL.Logical.Or ena[nEqu]
     "Enable equipment required without lead/lag alternate and available or lead/lag alternate equipment to meet stage requirement"
@@ -81,14 +80,13 @@ block EquipmentEnable
     "Detect stage index change"
     annotation (Placement(transformation(extent={{30,-70},{50,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Pre y1Pre[nEqu]
-    "Left limit of y1 in discrete time"
+    "Left limit of signal in discrete time"
     annotation (Placement(transformation(extent={{180,-70},{160,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Switch logSwi[nEqu]
     "Switch to newly computed value at stage change"
     annotation (Placement(transformation(extent={{160,-10},{180,10}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep(
-    final nout=nEqu)
-    "Replicate signal"
+    final nout=nEqu) "Replicate signal"
     annotation (Placement(transformation(extent={{110,-70},{130,-50}})));
   Utilities.CountTrue nReq(
     nin=nEqu)
@@ -112,7 +110,6 @@ block EquipmentEnable
     annotation (Placement(transformation(extent={{-240,80},{-200,120}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
   Utilities.TrueArrayConditional truArrCon(
-    final is_fix=false,
     final nout=nEqu,
     nin=nEquAlt)
     "Generate array of size nEqu with nAltReq true elements at uIdxAltSor indices "
@@ -158,7 +155,7 @@ equation
     annotation (Line(points={{-38,40},{-30,40},{-30,37.6667},{-12,37.6667}},
       color={255,0,255}));
   connect(isNotReqNoAlt.y, isReqAltAva.u[2])
-    annotation (Line(points={{-38,0},{-30,0},{-30,40},{-12,40}},color={255,0,255}));
+    annotation (Line(points={{-38,0},{-32,0},{-32,40},{-12,40}},color={255,0,255}));
   connect(u1Ava, isReqAltAva.u[3]) annotation (Line(points={{-220,-80},{-30,-80},
           {-30,42.3333},{-12,42.3333}}, color={255,0,255}));
   connect(isReqAva.y, ena.u2)
@@ -188,10 +185,11 @@ equation
   connect(isReq.y, nReq.u1)
     annotation (Line(points={{-38,-40},{-20,-40},{-20,0},{-12,0}},color={255,0,255}));
   connect(nEnaAvaPre.y, intLes.u1)
-    annotation (Line(points={{78,-100},{70,-100},{70,-84},{22,-84},{22,-100},{28,-100}},
+    annotation (Line(points={{78,-100},{70,-100},{70,-84},{24,-84},{24,-100},{
+          28,-100}},
       color={255,127,0}));
   connect(nEquSta.y, intLes.u2)
-    annotation (Line(points={{12,80},{16,80},{16,-108},{28,-108}},color={255,127,0}));
+    annotation (Line(points={{12,80},{20,80},{20,-108},{28,-108}},color={255,127,0}));
   connect(swiEna.y, booScaRep.u)
     annotation (Line(points={{102,-60},{108,-60}},color={255,0,255}));
   connect(cha.y, swiEna.u1)
