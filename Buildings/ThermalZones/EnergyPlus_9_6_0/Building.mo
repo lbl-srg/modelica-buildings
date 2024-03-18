@@ -39,7 +39,7 @@ model Building
     "If true, then this model computes the wet bulb temperature"
     annotation (Dialog(tab="Advanced"));
 
-  parameter Real relativeSurfaceTolerance(min=1E-20) = 1E-7
+  parameter Real relativeSurfaceTolerance(min=1E-12) = 1E-7
     "Relative tolerance of surface temperature calculations"
     annotation (Dialog(tab="Advanced"));
 
