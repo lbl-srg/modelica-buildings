@@ -13,23 +13,23 @@ block Enable
     "Enable schedule"
     annotation (Dialog(enable=not have_inpSch));
   parameter Real TOutLck(
-    min=100,
-    unit="K")=if typ == Buildings.Templates.Plants.Controls.Types.Application.Heating
+    final min=100,
+    final unit="K")=if typ == Buildings.Templates.Plants.Controls.Types.Application.Heating
      then 18 + 273.15 else 15 + 273.15
     "Outdoor air lockout temperature";
   parameter Real dTOutLck(
-    min=0,
-    unit="K")=0.5
+    final min=0,
+    final unit="K")=0.5
     "Hysteresis for outdoor air lockout temperature";
   parameter Integer nReqIgn(min=0)=0
     "Number of ignored requests";
   parameter Real dtRun(
-    min=0,
-    unit="s")=15*60
+    final min=0,
+    final unit="s")=15*60
     "Minimum runtime of enable and disable states";
   parameter Real dtReq(
-    min=0,
-    unit="s")=3*60
+    final min=0,
+    final unit="s")=3*60
     "Runtime with low number of request before disabling";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Sch
     if have_inpSch

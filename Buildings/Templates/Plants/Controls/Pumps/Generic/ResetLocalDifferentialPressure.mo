@@ -12,25 +12,24 @@ block ResetLocalDifferentialPressure
     final min=0)
     "Maximum loop differential pressure setpoint local to the plant";
   parameter Real k(
-    min=100 * Buildings.Controls.OBC.CDL.Constants.eps)=1
+    final min=100 * Buildings.Controls.OBC.CDL.Constants.eps)=1
     "Gain of controller"
     annotation (Dialog(group="Control gains"));
   parameter Real Ti(
-    final quantity="Time",
     final unit="s",
-    min=100 * Buildings.Controls.OBC.CDL.Constants.eps)=60
+    final min=100 * Buildings.Controls.OBC.CDL.Constants.eps)=60
     "Time constant of integrator block"
     annotation (Dialog(group="Control gains"));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpRemSet(
-    each final unit="Pa")
+    final unit="Pa")
     "Remote loop differential pressure setpoint"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
-      iconTransformation(extent={{-140,20},{-100,60}})));
+      iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpRem(
-    each final unit="Pa")
+    final unit="Pa")
     "Remote loop differential pressure"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
+      iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dpLocSet(
     final unit="Pa")
     "Local differential pressure setpoint "

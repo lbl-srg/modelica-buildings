@@ -1,10 +1,13 @@
 within Buildings.Templates.Plants.Controls.Setpoints;
 block PlantReset
   "Plant reset logic"
-  parameter Integer nSenDpRem(min=1)
+  parameter Integer nSenDpRem(
+    final min=1)
     "Number of remote loop differential pressure sensors used for pump speed control"
     annotation (Evaluate=true);
-  parameter Real dpSet_max[nSenDpRem](min=5*6894, unit="Pa")
+  parameter Real dpSet_max[nSenDpRem](
+    each min=5*6894,
+    each final unit="Pa")
     "Maximum differential pressure setpoint";
   parameter Real dpSet_min(
     final min=0,
@@ -20,7 +23,6 @@ block PlantReset
     final unit="K",
     displayUnit="degC")
     "Limit value to which the supply temperature can be reset";
-
   parameter Real dtHol(
     final min=0,
     final unit="s")=900
@@ -38,7 +40,6 @@ block PlantReset
     final unit="1")=resDp_max
     "Lower limit of plant reset interval for supply temperature reset"
     annotation(Dialog(tab="Advanced"));
-
   parameter Real res_init(
     final min=0,
     final max=1,
@@ -84,7 +85,6 @@ block PlantReset
     final unit="1")=0.07
     "Maximum response per reset period (must have same sign as respond amount)"
     annotation(Dialog(tab="Advanced", group="Trim and respond"));
-
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uReqRes
     "Sum of reset requests of all loads served"
     annotation (Placement(transformation(extent={{-200,120},{-160,160}}),

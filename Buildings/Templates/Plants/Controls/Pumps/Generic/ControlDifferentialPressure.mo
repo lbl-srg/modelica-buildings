@@ -1,35 +1,31 @@
 within Buildings.Templates.Plants.Controls.Pumps.Generic;
 block ControlDifferentialPressure
   "Differential pressure control for variable speed pumps"
-  parameter Boolean have_senDpRemHar
-    "Set to true remote differential pressure sensor(s) hardwired to controller"
+  parameter Boolean have_senDpRemWir
+    "Set to true for remote differential pressure sensor(s) hardwired to controller"
     annotation (Evaluate=true);
-  parameter Integer nPum(
-    final min=1)
+  parameter Integer nPum(min=1)
     "Number of pumps that operate at design conditions"
     annotation (Evaluate=true);
-  parameter Integer nSenDpRem(
-    final min=1)
+  parameter Integer nSenDpRem(min=1)
     "Number of remote loop differential pressure sensors used for pump speed control"
     annotation (Evaluate=true);
   parameter Real y_min(
-    final unit="1",
-    final min=0,
-    final max=1)=0.1
-    "Pump minimum speed command signal";
+    max=1,
+    min=0,
+    unit="1")=0.1
+    "Minimum pump speed";
   final parameter Real y_max(
     final unit="1",
     final min=0,
     final max=1)=1
-    "Pump maximum speed command signal";
-  parameter Real k(
-    min=100 * Buildings.Controls.OBC.CDL.Constants.eps)=1
+    "Maximum pump speed";
+  parameter Real k(min=100*Buildings.Controls.OBC.CDL.Constants.eps)=1
     "Gain of controller"
     annotation (Dialog(group="Control gains"));
   parameter Real Ti(
-    final quantity="Time",
-    final unit="s",
-    min=100 * Buildings.Controls.OBC.CDL.Constants.eps)=60
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps,
+    unit="s")=60
     "Time constant of integrator block"
     annotation (Dialog(group="Control gains"));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput y1_actual[nPum]
@@ -38,25 +34,25 @@ block ControlDifferentialPressure
       iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpRemSet[nSenDpRem](
     each final unit="Pa")
-    if have_senDpRemHar
+    if have_senDpRemWir
     "Remote differential pressure setpoint"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpLoc(
     final unit="Pa")
-    if not have_senDpRemHar
+    if not have_senDpRemWir
     "Loop differential pressure local to the plant"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpRem[nSenDpRem](
     each final unit="Pa")
-    if have_senDpRemHar
+    if have_senDpRemWir
     "Remote loop differential pressure"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpLocSet[nSenDpRem](
     each final unit="Pa")
-    if not have_senDpRemHar
+    if not have_senDpRemWir
     "Local differential pressure setpoint"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
@@ -75,7 +71,7 @@ block ControlDifferentialPressure
     annotation (Placement(transformation(extent={{-50,70},{-30,90}})));
   Buildings.Controls.OBC.CDL.Reals.MultiMax maxSet(
     nin=nSenDpRem)
-    if not have_senDpRemHar
+    if not have_senDpRemWir
     "Maximum DP setpoint"
     annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
   Utilities.PIDWithEnable ctlDpRem[nSenDpRem](
@@ -86,7 +82,7 @@ block ControlDifferentialPressure
     each final yMax=y_max,
     each final y_reset=y_min,
     each final y_neutral=0)
-    if have_senDpRemHar
+    if have_senDpRemWir
     "Remote differential pressure control"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   Utilities.PIDWithEnable ctlDpLoc(
@@ -97,12 +93,12 @@ block ControlDifferentialPressure
     final yMax=y_max,
     final y_reset=y_min,
     final y_neutral=0)
-    if not have_senDpRemHar
+    if not have_senDpRemWir
     "Local differential pressure control"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   Buildings.Controls.OBC.CDL.Reals.MultiMax maxY(
     nin=nSenDpRem)
-    if have_senDpRemHar
+    if have_senDpRemWir
     "Maximum control loop output"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
 protected
