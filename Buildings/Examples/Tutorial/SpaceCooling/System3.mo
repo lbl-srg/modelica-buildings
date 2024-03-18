@@ -140,10 +140,10 @@ model System3
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal mWat_flow(realTrue=0, realFalse=
         mW_flow_nominal) "Conversion from boolean to real for water flow rate"
     annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
-  Buildings.Controls.OBC.CDL.Reals.Subtract sub1
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub
     "Inputs different"
     annotation (Placement(transformation(extent={{-130,-110},{-110,-90}})));
-  Buildings.Controls.OBC.CDL.Reals.Hysteresis con1(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis con(
     final uLow=-0.5,
     final uHigh=0.5)
     "Controller for coil water flow rate"
@@ -173,7 +173,6 @@ equation
       points={{-120,-21},{-110,-21},{-110,-32}},
       color={0,127,255},
       smooth=Smooth.None));
-
   connect(souWat.ports[1], cooCoi.port_a1)   annotation (Line(
       points={{0,-100},{20,-100},{20,-32},{-20,-32}},
       color={0,127,255},
@@ -235,13 +234,13 @@ equation
       points={{-38,-100},{-30,-100},{-30,-92},{-22,-92}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(sub1.y, con1.u)
+  connect(sub.y, con.u)
     annotation (Line(points={{-108,-100},{-102,-100}}, color={0,0,127}));
-  connect(con1.y, mWat_flow.u)
+  connect(con.y, mWat_flow.u)
     annotation (Line(points={{-78,-100},{-62,-100}}, color={255,0,255}));
-  connect(TRooSetPoi.y, sub1.u1)
+  connect(TRooSetPoi.y, sub.u1)
     annotation (Line(points={{-148,-94},{-132,-94}}, color={0,0,127}));
-  connect(senTemRoo.T, sub1.u2) annotation (Line(points={{91,80},{100,80},{100,-140},
+  connect(senTemRoo.T, sub.u2) annotation (Line(points={{91,80},{100,80},{100,-140},
           {-140,-140},{-140,-106},{-132,-106}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
@@ -296,17 +295,26 @@ To add closed loop control, we proceeded as follows.
 <ol start=\"3\">
 <li>
 <p>
-First, we made an instance of the on/off controller
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Logical.OnOffController\">
-Buildings.Controls.OBC.CDL.Logical.OnOffController</a> and set its name to <code>con</code>.
-We set the parameter for the bandwidth to <i>1</i> Kelvin.
-This model requires as an input the measured temperature and the set point.
+First, we made an instance of
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Reals.Subtract\">
+Buildings.Controls.OBC.CDL.Reals.Subtract</a> and set its name to <code>sub</code>.
+It calculates the difference between the set point and the measured temperature.
 </p>
 </li>
 <li>
 <p>
 For the set point, we made the instance <code>TRooSetPoi</code> to feed a constant
-set point into the controller.
+set point into the instance <code>sub</code>.
+</p>
+</li>
+<li>
+<p>
+The output of the instance <code>sub</code> was then fed as the input to
+<code>con</code>, which is an instance of
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Reals.Hysteresis\">
+Buildings.Controls.OBC.CDL.Reals.Hysteresis</a>.
+For the instance <code>con</code>, we set the parameter for the lower limit to
+<i>-0.5</i> and the upper limit to <i>0.5</i>.
 </p>
 </li>
 <li>

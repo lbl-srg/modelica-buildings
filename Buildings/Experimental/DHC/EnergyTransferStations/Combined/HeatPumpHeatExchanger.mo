@@ -44,7 +44,7 @@ model HeatPumpHeatExchanger
     annotation (Placement(transformation(extent={{-150,-20},{-130,0}})));
 equation
   connect(souColWat.ports[1], proHotWat.port_a1) annotation (Line(points={{-28,-40},
-          {-20,-40},{-20,40},{-9.8,40}},color={0,127,255}));
+          {-20,-40},{-20,40},{-10,40}}, color={0,127,255}));
   connect(sinSHW.ports[1], proHotWat.port_b1) annotation (Line(points={{-50,60},
           {14,60},{14,40},{10,40}},    color={0,127,255}));
   connect(THotWatSupSet, proHotWat.TSupSet) annotation (Line(points={{-320,-40},

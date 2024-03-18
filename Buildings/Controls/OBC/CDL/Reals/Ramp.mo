@@ -120,7 +120,7 @@ otherwise, <code>dy/dt = thr</code>.
 </li>
 </ul>
 <p>
-A smaller time constant <code>Td</code> means a higher accuracy for the derivative approximation.
+A smaller time constant <code>Td &gt; 0</code> means a higher accuracy for the derivative approximation.
 </p>
 <p>
 Note that when the input <code>activate</code> switches to <code>false</code>,
@@ -134,6 +134,10 @@ the input is numerically differentiated with derivative time constant <code>Td</
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 15, 2024, by Michael Wetter:<br/>
+Updated documentation.
+</li>
 <li>
 November 16, 2022, by Jianjun Hu:<br/>
 First implementation.
