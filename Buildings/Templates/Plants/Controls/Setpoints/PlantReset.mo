@@ -1,90 +1,86 @@
 within Buildings.Templates.Plants.Controls.Setpoints;
 block PlantReset
   "Plant reset logic"
-  parameter Integer nSenDpRem(
-    final min=1)
+  parameter Integer nSenDpRem(min=1)
     "Number of remote loop differential pressure sensors used for pump speed control"
     annotation (Evaluate=true);
-  parameter Real dpSet_max[nSenDpRem](
-    each min=5 * 6894,
-    each final unit="Pa")
+  parameter Real dpSet_max[nSenDpRem](min=5*6894, unit="Pa")
     "Maximum differential pressure setpoint";
   parameter Real dpSet_min(
-    final min=0,
-    final unit="Pa")=5 * 6894
+    min=0,
+    unit="Pa")=5*6894
     "Minimum value to which the differential pressure can be reset";
   parameter Real TSup_nominal(
-    final min=273.15,
-    final unit="K",
+    min=273.15,
+    unit="K",
     displayUnit="degC")
     "Design supply temperature";
   parameter Real TSupSet_lim(
-    final min=273.15,
-    final unit="K",
+    min=273.15,
+    unit="K",
     displayUnit="degC")
     "Limit value to which the supply temperature can be reset";
   parameter Real dtHol(
-    final min=0,
-    final unit="s")=900
+    min=0,
+    unit="s")=900
     "Minimum hold time during stage change"
     annotation (Dialog(tab="Advanced"));
   parameter Real resDp_max(
-    final min=0,
-    final max=1,
-    final unit="1")=0.5
+    max=1,
+    min=0,
+    unit="1")=0.5
     "Upper limit of plant reset interval for differential pressure reset"
     annotation (Dialog(tab="Advanced"));
   parameter Real resTSup_min(
-    final min=0,
-    final max=1,
-    final unit="1")=resDp_max
+    max=1,
+    min=0,
+    unit="1")=resDp_max
     "Lower limit of plant reset interval for supply temperature reset"
     annotation (Dialog(tab="Advanced"));
   parameter Real res_init(
-    final min=0,
-    final max=1,
-    final unit="1")=1
+    max=1,
+    min=0,
+    unit="1")=1
     "Initial reset value"
     annotation (Dialog(tab="Advanced",group="Trim and respond"));
   parameter Real res_min(
-    final min=0,
-    final max=1,
-    final unit="1")=0
+    max=1,
+    min=0,
+    unit="1")=0
     "Minimum reset value"
     annotation (Dialog(tab="Advanced",group="Trim and respond"));
   parameter Real res_max(
-    final min=0,
-    final max=1,
-    final unit="1")=1
+    max=1,
+    min=0,
+    unit="1")=1
     "Maximum reset value"
     annotation (Dialog(tab="Advanced",group="Trim and respond"));
   parameter Real dtDel(
-    final min=100 * 1E-15,
-    final unit="s")=900
+    min=100*1E-15,
+    unit="s")=900
     "Delay time before the reset begins"
     annotation (Dialog(tab="Advanced",group="Trim and respond"));
   parameter Real dtRes(
-    final min=1E-3,
-    final unit="s")=300
+    min=1E-3,
+    unit="s")=300
     "Sample period of component"
     annotation (Dialog(tab="Advanced",group="Trim and respond"));
-  parameter Integer nReqResIgn(
-    final min=0)=2
+  parameter Integer nReqResIgn(min=0)=2
     "Number of ignored requests"
     annotation (Dialog(tab="Advanced",group="Trim and respond"));
   parameter Real tri(
-    final max=0,
-    final unit="1")=- 0.02
+    max=0,
+    unit="1")=-0.02
     "Trim amount"
     annotation (Dialog(tab="Advanced",group="Trim and respond"));
   parameter Real rsp(
-    final min=0,
-    final unit="1")=0.03
+    min=0,
+    unit="1")=0.03
     "Respond amount (must have opposite sign of trim amount)"
     annotation (Dialog(tab="Advanced",group="Trim and respond"));
   parameter Real rsp_max(
-    final min=0,
-    final unit="1")=0.07
+    min=0,
+    unit="1")=0.07
     "Maximum response per reset period (must have same sign as respond amount)"
     annotation (Dialog(tab="Advanced",group="Trim and respond"));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uReqRes
@@ -126,16 +122,10 @@ block PlantReset
   Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol(
     final duration=dtHol)
     "Hold true value of input signal for given time"
-    annotation (Placement(transformation(extent={{-140,30},{-120,50}})));
+    annotation (Placement(transformation(extent={{-130,30},{-110,50}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam
     "Fixed value at stage change"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
-  Buildings.Controls.OBC.CDL.Logical.Not notStaPro
-    "Return true when staging process terminated and after at least dtHol"
-    annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
-  Buildings.Controls.OBC.CDL.Logical.And enaAndStaPro
-    "Plant enabled and staging process over"
-    annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
   Buildings.Controls.OBC.CDL.Reals.Switch res
     "Switch between actual and fixed value to compute actual reset"
     annotation (Placement(transformation(extent={{30,50},{50,70}})));
@@ -195,28 +185,19 @@ block PlantReset
     annotation (Placement(transformation(extent={{-90,-110},{-70,-90}})));
 equation
   connect(u1StaPro, truHol.u)
-    annotation (Line(points={{-180,40},{-142,40}},color={255,0,255}));
-  connect(truHol.y, notStaPro.u)
-    annotation (Line(points={{-118,40},{-110,40},{-110,60},{-102,60}},color={255,0,255}));
-  connect(enaAndStaPro.y, triRes.uDevSta)
-    annotation (Line(points={{-78,100},{-76,100},{-76,108},{-52,108}},color={255,0,255}));
-  connect(u1Ena, enaAndStaPro.u1)
-    annotation (Line(points={{-180,100},{-102,100}},color={255,0,255}));
-  connect(notStaPro.y, enaAndStaPro.u2)
-    annotation (Line(points={{-78,60},{-76,60},{-76,86},{-104,86},{-104,92},{-102,92}},
-      color={255,0,255}));
+    annotation (Line(points={{-180,40},{-132,40}},color={255,0,255}));
   connect(triRes.y, triSam.u)
     annotation (Line(points={{-28,100},{-12,100}},color={0,0,127}));
   connect(u1StaPro, triSam.trigger)
-    annotation (Line(points={{-180,40},{-150,40},{-150,80},{0,80},{0,88}},color={255,0,255}));
+    annotation (Line(points={{-180,40},{-140,40},{-140,80},{0,80},{0,88}},color={255,0,255}));
   connect(truHol.y, res.u2)
-    annotation (Line(points={{-118,40},{20,40},{20,60},{28,60}},color={255,0,255}));
+    annotation (Line(points={{-108,40},{20,40},{20,60},{28,60}},color={255,0,255}));
   connect(triSam.y, res.u1)
     annotation (Line(points={{12,100},{20,100},{20,68},{28,68}},color={0,0,127}));
   connect(triRes.y, res.u3)
     annotation (Line(points={{-28,100},{-20,100},{-20,52},{28,52}},color={0,0,127}));
   connect(uReqRes, triRes.numOfReq)
-    annotation (Line(points={{-180,140},{-70,140},{-70,92},{-52,92}},color={255,127,0}));
+    annotation (Line(points={{-180,140},{-80,140},{-80,92},{-52,92}},color={255,127,0}));
   connect(resTSup.y, TSupSet)
     annotation (Line(points={{142,-100},{180,-100}},color={0,0,127}));
   connect(resDp.y, dpSet)
@@ -249,6 +230,8 @@ equation
     annotation (Line(points={{12,-80},{80,-80},{80,-92},{118,-92}},color={0,0,127}));
   connect(resDpMax.y, rep2.u)
     annotation (Line(points={{12,-40},{28,-40}},color={0,0,127}));
+  connect(u1Ena, triRes.uDevSta) annotation (Line(points={{-180,100},{-60,100},
+          {-60,108},{-52,108}}, color={255,0,255}));
   annotation (
     defaultComponentName="res",
     Icon(
@@ -264,5 +247,13 @@ equation
           textColor={0,0,255})}),
     Diagram(
       coordinateSystem(
-        extent={{-160,-160},{160,160}})));
+        extent={{-160,-160},{160,160}})),
+    Documentation(info="<html>
+<p>
+FIXME: To represent the expected control intent, the T\\&R block
+needs to be updated with an additional input to lock/release the
+output. 
+See https://github.com/lbl-srg/modelica-buildings/pull/2299#issuecomment-1997466979
+</p>
+</html>"));
 end PlantReset;

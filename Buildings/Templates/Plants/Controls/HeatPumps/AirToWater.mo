@@ -77,8 +77,10 @@ block AirToWater
     "Set to true for plants with secondary flow and return temperature sensors"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration",
-      enable=(have_pumHeaWatSec or have_pumChiWatSec)and have_senPri_select));
-  final parameter Boolean have_senSec=if not(have_pumHeaWatSec or have_pumChiWatSec)
+      enable=(have_pumHeaWatSec or have_pumChiWatSec) and
+                                                         have_senPri_select));
+  final parameter Boolean have_senSec=if not
+                                            (have_pumHeaWatSec or have_pumChiWatSec)
     then false elseif not have_senPri_select then true else have_senSec_select
     "Set to true for plants with secondary flow and return temperature sensors"
     annotation (Evaluate=true);
@@ -580,10 +582,10 @@ block AirToWater
     "Time constant of integrator block"
     annotation (Dialog(tab="Advanced",group="Secondary CHW pumps",
       enable=have_pumChiWatSec));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1AvaHp[nHp]
-    "FIXME(AntoineGautier): Heat pump available signal – Should rather be a fault code signal (AI)?"
-    annotation (Placement(transformation(extent={{-300,220},{-260,260}}),
-      iconTransformation(extent={{-240,220},{-200,260}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant u1AvaHp[nHp](each k=true)
+    "FIXME(AntoineGautier): Heat pump available signal – Develop availability evaluation block based on G36 5.1.15.5.b"
+    annotation (Placement(transformation(extent={{-340,250},{-320,270}}),
+        iconTransformation(extent={{-240,220},{-200,260}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nReqHeaWat
     "Number of HW plant requests"
     annotation (Placement(transformation(extent={{-300,320},{-260,360}}),
@@ -838,7 +840,6 @@ block AirToWater
     "Evaluate cooling stage availability"
     annotation (Placement(transformation(extent={{-110,60},{-90,80}})));
   StagingRotation.StageChangeCommand chaStaHea(
-    final have_modAlt=have_heaWat and have_chiWat,
     final have_inpPlrSta=false,
     final plrSta=plrSta,
     final staEqu=staEqu,
@@ -868,7 +869,6 @@ block AirToWater
     "Cooling mode enable"
     annotation (Placement(transformation(extent={{-110,90},{-90,110}})));
   StagingRotation.StageChangeCommand chaStaCoo(
-    final have_modAlt=have_heaWat and have_chiWat,
     final have_inpPlrSta=false,
     final plrSta=plrSta,
     final staEqu=staEqu,
@@ -1196,8 +1196,6 @@ equation
     annotation (Line(points={{62,360},{80,360},{80,310},{138,310}},color={255,0,255}));
   connect(enaEquCoo.y1, eveSeqEna.u1Coo)
     annotation (Line(points={{62,100},{80,100},{80,306},{138,306}},color={255,0,255}));
-  connect(u1AvaHp, avaEquHeaCoo.u1Ava)
-    annotation (Line(points={{-280,240},{-240,240},{-240,220},{-154,220}},color={255,0,255}));
   connect(y1HeaHp, y1HeaPre.u)
     annotation (Line(points={{280,360},{232,360}},color={255,0,255}));
   connect(y1HeaPre.y, avaEquHeaCoo.u1Hea)
@@ -1350,12 +1348,6 @@ equation
   connect(comStaHea.y1, chaStaHea.u1StaPro)
     annotation (Line(points={{-18,254},{-10,254},{-10,306},{-44,306},{-44,322},{-42,322}},
       color={255,0,255}));
-  connect(comStaCoo.y1, chaStaHea.u1StaAltPro)
-    annotation (Line(points={{-18,-6},{-10,-6},{-10,48},{-46,48},{-46,320},{-42,320}},
-      color={255,0,255}));
-  connect(comStaHea.y1, chaStaCoo.u1StaAltPro)
-    annotation (Line(points={{-18,254},{-10,254},{-10,120},{-44,120},{-44,62},{-42,62}},
-      color={255,0,255}));
   connect(resChiWat.TSupSet, TChiWatSupSet)
     annotation (Line(points={{112,-26},{228,-26},{228,-140},{280,-140}},color={0,0,127}));
   connect(resHeaWat.TSupSet, THeaWatSupSet)
@@ -1421,6 +1413,8 @@ equation
     annotation (Line(points={{-280,-280},{182,-280},{182,-4},{188,-4}},color={0,0,127}));
   connect(dpChiWatLoc, ctlPumChiWatSec.dpLoc)
     annotation (Line(points={{-280,-300},{184,-300},{184,-8},{188,-8}},color={0,0,127}));
+  connect(u1AvaHp.y, avaEquHeaCoo.u1Ava) annotation (Line(points={{-318,260},{
+          -200,260},{-200,220},{-154,220}}, color={255,0,255}));
   annotation (
     defaultComponentName="ctl",
     Icon(

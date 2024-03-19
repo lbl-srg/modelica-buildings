@@ -91,10 +91,6 @@ model AirToWater
     final k=THeaWatRet_nominal)
     "HWRT"
     annotation (Placement(transformation(extent={{-160,50},{-140,70}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant u1Ava[ctl.nHp](
-    each k=true)
-    "HP available signal"
-    annotation (Placement(transformation(extent={{-160,170},{-140,190}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatRet(
     final k=TChiWatRet_nominal)
     "CHWRT"
@@ -230,8 +226,6 @@ equation
   connect(y1PumChiWatSec_actual.y1_actual, ctl.u1PumChiWatSec_actual)
     annotation (Line(points={{92,0},{140,0},{140,108},{-12,108},{-12,44},{-2,44}},
       color={255,0,255}));
-  connect(u1Ava.y, ctl.u1AvaHp)
-    annotation (Line(points={{-138,180},{-14,180},{-14,54},{-2,54}},color={255,0,255}));
   connect(TOut.y, ctl.TOut)
     annotation (Line(points={{-138,100},{-32,100},{-32,30.2},{-2,30.2}},color={0,0,127}));
   connect(ratV_flow.y[1], isDemHea.u)

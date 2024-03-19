@@ -1,9 +1,6 @@
 within Buildings.Templates.Plants.Controls.StagingRotation;
 block StageChangeCommand
   "Generate stage change command"
-  parameter Boolean have_modAlt=false
-    "Set to true in case of alternative operating mode (heating and cooling plant)"
-    annotation (Evaluate=true);
   parameter Boolean have_inpPlrSta=false
     "Set to true to use an input signal for SPLR, false to use a parameter"
     annotation (Evaluate=true);
@@ -96,18 +93,15 @@ block StageChangeCommand
     annotation (Placement(transformation(extent={{200,-100},{240,-60}}),
       iconTransformation(extent={{100,-60},{140,-20}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract delT(
-    y(
-      final unit="K"))
+    y(final unit="K"))
     "Compute ∆T"
     annotation (Placement(transformation(extent={{-170,-90},{-150,-70}})));
   Buildings.Controls.OBC.CDL.Reals.Abs absDelT(
-    y(
-      final unit="K"))
+    y(final unit="K"))
     "Compute absolute value of ∆T"
     annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter capFlo(
-    y(
-      final unit="W/K"),
+    y(final unit="W/K"),
     final k=rho_default * cp_default)
     "Compute capacity flow rate"
     annotation (Placement(transformation(extent={{-168,-150},{-148,-130}})));
@@ -225,29 +219,6 @@ block StageChangeCommand
   Buildings.Controls.OBC.CDL.Logical.FallingEdge endStaPro
     "True when staging process terminates"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1StaAltPro
-    if have_modAlt
-    "Alternative mode staging process in progress "
-    annotation (Placement(transformation(extent={{-240,0},{-200,40}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Logical.Not notStaAltPro
-    "True if no alternative mode staging process in progress "
-    annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
-  Utilities.PlaceHolder plaStaAltPro(
-    final have_inp=have_modAlt,
-    final u_internal=false)
-    "Placeholder signal"
-    annotation (Placement(transformation(extent={{-180,10},{-160,30}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer timStaAlt(
-    final t=dtRun)
-    "Return true if alternative mode stage runtime elapsed"
-    annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
-  Buildings.Controls.OBC.CDL.Logical.And upAndStaAlt
-    "Stage up conditions met and alternative mode stage runtime elapsed"
-    annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
-  Buildings.Controls.OBC.CDL.Logical.And dowAndStaAlt
-    "Stage down conditions met and alternative mode stage runtime elapsed"
-    annotation (Placement(transformation(extent={{120,-130},{140,-110}})));
 equation
   connect(TSupSet, delT.u1)
     annotation (Line(points={{-220,-60},{-180,-60},{-180,-74},{-172,-74}},color={0,0,127}));
@@ -353,24 +324,10 @@ equation
     annotation (Line(points={{12,-20},{60,-20},{60,-68},{78,-68}},color={255,0,255}));
   connect(endStaPro.y, timDow.reset)
     annotation (Line(points={{12,-20},{60,-20},{60,-128},{78,-128}},color={255,0,255}));
-  connect(u1StaAltPro, plaStaAltPro.u)
-    annotation (Line(points={{-220,20},{-182,20}},color={255,0,255}));
-  connect(plaStaAltPro.y, notStaAltPro.u)
-    annotation (Line(points={{-158,20},{-142,20}},color={255,0,255}));
-  connect(notStaAltPro.y, timStaAlt.u)
-    annotation (Line(points={{-118,20},{-102,20}},color={255,0,255}));
-  connect(timUp.passed, upAndStaAlt.u2)
-    annotation (Line(points={{102,-68},{111,-68},{111,-68},{118,-68}},color={255,0,255}));
-  connect(timStaAlt.passed, upAndStaAlt.u1)
-    annotation (Line(points={{-78,12},{110,12},{110,-60},{118,-60}},color={255,0,255}));
-  connect(upAndStaAlt.y, y1Up)
-    annotation (Line(points={{142,-60},{180,-60},{180,80},{220,80}},color={255,0,255}));
-  connect(timDow.passed, dowAndStaAlt.u2)
-    annotation (Line(points={{102,-128},{118,-128}},color={255,0,255}));
-  connect(dowAndStaAlt.y, y1Dow)
-    annotation (Line(points={{142,-120},{180,-120},{180,-80},{220,-80}},color={255,0,255}));
-  connect(timStaAlt.passed, dowAndStaAlt.u1)
-    annotation (Line(points={{-78,12},{110,12},{110,-120},{118,-120}},color={255,0,255}));
+  connect(timUp.passed, y1Up) annotation (Line(points={{102,-68},{120,-68},{120,
+          80},{220,80}}, color={255,0,255}));
+  connect(timDow.passed, y1Dow) annotation (Line(points={{102,-128},{120,-128},{
+          120,-80},{220,-80}}, color={255,0,255}));
   annotation (
     defaultComponentName="chaSta",
     Icon(

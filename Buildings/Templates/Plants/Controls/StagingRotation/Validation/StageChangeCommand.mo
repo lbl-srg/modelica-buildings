@@ -124,7 +124,7 @@ equation
   connect(u1AvaSta.y, idxSta.u1AvaSta)
     annotation (Line(points={{-108,-80},{-10,-80},{-10,-6},{-2,-6}},color={255,0,255}));
   connect(idxSta.y, chaSta.uSta)
-    annotation (Line(points={{22,0},{40,0},{40,18},{-60,18},{-60,10},{-52,10}},
+    annotation (Line(points={{22,0},{40,0},{40,20},{-56,20},{-56,10},{-52,10}},
       color={255,127,0}));
   connect(chaSta.y1Up, y1UpHol.u)
     annotation (Line(points={{-28,4},{-20,4},{-20,40},{-2,40}},color={255,0,255}));
@@ -145,7 +145,7 @@ equation
   connect(enaEqu.y1, staEqu.y1)
     annotation (Line(points={{82,0},{98,0}},color={255,0,255}));
   connect(comSta.y1, chaSta.u1StaPro)
-    annotation (Line(points={{-52,54},{-56,54},{-56,2},{-52,2}},color={255,0,255}));
+    annotation (Line(points={{-52,54},{-58,54},{-58,2},{-52,2}},color={255,0,255}));
   connect(enaEqu.y1, comSta.u1)
     annotation (Line(points={{82,0},{90,0},{90,60},{-28,60},{-28,60}},color={255,0,255}));
   connect(staEqu.y1_actual, comSta.u1_actual)
