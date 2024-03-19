@@ -43,10 +43,9 @@ block EquipmentAvailability_state
     "Equipment available signal"
     annotation (Placement(transformation(extent={{-240,-80},{-200,-40}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
-  Utilities.PlaceHolder pla(
-    final have_inp=have_heaWat and have_chiWat,
-    final u_internal=have_heaWat or not have_chiWat)
-    "Replace with placeholder value if input signal is not available"
+  Utilities.PlaceHolder phHea(final have_inp=have_heaWat and have_chiWat,
+      final u_internal=have_heaWat or not have_chiWat)
+    "Placeholder value if signal is not available"
     annotation (Placement(transformation(extent={{-190,-130},{-170,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Not off
     "Return true if equipment is off"
@@ -121,14 +120,12 @@ equation
     annotation (Line(points={{-220,0},{-120,0},{-120,-140},{-112,-140}},color={255,0,255}));
   connect(u1, onAndCoo.u1)
     annotation (Line(points={{-220,0},{-112,0}},color={255,0,255}));
-  connect(u1Hea, pla.u)
-    annotation (Line(points={{-220,-120},{-192,-120}},color={255,0,255}));
-  connect(pla.y, onAndHea.u2)
-    annotation (Line(points={{-168,-120},{-140,-120},{-140,-148},{-112,-148}},
-      color={255,0,255}));
-  connect(pla.y, coo.u)
-    annotation (Line(points={{-168,-120},{-160,-120},{-160,-100},{-152,-100}},
-      color={255,0,255}));
+  connect(u1Hea, phHea.u)
+    annotation (Line(points={{-220,-120},{-192,-120}}, color={255,0,255}));
+  connect(phHea.y, onAndHea.u2) annotation (Line(points={{-168,-120},{-140,-120},
+          {-140,-148},{-112,-148}}, color={255,0,255}));
+  connect(phHea.y, coo.u) annotation (Line(points={{-168,-120},{-160,-120},{-160,
+          -100},{-152,-100}}, color={255,0,255}));
   connect(u1, off.u)
     annotation (Line(points={{-220,0},{-160,0},{-160,-40},{-152,-40}},color={255,0,255}));
   connect(avaMod.outPort[1], trnToCoo.inPort)
@@ -176,7 +173,8 @@ equation
   connect(u1Ava, una.u)
     annotation (Line(points={{-220,-60},{-140,-60},{-140,-80},{-112,-80}},color={255,0,255}));
   connect(avaMod.outPort[3], trnToUna.inPort)
-    annotation (Line(points={{-49.5,160.167},{-49.5,160},{-40,160},{-40,80},{-30,80}},
+    annotation (Line(points={{-49.5,160.167},{-49.5,160},{-40,160},{-40,80},{
+          -30,80}},
       color={0,0,0}));
   connect(una.y, trnToUna.condition)
     annotation (Line(points={{-88,-80},{-26,-80},{-26,68}},color={255,0,255}));

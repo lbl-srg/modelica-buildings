@@ -33,14 +33,14 @@ model HeatPumpGroupAirToWater
       have_senVHeaWatSec=false,
       cpHeaWat_default=hpAwNrv.cpHeaWat_default,
       cpSou_default=hpAwNrv.cpSou_default,
-      have_senDpChiWatLoc=false,
+      have_senDpChiWatRemWir=true,
       typArrPumPri=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
       nHp=hpAwNrv.nHp,
       nPumHeaWatPri=hpAwNrv.nHp,
       have_heaWat=true,
       nPumHeaWatSec=0,
       rhoSou_default=Buildings.Media.Air.dStp,
-      have_senDpHeaWatLoc=false,
+      have_senDpHeaWatRemWir=true,
       typPumChiWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None,
       nPumChiWatPri=hpAwNrv.nHp,
       have_senVChiWatSec=false,
@@ -75,14 +75,14 @@ model HeatPumpGroupAirToWater
       have_senVHeaWatSec=false,
       cpHeaWat_default=hpAw.cpHeaWat_default,
       cpSou_default=hpAw.cpSou_default,
-      have_senDpChiWatLoc=false,
+      have_senDpChiWatRemWir=true,
       typArrPumPri=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
       nHp=hpAw.nHp,
       nPumHeaWatPri=hpAw.nHp,
       have_heaWat=true,
       nPumHeaWatSec=0,
       rhoSou_default=Buildings.Media.Air.dStp,
-      have_senDpHeaWatLoc=false,
+      have_senDpHeaWatRemWir=true,
       typPumChiWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None,
       nPumChiWatPri=hpAw.nHp,
       have_senVChiWatSec=false,
@@ -91,9 +91,9 @@ model HeatPumpGroupAirToWater
       nAirHan=0,
       nEquZon=0),
     THeaWatSupHp_nominal=datHpAw.THeaWatSupHp_nominal,
-    TChiWatSupHp_nominal=datHpAw.TChiWatSupHp_nominal)
-    "Controller parameters"
+    TChiWatSup_nominal=datHpAw.TChiWatSupHp_nominal) "Controller parameters"
     annotation (Placement(transformation(extent={{-170,-140},{-150,-120}})));
+
   parameter Buildings.Templates.Plants.HeatPumps.Components.Data.HeatPumpGroup datHpAwNrv(
     final cpHeaWat_default=hpAwNrv.cpHeaWat_default,
     final cpSou_default=hpAwNrv.cpSou_default,
@@ -193,8 +193,7 @@ model HeatPumpGroupAirToWater
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin THeaWatRet(
     amplitude=datHpAwNrv.THeaWatSupHp_nominal - datHpAwNrv.THeaWatRetHp_nominal,
     freqHz=3 / 3000,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"),
     offset=datHpAwNrv.THeaWatRetHp_nominal,
     startTime=0)
@@ -243,8 +242,7 @@ model HeatPumpGroupAirToWater
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin THeaWatRet1(
     amplitude=datHpAw.THeaWatSupHp_nominal - datHpAw.THeaWatRetHp_nominal,
     freqHz=3 / 3000,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"),
     offset=datHpAw.THeaWatRetHp_nominal,
     startTime=0)
@@ -253,8 +251,7 @@ model HeatPumpGroupAirToWater
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin TChiWatRet(
     amplitude=datHpAw.TChiWatRetHp_nominal - datHpAw.TChiWatSupHp_nominal,
     freqHz=3 / 3000,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"),
     offset=datHpAw.TChiWatRetHp_nominal,
     startTime=0)

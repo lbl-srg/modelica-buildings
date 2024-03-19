@@ -127,11 +127,10 @@ block StageIndex
     if dtRun > 0
     "Timer for minimum runtime"
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
-  PlaceHolder pla[nSta](
+  PlaceHolder phAvaSta[nSta](
     each final have_inp=have_inpAva,
     each final have_inpPla=false,
-    each final u_internal=true)
-    "Replace with placeholder value if input signal is not available"
+    each final u_internal=true) "Placeholder value if signal is not available"
     annotation (Placement(transformation(extent={{-230,-170},{-210,-150}})));
   Buildings.Controls.OBC.CDL.Logical.MultiAnd dowAndEna(
     nin=3)
@@ -267,21 +266,20 @@ equation
     annotation (Line(points={{-68,72},{-60,72},{-60,80},{-42,80}},color={255,0,255}));
   connect(sta.active, pas.uPla)
     annotation (Line(points={{0,129},{0,100},{-50,100},{-50,76},{-42,76}},color={255,0,255}));
-  connect(u1AvaSta, pla.u)
-    annotation (Line(points={{-260,-160},{-232,-160}},color={255,0,255}));
-  connect(pla.y, una.u)
-    annotation (Line(points={{-208,-160},{-192,-160}},color={255,0,255}));
-  connect(pla.y, idxLasAva.u1)
-    annotation (Line(points={{-208,-160},{-200,-160},{-200,-80},{-192,-80}},
-      color={255,0,255}));
-  connect(pla.y, idxFirAva.u1)
-    annotation (Line(points={{-208,-160},{-200,-160},{-200,-120},{-192,-120}},
-      color={255,0,255}));
+  connect(u1AvaSta, phAvaSta.u)
+    annotation (Line(points={{-260,-160},{-232,-160}}, color={255,0,255}));
+  connect(phAvaSta.y, una.u)
+    annotation (Line(points={{-208,-160},{-192,-160}}, color={255,0,255}));
+  connect(phAvaSta.y, idxLasAva.u1) annotation (Line(points={{-208,-160},{-200,
+          -160},{-200,-80},{-192,-80}}, color={255,0,255}));
+  connect(phAvaSta.y, idxFirAva.u1) annotation (Line(points={{-208,-160},{-200,
+          -160},{-200,-120},{-192,-120}}, color={255,0,255}));
   connect(u1Lea, upAndEna.u[1])
     annotation (Line(points={{-260,120},{-200,120},{-200,-2.33333},{-112,-2.33333}},
       color={255,0,255}));
   connect(u1Lea, dowAndEna.u[1])
-    annotation (Line(points={{-260,120},{-200,120},{-200,-42.3333},{-112,-42.3333}},
+    annotation (Line(points={{-260,120},{-200,120},{-200,-42.3333},{-112,
+          -42.3333}},
       color={255,0,255}));
   connect(u1Up, upAndEna.u[2])
     annotation (Line(points={{-260,0},{-186,0},{-186,0},{-112,0}},color={255,0,255}));
@@ -291,7 +289,8 @@ equation
     annotation (Line(points={{-128,-80},{-120,-80},{-120,2},{-112,2},{-112,2.33333}},
       color={255,0,255}));
   connect(lowAva.y, dowAndEna.u[3])
-    annotation (Line(points={{-128,-120},{-116,-120},{-116,-37.6667},{-112,-37.6667}},
+    annotation (Line(points={{-128,-120},{-116,-120},{-116,-37.6667},{-112,
+          -37.6667}},
       color={255,0,255}));
   connect(upOrDow.y, rep.u)
     annotation (Line(points={{-48,0},{-42,0}},color={255,0,255}));
@@ -305,18 +304,16 @@ equation
     annotation (Line(points={{-28,-160},{-20,-160},{-20,-200},{-12,-200}},color={255,127,0}));
   connect(intLesEqu.y, andAva.u1)
     annotation (Line(points={{12,-200},{28,-200}},color={255,0,255}));
-  connect(pla.y, andAva.u2)
-    annotation (Line(points={{-208,-160},{-200,-160},{-200,-180},{20,-180},{20,-208},{28,-208}},
-      color={255,0,255}));
+  connect(phAvaSta.y, andAva.u2) annotation (Line(points={{-208,-160},{-200,-160},
+          {-200,-180},{20,-180},{20,-208},{28,-208}}, color={255,0,255}));
   connect(andAva.y, idxNexLowAva.u1)
     annotation (Line(points={{52,-200},{58,-200}},color={255,0,255}));
   connect(idxStaAll.y, intGreEqu.u1)
     annotation (Line(points={{-28,-160},{-12,-160}},color={255,127,0}));
   connect(intGreEqu.y, andAva1.u1)
     annotation (Line(points={{12,-160},{28,-160}},color={255,0,255}));
-  connect(pla.y, andAva1.u2)
-    annotation (Line(points={{-208,-160},{-200,-160},{-200,-180},{20,-180},{20,-168},{28,-168}},
-      color={255,0,255}));
+  connect(phAvaSta.y, andAva1.u2) annotation (Line(points={{-208,-160},{-200,-160},
+          {-200,-180},{20,-180},{20,-168},{28,-168}}, color={255,0,255}));
   connect(andAva1.y, idxNexHigAva.u1)
     annotation (Line(points={{52,-160},{58,-160}},color={255,0,255}));
   connect(u1Up, upOrActUna.u1)

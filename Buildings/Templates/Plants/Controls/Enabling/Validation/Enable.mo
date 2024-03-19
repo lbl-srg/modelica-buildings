@@ -13,8 +13,7 @@ model Enable
     "System request"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin TOut(
-    y(
-      displayUnit="degC",
+    y(displayUnit="degC",
       unit="K"),
     final amplitude=12,
     final freqHz=1 /(10000),
@@ -39,18 +38,18 @@ model Enable
     "Enable schedule"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
 equation
-  connect(req.y, enaHea.nReq)
-    annotation (Line(points={{-38,60},{18,60}},color={255,127,0}));
+  connect(req.y, enaHea.nReqPla)
+    annotation (Line(points={{-38,60},{18,60}}, color={255,127,0}));
   connect(TOut.y, enaHea.TOut)
     annotation (Line(points={{-38,0},{-20,0},{-20,56},{18,56}},color={0,0,127}));
-  connect(req.y, enaCoo.nReq)
-    annotation (Line(points={{-38,60},{0,60},{0,0},{18,0}},color={255,127,0}));
+  connect(req.y, enaCoo.nReqPla) annotation (Line(points={{-38,60},{0,60},{0,0},
+          {18,0}}, color={255,127,0}));
   connect(TOut.y, enaCoo.TOut)
     annotation (Line(points={{-38,0},{-20,0},{-20,-4},{18,-4}},color={0,0,127}));
   connect(TOut.y, enaCooSch.TOut)
     annotation (Line(points={{-38,0},{-20,0},{-20,-64},{18,-64}},color={0,0,127}));
-  connect(req.y, enaCooSch.nReq)
-    annotation (Line(points={{-38,60},{0,60},{0,-60},{18,-60}},color={255,127,0}));
+  connect(req.y, enaCooSch.nReqPla) annotation (Line(points={{-38,60},{0,60},{0,
+          -60},{18,-60}}, color={255,127,0}));
   connect(sch.y, enaCooSch.u1Sch)
     annotation (Line(points={{-38,-60},{-30,-60},{-30,-56},{18,-56}},color={255,0,255}));
   annotation (

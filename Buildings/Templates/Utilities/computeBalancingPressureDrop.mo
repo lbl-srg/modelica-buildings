@@ -3,7 +3,7 @@ function computeBalancingPressureDrop
   "Compute the design pressure drop of a balancing valve"
   extends Modelica.Icons.Function;
   input Modelica.Units.SI.MassFlowRate m_flow_nominal
-    "Design mass flow rated (target)";
+    "Design mass flow rate (target)";
   input Modelica.Units.SI.PressureDifference dp_nominal
     "Pressure drop of equipment in series at design flow rate";
   input Buildings.Templates.Components.Data.PumpSingle datPum

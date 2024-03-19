@@ -5,14 +5,14 @@ model PumpsPrimaryDedicated
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Medium model"
     annotation (__ctrlFlow(enable=false));
-  parameter Integer nHp(
-    final min=1)
+  parameter Integer nHp(min=1)
     "Number of heat pumps"
     annotation (Evaluate=true,
     Dialog(group="Configuration"));
   /* RFE: Add support for multiple pumps for each heat pump.
-  Currently, only one dedicated CHW or HW pump per each HP is supported.
-  */final parameter Integer nPum=if typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+  Currently, only one dedicated CHW or HW pump for each HP is supported.
+  */
+  final parameter Integer nPum=if typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated
     then nHp else 0
     "Number of primary pumps"
     annotation (Evaluate=true,
@@ -21,39 +21,29 @@ model PumpsPrimaryDedicated
     "Type of primary pump arrangement"
     annotation (Evaluate=true,
     Dialog(group="Configuration"));
-  parameter Boolean have_pumChiWatPriDed(
-    start=false)
+  parameter Boolean have_pumChiWatPriDed(start=false)
     "Set to true for plants with separate dedicated primary CHW pumps"
     annotation (Evaluate=true,
     Dialog(group="Configuration",
       enable=typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Dedicated));
-  parameter Boolean have_varPumHeaWatPri(
-    start=false)
+  parameter Boolean have_pumHeaWatPriVar(start=false)
     "Set to true for variable speed primary HW pumps"
     annotation (Evaluate=true,
     Dialog(group="Configuration",
       enable=typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Dedicated));
-  parameter Boolean have_varPumChiWatPri(
-    start=false)
+  parameter Boolean have_pumChiWatPriVar(start=false)
     "Set to true for variable speed primary CHW pumps"
     annotation (Evaluate=true,
     Dialog(group="Configuration",
       enable=typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Dedicated
         and have_pumChiWatPriDed));
-  // RFE: Add support for unequally sized units that may require dedicated speed command signals.
-  final parameter Boolean have_varCom=true
-    "Set to true for single common speed signal, false for dedicated signals"
-    annotation (Evaluate=true,
-    Dialog(group="Configuration",
-      enable=typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Dedicated
-        and (have_varPumHeaWatPri or have_varPumChiWatPri)));
   parameter Buildings.Templates.Components.Data.PumpMultiple datPumHeaWat(
     typ=if typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated
       then Buildings.Templates.Components.Types.Pump.Multiple else Buildings.Templates.Components.Types.Pump.None,
     nPum=nPum)
     "HW pump parameters"
     annotation (Dialog(enable=typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Dedicated),
-  Placement(transformation(extent={{170,170},{190,190}})));
+      Placement(transformation(extent={{170,170},{190,190}})));
   parameter Buildings.Templates.Components.Data.PumpMultiple datPumChiWat(
     typ=if have_pumChiWatPriDed then Buildings.Templates.Components.Types.Pump.Multiple
       else Buildings.Templates.Components.Types.Pump.None,
@@ -61,14 +51,24 @@ model PumpsPrimaryDedicated
     "CHW pump parameters"
     annotation (Dialog(enable=typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Dedicated
       and have_pumChiWatPriDed),
-  Placement(transformation(extent={{170,130},{190,150}})));
-  parameter Modelica.Units.SI.PressureDifference dpValChe_nominal[nPum](
+      Placement(transformation(extent={{170,130},{190,150}})));
+  parameter Modelica.Units.SI.PressureDifference dpValCheHeaWat_nominal[nPum](
     each final min=0,
-    each start=Buildings.Templates.Data.Defaults.dpValChe,
-    each displayUnit="Pa")=fill(Buildings.Templates.Data.Defaults.dpValChe, nPum)
-    "Check valve pressure drop at design conditions"
+    start=fill(if typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+    then Buildings.Templates.Data.Defaults.dpValChe else 0, nPum))=
+    fill(if typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+    then Buildings.Templates.Data.Defaults.dpValChe else 0, nPum)
+    "HW pump check valve pressure drop at design HW pump flow rate"
     annotation (Dialog(group="Nominal condition",
       enable=typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Dedicated));
+  parameter Modelica.Units.SI.PressureDifference dpValCheChiWat_nominal[if have_pumChiWatPriDed then nPum else 0](
+    each final min=0,
+    start=fill(if have_pumChiWatPriDed then Buildings.Templates.Data.Defaults.dpValChe else 0,
+    if have_pumChiWatPriDed then nPum else 0))=
+    fill(if have_pumChiWatPriDed then Buildings.Templates.Data.Defaults.dpValChe else 0,
+    if have_pumChiWatPriDed then nPum else 0)
+    "CHW pump check valve pressure drop at design CHW pump flow rate"
+    annotation (Dialog(group="Nominal condition", enable=have_pumChiWatPriDed));
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation (Evaluate=true,
@@ -161,11 +161,11 @@ model PumpsPrimaryDedicated
       iconTransformation(extent={{-20,380},{20,420}})));
   Buildings.Templates.Components.Pumps.Multiple pumHeaWat(
     redeclare final package Medium=Medium,
-    final have_var=have_varPumHeaWatPri,
-    final have_varCom=have_varCom,
+    final have_var=have_pumHeaWatPriVar,
+    final have_varCom=false,
     final nPum=nPum,
     final dat=datPumHeaWat,
-    final dpValChe_nominal=dpValChe_nominal,
+    final dpValChe_nominal=dpValCheHeaWat_nominal,
     final allowFlowReversal=allowFlowReversal,
     final tau=tau,
     final energyDynamics=energyDynamics)
@@ -174,11 +174,11 @@ model PumpsPrimaryDedicated
     annotation (Placement(transformation(extent={{-110,-70},{-130,-50}})));
   Buildings.Templates.Components.Pumps.Multiple pumChiWat(
     redeclare final package Medium=Medium,
-    final have_var=have_varPumChiWatPri,
-    final have_varCom=have_varCom,
+    final have_var=have_pumChiWatPriVar,
+    final have_varCom=false,
     final nPum=if have_pumChiWatPriDed then nPum else 0,
     final dat=datPumChiWat,
-    final dpValChe_nominal=dpValChe_nominal,
+    final dpValChe_nominal=dpValCheChiWat_nominal,
     final allowFlowReversal=allowFlowReversal,
     final tau=tau,
     final energyDynamics=energyDynamics)

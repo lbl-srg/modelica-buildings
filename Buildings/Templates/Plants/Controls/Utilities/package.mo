@@ -1,6 +1,5 @@
 within Buildings.Templates.Plants.Controls;
-package Utilities
-  "Package with utility blocks"
+package Utilities "Package with utility blocks"
   annotation (
     Documentation(
       info="<html>

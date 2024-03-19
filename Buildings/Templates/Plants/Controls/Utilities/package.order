@@ -8,6 +8,7 @@ MultiMin
 PIDWithEnable
 PlaceHolder
 PlaceHolderReal
+PlaceHolderInteger
 SortWithIndices
 StageIndex
 TimerWithReset

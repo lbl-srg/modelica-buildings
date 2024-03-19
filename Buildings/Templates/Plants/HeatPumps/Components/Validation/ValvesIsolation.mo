@@ -35,14 +35,14 @@ model ValvesIsolation
       have_senVHeaWatSec=false,
       cpHeaWat_default=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
       cpSou_default=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
-      have_senDpChiWatLoc=false,
+      have_senDpChiWatRemWir=true,
       typArrPumPri=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
       nHp=2,
       nPumHeaWatPri=2,
       have_heaWat=true,
       nPumHeaWatSec=0,
       rhoSou_default=Buildings.Media.Air.dStp,
-      have_senDpHeaWatLoc=false,
+      have_senDpHeaWatRemWir=true,
       typPumChiWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None,
       nPumChiWatPri=0,
       have_senVChiWatSec=false,
@@ -51,9 +51,10 @@ model ValvesIsolation
       nAirHan=0,
       nEquZon=0),
     THeaWatSupHp_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
-    TChiWatSupHp_nominal=Buildings.Templates.Data.Defaults.TChiWatSup)
+    TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup)
     "Controller parameters"
     annotation (Placement(transformation(extent={{-80,270},{-60,290}})));
+
   parameter Data.Controller datCtlHeaInl(
     cfg(
       have_valHpOutIso=valIsoHeaInl.have_valHpOutIso,
@@ -78,14 +79,14 @@ model ValvesIsolation
       have_senVHeaWatSec=false,
       cpHeaWat_default=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
       cpSou_default=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
-      have_senDpChiWatLoc=false,
+      have_senDpChiWatRemWir=true,
       typArrPumPri=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
       nHp=2,
       nPumHeaWatPri=2,
       have_heaWat=true,
       nPumHeaWatSec=0,
       rhoSou_default=Buildings.Media.Air.dStp,
-      have_senDpHeaWatLoc=false,
+      have_senDpHeaWatRemWir=true,
       typPumChiWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None,
       nPumChiWatPri=0,
       have_senVChiWatSec=false,
@@ -94,9 +95,10 @@ model ValvesIsolation
       nAirHan=0,
       nEquZon=0),
     THeaWatSupHp_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
-    TChiWatSupHp_nominal=Buildings.Templates.Data.Defaults.TChiWatSup)
+    TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup)
     "Controller parameters"
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
+
   parameter Data.Controller datCtlSep(
     cfg(
       have_valHpOutIso=valIsoSep.have_valHpOutIso,
@@ -121,14 +123,14 @@ model ValvesIsolation
       have_senVHeaWatSec=false,
       cpHeaWat_default=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
       cpSou_default=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
-      have_senDpChiWatLoc=false,
+      have_senDpChiWatRemWir=true,
       typArrPumPri=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
       nHp=2,
       nPumHeaWatPri=2,
       have_heaWat=true,
       nPumHeaWatSec=0,
       rhoSou_default=Buildings.Media.Air.dStp,
-      have_senDpHeaWatLoc=false,
+      have_senDpHeaWatRemWir=true,
       typPumChiWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None,
       nPumChiWatPri=2,
       have_senVChiWatSec=false,
@@ -137,9 +139,10 @@ model ValvesIsolation
       nAirHan=0,
       nEquZon=0),
     THeaWatSupHp_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
-    TChiWatSupHp_nominal=Buildings.Templates.Data.Defaults.TChiWatSup)
+    TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup)
     "Controller parameters"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
+
   parameter Data.HeatPumpGroup datHp(
     final nHp=2,
     final typ=Buildings.Templates.Components.Types.HeatPump.AirToWater,

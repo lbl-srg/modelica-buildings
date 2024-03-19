@@ -9,56 +9,50 @@ block VariableSpeedNoDpControl
     "Set to true for plants that provide CHW"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration"));
-  parameter Boolean have_pumHeaWatPri(
-    start=false)
+  final parameter Boolean have_pumHeaWatPri=have_heaWat
     "Set to true for plants with primary HW pumps"
+    annotation (Evaluate=true);
+  parameter Boolean have_pumChiWatPriDed(start=false)
+    "Set to true for plants with separate dedicated primary CHW pumps"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration",
-      enable=have_heaWat));
-  parameter Boolean have_pumChiWatPri(
-    start=false)
+      enable=have_chiWat and not have_pumPriHdr));
+  final parameter Boolean have_pumChiWatPri=
+    have_chiWat and (have_pumPriHdr or have_pumChiWatPriDed)
     "Set to true for plants with separate primary CHW pumps"
-    annotation (Evaluate=true,
-    Dialog(group="Plant configuration",
-      enable=have_chiWat));
+    annotation (Evaluate=true);
   parameter Boolean have_pumPriHdr
-    "Set to true for primary headered pumps, false for dedicated pumps"
+    "Set to true for headered primary pumps, false for dedicated pumps"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration"));
-  parameter Integer nEqu(
-    min=1,
-    start=0)
+  parameter Integer nEqu(min=1, start=0)
     "Number of equipment"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration",
       enable=have_heaWat and have_chiWat));
-  parameter Integer nPumHeaWatPri(
-    min=1,
-    start=0)
+  parameter Integer nPumHeaWatPri
     "Number of primary HW pumps"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration"));
-  parameter Integer nPumChiWatPri(
-    min=1,
-    start=0)=nPumHeaWatPri
+  parameter Integer nPumChiWatPri(start=if have_pumChiWatPri then nEqu else 0)
     "Number of primary CHW pumps"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration",
       enable=have_pumChiWatPri));
   parameter Real yPumHeaWatPriSet(
-    final min=0,
-    final max=1,
-    final unit="1",
-    start=1)
+    max=1,
+    min=0,
+    start=1,
+    unit="1")
     "Primary pump speed providing design heat pump flow in heating mode"
     annotation (Dialog(group=
       "Information provided by testing, adjusting, and balancing contractor",
       enable=have_heaWat));
   parameter Real yPumChiWatPriSet(
-    final min=0,
-    final max=1,
-    final unit="1",
-    start=1)
+    max=1,
+    min=0,
+    start=1,
+    unit="1")
     "Primary pump speed providing design heat pump flow in cooling mode"
     annotation (Dialog(group=
       "Information provided by testing, adjusting, and balancing contractor",
@@ -93,8 +87,8 @@ block VariableSpeedNoDpControl
     "Dedicated primary CHW pump speed command"
     annotation (Placement(transformation(extent={{140,-120},{180,-80}}),
       iconTransformation(extent={{100,-80},{140,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Hea[nEqu]
-    if have_heaWat and have_pumChiWatPri and not have_pumPriHdr
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Hea[nEqu] if have_heaWat
+     and have_chiWat and not have_pumChiWatPriDed and not have_pumPriHdr
     "Heating/cooling mode command"
     annotation (Placement(transformation(extent={{-180,-80},{-140,-40}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
@@ -108,7 +102,7 @@ block VariableSpeedNoDpControl
     annotation (Placement(transformation(extent={{-110,-90},{-90,-70}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant spePumChiWatPri(
     final k=yPumChiWatPriSet)
-    if have_pumChiWatPri
+    if have_chiWat
     "Constant"
     annotation (Placement(transformation(extent={{-110,-130},{-90,-110}})));
   Buildings.Controls.OBC.CDL.Reals.Switch setPumHeaWatPriDed[nPumHeaWatPri]
@@ -167,12 +161,13 @@ block VariableSpeedNoDpControl
     if have_pumHeaWatPri
     "Replicate signal"
     annotation (Placement(transformation(extent={{-30,2},{-10,22}})));
-  Utilities.PlaceHolderReal pla[nPumHeaWatPri](
-    each final have_inp=have_heaWat and not have_pumChiWatPri and not have_pumPriHdr,
+  Utilities.PlaceHolderReal ph[nPumHeaWatPri](
+    each final have_inp=have_heaWat and not have_pumChiWatPri and not
+        have_pumPriHdr,
     each final have_inpPla=false,
     each final u_internal=yPumHeaWatPriSet)
     if have_pumHeaWatPri and not have_pumPriHdr
-    "Use HW pump speed in case of separate dedicated CHW pumps "
+    "Always use HW pump speed in case of separate dedicated CHW pumps "
     annotation (Placement(transformation(extent={{70,-50},{90,-30}})));
 equation
   connect(u1PumChiWatPri, setPumChiWatPriDed.u2)
@@ -218,7 +213,7 @@ equation
   connect(u1Hea, selSpeHea.u2)
     annotation (Line(points={{-160,-60},{-132,-60},{-132,-40},{38,-40}},color={255,0,255}));
   connect(spePumHeaWatPri.y, rep3.u)
-    annotation (Line(points={{-88,120},{-86,120},{-86,122},{-84,122},{-84,30},{-62,30}},
+    annotation (Line(points={{-88,120},{-84,120},{-84,30},{-62,30}},
       color={0,0,127}));
   connect(rep3.y, selSpeHea.u1)
     annotation (Line(points={{-38,30},{30,30},{30,-32},{38,-32}},color={0,0,127}));
@@ -226,10 +221,10 @@ equation
     annotation (Line(points={{-8,12},{20,12},{20,-48},{38,-48}},color={0,0,127}));
   connect(spePumChiWatPri.y, rep4.u)
     annotation (Line(points={{-88,-120},{-80,-120},{-80,12},{-32,12}},color={0,0,127}));
-  connect(pla.y, setPumHeaWatPriDed.u1)
-    annotation (Line(points={{92,-40},{100,-40},{100,-52},{108,-52}},color={0,0,127}));
-  connect(selSpeHea.y, pla.u)
-    annotation (Line(points={{62,-40},{68,-40}},color={0,0,127}));
+  connect(ph.y, setPumHeaWatPriDed.u1) annotation (Line(points={{92,-40},{100,-40},
+          {100,-52},{108,-52}}, color={0,0,127}));
+  connect(selSpeHea.y, ph.u)
+    annotation (Line(points={{62,-40},{68,-40}}, color={0,0,127}));
   annotation (
     defaultComponentName="ctlPumPri",
     Icon(

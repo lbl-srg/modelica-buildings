@@ -52,11 +52,10 @@ block EquipmentAvailability
     if have_heaWat
     "Return true if equipment available for heating and hardware available"
     annotation (Placement(transformation(extent={{132,70},{152,90}})));
-  Utilities.PlaceHolder pla(
-    final have_inp=have_heaWat and have_chiWat,
-    final u_internal=have_heaWat or not have_chiWat)
-    "Replace with placeholder value if input signal is not available"
-    annotation (Placement(transformation(extent={{-150,-90},{-130,-70}})));
+  Utilities.PlaceHolder phHea(final have_inp=have_heaWat and have_chiWat,
+      final u_internal=have_heaWat or not have_chiWat)
+    "Placeholder value if signal is not available"
+    annotation (Placement(transformation(extent={{-148,-90},{-128,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Not off
     "Return true if equipment is off"
     annotation (Placement(transformation(extent={{-140,30},{-120,50}})));
@@ -98,12 +97,12 @@ equation
     annotation (Line(points={{-180,0},{120,0},{120,-80},{128,-80}},color={255,0,255}));
   connect(u1Ava, avaHeaAva.u2)
     annotation (Line(points={{-180,0},{120,0},{120,72},{130,72}},color={255,0,255}));
-  connect(u1Hea, pla.u)
-    annotation (Line(points={{-180,-80},{-152,-80}},color={255,0,255}));
-  connect(pla.y, onAndHea.u2)
-    annotation (Line(points={{-128,-80},{-100,-80},{-100,-88},{-72,-88}},color={255,0,255}));
-  connect(pla.y, coo.u)
-    annotation (Line(points={{-128,-80},{-120,-80},{-120,-40},{-112,-40}},color={255,0,255}));
+  connect(u1Hea, phHea.u)
+    annotation (Line(points={{-180,-80},{-150,-80}}, color={255,0,255}));
+  connect(phHea.y, onAndHea.u2) annotation (Line(points={{-126,-80},{-100,-80},
+          {-100,-88},{-72,-88}}, color={255,0,255}));
+  connect(phHea.y, coo.u) annotation (Line(points={{-126,-80},{-120,-80},{-120,
+          -40},{-112,-40}}, color={255,0,255}));
   connect(u1, off.u)
     annotation (Line(points={{-180,80},{-150,80},{-150,40},{-142,40}},color={255,0,255}));
   connect(off.y, timOff.u)

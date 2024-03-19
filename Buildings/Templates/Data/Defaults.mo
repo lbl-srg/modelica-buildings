@@ -63,9 +63,9 @@ package Defaults
     "Check valve pressure drop";
   constant Modelica.Units.SI.PressureDifference dpChiWatChi=4E4
     "Chiller CHW pressure drop";
-  constant Modelica.Units.SI.PressureDifference dpChiWatSet_min=2.5E4
+  constant Modelica.Units.SI.PressureDifference dpChiWatSet_min=5 * 6894
     "Minimum CHW differential pressure setpoint used in CHW plant reset logic";
-  constant Modelica.Units.SI.PressureDifference dpChiWatSet_max=5E4
+  constant Modelica.Units.SI.PressureDifference dpChiWatRemSet_max=5E4
     "Maximum CHW differential pressure setpoint remote from the CHW plant";
   constant Modelica.Units.SI.PressureDifference dpChiWatLocSet_max=15E4
     "Maximum CHW differential pressure setpoint local to the CHW plant";
@@ -91,9 +91,9 @@ package Defaults
     "HW return temperature";
   constant Modelica.Units.SI.Temperature TOutHeaWatLck=21 + 273.15
     "Outdoor air lockout temperature above which the HW system is prevented from operating";
-  constant Modelica.Units.SI.PressureDifference dpHeaWatSet_min=2E4
+  constant Modelica.Units.SI.PressureDifference dpHeaWatSet_min=5 * 6894
     "Minimum HW differential pressure setpoint used in HW plant reset logic";
-  constant Modelica.Units.SI.PressureDifference dpHeaWatSet_max=5E4
+  constant Modelica.Units.SI.PressureDifference dpHeaWatRemSet_max=5E4
     "Maximum HW differential pressure setpoint remote from the HW plant";
   constant Modelica.Units.SI.PressureDifference dpHeaWatLocSet_max=15E4
     "Maximum HW differential pressure setpoint local to the CHW plant";

@@ -68,41 +68,41 @@ block EventSequencing
     if have_heaWat and have_valInlIso
     "Inlet HW inlet isolation valve command"
     annotation (Placement(transformation(extent={{160,20},{200,60}}),
-      iconTransformation(extent={{100,20},{140,60}})));
+      iconTransformation(extent={{100,0},{140,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ValHeaWatOutIso
     if have_heaWat and have_valOutIso
     "Outlet HW isolation valve command"
     annotation (Placement(transformation(extent={{160,0},{200,40}}),
-      iconTransformation(extent={{100,0},{140,40}})));
+      iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ValChiWatInlIso
     if have_chiWat and have_valInlIso
     "Inlet CHW isolation valve command"
     annotation (Placement(transformation(extent={{160,-20},{200,20}}),
-      iconTransformation(extent={{100,-20},{140,20}})));
+      iconTransformation(extent={{100,-40},{140,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ValChiWatOutIso
     if have_chiWat and have_valOutIso
     "Outlet CHW isolation valve command"
     annotation (Placement(transformation(extent={{160,-40},{200,0}}),
-      iconTransformation(extent={{100,-40},{140,0}})));
+      iconTransformation(extent={{100,-60},{140,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumHeaWatPri
     if have_pumHeaWatPri
     "Primary HW pump start command – Dedicated or lead headered pump"
     annotation (Placement(transformation(extent={{160,-80},{200,-40}}),
-      iconTransformation(extent={{100,-80},{140,-40}})));
+      iconTransformation(extent={{100,-100},{140,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumChiWatPri
     if have_pumChiWatPri
     "Primary CHW pump start command – Dedicated or lead headered pump"
     annotation (Placement(transformation(extent={{160,-100},{200,-60}}),
-      iconTransformation(extent={{100,-100},{140,-60}})));
+      iconTransformation(extent={{100,-120},{140,-80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1
     "Equipment enable command"
     annotation (Placement(transformation(extent={{160,120},{200,160}}),
-      iconTransformation(extent={{100,120},{140,160}})));
+      iconTransformation(extent={{100,100},{140,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Hea
     if have_heaWat and have_chiWat
     "Heating/cooling mode command: true=heating, false=cooling"
     annotation (Placement(transformation(extent={{160,100},{200,140}}),
-      iconTransformation(extent={{100,100},{140,140}})));
+      iconTransformation(extent={{100,80},{140,120}})));
   Buildings.Controls.OBC.CDL.Logical.Timer timVal(
     final t=dtVal)
     "Return true when nominal valve timing elapsed"
@@ -172,12 +172,12 @@ block EventSequencing
     if have_heaWat
     "Equipment commanded on in heating mode"
     annotation (Placement(transformation(extent={{160,80},{200,120}}),
-      iconTransformation(extent={{100,80},{140,120}})));
+      iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1AndCoo
     if have_chiWat
     "Equipment commanded on in cooling mode"
     annotation (Placement(transformation(extent={{160,60},{200,100}}),
-      iconTransformation(extent={{100,60},{140,100}})));
+      iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Logical.And enaAndHea
     "Return true if enabled in heating mode"
     annotation (Placement(transformation(extent={{130,90},{150,110}})));
@@ -237,7 +237,8 @@ equation
   connect(u1PumHeaWatPri_internal.y, heaValPum.u[2])
     annotation (Line(points={{-128,-10},{44,-10},{44,120},{58,120}},color={255,0,255}));
   connect(u1PumHeaWatSec_internal.y, heaValPum.u[3])
-    annotation (Line(points={{-128,-90},{50,-90},{50,122},{56,122},{56,122.333},{58,122.333}},
+    annotation (Line(points={{-128,-90},{50,-90},{50,122},{56,122},{56,122.333},
+          {58,122.333}},
       color={255,0,255}));
   connect(timVal_internal.y, cooValPum.u[1])
     annotation (Line(points={{12,100},{48,100},{48,77.375},{58,77.375}},color={255,0,255}));

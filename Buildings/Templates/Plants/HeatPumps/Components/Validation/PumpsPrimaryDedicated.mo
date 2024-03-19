@@ -35,14 +35,14 @@ model PumpsPrimaryDedicated
       have_senVHeaWatSec=false,
       cpHeaWat_default=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
       cpSou_default=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
-      have_senDpChiWatLoc=false,
+      have_senDpChiWatRemWir=true,
       typArrPumPri=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
       nHp=2,
       nPumHeaWatPri=2,
       have_heaWat=true,
       nPumHeaWatSec=0,
       rhoSou_default=Buildings.Media.Air.dStp,
-      have_senDpHeaWatLoc=false,
+      have_senDpHeaWatRemWir=true,
       typPumChiWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None,
       nPumChiWatPri=0,
       have_senVChiWatSec=false,
@@ -51,9 +51,10 @@ model PumpsPrimaryDedicated
       nAirHan=0,
       nEquZon=0),
     THeaWatSupHp_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
-    TChiWatSupHp_nominal=Buildings.Templates.Data.Defaults.TChiWatSup)
+    TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup)
     "Controller parameters"
     annotation (Placement(transformation(extent={{-120,260},{-100,280}})));
+
   parameter Data.Controller datCtlNoDed(
     cfg(
       have_valHpOutIso=false,
@@ -78,14 +79,14 @@ model PumpsPrimaryDedicated
       have_senVHeaWatSec=false,
       cpHeaWat_default=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
       cpSou_default=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
-      have_senDpChiWatLoc=false,
+      have_senDpChiWatRemWir=true,
       typArrPumPri=Buildings.Templates.Components.Types.PumpArrangement.Headered,
       nHp=2,
       nPumHeaWatPri=2,
       have_heaWat=true,
       nPumHeaWatSec=0,
       rhoSou_default=Buildings.Media.Air.dStp,
-      have_senDpHeaWatLoc=false,
+      have_senDpHeaWatRemWir=true,
       typPumChiWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None,
       nPumChiWatPri=0,
       have_senVChiWatSec=false,
@@ -94,9 +95,10 @@ model PumpsPrimaryDedicated
       nAirHan=0,
       nEquZon=0),
     THeaWatSupHp_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
-    TChiWatSupHp_nominal=Buildings.Templates.Data.Defaults.TChiWatSup)
+    TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup)
     "Controller parameters"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
+
   parameter Data.Controller datCtlSep(
     cfg(
       have_valHpOutIso=false,
@@ -121,7 +123,7 @@ model PumpsPrimaryDedicated
       have_senVHeaWatSec=false,
       cpHeaWat_default=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
       cpSou_default=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
-      have_senDpChiWatLoc=false,
+      have_senDpChiWatRemWir=true,
       typArrPumPri=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
       nHp=2,
       nPumHeaWatPri=2,
@@ -129,7 +131,7 @@ model PumpsPrimaryDedicated
       have_heaWat=true,
       nPumHeaWatSec=0,
       rhoSou_default=Buildings.Media.Air.dStp,
-      have_senDpHeaWatLoc=false,
+      have_senDpHeaWatRemWir=true,
       typPumChiWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None,
       have_senVChiWatSec=false,
       nSenDpHeaWatRem=0,
@@ -137,9 +139,10 @@ model PumpsPrimaryDedicated
       nAirHan=0,
       nEquZon=0),
     THeaWatSupHp_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
-    TChiWatSupHp_nominal=Buildings.Templates.Data.Defaults.TChiWatSup)
+    TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup)
     "Controller parameters"
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
+
   parameter Data.Controller datCtlHea(
     cfg(
       have_valHpOutIso=false,
@@ -164,7 +167,7 @@ model PumpsPrimaryDedicated
       have_senVHeaWatSec=false,
       cpHeaWat_default=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
       cpSou_default=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
-      have_senDpChiWatLoc=false,
+      have_senDpChiWatRemWir=true,
       typArrPumPri=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
       nHp=2,
       nPumHeaWatPri=2,
@@ -172,7 +175,7 @@ model PumpsPrimaryDedicated
       have_heaWat=true,
       nPumHeaWatSec=0,
       rhoSou_default=Buildings.Media.Air.dStp,
-      have_senDpHeaWatLoc=false,
+      have_senDpHeaWatRemWir=true,
       typPumChiWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None,
       have_senVChiWatSec=false,
       nSenDpHeaWatRem=0,
@@ -249,7 +252,7 @@ model PumpsPrimaryDedicated
     nHp=2,
     typArrPumPri=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
     have_pumChiWatPriDed=false,
-    have_varPumHeaWatPri=false,
+    have_pumHeaWatPriVar=false,
     datPumHeaWat=datPumPri,
     final energyDynamics=energyDynamics)
     "Primary pumps - CHW and HW system with common constant speed dedicated primary pumps"
@@ -312,8 +315,8 @@ model PumpsPrimaryDedicated
     nHp=2,
     typArrPumPri=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
     have_pumChiWatPriDed=true,
-    have_varPumHeaWatPri=false,
-    have_varPumChiWatPri=false,
+    have_pumHeaWatPriVar=false,
+    have_pumChiWatPriVar=false,
     datPumHeaWat=datPumHeaWat,
     final datPumChiWat=datPumChiWat,
     final energyDynamics=energyDynamics)
@@ -344,7 +347,9 @@ model PumpsPrimaryDedicated
       each dpValve_nominal=Buildings.Templates.Data.Defaults.dpValIso,
       dpFixed_nominal=Buildings.Templates.Utilities.computeBalancingPressureDrop(
         m_flow_nominal=fill(datHp.mHeaWatHp_flow_nominal, datHp.nHp),
-        dp_nominal=pumPri.dpValChe_nominal .+ fill(datHp.dpHeaWatHp_nominal, datHp.nHp) .+
+        dp_nominal=pumPri.dpValCheHeaWat_nominal *
+          (datHp.mHeaWatHp_flow_nominal / max(datHp.mHeaWatHp_flow_nominal, datHp.mChiWatHp_flow_nominal))^2
+          .+ fill(datHp.dpHeaWatHp_nominal, datHp.nHp) .+
           valHeaWatIso.dpValve_nominal,
         datPum=datPumSin)),
     each from_dp=true)
@@ -358,8 +363,10 @@ model PumpsPrimaryDedicated
       each dpValve_nominal=Buildings.Templates.Data.Defaults.dpValIso,
       dpFixed_nominal=Buildings.Templates.Utilities.computeBalancingPressureDrop(
         m_flow_nominal=fill(datHp.mChiWatHp_flow_nominal, datHp.nHp),
-        dp_nominal=pumPri.dpValChe_nominal .+ fill(datHp.dpChiWatHp_nominal, datHp.nHp) .+
-          valChiWatIso.dpValve_nominal,
+        dp_nominal=pumPri.dpValCheHeaWat_nominal  *
+          (datHp.mChiWatHp_flow_nominal / max(datHp.mHeaWatHp_flow_nominal, datHp.mChiWatHp_flow_nominal))^2
+        .+ fill(datHp.dpChiWatHp_nominal, datHp.nHp)
+        .+ valChiWatIso.dpValve_nominal,
         datPum=datPumSin)),
     each from_dp=true)
     "Primary CHW loop isolation valve"
@@ -376,7 +383,9 @@ model PumpsPrimaryDedicated
       each dpValve_nominal=Buildings.Templates.Data.Defaults.dpValIso,
       dpFixed_nominal=Buildings.Templates.Utilities.computeBalancingPressureDrop(
         m_flow_nominal=fill(datHp.mChiWatHp_flow_nominal, datHp.nHp),
-        dp_nominal=pumPriHdr.dpValChe_nominal .+ fill(datHp.dpChiWatHp_nominal, datHp.nHp) .+
+        dp_nominal=pumPriHdr.dpValChe_nominal *
+          (datHp.mChiWatHp_flow_nominal / max(datHp.mHeaWatHp_flow_nominal, datHp.mChiWatHp_flow_nominal))^2
+          .+ fill(datHp.dpChiWatHp_nominal, datHp.nHp) .+
           valChiWatIso.dpValve_nominal,
         datPum=datPumSin)),
     each from_dp=true)
@@ -390,7 +399,9 @@ model PumpsPrimaryDedicated
       each dpValve_nominal=Buildings.Templates.Data.Defaults.dpValIso,
       dpFixed_nominal=Buildings.Templates.Utilities.computeBalancingPressureDrop(
         m_flow_nominal=fill(datHp.mHeaWatHp_flow_nominal, datHp.nHp),
-        dp_nominal=pumPriHdr.dpValChe_nominal .+ fill(datHp.dpHeaWatHp_nominal, datHp.nHp) .+
+        dp_nominal=pumPriHdr.dpValChe_nominal *
+          (datHp.mHeaWatHp_flow_nominal / max(datHp.mHeaWatHp_flow_nominal, datHp.mChiWatHp_flow_nominal))^2
+          .+ fill(datHp.dpHeaWatHp_nominal, datHp.nHp) .+
           valHeaWatIso.dpValve_nominal,
         datPum=datPumSin)),
     each from_dp=true)
@@ -425,7 +436,7 @@ model PumpsPrimaryDedicated
     nHp=2,
     typArrPumPri=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
     have_pumChiWatPriDed=false,
-    have_varPumHeaWatPri=true,
+    have_pumHeaWatPriVar=true,
     datPumHeaWat=datPumHeaWat,
     final energyDynamics=energyDynamics)
     "Primary pumps - Heating only system with variable speed dedicated primary pumps"

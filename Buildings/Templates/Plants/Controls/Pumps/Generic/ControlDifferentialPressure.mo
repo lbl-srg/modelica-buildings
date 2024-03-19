@@ -212,8 +212,7 @@ but a local DP sensor is hardwired to the secondary pump controller.
 </li>
 </ul>
 </html>
-"),
-    Diagram(
+"), Diagram(
       coordinateSystem(
         extent={{-100,-100},{100,100}})));
 end ControlDifferentialPressure;

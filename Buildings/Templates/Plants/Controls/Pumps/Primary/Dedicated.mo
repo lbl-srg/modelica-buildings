@@ -1,6 +1,6 @@
 within Buildings.Templates.Plants.Controls.Pumps.Primary;
-block DisableLeadDedicated
-  "Lead pump disabling for plants with dedicated primary pumps"
+block Dedicated
+  "Pump command for plants with dedicated primary pumps"
   parameter Boolean have_req=false
     "Set to true if plant equipment has flow request network point"
     annotation (Evaluate=true);
@@ -8,23 +8,20 @@ block DisableLeadDedicated
     min=0,
     unit="s")=if not have_req then 3 * 60 else 10 * 60
     "Runtime with lead equipment proven off before disabling";
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Req
-    if have_req
-    "HW or CHW request from lead equipment"
-    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
-      iconTransformation(extent={{-140,-60},{-100,-20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ReqFlo if have_req
+    "Flow request from equipment" annotation (Placement(transformation(extent={{
+            -140,-60},{-100,-20}}), iconTransformation(extent={{-140,-60},{-100,
+            -20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1
     "Enable signal from system enable logic"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1EquLea
-    "Lead equipment enable signal"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
-      iconTransformation(extent={{-140,20},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1EquLea_actual
-    "Lead equipment status"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Equ
+    "Equipment enable signal" annotation (Placement(transformation(extent={{-140,
+            20},{-100,60}}), iconTransformation(extent={{-140,20},{-100,60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Equ_actual
+    "Equipment status" annotation (Placement(transformation(extent={{-140,-20},{
+            -100,20}}), iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1
     "Lead pump enable signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
@@ -69,18 +66,18 @@ equation
     annotation (Line(points={{94,0},{120,0}},color={255,0,255}));
   connect(u1, lat.u)
     annotation (Line(points={{-120,80},{40,80},{40,0},{70,0}},color={255,0,255}));
-  connect(u1EquLea, dis.u)
-    annotation (Line(points={{-120,40},{-82,40}},color={255,0,255}));
-  connect(u1EquLea_actual, off.u)
-    annotation (Line(points={{-120,0},{-82,0}},color={255,0,255}));
+  connect(u1Equ, dis.u)
+    annotation (Line(points={{-120,40},{-82,40}}, color={255,0,255}));
+  connect(u1Equ_actual, off.u)
+    annotation (Line(points={{-120,0},{-82,0}}, color={255,0,255}));
   connect(fal.y, offOrNotReq.u2)
     annotation (Line(points={{-58,-80},{-40,-80},{-40,-68},{-12,-68}},color={255,0,255}));
   connect(off.y, timOff.u)
     annotation (Line(points={{-58,0},{-52,0}},color={255,0,255}));
   connect(timOff.passed, offOrNotReq.u1)
     annotation (Line(points={{-28,-8},{-20,-8},{-20,-60},{-12,-60}},color={255,0,255}));
-  connect(u1Req, noReq.u)
-    annotation (Line(points={{-120,-40},{-82,-40}},color={255,0,255}));
+  connect(u1ReqFlo, noReq.u)
+    annotation (Line(points={{-120,-40},{-82,-40}}, color={255,0,255}));
   connect(noReq.y, offOrNotReq.u2)
     annotation (Line(points={{-58,-40},{-40,-40},{-40,-68},{-12,-68}},color={255,0,255}));
   connect(dis.y, disAndOffOrNotReq.u1)
@@ -95,7 +92,7 @@ equation
   connect(ini.y, lat.clr)
     annotation (Line(points={{62,-20},{66,-20},{66,-6},{70,-6}},color={255,0,255}));
   annotation (
-    defaultComponentName="disLea",
+    defaultComponentName="enaDed",
     Icon(
       coordinateSystem(
         preserveAspectRatio=true,
@@ -113,7 +110,7 @@ equation
     Documentation(
       info="<html>
 <p>
-The lead pump is disabled when the lead equipment is disabled and:
+The pump is disabled when the lead equipment is disabled and:
 </p>
 <ul>
 <li>
@@ -145,4 +142,4 @@ At initial time, the block output is equal to the value of the enable
 signal <code>u1</code>.
 </p>
 </html>"));
-end DisableLeadDedicated;
+end Dedicated;

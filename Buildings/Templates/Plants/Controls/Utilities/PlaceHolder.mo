@@ -38,7 +38,7 @@ equation
   connect(uPla, y)
     annotation (Line(points={{-120,-40},{60,-40},{60,0},{120,0}},color={255,0,255}));
   annotation (
-    defaultComponentName="pla",
+    defaultComponentName="ph",
     Icon(
       coordinateSystem(
         preserveAspectRatio=true,
@@ -53,8 +53,12 @@ equation
           borderPattern=BorderPattern.Raised),
         Ellipse(
           extent={{71,7},{85,-7}},
-          lineColor=DynamicSelect({235,235,235},if y then{0,255,0}else{235,235,235}),
-          fillColor=DynamicSelect({235,235,235},if y then{0,255,0}else{235,235,235}),
+          lineColor=DynamicSelect({235,235,235},if y then
+                                                         {0,255,0} else
+                                                                      {235,235,235}),
+          fillColor=DynamicSelect({235,235,235},if y then
+                                                         {0,255,0} else
+                                                                      {235,235,235}),
           fillPattern=FillPattern.Solid),
         Polygon(
           points={{-120,140},{-120,140}},

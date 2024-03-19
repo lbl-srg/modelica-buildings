@@ -210,11 +210,10 @@ block StageChangeCommand
   Buildings.Controls.OBC.CDL.Reals.Multiply splTimCapStaLow
     "SPLR times capacity of next available lower stage"
     annotation (Placement(transformation(extent={{-10,-170},{10,-150}})));
-  Utilities.PlaceHolderReal plaPlrSta(
+  Utilities.PlaceHolderReal parPlrSta(
     final have_inp=have_inpPlrSta,
     final have_inpPla=false,
-    final u_internal=plrSta)
-    "Parameter value for SPLR"
+    final u_internal=plrSta) "Parameter value for SPLR"
     annotation (Placement(transformation(extent={{-170,-190},{-150,-170}})));
   Buildings.Controls.OBC.CDL.Logical.FallingEdge endStaPro
     "True when staging process terminates"
@@ -310,12 +309,12 @@ equation
     annotation (Line(points={{52,-60},{78,-60}},color={255,0,255}));
   connect(les.y, timDow.u)
     annotation (Line(points={{52,-120},{78,-120}},color={255,0,255}));
-  connect(uPlrSta, plaPlrSta.u)
-    annotation (Line(points={{-220,-180},{-172,-180}},color={0,0,127}));
-  connect(plaPlrSta.y, splTimCapSta.u1)
-    annotation (Line(points={{-148,-180},{-40,-180},{-40,-114},{-12,-114}},color={0,0,127}));
-  connect(plaPlrSta.y, splTimCapStaLow.u1)
-    annotation (Line(points={{-148,-180},{-40,-180},{-40,-154},{-12,-154}},color={0,0,127}));
+  connect(uPlrSta, parPlrSta.u)
+    annotation (Line(points={{-220,-180},{-172,-180}}, color={0,0,127}));
+  connect(parPlrSta.y, splTimCapSta.u1) annotation (Line(points={{-148,-180},{-40,
+          -180},{-40,-114},{-12,-114}}, color={0,0,127}));
+  connect(parPlrSta.y, splTimCapStaLow.u1) annotation (Line(points={{-148,-180},
+          {-40,-180},{-40,-154},{-12,-154}}, color={0,0,127}));
   connect(u1StaPro, hol.u1)
     annotation (Line(points={{-220,-20},{-40,-20},{-40,-60},{-12,-60}},color={255,0,255}));
   connect(u1StaPro, endStaPro.u)

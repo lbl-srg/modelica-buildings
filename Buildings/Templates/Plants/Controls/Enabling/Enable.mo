@@ -37,10 +37,9 @@ block Enable
     "System enable via schedule"
     annotation (Placement(transformation(extent={{-200,80},{-160,120}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nReq
-    "Number of requests"
-    annotation (Placement(transformation(extent={{-200,-20},{-160,20}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nReqPla
+    "Number of plant requests" annotation (Placement(transformation(extent={{-200,
+            -20},{-160,20}}), iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
     final quantity="ThermodynamicTemperature",
@@ -122,8 +121,8 @@ block Enable
     "Clear enable signal if disable conditions are met"
     annotation (Placement(transformation(extent={{120,-10},{140,10}})));
 equation
-  connect(nReq, greIgn.u)
-    annotation (Line(points={{-180,0},{-122,0}},color={255,127,0}));
+  connect(nReqPla, greIgn.u)
+    annotation (Line(points={{-180,0},{-122,0}}, color={255,127,0}));
   connect(TOut, greLck.u)
     annotation (Line(points={{-180,-100},{-140,-100},{-140,-80},{-122,-80}},
       color={0,0,127}));
@@ -152,8 +151,8 @@ equation
     annotation (Line(points={{-180,100},{-100,100},{-100,60},{-82,60}},color={255,0,255}));
   connect(disSch.y, mulOr.u[1])
     annotation (Line(points={{-58,60},{0,60},{0,-42.3333},{48,-42.3333}},color={255,0,255}));
-  connect(nReq, lowIgn.u)
-    annotation (Line(points={{-180,0},{-140,0},{-140,-40},{-122,-40}},color={255,127,0}));
+  connect(nReqPla, lowIgn.u) annotation (Line(points={{-180,0},{-140,0},{-140,-40},
+          {-122,-40}}, color={255,127,0}));
   connect(lowIgn.y, timLowReq.u)
     annotation (Line(points={{-98,-40},{-82,-40}},color={255,0,255}));
   connect(timLowReq.passed, mulOr.u[2])

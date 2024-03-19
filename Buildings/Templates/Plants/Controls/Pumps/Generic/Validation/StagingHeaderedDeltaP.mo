@@ -110,7 +110,7 @@ to <i>0</i>. This transition is not subject to the minimum runtime.
       revisions="<html>
 <ul>
 <li>
-FIXME, 2024, by Antoine Gautier:<br/>
+XXXX, 2024, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>

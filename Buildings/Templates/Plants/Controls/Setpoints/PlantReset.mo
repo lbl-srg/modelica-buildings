@@ -1,89 +1,91 @@
 within Buildings.Templates.Plants.Controls.Setpoints;
 block PlantReset
   "Plant reset logic"
-  parameter Integer nSenDpRem(min=1)
+  parameter Integer nSenDpRem(final min=1)
     "Number of remote loop differential pressure sensors used for pump speed control"
     annotation (Evaluate=true);
-  parameter Real dpSet_max[nSenDpRem](min=5*6894, unit="Pa")
+  parameter Real dpSet_max[nSenDpRem](
+    each final min=5*6894,
+    each unit="Pa")
     "Maximum differential pressure setpoint";
   parameter Real dpSet_min(
-    min=0,
-    unit="Pa")=5*6894
+    final min=0,
+    final unit="Pa")=5*6894
     "Minimum value to which the differential pressure can be reset";
   parameter Real TSup_nominal(
-    min=273.15,
-    unit="K",
+    final min=273.15,
+    final unit="K",
     displayUnit="degC")
     "Design supply temperature";
   parameter Real TSupSet_lim(
-    min=273.15,
-    unit="K",
+    final min=273.15,
+    final unit="K",
     displayUnit="degC")
     "Limit value to which the supply temperature can be reset";
   parameter Real dtHol(
-    min=0,
-    unit="s")=900
+    final min=0,
+    final unit="s")=900
     "Minimum hold time during stage change"
     annotation (Dialog(tab="Advanced"));
   parameter Real resDp_max(
-    max=1,
-    min=0,
-    unit="1")=0.5
+    final max=1,
+    final min=0,
+    final unit="1")=0.5
     "Upper limit of plant reset interval for differential pressure reset"
     annotation (Dialog(tab="Advanced"));
   parameter Real resTSup_min(
-    max=1,
-    min=0,
-    unit="1")=resDp_max
+    final max=1,
+    final min=0,
+    final unit="1")=resDp_max
     "Lower limit of plant reset interval for supply temperature reset"
     annotation (Dialog(tab="Advanced"));
   parameter Real res_init(
-    max=1,
-    min=0,
-    unit="1")=1
+    final max=1,
+    final min=0,
+    final unit="1")=1
     "Initial reset value"
     annotation (Dialog(tab="Advanced",group="Trim and respond"));
   parameter Real res_min(
-    max=1,
-    min=0,
-    unit="1")=0
+    final max=1,
+    final min=0,
+    final unit="1")=0
     "Minimum reset value"
     annotation (Dialog(tab="Advanced",group="Trim and respond"));
   parameter Real res_max(
-    max=1,
-    min=0,
-    unit="1")=1
+    final max=1,
+    final min=0,
+    final unit="1")=1
     "Maximum reset value"
     annotation (Dialog(tab="Advanced",group="Trim and respond"));
   parameter Real dtDel(
-    min=100*1E-15,
-    unit="s")=900
+    final min=100*1E-15,
+    final unit="s")=900
     "Delay time before the reset begins"
     annotation (Dialog(tab="Advanced",group="Trim and respond"));
   parameter Real dtRes(
-    min=1E-3,
-    unit="s")=300
+    final min=1E-3,
+    final unit="s")=300
     "Sample period of component"
     annotation (Dialog(tab="Advanced",group="Trim and respond"));
   parameter Integer nReqResIgn(min=0)=2
     "Number of ignored requests"
     annotation (Dialog(tab="Advanced",group="Trim and respond"));
   parameter Real tri(
-    max=0,
-    unit="1")=-0.02
+    final max=0,
+    final unit="1")=-0.02
     "Trim amount"
     annotation (Dialog(tab="Advanced",group="Trim and respond"));
   parameter Real rsp(
-    min=0,
-    unit="1")=0.03
+    final min=0,
+    final unit="1")=0.03
     "Respond amount (must have opposite sign of trim amount)"
     annotation (Dialog(tab="Advanced",group="Trim and respond"));
   parameter Real rsp_max(
-    min=0,
-    unit="1")=0.07
+    final min=0,
+    final unit="1")=0.07
     "Maximum response per reset period (must have same sign as respond amount)"
     annotation (Dialog(tab="Advanced",group="Trim and respond"));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uReqRes
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nReqRes
     "Sum of reset requests of all loads served"
     annotation (Placement(transformation(extent={{-200,120},{-160,160}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
@@ -196,7 +198,7 @@ equation
     annotation (Line(points={{12,100},{20,100},{20,68},{28,68}},color={0,0,127}));
   connect(triRes.y, res.u3)
     annotation (Line(points={{-28,100},{-20,100},{-20,52},{28,52}},color={0,0,127}));
-  connect(uReqRes, triRes.numOfReq)
+  connect(nReqRes, triRes.numOfReq)
     annotation (Line(points={{-180,140},{-80,140},{-80,92},{-52,92}},color={255,127,0}));
   connect(resTSup.y, TSupSet)
     annotation (Line(points={{142,-100},{180,-100}},color={0,0,127}));

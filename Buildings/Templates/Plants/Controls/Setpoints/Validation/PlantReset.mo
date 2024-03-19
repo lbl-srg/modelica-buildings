@@ -49,7 +49,7 @@ model PlantReset
 equation
   connect(timTabLin.y[1], reaToInt.u)
     annotation (Line(points={{-58,40},{-42,40}},color={0,0,127}));
-  connect(reaToInt.y, res.uReqRes)
+  connect(reaToInt.y,res.nReqRes)
     annotation (Line(points={{-18,40},{0,40},{0,6},{18,6}},color={255,127,0}));
   connect(staPro.y, res.u1StaPro)
     annotation (Line(points={{-58,-40},{0,-40},{0,-6},{18,-6}},color={255,0,255}));

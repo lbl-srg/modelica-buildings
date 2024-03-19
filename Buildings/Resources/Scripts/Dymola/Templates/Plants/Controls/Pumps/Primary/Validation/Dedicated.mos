@@ -1,8 +1,8 @@
-simulateModel("Buildings.Templates.Plants.Controls.Pumps.Primary.Validation.DisableLeadDedicated",
+simulateModel("Buildings.Templates.Plants.Controls.Pumps.Primary.Validation.Dedicated",
     method="cvode",
     tolerance=1e-6,
     stopTime=3600.0,
-    resultFile="DisableLeadDedicated");
+    resultFile="PrimaryDedicated");
 createPlot(
     id=1,
     subPlot=1,
@@ -15,7 +15,7 @@ createPlot(
 createPlot(
     id=1,
     subPlot=2,
-    y={"disLea.y1", "disLeaReq.y1"},
+    y={"enaDed.y1", "enaDedReq.y1"},
     autoscale=true,
     grid=true,
     timeUnit="min"
