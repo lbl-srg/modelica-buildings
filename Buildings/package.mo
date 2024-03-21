@@ -321,7 +321,7 @@ to <b style=\"color:blue\">existing</b> libraries:
 <tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Distribution1PipePlugFlow_v
     </td>
     <td valign=\"top\"> Added <a href=\"Modelica://Buildings.Experimental.DHC.Networks.Distribution1PipePlugFlow_v\">
-    Buildings.Experimental.DHC.Networks.Distribution1PipePlugFlow_v</a>. One ipe distribution network that uses plugflow 
+    Buildings.Experimental.DHC.Networks.Distribution1PipePlugFlow_v</a>. One pipe distribution network that uses plugflow 
     pipes for supply and lossless for connection. This is for 
     <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.
     </td>
@@ -329,7 +329,7 @@ to <b style=\"color:blue\">existing</b> libraries:
 <tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Distribution2Pipe_R
     </td>
     <td valign=\"top\"> Added <a href=\"Modelica://Buildings.Experimental.DHC.Networks.Distribution2Pipe_R\">
-    Buildings.Experimental.DHC.Networks.Distribution2Pipe_R</a>. Two pipe network that uses autosize pipes for 
+    Buildings.Experimental.DHC.Networks.Distribution2Pipe_R</a>. Two pipes network that uses autosize pipes for 
     supply and return, and lossless for connection. This is for 
     <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.
     </td>
@@ -383,7 +383,7 @@ to <b style=\"color:blue\">existing</b> libraries:
     </td>
     <td valign=\"top\"> Added <a href=\"Modelica://Buildings.Experimental.DHC.Networks.Controls.AgentPump1Pipe\">
     Buildings.Experimental.DHC.Networks.Controls.AgentPump1Pipe</a>. Agent controller (i.e. borefield, waste heat plant) 
-    for 1 pipe networks. This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.
+    for one pipe networks. This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Controls.Examples.AgentPump1PipeExample
@@ -407,7 +407,7 @@ to <b style=\"color:blue\">existing</b> libraries:
     </td>
     <td valign=\"top\"> Added <a href=\"Modelica://Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlowAgentControl\">
     Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlowAgentControl</a>. This example model showcases a more sophisticated way 
-    of controlling district agents pumps. This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
+    of controlling district agent pumps. This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
     </td>
 </tr>                                                            
 </table>
@@ -494,7 +494,7 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>         
     <td valign=\"top\"> Updated pump model to use
     to <a href=\"Buildings.Fluid.Movers.Preconfigured.FlowControlled_m_flow\">
-    Buildings.Fluid.Movers.Preconfigured.FlowControlled_m_flow </a>. this change allows to have a better 
+    Buildings.Fluid.Movers.Preconfigured.FlowControlled_m_flow </a>. This change allows to have a better 
     estimation of pump default curve using euler number. This is for 
     <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
     </td>
@@ -520,16 +520,16 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td valign=\"top\">Buildings.Experimental.DHC.Examples.Combined.SeriesConstantFlow
     </td>         
-    <td valign=\"top\"> Added connections in that were removed in
-    to <a href=\"Buildings.Experimental.DHC.Examples.Combined.BaseClasses.PartialSeries\">
+    <td valign=\"top\"> Added connections that were removed in
+    <a href=\"Buildings.Experimental.DHC.Examples.Combined.BaseClasses.PartialSeries\">
     Buildings.Experimental.DHC.Examples.Combined.BaseClasses.PartialSeries </a>. This is for 
     <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
     </td>
 </tr> 
 <tr><td valign=\"top\">Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlow
     </td>         
-    <td valign=\"top\"> Added connections in that were removed in
-    to <a href=\"Buildings.Experimental.DHC.Examples.Combined.BaseClasses.PartialSeries\">
+    <td valign=\"top\"> Added connections that were removed in
+    <a href=\"Buildings.Experimental.DHC.Examples.Combined.BaseClasses.PartialSeries\">
     Buildings.Experimental.DHC.Examples.Combined.BaseClasses.PartialSeries </a>. This is for 
     <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
     </td>
@@ -792,12 +792,6 @@ have been <b style=\"color:blue\">improved</b> in a
                      This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">#3694</a>.
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Combined.BaseClasses.ConnectionSeriesStandard
-    </td>
-    <td valign=\"top\">Removed <code>Buildings.Experimental.DHC.Networks.Combined.BaseClasses.ConnectionSeriesStandard</code>.  
-                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">#3694</a>.
-    </td>
-</tr>
 <tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Combined.BaseClasses.PipeAutosize
     </td>         
     <td valign=\"top\"> Moved <code>Buildings.Experimental.DHC.Networks.Combined.BaseClasses.PipeAutosize</code>
@@ -828,8 +822,8 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">Buildings.Experimental.DHC.Examples.Combined.BaseClasses.PartialSeries
     </td>         
     <td valign=\"top\"> Removed several connections to implement
-    to <a href=\"Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlowAgentControl \">
-    Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlowAgentControl </a>. 
+    to <a href=\"Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlowAgentControl\">
+    Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlowAgentControl</a>. 
     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
     </td>
 </tr> 
