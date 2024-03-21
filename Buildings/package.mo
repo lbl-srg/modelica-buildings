@@ -501,7 +501,7 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr> 
 <tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.Combined.BaseClasses.PartialHeatPumpHeatExchanger
     </td>         
-    <td valign=\"top\"> reduced <code>swiFlo.dpValve_nominal</code> to numerically zero to avoid reverse flow. This is for 
+    <td valign=\"top\"> Reduced <code>swiFlo.dpValve_nominal</code> to numerically zero to avoid reverse flow. This is for 
     <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
     </td>
 </tr> 
