@@ -94,16 +94,15 @@ model ElectricChillersDirectETS "Example model for district cooling system with
   Modelica.Blocks.Sources.Constant TCHWSupSet(k=273.15+7)
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
-  Buildings.Experimental.DHC.Networks.Distribution2PipePlugFlow dis(
-    redeclare final package Medium=Medium,
+  Buildings.Experimental.DHC.Networks.Distribution2PipePlugFlow_v dis(
+    redeclare final package Medium = Medium,
     nCon=nLoa,
     allowFlowReversal=false,
     mDis_flow_nominal=sum(dis.mCon_flow_nominal),
     mCon_flow_nominal=mBui_flow_nominal,
     mEnd_flow_nominal=mBui_flow_nominal[nLoa],
     lDis=fill(30, nLoa),
-    lEnd=30)
-    "Distribution network for district cooling system"
+    lEnd=30) "Distribution network for district cooling system"
     annotation (Placement(transformation(extent={{100,-20},{140,0}})));
   Buildings.Experimental.DHC.Loads.Cooling.BuildingTimeSeriesWithETS buiETS[nLoa](
     each yMin=0.05,

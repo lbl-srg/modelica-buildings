@@ -257,31 +257,31 @@ documentation of the model and subpackages for further modeling and implementati
 <tr><td valign=\"top\" rowspan=\"4\">
     </td>
     <td valign=\"top\">
-    <a href=\"modelica://Buildings.Experimental.DHC.Networks.Distribution1PipeAutoSize\">Distribution1PipeAutoSize</a>
+    <a href=\"modelica://Buildings.Experimental.DHC.Networks.Distribution1PipePlugFlow_v\">Distribution1PipePlugFlow_v</a>
     </td>
     <td valign=\"top\">
-    1-Pipe distribution network with flow friction modeled in the main lines between ETS determined with autosizing.
+    1-Pipe distribution network with fluid heat transfer modeled in the main lines between ETS determined by external model (e.g. ground) and flow friction by nominal velocity.
     </td>
 </tr>
 <tr><td valign=\"top\">
-    <a href=\"modelica://Buildings.Experimental.DHC.Networks.Distribution1PipePlugFlow\">Distribution1PipePlugFlow</a>
+    <a href=\"modelica://Buildings.Experimental.DHC.Networks.Distribution1Pipe_R\">Distribution1Pipe_R</a>
     </td>
     <td valign=\"top\">
-    1-Pipe distribution network with fluid heat transfer modeled in the main lines between ETS determined by external model (e.g. ground).
+    1-Pipe distribution network with flow friction modeled in the main lines between ETS determined by pressure drop per length.
     </td>
 </tr>
 <tr><td valign=\"top\">
-    <a href=\"modelica://Buildings.Experimental.DHC.Networks.Distribution2PipeAutoSize\">Distribution2PipeAutoSize</a>
+    <a href=\"modelica://Buildings.Experimental.DHC.Networks.Distribution2PipePlugFlow_v\">Distribution2PipePlugFlow_v</a>
     </td>
     <td valign=\"top\">
-    2-Pipe distribution network with flow friction modeled in the main lines between ETS determined with autosizing.
+    2-Pipe distribution network with fluid heat transfer modeled in the main lines between ETS determined by external model (e.g. ground) and flow friction by nominal velocity.
     </td>
 </tr>
 <tr><td valign=\"top\">
-    <a href=\"modelica://Buildings.Experimental.DHC.Networks.Distribution2PipePlugFlow\">Distribution2PipePlugFlow</a>
+    <a href=\"modelica://Buildings.Experimental.DHC.Networks.Distribution2Pipe_R\">Distribution2Pipe_R</a>
     </td>
     <td valign=\"top\">
-    2-Pipe distribution network with fluid heat transfer modeled in the main lines between ETS determined by external model (e.g. ground).
+    2-Pipe distribution network with flow friction modeled in the main lines between ETS determined by pressure drop per length.
     </td>
 </tr>
 <tr><td valign=\"top\" rowspan=\"1\">Steam

@@ -13,13 +13,13 @@ model Connection1PipeExample
     "Nominal mass flow rate in the connection line";
   parameter Modelica.Units.SI.Length lDis = 100
     "Length of the distribution pipe before the connection";
-  Buildings.Experimental.DHC.Networks.Connections.Connection1PipeAutosize connection1PipeAutosize(
+  Buildings.Experimental.DHC.Networks.Connections.Connection1Pipe_R
+    connection1PipeAutosize(
     redeclare package Medium = MediumW,
     mDis_flow_nominal=mDis_flow_nominal,
     mCon_flow_nominal=mCon_flow_nominal,
     lDis=lDis,
-    dhDis=dh)
-    annotation (Placement(transformation(extent={{20,40},{40,60}})));
+    dhDis=dh) annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Buildings.Fluid.Sources.Boundary_pT bouDisAutoSize(
     redeclare final package Medium = MediumW,
     p=300000,
@@ -43,7 +43,8 @@ model Connection1PipeExample
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={30,80})));
-  Buildings.Experimental.DHC.Networks.Connections.Connection1PipePlugFlow connection1PipeplugFlow(
+  Buildings.Experimental.DHC.Networks.Connections.Connection1PipePlugFlow_v
+    connection1PipeplugFlow(
     redeclare package Medium = MediumW,
     mDis_flow_nominal=mDis_flow_nominal,
     mCon_flow_nominal=mCon_flow_nominal,
@@ -126,9 +127,9 @@ equation
     Documentation(info="<html>
 <p>
 Example model of two one-pipe connection models that could be used i.e for building a reservoir network to connect one agent in series.  It uses 
-<a href=\"modelica://Buildings.Experimental.DHC.Networks.Connections.Connection1PipeAutosize\">
+<a href=\"modelica://Buildings.Experimental.DHC.Networks.Connections.Connection1Pipe_R\">
 Buildings.Experimental.DHC.Networks.Connections.Connection1PipeAutosize</a> and 
-<a href=\"modelica://Buildings.Experimental.DHC.Networks.Connections.Connection1PipePlugFlow\">
+<a href=\"modelica://Buildings.Experimental.DHC.Networks.Connections.Connection1PipePlugFlow_v\">
 Buildings.Experimental.DHC.Networks.Connections.Connection1PipePlugFlow</a>. The agent, in this example just a pump, will draw water from the distribution pipe and release it to the same pipe.
 </p>
 </html>", revisions="<html>

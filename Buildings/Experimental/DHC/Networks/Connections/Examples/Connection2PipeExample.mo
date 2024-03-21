@@ -17,7 +17,8 @@ model Connection2PipeExample
     "Nominal mass flow rate in the connection line";
   parameter Modelica.Units.SI.Length lDis=100
     "Length of the distribution pipe before the connection";
-  Buildings.Experimental.DHC.Networks.Connections.Connection2PipeAutosize connection2PipeAutosize(
+  Buildings.Experimental.DHC.Networks.Connections.Connection2Pipe_R
+    connection2PipeAutosize(
     redeclare package Medium = MediumW,
     mDis_flow_nominal=mDis_flow_nominal,
     mCon_flow_nominal=mCon_flow_nominal,
@@ -48,7 +49,8 @@ model Connection2PipeExample
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={30,82})));
-  Buildings.Experimental.DHC.Networks.Connections.Connection2PipePlugFlow connection2PipeplugFlow(
+  Buildings.Experimental.DHC.Networks.Connections.Connection2PipePlugFlow_v
+    connection2PipeplugFlow(
     redeclare package Medium = MediumW,
     mDis_flow_nominal=mDis_flow_nominal,
     mCon_flow_nominal=mCon_flow_nominal,
@@ -160,9 +162,9 @@ equation
     Documentation(info="<html>
 <p>
 Example model of two two-pipe connection models that could be used i.e for building a bi-directional network to connect one agent in series.  It uses 
-<a href=\"modelica://Buildings.Experimental.DHC.Networks.Connections.Connection2PipeAutosize\">
+<a href=\"modelica://Buildings.Experimental.DHC.Networks.Connections.Connection2Pipe_R\">
 Buildings.Experimental.DHC.Networks.Connections.Connection2PipeAutosize</a> and 
-<a href=\"modelica://Buildings.Experimental.DHC.Networks.Connections.Connection2PipePlugFlow\">
+<a href=\"modelica://Buildings.Experimental.DHC.Networks.Connections.Connection2PipePlugFlow_v\">
 Buildings.Experimental.DHC.Networks.Connections.Connection2PipePlugFlow</a>. The agent, in this example just a pump, will draw water from the distribution supply pipe and release it in the return pipe.
 </p>
 </html>", revisions="<html>
