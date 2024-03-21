@@ -334,7 +334,6 @@ to <b style=\"color:blue\">existing</b> libraries:
     <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.
     </td>
 </tr>
-</tr>
 <tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.Networks.Connections</b>
     </td>
 </tr>
