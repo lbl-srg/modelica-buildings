@@ -292,9 +292,6 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Latch enaNexLag if have_heaPum
     "Hold the enabling signal till the pump is proven on"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not1 if have_heaPum
-    "Logical not"
-    annotation (Placement(transformation(extent={{-200,-10},{-180,10}})));
   Buildings.Controls.OBC.CDL.Logical.Latch disLasLag if have_heaPum
     "Hold the disabling signal till the pump is proven off"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
@@ -480,10 +477,6 @@ equation
           {-210,-78},{-202,-78}}, color={255,127,0}));
   connect(intEqu4.y, mulAnd.u) annotation (Line(points={{-178,-70},{-170,-70},{-170,
           -20},{-142,-20}}, color={255,0,255}));
-  connect(enaLagChiPum.yDown, not1.u) annotation (Line(points={{-218,-4},{-210,-4},
-          {-210,0},{-202,0}}, color={255,0,255}));
-  connect(not1.y, disLasLag.u)
-    annotation (Line(points={{-178,0},{-42,0}}, color={255,0,255}));
   connect(disLasLag.y, not2.u)
     annotation (Line(points={{-18,0},{-2,0}}, color={255,0,255}));
   connect(not2.y, booRep2.u)
@@ -536,6 +529,8 @@ equation
           -20},{-100,24},{-2,24}}, color={255,0,255}));
   connect(pre1.y, booToInt1.u) annotation (Line(points={{242,-120},{260,-120},{
           260,-140},{-250,-140},{-250,-70},{-242,-70}}, color={255,0,255}));
+  connect(enaLagChiPum.yDown, disLasLag.u) annotation (Line(points={{-218,-4},{
+          -210,-4},{-210,0},{-42,0}}, color={255,0,255}));
 annotation (
   defaultComponentName="chiWatPum",
   Diagram(coordinateSystem(preserveAspectRatio=false,

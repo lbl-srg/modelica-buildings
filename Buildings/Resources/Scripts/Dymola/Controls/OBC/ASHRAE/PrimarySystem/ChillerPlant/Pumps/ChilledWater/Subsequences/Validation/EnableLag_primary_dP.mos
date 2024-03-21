@@ -1,11 +1,10 @@
 simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.Validation.EnableLag_primary_dP", method="Cvode", stopTime=3600, tolerance=1e-06, resultFile="enaLagChiPum_primary");
-createPlot(id=1, position={10, 10, 900, 1194}, y={"enaLagChiPum.chiWatFloRat.y", "enaLagChiPum.addPar2.y"}, range={0.0, 60.0, -0.5, 1.5}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}}, timeUnit="min", displayUnits={"1", "1"});
-createPlot(id=1, position={10, 10, 900, 1194}, y={"enaLagChiPum.hys.y", "enaLagChiPum.yUp"}, range={0.0, 60.0, -0.5, 1.5}, grid=true, subPlot=102, colors={{28,108,200}, {28,108,200}}, timeUnit="min");
-createPlot(id=1, position={10, 10, 900, 1194}, y={"enaLagChiPum.truDel.y"}, range={0.0, 60.0, -0.5, 1.5}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="min");
-createPlot(id=1, position={10, 10, 900, 1194}, y={"nexLagPumTri.y"}, range={0.0, 60.0, -0.2, 1.0}, grid=true, subPlot=104, colors={{28,108,200}}, timeUnit="min");
-createPlot(id=2, position={920, 10, 900, 1194}, y={"enaLagChiPum.chiWatFloRat.y", "enaLagChiPum.addPar2.y"}, range={0.0, 60.0, -0.5, 1.5}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}}, timeUnit="min", displayUnits={"1", "1"});
-createPlot(id=2, position={920, 10, 900, 1194}, y={"enaLagChiPum.hys1.y", "enaLagChiPum.yDown"}, range={0.0, 60.0, -0.5, 1.5}, grid=true, subPlot=102, colors={{28,108,200}, {28,108,200}}, timeUnit="min");
-createPlot(id=2, position={920, 10, 900, 1194}, y={"enaLagChiPum.truDel1.y"}, range={0.0, 60.0, -0.5, 1.5}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="min");
-createPlot(id=2, position={920, 10, 900, 1194}, y={"lasLagPumTri.y"}, range={0.0, 60.0, -0.4, 0.1}, grid=true, subPlot=104, colors={{238,46,47}}, timeUnit="min");
-
+createPlot(id=1, position={10, 10, 900, 1188}, y={"enaLagChiPum.chiWatFloRat.y"}, range={0.0, 60.0, -0.5, 1.5}, grid=true, subPlot=101, colors={{28,108,200}}, timeUnit="min", displayUnits={"1"});
+createPlot(id=1, position={10, 10, 900, 1188}, y={"enaLagChiPum.yUp"}, range={0.0, 60.0, -0.5, 1.5}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="min");
+createPlot(id=1, position={10, 10, 900, 1188}, y={"enaLagChiPum.truDel.y"}, range={0.0, 60.0, -0.5, 1.5}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="min");
+createPlot(id=1, position={10, 10, 900, 1188}, y={"enaLagChiPum.enaPum.y"}, range={0.0, 60.0, -0.5, 1.5}, grid=true, subPlot=104, colors={{28,108,200}}, timeUnit="min");
+createPlot(id=2, position={920, 10, 900, 1188}, y={"enaLagChiPum.chiWatFloRat.y"}, range={0.0, 60.0, -0.5, 1.5}, grid=true, subPlot=101, colors={{28,108,200}}, timeUnit="min", displayUnits={"1"});
+createPlot(id=2, position={920, 10, 900, 1188}, y={"enaLagChiPum.yDown"}, range={0.0, 60.0, -0.5, 1.5}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="min");
+createPlot(id=2, position={920, 10, 900, 1188}, y={"enaLagChiPum.truDel1.y"}, range={0.0, 60.0, -0.5, 1.5}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="min");
+createPlot(id=2, position={920, 10, 900, 1188}, y={"enaLagChiPum.disPum.y"}, range={0.0, 60.0, -0.5, 1.5}, grid=true, subPlot=104, colors={{28,108,200}}, timeUnit="min");
 
