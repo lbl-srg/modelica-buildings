@@ -35,20 +35,24 @@ gain matrix <i>K</i> with the input signal vector <i>u</i> as
 For example,
 </p>
 <pre>
-   parameter Real K[:,:] = [0.12 2; 3 1.5];
+   parameter Real K[:,:] = [0.12, 2; 3, 1.5];
 </pre>
 <p>
 results in
 </p>
 <pre>
-     | y[1] |     | 0.12  2.00 |   | u[1] |
+     | y[1] |     | 0.12,  2.00 |   | u[1] |
      |      |  =  |            | * |      |
-     | y[2] |     | 3.00  1.50 |   | u[2] |
+     | y[2] |     | 3.00,  1.50 |   | u[2] |
 </pre>
 
 </html>",
       revisions="<html>
 <ul>
+<li>
+February 15, 2024, by Michael Wetter:<br/>
+Updated documentation to have valid syntax.
+</li>
 <li>
 February 11, 2019, by Milica Grahovac:<br/>
 First implementation, based on the implementation of the
