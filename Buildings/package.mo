@@ -263,11 +263,17 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     </tr>
     <tr><td valign=\"top\">Buildings.Fluid.FMI.AirToOutlet<br/>
-                           Buildings.Fluid.FMI.InletToAir
+                           Buildings.Fluid.FMI.InletToAir<br/>
+                           Buildings.Fluid.FMI.FlowSplitter_u<br/>
+                           Buildings.Fluid.FMI.Sink_T<br/>
+                           Buildings.Fluid.FMI.Source_T<br/>
+                           Buildings.Fluid.FMI.Adaptors.Inlet<br/>
+                           Buildings.Fluid.FMI.Adaptors.Outlet
     </td>
     <td valign=\"top\">Added missing causality which is required for language compliance and for
                        Wolfram System Modeler.<br/>
-                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1829\">IBPSA, #1829</a>.
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1829\">IBPSA, #1829</a> and
+		       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1853\">IBPSA, #1853</a>.
     </td>
     <tr><td colspan=\"2\"><b>Buildings.Fluid.Sensors.Examples</b>
     </td>
