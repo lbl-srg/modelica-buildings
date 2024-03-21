@@ -23,6 +23,7 @@ block ReliefFan "Sequence for control of relief fan in AHU"
                 Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpBui(
+    final unit="Pa",
     displayUnit="Pa",
     final quantity="PressureDifference")
     "Building static pressure difference, relative to ambient (positive if pressurized)"
@@ -33,6 +34,7 @@ block ReliefFan "Sequence for control of relief fan in AHU"
     annotation (Placement(transformation(extent={{-280,12},{-240,52}}),
         iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDpBui(
+    final unit="Pa",
     displayUnit="Pa",
     final quantity="PressureDifference")
     "Building static pressure difference, relative to ambient (positive if pressurized)"
@@ -265,6 +267,10 @@ by 5 minutes, shut off the relief fan.
 </ol>
 </html>", revisions="<html>
 <ul>
+<li>
+March 5, 2024, by Michael Wetter:<br/>
+Corrected wrong use of <code>displayUnit</code>.
+</li>
 <li>
 September 18, 2023, by Jianjun Hu:<br/>
 Changed damper position output from the real to boolean.<br/>
