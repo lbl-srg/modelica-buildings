@@ -89,10 +89,10 @@ equation
     experiment(Tolerance=1e-6, StopTime=3600),
     Documentation(info="<html>
 <p>
-This example demonstrates the open loop response of the 
-steam boiler model. The dynamic boiler includes a control 
-signal that is first a ramp from <i>0</i> to <i>1</i>, 
-followed by a step that switches the boiler off and then 
+This example demonstrates the open loop response of the
+steam boiler model. The dynamic boiler includes a control
+signal that is first a ramp from <i>0</i> to <i>1</i>,
+followed by a step that switches the boiler off and then
 on again. The steady boiler is only dependent on the fluid
 flow.
 </p>

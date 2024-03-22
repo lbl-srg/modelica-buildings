@@ -562,7 +562,7 @@ Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump</
 <li>
 By default, the condenser loop is operated
 with a variable mass flow rate to maintain a difference between supply and
-return water of <code>dT_nominal</code>, 
+return water of <code>dT_nominal</code>,
 with a lower limit of mass flow specified by the ratio <code>ratFloMin</code>.
 The control logic is implemented and described in
 <a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Controls.PrimaryVariableFlow\">
@@ -618,11 +618,11 @@ Energy, Volume 199, 15 May 2020, 117418.
 <li>
 February 15, 2024, by Ettore Zanetti:<br/>
 Switch box <code>SwiFlo</code> valve pressure drop reduced to zero.
-</li>  
+</li>
 <li>
 October 2, 2023, by Michael Wetter:<br/>
 Renamed input <code>loaSHW</code> to <code>QReqHotWat_flow</code>.
-</li>  
+</li>
 <li>
 May 17, 2023, by David Blum:<br/>
 Assigned dp_nominal to <code>pum1HexChi</code>.<br/>

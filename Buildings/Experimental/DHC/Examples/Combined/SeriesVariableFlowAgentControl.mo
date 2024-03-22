@@ -270,7 +270,7 @@ Buildings.Experimental.DHC.Networks.Controls.AgentPump1Pipe</a>.
 
 <p>
 Ettore Zanetti, David Blum, Michael Wetter (2023) <a href=\"https://https://2023.international.conference.modelica.org/proceedings.html\">
-Control development and sizing analysis for a 5th generation district heating and cooling network using Modelica</a>, 
+Control development and sizing analysis for a 5th generation district heating and cooling network using Modelica</a>,
 In Proceedings of the 15th International Modelica Conference. Aachen, Germany, Oct 9-11, 2023.
 </p>
 

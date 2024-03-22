@@ -68,7 +68,7 @@ equation
       info="<html>
 <p>
 This is a model of a two-pipe distribution network using a connection model with a plug flow pipe
-model (pressure drop, heat transfer, transport delays) in the main lines whose hydraulic diameters 
+model (pressure drop, heat transfer, transport delays) in the main lines whose hydraulic diameters
 are calculated based on nominal velocity at nominal flow rate <a href=\"modelica://Buildings.Experimental.DHC.Networks.Connections.Connection2PipePlugFlow_v\">
 Buildings.Experimental.DHC.Networks.Connections.Connection2PipePlugFlow</a>. The same pipe model is also used
 at the end of the distribution line (after the last connection) only on the supply side.

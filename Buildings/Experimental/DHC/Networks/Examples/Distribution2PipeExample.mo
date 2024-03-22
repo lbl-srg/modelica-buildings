@@ -232,13 +232,13 @@ equation
     Documentation(
       info="<html>
 <p>
-Example model of two two-pipe distribution models that can be used i.e. for building a bi-directional network to connect several agents in series. 
-It showcases <a href=\"modelica://Buildings.Experimental.DHC.Networks.Distribution2Pipe_R\"> Buildings.Experimental.DHC.Networks.Distribution2PipeAutoSize</a> 
+Example model of two two-pipe distribution models that can be used i.e. for building a bi-directional network to connect several agents in series.
+It showcases <a href=\"modelica://Buildings.Experimental.DHC.Networks.Distribution2Pipe_R\"> Buildings.Experimental.DHC.Networks.Distribution2PipeAutoSize</a>
 and <a href=\"modelica://Buildings.Experimental.DHC.Networks.Distribution2PipePlugFlow_v\"> Buildings.Experimental.DHC.Networks.Distribution2PipePlugFlow</a>.
  The distribution models create a vector of <code>nLoa</code> connection models <a href=\"modelica://Buildings.Experimental.DHC.Networks.Connections\">
-Buildings.Experimental.DHC.Networks.Connections</a> that are connected to a vector of <code>nLoa</code> agents made up by time series heating loads 
-<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BaseClasses.FanCoil2PipeHeatingValve\"> 
-Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BaseClasses.FanCoil2PipeHeatingValve</a>. Each agent will draw water from the supply distribution pipe 
+Buildings.Experimental.DHC.Networks.Connections</a> that are connected to a vector of <code>nLoa</code> agents made up by time series heating loads
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BaseClasses.FanCoil2PipeHeatingValve\">
+Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BaseClasses.FanCoil2PipeHeatingValve</a>. Each agent will draw water from the supply distribution pipe
 and release it in the return pipe.
 </p>
 </html>",

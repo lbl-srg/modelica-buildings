@@ -1,5 +1,5 @@
 within Buildings.Experimental.DHC.Networks.BaseClasses;
-partial model PartialConnection2Pipe2Medium "Partial model for connecting an 
+partial model PartialConnection2Pipe2Medium "Partial model for connecting an
   agent to a two-pipe distribution network with two medium declarations"
   replaceable package MediumSup =
       Modelica.Media.Interfaces.PartialMedium
@@ -162,7 +162,7 @@ Two representing the main distribution supply and return pipes immediately downs
 of the connection.
 </li>
 <li>
-The other two representing the branch connection supply and return pipes immediately 
+The other two representing the branch connection supply and return pipes immediately
 upstream and downstream of the connection, respectively.
 </li>
 </ul>

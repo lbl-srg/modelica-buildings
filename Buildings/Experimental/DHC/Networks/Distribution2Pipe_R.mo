@@ -42,7 +42,7 @@ model Distribution2Pipe_R
     min=0.01) "Hydraulic diameter of the end of the distribution line";
   annotation (Documentation(info="<html>
 <p>
-This is a model of a two-pipe distribution network using a connection model with pipes in the main lines whose hydraulic diameters 
+This is a model of a two-pipe distribution network using a connection model with pipes in the main lines whose hydraulic diameters
 are calculated at initialization based on the pressure drop per pipe length at nominal flow rate <a href=\"modelica://Buildings.Experimental.DHC.Networks.Connections.Connection2Pipe_R\">
 Buildings.Experimental.DHC.Networks.Connections.Connection2PipeAutosize</a>. The same pipe model is also used
 at the end of the distribution line (after the last connection) only on the supply side.

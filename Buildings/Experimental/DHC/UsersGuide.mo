@@ -307,7 +307,7 @@ documentation of the model and subpackages for further modeling and implementati
     <td valign=\"top\">
     All-electric chilled water and heating water production plant with heat recovery chillers and condenser water storage.
     </td>
-</tr>     
+</tr>
 <tr><td valign=\"top\" rowspan=\"2\">Cooling
     </td>
     <td valign=\"top\">

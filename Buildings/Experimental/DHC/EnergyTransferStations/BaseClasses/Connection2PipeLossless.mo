@@ -11,8 +11,8 @@ model Connection2PipeLossless
     Documentation(
       info="<html>
 <p>
-This is a model of a connection for a two-pipe system using 
-a pipe model with no flow resistance, no heat loss and no transport delay. 
+This is a model of a connection for a two-pipe system using
+a pipe model with no flow resistance, no heat loss and no transport delay.
 </p>
 </html>",
       revisions="<html>

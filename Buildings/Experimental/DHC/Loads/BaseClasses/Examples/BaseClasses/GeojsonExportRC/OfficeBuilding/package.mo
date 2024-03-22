@@ -6,7 +6,7 @@ package OfficeBuilding "Package with RC building zone models"
     Documentation(
       info="<html>
 <p>
-This package contains RC building zone models programmatically generated from 
+This package contains RC building zone models programmatically generated from
 a GeoJSON file.
 </p>
 </html>"));

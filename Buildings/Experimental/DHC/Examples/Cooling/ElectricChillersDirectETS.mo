@@ -1,5 +1,5 @@
 within Buildings.Experimental.DHC.Examples.Cooling;
-model ElectricChillersDirectETS "Example model for district cooling system with 
+model ElectricChillersDirectETS "Example model for district cooling system with
   an electric chiller plant and a direct controlled ETS at each building"
   extends Modelica.Icons.Example;
   package Medium=Buildings.Media.Water
@@ -194,14 +194,14 @@ equation
       Tolerance=1e-06),
     Documentation(info="<html>
 <p>
-This model illustrates an example of district cooling system, 
-consisting of a cooling plant with parallel electric chillers 
+This model illustrates an example of district cooling system,
+consisting of a cooling plant with parallel electric chillers
 (<a href=\"modelica://Buildings/Experimental/DHC/Plants/Cooling/ElectricChillerParallel.mo\">
-Buildings.Experimental.DHC.Plants.Cooling.ElectricChillerParallel</a>), 
+Buildings.Experimental.DHC.Plants.Cooling.ElectricChillerParallel</a>),
 a two-pipe distribution network with plug flow pipes (<a href=\"modelica://Buildings/Experimental/DHC/Networks/Distribution2PipePlugFlow.mo\">
-Buildings.Experimental.DHC.Networks.Distribution2PipePlugFlow</a>), 
-and time series building load that have directly connected ETS 
-with the chilled water return temperatures controlled above a minimum 
+Buildings.Experimental.DHC.Networks.Distribution2PipePlugFlow</a>),
+and time series building load that have directly connected ETS
+with the chilled water return temperatures controlled above a minimum
 threshold
 (<a href=\"modelica://Buildings/Experimental/DHC/Loads/Cooling/BuildingTimeSeriesWithETS.mo\">
 Buildings.Experimental.DHC.Loads.Cooling.BuildingTimeSeriesWithETS</a>).
@@ -218,12 +218,12 @@ Changed call to <code>loadResources</code>. This is needed for Dymola 2024x beta
 January 2, 2023, by Kathryn Hinkelman:<br/>
 Revised chilled water pump controls to be constant speed and running 1-and-1 with the chillers.<br>
 Changed building-side ets from direct uncontrolled to controlled.<br>
-Revised distribution network from fixed resistance pipes to plug flow pipes. 
+Revised distribution network from fixed resistance pipes to plug flow pipes.
 </li>
 <li>
 December 21, 2022, by Kathryn Hinkelman:<br/>
 Corrected <code>dpMea</code> location to be at the terminal building.
-Removed in-building pumping for direct uncontrolled ETS example.<br> 
+Removed in-building pumping for direct uncontrolled ETS example.<br>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2912#issuecomment-1324375700\">#2912</a>.
 </li>
 <li>

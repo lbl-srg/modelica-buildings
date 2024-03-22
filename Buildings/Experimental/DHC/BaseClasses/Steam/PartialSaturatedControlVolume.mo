@@ -180,28 +180,28 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-This model represents a partial control volume for either condensation or 
+This model represents a partial control volume for either condensation or
 evaporation processes of water with liquid and vapor phases in equilibrium
-and at a saturated state. 
-Models that extend this base class need to assign the mass flow rate at 
+and at a saturated state.
+Models that extend this base class need to assign the mass flow rate at
 each port and the enthlapy at each port, as exemplifed in the evaporation
 and condensation models listed below.
-The volume can exchange heat through 
-its <code>heatPort</code> when configured with dynamic mass and 
+The volume can exchange heat through
+its <code>heatPort</code> when configured with dynamic mass and
 energy balances. In steady state, the heat port is conditionally removed
 in order to maintain a consistent set of equations.
 </p>
 <p>
-This model is similar to 
+This model is similar to
 <a href=\"modelica://Modelica.Fluid.Examples.DrumBoiler.BaseClasses.EquilibriumDrumBoiler\">
-Modelica.Fluid.Examples.DrumBoiler.BaseClasses.EquilibriumDrumBoiler</a> 
+Modelica.Fluid.Examples.DrumBoiler.BaseClasses.EquilibriumDrumBoiler</a>
 with the following exceptions:
 </p>
 <ul>
 <li>
 Rather than a two-phase medium, fluid mediums are modeled as two
 single-state fluids, with liquid water at the up-stream port<code>(port_a)</code>, and
-steam vapor at the downstream port <code>(port_b)</code> for instances of this 
+steam vapor at the downstream port <code>(port_b)</code> for instances of this
 base class that model evaporation (the opposite for condensation);
 </li>
 <li>
@@ -211,12 +211,12 @@ The metal drum is excluded from the mass and energy balances;
 
 <h4> Implementation</h4>
 <p>
-This model is configured to allow both steady state and dynamic mass 
-and energy balances. The heat transfer through the 
+This model is configured to allow both steady state and dynamic mass
+and energy balances. The heat transfer through the
 <code>heatPort</code> is disabled in steady state balance.
 This is required because the fluid is restricted to a saturated state;
 thus, the heat transfer rate is a function of mass flow rate only
-if the volume is steady. The fluid mass <i>m</i> in the volume is 
+if the volume is steady. The fluid mass <i>m</i> in the volume is
 calculated as
 </p>
 
@@ -224,15 +224,15 @@ calculated as
 m = ρ<sub>s</sub>V<sub>s</sub> + ρ<sub>w</sub>V<sub>w</sub>
 </p>
 <p>
-where <i>ρ</i> is density,<i>V</i> is volume, and subscripts represent 
-the steam and liquid water components, respectively. 
+where <i>ρ</i> is density,<i>V</i> is volume, and subscripts represent
+the steam and liquid water components, respectively.
 The total internal energy <i>U</i> is
 </p>
 <p align = \"center\" style = \"font-style:italic;\">
 U = ρ<sub>s</sub>V<sub>s</sub>h<sub>s</sub> + ρ<sub>w</sub>V<sub>w</sub> − pV
 </p>
 <p>
-where <i>h</i> is specific enthalpy, <i>p</i> is pressure, and the 
+where <i>h</i> is specific enthalpy, <i>p</i> is pressure, and the
 total volume of fluid <i>V=V<sub>s</sub>+V<sub>w</sub></i>.
 </p>
 
@@ -241,7 +241,7 @@ total volume of fluid <i>V=V<sub>s</sub>+V<sub>w</sub></i>.
 m&#775;<sub>s</sub> + m&#775;<sub>w</sub> = 0,
 </p>
 <p>
-while no additional equation is given for the steady state energy 
+while no additional equation is given for the steady state energy
 balance, since the heat flow rate into the water must be removed
 from the system in which the control volume is used.
 </p>
@@ -250,20 +250,20 @@ from the system in which the control volume is used.
 <p align = \"center\" style = \"font-style:italic;\">
 dm/dt = m&#775;<sub>s</sub> + m&#775;<sub>w</sub><Br>
 dU/dt = Q&#775; + m&#775;<sub>s</sub> h<sub>s</sub> + m&#775;
-<sub>w</sub> h<sub>w</sub></p> 
+<sub>w</sub> h<sub>w</sub></p>
 
 <p>
-where ̇<i>m&#775;<sub>s</sub></i> and <i>m&#775;<sub>w</sub></i> 
+where ̇<i>m&#775;<sub>s</sub></i> and <i>m&#775;<sub>w</sub></i>
 are the mass flow rates of steam and liquid water
-respectively; <i>Q&#775;</i> is the heat flow rate 
-into the control volume; 
-<i>h<sub>s</sub></i> and <i>h<sub>w</sub></i> are the specific 
-enthalpies of steam and liquid water, respectively. 
+respectively; <i>Q&#775;</i> is the heat flow rate
+into the control volume;
+<i>h<sub>s</sub></i> and <i>h<sub>w</sub></i> are the specific
+enthalpies of steam and liquid water, respectively.
 Note that with an evaporation process, the liquid
-phase (water) is always assigned at the <code>port_a</code> (inlet), 
+phase (water) is always assigned at the <code>port_a</code> (inlet),
 while the vapor phase (steam) is always at the <code>port_b</code> (outlet).
 The opposite holds for a condensation process.
-</p> 
+</p>
 
 <h4>Assumptions</h4>
 <p>
@@ -278,7 +278,7 @@ Liquid and vapor subcomponents are at equilibrium; and
 </li>
 <li>
 Fluid is discharged from the volume as ei
-ther saturated 
+ther saturated
 liquid or saturated vapor.
 </li>
 
@@ -293,10 +293,10 @@ Buildings.Experimental.DHC.Loads.Steam.BaseClasses.ControlVolumeCondensation</a>
 
 <h4>Reference</h4>
 <p>
-Hinkelman, Kathryn, Saranya Anbarasu, Michael Wetter, 
-Antoine Gautier, and Wangda Zuo. 2022. “A Fast and Accurate Modeling 
-Approach for Water and Steam Thermodynamics with Practical 
-Applications in District Heating System Simulation.” Preprint. February 24. 
+Hinkelman, Kathryn, Saranya Anbarasu, Michael Wetter,
+Antoine Gautier, and Wangda Zuo. 2022. “A Fast and Accurate Modeling
+Approach for Water and Steam Thermodynamics with Practical
+Applications in District Heating System Simulation.” Preprint. February 24.
 <a href=\"http://dx.doi.org/10.13140/RG.2.2.20710.29762\">doi:10.13140/RG.2.2.20710.29762</a>.
 </p>
 
