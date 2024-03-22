@@ -1,6 +1,6 @@
 within Buildings.Experimental.DHC.Networks.Connections.Examples;
 model Connection2PipeExample
-  "Example model that showcases Connection2PipeAutosize and Connection2PipePlugFlow models"
+  "Example model that showcases Connection2Pipe_R and Connection2PipePlugFlow_v models"
   extends Modelica.Icons.Example;
     package MediumW = Buildings.Media.Water "Medium model";
   parameter Modelica.Units.SI.Length dhDis(
@@ -17,8 +17,7 @@ model Connection2PipeExample
     "Nominal mass flow rate in the connection line";
   parameter Modelica.Units.SI.Length lDis=100
     "Length of the distribution pipe before the connection";
-  Buildings.Experimental.DHC.Networks.Connections.Connection2Pipe_R
-    connection2PipeAutosize(
+  Buildings.Experimental.DHC.Networks.Connections.Connection2Pipe_R connection2Pipe_R(
     redeclare package Medium = MediumW,
     mDis_flow_nominal=mDis_flow_nominal,
     mCon_flow_nominal=mCon_flow_nominal,
@@ -26,13 +25,13 @@ model Connection2PipeExample
     lDis=lDis,
     dhDis=dhDis)
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
-  Buildings.Fluid.Sources.Boundary_pT bouDisAutoSize(
+  Buildings.Fluid.Sources.Boundary_pT bouDisPipe_R(
     redeclare final package Medium = MediumW,
     p=300000,
     nPorts=1) annotation (Placement(transformation(extent={{-50,10},{-30,30}})));
   Modelica.Blocks.Sources.Constant mDis_flow_nominal_exp(k=mDis_flow_nominal)
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-  Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumDisAutoSize(
+  Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumDisPipe_R(
     dp_nominal=100000,
     redeclare final package Medium = MediumW,
     m_flow_nominal=mDis_flow_nominal) "Distribution network pump" annotation (
@@ -41,7 +40,7 @@ model Connection2PipeExample
         rotation=180,
         origin={-10,20})));
 
-  Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumConAutoSize(
+  Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumConPipe_R(
     dp_nominal=5000,
     redeclare final package Medium = MediumW,
     m_flow_nominal=mDis_flow_nominal) "Agent connection pump" annotation (
@@ -105,9 +104,8 @@ model Connection2PipeExample
         rotation=0,
         origin={66,-50})));
 equation
-  connect(mDis_flow_nominal_exp.y, pumDisAutoSize.m_flow_in)
-    annotation (Line(points={{-59,40},{-10,40},{-10,32}},
-                                                        color={0,0,127}));
+  connect(mDis_flow_nominal_exp.y, pumDisPipe_R.m_flow_in)
+    annotation (Line(points={{-59,40},{-10,40},{-10,32}}, color={0,0,127}));
   connect(mDis_flow_nominal_exp.y, pumDisPlugFlow.m_flow_in) annotation (Line(
         points={{-59,40},{-52,40},{-52,-60},{-12,-60},{-12,-68}},
                                                                 color={0,0,127}));
@@ -118,12 +116,12 @@ equation
   connect(pipeGroundCoupling.heatPorts[1],connection2PipeplugFlow. heatPortDis)
     annotation (Line(points={{-9.825,-35},{-9.825,-44.6},{20,-44.6}},
         color={127,0,0}));
-  connect(mCon_flow_nominal_exp.y, pumConAutoSize.m_flow_in) annotation (Line(
+  connect(mCon_flow_nominal_exp.y, pumConPipe_R.m_flow_in) annotation (Line(
         points={{-59,80},{0,80},{0,98},{30,98},{30,94}}, color={0,0,127}));
-  connect(pumConPlugFlow.m_flow_in, pumConAutoSize.m_flow_in) annotation (Line(
+  connect(pumConPlugFlow.m_flow_in, pumConPipe_R.m_flow_in) annotation (Line(
         points={{30,-8},{30,-6},{94,-6},{94,98},{30,98},{30,94}}, color={0,0,127}));
-  connect(pumDisAutoSize.port_a,connection2PipeAutosize. port_bDisRet)
-    annotation (Line(points={{0,20},{12,20},{12,44},{20,44}},  color={0,127,255}));
+  connect(pumDisPipe_R.port_a, connection2Pipe_R.port_bDisRet) annotation (Line(
+        points={{0,20},{12,20},{12,44},{20,44}}, color={0,127,255}));
   connect(pumDisPlugFlow.port_a,connection2PipeplugFlow. port_bDisRet)
     annotation (Line(points={{-2,-80},{10,-80},{10,-56},{20,-56}},
                                                         color={0,127,255}));
@@ -133,15 +131,15 @@ equation
   connect(pumDisPlugFlow.port_b, connection2PipeplugFlow.port_aDisSup)
     annotation (Line(points={{-22,-80},{-30,-80},{-30,-50},{20,-50}}, color={0,127,
           255}));
-  connect(pumDisAutoSize.port_b, connection2PipeAutosize.port_aDisSup)
-    annotation (Line(points={{-20,20},{-24,20},{-24,50},{20,50}}, color={0,127,255}));
-  connect(connection2PipeAutosize.port_bCon, pumConAutoSize.port_a) annotation (
-     Line(points={{30,60},{30,64},{16,64},{16,82},{20,82}}, color={0,127,255}));
-  connect(pumConAutoSize.port_b, connection2PipeAutosize.port_aCon) annotation (
-     Line(points={{40,82},{44,82},{44,64},{36,64},{36,60}}, color={0,127,255}));
-  connect(connection2PipeAutosize.port_bDisSup, senMasFloDisAutosize.port_a)
+  connect(pumDisPipe_R.port_b, connection2Pipe_R.port_aDisSup) annotation (Line(
+        points={{-20,20},{-24,20},{-24,50},{20,50}}, color={0,127,255}));
+  connect(connection2Pipe_R.port_bCon, pumConPipe_R.port_a) annotation (Line(
+        points={{30,60},{30,64},{16,64},{16,82},{20,82}}, color={0,127,255}));
+  connect(pumConPipe_R.port_b, connection2Pipe_R.port_aCon) annotation (Line(
+        points={{40,82},{44,82},{44,64},{36,64},{36,60}}, color={0,127,255}));
+  connect(connection2Pipe_R.port_bDisSup, senMasFloDisAutosize.port_a)
     annotation (Line(points={{40,50},{54,50}}, color={0,127,255}));
-  connect(senMasFloDisAutosize.port_b, connection2PipeAutosize.port_aDisRet)
+  connect(senMasFloDisAutosize.port_b, connection2Pipe_R.port_aDisRet)
     annotation (Line(points={{74,50},{84,50},{84,28},{48,28},{48,44},{40,44}},
         color={0,127,255}));
   connect(connection2PipeplugFlow.port_bDisSup, senMasFloDisPlugFlow.port_a)
@@ -152,8 +150,8 @@ equation
   connect(bouDisPlugFlow.ports[1], connection2PipeplugFlow.port_aDisSup)
     annotation (Line(points={{-40,-80},{-30,-80},{-30,-50},{20,-50}}, color={0,127,
           255}));
-  connect(bouDisAutoSize.ports[1], connection2PipeAutosize.port_aDisSup)
-    annotation (Line(points={{-30,20},{-24,20},{-24,50},{20,50}}, color={0,127,255}));
+  connect(bouDisPipe_R.ports[1], connection2Pipe_R.port_aDisSup) annotation (
+      Line(points={{-30,20},{-24,20},{-24,50},{20,50}}, color={0,127,255}));
   annotation (__Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Networks/Connections/Examples/Connection2PipeExample.mos" "Simulate and plot"),
     experiment(
@@ -161,11 +159,11 @@ equation
       Tolerance=1e-06),
     Documentation(info="<html>
 <p>
-Example model of two two-pipe connection models that could be used i.e for building a bi-directional network to connect one agent in series.  It uses
+Example model of two two-pipe connection models that could be used i.e for building a bi-directional network to connect one agent in series.  It uses 
 <a href=\"modelica://Buildings.Experimental.DHC.Networks.Connections.Connection2Pipe_R\">
-Buildings.Experimental.DHC.Networks.Connections.Connection2PipeAutosize</a> and
+Buildings.Experimental.DHC.Networks.Connections.Connection2Pipe_R</a> and 
 <a href=\"modelica://Buildings.Experimental.DHC.Networks.Connections.Connection2PipePlugFlow_v\">
-Buildings.Experimental.DHC.Networks.Connections.Connection2PipePlugFlow</a>. The agent, in this example just a pump, will draw water from the distribution supply pipe and release it in the return pipe.
+Buildings.Experimental.DHC.Networks.Connections.Connection2PipePlugFlow_v</a>. The agent, in this example just a pump, will draw water from the distribution supply pipe and release it in the return pipe.
 </p>
 </html>", revisions="<html>
 <ul>

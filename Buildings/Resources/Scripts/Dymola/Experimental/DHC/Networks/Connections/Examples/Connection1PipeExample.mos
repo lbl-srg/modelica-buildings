@@ -1,8 +1,8 @@
 // Simulate
 simulateModel("Buildings.Experimental.DHC.Networks.Connections.Examples.Connection1PipeExample", stopTime=3600,method="Cvode", tolerance=1e-06, resultFile="Connection1PipeExample");
 // Plot commands
-createPlot(id=1, position={52, 10, 1644, 1131}, y={"pumDisAutoSize.m_flow_actual", "pumDisPlugFlow.m_flow_actual","pumConAutoSize.m_flow_actual", "pumConPlugFlow.m_flow_actual"}, range={0.0, 3600.0, -0.2, 1.2000000000000002}, autoscale=false, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, timeUnit="s", displayUnits={"kg/s", "kg/s", "kg/s", "kg/s"});
-createPlot(id=1, position={52, 10, 1644, 1131}, y={"pumDisAutoSize.port_a.p", "pumDisAutoSize.port_b.p", "pumDisPlugFlow.port_a.p", "pumDisPlugFlow.port_b.p"}, range={0.0, 3600.0, 2.0, 3.1}, autoscale=false, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, timeUnit="s", displayUnits={"bar", "bar", "bar", "bar"});
+createPlot(id=1, position={52, 10, 1644, 1131}, y={"pumDisPipe_R.m_flow_actual", "pumDisPlugFlow.m_flow_actual","pumConPipe_R.m_flow_actual", "pumConPlugFlow.m_flow_actual"}, range={0.0, 3600.0, -0.2, 1.2000000000000002}, autoscale=false, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, timeUnit="s", displayUnits={"kg/s", "kg/s", "kg/s", "kg/s"});
+createPlot(id=1, position={52, 10, 1644, 1131}, y={"pumDisPipe_R.port_a.p", "pumDisPipe_R.port_b.p", "pumDisPlugFlow.port_a.p", "pumDisPlugFlow.port_b.p"}, range={0.0, 3600.0, 2.0, 3.1}, autoscale=false, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, timeUnit="s", displayUnits={"bar", "bar", "bar", "bar"});
 
 
 

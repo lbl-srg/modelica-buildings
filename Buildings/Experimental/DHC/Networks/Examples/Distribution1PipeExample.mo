@@ -1,6 +1,6 @@
 within Buildings.Experimental.DHC.Networks.Examples;
 model Distribution1PipeExample
-  "Example of distribution network with 1 pipe for Distribution1PipeAutosize and Distribution1PipePlugFlow"
+  "Example of distribution network with 1 pipe for Distribution1Pipe_R and Distribution1PipePlugFlow_v"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Water
     "Source side medium";
@@ -264,8 +264,8 @@ equation
 <p>
 Example model of two one-pipe distribution models that could be used i.e for building a reservoir network to connect several agents in series.
 It showcases <a href=\"modelica://Buildings.Experimental.DHC.Networks.Distribution1Pipe_R\">
-Buildings.Experimental.DHC.Networks.Distribution1PipeAutoSize</a> and <a href=\"modelica://Buildings.Experimental.DHC.Networks.Distribution1PipePlugFlow_v\">
-Buildings.Experimental.DHC.Networks.Distribution1PipePlugFlow</a>. The distribution models create a vector of <code>nLoa</code> connection models
+Buildings.Experimental.DHC.Networks.Distribution1Pipe_R</a> and <a href=\"modelica://Buildings.Experimental.DHC.Networks.Distribution1PipePlugFlow_v\">
+Buildings.Experimental.DHC.Networks.Distribution1PipePlugFlow_v</a>. The distribution models create a vector of <code>nLoa</code> connection models
 <a href=\"modelica://Buildings.Experimental.DHC.Networks.Connections\"> Buildings.Experimental.DHC.Networks.Connections</a> that are connected to a vector
 of <code>nLoa</code> agents made up by time series heating loads <a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BaseClasses.FanCoil2PipeHeatingValve\">
 Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BaseClasses.FanCoil2PipeHeatingValve</a>. Each agent will draw water from the distribution pipe and release

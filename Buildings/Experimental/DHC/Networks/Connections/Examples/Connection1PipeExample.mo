@@ -1,6 +1,6 @@
 within Buildings.Experimental.DHC.Networks.Connections.Examples;
 model Connection1PipeExample
-  "Example model that showcases Connection1PipeAutosize and Connection1PipePlugFlow models"
+  "Example model that showcases Connection1Pipe_R and Connection1PipePlugFlow_v models"
   extends Modelica.Icons.Example;
     package MediumW = Buildings.Media.Water "Medium model";
   parameter Modelica.Units.SI.Length dh(
@@ -13,8 +13,7 @@ model Connection1PipeExample
     "Nominal mass flow rate in the connection line";
   parameter Modelica.Units.SI.Length lDis = 100
     "Length of the distribution pipe before the connection";
-  Buildings.Experimental.DHC.Networks.Connections.Connection1Pipe_R
-    connection1PipeAutosize(
+  Buildings.Experimental.DHC.Networks.Connections.Connection1Pipe_R connection1Pipe_R(
     redeclare package Medium = MediumW,
     mDis_flow_nominal=mDis_flow_nominal,
     mCon_flow_nominal=mCon_flow_nominal,
@@ -26,7 +25,7 @@ model Connection1PipeExample
     nPorts=1) annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Modelica.Blocks.Sources.Constant mDis_flow_nominal_exp(k=mDis_flow_nominal)
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumDisAutoSize(
+  Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumDisPipe_R(
     dp_nominal=100000,
     redeclare final package Medium = MediumW,
     m_flow_nominal=mDis_flow_nominal) "Distribution network pump" annotation (
@@ -35,7 +34,7 @@ model Connection1PipeExample
         rotation=180,
         origin={32,16})));
 
-  Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumConAutoSize(
+  Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumConPipe_R(
     dp_nominal=5000,
     redeclare final package Medium = MediumW,
     m_flow_nominal=mDis_flow_nominal) "Agent connection pump" annotation (
@@ -87,18 +86,18 @@ model Connection1PipeExample
       startTime=1800)
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 equation
-  connect(pumDisAutoSize.port_b, connection1PipeAutosize.port_aDis) annotation (
-     Line(points={{22,16},{10,16},{10,50},{20,50}}, color={0,127,255}));
-  connect(bouDisAutoSize.ports[1], connection1PipeAutosize.port_aDis)
-    annotation (Line(points={{0,10},{10,10},{10,50},{20,50}}, color={0,127,255}));
-  connect(pumDisAutoSize.port_a, connection1PipeAutosize.port_bDis) annotation (
-     Line(points={{42,16},{50,16},{50,50},{40,50}}, color={0,127,255}));
-  connect(mDis_flow_nominal_exp.y, pumDisAutoSize.m_flow_in)
+  connect(pumDisPipe_R.port_b, connection1Pipe_R.port_aDis) annotation (Line(
+        points={{22,16},{10,16},{10,50},{20,50}}, color={0,127,255}));
+  connect(bouDisAutoSize.ports[1], connection1Pipe_R.port_aDis) annotation (
+      Line(points={{0,10},{10,10},{10,50},{20,50}}, color={0,127,255}));
+  connect(pumDisPipe_R.port_a, connection1Pipe_R.port_bDis) annotation (Line(
+        points={{42,16},{50,16},{50,50},{40,50}}, color={0,127,255}));
+  connect(mDis_flow_nominal_exp.y, pumDisPipe_R.m_flow_in)
     annotation (Line(points={{-59,30},{32,30},{32,28}}, color={0,0,127}));
-  connect(connection1PipeAutosize.port_bCon, pumConAutoSize.port_a) annotation (
-     Line(points={{30,60},{30,62},{16,62},{16,80},{20,80}}, color={0,127,255}));
-  connect(pumConAutoSize.port_b, connection1PipeAutosize.port_aCon) annotation (
-     Line(points={{40,80},{42,80},{42,62},{36,62},{36,60}}, color={0,127,255}));
+  connect(connection1Pipe_R.port_bCon, pumConPipe_R.port_a) annotation (Line(
+        points={{30,60},{30,62},{16,62},{16,80},{20,80}}, color={0,127,255}));
+  connect(pumConPipe_R.port_b, connection1Pipe_R.port_aCon) annotation (Line(
+        points={{40,80},{42,80},{42,62},{36,62},{36,60}}, color={0,127,255}));
   connect(pumDisPlugFlow.port_b, connection1PipeplugFlow.port_aDis) annotation (
      Line(points={{22,-80},{12,-80},{12,-50},{20,-50}}, color={0,127,255}));
   connect(bouDisPlugFlow.ports[1], connection1PipeplugFlow.port_aDis)
@@ -115,10 +114,11 @@ equation
   connect(pipeGroundCoupling.heatPorts[1], connection1PipeplugFlow.heatPortDis)
     annotation (Line(points={{-11,-35},{-11,-47.4},{25,-47.4}},
         color={127,0,0}));
-  connect(mCon_flow_nominal_exp.y, pumConAutoSize.m_flow_in) annotation (Line(
+  connect(mCon_flow_nominal_exp.y, pumConPipe_R.m_flow_in) annotation (Line(
         points={{-59,80},{0,80},{0,98},{30,98},{30,92}}, color={0,0,127}));
-  connect(pumConPlugFlow.m_flow_in, pumConAutoSize.m_flow_in) annotation (Line(
-        points={{30,-8},{30,-4},{60,-4},{60,98},{30,98},{30,92}}, color={0,0,127}));
+  connect(pumConPlugFlow.m_flow_in, pumConPipe_R.m_flow_in) annotation (Line(
+        points={{30,-8},{30,-4},{60,-4},{60,98},{30,98},{30,92}}, color={0,0,
+          127}));
   annotation (__Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Networks/Connections/Examples/Connection1PipeExample.mos" "Simulate and plot"),
     experiment(
@@ -126,11 +126,11 @@ equation
       Tolerance=1e-06),
     Documentation(info="<html>
 <p>
-Example model of two one-pipe connection models that could be used i.e for building a reservoir network to connect one agent in series.  It uses
+Example model of two one-pipe connection models that could be used i.e for building a reservoir network to connect one agent in series.  It uses 
 <a href=\"modelica://Buildings.Experimental.DHC.Networks.Connections.Connection1Pipe_R\">
-Buildings.Experimental.DHC.Networks.Connections.Connection1PipeAutosize</a> and
+Buildings.Experimental.DHC.Networks.Connections.Connection1Pipe_R</a> and 
 <a href=\"modelica://Buildings.Experimental.DHC.Networks.Connections.Connection1PipePlugFlow_v\">
-Buildings.Experimental.DHC.Networks.Connections.Connection1PipePlugFlow</a>. The agent, in this example just a pump, will draw water from the distribution pipe and release it to the same pipe.
+Buildings.Experimental.DHC.Networks.Connections.Connection1PipePlugFlow_v</a>. The agent, in this example just a pump, will draw water from the distribution pipe and release it to the same pipe.
 </p>
 </html>", revisions="<html>
 <ul>
