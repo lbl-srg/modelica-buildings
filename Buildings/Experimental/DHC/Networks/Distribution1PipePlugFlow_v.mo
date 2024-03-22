@@ -1,11 +1,9 @@
 within Buildings.Experimental.DHC.Networks;
 model Distribution1PipePlugFlow_v
   "Model of a one-pipe distribution network with plug flow pipes in the main line with hydraulic diameter calculated from nominal velocity"
-  extends
-    Buildings.Experimental.DHC.Networks.BaseClasses.PartialDistribution1Pipe(
+  extends Buildings.Experimental.DHC.Networks.BaseClasses.PartialDistribution1Pipe(
     tau=5*60,
-    redeclare
-      Buildings.Experimental.DHC.Networks.Connections.Connection1PipePlugFlow_v
+    redeclare Buildings.Experimental.DHC.Networks.Connections.Connection1PipePlugFlow_v
       con[nCon](
       each final dIns=dIns,
       each final kIns=kIns,
@@ -15,8 +13,7 @@ model Distribution1PipePlugFlow_v
       each final rhoPip=rhoPip,
       each final thickness=thickness,
       final lDis=lDis),
-    redeclare model Model_pipDis =
-        Buildings.Fluid.FixedResistances.PlugFlowPipe (
+    redeclare model Model_pipDis = Buildings.Fluid.FixedResistances.PlugFlowPipe (
         final length=lEnd,
         final dIns=dIns,
         final kIns=kIns,

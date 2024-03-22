@@ -1,8 +1,7 @@
 within Buildings.Experimental.DHC.Networks;
 model Distribution2PipePlugFlow_v
   "Model of a two-pipe distribution network using plug flow pipe models in the main lines with hydraulic diameter calculated from nominal velocity"
-  extends
-    Buildings.Experimental.DHC.Networks.BaseClasses.PartialDistribution2Pipe(
+  extends Buildings.Experimental.DHC.Networks.BaseClasses.PartialDistribution2Pipe(
       redeclare Connections.Connection2PipePlugFlow_v con[nCon](
       final lDis=lDis,
       each final dIns=dIns,
@@ -11,8 +10,8 @@ model Distribution2PipePlugFlow_v
       each final roughness=roughness,
       each final cPip=cPip,
       each final rhoPip=rhoPip,
-      each final thickness=thickness), redeclare model Model_pipDis =
-        Buildings.Fluid.FixedResistances.PlugFlowPipe (
+      each final thickness=thickness), 
+      redeclare model Model_pipDis = Buildings.Fluid.FixedResistances.PlugFlowPipe(
         final length=lEnd,
         final dIns=dIns,
         final kIns=kIns,

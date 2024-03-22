@@ -1,11 +1,9 @@
 within Buildings.Experimental.DHC.Networks.Connections;
 model Connection1PipePlugFlow_v
   "Model for connecting an agent to the DHC system"
-  extends
-    Buildings.Experimental.DHC.Networks.BaseClasses.PartialConnection1Pipe(
+  extends Buildings.Experimental.DHC.Networks.BaseClasses.PartialConnection1Pipe(
     tau=5*60,
-    redeclare replaceable model Model_pipDis =
-        Buildings.Fluid.FixedResistances.PlugFlowPipe (
+    redeclare replaceable model Model_pipDis = Buildings.Fluid.FixedResistances.PlugFlowPipe(
       final length=lDis,
       final dIns=dIns,
       final kIns=kIns,
@@ -14,8 +12,7 @@ model Connection1PipePlugFlow_v
       cPip=cPip,
       rhoPip=rhoPip,
       thickness=thickness),
-    redeclare replaceable model Model_pipCon =
-        Buildings.Fluid.FixedResistances.LosslessPipe);
+    redeclare replaceable model Model_pipCon = Buildings.Fluid.FixedResistances.LosslessPipe);
 
   parameter Modelica.Units.SI.Length dIns
     "Thickness of pipe insulation, used to compute R"

@@ -1,8 +1,7 @@
 within Buildings.Experimental.DHC.Networks;
 model Distribution2Pipe_R
   "Model of a two-pipe distribution network with hydraulic diameter of main line pipes calculated from pressure drop per length"
-  extends
-    Buildings.Experimental.DHC.Networks.BaseClasses.PartialDistribution2Pipe(
+  extends Buildings.Experimental.DHC.Networks.BaseClasses.PartialDistribution2Pipe(
     tau=5*60,
     redeclare Buildings.Experimental.DHC.Networks.Connections.Connection2Pipe_R
       con[nCon](
@@ -10,8 +9,7 @@ model Distribution2Pipe_R
       final lDis=lDis,
       final dhDis=dhDis,
       final dhDisRet=dhDisRet),
-    redeclare model Model_pipDis =
-        Buildings.Experimental.DHC.Networks.Pipes.PipeAutosize (
+    redeclare model Model_pipDis = Buildings.Experimental.DHC.Networks.Pipes.PipeAutosize(
         roughness=7e-6,
         fac=1.5,
         final dp_length_nominal=dp_length_nominal,

@@ -244,7 +244,7 @@ equation
           -40},{-100,-30},{-60,-30},{-60,-40},{300,-40},{300,20},{318,20}},
                                                         color={0,0,127}));
   connect(TDisWatRet.T, conVio.u[3]) annotation (Line(points={{69,0},{60,0},{60,
-          20.6667},{318,20.6667}},                     color={0,0,127}));
+          20.6667},{318,20.6667}},color={0,0,127}));
   connect(bou.ports[1], pumDis.port_b)
     annotation (Line(points={{102,-98},{80,-98},{80,-70}}, color={0,127,255}));
   annotation (Diagram(

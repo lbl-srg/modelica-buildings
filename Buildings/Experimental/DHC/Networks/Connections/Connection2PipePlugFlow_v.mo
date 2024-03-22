@@ -1,10 +1,8 @@
 within Buildings.Experimental.DHC.Networks.Connections;
 model Connection2PipePlugFlow_v
   "Model for connecting an agent to a two-pipe distribution network, using plug flow pipe models in the main line"
-  extends
-    Buildings.Experimental.DHC.Networks.BaseClasses.PartialConnection2Pipe(
-    redeclare model Model_pipDisSup =
-        Buildings.Fluid.FixedResistances.PlugFlowPipe (
+  extends Buildings.Experimental.DHC.Networks.BaseClasses.PartialConnection2Pipe(
+    redeclare model Model_pipDisSup = Buildings.Fluid.FixedResistances.PlugFlowPipe(
       final length = lDis,
       final dIns = dIns,
       final kIns = kIns,
@@ -13,8 +11,7 @@ model Connection2PipePlugFlow_v
       cPip = cPip,
       rhoPip = rhoPip,
       thickness = thickness),
-    redeclare model Model_pipDisRet =
-        Buildings.Fluid.FixedResistances.PlugFlowPipe (
+    redeclare model Model_pipDisRet = Buildings.Fluid.FixedResistances.PlugFlowPipe (
       final length = lDis,
       final dIns = dIns,
       final kIns = kIns,

@@ -1,16 +1,13 @@
 within Buildings.Experimental.DHC.Networks.Connections;
-model Connection1Pipe_R
-  "Model for connecting an agent to the DHC system"
-  extends
-    Buildings.Experimental.DHC.Networks.BaseClasses.PartialConnection1Pipe(
+model Connection1Pipe_R "Model for connecting an agent to the DHC system"
+  extends Buildings.Experimental.DHC.Networks.BaseClasses.PartialConnection1Pipe(
     tau=5*60,
-    redeclare replaceable model Model_pipDis = Pipes.PipeAutosize (
+    redeclare replaceable model Model_pipDis = Pipes.PipeAutosize(
         roughness = 7e-6,
         final length = lDis,
         dh(fixed=true) = dhDis,
         final dp_length_nominal = dp_length_nominal),
-    redeclare replaceable model Model_pipCon =
-        Buildings.Fluid.FixedResistances.LosslessPipe,
+    redeclare replaceable model Model_pipCon = Buildings.Fluid.FixedResistances.LosslessPipe,
     pipDis(fac=1));
   parameter Real dp_length_nominal(final unit="Pa/m") = 250
     "Pressure drop per pipe length at nominal flow rate";
