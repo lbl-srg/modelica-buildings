@@ -148,7 +148,7 @@ protected
   //  Modelica.Units.SI.Time dtMax(displayUnit="min", start=600, fixed=true) "Maximum time step before next sampling";
   discrete Modelica.Units.SI.Time tLast(fixed=true, start=startTime)
     "Last time of data exchange";
-  discrete Modelica.Units.SI.Time dtLast
+  discrete Modelica.Units.SI.Time dtLast(fixed=true, start=0)
     "Time step since the last synchronization";
   discrete Modelica.Units.SI.MassFlowRate mInlet_flow(
     start=0,
@@ -158,6 +158,10 @@ protected
     "Time averaged inlet temperature";
   discrete Modelica.Units.SI.Temperature TRooLast
     "Room air temperature at last sampling";
+  discrete Modelica.Units.SI.HeatFlowRate QGaiRadAve_flow
+   "Radiative heat flow rate averaged over the past synchronization time step";
+  Modelica.Units.SI.Energy EGaiRad
+   "Radiative energy exchanged since the last synchronization time step";
 //  discrete Real dQCon_flow_dT(
 //    final unit="W/K")
 //    "Derivative dQCon_flow / dT";
@@ -195,6 +199,7 @@ initial equation
     isSynchronized=nObj);
   TAveInlet=293.15;
   m_flow_small=V*3*1.2/3600*1E-10;
+
   assert(
     AFlo > 0,
     "Floor area must not be zero.");
@@ -212,6 +217,8 @@ equation
       Modelica.Utilities.Strings.length(fmuName) > 1,
       "If usePrecompiledFMU = true, must set parameter fmuName");
   end if;
+
+  der(EGaiRad) = QGaiRad_flow;
   when {initial(),time >= pre(tNext)} then
     // Initialization of output variables.
     TRooLast=T;
@@ -229,11 +236,12 @@ equation
         else
           0 for i in 1:nFluPor)+m_flow_small*pre(TAveInlet))/(mInlet_flow+m_flow_small));
     // Below, the term X_w/(1.-X_w) is for conversion from kg/kg_total_air (Modelica) to kg/kg_dry_air (EnergyPlus)
+    QGaiRadAve_flow = if dtLast > 1E-3 then pre(EGaiRad)/dtLast else pre(QGaiRad_flow);
     yEP=Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.exchange(
       adapter=adapter,
       initialCall=false,
       nY=nY,
-      u={T,X_w/(1.-X_w),pre(mInlet_flow),TAveInlet,pre(QGaiRad_flow),round(time,1E-3)},
+      u={T,X_w/(1.-X_w),pre(mInlet_flow),TAveInlet,QGaiRadAve_flow,round(time,1E-3)},
       dummy=AFlo);
     TRad=yEP[1];
     QConLast_flow=yEP[2];
@@ -243,6 +251,7 @@ equation
     //tNext=yEP[6];
     tNext=yEP[5];
     tLast=time;
+    reinit(EGaiRad, 0);
   end when;
   //QCon_flow=QConLast_flow+(T-TRooLast)*dQCon_flow_dT;
   QCon_flow=QConLast_flow;
