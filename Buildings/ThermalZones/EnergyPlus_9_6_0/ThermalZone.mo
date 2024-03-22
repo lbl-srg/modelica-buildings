@@ -535,6 +535,18 @@ is not possible.
       revisions="<html>
 <ul>
 <li>
+March 22, 2024, by Michael Wetter:<br/>
+Changed radiative heat flow rate sent to EnergyPlus to be the average over the last
+synchronization time step rather than the instantaneuous value. This avoids a
+nonlinear system of equation during the time integration for models in which
+the radiative heat gain is a function of the room radiative temperature, such as
+when a radiator is connected to the room model. See
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Radiator\">
+Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Radiator</a>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3707\">Buildings, #3707</a>.
+</li>
+<li>
 February 14, 2024, by Michael Wetter:<br/>
 Added heat port to radiative balance <code>heaPorRad</code>.<br/>
 This is for

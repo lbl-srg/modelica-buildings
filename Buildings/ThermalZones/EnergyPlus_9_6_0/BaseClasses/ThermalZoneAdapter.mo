@@ -141,18 +141,16 @@ protected
     "Simulation start time";
   Real yEP[nY]
     "Output of exchange function";
-  Modelica.Units.SI.Time tNext(start=startTime, fixed=true)
+  discrete Modelica.Units.SI.Time tNext
     "Next sampling time";
   //Modelica.Units.SI.Time tNextEP(start=startTime-1, fixed=true) "Next sampling time requested from EnergyPlus";
   // constant Real dT_dtMax(unit="K/s") = 0.000001 "Bound on temperature derivative to reduce or increase time step";
   //  Modelica.Units.SI.Time dtMax(displayUnit="min", start=600, fixed=true) "Maximum time step before next sampling";
-  discrete Modelica.Units.SI.Time tLast(fixed=true, start=startTime)
+  discrete Modelica.Units.SI.Time tLast
     "Last time of data exchange";
-  discrete Modelica.Units.SI.Time dtLast(fixed=true, start=0)
+  discrete Modelica.Units.SI.Time dtLast
     "Time step since the last synchronization";
-  discrete Modelica.Units.SI.MassFlowRate mInlet_flow(
-    start=0,
-    fixed=true)
+  discrete Modelica.Units.SI.MassFlowRate mInlet_flow
     "Time averaged inlet mass flow rate";
   discrete Modelica.Units.SI.Temperature TAveInlet
     "Time averaged inlet temperature";
@@ -197,8 +195,34 @@ initial equation
     adapter=adapter,
     nParOut=nParOut,
     isSynchronized=nObj);
-  TAveInlet=293.15;
+
   m_flow_small=V*3*1.2/3600*1E-10;
+
+  // Initialization of output variables.
+  TRooLast=T;
+  dtLast=0;
+  mInlet_flow=sum(if m_flow[i] > 0 then m_flow[i] else 0 for i in 1:nFluPor);
+  TAveInlet=sum(if m_flow[i] > 0 then TInlet[i]*m_flow[i] else 0 for i in 1:nFluPor)
+    +m_flow_small*TAveInlet/(mInlet_flow+m_flow_small);
+
+  QGaiRadAve_flow = QGaiRad_flow;
+
+  // Synchronization with EnergyPlus
+  // Below, the term X_w/(1.-X_w) is for conversion from kg/kg_total_air (Modelica) to kg/kg_dry_air (EnergyPlus)
+  yEP=Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.exchange(
+    adapter=adapter,
+    initialCall=false,
+    nY=nY,
+    u={ T, X_w/(1.-X_w), mInlet_flow, TAveInlet, QGaiRadAve_flow, round(time,1E-3)}, dummy=AFlo);
+
+  TRad=yEP[1];
+  QConLast_flow=yEP[2];
+  QLat_flow=yEP[3];
+  QPeo_flow=yEP[4];
+  tNext=yEP[5];
+
+  tLast=time;
+  EGaiRad = 0;
 
   assert(
     AFlo > 0,
@@ -218,8 +242,12 @@ equation
       "If usePrecompiledFMU = true, must set parameter fmuName");
   end if;
 
+  // Integrate GQaiRad_flow, which breaks any algebraic loop if QGaiRad_flow is
+  // a function of TRad
   der(EGaiRad) = QGaiRad_flow;
-  when {initial(),time >= pre(tNext)} then
+
+  // Synchronization with EnergyPlus
+  when {time >= pre(tNext)} then
     // Initialization of output variables.
     TRooLast=T;
     dtLast=time-pre(tLast);
@@ -230,11 +258,11 @@ equation
         else
           0 for i in 1:nFluPor));
     TAveInlet=noEvent(
-      (sum(
+      sum(
         if m_flow[i] > 0 then
           TInlet[i]*m_flow[i]
         else
-          0 for i in 1:nFluPor)+m_flow_small*pre(TAveInlet))/(mInlet_flow+m_flow_small));
+          0 for i in 1:nFluPor)+m_flow_small*pre(TAveInlet)/(mInlet_flow+m_flow_small));
     // Below, the term X_w/(1.-X_w) is for conversion from kg/kg_total_air (Modelica) to kg/kg_dry_air (EnergyPlus)
     QGaiRadAve_flow = if dtLast > 1E-3 then pre(EGaiRad)/dtLast else pre(QGaiRad_flow);
     yEP=Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.exchange(
@@ -247,8 +275,6 @@ equation
     QConLast_flow=yEP[2];
     QLat_flow=yEP[3];
     QPeo_flow=yEP[4];
-    //dQCon_flow_dT=yEP[5];
-    //tNext=yEP[6];
     tNext=yEP[5];
     tLast=time;
     reinit(EGaiRad, 0);
@@ -274,6 +300,18 @@ of its class <code>adapter</code>, of EnergyPlus.
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 22, 2024, by Michael Wetter:<br/>
+Changed radiative heat flow rate sent to EnergyPlus to be the average over the last
+synchronization time step rather than the instantaneuous value. This avoids a
+nonlinear system of equation during the time integration for models in which
+the radiative heat gain is a function of the room radiative temperature, such as
+when a radiator is connected to the room model. See
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Radiator\">
+Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Radiator</a>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3707\">Buildings, #3707</a>.
+</li>
 <li>
 February 14, 2024, by Michael Wetter:<br/>
 Added <code>pre()</code> operator for inlet mass flow rate and for convective heat gain

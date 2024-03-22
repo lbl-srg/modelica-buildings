@@ -396,6 +396,17 @@ have been <b style=\"color:blue\">improved</b> in a
                      This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3707\">#3707</a>.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone
+    </td>
+    <td valign=\"top\">Changed radiative heat flow rate sent to EnergyPlus to be the average over the last
+                       synchronization time step rather than the instantaneuous value. This avoids a
+                       nonlinear system of equation during the time integration for models in which
+                       the radiative heat gain is a function of the room radiative temperature, such as
+                       when a radiator is connected to the room model.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3707\">Buildings, #3707</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
     </td>
 </tr>
