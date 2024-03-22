@@ -224,8 +224,8 @@ See the Thermodynamic Properties section of this document.
 <p>
 The implemented ORC assumes a simple architecture shown in the figure below.
 For any given WF, the cycle is determined by providing
-the working fluid evaporating temperature <i>T<sub>w,Eva</sub></i>,
-the working fluid condensing temperature <i>T<sub>w,Con</sub></i>,
+the WF evaporating temperature <i>T<sub>w,Eva</sub></i>,
+the WF condensing temperature <i>T<sub>w,Con</sub></i>,
 the expander efficiency <i>&eta;<sub>Exp</sub></i>.
 The superheating temperature differential <i>&Delta;T<sub>Sup</sub></i>
 is minimised, meaning it is zero whenever possible; otherwise it assumes
@@ -235,6 +235,11 @@ the pump inlet and outlet or the pressure loss along any pipe of
 the cycle components. Subcooling after the condenser is not considered.
 The Thermodynamic Properties section of this document details how these
 state points are found.
+</p>
+<p>
+An important underlying assumption is that all generated power can
+be consumed or otherwise dissipated, i.e. the cycle is not controlled
+to satisfy a certain load, electrical or thermal.
 </p>
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Fluid/CHPs/OrganicRankine/CycleArchitecture.png\"
@@ -256,7 +261,7 @@ where the subscripts are:<br/>
 <i>w</i> - working fluid.
 </p>
 <p>
-The cycle attempts to accommodate the varying flow rate and temperature
+The cycle needs to accommodate the varying flow rate and temperature
 of the waste heat stream. To do so, the model solves for a
 <i>m&#775;<sub>w</sub></i> that would maintain a constant pinch point (PP)
 temperature differential at the evaporator <i>&Delta;T<sub>pin,Eva</sub></i>.
@@ -264,16 +269,11 @@ This differential is found by the following equations:
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 (T<sub>pin,Eva</sub> - T<sub>h,out</sub>)&nbsp;(h<sub>ExpInl</sub> - h<sub>Pum</sub>)
-= (T<sub>h,in</sub> - T<sub>h,out</sub>)&nbsp;(h<sub>PinEva</sub> - h<sub>Pum</sub>),<br/>
+= (T<sub>h,in</sub> - T<sub>h,out</sub>)&nbsp;(h<sub>pinE,va</sub> - h<sub>Pum</sub>),<br/>
 &Delta;T<sub>pin,Eva</sub> = T<sub>pin,Eva</sub> - T<sub>w,Eva</sub>.
 </p>
 <p>
-An important underlying assumption is that all generated power can
-be consumed or otherwise dissipated, i.e. the cycle is not controlled
-to satisfy a certain load, electrical or thermal.
-</p>
-<p>
-The condenser side uses same equations with the evaporator variables
+The condenser side uses the same equations with the evaporator variables
 replaced by their condenser counterparts where appropriate:
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
@@ -304,63 +304,29 @@ In summary, the model has the following information flow:
 <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr>
 <th>User-specified parameters</th>
-<th>Inputs or disturbances</th>
+<th>Inputs and disturbances</th>
 <th>Outputs</th>
 </tr>
 <tr>
 <td>
-<ul>
-<li>
-working fluid evaporating temperature <i>T<sub>w,Eva</sub></i>,
-</li>
-<li>
-evaporator pinch point temperature differential <i>&Delta;T<sub>pin,Eva</sub></i>
-</li>
-<li>
-condenser pinch point temperature differential <i>&Delta;T<sub>pin,Eva</sub></i>.
-</li>
-</ul>
+<i>T<sub>w,Eva</sub></i> - Working fluid evaporating temperature,<br/>
+<i>&Delta;T<sub>pin,Eva</sub></i> - Evaporator pinch point temperature differential,<br/>
+<i>&Delta;T<sub>pin,Con</sub></i> - Condenser pinch point temperature differential.
 </td>
 <td>
-<ul>
-<li>
-evaporator hot fluid incoming temperature <i>T<sub>h,in</sub></i>,
-</li>
-<li>
-evaporator hot fluid flow rate <i>m&#775;<sub>h</sub></i>,
-</li>
-<li>
-condenser cold fluid incoming temperature <i>T<sub>c,in</sub></i>
-</li>
-<li>
-condenser cold fluid flow rate <i>m&#775;<sub>c</sub></i>.
-</li>
-</ul>
+<i>T<sub>h,in</sub></i> - Evaporator hot fluid incoming temperature,<br/>
+<i>m&#775;<sub>h</sub></i> - Evaporator hot fluid flow rate,<br/>
+<i>T<sub>c,in</sub></i> - Condenser cold fluid incoming temperature,<br/>
+<i>m&#775;<sub>c</sub></i> - Condenser cold fluid flow rate.
 </td>
 <td>
-<ul>
-<li>
-working fluid flow rate <i>m&#775;<sub>w</sub></i>,
-</li>
-<li>
-working fluid condensing temperature <i>T<sub>w,Con</sub></i>,
-</li>
-<li>
-evaporator hot fluid outgoing temperature <i>T<sub>h,out</sub></i>,
-</li>
-<li>
-condenser cold fluid outgoing temperature <i>T<sub>c,out</sub></i>,
-</li>
-<li>
-evaporator heat flow rate <i>Q&#775;<sub>Eva</sub></i>,
-</li>
-<li>
-condenser heat flow rate <i>Q&#775;<sub>Con</sub></i>
-</li>
-<li>
-cycle power output <i>W&#775;</i>.
-</li>
-</ul>
+<i>m&#775;<sub>w</sub></i> - Working fluid flow rate,<br/>
+<i>T<sub>w,Con</sub></i> - Working fluid condensing temperature,<br/>
+<i>T<sub>h,out</sub></i> - Evaporator hot fluid outgoing temperature,<br/>
+<i>T<sub>c,out</sub></i> - Condenser cold fluid outgoing temperature,<br/>
+<i>Q&#775;<sub>Eva</sub></i> - Evaporator heat flow rate,<br/>
+<i>Q&#775;<sub>Con</sub></i> - Condenser heat flow rate,<br/>
+<i>W&#775;</i> - Cycle power output.
 </td>
 </tr>
 </table>
@@ -404,21 +370,21 @@ Buildings.Fluid.CHPs.OrganicRankine.Validation.VaryingHot</a>
 </p>
 <p>
 On the condenser side, a lower limit is imposed on <i>T<sub>w,Con</sub></i>.
-This is usually imposed to prevent the condenser pressure going too low.
+This can prevent the condenser pressure from going too low.
 This is demonstrated in
 <a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.Validation.VaryingHot\">
 Buildings.Fluid.CHPs.OrganicRankine.Validation.VaryingHot</a>
-</p>
-<p>
 In principle, an upper limit should also exist for <i>T<sub>w,Con</sub></i>.
 This is simply implemented as an <code>assert()</code> statement.
-Such a situation should not occur as long as an appropriate minimum
-cooling fluid flow is maintained in the condenser whenever the cycle is on.
+The reason is that such a situation should not occur as long as
+an appropriate minimum cooling fluid flow is maintained in the condenser
+whenever the cycle is running. This is a problem of the control sequence
+at a higher level and out of scope of the ORC component.
 </p>
 <h4>Thermodynamic Properties</h4>
 <p>
-The thermodynamic properties of the working fluid are not computed
-by medium models, but by interpolating data records in
+The thermodynamic properties of the WF are not computed by typical
+Modelica medium model, but by interpolating data records in
 <a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.Data\">
 Buildings.Fluid.CHPs.OrganicRankine.Data</a>.
 Specific enthalpy and specific entropy values are provided as support points
@@ -460,12 +426,13 @@ its enthalpy <i>h<sub>B</sub></i> is found by
 </p>
 where <i>s<sub>B</sub></i> is known because it is the same as the expander
 inlet entropy, and all other points are on saturation lines and
-therefore can be found using the method for A.
+therefore can be found using the method for <i>A</i>.
 </li>
 <li>
-<i>C</i> is a point in between the saturated vapour line and the reference line.
+<i>C</i> is a point in the superheated vapour region.
 The isobaric lines are not straight in this section, but they are assumed
-near linear to apply the same method as B, albeit with less accuracy.
+near linear to apply the same method as B using the saturated vapour line
+and the reference line, albeit with less accuracy.
 </li>
 </ul>
 <p>
@@ -494,14 +461,15 @@ where <i>h<sub>ExpOut</sub></i> is solved and <i>h<sub>ExpInl</sub></i> is known
 <li>
 A wet cycle is a cycle where the expansion starts from
 the superheated vapour region and ends on the saturated vapour line.
-For this fluid and this <i>&eta;<sub>Exp</sub></i>,
-if the expansion started from the saturated vapour line,
-the outlet point would end up under the dome. In this scenario,
+In this scenario,
 <p align=\"center\" style=\"font-style:italic;\">
 h<sub>ExpOut</sub> - h<sub>ExpInl</sub>
 = (h<sub>ExpOut</sub> - h<sub>ExpInlIse</sub>) &eta;<sub>Exp</sub>
 </p>
 where <i>h<sub>ExpOut</sub></i> is known and <i>h<sub>ExpInl</sub></i> is solved.
+For this fluid and this <i>&eta;<sub>Exp</sub></i>,
+if the expansion started from the saturated vapour line,
+the outlet point would end up under the dome.
 </li>
 </ul>
 <h4>References</h4>
