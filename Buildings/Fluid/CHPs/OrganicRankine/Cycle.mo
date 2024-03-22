@@ -408,7 +408,7 @@ For any point <i>A</i> on a support curve, its property <i>y<sub>A</sub></i>
 <p align=\"center\" style=\"font-style:italic;\">
 y<sub>A</sub> = s(u<sub>A</sub>,d),
 </p>
-where <i>s(&middot;,&middot;)</i> is a cubic hermit spline,
+where <i>s(&middot;,&middot;)</i> is a cubic Hermite spline,
 <i>u<sub>A</sub></i> is the input property,
 and <i>d</i> defines the support points.
 For the saturation curves, <i>u</i> can be either the saturation pressure
