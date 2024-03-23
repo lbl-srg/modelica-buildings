@@ -34,6 +34,10 @@ model ThermalZoneAdapter
   parameter Buildings.ThermalZones.EnergyPlus_9_6_0.Types.LogLevels logLevel=Buildings.ThermalZones.EnergyPlus_9_6_0.Types.LogLevels.Warning
     "LogLevels of EnergyPlus output"
     annotation (Dialog(tab="Debug"));
+  parameter Boolean setInitialRadiativeHeatGainToZero
+    "If true, then the radiative heat gain sent from Modelica to EnergyPlus is zero during the model initialization"
+    annotation (Dialog(tab="Advanced", Evaluate=true));
+
   parameter Integer nFluPor
     "Number of fluid ports (Set to 2 for one inlet and one outlet)";
   final parameter Modelica.Units.SI.Area AFlo(fixed=false) "Floor area";
@@ -213,7 +217,15 @@ initial equation
   mInlet_flow=0;
   TAveInlet=T;
 
-  QGaiRadAve_flow = QGaiRad_flow;
+  // The if-then clause below must not be written as a one-line equation.
+  // as this would cause EnergyPlus to not evaluate the parameter setInitialRadiativeHeatGainToZero
+  // and hence the exchange function would be in the residual equation for the radiative heat gain.
+  // See Examples.SingleFamilyHouse.Radiator with Dymola 2024x.
+  if setInitialRadiativeHeatGainToZero then
+    QGaiRadAve_flow = 0;
+  else
+    QGaiRadAve_flow = QGaiRad_flow;
+  end if;
   tLast=time;
   EGaiRad = 0;
 

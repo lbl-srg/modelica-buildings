@@ -378,12 +378,15 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_9_6_0.Building
     </td>
-    <td valign=\"top\">Tightened <code>relativeSurfaceTolerance</code>, which is the tolerance used by
-                       EnergyPlus, for the surface radiative heat balance solver.
-                       This was required for some coupled simulations that exchange radiative heat transfer
-                       between Modelica and EnergyPlus to converge.
-                       For details, see section <i>Known Issues</i> in
-                       <code>Buildings.ThermalZones.EnergyPlus_9_6_0.UsersGuide</code>.
+    <td valign=\"top\">Introduced parameter <code>setInitialRadiativeHeatGainToZero</code> and refactored
+                     radiative heat exchange between Modelica and EnergyPlus.
+                     This was done to avoid iterative solutions between Modelica and EnergyPlus
+                     for some coupled simulations that exchange radiative heat transfer, such as from
+                     a hydronic radiator.
+                     For details, see info section in
+                     <code>Buildings.ThermalZones.EnergyPlus_9_6_0.Building</code>.<br/>
+                     This is for
+                     <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3707\">Buildings, #3707</a>.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.AirHeating<br/>
@@ -399,12 +402,13 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone
     </td>
     <td valign=\"top\">Changed radiative heat flow rate sent to EnergyPlus to be the average over the last
-                       synchronization time step rather than the instantaneuous value. This avoids a
-                       nonlinear system of equation during the time integration for models in which
-                       the radiative heat gain is a function of the room radiative temperature, such as
-                       when a radiator is connected to the room model.<br/>
-                       This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3707\">Buildings, #3707</a>.
+                     synchronization time step rather than the instantaneuous value, and set it by default
+                     to zero during the initialization. This avoids a
+                     nonlinear system of equation during the time integration for models in which
+                     the radiative heat gain is a function of the room radiative temperature, such as
+                     when a radiator is connected to the room model.<br/>
+                     This is for
+                     <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3707\">Buildings, #3707</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
