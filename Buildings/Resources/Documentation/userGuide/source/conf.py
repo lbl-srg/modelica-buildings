@@ -42,7 +42,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Modelica Buildings library'
-copyright = u'1998-2024, The Regents of the University of California (through Lawrence Berkeley National Laboratory)'
+copyright = u'2012-2024, The Regents of the University of California (through Lawrence Berkeley National Laboratory)'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
