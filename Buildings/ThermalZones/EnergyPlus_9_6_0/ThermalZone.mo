@@ -468,6 +468,7 @@ of the room. Hence, these two ports <code>heatPorAir</code> and <code>heaPorRad<
 be used to connect a radiator. Note, however, that such a coupling is an approximation
 as the surface temperature of the radiator will not be reflected in the radiative temperature
 of the room.
+Also, read to section <i>Notes about modeling components that are connected to the radiative heat port</i> below.
 </p>
 
 <h5>Contaminant balance</h5>

@@ -190,7 +190,7 @@ is not possible.
 <ul>
 <li>
 March 16, 2024, by Michael Wetter:<br/>
-Introduced parameter <code>relativeSurfaceTolerance</code>.
+Introduced parameter <code>setInitialRadiativeHeatGainToZero</code>.
 This is required for
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Radiator\">
 Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Radiator</a>
