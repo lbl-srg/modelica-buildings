@@ -41,6 +41,7 @@ model ThermalZoneAdapter
   final parameter Real mSenFac(
     fixed=false)
     "Factor for scaling the sensible thermal mass of the zone air volume";
+
   Modelica.Blocks.Interfaces.RealInput T(
     final unit="K",
     displayUnit="degC")
@@ -96,8 +97,7 @@ protected
     fixed=false,
     start=0)
     "Total number of Spawn objects in building";
-  parameter Modelica.Units.SI.MassFlowRate m_flow_small(fixed=false)
-    "Small mass flow rate used to avoid TAveInlet = 0";
+
   Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.SpawnExternalObject adapter=Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.SpawnExternalObject(
     objectType=1,
     startTime=startTime,
@@ -137,10 +137,15 @@ protected
   // This has been removed due to numerical noise,
   // see https://github.com/lbl-srg/modelica-buildings/issues/2358#issuecomment-819578850
   //////////
-  parameter Modelica.Units.SI.Time startTime(fixed=false)
-    "Simulation start time";
+
   Real yEP[nY]
     "Output of exchange function";
+
+  parameter Modelica.Units.SI.MassFlowRate m_flow_small(fixed=false)
+    "Small mass flow rate used to avoid TAveInlet = 0";
+  parameter Modelica.Units.SI.Time startTime(fixed=false)
+    "Simulation start time";
+
   discrete Modelica.Units.SI.Time tNext
     "Next sampling time";
   //Modelica.Units.SI.Time tNextEP(start=startTime-1, fixed=true) "Next sampling time requested from EnergyPlus";
@@ -158,11 +163,13 @@ protected
     "Room air temperature at last sampling";
   discrete Modelica.Units.SI.HeatFlowRate QGaiRadAve_flow
    "Radiative heat flow rate averaged over the past synchronization time step";
+
   Modelica.Units.SI.Energy EGaiRad
    "Radiative energy exchanged since the last synchronization time step";
 //  discrete Real dQCon_flow_dT(
 //    final unit="W/K")
 //    "Derivative dQCon_flow / dT";
+
   discrete Modelica.Units.SI.HeatFlowRate QConLast_flow(fixed=false, start=0)
     "Convective sensible heat to be added to zone air if T = TRooLast";
   function round
@@ -187,25 +194,28 @@ initial equation
       Modelica.Utilities.Strings.length(fmuName) > 1,
       "If usePrecompiledFMU = true, must set parameter fmuName");
   end if;
-  startTime=time;
+
   nObj=Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.initialize(
     adapter=adapter,
     isSynchronized=building.isSynchronized);
-  {AFlo,V,mSenFac}=Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.getParameters(
+
+  {AFlo, V, mSenFac}=Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.getParameters(
     adapter=adapter,
     nParOut=nParOut,
     isSynchronized=nObj);
 
   m_flow_small=V*3*1.2/3600*1E-10;
+  startTime=time;
 
   // Initialization of output variables.
   TRooLast=T;
   dtLast=0;
-  mInlet_flow=sum(if m_flow[i] > 0 then m_flow[i] else 0 for i in 1:nFluPor);
-  TAveInlet=sum(if m_flow[i] > 0 then TInlet[i]*m_flow[i] else 0 for i in 1:nFluPor)
-    +m_flow_small*TAveInlet/(mInlet_flow+m_flow_small);
+  mInlet_flow=0;
+  TAveInlet=T;
 
   QGaiRadAve_flow = QGaiRad_flow;
+  tLast=time;
+  EGaiRad = 0;
 
   // Synchronization with EnergyPlus
   // Below, the term X_w/(1.-X_w) is for conversion from kg/kg_total_air (Modelica) to kg/kg_dry_air (EnergyPlus)
@@ -221,24 +231,14 @@ initial equation
   QPeo_flow=yEP[4];
   tNext=yEP[5];
 
-  tLast=time;
-  EGaiRad = 0;
-
-  assert(
-    AFlo > 0,
-    "Floor area must not be zero.");
-  assert(
-    V > 0,
-    "Volume must not be zero.");
-  assert(
-    mSenFac > 0.9999,
-    "mSenFac must be bigger or equal than one.");
+  assert(AFlo > 0, "Floor area must not be zero.");
+  assert(V > 0, "Volume must not be zero.");
+  assert(mSenFac > 0.9999, "mSenFac must be at least 1.");
 
 equation
   if usePrecompiledFMU then
     // For JModelica, this must be in the equation section rather than the initial equation section
-    assert(
-      Modelica.Utilities.Strings.length(fmuName) > 1,
+    assert(Modelica.Utilities.Strings.length(fmuName) > 1,
       "If usePrecompiledFMU = true, must set parameter fmuName");
   end if;
 
@@ -265,23 +265,29 @@ equation
           0 for i in 1:nFluPor)+m_flow_small*pre(TAveInlet)/(mInlet_flow+m_flow_small));
     // Below, the term X_w/(1.-X_w) is for conversion from kg/kg_total_air (Modelica) to kg/kg_dry_air (EnergyPlus)
     QGaiRadAve_flow = if dtLast > 1E-3 then pre(EGaiRad)/dtLast else pre(QGaiRad_flow);
+
+    // Call EnergyPlus
     yEP=Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.exchange(
       adapter=adapter,
       initialCall=false,
       nY=nY,
       u={T,X_w/(1.-X_w),pre(mInlet_flow),TAveInlet,QGaiRadAve_flow,round(time,1E-3)},
       dummy=AFlo);
+    // Assign return values of EnergyPlus
     TRad=yEP[1];
     QConLast_flow=yEP[2];
     QLat_flow=yEP[3];
     QPeo_flow=yEP[4];
     tNext=yEP[5];
     tLast=time;
+    // Reinitialize radiative heat gain
     reinit(EGaiRad, 0);
   end when;
   //QCon_flow=QConLast_flow+(T-TRooLast)*dQCon_flow_dT;
   QCon_flow=QConLast_flow;
+
   synBui.synchronize.done=nObj;
+
   annotation (
     defaultComponentName="fmuZon",
     Icon(
@@ -303,8 +309,8 @@ of its class <code>adapter</code>, of EnergyPlus.
 <li>
 March 22, 2024, by Michael Wetter:<br/>
 Changed radiative heat flow rate sent to EnergyPlus to be the average over the last
-synchronization time step rather than the instantaneuous value. This avoids a
-nonlinear system of equation during the time integration for models in which
+synchronization time step rather than the instantaneuous value, and set the initial value to zero.
+This avoids a nonlinear system of equation during the time integration for models in which
 the radiative heat gain is a function of the room radiative temperature, such as
 when a radiator is connected to the room model. See
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Radiator\">
