@@ -373,6 +373,29 @@ have been <b style=\"color:blue\">improved</b> in a
                   This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3536\">#3536</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus_9_6_0</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_9_6_0.Building
+    </td>
+    <td valign=\"top\">Tightened <code>relativeSurfaceTolerance</code>, which is the tolerance used by
+                       EnergyPlus, for the surface radiative heat balance solver.
+                       This was required for some coupled simulations that exchange radiative heat transfer
+                       between Modelica and EnergyPlus to converge.
+                       For details, see section <i>Known Issues</i> in
+                       <code>Buildings.ThermalZones.EnergyPlus_9_6_0.UsersGuide</code>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.AirHeating<br/>
+                     Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer<br/>
+                     Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TRoom<br/>
+                     Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TSurface<br/>
+                     Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Radiator
+    </td>
+    <td valign=\"top\">Added insulation to EnergyPlus input data file and resized the system.<br/>
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3707\">#3707</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
     </td>
 </tr>
