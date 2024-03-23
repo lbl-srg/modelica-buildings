@@ -92,7 +92,7 @@ protected
 
   final parameter Boolean setInitialRadiativeHeatGainToZero = building.setInitialRadiativeHeatGainToZero
     "If true, then the radiative heat gain sent from Modelica to EnergyPlus is zero during the model initialization"
-    annotation (Dialog(tab="Advanced", Evaluate=true));
+    annotation (Dialog(tab="Advanced"), Evaluate=true);
 
   Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.ThermalZoneAdapter fmuZon(
     final modelicaNameBuilding=modelicaNameBuilding,
@@ -552,12 +552,11 @@ is not possible.
 <li>
 March 22, 2024, by Michael Wetter:<br/>
 Changed radiative heat flow rate sent to EnergyPlus to be the average over the last
-synchronization time step rather than the instantaneuous value, and set the initial value to zero.
+synchronization time step rather than the instantaneuous value, and set the initial value by default to zero.
+Introduced parameter <code>setInitialRadiativeHeatGainToZero</code>.
 This avoids a nonlinear system of equation during the time integration for models in which
 the radiative heat gain is a function of the room radiative temperature, such as
-when a radiator is connected to the room model. See
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Radiator\">
-Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Radiator</a>.<br/>
+when a radiator is connected to the room model.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3707\">Buildings, #3707</a>.
 </li>

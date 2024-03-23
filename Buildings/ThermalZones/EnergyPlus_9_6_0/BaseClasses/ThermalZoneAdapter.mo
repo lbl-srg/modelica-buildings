@@ -36,7 +36,7 @@ model ThermalZoneAdapter
     annotation (Dialog(tab="Debug"));
   parameter Boolean setInitialRadiativeHeatGainToZero
     "If true, then the radiative heat gain sent from Modelica to EnergyPlus is zero during the model initialization"
-    annotation (Dialog(tab="Advanced", Evaluate=true));
+    annotation (Dialog(tab="Advanced"), Evaluate=true);
 
   parameter Integer nFluPor
     "Number of fluid ports (Set to 2 for one inlet and one outlet)";
@@ -217,15 +217,7 @@ initial equation
   mInlet_flow=0;
   TAveInlet=T;
 
-  // The if-then clause below must not be written as a one-line equation.
-  // as this would cause EnergyPlus to not evaluate the parameter setInitialRadiativeHeatGainToZero
-  // and hence the exchange function would be in the residual equation for the radiative heat gain.
-  // See Examples.SingleFamilyHouse.Radiator with Dymola 2024x.
-  if setInitialRadiativeHeatGainToZero then
-    QGaiRadAve_flow = 0;
-  else
-    QGaiRadAve_flow = QGaiRad_flow;
-  end if;
+  QGaiRadAve_flow = if setInitialRadiativeHeatGainToZero then 0 else QGaiRad_flow;
   tLast=time;
   EGaiRad = 0;
 
@@ -324,9 +316,7 @@ Changed radiative heat flow rate sent to EnergyPlus to be the average over the l
 synchronization time step rather than the instantaneuous value, and set the initial value to zero.
 This avoids a nonlinear system of equation during the time integration for models in which
 the radiative heat gain is a function of the room radiative temperature, such as
-when a radiator is connected to the room model. See
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Radiator\">
-Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Radiator</a>.<br/>
+when a radiator is connected to the room model.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3707\">Buildings, #3707</a>.
 </li>

@@ -43,7 +43,7 @@ model Building
     "If true, then the radiative heat gain sent from Modelica to EnergyPlus is zero during the model initialization"
     annotation (Dialog(tab="Advanced"), Evaluate=true);
 
-  parameter Real relativeSurfaceTolerance(min=1E-12) = 1E-7
+  parameter Real relativeSurfaceTolerance(min=1E-12) = 1E-6
     "Relative tolerance of surface temperature calculations"
     annotation (Dialog(tab="Advanced"));
 
@@ -190,19 +190,12 @@ is not possible.
 <ul>
 <li>
 March 16, 2024, by Michael Wetter:<br/>
-Increased the default value for <code>relativeSurfaceTolerance</code>.
+Introduced parameter <code>relativeSurfaceTolerance</code>.
 This is required for
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Radiator\">
 Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Radiator</a>
-with OpenModelica. This model forms a nonlinear equation between the radiator temperature,
-which is used to compute the radiative heat flow rate between radiator and room radiative temperature, and the
-room surface temperature. The radiator temperature is computed in Modelica and the room surface
-temperature is computed in EnergyPlus. The latter requires the iterative solution of the
-radiative heat balance equation. Hence, evaluating the residuals for this nonlinear equation
-requires an iteration in EnergyPlus.
-As a rule of thumb, such nested solvers require one order of magnitude higher precision for the inner
-solver. As Modelica models are often solved for a tolerance of <code>1E-6</code>, the default value
-for <code>relativeSurfaceTolerance</code> has been set to 1E-8.<br/>
+with OpenModelica.
+See info section for rationale.<br/>
 This was required for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3707\">#3707</a>.
 </li>
