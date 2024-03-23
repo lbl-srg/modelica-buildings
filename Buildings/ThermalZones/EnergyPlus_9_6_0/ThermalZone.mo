@@ -507,12 +507,14 @@ by people.)
 <h5>Notes about modeling components that are connected to the radiative heat port</h5>
 <p>
 Models in which a component is connected to the radiative heat port <code>heaPorRad</code> may cause
-convergence problems if that component computes the radiative heat exchange <code>heaPorRad.Q_flow</code>
+convergence problems during the initialization of the simulation
+if that component computes the radiative heat exchange <code>heaPorRad.Q_flow</code>
 based on the temperature <code>heaPorRad.T</code>.
 An example of such a model is
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Radiator\">
 Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Radiator</a>.
-This model forms a nonlinear equation between the radiator temperature,
+During the initialization of the simulation, this model forms a nonlinear equation
+between the radiator temperature,
 which is used to compute the radiative heat flow rate between radiator and room radiative temperature, and the
 room surface temperature. The radiator temperature is computed in Modelica and the room surface
 temperature is computed in EnergyPlus. The latter requires the iterative solution of the
@@ -521,10 +523,13 @@ for this nonlinear equation, EnergyPlus does an iterative solution for the room 
 As a rule of thumb, such nested solvers require one order of magnitude higher precision for the inner
 solver.
 By default, the tolerance of the radiative heat balance solver in EnergyPlus is set to <code>1E-7</code>,
-which should suffice. However, if a model does not converge -- in which case the error message may involve
-variables <code>TRad</code>, <code>QGaiRad_flow</code> or <code>yEP[1}</code> --
+which should suffice. However, if a model does not converge during the initialization -- in which case
+the error message may involve variables
+<code>TRad</code>, <code>QGaiRad_flow</code> or <code>yEP[1}</code> --
 the tolerance can be increased by setting the parameter <code>relativeSurfaceTolerance</code>
 in the instance <code>building</code>.
+During the time integration, these variables do not form a nonlinear equation because the exchanged
+radiative heat is averaged over the last synchronization interval.
 </p>
 <p>
 Because a Modelica model does not have knowledge of the solver tolerance, automatically tightening
@@ -537,8 +542,8 @@ is not possible.
 <li>
 March 22, 2024, by Michael Wetter:<br/>
 Changed radiative heat flow rate sent to EnergyPlus to be the average over the last
-synchronization time step rather than the instantaneuous value. This avoids a
-nonlinear system of equation during the time integration for models in which
+synchronization time step rather than the instantaneuous value, and set the initial value to zero.
+This avoids a nonlinear system of equation during the time integration for models in which
 the radiative heat gain is a function of the room radiative temperature, such as
 when a radiator is connected to the room model. See
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Radiator\">
