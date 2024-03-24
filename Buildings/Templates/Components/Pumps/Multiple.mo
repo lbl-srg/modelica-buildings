@@ -35,14 +35,6 @@ model Multiple "Multiple pumps in parallel"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,30})));
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold evaSta[nPum](
-    each t=1E-2,
-    each h=0.5E-2)
-    "Evaluate pump status"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={20,-50})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaSpe(
     final nout=nPum) if have_var and have_varCom
     "Replicate signal in case of common unique commanded speed" annotation (
@@ -65,6 +57,8 @@ model Multiple "Multiple pumps in parallel"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={20,70})));
+  Controls.StatusEmulator sta[nPum] "Emulate pump status"
+    annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
 equation
   connect(pum.port_b,valChe. port_a)
     annotation (Line(points={{10,0},{30,0},{30,20},{40,20}}, color={0,127,255}));
@@ -73,15 +67,6 @@ equation
       color={0,0,127}));
   connect(sigCon.y, pum.y)
     annotation (Line(points={{0,18},{0,15},{0,12}}, color={0,0,127}));
-  connect(pum.y_actual, evaSta.u)
-    annotation (Line(points={{11,7},{20,7},{20,-38}}, color={0,0,127}));
-  connect(evaSta.y, bus.y1_actual)
-    annotation (Line(points={{20,-62},{20,-72},{80,-72},{80,96},{0,96},{0,100}},
-     color={255,0,255}), Text(
-      string="%second",
-      index=1,
-      extent={{-3,-6},{-3,-6}},
-      horizontalAlignment=TextAlignment.Right));
   connect(valChe.port_b, ports_b)
     annotation (Line(points={{60,20},{70,20},{70,0},{100,0}}, color={0,127,255}));
   connect(ports_a, pum.port_a)
@@ -120,6 +105,12 @@ equation
           {40,-20}}, color={0,127,255}));
   connect(pas.port_b, ports_b) annotation (Line(points={{60,-20},{70,-20},{70,0},
           {100,0}}, color={0,127,255}));
+  connect(sta.y1_actual, bus.y1_actual) annotation (Line(points={{12,-60},{80,
+          -60},{80,96},{0,96},{0,100}}, color={255,0,255}));
+  connect(bus.y1, sta.y1) annotation (Line(
+      points={{0,100},{0,88},{-80,88},{-80,-60},{-12,-60}},
+      color={255,204,51},
+      thickness=0.5));
   annotation (
   defaultComponentName="pum",
   Documentation(info="<html>

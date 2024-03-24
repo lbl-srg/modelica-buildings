@@ -26,14 +26,6 @@ model Single "Single pump"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,30})));
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold evaSta(
-    t=1E-2,
-    h=0.5E-2)
-    "Evaluate pump status"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={20,-50})));
   Fluid.FixedResistances.CheckValve valChe(
     redeclare final package Medium = Medium,
     final m_flow_nominal=dat.m_flow_nominal,
@@ -60,21 +52,14 @@ model Single "Single pump"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,70})));
+  Controls.StatusEmulator sta "Emulate pump status"
+    annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
 equation
   connect(sigSta.y, sigCon.u2)
     annotation (Line(points={{-60,58},{-60,50},{-6,50},{-6,42}},
       color={0,0,127}));
   connect(sigCon.y, pum.y)
     annotation (Line(points={{0,18},{0,15},{0,12}}, color={0,0,127}));
-  connect(pum.y_actual, evaSta.u)
-    annotation (Line(points={{11,7},{20,7},{20,-38}}, color={0,0,127}));
-  connect(evaSta.y, bus.y1_actual)
-    annotation (Line(points={{20,-62},{20,-80},{80,-80},{80,88},{0,88},{0,100}},
-                color={255,0,255}), Text(
-      string="%second",
-      index=1,
-      extent={{-3,-6},{-3,-6}},
-      horizontalAlignment=TextAlignment.Right));
   connect(port_a, pum.port_a)
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
   connect(bus.y, pasSpe.u) annotation (Line(
@@ -105,6 +90,12 @@ equation
           {40,-20}}, color={0,127,255}));
   connect(pas.port_b, port_b) annotation (Line(points={{60,-20},{70,-20},{70,0},
           {100,0}}, color={0,127,255}));
+  connect(bus.y1, sta.y1) annotation (Line(
+      points={{0,100},{0,88},{-80,88},{-80,-60},{-12,-60}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(sta.y1_actual, bus.y1_actual) annotation (Line(points={{12,-60},{80,
+          -60},{80,96},{0,96},{0,100}}, color={255,0,255}));
   annotation (
   defaultComponentName="pum",
   Documentation(info="<html>
