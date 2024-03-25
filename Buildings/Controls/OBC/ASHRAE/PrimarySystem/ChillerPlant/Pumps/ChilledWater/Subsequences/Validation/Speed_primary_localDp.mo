@@ -42,10 +42,10 @@ equation
     annotation (Line(points={{-38,80},{0,80},{0,8},{18,8}},
       color={0,0,127}));
   connect(remPreSen1.y, chiPumSpe.dpChiWat_remote[1])
-    annotation (Line(points={{-38,0},{-20,0},{-20,-5},{18,-5}},
+    annotation (Line(points={{-38,0},{-20,0},{-20,-4.5},{18,-4.5}},
       color={0,0,127}));
   connect(remPreSen2.y, chiPumSpe.dpChiWat_remote[2])
-    annotation (Line(points={{-38,-40},{-20,-40},{-20,-3},{18,-3}},
+    annotation (Line(points={{-38,-40},{-20,-40},{-20,-3.5},{18,-3.5}},
       color={0,0,127}));
   connect(pumSta.y, chiPumSpe.uChiWatPum)
     annotation (Line(points={{-38,40},{-20,40},{-20,4},{18,4}},
@@ -65,6 +65,35 @@ This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.Speed_primary_localDp\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.Speed_primary_localDp</a>.
 </p>
+<p>
+It shows the process of specifying the chilled water pump speed
+for a primary-only plant, with one local pressure sensor and two
+remote pressure sensors.
+</p>
+<ul>
+<li>
+Both pumps become enabled at 1 second. Thus the pump speed
+setpoint becomes non-zero.
+</li>
+<li>
+After 1 seconds, the two remote pressure sensors have the measured values higher than
+the setpoint. The reverse acting PID controller thus gives the minimum
+output. The local pressure setpoint is at the minimum value (<code>50000 Pa</code>).
+</li>
+<li>
+When the remote sensors have the measured values that becoome lower than the setpoint,
+their reverse acting PID controllers give the output greater than the minimum.
+The greater of the two output values from both PID controllers is picked for
+specifying the local pressure setpoint (<code>locDpSet.y</code>).
+</li>
+<li>
+The reverse acting PID controller for the local pressure control gives
+minimum output (<code>0.1</code>) if the measured local pressure value is greater than its
+setpoint. When the measured value becomes greater than its setpoint,
+the PID controller increases its output, thus increases the chilled water
+pump speed.
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>
