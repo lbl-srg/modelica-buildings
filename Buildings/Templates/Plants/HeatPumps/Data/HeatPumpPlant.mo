@@ -39,7 +39,7 @@ record HeatPumpPlant
     "Primary HW pumps"
     annotation (Dialog(group="Primary HW loop",
       enable=cfg.have_heaWat));
-  final parameter Buildings.Templates.Components.Data.PumpSingle pumHeaWatPriSin[max(pumHeaWatPri.nPum, 1)](
+  final parameter Buildings.Templates.Components.Data.PumpSingle pumHeaWatPriSin[max(cfg.nPumHeaWatPri, 1)](
     each typ=pumHeaWatPri.typ,
     m_flow_nominal=if pumHeaWatPri.typ == Buildings.Templates.Components.Types.Pump.None
       then {0} else pumHeaWatPri.m_flow_nominal,
@@ -73,7 +73,7 @@ record HeatPumpPlant
     "Primary CHW pumps"
     annotation (Dialog(group="Primary CHW loop",
       enable=cfg.typPumChiWatPri<>Buildings.Templates.Components.Types.None));
-  final parameter Buildings.Templates.Components.Data.PumpSingle pumChiWatPriSin[max(pumChiWatPri.nPum, 1)](
+  final parameter Buildings.Templates.Components.Data.PumpSingle pumChiWatPriSin[max(cfg.nPumChiWatPri, 1)](
     each typ=pumChiWatPri.typ,
     m_flow_nominal=if pumChiWatPri.typ == Buildings.Templates.Components.Types.Pump.None
       then {0} else pumChiWatPri.m_flow_nominal,

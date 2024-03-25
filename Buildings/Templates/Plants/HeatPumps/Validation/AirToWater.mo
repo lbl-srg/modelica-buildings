@@ -10,8 +10,7 @@ model AirToWater
     annotation (Evaluate=true,
     Dialog(group="Configuration"));
   inner parameter UserProject.Data.AllSystems datAll(
-    pla(
-      final cfg=pla.cfg))
+    pla(final cfg=pla.cfg))
     "Plant parameters"
     annotation (Placement(transformation(extent={{-80,-140},{-60,-120}})));
   parameter Boolean allowFlowReversal=true
@@ -63,14 +62,14 @@ model AirToWater
     redeclare final package Medium=Medium,
     m_flow_nominal=pla.mHeaWat_flow_nominal,
     dpValve_nominal=3E4,
-    dpFixed_nominal=max(datAll.pla.pumHeaWatSec.dp_nominal) - 3E4)
+    dpFixed_nominal=max(pla.dat.pumHeaWatSec.dp_nominal) - 3E4)
     "Distribution system approximated by variable flow resistance"
     annotation (Placement(transformation(extent={{110,-110},{130,-90}})));
   Fluid.Actuators.Valves.TwoWayPressureIndependent valDisChiWat(
     redeclare final package Medium=Medium,
     m_flow_nominal=pla.mChiWat_flow_nominal,
     dpValve_nominal=3E4,
-    dpFixed_nominal=max(datAll.pla.pumChiWatSec.dp_nominal) - 3E4)
+    dpFixed_nominal=max(pla.dat.pumChiWatSec.dp_nominal) - 3E4)
     if have_chiWat
     "Distribution system approximated by variable flow resistance"
     annotation (Placement(transformation(extent={{110,-50},{130,-30}})));
@@ -80,8 +79,8 @@ model AirToWater
     final have_chiWat=have_chiWat,
     nHp=3,
     typDis_select1=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2,
-    typArrPumPri=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
-    typPumHeaWatPri_select1=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
+    typArrPumPri=Buildings.Templates.Components.Types.PumpArrangement.Headered,
+    typPumHeaWatPri_select2=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
     have_pumChiWatPriDed_select=false,
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
@@ -95,15 +94,17 @@ model AirToWater
       have_senTChiWatPriRet_select=true,
       have_senTHeaWatSecRet=true,
       have_senTChiWatSecRet=true,
-      have_senDpHeaWatRemWir=true))
+      have_senDpHeaWatRemWir=true,
+      ctl(nReqResIgnHeaWat=0, nReqResIgnChiWat=0)))
     "Heat pump plant"
     annotation (Placement(transformation(extent={{-80,-100},{-40,-60}})));
-  // FIXME: Prototype implementation for calculating pump speed to meet design flow.
+  /* FIXME: Prototype implementation for calculating pump speed to meet design flow.
   parameter Real r_N[pla.nPumHeaWatPri](
     each unit="1",
     each start=1,
     each fixed=false)
     "Relative revolution, r_N=N/N_nominal";
+  */
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TDum(
     k=293.15,
     y(final unit="K",
@@ -173,13 +174,15 @@ model AirToWater
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={160,-120})));
-initial equation
+/* FIXME: Prototype computation of pump speed to provide design flow.
+initial equation 
   fill(0, pla.nPumHeaWatPri)=Buildings.Templates.Utilities.computeBalancingPressureDrop(
-    m_flow_nominal=fill(datAll.pla.hp.mHeaWatHp_flow_nominal, pla.nHp),
-    dp_nominal=pla.pumPri.dpValCheHeaWat_nominal .+ fill(datAll.pla.hp.dpHeaWatHp_nominal, pla.nHp) .+
+    m_flow_nominal=fill(pla.dat.hp.mHeaWatHp_flow_nominal, pla.nHp),
+    dp_nominal=pla.pumPri.dpValCheHeaWat_nominal .+ fill(pla.dat.hp.dpHeaWatHp_nominal, pla.nHp) .+
       fill(Buildings.Templates.Data.Defaults.dpValIso, pla.nHp),
-    datPum=datAll.pla.pumHeaWatPriSin,
+    datPum=pla.dat.pumHeaWatPriSin,
     r_N=r_N);
+*/
 equation
   connect(weaDat.weaBus, pla.busWea)
     annotation (Line(points={{-160,-40},{-60,-40},{-60,-60}},

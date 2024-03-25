@@ -77,8 +77,7 @@ record HeatPumpPlant
   parameter Buildings.Templates.Components.Types.PumpArrangement typArrPumPri
     "Type of primary pump arrangement"
     annotation (Evaluate=true);
-  final parameter Boolean have_pumHeaWatPriVar=typPumHeaWatPri == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
-    or typPumHeaWatPri == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.FactoryVariable
+  parameter Boolean have_pumHeaWatPriVar
     "Set to true for variable speed primary HW pumps"
     annotation (Evaluate=true);
   parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary typPumHeaWatSec
@@ -109,8 +108,7 @@ record HeatPumpPlant
   parameter Boolean have_valChiWatMinByp
     "Set to true if the CHW loop has a minimum flow bypass valve"
     annotation (Evaluate=true);
-  final parameter Boolean have_pumChiWatPriVar=typPumChiWatPri == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
-    or typPumChiWatPri == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.FactoryVariable
+  parameter Boolean have_pumChiWatPriVar
     "Set to true for variable speed primary CHW pumps"
     annotation (Evaluate=true);
   parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary typPumChiWatSec
