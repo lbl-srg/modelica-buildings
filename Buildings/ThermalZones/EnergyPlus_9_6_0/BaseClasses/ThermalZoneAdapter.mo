@@ -168,8 +168,11 @@ protected
   discrete Modelica.Units.SI.HeatFlowRate QGaiRadAve_flow
    "Radiative heat flow rate averaged over the past synchronization time step";
 
-  Modelica.Units.SI.Energy EGaiRad
-   "Radiative energy exchanged since the last synchronization time step";
+  Modelica.Units.SI.Energy EGaiRad(unbounded=true)
+   "Radiative energy exchanged since the start of the simulation";
+  discrete Modelica.Units.SI.Energy EGaiRadLast(unbounded=true)
+   "Radiative energy exchanged at the last synchronization time step";
+
 //  discrete Real dQCon_flow_dT(
 //    final unit="W/K")
 //    "Derivative dQCon_flow / dT";
@@ -220,6 +223,7 @@ initial equation
   QGaiRadAve_flow = if setInitialRadiativeHeatGainToZero then 0 else QGaiRad_flow;
   tLast=time;
   EGaiRad = 0;
+  EGaiRadLast = 0;
 
   // Synchronization with EnergyPlus
   // Below, the term X_w/(1.-X_w) is for conversion from kg/kg_total_air (Modelica) to kg/kg_dry_air (EnergyPlus)
@@ -268,7 +272,7 @@ equation
         else
           0 for i in 1:nFluPor)+m_flow_small*pre(TAveInlet)/(mInlet_flow+m_flow_small));
     // Below, the term X_w/(1.-X_w) is for conversion from kg/kg_total_air (Modelica) to kg/kg_dry_air (EnergyPlus)
-    QGaiRadAve_flow = if dtLast > 1E-3 then pre(EGaiRad)/dtLast else pre(QGaiRad_flow);
+    QGaiRadAve_flow = if dtLast > 1E-3 then (EGaiRadLast-pre(EGaiRadLast))/dtLast else pre(QGaiRad_flow);
 
     // Call EnergyPlus
     yEP=Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.exchange(
@@ -285,7 +289,8 @@ equation
     tNext=yEP[5];
     tLast=time;
     // Reinitialize radiative heat gain
-    reinit(EGaiRad, 0);
+    //reinit(EGaiRad, 0);
+    EGaiRadLast = EGaiRad;
   end when;
   //QCon_flow=QConLast_flow+(T-TRooLast)*dQCon_flow_dT;
   QCon_flow=QConLast_flow;
