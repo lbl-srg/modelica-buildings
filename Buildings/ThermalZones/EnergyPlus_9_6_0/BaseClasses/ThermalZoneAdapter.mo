@@ -288,8 +288,7 @@ equation
     QPeo_flow=yEP[4];
     tNext=yEP[5];
     tLast=time;
-    // Reinitialize radiative heat gain
-    //reinit(EGaiRad, 0);
+    // Store current value of exchanged radiative heat
     EGaiRadLast = EGaiRad;
   end when;
   //QCon_flow=QConLast_flow+(T-TRooLast)*dQCon_flow_dT;
