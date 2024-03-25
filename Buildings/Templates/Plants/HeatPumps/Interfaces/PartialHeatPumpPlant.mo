@@ -74,8 +74,7 @@ partial model PartialHeatPumpPlant
     final nSenDpChiWatRem=ctl.nSenDpChiWatRem,
     final have_inpSch=ctl.have_inpSch)
     "Configuration parameters"
-    annotation (Dialog(enable=false),
-  __ctrlFlow(enable=false));
+    annotation (__ctrlFlow(enable=false));
   parameter Buildings.Templates.Plants.HeatPumps.Data.HeatPumpPlant dat(
     cfg=cfg)
     "Design and operating parameters"
@@ -307,7 +306,8 @@ partial model PartialHeatPumpPlant
     elseif have_chiWat and typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
     and (typDis == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
     or typDis == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1And2)
-    then Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable else Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
+    then Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable else
+    Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
     "Type of primary CHW pumps"
     annotation (Evaluate=true);
   final parameter Boolean have_pumChiWatPriVar=

@@ -62,7 +62,8 @@ block Staging
     each unit="1",
     each min=0,
     each max=1)={fill(i / nPum, nPum) for i in 1:nPum}
-    "Pump staging matrix";
+    "Pump staging matrix"
+    annotation(Evaluate=true);
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Pum[nEqu]
     if is_pri and (not is_hdr or is_hdr and not is_ctlDp)
     "Pump command from equipment enable logic"

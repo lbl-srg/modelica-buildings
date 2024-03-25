@@ -79,7 +79,8 @@ model AirToWater
     final have_chiWat=have_chiWat,
     nHp=3,
     typDis_select1=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2,
-    typArrPumPri=Buildings.Templates.Components.Types.PumpArrangement.Headered,
+    typArrPumPri=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
+    typPumHeaWatPri_select1=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
     typPumHeaWatPri_select2=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
     have_pumChiWatPriDed_select=false,
     final energyDynamics=energyDynamics,
@@ -98,6 +99,7 @@ model AirToWater
       ctl(nReqResIgnHeaWat=0, nReqResIgnChiWat=0)))
     "Heat pump plant"
     annotation (Placement(transformation(extent={{-80,-100},{-40,-60}})));
+
   /* FIXME: Prototype implementation for calculating pump speed to meet design flow.
   parameter Real r_N[pla.nPumHeaWatPri](
     each unit="1",

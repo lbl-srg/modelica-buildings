@@ -131,8 +131,8 @@ block StageChangeCommand
     nin=nEqu)
     "Compute nominal capacity of active stage"
     annotation (Placement(transformation(extent={{70,210},{90,230}})));
-  Buildings.Controls.OBC.CDL.Reals.Greater gre
-    "Compare OPLR to SPLR"
+  Buildings.Controls.OBC.CDL.Reals.Greater gre(h=1E-4*min(capEqu))
+    "Compare OPLR to SPLR (hysteresis is to avoid chattering with some simulators)"
     annotation (Placement(transformation(extent={{30,-70},{50,-50}})));
   Buildings.Controls.OBC.CDL.Reals.MovingAverage movAve(
     delta=dtMea)
@@ -142,8 +142,8 @@ block StageChangeCommand
     final t=dtRun)
     "Timer"
     annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
-  Buildings.Controls.OBC.CDL.Reals.Less les
-    "Compare OPLR to SPLR"
+  Buildings.Controls.OBC.CDL.Reals.Less les(h=1E-4*min(capEqu))
+    "Compare OPLR to SPLR (hysteresis is to avoid chattering with some simulators)"
     annotation (Placement(transformation(extent={{30,-130},{50,-110}})));
   Buildings.Templates.Plants.Controls.Utilities.TimerWithReset timDow(
     final t=dtRun)

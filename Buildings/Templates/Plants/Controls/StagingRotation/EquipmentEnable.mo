@@ -5,7 +5,8 @@ block EquipmentEnable
     each unit="1",
     each min=0,
     each max=1)
-    "Staging matrix – Equipment required for each stage";
+    "Staging matrix – Equipment required for each stage"
+    annotation (Evaluate=true);
   final parameter Integer nEquAlt=max({sum({(if staEqu[i, j] > 0 and staEqu[i, j] < 1
     then 1 else 0) for j in 1:nEqu}) for i in 1:nSta})
     "Number of lead/lag alternate equipment"
@@ -18,6 +19,10 @@ block EquipmentEnable
     annotation (Evaluate=true);
   final parameter Real traStaEqu[nEqu, nSta]={{staEqu[i, j] for i in 1:nSta} for j in 1:nEqu}
     "Tranpose of staging matrix";
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uIdxAltSor[nEquAlt]
+    "Indices of lead/lag alternate equipment sorted by increasing runtime"
+    annotation (Placement(transformation(extent={{-240,80},{-200,120}}),
+      iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uSta
     "Stage index"
     annotation (Placement(transformation(extent={{-240,-20},{-200,20}}),
@@ -107,13 +112,9 @@ block EquipmentEnable
   Buildings.Controls.OBC.CDL.Logical.And isEnaPreAva[nEqu]
     "Return true if equipment previously enabled and available"
     annotation (Placement(transformation(extent={{130,-110},{110,-90}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uIdxAltSor[nEquAlt]
-    "Indices of lead/lag alternate equipment sorted by increasing runtime"
-    annotation (Placement(transformation(extent={{-240,80},{-200,120}}),
-      iconTransformation(extent={{-140,40},{-100,80}})));
   Utilities.TrueArrayConditional truArrCon(
     final nout=nEqu,
-    nin=nEquAlt)
+    final nin=nEquAlt)
     "Generate array of size nEqu with nAltReq true elements at uIdxAltSor indices "
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant one(

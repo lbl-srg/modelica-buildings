@@ -7,7 +7,7 @@ model AirToWater
     redeclare Buildings.Templates.Plants.HeatPumps.Components.Controls.AirToWater ctl,
     final typ=Buildings.Templates.Components.Types.HeatPump.AirToWater,
     final is_rev=have_chiWat,
-    cfg(
+    final cfg(
       final typMod=hp.typMod));
   // Heat pumps, dedicated primary pumps and isolation valves
   Buildings.Templates.Plants.HeatPumps.Components.HeatPumpGroups.AirToWater hp(

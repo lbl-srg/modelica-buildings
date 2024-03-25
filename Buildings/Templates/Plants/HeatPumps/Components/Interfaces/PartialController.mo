@@ -178,7 +178,7 @@ protected
     annotation (Placement(transformation(extent={{-260,320},{-220,360}}),
       iconTransformation(extent={{-466,50},{-426,90}})));
   Buildings.Templates.Components.Interfaces.Bus busPumHeaWatPri
-    if cfg.have_heaWat
+    if cfg.typPumHeaWatPri<>Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
     "Primary HW pump control bus"
     annotation (Placement(transformation(extent={{-260,160},{-220,200}}),
       iconTransformation(extent={{-466,50},{-426,90}})));
@@ -188,7 +188,7 @@ protected
     annotation (Placement(transformation(extent={{-260,120},{-220,160}}),
       iconTransformation(extent={{-466,50},{-426,90}})));
   Buildings.Templates.Components.Interfaces.Bus busPumChiWatPri
-    if cfg.have_pumChiWatPriDed
+    if cfg.typPumChiWatPri<>Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
     "Primary CHW pump control bus"
     annotation (Placement(transformation(extent={{-260,-220},{-220,-180}}),
       iconTransformation(extent={{-466,50},{-426,90}})));
@@ -219,7 +219,8 @@ protected
       iconTransformation(extent={{-466,50},{-426,90}})));
 equation
   /* Control point connection - start */
-                                         connect(busPumHeaWatPri, bus.pumHeaWatPri);
+  connect(busPumHeaWatPri, bus.pumHeaWatPri);
+  connect(busPumChiWatPri, bus.pumChiWatPri);
   connect(busPumChiWatSec, bus.pumChiWatSec);
   connect(busPumHeaWatSec, bus.pumHeaWatSec);
   connect(busHp, bus.hp);
@@ -227,7 +228,6 @@ equation
   connect(busValHeaWatHpOutIso, bus.valHeaWatHpOutIso);
   connect(busValChiWatHpInlIso, bus.valChiWatHpInlIso);
   connect(busValChiWatHpOutIso, bus.valChiWatHpOutIso);
-  connect(busPumChiWatPri, bus.pumChiWatPri);
   /* Control point connection - stop */
                                        annotation (
     Icon(
