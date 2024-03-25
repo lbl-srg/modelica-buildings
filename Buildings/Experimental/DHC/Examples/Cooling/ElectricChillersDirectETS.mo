@@ -196,14 +196,14 @@ equation
 <p>
 This model illustrates an example of district cooling system,
 consisting of a cooling plant with parallel electric chillers
-(<a href=\"modelica://Buildings/Experimental/DHC/Plants/Cooling/ElectricChillerParallel.mo\">
+(<a href=\"modelica://Buildings.Experimental.DHC.Plants.Cooling.ElectricChillerParallel\">
 Buildings.Experimental.DHC.Plants.Cooling.ElectricChillerParallel</a>),
-a two-pipe distribution network with plug flow pipes (<a href=\"modelica://Buildings/Experimental/DHC/Networks/Distribution2PipePlugFlow.mo\">
-Buildings.Experimental.DHC.Networks.Distribution2PipePlugFlow</a>),
+a two-pipe distribution network with plug flow pipes (<a href=\"modelica://Buildings.Experimental.DHC.Networks.Distribution2PipePlugFlow_v\">
+Buildings.Experimental.DHC.Networks.Distribution2PipePlugFlow_v</a>),
 and time series building load that have directly connected ETS
 with the chilled water return temperatures controlled above a minimum
 threshold
-(<a href=\"modelica://Buildings/Experimental/DHC/Loads/Cooling/BuildingTimeSeriesWithETS.mo\">
+(<a href=\"modelica://Buildings.Experimental.DHC.Loads.Cooling.BuildingTimeSeriesWithETS\">
 Buildings.Experimental.DHC.Loads.Cooling.BuildingTimeSeriesWithETS</a>).
 This configuration is illustrated in the schematic below.
 </p>
