@@ -1,4 +1,4 @@
-within Buildings.Airflow.Multizone.BaseClasses.Examples;
+within Buildings.Utilities.Math.Functions.Examples;
 model Interpolate "Test model for the interpolation function"
   extends Modelica.Icons.Example;
 
@@ -13,8 +13,8 @@ model Interpolate "Test model for the interpolation function"
     "Mass flow rate";
 
 protected
-  parameter Real[:] xd=table[:,1] "X-axis support points";
-  parameter Real[size(xd, 1)] yd=table[:,2] "Y-axis support points";
+  parameter Real[:] xd=table[:,1] "x-axis support points";
+  parameter Real[size(xd, 1)] yd=table[:,2] "y-axis support points";
   parameter Real[size(xd, 1)] d(each fixed=false) "Derivatives at the support points";
 
   Modelica.Blocks.Sources.Ramp ramp(
@@ -22,27 +22,38 @@ protected
     height=100,
     offset=-50) "Ramp from -50Pa to +50Pa";
 initial equation
-  d =Buildings.Utilities.Math.Functions.splineDerivatives(
+  d = Buildings.Utilities.Math.Functions.splineDerivatives(
     x=xd,
     y=yd,
     ensureMonotonicity=true);
 equation
    dp=ramp.y;
-   m_flow =Buildings.Airflow.Multizone.BaseClasses.interpolate(u=dp,xd=xd,yd=yd,d=d);
+   m_flow = Buildings.Utilities.Math.Functions.interpolate(u=dp, xd=xd, yd=yd, d=d);
 
   annotation (
 experiment(
       StopTime=500,
       Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/Interpolate.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/Interpolate.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This example demonstrates the function
-<a href=\"modelica://Buildings.Airflow.Multizone.BaseClasses.interpolate\">
-Buildings.Airflow.Multizone.BaseClasses.interpolate</a>.
+<a href=\"modelica://Buildings.Utilities.Math.Functions.interpolate\">
+Buildings.Utilities.Math.Functions.interpolate</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 29, 2024, by Hongxiang Fu:<br/>
+Moved to
+<a href=\"modelica://Buildings.Utilities.Math.Functions.Examples\">
+Buildings.Utilities.Math.Functions</a>
+from
+<a href=\"modelica://Buildings.Airflow.Multizone.BaseClasses.Examples\">
+Buildings.Airflow.Multizone.BaseClasses</a>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1844\">IBPSA, #1844</a>.
+</li>
 <li>
 February 2, 2022, by Michael Wetter:<br/>
 Revised implementation.<br/>
