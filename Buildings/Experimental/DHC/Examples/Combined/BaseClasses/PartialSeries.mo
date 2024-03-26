@@ -132,7 +132,7 @@ partial model PartialSeries "Partial model for series network"
         origin={-80,-40})));
   replaceable
     Buildings.Experimental.DHC.Loads.Combined.BaseClasses.PartialBuildingWithETS
-    bui[nBui] constrainedby
+    bui[nBui](TDisWatMin = datDes.TLooMin, TDisWatMax = datDes.TLooMax)  constrainedby
     Buildings.Experimental.DHC.Loads.Combined.BaseClasses.PartialBuildingWithETS(
     bui(each final facMul=facMul),
     redeclare each final package MediumBui = Medium,
