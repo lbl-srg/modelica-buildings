@@ -11,11 +11,13 @@ model TraceSubstancesFlowSource
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Mixing volume"
                           annotation (Placement(transformation(extent={{100,120},
             {120,140}})));
-  Sources.TraceSubstancesFlowSource sou(redeclare package Medium = Medium,
-      use_m_flow_in=true,
+  Sources.TraceSubstancesFlowSource sou(
+    redeclare package Medium = Medium,
+    use_m_flow_in=true,
     nPorts=1)
     annotation (Placement(transformation(extent={{-46,110},{-26,130}})));
-  Modelica.Blocks.Sources.Step step(          startTime=0.5,
+  Modelica.Blocks.Sources.Step step(
+    startTime=0.5,
     height=-2,
     offset=2)
     annotation (Placement(transformation(extent={{-92,30},{-72,50}})));
@@ -106,16 +108,24 @@ model TraceSubstancesFlowSource
     "Resistance, used to check if species are transported between ports"
     annotation (Placement(transformation(extent={{-28,-80},{-6,-60}})));
 
-  Sensors.TraceSubstances C(redeclare package Medium = Medium)
+  Sensors.TraceSubstances C(
+    redeclare package Medium = Medium,
+    warnAboutOnePortConnection = false)
     "Trace substance sensor"
     annotation (Placement(transformation(extent={{120,134},{140,154}})));
-  Sensors.TraceSubstances C1(redeclare package Medium = Medium)
+  Sensors.TraceSubstances C1(
+    redeclare package Medium = Medium,
+    warnAboutOnePortConnection = false)
     "Trace substance sensor"
     annotation (Placement(transformation(extent={{120,90},{140,110}})));
-  Sensors.TraceSubstances C2(redeclare package Medium = Medium)
+  Sensors.TraceSubstances C2(
+    redeclare package Medium = Medium,
+    warnAboutOnePortConnection = false)
     "Trace substance sensor"
     annotation (Placement(transformation(extent={{168,6},{188,26}})));
-  Sensors.TraceSubstances C3(redeclare package Medium = Medium)
+  Sensors.TraceSubstances C3(
+    redeclare package Medium = Medium,
+    warnAboutOnePortConnection = false)
     "Trace substance sensor"
     annotation (Placement(transformation(extent={{188,-50},{208,-30}})));
   FixedResistances.PressureDrop res4(
@@ -254,6 +264,12 @@ The sensors
 as there is a mass flow rate with zero CO<sub>2</sub> from the source <code>bou</code> to the sink <code>sin</code>.
 </html>", revisions="<html>
 <ul>
+<li>
+March 26, 2024, by Michael Wetter:<br/>
+Configured the sensor parameter to suppress the warning about being a one-port connection.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1857\">IBPSA, #1857</a>.
+</li>
 <li>
 November 27, 2013 by Michael Wetter:<br/>
 Added pressure boundary condition to model.
