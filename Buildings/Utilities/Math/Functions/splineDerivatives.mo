@@ -83,13 +83,13 @@ The algorithm to ensure monotonicity is based on the method described in Fritsch
 </p>
 <p>
 This function is typically used with
-<a href=\"modelica://Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation\">
-Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation</a>
+<a href=\"modelica://Buildings.Utilities.Math.Functions.interpolate\">
+Buildings.Utilities.Math.Functions.interpolate</a>
 which is used to evaluate the cubic spline.
 Because in many applications, the shape of the spline depends on parameters
 which will no longer change once the initialisation is complete,
-this function computes and stores the derivatives only once instead of doing so
-at each time step to save system resources.
+this function computes and returns the derivatives so that they can be stored by the calling
+model to avoid repetitive computations.
 </p>
 <h4>References</h4>
 <p>
