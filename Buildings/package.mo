@@ -221,7 +221,7 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
     </td>
     <td valign=\"top\">Tutorial for how to build a simple system model.
     </td>
-    </tr>
+</tr>
 <tr><td valign=\"top\">Buildings.Experimental.DHC.Loads.HotWater
     </td>
     <td valign=\"top\">Package of models for domestic hot water generation and loads served by district networks.
@@ -383,7 +383,7 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">Buildings.Templates.Components.Fans.ArrayVariable
     </td>
     <td valign=\"top\">Refactored with flow rate multiplier.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3536\">#3536</a>.
+                  This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3536\">#3536</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus_9_6_0</b>
@@ -13412,10 +13412,6 @@ particular package.<br/>
    </td>
    <td valign=\"top\">Package with valves and air dampers.</td>
 </tr>
-<tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.Chillers.ModularReversible.UsersGuide\">Buildings.Fluid.Chillers.ModularReversible</a>
-   </td>
-   <td valign=\"top\">Package with models for reversible chillers.</td>
-</tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.DXSystems.Cooling\">Fluid.DXSystems.Cooling</a>
    </td>
    <td valign=\"top\">Package with components for DX systems for cooling.</td>
@@ -13431,10 +13427,6 @@ particular package.<br/>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.UsersGuide\">Fluid.HeatExchangers.ActiveBeams</a>
    </td>
    <td valign=\"top\">Package with active beams.</td>
-</tr>
-<tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.UsersGuide\">Buildings.Fluid.HeatPumps.ModularReversible</a>
-   </td>
-   <td valign=\"top\">Package with models for reversible heat pumps.</td>
 </tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.HydronicConfigurations.UsersGuide\">Fluid.HydronicConfigurations.UsersGuide</a>
    </td>

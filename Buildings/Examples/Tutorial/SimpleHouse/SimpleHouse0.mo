@@ -10,7 +10,7 @@ model SimpleHouse0
   parameter Modelica.Units.SI.Density rhoWall = 2000 "Wall density";
   parameter Modelica.Units.SI.SpecificHeatCapacity cpWall = 1000 "Wall specific heat capacity";
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        Modelica.Utilities.Files.loadResource(
+        ModelicaServices.ExternalReferences.loadResource(
         "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Weather data reader"
     annotation (Placement(transformation(extent={{-180,-10},{-160,10}})));

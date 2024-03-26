@@ -1,8 +1,0 @@
-compareVars :=
-  {
-    "ySet",
-    "yOut",
-    "sigBus.TConInMea",
-    "opeEnv.bouMapHea.tabBou.y[1]",
-    "opeEnv.bouMapCoo.tab[2, 2]"
-  };

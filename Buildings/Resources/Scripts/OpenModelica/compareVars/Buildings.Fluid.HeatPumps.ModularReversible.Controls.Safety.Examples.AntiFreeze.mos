@@ -1,8 +1,0 @@
-compareVars :=
-  {
-    "ySet",
-    "yOut",
-    "antFre.sigBus.TConInMea",
-    "antFre.sigBus.TEvaOutMea",
-    "antFre.TAntFre"
-  };
