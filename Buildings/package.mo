@@ -260,6 +260,17 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1798\">IBPSA, issue 1798</a>.
     </td>
 </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Experimental</b>
+    </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Experimental.DHC.Loads.Combined.BuildingTimeSeriesWithETS<br/>
+                       Buildings.Experimental.DHC.Loads.Combined.BaseClasses.PartialBuildingWithETS
+    </td>
+    <td valign=\"top\">Added parameters <code>TDisWatMin</code> and <code>TDisWatMax</code>
+                       in lieu of using <code>datDes</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3697\">issue 3697</a>.
+    </td>
+    </tr>
 <tr><td colspan=\"2\"><b>Buildings.Occupants</b>
     </td>
 </tr>
