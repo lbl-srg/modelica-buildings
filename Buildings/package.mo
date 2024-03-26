@@ -13673,6 +13673,10 @@ particular package.<br/>
    </td>
    <td valign=\"top\">Package with the Control Description Language (CDL) and with control sequences that are implemented using CDL.</td>
 </tr>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Experimental.DHC\">Experimental.DHC</a>
+   </td>
+   <td valign=\"top\">Package with models for district heating and cooling systems.</td>
+</tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.UsersGuide\">Fluid</a>
    </td>
    <td valign=\"top\">Package for one-dimensional fluid in piping networks with heat exchangers, valves, etc.</td>
