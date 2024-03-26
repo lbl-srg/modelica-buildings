@@ -462,6 +462,7 @@ of the room. Hence, these two ports <code>heatPorAir</code> and <code>heaPorRad<
 be used to connect a radiator. Note, however, that such a coupling is an approximation
 as the surface temperature of the radiator will not be reflected in the radiative temperature
 of the room.
+Also, read to section <i>Notes about modeling components that are connected to the radiative heat port</i> below.
 </p>
 
 <h5>Contaminant balance</h5>
@@ -502,6 +503,33 @@ then the CO2 emitted by the people specified in <code>qGai_flow</code>
 needs to be added manually to the input connector <code>C_flow</code>.
 (This manual addition is needed because <code>qGai_flow</code> can also contain heat gains not caused
 by people.)
+</p>
+<h5>Notes about modeling components that are connected to the radiative heat port</h5>
+<p>
+Models in which a component is connected to the radiative heat port <code>heaPorRad</code> may cause
+convergence problems if that component computes the radiative heat exchange <code>heaPorRad.Q_flow</code>
+based on the temperature <code>heaPorRad.T</code>.
+An example of such a model is
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Radiator\">
+Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Radiator</a>.
+This model forms a nonlinear equation between the radiator temperature,
+which is used to compute the radiative heat flow rate between radiator and room radiative temperature, and the
+room surface temperature. The radiator temperature is computed in Modelica and the room surface
+temperature is computed in EnergyPlus. The latter requires the iterative solution of the
+radiative heat balance equation. Hence, when a Modelica tool evaluates the residuals
+for this nonlinear equation, EnergyPlus does an iterative solution for the room surface temperature.
+As a rule of thumb, such nested solvers require one order of magnitude higher precision for the inner
+solver.
+By default, the tolerance of the radiative heat balance solver in EnergyPlus is set to <code>1E-7</code>,
+which should suffice. However, if a model does not converge -- in which case the error message may involve
+variables <code>TRad</code>, <code>QGaiRad_flow</code> or <code>yEP[1}</code> --
+the tolerance can be increased by setting the parameter <code>relativeSurfaceTolerance</code>
+in the instance <code>building</code>.
+</p>
+<p>
+Because a Modelica model does not have knowledge of the solver tolerance, automatically tightening
+<code>relativeSurfaceTolerance</code> as a function of the Modelica solver tolerance
+is not possible.
 </p>
 </html>",
       revisions="<html>
