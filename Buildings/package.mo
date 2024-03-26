@@ -743,7 +743,6 @@ have been <b style=\"color:blue\">improved</b> in a
                      This change is supported in the conversion script.
     </td>
 </tr>
-<<<<<<< HEAD
 <tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.Networks</b>
     </td>
 </tr>
@@ -863,7 +862,6 @@ have been <b style=\"color:blue\">improved</b> in a
     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
     </td>
 </tr> 
-=======
 <tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
     </td>
 </tr>
@@ -881,7 +879,6 @@ have been <b style=\"color:blue\">improved</b> in a
                        This change is supported in the conversion script.
     </td>
 </tr>
->>>>>>> origin/master
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
