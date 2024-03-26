@@ -272,7 +272,7 @@ equation
         else
           0 for i in 1:nFluPor)+m_flow_small*pre(TAveInlet)/(mInlet_flow+m_flow_small));
     // Below, the term X_w/(1.-X_w) is for conversion from kg/kg_total_air (Modelica) to kg/kg_dry_air (EnergyPlus)
-    QGaiRadAve_flow = if dtLast > 1E-3 then (EGaiRadLast-pre(EGaiRadLast))/dtLast else pre(QGaiRad_flow);
+    QGaiRadAve_flow = (EGaiRadLast-pre(EGaiRadLast))/dtLast;
 
     // Call EnergyPlus
     yEP=Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.exchange(
