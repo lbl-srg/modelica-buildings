@@ -409,6 +409,19 @@ to <b style=\"color:blue\">existing</b> libraries:
     of controlling district agent pumps. This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
     </td>
 </tr>                                                            
+<tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Utilities.Math.Interpolate<br/>
+                       Buildings.Utilities.Math.Examples.Interpolate
+    </td>
+    <td valign=\"top\">Created a block with an example model for
+                       <a href=\"modelica://Buildings.Utilities.Math.Functions.interpolate\">
+                       Buildings.Utilities.Math.Functions.interpolate</a>.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1844\">IBPSA, #1844</a>.
+    </td>
+</tr>
 </table>
 <!-- Backward compatible changes -->
 <p>
@@ -473,6 +486,29 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Refactored with flow rate multiplier.<br/>
                   This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3536\">#3536</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus_9_6_0</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_9_6_0.Building
+    </td>
+    <td valign=\"top\">Tightened <code>relativeSurfaceTolerance</code>, which is the tolerance used by
+                       EnergyPlus, for the surface radiative heat balance solver.
+                       This was required for some coupled simulations that exchange radiative heat transfer
+                       between Modelica and EnergyPlus to converge.
+                       For details, see section <i>Known Issues</i> in
+                       <code>Buildings.ThermalZones.EnergyPlus_9_6_0.UsersGuide</code>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.AirHeating<br/>
+                     Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer<br/>
+                     Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TRoom<br/>
+                     Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TSurface<br/>
+                     Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Radiator
+    </td>
+    <td valign=\"top\">Added insulation to EnergyPlus input data file and resized the system.<br/>
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3707\">#3707</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
@@ -707,6 +743,7 @@ have been <b style=\"color:blue\">improved</b> in a
                      This change is supported in the conversion script.
     </td>
 </tr>
+<<<<<<< HEAD
 <tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.Networks</b>
     </td>
 </tr>
@@ -826,6 +863,25 @@ have been <b style=\"color:blue\">improved</b> in a
     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
     </td>
 </tr> 
+=======
+<tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Utilities.Math.Functions.interpolate<br/>
+                       Buildings.Utilities.Math.Functions.Examples.Interpolate
+    </td>
+    <td valign=\"top\">Moved these classes to
+                       <a href=\"modelica://Buildings.Utilities.Math.Functions\">
+                       Buildings.Utilities.Math.Functions</a>
+                       from
+                       <a href=\"modelica://Buildings.Airflow.Multizone.BaseClasses\">
+                       Buildings.Airflow.Multizone.BaseClasses</a>.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1844\">IBPSA, #1844</a>.<br/>
+                       This change is supported in the conversion script.
+    </td>
+</tr>
+>>>>>>> origin/master
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
@@ -13458,7 +13514,7 @@ The following people have directly contributed to the implementation of the Buil
     Documentation(info="<html>
 <h4>License</h4>
 <p>
-Modelica Buildings Library. Copyright (c) 1998-2022
+Modelica Buildings Library. Copyright (c) 1998-2024
 Modelica Association,
 International Building Performance Simulation Association (IBPSA),
 The Regents of the University of California, through Lawrence Berkeley National Laboratory

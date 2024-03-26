@@ -12,6 +12,7 @@ exponentialIntegralE1
 factorial
 fallingFactorial
 integerReplicator
+interpolate
 inverseXRegularized
 isMonotonic
 polynomial
