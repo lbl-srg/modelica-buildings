@@ -36,10 +36,10 @@ equation
   connect(pumSta.y, chiPumSpe.uChiWatPum)
     annotation (Line(points={{-38,40},{-20,40},{-20,8},{18,8}},
       color={255,0,255}));
-  connect(remPreSen1.y, chiPumSpe.dpChiWat_remote[1]) annotation (Line(points={
-          {-38,0},{-10,0},{-10,-1},{18,-1}}, color={0,0,127}));
-  connect(remPreSen2.y, chiPumSpe.dpChiWat_remote[2]) annotation (Line(points={
-          {-38,-40},{-28,-40},{-28,1},{18,1}}, color={0,0,127}));
+  connect(remPreSen1.y, chiPumSpe.dpChiWat_remote[1]) annotation (Line(points={{-38,0},
+          {-10,0},{-10,-0.5},{18,-0.5}},     color={0,0,127}));
+  connect(remPreSen2.y, chiPumSpe.dpChiWat_remote[2]) annotation (Line(points={{-38,-40},
+          {-28,-40},{-28,0.5},{18,0.5}},       color={0,0,127}));
   connect(difPreSet.y, reaRep.u)
     annotation (Line(points={{-38,-80},{-32,-80}}, color={0,0,127}));
   connect(reaRep.y, chiPumSpe.dpChiWatSet_remote) annotation (Line(points={{-8,
@@ -55,6 +55,27 @@ This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.Speed_primary_remoteDp\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.Speed_primary_remoteDp</a>.
 </p>
+<p>
+It shows the process of specifying the chilled water pump speed
+for a primary-only plant, with two remote pressure sensors hardwired
+to the controller.
+</p>
+<ul>
+<li>
+Both of the pumps become enabled at 1 second. Thus the pump speed
+setpoint becomes non-zero.
+</li>
+<li>
+After 1 seconds, the two remote pressure sensors have the measured values higher
+than the setpoint. The reverse acting PID controller thus gives the minimum output.
+Thus the pump speed is minimum.
+</li>
+<li>
+When the measured values become lower than the setpoint, the reverse acting PID
+controller increases the output, thus increase the chilled water pump speed till
+to the maximum.
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>

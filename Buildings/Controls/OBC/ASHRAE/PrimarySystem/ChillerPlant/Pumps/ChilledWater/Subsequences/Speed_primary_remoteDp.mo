@@ -15,17 +15,16 @@ block Speed_primary_remoteDp
     annotation(Dialog(group="Speed controller"));
   parameter Real Ti(
     final unit="s",
-    final quantity="Time",
-    displayUnit="h")=0.5 "Time constant of integrator block"
-      annotation(Dialog(group="Speed controller"));
+    final quantity="Time")=0.5
+    "Time constant of integrator block"
+    annotation(Dialog(group="Speed controller"));
   parameter Real Td(
     final unit="s",
-    final quantity="Time",
-    displayUnit="h")=0.1 "Time constant of derivative block"
-      annotation (Dialog(group="Speed controller",
-      enable=
-      controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
-      controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+    final quantity="Time")=0.1
+    "Time constant of derivative block"
+    annotation (Dialog(group="Speed controller",
+      enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
+             controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiWatPum[nPum]
     "Chilled water pump status"
@@ -39,7 +38,8 @@ block Speed_primary_remoteDp
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatSet_remote[nSen](
     final unit=fill("Pa", nSen),
-    final quantity=fill("PressureDifference",nSen)) "Chilled water differential static pressure setpoint"
+    final quantity=fill("PressureDifference",nSen))
+    "Chilled water differential static pressure setpoint"
     annotation (Placement(transformation(extent={{-160,-120},{-120,-80}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiWatPumSpe(
@@ -50,7 +50,8 @@ block Speed_primary_remoteDp
       iconTransformation(extent={{100,-10},{120,10}})));
 
   Buildings.Controls.OBC.CDL.Reals.MultiMax maxLoo(
-    final nin=nSen) "Maximum DP loop output"
+    final nin=nSen)
+    "Maximum DP loop output"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Reals.Line pumSpe "Pump speed"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
