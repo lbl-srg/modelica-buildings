@@ -1,12 +1,12 @@
-simulateModel("Buildings.Templates.Plants.Components.Utilities.Validation.FirstTrueIndex",
+simulateModel("Buildings.Templates.Plants.Controls.Utilities.Validation.FirstTrueIndex",
     method="cvode",
     tolerance=1e-6,
-    stopTime=7200.0,
-    resultFile="TemplatesPlantsEnable");
+    stopTime=1.0,
+    resultFile="FirstTrueIndex");
 createPlot(
     id=1,
     position={5, 5, 400, 300},
-    y={"idxFirTru.y", "idxFirTru1.y"},
+    y={"idxFirTru.y", "idxFirTruAllFal.y"},
     autoscale=true,
     grid=true
 );

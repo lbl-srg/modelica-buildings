@@ -1,6 +1,5 @@
 within Buildings.Templates.Plants.Controls.Utilities;
-block MultiMax
-  "Output the maximum element of the input vector"
+block MultiMaxInteger "Output the maximum element of the input vector"
   parameter Integer nin(
     min=0)=0
     "Size of input array"
@@ -45,7 +44,7 @@ equation
     Documentation(
       info="<html>
 <p>
-Outputs the minimum element of the input array.
+Outputs the maximum element of the input vector.
 </p>
 </html>"));
-end MultiMax;
+end MultiMaxInteger;

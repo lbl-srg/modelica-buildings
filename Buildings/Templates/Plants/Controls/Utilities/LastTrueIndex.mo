@@ -18,8 +18,7 @@ block LastTrueIndex
     each final integerFalse=0)
     "Return index if element is true, 0 otherwise"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  MultiMax mulMax(
-    nin=nin)
+  Buildings.Templates.Plants.Controls.Utilities.MultiMaxInteger mulMax(nin=nin)
     "Return minimum index"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation

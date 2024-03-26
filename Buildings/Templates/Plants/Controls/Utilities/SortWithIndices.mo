@@ -46,10 +46,12 @@ equation
       info="<html>
 <p>
 Block that sorts the elements of the input signal <i>u</i>.
-If the parameter <code>ascending = true</code>, then the output signal satisfies
+If the parameter <code>ascending = true</code>, then the output signal <i>y</i> satisfies
 <i>y<sub>i</sub> &lt;= y<sub>i+1</sub></i> for all <i>i &isin; {1, ..., n-1}</i>.
 Otherwise, it satisfies
 <i>y<sub>i</sub> &gt;= y<sub>i+1</sub></i> for all <i>i &isin; {1, ..., n-1}</i>.
+The output signal <i>yIdx</i> contains the indices of the sorted elements,
+with respect to the input vector <i>u</i>.
 </p>
 <h4>Usage</h4>
 <p>
@@ -69,6 +71,10 @@ controller to access the position of the dampers that are most open.
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 29, 2024, by Antoine Gautier:<br/>
+Added an output variable with the indices of the sorted elements.
+</li>
 <li>
 March 2, 2020, by Michael Wetter:<br/>
 Changed icon to display dynamically the output value.

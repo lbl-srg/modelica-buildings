@@ -1,6 +1,5 @@
 within Buildings.Templates.Plants.HeatPumps.Validation;
-package UserProject
-  "Package with configured models"
+package UserProject "Package with configured models"
   extends Modelica.Icons.VariantsPackage;
   annotation (
     Documentation(

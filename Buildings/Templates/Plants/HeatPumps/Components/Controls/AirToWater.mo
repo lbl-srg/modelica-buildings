@@ -44,8 +44,8 @@ model AirToWater
     final have_heaWat=cfg.have_heaWat,
     final have_inpSch=have_inpSch,
     final have_pumChiWatPriDed_select=cfg.have_pumChiWatPriDed,
-    final have_pumChiWatSec=cfg.typPumChiWatSec==Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized,
-    final have_pumHeaWatSec=cfg.typPumHeaWatSec==Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized,
+    final have_pumChiWatSec_select=cfg.typPumChiWatSec==Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized,
+    final have_pumHeaWatSec_select=cfg.typPumHeaWatSec==Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized,
     final have_pumPriHdr=cfg.typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Headered,
     final have_pumHeaWatPriVar=cfg.have_pumHeaWatPriVar,
     final have_pumChiWatPriVar=cfg.have_pumChiWatPriVar,
@@ -104,36 +104,36 @@ model AirToWater
   Buildings.Controls.OBC.CDL.Integers.MultiSum reqPlaChiWatAirHan(final nin=
         nAirHan) if cfg.have_chiWat "Sum of CHW plant requests from AHU"
     annotation (Placement(transformation(extent={{210,150},{190,170}})));
-  Buildings.Templates.Plants.Controls.Utilities.PlaceHolderInteger phReqPlaHeaWatAirHan(
+  Buildings.Templates.Plants.Controls.Utilities.PlaceholderInteger phReqPlaHeaWatAirHan(
     final have_inp=cfg.have_heaWat,
     final u_internal=0)
     "Placeholder value if signal is not available"
     annotation (Placement(transformation(extent={{170,190},{150,210}})));
-  Buildings.Templates.Plants.Controls.Utilities.PlaceHolderInteger phReqPlaChiWatAirHan(final
+  Buildings.Templates.Plants.Controls.Utilities.PlaceholderInteger phReqPlaChiWatAirHan(final
       have_inp=cfg.have_chiWat, final u_internal=0)
     "Placeholder value if signal is not available"
     annotation (Placement(transformation(extent={{170,150},{150,170}})));
-  Buildings.Templates.Plants.Controls.Utilities.PlaceHolderInteger phReqResHeaWatAirHan(final
+  Buildings.Templates.Plants.Controls.Utilities.PlaceholderInteger phReqResHeaWatAirHan(final
       have_inp=cfg.have_heaWat, final u_internal=0)
     "Placeholder value if signal is not available"
     annotation (Placement(transformation(extent={{170,110},{150,130}})));
-  Buildings.Templates.Plants.Controls.Utilities.PlaceHolderInteger phReqResChiWatAirHan(final
+  Buildings.Templates.Plants.Controls.Utilities.PlaceholderInteger phReqResChiWatAirHan(final
       have_inp=cfg.have_chiWat, final u_internal=0)
     "Placeholder value if signal is not available"
     annotation (Placement(transformation(extent={{170,70},{150,90}})));
-  Buildings.Templates.Plants.Controls.Utilities.PlaceHolderInteger phReqPlaHeaWatEquZon(final
+  Buildings.Templates.Plants.Controls.Utilities.PlaceholderInteger phReqPlaHeaWatEquZon(final
       have_inp=cfg.have_heaWat, final u_internal=0)
     "Placeholder value if signal is not available"
     annotation (Placement(transformation(extent={{170,-90},{150,-70}})));
-  Buildings.Templates.Plants.Controls.Utilities.PlaceHolderInteger phReqPlaChiWatEquZon(final
+  Buildings.Templates.Plants.Controls.Utilities.PlaceholderInteger phReqPlaChiWatEquZon(final
       have_inp=cfg.have_chiWat, final u_internal=0)
     "Placeholder value if signal is not available"
     annotation (Placement(transformation(extent={{170,-130},{150,-110}})));
-  Buildings.Templates.Plants.Controls.Utilities.PlaceHolderInteger phReqResHeaWatEquZon(final
+  Buildings.Templates.Plants.Controls.Utilities.PlaceholderInteger phReqResHeaWatEquZon(final
       have_inp=cfg.have_heaWat, final u_internal=0)
     "Placeholder value if signal is not available"
     annotation (Placement(transformation(extent={{170,-170},{150,-150}})));
-  Buildings.Templates.Plants.Controls.Utilities.PlaceHolderInteger phReqResChiWatEquZon(final
+  Buildings.Templates.Plants.Controls.Utilities.PlaceholderInteger phReqResChiWatEquZon(final
       have_inp=cfg.have_chiWat, final u_internal=0)
     "Placeholder value if signal is not available"
     annotation (Placement(transformation(extent={{170,-210},{150,-190}})));
@@ -180,6 +180,8 @@ equation
   connect(bus.u1SchHea, ctl.u1SchHea);
   // Outputs to plant control bus
   connect(ctl.TSupSet, busHp.TSet);
+  connect(ctl.TChiWatSupSet, bus.TChiWatSupSet);
+  connect(ctl.THeaWatSupSet, bus.THeaWatSupSet);
   connect(ctl.dpChiWatRemSet, bus.dpChiWatRemSet);
   connect(ctl.dpHeaWatRemSet, bus.dpHeaWatRemSet);
   connect(ctl.y1HeaHp, busHp.y1Hea);

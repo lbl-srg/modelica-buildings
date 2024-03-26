@@ -234,12 +234,92 @@ protected
 equation
   connect(bus.hp, busHp)
     annotation (Line(points={{0,200},{0,200},{0,160}},color={255,204,51},thickness=0.5));
-  annotation (
-    Diagram(
-      coordinateSystem(
-        extent={{-200,-200},{200,200}})),
-    Icon(
-      coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-1000,-400},{1000,400}})));
+  annotation (Diagram(coordinateSystem(extent={{-200,-200},{200,200}})), Icon(
+        coordinateSystem(preserveAspectRatio=false, extent={{-2400,-400},{2400,
+            400}}), graphics={
+        Bitmap(
+          extent={{1880,160},{1960,240}},
+          fileName=
+              "modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg",
+          visible=nHp >= 1),
+        Rectangle(
+          extent={{2240,400},{1960,0}},
+          lineColor={0,0,0},
+          lineThickness=1,
+          visible=nHp >= 1),
+        Text(
+          extent={{1960,250},{2240,150}},
+          textColor={0,0,0},
+          visible=nHp >= 1,
+          textString="HP-1"),
+        Bitmap(
+          extent={{1080,160},{1160,240}},
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg",
+          visible=nHp >= 2),
+        Rectangle(
+          extent={{1440,400},{1160,0}},
+          lineColor={0,0,0},
+          lineThickness=1,
+          visible=nHp >= 2),
+        Text(
+          extent={{1160,250},{1440,150}},
+          textColor={0,0,0},
+          visible=nHp >= 2,
+          textString="HP-2"),
+        Bitmap(
+          extent={{280,160},{360,240}},
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg",
+          visible=nHp >= 3),
+        Rectangle(
+          extent={{640,400},{360,0}},
+          lineColor={0,0,0},
+          lineThickness=1,
+          visible=nHp >= 3),
+        Text(
+          extent={{360,250},{640,150}},
+          textColor={0,0,0},
+          visible=nHp >= 3,
+          textString="HP-3"),
+        Bitmap(
+          extent={{-520,160},{-440,240}},
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg",
+          visible=nHp >= 4),
+        Rectangle(
+          extent={{-160,400},{-440,0}},
+          lineColor={0,0,0},
+          lineThickness=1,
+          visible=nHp >= 4),
+        Text(
+          extent={{-440,250},{-160,150}},
+          textColor={0,0,0},
+          visible=nHp >= 4,
+          textString="HP-4"),
+        Bitmap(
+          extent={{-1320,160},{-1240,240}},
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg",
+          visible=nHp >= 5),
+        Rectangle(
+          extent={{-960,400},{-1240,0}},
+          lineColor={0,0,0},
+          lineThickness=1,
+          visible=nHp >= 5),
+        Text(
+          extent={{-1240,250},{-960,150}},
+          textColor={0,0,0},
+          visible=nHp >= 5,
+          textString="HP-5"),
+        Bitmap(
+          extent={{-2120,160},{-2040,240}},
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg",
+          visible=nHp >= 6),
+        Rectangle(
+          extent={{-1760,400},{-2040,0}},
+          lineColor={0,0,0},
+          lineThickness=1,
+          visible=nHp >= 6),
+        Text(
+          extent={{-2040,250},{-1760,150}},
+          textColor={0,0,0},
+          visible=nHp >= 6,
+          textString="HP-6")}));
 end PartialHeatPumpGroup;

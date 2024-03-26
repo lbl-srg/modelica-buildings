@@ -116,8 +116,8 @@ block Staging
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant u1Ava[nPum](
     each final k=true)
     if is_hdr
-    "FIXME: Pump available signal – Check how to handle pump availability"
-    annotation (Placement(transformation(extent={{-200,50},{-180,70}})));
+    "Pump available signal – Block does not handle faulted equipment yet"
+    annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput V_flow(
     final unit="m3/s")
     if is_hdr and is_ctlDp
@@ -188,12 +188,12 @@ block Staging
     if is_pri and is_hdr
     "Enable/disable lead primary headered pump"
     annotation (Placement(transformation(extent={{-70,-70},{-50,-50}})));
-  Utilities.PlaceHolder phValInlIso[nEqu](each final have_inp=have_valInlIso,
-      each final have_inpPla=true) if is_pri and is_hdr
+  Utilities.PlaceholderLogical phValInlIso[nEqu](each final have_inp=
+        have_valInlIso, each final have_inpPh=true) if is_pri and is_hdr
     "Placeholder value if signal is not available"
     annotation (Placement(transformation(extent={{-140,-50},{-120,-30}})));
-  Utilities.PlaceHolder phValOutIso[nEqu](each final have_inp=have_valOutIso,
-      each final have_inpPla=true) if is_pri and is_hdr
+  Utilities.PlaceholderLogical phValOutIso[nEqu](each final have_inp=
+        have_valOutIso, each final have_inpPh=true) if is_pri and is_hdr
     "Placeholder value if signal is not available"
     annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Pla
@@ -229,7 +229,7 @@ equation
   connect(booToInt.y, nPumHdrPriNotDp0.u)
     annotation (Line(points={{-118,120},{-102,120}},color={255,127,0}));
   connect(u1Ava.y, sorRunTimHdr.u1Ava)
-    annotation (Line(points={{-178,60},{-20,60},{-20,14},{-12,14}},color={255,0,255}));
+    annotation (Line(points={{-118,60},{-20,60},{-20,14},{-12,14}},color={255,0,255}));
   connect(V_flow, staHdrDp.V_flow)
     annotation (Line(points={{-180,0},{-146,0},{-146,-6},{-142,-6}},color={0,0,127}));
   connect(u1Pum, sigPumPriDed.u)
@@ -259,9 +259,9 @@ equation
     annotation (Line(points={{-88,-60},{-72,-60}}, color={255,0,255}));
   connect(u1ValOutIso, phValOutIso.u)
     annotation (Line(points={{-180,-60},{-112,-60}}, color={255,0,255}));
-  connect(u1ValOutIso, phValInlIso.uPla) annotation (Line(points={{-180,-60},{-146,
+  connect(u1ValOutIso, phValInlIso.uPh) annotation (Line(points={{-180,-60},{-146,
           -60},{-146,-44},{-142,-44}}, color={255,0,255}));
-  connect(u1ValInlIso, phValOutIso.uPla) annotation (Line(points={{-180,-40},{-152,
+  connect(u1ValInlIso, phValOutIso.uPh) annotation (Line(points={{-180,-40},{-152,
           -40},{-152,-64},{-112,-64}}, color={255,0,255}));
   connect(u1Pla, nPumHdrDp.u1Lea)
     annotation (Line(points={{-180,-80},{-20,-80},{-20,-14},{-12,-14}},color={255,0,255}));
@@ -282,7 +282,7 @@ equation
   connect(nPumHdrPriNotDp.y, enaHdr.uSta)
     annotation (Line(points={{12,120},{20,120},{20,-20},{48,-20}},color={255,127,0}));
   connect(u1Ava.y, enaHdr.u1Ava)
-    annotation (Line(points={{-178,60},{-20,60},{-20,0},{28,0},{28,-26},{48,-26}},
+    annotation (Line(points={{-118,60},{-20,60},{-20,0},{28,0},{28,-26},{48,-26}},
       color={255,0,255}));
   connect(sorRunTimHdr.yIdx, enaHdr.uIdxAltSor)
     annotation (Line(points={{12,14},{40,14},{40,-14},{48,-14}},color={255,127,0}));
@@ -319,5 +319,18 @@ equation
 For secondary headered pumps: the lead pump is enabled when the plant
 is enabled. Otherwise, the lead pump is disabled.
 <p>
+<h4>Implementation details</h4>
+<p>
+At its current stage of development, this block contains no
+logic for handling faulted equipment. 
+It is therefore assumed that all pumps are available at all times.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 29, 2024, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end Staging;

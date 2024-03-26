@@ -5,23 +5,20 @@ model FirstTrueIndex
     nin=6)
     "Return first true index"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
-  Utilities.FirstTrueIndex idxFirTru1(
-    nin=6)
-    "Return first true index"
+  Utilities.FirstTrueIndex idxFirTruAllFal(nin=6)
+    "Return first true index – All elements of input vector are false"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1[6](
-    k=fill(false, 6))
-    "Constant array"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant conAllFal[6](k=fill(false,
+        6)) "Constant array"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2[6](
-    k={false, true, false, false, true, false})
-    "Constant array"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[6](k={false,true,
+        false,false,true,false}) "Constant array"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
 equation
-  connect(con2.y, idxFirTru.u1)
-    annotation (Line(points={{-38,60},{-12,60}},color={255,0,255}));
-  connect(con1.y, idxFirTru1.u1)
-    annotation (Line(points={{-38,0},{-12,0}},color={255,0,255}));
+  connect(con.y, idxFirTru.u1)
+    annotation (Line(points={{-38,60},{-12,60}}, color={255,0,255}));
+  connect(conAllFal.y, idxFirTruAllFal.u1)
+    annotation (Line(points={{-38,0},{-12,0}}, color={255,0,255}));
   annotation (
     __Dymola_Commands(
       file=

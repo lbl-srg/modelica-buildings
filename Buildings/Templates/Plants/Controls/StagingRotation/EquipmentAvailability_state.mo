@@ -43,7 +43,7 @@ block EquipmentAvailability_state
     "Equipment available signal"
     annotation (Placement(transformation(extent={{-240,-80},{-200,-40}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
-  Utilities.PlaceHolder phHea(final have_inp=have_heaWat and have_chiWat,
+  Utilities.PlaceholderLogical phHea(final have_inp=have_heaWat and have_chiWat,
       final u_internal=have_heaWat or not have_chiWat)
     "Placeholder value if signal is not available"
     annotation (Placement(transformation(extent={{-190,-130},{-170,-110}})));

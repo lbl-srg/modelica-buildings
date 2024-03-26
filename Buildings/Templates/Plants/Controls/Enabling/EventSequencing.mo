@@ -45,22 +45,22 @@ block EventSequencing
     annotation (Placement(transformation(extent={{-200,120},{-160,160}}),
       iconTransformation(extent={{-140,100},{-100,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumHeaWatPri_actual
-    if have_pumHeaWatPri
+    if have_heaWat and have_pumHeaWatPri
     "Primary HW pump status (dedicated or lead headered pump)"
     annotation (Placement(transformation(extent={{-200,-30},{-160,10}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumChiWatPri_actual
-    if have_pumChiWatPri
+    if have_chiWat and have_pumChiWatPri
     "Primary CHW pump status – Dedicated or lead headered pump"
     annotation (Placement(transformation(extent={{-200,-70},{-160,-30}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumHeaWatSec_actual
-    if have_pumHeaWatSec
+    if have_heaWat and have_pumHeaWatSec
     "Lead headered secondary HW pump status"
     annotation (Placement(transformation(extent={{-200,-110},{-160,-70}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumChiWatSec_actual
-    if have_pumChiWatSec
+    if have_chiWat and have_pumChiWatSec
     "Lead headered secondary CHW pump status"
     annotation (Placement(transformation(extent={{-200,-150},{-160,-110}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
@@ -85,12 +85,12 @@ block EventSequencing
     annotation (Placement(transformation(extent={{160,-40},{200,0}}),
       iconTransformation(extent={{100,-60},{140,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumHeaWatPri
-    if have_pumHeaWatPri
+    if have_heaWat and have_pumHeaWatPri
     "Primary HW pump start command – Dedicated or lead headered pump"
     annotation (Placement(transformation(extent={{160,-80},{200,-40}}),
       iconTransformation(extent={{100,-100},{140,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumChiWatPri
-    if have_pumChiWatPri
+    if have_chiWat and have_pumChiWatPri
     "Primary CHW pump start command – Dedicated or lead headered pump"
     annotation (Placement(transformation(extent={{160,-100},{200,-60}}),
       iconTransformation(extent={{100,-120},{140,-80}})));
@@ -118,33 +118,33 @@ block EventSequencing
     nin=4)
     "Return true if cooling AND valve timing elapsed AND lead CHW pumps on"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
-  Utilities.PlaceHolder u1PumChiWatSec_internal(
-    final have_inp=have_pumChiWatSec,
-    final have_inpPla=false,
+  Utilities.PlaceholderLogical u1PumChiWatSec_internal(
+    final have_inp=have_chiWat and have_pumChiWatSec,
+    final have_inpPh=false,
     final u_internal=true)
     "Replace with placeholder value if input signal is not available"
     annotation (Placement(transformation(extent={{-150,-140},{-130,-120}})));
-  Utilities.PlaceHolder timVal_internal(
+  Utilities.PlaceholderLogical timVal_internal(
     final have_inp=have_valInlIso or have_valOutIso,
-    final have_inpPla=true,
+    final have_inpPh=true,
     final u_internal=true)
     "Replace with placeholder value if input signal is not available"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
-  Utilities.PlaceHolder u1PumHeaWatSec_internal(
-    final have_inp=have_pumHeaWatSec,
-    final have_inpPla=false,
+  Utilities.PlaceholderLogical u1PumHeaWatSec_internal(
+    final have_inp=have_heaWat and have_pumHeaWatSec,
+    final have_inpPh=false,
     final u_internal=true)
     "Replace with placeholder value if input signal is not available"
     annotation (Placement(transformation(extent={{-150,-100},{-130,-80}})));
-  Utilities.PlaceHolder u1PumChiWatPri_internal(
-    final have_inp=have_pumChiWatPri,
-    final have_inpPla=false,
+  Utilities.PlaceholderLogical u1PumChiWatPri_internal(
+    final have_inp=have_chiWat and have_pumChiWatPri,
+    final have_inpPh=false,
     final u_internal=true)
     "Replace with placeholder value if input signal is not available"
     annotation (Placement(transformation(extent={{-150,-60},{-130,-40}})));
-  Utilities.PlaceHolder u1PumHeaWatPri_internal(
-    final have_inp=have_pumHeaWatPri,
-    final have_inpPla=false,
+  Utilities.PlaceholderLogical u1PumHeaWatPri_internal(
+    final have_inp=have_heaWat and have_pumHeaWatPri,
+    final have_inpPh=false,
     final u_internal=true)
     "Replace with placeholder value if input signal is not available"
     annotation (Placement(transformation(extent={{-150,-20},{-130,0}})));
@@ -153,18 +153,18 @@ block EventSequencing
     "Enable command from cooling mode sequence"
     annotation (Placement(transformation(extent={{-200,60},{-160,100}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
-  Utilities.PlaceHolder u1Coo_internal(
+  Utilities.PlaceholderLogical u1Coo_internal(
     final have_inp=have_chiWat,
-    final have_inpPla=false,
+    final have_inpPh=false,
     final u_internal=false)
     "Replace with placeholder value if input signal is not available"
     annotation (Placement(transformation(extent={{-150,70},{-130,90}})));
   Buildings.Controls.OBC.CDL.Logical.Or u1HeaOrCoo
     "Return true if enabled from heating or cooling mode sequence"
     annotation (Placement(transformation(extent={{-90,110},{-70,130}})));
-  Utilities.PlaceHolder u1Hea_internal(
+  Utilities.PlaceholderLogical u1Hea_internal(
     final have_inp=have_heaWat,
-    final have_inpPla=false,
+    final have_inpPh=false,
     final u_internal=false)
     "Replace with placeholder value if input signal is not available"
     annotation (Placement(transformation(extent={{-150,130},{-130,150}})));
@@ -214,7 +214,7 @@ block EventSequencing
     "Keep pump running until heat pump internal shutdown cycle times out"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Latch latPumChiWatPri
-    if have_pumChiWatPri
+    if have_chiWat and have_pumChiWatPri
     "Keep pump running until heat pump internal shutdown cycle times out"
     annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
 equation
@@ -257,8 +257,8 @@ equation
     annotation (Line(points={{-128,140},{-120,140},{-120,120},{-92,120}},color={255,0,255}));
   connect(u1HeaOrCoo.y, timVal.u)
     annotation (Line(points={{-68,120},{-60,120},{-60,100},{-52,100}},color={255,0,255}));
-  connect(u1HeaOrCoo.y, timVal_internal.uPla)
-    annotation (Line(points={{-68,120},{-20,120},{-20,96},{-12,96}},color={255,0,255}));
+  connect(u1HeaOrCoo.y, timVal_internal.uPh) annotation (Line(points={{-68,120},
+          {-20,120},{-20,94},{-12,94}}, color={255,0,255}));
   connect(u1Coo, u1Coo_internal.u)
     annotation (Line(points={{-180,80},{-152,80}},color={255,0,255}));
   connect(u1Coo_internal.y, cooValPum.u[4])
@@ -341,5 +341,12 @@ equation
     Documentation(
       info="<html>
 
+</html>", revisions="<html>
+<ul>
+<li>
+March 29, 2024, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end EventSequencing;

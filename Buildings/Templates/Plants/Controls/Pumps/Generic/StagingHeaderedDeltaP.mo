@@ -185,7 +185,14 @@ and down command and computes the stage index must enforce a minimum stage runti
 of <code>dtRun</code>.
 </p>
 </html>
-"),
+", revisions="<html>
+<ul>
+<li>
+March 29, 2024, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
     Diagram(
       coordinateSystem(
         extent={{-120,-120},{120,120}})));

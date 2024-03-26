@@ -45,5 +45,11 @@ equation
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          textColor={0,0,255})}));
+          textColor={0,0,255})}),
+    Documentation(info="<html>
+<p>
+Counts the number of <code>true</code> elements in the Boolean
+input vector.
+</p>
+</html>"));
 end CountTrue;

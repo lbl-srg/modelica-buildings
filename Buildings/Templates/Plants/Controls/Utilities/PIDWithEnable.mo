@@ -174,7 +174,6 @@ equation
         preserveAspectRatio=false)),
     Documentation(
       info="<html>
-FIXME: Replace Experimental.DHC...PIDWithEnable with this class.
 <p>
 This is an update of
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Reals.PIDWithReset\">

@@ -30,6 +30,27 @@ partial model PartialHeatPumpPlant
     "Air medium"
     annotation (Dialog(enable=typ==Buildings.Templates.Components.Types.HeatPump.AirToWater),
   __ctrlFlow(enable=false));
+  // The current implementation only supports plants that provide HHW.
+  final parameter Boolean have_heaWat=true
+    "Set to true if the plant provides HW"
+    annotation (Evaluate=true,
+    Dialog(group="Configuration"));
+  parameter Boolean have_chiWat=true
+    "Set to true if the plant provides CHW"
+    annotation (Evaluate=true,
+    Dialog(group="Configuration"));
+  // RFE: To be exposed for templates that include optional DHW service.
+  final parameter Boolean have_hotWat=false
+    "Set to true if the plant provides DHW"
+    annotation (Evaluate=true,
+    Dialog(group="Configuration"));
+  // RFE(AntoineGautier): Add option for sidestream HRC. Always excluded for now.
+  final parameter Boolean have_hrc(
+    start=false)=false
+    "Set to true for plants with a sidestream heat recovery chiller"
+    annotation (Evaluate=true,
+    Dialog(group="Configuration",
+    enable=have_heaWat and have_chiWat));
   parameter Buildings.Templates.Components.Types.HeatPump typ
     "Type of heat pump"
     annotation (Evaluate=true,
@@ -78,28 +99,7 @@ partial model PartialHeatPumpPlant
   parameter Buildings.Templates.Plants.HeatPumps.Data.HeatPumpPlant dat(
     cfg=cfg)
     "Design and operating parameters"
-    annotation (Placement(transformation(extent={{-360,280},{-340,300}})));
-  // The current implementation only supports plants that provide HHW.
-  final parameter Boolean have_heaWat=true
-    "Set to true if the plant provides HW"
-    annotation (Evaluate=true,
-    Dialog(group="Configuration"));
-  parameter Boolean have_chiWat=true
-    "Set to true if the plant provides CHW"
-    annotation (Evaluate=true,
-    Dialog(group="Configuration"));
-  // RFE: To be exposed for templates that include optional DHW service.
-  final parameter Boolean have_hotWat=false
-    "Set to true if the plant provides DHW"
-    annotation (Evaluate=true,
-    Dialog(group="Configuration"));
-  // RFE(AntoineGautier): Add option for sidestream HRC. Always excluded for now.
-  final parameter Boolean have_hrc(
-    start=false)=false
-    "Set to true for plants with a sidestream heat recovery chiller"
-    annotation (Evaluate=true,
-    Dialog(group="Configuration",
-    enable=have_heaWat and have_chiWat));
+    annotation (Placement(transformation(extent={{-120,360},{-100,380}})));
   // RFE(AntoineGautier): Allow specifying subset of units dedicated to HW, CHW or DHW production.
   parameter Integer nHp(
     final min=1,
@@ -111,24 +111,25 @@ partial model PartialHeatPumpPlant
     "Set to true for reversible heat pumps, false for heating only"
     annotation (Evaluate=true,
     Dialog(group="Heat pumps"));
-  // The implementation currently only supports the same type of distribution system
-  // for the CHW and HW loops.
   // Plants with AWHP.
-  parameter Buildings.Templates.Plants.HeatPumps.Types.Distribution typDis_select1(
-    start=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2)
+  // RFE(AntoineGautier): Add constant primary-only option.
+  final parameter Buildings.Templates.Plants.HeatPumps.Types.Distribution typDis_select1(
+    start=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2)=
+    Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2
     "Type of distribution system"
     annotation (Evaluate=true,
-    Dialog(enable=typ==Buildings.Templates.Components.Types.HeatPump.AirToWater),
-  choices(choice=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Only
-    "Constant primary-only",
-  choice=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2
-    "Constant primary - Variable secondary centralized"));
+    Dialog(group="Configuration",
+    enable=typ==Buildings.Templates.Components.Types.HeatPump.AirToWater),
+    choices(
+      choice=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2
+      "Constant primary - Variable secondary centralized"));
   // Plants with WWHP.
   parameter Buildings.Templates.Plants.HeatPumps.Types.Distribution typDis_select2(
     start=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2)
     "Type of distribution system"
     annotation (Evaluate=true,
-    Dialog(enable=typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater));
+    Dialog(group="Configuration",
+    enable=typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater));
   final parameter Buildings.Templates.Plants.HeatPumps.Types.Distribution typDis=
     if typ == Buildings.Templates.Components.Types.HeatPump.AirToWater then typDis_select1
     else typDis_select2
@@ -361,7 +362,7 @@ partial model PartialHeatPumpPlant
     "HW mass flow rate (total, distributed to consumers)"
     annotation (Evaluate=true);
   final parameter Modelica.Units.SI.HeatFlowRate capHea_nominal=if have_heaWat
-    then abs(dat.hp.capHeaHp_nominal) else 0
+    then abs(dat.hp.capHeaHp_nominal) * nHp else 0
     "Heating capacity - All units";
   final parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal=
     capHea_nominal
@@ -382,7 +383,7 @@ partial model PartialHeatPumpPlant
     "CHW mass flow rate - Total, distributed to consumers"
     annotation (Evaluate=true);
   final parameter Modelica.Units.SI.HeatFlowRate capCoo_nominal=if have_chiWat
-    then abs(dat.hp.capCooHp_nominal) else 0
+    then abs(dat.hp.capCooHp_nominal) * nHp else 0
     "Cooling capacity - All units";
   final parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal=-
     capCoo_nominal
@@ -466,7 +467,7 @@ partial model PartialHeatPumpPlant
       nominal=MediumHeaWat.h_default))
     if have_heaWat
     "HW return"
-    annotation (Placement(transformation(extent={{390,-310},{410,-290}}),
+    annotation (Placement(transformation(extent={{590,-370},{610,-350}}),
       iconTransformation(extent={{190,-190},{210,-170}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bHeaWat(
     redeclare final package Medium=MediumHeaWat,
@@ -477,7 +478,7 @@ partial model PartialHeatPumpPlant
       nominal=MediumHeaWat.h_default))
     if have_heaWat
     "HW supply"
-    annotation (Placement(transformation(extent={{390,-230},{410,-210}}),
+    annotation (Placement(transformation(extent={{590,-290},{610,-270}}),
       iconTransformation(extent={{190,-110},{210,-90}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aChiWat(
     redeclare final package Medium=MediumChiWat,
@@ -488,7 +489,7 @@ partial model PartialHeatPumpPlant
       nominal=MediumChiWat.h_default))
     if have_chiWat
     "CHW return"
-    annotation (Placement(transformation(extent={{390,-50},{410,-30}}),
+    annotation (Placement(transformation(extent={{590,-10},{610,10}}),
       iconTransformation(extent={{190,-50},{210,-30}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bChiWat(
     redeclare final package Medium=MediumChiWat,
@@ -499,28 +500,28 @@ partial model PartialHeatPumpPlant
       nominal=MediumChiWat.h_default))
     if have_chiWat
     "CHW supply"
-    annotation (Placement(transformation(extent={{390,30},{410,50}}),
+    annotation (Placement(transformation(extent={{590,70},{610,90}}),
       iconTransformation(extent={{190,30},{210,50}})));
   Buildings.Templates.Plants.HeatPumps.Interfaces.Bus bus
     "Plant control bus"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=90,
-      origin={-400,260}),
+      origin={-600,320}),
       iconTransformation(extent={{-20,-20},{20,20}},rotation=90,origin={-200,180})));
   Buildings.Templates.AirHandlersFans.Interfaces.Bus busAirHan[cfg.nAirHan]
     if cfg.nAirHan > 0
     "Air handling unit control bus"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=-90,
-      origin={400,280}),
+      origin={600,340}),
       iconTransformation(extent={{-20,-20},{20,20}},rotation=-90,origin={200,180})));
   Buildings.Templates.ZoneEquipment.Interfaces.Bus busEquZon[cfg.nEquZon]
     if cfg.nEquZon > 0
     "Terminal unit control bus"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=-90,
-      origin={400,240}),
+      origin={600,300}),
       iconTransformation(extent={{-20,-20},{20,20}},rotation=-90,origin={200,120})));
   BoundaryConditions.WeatherData.Bus busWea
     "Weather bus"
-    annotation (Placement(transformation(extent={{-20,300},{20,340}}),
+    annotation (Placement(transformation(extent={{-20,380},{20,420}}),
       iconTransformation(extent={{-20,180},{20,220}})));
   replaceable Buildings.Templates.Plants.HeatPumps.Components.Interfaces.PartialController ctl
     constrainedby
@@ -530,19 +531,19 @@ partial model PartialHeatPumpPlant
     "Plant controller"
     annotation (
     Dialog(group="Controls"),
-    Placement(transformation(extent={{-280,250},{-260,270}})));
+    Placement(transformation(extent={{460,310},{480,330}})));
   // Miscellaneous
   Buildings.Fluid.Sources.Outside out(
     redeclare replaceable package Medium=Buildings.Media.Air,
     nPorts=1)
     "Outdoor air conditions"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=-90,
-      origin={0,300})));
+      origin={0,380})));
   Buildings.Fluid.Sensors.Temperature TOut(
     redeclare replaceable package Medium=Buildings.Media.Air,
     warnAboutOnePortConnection=false)
     "OA temperature"
-    annotation (Placement(transformation(extent={{-30,290},{-10,310}})));
+    annotation (Placement(transformation(extent={{-30,370},{-10,390}})));
 initial equation
   if typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated then
     assert(nPumHeaWatPri == nHp, "In " + getInstanceName() + ": " +
@@ -560,15 +561,15 @@ equation
                                          connect(TOut.T, bus.TOut);
   /* Control point connection - stop */
                                        connect(bus, ctl.bus)
-    annotation (Line(points={{-400,260},{-280,260}},color={255,204,51},thickness=0.5));
+    annotation (Line(points={{-600,320},{460,320}}, color={255,204,51},thickness=0.5));
   connect(ctl.busAirHan, busAirHan)
-    annotation (Line(points={{-260,266},{-180,266},{-180,280},{400,280}},color={255,204,51},thickness=0.5));
+    annotation (Line(points={{480,326},{580,326},{580,340},{600,340}},   color={255,204,51},thickness=0.5));
   connect(ctl.busEquZon, busEquZon)
-    annotation (Line(points={{-260,254},{-180,254},{-180,240},{400,240}},color={255,204,51},thickness=0.5));
+    annotation (Line(points={{480,314},{580,314},{580,300},{600,300}},   color={255,204,51},thickness=0.5));
   connect(busWea, out.weaBus)
-    annotation (Line(points={{0,320},{0,310},{0.2,310}},color={255,204,51},thickness=0.5));
+    annotation (Line(points={{0,400},{0,390},{0.2,390}},color={255,204,51},thickness=0.5));
   connect(out.ports[1], TOut.port)
-    annotation (Line(points={{0,290},{-20,290}},
+    annotation (Line(points={{0,370},{-20,370}},
                                                color={0,127,255}));
   annotation (
     defaultComponentName="plaHp",
@@ -746,7 +747,7 @@ equation
     Diagram(
       coordinateSystem(
         preserveAspectRatio=false,
-        extent={{-400,-320},{400,320}})),
+        extent={{-600,-400},{600,400}})),
     Documentation(
       revisions="<html>
 <ul>

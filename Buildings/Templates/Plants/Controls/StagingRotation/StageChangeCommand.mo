@@ -149,8 +149,7 @@ block StageChangeCommand
     final t=dtRun)
     "Timer"
     annotation (Placement(transformation(extent={{80,-130},{100,-110}})));
-  Utilities.HoldValue hol(
-    final dtHol=dtRun)
+  Utilities.HoldReal hol(final dtHol=dtRun)
     "Hold value of required capacity at stage change"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
   Buildings.Controls.OBC.CDL.Integers.Max maxInt
@@ -210,9 +209,9 @@ block StageChangeCommand
   Buildings.Controls.OBC.CDL.Reals.Multiply splTimCapStaLow
     "SPLR times capacity of next available lower stage"
     annotation (Placement(transformation(extent={{-10,-170},{10,-150}})));
-  Utilities.PlaceHolderReal parPlrSta(
+  Utilities.PlaceholderReal parPlrSta(
     final have_inp=have_inpPlrSta,
-    final have_inpPla=false,
+    final have_inpPh=false,
     final u_internal=plrSta) "Parameter value for SPLR"
     annotation (Placement(transformation(extent={{-170,-190},{-150,-170}})));
   Buildings.Controls.OBC.CDL.Logical.FallingEdge endStaPro

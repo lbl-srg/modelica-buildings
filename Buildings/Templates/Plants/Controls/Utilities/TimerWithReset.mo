@@ -121,5 +121,13 @@ equation
             significantDigits=3)))}),
     Diagram(
       coordinateSystem(
-        preserveAspectRatio=false)));
+        preserveAspectRatio=false)),
+    Documentation(revisions="<html>
+<ul>
+<li>
+March 29, 2024, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end TimerWithReset;

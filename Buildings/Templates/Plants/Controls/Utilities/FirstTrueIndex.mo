@@ -18,9 +18,7 @@ block FirstTrueIndex
     each final integerFalse=nin + 1)
     "Return index if element is true, 0 otherwise"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Utilities.MultiMin mulMin(
-    nin=nin)
-    "Return minimum index"
+  MultiMinInteger mulMin(nin=nin) "Return minimum index"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu
     annotation (Placement(transformation(extent={{34,-50},{54,-30}})));

@@ -132,7 +132,14 @@ but a local DP sensor is hardwired to the secondary pump controller.
 </li>
 </ul>
 </html>
-"),
+", revisions="<html>
+<ul>
+<li>
+March 29, 2024, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
     Diagram(
       coordinateSystem(
         extent={{-100,-100},{100,100}})));

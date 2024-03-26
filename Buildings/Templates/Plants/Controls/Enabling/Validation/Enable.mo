@@ -88,5 +88,12 @@ an input point.
 All these configurations have the same setting for the minimum number
 of ignored requests: <code>nReqIgn=1</code>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 29, 2024, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end Enable;

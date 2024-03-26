@@ -1,6 +1,5 @@
 within Buildings.Templates.Plants.HeatPumps;
-package Validation
-  "Package with validation models"
+package Validation "Package with validation models"
   extends Modelica.Icons.ExamplesPackage;
   annotation (
     Documentation(
@@ -12,8 +11,8 @@ Buildings.Templates.Plants.HeatPumps</a>
 for various system configurations.
 </p>
 <p>
-The models also illustrate parameter propagation from a top-level
-HVAC system record.
+The models also illustrate parameter propagation from the top-level
+HVAC system record <code>datAll</code>.
 </p>
 </html>"));
 end Validation;

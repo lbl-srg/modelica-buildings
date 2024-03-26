@@ -69,5 +69,12 @@ Accepts indices of true elements that may not be within the
 range of indices of the output vector.
 In this, the number of true elements will not be met.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 29, 2024, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end TrueArrayConditional;

@@ -115,7 +115,7 @@ block SortRuntime
   Buildings.Controls.OBC.CDL.Routing.IntegerExtractor resIdxInp[nEquAlt](
     each final nin=nEquAlt)
     "Restore indices consistent with input vectors"
-    annotation (Placement(transformation(extent={{150,-10},{170,10}})));
+    annotation (Placement(transformation(extent={{170,-10},{190,10}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant idxEquAltMat[nEquAlt, nEquAlt](
     final k={idxEquAlt for i in 1:nEquAlt})
     "Indices of lead/lag alternate equipment repeated nEquAlt times"
@@ -141,7 +141,7 @@ equation
   connect(zerUna.y, voiRunUna.u2)
     annotation (Line(points={{-28,-40},{20,-40},{20,-6},{28,-6}},color={0,0,127}));
   connect(una.y, timUna.u)
-    annotation (Line(points={{-68,-40},{-56,-40},{-56,-80},{-52,-80}},color={255,0,255}));
+    annotation (Line(points={{-68,-40},{-60,-40},{-60,-80},{-52,-80}},color={255,0,255}));
   connect(una.y, zerUna.u)
     annotation (Line(points={{-68,-40},{-52,-40}},color={255,0,255}));
   connect(timUna.y, opp.u)
@@ -180,12 +180,12 @@ equation
   connect(u1AvaEquAlt.y, offAva.u2)
     annotation (Line(points={{-158,-40},{-100,-40},{-100,32},{-92,32}},color={255,0,255}));
   connect(idxEquAltMat.y, resIdxInp.u)
-    annotation (Line(points={{132,-40},{140,-40},{140,0},{148,0}},color={255,127,0}));
+    annotation (Line(points={{132,-40},{160,-40},{160,0},{168,0}},color={255,127,0}));
   connect(sor.yIdx, resIdxInp.index)
-    annotation (Line(points={{132,-6},{144,-6},{144,-16},{160,-16},{160,-12}},
+    annotation (Line(points={{132,-6},{164,-6},{164,-16},{180,-16},{180,-12}},
       color={255,127,0}));
   connect(resIdxInp.y, yIdx)
-    annotation (Line(points={{172,0},{220,0}},color={255,127,0}));
+    annotation (Line(points={{192,0},{220,0}},color={255,127,0}));
   connect(runTimSta.y, iniRunTim.u1)
     annotation (Line(points={{-78,120},{-66,120},{-66,6},{-52,6}},color={0,0,127}));
   connect(timRun.y, iniRunTim.u2)
@@ -268,9 +268,19 @@ Weighting/sorting logic to be explained.
 To facilitate integration into the plant controller, the input vectors
 cover the full set of equipment, including equipment that may not be
 lead/lag alternate.
-The ouput vectors cover only the lead/lag alternate equipment,
+The ouput vectors cover only the subset of lead/lag alternate equipment, 
 and the vector of sorted equipment provides indices with respect
-to the input vectors.
+to the input vectors (full set of equipment).
+</p>
+<p>
+The staging runtime and the time elapsed since an equipment became unavailable
+are both computed from Boolean signals (<code>u1Run</code> and <code>u1Ava</code>).
+These are discrete-time, piecewise constant variables,
+which is why the caveat in the documentation of 
+<a href=\"modelica://Buildings.Templates.Plants.Controls.Utilities.SortWithIndices\">
+Buildings.Templates.Plants.Controls.Utilities.SortWithIndices</a>
+for purely continuous time-varying variables does not apply here.
+Therefore, no sampling is performed before sorting the equipment runtimes.
 </p>
 </html>"));
 end SortRuntime;

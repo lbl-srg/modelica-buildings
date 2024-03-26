@@ -43,15 +43,15 @@ model AirToWater
     have_chiWat=true,
     have_valHpInlIso=true,
     have_valHpOutIso=true,
-    have_pumHeaWatSec=true,
-    have_pumChiWatSec=true,
+    have_pumHeaWatSec_select=true,
     have_pumPriHdr=true,
+    have_pumChiWatSec_select=true,
     have_senVHeaWatPri_select=false,
     have_senVChiWatPri_select=false,
     have_senTHeaWatPriRet_select=false,
     have_senTChiWatPriRet_select=false,
     have_senTHeaWatSecRet=true,
-    have_senTChiWatSecRet=true,
+    have_senTChiWatSecRet=false,
     nHp=3,
     have_senDpHeaWatRemWir=false,
     nSenDpHeaWatRem=1,
@@ -102,19 +102,19 @@ model AirToWater
     "HP status"
     annotation (Placement(transformation(extent={{70,70},{90,90}})));
   Components.Controls.StatusEmulator y1PumHeaWatPri_actual1[ctl.nPumHeaWatPri]
-    if ctl.have_pumHeaWatPri
+    if ctl.have_heaWat and ctl.have_pumHeaWatPri
     "Primary HW pump status"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
   Components.Controls.StatusEmulator y1PumChiWatPri_actual[ctl.nPumChiWatPri]
-    if ctl.have_pumChiWatPri
+    if ctl.have_chiWat and ctl.have_pumChiWatPri
     "Primary CHW pump status"
     annotation (Placement(transformation(extent={{70,30},{90,50}})));
   Components.Controls.StatusEmulator y1PumHeaWatSec_actual[ctl.nPumHeaWatSec]
-    if ctl.have_pumHeaWatSec
+    if ctl.have_heaWat and ctl.have_pumHeaWatSec
     "Secondary HW pump status"
     annotation (Placement(transformation(extent={{100,10},{120,30}})));
   Components.Controls.StatusEmulator y1PumChiWatSec_actual[ctl.nPumChiWatSec]
-    if ctl.have_pumChiWatSec
+    if ctl.have_chiWat and ctl.have_pumChiWatSec
     "Secondary CHW pump status"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin TOut(
@@ -344,5 +344,21 @@ equation
           points={{-36,60},{64,0},{-36,-60},{-36,60}})}),
     Diagram(
       coordinateSystem(
-        extent={{-200,-240},{200,240}})));
+        extent={{-200,-240},{200,240}})),
+    Documentation(revisions="<html>
+<ul>
+<li>
+March 29, 2024, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+This model validates
+<a href=\"modelica://Buildings.Templates.Plants.Controls.HeatPumps.AirToWater\">
+Buildings.Templates.Plants.Controls.HeatPumps.AirToWater</a>
+in a configuration with three equally sized lead/lag alternate
+heat pumps.
+</p>
+</html>"));
 end AirToWater;

@@ -257,5 +257,12 @@ needs to be updated with an additional input to lock/release the
 output. 
 See https://github.com/lbl-srg/modelica-buildings/pull/2299#issuecomment-1997466979
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 29, 2024, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end PlantReset;

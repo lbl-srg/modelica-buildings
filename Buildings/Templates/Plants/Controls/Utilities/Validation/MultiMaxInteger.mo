@@ -1,20 +1,19 @@
 within Buildings.Templates.Plants.Controls.Utilities.Validation;
-model MultiMin
-  Buildings.Templates.Plants.Controls.Utilities.MultiMin mulMin(
-    nin=5)
-    "Block that outputs the minimum element of the input vector"
+model MultiMaxInteger
+  Buildings.Templates.Plants.Controls.Utilities.MultiMaxInteger mulMax(nin=5)
+    "Block that outputs the maximum element of the input vector"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant con[5](
     k={1, 2, 3, 4, 5})
     "Constant vector"
     annotation (Placement(transformation(extent={{-48,-10},{-28,10}})));
 equation
-  connect(con.y, mulMin.u)
+  connect(con.y,mulMax. u)
     annotation (Line(points={{-26,0},{-2,0}},color={255,127,0}));
   annotation (
     __Dymola_Commands(
       file=
-        "modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Controls/Utilities/Validation/MultiMin.mos"
+        "modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Controls/Utilities/Validation/MultiMaxInteger.mos"
         "Simulate and plot"),
     experiment(
       StopTime=1.0,
@@ -23,8 +22,8 @@ equation
       info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Templates.Plants.Controls.Utilities.MultiMin\">
-Buildings.Templates.Plants.Controls.Utilities.MultiMin</a>.
+<a href=\"modelica://Buildings.Templates.Plants.Controls.Utilities.MultiMaxInteger\">
+Buildings.Templates.Plants.Controls.Utilities.MultiMaxInteger</a>.
 </p>
 </html>",
       revisions="<html>
@@ -48,4 +47,4 @@ First implementation.
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
           points={{-36,60},{64,0},{-36,-60},{-36,60}})}));
-end MultiMin;
+end MultiMaxInteger;

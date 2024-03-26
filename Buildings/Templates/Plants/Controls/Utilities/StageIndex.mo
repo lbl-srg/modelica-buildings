@@ -100,12 +100,12 @@ block StageIndex
     final k=1)
     "Constant"
     annotation (Placement(transformation(extent={{-230,-210},{-210,-190}})));
-  PlaceHolder pas[nSta](
-    each final have_inp=dtRun > 0,
-    each final have_inpPla=true)
-    "Direct pass-through when no minimum runtime"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,
-      origin={-30,80})));
+  PlaceholderLogical pas[nSta](each final have_inp=dtRun > 0, each final
+      have_inpPh=true) "Direct pass-through when no minimum runtime"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-30,80})));
   FirstTrueIndex idxFirAva(
     nin=nSta)
     "Return index of first available stage"
@@ -127,9 +127,9 @@ block StageIndex
     if dtRun > 0
     "Timer for minimum runtime"
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
-  PlaceHolder phAvaSta[nSta](
+  PlaceholderLogical phAvaSta[nSta](
     each final have_inp=have_inpAva,
-    each final have_inpPla=false,
+    each final have_inpPh=false,
     each final u_internal=true) "Placeholder value if signal is not available"
     annotation (Placement(transformation(extent={{-230,-170},{-210,-150}})));
   Buildings.Controls.OBC.CDL.Logical.MultiAnd dowAndEna(
@@ -264,8 +264,8 @@ equation
       color={255,0,255}));
   connect(tim.passed, pas.u)
     annotation (Line(points={{-68,72},{-60,72},{-60,80},{-42,80}},color={255,0,255}));
-  connect(sta.active, pas.uPla)
-    annotation (Line(points={{0,129},{0,100},{-50,100},{-50,76},{-42,76}},color={255,0,255}));
+  connect(sta.active, pas.uPh) annotation (Line(points={{0,129},{0,100},{-50,
+          100},{-50,76},{-42,76}}, color={255,0,255}));
   connect(u1AvaSta, phAvaSta.u)
     annotation (Line(points={{-260,-160},{-232,-160}}, color={255,0,255}));
   connect(phAvaSta.y, una.u)
@@ -472,7 +472,7 @@ lead/lag alternate equipment to replace the faulty equipment.
       revisions="<html>
 <ul>
 <li>
-February 24, 2023, by Antoine Gautier:<br/>
+March 29, 2024, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>

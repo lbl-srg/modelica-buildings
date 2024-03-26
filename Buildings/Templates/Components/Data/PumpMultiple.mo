@@ -15,7 +15,7 @@ record PumpMultiple "Record for multiple-pump models"
     each start=1,
     each final min=0)
     "Mass flow rate - Each pump"
-    annotation (
+    annotation (Evaluate=true,
     Dialog(group="Nominal condition",
     enable=typ<>Buildings.Templates.Components.Types.Pump.None));
   parameter Modelica.Units.SI.PressureDifference dp_nominal[nPum](

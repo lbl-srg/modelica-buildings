@@ -217,7 +217,7 @@ Icon(graphics={
           lineThickness=1),
     Bitmap(extent={{-20,60},{20,100}}, fileName=
     "modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg"),
-    Text( extent={{-60,-20},{60,-60}},
+    Text( extent={{-60,0},{60,-40}},
           textColor={0,0,0},
           textString="HP")}), Documentation(info="<html>
 RFE: Add check for design capacity below the one computed

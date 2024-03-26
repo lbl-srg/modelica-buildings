@@ -233,14 +233,14 @@ equation
     Documentation(
       info="<html>
 <p>
-This block generates the system enable command.
+This block generates the plant enable command.
 </p>
 <p>
-The system is enabled when it has been disabled for at least the duration <code>dtRun</code> and:
+The plant is enabled when it has been disabled for at least the duration <code>dtRun</code> and:
 </p>
 <ul>
 <li>
-Number of system requests &gt; number of ignored requests <code>nReqIgn</code>, and
+Number of plant requests &gt; number of ignored requests <code>nReqIgn</code>, and
 </li>
 <li>
 <b>For cooling systems</b>: outdoor air temperature &gt; outdoor air lockout 
@@ -255,12 +255,12 @@ The enable schedule is active.
 </li>
 </ul>
 <p>
-The system is disabled when it has been enabled for at least the duration 
+The plant is disabled when it has been enabled for at least the duration 
 <code>dtRun</code> and:
 </p>
 <ul>
 <li>
-Number of system requests &le; number of ignored requests <code>nReqIgn</code> 
+Number of plant requests &le; number of ignored requests <code>nReqIgn</code> 
 for at least the duration <code>dtReq</code>, or
 </li>
 <li>
@@ -272,7 +272,14 @@ temperature <code>TOutLck</code> minus hysteresis <code>dTOutLck</code>, or
 temperature <code>TOutLck</code> plus hysteresis <code>dTOutLck</code>, or
 </li>
 <li>
-The system enable schedule is inactive.
+The plant enable schedule is inactive.
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+March 29, 2024, by Antoine Gautier:<br/>
+First implementation.
 </li>
 </ul>
 </html>"),

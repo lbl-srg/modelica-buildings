@@ -52,7 +52,7 @@ block EquipmentAvailability
     if have_heaWat
     "Return true if equipment available for heating and hardware available"
     annotation (Placement(transformation(extent={{132,70},{152,90}})));
-  Utilities.PlaceHolder phHea(final have_inp=have_heaWat and have_chiWat,
+  Utilities.PlaceholderLogical phHea(final have_inp=have_heaWat and have_chiWat,
       final u_internal=have_heaWat or not have_chiWat)
     "Placeholder value if signal is not available"
     annotation (Placement(transformation(extent={{-148,-90},{-128,-70}})));

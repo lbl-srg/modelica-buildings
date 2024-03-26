@@ -1,6 +1,5 @@
 within Buildings.Templates.Plants.Controls.Utilities;
-block MultiMin
-  "Output the minimum element of the input vector"
+block MultiMinInteger "Output the minimum element of the input vector"
   parameter Integer nin(
     min=0)=0
     "Size of input array"
@@ -45,7 +44,7 @@ equation
     Documentation(
       info="<html>
 <p>
-Outputs the minimum element of the input array.
+Outputs the minimum element of the input vector.
 </p>
 </html>"));
-end MultiMin;
+end MultiMinInteger;

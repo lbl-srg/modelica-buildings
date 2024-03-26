@@ -5,27 +5,24 @@ model LastTrueIndex
     nin=6)
     "Return last true index"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
-  Buildings.Templates.Plants.Controls.Utilities.LastTrueIndex idxLasTru1(
-    nin=6)
-    "Return last true index"
+  Buildings.Templates.Plants.Controls.Utilities.LastTrueIndex idxLasTruAllFal(nin=6)
+    "Return last true index – All elements of input vector are false"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1[6](
-    k=fill(false, 6))
-    "Constant array"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant conAllFal[6](k=fill(false,
+        6)) "Constant array"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2[6](
-    k={false, true, false, false, true, false})
-    "Constant array"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[6](k={false,true,
+        false,false,true,false}) "Constant array"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
 equation
-  connect(con2.y, idxLasTru.u1)
-    annotation (Line(points={{-38,60},{-12,60}},color={255,0,255}));
-  connect(con1.y, idxLasTru1.u1)
-    annotation (Line(points={{-38,0},{-12,0}},color={255,0,255}));
+  connect(con.y, idxLasTru.u1)
+    annotation (Line(points={{-38,60},{-12,60}}, color={255,0,255}));
+  connect(conAllFal.y, idxLasTruAllFal.u1)
+    annotation (Line(points={{-38,0},{-12,0}}, color={255,0,255}));
   annotation (
     __Dymola_Commands(
       file=
-        "modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Controls/Utilities/Validation/FirstTrueIndex.mos"
+        "modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Controls/Utilities/Validation/LastTrueIndex.mos"
         "Simulate and plot"),
     experiment(
       StopTime=1.0,

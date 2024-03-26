@@ -1,6 +1,5 @@
 within Buildings.Templates.Plants.Controls;
-package StagingRotation
-  "Package of sequences for equipment staging and rotation"
+package StagingRotation "Package of sequences for equipment staging and rotation"
   annotation (
     Icon(
       graphics={

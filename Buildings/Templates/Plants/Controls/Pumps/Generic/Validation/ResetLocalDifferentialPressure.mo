@@ -36,9 +36,10 @@ equation
   connect(sin.y, dpRem.u2)
     annotation (Line(points={{-66,-40},{0,-40},{0,-26},{18,-26}},color={0,0,127}));
   connect(dpRemSet.y, resDpLoc.dpRemSet)
-    annotation (Line(points={{-26,20},{60,20},{60,4},{68,4}},color={0,0,127}));
+    annotation (Line(points={{-26,20},{60,20},{60,6},{68,6}},color={0,0,127}));
   connect(dpRem.y, resDpLoc.dpRem)
-    annotation (Line(points={{42,-20},{60,-20},{60,0},{68,0}},color={0,0,127}));
+    annotation (Line(points={{42,-20},{60,-20},{60,-6},{68,-6}},
+                                                              color={0,0,127}));
   connect(dpRemSet.y, dpRem.u1)
     annotation (Line(points={{-26,20},{0,20},{0,-14},{18,-14}},color={0,0,127}));
   connect(ratDp.y[1], dpRemSet.u)
@@ -70,7 +71,7 @@ The local DP setpoint remains bounded by
       revisions="<html>
 <ul>
 <li>
-XXXX, 2024, by Antoine Gautier:<br/>
+March 29, 2024, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>

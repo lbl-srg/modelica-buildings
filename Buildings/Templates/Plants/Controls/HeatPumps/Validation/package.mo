@@ -1,6 +1,5 @@
 within Buildings.Templates.Plants.Controls.HeatPumps;
-package Validation
-  "Collection of validation models"
+package Validation "Collection of validation models"
   annotation (
     Icon(
       graphics={
@@ -20,5 +19,9 @@ package Validation
         Rectangle(
           lineColor={128,128,128},
           extent={{-100.0,-100.0},{100.0,100.0}},
-          radius=25.0)}));
+          radius=25.0)}), Documentation(info="<html>
+<p>
+This package contains validation models.
+</p>
+</html>"));
 end Validation;
