@@ -79,7 +79,7 @@ model AirToWater
     final have_chiWat=have_chiWat,
     nHp=3,
     typDis_select1=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2,
-    typArrPumPri=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
+    typArrPumPri=Buildings.Templates.Components.Types.PumpArrangement.Headered,
     typPumHeaWatPri_select1=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
     typPumHeaWatPri_select2=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
     have_pumChiWatPriDed_select=false,
