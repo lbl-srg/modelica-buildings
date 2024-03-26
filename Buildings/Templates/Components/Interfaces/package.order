@@ -2,9 +2,7 @@ Bus
 PartialCoil
 PartialFan
 PartialHeatPump
-PartialHeatPumpModular
 PartialHeatPumpEquationFit
-PartialHeatPumpModularController
 PartialPump
 PartialPumpMultiple
 PartialPumpSingle

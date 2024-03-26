@@ -126,45 +126,6 @@ record HeatPump "Record for heat pump model"
     dpSouHea_nominal * (mSouCoo_flow_nominal/mSouHea_flow_nominal)^2
     "Source fluid pressure drop in cooling mode";
   replaceable parameter
-    Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump modHea(
-      mCon_flow_nominal=mHeaWat_flow_nominal,
-      mEva_flow_nominal=mSouHea_flow_nominal,
-      dpCon_nominal=dpHeaWat_nominal,
-      dpEva_nominal=dpSouHea_nominal,
-      tabPEle=[0,TSouHea_nominal;THeaWatSup_nominal,0],
-      tabQCon_flow=[0,TSouHea_nominal;THeaWatSup_nominal,0],
-      tabUppBou=[TSouHea_nominal,THeaWatSup_nominal],
-      devIde="",
-      use_TConOutForOpeEnv=true,
-      use_TEvaOutForOpeEnv=false,
-      use_TConOutForTab=true,
-      use_TEvaOutForTab=false)
-    constrainedby Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump
-    "Performance data in heating mode - Modular model"
-    annotation (Dialog(
-      enable=typMod==Buildings.Templates.Components.Types.HeatPumpModel.ModularTableData2D),
-      choicesAllMatching=true,
-      Placement(transformation(extent={{-38,0},{-22,16}})));
-  replaceable parameter Buildings.Fluid.Chillers.ModularReversible.Data.TableData2D.Generic modCoo(
-      mCon_flow_nominal=mSouCoo_flow_nominal,
-      mEva_flow_nominal=mChiWat_flow_nominal,
-      dpCon_nominal=dpSouCoo_nominal,
-      dpEva_nominal=dpChiWat_nominal,
-      tabPEle=[0,TSouCoo_nominal;TSouCoo_nominal,0],
-      tabQEva_flow=[0,TSouCoo_nominal;TSouCoo_nominal,0],
-      tabLowBou=[TSouCoo_nominal,TChiWatSup_nominal],
-      devIde="",
-      use_TConOutForOpeEnv=false,
-      use_TEvaOutForOpeEnv=true,
-      use_TConOutForTab=false,
-      use_TEvaOutForTab=true)
-    constrainedby Buildings.Fluid.Chillers.ModularReversible.Data.TableData2D.Generic
-    "Performance data in cooling mode - Modular model"
-    annotation (Dialog(
-    enable=typMod==Buildings.Templates.Components.Types.HeatPumpModel.ModularTableData2D and is_rev),
-    choicesAllMatching=true,
-    Placement(transformation(extent={{22,0},{38,16}})));
-  replaceable parameter
     Buildings.Fluid.HeatPumps.Data.EquationFitReversible.Generic perFit(
     dpHeaLoa_nominal=dpHeaWat_nominal,
     dpHeaSou_nominal=dpSouHea_nominal,

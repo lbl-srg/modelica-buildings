@@ -40,7 +40,7 @@ model PartialHeatPump
     "Set to true for reversible heat pumps, false for heating only"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Buildings.Templates.Components.Types.HeatPumpModel typMod=
-    Buildings.Templates.Components.Types.HeatPumpModel.ModularTableData2D
+    Buildings.Templates.Components.Types.HeatPumpModel.EquationFit
     "Type of heat pump model"
     annotation (Evaluate=true, Dialog(group="Configuration"),
     __ctrlFlow(enable=false));

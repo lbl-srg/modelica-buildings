@@ -1,5 +1,5 @@
 within Buildings.Templates.Plants.HeatPumps.Components.Validation;
-model IndicesAlternateEquipment
+model AlternateEquipmentIndices
   "Validation model for computing indices of lead/lad alternate equipment"
   extends Modelica.Icons.Example;
   parameter Real staEqu[:, :](
@@ -30,4 +30,4 @@ model IndicesAlternateEquipment
     "Indices of lead/lag alternate equipment"
     annotation (Evaluate=true,
     Dialog(group="Equipment staging and rotation"));
-end IndicesAlternateEquipment;
+end AlternateEquipmentIndices;

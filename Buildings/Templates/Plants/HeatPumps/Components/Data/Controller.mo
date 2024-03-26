@@ -60,6 +60,10 @@ record Controller
       enable=cfg.have_heaWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
         and (cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
         or cfg.typPumHeaWatSec<>Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None)));
+  // HACK(AntoineGautier):
+  // Using cfg.nSenDpHeaWatRem for size(dpHeaWatRemSet_max, 1) is not supported by Dymola which fails to "evaluate and check the size declaration".
+  // So the size is kept unassigned.
+  // This requires explicitely providing a value with OCT, even if enable=false.
   parameter Modelica.Units.SI.PressureDifference dpHeaWatRemSet_max[:](
     start=fill(Buildings.Templates.Data.Defaults.dpHeaWatRemSet_max, cfg.nSenDpHeaWatRem),
     final min=fill(0, cfg.nSenDpHeaWatRem))
@@ -141,6 +145,10 @@ record Controller
       enable=cfg.have_chiWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
         and (cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
         or cfg.typPumChiWatSec<>Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None)));
+  // HACK(AntoineGautier):
+  // Using cfg.nSenDpChiWatRem for size(dpChiWatRemSet_max, 1) is not supported by Dymola which fails to "evaluate and check the size declaration".
+  // So the size is kept unassigned.
+  // This requires explicitely providing a value with OCT, even if enable=false.
   parameter Modelica.Units.SI.PressureDifference dpChiWatRemSet_max[:](
     start=fill(Buildings.Templates.Data.Defaults.dpChiWatRemSet_max, cfg.nSenDpChiWatRem),
     final min=fill(0, cfg.nSenDpChiWatRem))
@@ -188,7 +196,7 @@ record Controller
     cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater,
     group="Plant enable"));
   // HACK(AntoineGautier):
-  // Using cfg.nHp for size(staEqu, 2) is not supported by Dymola which fails to evaluate the array size.
+  // Using cfg.nHp for size(staEqu, 2) is not supported by Dymola which fails to "evaluate and check the size declaration".
   // So the size is kept unassigned and a check is performed at initialization.
   // Furthermore, a start value cannot be provided as the number of plant stages is not known beforehand.
   // If provided, there will likely be a mismatch between assigned value and start value.

@@ -9,16 +9,18 @@ model PartialHeatPumpGroup
   It is the same as MediumHeaWat for reversible HP.
   Non-reversible HP that can be controlled to produce either HW or CHW
   shall be modeled with chiller components (as a chiller/heater).
-  */final package MediumChiWat=MediumHeaWat
+  */
+    final package MediumChiWat=MediumHeaWat
     "CHW medium";
   /*
   Derived classes representing AWHP shall use:
   redeclare final package MediumSou = MediumAir
-  */replaceable package MediumSou=Buildings.Media.Water
+  */
+    replaceable package MediumSou=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Source-side medium"
     annotation (Dialog(enable=typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater),
-  __ctrlFlow(enable=false));
+      __ctrlFlow(enable=false));
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air medium"
@@ -37,7 +39,8 @@ model PartialHeatPumpGroup
     "Set to true for reversible heat pumps, false for heating only"
     annotation (Evaluate=true,
     Dialog(group="Configuration"));
-  parameter Buildings.Templates.Components.Types.HeatPumpModel typMod=Buildings.Templates.Components.Types.HeatPumpModel.ModularTableData2D
+  parameter Buildings.Templates.Components.Types.HeatPumpModel typMod=
+    Buildings.Templates.Components.Types.HeatPumpModel.EquationFit
     "Type of heat pump model"
     annotation (Evaluate=true,
     Dialog(group="Configuration"),
@@ -67,8 +70,6 @@ model PartialHeatPumpGroup
     each final dpHeaWat_nominal=dat.dpHeaWatHp_nominal,
     each final mSouWwHea_flow_nominal=dat.mSouWwHeaHp_flow_nominal,
     each final TSouCoo_nominal=dat.TSouCooHp_nominal,
-    each final modHea=dat.modHeaHp,
-    each final modCoo=dat.modCooHp,
     each final perFit=dat.perFitHp,
     each final capCoo_nominal=dat.capCooHp_nominal,
     each final TChiWatSup_nominal=dat.TChiWatSupHp_nominal,

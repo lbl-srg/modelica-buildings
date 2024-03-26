@@ -75,9 +75,7 @@ package Types "Package with type definitions"
     "Enumeration to specify the type of heat pump";
   type HeatPumpModel = enumeration(
       EquationFit
-      "Heat pump model based on the equation fit method",
-      ModularTableData2D
-      "Heat pump model based on the modular approach with 2D table performance data")
+      "Heat pump model based on the equation fit method")
     "Enumeration to specify the heat pump model";
   type IconPipe = enumeration(
       None
