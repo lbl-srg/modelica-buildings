@@ -294,7 +294,7 @@ equation
 <p>
 This model represents a water-to-water heat pump, as described in
 <a href=\"modelica://Buildings.Fluid.HeatPumps.Carnot_TCon\">
-Buildings.Fluid.HeatPumps.Carnot_TCon</a>, the condenser pump, and the 
+Buildings.Fluid.HeatPumps.Carnot_TCon</a>, the condenser pump, and the
 evaporator side hydronics and control.
 
 <h4>Evaporator Controls</h4>
@@ -318,7 +318,7 @@ the district supply and return flows.
 <li>
 February 15, 2024, by Ettore Zanetti:<br/>
 Made heat pump model dynamic and added junction.
-</li> 
+</li>
 <li>
 November 15, 2023, by David Blum:<br/>
 Changed to partial base class with evaporator hydronics and control.

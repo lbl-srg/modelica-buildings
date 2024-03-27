@@ -8,7 +8,9 @@ model ASHRAE2006
     "Minimum discharge air flow rate ratio";
 
   Controls.FanVFD conFanSup(
-    xSet_nominal(displayUnit="Pa") = 410,
+    xSet_nominal(
+      final unit="Pa",
+      displayUnit="Pa") = 410,
     r_N_min=yFanMin)
     "Controller for fan"
     annotation (Placement(transformation(extent={{240,-10},{260,10}})));
@@ -358,6 +360,10 @@ ASHRAE, Atlanta, GA, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 4, 2024, by Michael Wetter:<br/>
+Corrected wrong use of <code>displayUnit</code>.
+</li>
 <li>
 December 20, 2021, by Michael Wetter:<br/>
 Changed parameter declarations for

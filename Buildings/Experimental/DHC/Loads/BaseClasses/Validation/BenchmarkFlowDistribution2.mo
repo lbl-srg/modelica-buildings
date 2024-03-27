@@ -86,16 +86,15 @@ model BenchmarkFlowDistribution2
     nPorts=2)
     "Heating water supply"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-50,-80})));
-  Buildings.Experimental.DHC.Networks.Distribution2PipeAutoSize dis(
-    redeclare final package Medium=Medium1,
+  Buildings.Experimental.DHC.Networks.Distribution2Pipe_R dis(
+    redeclare final package Medium = Medium1,
     nCon=nLoa,
     allowFlowReversal=false,
     mDis_flow_nominal=m_flow_nominal,
     mCon_flow_nominal=mCon_flow_nominal,
     mEnd_flow_nominal=m_flow_nominal,
     lDis=fill(6, nLoa),
-    lEnd=1)
-    annotation (Placement(transformation(extent={{40,-90},{80,-70}})));
+    lEnd=1) annotation (Placement(transformation(extent={{40,-90},{80,-70}})));
   Fluid.Movers.FlowControlled_dp pum(
     redeclare package Medium=Medium1,
     per(

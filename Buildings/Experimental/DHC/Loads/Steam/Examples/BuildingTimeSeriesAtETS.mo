@@ -65,8 +65,8 @@ __Dymola_Commands(file=
   "Simulate and plot"),
     Documentation(info="<html>
 <p>
-Example model for the steam building model with heat flow 
-rate prescribed as a time series at the district-side 
+Example model for the steam building model with heat flow
+rate prescribed as a time series at the district-side
 of the energy transfer station (ETS).
 </p>
 </html>", revisions="<html>

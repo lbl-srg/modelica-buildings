@@ -84,9 +84,9 @@ equation
       Tolerance=1e-06),
     Documentation(info="<html>
 <p>
-Example model of a building in an ambient district network with loads 
-provided as time series and heat pump heating, free cooling, 
-and heat pump domestic hot water.  It uses 
+Example model of a building in an ambient district network with loads
+provided as time series and heat pump heating, free cooling,
+and heat pump domestic hot water.  It uses
 <a href=\"modelica://Buildings.Experimental.DHC.Loads.Combined.BuildingTimeSeriesWithETS\">
 Buildings.Experimental.DHC.Loads.Combined.BuildingTimeSeriesWithETS</a>
 </p>

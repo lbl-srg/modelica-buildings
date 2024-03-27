@@ -46,7 +46,7 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-This model is used to test the controller 
+This model is used to test the controller
 <a href=\"modelica://Buildings.Experimental.DHC.Networks.Controls.MainPump1Pipe\">Buildings.Experimental.DHC.Networks.Controls.MainPump1Pipe</a>.For a practical application of the model check <a href=\"modelica://Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlow\">Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlow</a>.
 </p>
 </html>"));

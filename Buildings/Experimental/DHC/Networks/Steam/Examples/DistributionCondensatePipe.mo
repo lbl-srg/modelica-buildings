@@ -93,8 +93,8 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-This model demonstrates the performance of the distribution 
-network block for steam heating systems with two connected 
+This model demonstrates the performance of the distribution
+network block for steam heating systems with two connected
 buildings with unique heating load profiles.
 </p>
 </html>"));

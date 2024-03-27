@@ -217,22 +217,22 @@ equation
           extent={{-180,-180},{180,180}})),
     Documentation(info="<html>
 <p>
-This block is used to compute the stage index of the plant or 
+This block is used to compute the stage index of the plant or
 of multiple lead/lag units such as pump groups.
 </p>
 <p>
 At initial time, stage <code>#0</code> is active.
 The transition to stage <code>#1</code> is triggered when stage <code>#0</code> has been active
-for the minimum runtime and when either the Enable signal <code>u1</code> 
+for the minimum runtime and when either the Enable signal <code>u1</code>
 has a rising edge or when the stage up signal <code>u1Up</code> is <code>true</code>.
 </p>
 <p>
-From stage <code>#i</code>, the transition to stage <code>#i+1</code> (resp. <code>i-1</code>) is triggered 
-when stage <code>#i</code> has been active for the minimum runtime and when the 
+From stage <code>#i</code>, the transition to stage <code>#i+1</code> (resp. <code>i-1</code>) is triggered
+when stage <code>#i</code> has been active for the minimum runtime and when the
 stage up signal <code>u1Up</code> (resp. stage down signal <code>u1Dow</code>)
 is <code>true</code>.
-From stage <code>#i</code>, the transition to stage <code>#0</code> is triggered 
-when stage <code>#i</code> has been active for the minimum runtime and the Enable signal 
+From stage <code>#i</code>, the transition to stage <code>#0</code> is triggered
+when stage <code>#i</code> has been active for the minimum runtime and the Enable signal
 <code>u1</code> is <code>false</code>.
 </p>
 </html>", revisions="<html>

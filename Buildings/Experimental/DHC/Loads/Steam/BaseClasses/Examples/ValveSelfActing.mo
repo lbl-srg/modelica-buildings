@@ -73,10 +73,10 @@ equation
     experiment(StopTime=15, Tolerance=1e-06),
     Documentation(info="<html>
 <p>
-This example model demonstrates the performance of self-acting steam pressure 
-regulator with a noisy/varying inlet pressure signal. The inlet pressure 
-conditions are selected to demonstrate how the downstream pressure is maintained 
-at the setpoint, unless the inlet pressure drops below the setpoint 
+This example model demonstrates the performance of self-acting steam pressure
+regulator with a noisy/varying inlet pressure signal. The inlet pressure
+conditions are selected to demonstrate how the downstream pressure is maintained
+at the setpoint, unless the inlet pressure drops below the setpoint
 (pressure drop is then zero).
 </p>
 </html>",revisions="<html>

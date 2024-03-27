@@ -13,7 +13,7 @@ model TraceSubstancesFlowSource
   parameter String substanceName = "CO2" "Name of trace substance";
   parameter Boolean use_m_flow_in = false
     "Get the trace substance mass flow rate from the input connector"
-    annotation(Evaluate=true, HideResult=true);
+    annotation(Evaluate=true);
 
   parameter Modelica.Units.SI.MassFlowRate m_flow=0
     "Fixed mass flow rate going out of the fluid port"
@@ -104,6 +104,12 @@ which is more efficient than using this model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 11, 2024, by Michael Wetter:<br/>
+Corrected use of <code>HideResult</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1850\">#1850</a>.
+</li>
 <li>
 November 14, 2019, by Michael Wetter:<br/>
 Rewrote assignment of <code>C_in_internal</code> to avoid an initial algorithm section.<br/>

@@ -58,16 +58,22 @@ equation
     Documentation(info="<html>
 <p>
 This example shows the application of the model
-<a href=\"modelica://Buildings.Fluid.Geothermal.Aquifer.SingleWell\">Buildings.Fluid.Geothermal.Aquifer.SingleWell</a>.
+<a href=\"modelica://Buildings.Fluid.Geothermal.Aquifer.MultiWell\">Buildings.Fluid.Geothermal.Aquifer.MultiWell</a>.
 </p>
 <p>
-The system consists of two wells, a warm well and a cold well. Water is extracted from the cold well at 12C and
-after passing through a heat exchanger it is injected in the warm well at 16C. This may represent the operation of an
+The system consists of two wells, a warm well and a cold well. Water is extracted from the cold well at 12&deg;C and
+after passing through a heat exchanger it is injected in the warm well at 16&deg;C. This may represent the operation of an
 aquifer thermal energy storage system that cools an office building with a constant load of 30 kW.
 </p>
 
 </html>", revisions="<html>
 <ul>
+<li>
+March 25, 2024, by Michael Wetter:<br/>
+Corrected broken link and revised documentation.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1855\">IBPSA, issue 1855</a>.
+</li>
 <li>
 May 2023, by Alessandro Maccarini:<br/>
 First Implementation.

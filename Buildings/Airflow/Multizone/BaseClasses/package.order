@@ -6,7 +6,6 @@ PowerLawResistanceParameters
 TwoWayFlowElement
 TwoWayFlowElementBuoyancy
 ZonalFlow
-interpolate
 powerLaw
 powerLawFixedM
 windPressureLowRise

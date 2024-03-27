@@ -1,10 +1,9 @@
 within Buildings.Experimental.DHC.Networks.Connections;
-model Connection1PipePlugFlow
+model Connection1PipePlugFlow_v
   "Model for connecting an agent to the DHC system"
   extends Buildings.Experimental.DHC.Networks.BaseClasses.PartialConnection1Pipe(
     tau=5*60,
-    redeclare replaceable model Model_pipDis =
-        Buildings.Fluid.FixedResistances.PlugFlowPipe (
+    redeclare replaceable model Model_pipDis = Buildings.Fluid.FixedResistances.PlugFlowPipe(
       final length=lDis,
       final dIns=dIns,
       final kIns=kIns,
@@ -13,8 +12,7 @@ model Connection1PipePlugFlow
       cPip=cPip,
       rhoPip=rhoPip,
       thickness=thickness),
-    redeclare replaceable model Model_pipCon =
-        Buildings.Fluid.FixedResistances.LosslessPipe);
+    redeclare replaceable model Model_pipCon = Buildings.Fluid.FixedResistances.LosslessPipe);
 
   parameter Modelica.Units.SI.Length dIns
     "Thickness of pipe insulation, used to compute R"
@@ -44,6 +42,12 @@ equation
   annotation (Documentation(revisions="<html>
 <ul>
 <li>
+March 15, 2024, by David Blum:<br/>
+Renamed.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3712\">issue 3712</a>.
+</li>
+<li>
 December 10, 2023, by Ettore Zanetti:<br/>
 First implementation.
 </li>
@@ -58,4 +62,4 @@ delays is used in the main distribution line,
 but not in the connection to the building, as the latter is typically short.
 </p>
 </html>"));
-end Connection1PipePlugFlow;
+end Connection1PipePlugFlow_v;

@@ -13,7 +13,7 @@ model Radiator
     epwName=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"),
     computeWetBulbTemperature=false)
-    "Building model"
+      "Building model"
     annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
   constant Modelica.Units.SI.Volume VRoo=453.138 "Room volume";
   constant Modelica.Units.SI.Area AFlo=185.834
@@ -23,7 +23,7 @@ model Radiator
   parameter Modelica.Units.SI.MassFlowRate mRec_flow_nominal=8*VRoo*1.2/3600
     "Nominal mass flow rate for recirculated air";
 
-  parameter Modelica.Units.SI.HeatFlowRate QRad_flow_nominal = 15000
+  parameter Modelica.Units.SI.HeatFlowRate QRad_flow_nominal = 10000
     "Radiator design heat flow rate (at 50/40)";
   parameter Modelica.Units.SI.Temperature TSup_nominal = 323.15
     "Water supply temperature";
@@ -207,6 +207,12 @@ the radiative temperature of the thermal zone.
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 13, 2024, by Michael Wetter:<br/>
+Updated <code>idf</code> file to add insulation, and resized system.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3707\">issue 3707</a>.
+</li>
 <li>
 February 14, 2024, by Michael Wetter:<br/>
 First implementation.<br/>
