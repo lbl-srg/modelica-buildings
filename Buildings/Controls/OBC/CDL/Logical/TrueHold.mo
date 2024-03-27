@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.CDL.Logical;
-block TrueHoldWithReset
+block TrueHold
   "Block that holds a true signal for at least a requested duration"
   parameter Real duration(
     final quantity="Time",
@@ -122,7 +122,7 @@ The figure below shows the state chart of the implementation. Note that the
 transition are done in zero time.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Logical/TrueHoldWithResetImplementation.png\"
+<img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Logical/TrueHoldImplementation.png\"
 alt=\"Input and output of the block\"/>
 </p>
 <p>
@@ -131,7 +131,7 @@ and a pulse width period <i>9000</i> seconds that starts at <i>t=200</i> seconds
 </p>
 
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Logical/TrueHoldWithReset.png\"
+<img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Logical/TrueHold.png\"
 alt=\"Input and output of the block\"/>
 </p>
 
@@ -140,7 +140,7 @@ The figure below shows an example with a hold time of <i>60</i> seconds
 and a pulse width period <i>3600</i> seconds that starts at <i>t=0</i> seconds.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Logical/TrueHoldWithReset1.png\"
+<img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Logical/TrueHold1.png\"
 alt=\"Input and output of the block\"/>
 </p>
 <p>
@@ -149,7 +149,7 @@ has been negated. The figure below has again a hold time of <i>3600</i> seconds
 and a pulse width period <i>9000</i> seconds that starts at <i>t=200</i> seconds.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Logical/TrueHoldWithReset2.png\"
+<img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Logical/TrueHold2.png\"
 alt=\"Input and output of the block\"/>
 </p>
 <p>
@@ -157,12 +157,18 @@ The figure below has again a hold time of <i>60</i> seconds
 and a pulse width period <i>3600</i> seconds that starts at <i>t=0</i> seconds.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Logical/TrueHoldWithReset3.png\"
+<img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Logical/TrueHold3.png\"
 alt=\"Input and output of the block\"/>
 </p>
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 27, 2024, by Michael Wetter:<br/>
+Renamed block from <code>TrueHoldWithReset</code> to <code>TrueHold</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3689\">issue 3689</a>.
+</li>
 <li>
 November 12, 2020, by Michael Wetter:<br/>
 Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
@@ -186,4 +192,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end TrueHoldWithReset;
+end TrueHold;

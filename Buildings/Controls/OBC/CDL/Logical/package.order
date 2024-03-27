@@ -17,7 +17,7 @@ TimerAccumulating
 Toggle
 TrueDelay
 TrueFalseHold
-TrueHoldWithReset
+TrueHold
 VariablePulse
 Xor
 Sources
