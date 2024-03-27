@@ -236,6 +236,17 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Geothermal.Borefields.TOUGHResponse
+    </td>
+    <td valign=\"top\">Created models and the user guide for coupled simulation between
+                       Modelica simulation and the TOUGH simulation that calculates
+                       the ground response.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.EnergyTransferStations.Combined</b>
     </td>
 </tr>
