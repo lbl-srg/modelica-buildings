@@ -1,0 +1,10 @@
+last-generated=2024-03-25
+statistics-simulation=
+{
+  "linear": " ",
+  "nonlinear": " ",
+  "numerical Jacobians": "0"
+}
+time=[0e+00, 1e+00]
+cyc.etaThe=[9.044025093317032e-02, 9.044025093317032e-02]
+cyc.dTSup=[3.80600905418396e+00, 3.80600905418396e+00]

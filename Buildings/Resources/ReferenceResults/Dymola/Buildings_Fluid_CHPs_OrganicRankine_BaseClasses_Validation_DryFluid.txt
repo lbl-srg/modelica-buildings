@@ -1,0 +1,9 @@
+last-generated=2024-03-25
+statistics-simulation=
+{
+  "linear": " ",
+  "nonlinear": " ",
+  "numerical Jacobians": "0"
+}
+time=[0e+00, 1e+00]
+cyc.etaThe=[1.991314738988876e-01, 1.991314738988876e-01]
