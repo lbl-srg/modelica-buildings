@@ -52,19 +52,13 @@ model HexElementSensibleFourPort
         extent={{8,-8},{-8,8}},
         rotation=90,
         origin={-22,-108})));
-  Modelica.Blocks.Sources.RealExpression realExpressionDom(y=((0.023*((4*abs(
-        port_a1.m_flow))/(Modelica.Constants.pi*Design.di*Medium1.dynamicViscosity(state=sta1)))^(4/5)* Medium1.prandtlNumber(state=sta1)^0.4)*
-        Medium1.thermalConductivity(state=sta1)/(Design.di))*(A_tubeDom)) "Dittus-Boelter correlation for turbulent heat transfer in smooth tube"
-    annotation (Placement(transformation(extent={{42,10},{22,30}})));
+
   Modelica.Thermal.HeatTransfer.Components.Convection conDom annotation (
       Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={-40,72})));
-  Modelica.Blocks.Sources.RealExpression realExpressionPro(y=((0.023*((4*abs(
-        port_a2.m_flow))/(Modelica.Constants.pi*Design.di*Medium2.dynamicViscosity(state=sta2)))^(4/5)*Medium2.prandtlNumber(state=sta2)^0.4)*
-        Medium2.thermalConductivity(state=sta2)/(Design.di))*(A_tubePro)) "Dittus-Boelter correlation for turbulent heat transfer in smooth tube"
-    annotation (Placement(transformation(extent={{42,-20},{22,0}})));
+
   Modelica.Thermal.HeatTransfer.Components.Convection conPro annotation (
       Placement(transformation(
         extent={{10,10},{-10,-10}},
@@ -74,6 +68,23 @@ model HexElementSensibleFourPort
     annotation (Placement(transformation(extent={{-110,0},{-126,16}})));
   Modelica.Blocks.Interfaces.RealOutput mpcm "Value of Real output"
     annotation (Placement(transformation(extent={{-110,-16},{-126,0}})));
+
+////////////////////////////////////////////////////////////////////////////////
+
+  Modelica.Fluid.Dissipation.HeatTransfer.General.kc_approxForcedConvection_IN_con turbulent(target=Modelica.Fluid.Dissipation.Utilities.Types.kc_general.Rough, A_cross = Modelica.Constants.pi*Design.di^2/4, perimeter = Modelica.Constants.pi*Design.di, exp_Pr =0.4);
+  //Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_laminar_IN_con laminar_1(d_hyd = Modelica.Constants.pi*Design.di^2/4, L = NDom*Design.D);
+  Modelica.Fluid.Dissipation.HeatTransfer.General.kc_approxForcedConvection_IN_var var_1(cp=Medium1.cp_const, lambda=Medium1.lambda_const, eta=Medium1.eta_const, rho=Medium1.d_const, eta_wall=0.001, m_flow=port_a1.m_flow);
+  //Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_laminar_IN_con laminar_2(d_hyd = Modelica.Constants.pi*Design.di^2/4, L = NPro*Design.D);
+  Modelica.Fluid.Dissipation.HeatTransfer.General.kc_approxForcedConvection_IN_var var_2(cp=Medium2.cp_const, lambda=Medium2.lambda_const, eta=Medium2.eta_const, rho=Medium2.d_const, eta_wall=0.001, m_flow=port_a2.m_flow);
+
+  Modelica.Blocks.Sources.RealExpression realExpressionDom(y=Modelica.Fluid.Dissipation.HeatTransfer.General.kc_approxForcedConvection_KC(turbulent, var_1)*A_tubeDom) "Dittus-Boelter correlation for turbulent heat transfer in smooth tube"
+    annotation (Placement(transformation(extent={{42,10},{22,30}})));
+
+  Modelica.Blocks.Sources.RealExpression realExpressionPro(y=Modelica.Fluid.Dissipation.HeatTransfer.General.kc_approxForcedConvection_KC(turbulent, var_2)*A_tubePro) "Dittus-Boelter correlation for turbulent heat transfer in smooth tube"
+    annotation (Placement(transformation(extent={{42,-20},{22,0}})));
+
+////////////////////////////////////////////////////////////////////////////////
+
 equation
 
   connect(heaFloDom.Q_flow,QpcmDom)  annotation (Line(points={{-64,20.6},{-82,20.6},
