@@ -234,6 +234,8 @@
     comment: Timeout after 300 s
     time_out: 600
 - model_name: Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.BaseClasses.Validation.GroundResponse
+  dymola:
+    time_out: 600
   openmodelica:
     translate: false
     comment: python incompatible with docker image
@@ -241,6 +243,8 @@
     comment: Optimica uses Python 3.9, while the examples use Python 3.8
     translate: false
 - model_name: Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.Examples.Borefields
+  dymola:
+    time_out: 600
   openmodelica:
     translate: false
     comment: python incompatible with docker image
