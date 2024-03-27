@@ -144,7 +144,7 @@ Buildings.Experimental.DHC.Plants.Cooling.ElectricChillerParallel</a>.
 <ul>
 <li>
 December 14, 2022, by Kathryn Hinkelman:<br/>
-Enabled filters for CHW pumps and valves. Corrected pressure drop in loop. 
+Enabled filters for CHW pumps and valves. Corrected pressure drop in loop.
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2912#issuecomment-1324375700\">issue 2912</a>.
 </li>
 <li>

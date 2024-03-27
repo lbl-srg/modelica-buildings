@@ -47,10 +47,10 @@ protected
 <p>
 This model is composed of a direct controlled energy transfer station model for cooling
 <a href=\"modelica://Buildings/Experimental/DHC/EnergyTransferStations/Cooling/Direct.mo\">
-Buildings.Experimental.DHC.EnergyTransferStations.Cooling.Direct</a> 
+Buildings.Experimental.DHC.EnergyTransferStations.Cooling.Direct</a>
 connected to a simplified building model <a href=\"modelica://Buildings/Experimental/DHC/Loads/Cooling/BaseClasses/BuildingTimeSeries.mo\">
-Buildings.Experimental.DHC.Loads.Cooling.BaseClasses.BuildingTimeSeries</a> 
-where the space cooling loads are provided as time series. 
+Buildings.Experimental.DHC.Loads.Cooling.BaseClasses.BuildingTimeSeries</a>
+where the space cooling loads are provided as time series.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -64,12 +64,12 @@ Propagated energy dynamics and a filter for the (variable) secondary pumps.
 </li>
 <li>
 December 23, 2022, by Kathryn Hinkelman:<br>
-Revised ETS from direct uncontrolled to direct controlled. 
+Revised ETS from direct uncontrolled to direct controlled.
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2912\">#2912</a>.
 </li>
 <li>
 December 21, 2022 by Kathryn Hinkelman:<br>
-Removed in-building pumping because of coupling with the direct/uncontrolled ETS.<br> 
+Removed in-building pumping because of coupling with the direct/uncontrolled ETS.<br>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2912\">#2912</a>.
 </li>
 </ul>

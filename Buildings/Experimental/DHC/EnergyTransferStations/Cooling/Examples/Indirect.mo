@@ -1,5 +1,5 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.Cooling.Examples;
-model Indirect "Example model for indirect cooling energy transfer station 
+model Indirect "Example model for indirect cooling energy transfer station
   with a closed chilled water loop on the building side"
   extends Modelica.Icons.Example;
   package Medium=Buildings.Media.Water
@@ -148,8 +148,8 @@ equation
       Tolerance=1e-06),
     Documentation(info="<html>
 <p>
-This model provides an example for the indirect cooling energy transfer station model. 
-The cooling load ramps up from zero and is modulated according to the QCoo table specification. 
+This model provides an example for the indirect cooling energy transfer station model.
+The cooling load ramps up from zero and is modulated according to the QCoo table specification.
 The mass flow rate of chilled water in the building side is varied based on the building load/demand.
 </p>
 </html>",

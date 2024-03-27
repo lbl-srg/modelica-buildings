@@ -299,7 +299,7 @@ to <b style=\"color:blue\">existing</b> libraries:
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3063\">issue 3063</a>.
     </td>
 </tr>
-<tr><td valign=\"top\">BBuildings.Fluid.FixedResistances.BuriedPipes.PipeGroundCoupling
+<tr><td valign=\"top\">Buildings.Fluid.FixedResistances.BuriedPipes.PipeGroundCoupling
     </td>
     <td valign=\"top\">Ground coupling model <a href=\"Modelica://Buildings.Fluid.FixedResistances.BuriedPipes.PipeGroundCoupling\">
                        Buildings.Fluid.FixedResistances.BuriedPipes.PipeGroundCoupling</a>.
@@ -307,6 +307,108 @@ to <b style=\"color:blue\">existing</b> libraries:
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.Networks</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Distribution1Pipe_R
+    </td>
+    <td valign=\"top\"> Added <a href=\"Modelica://Buildings.Experimental.DHC.Networks.Distribution1Pipe_R\">
+    Buildings.Experimental.DHC.Networks.Distribution1Pipe_R</a>. One pipe distribution network that uses autosize 
+    pipes for supply and lossless for connection. This is for 
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Distribution1PipePlugFlow_v
+    </td>
+    <td valign=\"top\"> Added <a href=\"Modelica://Buildings.Experimental.DHC.Networks.Distribution1PipePlugFlow_v\">
+    Buildings.Experimental.DHC.Networks.Distribution1PipePlugFlow_v</a>. One pipe distribution network that uses plugflow 
+    pipes for supply and lossless for connection. This is for 
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Distribution2Pipe_R
+    </td>
+    <td valign=\"top\"> Added <a href=\"Modelica://Buildings.Experimental.DHC.Networks.Distribution2Pipe_R\">
+    Buildings.Experimental.DHC.Networks.Distribution2Pipe_R</a>. Two pipes network that uses autosize pipes for 
+    supply and return, and lossless for connection. This is for 
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.Networks.Connections</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Connections.Connection1Pipe_R
+    </td>
+    <td valign=\"top\"> Added <a href=\"Modelica://Buildings.Experimental.DHC.Networks.Connections.Connection1Pipe_R\">
+    Buildings.Experimental.DHC.Networks.Connections.Connection1Pipe_R</a>. One pipe connection model using autosize pipes for supply 
+    and lossless for connection. This is for 
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Connections.Connection1PipePlugFlow_v
+    </td>
+    <td valign=\"top\"> Added <a href=\"Modelica://Buildings.Experimental.DHC.Networks.Connections.Connection1PipePlugFlow_v\">
+    Buildings.Experimental.DHC.Networks.Connections.Connection1PipePlugFlow_v</a>. One pipe connection model using plugflow pipes for supply 
+    and lossless for connection. This is for 
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Connections.Connection2Pipe_R
+    </td>
+    <td valign=\"top\"> Added <a href=\"Modelica://Buildings.Experimental.DHC.Networks.Connections.Connection2Pipe_R\">
+    Buildings.Experimental.DHC.Networks.Connections.Connection2Pipe_R</a>. Two pipes connection model using autosize pipes for supply 
+    and return, lossless for connection. This is for 
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Connections.Examples.Connection1PipeExample
+    </td>
+    <td valign=\"top\"> Added <a href=\"Modelica://Buildings.Experimental.DHC.Networks.Connections.Examples.Connection1PipeExample\">
+    Buildings.Experimental.DHC.Networks.Connections.Examples.Connection1PipeExample</a>. Example model for one pipe connections. 
+    This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Connections.Examples.Connection2PipeExample
+    </td>
+    <td valign=\"top\"> Added <a href=\"Modelica://Buildings.Experimental.DHC.Networks.Connections.Examples.Connection2PipeExample\">
+    Buildings.Experimental.DHC.Networks.Connections.Examples.Connection2PipeExample</a>. Example model for two pipes connections. 
+    This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.Networks.Controls</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Controls.AgentPump1Pipe
+    </td>
+    <td valign=\"top\"> Added <a href=\"Modelica://Buildings.Experimental.DHC.Networks.Controls.AgentPump1Pipe\">
+    Buildings.Experimental.DHC.Networks.Controls.AgentPump1Pipe</a>. Agent controller (i.e. borefield, waste heat plant) 
+    for one pipe networks. This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Controls.Examples.AgentPump1PipeExample
+    </td>
+    <td valign=\"top\"> Added <a href=\"Modelica://Buildings.Experimental.DHC.Networks.Controls.Examples.AgentPump1PipeExample\">
+    Buildings.Experimental.DHC.Networks.Controls.Examples.AgentPump1PipeExample</a>. Example model for AgentPump1Pipe. 
+    This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Controls.Examples.MainPump1PipeExample
+    </td>
+    <td valign=\"top\"> Added <a href=\"Modelica://Buildings.Experimental.DHC.Networks.Controls.Examples.MainPump1PipeExample\">
+    Buildings.Experimental.DHC.Networks.Controls.Examples.MainPump1PipeExample</a>. Example model for MainPump1PipeExample. 
+    This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.Examples.Combined</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlowAgentControl
+    </td>
+    <td valign=\"top\"> Added <a href=\"Modelica://Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlowAgentControl\">
+    Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlowAgentControl</a>. This example model showcases a more sophisticated way 
+    of controlling district agent pumps. This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
+    </td>
+</tr>                                                            
 <tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
     </td>
 </tr>
@@ -420,6 +522,54 @@ have been <b style=\"color:blue\">improved</b> in a
                      This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1744\">IBPSA, #1744</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses  </b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow
+    </td>         
+    <td valign=\"top\"> Updated pump model to use
+    to <a href=\"Modelica://Buildings.Fluid.Movers.Preconfigured.FlowControlled_m_flow\">
+    Buildings.Fluid.Movers.Preconfigured.FlowControlled_m_flow </a>. This change allows to have a better 
+    estimation of pump default curve using euler number. This is for 
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
+    </td>
+</tr> 
+<tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.Combined.BaseClasses.PartialHeatPumpHeatExchanger
+    </td>         
+    <td valign=\"top\"> Reduced <code>swiFlo.dpValve_nominal</code> to numerically zero to avoid reverse flow. This is for 
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
+    </td>
+</tr> 
+<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.BaseClasses  </b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.BaseClasses.PartialHeatPump
+    </td>         
+    <td valign=\"top\"> Converted heat pump model to dynamic by changing <code>heaPum.energyDynamics</code> to 
+    <code>Modelica.Fluid.Types.Dynamics.FixedInitial</code> and added junction on recirculation loop. This is for 
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
+    </td>
+</tr> 
+<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.Examples.Combined  </b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Examples.Combined.SeriesConstantFlow
+    </td>         
+    <td valign=\"top\"> Added connections that were removed in
+    <a href=\"Modelica://Buildings.Experimental.DHC.Examples.Combined.BaseClasses.PartialSeries\">
+    Buildings.Experimental.DHC.Examples.Combined.BaseClasses.PartialSeries </a>. This is for 
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
+    </td>
+</tr> 
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlow
+    </td>         
+    <td valign=\"top\"> Added connections that were removed in
+    <a href=\"Modelica://Buildings.Experimental.DHC.Examples.Combined.BaseClasses.PartialSeries\">
+    Buildings.Experimental.DHC.Examples.Combined.BaseClasses.PartialSeries </a>. This is for 
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
+    </td>
+</tr> 
+
 </table>
 <!-- Non-backward compatible changes to existing components -->
 <p>
@@ -593,6 +743,125 @@ have been <b style=\"color:blue\">improved</b> in a
                      This change is supported in the conversion script.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.Networks</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Connection2Pipe 
+    </td>
+    <td valign=\"top\">Removed <code>Buildings.Experimental.DHC.Networks.Connection2Pipe</code>.  
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">#3694</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Connection2PipePlugFlow 
+    </td>         
+    <td valign=\"top\"> Moved and renamed <code>Buildings.Experimental.DHC.Networks.Connection2PipePlugFlow</code>
+    to <a href=\"Modelica://Buildings.Experimental.DHC.Networks.Connections.Connection2PipePlugFlow_v\">
+    Buildings.Experimental.DHC.Networks.Connections.Connection2PipePlugFlow_v </a>. Also updated available paremeters
+    for sizing and heatport configuration. This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.
+    </td>
+</tr>      
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Distribution2Pipe  
+    </td>
+    <td valign=\"top\">Removed <code>Buildings.Experimental.DHC.Networks.Distribution2Pipe</code>.  
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">#3694</a>.
+    </td>
+</tr>     
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Connection2PipePlugFlow 
+    </td>         
+    <td valign=\"top\"> Renamed <code>Buildings.Experimental.DHC.Networks.Distribution2PipePlugFlow</code>
+    to <a href=\"Modelica://Buildings.Experimental.DHC.Networks.Distribution2PipePlugFlow_v\">
+    Buildings.Experimental.DHC.Networks.Distribution2PipePlugFlow_v </a>. Also updated available paremeters
+    for sizing and heatport configuration. This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.Networks.Controls</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Connection2PipePlugFlow 
+    </td>         
+    <td valign=\"top\"> Renamed <code>Buildings.Experimental.DHC.Networks.Controls.MainPump</code>
+    to <a href=\"Modelica://Buildings.Experimental.DHC.Networks.Controls.MainPump1Pipe\">
+    Buildings.Experimental.DHC.Networks.Controls.MainPump1Pipe </a>. Also updated available paremeters
+    and documentation. This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.
+    </td>
+</tr> 
+<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.Networks.Combined </b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Combined.UnidirectionalParallel
+    </td>
+    <td valign=\"top\">Removed <code>Buildings.Experimental.DHC.Networks.Combined.UnidirectionalParallel</code>.  
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">#3694</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Combined.UnidirectionalSeries
+    </td>
+    <td valign=\"top\">Removed <code>Buildings.Experimental.DHC.Networks.Combined.UnidirectionalSeries</code>.  
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">#3694</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.Networks.Combined.BaseClasses </b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Combined.BaseClasses.ConnectionParallelAutosize
+    </td>
+    <td valign=\"top\">Removed <code>Buildings.Experimental.DHC.Networks.Combined.BaseClasses.ConnectionParallelAutosize</code>.  
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">#3694</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Combined.BaseClasses.ConnectionParallelStandard
+    </td>
+    <td valign=\"top\">Removed <code>Buildings.Experimental.DHC.Networks.Combined.BaseClasses.ConnectionParallelStandard</code>.  
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">#3694</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Combined.BaseClasses.ConnectionSeriesAutosize
+    </td>
+    <td valign=\"top\">Removed <code>Buildings.Experimental.DHC.Networks.Combined.BaseClasses.ConnectionSeriesAutosize</code>.  
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">#3694</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Combined.BaseClasses.ConnectionSeriesStandard
+    </td>
+    <td valign=\"top\">Removed <code>Buildings.Experimental.DHC.Networks.Combined.BaseClasses.ConnectionSeriesStandard</code>.  
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">#3694</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Combined.BaseClasses.PipeAutosize
+    </td>         
+    <td valign=\"top\"> Moved <code>Buildings.Experimental.DHC.Networks.Combined.BaseClasses.PipeAutosize</code>
+    to <a href=\"Modelica://Buildings.Experimental.DHC.Networks.Pipes.PipeAutosize\">
+    Buildings.Experimental.DHC.Networks.Pipes.PipeAutosize</a>. 
+    This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.
+    </td>
+</tr>  
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Combined.BaseClasses.PipeStandard
+    </td>         
+    <td valign=\"top\"> Moved <code>Buildings.Experimental.DHC.Networks.Combined.BaseClasses.PipeStandard</code>
+    to <a href=\"Modelica://Buildings.Experimental.DHC.Networks.Pipes.PipeStandard\">
+    Buildings.Experimental.DHC.Networks.Pipes.PipeStandard</a>. 
+    This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.
+    </td>
+</tr> 
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Combined.BaseClasses.Validation.Pipe
+    </td>         
+    <td valign=\"top\"> Moved <code>Buildings.Experimental.DHC.Networks.Combined.BaseClasses.Validation.Pipe</code>
+    to <a href=\"Modelica://Buildings.Experimental.DHC.Networks.Pipes.Validation.Pipe\">
+    Buildings.Experimental.DHC.Networks.Pipes.Validation.Pipe</a>. 
+    This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.
+    </td>
+</tr> 
+<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.Examples.Combined.BaseClasses </b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Examples.Combined.BaseClasses.PartialSeries
+    </td>         
+    <td valign=\"top\"> Removed several connections to implement
+    to <a href=\"Modelica://Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlowAgentControl\">
+    Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlowAgentControl</a>. 
+    This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
+    </td>
+</tr> 
 <tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
     </td>
 </tr>
@@ -13403,6 +13672,10 @@ particular package.<br/>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Controls.OBC\">Controls.OBC</a>
    </td>
    <td valign=\"top\">Package with the Control Description Language (CDL) and with control sequences that are implemented using CDL.</td>
+</tr>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Experimental.DHC\">Experimental.DHC</a>
+   </td>
+   <td valign=\"top\">Package with models for district heating and cooling systems.</td>
 </tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.UsersGuide\">Fluid</a>
    </td>

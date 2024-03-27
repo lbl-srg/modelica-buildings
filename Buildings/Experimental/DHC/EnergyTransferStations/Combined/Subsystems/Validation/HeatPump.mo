@@ -124,7 +124,7 @@ First implementation.
       info="<html>
 <p>
 This model validates
-<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump_Old\">
+<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump\">
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump</a>.
 </p>
 </html>"));

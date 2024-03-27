@@ -7,7 +7,7 @@ package Examples "Example implementations of district-integrated DHW models"
     Documentation(
       info="<html>
 <p>
-This package contains a collection of domestic hot water (DHW) models 
+This package contains a collection of domestic hot water (DHW) models
 to demonstrate how these models might be used in district heating systems.
 </p>
 </html>"));
