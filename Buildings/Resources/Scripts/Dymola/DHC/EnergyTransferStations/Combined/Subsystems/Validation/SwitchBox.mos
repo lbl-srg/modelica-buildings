@@ -1,0 +1,24 @@
+simulateModel("Buildings.DHC.EnergyTransferStations.Combined.Subsystems.Validation.SwitchBox",
+    method="cvode",
+    tolerance=1e-6,
+    startTime=0,
+    stopTime=1000,
+    resultFile="SwitchBox");
+createPlot(
+    id=1,
+    position={7, 11, 1004, 1016}, y={"pum1.m_flow_actual", "pum2.m_flow_actual", "senMasFlo.m_flow"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true,
+    filename="SwitchBox.mat");
+createPlot(
+    id=1,
+    y={"floSwiBox.valSup.y_actual", "floSwiBox.valRet.y_actual"},
+    subPlot=2,
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);

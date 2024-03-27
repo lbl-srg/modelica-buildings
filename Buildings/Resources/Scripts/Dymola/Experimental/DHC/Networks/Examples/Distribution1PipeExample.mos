@@ -1,9 +1,0 @@
-// Simulate
-simulateModel("Buildings.Experimental.DHC.Networks.Examples.Distribution1PipeExample", stopTime=3600,method="Cvode", tolerance=1e-06, resultFile="Distribution1PipeExample");
-// Plot commands
-createPlot( id=1,position={1, 20, 492, 682},  y={"terAutoSize[1].TLoaODE.TAir", "minTSet.y"}, grid=true, color=true, displayUnits={"degC", "degC"});
-createPlot( id=1,y={"terAutoSize[1].QReqHea_flow", "terAutoSize[1].QActHea_flow"},grid=true,color=true, subPlot=2);
-createPlot( id=1,y={"terAutoSize[1].mReqHeaWat_flow", "terAutoSize[1].port_aHeaWat.m_flow"},grid=true, color=true, subPlot=3);
-createPlot( id=2,position={1, 20, 492, 682},  y={"terPlugFlow[1].TLoaODE.TAir", "minTSet.y"}, grid=true, color=true, displayUnits={"degC", "degC"});
-createPlot( id=2,y={"terPlugFlow[1].QReqHea_flow", "terPlugFlow[1].QActHea_flow"},grid=true,color=true, subPlot=2);
-createPlot( id=2,y={"terPlugFlow[1].mReqHeaWat_flow", "terPlugFlow[1].port_aHeaWat.m_flow"},grid=true, color=true, subPlot=3);

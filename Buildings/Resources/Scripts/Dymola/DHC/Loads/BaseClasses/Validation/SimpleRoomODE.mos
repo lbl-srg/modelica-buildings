@@ -1,0 +1,20 @@
+simulateModel("Buildings.DHC.Loads.BaseClasses.Validation.SimpleRoomODE",
+    method="cvode",
+    tolerance=1e-6,
+    numberOfIntervals=500,
+    stopTime=1209600.0,
+    resultFile="SimpleRoomODE");
+createPlot(
+    id=1,
+    position={1, 20, 492, 682},
+    y={"romHeaUnm.TAir", "rooOdeHea.TAir", "romCooUnm.TAir", "rooOdeCoo.TAir"},
+    grid=true,
+    color=true,
+    filename="SimpleRoomODE.mat",
+    displayUnits={"degC", "degC", "degC", "degC"});
+createPlot(
+    id=1,
+    y={"rooOdeHea.QReq_flow", "rooOdeCoo.QReq_flow", "rooOdeHea.QAct_flow", "rooOdeCoo.QAct_flow"},
+    grid=true,
+    color = true,
+    subPlot=2);

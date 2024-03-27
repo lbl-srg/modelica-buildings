@@ -1,0 +1,42 @@
+simulateModel("Buildings.DHC.Plants.Combined.Subsystems.Validation.HeatPumpGroup",
+    method="Cvode",
+    tolerance=1e-6,
+    startTime=0,
+    stopTime=1000,
+    resultFile="HeatPumpGroup");
+createPlot(
+    id=1,
+    position={42, 30, 624, 552},
+    y={"y1.y[1]", "y1.y[2]", "heaPum.heaPum.uMod"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=1,
+    subPlot=102,
+    y={"heaPum.m_flow", "heaPum.heaPum.m1_flow", "heaPum.mHeaWatUni_flow_nominal"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=1,
+    subPlot=103,
+    y={"heaPum.weaBus.TDryBul", "THeaWatSupSet.y", "THeaWatRet.T", "THeaWatSup.T"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=1,
+    subPlot=104,
+    y={"heaPum.heaPum.PLR", "heaPum.heaPum.COP"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
