@@ -107,19 +107,21 @@ model Chiller
     annotation (Placement(transformation(extent={{160,-70},{140,-50}})));
 equation
   connect(chi.port_bHeaWat,senTHeaWatSup.port_a)
-    annotation (Line(points={{-10,-56},{-40,-56},{-40,-40},{-70,-40}},color={0,127,255}));
+    annotation (Line(points={{10,-56},{20,-56},{20,-40},{-70,-40}},   color={0,127,255}));
   connect(senTHeaWatSup.port_b,conWat.ports[1])
     annotation (Line(points={{-90,-40},{-100,-40},{-100,-63}},color={0,127,255}));
   connect(evaWat.ports[1],senTChiWatSup.port_b)
     annotation (Line(points={{100,-63},{100,-40},{80,-40}},color={0,127,255}));
   connect(senTChiWatSup.port_a,chi.port_bChiWat)
-    annotation (Line(points={{60,-40},{40,-40},{40,-56},{10,-56}},color={0,127,255}));
+    annotation (Line(points={{60,-40},{40,-40},{40,-68},{-10,-68}},
+                                                                  color={0,127,255}));
   connect(conWat.ports[2],senTHeaWatRet.port_a)
     annotation (Line(points={{-100,-61},{-100,-80},{-90,-80}},color={0,127,255}));
   connect(senTHeaWatRet.port_b,chi.port_aHeaWat)
-    annotation (Line(points={{-70,-80},{-40,-80},{-40,-68},{-10,-68}},color={0,127,255}));
+    annotation (Line(points={{-70,-80},{-40,-80},{-40,-56},{-10,-56}},color={0,127,255}));
   connect(chi.port_aChiWat,senTChiWatRet.port_b)
-    annotation (Line(points={{10,-68},{40,-68},{40,-80},{60,-80}},color={0,127,255}));
+    annotation (Line(points={{10,-68},{-20,-68},{-20,-80},{60,-80}},
+                                                                  color={0,127,255}));
   connect(senTChiWatRet.port_a,evaWat.ports[2])
     annotation (Line(points={{80,-80},{100,-80},{100,-61}},color={0,127,255}));
   connect(uCoo.y,chi.uCoo)

@@ -73,8 +73,8 @@ model Chiller
       start=Medium.h_default,
       nominal=Medium.h_default))
     "Fluid port for chilled water supply"
-    annotation (Placement(transformation(extent={{190,50},{210,70}}),
-    iconTransformation(extent={{90,50},{110,70}})));
+    annotation (Placement(transformation(extent={{-210,-70},{-190,-50}}),
+    iconTransformation(extent={{-110,-70},{-90,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aHeaWat(
     redeclare final package Medium=Medium,
     m_flow(
@@ -87,8 +87,8 @@ model Chiller
       start=Medium.h_default,
       nominal=Medium.h_default))
     "Fluid port for heating water return"
-    annotation (Placement(transformation(extent={{-210,-70},{-190,-50}}),
-    iconTransformation(extent={{-110,-70},{-90,-50}})));
+    annotation (Placement(transformation(extent={{-210,50},{-190,70}}),
+    iconTransformation(extent={{-110,50},{-90,70}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bHeaWat(
     redeclare final package Medium=Medium,
     m_flow(
@@ -101,8 +101,8 @@ model Chiller
       start=Medium.h_default,
       nominal=Medium.h_default))
     "Fluid port for heating water supply"
-    annotation (Placement(transformation(extent={{-210,50},{-190,70}}),
-    iconTransformation(extent={{-110,50},{-90,70}})));
+    annotation (Placement(transformation(extent={{190,50},{210,70}}),
+    iconTransformation(extent={{90,50},{110,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PChi(
     final unit="W")
     "Chiller power"
@@ -252,11 +252,11 @@ equation
   connect(senTEvaEnt.T,con.TEvaWatEnt)
     annotation (Line(points={{9,-40},{-80,-40},{-80,137},{-72,137}},color={0,0,127}));
   connect(splConMix.port_2,port_bHeaWat)
-    annotation (Line(points={{130,60},{140,60},{140,100},{-180,100},{-180,60},{-200,60}},color={0,127,255}));
+    annotation (Line(points={{130,60},{200,60}},                                         color={0,127,255}));
   connect(splEva.port_2,port_bChiWat)
-    annotation (Line(points={{-150,-60},{-160,-60},{-160,-100},{180,-100},{180,60},{200,60}},color={0,127,255}));
+    annotation (Line(points={{-150,-60},{-200,-60}},                                         color={0,127,255}));
   connect(port_aHeaWat,valCon.port_1)
-    annotation (Line(points={{-200,-60},{-170,-60},{-170,60},{-150,60}},color={0,127,255}));
+    annotation (Line(points={{-200,60},{-150,60}},                      color={0,127,255}));
   connect(port_aChiWat,valEva.port_1)
     annotation (Line(points={{200,-60},{130,-60}},color={0,127,255}));
   connect(valEva.port_2,senTEvaEnt.port_a)
