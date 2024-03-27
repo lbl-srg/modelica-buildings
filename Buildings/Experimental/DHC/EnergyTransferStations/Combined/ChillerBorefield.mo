@@ -221,15 +221,13 @@ equation
   end if;
 
   connect(chi.port_bHeaWat,colHeaWat.ports_aCon[2])
-    annotation (Line(points={{10,0},{20,0},{20,10},{-108,10},{-108,-24}},
-                                                          color={0,127,255}));
+    annotation (Line(points={{10,0},{20,0},{20,10},{-108,10},{-108,-24}},color={0,127,255}));
   connect(chi.port_aHeaWat,colHeaWat.ports_bCon[2])
-    annotation (Line(points={{-10,0},{-132,0},{-132,-24}},    color={0,127,255}));
+    annotation (Line(points={{-10,0},{-132,0},{-132,-24}},color={0,127,255}));
   connect(chi.port_bChiWat,colChiWat.ports_aCon[2])
-    annotation (Line(points={{-10,-12},{-20,-12},{-20,-20},{108,-20},{108,-24}},
-                                                       color={0,127,255}));
+    annotation (Line(points={{-10,-12},{-20,-12},{-20,-20},{108,-20},{108,-24}},color={0,127,255}));
   connect(colChiWat.ports_bCon[2],chi.port_aChiWat)
-    annotation (Line(points={{132,-24},{132,-12},{10,-12}},         color={0,127,255}));
+    annotation (Line(points={{132,-24},{132,-12},{10,-12}},color={0,127,255}));
   connect(conSup.TChiWatSupSet,chi.TChiWatSupSet)
     annotation (Line(points={{-238,17},{-26,17},{-26,-8},{-12,-8}},color={0,0,127}));
   connect(chi.PPum,totPPum.u[2])

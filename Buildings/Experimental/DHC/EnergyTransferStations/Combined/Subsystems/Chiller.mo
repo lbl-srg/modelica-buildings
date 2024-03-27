@@ -236,11 +236,9 @@ equation
   connect(splEva.port_3,valEva.port_3)
     annotation (Line(points={{-140,-70},{-140,-80},{120,-80},{120,-70}},color={0,127,255}));
   connect(con.yValEva,valEva.y)
-    annotation (Line(points={{-48,137},{-32,137},{-32,120},{160,120},{160,-40},{
-          120,-40},{120,-48}},                                                                      color={0,0,127}));
+    annotation (Line(points={{-48,137},{-32,137},{-32,120},{160,120},{160,-40},{120,-40},{120,-48}},color={0,0,127}));
   connect(con.yValCon,valCon.y)
-    annotation (Line(points={{-48,133},{-44,133},{-44,90},{-160,90},{-160,40},{-140,
-          40},{-140,48}},                                                                          color={0,0,127}));
+    annotation (Line(points={{-48,133},{-44,133},{-44,90},{-160,90},{-160,40},{-140,40},{-140,48}},color={0,0,127}));
   connect(con.yChi,chi.on)
     annotation (Line(points={{-48,146},{-36,146},{-36,3},{-12,3}},color={255,0,255}));
   connect(uHea,con.uHea)
@@ -252,11 +250,11 @@ equation
   connect(senTEvaEnt.T,con.TEvaWatEnt)
     annotation (Line(points={{9,-40},{-80,-40},{-80,137},{-72,137}},color={0,0,127}));
   connect(splConMix.port_2,port_bHeaWat)
-    annotation (Line(points={{130,60},{200,60}},                                         color={0,127,255}));
+    annotation (Line(points={{130,60},{200,60}},color={0,127,255}));
   connect(splEva.port_2,port_bChiWat)
-    annotation (Line(points={{-150,-60},{-200,-60}},                                         color={0,127,255}));
+    annotation (Line(points={{-150,-60},{-200,-60}},color={0,127,255}));
   connect(port_aHeaWat,valCon.port_1)
-    annotation (Line(points={{-200,60},{-150,60}},                      color={0,127,255}));
+    annotation (Line(points={{-200,60},{-150,60}},color={0,127,255}));
   connect(port_aChiWat,valEva.port_1)
     annotation (Line(points={{200,-60},{130,-60}},color={0,127,255}));
   connect(valEva.port_2,senTEvaEnt.port_a)

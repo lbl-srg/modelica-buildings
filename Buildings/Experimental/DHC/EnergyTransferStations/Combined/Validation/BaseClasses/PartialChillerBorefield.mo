@@ -309,8 +309,8 @@ equation
     annotation (Line(points={{-178,-20},{-120,-20},{-120,-46},{-14,-46}},color={255,0,255}));
   connect(disWat.ports[1],senTDisWatSup.port_a)
     annotation (Line(points={{-100,-141},{-100,-74},{-70,-74}},color={0,127,255}));
-  connect(senTDisWatSup.port_b, ets.port_aSerAmb) annotation (Line(points={{-50,-74},
-          {-10,-74}},                          color={0,127,255}));
+  connect(senTDisWatSup.port_b, ets.port_aSerAmb)
+   annotation (Line(points={{-50,-74},{-10,-74}},color={0,127,255}));
   connect(ets.ports_bChiWat[1],senTChiWatSup.port_a)
     annotation (Line(points={{50,-38},{70,-38},{70,40},{80,40}},color={0,127,255}));
   connect(ets.ports_bHeaWat[1],pumHeaWat.port_a)
@@ -319,12 +319,12 @@ equation
     annotation (Line(points={{-50,-28},{-10,-28}},color={0,127,255}));
   connect(senTChiWatRet.port_b,ets.ports_aChiWat[1])
     annotation (Line(points={{80,0},{-40,0},{-40,-38},{-10,-38}},color={0,127,255}));
-  connect(ets.PCoo, EChi.u) annotation (Line(points={{54,-50},{60,-50},{60,-60},{298,-60}},
-                      color={0,0,127}));
+  connect(ets.PCoo, EChi.u)
+    annotation (Line(points={{54,-50},{60,-50},{60,-60},{298,-60}},color={0,0,127}));
   connect(ets.port_bSerAmb, senTDisWatRet.port_a)
     annotation (Line(points={{50,-74},{90,-74}}, color={0,127,255}));
-  connect(senTDisWatRet.port_b, disWat.ports[2]) annotation (Line(points={{110,-74},
-          {160,-74},{160,-180},{-100,-180},{-100,-139}},      color={0,127,255}));
+  connect(senTDisWatRet.port_b, disWat.ports[2])
+   annotation (Line(points={{110,-74},{160,-74},{160,-180},{-100,-180},{-100,-139}},color={0,127,255}));
   annotation (
     Diagram(
       coordinateSystem(
