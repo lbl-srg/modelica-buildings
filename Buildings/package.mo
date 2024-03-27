@@ -217,6 +217,11 @@ Version 11.0.0 is ...
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
+<tr><td valign=\"top\"><p>Buildings.ThermalZones.Detailed.Examples.ISAT</p>
+    </td>
+    <td valign=\"top\"><p>Package with thermal airflow model using in situ adaptive tabulation.</p>
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Examples.Tutorial.SimpleHouse
     </td>
     <td valign=\"top\">Tutorial for how to build a simple system model.
