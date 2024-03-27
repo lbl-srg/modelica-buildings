@@ -278,17 +278,17 @@ equation
   connect(loaHea.port,volHeaWat.heatPort)
     annotation (Line(points={{-120,60},{-112,60},{-112,10},{-111,10}},color={191,0,0}));
   connect(pumChiWat.port_b,volChiWat.ports[1])
-    annotation (Line(points={{130,40},{139,40},{139,2}},color={0,127,255}));
+    annotation (Line(points={{130,40},{139,40},{139,1}},color={0,127,255}));
   connect(volChiWat.ports[2],senTChiWatRet.port_a)
-    annotation (Line(points={{139,-2},{139,0},{100,0}},color={0,127,255}));
+    annotation (Line(points={{139,-1},{139,0},{100,0}},color={0,127,255}));
   connect(senTHeaWatSup.port_b,volHeaWat.ports[1])
-    annotation (Line(points={{-70,40},{-101,40},{-101,2}},color={0,127,255}));
+    annotation (Line(points={{-70,40},{-101,40},{-101,1}},color={0,127,255}));
   connect(gai4.y,loaCoo.Q_flow)
     annotation (Line(points={{198,60},{182,60}},color={0,0,127}));
   connect(loaCoo.port,volChiWat.heatPort)
     annotation (Line(points={{162,60},{149,60},{149,10}},color={191,0,0}));
   connect(volHeaWat.ports[2],senTHeaWatRet.port_a)
-    annotation (Line(points={{-101,-2},{-101,-28},{-70,-28}},color={0,127,255}));
+    annotation (Line(points={{-101,-1},{-101,-28},{-70,-28}},color={0,127,255}));
   connect(heaLoaNor.y,gai3.u)
     annotation (Line(points={{-229,60},{-182,60}},color={0,0,127}));
   connect(heaLoaNor.y,uHea.u)
@@ -308,7 +308,7 @@ equation
   connect(uHea.y,ets.uHea)
     annotation (Line(points={{-178,-20},{-120,-20},{-120,-46},{-14,-46}},color={255,0,255}));
   connect(disWat.ports[1],senTDisWatSup.port_a)
-    annotation (Line(points={{-100,-138},{-100,-74},{-70,-74}},color={0,127,255}));
+    annotation (Line(points={{-100,-141},{-100,-74},{-70,-74}},color={0,127,255}));
   connect(senTDisWatSup.port_b, ets.port_aSerAmb) annotation (Line(points={{-50,-74},
           {-10,-74}},                          color={0,127,255}));
   connect(ets.ports_bChiWat[1],senTChiWatSup.port_a)
@@ -323,8 +323,8 @@ equation
                       color={0,0,127}));
   connect(ets.port_bSerAmb, senTDisWatRet.port_a)
     annotation (Line(points={{50,-74},{90,-74}}, color={0,127,255}));
-  connect(senTDisWatRet.port_b, disWat.ports[2]) annotation (Line(points={{110,
-          -74},{160,-74},{160,-180},{-100,-180},{-100,-142}}, color={0,127,255}));
+  connect(senTDisWatRet.port_b, disWat.ports[2]) annotation (Line(points={{110,-74},
+          {160,-74},{160,-180},{-100,-180},{-100,-139}},      color={0,127,255}));
   annotation (
     Diagram(
       coordinateSystem(
