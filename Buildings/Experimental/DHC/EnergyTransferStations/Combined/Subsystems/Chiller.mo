@@ -421,6 +421,11 @@ equation
       revisions="<html>
 <ul>
 <li>
+March 27, 2024, by David Blum:<br/>
+Update icon and fix port orientation to align with convention.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3606\">issue #3606</a>.
+</li>
+<li>
 July 31, 2020, by Antoine Gautier:<br/>
 First implementation.
 </li>

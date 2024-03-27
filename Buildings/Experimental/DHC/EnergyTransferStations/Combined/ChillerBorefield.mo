@@ -319,6 +319,11 @@ equation
       revisions="<html>
 <ul>
 <li>
+March 27, 2024, by David Blum:<br/>
+Update icon.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3606\">issue #3606</a>.
+</li>
+<li>
 April 30, 2021, by Michael Wetter:<br/>
 Reformulated replaceable class to avoid access of components that are not in the constraining type.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2471\">issue #2471</a>.

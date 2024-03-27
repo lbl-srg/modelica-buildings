@@ -139,6 +139,11 @@ is determined according to the following equation:
   revisions="<html>
 <ul>
 <li>
+March 27, 2024, by David Blum:<br/>
+Update icon.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3606\">issue #3606</a>.
+</li>
+<li>
 September 13, 2023, by David Blum:<br/>
 First implementation, extended from partial base class.
 This is for

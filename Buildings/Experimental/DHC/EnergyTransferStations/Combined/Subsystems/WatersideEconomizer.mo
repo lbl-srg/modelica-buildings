@@ -343,6 +343,11 @@ equation
       revisions="<html>
 <ul>
 <li>
+March 27, 2024, by David Blum:<br/>
+Update icon.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3606\">issue #3606</a>.
+</li>
+<li>
 July 14, 2021, by Antoine Gautier:<br/>
 First implementation.
 </li>
