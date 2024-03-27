@@ -89,9 +89,9 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-This model demonstrates the performance of the 
-connection block for steam heating systems with a 
-ramp input for the mass flow rate at the building 
+This model demonstrates the performance of the
+connection block for steam heating systems with a
+ramp input for the mass flow rate at the building
 interconnection.
 </p>
 </html>"));

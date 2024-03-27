@@ -81,38 +81,38 @@ protected
 
   annotation (Documentation(info="<html>
 <p>
-This partial model defines an interface for components 
-with two ports and separate medium definitions at each port. 
-The component transports fluid between two ports 
-without storing mass or energy. The treatment of the 
-design flow direction and of flow reversal are 
+This partial model defines an interface for components
+with two ports and separate medium definitions at each port.
+The component transports fluid between two ports
+without storing mass or energy. The treatment of the
+design flow direction and of flow reversal are
 predefined based on the parameter <code>allowFlowReversal</code>.
 </p>
 <p>
 This model is intended for steam heating applications, where
 phase change is inherently present. The split-medium approach
-enables a numerically-efficient liquid water model (i.e., 
+enables a numerically-efficient liquid water model (i.e.,
 <a href=\"modelica://Buildings.Media.Specialized.Water.TemperatureDependentDensity\">
-Buildings.Media.Specialized.Water.TemperatureDependentDensity</a>) 
+Buildings.Media.Specialized.Water.TemperatureDependentDensity</a>)
 to be implemented alongside various water/steam models for other phases.
-For most applications, 
+For most applications,
 an efficient model (i.e., <a href=\"modelica://Modelica.Media.Water.StandardWater\">Modelica.Media.Water.StandardWater</a>
-is suitable as it covers the largest range of pressure-temperature conditions through 
+is suitable as it covers the largest range of pressure-temperature conditions through
 its implementation of the IAPWS-IF97 water/steam formulation.
-If a reduce pressure-temperature range is applicable, 
+If a reduce pressure-temperature range is applicable,
 <a href=\"modelica://Buildings.Media.Steam\">Buildings.Media.Steam</a>)
-provides a more efficient implementation.  
-Through the split-medium approach, pressure and density calculations are decoupled, 
-eliminating costly nonlinear systems of equations. 
-This interface model also includes parameters for mass and 
-energy dynamics as well as initialization.   
+provides a more efficient implementation.
+Through the split-medium approach, pressure and density calculations are decoupled,
+eliminating costly nonlinear systems of equations.
+This interface model also includes parameters for mass and
+energy dynamics as well as initialization.
 </p>
 <h4>Reference</h4>
 <p>
-Hinkelman, Kathryn, Saranya Anbarasu, Michael Wetter, 
-Antoine Gautier, and Wangda Zuo. 2022. “A Fast and Accurate Modeling 
-Approach for Water and Steam Thermodynamics with Practical 
-Applications in District Heating System Simulation.” Preprint. February 24. 
+Hinkelman, Kathryn, Saranya Anbarasu, Michael Wetter,
+Antoine Gautier, and Wangda Zuo. 2022. “A Fast and Accurate Modeling
+Approach for Water and Steam Thermodynamics with Practical
+Applications in District Heating System Simulation.” Preprint. February 24.
 <a href=\"http://dx.doi.org/10.13140/RG.2.2.20710.29762\">doi:10.13140/RG.2.2.20710.29762</a>.
 </p>
 </html>", revisions="<html>

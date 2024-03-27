@@ -216,25 +216,25 @@ First implementation.
       info="<html>
 <p>This model implements the staging control logic as follows: </p>
 <ul>
-<li>When the plant enabling signal <code>on</code> changes from 
+<li>When the plant enabling signal <code>on</code> changes from
 <code>false</code> to <code>true</code>, one chiller is enabled. </li>
-<li>When the total cooling load <code>QLoa</code> exceeds 80 percent (adjustable) 
-of one chiller&apos;s nominal capacity <code>QChi_nominal</code>, a second 
+<li>When the total cooling load <code>QLoa</code> exceeds 80 percent (adjustable)
+of one chiller&apos;s nominal capacity <code>QChi_nominal</code>, a second
 chiller is enabled. </li>
-<li>When the total cooling load <code>QLoa</code> drops below 60 percent 
+<li>When the total cooling load <code>QLoa</code> drops below 60 percent
 (adjustable) of one chiller&apos;s nominal capacity <code>QChi_nominal</code>
-(i.e. 30 percent of both chillers combined), or the plant enabling signal 
-<code>on</code> changes from <code>true</code> to <code>false</code>, the second 
+(i.e. 30 percent of both chillers combined), or the plant enabling signal
+<code>on</code> changes from <code>true</code> to <code>false</code>, the second
 chiller is disabled. </li>
-<li>When the plant enabling signal <code>on</code> changes from <code>true</code> 
+<li>When the plant enabling signal <code>on</code> changes from <code>true</code>
 to <code>false</code>, the operating chillers will be disabled sequentially.</li>
-<li>Parameter <code>tWai</code> assures a transitional time is kept between each 
+<li>Parameter <code>tWai</code> assures a transitional time is kept between each
 operation. </li>
 </ul>
-<p><br>It is assumed that both chillers have the same capacity of 
+<p><br>It is assumed that both chillers have the same capacity of
 <code>QChi_nominal</code>. </p>
-<p>Note: This model can be used for plants with two chillers with or without 
-waterside econimizer (WSE). For plants with WSE, extra control logic on top of 
+<p>Note: This model can be used for plants with two chillers with or without
+waterside econimizer (WSE). For plants with WSE, extra control logic on top of
 this model needs to be added. </p>
 <p><img src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Plants/Cooling/Controls/ChillerStage.png\" alt=\"State graph\"/>. </p>
 </html>"));

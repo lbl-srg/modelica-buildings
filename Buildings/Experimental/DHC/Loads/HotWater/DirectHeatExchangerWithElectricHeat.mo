@@ -90,9 +90,9 @@ equation
     annotation (Line(points={{-60,-60},{-100,-60}}, color={0,127,255}));
   annotation (preferredView="info",Documentation(info="<html>
 <p>
-This model implements a basic domestic hot water source for a 
+This model implements a basic domestic hot water source for a
 district heating network. It includes heating by the
-district through a heat-exchanger and optional electric resistance to bring 
+district through a heat-exchanger and optional electric resistance to bring
 the temperature of produced hot water to setpoint, if the district supply
 water is not hot enough.
 </p>
@@ -100,9 +100,9 @@ water is not hot enough.
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Loads/HotWater/DirectHeatExchangerWithElectricHeat.png\"/>
 </p>
 <p>
-It is based on Fig. 5 in <i>Evaluations of different domestic hot water 
-preparing methods with ultra-low-temperature district heating</i> by X. Yang, 
-H. Li, and S. Svendsen at <a href=\"https:/doi.org/10.1016/j.energy.2016.04.109\"> 
+It is based on Fig. 5 in <i>Evaluations of different domestic hot water
+preparing methods with ultra-low-temperature district heating</i> by X. Yang,
+H. Li, and S. Svendsen at <a href=\"https:/doi.org/10.1016/j.energy.2016.04.109\">
 doi.org/10.1016/j.energy.2016.04.109</a>.
 </p>
 </html>", revisions="<html>

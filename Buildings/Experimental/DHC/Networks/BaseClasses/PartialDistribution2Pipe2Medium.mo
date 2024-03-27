@@ -6,7 +6,7 @@ partial model PartialDistribution2Pipe2Medium
   replaceable model Model_pipDis =
       Buildings.Fluid.Interfaces.PartialTwoPortInterface
       constrainedby Buildings.Fluid.Interfaces.PartialTwoPortInterface(
-        redeclare final package Medium=MediumSup,
+        redeclare final package Medium = MediumSup,
         final allowFlowReversal=allowFlowReversal)
     "Model for distribution pipe";
   parameter Boolean show_heaFlo=false

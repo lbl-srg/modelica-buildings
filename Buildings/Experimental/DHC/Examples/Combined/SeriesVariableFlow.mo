@@ -37,7 +37,7 @@ model SeriesVariableFlow
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(k=datDes.mPumDis_flow_nominal)
     "Scale with nominal mass flow rate"
     annotation (Placement(transformation(extent={{-240,-70},{-220,-50}})));
-  Networks.Distribution1PipeAutoSize dis(
+  Networks.Distribution1Pipe_R dis(
     redeclare final package Medium = Medium,
     final nCon=nBui,
     show_TOut=true,
