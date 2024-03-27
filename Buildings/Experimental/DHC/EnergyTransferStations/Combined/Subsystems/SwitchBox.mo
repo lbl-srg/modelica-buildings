@@ -195,12 +195,12 @@ equation
           origin={59,-74},
           rotation=90),
         Rectangle(
-          extent={{-39,1},{39,-1}},
+          extent={{-35,1},{35,-1}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={28,108,200},
           fillPattern=FillPattern.Solid,
-          origin={-61,-51},
+          origin={-61,-55},
           rotation=90),
         Rectangle(
           extent={{-1,50},{1,-50}},
