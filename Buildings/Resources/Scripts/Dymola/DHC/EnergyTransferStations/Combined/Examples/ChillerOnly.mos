@@ -1,0 +1,96 @@
+simulateModel("Buildings.DHC.EnergyTransferStations.Combined.Examples.ChillerOnly",
+    method="Cvode",
+    tolerance=1e-6,
+    startTime=6.5E6,
+    stopTime=7E6,
+    resultFile="ChillerOnlyExamples");
+Advanced.FilenameInLegend = true;
+createPlot(id=1,
+    position={4, 5, 546, 906},
+    y={"ets.tanHeaWat.TTop", "ets.tanHeaWat.TBot", "senTHeaWatSup.T", "senTHeaWatRet.T", "ets.conSup.THeaWatSupPreSet", "ets.conSup.THeaWatSupSet"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(id=1,
+    y={"ets.tanChiWat.TTop", "ets.tanChiWat.TBot", "senTChiWatSup.T", "senTChiWatRet.T", "ets.conSup.TChiWatSupPreSet", "ets.conSup.TChiWatSupSet"},
+    subPlot=2,
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(id=1,
+    y={"ets.conSup.yHea", "ets.conSup.yCoo", "ets.conSup.yAmb[1]"},
+    subPlot=3,
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=2,
+    y={"ets.chi.pumCon.m_flow", "ets.chi.pumEva.m_flow", "ets.hex.pum1.m_flow",  "ets.hex.pum2.m_flow", "ets.hex.m1_flow_nominal", "ets.hex.m2_flow_nominal"},
+    position={560, 7, 539, 607},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=2,
+    y={"ets.valIsoEva.y_actual", "ets.valIsoCon.y_actual"},
+    subPlot=2,
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=3,
+    y={"senTDisWatSup.T", "senTDisWatRet.T", "ets.hex.senT2WatEnt.T", "ets.hex.senT2WatLvg.T"},
+    position={1115, 7, 545, 518},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=4,
+    position={1672, 8, 557, 898},
+    y={"ets.chi.senTConEnt.T", "ets.chi.senTConLvg.T", "ets.chi.senTEvaEnt.T",  "ets.chi.senTEvaLvg.T", "ets.conSup.THeaWatSupSet", "ets.conSup.TChiWatSupSet"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=4,
+    y={"ets.chi.chi.COP", "ets.datChi.COP_nominal"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true,
+    subPlot=2);
+createPlot(
+    id=4,
+    y={"ets.chi.chi.PLR2"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true,
+    subPlot=3);
+createPlot(
+    id=5,
+    position={1117, 559, 545, 347},
+    y={"ets.QChiWat_flow_nominal", "ets.QHeaWat_flow_nominal"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+plotExpression(apply( -ChillerOnlyExamples.loaCoo.Q_flow), false, "-loaCoo.Q_flow", 5);
+plotExpression(apply( -ChillerOnlyExamples.loaHea.Q_flow), false, "-loaHea.Q_flow", 5);
