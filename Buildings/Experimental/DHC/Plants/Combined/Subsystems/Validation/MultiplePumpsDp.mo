@@ -36,7 +36,7 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,140}})),
     Documentation(info="<html>
 <p>
-This model validates 
+This model validates
 <a href=\"modelica://Buildings.Experimental.DHC.Plants.Combined.Subsystems.MultiplePumpsDp\">
 Buildings.Experimental.DHC.Plants.Combined.Subsystems.MultiplePumpsDp</a>
 by comparing an instance of that model with two instances of

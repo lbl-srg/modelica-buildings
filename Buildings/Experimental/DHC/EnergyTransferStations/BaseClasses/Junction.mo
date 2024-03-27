@@ -18,7 +18,7 @@ model Junction
       info="<html>
 <p>
 This is a model of a fluid junction with zero pressure drop.
-By default the model is configured in steady-state. 
+By default the model is configured in steady-state.
 </p>
 </html>"));
 end Junction;

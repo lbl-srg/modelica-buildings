@@ -1,12 +1,12 @@
-within Buildings.Airflow.Multizone.BaseClasses;
+within Buildings.Utilities.Math.Functions;
 function interpolate
-  "Function for the interpolation of table data for airflow models"
+  "Function for cubic hermite spline interpolation of table data"
   extends Modelica.Icons.Function;
 
   input Real u "Independent variable";
-  input Real[:] xd "X-axis support points";
-  input Real[size(xd, 1)] yd "Y-axis support points";
-  input Real[size(xd, 1)] d(each fixed=false) "Derivatives at the support points";
+  input Real[:] xd "x-axis support points";
+  input Real[size(xd, 1)] yd "y-axis support points";
+  input Real[size(xd, 1)] d "Derivatives at the support points";
 
   output Real z "Dependent variable with monotone interpolation";
 
@@ -34,7 +34,11 @@ algorithm
     Documentation(info="<html>
 <p>
 This function returns the value on a cubic hermite spline through the given support points
-and provided spline derivatives at these points with monotonically increasing values.
+and provided spline derivatives at these points.
+The spline derivatives at the support points can be computed using
+<a href=\"modelica://Buildings.Utilities.Math.Functions.splineDerivatives\">
+Buildings.Utilities.Math.Functions.splineDerivatives</a>.
+The support points must be monotonically increasing.
 Outside the provided support points, the function returns a linear extrapolation with
 the same slope as the cubic spline has at the respective support point.
 </p>
@@ -59,6 +63,17 @@ National Institute of Standards and Technology, NIST TN 1887, Sep. 2015. doi:
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+February 29, 2024, by Hongxiang Fu:<br/>
+Moved to
+<a href=\"modelica://Buildings.Utilities.Math.Functions\">
+Buildings.Utilities.Math.Functions</a>
+from
+<a href=\"modelica://Buildings.Airflow.Multizone.BaseClasses\">
+Buildings.Airflow.Multizone.BaseClasses</a>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1844\">IBPSA, #1844</a>.
+</li>
 <li>
 February 26, 2024, by Hongxiang Fu:<br/>
 Correct implementation to make it smooth.<br/>

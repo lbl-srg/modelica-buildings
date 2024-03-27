@@ -29,9 +29,9 @@ equation
   annotation (
     defaultComponentName="pum", Documentation(info="<html>
 <p>
-This model represents a set of identical dp-controlled 
+This model represents a set of identical dp-controlled
 variable speed pumps that are piped in parallel.
-An optional check valve in series with each pump is included. 
+An optional check valve in series with each pump is included.
 </p>
 <h4>Control points</h4>
 <p>
@@ -39,7 +39,7 @@ The following input and output points are available.
 </p>
 <ul>
 <li>
-Start command (VFD Run) <code>y1</code>: 
+Start command (VFD Run) <code>y1</code>:
 DO signal dedicated to each unit, with a dimensionality of one
 </li>
 <li>
@@ -47,13 +47,13 @@ DO signal dedicated to each unit, with a dimensionality of one
 AO signal common to all units, with a dimensionality of zero
 </li>
 <li>
-Pump status <code>y1_actual</code>: 
+Pump status <code>y1_actual</code>:
 DI signal dedicated to each unit, with a dimensionality of one
 </li>
 </ul>
 <h4>Details</h4>
 <p>
-See the base class 
+See the base class
 <a href=\"modelica://Buildings.Experimental.DHC.Plants.Combined.Subsystems.BaseClasses.PartialMultiplePumps\">
 Buildings.Experimental.DHC.Plants.Combined.Subsystems.BaseClasses.PartialMultiplePumps</a>.
 for a description of the modeling approach.

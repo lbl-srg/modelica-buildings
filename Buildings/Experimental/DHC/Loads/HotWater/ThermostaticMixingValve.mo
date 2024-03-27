@@ -250,7 +250,7 @@ equation
   preferredView="info",Documentation(info="<html>
 <p>
 This model implements a thermostatic mixing valve, which uses
-a PI feedback controller to mix hot and cold fluid to achieve a specified 
+a PI feedback controller to mix hot and cold fluid to achieve a specified
 mixed water outlet temperature.
 </p>
 <p>

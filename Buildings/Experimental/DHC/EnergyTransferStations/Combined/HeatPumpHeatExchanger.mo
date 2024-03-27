@@ -113,7 +113,7 @@ When enabled,
 <li>
 The heat pump and the evaporator and condenser hydronics are controlled
 based on the principles described in
-<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump_Old\">
+<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump\">
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump</a>.
 </li>
 <li>

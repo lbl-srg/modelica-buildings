@@ -4,7 +4,7 @@ package BaseClasses "Package with base classes"
 
   annotation (Documentation(info="<html>
 <p>
-This package contains base classes that are used 
+This package contains base classes that are used
 to construct subsystem models.
 </p>
 </html>"));

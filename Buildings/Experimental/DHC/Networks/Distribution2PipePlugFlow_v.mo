@@ -1,9 +1,8 @@
 within Buildings.Experimental.DHC.Networks;
-model Distribution2PipePlugFlow
-  "Model of a two-pipe distribution network using plug flow pipe models in the main lines"
-  extends
-    Buildings.Experimental.DHC.Networks.BaseClasses.PartialDistribution2Pipe(
-      redeclare Connections.Connection2PipePlugFlow con[nCon](
+model Distribution2PipePlugFlow_v
+  "Model of a two-pipe distribution network using plug flow pipe models in the main lines with hydraulic diameter calculated from nominal velocity"
+  extends Buildings.Experimental.DHC.Networks.BaseClasses.PartialDistribution2Pipe(
+      redeclare Connections.Connection2PipePlugFlow_v con[nCon](
       final lDis=lDis,
       each final dIns=dIns,
       each final kIns=kIns,
@@ -11,17 +10,16 @@ model Distribution2PipePlugFlow
       each final roughness=roughness,
       each final cPip=cPip,
       each final rhoPip=rhoPip,
-      each final thickness=thickness),
-      redeclare model Model_pipDis =
-        Buildings.Fluid.FixedResistances.PlugFlowPipe (
-      final length=lEnd,
-      final dIns=dIns,
-      final kIns=kIns,
-      final v_nominal=v_nominal,
-      final roughness=roughness,
-      final cPip=cPip,
-      final rhoPip=rhoPip,
-      final thickness=thickness));
+      each final thickness=thickness), 
+      redeclare model Model_pipDis = Buildings.Fluid.FixedResistances.PlugFlowPipe(
+        final length=lEnd,
+        final dIns=dIns,
+        final kIns=kIns,
+        final v_nominal=v_nominal,
+        final roughness=roughness,
+        final cPip=cPip,
+        final rhoPip=rhoPip,
+        final thickness=thickness));
    parameter Modelica.Units.SI.Length lDis[nCon]
     "Length of the distribution pipe before each connection (supply only, not counting return line)";
    parameter Modelica.Units.SI.Length lEnd
@@ -69,13 +67,20 @@ equation
       info="<html>
 <p>
 This is a model of a two-pipe distribution network using a connection model with a plug flow pipe
-model (pressure drop, heat transfer, transport delays) in the main lines <a href=\"modelica://Buildings.Experimental.DHC.Networks.Connections.Connection2PipePlugFlow\">
+model (pressure drop, heat transfer, transport delays) in the main lines whose hydraulic diameters
+are calculated based on nominal velocity at nominal flow rate <a href=\"modelica://Buildings.Experimental.DHC.Networks.Connections.Connection2PipePlugFlow_v\">
 Buildings.Experimental.DHC.Networks.Connections.Connection2PipePlugFlow</a>. The same pipe model is also used
 at the end of the distribution line (after the last connection) only on the supply side.
 </p>
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 15, 2024, by David Blum:<br/>
+Renamed.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3712\">issue 3712</a>.
+</li>
 <li>
 January 27, 2023, by Michael Wetter:<br/>
 Removed connection to itself.
@@ -86,4 +91,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Distribution2PipePlugFlow;
+end Distribution2PipePlugFlow_v;

@@ -96,25 +96,25 @@ Removed connection to itself.
 </li>
 <li>
 December 14, 2022, by Kathryn Hinkelman:<br/>
-Corrected measured mass flow rate to be on the chiller 
+Corrected measured mass flow rate to be on the chiller
 leg in order to control minimum flow rate through the chillers.<br>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2912#issuecomment-1324375700\">#2912</a>.
 </li>
 <li>
 May 3, 2021 by Jing Wang:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 </html>",
       info="<html>
-<p>This model implements the chilled water loop bypass valve control logic as 
+<p>This model implements the chilled water loop bypass valve control logic as
 follows: </p>
-<p>When the plant is on, the PID controller controls the valve opening ratio to 
+<p>When the plant is on, the PID controller controls the valve opening ratio to
 reach the scaled mass flow rate setpoint. </p>
-<p>The setpoint is <code>mMin_flow</code> multiplied by the number of chillers 
-that are on. <code>mMin_flow</code> is the minimum mass flow rate required by 
+<p>The setpoint is <code>mMin_flow</code> multiplied by the number of chillers
+that are on. <code>mMin_flow</code> is the minimum mass flow rate required by
 one chiller. </p>
-<p>This control sequence assumes that all the chillers are identical and the 
+<p>This control sequence assumes that all the chillers are identical and the
 cooling load is evenly split between all of the chillers that are on.</p>
 </html>"));
 end ChilledWaterBypass;
