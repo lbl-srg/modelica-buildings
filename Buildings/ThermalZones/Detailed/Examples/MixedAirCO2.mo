@@ -19,6 +19,7 @@ model MixedAirCO2
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Buildings.Fluid.Sensors.PPM senCO2(
     redeclare package Medium = MediumA,
+    warnAboutOnePortConnection=false,
     MM=Modelica.Media.IdealGases.Common.SingleGasesData.CO2.MM)
     "CO2 sensor that measures concentration in the room"
     annotation (Placement(transformation(extent={{70,-60},{90,-40}})));
@@ -99,6 +100,12 @@ a brief overshoot during the initial transient.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 26, 2024, by Michael Wetter:<br/>
+Configured the sensor parameter to suppress the warning about being a one-port connection.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3731\">#3731</a>
+</li>
 <li>
 September 8, 2017, by Michael Wetter:<br/>
 First implementation.

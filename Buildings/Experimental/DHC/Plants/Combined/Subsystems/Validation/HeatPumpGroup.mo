@@ -124,7 +124,7 @@ equation
     Diagram(coordinateSystem(extent={{-120,-120},{120,120}})),
     Documentation(info="<html>
 <p>
-This model validates 
+This model validates
 <a href=\"modelica://Buildings.Experimental.DHC.Plants.Combined.Subsystems.HeatPumpGroup\">
 Buildings.Experimental.DHC.Plants.Combined.Subsystems.HeatPumpGroup</a>
 in a configuration with two heat pumps.

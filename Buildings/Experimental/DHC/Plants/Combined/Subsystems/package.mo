@@ -4,7 +4,7 @@ package Subsystems "Package of models for subsystems of combined plants"
 
   annotation (Documentation(info="<html>
 <p>
-This package contains models of components used in 
+This package contains models of components used in
 combined heating and cooling plants.
 </p>
 </html>"));

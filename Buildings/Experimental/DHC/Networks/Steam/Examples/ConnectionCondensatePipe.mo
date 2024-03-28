@@ -4,32 +4,24 @@ model ConnectionCondensatePipe "Example model for the steam heating connection b
 
   package MediumSte = Buildings.Media.Steam "Steam medium";
   package MediumWat =
-    Buildings.Media.Specialized.Water.TemperatureDependentDensity
+      Buildings.Media.Specialized.Water.TemperatureDependentDensity
     "Water medium";
 
-  parameter Modelica.Units.SI.AbsolutePressure pSat=150000
+  parameter Modelica.Units.SI.AbsolutePressure pSat = 150000
     "Saturation pressure";
-  parameter Modelica.Units.SI.Temperature TSat=
-     MediumSte.saturationTemperature(pSat)
+  parameter Modelica.Units.SI.Temperature TSat = MediumSte.saturationTemperature(pSat)
      "Saturation temperature";
-  parameter Modelica.Units.SI.SpecificEnthalpy dh_nominal=
-    MediumSte.specificEnthalpy(MediumSte.setState_pTX(
-        p=pSat,
-        T=TSat,
-        X=MediumSte.X_default)) -
-      MediumWat.specificEnthalpy(MediumWat.setState_pTX(
-        p=pSat,
-        T=TSat,
-        X=MediumWat.X_default))
+  parameter Modelica.Units.SI.SpecificEnthalpy dh_nominal = MediumSte.specificEnthalpy(
+  MediumSte.setState_pTX(p=pSat,T=TSat,X=MediumSte.X_default)) -
+  MediumWat.specificEnthalpy(MediumWat.setState_pTX(p=pSat,T=TSat,X=MediumWat.X_default))
     "Nominal change in enthalpy due to vaporization";
-  parameter Modelica.Units.SI.Power Q_flow_nominal=200E3
+  parameter Modelica.Units.SI.Power Q_flow_nominal = 200E3
     "Nominal heat flow rate";
-  parameter Real QHeaLoa[:, :]= [0, 200E3; 6, 200E3; 6, 50E3; 18, 50E3; 18, 75E3; 24, 75E3]
+  parameter Real QHeaLoa[:, :] = [0, 200E3; 6, 200E3; 6, 50E3; 18, 50E3; 18, 75E3; 24, 75E3]
     "Heating load profile for the building";
-  parameter Modelica.Units.SI.PressureDifference dp_nominal=6000
+  parameter Modelica.Units.SI.PressureDifference dp_nominal = 6000
     "Pressure drop at nominal mass flow rate";
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=
-    Q_flow_nominal/dh_nominal
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal = Q_flow_nominal/dh_nominal
     "Nominal mass flow rate";
 
   Modelica.Blocks.Sources.Ramp ram(duration=60, startTime=60) "Ramp signal"
@@ -97,9 +89,9 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-This model demonstrates the performance of the 
-connection block for steam heating systems with a 
-ramp input for the mass flow rate at the building 
+This model demonstrates the performance of the
+connection block for steam heating systems with a
+ramp input for the mass flow rate at the building
 interconnection.
 </p>
 </html>"));

@@ -14,8 +14,15 @@
 #                         otherwise do nothing.
 # - If all simulations succeed: overwrite stored checksum with new value,
 #                               otherwise do nothing.
+#
+# To update the checksums and run simulations locally, execute:
+# ./Resources/Scripts/travis/templates/checkandrun.sh --checksum --local [--tool SIMULATOR]
+#
+# To simply update the checksums locally and skip all simulations, execute:
+# ./Resources/Scripts/travis/templates/checkandrun.sh --checksum --local --skip
 
 LOCALRUN=false
+SKIP=false
 USE_CHECKSUM=false
 SIMULATOR=Dymola
 FRACTION_TEST_COVERAGE=1
@@ -28,6 +35,9 @@ while [[ "$1" != "" ]]; do
   case $1 in
     --local )
       LOCALRUN=true
+      ;;
+    --skip )
+      SKIP=true
       ;;
     --checksum )
       USE_CHECKSUM=true
@@ -52,11 +62,12 @@ while [[ "$1" != "" ]]; do
       ;;
     * )
         echo "Invalid option: $1"
-        echo "Usage: checkandrun.sh [--local] [--checksum] [--tool tool_name] [--cover test_coverage]"
-        echo "     --local is for a local run execution (run simulations and update the checksum)."
-        echo "     --checksum is to trigger testing based on checksum verification (only option currently available)."
-        echo "     --tool enables specifying the Modelica tool to be used, defaulting to Dymola."
-        echo "     --cover enables specifying the fraction of test coverage, defaulting to 1."
+        echo "Usage: checkandrun.sh --checksum [--local] [--skip] [--tool SIMULATOR] [--cover FRACTION_TEST_COVERAGE]"
+        echo "     --checksum triggers testing based on checksum verification (only method currently available, mandatory option)."
+        echo "     --local is for local execution (use this option to update the checksums and run simulations)."
+        echo "     --skip disables all simulations (use this option to simply update the checksums locally)."
+        echo "     --tool allows specifying the Modelica tool to be used, defaulting to Dymola."
+        echo "     --cover allows specifying the fraction of test coverage, defaulting to 1."
         exit
        ;;
   esac
@@ -82,6 +93,7 @@ declare -A test_script=(
 )
 
 for type in "${!test_script[@]}"; do
+  echo "*** Testing ${type} templates. ***"
   if [ "$USE_CHECKSUM" = true ]; then
     # For each system type: compute checksum of checksum of all mo files under corresponding checksum_dirs, and store value.
     checksum="$(
@@ -117,12 +129,16 @@ for type in "${!test_script[@]}"; do
     diff_checksum="$(git diff --name-only origin/master | grep Resources/Scripts/travis/templates/$type.checksum)"
     if (( $? == 0 ));  then
       echo "Computed checksum does not match checksum on master."
-      echo "Running ${test_script[$type]} with --tool $SIMULATOR."
-      python "${test_script[$type]}" --generate --simulate --tool $SIMULATOR --coverage $FRACTION_TEST_COVERAGE
-      if (( $? == 0 ));  then
-        printf "${CGREEN}All simulations succeeded.${CEND}\n"
+      if [ "$SKIP" = false ]; then
+        echo "Running ${test_script[$type]} with --tool $SIMULATOR."
+        python "${test_script[$type]}" --generate --simulate --tool $SIMULATOR --coverage $FRACTION_TEST_COVERAGE
+        if (( $? == 0 ));  then
+          printf "${CGREEN}All simulations succeeded.${CEND}\n"
+        else
+          exit 1
+        fi
       else
-        exit 1
+        echo "Simulations are not run because of the --skip argument."
       fi
     else
       echo "Computed checksum matches checksum on master: no further check performed."

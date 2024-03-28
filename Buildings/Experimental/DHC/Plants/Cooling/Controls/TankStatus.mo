@@ -37,25 +37,24 @@ block TankStatus "Returns the tank status from its temperature sensors"
       iconTransformation(extent={{100,-10},{120,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TTanTopChe(
     final k(final unit="K", displayUnit="degC") = THig) "Set point for top temperatuer of tank"
-     annotation(
+     annotation (
     Placement(visible = true, transformation(origin = {-70, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TTanBotChe(
     final k(final unit="K", displayUnit="degC") = TLow) "Set point for bottom temperature of tank"
-    annotation(
+    annotation (
     Placement(visible = true, transformation(origin = {-70, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Buildings.Controls.OBC.CDL.Reals.Greater gre
    "Test for temperature set points"
-  annotation(
+  annotation (
     Placement(visible = true, transformation(origin = {-30, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
     message = "THig must be greater than TLow.")
    "Assertion if temperature set points are not correct"
-   annotation(
+   annotation (
     Placement(visible = true, transformation(origin = {10, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
   connect(hysCha.y, not1.u)
-    annotation (Line(points={{-18,0},{18,0}},
-                                               color={255,0,255}));
+    annotation (Line(points={{-18,0},{18,0}},  color={255,0,255}));
   connect(TTan[1],hysCha. u) annotation (Line(points={{-110,-2.5},{-52,-2.5},{-52,
           0},{-42,0}},  color={0,0,127}));
   connect(TTan[2],hysEmp. u) annotation (Line(points={{-110,2.5},{-52,2.5},{-52,
@@ -65,11 +64,11 @@ equation
           0},{110,-2.5}}, color={255,0,255}));
   connect(not1.y, y[2]) annotation (Line(points={{42,0},{60,0},{60,2.5},{110,
           2.5}}, color={255,0,255}));
-  connect(TTanTopChe.y, gre.u1) annotation(
+  connect(TTanTopChe.y, gre.u1) annotation (
     Line(points = {{-58, -30}, {-50, -30}, {-50, -50}, {-42, -50}}, color = {0, 0, 127}));
-  connect(TTanBotChe.y, gre.u2) annotation(
+  connect(TTanBotChe.y, gre.u2) annotation (
     Line(points = {{-58, -70}, {-52, -70}, {-52, -58}, {-42, -58}}, color = {0, 0, 127}));
-  connect(gre.y, assMes.u) annotation(
+  connect(gre.y, assMes.u) annotation (
     Line(points = {{-18, -50}, {-2, -50}}, color = {255, 0, 255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                 Rectangle(

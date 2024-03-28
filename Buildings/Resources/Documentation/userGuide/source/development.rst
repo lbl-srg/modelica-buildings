@@ -191,7 +191,7 @@ Equations and algorithms
 
    .. code-block::
 
-       Hidden.PrintFailureToDifferentiate = true;
+       Advanced.PrintFailureToDifferentiate = true;
 
 
    Next, translate the model again to see what functions cannot be
