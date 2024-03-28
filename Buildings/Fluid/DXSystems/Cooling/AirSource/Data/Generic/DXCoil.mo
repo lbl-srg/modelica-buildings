@@ -113,15 +113,6 @@ Each element of the array <code>per</code> has the following data.
      EIRFunT  - Coefficients of biquadratic polynomial for EIR as a function of temperature.
      EIRFunFF - Polynomial coefficients for EIR
                 as a function of the mass flow fraction.
-     TConInRan - Minimum and maximum condenser air inlet temperatures
-                 for which the performance curves are valid.
-                 Outside this range, they will be linearly extrapolated.
-     TEvaInRan - Minimum and maximum evaporator air inlet temperatures
-                 for which the performance curves are valid.
-                 Outside this range, they will be linearly extrapolated.
-     ffRan     - Minimum and maximum air mass flow fraction (relative to m_flow_nominal)
-                 for which the performance curves are valid.
-                 Outside this range, they will be linearly extrapolated.
 </pre>
 <p>
 The data used to develop the performance curves
