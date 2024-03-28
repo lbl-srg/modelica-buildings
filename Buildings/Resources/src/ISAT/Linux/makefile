@@ -45,6 +45,7 @@ LIB = libisat.so
 # LIBS = -pthread -lc -lgfortran -llapack -lblas
 # LIBS = -lc -lgfortran -lblas
 LIBS = -lpthread -lc -lgfortran
+# LIBS = -lc -lgfortran
 
 # Note that -fPIC is recommended on Linux according to the Modelica specification
 
