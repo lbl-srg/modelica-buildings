@@ -126,7 +126,7 @@ void exchange_Modelica_EnergyPlus_9_6_0(
 
     exchange_Spawn_EnergyPlus_9_6_0(
       object,
-      false, /* Argument initialCall is hard-coded to false, and can be removed when binaries need to be recompiled. */
+      0, /* Argument initialCall is hard-coded to false, and can be removed when binaries need to be recompiled. */
       u,
       y);
   }
