@@ -1,5 +1,5 @@
 within Buildings.Fluid.Storage.PCM.Validation;
-model ChargingDischarging
+model charging58
   "Test stand to validate PCM HXs with single circuit or dual circuit charge / discharge"
   extends Modelica.Icons.Example;
   //replaceable parameter Buildings.Fluid.Storage.PCM.Data.HeatExchanger.Generic Design "Heat Exchanger Design"  annotation (choicesAllMatching = true);
@@ -27,21 +27,17 @@ parameter Modelica.Units.SI.Temperature pcm_Tstart = 311.05;
     tableOnFile=true,
     tableName="tab1",
     fileName=
-        "C:/git/ccc-hp-plus-tes/validation_scripts/meas_58c/all-runs/58_single_6lpm_12C_65C_Run1_all.txt",
+        "C:/drive/pcm/PCM-Validation/58_pcm_single_all_runs/58_single_3lpm_30C_65C_Run1_all.txt",
     columns={2,4,7},
     timeScale=60)
     annotation (Placement(transformation(extent={{-150,4},{-130,24}})));
   Modelica.Thermal.HeatTransfer.Celsius.ToKelvin toKelvin
     annotation (Placement(transformation(extent={{-116,-8},{-96,12}})));
-  Modelica.Blocks.Interfaces.RealOutput TOutHPCMod(final quantity="ThermodynamicTemperature",
-                                          final unit="K",
-                                          displayUnit = "degC")
+  Modelica.Blocks.Interfaces.RealOutput TOutHPCMod
     "Modeled outlet fluid temperature"
     annotation (Placement(transformation(extent={{100,50},{120,70}}),
         iconTransformation(extent={{100,50},{120,70}})));
-  Modelica.Blocks.Interfaces.RealOutput TOutHPCMea(final quantity="ThermodynamicTemperature",
-                                          final unit="K",
-                                          displayUnit = "degC")
+  Modelica.Blocks.Interfaces.RealOutput TOutHPCMea
     "Measured outlet fluid temperature"
     annotation (Placement(transformation(extent={{100,70},{120,90}}),
         iconTransformation(extent={{100,70},{120,90}})));
@@ -55,6 +51,9 @@ parameter Modelica.Units.SI.Temperature pcm_Tstart = 311.05;
   Modelica.Blocks.Math.Product m3s_kgs
     annotation (Placement(transformation(extent={{-46,40},{-66,60}})));
   CoilRegisterFourPort pcmFourPort(
+    redeclare Buildings.Fluid.Storage.PCM.Data.HeatExchanger.Q3 Design,
+    redeclare Buildings.Fluid.Storage.PCM.Data.PhaseChangeMaterial.PCM58
+      Material,
     m1_flow_nominal=m_flow_nominal,
     m2_flow_nominal=m_flow_nominal,
     TStart_pcm=pcm_Tstart) annotation (Placement(transformation(
@@ -70,9 +69,7 @@ parameter Modelica.Units.SI.Temperature pcm_Tstart = 311.05;
   Buildings.Fluid.Sources.Boundary_pT sinLPC(redeclare package Medium =
         Medium, nPorts=1) "Flow sink"
     annotation (Placement(transformation(extent={{-50,-40},{-30,-20}})));
-  Modelica.Blocks.Interfaces.RealOutput TOutLPCMod(final quantity="ThermodynamicTemperature",
-                                          final unit="K",
-                                          displayUnit = "degC")
+  Modelica.Blocks.Interfaces.RealOutput TOutLPCMod
     "Modeled outlet fluid temperature"
     annotation (Placement(transformation(extent={{-100,-60},{-120,-40}}),
         iconTransformation(extent={{-100,-60},{-120,-40}})));
@@ -86,7 +83,7 @@ parameter Modelica.Units.SI.Temperature pcm_Tstart = 311.05;
     tableOnFile=true,
     tableName="tab1",
     fileName=
-        "C:/git/ccc-hp-plus-tes/validation_scripts/meas_58c/all-runs/58_single_6lpm_12C_65C_Run1_all.txt",
+        "C:/drive/pcm/PCM-Validation/58_pcm_single_all_runs/58_single_3lpm_30C_65C_Run1_all.txt",
     columns={3,6,5},
     timeScale=60)
     annotation (Placement(transformation(extent={{-8,-90},{12,-70}})));
@@ -99,9 +96,7 @@ parameter Modelica.Units.SI.Temperature pcm_Tstart = 311.05;
     annotation (Placement(transformation(extent={{50,-66},{70,-46}})));
   Modelica.Blocks.Math.Product m3s_kgs1
     annotation (Placement(transformation(extent={{90,-40},{110,-60}})));
-  Modelica.Blocks.Interfaces.RealOutput TOutLPCMea(final quantity="ThermodynamicTemperature",
-                                          final unit="K",
-                                          displayUnit = "degC")
+  Modelica.Blocks.Interfaces.RealOutput TOutLPCMea
     "Measured outlet fluid temperature"
     annotation (Placement(transformation(extent={{-100,-80},{-120,-60}}),
         iconTransformation(extent={{-100,-80},{-120,-60}})));
@@ -197,8 +192,8 @@ equation
             {100,100}})),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
     experiment(
-      StopTime=8100,
+      StopTime=33000,
       Interval=60,
       Tolerance=1e-06,
       __Dymola_Algorithm="Radau"));
-end ChargingDischarging;
+end charging58;
