@@ -4,7 +4,7 @@ package Cooling "This package contains models for energy transfer stations used 
 
 annotation (Documentation(info="<html>
 <p>
-This package contains models for energy transfer stations used 
+This package contains models for energy transfer stations used
 in district cooling systems.
 </p>
 </html>"));

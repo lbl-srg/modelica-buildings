@@ -5,6 +5,10 @@ clear
 
 convertClear();
 
+// Conversion of hot water load
+convertElement("Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger",
+               "loaSHW", "QReqHotWat_flow");
+
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3598
 // remove parameter binding computeFlowResistance which is now final
 convertModifiers("Buildings.Fluid.SolarCollectors.ASHRAE93",
@@ -37,3 +41,20 @@ convertClass("Buildings.Controls.OBC.CDL.Logical.TriggeredTrapezoid",
              "Buildings.Obsolete.Controls.OBC.CDL.Logical.TriggeredTrapezoid");
 convertClass("Buildings.Controls.OBC.CDL.Logical.ZeroCrossing",
              "Buildings.Obsolete.Controls.OBC.CDL.Logical.ZeroCrossing");
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3596
+convertClass("Buildings.Controls.OBC.CDL.Reals.Sources.ModelTime",
+             "Buildings.Controls.OBC.CDL.Reals.Sources.CivilTime");
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/xxxx
+convertClass("Buildings.Experimental.DHC.Plants.Reservoir.Borefield",
+             "Buildings.Experimental.DHC.Examples.Combined.BaseClasses.BoreField");
+             
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3431
+convertClass("Buildings.Fluid.Geothermal.BuriedPipes","Buildings.Fluid.FixedResistances.BuriedPipes");
+
+// Conversion for https://github.com/ibpsa/modelica-ibpsa/issues/1844
+convertClass("Buildings.Airflow.Multizone.BaseClasses.interpolate",
+             "Buildings.Utilities.Math.Functions.interpolate");
+convertClass("Buildings.Airflow.Multizone.BaseClasses.Examples.Interpolate",
+             "Buildings.Utilities.Math.Functions.Examples.Interpolate");

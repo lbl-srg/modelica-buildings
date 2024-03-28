@@ -5,14 +5,14 @@ model Boundary_pT
 
   parameter Boolean use_p_in = false
     "Get the pressure from the input connector"
-    annotation(Evaluate=true, HideResult=true, Dialog(group="Conditional inputs"));
+    annotation(Evaluate=true, Dialog(group="Conditional inputs"));
   parameter Medium.AbsolutePressure p = Medium.p_default
     "Fixed value of pressure"
     annotation (Dialog(enable = not use_p_in, group="Fixed inputs"));
 
   parameter Boolean use_T_in= false
     "Get the temperature from the input connector"
-    annotation(Evaluate=true, HideResult=true,Dialog(group="Conditional inputs"));
+    annotation(Evaluate=true, Dialog(group="Conditional inputs"));
   parameter Medium.Temperature T = Medium.T_default
     "Fixed value of temperature"
     annotation (Dialog(enable = not use_T_in,group="Fixed inputs"));
@@ -129,6 +129,12 @@ with exception of boundary pressure, do not have an effect.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 11, 2024, by Michael Wetter:<br/>
+Corrected use of <code>HideResult</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1850\">#1850</a>.
+</li>
 <li>
 February 25, 2020, by Michael Wetter:<br/>
 Changed icon to display its operating state.<br/>

@@ -56,18 +56,6 @@ model PartialParallel
     min=0.01)=0.1
     "Heat exchanger secondary pump minimum speed (fractional)"
     annotation (Dialog(group="District heat exchanger"));
-  replaceable parameter Buildings.Fluid.Movers.Data.Generic perPum1Hex(
-    motorCooledByFluid=false)
-    constrainedby Buildings.Fluid.Movers.Data.Generic
-    "Record with performance data for primary pump"
-    annotation (Dialog(group="District heat exchanger", enable=not have_val1Hex),
-      choicesAllMatching=true,Placement(transformation(extent={{-80,222},{-60,242}})));
-  replaceable parameter Buildings.Fluid.Movers.Data.Generic perPum2Hex(
-    motorCooledByFluid=false)
-    constrainedby Buildings.Fluid.Movers.Data.Generic
-    "Record with performance data for secondary pump"
-    annotation (Dialog(group="District heat exchanger"),
-      choicesAllMatching=true,Placement(transformation(extent={{-40,222},{-20,242}})));
   parameter Modelica.Units.SI.Volume VTanHeaWat "Heating water tank volume"
     annotation (Dialog(group="Buffer Tank"));
   parameter Modelica.Units.SI.Length hTanHeaWat=(VTanHeaWat*16/Modelica.Constants.pi)
@@ -125,8 +113,6 @@ model PartialParallel
   Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatExchanger hex(
     redeclare final package Medium1=MediumSer,
     redeclare final package Medium2=MediumBui,
-    final perPum1=perPum1Hex,
-    final perPum2=perPum2Hex,
     final allowFlowReversal1=allowFlowReversalSer,
     final allowFlowReversal2=allowFlowReversalBui,
     final conCon=conCon,
@@ -223,9 +209,11 @@ equation
     annotation (Line(points={{282,-60},{290,-60},{290,-40},{320,-40}},
                                                   color={0,0,127}));
   connect(hex.yValIso_actual[1],valIsoCon.y_actual)
-    annotation (Line(points={{-12,-251},{-40,-251},{-40,-113},{-55,-113}},color={0,0,127}));
+    annotation (Line(points={{-12,-251.5},{-40,-251.5},{-40,-113},{-55,-113}},
+                                                                          color={0,0,127}));
   connect(hex.yValIso_actual[2],valIsoEva.y_actual)
-    annotation (Line(points={{-12,-253},{-16,-253},{-16,-240},{40,-240},{40,-113},{55,-113}},color={0,0,127}));
+    annotation (Line(points={{-12,-252.5},{-16,-252.5},{-16,-240},{40,-240},{40,
+          -113},{55,-113}},                                                                  color={0,0,127}));
   connect(valIsoEva.port_b,colAmbWat.port_bDisSup)
     annotation (Line(points={{50,-120},{30,-120},{30,-106},{20,-106}},color={0,127,255}));
   connect(valIsoCon.port_b,colAmbWat.port_aDisSup)

@@ -69,6 +69,7 @@ model SwitchBox
         rotation=90,
         origin={20,0})));
   Buildings.Experimental.DHC.EnergyTransferStations.Combined.Controls.SwitchBox con(
+    final m_flow_nominal=m_flow_nominal,
     final trueHoldDuration=trueHoldDuration,
     final falseHoldDuration=falseHoldDuration)
     "Switch box controller"

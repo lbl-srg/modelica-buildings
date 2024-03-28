@@ -223,8 +223,8 @@ over a four-day simulation period where the load profile is characterized by
 high cooling loads and low heating loads during the first day,
 concomitant high cooling and heating loads during the second day,
 low cooling loads and high heating loads during the third day,
-and no cooling loads (cooling disabled) and high heating loads 
-during the last day. 
+and no cooling loads (cooling disabled) and high heating loads
+during the last day.
 </p>
 </html>", revisions="<html>
 <ul>

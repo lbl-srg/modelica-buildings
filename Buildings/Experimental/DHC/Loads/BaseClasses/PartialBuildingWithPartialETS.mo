@@ -612,7 +612,7 @@ src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Loads/PartialBuildi
 <ul>
 <li>
 December 21, 2022, by Kathryn Hinkelman:<br>
-Added conditional requirement <code>have_pum</code> to instance 
+Added conditional requirement <code>have_pum</code> to instance
 <code>totPPum</code> for cases where ETS and building both don't have pumping.<br>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2912#issuecomment-1324375700\">#2912</a>.
 </li>

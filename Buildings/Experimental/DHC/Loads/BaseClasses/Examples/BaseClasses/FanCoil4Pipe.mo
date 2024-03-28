@@ -18,9 +18,9 @@ equation
     Documentation(
       info="<html>
 <p>
-This is a simplified model of a sensible only four-pipe fan coil unit for heating and cooling. 
+This is a simplified model of a sensible only four-pipe fan coil unit for heating and cooling.
 It is intended to be coupled to a room model by means of fluid ports.
-See 
+See
 <a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.Examples.BaseClasses.PartialFanCoil4Pipe\">
 Buildings.Experimental.DHC.Loads.BaseClasses.Examples.BaseClasses.PartialFanCoil4Pipe</a>
 for a description of the modeling principles.

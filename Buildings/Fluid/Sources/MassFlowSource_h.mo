@@ -5,14 +5,14 @@ model MassFlowSource_h
 
   parameter Boolean use_m_flow_in = false
     "Get the mass flow rate from the input connector"
-    annotation(Evaluate=true, HideResult=true, Dialog(group="Conditional inputs"));
+    annotation(Evaluate=true, Dialog(group="Conditional inputs"));
   parameter Modelica.Units.SI.MassFlowRate m_flow=0
     "Fixed mass flow rate going out of the fluid port"
     annotation (Dialog(enable=not use_m_flow_in, group="Fixed inputs"));
 
   parameter Boolean use_h_in= false
     "Get the specific enthalpy from the input connector"
-    annotation(Evaluate=true, HideResult=true, Dialog(group="Conditional inputs"));
+    annotation(Evaluate=true, Dialog(group="Conditional inputs"));
   parameter Medium.SpecificEnthalpy h = Medium.h_default
     "Fixed value of specific enthalpy"
     annotation (Dialog(enable = not use_h_in, group="Fixed inputs"));
@@ -100,6 +100,12 @@ with exception of boundary flow rate, do not have an effect.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 11, 2024, by Michael Wetter:<br/>
+Corrected use of <code>HideResult</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1850\">#1850</a>.
+</li>
 <li>
 February 2nd, 2018 by Filip Jorissen<br/>
 Made <code>medium</code> conditional and refactored inputs.

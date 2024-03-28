@@ -1,5 +1,5 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.Cooling.Examples;
-model Direct "Example model for direct cooling energy transfer station 
+model Direct "Example model for direct cooling energy transfer station
   with in-building pumping and controlled district return temperature"
   extends Modelica.Icons.Example;
   package Medium=Buildings.Media.Water
@@ -91,7 +91,7 @@ model Direct "Example model for direct cooling energy transfer station
     "Multiplier gain for calculating m_flow"
     annotation (Placement(transformation(extent={{0,80},{20,100}})));
 equation
-  connect(TSetDisRet_min.y, cooETS.TSetDisRet)
+  connect(TSetDisRet_min.y,cooETS.TDisRetSet)
     annotation (Line(points={{-99,-10},{-0.6,-10}}, color={0,0,127}));
   connect(TDisSupNoi.y, souDis.T_in)
     annotation (Line(points={{-99,-66},{-62,-66}}, color={0,0,127}));
@@ -139,10 +139,10 @@ equation
       StopTime=86400,
       Tolerance=1e-06),
     Documentation(info="<html>
-<p>This model provides an example for the direct cooling energy transfer station 
-model, which contains in-building pumping and controls the district return 
-temperature. The building's primary variable speed pump is modulated depending 
-on the total cooling load and prescribed deltaT. Variation in the district 
+<p>This model provides an example for the direct cooling energy transfer station
+model, which contains in-building pumping and controls the district return
+temperature. The building's primary variable speed pump is modulated depending
+on the total cooling load and prescribed deltaT. Variation in the district
 supply temperature is modeled as a sinusoidal signal to test the response of system.
 </p>
 </html>",
@@ -150,10 +150,10 @@ supply temperature is modeled as a sinusoidal signal to test the response of sys
 <ul>
 <li>
 December 23, 2022, by Kathryn Hinkelman:<br/>
-Removed extraneous <code>m*_flow_nominal</code> parameters because 
+Removed extraneous <code>m*_flow_nominal</code> parameters because
 <code>mBui_flow_nominal</code> can be used across all components.
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2912\">#2912</a>.
-</li> 
+</li>
 <li>November 15, 2022, by Kathryn Hinkelman:<br/>
 Corrected pressure balance across bypass leg and system.
 </li>

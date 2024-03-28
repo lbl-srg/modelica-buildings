@@ -26,11 +26,11 @@ equation
     Documentation(info="<html>
 <p>
 Indirect cooling energy transfer station (ETS) model that controls the
-building chilled water supply temperature by modulating a primary control valve 
-on the district supply side. The design is based on a typical district cooling 
-ETS described in ASHRAE's <a href=\"https://www.ashrae.org/technical-resources/bookstore/district-heating-and-cooling-guides\">District Cooling Guide</a>. 
-As shown in the figure below, the building pumping design (constant/variable) 
-is specified on the building side and not within the ETS. 
+building chilled water supply temperature by modulating a primary control valve
+on the district supply side. The design is based on a typical district cooling
+ETS described in ASHRAE's <a href=\"https://www.ashrae.org/technical-resources/bookstore/district-heating-and-cooling-guides\">District Cooling Guide</a>.
+As shown in the figure below, the building pumping design (constant/variable)
+is specified on the building side and not within the ETS.
 </p>
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Experimental/DHC/EnergyTransferStations/Cooling/Indirect.png\" alt=\"DHC.ETS.Indirect\"/>
@@ -38,8 +38,8 @@ is specified on the building side and not within the ETS.
 <h4>Reference</h4>
 <p>
 American Society of Heating, Refrigeration and Air-Conditioning Engineers. (2019).
-Chapter 5: End User Interface. In <i>District Cooling Guide</i>, Second Edition and 
-<i>Owner's Guide for Buildings Served by District Cooling</i>. 
+Chapter 5: End User Interface. In <i>District Cooling Guide</i>, Second Edition and
+<i>Owner's Guide for Buildings Served by District Cooling</i>.
 </p>
 </html>",
       revisions="<html>

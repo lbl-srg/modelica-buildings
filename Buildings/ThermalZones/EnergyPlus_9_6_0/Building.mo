@@ -13,8 +13,6 @@ model Building
   final constant String modelicaNameBuilding=getInstanceName()
     "Name of this instance"
     annotation (HideResult=true);
-  constant Real relativeSurfaceTolerance(min=1E-20) = 1E-6
-    "Relative tolerance of surface temperature calculations";
 
   constant Boolean usePrecompiledFMU=false
     "Set to true to use pre-compiled FMU with name specified by fmuName";
@@ -39,6 +37,10 @@ model Building
 
   parameter Boolean computeWetBulbTemperature=true
     "If true, then this model computes the wet bulb temperature"
+    annotation (Dialog(tab="Advanced"));
+
+  parameter Real relativeSurfaceTolerance(min=1E-12) = 1E-7
+    "Relative tolerance of surface temperature calculations"
     annotation (Dialog(tab="Advanced"));
 
   parameter Boolean printUnits=true
@@ -147,9 +149,36 @@ must be provided. When starting the simulation, EnergyPlus will
 be run with the weather file whose name is identical to <code>epwName</code>,
 while Modelica will use the file specified by <code>weaName</code>.
 </p>
+<p>
+To configure models that connect components for radiative heat exchange to the thermal zone model,
+the parameter <code>relativeSurfaceTolerance</code> in the <i>Advanced</i> tab may have to be tightended.
+See the section <i>Notes about modeling components that are connected to the radiative heat port</i>
+in the model
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone\">
+Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone</a>
+for details.
+</p>
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 16, 2024, by Michael Wetter:<br/>
+Increased the default value for <code>relativeSurfaceTolerance</code>.
+This is required for
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Radiator\">
+Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Radiator</a>
+with OpenModelica. This model forms a nonlinear equation between the radiator temperature,
+which is used to compute the radiative heat flow rate between radiator and room radiative temperature, and the
+room surface temperature. The radiator temperature is computed in Modelica and the room surface
+temperature is computed in EnergyPlus. The latter requires the iterative solution of the
+radiative heat balance equation. Hence, evaluating the residuals for this nonlinear equation
+requires an iteration in EnergyPlus.
+As a rule of thumb, such nested solvers require one order of magnitude higher precision for the inner
+solver. As Modelica models are often solved for a tolerance of <code>1E-6</code>, the default value
+for <code>relativeSurfaceTolerance</code> has been set to 1E-8.<br/>
+This was required for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3707\">#3707</a>.
+</li>
 <li>
 November 18, 2021, by Michael Wetter:<br/>
 Removed parameters <code>showWeatherData</code> and <code>generatePortableFMU</code>.
