@@ -43,8 +43,8 @@ OBJS = advection.o boundary.o chen_zero_equ_model.o cosimulation.o \
 LIB = libisat.so
 # LIBS = -lpthread -lc -lgfortran -llapack -lblas
 # LIBS = -pthread -lc -lgfortran -llapack -lblas
-# LIBS = -lc -lgfortran -lblas
-LIBS = -lpthread -lc -lgfortran
+LIBS = -lpthread -lc -lgfortran -llapack
+# LIBS = -lpthread -lc -lgfortran
 # LIBS = -lc -lgfortran
 
 # Note that -fPIC is recommended on Linux according to the Modelica specification
