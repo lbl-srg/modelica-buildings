@@ -142,7 +142,7 @@ model ChillerDXHeatingEconomizer
     "Heating efficiency"
     annotation (Placement(transformation(extent={{120,110},{140,130}})));
   Buildings.Fluid.Sources.Outside out(
-    final C=fill(0.0004, 1),
+    final C=fill(0.0004, MediumA.nC),
     final nPorts=3,
     redeclare package Medium = MediumA)
     "Boundary conditions for outside air"
@@ -624,6 +624,10 @@ feedback control of damper positions. The cooling coil is a dry coil model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 27, 2024, by Michael Wetter:<br/>
+Corrected wrong assignment of <code>out.C</code>.
+</li>
 <li>
 February 25, 2021, by Baptiste Ravache:<br/>
 Inverse the sign of <code>cooCoi.Q_flow_nominal</code> to respect the heat flow convention.
