@@ -1,0 +1,231 @@
+within Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses;
+model Performance
+  "Model calculates the outlet condition of the process air through a desiccant dehumidifier"
+    extends Modelica.Blocks.Icons.Block;
+
+  parameter Real vPro_nominal(
+     final unit="m/s")
+    "Nominal velocity of the process air";
+  parameter Modelica.Units.SI.VolumeFlowRate VPro_flow_nominal
+    "Nominal volumetric flow rate of the process air";
+  parameter Real vReg_nominal(
+     final unit="m/s")
+    "Nominal velocity of the regeneration air";
+  parameter Modelica.Units.SI.VolumeFlowRate VReg_flow_nominal
+    "Nominal volumetric flow rate of the regeneration air";
+  parameter Modelica.Units.SI.HeatFlowRate QReg_flow_nominal
+    "Nominal regeneration heating capacity";
+  parameter Buildings.Fluid.Dehumidifiers.Desiccant.Data.Generic per
+    "Performance data"
+    annotation (Placement(transformation(extent={{60,64},{80,84}})));
+  Modelica.Blocks.Interfaces.BooleanInput onDeh
+    "Set to true to enable the dehumidification process" annotation (Placement(
+        transformation(extent={{-124,68},{-100,92}}), iconTransformation(extent=
+           {{-120,72},{-100,92}})));
+  Modelica.Blocks.Interfaces.RealInput TProEnt(
+    final unit="K")
+    "Temperature of the process air entering the dehumidifier"
+     annotation (Placement(transformation(extent={{-124,28},{-100,52}}),
+     iconTransformation(extent={{-120,32},{-100,52}})));
+  Modelica.Blocks.Interfaces.RealInput X_w_ProEnt(
+     final unit="1")
+    "Humidity ratio of the process air entering the dehumidifier"
+    annotation (Placement(transformation(
+    extent={{-124,-54},{-100,-30}}),iconTransformation(extent={{-120,-50},
+    {-100,-30}})));
+  Modelica.Blocks.Interfaces.RealInput VPro_flow(
+     final unit="m3/s")
+     "Volumetric  flow rate of the process air"
+     annotation (Placement(transformation(
+          extent={{-124,-92},{-100,-68}}),
+          iconTransformation(extent={{-120,-92},{-100,-72}})));
+  Modelica.Blocks.Interfaces.RealInput mPro_flow(
+    final unit="kg/s")
+    "Mass flow rate of the process air" annotation (Placement(transformation(
+        extent={{-12,-12},{12,12}},
+        rotation=90,
+        origin={0,-112}),   iconTransformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={0,-110})));
+  Modelica.Blocks.Interfaces.RealInput TRegEnt(
+    final unit="K")
+    "Temperature of the regeneration air entering the dehumidifier" annotation (
+     Placement(transformation(extent={{-124,-14},{-100,10}}),
+        iconTransformation(extent={{-120,-10},{-100,10}})));
+  Modelica.Blocks.Interfaces.RealOutput TProLea(
+    final unit="K")
+    "Temperature of the process air leaving the dehumidifier" annotation (
+      Placement(transformation(extent={{100,70},{120,90}}), iconTransformation(
+          extent={{100,70},{120,90}})));
+  Modelica.Blocks.Interfaces.RealOutput X_w_ProLea(
+    final unit="1")
+    "Humidity ratio of the process air leaving the dehumidifier"
+     annotation (Placement(transformation(extent={{100,30},{120,50}}),
+     iconTransformation(extent={{100,30},{120,50}})));
+  Modelica.Blocks.Interfaces.RealOutput VReg_flow(final unit="m3/s")
+    "Volumetric flow rate of the regeneration air" annotation (Placement(transformation(
+          extent={{100,-50},{120,-30}}), iconTransformation(extent={{100,-50},{120,
+            -30}})));
+  Modelica.Blocks.Interfaces.RealOutput yQReg(final unit="1")
+    "Regeneration heating output ratio" annotation (Placement(transformation(
+          extent={{100,-90},{120,-70}}), iconTransformation(extent={{100,-90},{120,
+            -70}})));
+protected
+  Real CpReg(final unit="J/kg")
+    "Specific regeneration energy";
+
+equation
+  if onDeh then
+    // Check the inlet condition of the process inlet condition.
+    assert(TProEnt <= per.TProEnt_max and TProEnt >= per.TProEnt_min,
+    "In " + getInstanceName() + ": temperature of the process air entering the dehumidifier in 
+    the range that is defined in the performance curve.",
+    level=AssertionLevel.error);
+     assert(X_w_ProEnt <= per.X_w_ProEnt_max and X_w_ProEnt >= per.X_w_ProEnt_min,
+    "In " + getInstanceName() + ": humidity ratio of the process air entering the dehumidifier in 
+    the range that is defined in the performance curve.",
+    level=AssertionLevel.error);
+    VReg_flow =
+      Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.performanceCurve(
+      TProEnt=TProEnt,
+      X_w_ProEnt=X_w_ProEnt,
+      vPro=VPro_flow/VPro_flow_nominal*vPro_nominal,
+      a=per.vRegCoe)/vReg_nominal*VReg_flow_nominal;
+     assert(VReg_flow < VReg_flow_nominal,
+     "In " + getInstanceName() + ": regeneration flow rate is not sufficient.",
+     level=AssertionLevel.error);
+    TProLea = Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.performanceCurve(
+        TProEnt = TProEnt,
+        X_w_ProEnt = X_w_ProEnt,
+        vPro = VPro_flow/VPro_flow_nominal*vPro_nominal,
+        a = per.TProLeaCoe) + 273.15;
+    X_w_ProLea = Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.performanceCurve(
+        TProEnt = TProEnt,
+        X_w_ProEnt = X_w_ProEnt,
+        vPro = VPro_flow/VPro_flow_nominal*vPro_nominal,
+        a = per.X_w_ProLeaCoe);
+    assert(X_w_ProLea > 0,
+     "In " + getInstanceName() + ": humidity ratio of the process air leaving 
+     the dehumidifier becomes negative.",
+     level=AssertionLevel.error);
+     CpReg = Buildings.Utilities.Math.Functions.smoothMax(
+        x1 = Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.performanceCurve(
+                TProEnt = TProEnt,
+                X_w_ProEnt = X_w_ProEnt,
+                vPro = VPro_flow/VPro_flow_nominal*vPro_nominal,
+                a = per.QReg_flowCoe),
+        x2 = 0,
+        deltaX = 0.01);
+    yQReg = CpReg*(X_w_ProEnt - X_w_ProLea)*mPro_flow*(per.TRegEnt_nominal -
+      TRegEnt)/(per.TRegEnt_nominal - TProEnt)/QReg_flow_nominal;
+    assert(yQReg < 1,
+     "In " + getInstanceName() + ": regeneration heating output is not sufficient.",
+     level=AssertionLevel.error);
+  else
+    //No dehumidification occurs.
+    TProLea = TProEnt;
+    X_w_ProLea = X_w_ProEnt;
+    VReg_flow = 0;
+    CpReg = 0;
+    yQReg = 0;
+  end if;
+  annotation (
+  defaultComponentName="dehPer",
+  Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>
+This model calculates the outlet condition of the process air of a desiccant dehumidifier based on
+the inlet condition of the process air.
+Specifically, this calculation is configured as follows.
+</p>
+<ul>
+ <li>
+ If the dehumidification signal <code>onDeh=true</code>,
+ <ul>
+  <li>
+  The inlet condition, in terms of temperature and humidity ratio, is compared
+  to the corresponding limits in the performance curves of the desiccant dehumidifier.
+  Those performance curves are defined in <a href=\"modelica://Buildings.Fluid.Dehumidifiers.Desiccant.Data.Generic\"> 
+  Buildings.Fluid.Dehumidifiers.Desiccant.Data.Generic</a>.
+  <ul>
+     <li>
+     If the inlet condition is beyond the limits, the calculation is terminated and an error is generated.
+     </li>
+  </ul>
+  </li>
+  <li>
+  The velocity of the regeneration air is calculated based on the temperature, the humidity ratio, 
+  and the velocity of the process air entering the desiccant dehumidifier.
+  When performing the calculation, an empirical formulation, as defined in
+  <a href=\"modelica://Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.performanceCurve\">
+  Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.performanceCurve</a>, and coefficients, 
+  as defined in <a href=\"modelica://Buildings.Fluid.Dehumidifiers.Desiccant.Data.Generic\">
+  Buildings.Fluid.Dehumidifiers.Desiccant.Data.Generic</a>, are employed.
+  Based on this velocity, the volumetric flow rate of the regeneration air is then obtained.
+  </li>
+  <li>
+  The temperature of the process air leaving the dehumidifier, <code>TProLea</code>, and
+  the humidity ratio of the process air leaving the dehumidifier, <code>X_w_ProLea</code>,
+  are calculated with the same method as that for calculating <code>vReg</code>.
+  However, different sets of coefficients are used respectively.
+  <ul>
+     <li>
+     If <code>X_w_ProLea</code> is less than 0,
+     the calculation is terminated and an error is generated.
+     </li>
+  </ul>
+  </li>
+  <li>
+  The specific heat of the regeneration, <code>CpReg</code>, and
+  the humidity ratio of the process air leaving the dehumidifier, <code>X_w_ProLea</code>,
+  are calculated with the same method as that for calculating <code>vReg</code>.
+  However, a different set of coefficients is used.
+  After that, the regeneration heating output ratio, <code>yQReg</code>, is calculated by
+  <p align=\"center\" style=\"font-style:italic;\">
+   yQReg = CpReg*(X_w_ProEnt-X_w_ProLea)*mPro_flow*(TRegEnt_nominal - TRegEnt) / (TRegEnt_nominal - TProEnt)/
+   QReg_flow_nominal
+  </p> 
+  where <code>X_w_ProEnt</code>, <code>mPro_flow</code>, and <code>TProEnt</code> are the humiditiy ratio,
+  the flow rate, and the temperature of the process air entering the dehumidifier;
+  <code>TRegEnt_nominal</code> and <code>TRegEnt</code> are the nominal temperature and the actual temperature
+  of the regeneration air entering the dehumidifier.<code>QReg_flow_nominal</code> is the nominal regeneration 
+  heating capacity.
+  <ul>
+     <li>
+     If <code>yQReg</code> is larger than 0,
+     the calculation is terminated and an error is generated.
+     </li>
+  </ul>
+  </li>
+ </ul>
+ </li>
+
+ <li>
+ Otherwise, 
+ <ul>
+  <li>
+  The outlet condition of the process air is the same as the inlet condition of the process air.
+  </li>
+  <li>
+  <code>QReg_flow</code> and <code>vReg</code> are set to be 0.
+  </li>
+ </ul>
+ </li>
+
+</ul>
+<h4>References</h4>
+<ul>
+<li>
+<a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v22.1.0/EngineeringReference.pdf\">
+EnergyPlus v22.1.0 Engineering Reference</a>
+</li>
+</ul>
+ 
+</html>", revisions="<html>
+<ul>
+<li>March 1, 2024, by Sen Huang:<br/>First implementation. </li>
+</ul>
+</html>"));
+end Performance;
