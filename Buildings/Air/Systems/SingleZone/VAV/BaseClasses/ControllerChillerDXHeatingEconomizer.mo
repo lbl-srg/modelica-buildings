@@ -316,6 +316,11 @@ heating coil and a cooling coil.
 </html>", revisions="<html>
 <ul>
 <li>
+March 28, 2024, by David Blum:<br/>
+Adjust hysteresis based on heating to avoid chatter.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3735\">issue 3735</a>.
+</li>
+<li>
 November 20, 2020, by David Blum:<br/>
 Turn fan on when setup cooling required.
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2265\">issue 2265</a>.
