@@ -259,6 +259,14 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Air.Systems.SingleZone.VAV</b>
+    </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Air.Systems.SingleZone.VAV.BaseClasses.ControllerChillerDXHeatingEconomizer<br/>
+    </td>
+    <td valign=\"top\">Adjust hysteresis based on heating to avoid chatter.<br>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3735\">#3735</a>.
+    </td>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.FMI</b>
     </td>
     </tr>
@@ -273,7 +281,7 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Added missing causality which is required for language compliance and for
                        Wolfram System Modeler.<br/>
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1829\">IBPSA, #1829</a> and
-		       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1853\">IBPSA, #1853</a>.
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1853\">IBPSA, #1853</a>.
     </td>
     <tr><td colspan=\"2\"><b>Buildings.Fluid.Sensors.Examples</b>
     </td>
