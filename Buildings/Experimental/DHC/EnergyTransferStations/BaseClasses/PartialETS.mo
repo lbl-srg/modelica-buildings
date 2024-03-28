@@ -10,12 +10,12 @@ partial model PartialETS
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Service side medium at heating inlet"
     annotation(Dialog(enable=
-      typ == TypDisSys.CombinedGeneration1 or
-      typ == TypDisSys.HeatingGeneration1));
+      typ == Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration1 or
+      typ == Buildings.Experimental.DHC.Types.DistrictSystemType.HeatingGeneration1));
   replaceable package MediumBui=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Building side medium";
-  parameter TypDisSys typ = TypDisSys.CombinedGeneration2to4
+  parameter TypDisSys typ = Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration2to4
     "Type of district system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Integer nPorts_aHeaWat=0
@@ -136,7 +136,7 @@ partial model PartialETS
     redeclare package Medium = MediumSer,
     m_flow(min=if allowFlowReversalSer then -Modelica.Constants.inf else 0),
     h_outflow(start=MediumSer.h_default, nominal=MediumSer.h_default))
- if typ == TypDisSys.CombinedGeneration5
+ if typ == Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration5
     "Fluid connector for ambient water service supply line"
     annotation (
       Placement(transformation(extent={{-310,-210},{-290,-190}}),
@@ -145,7 +145,7 @@ partial model PartialETS
     redeclare package Medium = MediumSer,
     m_flow(max=if allowFlowReversalSer then +Modelica.Constants.inf else 0),
     h_outflow(start=MediumSer.h_default, nominal=MediumSer.h_default))
- if typ == TypDisSys.CombinedGeneration5
+ if typ == Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration5
     "Fluid connector for ambient water service return line"
     annotation (
       Placement(transformation(extent={{290,-210},{310,-190}}),
@@ -154,8 +154,8 @@ partial model PartialETS
     redeclare package Medium = MediumSerHea_a,
     m_flow(min=if allowFlowReversalSer then -Modelica.Constants.inf else 0),
     h_outflow(start=MediumSerHea_a.h_default, nominal=MediumSerHea_a.h_default))
- if typ <> TypDisSys.Cooling and
-    typ <> TypDisSys.CombinedGeneration5
+ if typ <> Buildings.Experimental.DHC.Types.DistrictSystemType.Cooling and
+    typ <> Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration5
     "Fluid connector for heating service supply line"
     annotation (Placement(
       transformation(extent={{-310,-250},{-290,-230}}), iconTransformation(
@@ -164,8 +164,8 @@ partial model PartialETS
     redeclare package Medium = MediumSer,
     m_flow(max=if allowFlowReversalSer then +Modelica.Constants.inf else 0),
     h_outflow(start=MediumSer.h_default, nominal=MediumSer.h_default))
- if typ <> TypDisSys.Cooling and
-    typ <> TypDisSys.CombinedGeneration5
+ if typ <> Buildings.Experimental.DHC.Types.DistrictSystemType.Cooling and
+    typ <> Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration5
     "Fluid connector for heating service return line"
     annotation (Placement(
         transformation(extent={{290,-250},{310,-230}}), iconTransformation(
@@ -174,18 +174,18 @@ partial model PartialETS
     redeclare package Medium = MediumSer,
     m_flow(min=if allowFlowReversalSer then -Modelica.Constants.inf else 0),
     h_outflow(start=MediumSer.h_default, nominal=MediumSer.h_default))
- if typ == TypDisSys.CombinedGeneration1 or
-    typ == TypDisSys.CombinedGeneration2to4 or
-    typ == TypDisSys.Cooling
+ if typ == Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration1 or
+    typ == Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration2to4 or
+    typ == Buildings.Experimental.DHC.Types.DistrictSystemType.Cooling
     "Fluid connector for cooling service supply line"
     annotation (Placement(transformation(extent={{-310,-290},{-290,-270}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bSerCoo(
     redeclare package Medium = MediumSer,
     m_flow(max=if allowFlowReversalSer then +Modelica.Constants.inf else 0),
     h_outflow(start=MediumSer.h_default, nominal=MediumSer.h_default))
- if typ == TypDisSys.CombinedGeneration1 or
-    typ == TypDisSys.CombinedGeneration2to4 or
-    typ == TypDisSys.Cooling
+ if typ == Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration1 or
+    typ == Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration2to4 or
+    typ == Buildings.Experimental.DHC.Types.DistrictSystemType.Cooling
     "Fluid connector for cooling service return line"
     annotation (Placement(
       transformation(extent={{290,-290},{310,-270}}), iconTransformation(
@@ -322,36 +322,36 @@ First implementation.
           pattern=LinePattern.None,
           fillColor={255,0,0},
           fillPattern=FillPattern.Solid,
-          visible=typ <> TypDisSys.Cooling and typ <> TypDisSys.CombinedGeneration5),
+          visible=typ <> Buildings.Experimental.DHC.Types.DistrictSystemType.Cooling and typ <> Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration5),
         Rectangle(
           extent={{20,-288},{300,-272}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid,
-          visible=typ == TypDisSys.CombinedGeneration1 or typ == TypDisSys.CombinedGeneration2to4
-               or typ == TypDisSys.Cooling),
+          visible=typ == Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration1 or typ == Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration2to4
+               or typ == Buildings.Experimental.DHC.Types.DistrictSystemType.Cooling),
         Rectangle(
           extent={{-300,-208},{-100,-192}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,255,255},
           fillPattern=FillPattern.Solid,
-          visible=typ == TypDisSys.CombinedGeneration5),
+          visible=typ == Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration5),
         Rectangle(
           extent={{100,-208},{300,-192}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,255,255},
           fillPattern=FillPattern.Solid,
-          visible=typ == TypDisSys.CombinedGeneration5),
+          visible=typ == Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration5),
         Rectangle(
           extent={{-25,-8},{25,8}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,255,255},
           fillPattern=FillPattern.Solid,
-          visible=typ == TypDisSys.CombinedGeneration5,
+          visible=typ == Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration5,
           origin={108,-167},
           rotation=90),
         Rectangle(
@@ -360,7 +360,7 @@ First implementation.
           pattern=LinePattern.None,
           fillColor={0,255,255},
           fillPattern=FillPattern.Solid,
-          visible=typ == TypDisSys.CombinedGeneration5,
+          visible=typ == Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration5,
           origin={-108,-167},
           rotation=90),
         Rectangle(
@@ -369,14 +369,14 @@ First implementation.
           pattern=LinePattern.None,
           fillColor={255,0,0},
           fillPattern=FillPattern.Solid,
-          visible=typ <> TypDisSys.Cooling and typ <> TypDisSys.CombinedGeneration5),
+          visible=typ <> Buildings.Experimental.DHC.Types.DistrictSystemType.Cooling and typ <> Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration5),
         Rectangle(
           extent={{-45,-8},{45,8}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={255,0,0},
           fillPattern=FillPattern.Solid,
-          visible=typ <> TypDisSys.Cooling and typ <> TypDisSys.CombinedGeneration5,
+          visible=typ <> Buildings.Experimental.DHC.Types.DistrictSystemType.Cooling and typ <> Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration5,
           origin={66,-187},
           rotation=90),
         Rectangle(
@@ -385,7 +385,7 @@ First implementation.
           pattern=LinePattern.None,
           fillColor={255,0,0},
           fillPattern=FillPattern.Solid,
-          visible=typ <> TypDisSys.Cooling and typ <> TypDisSys.CombinedGeneration5,
+          visible=typ <> Buildings.Experimental.DHC.Types.DistrictSystemType.Cooling and typ <> Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration5,
           origin={-66,-187},
           rotation=90),
         Rectangle(
@@ -394,8 +394,8 @@ First implementation.
           pattern=LinePattern.None,
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid,
-          visible=typ == TypDisSys.CombinedGeneration1 or typ == TypDisSys.CombinedGeneration2to4
-               or typ == TypDisSys.Cooling,
+          visible=typ == Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration1 or typ == Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration2to4
+               or typ == Buildings.Experimental.DHC.Types.DistrictSystemType.Cooling,
           origin={28,-207},
           rotation=90),
         Rectangle(
@@ -404,16 +404,16 @@ First implementation.
           pattern=LinePattern.None,
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid,
-          visible=typ == TypDisSys.CombinedGeneration1 or typ == TypDisSys.CombinedGeneration2to4
-               or typ == TypDisSys.Cooling),
+          visible=typ == Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration1 or typ == Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration2to4
+               or typ == Buildings.Experimental.DHC.Types.DistrictSystemType.Cooling),
         Rectangle(
           extent={{-65,-8},{65,8}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid,
-          visible=typ == TypDisSys.CombinedGeneration1 or typ == TypDisSys.CombinedGeneration2to4
-               or typ == TypDisSys.Cooling,
+          visible=typ == Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration1 or typ == Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration2to4
+               or typ == Buildings.Experimental.DHC.Types.DistrictSystemType.Cooling,
           origin={-30,-207},
           rotation=90),
         Rectangle(

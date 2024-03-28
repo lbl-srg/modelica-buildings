@@ -61,7 +61,8 @@ model PartialDirect
      final unit="K",
      displayUnit="degC")
     "Setpoint for the district return temperature (min for cooling, max for heating)"
-    annotation (Placement(transformation(extent={{-338,-20},{-298,20}})));
+    annotation (Placement(transformation(extent={{-340,-20},{-300,20}}),
+        iconTransformation(extent={{-340,-20},{-300,20}})));
   Modelica.Blocks.Interfaces.RealOutput Q_flow(
     final quantity="HeatFlowRate",
     final unit="W",
@@ -76,8 +77,8 @@ model PartialDirect
     displayUnit="kW.h")
     "Measured energy consumption at the ETS"
      annotation (Placement(transformation(
-          extent={{300,-180},{340,-140}}), iconTransformation(extent={{300,-130},
-            {340,-90}})));
+          extent={{300,-180},{340,-140}}), iconTransformation(extent={{300,-180},
+            {340,-140}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTDisSup(
     redeclare final package Medium=MediumSer,
     final m_flow_nominal=mBui_flow_nominal)
@@ -198,7 +199,7 @@ equation
     annotation (Line(points={{-170,-269},{-172,-269},{-172,-184},{60,-184},{60,-110},
           {78,-110}},                                            color={0,0,127}));
   connect(TDisRetSet, con.u_s)
-    annotation (Line(points={{-318,0},{-272,0},{-272,250},{-222,250}},
+    annotation (Line(points={{-320,0},{-272,0},{-272,250},{-222,250}},
                                                                      color={0,0,127}));
   connect(senTBuiRet.T, con.u_m)
     annotation (Line(points={{-210,211},{-210,238}},color={0,0,127}));

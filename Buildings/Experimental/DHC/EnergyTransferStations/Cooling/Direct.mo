@@ -3,7 +3,7 @@ model Direct "Direct cooling ETS model for district energy systems with in-build
   pumping and deltaT control"
   extends
     Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.PartialDirect(
-      final typ=DHC.Types.DistrictSystemType.Cooling,
+      final typ=Buildings.Experimental.DHC.Types.DistrictSystemType.Cooling,
       final have_chiWat=true,
       final have_heaWat=false,
       con(reverseActing=false),

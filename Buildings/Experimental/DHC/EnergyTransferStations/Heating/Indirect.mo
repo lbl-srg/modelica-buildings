@@ -4,7 +4,7 @@ model Indirect
   extends
     Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.PartialIndirect(
       QHeaWat_flow_nominal=Q_flow_nominal,
-      final typ=DHC.Types.DistrictSystemType.HeatingGeneration2to4,
+      final typ=Buildings.Experimental.DHC.Types.DistrictSystemType.HeatingGeneration2to4,
       final have_chiWat=false,
       final have_heaWat=true,
       Q_flow_nominal(min=0),

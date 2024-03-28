@@ -4,7 +4,7 @@ model Indirect
   extends
     Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.PartialIndirect(
       QChiWat_flow_nominal=-Q_flow_nominal,
-      final typ=DHC.Types.DistrictSystemType.Cooling,
+      final typ=Buildings.Experimental.DHC.Types.DistrictSystemType.Cooling,
       final have_chiWat=true,
       final have_heaWat=false,
       Q_flow_nominal(max=0),
