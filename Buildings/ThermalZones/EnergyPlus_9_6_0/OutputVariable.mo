@@ -91,7 +91,6 @@ equation
   when {initial(),time >= pre(tNext)} then
     yEP=Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.exchange(
       adapter=adapter,
-      initialCall=false,
       nY=nY,
       u={round(time,1E-3),directDependency_in_internal},
       dummy=nObj);
