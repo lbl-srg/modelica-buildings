@@ -2,14 +2,14 @@ within Buildings.Fluid.Humidifiers.Validation;
 model DXDehumidifier "Validation model for DX dehumidifier"
   extends Modelica.Icons.Example;
 
+  package Medium = Buildings.Media.Air
+    "Fluid medium";
+
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=0.13545
     "Nominal mass flow rate";
 
   parameter Modelica.Units.SI.Time tStepAve = 3600
     "Time-step used to average out Modelica results for comparison with EPlus results";
-
-  package Medium = Buildings.Media.Air
-    "Fluid medium";
 
   parameter Buildings.Fluid.Humidifiers.Examples.Data.DXDehumidifier per
     "Zone air DX dehumidifier curve"

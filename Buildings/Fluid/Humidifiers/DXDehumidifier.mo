@@ -44,7 +44,6 @@ model DXDehumidifier "DX dehumidifier"
 
   Modelica.Blocks.Interfaces.RealOutput P(
     final unit="W",
-    displayUnit="W",
     final quantity="Power")
     "Power consumption rate"
     annotation (Placement(transformation(extent={{100,-50},{140,-10}}),
