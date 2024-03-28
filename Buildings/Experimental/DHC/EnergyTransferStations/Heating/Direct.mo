@@ -43,6 +43,11 @@ Chapter 5: Consumer Interconnection. In <i>District Heating Guide</i>.
       revisions="<html>
 <ul>
 <li>
+March 27, 2024, by David Blum:<br/>
+Update icon and fix port orientation to align with convention.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3606\">issue #3606</a>.
+</li>
+<li>
 January 8, 2024, by David Blum:<br/>
 Correct documentation to describe heating.
 This is for
@@ -54,5 +59,126 @@ April 7, 2023, by David Blum:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Icon(graphics={
+        Rectangle(
+          extent={{-27,-8},{27,8}},
+          lineColor={238,46,47},
+          pattern=LinePattern.None,
+          fillColor={238,46,47},
+          fillPattern=FillPattern.Solid,
+          origin={-66,71},
+          rotation=90),
+        Rectangle(
+          extent={{-8,67},{8,-67}},
+          lineColor={238,46,47},
+          pattern=LinePattern.None,
+          fillColor={238,46,47},
+          fillPattern=FillPattern.Solid,
+          origin={3,-28},
+          rotation=90),
+        Rectangle(
+          extent={{-41,-8},{41,8}},
+          lineColor={238,46,47},
+          pattern=LinePattern.None,
+          fillColor={238,46,47},
+          fillPattern=FillPattern.Solid,
+          origin={30,57},
+          rotation=90),
+        Rectangle(
+          extent={{-88,8},{88,-8}},
+          lineColor={238,46,47},
+          pattern=LinePattern.None,
+          fillColor={238,46,47},
+          fillPattern=FillPattern.Solid,
+          origin={66,52},
+          rotation=90),
+        Rectangle(
+          extent={{-8,26},{8,-26}},
+          lineColor={238,46,47},
+          pattern=LinePattern.None,
+          fillColor={238,46,47},
+          fillPattern=FillPattern.Solid,
+          origin={-48,90},
+          rotation=90),
+        Rectangle(
+          extent={{-21,-9},{21,9}},
+          lineColor={238,46,47},
+          pattern=LinePattern.None,
+          fillColor={238,46,47},
+          fillPattern=FillPattern.Solid,
+          origin={-49,119},
+          rotation=90),
+        Rectangle(
+          extent={{-12,-8},{12,8}},
+          lineColor={238,46,47},
+          pattern=LinePattern.None,
+          fillColor={238,46,47},
+          fillPattern=FillPattern.Solid,
+          origin={30,-84},
+          rotation=90),
+        Rectangle(
+          extent={{-7,21},{7,-21}},
+          lineColor={238,46,47},
+          pattern=LinePattern.None,
+          fillColor={238,46,47},
+          fillPattern=FillPattern.Solid,
+          origin={43,-99},
+          rotation=90),
+        Rectangle(
+          extent={{-25,8},{25,-8}},
+          lineColor={238,46,47},
+          pattern=LinePattern.None,
+          fillColor={238,46,47},
+          fillPattern=FillPattern.Solid,
+          origin={66,-117},
+          rotation=90),
+        Polygon(
+          points={{10,-14},{10,14},{-10,0},{10,-14}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid,
+          origin={-18,90},
+          rotation=180),
+        Polygon(
+          points={{10,-14},{10,14},{-10,0},{10,-14}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid,
+          origin={2,90},
+          rotation=360),
+        Rectangle(
+          extent={{-8,8},{8,-8}},
+          lineColor={238,46,47},
+          pattern=LinePattern.None,
+          fillColor={238,46,47},
+          fillPattern=FillPattern.Solid,
+          origin={20,90},
+          rotation=90),
+        Rectangle(
+          extent={{-8,16},{8,-16}},
+          lineColor={238,46,47},
+          pattern=LinePattern.None,
+          fillColor={238,46,47},
+          fillPattern=FillPattern.Solid,
+          origin={56,132},
+          rotation=90),
+        Polygon(
+          points={{10,-14},{10,14},{-10,0},{10,-14}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid,
+          origin={-66,34},
+          rotation=90),
+        Rectangle(
+          extent={{-83,-8},{83,8}},
+          lineColor={238,46,47},
+          pattern=LinePattern.None,
+          fillColor={238,46,47},
+          fillPattern=FillPattern.Solid,
+          origin={-66,-59},
+          rotation=90)}));
 end Direct;

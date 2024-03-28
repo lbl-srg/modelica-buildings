@@ -221,17 +221,17 @@ equation
   end if;
 
   connect(chi.port_bHeaWat,colHeaWat.ports_aCon[2])
-    annotation (Line(points={{-10,0},{-108,0},{-108,-24}},color={0,127,255}));
+    annotation (Line(points={{10,0},{20,0},{20,10},{-108,10},{-108,-24}},color={0,127,255}));
   connect(chi.port_aHeaWat,colHeaWat.ports_bCon[2])
-    annotation (Line(points={{-10,-12},{-132,-12},{-132,-24}},color={0,127,255}));
+    annotation (Line(points={{-10,0},{-132,0},{-132,-24}},color={0,127,255}));
   connect(chi.port_bChiWat,colChiWat.ports_aCon[2])
-    annotation (Line(points={{10,0},{108,0},{108,-24}},color={0,127,255}));
+    annotation (Line(points={{-10,-12},{-20,-12},{-20,-20},{108,-20},{108,-24}},color={0,127,255}));
   connect(colChiWat.ports_bCon[2],chi.port_aChiWat)
-    annotation (Line(points={{132,-24},{132,-12},{10,-12},{10,-12}},color={0,127,255}));
+    annotation (Line(points={{132,-24},{132,-12},{10,-12}},color={0,127,255}));
   connect(conSup.TChiWatSupSet,chi.TChiWatSupSet)
     annotation (Line(points={{-238,17},{-26,17},{-26,-8},{-12,-8}},color={0,0,127}));
   connect(chi.PPum,totPPum.u[2])
-    annotation (Line(points={{12,-8},{20,-8},{20,-58},{258,-58},{258,-60}},color={0,0,127}));
+    annotation (Line(points={{12,-8},{30,-8},{30,-58},{258,-58},{258,-60}},color={0,0,127}));
   connect(colAmbWat.ports_aCon[2],borFie.port_b)
     annotation (Line(points={{12,-116},{14,-116},{14,-220},{-60,-220}},color={0,127,255}));
   connect(colAmbWat.ports_bCon[2],borFie.port_a)
@@ -251,7 +251,7 @@ equation
   connect(zerPHea.y,totPHea.u[1])
     annotation (Line(points={{242,60},{258,60}},color={0,0,127}));
   connect(chi.PChi,totPCoo.u[1])
-    annotation (Line(points={{12,-4},{20,-4},{20,20},{258,20}},color={0,0,127}));
+    annotation (Line(points={{12,-4},{30,-4},{30,20},{258,20}},color={0,0,127}));
   connect(uHea,conSup.uHea)
     annotation (Line(points={{-320,100},{-290,100},{-290,31},{-262,31}},color={255,0,255}));
   connect(conSup.yHea,chi.uHea)
@@ -317,6 +317,11 @@ equation
       revisions="<html>
 <ul>
 <li>
+March 27, 2024, by David Blum:<br/>
+Update icon.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3606\">issue #3606</a>.
+</li>
+<li>
 April 30, 2021, by Michael Wetter:<br/>
 Reformulated replaceable class to avoid access of components that are not in the constraining type.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2471\">issue #2471</a>.
@@ -368,5 +373,270 @@ Buildings.Experimental.DHC.EnergyTransferStations.Combined.Controls.Reset</a>.
 <img alt=\"System schematics\"
 src=\"modelica://Buildings/Resources/Images/Experimental/DHC/EnergyTransferStations/Combined/ChillerBorefield.png\"/>
 </p>
-</html>"));
+</html>"),
+    Icon(graphics={
+        Rectangle(
+          extent={{-234,62},{-92,-64}},
+          lineColor={0,0,0},
+          fillColor={234,210,210},
+          fillPattern=FillPattern.Solid,
+          visible=have_borFie),
+        Ellipse(
+          extent={{-222,-4},{-166,-60}},
+          lineColor={0,0,0},
+          fillColor={223,188,190},
+          fillPattern=FillPattern.Forward,
+          visible=have_borFie),
+        Ellipse(
+          extent={{-216,-10},{-172,-54}},
+          lineColor={0,0,0},
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Forward,
+          visible=have_borFie),
+        Ellipse(
+          extent={{-222,56},{-166,0}},
+          lineColor={0,0,0},
+          fillColor={223,188,190},
+          fillPattern=FillPattern.Forward,
+          visible=have_borFie),
+        Ellipse(
+          extent={{-216,50},{-172,6}},
+          lineColor={0,0,0},
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Forward,
+          visible=have_borFie),
+        Ellipse(
+          extent={{-160,56},{-104,0}},
+          lineColor={0,0,0},
+          fillColor={223,188,190},
+          fillPattern=FillPattern.Forward,
+          visible=have_borFie),
+        Ellipse(
+          extent={{-154,50},{-110,6}},
+          lineColor={0,0,0},
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Forward,
+          visible=have_borFie),
+        Ellipse(
+          extent={{-162,-4},{-106,-60}},
+          lineColor={0,0,0},
+          fillColor={223,188,190},
+          fillPattern=FillPattern.Forward,
+          visible=have_borFie),
+        Ellipse(
+          extent={{-156,-10},{-112,-54}},
+          lineColor={0,0,0},
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Forward,
+          visible=have_borFie),
+        Rectangle(
+          extent={{24,-42},{52,-14}},
+          lineColor={255,255,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-64,32},{-62,22}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-1.5,5.5},{1.5,-5.5}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid,
+          origin={-7.5,22.5},
+          rotation=90),
+        Rectangle(
+          extent={{116,-46},{144,-18}},
+          lineColor={255,255,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          visible=have_WSE),
+        Rectangle(
+          extent={{118,-44},{146,-16}},
+          lineColor={255,255,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          visible=have_WSE),
+        Rectangle(
+          extent={{-68,78},{72,-82}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-42,50},{-38,10}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-54,68},{60,50}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-40,0},{-50,10},{-30,10},{-40,0}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-40,0},{-50,-12},{-30,-12},{-40,0}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-42,-12},{-38,-52}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{40,50},{44,-52}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-54,-52},{60,-70}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{20,22},{64,-20}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{42,22},{24,-10},{60,-10},{42,22}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-42,50},{-38,10}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-54,68},{60,50}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-40,0},{-50,10},{-30,10},{-40,0}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-40,0},{-50,-12},{-30,-12},{-40,0}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-42,-12},{-38,-52}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{40,50},{44,-52}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-54,-52},{60,-70}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{20,22},{64,-20}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{42,22},{24,-10},{60,-10},{42,22}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{100,76},{240,-84}},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid,
+          visible=have_WSE),  Rectangle(
+          extent={{100,74},{240,-84}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid,
+          visible=have_WSE),  Rectangle(
+          extent={{100,74},{240,-86}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid,
+          visible=have_WSE),
+        Rectangle(
+          extent={{108,56},{120,-62}},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          visible=have_WSE),
+        Rectangle(
+          extent={{120,56},{136,-62}},
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0},
+          visible=have_WSE),
+        Rectangle(
+          extent={{148,56},{164,-62}},
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0},
+          visible=have_WSE),
+        Rectangle(
+          extent={{136,56},{148,-62}},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          visible=have_WSE),
+        Rectangle(
+          extent={{176,56},{192,-62}},
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0},
+          visible=have_WSE),
+        Rectangle(
+          extent={{164,56},{176,-62}},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          visible=have_WSE),
+        Rectangle(
+          extent={{204,56},{220,-62}},
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0},
+          visible=have_WSE),
+        Rectangle(
+          extent={{192,56},{204,-62}},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          visible=have_WSE),
+        Rectangle(
+          extent={{220,56},{232,-62}},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          visible=have_WSE),
+        Rectangle(extent={{-256,140},{264,-142}}, lineColor={95,95,95})}));
 end ChillerBorefield;

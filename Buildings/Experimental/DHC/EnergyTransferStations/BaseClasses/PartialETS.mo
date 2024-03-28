@@ -364,11 +364,6 @@ First implementation.
           origin={-108,-167},
           rotation=90),
         Rectangle(
-          extent={{-140,140},{140,-142}},
-          lineColor={27,0,55},
-          fillColor={170,213,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
           extent={{58,-248},{300,-232}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
