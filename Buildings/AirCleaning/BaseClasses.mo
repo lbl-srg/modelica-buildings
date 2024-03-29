@@ -1,5 +1,5 @@
 within Buildings.AirCleaning;
-package BaseClasses
+package BaseClasses "Base classes for air cleaning models"
 
   partial model PartialDuctGUV "Partial model for an in duct GUV"
       extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
@@ -65,23 +65,6 @@ package BaseClasses
       level = AssertionLevel.warning);
 
   equation
-    // Isenthalpic state transformation (no storage and no loss of energy)
-    //port_a.h_outflow = if allowFlowReversal then inStream(port_b.h_outflow) else Medium.h_default;
-    //port_b.h_outflow = inStream(port_a.h_outflow);
-
-    // Mass balance (no storage)
-    //port_a.m_flow + port_b.m_flow = 0;
-
-    // Transport of substances
-    //port_a.Xi_outflow = if allowFlowReversal then inStream(port_b.Xi_outflow) else Medium.X_default[1:Medium.nXi];
-   //port_b.Xi_outflow = inStream(port_a.Xi_outflow);
-
-    //port_a.C_outflow = if allowFlowReversal then inStream(port_b.C_outflow) else zeros(Medium.nC);
-    //for i in 1:Medium.nC loop
-     // port_b.C_outflow[i] = booleanToReal.y*(1 - exp(-kGUV[i]*m_flow_nominal/m_flow))*inStream(vol.ports[2].C_outflow[i]);
-    //end for;
-    //port_b.C_outflow[2] = inStream(port_a.C_outflow[2]);
-    //port_b.C_outflow[1] = inStream(port_a.C_outflow[1]);
 
     connect(u,booleanToReal. u)
       annotation (Line(points={{-120,-80},{-82,-80}}, color={255,0,255}));
@@ -105,139 +88,14 @@ package BaseClasses
 </html>",   revisions="<html>
 <ul>
 <li>
-April 14, 2020, by Michael Wetter:<br/>
-Changed <code>homotopyInitialization</code> to a constant.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, #1341</a>.
-</li>
-<li>
-February 26, 2020, by Michael Wetter:<br/>
-Changed icon to display its operating state.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\">#1294</a>.
-</li>
-<li>
-October 25, 2019, by Jianjun Hu:<br/>
-Improved icon graphics annotation. This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1225\">#1225</a>.
-</li>
-<li>
-November 3, 2016, by Michael Wetter:<br/>
-Removed start value for pressure difference
-to simplify the parameter window.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/552\">#552</a>.
-</li>
-<li>
-January 26, 2016, by Michael Wetter:<br/>
-Avoided assignment of <code>dp(nominal=0)</code> if <code>dp_nominal_pos = 0</code>
-and of <code>m_flow(nominal=0)</code> if <code>m_flow_nominal_pos = 0</code>
-as nominal values are not allowed to be zero.
-</li>
-<li>
-January 22, 2016, by Michael Wetter:<br/>
-Corrected type declaration of pressure difference.
-This is
-for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/404\">#404</a>.
-</li>
-<li>
-August 15, 2015, by Filip Jorissen:<br/>
-Implemented more efficient computation of <code>port_a.Xi_outflow</code>,
-<code>port_a.h_outflow</code>
-and <code>port_a.C_outflow</code> when <code>allowFlowReversal=false</code>.
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/281\">#281</a>.
-</li>
-<li>
-January 13, 2015, by Marcus Fuchs:<br/>
-Revised revisions section (there were two revisions statements)
-</li>
-<li>
-November 20, 2014 by Michael Wetter:<br/>
-Removed <code>start</code> attribute for <code>m_flow</code>
-as this is already set in its base class.
-</li>
-<li>
-October 8, 2013 by Michael Wetter:<br/>
-Removed propagation of <code>show_V_flow</code>
-to base class as it has no longer this parameter.
-</li>
-<li>
-December 14, 2012 by Michael Wetter:<br/>
-Renamed protected parameters for consistency with the naming conventions.
-</li>
-<li>
-February 12, 2012, by Michael Wetter:<br/>
-Removed duplicate declaration of <code>m_flow_nominal</code>.
-</li>
-<li>
-February 3, 2012, by Michael Wetter:<br/>
-Made assignment of <code>m_flow_small</code> <code>final</code> as it is no
-longer used in the base class.
-</li>
-<li>
-January 16, 2012, by Michael Wetter:<br/>
-To simplify object inheritance tree, revised base classes
-<code>Buildings.Fluid.BaseClasses.PartialResistance</code>,
-<code>Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</code>,
-<code>Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential</code>,
-<code>Buildings.Fluid.Actuators.BaseClasses.PartialActuator</code>
-and model
-<code>Buildings.Fluid.FixedResistances.PressureDrop</code>.
-</li>
-<li>
-August 5, 2011, by Michael Wetter:<br/>
-Moved linearized pressure drop equation from the function body to the equation
-section. With the previous implementation,
-the symbolic processor may not rearrange the equations, which can lead
-to coupled equations instead of an explicit solution.
-</li>
-<li>
-June 20, 2011, by Michael Wetter:<br/>
-Set start values for <code>m_flow</code> and <code>dp</code> to zero, since
-most HVAC systems start at zero flow. With this change, the start values
-appear in the GUI and can be set by the user.
-</li>
-<li>
-April 2, 2011 by Michael Wetter:<br/>
-Added <code>m_flow_nominal_pos</code> and <code>dp_nominal_pos</code> to allow
-providing negative nominal values which will be used, for example, to set start
-values of flow splitters which may have negative flow rates and pressure drop
-at the initial condition.
-</li>
-<li>
-March 27, 2011, by Michael Wetter:<br/>
-Added <code>homotopy</code> operator.
-</li>
-<li>
-March 23, 2011 by Michael Wetter:<br/>
-Added homotopy operator.
-</li>
-<li>
-March 30, 2010 by Michael Wetter:<br/>
-Changed base classes to allow easier initialization.
-</li>
-<li>
-April 13, 2009, by Michael Wetter:<br/>
-Extracted pressure drop computation and implemented it in the
-new model
-<a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.BasicFlowModel\">
-Buildings.Fluid.BaseClasses.FlowModels.BasicFlowModel</a>.
-</li>
-<li>
-September 18, 2008, by Michael Wetter:<br/>
-Added equations for the mass balance of extra species flow,
-i.e., <code>C</code> and <code>mC_flow</code>.
-</li>
-<li>
-July 20, 2007 by Michael Wetter:<br/>
+March 29, 2024 by Cary Faulkner:<br/>
 First implementation.
 </li>
 </ul>
 </html>"));
   end PartialDuctGUV;
 
-  partial model PartialInDuctGUVCalc "Partial model for an in duct GUV"
+  partial model PartialInDuctGUVCalc "Partial model duct GUV calculation"
       extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
        show_T=false,
        dp(nominal=if dp_nominal_pos > Modelica.Constants.eps
@@ -341,139 +199,14 @@ Partial model for a duct GUV trace species inactivation calculation.
 </html>",   revisions="<html>
 <ul>
 <li>
-April 14, 2020, by Michael Wetter:<br/>
-Changed <code>homotopyInitialization</code> to a constant.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, #1341</a>.
-</li>
-<li>
-February 26, 2020, by Michael Wetter:<br/>
-Changed icon to display its operating state.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\">#1294</a>.
-</li>
-<li>
-October 25, 2019, by Jianjun Hu:<br/>
-Improved icon graphics annotation. This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1225\">#1225</a>.
-</li>
-<li>
-November 3, 2016, by Michael Wetter:<br/>
-Removed start value for pressure difference
-to simplify the parameter window.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/552\">#552</a>.
-</li>
-<li>
-January 26, 2016, by Michael Wetter:<br/>
-Avoided assignment of <code>dp(nominal=0)</code> if <code>dp_nominal_pos = 0</code>
-and of <code>m_flow(nominal=0)</code> if <code>m_flow_nominal_pos = 0</code>
-as nominal values are not allowed to be zero.
-</li>
-<li>
-January 22, 2016, by Michael Wetter:<br/>
-Corrected type declaration of pressure difference.
-This is
-for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/404\">#404</a>.
-</li>
-<li>
-August 15, 2015, by Filip Jorissen:<br/>
-Implemented more efficient computation of <code>port_a.Xi_outflow</code>,
-<code>port_a.h_outflow</code>
-and <code>port_a.C_outflow</code> when <code>allowFlowReversal=false</code>.
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/281\">#281</a>.
-</li>
-<li>
-January 13, 2015, by Marcus Fuchs:<br/>
-Revised revisions section (there were two revisions statements)
-</li>
-<li>
-November 20, 2014 by Michael Wetter:<br/>
-Removed <code>start</code> attribute for <code>m_flow</code>
-as this is already set in its base class.
-</li>
-<li>
-October 8, 2013 by Michael Wetter:<br/>
-Removed propagation of <code>show_V_flow</code>
-to base class as it has no longer this parameter.
-</li>
-<li>
-December 14, 2012 by Michael Wetter:<br/>
-Renamed protected parameters for consistency with the naming conventions.
-</li>
-<li>
-February 12, 2012, by Michael Wetter:<br/>
-Removed duplicate declaration of <code>m_flow_nominal</code>.
-</li>
-<li>
-February 3, 2012, by Michael Wetter:<br/>
-Made assignment of <code>m_flow_small</code> <code>final</code> as it is no
-longer used in the base class.
-</li>
-<li>
-January 16, 2012, by Michael Wetter:<br/>
-To simplify object inheritance tree, revised base classes
-<code>Buildings.Fluid.BaseClasses.PartialResistance</code>,
-<code>Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</code>,
-<code>Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential</code>,
-<code>Buildings.Fluid.Actuators.BaseClasses.PartialActuator</code>
-and model
-<code>Buildings.Fluid.FixedResistances.PressureDrop</code>.
-</li>
-<li>
-August 5, 2011, by Michael Wetter:<br/>
-Moved linearized pressure drop equation from the function body to the equation
-section. With the previous implementation,
-the symbolic processor may not rearrange the equations, which can lead
-to coupled equations instead of an explicit solution.
-</li>
-<li>
-June 20, 2011, by Michael Wetter:<br/>
-Set start values for <code>m_flow</code> and <code>dp</code> to zero, since
-most HVAC systems start at zero flow. With this change, the start values
-appear in the GUI and can be set by the user.
-</li>
-<li>
-April 2, 2011 by Michael Wetter:<br/>
-Added <code>m_flow_nominal_pos</code> and <code>dp_nominal_pos</code> to allow
-providing negative nominal values which will be used, for example, to set start
-values of flow splitters which may have negative flow rates and pressure drop
-at the initial condition.
-</li>
-<li>
-March 27, 2011, by Michael Wetter:<br/>
-Added <code>homotopy</code> operator.
-</li>
-<li>
-March 23, 2011 by Michael Wetter:<br/>
-Added homotopy operator.
-</li>
-<li>
-March 30, 2010 by Michael Wetter:<br/>
-Changed base classes to allow easier initialization.
-</li>
-<li>
-April 13, 2009, by Michael Wetter:<br/>
-Extracted pressure drop computation and implemented it in the
-new model
-<a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.BasicFlowModel\">
-Buildings.Fluid.BaseClasses.FlowModels.BasicFlowModel</a>.
-</li>
-<li>
-September 18, 2008, by Michael Wetter:<br/>
-Added equations for the mass balance of extra species flow,
-i.e., <code>C</code> and <code>mC_flow</code>.
-</li>
-<li>
-July 20, 2007 by Michael Wetter:<br/>
+March 29, 2024 by Cary Faulkner:<br/>
 First implementation.
 </li>
 </ul>
 </html>"));
   end PartialInDuctGUVCalc;
 
-  model InDuctGUVCalc "HVAC filter"
+  model InDuctGUVCalc "Inactivation calculation for Duct GUV"
     extends Buildings.AirCleaning.BaseClasses.PartialInDuctGUVCalc(final
         m_flow_turbulent=if computeFlowResistance then deltaM*
           m_flow_nominal_pos else 0);
@@ -555,79 +288,7 @@ First implementation.
 </html>",   revisions="<html>
 <ul>
 <li>
-September 21, 2018, by Michael Wetter:<br/>
-Decrease value of <code>deltaM(min=...)</code> attribute.
-See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1026\">#1026</a>.
-</li>
-<li>
-February 3, 2018, by Filip Jorissen:<br/>
-Revised implementation of pressure drop equation
-such that it depends on <code>from_dp</code>
-when <code>linearized=true</code>.
-See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/884\">#884</a>.
-</li>
-<li>
-December 1, 2016, by Michael Wetter:<br/>
-Simplified model by removing the geometry dependent parameters into the new
-model
-<a href=\"modelica://Buildings.Fluid.FixedResistances.HydraulicDiameter\">
-Buildings.Fluid.FixedResistances.HydraulicDiameter</a>.
-</li>
-<li>
-November 23, 2016, by Filip Jorissen:<br/>
-Removed <code>dp_nominal</code> and
-<code>m_flow_nominal</code> labels from icon.
-</li>
-<li>
-October 14, 2016, by Michael Wetter:<br/>
-Updated comment for parameter <code>use_dh</code>.
-</li>
-<li>
-November 26, 2014, by Michael Wetter:<br/>
-Added the required <code>annotation(Evaluate=true)</code> so
-that the system of nonlinear equations in
-<a href=\"modelica://Buildings.Fluid.FixedResistances.Validation.PressureDropsExplicit\">
-Buildings.Fluid.FixedResistances.Validation.PressureDropsExplicit</a>
-remains the same.
-</li>
-<li>
-November 20, 2014, by Michael Wetter:<br/>
-Rewrote the warning message using an <code>assert</code> with
-<code>AssertionLevel.warning</code>
-as this is the proper way to write warnings in Modelica.
-</li>
-<li>
-August 5, 2014, by Michael Wetter:<br/>
-Corrected error in documentation of computation of <code>k</code>.
-</li>
-<li>
-May 29, 2014, by Michael Wetter:<br/>
-Removed undesirable annotation <code>Evaluate=true</code>.
-</li>
-<li>
-October 8, 2013, by Michael Wetter:<br/>
-Removed parameter <code>show_V_flow</code>.
-</li>
-<li>
-December 14, 2012 by Michael Wetter:<br/>
-Renamed protected parameters for consistency with the naming conventions.
-</li>
-<li>
-January 16, 2012 by Michael Wetter:<br/>
-To simplify object inheritance tree, revised base classes
-<code>Buildings.Fluid.BaseClasses.PartialResistance</code>,
-<code>Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</code>,
-<code>Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential</code>,
-<code>Buildings.Fluid.Actuators.BaseClasses.PartialActuator</code>
-and model
-<code>Buildings.Fluid.FixedResistances.PressureDrop</code>.
-</li>
-<li>
-May 30, 2008 by Michael Wetter:<br/>
-Added parameters <code>use_dh</code> and <code>deltaM</code> for easier parameterization.
-</li>
-<li>
-July 20, 2007 by Michael Wetter:<br/>
+March 29, 2024 by Cary Faulkner:<br/>
 First implementation.
 </li>
 </ul>
