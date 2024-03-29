@@ -26,10 +26,6 @@
   optimica:
     comment: High solver tolerance required to avoid time out.
     rtol: 1.0e-08
-- model_name: Buildings.Controls.DemandResponse.Examples.ClientLBNL90
-  openmodelica:
-    comment: 'TimeoutExpired: omc timed out after 300 seconds'
-    translate: false
 - model_name: Buildings.Electrical.AC.ThreePhasesBalanced.Loads.Examples.ParallelLoads
   openmodelica:
     comment: 'division leads to inf or nan at time 0.901, (a=nan) / (b=230400), where divisor b is: varRL_P.v[1] ^ 2.0 + varRL_P.v[2] ^ 2.0'
