@@ -72,5 +72,12 @@ equation
 <p>where Ċ<sub>PAC</sub> is the inactivation rate of trace species by the GUV, E<sub>avg</sub> is the average fluence rate of the GUV device, k<sub>rad</sub> is susceptibility of the trace species to the GUV irrdiation, f<sub>rad</sub> is the fraction of irradiated volume in the zone, V<sub>zone</sub> is the total volume of the zone, and c<sub>zone</sub> is the trace species concentration in the zone where the GUV is located. </p>
 <h4>Assumptions </h4>
 <p>This assumes that the zone is well mixed and the parameters E<sub>avg</sub>,k<sub>rad</sub>, and f<sub>rad</sub> are constant for the given simulation when the GUV device is on. </p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 29, 2024 by Cary Faulkner:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end RoomGUV;

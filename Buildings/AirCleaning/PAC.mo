@@ -66,5 +66,12 @@ equation
 <p>where <span style=\"font-family: Courier New;\">Ċ</span><sub>PAC</sub> is the rate of trace species removal by the PAC, eff<sub>PAC</sub> is the trace species removal efficency, <span style=\"font-family: Courier New;\">flow</span><sub>PAC</sub> is the mass airflow rate of the PAC, and c<sub>zone</sub> is the trace species concentration in the zone where the PAC is located.</p>
 <h4>Assumptions</h4>
 <p>The model assumes well-mixed zones with uniform concentrations. </p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 29, 2024 by Cary Faulkner:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end PAC;

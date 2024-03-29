@@ -50,49 +50,6 @@ initial equation
 
  assert(m_flow_nominal_pos > 0, "m_flow_nominal_pos must be non-zero. Check parameters.");
 equation
-  // Pressure drop calculation
-
-  /*if computeFlowResistance then
-    if linearized then
-      if from_dp then
-        m_flow = dp*coeff;
-      else
-        dp = m_flow*coeff;
-      end if;
-    else
-      if homotopyInitialization then
-        if from_dp then
-          m_flow=homotopy(
-            actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-              dp=dp,
-              k=k,
-              m_flow_turbulent=m_flow_turbulent),
-            simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
-        else
-          dp=homotopy(
-            actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-              m_flow=m_flow,
-              k=k,
-              m_flow_turbulent=m_flow_turbulent),
-            simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
-         end if;  // from_dp
-      else // do not use homotopy
-        if from_dp then
-          m_flow=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-            dp=dp,
-            k=k,
-            m_flow_turbulent=m_flow_turbulent);
-        else
-          dp=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-            m_flow=m_flow,
-            k=k,
-            m_flow_turbulent=m_flow_turbulent);
-        end if;  // from_dp
-      end if; // homotopyInitialization
-    end if; // linearized
-  else // do not compute flow resistance
-    dp = 0;
-    end if;  // computeFlowResistance */
 
   connect(pGUV.y, prePow.Q_flow)
     annotation (Line(points={{-27,-50},{-20,-50}}, color={0,0,127}));
@@ -118,79 +75,7 @@ Documentation(info="<html>
 </html>", revisions="<html>
 <ul>
 <li>
-September 21, 2018, by Michael Wetter:<br/>
-Decrease value of <code>deltaM(min=...)</code> attribute.
-See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1026\">#1026</a>.
-</li>
-<li>
-February 3, 2018, by Filip Jorissen:<br/>
-Revised implementation of pressure drop equation
-such that it depends on <code>from_dp</code>
-when <code>linearized=true</code>.
-See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/884\">#884</a>.
-</li>
-<li>
-December 1, 2016, by Michael Wetter:<br/>
-Simplified model by removing the geometry dependent parameters into the new
-model
-<a href=\"modelica://Buildings.Fluid.FixedResistances.HydraulicDiameter\">
-Buildings.Fluid.FixedResistances.HydraulicDiameter</a>.
-</li>
-<li>
-November 23, 2016, by Filip Jorissen:<br/>
-Removed <code>dp_nominal</code> and
-<code>m_flow_nominal</code> labels from icon.
-</li>
-<li>
-October 14, 2016, by Michael Wetter:<br/>
-Updated comment for parameter <code>use_dh</code>.
-</li>
-<li>
-November 26, 2014, by Michael Wetter:<br/>
-Added the required <code>annotation(Evaluate=true)</code> so
-that the system of nonlinear equations in
-<a href=\"modelica://Buildings.Fluid.FixedResistances.Validation.PressureDropsExplicit\">
-Buildings.Fluid.FixedResistances.Validation.PressureDropsExplicit</a>
-remains the same.
-</li>
-<li>
-November 20, 2014, by Michael Wetter:<br/>
-Rewrote the warning message using an <code>assert</code> with
-<code>AssertionLevel.warning</code>
-as this is the proper way to write warnings in Modelica.
-</li>
-<li>
-August 5, 2014, by Michael Wetter:<br/>
-Corrected error in documentation of computation of <code>k</code>.
-</li>
-<li>
-May 29, 2014, by Michael Wetter:<br/>
-Removed undesirable annotation <code>Evaluate=true</code>.
-</li>
-<li>
-October 8, 2013, by Michael Wetter:<br/>
-Removed parameter <code>show_V_flow</code>.
-</li>
-<li>
-December 14, 2012 by Michael Wetter:<br/>
-Renamed protected parameters for consistency with the naming conventions.
-</li>
-<li>
-January 16, 2012 by Michael Wetter:<br/>
-To simplify object inheritance tree, revised base classes
-<code>Buildings.Fluid.BaseClasses.PartialResistance</code>,
-<code>Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</code>,
-<code>Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential</code>,
-<code>Buildings.Fluid.Actuators.BaseClasses.PartialActuator</code>
-and model
-<code>Buildings.Fluid.FixedResistances.PressureDrop</code>.
-</li>
-<li>
-May 30, 2008 by Michael Wetter:<br/>
-Added parameters <code>use_dh</code> and <code>deltaM</code> for easier parameterization.
-</li>
-<li>
-July 20, 2007 by Michael Wetter:<br/>
+March 29, 2024 by Cary Faulkner:<br/>
 First implementation.
 </li>
 </ul>
