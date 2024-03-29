@@ -110,8 +110,8 @@ model FixedEvaporating
     final min = 0)
     "Lower bound of working fluid flow rate"
     annotation(Dialog(group="Cycle"));
-  parameter Modelica.Units.SI.MassFlowRate mWor_flow_hysteresis
-    = mWor_flow_min + (mWor_flow_max - mWor_flow_min) * 0.2
+  parameter Modelica.Units.SI.MassFlowRate mWor_flow_hysteresis(
+    final min = 0)
     "Hysteresis for turning off the cycle when flow too low"
     annotation(Dialog(group="Cycle"));
   Modelica.Blocks.Interfaces.BooleanInput ena

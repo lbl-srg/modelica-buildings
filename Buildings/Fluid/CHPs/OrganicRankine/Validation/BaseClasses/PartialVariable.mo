@@ -8,7 +8,7 @@ partial model PartialVariable
   package MediumCol = Buildings.Media.Water "Medium in the condenser";
   parameter Modelica.Units.SI.MassFlowRate mHot_flow_nominal = 1
     "Medium flow rate in the evaporator";
-  parameter Modelica.Units.SI.MassFlowRate mCol_flow_nominal = 2
+  parameter Modelica.Units.SI.MassFlowRate mCol_flow_nominal = 1
     "Medium flow rate in the condenser";
 
   Buildings.Fluid.CHPs.OrganicRankine.Cycle orc(
@@ -20,9 +20,19 @@ partial model PartialVariable
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     T1_start(displayUnit="K") = 350,
     T2_start(displayUnit="K") = 290,
-    QEva_flow_nominal=1E5,
     mHot_flow_nominal=mHot_flow_nominal,
     mCol_flow_nominal=mCol_flow_nominal,
+    mWor_flow_max =
+      3E4 / (
+        Buildings.Utilities.Math.Functions.smoothInterpolation(
+          x = orc.TWorEva,
+          xSup = pro.T,
+          ySup = pro.hSatVap) -
+        Buildings.Utilities.Math.Functions.smoothInterpolation(
+          x = orc.cyc.TWorCon_min,
+          xSup = pro.T,
+          ySup = pro.hSatLiq)),
+    mWor_flow_min = orc.mWor_flow_max * 0.2,
     TWorEva=350,
     etaExp=0.7)                       "Organic Rankine cycle"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

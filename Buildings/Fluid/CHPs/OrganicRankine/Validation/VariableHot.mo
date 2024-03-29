@@ -9,7 +9,7 @@ model VariableHot
   extends Modelica.Icons.Example;
 
   Modelica.Blocks.Sources.TimeTable mHot_flow_set(table=[0,0; 50,
-        mHot_flow_nominal*7; 250,mHot_flow_nominal*7; 300,0])
+        mHot_flow_nominal*1.5; 250,mHot_flow_nominal*1.5; 300,0])
     "Sets the hot fluid flow rate in the evaporator"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Modelica.Blocks.Sources.TimeTable THotIn_set(table=[

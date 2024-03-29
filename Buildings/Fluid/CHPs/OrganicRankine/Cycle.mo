@@ -19,6 +19,7 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
     final pro=pro,
     final mWor_flow_max=mWor_flow_max,
     final mWor_flow_min=mWor_flow_min,
+    final mWor_flow_hysteresis=mWor_flow_hysteresis,
     final TWorEva =
             if useEvaporatingPressure
             then Buildings.Utilities.Math.Functions.smoothInterpolation(
@@ -45,9 +46,6 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
     constrainedby Buildings.Fluid.CHPs.OrganicRankine.Data.Generic
     "Property records of the working fluid"
     annotation(choicesAllMatching = true,Dialog(group="Cycle"));
-  parameter Modelica.Units.SI.HeatFlowRate QEva_flow_nominal
-    "Nominal heat flow rate of the evaporator"
-    annotation(Dialog(group="Evaporator"));
   parameter Modelica.Units.SI.MassFlowRate mHot_flow_nominal
     "Nominal mass flow rate of the evaporator fluid"
     annotation(Dialog(group="Evaporator"));
@@ -92,21 +90,15 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
     annotation(Dialog(group="Condenser", enable = useCondensingPressure));
   parameter Modelica.Units.SI.MassFlowRate mWor_flow_max(
     final min = 0)
-    = QEva_flow_nominal / (
-        Buildings.Utilities.Math.Functions.smoothInterpolation(
-          x = TWorEva,
-          xSup = pro.T,
-          ySup = pro.hSatVap) -
-        Buildings.Utilities.Math.Functions.smoothInterpolation(
-          x = TWorCon_min,
-          xSup = pro.T,
-          ySup = pro.hSatLiq))
     "Upper bound of working fluid flow rate"
     annotation(Dialog(group="Cycle"));
   parameter Modelica.Units.SI.MassFlowRate mWor_flow_min(
     final min = 0)
-    = mWor_flow_max / 10
     "Lower bound of working fluid flow rate"
+    annotation(Dialog(group="Cycle"));
+  parameter Modelica.Units.SI.MassFlowRate mWor_flow_hysteresis
+    = mWor_flow_min + (mWor_flow_max - mWor_flow_min) * 0.1
+    "Hysteresis for turning off the cycle when flow too low"
     annotation(Dialog(group="Cycle"));
   parameter Modelica.Units.SI.Efficiency etaExp
     "Expander efficiency"
