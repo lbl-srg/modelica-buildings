@@ -1,5 +1,6 @@
 within Buildings.AirCleaning.Examples;
 model DuctGUVExample
+  extends Modelica.Icons.Example;
   replaceable package Medium = Buildings.Media.Air(extraPropertiesNames={"CO2", "SARS-CoV-2"}) "Medium model for air";
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal = 6.71
     "Design mass flow rate";
