@@ -7,14 +7,14 @@ simulateModel("Buildings.Templates.Plants.HeatPumps.Components.Validation.PumpsP
 createPlot(
     id=1,
     position={5, 5, 300, 400},
-    y={"pumPri.bus.pumHeaWatPri.y1[1]", "pumPri.bus.pumHeaWatPri.y1[2]"},
+    y={"pumPriCom.bus.pumHeaWatPri.y1[1]", "pumPriCom.bus.pumHeaWatPri.y1[2]"},
     autoscale=true,
     grid=true
 );
 createPlot(
     id=1,
     subPlot=2,
-    y={"valHeaWatIso[1].m_flow", "valChiWatIso[1].m_flow", "hp[1].m_flow", "hp[2].m_flow", "datHp.mHeaWatHp_flow_nominal", "datHp.mChiWatHp_flow_nominal"},
+    y={"valHeaWatIsoCom[1].m_flow", "valChiWatIsoCom[1].m_flow", "hpCom[1].m_flow", "hpCom[2].m_flow", "datHp.mHeaWatHp_flow_nominal", "datHp.mChiWatHp_flow_nominal"},
     autoscale=true,
     grid=true
 );
@@ -28,7 +28,7 @@ createPlot(
 createPlot(
     id=2,
     subPlot=2,
-    y={"valHeaWatIsoNoDed[1].m_flow", "valChiWatIsoNoDed[1].m_flow", "hpNoDed[1].m_flow", "hpNoDed[2].m_flow", "datHp.mHeaWatHp_flow_nominal", "datHp.mChiWatHp_flow_nominal"},
+    y={"valHeaWatIsoHdr[1].m_flow", "valChiWatIsoHdr[1].m_flow", "hpHdr[1].m_flow", "hpHdr[2].m_flow", "datHp.mHeaWatHp_flow_nominal", "datHp.mChiWatHp_flow_nominal"},
     autoscale=true,
     grid=true
 );
@@ -48,7 +48,7 @@ createPlot(
 );
 createPlot(
     id=4,
-    position={920, 5, 300, 400},
+    position={920, 5, 300, 600},
     y={"pumPriHea.bus.pumHeaWatPri.y1[1]", "pumPriHea.bus.pumHeaWatPri.y1[2]"},
     autoscale=true,
     grid=true
@@ -56,7 +56,14 @@ createPlot(
 createPlot(
     id=4,
     subPlot=2,
-    y={"priHeaWatHea.m_flow", "hpHea[1].m_flow", "hpHea[2].m_flow", "datHp.mHeaWatHp_flow_nominal"},
+    y={"pumPriHea.bus.pumHeaWatPri.y[1]", "pumPriHea.bus.pumHeaWatPri.y[2]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=4,
+    subPlot=3,
+    y={"priHeaWat.m_flow", "hpHea[1].m_flow", "hpHea[2].m_flow", "datHp.mHeaWatHp_flow_nominal"},
     autoscale=true,
     grid=true
 );

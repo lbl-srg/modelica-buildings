@@ -29,4 +29,14 @@ protected
     "Pump head at target design flow";
 algorithm
   dpBal_nominal := dpPum_nominal - dp_nominal;
+  annotation (Documentation(info="<html>
+<p>
+The model 
+<a href=\"modelica://Buildings.Templates.Plants.HeatPumps.Components.Validation.PumpsPrimaryDedicated\">
+Buildings.Templates.Plants.HeatPumps.Components.Validation.PumpsPrimaryDedicated</a>
+serves as a validation model for this function and illustrates how the function
+can be used to compute either the design pressure drop of balancing 
+valves or the primary pump speed required to provide the design flow.
+</p>
+</html>"));
 end computeBalancingPressureDrop;

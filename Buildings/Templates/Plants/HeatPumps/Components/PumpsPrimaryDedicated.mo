@@ -200,7 +200,16 @@ model PumpsPrimaryDedicated
       -datPumHeaWat.m_flow_nominal[i],
       -datPumChiWat.m_flow_nominal[i]} for i in 1:nPum},
     dp_nominal=fill(fill(0, 3), nPum),
-    each final energyDynamics=energyDynamics)
+    each final energyDynamics=energyDynamics,
+    each final portFlowDirection_1=if allowFlowReversal then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional else
+      Modelica.Fluid.Types.PortFlowDirection.Entering,
+    each final portFlowDirection_2=if allowFlowReversal then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional else
+      Modelica.Fluid.Types.PortFlowDirection.Leaving,
+   each final portFlowDirection_3=if allowFlowReversal then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional else
+      Modelica.Fluid.Types.PortFlowDirection.Leaving)
     if typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated
      and have_pumChiWatPriDed
     "Fluid junction for separate dedicated primary pumps" annotation (Placement(
@@ -365,7 +374,7 @@ equation
     Bitmap(
           visible=have_pumChiWatPriDed and not have_pumChiWatPriVar and nHp >=
               1,
-          extent={{1660,-50},{1760,50}},
+          extent={{1660,-104},{1760,-4}},
           fileName=
               "modelica://Buildings/Resources/Images/Templates/Components/Actuators/MotorStarter.svg"),
         Line(

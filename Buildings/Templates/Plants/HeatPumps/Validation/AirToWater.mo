@@ -68,10 +68,7 @@ model AirToWater
     final dat=datAll.pla,
     final have_chiWat=have_chiWat,
     nHp=3,
-    typArrPumPri=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
-    typPumHeaWatPri_select1=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
     typPumHeaWatPri_select2=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
-    have_pumChiWatPriDed_select=true,
     typPumChiWatPri_select1=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
@@ -88,14 +85,6 @@ model AirToWater
       have_senDpHeaWatRemWir=true))
     "Heat pump plant"
     annotation (Placement(transformation(extent={{-80,-100},{-40,-60}})));
-
-  /* FIXME: Prototype implementation for calculating pump speed to meet design flow.
-  parameter Real r_N[pla.nPumHeaWatPri](
-    each unit="1",
-    each start=1,
-    each fixed=false)
-    "Relative revolution, r_N=N/N_nominal";
-  */
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TDum(
     k=293.15,
     y(final unit="K",
@@ -166,15 +155,6 @@ model AirToWater
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={160,-120})));
-/* FIXME: Prototype computation of pump speed to provide design flow.
-initial equation 
-  fill(0, pla.nPumHeaWatPri)=Buildings.Templates.Utilities.computeBalancingPressureDrop(
-    m_flow_nominal=fill(pla.dat.hp.mHeaWatHp_flow_nominal, pla.nHp),
-    dp_nominal=pla.pumPri.dpValCheHeaWat_nominal .+ fill(pla.dat.hp.dpHeaWatHp_nominal, pla.nHp) .+
-      fill(Buildings.Templates.Data.Defaults.dpValIso, pla.nHp),
-    datPum=pla.dat.pumHeaWatPriSin,
-    r_N=r_N);
-*/
   Buildings.Controls.OBC.CDL.Reals.AddParameter TChiWatRet(p=pla.TChiWatRet_nominal
          - pla.TChiWatSup_nominal) if have_chiWat
                                    "Prescribed CHW return temperature"
@@ -210,14 +190,19 @@ initial equation
     if have_chiWat
     "Piping"
     annotation (Placement(transformation(extent={{10,-90},{-10,-70}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant
-                                       con(k=293.15)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(k=293.15)
     "Constant limiting prescribed return temperature"
     annotation (Placement(transformation(extent={{-180,10},{-160,30}})));
   Controls.Utilities.PlaceholderInteger ph[2](each final have_inp=have_chiWat,
       each final u_internal=0) "Placeholder value"
     annotation (Placement(transformation(extent={{40,114},{20,134}})));
 equation
+  if have_chiWat then
+    connect(mulInt[3].y, busAirHan.reqResChiWat)
+      annotation (Line(points={{-22,120},{-40,120}}, color={255,127,0}));
+    connect(mulInt[4].y, busAirHan.reqPlaChiWat)
+      annotation (Line(points={{-22,120},{-40,120}}, color={255,127,0}));
+  end if;
   connect(weaDat.weaBus, pla.busWea)
     annotation (Line(points={{-160,-40},{-60,-40},{-60,-60}},
                                                            color={255,204,51},thickness=0.5));
@@ -301,12 +286,6 @@ equation
           {68,-92}}, color={0,0,127}));
   connect(cst.y, mulInt.u1) annotation (Line(points={{18,160},{6,160},{6,126},{2,
           126}}, color={255,127,0}));
-  if have_chiWat then
-    connect(mulInt[3].y, busAirHan.reqResChiWat)
-      annotation (Line(points={{-22,120},{-40,120}}, color={255,127,0}));
-    connect(mulInt[4].y, busAirHan.reqPlaChiWat)
-      annotation (Line(points={{-22,120},{-40,120}}, color={255,127,0}));
-  end if;
   connect(mulInt[1].y, busAirHan.reqResHeaWat) annotation (Line(points={{-22,120},
           {-30,120},{-30,120},{-40,120}}, color={255,127,0}));
   connect(mulInt[2].y, busAirHan.reqPlaHeaWat)
@@ -351,20 +330,44 @@ equation
 This model validates
 <a href=\"modelica://Buildings.Templates.Plants.HeatPumps.AirToWater\">
 Buildings.Templates.Plants.HeatPumps.AirToWater</a>
-by simulating a <i>24</i>&nbsp;h period with heating loads
-reaching peak value first, and cooling loads reaching peak value last.
+by simulating a <i>24</i>-hour period with overlapping heating and
+cooling loads.
+The heating loads reach their peak value first, the cooling loads reach it last.
 </p>
 <p>
-Three equally sized units.
-A unique aggregated load: modulating flow at constant <i>&Delta;T</i>.
-An importance multiplier 
+Three equally sized heat pumps are modeled. All can be lead/lag alternated.
+A unique aggregated load is modeled on each loop by means of a cooling or heating
+component controlled to maintain a constant <i>&Delta;T</i>
+and a modulating valve controlled to track a prescribed flow rate.
+An importance multiplier of <i>10</i> is applied to the plant requests 
+and reset requests generated from the valve position.
 </p>
 <p>
-Possibility to toggle the top-level parameter <code>have_chiWat</code>
-to switch between a cooling and heating system to a cooling-only system.
-Other system configuration parameters can be modified via the parameter
+The user can toggle the top-level parameter <code>have_chiWat</code>
+to switch between a cooling and heating system (the default setting) 
+to a heating-only system.
+Advanced equipment and control options can be modified via the parameter
 dialog of the plant component.
 </p>
+<p>
+Simulating this model shows how the plant responds to the load by 
+</p>
+<ul>
+<li>
+staging or unstaging the AWHPs and associated primary pumps,
+</li>
+<li>
+rotating lead/lag alternate equipment to ensure even wear,
+</li>
+<li>
+resetting the supply temperature and remote differential pressure 
+in both the CHW and HW loops based on the valve position,
+</li>
+<li>
+staging and controlling the secondary pumps to meet the 
+remote differential pressure setpoint.
+</li>
+</ul>
 </html>"),
     Diagram(
       coordinateSystem(

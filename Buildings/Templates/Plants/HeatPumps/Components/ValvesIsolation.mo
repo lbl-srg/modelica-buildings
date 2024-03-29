@@ -549,12 +549,12 @@ equation
           thickness=5,
           visible=have_pumChiWatPriDed and nHp >= 4),
         Line(
-          points={{-1398,-160},{-1398,-700}},
+          points={{-1400,-160},{-1400,-700}},
           color={0,0,0},
           thickness=5,
           visible=have_pumChiWatPriDed and nHp >= 5),
         Line(
-          points={{-2198,-160},{-2198,-700}},
+          points={{-2200,-160},{-2200,-700}},
           color={0,0,0},
           thickness=5,
           visible=have_pumChiWatPriDed and nHp >= 6),
@@ -581,10 +581,12 @@ equation
               "modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
           rotation=360,
           origin={1800,-200}),
-    Line( points={{-2400,400},{2200,400},{2200,-700}},
+    Line(
+          points={{-2400,400},{2200,400},{2200,-700}},
           color={0,0,0},
           pattern=LinePattern.Dash,
-          thickness=5),
+          thickness=5,
+          visible=nHp >= 1),
     Bitmap(
           visible=have_valHpInlIso and nHp >= 1,
           extent={{-100,-100},{100,100}},
@@ -655,10 +657,12 @@ equation
           fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
           rotation=360,
           origin={1000,-200}),
-    Line( points={{1400,400},{1400,-700}},
+    Line(
+          points={{1400,400},{1400,-700}},
           color={0,0,0},
           pattern=LinePattern.Dash,
-          thickness=5),
+          thickness=5,
+          visible=nHp >= 2),
     Bitmap(
           visible=have_valHpInlIso and nHp >= 2,
           extent={{-100,-100},{100,100}},
@@ -702,9 +706,11 @@ equation
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
           visible=have_chiWat and nHp >= 2),
-   Line(  points={{1200,0},{1200,-700}},
+   Line(
+          points={{1200,4},{1200,-696}},
           color={0,0,0},
-          thickness=5),
+          thickness=5,
+          visible=nHp >= 2),
     Bitmap(
           visible=have_valHpOutIso and nHp >= 2,
           extent={{-100,-100},{100,100}},
@@ -727,10 +733,12 @@ equation
           fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
           rotation=360,
           origin={200,-200}),
-    Line( points={{600,400},{600,-700}},
+    Line(
+          points={{600,400},{600,-700}},
           color={0,0,0},
           pattern=LinePattern.Dash,
-          thickness=5),
+          thickness=5,
+          visible=nHp >= 3),
     Bitmap(
           visible=have_valHpInlIso and nHp >= 3,
           extent={{-100,-100},{100,100}},
@@ -769,9 +777,11 @@ equation
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
           visible=have_chiWat and nHp >= 3),
-   Line(  points={{400,0},{400,-700}},
+   Line(
+          points={{400,0},{400,-700}},
           color={0,0,0},
-          thickness=5),
+          thickness=5,
+          visible=nHp >= 3),
     Bitmap(
           visible=have_valHpOutIso and nHp >= 3,
           extent={{-100,-100},{100,100}},
@@ -796,7 +806,8 @@ equation
               "modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
           rotation=360,
           origin={-600,-200}),
-    Line( points={{-200,400},{-200,-700}},
+    Line(
+          points={{-200,400},{-200,-700}},
           color={0,0,0},
           pattern=LinePattern.Dash,
           thickness=5,
@@ -839,7 +850,8 @@ equation
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
           visible=have_chiWat and nHp >= 4),
-   Line(  points={{-400,0},{-400,-700}},
+   Line(
+          points={{-400,0},{-400,-700}},
           color={0,0,0},
           thickness=5,
           visible=nHp >= 4),
@@ -908,7 +920,8 @@ equation
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
           visible=have_chiWat and nHp >= 5),
-   Line(  points={{-1200,0},{-1200,-700}},
+   Line(
+          points={{-1200,0},{-1200,-700}},
           color={0,0,0},
           thickness=5,
           visible=nHp >= 5),
@@ -992,9 +1005,11 @@ equation
           color={0,0,0},
           origin={-2030,-200},
           rotation=-90),
-   Line(  points={{-2400,0},{2000,0},{2000,-700}},
+   Line(
+          points={{-2400,0},{2000,0},{2000,-700}},
           color={0,0,0},
-          thickness=5),
+          thickness=5,
+          visible=nHp >= 1),
     Bitmap(
           visible=have_valHpOutIso and nHp >= 1,
           extent={{-100,-100},{100,100}},

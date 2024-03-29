@@ -7,7 +7,7 @@ simulateModel("Buildings.Templates.Plants.HeatPumps.Components.Validation.HeatPu
 createPlot(
     id=1,
     position={5, 5, 300, 400},
-    y={"ctlHpAw.bus.hp[1].y1", "ctlHpAw.bus.hp[1].y1Hea", "ctlHpAwNrv.bus.hp[1].y1"},
+    y={"ctlPlaAw.bus.hp[1].y1", "ctlPlaAw.bus.hp[1].y1Hea", "ctlPlaAwNrv.bus.hp[1].y1"},
     autoscale=true,
     grid=true
 );

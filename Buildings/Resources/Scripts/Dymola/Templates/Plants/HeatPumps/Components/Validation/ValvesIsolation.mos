@@ -7,21 +7,21 @@ simulateModel("Buildings.Templates.Plants.HeatPumps.Components.Validation.Valves
 createPlot(
     id=1,
     position={5, 5, 300, 600},
-    y={"valIso.bus.valHeaWatHpInlIso[1].y1", "valIso.bus.valHeaWatHpInlIso[2].y1", "valIso.bus.valChiWatHpInlIso[1].y1", "valIso.bus.valChiWatHpInlIso[2].y1"},
+    y={"valIsoCom.bus.valHeaWatHpInlIso[1].y1", "valIsoCom.bus.valHeaWatHpInlIso[2].y1", "valIsoCom.bus.valChiWatHpInlIso[1].y1", "valIsoCom.bus.valChiWatHpInlIso[2].y1"},
     autoscale=true,
     grid=true
 );
 createPlot(
     id=1,
     subPlot=2,
-    y={"valIso.port_aHeaWat.m_flow", "hp[1].m_flow", "hp[2].m_flow", "datHp.mHeaWatHp_flow_nominal"},
+    y={"valIsoCom.port_aHeaWat.m_flow", "hpCom[1].m_flow", "hpCom[2].m_flow", "datHp.mHeaWatHp_flow_nominal"},
     autoscale=true,
     grid=true
 );
 createPlot(
     id=1,
     subPlot=3,
-    y={"valIso.port_aChiWat.m_flow", "datHp.mChiWatHp_flow_nominal"},
+    y={"valIsoCom.port_aChiWat.m_flow", "datHp.mChiWatHp_flow_nominal"},
     autoscale=true,
     grid=true
 );
