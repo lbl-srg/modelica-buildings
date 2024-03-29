@@ -1,6 +1,6 @@
 within Buildings.Fluid.CHPs.OrganicRankine.Validation;
 model VaryingCold
-  "ORC with cooling water stream with varying flow rate and temperature"
+  "ORC with cooling water stream with variable flow rate and temperature"
   extends
     Buildings.Fluid.CHPs.OrganicRankine.Validation.BaseClasses.PartialVarying(orc(
           useCondensingPressure=true,
@@ -24,7 +24,7 @@ equation
   "Simulate and plot"),
   Documentation(info="<html>
 <p>
-This model demonstrates how the ORC model reacts to varying flow rate
+This model demonstrates how the ORC model reacts to variable flow rate
 and temperature of the incoming cold fluid carrying cooling water.
 Normally, the working fluid condensing temperature of the cycle
 <i>T<sub>w,Con</sub></i> is solved from

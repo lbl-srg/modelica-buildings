@@ -1,6 +1,6 @@
 within Buildings.Fluid.CHPs.OrganicRankine.Validation;
 model VaryingHot
-  "ORC with waste heat stream with varying flow rate and temperature"
+  "ORC with waste heat stream with variable flow rate and temperature"
   extends
     Buildings.Fluid.CHPs.OrganicRankine.Validation.BaseClasses.PartialVarying(
     souHot(
@@ -30,7 +30,7 @@ equation
   "Simulate and plot"),
   Documentation(info="<html>
 <p>
-This model demonstrates how the ORC model reacts to varying flow rate
+This model demonstrates how the ORC model reacts to variable flow rate
 and temperature of the incoming hot fluid carrying waste heat.
 Normally, the working fluid flow rate of the cycle
 <i>m&#775;<sub>W</sub></i> is solved from
