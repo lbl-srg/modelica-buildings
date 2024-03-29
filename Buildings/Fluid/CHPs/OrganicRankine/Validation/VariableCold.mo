@@ -1,8 +1,8 @@
 within Buildings.Fluid.CHPs.OrganicRankine.Validation;
-model VaryingCold
+model VariableCold
   "ORC with cooling water stream with variable flow rate and temperature"
   extends
-    Buildings.Fluid.CHPs.OrganicRankine.Validation.BaseClasses.PartialVarying(orc(
+    Buildings.Fluid.CHPs.OrganicRankine.Validation.BaseClasses.PartialVariable(orc(
           useCondensingPressure=true,
           pWorCon_min = 1.2E5),
     souCol(
@@ -20,7 +20,7 @@ equation
   connect(TColIn_set.y, souCol.T_in) annotation (Line(points={{59,-30},{52,-30},
           {52,-26},{42,-26}}, color={0,0,127}));
   annotation(experiment(StopTime=300,Tolerance=1E-6),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/OrganicRankine/Validation/VaryingCold.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/OrganicRankine/Validation/VariableCold.mos"
   "Simulate and plot"),
   Documentation(info="<html>
 <p>
@@ -50,4 +50,4 @@ First implementation. This is for
 </li>
 </ul>
 </html>"));
-end VaryingCold;
+end VariableCold;

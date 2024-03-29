@@ -1,5 +1,5 @@
 within Buildings.Fluid.CHPs.OrganicRankine.Validation.BaseClasses;
-partial model PartialVarying
+partial model PartialVariable
   "Partial class for the validation models"
   parameter Buildings.Fluid.CHPs.OrganicRankine.Data.WorkingFluids.R245fa pro
     "Property record of the working fluid"
@@ -87,4 +87,4 @@ First implementation. This is for
 </li>
 </ul>
 </html>"));
-end PartialVarying;
+end PartialVariable;

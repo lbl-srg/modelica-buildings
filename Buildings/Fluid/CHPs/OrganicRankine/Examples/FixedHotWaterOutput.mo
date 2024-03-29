@@ -1,7 +1,7 @@
 within Buildings.Fluid.CHPs.OrganicRankine.Examples;
 model FixedHotWaterOutput
   "Example model with fixed hot water output temperature at condenser"
-  extends Buildings.Fluid.CHPs.OrganicRankine.Validation.VaryingHot(
+  extends Buildings.Fluid.CHPs.OrganicRankine.Validation.VariableHot(
     souCol(
       use_m_flow_in=true,
       T=298.15),
