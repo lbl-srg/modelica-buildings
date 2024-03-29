@@ -7,7 +7,8 @@ model Direct
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Nominal air mass flow rate";
 
-  parameter Modelica.Units.SI.PressureDifference dp_nominal
+  parameter Modelica.Units.SI.PressureDifference dp_nominal(
+    displayUnit="Pa")
     "Pressure drop at nominal mass flow rate";
 
   parameter Modelica.Units.SI.Area padAre
@@ -118,7 +119,8 @@ equation
   connect(dirEvaCoo.dmWat_flow, dmWat_flow)
     annotation (Line(points={{42,60},{60,60},{60,80},{120,80}}, color={0,0,127}));
 
-annotation (Icon(graphics={
+annotation (defaultComponentName="dirEvaCoo",
+Icon(graphics={
   Rectangle(lineColor = {0, 0, 255}, fillColor = {95, 95, 95}, pattern = LinePattern.None,
             fillPattern = FillPattern.Solid, extent = {{-70, 60}, {70, -60}}),
   Rectangle(lineColor = {0, 0, 255}, fillColor = {0, 0, 255}, pattern = LinePattern.None,
@@ -142,7 +144,7 @@ annotation (Icon(graphics={
           fillPattern = FillPattern.Solid,
           points = {{42, -26}, {54, -34}, {54, -34}, {42, -40}, {42, -38}, {50, -34}, {50, -34}, {42, -28}, {42, -26}})},
   coordinateSystem(extent = {{-100, -100}, {100, 100}})),
-Documentation(defaultComponentName="dirEvaCoo",
+Documentation(
 info="<html>
 <p>
 Model for a direct evaporative cooler.
