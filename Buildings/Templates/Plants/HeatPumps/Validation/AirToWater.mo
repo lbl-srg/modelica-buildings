@@ -48,14 +48,14 @@ model AirToWater
     if have_chiWat
     "CHW system system approximated by prescribed return temperature"
     annotation (Placement(transformation(extent={{70,-50},{90,-30}})));
-  Fluid.Actuators.Valves.TwoWayPressureIndependent valDisHeaWat(
+  Fluid.Actuators.Valves.TwoWayEqualPercentage     valDisHeaWat(
     redeclare final package Medium=Medium,
     m_flow_nominal=pla.mHeaWat_flow_nominal,
     dpValve_nominal=3E4,
     dpFixed_nominal=datAll.pla.ctl.dpHeaWatRemSet_max[1] - 3E4)
     "Distribution system approximated by variable flow resistance"
     annotation (Placement(transformation(extent={{110,-110},{130,-90}})));
-  Fluid.Actuators.Valves.TwoWayPressureIndependent valDisChiWat(
+  Fluid.Actuators.Valves.TwoWayEqualPercentage     valDisChiWat(
     redeclare final package Medium=Medium,
     m_flow_nominal=pla.mChiWat_flow_nominal,
     dpValve_nominal=3E4,

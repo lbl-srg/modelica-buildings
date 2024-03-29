@@ -21,7 +21,7 @@ block HoldReal "Hold value of real signal based on timer and Boolean signal"
   Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Switch between actual and fixed value"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol(
+  Buildings.Controls.OBC.CDL.Logical.TrueHold truHol(
     final duration=dtHol) if dtHol > 0
     "Hold true value of input signal for given time"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
@@ -44,7 +44,7 @@ equation
     annotation (Line(points={{-120,-40},{60,-40},{60,-8},{68,-8}},color={0,0,127}));
   connect(truHol.y, ph.u) annotation (Line(points={{12,20},{20,20},{20,0},{28,0}},
         color={255,0,255}));
-  connect(u1, ph.uPh) annotation (Line(points={{-120,0},{-40,0},{-40,-4},{28,-4}},
+  connect(u1, ph.uPh) annotation (Line(points={{-120,0},{-40,0},{-40,-6},{28,-6}},
         color={255,0,255}));
   connect(ph.y, swi.u2)
     annotation (Line(points={{52,0},{68,0}}, color={255,0,255}));

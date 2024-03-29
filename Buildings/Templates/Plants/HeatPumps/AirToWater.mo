@@ -332,7 +332,7 @@ model AirToWater
     nPorts=1) if have_heaWat
     "Pressure boundary condition to mimic expansion tank"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=90,
-      origin={0,-330})));
+      origin={20,-340})));
   // Secondary HW loop
   Buildings.Templates.Components.Pumps.Multiple pumHeaWatSec(
     final energyDynamics=energyDynamics,
@@ -580,12 +580,6 @@ equation
       pattern=LinePattern.Dash,
       thickness=0.5,
       visible=have_chiWat));
-  connect(TChiWatPriRet.port_b, valIso.port_aChiWat) annotation (Line(
-      points={{50,0},{0,0},{0,40},{-60,40}},
-      color={0,0,0},
-      pattern=LinePattern.Dash,
-      thickness=0.5,
-      visible=have_chiWat));
   connect(port_aHeaWat, THeaWatSecRet.port_a)
     annotation (Line(points={{600,-360},{150,-360}},color={0,0,0},
       thickness=0.5,
@@ -609,7 +603,8 @@ equation
       thickness=0.5,
       visible=have_chiWat and typPumChiWatSec <> Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized));
   connect(bouHeaWat.ports[1], THeaWatPriRet.port_b)
-    annotation (Line(points={{0,-340},{0,-360},{50,-360}}, color={0,127,255}));
+    annotation (Line(points={{20,-350},{20,-360},{50,-360}},
+                                                           color={0,127,255}));
   connect(junHeaWatBypRet.port_1, THeaWatSecRet.port_b)
     annotation (Line(points={{110,-360},{130,-360}}, color={0,0,0},
       thickness=0.5,
@@ -628,6 +623,12 @@ equation
       points={{208,80},{208,80}},
       color={0,0,0},
       thickness=1));
+  connect(TChiWatPriRet.port_b, valIso.port_aChiWat) annotation (Line(
+      points={{50,0},{0,0},{0,40},{-60,40}},
+      color={0,0,0},
+      pattern=LinePattern.Dash,
+      thickness=0.5,
+      visible=have_chiWat));
   annotation (
     defaultComponentName="pla",
     Documentation(
@@ -638,7 +639,7 @@ This template represents an air-to-water heat pump plant
 with detailed closed-loop controls.
 </p>
 <p>
-The possible configuration options are enumerated in the table below.
+The supported plant configurations are enumerated in the table below.
 The first option displayed in bold characters corresponds to the default 
 configuration.<br/>
 </p>
@@ -706,7 +707,7 @@ For constant primary-variable secondary distributions, the variable
 speed primary pumps are commanded at fixed speeds, determined by
 Testing, Adjusting and Balancing to provide design AWHP flow in 
 heating and cooling modes.
-The same is achieved with constant speed primary pumps through the 
+The same intent is achieved with constant speed primary pumps through the 
 use of balancing valves.
 </td>
 </tr>

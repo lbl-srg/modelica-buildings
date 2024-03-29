@@ -89,6 +89,10 @@ block PlantReset
     "Sum of reset requests of all loads served"
     annotation (Placement(transformation(extent={{-200,120},{-160,160}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Ena
+    "Plant enable"
+    annotation (Placement(transformation(extent={{-200,80},{-160,120}}),
+      iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1StaPro
     "Staging process in progress"
     annotation (Placement(transformation(extent={{-200,20},{-160,60}}),
@@ -117,11 +121,7 @@ block PlantReset
     final triAmo=tri)
     "Compute plant reset with trim and respond logic "
     annotation (Placement(transformation(extent={{-50,90},{-30,110}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Ena
-    "Plant enable"
-    annotation (Placement(transformation(extent={{-200,80},{-160,120}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol(
+  Buildings.Controls.OBC.CDL.Logical.TrueHold truHol(
     final duration=dtHol)
     "Hold true value of input signal for given time"
     annotation (Placement(transformation(extent={{-130,30},{-110,50}})));

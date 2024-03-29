@@ -464,21 +464,23 @@ equation
   connect(ports_aHeaWatHp, valHeaWatHpOutIso.port_a)
     annotation (Line(points={{-180,-200},{-180,-10}},color={0,127,255}));
   connect(ports_aChiHeaWatHp, valHeaWatHpOutIso.port_a)
-    annotation (Line(points={{-100,-200},{-100,-180},{-180,-180},{-180,-10}},
+    annotation (Line(points={{-100,-200},{-120,-200},{-120,-20},{-180,-20},{
+          -180,-10}},
       color={0,127,255}));
   connect(ports_aChiHeaWatHp, valChiWatHpOutIso.port_a)
     annotation (Line(points={{-100,-200},{-100,-200},{-100,-10}},color={0,127,255}));
   connect(ports_aChiWatHp, valChiWatHpOutIso.port_a)
-    annotation (Line(points={{-20,-200},{-20,-180},{-100,-180},{-100,-10}},color={0,127,255}));
+    annotation (Line(points={{-20,-200},{-20,-20},{-100,-20},{-100,-10}},  color={0,127,255}));
   connect(ports_aHeaWatHp, pasHeaWatHpOut.port_a)
-    annotation (Line(points={{-180,-200},{-180,-20},{-160,-20},{-160,-10}},color={0,127,255}));
+    annotation (Line(points={{-180,-200},{-160,-200},{-160,-10}},          color={0,127,255}));
   connect(ports_aChiHeaWatHp, pasHeaWatHpOut.port_a)
-    annotation (Line(points={{-100,-200},{-100,-180},{-180,-180},{-180,-20},{-160,-20},{-160,-10}},
+    annotation (Line(points={{-100,-200},{-120,-200},{-120,-20},{-160,-20},{
+          -160,-10}},
       color={0,127,255}));
   connect(ports_aChiHeaWatHp, pasChiWatHpOut.port_a)
-    annotation (Line(points={{-100,-200},{-100,-20},{-80,-20},{-80,-10}},color={0,127,255}));
+    annotation (Line(points={{-100,-200},{-80,-200},{-80,-10}},          color={0,127,255}));
   connect(ports_aChiWatHp, pasChiWatHpOut.port_a)
-    annotation (Line(points={{-20,-200},{-20,-180},{-100,-180},{-100,-20},{-80,-20},{-80,-10}},
+    annotation (Line(points={{-20,-200},{-20,-20},{-80,-20},{-80,-10}},
       color={0,127,255}));
   connect(valHeaWatHpOutIso.port_b, junHeaWatSup.ports[1:nHp])
     annotation (Line(points={{-180,10},{-180,20},{-160,20},{-160,40}},color={0,127,255}));
@@ -505,13 +507,13 @@ equation
   connect(pasChiWatHpInl.port_a, junChiWatRet.ports[1:nHp])
     annotation (Line(points={{160,10},{160,26},{160,40},{160,40}},color={0,127,255}));
   connect(pasHeaWatHpInl.port_b, ports_bChiHeaWatHp)
-    annotation (Line(points={{80,-10},{80,-20},{100,-20},{100,-200}},color={0,127,255}));
+    annotation (Line(points={{80,-10},{80,-200},{100,-200}},         color={0,127,255}));
   connect(valHeaWatHpInlIso.port_b, ports_bChiHeaWatHp)
     annotation (Line(points={{100,-10},{100,-200}},color={0,127,255}));
   connect(pasChiWatHpInl.port_b, ports_bChiHeaWatHp)
     annotation (Line(points={{160,-10},{160,-180},{100,-180},{100,-200}},color={0,127,255}));
   connect(valChiWatHpInlIso.port_b, ports_bChiHeaWatHp)
-    annotation (Line(points={{180,-10},{180,-20},{160,-20},{160,-180},{100,-180},{100,-200}},
+    annotation (Line(points={{180,-10},{180,-180},{100,-180},{100,-200}},
       color={0,127,255}));
   connect(busValHeaWatHpInlIso, valHeaWatHpInlIso.bus)
     annotation (Line(points={{60,160},{110,160},{110,0}},color={255,204,51},thickness=0.5));

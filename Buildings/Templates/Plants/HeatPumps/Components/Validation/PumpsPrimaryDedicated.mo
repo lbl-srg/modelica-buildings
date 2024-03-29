@@ -13,6 +13,10 @@ model PumpsPrimaryDedicated
     Dialog(tab="Dynamics",group="Conservation equations"));
   parameter Data.Controller datCtl(
     cfg(
+      have_pumHeaWatPriVar=false,
+      have_pumChiWatPriVar=false,
+      have_inpSch=false,
+      have_hrc=false,
       have_valHpOutIso=false,
       have_valHpInlIso=true,
       have_chiWat=true,
@@ -32,7 +36,6 @@ model PumpsPrimaryDedicated
       have_valChiWatMinByp=false,
       have_valHeaWatMinByp=false,
       typMod=Buildings.Templates.Components.Types.HeatPumpModel.EquationFit,
-      have_senVHeaWatSec=false,
       cpHeaWat_default=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
       cpSou_default=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
       have_senDpChiWatRemWir=true,
@@ -45,18 +48,24 @@ model PumpsPrimaryDedicated
       have_senDpHeaWatRemWir=true,
       typPumChiWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None,
       nPumChiWatPri=0,
-      have_senVChiWatSec=false,
       nSenDpHeaWatRem=0,
       nSenDpChiWatRem=0,
       nAirHan=0,
       nEquZon=0),
-    THeaWatSupHp_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
-    TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup)
+    THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
+    TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
+    dpChiWatRemSet_max=fill(Buildings.Templates.Data.Defaults.dpChiWatRemSet_max, datCtl.cfg.nSenDpChiWatRem),
+    dpHeaWatRemSet_max=fill(Buildings.Templates.Data.Defaults.dpHeaWatRemSet_max, datCtl.cfg.nSenDpHeaWatRem),
+    staEqu={fill(1, datCtl.cfg.nHp)})
     "Controller parameters"
     annotation (Placement(transformation(extent={{-120,260},{-100,280}})));
 
   parameter Data.Controller datCtlNoDed(
     cfg(
+      have_pumHeaWatPriVar=false,
+      have_pumChiWatPriVar=false,
+      have_inpSch=false,
+      have_hrc=false,
       have_valHpOutIso=false,
       have_valHpInlIso=true,
       have_chiWat=true,
@@ -76,7 +85,6 @@ model PumpsPrimaryDedicated
       have_valChiWatMinByp=false,
       have_valHeaWatMinByp=false,
       typMod=Buildings.Templates.Components.Types.HeatPumpModel.EquationFit,
-      have_senVHeaWatSec=false,
       cpHeaWat_default=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
       cpSou_default=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
       have_senDpChiWatRemWir=true,
@@ -89,18 +97,24 @@ model PumpsPrimaryDedicated
       have_senDpHeaWatRemWir=true,
       typPumChiWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None,
       nPumChiWatPri=0,
-      have_senVChiWatSec=false,
       nSenDpHeaWatRem=0,
       nSenDpChiWatRem=0,
       nAirHan=0,
       nEquZon=0),
-    THeaWatSupHp_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
-    TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup)
+    THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
+    TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
+    dpChiWatRemSet_max=fill(Buildings.Templates.Data.Defaults.dpChiWatRemSet_max, datCtlNoDed.cfg.nSenDpChiWatRem),
+    dpHeaWatRemSet_max=fill(Buildings.Templates.Data.Defaults.dpHeaWatRemSet_max, datCtlNoDed.cfg.nSenDpHeaWatRem),
+    staEqu={fill(1, datCtlNoDed.cfg.nHp)})
     "Controller parameters"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
 
   parameter Data.Controller datCtlSep(
     cfg(
+      have_pumHeaWatPriVar=false,
+      have_pumChiWatPriVar=false,
+      have_inpSch=false,
+      have_hrc=false,
       have_valHpOutIso=false,
       have_valHpInlIso=true,
       have_chiWat=true,
@@ -120,7 +134,6 @@ model PumpsPrimaryDedicated
       have_valChiWatMinByp=false,
       have_valHeaWatMinByp=false,
       typMod=Buildings.Templates.Components.Types.HeatPumpModel.EquationFit,
-      have_senVHeaWatSec=false,
       cpHeaWat_default=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
       cpSou_default=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
       have_senDpChiWatRemWir=true,
@@ -133,18 +146,24 @@ model PumpsPrimaryDedicated
       rhoSou_default=Buildings.Media.Air.dStp,
       have_senDpHeaWatRemWir=true,
       typPumChiWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None,
-      have_senVChiWatSec=false,
       nSenDpHeaWatRem=0,
       nSenDpChiWatRem=0,
       nAirHan=0,
       nEquZon=0),
-    THeaWatSupHp_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
-    TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup)
+    THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
+    TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
+    dpChiWatRemSet_max=fill(Buildings.Templates.Data.Defaults.dpChiWatRemSet_max, datCtlSep.cfg.nSenDpChiWatRem),
+    dpHeaWatRemSet_max=fill(Buildings.Templates.Data.Defaults.dpHeaWatRemSet_max, datCtlSep.cfg.nSenDpHeaWatRem),
+    staEqu={fill(1, datCtlSep.cfg.nHp)})
     "Controller parameters"
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
 
   parameter Data.Controller datCtlHea(
     cfg(
+      have_pumHeaWatPriVar=true,
+      have_pumChiWatPriVar=false,
+      have_inpSch=false,
+      have_hrc=false,
       have_valHpOutIso=false,
       have_valHpInlIso=false,
       have_chiWat=false,
@@ -164,7 +183,6 @@ model PumpsPrimaryDedicated
       have_valChiWatMinByp=false,
       have_valHeaWatMinByp=false,
       typMod=Buildings.Templates.Components.Types.HeatPumpModel.EquationFit,
-      have_senVHeaWatSec=false,
       cpHeaWat_default=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
       cpSou_default=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
       have_senDpChiWatRemWir=true,
@@ -177,14 +195,17 @@ model PumpsPrimaryDedicated
       rhoSou_default=Buildings.Media.Air.dStp,
       have_senDpHeaWatRemWir=true,
       typPumChiWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None,
-      have_senVChiWatSec=false,
       nSenDpHeaWatRem=0,
       nSenDpChiWatRem=0,
       nAirHan=0,
       nEquZon=0),
-    THeaWatSupHp_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed)
+    THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
+    dpChiWatRemSet_max=fill(Buildings.Templates.Data.Defaults.dpChiWatRemSet_max, datCtlHea.cfg.nSenDpChiWatRem),
+    dpHeaWatRemSet_max=fill(Buildings.Templates.Data.Defaults.dpHeaWatRemSet_max, datCtlHea.cfg.nSenDpHeaWatRem),
+    staEqu={fill(1, datCtlHea.cfg.nHp)})
     "Controller parameters"
     annotation (Placement(transformation(extent={{-120,-360},{-100,-340}})));
+
   parameter Data.HeatPumpGroup datHp(
     final nHp=2,
     final typ=Buildings.Templates.Components.Types.HeatPump.AirToWater,
@@ -467,37 +488,49 @@ model PumpsPrimaryDedicated
 equation
   for i in 1:pumPriHea.nHp loop
     connect(pumPriHea.ports_bChiHeaWat[i], priHeaWat.port_a)
-      annotation (Line(points={{-70,-380},{-68,-380},{-68,-340},{-10,-340}},
+      annotation (Line(points={{-40.8333,-380},{-68,-380},{-68,-340},{-10,-340}},
         color={0,127,255}));
     connect(priHeaWat.port_b, pumPriHea.ports_aChiHeaWat[i])
-      annotation (Line(points={{10,-340},{30,-340},{30,-380}},color={0,127,255}));
+      annotation (Line(points={{10,-340},{0.833333,-340},{0.833333,-380}},
+                                                              color={0,127,255}));
   end for;
   connect(pumPri.ports_bChiHeaWatHp, hp.port_a)
-    annotation (Line(points={{30,160},{30,140},{-10,140}},color={0,127,255}));
+    annotation (Line(points={{0.833333,160},{0.833333,140},{-10,140}},
+                                                          color={0,127,255}));
   connect(hp.port_b, pumPri.ports_aChiHeaWatHp)
-    annotation (Line(points={{-30,140},{-70,140},{-70,160}},color={0,127,255}));
+    annotation (Line(points={{-30,140},{-40.8333,140},{-40.8333,160}},
+                                                            color={0,127,255}));
   connect(pumPriNoDed.ports_bChiHeaWatHp, hpNoDed.port_a)
-    annotation (Line(points={{30,-60},{30,-80},{-10,-80}},color={0,127,255}));
+    annotation (Line(points={{0.833333,-60},{0.833333,-80},{-10,-80}},
+                                                          color={0,127,255}));
   connect(hpNoDed.port_b, pumPriNoDed.ports_aChiHeaWatHp)
-    annotation (Line(points={{-30,-80},{-70,-80},{-70,-60}},color={0,127,255}));
+    annotation (Line(points={{-30,-80},{-40.8333,-80},{-40.8333,-60}},
+                                                            color={0,127,255}));
   connect(pumPriNoDed.ports_bChiHeaWat, pumPriHdr.ports_a)
-    annotation (Line(points={{-70,20},{-70,60},{-60,60}},color={0,127,255}));
+    annotation (Line(points={{-40.8333,20},{-40.8333,60},{-60,60}},
+                                                         color={0,127,255}));
   connect(ctlNoDed.bus, busPla)
     annotation (Line(points={{-100,100},{-80,100}},color={255,204,51},thickness=0.5));
   connect(busPla.pumHeaWatPri, pumPriHdr.bus)
     annotation (Line(points={{-80,100},{-50,100},{-50,70}},color={255,204,51},thickness=0.5));
   connect(pumPriSep.ports_bChiHeaWatHp, hpSep.port_a)
-    annotation (Line(points={{30,-260},{30,-280},{-10,-280}},color={0,127,255}));
+    annotation (Line(points={{0.833333,-260},{0.833333,-280},{-10,-280}},
+                                                             color={0,127,255}));
   connect(hpSep.port_b, pumPriSep.ports_aChiHeaWatHp)
-    annotation (Line(points={{-30,-280},{-70,-280},{-70,-260}},color={0,127,255}));
+    annotation (Line(points={{-30,-280},{-40.8333,-280},{-40.8333,-260}},
+                                                               color={0,127,255}));
   connect(pumPri.ports_bChiHeaWat, valHeaWatIso.port_a)
-    annotation (Line(points={{-70,240},{-70,280},{-10,280}},color={0,127,255}));
+    annotation (Line(points={{-40.8333,240},{-40.8333,280},{-10,280}},
+                                                            color={0,127,255}));
   connect(valHeaWatIso.port_b, pumPri.ports_aChiHeaWat)
-    annotation (Line(points={{10,280},{30,280},{30,240}},color={0,127,255}));
+    annotation (Line(points={{10,280},{0.833333,280},{0.833333,240}},
+                                                         color={0,127,255}));
   connect(pumPri.ports_bChiHeaWat, valChiWatIso.port_a)
-    annotation (Line(points={{-70,240},{-70,260},{-40,260}},color={0,127,255}));
+    annotation (Line(points={{-40.8333,240},{-40.8333,260},{-40,260}},
+                                                            color={0,127,255}));
   connect(valChiWatIso.port_b, pumPri.ports_aChiHeaWat)
-    annotation (Line(points={{-20,260},{30,260},{30,240}},color={0,127,255}));
+    annotation (Line(points={{-20,260},{0.833333,260},{0.833333,240}},
+                                                          color={0,127,255}));
   connect(ctl.bus, busPla1)
     annotation (Line(points={{-100,300},{-70,300}},color={255,204,51},thickness=0.5));
   connect(busPla1.valHeaWatHpInlIso, valHeaWatIso.bus)
@@ -511,9 +544,11 @@ equation
   connect(pumPriHdr.ports_b, valHeaWatIsoNoDed.port_a)
     annotation (Line(points={{-40,60},{-30,60},{-30,80},{0,80}},color={0,127,255}));
   connect(valHeaWatIsoNoDed.port_b, pumPriNoDed.ports_aChiHeaWat)
-    annotation (Line(points={{20,80},{30,80},{30,20}},color={0,127,255}));
+    annotation (Line(points={{20,80},{0.833333,80},{0.833333,20}},
+                                                      color={0,127,255}));
   connect(valChiWatIsoNoDed.port_b, pumPriNoDed.ports_aChiHeaWat)
-    annotation (Line(points={{0,58},{30,58},{30,20}},color={0,127,255}));
+    annotation (Line(points={{0,58},{0.833333,58},{0.833333,20}},
+                                                     color={0,127,255}));
   connect(ret1.ports, valHeaWatIsoNoDed.port_b)
     annotation (Line(points={{50,80},{20,80}},color={0,127,255}));
   connect(busPla.valHeaWatHpInlIso, valHeaWatIsoNoDed.bus)
@@ -529,21 +564,27 @@ equation
   connect(ctlSep.bus, busPla2)
     annotation (Line(points={{-100,-120},{-80,-120}},color={255,204,51},thickness=0.5));
   connect(pumPriSep.ports_bHeaWat, valHeaWatIsoSep.port_a)
-    annotation (Line(points={{-86,-180},{-86,-140},{-20,-140}},color={0,127,255}));
+    annotation (Line(points={{-47.5,-180},{-47.5,-140},{-20,-140}},
+                                                               color={0,127,255}));
   connect(pumPriSep.ports_bChiWat, valChiWatIsoSep.port_a)
-    annotation (Line(points={{-54,-180},{-54,-160},{-50,-160}},color={0,127,255}));
+    annotation (Line(points={{-34.1667,-180},{-34.1667,-160},{-50,-160}},
+                                                               color={0,127,255}));
   connect(valHeaWatIsoSep.port_b, pumPriSep.ports_aChiHeaWat)
-    annotation (Line(points={{0,-140},{30,-140},{30,-180}},color={0,127,255}));
+    annotation (Line(points={{0,-140},{0.833333,-140},{0.833333,-180}},
+                                                           color={0,127,255}));
   connect(valChiWatIsoSep.port_b, pumPriSep.ports_aChiHeaWat)
-    annotation (Line(points={{-30,-160},{30,-160},{30,-180}},color={0,127,255}));
+    annotation (Line(points={{-30,-160},{0.833333,-160},{0.833333,-180}},
+                                                             color={0,127,255}));
   connect(ret2.ports, valHeaWatIsoSep.port_b)
     annotation (Line(points={{50,-140},{0,-140}},color={0,127,255}));
   connect(busPla2, pumPriSep.bus)
     annotation (Line(points={{-80,-120},{-20,-120},{-20,-180}},color={255,204,51},thickness=0.5));
   connect(pumPriHea.ports_bChiHeaWatHp, hpHea.port_a)
-    annotation (Line(points={{30,-460},{30,-480},{-10,-480}},color={0,127,255}));
+    annotation (Line(points={{0.833333,-460},{0.833333,-480},{-10,-480}},
+                                                             color={0,127,255}));
   connect(hpHea.port_b, pumPriHea.ports_aChiHeaWatHp)
-    annotation (Line(points={{-30,-480},{-70,-480},{-70,-460}},color={0,127,255}));
+    annotation (Line(points={{-30,-480},{-40.8333,-480},{-40.8333,-460}},
+                                                               color={0,127,255}));
   connect(priHeaWat.port_b, ret3.ports[1])
     annotation (Line(points={{10,-340},{50,-340}},color={0,127,255}));
   connect(ctlHea.bus, pumPriHea.bus)
