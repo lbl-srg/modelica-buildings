@@ -357,7 +357,6 @@ protected
             fillPattern=FillPattern.Solid),
           Line(points={{62,0},{-98,0}}, color={0,0,0}),
           Rectangle(
-            visible=use_inputFilter,
             extent={{28,-10},{46,10}},
             lineColor={0,0,0},
             fillColor={135,135,135},

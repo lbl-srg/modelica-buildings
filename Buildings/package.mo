@@ -722,6 +722,15 @@ have been <b style=\"color:blue\">improved</b> in a
                        This change is supported in the conversion script.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Obsolete</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Obsolete.Utilities.IO.Python36
+    </td>
+    <td valign=\"top\">Removed package.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3506\">#3506</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Templates</b>
     </td>
 </tr>
