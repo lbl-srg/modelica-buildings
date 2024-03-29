@@ -370,12 +370,12 @@ annotation (
     Documentation(
       info="<html>
 <p>
-This is a simplified building model where the space heating and cooling 
-loads are provided as time series. In order to approximate the emission 
+This is a simplified building model where the space heating and cooling
+loads are provided as time series. In order to approximate the emission
 characteristic of the building HVAC system,
-this model uses idealized fan coil models that are parameterized with 
-the peak load, determined from the provided time series, and design 
-values of the hot water and chilled water supply and return temperatures. 
+this model uses idealized fan coil models that are parameterized with
+the peak load, determined from the provided time series, and design
+values of the hot water and chilled water supply and return temperatures.
 </p>
 <p>
 The time series that provide the loads are read from the file <code>filNam</code>.
@@ -431,13 +431,13 @@ The header also needs to contain the lines that start with <code>#Peak</code> as
 <p>
 The total space heating (resp. cooling) load is split between
 <code>facMulHea</code> (resp. <code>facMulCoo</code>)
-identical terminal units with heat transfer performance approximated based on 
+identical terminal units with heat transfer performance approximated based on
 design specifications of a reference terminal unit.
-It is not expected that the user modifies the default values 
+It is not expected that the user modifies the default values
 that are proposed for <code>facMulHea</code> and <code>facMulCoo</code>
-unless detailed design data are available for the building 
+unless detailed design data are available for the building
 HVAC system.
-In that latter case, the following set of parameters should be 
+In that latter case, the following set of parameters should be
 modified consistently to match the design data.
 </p>
 <ul>
@@ -457,7 +457,7 @@ modified consistently to match the design data.
 </li>
 </ul>
 <p>
-For reference, the default reference terminal unit performance is based on 
+For reference, the default reference terminal unit performance is based on
 manufacturer data (Carrier fan coil model 42NL/NH) at selection conditions
 as specified in the \"Advanced\" tab.
 </p>

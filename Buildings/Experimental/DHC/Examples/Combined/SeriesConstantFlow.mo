@@ -30,7 +30,7 @@ model SeriesConstantFlow
     k=fill(15 + 273.15, nBui))
     "Cold water temperature"
     annotation (Placement(transformation(extent={{-298,150},{-278,170}})));
-  Networks.Distribution1PipeAutoSize dis(
+  Networks.Distribution1Pipe_R dis(
     redeclare final package Medium = Medium,
     final nCon=nBui,
     show_TOut=true,

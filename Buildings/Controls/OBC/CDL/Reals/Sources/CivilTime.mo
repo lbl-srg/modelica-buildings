@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.CDL.Reals.Sources;
 block CivilTime "Civil time"
-  Interfaces.RealOutput y(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
     final unit="s")
     "Civil time"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));

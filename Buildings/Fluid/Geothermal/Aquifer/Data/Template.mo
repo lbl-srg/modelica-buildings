@@ -20,12 +20,18 @@ record Template
 info="<html>
 <p>
 This record is a template for the records in
-<a href=\"modelica://Buildings.Fluid.Geothermal.Aquifer.SingleWell\">
-Buildings.Fluid.Geothermal.Aquifer.SingleWell</a>.
+<a href=\"modelica://Buildings.Fluid.Geothermal.Aquifer.MultiWell\">
+Buildings.Fluid.Geothermal.Aquifer.MultiWell</a>.
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 25, 2024, by Michael Wetter:<br/>
+Corrected broken link.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1855\">IBPSA, issue 1855</a>.
+</li>
 <li>
 May 2023, by Alessandro Maccarini:<br/>
 First implementation.

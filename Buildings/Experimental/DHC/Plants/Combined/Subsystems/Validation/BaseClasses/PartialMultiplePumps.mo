@@ -188,8 +188,8 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,140}})),
     Documentation(info="<html>
 <p>
-This base class is used to construct validation models 
-for the various multiple-pump models within 
+This base class is used to construct validation models
+for the various multiple-pump models within
 <a href=\"modelica://Buildings.Experimental.DHC.Plants.Combined.Subsystems\">
 Buildings.Experimental.DHC.Plants.Combined.Subsystems</a>.
 </p>
