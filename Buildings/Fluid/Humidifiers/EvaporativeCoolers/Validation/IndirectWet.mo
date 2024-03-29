@@ -21,28 +21,20 @@ model IndirectWet "Validation model for indirect wet evaporative cooler"
     final maxEff=0.8,
     final floRat=0.16)
     "Indirect wet evaporative cooler"
-    annotation (Placement(visible=true,
-      transformation(origin={-2,0},
-      extent={{-10,-10},{10,10}},
-      rotation=0)));
+    annotation (Placement(transformation(origin={-2,0}, extent={{-10,-10},{10,10}})));
 
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare final package Medium = MediumA,
     final nPorts=1)
     "Sink for primary airflow"
-    annotation (Placement(visible=true, transformation(
-      origin={130,0},
-      extent={{-10,-10},{10,10}},
-      rotation=180)));
+    annotation (Placement(transformation(origin={130,0}, extent={{10,-10},{-10,10}})));
 
   Buildings.Fluid.Sources.Boundary_pT sin1(
     redeclare final package Medium = MediumA,
     final nPorts=1)
     "Sink for secondary airflow"
-    annotation (Placement(visible=true, transformation(
-      origin={130,-36},
-      extent={{-10,-10},{10,10}},
-      rotation=180)));
+    annotation (Placement(transformation(origin={130,-40}, extent={{10,-10},{-10,
+            10}})));
 
   Buildings.Fluid.Sources.MassFlowSource_T souPri(
     redeclare final package Medium = MediumA,
@@ -51,11 +43,7 @@ model IndirectWet "Validation model for indirect wet evaporative cooler"
     final use_m_flow_in=true,
     final nPorts=1)
     "Source for primary flow"
-    annotation (Placement(visible=true,
-      transformation(
-      origin={-80,10},
-      extent={{-10,-10},{10,10}},
-      rotation=0)));
+    annotation (Placement(transformation(origin={-80,10}, extent={{-10,-10},{10,10}})));
 
   Modelica.Blocks.Sources.CombiTimeTable combiTimeTable(
     final columns=2:12,
@@ -64,50 +52,33 @@ model IndirectWet "Validation model for indirect wet evaporative cooler"
     final tableOnFile = true,
     final timeScale = 1)
     "Table input from EnergyPlus"
-    annotation (Placement(visible = true,
-      transformation(origin={-178,90},
-      extent = {{-10, -10}, {10, 10}},
-      rotation = 0)));
+    annotation (Placement(transformation(origin={-178,90}, extent={{-10,-10},{10,10}})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem(
     redeclare final package Medium = MediumA,
     final m_flow_nominal=m1_flow_nominal)
     "Outlet air drybulb temperature sensor"
-    annotation (Placement(visible = true, transformation(origin={30,20},
-      extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    annotation (Placement(transformation(origin={30,20}, extent={{-10,-10},{10,10}})));
 
   Modelica.Blocks.Math.UnitConversions.From_degC from_degCPriIn
     "Primary air inlet temperature to Kelvin"
-    annotation (Placement(visible=true,
-      transformation(
-      origin={-130,50},
-      extent={{-10,-10},{10,10}},
-      rotation=0)));
+    annotation (Placement(transformation(origin={-130,50}, extent={{-10,-10},{10,10}})));
 
   Buildings.Fluid.Sensors.MassFractionTwoPort senMasFra(
     redeclare final package Medium = MediumA,
     final m_flow_nominal=m1_flow_nominal)
     "Measured primary outlet air mass fraction"
-    annotation (Placement(visible = true,
-      transformation(origin={60,20},
-      extent = {{-10, -10}, {10, 10}},
-      rotation = 0)));
+    annotation (Placement(transformation(origin={60,20}, extent={{-10,-10},{10,10}})));
 
   Modelica.Blocks.Math.Mean TOut_mean(
     final f=1/600)
     "Measured outlet air drybulb temperature mean"
-    annotation (Placement(visible=true, transformation(
-      origin={90,90},
-      extent={{-10,-10},{10,10}},
-      rotation=0)));
+    annotation (Placement(transformation(origin={90,90}, extent={{-10,-10},{10,10}})));
 
   Modelica.Blocks.Math.Mean XOut_mean(
     final f=1/600)
     "Measured primary outlet air mass fraction mean"
-    annotation (Placement(visible=true, transformation(
-      origin={90,60},
-      extent={{-10,-10},{10,10}},
-      rotation=0)));
+    annotation (Placement(transformation(origin={90,60}, extent={{-10,-10},{10,10}})));
 
   Buildings.Fluid.Sources.MassFlowSource_T souSec(
     redeclare final package Medium = MediumA,
@@ -116,19 +87,11 @@ model IndirectWet "Validation model for indirect wet evaporative cooler"
     final use_m_flow_in=true,
     final nPorts=1)
     "Secondary air source"
-    annotation (Placement(visible=true,
-      transformation(
-      origin={-80,-30},
-      extent={{-10,-10},{10,10}},
-      rotation=0)));
+    annotation (Placement(transformation(origin={-80,-30}, extent={{-10,-10},{10,10}})));
 
   Modelica.Blocks.Math.UnitConversions.From_degC from_degCSecIn
     "Secondary air inlet temperature to Kelvin"
-    annotation (Placement(visible=true,
-      transformation(
-      origin={-130,-30},
-      extent={{-10,-10},{10,10}},
-      rotation=0)));
+    annotation (Placement(transformation(origin={-130,-30}, extent={{-10,-10},{10,10}})));
 
   Buildings.Utilities.Psychrometrics.ToTotalAir toTotAirPriIn
     "Primary inlet air mass fraction"
@@ -175,7 +138,7 @@ equation
   connect(combiTimeTable.y[9], souPri.m_flow_in) annotation (
     Line(points = {{-167, 90}, {-100, 90}, {-100, 18}, {-92, 18}}, color = {0, 0, 127}));
   connect(senMasFra.port_b, sin.ports[1]) annotation (
-    Line(points = {{70, 20}, {106, 20}, {106, 6.66134e-16}, {120, 6.66134e-16}}, color = {0, 127, 255}));
+    Line(points={{70,20},{100,20},{100,0},{120,0}}, color = {0, 127, 255}));
   connect(to_degC.y, TOut_mean.u) annotation (
     Line(points = {{61, 90}, {78, 90}}, color = {0, 0, 127}));
   connect(to_degC.u, senTem.T) annotation (
@@ -187,45 +150,63 @@ equation
   connect(combiTimeTable.y[11], toTotAirSecIn.XiDry) annotation (
     Line(points = {{-167, 90}, {-160, 90}, {-160, -70}, {-141, -70}}, color = {0, 0, 127}));
   connect(indWetEvaCoo.port_b2, sin1.ports[1]) annotation (
-    Line(points = {{8, -6}, {46, -6}, {46, -36}, {120, -36}}, color = {0, 127, 255}));
+    Line(points={{8,-6},{40,-6},{40,-40},{120,-40}},          color = {0, 127, 255}));
   connect(souPri.ports[1], indWetEvaCoo.port_a1) annotation (
     Line(points = {{-70, 10}, {-40, 10}, {-40, 6}, {-12, 6}}, color = {0, 127, 255}));
   connect(souSec.ports[1], indWetEvaCoo.port_a2) annotation (
     Line(points = {{-70, -30}, {-40, -30}, {-40, -6}, {-12, -6}}, color = {0, 127, 255}));
-  annotation (
-    Diagram(coordinateSystem(extent = {{-200, -180}, {180, 180}})),
-    Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}})),
-    experiment(StopTime = 604800, Interval = 600, Tolerance = 1e-6),
-    __Dymola_Commands(file = "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Humidifiers/EvaporativeCoolers/Validation/IndirectWet.mos" "Simulate and plot"),
-    Documentation(info = "<html>
-    <p>This model validates the indirect wet evaporative cooler model 
-    <a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.IndirectWet\">
-    Buildings.Fluid.Humidifiers.EvaporativeCoolers.IndirectWet</a>. 
-    </p>
-    <p>The EnergyPlus results were generated using the example file <code>IndirectWet.idf</code> 
-    from EnergyPlus 23.1. The results were then used to set-up the boundary conditions 
-    for the model as well as the input signals. To compare the results, the Modelica 
-    outputs are averaged over 600 seconds. </p>
-    <p>Note that EnergyPlus mass fractions (Xi) are in mass of water vapor per mass 
-    of dry air, whereas Modelica uses the total mass as a reference. Also, the 
-    temperatures in Modelica are in Kelvin whereas they are in Celsius in EnergyPlus. 
-    Hence, the EnergyPlus values are corrected by using the appropriate conversion blocks.</p>
-    <p>The validation generates three subplots. </p>
-    <ul>
-    <li>Subplot 1 shows the inlet air mass flowrate from the EnergyPlus model varying 
-    with the cooling load. </li>
-    <li>Subplot 2 compares the outlet air dry bulb temperature generated by Modelica 
-    and EnergyPlus model. </li>
-    <li>Subplot 3 compares the outlet air humidity ratio generated by Modelica and 
-    EnergyPlus model. </li>
-    </ul>
-    <p>The validation results demostrate that, with time-varying air flow rate, 
-    the Modelica model can effectively capture the dynamics of outlet air humidity 
-    ratio and dry bulb temperature, which match the data generated by Energyplus. </p>
-    <p>Note: There is no validation reference data for the secondary outlet air, 
-    which is assumed to be vented to outdoor air. Hence, those conditions have not 
-    been validated here.</p>
-    </html>", revisions = "<html>
+
+annotation (
+  Diagram(coordinateSystem(extent = {{-200, -180}, {180, 180}})),
+  Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}})),
+  experiment(StopTime = 604800, Interval = 600, Tolerance = 1e-6),
+  __Dymola_Commands(file = "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Humidifiers/EvaporativeCoolers/Validation/IndirectWet.mos" "Simulate and plot"),
+  Documentation(info = "<html>
+<p>
+This model validates the indirect wet evaporative cooler model
+<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.IndirectWet\">
+Buildings.Fluid.Humidifiers.EvaporativeCoolers.IndirectWet</a>.
+</p>
+<p>
+The EnergyPlus results were generated using the example file <code>IndirectWet.idf</code>
+from EnergyPlus 23.1. The results were then used to set-up the boundary conditions
+for the model as well as the input signals. To compare the results, the Modelica
+outputs are averaged over 600 seconds.
+</p>
+<p>
+Note that EnergyPlus mass fractions (Xi) are in mass of water vapor per mass
+of dry air, whereas Modelica uses the total mass as a reference. Also, the
+temperatures in Modelica are in Kelvin whereas they are in Celsius in EnergyPlus.
+Hence, the EnergyPlus values are corrected by using the appropriate conversion blocks.
+</p>
+<p>
+The validation generates three subplots.
+</p>
+<ul>
+<li>
+Subplot 1 shows the inlet air mass flowrate from the EnergyPlus model varying
+with the cooling load.
+</li>
+<li>
+Subplot 2 compares the outlet air dry bulb temperature generated by Modelica
+and EnergyPlus model.
+</li>
+<li>
+Subplot 3 compares the outlet air humidity ratio generated by Modelica and
+EnergyPlus model.
+</li>
+</ul>
+<p>
+The validation results demostrate that, with time-varying air flow rate,
+the Modelica model can effectively capture the dynamics of outlet air humidity
+ratio and dry bulb temperature, which match the data generated by Energyplus.
+</p>
+<p>
+Note: There is no validation reference data for the secondary outlet air,
+which is assumed to be vented to outdoor air. Hence, those conditions have not
+been validated here.
+</p>
+</html>", revisions = "<html>
 <ul>
 <li>
 September 29, 2023 by Karthikeya Devaprasad:<br/>

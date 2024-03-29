@@ -13,39 +13,41 @@ block Xi_TDryBulTWetBul
     "Set to true to approximate wet bulb temperature"
     annotation (Evaluate=true);
 
-  Modelica.Blocks.Interfaces.RealInput TDryBul(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TDryBul(
     start=303,
     final quantity="ThermodynamicTemperature",
     final unit="K",
     min=0)
     "Dry bulb temperature"
-    annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
+        iconTransformation(extent={{-140,50},{-100,90}})));
 
-  Modelica.Blocks.Interfaces.RealInput p(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput p(
     final quantity="AbsolutePressure",
-    final unit="Pa",
+    displayUnit="Pa",
     min = 0)
     "Pressure"
-    annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
+    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
+        iconTransformation(extent={{-140,-110},{-100,-70}})));
 
-  Modelica.Blocks.Interfaces.RealInput TWetBul(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TWetBul(
     start=293,
     final quantity="ThermodynamicTemperature",
     final unit="K",
     min=0)
     "Wet bulb temperature"
-    annotation (Placement(transformation(extent={{-120,-10},{-100,10}}),
-        iconTransformation(extent={{-120,-10},{-100,10}})));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
+        iconTransformation(extent={{-140,-20},{-100,20}})));
 
-  Modelica.Blocks.Interfaces.RealOutput Xi[Medium.nXi]
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput Xi[Medium.nXi]
     "Water vapor mass fraction"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
-        iconTransformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
   parameter Integer iWat = sum({(
-  if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i], string2="Water", caseSensitive=false)
-  then i else 0) for i in 1:Medium.nX})
+    if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i], string2="Water", caseSensitive=false)
+    then i else 0) for i in 1:Medium.nX})
     "Index of water in medium composition vector";
   constant Real uniCon1(final unit="1/rad") = 1
     "Constant to satisfy unit check";
@@ -101,22 +103,19 @@ annotation (
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}), graphics={
         Text(
-          extent={{-100,102},{-70,58}},
+          extent={{-98,82},{-62,60}},
           textColor={0,0,127},
-          fontSize=8,
           textString="TDryBul"),
         Text(
           extent={{82,10},{96,-10}},
           textColor={0,0,127},
-          fontSize=8,
           textString="Xi"),
         Text(
-          extent={{-96,-72},{-78,-90}},
+          extent={{-98,-74},{-82,-98}},
           textColor={0,0,127},
-          fontSize=8,
           textString="p"),
         Text(
-          extent={{-98,22},{-68,-22}},
+          extent={{-98,12},{-60,-10}},
           textColor={0,0,127},
           textString="TWetBul"),
         Line(points={{78,-74},{-48,-74}}),
@@ -151,8 +150,11 @@ annotation (
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid)}),
     defaultComponentName="wetBul",
-    Documentation(info="<html>
-<p>This block computes the water vapor mass fraction based on given dry bulb temperature, wet bulb temperature and atmospheric pressure. </p>
+Documentation(info="<html>
+<p>
+This block computes the water vapor mass fraction based on given dry bulb temperature,
+wet bulb temperature and atmospheric pressure.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

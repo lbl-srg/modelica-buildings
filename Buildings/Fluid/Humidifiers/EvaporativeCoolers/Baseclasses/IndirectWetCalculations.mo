@@ -12,116 +12,57 @@ block IndirectWetCalculations
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VPri_flow(
     final unit="m3/s",
-    displayUnit="m3/s",
     final quantity = "VolumeFlowRate")
     "Primary air volume flow rate"
-    annotation (
-      Placement(
-      visible=true,
-      transformation(
-        origin={-120,-60},
-        extent={{-20,-20},{20,20}},
-        rotation=0),
-      iconTransformation(
-        origin={-140,-60},
-        extent={{-20,-20},{20,20}},
-        rotation=0)));
+    annotation (Placement(transformation(origin={-120,-60}, extent={{-20,-20},{20,20}}),
+      iconTransformation(origin={-140,-60}, extent={{-20,-20},{20,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VSec_flow(
     final unit="m3/s",
-    displayUnit="m3/s",
     final quantity = "VolumeFlowRate")
     "Secondary air volume flow rate"
-    annotation (
-      Placement(
-      visible=true,
-      transformation(
-        origin={-120,-100},
-        extent={{-20,-20},{20,20}},
-        rotation=0),
-      iconTransformation(
-        origin={-140,-100},
-        extent={{-20,-20},{20,20}},
-        rotation=0)));
+    annotation (Placement(transformation(origin={-120,-100}, extent={{-20,-20},{20,20}}),
+      iconTransformation(origin={-140,-100}, extent={{-20,-20},{20,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDryBulPriIn(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Dry bulb temperature of the primary inlet air"
-    annotation (Placement(
-      visible=true,
-      transformation(
-        origin={-120,100},
-        extent={{-20,-20},{20,20}},
-        rotation=0),
-      iconTransformation(
-        origin={-140,100},
-        extent={{-20,-20},{20,20}},
-        rotation=0)));
+    annotation (Placement(transformation(origin={-120,100}, extent={{-20,-20},{20,20}}),
+      iconTransformation(origin={-140,100}, extent={{-20,-20},{20,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TWetBulPriIn(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Wet bulb temperature of the primary inlet air"
-    annotation (Placement(
-      visible=true,
-      transformation(
-        origin={-120,60},
-        extent={{-20,-20},{20,20}},
-        rotation=0),
-      iconTransformation(
-        origin={-140,60},
-        extent={{-20,-20},{20,20}},
-        rotation=0)));
+    annotation (Placement(transformation(origin={-120,60}, extent={{-20,-20},{20,20}}),
+      iconTransformation(origin={-140,60}, extent={{-20,-20},{20,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDryBulSecIn(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Dry bulb temperature of the secondary inlet air"
-    annotation (Placement(
-      visible=true,
-      transformation(
-        origin={-120,20},
-        extent={{-20,-20},{20,20}},
-        rotation=0),
-      iconTransformation(
-        origin={-140,20},
-        extent={{-20,-20},{20,20}},
-        rotation=0)));
+    annotation (Placement(transformation(origin={-120,20}, extent={{-20,-20},{20,20}}),
+      iconTransformation(origin={-140,20}, extent={{-20,-20},{20,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TWetBulSecIn(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Wet bulb temperature of the secondary inlet air"
-    annotation (Placement(
-      visible=true,
-      transformation(
-        origin={-120,-20},
-        extent={{-20,-20},{20,20}},
-        rotation=0),
-      iconTransformation(
-        origin={-140,-20},
-        extent={{-20,-20},{20,20}},
-        rotation=0)));
+    annotation (Placement(transformation(origin={-120,-20}, extent={{-20,-20},{20,20}}),
+      iconTransformation(origin={-140,-20}, extent={{-20,-20},{20,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TDryBulPriOut(
     displayUnit="degC",
     final unit="K",
     final quantity="ThermodynamicTemperature")
     "Dry bulb temperature of the outlet air"
-    annotation (Placement(
-     transformation(
-       origin={120,0},
-       extent={{-20,-20},{20,20}},
-       rotation=0),
-     iconTransformation(
-       origin={140,0},
-       extent={{-20,-20},{20,20}},
-       rotation=0)));
+    annotation (Placement(transformation(origin={120,0}, extent={{-20,-20},{20,20}}),
+      iconTransformation(origin={140,0}, extent={{-20,-20},{20,20}})));
 
   Real eff(
     displayUnit="1")
@@ -131,33 +72,40 @@ equation
   eff = max((maxEff - floRat*abs(VPri_flow)/abs(VSec_flow)),0);
   TDryBulPriOut = TDryBulPriIn - eff*(TDryBulSecIn - TWetBulSecIn);
 
-  annotation (defaultComponentName="indWetCal",
+annotation (defaultComponentName="indWetCal",
   Documentation(info="<html>
-  <p>Block that calculates the water vapor mass flow rate addition in the 
-  direct evaporative cooler component. The calculations are based on the indirect 
-  wet evaporative cooler model in the Engineering Reference document from EnergyPlus 
-  v23.1.0.</p>
-  <p>
-  The effective efficiency of the heat exchanger <code>eff</code> is calculated using 
-  the formula</p>
-  <p align=\"center\" style=\"font-style:italic;\">
-  eff = max((maxEff - floRat*abs(VPri_flow)/abs(VSec_flow)),0)</p>
-    <p>
-    where <code>VPri_flow</code> and <code>VSec_flow</code> are the volume flow 
-    rates of the primary and secondary fluid media respectively. The maximum 
-    efficiency of the heat exchanger <code>maxEff</code> as well as the efficiency-reduction
-    coil flow ratio <code>floRat</code> are empirically determined for the specific
-    equipment using experiments.<br>
-    The outlet primary fluid drybulb temperature <code>TDryBulPriOut</code> is calculated 
-    using the energy-balance equation
-    </p>
-    <p align=\"center\" style=\"font-style:italic;\">
-    TDryBulPriOut = TDryBulPriIn - eff*(TDryBulSecIn - TWetBulSecIn)</p>
-    <p>
-    where <code>TDryBulPriIn</code> is the inlet primary fluid drybulb temperature, 
-    <code>TDryBulSecIn</code> is the inlet secondary air drybulb temperature and 
-    <code>TWetBulSecIn</code> is the inlet secondary air wetbulb temperature.
-    </p>
+<p>
+Block that calculates the water vapor mass flow rate addition in the 
+indirect evaporative cooler component. The calculations are based on the indirect 
+wet evaporative cooler model in the Engineering Reference document from EnergyPlus 
+v23.1.0.
+</p>
+<p>
+The effective efficiency of the heat exchanger <code>eff</code> is calculated using 
+the formula
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+eff = max((maxEff - floRat*abs(VPri_flow)/abs(VSec_flow)), 0)
+</p>
+<p>
+where <code>VPri_flow</code> and <code>VSec_flow</code> are the volume flow 
+rates of the primary and secondary fluid media respectively. The maximum 
+efficiency of the heat exchanger <code>maxEff</code> and the efficiency-reduction
+coil flow ratio <code>floRat</code> are empirically determined for the specific
+equipment based on experiments.
+</p>
+<p>
+The outlet primary fluid drybulb temperature <code>TDryBulPriOut</code> is calculated 
+using the energy-balance equation
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+TDryBulPriOut = TDryBulPriIn - eff*(TDryBulSecIn - TWetBulSecIn)
+</p>
+<p>
+where <code>TDryBulPriIn</code> is the inlet primary fluid drybulb temperature, 
+<code>TDryBulSecIn</code> is the inlet secondary air drybulb temperature and 
+<code>TWetBulSecIn</code> is the inlet secondary air wetbulb temperature.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
@@ -166,7 +114,7 @@ First implementation.
 </li>
 </ul>
 </html>"), Icon(coordinateSystem(extent={{-120,-120},{120,120}}),
-                graphics={              Text(
+                graphics={Text(
         extent={{-150,160},{150,120}},
         textString="%name",
         textColor={0,0,255}), Rectangle(extent={{-120,120},{120,-120}},

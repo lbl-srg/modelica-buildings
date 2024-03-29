@@ -17,11 +17,7 @@ model Direct
     final dep=0.2,
     final padAre=0.6)
     "Direct evaporative cooler"
-    annotation (Placement(visible=true,
-      transformation(
-      origin={0,0},
-      extent={{-10,-10},{10,10}},
-      rotation=0)));
+    annotation (Placement(transformation(origin={0,0}, extent={{-10,-10},{10,10}})));
 
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare final package Medium = MediumA,
@@ -29,10 +25,7 @@ model Direct
     final use_T_in=false,
     final nPorts=1)
     "Sink"
-    annotation (Placement(visible=true, transformation(
-      origin={102,0},
-      extent={{-10,-10},{10,10}},
-      rotation=-180)));
+    annotation (Placement(transformation(origin={102,0}, extent={{10,-10},{-10,10}})));
 
   Modelica.Blocks.Sources.CombiTimeTable combiTimeTable(
     final columns = 2:10,
@@ -41,10 +34,7 @@ model Direct
     final tableOnFile = true,
     final timeScale = 1)
     "EnergyPlus data"
-    annotation (Placement(visible = true,
-      transformation(origin={-120,40},
-      extent = {{-10, -10}, {10, 10}},
-      rotation = 0)));
+    annotation (Placement(transformation(origin={-120,40}, extent ={{-10,-10},{10,10}})));
 
   Buildings.Fluid.Sources.MassFlowSource_T sou(
     redeclare final package Medium = MediumA,
@@ -55,11 +45,7 @@ model Direct
     final use_m_flow_in=true,
     final nPorts=1)
     "Mass flow rate source"
-    annotation (Placement(visible=true,
-      transformation(
-      origin={-30,0},
-      extent={{-10,-10},{10,10}},
-      rotation=0)));
+    annotation (Placement(transformation(origin={-30,0}, extent={{-10,-10},{10,10}})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem(
     redeclare final package Medium = MediumA,
@@ -67,36 +53,23 @@ model Direct
     final m_flow_nominal=m_flow_nominal,
     final T_start = 293.15)
     "Outlet air temperature sensor"
-    annotation (Placement(visible=true, transformation(
-      origin={30,0},
-      extent={{-10,-10},{10,10}},
-      rotation=0)));
+    annotation (Placement(transformation(origin={30,0}, extent={{-10,-10},{10,10}})));
 
   Buildings.Fluid.Sensors.MassFractionTwoPort senMasFra(
     redeclare final package Medium = MediumA,
     final m_flow_nominal=m_flow_nominal)
     "Outlet air water mass fraction sensor"
-    annotation (Placement(visible=true,
-      transformation(
-      origin={60,0},
-      extent={{-10,-10},{10,10}},
-      rotation=0)));
+    annotation (Placement(transformation(origin={60,0}, extent={{-10,-10},{10,10}})));
 
   Modelica.Blocks.Math.Mean mea(
     final f=1/600)
     "Mean block to average output data"
-    annotation (Placement(visible=true, transformation(
-      origin={50,60},
-      extent={{-10,-10},{10,10}},
-      rotation=0)));
+    annotation (Placement(transformation(origin={50,60}, extent={{-10,-10},{10,10}})));
 
   Modelica.Blocks.Math.Mean mea1(
     final f=1/600)
     "Mean block to average output data"
-    annotation (Placement(visible=true, transformation(
-      origin={90,30},
-      extent={{-10,-10},{10,10}},
-      rotation=0)));
+    annotation (Placement(transformation(origin={90,30}, extent={{-10,-10},{10,10}})));
 
   Buildings.Utilities.Psychrometrics.ToTotalAir toTotAirIn
     "Convert inlet air humidity ratio denominator from dry air to total air"
@@ -124,7 +97,7 @@ equation
   connect(senMasFra.X, mea1.u)
     annotation (Line(points={{60,11},{60,30},{78,30}}, color={0,0,127}));
   connect(combiTimeTable.y[6], toTotAirIn.XiDry) annotation (Line(points={{-109,40},
-          {-100,40},{-100,-50},{-91,-50}},      color={0,0,127}));
+          {-100,40},{-100,-50},{-91,-50}}, color={0,0,127}));
   connect(toTotAirIn.XiTotalAir, sou.Xi_in[1]) annotation (Line(points={{-69,-50},
           {-50,-50},{-50,-4},{-42,-4}}, color={0,0,127}));
   connect(combiTimeTable.y[8], toTotAirOut.XiDry)
@@ -141,35 +114,48 @@ equation
     annotation (Line(points={{70,0},{92,0}}, color={0,127,255}));
   connect(sou.ports[1], dirEvaCoo.port_a)
     annotation (Line(points={{-20,0},{-10,0}}, color={0,127,255}));
-  annotation (
-    Placement(visible = true, transformation(origin = {-62, 66}, extent = {{-10, -10}, {10, 10}}, rotation = 0)),
-    Diagram(coordinateSystem(extent={{-140,-100},{140,100}})),
-    experiment(
-      StopTime=1200000,
-      Interval=60,
-      Tolerance=1e-6),
-    Documentation(info="<html>
-    <p>This model validates the direct evaporative cooler model 
-    <a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct\">
-    Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct</a>. </p>
-    <p>The EnergyPlus results were generated using the example file <code>Direct.idf</code> 
-    from EnergyPlus 23.1. The results were then used to set-up the boundary conditions 
-    for the model as well as the input signals. To compare the results, the Modelica 
-    outputs are averaged over 600 seconds. </p>
-    <p>Note that EnergyPlus mass fractions (<code>Xi</code>) are in mass of water 
-    vapor per mass of dry air, whereas Modelica uses the total mass as a reference. 
-    Also, the temperatures in Modelica are in Kelvin whereas they are in Celsius in EnergyPlus. 
-    Hence, the EnergyPlus values are corrected by using the appropriate conversion blocks. </p>
-<p>The validation generates three subplots. </p>
+
+annotation (
+  Diagram(coordinateSystem(extent={{-140,-100},{140,100}})),
+  experiment(StopTime=1200000, Interval=60, Tolerance=1e-6),
+  Documentation(info="<html>
+<p>
+This model validates the direct evaporative cooler model
+<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct\">
+Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct</a>.
+</p>
+<p>
+The EnergyPlus results were generated using the example file <code>Direct.idf</code>
+from EnergyPlus 23.1. The results were then used to set-up the boundary conditions
+for the model as well as the input signals. To compare the results, the Modelica
+outputs are averaged over 600 seconds.
+</p>
+<p>
+Note that EnergyPlus mass fractions (<code>Xi</code>) are in mass of water
+vapor per mass of dry air, whereas Modelica uses the total mass as a reference.
+Also, the temperatures in Modelica are in Kelvin whereas they are in Celsius in EnergyPlus.
+Hence, the EnergyPlus values are corrected by using the appropriate conversion blocks.
+</p>
+<p>
+The validation generates three subplots.
+</p>
 <ul>
-<li>Subplot 1 shows the inlet air mass flowrate from the EnergyPlus model varying with the cooling load. </li>
-<li>Subplot 2 compares the outlet air humidity ratio generated by Modelica and EnergyPlus model. </li>
-<li>Subplot 3 compares the outlet air dry bulb temperature generated by Modelica and EnergyPlus model. </li>
+<li>
+Subplot 1 shows the inlet air mass flowrate from the EnergyPlus model varying with the cooling load.
+</li>
+<li>
+Subplot 2 compares the outlet air humidity ratio generated by Modelica and EnergyPlus model.
+</li>
+<li>
+Subplot 3 compares the outlet air dry bulb temperature generated by Modelica and EnergyPlus model.
+</li>
 </ul>
-<p>The validation results demostrate that, with time-varying air flow rate, the 
-Modelica model can effectively capture the dynamics of outlet air humidity ratio 
-and dry bulb temperature, which match the data generated by Energyplus.</p>
-</html>",     revisions="<html>
+<p>
+The validation results demostrate that, with time-varying air flow rate, the
+Modelica model can effectively capture the dynamics of outlet air humidity ratio
+and dry bulb temperature, which match the data generated by Energyplus.
+</p>
+</html>", revisions="<html>
 <ul>
 <li>
 September 14, 2023 by Cerrina Mouchref, Karthikeya Devaprasad, Lingzhe Wang:<br/>
