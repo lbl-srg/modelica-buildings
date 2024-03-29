@@ -33,7 +33,8 @@ model FixedEvaporating
     final unit="W") "Evaporator heat flow rate"
     annotation (Placement(transformation(extent={{100,20},{140,60}}),
                              iconTransformation(extent={{100,20},{140,60}})));
-  Modelica.Units.SI.ThermodynamicTemperature THotOut
+  Modelica.Units.SI.ThermodynamicTemperature THotOut(
+    start = TWorEva + dTPinEva_set)
     "Outgoing temperature of the evaporator hot fluid";
   Modelica.Units.SI.ThermodynamicTemperature THotPin(
     start = TWorEva + dTPinEva_set)
