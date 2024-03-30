@@ -2,6 +2,8 @@ compareVars :=
   {
     "TColIn_set.y",
     "orc.cyc.TWorCon",
+    "orc.cyc.pCon",
+    "orc.pWorCon_min",
     "orc.cyc.dTPinCon",
     "orc.cyc.dTPinCon_set"
   };
