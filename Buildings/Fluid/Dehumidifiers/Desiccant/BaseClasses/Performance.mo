@@ -63,11 +63,13 @@ model Performance
     "Humidity ratio of the process air leaving the dehumidifier"
      annotation (Placement(transformation(extent={{100,30},{120,50}}),
      iconTransformation(extent={{100,30},{120,50}})));
-  Modelica.Blocks.Interfaces.RealOutput VReg_flow(final unit="m3/s")
+  Modelica.Blocks.Interfaces.RealOutput VReg_flow(
+    final unit="m3/s")
     "Volumetric flow rate of the regeneration air" annotation (Placement(transformation(
           extent={{100,-50},{120,-30}}), iconTransformation(extent={{100,-50},{120,
             -30}})));
-  Modelica.Blocks.Interfaces.RealOutput yQReg(final unit="1")
+  Modelica.Blocks.Interfaces.RealOutput yQReg(
+    final unit="1")
     "Regeneration heating output ratio" annotation (Placement(transformation(
           extent={{100,-90},{120,-70}}), iconTransformation(extent={{100,-90},{120,
             -70}})));
@@ -91,7 +93,7 @@ equation
       TProEnt=TProEnt,
       X_w_ProEnt=X_w_ProEnt,
       vPro=VPro_flow/VPro_flow_nominal*vPro_nominal,
-      a=per.vRegCoe)/vReg_nominal*VReg_flow_nominal;
+      a=per.coevReg)/vReg_nominal*VReg_flow_nominal;
      assert(VReg_flow < VReg_flow_nominal,
      "In " + getInstanceName() + ": regeneration flow rate is not sufficient.",
      level=AssertionLevel.error);
@@ -99,12 +101,12 @@ equation
         TProEnt = TProEnt,
         X_w_ProEnt = X_w_ProEnt,
         vPro = VPro_flow/VPro_flow_nominal*vPro_nominal,
-        a = per.TProLeaCoe) + 273.15;
+        a = per.coeTProLea) + 273.15;
     X_w_ProLea = Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.performanceCurve(
         TProEnt = TProEnt,
         X_w_ProEnt = X_w_ProEnt,
         vPro = VPro_flow/VPro_flow_nominal*vPro_nominal,
-        a = per.X_w_ProLeaCoe);
+        a = per.coeX_w_ProLea);
     assert(X_w_ProLea > 0,
      "In " + getInstanceName() + ": humidity ratio of the process air leaving 
      the dehumidifier becomes negative.",
@@ -114,13 +116,13 @@ equation
                 TProEnt = TProEnt,
                 X_w_ProEnt = X_w_ProEnt,
                 vPro = VPro_flow/VPro_flow_nominal*vPro_nominal,
-                a = per.QReg_flowCoe),
+                a = per.coeQReg_flow),
         x2 = 0,
         deltaX = 0.01);
     yQReg = CpReg*(X_w_ProEnt - X_w_ProLea)*mPro_flow*(per.TRegEnt_nominal -
       TRegEnt)/(per.TRegEnt_nominal - TProEnt)/QReg_flow_nominal;
     assert(yQReg < 1,
-     "In " + getInstanceName() + ": regeneration heating output is not sufficient.",
+     "In " + getInstanceName() + ": heating power is not sufficient for regeneration.",
      level=AssertionLevel.error);
   else
     //No dehumidification occurs.
