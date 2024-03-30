@@ -78,11 +78,12 @@ The dehumidification signal <i>onDeh</i> is changes from
 <li>
 The temperature of the process air entering the dehumidifier, <i>TProEnt</i>, and the
 Temperature of the regeneration air entering the dehumidifier, <i>TRegEnt</i>, change from 
-273 + 20 to 273 + 20 K and 273 + 80 to 273 + 70 K, respectively, during the period from 
+273 + 20 K to 273 + 30 K and 273 + 80 K to 273 + 70 K, respectively, during the period from 
 0 to 100 seconds. 
 During the same period, the humidity ratio of the process air entering the dehumidifier,
 <i>X_w_ProEnt</i> and the volumetric flow rate of the process air, <i>VPro_flow</i>, change from
 0.02 to 0.025, and 0.5 to 1 m3/s, respectively.
+<br>
 Default operation curve
 <a href=\"modelica://Buildings.Fluid.Dehumidifiers.Desiccant.Data.Default\">
 Buildings.Fluid.Dehumidifiers.Desiccant.Data.Default</a> is also employed.
@@ -99,7 +100,7 @@ Likewise, the humidity ratio of the process air entering the dehumidifier,
 <i>X_w_ProLea</i>, is equal to <i>X_w_ProEnt</i>.
 </li>
 <li>
-<code>TProLea</code> and <i>X_w_ProEnt</i> change dramatically when the dehumidification begins at 50 seconds.
+<i>TProLea</i> and <i>X_w_ProEnt</i> change dramatically when the dehumidification begins at 50 seconds.
 </li>
 </ul>
 </html>", revisions="<html>

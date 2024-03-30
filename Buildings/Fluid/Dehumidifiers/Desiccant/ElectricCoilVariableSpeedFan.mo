@@ -1,6 +1,6 @@
 within Buildings.Fluid.Dehumidifiers.Desiccant;
 model ElectricCoilVariableSpeedFan
-  "Desiccant dehumidifier with a electric heating coil and a variable speed fan"
+  "Desiccant dehumidifier with an electric heating coil and a variable speed fan"
   extends BaseClasses.PartialDesiccant(
     vol(nPorts=2));
   parameter Real etaHea(
@@ -16,19 +16,17 @@ model ElectricCoilVariableSpeedFan
     final Q_flow_nominal=QReg_flow_nominal)
     "Heating coil for the regeneration air"
     annotation (Placement(transformation(extent={{16,56},{-4,76}})));
-  Modelica.Blocks.Math.Add3 add3
-    "Sum of the three inputs"
-    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter PEleHea(
     final k=1/etaHea)
     "Calculate the heater power consumption"
-    annotation (Placement(transformation(extent={{-18,-70},{0,-52}})));
+    annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
   Buildings.Fluid.Movers.Preconfigured.FlowControlled_m_flow fan(
     redeclare package Medium = Medium2,
     final m_flow_nominal=m2_flow_nominal,
     final dp_nominal=dp2_nominal)
     "Regeneration fan"
     annotation (Placement(transformation(extent={{80,56},{60,76}})));
+protected
   Modelica.Blocks.Sources.RealExpression mReg_flow(
     final y(final unit="kg/s")=
       dehPer.VReg_flow*Medium2.density(state=Medium2.setState_phX(
@@ -37,6 +35,9 @@ model ElectricCoilVariableSpeedFan
       X=port_a2.Xi_outflow)))
     "Regeneration air mass flow rate"
     annotation (Placement(transformation(extent={{20,76},{40,96}})));
+  Modelica.Blocks.Math.Add3 add3
+    "Sum of the three inputs"
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 equation
   connect(add3.y, P)
     annotation (Line(points={{81,0},{110,0}}, color={0,0,127}));
@@ -55,13 +56,13 @@ equation
   connect(add3.u1,fan. P)
     annotation (Line(points={{58,8},{34,8},{34,75},{59,75}}, color={0,0,127}));
   connect(add3.u2, PEleMot.y)
-    annotation (Line(points={{58,0},{34,0},{34,-31},
-    {1.8, -31}}, color={0,0,127}));
+    annotation (Line(points={{58,0},{34,0},{34,-32},{2,-32}},
+    color={0,0,127}));
   connect(PEleHea.y, add3.u3)
-    annotation (Line(points={{1.8,-61},{46,-61},{46,-8},
-    {58,-8}}, color={0,0,127}));
+    annotation (Line(points={{2,-60},{46,-60},{46,-8},{58,-8}},
+    color={0,0,127}));
   connect(hea.Q_flow, PEleHea.u)
-    annotation (Line(points={{-5,72},{-40,72},{-40,-61},{-19.8,-61}},
+    annotation (Line(points={{-5,72},{-40,72},{-40,-60},{-22,-60}},
     color={0,0,127}));
   annotation (
   defaultComponentName="deh",
@@ -82,26 +83,25 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-This model considers a desiccant dehumidifier system with aN electric coil and a variable speed fan,
+This model considers a desiccant dehumidifier system with an electric coil and a variable speed fan,
 as shown below.
 <p align=\"left\">
 <img src=\"modelica://Buildings/Resources/Images/Fluid/Dehumidifiers/Desiccant/BaseClasses/system_schematic.png\"
 alt=\"System_Schematic.png\" border=\"1\"/>
 </p>
 <p>
-The detailed configuration of the dehumidifier is provided in 
+The system configuration of the dehumidifier device is described in 
 <a href=\"modelica://Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.PartialDesiccant\">
 Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.PartialDesiccant</a>.
 </p>
 <p>
-Note that the operation of the coil and the fan is assumed to be ideal, meaning they can
+Note that the operation of the coil and the fan is assumed to be ideal, i.e., they can
 provide the required regeneration heating power and the regeneration flow rate, which
 are calculated by 
 <a href=\"modelica://Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.Performance\">
 Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.Performance</a>, 
 when their capacities permit.
 </p>
-
 </html>", revisions="<html>
 <ul>
 <li>March 1, 2024, by Sen Huang:<br/>First implementation. </li>

@@ -50,7 +50,7 @@ where <i>T<sub>ProEnt</sub></i> is the temperature of the process air entering t
 <br> 
 <i>v<sub>Pro</sub></i> is the velocity of the process air (m/s);
 <br>
-<i>a<sub>1</sub></i>,...<i>a<sub>16</sub></i> are coefficients.
+<i>a<sub>1</sub></i>,...,<i>a<sub>16</sub></i> are coefficients.
 </p>
 <h4>References</h4>
 <ul>

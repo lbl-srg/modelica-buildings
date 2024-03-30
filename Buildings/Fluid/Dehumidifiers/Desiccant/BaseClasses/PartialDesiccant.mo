@@ -97,7 +97,7 @@ protected
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter PEleMot(
     final k= PMot_nominal)
     "Calculate the motor power consumption"
-    annotation (Placement(transformation(extent={{-18,-40},{0,-22}})));
+    annotation (Placement(transformation(extent={{-20,-42},{0,-22}})));
   Modelica.Blocks.Math.BooleanToReal booleanToReal
     "Convert boolean input to real output"
     annotation (Placement(transformation(extent={{-200,0},{-180,20}})));
@@ -110,7 +110,7 @@ protected
   Modelica.Blocks.Sources.Constant uni(
     final k=1)
     "Unity signal"
-    annotation (Placement(transformation(extent={{-220,-30},{-200,-10}})));
+    annotation (Placement(transformation(extent={{-214,-30},{-194,-10}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract sub
     "Difference of the two inputs"
     annotation (Placement(transformation(extent={{-166,-36},{-146,-16}})));
@@ -201,11 +201,11 @@ initial algorithm
    end for;
 
 equation
-  connect(booleanToReal.u, uRot) annotation (Line(points={{-202,10},{-226,10},{
-          -226,-86},{-220,-86},{-220,-120},{-258,-120}},
+  connect(booleanToReal.u, uRot) annotation (Line(points={{-202,10},{-220,10},{-220,
+          -120},{-258,-120}},
           color={255,0,255}));
-  connect(PEleMot.u, booleanToReal.y) annotation (Line(points={{-19.8,-31},{-22,
-          -31},{-22,-32},{-54,-32},{-54,10},{-179,10}},     color={0,0,127}));
+  connect(PEleMot.u, booleanToReal.y) annotation (Line(points={{-22,-32},{-54,-32},
+          {-54,10},{-179,10}},                              color={0,0,127}));
   connect(bypDamPro.port_a, port_a1) annotation (Line(points={{-170,-120},{-184,
           -120},{-184,-102},{-240,-102}},
           color={0,127,255}));
@@ -216,7 +216,7 @@ equation
           {-12,-94},{-7,-94}}, color={0,0,127}));
   connect(dehPer.X_w_ProLea, outCon.X_wSet) annotation (Line(points={{-37,-80},{
           -14,-80},{-14,-98},{-7,-98}}, color={0,0,127}));
-  connect(uni.y, sub.u1) annotation (Line(points={{-199,-20},{-168,-20}},
+  connect(uni.y, sub.u1) annotation (Line(points={{-193,-20},{-168,-20}},
                 color={0,0,127}));
   connect(sub.u2, uBypDamPos) annotation (Line(points={{-168,-32},{-192,-32},{-192,
           -52},{-230,-52},{-230,0},{-260,0}},
@@ -300,7 +300,7 @@ Specifically, this model considers the following configuration.
 alt=\"Dehumidifer_Schematic.png\" border=\"1\"/>
 </p>
 <p>
-This model should be extended with a heating coil and/or a fan in the regeneration air stream.
+This model should be extended with a heating coil and/or a regeneration air fan.
 </p>
 This model takes two inputs: a boolean signal for dehumidification and a real signal for the bypass damper position.
   <ul>

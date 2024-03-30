@@ -1,6 +1,6 @@
 within Buildings.Fluid.Dehumidifiers.Desiccant.Examples;
 model ElectricCoilVariableSpeedFan
-  "Model that demonstrates the usage of a desiccant dehumidifier model with a electric heater and a variable speed fan"
+  "Model that demonstrates the usage of a desiccant dehumidifier model with an electric heater and a variable speed fan"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Air
     "Process air";
@@ -8,23 +8,27 @@ model ElectricCoilVariableSpeedFan
     "Regeneration air";
   Buildings.Fluid.Sources.Boundary_pT sin_2(
     redeclare package Medium = Medium2,
-    nPorts=1) "Regeneration air sink"
+    nPorts=1)
+    "Regeneration air sink"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Buildings.Fluid.Sources.Boundary_pT sou_2(
     redeclare package Medium = Medium2,
     T(displayUnit="K") = 303.15,
-    nPorts=1) "Regeneration air source"
+    nPorts=1)
+    "Regeneration air source"
     annotation (Placement(transformation(extent={{60,40},{40,60}})));
   Modelica.Blocks.Sources.Ramp TProEnt(
     height=10,
     duration=600,
     offset=273.15 + 30,
-    startTime=600) "Temperature of the process air"
+    startTime=600)
+    "Temperature of the process air"
     annotation (Placement(transformation(extent={{-98,-70},{-78,-50}})));
   Buildings.Fluid.Sources.Boundary_pT sin_1(
     redeclare package Medium = Medium1,
     p(displayUnit="Pa") = 101325 - 600,
-    nPorts=1) "Process air sink"
+    nPorts=1)
+    "Process air sink"
     annotation (Placement(transformation(extent={{90,-50},{70,-30}})));
   Buildings.Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = Medium1,
@@ -32,7 +36,8 @@ model ElectricCoilVariableSpeedFan
     X={0.025,1 - 0.025},
     use_T_in=true,
     p(displayUnit="Pa") = 101325,
-    nPorts=1) "Process air source"
+    nPorts=1)
+    "Process air source"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   Buildings.Fluid.Dehumidifiers.Desiccant.ElectricCoilVariableSpeedFan deh(
     redeclare package Medium1 = Medium1,
@@ -46,7 +51,8 @@ model ElectricCoilVariableSpeedFan
     vReg_nominal=2.5,
     perDat=perDat,
     QReg_flow_nominal=10000,
-    etaHea=0.8) "Dehumidifier"
+    etaHea=0.8)
+    "Dehumidifier"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Fluid.Dehumidifiers.Desiccant.Data.Default perDat
    "Performance data"
@@ -54,7 +60,8 @@ model ElectricCoilVariableSpeedFan
   Modelica.Blocks.Sources.Step uBypDamPos(
     height=0.5,
     offset=0,
-    startTime=600) "Bypass damper position signal"
+    startTime=600)
+    "Bypass damper position signal"
     annotation (Placement(transformation(extent={{-90,20},{-70,40}})));
   Modelica.Blocks.Sources.BooleanPulse uRot(period=1200, startTime=300)
     "Wheel operating signal"
@@ -97,8 +104,8 @@ equation
 </html>", info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Fluid.Dehumidifiers.Desiccant.Examples.ElectricCoilVariableSpeedFan\">
-Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.Examples.ElectricCoilVariableSpeedFan</a>.
+<a href=\"modelica://Buildings.Fluid.Dehumidifiers.Desiccant.ElectricCoilVariableSpeedFan\">
+Buildings.Fluid.Dehumidifiers.Desiccant.ElectricCoilVariableSpeedFan</a>.
 </p>
 <p>
 The input signals are configured as follows:
@@ -115,7 +122,7 @@ The bypass damper position signal, <i>uBypDamPos</i>, changes from
 0 to 0.5 at 600 seconds.
 </li>
 <li>
-The temperature of the process air entering the dehumidifier, <i>TProEnt</i>,keeps constant
+The temperature of the process air entering the dehumidifier, <i>TProEnt</i>, keeps constant
 until 600 seconds, and then it increases from 273.15 + 30 K to 273.15 + 40 K  at 1200 seconds.
 The temperature of the regeneration air entering the dehumidifier and the humidity ratio of the 
 process air entering the dehumidifier are constant
