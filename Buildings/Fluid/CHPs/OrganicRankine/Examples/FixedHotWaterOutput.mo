@@ -9,7 +9,7 @@ model FixedHotWaterOutput
   Buildings.Controls.Continuous.LimPID conPID(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     initType=Modelica.Blocks.Types.Init.InitialOutput,
-    y_start=1,
+    y_start=0,
     reverseActing=false) "PI controller"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
   Modelica.Blocks.Math.Gain gai(
