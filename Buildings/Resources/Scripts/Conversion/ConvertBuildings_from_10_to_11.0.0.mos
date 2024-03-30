@@ -5,6 +5,10 @@ clear
 
 convertClear();
 
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3689
+convertClass("Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset",
+             "Buildings.Controls.OBC.CDL.Logical.TrueHold");
+
 // Conversion of hot water load
 convertElement("Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger",
                "loaSHW", "QReqHotWat_flow");
@@ -31,7 +35,7 @@ convertElement("Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.R
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3536
 convertClass("Buildings.Experimental.DHC.Plants.Combined.Subsystems.BaseClasses.MultipleCommands",
              "Buildings.Templates.Components.Controls.MultipleCommands");
- 
+
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3595
 convertClass("Buildings.Controls.OBC.CDL.Logical.Or3",
              "Buildings.Obsolete.Controls.OBC.CDL.Logical.Or3");
@@ -49,7 +53,7 @@ convertClass("Buildings.Controls.OBC.CDL.Reals.Sources.ModelTime",
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/xxxx
 convertClass("Buildings.Experimental.DHC.Plants.Reservoir.Borefield",
              "Buildings.Experimental.DHC.Examples.Combined.BaseClasses.BoreField");
-             
+
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3431
 convertClass("Buildings.Fluid.Geothermal.BuriedPipes","Buildings.Fluid.FixedResistances.BuriedPipes");
 

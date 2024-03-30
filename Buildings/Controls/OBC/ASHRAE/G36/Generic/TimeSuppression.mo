@@ -95,7 +95,7 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Use setpoint different value when sample period time has passed"
     annotation (Placement(transformation(extent={{40,100},{60,120}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol(
+  Buildings.Controls.OBC.CDL.Logical.TrueHold truHol(
     final duration=samplePeriod)
     "Hold true signal for sample period of time"
     annotation (Placement(transformation(extent={{80,-160},{100,-140}})));
