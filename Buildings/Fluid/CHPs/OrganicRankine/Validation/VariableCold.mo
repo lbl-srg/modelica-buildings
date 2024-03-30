@@ -4,7 +4,7 @@ model VariableCold
   extends
     Buildings.Fluid.CHPs.OrganicRankine.Validation.BaseClasses.PartialVariable(orc(
           useCondensingPressure=true,
-          pWorCon_min = 1.2E5),
+          pWorCon_min = 1.3E5),
     souCol(
       use_T_in=true));
   extends Modelica.Icons.Example;
@@ -14,8 +14,7 @@ model VariableCold
     50,300;
     150,274;
     250,300;
-    300,300])
-              "Sets the cooling fluid incoming temperature in the condenser"
+    300,300]) "Sets the cooling fluid incoming temperature in the condenser"
     annotation (Placement(transformation(extent={{80,-40},{60,-20}})));
 equation
   connect(TColIn_set.y, souCol.T_in) annotation (Line(points={{59,-30},{52,-30},

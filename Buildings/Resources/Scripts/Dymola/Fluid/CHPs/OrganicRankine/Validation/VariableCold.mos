@@ -1,6 +1,7 @@
 simulateModel("Buildings.Fluid.CHPs.OrganicRankine.Validation.VariableCold",
     method="dassl", stopTime=300, tolerance=1e-06, resultFile="VariableCold");
 // Plot commands
-createPlot(id=3, position={49, 49, 624, 476}, y={"TColIn_set.y", "orc.cyc.TWorCon"}, range={0.0, 300.0, 260.0, 340.0}, autoscale=false, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"", "K"});
-createPlot(id=3, position={49, 49, 624, 476}, y={"orc.cyc.dTPinCon", "orc.cyc.dTPinCon_set"}, range={0.0, 300.0, 9.0, 15.0}, autoscale=false, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"K", "K"});
+createPlot(id=3, position={49, 13, 620, 545}, y={"TColIn_set.y", "orc.cyc.TWorCon"}, range={0.0, 300.0, 260.0, 340.0}, autoscale=false, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"", "K"});
+createPlot(id=3, position={49, 13, 620, 545}, y={"orc.cyc.pCon", "orc.pWorCon_min"}, range={0.0, 300.0, 100.0, 300.0}, autoscale=false, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"kPa", "kPa"});
+createPlot(id=3, position={49, 13, 620, 545}, y={"orc.cyc.dTPinCon", "orc.cyc.dTPinCon_set"}, range={0.0, 300.0, 5.0, 20.0}, autoscale=false, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"K", "K"});
 
