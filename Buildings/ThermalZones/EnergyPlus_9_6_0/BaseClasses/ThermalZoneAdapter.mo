@@ -277,7 +277,6 @@ equation
     // Call EnergyPlus
     yEP=Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.exchange(
       adapter=adapter,
-      initialCall=false,
       nY=nY,
       u={T,X_w/(1.-X_w),pre(mInlet_flow),TAveInlet,QGaiRadAve_flow,round(time,1E-3)},
       dummy=AFlo);
