@@ -404,15 +404,18 @@ units are wrong or errors in documentation):
     <td valign=\"top\">Corrected wrong use <code>displayUnit</code> attribute.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatPumps</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatPumps.EquationFitReversible
+    </td>
+    <td valign=\"top\">Corrected wrong assertion for operation mode.<br/>
+                     This is for
+                     <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3664\">Buildings, #3664</a>.
+    </td>
+</tr>
+
 </table>
-<p>
-Note:
-</p>
-<ul>
-<li>
-xxx
-</li>
-</ul>
 </html>"));
     end Version_9_1_2;
 
