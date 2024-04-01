@@ -7,15 +7,17 @@ model PartialBuildingWithETS
     redeclare
       Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger ets(
       final dT_nominal=dT_nominal,
-      final TDisWatMin=datDes.TLooMin,
-      final TDisWatMax=datDes.TLooMax,
+      final TDisWatMin=TDisWatMin,
+      final TDisWatMax=TDisWatMax,
       final TChiWatSup_nominal=TChiWatSup_nominal,
       final THeaWatSup_nominal=THeaWatSup_nominal,
       final dp_nominal=dp_nominal,
       final COPHeaWat_nominal=COPHeaWat_nominal,
       final COPHotWat_nominal=COPHotWat_nominal));
-  outer parameter Buildings.Experimental.DHC.Examples.Combined.BaseClasses.DesignDataSeries datDes "DHC system design data"
-    annotation (Placement(transformation(extent={{-250,262},{-230,282}})));
+  parameter Modelica.Units.SI.Temperature TDisWatMin=6 + 273.15
+    "District water minimum temperature" annotation (Dialog(group="ETS model parameters"));
+  parameter Modelica.Units.SI.Temperature TDisWatMax=17 + 273.15
+    "District water maximum temperature" annotation (Dialog(group="ETS model parameters"));
   parameter Modelica.Units.SI.TemperatureDifference dT_nominal(min=0) = 4
     "Water temperature drop/increase accross load and source-side HX (always positive)"
     annotation (Dialog(group="ETS model parameters"));
@@ -120,6 +122,13 @@ connected to a repleacable building load model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 18, 2024, by David Blum:<br/>
+Added parameters <code>TDisWatMin</code> and <code>TDisWatMax</code>
+in lieu of using <code>datDes</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3697\">issue 3697</a>.
+</li>
 <li>
 February 23, 2021, by Antoine Gautier:<br/>
 First implementation.
