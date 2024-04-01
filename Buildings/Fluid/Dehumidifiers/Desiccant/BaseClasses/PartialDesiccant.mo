@@ -27,13 +27,13 @@ partial model PartialDesiccant
     final unit="W")
     "Nominal power consumption of the motor"
     annotation (Dialog(group="Nominal condition"));
-  parameter Real vPro_nominal
+  parameter Modelica.Units.SI.Velocity vPro_nominal
     "Nominal velocity of the process air"
     annotation (Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.VolumeFlowRate VPro_flow_nominal = m1_flow_nominal/rho_Pro_default
     "Nominal volumetric flow rate of the process air"
     annotation (Dialog(group="Nominal condition"));
-  parameter Real vReg_nominal
+  parameter Modelica.Units.SI.Velocity vReg_nominal
     "Nominal velocity of the regeneration air"
     annotation (Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.VolumeFlowRate VReg_flow_nominal = m2_flow_nominal/rho_Reg_default
@@ -82,7 +82,7 @@ partial model PartialDesiccant
     "Fluid connector a2 of the exhaust air (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{90,70},{110,90}}),
         iconTransformation(extent={{90,70},{110,90}})));
-protected
+//protected
   Buildings.Fluid.Actuators.Dampers.Exponential bypDamPro(
     redeclare package Medium = Medium1,
     final m_flow_nominal=m1_flow_nominal,
@@ -116,7 +116,7 @@ protected
     annotation (Placement(transformation(extent={{-166,-36},{-146,-16}})));
   Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.Performance dehPer(
     final vPro_nominal=vPro_nominal,
-    final VPro_flow_nominal=vPro_nominal,
+    final VPro_flow_nominal=VPro_flow_nominal,
     final vReg_nominal=vReg_nominal,
     final VReg_flow_nominal=VReg_flow_nominal,
     final QReg_flow_nominal=QReg_flow_nominal,
@@ -168,18 +168,21 @@ protected
     final k=-1)
     "Find the opposite number of the input"
     annotation (Placement(transformation(extent={{0,30},{-20,50}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
+    "Prescribed heat flow"
     annotation (Placement(transformation(extent={{-62,50},{-82,30}})));
   Modelica.Blocks.Sources.RealExpression mPro_flow(
-   final y(final unit="kg/s")= damPro.port_a.m_flow) "Process air mass flow rate"
+   final y(final unit="kg/s")= damPro.port_a.m_flow)
+   "Process air mass flow rate"
     annotation (Placement(transformation(extent={{-110,-124},{-90,-104}})));
 
-  parameter Integer i1_w(min=1, fixed=false) "Index for water substance";
+  parameter Integer i1_w(min=1, fixed=false)
+   "Index for water substance";
   parameter Medium2.ThermodynamicState sta_Reg_default=Medium2.setState_pTX(
       T=Medium2.T_default,
       p=Medium2.p_default,
       X=Medium2.X_default)
-    "Default state of the regeneration air";
+   "Default state of the regeneration air";
   parameter Modelica.Units.SI.Density rho_Reg_default=Medium2.density(sta_Reg_default)
     "Default density of the regeneration air";
   parameter Medium2.ThermodynamicState sta_Pro_default=Medium2.setState_pTX(
@@ -248,10 +251,10 @@ equation
   connect(gai1.y, vol.mWat_flow) annotation (Line(points={{-21,10},{-40,10},{
           -40,20},{-130,20},{-130,48},{-107,48}},
           color={0,0,127}));
-  connect(prescribedHeatFlow.Q_flow, gai2.y)
+  connect(preHeaFlo.Q_flow, gai2.y)
     annotation (Line(points={{-62,40},{-21,40}}, color={0,0,127}));
-  connect(prescribedHeatFlow.port, vol.heatPort) annotation (Line(points={{-82,40},
-          {-120,40},{-120,56},{-105,56}},                     color={191,0,0}));
+  connect(preHeaFlo.port, vol.heatPort) annotation (Line(points={{-82,40},{-120,
+          40},{-120,56},{-105,56}}, color={191,0,0}));
   connect(gai2.u,outCon. Q_flow) annotation (Line(points={{2,40},{40,40},{40,-94},
           {15,-94}}, color={0,0,127}));
   connect(vol.ports[1], port_b2) annotation (Line(points={{-95,66},{-144,66},{

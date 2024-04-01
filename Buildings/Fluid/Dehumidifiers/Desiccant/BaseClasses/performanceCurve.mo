@@ -1,6 +1,6 @@
 within Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses;
 function performanceCurve
-  "Performance curve of a generic desiccant dehumidifiers"
+  "Performance curve of a generic desiccant dehumidifier"
   input Modelica.Units.SI.Temperature TProEnt
     "Temperature of the process air entering the dehumidifier";
   input Modelica.Units.SI.MassFraction X_w_ProEnt
