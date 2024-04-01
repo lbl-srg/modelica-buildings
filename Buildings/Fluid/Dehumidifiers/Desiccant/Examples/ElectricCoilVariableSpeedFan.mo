@@ -47,10 +47,10 @@ model ElectricCoilVariableSpeedFan
     dp1_nominal=600,
     dp2_nominal=600,
     PMot_nominal=10,
-    vPro_nominal=2.5,
+    vPro_nominal=1.5,
     vReg_nominal=2.5,
     perDat=perDat,
-    QReg_flow_nominal=10000,
+    QReg_flow_nominal=50000,
     etaHea=0.8)
     "Dehumidifier"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
@@ -124,6 +124,7 @@ The bypass damper position signal, <i>uBypDamPos</i>, changes from
 <li>
 The temperature of the process air entering the dehumidifier, <i>TProEnt</i>, keeps constant
 until 600 seconds, and then it increases from 273.15 + 30 K to 273.15 + 40 K  at 1200 seconds.
+<br>
 The temperature of the regeneration air entering the dehumidifier and the humidity ratio of the 
 process air entering the dehumidifier are constant
 </li>

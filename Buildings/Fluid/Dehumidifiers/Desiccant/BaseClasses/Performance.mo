@@ -3,13 +3,11 @@ model Performance
   "Model calculates the outlet condition of the process air through a desiccant dehumidifier"
     extends Modelica.Blocks.Icons.Block;
 
-  parameter Real vPro_nominal(
-     final unit="m/s")
+  parameter Modelica.Units.SI.Velocity vPro_nominal
     "Nominal velocity of the process air";
   parameter Modelica.Units.SI.VolumeFlowRate VPro_flow_nominal
     "Nominal volumetric flow rate of the process air";
-  parameter Real vReg_nominal(
-     final unit="m/s")
+  parameter Modelica.Units.SI.Velocity vReg_nominal
     "Nominal velocity of the regeneration air";
   parameter Modelica.Units.SI.VolumeFlowRate VReg_flow_nominal
     "Nominal volumetric flow rate of the regeneration air";
@@ -81,11 +79,11 @@ equation
   if onDeh then
     // Check the inlet condition of the process inlet condition.
     assert(TProEnt <= per.TProEnt_max and TProEnt >= per.TProEnt_min,
-    "In " + getInstanceName() + ": temperature of the process air entering the dehumidifier in 
+    "In " + getInstanceName() + ": temperature of the process air entering the dehumidifier is beyond 
     the range that is defined in the performance curve.",
     level=AssertionLevel.error);
      assert(X_w_ProEnt <= per.X_w_ProEnt_max and X_w_ProEnt >= per.X_w_ProEnt_min,
-    "In " + getInstanceName() + ": humidity ratio of the process air entering the dehumidifier in 
+    "In " + getInstanceName() + ": humidity ratio of the process air entering the dehumidifier is beyond 
     the range that is defined in the performance curve.",
     level=AssertionLevel.error);
     VReg_flow =
@@ -94,7 +92,7 @@ equation
       X_w_ProEnt=X_w_ProEnt,
       vPro=VPro_flow/VPro_flow_nominal*vPro_nominal,
       a=per.coevReg)/vReg_nominal*VReg_flow_nominal;
-     assert(VReg_flow < VReg_flow_nominal,
+     assert(VReg_flow <= VReg_flow_nominal,
      "In " + getInstanceName() + ": regeneration flow rate is not sufficient.",
      level=AssertionLevel.error);
     TProLea = Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.performanceCurve(
@@ -119,7 +117,7 @@ equation
                 a = per.coeQReg_flow),
         x2 = 0,
         deltaX = 0.01);
-    yQReg = CpReg*(X_w_ProEnt - X_w_ProLea)*mPro_flow*(per.TRegEnt_nominal -
+      yQReg = CpReg*(X_w_ProEnt - X_w_ProLea)*mPro_flow*(per.TRegEnt_nominal -
       TRegEnt)/(per.TRegEnt_nominal - TProEnt)/QReg_flow_nominal;
     assert(yQReg < 1,
      "In " + getInstanceName() + ": heating power is not sufficient for regeneration.",
@@ -184,12 +182,13 @@ Specifically, this calculation is configured as follows.
   the humidity ratio of the process air leaving the dehumidifier, <code>X_w_ProLea</code>,
   are calculated with the same method as that for calculating <code>vReg</code>.
   However, a different set of coefficients is used.
+  If the obtained value is negative, <code>CpReg</code> is set to be 0.
   After that, the regeneration heating output ratio, <code>yQReg</code>, is calculated by
   <p align=\"center\" style=\"font-style:italic;\">
    yQReg = CpReg*(X_w_ProEnt-X_w_ProLea)*mPro_flow*(TRegEnt_nominal - TRegEnt) / (TRegEnt_nominal - TProEnt)/
    QReg_flow_nominal
   </p> 
-  where <code>X_w_ProEnt</code>, <code>mPro_flow</code>, and <code>TProEnt</code> are the humiditiy ratio,
+  where <code>X_w_ProEnt</code>, <code>mPro_flow</code>, and <code>TProEnt</code> are the humidity ratio,
   the flow rate, and the temperature of the process air entering the dehumidifier;
   <code>TRegEnt_nominal</code> and <code>TRegEnt</code> are the nominal temperature and the actual temperature
   of the regeneration air entering the dehumidifier.<code>QReg_flow_nominal</code> is the nominal regeneration 
@@ -211,7 +210,7 @@ Specifically, this calculation is configured as follows.
   The outlet condition of the process air is the same as the inlet condition of the process air.
   </li>
   <li>
-  <code>QReg_flow</code> and <code>vReg</code> are set to be 0.
+  <code>VReg_flow</code> and <code>yQReg</code> are set to be 0.
   </li>
  </ul>
  </li>

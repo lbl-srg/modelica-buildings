@@ -10,7 +10,8 @@ record Generic "Generic data record for desiccant dehumidifiers"
     "Minimum allowable temperature of the process air entering the dehumidifier";
   parameter Modelica.Units.SI.MassFraction X_w_ProEnt_max
     "Maximum allowable humidity ratio of the process air entering the dehumidifier";
-  parameter Modelica.Units.SI.MassFraction X_w_ProEnt_min
+  parameter Modelica.Units.SI.MassFraction X_w_ProEnt_min(
+     final min=0)
     "Minimum allowable humidity ratio of the process air entering the dehumidifier";
   parameter Real coeTProLea[16]
     "Coefficients for calculating the temperature of the process air leaving the dehumidifier";
