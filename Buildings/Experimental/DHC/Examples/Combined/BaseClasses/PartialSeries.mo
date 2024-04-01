@@ -58,8 +58,7 @@ partial model PartialSeries "Partial model for series network"
       extent={{10,10},{-10,-10}},
       rotation=180,
       origin={-180,-80})));
-  Buildings.Experimental.DHC.Networks.Connections.Connection1PipeAutosize
-    conPla(
+  Buildings.Experimental.DHC.Networks.Connections.Connection1Pipe_R conPla(
     redeclare final package Medium = Medium,
     final mDis_flow_nominal=datDes.mPipDis_flow_nominal,
     final mCon_flow_nominal=datDes.mPla_flow_nominal,
@@ -71,8 +70,7 @@ partial model PartialSeries "Partial model for series network"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-80,-10})));
-  Buildings.Experimental.DHC.Networks.Connections.Connection1PipeAutosize
-    conSto(
+  Buildings.Experimental.DHC.Networks.Connections.Connection1Pipe_R conSto(
     redeclare final package Medium = Medium,
     final mDis_flow_nominal=datDes.mPipDis_flow_nominal,
     final mCon_flow_nominal=datDes.mSto_flow_nominal,
@@ -247,8 +245,8 @@ equation
   connect(TDisWatBorLvg.T, conVio.u[2]) annotation (Line(points={{-91,-40},{-100,
           -40},{-100,-30},{-60,-30},{-60,-40},{300,-40},{300,20},{318,20}},
                                                         color={0,0,127}));
-  connect(TDisWatRet.T, conVio.u[3]) annotation (Line(points={{69,6.66134e-16},
-          {60,6.66134e-16},{60,20.6667},{318,20.6667}},color={0,0,127}));
+  connect(TDisWatRet.T, conVio.u[3]) annotation (Line(points={{69,0},{60,0},{60,
+          20.6667},{318,20.6667}},color={0,0,127}));
   connect(bou.ports[1], pumDis.port_b)
     annotation (Line(points={{102,-98},{80,-98},{80,-70}}, color={0,127,255}));
   annotation (Diagram(

@@ -1,9 +1,8 @@
 within Buildings.Experimental.DHC.Networks.Connections;
-model Connection2PipePlugFlow
+model Connection2PipePlugFlow_v
   "Model for connecting an agent to a two-pipe distribution network, using plug flow pipe models in the main line"
   extends Buildings.Experimental.DHC.Networks.BaseClasses.PartialConnection2Pipe(
-    redeclare model Model_pipDisSup =
-        Buildings.Fluid.FixedResistances.PlugFlowPipe (
+    redeclare model Model_pipDisSup = Buildings.Fluid.FixedResistances.PlugFlowPipe(
       final length = lDis,
       final dIns = dIns,
       final kIns = kIns,
@@ -12,8 +11,7 @@ model Connection2PipePlugFlow
       cPip = cPip,
       rhoPip = rhoPip,
       thickness = thickness),
-    redeclare model Model_pipDisRet =
-        Buildings.Fluid.FixedResistances.PlugFlowPipe (
+    redeclare model Model_pipDisRet = Buildings.Fluid.FixedResistances.PlugFlowPipe (
       final length = lDis,
       final dIns = dIns,
       final kIns = kIns,
@@ -66,6 +64,12 @@ but not in the connection to the building, as the latter is typically short.
       revisions="<html>
 <ul>
 <li>
+March 15, 2024, by David Blum:<br/>
+Renamed.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3712\">issue 3712</a>.
+</li>
+<li>
 June 14, 2023, by David Blum:<br/>
 Fix redeclare of dis pipe models in connections.
 </li>
@@ -75,4 +79,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Connection2PipePlugFlow;
+end Connection2PipePlugFlow_v;

@@ -39,7 +39,11 @@ model Building
     "If true, then this model computes the wet bulb temperature"
     annotation (Dialog(tab="Advanced"));
 
-  parameter Real relativeSurfaceTolerance(min=1E-12) = 1E-7
+  parameter Boolean setInitialRadiativeHeatGainToZero = true
+    "If true, then the radiative heat gain sent from Modelica to EnergyPlus is zero during the model initialization"
+    annotation (Dialog(tab="Advanced"), Evaluate=true);
+
+  parameter Real relativeSurfaceTolerance(min=1E-12) = 1E-6
     "Relative tolerance of surface temperature calculations"
     annotation (Dialog(tab="Advanced"));
 
@@ -149,33 +153,49 @@ must be provided. When starting the simulation, EnergyPlus will
 be run with the weather file whose name is identical to <code>epwName</code>,
 while Modelica will use the file specified by <code>weaName</code>.
 </p>
+<h4>Note regarding <code>setInitialRadiativeHeatGainToZero</code> and <code>relativeSurfaceTolerance</code></h4>
 <p>
 To configure models that connect components for radiative heat exchange to the thermal zone model,
-the parameter <code>relativeSurfaceTolerance</code> in the <i>Advanced</i> tab may have to be tightended.
-See the section <i>Notes about modeling components that are connected to the radiative heat port</i>
-in the model
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone\">
-Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone</a>
-for details.
+it is recommended to leave the parameter <code>setInitialRadiativeHeatGainToZero</code>
+at its default value <code>true</code>.
+This sets the radiative heat flow rate sent from Modelica to EnergyPlus
+to zero during the initialization of the model, thereby avoiding a potential nonlinear system
+of equations that may give convergence problems. This only affects the initialization of the model
+but not the time integration, hence the error should be small for typical models.
+</p>
+<p>
+If you decide to set <code>setInitialRadiativeHeatGainToZero = false</code>, you need to be aware of the following:
+If <code>setInitialRadiativeHeatGainToZero = false</code>,
+then the radiative heat gain from the model input is being used.
+If this radiative heat gain depends on the radiative temperature that is an output of the EnergyPlus model,
+a nonlinear equation is formed.
+Because in EnergyPlus, computing the radiative temperature involves an iterative solution,
+this can cause convergence problems due to having two nested solvers,
+the outer being the Modelica solver that solves for the radiative heat flow rate <code>QGaiRad_flow</code>,
+and the innner being the EnergyPlus solver that solves for the radiative temperature <code>TRad</code>.
+Hence, we recommend to leave <code>setInitialRadiativeHeatGainToZero = true</code>.
+</p>
+<p>
+If you decide to set <code>setInitialRadiativeHeatGainToZero = false</code>, you may need to also
+tighten the tolerance of the EnergyPlus solver by tightening <code>relativeSurfaceTolerance</code>,
+but one cannot assure that the nested nonlinear equations converge.
+</p>
+<p>
+Because a Modelica model does not have knowledge of the solver tolerance, automatically tightening
+<code>relativeSurfaceTolerance</code> as a function of the Modelica solver tolerance
+is not possible.
 </p>
 </html>",
       revisions="<html>
 <ul>
 <li>
 March 16, 2024, by Michael Wetter:<br/>
-Increased the default value for <code>relativeSurfaceTolerance</code>.
+Introduced parameter <code>setInitialRadiativeHeatGainToZero</code>.
 This is required for
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Radiator\">
 Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Radiator</a>
-with OpenModelica. This model forms a nonlinear equation between the radiator temperature,
-which is used to compute the radiative heat flow rate between radiator and room radiative temperature, and the
-room surface temperature. The radiator temperature is computed in Modelica and the room surface
-temperature is computed in EnergyPlus. The latter requires the iterative solution of the
-radiative heat balance equation. Hence, evaluating the residuals for this nonlinear equation
-requires an iteration in EnergyPlus.
-As a rule of thumb, such nested solvers require one order of magnitude higher precision for the inner
-solver. As Modelica models are often solved for a tolerance of <code>1E-6</code>, the default value
-for <code>relativeSurfaceTolerance</code> has been set to 1E-8.<br/>
+with OpenModelica.
+See info section for rationale.<br/>
 This was required for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3707\">#3707</a>.
 </li>

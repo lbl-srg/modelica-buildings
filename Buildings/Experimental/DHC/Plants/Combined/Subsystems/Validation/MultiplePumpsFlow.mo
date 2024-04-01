@@ -45,7 +45,7 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,140}})),
     Documentation(info="<html>
 <p>
-This model validates 
+This model validates
 <a href=\"modelica://Buildings.Experimental.DHC.Plants.Combined.Subsystems.MultiplePumpsFlow\">
 Buildings.Experimental.DHC.Plants.Combined.Subsystems.MultiplePumpsFlow</a>
 by comparing an instance of that model with two instances of
@@ -53,7 +53,7 @@ by comparing an instance of that model with two instances of
 Buildings.Fluid.Movers.FlowControlled_m_flow</a>
 connected in parallel.
 The two pumps are commanded On one after the other as they receive
-an increasing flow setpoint and work against a two-way modulating 
+an increasing flow setpoint and work against a two-way modulating
 valve that gets progressively opened.
 </p>
 </html>", revisions="<html>

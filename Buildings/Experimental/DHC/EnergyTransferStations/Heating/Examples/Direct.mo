@@ -1,5 +1,5 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.Heating.Examples;
-model Direct "Example model for direct heating energy transfer station 
+model Direct "Example model for direct heating energy transfer station
   with in-building pumping and controlled district return temperature"
   extends Modelica.Icons.Example;
   package Medium=Buildings.Media.Water
@@ -128,10 +128,10 @@ equation
       StopTime=86400,
       Tolerance=1e-06),
     Documentation(info="<html>
-<p>This model provides an example for the direct heating energy transfer station 
-model, which contains in-building pumping and controls the district return 
-temperature. The building's primary variable speed pump is modulated depending 
-on the total heating load and prescribed deltaT. Variation in the district 
+<p>This model provides an example for the direct heating energy transfer station
+model, which contains in-building pumping and controls the district return
+temperature. The building's primary variable speed pump is modulated depending
+on the total heating load and prescribed deltaT. Variation in the district
 supply temperature is modeled as a sinusoidal signal to test the response of system.
 </p>
 </html>",

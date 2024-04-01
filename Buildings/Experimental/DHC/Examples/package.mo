@@ -7,7 +7,7 @@ package Examples "Collection of cases study"
     Documentation(
       info="<html>
 <p>
-This package contains district heating and cooling case studies to show how the 
+This package contains district heating and cooling case studies to show how the
 developed models can be used for design and operation.
 </p>
 </html>"));

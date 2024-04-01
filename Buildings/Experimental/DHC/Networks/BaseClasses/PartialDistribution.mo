@@ -17,7 +17,7 @@ partial model PartialDistribution
       info="
 <html>
 <p>
-Partial model to be used for modeling various distribution networks e.g. 
+Partial model to be used for modeling various distribution networks e.g.
 one-pipe or two-pipe hydraulic distribution.
 </p>
 </html>",

@@ -112,10 +112,10 @@ equation
   annotation (
     Documentation(info="<html>
 <p>
-This model is the same as 
+This model is the same as
 <a href=\"modelica://Buildings.Experimental.DHC.Loads.Combined.BuildingTimeSeriesWithETS\">
 Buildings.Experimental.DHC.Loads.Combined.BuildingTimeSeriesWithETS</a>
-except that it implements an ETS that uses a heat pump with hot water 
+except that it implements an ETS that uses a heat pump with hot water
 storage tank for production of domestic hot water.  That ETS model is
 <a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchangerDHWTank\">
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchangerDHWTank</a>.

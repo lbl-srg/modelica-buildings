@@ -1,22 +1,17 @@
 within Buildings.Experimental.DHC.Networks.BaseClasses;
-partial model PartialConnection2Pipe2Medium "Partial model for connecting an 
+partial model PartialConnection2Pipe2Medium "Partial model for connecting an
   agent to a two-pipe distribution network with two medium declarations"
-  replaceable package MediumSup =
-      Modelica.Media.Interfaces.PartialMedium
+  replaceable package MediumSup = Modelica.Media.Interfaces.PartialMedium
     "Medium model for supply fluid";
-  replaceable package MediumRet =
-      Modelica.Media.Interfaces.PartialMedium
+  replaceable package MediumRet = Modelica.Media.Interfaces.PartialMedium
     "Medium model for return fluid";
-
-  replaceable model Model_pipDisSup =
-      Buildings.Fluid.Interfaces.PartialTwoPortInterface
+  replaceable model Model_pipDisSup = Buildings.Fluid.Interfaces.PartialTwoPortInterface
       constrainedby Buildings.Fluid.Interfaces.PartialTwoPortInterface(
         redeclare final package Medium = MediumSup,
         final m_flow_nominal=mDis_flow_nominal,
         final allowFlowReversal=allowFlowReversal)
     "Interface for inlet pipe for the distribution supply";
-  replaceable model Model_pipDisRet =
-      Buildings.Fluid.Interfaces.PartialTwoPortInterface
+  replaceable model Model_pipDisRet = Buildings.Fluid.Interfaces.PartialTwoPortInterface
       constrainedby Buildings.Fluid.Interfaces.PartialTwoPortInterface(
         redeclare final package Medium = MediumRet,
         final m_flow_nominal=mDis_flow_nominal,
@@ -162,7 +157,7 @@ Two representing the main distribution supply and return pipes immediately downs
 of the connection.
 </li>
 <li>
-The other two representing the branch connection supply and return pipes immediately 
+The other two representing the branch connection supply and return pipes immediately
 upstream and downstream of the connection, respectively.
 </li>
 </ul>

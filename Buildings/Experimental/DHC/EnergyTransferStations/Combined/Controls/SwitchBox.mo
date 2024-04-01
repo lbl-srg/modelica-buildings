@@ -60,15 +60,15 @@ equation
           -6},{-82,-6}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
-This block implements a control logic preventing flow reversal in the 
-service line, for instance with the hydronic configuration of 
+This block implements a control logic preventing flow reversal in the
+service line, for instance with the hydronic configuration of
 <a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger\">
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger</a>.
 The block requires two input signals representing the mass flow rate contributing
 to a positive flow direction <code>mPos_flow</code> and the mass flow contributing
 to a reverse flow direction <code>mRev_flow</code>.
-The output signal <code>y</code> switches to maintain <code>mPos_flow ≥ mRev_flow</code>  
-with a temporization avoiding short cycling. 
+The output signal <code>y</code> switches to maintain <code>mPos_flow ≥ mRev_flow</code>
+with a temporization avoiding short cycling.
 Due to the temporization, the mass flow rate may transiently change direction as
 illustrated in
 <a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.Validation.SwitchBox\">

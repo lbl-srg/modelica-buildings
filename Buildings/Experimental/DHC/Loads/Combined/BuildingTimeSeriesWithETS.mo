@@ -138,19 +138,6 @@ the building and ETS multiplier factor <code>facMul</code>.
 </html>", revisions="<html>
 <ul>
 <li>
-March 18, 2024, by David Blum:<br/>
-Added parameters <code>TDisWatMin</code> and <code>TDisWatMax</code>
-in lieu of using <code>datDes</code>.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3697\">issue 3697</a>.
-</li>
-<li>
-December 7, 2023, by Ettore Zanetti:<br/>
-Added output <code>PPumCoo</code><br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
-</li>
-<li>
 November 21, 2022, by David Blum:<br/>
 Change <code>bui.facMulHea</code> and <code>bui.facMulCoo</code> to be default.<br/>
 This is for

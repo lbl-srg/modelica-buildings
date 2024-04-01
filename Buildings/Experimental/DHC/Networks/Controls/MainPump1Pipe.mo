@@ -369,10 +369,10 @@ should be shifted in order to increase the pump speed.
 The shift of these slopes is indicated by the arrows
 in the figure.
 Note that this controller must be configured to be slow reacting, as it requires the
-feedback from the district heating and cooling loop. Furthermore, if the parameter 
-<code>use_constantHeaTemShift</code> is set to <code>true</code>, then a constant temperature 
-offset <code>offTMax</code> is added when only heating is present, this determination is done 
-by checking that the cooling demand for each energy transfer station via 
+feedback from the district heating and cooling loop. Furthermore, if the parameter
+<code>use_constantHeaTemShift</code> is set to <code>true</code>, then a constant temperature
+offset <code>offTMax</code> is added when only heating is present, this determination is done
+by checking that the cooling demand for each energy transfer station via
 <code>QCoo</code> is close to zero. This mode can used by itself or in conjuction with <code>use_temperatureShift</code>.
 </p>
 <p>
