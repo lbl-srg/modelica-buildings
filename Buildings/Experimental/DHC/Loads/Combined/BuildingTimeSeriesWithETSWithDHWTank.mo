@@ -14,8 +14,8 @@ model BuildingTimeSeriesWithETSWithDHWTank
       Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchangerDHWTank
       ets(
       final dT_nominal=dT_nominal,
-      final TDisWatMin=datDes.TLooMin,
-      final TDisWatMax=datDes.TLooMax,
+      final TDisWatMin=TDisWatMin,
+      final TDisWatMax=TDisWatMax,
       final TChiWatSup_nominal=TChiWatSup_nominal,
       final THeaWatSup_nominal=THeaWatSup_nominal,
       final THotWatSup_nominal=THotWatSup_nominal,
@@ -122,6 +122,13 @@ Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 18, 2024, by David Blum:<br/>
+Added parameters <code>TDisWatMin</code> and <code>TDisWatMax</code>
+in lieu of using <code>datDes</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3697\">issue 3697</a>.
+</li>
 <li>
 September 13, 2022, by David Blum:<br/>
 First implementation.
