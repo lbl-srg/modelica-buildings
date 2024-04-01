@@ -148,7 +148,7 @@ equation
     annotation (Line(points={{-10,60},{-14,60},{-14,20},{39,20}}, color={191,0,0}));
   connect(vol2.heatPort, preHeaFloSou.port)
     annotation (Line(points={{12,-60},{39,-60}},color={191,0,0}));
-  connect(aleMes.u,greEqu. y)
+  connect(aleMes.u,greEqu.y)
     annotation (Line(points={{-54,-80},{-58,-80}}, color={255,0,255}));
   connect(greEqu.u, uMod) annotation (Line(points={{-82,-80},{-88,-80},{-88,0},{
           -112,0}}, color={255,127,0}));
