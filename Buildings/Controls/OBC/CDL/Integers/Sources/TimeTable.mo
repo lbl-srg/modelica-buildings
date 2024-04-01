@@ -11,7 +11,7 @@ block TimeTable
     final unit="s",
     min=1E-6)
     "Periodicity of table";
-  Interfaces.IntegerOutput y[nout]
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y[nout]
     "Output of the table"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 

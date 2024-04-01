@@ -19,7 +19,7 @@ block Pulse
     "Shift time for output";
   parameter Real offset=0.0
     "Offset of output signals";
-  Interfaces.RealOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
     "Connector of Pulse output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 

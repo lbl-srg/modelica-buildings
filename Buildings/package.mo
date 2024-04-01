@@ -443,6 +443,12 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>
+<tr><td valign=\"top\">All classes
+    </td>
+    <td valign=\"top\">Expanded interface class names to full class names for all classes within <code>Buildings.Controls.OBC.CDL</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3746\">#3746</a>.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Discrete.Examples
     </td>
     <td valign=\"top\">Changed the package name from <code>Examples</code> to <code>Validation</code>.<br/>

@@ -1,13 +1,13 @@
 within Buildings.Controls.OBC.CDL.Logical;
 block Latch
   "Maintains a true signal until change condition"
-  Interfaces.BooleanInput u
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u
     "Latch input"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.BooleanInput clr
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput clr
     "Clear input"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
-  Interfaces.BooleanOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
@@ -122,10 +122,10 @@ equation
     Documentation(
       info="<html>
 <p>
-Block that generates a <code>true</code> output when the latch input <code>u</code> 
-rises from <code>false</code> to <code>true</code>, provided that the clear input 
+Block that generates a <code>true</code> output when the latch input <code>u</code>
+rises from <code>false</code> to <code>true</code>, provided that the clear input
 <code>clr</code> is <code>false</code> or also became at the same time <code>false</code>.
-The output remains <code>true</code> until the clear input <code>clr</code> rises 
+The output remains <code>true</code> until the clear input <code>clr</code> rises
 from <code>false</code> to <code>true</code>.
 </p>
 <p>
@@ -134,8 +134,8 @@ switches to <code>false</code> (if it was <code>true</code>) and it remains <cod
 regardless of the value of the latch input <code>u</code>.
 </p>
 <p>
-At initial time, if <code>clr = false</code>, then the output will be 
-<code>y = u</code>. Otherwise it will be <code>y=false</code> 
+At initial time, if <code>clr = false</code>, then the output will be
+<code>y = u</code>. Otherwise it will be <code>y=false</code>
 (because the clear input <code>clr</code> is <code>true</code>).
 </p>
 
@@ -159,7 +159,7 @@ Simplified implementation, and made model work with OpenModelica.
 </li>
 <li>
 April 4, 2019, by Jianjun Hu:<br/>
-Corrected implementation that causes wrong output at initial stage. 
+Corrected implementation that causes wrong output at initial stage.
 This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1402\">issue 1402</a>.
 </li>
 <li>

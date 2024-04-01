@@ -5,10 +5,10 @@ block TrueHold
     final quantity="Time",
     final unit="s")
     "Time duration of the true output signal hold";
-  Interfaces.BooleanInput u
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u
     "Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.BooleanOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Boolean output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
