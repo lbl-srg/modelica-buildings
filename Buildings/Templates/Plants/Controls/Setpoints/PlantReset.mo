@@ -17,7 +17,7 @@ block PlantReset
     final unit="K",
     displayUnit="degC")
     "Design supply temperature";
-  parameter Real TSupSet_lim(
+  parameter Real TSupSetLim(
     final min=273.15,
     final unit="K",
     displayUnit="degC")
@@ -181,9 +181,8 @@ block PlantReset
     final nout=nSenDpRem)
     "Replicate signal"
     annotation (Placement(transformation(extent={{-50,10},{-30,30}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSupSetMinMax(
-    final k=TSupSet_lim)
-    "Constant"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSupSetMinMax(final k=
+        TSupSetLim) "Constant"
     annotation (Placement(transformation(extent={{-90,-110},{-70,-90}})));
 equation
   connect(u1StaPro, truHol.u)
@@ -251,12 +250,6 @@ equation
       coordinateSystem(
         extent={{-160,-160},{160,160}})),
     Documentation(info="<html>
-<p>
-FIXME: To represent the expected control intent, the T\\&R block
-needs to be updated with an additional input to lock/release the
-output. 
-See https://github.com/lbl-srg/modelica-buildings/pull/2299#issuecomment-1997466979
-</p>
 </html>", revisions="<html>
 <ul>
 <li>

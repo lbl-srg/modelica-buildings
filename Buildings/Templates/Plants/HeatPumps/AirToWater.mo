@@ -636,7 +636,10 @@ equation
 <h4>Description</h4>
 <p>
 This template represents an air-to-water heat pump plant 
-with detailed closed-loop controls.
+with closed-loop controls.
+</p>
+<p>
+Only identical heat pumps are currently supported.
 </p>
 <p>
 The supported plant configurations are enumerated in the table below.
@@ -648,7 +651,7 @@ configuration.<br/>
 <tr><td>Function</td>
 <td>
 <b>Heating and cooling</b><br/>
-Heating only
+Heating-only
 </td>
 <td>
 The plant always provides heating hot water.<br/>
@@ -663,7 +666,7 @@ modeling a plant that provides both heating hot water and chilled water.
 <td>
 The template assumes that the HW and the CHW loops have the 
 same type of distribution, as specified by this parameter.<br/>
-Centralized secondary pumps refers to configurations with a single 
+\"Centralized secondary pumps\" refers to configurations with a single 
 group of secondary pumps that is typically integrated into the plant.<br/>
 Distributed secondary pumps with multiple secondary loops served 
 by dedicated secondary pumps are currently not supported.<br/>
@@ -672,7 +675,7 @@ AWHPs on the market use a reverse cycle for defrosting.
 This requires maximum primary flow during defrost cycles and hinders
 variable primary distributions.<br/>
 An option for constant primary-only distributions with ∆p-controlled
-variable speed pumps will be added in the future. 
+variable speed pumps will be added in a next release. 
 </td>
 </tr>
 <tr><td>Type of primary pump arrangement</td>
@@ -736,12 +739,9 @@ Explain plant and reset requests
 
 <h4>Implementation details</h4>
 <p>
-The parameter <code>is_rev</code> is bound to <code>have_chiWat</code> as
-AWHP that provide chilled water are necessary reversible units.
-</p>
-<p>
-Heat pump CHW and HW pressure drops are computed within the component <code>valIso</code>
-for best computational efficiency.
+The pressure drops of the heat pump CHW and HW heat exchangers are calculated 
+within the isolation valve component <code>valIso</code> based on lumped flow 
+coefficients for better computational efficiency.
 </p>
 <h4>References</h4>
 <ul>

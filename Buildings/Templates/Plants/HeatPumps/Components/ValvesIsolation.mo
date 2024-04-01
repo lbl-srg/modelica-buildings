@@ -1,6 +1,6 @@
 within Buildings.Templates.Plants.HeatPumps.Components;
 model ValvesIsolation
-  "Heat pump CHW/HW isolation valves"
+  "Heat pump isolation valves"
   replaceable package Medium=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Medium model"
@@ -581,8 +581,7 @@ equation
               "modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
           rotation=360,
           origin={1800,-200}),
-    Line(
-          points={{-2400,400},{2200,400},{2200,-700}},
+    Line( points={{-2400,400},{2200,400},{2200,-700}},
           color={0,0,0},
           pattern=LinePattern.Dash,
           thickness=5,
@@ -657,8 +656,7 @@ equation
           fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
           rotation=360,
           origin={1000,-200}),
-    Line(
-          points={{1400,400},{1400,-700}},
+    Line( points={{1400,400},{1400,-700}},
           color={0,0,0},
           pattern=LinePattern.Dash,
           thickness=5,
@@ -706,8 +704,7 @@ equation
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
           visible=have_chiWat and nHp >= 2),
-   Line(
-          points={{1200,4},{1200,-696}},
+   Line(  points={{1200,4},{1200,-696}},
           color={0,0,0},
           thickness=5,
           visible=nHp >= 2),
@@ -733,8 +730,7 @@ equation
           fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
           rotation=360,
           origin={200,-200}),
-    Line(
-          points={{600,400},{600,-700}},
+    Line( points={{600,400},{600,-700}},
           color={0,0,0},
           pattern=LinePattern.Dash,
           thickness=5,
@@ -777,8 +773,7 @@ equation
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
           visible=have_chiWat and nHp >= 3),
-   Line(
-          points={{400,0},{400,-700}},
+   Line(  points={{400,0},{400,-700}},
           color={0,0,0},
           thickness=5,
           visible=nHp >= 3),
@@ -806,8 +801,7 @@ equation
               "modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
           rotation=360,
           origin={-600,-200}),
-    Line(
-          points={{-200,400},{-200,-700}},
+    Line( points={{-200,400},{-200,-700}},
           color={0,0,0},
           pattern=LinePattern.Dash,
           thickness=5,
@@ -850,8 +844,7 @@ equation
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
           visible=have_chiWat and nHp >= 4),
-   Line(
-          points={{-400,0},{-400,-700}},
+   Line(  points={{-400,0},{-400,-700}},
           color={0,0,0},
           thickness=5,
           visible=nHp >= 4),
@@ -920,8 +913,7 @@ equation
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
           visible=have_chiWat and nHp >= 5),
-   Line(
-          points={{-1200,0},{-1200,-700}},
+   Line(  points={{-1200,0},{-1200,-700}},
           color={0,0,0},
           thickness=5,
           visible=nHp >= 5),
@@ -1005,8 +997,7 @@ equation
           color={0,0,0},
           origin={-2030,-200},
           rotation=-90),
-   Line(
-          points={{-2400,0},{2000,0},{2000,-700}},
+   Line(  points={{-2400,0},{2000,0},{2000,-700}},
           color={0,0,0},
           thickness=5,
           visible=nHp >= 1),
@@ -1210,9 +1201,29 @@ equation
     Documentation(
       info="<html>
 <p>
-By default
-<code>from_dp=true</code> 
-<code>linearized=true</code>:
-careful when auto sizing balancing valves!
+This model represents the heat pump isolation valves.
+The isolation valves are modeled as two-way two-position 
+valves, which can be located at the heat pump inlet and/or
+outlet depending on the settings of the parameters <code>have_valHpInlIso</code>
+and <code>have_valHpOutIso</code>.
+It is assumed that the heat pumps always provide heating hot water.
+Optionally, chilled water return and supply and the associated isolation valves
+can be modeled by setting the parameter <code>have_chiWat</code> to true.
+</p>
+<h4>Implementation details</h4>
+<p>
+By default, the isolation valves are modeled considering a linear
+variation of the pressure drop with the flow rate (<code>linearized=true</code>), 
+as opposed to the quadratic relationship usually considered for 
+a turbulent flow regime.
+By limiting the size of the system of nonlinear equations, this setting 
+reduces the risk of solver failure and the time to solution.
+</html>", revisions="<html>
+<ul>
+<li>
+March 29, 2024, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end ValvesIsolation;

@@ -348,7 +348,6 @@ equation
         extent={{-200,-240},{200,240}})),
     Documentation(
       info="<html>
-FIXME: Add failsafe conditions.
 <p>
 Timers are reset to zero at the completion of every stage change.
 </p>

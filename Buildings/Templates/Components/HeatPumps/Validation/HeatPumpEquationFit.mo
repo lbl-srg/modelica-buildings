@@ -306,7 +306,7 @@ equation
     annotation (Line(points={{-158,140},{-50,140},{-50,120},{80,120},{80,40}},
       color={255,0,255}));
   connect(TSetAct.y, bus.TSet)
-    annotation (Line(points={{-18,100},{80,100},{80,40.1},{80.1,40.1}},color={0,0,127}));
+    annotation (Line(points={{-18,100},{80,100},{80,40},{80,40}},      color={0,0,127}));
   connect(pInl_rel.y, inlHp.p_in)
     annotation (Line(points={{-18,-20},{0,-20},{0,8},{8,8}}, color={0,0,127}));
   connect(pHeaWatInl.y, pInl_rel.u1)
@@ -341,7 +341,7 @@ equation
     annotation (Line(points={{170,140},{160,140},{160,94},{104,94},{104,90}},
       color={255,204,51},thickness=0.5));
   connect(THeaWatSupSet.y, bus1.TSet)
-    annotation (Line(points={{-68,160},{80.1,160},{80.1,120.1}},color={0,0,127}));
+    annotation (Line(points={{-68,160},{80,160},{80,120}},      color={0,0,127}));
   connect(hpWw.port_b, TSup2.port_a)
     annotation (Line(points={{120,-80},{130,-80}}, color={0,127,255}));
   connect(TSup2.port_b, sup.ports[3])
@@ -372,7 +372,7 @@ equation
   connect(pInl_rel1.y, inlHpSou.p_in) annotation (Line(points={{-18,-140},{-20,
           -140},{-20,-92},{8,-92}}, color={0,0,127}));
   connect(TSetAct.y, bus2.TSet)
-    annotation (Line(points={{-18,100},{80,100},{80,50},{80.1,50},{80.1,-39.9}},
+    annotation (Line(points={{-18,100},{80,100},{80,50},{80,50},{80,-40}},
       color={0,0,127}));
   connect(y1.y[1], bus2.y1)
     annotation (Line(points={{-158,140},{-50,140},{-50,-40},{80,-40}},color={255,0,255}));
@@ -401,22 +401,27 @@ equation
     Documentation(
       info="<html>
 <p>
-This model validates the model
-<a href=\"modelica://Buildings.Templates.Components.HeatPumps.AirToWater>
+This model validates the models
+<a href=\"modelica://Buildings.Templates.Components.HeatPumps.AirToWater\">
 Buildings.Templates.Components.HeatPumps.AirToWater</a>
+and 
+<a href=\"modelica://Buildings.Templates.Components.HeatPumps.WaterToWater\">
+Buildings.Templates.Components.HeatPumps.WaterToWater</a>
 in a configuration in which the heat pump components are exposed
 to a constant differential pressure and a varying
 return temperature.
 </p>
 <p>
-The model is configured to represent either a non-reversible heat pump
+The AWHP model is configured to represent either a non-reversible heat pump
 (suffix <code>Nrv</code>) or a reversible heat pump
 that switches between cooling and heating mode.
 </p>
-<p>
-It can be seen that the HW supply temperature setpoint is not met
-at minimum HW return temperature because the outdoor air temperature
-is below the heat pump selection conditions.
-</p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 29, 2024, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end HeatPumpEquationFit;

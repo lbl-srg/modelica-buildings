@@ -179,7 +179,7 @@ Note that this propagation does not persist when redeclaring or
 reassigning the record.
 This is because the equation fit method uses reference values that
 must match the ones used to compute the performance curve coefficients.
-<p>
+</p>
 <p>
 Also note that placeholders values are assigned to the performance curves,
 the reference source temperature and the input power in

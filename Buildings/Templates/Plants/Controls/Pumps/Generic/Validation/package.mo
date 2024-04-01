@@ -1,6 +1,5 @@
 within Buildings.Templates.Plants.Controls.Pumps.Generic;
-package Validation
-  "Collection of validation models"
+package Validation "Collection of validation models"
   annotation (
     Icon(
       graphics={

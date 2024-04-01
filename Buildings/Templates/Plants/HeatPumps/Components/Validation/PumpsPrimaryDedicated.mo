@@ -2,21 +2,26 @@ within Buildings.Templates.Plants.HeatPumps.Components.Validation;
 model PumpsPrimaryDedicated
   "Validation model for dedicated primary pump component"
   extends Modelica.Icons.Example;
-  parameter Buildings.Templates.Plants.HeatPumps.Types.Controller typCtl=
-    Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop;
   replaceable package Medium=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "CHW/HW medium";
+  parameter Boolean use_spePumIni = false
+    "Set to true to compute pump speed at initialization, false to use default value"
+    annotation(Evaluate=true);
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation (Evaluate=true,
     Dialog(tab="Dynamics",group="Conservation equations"));
   // Calculation of pump speed to meet design flow.
   parameter Real r_N[pumPriHea.nPum](
-    each unit="1",
+    each final fixed=false,
     each start=1,
-    each fixed=false)
+    each final unit="1")
     "Relative revolution, r_N=N/N_nominal";
+  parameter Real r_NDef[pumPriHea.nPum](
+    each start=1,
+    each final unit="1")=fill(0.85, pumPriHea.nPum)
+    "Default value for relative revolution, r_N=N/N_nominal";
   parameter Data.Controller datCtl(
     cfg(
       have_pumHeaWatPriVar=false,
@@ -508,12 +513,16 @@ model PumpsPrimaryDedicated
     annotation (Placement(transformation(extent={{-10,-350},{10,-330}})));
 initial equation
   // Calculation of pump speed to provide design flow.
-  fill(0, pumPriHea.nHp)=Buildings.Templates.Utilities.computeBalancingPressureDrop(
-    m_flow_nominal=fill(datHp.mHeaWatHp_flow_nominal, pumPriHea.nHp),
-    dp_nominal=pumPriHea.dpValCheHeaWat_nominal .+ fill(datHp.dpHeaWatHp_nominal, pumPriHea.nHp) .+
-      fill(Buildings.Templates.Data.Defaults.dpValIso, pumPriHea.nHp),
-    datPum=datPumHeaWatHeaSin,
-    r_N=r_N);
+  if use_spePumIni then
+    fill(0, pumPriHea.nHp)=Buildings.Templates.Utilities.computeBalancingPressureDrop(
+      m_flow_nominal=fill(datHp.mHeaWatHp_flow_nominal, pumPriHea.nHp),
+      dp_nominal=pumPriHea.dpValCheHeaWat_nominal .+ fill(datHp.dpHeaWatHp_nominal, pumPriHea.nHp) .+
+        fill(Buildings.Templates.Data.Defaults.dpValIso, pumPriHea.nHp),
+      datPum=datPumHeaWatHeaSin,
+      r_N=r_N);
+  else
+    r_N=r_NDef;
+  end if;
 equation
   for i in 1:(pumPriHea.nHp) loop
     connect(pumPriHea.ports_bChiHeaWat[i], priHeaWat.port_a)
@@ -625,7 +634,7 @@ equation
 This model validates the model
 <a href=\"modelica://Buildings.Templates.Plants.HeatPumps.Components.PumpsPrimaryDedicated\">
 Buildings.Templates.Plants.HeatPumps.Components.PumpsPrimaryDedicated</a>
-for the following pump configurations.
+for the following configurations.
 </p>
 <ul>
 <li>
@@ -646,7 +655,7 @@ component <code>pumPriHea</code>.
 </li>
 </ul>
 <p>
-The two heat pumps, which are served by the pumps, are represented by fixed flow resistances
+In each configuration, two identical heat pumps are represented by fixed flow resistances
 (components <code>hp*</code>). 
 </p>
 <p>
@@ -667,7 +676,12 @@ Buildings.Templates.Utilities.computeBalancingPressureDrop</a>.
 Similarly, in the configuration with variable speed pumps <code>pumPriHea</code>, 
 the design head of the pumps is voluntarily chosen higher than necessary
 and the required pump speed needed to provide the design HP flow is computed 
-at initialization by solving for a balancing pressure drop of zero.
+at initialization by solving for a balancing valve pressure drop of zero.
+Note that this requires solving a numerical Jacobian at initialization.
+Although this is handled well by various Modelica tools, the parameter
+<code>use_spePumIni</code> allows switching to a default value in 
+this validation model for better integration into the continuous integration 
+test workflow.
 </p>
 </html>", revisions="<html>
 <ul>

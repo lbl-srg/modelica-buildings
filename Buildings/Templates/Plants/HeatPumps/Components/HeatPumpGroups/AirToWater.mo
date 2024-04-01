@@ -32,5 +32,9 @@ equation
   connect(ports_bSou, hp.port_bSou)
     annotation (Line(points={{120,-200},{120,-10},{10,-10}},color={0,127,255}));
   annotation (
-    defaultComponentName="hp");
+    defaultComponentName="hp", Documentation(info="<html>
+<p>
+This model represents a group of heat pumps.
+</p>
+</html>"));
 end AirToWater;

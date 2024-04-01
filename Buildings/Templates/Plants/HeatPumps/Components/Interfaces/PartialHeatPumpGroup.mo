@@ -1,5 +1,5 @@
 within Buildings.Templates.Plants.HeatPumps.Components.Interfaces;
-model PartialHeatPumpGroup
+model PartialHeatPumpGroup "Interface for heat pump group"
   replaceable package MediumHeaWat=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "HW medium"
@@ -321,5 +321,11 @@ equation
           extent={{-2040,250},{-1760,150}},
           textColor={0,0,0},
           visible=nHp >= 6,
-          textString="HP-6")}));
+          textString="HP-6")}),
+    Documentation(info="<html>
+<p>
+This partial class provides a standard interface for heat pump
+group models.
+</p>
+</html>"));
 end PartialHeatPumpGroup;

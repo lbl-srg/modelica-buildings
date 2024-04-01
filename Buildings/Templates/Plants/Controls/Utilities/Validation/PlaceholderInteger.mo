@@ -18,8 +18,8 @@ model PlaceholderInteger "Validation model"
   Buildings.Templates.Plants.Controls.Utilities.PlaceholderInteger
                                                                 phNo(
     have_inp=true,
-    have_inpPh=false)
-                  "No placeholder: use input signal"
+    have_inpPh=false,
+    u_internal=3) "No placeholder: use input signal"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
 equation
   connect(pul.y, phNo.u) annotation (Line(points={{-58,0},{0,0},{0,60},{18,60}},

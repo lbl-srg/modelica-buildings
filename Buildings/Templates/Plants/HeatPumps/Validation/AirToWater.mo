@@ -68,6 +68,7 @@ model AirToWater
     final dat=datAll.pla,
     final have_chiWat=have_chiWat,
     nHp=3,
+    typArrPumPri=Buildings.Templates.Components.Types.PumpArrangement.Headered,
     typPumHeaWatPri_select2=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
     typPumChiWatPri_select1=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
     final energyDynamics=energyDynamics,
@@ -366,6 +367,13 @@ in both the CHW and HW loops based on the valve position,
 <li>
 staging and controlling the secondary pumps to meet the 
 remote differential pressure setpoint.
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+March 29, 2024, by Antoine Gautier:<br/>
+First implementation.
 </li>
 </ul>
 </html>"),

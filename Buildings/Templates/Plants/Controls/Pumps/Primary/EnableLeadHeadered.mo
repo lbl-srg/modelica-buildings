@@ -170,7 +170,7 @@ Therefore, the valve command signal is not subject to any oscillatory
 behavior.
 </p>
 <h4>Details</h4>
-<p>Used in Guideline 36 for enabling:
+<p>This logic is prescribed in ASHRAE, 2021 for:
 </p>
 <ul>
 <li>
@@ -189,5 +189,12 @@ headered primary pumps in boiler plants.
 The valve <i>command</i> is used in contrast to the feedback of the
 valve position or the end switch status, as prescribed by Guideline 36.
 </p>
+<h4>References</h4>
+<ul>
+<li id=\"ASHRAE2021\">
+ASHRAE, 2021. Guideline 36-2021, High-Performance Sequences of Operation
+for HVAC Systems. Atlanta, GA.
+</li>
+</ul>
 </html>"));
 end EnableLeadHeadered;

@@ -2,12 +2,11 @@ within Buildings.Templates.Plants.Controls.Setpoints.Validation;
 model PlantReset
   Buildings.Templates.Plants.Controls.Setpoints.PlantReset res(
     nSenDpRem=2,
-    dpSet_max={5E4, 8E4},
+    dpSet_max={5E4,8E4},
     TSup_nominal=323.15,
-    TSupSet_lim=298.15,
+    TSupSetLim=298.15,
     resDp_max=0.75,
-    resTSup_min=0.25)
-    "Plant reset"
+    resTSup_min=0.25) "Plant reset"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
     "Convert real to integer"
@@ -74,7 +73,7 @@ Buildings.Templates.Plants.Controls.Setpoints.PlantReset</a>.
       revisions="<html>
 <ul>
 <li>
-XXXX, 2024, by Antoine Gautier:<br/>
+March 29, 2024, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>

@@ -1,5 +1,5 @@
 within Buildings.Templates.Plants.HeatPumps.Components.Interfaces;
-block PartialController
+block PartialController "Interface for heat pump plant controller"
   /*
   The following bindings are for parameters that are propagated *up*
   from the controller to the plant configuration record.
@@ -251,9 +251,6 @@ equation
       info="<html>
 <p>
 This partial class provides a standard interface for heat pump plant controllers.
-</p>
-<p>
-By default, the control options are supposed identical between the CHW and the HW loops.
 </p>
 </html>",
       revisions="<html>

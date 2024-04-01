@@ -1,28 +1,23 @@
 within Buildings.Templates.Plants.Controls.Pumps.Generic;
 block Staging
   "Generic staging logic for all pump arrangements and routing of pump status"
-  parameter Boolean is_pri(
-    start=true)
+  parameter Boolean is_pri(start=true)
     "Set to true for primary pumps, false for secondary pumps"
     annotation (Evaluate=true,
     Dialog(enable=nPum > 0));
-  parameter Boolean is_hdr(
-    start=false)
+  parameter Boolean is_hdr(start=false)
     "Set to true for headered pumps, false for dedicated pumps"
     annotation (Evaluate=true,
     Dialog(enable=nPum > 0));
-  parameter Boolean is_ctlDp(
-    start=false)
+  parameter Boolean is_ctlDp(start=false)
     "Set to true for headered variable speed pumps using ∆p pump speed control"
     annotation (Evaluate=true,
     Dialog(enable=is_hdr));
-  parameter Boolean have_valInlIso(
-    start=false)
+  parameter Boolean have_valInlIso(start=false)
     "Set to true if the system as inlet isolation valves"
     annotation (Evaluate=true,
     Dialog(enable=is_pri));
-  parameter Boolean have_valOutIso(
-    start=false)
+  parameter Boolean have_valOutIso(start=false)
     "Set to true if the system as outlet isolation valves"
     annotation (Evaluate=true,
     Dialog(enable=is_pri));
@@ -33,29 +28,29 @@ block Staging
     "Number of pumps"
     annotation (Evaluate=true);
   parameter Real V_flow_nominal(
-    final min=1E-6,
+    min=1E-6,
     start=1E-6,
-    final unit="m3/s")
+    unit="m3/s")
     "Design flow rate"
     annotation (Dialog(enable=is_hdr and is_ctlDp));
   parameter Real dtRun(
-    final min=0,
+    min=0,
     start=600,
-    final unit="s")=600
+    unit="s")=600
     "Runtime before triggering stage command"
     annotation (Dialog(enable=is_hdr and is_ctlDp));
   parameter Real dVOffUp(
-    final max=1,
-    final min=0,
+    max=1,
+    min=0,
     start=0.03,
-    final unit="1")=0.03
+    unit="1")=0.03
     "Stage up flow point offset"
     annotation (Dialog(enable=is_hdr and is_ctlDp));
   parameter Real dVOffDow(
-    final max=1,
-    final min=0,
+    max=1,
+    min=0,
     start=0.03,
-    final unit="1")=dVOffUp
+    unit="1")=dVOffUp
     "Stage down flow point offset"
     annotation (Dialog(enable=is_hdr and is_ctlDp));
   final parameter Real staPum[nPum, nPum](
@@ -259,10 +254,12 @@ equation
     annotation (Line(points={{-88,-60},{-72,-60}}, color={255,0,255}));
   connect(u1ValOutIso, phValOutIso.u)
     annotation (Line(points={{-180,-60},{-112,-60}}, color={255,0,255}));
-  connect(u1ValOutIso, phValInlIso.uPh) annotation (Line(points={{-180,-60},{-146,
-          -60},{-146,-44},{-142,-44}}, color={255,0,255}));
-  connect(u1ValInlIso, phValOutIso.uPh) annotation (Line(points={{-180,-40},{-152,
-          -40},{-152,-64},{-112,-64}}, color={255,0,255}));
+  connect(u1ValOutIso, phValInlIso.uPh) annotation (Line(points={{-180,-60},{
+          -146,-60},{-146,-46},{-142,-46}},
+                                       color={255,0,255}));
+  connect(u1ValInlIso, phValOutIso.uPh) annotation (Line(points={{-180,-40},{
+          -152,-40},{-152,-66},{-112,-66}},
+                                       color={255,0,255}));
   connect(u1Pla, nPumHdrDp.u1Lea)
     annotation (Line(points={{-180,-80},{-20,-80},{-20,-14},{-12,-14}},color={255,0,255}));
   connect(enaLeaHdrPri.y1, booToInt1.u)
@@ -315,11 +312,42 @@ equation
         extent={{-160,-160},{160,160}})),
     Documentation(
       info="<html>
+<h5>Plants with dedicated primary pumps</h5>
+<p> 
+Primary pumps 
+<a href=\"modelica://Buildings.Templates.Plants.Controls.Pumps.Primary.Dedicated\">
+Buildings.Templates.Plants.Controls.Pumps.Primary.Dedicated</a>.
+</p>
+<h5>Plants with headered primary pumps</h5>
 <p>
-For secondary headered pumps: the lead pump is enabled when the plant
-is enabled. Otherwise, the lead pump is disabled.
+Primary pumps are lead/lag alternated as described in
+<a href=\"modelica://Buildings.Templates.Plants.Controls.StagingRotation.SortRuntime\">
+Buildings.Templates.Plants.Controls.StagingRotation.SortRuntime</a>.
+</p>
 <p>
-<h4>Implementation details</h4>
+The lead primary pump is enabled as described in
+<a href=\"modelica://Buildings.Templates.Plants.Controls.Pumps.Primary.EnableLeadHeadered\">
+Buildings.Templates.Plants.Controls.Pumps.Primary.EnableLeadHeadered</a>.
+</p>
+<p>
+The number of operating primary pumps shall match the number of operating
+equipment.
+</p>
+<h5>Plants with headered secondary pump</h5>
+<p>
+Secondary pumps are lead/lag alternated as described in
+<a href=\"modelica://Buildings.Templates.Plants.Controls.StagingRotation.SortRuntime\">
+Buildings.Templates.Plants.Controls.StagingRotation.SortRuntime</a>.
+</p>
+<p>
+The lead secondary pump is enabled when the plant is enabled. 
+Otherwise, the lead secondary pump is disabled.
+<p>
+Secondary pumps are staged as described in
+<a href=\"modelica://Buildings.Templates.Plants.Controls.Pumps.Generic.StagingHeaderedDeltaP\">
+Buildings.Templates.Plants.Controls.Pumps.Generic.StagingHeaderedDeltaP</a>.
+</p>
+<h4>Details</h4>
 <p>
 At its current stage of development, this block contains no
 logic for handling faulted equipment. 

@@ -1,6 +1,5 @@
 within Buildings.Templates.Plants.Controls;
-package Enabling
-  "Package of sequences for system enabling"
+package Enabling "Plant enable/disable"
   annotation (
     Icon(
       graphics={
@@ -36,5 +35,10 @@ package Enabling
         Rectangle(
           lineColor={128,128,128},
           extent={{-100.0,-100.0},{100.0,100.0}},
-          radius=25.0)}));
+          radius=25.0)}), Documentation(info="<html>
+<p>
+This package contains control sequences to enable or disable
+chilled water or hot water plants.
+</p>
+</html>"));
 end Enabling;

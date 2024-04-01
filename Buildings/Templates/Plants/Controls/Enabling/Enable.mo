@@ -1,6 +1,6 @@
 within Buildings.Templates.Plants.Controls.Enabling;
 block Enable
-  "Evaluation of system enable command"
+  "Plant enable"
   parameter Buildings.Templates.Plants.Controls.Types.Application typ
     "Type of application"
     annotation (Evaluate=true);
@@ -232,9 +232,6 @@ equation
         extent={{-100,-100},{100,100}})),
     Documentation(
       info="<html>
-<p>
-This block generates the plant enable command.
-</p>
 <p>
 The plant is enabled when it has been disabled for at least the duration <code>dtRun</code> and:
 </p>

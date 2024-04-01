@@ -842,5 +842,27 @@ equation
               2,
           extent={{860,-50},{960,50}},
           fileName=
-              "modelica://Buildings/Resources/Images/Templates/Components/Actuators/MotorStarter.svg")}));
+              "modelica://Buildings/Resources/Images/Templates/Components/Actuators/MotorStarter.svg")}),
+    Documentation(revisions="<html>
+<ul>
+<li>
+March 29, 2024, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+This model represents dedicated primary HW pumps and, optionally,
+separate dedicated primary CHW pumps if the parameter 
+<code>have_pumChiWatPriDed</code> is set to true.
+The pump components are connected to the heat pump outlet,
+in a \"pump away\" configuration. 
+Variable speed or constant speed pumps can be modeled by
+setting the parameters <code>have_pumHeaWatPriVar</code>
+and <code>have_pumChiWatPriVar</code>.
+If headered pumps are modeled 
+(<code>typArrPumPri=Buildings.Templates.Components.Types.PumpArrangement.Headered</code>),
+this component resolves to a direct fluid pass-through.
+</p>
+</html>"));
 end PumpsPrimaryDedicated;

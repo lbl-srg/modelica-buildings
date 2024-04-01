@@ -6,7 +6,7 @@ simulateModel("Buildings.Templates.Plants.Controls.Setpoints.Validation.PlantRes
 createPlot(
     id=1,
     position={5, 5, 300, 500},
-    y={"res.u1Ena", "res.u1StaPro", "res.uReqRes"},
+    y={"res.u1Ena", "res.u1StaPro", "res.nReqRes"},
     autoscale=true,
     grid=true,
     timeUnit="min"
@@ -30,7 +30,7 @@ createPlot(
 createPlot(
     id=2,
     subPlot=2,
-    y={"res.TSupSet", "res.TSupSet_nominal", "res.TSupSetLim"},
+    y={"res.TSupSet", "res.TSup_nominal", "res.TSupSetLim"},
     autoscale=true,
     grid=true,
     timeUnit="min"

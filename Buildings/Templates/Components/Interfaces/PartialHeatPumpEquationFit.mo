@@ -38,12 +38,12 @@ model PartialHeatPumpEquationFit
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-40,130})));
-  Controls.StatusEmulator                y1_actual
+  Controls.StatusEmulator y1_actual
     "Compute heat pump status"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={60,130})));
+        origin={40,130})));
   Fluid.Sensors.MassFlowRate mChiHeaWat_flow(redeclare final package Medium =
         MediumHeaWat) "CHW/HW mass flow rate"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
@@ -139,15 +139,15 @@ equation
   connect(mulInt.y, hp.uMod)
     annotation (Line(points={{-20,38},{-20,-6},{-11,-6}}, color={255,127,0}));
   connect(y1_actual.y1_actual, bus.y1_actual)
-    annotation (Line(points={{60,142},{60,160},{0,160}}, color={255,0,255}));
+    annotation (Line(points={{40,142},{40,156},{0,156},{0,160}},
+                                                         color={255,0,255}));
   connect(bus.y1, y1_actual.y1) annotation (Line(
-      points={{0,160},{0,110},{60,110},{60,118}},
+      points={{0,160},{0,110},{40,110},{40,118}},
       color={255,204,51},
       thickness=0.5));
   annotation (
   defaultComponentName="heaPum",
   Documentation(info="<html>
-FIXME: dTEva_nominal
 <p>
 This is a model for an air-to-water heat pump where the capacity
 and drawn power are computed based on the equation fit method.
@@ -155,7 +155,7 @@ The model can be configured with the parameter <code>is_rev</code>
 to represent either a non-reversible heat pump (heating only) or a 
 reversible heat pump.
 This model uses 
-<a href=\\\"modelica://Buildings.Fluid.HeatPumps.EquationFitReversible\\\">
+<a href=\"modelica://Buildings.Fluid.HeatPumps.EquationFitReversible\">
 Buildings.Fluid.HeatPumps.EquationFitReversible</a>,
 which the user may refer to for the modeling assumptions.
 </p>
@@ -173,6 +173,7 @@ Heat pump operating mode command signal <code>y1Hea</code>:
 DO signal, with a dimensionality of zero<br/>
 (<code>y1Hea=true</code> for heating mode, 
 <code>y1Hea=false</code> for cooling mode)
+</li>
 <li>
 Heat pump supply temperature setpoint <code>TSet</code>:
 AO signal, with a dimensionality of zero<br/>
@@ -182,6 +183,13 @@ switched externally between HW and CHW supply temperature)
 <li>
 Heat pump status <code>y1_actual</code>:
 DI signal, with a dimensionality of zero
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+March 29, 2024, by Antoine Gautier:<br/>
+First implementation.
 </li>
 </ul>
 </html>"));

@@ -284,6 +284,14 @@
   openmodelica:
     comment: Translation failed.
     translate: false
+- model_name: Buildings.Templates.Plants.HeatPumps.Components.Validation.ValvesIsolation
+  optimica:
+    comment: See https://github.com/lbl-srg/modelica-buildings/issues/3759
+    simulate: false
+- model_name: Buildings.Templates.Plants.HeatPumps.Validation.AirToWater
+  optimica:
+    comment: See https://github.com/lbl-srg/modelica-buildings/issues/3759
+    simulate: false
 - model_name: Buildings.Templates.ZoneEquipment.Validation.VAVBoxCoolingOnly
   openmodelica:
     comment: Translation failed.

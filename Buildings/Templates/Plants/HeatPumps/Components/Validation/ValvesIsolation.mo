@@ -60,7 +60,6 @@ model ValvesIsolation
         datCtl.cfg.nSenDpHeaWatRem),
     staEqu={fill(1, datCtl.cfg.nHp)}) "Controller parameters"
     annotation (Placement(transformation(extent={{-80,370},{-60,390}})));
-
   parameter Data.Controller datCtlHeaInl(
     cfg(
       have_pumHeaWatPriVar=true,
@@ -219,7 +218,7 @@ model ValvesIsolation
     p=supHeaWat.p + max(valIsoCom.dpHeaWat_nominal),
     T=Buildings.Templates.Data.Defaults.THeaWatRetMed,
     nPorts=1) "Boundary condition at HW return"
-    annotation (Placement(transformation(extent={{140,150},{120,170}})));
+    annotation (Placement(transformation(extent={{-280,320},{-260,340}})));
   Fluid.Sources.Boundary_pT supChiWat(
     redeclare final package Medium=Medium,
     p=Buildings.Templates.Data.Defaults.pChiWat_rel_nominal + 101325,
@@ -231,7 +230,7 @@ model ValvesIsolation
     p=Buildings.Templates.Data.Defaults.pHeaWat_rel_nominal + 101325,
     nPorts=1)
     "Boundary condition at HW supply"
-    annotation (Placement(transformation(extent={{170,170},{150,190}})));
+    annotation (Placement(transformation(extent={{-280,280},{-260,300}})));
   Controls.OpenLoop ctl(
     final cfg=datCtl.cfg,
     final dat=datCtl)
@@ -263,13 +262,13 @@ model ValvesIsolation
     T=Buildings.Templates.Data.Defaults.THeaWatRetMed,
     nPorts=1)
     "Boundary condition at HW return"
-    annotation (Placement(transformation(extent={{142,-90},{122,-70}})));
+    annotation (Placement(transformation(extent={{-280,60},{-260,80}})));
   Fluid.Sources.Boundary_pT supHeaWat1(
     redeclare final package Medium=Medium,
     p=Buildings.Templates.Data.Defaults.pHeaWat_rel_nominal + 101325,
     nPorts=1)
     "Boundary condition at HW supply"
-    annotation (Placement(transformation(extent={{172,-70},{152,-50}})));
+    annotation (Placement(transformation(extent={{-280,20},{-260,40}})));
   Controls.OpenLoop ctlHeaInl(
     final cfg=datCtlHeaInl.cfg,
     final dat=datCtlHeaInl)
@@ -301,7 +300,7 @@ model ValvesIsolation
     p=Buildings.Templates.Data.Defaults.pHeaWat_rel_nominal + 101325,
     nPorts=2)
     "Boundary condition at HW supply"
-    annotation (Placement(transformation(extent={{190,-390},{170,-370}})));
+    annotation (Placement(transformation(extent={{-280,-200},{-260,-180}})));
   Controls.OpenLoop ctlSep(
     final cfg=datCtlSep.cfg,
     final dat=datCtlSep)
@@ -361,22 +360,22 @@ model ValvesIsolation
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=90,
       origin={-34,-306})));
 equation
-  connect(retHeaWat.ports[1], valIsoCom.port_aHeaWat) annotation (Line(points={{
-          120,160},{-260,160},{-260,330},{-240,330}}, color={0,127,255}));
+  connect(retHeaWat.ports[1], valIsoCom.port_aHeaWat) annotation (Line(points={{-260,
+          330},{-240,330}},                           color={0,127,255}));
   connect(retChiWat.ports[1], valIsoCom.port_aChiWat)
     annotation (Line(points={{260,310},{240,310}}, color={0,127,255}));
   connect(valIsoCom.port_bChiWat, supChiWat.ports[1])
     annotation (Line(points={{240,350},{260,350}}, color={0,127,255}));
-  connect(valIsoCom.port_bHeaWat, supHeaWat.ports[1]) annotation (Line(points={{
-          -240,290},{-240,180},{150,180}}, color={0,127,255}));
+  connect(valIsoCom.port_bHeaWat, supHeaWat.ports[1]) annotation (Line(points={{-240,
+          290},{-260,290}},                color={0,127,255}));
   connect(ctl.bus, valIsoCom.bus) annotation (Line(
       points={{-30,380},{0,380},{0,330}},
       color={255,204,51},
       thickness=0.5));
   connect(retHeaWat1.ports[1], valIsoHeaInl.port_aHeaWat)
-    annotation (Line(points={{122,-80},{-140,-80},{-140,70},{-240,70}},color={0,127,255}));
+    annotation (Line(points={{-260,70},{-240,70}},                     color={0,127,255}));
   connect(valIsoHeaInl.port_bHeaWat, supHeaWat1.ports[1])
-    annotation (Line(points={{-240,30},{-128,30},{-128,-60},{152,-60}},color={0,127,255}));
+    annotation (Line(points={{-240,30},{-260,30}},                     color={0,127,255}));
   connect(ctlHeaInl.bus, valIsoHeaInl.bus)
     annotation (Line(points={{-30,120},{0,120},{0,70}},    color={255,204,51},thickness=0.5));
   connect(valIsoCom.ports_bChiHeaWatHp, hpCom.port_a)
@@ -388,16 +387,14 @@ equation
   connect(hpHea.port_b, valIsoHeaInl.ports_aChiHeaWatHp)
     annotation (Line(points={{-10,-40},{-50,-40}},        color={0,127,255}));
   connect(valIsoSep.port_bHeaWat, supHeaWat2.ports[1])
-    annotation (Line(points={{-240,-210},{-240,-378},{168,-378},{168,-381},{170,
-          -381}},
+    annotation (Line(points={{-240,-210},{-260,-210},{-260,-191}},
       color={0,127,255}));
   connect(ctlSep.bus, valIsoSep.bus)
     annotation (Line(points={{-30,-120},{0,-120},{0,-170}},  color={255,204,51},thickness=0.5));
   connect(valIsoSep.ports_bChiHeaWatHp, hpSep.port_a)
     annotation (Line(points={{50,-280},{50,-360},{10,-360}},color={0,127,255}));
   connect(supHeaWat2.ports[2], valIsoSep.port_aHeaWat)
-    annotation (Line(points={{170,-379},{170,-386},{-260,-386},{-260,-170},{-240,
-          -170}},
+    annotation (Line(points={{-260,-189},{-260,-170},{-240,-170}},
       color={0,127,255}));
   connect(ctlSep.bus, busPla)
     annotation (Line(points={{-30,-120},{100,-120}},
@@ -455,11 +452,12 @@ First implementation.
 This model validates the model
 <a href=\"modelica://Buildings.Templates.Plants.HeatPumps.Components.ValvesIsolation\">
 Buildings.Templates.Plants.HeatPumps.Components.ValvesIsolation</a>
-for the following valve configurations.
+for the following configurations.
 </p>
 <ul>
 <li>
-Heating and cooling system with common dedicated primary HW and CHW pumps: 
+Heating and cooling system with common dedicated primary HW and CHW pumps
+and isolation valves at both heat pump inlet and outlet: 
 component <code>valIsoCom</code>.
 </li>
 <li>
@@ -467,13 +465,14 @@ Heating-only system with isolation valves at heat pump inlet:
 component <code>valIsoHeaInl</code>.
 </li>
 <li>
-Heating and cooling system with separate dedicated primary HW and CHW pumps:
+Heating and cooling system with separate dedicated primary HW and CHW pumps
+and isolation valves at heat pump inlet: 
 component <code>valIsoSep</code>.
 </li>
 </ul>
 <p>
-The two heat pumps, which are served by the pumps, are represented by fixed flow resistances
-(components <code>hp*</code>). 
+In each configuration, two identical heat pumps are represented by fixed 
+flow resistances (components <code>hp*</code>). 
 </p>
 <p>
 The model uses open loop controls and the simulation allows verifying that design 

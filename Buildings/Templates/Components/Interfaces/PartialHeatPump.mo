@@ -220,8 +220,16 @@ Icon(graphics={
     Text( extent={{-60,0},{60,-40}},
           textColor={0,0,0},
           textString="HP")}), Documentation(info="<html>
-RFE: Add check for design capacity below the one computed
-from reference values (per record).
+<p>
+This partial class provides a standard interface for heat pump models.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 29, 2024, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"),
     Diagram(coordinateSystem(extent={{-100,-140},{100,160}})));
 end PartialHeatPump;

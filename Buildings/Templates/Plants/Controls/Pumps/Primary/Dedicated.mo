@@ -87,7 +87,8 @@ equation
   connect(disAndOffOrNotReq.y, edg.u)
     annotation (Line(points={{52,-60},{58,-60}},color={255,0,255}));
   connect(edg.y, ini.u)
-    annotation (Line(points={{82,-60},{88,-60},{88,-34},{30,-34},{30,-20},{38,-20}},
+    annotation (Line(points={{82,-60},{88,-60},{88,-40},{30,-40},{30,-20},{38,
+          -20}},
       color={255,0,255}));
   connect(ini.y, lat.clr)
     annotation (Line(points={{62,-20},{66,-20},{66,-6},{70,-6}},color={255,0,255}));
@@ -110,28 +111,23 @@ equation
     Documentation(
       info="<html>
 <p>
-The pump is disabled when the lead equipment is disabled and:
+The pump is disabled when the associated plant equipment is disabled and:
 </p>
 <ul>
 <li>
-if the plant equipment has a flow request network point
-(<code>have_req=true</code>): either the lead
-equipment has been proven off for <code>dtOff</code>
-or is not requesting flow.
+if the equipment has a flow request network point
+(<code>have_req=true</code>): either the equipment has been proven 
+off for <code>dtOff</code> or is not requesting flow.
 </li>
 <li>
-otherwise (<code>have_req=false</code>): the lead
-equipment has been proven off for <code>dtOff</code>.
+otherwise (<code>have_req=false</code>): the equipment has been 
+proven off for <code>dtOff</code>.
 </li>
 </ul>
 <p>
 When the flow request point is available, the default value for the pump
 disable delay <code>dtOff</code> is increased from <i>3</i>&nbsp;min
 to <i>10</i>&nbsp;min to ensure that flow is not cut off too soon.
-</p>
-<p>
-For dedicated pumps, the lead primary pump enable signal is generated
-by the staging event sequencing logic.
 </p>
 <h4>Details</h4>
 <p>Used in Guideline 36 for disabling

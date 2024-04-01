@@ -1,2 +1,3 @@
 within Buildings.Templates.Plants.Controls;
-package HeatPumps end HeatPumps;
+package HeatPumps
+end HeatPumps;

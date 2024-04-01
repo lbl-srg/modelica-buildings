@@ -15,7 +15,7 @@ createPlot(
 createPlot(
     id=1,
     subPlot=2,
-    y={"y1ComSta.y", "comSta.y0"},
+    y={"y1ComSta.y", "comSta.y1"},
     autoscale=true,
     grid=true,
     timeUnit="min"

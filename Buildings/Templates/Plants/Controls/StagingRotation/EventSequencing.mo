@@ -1,6 +1,5 @@
-within Buildings.Templates.Plants.Controls.Enabling;
-block EventSequencing
-  "Events sequencing when the system is enabled"
+within Buildings.Templates.Plants.Controls.StagingRotation;
+block EventSequencing "Staging event sequencing"
   parameter Boolean have_heaWat
     "Set to true for plants that provide HW"
     annotation (Evaluate=true);
@@ -283,7 +282,7 @@ equation
   connect(u1HeaOrCoo.y, rou1.u)
     annotation (Line(points={{-68,120},{-60,120},{-60,-40},{58,-40}},color={255,0,255}));
   connect(u1Hea_internal.y, off.u1)
-    annotation (Line(points={{-128,140},{-120,140},{-120,20},{-92,20}},color={255,0,255}));
+    annotation (Line(points={{-128,140},{-122,140},{-122,20},{-92,20}},color={255,0,255}));
   connect(u1Coo_internal.y, off.u2)
     annotation (Line(points={{-128,80},{-100,80},{-100,12},{-92,12}},color={255,0,255}));
   connect(off.y, timHp.u)
@@ -340,7 +339,48 @@ equation
         extent={{-160,-160},{160,160}})),
     Documentation(
       info="<html>
-
+<p>
+If a heat pump is commanded on in a desired heating or cooling mode:
+</p>
+<ul>
+<li>
+The isolation valves for desired heating or cooling mode are commanded
+open.
+</li>
+<li>
+<b>For plants with separate dedicated primary pumps</b>:
+Concurrently, the dedicated HW primary pump is commanded on in heating mode
+or the dedicated CHW primary pump is commanded on in cooling mode.
+</li>
+<li>
+<b>For plants with common dedicated primary pumps</b>:
+Concurrently, the dedicated primary pump is commanded on.
+</li>
+<li>
+<b>For plants with headered primary pumps</b>:
+Concurrently, the lead headered primary pump is commanded on.
+</li>
+<li>
+Once the isolation valves are fully open (based on nominal valve timing <code>dtVal</code>)
+and the lead pumps are proven on, the heat pump is enabled in heating or cooling
+mode.
+</li>
+</ul>
+<p>
+If a heat pump is commanded off:
+</p>
+<ul>
+<li>
+The heat pump is disabled.
+</li>
+<li>
+After the time required for internal shutdown cycle to time out 
+(<code>dtHp</code> to be determined empirically, defaulting to <i>3</i>&nbsp;min),
+all isolation valves are commanded closed.
+</li>
+and the dedicated primary pump 
+is concurrently commanded off.
+</li>
 </html>", revisions="<html>
 <ul>
 <li>

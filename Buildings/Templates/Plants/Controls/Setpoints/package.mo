@@ -1,6 +1,5 @@
 within Buildings.Templates.Plants.Controls;
-package Setpoints
-  "Plant reset logic"
+package Setpoints "Plant reset logic"
   annotation (
     preferredView="info",
     Documentation(

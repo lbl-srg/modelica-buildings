@@ -41,8 +41,7 @@ block SortRuntime
     "Return true if equipment off"
     annotation (Placement(transformation(extent={{-130,30},{-110,50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant u1Res[nEquAlt](
-    each k=false)
-    "FIXME: Add input signal for staging runtime reset"
+    each k=false) "Signal for staging runtime reset"
     annotation (Placement(transformation(extent={{-180,-110},{-160,-90}})));
   Utilities.SortWithIndices sor(
     final ascending=true,
@@ -99,7 +98,7 @@ block SortRuntime
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant fal[nEquAlt](
     each final k=false)
     "Constant"
-    annotation (Placement(transformation(extent={{-150,90},{-130,110}})));
+    annotation (Placement(transformation(extent={{-180,90},{-160,110}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanExtractSignal u1RunEquAlt(
     final nin=nin,
     final nout=nEquAlt,
@@ -129,7 +128,7 @@ block SortRuntime
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
 equation
   connect(u1Res.y, timRun.reset)
-    annotation (Line(points={{-158,-100},{-140,-100},{-140,-8},{-92,-8}},color={255,0,255}));
+    annotation (Line(points={{-158,-100},{-120,-100},{-120,-8},{-92,-8}},color={255,0,255}));
   connect(weiOffAva.y, appWeiOffAva.u1)
     annotation (Line(points={{-28,40},{-26,40},{-26,6},{-12,6}},color={0,0,127}));
   connect(off.y, offAva.u1)
@@ -162,7 +161,7 @@ equation
   connect(timRunLif.y, yRunTimLif)
     annotation (Line(points={{-28,80},{220,80}},color={0,0,127}));
   connect(fal.y, timRunLif.reset)
-    annotation (Line(points={{-128,100},{-60,100},{-60,72},{-52,72}},color={255,0,255}));
+    annotation (Line(points={{-158,100},{-60,100},{-60,72},{-52,72}},color={255,0,255}));
   connect(u1Run, u1RunEquAlt.u)
     annotation (Line(points={{-220,40},{-182,40}},color={255,0,255}));
   connect(u1RunEquAlt.y, off.u)
@@ -230,7 +229,7 @@ system server so the recorded value is not lost due to controller reset,
 loss of power, programming file update, etc.
 The Staging Runtime is an operator resettable runtime point that stores
 cumulative runtime since the last operator reset.
-<p>
+</p>
 <p>
 In the case of available equipment,
 when more than one equipment is off or more than one is on,
@@ -282,5 +281,12 @@ Buildings.Templates.Plants.Controls.Utilities.SortWithIndices</a>
 for purely continuous time-varying variables does not apply here.
 Therefore, no sampling is performed before sorting the equipment runtimes.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 29, 2024, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end SortRuntime;

@@ -857,7 +857,7 @@ block AirToWater
     if have_heaWat
     "Compute enable command for equipment in heating mode"
     annotation (Placement(transformation(extent={{40,350},{60,370}})));
-  Enabling.EventSequencing eveSeqEna[nHp](
+  StagingRotation.EventSequencing eveSeqEna[nHp](
     each final have_heaWat=have_heaWat,
     each final have_chiWat=have_chiWat,
     each final have_valInlIso=have_valHpInlIso,
@@ -1045,7 +1045,7 @@ block AirToWater
     annotation (Placement(transformation(extent={{-40,250},{-20,270}})));
   Setpoints.PlantReset resHeaWat(
     final TSup_nominal=THeaWatSup_nominal,
-    final TSupSet_lim=THeaWatSupSet_min,
+    final TSupSetLim=THeaWatSupSet_min,
     final dpSet_max=dpHeaWatRemSet_max,
     final dpSet_min=dpHeaWatRemSet_min,
     final dtDel=dtDel,
@@ -1060,13 +1060,11 @@ block AirToWater
     final res_min=res_min,
     final rsp=rspHeaWat,
     final rsp_max=rspHeaWat_max,
-    final tri=triHeaWat)
-    if have_heaWat
-    "HW plant reset"
+    final tri=triHeaWat) if have_heaWat "HW plant reset"
     annotation (Placement(transformation(extent={{90,230},{110,250}})));
   Setpoints.PlantReset resChiWat(
     final TSup_nominal=TChiWatSup_nominal,
-    final TSupSet_lim=TChiWatSupSet_max,
+    final TSupSetLim=TChiWatSupSet_max,
     final dpSet_max=dpChiWatRemSet_max,
     final dpSet_min=dpChiWatRemSet_min,
     final dtDel=dtDel,
@@ -1081,9 +1079,7 @@ block AirToWater
     final res_min=res_min,
     final rsp=rspChiWat,
     final rsp_max=rspChiWat_max,
-    final tri=triChiWat)
-    if have_chiWat
-    "CHW plant reset"
+    final tri=triChiWat) if have_chiWat "CHW plant reset"
     annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
   Pumps.Primary.VariableSpeedNoDpControl ctlPumPri(
     final have_heaWat=have_heaWat,
@@ -1478,9 +1474,6 @@ equation
         extent={{-260,-400},{260,400}})),
     Documentation(
       info="<html>
-<p>
-FIXME: Add assert for is_pumPriHdr and nHp > 1 because a one-HP plant must have dedicated pumps.
-</p>
 <h4>Implementation details</h4>
 <p>
 Depending on the plant configuration, the term \"primary HW pumps\"
@@ -1490,6 +1483,7 @@ HW and CHW pumps (either headered or dedicated)
 or to dedicated primary pumps for plants with common primary pumps
 serving both the HW and CHW loops.
 </p>
+<p>
 At its current stage of development, this controller contains no
 logic for handling faulted equipment. 
 It is therefore assumed that any equipment is available at all times.

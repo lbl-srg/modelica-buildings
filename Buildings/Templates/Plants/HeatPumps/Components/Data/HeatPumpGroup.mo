@@ -170,5 +170,16 @@ record HeatPumpGroup
   Placement(transformation(extent={{-8,-40},{8,-24}})));
   annotation (
     defaultComponentPrefixes="parameter",
-    defaultComponentName="datHp");
+    defaultComponentName="datHp",
+    Documentation(info="<html>
+<p>
+This record provides the set of parameters for heat pump group models 
+that can be found within
+<a href=\"modelica://Buildings.Templates.Plants.HeatPumps.Components.HeatPumpGroups\">
+Buildings.Templates.Plants.HeatPumps.Components.HeatPumpGroups</a>.
+</p>
+<p>
+Only identical heat pumps are currently supported.
+</p>
+</html>"));
 end HeatPumpGroup;

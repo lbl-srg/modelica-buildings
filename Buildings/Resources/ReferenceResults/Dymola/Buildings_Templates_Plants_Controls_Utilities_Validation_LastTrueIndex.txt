@@ -1,0 +1,10 @@
+last-generated=2024-04-01
+statistics-simulation=
+{
+  "linear": " ",
+  "nonlinear": " ",
+  "numerical Jacobians": "0"
+}
+time=[0e+00, 1e+00]
+idxLasTru.y=[5e+00, 5e+00]
+idxLasTruAllFal.y=[0e+00, 0e+00]
