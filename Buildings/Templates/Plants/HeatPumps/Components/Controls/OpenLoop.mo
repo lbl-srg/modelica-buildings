@@ -66,7 +66,7 @@ block OpenLoop
       5, 1],
     each timeScale=1000,
     each period=5000)
-    "Heat pump start/stop cpmmand"
+    "Heat pump start/stop command"
     annotation (Placement(transformation(extent={{-180,330},{-200,350}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1HeaHp[nHp](
     each table=[
@@ -197,5 +197,13 @@ equation
   connect(tru.y, TSet.u2)
     annotation (Line(points={{-102,260},{-130,260},{-130,320},{-138,320}},color={255,0,255}));
   annotation (
-    defaultComponentName="ctl");
+    defaultComponentName="ctl", Documentation(info="<html>
+<p>
+This is an open loop controller providing control inputs
+for the plant model
+<a href=\"modelica://Buildings.Templates.Plants.HeatPumps.AirToWater\">
+Buildings.Templates.Plants.HeatPumps.AirToWater</a>.
+It is only used for testing purposes.
+</p>
+</html>"));
 end OpenLoop;

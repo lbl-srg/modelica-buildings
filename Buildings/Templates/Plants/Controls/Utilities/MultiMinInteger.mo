@@ -46,5 +46,12 @@ equation
 <p>
 Outputs the minimum element of the input vector.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 29, 2024, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end MultiMinInteger;

@@ -9,7 +9,7 @@ model EnableLeadHeadered
     typCon=Buildings.Templates.Plants.Controls.Types.EquipmentConnection.Series,
     typValIso=Buildings.Templates.Plants.Controls.Types.Actuator.TwoPosition,
     nValIso=2)
-    "Enable lead pump - Series piped equipment wth two-position isolation valves"
+    "Enable lead pump - Series piped equipment with two-position isolation valves"
     annotation (Placement(transformation(extent={{50,-30},{70,-10}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[2]
     "Convert to real"
@@ -28,7 +28,7 @@ model EnableLeadHeadered
     typCon=Buildings.Templates.Plants.Controls.Types.EquipmentConnection.Parallel,
     typValIso=Buildings.Templates.Plants.Controls.Types.Actuator.TwoPosition,
     nValIso=2)
-    "Enable lead pump - Parallel piped equipment wth two-position isolation valves"
+    "Enable lead pump - Parallel piped equipment with two-position isolation valves"
     annotation (Placement(transformation(extent={{52,50},{72,70}})));
   Buildings.Templates.Plants.Controls.Pumps.Primary.EnableLeadHeadered enaParMod(
     typCon=Buildings.Templates.Plants.Controls.Types.EquipmentConnection.Parallel,
@@ -42,13 +42,13 @@ equation
   connect(booToRea.y, uValIso.u)
     annotation (Line(points={{-18,-40},{-2,-40}},color={0,0,127}));
   connect(u1ValIso.y, enaSerTwo.u1ValIso)
-    annotation (Line(points={{-58,0},{40,0},{40,-16},{48,-16}},color={255,0,255}));
+    annotation (Line(points={{-58,0},{40,0},{40,-20},{48,-20}},color={255,0,255}));
   connect(uValIso.y, enaSerMod.uValIso)
-    annotation (Line(points={{22,-40},{40,-40},{40,-64},{48,-64}},color={0,0,127}));
+    annotation (Line(points={{22,-40},{40,-40},{40,-66},{48,-66}},color={0,0,127}));
   connect(u1ValIso.y, enaParTwo.u1ValIso)
-    annotation (Line(points={{-58,0},{40,0},{40,64},{50,64}},color={255,0,255}));
+    annotation (Line(points={{-58,0},{40,0},{40,60},{50,60}},color={255,0,255}));
   connect(uValIso.y, enaParMod.uValIso)
-    annotation (Line(points={{22,-40},{30,-40},{30,16},{50,16}},color={0,0,127}));
+    annotation (Line(points={{22,-40},{30,-40},{30,14},{50,14}},color={0,0,127}));
   annotation (
     __Dymola_Commands(
       file=
@@ -66,14 +66,11 @@ Buildings.Templates.Plants.Controls.Pumps.Primary.EnableLeadHeadered</a>
 in a configuration with two production units, either parallel piped
 or series piped, with either two-position or modulating isolation valves.
 </p>
-<p>
-The simulation of this model shows that
-</p>
 </html>",
       revisions="<html>
 <ul>
 <li>
-XXXX, 2024, by Antoine Gautier:<br/>
+March 29, 2024, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>

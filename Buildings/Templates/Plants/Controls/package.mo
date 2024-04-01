@@ -5,7 +5,7 @@ package Controls "Control blocks"
       info="<html>
 <p>
 This package contains control blocks that comply with the CDL specification:
-<a href=\"modelica://https://obc.lbl.gov/specification/cdl.html\">
+<a href=\"https://obc.lbl.gov/specification/cdl.html\">
 https://obc.lbl.gov/specification/cdl.html</a>.
 </p>
 </html>"),

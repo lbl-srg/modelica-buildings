@@ -1,5 +1,5 @@
 within Buildings.Templates.Plants.Controls.StagingRotation.Validation;
-model StageAvailability
+model StageAvailability "Validation model for the evaluation of stage availability"
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable u1AvaEqu(
     table=[
       0, 0, 0, 0;
@@ -55,5 +55,23 @@ equation
           fillColor={75,138,73},
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
-          points={{-36,60},{64,0},{-36,-60},{-36,60}})}));
+          points={{-36,60},{64,0},{-36,-60},{-36,60}})}),
+    Documentation(info="<html>
+<p>
+This model validates 
+<a href=\"modelica://Buildings.Templates.Plants.Controls.StagingRotation.StageAvailability\">
+Buildings.Templates.Plants.Controls.StagingRotation.StageAvailability</a>
+in a configuration with three equally sized units (component <code>avaStaEqu</code>) 
+and in a configuration with one small unit and two large equally sized 
+units (component <code>avaStaOneTwo</code>).
+Only the units of the same size are lead/lag alternated.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 29, 2024, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end StageAvailability;

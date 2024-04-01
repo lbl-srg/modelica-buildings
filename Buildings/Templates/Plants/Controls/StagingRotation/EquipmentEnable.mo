@@ -1,6 +1,6 @@
 within Buildings.Templates.Plants.Controls.StagingRotation;
 block EquipmentEnable
-  "Return array of equipment to enable at given stage"
+  "Return array of equipment to be enabled at given stage"
   parameter Real staEqu[:,:](
     each unit="1",
     each min=0,
@@ -18,7 +18,7 @@ block EquipmentEnable
     "Number of equipment"
     annotation (Evaluate=true);
   final parameter Real traStaEqu[nEqu, nSta]={{staEqu[i, j] for i in 1:nSta} for j in 1:nEqu}
-    "Tranpose of staging matrix";
+    "Transpose of staging matrix";
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uIdxAltSor[nEquAlt]
     "Indices of lead/lag alternate equipment sorted by increasing runtime"
     annotation (Placement(transformation(extent={{-240,80},{-200,120}}),
@@ -259,9 +259,45 @@ equation
     Documentation(
       info="<html>
 <p>
-\"Count the number of required equipment without lead/lag alternate not necessarily available\":
-because we don't want to replace an unavailable required equipment by a lead/lag alternate equipment.
+This block generates the equipment enable commands based on the
+active stage index <code>uSta</code>, the equipment available
+signal <code>u1Ava</code> and the indices of lead/lag alternate
+equipment, sorted by increasing staging runtime.
 </p>
+<p>
+A staging matrix <code>staEqu</code> is required as a parameter.
+</p>
+<ul>
+<li>Each row of this matrix corresponds to a given stage.</li>
+<li>Each column of this matrix corresponds to a given equipment.</li>
+<li>A coefficient <code>staEqu[i, j]</code> equal to <i>0</i> 
+means that equipment <code>j</code> shall not be enabled at
+stage <code>i</code>.</li>
+<li>A coefficient <code>staEqu[i, j]</code> equal to <i>1</i> 
+means that equipment <code>j</code> is required at stage <code>i</code>.
+If equipment <code>j</code> is unavailable, stage <code>i</code> is
+deemed unavailable.
+</li>
+<li>A coefficient <code>staEqu[i, j]</code> strictly lower than <i>1</i> 
+and strictly greater than <i>0</i> means that equipment <code>j</code> 
+may be enabled at stage <code>i</code> as a lead/lag alternate equipment.
+If equipment <code>j</code> is unavailable but another lead/lag alternate
+equipment is available, then the latter equipment is enabled.
+Stage <code>i</code> is only deemed unavailable if all
+lead/lag alternate equipment specified for stage <code>i</code> 
+are unavailable.
+</li>
+<li>
+The sum of the coefficients in a given row <code>∑_j staEqu[i, j]</code>
+gives the number of equipment required at stage <code>i</code>.
+If this number cannot be achieved with the available equipment, 
+stage <code>i</code> is deemed unavailable.
+</li>
+<li>
+The condition <code>∑_j staEqu[i+1, j] &ge; ∑_j staEqu[i, j]</code>
+is required for all <code>i &lt; size(staEqu, 1)</code>.
+</li>
+</ul>
 <p>
 The state of the enable signals is only updated at stage change, or
 if the number of previously enabled equipment that is available is

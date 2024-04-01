@@ -5,18 +5,17 @@ model AirToWater
     "Installed heating capacity"
     annotation (Dialog(group="Nominal condition"));
   parameter Real THeaWatSup_nominal(
-    final unit="K",
-    displayUnit="degC")=50 + 273.15
+    unit="K",
+    displayUnit="degC")=323.15
     "Design HW supply temperature"
     annotation (Dialog(group="Nominal condition"));
   parameter Real THeaWatRet_nominal(
-    final unit="K",
-    displayUnit="degC")=42 + 273.15
+    unit="K",
+    displayUnit="degC")=315.15
     "Design HW return temperature"
     annotation (Dialog(group="Nominal condition"));
-  parameter Real VHeaWat_flow_nominal(
-    final unit="m3/s")=capHea_nominal / abs(THeaWatSup_nominal -
-    THeaWatRet_nominal) / ctl.cp_default / ctl.rho_default
+  parameter Real VHeaWat_flow_nominal(unit="m3/s")=capHea_nominal/abs(
+    THeaWatSup_nominal - THeaWatRet_nominal)/ctl.cp_default/ctl.rho_default
     "Design HW volume flow rate"
     annotation (Dialog(group="Nominal condition"));
   final parameter Real capCoo_nominal(
@@ -24,18 +23,17 @@ model AirToWater
     "Installed cooling capacity"
     annotation (Dialog(group="Nominal condition"));
   parameter Real TChiWatSup_nominal(
-    final unit="K",
-    displayUnit="degC")=7 + 273.15
+    unit="K",
+    displayUnit="degC")=280.15
     "Design CHW supply temperature"
     annotation (Dialog(group="Nominal condition"));
   parameter Real TChiWatRet_nominal(
-    final unit="K",
-    displayUnit="degC")=12 + 273.15
+    unit="K",
+    displayUnit="degC")=285.15
     "Design CHW return temperature"
     annotation (Dialog(group="Nominal condition"));
-  parameter Real VChiWat_flow_nominal(
-    final unit="m3/s")=capHea_nominal / abs(TChiWatSup_nominal -
-    TChiWatRet_nominal) / ctl.cp_default / ctl.rho_default
+  parameter Real VChiWat_flow_nominal(unit="m3/s")=capHea_nominal/abs(
+    TChiWatSup_nominal - TChiWatRet_nominal)/ctl.cp_default/ctl.rho_default
     "Design CHW volume flow rate"
     annotation (Dialog(group="Nominal condition"));
   Buildings.Templates.Plants.Controls.HeatPumps.AirToWater ctl(
@@ -202,18 +200,18 @@ equation
   connect(ratV_flow.y[2], VChiWat_flow.u)
     annotation (Line(points={{-138,-20},{-82,-20}},color={0,0,127}));
   connect(ctl.y1Hp, y1Hp_actual.y1)
-    annotation (Line(points={{42,60},{44,60},{44,80},{68,80}},color={255,0,255}));
+    annotation (Line(points={{42,60},{58,60},{58,80},{68,80}},color={255,0,255}));
   connect(y1Hp_actual.y1_actual, ctl.u1Hp_actual)
     annotation (Line(points={{92,80},{100,80},{100,100},{-4,100},{-4,60},{-2,60}},
       color={255,0,255}));
   connect(ctl.y1PumHeaWatPri, y1PumHeaWatPri_actual1.y1)
     annotation (Line(points={{42,44},{60,44},{60,60},{98,60}},color={255,0,255}));
   connect(ctl.y1PumChiWatPri, y1PumChiWatPri_actual.y1)
-    annotation (Line(points={{42,42},{62,42},{62,40},{68,40}},color={255,0,255}));
+    annotation (Line(points={{42,42},{60,42},{60,40},{68,40}},color={255,0,255}));
   connect(ctl.y1PumHeaWatSec, y1PumHeaWatSec_actual.y1)
-    annotation (Line(points={{42,38},{62,38},{62,20},{98,20}},color={255,0,255}));
+    annotation (Line(points={{42,38},{60,38},{60,20},{98,20}},color={255,0,255}));
   connect(ctl.y1PumChiWatSec, y1PumChiWatSec_actual.y1)
-    annotation (Line(points={{42,36},{60,36},{60,0},{68,0}},color={255,0,255}));
+    annotation (Line(points={{42,36},{58,36},{58,0},{68,0}},color={255,0,255}));
   connect(y1PumHeaWatPri_actual1.y1_actual, ctl.u1PumHeaWatPri_actual)
     annotation (Line(points={{122,60},{134,60},{134,102},{-6,102},{-6,58},{-2,
           58}},
@@ -361,5 +359,23 @@ Buildings.Templates.Plants.Controls.HeatPumps.AirToWater</a>
 in a configuration with three equally sized lead/lag alternate
 heat pumps.
 </p>
+<p>
+Simulating this model shows how the controller responds to a varying load by 
+</p>
+<ul>
+<li>
+staging or unstaging the AWHPs and associated primary pumps,
+</li>
+<li>
+rotating lead/lag alternate equipment to ensure even wear,
+</li>
+<li>
+resetting the supply temperature and remote differential pressure 
+in both the CHW and HW loops based on the valve position,
+</li>
+<li>
+staging the secondary pumps.
+</li>
+</ul>
 </html>"));
 end AirToWater;

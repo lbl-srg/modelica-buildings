@@ -55,14 +55,10 @@ model StageIndex
   Buildings.Controls.OBC.CDL.Logical.And u1Dow
     "Stage down command"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold u1UpHol(
-    trueHoldDuration=0.1,
-    falseHoldDuration=0)
+  Buildings.Controls.OBC.CDL.Logical.TrueHold      u1UpHol(duration=0.1)
     "Hold stage up command for plotting"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold u1DowHol(
-    trueHoldDuration=0.1,
-    falseHoldDuration=0)
+  Buildings.Controls.OBC.CDL.Logical.TrueHold      u1DowHol(duration=0.1)
     "Hold stage down command for plotting"
     annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
 equation
@@ -117,7 +113,7 @@ equation
     Documentation(
       info="<html>
 <p>
-Validation test for the block
+Validation model for the block
 <a href=\"modelica://Buildings.Templates.Plants.Controls.Utilities.StageIndex\">
 Buildings.Templates.Plants.Controls.Utilities.StageIndex</a>.
 </p>
@@ -125,7 +121,7 @@ Buildings.Templates.Plants.Controls.Utilities.StageIndex</a>.
       revisions="<html>
 <ul>
 <li>
-XXXX, 2024, by Antoine Gautier:<br/>
+March 29, 2024, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>

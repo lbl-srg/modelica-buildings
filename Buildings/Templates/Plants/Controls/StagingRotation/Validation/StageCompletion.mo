@@ -1,5 +1,5 @@
 within Buildings.Templates.Plants.Controls.StagingRotation.Validation;
-model StageCompletion
+model StageCompletion "Validation model for the evaluation of stage completion"
   Buildings.Templates.Plants.Controls.StagingRotation.StageCompletion comSta(
     nin=2)
     "Check successful completion of stage change"
@@ -17,10 +17,8 @@ model StageCompletion
     period=1800)
     "Source for Boolean signals"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold y1ComSta(
-    trueHoldDuration=1,
-    falseHoldDuration=0)
-    "Log stage completion signal for plotting"
+  Buildings.Controls.OBC.CDL.Logical.TrueHold      y1ComSta(duration=1)
+    "Hold stage completion signal for plotting"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable idxSta(
     table=[
@@ -60,5 +58,29 @@ equation
           fillColor={75,138,73},
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
-          points={{-36,60},{64,0},{-36,-60},{-36,60}})}));
+          points={{-36,60},{64,0},{-36,-60},{-36,60}})}),
+    Documentation(info="<html>
+<p>
+This model validates 
+<a href=\"modelica://Buildings.Templates.Plants.Controls.StagingRotation.StageCompletion\">
+Buildings.Templates.Plants.Controls.StagingRotation.StageCompletion</a>
+in a configuration with one small unit and two large equally sized 
+units (component <code>avaStaOneTwo</code>).
+In response to a varying flow rate, the variation of the
+required capacity <code>chaSta.capReq.y</code> triggers stage change
+events.
+The block 
+<a href=\"modelica://Buildings.Templates.Plants.Controls.Utilities.StageIndex\">
+Buildings.Templates.Plants.Controls.Utilities.StageIndex</a>
+is used to illustrate how these events translate into
+a varying plant stage index <code>idxSta.y</code>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 29, 2024, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end StageCompletion;

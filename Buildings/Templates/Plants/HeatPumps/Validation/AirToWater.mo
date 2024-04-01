@@ -351,7 +351,7 @@ Advanced equipment and control options can be modified via the parameter
 dialog of the plant component.
 </p>
 <p>
-Simulating this model shows how the plant responds to the load by 
+Simulating this model shows how the plant responds to a varying load by 
 </p>
 <ul>
 <li>

@@ -265,7 +265,7 @@ equation
   connect(tim.passed, pas.u)
     annotation (Line(points={{-68,72},{-60,72},{-60,80},{-42,80}},color={255,0,255}));
   connect(sta.active, pas.uPh) annotation (Line(points={{0,129},{0,100},{-50,
-          100},{-50,76},{-42,76}}, color={255,0,255}));
+          100},{-50,74},{-42,74}}, color={255,0,255}));
   connect(u1AvaSta, phAvaSta.u)
     annotation (Line(points={{-260,-160},{-232,-160}}, color={255,0,255}));
   connect(phAvaSta.y, una.u)

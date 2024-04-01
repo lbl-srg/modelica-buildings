@@ -35,5 +35,9 @@ package StagingRotation "Package of sequences for equipment staging and rotation
         Rectangle(
           lineColor={128,128,128},
           extent={{-100.0,-100.0},{100.0,100.0}},
-          radius=25.0)}));
+          radius=25.0)}), Documentation(info="<html>
+<p>
+This package contains equipment staging and rotation sequences.
+</p>
+</html>"));
 end StagingRotation;

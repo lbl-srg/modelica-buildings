@@ -31,6 +31,13 @@ algorithm
   dpBal_nominal := dpPum_nominal - dp_nominal;
   annotation (Documentation(info="<html>
 <p>
+Given the design mass flow rate, the design pressure drop
+of all equipment in series, the pump parameters and the 
+pump speed, the function returns the pressure drop
+of a balancing valve at design flow, so that the total 
+pressure drop is equal to the pump head.
+</p>
+<p>
 The model 
 <a href=\"modelica://Buildings.Templates.Plants.HeatPumps.Components.Validation.PumpsPrimaryDedicated\">
 Buildings.Templates.Plants.HeatPumps.Components.Validation.PumpsPrimaryDedicated</a>

@@ -758,7 +758,7 @@ equation
       revisions="<html>
 <ul>
 <li>
-XXXX, 2024 by Antoine Gautier:<br/>
+March 29, 2024, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>

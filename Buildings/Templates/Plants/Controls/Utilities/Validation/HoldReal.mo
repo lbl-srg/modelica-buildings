@@ -33,7 +33,7 @@ equation
     Documentation(
       info="<html>
 <p>
-Validation test for the block
+Validation model for the block
 <a href=\"modelica://Buildings.Templates.Plants.Controls.Utilities.HoldReal\">
 Buildings.Templates.Plants.Controls.Utilities.HoldValue</a>.
 </p>

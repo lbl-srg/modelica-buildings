@@ -1,6 +1,6 @@
 within Buildings.Templates.Plants.Controls.Pumps.Primary;
 block VariableSpeedNoDpControl
-  "Variable speed pump without differential pressure control"
+  "Variable speed primary pumps without differential pressure control"
   parameter Boolean have_heaWat
     "Set to true for plants that provide HW"
     annotation (Evaluate=true,
@@ -25,7 +25,7 @@ block VariableSpeedNoDpControl
     "Set to true for headered primary pumps, false for dedicated pumps"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration"));
-  parameter Integer nEqu(min=1, start=0)
+  parameter Integer nEqu(start=0)
     "Number of equipment"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration",
@@ -34,7 +34,8 @@ block VariableSpeedNoDpControl
     "Number of primary HW pumps"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration"));
-  parameter Integer nPumChiWatPri(start=if have_chiWat and have_pumChiWatPri then nEqu else 0)
+  parameter Integer nPumChiWatPri(start=if have_chiWat and have_pumChiWatPri
+         then nEqu else 0)
     "Number of primary CHW pumps"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration",
@@ -244,5 +245,37 @@ equation
           textColor={0,0,255})}),
     Diagram(
       coordinateSystem(
-        extent={{-140,-140},{140,140}})));
+        extent={{-140,-140},{140,140}})),
+    Documentation(info="<html>
+<h5>
+Heating-only plants with variable speed primary pumps that are not controlled to maintain differential pressure or flow setpoint
+</h5>
+<p>
+When commanded on, the primary HW pumps are commanded at a fixed
+speed <code>yPumHeaWatPriSet</code>, as determined during the Testing, Adjusting, 
+and Balancing phase to provide the design heat pump flow.
+</p>
+<h5>
+Heating and cooling plants with common variable speed primary pumps that are not controlled to maintain differential pressure or flow setpoint
+</h5>
+<p>
+When commanded on, the primary pumps are commanded at a fixed
+speed <code>yPumHeaWatPriSet</code> in heating mode or 
+<code>yPumChiWatPriSet</code> in cooling mode, as determined during the
+Testing, Adjusting, and Balancing phase to provide the design heat pump flow
+in heating mode or cooling mode.
+</p>
+<h5>
+Heating and cooling plants with separate variable speed primary pumps that are not controlled to maintain differential pressure or flow setpoint
+</h5>
+<p>
+When commanded on, the primary HW pumps are commanded at a fixed
+speed <code>yPumHeaWatPriSet</code>.
+When commanded on, the primary CHW pumps are commanded at a fixed
+speed <code>yPumChiWatPriSet</code>.
+The pump speed <code>yPumHeaWatPriSet</code> or <code>yPumChiWatPriSet</code> 
+is determined during the Testing, Adjusting, and Balancing phase to provide 
+the design heat pump flow in heating mode or cooling mode.
+</p>
+</html>"));
 end VariableSpeedNoDpControl;

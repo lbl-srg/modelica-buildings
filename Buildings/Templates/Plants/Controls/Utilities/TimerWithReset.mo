@@ -129,5 +129,15 @@ March 29, 2024, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This block is similar to
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Logical.Timer\">
+Buildings.Controls.OBC.CDL.Logical.Timer</a>,
+but introduces an additional Boolean input signal <code>reset</code>,
+which resets the timer.
+When <code>reset</code> becomes true:
+<code>y=0</code> and <code>passed=false</code>.
+</p>
 </html>"));
 end TimerWithReset;

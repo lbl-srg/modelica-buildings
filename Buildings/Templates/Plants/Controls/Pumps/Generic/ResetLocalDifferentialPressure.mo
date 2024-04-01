@@ -126,7 +126,7 @@ where the remote DP sensor(s) is not hardwired to the plant controller, but
 a local DP sensor is hardwired to the plant controller,
 </li>
 <li>
-variable speed secondary pumps in primary-secondary chiller and boiler plants plants
+variable speed secondary pumps in primary-secondary chiller and boiler plants
 where a remote DP sensor is not hardwired to the secondary pump controller,
 but a local DP sensor is hardwired to the secondary pump controller.
 </li>

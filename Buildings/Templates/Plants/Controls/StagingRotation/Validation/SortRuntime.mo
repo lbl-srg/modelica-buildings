@@ -1,5 +1,5 @@
 within Buildings.Templates.Plants.Controls.StagingRotation.Validation;
-model SortRuntime
+model SortRuntime "Validation model for equipment runtime sorting logic"
   Buildings.Templates.Plants.Controls.StagingRotation.SortRuntime sorRunTim(
     nin=3)
     "Sort runtime"
@@ -137,5 +137,12 @@ equipment (#3) becomes unavailable.
 <p>
 We can verify that no equipment gets \"hot swapped\".
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 29, 2024, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end SortRuntime;

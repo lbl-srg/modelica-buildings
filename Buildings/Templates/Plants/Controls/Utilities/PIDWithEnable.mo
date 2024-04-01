@@ -194,5 +194,12 @@ and the setpoint is overridden by the measurement signal in order to avoid
 time integration of the control error.
 </li>
 </ul>
+</html>", revisions="<html>
+<ul>
+<li>
+March 29, 2024, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end PIDWithEnable;

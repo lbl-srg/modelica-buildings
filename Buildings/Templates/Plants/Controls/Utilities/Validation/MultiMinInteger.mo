@@ -21,7 +21,7 @@ equation
     Documentation(
       info="<html>
 <p>
-Validation test for the block
+Validation model for the block
 <a href=\"modelica://Buildings.Templates.Plants.Controls.Utilities.MultiMinInteger\">
 Buildings.Templates.Plants.Controls.Utilities.MultiMinInteger</a>.
 </p>
@@ -29,7 +29,7 @@ Buildings.Templates.Plants.Controls.Utilities.MultiMinInteger</a>.
       revisions="<html>
 <ul>
 <li>
-XXXX, 2024, by Antoine Gautier:<br/>
+March 29, 2024, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>

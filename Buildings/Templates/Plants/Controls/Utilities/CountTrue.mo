@@ -51,5 +51,12 @@ equation
 Counts the number of <code>true</code> elements in the Boolean
 input vector.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 29, 2024, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end CountTrue;

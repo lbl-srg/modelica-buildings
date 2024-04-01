@@ -256,7 +256,7 @@ This partial class provides a standard interface for heat pump plant controllers
       revisions="<html>
 <ul>
 <li>
-XXXX, 2024, by Antoine Gautier:<br/>
+March 29, 2024, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>

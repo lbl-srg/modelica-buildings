@@ -54,7 +54,7 @@ block SortRuntime
     "Weight to be applied to runtime of equipment off and available"
     annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply appWeiOffAva[nEquAlt]
-    "Apply weigths to runtime of equipment off and available"
+    "Apply weights to runtime of equipment off and available"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply voiRunUna[nEquAlt]
     "Void runtime of unavailable equipment"
@@ -130,7 +130,7 @@ equation
   connect(u1Res.y, timRun.reset)
     annotation (Line(points={{-158,-100},{-120,-100},{-120,-8},{-92,-8}},color={255,0,255}));
   connect(weiOffAva.y, appWeiOffAva.u1)
-    annotation (Line(points={{-28,40},{-26,40},{-26,6},{-12,6}},color={0,0,127}));
+    annotation (Line(points={{-28,40},{-20,40},{-20,6},{-12,6}},color={0,0,127}));
   connect(off.y, offAva.u1)
     annotation (Line(points={{-108,40},{-92,40}},color={255,0,255}));
   connect(offAva.y, weiOffAva.u)
@@ -259,27 +259,50 @@ The parameter <code>runTim_start</code> should be set to a vector of
 strictly increasing values, where the minimum value is greater than
 the time needed for the equipment to report status.
 </p>
-<h4>Implementation details</h4>
+<h4>Details</h4>
 <p>
-Weighting/sorting logic to be explained.
+The sorting logic is implemented using the following method.
+</p>
+<ul>
+<li>
+If a unit is on and available, its staging runtime is used as is.
+</li>
+<li>
+If a unit is off and available, its staging runtime is increased 
+by a constant of <i>1E10</i>&nbsp;s.
+</li>
+<li>
+If a unit is unavailable, its staging runtime is replaced by
+the time that has elapsed since the unit became unavailable.
+This time is then increased by a constant of <i>1E20</i>&nbsp;s.
+</li>
+<li>
+A unique instance of the sorting block is then used to order
+the different units.
+</li>
+</ul>
+<p>
+This is effectively the same as sorting the units within
+the three following subsets: units that are on and available, 
+units that are off and available, units that are unavailable.
+In particular, the order index of a given unit remains unchanged
+if it is the only element of a given subset.
+Note that the staging runtime and the time elapsed since an equipment became unavailable
+are both computed from Boolean signals (<code>u1Run</code> and <code>u1Ava</code>).
+These are discrete-time, piecewise constant variables,
+which is why the caveat in the documentation of
+<a href=\"modelica://Buildings.Templates.Plants.Controls.Utilities.SortWithIndices\">
+Buildings.Templates.Plants.Controls.Utilities.SortWithIndices</a>
+for purely continuous time-varying variables does not apply here.
+Therefore, no sampling is performed before sorting the equipment runtimes.
 </p>
 <p>
 To facilitate integration into the plant controller, the input vectors
 cover the full set of equipment, including equipment that may not be
 lead/lag alternate.
-The ouput vectors cover only the subset of lead/lag alternate equipment, 
+The output vectors cover only the subset of lead/lag alternate equipment,
 and the vector of sorted equipment provides indices with respect
 to the input vectors (full set of equipment).
-</p>
-<p>
-The staging runtime and the time elapsed since an equipment became unavailable
-are both computed from Boolean signals (<code>u1Run</code> and <code>u1Ava</code>).
-These are discrete-time, piecewise constant variables,
-which is why the caveat in the documentation of 
-<a href=\"modelica://Buildings.Templates.Plants.Controls.Utilities.SortWithIndices\">
-Buildings.Templates.Plants.Controls.Utilities.SortWithIndices</a>
-for purely continuous time-varying variables does not apply here.
-Therefore, no sampling is performed before sorting the equipment runtimes.
 </p>
 </html>", revisions="<html>
 <ul>

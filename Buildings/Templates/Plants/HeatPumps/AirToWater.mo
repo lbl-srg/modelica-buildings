@@ -635,7 +635,7 @@ equation
       info="<html>
 <h4>Description</h4>
 <p>
-This template represents an air-to-water heat pump plant 
+This template represents an air-to-water heat pump plant
 with closed-loop controls.
 </p>
 <p>
@@ -643,7 +643,7 @@ Only identical heat pumps are currently supported.
 </p>
 <p>
 The supported plant configurations are enumerated in the table below.
-The first option displayed in bold characters corresponds to the default 
+The first option displayed in bold characters corresponds to the default
 configuration.<br/>
 </p>
 <table summary=\"summary\" border=\"1\">
@@ -664,18 +664,18 @@ modeling a plant that provides both heating hot water and chilled water.
 <b>Constant primary-variable secondary centralized</b>
 </td>
 <td>
-The template assumes that the HW and the CHW loops have the 
+It is assumed that the HW and the CHW loops have the
 same type of distribution, as specified by this parameter.<br/>
-\"Centralized secondary pumps\" refers to configurations with a single 
+\"Centralized secondary pumps\" refers to configurations with a single
 group of secondary pumps that is typically integrated into the plant.<br/>
-Distributed secondary pumps with multiple secondary loops served 
+Distributed secondary pumps with multiple secondary loops served
 by dedicated secondary pumps are currently not supported.<br/>
-Options are limited to constant primary distributions because most 
+Options are limited to constant primary distributions because most
 AWHPs on the market use a reverse cycle for defrosting.
 This requires maximum primary flow during defrost cycles and hinders
 variable primary distributions.<br/>
 An option for constant primary-only distributions with ∆p-controlled
-variable speed pumps will be added in a next release. 
+variable speed pumps will be added in a next release.
 </td>
 </tr>
 <tr><td>Type of primary pump arrangement</td>
@@ -683,7 +683,7 @@ variable speed pumps will be added in a next release.
 <b>Dedicated</b><br/>
 Headered
 </td>
-<td>The template assumes that the HW and the CHW loops have the 
+<td>It is assumed that the HW and the CHW loops have the
 same type of primary pump arrangement, as specified by this parameter.
 </td>
 </tr>
@@ -692,11 +692,11 @@ same type of primary pump arrangement, as specified by this parameter.
 <b>False</b><br/>
 True
 </td>
-<td>This option is only available for heating and cooling plants 
+<td>This option is only available for heating and cooling plants
 with dedicated primary pumps.
 If this option is not selected (default setting), each AWHP uses
-a common dedicated primary pump for HW and CHW. 
-Otherwise, each AWHP relies on a separate dedicated HW pump 
+a common dedicated primary pump for HW and CHW.
+Otherwise, each AWHP relies on a separate dedicated HW pump
 and a separate dedicated CHW pump.
 </td>
 </tr>
@@ -707,10 +707,10 @@ Constant speed
 </td>
 <td>
 For constant primary-variable secondary distributions, the variable
-speed primary pumps are commanded at fixed speeds, determined by
-Testing, Adjusting and Balancing to provide design AWHP flow in 
+speed primary pumps are commanded at fixed speeds, determined during the
+Testing, Adjusting and Balancing phase to provide design AWHP flow in
 heating and cooling modes.
-The same intent is achieved with constant speed primary pumps through the 
+The same intent is achieved with constant speed primary pumps through the
 use of balancing valves.
 </td>
 </tr>
@@ -726,22 +726,26 @@ Constant speed
 <b>Closed-loop controls with supply temperature and differential pressure reset</b><br/>
 </td>
 <td>
-The sequence of operation is similar to that described in ASHRAE, 2021
-for chiller plants.<br/>
+Most parts of the sequence of operation are similar to that
+described in ASHRAE, 2021 for chiller plants.<br/>
+See the documentation of <a href=\"modelica://Buildings.Templates.Plants.Controls.HeatPumps.AirToWater\">
+Buildings.Templates.Plants.Controls.HeatPumps.AirToWater</a>
+for more details.<br/>
 An open loop controller is also available for validation purposes.
 </td>
 </tr>
 </table>
-<h4>Simulation model assumptions and requirements</h4>
-Explain plant and reset requests
-
-<h5>Differential pressure from remote sensors</h5>
-
+<h4>Control points</h4>
+<p>
+The control sequence implemented in this template requires the 
+external input points specified in the documentation of the controller
+<a href=\"modelica://Buildings.Templates.Plants.HeatPumps.Components.Controls.AirToWater\">
+Buildings.Templates.Plants.HeatPumps.Components.Controls.AirToWater</a>.
 <h4>Implementation details</h4>
 <p>
-The pressure drops of the heat pump CHW and HW heat exchangers are calculated 
-within the isolation valve component <code>valIso</code> based on lumped flow 
-coefficients for better computational efficiency.
+The pressure drops of the heat pump CHW and HW heat exchangers are calculated
+within the isolation valve component <code>valIso</code> based on lumped flow
+coefficients for the sake of computational efficiency.
 </p>
 <h4>References</h4>
 <ul>

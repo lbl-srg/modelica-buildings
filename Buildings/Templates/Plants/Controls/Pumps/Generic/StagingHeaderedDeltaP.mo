@@ -187,7 +187,7 @@ with one or more sets of secondary loop pumps serving downstream
 control valves,
 </li>
 <li>
-variable speed secondary pumps in primary-secondary boiler plants
+variable speed secondary pumps in primary-secondary boiler
 plants with serving a secondary loop with a flow meter.
 </li>
 </ul>

@@ -1,6 +1,5 @@
 within Buildings.Templates.Plants.Controls.Pumps.Generic;
-block Staging
-  "Generic staging logic for all pump arrangements"
+block StagingHeadered "Generic staging logic for headered pumps"
   parameter Boolean is_pri(start=true)
     "Set to true for primary pumps, false for secondary pumps"
     annotation (Evaluate=true,
@@ -91,7 +90,7 @@ block Staging
     final dVOffDow=dVOffDow)
     if is_hdr and is_ctlDp
     "Stage headered variable speed pumps using ∆p control"
-    annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
+    annotation (Placement(transformation(extent={{-130,-30},{-110,-10}})));
   StagingRotation.SortRuntime sorRunTimHdr(
     nin=nPum)
     if is_hdr
@@ -112,7 +111,7 @@ block Staging
     each final k=true)
     if is_hdr
     "Pump available signal – Block does not handle faulted equipment yet"
-    annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
+    annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput V_flow(
     final unit="m3/s")
     if is_hdr and is_ctlDp
@@ -123,7 +122,7 @@ block Staging
       =nEqu, final nout=nPum)
     if is_pri and not is_hdr
     "Extract dedicated primary pump command signal assuming nEqu=nPum"
-    annotation (Placement(transformation(extent={{-10,-130},{10,-110}})));
+    annotation (Placement(transformation(extent={{-10,-150},{10,-130}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanExtractSignal y1Ded_actual(
     nin=nPum,
     nout=nEqu)
@@ -143,12 +142,12 @@ block Staging
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ValInlIso[nEqu]
     if is_pri and is_hdr and have_valInlIso
     "Equipment inlet isolation valve command"
-    annotation (Placement(transformation(extent={{-200,-80},{-160,-40}}),
+    annotation (Placement(transformation(extent={{-200,-100},{-160,-60}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ValOutIso[nEqu]
     if is_pri and is_hdr and have_valOutIso
     "Equipment outlet isolation valve command"
-    annotation (Placement(transformation(extent={{-200,-120},{-160,-80}}),
+    annotation (Placement(transformation(extent={{-200,-140},{-160,-100}}),
       iconTransformation(extent={{-140,0},{-100,40}})));
   Primary.EnableLeadHeadered enaLeaHdrPri(
     final typCon=Buildings.Templates.Plants.Controls.Types.EquipmentConnection.Parallel,
@@ -156,15 +155,15 @@ block Staging
     final nValIso=2 * nEqu)
     if is_pri and is_hdr
     "Enable/disable lead primary headered pump"
-    annotation (Placement(transformation(extent={{-70,-90},{-50,-70}})));
+    annotation (Placement(transformation(extent={{-70,-110},{-50,-90}})));
   Utilities.PlaceholderLogical phValInlIso[nEqu](each final have_inp=
         have_valInlIso, each final have_inpPh=true) if is_pri and is_hdr
     "Placeholder value if signal is not available"
-    annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
+    annotation (Placement(transformation(extent={{-130,-90},{-110,-70}})));
   Utilities.PlaceholderLogical phValOutIso[nEqu](each final have_inp=
         have_valOutIso, each final have_inpPh=true) if is_pri and is_hdr
     "Placeholder value if signal is not available"
-    annotation (Placement(transformation(extent={{-110,-110},{-90,-90}})));
+    annotation (Placement(transformation(extent={{-130,-130},{-110,-110}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Pla
     if not is_pri and is_hdr
     "Plant enable signal"
@@ -188,26 +187,26 @@ block Staging
     annotation (Placement(transformation(extent={{50,-30},{70,-10}})));
 equation
   connect(u1Pum_actual, staHdrDp.u1_actual)
-    annotation (Line(points={{-180,20},{-152,20},{-152,-14},{-142,-14}},
+    annotation (Line(points={{-180,20},{-152,20},{-152,-14},{-132,-14}},
                                                                     color={255,0,255}));
   connect(staHdrDp.y1Up, nPumHdrDp.u1Up)
-    annotation (Line(points={{-118,-14},{-100,-14},{-100,-18},{-12,-18}},
+    annotation (Line(points={{-108,-14},{-100,-14},{-100,-18},{-12,-18}},
                                                                    color={255,0,255}));
   connect(staHdrDp.y1Dow, nPumHdrDp.u1Dow)
-    annotation (Line(points={{-118,-26},{-100,-26},{-100,-22},{-12,-22}},
+    annotation (Line(points={{-108,-26},{-100,-26},{-100,-22},{-12,-22}},
                                                                        color={255,0,255}));
   connect(u1Pum, booToInt.u)
     annotation (Line(points={{-180,100},{-142,100}},color={255,0,255}));
   connect(booToInt.y, nPumHdrPriNotDp0.u)
     annotation (Line(points={{-118,100},{-102,100}},color={255,127,0}));
   connect(u1Ava.y, sorRunTimHdr.u1Ava)
-    annotation (Line(points={{12,-80},{20,-80},{20,-40},{-18,-40},{-18,14},{-12,
-          14}},                                                    color={255,0,255}));
+    annotation (Line(points={{12,-100},{20,-100},{20,-60},{-18,-60},{-18,14},{
+          -12,14}},                                                color={255,0,255}));
   connect(V_flow, staHdrDp.V_flow)
-    annotation (Line(points={{-180,-20},{-146,-20},{-146,-26},{-142,-26}},
+    annotation (Line(points={{-180,-20},{-146,-20},{-146,-26},{-132,-26}},
                                                                     color={0,0,127}));
   connect(u1Pum, sigPumPriDed.u)
-    annotation (Line(points={{-180,100},{-156,100},{-156,-120},{-12,-120}},
+    annotation (Line(points={{-180,100},{-156,100},{-156,-140},{-12,-140}},
       color={255,0,255}));
   connect(u1Pum_actual, y1Ded_actual.u)
     annotation (Line(points={{-180,20},{-152,20},{-152,80},{68,80}},color={255,0,255}));
@@ -220,27 +219,28 @@ equation
   connect(booScaRep.y, y1_actual)
     annotation (Line(points={{92,40},{140,40},{140,60},{180,60}},color={255,0,255}));
   connect(u1ValInlIso, phValInlIso.u)
-    annotation (Line(points={{-180,-60},{-142,-60}}, color={255,0,255}));
+    annotation (Line(points={{-180,-80},{-132,-80}}, color={255,0,255}));
   connect(enaLeaHdrPri.y1, nPumHdrDp.u1Lea)
-    annotation (Line(points={{-48,-80},{-20,-80},{-20,-14},{-12,-14}},color={255,0,255}));
-  connect(phValInlIso.y, enaLeaHdrPri.u1ValIso[1:nEqu]) annotation (Line(points={{-118,
-          -60},{-80,-60},{-80,-80},{-72,-80}},       color={255,0,255}));
+    annotation (Line(points={{-48,-100},{-20,-100},{-20,-14},{-12,-14}},
+                                                                      color={255,0,255}));
+  connect(phValInlIso.y, enaLeaHdrPri.u1ValIso[1:nEqu]) annotation (Line(points={{-108,
+          -80},{-80,-80},{-80,-100},{-72,-100}},     color={255,0,255}));
   connect(phValOutIso.y, enaLeaHdrPri.u1ValIso[nEqu + 1:2*nEqu])
-    annotation (Line(points={{-88,-100},{-80,-100},{-80,-80},{-72,-80}},
+    annotation (Line(points={{-108,-120},{-80,-120},{-80,-100},{-72,-100}},
                                                    color={255,0,255}));
   connect(u1ValOutIso, phValOutIso.u)
-    annotation (Line(points={{-180,-100},{-112,-100}},
+    annotation (Line(points={{-180,-120},{-132,-120}},
                                                      color={255,0,255}));
-  connect(u1ValOutIso, phValInlIso.uPh) annotation (Line(points={{-180,-100},{
-          -146,-100},{-146,-66},{-142,-66}},
+  connect(u1ValOutIso, phValInlIso.uPh) annotation (Line(points={{-180,-120},{
+          -146,-120},{-146,-86},{-132,-86}},
                                        color={255,0,255}));
-  connect(u1ValInlIso, phValOutIso.uPh) annotation (Line(points={{-180,-60},{
-          -152,-60},{-152,-106},{-112,-106}},
+  connect(u1ValInlIso, phValOutIso.uPh) annotation (Line(points={{-180,-80},{
+          -152,-80},{-152,-126},{-132,-126}},
                                        color={255,0,255}));
   connect(u1Pla, nPumHdrDp.u1Lea)
     annotation (Line(points={{-180,140},{-20,140},{-20,-14},{-12,-14}},color={255,0,255}));
   connect(enaLeaHdrPri.y1, booToInt1.u)
-    annotation (Line(points={{-48,-80},{-40,-80},{-40,-62}},
+    annotation (Line(points={{-48,-100},{-40,-100},{-40,-62}},
                                                            color={255,0,255}));
   connect(nPumHdrPriNotDp0.y, nPumHdrPriNotDp.u1)
     annotation (Line(points={{-78,100},{-60,100},{-60,106},{-12,106}},color={255,127,0}));
@@ -257,11 +257,11 @@ equation
   connect(nPumHdrPriNotDp.y, enaHdr.uSta)
     annotation (Line(points={{12,100},{20,100},{20,-20},{48,-20}},color={255,127,0}));
   connect(u1Ava.y, enaHdr.u1Ava)
-    annotation (Line(points={{12,-80},{20,-80},{20,-26},{48,-26}},
+    annotation (Line(points={{12,-100},{20,-100},{20,-26},{48,-26}},
       color={255,0,255}));
   connect(sorRunTimHdr.yIdx, enaHdr.uIdxAltSor)
     annotation (Line(points={{12,14},{40,14},{40,-14},{48,-14}},color={255,127,0}));
-  connect(sigPumPriDed.y, y1) annotation (Line(points={{12,-120},{140,-120},{
+  connect(sigPumPriDed.y, y1) annotation (Line(points={{12,-140},{140,-140},{
           140,-60},{180,-60}}, color={255,0,255}));
   annotation (
     defaultComponentName="staPum",
@@ -284,13 +284,7 @@ equation
         extent={{-160,-160},{160,160}})),
     Documentation(
       info="<html>
-<h5>Plants with dedicated primary pumps</h5>
-<p> 
-Primary pumps 
-<a href=\"modelica://Buildings.Templates.Plants.Controls.Pumps.Primary.EnableDedicated\">
-Buildings.Templates.Plants.Controls.Pumps.Primary.Dedicated</a>.
-</p>
-<h5>Plants with headered primary pumps</h5>
+<h5>Plants with headered primary pumps that are not controlled to maintain differential pressure or flow setpoint</h5>
 <p>
 Primary pumps are lead/lag alternated as described in
 <a href=\"modelica://Buildings.Templates.Plants.Controls.StagingRotation.SortRuntime\">
@@ -302,10 +296,25 @@ The lead primary pump is enabled as described in
 Buildings.Templates.Plants.Controls.Pumps.Primary.EnableLeadHeadered</a>.
 </p>
 <p>
-The number of operating primary pumps shall match the number of operating
+The number of operating primary pumps matches the number of operating
 equipment.
 </p>
-<h5>Plants with headered secondary pump</h5>
+<h5>Plants with headered primary pumps that are controlled to maintain differential pressure or flow setpoint</h5>
+<p>
+Primary pumps are lead/lag alternated as described in
+<a href=\"modelica://Buildings.Templates.Plants.Controls.StagingRotation.SortRuntime\">
+Buildings.Templates.Plants.Controls.StagingRotation.SortRuntime</a>.
+</p>
+<p>
+The lead primary pump is enabled as described in
+<a href=\"modelica://Buildings.Templates.Plants.Controls.Pumps.Primary.EnableLeadHeadered\">
+Buildings.Templates.Plants.Controls.Pumps.Primary.EnableLeadHeadered</a>.
+<p>
+Primary pumps are staged as described in
+<a href=\"modelica://Buildings.Templates.Plants.Controls.Pumps.Generic.StagingHeaderedDeltaP\">
+Buildings.Templates.Plants.Controls.Pumps.Generic.StagingHeaderedDeltaP</a>.
+</p>
+<h5>Plants with headered secondary pumps</h5>
 <p>
 Secondary pumps are lead/lag alternated as described in
 <a href=\"modelica://Buildings.Templates.Plants.Controls.StagingRotation.SortRuntime\">
@@ -325,6 +334,13 @@ At its current stage of development, this block contains no
 logic for handling faulted equipment. 
 It is therefore assumed that all pumps are available at all times.
 </p>
+<p>
+To simplify integration into the plant controller this block also
+serves as a pass-through for the dedicated primary pump command signal 
+that is generated in
+<a href=\"modelica://Buildings.Templates.Plants.Controls.StagingRotation.EventSequencing\">
+Buildings.Templates.Plants.Controls.StagingRotation.EventSequencing</a>.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
@@ -333,4 +349,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Staging;
+end StagingHeadered;

@@ -70,5 +70,12 @@ equation
 Holds input value fixed at its last value while the Boolean signal 
 <code>u1</code> is true, and for at least the hold time <code>dtHol</code>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 29, 2024, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end HoldReal;

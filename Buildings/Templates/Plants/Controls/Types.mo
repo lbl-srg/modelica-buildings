@@ -20,4 +20,9 @@ package Types
     Series
       "Series piped")
     "Enumeration to specify the type of connection between equipment and primary loop";
+  annotation (Documentation(info="<html>
+<p>
+This package provides type definitions.
+</p>
+</html>"));
 end Types;

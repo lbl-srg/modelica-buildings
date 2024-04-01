@@ -37,6 +37,13 @@ Returns the index of the last <code>true</code> element of the Boolean
 input vector.
 If no element is <code>true</code>, the block returns <i>0</i>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 29, 2024, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"),
     Icon(
       coordinateSystem(

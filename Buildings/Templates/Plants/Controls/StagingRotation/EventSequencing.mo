@@ -12,19 +12,20 @@ block EventSequencing "Staging event sequencing"
   parameter Boolean have_valOutIso
     "Set to true if the system as outlet isolation valves"
     annotation (Evaluate=true);
-  parameter Boolean have_pumHeaWatPri
+  parameter Boolean have_pumHeaWatPri(start=false)
     "Set to true for plants with primary HW pumps"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true,
+    Dialog(enable=have_heaWat));
   parameter Boolean have_pumChiWatPri(
     start=false)
     "Set to true for plants with separate primary CHW pumps"
     annotation (Evaluate=true,
     Dialog(enable=have_chiWat));
-  parameter Boolean have_pumHeaWatSec
+  parameter Boolean have_pumHeaWatSec(start=false)
     "Set to true for plants with secondary HW pumps"
     annotation (Evaluate=true,
     Dialog(enable=have_heaWat));
-  parameter Boolean have_pumChiWatSec
+  parameter Boolean have_pumChiWatSec(start=false)
     "Set to true for plants with secondary CHW pumps"
     annotation (Evaluate=true,
     Dialog(enable=have_chiWat));
@@ -195,7 +196,7 @@ block EventSequencing "Staging event sequencing"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Nor off
     "Return true if disabled from heating and cooling mode sequence"
-    annotation (Placement(transformation(extent={{-50,10},{-30,30}})));
+    annotation (Placement(transformation(extent={{-52,10},{-32,30}})));
   Buildings.Controls.OBC.CDL.Logical.Timer timHp(final t=dtOff)
     "Return true when heat pump internal shutdown cycle times out"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
@@ -281,11 +282,11 @@ equation
   connect(u1HeaOrCoo.y, rou1.u)
     annotation (Line(points={{-68,120},{44,120},{44,-40},{58,-40}},  color={255,0,255}));
   connect(u1Hea_internal.y, off.u1)
-    annotation (Line(points={{-128,140},{-120,140},{-120,20},{-52,20}},color={255,0,255}));
+    annotation (Line(points={{-128,140},{-120,140},{-120,20},{-54,20}},color={255,0,255}));
   connect(u1Coo_internal.y, off.u2)
-    annotation (Line(points={{-128,80},{-100,80},{-100,12},{-52,12}},color={255,0,255}));
+    annotation (Line(points={{-128,80},{-100,80},{-100,12},{-54,12}},color={255,0,255}));
   connect(off.y, timHp.u)
-    annotation (Line(points={{-28,20},{-12,20}},color={255,0,255}));
+    annotation (Line(points={{-30,20},{-12,20}},color={255,0,255}));
   connect(timHp.passed, latValHeaWatIso.clr)
     annotation (Line(points={{12,12},{40,12},{40,34},{98,34}}, color={255,0,255}));
   connect(latValHeaWatIso.y, y1ValHeaWatInlIso)
@@ -324,7 +325,7 @@ equation
   connect(u1Coo_internal.y, latValChiWatIso.u)
     annotation (Line(points={{-128,80},{-100,80},{-100,0},{98,0}},color={255,0,255}));
   annotation (
-    defaultComponentName="eveSeqEna",
+    defaultComponentName="seqEve",
     Icon(
       coordinateSystem(
         preserveAspectRatio=true,
@@ -353,17 +354,15 @@ The isolation valves for desired heating or cooling mode are commanded
 open.
 </li>
 <li>
-<b>For plants with separate dedicated primary pumps</b>:
-Concurrently, the dedicated HW primary pump is commanded on in heating mode
-or the dedicated CHW primary pump is commanded on in cooling mode.
+<b>Plants with dedicated primary pumps</b>:
+The dedicated primary pumps are commanded on when the 
+associated isolation valves are commanded open.
 </li>
 <li>
-<b>For plants with common dedicated primary pumps</b>:
-Concurrently, the dedicated primary pump is commanded on.
-</li>
-<li>
-<b>For plants with headered primary pumps</b>:
-Concurrently, the lead headered primary pump is commanded on.
+<b>Plants with headered primary pumps</b>:
+The headered primary pumps are commanded on as described in
+<a href=\"modelica://Buildings.Templates.Plants.Controls.Pumps.Generic.StagingHeadered\">
+Buildings.Templates.Plants.Controls.Pumps.Generic.StagingHeadered</a>.
 </li>
 <li>
 Once the isolation valves are fully open (based on nominal valve timing <code>dtVal</code>)
@@ -379,13 +378,22 @@ If a heat pump is commanded off:
 The heat pump is disabled.
 </li>
 <li>
-After the time required for internal shutdown cycle to time out 
+After the time required for the internal shutdown cycle to time out 
 (<code>dtOff</code> to be determined empirically, defaulting to <i>3</i>&nbsp;min),
 all isolation valves are commanded closed.
 </li>
-and the dedicated primary pump 
-is concurrently commanded off.
+<li>
+<b>Plants with dedicated primary pumps</b>:
+The dedicated primary pumps are commanded off when the associated
+isolation valves are commanded closed.
 </li>
+<li>
+<b>Plants with headered primary pumps</b>:
+The headered primary pumps are commanded off as described in
+<a href=\"modelica://Buildings.Templates.Plants.Controls.Pumps.Generic.StagingHeadered\">
+Buildings.Templates.Plants.Controls.Pumps.Generic.StagingHeadered</a>.
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>

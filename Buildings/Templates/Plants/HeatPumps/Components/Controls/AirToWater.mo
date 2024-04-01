@@ -278,5 +278,55 @@ equation
           -34,74},{-34,17.0588},{-22,17.0588}},
                                   color={255,127,0}));
   annotation (
-    defaultComponentName="ctl");
+    defaultComponentName="ctl", Documentation(info="<html>
+<p>
+This class implements the sequence of operation for plants with 
+air-to-water heat pumps.
+It is based on the controller
+<a href=\"modelica://Buildings.Templates.Plants.Controls.HeatPumps.AirToWater\">
+Buildings.Templates.Plants.Controls.HeatPumps.AirToWater</a>.
+</p>
+<h4>Control points</h4>
+<p>
+The control sequence requires the following external input points in
+addition to those already included in the HP plant template.
+</p>
+<ul>
+<li>Outdoor air temperature <code>TOut</code>:
+AI signal with a dimensionality of zero</li>
+<li>HW differential pressure from remote sensor(s) <code>dpHeaWatRem</code>:
+AI signal with a dimensionality of one, the number of remote
+sensors is specified by the parameter <code>nSenDpHeaWatRem</code>.</li>
+<li>CHW differential pressure from remote sensor(s) <code>dpChiWatRem</code> – 
+only for heating and cooling plants:
+AI signal with a dimensionality of one, the number of remote
+sensors is specified by the parameter <code>nSenDpChiWatRem</code>.</li>
+<li>
+Inside the sub-bus <code>busAirHan[:]</code> or <code>busEquZon[:]</code>,
+with a dimensionality of one
+<ul>
+<li>HW plant requests yielded by the air handler or zone
+equipment controller <code>bus(AirHan|EquZon)[:].reqPlaHeaWat</code>:
+AI signal (Integer), with a dimensionality of one
+</li>
+<li>HW reset requests yielded by the air handler or zone
+equipment controller <code>bus(AirHan|EquZon)[:].reqResHeaWat</code>:
+AI signal (Integer), with a dimensionality of one
+</li>
+</ul>
+</li>
+<li>
+CHW plant requests yielded by the air handler or zone – 
+only for heating and cooling plants:
+equipment controller <code>bus(AirHan|EquZon)[:].reqPlaChiWat</code>:
+AI signal (Integer), with a dimensionality of one
+</li>
+<li>
+CHW reset requests yielded by the air handler or zone – 
+only for heating and cooling plants:
+equipment controller <code>bus(AirHan|EquZon)[:].reqResChiWat</code>:
+AI signal (Integer), with a dimensionality of one
+</li>
+</ul>
+</html>"));
 end AirToWater;
