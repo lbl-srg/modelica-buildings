@@ -127,10 +127,127 @@ equation
     lineColor={0,0,127}, fillColor={255,255,255},
   fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-60,60},{60,-60}},
-          lineColor={27,0,55},
-          fillColor={170,213,255},
-          fillPattern=FillPattern.Solid)}),                   Diagram(
+          extent={{-35,1},{35,-1}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid,
+          origin={-61,55},
+          rotation=90),
+        Polygon(
+          points={{-10,-10},{-10,10},{10,0},{-10,-10}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid,
+          origin={-60,-10},
+          rotation=90),
+        Polygon(
+          points={{-10,-10},{-10,10},{10,0},{-10,-10}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid,
+          origin={-60,10},
+          rotation=-90),
+        Polygon(
+          points={{-40,-10},{-40,10},{-60,0},{-40,-10}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{38,-48},{38,-28},{58,-38},{38,-48}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-10,-10},{-10,10},{10,0},{-10,-10}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid,
+          origin={58,-28},
+          rotation=-90),
+        Polygon(
+          points={{-10,-10},{-10,10},{10,0},{-10,-10}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid,
+          origin={58,-48},
+          rotation=90),
+        Rectangle(
+          extent={{-54,1},{54,-1}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid,
+          origin={59,36},
+          rotation=90),
+        Rectangle(
+          extent={{-16,1},{16,-1}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid,
+          origin={59,-74},
+          rotation=90),
+        Rectangle(
+          extent={{-35,1},{35,-1}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid,
+          origin={-61,-55},
+          rotation=90),
+        Rectangle(
+          extent={{-1,50},{1,-50}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid,
+          origin={10,1},
+          rotation=90),
+        Rectangle(
+          extent={{-1,29},{1,-29}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid,
+          origin={-31,61},
+          rotation=90),
+        Rectangle(
+          extent={{-1,21},{1,-21}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid,
+          origin={17,-39},
+          rotation=90),
+        Rectangle(
+          extent={{-50,1},{50,-1}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid,
+          origin={-3,12},
+          rotation=90),
+        Line(
+          points={{-90,66},{-52,64}},
+          color={0,0,127},
+          pattern=LinePattern.None),
+        Line(points={{-72,0},{-72,-70},{82,-70},{82,-34},{58,-34}}, color={0,0,127}),
+        Rectangle(
+          extent={{-96,10},{-76,-10}},
+          lineColor={0,0,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Line(points={{-76,0},{-60,0}}, color={0,0,127}),
+        Line(points={{-100,40},{-86,40},{-86,10}}, color={0,0,127}),
+        Line(points={{-100,-40},{-86,-40}}, color={0,0,127}),
+        Line(points={{-86,-40},{-86,-10}}, color={0,0,127})}),Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
@@ -145,6 +262,11 @@ Buildings.Experimental.DHC.EnergyTransferStations.Combined.Controls.SwitchBox</a
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 27, 2024, by David Blum:<br/>
+Update icon.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3606\">issue #3606</a>.
+</li>
 <li>
 February 23, 2021, by Antoine Gautier:<br/>
 Refactored with three-way valves instead of pumps.<br/>

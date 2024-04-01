@@ -101,7 +101,7 @@ model PartialIndirect
     displayUnit="kW.h")
     "Measured energy consumption at the ETS"
      annotation (Placement(transformation(extent={{300,-180},{340,-140}}),
-     iconTransformation(extent={{300,-130},{340,-90}})));
+     iconTransformation(extent={{300,-180},{340,-140}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTDisSup(
     redeclare final package Medium=MediumSer,
     final m_flow_nominal=mDis_flow_nominal)
