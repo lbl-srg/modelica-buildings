@@ -68,8 +68,8 @@ protected
 equation
   connect(heaFlo.port_b, vol.heatPort) annotation (Line(points={{-36,-30},{-36,
           -30},{-36,-10},{-9,-10}}, color={191,0,0}));
-  connect(heaFlo.Q_flow, Q_flow) annotation (Line(points={{-25,-40},{-25,-40},{60,
-          -40},{60,40},{110,40}},    color={0,0,127}));
+  connect(heaFlo.Q_flow, Q_flow) annotation (Line(points={{-26,-40},{-20,-40},{
+          60,-40},{60,40},{110,40}}, color={0,0,127}));
   connect(port_ref, con.solid) annotation (Line(points={{0,-60},{0,-90},{-36,-90},
           {-36,-80}}, color={191,0,0}));
   connect(con.fluid, heaFlo.port_a)
@@ -78,7 +78,7 @@ equation
                  color={0,0,127}));
   connect(senTem.port, vol.heatPort)
     annotation (Line(points={{0,30},{-9,30},{-9,-10}}, color={191,0,0}));
-  connect(senTem.T, T) annotation (Line(points={{21,30},{40,30},{40,80},{110,80}},
+  connect(senTem.T, T) annotation (Line(points={{20,30},{40,30},{40,80},{110,80}},
         color={0,0,127}));
   annotation (Icon(graphics={
         Rectangle(
