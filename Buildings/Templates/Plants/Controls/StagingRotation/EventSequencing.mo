@@ -34,9 +34,9 @@ block EventSequencing "Staging event sequencing"
     unit="s")=90
     "Nominal valve timing"
     annotation (Dialog(enable=have_valInlIso or have_valOutIso));
-  parameter Real dtHp(
+  parameter Real dtOff(
     min=0,
-    unit="s")=180
+    unit="s") = 180
     "Heat pump internal shutdown cycle timing";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Hea
     if have_heaWat
@@ -91,7 +91,7 @@ block EventSequencing "Staging event sequencing"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumChiWatPri
     if have_chiWat and have_pumChiWatPri
     "Primary CHW pump start command – Dedicated or lead headered pump"
-    annotation (Placement(transformation(extent={{160,-100},{200,-60}}),
+    annotation (Placement(transformation(extent={{160,-120},{200,-80}}),
       iconTransformation(extent={{100,-120},{140,-80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1
     "Equipment enable command"
@@ -195,11 +195,10 @@ block EventSequencing "Staging event sequencing"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Nor off
     "Return true if disabled from heating and cooling mode sequence"
-    annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer timHp(
-    final t=dtHp)
-    "Return true when heat pump internal shutdown cycle times out"
     annotation (Placement(transformation(extent={{-50,10},{-30,30}})));
+  Buildings.Controls.OBC.CDL.Logical.Timer timHp(final t=dtOff)
+    "Return true when heat pump internal shutdown cycle times out"
+    annotation (Placement(transformation(extent={{-10,10},{10,30}})));
   Buildings.Controls.OBC.CDL.Logical.Latch latValHeaWatIso
     if have_heaWat
     "Keep valve open until heat pump internal shutdown cycle times out"
@@ -211,11 +210,11 @@ block EventSequencing "Staging event sequencing"
   Buildings.Controls.OBC.CDL.Logical.Latch latPumHeaWatPri
     if have_heaWat
     "Keep pump running until heat pump internal shutdown cycle times out"
-    annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
+    annotation (Placement(transformation(extent={{110,-70},{130,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Latch latPumChiWatPri
     if have_chiWat and have_pumChiWatPri
     "Keep pump running until heat pump internal shutdown cycle times out"
-    annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
+    annotation (Placement(transformation(extent={{110,-110},{130,-90}})));
 equation
   connect(heaValPum.y, ena.u1)
     annotation (Line(points={{82,120},{84,120},{84,100},{88,100}},color={255,0,255}));
@@ -224,7 +223,7 @@ equation
   connect(timVal.passed, timVal_internal.u)
     annotation (Line(points={{-28,92},{-16,92},{-16,100},{-12,100}},color={255,0,255}));
   connect(timVal_internal.y, heaValPum.u[1])
-    annotation (Line(points={{12,100},{54,100},{54,117.667},{58,117.667}},color={255,0,255}));
+    annotation (Line(points={{12,100},{52,100},{52,117.667},{58,117.667}},color={255,0,255}));
   connect(u1PumChiWatSec_actual, u1PumChiWatSec_internal.u)
     annotation (Line(points={{-180,-130},{-152,-130}},color={255,0,255}));
   connect(u1PumHeaWatPri_actual, u1PumHeaWatPri_internal.u)
@@ -234,7 +233,7 @@ equation
   connect(u1PumHeaWatSec_actual, u1PumHeaWatSec_internal.u)
     annotation (Line(points={{-180,-90},{-152,-90}},color={255,0,255}));
   connect(u1PumHeaWatPri_internal.y, heaValPum.u[2])
-    annotation (Line(points={{-128,-10},{44,-10},{44,120},{58,120}},color={255,0,255}));
+    annotation (Line(points={{-128,-10},{46,-10},{46,120},{58,120}},color={255,0,255}));
   connect(u1PumHeaWatSec_internal.y, heaValPum.u[3])
     annotation (Line(points={{-128,-90},{50,-90},{50,122},{56,122},{56,122.333},
           {58,122.333}},
@@ -244,7 +243,7 @@ equation
   connect(u1PumChiWatPri_internal.y, cooValPum.u[2])
     annotation (Line(points={{-128,-50},{48,-50},{48,79.125},{58,79.125}},color={255,0,255}));
   connect(u1PumChiWatSec_internal.y, cooValPum.u[3])
-    annotation (Line(points={{-128,-130},{54,-130},{54,80.875},{58,80.875}},
+    annotation (Line(points={{-128,-130},{52,-130},{52,80.875},{58,80.875}},
       color={255,0,255}));
   connect(ena.y, y1)
     annotation (Line(points={{112,100},{124,100},{124,140},{180,140}},color={255,0,255}));
@@ -280,15 +279,15 @@ equation
   connect(u1Hea_internal.y, rou.u)
     annotation (Line(points={{-128,140},{-120,140},{-120,-66},{58,-66}},color={255,0,255}));
   connect(u1HeaOrCoo.y, rou1.u)
-    annotation (Line(points={{-68,120},{-60,120},{-60,-40},{58,-40}},color={255,0,255}));
+    annotation (Line(points={{-68,120},{44,120},{44,-40},{58,-40}},  color={255,0,255}));
   connect(u1Hea_internal.y, off.u1)
-    annotation (Line(points={{-128,140},{-122,140},{-122,20},{-92,20}},color={255,0,255}));
+    annotation (Line(points={{-128,140},{-120,140},{-120,20},{-52,20}},color={255,0,255}));
   connect(u1Coo_internal.y, off.u2)
-    annotation (Line(points={{-128,80},{-100,80},{-100,12},{-92,12}},color={255,0,255}));
+    annotation (Line(points={{-128,80},{-100,80},{-100,12},{-52,12}},color={255,0,255}));
   connect(off.y, timHp.u)
-    annotation (Line(points={{-68,20},{-52,20}},color={255,0,255}));
+    annotation (Line(points={{-28,20},{-12,20}},color={255,0,255}));
   connect(timHp.passed, latValHeaWatIso.clr)
-    annotation (Line(points={{-28,12},{40,12},{40,34},{98,34}},color={255,0,255}));
+    annotation (Line(points={{12,12},{40,12},{40,34},{98,34}}, color={255,0,255}));
   connect(latValHeaWatIso.y, y1ValHeaWatInlIso)
     annotation (Line(points={{122,40},{180,40}},color={255,0,255}));
   connect(u1Hea_internal.y, latValHeaWatIso.u)
@@ -296,26 +295,32 @@ equation
   connect(latValChiWatIso.y, y1ValChiWatInlIso)
     annotation (Line(points={{122,0},{180,0}},color={255,0,255}));
   connect(timHp.passed, latValChiWatIso.clr)
-    annotation (Line(points={{-28,12},{40,12},{40,-6},{98,-6}},color={255,0,255}));
+    annotation (Line(points={{12,12},{40,12},{40,-6},{98,-6}}, color={255,0,255}));
   connect(latValHeaWatIso.y, y1ValHeaWatOutIso)
     annotation (Line(points={{122,40},{140,40},{140,20},{180,20}},color={255,0,255}));
   connect(latValChiWatIso.y, y1ValChiWatOutIso)
     annotation (Line(points={{122,0},{140,0},{140,-20},{180,-20}},color={255,0,255}));
   connect(rou1.y[1], latPumHeaWatPri.u)
-    annotation (Line(points={{82,-40},{98,-40}},color={255,0,255}));
+    annotation (Line(points={{82,-40},{90,-40},{90,-60},{108,-60}},
+                                                color={255,0,255}));
   connect(rou.y[1], latPumHeaWatPri.u)
-    annotation (Line(points={{82,-66},{90,-66},{90,-40},{98,-40}},color={255,0,255}));
+    annotation (Line(points={{82,-66},{90,-66},{90,-60},{108,-60}},
+                                                                  color={255,0,255}));
   connect(timHp.passed, latPumHeaWatPri.clr)
-    annotation (Line(points={{-28,12},{40,12},{40,-20},{94,-20},{94,-46},{98,-46}},
+    annotation (Line(points={{12,12},{40,12},{40,-20},{100,-20},{100,-66},{108,
+          -66}},
       color={255,0,255}));
   connect(latPumHeaWatPri.y, y1PumHeaWatPri)
-    annotation (Line(points={{122,-40},{140,-40},{140,-60},{180,-60}},color={255,0,255}));
+    annotation (Line(points={{132,-60},{180,-60}},                    color={255,0,255}));
   connect(latPumChiWatPri.y, y1PumChiWatPri)
-    annotation (Line(points={{122,-80},{180,-80}},color={255,0,255}));
+    annotation (Line(points={{132,-100},{180,-100}},
+                                                  color={255,0,255}));
   connect(timHp.passed, latPumChiWatPri.clr)
-    annotation (Line(points={{-28,12},{40,12},{40,-86},{98,-86}},color={255,0,255}));
+    annotation (Line(points={{12,12},{40,12},{40,-106},{108,-106}},
+                                                                 color={255,0,255}));
   connect(u1Coo_internal.y, latPumChiWatPri.u)
-    annotation (Line(points={{-128,80},{-100,80},{-100,-80},{98,-80}},color={255,0,255}));
+    annotation (Line(points={{-128,80},{-100,80},{-100,-100},{108,-100}},
+                                                                      color={255,0,255}));
   connect(u1Coo_internal.y, latValChiWatIso.u)
     annotation (Line(points={{-128,80},{-100,80},{-100,0},{98,0}},color={255,0,255}));
   annotation (
@@ -375,7 +380,7 @@ The heat pump is disabled.
 </li>
 <li>
 After the time required for internal shutdown cycle to time out 
-(<code>dtHp</code> to be determined empirically, defaulting to <i>3</i>&nbsp;min),
+(<code>dtOff</code> to be determined empirically, defaulting to <i>3</i>&nbsp;min),
 all isolation valves are commanded closed.
 </li>
 and the dedicated primary pump 

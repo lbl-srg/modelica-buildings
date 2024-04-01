@@ -1,6 +1,6 @@
 within Buildings.Templates.Plants.Controls.Pumps.Primary;
 block EnableLeadHeadered
-  "Lead pump enabling/disabling for plants with headered primary pumps"
+  "Lead primary pump enable/disable for plants with headered primary pumps"
   parameter Buildings.Templates.Plants.Controls.Types.EquipmentConnection typCon
     "Type of connection between equipment and primary loop"
     annotation (Evaluate=true);
