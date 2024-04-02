@@ -267,7 +267,17 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Adjust hysteresis based on heating to avoid chatter.<br>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3735\">#3735</a>.
     </td>
-<tr><td colspan=\"2\"><b>Buildings.Fluid.FMI</b>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Controls.DemandResponse</b>
+    </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.DemandResponse.Client
+    </td>
+    <td valign=\"top\">Refactored implementation so it works also with OpenModelica.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/3754\">#3754</a>.
+    </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Fluid.FMI</b>
     </td>
     </tr>
     <tr><td valign=\"top\">Buildings.Fluid.FMI.AirToOutlet<br/>
@@ -322,21 +332,6 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 </table>
 <!-- Non-backward compatible changes to existing components -->
-<p>
-The following <b style=\"color:blue\">existing components</b>
-have been <b style=\"color:blue\">improved</b> in a
-<b style=\"color:blue\">non-backward compatible</b> way:
-</p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
- <tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-</tr>
-</table>
 <!-- Errors that have been fixed -->
 <p>
 The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
@@ -412,15 +407,18 @@ units are wrong or errors in documentation):
     <td valign=\"top\">Corrected wrong use <code>displayUnit</code> attribute.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatPumps</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatPumps.EquationFitReversible
+    </td>
+    <td valign=\"top\">Corrected wrong assertion for operation mode.<br/>
+                     This is for
+                     <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3664\">Buildings, #3664</a>.
+    </td>
+</tr>
+
 </table>
-<p>
-Note:
-</p>
-<ul>
-<li>
-xxx
-</li>
-</ul>
 </html>"));
     end Version_9_1_2;
 
