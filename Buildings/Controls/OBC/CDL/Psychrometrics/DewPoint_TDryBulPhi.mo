@@ -1,19 +1,19 @@
 within Buildings.Controls.OBC.CDL.Psychrometrics;
 block DewPoint_TDryBulPhi
   "Block to compute the dew point temperature based on relative humidity"
-  Interfaces.RealInput TDryBul(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TDryBul(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     final min=100)
     "Dry bulb temperature"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-  Interfaces.RealInput phi(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput phi(
     final min=0,
     final max=1,
     unit="1")
     "Relative air humidity"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
-  Interfaces.RealOutput TDewPoi(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TDewPoi(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     final min=100)
