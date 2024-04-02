@@ -34,6 +34,13 @@ used by the blocks that compute the demand reponse client.
 revisions="<html>
 <ul>
 <li>
+March 29, 2024, by Michael Wetter:<br/>
+Due to the refactoring for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3754\">3754</a>,
+this model is no longer used. It is left in the library for backward compatibility,
+and will be removed for release 11.
+</li>
+<li>
 March 20, 2014 by Michael Wetter:<br/>
 First implementation.
 </li>
