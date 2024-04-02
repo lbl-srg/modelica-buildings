@@ -229,9 +229,9 @@ initial equation
   // Below, the term X_w/(1.-X_w) is for conversion from kg/kg_total_air (Modelica) to kg/kg_dry_air (EnergyPlus)
   yEP=Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.exchange(
     adapter=adapter,
-    initialCall=false,
     nY=nY,
-    u={ T, X_w/(1.-X_w), mInlet_flow, TAveInlet, QGaiRadAve_flow, round(time,1E-3)}, dummy=AFlo);
+    u={ T, X_w/(1.-X_w), mInlet_flow, TAveInlet, QGaiRadAve_flow, round(time,1E-3)},
+    dummy=AFlo);
 
   TRad=yEP[1];
   QConLast_flow=yEP[2];
@@ -277,7 +277,6 @@ equation
     // Call EnergyPlus
     yEP=Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.exchange(
       adapter=adapter,
-      initialCall=false,
       nY=nY,
       u={T,X_w/(1.-X_w),pre(mInlet_flow),TAveInlet,QGaiRadAve_flow,round(time,1E-3)},
       dummy=AFlo);
