@@ -56,6 +56,12 @@ model EquationFitReversible
 
   output Real PLR(min=0, nominal=1, unit="1") = equFit.PLR
    "Part load ratio";
+
+  Buildings.Controls.OBC.CDL.Utilities.Assert aleMes(
+    message="uMod cannot be -1 if reverseCycle is false.")
+      if not per.reverseCycle
+    "Generate alert message if control input is not valid"
+    annotation (Placement(transformation(extent={{-52,-90},{-32,-70}})));
 protected
   constant Modelica.Units.SI.SpecificEnergy h1_default=
       Medium1.specificEnthalpy_pTX(
@@ -115,12 +121,6 @@ protected
   Buildings.Controls.OBC.CDL.Integers.LessThreshold lesThr(final t=0) if not
     per.reverseCycle "Indicator, outputs true if in cooling mode"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
-
-  Buildings.Controls.OBC.CDL.Utilities.Assert aleMes(
-    message="uMod cannot be -1 if reverseCycle is false.")
-      if not per.reverseCycle
-    "Generate alert message if control input is not valid"
-    annotation (Placement(transformation(extent={{-52,-90},{-32,-70}})));
 
 equation
   connect(equFit.QSou_flow,QSou_flow)
