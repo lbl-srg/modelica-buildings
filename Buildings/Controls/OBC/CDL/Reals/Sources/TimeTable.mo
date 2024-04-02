@@ -14,7 +14,7 @@ block TimeTable
   parameter Real timeScale(
     final unit="1")=1
     "Time scale of first table column. Set to 3600 if time in table is in hours";
-  Interfaces.RealOutput y[nout]
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y[nout]
     "Output of the table"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
