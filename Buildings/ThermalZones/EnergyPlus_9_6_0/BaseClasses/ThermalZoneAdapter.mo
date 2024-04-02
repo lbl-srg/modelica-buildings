@@ -46,6 +46,8 @@ model ThermalZoneAdapter
     fixed=false)
     "Factor for scaling the sensible thermal mass of the zone air volume";
 
+  final parameter Modelica.Units.SI.Time samplePeriod(fixed=false)
+    "Synchronization time step with EnergyPlus";
   Modelica.Blocks.Interfaces.RealInput T(
     final unit="K",
     displayUnit="degC")
@@ -237,7 +239,10 @@ initial equation
   QConLast_flow=yEP[2];
   QLat_flow=yEP[3];
   QPeo_flow=yEP[4];
-  tNext=yEP[5];
+  tNext = yEP[5];
+  samplePeriod=Buildings.Utilities.Math.Functions.round(
+    x=yEP[5]-time,
+    n=0);
 
   assert(AFlo > 0, "Floor area must not be zero.");
   assert(V > 0, "Volume must not be zero.");
@@ -255,10 +260,10 @@ equation
   der(EGaiRad) = QGaiRad_flow;
 
   // Synchronization with EnergyPlus
-  when {time >= pre(tNext)} then
+  when sample(startTime+samplePeriod, samplePeriod) then
     // Initialization of output variables.
     TRooLast=T;
-    dtLast=time-pre(tLast);
+    dtLast=samplePeriod;
     mInlet_flow=noEvent(
       sum(
         if m_flow[i] > 0 then
@@ -286,6 +291,8 @@ equation
     QLat_flow=yEP[3];
     QPeo_flow=yEP[4];
     tNext=yEP[5];
+    assert(abs(tNext-time-samplePeriod) < 0.001,
+      "Expected constant synchronization time step request of " + String(samplePeriod) + " s from EnergyPlus but received " + String(tNext-time) + " s.");
     tLast=time;
     // Store current value of exchanged radiative heat
     EGaiRadLast = EGaiRad;
