@@ -123,7 +123,9 @@ partial model PartialSeries "Partial model for series network"
     redeclare each final package MediumBui = Medium,
     redeclare each final package MediumSer = Medium,
     each final allowFlowReversalBui=allowFlowReversalBui,
-    each final allowFlowReversalSer=allowFlowReversalSer) "Building and ETS"
+    each final allowFlowReversalSer=allowFlowReversalSer,
+    each final TDisWatMin=datDes.TLooMin,
+    each final TDisWatMax=datDes.TLooMax) "Building and ETS"
     annotation (Placement(transformation(extent={{-10,170},{10,190}})));
  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupMaxSet[nBui](
     k=bui.THeaWatSup_nominal)
@@ -251,6 +253,12 @@ equation
     coordinateSystem(preserveAspectRatio=false, extent={{-360,-260},{360,260}})),
       Documentation(revisions="<html>
 <ul>
+<li>
+March 18, 2024, by David Blum:<br/>
+Updated use of <code>datDes</code> for min and max loop temperatures.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3697\">issue 3697</a>.
+</li>
 <li>
 December 12, 2023, by Ettore Zanetti:<br/>
 Changed to preconfigured pump model,
