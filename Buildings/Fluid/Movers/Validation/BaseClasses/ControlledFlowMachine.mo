@@ -166,7 +166,7 @@ equation
     Documentation(info="<html>
 This example demonstrates the use of the flow model with four different configuration.
 At steady-state, all flow models have the same mass flow rate and pressure difference.
-</html>"), revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 March 21, 2023, by Hongxiang Fu:<br/>
@@ -175,5 +175,5 @@ This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1704\">IBPSA, #1704</a>.
 </li>
 </ul>
-</html>");
+</html>"));
 end ControlledFlowMachine;
