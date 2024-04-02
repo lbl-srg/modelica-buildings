@@ -15,10 +15,10 @@ block LimitSlewRate "Limit the increase or decrease rate of input"
     "Derivative time constant";
   parameter Boolean enable=true
     "Set to false to disable rate limiter";
-  Interfaces.RealInput u
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u
     "Connector of Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.RealOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
     "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
