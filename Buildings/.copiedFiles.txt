@@ -1930,6 +1930,7 @@ Buildings/Resources/Data/Fluid/Geothermal/Borefields/HeatTransfer/Validation/Bei
 Buildings/Resources/Data/Fluid/Geothermal/Borefields/HeatTransfer/Validation/Cimmino_Bernier_2015_SmallScale.txt
 Buildings/Resources/Data/Utilities/IO/Files/Examples/CSVReader/Data.txt
 Buildings/Resources/Data/schedule.txt
+Buildings/Resources/Data/scheduleWindows.txt
 Buildings/Resources/Documentation/userGuide/source/_static/lbl-logo.png
 Buildings/Resources/Images/Airflow/Multizone/BaseClasses/windPressureLowRise.odp
 Buildings/Resources/Images/Airflow/Multizone/BaseClasses/windPressureLowRise.png
@@ -2784,6 +2785,7 @@ Buildings/Resources/Scripts/Dymola/Utilities/IO/Files/Examples/CSVWriter.mos
 Buildings/Resources/Scripts/Dymola/Utilities/IO/Files/Examples/JSONWriter.mos
 Buildings/Resources/Scripts/Dymola/Utilities/IO/Files/Examples/WeeklySchedule.mos
 Buildings/Resources/Scripts/Dymola/Utilities/IO/Files/Examples/WeeklySchedule7to19.mos
+Buildings/Resources/Scripts/Dymola/Utilities/IO/Files/Validation/WeeklyScheduleWindowsLineEndings.mos
 Buildings/Resources/Scripts/Dymola/Utilities/IO/SignalExchange/Examples/FirstOrder.mos
 Buildings/Resources/Scripts/Dymola/Utilities/IO/SignalExchange/Examples/WeatherStation.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Examples/Average.mos
@@ -3034,6 +3036,9 @@ Buildings/Utilities/IO/Files/Examples/WeeklySchedule7to19.mo
 Buildings/Utilities/IO/Files/Examples/package.mo
 Buildings/Utilities/IO/Files/Examples/package.order
 Buildings/Utilities/IO/Files/JSONWriter.mo
+Buildings/Utilities/IO/Files/Validation/WeeklyScheduleWindowsLineEndings.mo
+Buildings/Utilities/IO/Files/Validation/package.mo
+Buildings/Utilities/IO/Files/Validation/package.order
 Buildings/Utilities/IO/Files/WeeklySchedule.mo
 Buildings/Utilities/IO/Files/package.mo
 Buildings/Utilities/IO/Files/package.order
