@@ -1,6 +1,7 @@
 within Buildings.Templates;
 package Utilities "Package with utility functions"
   extends Modelica.Icons.Package;
+
   annotation (
   Icon(coordinateSystem(extent={{-100.0,-100.0},{100.0,100.0}}), graphics={
     Polygon(
@@ -15,6 +16,12 @@ package Utilities "Package with utility functions"
       rotation=-45.0,
       fillColor={255,255,255},
       fillPattern=FillPattern.Solid,
-      points={{-15.0,87.273},{15.0,87.273},{20.0,82.273},{20.0,27.273},{10.0,17.273},{10.0,7.273},{20.0,2.273},{20.0,-2.727},{5.0,-2.727},{5.0,-77.727},{10.0,-87.727},{5.0,-112.727},{-5.0,-112.727},{-10.0,-87.727},{-5.0,-77.727},{-5.0,-2.727},{-20.0,-2.727},{-20.0,2.273},{-10.0,7.273},{-10.0,17.273},{-20.0,27.273},{-20.0,82.273}})}));
-
+      points={{-15.0,87.273},{15.0,87.273},{20.0,82.273},{20.0,27.273},{10.0,17.273},{10.0,7.273},{20.0,2.273},{20.0,-2.727},{5.0,-2.727},{5.0,-77.727},{10.0,-87.727},{5.0,-112.727},{-5.0,-112.727},{-10.0,-87.727},{-5.0,-77.727},{-5.0,-2.727},{-20.0,-2.727},{-20.0,2.273},{-10.0,7.273},{-10.0,17.273},{-20.0,27.273},{-20.0,82.273}})}),
+      Documentation(revisions="<html>
+</html>", info="<html>
+<p>
+This package contains utility functions that are used
+in HVAC system templates.
+</p>
+</html>"));
 end Utilities;

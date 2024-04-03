@@ -17,5 +17,12 @@ equation
         "Simulate and plot"),
     experiment(
       Tolerance=1e-6,
-      StopTime=50.0));
+      StopTime=50.0),
+    Documentation(info="<html>
+<p>
+This model validates
+<a href=\"modelica://Buildings.Templates.Components.Controls.StatusEmulator\">
+Buildings.Templates.Components.Controls.StatusEmulator</a>.
+</p>
+</html>"));
 end StatusEmulator;

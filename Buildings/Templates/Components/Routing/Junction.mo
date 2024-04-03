@@ -35,5 +35,22 @@ model Junction "Flow splitter with fixed resistance at each port"
     thickness=5,
     pattern=if icon_pipe3==Buildings.Templates.Components.Types.IconPipe.Supply then
     LinePattern.Solid elseif icon_pipe3==Buildings.Templates.Components.Types.IconPipe.Return
-    then LinePattern.Dash else LinePattern.None)}));
+    then LinePattern.Dash else LinePattern.None)}), Documentation(info="<html>
+<p>
+This is a model of a flow junction with an optional fixed resistance 
+in each flow leg and an optional mixing volume at the junction.
+This model is identical to 
+<a href=\"modelica://Buildings.Fluid.FixedResistances.Junction\">
+Buildings.Fluid.FixedResistances.Junction</a>
+except for the icon which has been changed for better integration
+into the templates.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 29, 2024, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end Junction;

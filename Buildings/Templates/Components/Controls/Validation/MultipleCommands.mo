@@ -20,5 +20,12 @@ equation
         "Simulate and plot"),
     experiment(
       Tolerance=1e-6,
-      StopTime=2000.0));
+      StopTime=2000.0),
+    Documentation(info="<html>
+<p>
+This model validates
+<a href=\"modelica://Buildings.Templates.Components.Controls.MultipleCommands\">
+Buildings.Templates.Components.Controls.MultipleCommands</a>.
+</p>
+</html>"));
 end MultipleCommands;

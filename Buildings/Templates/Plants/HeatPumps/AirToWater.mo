@@ -68,7 +68,8 @@ model AirToWater
     final m_flow_nominal=mChiWatPri_flow_nominal,
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
-    icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply)
+    final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply,
+    final icon_dy=300)
     if have_chiWat and typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
     "Primary CHW pumps inlet manifold"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
@@ -78,7 +79,8 @@ model AirToWater
     final m_flow_nominal=mChiWatPri_flow_nominal,
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
-    icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply)
+    final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply,
+    final icon_dy=300)
     if have_chiWat and typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
     "Primary CHW pumps outlet manifold"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
@@ -122,7 +124,7 @@ model AirToWater
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
     final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply,
     final allowFlowReversal=allowFlowReversal) if have_chiWat
-                                               "Primary CHW supply temperature"
+    "Primary CHW supply temperature"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -152,7 +154,7 @@ model AirToWater
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
     final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Return,
     final allowFlowReversal=allowFlowReversal) if have_chiWat
-                                               "Primary CHW return temperature"
+    "Primary CHW return temperature"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,
       origin={60,0})));
   // Secondary CHW loop
@@ -172,7 +174,8 @@ model AirToWater
     final m_flow_nominal=mChiWat_flow_nominal,
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
-    final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply) if
+    final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply,
+    final icon_dy=300) if
     have_chiWat and typPumChiWatSec == Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized
     "Secondary CHW pumps inlet manifold"
     annotation (Placement(transformation(extent={{150,70},{170,90}})));
@@ -182,10 +185,11 @@ model AirToWater
     final m_flow_nominal=mChiWat_flow_nominal,
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
-    final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply) if
+    final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply,
+    final icon_dy=300) if
     have_chiWat and typPumChiWatSec == Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized
     "Secondary CHW pumps outlet manifold"
-    annotation (Placement(transformation(extent={{188,70},{208,90}})));
+    annotation (Placement(transformation(extent={{190,70},{210,90}})));
   Buildings.Templates.Components.Routing.PassThroughFluid supChiWatSec(
     redeclare final package Medium=MediumChiWat,
     final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply,
@@ -211,7 +215,7 @@ model AirToWater
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
     final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply,
     final allowFlowReversal=allowFlowReversal) if have_chiWat
-                                               "Secondary CHW supply temperature"
+    "Secondary CHW supply temperature"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,
       origin={140,80})));
   Buildings.Templates.Components.Sensors.Temperature TChiWatSecRet(
@@ -221,7 +225,7 @@ model AirToWater
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
     final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Return,
     final allowFlowReversal=allowFlowReversal) if have_chiWat
-                                               "Secondary CHW return temperature"
+    "Secondary CHW return temperature"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,
       origin={140,0})));
   // Primary HW loop
@@ -231,7 +235,8 @@ model AirToWater
     final m_flow_nominal=mHeaWatPri_flow_nominal,
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
-    icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply)
+    final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply,
+    final icon_dy=300)
     if have_heaWat and typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
     "Primary HW pumps inlet manifold"
     annotation (Placement(transformation(extent={{-40,-290},{-20,-270}})));
@@ -252,7 +257,8 @@ model AirToWater
     final m_flow_nominal=mHeaWatPri_flow_nominal,
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
-    icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply)
+    final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply,
+    final icon_dy=300)
     if have_heaWat and typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
     "Primary HW pumps outlet manifold"
     annotation (Placement(transformation(extent={{0,-290},{20,-270}})));
@@ -351,7 +357,8 @@ model AirToWater
     final m_flow_nominal=mHeaWat_flow_nominal,
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
-    final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply)
+    final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply,
+    final icon_dy=300)
     if typPumHeaWatSec == Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized
     "Secondary HW pumps inlet manifold"
     annotation (Placement(transformation(extent={{150,-290},{170,-270}})));
@@ -361,7 +368,8 @@ model AirToWater
     final m_flow_nominal=mHeaWat_flow_nominal,
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
-    final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply)
+    final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply,
+    final icon_dy=300)
     if typPumHeaWatSec == Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized
     "Secondary HW pumps outlet manifold"
     annotation (Placement(transformation(extent={{190,-290},{210,-270}})));
@@ -459,7 +467,7 @@ equation
       thickness=0.5,
       visible=have_chiWat));
   connect(pumChiWatSec.ports_b, outPumChiWatSec.ports_a)
-    annotation (Line(points={{190,80},{188,80}},color={0,127,255}));
+    annotation (Line(points={{190,80},{190,80}},color={0,127,255}));
   connect(inlPumChiWatSec.ports_b, pumChiWatSec.ports_a)
     annotation (Line(points={{170,80},{170,80}},color={0,127,255}));
   connect(valIso.port_bChiWat, supChiWatPri.port_a)
@@ -620,7 +628,7 @@ equation
       thickness=0.5,
       pattern=LinePattern.Dash));
   connect(outPumChiWatSec.port_b, VChiWatSec_flow.port_a) annotation (Line(
-      points={{208,80},{208,80}},
+      points={{210,80},{208,80}},
       color={0,0,0},
       thickness=1));
   connect(TChiWatPriRet.port_b, valIso.port_aChiWat) annotation (Line(
