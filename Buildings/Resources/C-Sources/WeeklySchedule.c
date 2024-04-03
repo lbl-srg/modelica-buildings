@@ -52,7 +52,7 @@ void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t
   int n_newLines = 0;     /* number of newlines */
   int mustHaveNewLine = 0;/* The next character must be a newline */
   char c;                 /* the character that is being parsed in this iteration */
- 
+
 
   int parseToken = 0;
   double timeStamp;
