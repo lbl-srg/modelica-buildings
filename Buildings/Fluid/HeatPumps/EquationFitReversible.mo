@@ -112,12 +112,12 @@ protected
    "Prescribed source side heat flow rate"
     annotation (Placement(transformation(extent={{59,-70},{39,-50}})));
 
-  Buildings.Controls.OBC.CDL.Integers.LessThreshold lesThr(final t=0) if not
-    per.reverseCycle "Indicator, outputs true if in cooling mode"
+  Controls.OBC.CDL.Integers.GreaterEqualThreshold greEqu(
+    final t=0) if not per.reverseCycle
+    "Indicator, outputs true if in cooling mode"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 
-  Buildings.Controls.OBC.CDL.Utilities.Assert aleMes(
-    message="uMod cannot be -1 if reverseCycle is false.")
+  Buildings.Controls.OBC.CDL.Utilities.Assert aleMes(message="uMod = -1 (cooling) is not allowed as reverseCycle is false.")
       if not per.reverseCycle
     "Generate alert message if control input is not valid"
     annotation (Placement(transformation(extent={{-52,-90},{-32,-70}})));
@@ -148,9 +148,9 @@ equation
     annotation (Line(points={{-10,60},{-14,60},{-14,20},{39,20}}, color={191,0,0}));
   connect(vol2.heatPort, preHeaFloSou.port)
     annotation (Line(points={{12,-60},{39,-60}},color={191,0,0}));
-  connect(aleMes.u, lesThr.y)
+  connect(aleMes.u,greEqu.y)
     annotation (Line(points={{-54,-80},{-58,-80}}, color={255,0,255}));
-  connect(lesThr.u, uMod) annotation (Line(points={{-82,-80},{-88,-80},{-88,0},{
+  connect(greEqu.u, uMod) annotation (Line(points={{-82,-80},{-88,-80},{-88,0},{
           -112,0}}, color={255,127,0}));
   connect(equFit.Q_flow_set, Q_flow_set.y)
     annotation (Line(points={{-11,9},{-44,9},{-44,40},{-59,40}},color={0,0,127}));
@@ -364,6 +364,12 @@ Master Thesis. Oklahoma State University, Oklahoma, USA. 2005.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 1, 2024, by Michael Wetter:<br/>
+Corrected wrong assertion.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3664\">#3664</a>.
+</li>
 <li>
 September 16, 2019 by Michael Wetter:<br/>
 Refactored implementation.
