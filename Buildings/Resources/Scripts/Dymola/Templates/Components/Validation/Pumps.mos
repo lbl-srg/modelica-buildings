@@ -34,7 +34,7 @@ createPlot(
 createPlot(
     id=2,
     subPlot=2,
-    y={"pumMul.pum[1].m_flow", "pumMul.pum[2].m_flow", "pumMul.pum[1].m_flow_nominal"},
+    y={"pumMul.pum[1].m_flow", "pumMul.pum[2].m_flow", "pumMul.m_flow_nominal[1]", "pumMul.m_flow_nominal[2]"},
     autoscale=true,
     grid=true
 );
@@ -55,7 +55,7 @@ createPlot(
 createPlot(
     id=3,
     subPlot=2,
-    y={"pumMulCst.pum[1].m_flow", "pumMulCst.pum[2].m_flow", "pumMulCst.pum[1].m_flow_nominal"},
+    y={"pumMulCst.pum[1].m_flow", "pumMulCst.pum[2].m_flow", "pumMulCst.m_flow_nominal[1]", "pumMulCst.m_flow_nominal[2]"},
     autoscale=true,
     grid=true
 );
@@ -76,7 +76,7 @@ createPlot(
 createPlot(
     id=4,
     subPlot=2,
-    y={"pumMulDed.pum[1].m_flow", "pumMulDed.pum[2].m_flow", "pumMulDed.pum[1].m_flow_nominal"},
+    y={"pumMulDed.pum[1].m_flow", "pumMulDed.pum[2].m_flow", "pumMulDed.m_flow_nominal[1]", "pumMulDed.m_flow_nominal[2]"},
     autoscale=true,
     grid=true
 );
