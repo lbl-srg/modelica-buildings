@@ -309,21 +309,6 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 </table>
 <!-- Non-backward compatible changes to existing components -->
-<p>
-The following <b style=\"color:blue\">existing components</b>
-have been <b style=\"color:blue\">improved</b> in a
-<b style=\"color:blue\">non-backward compatible</b> way:
-</p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
- <tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-</tr>
-</table>
 <!-- Errors that have been fixed -->
 <p>
 The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
@@ -386,14 +371,6 @@ units are wrong or errors in documentation):
     </td>
 </tr>
 </table>
-<p>
-Note:
-</p>
-<ul>
-<li>
-xxx
-</li>
-</ul>
 </html>"));
     end Version_10_1_0;
 
