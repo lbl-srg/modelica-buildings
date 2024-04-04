@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay;
 block ResponseProcess
-  "Calculate the lengths of the on andoff period, the half period ratio, and the times when the tuning starts and ends"
+  "Calculate the lengths of the on and off period, the half period ratio, and the times when the tuning starts and ends"
   parameter Real yHig(min=1E-6)
     "Higher value for the output";
   parameter Real yLow(min=1E-6)

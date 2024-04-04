@@ -71,13 +71,13 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Subtract meaSetDif
     "Inputs difference, (measurement - setpoint)"
     annotation (Placement(transformation(extent={{-20,-4},{0,16}})));
-  CDL.Reals.MultiplyByParameter gaiYDif(final k=1/r)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gaiYDif(final k=1/r)
     "Gain to normalized control error by r"
     annotation (Placement(transformation(extent={{20,-4},{40,16}})));
-  CDL.Reals.MultiplyByParameter gaiRevActErr(final k=1/r) if reverseActing
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gaiRevActErr(final k=1/r) if reverseActing
     "Gain to normalized control error by r"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
-  CDL.Reals.MultiplyByParameter gaiDirActErr(final k=1/r) if not reverseActing
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gaiDirActErr(final k=1/r) if not reverseActing
     "Gain to normalized control error by r"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
 equation
@@ -102,12 +102,10 @@ equation
   connect(swi1.y, dirActErr.u1) annotation (Line(points={{-38,-40},{-30,-40},{-30,
           -64},{-22,-64}}, color={0,0,127}));
   connect(hys.y, swi.u2) annotation (Line(points={{82,-60},{90,-60},{90,34},{50,
-          34},{50,50},{58,50}},
-                 color={255,0,255}));
+          34},{50,50},{58,50}}, color={255,0,255}));
   connect(hys.y, yOn) annotation (Line(points={{82,-60},{120,-60}}, color={255,0,255}));
   connect(swi1.y, meaSetDif.u1) annotation (Line(points={{-38,-40},{-30,-40},{-30,
-          12},{-22,12}},
-                      color={0,0,127}));
+          12},{-22,12}}, color={0,0,127}));
   connect(u_s, meaSetDif.u2) annotation (Line(points={{-120,0},{-22,0}},
                 color={0,0,127}));
   connect(meaSetDif.y, gaiYDif.u)

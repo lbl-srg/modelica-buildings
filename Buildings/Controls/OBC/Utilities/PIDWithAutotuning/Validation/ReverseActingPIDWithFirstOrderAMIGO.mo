@@ -118,7 +118,7 @@ On the contrary, <code>PID</code> has a poor control performance,
 i.e., the value of the controlled variable oscillates.
 </p>
 <p>
-The example also shows that the autotunning process can be retriggered
+The example also shows that the autotunning process can be re-triggered
 when the input <code>triTun</code> becomes <code>true</code>.
 </p>
 </html>",
