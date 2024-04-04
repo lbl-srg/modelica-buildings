@@ -277,6 +277,17 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/3754\">#3754</a>.
     </td>
     </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Electrical</b>
+    </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Electrical.Interfaces.InductiveLoad
+    </td>
+    <td valign=\"top\">Reformulated calculation of reactive power to bound argument of tangent away from &pi;,
+                       which avoids an infinite function value.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3776\">Buildings, #3776</a>.
+    </td>
+    </tr>
     <tr><td colspan=\"2\"><b>Buildings.Fluid.FMI</b>
     </td>
     </tr>
