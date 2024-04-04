@@ -36,10 +36,6 @@ block StageChangeCommand
     final min=0,
     final unit="s")=300
     "Duration used to compute the moving average of required capacity";
-  parameter Real dtSam(
-    final min=0,
-    final unit="s")=30
-    "Measurement sampling period";
   parameter Real cp_default(
     final min=0,
     final unit="J/(kg.K)")
@@ -103,15 +99,15 @@ block StageChangeCommand
   Buildings.Controls.OBC.CDL.Reals.Abs absDelT(
     y(final unit="K"))
     "Compute absolute value of ∆T"
-    annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
+    annotation (Placement(transformation(extent={{-130,-90},{-110,-70}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter capFlo(
     y(final unit="W/K"),
     final k=rho_default * cp_default)
     "Compute capacity flow rate"
-    annotation (Placement(transformation(extent={{-140,-150},{-120,-130}})));
+    annotation (Placement(transformation(extent={{-130,-150},{-110,-130}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply capReq
     "Compute required capacity"
-    annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
+    annotation (Placement(transformation(extent={{-90,-90},{-70,-70}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant traMatStaEqu[nEqu, nSta](
     final k=traStaEqu)
     "Transpose of staging matrix"
@@ -141,7 +137,7 @@ block StageChangeCommand
   Buildings.Controls.OBC.CDL.Reals.MovingAverage movAve(
     delta=dtMea)
     "Compute moving average"
-    annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
+    annotation (Placement(transformation(extent={{-50,-90},{-30,-70}})));
   Buildings.Templates.Plants.Controls.Utilities.TimerWithReset timUp(
     final t=dtRun)
     "Timer"
@@ -217,20 +213,17 @@ block StageChangeCommand
     final have_inp=have_inpPlrSta,
     final have_inpPh=false,
     final u_internal=plrSta) "Parameter value for SPLR"
-    annotation (Placement(transformation(extent={{-170,-190},{-150,-170}})));
+    annotation (Placement(transformation(extent={{-180,-190},{-160,-170}})));
   Buildings.Controls.OBC.CDL.Logical.FallingEdge endStaPro
     "True when staging process terminates"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
-  Buildings.Controls.OBC.CDL.Discrete.Sampler samCapReq(final samplePeriod=
-        dtSam) "Sampled required capacity"
-    annotation (Placement(transformation(extent={{-70,-90},{-50,-70}})));
 equation
   connect(delT.y, absDelT.u)
-    annotation (Line(points={{-148,-80},{-142,-80}},color={0,0,127}));
+    annotation (Line(points={{-148,-80},{-132,-80}},color={0,0,127}));
   connect(absDelT.y, capReq.u1)
-    annotation (Line(points={{-118,-80},{-110,-80},{-110,-74},{-102,-74}},color={0,0,127}));
+    annotation (Line(points={{-108,-80},{-100,-80},{-100,-74},{-92,-74}}, color={0,0,127}));
   connect(capFlo.y, capReq.u2)
-    annotation (Line(points={{-118,-140},{-110,-140},{-110,-86},{-102,-86}},
+    annotation (Line(points={{-108,-140},{-100,-140},{-100,-86},{-92,-86}},
       color={0,0,127}));
   connect(intScaRep.y, reqEquSta.index)
     annotation (Line(points={{-82,200},{0,200},{0,208}},color={255,127,0}));
@@ -243,7 +236,7 @@ equation
   connect(capEquSta.y, capSta.u)
     annotation (Line(points={{52,220},{68,220}},color={0,0,127}));
   connect(movAve.y, hol.u)
-    annotation (Line(points={{-18,-80},{-10,-80},{-10,-66},{18,-66}}, color={0,0,127}));
+    annotation (Line(points={{-28,-80},{-10,-80},{-10,-66},{18,-66}}, color={0,0,127}));
   connect(intScaRep.u, maxInt.y)
     annotation (Line(points={{-106,200},{-118,200}},color={255,127,0}));
   connect(idxSta.y, idxStaLesAct.u1)
@@ -311,11 +304,11 @@ equation
     annotation (Line(points={{82,-120},{108,-120}},
                                                   color={255,0,255}));
   connect(uPlrSta, parPlrSta.u)
-    annotation (Line(points={{-220,-180},{-172,-180}}, color={0,0,127}));
-  connect(parPlrSta.y, splTimCapSta.u1) annotation (Line(points={{-148,-180},{
+    annotation (Line(points={{-220,-180},{-182,-180}}, color={0,0,127}));
+  connect(parPlrSta.y, splTimCapSta.u1) annotation (Line(points={{-158,-180},{
           -40,-180},{-40,-114},{18,-114}},
                                         color={0,0,127}));
-  connect(parPlrSta.y, splTimCapStaLow.u1) annotation (Line(points={{-148,-180},
+  connect(parPlrSta.y, splTimCapStaLow.u1) annotation (Line(points={{-158,-180},
           {-40,-180},{-40,-154},{18,-154}},  color={0,0,127}));
   connect(u1StaPro, hol.u1)
     annotation (Line(points={{-220,-20},{-10,-20},{-10,-60},{18,-60}}, color={255,0,255}));
@@ -335,12 +328,10 @@ equation
           -180,-74},{-172,-74}}, color={0,0,127}));
   connect(TRet, delT.u2) annotation (Line(points={{-220,-100},{-180,-100},{-180,
           -86},{-172,-86}}, color={0,0,127}));
-  connect(movAve.u, samCapReq.y)
-    annotation (Line(points={{-42,-80},{-48,-80}}, color={0,0,127}));
-  connect(capReq.y, samCapReq.u)
-    annotation (Line(points={{-78,-80},{-72,-80}}, color={0,0,127}));
-  connect(V_flow, capFlo.u) annotation (Line(points={{-220,-140},{-180,-140},{
-          -180,-140},{-142,-140}}, color={0,0,127}));
+  connect(V_flow, capFlo.u) annotation (Line(points={{-220,-140},{-132,-140}},
+                                   color={0,0,127}));
+  connect(capReq.y, movAve.u)
+    annotation (Line(points={{-68,-80},{-52,-80}}, color={0,0,127}));
   annotation (
     defaultComponentName="chaSta",
     Icon(
@@ -388,8 +379,7 @@ associated circuit flow meter.
 <p>
 The required capacity used in logic is a rolling average over a period
 of <code>dtMea</code>
-of instantaneous values sampled at minimum once over a period
-of <code>dtSam</code>.
+of instantaneous values sampled at minimum once every <i>30</i>&nbsp;s.
 </p>
 <p>
 When a stage up or stage down transition is initiated, 

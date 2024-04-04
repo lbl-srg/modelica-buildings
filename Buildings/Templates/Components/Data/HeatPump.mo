@@ -191,12 +191,5 @@ reassigning the performance record <code>per</code>.
 Models that use this record will issue a warning if these placeholders values
 are not overwritten in case of reversible heat pumps.
 </p>
-<p>
-The validation model
-<a href=\"modelica://Buildings.Templates.Components.HeatPumps.Validation.DataRecord\">
-Buildings.Templates.Components.Validation.HeatPumpsRecord</a>
-illustrates how the default bindings from this class may be
-overwritten and how specific performance curves may be assigned.
-</p>
 </html>"));
 end HeatPump;

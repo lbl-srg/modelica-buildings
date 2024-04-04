@@ -142,19 +142,19 @@ block AirToWater
   parameter Boolean have_senTChiWatSecRet(start=false)
     "Set to true for plants with secondary CHW return temperature sensor"
     annotation (Evaluate=true, Dialog(group="Sensors", enable=have_pumChiWatSec));
-  parameter Integer nHp(min=1)
+  parameter Integer nHp(final min=1)
     "Number of heat pumps"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration"));
   parameter Integer nPumHeaWatPri(
-    min=if have_pumHeaWatPri then 1 else 0,
+    final min=if have_pumHeaWatPri then 1 else 0,
     start=0)=nHp
     "Number of primary HW pumps"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration",
       enable=have_pumHeaWatPri));
   parameter Integer nPumChiWatPri(
-    min=if have_pumChiWatPri then 1 else 0,
+    final min=if have_pumChiWatPri then 1 else 0,
     start=if have_pumChiWatPri then nHp else 0)=if have_pumChiWatPri then nHp
      else 0
     "Number of primary CHW pumps"
@@ -162,14 +162,14 @@ block AirToWater
     Dialog(group="Plant configuration",
       enable=have_pumChiWatPri));
   parameter Integer nPumHeaWatSec(
-    min=if have_pumHeaWatSec then 1 else 0,
+    final min=if have_pumHeaWatSec then 1 else 0,
     start=0)=nHp
     "Number of secondary HW pumps"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration",
       enable=have_pumHeaWatSec));
   parameter Integer nPumChiWatSec(
-    min=if have_pumChiWatSec then 1 else 0,
+    final min=if have_pumChiWatSec then 1 else 0,
     start=0)=nHp
     "Number of secondary CHW pumps"
     annotation (Evaluate=true,
@@ -180,7 +180,7 @@ block AirToWater
     annotation (Evaluate=true,
     Dialog(group="Sensors",
       enable=have_heaWat and have_pumHeaWatSec));
-  parameter Integer nSenDpHeaWatRem(min=if have_heaWat and have_pumHeaWatSec
+  parameter Integer nSenDpHeaWatRem(final min=if have_heaWat and have_pumHeaWatSec
          then 1 else 0, start=0)
     "Number of remote HW differential pressure sensors used for HW pump speed control"
     annotation (Evaluate=true,
@@ -191,149 +191,149 @@ block AirToWater
     annotation (Evaluate=true,
     Dialog(group="Sensors",
       enable=have_chiWat and have_pumChiWatSec));
-  parameter Integer nSenDpChiWatRem(min=if have_chiWat and have_pumChiWatSec
+  parameter Integer nSenDpChiWatRem(final min=if have_chiWat and have_pumChiWatSec
          then 1 else 0, start=0)
     "Number of remote CHW differential pressure sensors used for CHW pump speed control"
     annotation (Evaluate=true,
     Dialog(group="Sensors",
       enable=have_chiWat and have_pumChiWatSec));
   parameter Real THeaWatSup_nominal(
-    min=273.15,
+    final min=273.15,
     start=50 + 273.15,
-    unit="K",
+    final unit="K",
     displayUnit="degC")
     "Design HW supply temperature (maximum setpoint)"
     annotation (Dialog(group="Information provided by designer",
       enable=have_heaWat));
   parameter Real THeaWatSupSet_min(
-    min=273.15,
+    final min=273.15,
     start=25 + 273.15,
-    unit="K",
+    final unit="K",
     displayUnit="degC")
     "Minimum value to which the HW supply temperature can be reset"
     annotation (Dialog(group="Information provided by designer",
       enable=have_heaWat));
   parameter Real TOutHeaWatLck(
-    min=273.15,
+    final min=273.15,
     start=21 + 273.15,
-    unit="K",
+    final unit="K",
     displayUnit="degC")=294.15
     "Outdoor air lockout temperature above which the HW loop is prevented from operating"
     annotation (Dialog(group="Information provided by designer",
       enable=have_heaWat));
   parameter Real capHeaHp_nominal[nHp](
-    min=fill(0, nHp),
+    final min=fill(0, nHp),
     start=fill(1, nHp),
-    unit=fill("W", nHp))
+    final unit=fill("W", nHp))
     "Design heating capacity - Each heat pump"
     annotation (Dialog(group="Information provided by designer",
       enable=have_heaWat));
   parameter Real VHeaWatSec_flow_nominal(
-    min=0,
+    final min=0,
     start=1E-6,
-    unit="m3/s")
+    final unit="m3/s")
     "Design secondary HW volume flow rate"
     annotation (Evaluate=true,
     Dialog(group="Information provided by designer",
       enable=have_heaWat and have_pumHeaWatSec and have_pumSecCtlDp));
   parameter Real dpHeaWatRemSet_max[nSenDpHeaWatRem](
-    min=fill(0, nSenDpHeaWatRem),
+    final min=fill(0, nSenDpHeaWatRem),
     start=fill(5E4, nSenDpHeaWatRem),
-    unit=fill("Pa", nSenDpHeaWatRem))
+    final unit=fill("Pa", nSenDpHeaWatRem))
     "Maximum HW differential pressure setpoint - Remote sensor"
     annotation (Dialog(group=
       "Information provided by testing, adjusting, and balancing contractor",
       enable=have_heaWat and have_pumHeaWatSec));
   parameter Real dpHeaWatRemSet_min(
-    min=0,
+    final min=0,
     start=5*6894,
-    unit="Pa")=5*6894
+    final unit="Pa")=5*6894
     "Minimum value to which the HW differential pressure can be reset - Remote sensor"
     annotation (Dialog(group=
       "Information provided by designer",
       enable=have_heaWat and have_pumHeaWatSec));
   parameter Real yPumHeaWatPriSet(
-    max=1,
-    min=0,
+    final max=1,
+    final min=0,
     start=1,
-    unit="1")
+    final unit="1")
     "Primary pump speed providing design heat pump flow in heating mode"
     annotation (Dialog(group=
       "Information provided by testing, adjusting, and balancing contractor",
       enable=have_heaWat and have_pumHeaWatPriVar));
   parameter Real TChiWatSup_nominal(
-    min=273.15,
+    final min=273.15,
     start=7 + 273.15,
-    unit="K",
+    final unit="K",
     displayUnit="degC")
     "Design CHW supply temperature (minimum setpoint)"
     annotation (Dialog(group="Information provided by designer",
       enable=have_chiWat));
   parameter Real TChiWatSupSet_max(
-    min=273.15,
+    final min=273.15,
     start=15 + 273.15,
-    unit="K",
+    final unit="K",
     displayUnit="degC")
     "Maximum value to which the CHW supply temperature can be reset"
     annotation (Dialog(group="Information provided by designer",
       enable=have_chiWat));
   parameter Real TOutChiWatLck(
-    min=273.15,
+    final min=273.15,
     start=16 + 273.15,
-    unit="K",
+    final unit="K",
     displayUnit="degC")=289.15
     "Outdoor air lockout temperature below which the CHW loop is prevented from operating"
     annotation (Dialog(group="Information provided by designer",
       enable=have_chiWat));
   parameter Real capCooHp_nominal[nHp](
-    min=fill(0, nHp),
+    final min=fill(0, nHp),
     start=fill(1, nHp),
-    unit=fill("W", nHp))
+    final unit=fill("W", nHp))
     "Design cooling capacity - Each heat pump"
     annotation (Dialog(group="Information provided by designer",
       enable=have_chiWat));
   parameter Real VChiWatSec_flow_nominal(
-    min=0,
+    final min=0,
     start=1E-6,
-    unit="m3/s")
+    final unit="m3/s")
     "Design secondary CHW volume flow rate"
     annotation (Evaluate=true,
     Dialog(group="Information provided by designer",
       enable=have_chiWat and have_pumChiWatSec and have_pumSecCtlDp));
   parameter Real dpChiWatRemSet_max[nSenDpChiWatRem](
-    min=fill(0, nSenDpChiWatRem),
+    final min=fill(0, nSenDpChiWatRem),
     start=fill(5E4, nSenDpChiWatRem),
-    unit=fill("Pa", nSenDpChiWatRem))
+    final unit=fill("Pa", nSenDpChiWatRem))
     "Maximum CHW differential pressure setpoint - Remote sensor"
     annotation (Dialog(group=
       "Information provided by testing, adjusting, and balancing contractor",
       enable=have_chiWat and have_pumChiWatSec));
   parameter Real dpChiWatRemSet_min(
-    min=0,
+    final min=0,
     start=5*6894,
-    unit="Pa")=5*6894
+    final unit="Pa")=5*6894
     "Minimum value to which the CHW differential pressure can be reset - Remote sensor"
     annotation (Dialog(group=
       "Information provided by designer",
       enable=have_chiWat and have_pumChiWatSec));
   parameter Real yPumChiWatPriSet(
-    max=1,
-    min=0,
+    final max=1,
+    final min=0,
     start=1,
-    unit="1")
+    final unit="1")
     "Primary pump speed providing design heat pump flow in cooling mode"
     annotation (Dialog(group=
       "Information provided by testing, adjusting, and balancing contractor",
       enable=have_chiWat and have_pumChiWatPriVar));
   parameter Real cp_default(
-    min=0,
-    unit="J/(kg.K)")=4184
+    final min=0,
+    final unit="J/(kg.K)")=4184
     "Default specific heat capacity used to compute required capacity"
     annotation (Evaluate=true,
     Dialog(group="Information provided by designer"));
   parameter Real rho_default(
-    min=0,
-    unit="kg/m3")=996
+    final min=0,
+    final unit="kg/m3")=996
     "Default density used to compute required capacity"
     annotation (Evaluate=true,
     Dialog(group="Information provided by designer"));
@@ -347,31 +347,31 @@ block AirToWater
   parameter Real schCoo[:, 2](start=[0,1; 24*3600,1])=[0,1; 24*3600,1]
     "Cooling mode enable schedule"
     annotation (Dialog(enable=not have_inpSch,group="Plant enable"));
-  parameter Integer nReqIgnHeaWat(min=0)=0
+  parameter Integer nReqIgnHeaWat(final min=0)=0
     "Number of ignored HW plant requests"
     annotation (Dialog(tab="Advanced",group="Plant enable"));
-  parameter Integer nReqIgnChiWat(min=0)=0
+  parameter Integer nReqIgnChiWat(final min=0)=0
     "Number of ignored CHW plant requests"
     annotation (Dialog(tab="Advanced",group="Plant enable"));
   parameter Real dTOutLck(
-    min=0,
-    unit="K")=0.5
+    final min=0,
+    final unit="K")=0.5
     "Hysteresis for outdoor air lockout temperature"
     annotation (Dialog(tab="Advanced",group="Plant enable"));
   parameter Real dtRunEna(
-    min=0,
-    unit="s")=15*60
+    final min=0,
+    final unit="s")=15*60
     "Minimum runtime of enable and disable states"
     annotation (Dialog(tab="Advanced",group="Plant enable"));
   parameter Real dtReqDis(
-    min=0,
-    unit="s")=3*60
+    final min=0,
+    final unit="s")=3*60
     "Runtime with low number of request before disabling"
     annotation (Dialog(tab="Advanced",group="Plant enable"));
   parameter Real staEqu[:, nHp](
-    max=1,
-    min=0,
-    unit="1")
+    each final max=1,
+    each final min=0,
+    each final unit="1")
     "Staging matrix – Equipment required for each stage"
     annotation (Dialog(group="Equipment staging and rotation"));
   final parameter Integer nSta(
@@ -382,218 +382,219 @@ block AirToWater
     final min=0)=max({sum({(if staEqu[i, j] > 0 and staEqu[i, j] < 1 then 1 else 0) for j in 1:nHp}) for i in 1:nSta})
     "Number of lead/lag alternate equipment"
     annotation (Evaluate=true);
-  parameter Integer idxEquAlt[nEquAlt](min=1)
+  parameter Integer idxEquAlt[nEquAlt](
+    each final min=1)
     "Indices of lead/lag alternate equipment"
     annotation (Evaluate=true,
     Dialog(group="Equipment staging and rotation"));
   parameter Real dtVal(
-    min=0,
+    final min=0,
     start=90,
-    unit="s")=90
+    final unit="s")=90
     "Nominal valve timing"
     annotation (Dialog(tab="Advanced",group="Equipment staging and rotation",
       enable=have_valHpInlIso or have_valHpOutIso));
   parameter Real dtHp(
-    min=0,
-    unit="s")=180
+    final min=0,
+    final unit="s")=180
     annotation (Dialog(tab="Advanced",group="Equipment staging and rotation"));
   parameter Real plrSta(
-    max=1,
-    min=0,
+    final max=1,
+    final min=0,
     start=0.9,
-    unit="1")=0.9
+    final unit="1")=0.9
     "Staging part load ratio"
     annotation (Dialog(group="Equipment staging and rotation"));
   parameter Real dtRunSta(
-    min=0,
-    unit="s",
+    final min=0,
+    final unit="s",
     displayUnit="min")=900
     "Minimum runtime of each stage"
     annotation (Dialog(tab="Advanced",group="Equipment staging and rotation"));
   parameter Real dtOff(
-    min=0,
-    unit="s")=900
+    final min=0,
+    final unit="s")=900
     "Off time required before equipment is deemed available again"
     annotation (Dialog(tab="Advanced",group="Equipment staging and rotation"));
   parameter Real dtRunPumSta(
-    min=0,
+    final min=0,
     start=600,
-    unit="s")=600
+    final unit="s")=600
     "Runtime before triggering stage command"
     annotation (Dialog(tab="Advanced",group="Pump staging",
       enable=have_pumPriHdr and have_pumPriCtlDp or have_pumSecHdr and have_pumSecCtlDp));
   parameter Real dVOffUpPumSta(
-    max=1,
-    min=0,
+    final max=1,
+    final min=0,
     start=0.03,
-    unit="1")=0.03
+    final unit="1")=0.03
     "Stage up flow point offset"
     annotation (Dialog(tab="Advanced",group="Pump staging",
       enable=have_pumPriHdr and have_pumPriCtlDp or have_pumSecHdr and have_pumSecCtlDp));
   parameter Real dVOffDowPumSta(
-    max=1,
-    min=0,
+    final max=1,
+    final min=0,
     start=0.03,
-    unit="1")=dVOffUpPumSta
+    final unit="1")=dVOffUpPumSta
     "Stage down flow point offset"
     annotation (Dialog(tab="Advanced",group="Pump staging",
       enable=have_pumPriHdr and have_pumPriCtlDp or have_pumSecHdr and have_pumSecCtlDp));
   parameter Real dtHol(
-    min=0,
-    unit="s")=900
+    final min=0,
+    final unit="s")=900
     "Minimum hold time during stage change"
     annotation (Dialog(tab="Advanced",group="Plant reset",
       enable=have_heaWat and have_pumHeaWatSec or have_chiWat and have_pumChiWatSec));
   parameter Real resDpHeaWat_max(
-    max=1,
-    min=0,
-    unit="1")=0.5
+    final max=1,
+    final min=0,
+    final unit="1")=0.5
     "Upper limit of plant reset interval for HW differential pressure reset"
     annotation (Dialog(tab="Advanced",group="Plant reset",
       enable=have_heaWat and have_pumHeaWatSec));
   parameter Real resTHeaWatSup_min(
-    max=1,
-    min=0,
-    unit="1")=resDpHeaWat_max
+    final max=1,
+    final min=0,
+    final unit="1")=resDpHeaWat_max
     "Lower limit of plant reset interval for HW supply temperature reset"
     annotation (Dialog(tab="Advanced",group="Plant reset",
       enable=have_heaWat and have_pumHeaWatSec));
   parameter Real resDpChiWat_max(
-    max=1,
-    min=0,
-    unit="1")=0.5
+    final max=1,
+    final min=0,
+    final unit="1")=0.5
     "Upper limit of plant reset interval for CHW differential pressure reset"
     annotation (Dialog(tab="Advanced",group="Plant reset",
       enable=have_chiWat and have_pumChiWatSec));
   parameter Real resTChiWatSup_min(
-    max=1,
-    min=0,
-    unit="1")=resDpChiWat_max
+    final max=1,
+    final min=0,
+    final unit="1")=resDpChiWat_max
     "Lower limit of plant reset interval for CHW supply temperature reset"
     annotation (Dialog(tab="Advanced",group="Plant reset",
       enable=have_chiWat and have_pumChiWatSec));
   parameter Real res_init(
-    max=1,
-    min=0,
-    unit="1")=1
+    final max=1,
+    final min=0,
+    final unit="1")=1
     "Initial reset value"
     annotation (Dialog(tab="Advanced",group="Plant reset",
       enable=have_heaWat and have_pumHeaWatSec or have_chiWat and have_pumChiWatSec));
   parameter Real res_min(
-    max=1,
-    min=0,
-    unit="1")=0
+    final max=1,
+    final min=0,
+    final unit="1")=0
     "Minimum reset value"
     annotation (Dialog(tab="Advanced",group="Plant reset",
       enable=have_heaWat and have_pumHeaWatSec or have_chiWat and have_pumChiWatSec));
   parameter Real res_max(
-    max=1,
-    min=0,
-    unit="1")=1
+    final max=1,
+    final min=0,
+    final unit="1")=1
     "Maximum reset value"
     annotation (Dialog(tab="Advanced",group="Plant reset",
       enable=have_heaWat and have_pumHeaWatSec or have_chiWat and have_pumChiWatSec));
   parameter Real dtDel(
-    min=100*1E-15,
-    unit="s")=900
+    final min=100*1E-15,
+    final unit="s")=900
     "Delay time before the reset begins"
     annotation (Dialog(tab="Advanced",group="Plant reset",
       enable=have_heaWat and have_pumHeaWatSec or have_chiWat and have_pumChiWatSec));
   parameter Real dtResHeaWat(
-    min=1E-3,
-    unit="s")=300
+    final min=1E-3,
+    final unit="s")=300
     "Reset period for HW plant reset"
     annotation (Dialog(tab="Advanced",group="Plant reset",
       enable=have_heaWat and have_pumHeaWatSec));
-  parameter Integer nReqResIgnHeaWat(min=0)=2
+  parameter Integer nReqResIgnHeaWat(final min=0)=2
     "Number of ignored requests for HW plant reset"
     annotation (Dialog(tab="Advanced",group="Plant reset",
       enable=have_heaWat and have_pumHeaWatSec));
   parameter Real triHeaWat(
-    max=0,
-    unit="1")=-0.02
+    final max=0,
+    final unit="1")=-0.02
     "Trim amount for HW plant reset"
     annotation (Dialog(tab="Advanced",group="Plant reset",
       enable=have_heaWat and have_pumHeaWatSec));
   parameter Real rspHeaWat(
-    min=0,
-    unit="1")=0.03
+    final min=0,
+    final unit="1")=0.03
     "Respond amount for HW plant reset"
     annotation (Dialog(tab="Advanced",group="Plant reset",
       enable=have_heaWat and have_pumHeaWatSec));
   parameter Real rspHeaWat_max(
-    min=0,
-    unit="1")=0.07
+    final min=0,
+    final unit="1")=0.07
     "Maximum response per reset period for HW plant reset"
     annotation (Dialog(tab="Advanced",group="Plant reset",
       enable=have_heaWat and have_pumHeaWatSec));
   parameter Real dtResChiWat(
-    min=1E-3,
-    unit="s")=300
+    final min=1E-3,
+    final unit="s")=300
     "Reset period for CHW plant reset"
     annotation (Dialog(tab="Advanced",group="Plant reset",
       enable=have_chiWat and have_pumChiWatSec));
-  parameter Integer nReqResIgnChiWat(min=0)=2
+  parameter Integer nReqResIgnChiWat(final min=0)=2
     "Number of ignored requests for CHW plant reset"
     annotation (Dialog(tab="Advanced",group="Plant reset",
       enable=have_chiWat and have_pumChiWatSec));
   parameter Real triChiWat(
-    max=0,
-    unit="1")=-0.02
+    final max=0,
+    final unit="1")=-0.02
     "Trim amount for CHW plant reset"
     annotation (Dialog(tab="Advanced",group="Plant reset",
       enable=have_chiWat and have_pumChiWatSec));
   parameter Real rspChiWat(
-    min=0,
-    unit="1")=0.03
+    final min=0,
+    final unit="1")=0.03
     "Respond amount for CHW plant reset"
     annotation (Dialog(tab="Advanced",group="Plant reset",
       enable=have_chiWat and have_pumChiWatSec));
   parameter Real rspChiWat_max(
-    min=0,
-    unit="1")=0.07
+    final min=0,
+    final unit="1")=0.07
     "Maximum response per reset period for CHW plant reset"
     annotation (Dialog(tab="Advanced",group="Plant reset",
       enable=have_chiWat and have_pumChiWatSec));
   parameter Real yPumHeaWatSec_min(
-    max=1,
-    min=0,
+    final max=1,
+    final min=0,
     start=0.1,
-    unit="1")=0.1
+    final unit="1")=0.1
     "Minimum pump speed"
     annotation (Dialog(tab="Advanced",group="Secondary HW pumps",
       enable=have_pumHeaWatSec));
   parameter Real kPumHeaWatSec(
-    min=100*Buildings.Controls.OBC.CDL.Constants.eps,
+    final min=100*Buildings.Controls.OBC.CDL.Constants.eps,
     start=1)=1
     "Gain of controller"
     annotation (Dialog(tab="Advanced",group="Secondary HW pumps",
       enable=have_pumHeaWatSec));
   parameter Real TiPumHeaWatSec(
-    min=100*Buildings.Controls.OBC.CDL.Constants.eps,
+    final min=100*Buildings.Controls.OBC.CDL.Constants.eps,
     start=60,
-    unit="s")=60
+    final unit="s")=60
     "Time constant of integrator block"
     annotation (Dialog(tab="Advanced",group="Secondary HW pumps",
       enable=have_pumHeaWatSec));
   parameter Real yPumChiWatSec_min(
-    max=1,
-    min=0,
+    final max=1,
+    final min=0,
     start=0.1,
-    unit="1")=0.1
+    final unit="1")=0.1
     "Minimum pump speed"
     annotation (Dialog(tab="Advanced",group="Secondary CHW pumps",
       enable=have_pumChiWatSec));
   parameter Real kPumChiWatSec(
-    min=100*Buildings.Controls.OBC.CDL.Constants.eps,
+    final min=100*Buildings.Controls.OBC.CDL.Constants.eps,
     start=1)=1
     "Gain of controller"
     annotation (Dialog(tab="Advanced",group="Secondary CHW pumps",
       enable=have_pumChiWatSec));
   parameter Real TiPumChiWatSec(
-    min=100*Buildings.Controls.OBC.CDL.Constants.eps,
+    final min=100*Buildings.Controls.OBC.CDL.Constants.eps,
     start=60,
-    unit="s")=60
+    final unit="s")=60
     "Time constant of integrator block"
     annotation (Dialog(tab="Advanced",group="Secondary CHW pumps",
       enable=have_pumChiWatSec));

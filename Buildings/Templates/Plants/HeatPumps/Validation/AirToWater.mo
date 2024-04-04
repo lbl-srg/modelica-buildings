@@ -92,16 +92,16 @@ model AirToWater
       displayUnit="degC"))
     "Placeholder signal for request generator"
     annotation (Placement(transformation(extent={{-180,130},{-160,150}})));
-  Fluid.Sensors.RelativePressure                              dpHeaWatRem_1(
+  Fluid.Sensors.RelativePressure dpHeaWatRem_1(
     redeclare final package Medium = Medium)
-                      "HW differential pressure at one remote location"
+    "HW differential pressure at one remote location"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={40,-120})));
-  Fluid.Sensors.RelativePressure                              dpChiWatRem_1(
+  Fluid.Sensors.RelativePressure dpChiWatRem_1(
     redeclare final package Medium = Medium) if have_chiWat
-                      "CHW differential pressure at one remote location"
+    "CHW differential pressure at one remote location"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -113,22 +113,24 @@ model AirToWater
     "Plant and reset request"
     annotation (Placement(transformation(extent={{90,102},{70,122}})));
   AirHandlersFans.Interfaces.Bus busAirHan "AHU control bus" annotation (
-      Placement(transformation(extent={{-60,100},{-20,140}}),
-                                                           iconTransformation(
+      Placement(transformation(extent={{-60,100},{-20,140}}),iconTransformation(
           extent={{-340,-140},{-300,-100}})));
   Interfaces.Bus busPla "Plant control bus" annotation (Placement(
-        transformation(extent={{-100,-40},{-60,0}}),  iconTransformation(extent
+        transformation(extent={{-100,-40},{-60,0}}), iconTransformation(extent
           ={{-370,-70},{-330,-30}})));
-  Buildings.Controls.OBC.CDL.Routing.RealVectorFilter dpChiWatRem(nin=pla.cfg.nSenDpChiWatRem,
-      nout=pla.cfg.nSenDpChiWatRem) if have_chiWat
+  Buildings.Controls.OBC.CDL.Routing.RealVectorFilter dpChiWatRem(
+    final nin=pla.cfg.nSenDpChiWatRem,
+    final nout=pla.cfg.nSenDpChiWatRem) if have_chiWat
     "Gather all remote CHW differential pressure signals"
     annotation (Placement(transformation(extent={{10,10},{-10,30}})));
-  Buildings.Controls.OBC.CDL.Routing.RealVectorFilter dpHeaWatRem(nin=pla.cfg.nSenDpHeaWatRem,
-      nout=pla.cfg.nSenDpHeaWatRem)
+  Buildings.Controls.OBC.CDL.Routing.RealVectorFilter dpHeaWatRem(
+    final nin=pla.cfg.nSenDpHeaWatRem,
+    final nout=pla.cfg.nSenDpHeaWatRem)
     "Gather all remote HW differential pressure signals"
     annotation (Placement(transformation(extent={{10,-30},{-10,-10}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable ratFlo(table=[0,0,0; 5,0,0;
-        7,1,0; 12,0.2,0.2; 16,0,1; 22,0.1,0.1; 24,0,0], timeScale=3600)
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable ratFlo(
+    table=[0,0,0; 5,0,0; 7,1,0; 12,0.2,0.2; 16,0,1; 22,0.1,0.1; 24,0,0],
+    timeScale=3600)
     "Source signal for flow rate ratio – Index 1 for HW, 2 for CHW"
     annotation (Placement(transformation(extent={{-180,70},{-160,90}})));
   Buildings.Controls.OBC.CDL.Reals.PID ctlEquZon[if have_chiWat then 2 else 1](
@@ -137,16 +139,17 @@ model AirToWater
     each final reverseActing=true) "Zone equipment controller"
     annotation (Placement(transformation(extent={{70,70},{90,90}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter norFlo[if have_chiWat
-     then 2 else 1](k=if have_chiWat then {1/pla.mHeaWat_flow_nominal,1/pla.mChiWat_flow_nominal}
-         else {1/pla.mHeaWat_flow_nominal}) "Normalize flow rate" annotation (
-      Placement(transformation(
+     then 2 else 1](
+     k=if have_chiWat then {1/pla.mHeaWat_flow_nominal,1/pla.mChiWat_flow_nominal}
+         else {1/pla.mHeaWat_flow_nominal})
+     "Normalize flow rate" annotation (
+     Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={180,0})));
   Fluid.Sensors.MassFlowRate mChiWat_flow(
    redeclare final package Medium = Medium) if have_chiWat
-                                            "CHW mass flow rate"
-                        annotation (
+   "CHW mass flow rate" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -158,7 +161,7 @@ model AirToWater
         origin={160,-120})));
   Buildings.Controls.OBC.CDL.Reals.AddParameter TChiWatRet(p=pla.TChiWatRet_nominal
          - pla.TChiWatSup_nominal) if have_chiWat
-                                   "Prescribed CHW return temperature"
+    "Prescribed CHW return temperature"
     annotation (Placement(transformation(extent={{-130,30},{-110,50}})));
   Buildings.Controls.OBC.CDL.Reals.AddParameter THeaWatRet(p=pla.THeaWatRet_nominal
          - pla.THeaWatSup_nominal) "Prescribed HW return temperature"
@@ -166,7 +169,7 @@ model AirToWater
   Buildings.Controls.OBC.CDL.Reals.Max max2 "Limit prescribed HWRT"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
   Buildings.Controls.OBC.CDL.Reals.Min min1 if have_chiWat
-                                            "Limit prescribed CHWRT"
+    "Limit prescribed CHWRT"
     annotation (Placement(transformation(extent={{-90,30},{-70,50}})));
   Buildings.Controls.OBC.CDL.Integers.Multiply mulInt[4]
     "Importance multiplier"
