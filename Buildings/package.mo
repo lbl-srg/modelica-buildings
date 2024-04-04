@@ -299,12 +299,14 @@ have been <b style=\"color:blue\">improved</b> in a
                      <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3659\">Buildings, #3659</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Utilities.IO.Files</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Utilities.IO.Files.WeeklySchedule
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Corrected C-code implementation to avoid memory leak.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1861\">IBPSA, #1860</a>.
     </td>
 </tr>
 </table>
