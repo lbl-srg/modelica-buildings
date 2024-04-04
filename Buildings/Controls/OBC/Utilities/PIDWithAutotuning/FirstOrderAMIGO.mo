@@ -315,7 +315,6 @@ Buildings.Controls.OBC.Utilities.PIDWithInputGains</a>
 and inherits most of its configuration. However, through the parameter
 <code>controllerType</code>, the controller can only be configured as PI or
 PID controller.
-In addition, the output of this block is limited from <i>0</i> to <i>1</i>.
 </p>
 
 <h4>Autotuning Process</h4>
@@ -344,14 +343,14 @@ a request for performing autotuning will be ignored.
 The performance of the autotuning is affected by the parameters, including <code>r</code>, 
 <code>yRef</code>, <code>yLow</code>, and <code>deaBan</code>.
 <br>
-The following procedure can be used for determining those parameters. 
+The following procedure can be used for determining the values of those parameters. 
 </p>
 <ol>
 <li>
 The <code>r</code> should be adjusted so that the input difference of the relay controller, <code>rel.yDif</code>, is within the range from 0 to 1.
 </li>
 <li>
-The <code>yRef</code> should be determined by dividing the set point by the sum of the minimum and the maximum values of the measurement.
+The <code>yRef</code> can be determined by dividing the set point by the sum of the minimum and the maximum values of the measurement.
 </li>
 <li>
 The <code>yLow</code> should be adjusted to realize an asymmetric relay output, 
@@ -359,7 +358,7 @@ i.e., <code>yHig - yRef &ne; yRef - yLow</code>.
 </li>
 <li>
 When determining the <code>deaBan</code>, we first divide the maximum and the minimum deviations of measurement
-from the setpoint by the <code>r</code>.
+from the setpoint by the <code>r</code>, respectively.
 We then calculate the absolute values of the two deviations.
 After, we set the <code>deaBan</code> to be half of the smaller one among those absolute values.
 </li>
