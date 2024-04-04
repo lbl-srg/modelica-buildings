@@ -288,6 +288,10 @@
   openmodelica:
     comment: Translation failed.
     translate: false
+- model_name: Buildings.Templates.Components.Validation.PumpMultipleRecord
+  openmodelica:
+    comment: Translation failed.
+    translate: false
 - model_name: Buildings.Templates.Components.Validation.Pumps
   openmodelica:
     comment: Translation failed.
