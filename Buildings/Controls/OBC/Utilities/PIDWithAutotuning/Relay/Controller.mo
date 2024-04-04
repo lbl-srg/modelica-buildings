@@ -4,11 +4,11 @@ block Controller
   parameter Real r(min=100*Buildings.Controls.OBC.CDL.Constants.eps) = 1
     "Typical range of control error, used for scaling the control error";
   parameter Real yHig(
-    final min=1E-6) = 1
+    final min=1E-6)
     "Higher value for the relay output";
   parameter Real yLow(
     final min=1E-6,
-    final max=yHig) = 0.5
+    final max=yHig)
     "Lower value for the relay output";
   parameter Real deaBan(min=1E-6)
     "Deadband for holding the output value";
