@@ -48,8 +48,8 @@ protected
 This model is composed of a direct controlled energy transfer station model for heating
 <a href=\"modelica://Buildings.DHC.ETS.Heating/Direct\">
 Buildings.DHC.ETS.Heating.Direct</a>
-connected to a simplified building model <a href=\"modelica://Buildings.DHC.Loads.Heating.BaseClasses.BuildingTimeSeries\">
-Buildings.DHC.Loads.Heating.BaseClasses.BuildingTimeSeries</a>
+connected to a simplified building model <a href=\"modelica://Buildings.DHC.Loads.BaseClasses.Examples.BaseClasses.BuildingTimeSeries\">
+Buildings.DHC.Loads.BaseClasses.Examples.BaseClasses.BuildingTimeSeries</a>
 where the space heating loads are provided as time series.
 </p>
 </html>", revisions="<html>
