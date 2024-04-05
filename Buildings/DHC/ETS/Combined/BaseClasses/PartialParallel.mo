@@ -190,7 +190,7 @@ model PartialParallel
         origin={190,-34})));
 protected
   parameter Boolean have_val1Hex=
-    conCon == DHC..Types.ConnectionConfiguration.TwoWayValve
+    conCon == DHC.ETS.Types.ConnectionConfiguration.TwoWayValve
     "True in case of control valve on district side, false in case of a pump";
 equation
   connect(hex.PPum,totPPum.u[1])

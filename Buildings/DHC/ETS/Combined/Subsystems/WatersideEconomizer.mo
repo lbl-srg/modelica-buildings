@@ -4,7 +4,7 @@ model WatersideEconomizer
   extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
     final m1_flow_nominal=abs(Q_flow_nominal/4200/(T_b1_nominal - T_a1_nominal)),
     final m2_flow_nominal=abs(Q_flow_nominal/4200/(T_b2_nominal - T_a2_nominal)));
-  parameter DHC..Types.ConnectionConfiguration conCon
+  parameter DHC.ETS.Types.ConnectionConfiguration conCon
     "District connection configuration" annotation (Evaluate=true);
   parameter Modelica.Units.SI.PressureDifference dp1Hex_nominal(displayUnit=
         "Pa") "Nominal pressure drop across heat exchanger on district side"
@@ -83,7 +83,7 @@ model WatersideEconomizer
     final T_a2_nominal=T_a2_nominal)
     "Heat exchanger" annotation (Placement(
         transformation(extent={{10,10},{-10,-10}}, rotation=180)));
-  DHC..BaseClasses.Pump_m_flow pum1(
+  DHC.ETS.BaseClasses.Pump_m_flow pum1(
     redeclare final package Medium = Medium1,
     final m_flow_nominal=m1_flow_nominal,
     final dp_nominal=dp1Hex_nominal,

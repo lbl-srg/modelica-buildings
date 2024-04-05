@@ -4,7 +4,7 @@ model HeatExchanger
   extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
     final m1_flow_nominal=abs(Q_flow_nominal/4200/(T_b1_nominal - T_a1_nominal)),
     final m2_flow_nominal=abs(Q_flow_nominal/4200/(T_b2_nominal - T_a2_nominal)));
-  parameter DHC..Types.ConnectionConfiguration conCon
+  parameter DHC.ETS.Types.ConnectionConfiguration conCon
     "District connection configuration" annotation (Evaluate=true);
   parameter Modelica.Units.SI.PressureDifference dp1Hex_nominal(displayUnit=
         "Pa") "Nominal pressure drop across heat exchanger on district side"
@@ -82,7 +82,7 @@ model HeatExchanger
         rotation=180,
         origin={0,0})));
 
-  DHC..BaseClasses.Pump_m_flow pum1(
+  DHC.ETS.BaseClasses.Pump_m_flow pum1(
     redeclare final package Medium = Medium1,
     final m_flow_nominal=m1_flow_nominal,
     final dp_nominal=dp1Hex_nominal,
@@ -91,7 +91,7 @@ model HeatExchanger
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-60,80})));
-  DHC..BaseClasses.Pump_m_flow pum2(
+  DHC.ETS.BaseClasses.Pump_m_flow pum2(
     redeclare final package Medium = Medium2,
     final m_flow_nominal=m2_flow_nominal,
     final dp_nominal=dp2Hex_nominal + dpVal2_nominal,
@@ -158,7 +158,7 @@ model HeatExchanger
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={80,-60})));
-  DHC..BaseClasses.Junction spl(
+  DHC.ETS.BaseClasses.Junction spl(
     redeclare final package Medium = Medium2,
     final m_flow_nominal=m2_flow_nominal .* {1,-1,-1})
     "Flow splitter" annotation (Placement(transformation(
@@ -167,7 +167,7 @@ model HeatExchanger
         origin={-60,-60})));
 protected
   parameter Boolean have_val1=
-    conCon == DHC..Types.ConnectionConfiguration.TwoWayValve
+    conCon == DHC.ETS.Types.ConnectionConfiguration.TwoWayValve
     "True in case of control valve on district side, false in case of a pump";
 equation
   if have_val1 then

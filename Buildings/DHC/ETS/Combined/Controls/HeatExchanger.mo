@@ -2,7 +2,7 @@ within Buildings.DHC.ETS.Combined.Controls;
 model HeatExchanger
   "District heat exchanger controller"
   extends Modelica.Blocks.Icons.Block;
-  parameter DHC..Types.ConnectionConfiguration conCon
+  parameter DHC.ETS.Types.ConnectionConfiguration conCon
     "District connection configuration" annotation (Evaluate=true);
   parameter Real spePum1Min(
     final unit="1",
@@ -91,7 +91,7 @@ model HeatExchanger
     annotation (Placement(transformation(extent={{90,10},{110,30}})));
 protected
   parameter Boolean have_val1=conCon ==
-    DHC..Types.ConnectionConfiguration.TwoWayValve
+    DHC.ETS.Types.ConnectionConfiguration.TwoWayValve
     "True in case of control valve on district side, false in case of a pump";
 equation
   connect(swiOff1.y, y1) annotation (Line(points={{182,-60},{200,-60},{200,40},
