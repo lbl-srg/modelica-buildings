@@ -62,3 +62,14 @@ convertClass("Buildings.Airflow.Multizone.BaseClasses.interpolate",
              "Buildings.Utilities.Math.Functions.interpolate");
 convertClass("Buildings.Airflow.Multizone.BaseClasses.Examples.Interpolate",
              "Buildings.Utilities.Math.Functions.Examples.Interpolate");
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3694
+convertClass("Buildings.Experimental.DHC.Networks.Distribution2PipePlugFlow","Buildings.Experimental.DHC.Networks.Distribution2PipePlugFlow_v");
+convertClass("Buildings.Experimental.DHC.Networks.Connection2PipePlugFlow","Buildings.Experimental.DHC.Networks.Connections.Connection2PipePlugFlow_v");
+convertClass("Buildings.Experimental.DHC.Networks.Controls.MainPump","Buildings.Experimental.DHC.Networks.Controls.MainPump1Pipe");
+convertClass("Buildings.Experimental.DHC.Networks.Combined.BaseClasses.PipeAutosize","Buildings.Experimental.DHC.Networks.Pipes.PipeAutosize");
+convertClass("Buildings.Experimental.DHC.Networks.Combined.BaseClasses.PipeStandard","Buildings.Experimental.DHC.Networks.Pipes.PipeStandard");
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3727
+convertClass("Buildings.Experimental.DHC","Buildings.DHC");
+convertClass("Buildings.DHC.EnergyTransferStations","Buildings.DHC.ETS");

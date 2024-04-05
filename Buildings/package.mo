@@ -839,9 +839,10 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">Buildings.DHC.Networks.Connection2PipePlugFlow
     </td>
     <td valign=\"top\"> Moved and renamed <code>Buildings.DHC.Networks.Connection2PipePlugFlow</code>
-    to <a href=\"Modelica://Buildings.DHC.Networks.Connections.Connection2PipePlugFlow_v\">
-    Buildings.DHC.Networks.Connections.Connection2PipePlugFlow_v </a>. Also updated available paremeters
-    for sizing and heatport configuration. This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.
+                     to <a href=\"Modelica://Buildings.DHC.Networks.Connections.Connection2PipePlugFlow_v\">
+                     Buildings.DHC.Networks.Connections.Connection2PipePlugFlow_v </a>. Also updated available paremeters
+                     for sizing and heatport configuration. This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.<br/>
+                     This change is supported in the conversion script.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.DHC.Networks.Distribution2Pipe
@@ -853,9 +854,10 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">Buildings.DHC.Networks.Connection2PipePlugFlow
     </td>
     <td valign=\"top\"> Renamed <code>Buildings.DHC.Networks.Distribution2PipePlugFlow</code>
-    to <a href=\"Modelica://Buildings.DHC.Networks.Distribution2PipePlugFlow_v\">
-    Buildings.DHC.Networks.Distribution2PipePlugFlow_v </a>. Also updated available paremeters
-    for sizing and heatport configuration. This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.
+                     to <a href=\"Modelica://Buildings.DHC.Networks.Distribution2PipePlugFlow_v\">
+                     Buildings.DHC.Networks.Distribution2PipePlugFlow_v </a>. Also updated available paremeters
+                     for sizing and heatport configuration. This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.<br/>
+                     This change is supported in the conversion script.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.DHC.Networks.Controls</b>
@@ -864,9 +866,10 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">Buildings.DHC.Networks.Connection2PipePlugFlow
     </td>
     <td valign=\"top\"> Renamed <code>Buildings.DHC.Networks.Controls.MainPump</code>
-    to <a href=\"Modelica://Buildings.DHC.Networks.Controls.MainPump1Pipe\">
-    Buildings.DHC.Networks.Controls.MainPump1Pipe </a>. Also updated available paremeters
-    and documentation. This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.
+                     to <a href=\"Modelica://Buildings.DHC.Networks.Controls.MainPump1Pipe\">
+                     Buildings.DHC.Networks.Controls.MainPump1Pipe </a>. Also updated available paremeters
+                     and documentation. This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.<br/>
+                     This change is supported in the conversion script.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.DHC.Networks.Combined </b>
@@ -914,25 +917,27 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">Buildings.DHC.Networks.Combined.BaseClasses.PipeAutosize
     </td>
     <td valign=\"top\"> Moved <code>Buildings.DHC.Networks.Combined.BaseClasses.PipeAutosize</code>
-    to <a href=\"Modelica://Buildings.DHC.Networks.Pipes.PipeAutosize\">
-    Buildings.DHC.Networks.Pipes.PipeAutosize</a>.
-    This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.
+                     to <a href=\"Modelica://Buildings.DHC.Networks.Pipes.PipeAutosize\">
+                     Buildings.DHC.Networks.Pipes.PipeAutosize</a>.
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.<br/>
+                     This change is supported in the conversion script.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.DHC.Networks.Combined.BaseClasses.PipeStandard
     </td>
     <td valign=\"top\"> Moved <code>Buildings.DHC.Networks.Combined.BaseClasses.PipeStandard</code>
-    to <a href=\"Modelica://Buildings.DHC.Networks.Pipes.PipeStandard\">
-    Buildings.DHC.Networks.Pipes.PipeStandard</a>.
-    This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.
+                     to <a href=\"Modelica://Buildings.DHC.Networks.Pipes.PipeStandard\">
+                     Buildings.DHC.Networks.Pipes.PipeStandard</a>.
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.<br/>
+                     This change is supported in the conversion script.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.DHC.Networks.Combined.BaseClasses.Validation.Pipe
     </td>
     <td valign=\"top\"> Moved <code>Buildings.DHC.Networks.Combined.BaseClasses.Validation.Pipe</code>
-    to <a href=\"Modelica://Buildings.DHC.Networks.Pipes.Validation.Pipe\">
-    Buildings.DHC.Networks.Pipes.Validation.Pipe</a>.
-    This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.
+                     to <a href=\"Modelica://Buildings.DHC.Networks.Pipes.Validation.Pipe\">
+                     Buildings.DHC.Networks.Pipes.Validation.Pipe</a>.
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.DHC.Examples.Combined.BaseClasses </b>
