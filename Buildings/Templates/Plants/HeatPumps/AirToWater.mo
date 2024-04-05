@@ -644,7 +644,12 @@ equation
 <h4>Description</h4>
 <p>
 This template represents an air-to-water heat pump plant
-with closed-loop controls.
+with closed-loop controls. While the heat pump plant configuration can be changed
+through parameters, a typical configuration is shown in the image below.
+</p>
+<p align=\"center\">
+<img alt=\"Image of heat pump plant\"
+src=\"modelica://Buildings/Resources/Images/Templates/Plants/HeatPumps/AirToWater.png\"/>
 </p>
 <p>
 Only identical heat pumps are currently supported.
