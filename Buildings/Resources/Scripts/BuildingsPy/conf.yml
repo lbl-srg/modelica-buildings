@@ -30,71 +30,6 @@
   openmodelica:
     comment: 'TimeoutExpired: omc timed out after 300 seconds'
     time_out: 600
-- model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepDown.DD
-  openmodelica:
-    comment: simulation terminated by an assertion at initialization.
-    simulate: false
-- model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepDown.YD
-  openmodelica:
-    comment: simulation terminated by an assertion at initialization.
-    simulate: false
-- model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepUp.DD
-  openmodelica:
-    comment: simulation terminated by an assertion at initialization.
-    simulate: false
-- model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepUp.YD
-  openmodelica:
-    comment: simulation terminated by an assertion at initialization.
-    simulate: false
-- model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepDown.DD
-  openmodelica:
-    comment: simulation terminated by an assertion at initialization.
-    simulate: false
-- model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepDown.YD
-  openmodelica:
-    comment: simulation terminated by an assertion at initialization.
-    simulate: false
-- model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepUp.DD
-  openmodelica:
-    comment: simulation terminated by an assertion at initialization.
-    simulate: false
-- model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepUp.YD
-  openmodelica:
-    comment: simulation terminated by an assertion at initialization.
-    simulate: false
-- model_name: Buildings.Electrical.DC.Loads.Examples.LinearizedLoad
-  openmodelica:
-    comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
-    simulate: false
-- model_name: Buildings.Examples.DualFanDualDuct.ClosedLoop
-  optimica:
-    comment: CVode and Radau5ODE hang since https://github.com/lbl-srg/modelica-buildings/pull/3109, likely because Xi rather than mXi is a state
-    simulate: false
-  openmodelica:
-    comment: Timeout after 300 seconds.
-    simulate: false
-- model_name: Buildings.Examples.VAVCO2.VAVSystemCTControl
-  openmodelica:
-    comment: Times out after 900 seconds.
-    time_out: 900
-  optimica:
-    comment: Fails with 'The rootfinding function failed in an unrecoverable manner.' Since oct-r26446
-    simulate: false
-- model_name: Buildings.Examples.VAVReheat.Guideline36
-  openmodelica:
-    comment: Timeout during translation
-    time_out: 600
-  optimica:
-    comment: Timeout on travis
-    time_out: 600
-- model_name: Buildings.Examples.VAVReheat.Validation.Guideline36SteadyState
-  openmodelica:
-    comment: simulation terminated by an assertion at initialization
-    simulate: false
-    time_out: 600
-  optimica:
-    comment: timeout on travis after 300s, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/618700275
-    time_out: 600
 - model_name: Buildings.DHC.EnergyTransferStations.Combined.Validation.ChillerBorefield
   openmodelica:
     comment: Timeout on travis after 900 seconds, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/615261271
@@ -171,6 +106,71 @@
   openmodelica:
     comment: simulation terminated by an assertion at initialization
     simulate: false
+- model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepDown.DD
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization.
+    simulate: false
+- model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepDown.YD
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization.
+    simulate: false
+- model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepUp.DD
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization.
+    simulate: false
+- model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepUp.YD
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization.
+    simulate: false
+- model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepDown.DD
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization.
+    simulate: false
+- model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepDown.YD
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization.
+    simulate: false
+- model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepUp.DD
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization.
+    simulate: false
+- model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepUp.YD
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization.
+    simulate: false
+- model_name: Buildings.Electrical.DC.Loads.Examples.LinearizedLoad
+  openmodelica:
+    comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
+    simulate: false
+- model_name: Buildings.Examples.DualFanDualDuct.ClosedLoop
+  optimica:
+    comment: CVode and Radau5ODE hang since https://github.com/lbl-srg/modelica-buildings/pull/3109, likely because Xi rather than mXi is a state
+    simulate: false
+  openmodelica:
+    comment: Timeout after 300 seconds.
+    simulate: false
+- model_name: Buildings.Examples.VAVCO2.VAVSystemCTControl
+  openmodelica:
+    comment: Times out after 900 seconds.
+    time_out: 900
+  optimica:
+    comment: Fails with 'The rootfinding function failed in an unrecoverable manner.' Since oct-r26446
+    simulate: false
+- model_name: Buildings.Examples.VAVReheat.Guideline36
+  openmodelica:
+    comment: Timeout during translation
+    time_out: 600
+  optimica:
+    comment: Timeout on travis
+    time_out: 600
+- model_name: Buildings.Examples.VAVReheat.Validation.Guideline36SteadyState
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization
+    simulate: false
+    time_out: 600
+  optimica:
+    comment: timeout on travis after 300s, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/618700275
+    time_out: 600
 - model_name: Buildings.Fluid.Examples.FlowSystem.Basic
   openmodelica:
     comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
