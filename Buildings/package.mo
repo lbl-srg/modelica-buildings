@@ -14114,7 +14114,7 @@ particular package.<br/>
    </td>
    <td valign=\"top\">Package with the Control Description Language (CDL) and with control sequences that are implemented using CDL.</td>
 </tr>
-<tr><td valign=\"top\"><a href=\"modelica://Buildings.DHC\">Experimental.DHC</a>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.DHC\">DHC</a>
    </td>
    <td valign=\"top\">Package with models for district heating and cooling systems.</td>
 </tr>
