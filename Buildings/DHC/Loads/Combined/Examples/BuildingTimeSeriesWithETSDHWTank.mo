@@ -31,7 +31,7 @@ model BuildingTimeSeriesWithETSDHWTank
     allowFlowReversalSer=true,
     THotWatSup_nominal=313.15,
     filNam=
-        "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissOffice_20190916.mos",
+        "modelica://Buildings/Resources/Data/DHC/Loads/Examples/SwissOffice_20190916.mos",
     datWatHea=datWatHea) "Building load with time series data"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
 

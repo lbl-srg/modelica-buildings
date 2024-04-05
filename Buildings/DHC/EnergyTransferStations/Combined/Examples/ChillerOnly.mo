@@ -29,7 +29,7 @@ model ChillerOnly
     QHea_flow_nominal=Buildings.DHC.Loads.BaseClasses.getPeakLoad(
       string="#Peak space heating load",
       filNam=Modelica.Utilities.Files.loadResource(filNam)));
-  parameter String filNam="modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/MediumOffice-90.1-2010-5A.mos"
+  parameter String filNam="modelica://Buildings/Resources/Data/DHC/Loads/Examples/MediumOffice-90.1-2010-5A.mos"
     "File name with thermal loads as time series";
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter loaNorHea(
     final k=1/ets.QHeaWat_flow_nominal)

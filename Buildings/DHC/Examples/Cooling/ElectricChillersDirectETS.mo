@@ -46,9 +46,9 @@ model ElectricChillersDirectETS "Example model for district cooling system with
     "Nominal mass flow rate in each connection line";
   // Buildings
   parameter String filNam[nLoa]={
-   Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/MediumOffice-90.1-2010-5A.mos"),
-   Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/MediumOffice-90.1-2010-5A.mos"),
-   Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/MediumOffice-90.1-2010-5A.mos")}
+   Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/DHC/Loads/Examples/MediumOffice-90.1-2010-5A.mos"),
+   Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/DHC/Loads/Examples/MediumOffice-90.1-2010-5A.mos"),
+   Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/DHC/Loads/Examples/MediumOffice-90.1-2010-5A.mos")}
     "Library path of the file with thermal loads as time series"
     annotation (Dialog(group="Buildings"));
   final parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal[nLoa](

@@ -8,7 +8,7 @@ model CouplingTimeSeriesSingleLoop
     "Period for time averaged variables";
   Buildings.DHC.Loads.BaseClasses.Examples.BaseClasses.BuildingTimeSeries buiCoo(
     have_heaWat=false,
-    filNam="modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissResidential_20190916.mos",
+    filNam="modelica://Buildings/Resources/Data/DHC/Loads/Examples/SwissResidential_20190916.mos",
     nPorts_aChiWat=1,
     nPorts_bChiWat=1)
     "Building wint cooling only"
@@ -44,7 +44,7 @@ model CouplingTimeSeriesSingleLoop
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
   Buildings.DHC.Loads.BaseClasses.Examples.BaseClasses.BuildingTimeSeries buiHea(
     have_chiWat=false,
-    filNam="modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissResidential_20190916.mos",
+    filNam="modelica://Buildings/Resources/Data/DHC/Loads/Examples/SwissResidential_20190916.mos",
     nPorts_aChiWat=1,
     nPorts_bChiWat=1,
     nPorts_aHeaWat=1,

@@ -7,7 +7,7 @@ model BuildingTimeSeriesWithETS
     "Medium model";
   Buildings.DHC.Loads.Cooling.BuildingTimeSeriesWithETS buiWitETS(
     filNam=
-      "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/MediumOffice-90.1-2010-5A.mos")
+      "modelica://Buildings/Resources/Data/DHC/Loads/Examples/MediumOffice-90.1-2010-5A.mos")
   "Building Time Series load coupled with ETS"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
   Buildings.Fluid.Sources.Boundary_pT supChiWat(

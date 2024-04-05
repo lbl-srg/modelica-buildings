@@ -14,7 +14,7 @@ model StorageTankWithExternalHeatExchanger
     tableOnFile=true,
     tableName="tab1",
     fileName=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/HotWater/DHW_ApartmentMidRise.mos"),
+        "modelica://Buildings/Resources/Data/DHC/Loads/HotWater/DHW_ApartmentMidRise.mos"),
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     "Domestic hot water fixture draw fraction schedule"

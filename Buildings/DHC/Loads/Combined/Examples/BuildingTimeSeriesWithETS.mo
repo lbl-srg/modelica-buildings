@@ -30,7 +30,7 @@ model BuildingTimeSeriesWithETS
     bui(facMul=10),
     allowFlowReversalSer=true,
     THotWatSup_nominal=322.15,
-    filNam="modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissOffice_20190916.mos")
+    filNam="modelica://Buildings/Resources/Data/DHC/Loads/Examples/SwissOffice_20190916.mos")
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TColWat(k=bui.ets.TColWat_nominal)
     "Cold water temperature"

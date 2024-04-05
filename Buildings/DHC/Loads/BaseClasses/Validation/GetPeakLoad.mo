@@ -5,17 +5,17 @@ model GetPeakLoad
   parameter Modelica.Units.SI.HeatFlowRate QCoo_flow=
       Buildings.DHC.Loads.BaseClasses.getPeakLoad(string=
       "#Peak space cooling load", filNam=Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/BaseClasses/Validation/RefBldgLargeOfficeNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos"))
+      "modelica://Buildings/Resources/Data/DHC/Loads/BaseClasses/Validation/RefBldgLargeOfficeNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos"))
     "Peak heat flow rate";
   parameter Modelica.Units.SI.HeatFlowRate QHea_flow=
       Buildings.DHC.Loads.BaseClasses.getPeakLoad(string=
       "#Peak space heating load", filNam=Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/BaseClasses/Validation/RefBldgLargeOfficeNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos"))
+      "modelica://Buildings/Resources/Data/DHC/Loads/BaseClasses/Validation/RefBldgLargeOfficeNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos"))
     "Peak heat flow rate";
   parameter Modelica.Units.SI.HeatFlowRate QWatHea_flow=
       Buildings.DHC.Loads.BaseClasses.getPeakLoad(string=
       "#Peak water heating load", filNam=Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/BaseClasses/Validation/RefBldgLargeOfficeNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos"))
+      "modelica://Buildings/Resources/Data/DHC/Loads/BaseClasses/Validation/RefBldgLargeOfficeNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos"))
     "Peak water heating flow rate";
 equation
   assert(

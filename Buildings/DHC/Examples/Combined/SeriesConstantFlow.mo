@@ -10,9 +10,9 @@ model SeriesConstantFlow
       epsPla=0.935),
     pumSto(dp_nominal=30000));
   parameter String filNam[nBui]={
-    "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissOffice_20190916.mos",
-    "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissResidential_20190916.mos",
-    "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissHospital_20190916.mos"}
+    "modelica://Buildings/Resources/Data/DHC/Loads/Examples/SwissOffice_20190916.mos",
+    "modelica://Buildings/Resources/Data/DHC/Loads/Examples/SwissResidential_20190916.mos",
+    "modelica://Buildings/Resources/Data/DHC/Loads/Examples/SwissHospital_20190916.mos"}
     "Library paths of the files with thermal loads as time series";
   Modelica.Blocks.Sources.Constant masFloMaiPum(
     k=datDes.mPumDis_flow_nominal)

@@ -10,8 +10,8 @@ model AllElectricCWStorage
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Medium in cooler circuit";
 
-  parameter String filNam[2]={"modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/MediumOffice-90.1-2010-5A.mos",
-                              "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/MediumOffice-90.1-2010-5A.mos"}
+  parameter String filNam[2]={"modelica://Buildings/Resources/Data/DHC/Loads/Examples/MediumOffice-90.1-2010-5A.mos",
+                              "modelica://Buildings/Resources/Data/DHC/Loads/Examples/MediumOffice-90.1-2010-5A.mos"}
     "Path to file with timeseries loads";
   parameter Modelica.Units.SI.Temperature TSetDisSupHea = 273.15+60 "District heating supply temperature set point";
   parameter Modelica.Units.SI.Temperature TSetDisSupCoo = 273.15+6 "District cooling supply temperature set point";

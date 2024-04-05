@@ -6,7 +6,7 @@ model FlowDistributionPumpControl
     "Source side medium";
   package Medium2=Buildings.Media.Air
     "Load side medium";
-  parameter String filNam="modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissResidential_20190916.mos"
+  parameter String filNam="modelica://Buildings/Resources/Data/DHC/Loads/Examples/SwissResidential_20190916.mos"
     "File name with thermal loads as time series";
   parameter Integer nLoa=5
     "Number of served loads"
