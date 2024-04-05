@@ -13888,6 +13888,8 @@ The following people have directly contributed to the implementation of the Buil
 </li>
 <li>Rainer Czetina, University of Applied Sciences Technikum Wien, Austria
 </li>
+<li>Karthikeya Devaprasad, Pacific Northwest National Laboratory, USA
+</li>
 <li>Hagar Elarga, Lawrence Berkeley National Laboratory, USA
 </li>
 <li>Hongxiang \"Casper\" Fu, Lawrence Berkeley National Laboratory, USA
@@ -13921,6 +13923,8 @@ The following people have directly contributed to the implementation of the Buil
 <li>Markus Nurschinger, University of Applied Sciences Technikum Wien, Austria
 </li>
 <li>Xiufeng Pang, Lawrence Berkeley National Laboratory, USA
+</li>
+<li>Remi Patureau, Lawrence Berkeley National Laboratory, USA
 </li>
 <li>Damien Picard, KU Leuven, Belgium
 </li>
