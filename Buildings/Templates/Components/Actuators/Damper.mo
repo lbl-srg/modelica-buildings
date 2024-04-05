@@ -37,6 +37,16 @@ model Damper "Multiple-configuration damper"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",
     enable=use_inputFilter and typ<>Buildings.Templates.Components.Types.Damper.None));
 
+  parameter Boolean from_dp = false
+    "= true, use m_flow = f(dp) else dp = f(m_flow)"
+    annotation (Evaluate=true, Dialog(tab="Advanced",
+    enable=typ<>Buildings.Templates.Components.Types.Damper.None));
+  parameter Boolean linearized = false
+    "= true, use linear relation between m_flow and dp for any flow rate"
+    annotation(Evaluate=true, Dialog(tab="Advanced",
+    enable=typ<>Buildings.Templates.Components.Types.Damper.None and
+    typ<>Buildings.Templates.Components.Types.Damper.PressureIndependent));
+
   parameter Buildings.Templates.Components.Types.DamperBlades typBla=
     if typ==Buildings.Templates.Components.Types.Damper.TwoPosition then
       Buildings.Templates.Components.Types.DamperBlades.Opposed
@@ -75,7 +85,9 @@ model Damper "Multiple-configuration damper"
     final init=init,
     final y_start=y_start,
     final allowFlowReversal=allowFlowReversal,
-    final show_T=show_T)
+    final show_T=show_T,
+    final from_dp=from_dp,
+    final linearized=linearized)
     if typ==Buildings.Templates.Components.Types.Damper.Modulating or
        typ==Buildings.Templates.Components.Types.Damper.TwoPosition
     "Damper with exponential characteristic"
@@ -90,7 +102,8 @@ model Damper "Multiple-configuration damper"
     final init=init,
     final y_start=y_start,
     final allowFlowReversal=allowFlowReversal,
-    final show_T=show_T)
+    final show_T=show_T,
+    final from_dp=from_dp)
     if typ==Buildings.Templates.Components.Types.Damper.PressureIndependent
     "Pressure independent damper"
     annotation (Placement(transformation(extent={{50,-10},{70,10}})));
