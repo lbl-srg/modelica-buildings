@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "conCom.y1[1]",
+    "conCom.y1[2]",
+    "conCom.y1[3]",
+    "conCom.y1One",
+    "conCom.nUniOn",
+    "conCom.nUniOnBou"
+  };

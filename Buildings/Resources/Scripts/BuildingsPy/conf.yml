@@ -280,9 +280,51 @@
   openmodelica:
     comment: Translation failed.
     translate: false
+- model_name: Buildings.Templates.Components.HeatPumps.Validation.HeatPumpEquationFit
+  openmodelica:
+    comment: Translation failed.
+    translate: false
 - model_name: Buildings.Templates.Components.Validation.Fans
   openmodelica:
     comment: Translation failed.
+    translate: false
+- model_name: Buildings.Templates.Components.Validation.PumpMultipleRecord
+  openmodelica:
+    comment: Translation failed.
+    translate: false
+- model_name: Buildings.Templates.Components.Validation.Pumps
+  openmodelica:
+    comment: Translation failed.
+    translate: false
+- model_name: Buildings.Templates.Plants.Controls.HeatPumps.Validation.AirToWater
+  openmodelica:
+    comment: Translation failed.
+    translate: false
+- model_name: Buildings.Templates.Plants.Controls.Pumps.Primary.Validation.VariableSpeedNoDpControl
+  openmodelica:
+    comment: Translation failed.
+    translate: false
+- model_name: Buildings.Templates.Plants.HeatPumps.Components.Validation.HeatPumpGroupAirToWater
+  openmodelica:
+    comment: Translation failed.
+    translate: false
+- model_name: Buildings.Templates.Plants.HeatPumps.Components.Validation.PumpsPrimaryDedicated
+  openmodelica:
+    comment: Translation failed.
+    translate: false
+- model_name: Buildings.Templates.Plants.HeatPumps.Components.Validation.ValvesIsolation
+  openmodelica:
+    comment: Translation failed.
+    translate: false
+  optimica:
+    comment: See https://github.com/lbl-srg/modelica-buildings/issues/3759
+    simulate: false
+- model_name: Buildings.Templates.Plants.HeatPumps.Validation.AirToWater
+  openmodelica:
+    comment: Translation failed.
+    translate: false
+  optimica:
+    comment: See https://github.com/lbl-srg/modelica-buildings/issues/3759
     translate: false
 - model_name: Buildings.Templates.ZoneEquipment.Validation.VAVBoxCoolingOnly
   openmodelica:

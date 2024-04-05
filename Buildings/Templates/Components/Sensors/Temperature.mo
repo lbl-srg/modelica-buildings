@@ -11,13 +11,11 @@ model Temperature "Temperature sensor"
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem(
     redeclare final package Medium=Medium,
-    final m_flow_nominal=m_flow_nominal,
-    final allowFlowReversal=allowFlowReversal) if have_sen
+    final m_flow_nominal=m_flow_nominal) if have_sen
     "Temperature sensor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Templates.Components.Routing.PassThroughFluid pas(
-    redeclare final package Medium = Medium,
-    final allowFlowReversal=allowFlowReversal) if not have_sen "Pass through"
+  Buildings.Templates.Components.Routing.PassThroughFluid pas(redeclare final
+      package Medium = Medium) if not have_sen "Pass through"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 equation
 
@@ -45,12 +43,12 @@ equation
       Bitmap(extent={{-100,-160},{100,40}},
         visible=have_sen and typ==Buildings.Templates.Components.Types.SensorTemperature.Averaging,
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/ProbeAveraging.svg"),
-      Bitmap(extent={{-100,-160},{100,40}},
-        visible=have_sen and typ==Buildings.Templates.Components.Types.SensorTemperature.Standard,
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/ProbeStandard.svg"),
       Bitmap(extent={{-100,-40},{100,160}},
         visible=have_sen and typ==Buildings.Templates.Components.Types.SensorTemperature.InWell,
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/ProbeInWell.svg")}),
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/ProbeInWell.svg"),
+      Bitmap(extent={{-100,-160},{100,40}},
+        visible=have_sen and typ==Buildings.Templates.Components.Types.SensorTemperature.Standard,
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/ProbeStandard.svg")}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
