@@ -50,7 +50,6 @@ convertClass("Buildings.Controls.OBC.CDL.Logical.ZeroCrossing",
 convertClass("Buildings.Controls.OBC.CDL.Reals.Sources.ModelTime",
              "Buildings.Controls.OBC.CDL.Reals.Sources.CivilTime");
 
-// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/xxxx
 convertClass("Buildings.Experimental.DHC.Plants.Reservoir.BoreField",
              "Buildings.DHC.ETS.Combined.Subsystems.Borefield");
 
