@@ -208,7 +208,7 @@ partial model PartialBuildingWithPartialETS
     final allowFlowReversal=allowFlowReversalBui)
     "Building model "
     annotation (Placement(transformation(extent={{-30,8},{30,68}})));
-  replaceable Buildings.DHC.EnergyTransferStations.BaseClasses.PartialETS ets(
+  replaceable Buildings.DHC.ETS.BaseClasses.PartialETS ets(
     redeclare final package MediumBui=MediumBui,
     redeclare final package MediumSer=MediumSer,
     redeclare final package MediumSerHea_a=MediumSerHea_a,
@@ -564,8 +564,8 @@ Partial model to be used for modeling
 <li>
 an energy transfer station and the optional in-building primary systems,
 based on a model extending
-<a href=\"modelica://Buildings.DHC.EnergyTransferStations.BaseClasses.PartialETS\">
-Buildings.DHC.EnergyTransferStations.BaseClasses.PartialETS</a>, and
+<a href=\"modelica://Buildings.DHC.ETS.BaseClasses.PartialETS\">
+Buildings.DHC.ETS.BaseClasses.PartialETS</a>, and
 </li>
 <li>
 the served building, based on a model extending

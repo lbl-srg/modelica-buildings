@@ -2,7 +2,7 @@ within Buildings.DHC.Loads.BaseClasses.Validation.BaseClasses;
 model ETS
   "Dummy ETS model for validation purposes"
   extends
-    Buildings.DHC.EnergyTransferStations.BaseClasses.PartialETS;
+    Buildings.DHC.ETS.BaseClasses.PartialETS;
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Nominal mass flow rate";
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant souPHea(
@@ -100,8 +100,8 @@ equation
     Documentation(info="<html>
 <p>
 This is a minimum example of a class extending
-<a href=\"modelica://Buildings.DHC.EnergyTransferStations.BaseClasses.PartialETS\">
-Buildings.DHC.EnergyTransferStations.BaseClasses.PartialETS</a>
+<a href=\"modelica://Buildings.DHC.ETS.BaseClasses.PartialETS\">
+Buildings.DHC.ETS.BaseClasses.PartialETS</a>
 developed for testing purposes only.
 </p>
 </html>", revisions="<html>

@@ -25,7 +25,7 @@ model Connection1PipeExample
     nPorts=1) annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Modelica.Blocks.Sources.Constant mDis_flow_nominal_exp(k=mDis_flow_nominal)
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Buildings.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumDisPipe_R(
+  Buildings.DHC.ETS.BaseClasses.Pump_m_flow pumDisPipe_R(
     dp_nominal=100000,
     redeclare final package Medium = MediumW,
     m_flow_nominal=mDis_flow_nominal) "Distribution network pump" annotation (
@@ -34,7 +34,7 @@ model Connection1PipeExample
         rotation=180,
         origin={32,16})));
 
-  Buildings.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumConPipe_R(
+  Buildings.DHC.ETS.BaseClasses.Pump_m_flow pumConPipe_R(
     dp_nominal=5000,
     redeclare final package Medium = MediumW,
     m_flow_nominal=mDis_flow_nominal) "Agent connection pump" annotation (
@@ -56,7 +56,7 @@ model Connection1PipeExample
     p=300000,
     nPorts=1)
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
-  Buildings.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumDisPlugFlow(
+  Buildings.DHC.ETS.BaseClasses.Pump_m_flow pumDisPlugFlow(
     dp_nominal=100000,
     redeclare final package Medium = MediumW,
     m_flow_nominal = mDis_flow_nominal) "Distribution network pump" annotation (
@@ -64,7 +64,7 @@ model Connection1PipeExample
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={32,-80})));
-  Buildings.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumConPlugFlow(
+  Buildings.DHC.ETS.BaseClasses.Pump_m_flow pumConPlugFlow(
     dp_nominal=5000,
     redeclare final package Medium = MediumW,
     m_flow_nominal=mDis_flow_nominal) "Agent connection pump" annotation (

@@ -74,7 +74,7 @@ block DirectHeatRecovery
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator rep(
     final nout=nChiHea) "Replicate"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
-  EnergyTransferStations.Combined.Controls.PIDWithEnable ctl[nChiHea](
+  ETS.Combined.Controls.PIDWithEnable ctl[nChiHea](
     each final k=k,
     each final Ti=Ti,
     each final reverseActing=false,

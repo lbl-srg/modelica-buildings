@@ -182,12 +182,12 @@ block CoolingTowerLoop "Cooling tower loop control"
   Buildings.Controls.OBC.CDL.Reals.AddParameter addApp(final p=
         dTHexCoo_nominal) "Add HX approach"
     annotation (Placement(transformation(extent={{-40,-210},{-20,-190}})));
-  EnergyTransferStations.Combined.Controls.PIDWithEnable ctlPum1(
+  ETS.Combined.Controls.PIDWithEnable ctlPum1(
     k=0.01,
     Ti=60,
     final reverseActing=false) "Pump control loop #1"
     annotation (Placement(transformation(extent={{-10,-210},{10,-190}})));
-  EnergyTransferStations.Combined.Controls.PIDWithEnable ctlPum2(
+  ETS.Combined.Controls.PIDWithEnable ctlPum2(
     k=0.01,
     Ti=60,
     final reverseActing=false)
@@ -221,7 +221,7 @@ block CoolingTowerLoop "Cooling tower loop control"
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant yFan[2](final k={0.7,1.0})
     "y-value for maximum fan speed reset"
     annotation (Placement(transformation(extent={{30,120},{50,140}})));
-  EnergyTransferStations.Combined.Controls.PIDWithEnable ctlFan(
+  ETS.Combined.Controls.PIDWithEnable ctlFan(
     k=0.05,
     Ti=60,
     final reverseActing=false) "Fan control loop"

@@ -4,7 +4,7 @@ model PartialBuildingWithETS
   extends
     Buildings.DHC.Loads.BaseClasses.PartialBuildingWithPartialETS(
       nPorts_heaWat=1,
-      redeclare Buildings.DHC.EnergyTransferStations.Heating.Direct ets(
+      redeclare Buildings.DHC.ETS.Heating.Direct ets(
       final mBui_flow_nominal=mBui_flow_nominal,
       final controllerType=controllerType,
       final k=k,
@@ -62,8 +62,8 @@ equation
   annotation (Documentation(info="<html>
 <p>
 This model is composed of a direct controlled energy transfer station model for cooling
-<a href=\"modelica://Buildings.DHC.EnergyTransferStations.Cooling.Direct\">
-Buildings.DHC.EnergyTransferStations.Cooling.Direct</a>
+<a href=\"modelica://Buildings.DHC.ETS.Cooling.Direct\">
+Buildings.DHC.ETS.Cooling.Direct</a>
 connected to a repleacable building load model.
 </p>
 </html>", revisions="<html>

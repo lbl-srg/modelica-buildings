@@ -113,8 +113,8 @@ equation
     Documentation(info="<html>
 <p>
 This model is composed of a heat pump based energy transfer station model
-<a href=\"modelica://Buildings.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger\">
-Buildings.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger</a>
+<a href=\"modelica://Buildings.DHC.ETS.Combined.HeatPumpHeatExchanger\">
+Buildings.DHC.ETS.Combined.HeatPumpHeatExchanger</a>
 connected to a repleacable building load model.
 </p>
 </html>", revisions="<html>

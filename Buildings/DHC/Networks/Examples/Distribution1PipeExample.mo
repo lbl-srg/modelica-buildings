@@ -158,7 +158,7 @@ model Distribution1PipeExample
         extent={{-11,10},{11,-10}},
         rotation=0,
         origin={41,-100})));
-  Buildings.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumConAutoSize[nLoa](
+  Buildings.DHC.ETS.BaseClasses.Pump_m_flow pumConAutoSize[nLoa](
     each dp_nominal=5000,
     redeclare final package Medium = Medium1,
     each m_flow_nominal=mLoaHea_flow_nominal) "Distribution network pump"
@@ -172,7 +172,7 @@ model Distribution1PipeExample
   Modelica.Blocks.Sources.RealExpression mFlowConAutosize(
   y=terAutoSize[1].val.y_actual*mLoaHea_flow_nominal)
     annotation (Placement(transformation(extent={{120,50},{100,70}})));
-  Buildings.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumConPlugFlow[nLoa](
+  Buildings.DHC.ETS.BaseClasses.Pump_m_flow pumConPlugFlow[nLoa](
     each dp_nominal=5000,
     redeclare final package Medium = Medium1,
     each m_flow_nominal=mLoaHea_flow_nominal) "Distribution network pump"

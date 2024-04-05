@@ -218,8 +218,8 @@ https://www.ashrae.org/technical-resources/aedgs/zero-energy-aedg-free-download<
 </p>
 <p>
 For a model that connects this hot water system to a heat pump, see
-<a href=\"modelica://Buildings.DHC.EnergyTransferStations.Combined.Subsystems.HeatPumpDHWTank\">
-Buildings.DHC.EnergyTransferStations.Combined.Subsystems.HeatPumpDHWTank</a>.
+<a href=\"modelica://Buildings.DHC.ETS.Combined.Subsystems.HeatPumpDHWTank\">
+Buildings.DHC.ETS.Combined.Subsystems.HeatPumpDHWTank</a>.
 </p>
 </html>", revisions="<html>
 <ul>

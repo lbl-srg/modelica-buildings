@@ -16,7 +16,7 @@ block Controller "Plant controller"
     final m_flow_nominal=mChiWat_flow_nominal)
     "CHW pump staging"
     annotation (Placement(transformation(extent={{120,230},{140,250}})));
-  EnergyTransferStations.Combined.Controls.PIDWithEnable pumChiWat(
+  ETS.Combined.Controls.PIDWithEnable pumChiWat(
     k=0.1,
     Ti=60,
     r=dpChiWatSet_max,
@@ -24,7 +24,7 @@ block Controller "Plant controller"
     y_neutral=0)
     "Pump speed controller"
     annotation (Placement(transformation(extent={{190,230},{210,250}})));
-  EnergyTransferStations.Combined.Controls.PIDWithEnable pumHeaWat(
+  ETS.Combined.Controls.PIDWithEnable pumHeaWat(
     k=0.1,
     Ti=60,
     r=dpHeaWatSet_max,
@@ -42,7 +42,7 @@ block Controller "Plant controller"
     final m_flow_nominal=mConWatCon_flow_nominal)
     "CW pump staging"
     annotation (Placement(transformation(extent={{120,-130},{140,-110}})));
-  EnergyTransferStations.Combined.Controls.PIDWithEnable pumConWatCon(
+  ETS.Combined.Controls.PIDWithEnable pumConWatCon(
     k=0.1,
     Ti=60,
     final r=dpConWatConSet_max,
@@ -50,7 +50,7 @@ block Controller "Plant controller"
     y_neutral=0)
     "Pump speed controller"
     annotation (Placement(transformation(extent={{190,-130},{210,-110}})));
-  EnergyTransferStations.Combined.Controls.PIDWithEnable pumConWatEva(
+  ETS.Combined.Controls.PIDWithEnable pumConWatEva(
     k=0.1,
     Ti=60,
     final r=dpConWatEvaSet_max,

@@ -11,7 +11,7 @@ model BuildingTimeSeriesWithETSWithDHWTank
       T_aChiWat_nominal=ets.TChiWatSup_nominal,
       T_bChiWat_nominal=ets.TChiWatRet_nominal),
     redeclare
-      Buildings.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchangerDHWTank
+      Buildings.DHC.ETS.Combined.HeatPumpHeatExchangerDHWTank
       ets(
       final dT_nominal=dT_nominal,
       final TDisWatMin=TDisWatMin,
@@ -117,8 +117,8 @@ This model is the same as
 Buildings.DHC.Loads.Combined.BuildingTimeSeriesWithETS</a>
 except that it implements an ETS that uses a heat pump with hot water
 storage tank for production of domestic hot water.  That ETS model is
-<a href=\"modelica://Buildings.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchangerDHWTank\">
-Buildings.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchangerDHWTank</a>.
+<a href=\"modelica://Buildings.DHC.ETS.Combined.HeatPumpHeatExchangerDHWTank\">
+Buildings.DHC.ETS.Combined.HeatPumpHeatExchangerDHWTank</a>.
 </p>
 </html>", revisions="<html>
 <ul>

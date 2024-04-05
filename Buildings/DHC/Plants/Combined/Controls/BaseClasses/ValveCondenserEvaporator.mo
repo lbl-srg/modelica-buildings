@@ -322,7 +322,7 @@ block ValveCondenserEvaporator
         "1") "HW minimum flow bypass valve control signal" annotation (
       Placement(transformation(extent={{240,400},{280,440}}),
         iconTransformation(extent={{100,40},{140,80}})));
-  EnergyTransferStations.Combined.Controls.PIDWithEnable valEvaChi[nChi](
+  ETS.Combined.Controls.PIDWithEnable valEvaChi[nChi](
     each k=k,
     each Ti=Ti,
     each final yMin=yMin,
@@ -332,7 +332,7 @@ block ValveCondenserEvaporator
     each final y_neutral=y_neutral)
     "Chiller evaporator isolation valve control when HRC in direct HR"
     annotation (Placement(transformation(extent={{-110,390},{-90,410}})));
-  EnergyTransferStations.Combined.Controls.PIDWithEnable valConChi[nChi](
+  ETS.Combined.Controls.PIDWithEnable valConChi[nChi](
     each k=k,
     each Ti=Ti,
     each final yMin=yMin,
@@ -341,7 +341,7 @@ block ValveCondenserEvaporator
     each final y_reset=y_reset,
     each final y_neutral=y_neutral) "Chiller condenser isolation valve control"
     annotation (Placement(transformation(extent={{70,350},{90,370}})));
-  EnergyTransferStations.Combined.Controls.PIDWithEnable valEvaChiHea[nChiHea](
+  ETS.Combined.Controls.PIDWithEnable valEvaChiHea[nChiHea](
     each k=4*k,
     each Ti=Ti/3,
     each final yMin=yMin,
@@ -350,7 +350,7 @@ block ValveCondenserEvaporator
     each final y_reset=y_reset,
     each final y_neutral=y_neutral) "HRC evaporator isolation valve control"
     annotation (Placement(transformation(extent={{-130,-10},{-110,10}})));
-  EnergyTransferStations.Combined.Controls.PIDWithEnable valConChiHea[nChiHea](
+  ETS.Combined.Controls.PIDWithEnable valConChiHea[nChiHea](
     each k=k,
     each Ti=Ti,
     each final yMin=yMin,
@@ -540,7 +540,7 @@ block ValveCondenserEvaporator
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-130,-380})));
-  EnergyTransferStations.Combined.Controls.PIDWithEnable valConSwi(
+  ETS.Combined.Controls.PIDWithEnable valConSwi(
     u_s(unit="K", displayUnit="degC"),
     u_m(unit="K", displayUnit="degC"),
     k=k,
@@ -591,7 +591,7 @@ block ValveCondenserEvaporator
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-70,-360})));
-  EnergyTransferStations.Combined.Controls.PIDWithEnable ctlTConWatEvaLvg[nChiHea](
+  ETS.Combined.Controls.PIDWithEnable ctlTConWatEvaLvg[nChiHea](
     u_s(each final unit="K", each displayUnit="degC"),
     u_m(each final unit="K", each displayUnit="degC"),
     each final k=k/2,
@@ -639,7 +639,7 @@ block ValveCondenserEvaporator
   Buildings.Controls.OBC.CDL.Reals.Switch selFloSet[nChiHea]
     "Select HRC evaporator flow setpoint based on operating mode"
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
-  EnergyTransferStations.Combined.Controls.PIDWithEnable ctlTConWatEvaEnt(
+  ETS.Combined.Controls.PIDWithEnable ctlTConWatEvaEnt(
     u_s(final unit="K", displayUnit="degC"),
     u_m(final unit="K", displayUnit="degC"),
     k=k,
@@ -678,7 +678,7 @@ block ValveCondenserEvaporator
   Buildings.Controls.OBC.CDL.Routing.RealExtractor TConWatConRetSet(final nin=2)
     "Extract value at given index"
     annotation (Placement(transformation(extent={{-170,90},{-150,110}})));
-  EnergyTransferStations.Combined.Controls.PIDWithEnable ctlTConWatConRet(
+  ETS.Combined.Controls.PIDWithEnable ctlTConWatConRet(
     u_s(final unit="K", displayUnit="degC"),
     u_m(final unit="K", displayUnit="degC"),
     k=k,
@@ -718,7 +718,7 @@ block ValveCondenserEvaporator
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={30,-40})));
-  EnergyTransferStations.Combined.Controls.PIDWithEnable ctlTConLvgChi[nChi +
+  ETS.Combined.Controls.PIDWithEnable ctlTConLvgChi[nChi +
     nChiHea](
     u_s(each final unit="K", each displayUnit="degC"),
     u_m(each final unit="K", each displayUnit="degC"),
@@ -762,7 +762,7 @@ block ValveCondenserEvaporator
   Buildings.Controls.OBC.CDL.Reals.Switch swiFloSet1[nChi + nChiHea]
     "Switch condenser flow setpoint based on condenser loop operating mode"
     annotation (Placement(transformation(extent={{-10,230},{10,250}})));
-  EnergyTransferStations.Combined.Controls.PIDWithEnable valChiWatMinByp[nChi +
+  ETS.Combined.Controls.PIDWithEnable valChiWatMinByp[nChi +
     nChiHea](
     each k=0.01,
     each Ti=Ti,
@@ -772,7 +772,7 @@ block ValveCondenserEvaporator
     each final y_reset=0,
     each final y_neutral=0) "CHW minimum flow bypass valve control"
     annotation (Placement(transformation(extent={{144,450},{164,470}})));
-  EnergyTransferStations.Combined.Controls.PIDWithEnable valHeaWatMinByp[nChiHea](
+  ETS.Combined.Controls.PIDWithEnable valHeaWatMinByp[nChiHea](
     each k=0.01,
     each Ti=Ti,
     each final yMin=0,

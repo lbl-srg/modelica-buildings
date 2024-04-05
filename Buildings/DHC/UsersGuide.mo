@@ -32,8 +32,8 @@ contains system models which may be used as examples or templates.
 <th>Description</th>
 </tr>
 <tr>
-  <td><a href=\"modelica://Buildings.DHC.EnergyTransferStations\">
-      Buildings.DHC.EnergyTransferStations</a></td>
+  <td><a href=\"modelica://Buildings.DHC.ETS\">
+      Buildings.DHC.ETS</a></td>
   <td>Connection point between a building and district network which contains
       physical components such as heat exchangers, heat pumps, pipes, valves,
       sensors, and pumps, as well as control logic based on flow rate,
@@ -119,26 +119,26 @@ documentation of the model and subpackages for further modeling and implementati
     </td>
 </tr>
 <tr><td colspan=\"3\">
-    <a href=\"modelica://Buildings.DHC.EnergyTransferStations\">
-    Buildings.DHC.EnergyTransferStations</a>
+    <a href=\"modelica://Buildings.DHC.ETS\">
+    Buildings.DHC.ETS</a>
     </td>
 </tr>
 <tr><td valign=\"top\" rowspan=\"3\">Combined
     </td>
     <td valign=\"top\">
-    <a href=\"modelica://Buildings.DHC.EnergyTransferStations.Combined.ChillerBorefield\">ChillerBorefield</a>
+    <a href=\"modelica://Buildings.DHC.ETS.Combined.ChillerBorefield\">ChillerBorefield</a>
     </td>
     <td valign=\"top\">ETS with heat recovery chiller and optional borefield.
     </td>
 </tr>
 <tr><td valign=\"top\">
-    <a href=\"modelica://Buildings.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger\">HeatPumpHeatExchanger</a>
+    <a href=\"modelica://Buildings.DHC.ETS.Combined.HeatPumpHeatExchanger\">HeatPumpHeatExchanger</a>
     </td>
     <td valign=\"top\">ETS with heat pump for heating, heat pump for domestic hot water, and compressor-less cooling by heat exchanger.
     </td>
 </tr>
 <tr><td valign=\"top\">
-    <a href=\"modelica://Buildings.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchangerDHWTank\">
+    <a href=\"modelica://Buildings.DHC.ETS.Combined.HeatPumpHeatExchangerDHWTank\">
     HeatPumpHeatExchangerDHWTank</a>
     </td>
     <td valign=\"top\">
@@ -148,12 +148,12 @@ documentation of the model and subpackages for further modeling and implementati
 </tr>
 <tr><td valign=\"top\" rowspan=\"2\">Cooling
     </td>
-    <td valign=\"top\"><a href=\"modelica://Buildings.DHC.EnergyTransferStations.Cooling.Direct\">Direct</a>
+    <td valign=\"top\"><a href=\"modelica://Buildings.DHC.ETS.Cooling.Direct\">Direct</a>
     </td>
     <td valign=\"top\">ETS with direct connection and district return water temperature control. In-building pumping not modeled.
     </td>
 </tr>
-<tr><td valign=\"top\"><a href=\"modelica://Buildings.DHC.EnergyTransferStations.Cooling.Indirect\">Indirect</a>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.DHC.ETS.Cooling.Indirect\">Indirect</a>
     </td>
     <td valign=\"top\">ETS with indirect connection with heat exchanger and building supply water temperature control.
     In-building pumping not modeled.
@@ -161,12 +161,12 @@ documentation of the model and subpackages for further modeling and implementati
 </tr>
 <tr><td valign=\"top\" rowspan=\"2\">Heating
     </td>
-    <td valign=\"top\"><a href=\"modelica://Buildings.DHC.EnergyTransferStations.Heating.Direct\">Direct</a>
+    <td valign=\"top\"><a href=\"modelica://Buildings.DHC.ETS.Heating.Direct\">Direct</a>
     </td>
     <td valign=\"top\">ETS with direct connection and district return water temperature control. In-building pumping not modeled.
     </td>
 </tr>
-<tr><td valign=\"top\"><a href=\"modelica://Buildings.DHC.EnergyTransferStations.Heating.Indirect\">Indirect</a>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.DHC.ETS.Heating.Indirect\">Indirect</a>
     </td>
     <td valign=\"top\">ETS with indirect connection with heat exchanger and building supply water temperature control.
     In-building pumping not modeled.

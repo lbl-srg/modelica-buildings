@@ -33,7 +33,7 @@ partial model PartialSeries "Partial model for series network"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-130,-80})));
-  Buildings.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumDis(
+  Buildings.DHC.ETS.BaseClasses.Pump_m_flow pumDis(
     redeclare final package Medium = Medium,
     final m_flow_nominal=datDes.mPumDis_flow_nominal,
     final allowFlowReversal=allowFlowReversalSer,
@@ -50,7 +50,7 @@ partial model PartialSeries "Partial model for series network"
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={112,-98})));
-  Buildings.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumSto(
+  Buildings.DHC.ETS.BaseClasses.Pump_m_flow pumSto(
     redeclare final package Medium = Medium,
     m_flow_nominal=datDes.mSto_flow_nominal)
     "Bore field pump"

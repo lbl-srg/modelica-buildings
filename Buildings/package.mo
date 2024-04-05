@@ -275,10 +275,10 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>Buildings.DHC.EnergyTransferStations.Combined</b>
+<tr><td colspan=\"2\"><b>Buildings.DHC.ETS.Combined</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.DHC.EnergyTransferStations.Combined.BaseClasses.PartialHeatPumpHeatExchanger
+<tr><td valign=\"top\">Buildings.DHC.ETS.Combined.BaseClasses.PartialHeatPumpHeatExchanger
     </td>
     <td valign=\"top\">Created partial base class to support two versions of the
                        energy transfer station.  One that heats domestic hot
@@ -288,17 +288,17 @@ to <b style=\"color:blue\">existing</b> libraries:
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3063\">issue 3063</a>.
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchangerDHWTank
+<tr><td valign=\"top\">Buildings.DHC.ETS.Combined.HeatPumpHeatExchangerDHWTank
     </td>
     <td valign=\"top\">Version of
-                       <a href=\"Modelica://Buildings.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger\">
-                       Buildings.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger</a>
+                       <a href=\"Modelica://Buildings.DHC.ETS.Combined.HeatPumpHeatExchanger\">
+                       Buildings.DHC.ETS.Combined.HeatPumpHeatExchanger</a>
                        that heats domestic hot water with a heat pump plus storage tank and heat exchanger.
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3063\">issue 3063</a>.
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.DHC.EnergyTransferStations.Combined.Subsystems.BaseClasses.PartialHeatPump
+<tr><td valign=\"top\">Buildings.DHC.ETS.Combined.Subsystems.BaseClasses.PartialHeatPump
     </td>
     <td valign=\"top\">Partial base class to support two versions of heat pump subsystem.
                        One which directly heats water through condenser, and
@@ -308,7 +308,7 @@ to <b style=\"color:blue\">existing</b> libraries:
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3063\">issue 3063</a>.
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.DHC.EnergyTransferStations.Combined.Subsystems.HeatPumpDHWTank
+<tr><td valign=\"top\">Buildings.DHC.ETS.Combined.Subsystems.HeatPumpDHWTank
     </td>
     <td valign=\"top\">Uses a heat pump to heat water in a storage tank,
                        which can be circulated to heat domestic hot water through a heat exchanger,
@@ -323,8 +323,8 @@ to <b style=\"color:blue\">existing</b> libraries:
     </td>
     <td valign=\"top\">Similar to <a href=\"Modelica://Buildings.DHC.Loads.Combined.BuildingTimeSeriesWithETS\">
                        Buildings.DHC.Loads.Combined.BuildingTimeSeriesWithETS</a>,
-                       but uses <a href=\"Modelica://Buildings.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchangerDHWTank\">
-                       Buildings.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchangerDHWTank</a>
+                       but uses <a href=\"Modelica://Buildings.DHC.ETS.Combined.HeatPumpHeatExchangerDHWTank\">
+                       Buildings.DHC.ETS.Combined.HeatPumpHeatExchangerDHWTank</a>
                        as the ETS.
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3063\">issue 3063</a>.
@@ -507,17 +507,17 @@ have been <b style=\"color:blue\">improved</b> in a
                      This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1781\">IBPSA, #1781</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.DHC.EnergyTransferStations.Heating</b>
+<tr><td colspan=\"2\"><b>Buildings.DHC.ETS.Heating</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.DHC.EnergyTransferStations.Heating.Direct
+<tr><td valign=\"top\">Buildings.DHC.ETS.Heating.Direct
     </td>
     <td valign=\"top\">Documentation corrected for heating.
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3628\">issue 3628</a>.
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.DHC.EnergyTransferStations.Heating.Indirect
+<tr><td valign=\"top\">Buildings.DHC.ETS.Heating.Indirect
     </td>
     <td valign=\"top\">Documentation corrected for heating.
                        This is for
@@ -582,10 +582,10 @@ have been <b style=\"color:blue\">improved</b> in a
                      This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1744\">IBPSA, #1744</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.DHC.EnergyTransferStations.BaseClasses  </b>
+<tr><td colspan=\"2\"><b>Buildings.DHC.ETS.BaseClasses  </b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow
+<tr><td valign=\"top\">Buildings.DHC.ETS.BaseClasses.Pump_m_flow
     </td>
     <td valign=\"top\"> Updated pump model to use
     to <a href=\"Modelica://Buildings.Fluid.Movers.Preconfigured.FlowControlled_m_flow\">
@@ -594,16 +594,16 @@ have been <b style=\"color:blue\">improved</b> in a
     <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.DHC.EnergyTransferStations.Combined.BaseClasses.PartialHeatPumpHeatExchanger
+<tr><td valign=\"top\">Buildings.DHC.ETS.Combined.BaseClasses.PartialHeatPumpHeatExchanger
     </td>
     <td valign=\"top\"> Reduced <code>swiFlo.dpValve_nominal</code> to numerically zero to avoid reverse flow. This is for
     <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.DHC.EnergyTransferStations.Combined.Subsystems.BaseClasses  </b>
+<tr><td colspan=\"2\"><b>Buildings.DHC.ETS.Combined.Subsystems.BaseClasses  </b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.DHC.EnergyTransferStations.Combined.Subsystems.BaseClasses.PartialHeatPump
+<tr><td valign=\"top\">Buildings.DHC.ETS.Combined.Subsystems.BaseClasses.PartialHeatPump
     </td>
     <td valign=\"top\"> Converted heat pump model to dynamic by changing <code>heaPum.energyDynamics</code> to
     <code>Modelica.Fluid.Types.Dynamics.FixedInitial</code> and added junction on recirculation loop. This is for
@@ -685,52 +685,60 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.DHC</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.DHC.EnergyTransferStations.BaseClasses.PartialDirect
+<tr><td valign=\"top\">Buildings.Experimental.DHC
+    </td>
+    <td valign=\"top\">The package was renamed to <code>Buildings.DHC</code>,
+                       and the package <code>DHC.EnergyTransferStations</code> was renamed to
+                       <code>DHC.ETS</code>.<br/>
+                       This change is supported in the conversion script.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.DHC.ETS.BaseClasses.PartialDirect
     </td>
     <td valign=\"top\">Change input <code>TSetDisRet</code> to <code>TDisRetSet</code>.
     </td>
 </tr>
-    <tr><td valign=\"top\">Buildings.DHC.EnergyTransferStations.BaseClasses.PartialIndirect
+    <tr><td valign=\"top\">Buildings.DHC.ETS.BaseClasses.PartialIndirect
     </td>
     <td valign=\"top\">Change input <code>TSetBuiSup</code> to <code>TBuiSupSet</code>.
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger
+<tr><td valign=\"top\">Buildings.DHC.ETS.Combined.HeatPumpHeatExchanger
     </td>
     <td valign=\"top\">Extend from new partial base class
-                       <a href=\"Modelica://Buildings.DHC.EnergyTransferStations.Combined.BaseClasses.PartialHeatPumpHeatExchanger\">
-                       Buildings.DHC.EnergyTransferStations.Combined.BaseClasses.PartialHeatPumpHeatExchanger</a>.
+                       <a href=\"Modelica://Buildings.DHC.ETS.Combined.BaseClasses.PartialHeatPumpHeatExchanger\">
+                       Buildings.DHC.ETS.Combined.BaseClasses.PartialHeatPumpHeatExchanger</a>.
                        Evaporator water flow through space heating and domestic how water heat
                        pumps is constant, with dT across district supply and return controlled by three-way mixing valve.
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3063\">issue 3063</a>.
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump
+<tr><td valign=\"top\">Buildings.DHC.ETS.Combined.Subsystems.HeatPump
     </td>
     <td valign=\"top\">Extend from new partial base class
-                       <a href=\"Modelica://Buildings.DHC.EnergyTransferStations.Combined.Subsystems.BaseClasses.PartialHeatPump\">
-                       Buildings.DHC.EnergyTransferStations.Combined.Subsystems.BaseClasses.PartialHeatPump</a>.
+                       <a href=\"Modelica://Buildings.DHC.ETS.Combined.Subsystems.BaseClasses.PartialHeatPump\">
+                       Buildings.DHC.ETS.Combined.Subsystems.BaseClasses.PartialHeatPump</a>.
                        Evaporator water flow through heat pump
                        is constant, with dT across district supply and return controlled by three-way mixing valve.
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3063\">issue 3063</a>.
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.DHC.EnergyTransferStations.Combined.Subsystems.Validation.HeatPump
+<tr><td valign=\"top\">Buildings.DHC.ETS.Combined.Subsystems.Validation.HeatPump
     </td>
     <td valign=\"top\">Validation test for
-                       <a href=\"Modelica://Buildings.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump\">
-                       Buildings.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump</a>.
+                       <a href=\"Modelica://Buildings.DHC.ETS.Combined.Subsystems.HeatPump\">
+                       Buildings.DHC.ETS.Combined.Subsystems.HeatPump</a>.
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3063\">issue 3063</a>.
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.DHC.EnergyTransferStations.Combined.Subsystems.Validation.HeatPumpDHWTank
+<tr><td valign=\"top\">Buildings.DHC.ETS.Combined.Subsystems.Validation.HeatPumpDHWTank
     </td>
     <td valign=\"top\">Validation test for
-                       <a href=\"Modelica://Buildings.DHC.EnergyTransferStations.Combined.Subsystems.HeatPumpDHWTank\">
-                       Buildings.DHC.EnergyTransferStations.Combined.Subsystems.HeatPumpDHWTank</a>.
+                       <a href=\"Modelica://Buildings.DHC.ETS.Combined.Subsystems.HeatPumpDHWTank\">
+                       Buildings.DHC.ETS.Combined.Subsystems.HeatPumpDHWTank</a>.
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3063\">issue 3063</a>.
     </td>
@@ -738,8 +746,8 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">Buildings.DHC.Loads.Combined.BuildingTimeSeriesWithETS
     </td>
     <td valign=\"top\">Updated to use new version of
-                       <a href=\"Modelica://Buildings.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger\">
-                       Buildings.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger</a>
+                       <a href=\"Modelica://Buildings.DHC.ETS.Combined.HeatPumpHeatExchanger\">
+                       Buildings.DHC.ETS.Combined.HeatPumpHeatExchanger</a>
                        as the ETS.
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3063\">issue 3063</a>.
@@ -1061,7 +1069,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1798\">IBPSA, issue 1798</a>.
     </td>
 </tr>
-    <tr><td colspan=\"2\"><b>Buildings.Experimental</b>
+    <tr><td colspan=\"2\"><b>Buildings.DHC</b>
     </td>
     </tr>
     <tr><td valign=\"top\">Buildings.DHC.Loads.Combined.BuildingTimeSeriesWithETS<br/>
@@ -1131,8 +1139,8 @@ units are wrong or errors in documentation):
 <tr><td colspan=\"2\"><b>Buildings.DHC</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.DHC.EnergyTransferStations.BaseClasses.PartialDirect<br/>
-                       Buildings.DHC.EnergyTransferStations.BaseClasses.PartialIndirect<br/>
+<tr><td valign=\"top\">Buildings.DHC.ETS.BaseClasses.PartialDirect<br/>
+                       Buildings.DHC.ETS.BaseClasses.PartialIndirect<br/>
                        Buildings.DHC.Loads.Steam.BuildingTimeSeriesAtETS
     </td>
     <td valign=\"top\">Corrected wrong <code>displayUnit</code> string.
@@ -1262,7 +1270,7 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
                        The models are inspired by the ISO 13790:2008 Standard.
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.DHC.EnergyTransferStations.Heating
+<tr><td valign=\"top\">Buildings.DHC.ETS.Heating
     </td>
     <td valign=\"top\">Package containing models for energy transfer stations used in district heating systems.
     </td>
@@ -2278,7 +2286,7 @@ that can lead to wrong simulation results):
   <tr><td colspan=\"2\"><b>Buildings.Experimental</b>
     </td>
   </tr>
-<tr><td valign=\"top\">Buildings.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger
+<tr><td valign=\"top\">Buildings.DHC.ETS.Combined.HeatPumpHeatExchanger
   </td>
   <td valign=\"top\">Assigned dp_nominal to <code>pum1HexChi</code>.<br/>
                      Corrected calculation of heat pump evaporator mass flow control.<br/>
@@ -2287,7 +2295,7 @@ that can lead to wrong simulation results):
                      issue 3379</a>.
   </td>
 </tr>
-<tr><td valign=\"top\">Buildings.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump
+<tr><td valign=\"top\">Buildings.DHC.ETS.Combined.Subsystems.HeatPump
   </td>
   <td valign=\"top\">Assigned dp_nominal to condenser pump.<br/>
                      This is for
@@ -2295,7 +2303,7 @@ that can lead to wrong simulation results):
                      issue 3379</a>.
   </td>
 </tr>
-<tr><td valign=\"top\">Buildings.DHC.EnergyTransferStations.Cooling.Indirect
+<tr><td valign=\"top\">Buildings.DHC.ETS.Cooling.Indirect
   </td>
   <td valign=\"top\">Fixed building supply temperature controller parameter <code>reverseActing</code>
                      by changing from <code>true</code> to <code>false</code>.<br/>
@@ -2304,7 +2312,7 @@ that can lead to wrong simulation results):
                      issue 3299</a>.
   </td>
 </tr>
-<tr><td valign=\"top\">Buildings.DHC.EnergyTransferStations.Cooling.Direct
+<tr><td valign=\"top\">Buildings.DHC.ETS.Cooling.Direct
   </td>
   <td valign=\"top\">Removed assignment of check valve <code>allowFlowReversal=false</code>.<br/>
                      This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3389\">#3389</a>.
@@ -2986,8 +2994,8 @@ have been <b style=\"color:blue\">improved</b> in a
   <tr><td colspan=\"2\"><b>Buildings.DHC</b>
     </td>
   </tr>
-  <tr><td valign=\"top\">Buildings.DHC.EnergyTransferStations.BaseClasses.Validation.CollectorDistributor<br/>
-                         Buildings.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump<br/>
+  <tr><td valign=\"top\">Buildings.DHC.ETS.BaseClasses.Validation.CollectorDistributor<br/>
+                         Buildings.DHC.ETS.Combined.Subsystems.HeatPump<br/>
                          Buildings.DHC.Examples.Combined.BaseClasses.PartialSeries<br/>
                          Buildings.DHC.Plants.Cooling.ElectricChillerParallel<br/>
                          Buildings.DHC.Plants.Cooling.Examples.ElectricChillerParallel<br/>

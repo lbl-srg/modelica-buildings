@@ -46,8 +46,8 @@ protected
   Documentation(info="<html>
 <p>
 This model is composed of a direct controlled energy transfer station model for cooling
-<a href=\"modelica://Buildings/Experimental/DHC/EnergyTransferStations/Cooling/Direct.mo\">
-Buildings.DHC.EnergyTransferStations.Cooling.Direct</a>
+<a href=\"modelica://Buildings.DHC..Cooling.Direct\">
+Buildings.DHC.ETS.Cooling.Direct</a>
 connected to a simplified building model <a href=\"modelica://Buildings/Experimental/DHC/Loads/Cooling/BaseClasses/BuildingTimeSeries.mo\">
 Buildings.DHC.Loads.Cooling.BaseClasses.BuildingTimeSeries</a>
 where the space cooling loads are provided as time series.

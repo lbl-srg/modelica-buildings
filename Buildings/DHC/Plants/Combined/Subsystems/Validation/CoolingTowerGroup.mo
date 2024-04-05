@@ -69,7 +69,7 @@ model CoolingTowerGroup "Validation of cooling tower group model"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-60,-40})));
-  EnergyTransferStations.Combined.Controls.PIDWithEnable ctl(
+  ETS.Combined.Controls.PIDWithEnable ctl(
     k=1,
     Ti=60,
     reverseActing=false) "Controller"

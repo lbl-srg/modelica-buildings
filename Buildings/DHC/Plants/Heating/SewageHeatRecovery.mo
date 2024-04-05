@@ -66,7 +66,7 @@ model SewageHeatRecovery
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={0,14})));
-  Buildings.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumDis(
+  Buildings.DHC.ETS.BaseClasses.Pump_m_flow pumDis(
     redeclare final package Medium=Medium,
     final m_flow_nominal=mDis_flow_nominal,
     final dp_nominal=dpDis_nominal,
@@ -86,7 +86,7 @@ model SewageHeatRecovery
       extent={{-10,-10},{10,10}},
       rotation=0,
       origin={-70,76})));
-  Buildings.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumSew(
+  Buildings.DHC.ETS.BaseClasses.Pump_m_flow pumSew(
     redeclare final package Medium=Medium,
     final m_flow_nominal=mSew_flow_nominal,
     final dp_nominal=dpSew_nominal,
