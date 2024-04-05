@@ -59,11 +59,11 @@ block EquipmentEnable
     "Return true if equipment required without lead/lag alternate and available"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold isReqPosAlt[nEqu](
-    each final t=0)
+      each final t=1E-4)
     "Return true if equipment required (with or without lead/lag alternate)"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Buildings.Controls.OBC.CDL.Reals.LessThreshold isNotReqNoAlt[nEqu](
-    each final t=1)
+      each final t=0.9999)
     "Return true if equipment not required or required with lead/lag alternate"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Logical.MultiAnd isReqAltAva[nEqu](
@@ -141,10 +141,6 @@ block EquipmentEnable
     "Void if stage is equal to zero"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
 equation
-  // HACK(AntoineGautier): Explicit `for` loops needed for OCT that cannot flatten the model otherwise.
-  for i in 1:nEqu loop
-    for j in 1:i loop end for;
-  end for;
   connect(intScaRep.y, reqEquSta.index)
     annotation (Line(points={{-108,0},{-100,0},{-100,60},{-150,60},{-150,68}},
       color={255,127,0}));
@@ -270,27 +266,27 @@ A staging matrix <code>staEqu</code> is required as a parameter.
 <ul>
 <li>Each row of this matrix corresponds to a given stage.</li>
 <li>Each column of this matrix corresponds to a given equipment.</li>
-<li>A coefficient <code>staEqu[i, j]</code> equal to <i>0</i> 
+<li>A coefficient <code>staEqu[i, j]</code> equal to <i>0</i>
 means that equipment <code>j</code> shall not be enabled at
 stage <code>i</code>.</li>
-<li>A coefficient <code>staEqu[i, j]</code> equal to <i>1</i> 
+<li>A coefficient <code>staEqu[i, j]</code> equal to <i>1</i>
 means that equipment <code>j</code> is required at stage <code>i</code>.
 If equipment <code>j</code> is unavailable, stage <code>i</code> is
 deemed unavailable.
 </li>
-<li>A coefficient <code>staEqu[i, j]</code> strictly lower than <i>1</i> 
-and strictly greater than <i>0</i> means that equipment <code>j</code> 
+<li>A coefficient <code>staEqu[i, j]</code> strictly lower than <i>1</i>
+and strictly greater than <i>0</i> means that equipment <code>j</code>
 may be enabled at stage <code>i</code> as a lead/lag alternate equipment.
 If equipment <code>j</code> is unavailable but another lead/lag alternate
 equipment is available, then the latter equipment is enabled.
 Stage <code>i</code> is only deemed unavailable if all
-lead/lag alternate equipment specified for stage <code>i</code> 
+lead/lag alternate equipment specified for stage <code>i</code>
 are unavailable.
 </li>
 <li>
 The sum of the coefficients in a given row <code>∑_j staEqu[i, j]</code>
 gives the number of equipment required at stage <code>i</code>.
-If this number cannot be achieved with the available equipment, 
+If this number cannot be achieved with the available equipment,
 stage <code>i</code> is deemed unavailable.
 </li>
 <li>
