@@ -24,7 +24,7 @@ model PartialBuildingWithETS
   parameter Modelica.Units.SI.Temperature TColWat_nominal=288.15
     "Cold water temperature (for hot water production)"
     annotation (Dialog(group="ETS model parameters", enable=have_hotWat));
-  parameter Modelica.Units.SI.Pressure dp_nominal=50000
+  parameter Modelica.Units.SI.Pressure dp_nominal(displayUnit="Pa")=50000
     "Pressure difference at nominal flow rate (for each flow leg)"
     annotation (Dialog(group="ETS model parameters"));
   parameter Real COPHeaWat_nominal(final unit="1") = 4.0
