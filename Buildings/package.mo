@@ -233,6 +233,10 @@ The district heating and cooling models have been expanded and revised, user gui
 moved from the package <code>Buildings.Experimental.DHC</code> to <code>Buildings.DHC</code>.
 </li>
 <li>
+A package for central plants with reversible air-to-water heat pumps has been added to <code>Buildings.Templates.Plants.HeatPumps</code>.
+The package allows configuration of the type of hydronic integration and it consists pre-configured control sequences.
+</li>
+<li>
 The initialization of the Spawn model has been refactored to avoid an iteration between Modelica and EnergyPlus as this
 caused numerical problems in some cases.
 </li>
@@ -247,6 +251,11 @@ ASHRAE Standard 231P, has been revised to comply with the latest draft of the st
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
+<tr><td valign=\"top\">Buildings.Templates.Plants
+    </td>
+    <td valign=\"top\">Package with template models for central plants with air-to-water reversible heat pumps, including the plant closed loop control.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Examples.Tutorial.SimpleHouse
     </td>
     <td valign=\"top\">Tutorial for how to build a simple system model.
@@ -1156,7 +1165,7 @@ units are wrong or errors in documentation):
 </tr>
 </table>
 </html>"));
-  end Version_10_1_0;
+    end Version_10_1_0;
 
 
   class Version_10_0_0 "Version 10.0.0"
