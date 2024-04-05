@@ -229,7 +229,7 @@ A package to model aquifer thermal energy storage has been added.
 </li>
 </ul>
 <p>
-many models have been updated to improve performance, for compliance with the Modelica Language Standard and to correct model errors.
+Many models have been updated to improve performance, for compliance with the Modelica Language Standard and to correct model errors.
 </p>
 </div>
 <!-- New libraries -->
