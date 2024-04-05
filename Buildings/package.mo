@@ -222,19 +222,17 @@ The following major changes have been done compared to release 10.0.0:
 </p>
 <ul>
 <li>
-A tutorial for how to build a simple system model has been added to <code>Buildings.Examples.Tutorial.SimpleHouse</code>.
+A package for central plants with reversible air-to-water heat pumps has been added to <code>Buildings.Templates.Plants.HeatPumps</code>.
+The package allows configuration of the type of hydronic integration and it consists pre-configured control sequences.
+</li>
+<li>
+The models for 1st to 5th generation district heating and cooling systems have been expanded and revised,
+a user guide has been added, and the models have been
+moved from the package <code>Buildings.DHC</code> to <code>Buildings.DHC</code>.
 </li>
 <li>
 A package for domestic hot water generation and loads that are served by a district system is added to
 <code>Buildings.DHC.Loads.HotWater</code>.
-</li>
-<li>
-The district heating and cooling models have been expanded and revised, user guide has been added, and the models have been
-moved from the package <code>Buildings.DHC</code> to <code>Buildings.DHC</code>.
-</li>
-<li>
-A package for central plants with reversible air-to-water heat pumps has been added to <code>Buildings.Templates.Plants.HeatPumps</code>.
-The package allows configuration of the type of hydronic integration and it consists pre-configured control sequences.
 </li>
 <li>
 The initialization of the Spawn model has been refactored to avoid an iteration between Modelica and EnergyPlus as this
@@ -243,6 +241,9 @@ caused numerical problems in some cases.
 <li>
 The implementation of the blocks for the Control Description Language (CDL), which is being standardized through
 ASHRAE Standard 231P, has been revised to comply with the latest draft of the standard.
+</li>
+<li>
+A tutorial for how to build a simple system model has been added to <code>Buildings.Examples.Tutorial.SimpleHouse</code>.
 </li>
 </ul>
 </div>
