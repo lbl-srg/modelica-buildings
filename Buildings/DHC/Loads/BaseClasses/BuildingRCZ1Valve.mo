@@ -1,4 +1,4 @@
-within Buildings.DHC.Loads.BaseClasses.Examples.BaseClasses;
+within Buildings.DHC.Loads.BaseClasses;
 model BuildingRCZ1Valve
   "One-zone RC building model with distribution pumps and mixing valves"
   extends Buildings.DHC.Loads.BaseClasses.PartialBuilding(
@@ -151,7 +151,7 @@ model BuildingRCZ1Valve
   Buildings.Controls.OBC.CDL.Reals.MultiSum mulSum(
     nin=2)
     annotation (Placement(transformation(extent={{240,70},{260,90}})));
-  Buildings.DHC.Loads.BaseClasses.Examples.BaseClasses.FanCoil4Pipe terUni(
+  Buildings.DHC.Loads.BaseClasses.FanCoil4Pipe terUni(
     redeclare package Medium1=Medium,
     redeclare package Medium2=Medium2,
     QHea_flow_nominal=1000,

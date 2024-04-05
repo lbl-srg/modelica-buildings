@@ -6,7 +6,7 @@ model CouplingTimeSeriesSingleLoop
     "Source side medium";
   parameter Modelica.Units.SI.Time perAve=600
     "Period for time averaged variables";
-  Buildings.DHC.Loads.BaseClasses.Examples.BaseClasses.BuildingTimeSeries buiCoo(
+  Buildings.DHC.Loads.BaseClasses.BuildingTimeSeries buiCoo(
     have_heaWat=false,
     filNam="modelica://Buildings/Resources/Data/DHC/Loads/Examples/SwissResidential_20190916.mos",
     nPorts_aChiWat=1,
@@ -42,7 +42,7 @@ model CouplingTimeSeriesSingleLoop
     y(unit="J"))
     "Actual energy used for cooling"
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
-  Buildings.DHC.Loads.BaseClasses.Examples.BaseClasses.BuildingTimeSeries buiHea(
+  Buildings.DHC.Loads.BaseClasses.BuildingTimeSeries buiHea(
     have_chiWat=false,
     filNam="modelica://Buildings/Resources/Data/DHC/Loads/Examples/SwissResidential_20190916.mos",
     nPorts_aChiWat=1,

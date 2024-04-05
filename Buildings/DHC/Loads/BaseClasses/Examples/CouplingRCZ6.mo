@@ -11,7 +11,7 @@ model CouplingRCZ6
       "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     "Weather data reader"
     annotation (Placement(transformation(extent={{60,20},{40,40}})));
-  Buildings.DHC.Loads.BaseClasses.Examples.BaseClasses.BuildingRCZ6 bui(
+  Buildings.DHC.Loads.BaseClasses.BuildingRCZ6 bui(
     nPorts_aHeaWat=1,
     nPorts_aChiWat=1,
     nPorts_bHeaWat=1,

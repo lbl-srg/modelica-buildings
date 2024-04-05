@@ -3,7 +3,7 @@ model BuildingTimeSeriesWithETSWithDHWTank
   "Model of a building with loads provided as time series, connected to an ETS with domestic hot water storage tank"
   extends
     Buildings.DHC.Loads.Combined.BaseClasses.PartialBuildingWithETS(
-    redeclare Buildings.DHC.Loads.BaseClasses.Examples.BaseClasses.BuildingTimeSeries bui(
+    redeclare Buildings.DHC.Loads.BaseClasses.BuildingTimeSeries bui(
       filNam=filNam,
       have_hotWat=true,
       T_aHeaWat_nominal=ets.THeaWatSup_nominal,

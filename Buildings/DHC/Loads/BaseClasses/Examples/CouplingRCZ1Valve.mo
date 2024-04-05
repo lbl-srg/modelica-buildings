@@ -11,7 +11,7 @@ model CouplingRCZ1Valve
     annotation (Placement(transformation(extent={{60,100},{40,120}})));
   package Medium1=Buildings.Media.Water
     "Source side medium";
-  Buildings.DHC.Loads.BaseClasses.Examples.BaseClasses.BuildingRCZ1Valve bui(
+  Buildings.DHC.Loads.BaseClasses.BuildingRCZ1Valve bui(
     nPorts_aHeaWat=1,
     nPorts_aChiWat=1,
     nPorts_bHeaWat=1,

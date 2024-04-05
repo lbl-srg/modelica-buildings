@@ -1,4 +1,4 @@
-within Buildings.DHC.Loads.BaseClasses.Examples.BaseClasses;
+within Buildings.DHC.Loads.BaseClasses;
 model BuildingSpawnZ1
   "One-zone EnergyPlus building model"
   extends Buildings.DHC.Loads.BaseClasses.PartialBuilding(
@@ -59,7 +59,7 @@ model BuildingSpawnZ1
       displayUnit="degC"))
     "Maximum temperature set point"
     annotation (Placement(transformation(extent={{-280,210},{-260,230}})));
-  Buildings.DHC.Loads.BaseClasses.Examples.BaseClasses.FanCoil4Pipe terUni(
+  Buildings.DHC.Loads.BaseClasses.FanCoil4Pipe terUni(
     redeclare package Medium1=Medium,
     redeclare package Medium2=Medium2,
     QHea_flow_nominal=2000,

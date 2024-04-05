@@ -1,4 +1,4 @@
-within Buildings.DHC.Loads.BaseClasses.Examples.BaseClasses;
+within Buildings.DHC.Loads.BaseClasses;
 model BuildingRCZ6
   "Six-zone RC building model based on URBANopt GeoJSON export, with distribution pumps"
   extends Buildings.DHC.Loads.BaseClasses.PartialBuilding(
@@ -58,7 +58,7 @@ model BuildingRCZ6
   Buildings.Controls.OBC.CDL.Reals.MultiSum mulSum(
     nin=2)
     annotation (Placement(transformation(extent={{240,70},{260,90}})));
-  Buildings.DHC.Loads.BaseClasses.Examples.BaseClasses.FanCoil4PipeHeatPorts terUni[nZon](
+  Buildings.DHC.Loads.BaseClasses.FanCoil4PipeHeatPorts terUni[nZon](
     redeclare each final package Medium1=Medium,
     redeclare each final package Medium2=Medium2,
     final facMul=facMulTerUni,

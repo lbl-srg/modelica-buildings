@@ -2,7 +2,7 @@ within Buildings.DHC.Loads.Heating;
 model BuildingTimeSeriesWithETS
   "Model of a building with loads provided as time series, connected to an ETS for heating"
   extends BaseClasses.PartialBuildingWithETS(
-    redeclare Buildings.DHC.Loads.BaseClasses.Examples.BaseClasses.BuildingTimeSeries bui(
+    redeclare Buildings.DHC.Loads.BaseClasses.BuildingTimeSeries bui(
       final have_heaWat=true,
       final have_chiWat=false,
       final have_hotWat=false,
@@ -48,8 +48,8 @@ protected
 This model is composed of a direct controlled energy transfer station model for heating
 <a href=\"modelica://Buildings.DHC.ETS.Heating/Direct\">
 Buildings.DHC.ETS.Heating.Direct</a>
-connected to a simplified building model <a href=\"modelica://Buildings.DHC.Loads.BaseClasses.Examples.BaseClasses.BuildingTimeSeries\">
-Buildings.DHC.Loads.BaseClasses.Examples.BaseClasses.BuildingTimeSeries</a>
+connected to a simplified building model <a href=\"modelica://Buildings.DHC.Loads.BaseClasses.BuildingTimeSeries\">
+Buildings.DHC.Loads.BaseClasses.BuildingTimeSeries</a>
 where the space heating loads are provided as time series.
 </p>
 </html>", revisions="<html>

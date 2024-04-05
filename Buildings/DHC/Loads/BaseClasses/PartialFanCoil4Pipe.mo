@@ -1,4 +1,4 @@
-within Buildings.DHC.Loads.BaseClasses.Examples.BaseClasses;
+within Buildings.DHC.Loads.BaseClasses;
 partial model PartialFanCoil4Pipe
   "Partial model of a sensible only four-pipe fan coil unit computing a required water mass flow rate"
   extends Buildings.DHC.Loads.BaseClasses.PartialTerminalUnit(
