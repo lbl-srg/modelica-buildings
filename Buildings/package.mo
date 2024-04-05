@@ -212,18 +212,17 @@ Each class (i.e., model, block and function) must be used in an example or valid
 Version 9.1.2 is backward compatible with 9.1.0 and 9.1.1, except that relative to 9.1.0, the Spawn binaries need to be updated as described
 in <code>Buildings.ThermalZones.EnergyPlus_9_6_0.UsersGuide.Installation</code>.
 </p>
+<p>
+The library has been tested with Dymola 2023x, OpenModelica 1.22.0-dev (41-g8a5b18f-1), OPTIMICA 1.43.4 and recent versions of Impact.
+</p>
+<p>
+This backward compatible version adds a heat meter sensor and it adds a new example that demonstrates
+how to use a hydronic radiator with the updated Spawn interface.
+Also, many models have been updated to improve performance, for compliance with the Modelica Language Standard and
+to correct model errors.
+</p>
 </div>
 <!-- New libraries -->
-<p>
-The following <b style=\"color:blue\">new libraries</b> have been added:
-</p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-    </tr>
-</table>
 <!-- New components for existing libraries -->
 <p>
 The following <b style=\"color:blue\">new components</b> have been added
@@ -11456,7 +11455,7 @@ on the Buildings library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_9_1_2\">Version 9.1.2</a> (xxx, 2023)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_9_1_2\">Version 9.1.2</a> (April 9, 2024)
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_9_1_1\">Version 9.1.1</a> (September 5, 2023)
@@ -12013,7 +12012,7 @@ annotation (
 preferredView="info",
 version="9.1.2",
 versionDate="2022-12-06",
-dateModified="2023-09-05",
+dateModified="2024-04-09",
 uses(Modelica(version="4.0.0")),
 conversion(
   noneFromVersion="9.0.0",
