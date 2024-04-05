@@ -240,8 +240,6 @@ caused numerical problems in some cases.
 The implementation of the blocks for the Control Description Language (CDL), which is being standardized through
 ASHRAE Standard 231P, has been revised to comply with the latest draft of the standard.
 </li>
-<li>
-</li>
 </ul>
 </div>
 <!-- New libraries -->
@@ -622,7 +620,6 @@ have been <b style=\"color:blue\">improved</b> in a
     <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
     </td>
 </tr>
-
 </table>
 <!-- Non-backward compatible changes to existing components -->
 <p>
@@ -979,7 +976,6 @@ that can lead to wrong simulation results):
 </tr>
 </table>
 <!-- Uncritical errors -->
-</table>
 </html>"));
     end Version_11_0_0;
 
