@@ -3,7 +3,7 @@ model Borefield
   "Base subsystem with geothermal borefield"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     final m_flow_nominal=datBorFie.conDat.mBorFie_flow_nominal);
-  replaceable model BoreFieldType=Fluid.Geothermal.Borefields.OneUTube
+  replaceable model BorefieldType=Fluid.Geothermal.Borefields.OneUTube
     constrainedby Fluid.Geothermal.Borefields.BaseClasses.PartialBorefield(
       redeclare package Medium=Medium,
       allowFlowReversal=allowFlowReversal,
@@ -66,7 +66,7 @@ model Borefield
     final m_flow_nominal=m_flow_nominal)
     "Entering temperature"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-10,0})));
-  BoreFieldType borFie
+  BorefieldType borFie
     "Geothermal borefield"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={22,0})));
   Buildings.DHC.ETS.BaseClasses.Junction spl(
