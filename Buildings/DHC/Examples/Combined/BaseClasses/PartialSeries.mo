@@ -27,7 +27,7 @@ partial model PartialSeries "Partial model for series network"
                                                                  "Design data"
     annotation (Placement(transformation(extent={{-360,220},{-340,240}})));
   // COMPONENTS
-  Buildings.DHC.Examples.Combined.BaseClasses.BoreField borFie(
+  Buildings.DHC.Examples.Combined.BaseClasses.Borefield borFie(
       redeclare final package Medium = Medium) "Bore field" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},

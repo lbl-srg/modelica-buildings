@@ -1,5 +1,5 @@
 within Buildings.DHC.Examples.Combined.BaseClasses;
-model BoreField "Geothermal borefield model"
+model Borefield "Geothermal borefield model"
   extends Buildings.Fluid.Geothermal.Borefields.TwoUTubes(
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final tLoaAgg(displayUnit="h") = 3600,
@@ -80,7 +80,7 @@ double U-tube parallel configuration.
 <ul>
 <li>
 January 8, 2024, by David Blum:<br/>
-Moved to <code>Buildings.DHC.Examples.Combined.BaseClasses.BoreField</code>.
+Moved to <code>Buildings.DHC.Examples.Combined.BaseClasses.Borefield</code>.
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3628\">
 issue 3628</a>.
@@ -100,4 +100,4 @@ Added documentation.
 </li>
 </ul>
 </html>"));
-end BoreField;
+end Borefield;
