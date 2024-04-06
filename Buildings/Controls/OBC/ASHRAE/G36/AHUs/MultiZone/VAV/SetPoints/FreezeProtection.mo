@@ -1062,7 +1062,7 @@ annotation (defaultComponentName="mulAHUFrePro",
         Text(
           extent={{-96,120},{-20,102}},
           textColor={0,0,127},
-          visible=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow,
+          visible=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow,
           textString="uMinOutDam"),
         Text(
           extent={{-98,78},{-46,62}},
@@ -1108,7 +1108,7 @@ annotation (defaultComponentName="mulAHUFrePro",
         Text(
           extent={{20,112},{98,94}},
           textColor={0,0,127},
-          visible=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow,
+          visible=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow,
           textString="yMinOutDam"),
         Text(
           extent={{50,40},{96,24}},
@@ -1164,11 +1164,11 @@ annotation (defaultComponentName="mulAHUFrePro",
           extent={{-96,104},{-14,80}},
           textColor={255,0,255},
           textString="u1MinOutDamPos",
-          visible=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure),
+          visible=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure),
         Text(
           extent={{16,92},{96,72}},
           textColor={255,0,255},
-          visible=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure,
+          visible=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure,
           textString="y1MinOutDam"),
         Text(
           extent={{-96,-16},{-46,-40}},
@@ -1275,6 +1275,10 @@ shall be no software reset switch.)
 </ol>
 </html>", revisions="<html>
 <ul>
+<li>
+April 6, 2024, by Michael Wetter:<br/>
+Corrected wrong annotation.
+</li>
 <li>
 December 22, 2022, by Jianjun Hu:<br/>
 Added flag to disable freeze protection.<br/>
