@@ -113,6 +113,15 @@ Each element of the array <code>per</code> has the following data.
      EIRFunT  - Coefficients of biquadratic polynomial for EIR as a function of temperature.
      EIRFunFF - Polynomial coefficients for EIR
                 as a function of the mass flow fraction.
+     [TConInMin, TConInMax] - Minimum and maximum condenser air inlet temperatures
+                 for which the performance curves are valid.
+                 Outside this range, they will be linearly extrapolated.
+     [TEvaInMin, TEvaInMax] - Minimum and maximum evaporator air inlet temperatures
+                 for which the performance curves are valid.
+                 Outside this range, they will be linearly extrapolated.
+     [ffMin, ffMax] - Minimum and maximum air mass flow fraction (relative to m_flow_nominal)
+                 for which the performance curves are valid.
+                 Outside this range, they will be linearly extrapolated.
 </pre>
 <p>
 The data used to develop the performance curves
@@ -147,6 +156,11 @@ a quadratic function.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 6, 2024, by Karthik Devaprasad:<br/>
+Replaced unused parameter names with correct parameter pairs for curve limit 
+definitions in the documentation.
+</li>
 <li>
 April 4, 2023, by Xing Lu and Karthik Devaprasad:<br/>
 Updated record class name from <code>DXCoil</code> to <code>CoolingCoil</code>.

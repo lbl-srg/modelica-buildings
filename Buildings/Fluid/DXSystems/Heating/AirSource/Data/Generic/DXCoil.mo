@@ -51,7 +51,7 @@ record DXCoil
     "Crankcase heater capacity";
 //-----------------------------Performance curves-----------------------------//
   parameter Real defEIRFunT[6] = fill(0,6)
-    "Biquadratic coefficients for defrost capacity function of temperature"
+    "Biquadratic coefficients for defrost capacity as a function of temperature"
     annotation (Dialog(enable = defOpe==Buildings.Fluid.DXSystems.Heating.BaseClasses.Types.DefrostOperation.reverseCycle));
 
   parameter Real PLFraFunPLR[:] = {1}
@@ -105,6 +105,15 @@ Each element of the array <code>per</code> has the following data.
                   of temperature.
       EIRFunFF  - Polynomial coefficients for EIR as a function of the mass flow
                   fraction.
+      [TConInMin, TConInMax] - Minimum and maximum condenser air inlet temperatures 
+                  for which the performance curves are valid.
+                  Outside this range, they will be linearly extrapolated.
+      [TEvaInMin, TEvaInMax] - Minimum and maximum evaporator air inlet temperatures
+                  for which the performance curves are valid.
+                  Outside this range, they will be linearly extrapolated.
+      [ffMin, ffMax] - Minimum and maximum air mass flow fraction (relative to m_flow_nominal)
+                  for which the performance curves are valid.
+                  Outside this range, they will be linearly extrapolated.
                   </pre>
 <p>
 There can be an arbitrary number of polynomial coefficients for the record
@@ -133,6 +142,11 @@ performance modifiers:
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 6, 2024, by Karthik Devaprasad:<br/>
+Replaced unused parameter names with correct parameter pairs for curve limit 
+definitions in the documentation.
+</li>
 <li>
 March 31, 2023 by Karthik Devaprasad and Xing Lu:<br/>
 First implementation.
