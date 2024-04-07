@@ -218,7 +218,7 @@ OpenModelica 1.22.1-1,
 OPTIMICA 1.48.2 and recent versions of Impact.
 </p>
 <p>
-The following major changes have been done compared to release 10.0.0:
+The following major changes have been done compared to release 10.1.0:
 </p>
 <ul>
 <li>
@@ -1075,11 +1075,11 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1798\">IBPSA, issue 1798</a>.
     </td>
 </tr>
-    <tr><td colspan=\"2\"><b>Buildings.DHC</b>
+    <tr><td colspan=\"2\"><b>Buildings.Experimental</b>
     </td>
     </tr>
-    <tr><td valign=\"top\">Buildings.DHC.Loads.Combined.BuildingTimeSeriesWithETS<br/>
-                       Buildings.DHC.Loads.Combined.BaseClasses.PartialBuildingWithETS
+    <tr><td valign=\"top\">Buildings.Experimental.DHC.Loads.Combined.BuildingTimeSeriesWithETS<br/>
+                       Buildings.Experimental.DHC.Loads.Combined.BaseClasses.PartialBuildingWithETS
     </td>
     <td valign=\"top\">Added parameters <code>TDisWatMin</code> and <code>TDisWatMax</code>
                        in lieu of using <code>datDes</code>.<br/>
@@ -1142,17 +1142,17 @@ that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
 units are wrong or errors in documentation):
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>Buildings.DHC</b>
+<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.DHC.ETS.BaseClasses.PartialDirect<br/>
-                       Buildings.DHC.ETS.BaseClasses.PartialIndirect<br/>
-                       Buildings.DHC.Loads.Steam.BuildingTimeSeriesAtETS
+<tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.PartialDirect<br/>
+                       Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.PartialIndirect<br/>
+                       Buildings.Experimental.DHC.Loads.Steam.BuildingTimeSeriesAtETS
     </td>
     <td valign=\"top\">Corrected wrong <code>displayUnit</code> string.
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.DHC.Plants.Cooling.BaseClasses.TankBranch
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.TankBranch
     </td>
     <td valign=\"top\">Corrected wrong use of <code>displayUnit</code>.
     </td>
