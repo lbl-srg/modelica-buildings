@@ -4,18 +4,18 @@ record Generic
 
   extends Modelica.Icons.Record;
 
-  parameter Real watRem[:]
+  parameter Real watRem[6]
     "Biquadratic coefficients for water removal modifier curve"
     annotation (Dialog(group="Performance curves"));
 
-  parameter Real eneFac[:]
+  parameter Real eneFac[6]
     "Biquadratic coefficients for energy factor modifier curve"
     annotation (Dialog(group="Performance curves"));
 
-annotation (defaultComponentName="dxDehRec",
+  annotation (defaultComponentName="dxDehRec",
   preferredView="info",
   Documentation(info="<html>
-<p>This is the base record for the DX dehumidifier which has the following data.</p>
+<p>This is the base record for the DX dehumidifier which has the following data. </p>
 <ul>
 <li>
 <code>watRem</code> - Coefficients of biquadratic polynomial for water 

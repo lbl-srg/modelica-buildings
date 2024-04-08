@@ -1,4 +1,4 @@
-within Buildings.Fluid.Humidifiers.Examples;
+within Buildings.Fluid.Humidifiers.Validation;
 package Data "Package with data record for DX dehumidifier example"
   extends Modelica.Icons.MaterialPropertiesPackage;
 

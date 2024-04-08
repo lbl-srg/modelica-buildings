@@ -1,4 +1,4 @@
-within Buildings.Fluid.Humidifiers.Examples.Data;
+within Buildings.Fluid.Humidifiers.Validation.Data;
 record DXDehumidifier "Example data record for DX dehumidifier model"
 
   extends Buildings.Fluid.Humidifiers.Data.Generic(
