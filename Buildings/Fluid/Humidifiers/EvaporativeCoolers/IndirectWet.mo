@@ -82,7 +82,7 @@ model IndirectWet "Indirect wet evaporative cooler"
     final maxEff=maxEff,
     final floRat=floRat)
     "Indirect wet evaporative cooling calculations"
-    annotation (Placement(transformation(extent={{16,56},{40,80}})));
+    annotation (Placement(transformation(extent={{20,60},{40,80}})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemDrySec(
     redeclare final package Medium = Medium2,
@@ -142,15 +142,20 @@ equation
   connect(port_a1, senTemDryPri.port_a) annotation (Line(points={{-100,60},{-94,
           60},{-94,20},{-90,20}}, color={0,127,255}));
   connect(senTemDryPri.T, indWetCal.TDryBulPriIn)
-    annotation (Line(points={{-80,31},{-80,78},{14,78}}, color={0,0,127}));
+    annotation (Line(points={{-80,31},{-80,78.3333},{18.3333,78.3333}},
+                                                         color={0,0,127}));
   connect(senTemWetPri.T, indWetCal.TWetBulPriIn)
-    annotation (Line(points={{-50,31},{-50,74},{14,74}}, color={0,0,127}));
+    annotation (Line(points={{-50,31},{-50,75},{18.3333,75}},
+                                                         color={0,0,127}));
   connect(senTemDrySec.T, indWetCal.TDryBulSecIn)
-    annotation (Line(points={{-64,-49},{-64,70},{14,70}}, color={0,0,127}));
+    annotation (Line(points={{-64,-49},{-64,71.6667},{18.3333,71.6667}},
+                                                          color={0,0,127}));
   connect(senTemWetSec.T, indWetCal.TWetBulSecIn)
-    annotation (Line(points={{-30,-49},{-30,66},{14,66}}, color={0,0,127}));
+    annotation (Line(points={{-30,-49},{-30,68.3333},{18.3333,68.3333}},
+                                                          color={0,0,127}));
   connect(senVolFloPri.V_flow, indWetCal.VPri_flow)
-    annotation (Line(points={{-10,31},{-10,62},{14,62}}, color={0,0,127}));
+    annotation (Line(points={{-10,31},{-10,65},{18.3333,65}},
+                                                         color={0,0,127}));
   connect(port_a2, senTemDrySec.port_a)
     annotation (Line(points={{-100,-60},{-74,-60}}, color={0,127,255}));
   connect(senTemDrySec.port_b, senTemWetSec.port_a)
@@ -160,9 +165,10 @@ equation
   connect(senVolFloSec.port_b, resSec.port_a)
     annotation (Line(points={{20,-60},{30,-60}}, color={0,127,255}));
   connect(senVolFloSec.V_flow, indWetCal.VSec_flow)
-    annotation (Line(points={{10,-49},{10,58},{14,58}}, color={0,0,127}));
-  connect(indWetCal.TDryBulPriOut, preTem.T) annotation (Line(points={{42,68},{
-          50,68},{50,70},{58,70}}, color={0,0,127}));
+    annotation (Line(points={{10,-49},{10,61.6667},{18.3333,61.6667}},
+                                                        color={0,0,127}));
+  connect(indWetCal.TDryBulPriOut, preTem.T) annotation (Line(points={{41.6667,
+          70},{58,70}},            color={0,0,127}));
   connect(preTem.port, volPri.heatPort) annotation (Line(points={{80,70},{90,70},
           {90,56},{60,56},{60,40},{70,40}}, color={191,0,0}));
   connect(resSec.port_b, port_b2)
