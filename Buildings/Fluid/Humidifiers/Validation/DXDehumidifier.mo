@@ -11,7 +11,7 @@ model DXDehumidifier "Validation model for DX dehumidifier"
   parameter Modelica.Units.SI.Time tStepAve = 3600
     "Time-step used to average out Modelica results for comparison with EPlus results";
 
-  parameter Buildings.Fluid.Humidifiers.Examples.Data.DXDehumidifier per
+  parameter Buildings.Fluid.Humidifiers.Validation.Data.DXDehumidifier per
     "Zone air DX dehumidifier curve"
     annotation (Placement(transformation(extent={{-40,66},{-20,86}})));
 
