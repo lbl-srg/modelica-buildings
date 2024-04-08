@@ -68,7 +68,7 @@ Each element of the array <code>per</code> has the following data.
      [ffMin, ffMax] - Minimum and maximum air mass flow fraction at evaporators (relative to m_flow_nominal)
                  for which the performance curves are valid.
                  Outside this range, they will be linearly extrapolated.
-     [ffConMin, ffConMax] - Minimum and maximum water mass flow fraction at 
+     [ffConMin, ffConMax] - Minimum and maximum water mass flow fraction at
                  condensers (relative to m_flow_nominal)
                  for which the performance curves are valid.
                  Outside this range, they will be linearly extrapolated.
@@ -109,7 +109,7 @@ revisions="<html>
 <ul>
 <li>
 April 6, 2024, by Karthik Devaprasad:<br/>
-Replaced unused parameter names with correct parameter pairs for curve limit 
+Replaced unused parameter names with correct parameter pairs for curve limit
 definitions in the documentation.
 </li>
 <li>
