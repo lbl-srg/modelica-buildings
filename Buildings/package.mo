@@ -223,7 +223,7 @@ The following major changes have been done compared to release 10.1.0:
 <ul>
 <li>
 A package for central plants with reversible air-to-water heat pumps has been added to <code>Buildings.Templates.Plants.HeatPumps</code>.
-The package allows configuration of the type of hydronic integration and it contains pre-configured control sequences.
+The package allows configuration of the type of hydronic integration.
 </li>
 <li>
 The models for 1st to 5th generation district heating and cooling systems have been expanded and revised,
