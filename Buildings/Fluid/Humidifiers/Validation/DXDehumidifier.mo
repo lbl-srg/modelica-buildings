@@ -1,7 +1,6 @@
 within Buildings.Fluid.Humidifiers.Validation;
 model DXDehumidifier "Validation model for DX dehumidifier"
   extends Modelica.Icons.Example;
-
   package Medium = Buildings.Media.Air
     "Fluid medium";
 
@@ -66,7 +65,8 @@ model DXDehumidifier "Validation model for DX dehumidifier"
     "Calculate inlet air mass flow rate from component enable signal"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
 
-  Modelica.Blocks.Sources.RealExpression m_flow_airMod(final y=dxDeh.port_a.m_flow)
+  Modelica.Blocks.Sources.RealExpression m_flow_airMod(
+    final y=dxDeh.port_a.m_flow)
     "DX dehumidifier air mass flow rate (Modelica)"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
 
@@ -75,15 +75,18 @@ model DXDehumidifier "Validation model for DX dehumidifier"
     "Average out Modelica results over time"
     annotation (Placement(transformation(extent={{54,60},{74,80}})));
 
-  Modelica.Blocks.Math.Mean m_flowFan_engPlu(final f=1/tStepAve)
+  Modelica.Blocks.Math.Mean m_flowFan_engPlu(
+    final f=1/tStepAve)
     "Average out EnergyPlus results over time"
     annotation (Placement(transformation(extent={{134,60},{154,80}})));
 
-  Modelica.Blocks.Sources.RealExpression m_flow_air_engPlu(final y=datRea.y[6])
+  Modelica.Blocks.Sources.RealExpression m_flow_air_engPlu(
+    final y=datRea.y[6])
     "DX dehumidifier air mass flow rate (EnergyPlus)"
     annotation (Placement(transformation(extent={{98,60},{118,80}})));
 
-  Modelica.Blocks.Sources.RealExpression watRemRatMod(final y=-dxDeh.deHum.mWat_flow)
+  Modelica.Blocks.Sources.RealExpression watRemRatMod(
+    final y=-dxDeh.deHum.mWat_flow)
     "Water removal mass flow rate (Modelica)"
     annotation (Placement(transformation(extent={{20,26},{40,46}})));
 
@@ -92,15 +95,18 @@ model DXDehumidifier "Validation model for DX dehumidifier"
     "Average out Modelica results over time"
     annotation (Placement(transformation(extent={{54,26},{74,46}})));
 
-  Modelica.Blocks.Math.Mean mWat_engPlu(final f=1/tStepAve)
+  Modelica.Blocks.Math.Mean mWat_engPlu(
+    final f=1/tStepAve)
     "Average out EnergyPlus results over time"
     annotation (Placement(transformation(extent={{134,26},{154,46}})));
 
-  Modelica.Blocks.Sources.RealExpression watRemRat_engPlu(final y=datRea.y[4])
+  Modelica.Blocks.Sources.RealExpression watRemRat_engPlu(
+    final y=datRea.y[4])
     "Water removal mass flow rate (EnergyPlus)"
     annotation (Placement(transformation(extent={{98,26},{118,46}})));
 
-  Modelica.Blocks.Sources.RealExpression airHeaRatMod(final y=dxDeh.P)
+  Modelica.Blocks.Sources.RealExpression airHeaRatMod(
+    final y=dxDeh.P)
     "Air heating rate (Modelica)"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
@@ -109,16 +115,19 @@ model DXDehumidifier "Validation model for DX dehumidifier"
     "Average out Modelica results over time"
     annotation (Placement(transformation(extent={{54,-10},{74,10}})));
 
-  Modelica.Blocks.Math.Mean P_engPlu(final f=1/tStepAve)
+  Modelica.Blocks.Math.Mean P_engPlu(
+    final f=1/tStepAve)
     "Average out EnergyPlus results over time"
     annotation (Placement(transformation(extent={{134,-10},{154,10}})));
 
-  Modelica.Blocks.Sources.RealExpression dehPowRat_engPlu(final y=datRea.y[5])
+  Modelica.Blocks.Sources.RealExpression dehPowRat_engPlu(
+    final y=datRea.y[5])
     "DX dehumidifier power rate (EnergyPlus)"
     annotation (Placement(transformation(extent={{98,-10},{118,10}})));
 
-  Modelica.Blocks.Sources.RealExpression dehHeaRatMod(final y=dxDeh.heaFloSen.Q_flow
-         - dxDeh.deHum.mWat_flow*Buildings.Utilities.Psychrometrics.Constants.h_fg)
+  Modelica.Blocks.Sources.RealExpression dehHeaRatMod(
+    final y=dxDeh.heaFloSen.Q_flow -
+    dxDeh.deHum.mWat_flow*Buildings.Utilities.Psychrometrics.Constants.h_fg)
     "DX dehumidifier heating rate (Modelica)"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 
@@ -127,11 +136,13 @@ model DXDehumidifier "Validation model for DX dehumidifier"
     "Average out Modelica results over time"
     annotation (Placement(transformation(extent={{54,-40},{74,-20}})));
 
-  Modelica.Blocks.Math.Mean QHea_engPlu(final f=1/tStepAve)
+  Modelica.Blocks.Math.Mean QHea_engPlu(
+    final f=1/tStepAve)
     "Average out EnergyPlus results over time"
     annotation (Placement(transformation(extent={{134,-40},{154,-20}})));
 
-  Modelica.Blocks.Sources.RealExpression dehHeaRat_engPlu(final y=datRea.y[3])
+  Modelica.Blocks.Sources.RealExpression dehHeaRat_engPlu(
+    final y=datRea.y[3])
     "DX dehumidifier heating rate (EnergyPlus)"
     annotation (Placement(transformation(extent={{98,-40},{118,-20}})));
 

@@ -2,10 +2,10 @@ within Buildings.Fluid.DXSystems.Heating.AirSource.Validation.BaseClasses;
 block PLRToPulse
   "Converts an input for part load ratio value into an enable signal"
 
-  parameter Real tPer = 15*60
+  parameter Modelica.Units.SI.Time tPer = 15*60
     "Time period for PLR sampling";
 
-  parameter Real tDel = 1e-6
+  parameter Modelica.Units.SI.Time tDel = 1e-6
     "Delay time of the enable signal";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uPLR
