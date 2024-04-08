@@ -29,11 +29,7 @@
 - model_name: Buildings.Controls.DemandResponse.Examples.ClientLBNL90
   openmodelica:
     comment: 'TimeoutExpired: omc timed out after 300 seconds'
-    translate: false
-- model_name: Buildings.Electrical.AC.ThreePhasesBalanced.Loads.Examples.ParallelLoads
-  openmodelica:
-    comment: 'division leads to inf or nan at time 0.901, (a=nan) / (b=230400), where divisor b is: varRL_P.v[1] ^ 2.0 + varRL_P.v[2] ^ 2.0'
-    simulate: false
+    time_out: 600
 - model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepDown.DD
   openmodelica:
     comment: simulation terminated by an assertion at initialization.
@@ -273,46 +269,6 @@
     comment: simulation terminated by an assertion at initialization
     simulate: false
     time_out: 600
-- model_name: Buildings.Obsolete.Utilities.IO.Python36.Examples.KalmanFilter
-  dymola:
-    comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
-    translate: false
-  openmodelica:
-    comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
-    translate: false
-  optimica:
-    comment: See https://github.com/lbl-srg/modelica-buildings/issues/2235
-    translate: false
-- model_name: Buildings.Obsolete.Utilities.IO.Python36.Examples.SimpleRoom
-  dymola:
-    comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
-    translate: false
-  openmodelica:
-    comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
-    translate: false
-  optimica:
-    comment: See https://github.com/lbl-srg/modelica-buildings/issues/2235
-    translate: false
-- model_name: Buildings.Obsolete.Utilities.IO.Python36.Functions.Examples.Exchange
-  dymola:
-    comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
-    translate: false
-  openmodelica:
-    comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
-    translate: false
-  optimica:
-    comment: See https://github.com/lbl-srg/modelica-buildings/issues/2235
-    translate: false
-- model_name: Buildings.Obsolete.Utilities.IO.Python36.Functions.Examples.ExchangeWithPassPythonObject
-  dymola:
-    comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
-    translate: false
-  openmodelica:
-    comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
-    translate: false
-  optimica:
-    comment: See https://github.com/lbl-srg/modelica-buildings/issues/2235
-    translate: false
 - model_name: Buildings.Templates.AirHandlersFans.Validation.VAVMultiZone
   optimica:
     comment: Array size mismatch in modification of the attribute quantity for the variable TZon. This is a bug in OCT tracked under Modelon#2023022839000276.
@@ -320,9 +276,51 @@
   openmodelica:
     comment: Translation failed.
     translate: false
+- model_name: Buildings.Templates.Components.HeatPumps.Validation.HeatPumpEquationFit
+  openmodelica:
+    comment: Translation failed.
+    translate: false
 - model_name: Buildings.Templates.Components.Validation.Fans
   openmodelica:
     comment: Translation failed.
+    translate: false
+- model_name: Buildings.Templates.Components.Validation.PumpMultipleRecord
+  openmodelica:
+    comment: Translation failed.
+    translate: false
+- model_name: Buildings.Templates.Components.Validation.Pumps
+  openmodelica:
+    comment: Translation failed.
+    translate: false
+- model_name: Buildings.Templates.Plants.Controls.HeatPumps.Validation.AirToWater
+  openmodelica:
+    comment: Translation failed.
+    translate: false
+- model_name: Buildings.Templates.Plants.Controls.Pumps.Primary.Validation.VariableSpeedNoDpControl
+  openmodelica:
+    comment: Translation failed.
+    translate: false
+- model_name: Buildings.Templates.Plants.HeatPumps.Components.Validation.HeatPumpGroupAirToWater
+  openmodelica:
+    comment: Translation failed.
+    translate: false
+- model_name: Buildings.Templates.Plants.HeatPumps.Components.Validation.PumpsPrimaryDedicated
+  openmodelica:
+    comment: Translation failed.
+    translate: false
+- model_name: Buildings.Templates.Plants.HeatPumps.Components.Validation.ValvesIsolation
+  openmodelica:
+    comment: Translation failed.
+    translate: false
+  optimica:
+    comment: See https://github.com/lbl-srg/modelica-buildings/issues/3759
+    simulate: false
+- model_name: Buildings.Templates.Plants.HeatPumps.Validation.AirToWater
+  openmodelica:
+    comment: Translation failed.
+    translate: false
+  optimica:
+    comment: See https://github.com/lbl-srg/modelica-buildings/issues/3759
     translate: false
 - model_name: Buildings.Templates.ZoneEquipment.Validation.VAVBoxCoolingOnly
   openmodelica:
@@ -452,10 +450,15 @@
   openmodelica:
     comment: returned non-zero exit status 255.
     simulate: false
+  optimica:
+    rtol: 1.0e-07
 - model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.IdealHeatingCoolingWinter
   openmodelica:
     comment: returned non-zero exit status 255.
     simulate: false
+  optimica:
+    rtol: 1.0e-08
+- model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.Unconditioned
   optimica:
     rtol: 1.0e-08
 - model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Validation.MultipleBuildings.TwoIdenticalTwoZoneBuildings

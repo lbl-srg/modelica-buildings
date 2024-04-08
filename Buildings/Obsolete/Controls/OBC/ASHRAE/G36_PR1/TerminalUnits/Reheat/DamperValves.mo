@@ -310,7 +310,7 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Subtract sub2
     "Calculate temperature difference between AHU supply air and room "
     annotation (Placement(transformation(extent={{-160,190},{-140,210}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol2(duration=600)
+  Buildings.Controls.OBC.CDL.Logical.TrueHold truHol2(duration=600)
     "Check if the true input holds for certain time"
     annotation (Placement(transformation(extent={{-222,-220},{-202,-200}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel3(delayTime=600)

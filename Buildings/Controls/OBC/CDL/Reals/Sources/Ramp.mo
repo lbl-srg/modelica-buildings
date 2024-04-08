@@ -14,7 +14,7 @@ block Ramp
     final quantity="Time",
     final unit="s")=0
     "Output = offset for time < startTime";
-  Interfaces.RealOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
     "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 

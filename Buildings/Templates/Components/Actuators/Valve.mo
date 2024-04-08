@@ -148,6 +148,18 @@ model Valve "Multiple-configuration valve"
       typ==Buildings.Templates.Components.Types.Valve.ThreeWayTwoPosition),
       __ctrlFlow(enable=false));
 
+  parameter Boolean from_dp = false
+    "= true, use m_flow = f(dp) else dp = f(m_flow)"
+    annotation (Evaluate=true, Dialog(tab="Advanced",
+    enable=typ<>Buildings.Templates.Components.Types.Valve.None));
+  parameter Boolean linearized = false
+    "= true, use linear relation between m_flow and dp for any flow rate"
+    annotation(Evaluate=true, Dialog(tab="Advanced",
+    enable=typ<>Buildings.Templates.Components.Types.Valve.None and
+    (if typ==Buildings.Templates.Components.Types.Valve.TwoWayModulating then
+    chaTwo<>Buildings.Templates.Components.Types.ValveCharacteristicTwoWay.PressureIndependent
+    else true)));
+
   parameter Integer text_rotation = 0
     "Text rotation angle in icon layer"
     annotation(Dialog(tab="Graphics", enable=false));
@@ -230,7 +242,9 @@ model Valve "Multiple-configuration valve"
     final init=init,
     final y_start=y_start,
     final allowFlowReversal=allowFlowReversal,
-    final show_T=show_T)
+    final show_T=show_T,
+    final from_dp=from_dp,
+    final linearized=linearized)
     if is_twoWay
     and chaTwo==Buildings.Templates.Components.Types.ValveCharacteristicTwoWay.EqualPercentage
     "Two-way valve with equal percentage characteristic"
@@ -251,7 +265,9 @@ model Valve "Multiple-configuration valve"
     final init=init,
     final y_start=y_start,
     final allowFlowReversal=allowFlowReversal,
-    final show_T=show_T)
+    final show_T=show_T,
+    final from_dp=from_dp,
+    final linearized=linearized)
     if is_twoWay
     and chaTwo==Buildings.Templates.Components.Types.ValveCharacteristicTwoWay.Linear
     "Two-way valve with linear characteristic"
@@ -272,7 +288,8 @@ model Valve "Multiple-configuration valve"
     final init=init,
     final y_start=y_start,
     final allowFlowReversal=allowFlowReversal,
-    final show_T=show_T)
+    final show_T=show_T,
+    final from_dp=from_dp)
     if is_twoWay
     and chaTwo==Buildings.Templates.Components.Types.ValveCharacteristicTwoWay.PressureIndependent
     "Pressure independent two-way valve"
@@ -294,7 +311,9 @@ model Valve "Multiple-configuration valve"
     final init=init,
     final y_start=y_start,
     final allowFlowReversal=allowFlowReversal,
-    final show_T=show_T)
+    final show_T=show_T,
+    final from_dp=from_dp,
+    final linearized=linearized)
     if is_twoWay
     and chaTwo==Buildings.Templates.Components.Types.ValveCharacteristicTwoWay.Table
     "Pressure independent two-way valve"
@@ -325,7 +344,9 @@ model Valve "Multiple-configuration valve"
       else Modelica.Fluid.Types.PortFlowDirection.Leaving,
     final portFlowDirection_3=if allowFlowReversal then
       Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-    else Modelica.Fluid.Types.PortFlowDirection.Entering)
+    else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    final from_dp=from_dp,
+    final linearized={linearized, linearized})
     if is_thrWay
     and chaThr==Buildings.Templates.Components.Types.ValveCharacteristicThreeWay.EqualPercentageLinear
     "Three-way valve with equal percentage and linear characteristics"
@@ -353,7 +374,9 @@ model Valve "Multiple-configuration valve"
     final portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Leaving,
     final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-         else Modelica.Fluid.Types.PortFlowDirection.Entering)
+         else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    final from_dp=from_dp,
+    final linearized={linearized, linearized})
     if is_thrWay
     and chaThr==Buildings.Templates.Components.Types.ValveCharacteristicThreeWay.Linear
     "Three-way valve with linear characteristics"
@@ -383,7 +406,9 @@ model Valve "Multiple-configuration valve"
     final portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Leaving,
     final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-         else Modelica.Fluid.Types.PortFlowDirection.Entering)
+         else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    final from_dp=from_dp,
+    final linearized={linearized, linearized})
     if is_thrWay
     and chaThr==Buildings.Templates.Components.Types.ValveCharacteristicThreeWay.Table
     "Three-way valve with table-specified characteristics"

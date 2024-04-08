@@ -59,7 +59,9 @@ equation
         color={255,0,255}));
   connect(y1One, mulOr.y)
     annotation (Line(points={{120,60},{-38,60}}, color={255,0,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+  annotation (
+  defaultComponentName="conCom",
+  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),                                        graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
