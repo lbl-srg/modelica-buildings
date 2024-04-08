@@ -1136,6 +1136,17 @@ as well as system operation mode signal <code>modSetPoi.yOpeMod</code> are detai
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.ModeAndSetPoints\">
 Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.ModeAndSetPoints</a>.
 </p>
+<h4>Plant requests</h4>
+<p>
+The plant requests are implemented based on Part 5.22.8.
+The block outputs a chilled water plant request <code>yChiPlaReq</code>, chilled 
+water supply temperature reset request <code>yChiWatResReq</code>, hot water plant 
+request <code>yHotWatPlaReq</code> and hot water supply temperature reset request
+<code>yHotWatResReq</code>. See
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Subsequences.PlantRequests\">
+Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Subsequences.PlantRequests</a>
+for more detailed description.
+</p>
 </html>",
 revisions="<html>
 <ul>
