@@ -27,17 +27,16 @@ partial model PartialValidation
         extent={{-11,11},{11,-11}},
         rotation=0,
         origin={-31,11})));
-  Buildings.Fluid.HeatPumps.ModularReversible.ModularReversible heaPum(
+  Buildings.Fluid.HeatPumps.ModularReversible.Modular heaPum(
     redeclare final package MediumCon = MediumSin,
     redeclare final package MediumEva = MediumSou,
-    QHea_flow_nominal=heaPum.refCyc.refCycHeaPumHea.QHeaNoSca_flow_nominal,
     final use_intSafCtr=false,
-    TCon_nominal=303.15,
+    TConHea_nominal=303.15,
     dTCon_nominal=5,
     CCon=0,
     GConOut=0,
     GConIns=0,
-    TEva_nominal=290.15,
+    TEvaHea_nominal=290.15,
     dTEva_nominal=5,
     mEva_flow_nominal=0.8,
     dpEva_nominal=0,

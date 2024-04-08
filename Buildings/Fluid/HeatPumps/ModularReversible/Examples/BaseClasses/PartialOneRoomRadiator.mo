@@ -73,10 +73,10 @@ partial model PartialOneRoomRadiator
 
   Movers.FlowControlled_m_flow pumHeaPum(
     redeclare package Medium = MediumWat,
+    nominalValuesDefineDefaultPressureCurve=true,
     m_flow_nominal=mCon_flow_nominal,
     m_flow_start=0.85,
     T_start=TRadSup_nominal,
-    nominalValuesDefineDefaultPressureCurve=true,
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Pump for radiator side" annotation (Placement(transformation(
@@ -113,7 +113,6 @@ partial model PartialOneRoomRadiator
     redeclare package Medium = MediumWat,
     m_flow_start=0.85,
     m_flow_nominal=mEva_flow_nominal,
-    nominalValuesDefineDefaultPressureCurve=true,
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Pump for heat pump source side" annotation (Placement(transformation(
@@ -242,11 +241,11 @@ equation
           {-132,-140},{-132,-180},{-122,-180}}, color={255,0,255}));
   connect(conPumAlwOn.y, booToReaPumCon.u) annotation (Line(points={{-143,-140},
           {-132,-140},{-132,-110},{-122,-110}}, color={255,0,255}));
-  connect(oneRooRadHeaPumCtr.TRadSup, temSup.T) annotation (Line(points={{-162,-77},
-          {-188,-77},{-188,-20},{-81,-20}},                            color={0,
+  connect(oneRooRadHeaPumCtr.TRadSup, temSup.T) annotation (Line(points={{
+          -161.667,-75.8333},{-188,-75.8333},{-188,-20},{-81,-20}},    color={0,
           0,127}));
-  connect(oneRooRadHeaPumCtr.TRooMea, temRoo.T) annotation (Line(points={{-162,-70},
-          {-180,-70},{-180,30},{-49,30}},                        color={0,0,127}));
+  connect(oneRooRadHeaPumCtr.TRooMea, temRoo.T) annotation (Line(points={{
+          -161.667,-70},{-180,-70},{-180,30},{-49,30}},          color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
   Motivated by the example

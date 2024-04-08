@@ -22,9 +22,6 @@ partial model PartialReversibleRefrigerantMachine
     PartialModularRefrigerantCycle(final use_rev=use_rev)
     "Model of the refrigerant cycle" annotation (Placement(transformation(
           extent={{-18,-18},{18,18}}, rotation=90)));
-  parameter Real y_nominal(unit="1", min=0, max=1)=1
-    "Nominal relative compressor speed"
-    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.HeatFlowRate PEle_nominal
     "Nominal electrical power consumption"
     annotation (Dialog(group="Nominal condition"));
@@ -43,19 +40,16 @@ partial model PartialReversibleRefrigerantMachine
   parameter Modelica.Units.SI.Time tauCon=30
     "Condenser heat transfer time constant at nominal flow"
     annotation (Dialog(tab="Condenser", group="Dynamics"));
-  parameter Modelica.Units.SI.Temperature TCon_nominal
-    "Nominal temperature of condenser medium"
-    annotation (Dialog(group="Nominal condition - Condenser"));
   parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal
-    "Nominal temperature difference in condenser medium"
-    annotation (Dialog(group="Nominal condition - Condenser"));
+    "Nominal temperature difference in condenser medium, used to calculate mass flow rate"
+    annotation (Dialog(group="Nominal condition - Pressure losses"));
   parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal
     "Nominal mass flow rate of the condenser medium"
-    annotation (Dialog(group="Nominal condition - Condenser"));
+    annotation (Dialog(group="Nominal condition - Pressure losses"));
 
   parameter Modelica.Units.SI.PressureDifference dpCon_nominal(displayUnit="Pa")
     "Pressure drop at nominal mass flow rate"
-    annotation (Dialog(group="Nominal condition - Condenser"));
+    annotation (Dialog(group="Nominal condition - Pressure losses"));
   parameter Real deltaMCon=0.1
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
     annotation (Dialog(tab="Condenser", group="Flow resistance"));
@@ -92,19 +86,16 @@ partial model PartialReversibleRefrigerantMachine
   parameter Modelica.Units.SI.Time tauEva=30
     "Evaporator heat transfer time constant at nominal flow"
     annotation (Dialog(tab="Evaporator", group="Dynamics"));
-  parameter Modelica.Units.SI.Temperature TEva_nominal
-    "Nominal temperature of evaporator medium"
-    annotation (Dialog(group="Nominal condition - Evaporator"));
   parameter Modelica.Units.SI.TemperatureDifference dTEva_nominal
-    "Nominal temperature difference in evaporator medium"
-    annotation (Dialog(group="Nominal condition - Evaporator"));
+    "Nominal temperature difference in evaporator medium, used to calculate mass flow rate"
+    annotation (Dialog(group="Nominal condition - Pressure losses"));
   parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal
     "Nominal mass flow rate of the evaporator medium"
-    annotation (Dialog(group="Nominal condition - Evaporator"));
+    annotation (Dialog(group="Nominal condition - Pressure losses"));
 
   parameter Modelica.Units.SI.PressureDifference dpEva_nominal(displayUnit="Pa")
     "Pressure drop at nominal mass flow rate"
-    annotation (Dialog(group="Nominal condition - Evaporator"));
+    annotation (Dialog(group="Nominal condition - Pressure losses"));
   parameter Real deltaMEva=0.1
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
     annotation (Dialog(tab="Evaporator", group="Flow resistance"));
@@ -210,6 +201,18 @@ partial model PartialReversibleRefrigerantMachine
   parameter Real ySet_small=0.01
     "Threshold for relative speed for the device to be considered on"
     annotation (Dialog(tab="Advanced", group="Diagnostics"));
+  parameter Boolean calEff=true
+    "=false to disable efficiency calculation, may speed up the simulation"
+    annotation(Dialog(tab="Advanced"));
+  parameter Real limWarDifSca = 5
+    "Percentage of different scaling between cooling and heating to raise warning"
+    annotation(Dialog(tab="Advanced"));
+
+  Modelica.Units.SI.HeatFlowRate Q1_flow = QCon_flow
+    "Heat transferred into the medium 1";
+  Modelica.Units.SI.HeatFlowRate Q2_flow = QEva_flow
+    "Heat transferred into the medium 2";
+
   Buildings.Fluid.HeatPumps.ModularReversible.BaseClasses.EvaporatorCondenserWithCapacity con(
     redeclare final package Medium = MediumCon,
     final allowFlowReversal=allowFlowReversalCon,
@@ -298,7 +301,7 @@ partial model PartialReversibleRefrigerantMachine
   Buildings.Fluid.Sensors.MassFlowRate mEva_flow(redeclare final package Medium =
         MediumEva, final allowFlowReversal=allowFlowReversalEva)
     "Mass flow sensor at the evaporator" annotation (Placement(transformation(
-        origin={72,-60},
+        origin={70,-60},
         extent={{10,-10},{-10,10}},
         rotation=0)));
   Buildings.Fluid.Sensors.MassFlowRate mCon_flow(final allowFlowReversal=
@@ -365,10 +368,15 @@ partial model PartialReversibleRefrigerantMachine
     "Coefficient of performance" annotation (Placement(transformation(extent={{140,
             20},{160,40}}), iconTransformation(extent={{100,20},{120,40}})));
 
+  Buildings.Fluid.HeatPumps.ModularReversible.BaseClasses.CalculateEfficiency
+    eff(PEleMin=PEle_nominal*0.1) if calEff "Calculate efficiencies of device"
+    annotation (Placement(transformation(
+        extent={{10,10},{-10,-10}},
+        rotation=180,
+        origin={110,30})));
 // To avoid using the bus, set the section below to protected
+
 protected
-
-
   RefrigerantMachineControlBus sigBus
     "Bus with model outputs and possibly inputs" annotation (Placement(transformation(
           extent={{-156,-58},{-126,-24}}),iconTransformation(extent={{-108,-52},
@@ -381,12 +389,12 @@ protected
           use_intSafCtr));
 
 // <!-- @include_AixLib
-protected
 // -->
 
+
+protected
   parameter Boolean use_COP "=true to enable COP output";
   parameter Boolean use_EER "=true to enable EER output";
-  parameter Real scaFac "Scaling factor";
   parameter MediumCon.ThermodynamicState staCon_nominal=MediumCon.setState_pTX(
       T=MediumCon.T_default, p=MediumCon.p_default, X=MediumCon.X_default)
       "Nominal state of condenser medium";
@@ -403,7 +411,7 @@ equation
           {-140,-41},{-141,-41}},
       color={255,204,51},
       thickness=0.5));
-  connect(safCtr.yOut, sigBus.ySet) annotation (Line(points={{-91.1667,-10},{-84,
+  connect(safCtr.yOut, sigBus.yMea) annotation (Line(points={{-91.1667,-10},{-84,
           -10},{-84,-40},{-138,-40},{-138,-42},{-140,-42},{-140,-41},{-141,-41}},
                                                     color={0,0,127}));
   connect(ySet, safCtr.ySet) annotation (Line(points={{-156,20},{-120,20},{-120,
@@ -428,11 +436,11 @@ equation
   connect(port_b2, port_b2) annotation (Line(points={{-100,-60},{-100,-60}},
                  color={0,127,255}));
   connect(mEva_flow.port_a, port_a2)
-    annotation (Line(points={{82,-60},{100,-60}}, color={0,127,255}));
+    annotation (Line(points={{80,-60},{100,-60}}, color={0,127,255}));
   connect(port_a1,mCon_flow. port_a)
     annotation (Line(points={{-100,60},{-68,60},{-68,100},{-60,100}},
                                                   color={0,127,255}));
-  connect(mEva_flow.port_b, eva.port_a) annotation (Line(points={{62,-60},{32,-60},
+  connect(mEva_flow.port_b, eva.port_a) annotation (Line(points={{60,-60},{32,-60},
           {32,-100},{20,-100}},
                               color={0,127,255}));
   connect(eva.port_b, port_b2) annotation (Line(points={{-20,-100},{-80,-100},{-80,
@@ -455,9 +463,9 @@ equation
   connect(con.port_b, port_b1) annotation (Line(points={{20,100},{100,100},{100,
           60}},      color={0,127,255}));
   // External bus connections
-  connect(mEva_flow.m_flow, sigBus.mEvaMea_flow) annotation (Line(points={{72,-49},
-          {72,-40},{20,-40},{20,-30},{-20,-30},{-20,-40},{-138,-40},{-138,-41},{
-          -141,-41}},                                           color={0,0,127}),
+  connect(mEva_flow.m_flow, sigBus.mEvaMea_flow) annotation (Line(points={{70,-49},
+          {70,-40},{26,-40},{26,-30},{-20,-30},{-20,-40},{-138,-40},{-138,-41},{-141,
+          -41}},                                                color={0,0,127}),
       Text(
       string="%second",
       index=1,
@@ -492,7 +500,7 @@ equation
       points={{-150,-130},{-130,-130},{-130,-110},{-76,-110},{-76,-41},{-141,-41}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(hys.u, sigBus.ySet) annotation (Line(points={{-122,-90},{-132,-90},{-132,
+  connect(hys.u, sigBus.yMea) annotation (Line(points={{-122,-90},{-132,-90},{-132,
           -40},{-136,-40},{-136,-41},{-141,-41}},
                        color={0,0,127}));
   connect(con.T, sigBus.TConOutMea) annotation (Line(points={{22.4,90},{38,90},{
@@ -516,29 +524,25 @@ equation
           12},{-76,-40},{-148,-40},{-148,-41},{-141,-41}},              color={0,
           0,127}));
   if not use_intSafCtr then
-    connect(ySet, sigBus.ySet) annotation (Line(points={{-156,20},{-120,20},{-120,
+    connect(ySet, sigBus.yMea) annotation (Line(points={{-156,20},{-120,20},{-120,
             -40},{-136,-40},{-136,-41},{-141,-41}},
                        color={0,0,127}));
   end if;
-
+  connect(ySet, sigBus.ySet) annotation (Line(points={{-156,20},{-120,20},{-120,
+          -40},{-136,-40},{-136,-41},{-141,-41}},
+                     color={0,0,127}));
   connect(refCyc.PEle, P) annotation (Line(points={{19.89,0.09},{26,0.09},{26,0},{
           150,0}}, color={0,0,127}));
   connect(refCycIneEva.y, QEva_flow) annotation (Line(points={{-1.9984e-15,-61},{-1.9984e-15,
           -68},{50,-68},{50,-130},{150,-130}}, color={0,0,127}));
   connect(refCycIneCon.y, QCon_flow) annotation (Line(points={{8.88178e-16,61},{8.88178e-16,
           70},{70,70},{70,130},{150,130}}, color={0,0,127}));
-  connect(EER, sigBus.EER) annotation (Line(points={{150,-30},{-20,-30},{-20,-41},
-          {-141,-41}}, color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(COP, sigBus.COP) annotation (Line(points={{150,30},{120,30},{120,-30},{-20,
-          -30},{-20,-41},{-141,-41}}, color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
+  connect(eff.PEle, refCyc.PEle) annotation (Line(points={{98,23},{48,23},{48,0.09},
+          {19.89,0.09}}, color={0,0,127}));
+  connect(eff.COP, COP) annotation (Line(points={{121,36},{130,36},{130,30},{150,30}},
+        color={0,0,127}));
+  connect(eff.EER, EER) annotation (Line(points={{121,24},{130,24},{130,-30},{150,
+          -30}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
                    graphics={
         Rectangle(
@@ -651,8 +655,8 @@ equation
   model for heat pumps and chillers, e.g. by
   <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.BaseClasses.RefrigerantCycle\">
   Buildings.Fluid.HeatPumps.ModularReversible.BaseClasses.RefrigerantCycle</a>
-  in <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.ModularReversible\">
-  Buildings.Fluid.HeatPumps.ModularReversible.ModularReversible</a>.
+  in <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.Modular\">
+  Buildings.Fluid.HeatPumps.ModularReversible.Modular</a>.
 </p>
 <p>
   For more information on the approach, please read the

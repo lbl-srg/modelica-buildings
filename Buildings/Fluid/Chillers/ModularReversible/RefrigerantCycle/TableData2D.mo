@@ -4,32 +4,33 @@ model TableData2D
   extends
     Buildings.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle(
     final datSou=datTab.devIde,
-    mEva_flow_nominal=datTab.mEva_flow_nominal*scaFac,
-    mCon_flow_nominal=datTab.mCon_flow_nominal*scaFac,
     PEle_nominal=Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
         tabIdePEle,
         TEva_nominal,
-        TCon_nominal) * scaFac * y_nominal,
-    QCooNoSca_flow_nominal=
-        Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
-        tabIdeQUse_flow,
-        TEva_nominal,
-        TCon_nominal) * y_nominal);
+        TCon_nominal) * scaFac);
   extends
     Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialTableData2D(
+    final useInRevDev=not useInChi,
     final use_TConOutForTab=datTab.use_TConOutForTab,
     final use_TEvaOutForTab=datTab.use_TEvaOutForTab,
     tabQUse_flow(final table=datTab.tabQEva_flow),
     tabPEle(final table=datTab.tabPEle),
+    scaFac=QCoo_flow_nominal/QCooNoSca_flow_nominal,
+    mEva_flow_nominal=datTab.mEva_flow_nominal*scaFac,
+    mCon_flow_nominal=datTab.mCon_flow_nominal*scaFac,
     final valTabQEva_flow = {{-tabQUse_flow.table[j, i] for i in 2:numCol} for j in 2:numRow},
     final valTabQCon_flow = valTabQEva_flow .+ valTabPEle,
-    final mCon_flow_nominal_internal=mCon_flow_nominal,
-    final mEva_flow_nominal_internal=mEva_flow_nominal,
     final mCon_flow_max=max(valTabQCon_flow) * scaFac / cpCon / dTMin,
     final mCon_flow_min=min(valTabQCon_flow) * scaFac / cpCon / dTMax,
-    final mEva_flow_min=min(valTabQEva_flow) * scaFac / cpCon / dTMax,
-    final mEva_flow_max=max(valTabQEva_flow) * scaFac / cpCon / dTMin,
-    constScaFac(final k=scaFac));
+    final mEva_flow_min=min(valTabQEva_flow) * scaFac / cpEva / dTMax,
+    final mEva_flow_max=max(valTabQEva_flow) * scaFac / cpEva / dTMin);
+  parameter Modelica.Units.SI.HeatFlowRate QCooNoSca_flow_nominal=
+        Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
+        tabIdeQUse_flow,
+        TEva_nominal,
+        TCon_nominal)
+    "Unscaled nominal cooling capacity "
+    annotation (Dialog(group="Nominal condition"));
   replaceable parameter Buildings.Fluid.Chillers.ModularReversible.Data.TableData2D.Generic datTab
     "Data Table of Chiller" annotation (choicesAllMatching=true);
 
@@ -41,7 +42,7 @@ equation
           {-30,-26},{-30,-48},{64,-48},{64,-78}}, color={0,0,127}));
   connect(scaFacTimQUse_flow.y, proRedQEva.u2) annotation (Line(points={{40,-9},{
           40,-40},{-24,-40},{-24,-78}},  color={0,0,127}));
-  connect(ySetTimScaFac.u1, sigBus.ySet) annotation (Line(points={{-54,62},{-54,
+  connect(yMeaTimScaFac.u1, sigBus.yMea) annotation (Line(points={{-54,62},{-54,
           72},{-70,72},{-70,120},{1,120}},   color={0,0,127}), Text(
       string="%second",
       index=1,
@@ -71,8 +72,6 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(scaFacTimPel.y, calEER.PEle) annotation (Line(points={{-40,-9},{-40,-70},
-          {-80,-70},{-80,-86},{-88,-86}},                     color={0,0,127}));
 
   if useInChi then
     connect(reaPasThrTConOut.y, tabPEle.u2)
@@ -183,7 +182,7 @@ This implies a constant COP over different design sizes:
   compressor speed range. Typically, efficiencies will drop at minimal
   and maximal compressor speeds.
   To model an inverter controlled chiller, the relative
-  compressor speed <code>ySet</code> is used to scale
+  compressor speed <code>yMea</code> is used to scale
   the ouput of the tables linearly.
   For models including the compressor speed, check the SDF-Library
   dependent refrigerant cycle models in the

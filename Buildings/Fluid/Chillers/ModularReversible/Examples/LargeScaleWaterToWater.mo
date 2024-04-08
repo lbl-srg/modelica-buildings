@@ -10,13 +10,13 @@ model LargeScaleWaterToWater
       Buildings.Fluid.Chillers.ModularReversible.Data.TableData2D.EN14511.Carrier30XWP1012_1MW
       datTab,
     redeclare Buildings.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
-      safCtrParEurNor,
+      safCtrPar,
     redeclare package MediumCon = MediumCon,
     redeclare package MediumEva = MediumEva,
     QCoo_flow_nominal=-1000000,
-    TCon_nominal=313.15,
+    TConCoo_nominal=313.15,
     dpCon_nominal(displayUnit="Pa") = 6000,
-    TEva_nominal=278.15,
+    TEvaCoo_nominal=278.15,
     dpEva_nominal(displayUnit="Pa") = 6000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Large scale water to water chiller"
@@ -61,19 +61,19 @@ model LargeScaleWaterToWater
     annotation (Placement(transformation(extent={{52,-40},{72,-20}})));
 equation
   connect(souCon.ports[1], chi.port_a1) annotation (Line(
-      points={{-40,16},{-20,16},{-20,15},{-5.55112e-16,15}},
+      points={{-40,16},{-20,16},{-20,16},{-5.55112e-16,16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(souEva.ports[1], chi.port_a2) annotation (Line(
-      points={{40,4},{30,4},{30,5},{20,5}},
+      points={{40,4},{30,4},{30,4},{20,4}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(chi.port_b1, sinCon.ports[1]) annotation (Line(
-      points={{20,15},{30,15},{30,40},{60,40}},
+      points={{20,16},{30,16},{30,40},{60,40}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sinEva.ports[1], chi.port_b2) annotation (Line(
-      points={{-40,-20},{-10,-20},{-10,5},{-5.55112e-16,5}},
+      points={{-40,-20},{-10,-20},{-10,4},{-5.55112e-16,4}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TConIn.y, souCon.T_in) annotation (Line(
@@ -84,8 +84,8 @@ equation
       points={{73,-30},{80,-30},{80,8},{62,8}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(ySet.y, chi.ySet) annotation (Line(points={{-39,60},{-16,60},{-16,
-          11.6667},{-1.6,11.6667}},          color={0,0,127}));
+  connect(ySet.y, chi.ySet) annotation (Line(points={{-39,60},{-16,60},{-16,12},{-1.2,
+          12}},                              color={0,0,127}));
   annotation (experiment(Tolerance=1e-6, StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Chillers/ModularReversible/Examples/LargeScaleWaterToWater.mos"
         "Simulate and plot"),
@@ -110,7 +110,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Chil
 <p>
   As the model contains internal safety controls, the
   compressor set speed <code>ySet</code> and actually applied
-  speed <code>yOut</code> are plotted to show the influence of
+  speed <code>yMea</code> are plotted to show the influence of
   the safety control.
 </p>
 

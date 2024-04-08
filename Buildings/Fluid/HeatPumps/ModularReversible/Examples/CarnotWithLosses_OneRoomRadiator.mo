@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatPumps.ModularReversible.Examples;
-model ReversibleCarnotWithLosses_OneRoomRadiator
+model CarnotWithLosses_OneRoomRadiator
   "Reversible heat pump with Carnot approach connected to a simple room model with radiator"
   extends Examples.BaseClasses.PartialOneRoomRadiator(
     mEva_flow_nominal=heaPum.mEva_flow_nominal,
@@ -10,28 +10,29 @@ model ReversibleCarnotWithLosses_OneRoomRadiator
 
   parameter Real perHeaLos=0.1
     "Percentage of heat losses in the heat exchangers to the nominal heating output";
-  Buildings.Fluid.HeatPumps.ModularReversible.ReversibleCarnotWithLosses heaPum(
+  Buildings.Fluid.HeatPumps.ModularReversible.CarnotWithLosses heaPum(
     redeclare package MediumCon = MediumWat,
     redeclare package MediumEva = MediumWat,
     QHea_flow_nominal=Q_flow_nominal,
     use_rev=true,
     use_intSafCtr=true,
-    TCon_nominal=TRadSup_nominal,
+    TConHea_nominal=TRadSup_nominal,
     dTCon_nominal=TRadSup_nominal - TRadRet_nominal,
     dpCon_nominal(displayUnit="Pa") = 2000,
     CCon=5000,
     GConOut=perHeaLos*Q_flow_nominal/(TRadSup_nominal - temAmbBas.k),
     GConIns=20000,
-    TEva_nominal=sou.T,
+    TEvaHea_nominal=sou.T,
     dTEva_nominal=5,
     dpEva_nominal(displayUnit="Pa") = 2000,
     CEva=5000,
     GEvaOut=perHeaLos*Q_flow_nominal/(temAmbBas.k - sou.T),
     GEvaIns=20000,
+    TConCoo_nominal=oneRooRadHeaPumCtr.TRadMinSup,
+    TEvaCoo_nominal=sou.T + 10,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare Buildings.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
       safCtrPar,
-    QCoo_flow_nominal=-Q_flow_nominal,
     etaCarnot_nominal=0.4)
               "Reversible heat pump with losses and Carnot approach"
     annotation (Placement(transformation(extent={{20,-160},{0,-140}})));
@@ -56,14 +57,15 @@ equation
           -166},{28,-166},{28,-141},{21.2,-141}},         color={0,0,127}));
 
   connect(oneRooRadHeaPumCtr.hea, heaPum.hea) annotation (Line(
-        points={{-139,-76},{-94,-76},{-94,-166},{28,-166},{28,-151.9},{21.1,
+        points={{-139.167,-75},{-94,-75},{-94,-166},{28,-166},{28,-151.9},{21.1,
           -151.9}},
         color={255,0,255}));
   connect(oneRooRadHeaPumCtr.ySet, heaPum.ySet) annotation (Line(
-        points={{-139,-66},{28,-66},{28,-148},{21.2,-148}}, color={0,0,127}));
+        points={{-139.167,-66.6667},{28,-66.6667},{28,-148},{21.2,-148}},
+                                                            color={0,0,127}));
   annotation (
    __Dymola_Commands(file=
-     "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/ModularReversible/Examples/ReversibleCarnotWithLosses_OneRoomRadiator.mos"
+     "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/ModularReversible/Examples/CarnotWithLosses_OneRoomRadiator.mos"
         "Simulate and plot"),
   experiment(
       StartTime=0,
@@ -72,8 +74,8 @@ equation
     Documentation(info="<html>
 <p>
   This example demonstrates how to use the
-  <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.ReversibleCarnotWithLosses\">
-  Buildings.Fluid.HeatPumps.ModularReversible.ReversibleCarnotWithLosses</a>
+  <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.CarnotWithLosses\">
+  Buildings.Fluid.HeatPumps.ModularReversible.CarnotWithLosses</a>
   heat pump model. Please check the associated documentation for
   further information.
 </p>
@@ -92,4 +94,4 @@ equation
 </li>
 </ul>
 </html>"));
-end ReversibleCarnotWithLosses_OneRoomRadiator;
+end CarnotWithLosses_OneRoomRadiator;

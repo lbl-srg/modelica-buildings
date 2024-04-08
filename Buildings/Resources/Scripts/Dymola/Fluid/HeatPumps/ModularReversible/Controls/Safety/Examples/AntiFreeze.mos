@@ -1,6 +1,6 @@
 simulateModel("Buildings.Fluid.HeatPumps.ModularReversible.Controls.Safety.Examples.AntiFreeze", stopTime=100, method="CVode", tolerance=1e-08, resultFile="AntiFreeze");
 createPlot(id = 1,
- position = {19, 32, 798, 500},
+ position = {19, 32, 826, 408},
  y = {"ySet", "yOut"},
  range = {0.0, 100.0, 0.0, 1.0},
  autoscale = true,
@@ -15,7 +15,7 @@ createPlot(id = 1,
  bottomTitleType = 1,
  colors = {{0, 0, 255}, {255, 0, 0}});
 createPlot(id = 1,
- position = {19, 32, 798, 247},
+ position = {19, 32, 826, 408},
  y = {"antFre.sigBus.TConInMea", "antFre.sigBus.TEvaOutMea", "antFre.TAntFre"},
  range = {0.0, 100.0, 0.0, 15.0},
  autoscale = true,

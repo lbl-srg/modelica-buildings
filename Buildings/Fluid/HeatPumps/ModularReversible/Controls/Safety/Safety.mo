@@ -19,11 +19,13 @@ model Safety "Model including all safety levels"
     Buildings.Fluid.HeatPumps.ModularReversible.Controls.Safety.OperationalEnvelope
     opeEnv if safCtrPar.use_opeEnv constrainedby
     Buildings.Fluid.HeatPumps.ModularReversible.Controls.Safety.BaseClasses.PartialOperationalEnvelope(
-    final tabUppHea=safCtrPar.tabUppHea,
-    final tabLowCoo=safCtrPar.tabLowCoo,
-    final use_TUseSidOut=safCtrPar.use_TUseSidOut,
-    final use_TAmbSidOut=safCtrPar.use_TAmbSidOut,
-    final dTHys=safCtrPar.dTHysOpeEnv) "Block for operational envelope"
+      final use_TConOutHea=safCtrPar.use_TConOutHea,
+      final use_TEvaOutHea=safCtrPar.use_TEvaOutHea,
+      final use_TConOutCoo=safCtrPar.use_TConOutCoo,
+      final use_TEvaOutCoo=safCtrPar.use_TEvaOutCoo,
+      final tabUppHea=safCtrPar.tabUppHea,
+      final tabLowCoo=safCtrPar.tabLowCoo,
+      final dTHys=safCtrPar.dTHysOpeEnv) "Block for operational envelope"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})),
       choicesAllMatching=true);
   Buildings.Fluid.HeatPumps.ModularReversible.Controls.Safety.OnOff onOffCtr(
@@ -91,8 +93,8 @@ model Safety "Model including all safety levels"
 equation
 
   connect(sigBus, onOffCtr.sigBus) annotation (Line(
-      points={{-119,-61},{-112,-61},{-112,-10},{-66,-10},{-66,23.9167},{
-          -59.9167,23.9167}},
+      points={{-119,-61},{-112,-61},{-112,-10},{-66,-10},{-66,23.9167},{-59.9167,
+          23.9167}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -101,8 +103,8 @@ equation
       horizontalAlignment=TextAlignment.Right));
 
   connect(sigBus, opeEnv.sigBus) annotation (Line(
-      points={{-119,-61},{-112,-61},{-112,-10},{-28,-10},{-28,23.9167},{
-          -19.9167,23.9167}},
+      points={{-119,-61},{-112,-61},{-112,-10},{-28,-10},{-28,23.9167},{-19.9167,
+          23.9167}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -158,8 +160,8 @@ equation
   connect(opeEnv.yOut, antFre.ySet) annotation (Line(points={{0.833333,30},{
           18.6667,30}},                                               color={0,0,
           127}));
-  connect(antFre.yOut, minVolFloRatSaf.ySet) annotation (Line(points={{40.8333,
-          30},{58.6667,30}},                                            color={0,
+  connect(antFre.yOut, minVolFloRatSaf.ySet) annotation (Line(points={{40.8333,30},
+          {58.6667,30}},                                                color={0,
           0,127}));
   connect(antFre.yOut, reaPasThrMinVolRat.u) annotation (Line(
       points={{40.8333,30},{40.8333,30},{52,30},{52,70},{58,70}},

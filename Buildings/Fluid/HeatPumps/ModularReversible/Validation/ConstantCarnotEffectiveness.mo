@@ -4,8 +4,8 @@ model ConstantCarnotEffectiveness
   extends
     Buildings.Fluid.HeatPumps.ModularReversible.Validation.BaseClasses.PartialValidation(
      heaPum(
-      QHea_flow_nominal=etaCarnot_nominal*PEle_nominal*heaPum.TCon_nominal/(heaPum.TCon_nominal
-           - heaPum.TEva_nominal),
+      QHea_flow_nominal=etaCarnot_nominal*PEle_nominal*heaPum.TConHea_nominal/(heaPum.TConHea_nominal
+           - heaPum.TEvaHea_nominal),
       mCon_flow_nominal=mCon_flow_nominal,
       tauCon=VCon*heaPum.rhoCon/mCon_flow_nominal,
       redeclare model RefrigerantCycleInertia =

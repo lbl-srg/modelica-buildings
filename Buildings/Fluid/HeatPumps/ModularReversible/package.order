@@ -1,8 +1,8 @@
 UsersGuide
+AirToWaterTableData2D
+CarnotWithLosses
 LargeScaleWaterToWater
-ModularReversible
-ReversibleAirToWaterTableData2D
-ReversibleCarnotWithLosses
+Modular
 Controls
 RefrigerantCycle
 Data

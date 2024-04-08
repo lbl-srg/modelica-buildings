@@ -1,10 +1,12 @@
 within Buildings.Fluid.HeatPumps.ModularReversible;
-model ReversibleCarnotWithLosses
+model CarnotWithLosses
   "Heat pump using the Carnot approach, but with added reversibility and losses (heat, frost, inertia)"
-  extends Buildings.Fluid.HeatPumps.ModularReversible.ModularReversible(
+  extends Buildings.Fluid.HeatPumps.ModularReversible.Modular(
+    QCoo_flow_nominal=-PEle_nominal*refCyc.refCycHeaPumCoo.EER_nominal,
     redeclare model RefrigerantCycleHeatPumpCooling =
         Buildings.Fluid.Chillers.ModularReversible.RefrigerantCycle.ConstantCarnotEffectiveness
         (
+        PEle_nominal=PEle_nominal,
         redeclare
           Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
           iceFacCal,
@@ -35,25 +37,32 @@ model ReversibleCarnotWithLosses
   parameter Modelica.Units.SI.TemperatureDifference TAppCon_nominal=
     if cpCon < 1500 then 5 else 2
     "Temperature difference between refrigerant and working fluid outlet in condenser"
-    annotation(Dialog(group="Nominal condition - Condenser"));
+    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.TemperatureDifference TAppEva_nominal=
     if cpEva < 1500 then 5 else 2
     "Temperature difference between refrigerant and working fluid outlet in evaporator"
-    annotation(Dialog(group="Nominal condition - Evaporator"));
+    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Time refIneTimCon = 300
     "Refrigerant cycle inertia time constant for first order delay"
     annotation(Dialog(group="Refrigerant cycle inertia"));
   parameter Integer nthOrd(min=1)=1 "Order of refrigerant cycle interia"
     annotation(Dialog(group="Refrigerant cycle inertia"));
 
+initial algorithm
+  assert(use_rev and ((refCyc.refCycHeaPumCoo.PEle_nominal - PEle_nominal) / PEle_nominal * 100 < limWarDifSca),
+    "In " + getInstanceName() + ": Nominal electrical powers for heating and cooling 
+    operation differ by " + String((refCyc.refCycHeaPumCoo.PEle_nominal - PEle_nominal) / PEle_nominal * 100) +
+    " %. The simulated nominal heating and cooling 
+    capacities may not be realistic for a single device",
+    AssertionLevel.warning);
   annotation (Documentation(info="<html>
 <p>
   Model of a reversible heat pump.
 </p>
 <p>
   This model extends
-  <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.ModularReversible\">
-  Buildings.Fluid.HeatPumps.ModularReversible.ModularReversible</a> and selects the
+  <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.Modular\">
+  Buildings.Fluid.HeatPumps.ModularReversible.Modular</a> and selects the
   constant Carnot effectiveness module for heat pumps
   (<a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantCarnotEffectiveness\">
   Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantCarnotEffectiveness</a>)
@@ -87,4 +96,4 @@ model ReversibleCarnotWithLosses
 </li>
 </ul>
 </html>"));
-end ReversibleCarnotWithLosses;
+end CarnotWithLosses;

@@ -1,7 +1,6 @@
 within Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses;
 partial model PartialRefrigerantCycle
   "Partial model of refrigerant cycle"
-
   parameter Modelica.Units.SI.Power PEle_nominal
     "Nominal electrical power consumption"
     annotation (Dialog(group="Nominal condition"));
@@ -11,29 +10,9 @@ partial model PartialRefrigerantCycle
   parameter Modelica.Units.SI.Temperature TEva_nominal
     "Nominal temperature at secondary evaporator side"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal
-    "Nominal temperature difference at secondary condenser side"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.TemperatureDifference dTEva_nominal
-    "Nominal temperature difference at secondary evaporator side"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal
-    "Nominal mass flow rate in secondary condenser side"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal
-    "Nominal mass flow rate in secondary evaporator side"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Real y_nominal(unit="1", min=0, max=1)=1
-    "Nominal relative compressor speed"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Real scaFac
-    "Scaling factor of heat pump" annotation (Dialog(group="Nominal condition"));
   parameter String datSou=""
     "Indicates the data source, used to warn users
     about different data sources in reversible models";
-  parameter Boolean calEff=true
-    "=false to disable efficiency calculation, may speed up the simulation"
-    annotation(Dialog(tab="Advanced"));
   replaceable Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting iceFacCal
   constrainedby
     Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.BaseClasses.PartialIcingFactor
@@ -88,12 +67,6 @@ partial model PartialRefrigerantCycle
 protected
   Buildings.Utilities.IO.Strings.Constant conStrSou(final k=datSou)
     "Constant String with data source as output";
-initial algorithm
-  assert(
-    y_nominal <= 1 and y_nominal > 0,
-    "Nominal relative compressor speed needs to be between 0 and 1, but is " +
-    String(y_nominal) + " in " + getInstanceName(),
-    AssertionLevel.error);
 equation
   connect(conStrSou.y, datSouOut);
   connect(proRedQEva.y, QEva_flow) annotation (Line(points={{-30,-101},{-30,-108},

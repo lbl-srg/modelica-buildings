@@ -1,5 +1,5 @@
 within Buildings.Fluid.Chillers.ModularReversible;
-model ModularReversible
+model Modular
   "Grey-box model for reversible chillers"
   extends
     Buildings.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialReversibleRefrigerantMachine(
@@ -13,7 +13,6 @@ model ModularReversible
     final PEle_nominal=refCyc.refCycChiCoo.PEle_nominal,
     mEva_flow_nominal=-QCoo_flow_nominal/(dTEva_nominal*cpEva),
     mCon_flow_nominal=(PEle_nominal - QCoo_flow_nominal)/(dTCon_nominal*cpCon),
-    final scaFac=refCyc.refCycChiCoo.scaFac,
     use_rev=true,
     redeclare Buildings.Fluid.Chillers.ModularReversible.BaseClasses.RefrigerantCycle refCyc(
         redeclare model RefrigerantCycleChillerCooling =
@@ -24,46 +23,47 @@ model ModularReversible
       annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal=0
     "Nominal heating capacity"
-      annotation(Dialog(group="Nominal condition", enable=use_rev));
+      annotation(Dialog(group="Nominal condition - Heating", enable=use_rev));
 
   replaceable model RefrigerantCycleChillerCooling =
-      Buildings.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle(
-       PEle_nominal=0,
-       QCooNoSca_flow_nominal=0)
+      Buildings.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle
+      (PEle_nominal=0)
     constrainedby
     Buildings.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle(
        final useInChi=true,
+       final TCon_nominal=TConCoo_nominal,
+       final TEva_nominal=TEvaCoo_nominal,
        final QCoo_flow_nominal=QCoo_flow_nominal,
-       final TCon_nominal=TCon_nominal,
-       final TEva_nominal=TEva_nominal,
-       final dTCon_nominal=dTCon_nominal,
-       final dTEva_nominal=dTEva_nominal,
-       final mCon_flow_nominal=mCon_flow_nominal,
-       final mEva_flow_nominal=mEva_flow_nominal,
        final cpCon=cpCon,
-       final cpEva=cpEva,
-       final y_nominal=y_nominal)
+       final cpEva=cpEva)
   "Refrigerant cycle module for the cooling mode"
     annotation (choicesAllMatching=true);
 
   replaceable model RefrigerantCycleChillerHeating =
       Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.NoHeating
+      (PEle_nominal=PEle_nominal)
        constrainedby
     Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle(
        final useInHeaPum=false,
+       final TCon_nominal=TEvaHea_nominal,
+       final TEva_nominal=TConHea_nominal,
        final QHea_flow_nominal=QHea_flow_nominal,
-       final PEle_nominal=refCyc.refCycChiCoo.PEle_nominal,
-       final TCon_nominal=TCon_nominal,
-       final TEva_nominal=TEva_nominal,
-       final dTCon_nominal=dTCon_nominal,
-       final dTEva_nominal=dTEva_nominal,
-       final mCon_flow_nominal=mCon_flow_nominal,
-       final mEva_flow_nominal=mEva_flow_nominal,
        final cpCon=cpCon,
-       final cpEva=cpEva,
-       final y_nominal=y_nominal)
+       final cpEva=cpEva)
   "Refrigerant cycle module for the heating mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
+  parameter Modelica.Units.SI.Temperature TConCoo_nominal
+    "Nominal temperature at secondary condenser side in cooling mode"
+    annotation(Dialog(enable=use_rev, group="Nominal condition"));
+  parameter Modelica.Units.SI.Temperature TEvaCoo_nominal
+    "Nominal temperature at secondary evaporator side in cooling mode"
+    annotation(Dialog(enable=use_rev, group="Nominal condition"));
+  parameter Modelica.Units.SI.Temperature TConHea_nominal=TConCoo_nominal
+    "Nominal temperature at secondary condenser side in heating mode"
+    annotation (Dialog(group="Nominal condition - Heating"));
+  parameter Modelica.Units.SI.Temperature TEvaHea_nominal=TEvaCoo_nominal
+    "Nominal temperature at secondary evaporator side in heating mode"
+    annotation (Dialog(group="Nominal condition - Heating"));
 
   Modelica.Blocks.Interfaces.BooleanInput coo if not use_busConOnl and use_rev
     "=true for cooling, =false for heating"
@@ -76,6 +76,11 @@ model ModularReversible
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-110,-130})));
+  Modelica.Blocks.Logical.Not notCoo "Not cooling is heating" annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={70,50})));
 equation
   connect(conCoo.y, sigBus.coo)
     annotation (Line(points={{-99,-130},{-76,-130},{-76,-40},{-138,-40},{-138,-42},
@@ -85,6 +90,17 @@ equation
     annotation (Line(points={{-156,-70},{-128,-70},{-128,-40},{-134,-40},{-134,
           -41},{-141,-41}},
                        color={255,0,255}));
+  connect(eff.QUse_flow, refCycIneEva.y) annotation (Line(points={{98,37},{48,37},
+          {48,0},{26,0},{26,-68},{0,-68},{0,-61}}, color={0,0,127}));
+  connect(eff.hea, notCoo.y) annotation (Line(points={{98,30},{90,30},{90,50},{81,
+          50}}, color={255,0,255}));
+  connect(notCoo.u, sigBus.coo) annotation (Line(points={{58,50},{48,50},{48,0},{
+          26,0},{26,-30},{-20,-30},{-20,-41},{-141,-41}}, color={255,0,255}),
+      Text(
+      string="%second",
+      index=1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
   annotation (Icon(coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
         Line(points={{-88,60},{88,60}}, color={28,108,200})}),
     Diagram(coordinateSystem(extent={{-140,-160},{140,160}})),
@@ -116,4 +132,4 @@ equation
   Buildings.Fluid.HeatPumps.ModularReversible.UsersGuide</a>.
 </p>
 </html>"));
-end ModularReversible;
+end Modular;

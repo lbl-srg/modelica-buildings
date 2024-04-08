@@ -6,12 +6,11 @@ model LargeScaleWaterToWater_OneRoomRadiator
     mEva_flow_nominal=heaPum.mEva_flow_nominal,
     mCon_flow_nominal=heaPum.mCon_flow_nominal,
     V=6*100*3,
-    witCoo=false,
+    witCoo=true,
     mAirRoo_flow_nominal=V*1.2*6/3600*10,
     Q_flow_nominal=200000,
     sin(nPorts=1),
     booToReaPumEva(realTrue=heaPum.mEva_flow_nominal),
-    oneRooRadHeaPumCtr(PIDHea(Ti=10)),
     pumHeaPum(
       redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.VeroLine80slash115dash2comma2slash2 per),
     pumHeaPumSou(
@@ -20,16 +19,21 @@ model LargeScaleWaterToWater_OneRoomRadiator
   Buildings.Fluid.HeatPumps.ModularReversible.LargeScaleWaterToWater heaPum(
     QHea_flow_nominal=Q_flow_nominal,
     use_intSafCtr=true,
-    TCon_nominal=TRadSup_nominal,
+    TConHea_nominal=TRadSup_nominal,
     dpCon_nominal(displayUnit="Pa"),
-    TEva_nominal=sou.T,
+    TEvaHea_nominal=sou.T,
     dpEva_nominal(displayUnit="Pa"),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare Buildings.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
-      safCtrParEurNor,
+      safCtrPar,
+    TConCoo_nominal=oneRooRadHeaPumCtr.TRadMinSup,
+    TEvaCoo_nominal=sou.T + 10,
     redeclare
       Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN14511.WAMAK_WaterToWater_220kW
-      datTab)
+      datTabHea,
+    redeclare
+      Buildings.Fluid.Chillers.ModularReversible.Data.TableData2D.EN14511.Carrier30XWP1012_1MW
+      datTabCoo)
     "Large scale water to water heat pump"
     annotation (Placement(transformation(extent={{20,-160},{0,-140}})));
 equation
@@ -42,8 +46,11 @@ equation
   connect(heaPum.port_a1, temRet.port_b) annotation (Line(points={{20,-144},{60,
           -144},{60,-30}},                color={0,127,255}));
   connect(oneRooRadHeaPumCtr.ySet, heaPum.ySet) annotation (Line(
-        points={{-139,-66},{-62,-66},{-62,-76},{21.2,-76},{21.2,-148}}, color={
+        points={{-139.167,-66.6667},{26,-66.6667},{26,-148},{21.2,-148}},
+                                                                        color={
           0,0,127}));
+  connect(oneRooRadHeaPumCtr.hea, heaPum.hea) annotation (Line(points={{
+          -139.167,-75},{32,-75},{32,-151.9},{21.1,-151.9}}, color={255,0,255}));
   annotation (
      __Dymola_Commands(file=
      "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/ModularReversible/Examples/LargeScaleWaterToWater_OneRoomRadiator.mos"

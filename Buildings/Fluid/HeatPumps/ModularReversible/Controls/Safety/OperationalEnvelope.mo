@@ -3,34 +3,7 @@ model OperationalEnvelope
   "Indicates if the heat pump operation is within a defined envelope"
   extends BaseClasses.PartialOperationalEnvelope;
 equation
-  if use_TUseSidOut then
-    connect(bouMapCoo.TUseSid, sigBus.TConOutMea) annotation (Line(points={{-84.2,
-            -38},{-104,-38},{-104,-61},{-119,-61}}, color={0,0,127}));
-    connect(bouMapHea.TUseSid, sigBus.TConOutMea) annotation (Line(points={{-84.2,
-            82},{-104,82},{-104,-61},{-119,-61}},                       color={0,
-            0,127}));
-  else
-    connect(bouMapCoo.TUseSid, sigBus.TConInMea) annotation (Line(points={{-84.2,
-            -38},{-104,-38},{-104,-61},{-119,-61}}, color={0,0,127}));
-    connect(bouMapHea.TUseSid, sigBus.TConInMea) annotation (Line(points={{-84.2,
-            82},{-104,82},{-104,-61},{-119,-61}},                       color={0,
-            0,127}));
-  end if;
-  if use_TAmbSidOut then
-    connect(bouMapHea.TAmbSid, sigBus.TEvaOutMea) annotation (Line(points={{-84.8,
-            58},{-104,58},{-104,-60},{-106,-60},{-106,-61},{-119,-61}},
-                                                color={0,0,127}));
-    connect(bouMapCoo.TAmbSid, sigBus.TEvaOutMea) annotation (Line(points={{-84.8,
-            -62},{-104,-62},{-104,-60},{-112,-60},{-112,-61},{-119,-61}},
-                                                      color={0,0,127}));
-  else
-    connect(bouMapHea.TAmbSid, sigBus.TEvaInMea) annotation (Line(points={{-84.8,
-            58},{-104,58},{-104,-60},{-112,-60},{-112,-61},{-119,-61}},
-                                                color={0,0,127}));
-    connect(bouMapCoo.TAmbSid, sigBus.TEvaInMea) annotation (Line(points={{-84.8,
-            -62},{-104,-62},{-104,-60},{-112,-60},{-112,-61},{-119,-61}},
-                                                      color={0,0,127}));
-  end if;
+
   connect(swiHeaCoo.u2, sigBus.hea) annotation (Line(points={{-6,0},{-20,0},{
           -20,-4},{-104,-4},{-104,-60},{-112,-60},{-112,-61},{-119,-61}},
                             color={255,0,255}), Text(

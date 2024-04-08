@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatPumps.ModularReversible.Examples;
-model ModularReversible_OneRoomRadiator
+model Modular_OneRoomRadiator
   "Modular reversible heat pump connected to a simple room model with radiator"
   extends
     Buildings.Fluid.HeatPumps.ModularReversible.Examples.BaseClasses.PartialOneRoomRadiator(
@@ -10,21 +10,23 @@ model ModularReversible_OneRoomRadiator
     booToReaPumEva(realTrue=heaPum.mEva_flow_nominal));
   extends Modelica.Icons.Example;
 
-  Buildings.Fluid.HeatPumps.ModularReversible.ModularReversible heaPum(
+  Buildings.Fluid.HeatPumps.ModularReversible.Modular heaPum(
     redeclare package MediumCon = MediumWat,
     redeclare package MediumEva = MediumAir,
     QHea_flow_nominal=Q_flow_nominal,
     redeclare model RefrigerantCycleInertia =
         Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Inertias.NoInertia,
     use_intSafCtr=true,
-    TCon_nominal=TRadSup_nominal,
+    TConHea_nominal=TRadSup_nominal,
+    TConCoo_nominal=oneRooRadHeaPumCtr.TRadMinSup,
     dTCon_nominal=TRadSup_nominal - TRadRet_nominal,
     dpCon_nominal(displayUnit="Pa") = 2000,
     use_conCap=true,
     CCon=3000,
     GConOut=100,
     GConIns=1000,
-    TEva_nominal=sou.T,
+    TEvaHea_nominal=sou.T,
+    TEvaCoo_nominal=sou.T,
     dTEva_nominal=2,
     dpEva_nominal(displayUnit="Pa") = 200,
     use_evaCap=false,
@@ -40,12 +42,13 @@ model ModularReversible_OneRoomRadiator
     redeclare model RefrigerantCycleHeatPumpCooling =
         Buildings.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2D (
           redeclare
-          Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting iceFacCal,
-          datTab=Buildings.Fluid.Chillers.ModularReversible.Data.TableData2D.EN14511.Vitocal251A08()),
+          Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
+          iceFacCal, datTab=
+            Buildings.Fluid.Chillers.ModularReversible.Data.TableData2D.EN14511.Vitocal251A08()),
     redeclare Buildings.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
       safCtrPar(
-      use_TUseSidOut=true,
-      use_TAmbSidOut=false,
+      use_TConOutHea=true,
+      use_TEvaOutHea=false,
       use_antFre=true,
       TAntFre=275.15),
     QCoo_flow_nominal=-Q_flow_nominal*0.5)
@@ -57,9 +60,9 @@ model ModularReversible_OneRoomRadiator
       displayUnit="degC") = 291.15)
     "Ambient temperature in basement of building" annotation (Placement(
         transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-90,-148})));
+        extent={{-10,10},{10,-10}},
+        rotation=180,
+        origin={70,-160})));
 equation
   connect(heaPum.port_b2, sin.ports[1]) annotation (Line(points={{20,-156},{38,-156},
           {38,-200},{60,-200}},           color={0,127,255}));
@@ -69,18 +72,20 @@ equation
           -144},{-70,-120}},      color={0,127,255}));
   connect(heaPum.port_a1, temRet.port_b) annotation (Line(points={{20,-144},{60,-144},
           {60,-30}},           color={0,127,255}));
-  connect(temAmbBas.y, heaPum.TConAmb) annotation (Line(points={{-79,-148},{-1,-148},
-          {-1,-147.6}},                   color={0,0,127}));
-  connect(heaPum.hea, oneRooRadHeaPumCtr.hea) annotation (Line(points={{21.1,-151.9},
-          {24,-151.9},{24,-152},{26,-152},{26,-92},{-132,-92},{-132,-76},{-139,-76}},
+  connect(temAmbBas.y, heaPum.TConAmb) annotation (Line(points={{59,-160},{40,
+          -160},{40,-140},{21.2,-140},{21.2,-141}},
+                                          color={0,0,127}));
+  connect(heaPum.hea, oneRooRadHeaPumCtr.hea) annotation (Line(points={{21.1,
+          -151.9},{24,-151.9},{24,-75},{-139.167,-75}},
                  color={255,0,255}));
-  connect(oneRooRadHeaPumCtr.ySet, heaPum.ySet) annotation (Line(points={{-139,-66},
-          {30,-66},{30,-148},{21.2,-148}},            color={0,0,127}));
+  connect(oneRooRadHeaPumCtr.ySet, heaPum.ySet) annotation (Line(points={{
+          -139.167,-66.6667},{30,-66.6667},{30,-148},{21.2,-148}},
+                                                      color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
   This example demonstrates how to use the
-  <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.ModularReversible\">
-  Buildings.Fluid.HeatPumps.ModularReversible.ModularReversible</a>
+  <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.Modular\">
+  Buildings.Fluid.HeatPumps.ModularReversible.Modular</a>
   heat pump model directly. Please check the associated documentation for
   further information.
 </p>
@@ -105,10 +110,10 @@ equation
 </ul>
 </html>"),
    __Dymola_Commands(file=
-     "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/ModularReversible/Examples/ModularReversible_OneRoomRadiator.mos"
+     "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/ModularReversible/Examples/Modular_OneRoomRadiator.mos"
         "Simulate and plot"),
   experiment(
       StartTime=0,
       StopTime=86400,
       Tolerance=1e-08));
-end ModularReversible_OneRoomRadiator;
+end Modular_OneRoomRadiator;

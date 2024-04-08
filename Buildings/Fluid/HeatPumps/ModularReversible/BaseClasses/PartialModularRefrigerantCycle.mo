@@ -20,13 +20,13 @@ partial model PartialModularRefrigerantCycle
   Modelica.Blocks.Logical.Switch swiQEva(
     u1(final unit="W"),
     u3(final unit="W"),
-    y(final unit="W")) if use_rev
+    y(final unit="W"))
     "Routing block that picks the component acting as evaporator"
     annotation (Placement(transformation(extent={{-60,-10},{-80,10}})));
   Modelica.Blocks.Logical.Switch swiQCon(
     y(final unit="W"),
     u1(final unit="W"),
-    u3(final unit="W")) if use_rev
+    u3(final unit="W"))
     "Routing block that picks the component acting as condenser"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Modelica.Blocks.Interfaces.RealOutput PEle(final unit="W")
@@ -40,7 +40,7 @@ partial model PartialModularRefrigerantCycle
   Modelica.Blocks.Logical.Switch swiPEle(
     u1(final unit="W"),
     u3(final unit="W"),
-    y(final unit="W")) if use_rev
+    y(final unit="W"))
     "Whether to use cooling or heating power output" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},

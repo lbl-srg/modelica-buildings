@@ -39,7 +39,7 @@ partial model PartialCarnot
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={88,90})));
-  Modelica.Blocks.Routing.RealPassThrough pasThrYSet "ySet from signal bus"
+  Modelica.Blocks.Routing.RealPassThrough pasThrYMea "From signal bus"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
   Modelica.Units.SI.Temperature TUseSidAct = if useForChi then TEvaAct else TConAct
     "Useful side refrigerant temperature";
@@ -99,7 +99,7 @@ protected
 equation
   connect(proPEle.u1, constPEle.y) annotation (Line(points={{76,62},{76,66},{88,
           66},{88,79}}, color={0,0,127}));
-  connect(pasThrYSet.y, proPEle.u2)
+  connect(pasThrYMea.y, proPEle.u2)
     annotation (Line(points={{41,70},{64,70},{64,62}}, color={0,0,127}));
   connect(constZer.y, swiPEle.u3) annotation (Line(points={{8.88178e-16,21},{
           8.88178e-16,28},{42,28},{42,22}}, color={0,0,127}));

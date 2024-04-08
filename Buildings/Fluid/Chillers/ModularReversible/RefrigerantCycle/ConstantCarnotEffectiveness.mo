@@ -3,8 +3,7 @@ model ConstantCarnotEffectiveness "Carnot EER with a constant Carnot effectivene
   extends
     Buildings.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle(
       useInChi=true,
-      PEle_nominal=-QCoo_flow_nominal/EER_nominal/y_nominal,
-      QCooNoSca_flow_nominal=QCoo_flow_nominal,
+      PEle_nominal=-QCoo_flow_nominal/EER_nominal,
       datSou="ConstantCarnotEffectiveness");
   extends
     Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialCarnot(
@@ -46,7 +45,7 @@ equation
       index=1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(pasThrYSet.u, sigBus.ySet) annotation (Line(points={{18,70},{1,70},{1,
+  connect(pasThrYMea.u, sigBus.yMea) annotation (Line(points={{18,70},{1,70},{1,
           120}}, color={0,0,127}), Text(
       string="%second",
       index=1,
@@ -69,8 +68,6 @@ equation
   end if;
   connect(swiQUse.y, proRedQEva.u2) annotation (Line(points={{-50,-1},{-50,-30},{
           -24,-30},{-24,-78}},  color={0,0,127}));
-  connect(calEER.PEle, swiPEle.y) annotation (Line(points={{-88,-86},{-82,-86},{
-          -82,-66},{0,-66},{0,-8},{50,-8},{50,-1}}, color={0,0,127}));
   connect(constNegOne.y, proQUse_flow.u[4]) annotation (Line(points={{-79,30},{
           -68,30},{-68,70},{-50,70},{-50,60}}, color={0,0,127}));
   annotation (Documentation(revisions="<html><ul>
@@ -95,14 +92,14 @@ equation
 </p>
 <p>
   <code>
-    QEva_flow = PEle_nominal * etaCarnot_nominal * ySet *
+    QEva_flow = PEle_nominal * etaCarnot_nominal * yMea *
     (TEvaOut - TAppEva) /
     (TConOut + TAppCon - (TEvaOut - TAppEva))
   </code>
 </p>
 <p>
   <code>
-    PEle = PEle_nominal * ySet
+    PEle = PEle_nominal * yMea 
   </code>
 </p>
 <p>

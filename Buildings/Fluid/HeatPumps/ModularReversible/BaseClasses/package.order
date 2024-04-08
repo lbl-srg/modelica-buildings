@@ -1,7 +1,9 @@
+CalculateEfficiency
 EvaporatorCondenserWithCapacity
 InflowTemperatureSensor
 LargeScaleWaterToWaterDeclarations
 PartialModularRefrigerantCycle
 PartialReversibleRefrigerantMachine
+PartialTableData2D
 RefrigerantCycle
 RefrigerantMachineControlBus

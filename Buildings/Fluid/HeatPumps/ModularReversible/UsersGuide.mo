@@ -86,8 +86,8 @@ package UsersGuide
 
 <h5>Heat pump models</h5>
 <p>
-For heat pumps, the model <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.ModularReversible\">
-Buildings.Fluid.HeatPumps.ModularReversible.ModularReversible</a> extends the partial model and adds
+For heat pumps, the model <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.Modular\">
+Buildings.Fluid.HeatPumps.ModularReversible.Modular</a> extends the partial model and adds
 the connector <code>hea</code> to choose
 between the operation modes of the heat pump:
 </p>
@@ -119,20 +119,20 @@ to the section <b>Refrigerant cycle models</b>.
   Buildings.Fluid.HeatPumps.ModularReversible.LargeScaleWaterToWater</a>
 </li>
 <li>
-  <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.ReversibleAirToWaterTableData2D\">
-  Buildings.Fluid.HeatPumps.ModularReversible.ReversibleAirToWaterTableData2D</a>
+  <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.AirToWaterTableData2D\">
+  Buildings.Fluid.HeatPumps.ModularReversible.AirToWaterTableData2D</a>
 </li>
 <li>
-  <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.ReversibleCarnotWithLosses\">
-  Buildings.Fluid.HeatPumps.ModularReversible.ReversibleCarnotWithLosses</a>
+  <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.CarnotWithLosses\">
+  Buildings.Fluid.HeatPumps.ModularReversible.CarnotWithLosses</a>
 </li>
 </ul>
 
 <h5>Chiller models</h5>
 
 <p>
-For chillers, the model <a href=\"modelica://Buildings.Fluid.Chillers.ModularReversible.ModularReversible\">
-Buildings.Fluid.Chillers.ModularReversible.ModularReversible</a> extends the partial model and adds
+For chillers, the model <a href=\"modelica://Buildings.Fluid.Chillers.ModularReversible.Modular\">
+Buildings.Fluid.Chillers.ModularReversible.Modular</a> extends the partial model and adds
 the connector <code>coo</code> to choose
 between the operation mode of the chiller:
 </p>
@@ -164,8 +164,8 @@ to the section <b>Refrigerant cycle models</b>.
   Buildings.Fluid.Chillers.ModularReversible.LargeScaleWaterToWater</a>
 </li>
 <li>
-  <a href=\"modelica://Buildings.Fluid.Chillers.ModularReversible.ReversibleCarnotWithLosses\">
-  Buildings.Fluid.Chillers.ModularReversible.ReversibleCarnotWithLosses</a>
+  <a href=\"modelica://Buildings.Fluid.Chillers.ModularReversible.CarnotWithLosses\">
+  Buildings.Fluid.Chillers.ModularReversible.CarnotWithLosses</a>
 </li>
 </ul>
 
@@ -287,9 +287,10 @@ The following tables summarizes the possible options.
 <p>
   We use the notation <code>Set</code> to indicate a set value.
   It may be modified by the safety control blocks which produces a signal
-  with the <code>Out</code> notation. For example, the compressor
-  speed <code>ySet</code> from the bus connector <code>sigBus</code>
-  is modified by the safety control block to <code>yOut</code>.
+  with the <code>Mea</code> notation. For example, the compressor
+  speed <code>ySet</code> is modified by the safety 
+  control block to <code>yMea</code>. If no safety violations
+  occur, <code>ySet</code> equals <code>yMea</code>.
 </p>
 
 <h5>Expandable bus connector</h5>
@@ -366,7 +367,10 @@ The following tables summarizes the possible options.
   For chillers, it is the nominal
   evaporator heat flow rate <code>QCoo_flow_nominal</code> (negative).
   This nominal heat flow rate is only valid at the
-  nominal conditions of the
+  nominal conditions. Whether parameters influence the nominal heat flow rates
+  depends on the model approach used to estimate the heat flow rate and efficiencies.
+  Typically, at least nominal source and sink temperatures will influence the 
+  nominal conditions:
 </p>
 <ul>
 <li>
@@ -375,84 +379,26 @@ The following tables summarizes the possible options.
 <li>
   evaporator temperature <code>TEva_nominal</code>,
 </li>
-<li>
-  condenser temperature difference<code>dTCon_nominal</code>,
-</li>
-<li>
-  evaporator temperature difference<code>dTEva_nominal</code>,
-</li>
-<li>
-  condenser mass flow rate <code>mCon_flow_nominal</code>,
-</li>
-<li>
-  evaporator mass flow rate <code>mCon_flow_nominal</code>, and
-</li>
-<li>
-  compressor speed <code>y_nominal</code>.
-</li>
 </ul>
 <p>
-  The temperature differences and mass flow rates presuppose each other.
-  The temperature levels are left without further specification of
-  inlet or outlet on purpose. Some refrigerant cycle models will
-  use the inlet, some the outlet to determine the outputs.
+  Depending on the model in use, this may be in- out outlet.
 </p>
 <p>
-  For inverter driven devices, the compressor speed influences the
+  Another example would be inverter driven devices.
+  Here, the compressor speed influences the
   refrigerant mass flow rate and compressor efficiencies.
-  The refrigerant mass flow rate influences the electrical power
-  consumption and the heat flow rates approximately
-  <code>Q_flow_nominal</code> linearly.
-  Thus, setting <code>y_nominal</code> to, e.g. 0.5, doubles
-  the nominal electrical power consumption to achieve the same
-  <code>Q_flow_nominal</code>.
   If the performance data is dependent on the compressor speed,
-  <code>y_nominal</code> also influences the nominal efficiencies.
-  Setting <code>y_nominal</code> smaller than one (the default),
-  can be necessary if the nominal values are not at the maximal
-  heating or cooling capacities required during operation.
+  <code>y_nominal</code> influences the nominal efficiencies.
+  In such cases, specifying additional nominal parameters will
+  be nessary.
 </p>
 <p>
-Other parameters, such as the nominal pressure drops or
-advanced model settings will not influence the refrigerant cycle
-models. Thus, only the listed nominal conditions are contained
-in both the <code>ModularReversible</code> models and the refrigerant cycle models
-for heating and cooling.
-</p>
-
-
-<h4>Sizing</h4>
-
-<p>
-  At the nominal conditions, the refrigerant cycle model will
-  calculate the unscaled nominal heat flow rate, which is
-  named <code>QHeaNoSca_flow_nominal</code> for heat pumps and 
-  <code>QCooNoSca_flow_nominal</code> for chillers.
-  This value is probably
-  different from <code>QUse_flow_nominal</code> which is for sizing.
-  For example, suppose you need a 7.6 kW heat pump,
-  but the datasheets only provides 5 kW and 10 kW options.
-  In such cases, the performance data and relevant parameters
-  are scaled using a scaling factor <code>scaFac</code>.
-  Resulting, the refrigerant machine can supply more or less heat with
-  the COP staying constant. However, one has to make sure
-  that the movers in use also scale with this factor.
-  Note that most parameters are scaled linearly. Only the
-  pressure differences are scaled quadratically due to
-  the linear scaling of the mass flow rates and the
-  basic assumption:
-  <p align=\"center\" style=\"font-style:italic;\">
-  k = m&#775; &frasl; &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
-</p>
-<p>
-  Both <code>QHeaNoSca_flow_nominal</code> or <code>QCooNoSca_flow_nominal</code> 
-  and <code>scaFac</code>
-  are calculated in the refrigerant cycle models.
-  The <code>scaFac</code> is propagated to the
-  uppermost layer of the <code>ModularReversible</code> models.
-  If both heating and cooling operation is enabled
-  using <code>use_rev</code>, the scaling of the secondary
-  operation is overwritten by the one in the primary operation.
+  Using the nominal conditions and the specified heat flow rate, 
+  the nominal electrical power consumption <code>PEle_nominal</code> is calculated. 
+  As reversible devices have typically a four-way-valve and a single
+  compressor, you have to make sure that the values for <code>PEle_nominal</code> 
+  are similar between heating and cooling. The pre-configured models 
+  warn about deviations if they are too large.
 </p>
 
 <h4>Safety controls</h4>

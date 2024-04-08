@@ -9,17 +9,16 @@ partial model PartialModularComparison
     sou2(nPorts=1),
     sin1(nPorts=1));
 
-  Buildings.Fluid.HeatPumps.ModularReversible.ModularReversible heaPum(
+  Buildings.Fluid.HeatPumps.ModularReversible.Modular heaPum(
     redeclare final package MediumCon = Medium1,
     redeclare final package MediumEva = Medium2,
     QHea_flow_nominal=QUse_flow_nominal,
-    final y_nominal=1,
     redeclare final model RefrigerantCycleInertia =
         Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Inertias.NoInertia,
     final use_rev=false,
     final use_intSafCtr=false,
     final tauCon=tau1,
-    final TCon_nominal=TCon_nominal,
+    final TConHea_nominal=TCon_nominal,
     final dTCon_nominal=dTCon_nominal,
     final dpCon_nominal=dp1_nominal,
     final use_conCap=false,
@@ -27,7 +26,7 @@ partial model PartialModularComparison
     final GConOut=0,
     final GConIns=0,
     final tauEva=tau2,
-    final TEva_nominal=TEva_nominal,
+    final TEvaHea_nominal=TEva_nominal,
     final dTEva_nominal=dTEva_nominal,
     final dpEva_nominal=dp2_nominal,
     final use_evaCap=false,

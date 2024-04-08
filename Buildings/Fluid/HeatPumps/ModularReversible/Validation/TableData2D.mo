@@ -4,10 +4,12 @@ model TableData2D
   extends
     Buildings.Fluid.HeatPumps.ModularReversible.Validation.BaseClasses.PartialValidation(
       heaPum(
+      QHea_flow_nominal=heaPum.refCyc.refCycHeaPumHea.QHeaNoSca_flow_nominal,
       mCon_flow_nominal=mCon_flow_nominal,
       tauCon=VCon*heaPum.rhoCon/mCon_flow_nominal,
       redeclare model RefrigerantCycleInertia =
-          Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Inertias.VariableOrder(
+          Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Inertias.VariableOrder
+          (
           refIneFreConst=refIneFreConst,
           nthOrd=2,
           initType=Modelica.Blocks.Types.Init.InitialState),

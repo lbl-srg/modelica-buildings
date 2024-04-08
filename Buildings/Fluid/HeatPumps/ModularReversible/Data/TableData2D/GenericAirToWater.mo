@@ -14,8 +14,8 @@ record GenericAirToWater
 <p>
   This record allows specific selection using
   <code>choicesAllMatching</code> for air-to-water heat pumps only in models such as
-  <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.ReversibleAirToWaterTableData2D\">
-  Buildings.Fluid.HeatPumps.ModularReversible.ReversibleAirToWaterTableData2D</a>.
+  <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.AirToWaterTableData2D\">
+  Buildings.Fluid.HeatPumps.ModularReversible.AirToWaterTableData2D</a>.
 </p>
 </html>"));
 end GenericAirToWater;

@@ -3,32 +3,32 @@ model TableData2D "Performance data based on condenser outlet and evaporator inl
   extends
     Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle(
     final datSou=datTab.devIde,
-    mEva_flow_nominal=datTab.mEva_flow_nominal*scaFac,
-    mCon_flow_nominal=datTab.mCon_flow_nominal*scaFac,
     PEle_nominal=Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
         tabIdePEle,
         TCon_nominal,
-        TEva_nominal) * scaFac * y_nominal,
-    QHeaNoSca_flow_nominal=
-        Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
-        tabIdeQUse_flow,
-        TCon_nominal,
-        TEva_nominal) * y_nominal);
+        TEva_nominal) * scaFac);
   extends
     Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialTableData2D(
+    final useInRevDev=not useInHeaPum,
+    scaFac=QHea_flow_nominal/QHeaNoSca_flow_nominal,
     final valTabQEva_flow = valTabQCon_flow .- valTabPEle,
     final valTabQCon_flow = {{tabQUse_flow.table[j, i] for i in 2:numCol} for j in 2:numRow},
-    final mCon_flow_nominal_internal=mCon_flow_nominal,
-    final mEva_flow_nominal_internal=mEva_flow_nominal,
     final mCon_flow_max=max(valTabQCon_flow) * scaFac / cpCon / dTMin,
     final mCon_flow_min=min(valTabQCon_flow) * scaFac / cpCon / dTMax,
-    final mEva_flow_min=min(valTabQEva_flow) * scaFac / cpCon / dTMax,
-    final mEva_flow_max=max(valTabQEva_flow) * scaFac / cpCon / dTMin,
+    final mEva_flow_min=min(valTabQEva_flow) * scaFac / cpEva / dTMax,
+    final mEva_flow_max=max(valTabQEva_flow) * scaFac / cpEva / dTMin,
+    mEva_flow_nominal=datTab.mEva_flow_nominal*scaFac,
+    mCon_flow_nominal=datTab.mCon_flow_nominal*scaFac,
     final use_TConOutForTab=datTab.use_TConOutForTab,
     final use_TEvaOutForTab=datTab.use_TEvaOutForTab,
-    constScaFac(final k=scaFac),
     tabQUse_flow(final table=datTab.tabQCon_flow),
     tabPEle(final table=datTab.tabPEle));
+  parameter Modelica.Units.SI.HeatFlowRate QHeaNoSca_flow_nominal=Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
+        tabIdeQUse_flow,
+        TCon_nominal,
+        TEva_nominal)
+    "Unscaled nominal heating capacity "
+    annotation (Dialog(group="Nominal condition"));
 
   replaceable parameter Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump datTab
     "Data Table of HP" annotation (choicesAllMatching=true);
@@ -39,7 +39,7 @@ equation
           -24},{0,-130}}, color={0,0,127}));
   connect(scaFacTimPel.y, redQCon.u2) annotation (Line(points={{-40,-9},{-40,-24},
           {64,-24},{64,-78}}, color={0,0,127}));
-  connect(ySetTimScaFac.u1, sigBus.ySet) annotation (Line(points={{-54,62},{-54,
+  connect(yMeaTimScaFac.u1, sigBus.yMea) annotation (Line(points={{-54,62},{-54,
           74},{-70,74},{-70,120},{1,120}},
                                color={0,0,127}), Text(
       string="%second",
@@ -70,8 +70,6 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(scaFacTimPel.y, calCOP.PEle) annotation (Line(points={{-40,-9},{-40,-24},
-          {-50,-24},{-50,-86},{-58,-86}},                      color={0,0,127}));
   if useInHeaPum then
     connect(reaPasThrTConOut.y, tabPEle.u1)
       annotation (Line(points={{90,79},{90,70},{96,70},{96,62}}, color={0,0,127}));
@@ -186,7 +184,7 @@ This implies a constant COP over different design sizes:
   compressor speed range. Typically, effciencies will drop at minimal
   and maximal compressor speeds.
   To model an inverter controlled heat pump, the relative
-  compressor speed <code>ySet</code> is used to scale
+  compressor speed <code>yMea</code> is used to scale
   the ouput of the tables linearly.
   For models including the compressor speed, check the SDF-Library
   dependent refrigerant cycle models in the

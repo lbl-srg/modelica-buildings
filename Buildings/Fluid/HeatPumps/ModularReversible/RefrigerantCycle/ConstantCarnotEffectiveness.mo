@@ -3,8 +3,7 @@ model ConstantCarnotEffectiveness "Carnot COP with a constant Carnot effectivene
   extends
     Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle(
       useInHeaPum=true,
-      PEle_nominal=QHea_flow_nominal / COP_nominal / y_nominal,
-      QHeaNoSca_flow_nominal=QHea_flow_nominal,
+      PEle_nominal=QHea_flow_nominal / COP_nominal,
       datSou="ConstantCarnotEffectiveness");
   extends
     Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialCarnot(
@@ -21,7 +20,7 @@ model ConstantCarnotEffectiveness "Carnot COP with a constant Carnot effectivene
     "Nominal coefficient of performance";
 equation
 
-  connect(pasThrYSet.u, sigBus.ySet) annotation (Line(points={{18,70},{0,70},{0,
+  connect(pasThrYMea.u, sigBus.yMea) annotation (Line(points={{18,70},{0,70},{0,
           118},{2,118},{2,120},{1,120}},
                  color={0,0,127}), Text(
       string="%second",
@@ -77,8 +76,6 @@ equation
       index=1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(swiPEle.y, calCOP.PEle) annotation (Line(points={{50,-1},{50,-24},{-44,
-          -24},{-44,-86},{-58,-86}}, color={0,0,127}));
   connect(swiPEle.y, feeHeaFloEva.u1) annotation (Line(points={{50,-1},{50,-24},{
           -90,-24},{-90,-10},{-78,-10}}, color={0,0,127}));
   connect(feeHeaFloEva.u2, swiQUse.y)
@@ -105,14 +102,14 @@ equation
 </p>
 <p>
   <code>
-    QCon_flow = PEle_nominal * etaCarnot_nominal * ySet *
+    QCon_flow = PEle_nominal * etaCarnot_nominal * yMea *
     (TConOut + TAppCon) /
     (TConOut + TAppCon - (TEvaOut - TAppEva))
   </code>
 </p>
 <p>
   <code>
-    PEle = PEle_nominal * ySet
+    PEle = PEle_nominal * yMea
   </code>
 </p>
 <p>

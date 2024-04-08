@@ -1,6 +1,13 @@
 within Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses;
 partial model PartialTableData2D
   "Partial model with components for TableData2D approach for heat pumps and chillers"
+  parameter Real scaFac "Scaling factor";
+  parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal
+    "Nominal mass flow rate in secondary condenser side"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal
+    "Nominal mass flow rate in secondary evaporator side"
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Blocks.Types.Smoothness smoothness=
     Modelica.Blocks.Types.Smoothness.LinearSegments
     "Smoothness of table interpolation";
@@ -38,7 +45,7 @@ partial model PartialTableData2D
                                        annotation (Placement(transformation(
           extent={{-10,-10},{10,10}}, rotation=-90,
         origin={50,50})));
-  Modelica.Blocks.Math.Product ySetTimScaFac
+  Modelica.Blocks.Math.Product yMeaTimScaFac
     "Create the product of the scaling factor and relative compressor speed"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -56,32 +63,32 @@ partial model PartialTableData2D
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={40,2})));
-  Modelica.Blocks.Sources.Constant constScaFac
+  Modelica.Blocks.Sources.Constant constScaFac(final k=scaFac)
     "Calculates correction of table output based on scaling factor"
     annotation (Placement(
         transformation(extent={{-10,-10},{10,10}}, rotation=0,
         origin={-90,70})));
 
 
-  Modelica.Blocks.Routing.RealPassThrough reaPasThrTEvaIn if not use_TEvaOutForTab
+  Modelica.Blocks.Routing.RealPassThrough reaPasThrTEvaIn if (not useInRevDev and not use_TEvaOutForTab) or (useInRevDev and not use_TConOutForTab)
     "Used to enable conditional bus connection" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-50,90})));
-  Modelica.Blocks.Routing.RealPassThrough reaPasThrTConIn if not use_TConOutForTab
+  Modelica.Blocks.Routing.RealPassThrough reaPasThrTConIn if (not useInRevDev and not use_TConOutForTab) or (useInRevDev and not use_TEvaOutForTab)
     "Used to enable conditional bus connection" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={50,90})));
-  Modelica.Blocks.Routing.RealPassThrough reaPasThrTEvaOut if use_TEvaOutForTab
+  Modelica.Blocks.Routing.RealPassThrough reaPasThrTEvaOut if (not useInRevDev and use_TEvaOutForTab) or (useInRevDev and use_TConOutForTab)
     "Used to enable conditional bus connection" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-10,90})));
-  Modelica.Blocks.Routing.RealPassThrough reaPasThrTConOut if use_TConOutForTab
+  Modelica.Blocks.Routing.RealPassThrough reaPasThrTConOut if (not useInRevDev and use_TConOutForTab) or (useInRevDev and use_TEvaOutForTab)
     "Used to enable conditional bus connection" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -89,6 +96,7 @@ partial model PartialTableData2D
         origin={90,90})));
 
 protected
+  parameter Boolean useInRevDev "=true to indicate usage in reversed operation";
   parameter Integer numRow=size(tabPEle.table, 1) "Number of rows in table";
   parameter Integer numCol=size(tabPEle.table, 2) "Number of columns in table";
   parameter Modelica.Units.SI.TemperatureDifference dTMin=3
@@ -118,10 +126,6 @@ protected
       smoothness,
       extrapolation,
       false) "External table object for nominal electrical power consumption";
-  parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal_internal
-    "Internal nominal condenser mass flow rate";
-  parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal_internal
-    "Internal nominal evaporator mass flow rate";
   parameter Modelica.Units.SI.MassFlowRate mEva_flow_min
     "Minimal evaporator mass flow rate";
   parameter Modelica.Units.SI.MassFlowRate mEva_flow_max
@@ -131,39 +135,39 @@ protected
   parameter Modelica.Units.SI.MassFlowRate mCon_flow_max
     "Maximal evaporator mass flow rate";
 initial algorithm
-  assert(mCon_flow_nominal_internal >= mCon_flow_min,
+  assert(mCon_flow_nominal >= mCon_flow_min,
     "In " + getInstanceName() + ": The nominal condenser mass flow rate ("
-    + String(mCon_flow_nominal_internal) + " kg/s) is smaller than the 
+    + String(mCon_flow_nominal) + " kg/s) is smaller than the 
     minimal value (" + String(mCon_flow_min) + " kg/s) for the table data 
     when assuming a temperature spread between 3 and 10 K, as in EN 14511.",
     AssertionLevel.warning);
-  assert(mCon_flow_nominal_internal <= mCon_flow_max,
+  assert(mCon_flow_nominal <= mCon_flow_max,
     "In " + getInstanceName() + ": The nominal condenser mass flow rate ("
-    + String(mCon_flow_nominal_internal) + " kg/s) is bigger than the 
+    + String(mCon_flow_nominal) + " kg/s) is bigger than the 
     maximal value (" + String(mCon_flow_max) + " kg/s) for the table data 
     when assuming a temperature spread between 3 and 10 K, as in EN 14511.",
     AssertionLevel.warning);
-  assert(mEva_flow_nominal_internal >= mEva_flow_min,
+  assert(mEva_flow_nominal >= mEva_flow_min,
     "In " + getInstanceName() + ": The nominal evaporator mass flow rate ("
-    + String(mEva_flow_nominal_internal) + " kg/s) is smaller than the 
+    + String(mEva_flow_nominal) + " kg/s) is smaller than the 
     minimal value (" + String(mEva_flow_min) + " kg/s) for the table data 
     when assuming a temperature spread between 3 and 10 K, as in EN 14511.",
     AssertionLevel.warning);
-  assert(mEva_flow_nominal_internal <= mEva_flow_max,
+  assert(mEva_flow_nominal <= mEva_flow_max,
     "In " + getInstanceName() + ": The nominal evaporator mass flow rate ("
-    + String(mEva_flow_nominal_internal) + " kg/s) is bigger than the 
+    + String(mEva_flow_nominal) + " kg/s) is bigger than the 
     maximal value (" + String(mEva_flow_max) + " kg/s) for the table data 
     when assuming a temperature spread between 3 and 10 K, as in EN 14511.",
     AssertionLevel.warning);
 equation
-  connect(constScaFac.y, ySetTimScaFac.u2)
+  connect(constScaFac.y,yMeaTimScaFac. u2)
     annotation (Line(points={{-79,70},{-66,70},{-66,62}}, color={0,0,127}));
-  connect(scaFacTimPel.u2, ySetTimScaFac.y) annotation (Line(points={{-46,14},{
+  connect(scaFacTimPel.u2,yMeaTimScaFac. y) annotation (Line(points={{-46,14},{
           -46,20},{-60,20},{-60,39}},
                                   color={0,0,127}));
   connect(tabQUse_flow.y, scaFacTimQUse_flow.u1) annotation (Line(points={{50,39},
           {50,32},{46,32},{46,14}}, color={0,0,127}));
-  connect(scaFacTimQUse_flow.u2, ySetTimScaFac.y) annotation (Line(points={{34,14},
+  connect(scaFacTimQUse_flow.u2,yMeaTimScaFac. y) annotation (Line(points={{34,14},
           {34,20},{-60,20},{-60,39}}, color={0,0,127}));
   connect(tabPEle.y, scaFacTimPel.u1) annotation (Line(points={{90,39},{90,26},{
           -34,26},{-34,14}}, color={0,0,127}));
