@@ -46,7 +46,8 @@ equation
           x2=phi*100),
         x2=0.001,
         deltaX=0.0001);
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+
+annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Text(
           extent={{-100,140},{100,100}},
           textColor={0,0,255},
@@ -56,19 +57,33 @@ equation
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid)}),                   Diagram(
+          fillPattern=FillPattern.Solid)}), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    Documentation(info="<html>
+Documentation(info="<html>
 <h4>Performance Curve Modifiers</h4>
-<p>This block includes the following performance curve modifiers</p>
-<p>The water removal modifier curve <code>watRemMod</code> is a biquadratic curve 
-with two independent variables: dry-bulb temperature and relative humidity of the 
-air entering the dehumidifier. </p>
-<p align=\"center\"><i>watRemMod(T<sub>in</sub>, phi<sub>in</sub>) = a<sub>1</sub> + a<sub>2</sub> T<sub>in</sub> + a<sub>3</sub> T<sub>in</sub> <sup>2</sup> + a<sub>4</sub> phi<sub>in</sub> + a<sub>5</sub> phi<sub>in</sub> <sup>2</sup> + a<sub>6</sub> T<sub>in</sub> phi<sub>in</i></sub> </p>
-<p>The energy factor modifier curve <code>eneFacMod</code> is a biquadratic curve 
-with two independent variables: dry-bulb temperature and relative humidity of the 
-air entering the dehumidifier. </p>
-<p align=\"center\"><i>eneFacMod(T<sub>in</sub>, phi<sub>in</sub>) = b<sub>1</sub> + b<sub>2</sub> T<sub>in</sub> + b<sub>3</sub> T<sub>in</sub> <sup>2</sup> + b<sub>4</sub> phi<sub>in</sub> + b<sub>5</sub> phi<sub>in</sub> <sup>2</sup> + b<sub>6</sub> T<sub>in</sub> phi<sub>in</i></sub> </p>
+<p>
+This block includes the following performance curve modifiers
+</p>
+<p>
+The water removal modifier curve <code>watRemMod</code> is a biquadratic curve
+with two independent variables: dry-bulb temperature and relative humidity of the
+air entering the dehumidifier.
+</p>
+<p align=\"center\"><i>watRemMod(T<sub>in</sub>, phi<sub>in</sub>) = a<sub>1</sub>
++ a<sub>2</sub> T<sub>in</sub> + a<sub>3</sub> T<sub>in</sub><sup>2</sup>
++ a<sub>4</sub> phi<sub>in</sub> + a<sub>5</sub> phi<sub>in</sub><sup>2</sup>
++ a<sub>6</sub> T<sub>in</sub> phi<sub>in</sub></i>
+</p>
+<p>
+The energy factor modifier curve <code>eneFacMod</code> is a biquadratic curve
+with two independent variables: dry-bulb temperature and relative humidity of the
+air entering the dehumidifier.
+</p>
+<p align=\"center\"><i>eneFacMod(T<sub>in</sub>, phi<sub>in</sub>) = b<sub>1</sub>
++ b<sub>2</sub> T<sub>in</sub> + b<sub>3</sub> T<sub>in</sub><sup>2</sup>
++ b<sub>4</sub> phi<sub>in</sub> + b<sub>5</sub> phi<sub>in</sub><sup>2</sup>
++ b<sub>6</sub> T<sub>in</sub> phi<sub>in</sub></i>
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
