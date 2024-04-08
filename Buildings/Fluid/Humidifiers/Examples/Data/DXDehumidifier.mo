@@ -2,6 +2,8 @@ within Buildings.Fluid.Humidifiers.Examples.Data;
 record DXDehumidifier "Example data record for DX dehumidifier model"
 
   extends Buildings.Fluid.Humidifiers.Data.Generic(
+    nWatRem = 6,
+    nEneFac = 6,
     watRem = {-2.72487866408,0.100711983591,-9.90538285E-04,0.050053043874,
       -2.03629282E-04,-3.41750531E-04},
     eneFac = {-2.38831907E+00,0.093047739452,-1.36970033E-03,0.066533716758,
