@@ -74,6 +74,24 @@ model TrimAndRespond "Model validates the trim and respond block"
     "Convert real to integer"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
 
+  CDL.Logical.Sources.Pulse hol(
+    final period=1000,
+    final width=0.5,
+    shift=500) "Source for hold signal"
+    annotation (Placement(transformation(extent={{-88,90},{-68,110}})));
+  Buildings.Controls.OBC.ASHRAE.G36.Generic.TrimAndRespond trimRespondLogicHold(
+    have_hol=true,
+    final iniSet=120,
+    final minSet=37,
+    final maxSet=370,
+    final delTim=300,
+    final samplePeriod=120,
+    final numIgnReq=2,
+    final triAmo=-10,
+    final resAmo=15,
+    final maxRes=37,
+    dtHol=20) "Block implementing trim and respond logic with hold signal"
+    annotation (Placement(transformation(extent={{120,60},{140,80}})));
 equation
   connect(con.y, trimRespondLogic.uDevSta)
     annotation (Line(points={{42,90},{50,90},{50,78},{68,78}},
@@ -117,6 +135,12 @@ equation
   connect(reaToInt1.y,trimRespondLogic1. numOfReq)
     annotation (Line(points={{42,50},{60,50},{60,12},{68,12}}, color={255,127,0}));
 
+  connect(con.y, trimRespondLogicHold.uDevSta) annotation (Line(points={{42,90},
+          {110,90},{110,78},{118,78}}, color={255,0,255}));
+  connect(hol.y, trimRespondLogicHold.uHol) annotation (Line(points={{-66,100},
+          {100,100},{100,70},{118,70}}, color={255,0,255}));
+  connect(reaToInt1.y, trimRespondLogicHold.numOfReq) annotation (Line(points={
+          {42,50},{100,50},{100,62},{118,62}}, color={255,127,0}));
 annotation (experiment(StopTime=7200.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Generic/Validation/TrimAndRespond.mos"
     "Simulate and plot"),
