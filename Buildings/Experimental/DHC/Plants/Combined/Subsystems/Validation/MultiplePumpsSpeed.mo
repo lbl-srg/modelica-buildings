@@ -31,7 +31,7 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,140}})),
     Documentation(info="<html>
 <p>
-This model validates 
+This model validates
 <a href=\"modelica://Buildings.Experimental.DHC.Plants.Combined.Subsystems.MultiplePumpsSpeed\">
 Buildings.Experimental.DHC.Plants.Combined.Subsystems.MultiplePumpsSpeed</a>
 by comparing an instance of that model with two instances of
@@ -39,7 +39,7 @@ by comparing an instance of that model with two instances of
 Buildings.Fluid.Movers.SpeedControlled_y</a>
 connected in parallel.
 The two pumps are commanded On one after the other as they receive
-an increasing speed signal and work against a two-way modulating valve 
+an increasing speed signal and work against a two-way modulating valve
 that gets progressively opened.
 </p>
 </html>", revisions="<html>

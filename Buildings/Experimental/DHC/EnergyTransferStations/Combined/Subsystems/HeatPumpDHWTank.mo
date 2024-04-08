@@ -354,7 +354,7 @@ Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.BaseClasse
 <p>
 The system is enabled when the tank charge control signal switches to
 <code>true</code>.
-When enabled, 
+When enabled,
 </p>
 <ul>
 <li>
@@ -370,7 +370,7 @@ the supply equal to <code>dT_nominal</code>.
 <ul>
 <li>
 November 28, 2023, by David Blum:<br/>
-First implementation, extended from partial base class with added 
+First implementation, extended from partial base class with added
 condenser hydronics and control.
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3063\">

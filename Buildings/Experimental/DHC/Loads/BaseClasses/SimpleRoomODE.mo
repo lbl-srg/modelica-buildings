@@ -81,7 +81,7 @@ with no internal heat gains and no solar heat gains.
 The lumped thermal conductance <i>G</i> is then considered constant for all operating conditions.
 </p>
 <p>
-The required heating or cooling heat flow rate (i.e. the space load) 
+The required heating or cooling heat flow rate (i.e. the space load)
 <i>Q&#775;<sub>heat_cool, req</sub></i> corresponds to
 a steady-state control error equal to zero,
 </p>

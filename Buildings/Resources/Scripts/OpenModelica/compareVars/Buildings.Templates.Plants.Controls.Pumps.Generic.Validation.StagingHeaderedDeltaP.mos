@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "ratFlo.y[1]",
+    "enaLea.y[1]",
+    "idxSta.y"
+  };

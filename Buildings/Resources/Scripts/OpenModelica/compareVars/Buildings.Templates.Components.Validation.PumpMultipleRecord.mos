@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "V_flow_nominal[1]",
+    "V_flow_nominal[2]",
+    "datDef.per[1].pressure.V_flow[2]",
+    "datDef.per[2].pressure.V_flow[2]",
+    "datRed.per[1].pressure.V_flow[2]",
+    "datRed.per[2].pressure.V_flow[2]",
+    "datAss.per[1].pressure.V_flow[2]",
+    "datAss.per[2].pressure.V_flow[2]",
+    "datPre.per[1].pressure.V_flow[2]",
+    "datPre.per[2].pressure.V_flow[2]"
+  };

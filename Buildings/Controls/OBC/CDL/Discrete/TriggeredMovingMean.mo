@@ -4,13 +4,13 @@ block TriggeredMovingMean
   parameter Integer n(
     min=1)
     "Number of samples over which the input is averaged";
-  Interfaces.RealInput u
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u
     "Continuous input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.BooleanInput trigger
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput trigger
     "Boolean signal that triggers the block"
     annotation (Placement(transformation(origin={0,-120},extent={{-20,-20},{20,20}},rotation=90),iconTransformation(extent={{-20,-20},{20,20}},rotation=90,origin={0,-120})));
-  Interfaces.RealOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
     "Discrete averaged signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 

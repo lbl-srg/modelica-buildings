@@ -78,7 +78,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experiment
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This example model demonstrates the performance of the steam trap with a ramped mass flow rate. 
+This example model demonstrates the performance of the steam trap with a ramped mass flow rate.
 </p>
 </html>", revisions="<html>
 <ul>

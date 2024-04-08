@@ -14,8 +14,8 @@ model BuildingTimeSeriesWithETS
       Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger
       ets(
       final dT_nominal=dT_nominal,
-      final TDisWatMin=datDes.TLooMin,
-      final TDisWatMax=datDes.TLooMax,
+      final TDisWatMin=TDisWatMin,
+      final TDisWatMax=TDisWatMax,
       final TChiWatSup_nominal=TChiWatSup_nominal,
       final THeaWatSup_nominal=THeaWatSup_nominal,
       final THotWatSup_nominal=THotWatSup_nominal,
@@ -137,12 +137,6 @@ the building and ETS multiplier factor <code>facMul</code>.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-December 7, 2023, by Ettore Zanetti:<br/>
-Added output <code>PPumCoo</code><br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
-</li>
 <li>
 November 21, 2022, by David Blum:<br/>
 Change <code>bui.facMulHea</code> and <code>bui.facMulCoo</code> to be default.<br/>

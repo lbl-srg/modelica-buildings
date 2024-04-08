@@ -83,8 +83,8 @@ model FlowDistributionPumpControl
     nout=nLoa)
     "Repeat input to output an array"
     annotation (Placement(transformation(extent={{-128,20},{-108,40}})));
-  Buildings.Experimental.DHC.Networks.Distribution2PipeAutoSize dis(
-    redeclare final package Medium=Medium1,
+  Buildings.Experimental.DHC.Networks.Distribution2Pipe_R dis(
+    redeclare final package Medium = Medium1,
     final nCon=nLoa,
     final allowFlowReversal=false,
     final iConDpSen=nLoa,
@@ -92,8 +92,7 @@ model FlowDistributionPumpControl
     final mCon_flow_nominal=mCon_flow_nominal,
     mEnd_flow_nominal=m_flow_nominal,
     lDis=fill(25, nLoa),
-    lEnd=1)
-    "Distribution network"
+    lEnd=1) "Distribution network"
     annotation (Placement(transformation(extent={{40,-180},{80,-160}})));
   Buildings.Fluid.Movers.Preconfigured.FlowControlled_dp pumCstDp(
     redeclare package Medium=Medium1,

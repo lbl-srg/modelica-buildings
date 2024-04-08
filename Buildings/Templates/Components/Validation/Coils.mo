@@ -129,9 +129,8 @@ model Coils "Validation model for coil components"
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant XOut(k=0.015)
     "Water mass fraction in outdoor air"
     annotation (Placement(transformation(extent={{-130,-150},{-110,-130}})));
-  Utilities.Psychrometrics.TWetBul_TDryBulXi wetBul(
-    redeclare final package Medium = MediumAir)
-    "Compute wet bulb temperature"
+  Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi wetBul(redeclare final
+      package Medium = MediumAir) "Compute wet bulb temperature"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant pOut(k=101325)
     "Outdoor pressure"
@@ -143,7 +142,7 @@ model Coils "Validation model for coil components"
     T=coiEva.dat.datCoi.sta[1].nomVal.TEvaIn_nominal,
     nPorts=2) "Boundary conditions for entering air"
     annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
-  Utilities.Psychrometrics.X_pTphi x_pTphi(use_p_in=false)
+  Buildings.Utilities.Psychrometrics.X_pTphi x_pTphi(use_p_in=false)
     "Compute wet bulb temperature"
     annotation (Placement(transformation(extent={{-88,-10},{-68,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TAirEnt(k=coiEva.dat.datCoi.sta[

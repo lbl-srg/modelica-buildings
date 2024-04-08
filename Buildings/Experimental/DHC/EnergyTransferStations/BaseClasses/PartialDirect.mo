@@ -61,7 +61,8 @@ model PartialDirect
      final unit="K",
      displayUnit="degC")
     "Setpoint for the district return temperature (min for cooling, max for heating)"
-    annotation (Placement(transformation(extent={{-338,-20},{-298,20}})));
+    annotation (Placement(transformation(extent={{-340,-20},{-300,20}}),
+        iconTransformation(extent={{-340,-20},{-300,20}})));
   Modelica.Blocks.Interfaces.RealOutput Q_flow(
     final quantity="HeatFlowRate",
     final unit="W",
@@ -76,8 +77,8 @@ model PartialDirect
     displayUnit="kW.h")
     "Measured energy consumption at the ETS"
      annotation (Placement(transformation(
-          extent={{300,-180},{340,-140}}), iconTransformation(extent={{300,-130},
-            {340,-90}})));
+          extent={{300,-180},{340,-140}}), iconTransformation(extent={{300,-180},
+            {340,-140}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTDisSup(
     redeclare final package Medium=MediumSer,
     final m_flow_nominal=mBui_flow_nominal)
@@ -167,50 +168,43 @@ protected
     "Specific heat capacity of the fluid";
 equation
   connect(senTDisSup.port_b, senMasFlo.port_a)
-    annotation (Line(points={{-160,-280},{-120,-280}}, color={0,127,255}));
+    annotation (Line(points={{-160,-280},{-120,-280}},color={0,127,255}));
   connect(senMasFlo.port_b, jun.port_1)
-    annotation (Line(points={{-100,-280},{-60,-280}}, color={0,127,255}));
+    annotation (Line(points={{-100,-280},{-60,-280}},color={0,127,255}));
   connect(senTBuiRet.port_b, spl.port_1)
-    annotation (Line(points={{-200,200},{-60,200}}, color={0,127,255}));
+    annotation (Line(points={{-200,200},{-60,200}},color={0,127,255}));
   connect(spl.port_2, conVal.port_a)
-    annotation (Line(points={{-40,200},{-10,200}}, color={0,127,255}));
+    annotation (Line(points={{-40,200},{-10,200}},color={0,127,255}));
   connect(senMasFlo.m_flow, pro.u2)
-    annotation (Line(points={{-110,-269},{-110,-192},
-          {90,-192},{90,-116},{118,-116}}, color={0,0,127}));
+    annotation (Line(points={{-110,-269},{-110,-192},{90,-192},{90,-116},{118,-116}},color={0,0,127}));
   connect(pro.y, cp.u)
-    annotation (Line(points={{141,-110},{178,-110}}, color={0,0,127}));
+    annotation (Line(points={{141,-110},{178,-110}},color={0,0,127}));
   connect(cp.y, Q_flow)
-    annotation (Line(points={{201,-110},{248,-110},{248,-120},{320,-120}},
-                                                     color={0,0,127}));
+    annotation (Line(points={{201,-110},{248,-110},{248,-120},{320,-120}},color={0,0,127}));
   connect(cp.y, int.u)
-    annotation (Line(points={{201,-110},{248,-110},{248,-160},{258,-160}},
-                       color={0,0,127}));
+    annotation (Line(points={{201,-110},{248,-110},{248,-160},{258,-160}},color={0,0,127}));
   connect(int.y, Q)
-    annotation (Line(points={{281,-160},{320,-160}}, color={0,0,127}));
+    annotation (Line(points={{281,-160},{320,-160}},color={0,0,127}));
   connect(dTDis.y, pro.u1)
     annotation (Line(points={{101,-104},{118,-104}},color={0,0,127}));
   connect(conVal.port_b, senTDisRet.port_a)
-    annotation (Line(points={{10,200},{30,200}}, color={0,127,255}));
+    annotation (Line(points={{10,200},{30,200}},color={0,127,255}));
   connect(senTDisRet.T,dTDis. u1)
-    annotation (Line(points={{40,211},{40,226},{60,226},{60,-98},{78,-98}},
-                                                          color={0,0,127}));
+    annotation (Line(points={{40,211},{40,226},{60,226},{60,-98},{78,-98}},color={0,0,127}));
   connect(senTDisSup.T,dTDis. u2)
-    annotation (Line(points={{-170,-269},{-172,-269},{-172,-184},{60,-184},{60,-110},
-          {78,-110}},                                            color={0,0,127}));
+    annotation (Line(points={{-170,-269},{-172,-269},{-172,-184},{60,-184},{60,-110},{78,-110}},color={0,0,127}));
   connect(TDisRetSet, con.u_s)
-    annotation (Line(points={{-318,0},{-272,0},{-272,250},{-222,250}},
-                                                                     color={0,0,127}));
+    annotation (Line(points={{-320,0},{-272,0},{-272,250},{-222,250}},color={0,0,127}));
   connect(senTBuiRet.T, con.u_m)
     annotation (Line(points={{-210,211},{-210,238}},color={0,0,127}));
   connect(jun.port_2, senTBuiSup.port_a)
-    annotation (Line(points={{-40,-280},{220,-280},{220,200},{230,200}}, color={0,127,255}));
+    annotation (Line(points={{-40,-280},{220,-280},{220,200},{230,200}},color={0,127,255}));
   connect(spl.port_3, cheVal.port_a)
     annotation (Line(points={{-50,190},{-50,0}}, color={0,127,255}));
   connect(cheVal.port_b, jun.port_3)
     annotation (Line(points={{-50,-20},{-50,-270}}, color={0,127,255}));
   connect(con.y, conVal.y)
-    annotation (Line(points={{-198,250},{0,250},{0,212}},
-                                                        color={0,0,127}));
+    annotation (Line(points={{-198,250},{0,250},{0,212}},color={0,0,127}));
  annotation (
     defaultComponentName="etsCoo",
     Documentation(info="<html>
