@@ -132,7 +132,7 @@ The heating and cooling enable signals should be computed externally based on a 
 (to lock out the system during off-hours), ideally in conjunction with the number
 of requests yielded by the terminal unit controllers, or any
 other signal representative of the load.
-Indeed, the heating water supply set point is allowed to be reset down 
+Indeed, the heating water supply set point is allowed to be reset down
 only when heating is disabled, in which
 case the system performance is improved due to a lower chiller lift.
 </li>

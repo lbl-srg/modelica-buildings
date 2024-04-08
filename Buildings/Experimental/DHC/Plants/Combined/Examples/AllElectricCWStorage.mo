@@ -37,8 +37,7 @@ model AllElectricCWStorage
     annotation (
       Dialog(group="CHW loop and cooling-only chillers"),
       Placement(transformation(extent={{140,200},{160,220}})));
-  replaceable parameter Fluid.Chillers.Data.ElectricReformulatedEIR.Generic datChiHea=
-    datChi
+  replaceable parameter Fluid.Chillers.Data.ElectricReformulatedEIR.Generic datChiHea = datChi
     constrainedby Buildings.Fluid.Chillers.Data.BaseClasses.Chiller
     "Chiller parameters (each unit)"
     annotation (
@@ -90,9 +89,9 @@ model AllElectricCWStorage
     final datChiHea=datChiHea,
     final datHeaPum=datHeaPum,
     nChi=2,
-    dpChiWatSet_max=sum(disCoo.dpDis_nominal),
+    dpChiWatSet_max=(sum(disCoo.lDis) + disCoo.lEnd)*disCoo.dp_length_nominal,
     nChiHea=2,
-    dpHeaWatSet_max=sum(disCoo.dpDis_nominal),
+    dpHeaWatSet_max=(sum(disHea.lDis) + disHea.lEnd)*disHea.dp_length_nominal,
     nHeaPum=2,
     dInsTan=0.05,
     nCoo=3,
@@ -167,24 +166,28 @@ model AllElectricCWStorage
   Modelica.Blocks.Math.Gain norQFloCoo(k=1/sum(loaCoo.QCoo_flow_nominal))
     "Normalized Q_flow"
     annotation (Placement(transformation(extent={{-146,-190},{-126,-170}})));
-  Networks.Distribution2Pipe disHea(
+  Buildings.Experimental.DHC.Networks.Distribution2Pipe_R disHea(
     redeclare final package Medium = Medium,
     nCon=2,
     allowFlowReversal=false,
     mDis_flow_nominal=sum(loaHea.mBui_flow_nominal),
     mCon_flow_nominal={loaHea[1].mBui_flow_nominal,loaHea[2].mBui_flow_nominal},
-    dpDis_nominal(each displayUnit="Pa") = {200000,100000})
-    "Distribution network for district heating system"
+
+    mEnd_flow_nominal=sum(loaHea.mBui_flow_nominal),
+    lDis={800,200},
+    lEnd=200) "Distribution network for district heating system"
     annotation (Placement(transformation(extent={{20,62},{-20,82}})));
 
-  Networks.Distribution2Pipe disCoo(
+  Buildings.Experimental.DHC.Networks.Distribution2Pipe_R disCoo(
     redeclare final package Medium = Medium,
     nCon=2,
     allowFlowReversal=false,
     mDis_flow_nominal=sum(loaCoo.mBui_flow_nominal),
     mCon_flow_nominal={loaCoo[1].mBui_flow_nominal,loaCoo[2].mBui_flow_nominal},
-    dpDis_nominal(each displayUnit="Pa") = {20e4,10e4})
-    "Distribution network for district cooling system"
+
+    mEnd_flow_nominal=sum(loaCoo.mBui_flow_nominal),
+    lDis={80,20},
+    lEnd=20) "Distribution network for district cooling system"
     annotation (Placement(transformation(extent={{20,-60},{-20,-80}})));
 
   Modelica.Blocks.Math.Sum QTotHea_flow(nin=2)
@@ -250,9 +253,9 @@ equation
           -140},{-160,-180},{-148,-180}}, color={0,0,127}));
   connect(loaHea.QHea_flow, QTotHea_flow.u) annotation (Line(points={{-5,98},{-4,
           98},{-4,94},{-50,94},{-50,130},{-58,130}}, color={0,0,127}));
-  connect(TChiWatRet.y, loaCoo.TSetDisRet) annotation (Line(points={{-168,-100},
+  connect(TChiWatRet.y,loaCoo.TDisRetSet)  annotation (Line(points={{-168,-100},
           {20,-100},{20,-113},{11,-113}}, color={0,0,127}));
-  connect(THeaWatRet.y, loaHea.TSetDisRet) annotation (Line(points={{-168,50},{-44,
+  connect(THeaWatRet.y,loaHea.TDisRetSet)  annotation (Line(points={{-168,50},{-44,
           50},{-44,126},{20,126},{20,117},{11,117}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(

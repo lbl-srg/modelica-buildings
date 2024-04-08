@@ -45,12 +45,12 @@ algorithm
           textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-This blocks updates the value of the output array to 
+This blocks updates the value of the output array to
 match the value of the input array only if the time
 since the last update exceeds <code>holdDuration</code>.
 Otherwise, the value of the output array is kept equal
 to its value at the time of the last update.
-At initial time, the value of the output array is set 
+At initial time, the value of the output array is set
 to the value of the input array, and this is considered
 as the first update time.
 </p>

@@ -13,7 +13,7 @@ block StagingPlant
     "Number of units operating at design conditions"
     annotation (Dialog(group="HW loop and heat recovery chillers"),
       Evaluate=true);
-  parameter Real PLRStaTra(unit="1")=0.85
+  parameter Real PLRStaTra(unit="1") = 0.85
     "Part load ratio triggering stage transition";
   parameter Modelica.Units.SI.HeatFlowRate QChiWatCasCoo_flow_nominal
     "Cooling design heat flow rate of HRC in cascading cooling mode (all units)"
@@ -150,186 +150,129 @@ block StagingPlant
       t={i for i in 1:nChi})
     "Compute chiller On/Off command from number of units to be commanded On"
     annotation (Placement(transformation(extent={{210,110},{230,130}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter timCp(final k=
-        cp_default) "Scale"
-    annotation (Placement(transformation(extent={{-210,130},{-190,150}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter timCp1(final k=
-        cp_default) "Scale"
-    annotation (Placement(transformation(extent={{-220,-90},{-200,-70}})));
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter timCp(final k = cp_default)
+  "Scale" annotation (Placement(transformation(extent={{-210,130},{-190,150}})));
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter timCp1(final k = cp_default)
+   "Scale" annotation (Placement(transformation(extent={{-220,-90},{-200,-70}})));
   Buildings.Controls.OBC.CDL.Reals.MovingAverage movAve1(delta=300)
-    "Moving average"
-    annotation (Placement(transformation(extent={{-150,-130},{-130,-110}})));
-  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator rep5(final nout=
-        nChiHea)
-    "Replicate"
-    annotation (Placement(transformation(extent={{180,-110},{200,-90}})));
+    "Moving average" annotation (Placement(transformation(extent={{-150,-130},{-130,-110}})));
+  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator rep5(final nout = nChiHea)
+    "Replicate" annotation (Placement(transformation(extent={{180,-110},{200,-90}})));
   Buildings.Controls.OBC.CDL.Integers.GreaterEqualThreshold cmdChiHea[nChiHea](
       final t={i for i in 1:nChiHea})
-    "Compute chiller On/Off command from number of units to be commanded On"
-    annotation (Placement(transformation(extent={{210,-110},{230,-90}})));
+    "Compute chiller On/Off command from number of units to be commanded On" annotation (Placement(transformation(extent={{210,-110},{230,-90}})));
   Buildings.Controls.OBC.CDL.Integers.Subtract numChiHeaCoo
     "Number of HRC required in direct HR mode" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={10,-20})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant numChiHea(final k=
-        nChiHea) "Number of HRC"
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant numChiHea(final k = nChiHea)
+  "Number of HRC" annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
   Buildings.Controls.OBC.CDL.Integers.Add nChiHeaAndCooUnb
-    "Number of HRC required to meet heating and cooling load - Unbounded"
-    annotation (Placement(transformation(
+    "Number of HRC required to meet heating and cooling load - Unbounded" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-70,0})));
   Buildings.Controls.OBC.CDL.Integers.Subtract numChiCasCoo
-    "Number of HRC required in cascading cooling"
-    annotation (Placement(transformation(extent={{40,10},{60,30}})));
+    "Number of HRC required in cascading cooling" annotation (Placement(transformation(extent={{40,10},{60,30}})));
   ModeHeatRecoveryChiller modHeaCoo(final nChiHea=nChiHea)
-    "Compute the cascading cooling and direct HR switchover signals"
-    annotation (Placement(transformation(extent={{180,-10},{200,10}})));
+    "Compute the cascading cooling and direct HR switchover signals" annotation (Placement(transformation(extent={{180,-10},{200,10}})));
 
   Buildings.Controls.OBC.CDL.Integers.Min nChiHeaHeaAndCoo
-    "Number of HRC required to meet heating and cooling load - Bounded by number of HRC"
-    annotation (Placement(transformation(
+    "Number of HRC required to meet heating and cooling load - Bounded by number of HRC" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-30,-40})));
 
   Buildings.Controls.OBC.CDL.Reals.Subtract errTChiWatSup
-    "Compute tracking error"
-    annotation (Placement(transformation(extent={{-200,200},{-180,220}})));
+    "Compute tracking error" annotation (Placement(transformation(extent={{-200,200},{-180,220}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract errDpChiWat
-    "Compute tracking error"
-    annotation (Placement(transformation(extent={{-200,250},{-180,270}})));
+    "Compute tracking error" annotation (Placement(transformation(extent={{-200,250},{-180,270}})));
   Buildings.Controls.OBC.CDL.Reals.LessThreshold cmpErrLim(t=-1, h=1E-4)
-    "Check tracking error limit"
-    annotation (Placement(transformation(extent={{-170,200},{-150,220}})));
+    "Check tracking error limit" annotation (Placement(transformation(extent={{-170,200},{-150,220}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold cmpErrLim1(t=1.5E4, h=1E-1)
-    "Check tracking error limit"
-    annotation (Placement(transformation(extent={{-170,250},{-150,270}})));
+    "Check tracking error limit" annotation (Placement(transformation(extent={{-170,250},{-150,270}})));
   Buildings.Controls.OBC.CDL.Logical.Timer timErrExcLim(t=15*60)
-    "Timer for error exceeding error limit"
-    annotation (Placement(transformation(extent={{-110,200},{-90,220}})));
+    "Timer for error exceeding error limit" annotation (Placement(transformation(extent={{-110,200},{-90,220}})));
   Buildings.Controls.OBC.CDL.Logical.Timer timErrExcLim1(t=15*60)
-    "Timer for error exceeding error limit"
-    annotation (Placement(transformation(extent={{-110,250},{-90,270}})));
-  Buildings.Controls.OBC.CDL.Logical.Or or2 "Failsafe condition to stage up"
-    annotation (Placement(transformation(extent={{-70,220},{-50,240}})));
+    "Timer for error exceeding error limit" annotation (Placement(transformation(extent={{-110,250},{-90,270}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or2 "Failsafe condition to stage up" annotation (Placement(transformation(extent={{-70,220},{-50,240}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
-    "Apply failsafe condition only in stage >= 1"
-    annotation (Placement(transformation(extent={{-140,250},{-120,270}})));
+    "Apply failsafe condition only in stage >= 1" annotation (Placement(transformation(extent={{-140,250},{-120,270}})));
   Buildings.Controls.OBC.CDL.Logical.And and3
-    "Apply failsafe condition only in stage >= 1"
-    annotation (Placement(transformation(extent={{-140,200},{-120,220}})));
+    "Apply failsafe condition only in stage >= 1" annotation (Placement(transformation(extent={{-140,200},{-120,220}})));
   StageIndex staCoo(final nSta=nChi + nChiHea, tSta=15*60)
-    "Compute cooling stage"
-    annotation (Placement(transformation(extent={{50,144},{70,164}})));
+    "Compute cooling stage" annotation (Placement(transformation(extent={{50,144},{70,164}})));
   Modelica.Blocks.Sources.RealExpression capCoo(final y=abs(PLRStaTra*(min(nChi,
         staCoo.preIdxSta)/nChi*QChiWatChi_flow_nominal + max(0, staCoo.preIdxSta
          - nChi)/nChiHea*QChiWatCasCoo_flow_nominal)))
-    "Total capacity at current stage (>0) times stage-up PLR limit "
-    annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
+    "Total capacity at current stage (>0) times stage-up PLR limit" annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
   Buildings.Controls.OBC.CDL.Reals.Greater cmpOPLRLimUp(h=-1E-4*(
         QChiWatChi_flow_nominal + QChiWatCasCoo_flow_nominal_approx)/2)
-    "Check OPLR limit"
-    annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
+    "Check OPLR limit" annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
   Buildings.Controls.OBC.CDL.Logical.Timer timOPLRExcLim(t=15*60)
-    "Timer for OPLR exceeding limit"
-    annotation (Placement(transformation(extent={{-40,110},{-20,130}})));
+    "Timer for OPLR exceeding limit" annotation (Placement(transformation(extent={{-40,110},{-20,130}})));
   Buildings.Controls.OBC.CDL.Logical.Or or1
-    "Failsafe condition or efficiency condition to stage up"
-    annotation (Placement(transformation(extent={{0,130},{20,150}})));
+    "Failsafe condition or efficiency condition to stage up" annotation (Placement(transformation(extent={{0,130},{20,150}})));
   Buildings.Controls.OBC.CDL.Integers.Min numOpeChi
-    "Number of operating chillers"
-    annotation (Placement(transformation(extent={{90,110},{110,130}})));
+    "Number of operating chillers" annotation (Placement(transformation(extent={{90,110},{110,130}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant numChi(final k=nChi)
-    "Number of chillers"
-    annotation (Placement(transformation(extent={{50,90},{70,110}})));
+    "Number of chillers" annotation (Placement(transformation(extent={{50,90},{70,110}})));
   Buildings.Controls.OBC.CDL.Integers.Subtract numOpeCooChiHea
-    "Number of HRC required for cooling"
-    annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
+    "Number of HRC required for cooling" annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
   Modelica.Blocks.Sources.RealExpression capHea(final y=PLRStaTra*staHea.preIdxSta
         /nChiHea*QHeaWat_flow_nominal)
-    "Total capacity at current stage times stage-up PLR limit "
-    annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
+    "Total capacity at current stage times stage-up PLR limit" annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
   Buildings.Controls.OBC.CDL.Reals.Greater cmpOPLRLimUp1(h=1E-1)
-    "Check OPLR limit"
-    annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
+    "Check OPLR limit" annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Timer timOPLRExcLim1(t=15*60)
-    "Timer for OPLR exceeding limit"
-    annotation (Placement(transformation(extent={{-50,-130},{-30,-110}})));
-  StageIndex staHea(final nSta=nChiHea, tSta=15*60) "Compute heating stage"
-    annotation (Placement(transformation(extent={{50,-130},{70,-110}})));
+    "Timer for OPLR exceeding limit" annotation (Placement(transformation(extent={{-50,-130},{-30,-110}})));
+  StageIndex staHea(final nSta=nChiHea, tSta=15*60) "Compute heating stage" annotation (Placement(transformation(extent={{50,-130},{70,-110}})));
   Modelica.Blocks.Sources.RealExpression capHeaLow(final y=PLRStaTra*max(0,
         staHea.preIdxSta - 1)/nChiHea*QHeaWat_flow_nominal)
-    "Total capacity at next lower stage times stage-down PLR limit "
-    annotation (Placement(transformation(extent={{-120,-178},{-100,-158}})));
+    "Total capacity at next lower stage times stage-down PLR limit" annotation (Placement(transformation(extent={{-120,-178},{-100,-158}})));
   Buildings.Controls.OBC.CDL.Reals.Less cmpOPLRLimDow(h=1E-1)
-  "Check OPLR limit"
-    annotation (Placement(transformation(extent={{-80,-170},{-60,-150}})));
+  "Check OPLR limit" annotation (Placement(transformation(extent={{-80,-170},{-60,-150}})));
   Buildings.Controls.OBC.CDL.Logical.Timer timOPLRExcLim2(t=15*60)
-    "Timer for OPLR exceeding limit"
-    annotation (Placement(transformation(extent={{-50,-170},{-30,-150}})));
+    "Timer for OPLR exceeding limit"  annotation (Placement(transformation(extent={{-50,-170},{-30,-150}})));
   Modelica.Blocks.Sources.RealExpression capCooLow(final y=abs(PLRStaTra*(min(
         nChi, max(0, staCoo.preIdxSta - 1))/nChi*QChiWatChi_flow_nominal + max(
         0, staCoo.preIdxSta - 1 - nChi)/nChiHea*QChiWatCasCoo_flow_nominal)))
-    "Total capacity at next lower stage (>0) times stage-down PLR limit "
-    annotation (Placement(transformation(extent={{-120,62},{-100,82}})));
+    "Total capacity at next lower stage (>0) times stage-down PLR limit" annotation (Placement(transformation(extent={{-120,62},{-100,82}})));
   Buildings.Controls.OBC.CDL.Reals.Less cmpOPLRLimDow1(h=-1E-4*(
         QChiWatChi_flow_nominal + QChiWatCasCoo_flow_nominal_approx)/2)
-    "Check OPLR limit"
-    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
+    "Check OPLR limit" annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.Controls.OBC.CDL.Logical.Timer timOPLRExcLim3(t=15*60)
-    "Timer for OPLR exceeding limit"
-    annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
+    "Timer for OPLR exceeding limit" annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
   Buildings.Controls.OBC.CDL.Logical.Not notFail
-    "Failsafe conditions are not true"
-    annotation (Placement(transformation(extent={{-40,190},{-20,210}})));
+    "Failsafe conditions are not true" annotation (Placement(transformation(extent={{-40,190},{-20,210}})));
   Buildings.Controls.OBC.CDL.Logical.And dowAndNotFail
-    "No stage up failsafe condition and efficiency condition to stage down"
-    annotation (Placement(transformation(extent={{0,90},{20,110}})));
+    "No stage up failsafe condition and efficiency condition to stage down" annotation (Placement(transformation(extent={{0,90},{20,110}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract errTChiWatSup1
-    "Compute tracking error"
-    annotation (Placement(transformation(extent={{-200,-230},{-180,-210}})));
+    "Compute tracking error" annotation (Placement(transformation(extent={{-200,-230},{-180,-210}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract errDpHeaWat
-    "Compute tracking error"
-    annotation (Placement(transformation(extent={{-200,-290},{-180,-270}})));
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold
-                                                      cmpErrLim2(t=+1, h=1E-4)
-    "Check tracking error limit"
-    annotation (Placement(transformation(extent={{-170,-230},{-150,-210}})));
+    "Compute tracking error" annotation (Placement(transformation(extent={{-200,-290},{-180,-270}})));
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold   cmpErrLim2(t=+1, h=1E-4)
+    "Check tracking error limit" annotation (Placement(transformation(extent={{-170,-230},{-150,-210}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold cmpErrLim3(t=1.5E4, h=1E-1)
-    "Check tracking error limit"
-    annotation (Placement(transformation(extent={{-170,-290},{-150,-270}})));
+    "Check tracking error limit" annotation (Placement(transformation(extent={{-170,-290},{-150,-270}})));
   Buildings.Controls.OBC.CDL.Logical.Timer timErrExcLim2(t=15*60)
-    "Timer for error exceeding error limit"
-    annotation (Placement(transformation(extent={{-110,-230},{-90,-210}})));
+    "Timer for error exceeding error limit" annotation (Placement(transformation(extent={{-110,-230},{-90,-210}})));
   Buildings.Controls.OBC.CDL.Logical.Timer timErrExcLim3(t=15*60)
-    "Timer for error exceeding error limit"
-    annotation (Placement(transformation(extent={{-110,-290},{-90,-270}})));
-  Buildings.Controls.OBC.CDL.Logical.Or or3 "Failsafe condition to stage up"
-    annotation (Placement(transformation(extent={{-70,-270},{-50,-250}})));
-  Buildings.Controls.OBC.CDL.Logical.And and1
-    "Apply failsafe condition only in stage >= 1"
-    annotation (Placement(transformation(extent={{-140,-290},{-120,-270}})));
-  Buildings.Controls.OBC.CDL.Logical.And and4
-    "Apply failsafe condition only in stage >= 1"
-    annotation (Placement(transformation(extent={{-140,-230},{-120,-210}})));
+    "Timer for error exceeding error limit" annotation (Placement(transformation(extent={{-110,-290},{-90,-270}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or3 "Failsafe condition to stage up" annotation (Placement(transformation(extent={{-70,-270},{-50,-250}})));
+  Buildings.Controls.OBC.CDL.Logical.And and1 "Apply failsafe condition only in stage >= 1" annotation (Placement(transformation(extent={{-140,-290},{-120,-270}})));
+  Buildings.Controls.OBC.CDL.Logical.And and4 "Apply failsafe condition only in stage >= 1" annotation (Placement(transformation(extent={{-140,-230},{-120,-210}})));
   Buildings.Controls.OBC.CDL.Logical.Not notFail1
-    "Failsafe conditions are not true"
-    annotation (Placement(transformation(extent={{-30,-230},{-10,-210}})));
-
+    "Failsafe conditions are not true" annotation (Placement(transformation(extent={{-30,-230},{-10,-210}})));
   Buildings.Controls.OBC.CDL.Logical.Or or4
-    "Failsafe condition or efficiency condition to stage up"
-    annotation (Placement(transformation(extent={{10,-130},{30,-110}})));
+    "Failsafe condition or efficiency condition to stage up" annotation (Placement(transformation(extent={{10,-130},{30,-110}})));
   Buildings.Controls.OBC.CDL.Logical.And dowAndNotFail1
-    "No stage up failsafe condition and efficiency condition to stage down"
-    annotation (Placement(transformation(extent={{10,-170},{30,-150}})));
+    "No stage up failsafe condition and efficiency condition to stage down" annotation (Placement(transformation(extent={{10,-170},{30,-150}})));
   IntegerArrayHold hol(holdDuration=15*60, nin=4)
-    "Minimum plant stage runtime (needed because cooling and heating stage runtimes are handled separately)"
-    annotation (Placement(transformation(extent={{130,-10},{150,10}})));
+    "Minimum plant stage runtime (needed because cooling and heating stage runtimes are handled separately)" annotation (Placement(transformation(extent={{130,-10},{150,10}})));
 
 equation
   connect(dTChiWatPos.y, loaChiWat.u2) annotation (Line(points={{-188,80},{-186,

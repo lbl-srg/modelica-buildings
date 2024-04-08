@@ -7,7 +7,7 @@ partial model PartialDistribution2Medium
   replaceable package MediumRet =
       Modelica.Media.Interfaces.PartialMedium
     "Medium model for return fluid";
-  parameter Integer nCon
+  parameter Integer nCon(min=1)
     "Number of connections"
     annotation (Dialog(tab="General"),Evaluate=true);
   parameter Boolean allowFlowReversal=false
@@ -72,7 +72,7 @@ partial model PartialDistribution2Medium
       info="
 <html>
 <p>
-Partial model to be used for modeling various distribution networks e.g. 
+Partial model to be used for modeling various distribution networks e.g.
 one-pipe or two-pipe hydraulic distribution.
 </p>
 </html>",

@@ -1,0 +1,15 @@
+translateModel("Buildings.Fluid.FixedResistances.BuriedPipes.Validation.GroundCouplingAIT");
+simulateModel("Buildings.Fluid.FixedResistances.BuriedPipes.Validation.GroundCouplingAIT", stopTime=603900, numberOfIntervals=0, outputInterval=900, tolerance=1e-6, method="CVode", resultFile="GroundCouplingAIT");
+
+createPlot(id=1, position={0, -410, 500, 500}, y={"senTem_p1.T"}, range={0.0, 700000.0, 85.0, 110.0}, autoscale=false, grid=true, colors={{28,108,200}}, range2={0.75, 0.95}, timeUnit="s", displayUnits={"degC"});
+plotExpression(apply(GroundCouplingAIT[end].DataReader.y[1]-273.15), false, "Measured data: Temperature at point 1 in degrees", 1);
+createPlot(id=1, position={0, -410, 500, 500}, y={"pip0.port_a.m_flow"}, range={0.0, 700000.0, 10.0, 50.0}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="s", displayUnits={"kg/s"});
+createPlot(id=2, position={550, -410, 500, 500}, y={"senTem_p2.T"}, range={0.0, 700000.0, 80.0, 100.0}, autoscale=false, grid=true, colors={{28,108,200}}, range2={0.8, 1.0}, timeUnit="s", displayUnits={"degC"});
+plotExpression(apply(GroundCouplingAIT[end].DataReader.y[2]-273.15), false, "Measured data: Temperature at point 2 in degrees", 2);
+createPlot(id=2, position={550, -410, 500, 500}, y={"pip2.port_a.m_flow"}, range={0.0, 700000.0, 0.0, 0.2}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="s", displayUnits={"kg/s"});
+createPlot(id=3, position={5, 140, 500, 500}, y={"senTem_p3.T"}, range={0.0, 700000.0, 75.0, 100.0}, autoscale=false, grid=true, colors={{28,108,200}}, range2={0.75, 1.0}, timeUnit="s", displayUnits={"degC"});
+plotExpression(apply(GroundCouplingAIT[end].DataReader.y[3]-273.15), false, "Measured data: Temperature at point 3 in degrees", 3);
+createPlot(id=3, position={5, 140, 500, 500}, y={"pip3.port_a.m_flow"}, range={0.0, 650000.0, -0.02, 0.12000000000000001}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="s", displayUnits={"kg/s"});
+createPlot(id=4, position={550, 140, 500, 500}, y={"senTem_p4.T"}, range={0.0, 650000.0, 0.0, 100.0}, grid=true, colors={{28,108,200}}, timeUnit="s", displayUnits={"degC"});
+plotExpression(apply(GroundCouplingAIT[end].DataReader.y[4]-273.15), false, "Measured data: Temperature at point 4 in degrees", 4);
+createPlot(id=4, position={550, 140, 500, 500}, y={"pip4.port_a.m_flow"}, range={0.0, 650000.0, -0.05, 0.2}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="s", displayUnits={"kg/s"});

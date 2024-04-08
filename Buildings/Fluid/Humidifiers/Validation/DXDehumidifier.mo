@@ -2,14 +2,14 @@ within Buildings.Fluid.Humidifiers.Validation;
 model DXDehumidifier "Validation model for DX dehumidifier"
   extends Modelica.Icons.Example;
 
+  package Medium = Buildings.Media.Air
+    "Fluid medium";
+
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=0.13545
     "Nominal mass flow rate";
 
   parameter Modelica.Units.SI.Time tStepAve = 3600
     "Time-step used to average out Modelica results for comparison with EPlus results";
-
-  package Medium = Buildings.Media.Air
-    "Fluid medium";
 
   parameter Buildings.Fluid.Humidifiers.Examples.Data.DXDehumidifier per
     "Zone air DX dehumidifier curve"
@@ -70,7 +70,7 @@ model DXDehumidifier "Validation model for DX dehumidifier"
     final y=dxDeh.port_a.m_flow)
     "DX dehumidifier air mass flow rate (Modelica)"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
-	
+
   Modelica.Blocks.Math.Mean m_flowFan(
     final f=1/tStepAve)
     "Average out Modelica results over time"
@@ -95,7 +95,7 @@ model DXDehumidifier "Validation model for DX dehumidifier"
     final f=1/tStepAve)
     "Average out Modelica results over time"
     annotation (Placement(transformation(extent={{54,26},{74,46}})));
-	
+
   Modelica.Blocks.Math.Mean mWatEP(
     final f=1/tStepAve)
     "Average out EnergyPlus results over time"
@@ -175,7 +175,6 @@ equation
     annotation (Line(points={{41,-30},{52,-30}}, color={0,0,127}));
   connect(realExpression8.y, QHeaEP.u)
     annotation (Line(points={{119,-30},{132,-30}}, color={0,0,127}));
-
   connect(plrToPul.yEna, dxDeh.uEna) annotation (Line(points={{-98,70},{-54,70},
           {-54,-14},{-51,-14}}, color={255,0,255}));
   connect(toTotAirIn.XiTotalAir, boundary.Xi_in[1]) annotation (Line(points={{-99,-50},
@@ -191,8 +190,7 @@ equation
   connect(datRea.y[11], TIn_K.Celsius) annotation (Line(points={{-139,70},{-130,
           70},{-130,19.6},{-122,19.6}}, color={0,0,127}));
   connect(datRea.y[10], toTotAirIn.XiDry) annotation (Line(points={{-139,70},{
-          -130,70},{-130,-50},{-121,-50}},
-                                      color={0,0,127}));
+          -130,70},{-130,-50},{-121,-50}}, color={0,0,127}));
   connect(gai.y, boundary.m_flow_in)
     annotation (Line(points={{-98,-10},{-84,-10}}, color={0,0,127}));
   connect(dxDeh.port_a, boundary.ports[1])
@@ -206,19 +204,23 @@ experiment(StartTime=12960000, StopTime=15120000, Tolerance=1e-6),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Humidifiers/Validation/DXDehumidifier.mos"
         "Simulate and Plot"),
 Documentation(info="<html>
-<p>This is a validation model for the zone air DX dehumidifier model 
+<p>
+This is a validation model for the zone air DX dehumidifier model
 <a href=\"modelica://Buildings.Fluid.Humidifiers.DXDehumidifier\">
-Buildings.Fluid.Humidifiers.DXDehumidifier</a>. The inlet air conditions such as 
-the dry bulb temperature and humidity ratio are read from an EnergyPlus data file. 
-The module <code>plrToPul</code> translates the runtime fraction from EnergyPlus 
-to an on-off signal for the DX dehumidifier.</p>
-<p>The generated plots show that <code>dxDeh</code> removes an amount of water 
-that is similar to the reference EnergyPlus results, while consuming a similar amount 
-of power and adding similar amount of heat to the outlet air stream. The 
-comparison of the outlet air conditions such as the dry bulb temperature and humidity 
-ratio is not considered here because EnergyPlus adds the rejected heat directly 
-to the zone air balance and sets the dry bulb temperature of the dehumidifier&apos;s 
-outlet air equal to that of the inlet air. </p>
+Buildings.Fluid.Humidifiers.DXDehumidifier</a>. The inlet air conditions such as
+the dry bulb temperature and humidity ratio are read from an EnergyPlus data file.
+The module <code>plrToPul</code> translates the runtime fraction from EnergyPlus
+to an on-off signal for the DX dehumidifier.
+</p>
+<p>
+The generated plots show that <code>dxDeh</code> removes an amount of water
+that is similar to the reference EnergyPlus results, while consuming a similar amount
+of power and adding similar amount of heat to the outlet air stream. The
+comparison of the outlet air conditions such as the dry bulb temperature and humidity
+ratio is not considered here because EnergyPlus adds the rejected heat directly
+to the zone air balance and sets the dry bulb temperature of the dehumidifier&apos;s
+outlet air equal to that of the inlet air.
+</p>
 </html>",
 revisions="<html>
 <ul>

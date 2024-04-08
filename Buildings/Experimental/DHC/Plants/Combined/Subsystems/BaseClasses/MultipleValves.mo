@@ -162,7 +162,7 @@ equation
           fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
 <p>
-This model represents a set of control valves piped in 
+This model represents a set of control valves piped in
 parallel.
 An optional fixed resistance may be included in series with each valve.
 </p>

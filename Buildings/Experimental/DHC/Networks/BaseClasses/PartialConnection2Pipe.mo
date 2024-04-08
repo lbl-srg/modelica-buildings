@@ -94,6 +94,10 @@ equation
     annotation (Line(points={{-20,-20},{-20,-30}}, color={0,127,255}));
   connect(senMasFloCon.port_a, pipCon.port_b)
     annotation (Line(points={{-20,30},{-20,0},{-20,0}}, color={0,127,255}));
+  connect(pipDisSup.port_b, junConSup.port_1)
+    annotation (Line(points={{-60,-40},{-30,-40}}, color={0,127,255}));
+  connect(pipDisRet.port_a, junConRet.port_2)
+    annotation (Line(points={{-60,-80},{10,-80}}, color={0,127,255}));
   annotation (
     defaultComponentName="con",
     Documentation(
