@@ -3,7 +3,8 @@ block TrueHold
   "Block that holds a true signal for at least a requested duration"
   parameter Real duration(
     final quantity="Time",
-    final unit="s")
+    final unit="s",
+    min=1E-2)
     "Time duration of the true output signal hold";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u
     "Boolean input signal"
@@ -16,40 +17,36 @@ protected
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     "Root of state graph"
     annotation (Placement(transformation(extent={{70,68},{90,88}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay onDelay(
-    final delayTime=duration)
-    "Delay for the on signal"
-    annotation (Placement(transformation(extent={{10,10},{30,30}})));
   Modelica.StateGraph.InitialStep initialStep(nIn=1, nOut=1)
     "Initial step"
-    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
+    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Modelica.StateGraph.StepWithSignal outputTrue(nIn=1, nOut=1)
     "Holds the output at true"
-    annotation (Placement(transformation(extent={{-10,50},{10,70}})));
+    annotation (Placement(transformation(extent={{10,20},{30,40}})));
   Modelica.StateGraph.TransitionWithSignal toOutputTrue
     "Transition that activates sending a true output signal"
-    annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
-  Modelica.StateGraph.TransitionWithSignal toInitial
+    annotation (Placement(transformation(extent={{-30,20},{-10,40}})));
+  Modelica.StateGraph.Transition           toInitial(enableTimer=true, waitTime
+      =duration)
     "Transition that activates the initial state"
-    annotation (Placement(transformation(extent={{30,50},{50,70}})));
+    annotation (Placement(transformation(extent={{50,20},{70,40}})));
 
+initial equation
+  assert(duration > 0, "In " + getInstanceName() + ": Parameter duration must be bigger than 0.");
 equation
   connect(initialStep.outPort[1],toOutputTrue.inPort)
-    annotation (Line(points={{-59.5,60},{-44,60}},color={0,0,0}));
+    annotation (Line(points={{-39.5,30},{-24,30}},color={0,0,0}));
   connect(outputTrue.active,y)
-    annotation (Line(points={{0,49},{0,0},{120,0}},color={255,0,255}));
+    annotation (Line(points={{20,19},{20,0},{120,0}},
+                                                   color={255,0,255}));
   connect(toOutputTrue.condition,u)
-    annotation (Line(points={{-40,48},{-40,0},{-120,0}},color={255,0,255}));
+    annotation (Line(points={{-20,18},{-20,0},{-120,0}},color={255,0,255}));
   connect(toInitial.outPort,initialStep.inPort[1])
-    annotation (Line(points={{41.5,60},{52,60},{52,86},{-90,86},{-90,60},{-81,60}},color={0,0,0}));
-  connect(outputTrue.active,onDelay.u)
-    annotation (Line(points={{0,49},{0,20},{8,20}},color={255,0,255}));
+    annotation (Line(points={{61.5,30},{80,30},{80,60},{-80,60},{-80,30},{-61,30}},color={0,0,0}));
   connect(toOutputTrue.outPort,outputTrue.inPort[1])
-    annotation (Line(points={{-38.5,60},{-11,60}},color={0,0,0}));
+    annotation (Line(points={{-18.5,30},{9,30}},  color={0,0,0}));
   connect(outputTrue.outPort[1],toInitial.inPort)
-    annotation (Line(points={{10.5,60},{36,60}},color={0,0,0}));
-  connect(onDelay.y,toInitial.condition)
-    annotation (Line(points={{32,20},{40,20},{40,48}},color={255,0,255}));
+    annotation (Line(points={{30.5,30},{56,30}},color={0,0,0}));
   annotation (
     defaultComponentName="truHol",
     Icon(
@@ -163,6 +160,12 @@ alt=\"Input and output of the block\"/>
 </html>",
       revisions="<html>
 <ul>
+<li>
+April 8, 2024, by Michael Wetter:<br/>
+Refactored implementation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3787\">issue 3787</a>.
+</li>
 <li>
 March 27, 2024, by Michael Wetter:<br/>
 Renamed block from <code>TrueHoldWithReset</code> to <code>TrueHold</code>.<br/>
