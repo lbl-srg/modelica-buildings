@@ -59,16 +59,17 @@ Each element of the array <code>per</code> has the following data.
                 as a function of the air mass flow fraction at evaporators.
      EIRFunFFCon - Polynomial coefficients for EIR
                 as a function of the water mass flow fraction at condensers.
-     TConInRan - Minimum and maximum condenser water inlet temperatures
+     [TConInMin, TConInMax] - Minimum and maximum condenser water inlet temperatures
                  for which the performance curves are valid.
                  Outside this range, they will be linearly extrapolated.
-     TEvaInRan - Minimum and maximum evaporator air inlet temperatures
+     [TEvaInMin, TEvaInMax] - Minimum and maximum evaporator air inlet temperatures
                  for which the performance curves are valid.
                  Outside this range, they will be linearly extrapolated.
-     ffRan     - Minimum and maximum air mass flow fraction at evaporators (relative to m_flow_nominal)
+     [ffMin, ffMax] - Minimum and maximum air mass flow fraction at evaporators (relative to m_flow_nominal)
                  for which the performance curves are valid.
                  Outside this range, they will be linearly extrapolated.
-     ffConRan     - Minimum and maximum water mass flow fraction at condensers (relative to m_flow_nominal)
+     [ffConMin, ffConMax] - Minimum and maximum water mass flow fraction at 
+                 condensers (relative to m_flow_nominal)
                  for which the performance curves are valid.
                  Outside this range, they will be linearly extrapolated.
 
@@ -106,6 +107,11 @@ a quadratic function.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 6, 2024, by Karthik Devaprasad:<br/>
+Replaced unused parameter names with correct parameter pairs for curve limit 
+definitions in the documentation.
+</li>
 <li>
 April 5, 2023, by Xing Lu:<br/>
 Updated class being extended from <code>DXCoil</code> to
