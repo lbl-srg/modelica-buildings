@@ -2,8 +2,6 @@ within Buildings.Fluid.Humidifiers;
 package BaseClasses "Package with base classes for Buildings.Fluid.Humidifiers"
     extends Modelica.Icons.BasesPackage;
 
-
-
 annotation (
   Documentation(info="<html>
 <p>
