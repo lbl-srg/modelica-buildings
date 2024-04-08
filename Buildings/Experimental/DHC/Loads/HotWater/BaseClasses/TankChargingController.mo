@@ -109,9 +109,9 @@ water tank needs to be charged, and <code>false</code> otherwise.
 <p>
 Whether the tank needs to be charged depends on the difference between the
 measured top and bottom tank temperatures and the tank's set point.
-If the top temperature is below the set point with hysteresis, 
+If the top temperature is below the set point with hysteresis,
 charging is enabled until the bottom temperature reaches the set point with
-hysteresis, at which point charging is disabled.  
+hysteresis, at which point charging is disabled.
 The hysteresis is <i>5</i> Kelvin.
 </p>
 </html>"));

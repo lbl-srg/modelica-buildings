@@ -122,7 +122,7 @@ equation
 Example model of a fresh water station that heats up domestic hot water.
 Input is a load profile which is sent to a model that computes the hot and cold water draw.
 The domestic hot water is produced by a heat exchanger with a district water source
-and optionally an electric heater.  Examples with and without the electric 
+and optionally an electric heater.  Examples with and without the electric
 heater are shown.
 </p>
 </html>", revisions="<html>

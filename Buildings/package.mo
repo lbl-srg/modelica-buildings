@@ -209,14 +209,53 @@ Each class (i.e., model, block and function) must be used in an example or valid
         annotation (Documentation(info="<html>
 <div class=\"release-summary\">
 <p>
-Version 11.0.0 is ...
+Version 11.0.0 is a major release that adds various new packages and models.
 </p>
+<p>
+The library has been tested with
+Dymola 2024x,
+OpenModelica 1.22.1-1,
+OPTIMICA 1.48.2 and recent versions of Impact.
+</p>
+<p>
+The following major changes have been done compared to release 10.0.0:
+</p>
+<ul>
+<li>
+A tutorial for how to build a simple system model has been added to <code>Buildings.Examples.Tutorial.SimpleHouse</code>.
+</li>
+<li>
+A package for domestic hot water generation and loads that are served by a district system is added to
+<code>Buildings.DHC.Loads.HotWater</code>.
+</li>
+<li>
+The district heating and cooling models have been expanded and revised, user guide has been added, and the models have been
+moved from the package <code>Buildings.Experimental.DHC</code> to <code>Buildings.DHC</code>.
+</li>
+<li>
+A package for central plants with reversible air-to-water heat pumps has been added to <code>Buildings.Templates.Plants.HeatPumps</code>.
+The package allows configuration of the type of hydronic integration and it consists pre-configured control sequences.
+</li>
+<li>
+The initialization of the Spawn model has been refactored to avoid an iteration between Modelica and EnergyPlus as this
+caused numerical problems in some cases.
+</li>
+<li>
+The implementation of the blocks for the Control Description Language (CDL), which is being standardized through
+ASHRAE Standard 231P, has been revised to comply with the latest draft of the standard.
+</li>
+</ul>
 </div>
 <!-- New libraries -->
 <p>
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
+<tr><td valign=\"top\">Buildings.Templates.Plants
+    </td>
+    <td valign=\"top\">Package with template models for central plants with air-to-water reversible heat pumps, including the plant closed loop control.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Examples.Tutorial.SimpleHouse
     </td>
     <td valign=\"top\">Tutorial for how to build a simple system model.
@@ -309,6 +348,129 @@ to <b style=\"color:blue\">existing</b> libraries:
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3063\">issue 3063</a>.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.FixedResistances.BuriedPipes.PipeGroundCoupling
+    </td>
+    <td valign=\"top\">Ground coupling model <a href=\"Modelica://Buildings.Fluid.FixedResistances.BuriedPipes.PipeGroundCoupling\">
+                       Buildings.Fluid.FixedResistances.BuriedPipes.PipeGroundCoupling</a>.
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.Networks</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Distribution1Pipe_R
+    </td>
+    <td valign=\"top\"> Added <a href=\"Modelica://Buildings.Experimental.DHC.Networks.Distribution1Pipe_R\">
+    Buildings.Experimental.DHC.Networks.Distribution1Pipe_R</a>. One pipe distribution network that uses autosize
+    pipes for supply and lossless for connection. This is for
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Distribution1PipePlugFlow_v
+    </td>
+    <td valign=\"top\"> Added <a href=\"Modelica://Buildings.Experimental.DHC.Networks.Distribution1PipePlugFlow_v\">
+    Buildings.Experimental.DHC.Networks.Distribution1PipePlugFlow_v</a>. One pipe distribution network that uses plugflow
+    pipes for supply and lossless for connection. This is for
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Distribution2Pipe_R
+    </td>
+    <td valign=\"top\"> Added <a href=\"Modelica://Buildings.Experimental.DHC.Networks.Distribution2Pipe_R\">
+    Buildings.Experimental.DHC.Networks.Distribution2Pipe_R</a>. Two pipes network that uses autosize pipes for
+    supply and return, and lossless for connection. This is for
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.Networks.Connections</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Connections.Connection1Pipe_R
+    </td>
+    <td valign=\"top\"> Added <a href=\"Modelica://Buildings.Experimental.DHC.Networks.Connections.Connection1Pipe_R\">
+    Buildings.Experimental.DHC.Networks.Connections.Connection1Pipe_R</a>. One pipe connection model using autosize pipes for supply
+    and lossless for connection. This is for
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Connections.Connection1PipePlugFlow_v
+    </td>
+    <td valign=\"top\"> Added <a href=\"Modelica://Buildings.Experimental.DHC.Networks.Connections.Connection1PipePlugFlow_v\">
+    Buildings.Experimental.DHC.Networks.Connections.Connection1PipePlugFlow_v</a>. One pipe connection model using plugflow pipes for supply
+    and lossless for connection. This is for
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Connections.Connection2Pipe_R
+    </td>
+    <td valign=\"top\"> Added <a href=\"Modelica://Buildings.Experimental.DHC.Networks.Connections.Connection2Pipe_R\">
+    Buildings.Experimental.DHC.Networks.Connections.Connection2Pipe_R</a>. Two pipes connection model using autosize pipes for supply
+    and return, lossless for connection. This is for
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Connections.Examples.Connection1PipeExample
+    </td>
+    <td valign=\"top\"> Added <a href=\"Modelica://Buildings.Experimental.DHC.Networks.Connections.Examples.Connection1PipeExample\">
+    Buildings.Experimental.DHC.Networks.Connections.Examples.Connection1PipeExample</a>. Example model for one pipe connections.
+    This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Connections.Examples.Connection2PipeExample
+    </td>
+    <td valign=\"top\"> Added <a href=\"Modelica://Buildings.Experimental.DHC.Networks.Connections.Examples.Connection2PipeExample\">
+    Buildings.Experimental.DHC.Networks.Connections.Examples.Connection2PipeExample</a>. Example model for two pipes connections.
+    This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.Networks.Controls</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Controls.AgentPump1Pipe
+    </td>
+    <td valign=\"top\"> Added <a href=\"Modelica://Buildings.Experimental.DHC.Networks.Controls.AgentPump1Pipe\">
+    Buildings.Experimental.DHC.Networks.Controls.AgentPump1Pipe</a>. Agent controller (i.e. borefield, waste heat plant)
+    for one pipe networks. This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Controls.Examples.AgentPump1PipeExample
+    </td>
+    <td valign=\"top\"> Added <a href=\"Modelica://Buildings.Experimental.DHC.Networks.Controls.Examples.AgentPump1PipeExample\">
+    Buildings.Experimental.DHC.Networks.Controls.Examples.AgentPump1PipeExample</a>. Example model for AgentPump1Pipe.
+    This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Controls.Examples.MainPump1PipeExample
+    </td>
+    <td valign=\"top\"> Added <a href=\"Modelica://Buildings.Experimental.DHC.Networks.Controls.Examples.MainPump1PipeExample\">
+    Buildings.Experimental.DHC.Networks.Controls.Examples.MainPump1PipeExample</a>. Example model for MainPump1PipeExample.
+    This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.Examples.Combined</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlowAgentControl
+    </td>
+    <td valign=\"top\"> Added <a href=\"Modelica://Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlowAgentControl\">
+    Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlowAgentControl</a>. This example model showcases a more sophisticated way
+    of controlling district agent pumps. This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Utilities.Math.Interpolate<br/>
+                       Buildings.Utilities.Math.Examples.Interpolate
+    </td>
+    <td valign=\"top\">Created a block with an example model for
+                       <a href=\"modelica://Buildings.Utilities.Math.Functions.interpolate\">
+                       Buildings.Utilities.Math.Functions.interpolate</a>.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1844\">IBPSA, #1844</a>.
+    </td>
+</tr>
 </table>
 <!-- Backward compatible changes -->
 <p>
@@ -328,6 +490,12 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">All classes
+    </td>
+    <td valign=\"top\">Expanded interface class names to full class names for all classes within <code>Buildings.Controls.OBC.CDL</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3746\">#3746</a>.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Discrete.Examples
@@ -375,6 +543,44 @@ have been <b style=\"color:blue\">improved</b> in a
                   This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3536\">#3536</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus_9_6_0</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_9_6_0.Building
+    </td>
+    <td valign=\"top\">Introduced parameter <code>setInitialRadiativeHeatGainToZero</code> and refactored
+                     radiative heat exchange between Modelica and EnergyPlus.
+                     This was done to avoid iterative solutions between Modelica and EnergyPlus
+                     for some coupled simulations that exchange radiative heat transfer, such as from
+                     a hydronic radiator.
+                     For details, see info section in
+                     <code>Buildings.ThermalZones.EnergyPlus_9_6_0.Building</code>.<br/>
+                     This is for
+                     <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3707\">Buildings, #3707</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.AirHeating<br/>
+                     Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer<br/>
+                     Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TRoom<br/>
+                     Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TSurface<br/>
+                     Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Radiator
+    </td>
+    <td valign=\"top\">Added insulation to EnergyPlus input data file and resized the system.<br/>
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3707\">#3707</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone
+    </td>
+    <td valign=\"top\">Changed radiative heat flow rate sent to EnergyPlus to be the average over the last
+                     synchronization time step rather than the instantaneuous value, and set it by default
+                     to zero during the initialization. This avoids a
+                     nonlinear system of equation during the time integration for models in which
+                     the radiative heat gain is a function of the room radiative temperature, such as
+                     when a radiator is connected to the room model.<br/>
+                     This is for
+                     <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3707\">Buildings, #3707</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
     </td>
 </tr>
@@ -384,6 +590,53 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Changed implementation to allow ground temperature to be taken from an input rather than using
                      a constant value.<br/>
                      This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1744\">IBPSA, #1744</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses  </b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow
+    </td>
+    <td valign=\"top\"> Updated pump model to use
+    to <a href=\"Modelica://Buildings.Fluid.Movers.Preconfigured.FlowControlled_m_flow\">
+    Buildings.Fluid.Movers.Preconfigured.FlowControlled_m_flow </a>. This change allows to have a better
+    estimation of pump default curve using euler number. This is for
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.Combined.BaseClasses.PartialHeatPumpHeatExchanger
+    </td>
+    <td valign=\"top\"> Reduced <code>swiFlo.dpValve_nominal</code> to numerically zero to avoid reverse flow. This is for
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.BaseClasses  </b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.BaseClasses.PartialHeatPump
+    </td>
+    <td valign=\"top\"> Converted heat pump model to dynamic by changing <code>heaPum.energyDynamics</code> to
+    <code>Modelica.Fluid.Types.Dynamics.FixedInitial</code> and added junction on recirculation loop. This is for
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.Examples.Combined  </b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Examples.Combined.SeriesConstantFlow
+    </td>
+    <td valign=\"top\"> Added connections that were removed in
+    <a href=\"Modelica://Buildings.Experimental.DHC.Examples.Combined.BaseClasses.PartialSeries\">
+    Buildings.Experimental.DHC.Examples.Combined.BaseClasses.PartialSeries </a>. This is for
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlow
+    </td>
+    <td valign=\"top\"> Added connections that were removed in
+    <a href=\"Modelica://Buildings.Experimental.DHC.Examples.Combined.BaseClasses.PartialSeries\">
+    Buildings.Experimental.DHC.Examples.Combined.BaseClasses.PartialSeries </a>. This is for
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
     </td>
 </tr>
 </table>
@@ -402,6 +655,13 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Renamed the block to <code>CivilTime</code>.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3596\">issue 3596</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset
+    </td>
+    <td valign=\"top\">Renamed the block to <code>TrueHold</code>.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3689\">issue 3689</a>.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Or3<br/>
@@ -523,6 +783,15 @@ have been <b style=\"color:blue\">improved</b> in a
                        This change is supported in the conversion script.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Obsolete</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Obsolete.Utilities.IO.Python36
+    </td>
+    <td valign=\"top\">Removed package.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3506\">#3506</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Templates</b>
     </td>
 </tr>
@@ -551,12 +820,148 @@ have been <b style=\"color:blue\">improved</b> in a
                              This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3539\">#3539</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td valign=\"top\">Buildings.Fluid.Geothermal.BuriedPipes
+    </td>
+    <td valign=\"top\">Moved to Buildings.Fluid.FixedResistances.BuriedPipes
+                       <a href=\"Modelica://Buildings.Fluid.FixedResistances.BuriedPipes\"></a>.<br/>
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">#3431</a>.<br/>
+                     This change is supported in the conversion script.
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.Networks</b>
     </td>
-    <td valign=\"top\">xxx.
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Connection2Pipe
+    </td>
+    <td valign=\"top\">Removed <code>Buildings.Experimental.DHC.Networks.Connection2Pipe</code>.
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">#3694</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Connection2PipePlugFlow
+    </td>
+    <td valign=\"top\"> Moved and renamed <code>Buildings.Experimental.DHC.Networks.Connection2PipePlugFlow</code>
+    to <a href=\"Modelica://Buildings.Experimental.DHC.Networks.Connections.Connection2PipePlugFlow_v\">
+    Buildings.Experimental.DHC.Networks.Connections.Connection2PipePlugFlow_v </a>. Also updated available paremeters
+    for sizing and heatport configuration. This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Distribution2Pipe
+    </td>
+    <td valign=\"top\">Removed <code>Buildings.Experimental.DHC.Networks.Distribution2Pipe</code>.
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">#3694</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Connection2PipePlugFlow
+    </td>
+    <td valign=\"top\"> Renamed <code>Buildings.Experimental.DHC.Networks.Distribution2PipePlugFlow</code>
+    to <a href=\"Modelica://Buildings.Experimental.DHC.Networks.Distribution2PipePlugFlow_v\">
+    Buildings.Experimental.DHC.Networks.Distribution2PipePlugFlow_v </a>. Also updated available paremeters
+    for sizing and heatport configuration. This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.Networks.Controls</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Connection2PipePlugFlow
+    </td>
+    <td valign=\"top\"> Renamed <code>Buildings.Experimental.DHC.Networks.Controls.MainPump</code>
+    to <a href=\"Modelica://Buildings.Experimental.DHC.Networks.Controls.MainPump1Pipe\">
+    Buildings.Experimental.DHC.Networks.Controls.MainPump1Pipe </a>. Also updated available paremeters
+    and documentation. This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.Networks.Combined </b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Combined.UnidirectionalParallel
+    </td>
+    <td valign=\"top\">Removed <code>Buildings.Experimental.DHC.Networks.Combined.UnidirectionalParallel</code>.
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">#3694</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Combined.UnidirectionalSeries
+    </td>
+    <td valign=\"top\">Removed <code>Buildings.Experimental.DHC.Networks.Combined.UnidirectionalSeries</code>.
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">#3694</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.Networks.Combined.BaseClasses </b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Combined.BaseClasses.ConnectionParallelAutosize
+    </td>
+    <td valign=\"top\">Removed <code>Buildings.Experimental.DHC.Networks.Combined.BaseClasses.ConnectionParallelAutosize</code>.
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">#3694</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Combined.BaseClasses.ConnectionParallelStandard
+    </td>
+    <td valign=\"top\">Removed <code>Buildings.Experimental.DHC.Networks.Combined.BaseClasses.ConnectionParallelStandard</code>.
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">#3694</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Combined.BaseClasses.ConnectionSeriesAutosize
+    </td>
+    <td valign=\"top\">Removed <code>Buildings.Experimental.DHC.Networks.Combined.BaseClasses.ConnectionSeriesAutosize</code>.
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">#3694</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Combined.BaseClasses.ConnectionSeriesStandard
+    </td>
+    <td valign=\"top\">Removed <code>Buildings.Experimental.DHC.Networks.Combined.BaseClasses.ConnectionSeriesStandard</code>.
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">#3694</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Combined.BaseClasses.PipeAutosize
+    </td>
+    <td valign=\"top\"> Moved <code>Buildings.Experimental.DHC.Networks.Combined.BaseClasses.PipeAutosize</code>
+    to <a href=\"Modelica://Buildings.Experimental.DHC.Networks.Pipes.PipeAutosize\">
+    Buildings.Experimental.DHC.Networks.Pipes.PipeAutosize</a>.
+    This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Combined.BaseClasses.PipeStandard
+    </td>
+    <td valign=\"top\"> Moved <code>Buildings.Experimental.DHC.Networks.Combined.BaseClasses.PipeStandard</code>
+    to <a href=\"Modelica://Buildings.Experimental.DHC.Networks.Pipes.PipeStandard\">
+    Buildings.Experimental.DHC.Networks.Pipes.PipeStandard</a>.
+    This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Combined.BaseClasses.Validation.Pipe
+    </td>
+    <td valign=\"top\"> Moved <code>Buildings.Experimental.DHC.Networks.Combined.BaseClasses.Validation.Pipe</code>
+    to <a href=\"Modelica://Buildings.Experimental.DHC.Networks.Pipes.Validation.Pipe\">
+    Buildings.Experimental.DHC.Networks.Pipes.Validation.Pipe</a>.
+    This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3694\">issue 3694</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.Examples.Combined.BaseClasses </b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Examples.Combined.BaseClasses.PartialSeries
+    </td>
+    <td valign=\"top\"> Removed several connections to implement
+    to <a href=\"Modelica://Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlowAgentControl\">
+    Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlowAgentControl</a>.
+    This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3431\">issue 3431</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Utilities.Math.Functions.interpolate<br/>
+                       Buildings.Utilities.Math.Functions.Examples.Interpolate
+    </td>
+    <td valign=\"top\">Moved these classes to
+                       <a href=\"modelica://Buildings.Utilities.Math.Functions\">
+                       Buildings.Utilities.Math.Functions</a>
+                       from
+                       <a href=\"modelica://Buildings.Airflow.Multizone.BaseClasses\">
+                       Buildings.Airflow.Multizone.BaseClasses</a>.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1844\">IBPSA, #1844</a>.<br/>
+                       This change is supported in the conversion script.
     </td>
 </tr>
 </table>
@@ -588,12 +993,141 @@ that can lead to wrong simulation results):
                        and <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3520\">#3520</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
+</table>
+<!-- Uncritical errors -->
+</html>"));
+    end Version_11_0_0;
+
+
+    class Version_10_1_0 "Version 10.1.0"
+      extends
+          Modelica.Icons.ReleaseNotes;
+        annotation (
+          Documentation(info = "<html>
+<div class=\"release-summary\">
+<p>
+Version 10.1.0 is backward compatible with version 10.0.0.
+</p>
+<p>
+The library has been tested with
+Dymola 2024x,
+OpenModelica 1.22.1-1,
+OPTIMICA 1.43.4 and recent versions of Impact.
+</p>
+<p>
+The following major changes have been done compared to release 10.0.0:
+</p>
+<ul>
+<li>
+A package to model aquifer thermal energy storage has been added.
+</li>
+</ul>
+<p>
+Many models have been updated to improve performance, for compliance with the Modelica Language Standard and to correct model errors.
+</p>
+</div>
+<!-- New libraries -->
+<p>
+The following <b style=\"color:blue\">new libraries</b> have been added:
+</p>
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
+<tr><td valign=\"top\">Buildings.Fluid.Geothermal.Aquifer
+    </td>
+    <td valign=\"top\">Library with component models for aquifer thermal energy storage.
+    </td>
+    </tr>
+</table>
+<!-- New components for existing libraries -->
+<p>
+The following <b style=\"color:blue\">new components</b> have been added
+to <b style=\"color:blue\">existing</b> libraries:
+</p>
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus_9_6_0</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Radiator
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Added example for how to couple a radiator to the zone model.<br/>
+                     This is for
+                     <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3659\">Buildings, #3659</a>.
+    </td>
+    </tr>
+</table>
+<!-- Backward compatible changes -->
+<p>
+The following <b style=\"color:blue\">existing components</b>
+have been <b style=\"color:blue\">improved</b> in a
+<b style=\"color:blue\">backward compatible</b> way:
+</p>
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.BoundaryConditions.WeatherData</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.Bus
+    </td>
+    <td valign=\"top\">Declared variables on weather data bus, which avoids
+                       a warning in OMEdit, and improves usability of weather data bus.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1798\">IBPSA, issue 1798</a>.
+    </td>
+</tr>
+    <tr><td colspan=\"2\"><b>Buildings.Experimental</b>
+    </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Experimental.DHC.Loads.Combined.BuildingTimeSeriesWithETS<br/>
+                       Buildings.Experimental.DHC.Loads.Combined.BaseClasses.PartialBuildingWithETS
+    </td>
+    <td valign=\"top\">Added parameters <code>TDisWatMin</code> and <code>TDisWatMax</code>
+                       in lieu of using <code>datDes</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3697\">issue 3697</a>.
+    </td>
+    </tr>
+<tr><td colspan=\"2\"><b>Buildings.Occupants</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Occupants.BaseClasses.binaryVariableGeneration<br/>
+                       Buildings.Occupants.BaseClasses.exponentialVariableGeneration<br/>
+                       Buildings.Occupants.BaseClasses.weibullVariableGeneration
+    </td>
+    <td valign=\"top\">Initialized <code>localSeed</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3549\">#3549</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus_9_6_0</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone
+    </td>
+    <td valign=\"top\">Added radiative heat port to allow coupling of a radiator to the thermal zone.<br/>
+                     This is for
+                     <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3659\">Buildings, #3659</a>.
+    </td>
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.ThermalZoneAdapter
+    </td>
+    <td valign=\"top\">Added <code>pre()</code> operator on mass flow rate and radiative heat gain
+                     to avoid an algebraic loop on discrete variables.<br/>
+                     This is for
+                     <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3659\">Buildings, #3659</a>.
+    </td>
+</tr>
+</table>
+<!-- Non-backward compatible changes to existing components -->
+<!-- Errors that have been fixed -->
+<p>
+The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
+that can lead to wrong simulation results):
+</p>
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Fluid.SolarCollectors</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.SolarCollectors.ASHRAE93<br/>
+                       Buildings.Fluid.SolarCollectors.EN12975
+    </td>
+    <td valign=\"top\">Corrected implementation of pressure drop calculation for the situation where the collectors are in parallel,
+                       e.g., if <code>sysConfig == Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Parallel</code>.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3597\">Buildings, #3597</a>.
     </td>
 </tr>
 </table>
@@ -604,25 +1138,44 @@ that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
 units are wrong or errors in documentation):
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.PartialDirect<br/>
+                       Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.PartialIndirect<br/>
+                       Buildings.Experimental.DHC.Loads.Steam.BuildingTimeSeriesAtETS
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Corrected wrong <code>displayUnit</code> string.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.TankBranch
+    </td>
+    <td valign=\"top\">Corrected wrong use of <code>displayUnit</code>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal.Borefields</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.internalResistancesOneUTube<br/>
+                       Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.internalResistancesTwoUTube
+    </td>
+    <td valign=\"top\">Corrected usage of <code>getInstanceName()</code>, which was called inside
+                       these functions. This does not conform with the Modelica Language Standard, and causes
+                       the compilation to fail in OpenModelica 1.22.0.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1814\">IBPSA, #1814</a>
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus_9_6_0</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer
+    </td>
+    <td valign=\"top\">Corrected wrong <code>displayUnit</code> string.
     </td>
 </tr>
 </table>
-<p>
-Note:
-</p>
-<ul>
-<li>
-xxx
-</li>
-</ul>
 </html>"));
-    end Version_11_0_0;
+    end Version_10_1_0;
 
 
   class Version_10_0_0 "Version 10.0.0"
@@ -1844,6 +2397,235 @@ units are wrong or errors in documentation):
 </table>
 </html>"));
   end Version_10_0_0;
+
+
+  class Version_9_1_2 "Version 9.1.2"
+      extends Modelica.Icons.ReleaseNotes;
+        annotation (Documentation(info="<html>
+<div class=\"release-summary\">
+<p>
+Version 9.1.2 is backward compatible with 9.1.0 and 9.1.1, except that relative to 9.1.0, the Spawn binaries need to be updated as described
+in <code>Buildings.ThermalZones.EnergyPlus_9_6_0.UsersGuide.Installation</code>.
+</p>
+<p>
+The library has been tested with Dymola 2023x, OpenModelica 1.22.0-dev (41-g8a5b18f-1), OPTIMICA 1.43.4 and recent versions of Impact.
+</p>
+<p>
+This backward compatible version adds a heat meter sensor and it adds a new example that demonstrates
+how to use a hydronic radiator with the updated Spawn interface.
+Also, many models have been updated to improve performance, for compliance with the Modelica Language Standard and
+to correct model errors.
+</p>
+</div>
+<!-- New libraries -->
+<!-- New components for existing libraries -->
+<p>
+The following <b style=\"color:blue\">new components</b> have been added
+to <b style=\"color:blue\">existing</b> libraries:
+</p>
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Sensors</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Sensors.HeatMeter
+    </td>
+    <td valign=\"top\">Sensor to measure the heat flow rate between a supply and return pipe in a fluid circuit.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1831\">IBPSA, #1831</a>.
+
+    </td>
+    </tr>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus_9_6_0</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Radiator
+    </td>
+    <td valign=\"top\">Added example for how to couple a radiator to the zone model.<br/>
+                     This is for
+                     <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3659\">Buildings, #3659</a>.
+    </td>
+    </tr>
+</table>
+<!-- Backward compatible changes -->
+<p>
+The following <b style=\"color:blue\">existing components</b>
+have been <b style=\"color:blue\">improved</b> in a
+<b style=\"color:blue\">backward compatible</b> way:
+</p>
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Air.Systems.SingleZone.VAV</b>
+    </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Air.Systems.SingleZone.VAV.BaseClasses.ControllerChillerDXHeatingEconomizer<br/>
+    </td>
+    <td valign=\"top\">Adjust hysteresis based on heating to avoid chatter.<br>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3735\">#3735</a>.
+    </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Controls.DemandResponse</b>
+    </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Controls.DemandResponse.Client
+    </td>
+    <td valign=\"top\">Refactored implementation so it works also with OpenModelica.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/3754\">#3754</a>.
+    </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Electrical</b>
+    </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Electrical.Interfaces.InductiveLoad
+    </td>
+    <td valign=\"top\">Reformulated calculation of reactive power to bound argument of tangent away from &pi;,
+                       which avoids an infinite function value.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3776\">Buildings, #3776</a>.
+    </td>
+    </tr>
+    <tr><td colspan=\"2\"><b>Buildings.Fluid.FMI</b>
+    </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.FMI.AirToOutlet<br/>
+                           Buildings.Fluid.FMI.InletToAir<br/>
+                           Buildings.Fluid.FMI.FlowSplitter_u<br/>
+                           Buildings.Fluid.FMI.Sink_T<br/>
+                           Buildings.Fluid.FMI.Source_T<br/>
+                           Buildings.Fluid.FMI.Adaptors.Inlet<br/>
+                           Buildings.Fluid.FMI.Adaptors.Outlet
+    </td>
+    <td valign=\"top\">Added missing causality which is required for language compliance and for
+                       Wolfram System Modeler.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1829\">IBPSA, #1829</a> and
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1853\">IBPSA, #1853</a>.
+    </td>
+    <tr><td colspan=\"2\"><b>Buildings.Fluid.Sensors.Examples</b>
+    </td>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Fluid.Sensors.Examples.PPM
+    </td>
+    <td valign=\"top\">Added pressure drop to avoid redundant initial conditions for pressure of control volume.
+                       This corrects an issue in Wolfram System Modeler.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1830\">#1830</a>.
+    </td>
+    <tr><td colspan=\"2\"><b>Buildings.Occupants</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Occupants.BaseClasses.binaryVariableGeneration<br/>
+                       Buildings.Occupants.BaseClasses.exponentialVariableGeneration<br/>
+                       Buildings.Occupants.BaseClasses.weibullVariableGeneration
+    </td>
+    <td valign=\"top\">Initialized <code>localSeed</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3549\">#3549</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus_9_6_0</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone
+    </td>
+    <td valign=\"top\">Added radiative heat port to allow coupling of a radiator to the thermal zone.<br/>
+                     This is for
+                     <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3659\">Buildings, #3659</a>.
+    </td>
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.ThermalZoneAdapter
+    </td>
+    <td valign=\"top\">Added <code>pre()</code> operator on mass flow rate and radiative heat gain
+                     to avoid an algebraic loop on discrete variables.<br/>
+                     This is for
+                     <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3659\">Buildings, #3659</a>.
+    </td>
+</tr>
+</table>
+<!-- Non-backward compatible changes to existing components -->
+<!-- Errors that have been fixed -->
+<p>
+The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
+that can lead to wrong simulation results):
+</p>
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Fluid.SolarCollectors</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.SolarCollectors.ASHRAE93<br/>
+                       Buildings.Fluid.SolarCollectors.EN12975
+    </td>
+    <td valign=\"top\">Corrected implementation of pressure drop calculation for the situation where the collectors are in parallel,
+                       e.g., if <code>sysConfig == Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Parallel</code>.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3597\">Buildings, #3597</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Airflow.Multizone</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Airflow.Multizone.BaseClasses.interpolate
+    </td>
+    <td valign=\"top\">Corrected implementation to ensure that the function is once continuously differentiable.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1840\">IBPSA, #1840</a>.
+    </td>
+</tr>
+</table>
+<!-- Uncritical errors -->
+<p>
+The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e., errors
+that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
+units are wrong or errors in documentation):
+</p>
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Airflow.Multizone</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Airflow.Multizone.MediumColumn<br/>
+                       Buildings.Airflow.Multizone.MediumColumnDynamic
+    </td>
+    <td valign=\"top\">Corrected wrong annotation.
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1842\">IBPSA, #1842</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.SkyClearness
+    </td>
+    <td valign=\"top\">Corrected wrong <code>displayUnit</code> attribute.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1848\">IBPSA, #1848</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReliefFan<br/>
+                       Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.ReliefFan<br/>
+                       Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.ReliefFanGroup
+    </td>
+    <td valign=\"top\">Corrected wrong use <code>displayUnit</code> attribute.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Examples</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.DualFanDualDuct.ClosedLoop<br/>
+                       Buildings.Examples.VAVReheat.BaseClasses.ASHRAE2006<br/>
+                       Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.OneFloor_OneZone
+    </td>
+    <td valign=\"top\">Corrected wrong use <code>displayUnit</code> attribute.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatPumps</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatPumps.EquationFitReversible
+    </td>
+    <td valign=\"top\">Corrected wrong assertion for operation mode.<br/>
+                     This is for
+                     <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3664\">Buildings, #3664</a>.
+    </td>
+</tr>
+
+</table>
+</html>"));
+  end Version_9_1_2;
 
   class Version_9_1_1 "Version 9.1.1"
   extends Modelica.Icons.ReleaseNotes;
@@ -12879,10 +13661,16 @@ on the Buildings library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_11_0_0\">Version 11.0.0</a> (xxx, 2023)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_11_0_0\">Version 11.0.0</a> (April 9, 2024)
+</li>
+<li>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_10_1_0\">Version 10.1.0</a> (April 9, 2024)
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_10_0_0\">Version 10.0.0</a> (September 5, 2023)
+</li>
+<li>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_9_1_2\">Version 9.1.2</a> (April 9, 2024)
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_9_1_1\">Version 9.1.1</a> (September 5, 2023)
@@ -13183,7 +13971,7 @@ The following people have directly contributed to the implementation of the Buil
     Documentation(info="<html>
 <h4>License</h4>
 <p>
-Modelica Buildings Library. Copyright (c) 1998-2022
+Modelica Buildings Library. Copyright (c) 1998-2024
 Modelica Association,
 International Building Performance Simulation Association (IBPSA),
 The Regents of the University of California, through Lawrence Berkeley National Laboratory
@@ -13345,6 +14133,10 @@ particular package.<br/>
    </td>
    <td valign=\"top\">Package with the Control Description Language (CDL) and with control sequences that are implemented using CDL.</td>
 </tr>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Experimental.DHC\">Experimental.DHC</a>
+   </td>
+   <td valign=\"top\">Package with models for district heating and cooling systems.</td>
+</tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.UsersGuide\">Fluid</a>
    </td>
    <td valign=\"top\">Package for one-dimensional fluid in piping networks with heat exchangers, valves, etc.</td>
@@ -13460,15 +14252,15 @@ end UsersGuide;
 annotation (
 preferredView="info",
 version="11.0.0",
-versionDate="2023-09-05",
-dateModified="2023-09-05",
+versionDate="2024-04-09",
+dateModified="2024-04-09",
 uses(Modelica(version="4.0.0")),
 conversion(
   from(
-    version={"10.0.0"},
+    version={"10.0.0", "10.1.0"},
     script="modelica://Buildings/Resources/Scripts/Conversion/ConvertBuildings_from_10_to_11.0.0.mos"),
   from(
-    version={"9.0.0", "9.1.0", "9.1.1"},
+    version={"9.0.0", "9.1.0", "9.1.1", "9.1.2"},
     script="modelica://Buildings/Resources/Scripts/Conversion/ConvertBuildings_from_9_to_10.0.0.mos"),
   from(
     version={"8.0.0", "8.1.0", "8.1.1", "8.1.2", "8.1.3"},

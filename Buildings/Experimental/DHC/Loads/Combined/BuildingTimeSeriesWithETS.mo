@@ -14,8 +14,8 @@ model BuildingTimeSeriesWithETS
       Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger
       ets(
       final dT_nominal=dT_nominal,
-      final TDisWatMin=datDes.TLooMin,
-      final TDisWatMax=datDes.TLooMax,
+      final TDisWatMin=TDisWatMin,
+      final TDisWatMax=TDisWatMax,
       final TChiWatSup_nominal=TChiWatSup_nominal,
       final THeaWatSup_nominal=THeaWatSup_nominal,
       final THotWatSup_nominal=THotWatSup_nominal,

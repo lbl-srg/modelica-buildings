@@ -192,9 +192,9 @@ equation
 <p>
 The tank operating conditions should match the operating limits and selection
 conditions of the chillers and HRCs.
-The highest temperature (at the top of the tank) should be limited by the 
+The highest temperature (at the top of the tank) should be limited by the
 maximum evaporator entering temperature per manufacturer’s recommendations.
-The lowest temperature (at the bottom of the tank) should be limited by the 
+The lowest temperature (at the bottom of the tank) should be limited by the
 design CHW supply temperature.
 This gives the tank maximum <i>&Delta;T</i> and the actual storage capacity.
 However, this value is likely above the maximum <i>&Delta;T</i> that chillers
@@ -203,7 +203,7 @@ and HRCs can achieve across the condenser or evaporator barrel (typically
 two temperature cycles are needed.
 </p>
 <p>
-The first tank cycle (higher temperature setpoint) is activated whenever 
+The first tank cycle (higher temperature setpoint) is activated whenever
 all of the following conditions are true.
 </p>
 <ul>
@@ -217,7 +217,7 @@ for <i>5&nbsp;</i>min.
 </li>
 </ul>
 <p>
-The second tank cycle (lower temperature setpoint) is activated 
+The second tank cycle (lower temperature setpoint) is activated
 whenever both of the following conditions are true.
 </p>
 <ul>
@@ -231,9 +231,9 @@ for <i>5&nbsp;</i>min.
 </li>
 </ul>
 <p>
-At initial time the tank cycle flag is set based on the tank temperature condition 
+At initial time the tank cycle flag is set based on the tank temperature condition
 only from the above two clauses without a time delay.
-If neither condition is true, the tank cycle flag is set based on the flow condition 
+If neither condition is true, the tank cycle flag is set based on the flow condition
 only in the above two clauses without a time delay.
 </p>
 <p>

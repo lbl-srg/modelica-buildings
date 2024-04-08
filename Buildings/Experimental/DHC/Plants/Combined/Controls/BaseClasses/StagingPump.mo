@@ -238,8 +238,8 @@ The lag pump is enabled whenever any of the following is true.
 <ul>
 <li>The pump speed command is higher than <code>yUp</code> for <i>5</i>&nbsp;min.
 </li>
-<li>Optionally if <code>have_flowCriterion</code> is set to <code>true</code>, the ratio <i>ratFlo</i> 
-is higher than <i>n / nPum - 0.03</i> for <i>10</i>&nbsp;min, where <i>n</i> is the number 
+<li>Optionally if <code>have_flowCriterion</code> is set to <code>true</code>, the ratio <i>ratFlo</i>
+is higher than <i>n / nPum - 0.03</i> for <i>10</i>&nbsp;min, where <i>n</i> is the number
 of operating pumps and <i>nPum</i> is the number of pumps operating at design conditions.
 </li>
 </ul>
@@ -251,7 +251,7 @@ The lag pump is disabled whenever any of the following is true.
 </li>
 <li>The pump speed command is lower than <code>yDow</code> for <i>5</i>&nbsp;min.
 </li>
-<li>Optionally if <code>have_flowCriterion</code> is set to <code>true</code>, the ratio <i>ratFlo</i> 
+<li>Optionally if <code>have_flowCriterion</code> is set to <code>true</code>, the ratio <i>ratFlo</i>
 is higher than <i>(n - 1) / nPum - 0.03</i> for <i>10</i>&nbsp;min.
 </li>
 </ul>

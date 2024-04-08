@@ -89,6 +89,11 @@ protected
       273.15 + 37) "Latent heat of water vapor";
   final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=V*3/3600
     "Nominal mass flow rate (used for regularization)";
+
+  final parameter Boolean setInitialRadiativeHeatGainToZero = building.setInitialRadiativeHeatGainToZero
+    "If true, then the radiative heat gain sent from Modelica to EnergyPlus is zero during the model initialization"
+    annotation (Dialog(tab="Advanced"), Evaluate=true);
+
   Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.ThermalZoneAdapter fmuZon(
     final modelicaNameBuilding=modelicaNameBuilding,
     final modelicaInstanceName=modelicaInstanceName,
@@ -97,6 +102,7 @@ protected
     final idfName=idfName,
     final epwName=epwName,
     final relativeSurfaceTolerance=relativeSurfaceTolerance,
+    final setInitialRadiativeHeatGainToZero=setInitialRadiativeHeatGainToZero,
     final zoneName=zoneName,
     final nFluPor=nPorts,
     final usePrecompiledFMU=usePrecompiledFMU,
@@ -462,6 +468,7 @@ of the room. Hence, these two ports <code>heatPorAir</code> and <code>heaPorRad<
 be used to connect a radiator. Note, however, that such a coupling is an approximation
 as the surface temperature of the radiator will not be reflected in the radiative temperature
 of the room.
+Also, read to section <i>Notes about modeling components that are connected to the radiative heat port</i> below.
 </p>
 
 <h5>Contaminant balance</h5>
@@ -503,9 +510,57 @@ needs to be added manually to the input connector <code>C_flow</code>.
 (This manual addition is needed because <code>qGai_flow</code> can also contain heat gains not caused
 by people.)
 </p>
+<h5>Notes about modeling components that are connected to the radiative heat port</h5>
+<p>
+Models in which a component is connected to the radiative heat port <code>heaPorRad</code> may cause
+convergence problems during the initialization of the simulation
+if that component computes the radiative heat exchange <code>heaPorRad.Q_flow</code>
+based on the temperature <code>heaPorRad.T</code>, and if the parameter
+<code>building.setInitialRadiativeHeatGainToZero</code> is changed from its default value
+<code>true</code>.
+It is therefore recommended to leave the parameter <code>setInitialRadiativeHeatGainToZero</code>
+at its default value <code>true</code>.
+This sets the radiative heat flow rate sent from Modelica to EnergyPlus
+to zero during the initialization of the model, thereby avoiding a potential nonlinear system
+of equations that may give convergence problems. This only affects the initialization of the model
+but not the time integration, hence the error should be small for typical models.
+</p>
+<p>
+If you decide to set <code>setInitialRadiativeHeatGainToZero = false</code>, you need to be aware of the following:
+If <code>setInitialRadiativeHeatGainToZero = false</code>,
+then the radiative heat gain from the model input is being used.
+If this radiative heat gain depends on the radiative temperature that is an output of the EnergyPlus model,
+a nonlinear equation is formed.
+Because in EnergyPlus, computing the radiative temperature involves an iterative solution,
+this can cause convergence problems due to having two nested solvers,
+the outer being the Modelica solver that solves for the radiative heat flow rate <code>QGaiRad_flow</code>,
+and the innner being the EnergyPlus solver that solves for the radiative temperature <code>TRad</code>.
+Hence, we recommend to leave <code>building.setInitialRadiativeHeatGainToZero = true</code>.
+</p>
+<p>
+If you decide to set <code>building.setInitialRadiativeHeatGainToZero = false</code>, you may need to also
+tighten the tolerance of the EnergyPlus solver by tightening <code>building.relativeSurfaceTolerance</code>,
+but one cannot assure that the nested nonlinear equations converge.
+</p>
+<p>
+Because a Modelica model does not have knowledge of the solver tolerance, automatically tightening
+<code>building.relativeSurfaceTolerance</code> as a function of the Modelica solver tolerance
+is not possible.
+</p>
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 22, 2024, by Michael Wetter:<br/>
+Changed radiative heat flow rate sent to EnergyPlus to be the average over the last
+synchronization time step rather than the instantaneuous value, and set the initial value by default to zero.
+Introduced parameter <code>setInitialRadiativeHeatGainToZero</code>.
+This avoids a nonlinear system of equation during the time integration for models in which
+the radiative heat gain is a function of the room radiative temperature, such as
+when a radiator is connected to the room model.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3707\">Buildings, #3707</a>.
+</li>
 <li>
 February 14, 2024, by Michael Wetter:<br/>
 Added heat port to radiative balance <code>heaPorRad</code>.<br/>

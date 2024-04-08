@@ -14,8 +14,8 @@ model BuildingTimeSeriesWithETSWithDHWTank
       Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchangerDHWTank
       ets(
       final dT_nominal=dT_nominal,
-      final TDisWatMin=datDes.TLooMin,
-      final TDisWatMax=datDes.TLooMax,
+      final TDisWatMin=TDisWatMin,
+      final TDisWatMax=TDisWatMax,
       final TChiWatSup_nominal=TChiWatSup_nominal,
       final THeaWatSup_nominal=THeaWatSup_nominal,
       final THotWatSup_nominal=THotWatSup_nominal,
@@ -112,16 +112,23 @@ equation
   annotation (
     Documentation(info="<html>
 <p>
-This model is the same as 
+This model is the same as
 <a href=\"modelica://Buildings.Experimental.DHC.Loads.Combined.BuildingTimeSeriesWithETS\">
 Buildings.Experimental.DHC.Loads.Combined.BuildingTimeSeriesWithETS</a>
-except that it implements an ETS that uses a heat pump with hot water 
+except that it implements an ETS that uses a heat pump with hot water
 storage tank for production of domestic hot water.  That ETS model is
 <a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchangerDHWTank\">
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchangerDHWTank</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 18, 2024, by David Blum:<br/>
+Added parameters <code>TDisWatMin</code> and <code>TDisWatMax</code>
+in lieu of using <code>datDes</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3697\">issue 3697</a>.
+</li>
 <li>
 September 13, 2022, by David Blum:<br/>
 First implementation.

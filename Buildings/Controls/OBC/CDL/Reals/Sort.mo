@@ -7,10 +7,10 @@ block Sort
     annotation (Dialog(connectorSizing=true),HideResult=true);
   parameter Boolean ascending=true
     "Set to true if ascending order, otherwise order is descending";
-  Interfaces.RealInput u[nin]
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u[nin]
     "Connector of Real input signals"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.RealOutput y[nin]
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y[nin]
     "Connector of Real output signals"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 

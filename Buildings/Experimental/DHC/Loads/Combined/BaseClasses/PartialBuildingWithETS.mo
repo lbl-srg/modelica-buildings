@@ -5,8 +5,10 @@ model PartialBuildingWithETS
     Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuildingWithPartialETS(
     nPorts_heaWat=1,
     nPorts_chiWat=1);
-  outer parameter Buildings.Experimental.DHC.Examples.Combined.BaseClasses.DesignDataSeries datDes "DHC system design data"
-    annotation (Placement(transformation(extent={{-250,262},{-230,282}})));
+  parameter Modelica.Units.SI.Temperature TDisWatMin=6 + 273.15
+    "District water minimum temperature" annotation (Dialog(group="ETS model parameters"));
+  parameter Modelica.Units.SI.Temperature TDisWatMax=17 + 273.15
+    "District water maximum temperature" annotation (Dialog(group="ETS model parameters"));
   parameter Modelica.Units.SI.TemperatureDifference dT_nominal(min=0) = 4
     "Water temperature drop/increase accross load and source-side HX (always positive)"
     annotation (Dialog(group="ETS model parameters"));
@@ -110,13 +112,20 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-This model is composed of a heat pump based energy transfer station model 
-<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger_Current\">
+This model is composed of a heat pump based energy transfer station model
+<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger\">
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger</a>
-connected to a repleacable building load model. 
+connected to a repleacable building load model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 18, 2024, by David Blum:<br/>
+Added parameters <code>TDisWatMin</code> and <code>TDisWatMax</code>
+in lieu of using <code>datDes</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3697\">issue 3697</a>.
+</li>
 <li>
 February 23, 2021, by Antoine Gautier:<br/>
 First implementation.

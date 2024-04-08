@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "sin.y",
+    "booPul.y",
+    "hol.y",
+    "holTim.y"
+  };

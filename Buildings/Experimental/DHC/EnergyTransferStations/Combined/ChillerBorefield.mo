@@ -56,18 +56,6 @@ model ChillerBorefield "ETS model for 5GDHC systems with heat recovery chiller a
     "Chiller performance data"
     annotation (Dialog(group="Chiller"),choicesAllMatching=true,
     Placement(transformation(extent={{20,222},{40,242}})));
-  replaceable parameter Buildings.Fluid.Movers.Data.Generic perPumCon(
-    motorCooledByFluid=false)
-    constrainedby Buildings.Fluid.Movers.Data.Generic
-    "Record with performance data for condenser pump"
-    annotation (Dialog(group="Chiller"),choicesAllMatching=true,
-    Placement(transformation(extent={{60,222},{80,242}})));
-  replaceable parameter Buildings.Fluid.Movers.Data.Generic perPumEva(
-    motorCooledByFluid=false)
-    constrainedby Buildings.Fluid.Movers.Data.Generic
-    "Record with performance data for evaporator pump"
-    annotation (Dialog(group="Chiller"),choicesAllMatching=true,
-    Placement(transformation(extent={{100,222},{120,242}})));
   parameter Modelica.Units.SI.PressureDifference dp1WSE_nominal(displayUnit=
         "Pa") = 40E3
     "Nominal pressure drop across heat exchanger on district side"
@@ -94,13 +82,6 @@ model ChillerBorefield "ETS model for 5GDHC systems with heat recovery chiller a
   parameter Real y1WSEMin(unit="1")=0.05
     "Minimum pump flow rate or valve opening for temperature measurement (fractional)"
     annotation (Dialog(group="Waterside economizer", enable=have_WSE));
-  replaceable parameter Fluid.Movers.Data.Generic perPum1WSE(
-    motorCooledByFluid=false) constrainedby Fluid.Movers.Data.Generic
-    "Record with performance data for primary pump of waterside economizer"
-    annotation (
-      Dialog(group="Waterside economizer", enable=not have_val1Hex and have_WSE),
-      choicesAllMatching=true,
-      Placement(transformation(extent={{220,222},{240,242}})));
   final parameter Modelica.Units.SI.MassFlowRate m1WSE_flow_nominal=abs(
       QWSE_flow_nominal/4200/(T_b1WSE_nominal - T_a1WSE_nominal))
     "WSE primary mass flow rate"
@@ -119,12 +100,6 @@ model ChillerBorefield "ETS model for 5GDHC systems with heat recovery chiller a
     "Borefield parameters"
     annotation (Dialog(group="Borefield",enable=have_borFie),
     choicesAllMatching=true,Placement(transformation(extent={{140,222},{160,242}})));
-  replaceable parameter Buildings.Fluid.Movers.Data.Generic perPumBorFie(
-    motorCooledByFluid=false)
-    constrainedby Buildings.Fluid.Movers.Data.Generic
-    "Record with performance data for borefield pump"
-    annotation (Dialog(group="Borefield",enable=have_borFie),
-    choicesAllMatching=true,Placement(transformation(extent={{180,222},{200,242}})));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
@@ -154,25 +129,24 @@ model ChillerBorefield "ETS model for 5GDHC systems with heat recovery chiller a
     "Minimum value of chilled water supply temperature set point"
     annotation (Dialog(group="Supervisory controller"));
 
-  replaceable Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.Chiller chi(
-    redeclare final package Medium=MediumBui,
-    final perPumCon=perPumCon,
-    final perPumEva=perPumEva,
+  replaceable
+    Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.Chiller
+    chi(
+    redeclare final package Medium = MediumBui,
     final dpCon_nominal=dpCon_nominal,
     final dpEva_nominal=dpEva_nominal,
-    final dat=datChi)
-    "Chiller"
-    annotation (Dialog(group="Chiller"),Placement(transformation(extent={{-10,-16},{10,4}})));
-  replaceable Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.Borefield borFie(
-    redeclare final package Medium=MediumBui,
+    final dat=datChi) "Chiller" annotation (Dialog(group="Chiller"), Placement(
+        transformation(extent={{-10,-16},{10,4}})));
+  replaceable
+    Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.Borefield
+    borFie(
+    redeclare final package Medium = MediumBui,
     final datBorFie=datBorFie,
-    final perPum=perPumBorFie,
     final TBorWatEntMax=TBorWatEntMax,
     final spePumBorMin=spePumBorMin,
-    final dp_nominal=dpBorFie_nominal) if have_borFie
-    "Borefield"
-    annotation (Dialog(group="Borefield",enable=have_borFie),
-    Placement(transformation(extent={{-80,-230},{-60,-210}})));
+    final dp_nominal=dpBorFie_nominal) if have_borFie "Borefield" annotation (
+      Dialog(group="Borefield", enable=have_borFie), Placement(transformation(
+          extent={{-80,-230},{-60,-210}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant zerPPum(
     final k=0) if not have_borFie
     "Zero power"
@@ -207,10 +181,10 @@ model ChillerBorefield "ETS model for 5GDHC systems with heat recovery chiller a
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
         rotation=90,
         origin={274,130})));
-  Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.WatersideEconomizer WSE(
+  Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.WatersideEconomizer
+    WSE(
     redeclare final package Medium1 = MediumSer,
     redeclare final package Medium2 = MediumBui,
-    final perPum1=perPum1WSE,
     final allowFlowReversal1=allowFlowReversalSer,
     final allowFlowReversal2=allowFlowReversalBui,
     final conCon=conCon,
@@ -221,8 +195,7 @@ model ChillerBorefield "ETS model for 5GDHC systems with heat recovery chiller a
     final T_b1_nominal=T_b1WSE_nominal,
     final T_a2_nominal=T_a2WSE_nominal,
     final T_b2_nominal=T_b2WSE_nominal,
-    final y1Min=y1WSEMin) if have_WSE
-    "Waterside economizer"
+    final y1Min=y1WSEMin) if have_WSE "Waterside economizer"
     annotation (Placement(transformation(extent={{220,116},{240,136}})));
   Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Junction splWSE(
     redeclare final package Medium = MediumSer,
@@ -248,17 +221,17 @@ equation
   end if;
 
   connect(chi.port_bHeaWat,colHeaWat.ports_aCon[2])
-    annotation (Line(points={{-10,0},{-108,0},{-108,-24}},color={0,127,255}));
+    annotation (Line(points={{10,0},{20,0},{20,10},{-108,10},{-108,-24}},color={0,127,255}));
   connect(chi.port_aHeaWat,colHeaWat.ports_bCon[2])
-    annotation (Line(points={{-10,-12},{-132,-12},{-132,-24}},color={0,127,255}));
+    annotation (Line(points={{-10,0},{-132,0},{-132,-24}},color={0,127,255}));
   connect(chi.port_bChiWat,colChiWat.ports_aCon[2])
-    annotation (Line(points={{10,0},{108,0},{108,-24}},color={0,127,255}));
+    annotation (Line(points={{-10,-12},{-20,-12},{-20,-20},{108,-20},{108,-24}},color={0,127,255}));
   connect(colChiWat.ports_bCon[2],chi.port_aChiWat)
-    annotation (Line(points={{132,-24},{132,-12},{10,-12},{10,-12}},color={0,127,255}));
+    annotation (Line(points={{132,-24},{132,-12},{10,-12}},color={0,127,255}));
   connect(conSup.TChiWatSupSet,chi.TChiWatSupSet)
     annotation (Line(points={{-238,17},{-26,17},{-26,-8},{-12,-8}},color={0,0,127}));
   connect(chi.PPum,totPPum.u[2])
-    annotation (Line(points={{12,-8},{20,-8},{20,-58},{258,-58},{258,-60}},color={0,0,127}));
+    annotation (Line(points={{12,-8},{30,-8},{30,-58},{258,-58},{258,-60}},color={0,0,127}));
   connect(colAmbWat.ports_aCon[2],borFie.port_b)
     annotation (Line(points={{12,-116},{14,-116},{14,-220},{-60,-220}},color={0,127,255}));
   connect(colAmbWat.ports_bCon[2],borFie.port_a)
@@ -278,7 +251,7 @@ equation
   connect(zerPHea.y,totPHea.u[1])
     annotation (Line(points={{242,60},{258,60}},color={0,0,127}));
   connect(chi.PChi,totPCoo.u[1])
-    annotation (Line(points={{12,-4},{20,-4},{20,20},{258,20}},color={0,0,127}));
+    annotation (Line(points={{12,-4},{30,-4},{30,20},{258,20}},color={0,0,127}));
   connect(uHea,conSup.uHea)
     annotation (Line(points={{-320,100},{-290,100},{-290,31},{-262,31}},color={255,0,255}));
   connect(conSup.yHea,chi.uHea)
@@ -344,6 +317,11 @@ equation
       revisions="<html>
 <ul>
 <li>
+March 27, 2024, by David Blum:<br/>
+Update icon.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3606\">issue #3606</a>.
+</li>
+<li>
 April 30, 2021, by Michael Wetter:<br/>
 Reformulated replaceable class to avoid access of components that are not in the constraining type.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2471\">issue #2471</a>.
@@ -395,5 +373,270 @@ Buildings.Experimental.DHC.EnergyTransferStations.Combined.Controls.Reset</a>.
 <img alt=\"System schematics\"
 src=\"modelica://Buildings/Resources/Images/Experimental/DHC/EnergyTransferStations/Combined/ChillerBorefield.png\"/>
 </p>
-</html>"));
+</html>"),
+    Icon(graphics={
+        Rectangle(
+          extent={{-234,62},{-92,-64}},
+          lineColor={0,0,0},
+          fillColor={234,210,210},
+          fillPattern=FillPattern.Solid,
+          visible=have_borFie),
+        Ellipse(
+          extent={{-222,-4},{-166,-60}},
+          lineColor={0,0,0},
+          fillColor={223,188,190},
+          fillPattern=FillPattern.Forward,
+          visible=have_borFie),
+        Ellipse(
+          extent={{-216,-10},{-172,-54}},
+          lineColor={0,0,0},
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Forward,
+          visible=have_borFie),
+        Ellipse(
+          extent={{-222,56},{-166,0}},
+          lineColor={0,0,0},
+          fillColor={223,188,190},
+          fillPattern=FillPattern.Forward,
+          visible=have_borFie),
+        Ellipse(
+          extent={{-216,50},{-172,6}},
+          lineColor={0,0,0},
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Forward,
+          visible=have_borFie),
+        Ellipse(
+          extent={{-160,56},{-104,0}},
+          lineColor={0,0,0},
+          fillColor={223,188,190},
+          fillPattern=FillPattern.Forward,
+          visible=have_borFie),
+        Ellipse(
+          extent={{-154,50},{-110,6}},
+          lineColor={0,0,0},
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Forward,
+          visible=have_borFie),
+        Ellipse(
+          extent={{-162,-4},{-106,-60}},
+          lineColor={0,0,0},
+          fillColor={223,188,190},
+          fillPattern=FillPattern.Forward,
+          visible=have_borFie),
+        Ellipse(
+          extent={{-156,-10},{-112,-54}},
+          lineColor={0,0,0},
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Forward,
+          visible=have_borFie),
+        Rectangle(
+          extent={{24,-42},{52,-14}},
+          lineColor={255,255,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-64,32},{-62,22}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-1.5,5.5},{1.5,-5.5}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid,
+          origin={-7.5,22.5},
+          rotation=90),
+        Rectangle(
+          extent={{116,-46},{144,-18}},
+          lineColor={255,255,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          visible=have_WSE),
+        Rectangle(
+          extent={{118,-44},{146,-16}},
+          lineColor={255,255,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          visible=have_WSE),
+        Rectangle(
+          extent={{-68,78},{72,-82}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-42,50},{-38,10}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-54,68},{60,50}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-40,0},{-50,10},{-30,10},{-40,0}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-40,0},{-50,-12},{-30,-12},{-40,0}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-42,-12},{-38,-52}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{40,50},{44,-52}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-54,-52},{60,-70}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{20,22},{64,-20}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{42,22},{24,-10},{60,-10},{42,22}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-42,50},{-38,10}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-54,68},{60,50}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-40,0},{-50,10},{-30,10},{-40,0}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-40,0},{-50,-12},{-30,-12},{-40,0}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-42,-12},{-38,-52}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{40,50},{44,-52}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-54,-52},{60,-70}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{20,22},{64,-20}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{42,22},{24,-10},{60,-10},{42,22}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{100,76},{240,-84}},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid,
+          visible=have_WSE),  Rectangle(
+          extent={{100,74},{240,-84}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid,
+          visible=have_WSE),  Rectangle(
+          extent={{100,74},{240,-86}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid,
+          visible=have_WSE),
+        Rectangle(
+          extent={{108,56},{120,-62}},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          visible=have_WSE),
+        Rectangle(
+          extent={{120,56},{136,-62}},
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0},
+          visible=have_WSE),
+        Rectangle(
+          extent={{148,56},{164,-62}},
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0},
+          visible=have_WSE),
+        Rectangle(
+          extent={{136,56},{148,-62}},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          visible=have_WSE),
+        Rectangle(
+          extent={{176,56},{192,-62}},
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0},
+          visible=have_WSE),
+        Rectangle(
+          extent={{164,56},{176,-62}},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          visible=have_WSE),
+        Rectangle(
+          extent={{204,56},{220,-62}},
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0},
+          visible=have_WSE),
+        Rectangle(
+          extent={{192,56},{204,-62}},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          visible=have_WSE),
+        Rectangle(
+          extent={{220,56},{232,-62}},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          visible=have_WSE),
+        Rectangle(extent={{-256,140},{264,-142}}, lineColor={95,95,95})}));
 end ChillerBorefield;
