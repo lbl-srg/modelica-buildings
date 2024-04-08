@@ -48,10 +48,15 @@ equation
         deltaX=0.0001);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Text(
-          extent={{-149,-100},{151,-140}},
+          extent={{-100,140},{100,100}},
           textColor={0,0,255},
           textString="%name"), Rectangle(extent={{-100,100},{100,-100}},
-            lineColor={0,0,127})}),                           Diagram(
+            lineColor={0,0,127}),
+        Rectangle(
+          extent={{-100,100},{100,-100}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid)}),                   Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <h4>Performance Curve Modifiers</h4>
