@@ -368,11 +368,7 @@ equation
           extent={{2,166},{296,174}},
           lineColor={95,95,95},
           fillColor={170,213,255},
-          fillPattern=FillPattern.Solid),
-        Bitmap(
-          extent={{192,-58},{342,-18}},
-          fileName="modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus/spawn_icon_darkbluetxmedres.png",
-          visible=not usePrecompiledFMU)}),
+          fillPattern=FillPattern.Solid)}),
     Documentation(
       info="<html>
 <p>
@@ -421,6 +417,10 @@ Renewable Energy, Office of Building Technologies, Washington, DC, 2009.
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 23, 2024, by Michael Wetter:<br/>
+Corrected wrong annotation.
+</li>
 <li>
 February 16, 2022, by Michael Wetter:<br/>
 Removed assertion on <code>opeWesCor.wOpe</code> as there is no need to enforce this width.

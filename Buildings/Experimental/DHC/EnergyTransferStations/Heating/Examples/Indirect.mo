@@ -1,5 +1,5 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.Heating.Examples;
-model Indirect "Example model for indirect heating energy transfer station 
+model Indirect "Example model for indirect heating energy transfer station
   with a closed chilled water loop on the building side"
   extends Modelica.Icons.Example;
   package Medium=Buildings.Media.Water
@@ -137,8 +137,8 @@ equation
       Tolerance=1e-06),
     Documentation(info="<html>
 <p>
-This model provides an example for the indirect heating energy transfer station model. 
-The heating load ramps up from zero and is modulated according to the QHea table specification. 
+This model provides an example for the indirect heating energy transfer station model.
+The heating load ramps up from zero and is modulated according to the QHea table specification.
 The mass flow rate of heating water in the building side is varied based on the building load/demand.
 </p>
 </html>",

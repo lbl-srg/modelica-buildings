@@ -13,16 +13,6 @@ model Chiller
   replaceable parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic dat
     "Chiller performance data"
     annotation (choicesAllMatching=true,Placement(transformation(extent={{60,160},{80,180}})));
-  replaceable parameter Buildings.Fluid.Movers.Data.Generic perPumCon(
-    motorCooledByFluid=false)
-    constrainedby Buildings.Fluid.Movers.Data.Generic
-    "Record with performance data for condenser pump"
-    annotation (choicesAllMatching=true,Placement(transformation(extent={{100,160},{120,180}})));
-  replaceable parameter Buildings.Fluid.Movers.Data.Generic perPumEva(
-    motorCooledByFluid=false)
-    constrainedby Buildings.Fluid.Movers.Data.Generic
-    "Record with performance data for evaporator pump"
-    annotation (choicesAllMatching=true,Placement(transformation(extent={{140,160},{160,180}})));
   parameter Modelica.Units.SI.PressureDifference dpCon_nominal(displayUnit="Pa")
     "Nominal pressure drop accross condenser"
     annotation (Dialog(group="Nominal condition"));
@@ -83,8 +73,8 @@ model Chiller
       start=Medium.h_default,
       nominal=Medium.h_default))
     "Fluid port for chilled water supply"
-    annotation (Placement(transformation(extent={{190,50},{210,70}}),
-    iconTransformation(extent={{90,50},{110,70}})));
+    annotation (Placement(transformation(extent={{-210,-70},{-190,-50}}),
+    iconTransformation(extent={{-110,-70},{-90,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aHeaWat(
     redeclare final package Medium=Medium,
     m_flow(
@@ -97,8 +87,8 @@ model Chiller
       start=Medium.h_default,
       nominal=Medium.h_default))
     "Fluid port for heating water return"
-    annotation (Placement(transformation(extent={{-210,-70},{-190,-50}}),
-    iconTransformation(extent={{-110,-70},{-90,-50}})));
+    annotation (Placement(transformation(extent={{-210,50},{-190,70}}),
+    iconTransformation(extent={{-110,50},{-90,70}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bHeaWat(
     redeclare final package Medium=Medium,
     m_flow(
@@ -111,8 +101,8 @@ model Chiller
       start=Medium.h_default,
       nominal=Medium.h_default))
     "Fluid port for heating water supply"
-    annotation (Placement(transformation(extent={{-210,50},{-190,70}}),
-    iconTransformation(extent={{-110,50},{-90,70}})));
+    annotation (Placement(transformation(extent={{190,50},{210,70}}),
+    iconTransformation(extent={{90,50},{110,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PChi(
     final unit="W")
     "Chiller power"
@@ -137,7 +127,6 @@ model Chiller
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumCon(
     redeclare final package Medium=Medium,
-    final per=perPumCon,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=dat.mCon_flow_nominal,
     final dp_nominal=dpCon_nominal+dpValCon_nominal)
@@ -145,7 +134,6 @@ model Chiller
     annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
   Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumEva(
     redeclare final package Medium=Medium,
-    final per=perPumEva,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=dat.mEva_flow_nominal,
     final dp_nominal=dpEva_nominal+dpValEva_nominal)
@@ -248,11 +236,9 @@ equation
   connect(splEva.port_3,valEva.port_3)
     annotation (Line(points={{-140,-70},{-140,-80},{120,-80},{120,-70}},color={0,127,255}));
   connect(con.yValEva,valEva.y)
-    annotation (Line(points={{-48,137},{-32,137},{-32,120},{160,120},{160,-40},{
-          120,-40},{120,-48}},                                                                      color={0,0,127}));
+    annotation (Line(points={{-48,137},{-32,137},{-32,120},{160,120},{160,-40},{120,-40},{120,-48}},color={0,0,127}));
   connect(con.yValCon,valCon.y)
-    annotation (Line(points={{-48,133},{-44,133},{-44,90},{-160,90},{-160,40},{-140,
-          40},{-140,48}},                                                                          color={0,0,127}));
+    annotation (Line(points={{-48,133},{-44,133},{-44,90},{-160,90},{-160,40},{-140,40},{-140,48}},color={0,0,127}));
   connect(con.yChi,chi.on)
     annotation (Line(points={{-48,146},{-36,146},{-36,3},{-12,3}},color={255,0,255}));
   connect(uHea,con.uHea)
@@ -264,11 +250,11 @@ equation
   connect(senTEvaEnt.T,con.TEvaWatEnt)
     annotation (Line(points={{9,-40},{-80,-40},{-80,137},{-72,137}},color={0,0,127}));
   connect(splConMix.port_2,port_bHeaWat)
-    annotation (Line(points={{130,60},{140,60},{140,100},{-180,100},{-180,60},{-200,60}},color={0,127,255}));
+    annotation (Line(points={{130,60},{200,60}},color={0,127,255}));
   connect(splEva.port_2,port_bChiWat)
-    annotation (Line(points={{-150,-60},{-160,-60},{-160,-100},{180,-100},{180,60},{200,60}},color={0,127,255}));
+    annotation (Line(points={{-150,-60},{-200,-60}},color={0,127,255}));
   connect(port_aHeaWat,valCon.port_1)
-    annotation (Line(points={{-200,-60},{-170,-60},{-170,60},{-150,60}},color={0,127,255}));
+    annotation (Line(points={{-200,60},{-150,60}},color={0,127,255}));
   connect(port_aChiWat,valEva.port_1)
     annotation (Line(points={{200,-60},{130,-60}},color={0,127,255}));
   connect(valEva.port_2,senTEvaEnt.port_a)
@@ -316,21 +302,127 @@ equation
           lineColor={0,0,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-60,60},{60,-60}},
-          lineColor={27,0,55},
-          fillColor={170,213,255},
-          fillPattern=FillPattern.Solid),
         Text(
           extent={{-149,-110},{151,-150}},
           textColor={0,0,255},
-          textString="%name")}),
+          textString="%name"),
+        Rectangle(
+          extent={{-34,38},{38,-40}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-20,-22},{26,-30}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-14,0},{-18,-8},{-10,-8},{-14,0}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-14,0},{-18,8},{-10,8},{-14,0}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{16,18},{20,-22}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{10,6},{28,-12}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{18,6},{10,-6},{28,-6},{18,6}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-16,-8},{-12,-22}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-16,18},{-12,8}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-22,26},{24,18}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{90,-60},{16,-62}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{16,-40},{18,-62}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-16,-40},{-14,-62}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-1,42},{1,-42}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid,
+          origin={-56,-61},
+          rotation=90),
+        Rectangle(
+          extent={{-16,60},{-14,38}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{16,60},{18,38}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={255,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-1,42},{1,-42}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid,
+          origin={-56,59},
+          rotation=90),
+        Rectangle(
+          extent={{90,60},{16,58}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={255,0,0},
+          fillPattern=FillPattern.Solid)}),
     Diagram(
       coordinateSystem(
         extent={{-200,-200},{200,200}})),
     Documentation(
       revisions="<html>
 <ul>
+<li>
+March 27, 2024, by David Blum:<br/>
+Update icon and fix port orientation to align with convention.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3606\">issue #3606</a>.
+</li>
 <li>
 July 31, 2020, by Antoine Gautier:<br/>
 First implementation.

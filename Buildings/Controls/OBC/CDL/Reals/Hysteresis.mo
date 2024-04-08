@@ -7,10 +7,10 @@ block Hysteresis
     "if y=false and u>uHigh, switch to y=true";
   parameter Boolean pre_y_start=false
     "Value of pre(y) at initial time";
-  Interfaces.RealInput u
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u
     "Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.BooleanOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Boolean output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 

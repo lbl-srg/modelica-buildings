@@ -18,11 +18,6 @@ model Borefield
         dp_nominal=0))
     "Borefield parameters"
     annotation (choicesAllMatching=true,Placement(transformation(extent={{0,60},{20,80}})));
-  replaceable parameter Buildings.Fluid.Movers.Data.Generic perPum(
-    motorCooledByFluid=false)
-    constrainedby Buildings.Fluid.Movers.Data.Generic
-    "Record with performance data for borefield pump"
-    annotation (choicesAllMatching=true,Placement(transformation(extent={{40,60},{60,80}})));
   parameter Modelica.Units.SI.Pressure dp_nominal(displayUnit="Pa")
     "Pressure losses for the entire borefield (control valve excluded)"
     annotation (Dialog(group="Nominal condition"));
@@ -56,7 +51,6 @@ model Borefield
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-80,0})));
   Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pum(
     redeclare final package Medium=Medium,
-    final per=perPum,
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=dpValBorFie_nominal+dp_nominal)
     "Pump with prescribed mass flow rate"
@@ -152,10 +146,66 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-60,60},{60,-60}},
-          lineColor={27,0,55},
-          fillColor={170,213,255},
-          fillPattern=FillPattern.Solid)}),
+          extent={{-68,62},{74,-64}},
+          lineColor={0,0,0},
+          fillColor={234,210,210},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-56,-4},{0,-60}},
+          lineColor={0,0,0},
+          fillColor={223,188,190},
+          fillPattern=FillPattern.Forward),
+        Ellipse(
+          extent={{-50,-10},{-6,-54}},
+          lineColor={0,0,0},
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Forward),
+        Ellipse(
+          extent={{-56,56},{0,0}},
+          lineColor={0,0,0},
+          fillColor={223,188,190},
+          fillPattern=FillPattern.Forward),
+        Ellipse(
+          extent={{-50,50},{-6,6}},
+          lineColor={0,0,0},
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Forward),
+        Ellipse(
+          extent={{6,56},{62,0}},
+          lineColor={0,0,0},
+          fillColor={223,188,190},
+          fillPattern=FillPattern.Forward),
+        Ellipse(
+          extent={{12,50},{56,6}},
+          lineColor={0,0,0},
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Forward),
+        Ellipse(
+          extent={{4,-4},{60,-60}},
+          lineColor={0,0,0},
+          fillColor={223,188,190},
+          fillPattern=FillPattern.Forward),
+        Ellipse(
+          extent={{10,-10},{54,-54}},
+          lineColor={0,0,0},
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Forward),
+        Rectangle(
+          extent={{-1,16},{1,-16}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid,
+          origin={-84,-1},
+          rotation=90),
+        Rectangle(
+          extent={{-1,13},{1,-13}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid,
+          origin={87,-1},
+          rotation=90)}),
     Diagram(
       coordinateSystem(
         preserveAspectRatio=false,

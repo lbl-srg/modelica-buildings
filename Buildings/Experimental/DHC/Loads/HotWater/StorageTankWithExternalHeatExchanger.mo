@@ -197,7 +197,7 @@ equation
 This model implements a heating hot water tank with external heat exchanger that heats domestic hot water.
 </p>
 <p>
-The storage tank model is described in 
+The storage tank model is described in
 <a href=\"modelica://Buildings.Fluid.Storage.StratifiedEnhancedInternalHex\">
 Buildings.Fluid.Storage.StratifiedEnhancedInternalHex</a>.
 The heat pump and storage tank system should be parameterized altogether using
@@ -208,9 +208,9 @@ Buildings.Experimental.DHC.Loads.HotWater.Data.GenericDomesticHotWaterWithHeatEx
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Loads/HotWater/StorageTankWithExternalHeatExchanger.png\"/>
 </p>
 <p>
-It is based on Fig. 3 in <i>Evaluations of different domestic hot water 
-preparing methods with ultra-low-temperature district heating</i> by X. Yang, 
-H. Li, and S. Svendsen at <a href=\"https:/doi.org/10.1016/j.energy.2016.04.109\"> 
+It is based on Fig. 3 in <i>Evaluations of different domestic hot water
+preparing methods with ultra-low-temperature district heating</i> by X. Yang,
+H. Li, and S. Svendsen at <a href=\"https:/doi.org/10.1016/j.energy.2016.04.109\">
 doi.org/10.1016/j.energy.2016.04.109</a>, as well as the
 <i>Advanced Energy Design Guide for Multifamily Buildings-Achieving Zero Energy</i>
 published by ASHRAE in 2022 at <a href=\"https://www.ashrae.org/technical-resources/aedgs/zero-energy-aedg-free-download\">

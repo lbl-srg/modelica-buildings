@@ -6,12 +6,6 @@ model WatersideEconomizer
     final m2_flow_nominal=abs(Q_flow_nominal/4200/(T_b2_nominal - T_a2_nominal)));
   parameter DHC.EnergyTransferStations.Types.ConnectionConfiguration conCon
     "District connection configuration" annotation (Evaluate=true);
-  replaceable parameter Buildings.Fluid.Movers.Data.Generic perPum1(
-    motorCooledByFluid=false)
-    constrainedby Buildings.Fluid.Movers.Data.Generic
-    "Record with performance data for primary pump"
-    annotation (Dialog(enable=not have_val1),choicesAllMatching=true,
-    Placement(transformation(extent={{-40,-140},{-20,-120}})));
   parameter Modelica.Units.SI.PressureDifference dp1Hex_nominal(displayUnit=
         "Pa") "Nominal pressure drop across heat exchanger on district side"
     annotation (Dialog(group="Nominal condition"));
@@ -91,7 +85,6 @@ model WatersideEconomizer
         transformation(extent={{10,10},{-10,-10}}, rotation=180)));
   DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pum1(
     redeclare final package Medium = Medium1,
-    final per=perPum1,
     final m_flow_nominal=m1_flow_nominal,
     final dp_nominal=dp1Hex_nominal,
     final allowFlowReversal=allowFlowReversal1) if not have_val1
@@ -232,9 +225,115 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-60,60},{60,-60}},
-          lineColor={27,0,55},
-          fillColor={170,213,255},
+          extent={{-34,40},{36,-40}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-26,34},{-22,-34}},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Rectangle(
+          extent={{-22,34},{-14,-34}},
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0}),
+        Rectangle(
+          extent={{-10,34},{0,-34}},
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0}),
+        Rectangle(
+          extent={{-14,34},{-10,-34}},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Rectangle(
+          extent={{4,34},{12,-34}},
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0}),
+        Rectangle(
+          extent={{0,34},{4,-34}},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Rectangle(
+          extent={{16,34},{24,-34}},
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0}),
+        Rectangle(
+          extent={{12,34},{16,-34}},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Rectangle(
+          extent={{24,34},{28,-34}},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Rectangle(
+          extent={{-1,42},{1,-42}},
+          lineColor={0,0,0},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          origin={-58,61},
+          rotation=90),
+        Rectangle(
+          extent={{-18,62},{-16,40}},
+          lineColor={0,0,0},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-1,42},{1,-42}},
+          lineColor={0,0,0},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          origin={58,61},
+          rotation=90),
+        Rectangle(
+          extent={{16,62},{18,40}},
+          lineColor={0,0,0},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-1,42},{1,-42}},
+          lineColor={0,0,0},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          origin={58,-59},
+          rotation=90),
+        Rectangle(
+          extent={{-1,42},{1,-42}},
+          lineColor={0,0,0},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          origin={-58,-59},
+          rotation=90),
+        Rectangle(
+          extent={{-18,-40},{-16,-60}},
+          lineColor={0,0,0},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{16,-40},{18,-60}},
+          lineColor={0,0,0},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
           fillPattern=FillPattern.Solid)}),
     Diagram(
       coordinateSystem(
@@ -243,6 +342,11 @@ equation
     Documentation(
       revisions="<html>
 <ul>
+<li>
+March 27, 2024, by David Blum:<br/>
+Update icon.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3606\">issue #3606</a>.
+</li>
 <li>
 July 14, 2021, by Antoine Gautier:<br/>
 First implementation.

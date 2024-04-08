@@ -293,7 +293,8 @@ model PartialHeatPumpHeatExchanger
   Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.SwitchBox
     swiFlo(
     redeclare final package Medium = MediumSer,
-    final m_flow_nominal=mSerWat_flow_nominal) "Flow switch box"
+    final m_flow_nominal=mSerWat_flow_nominal,
+    dpValve_nominal=1e-4)                      "Flow switch box"
     annotation (Placement(transformation(extent={{-10,-390},{10,-370}})));
   Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Junction bypHeaWatSup(
     redeclare final package Medium = MediumBui, final m_flow_nominal=proHeaWat.mCon_flow_nominal
@@ -439,7 +440,7 @@ equation
   connect(bypHeaWatRet.port_3, bypHeaWatSup.port_3)
     annotation (Line(points={{100,250},{100,250}}, color={0,127,255}));
   connect(volHeaWatRet.ports[3], proHeaWat.port_a1) annotation (Line(points={{80,
-          181.333},{80,180},{-20,180},{-20,220},{-9.8,220}},color={0,127,255}));
+          181.333},{80,180},{-20,180},{-20,220},{-10,220}}, color={0,127,255}));
   connect(proHeaWat.port_b2, volMix_b.ports[3]) annotation (Line(points={{-10,208},
           {-14,208},{-14,202},{262,202},{262,-360},{260,-360}},
                                                  color={0,127,255}));
@@ -561,7 +562,7 @@ Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump</
 <li>
 By default, the condenser loop is operated
 with a variable mass flow rate to maintain a difference between supply and
-return water of <code>dT_nominal</code>, 
+return water of <code>dT_nominal</code>,
 with a lower limit of mass flow specified by the ratio <code>ratFloMin</code>.
 The control logic is implemented and described in
 <a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.Controls.PrimaryVariableFlow\">
@@ -615,9 +616,13 @@ Energy, Volume 199, 15 May 2020, 117418.
   revisions="<html>
 <ul>
 <li>
+February 15, 2024, by Ettore Zanetti:<br/>
+Switch box <code>SwiFlo</code> valve pressure drop reduced to zero.
+</li>
+<li>
 October 2, 2023, by Michael Wetter:<br/>
 Renamed input <code>loaSHW</code> to <code>QReqHotWat_flow</code>.
-</li>  
+</li>
 <li>
 May 17, 2023, by David Blum:<br/>
 Assigned dp_nominal to <code>pum1HexChi</code>.<br/>
