@@ -158,7 +158,7 @@ revisions="<html>
 <ul>
 <li>
 April 6, 2024, by Karthik Devaprasad:<br/>
-Replaced unused parameter names with correct parameter pairs for curve limit 
+Replaced unused parameter names with correct parameter pairs for curve limit
 definitions in the documentation.
 </li>
 <li>
