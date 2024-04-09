@@ -9,10 +9,10 @@ block MatrixMax
   parameter Integer nCol(
     final min=1)
     "Number of columns in input matrix";
-  Interfaces.RealInput u[nRow,nCol]
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u[nRow,nCol]
     "Connector of Real input signals"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.RealOutput y[
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y[
     if rowMax then
       size(
         u,
