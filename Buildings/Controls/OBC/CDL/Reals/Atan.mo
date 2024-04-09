@@ -1,10 +1,10 @@
 within Buildings.Controls.OBC.CDL.Reals;
 block Atan
   "Output the arc tangent of the input"
-  Interfaces.RealInput u
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u
     "Connector of Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.RealOutput y(unit="rad")
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(unit="rad")
     "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 

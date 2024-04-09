@@ -3,10 +3,10 @@ block BooleanScalarReplicator
   "Boolean signal replicator"
   parameter Integer nout=1
     "Number of outputs";
-  Interfaces.BooleanInput u
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u
     "Connector of Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.BooleanOutput y[nout]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y[nout]
     "Connector of Boolean output signals"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
