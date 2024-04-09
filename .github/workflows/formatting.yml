@@ -40,7 +40,7 @@ jobs:
         run: pip3 install --upgrade pip wheel
 
       - name: "Install BuildingsPy"
-        run: pip3 install git+https://github.com/lbl-srg/BuildingsPy@5.1.0
+        run: pip3 install git+https://github.com/lbl-srg/BuildingsPy@v5.1.0
 
       - name: Check for UTF-8 BOM
         run : |
