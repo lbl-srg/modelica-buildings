@@ -65,26 +65,6 @@ model DXDehumidifier "Validation model for DX dehumidifier"
     "Calculate inlet air mass flow rate from component enable signal"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
 
-  Modelica.Blocks.Sources.RealExpression m_flow_airMod(
-    final y=dxDeh.port_a.m_flow)
-    "DX dehumidifier air mass flow rate (Modelica)"
-    annotation (Placement(transformation(extent={{20,60},{40,80}})));
-
-  Modelica.Blocks.Math.Mean m_flowFan(
-    final f=1/tStepAve)
-    "Average out Modelica results over time"
-    annotation (Placement(transformation(extent={{54,60},{74,80}})));
-
-  Modelica.Blocks.Math.Mean m_flowFan_engPlu(
-    final f=1/tStepAve)
-    "Average out EnergyPlus results over time"
-    annotation (Placement(transformation(extent={{134,60},{154,80}})));
-
-  Modelica.Blocks.Sources.RealExpression m_flow_air_engPlu(
-    final y=datRea.y[6])
-    "DX dehumidifier air mass flow rate (EnergyPlus)"
-    annotation (Placement(transformation(extent={{98,60},{118,80}})));
-
   Modelica.Blocks.Sources.RealExpression watRemRatMod(
     final y=-dxDeh.deHum.mWat_flow)
     "Water removal mass flow rate (Modelica)"
@@ -158,10 +138,6 @@ model DXDehumidifier "Validation model for DX dehumidifier"
     annotation (Placement(transformation(extent={{-160,60},{-140,80}})));
 
 equation
-  connect(m_flow_airMod.y, m_flowFan.u)
-    annotation (Line(points={{41,70},{52,70}}, color={0,0,127}));
-  connect(m_flow_air_engPlu.y, m_flowFan_engPlu.u)
-    annotation (Line(points={{119,70},{132,70}}, color={0,0,127}));
   connect(watRemRatMod.y, mWatMod.u)
     annotation (Line(points={{41,36},{52,36}}, color={0,0,127}));
   connect(watRemRat_engPlu.y, mWat_engPlu.u)
