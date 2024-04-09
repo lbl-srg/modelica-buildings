@@ -16,6 +16,12 @@ model Performance
   parameter Buildings.Fluid.Dehumidifiers.Desiccant.Data.Generic per
     "Performance data"
     annotation (Placement(transformation(extent={{60,64},{80,84}})));
+
+  final parameter Real a[:] = {0.48,1.7658,-2.1537,0.9091}
+    "Coefficients for sensible heat exchange effectiveness";
+  final parameter Real b[:] = {-0.8045,5.6984,-6.6667,2.7778}
+    "Coefficients for latent heat exchange effectiveness";
+
   Modelica.Blocks.Interfaces.BooleanInput onDeh
     "Set to true to enable the dehumidification process" annotation (Placement(
         transformation(extent={{-124,68},{-100,92}}), iconTransformation(extent=
@@ -38,8 +44,8 @@ model Performance
           extent={{-124,-92},{-100,-68}}),
           iconTransformation(extent={{-120,-92},{-100,-72}})));
   Modelica.Blocks.Interfaces.RealInput mPro_flow(
-    final unit="kg/s")
-    "Mass flow rate of the process air" annotation (Placement(transformation(
+    final unit="kg/s") "Mass flow rate of the process air"
+                                        annotation (Placement(transformation(
         extent={{-12,-12},{12,12}},
         rotation=90,
         origin={0,-112}),   iconTransformation(
@@ -51,6 +57,17 @@ model Performance
     "Temperature of the regeneration air entering the dehumidifier" annotation (
      Placement(transformation(extent={{-124,-14},{-100,10}}),
         iconTransformation(extent={{-120,-10},{-100,10}})));
+  Modelica.Blocks.Interfaces.RealInput uSpe(
+    final unit="1",
+    final min=0.3,
+    final max=1)
+    "Wheel speed ratio" annotation (Placement(transformation(
+        extent={{12,-12},{-12,12}},
+        rotation=90,
+        origin={-80,112}), iconTransformation(
+        extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={-82,110})));
   Modelica.Blocks.Interfaces.RealOutput TProLea(
     final unit="K")
     "Temperature of the process air leaving the dehumidifier" annotation (
@@ -74,9 +91,15 @@ model Performance
 protected
   Real CpReg(final unit="J/kg")
     "Specific regeneration energy";
+  Real etaSen(final unit="1")
+    "Sensible heat exchange effectiveness";
+  Real etaLat(final unit="1")
+    "Latent heat exchange effectiveness";
 
 equation
   if onDeh then
+    etaSen=Buildings.Utilities.Math.Functions.polynomial(a=a, x=uSpe);
+    etaLat=Buildings.Utilities.Math.Functions.polynomial(a=b, x=uSpe);
     // Check the inlet condition of the process inlet condition.
     assert(TProEnt <= per.TProEnt_max and TProEnt >= per.TProEnt_min,
     "In " + getInstanceName() + ": temperature of the process air entering the dehumidifier is beyond 
@@ -91,20 +114,20 @@ equation
       TProEnt=TProEnt,
       X_w_ProEnt=X_w_ProEnt,
       vPro=VPro_flow/VPro_flow_nominal*vPro_nominal,
-      a=per.coevReg)/vReg_nominal*VReg_flow_nominal;
+      a=per.coevReg)/vReg_nominal*VReg_flow_nominal*uSpe;
      assert(VReg_flow <= VReg_flow_nominal,
      "In " + getInstanceName() + ": regeneration flow rate is not sufficient.",
      level=AssertionLevel.error);
-    TProLea = Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.performanceCurve(
+    TProLea = TProEnt + (Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.performanceCurve(
         TProEnt = TProEnt,
         X_w_ProEnt = X_w_ProEnt,
         vPro = VPro_flow/VPro_flow_nominal*vPro_nominal,
-        a = per.coeTProLea) + 273.15;
-    X_w_ProLea = Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.performanceCurve(
+        a = per.coeTProLea)-TProEnt + 273.15)*etaSen;
+    X_w_ProLea = X_w_ProEnt-(X_w_ProEnt-(Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.performanceCurve(
         TProEnt = TProEnt,
         X_w_ProEnt = X_w_ProEnt,
         vPro = VPro_flow/VPro_flow_nominal*vPro_nominal,
-        a = per.coeX_w_ProLea);
+        a = per.coeX_w_ProLea)))*etaLat;
     assert(X_w_ProLea > 0,
      "In " + getInstanceName() + ": humidity ratio of the process air leaving 
      the dehumidifier becomes negative.",
@@ -129,6 +152,8 @@ equation
     VReg_flow = 0;
     CpReg = 0;
     yQReg = 0;
+    etaSen = 0;
+    etaLat = 0;
   end if;
   annotation (
   defaultComponentName="dehPer",

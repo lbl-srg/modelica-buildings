@@ -44,6 +44,12 @@ model Performance
   Modelica.Blocks.Math.Gain gai(k=1.2)
     "Converts the volumetric flow rate to the mass flow rate"
     annotation (Placement(transformation(extent={{-22,-86},{-10,-74}})));
+  Modelica.Blocks.Sources.Ramp uSpe(
+    height=0.5,
+    duration=50,
+    offset=0.5,
+    startTime=50) "Wheel speed ratio"
+    annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
 equation
   connect(onDeh.y, dehumPer.onDeh) annotation (Line(points={{-59,80},{-44,80},{
           -44,8.2},{-11,8.2}}, color={255,0,255}));
@@ -59,6 +65,8 @@ equation
     annotation (Line(points={{-23.2,-80},{-59,-80}}, color={0,0,127}));
   connect(gai.y, dehumPer.mPro_flow) annotation (Line(points={{-9.4,-80},{0,-80},
           {0,-11}}, color={0,0,127}));
+  connect(uSpe.y, dehumPer.uSpe) annotation (Line(points={{-19,80},{-8,80},{-8,
+          11},{-8.2,11}}, color={0,0,127}));
   annotation (experiment(Tolerance=1e-6, StopTime=100),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Dehumidifiers/Desiccant/BaseClasses/Validation/Performance.mos"
         "Simulate and Plot"), Documentation(info="<html>
