@@ -1,0 +1,33 @@
+// Simulate
+simulateModel("Buildings.DHC.Loads.Steam.BaseClasses.Examples.SteamTrap", stopTime=180, tolerance=1e-06, method="dassl", resultFile="SteamTrap");
+// Plot commands
+removePlots(false);
+createPlot(id=1, position={15, 15, 874, 421}, 
+  y={"steTra.port_a.p", "steTra.port_b.p"}, 
+  range={0.0, 180.0, 1.0, 1.5}, 
+  grid=true, 
+  filename="SteamTrap.mat", 
+  colors={{28,108,200}, {238,46,47}}, 
+  displayUnits={"bar", "bar"});
+createPlot(id=1, position={15, 15, 874, 421}, 
+  y={"steTra.sta_a.T", "steTra.sta_b.T"}, 
+  range={0.0, 180.0, 95.0, 115.0}, 
+  grid=true, 
+  subPlot=201, 
+  colors={{28,108,200}, {238,46,47}}, 
+  displayUnits={"degC", "degC"});
+createPlot(id=1, position={15, 15, 874, 421}, 
+  y={"hIn.h_out", "hOut.h_out"}, 
+  range={0.0, 180.0, 400000.0, 480000.0}, 
+  grid=true, 
+  subPlot=102, 
+  colors={{28,108,200}, {238,46,47}}, 
+  displayUnits={"J/kg", "J/kg"});
+createPlot(id=1, position={15, 15, 874, 421}, 
+  y={"steTra.m_flow", "steTra.QLos_flow"}, 
+  range={0.0, 180.0, -5.0, 15.0}, 
+  grid=true, 
+  subPlot=202, 
+  colors={{28,108,200}, {238,46,47}}, 
+  range2={-200000.0, 600000.0}, axes={1, 2}, 
+  displayUnits={"kg/s", "W"});
