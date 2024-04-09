@@ -68,22 +68,22 @@ model DXDehumidifier "Validation model for DX dehumidifier"
   Modelica.Blocks.Sources.RealExpression watRemRatMod(
     final y=-dxDeh.deHum.mWat_flow)
     "Water removal mass flow rate (Modelica)"
-    annotation (Placement(transformation(extent={{20,26},{40,46}})));
+    annotation (Placement(transformation(extent={{20,30},{40,50}})));
 
   Modelica.Blocks.Math.Mean mWatMod(
     final f=1/tStepAve)
     "Average out Modelica results over time"
-    annotation (Placement(transformation(extent={{54,26},{74,46}})));
+    annotation (Placement(transformation(extent={{60,30},{80,50}})));
 
   Modelica.Blocks.Math.Mean mWat_engPlu(
     final f=1/tStepAve)
     "Average out EnergyPlus results over time"
-    annotation (Placement(transformation(extent={{134,26},{154,46}})));
+    annotation (Placement(transformation(extent={{140,30},{160,50}})));
 
   Modelica.Blocks.Sources.RealExpression watRemRat_engPlu(
     final y=datRea.y[4])
     "Water removal mass flow rate (EnergyPlus)"
-    annotation (Placement(transformation(extent={{98,26},{118,46}})));
+    annotation (Placement(transformation(extent={{100,30},{120,50}})));
 
   Modelica.Blocks.Sources.RealExpression airHeaRatMod(
     final y=dxDeh.P)
@@ -93,38 +93,38 @@ model DXDehumidifier "Validation model for DX dehumidifier"
   Modelica.Blocks.Math.Mean PMod(
     final f=1/tStepAve)
     "Average out Modelica results over time"
-    annotation (Placement(transformation(extent={{54,-10},{74,10}})));
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
   Modelica.Blocks.Math.Mean P_engPlu(
     final f=1/tStepAve)
     "Average out EnergyPlus results over time"
-    annotation (Placement(transformation(extent={{134,-10},{154,10}})));
+    annotation (Placement(transformation(extent={{140,-10},{160,10}})));
 
   Modelica.Blocks.Sources.RealExpression dehPowRat_engPlu(
     final y=datRea.y[5])
     "DX dehumidifier power rate (EnergyPlus)"
-    annotation (Placement(transformation(extent={{98,-10},{118,10}})));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
   Modelica.Blocks.Sources.RealExpression dehHeaRatMod(
     final y=dxDeh.heaFloSen.Q_flow -
     dxDeh.deHum.mWat_flow*Buildings.Utilities.Psychrometrics.Constants.h_fg)
     "DX dehumidifier heating rate (Modelica)"
-    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
+    annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
 
   Modelica.Blocks.Math.Mean QHeaMod(
     final f=1/tStepAve)
     "Average out Modelica results over time"
-    annotation (Placement(transformation(extent={{54,-40},{74,-20}})));
+    annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
 
   Modelica.Blocks.Math.Mean QHea_engPlu(
     final f=1/tStepAve)
     "Average out EnergyPlus results over time"
-    annotation (Placement(transformation(extent={{134,-40},{154,-20}})));
+    annotation (Placement(transformation(extent={{140,-50},{160,-30}})));
 
   Modelica.Blocks.Sources.RealExpression dehHeaRat_engPlu(
     final y=datRea.y[3])
     "DX dehumidifier heating rate (EnergyPlus)"
-    annotation (Placement(transformation(extent={{98,-40},{118,-20}})));
+    annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
 
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     final tableOnFile=true,
@@ -139,17 +139,17 @@ model DXDehumidifier "Validation model for DX dehumidifier"
 
 equation
   connect(watRemRatMod.y, mWatMod.u)
-    annotation (Line(points={{41,36},{52,36}}, color={0,0,127}));
+    annotation (Line(points={{41,40},{58,40}}, color={0,0,127}));
   connect(watRemRat_engPlu.y, mWat_engPlu.u)
-    annotation (Line(points={{119,36},{132,36}}, color={0,0,127}));
+    annotation (Line(points={{121,40},{138,40}}, color={0,0,127}));
   connect(airHeaRatMod.y, PMod.u)
-    annotation (Line(points={{41,0},{52,0}}, color={0,0,127}));
+    annotation (Line(points={{41,0},{58,0}}, color={0,0,127}));
   connect(dehPowRat_engPlu.y, P_engPlu.u)
-    annotation (Line(points={{119,0},{132,0}}, color={0,0,127}));
+    annotation (Line(points={{121,0},{138,0}}, color={0,0,127}));
   connect(dehHeaRatMod.y, QHeaMod.u)
-    annotation (Line(points={{41,-30},{52,-30}}, color={0,0,127}));
+    annotation (Line(points={{41,-40},{58,-40}}, color={0,0,127}));
   connect(dehHeaRat_engPlu.y, QHea_engPlu.u)
-    annotation (Line(points={{119,-30},{132,-30}}, color={0,0,127}));
+    annotation (Line(points={{121,-40},{138,-40}}, color={0,0,127}));
   connect(plrToPul.yEna, dxDeh.uEna) annotation (Line(points={{-98,70},{-54,70},
           {-54,-14},{-51,-14}}, color={255,0,255}));
   connect(toTotAirIn.XiTotalAir, boundary.Xi_in[1]) annotation (Line(points={{-99,-50},
@@ -189,7 +189,7 @@ The module <code>plrToPul</code> translates the runtime fraction from EnergyPlus
 to an on-off signal for the DX dehumidifier.
 </p>
 <p>
-The generated plots show that <code>dxDeh</code> removes an amount of water
+The generated plots show that DX dehumidifier removes an amount of water
 that is similar to the reference EnergyPlus results, while consuming a similar amount
 of power and adding similar amount of heat to the outlet air stream. The
 comparison of the outlet air conditions such as the dry bulb temperature and humidity
