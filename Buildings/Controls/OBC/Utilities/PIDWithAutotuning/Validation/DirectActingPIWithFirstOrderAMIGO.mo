@@ -6,7 +6,9 @@ model DirectActingPIWithFirstOrderAMIGO
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.FirstOrderAMIGO PIWitTun(
      controllerType=Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PI,
-     deaBan=0.05,
+     yLow=0,
+     deaBan=0.1,
+     yRef=0.8,
      reverseActing=false) "PI controller with an autotuning feature"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
 
@@ -63,36 +65,29 @@ equation
   connect(resSig.y, PI.trigger) annotation (Line(points={{-58,70},{-40,70},{-40,
           40},{-16,40},{-16,48}}, color={255,0,255}));
   connect(SetPoint.y, PI.u_s) annotation (Line(points={{-58,10},{-50,10},{-50,
-          60},{-22,60}},
-                     color={0,0,127}));
+          60},{-22,60}}, color={0,0,127}));
   connect(uniDel1.y, sub1.u1) annotation (Line(points={{82,60},{110,60},{110,86},
           {158,86}}, color={0,0,127}));
   connect(k.y, derivative1.k) annotation (Line(points={{82,20},{90,20},{90,28},
           {118,28}},color={0,0,127}));
   connect(derivative1.T, T.y) annotation (Line(points={{118,24},{100,24},{100,
-          -56},{32,-56}},
-                     color={0,0,127}));
+          -56},{32,-56}}, color={0,0,127}));
   connect(derivative1.y, sub1.u2) annotation (Line(points={{142,20},{150,20},{
           150,74},{158,74}}, color={0,0,127}));
   connect(sub1.y, PI.u_m) annotation (Line(points={{182,80},{190,80},{190,40},{
-          -10,40},{-10,48}},
-                         color={0,0,127}));
+          -10,40},{-10,48}}, color={0,0,127}));
   connect(sub2.u1, uniDel2.y) annotation (Line(points={{158,-4},{110,-4},{110,
-          -20},{82,-20}},
-                     color={0,0,127}));
+          -20},{82,-20}}, color={0,0,127}));
   connect(derivative2.y,sub2. u2) annotation (Line(points={{142,-60},{150,-60},
           {150,-16},{158,-16}}, color={0,0,127}));
   connect(sub2.y, PIWitTun.u_m) annotation (Line(points={{182,-10},{190,-10},{
-          190,-40},{-10,-40},{-10,-32}},
-                           color={0,0,127}));
+          190,-40},{-10,-40},{-10,-32}}, color={0,0,127}));
   connect(derivative2.T, T.y) annotation (Line(points={{118,-56},{32,-56}},
           color={0,0,127}));
   connect(derivative1.u, sub1.u1) annotation (Line(points={{118,20},{110,20},{
-          110,86},{158,86}},
-                         color={0,0,127}));
+          110,86},{158,86}}, color={0,0,127}));
   connect(derivative2.u, uniDel2.y) annotation (Line(points={{118,-60},{110,-60},
-          {110,-20},{82,-20}},
-                             color={0,0,127}));
+          {110,-20},{82,-20}}, color={0,0,127}));
   connect(autTunSig.y, PIWitTun.triTun) annotation (Line(points={{-58,-50},{-4,-50},{-4,-32}}, color={255,0,255}));
   connect(k.y, derivative2.k) annotation (Line(points={{82,20},{90,20},{90,-52},
           {118,-52}},color={0,0,127}));
@@ -101,14 +96,13 @@ equation
   connect(PI.y, sub3.u2) annotation (Line(points={{2,60},{18,60}},               color={0,0,127}));
   connect(sub3.y, uniDel1.u)
     annotation (Line(points={{42,66},{50,66},{50,60},{58,60}},
-                                               color={0,0,127}));
+         color={0,0,127}));
   connect(PIWitTun.y, sub4.u2) annotation (Line(points={{2,-20},{18,-20}},
-                     color={0,0,127}));
+          color={0,0,127}));
   connect(uniDel2.u, sub4.y) annotation (Line(points={{58,-20},{50,-20},{50,-14},
-          {42,-14}},                                                      color={0,0,127}));
+          {42,-14}}, color={0,0,127}));
   connect(sub4.u1, const.y) annotation (Line(points={{18,-8},{10,-8},{10,120},{
-          -18,120}},
-                 color={0,0,127}));
+          -18,120}}, color={0,0,127}));
   connect(resSig.y, PIWitTun.triRes) annotation (Line(points={{-58,70},{-40,70},
           {-40,-40},{-16,-40},{-16,-32}}, color={255,0,255}));
   connect(SetPoint.y, PIWitTun.u_s) annotation (Line(points={{-58,10},{-50,10},

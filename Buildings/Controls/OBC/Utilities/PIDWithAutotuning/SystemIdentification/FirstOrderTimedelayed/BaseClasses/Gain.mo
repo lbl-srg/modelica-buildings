@@ -1,8 +1,8 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses;
 block Gain "Identify the gain of a first order time delayed model"
-  parameter Real yHig(min=1E-6) = 1
+  parameter Real yHig(min=1E-6)
     "Higher value for the output (assuming the reference output is 0)";
-  parameter Real yLow(min=1E-6) = 0.5
+  parameter Real yLow(min=1E-6)
     "Lower value for the output (assuming the reference output is 0)";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
     "Relay controller output, (measurement - setpoint)"

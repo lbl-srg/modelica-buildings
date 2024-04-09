@@ -1,9 +1,9 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay;
 block ResponseProcess
-  "Calculate the lengths of the on andoff period, the half period ratio, and the times when the tuning starts and ends"
-  parameter Real yHig(min=1E-6) = 1
+  "Calculate the lengths of the on and off period, the half period ratio, and the times when the tuning starts and ends"
+  parameter Real yHig(min=1E-6)
     "Higher value for the output";
-  parameter Real yLow(min=1E-6) = 0.5
+  parameter Real yLow(min=1E-6)
     "Lower value for the output";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput on
     "Relay switch. True: tuning on perid, False: tuning off period"

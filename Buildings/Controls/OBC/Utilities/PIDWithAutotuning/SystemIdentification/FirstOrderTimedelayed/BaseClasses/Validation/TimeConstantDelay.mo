@@ -1,7 +1,10 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses.Validation;
 model TimeConstantDelay "Test model for identifying the the time constant and the time delay of the control process"
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses.TimeConstantDelay
-    timConDel(yLow=0.1)
+    timConDel(
+      yHig=0.5,
+      yLow=0.1,
+      deaBan=0.4)
     "Block that calculates the time constant and the time delay of a first-order model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant k(k=1)

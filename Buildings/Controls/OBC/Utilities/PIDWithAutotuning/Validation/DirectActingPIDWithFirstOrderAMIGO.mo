@@ -6,7 +6,9 @@ model DirectActingPIDWithFirstOrderAMIGO
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.FirstOrderAMIGO PIDWitTun(
       controllerType=Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PID,
-      deaBan=0.05,
+      yLow=0,
+      deaBan=0.1,
+      yRef=0.8,
       reverseActing=false) "PID controller with an autotuning feature"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
   Buildings.Controls.OBC.CDL.Reals.PIDWithReset PID(
@@ -70,9 +72,9 @@ equation
   connect(derivative1.T, T.y) annotation (Line(points={{118,24},{110,24},{110,-56},
           {32,-56}}, color={0,0,127}));
   connect(derivative1.y, sub1.u2) annotation (Line(points={{142,20},{150,20},{150,
-          74},{158,74}},     color={0,0,127}));
+          74},{158,74}}, color={0,0,127}));
   connect(sub1.y, PID.u_m) annotation (Line(points={{182,80},{190,80},{190,40},{
-          -10,40},{-10,48}},          color={0,0,127}));
+          -10,40},{-10,48}}, color={0,0,127}));
   connect(sub2.u1, uniDel2.y) annotation (Line(points={{158,-4},{100,-4},{100,-20},
           {82,-20}}, color={0,0,127}));
   connect(derivative2.y,sub2. u2) annotation (Line(points={{142,-60},{150,-60},{
