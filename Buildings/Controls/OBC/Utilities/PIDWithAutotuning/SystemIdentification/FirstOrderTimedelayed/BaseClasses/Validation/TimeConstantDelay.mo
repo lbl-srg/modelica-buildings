@@ -4,7 +4,7 @@ model TimeConstantDelay "Test model for identifying the the time constant and th
     timConDel(
       yHig=0.5,
       yLow=0.1,
-      deaBan=0.5)
+      deaBan=0.4)
     "Block that calculates the time constant and the time delay of a first-order model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant k(k=1)

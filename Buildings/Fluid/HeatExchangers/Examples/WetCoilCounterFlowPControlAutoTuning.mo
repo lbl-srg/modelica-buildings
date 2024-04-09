@@ -92,7 +92,9 @@ model WetCoilCounterFlowPControlAutoTuning
     annotation (Placement(transformation(extent={{100,-38},{120,-18}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.FirstOrderAMIGO
     con(controllerType=Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PI,
+    r=10,
     yLow=0.2,
+    deaBan=0.2,
     yRef=0.5,
     reverseActing=false)
     "Controller"
@@ -194,6 +196,10 @@ Buildings.Controls.OBC.Utilities.PIDWithAutotuning.FirstOrderAMIGO</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 3, 2024, by Sen Huang:<br/>
+Added parameter values.
+</li>
 <li>
 March 8, 2024, by Michael Wetter:<br/>
 Removed wrong normalization.

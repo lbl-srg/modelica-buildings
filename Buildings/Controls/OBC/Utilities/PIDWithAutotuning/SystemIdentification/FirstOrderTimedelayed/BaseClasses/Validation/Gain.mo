@@ -1,7 +1,9 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses.Validation;
 model Gain "Test model for identifying the gain of the control process"
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses.Gain
-    gai
+    gai(
+    yHig=1, 
+    yLow=0.5)
     "Block that calculates the gain of a first-order model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Pulse u(
