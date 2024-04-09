@@ -1,8 +1,8 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning;
 block FirstOrderAMIGO
   "Autotuning PID controller with an AMIGO tuner that employs a first-order time delayed system model"
-  parameter Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController controllerType=Buildings.Controls.OBC.Utilities.PIDWithAutotuning.
-       Types.SimpleController.PI
+  parameter Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController controllerType=
+    Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PI
     "Type of controller";
   parameter Real k_start(
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)=1
@@ -30,9 +30,7 @@ block FirstOrderAMIGO
     final min=1E-6)
     "Deadband for holding the output value";
   parameter Real yRef
-    "Reference output for the tuning process,
-    It should be greater than the lower value of the relay output
-    and less than the higher value of the relay output";
+    "Reference output for the tuning process. It should be greater than the lower and less than the higher value of the relay output";
   parameter Real yMax = 1
     "Upper limit of output"
     annotation (Dialog(group="Limits"));
@@ -89,7 +87,8 @@ block FirstOrderAMIGO
     final xi_start=xi_start,
     final yd_start=yd_start,
     final reverseActing=reverseActing,
-    final y_reset=xi_start) "PI or P controller with the gains as inputs"
+    final y_reset=xi_start)
+    "PI or P controller with the gains as inputs"
     annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PID PIDPar
     if with_D "Autotuner of gains for a PID controller"
@@ -104,7 +103,7 @@ block FirstOrderAMIGO
     final deaBan=deaBan,
     final reverseActing=reverseActing)
     "Relay controller"
-    annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
+    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.ResponseProcess resPro(
     final yHig=yHig - yRef,
     final yLow=yRef - yLow)
@@ -113,13 +112,16 @@ block FirstOrderAMIGO
   Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Switch between a PID controller and a relay controller"
     annotation (Placement(transformation(extent={{140,-10},{160,10}})));
-  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samk(final y_start=k_start)
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samk(
+    final y_start=k_start)
     "Recording the proportional control gain"
     annotation (Placement(transformation(extent={{-100,-10},{-80,-30}})));
-  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samTi(final y_start=Ti_start)
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samTi(
+    final y_start=Ti_start)
     "Recording the integral time"
     annotation (Placement(transformation(extent={{-120,-40},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samTd(final y_start=Td_start) if with_D
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samTd(
+    final y_start=Td_start) if with_D
     "Recording the derivative time"
     annotation (Placement(transformation(extent={{-140,-70},{-120,-90}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.ControlProcessModel
@@ -137,12 +139,13 @@ block FirstOrderAMIGO
     annotation (Placement(transformation(extent={{120,-72},{140,-52}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes1(
     message="*** Warning: An autotuning is ongoing and the new autotuning request is ignored.")
-    "Error message when an autotuning tuning is ongoing while a new autotuning request is received"
+    "Warning message when an autotuning tuning is ongoing while a new autotuning request is received"
     annotation (Placement(transformation(extent={{148,-72},{168,-52}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edgReq
     "True only when a new request is received"
     annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay tunStaDel(final delayTime=0.001)
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay tunStaDel(
+    final delayTime=0.001)
     "A small time delay for the autotuning start time to avoid false alerts"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
 
@@ -159,9 +162,8 @@ protected
       else Buildings.Controls.OBC.CDL.Types.SimpleController.PID
     "Type of controller";
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes2(
-     message="*** Warning: the relay output needs to be asymmetric.
-     Check the value of yHig, yLow and yRef.")
-    "Error message when the relay output is symmetric"
+     message="*** Warning: the relay output needs to be asymmetric. Check the value of yHig, yLow and yRef.")
+    "Warning message when the relay output is symmetric"
     annotation (Placement(transformation(extent={{60,140},{80,160}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(final k=yHig)
     "Higher value for the relay output"
@@ -204,17 +206,17 @@ equation
           {-98,-50}}, color={0,0,127}));
   connect(samTd.y,con. Td) annotation (Line(points={{-118,-80},{-60,-80},{-60,-44},
           {-52,-44}},color={0,0,127}));
-  connect(resPro.on, rel.yOn) annotation (Line(points={{-2,42},{-10,42},{-10,24},
-          {-28,24}},color={255,0,255}));
+  connect(resPro.on, rel.yOn) annotation (Line(points={{-2,40},{-10,40},{-10,24},
+          {-38,24}},color={255,0,255}));
   connect(modTim.y, resPro.tim) annotation (Line(points={{-38,70},{-26,70},{-26,
-          48},{-2,48}},color={0,0,127}));
-  connect(resPro.tau, conProMod.tau) annotation (Line(points={{22,42},{34,42},{
-          34,62},{38,62}}, color={0,0,127}));
+          46},{-2,46}},color={0,0,127}));
+  connect(resPro.tau, conProMod.tau) annotation (Line(points={{22,40},{34,40},{34,
+          62},{38,62}},    color={0,0,127}));
   connect(conProMod.tOff, resPro.tOff) annotation (Line(points={{38,66},{30,66},
-          {30,46},{22,46}},color={0,0,127}));
-  connect(resPro.tOn, conProMod.tOn) annotation (Line(points={{22,50},{26,50},{
-          26,74},{38,74}}, color={0,0,127}));
-  connect(rel.yDif, conProMod.u) annotation (Line(points={{-28,30},{-14,30},{-14,
+          {30,44},{22,44}},color={0,0,127}));
+  connect(resPro.tOn, conProMod.tOn) annotation (Line(points={{22,48},{26,48},{26,
+          74},{38,74}},    color={0,0,127}));
+  connect(rel.yDif, conProMod.u) annotation (Line(points={{-38,30},{-14,30},{-14,
           78},{38,78}}, color={0,0,127}));
   connect(PIDPar.kp, conProMod.k) annotation (Line(points={{78,36},{66,36},{66,76},
           {62,76}}, color={0,0,127}));
@@ -236,15 +238,15 @@ equation
           -148,96},{-148,-20},{-102,-20}}, color={0,0,127}));
   connect(PIPar.Ti, samTi.u) annotation (Line(points={{102,64},{112,64},{112,98},
           {-150,98},{-150,-50},{-122,-50}}, color={0,0,127}));
-  connect(resPro.triEnd, conProMod.triEnd) annotation (Line(points={{22,34},{56,
-          34},{56,58}}, color={255,0,255}));
-  connect(resPro.triSta, conProMod.triSta) annotation (Line(points={{22,38},{44,
-          38},{44,58}}, color={255,0,255}));
-  connect(resPro.triEnd, samTi.trigger) annotation (Line(points={{22,34},{30,34},
+  connect(resPro.triEnd, conProMod.triEnd) annotation (Line(points={{22,32},{56,
+          32},{56,58}}, color={255,0,255}));
+  connect(resPro.triSta, conProMod.triSta) annotation (Line(points={{22,36},{44,
+          36},{44,58}}, color={255,0,255}));
+  connect(resPro.triEnd, samTi.trigger) annotation (Line(points={{22,32},{30,32},
           {30,10},{-110,10},{-110,-38}}, color={255,0,255}));
-  connect(resPro.triEnd, samk.trigger) annotation (Line(points={{22,34},{30,34},
+  connect(resPro.triEnd, samk.trigger) annotation (Line(points={{22,32},{30,32},
           {30,10},{-90,10},{-90,-8}}, color={255,0,255}));
-  connect(resPro.triEnd, samTd.trigger) annotation (Line(points={{22,34},{30,34},
+  connect(resPro.triEnd, samTd.trigger) annotation (Line(points={{22,32},{30,32},
           {30,10},{-130,10},{-130,-68}}, color={255,0,255}));
   connect(PIDPar.Td, samTd.u) annotation (Line(points={{102,23},{114,23},{114,94},
           {-146,94},{-146,-80},{-142,-80}}, color={0,0,127}));
@@ -257,12 +259,12 @@ equation
           {138,0}}, color={255,0,255}));
   connect(inTunPro.u, triTun) annotation (Line(points={{18,-20},{-6,-20},{-6,-70},
           {60,-70},{60,-120}}, color={255,0,255}));
-  connect(inTunPro.clr, resPro.triEnd) annotation (Line(points={{18,-26},{12,
-          -26},{12,10},{30,10},{30,34},{22,34}}, color={255,0,255}));
-  connect(rel.trigger, triTun) annotation (Line(points={{-46,18},{-46,0},{-6,0},
+  connect(inTunPro.clr, resPro.triEnd) annotation (Line(points={{18,-26},{10,-26},
+          {10,10},{30,10},{30,32},{22,32}},      color={255,0,255}));
+  connect(rel.trigger, triTun) annotation (Line(points={{-56,18},{-56,0},{-6,0},
           {-6,-70},{60,-70},{60,-120}}, color={255,0,255}));
-  connect(resPro.trigger, triTun) annotation (Line(points={{-2,36},{-6,36},{-6,
-          -70},{60,-70},{60,-120}}, color={255,0,255}));
+  connect(resPro.trigger, triTun) annotation (Line(points={{-2,34},{-6,34},{-6,-70},
+          {60,-70},{60,-120}},      color={255,0,255}));
   connect(nand.y, assMes1.u)
     annotation (Line(points={{142,-62},{146,-62}}, color={255,0,255}));
   connect(nand.u2, edgReq.y)
@@ -273,17 +275,17 @@ equation
           -62},{118,-62}}, color={255,0,255}));
   connect(tunStaDel.u, inTunPro.y) annotation (Line(points={{78,-30},{50,-30},{50,
           -20},{42,-20}}, color={255,0,255}));
-  connect(con1.y, sub.u1) annotation (Line(points={{-118,180},{-108,180},{-108,176},
+  connect(con1.y, sub.u1) annotation (Line(points={{-118,180},{-110,180},{-110,176},
           {-102,176}}, color={0,0,127}));
-  connect(con2.y, sub.u2) annotation (Line(points={{-138,150},{-108,150},{-108,164},
+  connect(con2.y, sub.u2) annotation (Line(points={{-138,150},{-110,150},{-110,164},
           {-102,164}}, color={0,0,127}));
-  connect(sub1.u1, con2.y) annotation (Line(points={{-102,136},{-108,136},{-108,
+  connect(sub1.u1, con2.y) annotation (Line(points={{-102,136},{-110,136},{-110,
           150},{-138,150}}, color={0,0,127}));
-  connect(sub1.u2, con3.y) annotation (Line(points={{-102,124},{-108,124},{-108,
+  connect(sub1.u2, con3.y) annotation (Line(points={{-102,124},{-110,124},{-110,
           120},{-118,120}}, color={0,0,127}));
-  connect(sub.y, sub2.u1) annotation (Line(points={{-78,170},{-68,170},{-68,156},
+  connect(sub.y, sub2.u1) annotation (Line(points={{-78,170},{-70,170},{-70,156},
           {-62,156}}, color={0,0,127}));
-  connect(sub1.y, sub2.u2) annotation (Line(points={{-78,130},{-68,130},{-68,144},
+  connect(sub1.y, sub2.u2) annotation (Line(points={{-78,130},{-70,130},{-70,144},
           {-62,144}}, color={0,0,127}));
   connect(abs1.u, sub2.y)
     annotation (Line(points={{-22,150},{-38,150}}, color={0,0,127}));
@@ -293,17 +295,18 @@ equation
     annotation (Line(points={{42,150},{58,150}}, color={255,0,255}));
   connect(con4.y, gre.u2) annotation (Line(points={{2,120},{10,120},{10,142},{18,
           142}}, color={0,0,127}));
-  connect(rel.y, yRel.u) annotation (Line(points={{-28,36},{-20,36},{-20,86},{20,
+  connect(rel.y, yRel.u) annotation (Line(points={{-38,36},{-20,36},{-20,86},{20,
           86},{20,120},{38,120}}, color={0,0,127}));
   connect(yRel.y, addPar.u)
     annotation (Line(points={{62,120},{78,120}}, color={0,0,127}));
-  connect(addPar.y, swi.u1) annotation (Line(points={{102,120},{128,120},{128,8},
+  connect(addPar.y, swi.u1) annotation (Line(points={{102,120},{130,120},{130,8},
           {138,8}}, color={0,0,127}));
-  connect(rel.u_m, u_m) annotation (Line(points={{-40,18},{-40,-14},{-20,-14},{
-          -20,-120}}, color={0,0,127}));
-  connect(rel.u_s, u_s) annotation (Line(points={{-52,30},{-162,30},{-162,0},{
-          -200,0}}, color={0,0,127}));
-  annotation (Documentation(info="<html>
+  connect(rel.u_m, u_m) annotation (Line(points={{-50,18},{-50,-14},{-20,-14},{-20,
+          -120}}, color={0,0,127}));
+  connect(rel.u_s, u_s) annotation (Line(points={{-62,30},{-160,30},{-160,0},{-200,
+          0}}, color={0,0,127}));
+
+annotation (Documentation(info="<html>
 <p>
 This block implements a rule-based PID tuning method.
 </p>
@@ -327,7 +330,8 @@ PID controller.
 <h4>Autotuning Process</h4>
 <p>
 To use this block, place it in an control loop as any other PID controller.
-Before the PID tuning process starts, this block is equivalent to <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithInputGains\">
+Before the PID tuning process starts, this block is equivalent to
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithInputGains\">
 Buildings.Controls.OBC.Utilities.PIDWithInputGains</a>.
 This block starts the PID tuning process when a request for performing autotuning occurs, i.e.,
 when the value of the boolean input signal <code>triTun</code> changes from
@@ -336,7 +340,8 @@ During the autotuning process, the output of the block changes into that of a re
 (see <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller</a>).
 The PID tuning process ends automatically
-(see details in <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.TuningMonitor\">
+(see details in
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.TuningMonitor\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.BaseClasses.Relay.TunMonitor</a>),
 at which point this block turns back to a PID controller but with tuned PID parameters.
 </p>
@@ -347,31 +352,35 @@ a request for performing autotuning will be ignored.
 </p>
 <h4>Guidance for settings the parameters</h4>
 <p>
-The performance of the autotuning is affected by the parameters, including the typical range of control error, <code>r</code>, 
-the reference output for the tuning process, <code>yRef</code>, the lower value for the relay output, <code>yLow</code>, 
-and the deadband, <code>deaBan</code>.
+The performance of the autotuning is affected by the parameters, including the
+typical range of control error, <code>r</code>, 
+the reference output for the tuning process, <code>yRef</code>, the lower value for
+the relay output, <code>yLow</code>, and the deadband, <code>deaBan</code>.
 <br>
 The following procedure can be used for determining the values of those parameters. 
 </p>
 <ol>
 <li>
-The <code>r</code> should be adjusted so that the input difference of the relay controller (measurement - setpoint), <code>rel.yDif</code>, is within the range from 0 to 1.
+The <code>r</code> should be adjusted so that the output of the relay controller,
+<code>rel.yDif</code>, is within the range from 0 to 1.
 </li>
 <li>
-The <code>yRef</code> can be determined by dividing the set point by the sum of the minimum and the maximum values of the measurement.
+The <code>yRef</code> can be determined by dividing the set point by the sum of the
+minimum and the maximum values of the measurement.
 </li>
 <li>
 The <code>yLow</code> should be adjusted to realize an asymmetric relay output, 
 i.e., <code>yHig - yRef &ne; yRef - yLow</code>.
 </li>
 <li>
-When determining the <code>deaBan</code>, we first divide the maximum and the minimum deviations of measurement
+When determining the <code>deaBan</code>, we first divide the maximum and the
+minimum deviations of measurement
 from the setpoint by the <code>r</code>, respectively.
 We then calculate the absolute values of the two deviations.
-After, we set the <code>deaBan</code> to be half of the smaller one among those absolute values.
+After, we set the <code>deaBan</code> to be half of the smaller one among those
+absolute values.
 </li>
 </ol>
-
 <h4>References</h4>
 <p>
 J. Berner (2017).
