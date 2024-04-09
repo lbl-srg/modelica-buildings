@@ -58,8 +58,8 @@ jobs:
       - name: "Test if package.order are correct, and revert order in UsersGuide"
         run : |
               python -c 'import buildingspy.development.refactor as r; r.write_package_order(".", recursive=True)'
-	      git checkout UsersGuide/ReleaseNotes/package.order
-	      git checkout UsersGuide/package.order
+              git checkout UsersGuide/ReleaseNotes/package.order
+              git checkout UsersGuide/package.order
               git diff --exit-code .
 
       - name: "Verify files for invalid strings"
