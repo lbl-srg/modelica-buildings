@@ -18,14 +18,21 @@ block FirstOrderAMIGO
   parameter Real r(
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)=1
     "Typical range of control error, used for scaling the control error";
-  parameter Real yHig = 1
+  parameter Real yHig(
+     final min = 0,
+     final max = 1) = 1
     "Higher value for the relay output";
-  parameter Real yLow
+  parameter Real yLow(
+     final min = 0,
+     final max = 1)
     "Lower value for the relay output";
-  parameter Real deaBan(min=1E-6)
+  parameter Real deaBan(
+    final min=1E-6)
     "Deadband for holding the output value";
   parameter Real yRef
-    "Reference output for the tuning process";
+    "Reference output for the tuning process,
+    It should be greater than the lower value of the relay output
+    and less than the higher value of the relay output";
   parameter Real yMax = 1
     "Upper limit of output"
     annotation (Dialog(group="Limits"));
@@ -340,14 +347,15 @@ a request for performing autotuning will be ignored.
 </p>
 <h4>Guidance for settings the parameters</h4>
 <p>
-The performance of the autotuning is affected by the parameters, including <code>r</code>, 
-<code>yRef</code>, <code>yLow</code>, and <code>deaBan</code>.
+The performance of the autotuning is affected by the parameters, including the typical range of control error, <code>r</code>, 
+the reference output for the tuning process, <code>yRef</code>, the lower value for the relay output, <code>yLow</code>, 
+and the deadband, <code>deaBan</code>.
 <br>
 The following procedure can be used for determining the values of those parameters. 
 </p>
 <ol>
 <li>
-The <code>r</code> should be adjusted so that the input difference of the relay controller, <code>rel.yDif</code>, is within the range from 0 to 1.
+The <code>r</code> should be adjusted so that the input difference of the relay controller (measurement - setpoint), <code>rel.yDif</code>, is within the range from 0 to 1.
 </li>
 <li>
 The <code>yRef</code> can be determined by dividing the set point by the sum of the minimum and the maximum values of the measurement.
