@@ -61,9 +61,6 @@ model DXDehumidifier "DX dehumidifier"
     "Temperature sensor"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
 
-  Modelica.Units.SI.MassFraction XOut
-    "Outlet air water vapor mass fraction";
-
   Buildings.Fluid.Sensors.TemperatureTwoPort senTIn(
     redeclare package Medium = Medium,
     final m_flow_nominal=mAir_flow_nominal)
@@ -96,12 +93,6 @@ model DXDehumidifier "DX dehumidifier"
     "Calculate non-zero humidity removal from inlet air only when component is enabled"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
 
-  Buildings.Fluid.Sensors.MassFractionTwoPort senMasFra(
-    redeclare package Medium = Medium,
-    final m_flow_nominal=mAir_flow_nominal)
-    "Inlet air water vapor mass fraction"
-    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-
   Buildings.Fluid.Sensors.RelativeHumidityTwoPort senRelHum(
     redeclare package Medium = Medium,
     final m_flow_nominal=mAir_flow_nominal)
@@ -133,8 +124,6 @@ protected
     "Water density";
 
 equation
-  XOut= (port_a.m_flow*senMasFra.X + deHum.mWat_flow)/(port_a.m_flow+1e-6);
-
   connect(preHeaFlo.port, heaFloSen.port_a)
     annotation (Line(points={{10,60},{20,60}},color={191,0,0}));
   connect(senTem.T, T)
@@ -146,12 +135,8 @@ equation
     annotation (Line(points={{40,60},{60,60}}, color={191,0,0}));
   connect(port_a, senTIn.port_a)
     annotation (Line(points={{-100,0},{-82,0}}, color={0,127,255}));
-  connect(senTIn.port_b, senMasFra.port_a)
-    annotation (Line(points={{-62,0},{-40,0}}, color={0,127,255}));
   connect(deHum.port_b, port_b)
-    annotation (Line(points={{80,0},{100,0}}, color={0,127,255}));
-  connect(senMasFra.port_b, senRelHum.port_a)
-    annotation (Line(points={{-20,0},{0,0}},   color={0,127,255}));
+    annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
   connect(senRelHum.port_b, deHum.port_a)
     annotation (Line(points={{20,0},{60,0}},color={0,127,255}));
   connect(QHea.y, preHeaFlo.Q_flow) annotation (Line(points={{-29,40},{-20,40},
@@ -167,22 +152,23 @@ equation
   connect(u.y, watRemRat.u) annotation (Line(points={{-18,-40},{-10,-40},{-10,
           -60},{-2,-60}}, color={0,0,127}));
   connect(watRemRat.y, PDeh.u1) annotation (Line(points={{22,-60},{30,-60},{30,
-          -74},{38,-74}}, color={0,0,127}));
-  connect(eneFac.y, PDeh.u2) annotation (Line(points={{22,-100},{30,-100},{30,
-          -86},{38,-86}}, color={0,0,127}));
-  connect(PDeh.y, QHea.u) annotation (Line(points={{62,-80},{80,-80},{80,-20},{
-          -56,-20},{-56,40},{-52,40}}, color={0,0,127}));
-  connect(PDeh.y, P) annotation (Line(points={{62,-80},{80,-80},{80,-40},{120,
-          -40}}, color={0,0,127}));
-  connect(senTIn.T, perCurMod.T) annotation (Line(points={{-72,11},{-66,11},{
-          -66,-96},{-52,-96}}, color={0,0,127}));
-  connect(senRelHum.phi, perCurMod.phi) annotation (Line(points={{10.1,11},{
-          10.1,20},{-60,20},{-60,-104},{-52,-104}}, color={0,0,127}));
-  connect(perCurMod.watRemMod, u.u1) annotation (Line(points={{-29,-96},{-20,
-          -96},{-20,-70},{-52,-70},{-52,-34},{-42,-34}}, color={0,0,127}));
-  connect(perCurMod.eneFacMod, eneFac.u) annotation (Line(points={{-29,-104},{
-          -20,-104},{-20,-100},{-2,-100}}, color={0,0,127}));
-
+          -64},{38,-64}}, color={0,0,127}));
+  connect(eneFac.y, PDeh.u2) annotation (Line(points={{22,-90},{30,-90},{30,-76},
+          {38,-76}}, color={0,0,127}));
+  connect(PDeh.y, QHea.u) annotation (Line(points={{62,-70},{80,-70},{80,-20},{
+          -56,-20},{-56,30},{-52,30}}, color={0,0,127}));
+  connect(PDeh.y, P) annotation (Line(points={{62,-70},{80,-70},{80,-30},{120,-30}},
+        color={0,0,127}));
+  connect(senTIn.T, perCurMod.T) annotation (Line(points={{-72,11},{-66,11},{-66,
+          -80},{-52,-80}}, color={0,0,127}));
+  connect(senRelHum.phi, perCurMod.phi) annotation (Line(points={{0.1,11},{0.1,16},
+          {-60,16},{-60,-88},{-52,-88}},     color={0,0,127}));
+  connect(perCurMod.watRemMod, u.u1) annotation (Line(points={{-29,-80},{-24,-80},
+          {-24,-60},{-52,-60},{-52,-34},{-48,-34}}, color={0,0,127}));
+  connect(perCurMod.eneFacMod, eneFac.u) annotation (Line(points={{-29,-88},{-14,
+          -88},{-14,-90},{-2,-90}}, color={0,0,127}));
+  connect(senTIn.port_b, senRelHum.port_a)
+    annotation (Line(points={{-62,0},{-10,0}}, color={0,127,255}));
 annotation (Icon(coordinateSystem(extent={{-100,-100},{100,100}}),  graphics={
         Rectangle(
           extent={{-70,60},{70,-60}},
