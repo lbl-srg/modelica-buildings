@@ -65,8 +65,11 @@ protected
   Modelica.Blocks.Logical.Switch swi "Switch for temperature setpoint"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 
-  Modelica.Blocks.Sources.Constant zer(final k=-273.15)
-                                                  "Zero signal"
+  Modelica.Blocks.Sources.Constant zer(
+    final k(
+      unit="K",
+      displayUnit="degC") = 273.15)
+    "Zero signal, set to 0 degC which essentially switches off any heating"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
 
 initial equation
@@ -147,10 +150,17 @@ Model for an ideal heater that controls its outlet temperature to
 a prescribed outlet temperature with constant efficiency.
 </p>
 <p>
-The switch model <code>swi</code> is used to turn on/off the heater.
+The switch model <code>swi</code> is used to turn on/off the heater,
+which is accomplished by commanding it to heat the incoming fluid to <i>0</i>&deg;C.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 6, 2024, by Michael Wetter:<br/>
+Changed setpoint if component is off to avoid confusing result.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3681\">#3681</a>.
+</li>
 <li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>
