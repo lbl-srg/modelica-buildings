@@ -20,7 +20,7 @@ model Empirical "Empirical air filter model"
     "Nominal pressure drop"
     annotation (Dialog(group="Nominal"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput triRep
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uRep
     "Replacing the filter when trigger becomes true"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput eps(
@@ -65,7 +65,7 @@ protected
       port_a.C_outflow[1])*port_a.m_flow) "Trace substances flow rate"
     annotation (Placement(transformation(extent={{-92,70},{-72,90}})));
   Buildings.Fluid.AirFilters.BaseClasses.FlowCoefficientCorrection kCor(
-    final b=b)
+    final b=b) "Flow coefficient correction"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
 equation
   connect(masAcc.mCon, epsCal.mCon)
@@ -76,9 +76,8 @@ equation
     annotation (Line(points={{-10,0},{50,0}},color={0,127,255}));
   connect(masTra.port_b, port_b)
     annotation (Line(points={{70,0},{100,0}}, color={0,127,255}));
-  connect(masAcc.triRep, triRep)
-    annotation (Line(points={{-42,73.8},{-42,74},{-70,74},{-70,60},{-120,60}},
-        color={255,0,255}));
+  connect(masAcc.uRep, uRep) annotation (Line(points={{-42,73.8},{-42,74},{-70,74},
+          {-70,60},{-120,60}}, color={255,0,255}));
   connect(traSubFlo.y, masAcc.mCon_flow) annotation (Line(points={{-71,80},{-60,
           80},{-60,86},{-42,86}}, color={0,0,127}));
   connect(epsCal.y, masTra.eps)
@@ -93,7 +92,9 @@ equation
   connect(epsCal.y, eps)
     annotation (Line(points={{22,74},{40,74},{40,40},{120,40}},
         color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+
+annotation (defaultComponentName="airFil",
+Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={28,108,200},
@@ -260,19 +261,11 @@ equation
           extent={{-145,-100},{155,-140}},
           textColor={0,0,255},
           textString="%name")}),
-          defaultComponentName="fil",
-          Diagram(coordinateSystem(preserveAspectRatio=false)),
-    Documentation(revisions="<html>
-<ul>
-<li>
-December 22, 2023, by Sen Huang:<br/>
-First implementation.
-</li>
-</ul>
-</html>", info="<html>
+Diagram(coordinateSystem(preserveAspectRatio=false)),
+Documentation(info="<html>
 <p>
-An empirical model of air filters, which considers the impacts of the contamination
-accumulation on the pressure drop and the filtration efficiency. 
+An empirical model of air filters, which considers the impacts of the contaminant
+accumulation on the pressure drop and the filtration efficiency.
 </p>
 <p>
 This model does not require detailed information of filters, such as filter type
@@ -280,36 +273,43 @@ or geometric data. Instead, its dynamic characteristics are defined by three
 parameters, <code>mCon_nominal</code>,<code>epsFun</code>, and <code>b</code>.
 </p>
 <ul>
-<li> 
+<li>
 The <code>mCon_nominal</code> determines the maximum mass of the contaminants that the
-filter can capture;
-</li> 
-<li> 
+filter can capture.
+</li>
+<li>
 The <code>epsFun</code> is a vector of coefficients that determines how the
-filtration efficiency changes by the accumulation of contaminants;
-</li> 
-<li> 
+filtration efficiency changes with the contaminant accumulation.
+</li>
+<li>
 The <code>b</code> is a constant that determines how the flow coefficient changes
-by the accumulation of contaminants.
+with the contaminant accumulation.
 </li>
 </ul>
 <p>
 See more detailed descriptions in
 <a href=\"modelica://Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency\">
-Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency</a> and 
+Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency</a> and
 <a href=\"modelica://Buildings.Fluid.AirFilters.BaseClasses.FlowCoefficientCorrection\">
 Buildings.Fluid.AirFilters.BaseClasses.FlowCoefficientCorrection</a>.
 </p>
 <p>
-The input boolean flag, <code>triRep</code>, triggers the filter replacement.
-Specifically, when <code>triRep</code> changes from <i>false</i> to <i>true</i>, the
-mass of the contaminants that the filter holds, <code>mCon = 0</code>.
+The input boolean flag, <code>uRep</code>, triggers the filter replacement.
+When <code>uRep</code> changes from <code>false</code> to <code>true</code>, the
+mass of the captured contaminant becomes zero.
 </p>
 <b>Note:</b>
 <p>
-A warning will be triggered when <code>mCon > mCon_nominal</code>. 
-In addition, this model can only be used when <code>extraPropertiesNames</code>
-is defined in the medium model.
+A warning will be triggered when the captured contaminant mass becomes greater than the
+maximum contaminant mass (<code>mCon_nominal</code>).
+In addition, the <code>extraPropertiesNames</code> has to be defined in the medium model.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+December 22, 2023, by Sen Huang:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end Empirical;

@@ -46,9 +46,8 @@ model Empirical "Example for using the empirical air filter model"
     "Trace substance sensor of outlet air"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 equation
-  connect(repSig.y, fil.triRep)
-    annotation (Line(points={{-28,50},{-4,50},{-4,6},
-    {2,6}}, color={255,0,255}));
+  connect(repSig.y, fil.uRep) annotation (Line(points={{-28,50},{-4,50},{-4,6},{
+          2,6}}, color={255,0,255}));
   connect(C_inflow.y, sou.C_in[1]) annotation (Line(points={{-73,22},{-68,22},{-68,
           -8},{-62,-8}}, color={0,0,127}));
   connect(C_out.port_b, sin.ports[1])
@@ -73,7 +72,8 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-From 0 to 12 seconds, the testing case is warming-up and the trace substance of the inlet <code>C_inflow</code> is fixed at <i>1</i>.
+From 0 to 12 seconds, the testing case is warming-up and the trace substance of the inlet
+<code>C_inflow</code> is fixed at <i>1</i>.
 </p>
 <p>
 From 20 to 50 seconds, the <code>C_inflow</code> changes from <i>1</i> to <i>0.7kg/kg</i>.

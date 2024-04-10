@@ -1,5 +1,5 @@
 simulateModel("Buildings.Fluid.AirFilters.Examples.Empirical", stopTime=50, method="Cvode", tolerance=1e-06, resultFile="Generic");
 createPlot(id=1, position={35, -11, 642, 588}, y={"C_in.C", "C_out.C"}, range={0.0, 1.0, -1.0, 2.0}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}}, timeUnit="s");
 createPlot(id=1, position={35, -11, 642, 588}, y={"fil.eps"}, range={0.0, 1.0, 0.9, 1.0}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="s");
-createPlot(id=1, position={35, -11, 642, 588}, y={"fil.triRep"}, range={0.0, 1.0, -1.0, 2.0}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=1, position={35, -11, 642, 588}, y={"fil.uRep"}, range={0.0, 1.0, -1.0, 2.0}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s");
 createPlot(id=1, position={35, -11, 642, 588}, y={"C_inflow.y"}, range={0.0, 1.0, -1.0, 2.0}, grid=true, subPlot=104, colors={{28,108,200}}, timeUnit="s");

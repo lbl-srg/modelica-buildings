@@ -48,7 +48,12 @@ equation
       level=AssertionLevel.error);
   end if;
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+          Rectangle(
+          extent={{-100,100},{100,-100}},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None)}),                           Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     defaultComponentName="masTra",
     Documentation(info="<html>

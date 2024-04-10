@@ -48,7 +48,7 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-143,-98},{157,-138}},
+          extent={{-100,140},{100,100}},
           textColor={0,0,255},
           textString="%name")}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),

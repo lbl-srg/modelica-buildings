@@ -25,7 +25,7 @@ model FlowCoefficientCorrection
             140,20}})));
 equation
   y = b^rat;
-   annotation (Dialog(group="Pressure"),
+  annotation (Dialog(group="Pressure"),
               Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Rectangle(
           extent={{-100,100},{100,-100}},
@@ -33,7 +33,7 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-143,-98},{157,-138}},
+          extent={{-100,140},{100,100}},
           textColor={0,0,255},
           textString="%name")}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
@@ -53,8 +53,9 @@ This model calculates the flow coefficient of the filter by
   kCor = b<sup>rat</sup>,
 </p>
 <p>
-where <i>b</i> is a constant that is larger than 1,
-<i>rat</i> is the relative mass of the contaminant captured by the filter (see descriptions in 
+where <code>b</code> is the resistance coefficient and it has to be greater than 1,
+<code>rat</code> is the relative mass of the contaminant captured by the filter
+(see descriptions in 
 <a href=\"modelica://Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency\">
 Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency</a>).
 </p>

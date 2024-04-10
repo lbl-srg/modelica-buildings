@@ -6,9 +6,9 @@ model MassAccumulation
   parameter Real mCon_reset(
     final min = 0)
     "Initial contaminant mass of the filter after replacement";
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput triRep
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uRep
     "Replacing the filter when trigger becomes true"
-     annotation (Placement(
+    annotation (Placement(
         transformation(
         extent={{20,-20},{-20,20}},
         rotation=180,
@@ -57,7 +57,7 @@ equation
   connect(con.y, intWitRes.y_reset_in)
     annotation (Line(points={{-58,-20},{-20,-20},
           {-20,-8},{-12,-8}},color={0,0,127}));
-  connect(intWitRes.trigger, triRep)
+  connect(intWitRes.trigger, uRep)
     annotation (Line(points={{0,-12},{0,-60},{-120,-60}}, color={255,0,255}));
   connect(assMes.u, greater.y)
     annotation (Line(points={{70,-38},{61,-38}}, color={255,0,255}));
@@ -74,7 +74,7 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-153,-102},{147,-142}},
+          extent={{-100,140},{100,100}},
           textColor={0,0,255},
           textString="%name")}),
           Diagram(coordinateSystem(
@@ -84,8 +84,8 @@ equation
 <p>
 This model mimics the process for a filter to capture the contaminants.
 The mass of the contaminants, <code>mCon</code>, increases by time.
-However, when the input signal <code>triRep</code> changes from <i>false</i>
-to <i>true</i>, <code>mCon</code> is reinitialized to a constant, <code>mCon_reset</code>.
+However, when the input signal <code>uRep</code> changes from <code>false</code>
+to <code>true</code>, <code>mCon</code> is reinitialized to a constant, <code>mCon_reset</code>.
 </p>
 </html>", revisions="<html>
 <ul>
