@@ -53,14 +53,7 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           textString="%name")}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
   defaultComponentName="eps",
-Documentation(revisions="<html>
-<ul>
-<li>
-December 22, 2023, by Sen Huang:<br/>
-First implementation.
-</li>
-</ul>
-</html>", info="<html>
+Documentation(info="<html>
 <p>
 This model calculates the filtration efficiency, <i>eps</i>, by
 </p>
@@ -82,8 +75,15 @@ where <i>mCon</i> is the mass of the contaminant captured by the filter,
 <i>mCon_nominal</i> is the maximum mass of the contaminant captured by the filter.
 </p>
 <P>
-<b>Note:</b> 
+<b>Note:</b>
 The upper limit of <i>rat</i> is 1 and any value above it is overwritten by 1.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+December 22, 2023, by Sen Huang:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end FiltrationEfficiency;

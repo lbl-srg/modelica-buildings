@@ -46,7 +46,7 @@ model MassAccumulation
     "Constant"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
-  message="In " + getInstanceName() + ":the filter needs to be replaced")
+    message="In " + getInstanceName() + ":the filter needs to be replaced")
     "Error message when the filter is full, i.e., the mass captured by the filter is larger than the nominal value"
     annotation (Placement(transformation(extent={{72,-48},{92,-28}})));
 equation

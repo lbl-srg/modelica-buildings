@@ -20,9 +20,9 @@ model FlowCoefficientCorrection
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
     final unit="1",
     final min=1)
-    "Flow coefficient correction" annotation (Placement(transformation(
-          extent={{100,-20},{140,20}}), iconTransformation(extent={{100,-20},{
-            140,20}})));
+    "Flow coefficient correction"
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
 equation
   y = b^rat;
   annotation (Dialog(group="Pressure"),
@@ -38,14 +38,7 @@ equation
           textString="%name")}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     defaultComponentName="kCor",
-    Documentation(revisions="<html>
-<ul>
-<li>
-December 22, 2023, by Sen Huang:<br/>
-First implementation.
-</li>
-</ul>
-</html>", info="<html>
+    Documentation(info="<html>
 <p>
 This model calculates the flow coefficient of the filter by
 </p>
@@ -64,5 +57,12 @@ Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency</a>).
 Qiang Li ta al., (2022). Experimental study on the synthetic dust loading characteristics of air filters.
 Separation and Purification Technology 284 (2022), 120209
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+December 22, 2023, by Sen Huang:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end FlowCoefficientCorrection;

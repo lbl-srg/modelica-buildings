@@ -1,7 +1,6 @@
 within Buildings.Fluid.AirFilters.BaseClasses;
 model MassTransfer
-  "Component that sets the trace substance at port_b based on an input trace substance mass flow rate 
-  and an input mass transfer efficiency"
+  "Component that sets the trace substance at port_b based on an input trace substance mass flow rate and an input mass transfer efficiency"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
   Buildings.Controls.OBC.CDL.Interfaces.RealInput C_inflow[Medium.nC]
     "Input trace substance rate"
@@ -65,7 +64,7 @@ of the medium that leaves <code>port_b</code> by
   port_b.C_outflow = inStream(port_a.C_outflow) - eps * C_inflow;
 </pre>
 <p>
-where <code>eps</code> is an input mass transfer efficiency and 
+where <code>eps</code> is an input mass transfer efficiency and
 <code>C_inflow</code> is an input trace substance rate.
 </p>
 <p>

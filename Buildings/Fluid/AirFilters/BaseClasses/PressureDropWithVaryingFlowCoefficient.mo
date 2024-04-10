@@ -93,7 +93,7 @@ m&#775; = m_flow_nominal/(&radic;<span style=\"text-decoration:overline;\">dp_no
 &radic;<span style=\"text-decoration:overline;\">&Delta;p</span>,
 </p>
 <p>
-where <i>kCor</i> is a correction factor of the flow coefficient.
+where <code>kCor</code> is a correction factor of the flow coefficient.
 </p>
 </html>", revisions="<html>
 <ul>
