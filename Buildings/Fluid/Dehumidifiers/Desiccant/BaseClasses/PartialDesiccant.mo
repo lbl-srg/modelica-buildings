@@ -36,6 +36,9 @@ partial model PartialDesiccant
   parameter Modelica.Units.SI.Velocity vReg_nominal
     "Nominal velocity of the regeneration air"
     annotation (Dialog(group="Nominal condition"));
+  final parameter Real uSpe_min = 0.3
+    "Minimum allowable wheel speed ratio";
+
   final parameter Modelica.Units.SI.VolumeFlowRate VReg_flow_nominal = m2_flow_nominal/rho_Reg_default
     "Nominal volumetric flow rate of the regeneration air"
     annotation (Dialog(group="Nominal condition"));
@@ -45,18 +48,6 @@ partial model PartialDesiccant
   parameter  Buildings.Fluid.Dehumidifiers.Desiccant.Data.Generic perDat
     "Performance data"
     annotation (Placement(transformation(extent={{60,-78},{80,-58}})));
-  Modelica.Blocks.Interfaces.RealInput uBypDamPos(
-    final unit="1",
-    final min=0,
-    final max=1)
-    "Bypass damper position"
-    annotation (Placement(transformation(extent={{-280,-20},{-240,20}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
-  Modelica.Blocks.Interfaces.BooleanInput uRot
-    "True when the wheel is operating" annotation (Placement(transformation(
-    extent={{-278,-140},{-238,-100}}),
-          iconTransformation(extent={{-140,-80},
-            {-100,-40}})));
   Modelica.Blocks.Interfaces.RealOutput P(
     final unit="W")
     "Electric power consumption"
@@ -65,7 +56,7 @@ partial model PartialDesiccant
   Modelica.Fluid.Interfaces.FluidPort_a port_a1(
     redeclare final package Medium = Medium1)
     "Fluid connector a1 of the supply air (positive design flow direction is from port_a1 to port_b1)"
-    annotation (Placement(transformation(extent={{-250,-112},{-230,-92}}),
+    annotation (Placement(transformation(extent={{-250,-110},{-230,-90}}),
     iconTransformation(extent={{-110,-90},{-90,-70}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b2(
     redeclare final package Medium = Medium2)
@@ -75,56 +66,33 @@ partial model PartialDesiccant
   Modelica.Fluid.Interfaces.FluidPort_b port_b1(
     redeclare final package Medium = Medium1)
     "Fluid connector b1 of the supply air (positive design flow direction is from port_a1 to port_b1)"
-    annotation (Placement(transformation(extent={{110,-112},{90,-92}}),
+    annotation (Placement(transformation(extent={{110,-110},{90,-90}}),
     iconTransformation(extent={{110,-90},{90,-70}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a2(
     redeclare final package Medium = Medium2)
     "Fluid connector a2 of the exhaust air (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{90,70},{110,90}}),
         iconTransformation(extent={{90,70},{110,90}})));
-//protected
-  Buildings.Fluid.Actuators.Dampers.Exponential bypDamPro(
-    redeclare package Medium = Medium1,
-    final m_flow_nominal=m1_flow_nominal,
-    final dpDamper_nominal=dp1_nominal) "Process air bypass damper"
-    annotation (Placement(transformation(extent={{-170,-130},{-150,-110}})));
-  Buildings.Fluid.Actuators.Dampers.Exponential damPro(
-    redeclare package Medium = Medium1,
-    final m_flow_nominal=m1_flow_nominal,
-    final dpDamper_nominal=dp1_nominal) "Process air damper"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},rotation=0,origin={-134,-102})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter PEleMot(
-    final k= PMot_nominal)
-    "Calculate the motor power consumption"
-    annotation (Placement(transformation(extent={{-20,-42},{0,-22}})));
-  Modelica.Blocks.Math.BooleanToReal booleanToReal
-    "Convert boolean input to real output"
-    annotation (Placement(transformation(extent={{-200,0},{-180,20}})));
+
+protected
   Buildings.Fluid.Interfaces.PrescribedOutlet outCon(
     redeclare package Medium = Medium1,
     final m_flow_nominal=m1_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Model to set outlet conditions"
-    annotation (Placement(transformation(extent={{-6,-112},{14,-92}})));
-  Modelica.Blocks.Sources.Constant uni(
-    final k=1)
-    "Unity signal"
-    annotation (Placement(transformation(extent={{-214,-30},{-194,-10}})));
-  Buildings.Controls.OBC.CDL.Reals.Subtract sub
-    "Difference of the two inputs"
-    annotation (Placement(transformation(extent={{-166,-36},{-146,-16}})));
+    annotation (Placement(transformation(extent={{-6,-110},{14,-90}})));
   Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.Performance dehPer(
     final vPro_nominal=vPro_nominal,
     final VPro_flow_nominal=VPro_flow_nominal,
     final vReg_nominal=vReg_nominal,
     final VReg_flow_nominal=VReg_flow_nominal,
     final QReg_flow_nominal=QReg_flow_nominal,
-    final per=perDat)
+    final per=perDat,
+    uSpe_min=uSpe_min)
     "Calculate the performance of the dehumidifier"
     annotation (Placement(transformation(extent={{-58,-94},{-38,-74}})));
   Modelica.Blocks.Sources.RealExpression VPro_flow(
-      final y(final unit="m3/s")= damPro.port_a.m_flow/Medium1.density(
+      final y(final unit="m3/s")= outCon.port_a.m_flow/Medium1.density(
       state=Medium1.setState_phX(
       p=port_a1.p,
       h=port_a1.h_outflow,
@@ -147,10 +115,6 @@ partial model PartialDesiccant
     X=inStream(port_a2.Xi_outflow))))
     "Temperature of the regeneration air entering the dehumidifier"
     annotation (Placement(transformation(extent={{-110,-54},{-90,-34}})));
-  Modelica.Blocks.Sources.RealExpression X_w_ProEnt(
-    final y(final unit="1") = port_a1.Xi_outflow[i1_w])
-    "Humidity ratio of the process air entering the dehumidifier"
-    annotation (Placement(transformation(extent={{-110,-72},{-90,-52}})));
    Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir
     vol(redeclare final package Medium = Medium2,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -172,7 +136,7 @@ partial model PartialDesiccant
     "Prescribed heat flow"
     annotation (Placement(transformation(extent={{-62,50},{-82,30}})));
   Modelica.Blocks.Sources.RealExpression mPro_flow(
-   final y(final unit="kg/s")= damPro.port_a.m_flow)
+   final y(final unit="kg/s")= outCon.port_a.m_flow)
    "Process air mass flow rate"
     annotation (Placement(transformation(extent={{-110,-124},{-90,-104}})));
 
@@ -204,48 +168,17 @@ initial algorithm
    end for;
 
 equation
-  connect(booleanToReal.u, uRot) annotation (Line(points={{-202,10},{-220,10},{-220,
-          -120},{-258,-120}},
-          color={255,0,255}));
-  connect(PEleMot.u, booleanToReal.y) annotation (Line(points={{-22,-32},{-54,-32},
-          {-54,10},{-179,10}},                              color={0,0,127}));
-  connect(bypDamPro.port_a, port_a1) annotation (Line(points={{-170,-120},{-184,
-          -120},{-184,-102},{-240,-102}},
-          color={0,127,255}));
-  connect(bypDamPro.port_b, port_b1) annotation (Line(points={{-150,-120},{80,-120},
-          {80,-102},{100,-102}},
-          color={0,127,255}));
   connect(dehPer.TProLea, outCon.TSet) annotation (Line(points={{-37,-76},{-12,-76},
-          {-12,-94},{-7,-94}}, color={0,0,127}));
+          {-12,-92},{-7,-92}}, color={0,0,127}));
   connect(dehPer.X_w_ProLea, outCon.X_wSet) annotation (Line(points={{-37,-80},{
-          -14,-80},{-14,-98},{-7,-98}}, color={0,0,127}));
-  connect(uni.y, sub.u1) annotation (Line(points={{-193,-20},{-168,-20}},
-                color={0,0,127}));
-  connect(sub.u2, uBypDamPos) annotation (Line(points={{-168,-32},{-192,-32},{-192,
-          -52},{-230,-52},{-230,0},{-260,0}},
-          color={0,0,127}));
-  connect(sub.y, damPro.y)
-    annotation (Line(points={{-144,-26},{-134,-26},{-134,-90}},
-          color={0,0,127}));
-  connect(bypDamPro.y, uBypDamPos) annotation (Line(points={{-160,-108},{-160,-52},
-          {-230,-52},{-230,0},{-260,0}},   color={0,0,127}));
-  connect(dehPer.onDeh, uRot) annotation (Line(points={{-59,-75.8},{-59,-76},{
-          -220,-76},{-220,-120},{-258,-120}},                    color={255,0,255}));
+          -14,-80},{-14,-96},{-7,-96}}, color={0,0,127}));
   connect(VPro_flow.y, dehPer.VPro_flow) annotation (Line(points={{-89,-96},{-78,
           -96},{-78,-92.2},{-59,-92.2}}, color={0,0,127}));
-  connect(damPro.port_a, port_a1)
-    annotation (Line(points={{-144,-102},{-240,-102}}, color={0,127,255}));
-  connect(damPro.port_b,outCon. port_a)
-    annotation (Line(points={{-124,-102},{-6,-102}}, color={0,127,255}));
-  connect(outCon.port_b, port_b1)
-    annotation (Line(points={{14,-102},{100,-102}}, color={0,127,255}));
   connect(TProEnt.y, dehPer.TProEnt) annotation (Line(points={{-89,-28},{-70,-28},
           {-70,-79.8},{-59,-79.8}}, color={0,0,127}));
   connect(TRegEnt.y, dehPer.TRegEnt) annotation (Line(points={{-89,-44},{-84,-44},
           {-84,-84},{-59,-84}}, color={0,0,127}));
-  connect(X_w_ProEnt.y, dehPer.X_w_ProEnt) annotation (Line(points={{-89,-62},{-86,
-          -62},{-86,-88},{-59,-88}}, color={0,0,127}));
-  connect(outCon.mWat_flow, gai1.u) annotation (Line(points={{15,-98},{18,-98},{
+  connect(outCon.mWat_flow, gai1.u) annotation (Line(points={{15,-96},{18,-96},{
           18,-92},{20,-92},{20,10},{2,10}},
           color={0,0,127}));
   connect(gai1.y, vol.mWat_flow) annotation (Line(points={{-21,10},{-40,10},{
@@ -255,13 +188,15 @@ equation
     annotation (Line(points={{-62,40},{-21,40}}, color={0,0,127}));
   connect(preHeaFlo.port, vol.heatPort) annotation (Line(points={{-82,40},{-120,
           40},{-120,56},{-105,56}}, color={191,0,0}));
-  connect(gai2.u,outCon. Q_flow) annotation (Line(points={{2,40},{40,40},{40,-94},
-          {15,-94}}, color={0,0,127}));
+  connect(gai2.u,outCon. Q_flow) annotation (Line(points={{2,40},{40,40},{40,-92},
+          {15,-92}}, color={0,0,127}));
   connect(vol.ports[1], port_b2) annotation (Line(points={{-95,66},{-144,66},{
           -144,80},{-240,80}},
           color={0,127,255}));
   connect(mPro_flow.y, dehPer.mPro_flow) annotation (Line(points={{-89,-114},{-48,
           -114},{-48,-95}}, color={0,0,127}));
+  connect(outCon.port_b, port_b1)
+    annotation (Line(points={{14,-100},{100,-100}}, color={0,127,255}));
     annotation (Dialog(group="Nominal condition"),
         Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
         {100,100}}), graphics={
@@ -304,19 +239,19 @@ alt=\"Dehumidifer_Schematic.png\" border=\"1\"/>
 </p>
 <p>
 This model should be extended with a heating coil and/or a regeneration air fan.
-</p>
-This model takes two inputs: a boolean signal for dehumidification and a real signal for the bypass damper position.
+It takes two inputs: a boolean signal for dehumidification and a real signal for the motor speed ratio.
   <ul>
      <li>
-     How the boolean signal affects the operation of the dehumidifier is described in 
-     <a href=\"modelica://Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.Performance\">
-     Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.Performance</a>.
+     The boolean signal determines if the dehumidifier occurs or not.
+.
      </li>
      <li>
-     The real signal specifies the amount of the process air that participates in the dehumidification process and can be
+     The real signal specifies the amount of sensible and latent heat exchange that occurs in the dehumidifier and can be
      used to adjust the outline condition of the process air.
      </li>
   </ul>
+More details can be found in <a href=\"modelica://Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.Performance\">
+Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.Performance</a>.
 </html>", revisions="<html>
 <ul>
 <li>March 1, 2024, by Sen Huang:<br/>First implementation. </li>

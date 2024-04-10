@@ -1,4 +1,4 @@
-within Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses;
+﻿within Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses;
 model Performance
   "Model calculates the outlet condition of the process air through a desiccant dehumidifier"
     extends Modelica.Blocks.Icons.Block;
@@ -21,6 +21,8 @@ model Performance
     "Coefficients for sensible heat exchange effectiveness";
   final parameter Real b[:] = {-0.8045,5.6984,-6.6667,2.7778}
     "Coefficients for latent heat exchange effectiveness";
+  parameter Real uSpe_min = 0.3
+    "Minimum allowable wheel speed ratio";
 
   Modelica.Blocks.Interfaces.BooleanInput onDeh
     "Set to true to enable the dehumidification process" annotation (Placement(
@@ -98,6 +100,10 @@ protected
 
 equation
   if onDeh then
+    assert(uSpe >= uSpe_min,
+     "In " + getInstanceName() + ": the wheel speed ratio should not
+     be lower than 0.3.",
+     level=AssertionLevel.error);
     etaSen=Buildings.Utilities.Math.Functions.polynomial(a=a, x=uSpe);
     etaLat=Buildings.Utilities.Math.Functions.polynomial(a=b, x=uSpe);
     // Check the inlet condition of the process inlet condition.
@@ -118,17 +124,17 @@ equation
      assert(VReg_flow <= VReg_flow_nominal,
      "In " + getInstanceName() + ": regeneration flow rate is not sufficient.",
      level=AssertionLevel.error);
-    TProLea = TProEnt + (Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.performanceCurve(
+     TProLea = TProEnt + (Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.performanceCurve(
         TProEnt = TProEnt,
         X_w_ProEnt = X_w_ProEnt,
         vPro = VPro_flow/VPro_flow_nominal*vPro_nominal,
-        a = per.coeTProLea)-TProEnt + 273.15)*etaSen;
-    X_w_ProLea = X_w_ProEnt-(X_w_ProEnt-(Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.performanceCurve(
+        a = per.coeTProLea) - TProEnt + 273.15)*etaSen;
+     X_w_ProLea = X_w_ProEnt-(X_w_ProEnt-(Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.performanceCurve(
         TProEnt = TProEnt,
         X_w_ProEnt = X_w_ProEnt,
         vPro = VPro_flow/VPro_flow_nominal*vPro_nominal,
         a = per.coeX_w_ProLea)))*etaLat;
-    assert(X_w_ProLea > 0,
+     assert(X_w_ProLea > 0,
      "In " + getInstanceName() + ": humidity ratio of the process air leaving 
      the dehumidifier becomes negative.",
      level=AssertionLevel.error);
@@ -137,7 +143,7 @@ equation
                 TProEnt = TProEnt,
                 X_w_ProEnt = X_w_ProEnt,
                 vPro = VPro_flow/VPro_flow_nominal*vPro_nominal,
-                a = per.coeQReg_flow),
+                a = per.coeQReg_flow)*uSpe,
         x2 = 0,
         deltaX = 0.01);
       yQReg = CpReg*(X_w_ProEnt - X_w_ProLea)*mPro_flow*(per.TRegEnt_nominal -
@@ -181,20 +187,53 @@ Specifically, this calculation is configured as follows.
   </ul>
   </li>
   <li>
-  The velocity of the regeneration air is calculated based on the temperature, the humidity ratio, 
-  and the velocity of the process air entering the desiccant dehumidifier.
-  When performing the calculation, an empirical formulation, as defined in
-  <a href=\"modelica://Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.performanceCurve\">
-  Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.performanceCurve</a>, and coefficients, 
-  as defined in <a href=\"modelica://Buildings.Fluid.Dehumidifiers.Desiccant.Data.Generic\">
-  Buildings.Fluid.Dehumidifiers.Desiccant.Data.Generic</a>, are employed.
-  Based on this velocity, the volumetric flow rate of the regeneration air is then obtained.
+  The sensible and latent heat exchange effectiveness are calculated by 
+  <p align=\"center\" style=\"font-style:italic;\">
+   etaSen = (a<sub>1</sub> + a<sub>2</sub> uSpe + a<sub>3</sub> uSpe<sup>2</sup> + ...),
+  </p>
+  <p align=\"center\" style=\"font-style:italic;\">
+   etaLat = (b<sub>1</sub> + b<sub>2</sub> uSpe + b<sub>3</sub> uSpe<sup>2</sup> + ...),
+  </p>
+  where the <code>a[:]</code> and <code>b[:]</code> are the coefficients obtained based on 
+  ASHRAE Handbook—HVAC Systems &amp; Equipment (Figure 7, Chapter 26).
   </li>
   <li>
-  The temperature of the process air leaving the dehumidifier, <code>TProLea</code>, and
-  the humidity ratio of the process air leaving the dehumidifier, <code>X_w_ProLea</code>,
-  are calculated with the same method as that for calculating <code>vReg</code>.
-  However, different sets of coefficients are used respectively.
+  The velocity of the process air is calculated by
+  <p align=\"center\" style=\"font-style:italic;\">
+   vPro = VPro_flow/VPro_flow_nominal*vPro_nominal
+  </p> 
+  where <code>VPro_flow</code> is the volumetric flow rate of the process air,
+  <code>VPro_flow_nominal</code> is the nominal volumetric flow rate of the process air,
+  <code>vPro_nominal</code> is the nominal velocity of the process air.
+  Then, the volumetric flow rate of the regeneration air is calculated by
+  <p align=\"center\" style=\"font-style:italic;\">
+   VReg_flow = f(TProEnt,X_w_ProEnt,vPro,coevReg)/vReg_nominal*VReg_flow_nominal*uSpe
+  </p>
+  where <code>f()</code> is defined in <a href=\"modelica://Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.performanceCurve\">
+  Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.performanceCurve</a>,
+  <code>coevReg</code> are coefficients, as defined in <a href=\"modelica://Buildings.Fluid.Dehumidifiers.Desiccant.Data.Generic\">
+  Buildings.Fluid.Dehumidifiers.Desiccant.Data.Generic</a>,
+  <code>uSpe</code> is the wheel speed ratio,
+  <code>TProEnt</code> and <code>X_w_ProEnt</code> are the temperature and the humidity ratio of the process air entering the dehumidifier,
+  respectively.
+  <ul>
+     <li>
+     If <code>VReg_flow>VReg_flow_nominal</code>, the calculation is terminated and an error is generated.
+     </li>
+  </ul>
+  </li>
+  <li>
+  The temperature of the process air leaving the dehumidifier, <code>TProLea</code> is calculated by
+  <p align=\"center\" style=\"font-style:italic;\">
+    TProLea = TProEnt + (f(TProEnt,X_w_ProEnt,vPro,coeTProLea) - TProEnt)*etaSen,
+  </p>
+  where <code>coeTProLea</code> are coefficients.
+  <br> 
+  The humidity ratio of the process air leaving the dehumidifier, <code>X_w_ProLea</code>, is calculated by
+  <p align=\"center\" style=\"font-style:italic;\">
+    TProLea = X_w_ProEnt - (X_w_ProEnt - f(TProEnt,X_w_ProEnt,vPro,coeX_w_ProLea))*etaLat,
+  </p>
+  where <code>coeX_w_ProLea</code> are coefficients.
   <ul>
      <li>
      If <code>X_w_ProLea</code> is less than 0,
@@ -203,15 +242,16 @@ Specifically, this calculation is configured as follows.
   </ul>
   </li>
   <li>
-  The specific heat of the regeneration, <code>CpReg</code>, and
-  the humidity ratio of the process air leaving the dehumidifier, <code>X_w_ProLea</code>,
-  are calculated with the same method as that for calculating <code>vReg</code>.
-  However, a different set of coefficients is used.
-  If the obtained value is negative, <code>CpReg</code> is set to be 0.
+  The specific heat of the regeneration, <code>CpReg</code> is calculated by
+  <p align=\"center\" style=\"font-style:italic;\">
+    CpReg =max(0,f(TProEnt,X_w_ProEnt,vPro,coeCpReg)*uSpe),
+  </p>
+  where <code>coeCpReg</code> are coefficients.
+  <br>
   After that, the regeneration heating output ratio, <code>yQReg</code>, is calculated by
   <p align=\"center\" style=\"font-style:italic;\">
    yQReg = CpReg*(X_w_ProEnt-X_w_ProLea)*mPro_flow*(TRegEnt_nominal - TRegEnt) / (TRegEnt_nominal - TProEnt)/
-   QReg_flow_nominal
+   QReg_flow_nominal,
   </p> 
   where <code>X_w_ProEnt</code>, <code>mPro_flow</code>, and <code>TProEnt</code> are the humidity ratio,
   the flow rate, and the temperature of the process air entering the dehumidifier;
@@ -246,6 +286,10 @@ Specifically, this calculation is configured as follows.
 <li>
 <a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v22.1.0/EngineeringReference.pdf\">
 EnergyPlus v22.1.0 Engineering Reference</a>
+</li>
+<li>
+<a href=\"https://www.ashrae.org/file%20library/technical%20resources/covid-19/i-p_s20_ch26.pdf\">
+ASHRAE Handbook—HVAC Systems &amp; Equipment Chapter 26</a>
 </li>
 </ul>
  
