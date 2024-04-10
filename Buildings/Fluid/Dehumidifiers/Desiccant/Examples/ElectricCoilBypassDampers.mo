@@ -1,5 +1,5 @@
 within Buildings.Fluid.Dehumidifiers.Desiccant.Examples;
-model ElectricCoilVariableSpeedFan
+model ElectricCoilBypassDampers
   "Model that demonstrates the usage of a desiccant dehumidifier model with an electric heater and a variable speed fan"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Air
@@ -39,7 +39,7 @@ model ElectricCoilVariableSpeedFan
     nPorts=1)
     "Process air source"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Buildings.Fluid.Dehumidifiers.Desiccant.ElectricCoilVariableSpeedFan deh(
+  Buildings.Fluid.Dehumidifiers.Desiccant.ElectricCoilBypassDampers deh(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     m1_flow_nominal=0.4333*1.2,
@@ -51,8 +51,7 @@ model ElectricCoilVariableSpeedFan
     vReg_nominal=2.5,
     perDat=perDat,
     QReg_flow_nominal=50000,
-    etaHea=0.8)
-    "Dehumidifier"
+    etaHea=0.8) "Dehumidifier"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Fluid.Dehumidifiers.Desiccant.Data.Default perDat
    "Performance data"
@@ -96,7 +95,7 @@ equation
   connect(senX_w_ProEnt.port_b, deh.port_a1) annotation (Line(points={{-14,-30},
           {-6,-30},{-6,-16},{-16,-16},{-16,-8},{-10,-8}}, color={0,127,255}));
   annotation (experiment(Tolerance=1e-6, StopTime=1200),
-         __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Dehumidifiers/Desiccant/Examples/ElectricCoilVariableSpeedFan.mos"
+         __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Dehumidifiers/Desiccant/Examples/ElectricCoilBypassDampers.mos"
         "Simulate and Plot"), Documentation(revisions="<html>
 <ul>
 <li>March 1, 2024, by Sen Huang:<br/>First implementation. </li>
@@ -104,8 +103,8 @@ equation
 </html>", info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Fluid.Dehumidifiers.Desiccant.ElectricCoilVariableSpeedFan\">
-Buildings.Fluid.Dehumidifiers.Desiccant.ElectricCoilVariableSpeedFan</a>.
+<a href=\"modelica://Buildings.Fluid.Dehumidifiers.Desiccant.ElectricCoilBypassDampers\">
+Buildings.Fluid.Dehumidifiers.Desiccant.ElectricCoilBypassDampers</a>.
 </p>
 <p>
 The input signals are configured as follows:
@@ -126,7 +125,7 @@ The temperature of the process air entering the dehumidifier, <i>TProEnt</i>, ke
 until 600 seconds, and then it increases from 273.15 + 30 K to 273.15 + 40 K  at 1200 seconds.
 <br>
 The temperature of the regeneration air entering the dehumidifier and the humidity ratio of the 
-process air entering the dehumidifier are constant
+process air entering the dehumidifier are constant.
 </li>
 </ul>
 <p>
@@ -143,4 +142,4 @@ After 600 seconds, <i>X_w_ProEnt</i> increases as <i>uBypDamPos</i> increases.
 </li>
 </ul>
 </html>"));
-end ElectricCoilVariableSpeedFan;
+end ElectricCoilBypassDampers;

@@ -84,6 +84,10 @@ The dehumidification signal <i>onDeh</i> is changes from
 <code>false</code> to <code>true</code> at 50 seconds.
 </li>
 <li>
+The Wheel speed ratio <i>uSpe</i> is changes from
+<code>0.5</code> to <code>1</code> from 50 seconds to 100 seconds.
+</li>
+<li>
 The temperature of the process air entering the dehumidifier, <i>TProEnt</i>, and the
 Temperature of the regeneration air entering the dehumidifier, <i>TRegEnt</i>, change from 
 273 + 20 K to 273 + 30 K and 273 + 80 K to 273 + 70 K, respectively, during the period from 
@@ -108,7 +112,8 @@ Likewise, the humidity ratio of the process air entering the dehumidifier,
 <i>X_w_ProLea</i>, is equal to <i>X_w_ProEnt</i>.
 </li>
 <li>
-<i>TProLea</i> and <i>X_w_ProEnt</i> change dramatically when the dehumidification begins at 50 seconds.
+<i>TProLea</i> and <i>X_w_ProEnt</i> change dramatically when the dehumidification begins at 50 seconds,
+and keep relatively constant afterward.
 </li>
 </ul>
 </html>", revisions="<html>
