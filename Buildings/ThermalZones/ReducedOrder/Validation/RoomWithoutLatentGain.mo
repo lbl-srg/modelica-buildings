@@ -21,11 +21,13 @@ model RoomWithoutLatentGain
     rotation=0,
     origin={23,3})));
   Fluid.Sensors.RelativeHumidity senRelHum(
-    redeclare package Medium = Medium)
+    redeclare package Medium = Medium,
+    warnAboutOnePortConnection = false)
     "Relative humidity of room air"
     annotation (Placement(transformation(extent={{110,-20},{130,0}})));
   Fluid.Sensors.MassFraction senMasFra(
-    redeclare package Medium = Medium)
+    redeclare package Medium = Medium,
+    warnAboutOnePortConnection = false)
     "Absolute humidity of room air in kg/kg total air"
     annotation (Placement(transformation(extent={{110,-50},{130,-30}})));
 equation
@@ -45,6 +47,12 @@ This test case changes the medium to moist air, and adds zero latent heat gain.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 26, 2024, by Michael Wetter:<br/>
+Configured the sensor parameter to suppress the warning about being a one-port connection.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1857\">IBPSA, #1857</a>.
+</li>
 <li>
 October 9, 2019, by Michael Wetter:<br/>
 First implementation.<br/>
