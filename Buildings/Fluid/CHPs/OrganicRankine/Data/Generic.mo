@@ -6,6 +6,8 @@ record Generic "Generic data record for working fluid properties"
     "Thermodynamic temperature";
   parameter Modelica.Units.SI.AbsolutePressure p[n]
     "Saturation pressure";
+  parameter Modelica.Units.SI.Density rhoLiq[n]
+    "Density of saturated liquid";
   parameter Modelica.Units.SI.TemperatureDifference dTRef
     "Superheating differential temperature";
   parameter Modelica.Units.SI.SpecificEntropy sSatLiq[n]
