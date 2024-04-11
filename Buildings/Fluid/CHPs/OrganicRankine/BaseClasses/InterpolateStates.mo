@@ -21,7 +21,7 @@ model InterpolateStates "Interpolate states of a working fluid"
   // Once-interpolated properties
   Modelica.Units.SI.AbsolutePressure pEva(
     displayUnit = "kPa") =
-    Buildings.Airflow.Multizone.BaseClasses.interpolate(
+    Buildings.Utilities.Math.Functions.interpolate(
       u = TEva,
       xd = pro.T,
       yd = pro.p,
@@ -29,14 +29,14 @@ model InterpolateStates "Interpolate states of a working fluid"
     "Evaporating pressure";
   Modelica.Units.SI.AbsolutePressure pCon(
     displayUnit = "kPa") =
-    Buildings.Airflow.Multizone.BaseClasses.interpolate(
+    Buildings.Utilities.Math.Functions.interpolate(
       u = TCon,
       xd = pro.T,
       yd = pro.p,
       d = pDer_T)
     "Condensing pressure";
   Modelica.Units.SI.SpecificEntropy sPum =
-    Buildings.Airflow.Multizone.BaseClasses.interpolate(
+    Buildings.Utilities.Math.Functions.interpolate(
       u = TCon,
       xd = pro.T,
       yd = pro.sSatLiq,
@@ -44,7 +44,7 @@ model InterpolateStates "Interpolate states of a working fluid"
     "Specific entropy at pump, neglecting difference between inlet and outlet";
   Modelica.Units.SI.SpecificEnthalpy hPum(
     displayUnit = "kJ/kg") =
-    Buildings.Airflow.Multizone.BaseClasses.interpolate(
+    Buildings.Utilities.Math.Functions.interpolate(
       u = TCon,
       xd = pro.T,
       yd = pro.hSatLiq,
@@ -52,7 +52,7 @@ model InterpolateStates "Interpolate states of a working fluid"
     "Specific enthalpy at pump, neglecting difference between inlet and outlet";
   Modelica.Units.SI.SpecificEnthalpy hPinEva(
     displayUnit = "kJ/kg") =
-    Buildings.Airflow.Multizone.BaseClasses.interpolate(
+    Buildings.Utilities.Math.Functions.interpolate(
       u = TEva,
       xd = pro.T,
       yd = pro.hSatLiq,
@@ -60,7 +60,7 @@ model InterpolateStates "Interpolate states of a working fluid"
     "Specific enthalpy at evaporator-side pinch point";
   Modelica.Units.SI.SpecificEnthalpy hPinCon(
     displayUnit = "kJ/kg") =
-    Buildings.Airflow.Multizone.BaseClasses.interpolate(
+    Buildings.Utilities.Math.Functions.interpolate(
       u = TCon,
       xd = pro.T,
       yd = pro.hSatVap,
@@ -68,21 +68,21 @@ model InterpolateStates "Interpolate states of a working fluid"
     "Specific enthalpy at condenser-side pinch point";
   Modelica.Units.SI.SpecificEntropy sSatVapCon(
     start = max(pro.sSatVap) * 0.1 + min(pro.sSatVap) * 0.9) =
-    Buildings.Airflow.Multizone.BaseClasses.interpolate(
+    Buildings.Utilities.Math.Functions.interpolate(
       u = TCon,
       xd = pro.T,
       yd = pro.sSatVap,
       d = sSatVapDer_T)
     "Specific entropy of saturated vapour at the condenser";
   Modelica.Units.SI.SpecificEntropy sRefCon =
-    Buildings.Airflow.Multizone.BaseClasses.interpolate(
+    Buildings.Utilities.Math.Functions.interpolate(
       u = pCon,
       xd = pro.p,
       yd = pro.sRef,
       d = sRefDer_p)
     "Specific entropy on reference line at condensing pressure";
   Modelica.Units.SI.SpecificEntropy sSatVapEva =
-    Buildings.Airflow.Multizone.BaseClasses.interpolate(
+    Buildings.Utilities.Math.Functions.interpolate(
       u = TEva,
       xd = pro.T,
       yd = pro.sSatVap,
@@ -90,14 +90,14 @@ model InterpolateStates "Interpolate states of a working fluid"
     "Specific entropy of saturated vapour at evaporating temperature";
   Modelica.Units.SI.SpecificEnthalpy hSatVapEva(
     displayUnit = "kJ/kg") =
-    Buildings.Airflow.Multizone.BaseClasses.interpolate(
+    Buildings.Utilities.Math.Functions.interpolate(
       u = TEva,
       xd = pro.T,
       yd = pro.hSatVap,
       d = hSatVapDer_T)
     "Specific enthalpy of saturated vapour at evaporating temperature";
   Modelica.Units.SI.SpecificEntropy sRefEva =
-    Buildings.Airflow.Multizone.BaseClasses.interpolate(
+    Buildings.Utilities.Math.Functions.interpolate(
       u = pEva,
       xd = pro.p,
       yd = pro.sRef,
@@ -105,7 +105,7 @@ model InterpolateStates "Interpolate states of a working fluid"
     "Specific entropy on reference line at evaporating pressure";
   Modelica.Units.SI.SpecificEnthalpy hSatVapCon(
     displayUnit = "kJ/kg") =
-    Buildings.Airflow.Multizone.BaseClasses.interpolate(
+    Buildings.Utilities.Math.Functions.interpolate(
       u = TCon,
       xd = pro.T,
       yd = pro.hSatVap,
@@ -113,7 +113,7 @@ model InterpolateStates "Interpolate states of a working fluid"
     "Specific enthalpy of saturated vapour at the condensing temperature";
   Modelica.Units.SI.SpecificEnthalpy hRefCon(
     displayUnit = "kJ/kg") =
-    Buildings.Airflow.Multizone.BaseClasses.interpolate(
+    Buildings.Utilities.Math.Functions.interpolate(
       u = pCon,
       xd = pro.p,
       yd = pro.hRef,
@@ -121,7 +121,7 @@ model InterpolateStates "Interpolate states of a working fluid"
     "Specific enthalpy on reference line at condensing pressure";
   Modelica.Units.SI.SpecificEnthalpy hRefEva(
     displayUnit = "kJ/kg") =
-    Buildings.Airflow.Multizone.BaseClasses.interpolate(
+    Buildings.Utilities.Math.Functions.interpolate(
       u = pEva,
       xd = pro.p,
       yd = pro.hRef,
