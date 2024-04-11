@@ -10,10 +10,10 @@ block LessThreshold
   parameter Boolean pre_y_start=false
     "Value of pre(y) at initial time"
     annotation (Dialog(tab="Advanced"));
-  Interfaces.RealInput u
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u
     "Input"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.BooleanOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Output"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
@@ -35,10 +35,10 @@ protected
     "Less block without hysteresis"
     parameter Real t=0
       "Threshold for comparison";
-    Interfaces.RealInput u
+    Buildings.Controls.OBC.CDL.Interfaces.RealInput u
       "Input u"
       annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-    Interfaces.BooleanOutput y
+    Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
       "Output y"
       annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
@@ -71,10 +71,10 @@ protected
     parameter Boolean pre_y_start=false
       "Value of pre(y) at initial time"
       annotation (Dialog(tab="Advanced"));
-    Interfaces.RealInput u
+    Buildings.Controls.OBC.CDL.Interfaces.RealInput u
       "Input u"
       annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-    Interfaces.BooleanOutput y
+    Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
       "Output y"
       annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
