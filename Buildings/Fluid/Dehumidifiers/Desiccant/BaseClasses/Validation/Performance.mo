@@ -80,11 +80,11 @@ The input signals are configured as follows:
 </p>
 <ul>
 <li>
-The dehumidification signal <i>onDeh</i> is changes from
+The dehumidification signal <i>onDeh</i> changes from
 <code>false</code> to <code>true</code> at 50 seconds.
 </li>
 <li>
-The Wheel speed ratio <i>uSpe</i> is changes from
+The Wheel speed ratio <i>uSpe</i> changes from
 <code>0.5</code> to <code>1</code> from 50 seconds to 100 seconds.
 </li>
 <li>
@@ -98,7 +98,7 @@ During the same period, the humidity ratio of the process air entering the dehum
 <br>
 Default operation curve
 <a href=\"modelica://Buildings.Fluid.Dehumidifiers.Desiccant.Data.Default\">
-Buildings.Fluid.Dehumidifiers.Desiccant.Data.Default</a> is also employed.
+Buildings.Fluid.Dehumidifiers.Desiccant.Data.Default</a> is employed.
 </li>
 </ul>
 <p>

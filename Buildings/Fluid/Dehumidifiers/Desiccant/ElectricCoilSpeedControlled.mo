@@ -38,18 +38,19 @@ model ElectricCoilSpeedControlled
     final dp_nominal=dp2_nominal)
     "Regeneration fan"
     annotation (Placement(transformation(extent={{80,56},{60,76}})));
-  Modelica.Blocks.Math.RealToBoolean realToBoolean(
-    final threshold=uSpe_min) "Convert real input to boolean output "
+  Modelica.Blocks.Math.RealToBoolean realToBoolean(final threshold=dehPer.uSpe_min)
+    "Convert real input to boolean output "
     annotation (Placement(transformation(extent={{-180,-50},{-160,-30}})));
-  Modelica.Blocks.Sources.RealExpression X_w_ProEnt(final y(final unit="1") =
+  Modelica.Blocks.Sources.RealExpression X_w_ProEnt(final y(final unit="1")=
       res.port_b.Xi_outflow[i1_w])
     "Humidity ratio of the process air entering the dehumidifier"
     annotation (Placement(transformation(extent={{-110,-72},{-90,-52}})));
 
-  FixedResistances.PressureDrop res(
+  Buildings.Fluid.FixedResistances.PressureDrop res(
     redeclare package Medium = Medium1,
-    m_flow_nominal=m1_flow_nominal,
-    dp_nominal=dp1_nominal) "Flow resistance"
+    final m_flow_nominal=m1_flow_nominal,
+    final dp_nominal=dp1_nominal) 
+    "Flow resistance"
     annotation (Placement(transformation(extent={{-200,-110},{-180,-90}})));
 protected
   Modelica.Blocks.Sources.RealExpression PEle(final y=PMot_nominal*
@@ -156,7 +157,7 @@ when their capacities permit.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>March 1, 2024, by Sen Huang:<br/>First implementation. </li>
+<li>April 10, 2024, by Sen Huang:<br/>First implementation. </li>
 </ul>
 </html>"));
 end ElectricCoilSpeedControlled;

@@ -16,14 +16,12 @@ model Performance
   parameter Buildings.Fluid.Dehumidifiers.Desiccant.Data.Generic per
     "Performance data"
     annotation (Placement(transformation(extent={{60,64},{80,84}})));
-
   final parameter Real a[:] = {0.48,1.7658,-2.1537,0.9091}
-    "Coefficients for sensible heat exchange effectiveness";
+    "Coefficients for calculating the sensible heat exchange effectiveness";
   final parameter Real b[:] = {-0.8045,5.6984,-6.6667,2.7778}
-    "Coefficients for latent heat exchange effectiveness";
-  parameter Real uSpe_min = 0.3
+    "Coefficients for calculating the latent heat exchange effectiveness";
+  final parameter Real uSpe_min = 0.3
     "Minimum allowable wheel speed ratio";
-
   Modelica.Blocks.Interfaces.BooleanInput onDeh
     "Set to true to enable the dehumidification process" annotation (Placement(
         transformation(extent={{-124,68},{-100,92}}), iconTransformation(extent=
@@ -128,7 +126,7 @@ equation
         TProEnt = TProEnt,
         X_w_ProEnt = X_w_ProEnt,
         vPro = VPro_flow/VPro_flow_nominal*vPro_nominal,
-        a = per.coeTProLea) - TProEnt + 273.15)*etaSen;
+        a = per.coeTProLea)+ 273.15 - TProEnt)*etaSen;
      X_w_ProLea = X_w_ProEnt-(X_w_ProEnt-(Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.performanceCurve(
         TProEnt = TProEnt,
         X_w_ProEnt = X_w_ProEnt,
@@ -148,7 +146,7 @@ equation
         deltaX = 0.01);
       yQReg = CpReg*(X_w_ProEnt - X_w_ProLea)*mPro_flow*(per.TRegEnt_nominal -
       TRegEnt)/(per.TRegEnt_nominal - TProEnt)/QReg_flow_nominal;
-    assert(yQReg < 1,
+    assert(yQReg <= 1,
      "In " + getInstanceName() + ": heating power is not sufficient for regeneration.",
      level=AssertionLevel.error);
   else
@@ -195,7 +193,8 @@ Specifically, this calculation is configured as follows.
    etaLat = (b<sub>1</sub> + b<sub>2</sub> uSpe + b<sub>3</sub> uSpe<sup>2</sup> + ...),
   </p>
   where the <code>a[:]</code> and <code>b[:]</code> are the coefficients obtained based on 
-  ASHRAE Handbook—HVAC Systems &amp; Equipment (Figure 7, Chapter 26).
+  ASHRAE Handbook—HVAC Systems &amp; Equipment (Figure 7, Chapter 26),
+  <code>uSpe</code> is the wheel speed ratio.
   </li>
   <li>
   The velocity of the process air is calculated by
@@ -205,15 +204,15 @@ Specifically, this calculation is configured as follows.
   where <code>VPro_flow</code> is the volumetric flow rate of the process air,
   <code>VPro_flow_nominal</code> is the nominal volumetric flow rate of the process air,
   <code>vPro_nominal</code> is the nominal velocity of the process air.
+  <br>
   Then, the volumetric flow rate of the regeneration air is calculated by
   <p align=\"center\" style=\"font-style:italic;\">
    VReg_flow = f(TProEnt,X_w_ProEnt,vPro,coevReg)/vReg_nominal*VReg_flow_nominal*uSpe
   </p>
-  where <code>f()</code> is defined in <a href=\"modelica://Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.performanceCurve\">
+  where <code>f(.)</code> is defined in <a href=\"modelica://Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.performanceCurve\">
   Buildings.Fluid.Dehumidifiers.Desiccant.BaseClasses.performanceCurve</a>,
   <code>coevReg</code> are coefficients, as defined in <a href=\"modelica://Buildings.Fluid.Dehumidifiers.Desiccant.Data.Generic\">
   Buildings.Fluid.Dehumidifiers.Desiccant.Data.Generic</a>,
-  <code>uSpe</code> is the wheel speed ratio,
   <code>TProEnt</code> and <code>X_w_ProEnt</code> are the temperature and the humidity ratio of the process air entering the dehumidifier,
   respectively.
   <ul>
@@ -225,13 +224,13 @@ Specifically, this calculation is configured as follows.
   <li>
   The temperature of the process air leaving the dehumidifier, <code>TProLea</code> is calculated by
   <p align=\"center\" style=\"font-style:italic;\">
-    TProLea = TProEnt + (f(TProEnt,X_w_ProEnt,vPro,coeTProLea) - TProEnt)*etaSen,
+    TProLea = TProEnt + (f(TProEnt,X_w_ProEnt,vPro,coeTProLea) + 273.15 - TProEnt)*etaSen,
   </p>
   where <code>coeTProLea</code> are coefficients.
   <br> 
   The humidity ratio of the process air leaving the dehumidifier, <code>X_w_ProLea</code>, is calculated by
   <p align=\"center\" style=\"font-style:italic;\">
-    TProLea = X_w_ProEnt - (X_w_ProEnt - f(TProEnt,X_w_ProEnt,vPro,coeX_w_ProLea))*etaLat,
+    X_w_ProLea = X_w_ProEnt - (X_w_ProEnt - f(TProEnt,X_w_ProEnt,vPro,coeX_w_ProLea))*etaLat,
   </p>
   where <code>coeX_w_ProLea</code> are coefficients.
   <ul>
@@ -253,14 +252,12 @@ Specifically, this calculation is configured as follows.
    yQReg = CpReg*(X_w_ProEnt-X_w_ProLea)*mPro_flow*(TRegEnt_nominal - TRegEnt) / (TRegEnt_nominal - TProEnt)/
    QReg_flow_nominal,
   </p> 
-  where <code>X_w_ProEnt</code>, <code>mPro_flow</code>, and <code>TProEnt</code> are the humidity ratio,
-  the flow rate, and the temperature of the process air entering the dehumidifier;
-  <code>TRegEnt_nominal</code> and <code>TRegEnt</code> are the nominal temperature and the actual temperature
+  where <code>TRegEnt_nominal</code> and <code>TRegEnt</code> are the nominal temperature and the actual temperature
   of the regeneration air entering the dehumidifier.<code>QReg_flow_nominal</code> is the nominal regeneration 
   heating capacity.
   <ul>
      <li>
-     If <code>yQReg</code> is larger than 0,
+     If <code>yQReg</code> is larger than 1,
      the calculation is terminated and an error is generated.
      </li>
   </ul>
@@ -294,6 +291,9 @@ ASHRAE Handbook—HVAC Systems &amp; Equipment Chapter 26</a>
 </ul>
  
 </html>", revisions="<html>
+<ul>
+<li>April 10, 2024, by Sen Huang:<br/>Added wheel speed ratio as an input. </li>
+</ul>
 <ul>
 <li>March 1, 2024, by Sen Huang:<br/>First implementation. </li>
 </ul>

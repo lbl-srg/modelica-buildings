@@ -1,6 +1,6 @@
 within Buildings.Fluid.Dehumidifiers.Desiccant.Examples;
 model ElectricCoilSpeedControlled
-  "Model that demonstrates the usage of a desiccant dehumidifier model with an electric heater and a variable speed fan"
+  "Model that demonstrates the usage of a desiccant dehumidifier model with an electric heater and a variable speed wheel"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Air
     "Process air";
@@ -90,12 +90,12 @@ equation
           {-6,-30},{-6,-16},{-16,-16},{-16,-8},{-10,-8}}, color={0,127,255}));
   connect(uSpe.y, deh.uSpe)
     annotation (Line(points={{-71,32},{-22,32},{-22,0},{-12,0}},
-                                               color={0,0,127}));
+    color={0,0,127}));
   annotation (experiment(Tolerance=1e-6, StopTime=1200),
          __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Dehumidifiers/Desiccant/Examples/ElectricCoilSpeedControlled.mos"
         "Simulate and Plot"), Documentation(revisions="<html>
 <ul>
-<li>March 1, 2024, by Sen Huang:<br/>First implementation. </li>
+<li>April 10, 2024, by Sen Huang:<br/>First implementation. </li>
 </ul>
 </html>", info="<html>
 <p>
