@@ -6,7 +6,8 @@ model DryFluid
     final pro = pro,
     final TEva = TEva,
     final TCon = TCon,
-    final etaExp = etaExp) "Interpolate working fluid states in the cycle"
+    final etaExp = etaExp,
+    final etaPum = etaPum) "Interpolate working fluid states in the cycle"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   replaceable parameter
             Buildings.Fluid.CHPs.OrganicRankine.Data.WorkingFluids.Toluene pro
@@ -21,6 +22,8 @@ model DryFluid
     "Condensing temperature";
   parameter Modelica.Units.SI.Efficiency etaExp = 0.85
     "Expander efficiency";
+  parameter Modelica.Units.SI.Efficiency etaPum = 0.7
+    "Pump efficiency";
 
 annotation(experiment(StopTime=1, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/OrganicRankine/BaseClasses/Validation/DryFluid.mos"

@@ -12,6 +12,8 @@ model InterpolateStates "Interpolate states of a working fluid"
     "Condensing temperature";
   input Modelica.Units.SI.Efficiency etaExp
     "Expander efficiency";
+  input Modelica.Units.SI.Efficiency etaPum
+    "Pump efficiency";
 
   parameter Modelica.Units.SI.SpecificEnthalpy h_small =
     (max(pro.hSatVap) - min(pro.hSatLiq)) * 1E-4
@@ -35,21 +37,28 @@ model InterpolateStates "Interpolate states of a working fluid"
       yd = pro.p,
       d = pDer_T)
     "Condensing pressure";
-  Modelica.Units.SI.SpecificEntropy sPum =
+  Modelica.Units.SI.Density rhoLiq =
+    Buildings.Utilities.Math.Functions.interpolate(
+      u = TCon,
+      xd = pro.T,
+      yd = pro.rhoLiq,
+      d = rhoLiqDer_T)
+    "Saturated liquid density";
+  Modelica.Units.SI.SpecificEntropy sPumInl =
     Buildings.Utilities.Math.Functions.interpolate(
       u = TCon,
       xd = pro.T,
       yd = pro.sSatLiq,
       d = sSatLiqDer_T)
-    "Specific entropy at pump, neglecting difference between inlet and outlet";
-  Modelica.Units.SI.SpecificEnthalpy hPum(
+    "Specific entropy at pump inlet";
+  Modelica.Units.SI.SpecificEnthalpy hPumInl(
     displayUnit = "kJ/kg") =
     Buildings.Utilities.Math.Functions.interpolate(
       u = TCon,
       xd = pro.T,
       yd = pro.hSatLiq,
       d = hSatLiqDer_T)
-    "Specific enthalpy at pump, neglecting difference between inlet and outlet";
+    "Specific enthalpy at pump inlet";
   Modelica.Units.SI.SpecificEnthalpy hPinEva(
     displayUnit = "kJ/kg") =
     Buildings.Utilities.Math.Functions.interpolate(
@@ -129,6 +138,9 @@ model InterpolateStates "Interpolate states of a working fluid"
     "Specific enthalpy on reference line at evaporating pressure";
 
   // Computed properties not interpolated
+  Modelica.Units.SI.SpecificEnthalpy hPumOut(displayUnit = "kJ/kg") =
+    hPumInl + wPum
+    "Specific enthalpy at pump outlet";
   Modelica.Units.SI.SpecificEnthalpy hExpInl(displayUnit = "kJ/kg") =
     Buildings.Utilities.Math.Functions.regStep(
       x = h_reg,
@@ -149,15 +161,17 @@ model InterpolateStates "Interpolate states of a working fluid"
   Modelica.Units.SI.TemperatureDifference dTSup = max(0, dTSupWet)
     "Superheating temperature differential";
 
-  // Energy exchange
-  Modelica.Units.SI.SpecificEnergy qEva = hExpInl - hPum
+  // Energy transfer
+  Modelica.Units.SI.SpecificEnergy qEva = hExpInl - hPumOut
     "Evaporator energy transfer (positive)";
-  Modelica.Units.SI.SpecificEnergy qCon = hExpOut - hPum
+  Modelica.Units.SI.SpecificEnergy qCon = hExpOut - hPumInl
     "Condenser energy transfer (positive)";
   Modelica.Units.SI.SpecificEnergy wExp = hExpInl - hExpOut
     "Expander work (positive)";
+  Modelica.Units.SI.SpecificEnergy wPum = (pEva - pCon) / (rhoLiq * etaPum)
+    "Pump work (positive)";
   Modelica.Units.SI.Efficiency etaThe(min=0) =
-    wExp / qEva "Thermal efficiency";
+    (wExp - wPum) / qEva "Thermal efficiency";
 
 protected
   Modelica.Units.SI.SpecificEnthalpy h_reg = hExpOutDry - hSatVapCon
@@ -174,8 +188,8 @@ protected
     if sExpOutDryIse > sSatVapCon
     then (hRefCon - hSatVapCon) * (sExpOutDryIse - sSatVapCon)
          / (sRefCon - sSatVapCon) + hSatVapCon
-    else (hSatVapCon - hPum) * (sExpOutDryIse - sPum)
-         / (sSatVapCon - sPum) + hPum
+    else (hSatVapCon - hPumInl) * (sExpOutDryIse - sPumInl)
+         / (sSatVapCon - sPumInl) + hPumInl
     "Specific enthalpy at expander outlet, assuming dry cycle";
   Modelica.Units.SI.SpecificEnthalpy hExpOutDry(
     displayUnit = "kJ/kg") =
@@ -207,6 +221,12 @@ protected
       y = pro.p,
       ensureMonotonicity = true)
   "Derivative of saturation pressure vs. saturation temperature for cubic spline";
+  final parameter Real rhoLiqDer_T[pro.n]=
+    Buildings.Utilities.Math.Functions.splineDerivatives(
+      x = pro.T,
+      y = pro.rhoLiq,
+      ensureMonotonicity = true)
+  "Derivative of saturated liquid density vs. temperature for cubic spline";
   final parameter Real sSatLiqDer_T[pro.n]=
     Buildings.Utilities.Math.Functions.splineDerivatives(
       x = pro.T,

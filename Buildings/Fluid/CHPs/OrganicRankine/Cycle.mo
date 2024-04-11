@@ -38,7 +38,8 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
     final dTPinCon_set=dTPinCon_set,
     final cpHot=Medium1.specificHeatCapacityCp(sta1_nominal),
     final cpCol=Medium2.specificHeatCapacityCp(sta2_nominal),
-    final etaExp=etaExp)
+    final etaExp=etaExp,
+    final etaPum=etaPum)
     "Thermodynamic computations of the organic Rankine cycle"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
@@ -102,6 +103,9 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
     annotation(Dialog(group="Cycle"));
   parameter Modelica.Units.SI.Efficiency etaExp
     "Expander efficiency"
+    annotation(Dialog(group="Cycle"));
+  parameter Modelica.Units.SI.Efficiency etaPum
+    "Pump efficiency"
     annotation(Dialog(group="Cycle"));
 
   Modelica.Blocks.Interfaces.RealOutput PEleOut(

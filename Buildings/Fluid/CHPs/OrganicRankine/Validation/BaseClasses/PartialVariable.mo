@@ -34,7 +34,8 @@ partial model PartialVariable
           ySup = pro.hSatLiq)),
     mWor_flow_min = orc.mWor_flow_max * 0.2,
     TWorEva=350,
-    etaExp=0.7)                       "Organic Rankine cycle"
+    etaExp=0.7,
+    etaPum=0.7)                       "Organic Rankine cycle"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Fluid.Sources.MassFlowSource_T souHot(
     redeclare final package Medium = MediumHot,
