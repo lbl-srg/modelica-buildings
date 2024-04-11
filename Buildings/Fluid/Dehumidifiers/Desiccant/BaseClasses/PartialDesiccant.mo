@@ -36,13 +36,10 @@ partial model PartialDesiccant
   parameter Modelica.Units.SI.Velocity vReg_nominal
     "Nominal velocity of the regeneration air"
     annotation (Dialog(group="Nominal condition"));
-  final parameter Real uSpe_min = 0.3
-    "Minimum allowable wheel speed ratio";
-
   final parameter Modelica.Units.SI.VolumeFlowRate VReg_flow_nominal = m2_flow_nominal/rho_Reg_default
     "Nominal volumetric flow rate of the regeneration air"
     annotation (Dialog(group="Nominal condition"));
-   parameter Modelica.Units.SI.HeatFlowRate QReg_flow_nominal
+  parameter Modelica.Units.SI.HeatFlowRate QReg_flow_nominal
     "Nominal regeneration heating capacity"
     annotation (Dialog(group="Nominal condition"));
   parameter  Buildings.Fluid.Dehumidifiers.Desiccant.Data.Generic perDat
@@ -87,8 +84,7 @@ protected
     final vReg_nominal=vReg_nominal,
     final VReg_flow_nominal=VReg_flow_nominal,
     final QReg_flow_nominal=QReg_flow_nominal,
-    final per=perDat,
-    uSpe_min=uSpe_min)
+    final per=perDat)
     "Calculate the performance of the dehumidifier"
     annotation (Placement(transformation(extent={{-58,-94},{-38,-74}})));
   Modelica.Blocks.Sources.RealExpression VPro_flow(
@@ -139,7 +135,6 @@ protected
    final y(final unit="kg/s")= outCon.port_a.m_flow)
    "Process air mass flow rate"
     annotation (Placement(transformation(extent={{-110,-124},{-90,-104}})));
-
   parameter Integer i1_w(min=1, fixed=false)
    "Index for water substance";
   parameter Medium2.ThermodynamicState sta_Reg_default=Medium2.setState_pTX(
@@ -156,7 +151,6 @@ protected
     "Default state of the process air";
   parameter Modelica.Units.SI.Density rho_Pro_default=Medium2.density(sta_Pro_default)
     "Default density of the process air";
-
 initial algorithm
   i1_w:= -1;
   for i in 1:Medium1.nXi loop

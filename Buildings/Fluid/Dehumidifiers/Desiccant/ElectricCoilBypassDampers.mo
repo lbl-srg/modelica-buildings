@@ -5,7 +5,7 @@ model ElectricCoilBypassDampers
     vol(nPorts=2));
   parameter Real etaHea(
     final min=0,
-    final max=1)
+    final max=1) = 0.8
     "Heater efficiency"
     annotation (Dialog(group="Efficiency"));
   Modelica.Blocks.Interfaces.BooleanInput uRot
@@ -30,12 +30,14 @@ model ElectricCoilBypassDampers
   Buildings.Fluid.Actuators.Dampers.Exponential bypDamPro(
     redeclare package Medium = Medium1,
     final m_flow_nominal=m1_flow_nominal,
-    final dpDamper_nominal=dp1_nominal) "Process air bypass damper"
+    final dpDamper_nominal=dp1_nominal)
+    "Process air bypass damper"
     annotation (Placement(transformation(extent={{-170,-130},{-150,-110}})));
-   Buildings.Fluid.Actuators.Dampers.Exponential damPro(
+  Buildings.Fluid.Actuators.Dampers.Exponential damPro(
     redeclare package Medium = Medium1,
     final m_flow_nominal=m1_flow_nominal,
-    final dpDamper_nominal=dp1_nominal) "Process air damper"
+    final dpDamper_nominal=dp1_nominal)
+    "Process air damper"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},rotation=0,origin={-130,-100})));
   Modelica.Blocks.Sources.RealExpression X_w_ProEnt(final y(final unit="1")=

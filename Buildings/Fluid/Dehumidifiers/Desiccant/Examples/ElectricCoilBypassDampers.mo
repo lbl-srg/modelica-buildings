@@ -1,6 +1,6 @@
 within Buildings.Fluid.Dehumidifiers.Desiccant.Examples;
 model ElectricCoilBypassDampers
-  "Model that demonstrates the usage of a desiccant dehumidifier model with an electric heater and a variable speed fan"
+  "Model that demonstrates the usage of a desiccant dehumidifier model with an electric heater and bypass dampers"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Air
     "Process air";
@@ -138,7 +138,7 @@ Before 300 seconds and after 900 seconds, the humidity ratio of the process air 
 </li>
 <li>
 During the rest time, <i>X_w_ProEnt > X_w_ProLea</i>.
-After 600 seconds, <i>X_w_ProEnt</i> increases as <i>uBypDamPos</i> increases.
+After 600 seconds, <i>X_w_ProLea</i> increases as <i>uBypDamPos</i> increases.
 </li>
 </ul>
 </html>"));
