@@ -32,7 +32,7 @@ model FixedEvaporating
     final quantity="HeatFlowRate",
     final unit="W") "Evaporator heat flow rate"
     annotation (Placement(transformation(extent={{100,20},{140,60}}),
-                             iconTransformation(extent={{100,30},{120,50}})));
+                             iconTransformation(extent={{100,70},{120,90}})));
   Modelica.Units.SI.ThermodynamicTemperature THotOut(
     start = TWorEva + dTPinEva_set)
     "Outgoing temperature of the evaporator hot fluid";
@@ -73,8 +73,8 @@ model FixedEvaporating
   Modelica.Blocks.Interfaces.RealOutput QCon_flow(
     final quantity="HeatFlowRate",
     final unit="W") "Condenser heat flow rate" annotation (Placement(
-        transformation(extent={{100,-60},{140,-20}}), iconTransformation(extent={{100,-50},
-            {120,-30}})));
+        transformation(extent={{100,-60},{140,-20}}), iconTransformation(extent={{100,-90},
+            {120,-70}})));
   Modelica.Units.SI.ThermodynamicTemperature TColOut
     "Fluid temperature out of the condenser, intermediate variable";
   Modelica.Units.SI.ThermodynamicTemperature TColPin(
@@ -86,10 +86,18 @@ model FixedEvaporating
 // Expander
   Modelica.Blocks.Interfaces.RealOutput PEle(
     final quantity="Power",
-    final unit="W")=QEva_flow - QCon_flow
+    final unit="W") = mWor_flow * (hExpInl - hExpOut)
     "Electrical power output from the expander" annotation (Placement(
-        transformation(extent={{100,-20},{140,20}}), iconTransformation(extent=
-            {{100,-10},{120,10}})));
+        transformation(extent={{100,-20},{140,20}}), iconTransformation(extent={{100,30},
+            {120,50}})));
+
+// Pump
+  Modelica.Blocks.Interfaces.RealOutput PPum(
+    final quantity="Power",
+    final unit="W") = mWor_flow * (hPumOut - hPumInl)
+    "Electrical power consumption of the pump" annotation (Placement(
+        transformation(extent={{100,-20},{140,20}}), iconTransformation(extent={
+            {100,-50},{120,-30}})));
 
 // Cycle
   Modelica.Units.SI.MassFlowRate mWor_flow =
@@ -124,8 +132,8 @@ model FixedEvaporating
     "Hysteresis for turning off cycle when working fluid flow too low";
   Modelica.Blocks.Interfaces.BooleanOutput on_actual = ena and hys.y
     "Actual on off status of the cycle" annotation (Placement(transformation(
-          extent={{100,60},{140,100}}), iconTransformation(extent={{100,70},{120,
-            90}})));
+          extent={{100,60},{140,100}}), iconTransformation(extent={{100,-10},{120,
+            10}})));
 
 protected
   Modelica.Units.SI.MassFlowRate mWor_flow_internal(
