@@ -51,7 +51,8 @@ model ElectricCoilBypassDampers
     vReg_nominal=2.5,
     perDat=perDat,
     QReg_flow_nominal=50000,
-    etaHea=0.8) "Dehumidifier"
+    etaHea=0.8)
+    "Dehumidifier"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Fluid.Dehumidifiers.Desiccant.Data.Default perDat
    "Performance data"
@@ -76,23 +77,29 @@ model ElectricCoilBypassDampers
     "Humidity sensor of the process air leaving the dehumidifier"
     annotation (Placement(transformation(extent={{26,-18},{46,2}})));
 equation
-  connect(sou_2.ports[1], deh.port_a2) annotation (Line(points={{40,50},{18,50},
+  connect(sou_2.ports[1], deh.port_a2)
+    annotation (Line(points={{40,50},{18,50},
           {18,8},{10,8}}, color={0,127,255}));
-  connect(sin_2.ports[1], deh.port_b2) annotation (Line(points={{-40,50},{-20,50},
+  connect(sin_2.ports[1], deh.port_b2)
+    annotation (Line(points={{-40,50},{-20,50},
           {-20,8},{-10,8}}, color={0,127,255}));
-  connect(TProEnt.y, sou_1.T_in) annotation (Line(points={{-77,-60},{-68,-60},{-68,
+  connect(TProEnt.y, sou_1.T_in)
+    annotation (Line(points={{-77,-60},{-68,-60},{-68,
           -26},{-62,-26}}, color={0,0,127}));
-  connect(uBypDamPos.y, deh.uBypDamPos) annotation (Line(points={{-69,30},{-22,30},
+  connect(uBypDamPos.y, deh.uBypDamPos)
+    annotation (Line(points={{-69,30},{-22,30},
           {-22,0},{-12,0}}, color={0,0,127}));
   connect(uRot.y, deh.uRot)
     annotation (Line(points={{-69,-6},{-12,-6}}, color={255,0,255}));
   connect(deh.port_b1, senX_w_ProLea.port_a)
     annotation (Line(points={{10,-8},{26,-8}}, color={0,127,255}));
-  connect(senX_w_ProLea.port_b, sin_1.ports[1]) annotation (Line(points={{46,-8},
+  connect(senX_w_ProLea.port_b, sin_1.ports[1])
+    annotation (Line(points={{46,-8},
           {60,-8},{60,-40},{70,-40}}, color={0,127,255}));
   connect(sou_1.ports[1], senX_w_ProEnt.port_a)
     annotation (Line(points={{-40,-30},{-34,-30}}, color={0,127,255}));
-  connect(senX_w_ProEnt.port_b, deh.port_a1) annotation (Line(points={{-14,-30},
+  connect(senX_w_ProEnt.port_b, deh.port_a1)
+    annotation (Line(points={{-14,-30},
           {-6,-30},{-6,-16},{-16,-16},{-16,-8},{-10,-8}}, color={0,127,255}));
   annotation (experiment(Tolerance=1e-6, StopTime=1200),
          __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Dehumidifiers/Desiccant/Examples/ElectricCoilBypassDampers.mos"

@@ -185,7 +185,7 @@ Specifically, this calculation is configured as follows.
   </ul>
   </li>
   <li>
-  The sensible and latent heat exchange effectiveness are calculated by 
+  The sensible and latent heat exchange effectiveness is calculated by 
   <p align=\"center\" style=\"font-style:italic;\">
    etaSen = (a<sub>1</sub> + a<sub>2</sub> uSpe + a<sub>3</sub> uSpe<sup>2</sup> + ...),
   </p>

@@ -17,7 +17,9 @@ protected
 
 algorithm
   TProEnt_degC := Modelica.Units.Conversions.to_degC(TProEnt);
-  y:= a[1] + a[2]*TProEnt_degC + a[3]* X_w_ProEnt + a[4]*vPro
+  y:= a[1] + a[2]*TProEnt_degC
+           + a[3]* X_w_ProEnt
+           + a[4]*vPro
            + a[5]*TProEnt_degC*X_w_ProEnt
            + a[6]*TProEnt_degC*vPro
            + a[7]*X_w_ProEnt*vPro + a[8]*TProEnt_degC*TProEnt_degC
