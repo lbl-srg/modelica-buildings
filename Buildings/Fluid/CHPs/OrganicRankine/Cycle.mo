@@ -218,6 +218,7 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
 Documentation(info="<html>
 <p>
+[fixme: pending update.]
 Implemented in this model is a steady-state organic Rankine cycle
 as a bottoming cycle.
 The fluid stream 1 (using <code>Medium1</code>, <code>port_a1</code>, etc.)
@@ -230,79 +231,79 @@ See the Thermodynamic Properties section of this document.
 <p>
 The implemented ORC assumes a simple architecture shown in the figure below.
 For any given WF, the cycle is determined by providing
-the WF evaporating temperature <i>T<sub>w,Eva</sub></i>,
-the WF condensing temperature <i>T<sub>w,Con</sub></i>,
-the expander efficiency <i>&eta;<sub>Exp</sub></i>.
-The superheating temperature differential <i>&Delta;T<sub>Sup</sub></i>
+the WF evaporating temperature <i>T<sub>w,eva</sub></i>,
+the WF condensing temperature <i>T<sub>w,con</sub></i>,
+the expander efficiency <i>&eta;<sub>exp</sub></i>, and
+the pump efficiency <i>&eta;<sub>pum</sub></i>.
+The superheating temperature differential <i>&Delta;T<sub>sup</sub></i>
 is minimised, meaning it is zero whenever possible; otherwise it assumes
 the smallest value not to cause the expander outlet state to fall
-under the dome. The model neglects the property difference between
-the pump inlet and outlet or the pressure loss along any pipe of
-the cycle components. Subcooling after the condenser is not considered.
+under the dome. Subcooling after the condenser is not considered.
 The Thermodynamic Properties section of this document details how these
 state points are found.
 </p>
 <p>
 An important underlying assumption is that all generated power can
-be consumed or otherwise dissipated, i.e. the cycle is not controlled
+be consumed and heat dissipated, i.e. the cycle is not controlled
 to satisfy a certain load, electrical or thermal.
 </p>
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Fluid/CHPs/OrganicRankine/CycleArchitecture.png\"
-alt=\"CycleArchitecture\" width=\"400\" height=\"300\"/></p>
+alt=\"CycleArchitecture\" width=\"800\" height=\"300\"/></p>
 <p>
 As the waste heat stream comes in as the evaporator hot fluid,
 the cycle processes the heat at a fixed
-<i>T<sub>w,Eva</sub></i> provided by the user.
+<i>T<sub>w,eva</sub></i> provided by the user.
 The evaporator heat exchange is governed by the following equations:
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-Q&#775;<sub>Eva</sub> = m&#775;<sub>h</sub>&nbsp;c<sub>p,h</sub>&nbsp;(T<sub>h,in</sub> - T<sub>h,out</sub>),<br/>
-Q&#775;<sub>Eva</sub> = m&#775;<sub>w</sub>&nbsp;(h<sub>ExpInl</sub> - h<sub>Pum</sub>),
+Q&#775;<sub>eva</sub> = m&#775;<sub>h</sub>&nbsp;c<sub>p,h</sub>&nbsp;(T<sub>h,in</sub> - T<sub>h,out</sub>),<br/>
+Q&#775;<sub>eva</sub> = m&#775;<sub>w</sub>&nbsp;(h<sub>ExpInl</sub> - h<sub>PumOut</sub>),
 </p>
 <p>
 where the subscripts are:<br/>
-<i>Eva</i> - evaporator;<br/>
+<i>eva</i> - evaporator;<br/>
 <i>h</i> - hot fluid of the evaporator, i.e. the fluid carrying waste heat;<br/>
 <i>w</i> - working fluid.
 </p>
 <p>
-The cycle needs to accommodate the varying flow rate and temperature
-of the waste heat stream. To do so, the model solves for a
-<i>m&#775;<sub>w</sub></i> that would maintain a constant pinch point (PP)
-temperature differential at the evaporator <i>&Delta;T<sub>pin,Eva</sub></i>.
+The cycle accommodates the varying flow rate and temperature
+of the waste heat stream by changing <i>m&#775;<sub>w</sub></i>
+to maintain a constant pinch point (PP) temperature differential
+at the evaporator <i>&Delta;T<sub>pin,Eva</sub></i>.
 This differential is found by the following equations:
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-(T<sub>pin,Eva</sub> - T<sub>h,out</sub>)&nbsp;(h<sub>ExpInl</sub> - h<sub>Pum</sub>)
-= (T<sub>h,in</sub> - T<sub>h,out</sub>)&nbsp;(h<sub>pinE,va</sub> - h<sub>Pum</sub>),<br/>
-&Delta;T<sub>pin,Eva</sub> = T<sub>pin,Eva</sub> - T<sub>w,Eva</sub>.
+(T<sub>pin,eva</sub> - T<sub>h,out</sub>)&nbsp;(h<sub>ExpInl</sub> - h<sub>PumOut</sub>)
+= (T<sub>h,in</sub> - T<sub>h,out</sub>)&nbsp;(h<sub>EvaPin</sub> - h<sub>PumOut</sub>),<br/>
+&Delta;T<sub>pin,eva</sub> = T<sub>pin,eva</sub> - T<sub>w,eva</sub>.
 </p>
 <p>
 The condenser side uses the same equations with the evaporator variables
 replaced by their condenser counterparts where appropriate:
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-Q&#775;<sub>Con</sub> = m&#775;<sub>c</sub>&nbsp;c<sub>p,c</sub>&nbsp;(T<sub>c,in</sub> - T<sub>c,out</sub>),<br/>
-Q&#775;<sub>Con</sub> = m&#775;<sub>w</sub>&nbsp;(h<sub>ExpOut</sub> - h<sub>Pum</sub>),<br/>
-(T<sub>pin,Con</sub> - T<sub>c,in</sub>)&nbsp;(h<sub>ExpOut</sub> - h<sub>Pum</sub>)
-= (T<sub>c,out</sub> - T<sub>c,in</sub>)&nbsp;(h<sub>PinCon</sub> - h<sub>Pum</sub>),<br/>
-&Delta;T<sub>pin,Con</sub> = T<sub>w,Con</sub> - T<sub>pin,Con</sub>,
+Q&#775;<sub>con</sub> = m&#775;<sub>c</sub>&nbsp;c<sub>p,c</sub>&nbsp;(T<sub>c,in</sub> - T<sub>c,out</sub>),<br/>
+Q&#775;<sub>con</sub> = m&#775;<sub>w</sub>&nbsp;(h<sub>ExpOut</sub> - h<sub>PumInl</sub>),<br/>
+(T<sub>c,pin</sub> - T<sub>c,in</sub>)&nbsp;(h<sub>ExpOut</sub> - h<sub>PumInl</sub>)
+= (T<sub>c,out</sub> - T<sub>c,in</sub>)&nbsp;(h<sub>ConPin</sub> - h<sub>PumInl</sub>),<br/>
+&Delta;T<sub>con,pin</sub> = T<sub>w,con</sub> - T<sub>c,pin</sub>,
 </p>
 <p>
 where the subscripts are:<br/>
-<i>Con</i> - condenser;<br/>
-<i>c</i> - cold fluid of the condenser.<br/>
+<i>con</i> - condenser;<br/>
+<i>c</i> - cold fluid in the condenser.<br/>
 </p>
 <p>
-On this side, to maintain the PP differential, <i>T<sub>w,Con</sub></i>
-is solved for.
+On this side, <i>T<sub>w,con</sub></i> is used to maintain the PP differential.
 </p>
 <p>
-Finally, the electric power output of the cycle is found by
+The electric power output of the expander
+and electric power consumption of the pump are
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-W&#775; = Q&#775;<sub>Eva</sub> - Q&#775;<sub>Con</sub>.
+P<sub>exp</sub> = m&#775;<sub>w</sub>&nbsp;(h<sub>ExpInl</sub> - h<sub>ExpOut</sub>),<br/>
+P<sub>pum</sub> = m&#775;<sub>w</sub>&nbsp;(h<sub>PumOut</sub> - h<sub>PumInl</sub>).
 </p>
 <p>
 In summary, the model has the following information flow:
@@ -317,7 +318,9 @@ In summary, the model has the following information flow:
 <td>
 <i>T<sub>w,Eva</sub></i> - Working fluid evaporating temperature,<br/>
 <i>&Delta;T<sub>pin,Eva</sub></i> - Evaporator pinch point temperature differential,<br/>
-<i>&Delta;T<sub>pin,Con</sub></i> - Condenser pinch point temperature differential.
+<i>&Delta;T<sub>pin,Con</sub></i> - Condenser pinch point temperature differential,<br/>
+<i>&eta;<sub>exp</sub></i> - Expander efficiency,<br/>
+<i>&eta;<sub>pum</sub></i> - Pump efficiency.
 </td>
 <td>
 <i>T<sub>h,in</sub></i> - Evaporator hot fluid incoming temperature,<br/>
@@ -327,12 +330,13 @@ In summary, the model has the following information flow:
 </td>
 <td>
 <i>m&#775;<sub>w</sub></i> - Working fluid flow rate,<br/>
-<i>T<sub>w,Con</sub></i> - Working fluid condensing temperature,<br/>
+<i>T<sub>w,con</sub></i> - Working fluid condensing temperature,<br/>
 <i>T<sub>h,out</sub></i> - Evaporator hot fluid outgoing temperature,<br/>
 <i>T<sub>c,out</sub></i> - Condenser cold fluid outgoing temperature,<br/>
-<i>Q&#775;<sub>Eva</sub></i> - Evaporator heat flow rate,<br/>
-<i>Q&#775;<sub>Con</sub></i> - Condenser heat flow rate,<br/>
-<i>W&#775;</i> - Cycle power output.
+<i>Q&#775;<sub>eva</sub></i> - Evaporator heat flow rate,<br/>
+<i>Q&#775;<sub>con</sub></i> - Condenser heat flow rate,<br/>
+<i>P<sub>exp</sub></i> - Expander power output,<br/>
+<i>P<sub>pum</sub></i> - Pump power consumption.
 </td>
 </tr>
 </table>
@@ -340,7 +344,7 @@ In summary, the model has the following information flow:
 <p>
 This model solves for <i>m&#775;<sub>w</sub></i> to maintain the prescribed
 evaporator PP temperature differential set point,
-and <i>T<sub>w,Con</sub></i> for the condenser PP.
+and <i>T<sub>w,con</sub></i> for the condenser PP.
 Some constraints apply.
 </p>
 <p>
@@ -349,19 +353,19 @@ On the evaporator side, an upper limit and a lower limit are imposed on
 </p>
 <ul>
 <li>
-If the flow rate required for <i>&Delta;T<sub>pin,Eva</sub></i> to
+If the flow rate required for <i>&Delta;T<sub>pin,eva</sub></i> to
 be maintained at the set value is higher than the upper limit,
 <i>m&#775;<sub>w</sub></i> stays at this upper limit and
-<i>&Delta;T<sub>pin,Eva</sub></i> is allowed to go higher than its set point.
+<i>&Delta;T<sub>pin,eva</sub></i> is allowed to go higher than its set point.
 This may happen when the incoming waste heat fluid has a high flow rate
 or a high incoming temperature, i.e. carries more energy than the system
 is sized to process.
 </li>
 <li>
-If the flow rate required for <i>&Delta;T<sub>pin,Eva</sub></i> to
+If the flow rate required for <i>&Delta;T<sub>pin,eva</sub></i> to
 be maintained at the set value is lower than the lower limit,
 <i>m&#775;<sub>w</sub></i> is reset to zero and
-the <i>&Delta;T<sub>pin,Eva</sub></i> set point is ignored.
+the <i>&Delta;T<sub>pin,eva</sub></i> set point is ignored.
 This may happen when the incoming waste heat fluid has a low flow rate
 or a low incoming temperature, i.e. carries too little energy.
 This limit also protects the cycle from losing heat through the evaporator
@@ -375,12 +379,12 @@ a varying waste heat fluid stream is demonstrated in
 Buildings.Fluid.CHPs.OrganicRankine.Validation.VariableHot</a>
 </p>
 <p>
-On the condenser side, a lower limit is imposed on <i>T<sub>w,Con</sub></i>.
+On the condenser side, a lower limit is imposed on <i>T<sub>w,con</sub></i>.
 This can prevent the condenser pressure from going too low.
 This is demonstrated in
 <a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.Validation.VariableHot\">
 Buildings.Fluid.CHPs.OrganicRankine.Validation.VariableHot</a>
-In principle, an upper limit should also exist for <i>T<sub>w,Con</sub></i>.
+In principle, an upper limit should also exist for <i>T<sub>w,con</sub></i>.
 This is simply implemented as an <code>assert()</code> statement.
 The reason is that such a situation should not occur as long as
 an appropriate minimum cooling fluid flow is maintained in the condenser
@@ -443,9 +447,9 @@ and the reference line, albeit with less accuracy.
 </ul>
 <p>
 The cycle can be completely defined by providing the following three variables:
-evaporating temperature <i>T<sub>Eva</sub></i> or pressure <i>p<sub>Eva</sub></i>,
-condensing temperature <i>T<sub>Con</sub></i> or pressure <i>p<sub>Con</sub></i>,
-and expander efficiency <i>&eta;<sub>Exp</sub></i>.
+evaporating temperature <i>T<sub>eva</sub></i> or pressure <i>p<sub>eva</sub></i>,
+condensing temperature <i>T<sub>con</sub></i> or pressure <i>p<sub>con</sub></i>,
+and expander efficiency <i>&eta;<sub>exp</sub></i>.
 Most of the important state points can be found via the interpolation schemes
 described above. The only exceptions are <i>ExpInl</i> and <i>ExpOut</i>
 which depend on the type of the fluid and <i>&eta;<sub>Exp</sub></i>.
@@ -470,10 +474,10 @@ the superheated vapour region and ends on the saturated vapour line.
 In this scenario,
 <p align=\"center\" style=\"font-style:italic;\">
 h<sub>ExpOut</sub> - h<sub>ExpInl</sub>
-= (h<sub>ExpOut</sub> - h<sub>ExpInlIse</sub>) &eta;<sub>Exp</sub>
+= (h<sub>ExpOut</sub> - h<sub>ExpInlIse</sub>) &eta;<sub>exp</sub>
 </p>
 where <i>h<sub>ExpOut</sub></i> is known and <i>h<sub>ExpInl</sub></i> is solved.
-For this fluid and this <i>&eta;<sub>Exp</sub></i>,
+For this fluid and this <i>&eta;<sub>exp</sub></i>,
 if the expansion started from the saturated vapour line,
 the outlet point would end up under the dome.
 </li>
