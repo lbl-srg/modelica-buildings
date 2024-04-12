@@ -22,17 +22,17 @@ model FixedEvaporating
     displayUnit="degC") "Incoming temperature of hot fluid in evaporator"
     annotation (Placement(
         transformation(extent={{-140,60},{-100,100}}),  iconTransformation(
-          extent={{-140,60},{-100,100}})));
+          extent={{-120,70},{-100,90}})));
   Modelica.Blocks.Interfaces.RealInput mHot_flow(
     final quantity="MassFlowRate",
     final unit="kg/s") "Evaporator hot fluid flow rate"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
-        iconTransformation(extent={{-140,20},{-100,60}})));
+        iconTransformation(extent={{-120,30},{-100,50}})));
   Modelica.Blocks.Interfaces.RealOutput QEva_flow(
     final quantity="HeatFlowRate",
     final unit="W") "Evaporator heat flow rate"
     annotation (Placement(transformation(extent={{100,20},{140,60}}),
-                             iconTransformation(extent={{100,20},{140,60}})));
+                             iconTransformation(extent={{100,30},{120,50}})));
   Modelica.Units.SI.ThermodynamicTemperature THotOut(
     start = TWorEva + dTPinEva_set)
     "Outgoing temperature of the evaporator hot fluid";
@@ -55,12 +55,12 @@ model FixedEvaporating
     final unit="K",
     displayUnit="degC") "Incoming temperature of cold fluid in condenser"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
-        iconTransformation(extent={{-140,-60},{-100,-20}})));
+        iconTransformation(extent={{-120,-50},{-100,-30}})));
   Modelica.Blocks.Interfaces.RealInput mCol_flow(
     final quantity="MassFlowRate",
     final unit="kg/s") "Condenser cold fluid flow rate" annotation (Placement(
         transformation(extent={{-140,-100},{-100,-60}}), iconTransformation(
-          extent={{-140,-100},{-100,-60}})));
+          extent={{-120,-90},{-100,-70}})));
   Modelica.Units.SI.ThermodynamicTemperature TWorCon =
     Buildings.Utilities.Math.Functions.smoothMax(
       x1 = TWorCon_internal,
@@ -73,8 +73,8 @@ model FixedEvaporating
   Modelica.Blocks.Interfaces.RealOutput QCon_flow(
     final quantity="HeatFlowRate",
     final unit="W") "Condenser heat flow rate" annotation (Placement(
-        transformation(extent={{100,-60},{140,-20}}), iconTransformation(extent={{100,-60},
-            {140,-20}})));
+        transformation(extent={{100,-60},{140,-20}}), iconTransformation(extent={{100,-50},
+            {120,-30}})));
   Modelica.Units.SI.ThermodynamicTemperature TColOut
     "Fluid temperature out of the condenser, intermediate variable";
   Modelica.Units.SI.ThermodynamicTemperature TColPin(
@@ -84,13 +84,12 @@ model FixedEvaporating
     "Pinch point temperature differential of condenser";
 
 // Expander
-  Modelica.Blocks.Interfaces.RealOutput PEleOut(
+  Modelica.Blocks.Interfaces.RealOutput PEle(
     final quantity="Power",
-    final unit="W")
-    = QEva_flow - QCon_flow
-    "Electrical power output" annotation (Placement(transformation(
-          extent={{100,-20},{140,20}}), iconTransformation(extent={{100,-20},{140,
-            20}})));
+    final unit="W")=QEva_flow - QCon_flow
+    "Electrical power output from the expander" annotation (Placement(
+        transformation(extent={{100,-20},{140,20}}), iconTransformation(extent=
+            {{100,-10},{120,10}})));
 
 // Cycle
   Modelica.Units.SI.MassFlowRate mWor_flow =

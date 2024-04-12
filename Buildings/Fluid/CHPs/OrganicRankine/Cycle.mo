@@ -108,12 +108,10 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
     "Pump efficiency"
     annotation(Dialog(group="Cycle"));
 
-  Modelica.Blocks.Interfaces.RealOutput PEleOut(
-    final quantity="Power",
-    final unit="W") "Electrical power output"
-                              annotation (Placement(transformation(
-          extent={{100,-20},{140,20}}), iconTransformation(extent={{70,-20},{
-            110,20}})));
+  Modelica.Blocks.Interfaces.RealOutput PEle(final quantity="Power", final unit
+      ="W") "Electrical power output from the expander" annotation (Placement(
+        transformation(extent={{100,-20},{140,20}}), iconTransformation(extent=
+            {{70,-10},{90,10}})));
   Modelica.Blocks.Interfaces.BooleanInput ena
     "Enable cycle; set false to force working fluid flow to zero" annotation (
       Placement(transformation(extent={{-140,-20},{-100,20}}),
@@ -122,12 +120,12 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
     final quantity="HeatFlowRate",
     final unit="W") "Evaporator heat flow rate (positive)" annotation (
       Placement(transformation(extent={{100,20},{140,60}}), iconTransformation(
-          extent={{70,10},{110,50}})));
+          extent={{70,30},{90,50}})));
   Modelica.Blocks.Interfaces.RealOutput QCon_flow(
     final quantity="HeatFlowRate",
     final unit="W") "Condenser heat flow rate (positive)" annotation (
       Placement(transformation(extent={{100,-60},{140,-20}}),
-        iconTransformation(extent={{70,-50},{110,-10}})));
+        iconTransformation(extent={{70,-50},{90,-30}})));
   Modelica.Blocks.Interfaces.BooleanOutput on_actual
     "Actual on off status of the cycle" annotation (Placement(transformation(
           extent={{100,80},{140,120}}), iconTransformation(extent={{70,80},{90,100}})));
@@ -168,27 +166,28 @@ equation
           40},{-16,60},{-10,60}}, color={191,0,0}));
   connect(preHeaFloCon.port, vol2.heatPort) annotation (Line(points={{21,-60},{12,
           -60}},                      color={191,0,0}));
-  connect(cyc.QCon_flow, preHeaFloCon.Q_flow) annotation (Line(points={{12,-4},
+  connect(cyc.QCon_flow, preHeaFloCon.Q_flow) annotation (Line(points={{11,-4},
           {50,-4},{50,-60},{41,-60}}, color={0,0,127}));
   connect(expTHotIn.y, cyc.THotIn) annotation (Line(points={{-39,30},{-20,30},{
-          -20,8},{-12,8}}, color={0,0,127}));
+          -20,8},{-11,8}}, color={0,0,127}));
   connect(expMHot_flow.y, cyc.mHot_flow) annotation (Line(points={{-39,10},{-30,
-          10},{-30,4},{-12,4}}, color={0,0,127}));
+          10},{-30,4},{-11,4}}, color={0,0,127}));
   connect(expTColIn.y, cyc.TColIn) annotation (Line(points={{-39,-10},{-30,-10},
-          {-30,-4},{-12,-4}}, color={0,0,127}));
-  connect(expMCol_flow.y, cyc.mCol_flow) annotation (Line(points={{-39,-30},{-20,
-          -30},{-20,-8},{-12,-8}}, color={0,0,127}));
+          {-30,-4},{-11,-4}}, color={0,0,127}));
+  connect(expMCol_flow.y, cyc.mCol_flow) annotation (Line(points={{-39,-30},{
+          -20,-30},{-20,-8},{-11,-8}},
+                                   color={0,0,127}));
   connect(cyc.QEva_flow, gai.u)
-    annotation (Line(points={{12,4},{50,4},{50,18}}, color={0,0,127}));
+    annotation (Line(points={{11,4},{50,4},{50,18}}, color={0,0,127}));
   connect(gai.y, preHeaFloEva.Q_flow) annotation (Line(points={{50,41},{50,40},{
           39,40}},         color={0,0,127}));
-  connect(cyc.PEleOut, PEleOut)
-    annotation (Line(points={{12,0},{120,0}}, color={0,0,127}));
+  connect(cyc.PEle, PEle)
+    annotation (Line(points={{11,0},{120,0}}, color={0,0,127}));
   connect(ena, cyc.ena)
     annotation (Line(points={{-120,0},{-11,0}}, color={255,0,255}));
-  connect(cyc.QEva_flow, QEva_flow) annotation (Line(points={{12,4},{90,4},{90,
+  connect(cyc.QEva_flow, QEva_flow) annotation (Line(points={{11,4},{90,4},{90,
           40},{120,40}}, color={0,0,127}));
-  connect(cyc.QCon_flow, QCon_flow) annotation (Line(points={{12,-4},{50,-4},{
+  connect(cyc.QCon_flow, QCon_flow) annotation (Line(points={{11,-4},{50,-4},{
           50,-40},{120,-40}}, color={0,0,127}));
   connect(cyc.on_actual, on_actual) annotation (Line(points={{11,8},{80,8},{80,
           100},{120,100}}, color={255,0,255}));
