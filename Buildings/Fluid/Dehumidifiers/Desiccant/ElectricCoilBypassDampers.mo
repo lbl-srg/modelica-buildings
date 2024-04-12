@@ -13,7 +13,7 @@ model ElectricCoilBypassDampers
     extent={{-280,-140},{-240,-100}}),
           iconTransformation(extent={{-140,-80},
             {-100,-40}})));
-   Modelica.Blocks.Interfaces.RealInput uBypDamPos(
+  Modelica.Blocks.Interfaces.RealInput uBypDamPos(
     final unit="1",
     final min=0,
     final max=1)
@@ -40,8 +40,8 @@ model ElectricCoilBypassDampers
     "Process air damper"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},rotation=0,origin={-130,-100})));
-  Modelica.Blocks.Sources.RealExpression X_w_ProEnt(final y(final unit="1")=
-      damPro.port_b.Xi_outflow[i1_w])
+  Modelica.Blocks.Sources.RealExpression X_w_ProEnt(
+    final y(final unit="1") = damPro.port_b.Xi_outflow[i1_w])
     "Humidity ratio of the process air entering the dehumidifier"
     annotation (Placement(transformation(extent={{-110,-72},{-90,-52}})));
   Modelica.Blocks.Sources.Constant uni(
@@ -107,33 +107,45 @@ equation
   connect(hea.Q_flow, PEleHea.u)
     annotation (Line(points={{-5,72},{-40,72},{-40,-60},{-22,-60}},
     color={0,0,127}));
-  connect(bypDamPro.port_a, port_a1) annotation (Line(points={{-170,-120},{-180,
+  connect(bypDamPro.port_a, port_a1)
+    annotation (Line(points={{-170,-120},{-180,
           -120},{-180,-100},{-240,-100}}, color={0,127,255}));
-  connect(bypDamPro.port_b, port_b1) annotation (Line(points={{-150,-120},{-126,
+  connect(bypDamPro.port_b, port_b1)
+    annotation (Line(points={{-150,-120},{-126,
           -120},{-126,-138},{34,-138},{34,-100},{100,-100}}, color={0,127,255}));
-  connect(booleanToReal.y, PEleMot.u) annotation (Line(points={{-179,10},{-50,
+  connect(booleanToReal.y, PEleMot.u)
+    annotation (Line(points={{-179,10},{-50,
           10},{-50,-32},{-22,-32}}, color={0,0,127}));
   connect(uni.y, sub.u1)
     annotation (Line(points={{-193,-20},{-168,-20}}, color={0,0,127}));
-  connect(uBypDamPos, bypDamPro.y) annotation (Line(points={{-260,0},{-220,0},{
+  connect(uBypDamPos, bypDamPro.y)
+    annotation (Line(points={{-260,0},{-220,0},{
           -220,-80},{-160,-80},{-160,-108}}, color={0,0,127}));
-  connect(sub.u2, uBypDamPos) annotation (Line(points={{-168,-32},{-180,-32},{
+  connect(sub.u2, uBypDamPos)
+    annotation (Line(points={{-168,-32},{-180,-32},{
           -180,-60},{-220,-60},{-220,0},{-260,0}}, color={0,0,127}));
-  connect(booleanToReal.u, uRot) annotation (Line(points={{-202,10},{-230,10},{
+  connect(booleanToReal.u, uRot)
+    annotation (Line(points={{-202,10},{-230,10},{
           -230,-120},{-260,-120}}, color={255,0,255}));
-  connect(dehPer.uSpe, uni.y) annotation (Line(points={{-56.2,-73},{-56.2,-6},{
+  connect(dehPer.uSpe, uni.y)
+    annotation (Line(points={{-56.2,-73},{-56.2,-6},{
           -180,-6},{-180,-20},{-193,-20}}, color={0,0,127}));
-  connect(outCon.port_b, port_b1) annotation (Line(points={{14,-100},{56,-100},{
+  connect(outCon.port_b, port_b1)
+    annotation (Line(points={{14,-100},{56,-100},{
           56,-100},{100,-100}}, color={0,127,255}));
-  connect(damPro.y, sub.y) annotation (Line(points={{-130,-88},{-130,-26},{-144,
+  connect(damPro.y, sub.y)
+    annotation (Line(points={{-130,-88},{-130,-26},{-144,
           -26}}, color={0,0,127}));
-  connect(dehPer.onDeh, uRot) annotation (Line(points={{-59,-75.8},{-144,-75.8},
+  connect(dehPer.onDeh, uRot)
+    annotation (Line(points={{-59,-75.8},{-144,-75.8},
           {-144,-76},{-230,-76},{-230,-120},{-260,-120}}, color={255,0,255}));
-  connect(X_w_ProEnt.y, dehPer.X_w_ProEnt) annotation (Line(points={{-89,-62},{
+  connect(X_w_ProEnt.y, dehPer.X_w_ProEnt)
+    annotation (Line(points={{-89,-62},{
           -76,-62},{-76,-88},{-59,-88}}, color={0,0,127}));
   connect(damPro.port_a, port_a1)
     annotation (Line(points={{-140,-100},{-240,-100}}, color={0,127,255}));
-  connect(damPro.port_b, outCon.port_a) annotation (Line(points={{-120,-100},{
+  connect(damPro.port_b, outCon.port_a)
+    annotation (Line(points={{-120,-100},{
           -114,-100},{-114,-120},{-20,-120},{-20,-100},{-6,-100}}, color={0,127,
           255}));
   annotation (

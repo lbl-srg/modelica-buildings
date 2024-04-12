@@ -115,7 +115,7 @@ protected
     vol(redeclare final package Medium = Medium2,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final m_flow_nominal=m2_flow_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     V=m2_flow_nominal*tau/rho_Reg_default,
     nPorts=1)
     "Volume for the regeneration air stream"
@@ -162,32 +162,43 @@ initial algorithm
    end for;
 
 equation
-  connect(dehPer.TProLea, outCon.TSet) annotation (Line(points={{-37,-76},{-12,-76},
+  connect(dehPer.TProLea, outCon.TSet)
+    annotation (Line(points={{-37,-76},{-12,-76},
           {-12,-92},{-7,-92}}, color={0,0,127}));
-  connect(dehPer.X_w_ProLea, outCon.X_wSet) annotation (Line(points={{-37,-80},{
+  connect(dehPer.X_w_ProLea, outCon.X_wSet)
+    annotation (Line(points={{-37,-80},{
           -14,-80},{-14,-96},{-7,-96}}, color={0,0,127}));
-  connect(VPro_flow.y, dehPer.VPro_flow) annotation (Line(points={{-89,-96},{-78,
+  connect(VPro_flow.y, dehPer.VPro_flow)
+    annotation (Line(points={{-89,-96},{-78,
           -96},{-78,-92.2},{-59,-92.2}}, color={0,0,127}));
-  connect(TProEnt.y, dehPer.TProEnt) annotation (Line(points={{-89,-28},{-70,-28},
+  connect(TProEnt.y, dehPer.TProEnt)
+    annotation (Line(points={{-89,-28},{-70,-28},
           {-70,-79.8},{-59,-79.8}}, color={0,0,127}));
-  connect(TRegEnt.y, dehPer.TRegEnt) annotation (Line(points={{-89,-44},{-84,-44},
+  connect(TRegEnt.y, dehPer.TRegEnt)
+    annotation (Line(points={{-89,-44},{-84,-44},
           {-84,-84},{-59,-84}}, color={0,0,127}));
-  connect(outCon.mWat_flow, gai1.u) annotation (Line(points={{15,-96},{18,-96},{
+  connect(outCon.mWat_flow, gai1.u)
+    annotation (Line(points={{15,-96},{18,-96},{
           18,-92},{20,-92},{20,10},{2,10}},
           color={0,0,127}));
-  connect(gai1.y, vol.mWat_flow) annotation (Line(points={{-21,10},{-40,10},{
+  connect(gai1.y, vol.mWat_flow)
+    annotation (Line(points={{-21,10},{-40,10},{
           -40,20},{-130,20},{-130,48},{-107,48}},
           color={0,0,127}));
   connect(preHeaFlo.Q_flow, gai2.y)
     annotation (Line(points={{-62,40},{-21,40}}, color={0,0,127}));
-  connect(preHeaFlo.port, vol.heatPort) annotation (Line(points={{-82,40},{-120,
+  connect(preHeaFlo.port, vol.heatPort)
+    annotation (Line(points={{-82,40},{-120,
           40},{-120,56},{-105,56}}, color={191,0,0}));
-  connect(gai2.u,outCon. Q_flow) annotation (Line(points={{2,40},{40,40},{40,-92},
+  connect(gai2.u,outCon. Q_flow)
+    annotation (Line(points={{2,40},{40,40},{40,-92},
           {15,-92}}, color={0,0,127}));
-  connect(vol.ports[1], port_b2) annotation (Line(points={{-95,66},{-144,66},{
+  connect(vol.ports[1], port_b2)
+    annotation (Line(points={{-95,66},{-144,66},{
           -144,80},{-240,80}},
           color={0,127,255}));
-  connect(mPro_flow.y, dehPer.mPro_flow) annotation (Line(points={{-89,-114},{-48,
+  connect(mPro_flow.y, dehPer.mPro_flow)
+    annotation (Line(points={{-89,-114},{-48,
           -114},{-48,-95}}, color={0,0,127}));
   connect(outCon.port_b, port_b1)
     annotation (Line(points={{14,-100},{100,-100}}, color={0,127,255}));
@@ -220,7 +231,7 @@ equation
         Text(
           extent={{-149,-104},{151,-144}},
           textColor={0,0,255},
-          textString="%name")}),                                 Diagram(
+          textString="%name")}), Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-240,-140},{100,100}})),
     Documentation(info="<html>
 <p>
@@ -237,7 +248,6 @@ It takes two inputs: a boolean signal for dehumidification and a real signal for
   <ul>
      <li>
      The boolean signal determines if the dehumidifier occurs or not.
-.
      </li>
      <li>
      The real signal specifies the amount of sensible and latent heat exchange that occurs in the dehumidifier and can be

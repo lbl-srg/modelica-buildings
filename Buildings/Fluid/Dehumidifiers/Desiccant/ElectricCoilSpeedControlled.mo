@@ -1,6 +1,6 @@
 within Buildings.Fluid.Dehumidifiers.Desiccant;
 model ElectricCoilSpeedControlled
-  "Desiccant dehumidifier with an electric heating coil and a variable speed drive"
+  "Desiccant dehumidifier with an electric heating coil and a variable speed wheel"
   extends BaseClasses.PartialDesiccant(
     vol(nPorts=2));
   parameter Real etaHea(
@@ -9,15 +9,16 @@ model ElectricCoilSpeedControlled
     "Heater efficiency"
     annotation (Dialog(group="Efficiency"));
   parameter Real c[:] = {1}
-    "Coefficients for power consumption curve for rotor, 
+    "Coefficients for power consumption curve for the rotor, 
      P/P_nominal = sum a_i uSpe^(i-1). The sum(a) of the elements must be equal to 1"
     annotation (Dialog(group="Efficiency"));
 
-
-   Modelica.Blocks.Interfaces.RealInput uSpe(
+  Modelica.Blocks.Interfaces.RealInput uSpe(
     final unit="1",
     final min=0,
-    final max=1) "Wheel speed ratio" annotation (Placement(transformation(
+    final max=1)
+    "Wheel speed ratio"
+    annotation (Placement(transformation(
           extent={{-280,-20},{-240,20}}), iconTransformation(extent={{-140,-20},
             {-100,20}})));
   Buildings.Fluid.HeatExchangers.HeaterCooler_u hea(
@@ -49,7 +50,7 @@ model ElectricCoilSpeedControlled
   Buildings.Fluid.FixedResistances.PressureDrop res(
     redeclare package Medium = Medium1,
     final m_flow_nominal=m1_flow_nominal,
-    final dp_nominal=dp1_nominal) 
+    final dp_nominal=dp1_nominal)
     "Flow resistance"
     annotation (Placement(transformation(extent={{-200,-110},{-180,-90}})));
 protected
@@ -99,19 +100,25 @@ equation
   connect(hea.Q_flow, PEleHea.u)
     annotation (Line(points={{-5,72},{-48,72},{-48,-60},{-22,-60}},
     color={0,0,127}));
-  connect(dehPer.uSpe, uSpe) annotation (Line(points={{-56.2,-73},{-56.2,0},{-260,
+  connect(dehPer.uSpe, uSpe)
+    annotation (Line(points={{-56.2,-73},{-56.2,0},{-260,
           0}}, color={0,0,127}));
-  connect(realToBoolean.u, uSpe) annotation (Line(points={{-182,-40},{-200,-40},
+  connect(realToBoolean.u, uSpe)
+    annotation (Line(points={{-182,-40},{-200,-40},
           {-200,0},{-260,0}}, color={0,0,127}));
-  connect(realToBoolean.y, dehPer.onDeh) annotation (Line(points={{-159,-40},{-126,
+  connect(realToBoolean.y, dehPer.onDeh)
+    annotation (Line(points={{-159,-40},{-126,
           -40},{-126,-75.8},{-59,-75.8}}, color={255,0,255}));
-  connect(PEle.y, add3.u2) annotation (Line(points={{1,-30},{26,-30},{26,0},{58,
+  connect(PEle.y, add3.u2)
+    annotation (Line(points={{1,-30},{26,-30},{26,0},{58,
           0}}, color={0,0,127}));
   connect(res.port_a, port_a1)
     annotation (Line(points={{-200,-100},{-240,-100}}, color={0,127,255}));
-  connect(res.port_b, outCon.port_a) annotation (Line(points={{-180,-100},{-120,
+  connect(res.port_b, outCon.port_a)
+    annotation (Line(points={{-180,-100},{-120,
           -100},{-120,-126},{-20,-126},{-20,-100},{-6,-100}}, color={0,127,255}));
-  connect(X_w_ProEnt.y, dehPer.X_w_ProEnt) annotation (Line(points={{-89,-62},{
+  connect(X_w_ProEnt.y, dehPer.X_w_ProEnt)
+    annotation (Line(points={{-89,-62},{
           -78,-62},{-78,-88},{-59,-88}}, color={0,0,127}));
   annotation (
   defaultComponentName="deh",

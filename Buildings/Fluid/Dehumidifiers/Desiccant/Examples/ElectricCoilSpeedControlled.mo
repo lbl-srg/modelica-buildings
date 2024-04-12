@@ -109,7 +109,7 @@ The input signals are configured as follows:
 <ul>
 <li>
 The wheel speed ratio <i>uSpe</i> changes from
-<code>1</code> to <code>0</code> from 0 second
+<code>1</code> to <code>0</code> from 0 seconds
 to 1200 seconds.
 </li>
 <li>
