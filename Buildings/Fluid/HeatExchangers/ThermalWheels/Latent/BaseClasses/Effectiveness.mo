@@ -36,7 +36,7 @@ model Effectiveness
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VSup_flow(final unit="m3/s")
     "Supply air volumetric flow rate"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VExh_flow( final unit="m3/s")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VExh_flow(final unit="m3/s")
     "Exhaust air volumetric flow rate"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uSpe(
