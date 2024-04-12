@@ -65,7 +65,7 @@ model DXDehumidifier "DX dehumidifier"
     redeclare package Medium = Medium,
     final m_flow_nominal=mAir_flow_nominal)
     "Inlet air temperature sensor"
-    annotation (Placement(transformation(extent={{-82,-10},{-62,10}})));
+    annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
 
   Buildings.Fluid.Humidifiers.Humidifier_u deHum(
     redeclare package Medium = Medium,
@@ -113,7 +113,7 @@ model DXDehumidifier "DX dehumidifier"
     "Calculate dehumidification power consumption"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
 
-  BaseClasses.PerformanceCurveModifier perCurMod(per=per)
+  Buildings.Fluid.Humidifiers.BaseClasses.PerformanceCurveModifier perCurMod(per=per)
     "Block for calculating modifier curves"
     annotation (Placement(transformation(extent={{-50,-110},{-30,-90}})));
 protected
@@ -134,9 +134,9 @@ equation
   connect(heaFloSen.port_b, senTem.port)
     annotation (Line(points={{40,60},{60,60}}, color={191,0,0}));
   connect(port_a, senTIn.port_a)
-    annotation (Line(points={{-100,0},{-82,0}}, color={0,127,255}));
+    annotation (Line(points={{-100,0},{-90,0}}, color={0,127,255}));
   connect(deHum.port_b, port_b)
-    annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
+    annotation (Line(points={{80,0},{100,0}}, color={0,127,255}));
   connect(senRelHum.port_b, deHum.port_a)
     annotation (Line(points={{20,0},{60,0}},color={0,127,255}));
   connect(QHea.y, preHeaFlo.Q_flow) annotation (Line(points={{-29,40},{-20,40},
@@ -151,24 +151,25 @@ equation
           -20,60},{-10,60}}, color={0,0,127}));
   connect(u.y, watRemRat.u) annotation (Line(points={{-18,-40},{-10,-40},{-10,
           -60},{-2,-60}}, color={0,0,127}));
-  connect(watRemRat.y, PDeh.u1) annotation (Line(points={{22,-60},{30,-60},{30,
-          -64},{38,-64}}, color={0,0,127}));
-  connect(eneFac.y, PDeh.u2) annotation (Line(points={{22,-90},{30,-90},{30,-76},
-          {38,-76}}, color={0,0,127}));
-  connect(PDeh.y, QHea.u) annotation (Line(points={{62,-70},{80,-70},{80,-20},{
-          -56,-20},{-56,30},{-52,30}}, color={0,0,127}));
-  connect(PDeh.y, P) annotation (Line(points={{62,-70},{80,-70},{80,-30},{120,-30}},
+  connect(watRemRat.y, PDeh.u1) annotation (Line(points={{22,-60},{30,-60},{30,-74},
+          {38,-74}}, color={0,0,127}));
+  connect(eneFac.y, PDeh.u2) annotation (Line(points={{22,-100},{30,-100},{30,-86},
+          {38,-86}}, color={0,0,127}));
+  connect(PDeh.y, QHea.u) annotation (Line(points={{62,-80},{80,-80},{80,-20},{-56,
+          -20},{-56,40},{-52,40}}, color={0,0,127}));
+  connect(PDeh.y, P) annotation (Line(points={{62,-80},{80,-80},{80,-40},{120,-40}},
         color={0,0,127}));
-  connect(senTIn.T, perCurMod.T) annotation (Line(points={{-72,11},{-66,11},{-66,
-          -80},{-52,-80}}, color={0,0,127}));
-  connect(senRelHum.phi, perCurMod.phi) annotation (Line(points={{0.1,11},{0.1,16},
-          {-60,16},{-60,-88},{-52,-88}},     color={0,0,127}));
-  connect(perCurMod.watRemMod, u.u1) annotation (Line(points={{-29,-80},{-24,-80},
-          {-24,-60},{-52,-60},{-52,-34},{-48,-34}}, color={0,0,127}));
-  connect(perCurMod.eneFacMod, eneFac.u) annotation (Line(points={{-29,-88},{-14,
-          -88},{-14,-90},{-2,-90}}, color={0,0,127}));
+  connect(senRelHum.phi, perCurMod.phi) annotation (Line(points={{10.1,11},{10.1,
+          20},{-60,20},{-60,-104},{-52,-104}}, color={0,0,127}));
+  connect(perCurMod.watRemMod, u.u1) annotation (Line(points={{-29,-96},{-20,-96},
+          {-20,-60},{-52,-60},{-52,-34},{-42,-34}}, color={0,0,127}));
+  connect(perCurMod.eneFacMod, eneFac.u) annotation (Line(points={{-29,-104},{-20,
+          -104},{-20,-100},{-2,-100}}, color={0,0,127}));
   connect(senTIn.port_b, senRelHum.port_a)
-    annotation (Line(points={{-62,0},{-10,0}}, color={0,127,255}));
+    annotation (Line(points={{-70,0},{0,0}},   color={0,127,255}));
+  connect(senTIn.T, perCurMod.T) annotation (Line(points={{-80,11},{-80,20},{-64,
+          20},{-64,-96},{-52,-96}}, color={0,0,127}));
+
 annotation (Icon(coordinateSystem(extent={{-100,-100},{100,100}}),  graphics={
         Rectangle(
           extent={{-70,60},{70,-60}},
@@ -226,7 +227,7 @@ annotation (Icon(coordinateSystem(extent={{-100,-100},{100,100}}),  graphics={
 defaultComponentName="dxDeh",
 Documentation(info="<html>
 <p>
-This is a zone air DX dehumidifier model based on the first principles and other
+This is a zone air DX dehumidifier model based on the first principles and the
 calculations as defined in the EnergyPlus model <code>ZoneHVAC:Dehumidifier:DX</code>.
 While the EnergyPlus implementation adds the heat rejected by the condensor coil to the
 zone air heat balance, this model assumes that this rejected heat is added to the
@@ -241,7 +242,7 @@ air conditions.
 The amount of exchanged moisture <code>mWat_flow</code>
 is equal to
 </p>
-<p align=\"center\"><i>ṁ<sub>wat_flow</sub> = watRemMod * &rho; *  
+<p align=\"center\"><i>ṁ<sub>wat_flow</sub> = watRemMod * &rho; *
 V̇<sub>flow_nominal</sub></i>
 </p>
 <p>
@@ -250,7 +251,7 @@ The amount of heat added to the air stream <code>QHea</code> is equal to
 <p align=\"center\"><i>Q̇<sub>hea</sub> = ṁ<sub>wat_flow</sub> * h<sub>fg</sub> + P<sub>deh</sub></i>
 </p>
 <p>
-Please note that the enthalpy of the exchanged moisture has been considered 
+Please note that the enthalpy of the exchanged moisture has been considered
 and therefore the added heat flow to the connector equals to P<sub>deh</sub>.
 </p>
 <p align=\"center\"><i>P<sub>deh</sub> = V̇<sub>flow_nominal</sub> * watRemMod /
@@ -280,6 +281,13 @@ and relative humidity of the air entering the dehumidifier.
 + b<sub>2</sub> T<sub>in</sub> + b<sub>3</sub> T<sub>in</sub> <sup>2</sup> +
 b<sub>4</sub> phi<sub>in</sub> + b<sub>5</sub> phi<sub>in</sub> <sup>2</sup> +
 b<sub>6</sub> T<sub>in</sub> phi<sub>in</sub></i>
+</p>
+<h4>References</h4>
+<p>
+U.S. Department of Energy,
+<i>
+EnergyPlus Version 22.1.0 Documentation: Engineering Reference.
+</i>
 </p>
 </html>",
 revisions="<html>
