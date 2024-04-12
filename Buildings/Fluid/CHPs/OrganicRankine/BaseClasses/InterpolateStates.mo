@@ -278,7 +278,7 @@ protected
           smooth=Smooth.Bezier,
           thickness=0.5),
         Line(
-          points={{6,20},{52,20},{66,-6},{50,-18},{-26,-18}},
+          points={{6,20},{52,20},{66,-6},{50,-18},{-26,-18},{-24,-6},{6,20}},
           color={255,255,255},
           thickness=0.5,
           pattern=LinePattern.Dash),
