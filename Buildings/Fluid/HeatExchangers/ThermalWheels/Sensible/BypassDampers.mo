@@ -39,7 +39,7 @@ model BypassDampers
     final m_flow_nominal=m2_flow_nominal,
     final dpDamper_nominal=dp2_nominal)
     "Exhaust air bypass damper"
-    annotation (Placement(transformation(extent={{-20,-70},{-40,-50}})));
+    annotation (Placement(transformation(extent={{0,-70},{-20,-50}})));
 protected
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter PEle(
     final k=P_nominal)
@@ -60,9 +60,9 @@ equation
   connect(bypDamSup.port_b, port_b1)
     annotation (Line(points={{-40,80},{100,80}}, color={0,127,255}));
   connect(bypDamExh.port_a, port_a2)
-    annotation (Line(points={{-20,-60},{100,-60}},color={0,127,255}));
+    annotation (Line(points={{0,-60},{100,-60}},  color={0,127,255}));
   connect(bypDamExh.port_b, port_b2)
-    annotation (Line(points={{-40,-60},{-180,-60}}, color={0,127,255}));
+    annotation (Line(points={{-20,-60},{-180,-60}}, color={0,127,255}));
   connect(PEle.y, P)
     annotation (Line(points={{82,-20},{120,-20}},   color={0,0,127}));
   connect(damExh.port_a, port_a2)
@@ -77,7 +77,7 @@ equation
     annotation (Line(points={{-40,40},{-20,40},{-20,6},{-10,6}},
         color={0,127,255}));
   connect(bypDamExh.y, uBypDamPos)
-    annotation (Line(points={{-30,-48},{-30,-30},{40,-30},{40,140},{-202,140}},
+    annotation (Line(points={{-10,-48},{-10,-30},{30,-30},{30,140},{-202,140}},
         color={0,0,127}));
   connect(hex.port_b1, port_b1)
     annotation (Line(points={{10,6},{60,6},{60,80},{100,80}},

@@ -63,7 +63,7 @@ partial model PartialWheel
         iconTransformation(extent={{100,-40},{140,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput epsSen(final unit="1")
     "Sensible heat exchanger effectiveness"
-    annotation (Placement(transformation(extent={{100,20},{140,60}}),
+    annotation (Placement(transformation(extent={{100,10},{140,50}}),
         iconTransformation(extent={{100,10},{140,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput epsLat(final unit="1")
     "Latent heat exchanger effectiveness"
@@ -174,8 +174,8 @@ equation
   connect(VExh_flow.y, effCal.VExh_flow)
     annotation (Line(points={{-139,20},{-120,20},{-120,4},{-102,4}},
         color={0,0,127}));
-  connect(epsSen, effCal.epsSen) annotation (Line(points={{120,40},{-40,40},{-40,
-          3},{-78,3}},     color={0,0,127}));
+  connect(epsSen, effCal.epsSen) annotation (Line(points={{120,30},{-40,30},{
+          -40,3},{-78,3}}, color={0,0,127}));
   connect(effCal.epsLat, epsLat) annotation (Line(points={{-78,-3},{-60,-3},{
           -60,-80},{120,-80}}, color={0,0,127}));
 annotation (
