@@ -29,7 +29,7 @@ partial model PartialVariable
           xSup = pro.T,
           ySup = pro.hSatVap) -
         Buildings.Utilities.Math.Functions.smoothInterpolation(
-          x = orc.cyc.TWorCon_min,
+          x = 300,
           xSup = pro.T,
           ySup = pro.hSatLiq)),
     mWor_flow_min = orc.mWor_flow_max * 0.2,

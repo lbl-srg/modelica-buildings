@@ -43,9 +43,8 @@ model FixedEvaporating
     "Pinch point temperature differential of evaporator";
 
 // Condenser
-  parameter Modelica.Units.SI.TemperatureDifference dTPinCon_set(
-    final min = 0)
-    "Set condenser pinch point temperature differential"
+  parameter Modelica.Units.SI.TemperatureDifference dTPinCon
+    "Pinch point temperature differential of condenser"
     annotation(Dialog(group="Condenser"));
   parameter Modelica.Units.SI.SpecificHeatCapacity cpCol
     "Constant specific heat capacity"
@@ -61,15 +60,8 @@ model FixedEvaporating
     final unit="kg/s") "Condenser cold fluid flow rate" annotation (Placement(
         transformation(extent={{-140,-100},{-100,-60}}), iconTransformation(
           extent={{-120,-90},{-100,-70}})));
-  Modelica.Units.SI.ThermodynamicTemperature TWorCon =
-    Buildings.Utilities.Math.Functions.smoothMax(
-      x1 = TWorCon_internal,
-      x2 = TWorCon_min,
-      deltaX = 1)
+  Modelica.Units.SI.ThermodynamicTemperature TWorCon
     "Working fluid condensing temperature";
-  parameter Modelica.Units.SI.ThermodynamicTemperature TWorCon_min = 273.15
-    "Lower bound of working fluid condensing temperature"
-    annotation(Dialog(group="Condenser"));
   Modelica.Blocks.Interfaces.RealOutput QCon_flow(
     final quantity="HeatFlowRate",
     final unit="W") "Condenser heat flow rate" annotation (Placement(
@@ -80,8 +72,6 @@ model FixedEvaporating
   Modelica.Units.SI.ThermodynamicTemperature TColPin(
     start = 300)
     "Cold fluid temperature at pinch point";
-  Modelica.Units.SI.TemperatureDifference dTPinCon(start = dTPinCon_set)
-    "Pinch point temperature differential of condenser";
 
 // Expander
   Modelica.Blocks.Interfaces.RealOutput PEle(
@@ -145,14 +135,6 @@ protected
     "Hot fluid outgoing temperature, intermediate variable";
   Modelica.Units.SI.HeatFlowRate QEva_flow_internal
     "Evaporator heat flow rate, intermediate variable";
-  Modelica.Units.SI.ThermodynamicTemperature TWorCon_internal
-    "Working fluid condensing temperature, intermedaite variable";
-  Modelica.Units.SI.ThermodynamicTemperature TColPin_internal
-    "Cold fluid temperature at pinch point, intermedaite variable";
-  Modelica.Units.SI.ThermodynamicTemperature TColOut_internal
-    "Cold fluid outgoing temperature, intermediate variable";
-  Modelica.Units.SI.HeatFlowRate QCon_flow_internal
-    "Condenser heat flow rate, intermediate variable";
 
 equation
 
@@ -183,13 +165,6 @@ This is likely caused by the flow rate of cooling fluid in the condenser being t
   (TColPin - TColIn) * (hExpOut - hPumInl)
   = (hPinCon - hPumInl) * (TColOut - TColIn);
   dTPinCon = TWorCon - TColPin;
-
-  // Condenser internal computation
-  QCon_flow_internal = mCol_flow * cpCol * (TColOut_internal - TColIn);
-  QCon_flow_internal = mWor_flow_internal * (hExpOut - hPumInl);
-  (TColPin_internal - TColIn) * (hExpOut - hPumInl)
-  = (hPinCon - hPumInl) * (TColOut_internal - TColIn);
-  dTPinCon_set = TWorCon_internal - TColPin_internal;
 
   annotation(defaultComponentName="cyc",
   Documentation(info="<html>
