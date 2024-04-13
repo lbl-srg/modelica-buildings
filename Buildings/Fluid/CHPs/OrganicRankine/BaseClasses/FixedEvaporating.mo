@@ -31,7 +31,7 @@ model FixedEvaporating
   Modelica.Blocks.Interfaces.RealOutput QEva_flow(
     final quantity="HeatFlowRate",
     final unit="W") "Evaporator heat flow rate"
-    annotation (Placement(transformation(extent={{100,20},{140,60}}),
+    annotation (Placement(transformation(extent={{100,60},{140,100}}),
                              iconTransformation(extent={{100,70},{120,90}})));
   Modelica.Units.SI.ThermodynamicTemperature THotOut(
     start = TWorEva + dTPinEva_set)
@@ -73,7 +73,7 @@ model FixedEvaporating
   Modelica.Blocks.Interfaces.RealOutput QCon_flow(
     final quantity="HeatFlowRate",
     final unit="W") "Condenser heat flow rate" annotation (Placement(
-        transformation(extent={{100,-60},{140,-20}}), iconTransformation(extent={{100,-90},
+        transformation(extent={{100,-100},{140,-60}}),iconTransformation(extent={{100,-90},
             {120,-70}})));
   Modelica.Units.SI.ThermodynamicTemperature TColOut
     "Fluid temperature out of the condenser, intermediate variable";
@@ -88,7 +88,7 @@ model FixedEvaporating
     final quantity="Power",
     final unit="W") = mWor_flow * (hExpInl - hExpOut)
     "Electrical power output from the expander" annotation (Placement(
-        transformation(extent={{100,-20},{140,20}}), iconTransformation(extent={{100,30},
+        transformation(extent={{100,20},{140,60}}),  iconTransformation(extent={{100,30},
             {120,50}})));
 
 // Pump
@@ -96,7 +96,7 @@ model FixedEvaporating
     final quantity="Power",
     final unit="W") = mWor_flow * (hPumOut - hPumInl)
     "Electrical power consumption of the pump" annotation (Placement(
-        transformation(extent={{100,-20},{140,20}}), iconTransformation(extent={
+        transformation(extent={{100,-60},{140,-20}}),iconTransformation(extent={
             {100,-50},{120,-30}})));
 
 // Cycle
@@ -132,7 +132,7 @@ model FixedEvaporating
     "Hysteresis for turning off cycle when working fluid flow too low";
   Modelica.Blocks.Interfaces.BooleanOutput on_actual = ena and hys.y
     "Actual on off status of the cycle" annotation (Placement(transformation(
-          extent={{100,60},{140,100}}), iconTransformation(extent={{100,-10},{120,
+          extent={{100,-20},{140,20}}), iconTransformation(extent={{100,-10},{120,
             10}})));
 
 protected
