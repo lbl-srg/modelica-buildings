@@ -324,13 +324,9 @@ In summary, the model has the following information flow:
 </table>
 <h4>Constraints</h4>
 <p>
-This model solves for <i>m&#775;<sub>w</sub></i> to maintain the prescribed
-evaporator PP temperature differential set point,
-and <i>T<sub>w,con</sub></i> for the condenser PP.
-Some constraints apply.
-</p>
-<p>
-On the evaporator side, an upper limit and a lower limit are imposed on
+This model finds <i>m&#775;<sub>w</sub></i> to maintain the prescribed
+evaporator PP temperature differential set point.
+An upper limit and a lower limit are imposed on
 <i>m&#775;<sub>w</sub></i> to reflect the characteristics of a sized cycle.
 </p>
 <ul>
@@ -359,19 +355,6 @@ How these constraints affect the cycle's behaviour reacting to
 a varying waste heat fluid stream is demonstrated in
 <a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.Validation.VariableSource\">
 Buildings.Fluid.CHPs.OrganicRankine.Validation.VariableSource</a>
-</p>
-<p>
-On the condenser side, a lower limit is imposed on <i>T<sub>w,con</sub></i>.
-This can prevent the condenser pressure from going too low.
-This is demonstrated in
-<a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.Validation.VariableSource\">
-Buildings.Fluid.CHPs.OrganicRankine.Validation.VariableSource</a>
-In principle, an upper limit should also exist for <i>T<sub>w,con</sub></i>.
-This is simply implemented as an <code>assert()</code> statement.
-The reason is that such a situation should not occur as long as
-an appropriate minimum cooling fluid flow is maintained in the condenser
-whenever the cycle is running. This is a problem of the control sequence
-at a higher level and out of scope of the ORC component.
 </p>
 <h4>Thermodynamic Properties</h4>
 <p>
