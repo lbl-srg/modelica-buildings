@@ -1,5 +1,6 @@
 within Buildings.Fluid.Humidifiers;
-package Data "Package with data records for classes in Humidifiers package"
+package Data
+  "Package with data records for classes in Humidifiers package"
   extends Modelica.Icons.MaterialPropertiesPackage;
 
 annotation (Documentation(info="<html>
