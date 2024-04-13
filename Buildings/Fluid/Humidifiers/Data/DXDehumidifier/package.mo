@@ -1,5 +1,6 @@
 within Buildings.Fluid.Humidifiers.Data;
-package DXDehumidifier "Package with data record for DX dehumidifier"
+package DXDehumidifier
+  "Package with data record for DX dehumidifier"
   extends Modelica.Icons.MaterialPropertiesPackage;
 
 annotation (Documentation(info="<html>
