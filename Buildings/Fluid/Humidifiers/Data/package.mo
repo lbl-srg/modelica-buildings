@@ -1,10 +1,10 @@
 within Buildings.Fluid.Humidifiers;
-package Data "Package with data record for DX dehumidifier"
+package Data "Package with data records for classes in Humidifiers package"
   extends Modelica.Icons.MaterialPropertiesPackage;
 
 annotation (Documentation(info="<html>
 <p>
-This package contains a data record baseclass for the zone air DX dehumidifier.
+This package contains data records for the classes in the Humidifiers package.
 </p>
 </html>"));
 end Data;

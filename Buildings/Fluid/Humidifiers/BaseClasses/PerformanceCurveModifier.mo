@@ -2,7 +2,7 @@ within Buildings.Fluid.Humidifiers.BaseClasses;
 block PerformanceCurveModifier
   "Block for calculating modifier curves"
 
-  parameter Buildings.Fluid.Humidifiers.Data.Generic per
+  parameter Buildings.Fluid.Humidifiers.Data.DXDehumidifier.Generic per
     "Data record"
     annotation (Placement(transformation(extent={{22,64},{42,84}})));
 

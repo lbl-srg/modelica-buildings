@@ -1,6 +1,5 @@
-within Buildings.Fluid.Humidifiers.Data;
-record Generic
-  "Base data record for DX dehumidifier model"
+within Buildings.Fluid.Humidifiers.Data.DXDehumidifier;
+record Generic "Base data record for DX dehumidifier model"
 
   extends Modelica.Icons.Record;
 
