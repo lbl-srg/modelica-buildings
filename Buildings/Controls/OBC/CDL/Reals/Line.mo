@@ -7,22 +7,22 @@ block Line
   parameter Boolean limitAbove=true
     "If true, limit input u to be no larger than x2"
     annotation (Evaluate=true);
-  Interfaces.RealInput x1
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput x1
     "Support point x1, with x1 < x2"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-  Interfaces.RealInput f1
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput f1
     "Support point f(x1)"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-  Interfaces.RealInput x2
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput x2
     "Support point x2, with x2 > x1"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
-  Interfaces.RealInput f2
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput f2
     "Support point f(x2)"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-  Interfaces.RealInput u
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u
     "Independent variable"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.RealOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
     "f(x) along the line specified by (x1, f1) and (x2, f2)"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 

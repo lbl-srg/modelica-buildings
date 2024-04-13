@@ -3,10 +3,10 @@ block MultiplyByParameter
   "Output the product of a gain value with the input signal"
   parameter Real k
     "Gain value multiplied with input signal";
-  Interfaces.RealInput u
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u
     "Input signal connector"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.RealOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
     "Output signal connector"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
