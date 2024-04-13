@@ -357,15 +357,15 @@ when the incoming fluid is colder than the set evaporating temperature.
 <p>
 How these constraints affect the cycle's behaviour reacting to
 a varying waste heat fluid stream is demonstrated in
-<a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.Validation.VariableHot\">
-Buildings.Fluid.CHPs.OrganicRankine.Validation.VariableHot</a>
+<a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.Validation.VariableSource\">
+Buildings.Fluid.CHPs.OrganicRankine.Validation.VariableSource</a>
 </p>
 <p>
 On the condenser side, a lower limit is imposed on <i>T<sub>w,con</sub></i>.
 This can prevent the condenser pressure from going too low.
 This is demonstrated in
-<a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.Validation.VariableHot\">
-Buildings.Fluid.CHPs.OrganicRankine.Validation.VariableHot</a>
+<a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.Validation.VariableSource\">
+Buildings.Fluid.CHPs.OrganicRankine.Validation.VariableSource</a>
 In principle, an upper limit should also exist for <i>T<sub>w,con</sub></i>.
 This is simply implemented as an <code>assert()</code> statement.
 The reason is that such a situation should not occur as long as
