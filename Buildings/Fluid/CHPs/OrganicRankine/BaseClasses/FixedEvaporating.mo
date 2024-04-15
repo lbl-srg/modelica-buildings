@@ -75,7 +75,9 @@ model FixedEvaporating
   Modelica.Blocks.Interfaces.RealOutput pWorCon(
     final quantity="AbsolutePressure",
     final unit="Pa") = pCon "Working fluid condensing pressure" annotation (
-      Placement(transformation(extent={{100,-100},{140,-60}}),
+      Placement(transformation(extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={70,-120}),
         iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
