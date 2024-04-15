@@ -119,6 +119,11 @@ At initial time, if <code>clr = false</code>, then the output will be
       revisions="<html>
 <ul>
 <li>
+April 15, 2024, by Antoine Gautier:<br/>
+Simplified the implementation.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3796\">issue 3796</a>.
+</li>
+<li>
 October 13, 2020, by Jianjun Hu:<br/>
 Removed the parameter <code>pre_y_start</code>, and made the initial output to be
 equal to latch input when the clear input is <code>false</code>.<br/>
