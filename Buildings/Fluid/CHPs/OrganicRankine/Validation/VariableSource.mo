@@ -6,12 +6,12 @@ model VariableSource
   parameter Buildings.Fluid.CHPs.OrganicRankine.Data.WorkingFluids.R245fa pro
     "Property record of the working fluid"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
-  package MediumHot = Buildings.Media.Air "Medium in the evaporator";
-  package MediumCol = Buildings.Media.Water "Medium in the condenser";
+  package MediumHot = Buildings.Media.Air "Evaporator hot fluid";
+  package MediumCol = Buildings.Media.Water "Condenser cold fluid";
   parameter Modelica.Units.SI.MassFlowRate mHot_flow_nominal = 1
-    "Medium flow rate in the evaporator";
+    "Nominal mass flow rate of evaporator hot fluid";
   parameter Modelica.Units.SI.MassFlowRate mCol_flow_nominal = 1
-    "Medium flow rate in the condenser";
+    "Nominal mass flow rate of condenser cold fluid";
 
   Buildings.Fluid.CHPs.OrganicRankine.Cycle orc(
     redeclare package Medium1 = MediumHot,
@@ -45,17 +45,21 @@ model VariableSource
     T=orc.TWorEva + 20,
     nPorts=1,
     use_m_flow_in=true,
-    use_T_in=true) "Source on the evaporator side"
+    use_T_in=true) "Evaporator hot fluid source"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Buildings.Fluid.Sources.Boundary_pT sinHot(
     redeclare final package Medium = MediumHot,
-    nPorts=1) "Sink on the evaporator side"
+    nPorts=1) "Evaporator hot fluid sink"
     annotation (Placement(transformation(extent={{80,20},{60,40}})));
   Buildings.Fluid.Sources.MassFlowSource_T souCol(
     redeclare final package Medium = MediumCol,
     m_flow=mCol_flow_nominal,
-    nPorts=1) "Source on the condenser side"
+    nPorts=1) "Condenser cold fluid source"
     annotation (Placement(transformation(extent={{40,-40},{20,-20}})));
+  Buildings.Fluid.Sources.Boundary_pT sinCol(
+    redeclare final package Medium = MediumCol,
+    nPorts=1) "Condenser cold fluid sink"
+    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort THotOut(
     redeclare final package Medium = MediumHot,
     final m_flow_nominal=mHot_flow_nominal,
@@ -66,10 +70,6 @@ model VariableSource
     final m_flow_nominal=mCol_flow_nominal,
     tau=0) "Outgoing temperature of condenser cold fluid"
     annotation (Placement(transformation(extent={{-30,-40},{-50,-20}})));
-  Buildings.Fluid.Sources.Boundary_pT sinCol(
-    redeclare final package Medium = MediumCol,
-    nPorts=1) "Sink on the condenser side"
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 
   Modelica.Blocks.Sources.BooleanConstant tru(k=true) "Constant true"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
