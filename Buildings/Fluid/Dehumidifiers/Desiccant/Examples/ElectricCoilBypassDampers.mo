@@ -54,8 +54,8 @@ model ElectricCoilBypassDampers
     etaHea=0.8)
     "Dehumidifier"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Fluid.Dehumidifiers.Desiccant.Data.Default perDat
-   "Performance data"
+  Buildings.Fluid.Dehumidifiers.Desiccant.Data.EnergyPlus perDat
+    "Performance data"
     annotation (Placement(transformation(extent={{20,72},{40,92}})));
   Modelica.Blocks.Sources.Step uBypDamPos(
     height=0.5,

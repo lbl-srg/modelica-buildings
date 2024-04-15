@@ -58,7 +58,7 @@ where <i>T<sub>ProEnt</sub></i> is the temperature of the process air entering t
 <ul>
 <li>
 <a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v22.1.0/EngineeringReference.pdf\">
-EnergyPlus v22.1.0 Engineering Reference</a>
+U.S. Department of Energy, <i> &quot;EnergyPlus Version 22.1.0 Documentation: Engineering Reference&quot;.</i></a>
 </li>
 </ul>
 </html>", revisions="<html>

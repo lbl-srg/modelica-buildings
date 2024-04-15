@@ -9,8 +9,7 @@ model ElectricCoilSpeedControlled
     "Heater efficiency"
     annotation (Dialog(group="Efficiency"));
   parameter Real c[:] = {1}
-    "Coefficients for power consumption curve for the rotor, 
-     P/P_nominal = sum a_i uSpe^(i-1). The sum(a) of the elements must be equal to 1"
+    "Coefficients for power consumption curve for the rotor"
     annotation (Dialog(group="Efficiency"));
 
   Modelica.Blocks.Interfaces.RealInput uSpe(
@@ -106,8 +105,7 @@ equation
   connect(realToBoolean.u, uSpe)
     annotation (Line(points={{-182,-40},{-200,-40},
           {-200,0},{-260,0}}, color={0,0,127}));
-  connect(realToBoolean.y, dehPer.onDeh)
-    annotation (Line(points={{-159,-40},{-126,
+  connect(realToBoolean.y, dehPer.uRot) annotation (Line(points={{-159,-40},{-126,
           -40},{-126,-75.8},{-59,-75.8}}, color={255,0,255}));
   connect(PEle.y, add3.u2)
     annotation (Line(points={{1,-30},{26,-30},{26,0},{58,

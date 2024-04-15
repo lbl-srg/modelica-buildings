@@ -132,11 +132,11 @@ protected
     "Prescribed heat flow"
     annotation (Placement(transformation(extent={{-62,50},{-82,30}})));
   Modelica.Blocks.Sources.RealExpression mPro_flow(
-   final y(final unit="kg/s")= outCon.port_a.m_flow)
-   "Process air mass flow rate"
+    final y(final unit="kg/s")= outCon.port_a.m_flow)
+    "Process air mass flow rate"
     annotation (Placement(transformation(extent={{-110,-124},{-90,-104}})));
   parameter Integer i1_w(min=1, fixed=false)
-   "Index for water substance";
+    "Index for water substance";
   parameter Medium2.ThermodynamicState sta_Reg_default=Medium2.setState_pTX(
       T=Medium2.T_default,
       p=Medium2.p_default,

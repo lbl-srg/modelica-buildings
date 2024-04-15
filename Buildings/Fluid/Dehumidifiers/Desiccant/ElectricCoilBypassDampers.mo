@@ -136,8 +136,7 @@ equation
   connect(damPro.y, sub.y)
     annotation (Line(points={{-130,-88},{-130,-26},{-144,
           -26}}, color={0,0,127}));
-  connect(dehPer.onDeh, uRot)
-    annotation (Line(points={{-59,-75.8},{-144,-75.8},
+  connect(dehPer.uRot, uRot) annotation (Line(points={{-59,-75.8},{-144,-75.8},
           {-144,-76},{-230,-76},{-230,-120},{-260,-120}}, color={255,0,255}));
   connect(X_w_ProEnt.y, dehPer.X_w_ProEnt)
     annotation (Line(points={{-89,-62},{

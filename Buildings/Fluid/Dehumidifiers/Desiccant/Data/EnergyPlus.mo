@@ -1,5 +1,5 @@
 within Buildings.Fluid.Dehumidifiers.Desiccant.Data;
-record Default =
+record EnergyPlus =
   Buildings.Fluid.Dehumidifiers.Desiccant.Data.Generic (
     TRegEnt_nominal =     273.15 + 121,
     TProEnt_min =         273.15 + 1.67,

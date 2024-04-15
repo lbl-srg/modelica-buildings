@@ -14,7 +14,7 @@ model Performance
   Modelica.Blocks.Sources.BooleanStep onDeh(startTime=50, startValue=false)
     "Dehumidification signal"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  Buildings.Fluid.Dehumidifiers.Desiccant.Data.Default perDat
+  Buildings.Fluid.Dehumidifiers.Desiccant.Data.EnergyPlus perDat
     "Performance data"
     annotation (Placement(transformation(extent={{60,64},{80,84}})));
   Modelica.Blocks.Sources.Ramp TProEnt(
@@ -51,8 +51,8 @@ model Performance
     startTime=50) "Wheel speed ratio"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
 equation
-  connect(onDeh.y, dehumPer.onDeh) annotation (Line(points={{-59,80},{-44,80},{
-          -44,8.2},{-11,8.2}}, color={255,0,255}));
+  connect(onDeh.y, dehumPer.uRot) annotation (Line(points={{-59,80},{-44,80},{-44,
+          8.2},{-11,8.2}}, color={255,0,255}));
   connect(TProEnt.y, dehumPer.TProEnt) annotation (Line(points={{-59,40},{-20,
           40},{-20,4.2},{-11,4.2}}, color={0,0,127}));
   connect(TRegEnt.y, dehumPer.TRegEnt)
