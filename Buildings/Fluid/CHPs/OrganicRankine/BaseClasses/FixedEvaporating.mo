@@ -72,6 +72,14 @@ model FixedEvaporating
   Modelica.Units.SI.ThermodynamicTemperature TColPin(
     start = 300)
     "Cold fluid temperature at pinch point";
+  Modelica.Blocks.Interfaces.RealOutput pWorCon(
+    final quantity="AbsolutePressure",
+    final unit="Pa") = pCon "Working fluid condensing pressure" annotation (
+      Placement(transformation(extent={{100,-100},{140,-60}}),
+        iconTransformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={70,-110})));
 
 // Expander
   Modelica.Blocks.Interfaces.RealOutput PEle(

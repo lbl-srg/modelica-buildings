@@ -120,6 +120,16 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
     "Electrical power consumption of the pump" annotation (Placement(
         transformation(extent={{100,-50},{140,-10}}),iconTransformation(extent={{70,-40},
             {90,-20}})));
+  Modelica.Blocks.Interfaces.RealOutput pWorCon(
+    final quantity="AbsolutePressure",
+    final unit="Pa") "Working fluid condensing pressure" annotation (
+      Placement(transformation(extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={30,-120}),
+        iconTransformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={40,-90})));
 protected
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloEva
     "Prescribed heat flow rate"
@@ -184,6 +194,8 @@ equation
                            color={255,0,255}));
   connect(cyc.PPum, PPum) annotation (Line(points={{11,-4},{84,-4},{84,-30},{120,
           -30}}, color={0,0,127}));
+  connect(cyc.pWorCon, pWorCon) annotation (Line(points={{7,-11},{8,-11},{8,-40},
+          {-20,-40},{-20,-90},{30,-90},{30,-120}}, color={0,0,127}));
   annotation (defaultComponentName = "orc",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Line(
