@@ -1,12 +1,78 @@
 within Buildings.Fluid.CHPs.OrganicRankine.Validation;
 model VariableSource
   "ORC with waste heat stream with variable flow rate and temperature"
-  extends
-    Buildings.Fluid.CHPs.OrganicRankine.Validation.BaseClasses.PartialVariable(
-    souHot(
-      use_m_flow_in=true,
-      use_T_in=true));
   extends Modelica.Icons.Example;
+
+  parameter Buildings.Fluid.CHPs.OrganicRankine.Data.WorkingFluids.R245fa pro
+    "Property record of the working fluid"
+    annotation (Placement(transformation(extent={{20,60},{40,80}})));
+  package MediumHot = Buildings.Media.Air "Medium in the evaporator";
+  package MediumCol = Buildings.Media.Water "Medium in the condenser";
+  parameter Modelica.Units.SI.MassFlowRate mHot_flow_nominal = 1
+    "Medium flow rate in the evaporator";
+  parameter Modelica.Units.SI.MassFlowRate mCol_flow_nominal = 1
+    "Medium flow rate in the condenser";
+
+  Buildings.Fluid.CHPs.OrganicRankine.Cycle orc(
+    redeclare package Medium1 = MediumHot,
+    redeclare package Medium2 = MediumCol,
+    pro=pro,
+    tau1=0,
+    tau2=0,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    T1_start(displayUnit="K") = 350,
+    T2_start(displayUnit="K") = 290,
+    mHot_flow_nominal=mHot_flow_nominal,
+    mCol_flow_nominal=mCol_flow_nominal,
+    mWor_flow_max =
+      3E4 / (
+        Buildings.Utilities.Math.Functions.smoothInterpolation(
+          x = orc.TWorEva,
+          xSup = pro.T,
+          ySup = pro.hSatVap) -
+        Buildings.Utilities.Math.Functions.smoothInterpolation(
+          x = 300,
+          xSup = pro.T,
+          ySup = pro.hSatLiq)),
+    mWor_flow_min = orc.mWor_flow_max * 0.2,
+    TWorEva=350,
+    etaExp=0.7,
+    etaPum=0.7)                       "Organic Rankine cycle"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+  Buildings.Fluid.Sources.MassFlowSource_T souHot(
+    redeclare final package Medium = MediumHot,
+    m_flow=mHot_flow_nominal,
+    T=orc.TWorEva + 20,
+    nPorts=1,
+    use_m_flow_in=true,
+    use_T_in=true) "Source on the evaporator side"
+    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
+  Buildings.Fluid.Sources.Boundary_pT sinHot(
+    redeclare final package Medium = MediumHot,
+    nPorts=1) "Sink on the evaporator side"
+    annotation (Placement(transformation(extent={{80,20},{60,40}})));
+  Buildings.Fluid.Sources.MassFlowSource_T souCol(
+    redeclare final package Medium = MediumCol,
+    m_flow=mCol_flow_nominal,
+    nPorts=1) "Source on the condenser side"
+    annotation (Placement(transformation(extent={{40,-40},{20,-20}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort THotOut(
+    redeclare final package Medium = MediumHot,
+    final m_flow_nominal=mHot_flow_nominal,
+    tau=0) "Outgoing temperature of evaporator hot fluid"
+    annotation (Placement(transformation(extent={{30,20},{50,40}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort TColOut(
+    redeclare final package Medium = MediumCol,
+    final m_flow_nominal=mCol_flow_nominal,
+    tau=0) "Outgoing temperature of condenser cold fluid"
+    annotation (Placement(transformation(extent={{-30,-40},{-50,-20}})));
+  Buildings.Fluid.Sources.Boundary_pT sinCol(
+    redeclare final package Medium = MediumCol,
+    nPorts=1) "Sink on the condenser side"
+    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+
+  Modelica.Blocks.Sources.BooleanConstant tru(k=true) "Constant true"
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
   Modelica.Blocks.Sources.TimeTable mHot_flow_set(table=[0,0; 50,
         mHot_flow_nominal*1.5; 250,mHot_flow_nominal*1.5; 300,0])
@@ -21,6 +87,20 @@ model VariableSource
     "Sets the hot fluid incoming temperature in the evaporator"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
 equation
+  connect(souHot.ports[1],orc. port_a1) annotation (Line(points={{-20,30},{-16,30},
+          {-16,6},{-10,6}}, color={0,127,255}));
+  connect(souCol.ports[1],orc. port_a2) annotation (Line(points={{20,-30},{16,-30},
+          {16,-6},{10,-6}}, color={0,127,255}));
+  connect(sinHot.ports[1],THotOut. port_b)
+    annotation (Line(points={{60,30},{50,30}}, color={0,127,255}));
+  connect(THotOut.port_a,orc. port_b1) annotation (Line(points={{30,30},{16,30},
+          {16,6},{10,6}}, color={0,127,255}));
+  connect(TColOut.port_a,orc. port_b2) annotation (Line(points={{-30,-30},{-16,-30},
+          {-16,-6},{-10,-6}}, color={0,127,255}));
+  connect(sinCol.ports[1], TColOut.port_b)
+    annotation (Line(points={{-60,-30},{-50,-30}}, color={0,127,255}));
+  connect(tru.y, orc.ena)
+    annotation (Line(points={{-19,0},{-8,0}}, color={255,0,255}));
   connect(mHot_flow_set.y, souHot.m_flow_in) annotation (Line(points={{-59,50},{
           -50,50},{-50,38},{-42,38}}, color={0,0,127}));
   connect(THotIn_set.y, souHot.T_in) annotation (Line(points={{-59,10},{-50,10},
