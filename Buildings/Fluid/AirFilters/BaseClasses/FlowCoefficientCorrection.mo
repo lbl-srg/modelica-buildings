@@ -1,8 +1,7 @@
 within Buildings.Fluid.AirFilters.BaseClasses;
 model FlowCoefficientCorrection
   "Component that calculates the flow coefficient correction factor"
-  parameter Real b(
-    final min = 1 + 1E-3)
+  parameter Real b
     "Resistance coefficient";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput rat(
     final unit="1",
@@ -23,6 +22,10 @@ model FlowCoefficientCorrection
     "Flow coefficient correction"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
+initial equation
+    assert(b > 1,
+      "In " + getInstanceName() + ":Resistance coefficient should be larger than 1",
+      level=AssertionLevel.error);
 equation
   y = b^rat;
   annotation (Dialog(group="Pressure"),

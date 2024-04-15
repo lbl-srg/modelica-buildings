@@ -9,8 +9,7 @@ model Empirical "Empirical air filter model"
   parameter Real epsFun[:]
     "Filter efficiency curve"
     annotation (Dialog(group="Efficiency"));
-  parameter Real b(
-    final min = 1 + 1E-3)
+  parameter Real b
     "Resistance coefficient"
     annotation (Dialog(group="Pressure"));
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
@@ -19,6 +18,7 @@ model Empirical "Empirical air filter model"
   parameter Modelica.Units.SI.PressureDifference dp_nominal
     "Nominal pressure drop"
     annotation (Dialog(group="Nominal"));
+   parameter String substanceName = "CO2" "Name of trace substance";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uRep
     "Replacing the filter when trigger becomes true"
@@ -67,6 +67,19 @@ protected
   Buildings.Fluid.AirFilters.BaseClasses.FlowCoefficientCorrection kCor(
     final b=b) "Flow coefficient correction"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
+
+  parameter Real s[:]= {
+    if ( Modelica.Utilities.Strings.isEqual(string1=Medium.extraPropertiesNames[i],
+                                            string2=substanceName,
+                                            caseSensitive=false))
+    then 1 else 0 for i in 1:Medium.nC}
+    "Vector with zero everywhere except where species is"
+    annotation(Evaluate=true);
+initial equation
+  assert(max(s) > 0.9, "Trace substance '" + substanceName + "' is not present in medium '"
+         + Medium.mediumName + "'.\n"
+         + "Check filter parameter and medium model.");
+
 equation
   connect(masAcc.mCon, epsCal.mCon)
     annotation (Line(points={{-18,80},{-2,80}},  color={0,0,127}));
@@ -302,6 +315,7 @@ mass of the captured contaminant becomes zero.
 <p>
 A warning will be triggered when the captured contaminant mass becomes greater than the
 maximum contaminant mass (<code>mCon_nominal</code>).
+<br>
 In addition, the <code>extraPropertiesNames</code> has to be defined in the medium model.
 </p>
 </html>", revisions="<html>
