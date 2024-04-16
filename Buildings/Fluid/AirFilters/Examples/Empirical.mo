@@ -46,10 +46,12 @@ model Empirical "Example for using the empirical air filter model"
     "Trace substance sensor of outlet air"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 equation
-  connect(repSig.y, fil.uRep) annotation (Line(points={{-28,50},{-4,50},{-4,6},{
-          2,6}}, color={255,0,255}));
-  connect(C_inflow.y, sou.C_in[1]) annotation (Line(points={{-73,22},{-68,22},{-68,
-          -8},{-62,-8}}, color={0,0,127}));
+  connect(repSig.y, fil.uRep)
+    annotation (Line(points={{-28,50},{-4,50},{-4,6},{2,6}},
+    color={255,0,255}));
+  connect(C_inflow.y, sou.C_in[1])
+    annotation (Line(points={{-73,22},{-68,22},{-68,-8},
+    {-62,-8}}, color={0,0,127}));
   connect(C_out.port_b, sin.ports[1])
     annotation (Line(points={{60,0},{72,0}}, color={0,127,255}));
   connect(C_out.port_a, fil.port_b)
