@@ -5,7 +5,7 @@ model DXDehumidifier "DX dehumidifier"
   parameter Boolean addPowerToMedium = true
     "Transfer power and heat to the fluid medium";
 
-  parameter Buildings.Fluid.Humidifiers.Data.Generic per
+  parameter Buildings.Fluid.Humidifiers.Data.DXDehumidifier.Generic per
     "Performance data"
     annotation (choicesAllMatching=true,
       Placement(transformation(extent={{60,80},{80,100}})));
@@ -116,6 +116,7 @@ model DXDehumidifier "DX dehumidifier"
   Buildings.Fluid.Humidifiers.BaseClasses.PerformanceCurveModifier perCurMod(per=per)
     "Block for calculating modifier curves"
     annotation (Placement(transformation(extent={{-50,-110},{-30,-90}})));
+
 protected
   constant Modelica.Units.SI.SpecificEnthalpy h_fg= Buildings.Utilities.Psychrometrics.Constants.h_fg
     "Latent heat of water vapor";
