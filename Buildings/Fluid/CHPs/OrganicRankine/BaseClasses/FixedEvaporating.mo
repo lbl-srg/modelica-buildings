@@ -148,10 +148,11 @@ protected
 
 equation
 
-  assert(TWorCon < TWorEva - 1,
+  assert(not (TWorCon > TWorEva - 1 and ena),
 "*** In " + getInstanceName() +
 ": Working fluid condensing temperature is too high and close to evaporating temperature.
-This is likely caused by the flow rate of cooling fluid in the condenser being too low.");
+This is likely caused by the flow rate of cold fluid in the condenser being too low
+when the ORC is on.");
 
   // Evaporator
   QEva_flow = mHot_flow * cpHot * (THotIn - THotOut);
