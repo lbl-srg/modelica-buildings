@@ -50,8 +50,8 @@ model ORCHotWater "ORC that outputs hot water at a fixed temperature"
     annotation (Placement(transformation(extent={{60,60},{40,80}})));
   Buildings.Controls.Continuous.LimPID conPI(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    k=1,
-    Ti=110,
+    k=0.5,
+    Ti=100,
     initType=Modelica.Blocks.Types.Init.InitialOutput,
     y_start=0,
     reverseActing=false)
