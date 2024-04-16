@@ -155,9 +155,6 @@ model InterpolateStates "Interpolate states of a working fluid"
       y2 = hSatVapCon,
       x_small = h_small)
     "Specific enthalpy at expander inlet";
-  Modelica.Units.SI.ThermodynamicTemperature TExpOut =
-    (hExpOut - hSatVapCon) * pro.dTRef / (hRefCon - hSatVapCon)
-    "Estimated temperature at expander outlet";
   Modelica.Units.SI.TemperatureDifference dTSup = max(0, dTSupWet)
     "Superheating temperature differential";
 
