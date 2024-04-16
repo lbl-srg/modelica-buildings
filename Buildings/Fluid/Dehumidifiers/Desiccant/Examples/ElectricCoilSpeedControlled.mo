@@ -64,38 +64,41 @@ model ElectricCoilSpeedControlled
     startTime=0) "Wheel speed ratio"
     annotation (Placement(transformation(extent={{-92,22},{-72,42}})));
   Buildings.Fluid.Sensors.MassFractionTwoPort senX_w_ProEnt(
-      redeclare package Medium = Medium1,
-      m_flow_nominal=0.4333*1.2)
+    redeclare package Medium = Medium1,
+    m_flow_nominal=0.4333*1.2)
     "Humidity sensor of the process air entering the dehumidifier"
     annotation (Placement(transformation(extent={{-34,-40},{-14,-20}})));
   Buildings.Fluid.Sensors.MassFractionTwoPort senX_w_ProLea(
-      redeclare package Medium = Medium1,
-      m_flow_nominal=0.4333*1.2)
+    redeclare package Medium = Medium1,
+    m_flow_nominal=0.4333*1.2)
     "Humidity sensor of the process air leaving the dehumidifier"
     annotation (Placement(transformation(extent={{26,-18},{46,2}})));
 equation
   connect(sou_2.ports[1], deh.port_a2) annotation (Line(points={{40,50},{18,50},
-          {18,8},{10,8}}, color={0,127,255}));
+    {18,8},{10,8}}, color={0,127,255}));
   connect(sin_2.ports[1], deh.port_b2) annotation (Line(points={{-40,50},{-20,50},
-          {-20,8},{-10,8}}, color={0,127,255}));
-  connect(TProEnt.y, sou_1.T_in) annotation (Line(points={{-77,-60},{-68,-60},{-68,
-          -26},{-62,-26}}, color={0,0,127}));
+    {-20,8},{-10,8}}, color={0,127,255}));
+  connect(TProEnt.y, sou_1.T_in) annotation (Line(points={{-77,-60},{-68,-60},{-68,-26},
+    {-62,-26}}, color={0,0,127}));
   connect(deh.port_b1, senX_w_ProLea.port_a)
     annotation (Line(points={{10,-8},{26,-8}}, color={0,127,255}));
   connect(senX_w_ProLea.port_b, sin_1.ports[1]) annotation (Line(points={{46,-8},
-          {60,-8},{60,-40},{70,-40}}, color={0,127,255}));
+    {60,-8},{60,-40},{70,-40}}, color={0,127,255}));
   connect(sou_1.ports[1], senX_w_ProEnt.port_a)
     annotation (Line(points={{-40,-30},{-34,-30}}, color={0,127,255}));
   connect(senX_w_ProEnt.port_b, deh.port_a1) annotation (Line(points={{-14,-30},
-          {-6,-30},{-6,-16},{-16,-16},{-16,-8},{-10,-8}}, color={0,127,255}));
+    {-6,-30},{-6,-16},{-16,-16},{-16,-8},{-10,-8}}, color={0,127,255}));
   connect(uSpe.y, deh.uSpe)
     annotation (Line(points={{-71,32},{-22,32},{-22,0},{-12,0}},
     color={0,0,127}));
   annotation (experiment(Tolerance=1e-6, StopTime=1200),
-         __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Dehumidifiers/Desiccant/Examples/ElectricCoilSpeedControlled.mos"
-        "Simulate and Plot"), Documentation(revisions="<html>
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Dehumidifiers/Desiccant/Examples/ElectricCoilSpeedControlled.mos"
+    "Simulate and Plot"), Documentation(revisions="<html>
 <ul>
-<li>April 10, 2024, by Sen Huang:<br/>First implementation. </li>
+<li>
+April 10, 2024, by Sen Huang:<br/>
+First implementation.
+</li>
 </ul>
 </html>", info="<html>
 <p>

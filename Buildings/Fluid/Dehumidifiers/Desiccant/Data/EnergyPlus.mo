@@ -22,7 +22,7 @@ record EnergyPlus =
                            -0.0151657189566474, 3.91641393230322e-08,
                            0.126032651553348, 0.000391653854431574,
                            0.002160537360507, 0.00132732844211593},
-     coevReg =            {-4.67358908091488, 0.0654323095468338,
+    coevReg =            {-4.67358908091488, 0.0654323095468338,
                           396.950518702316, 1.52610165426736,
                           -11.3955868430328,0.00520693906104437,
                           57.783645385621, -0.000464800668311693,
@@ -30,7 +30,7 @@ record EnergyPlus =
                           5.26762675442845, -8.88452553055039e-05,
                           -182.382479369311, -0.100289774002047,
                            -0.486980507964251, -0.972715425435447},
-     coeQReg_flow =       {-27794046.6291107, -235725.171759615,
+    coeQReg_flow =       {-27794046.6291107, -235725.171759615,
                            975461343.331328, -686069.373946731,
                            -17717307.3766266, 31482.2539662489,
                            55296552.8260743, 6195.36070023868,
@@ -38,14 +38,17 @@ record EnergyPlus =
                            3933449.40965846, -6.66122876558634,
                            -349102295.417547, 83672.179730172,
                            -6059524.33170538, 1220523.39525162})
-  "Default data record for desiccant dehumidifiers" annotation (Documentation(
-      info="<html>
+  "Default data record for desiccant dehumidifiers" 
+  annotation (Documentation(
+  info="<html>
 Performance data for desiccant dehumidifier model.
 This data corresponds to the default operation curve for the EnergyPlus object, 
 <i>Dehumidifier:Desiccant:NoFans</i>
 
 </html>", revisions="<html>
 <ul>
-<li>March 1, 2024, by Sen Huang:<br/>First implementation. </li>
+<li>March 1, 2024, by Sen Huang:<br/>
+First implementation.
+</li>
 </ul>
 </html>"));

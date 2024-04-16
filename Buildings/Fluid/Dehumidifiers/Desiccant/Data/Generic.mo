@@ -30,7 +30,9 @@ Buildings.Fluid.Dehumidifiers.Desiccant</a>.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>March 1, 2024, by Sen Huang:<br/>First implementation. </li>
+<li>March 1, 2024, by Sen Huang:<br/>
+First implementation.
+</li>
 </ul>
 </html>"));
 end Generic;
