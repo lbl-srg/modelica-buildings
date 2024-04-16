@@ -1,4 +1,4 @@
-within Buildings.Fluid.Humidifiers.Data;
+within Buildings.Fluid.Humidifiers.Data.DXDehumidifier;
 record Generic
   "Base data record for DX dehumidifier model"
 
