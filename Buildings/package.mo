@@ -229,6 +229,12 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3063\">issue 3063</a>.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.Dehumidifiers.Desiccant
+    </td>
+    <td valign=\"top\">Package of models for desiccant dehumidifier devices.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3711\">issue 3711</a>.
+    </td>
+</tr>
 </table>
 <!-- New components for existing libraries -->
 <p>
