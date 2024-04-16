@@ -1,9 +1,0 @@
-simulateModel("Buildings.Fluid.CHPs.OrganicRankine.Examples.FixedHotWaterOutput",
-    method="dassl", stopTime=300, tolerance=1e-06, resultFile="FixedHotWaterOutput");
-// Plot commands
-createPlot(id=1, position={6, 68, 624, 352}, y={"mHot_flow_set.y"}, range={0.0, 300.0, -1.0, 2.0}, autoscale=false, grid=true, subPlot=101, colors={{28,108,200}}, timeUnit="s");
-createPlot(id=1, position={6, 68, 624, 352}, y={"THotIn_set.y", "orc.cyc.TWorEva"}, range={0.0, 300.0, 340.0, 380.0}, autoscale=false, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"", "K"});
-createPlot(id=2, position={462, 11, 650, 552}, y={"orc.Q1_flow"}, range={0.0, 300.0, -30000.0, 10000.0}, grid=true, subPlot=101, colors={{28,108,200}}, timeUnit="s", displayUnits={"W"});
-createPlot(id=2, position={462, 11, 650, 552}, y={"souCol.m_flow_in"}, range={0.0, 300.0, 0.1, 0.5}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="s", displayUnits={"kg/s"});
-createPlot(id=2, position={462, 11, 650, 552}, y={"TColOut.T"}, range={0.0, 300.0, 10.0, 50.0}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s", displayUnits={"degC"});
-

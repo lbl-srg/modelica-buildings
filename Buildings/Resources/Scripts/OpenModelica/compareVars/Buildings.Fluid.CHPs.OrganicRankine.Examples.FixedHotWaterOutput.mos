@@ -1,9 +1,0 @@
-compareVars :=
-  {
-    "mHot_flow_set.y",
-    "THotIn_set.y",
-    "orc.cyc.TWorEva",
-    "orc.Q1_flow",
-    "souCol.m_flow_in",
-    "TColOut.T"
-  };
