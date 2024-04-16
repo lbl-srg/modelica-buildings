@@ -18,8 +18,8 @@ model ElectricCoilSpeedControlled
     final max=1)
     "Wheel speed ratio"
     annotation (Placement(transformation(
-          extent={{-280,-20},{-240,20}}), iconTransformation(extent={{-140,-20},
-            {-100,20}})));
+    extent={{-280,-20},{-240,20}}), iconTransformation(extent={{-140,-20},
+    {-100,20}})));
   Buildings.Fluid.HeatExchangers.HeaterCooler_u hea(
     redeclare package Medium = Medium2,
     final m_flow_nominal=m2_flow_nominal,
@@ -42,7 +42,7 @@ model ElectricCoilSpeedControlled
     "Convert real input to boolean output "
     annotation (Placement(transformation(extent={{-180,-50},{-160,-30}})));
   Modelica.Blocks.Sources.RealExpression X_w_ProEnt(final y(final unit="1")=
-      res.port_b.Xi_outflow[i1_w])
+    res.port_b.Xi_outflow[i1_w])
     "Humidity ratio of the process air entering the dehumidifier"
     annotation (Placement(transformation(extent={{-110,-72},{-90,-52}})));
 
@@ -54,16 +54,16 @@ model ElectricCoilSpeedControlled
     annotation (Placement(transformation(extent={{-200,-110},{-180,-90}})));
 protected
   Modelica.Blocks.Sources.RealExpression PEle(final y=PMot_nominal*
-        Buildings.Utilities.Math.Functions.polynomial(a=c, x=uSpe))
+    Buildings.Utilities.Math.Functions.polynomial(a=c, x=uSpe))
     "Electric power consumption"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 
   Modelica.Blocks.Sources.RealExpression mReg_flow(
     final y(final unit="kg/s")=
-      dehPer.VReg_flow*Medium2.density(state=Medium2.setState_phX(
-      p=port_a2.p,
-      h=port_a2.h_outflow,
-      X=port_a2.Xi_outflow)))
+    dehPer.VReg_flow*Medium2.density(state=Medium2.setState_phX(
+    p=port_a2.p,
+    h=port_a2.h_outflow,
+    X=port_a2.Xi_outflow)))
     "Regeneration air mass flow rate"
     annotation (Placement(transformation(extent={{20,76},{40,96}})));
   Modelica.Blocks.Math.Add3 add3
@@ -72,9 +72,9 @@ protected
 
 initial equation
   assert(abs(sum(c)-1) < Modelica.Constants.eps,
-         "In " + getInstanceName() + ": Power efficiency curve is wrong. 
-         The sum of the coefficients for power efficiency curve should equal to 1.",
-         level=AssertionLevel.error);
+    "In " + getInstanceName() + ": Power efficiency curve is wrong. 
+    The sum of the coefficients for power efficiency curve should equal to 1.",
+    level=AssertionLevel.error);
 
 equation
   connect(add3.y, P)
@@ -100,24 +100,24 @@ equation
     annotation (Line(points={{-5,72},{-48,72},{-48,-60},{-22,-60}},
     color={0,0,127}));
   connect(dehPer.uSpe, uSpe)
-    annotation (Line(points={{-56.2,-73},{-56.2,0},{-260,
-          0}}, color={0,0,127}));
+    annotation (Line(points={{-56.2,-73},{-56.2,0},
+    {-260,0}}, color={0,0,127}));
   connect(realToBoolean.u, uSpe)
     annotation (Line(points={{-182,-40},{-200,-40},
-          {-200,0},{-260,0}}, color={0,0,127}));
-  connect(realToBoolean.y, dehPer.uRot) annotation (Line(points={{-159,-40},{-126,
-          -40},{-126,-75.8},{-59,-75.8}}, color={255,0,255}));
+    {-200,0},{-260,0}}, color={0,0,127}));
+  connect(realToBoolean.y, dehPer.uRot) annotation (Line(points={{-159,-40},{-126,-40},
+    {-126,-75.8},{-59,-75.8}}, color={255,0,255}));
   connect(PEle.y, add3.u2)
-    annotation (Line(points={{1,-30},{26,-30},{26,0},{58,
-          0}}, color={0,0,127}));
+    annotation (Line(points={{1,-30},{26,-30},{26,0},{58,0}},
+    color={0,0,127}));
   connect(res.port_a, port_a1)
     annotation (Line(points={{-200,-100},{-240,-100}}, color={0,127,255}));
   connect(res.port_b, outCon.port_a)
-    annotation (Line(points={{-180,-100},{-120,
-          -100},{-120,-126},{-20,-126},{-20,-100},{-6,-100}}, color={0,127,255}));
+    annotation (Line(points={{-180,-100},{-120,-100},
+    {-120,-126},{-20,-126},{-20,-100},{-6,-100}}, color={0,127,255}));
   connect(X_w_ProEnt.y, dehPer.X_w_ProEnt)
-    annotation (Line(points={{-89,-62},{
-          -78,-62},{-78,-88},{-59,-88}}, color={0,0,127}));
+    annotation (Line(points={{-89,-62},{-78,-62},
+    {-78,-88},{-59,-88}}, color={0,0,127}));
   annotation (
   defaultComponentName="deh",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
@@ -162,7 +162,10 @@ when their capacities permit.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>April 10, 2024, by Sen Huang:<br/>First implementation. </li>
+<li>
+April 10, 2024, by Sen Huang:<br/>
+First implementation.
+</li>
 </ul>
 </html>"));
 end ElectricCoilSpeedControlled;

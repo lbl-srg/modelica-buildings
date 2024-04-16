@@ -17,19 +17,20 @@ protected
 
 algorithm
   TProEnt_degC := Modelica.Units.Conversions.to_degC(TProEnt);
-  y:= a[1] + a[2]*TProEnt_degC
-           + a[3]* X_w_ProEnt
-           + a[4]*vPro
-           + a[5]*TProEnt_degC*X_w_ProEnt
-           + a[6]*TProEnt_degC*vPro
-           + a[7]*X_w_ProEnt*vPro + a[8]*TProEnt_degC*TProEnt_degC
-           + a[9]*X_w_ProEnt*X_w_ProEnt+ a[10]*vPro*vPro
-           + a[11]*TProEnt_degC*TProEnt_degC*X_w_ProEnt*X_w_ProEnt
-           + a[12]*TProEnt_degC*TProEnt_degC*vPro*vPro
-           + a[13]*X_w_ProEnt*X_w_ProEnt*vPro*vPro
-           + a[14]*Modelica.Math.log(TProEnt_degC)
-           + a[15]*Modelica.Math.log(X_w_ProEnt)
-           + a[16]*Modelica.Math.log(vPro);
+  y:= a[1] 
+      + a[2]*TProEnt_degC
+      + a[3]* X_w_ProEnt
+      + a[4]*vPro
+      + a[5]*TProEnt_degC*X_w_ProEnt
+      + a[6]*TProEnt_degC*vPro
+      + a[7]*X_w_ProEnt*vPro + a[8]*TProEnt_degC*TProEnt_degC
+      + a[9]*X_w_ProEnt*X_w_ProEnt+ a[10]*vPro*vPro
+      + a[11]*TProEnt_degC*TProEnt_degC*X_w_ProEnt*X_w_ProEnt
+      + a[12]*TProEnt_degC*TProEnt_degC*vPro*vPro
+      + a[13]*X_w_ProEnt*X_w_ProEnt*vPro*vPro
+      + a[14]*Modelica.Math.log(TProEnt_degC)
+      + a[15]*Modelica.Math.log(X_w_ProEnt)
+      + a[16]*Modelica.Math.log(vPro);
 
   annotation (Documentation(info="<html>
 This function computes a performance curve of desiccant dehumidifiers, with the following form
@@ -63,7 +64,9 @@ U.S. Department of Energy, <i> &quot;EnergyPlus Version 22.1.0 Documentation: En
 </ul>
 </html>", revisions="<html>
 <ul>
-<li>March 1, 2024, by Sen Huang:<br/>First implementation. </li>
+<li>March 1, 2024, by Sen Huang:<br/>
+First implementation.
+</li>
 </ul>
 </html>"));
 end performanceCurve;

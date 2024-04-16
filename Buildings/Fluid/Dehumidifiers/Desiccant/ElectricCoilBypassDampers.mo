@@ -11,15 +11,15 @@ model ElectricCoilBypassDampers
   Modelica.Blocks.Interfaces.BooleanInput uRot
     "True when the wheel is operating" annotation (Placement(transformation(
     extent={{-280,-140},{-240,-100}}),
-          iconTransformation(extent={{-140,-80},
-            {-100,-40}})));
+    iconTransformation(extent={{-140,-80},
+    {-100,-40}})));
   Modelica.Blocks.Interfaces.RealInput uBypDamPos(
     final unit="1",
     final min=0,
     final max=1)
     "Bypass damper position"
     annotation (Placement(transformation(extent={{-280,-20},{-240,20}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
+    iconTransformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Math.BooleanToReal booleanToReal
     "Convert boolean input to real output"
     annotation (Placement(transformation(extent={{-200,0},{-180,20}})));
@@ -39,7 +39,7 @@ model ElectricCoilBypassDampers
     final dpDamper_nominal=dp1_nominal)
     "Process air damper"
     annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},rotation=0,origin={-130,-100})));
+    extent={{-10,-10},{10,10}},rotation=0,origin={-130,-100})));
   Modelica.Blocks.Sources.RealExpression X_w_ProEnt(
     final y(final unit="1") = damPro.port_b.Xi_outflow[i1_w])
     "Humidity ratio of the process air entering the dehumidifier"
@@ -72,15 +72,16 @@ model ElectricCoilBypassDampers
 protected
   Modelica.Blocks.Sources.RealExpression mReg_flow(
     final y(final unit="kg/s")=
-      dehPer.VReg_flow*Medium2.density(state=Medium2.setState_phX(
-      p=port_a2.p,
-      h=port_a2.h_outflow,
-      X=port_a2.Xi_outflow)))
+    dehPer.VReg_flow*Medium2.density(state=Medium2.setState_phX(
+    p=port_a2.p,
+    h=port_a2.h_outflow,
+    X=port_a2.Xi_outflow)))
     "Regeneration air mass flow rate"
     annotation (Placement(transformation(extent={{20,76},{40,96}})));
   Modelica.Blocks.Math.Add3 add3
     "Sum of the three inputs"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+
 equation
   connect(add3.y, P)
     annotation (Line(points={{81,0},{110,0}}, color={0,0,127}));
@@ -108,45 +109,44 @@ equation
     annotation (Line(points={{-5,72},{-40,72},{-40,-60},{-22,-60}},
     color={0,0,127}));
   connect(bypDamPro.port_a, port_a1)
-    annotation (Line(points={{-170,-120},{-180,
-          -120},{-180,-100},{-240,-100}}, color={0,127,255}));
+    annotation (Line(points={{-170,-120},{-180,-120},
+    {-180,-100},{-240,-100}}, color={0,127,255}));
   connect(bypDamPro.port_b, port_b1)
-    annotation (Line(points={{-150,-120},{-126,
-          -120},{-126,-138},{34,-138},{34,-100},{100,-100}}, color={0,127,255}));
+    annotation (Line(points={{-150,-120},{-126,-120},
+    {-126,-138},{34,-138},{34,-100},{100,-100}}, color={0,127,255}));
   connect(booleanToReal.y, PEleMot.u)
-    annotation (Line(points={{-179,10},{-50,
-          10},{-50,-32},{-22,-32}}, color={0,0,127}));
+    annotation (Line(points={{-179,10},{-50,10},
+    {-50,-32},{-22,-32}}, color={0,0,127}));
   connect(uni.y, sub.u1)
     annotation (Line(points={{-193,-20},{-168,-20}}, color={0,0,127}));
   connect(uBypDamPos, bypDamPro.y)
-    annotation (Line(points={{-260,0},{-220,0},{
-          -220,-80},{-160,-80},{-160,-108}}, color={0,0,127}));
+    annotation (Line(points={{-260,0},{-220,0},{-220,-80},
+    {-160,-80},{-160,-108}}, color={0,0,127}));
   connect(sub.u2, uBypDamPos)
-    annotation (Line(points={{-168,-32},{-180,-32},{
-          -180,-60},{-220,-60},{-220,0},{-260,0}}, color={0,0,127}));
+    annotation (Line(points={{-168,-32},{-180,-32},{-180,-60},
+    {-220,-60},{-220,0},{-260,0}}, color={0,0,127}));
   connect(booleanToReal.u, uRot)
-    annotation (Line(points={{-202,10},{-230,10},{
-          -230,-120},{-260,-120}}, color={255,0,255}));
+    annotation (Line(points={{-202,10},{-230,10},{-230,-120},
+   {-260,-120}}, color={255,0,255}));
   connect(dehPer.uSpe, uni.y)
-    annotation (Line(points={{-56.2,-73},{-56.2,-6},{
-          -180,-6},{-180,-20},{-193,-20}}, color={0,0,127}));
+    annotation (Line(points={{-56.2,-73},{-56.2,-6},{-180,-6},
+   {-180,-20},{-193,-20}}, color={0,0,127}));
   connect(outCon.port_b, port_b1)
-    annotation (Line(points={{14,-100},{56,-100},{
-          56,-100},{100,-100}}, color={0,127,255}));
+    annotation (Line(points={{14,-100},{56,-100},{56,-100},{100,-100}}, color={0,127,255}));
   connect(damPro.y, sub.y)
-    annotation (Line(points={{-130,-88},{-130,-26},{-144,
-          -26}}, color={0,0,127}));
-  connect(dehPer.uRot, uRot) annotation (Line(points={{-59,-75.8},{-144,-75.8},
-          {-144,-76},{-230,-76},{-230,-120},{-260,-120}}, color={255,0,255}));
+    annotation (Line(points={{-130,-88},{-130,-26},{-144,-26}},
+    color={0,0,127}));
+  connect(dehPer.uRot, uRot) 
+    annotation (Line(points={{-59,-75.8},{-144,-75.8},
+    {-144,-76},{-230,-76},{-230,-120},{-260,-120}}, color={255,0,255}));
   connect(X_w_ProEnt.y, dehPer.X_w_ProEnt)
-    annotation (Line(points={{-89,-62},{
-          -76,-62},{-76,-88},{-59,-88}}, color={0,0,127}));
+    annotation (Line(points={{-89,-62},{-76,-62},
+    {-76,-88},{-59,-88}}, color={0,0,127}));
   connect(damPro.port_a, port_a1)
     annotation (Line(points={{-140,-100},{-240,-100}}, color={0,127,255}));
   connect(damPro.port_b, outCon.port_a)
-    annotation (Line(points={{-120,-100},{
-          -114,-100},{-114,-120},{-20,-120},{-20,-100},{-6,-100}}, color={0,127,
-          255}));
+    annotation (Line(points={{-120,-100},{-114,-100},{-114,-120},{-20,-120},
+    {-20,-100},{-6,-100}}, color={0,127,255}));
   annotation (
   defaultComponentName="deh",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
@@ -191,7 +191,10 @@ when their capacities permit.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>March 1, 2024, by Sen Huang:<br/>First implementation. </li>
+<li>
+March 1, 2024, by Sen Huang:<br/>
+First implementation.
+</li>
 </ul>
 </html>"));
 end ElectricCoilBypassDampers;

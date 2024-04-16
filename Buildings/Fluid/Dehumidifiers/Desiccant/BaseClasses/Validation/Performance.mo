@@ -51,22 +51,28 @@ model Performance
     startTime=50) "Wheel speed ratio"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
 equation
-  connect(onDeh.y, dehumPer.uRot) annotation (Line(points={{-59,80},{-44,80},{-44,
-          8.2},{-11,8.2}}, color={255,0,255}));
-  connect(TProEnt.y, dehumPer.TProEnt) annotation (Line(points={{-59,40},{-20,
-          40},{-20,4.2},{-11,4.2}}, color={0,0,127}));
+  connect(onDeh.y, dehumPer.uRot) 
+    annotation (Line(points={{-59,80},{-44,80},{-44,8.2},
+    {-11,8.2}}, color={255,0,255}));
+  connect(TProEnt.y, dehumPer.TProEnt) 
+    annotation (Line(points={{-59,40},{-20,40},
+    {-20,4.2},{-11,4.2}}, color={0,0,127}));
   connect(TRegEnt.y, dehumPer.TRegEnt)
     annotation (Line(points={{-59,0},{-11,0}}, color={0,0,127}));
-  connect(dehumPer.X_w_ProEnt, X_w_ProEnt.y) annotation (Line(points={{-11,-4},
-          {-40,-4},{-40,-40},{-59,-40}}, color={0,0,127}));
-  connect(VPro_flow.y, dehumPer.VPro_flow) annotation (Line(points={{-59,-80},{
-          -34,-80},{-34,-8.2},{-11,-8.2}}, color={0,0,127}));
+  connect(dehumPer.X_w_ProEnt, X_w_ProEnt.y) 
+    annotation (Line(points={{-11,-4},
+    {-40,-4},{-40,-40},{-59,-40}}, color={0,0,127}));
+  connect(VPro_flow.y, dehumPer.VPro_flow) 
+    annotation (Line(points={{-59,-80},{-34,-80},
+    {-34,-8.2},{-11,-8.2}}, color={0,0,127}));
   connect(gai.u, VPro_flow.y)
     annotation (Line(points={{-23.2,-80},{-59,-80}}, color={0,0,127}));
-  connect(gai.y, dehumPer.mPro_flow) annotation (Line(points={{-9.4,-80},{0,-80},
-          {0,-11}}, color={0,0,127}));
-  connect(uSpe.y, dehumPer.uSpe) annotation (Line(points={{-19,80},{-8,80},{-8,
-          11},{-8.2,11}}, color={0,0,127}));
+  connect(gai.y, dehumPer.mPro_flow) 
+    annotation (Line(points={{-9.4,-80},{0,-80},
+    {0,-11}}, color={0,0,127}));
+  connect(uSpe.y, dehumPer.uSpe) 
+    annotation (Line(points={{-19,80},{-8,80},{-8,11},
+    {-8.2,11}}, color={0,0,127}));
   annotation (experiment(Tolerance=1e-6, StopTime=100),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Dehumidifiers/Desiccant/BaseClasses/Validation/Performance.mos"
         "Simulate and Plot"), Documentation(info="<html>
@@ -118,7 +124,9 @@ and keep relatively constant afterward.
 </ul>
 </html>", revisions="<html>
 <ul>
-<li>March 1, 2024, by Sen Huang:<br/>First implementation. </li>
+<li>March 1, 2024, by Sen Huang:<br/>
+First implementation.
+</li>
 </ul>
 </html>"));
 end Performance;
