@@ -74,8 +74,13 @@ model VariableSource
   Modelica.Blocks.Sources.BooleanConstant tru(k=true) "Constant true"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
-  Modelica.Blocks.Sources.TimeTable mHot_flow_set(table=[0,0; 50,
-        mHot_flow_nominal*1.5; 250,mHot_flow_nominal*1.5; 300,0])
+  Modelica.Blocks.Sources.TimeTable mHot_flow_set(table=[
+    0,0;
+    20,0;
+    50,mHot_flow_nominal*1.5;
+    250,mHot_flow_nominal*1.5;
+    280,0;
+    300,0])
     "Sets the hot fluid flow rate in the evaporator"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Modelica.Blocks.Sources.TimeTable THotIn_set(table=[
