@@ -3,9 +3,9 @@ block AddParameter
   "Output the sum of an input plus a parameter"
   parameter Real p
     "Value to be added";
-  Interfaces.RealInput u "Connector of Real input signal"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u "Connector of Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.RealOutput y "Connector of Real output signal"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation

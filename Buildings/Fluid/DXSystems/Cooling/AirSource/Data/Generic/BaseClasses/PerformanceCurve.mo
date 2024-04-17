@@ -6,7 +6,7 @@ record PerformanceCurve "Data record for a performance curve"
     "Biquadratic coefficients for cooling capacity function of temperature"
     annotation (Dialog(group="Performance curves"));
   parameter Real  capFunFF[:]
-    "Polynomial coefficients for cooling capacity function of flow fration"
+    "Polynomial coefficients for cooling capacity function of flow fraction"
     annotation (Dialog(group="Performance curves"));
   parameter Real  EIRFunT[6]
     "Biquadratic coefficients for EIR function of temperature"
