@@ -25,7 +25,7 @@ model ORCHotWater "ORC that outputs hot water at a fixed temperature"
   package MediumCol = Buildings.Media.Water "Condenser cold fluid";
   parameter Modelica.Units.SI.MassFlowRate mHot_flow_nominal = 1
     "Nominal mass flow rate of evaporator hot fluid";
-  parameter Modelica.Units.SI.MassFlowRate mCol_flow_nominal = 1.4
+  parameter Modelica.Units.SI.MassFlowRate mCol_flow_nominal = 1.35
     "Nominal mass flow rate of condenser cold fluid";
   parameter Modelica.Units.SI.PressureDifference dpCon_nominal(
     displayUnit = "Pa") = 10000
@@ -33,7 +33,7 @@ model ORCHotWater "ORC that outputs hot water at a fixed temperature"
   parameter Modelica.Units.SI.PressureDifference dpValCol_nominal(
     displayUnit = "Pa") = 10000
     "Nominal pressure difference used for valves in the cold fluid loop";
-  parameter Modelica.Units.SI.ThermodynamicTemperature TCol_start = 25 + 273.15
+  parameter Modelica.Units.SI.ThermodynamicTemperature TCol_start = 35 + 273.15
     "Start value for cold fluid temperature";
 
   Modelica.Units.SI.Efficiency etaThe = orc.PEle / max(orc.QEva_flow,1)
@@ -58,7 +58,7 @@ model ORCHotWater "ORC that outputs hot water at a fixed temperature"
     reverseActing=false)
                         "PI controller"
     annotation (Placement(transformation(extent={{80,20},{60,0}})));
-  Modelica.Blocks.Sources.Constant TWatOut_set(k=45 + 273.15)
+  Modelica.Blocks.Sources.Constant TWatOut_set(k=55 + 273.15)
     "Set point of hot water output"
     annotation (Placement(transformation(extent={{120,0},{100,20}})));
   Buildings.Fluid.Sources.Boundary_pT       colBou(
@@ -82,7 +82,7 @@ model ORCHotWater "ORC that outputs hot water at a fixed temperature"
         origin={70,-40})));
   Modelica.Blocks.Sources.TimeTable TWatRet(
     y(final unit="K", displayUnit="degC"),
-    table=[0,25; 3,25; 6,35; 9,35],
+    table=[0,35; 3,35; 6,45; 9,45],
     timeScale=100,
     offset=273.15) "Water return temperature values"
     annotation (Placement(transformation(extent={{170,-70},{150,-50}})));
