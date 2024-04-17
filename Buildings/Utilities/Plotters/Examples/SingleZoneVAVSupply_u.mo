@@ -82,10 +82,12 @@ equation
 
   connect(scaTem.x, heaCooConSig.y) annotation (Line(points={{98,-8},{90,-8},{90,
           50},{-10,50}},      color={0,0,127}));
-  connect(THea_degC.y, scaTem.y[1]) annotation (Line(points={{62,20},{70,20},{70,
-          1},{98,1}},   color={0,0,127}));
-  connect(TCoo_degC.y, scaTem.y[2]) annotation (Line(points={{62,-10},{70,-10},{
-          70,-1},{98,-1}}, color={0,0,127}));
+  connect(THea_degC.y, scaTem.y[1]) annotation (Line(points={{62,20},{70,20},{
+          70,-0.5},{98,-0.5}},
+                        color={0,0,127}));
+  connect(TCoo_degC.y, scaTem.y[2]) annotation (Line(points={{62,-10},{70,-10},
+          {70,0.5},{98,0.5}},
+                           color={0,0,127}));
   connect(setPoiVAV.y, scaYFan.y[1]) annotation (Line(points={{22,-15},{30,-15},
           {30,-50},{98,-50}},
                            color={0,0,127}));
@@ -128,7 +130,7 @@ The plot will be generated in the file <code>plots.html</code>.
 </p>
 <p align=\"center\">
 <img alt=\"Image of set point reset\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/VAVSingleZoneTSupSet.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/SetPoints/Supply.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>
