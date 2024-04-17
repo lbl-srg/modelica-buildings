@@ -32,7 +32,8 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
     final cpHot=Medium1.specificHeatCapacityCp(sta1_nominal),
     final cpCol=Medium2.specificHeatCapacityCp(sta2_nominal),
     final etaExp=etaExp,
-    final etaPum=etaPum)
+    final etaPum=etaPum,
+    final useLowCondenserPressureWarning=useLowCondenserPressureWarning)
     "Thermodynamic computations of the organic Rankine cycle"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
@@ -71,6 +72,9 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
     final min = 0) = 10
     "Condenser pinch point temperature differential"
     annotation(Dialog(group="Condenser"));
+  parameter Boolean useLowCondenserPressureWarning = true
+    "If true, issues warning if pCon < 101325 Pa"
+    annotation(Dialog(group="Condenser"));
   parameter Modelica.Units.SI.MassFlowRate mWor_flow_max(
     final min = 0)
     "Upper bound of working fluid flow rate"
@@ -104,12 +108,16 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
     final quantity="HeatFlowRate",
     final unit="W") "Evaporator heat flow rate (positive)" annotation (
       Placement(transformation(extent={{100,70},{140,110}}),iconTransformation(
-          extent={{70,80},{90,100}})));
+          extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={40,90})));
   Modelica.Blocks.Interfaces.RealOutput QCon_flow(
     final quantity="HeatFlowRate",
     final unit="W") "Condenser heat flow rate (positive)" annotation (
       Placement(transformation(extent={{100,-110},{140,-70}}),
-        iconTransformation(extent={{70,-100},{90,-80}})));
+        iconTransformation(extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={40,-90})));
   Modelica.Blocks.Interfaces.BooleanOutput on_actual
     "Actual on off status of the cycle" annotation (Placement(transformation(
           extent={{100,-20},{140,20}}), iconTransformation(extent={{70,-10},{90,
@@ -120,16 +128,6 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
     "Electrical power consumption of the pump" annotation (Placement(
         transformation(extent={{100,-50},{140,-10}}),iconTransformation(extent={{70,-40},
             {90,-20}})));
-  Modelica.Blocks.Interfaces.RealOutput pWorCon(
-    final quantity="AbsolutePressure",
-    final unit="Pa") "Working fluid condensing pressure" annotation (
-      Placement(transformation(extent={{-20,-20},{20,20}},
-        rotation=-90,
-        origin={30,-120}),
-        iconTransformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={40,-90})));
 protected
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloEva
     "Prescribed heat flow rate"
@@ -194,8 +192,6 @@ equation
                            color={255,0,255}));
   connect(cyc.PPum, PPum) annotation (Line(points={{11,-4},{84,-4},{84,-30},{120,
           -30}}, color={0,0,127}));
-  connect(cyc.pWorCon, pWorCon) annotation (Line(points={{7,-11},{8,-11},{8,-40},
-          {-20,-40},{-20,-90},{30,-90},{30,-120}}, color={0,0,127}));
   annotation (defaultComponentName = "orc",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Line(

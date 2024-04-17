@@ -72,16 +72,8 @@ model FixedEvaporating
   Modelica.Units.SI.ThermodynamicTemperature TColPin(
     start = 300)
     "Cold fluid temperature at pinch point";
-  Modelica.Blocks.Interfaces.RealOutput pWorCon(
-    final quantity="AbsolutePressure",
-    final unit="Pa") = pCon "Working fluid condensing pressure" annotation (
-      Placement(transformation(extent={{-20,-20},{20,20}},
-        rotation=-90,
-        origin={70,-120}),
-        iconTransformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={70,-110})));
+  parameter Boolean useLowCondenserPressureWarning = true
+    "If true, issues warning if pCon < 101325 Pa";
 
 // Expander
   Modelica.Blocks.Interfaces.RealOutput PEle(
@@ -153,6 +145,12 @@ equation
 ": Working fluid condensing temperature is too high and close to evaporating temperature.
 This is likely caused by the flow rate of cold fluid in the condenser being too low
 when the ORC is on.");
+
+  assert(not (pCon < 101325 - 1 and ena and useLowCondenserPressureWarning),
+"*** In " + getInstanceName() +
+": Working fluid condensing pressure is lower than 101325 Pa.
+If this is intended, set useLowCondenserPressureWarning = false to turn off this warning.",
+level=AssertionLevel.warning);
 
   // Evaporator
   QEva_flow = mHot_flow * cpHot * (THotIn - THotOut);
