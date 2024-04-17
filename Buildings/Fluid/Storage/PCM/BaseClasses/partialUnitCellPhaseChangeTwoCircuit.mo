@@ -8,7 +8,7 @@ model partialUnitCellPhaseChangeTwoCircuit
 /////////////////////////////////////////////
 
   replaceable parameter
-    Buildings.HeatTransfer.Data.SolidsPCM.Generic PCM(x=sfin, d=Material.d, c=Material.c, k=Material.k, LHea=Material.LHea, TSol=Material.TSol, TLiq=Material.TLiq) "Storage material record";
+    Buildings.HeatTransfer.Data.SolidsPCM.Generic PCM(x=sfin, d=Material.d, c=Material.c, k=Material.k, LHea=Material.LHea, TSol=Material.TSol, TLiq=Material.TLiq) "Storage material record" annotation(Dialog(group="PCM"));
   parameter Modelica.Units.SI.Energy TesNominal = PCM.LHea*PCM.d*PCM.x*A_pcm "Nominal Capacity (factor * 1kWh)" annotation(Dialog(group="Sizing"));
   parameter Modelica.Units.SI.DimensionlessRatio TesScale = Design.TesDesign/TesNominal "Scale factor for PCM HX size" annotation(Dialog(group="Sizing"));
   parameter Modelica.Units.SI.Length H = TesScale*Design.coeff_H "Height of finned tube heat exchanger"
@@ -36,8 +36,7 @@ model partialUnitCellPhaseChangeTwoCircuit
   parameter Modelica.Units.SI.Area A_fin = Design.do*Modelica.Constants.pi*Ntubes*tfins "Area of fins"
                                                                                                       annotation(Dialog(group="Fins"));
 
-  parameter Modelica.Units.SI.Area A_pcm=(Nfins*2*Design.W*H - Modelica.Constants.pi*(Design.do/2)^2*Ntubes) + Design.do*Modelica.Constants.pi*Ntubes*(Design.D-tfins) "Area of pcm"
-                                                                                                                                                                                    annotation(Dialog(group="PCM"));
+  parameter Modelica.Units.SI.Area A_pcm=(Nfins*2*Design.W*H - Modelica.Constants.pi*(Design.do/2)^2*Ntubes) + Design.do*Modelica.Constants.pi*Ntubes*(Design.D-tfins) "Area of pcm" annotation(Dialog(group="PCM"));
 
 
   replaceable parameter
@@ -93,25 +92,10 @@ model partialUnitCellPhaseChangeTwoCircuit
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-40,-24})));
-  Buildings.HeatTransfer.Conduction.SingleLayer pcm(
-    stateAtSurface_b=false,
-    material=PCM,
-    A=A_pcm,
-    T_a_start=TStart_pcm,
-    T_b_start=TStart_pcm) "Sodium acetate trihydrate energy storage material" annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-40,0})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloDom
     annotation (Placement(transformation(extent={{-58,20},{-70,8}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloPro
     annotation (Placement(transformation(extent={{-70,-16},{-58,-4}})));
-  Modelica.Blocks.Sources.RealExpression USum(y=sum((pcm.u[i]*pcm.m[i]) for i in
-            1:size(pcm.u,1)))
-    annotation (Placement(transformation(extent={{-80,-2},{-100,18}})));
-  Modelica.Blocks.Sources.RealExpression mSum(y=sum((pcm.m[i]) for i in 1:size(pcm.u,1)))
-    annotation (Placement(transformation(extent={{-80,2},{-100,-18}})));
 equation
   connect(tubeDom.port_a,finsDom. port_b)
     annotation (Line(points={{-40,38},{-40,34}}, color={191,0,0}));
@@ -125,14 +109,10 @@ equation
     annotation (Line(points={{-40,-38},{-100,-38}}, color={191,0,0}));
   connect(tubePro.port_a, tubHeaPort_a2)
     annotation (Line(points={{-40,-38},{100,-38}}, color={191,0,0}));
-  connect(pcm.port_a,heaFloPro. port_b)
-    annotation (Line(points={{-40,-10},{-58,-10}}, color={191,0,0}));
   connect(heaFloPro.port_a,finsPro. port_a)
     annotation (Line(points={{-70,-10},{-70,-14},{-40,-14}}, color={191,0,0}));
   connect(heaFloDom.port_a,finsDom. port_a)
     annotation (Line(points={{-58,14},{-40,14}}, color={191,0,0}));
-  connect(heaFloDom.port_b, pcm.port_b)
-    annotation (Line(points={{-70,14},{-70,10},{-40,10}}, color={191,0,0}));
   annotation (Icon(graphics={
           Rectangle(
           extent={{-70,60},{70,-66}},

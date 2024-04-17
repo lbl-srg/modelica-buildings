@@ -65,4 +65,12 @@ parameter Real m_flow = 0.1;
         coordinateSystem(preserveAspectRatio=false)));
 end test_formula;
 
+  model t_ini
+    MixingVolumes.BaseClasses.MixingVolumeHeatPort vol(T_start=325.15)
+      annotation (Placement(transformation(extent={{-128,34},{-108,54}})));
+    MixingVolumes.MixingVolume vol1(T_start=325.15)
+      annotation (Placement(transformation(extent={{-86,24},{-66,44}})));
+    annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+          coordinateSystem(preserveAspectRatio=false)));
+  end t_ini;
 end Tests;

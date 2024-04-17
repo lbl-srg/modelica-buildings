@@ -12,10 +12,12 @@ parameter Modelica.Units.SI.Temperature pcm_Tstart = 311.05;
         Medium, nPorts=1) "Flow sink"
     annotation (Placement(transformation(extent={{90,20},{70,0}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TInHPC(redeclare package Medium =
-        Medium, m_flow_nominal=m_flow_nominal)
+        Medium, m_flow_nominal=m_flow_nominal,
+    T_start=pcm_Tstart)
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TOutHPC(redeclare package Medium
-      = Medium, m_flow_nominal=m_flow_nominal)
+      = Medium, m_flow_nominal=m_flow_nominal,
+    T_start=pcm_Tstart)
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Buildings.Fluid.Sources.MassFlowSource_T HPCPum(
     use_T_in=true,
@@ -57,15 +59,19 @@ parameter Modelica.Units.SI.Temperature pcm_Tstart = 311.05;
   CoilRegisterFourPort pcmFourPort(
     m1_flow_nominal=m_flow_nominal,
     m2_flow_nominal=m_flow_nominal,
-    TStart_pcm=pcm_Tstart) annotation (Placement(transformation(
-        extent={{13,13},{-13,-13}},
+    TStart_pcm=pcm_Tstart,
+    redeclare package Medium = Medium)
+                           annotation (Placement(transformation(
+        extent={{12,12},{-12,-12}},
         rotation=180,
-        origin={21,-9})));
+        origin={20,-10})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TInLPC(redeclare package Medium =
-        Medium, m_flow_nominal=m_flow_nominal)
+        Medium, m_flow_nominal=m_flow_nominal,
+    T_start=pcm_Tstart)
     annotation (Placement(transformation(extent={{60,-20},{40,-40}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TOutLPC(redeclare package Medium
-      = Medium, m_flow_nominal=m_flow_nominal)
+      = Medium, m_flow_nominal=m_flow_nominal,
+    T_start=pcm_Tstart)
     annotation (Placement(transformation(extent={{0,-20},{-20,-40}})));
   Buildings.Fluid.Sources.Boundary_pT sinLPC(redeclare package Medium =
         Medium, nPorts=1) "Flow sink"
@@ -173,26 +179,27 @@ equation
           {42,-80},{42,-62},{-20,-62},{-20,-70},{-56,-70}},
                                                       color={0,0,127}));
   connect(TInHPC.port_b, pcmFourPort.port_a1) annotation (Line(points={{0,10},{
-          4,10},{4,-3.54},{8,-3.54}},
+          4,10},{4,-4.96},{8,-4.96}},
                                     color={0,127,255}));
   connect(TOutLPC.port_a, pcmFourPort.port_b2) annotation (Line(points={{0,-30},
-          {4,-30},{4,-14.46},{8,-14.46}}, color={0,127,255}));
+          {4,-30},{4,-15.04},{8,-15.04}}, color={0,127,255}));
   connect(TInLPC.port_b, pcmFourPort.port_a2) annotation (Line(points={{40,-30},
-          {38,-30},{38,-14.46},{34,-14.46}}, color={0,127,255}));
+          {38,-30},{38,-15.04},{32,-15.04}}, color={0,127,255}));
   connect(TOutHPC.port_a, pcmFourPort.port_b1) annotation (Line(points={{40,10},
-          {38,10},{38,-3.54},{34,-3.54}}, color={0,127,255}));
-  connect(pcmFourPort.SOC, SOC) annotation (Line(points={{35.3,-20.7},{102,-20.7},
-          {102,-20},{110,-20}},
+          {38,10},{38,-4.96},{32,-4.96}}, color={0,127,255}));
+  connect(pcmFourPort.SOC, SOC) annotation (Line(points={{33.2,-20.8},{102,
+          -20.8},{102,-20},{110,-20}},
                              color={0,0,127}));
-  connect(pcmFourPort.EPCM, EPCM) annotation (Line(points={{35.3,-17.58},{42,-17.58},
-          {42,-12},{64,-12},{64,-6},{96,-6},{96,0},{110,0}},
+  connect(pcmFourPort.EPCM, EPCM) annotation (Line(points={{33.2,-17.92},{42,
+          -17.92},{42,-12},{64,-12},{64,-6},{96,-6},{96,0},{110,0}},
                                       color={0,0,127}));
   connect(LPCdata.y[2], toKelvin2.Celsius)
     annotation (Line(points={{13,-80},{68,-80}}, color={0,0,127}));
-  connect(pcmFourPort.QDom, QHPC) annotation (Line(points={{35.3,2.7},{44,2.7},{
-          44,40},{110,40}},   color={0,0,127}));
-  connect(pcmFourPort.QPro, QLPC) annotation (Line(points={{35.3,-0.42},{92,-0.42},
-          {92,20},{110,20}},  color={0,0,127}));
+  connect(pcmFourPort.QDom, QHPC) annotation (Line(points={{33.2,0.8},{44,0.8},
+          {44,40},{110,40}},  color={0,0,127}));
+  connect(pcmFourPort.QPro, QLPC) annotation (Line(points={{33.2,-2.08},{92,
+          -2.08},{92,20},{110,20}},
+                              color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),

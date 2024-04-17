@@ -14,7 +14,9 @@ replaceable parameter Buildings.Fluid.Storage.PCM.Data.PhaseChangeMaterial.Gener
     m2_flow_nominal=m2_flow_nominal,
     Design=Design,
     Material=Material,
-    TStart_pcm=TStart_pcm)
+    TStart_pcm=TStart_pcm,
+    pcm_new=pcm_new,
+    redeclare package pcm_data = pcm_data)
     annotation (Placement(transformation(extent={{-12,-12},{12,12}})));
   replaceable package Medium = Buildings.Media.Water "Medium in the component"
       annotation (choicesAllMatching = true);
@@ -52,16 +54,20 @@ replaceable parameter Buildings.Fluid.Storage.PCM.Data.PhaseChangeMaterial.Gener
         Medium)
     annotation (Placement(transformation(extent={{32,-42},{48,-58}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TInDom(redeclare package Medium =
-        Medium, m_flow_nominal=m1_flow_nominal)
+        Medium, m_flow_nominal=m1_flow_nominal,
+    T_start=TStart_pcm)
     annotation (Placement(transformation(extent={{-78,42},{-62,58}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TOutDom(redeclare package Medium =
-        Medium, m_flow_nominal=m1_flow_nominal)
+        Medium, m_flow_nominal=m1_flow_nominal,
+    T_start=TStart_pcm)
     annotation (Placement(transformation(extent={{62,42},{78,58}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TInPro(redeclare package Medium =
-        Medium, m_flow_nominal=m2_flow_nominal)
+        Medium, m_flow_nominal=m2_flow_nominal,
+    T_start=TStart_pcm)
     annotation (Placement(transformation(extent={{62,-42},{78,-58}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TOutPro(redeclare package Medium =
-        Medium, m_flow_nominal=m2_flow_nominal)
+        Medium, m_flow_nominal=m2_flow_nominal,
+    T_start=TStart_pcm)
     annotation (Placement(transformation(extent={{-78,-42},{-62,-58}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a tubHeaPort_a1 annotation (Placement(transformation(extent={{-108,26},
             {-94,12}}), iconTransformation(extent={{-108,26},{-94,12}})));
@@ -125,6 +131,11 @@ replaceable parameter Buildings.Fluid.Storage.PCM.Data.PhaseChangeMaterial.Gener
     annotation (Placement(transformation(extent={{-50,-102},{-70,-82}})));
   Modelica.Blocks.Interfaces.RealOutput Ufg "Value of Real output"
     annotation (Placement(transformation(extent={{-100,-102},{-120,-82}})));
+      parameter Boolean pcm_new=false;
+  replaceable package pcm_data =
+      slPCMlib.Media_generic.generic_7thOrderSmoothStep
+         constrainedby slPCMlib.Interfaces.partialPCM
+    annotation (choicesAllMatching=true, Dialog(enable=pcm_new));
 equation
   connect(port_b2,TOutPro. port_a)
     annotation (Line(points={{-100,-42},{-90,-42},{-90,-50},{-78,-50}},

@@ -2,14 +2,15 @@ within Buildings.Fluid.Storage.PCM.BaseClasses;
 model HexElementSensibleFourPort
   "Element of a heat exchanger w PCM between flow channels"
   extends Buildings.Fluid.Interfaces.FourPortHeatMassExchanger(
-  redeclare final Buildings.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatPort vol1(
+  redeclare Buildings.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatPort vol1(
      prescribedHeatFlowRate=false),
-  redeclare final Buildings.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatPort vol2(
+  redeclare Buildings.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatPort vol2(
      prescribedHeatFlowRate=false),
+     T1_start=TStart_pcm,
+     T2_start=TStart_pcm,
      dp1_nominal = TesScale*Design.dp1_coeff,
      dp2_nominal = TesScale*Design.dp2_coeff);
-  extends
-    Buildings.Fluid.Storage.PCM.BaseClasses.partialUnitCellPhaseChangeTwoCircuit;
+  extends Buildings.Fluid.Storage.PCM.BaseClasses.pcm_switch;
 
   parameter Boolean initialize_p1 = not Medium1.singleState
     "Set to true to initialize the pressure of volume 1"
@@ -122,6 +123,10 @@ equation
     annotation (Line(points={{-101,8},{-118,8}}, color={0,0,127}));
   connect(mSum.y, mpcm)
     annotation (Line(points={{-101,-8},{-118,-8}}, color={0,0,127}));
+  connect(USum_slPCMlib.y, Upcm) annotation (Line(points={{101,8},{108,8},{108,
+          20},{58,20},{58,14},{-104,14},{-104,8},{-118,8}}, color={0,0,127}));
+  connect(mSum_slPCMlib.y, mpcm) annotation (Line(points={{101,-8},{108,-8},{
+          108,-18},{-106,-18},{-106,-8},{-118,-8}}, color={0,0,127}));
   annotation (
     Documentation(info="<html>
 <p>
