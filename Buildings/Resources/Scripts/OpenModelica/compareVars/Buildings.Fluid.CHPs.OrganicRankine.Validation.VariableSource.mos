@@ -1,7 +1,7 @@
 compareVars :=
   {
     "mHot_flow_set.y",
-    "THotIn_set.y",
+    "souHot.T_in",
     "orc.cyc.TWorEva",
     "orc.cyc.mWor_flow",
     "orc.cyc.mWor_flow_max",
