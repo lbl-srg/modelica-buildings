@@ -190,11 +190,11 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Switch swi3[nTowCel]
     "Logical switch"
     annotation (Placement(transformation(extent={{160,90},{180,110}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset holDisPro(
+  Buildings.Controls.OBC.CDL.Logical.TrueHold holDisPro(
     final duration=chaTowCelIsoTim)
     "Holding the disable process"
     annotation (Placement(transformation(extent={{-100,140},{-80,160}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol2[nTowCel](
+  Buildings.Controls.OBC.CDL.Logical.TrueHold truHol2[nTowCel](
     final duration=fill(chaTowCelIsoTim,nTowCel))
     "Holding the cell changing signal"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));

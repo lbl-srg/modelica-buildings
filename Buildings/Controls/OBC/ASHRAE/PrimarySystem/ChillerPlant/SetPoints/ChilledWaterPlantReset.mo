@@ -70,7 +70,7 @@ block ChilledWaterPlantReset
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam
     "Sample last reset value when there is chiller stage change"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol(
+  Buildings.Controls.OBC.CDL.Logical.TrueHold truHol(
     final duration=holTim)
     "Hold the true input with given time"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));

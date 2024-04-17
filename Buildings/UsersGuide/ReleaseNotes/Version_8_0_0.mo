@@ -256,7 +256,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.Controls.OBC.CDL.Logical.TriggeredTrapezoid<br/>
                        Buildings.Controls.OBC.CDL.Logical.TrueDelay<br/>
                        Buildings.Controls.OBC.CDL.Logical.TrueFalseHold<br/>
-                       Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset<br/>
+                       Buildings.Controls.OBC.CDL.Logical.TrueHold<br/>
                        Buildings.Controls.OBC.CDL.Psychrometrics.DewPoint_TDryBulPhi<br/>
                        Buildings.Controls.OBC.CDL.Psychrometrics.SpecificEnthalpy_TDryBulPhi<br/>
                        Buildings.Controls.OBC.CDL.Psychrometrics.WetBulb_TDryBulPhi<br/>

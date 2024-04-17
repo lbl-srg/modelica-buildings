@@ -61,7 +61,7 @@ protected
     final startTime=2,
     final amplitude=0.2*6894.75) "Local pressure difference sensor reading"
     annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset leaChiProOn(
+  Buildings.Controls.OBC.CDL.Logical.TrueHold leaChiProOn(
     final duration=2000)
     "Lead chiller proven on status"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
