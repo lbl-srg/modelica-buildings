@@ -21,7 +21,7 @@ model ORCHotWater "ORC that outputs hot water at a fixed temperature"
     etaPum=0.6) "Organic Rankine cycle"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
 
-  package MediumHot = Buildings.Media.Specialized.Air.PerfectGas "Evaporator hot fluid";
+  package MediumHot = Buildings.Media.Air "Evaporator hot fluid";
   package MediumCol = Buildings.Media.Water "Condenser cold fluid";
   parameter Modelica.Units.SI.MassFlowRate mHot_flow_nominal = 1
     "Nominal mass flow rate of evaporator hot fluid";
