@@ -42,6 +42,16 @@ This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences.EnableLead_headered\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences.EnableLead_headered</a>.
 </p>
+<p>
+It shows the process of enabling and disabling lead condenser water pump
+of the plants with headered condenser water pumps.
+</p>
+<p>
+The instance <code>enaLeaConPum</code> shows that the lead pump is enabled at 300
+seconds when there is chiller condenser water isolation valve being enabled. The pump
+becomes disabled when both the chiller condenser water isolation valve and the waterside
+economizer condenser water isolation valve are disabled.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
