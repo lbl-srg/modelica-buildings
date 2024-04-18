@@ -1,7 +1,8 @@
 within Buildings.Obsolete.Templates.Plants.Controls.Utilities.Validation;
 model SortWithIndices
   "Validation model for the Sort block"
-  Buildings.Obsolete.Templates.Plants.Controls.Utilities.SortWithIndices sorAsc(nin=5)
+  Buildings.Obsolete.Templates.Plants.Controls.Utilities.SortWithIndices sorAsc(
+    nin=5)
     "Block that sorts signals in ascending order"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramp1(
@@ -34,8 +35,10 @@ model SortWithIndices
     height=4)
     "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-60,-74},{-40,-54}})));
-  Buildings.Obsolete.Templates.Plants.Controls.Utilities.SortWithIndices sorDes(nin=5,
-      ascending=false) "Block that sorts signals in descending order"
+  Buildings.Obsolete.Templates.Plants.Controls.Utilities.SortWithIndices sorDes(
+    nin=5,
+    ascending=false)
+    "Block that sorts signals in descending order"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
 
 equation
