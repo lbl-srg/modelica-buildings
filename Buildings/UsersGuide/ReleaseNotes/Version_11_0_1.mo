@@ -43,6 +43,12 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Reals.Sort
+    </td>
+    <td valign=\"top\">Added an output variable with the indices of the sorted elements.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3809\">issue 3809</a>.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Latch
     </td>
     <td valign=\"top\">Simplified the implementation.<br/>
@@ -65,7 +71,17 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
- <tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Templates</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants.Controls.Utilities.SortWithIndices
+    </td>
+    <td valign=\"top\">Moved to the <code>Obsolete</code> package.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3809\">#3809</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
 <tr><td valign=\"top\">xxx

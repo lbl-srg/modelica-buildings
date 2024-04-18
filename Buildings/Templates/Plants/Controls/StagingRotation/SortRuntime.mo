@@ -43,7 +43,7 @@ block SortRuntime
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant u1Res[nEquAlt](
     each k=false) "Signal for staging runtime reset"
     annotation (Placement(transformation(extent={{-180,-110},{-160,-90}})));
-  Utilities.SortWithIndices sor(
+  Buildings.Controls.OBC.CDL.Reals.Sort sor(
     final ascending=true,
     nin=nEquAlt)
     "Sort equipment by increasing weighted runtime"
