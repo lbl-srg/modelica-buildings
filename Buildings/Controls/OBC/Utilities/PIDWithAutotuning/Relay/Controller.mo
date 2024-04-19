@@ -11,7 +11,7 @@ block Controller
     final max=yHig)
     "Lower value for the relay output";
   parameter Real deaBan(min=1E-6)
-    "Deadband for holding the output value";
+    "Deadband for holding the relay output";
   parameter Boolean reverseActing=true
     "Set to true for reverse acting, or false for direct acting control action";
 
@@ -153,8 +153,8 @@ annotation (defaultComponentName = "relCon",
           fillPattern=FillPattern.Solid,
           fillColor={175,175,175},
           textString="Relay"),
-        Line(points={{-70,24},{-34,24},{-34,58},{38,58},{38,24},{66,24}}, color
-            ={28,108,200})}), Diagram(
+        Line(points={{-70,24},{-34,24},{-34,58},{38,58},{38,24},{66,24}}, color=
+             {28,108,200})}), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
 Documentation(info="<html>
 <p>
