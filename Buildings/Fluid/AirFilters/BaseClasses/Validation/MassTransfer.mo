@@ -55,10 +55,11 @@ equation
     annotation (Line(points={{-30,0},{-10,0}}, color={0,127,255}));
   connect(C_in.port_a, sou.ports[1])
     annotation (Line(points={{-50,0},{-60,0}}, color={0,127,255}));
-  annotation (experiment(Tolerance=1e-6, StopTime=30),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/AirFilters/BaseClasses/Validation/MassTransfer.mos"
+
+annotation (experiment(Tolerance=1e-6, StopTime=30),
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/AirFilters/BaseClasses/Validation/MassTransfer.mos"
         "Simulate and plot"),
-    Documentation(info="<html>
+Documentation(info="<html>
 <p>
 From 0 to 5 seconds, the testing case is warming-up and the input mass transfer
 efficiency <code>eps</code> is fixed at <i>0.9</i>.

@@ -8,28 +8,22 @@ model FlowCoefficientCorrection
     final min=0,
     final max=1)
     "Relative mass of the contaminant captured by the filter"
-    annotation (Placement(
-    transformation(
-    extent={{20,-20},{-20,20}},
-    rotation=180,
-    origin={-120,0}), iconTransformation(
-    extent={{-20,-20},{20,20}},
-    rotation=0,
-    origin={-120,0})));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
     final unit="1",
     final min=1)
     "Flow coefficient correction"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
-    iconTransformation(extent={{100,-20},{140,20}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
+
 initial equation
     assert(b > 1,
-      "In " + getInstanceName() + ":Resistance coefficient should be larger than 1",
+      "In " + getInstanceName() + ": Resistance coefficient has to be greater than 1.",
       level=AssertionLevel.error);
 equation
   y = b^rat;
-  annotation (Dialog(group="Pressure"),
-              Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+
+annotation (defaultComponentName="kCor",
+  Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={28,108,200},
@@ -39,9 +33,8 @@ equation
           extent={{-100,140},{100,100}},
           textColor={0,0,255},
           textString="%name")}),
-    Diagram(coordinateSystem(preserveAspectRatio=false)),
-    defaultComponentName="kCor",
-    Documentation(info="<html>
+  Diagram(coordinateSystem(preserveAspectRatio=false)),
+Documentation(info="<html>
 <p>
 This model calculates the flow coefficient of the filter by
 </p>

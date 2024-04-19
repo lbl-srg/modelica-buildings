@@ -4,25 +4,15 @@ model MassTransfer
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
   Buildings.Controls.OBC.CDL.Interfaces.RealInput C_inflow[Medium.nC]
     "Input trace substance rate"
-    annotation (Placement(transformation(
-    extent={{-20,-20},{20,20}},
-    rotation=270,
-    origin={0,120}), iconTransformation(
-    extent={{-20,-20},{20,20}},
-    rotation=270,
-    origin={0,120})));
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
+      rotation=-90, origin={0,120})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput eps(
     final unit = "1",
     final min = 0,
     final max= 1)
     "Mass transfer coefficient"
-    annotation (Placement(transformation(
-    extent={{20,-20},{-20,20}},
-    rotation=180,
-    origin={-120,60}), iconTransformation(
-    extent={{-20,-20},{20,20}},
-    rotation=0,
-    origin={-120,60})));
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
+
 equation
   if allowFlowReversal then
     port_b.C_outflow =inStream(port_a.C_outflow) - eps*C_inflow;
@@ -43,19 +33,16 @@ equation
 
   if not allowFlowReversal then
     assert(m_flow > -m_flow_small,
-      "In " + getInstanceName() + ":Reverting flow occurs even though allowFlowReversal is false",
+      "In " + getInstanceName() + ": Reverting flow occurs even though allowFlowReversal is false.",
       level=AssertionLevel.error);
   end if;
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-    Rectangle(
-    extent={{-100,100},{100,-100}},
-    fillColor={255,255,255},
-    fillPattern=FillPattern.Solid,
-    pattern=LinePattern.None)}), Diagram(
-    coordinateSystem(preserveAspectRatio=false)),
-    defaultComponentName="masTra",
-    Documentation(info="<html>
+annotation (defaultComponentName="masTra",
+  Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+    Rectangle(extent={{-100,100},{100,-100}}, fillColor={255,255,255},
+              fillPattern=FillPattern.Solid, pattern=LinePattern.None)}),
+  Diagram(coordinateSystem(preserveAspectRatio=false)),
+Documentation(info="<html>
 <p>
 This model sets the trace substance
 of the medium that leaves <code>port_b</code> by

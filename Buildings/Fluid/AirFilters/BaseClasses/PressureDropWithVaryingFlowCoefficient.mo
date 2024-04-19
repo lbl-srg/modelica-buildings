@@ -12,13 +12,9 @@ model PressureDropWithVaryingFlowCoefficient
     final unit = "1",
     final min = 1)
     "Flow coefficient"
-    annotation (Placement(transformation(
-    extent={{-20,-20},{20,20}},
-    rotation=270,
-    origin={0,120}), iconTransformation(
-    extent={{-20,-20},{20,20}},
-    rotation=270,
-    origin={0,120})));
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
+      rotation=-90, origin={0,120})));
+
 protected
   final parameter Boolean computeFlowResistance=(dp_nominal_pos > Modelica.Constants.eps)
     "Flag to enable/disable computation of flow resistance"

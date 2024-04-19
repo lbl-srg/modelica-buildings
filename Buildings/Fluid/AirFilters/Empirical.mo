@@ -1,6 +1,6 @@
 within Buildings.Fluid.AirFilters;
 model Empirical "Empirical air filter model"
-    replaceable package Medium =
+  replaceable package Medium =
     Buildings.Media.Air(extraPropertiesNames={"CO2"})
     "Air";
   parameter Real mCon_nominal(
@@ -85,32 +85,31 @@ initial equation
 
 equation
   connect(masAcc.mCon, epsCal.mCon)
-    annotation (Line(points={{-18,80},{-2,80}},  color={0,0,127}));
+    annotation (Line(points={{-18,80},{-2,80}}, color={0,0,127}));
   connect(res.port_a, port_a)
     annotation (Line(points={{-30,0},{-100,0}}, color={0,127,255}));
   connect(res.port_b, masTra.port_a)
-    annotation (Line(points={{-10,0},{50,0}},color={0,127,255}));
+    annotation (Line(points={{-10,0},{50,0}}, color={0,127,255}));
   connect(masTra.port_b, port_b)
     annotation (Line(points={{70,0},{100,0}}, color={0,127,255}));
   connect(masAcc.uRep, uRep)
-    annotation (Line(points={{-42,73.8},{-42,74},{-70,74},
-    {-70,60},{-120,60}}, color={255,0,255}));
+    annotation (Line(points={{-42,74},{-42,74},{-70,74},{-70,60},{-120,60}},
+      color={255,0,255}));
   connect(traSubFlo.y, masAcc.mCon_flow)
-    annotation (Line(points={{-71,80},{-60,80},
-    {-60,86},{-42,86}}, color={0,0,127}));
+    annotation (Line(points={{-71,80},{-60,80},{-60,80},{-42,80}}, color={0,0,127}));
   connect(epsCal.y, masTra.eps)
     annotation (Line(points={{22,74},{40,74},{40,6},{48,6}}, color={0,0,127}));
   connect(masTra.C_inflow[1], traSubFlo.y)
-    annotation (Line(points={{60,12},{60,28},
-    {-60,28},{-60,80},{-71,80}}, color={0,0,127}));
+    annotation (Line(points={{60,12},{60,28},{-60,28},{-60,80},{-71,80}},
+      color={0,0,127}));
   connect(epsCal.rat, kCor.rat)
     annotation (Line(points={{22,86},{40,86},{40,80},{58,80}}, color={0,0,127}));
   connect(kCor.y, res.kCor)
     annotation (Line(points={{82,80},{90,80},{90,50},{-20,50},{-20,12}},
-    color={0,0,127}));
+      color={0,0,127}));
   connect(epsCal.y, eps)
     annotation (Line(points={{22,74},{40,74},{40,40},{120,40}},
-    color={0,0,127}));
+      color={0,0,127}));
 
 annotation (defaultComponentName="airFil",
 Icon(coordinateSystem(preserveAspectRatio=false), graphics={
@@ -285,10 +284,7 @@ Documentation(info="<html>
 <p>
 An empirical model of air filters, which considers the impacts of the contaminant
 accumulation on the pressure drop and the filtration efficiency.
-</p>
-<p>
-This model does not require detailed information of filters, such as filter type
-or geometric data. Instead, its dynamic characteristics are defined by three
+The dynamic characteristics of the filters are defined by three
 parameters, <code>mCon_nominal</code>,<code>epsFun</code>, and <code>b</code>.
 </p>
 <ul>
@@ -313,18 +309,20 @@ Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency</a> and
 Buildings.Fluid.AirFilters.BaseClasses.FlowCoefficientCorrection</a>.
 </p>
 <p>
-The input boolean flag, <code>uRep</code>, triggers the filter replacement:
-<br/>
+The input boolean flag, <code>uRep</code>, triggers the filter replacement.
 When <code>uRep</code> changes from <code>false</code> to <code>true</code>, the
 mass of the captured contaminant becomes <i>0</i>.
 </p>
 <b>Note:</b>
-<p>
+<ul>
+<li>
 A warning will be triggered when the captured contaminant mass becomes greater than the
 maximum contaminant mass (<code>mCon_nominal</code>).
-<br>
-In addition, the <code>extraPropertiesNames</code> has to be defined in the medium model.
-</p>
+</li>
+<li>
+The <code>extraPropertiesNames</code> has to be defined in the medium model.
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>
