@@ -23,8 +23,6 @@ model Controller "Validate chiller water pump control sequence"
     "Pump speed control for plant with dedicated primary chilled water pump and with local DP sensor"
     annotation (Placement(transformation(extent={{80,-90},{100,-70}})));
 
-  CDL.Logical.TrueFalseHold truFalHol[3](trueHoldDuration=fill(5, 3))
-    annotation (Placement(transformation(extent={{0,110},{20,130}})));
 protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp isoVal[2](
     duration=fill(1200, 2),
@@ -61,8 +59,8 @@ protected
     final startTime=2,
     final amplitude=0.2*6894.75) "Local pressure difference sensor reading"
     annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueHold leaChiProOn(
-    final duration=2000)
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold leaChiProOn(
+    final trueHoldDuration=2000, falseHoldDuration=0)
     "Lead chiller proven on status"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
@@ -81,6 +79,9 @@ protected
     final nout=2)
     "Replicate real input"
     annotation (Placement(transformation(extent={{-20,-140},{0,-120}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol[3](
+    trueHoldDuration=fill(5, 3))
+    annotation (Placement(transformation(extent={{0,110},{20,130}})));
 
 equation
   connect(conInt.y, heaNoLoc.uPumLeaLag)

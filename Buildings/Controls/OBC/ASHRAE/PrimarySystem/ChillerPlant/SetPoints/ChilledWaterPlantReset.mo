@@ -53,7 +53,7 @@ block ChilledWaterPlantReset
     final min=minSet,
     final max=maxSet,
     final unit="1") "Chilled water plant reset"
-    annotation (Placement(transformation(extent={{120,-60},{160,-20}}),
+    annotation (Placement(transformation(extent={{120,-80},{160,-40}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Generic.TrimAndRespond triRes(
@@ -66,22 +66,23 @@ block ChilledWaterPlantReset
     final triAmo=triAmo,
     final resAmo=resAmo,
     final maxRes=maxRes) "Calculate chilled water plant reset"
-    annotation (Placement(transformation(extent={{20,50},{40,70}})));
+    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam
     "Sample last reset value when there is chiller stage change"
-    annotation (Placement(transformation(extent={{60,50},{80,70}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueHold truHol(
-    final duration=holTim)
+    annotation (Placement(transformation(extent={{-20,10},{0,30}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truHol(
+    final trueHoldDuration=holTim,
+    final falseHoldDuration=0)
     "Hold the true input with given time"
-    annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
+    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
 protected
   Buildings.Controls.OBC.CDL.Logical.Edge edg
     "Check if the input changes from false to true"
-    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Switch plant reset value depends on if there is chiller stage change"
-    annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
+    annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1[nPum] "Logical not"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
   Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(
@@ -90,39 +91,50 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not not2
     "Check if these is any CHW pump is proven on"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1
+    "Set reset value to zero when device is disabled"
+    annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(
+    final k=0)
+    "Zero request when device is OFF"
+    annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
 
 equation
   connect(not1.y, mulAnd.u)
     annotation (Line(points={{-78,60},{-62,60}}, color={255,0,255}));
-  connect(TChiWatSupResReq, triRes.numOfReq)
-    annotation (Line(points={{-140,20},{10,20},{10,52},{18,52}},
-      color={255,127,0}));
   connect(mulAnd.y, not2.u)
-    annotation (Line(points={{-38,60},{-22,60}},   color={255,0,255}));
-  connect(not2.y, triRes.uDevSta)
-    annotation (Line(points={{2,60},{10,60},{10,68},{18,68}},
-      color={255,0,255}));
+    annotation (Line(points={{-38,60},{-22,60}}, color={255,0,255}));
   connect(uChiWatPum, not1.u)
     annotation (Line(points={{-140,60},{-102,60}}, color={255,0,255}));
   connect(triRes.y, triSam.u)
-    annotation (Line(points={{42,60},{58,60}}, color={0,0,127}));
+    annotation (Line(points={{-38,20},{-22,20}}, color={0,0,127}));
   connect(truHol.y, swi.u2)
-    annotation (Line(points={{2,-40},{78,-40}}, color={255,0,255}));
+    annotation (Line(points={{-58,-40},{38,-40}}, color={255,0,255}));
   connect(triRes.y, swi.u3)
-    annotation (Line(points={{42,60},{50,60},{50,-48},{78,-48}},
+    annotation (Line(points={{-38,20},{-30,20},{-30,-48},{38,-48}},
       color={0,0,127}));
   connect(triSam.y, swi.u1)
-    annotation (Line(points={{82,60},{100,60},{100,-20},{60,-20},{60,-32},{78,-32}},
+    annotation (Line(points={{2,20},{10,20},{10,-32},{38,-32}},
       color={0,0,127}));
   connect(edg.y, triSam.trigger)
-    annotation (Line(points={{2,0},{70,0},{70,48}},   color={255,0,255}));
-  connect(swi.y, yChiWatPlaRes)
-    annotation (Line(points={{102,-40},{140,-40}}, color={0,0,127}));
+    annotation (Line(points={{-58,-10},{-10,-10},{-10,8}}, color={255,0,255}));
   connect(chaPro, truHol.u)
-    annotation (Line(points={{-140,-40},{-22,-40}},color={255,0,255}));
+    annotation (Line(points={{-140,-40},{-82,-40}},color={255,0,255}));
   connect(chaPro, edg.u)
-    annotation (Line(points={{-140,-40},{-60,-40},{-60,0},{-22,0}},
+    annotation (Line(points={{-140,-40},{-100,-40},{-100,-10},{-82,-10}},
       color={255,0,255}));
+  connect(TChiWatSupResReq, triRes.numOfReq) annotation (Line(points={{-140,20},
+          {-80,20},{-80,12},{-62,12}}, color={255,127,0}));
+  connect(not2.y, triRes.uDevSta) annotation (Line(points={{2,60},{20,60},{20,40},
+          {-80,40},{-80,28},{-62,28}}, color={255,0,255}));
+  connect(not2.y, swi1.u2) annotation (Line(points={{2,60},{20,60},{20,-60},{78,
+          -60}}, color={255,0,255}));
+  connect(swi.y, swi1.u1) annotation (Line(points={{62,-40},{70,-40},{70,-52},{78,
+          -52}}, color={0,0,127}));
+  connect(con1.y, swi1.u3) annotation (Line(points={{-18,-80},{70,-80},{70,-68},
+          {78,-68}}, color={0,0,127}));
+  connect(swi1.y, yChiWatPlaRes)
+    annotation (Line(points={{102,-60},{140,-60}}, color={0,0,127}));
 
 annotation (
   defaultComponentName="chiWatPlaRes",

@@ -1,9 +1,10 @@
-simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints.Validation.ChilledWaterPlantReset", method="dassl", stopTime=9000, tolerance=1e-06, resultFile="ChilledWaterPlantReset");
-createPlot(id=1, position={10, 10, 800, 900}, y={"plaRes.triRes.y", "plaRes.yChiWatPlaRes"}, range={0.0, 3600, 0, 0.5}, grid=true, subPlot=1, colors={{28,108,200},{0,140,72}});
-createPlot(id=1, position={10, 10, 800, 900}, y={"plaRes.chaPro"}, range={0.0, 3600, 0, 4}, grid=true, subPlot=2, colors={{28,108,200}});
-createPlot(id=1, position={10, 10, 800, 900}, y={"plaRes.triSam.y"}, range={0.0, 3600, 0, 4}, grid=true, subPlot=3, colors={{28,108,200}});
-createPlot(id=1, position={10, 10, 800, 900}, y={"plaRes.truHol.y"}, range={0.0, 3600, 0, 4}, grid=true, subPlot=4, colors={{28,108,200}});
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints.Validation.ChilledWaterPlantReset", method="cvode", stopTime=9000, tolerance=1e-06, resultFile="ChilledWaterPlantReset");
+createPlot(id=1, position={10, 10, 800, 1107}, y={"plaRes.triRes.y", "plaRes.yChiWatPlaRes"}, range={0.0, 9000.0, -0.2, 0.4}, grid=true, subPlot=101, colors={{28,108,200}, {0,140,72}}, thicknesses={0.25, 0.5}, timeUnit="s", displayUnits={"", "1"});
+createPlot(id=1, position={10, 10, 800, 1107}, y={"plaRes.chaPro"}, range={0.0, 9000.0, -1.0, 2.0}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=1, position={10, 10, 800, 1107}, y={"plaRes.triSam.y"}, range={0.0, 9000.0, -0.2, 0.4}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=1, position={10, 10, 800, 1107}, y={"plaRes.truHol.y"}, range={0.0, 9000.0, -1.0, 2.0}, grid=true, subPlot=104, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=1, position={10, 10, 800, 1107}, y={"plaRes.TChiWatSupResReq"}, range={0.0, 9000.0, -5.0, 10.0}, grid=true, subPlot=105, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=2, position={820, 10, 800, 1107}, y={"devRes.triRes.y", "devRes.yChiWatPlaRes"}, range={0.0, 9000.0, -0.05, 0.25}, grid=true, subPlot=101, colors={{28,108,200}, {0,140,72}}, timeUnit="s", displayUnits={"", "1"});
+createPlot(id=2, position={820, 10, 800, 1107}, y={"devRes.TChiWatSupResReq", "devRes.chaPro"}, range={0.0, 9000.0, -2.0, 8.0}, grid=true, subPlot=102, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=2, position={820, 10, 800, 1107}, y={"devRes.triRes.uDevSta"}, range={0.0, 9000.0, -0.2, 1.2}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s");
 
-createPlot(id=2, position={820, 10, 800, 900}, y={"devRes.triRes.y", "devRes.yChiWatPlaRes"}, range={0.0, 3600, 0, 0.5}, grid=true, subPlot=1, colors={{28,108,200},{0,140,72}});
-createPlot(id=2, position={820, 10, 800, 900}, y={"devRes.TChiWatSupResReq","devRes.chaPro"}, range={0.0, 3600, -1, 1}, grid=true, subPlot=2, colors={{28,108,200},{0,140,72}});
-createPlot(id=2, position={820, 10, 800, 900}, y={"devRes.triRes.uDevSta"}, range={0.0, 3600, -2, 2}, grid=true, subPlot=3, colors={{28,108,200}});
