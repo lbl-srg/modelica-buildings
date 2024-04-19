@@ -22,7 +22,7 @@ initial equation
 equation
   y = b^rat;
 
-annotation (defaultComponentName="kCor",
+annotation (defaultComponentName="coeCor",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Rectangle(
           extent={{-100,100},{100,-100}},

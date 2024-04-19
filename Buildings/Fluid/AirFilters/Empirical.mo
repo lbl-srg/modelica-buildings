@@ -66,7 +66,7 @@ protected
     y(unit="kg/s") = inStream(port_a.C_outflow[1])*port_a.m_flow)
     "Trace substances flow rate"
     annotation (Placement(transformation(extent={{-92,70},{-72,90}})));
-  Buildings.Fluid.AirFilters.BaseClasses.FlowCoefficientCorrection kCor(
+  Buildings.Fluid.AirFilters.BaseClasses.FlowCoefficientCorrection coeCor(
     final b=b)
     "Flow coefficient correction"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
@@ -102,11 +102,10 @@ equation
   connect(masTra.C_inflow[1], traSubFlo.y)
     annotation (Line(points={{60,12},{60,28},{-60,28},{-60,80},{-71,80}},
       color={0,0,127}));
-  connect(epsCal.rat, kCor.rat)
-    annotation (Line(points={{22,86},{40,86},{40,80},{58,80}}, color={0,0,127}));
-  connect(kCor.y, res.kCor)
-    annotation (Line(points={{82,80},{90,80},{90,50},{-20,50},{-20,12}},
-      color={0,0,127}));
+  connect(epsCal.rat, coeCor.rat) annotation (Line(points={{22,86},{40,86},{40,80},
+          {58,80}}, color={0,0,127}));
+  connect(coeCor.y, res.kCor) annotation (Line(points={{82,80},{90,80},{90,50},{
+          -20,50},{-20,12}}, color={0,0,127}));
   connect(epsCal.y, eps)
     annotation (Line(points={{22,74},{40,74},{40,40},{120,40}},
       color={0,0,127}));
