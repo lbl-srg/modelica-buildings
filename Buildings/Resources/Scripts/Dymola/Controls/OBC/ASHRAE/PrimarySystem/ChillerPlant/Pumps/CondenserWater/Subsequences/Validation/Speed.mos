@@ -1,2 +1,6 @@
 simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences.Validation.Speed", method="Cvode", stopTime=1, tolerance=1e-06, resultFile="conPumSpe");
-createPlot(id=1, position={20, 10, 700, 900}, y={"conPumSpe.uChiSta", "conPumSpe.uWSE","conPumSpe.yConWatPumNum", "conPumSpe.yDesConWatPumSpe"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {28,108,200}});
+createPlot(id=1, position={20, 10, 1223, 1022}, y={"conPumSpe.uWSE"}, range={0.0, 1.0, -0.5, 1.5}, grid=true, subPlot=101, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=1, position={20, 10, 1223, 1022}, y={"conPumSpe.uChiSta"}, range={0.0, 1.0, -2.0, 4.0}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=1, position={20, 10, 1223, 1022}, y={"conPumSpe.yConWatPumNum"}, range={0.0, 1.0, 0.5, 2.5}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=1, position={20, 10, 1223, 1022}, y={"conPumSpe.yDesConWatPumSpe"}, range={0.0, 1.0, 0.4, 1.0}, grid=true, subPlot=104, colors={{28,108,200}}, timeUnit="s");
+
