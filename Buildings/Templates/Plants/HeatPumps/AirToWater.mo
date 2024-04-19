@@ -16,8 +16,8 @@ model AirToWater
     final nHp=nHp,
     final is_rev=is_rev,
     final energyDynamics=energyDynamics,
-    final have_preDroChiHeaWat=false,
-    final have_preDroSou=false,
+    final have_dpChiHeaWat=false,
+    final have_dpSou=false,
     final dat=dat.hp,
     final allowFlowReversal=allowFlowReversal,
     final allowFlowReversalSou=false)
@@ -750,7 +750,7 @@ An open loop controller is also available for validation purposes.
 </table>
 <h4>Control points</h4>
 <p>
-The control sequence implemented in this template requires the 
+The control sequence implemented in this template requires the
 external input points specified in the documentation of the controller
 <a href=\"modelica://Buildings.Templates.Plants.HeatPumps.Components.Controls.AirToWater\">
 Buildings.Templates.Plants.HeatPumps.Components.Controls.AirToWater</a>.

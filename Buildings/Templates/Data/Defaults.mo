@@ -18,6 +18,10 @@ package Defaults
     "Minimum condenser entering fluid temperature (air or water)";
   constant Modelica.Units.SI.Temperature TConEnt_max=45 + 273.15
     "Maximum condenser entering fluid temperature (air or water)";
+  constant Modelica.Units.SI.Temperature TConLvg_min=16 + 273.15
+    "Minimum condenser leaving fluid temperature (air or water)";
+  constant Modelica.Units.SI.Temperature TConLvg_max=50 + 273.15
+    "Maximum condenser leaving fluid temperature (air or water)";
   constant Modelica.Units.SI.Temperature TChiWatEcoEnt=18 + 273.15
     "WSE entering CHW temperature";
   constant Modelica.Units.SI.Temperature TChiWatEcoLvg=11 + 273.15

@@ -1,0 +1,57 @@
+simulateModel("Buildings.Templates.Components.Chillers.Validation.Compression",
+    method="cvode",
+    tolerance=1e-6,
+    startTime=10497600.0,
+    stopTime=10505600.0,
+    resultFile="Compression");
+createPlot(
+    id=1,
+    position={5, 5, 300, 400},
+    y={"y1.y[1]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    position={310, 5, 300, 600},
+    subPlot=1,
+    y={"TRet.T", "TSup.T", "chiAirCoo.bus.TChiWatSupSet", "chiAirCoo.TChiWatSup_nominal", "chiAirCoo.TChiWatRet_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=2,
+    y={"chiAirCoo.port_a2.m_flow", "chiAirCoo.mChiWat_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=3,
+    y={"chiAirCoo.chi.PLR2", "chiAirCoo.chi.COP", "datChiAirCoo.COP_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=3,
+    position={615, 5, 300, 600},
+    subPlot=1,
+    y={"TRet2.T", "TSup2.T", "chiWatCoo.bus.TChiWatSupSet", "chiWatCoo.TChiWatSup_nominal", "chiWatCoo.TChiWatRet_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=3,
+    subPlot=2,
+    y={"chiWatCoo.port_a2.m_flow", "chiWatCoo.mChiWat_flow_nominal", "chiWatCoo.port_a1.m_flow", "chiWatCoo.mCon_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=3,
+    subPlot=3,
+    y={"chiWatCoo.chi.PLR2", "chiWatCoo.chi.COP", "datChiWatCoo.COP_nominal"},
+    autoscale=true,
+    grid=true
+);

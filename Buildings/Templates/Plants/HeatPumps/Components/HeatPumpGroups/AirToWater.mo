@@ -12,8 +12,8 @@ model AirToWater
     final dat=datHp,
     each final allowFlowReversal=allowFlowReversal,
     each final energyDynamics=energyDynamics,
-    each final have_preDroChiHeaWat=have_preDroChiHeaWat,
-    each final have_preDroSou=have_preDroSou)
+    each final have_dpChiHeaWat=have_dpChiHeaWat,
+    each final have_dpSou=have_dpSou)
     "Heat pump unit"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}})));
 equation
