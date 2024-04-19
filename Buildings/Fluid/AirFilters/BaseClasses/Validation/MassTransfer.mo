@@ -44,7 +44,7 @@ model MassTransfer
 equation
   connect(eps.y, masTra.eps)
     annotation (Line(points={{-39,50},{-20,50},{-20,6},{-12,6}},
-            color={0,0,127}));
+    color={0,0,127}));
   connect(traceSubstancesFlow.y, masTra.C_inflow[1])
     annotation (Line(points={{-39,80},{0,80},{0,12}}, color={0,0,127}));
   connect(C_out.port_b, sin.ports[1])

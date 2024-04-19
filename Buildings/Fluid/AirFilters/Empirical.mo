@@ -1,6 +1,6 @@
 within Buildings.Fluid.AirFilters;
 model Empirical "Empirical air filter model"
-  replaceable package Medium =
+    replaceable package Medium =
     Buildings.Media.Air(extraPropertiesNames={"CO2"})
     "Air";
   parameter Real mCon_nominal(
@@ -9,8 +9,7 @@ model Empirical "Empirical air filter model"
   parameter Real epsFun[:]
     "Filter efficiency curve"
     annotation (Dialog(group="Efficiency"));
-  parameter Real b(
-    final min = 1 + 1E-3)
+  parameter Real b
     "Resistance coefficient"
     annotation (Dialog(group="Pressure"));
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
@@ -19,7 +18,8 @@ model Empirical "Empirical air filter model"
   parameter Modelica.Units.SI.PressureDifference dp_nominal
     "Nominal pressure drop"
     annotation (Dialog(group="Nominal"));
-
+  parameter String substanceName = "CO2"
+    "Name of trace substance";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uRep
     "Replacing the filter when trigger becomes true"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
@@ -29,7 +29,7 @@ model Empirical "Empirical air filter model"
     final max=1)
     "Filtration efficiency"
     annotation (Placement(transformation(extent={{100,20},{140,60}}),
-        iconTransformation(extent={{100,-80},{140,-40}})));
+    iconTransformation(extent={{100,-80},{140,-40}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare package Medium = Medium)
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
@@ -38,6 +38,7 @@ model Empirical "Empirical air filter model"
     redeclare package Medium = Medium)
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+
 protected
   Buildings.Fluid.AirFilters.BaseClasses.PressureDropWithVaryingFlowCoefficient
     res(
@@ -61,12 +62,27 @@ protected
     final mCon_reset=0)
     "Contaminant accumulation"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-  Modelica.Blocks.Sources.RealExpression traSubFlo(y(unit="kg/s") = inStream(
-      port_a.C_outflow[1])*port_a.m_flow) "Trace substances flow rate"
+  Modelica.Blocks.Sources.RealExpression traSubFlo(
+    y(unit="kg/s") = inStream(port_a.C_outflow[1])*port_a.m_flow)
+    "Trace substances flow rate"
     annotation (Placement(transformation(extent={{-92,70},{-72,90}})));
   Buildings.Fluid.AirFilters.BaseClasses.FlowCoefficientCorrection kCor(
-    final b=b) "Flow coefficient correction"
+    final b=b)
+    "Flow coefficient correction"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
+
+  parameter Real s[:]= {
+    if ( Modelica.Utilities.Strings.isEqual(string1=Medium.extraPropertiesNames[i],
+                                            string2=substanceName,
+                                            caseSensitive=false))
+    then 1 else 0 for i in 1:Medium.nC}
+    "Vector with zero everywhere except where species is"
+    annotation(Evaluate=true);
+initial equation
+  assert(max(s) > 0.9, "Trace substance '" + substanceName + "' is not present in medium '"
+    + Medium.mediumName + "'.\n"
+    + "Check filter parameter and medium model.");
+
 equation
   connect(masAcc.mCon, epsCal.mCon)
     annotation (Line(points={{-18,80},{-2,80}},  color={0,0,127}));
@@ -76,22 +92,25 @@ equation
     annotation (Line(points={{-10,0},{50,0}},color={0,127,255}));
   connect(masTra.port_b, port_b)
     annotation (Line(points={{70,0},{100,0}}, color={0,127,255}));
-  connect(masAcc.uRep, uRep) annotation (Line(points={{-42,73.8},{-42,74},{-70,74},
-          {-70,60},{-120,60}}, color={255,0,255}));
-  connect(traSubFlo.y, masAcc.mCon_flow) annotation (Line(points={{-71,80},{-60,
-          80},{-60,86},{-42,86}}, color={0,0,127}));
+  connect(masAcc.uRep, uRep)
+    annotation (Line(points={{-42,73.8},{-42,74},{-70,74},
+    {-70,60},{-120,60}}, color={255,0,255}));
+  connect(traSubFlo.y, masAcc.mCon_flow)
+    annotation (Line(points={{-71,80},{-60,80},
+    {-60,86},{-42,86}}, color={0,0,127}));
   connect(epsCal.y, masTra.eps)
     annotation (Line(points={{22,74},{40,74},{40,6},{48,6}}, color={0,0,127}));
-  connect(masTra.C_inflow[1], traSubFlo.y) annotation (Line(points={{60,12},{60,
-          28},{-60,28},{-60,80},{-71,80}}, color={0,0,127}));
+  connect(masTra.C_inflow[1], traSubFlo.y)
+    annotation (Line(points={{60,12},{60,28},
+    {-60,28},{-60,80},{-71,80}}, color={0,0,127}));
   connect(epsCal.rat, kCor.rat)
     annotation (Line(points={{22,86},{40,86},{40,80},{58,80}}, color={0,0,127}));
   connect(kCor.y, res.kCor)
     annotation (Line(points={{82,80},{90,80},{90,50},{-20,50},{-20,12}},
-        color={0,0,127}));
+    color={0,0,127}));
   connect(epsCal.y, eps)
     annotation (Line(points={{22,74},{40,74},{40,40},{120,40}},
-        color={0,0,127}));
+    color={0,0,127}));
 
 annotation (defaultComponentName="airFil",
 Icon(coordinateSystem(preserveAspectRatio=false), graphics={
@@ -294,14 +313,16 @@ Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency</a> and
 Buildings.Fluid.AirFilters.BaseClasses.FlowCoefficientCorrection</a>.
 </p>
 <p>
-The input boolean flag, <code>uRep</code>, triggers the filter replacement.
+The input boolean flag, <code>uRep</code>, triggers the filter replacement:
+<br/>
 When <code>uRep</code> changes from <code>false</code> to <code>true</code>, the
-mass of the captured contaminant becomes zero.
+mass of the captured contaminant becomes <i>0</i>.
 </p>
 <b>Note:</b>
 <p>
 A warning will be triggered when the captured contaminant mass becomes greater than the
 maximum contaminant mass (<code>mCon_nominal</code>).
+<br>
 In addition, the <code>extraPropertiesNames</code> has to be defined in the medium model.
 </p>
 </html>", revisions="<html>

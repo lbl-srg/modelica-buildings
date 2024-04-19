@@ -1,28 +1,31 @@
 within Buildings.Fluid.AirFilters.BaseClasses;
 model FlowCoefficientCorrection
   "Component that calculates the flow coefficient correction factor"
-  parameter Real b(
-    final min = 1 + 1E-3)
+  parameter Real b
     "Resistance coefficient";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput rat(
     final unit="1",
     final min=0,
     final max=1)
     "Relative mass of the contaminant captured by the filter"
-   annotation (Placement(
-        transformation(
-        extent={{20,-20},{-20,20}},
-        rotation=180,
-        origin={-120,0}), iconTransformation(
-        extent={{-20,-20},{20,20}},
-        rotation=0,
-        origin={-120,0})));
+    annotation (Placement(
+    transformation(
+    extent={{20,-20},{-20,20}},
+    rotation=180,
+    origin={-120,0}), iconTransformation(
+    extent={{-20,-20},{20,20}},
+    rotation=0,
+    origin={-120,0})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
     final unit="1",
     final min=1)
     "Flow coefficient correction"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
-        iconTransformation(extent={{100,-20},{140,20}})));
+    iconTransformation(extent={{100,-20},{140,20}})));
+initial equation
+    assert(b > 1,
+      "In " + getInstanceName() + ":Resistance coefficient should be larger than 1",
+      level=AssertionLevel.error);
 equation
   y = b^rat;
   annotation (Dialog(group="Pressure"),
@@ -43,7 +46,7 @@ equation
 This model calculates the flow coefficient of the filter by
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  kCor = b<sup>rat</sup>,
+ kCor = b<sup>rat</sup>,
 </p>
 <p>
 where <code>b</code> is the resistance coefficient and it has to be greater than 1,

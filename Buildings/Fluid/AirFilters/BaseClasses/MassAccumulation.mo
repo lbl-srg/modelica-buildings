@@ -9,28 +9,28 @@ model MassAccumulation
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uRep
     "Replacing the filter when trigger becomes true"
     annotation (Placement(
-        transformation(
-        extent={{20,-20},{-20,20}},
-        rotation=180,
-        origin={-120,-60}), iconTransformation(
-        extent={{-20,-20},{20,20}},
-        rotation=0,
-        origin={-120,-62})));
+    transformation(
+    extent={{20,-20},{-20,20}},
+    rotation=180,
+    origin={-120,-60}), iconTransformation(
+    extent={{-20,-20},{20,20}},
+    rotation=0,
+    origin={-120,-62})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mCon_flow(
     final unit = "kg/s")
     "Contaminant mass flow rate"
     annotation (Placement(transformation(
-        extent={{20,-20},{-20,20}},
-        rotation=180,
-        origin={-120,60}), iconTransformation(
-        extent={{-20,-20},{20,20}},
-        rotation=0,
-        origin={-120,60})));
+    extent={{20,-20},{-20,20}},
+    rotation=180,
+    origin={-120,60}), iconTransformation(
+    extent={{-20,-20},{20,20}},
+    rotation=0,
+    origin={-120,60})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput mCon(
     final unit = "kg")
     "Mass of the contaminant captured by the filter"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
-        iconTransformation(extent={{100,-20},{140,20}})));
+    iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Reals.IntegratorWithReset intWitRes
     "Calculate the mass of contaminant"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
@@ -50,36 +50,37 @@ model MassAccumulation
     "Error message when the filter is full, i.e., the mass captured by the filter is larger than the nominal value"
     annotation (Placement(transformation(extent={{72,-48},{92,-28}})));
 equation
-  connect(intWitRes.u, mCon_flow) annotation (Line(points={{-12,0},{-40,0},{-40,
-          60},{-120,60}}, color={0,0,127}));
+  connect(intWitRes.u, mCon_flow)
+    annotation (Line(points={{-12,0},{-40,0},{-40,60},
+    {-120,60}}, color={0,0,127}));
   connect(intWitRes.y, mCon)
     annotation (Line(points={{12,0},{120,0}}, color={0,0,127}));
   connect(con.y, intWitRes.y_reset_in)
     annotation (Line(points={{-58,-20},{-20,-20},
-          {-20,-8},{-12,-8}},color={0,0,127}));
+    {-20,-8},{-12,-8}},color={0,0,127}));
   connect(intWitRes.trigger, uRep)
     annotation (Line(points={{0,-12},{0,-60},{-120,-60}}, color={255,0,255}));
   connect(assMes.u, greater.y)
     annotation (Line(points={{70,-38},{61,-38}}, color={255,0,255}));
   connect(greater.u2, intWitRes.y)
-    annotation (Line(points={{38,-46},{20,-46},{20,
-          0},{12,0}}, color={0,0,127}));
+    annotation (Line(points={{38,-46},{20,-46},{20,0},
+    {12,0}}, color={0,0,127}));
   connect(con1.y, greater.u1)
     annotation (Line(points={{22,50},{30,50},{30,-38},
-          {38,-38}}, color={0,0,127}));
+    {38,-38}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-          Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={28,108,200},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-100,140},{100,100}},
-          textColor={0,0,255},
-          textString="%name")}),
-          Diagram(coordinateSystem(
-          preserveAspectRatio=false)),
-          defaultComponentName="masAcc",
+   Rectangle(
+   extent={{-100,100},{100,-100}},
+   lineColor={28,108,200},
+   fillColor={255,255,255},
+   fillPattern=FillPattern.Solid),
+   Text(
+   extent={{-100,140},{100,100}},
+   textColor={0,0,255},
+   textString="%name")}),
+   Diagram(coordinateSystem(
+   preserveAspectRatio=false)),
+   defaultComponentName="masAcc",
     Documentation(info="<html>
 <p>
 This model mimics the process for a filter to capture the contaminants.

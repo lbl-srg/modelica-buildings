@@ -10,27 +10,27 @@ model FiltrationEfficiency
     final unit="kg")
     "Mass of the contaminant captured by the filter"
     annotation (Placement(
-        transformation(
-        extent={{20,-20},{-20,20}},
-        rotation=180,
-        origin={-120,0}), iconTransformation(
-        extent={{-20,-20},{20,20}},
-        rotation=0,
-        origin={-120,0})));
+    transformation(
+    extent={{20,-20},{-20,20}},
+    rotation=180,
+    origin={-120,0}), iconTransformation(
+    extent={{-20,-20},{20,20}},
+    rotation=0,
+    origin={-120,0})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
     final unit="1",
     final min=0,
     final max=1)
     "Filtration efficiency"
     annotation (Placement(transformation(extent={{100,-80},{140,-40}}),
-        iconTransformation(extent={{100,-80},{140,-40}})));
+    iconTransformation(extent={{100,-80},{140,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput rat(
     final unit="1",
     final min=0,
     final max=1)
     "Relative mass of the contaminant captured by the filter"
-   annotation (Placement(transformation(extent={{100,40},{140,80}}),
-       iconTransformation(extent={{100,40},{140,80}})));
+    annotation (Placement(transformation(extent={{100,40},{140,80}}),
+    iconTransformation(extent={{100,40},{140,80}})));
 
 equation
   rat = Buildings.Utilities.Math.Functions.smoothMin(x1=1, x2= mCon/mCon_nominal, deltaX=0.1);
