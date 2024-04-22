@@ -52,7 +52,7 @@ Pressure losses are calculated if the <code>dp_nominal</code> parameter is set t
 
 <p>
 The model allows the simulation of multiple zones of boreholes within the same
-borefield. All boreholes in a zone All boreholes have the same length
+borefield. All boreholes in a zone have the same length
 <code>hBor</code>, the same radius <code>rBor</code>, and are buried at the
 same depth <code>dBor</code> below the ground surface (also known as the
 inactive borehole length).
@@ -66,10 +66,10 @@ inactive borehole length).
 <p>
 Most of the parameter values of the model are contained in the record called <code>borFieDat</code>.
 This record is composed of three subrecords:
-<code>filDat</code> (containing the thermal characteristics of the borehole filling material),
-<code>soiDat</code> (containing the thermal characteristics of the surrounding soil),
-and <code>conDat</code> (containing all others parameters, namely parameters
-defining the configuration of the borefield).
+<code>filDat</code> contains the thermal characteristics of the borehole filling material,
+<code>soiDat</code> contains the thermal characteristics of the surrounding soil,
+and <code>conDat</code> contains all others parameters, namely parameters
+defining the configuration of the borefield.
 The structure and default values of the record are in the package:
 <a href=\"modelica://Buildings.Fluid.Geothermal.ZonedThermalStorage.Data\">Buildings.Fluid.Geothermal.ZonedThermalStorage.Data</a>.
 The <code>borFieDat</code> record
@@ -133,7 +133,8 @@ It is worth noting that regardless of the <code>energyDynamics</code> chosen,
 the <code>dynFil</code> parameter can be set to <code>false</code>
 to remove the effect of the thermal capacitance
 of the filling material in the borehole(s).
-The <code>nSeg</code> parameter specifies the number of segments for the vertical discretization of the borehole(s).
+The <code>nSeg</code> parameter specifies the number of segments for the vertical discretization
+of the borehole(s).
 Further information on this discretization can be found in the &#34;Model description&#34; section below.
 </p>
 <h4>Model description</h4>
