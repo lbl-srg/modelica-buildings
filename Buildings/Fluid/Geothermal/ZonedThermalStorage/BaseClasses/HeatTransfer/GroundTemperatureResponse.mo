@@ -12,11 +12,13 @@ model GroundTemperatureResponse
         Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
   // Model inputs and outputs
-  Modelica.Blocks.Interfaces.RealOutput[nZon, nSeg] delTBor(each unit="K")
+  Modelica.Blocks.Interfaces.RealOutput[nZon, nSeg] delTBor(
+    each final unit="K",
+    each displayUnit="degC")
     "Temperature difference current borehole wall temperature minus initial borehole wall temperature"
     annotation (Placement(transformation(extent={{100,-14},{126,12}}),
         iconTransformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Interfaces.RealInput[nZon, nSeg] QBor_flow(each unit="W")
+  Modelica.Blocks.Interfaces.RealInput[nZon, nSeg] QBor_flow(each final unit="W")
     "Heat flow from borehole segment (positive if heat from fluid into soil)"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}}),
         iconTransformation(extent={{-120,-10},{-100,10}})));
