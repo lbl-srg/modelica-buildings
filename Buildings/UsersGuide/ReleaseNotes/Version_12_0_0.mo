@@ -1,10 +1,10 @@
 within Buildings.UsersGuide.ReleaseNotes;
-class Version_11_0_1 "Version 11.0.1"
+class Version_12_0_0 "Version 12.0.0"
   extends Modelica.Icons.ReleaseNotes;
     annotation (Documentation(info="<html>
 <div class=\"release-summary\">
 <p>
-Version 11.0.1 is ... xxx
+Version 12.0.0 is ... xxx
 </p>
 </div>
 <!-- New libraries -->
@@ -130,4 +130,4 @@ xxx
 </li>
 </ul>
 </html>"));
-end Version_11_0_1;
+end Version_12_0_0;
