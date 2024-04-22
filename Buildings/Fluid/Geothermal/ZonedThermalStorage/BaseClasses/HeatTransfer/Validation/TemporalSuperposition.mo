@@ -25,8 +25,8 @@ Documentation(info="<html>
 <p>
 This validation case uses a fictional load profile and weighting factors to ensure
 that the temporal superposition is correctly done. The <code>curCel</code> input to
-the function called truncates the vectors involved in the scalar product such that
-the large load in the <code>QAgg_flow</code> vector mustn't affect the final result.
+the function call truncates the vectors involved in the scalar product such that
+the large load in the <code>QAgg_flow</code> vector does not affect the final result.
 </p>
 </html>", revisions="<html>
 <ul>
