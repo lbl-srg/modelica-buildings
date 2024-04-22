@@ -1,0 +1,28 @@
+simulateModel("Buildings.Fluid.Geothermal.ZonedThermalStorage.Validation.SteadyStateBoreholeDynamics", stopTime=124416000, method="Cvode", tolerance=1e-06, resultFile="SteadyStateBoreholeDynamics");
+
+createPlot(
+  id=1,
+  position={15, 10, 592, 689},
+  y={"TBorFieIn[1].T", "TBorFieOut[1].T", "TBorFieIn[2].T", "TBorFieOut[2].T", "TBorFieIn[3].T", "TBorFieOut[3].T", "TBorFieIn[4].T", "TBorFieOut[4].T"},
+  autoscale = true,
+  autoerase = true,
+  autoreplot = true,
+  grid=true,
+  color=true,
+  filename="SteadyStateBoreholeDynamics.mat",
+  leftTitleType = 1,
+  bottomTitleType = 1);
+
+createPlot(
+  id=2,
+  position={15, 10, 592, 689},
+  y={"borHol.TBorAve[1]", "borHol.TBorAve[2]", "borHol.TBorAve[3]", "borHol.TBorAve[4]"},
+  autoscale = true,
+  autoerase = true,
+  autoreplot = true,
+  grid=true,
+  color=true,
+  filename="SteadyStateBoreholeDynamics.mat",
+  leftTitleType = 1,
+  bottomTitleType = 1);
+
