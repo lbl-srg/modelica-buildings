@@ -23,7 +23,7 @@ equation
     ascending=ascending);
   annotation (
     defaultComponentName="sort",
-    obsolete = "This model is obsolete",
+    obsolete = "This model is obsolete - Use Buildings.Controls.OBC.CDL.Reals.Sort instead",
     Icon(
       coordinateSystem(
         preserveAspectRatio=true,
