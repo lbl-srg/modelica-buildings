@@ -304,5 +304,12 @@ However, when a lead/lag alternate equipment becomes unavailable and another
 lead/lag alternate equipment can be enabled to meet the number of required
 equipment, then the state of the enable signals is updated.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 29, 2024, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end EquipmentEnable;

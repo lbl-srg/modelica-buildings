@@ -154,5 +154,12 @@ the successful completion of the stage change is confirmed.
 The output signal <code>y1</code> is true during the entire time in which
 the stage change is in progress.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 29, 2024, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end StageCompletion;

@@ -1,13 +1,20 @@
 simulateModel("Buildings.Templates.Components.Chillers.Validation.Compression",
     method="cvode",
     tolerance=1e-6,
-    startTime=10497600.0,
-    stopTime=10505600.0,
+    startTime=0.0,
+    stopTime=8000.0,
     resultFile="Compression");
 createPlot(
     id=1,
     position={5, 5, 300, 400},
     y={"y1.y[1]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"chiAirCoo.bus.reqChiWat", "chiWatCoo.bus.reqChiWat", "chiWatCoo.bus.reqConWat"},
     autoscale=true,
     grid=true
 );

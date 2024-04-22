@@ -235,8 +235,8 @@ equation
         "Simulate and plot"),
     experiment(
       Tolerance=1e-6,
-      StartTime=10497600.0,
-      StopTime=10505600.0),
+      StartTime=0.0,
+      StopTime=8000.0),
     Documentation(
       info="<html>
 <p>

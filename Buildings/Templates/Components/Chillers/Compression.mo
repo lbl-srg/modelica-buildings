@@ -19,12 +19,12 @@ model Compression "Compression chiller"
     final m1_flow_small=m1_flow_small,
     final m2_flow_small=m2_flow_small)
     "Chiller"
-    annotation (Placement(transformation(extent={{-12,-16},{8,4}})));
+    annotation (Placement(transformation(extent={{-10,-64},{10,-44}})));
   Controls.StatusEmulator y1_actual "Compute chiller status" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={60,40})));
+        origin={60,0})));
   Buildings.Controls.OBC.CDL.Routing.BooleanExtractSignal reqConWat(
     final nin=1,
     final nout=1,
@@ -34,40 +34,59 @@ model Compression "Compression chiller"
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={40,80})));
+        origin={-60,80})));
+  Buildings.Controls.OBC.CDL.Logical.Not off "Return true if status is off"
+    annotation (Placement(transformation(extent={{40,10},{20,30}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay delOff(delayTime=180)
+    "Delay off status"
+    annotation (Placement(transformation(extent={{-10,10},{-30,30}})));
+  Buildings.Controls.OBC.CDL.Logical.Not reqFlo "Compute flow request"
+    annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=-90,
+        origin={-40,50})));
 equation
-  connect(port_a1, chi.port_a1) annotation (Line(points={{-100,60},{-20,60},{-20,
-          0},{-12,0}}, color={0,127,255}));
-  connect(chi.port_b1, port_b1) annotation (Line(points={{8,0},{20,0},{20,60},{100,
-          60}},     color={0,127,255}));
-  connect(port_b2, chi.port_b2) annotation (Line(points={{-100,-60},{-20,-60},{-20,
-          -12},{-12,-12}}, color={0,127,255}));
-  connect(chi.port_a2, port_a2) annotation (Line(points={{8,-12},{20,-12},{20,-60},
-          {100,-60}}, color={0,127,255}));
+  connect(port_a1, chi.port_a1) annotation (Line(points={{-100,60},{-80,60},{
+          -80,-48},{-10,-48}},
+                       color={0,127,255}));
+  connect(chi.port_b1, port_b1) annotation (Line(points={{10,-48},{80,-48},{80,
+          60},{100,60}},
+                    color={0,127,255}));
+  connect(port_b2, chi.port_b2) annotation (Line(points={{-100,-60},{-10,-60}},
+                           color={0,127,255}));
+  connect(chi.port_a2, port_a2) annotation (Line(points={{10,-60},{100,-60}},
+                      color={0,127,255}));
   connect(bus.y1, chi.on) annotation (Line(
-      points={{0,100},{0,20},{-30,20},{-30,-3},{-14,-3}},
+      points={{0,100},{0,-20},{-20,-20},{-20,-51},{-12,-51}},
       color={255,204,51},
       thickness=0.5));
   connect(bus.TSupSet, chi.TSet) annotation (Line(
-      points={{0,100},{0,20},{-30,20},{-30,-9},{-14,-9}},
+      points={{0,100},{0,-20},{-20,-20},{-20,-57},{-12,-57}},
       color={255,204,51},
       thickness=0.5));
   connect(bus.y1Coo, chi.coo) annotation (Line(
-      points={{0,100},{0,20},{-10,20},{-10,8}},
+      points={{0,100},{0,-20},{-8,-20},{-8,-40}},
       color={255,204,51},
       thickness=0.5));
   connect(bus.y1, y1_actual.y1) annotation (Line(
-      points={{0,100},{0,20},{60,20},{60,28}},
+      points={{0,100},{0,-20},{60,-20},{60,-12}},
       color={255,204,51},
       thickness=0.5));
-  connect(y1_actual.y1_actual, bus.y1_actual) annotation (Line(points={{60,52},{
-          62,52},{62,98},{0,98},{0,100}}, color={255,0,255}));
-  connect(y1_actual.y1_actual, bus.reqChiWat) annotation (Line(points={{60,52},{
-          60,96},{0,96},{0,100}}, color={255,0,255}));
-  connect(y1_actual.y1_actual, reqConWat.u[1]) annotation (Line(points={{60,52},
-          {58,52},{58,62},{40,62},{40,68}}, color={255,0,255}));
-  connect(reqConWat.y[1], bus.reqConWat) annotation (Line(points={{40,92},{40,94},
-          {0,94},{0,100}}, color={255,0,255}));
+  connect(y1_actual.y1_actual, bus.y1_actual) annotation (Line(points={{60,12},
+          {60,94},{0,94},{0,100}},        color={255,0,255}));
+  connect(reqConWat.y[1], bus.reqConWat) annotation (Line(points={{-60,92},{-60,
+          96},{0,96},{0,100}},
+                           color={255,0,255}));
+  connect(y1_actual.y1_actual, off.u)
+    annotation (Line(points={{60,12},{60,20},{42,20}}, color={255,0,255}));
+  connect(off.y, delOff.u)
+    annotation (Line(points={{18,20},{-8,20}}, color={255,0,255}));
+  connect(delOff.y, reqFlo.u)
+    annotation (Line(points={{-32,20},{-40,20},{-40,38}}, color={255,0,255}));
+  connect(reqFlo.y, bus.reqChiWat) annotation (Line(points={{-40,62},{-40,94},{
+          0,94},{0,100}}, color={255,0,255}));
+  connect(reqFlo.y, reqConWat.u[1]) annotation (Line(points={{-40,62},{-40,64},
+          {-60,64},{-60,68}}, color={255,0,255}));
   annotation(defaultComponentName="chi",
   Documentation(info="<html>
 <p>

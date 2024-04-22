@@ -69,8 +69,7 @@ block StageChangeCommand
       iconTransformation(extent={{-140,80},{-100,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRet(
     final unit="K",
-    displayUnit="degC")
-    "Return temperature used to compute required capacity"
+    displayUnit="degC") "Return temperature used to compute required capacity"
     annotation (Placement(transformation(extent={{-240,-120},{-200,-80}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupSet(
@@ -80,8 +79,7 @@ block StageChangeCommand
     annotation (Placement(transformation(extent={{-240,-80},{-200,-40}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput V_flow(
-    final unit="m3/s")
-    "Volume flow rate used to compute required capacity"
+    final unit="m3/s") "Volume flow rate used to compute required capacity"
     annotation (Placement(transformation(extent={{-240,-160},{-200,-120}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Up
@@ -92,22 +90,6 @@ block StageChangeCommand
     "Stage down command"
     annotation (Placement(transformation(extent={{200,-100},{240,-60}}),
       iconTransformation(extent={{100,-60},{140,-20}})));
-  Buildings.Controls.OBC.CDL.Reals.Subtract delT(
-    y(final unit="K"))
-    "Compute ∆T"
-    annotation (Placement(transformation(extent={{-170,-90},{-150,-70}})));
-  Buildings.Controls.OBC.CDL.Reals.Abs absDelT(
-    y(final unit="K"))
-    "Compute absolute value of ∆T"
-    annotation (Placement(transformation(extent={{-130,-90},{-110,-70}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter capFlo(
-    y(final unit="W/K"),
-    final k=rho_default * cp_default)
-    "Compute capacity flow rate"
-    annotation (Placement(transformation(extent={{-130,-150},{-110,-130}})));
-  Buildings.Controls.OBC.CDL.Reals.Multiply capReq
-    "Compute required capacity"
-    annotation (Placement(transformation(extent={{-90,-90},{-70,-70}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant traMatStaEqu[nEqu, nSta](
     final k=traStaEqu)
     "Transpose of staging matrix"
@@ -134,10 +116,6 @@ block StageChangeCommand
   Buildings.Controls.OBC.CDL.Reals.Greater gre(h=1E-4*min(capEqu))
     "Compare OPLR to SPLR (hysteresis is to avoid chattering with some simulators)"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
-  Buildings.Controls.OBC.CDL.Reals.MovingAverage movAve(
-    delta=dtMea)
-    "Compute moving average"
-    annotation (Placement(transformation(extent={{-50,-90},{-30,-70}})));
   Buildings.Templates.Plants.Controls.Utilities.TimerWithReset timUp(
     final t=dtRun)
     "Timer"
@@ -213,18 +191,16 @@ block StageChangeCommand
     final have_inp=have_inpPlrSta,
     final have_inpPh=false,
     final u_internal=plrSta) "Parameter value for SPLR"
-    annotation (Placement(transformation(extent={{-180,-190},{-160,-170}})));
+    annotation (Placement(transformation(extent={{-160,-190},{-140,-170}})));
   Buildings.Controls.OBC.CDL.Logical.FallingEdge endStaPro
     "True when staging process terminates"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
+  LoadAverage capReq(
+    final cp_default=cp_default,
+    final rho_default=rho_default,
+    final dtMea=dtMea) "Compute required capacity"
+    annotation (Placement(transformation(extent={{-160,-110},{-140,-90}})));
 equation
-  connect(delT.y, absDelT.u)
-    annotation (Line(points={{-148,-80},{-132,-80}},color={0,0,127}));
-  connect(absDelT.y, capReq.u1)
-    annotation (Line(points={{-108,-80},{-100,-80},{-100,-74},{-92,-74}}, color={0,0,127}));
-  connect(capFlo.y, capReq.u2)
-    annotation (Line(points={{-108,-140},{-100,-140},{-100,-86},{-92,-86}},
-      color={0,0,127}));
   connect(intScaRep.y, reqEquSta.index)
     annotation (Line(points={{-82,200},{0,200},{0,208}},color={255,127,0}));
   connect(traMatStaEqu.y, reqEquSta.u)
@@ -235,8 +211,6 @@ equation
     annotation (Line(points={{-48,160},{20,160},{20,214},{28,214}},color={0,0,127}));
   connect(capEquSta.y, capSta.u)
     annotation (Line(points={{52,220},{68,220}},color={0,0,127}));
-  connect(movAve.y, hol.u)
-    annotation (Line(points={{-28,-80},{-10,-80},{-10,-66},{18,-66}}, color={0,0,127}));
   connect(intScaRep.u, maxInt.y)
     annotation (Line(points={{-106,200},{-118,200}},color={255,127,0}));
   connect(idxSta.y, idxStaLesAct.u1)
@@ -304,14 +278,13 @@ equation
     annotation (Line(points={{82,-120},{108,-120}},
                                                   color={255,0,255}));
   connect(uPlrSta, parPlrSta.u)
-    annotation (Line(points={{-220,-180},{-182,-180}}, color={0,0,127}));
-  connect(parPlrSta.y, splTimCapSta.u1) annotation (Line(points={{-158,-180},{
-          -40,-180},{-40,-114},{18,-114}},
-                                        color={0,0,127}));
-  connect(parPlrSta.y, splTimCapStaLow.u1) annotation (Line(points={{-158,-180},
-          {-40,-180},{-40,-154},{18,-154}},  color={0,0,127}));
+    annotation (Line(points={{-220,-180},{-162,-180}}, color={0,0,127}));
+  connect(parPlrSta.y, splTimCapSta.u1) annotation (Line(points={{-138,-180},{0,
+          -180},{0,-114},{18,-114}},    color={0,0,127}));
+  connect(parPlrSta.y, splTimCapStaLow.u1) annotation (Line(points={{-138,-180},
+          {0,-180},{0,-154},{18,-154}},      color={0,0,127}));
   connect(u1StaPro, hol.u1)
-    annotation (Line(points={{-220,-20},{-10,-20},{-10,-60},{18,-60}}, color={255,0,255}));
+    annotation (Line(points={{-220,-20},{0,-20},{0,-60},{18,-60}},     color={255,0,255}));
   connect(u1StaPro, endStaPro.u)
     annotation (Line(points={{-220,-20},{18,-20}}, color={255,0,255}));
   connect(endStaPro.y, timUp.reset)
@@ -324,14 +297,14 @@ equation
           80},{220,80}}, color={255,0,255}));
   connect(timDow.passed, y1Dow) annotation (Line(points={{132,-128},{140,-128},
           {140,-80},{220,-80}},color={255,0,255}));
-  connect(TSupSet, delT.u1) annotation (Line(points={{-220,-60},{-180,-60},{
-          -180,-74},{-172,-74}}, color={0,0,127}));
-  connect(TRet, delT.u2) annotation (Line(points={{-220,-100},{-180,-100},{-180,
-          -86},{-172,-86}}, color={0,0,127}));
-  connect(V_flow, capFlo.u) annotation (Line(points={{-220,-140},{-132,-140}},
-                                   color={0,0,127}));
-  connect(capReq.y, movAve.u)
-    annotation (Line(points={{-68,-80},{-52,-80}}, color={0,0,127}));
+  connect(TSupSet, capReq.TSupSet) annotation (Line(points={{-220,-60},{-180,
+          -60},{-180,-94},{-162,-94}}, color={0,0,127}));
+  connect(TRet, capReq.TRet)
+    annotation (Line(points={{-220,-100},{-162,-100}}, color={0,0,127}));
+  connect(V_flow, capReq.V_flow) annotation (Line(points={{-220,-140},{-180,
+          -140},{-180,-106},{-162,-106}}, color={0,0,127}));
+  connect(capReq.QReq_flow, hol.u) annotation (Line(points={{-138,-100},{0,-100},
+          {0,-66},{18,-66}}, color={0,0,127}));
   annotation (
     defaultComponentName="chaSta",
     Icon(
@@ -454,5 +427,16 @@ To avoid multiple consecutive stage changes, the block that receives the stage u
 and down command and computes the stage index must enforce a minimum stage runtime
 of <code>dtRun</code>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+May 31, 2024, by Antoine Gautier:<br/>
+Refactored using <code>LoadAverage</code> block.
+</li>
+<li>
+March 29, 2024, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end StageChangeCommand;

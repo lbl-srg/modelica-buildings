@@ -1,0 +1,56 @@
+simulateModel("Buildings.Templates.Plants.Controls.HeatRecoveryChillers.Validation.Enable",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=86400.0,
+    resultFile="Enable");
+createPlot(
+    id=1,
+    subPlot=1,
+    position={5, 5, 300, 400},
+    y={"ena.u1Coo", "ena.u1Hea"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"ena.QChiWatReq_flow", "ena.QHeaWatReq_flow", "ena.capCooHrc_min", "ena.capHeaHrc_min", "setMod.QEvaHea_flow.y"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
+createPlot(
+    id=2,
+    subPlot=1,
+    position={315, 5, 300, 400},
+    y={"TChiWatRet.y", "ena.TChiWatHrcLvg", "ena.TChiWatSup_min"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
+createPlot(
+    id=2,
+    subPlot=2,
+    y={"THeaWatRet.y","ena.THeaWatHrcLvg", "ena.THeaWatSup_max"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
+createPlot(
+    id=3,
+    subPlot=1,
+    position={620, 5, 300, 400},
+    y={"ena.y1"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
+createPlot(
+    id=3,
+    subPlot=2,
+    y={"setMod.y1Coo"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);

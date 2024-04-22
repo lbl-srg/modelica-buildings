@@ -1,5 +1,6 @@
 within Buildings.Templates.Plants.Controls;
-package HeatRecoveryChillers "Package of sequences for heat recovery chillers"
+package HeatRecoveryChillers
+  "Package of sequences for heat recovery chillers"
   annotation (
     Icon(
       graphics={
@@ -35,7 +36,9 @@ package HeatRecoveryChillers "Package of sequences for heat recovery chillers"
         Rectangle(
           lineColor={128,128,128},
           extent={{-100.0,-100.0},{100.0,100.0}},
-          radius=25.0)}), Documentation(info="<html>
+          radius=25.0)}),
+    Documentation(
+      info="<html>
 <p>
 This package contains control sequences for heat recovery chillers.
 </p>
