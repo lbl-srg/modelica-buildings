@@ -229,6 +229,9 @@
   optimica:
     comment: Timeout after 300 s
     time_out: 600
+- model_name: Buildings.Fluid.Geothermal.ZonedThermalStorage.Validation.TransientBoreholeDynamics
+  dymola:
+    time_out: 900
 - model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DecouplingMixing
   openmodelica:
     comment: Timeout after 600 s on travis, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/600714398#L489
