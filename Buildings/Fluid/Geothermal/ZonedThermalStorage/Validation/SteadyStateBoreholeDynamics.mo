@@ -131,5 +131,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    experiment(StopTime=124416000));
+    experiment(StopTime=124416000,
+    Tolerance=1E-6));
 end SteadyStateBoreholeDynamics;

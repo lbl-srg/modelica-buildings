@@ -131,5 +131,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    experiment(StopTime=31536000));
+    experiment(StopTime=31536000,
+    Tolerance=1E-6));
 end TransientBoreholeDynamics;
