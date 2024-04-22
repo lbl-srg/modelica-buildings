@@ -1,4 +1,21 @@
 within Buildings.Fluid.Geothermal.ZonedThermalStorage.BaseClasses.HeatTransfer;
-package Validation "Validation models for HeatTransfer"
+package Validation "Validation models for the geothermal heat transfer models"
 extends Modelica.Icons.ExamplesPackage;
+
+annotation (preferredView="info", Documentation(info="<html>
+<p>
+This package contains validation models for the classes in
+<a href=\"modelica://Buildings.Fluid.Geothermal.ZonedThermalStorage.BaseClasses.HeatTransfer\">
+Buildings.Fluid.Geothermal.ZonedThermalStorage.BaseClasses.HeatTransfer</a>.
+</p>
+<p>
+Note that most validation models contain simple input data
+which may not be realistic, but for which the correct
+output can be obtained through an analytic solution.
+The examples plot various outputs, which have been verified against these
+solutions. These model outputs are stored as reference data and
+used for continuous validation whenever models in the library change.
+</p>
+</html>"));
+
 end Validation;
