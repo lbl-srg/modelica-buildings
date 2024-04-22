@@ -361,12 +361,8 @@ The following procedure can be used for determining the values of those paramete
 </p>
 <ol>
 <li>
-Determine the tuning period during which the setpoint is constant.
-Make sure the system is somewhat steady before the tuning period starts.
-</li>
-<li>
-Perform the simulation without enabling autotuning and record the maximum and the 
-minimum values of measurement during the tuning period.
+Perform the simulation without enabling autotuning and with a constant set point.
+Record the maximum and the minimum values of measurement after the system is somewhat steady.
 </li>
 <li>
 The <code>r</code> should be adjusted so that the output of the relay controller,
