@@ -139,6 +139,10 @@ model ORCHotWater "ORC that outputs hot water at a fixed temperature"
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-70,-40})));
+  Buildings.Fluid.Sensors.MassFlowRate senMasFlo(
+    redeclare final package Medium = MediumCol)
+    "Mass flow rate sensor for the ORC condenser cold fluid"
+    annotation (Placement(transformation(extent={{-140,-50},{-160,-30}})));
 equation
   connect(orc.port_b1, sinHot.ports[1]) annotation (Line(points={{-20,56},{-14,56},
           {-14,90},{100,90}},
@@ -163,8 +167,6 @@ equation
   connect(conPI.y, val.y)
     annotation (Line(points={{61,10},{80,10},{80,-20},{40,-20},{40,-28}},
                                                         color={0,0,127}));
-  connect(pum.m_flow_actual, greThr.u) annotation (Line(points={{-121,-35},{-192,
-          -35},{-192,50},{-182,50}},                    color={0,0,127}));
   connect(Tru.y, booToRea.u)
     annotation (Line(points={{-159,10},{-142,10}}, color={255,0,255}));
   connect(greThr.y, and1.u1) annotation (Line(points={{-159,50},{-142,50}},
@@ -177,9 +179,6 @@ equation
           44},{-46,-40},{-60,-40}}, color={0,127,255}));
   connect(senTColOut.port_b, pum.port_a)
     annotation (Line(points={{-80,-40},{-100,-40}},  color={0,127,255}));
-  connect(spl.port_1, pum.port_b)
-    annotation (Line(points={{-180,-50},{-180,-40},{-120,-40}},
-                                                     color={0,127,255}));
   connect(senTColOut.T, conPI.u_m) annotation (Line(points={{-70,-29},{-70,-12},
           {50,-12},{50,-2}},             color={0,0,127}));
   connect(val.port_2, orc.port_a2) annotation (Line(points={{30,-40},{-14,-40},{
@@ -188,6 +187,12 @@ equation
   connect(pum.m_flow_in, booToRea.y)
     annotation (Line(points={{-110,-28},{-110,10},{-118,10}},
                                                             color={0,0,127}));
+  connect(spl.port_1, senMasFlo.port_b) annotation (Line(points={{-180,-50},{-180,
+          -40},{-160,-40}}, color={0,127,255}));
+  connect(senMasFlo.port_a, pum.port_b)
+    annotation (Line(points={{-140,-40},{-120,-40}}, color={0,127,255}));
+  connect(greThr.u, senMasFlo.m_flow) annotation (Line(points={{-182,50},{-190,50},
+          {-190,-20},{-150,-20},{-150,-29}}, color={0,0,127}));
 annotation(experiment(StopTime=900,Tolerance=1E-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/OrganicRankine/Examples/ORCHotWater.mos"
   "Simulate and plot"),
