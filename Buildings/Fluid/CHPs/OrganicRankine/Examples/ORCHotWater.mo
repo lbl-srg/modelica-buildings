@@ -99,7 +99,7 @@ model ORCHotWater "ORC that outputs hot water at a fixed temperature"
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={40,-40})));
-  Movers.Preconfigured.FlowControlled_m_flow pum(
+  Buildings.Fluid.Movers.Preconfigured.FlowControlled_m_flow pum(
     redeclare final package Medium = MediumCol,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     T_start=TCol_start,
@@ -109,17 +109,21 @@ model ORCHotWater "ORC that outputs hot water at a fixed temperature"
     dp_nominal=dpCon_nominal + dpValCol_nominal,
     m_flow_start=0)                              "Cooling water pump"
     annotation (Placement(transformation(extent={{-60,-50},{-80,-30}})));
-  DHC.ETS.BaseClasses.Junction spl(redeclare final package Medium = MediumCol,
-    T_start=TCol_start,
-      final m_flow_nominal=mCol_flow_nominal .* {1,-1,-1})     "Flow splitter"
+  Buildings.Fluid.FixedResistances.Junction spl(
+    redeclare final package Medium = MediumCol,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    final dp_nominal=fill(0,3),
+    final m_flow_nominal=mCol_flow_nominal .* {1,-1,-1},
+    final from_dp=false,
+    T_start=TCol_start)     "Flow splitter"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-130,-40})));
-  Controls.OBC.CDL.Conversions.BooleanToReal           booToRea
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     "Constant speed primary pumps control signal"
     annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
-  Controls.OBC.CDL.Reals.MultiplyByParameter gai(final k=mCol_flow_nominal)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(final k=mCol_flow_nominal)
     "Scale to nominal mass flow rate" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -131,8 +135,9 @@ model ORCHotWater "ORC that outputs hot water at a fixed temperature"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Modelica.Blocks.Sources.BooleanConstant Tru(k=true) "Logical true"
     annotation (Placement(transformation(extent={{-180,0},{-160,20}})));
-  Sensors.TemperatureTwoPort senTColOut(redeclare final package Medium =
-        MediumCol, m_flow_nominal=mCol_flow_nominal,
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTColOut(
+    redeclare final package Medium = MediumCol,
+    m_flow_nominal=mCol_flow_nominal,
     T_start=TCol_start)                              annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
