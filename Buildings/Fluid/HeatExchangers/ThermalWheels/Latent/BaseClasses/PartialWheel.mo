@@ -174,8 +174,8 @@ equation
   connect(VExh_flow.y, effCal.VExh_flow)
     annotation (Line(points={{-139,20},{-120,20},{-120,4},{-102,4}},
         color={0,0,127}));
-  connect(epsSen, effCal.epsSen) annotation (Line(points={{120,30},{-40,30},{
-          -40,3},{-78,3}}, color={0,0,127}));
+  connect(epsSen, effCal.epsSen) annotation (Line(points={{120,30},{-60,30},{
+          -60,3},{-78,3}}, color={0,0,127}));
   connect(effCal.epsLat, epsLat) annotation (Line(points={{-78,-3},{-60,-3},{
           -60,-80},{120,-80}}, color={0,0,127}));
 annotation (

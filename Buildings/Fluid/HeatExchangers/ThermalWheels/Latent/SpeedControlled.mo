@@ -22,14 +22,15 @@ protected
 initial equation
   assert(abs(sum(a)-1) < Modelica.Constants.eps,
          "In " + getInstanceName() + ": Power efficiency curve is wrong. 
-         The sum of the coefficients for power efficiency curve should equal to 1.",
+         The sum of the coefficients for power efficiency curve must be 1.",
          level=AssertionLevel.error);
 
 equation
   connect(P, PEle.y)
     annotation (Line(points={{120,-20},{91,-20}}, color={0,0,127}));
-  connect(port_a1, hex.port_a1) annotation (Line(points={{-180,80},{-60,80},{-60,
-          6},{-10,6}}, color={0,127,255}));
+  connect(port_a1, hex.port_a1) annotation (Line(points={{-180,80},{-40,80},{
+          -40,6},{-10,6}},
+                       color={0,127,255}));
   connect(hex.port_a2, port_a2) annotation (Line(points={{10,-6},{60,-6},{60,-60},
           {100,-60}}, color={0,127,255}));
   connect(effCal.uSpe, uSpe)
@@ -68,9 +69,9 @@ P = P_nominal * (a<sub>1</sub> + a<sub>2</sub> uSpe + a<sub>3</sub> uSpe<sup>2</
 where <code>P_nominal</code> is the nominal wheel power consumption,
 <code>uSpe</code> is the wheel speed ratio, 
 and the <code>a[:]</code> are the coefficients for power efficiency curve.
-The sum of the coefficients should equal to 1.
-Thus, when the speed ratio <code>uSpe=1</code>, the power consumption equal to
-nominal consumption, <code>P=P_nominal</code>.
+The sum of the coefficients must be <i>1</i>, otherwise the model stops with an error.
+Thus, when the speed ratio <code>uSpe=1</code>, the power consumption is equal to
+nominal consumption <code>P=P_nominal</code>.
 </p>
 <p>
 The sensible and latent effectiveness is calculated with

@@ -16,7 +16,7 @@ model BypassDampers
   Buildings.Fluid.Sources.Boundary_pT sou_2(
     redeclare package Medium = Medium2,
     p(displayUnit="Pa") = 101325 + 500,
-    T(displayUnit="K") = 293.15,
+    T(displayUnit="degC") = 293.15,
     nPorts=1)
     "Exhaust air source"
     annotation (Placement(transformation(extent={{80,-40},{60,-20}})));

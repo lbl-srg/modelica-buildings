@@ -22,7 +22,7 @@ protected
 initial equation
   assert(abs(sum(a)-1) < Modelica.Constants.eps,
          "In " + getInstanceName() + ": Power efficiency curve is wrong. 
-         The sum of the coefficients for power efficiency curve should equal to 1.",
+         The sum of the coefficients for power efficiency curve must be 1.",
          level=AssertionLevel.error);
 
 equation
@@ -68,7 +68,7 @@ P = P_nominal * (a<sub>1</sub> + a<sub>2</sub> uSpe + a<sub>3</sub> uSpe<sup>2</
 where <code>P_nominal</code> is the nominal wheel power consumption,
 <code>uSpe</code> is the wheel speed ratio, 
 and the <code>a[:]</code> are the coefficients for power efficiency curve.
-The sum of the coefficients should equal to 1.
+The sum of the coefficients must be <i>1</i>, otherwise the model stops with an error.
 Thus, when the speed ratio <code>uSpe=1</code>, the power consumption equal to
 nominal consumption, <code>P=P_nominal</code>.
 </p>

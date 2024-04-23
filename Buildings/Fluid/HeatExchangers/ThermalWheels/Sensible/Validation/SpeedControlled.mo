@@ -9,14 +9,14 @@ model SpeedControlled
   Buildings.Fluid.Sources.Boundary_pT sin_2(
     redeclare package Medium = Medium2,
     p(displayUnit="Pa") = 101325,
-    T(displayUnit="K") = 273.15 + 10,
+    T(displayUnit="degC") = 273.15 + 10,
     nPorts=1)
     "Exhaust air sink"
     annotation (Placement(transformation(extent={{-78,-50},{-58,-30}})));
   Buildings.Fluid.Sources.Boundary_pT sou_2(
     redeclare package Medium = Medium2,
     p(displayUnit="Pa") = 101325 + 500,
-    T(displayUnit="K") = 293.15,
+    T(displayUnit="degC") = 293.15,
     nPorts=1)
     "Exhaust air source"
     annotation (Placement(transformation(extent={{80,-40},{60,-20}})));
@@ -90,7 +90,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Heat
         "Simulate and plot"),
 Documentation(info="<html>
 <p>
-Example for using the block
+Example for the model
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.SpeedControlled\">
 Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.SpeedControlled</a>.
 </p>

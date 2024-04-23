@@ -19,7 +19,7 @@ model HeatExchangerWithInputEffectiveness
     p(displayUnit="Pa") = 101325 + 100,
     nPorts=1)
     "Exhaust air source"
-    annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
+    annotation (Placement(transformation(extent={{80,-30},{60,-10}})));
   Modelica.Blocks.Sources.Ramp TSup(
     height=10,
     duration=60,
@@ -34,7 +34,7 @@ model HeatExchangerWithInputEffectiveness
     p(displayUnit="Pa") = 1E5 - 110,
     nPorts=1)
     "Supply air sink"
-    annotation (Placement(transformation(extent={{80,30},{60,50}})));
+    annotation (Placement(transformation(extent={{80,50},{60,70}})));
   Buildings.Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = Medium1,
     T=273.15 + 50,
@@ -74,10 +74,10 @@ equation
   connect(sou_1.ports[1], hex.port_a1)
     annotation (Line(points={{-20,60},{-10,60},{-10,12},{6,12}}, color={0,127,255}));
   connect(hex.port_a2, sou_2.ports[1])
-    annotation (Line(points={{26,5.55112e-16},{60,5.55112e-16},{60,-40},{40,-40}},
+    annotation (Line(points={{26,0},{40,0},{40,-20},{60,-20}},
     color={0,127,255}));
   connect(hex.port_b1, sin_1.ports[1])
-    annotation (Line(points={{26,12},{40,12},{40,40},{60,40}}, color={0,127,255}));
+    annotation (Line(points={{26,12},{40,12},{40,60},{60,60}}, color={0,127,255}));
   connect(hex.port_b2, sin_2.ports[1])
     annotation (Line(points={{6,0},{-10,0},{-10,-20},{-20,-20}}, color={0,127,255}));
   connect(epsSen.y, hex.epsSen)

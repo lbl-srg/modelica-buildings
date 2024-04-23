@@ -11,7 +11,10 @@ model HeatExchangerWithInputEffectiveness
     mWat1_flow = 0,
     mWat2_flow = 0);
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput eps(unit="1")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput eps(
+    min=0,
+    max=1,
+    final unit="1")
     "Sensible heat exchanger effectiveness"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
@@ -36,7 +39,7 @@ Documentation(info="<html>
 This block is identical to
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.ConstantEffectiveness\">
 Buildings.Fluid.HeatExchangers.ConstantEffectiveness</a>,
-except that the sensible heat exchanger effectiveness is a input rather than a parameter.
+except that the sensible heat exchanger effectiveness is an input rather than a parameter.
 </p>
 </html>",
 revisions="<html>

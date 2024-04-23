@@ -19,7 +19,7 @@ model SpeedControlled
     T(displayUnit="K") = 293.15,
     nPorts=1)
     "Exhaust air source"
-    annotation (Placement(transformation(extent={{80,-40},{60,-20}})));
+    annotation (Placement(transformation(extent={{90,-50},{70,-30}})));
   Modelica.Blocks.Sources.Ramp TSup(
     height=10,
     duration=60,
@@ -80,7 +80,7 @@ equation
   connect(sou_1.ports[1],whe. port_a1)
     annotation (Line(points={{-20,30},{-10,30},{-10,6},{0,6}}, color={0,127,255}));
   connect(whe.port_a2, sou_2.ports[1])
-    annotation (Line(points={{20,-6},{40,-6},{40,-30},{60,-30}}, color={0,127,255}));
+    annotation (Line(points={{20,-6},{40,-6},{40,-40},{70,-40}}, color={0,127,255}));
   connect(wheSpe.y, whe.uSpe)
     annotation (Line(points={{-59,0},{-2,0}}, color={0,0,127}));
 
@@ -97,7 +97,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Heat
         "Simulate and plot"),
 Documentation(info="<html>
 <p>
-Example for using the block
+Example for the model
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.SpeedControlled\">
 Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.SpeedControlled</a>.
 </p>
