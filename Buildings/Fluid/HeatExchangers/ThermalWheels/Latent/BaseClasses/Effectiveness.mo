@@ -54,6 +54,19 @@ model Effectiveness
         iconTransformation(extent={{100,-50},{140,-10}})));
 
 protected
+  parameter Boolean equSen_nominal = abs(epsSenCoo_nominal-epsSenHea_nominal) < Modelica.Constants.eps
+     "true if the sensible cooling and heating efficiencies at nominal conditions are equal";
+  parameter Boolean equSenPL = abs(epsSenCooPL-epsSenHeaPL) < Modelica.Constants.eps
+     "true if the sensible cooling and heating efficiencies at part load conditions are equal";
+  parameter Boolean equLat_nominal = abs(epsLatCoo_nominal-epsLatHea_nominal) < Modelica.Constants.eps
+     "true if the latent cooling and heating efficiencies at nominal conditions are equal";
+  parameter Boolean equLatPL = abs(epsLatCooPL-epsLatHeaPL) < Modelica.Constants.eps
+     "true if the latent cooling and heating efficiencies at part load conditions are equal";
+  Real fraCoo(
+   final min=0,
+   final max=1,
+   final unit="1") "Fraction of efficiency contribution from cooling parameters (used for regularization)";
+
   Real rat
     "Ratio of the average operating air flow rate to the nominal supply air flow rate";
   Real epsSenPL
@@ -77,10 +90,14 @@ equation
     "In " + getInstanceName() + ": The ratio of the operating flow rate to the nominal supply flow rate should be in the range of [0.5, 1.3].",
     level=AssertionLevel.warning);
   // Switch between cooling and heating modes based on the difference between the supply air temperature and the exhaust air temperature
-  epsSenPL = Buildings.Utilities.Math.Functions.regStep(TSup-TExh, epsSenCooPL, epsSenHeaPL, 1e-5);
-  epsSen_nominal = Buildings.Utilities.Math.Functions.regStep(TSup-TExh, epsSenCoo_nominal, epsSenHea_nominal, 1e-5);
-  epsLatPL = Buildings.Utilities.Math.Functions.regStep(TSup-TExh, epsLatCooPL, epsLatHeaPL, 1e-5);
-  epsLat_nominal = Buildings.Utilities.Math.Functions.regStep(TSup-TExh, epsLatCoo_nominal, epsLatHea_nominal, 1e-5);
+  fraCoo = if (equSen_nominal and equSenPL and equLat_nominal and equLatPL) then 0.5 else Buildings.Utilities.Math.Functions.regStep(TSup-TExh, 1, 0, 1e-5);
+
+  epsSenPL = if equSenPL then epsSenCooPL else fraCoo*epsSenCooPL + (1-fraCoo) * epsSenHeaPL;
+  epsSen_nominal = if equSen_nominal then epsSenCoo_nominal else fraCoo*epsSenCoo_nominal + (1-fraCoo) * epsSenHea_nominal;
+
+  epsLatPL = if equLatPL then epsLatCooPL else fraCoo*epsLatCooPL + (1-fraCoo) * epsLatHeaPL;
+  epsLat_nominal = if equLat_nominal then epsLatCoo_nominal else fraCoo*epsLatCoo_nominal + (1-fraCoo) * epsLatHea_nominal;
+
   // Calculate effectiveness
   epsSen =uSpe*(epsSenPL + (epsSen_nominal - epsSenPL)*(rat - 0.75)/0.25);
   epsLat =uSpe*(epsLatPL + (epsLat_nominal - epsLatPL)*(rat - 0.75)/0.25);
