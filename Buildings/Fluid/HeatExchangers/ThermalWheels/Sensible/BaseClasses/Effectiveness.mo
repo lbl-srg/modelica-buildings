@@ -45,7 +45,7 @@ protected
   parameter Boolean equ_nominal = abs(epsCoo_nominal-epsHea_nominal) < Modelica.Constants.eps
      "true if the cooling and heating efficiencies at nominal conditions are equal";
   parameter Boolean equPL = abs(epsCooPL-epsHeaPL) < Modelica.Constants.eps
-     "true if the cooling and heating efficiencies at nominal conditions are equal";
+     "true if the cooling and heating efficiencies at part load conditions are equal";
   Real fraCoo(
    final min=0,
    final max=1,
