@@ -42,6 +42,15 @@ model Effectiveness
         iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
+  parameter Boolean equ_nominal = abs(epsCoo_nominal-epsHea_nominal) < Modelica.Constants.eps
+     "true if the cooling and heating efficiencies at nominal conditions are equal";
+  parameter Boolean equPL = abs(epsCooPL-epsHeaPL) < Modelica.Constants.eps
+     "true if the cooling and heating efficiencies at nominal conditions are equal";
+  Real fraCoo(
+   final min=0,
+   final max=1,
+   final unit="1") "Fraction of efficiency contribution from cooling parameters (used for regularization)";
+
   Real rat
     "Ratio of the average operating air flow rate to the nominal supply air flow rate";
   Real epsPL
@@ -61,8 +70,9 @@ equation
     "In " + getInstanceName() + ": The ratio of the operating flow rate to the nominal supply flow rate should be in the range of [0.5, 1.3].",
     level=AssertionLevel.warning);
   // Switch between cooling and heating modes based on the difference between the supply air temperature and the exhaust air temperature
-  epsPL = Buildings.Utilities.Math.Functions.regStep(TSup-TExh, epsCooPL, epsHeaPL, 1e-5);
-  eps_nominal = Buildings.Utilities.Math.Functions.regStep(TSup-TExh, epsCoo_nominal, epsHea_nominal, 1e-5);
+  fraCoo = if equ_nominal and equPL then 0.5 else Buildings.Utilities.Math.Functions.regStep(TSup-TExh, 1, 0, 1e-5);
+  epsPL = if equPL then epsCooPL else fraCoo*epsCooPL + (1-fraCoo) * epsHeaPL;
+  eps_nominal = if equ_nominal then epsCoo_nominal else fraCoo*epsCoo_nominal + (1-fraCoo) * epsHea_nominal;
   // Calculate effectiveness
   eps =uSpe*(epsPL + (eps_nominal - epsPL)*(rat - 0.75)/0.25);
   assert(eps >= 0 and eps < 1,
