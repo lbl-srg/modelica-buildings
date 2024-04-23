@@ -6,6 +6,7 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
     final dp1_nominal = dpHot_nominal,
     final m2_flow_nominal = mCol_flow_nominal,
     final dp2_nominal = dpCol_nominal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T1_start = max(pro.T)*2/3 + min(pro.T)*1/3,
     T2_start = max(pro.T)*1/10 + min(pro.T)*9/10,
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol2(
