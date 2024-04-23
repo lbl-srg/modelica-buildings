@@ -19,7 +19,7 @@ model ORCHotWater "ORC that outputs hot water at a fixed temperature"
     mWor_flow_hysteresis=0.01,
     etaExp=0.8,
     etaPum=0.6) "Organic Rankine cycle"
-    annotation (Placement(transformation(extent={{-10,40},{10,60}})));
+    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 
   package MediumHot = Buildings.Media.Air "Evaporator hot fluid";
   package MediumCol = Buildings.Media.Water "Condenser cold fluid";
@@ -44,11 +44,11 @@ model ORCHotWater "ORC that outputs hot water at a fixed temperature"
     m_flow=mHot_flow_nominal,
     T=423.15,
     nPorts=1)      "Evaporator hot fluid source"
-    annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
+    annotation (Placement(transformation(extent={{-180,80},{-160,100}})));
   Buildings.Fluid.Sources.Boundary_pT sinHot(
     redeclare final package Medium = MediumHot,
     nPorts=1) "Evaporator hot fluid sink"
-    annotation (Placement(transformation(extent={{120,60},{100,80}})));
+    annotation (Placement(transformation(extent={{120,80},{100,100}})));
   Buildings.Controls.Continuous.LimPID conPI(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.4,
@@ -57,10 +57,10 @@ model ORCHotWater "ORC that outputs hot water at a fixed temperature"
     y_start=0,
     reverseActing=false)
                         "PI controller"
-    annotation (Placement(transformation(extent={{80,20},{60,0}})));
+    annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Modelica.Blocks.Sources.Constant TWatOut_set(k=55 + 273.15)
     "Set point of hot water output"
-    annotation (Placement(transformation(extent={{120,0},{100,20}})));
+    annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Buildings.Fluid.Sources.Boundary_pT       colBou(
     redeclare final package Medium = MediumCol,
     use_T_in=true,
@@ -108,7 +108,7 @@ model ORCHotWater "ORC that outputs hot water at a fixed temperature"
     m_flow_nominal=mCol_flow_nominal,
     dp_nominal=dpCon_nominal + dpValCol_nominal,
     m_flow_start=0)                              "Cooling water pump"
-    annotation (Placement(transformation(extent={{-60,-50},{-80,-30}})));
+    annotation (Placement(transformation(extent={{-100,-50},{-120,-30}})));
   Buildings.Fluid.FixedResistances.Junction spl(
     redeclare final package Medium = MediumCol,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -118,8 +118,8 @@ model ORCHotWater "ORC that outputs hot water at a fixed temperature"
     T_start=TCol_start)     "Flow splitter"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
-        origin={-130,-40})));
+        rotation=90,
+        origin={-180,-60})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(
     realTrue = mCol_flow_nominal)
     "Constant speed primary pump control signal"
@@ -128,7 +128,7 @@ model ORCHotWater "ORC that outputs hot water at a fixed temperature"
     "Greather threshold"
     annotation (Placement(transformation(extent={{-180,40},{-160,60}})));
   Modelica.Blocks.Logical.And and1
-    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
+    annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
   Modelica.Blocks.Sources.BooleanConstant Tru(k=true) "Logical true"
     annotation (Placement(transformation(extent={{-180,0},{-160,20}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTColOut(
@@ -138,15 +138,16 @@ model ORCHotWater "ORC that outputs hot water at a fixed temperature"
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={-40,-40})));
+        origin={-70,-40})));
 equation
-  connect(orc.port_b1, sinHot.ports[1]) annotation (Line(points={{10,56},{20,56},
-          {20,70},{100,70}},color={0,127,255}));
-  connect(souHot.ports[1], orc.port_a1) annotation (Line(points={{-120,70},{-20,
-          70},{-20,56},{-10,56}},
+  connect(orc.port_b1, sinHot.ports[1]) annotation (Line(points={{-20,56},{-14,56},
+          {-14,90},{100,90}},
+                            color={0,127,255}));
+  connect(souHot.ports[1], orc.port_a1) annotation (Line(points={{-160,90},{-46,
+          90},{-46,56},{-40,56}},
                               color={0,127,255}));
   connect(TWatOut_set.y, conPI.u_s)
-    annotation (Line(points={{99,10},{82,10}}, color={0,0,127}));
+    annotation (Line(points={{21,10},{38,10}}, color={0,0,127}));
   connect(colBou.ports[1], senTWatSup.port_b) annotation (Line(points={{100,-61},
           {100,-80},{80,-80}}, color={0,127,255}));
   connect(senTWatRet.port_a, colBou.ports[2]) annotation (Line(points={{80,-40},
@@ -155,35 +156,38 @@ equation
           {132,-56},{122,-56}},color={0,0,127}));
   connect(senTWatRet.port_b, val.port_1)
     annotation (Line(points={{60,-40},{50,-40}}, color={0,127,255}));
-  connect(spl.port_3, val.port_3) annotation (Line(points={{-130,-50},{-130,-56},
-          {40,-56},{40,-50}}, color={0,127,255}));
-  connect(spl.port_2, senTWatSup.port_a) annotation (Line(points={{-140,-40},{
-          -160,-40},{-160,-80},{60,-80}},
-                                     color={0,127,255}));
+  connect(spl.port_3, val.port_3) annotation (Line(points={{-170,-60},{40,-60},{
+          40,-50}},           color={0,127,255}));
+  connect(spl.port_2, senTWatSup.port_a) annotation (Line(points={{-180,-70},{-180,
+          -80},{60,-80}},            color={0,127,255}));
   connect(conPI.y, val.y)
-    annotation (Line(points={{59,10},{40,10},{40,-28}}, color={0,0,127}));
-  connect(pum.m_flow_actual, greThr.u) annotation (Line(points={{-81,-35},{-90,-35},
-          {-90,-20},{-190,-20},{-190,50},{-182,50}},    color={0,0,127}));
+    annotation (Line(points={{61,10},{80,10},{80,-20},{40,-20},{40,-28}},
+                                                        color={0,0,127}));
+  connect(pum.m_flow_actual, greThr.u) annotation (Line(points={{-121,-35},{-192,
+          -35},{-192,50},{-182,50}},                    color={0,0,127}));
   connect(Tru.y, booToRea.u)
     annotation (Line(points={{-159,10},{-142,10}}, color={255,0,255}));
-  connect(greThr.y, and1.u1) annotation (Line(points={{-159,50},{-82,50}},
+  connect(greThr.y, and1.u1) annotation (Line(points={{-159,50},{-142,50}},
                           color={255,0,255}));
-  connect(and1.y, orc.ena) annotation (Line(points={{-59,50},{-8,50}},
+  connect(and1.y, orc.ena) annotation (Line(points={{-119,50},{-38,50}},
                      color={255,0,255}));
-  connect(and1.u2, Tru.y) annotation (Line(points={{-82,42},{-150,42},{-150,10},
+  connect(and1.u2, Tru.y) annotation (Line(points={{-142,42},{-150,42},{-150,10},
           {-159,10}}, color={255,0,255}));
-  connect(orc.port_b2,senTColOut. port_a) annotation (Line(points={{-10,44},{-20,
-          44},{-20,-40},{-30,-40}}, color={0,127,255}));
+  connect(orc.port_b2,senTColOut. port_a) annotation (Line(points={{-40,44},{-46,
+          44},{-46,-40},{-60,-40}}, color={0,127,255}));
   connect(senTColOut.port_b, pum.port_a)
-    annotation (Line(points={{-50,-40},{-60,-40}},   color={0,127,255}));
+    annotation (Line(points={{-80,-40},{-100,-40}},  color={0,127,255}));
   connect(spl.port_1, pum.port_b)
-    annotation (Line(points={{-120,-40},{-80,-40}},  color={0,127,255}));
-  connect(senTColOut.T, conPI.u_m) annotation (Line(points={{-40,-29},{-40,28},
-          {70,28},{70,22}},              color={0,0,127}));
-  connect(val.port_2, orc.port_a2) annotation (Line(points={{30,-40},{20,-40},{
-          20,44},{10,44}}, color={0,127,255}));
+    annotation (Line(points={{-180,-50},{-180,-40},{-120,-40}},
+                                                     color={0,127,255}));
+  connect(senTColOut.T, conPI.u_m) annotation (Line(points={{-70,-29},{-70,-12},
+          {50,-12},{50,-2}},             color={0,0,127}));
+  connect(val.port_2, orc.port_a2) annotation (Line(points={{30,-40},{-14,-40},{
+          -14,44},{-20,44}},
+                           color={0,127,255}));
   connect(pum.m_flow_in, booToRea.y)
-    annotation (Line(points={{-70,-28},{-70,10},{-118,10}}, color={0,0,127}));
+    annotation (Line(points={{-110,-28},{-110,10},{-118,10}},
+                                                            color={0,0,127}));
 annotation(experiment(StopTime=900,Tolerance=1E-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/OrganicRankine/Examples/ORCHotWater.mos"
   "Simulate and plot"),
@@ -202,6 +206,6 @@ First implementation. This is for
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-200,-100},{180,100}})),
+    Diagram(coordinateSystem(extent={{-200,-100},{180,120}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end ORCHotWater;
