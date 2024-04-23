@@ -14,9 +14,9 @@ model ORCHotWater "ORC that outputs hot water at a fixed temperature"
     pWorEva(displayUnit="bar"),
     final mCol_flow_nominal=mCol_flow_nominal,
     dTPinCon=5,
-    mWor_flow_max=100,
-    mWor_flow_min=0.01,
-    mWor_flow_hysteresis=0.01,
+    mWor_flow_max=0.5,
+    mWor_flow_min=0.1,
+    mWor_flow_hysteresis=0.05,
     etaExp=0.8,
     etaPum=0.6) "Organic Rankine cycle"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
