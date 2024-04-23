@@ -120,14 +120,10 @@ model ORCHotWater "ORC that outputs hot water at a fixed temperature"
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-130,-40})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
-    "Constant speed primary pumps control signal"
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(
+    realTrue = mCol_flow_nominal)
+    "Constant speed primary pump control signal"
     annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(final k=mCol_flow_nominal)
-    "Scale to nominal mass flow rate" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-90,10})));
   Modelica.Blocks.Logical.GreaterThreshold greThr(threshold=mCol_flow_nominal/2)
     "Greather threshold"
     annotation (Placement(transformation(extent={{-180,40},{-160,60}})));
@@ -166,11 +162,6 @@ equation
                                      color={0,127,255}));
   connect(conPI.y, val.y)
     annotation (Line(points={{59,10},{40,10},{40,-28}}, color={0,0,127}));
-  connect(booToRea.y, gai.u)
-    annotation (Line(points={{-118,10},{-102,10}}, color={0,0,127}));
-  connect(gai.y, pum.m_flow_in)
-    annotation (Line(points={{-78,10},{-70,10},{-70,-28}},
-                                                         color={0,0,127}));
   connect(pum.m_flow_actual, greThr.u) annotation (Line(points={{-81,-35},{-90,-35},
           {-90,-20},{-190,-20},{-190,50},{-182,50}},    color={0,0,127}));
   connect(Tru.y, booToRea.u)
@@ -191,6 +182,8 @@ equation
           {70,28},{70,22}},              color={0,0,127}));
   connect(val.port_2, orc.port_a2) annotation (Line(points={{30,-40},{20,-40},{
           20,44},{10,44}}, color={0,127,255}));
+  connect(pum.m_flow_in, booToRea.y)
+    annotation (Line(points={{-70,-28},{-70,10},{-118,10}}, color={0,0,127}));
 annotation(experiment(StopTime=900,Tolerance=1E-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/OrganicRankine/Examples/ORCHotWater.mos"
   "Simulate and plot"),
