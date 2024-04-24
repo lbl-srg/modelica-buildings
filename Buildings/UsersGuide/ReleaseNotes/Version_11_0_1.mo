@@ -37,7 +37,7 @@ to <b style=\"color:blue\">existing</b> libraries:
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.ThermalWheels
     </td>
-    <td valign=\"top\">Package of models for thermal wheel (both enthalpy and sensible heat recovery) devices.<br/>
+    <td valign=\"top\">Package of models for heat recovery and enthalpy recovery wheels.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3538\">issue 3538</a>.
     </td>
 </tr>
