@@ -155,8 +155,21 @@ annotation (
         defaultComponentName="whe",
         Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
         graphics={
+        Polygon(
+          points={{0,100},{0,100}},
+          lineColor={28,108,200},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.None),
+        Text(
+          extent={{44,14},{94,-10}},
+          textColor={0,0,127},
+          textString="epsSen"),
+        Text(
+          extent={{46,-74},{96,-98}},
+          textColor={0,0,127},
+          textString="P"),
         Rectangle(
-          extent={{32,-56},{94,-64}},
+          extent={{26,-56},{94,-64}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,0},
@@ -174,40 +187,27 @@ annotation (
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-94,65},{-32,56}},
+          extent={{-94,65},{-28,56}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
-        Ellipse(extent={{6,88},{38,-90}},
-          lineColor={28,108,200},
+        Ellipse(extent={{8,78},{38,-74}},
+          lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{0,100},{0,100}},
-          lineColor={28,108,200},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.None),
         Rectangle(
-          extent={{-2,88},{22,-98}},
+          extent={{-6,78},{22,-74}},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Ellipse(
-          extent={{-38,88},{-4,-90}},
+          extent={{-38,78},{-6,-74}},
           lineColor={28,108,200},
           fillColor={28,108,200},
           fillPattern=FillPattern.Solid),
-        Line(points={{-22,-90},{22,-90}}, color={28,108,200}),
-        Line(points={{-20,88},{22,88}}, color={28,108,200}),
-        Text(
-          extent={{44,14},{94,-10}},
-          textColor={0,0,127},
-          textString="epsSen"),
-        Text(
-          extent={{46,-74},{96,-98}},
-          textColor={0,0,127},
-          textString="P")}),
+        Line(points={{-22,-74},{22,-74}}, color={0,0,0}),
+        Line(points={{-22,78},{22,78}}, color={0,0,0})}),
           Diagram(
         coordinateSystem(preserveAspectRatio=true, extent={{-180,-100},{100,180}})),
 Documentation(info="<html>

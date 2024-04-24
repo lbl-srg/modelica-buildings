@@ -185,7 +185,7 @@ annotation (
         Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
         graphics={
         Rectangle(
-          extent={{32,-56},{94,-64}},
+          extent={{26,-56},{94,-64}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,0},
@@ -203,13 +203,13 @@ annotation (
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-94,65},{-32,56}},
+          extent={{-94,65},{-28,56}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
-        Ellipse(extent={{6,88},{38,-90}},
-          lineColor={28,108,200},
+        Ellipse(extent={{8,78},{38,-74}},
+          lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Polygon(
@@ -218,17 +218,17 @@ annotation (
           fillColor={255,255,255},
           fillPattern=FillPattern.None),
         Rectangle(
-          extent={{-2,88},{22,-98}},
+          extent={{-6,78},{22,-74}},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Ellipse(
-          extent={{-38,88},{-4,-90}},
+          extent={{-38,78},{-6,-74}},
           lineColor={28,108,200},
           fillColor={0,140,72},
           fillPattern=FillPattern.Solid),
-        Line(points={{-22,-90},{22,-90}}, color={28,108,200}),
-        Line(points={{-20,88},{22,88}}, color={28,108,200}),
+        Line(points={{-22,-74},{22,-74}}, color={0,0,0}),
+        Line(points={{-22,78},{22,78}}, color={0,0,0}),
         Text(
           extent={{46,46},{96,22}},
           textColor={0,0,127},
@@ -238,7 +238,7 @@ annotation (
           textColor={0,0,127},
           textString="epsLat"),
         Text(
-          extent={{44,-76},{94,-100}},
+          extent={{52,-76},{102,-100}},
           textColor={0,0,127},
           textString="P")}),
           Diagram(
