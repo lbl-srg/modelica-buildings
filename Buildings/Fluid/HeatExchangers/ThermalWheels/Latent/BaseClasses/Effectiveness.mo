@@ -69,13 +69,15 @@ protected
 
   Real rat
     "Ratio of the average operating air flow rate to the nominal supply air flow rate";
-  Real epsSenPL
+  Real ratRes
+    "Ratio of the average operating air flow rate to the nominal supply air flow rate, restricted to valid domain";
+  Modelica.Units.SI.Efficiency epsSenPL
     "Part load sensible heat exchanger effectiveness used for calculation";
-  Real epsSen_nominal
+  Modelica.Units.SI.Efficiency epsSen_nominal
     "Nominal sensible heat exchanger effectiveness used for calculation";
-  Real epsLatPL
+  Modelica.Units.SI.Efficiency epsLatPL
     "Part load latent heat exchanger effectiveness used for calculation";
-  Real epsLat_nominal
+  Modelica.Units.SI.Efficiency epsLat_nominal
     "Nominal latent heat exchanger effectiveness used for calculation";
 
 equation
@@ -87,7 +89,7 @@ equation
   rat = (VSup_flow + VExh_flow)/2/VSup_flow_nominal;
   // Check if the extrapolation goes too far
   assert(rat > 0.5 and rat < 1.3,
-    "In " + getInstanceName() + ": The ratio of the operating flow rate to the nominal supply flow rate should be in the range of [0.5, 1.3].",
+    "In " + getInstanceName() + ": The ratio of the operating flow rate to the nominal supply flow rate should be in the range of [0.5, 1.3]. Restricting value for effectiveness calculation.",
     level=AssertionLevel.warning);
   // Switch between cooling and heating modes based on the difference between the supply air temperature and the exhaust air temperature
   fraCoo = if (equSen_nominal and equSenPL and equLat_nominal and equLatPL) then 0.5 else Buildings.Utilities.Math.Functions.regStep(TSup-TExh, 1, 0, 1e-5);
@@ -99,8 +101,9 @@ equation
   epsLat_nominal = if equLat_nominal then epsLatCoo_nominal else fraCoo*epsLatCoo_nominal + (1-fraCoo) * epsLatHea_nominal;
 
   // Calculate effectiveness
-  epsSen =uSpe*(epsSenPL + (epsSen_nominal - epsSenPL)*(rat - 0.75)/0.25);
-  epsLat =uSpe*(epsLatPL + (epsLat_nominal - epsLatPL)*(rat - 0.75)/0.25);
+  ratRes = Buildings.Utilities.Math.Functions.smoothLimit(x=rat, l=0.5, u=1.3, deltaX=0.01);
+  epsSen =uSpe*(epsSenPL + (epsSen_nominal - epsSenPL)*(ratRes - 0.75)/0.25);
+  epsLat =uSpe*(epsLatPL + (epsLat_nominal - epsLatPL)*(ratRes - 0.75)/0.25);
   assert(epsSen >= 0 and epsSen < 1,
     "In " + getInstanceName() + ": The sensible heat exchange effectiveness epsSen = " + String(epsSen) + ". It should be in the range of [0, 1].
     Check if the part load (75% of the nominal supply flow rate) or nominal sensible heat exchanger effectiveness is too high or too low.",
@@ -122,16 +125,16 @@ under heating and cooling modes at different flow rates of the supply
 air and the exhaust air.
 </p>
 <p>
-It firstly calculates the ratio of the average operating flow rate to the nominal
-supply flow rate by:
+It calculates the ratio of the average operating flow rate to the nominal
+supply flow rate as
 </p>
 <pre>
-  rat = (VSup_flow + VExh_flow)/(2*VSup_flow_nominal),
+  rat = max(0.5, min(1.3, (VSup_flow + VExh_flow)/(2*VSup_flow_nominal))),
 </pre>
 <p>
-where <code>VSup_flow</code> is the flow rate of the supply air;
-<code>VExh_flow</code> is the flow rate of the exhaust air;
-<code>VSup_flow_nominal</code> is the nominal flow rate of the supply air; and 
+where <code>VSup_flow</code> is the flow rate of the supply air,
+<code>VExh_flow</code> is the flow rate of the exhaust air,
+<code>VSup_flow_nominal</code> is the nominal flow rate of the supply air, and
 <code>rat</code> is the flow ratio.
 </p>
 <p>
@@ -143,15 +146,15 @@ It then calculates the sensible and latent heat exchanger effectiveness by:
 </pre>
 <p>
 where <code>epsSen</code> and <code>epsLat</code> are the effectiveness
-for the sensible and latent heat transfer, respectively;
+for the sensible and latent heat transfer, respectively,
 <code>epsSen_nominal</code> and <code>epsSenPL</code> are the effectiveness 
-for the sensible heat transfer when <code>rat</code> is 1 and 0.75, respectively;
+for the sensible heat transfer when <code>rat</code> is 1 and 0.75, respectively,
 <code>epsLat_nominal</code> and <code>epsLatPL</code> are the effectiveness 
-for the latent heat transfer when <code>Rat</code> is 1 and 0.75, respectively;
+for the latent heat transfer when <code>Rat</code> is 1 and 0.75, respectively, and
 <code>uSpe</code> is the speed ratio of a rotary wheel.
 </p>
 <p>
-The parameters <code>epsSen_nominal</code>, <code>epsSenPL</code>, <code>epsLat_nominal</code>, and 
+The parameters <code>epsSen_nominal</code>, <code>epsSenPL</code>, <code>epsLat_nominal</code>, and
 <code>epsLatPL</code> have different values depending on if the wheel is in
 the cooling or heating mode.
 If the supply air temperature is greater than the exhaust air 
@@ -161,9 +164,9 @@ Otherwise, it operates under the heating mode.
 </p>
 <P>
 <b>Note:</b> 
-The value of the <code>rat</code> is suggested to be between <i>0.5</i> and <i>1.3</i>, 
+The value of the <code>rat</code> is suggested to be between <i>0.5</i> and <i>1.3</i> during normal operation
 to ensure reasonable extrapolation.
-Likewise, an unbalanced air flow ratio less than 2,  i.e., <code>VSup_flow/VExh_flow</code> &#62; <i>0.5</i> 
+Likewise, an unbalanced air flow ratio less than 2, i.e., <code>VSup_flow/VExh_flow</code> &#62; <i>0.5</i>
 and <code>VSup_flow/VExh_flow</code> &#60; <i>2</i>, is recommended.
 </P>
 <h4>References</h4>
@@ -173,6 +176,10 @@ U.S. Department of Energy 2016.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 24, 2024, by Michael Wetter:<br/>
+Restricted flow ratio to valid region.
+</li>
 <li>
 September 29, 2023, by Sen Huang:<br/>
 First implementation.
