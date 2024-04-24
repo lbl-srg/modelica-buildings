@@ -98,8 +98,6 @@ equation
   connect(damSup.port_a, port_a1)
     annotation (Line(points={{-60,40},{-100,40},{-100,80},{-180,80}},
         color={0,127,255}));
-  connect(port_b2, port_b2)
-    annotation (Line(points={{-180,-60},{-180,-60}}, color={0,127,255}));
   connect(uRot, PEle.u) annotation (Line(points={{-200,0},{-170,0},{-170,-80},{
           -162,-80}}, color={255,0,255}));
   connect(PEle.y, P) annotation (Line(points={{-139,-80},{80,-80},{80,-90},{120,
@@ -161,8 +159,8 @@ annotation (
         coordinateSystem(preserveAspectRatio=true, extent={{-180,-100},{100,180}})),
 Documentation(info="<html>
 <p>
-Model of a sensible heat recovery wheel, which consists of 
-a heat exchanger and two dampers to bypass the supply and exhaust airflow. 
+Model of a sensible heat recovery wheel, which consists of
+a heat exchanger and two dampers to bypass the supply and exhaust airflow.
 </p>
 <p>
 This model does not require geometric data. The performance is defined by specifying the
@@ -177,7 +175,7 @@ If the operating signal <code>uRot=true</code>,
 The wheel power consumption is constant and equal to the nominal value.
 </li>
 <li>
-The heat exchange in the heat recovery wheel is adjustable via bypassing supply/exhaust air 
+The heat exchange in the heat recovery wheel is adjustable via bypassing supply/exhaust air
 through the heat exchanger.
 Accordingly, the sensible heat exchanger effectiveness is calculated with
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.Effectiveness\">
@@ -186,7 +184,7 @@ Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.Effectiveness<
 </ul>
 </li>
 <li>
-Otherwise, 
+Otherwise,
 <ul>
 <li>
 The wheel power consumption is 0.

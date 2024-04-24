@@ -135,8 +135,6 @@ equation
   connect(hex.port_b1, port_b1)
     annotation (Line(points={{10,6},{60,6},{60,80},{100,80}},
         color={0,127,255}));
-  connect(port_b2, port_b2)
-    annotation (Line(points={{-180,-60},{-180,-60}}, color={0,127,255}));
   connect(port_b2, hex.port_b2)
     annotation (Line(points={{-180,-60},{-40,-60},{-40,-6},{-10,-6}},
         color={0,127,255}));
