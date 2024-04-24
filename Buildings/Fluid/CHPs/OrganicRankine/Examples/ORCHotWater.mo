@@ -197,9 +197,19 @@ annotation(experiment(StopTime=900,Tolerance=1E-6),
   "Simulate and plot"),
   Documentation(info="<html>
 <p>
-[documentation pending]
-Three-way valve controlled to track hot water (cold fluid of the ORC) output at a set point of 45 C.
-System and control similar to Buildings.DHC.ETS.Combined.Subsystems.Validation.Chiller.
+This example model demonstrate how
+<a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.Cycle\">
+Buildings.Fluid.CHPs.OrganicRankine.Cycle</a>
+can be integrated inside a system.
+The three-way valve is controlled to track hot water (cold fluid of the ORC)
+output temperature at a set point of 55 C which is used as hot water supply.
+The system and control are similar to that is implemented in
+<a href=\"Modelica://Buildings.DHC.ETS.Combined.Subsystems.Validation.Chiller\">
+Buildings.DHC.ETS.Combined.Subsystems.Validation.Chiller</a>.
+</p>
+<p>
+In addition, a safety control sequence prevents the ORC from turning on
+until a minimum flow rate is established in the condenser water loop.
 </p>
 </html>",revisions="<html>
 <ul>

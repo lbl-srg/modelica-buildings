@@ -209,24 +209,24 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
 Documentation(info="<html>
 <p>
-[fixme: pending update.]
-Implemented in this model is a steady-state organic Rankine cycle
-as a bottoming cycle.
+Implemented in this model is a an organic Rankine cycle (ORC) as a bottoming cycle.
+The thermodynamic cycle is steady-state while the evaporator and the condenser
+can be configured to have dynamics.
 The fluid stream 1 (using <code>Medium1</code>, <code>port_a1</code>, etc.)
 is the evaporator hot fluid carrying waste heat
 and the stream 2 is the condenser cold fluid carrying the cooling fluid.
-The working fluid (WF) of the cycle is not based on a medium model.
+The working fluid of the cycle is not based on a typical Modelica medium model.
 See the Thermodynamic Properties section of this document.
 </p>
 <h4>Cycle Architecture and Governing Equations</h4>
 <p>
 The implemented ORC assumes a simple architecture shown in the figure below.
-For any given WF, the cycle is determined by providing
-the WF evaporating temperature <i>T<sub>w,eva</sub></i>,
-the WF condensing temperature <i>T<sub>w,con</sub></i>,
+For any given working fluid, the cycle is fully determined by providing
+the working fluid evaporating temperature <i>T<sub>w,eva</sub></i>,
+the working fluid condensing temperature <i>T<sub>w,con</sub></i>,
 the expander efficiency <i>&eta;<sub>exp</sub></i>, and
 the pump efficiency <i>&eta;<sub>pum</sub></i>.
-The superheating temperature differential <i>&Delta;T<sub>sup</sub></i>
+The superheating temperature difference <i>&Delta;T<sub>sup</sub></i>
 is minimised, meaning it is zero whenever possible; otherwise it assumes
 the smallest value not to cause the expander outlet state to fall
 under the dome. Subcooling after the condenser is not considered.
@@ -242,8 +242,7 @@ to satisfy a certain load, electrical or thermal.
 <img src=\"modelica://Buildings/Resources/Images/Fluid/CHPs/OrganicRankine/CycleArchitecture.png\"
 alt=\"CycleArchitecture\" width=\"800\" height=\"300\"/></p>
 <p>
-As the waste heat stream comes in as the evaporator hot fluid,
-the cycle processes the heat at a fixed
+The cycle processes the heat at a fixed
 <i>T<sub>w,eva</sub></i> provided by the user.
 The evaporator heat exchange is governed by the following equations:
 </p>
@@ -260,9 +259,9 @@ where the subscripts are:<br/>
 <p>
 The cycle accommodates the varying flow rate and temperature
 of the waste heat stream by changing <i>m&#775;<sub>w</sub></i>
-to maintain a constant pinch point (PP) temperature differential
-at the evaporator <i>&Delta;T<sub>pin,Eva</sub></i>.
-This differential is found by the following equations:
+to maintain a constant pinch point (PP) temperature difference
+at the evaporator <i>&Delta;T<sub>pin,eva</sub></i>.
+This difference is found by the following equations:
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 (T<sub>pin,eva</sub> - T<sub>h,out</sub>)&nbsp;(h<sub>ExpInl</sub> - h<sub>PumOut</sub>)
@@ -286,7 +285,7 @@ where the subscripts are:<br/>
 <i>c</i> - cold fluid in the condenser.<br/>
 </p>
 <p>
-On this side, <i>T<sub>w,con</sub></i> is used to maintain the PP differential.
+On this side, <i>T<sub>w,con</sub></i> is used to maintain the PP difference.
 </p>
 <p>
 The electric power output of the expander
@@ -302,7 +301,7 @@ In summary, the model has the following information flow:
 <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr>
 <th>User-specified parameters</th>
-<th>Inputs and disturbances</th>
+<th>Inputs</th>
 <th>Outputs</th>
 </tr>
 <tr>
@@ -333,8 +332,8 @@ In summary, the model has the following information flow:
 </table>
 <h4>Constraints</h4>
 <p>
-This model finds <i>m&#775;<sub>w</sub></i> to maintain the prescribed
-evaporator PP temperature differential set point.
+This cycle controls <i>m&#775;<sub>w</sub></i> to maintain the prescribed
+evaporator PP temperature difference set point.
 An upper limit and a lower limit are imposed on
 <i>m&#775;<sub>w</sub></i> to reflect the characteristics of a sized cycle.
 </p>
@@ -423,10 +422,11 @@ and the reference line, albeit with less accuracy.
 The cycle can be completely defined by providing the following three variables:
 evaporating temperature <i>T<sub>eva</sub></i> or pressure <i>p<sub>eva</sub></i>,
 condensing temperature <i>T<sub>con</sub></i> or pressure <i>p<sub>con</sub></i>,
-and expander efficiency <i>&eta;<sub>exp</sub></i>.
+expander efficiency <i>&eta;<sub>exp</sub></i>, and
+pump efficiency <i>&eta;<sub>pum</sub></i>.
 Most of the important state points can be found via the interpolation schemes
 described above. The only exceptions are <i>ExpInl</i> and <i>ExpOut</i>
-which depend on the type of the fluid and <i>&eta;<sub>Exp</sub></i>.
+which depend on the type of the fluid and <i>&eta;<sub>exp</sub></i>.
 </p>
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Fluid/CHPs/OrganicRankine/ComputationPaths.png\"
