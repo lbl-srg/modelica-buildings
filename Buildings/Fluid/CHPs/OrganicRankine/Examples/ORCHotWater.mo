@@ -129,8 +129,6 @@ model ORCHotWater "ORC that outputs hot water at a fixed temperature"
     annotation (Placement(transformation(extent={{-180,40},{-160,60}})));
   Modelica.Blocks.Logical.And and1
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
-  Modelica.Blocks.Sources.BooleanConstant Tru(k=true) "Logical true"
-    annotation (Placement(transformation(extent={{-180,0},{-160,20}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTColOut(
     redeclare final package Medium = MediumCol,
     m_flow_nominal=mCol_flow_nominal,
@@ -143,6 +141,9 @@ model ORCHotWater "ORC that outputs hot water at a fixed temperature"
     redeclare final package Medium = MediumCol)
     "Mass flow rate sensor for the ORC condenser cold fluid"
     annotation (Placement(transformation(extent={{-140,-50},{-160,-30}})));
+  Modelica.Blocks.Sources.BooleanTable booTab(table={100}, startValue=false)
+    "Boolean table with initial false"
+    annotation (Placement(transformation(extent={{-180,0},{-160,20}})));
 equation
   connect(orc.port_b1, sinHot.ports[1]) annotation (Line(points={{-20,56},{-14,56},
           {-14,90},{100,90}},
@@ -167,14 +168,10 @@ equation
   connect(conPI.y, val.y)
     annotation (Line(points={{61,10},{80,10},{80,-20},{40,-20},{40,-28}},
                                                         color={0,0,127}));
-  connect(Tru.y, booToRea.u)
-    annotation (Line(points={{-159,10},{-142,10}}, color={255,0,255}));
   connect(greThr.y, and1.u1) annotation (Line(points={{-159,50},{-142,50}},
                           color={255,0,255}));
   connect(and1.y, orc.ena) annotation (Line(points={{-119,50},{-38,50}},
                      color={255,0,255}));
-  connect(and1.u2, Tru.y) annotation (Line(points={{-142,42},{-150,42},{-150,10},
-          {-159,10}}, color={255,0,255}));
   connect(orc.port_b2,senTColOut. port_a) annotation (Line(points={{-40,44},{-46,
           44},{-46,-40},{-60,-40}}, color={0,127,255}));
   connect(senTColOut.port_b, pum.port_a)
@@ -193,6 +190,10 @@ equation
     annotation (Line(points={{-140,-40},{-120,-40}}, color={0,127,255}));
   connect(greThr.u, senMasFlo.m_flow) annotation (Line(points={{-182,50},{-190,50},
           {-190,-20},{-150,-20},{-150,-29}}, color={0,0,127}));
+  connect(booTab.y, booToRea.u)
+    annotation (Line(points={{-159,10},{-142,10}}, color={255,0,255}));
+  connect(booTab.y, and1.u2) annotation (Line(points={{-159,10},{-150,10},{-150,
+          42},{-142,42}}, color={255,0,255}));
 annotation(experiment(StopTime=900,Tolerance=1E-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/OrganicRankine/Examples/ORCHotWater.mos"
   "Simulate and plot"),
