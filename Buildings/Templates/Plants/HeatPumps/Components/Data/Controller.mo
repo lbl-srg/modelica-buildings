@@ -215,6 +215,38 @@ record Controller
     "Staging part load ratio"
     annotation (Dialog(group="Equipment staging and rotation",
     enable=cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater));
+  parameter Real TChiWatSupHrc_min(
+    final min=273.15,
+    start=4 + 273.15,
+    final unit="K",
+    displayUnit="degC")
+    "Sidestream HRC – Minimum allowable CHW supply temperature"
+    annotation (Dialog(group="Information provided by designer", enable=cfg.have_hrc));
+  parameter Real THeaWatSupHrc_max(
+    final min=273.15,
+    start=60 + 273.15,
+    final unit="K",
+    displayUnit="degC")
+    "Sidestream HRC – Maximum allowable HW supply temperature"
+    annotation (Dialog(group="Information provided by designer", enable=cfg.have_hrc));
+  parameter Real COPHeaHrc_nominal(
+    final min=1.1,
+    final unit="1",
+    start=2.8)
+    "Sidestream HRC – Heating COP at design heating conditions"
+    annotation (Dialog(group="Information provided by designer", enable=cfg.have_hrc));
+  parameter Real capCooHrc_min(
+    start=0,
+    final min=0,
+    final unit="W")
+    "Sidestream HRC – Minimum cooling capacity below which cycling occurs"
+    annotation (Dialog(group="Information provided by designer", enable=cfg.have_hrc));
+  parameter Real capHeaHrc_min(
+    start=0,
+    final min=0,
+    final unit="W")
+    "Sidestream HRC – Minimum heating capacity below which cycling occurs"
+    annotation (Dialog(group="Information provided by designer", enable=cfg.have_hrc));
   annotation (
     defaultComponentName="datCtl",
     Documentation(

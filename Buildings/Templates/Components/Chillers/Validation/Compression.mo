@@ -13,6 +13,7 @@ model Compression "Validation model for compression chiller component"
     Dialog(tab="Dynamics",group="Conservation equations"));
   parameter Data.Chiller datChiAirCoo(
     final typ=chiAirCoo.typ,
+    final use_datDes=true,
     mChiWat_flow_nominal=datChiAirCoo.cap_nominal/abs(datChiAirCoo.TChiWatSup_nominal
          - Buildings.Templates.Data.Defaults.TChiWatRet)/datChiAirCoo.cpChiWat_default,
     cap_nominal=750E3,
@@ -25,7 +26,7 @@ model Compression "Validation model for compression chiller component"
     capFunT ={0.0,0.1,-0.0023814154,0.0628316481,-0.0009644649,-0.0011249224},
     EIRFunT = {0.0,0.0071530312,-0.0004553574,0.0188175079,0.0002623276,-0.0012881189},
     EIRFunPLR = {-5.497250E-01,5.035076E-02,-1.927855E-05,1.678371E+00,-1.535993E+00,-4.944902E-02,0.000000E+00,1.396972E+00,0.000000E+00,0.000000E+00},
-    PLRMax = 1.15,
+    PLRMax=1.15,
     etaMotor=1.0))
     "Air-cooled chiller parameters – Parameterization based on design conditions and direct assignment of performance curves"
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
@@ -251,6 +252,8 @@ return temperature.
 The chiller model is configured to represent either an air-cooled
 chiller (component <code>chiAirCoo</code>) or a water-cooled
 chiller (component <code>chiWatCoo</code>).
+</p>
+<p>
 Regarding the parameterization logic described in the documentation of 
 <a href=\"modelica://Buildings.Templates.Components.Chillers.Compression\">
 Buildings.Templates.Components.Chillers.Compression</a>:

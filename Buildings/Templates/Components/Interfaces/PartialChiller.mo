@@ -4,18 +4,16 @@ partial model PartialChiller "Interface class for chiller models"
     redeclare final package Medium1=MediumCon,
     redeclare final package Medium2=MediumChiWat,
     final m1_flow_nominal=mCon_flow_nominal,
-    final m2_flow_nominal=mChiWat_flow_nominal,
-    final allowFlowReversal1=allowFlowReversal,
-    final allowFlowReversal2=allowFlowReversal);
+    final m2_flow_nominal=mChiWat_flow_nominal);
 
   replaceable package MediumChiWat=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "CHW medium"
-    annotation(__Linkage(enable=false));
+    annotation(__ctrlFlow(enable=false));
   replaceable package MediumCon = Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Medium model for condenser cooling fluid"
-    annotation(__Linkage(enable=false));
+    annotation(__ctrlFlow(enable=false));
 
   parameter Buildings.Templates.Components.Types.Chiller typ
     "Type of chiller"
@@ -71,16 +69,16 @@ partial model PartialChiller "Interface class for chiller models"
     Dialog(tab="Assumptions",
     enable=typ==Buildings.Templates.Components.Types.Chiller.WaterCooled));
 
-  parameter Boolean allowFlowReversal = true
-    "= false to simplify equations, assuming, but not enforcing, no flow reversal"
-    annotation(Dialog(tab="Assumptions"), Evaluate=true);
   parameter Modelica.Units.SI.Time tau=30
-    "Time constant at nominal flow"
-    annotation (Dialog(tab="Dynamics", group="Nominal condition"));
+    "Time constant at nominal flow, used if energy or mass balance is dynamic"
+    annotation (Dialog(tab="Dynamics", group="Nominal condition",
+      enable=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState),
+      __ctrlFlow(enable=false));
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab="Dynamics", group="Conservation equations"));
+    annotation(Evaluate=true, Dialog(tab="Dynamics", group="Conservation equations"),
+      __ctrlFlow(enable=false));
 
   final parameter MediumChiWat.SpecificHeatCapacity cpChiWat_default=
     MediumChiWat.specificHeatCapacityCp(staChiWat_default)

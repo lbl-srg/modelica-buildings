@@ -44,13 +44,16 @@ partial model PartialHeatPumpPlant
     "Set to true if the plant provides DHW"
     annotation (Evaluate=true,
     Dialog(group="Configuration"));
-  // RFE(AntoineGautier): Add option for sidestream HRC. Always excluded for now.
-  final parameter Boolean have_hrc(
+  parameter Boolean have_hrc_select(
     start=false)=false
     "Set to true for plants with a sidestream heat recovery chiller"
     annotation (Evaluate=true,
     Dialog(group="Configuration",
     enable=have_heaWat and have_chiWat));
+  final parameter Boolean have_hrc=if have_heaWat and have_chiWat then have_hrc_select
+    else false
+    "Set to true for plants with sidestream heat recovery chiller"
+    annotation (Evaluate=true);
   parameter Buildings.Templates.Components.Types.HeatPump typ
     "Type of heat pump"
     annotation (Evaluate=true,

@@ -46,6 +46,15 @@ class AllSystems
       m_flow_nominal=fill(
         pla.ctl.VChiWatSec_flow_nominal*Buildings.Media.Water.d_const/max(1,pla.cfg.nPumChiWatSec), pla.cfg.nPumChiWatSec),
       dp_nominal=fill(Buildings.Templates.Data.Defaults.dpChiWatLocSet_max, pla.cfg.nPumChiWatSec)),
+    hrc(
+      redeclare Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.ReformEIRChiller_Trane_CGWD_207kW_3_99COP_None per,
+      cap_nominal=500E3,
+      dpChiWat_nominal=Buildings.Templates.Data.Defaults.dpChiWatChi,
+      dpCon_nominal=Buildings.Templates.Data.Defaults.dpConWatChi,
+      mChiWat_flow_nominal=pla.hrc.cap_nominal/abs(pla.ctl.TChiWatSup_nominal
+        - Buildings.Templates.Data.Defaults.TChiWatRet)/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
+      mCon_flow_nominal=pla.hrc.QCon_flow_nominal/abs(pla.ctl.THeaWatSup_nominal
+        - Buildings.Templates.Data.Defaults.THeaWatRetMed)/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq),
     ctl(
       THeaWatSupSet_min=298.15,
       VHeaWatSec_flow_nominal=pla.cfg.nHp * pla.ctl.VHeaWatHp_flow_nominal / 1.1,
@@ -65,7 +74,12 @@ class AllSystems
         then pla.hp.mChiWatHp_flow_nominal/max(pla.hp.mHeaWatHp_flow_nominal, pla.hp.mChiWatHp_flow_nominal) else 1,
       yPumHeaWatPriSet=if pla.cfg.have_chiWat and pla.cfg.typPumChiWatPri==Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
         then pla.hp.mHeaWatHp_flow_nominal/max(pla.hp.mHeaWatHp_flow_nominal, pla.hp.mChiWatHp_flow_nominal) else 1,
-      staEqu={fill(i/pla.cfg.nHp, pla.cfg.nHp) for i in 1:pla.cfg.nHp}))
+      staEqu={fill(i/pla.cfg.nHp, pla.cfg.nHp) for i in 1:pla.cfg.nHp},
+      TChiWatSupHrc_min=Buildings.Templates.Data.Defaults.TChiWatSup_min,
+      THeaWatSupHrc_max=pla.ctl.THeaWatSup_nominal + 5,
+      COPHeaHrc_nominal=4.8,
+      capCooHrc_min=0.3 * pla.hrc.cap_nominal,
+      capHeaHrc_min=0.3 * pla.hrc.QCon_flow_nominal))
     "Parameters for heat pump plant"
     annotation (Dialog(group="Plants"),
     Placement(transformation(extent={{-10,0},{10,20}})));

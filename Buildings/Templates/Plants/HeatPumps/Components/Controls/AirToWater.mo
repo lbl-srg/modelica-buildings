@@ -25,6 +25,7 @@ model AirToWater
     annotation (Evaluate=true,
     Dialog(group="Equipment staging and rotation"));
   Buildings.Templates.Plants.Controls.HeatPumps.AirToWater ctl(
+    final have_hrc_select=cfg.have_hrc,
     final TChiWatSupSet_max=dat.TChiWatSupSet_max,
     final TChiWatSup_nominal=dat.TChiWatSup_nominal,
     final THeaWatSupSet_min=dat.THeaWatSupSet_min,
@@ -40,6 +41,11 @@ model AirToWater
     final dpChiWatRemSet_min=dat.dpChiWatRemSet_min,
     final dpHeaWatRemSet_max=dat.dpHeaWatRemSet_max,
     final dpHeaWatRemSet_min=dat.dpHeaWatRemSet_min,
+    final capCooHrc_min=dat.capCooHrc_min,
+    final capHeaHrc_min=dat.capHeaHrc_min,
+    final COPHeaHrc_nominal=dat.COPHeaHrc_nominal,
+    final TChiWatSupHrc_min=dat.TChiWatSupHrc_min,
+    final THeaWatSupHrc_max=dat.THeaWatSupHrc_max,
     final have_chiWat=cfg.have_chiWat,
     final have_heaWat=cfg.have_heaWat,
     final have_inpSch=have_inpSch,
@@ -52,9 +58,9 @@ model AirToWater
     final have_senDpChiWatRemWir=cfg.have_senDpChiWatRemWir,
     final have_senDpHeaWatRemWir=cfg.have_senDpHeaWatRemWir,
     final have_senTChiWatPriRet_select=have_senTChiWatPriRet_select,
-    final have_senTChiWatSecRet=have_senTChiWatSecRet,
+    final have_senTChiWatSecRet_select=have_senTChiWatSecRet_select,
     final have_senTHeaWatPriRet_select=have_senTHeaWatPriRet_select,
-    final have_senTHeaWatSecRet=have_senTHeaWatSecRet,
+    final have_senTHeaWatSecRet_select=have_senTHeaWatSecRet_select,
     final have_senVChiWatPri_select=have_senVChiWatPri_select,
     final have_senVHeaWatPri_select=have_senVHeaWatPri_select,
     final have_valHpInlIso=cfg.have_valHpInlIso,
@@ -75,7 +81,7 @@ model AirToWater
     final yPumChiWatPriSet=dat.yPumChiWatPriSet,
     final yPumHeaWatPriSet=dat.yPumHeaWatPriSet)
     "Plant controller"
-    annotation (Placement(transformation(extent={{-20,-20},{20,40}})));
+    annotation (Placement(transformation(extent={{-20,-32},{20,40}})));
   Buildings.Controls.OBC.CDL.Integers.MultiSum reqPlaHeaWatAirHan(
     final nin=nAirHan) if cfg.have_heaWat "Sum of HW plant requests from AHU"
     annotation (Placement(transformation(extent={{210,190},{190,210}})));
@@ -178,6 +184,9 @@ equation
   connect(busPumHeaWatSec.y1_actual, ctl.u1PumHeaWatSec_actual);
   connect(bus.u1SchCoo, ctl.u1SchCoo);
   connect(bus.u1SchHea, ctl.u1SchHea);
+  connect(busHrc.y1_actual, ctl.u1Hrc_actual);
+  connect(bus.TChiWatRetUpsHrc, ctl.TChiWatRetUpsHrc);
+  connect(bus.THeaWatRetUpsHrc, ctl.THeaWatRetUpsHrc);
   // Outputs to plant control bus
   connect(ctl.TSupSet, busHp.TSet);
   connect(ctl.TChiWatSupSet, bus.TChiWatSupSet);
@@ -200,6 +209,11 @@ equation
   connect(ctl.yPumHeaWatPriDed, busPumHeaWatPri.y);
   connect(ctl.yPumHeaWatPriHdr, busPumHeaWatPri.y);
   connect(ctl.yPumHeaWatSec, busPumHeaWatSec.y);
+  connect(ctl.y1Hrc, busHrc.y1);
+  connect(ctl.y1CooHrc, busHrc.y1Coo);
+  connect(ctl.TSupSetHrc, busHrc.TSupSet);
+  connect(ctl.y1PumChiWatHrc, busPumChiWatHrc.y1);
+  connect(ctl.y1PumHeaWatHrc, busPumHeaWatHrc.y1);
   /* Control point connection - stop */
   connect(busAirHan.reqResChiWat, reqResChiWatAirHan.u) annotation (Line(
       points={{260,140},{240,140},{240,80},{212,80}},
@@ -266,16 +280,13 @@ equation
   connect(phReqResChiWatEquZon.y, reqResChiWat.u2) annotation (Line(points={{148,
           -200},{134,-200},{134,68},{112,68}}, color={255,127,0}));
   connect(reqPlaHeaWat.y, ctl.nReqPlaHeaWat) annotation (Line(points={{88,194},
-          {-40,194},{-40,22.3529},{-22,22.3529}},
-                                       color={255,127,0}));
+          {-40,194},{-40,18},{-22,18}},color={255,127,0}));
   connect(reqPlaChiWat.y, ctl.nReqPlaChiWat) annotation (Line(points={{88,154},
-          {-38,154},{-38,20.5882},{-22,20.5882}},
-                                       color={255,127,0}));
+          {-38,154},{-38,16},{-22,16}},color={255,127,0}));
   connect(reqResHeaWat.y,ctl.nReqResHeaWat)  annotation (Line(points={{88,114},
-          {-36,114},{-36,18.8235},{-22,18.8235}},
-                                       color={255,127,0}));
+          {-36,114},{-36,14},{-22,14}},color={255,127,0}));
   connect(reqResChiWat.y,ctl.nReqResChiWat)  annotation (Line(points={{88,74},{
-          -34,74},{-34,17.0588},{-22,17.0588}},
+          -34,74},{-34,12},{-22,12}},
                                   color={255,127,0}));
   annotation (
     defaultComponentName="ctl", Documentation(info="<html>

@@ -181,8 +181,9 @@ model PartialHeatPump
     "Weather bus"
     annotation (Placement(transformation(extent={{-60,-160},{-20,-120}}),
         iconTransformation(extent={{-80,80},{-40,120}})));
-  Fluid.Sources.Outside air(redeclare final package Medium = MediumAir, nPorts=
-        2)
+  Fluid.Sources.Outside air(
+    redeclare final package Medium = MediumAir,
+    nPorts=2)
     if typ == Buildings.Templates.Components.Types.HeatPump.AirToWater
     "Outdoor air" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},

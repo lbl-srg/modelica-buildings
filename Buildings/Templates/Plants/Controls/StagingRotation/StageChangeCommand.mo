@@ -1,22 +1,25 @@
 within Buildings.Templates.Plants.Controls.StagingRotation;
 block StageChangeCommand
   "Generate stage change command"
+  parameter Buildings.Templates.Plants.Controls.Types.Application typ
+    "Type of application"
+    annotation (Evaluate=true);
   parameter Boolean have_inpPlrSta=false
     "Set to true to use an input signal for SPLR, false to use a parameter"
     annotation (Evaluate=true);
   parameter Real plrSta(
-    final max=1,
-    final min=0,
+    max=1,
+    min=0,
     start=0.9,
-    final unit="1")=0.9
+    unit="1")=0.9
     "Staging part load ratio"
     annotation (Dialog(enable=not have_inpPlrSta));
   final parameter Real traStaEqu[nEqu, nSta]={{staEqu[i, j] for i in 1:nSta} for j in 1:nEqu}
     "Transpose of staging matrix";
   parameter Real staEqu[:,:](
-    each final max=1,
-    each final min=0,
-    each final unit="1")
+    max=1,
+    min=0,
+    unit="1")
     "Staging matrix – Equipment required for each stage";
   final parameter Integer nSta=size(staEqu, 1)
     "Number of stages"
@@ -24,25 +27,19 @@ block StageChangeCommand
   final parameter Integer nEqu=size(staEqu, 2)
     "Number of equipment"
     annotation (Evaluate=true);
-  parameter Real capEqu[nEqu](
-    each final min=0,
-    each final unit="W")
+  parameter Real capEqu[nEqu](min=0, unit="W")
     "Design capacity of each equipment";
   parameter Real dtRun(
-    final min=0,
-    final unit="s")=900
+    min=0,
+    unit="s")=900
     "Runtime with exceeded staging part load ratio before staging event is triggered";
   parameter Real dtMea(
-    final min=0,
-    final unit="s")=300
+    min=0,
+    unit="s")=300
     "Duration used to compute the moving average of required capacity";
-  parameter Real cp_default(
-    final min=0,
-    final unit="J/(kg.K)")
+  parameter Real cp_default(min=0, unit="J/(kg.K)")
     "Default specific heat capacity used to compute required capacity";
-  parameter Real rho_default(
-    final min=0,
-    final unit="kg/m3")
+  parameter Real rho_default(min=0, unit="kg/m3")
     "Default density used to compute required capacity";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1AvaSta[nSta]
     "Stage available signal"
@@ -196,6 +193,7 @@ block StageChangeCommand
     "True when staging process terminates"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
   LoadAverage capReq(
+    final typ=typ,
     final cp_default=cp_default,
     final rho_default=rho_default,
     final dtMea=dtMea) "Compute required capacity"

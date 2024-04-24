@@ -102,6 +102,40 @@ record HeatPumpPlant
     "Secondary CHW pumps"
     annotation (Dialog(group="Secondary CHW loop",
       enable=cfg.typPumChiWatSec==Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized));
+  parameter Buildings.Templates.Components.Data.Chiller hrc(
+    typ=if cfg.have_hrc then Buildings.Templates.Components.Types.Chiller.WaterCooled
+      else Buildings.Templates.Components.Types.Chiller.None,
+    cpChiWat_default=cfg.cpChiWat_default,
+    cpCon_default=cfg.cpHeaWat_default,
+    COP_nominal=ctl.COPHeaHrc_nominal - 1,
+    TChiWatSup_nominal=ctl.TChiWatSup_nominal,
+    TChiWatSup_min=ctl.TChiWatSupHrc_min,
+    TConEnt_nominal=if cfg.have_hrc then
+      hrc.TConLvg_nominal - hrc.QCon_flow_nominal / hrc.mCon_flow_nominal / hrc.cpCon_default
+      else 273.15,
+    TConLvg_nominal=ctl.THeaWatSup_nominal,
+    TConLvg_max=ctl.THeaWatSupHrc_max,
+    PLR_min=abs(ctl.capCooHrc_min / hrc.cap_nominal))
+    "Chiller"
+    annotation (Dialog(group="Sidetream heat recovery chiller",
+      enable=cfg.have_hrc));
+  parameter Buildings.Templates.Components.Data.PumpSingle pumChiWatHrc(
+    final rho_default=cfg.rhoChiWat_default,
+    final typ=if cfg.have_hrc then Buildings.Templates.Components.Types.Pump.Single
+      else Buildings.Templates.Components.Types.Pump.None,
+    m_flow_nominal=hrc.mChiWat_flow_nominal,
+    dp_nominal=hrc.dpChiWat_nominal)
+    annotation (Dialog(group="HRC CHW loop",
+      enable=cfg.have_hrc));
+  parameter Buildings.Templates.Components.Data.PumpSingle pumHeaWatHrc(
+    final rho_default=cfg.rhoHeaWat_default,
+    final typ=if cfg.have_hrc then Buildings.Templates.Components.Types.Pump.Single
+      else Buildings.Templates.Components.Types.Pump.None,
+    m_flow_nominal=hrc.mCon_flow_nominal,
+    dp_nominal=hrc.dpCon_nominal)
+    "HRC HW pump"
+    annotation (Dialog(group="Sidetream heat recovery chiller",
+      enable=cfg.have_hrc));
   annotation (
     defaultComponentName="dat",
     Documentation(
@@ -124,4 +158,6 @@ conditions that differ from the design conditions specified
 in the controller sub-record.
 </p>
 </html>"));
+
+
 end HeatPumpPlant;

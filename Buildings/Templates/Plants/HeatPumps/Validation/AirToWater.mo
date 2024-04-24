@@ -55,7 +55,7 @@ model AirToWater
     dpFixed_nominal=datAll.pla.ctl.dpHeaWatRemSet_max[1] - 3E4)
     "Distribution system approximated by variable flow resistance"
     annotation (Placement(transformation(extent={{110,-110},{130,-90}})));
-  Fluid.Actuators.Valves.TwoWayEqualPercentage     valDisChiWat(
+  Fluid.Actuators.Valves.TwoWayEqualPercentage valDisChiWat(
     redeclare final package Medium=Medium,
     m_flow_nominal=pla.mChiWat_flow_nominal,
     dpValve_nominal=3E4,
@@ -65,6 +65,7 @@ model AirToWater
     annotation (Placement(transformation(extent={{110,-50},{130,-30}})));
   Buildings.Templates.Plants.HeatPumps.AirToWater pla(
     redeclare final package MediumHeaWat=Medium,
+    have_hrc_select=true,
     final dat=datAll.pla,
     final have_chiWat=have_chiWat,
     nHp=3,
@@ -81,8 +82,8 @@ model AirToWater
       have_senVChiWatPri_select=true,
       have_senTHeaWatPriRet_select=true,
       have_senTChiWatPriRet_select=true,
-      have_senTHeaWatSecRet=true,
-      have_senTChiWatSecRet=true,
+      have_senTHeaWatSecRet_select=false,
+      have_senTChiWatSecRet_select=true,
       have_senDpHeaWatRemWir=true))
     "Heat pump plant"
     annotation (Placement(transformation(extent={{-80,-100},{-40,-60}})));

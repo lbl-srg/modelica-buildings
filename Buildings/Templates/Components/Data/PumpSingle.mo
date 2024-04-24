@@ -20,8 +20,10 @@ record PumpSingle "Record for single pump model"
       enable=typ<>Buildings.Templates.Components.Types.Pump.None));
   replaceable parameter Buildings.Fluid.Movers.Data.Generic per(
     pressure(
-      V_flow={0, 1, 2} * m_flow_nominal / rho_default,
-      dp={1.14, 1, 0.42} * dp_nominal))
+      V_flow=if typ<>Buildings.Templates.Components.Types.Pump.None then
+      {0, 1, 2} * m_flow_nominal / rho_default else {0},
+      dp=if typ<>Buildings.Templates.Components.Types.Pump.None then
+      {1.14, 1, 0.42} * dp_nominal else {0}))
     constrainedby Buildings.Fluid.Movers.Data.Generic
     "Performance data"
     annotation(Dialog(enable=typ<>Buildings.Templates.Components.Types.Pump.None));
@@ -32,6 +34,7 @@ record PumpSingle "Record for single pump model"
     annotation(Dialog(enable=false));
 
   annotation (
+  defaultComponentPrefixes = "parameter",
   defaultComponentName="datPum", Documentation(info="<html>
 <p>
 This record provides the set of sizing and operating parameters for 

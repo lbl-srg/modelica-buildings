@@ -178,11 +178,11 @@ block Enable
   Buildings.Controls.OBC.CDL.Logical.Or anyTHeaWatLvg
     "Any leaving HW temperature condition met"
     annotation (Placement(transformation(extent={{-10,-210},{10,-190}})));
-  Buildings.Controls.OBC.CDL.Logical.And anyTChiWatLvgAndCoo
-    "Any leaving CHW temperature condition met and HRC on in cooling mode"
+  Buildings.Controls.OBC.CDL.Logical.And anyTChiWatLvgAndHea
+    "Any leaving CHW temperature condition met and HRC enabled in heating mode"
     annotation (Placement(transformation(extent={{32,-150},{52,-130}})));
-  Buildings.Controls.OBC.CDL.Logical.And anyTHeaWatLvg1
-    "Any leaving HW temperature condition met and HRC on in heating mode"
+  Buildings.Controls.OBC.CDL.Logical.And anyTHeaWatLvgAndCoo
+    "Any leaving HW temperature condition met and HRC enabled in cooling mode"
     annotation (Placement(transformation(extent={{30,-210},{50,-190}})));
   Buildings.Controls.OBC.CDL.Logical.Latch enaDis
     "Maintain true signal until disable condition met"
@@ -286,18 +286,12 @@ equation
     annotation (Line(points={{-28,-168},{-20,-168},{-20,-148},{-12,-148}},color={255,0,255}));
   connect(timTHeaWatLvg2.passed, anyTHeaWatLvg.u2)
     annotation (Line(points={{-28,-228},{-20,-228},{-20,-208},{-12,-208}},color={255,0,255}));
-  connect(enaAndCoo.y, anyTChiWatLvgAndCoo.u1) annotation (Line(points={{-88,20},
-          {20,20},{20,-140},{30,-140}}, color={255,0,255}));
-  connect(enaAndHea.y, anyTHeaWatLvg1.u1) annotation (Line(points={{-88,-20},{18,
-          -20},{18,-200},{28,-200}}, color={255,0,255}));
-  connect(anyTChiWatLvg.y, anyTChiWatLvgAndCoo.u2)
+  connect(anyTChiWatLvg.y,anyTChiWatLvgAndHea. u2)
     annotation (Line(points={{12,-140},{16,-140},{16,-148},{30,-148}},color={255,0,255}));
-  connect(anyTHeaWatLvg.y, anyTHeaWatLvg1.u2)
-    annotation (Line(points={{12,-200},{18,-200},{18,-208},{28,-208}},color={255,0,255}));
-  connect(anyTChiWatLvgAndCoo.y, anyDis.u[4])
+  connect(anyTChiWatLvgAndHea.y, anyDis.u[4])
     annotation (Line(points={{54,-140},{58,-140},{58,-98.6},{68,-98.6}},color={255,0,255}));
-  connect(anyTHeaWatLvg1.y, anyDis.u[5])
-    annotation (Line(points={{52,-200},{60,-200},{60,-97.2},{68,-97.2}},color={255,0,255}));
+  connect(anyTHeaWatLvgAndCoo.y, anyDis.u[5]) annotation (Line(points={{52,-200},
+          {60,-200},{60,-97.2},{68,-97.2}}, color={255,0,255}));
   connect(allEna.y, enaDis.u)
     annotation (Line(points={{52,0},{100,0},{100,-40},{108,-40}},color={255,0,255}));
   connect(anyDis.y, enaDis.clr)
@@ -316,6 +310,12 @@ equation
           {-120,20},{-112,20}}, color={255,0,255}));
   connect(preEna.y, enaAndHea.u1) annotation (Line(points={{-128,200},{-120,200},
           {-120,-20},{-112,-20}}, color={255,0,255}));
+  connect(enaAndCoo.y, anyTHeaWatLvgAndCoo.u1) annotation (Line(points={{-88,20},
+          {22,20},{22,-200},{28,-200}}, color={255,0,255}));
+  connect(anyTHeaWatLvg.y, anyTHeaWatLvgAndCoo.u2) annotation (Line(points={{12,
+          -200},{20,-200},{20,-208},{28,-208}}, color={255,0,255}));
+  connect(enaAndHea.y, anyTChiWatLvgAndHea.u1) annotation (Line(points={{-88,
+          -20},{20,-20},{20,-140},{30,-140}}, color={255,0,255}));
   annotation (
     defaultComponentName="ena",
     Icon(

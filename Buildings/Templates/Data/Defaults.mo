@@ -4,6 +4,8 @@ package Defaults
   extends Modelica.Icons.MaterialPropertiesPackage;
   constant Modelica.Units.SI.Temperature TChiWatSup=7 + 273.15
     "CHW supply temperature (AHRI 551/591)";
+  constant Modelica.Units.SI.Temperature TChiWatSup_min=3.3 + 273.15
+    "Minimum CHW supply temperature (typical)";
   constant Modelica.Units.SI.Temperature TChiWatSup_max=16 + 273.15
     "Maximum CHW supply temperature (typical)";
   constant Modelica.Units.SI.Temperature TChiWatRet=12 + 273.15

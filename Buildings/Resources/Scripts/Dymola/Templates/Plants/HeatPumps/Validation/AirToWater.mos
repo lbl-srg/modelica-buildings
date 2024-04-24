@@ -7,7 +7,7 @@ simulateModel("Buildings.Templates.Plants.HeatPumps.Validation.AirToWater",
 createPlot(
     id=1,
     position={5, 5, 300, 500},
-    y={"pla.ctl.ctl.chaStaHea.capReq.y", "pla.ctl.ctl.chaStaCoo.capReq.y", "pla.capHea_nominal", "pla.capCoo_nominal"},
+    y={"pla.ctl.ctl.chaStaHea.capReq.QReq_flow", "pla.ctl.ctl.chaStaCoo.capReq.QReq_flow", "pla.capHea_nominal", "pla.capCoo_nominal"},
     autoscale=true,
     grid=true,
     timeUnit="h"
@@ -131,6 +131,30 @@ createPlot(
     id=7,
     subPlot=2,
     y={"pla.bus.TChiWatSupSet", "pla.bus.TChiWatPriSup", "pla.bus.TChiWatSecSup", "pla.bus.TChiWatPriRet", "pla.bus.TChiWatSecRet"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=8,
+    position={650, 40, 300, 600},
+    y={"pla.bus.hrc.y1", "pla.bus.hrc.y1Coo", "pla.hrc.hrc.chi.PLR2"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=8,
+    subPlot=2,
+    y={"pla.bus.TChiWatRetUpsHrc", "pla.bus.TChiWatSecRet", "pla.bus.TChiWatSecSup"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=8,
+    subPlot=3,
+    y={"pla.bus.THeaWatRetUpsHrc", "pla.bus.THeaWatSecRet", "pla.bus.THeaWatSecSup"},
     autoscale=true,
     grid=true,
     timeUnit="h"

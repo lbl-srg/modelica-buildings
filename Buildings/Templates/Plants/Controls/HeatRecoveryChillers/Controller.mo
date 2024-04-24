@@ -79,12 +79,14 @@ block Controller
     annotation (Placement(transformation(extent={{-160,-220},{-120,-180}}),
       iconTransformation(extent={{-140,-160},{-100,-120}})));
   StagingRotation.LoadAverage loaChiWat(
+    final typ=Buildings.Templates.Plants.Controls.Types.Application.Cooling,
     final cp_default=cp_default,
     final rho_default=rho_default,
     final dtMea=dtMea)
     "CHW load"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
   StagingRotation.LoadAverage loaHeaWat(
+    final typ=Buildings.Templates.Plants.Controls.Types.Application.Heating,
     final cp_default=cp_default,
     final rho_default=rho_default,
     final dtMea=dtMea)

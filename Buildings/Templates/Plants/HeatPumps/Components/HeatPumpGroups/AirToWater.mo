@@ -6,6 +6,7 @@ model AirToWater
     final typ=Buildings.Templates.Components.Types.HeatPump.AirToWater,
     final typMod=Buildings.Templates.Components.Types.HeatPumpModel.EquationFit);
   Buildings.Templates.Components.HeatPumps.AirToWater hp[nHp](
+    each final show_T=show_T,
     redeclare each final package MediumHeaWat=MediumHeaWat,
     redeclare each final package MediumAir=MediumAir,
     each final is_rev=is_rev,

@@ -137,7 +137,7 @@ block AirToWater
     "Set to true for plants with secondary CHW supply temperature sensor"
     annotation (Evaluate=true, Dialog(group="Sensors"));
   // Following return temperature sensors are:
-  // - optional for primary-secondary plants,
+  // - optional for primary-secondary plants without HRC,
   // - required for plants with HRC: downstream of HRC.
   parameter Boolean have_senTHeaWatSecRet_select(start=false)=false
     "Set to true for plants with secondary HW return temperature sensor"
@@ -1043,6 +1043,7 @@ block AirToWater
     "Evaluate cooling stage availability"
     annotation (Placement(transformation(extent={{-110,60},{-90,80}})));
   StagingRotation.StageChangeCommand chaStaHea(
+    typ=Buildings.Templates.Plants.Controls.Types.Application.Heating,
     final have_inpPlrSta=false,
     final plrSta=plrSta,
     final staEqu=staEqu,
@@ -1072,6 +1073,7 @@ block AirToWater
     "Cooling mode enable"
     annotation (Placement(transformation(extent={{-110,90},{-90,110}})));
   StagingRotation.StageChangeCommand chaStaCoo(
+    final typ=Buildings.Templates.Plants.Controls.Types.Application.Cooling,
     final have_inpPlrSta=false,
     final plrSta=plrSta,
     final staEqu=staEqu,
