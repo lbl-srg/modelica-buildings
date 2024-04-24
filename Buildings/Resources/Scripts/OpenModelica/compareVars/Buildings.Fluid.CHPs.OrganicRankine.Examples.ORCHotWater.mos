@@ -1,11 +1,10 @@
 compareVars :=
   {
-    "orc.QEva_flow",
-    "orc.QCon_flow",
+    "pum.m_flow",
     "orc.PEle",
     "orc.PPum",
-    "etaThe",
+    "orc.QEva_flow",
+    "orc.QCon_flow",
     "senTWatSup.T",
-    "senTWatRet.T",
-    "val.y_actual"
+    "senTWatRet.T"
   };
