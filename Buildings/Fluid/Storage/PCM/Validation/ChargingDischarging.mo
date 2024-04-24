@@ -15,8 +15,8 @@ parameter Modelica.Units.SI.Temperature pcm_Tstart = 311.05;
         Medium, m_flow_nominal=m_flow_nominal,
     T_start=pcm_Tstart)
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TOutHPC(redeclare package Medium
-      = Medium, m_flow_nominal=m_flow_nominal,
+  Buildings.Fluid.Sensors.TemperatureTwoPort TOutHPC(redeclare package Medium =
+        Medium, m_flow_nominal=m_flow_nominal,
     T_start=pcm_Tstart)
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Buildings.Fluid.Sources.MassFlowSource_T HPCPum(
@@ -69,8 +69,8 @@ parameter Modelica.Units.SI.Temperature pcm_Tstart = 311.05;
         Medium, m_flow_nominal=m_flow_nominal,
     T_start=pcm_Tstart)
     annotation (Placement(transformation(extent={{60,-20},{40,-40}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TOutLPC(redeclare package Medium
-      = Medium, m_flow_nominal=m_flow_nominal,
+  Buildings.Fluid.Sensors.TemperatureTwoPort TOutLPC(redeclare package Medium =
+        Medium, m_flow_nominal=m_flow_nominal,
     T_start=pcm_Tstart)
     annotation (Placement(transformation(extent={{0,-20},{-20,-40}})));
   Buildings.Fluid.Sources.Boundary_pT sinLPC(redeclare package Medium =
