@@ -134,8 +134,10 @@ Likewise, an unbalanced air flow ratio less than 2,  i.e., <code>VSup_flow/VExh_
 and <code>VSup_flow/VExh_flow</code> &#60; <i>2</i>, is recommended.
 </P>
 <h4>References</h4>
+<p>
 U.S. Department of Energy 2016.
 &quot;EnergyPlus Engineering Reference&quot;.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
