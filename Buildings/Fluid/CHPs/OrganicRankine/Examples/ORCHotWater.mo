@@ -4,8 +4,6 @@ model ORCHotWater "ORC that outputs hot water at a fixed temperature"
   Buildings.Fluid.CHPs.OrganicRankine.Cycle orc(
     redeclare final package Medium1 = MediumHot,
     redeclare final package Medium2 = MediumCol,
-    tau1=10,
-    tau2=10,
     T2_start=TCol_start,
     redeclare Buildings.Fluid.CHPs.OrganicRankine.Data.WorkingFluids.R123 pro,
     final mHot_flow_nominal=mHot_flow_nominal,
@@ -51,8 +49,9 @@ model ORCHotWater "ORC that outputs hot water at a fixed temperature"
     annotation (Placement(transformation(extent={{120,80},{100,100}})));
   Buildings.Controls.Continuous.LimPID conPI(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    k=0.4,
+    k=0.25,
     Ti=30,
+    Ni=0.2,
     initType=Modelica.Blocks.Types.Init.InitialOutput,
     y_start=0,
     reverseActing=false)
@@ -104,7 +103,6 @@ model ORCHotWater "ORC that outputs hot water at a fixed temperature"
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     T_start=TCol_start,
     addPowerToMedium=false,
-    riseTime=10,
     m_flow_nominal=mCol_flow_nominal,
     dp_nominal=dpCon_nominal + dpValCol_nominal,
     m_flow_start=0)                              "Cooling water pump"
