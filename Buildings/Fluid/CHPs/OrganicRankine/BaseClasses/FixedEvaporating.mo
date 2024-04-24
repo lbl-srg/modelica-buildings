@@ -161,18 +161,12 @@ level=AssertionLevel.warning);
   dTPinEva = THotPin - TWorEva;
 
   // Evaporator internal computation
-  if ena then
-    QEva_flow_internal = mHot_flow * cpHot * (THotIn - THotOut_internal);
-    QEva_flow_internal = mWor_flow_internal * (hExpInl - hPumOut);
-    (THotPin_internal - THotOut_internal) * (hExpInl - hPumOut)
-    = (hPinEva - hPumOut) * (THotIn - THotOut_internal);
-    dTPinEva_set = THotPin_internal - TWorEva;
-  else
-    QEva_flow_internal = 0;
-    mWor_flow_internal = 0;
-    THotOut_internal = THotIn;
-    THotPin_internal = THotIn;
-  end if;
+  QEva_flow_internal = mHot_flow * cpHot * (THotIn - THotOut_internal);
+  QEva_flow_internal = mWor_flow_internal * (hExpInl - hPumOut);
+  (THotPin_internal - THotOut_internal) * (hExpInl - hPumOut)
+  = (hPinEva - hPumOut) * (THotIn - THotOut_internal);
+  dTPinEva_set = THotPin_internal - TWorEva;
+
 
   // Condenser
   QCon_flow = mCol_flow * cpCol * (TColOut - TColIn);
