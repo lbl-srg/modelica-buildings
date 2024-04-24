@@ -17,7 +17,7 @@ protected
   Modelica.Blocks.Sources.RealExpression PEle(
     final y=P_nominal*Buildings.Utilities.Math.Functions.polynomial(a=a, x=uSpe))
     "Electric power consumption"
-    annotation (Placement(transformation(extent={{70,-30},{90,-10}})));
+    annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
 
 initial equation
   assert(abs(sum(a)-1) < Modelica.Constants.eps,
@@ -27,7 +27,7 @@ initial equation
 
 equation
   connect(P, PEle.y)
-    annotation (Line(points={{120,-20},{91,-20}}, color={0,0,127}));
+    annotation (Line(points={{120,-90},{81,-90}}, color={0,0,127}));
   connect(port_a1, hex.port_a1) annotation (Line(points={{-180,80},{-40,80},{
           -40,6},{-10,6}},
                        color={0,127,255}));

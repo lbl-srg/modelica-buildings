@@ -46,12 +46,12 @@ model Effectiveness
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput epsSen(final unit="1")
     "Sensible heat exchanger effectiveness"
-    annotation (Placement(transformation(extent={{100,20},{140,60}}),
-        iconTransformation(extent={{100,10},{140,50}})));
+    annotation (Placement(transformation(extent={{100,30},{140,70}}),
+        iconTransformation(extent={{100,30},{140,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput epsLat(final unit="1")
     "Latent heat exchanger effectiveness"
-    annotation (Placement(transformation(extent={{100,-60},{140,-20}}),
-        iconTransformation(extent={{100,-50},{140,-10}})));
+    annotation (Placement(transformation(extent={{100,-70},{140,-30}}),
+        iconTransformation(extent={{100,-70},{140,-30}})));
 
 protected
   parameter Boolean equSen_nominal = abs(epsSenCoo_nominal-epsSenHea_nominal) < Modelica.Constants.eps

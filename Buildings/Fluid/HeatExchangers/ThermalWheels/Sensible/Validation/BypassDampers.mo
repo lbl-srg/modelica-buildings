@@ -19,14 +19,14 @@ model BypassDampers
     T(displayUnit="degC") = 293.15,
     nPorts=1)
     "Exhaust air source"
-    annotation (Placement(transformation(extent={{80,-40},{60,-20}})));
+    annotation (Placement(transformation(extent={{90,-40},{70,-20}})));
   Modelica.Blocks.Sources.Ramp TSup(
     height=10,
     duration=60,
     offset=273.15 + 30,
     startTime=60)
     "Supply air temperature"
-    annotation (Placement(transformation(extent={{-80,64},{-60,84}})));
+    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Buildings.Fluid.Sources.Boundary_pT sin_1(
     redeclare package Medium = Medium1,
     T=273.15 + 30,
@@ -43,7 +43,7 @@ model BypassDampers
     p(displayUnit="Pa") = 101325,
     nPorts=1)
     "Supply air source"
-    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
+    annotation (Placement(transformation(extent={{-40,26},{-20,46}})));
   Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BypassDampers whe(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
@@ -64,7 +64,7 @@ model BypassDampers
     width=0.8,
     period=400,
     shift=72) "Operating signal"
-    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senExhTem(
     redeclare package Medium = Medium2,
     m_flow_nominal=5)
@@ -77,15 +77,15 @@ model BypassDampers
     annotation (Placement(transformation(extent={{60,20},{40,40}})));
 equation
   connect(TSup.y, sou_1.T_in)
-    annotation (Line(points={{-59,74},{-42,74}}, color={0,0,127}));
+    annotation (Line(points={{-59,40},{-42,40}}, color={0,0,127}));
   connect(sou_1.ports[1],whe.port_a1)
-    annotation (Line(points={{-20,70},{-14,70},{-14,6},{0,6}},
+    annotation (Line(points={{-20,36},{-14,36},{-14,6},{0,6}},
     color={0,127,255}));
   connect(whe.port_a2, sou_2.ports[1])
-    annotation (Line(points={{20,-6},{40,-6},{40,-30},{60,-30}}, color={0,127,255}));
+    annotation (Line(points={{20,-6},{40,-6},{40,-30},{70,-30}}, color={0,127,255}));
   connect(bypDamPos.y, whe.uBypDamPos) annotation (Line(points={{-59,0},{-2,0}},
     color={0,0,127}));
-  connect(opeSig.y, whe.uRot) annotation (Line(points={{-58,30},{-10,30},{-10,8},
+  connect(opeSig.y, whe.uRot) annotation (Line(points={{-58,70},{-10,70},{-10,8},
           {-2,8}}, color={255,0,255}));
   connect(whe.port_b2, senExhTem.port_a) annotation (Line(points={{0,-6},{-20,-6},
           {-20,-34},{-30,-34}}, color={0,127,255}));

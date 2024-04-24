@@ -33,7 +33,7 @@ model BypassDampers
     final dpDamper_nominal=dp2_nominal)
     "Exhaust air damper"
     annotation (Placement(transformation(
-        extent={{10,10},{-10,-10}},rotation=-90,origin={50,-40})));
+        extent={{10,10},{-10,-10}},rotation=-90,origin={60,-30})));
   Buildings.Fluid.Actuators.Dampers.Exponential bypDamExh(
     redeclare package Medium = Medium2,
     final m_flow_nominal=m2_flow_nominal,
@@ -41,10 +41,6 @@ model BypassDampers
     "Exhaust air bypass damper"
     annotation (Placement(transformation(extent={{0,-70},{-20,-50}})));
 protected
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter PEle(
-    final k=P_nominal)
-    "Calculate the electric power consumption"
-    annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
   Modelica.Blocks.Sources.Constant uni(final k=1)
     "Unity signal"
     annotation (Placement(transformation(extent={{-140,110},{-120,130}})));
@@ -54,6 +50,10 @@ protected
   Modelica.Blocks.Math.BooleanToReal booleanToReal
     "Convert boolean input to real output"
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
+  Modelica.Blocks.Math.BooleanToReal PEle(
+    final realTrue=P_nominal,
+    final realFalse=0) "Electric power consumption for motor"
+    annotation (Placement(transformation(extent={{-160,-90},{-140,-70}})));
 equation
   connect(bypDamSup.port_a, port_a1)
     annotation (Line(points={{-60,80},{-180,80}}, color={0,127,255}));
@@ -63,15 +63,14 @@ equation
     annotation (Line(points={{0,-60},{100,-60}},  color={0,127,255}));
   connect(bypDamExh.port_b, port_b2)
     annotation (Line(points={{-20,-60},{-180,-60}}, color={0,127,255}));
-  connect(PEle.y, P)
-    annotation (Line(points={{82,-20},{120,-20}},   color={0,0,127}));
   connect(damExh.port_a, port_a2)
-    annotation (Line(points={{50,-50},{50,-60},{100,-60}}, color={0,127,255}));
+    annotation (Line(points={{60,-40},{60,-60},{100,-60}}, color={0,127,255}));
   connect(sub.y, damSup.y)
     annotation (Line(points={{-78,100},{20,100},{20,60},{-50,60},{-50,52}},
         color={0,0,127}));
   connect(damExh.y,sub. y)
-    annotation (Line(points={{38,-40},{20,-40},{20,100},{-78,100}}, color={0,0,127}));
+    annotation (Line(points={{48,-30},{40,-30},{40,84},{20,84},{20,100},{-78,100}},
+                                                                    color={0,0,127}));
   connect(bypDamSup.y, uBypDamPos)
     annotation (Line(points={{-50,92},{-50,140},{-202,140}}, color={0,0,127}));
   connect(damSup.port_b, hex.port_a1)
@@ -84,7 +83,7 @@ equation
     annotation (Line(points={{10,6},{60,6},{60,80},{100,80}},
         color={0,127,255}));
   connect(hex.port_a2, damExh.port_b)
-    annotation (Line(points={{10,-6},{50,-6},{50,-30}}, color={0,127,255}));
+    annotation (Line(points={{10,-6},{60,-6},{60,-20}}, color={0,127,255}));
   connect(sub.u2, uBypDamPos)
     annotation (Line(points={{-102,94},{-160,94},{-160,140},{-202,140}},
         color={0,0,127}));
@@ -96,14 +95,15 @@ equation
   connect(booleanToReal.y, effCal.uSpe)
     annotation (Line(points={{-139,0},{-120,0},{-120,0},{-102,0}},
         color={0,0,127}));
-  connect(PEle.u, booleanToReal.y)
-    annotation (Line(points={{58,-20},{-114,-20},{-114,0},{-139,0}},
-        color={0,0,127}));
   connect(damSup.port_a, port_a1)
     annotation (Line(points={{-60,40},{-100,40},{-100,80},{-180,80}},
         color={0,127,255}));
   connect(port_b2, port_b2)
     annotation (Line(points={{-180,-60},{-180,-60}}, color={0,127,255}));
+  connect(PEle.y, P) annotation (Line(points={{-139,-80},{80,-80},{80,-90},{120,
+          -90}}, color={0,0,127}));
+  connect(PEle.u, uRot) annotation (Line(points={{-162,-80},{-168,-80},{-168,0},
+          {-200,0}}, color={255,0,255}));
 annotation (
         defaultComponentName="whe",
         Icon(coordinateSystem(extent={{-100,-100},{100,100}}),

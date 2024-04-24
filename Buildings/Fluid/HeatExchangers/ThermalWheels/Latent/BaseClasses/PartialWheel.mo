@@ -59,16 +59,16 @@ partial model PartialWheel
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput P(
     final unit="W")
     "Electric power consumption"
-    annotation (Placement(transformation(extent={{100,-40},{140,0}}),
-        iconTransformation(extent={{100,-40},{140,0}})));
+    annotation (Placement(transformation(extent={{100,-110},{140,-70}}),
+        iconTransformation(extent={{100,-110},{140,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput epsSen(final unit="1")
     "Sensible heat exchanger effectiveness"
     annotation (Placement(transformation(extent={{100,10},{140,50}}),
         iconTransformation(extent={{100,10},{140,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput epsLat(final unit="1")
     "Latent heat exchanger effectiveness"
-    annotation (Placement(transformation(extent={{100,-100},{140,-60}}),
-        iconTransformation(extent={{100,-110},{140,-70}})));
+    annotation (Placement(transformation(extent={{100,-50},{140,-10}}),
+        iconTransformation(extent={{100,-50},{140,-10}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a1(
     redeclare final package Medium = Medium1)
     "Fluid connector a1 of the supply air (positive design flow direction is from port_a1 to port_b1)"
@@ -151,9 +151,11 @@ protected
 
 equation
   connect(effCal.epsSen, hex.epsSen)
-    annotation (Line(points={{-78,3},{-12,3}}, color={0,0,127}));
+    annotation (Line(points={{-78,5},{-46,5},{-46,3},{-12,3}},
+                                               color={0,0,127}));
   connect(effCal.epsLat, hex.epsLat)
-    annotation (Line(points={{-78,-3},{-12,-3}}, color={0,0,127}));
+    annotation (Line(points={{-78,-5},{-46,-5},{-46,-3},{-12,-3}},
+                                                 color={0,0,127}));
   connect(TSup.y, effCal.TSup)
     annotation (Line(points={{-139,-20},{-120,-20},{-120,-4},{-102,-4}},
         color={0,0,127}));
@@ -175,9 +177,9 @@ equation
     annotation (Line(points={{-139,20},{-120,20},{-120,4},{-102,4}},
         color={0,0,127}));
   connect(epsSen, effCal.epsSen) annotation (Line(points={{120,30},{-60,30},{
-          -60,3},{-78,3}}, color={0,0,127}));
-  connect(effCal.epsLat, epsLat) annotation (Line(points={{-78,-3},{-60,-3},{
-          -60,-80},{120,-80}}, color={0,0,127}));
+          -60,5},{-78,5}}, color={0,0,127}));
+  connect(effCal.epsLat, epsLat) annotation (Line(points={{-78,-5},{-60,-5},{
+          -60,-16},{80,-16},{80,-30},{120,-30}}, color={0,0,127}));
 annotation (
         defaultComponentName="whe",
         Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
@@ -226,9 +228,21 @@ annotation (
           fillColor={0,140,72},
           fillPattern=FillPattern.Solid),
         Line(points={{-22,-90},{22,-90}}, color={28,108,200}),
-        Line(points={{-20,88},{22,88}}, color={28,108,200})}),
+        Line(points={{-20,88},{22,88}}, color={28,108,200}),
+        Text(
+          extent={{46,46},{96,22}},
+          textColor={0,0,127},
+          textString="epsSen"),
+        Text(
+          extent={{46,-16},{96,-40}},
+          textColor={0,0,127},
+          textString="epsLat"),
+        Text(
+          extent={{44,-76},{94,-100}},
+          textColor={0,0,127},
+          textString="P")}),
           Diagram(
-        coordinateSystem(preserveAspectRatio=true, extent={{-180,-100},{100,180}})),
+        coordinateSystem(preserveAspectRatio=true, extent={{-180,-100},{100,100}})),
 Documentation(info="<html>
 <p>
 Partial model of an enthalpy recovery wheel.

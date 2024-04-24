@@ -41,10 +41,6 @@ model BypassDampers
     "Exhaust air bypass damper"
     annotation (Placement(transformation(extent={{0,-70},{-20,-50}})));
 protected
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter PEle(
-    final k=P_nominal)
-    "Calculate the electric power consumption"
-    annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
   Modelica.Blocks.Sources.Constant uni(final k=1)
     "Unity signal"
     annotation (Placement(transformation(extent={{-140,110},{-120,130}})));
@@ -54,6 +50,11 @@ protected
   Modelica.Blocks.Math.BooleanToReal booleanToReal
     "Convert boolean input to real output"
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
+  Modelica.Blocks.Math.BooleanToReal PEle(
+    final realTrue=P_nominal,
+    final realFalse=0)
+    "Electric power consumption for motor"
+    annotation (Placement(transformation(extent={{-160,-90},{-140,-70}})));
 equation
   connect(bypDamSup.port_a, port_a1)
     annotation (Line(points={{-60,80},{-180,80}}, color={0,127,255}));
@@ -63,8 +64,6 @@ equation
     annotation (Line(points={{0,-60},{100,-60}},  color={0,127,255}));
   connect(bypDamExh.port_b, port_b2)
     annotation (Line(points={{-20,-60},{-180,-60}}, color={0,127,255}));
-  connect(PEle.y, P)
-    annotation (Line(points={{82,-20},{120,-20}},   color={0,0,127}));
   connect(damExh.port_a, port_a2)
     annotation (Line(points={{50,-50},{50,-60},{100,-60}}, color={0,127,255}));
   connect(sub.y, damSup.y)
@@ -96,14 +95,15 @@ equation
   connect(booleanToReal.y, effCal.uSpe)
     annotation (Line(points={{-139,0},{-120,0},{-120,0},{-102,0}},
         color={0,0,127}));
-  connect(PEle.u, booleanToReal.y)
-    annotation (Line(points={{58,-20},{-114,-20},{-114,0},{-139,0}},
-        color={0,0,127}));
   connect(damSup.port_a, port_a1)
     annotation (Line(points={{-60,40},{-100,40},{-100,80},{-180,80}},
         color={0,127,255}));
   connect(port_b2, port_b2)
     annotation (Line(points={{-180,-60},{-180,-60}}, color={0,127,255}));
+  connect(uRot, PEle.u) annotation (Line(points={{-200,0},{-170,0},{-170,-80},{
+          -162,-80}}, color={255,0,255}));
+  connect(PEle.y, P) annotation (Line(points={{-139,-80},{80,-80},{80,-90},{120,
+          -90}}, color={0,0,127}));
 annotation (
         defaultComponentName="whe",
         Icon(coordinateSystem(extent={{-100,-100},{100,100}}),

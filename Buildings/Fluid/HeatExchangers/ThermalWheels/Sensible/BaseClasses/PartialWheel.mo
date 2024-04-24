@@ -42,12 +42,12 @@ partial model PartialWheel
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput P(
     final unit="W") "Electric power consumption"
-    annotation (Placement(transformation(extent={{100,-40},{140,0}}),
-        iconTransformation(extent={{100,-40},{140,0}})));
+    annotation (Placement(transformation(extent={{100,-110},{140,-70}}),
+        iconTransformation(extent={{100,-110},{140,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput eps(final unit="1")
     "Sensible heat exchanger effectiveness"
-    annotation (Placement(transformation(extent={{100,10},{140,50}}),
-        iconTransformation(extent={{100,0},{140,40}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.HeatExchangerWithInputEffectiveness
     hex(
     redeclare package Medium1 = Medium1,
@@ -148,8 +148,8 @@ equation
         color={0,0,127}));
   connect(effCal.eps, hex.eps)
     annotation (Line(points={{-78,0},{-12,0}}, color={0,0,127}));
-  connect(effCal.eps, eps) annotation (Line(points={{-78,0},{-40,0},{-40,30},{
-          120,30}},
+  connect(effCal.eps, eps) annotation (Line(points={{-78,0},{-40,0},{-40,32},{
+          80,32},{80,0},{120,0}},
                 color={0,0,127}));
 annotation (
         defaultComponentName="whe",
@@ -199,7 +199,15 @@ annotation (
           fillColor={28,108,200},
           fillPattern=FillPattern.Solid),
         Line(points={{-22,-90},{22,-90}}, color={28,108,200}),
-        Line(points={{-20,88},{22,88}}, color={28,108,200})}),
+        Line(points={{-20,88},{22,88}}, color={28,108,200}),
+        Text(
+          extent={{44,14},{94,-10}},
+          textColor={0,0,127},
+          textString="epsSen"),
+        Text(
+          extent={{46,-74},{96,-98}},
+          textColor={0,0,127},
+          textString="P")}),
           Diagram(
         coordinateSystem(preserveAspectRatio=true, extent={{-180,-100},{100,180}})),
 Documentation(info="<html>
