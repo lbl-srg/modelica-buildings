@@ -220,7 +220,9 @@ See the Thermodynamic Properties section of this document.
 </p>
 <h4>Cycle Architecture and Governing Equations</h4>
 <p>
-The implemented ORC assumes a simple architecture shown in the figure below.
+The implemented ORC assumes the architecture shown in the figure below.
+It has two variants depending on the shape of the saturation lines of
+the working fluid and <i>&eta;<sub>exp</sub></i>.
 For any given working fluid, the cycle is fully determined by providing
 the working fluid evaporating temperature <i>T<sub>w,eva</sub></i>,
 the working fluid condensing temperature <i>T<sub>w,con</sub></i>,
@@ -253,11 +255,11 @@ Q&#775;<sub>eva</sub> = m&#775;<sub>w</sub>&nbsp;(h<sub>ExpInl</sub> - h<sub>Pum
 <p>
 where the subscripts are:<br/>
 <i>eva</i> - evaporator;<br/>
-<i>h</i> - hot fluid of the evaporator, i.e. the fluid carrying waste heat;<br/>
+<i>h</i> - hot fluid of the evaporator, i.e. the fluid carrying heat;<br/>
 <i>w</i> - working fluid.
 </p>
 <p>
-The cycle accommodates the varying flow rate and temperature
+The cycle accommodates the variable flow rate and temperature
 of the waste heat stream by changing <i>m&#775;<sub>w</sub></i>
 to maintain a constant pinch point (PP) temperature difference
 at the evaporator <i>&Delta;T<sub>pin,eva</sub></i>.
@@ -285,15 +287,27 @@ where the subscripts are:<br/>
 <i>c</i> - cold fluid in the condenser.<br/>
 </p>
 <p>
-On this side, <i>T<sub>w,con</sub></i> is used to maintain the PP difference.
-</p>
-<p>
-The electric power output of the expander
-and electric power consumption of the pump are
+The electric power output of the expander is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-P<sub>exp</sub> = m&#775;<sub>w</sub>&nbsp;(h<sub>ExpInl</sub> - h<sub>ExpOut</sub>),<br/>
+P<sub>exp</sub> = m&#775;<sub>w</sub>&nbsp;(h<sub>ExpInl</sub> - h<sub>ExpOut</sub>).
+</p>
+<p>
+The electric power consumption of the pump is estimated by
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
 P<sub>pum</sub> = m&#775;<sub>w</sub>&nbsp;(h<sub>PumOut</sub> - h<sub>PumInl</sub>).
+</p>
+<p>
+The pump work is estimated by
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+P<sub>pum</sub> = m&#775;<sub>w</sub>&nbsp;
+(p<sub>eva</sub> - p<sub>con</sub>) / (&rho;<sub>PumInl</sub>&nbsp;&eta;<sub>pum</sub>).
+</p>
+<p>
+This takes advantage of the negligible density change of the liquid
+to avoid property search in the subcooled liquid region.
 </p>
 <p>
 In summary, the model has the following information flow:
@@ -306,9 +320,9 @@ In summary, the model has the following information flow:
 </tr>
 <tr>
 <td>
-<i>T<sub>w,Eva</sub></i> - Working fluid evaporating temperature,<br/>
-<i>&Delta;T<sub>pin,Eva</sub></i> - Evaporator pinch point temperature differential,<br/>
-<i>&Delta;T<sub>pin,Con</sub></i> - Condenser pinch point temperature differential,<br/>
+<i>T<sub>w,eva</sub></i> - Working fluid evaporating temperature,<br/>
+<i>&Delta;T<sub>pin,eva</sub></i> - Evaporator pinch point temperature differential,<br/>
+<i>&Delta;T<sub>pin,con</sub></i> - Condenser pinch point temperature differential,<br/>
 <i>&eta;<sub>exp</sub></i> - Expander efficiency,<br/>
 <i>&eta;<sub>pum</sub></i> - Pump efficiency.
 </td>
@@ -332,50 +346,48 @@ In summary, the model has the following information flow:
 </table>
 <h4>Constraints</h4>
 <p>
-This cycle controls <i>m&#775;<sub>w</sub></i> to maintain the prescribed
+The ORC system controls <i>m&#775;<sub>w</sub></i> to maintain the prescribed
 evaporator PP temperature difference set point.
-An upper limit and a lower limit are imposed on
+Although the model does not implement this as a control loop,
+an upper limit and a lower limit are imposed on
 <i>m&#775;<sub>w</sub></i> to reflect the characteristics of a sized cycle.
 </p>
 <ul>
 <li>
-If the flow rate required for <i>&Delta;T<sub>pin,eva</sub></i> to
-be maintained at the set value is higher than the upper limit,
-<i>m&#775;<sub>w</sub></i> stays at this upper limit and
-<i>&Delta;T<sub>pin,eva</sub></i> is allowed to go higher than its set point.
-This may happen when the incoming waste heat fluid has a high flow rate
-or a high incoming temperature, i.e. carries more energy than the system
-is sized to process.
+<i>m&#775;<sub>w</sub></i> will not go higher than a set
+upper limit. Rather, <i>m&#775;<sub>w</sub></i> stays at the
+user-specified upper limit and <i>&Delta;T<sub>pin,eva</sub></i>
+increases beyond its set point.
+This may happen when the incoming hot fluid has a
+high flow rate or a high incoming temperature, i.e., it
+carries more energy than the cycle is sized to process.
 </li>
 <li>
-If the flow rate required for <i>&Delta;T<sub>pin,eva</sub></i> to
-be maintained at the set value is lower than the lower limit,
-<i>m&#775;<sub>w</sub></i> is reset to zero and
-the <i>&Delta;T<sub>pin,eva</sub></i> set point is ignored.
-This may happen when the incoming waste heat fluid has a low flow rate
-or a low incoming temperature, i.e. carries too little energy.
-This limit also protects the cycle from losing heat through the evaporator
-when the incoming fluid is colder than the set evaporating temperature.
+When <i>m&#775;<sub>w</sub></i> needs to go lower than a set lower limit,
+<i>m&#775;<sub>w</sub></i> is set to zero and the cycle is switched off. This
+may happen when the incoming waste heat fluid has
+a low flow rate or a low incoming temperature, i.e., it
+carries too little energy.
 </li>
 </ul>
 <p>
 How these constraints affect the cycle's behaviour reacting to
-a varying waste heat fluid stream is demonstrated in
+a variable waste heat fluid stream is demonstrated in
 <a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.Validation.VariableSource\">
 Buildings.Fluid.CHPs.OrganicRankine.Validation.VariableSource</a>
 </p>
 <h4>Thermodynamic Properties</h4>
 <p>
-The thermodynamic properties of the WF are not computed by typical
+The thermodynamic properties of the working fluid are not computed by typical
 Modelica medium model, but by interpolating data records in
 <a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.Data\">
 Buildings.Fluid.CHPs.OrganicRankine.Data</a>.
 Specific enthalpy and specific entropy values are provided as support points
 on the saturated liquid line, the saturated vapour line, and
-a superheated vapour line (the reference line).
+a superheated vapour line (called the reference line).
 The values of these support points are found using CoolProp
 (<a href=\"https://www.coolprop.org\">https://www.coolprop.org</a>;
-Bell et al., 2014) under its Python wrapper.
+Bell et al., 2014) under its Python wrapper and stored as Modelica records.
 </p>
 <p>
 Thermodynamic state points in the cycle are determined by various schemes
@@ -386,40 +398,42 @@ of interpolation and extrapolation.
 alt=\"SupportCurves\" width=\"400\" height=\"300\"/></p>
 <ul>
 <li>
-For any point <i>A</i> on a support curve, its property <i>y<sub>A</sub></i>
-(enthalpy or entropy) is found by
+On the saturation line, the specific enthalpy, specific
+entropy or density, here labeled as <i>y<sub>A</sub></i>, are obtained
+using cubic Hermite spline interpolation as
 <p align=\"center\" style=\"font-style:italic;\">
-y<sub>A</sub> = s(u<sub>A</sub>,d),
+y<sub>A</sub> = s(u<sub>A</sub>,d)
 </p>
 where <i>s(&middot;,&middot;)</i> is a cubic Hermite spline,
-<i>u<sub>A</sub></i> is the input property,
-and <i>d</i> defines the support points.
-For the saturation curves, <i>u</i> can be either the saturation pressure
-or the saturation temperature;
-for the reference line, <i>u</i> is the pressure.
+<i>u<sub>A</sub></i> is the input property, and
+<i>d</i> are the support points.
+For the saturation curves, the user can configure the model
+to use either the saturation pressure or the saturation
+temperature for <i>u<sub>A</sub></i>;
+for the reference line <i>u<sub>A</sub></i> is the pressure.
 </li>
 <li>
-<i>B</i> is a point in between the two saturation lines.
-The only scenario where it needs to be found is when it is
-the isentropic expander outlet (<i>ExpOutIse</i>). In this case,
-its enthalpy <i>h<sub>B</sub></i> is found by
+If the expansion is isentropic, then its outlet point
+(ExpOutIse) is a point in between the saturation lines.
+In this case, its enthalpy <i>h<sub>B</sub></i> is obtained from
 <p align=\"center\" style=\"font-style:italic;\">
 (h<sub>B</sub> - h<sub>1</sub>) / (s<sub>B</sub> - s<sub>1</sub>)
 = (h<sub>2</sub> - h<sub>1</sub>) / (s<sub>2</sub> - s<sub>1</sub>)
 </p>
-where <i>s<sub>B</sub></i> is known because it is the same as the expander
-inlet entropy, and all other points are on saturation lines and
-therefore can be found using the method for <i>A</i>.
+where <i>s<sub>B</sub></i> is known because it equals the expander inlet
+entropy, and all other points are on the saturation
+line and therefore can be found as point <i>A</i>.
 </li>
 <li>
-<i>C</i> is a point in the superheated vapour region.
-The isobaric lines are not straight in this section, but they are assumed
-near linear to apply the same method as B using the saturated vapour line
-and the reference line, albeit with less accuracy.
+<i>C</i> is a point in the superheated vapor region. This is the case for
+the expander inlet or outlet depending on the shape of the cycle.
+The isobaric lines are not straight in this section, but they are
+assumed linear so that the method for <i>B</i> can be applied using the
+saturated vapour line and the reference line, albeit with less accuracy.
 </li>
 </ul>
 <p>
-The cycle can be completely defined by providing the following three variables:
+The cycle can be completely defined by providing the following:
 evaporating temperature <i>T<sub>eva</sub></i> or pressure <i>p<sub>eva</sub></i>,
 condensing temperature <i>T<sub>con</sub></i> or pressure <i>p<sub>con</sub></i>,
 expander efficiency <i>&eta;<sub>exp</sub></i>, and
