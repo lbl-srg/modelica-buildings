@@ -223,14 +223,6 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
     <td valign=\"top\">xxx.
     </td>
     </tr>
-<tr><td valign=\"top\">Buildings.Fluid.CHPs.OrganicRankine
-    </td>
-    <td valign=\"top\">Package of an organic Rankine cycle,
-                       including working fluid data records and district system integration.
-                       This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3433\">issue 3433</a>.
-    </td>
-</tr>
 </table>
 <!-- New components for existing libraries -->
 <p>
