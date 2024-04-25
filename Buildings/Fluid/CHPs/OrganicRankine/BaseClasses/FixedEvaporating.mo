@@ -8,7 +8,7 @@ model FixedEvaporating
 // Evaporator
   parameter Modelica.Units.SI.TemperatureDifference dTPinEva_set(
     final min = 0)
-    "Set evaporator pinch point temperature differential"
+    "Set evaporator pinch point temperature difference"
     annotation(Dialog(group="Evaporator"));
   parameter Modelica.Units.SI.SpecificHeatCapacity cpHot
     "Constant specific heat capacity"
@@ -40,11 +40,11 @@ model FixedEvaporating
     start = TWorEva + dTPinEva_set)
     "Hot fluid temperature at pinch point";
   Modelica.Units.SI.TemperatureDifference dTPinEva(start = dTPinEva_set)
-    "Pinch point temperature differential of evaporator";
+    "Pinch point temperature difference of evaporator";
 
 // Condenser
   parameter Modelica.Units.SI.TemperatureDifference dTPinCon
-    "Pinch point temperature differential of condenser"
+    "Pinch point temperature difference of condenser"
     annotation(Dialog(group="Condenser"));
   parameter Modelica.Units.SI.SpecificHeatCapacity cpCol
     "Constant specific heat capacity"
@@ -68,7 +68,7 @@ model FixedEvaporating
         transformation(extent={{100,-100},{140,-60}}),iconTransformation(extent={{100,-90},
             {120,-70}})));
   Modelica.Units.SI.ThermodynamicTemperature TColOut
-    "Fluid temperature out of the condenser, intermediate variable";
+    "Fluid temperature out of the condenser";
   Modelica.Units.SI.ThermodynamicTemperature TColPin(
     start = 300)
     "Cold fluid temperature at pinch point";

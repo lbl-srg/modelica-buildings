@@ -50,7 +50,7 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
     annotation(Dialog(group="Evaporator"));
   parameter Modelica.Units.SI.TemperatureDifference dTPinEva_set(
     final min = 0) = 5
-    "Set evaporator pinch point temperature differential"
+    "Set evaporator pinch point temperature difference"
     annotation(Dialog(group="Evaporator"));
   parameter Boolean useEvaporatingPressure = false
     "Set true to specify working fluid evaporating pressure instead of temperature"
@@ -71,7 +71,7 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
     annotation(Dialog(group="Condenser"));
   parameter Modelica.Units.SI.TemperatureDifference dTPinCon(
     final min = 0) = 10
-    "Condenser pinch point temperature differential"
+    "Condenser pinch point temperature difference"
     annotation(Dialog(group="Condenser"));
   parameter Boolean useLowCondenserPressureWarning = true
     "If true, issues warning if pCon < 101325 Pa"
@@ -321,8 +321,8 @@ In summary, the model has the following information flow:
 <tr>
 <td>
 <i>T<sub>w,eva</sub></i> - Working fluid evaporating temperature,<br/>
-<i>&Delta;T<sub>pin,eva</sub></i> - Evaporator pinch point temperature differential,<br/>
-<i>&Delta;T<sub>pin,con</sub></i> - Condenser pinch point temperature differential,<br/>
+<i>&Delta;T<sub>pin,eva</sub></i> - Evaporator pinch point temperature difference,<br/>
+<i>&Delta;T<sub>pin,con</sub></i> - Condenser pinch point temperature difference,<br/>
 <i>&eta;<sub>exp</sub></i> - Expander efficiency,<br/>
 <i>&eta;<sub>pum</sub></i> - Pump efficiency.
 </td>
