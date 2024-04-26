@@ -33,11 +33,12 @@ The computation of the
 </p>
 
 <h5>Performance data</h5>
+<p>
 Different sources exist to find ratings data of individual collectors.
 However, not all data might be available in one single data sheet.
 The table below specifies which input data of the model can be found in several
 well-known data sources:
-<p>
+</p>
 <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr>
 <th>Input data</th>
@@ -88,9 +89,9 @@ well-known data sources:
 <td> IAM(50°), eta0, a1, a2 </td>
 </tr>
 </table>
-</p>
 <p>
 Some extra important remarks regarding the performance data:
+</p>
 <ul>
 <li>
 Different areas can be defined for a solar collector: the gross, absorber, and
@@ -122,6 +123,7 @@ therefore correctly take this into account (e.g. using an empirical correction
 factor).
 </li>
 <li>
+<p>
 The relation between the incidence angle modifier (IAM) and incidence angle
 <code>&theta;</code> is calculated using cubic splines and measurement data
 provided in the data sheets.
