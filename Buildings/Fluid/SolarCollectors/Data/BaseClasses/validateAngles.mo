@@ -2,12 +2,12 @@ within Buildings.Fluid.SolarCollectors.Data.BaseClasses;
 function validateAngles "Function to validate the provided angles"
   extends Modelica.Icons.Function;
   input Modelica.Units.NonSI.Angle_deg[:] incAngDatDeg(
-    final min=0,
-    final max=90)
+    each final min=0,
+    each final max=90)
     "Incident angle data in degrees";
   input Real[:] incAngModDat(
-    final min=0,
-    final unit="1")
+    each final min=0,
+    each final unit="1")
     "Incident angle modifier data";
   output Boolean valid;
 protected
