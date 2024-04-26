@@ -18,14 +18,12 @@ block PartialHeatLoss
     each unit = "K",
     each displayUnit="degC") "Temperature of the heat transfer fluid"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
-  Modelica.Blocks.Interfaces.RealOutput QLos[nSeg](
+  Modelica.Blocks.Interfaces.RealOutput QLos_flow[nSeg](
     each quantity="HeatFlowRate",
     each unit="W",
-    each displayUnit="W") = {QLos_internal[i] *
-      smooth(1, if TFlu[i] > TMedMin2
-        then 1
-        else Buildings.Utilities.Math.Functions.smoothHeaviside(TFlu[i]-TMedMin, dTMin))
-      for i in 1:nSeg}
+    each displayUnit="W") = {QLos_internal[i]*smooth(1, if TFlu[i] > TMedMin2
+     then 1 else Buildings.Utilities.Math.Functions.smoothHeaviside(TFlu[i] -
+    TMedMin, dTMin)) for i in 1:nSeg}
     "Limited heat loss rate at current conditions"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 

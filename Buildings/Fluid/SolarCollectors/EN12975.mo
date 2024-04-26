@@ -58,7 +58,7 @@ equation
       points={{-22,14},{-30,14},{-30,-20},{-11,-20}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(heaLos.QLos, QLos.Q_flow) annotation (Line(
+  connect(heaLos.QLos_flow, QLos.Q_flow) annotation (Line(
       points={{1,20},{50,20}},
       color={0,0,127},
       smooth=Smooth.None));
