@@ -15,31 +15,31 @@ model Tubular "Example showing the use of Tubular"
     nSeg=9,
     azi=0.3,
     til=0.5) "Tubular solar collector model"
-             annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+             annotation (Placement(transformation(extent={{10,-10},{30,10}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
     Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     "Weather data input file"
-    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
+    annotation (Placement(transformation(extent={{-20,60},{0,80}})));
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     use_p_in=false,
     p(displayUnit="Pa") = 101325,
-    nPorts=1) "Inlet for fluid flow" annotation (Placement(transformation(extent={{70,-10},
-            {50,10}})));
+    nPorts=1) "Inlet for fluid flow" annotation (Placement(transformation(extent={{90,-10},
+            {70,10}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TOut(
     redeclare package Medium = Medium,
     T_start(displayUnit="K"),
     m_flow_nominal=solCol.m_flow_nominal) "Temperature sensor"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TIn(redeclare package Medium =
     Medium, m_flow_nominal=solCol.m_flow_nominal) "Temperature sensor"
-    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Modelica.Blocks.Sources.Sine sine(
     f=3/86400,
     offset=101325,
     amplitude=-0.1*solCol.dp_nominal)
-    annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
+    annotation (Placement(transformation(extent={{-80,-18},{-60,2}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
     T=273.15 + 10,
@@ -50,31 +50,31 @@ model Tubular "Example showing the use of Tubular"
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
-        origin={-60,0})));
+        origin={-40,0})));
 equation
   connect(solCol.port_b,TOut. port_a) annotation (Line(
-      points={{10,0},{20,0}},
+      points={{30,0},{40,0}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TOut.port_b,sin. ports[1]) annotation (Line(
-      points={{40,0},{50,0}},
+      points={{60,0},{70,0}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TIn.port_b,solCol. port_a) annotation (Line(
-      points={{-20,0},{-10,0}},
+      points={{0,0},{10,0}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(weaDat.weaBus, solCol.weaBus) annotation (Line(
-      points={{-20,70},{-10,70},{-10,8}},
+      points={{0,70},{10,70},{10,8}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(sine.y, sou.p_in) annotation (Line(
-      points={{-79,0},{-72,0},{-72,-8}},
+      points={{-59,-8},{-52,-8}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(sou.ports[1], TIn.port_a) annotation (Line(
-      points={{-50,-8.88178e-16},{-40,-8.88178e-16},{-40,0}},
+      points={{-30,0},{-20,0}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (__Dymola_Commands(file=
