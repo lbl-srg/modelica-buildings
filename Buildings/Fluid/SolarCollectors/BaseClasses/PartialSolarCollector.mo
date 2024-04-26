@@ -187,7 +187,7 @@ initial equation
     level = AssertionLevel.warning);
 
   if sysConfig==Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Array then
-    assert(nPanelsPar_internal*nPanelsSer_internal==nPanels_internal,
+    assert(abs(nPanelsPar_internal*nPanelsSer_internal-nPanels_internal) > 1E-6,
       "In " + getInstanceName() +
       ": The product of the number of panels in series and parallel is not equal to the total number of panels in the array.",
       level = AssertionLevel.error);
