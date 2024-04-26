@@ -157,7 +157,7 @@ multiplying the longitudinal and transversal IAM;
 using either the longitudinal or transversal IAM.
 </li>
 </ul>
-The model should therefore be used with extra care when dealing with
+The model should therefore be used with care when dealing with
 evacuated tube collectors.
 </li>
 <li>
@@ -225,9 +225,9 @@ the collector field has a mass flow rate equal to
 </li>
 <li>
 <code>Array</code>: If <code>Array</code> is selected it is assumed that the
-panels are mounted as a rectangular array with <code>nPanelsPar</code> rows, 
-each having <code>nPanelsSer</code> panels in series. As a result there is a 
-pressure drop corresponding to <code>dp_nominal</code> for each panel per row 
+panels are mounted as a rectangular array with <code>nPanelsPar</code> rows,
+each having <code>nPanelsSer</code> panels in series. As a result there is a
+pressure drop corresponding to <code>dp_nominal</code> for each panel per row
 and the effective <code>dp_nominal</code> for the system is
 <code>dp_nominal</code> * <code>nPanelsSer</code>.
 </li>
