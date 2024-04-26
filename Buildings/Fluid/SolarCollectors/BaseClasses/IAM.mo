@@ -1,5 +1,6 @@
 within Buildings.Fluid.SolarCollectors.BaseClasses;
 function IAM "Function for incident angle modifier"
+  extends Modelica.Icons.Function;
 
   input Modelica.Units.SI.Angle incAng "Incident angle";
   input Modelica.Units.SI.Angle[:] incAngDat "Incident angle data";
