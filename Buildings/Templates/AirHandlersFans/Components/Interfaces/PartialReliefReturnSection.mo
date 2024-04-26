@@ -18,12 +18,16 @@ partial model PartialReliefReturnSection "Interface class for relief/return air 
   parameter Buildings.Templates.Components.Types.Fan typFanRet
     "Return fan type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Integer nFanRel
-    "Number of relief fans"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Integer nFanRet
+  parameter Integer nFanRet(
+    start=if typFanRet==Buildings.Templates.Components.Types.Fan.None then 0 else 1)
     "Number of return fans"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+    annotation (Evaluate=true,
+    Dialog(enable=typFanRet==Buildings.Templates.Components.Types.Fan.ArrayVariable));
+  parameter Integer nFanRel(
+    start=if typFanRel==Buildings.Templates.Components.Types.Fan.None then 0 else 1)
+    "Number of relief fans"
+    annotation (Evaluate=true,
+    Dialog(enable=typFanRel==Buildings.Templates.Components.Types.Fan.ArrayVariable));
 
   parameter Boolean have_recHea
     "Set to true in case of heat recovery";

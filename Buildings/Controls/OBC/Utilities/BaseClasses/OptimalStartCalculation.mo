@@ -108,7 +108,7 @@ protected
     final k=tOptMax)
     "Maximum optimal start time"
     annotation (Placement(transformation(extent={{210,-40},{230,-20}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol(
+  Buildings.Controls.OBC.CDL.Logical.TrueHold truHol(
     final duration=tOptMax+11*3600)
     "Hold the start time for timer"
     annotation (Placement(transformation(extent={{-240,0},{-220,20}})));
