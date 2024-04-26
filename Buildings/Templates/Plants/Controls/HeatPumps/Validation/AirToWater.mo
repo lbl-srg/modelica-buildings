@@ -377,8 +377,8 @@ equation
           -28,140},{-28,-4},{-2,-4}},
                                   color={0,0,127}));
   connect(TChiWatRet.y, ctl.TChiWatPriRet) annotation (Line(points={{-88,140},{
-          -28,140},{-28,20},{-2,20},{-2,10}},
-                                          color={0,0,127}));
+          -28,140},{-28,10},{-2,10}},
+                                  color={0,0,127}));
   connect(TChiWatRetUpsHrc.y, ctl.TChiWatRetUpsHrc) annotation (Line(points={{-88,180},
           {-30,180},{-30,-6},{-2,-6}},      color={0,0,127}));
   connect(THeaWatRetUpsHrc.y, ctl.THeaWatRetUpsHrc) annotation (Line(points={{-58,200},

@@ -404,17 +404,6 @@ block AirToWater
     "Indices of lead/lag alternate equipment"
     annotation (Evaluate=true,
     Dialog(group="Equipment staging and rotation"));
-  parameter Real dtVal(
-    final min=0,
-    start=90,
-    final unit="s")=90
-    "Nominal valve timing"
-    annotation (Dialog(tab="Advanced",group="Equipment staging and rotation",
-      enable=have_valHpInlIso or have_valHpOutIso));
-  parameter Real dtHp(
-    final min=0,
-    final unit="s")=180
-    annotation (Dialog(tab="Advanced",group="Equipment staging and rotation"));
   parameter Real plrSta(
     final max=1,
     final min=0,
@@ -422,6 +411,25 @@ block AirToWater
     final unit="1")=0.9
     "Staging part load ratio"
     annotation (Dialog(group="Equipment staging and rotation"));
+  parameter Real dTHea(
+    final min=0,
+    final unit="K")=2.5
+    "Delta-T triggering stage up command for heating appplications (>0)"
+    annotation (Dialog(tab="Advanced",group="Equipment staging and rotation",
+    enable=have_heaWat));
+  parameter Real dTCoo(
+    final min=0,
+    final unit="K")=1
+    "Delta-T triggering stage up command for cooling applications (>0)"
+    annotation (Dialog(tab="Advanced",group="Equipment staging and rotation",
+    enable=have_chiWat));
+  parameter Real dtVal(
+    final min=0,
+    start=90,
+    final unit="s")=90
+    "Nominal valve timing"
+    annotation (Dialog(tab="Advanced",group="Equipment staging and rotation",
+      enable=have_valHpInlIso or have_valHpOutIso));
   parameter Real dtRunSta(
     final min=0,
     final unit="s",
@@ -433,6 +441,18 @@ block AirToWater
     final unit="s")=900
     "Off time required before equipment is deemed available again"
     annotation (Dialog(tab="Advanced",group="Equipment staging and rotation"));
+  parameter Real dtPri(
+    final min=0,
+    final unit="s")=900
+    "Runtime with high primary-setpoint Delta-T before staging up"
+    annotation (Dialog(tab="Advanced",group="Equipment staging and rotation"));
+  parameter Real dtSec(
+    final min=0,
+    final unit="s",
+    start=600)=600
+    "Runtime with high secondary-primary and secondary-setpoint Delta-T before staging up"
+    annotation (Dialog(tab="Advanced",group="Equipment staging and rotation",
+    enable=have_pumHeaWatSec or have_pumChiWatSec));
   parameter Real dtRunPumSta(
     final min=0,
     start=600,
@@ -672,7 +692,7 @@ block AirToWater
     annotation(Dialog(tab="Advanced", group="Sidestream HRC", enable=have_hrc));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant u1AvaHp[nHp](each k=true)
     "Heat pump available signal – Block does not handle faulted equipment yet"
-    annotation (Placement(transformation(extent={{-250,250},{-230,270}}),
+    annotation (Placement(transformation(extent={{-230,250},{-210,270}}),
         iconTransformation(extent={{-240,220},{-200,260}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nReqPlaHeaWat
     if have_heaWat
@@ -1035,7 +1055,8 @@ block AirToWater
     each final have_pumHeaWatSec=have_pumHeaWatSec,
     each final have_pumChiWatSec=have_pumChiWatSec,
     each final dtVal=dtVal,
-    each final dtOff=dtHp) "Event sequencing"
+    each final dtOff=dtOff)
+                           "Event sequencing"
     annotation (Placement(transformation(extent={{140,284},{160,312}})));
   StagingRotation.StageAvailability avaStaCoo(
     final staEqu=staEqu)
@@ -1044,14 +1065,17 @@ block AirToWater
     annotation (Placement(transformation(extent={{-110,60},{-90,80}})));
   StagingRotation.StageChangeCommand chaStaHea(
     typ=Buildings.Templates.Plants.Controls.Types.Application.Heating,
+    final have_pumSec=have_pumHeaWatSec,
     final have_inpPlrSta=false,
     final plrSta=plrSta,
     final staEqu=staEqu,
     final capEqu=capHeaHp_nominal,
     final dtRun=dtRunSta,
     final cp_default=cp_default,
-    final rho_default=rho_default)
-    if have_heaWat
+    final rho_default=rho_default,
+    final dT=dTHea,
+    final dtPri=dtPri,
+    final dtSec=dtSec) if have_heaWat
     "Generate heating stage transition command"
     annotation (Placement(transformation(extent={{-40,308},{-20,332}})));
   StagingRotation.SortRuntime sorRunTimHea(
@@ -1074,14 +1098,17 @@ block AirToWater
     annotation (Placement(transformation(extent={{-110,90},{-90,110}})));
   StagingRotation.StageChangeCommand chaStaCoo(
     final typ=Buildings.Templates.Plants.Controls.Types.Application.Cooling,
+    final have_pumSec=have_pumChiWatSec,
     final have_inpPlrSta=false,
     final plrSta=plrSta,
     final staEqu=staEqu,
     final capEqu=capCooHp_nominal,
     final dtRun=dtRunSta,
     final cp_default=cp_default,
-    final rho_default=rho_default)
-    if have_chiWat
+    final rho_default=rho_default,
+    final dT=dTCoo,
+    final dtPri=dtPri,
+    final dtSec=dtSec) if have_chiWat
     "Generate cooling stage transition command"
     annotation (Placement(transformation(extent={{-40,50},{-20,74}})));
   Utilities.StageIndex idxStaCoo(
@@ -1412,7 +1439,7 @@ equation
   connect(VChiWatSec_flow, staPumChiWatSec.V_flow)
     annotation (Line(points={{-280,-160},{-154,-160},{-154,132},{188,132}},color={0,0,127}));
   connect(THeaWatPriRet, THeaWatRet.u)
-    annotation (Line(points={{-280,80},{-256,80},{-256,40},{-232,40}},
+    annotation (Line(points={{-280,80},{-240,80},{-240,40},{-232,40}},
                                                   color={0,0,127}));
   connect(THeaWatRet.y, chaStaHea.TRet)
     annotation (Line(points={{-208,40},{-168,40},{-168,306},{-50,306},{-50,314},{-42,314}},
@@ -1420,7 +1447,7 @@ equation
   connect(THeaWatSecRet, THeaWatRet.uPh) annotation (Line(points={{-280,-40},{-240,
           -40},{-240,34},{-232,34}}, color={0,0,127}));
   connect(VHeaWatPri_flow, VHeaWat_flow.u)
-    annotation (Line(points={{-280,60},{-242,60},{-242,20},{-202,20}},
+    annotation (Line(points={{-280,60},{-244,60},{-244,20},{-202,20}},
                                                   color={0,0,127}));
   connect(VHeaWat_flow.y, chaStaHea.V_flow)
     annotation (Line(points={{-178,20},{-166,20},{-166,304},{-48,304},{-48,312},{-42,312}},
@@ -1428,7 +1455,7 @@ equation
   connect(VHeaWatSec_flow, VHeaWat_flow.uPh) annotation (Line(points={{-280,-80},
           {-206,-80},{-206,14},{-202,14}},  color={0,0,127}));
   connect(TChiWatPriRet, TChiWatRet.u)
-    annotation (Line(points={{-280,20},{-256,20},{-256,-20},{-232,-20}},
+    annotation (Line(points={{-280,20},{-246,20},{-246,-20},{-232,-20}},
                                                     color={0,0,127}));
   connect(TChiWatRet.y, chaStaCoo.TRet)
     annotation (Line(points={{-208,-20},{-164,-20},{-164,48},{-50,48},{-50,56},{-42,56}},
@@ -1472,7 +1499,7 @@ equation
     annotation (Line(points={{12,100},{20,100},{20,-12},{-46,-12},{-46,4},{-42,4}},
       color={255,127,0}));
   connect(comStaCoo.y1, chaStaCoo.u1StaPro)
-    annotation (Line(points={{-18,-6},{-10,-6},{-10,48},{-46,48},{-46,64},{-42,64}},
+    annotation (Line(points={{-18,-6},{-10,-6},{-10,48},{-46,48},{-46,66},{-42,66}},
       color={255,0,255}));
   connect(u1Hp_actual, comStaCoo.u1_actual)
     annotation (Line(points={{-280,300},{-60,300},{-60,-4},{-42,-4}},color={255,0,255}));
@@ -1486,7 +1513,8 @@ equation
   connect(y1HpPre.y, comStaHea.u1)
     annotation (Line(points={{178,380},{-60,380},{-60,260},{-42,260}},color={255,0,255}));
   connect(comStaHea.y1, chaStaHea.u1StaPro)
-    annotation (Line(points={{-18,254},{-10,254},{-10,306},{-44,306},{-44,322},{-42,322}},
+    annotation (Line(points={{-18,254},{-10,254},{-10,306},{-44,306},{-44,324},{
+          -42,324}},
       color={255,0,255}));
   connect(resHeaWat.dpSet, dpHeaWatRemSet)
     annotation (Line(points={{112,246},{242,246},{242,-60},{280,-60}},color={0,0,127}));
@@ -1505,12 +1533,12 @@ equation
   connect(comStaCoo.y1, resChiWat.u1StaPro)
     annotation (Line(points={{-18,-6},{-10,-6},{-10,-46},{88,-46}},color={255,0,255}));
   connect(resChiWat.TSupSet, chaStaCoo.TSupSet)
-    annotation (Line(points={{112,-46},{116,-46},{116,-20},{-52,-20},{-52,58},{-42,
-          58}},
+    annotation (Line(points={{112,-46},{116,-46},{116,-20},{-52,-20},{-52,62},{-42,
+          62}},
       color={0,0,127}));
   connect(resHeaWat.TSupSet, chaStaHea.TSupSet)
-    annotation (Line(points={{112,234},{118,234},{118,220},{-52,220},{-52,316},{
-          -42,316}},
+    annotation (Line(points={{112,234},{118,234},{118,220},{-52,220},{-52,320},{
+          -42,320}},
       color={0,0,127}));
   connect(ctlPumPri.yPumHeaWatPriHdr, yPumHeaWatPriHdr)
     annotation (Line(points={{212,86},{222,86},{222,100},{280,100}},color={0,0,127}));
@@ -1557,8 +1585,8 @@ equation
   connect(dpChiWatLoc, ctlPumChiWatSec.dpLoc)
     annotation (Line(points={{-280,-280},{184,-280},{184,-28},{188,-28}},
                                                                        color={0,0,127}));
-  connect(u1AvaHp.y, avaEquHeaCoo.u1Ava) annotation (Line(points={{-228,260},{
-          -200,260},{-200,220},{-154,220}}, color={255,0,255}));
+  connect(u1AvaHp.y, avaEquHeaCoo.u1Ava) annotation (Line(points={{-208,260},{-200,
+          260},{-200,220},{-154,220}},      color={255,0,255}));
   connect(repTChiWatSupSet.y, swiTSupSet.u3) annotation (Line(points={{172,-140},
           {178,-140},{178,-128},{188,-128}}, color={0,0,127}));
   connect(repTHeaWatSupSet.y, swiTSupSet.u1) annotation (Line(points={{172,-100},
@@ -1619,6 +1647,14 @@ equation
           {192,-320},{192,-236},{198,-236}}, color={255,0,255}));
   connect(u1ReqFloConWat, hrc.u1ReqFloConWat) annotation (Line(points={{-280,-340},
           {194,-340},{194,-238},{198,-238}}, color={255,0,255}));
+  connect(TChiWatPriSup, chaStaCoo.TPriSup) annotation (Line(points={{-280,40},{
+          -242,40},{-242,60},{-42,60}}, color={0,0,127}));
+  connect(THeaWatSecSup, chaStaHea.TSecSup) annotation (Line(points={{-280,-20},
+          {-250,-20},{-250,316},{-42,316}}, color={0,0,127}));
+  connect(TChiWatSecSup, chaStaCoo.TSecSup) annotation (Line(points={{-280,-100},
+          {-248,-100},{-248,58},{-42,58}}, color={0,0,127}));
+  connect(THeaWatPriSup, chaStaHea.TPriSup) annotation (Line(points={{-280,100},
+          {-252,100},{-252,318},{-42,318}}, color={0,0,127}));
   annotation (
     defaultComponentName="ctl",
     Icon(

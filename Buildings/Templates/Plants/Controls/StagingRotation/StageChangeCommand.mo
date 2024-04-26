@@ -4,6 +4,9 @@ block StageChangeCommand
   parameter Buildings.Templates.Plants.Controls.Types.Application typ
     "Type of application"
     annotation (Evaluate=true);
+  parameter Boolean have_pumSec
+    "Set to true for primary-secondary distribution, false for primary-only"
+    annotation (Evaluate=true);
   parameter Boolean have_inpPlrSta=false
     "Set to true to use an input signal for SPLR, false to use a parameter"
     annotation (Evaluate=true);
@@ -41,21 +44,35 @@ block StageChangeCommand
     "Default specific heat capacity used to compute required capacity";
   parameter Real rho_default(min=0, unit="kg/m3")
     "Default density used to compute required capacity";
+  parameter Real dT(
+    final min=0,
+    final unit="K")
+    "Delta-T triggering stage up command (>0)";
+  parameter Real dtPri(
+    final min=0,
+    final unit="s")=900
+    "Runtime with high primary-setpoint Delta-T before staging up";
+  parameter Real dtSec(
+    final min=0,
+    final unit="s",
+    start=600)=600
+    "Runtime with high secondary-primary and secondary-setpoint Delta-T before staging up"
+    annotation(Dialog(enable=have_pumSec));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1AvaSta[nSta]
     "Stage available signal"
     annotation (Placement(transformation(extent={{-240,60},{-200,100}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1StaPro
     "Staging process in progress"
-    annotation (Placement(transformation(extent={{-240,-40},{-200,0}}),
-      iconTransformation(extent={{-140,0},{-100,40}})));
+    annotation (Placement(transformation(extent={{-240,0},{-200,40}}),
+      iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uPlrSta(
     final unit="1",
     final min=0,
     final max=1)
     if have_inpPlrSta
     "Input signal for staging part load ratio"
-    annotation (Placement(transformation(extent={{-240,-200},{-200,-160}}),
+    annotation (Placement(transformation(extent={{-240,-240},{-200,-200}}),
       iconTransformation(extent={{-140,-120},{-100,-80}})));
   // We allow the stage index to be zero, e.g., when the plant is disabled.
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uSta(
@@ -67,17 +84,17 @@ block StageChangeCommand
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRet(
     final unit="K",
     displayUnit="degC") "Return temperature used to compute required capacity"
-    annotation (Placement(transformation(extent={{-240,-120},{-200,-80}}),
+    annotation (Placement(transformation(extent={{-240,-160},{-200,-120}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupSet(
     final unit="K",
     displayUnit="degC")
     "Active supply temperature setpoint used to compute required capacity"
-    annotation (Placement(transformation(extent={{-240,-80},{-200,-40}}),
-      iconTransformation(extent={{-140,-60},{-100,-20}})));
+    annotation (Placement(transformation(extent={{-240,-100},{-200,-60}}),
+      iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput V_flow(
     final unit="m3/s") "Volume flow rate used to compute required capacity"
-    annotation (Placement(transformation(extent={{-240,-160},{-200,-120}}),
+    annotation (Placement(transformation(extent={{-240,-200},{-200,-160}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Up
     "Stage up command"
@@ -112,21 +129,21 @@ block StageChangeCommand
     annotation (Placement(transformation(extent={{70,210},{90,230}})));
   Buildings.Controls.OBC.CDL.Reals.Greater gre(h=1E-4*min(capEqu))
     "Compare OPLR to SPLR (hysteresis is to avoid chattering with some simulators)"
-    annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
+    annotation (Placement(transformation(extent={{-90,-110},{-70,-90}})));
   Buildings.Templates.Plants.Controls.Utilities.TimerWithReset timUp(
     final t=dtRun)
     "Timer"
-    annotation (Placement(transformation(extent={{110,-70},{130,-50}})));
+    annotation (Placement(transformation(extent={{-50,-110},{-30,-90}})));
   Buildings.Controls.OBC.CDL.Reals.Less les(h=1E-4*min(capEqu))
     "Compare OPLR to SPLR (hysteresis is to avoid chattering with some simulators)"
-    annotation (Placement(transformation(extent={{60,-130},{80,-110}})));
+    annotation (Placement(transformation(extent={{-90,-150},{-70,-130}})));
   Buildings.Templates.Plants.Controls.Utilities.TimerWithReset timDow(
     final t=dtRun)
     "Timer"
-    annotation (Placement(transformation(extent={{110,-130},{130,-110}})));
+    annotation (Placement(transformation(extent={{-50,-150},{-30,-130}})));
   Utilities.HoldReal hol(final dtHol=dtRun)
     "Hold value of required capacity at stage change"
-    annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
+    annotation (Placement(transformation(extent={{-130,-110},{-110,-90}})));
   Buildings.Controls.OBC.CDL.Integers.Max maxInt
     "Maximum between stage index and 1"
     annotation (Placement(transformation(extent={{-140,190},{-120,210}})));
@@ -180,24 +197,49 @@ block StageChangeCommand
     annotation (Placement(transformation(extent={{110,170},{130,190}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply splTimCapSta
     "SPLR times capacity of active stage"
-    annotation (Placement(transformation(extent={{20,-130},{40,-110}})));
+    annotation (Placement(transformation(extent={{-130,-150},{-110,-130}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply splTimCapStaLow
     "SPLR times capacity of next available lower stage"
-    annotation (Placement(transformation(extent={{20,-170},{40,-150}})));
+    annotation (Placement(transformation(extent={{-130,-190},{-110,-170}})));
   Utilities.PlaceholderReal parPlrSta(
     final have_inp=have_inpPlrSta,
     final have_inpPh=false,
     final u_internal=plrSta) "Parameter value for SPLR"
-    annotation (Placement(transformation(extent={{-160,-190},{-140,-170}})));
+    annotation (Placement(transformation(extent={{-190,-230},{-170,-210}})));
   Buildings.Controls.OBC.CDL.Logical.FallingEdge endStaPro
     "True when staging process terminates"
-    annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
+    annotation (Placement(transformation(extent={{-130,10},{-110,30}})));
   LoadAverage capReq(
     final typ=typ,
     final cp_default=cp_default,
     final rho_default=rho_default,
     final dtMea=dtMea) "Compute required capacity"
-    annotation (Placement(transformation(extent={{-160,-110},{-140,-90}})));
+    annotation (Placement(transformation(extent={{-170,-110},{-150,-90}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TPriSup(final unit="K",
+      displayUnit="degC") "Primary supply temperature" annotation (Placement(
+        transformation(extent={{-240,-40},{-200,0}}), iconTransformation(extent={{-140,
+            -40},{-100,0}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSecSup(final unit="K",
+      displayUnit="degC") if have_pumSec
+                          "Secondary supply temperature" annotation (Placement(
+        transformation(extent={{-240,-60},{-200,-20}}), iconTransformation(
+          extent={{-140,-60},{-100,-20}})));
+  FailsafeCondition faiSaf(
+    final typ=typ,
+    final have_pumSec=have_pumSec,
+    final dT=dT,
+    final dtPri=dtPri,
+    final dtSec=dtSec) "Failsafe stage up condition "
+    annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
+  Buildings.Controls.OBC.CDL.Logical.Or  effOrFaiSaf
+    "Efficiency OR failsafe condition met"
+    annotation (Placement(transformation(extent={{10,-70},{30,-50}})));
+  Buildings.Controls.OBC.CDL.Logical.Not notFaiSaf
+    "Failsafe stage up condition is not true"
+    annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
+  Buildings.Controls.OBC.CDL.Logical.And effAndNotFaiSaf
+    "Efficiency condition met AND failsafe stage up condition is not true"
+    annotation (Placement(transformation(extent={{10,-150},{30,-130}})));
 equation
   connect(intScaRep.y, reqEquSta.index)
     annotation (Line(points={{-82,200},{0,200},{0,208}},color={255,127,0}));
@@ -254,55 +296,82 @@ equation
   connect(intToRea.y, setZer.u2)
     annotation (Line(points={{32,80},{100,80},{100,174},{108,174}},color={0,0,127}));
   connect(hol.y, gre.u1)
-    annotation (Line(points={{42,-60},{58,-60}},color={0,0,127}));
+    annotation (Line(points={{-108,-100},{-92,-100}},
+                                                color={0,0,127}));
   connect(splTimCapSta.y, gre.u2)
-    annotation (Line(points={{42,-120},{44,-120},{44,-68},{58,-68}},color={0,0,127}));
+    annotation (Line(points={{-108,-140},{-106,-140},{-106,-108},{-92,-108}},
+                                                                    color={0,0,127}));
   connect(capSta.y, splTimCapSta.u2)
-    annotation (Line(points={{92,220},{184,220},{184,-140},{10,-140},{10,-126},
-          {18,-126}},
+    annotation (Line(points={{92,220},{136,220},{136,-160},{-136,-160},{-136,-146},
+          {-132,-146}},
       color={0,0,127}));
   connect(setZer.y, splTimCapStaLow.u2)
-    annotation (Line(points={{132,180},{180,180},{180,-180},{10,-180},{10,-166},
-          {18,-166}},
+    annotation (Line(points={{132,180},{140,180},{140,-200},{-136,-200},{-136,-186},
+          {-132,-186}},
       color={0,0,127}));
   connect(splTimCapStaLow.y, les.u2)
-    annotation (Line(points={{42,-160},{50,-160},{50,-128},{58,-128}},color={0,0,127}));
+    annotation (Line(points={{-108,-180},{-100,-180},{-100,-148},{-92,-148}},
+                                                                      color={0,0,127}));
   connect(hol.y, les.u1)
-    annotation (Line(points={{42,-60},{50,-60},{50,-120},{58,-120}},color={0,0,127}));
+    annotation (Line(points={{-108,-100},{-100,-100},{-100,-140},{-92,-140}},
+                                                                    color={0,0,127}));
   connect(gre.y, timUp.u)
-    annotation (Line(points={{82,-60},{108,-60}},
+    annotation (Line(points={{-68,-100},{-52,-100}},
                                                 color={255,0,255}));
   connect(les.y, timDow.u)
-    annotation (Line(points={{82,-120},{108,-120}},
+    annotation (Line(points={{-68,-140},{-52,-140}},
                                                   color={255,0,255}));
   connect(uPlrSta, parPlrSta.u)
-    annotation (Line(points={{-220,-180},{-162,-180}}, color={0,0,127}));
-  connect(parPlrSta.y, splTimCapSta.u1) annotation (Line(points={{-138,-180},{0,
-          -180},{0,-114},{18,-114}},    color={0,0,127}));
-  connect(parPlrSta.y, splTimCapStaLow.u1) annotation (Line(points={{-138,-180},
-          {0,-180},{0,-154},{18,-154}},      color={0,0,127}));
+    annotation (Line(points={{-220,-220},{-192,-220}}, color={0,0,127}));
+  connect(parPlrSta.y, splTimCapSta.u1) annotation (Line(points={{-168,-220},{-140,
+          -220},{-140,-134},{-132,-134}},
+                                        color={0,0,127}));
+  connect(parPlrSta.y, splTimCapStaLow.u1) annotation (Line(points={{-168,-220},
+          {-140,-220},{-140,-174},{-132,-174}},
+                                             color={0,0,127}));
   connect(u1StaPro, hol.u1)
-    annotation (Line(points={{-220,-20},{0,-20},{0,-60},{18,-60}},     color={255,0,255}));
-  connect(u1StaPro, endStaPro.u)
-    annotation (Line(points={{-220,-20},{18,-20}}, color={255,0,255}));
+    annotation (Line(points={{-220,20},{-140,20},{-140,-100},{-132,-100}},
+                                                                       color={255,0,255}));
   connect(endStaPro.y, timUp.reset)
-    annotation (Line(points={{42,-20},{90,-20},{90,-68},{108,-68}},
+    annotation (Line(points={{-108,20},{-60,20},{-60,-108},{-52,-108}},
                                                                   color={255,0,255}));
   connect(endStaPro.y, timDow.reset)
-    annotation (Line(points={{42,-20},{90,-20},{90,-128},{108,-128}},
+    annotation (Line(points={{-108,20},{-60,20},{-60,-148},{-52,-148}},
                                                                     color={255,0,255}));
-  connect(timUp.passed, y1Up) annotation (Line(points={{132,-68},{140,-68},{140,
-          80},{220,80}}, color={255,0,255}));
-  connect(timDow.passed, y1Dow) annotation (Line(points={{132,-128},{140,-128},
-          {140,-80},{220,-80}},color={255,0,255}));
-  connect(TSupSet, capReq.TSupSet) annotation (Line(points={{-220,-60},{-180,
-          -60},{-180,-94},{-162,-94}}, color={0,0,127}));
+  connect(TSupSet, capReq.TSupSet) annotation (Line(points={{-220,-80},{-180,-80},
+          {-180,-94},{-172,-94}},      color={0,0,127}));
   connect(TRet, capReq.TRet)
-    annotation (Line(points={{-220,-100},{-162,-100}}, color={0,0,127}));
-  connect(V_flow, capReq.V_flow) annotation (Line(points={{-220,-140},{-180,
-          -140},{-180,-106},{-162,-106}}, color={0,0,127}));
-  connect(capReq.QReq_flow, hol.u) annotation (Line(points={{-138,-100},{0,-100},
-          {0,-66},{18,-66}}, color={0,0,127}));
+    annotation (Line(points={{-220,-140},{-192,-140},{-192,-100},{-172,-100}},
+                                                       color={0,0,127}));
+  connect(V_flow, capReq.V_flow) annotation (Line(points={{-220,-180},{-180,-180},
+          {-180,-106},{-172,-106}},       color={0,0,127}));
+  connect(capReq.QReq_flow, hol.u) annotation (Line(points={{-148,-100},{-144,-100},
+          {-144,-106},{-132,-106}},
+                             color={0,0,127}));
+  connect(u1StaPro, endStaPro.u)
+    annotation (Line(points={{-220,20},{-132,20}}, color={255,0,255}));
+  connect(TPriSup, faiSaf.TPriSup)
+    annotation (Line(points={{-220,-20},{-92,-20}}, color={0,0,127}));
+  connect(endStaPro.y, faiSaf.reset) annotation (Line(points={{-108,20},{-100,20},
+          {-100,-12},{-92,-12}}, color={255,0,255}));
+  connect(TSecSup, faiSaf.TSecSup) annotation (Line(points={{-220,-40},{-100,-40},
+          {-100,-24},{-92,-24}}, color={0,0,127}));
+  connect(TSupSet, faiSaf.TSupSet) annotation (Line(points={{-220,-80},{-180,-80},
+          {-180,-16},{-92,-16}}, color={0,0,127}));
+  connect(faiSaf.y1, effOrFaiSaf.u1) annotation (Line(points={{-68,-20},{-20,-20},
+          {-20,-60},{8,-60}}, color={255,0,255}));
+  connect(timUp.passed, effOrFaiSaf.u2) annotation (Line(points={{-28,-108},{-20,
+          -108},{-20,-68},{8,-68}}, color={255,0,255}));
+  connect(effOrFaiSaf.y, y1Up) annotation (Line(points={{32,-60},{180,-60},{180,
+          80},{220,80}}, color={255,0,255}));
+  connect(faiSaf.y1, notFaiSaf.u) annotation (Line(points={{-68,-20},{-56,-20},
+          {-56,-40},{-52,-40}}, color={255,0,255}));
+  connect(timDow.passed, effAndNotFaiSaf.u2)
+    annotation (Line(points={{-28,-148},{8,-148}}, color={255,0,255}));
+  connect(notFaiSaf.y, effAndNotFaiSaf.u1) annotation (Line(points={{-28,-40},{
+          0,-40},{0,-140},{8,-140}}, color={255,0,255}));
+  connect(effAndNotFaiSaf.y, y1Dow) annotation (Line(points={{32,-140},{180,
+          -140},{180,-80},{220,-80}}, color={255,0,255}));
   annotation (
     defaultComponentName="chaSta",
     Icon(
@@ -385,7 +454,7 @@ A stage up command is triggered if any of the following is true:
 </p>
 <ul>
 <li>
-Availability Condition: The equipment necessary to operate the 
+Availability condition: The equipment necessary to operate the 
 current stage is unavailable. 
 The availability condition is not subject to the minimum stage runtime requirement.
 (This condition is implemented in
@@ -393,15 +462,23 @@ The availability condition is not subject to the minimum stage runtime requireme
 Buildings.Templates.Plants.Controls.Utilities.StageIndex</a>.)
 </li>
 <li>
-Efficiency Condition: Current stage <i>OPLR &gt; plrSta</i> for a duration of <code>dtRun</code>.
+Efficiency condition: Current stage <i>OPLR &gt; plrSta</i> for a duration of <code>dtRun</code>.
+</li>
+<li>
+Failsafe condition: see 
+<a href=\"modelica://Buildings.Templates.Plants.Controls.StagingRotation.FailsafeCondition\">
+Buildings.Templates.Plants.Controls.StagingRotation.FailsafeCondition</a>.
 </li>
 </ul>
 <p>
-A stage down command is triggered if the following is true:
+A stage down command is triggered if both of the following are true:
 </p>
 <ul>
 <li>
 Next available lower stage <i>OPLR &lt; plrSta</i> for a duration of <code>dtRun</code>.
+</li>
+<li>
+The failsafe stage up condition is not true.
 </li>
 </ul>
 <h4>
@@ -429,7 +506,7 @@ of <code>dtRun</code>.
 <ul>
 <li>
 May 31, 2024, by Antoine Gautier:<br/>
-Refactored using <code>LoadAverage</code> block.
+Refactored using <code>LoadAverage</code> block and added failsafe stage up condition.
 </li>
 <li>
 March 29, 2024, by Antoine Gautier:<br/>

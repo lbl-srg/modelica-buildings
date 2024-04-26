@@ -87,16 +87,20 @@ model Enable
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold u1Coo
     "Compute cooling plant enable signal"
     annotation (Placement(transformation(extent={{-30,-110},{-10,-90}})));
-  StagingRotation.LoadAverage loaChiWat(final cp_default=cp_default, final
+  StagingRotation.LoadAverage loaChiWat(
+    typ=Buildings.Templates.Plants.Controls.Types.Application.Cooling,
+                                        final cp_default=cp_default, final
       rho_default=rho_default) "Available CHW load"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
   Buildings.Templates.Plants.Controls.HeatRecoveryChillers.Enable ena(
-    TChiWatSup_min=276.15,
-    THeaWatSup_max=333.15,
+    TChiWatSup_min=277.15,
+    THeaWatSup_max=328.15,
     capCoo_min=0.3*capCoo_nominal,
     capHea_min=0.3*0.3*capHea_nominal)
     annotation (Placement(transformation(extent={{30,20},{50,40}})));
-  StagingRotation.LoadAverage loaHeaWat(final cp_default=cp_default, final
+  StagingRotation.LoadAverage loaHeaWat(
+    typ=Buildings.Templates.Plants.Controls.Types.Application.Heating,
+                                        final cp_default=cp_default, final
       rho_default=rho_default) "Available HW load"
     annotation (Placement(transformation(extent={{-30,50},{-10,70}})));
   Components.Controls.StatusEmulator sta "Emulate HRC status"
@@ -280,18 +284,16 @@ equation
     Documentation(info="<html>
 <p>
 This validates
-Buildings.Templates.Plants.Controls.HeatRecoveryChillers.Enable
+<a href=\"modelica://Buildings.Templates.Plants.Controls.HeatRecoveryChillers.Enable\">
+Buildings.Templates.Plants.Controls.HeatRecoveryChillers.Enable</a>
 and 
-Buildings.Templates.Plants.Controls.HeatRecoveryChillers.ModeControl
+<a href=\"modelica://Buildings.Templates.Plants.Controls.HeatRecoveryChillers.ModeControl\">
+Buildings.Templates.Plants.Controls.HeatRecoveryChillers.ModeControl</a>.
 </p>
 <p>
 Controller exposed to varying HW and CHW ∆T.
-The CHW ∆T is calculted based on the HW ∆T and the equation relating
-the condenser heat flow rate to the evaporator heat flow rate.
-Not representative of realistic operation but allows testing the 
-disabling logic based on a low CHWT leaving the HRC – with real
-system feedback, the leaving CHWT will rather be near setpoint when
-the HRC is controlled in cooling mode.
+Testing the disabling logic based on a high HRC leaving HWT when the HRC
+is in cooling control mode.
 </p>
 </html>"));
 end Enable;
