@@ -9,7 +9,8 @@ block ASHRAESolarGain
 
   parameter Real y_intercept(final unit="1") "y intercept(maximum efficiency)";
   parameter Modelica.Units.SI.Angle[:] incAngDat "Incidence angle modifier spline derivative coefficients";
-  parameter Real[size(incAngDat,1)] incAngModDat(final unit="1") "Incidence angle modifier spline derivative coefficients";
+  parameter Real[size(incAngDat,1)] incAngModDat(
+    each final unit="1") "Incidence angle modifier spline derivative coefficients";
   parameter Boolean use_shaCoe_in = false "Enable input connector for shaCoe"
     annotation(Dialog(group="Shading"));
 
