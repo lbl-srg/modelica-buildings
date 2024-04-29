@@ -250,12 +250,14 @@ The evaporator heat exchange is governed by the following equations:
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 Q&#775;<sub>eva</sub> = m&#775;<sub>h</sub>&nbsp;c<sub>p,h</sub>&nbsp;(T<sub>h,in</sub> - T<sub>h,out</sub>),<br/>
-Q&#775;<sub>eva</sub> = m&#775;<sub>w</sub>&nbsp;(h<sub>ExpInl</sub> - h<sub>PumOut</sub>),
+Q&#775;<sub>eva</sub> = m&#775;<sub>w</sub>&nbsp;(h<sub>exp,in</sub> - h<sub>pum,out</sub>),
 </p>
 <p>
 where the subscripts are:<br/>
 <i>eva</i> - evaporator;<br/>
+<i>exp</i> - expander;<br/>
 <i>h</i> - hot fluid of the evaporator, i.e. the fluid carrying heat;<br/>
+<i>pum</i> - pump;<br/>
 <i>w</i> - working fluid.
 </p>
 <p>
@@ -266,8 +268,8 @@ at the evaporator <i>&Delta;T<sub>pin,eva</sub></i>.
 This difference is found by the following equations:
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-(T<sub>pin,eva</sub> - T<sub>h,out</sub>)&nbsp;(h<sub>ExpInl</sub> - h<sub>PumOut</sub>)
-= (T<sub>h,in</sub> - T<sub>h,out</sub>)&nbsp;(h<sub>EvaPin</sub> - h<sub>PumOut</sub>),<br/>
+(T<sub>pin,eva</sub> - T<sub>h,out</sub>)&nbsp;(h<sub>exp,in</sub> - h<sub>pum,out</sub>)
+= (T<sub>h,in</sub> - T<sub>h,out</sub>)&nbsp;(h<sub>eva,pin</sub> - h<sub>pum,out</sub>),<br/>
 &Delta;T<sub>pin,eva</sub> = T<sub>pin,eva</sub> - T<sub>w,eva</sub>.
 </p>
 <p>
@@ -276,9 +278,9 @@ replaced by their condenser counterparts where appropriate:
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 Q&#775;<sub>con</sub> = m&#775;<sub>c</sub>&nbsp;c<sub>p,c</sub>&nbsp;(T<sub>c,in</sub> - T<sub>c,out</sub>),<br/>
-Q&#775;<sub>con</sub> = m&#775;<sub>w</sub>&nbsp;(h<sub>ExpOut</sub> - h<sub>PumInl</sub>),<br/>
-(T<sub>c,pin</sub> - T<sub>c,in</sub>)&nbsp;(h<sub>ExpOut</sub> - h<sub>PumInl</sub>)
-= (T<sub>c,out</sub> - T<sub>c,in</sub>)&nbsp;(h<sub>ConPin</sub> - h<sub>PumInl</sub>),<br/>
+Q&#775;<sub>con</sub> = m&#775;<sub>w</sub>&nbsp;(h<sub>exp,out</sub> - h<sub>pum,in</sub>),<br/>
+(T<sub>c,pin</sub> - T<sub>c,in</sub>)&nbsp;(h<sub>exp,out</sub> - h<sub>pum,in</sub>)
+= (T<sub>c,out</sub> - T<sub>c,in</sub>)&nbsp;(h<sub>con,pin</sub> - h<sub>pum,in</sub>),<br/>
 &Delta;T<sub>con,pin</sub> = T<sub>w,con</sub> - T<sub>c,pin</sub>,
 </p>
 <p>
@@ -290,20 +292,20 @@ where the subscripts are:<br/>
 The electric power output of the expander is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-P<sub>exp</sub> = m&#775;<sub>w</sub>&nbsp;(h<sub>ExpInl</sub> - h<sub>ExpOut</sub>).
+P<sub>exp</sub> = m&#775;<sub>w</sub>&nbsp;(h<sub>exp,in</sub> - h<sub>exp,out</sub>).
 </p>
 <p>
 The electric power consumption of the pump is estimated by
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-P<sub>pum</sub> = m&#775;<sub>w</sub>&nbsp;(h<sub>PumOut</sub> - h<sub>PumInl</sub>).
+P<sub>pum</sub> = m&#775;<sub>w</sub>&nbsp;(h<sub>pum,out</sub> - h<sub>pum,in</sub>).
 </p>
 <p>
 The pump work is estimated by
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 P<sub>pum</sub> = m&#775;<sub>w</sub>&nbsp;
-(p<sub>eva</sub> - p<sub>con</sub>) / (&rho;<sub>PumInl</sub>&nbsp;&eta;<sub>pum</sub>).
+(p<sub>eva</sub> - p<sub>con</sub>) / (&rho;<sub>pum,in</sub>&nbsp;&eta;<sub>pum</sub>).
 </p>
 <p>
 This takes advantage of the negligible density change of the liquid
@@ -413,9 +415,9 @@ temperature for <i>u<sub>A</sub></i>;
 for the reference line <i>u<sub>A</sub></i> is the pressure.
 </li>
 <li>
-If the expansion is isentropic, then its outlet point
-(ExpOutIse) is a point in between the saturation lines.
-In this case, its enthalpy <i>h<sub>B</sub></i> is obtained from
+If the fluid is wet, the isentropic expander outlet point is in between
+the saturation lines. In this case, its enthalpy <i>h<sub>B</sub></i>
+is obtained from
 <p align=\"center\" style=\"font-style:italic;\">
 (h<sub>B</sub> - h<sub>1</sub>) / (s<sub>B</sub> - s<sub>1</sub>)
 = (h<sub>2</sub> - h<sub>1</sub>) / (s<sub>2</sub> - s<sub>1</sub>)
@@ -439,8 +441,8 @@ condensing temperature <i>T<sub>con</sub></i> or pressure <i>p<sub>con</sub></i>
 expander efficiency <i>&eta;<sub>exp</sub></i>, and
 pump efficiency <i>&eta;<sub>pum</sub></i>.
 Most of the important state points can be found via the interpolation schemes
-described above. The only exceptions are <i>ExpInl</i> and <i>ExpOut</i>
-which depend on the type of the fluid and <i>&eta;<sub>exp</sub></i>.
+described above. The only exceptions are the expander inlet, expander outlet,
+and the pump outlet.
 </p>
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Fluid/CHPs/OrganicRankine/ComputationPaths.png\"
@@ -451,20 +453,20 @@ A dry cycle is a cycle where the expansion starts from
 the saturated vapour line and ends in the superheated vapour region.
 For either a dry fluid (a) or a wet fluid (b) undergoing such a cycle,
 <p align=\"center\" style=\"font-style:italic;\">
-h<sub>ExpOut</sub> - h<sub>ExpInl</sub>
-= (h<sub>ExpOutIse</sub> - h<sub>ExpInl</sub>) &eta;<sub>Exp</sub>
+h<sub>exp,out</sub> - h<sub>exp,in</sub>
+= (h<sub>exp,out,ise</sub> - h<sub>exp,in</sub>) &eta;<sub>exp</sub>
 </p>
-where <i>h<sub>ExpOut</sub></i> is solved and <i>h<sub>ExpInl</sub></i> is known.
+where <i>h<sub>exp,out</sub></i> is solved and <i>h<sub>exp,in</sub></i> is known.
 </li>
 <li>
 A wet cycle is a cycle where the expansion starts from
 the superheated vapour region and ends on the saturated vapour line.
 In this scenario,
 <p align=\"center\" style=\"font-style:italic;\">
-h<sub>ExpOut</sub> - h<sub>ExpInl</sub>
-= (h<sub>ExpOut</sub> - h<sub>ExpInlIse</sub>) &eta;<sub>exp</sub>
+h<sub>exp,out</sub> - h<sub>exp,in</sub>
+= (h<sub>exp,out</sub> - h<sub>exp,inl,ise</sub>) &eta;<sub>exp</sub>
 </p>
-where <i>h<sub>ExpOut</sub></i> is known and <i>h<sub>ExpInl</sub></i> is solved.
+where <i>h<sub>exp,out</sub></i> is known and <i>h<sub>exp,in</sub></i> is solved.
 For this fluid and this <i>&eta;<sub>exp</sub></i>,
 if the expansion started from the saturated vapour line,
 the outlet point would end up under the dome.
