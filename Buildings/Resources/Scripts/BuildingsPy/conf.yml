@@ -171,15 +171,13 @@
   optimica:
     comment: timeout on travis after 300s, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/618700275
     time_out: 600
-- model_name: Buildings.Fluid.Examples.FlowSystem.Basic
-  openmodelica:
-    comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
-    simulate: false
 - model_name: Buildings.Fluid.CHPs.OrganicRankine.Validation.VariableSource
   openmodelica:
     comment: 'division by zero at time 0 and 0.6, (a=0) / (b=0), where divisor b expression is: orc.m1_flow * orc.cyc.cpHot'
     simulate: false
-  optimica:
+- model_name: Buildings.Fluid.Examples.FlowSystem.Basic
+  openmodelica:
+    comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
     simulate: false
 - model_name: Buildings.Fluid.Examples.FlowSystem.Simplified1
   openmodelica:
