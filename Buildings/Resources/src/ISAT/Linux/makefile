@@ -41,9 +41,9 @@ OBJS = advection.o boundary.o chen_zero_equ_model.o cosimulation.o \
        usrfgh.o utility_isat.o\
 
 LIB = libisat.so
-# LIBS = -lpthread -lc -lgfortran -llapack -lblas
+LIBS = -lpthread -lc -lgfortran -llapack -lblas
 # LIBS = -pthread -lc -lgfortran -llapack -lblas
-LIBS = -lpthread -lc -lgfortran -llapack
+# LIBS = -lpthread -lc -lgfortran -llapack
 # LIBS = -lpthread -lc -lgfortran
 # LIBS = -lc -lgfortran
 
