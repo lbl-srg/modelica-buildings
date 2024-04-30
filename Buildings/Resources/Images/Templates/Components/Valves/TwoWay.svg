@@ -8,7 +8,7 @@
    version="1.1"
    id="svg1985"
    sodipodi:docname="TwoWay.svg"
-   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -22,17 +22,34 @@
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
-     showgrid="false"
-     inkscape:zoom="0.59891944"
-     inkscape:cx="242.93751"
-     inkscape:cy="459.99508"
-     inkscape:window-width="1920"
-     inkscape:window-height="1028"
-     inkscape:window-x="-6"
-     inkscape:window-y="-6"
+     showgrid="true"
+     inkscape:zoom="0.84906002"
+     inkscape:cx="289.73217"
+     inkscape:cy="268.53225"
+     inkscape:window-width="1880"
+     inkscape:window-height="1027"
+     inkscape:window-x="46"
+     inkscape:window-y="25"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg1985"
-     inkscape:document-units="mm" />
+     inkscape:document-units="mm">
+    <inkscape:grid
+       id="grid1"
+       units="mm"
+       originx="0"
+       originy="0"
+       spacingx="0.99999999"
+       spacingy="0.99999994"
+       empcolor="#0099e5"
+       empopacity="0.30196078"
+       color="#0099e5"
+       opacity="0.14901961"
+       empspacing="5"
+       dotted="false"
+       gridanglex="30"
+       gridanglez="30"
+       visible="true" />
+  </sodipodi:namedview>
   <defs
      id="defs1982">
     <filter
@@ -64,6 +81,13 @@
        height="1297.1672"
        id="rect5225" />
   </defs>
+  <rect
+     style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.0264583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1"
+     id="rect1"
+     width="10.000001"
+     height="20"
+     x="95"
+     y="90" />
   <g
      id="g33616"
      transform="matrix(8.1067807,0,0,7.727236,-7.245951,-4.5006949)"

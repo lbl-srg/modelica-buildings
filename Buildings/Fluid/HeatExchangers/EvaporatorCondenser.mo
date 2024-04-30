@@ -46,7 +46,7 @@ model EvaporatorCondenser
 protected
   parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=
       Medium.specificHeatCapacityCp(sta_default)
-    "Density, used to compute fluid volume";
+    "Specific heat capacity";
 
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFlo
     "Heat flow sensor"

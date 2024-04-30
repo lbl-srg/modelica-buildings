@@ -9,10 +9,10 @@ block MultiSum
     1,
     nin)
     "Input gains";
-  Interfaces.IntegerInput u[nin]
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u[nin]
     "Connector of Integer input signals"
     annotation (Placement(transformation(extent={{-140,70},{-100,-70}})));
-  Interfaces.IntegerOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y
     "Connector of Integer output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
