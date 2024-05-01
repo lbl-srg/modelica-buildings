@@ -433,8 +433,6 @@ equation
       points={{0,-120},{0,-130},{-40,-130}},
       color={191,0,0},
       pattern=LinePattern.Dash));
-  connect(port_b2, port_b2) annotation (Line(points={{-100,-60},{-100,-60}},
-                 color={0,127,255}));
   connect(mEva_flow.port_a, port_a2)
     annotation (Line(points={{80,-60},{100,-60}}, color={0,127,255}));
   connect(port_a1,mCon_flow. port_a)
