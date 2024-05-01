@@ -1,6 +1,6 @@
 within Buildings.Fluid.Chillers.ModularReversible;
 model Modular
-  "Grey-box model for reversible chillers"
+  "Grey-box model for reversible and non-reversible chillers"
   extends
     Buildings.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialReversibleRefrigerantMachine(
     final use_COP=use_rev,
@@ -13,8 +13,8 @@ model Modular
     final PEle_nominal=refCyc.refCycChiCoo.PEle_nominal,
     mEva_flow_nominal=-QCoo_flow_nominal/(dTEva_nominal*cpEva),
     mCon_flow_nominal=(PEle_nominal - QCoo_flow_nominal)/(dTCon_nominal*cpCon),
-    use_rev=true,
-    redeclare Buildings.Fluid.Chillers.ModularReversible.BaseClasses.RefrigerantCycle refCyc(
+    use_rev=false,
+    redeclare final Buildings.Fluid.Chillers.ModularReversible.BaseClasses.RefrigerantCycle refCyc(
         redeclare model RefrigerantCycleChillerCooling =
           RefrigerantCycleChillerCooling, redeclare model
         RefrigerantCycleChillerHeating = RefrigerantCycleChillerHeating));
@@ -52,18 +52,19 @@ model Modular
        final cpEva=cpEva)
   "Refrigerant cycle module for the heating mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
-  parameter Modelica.Units.SI.Temperature TConCoo_nominal
-    "Nominal temperature at secondary condenser side in cooling mode"
-    annotation(Dialog(enable=use_rev, group="Nominal condition"));
   parameter Modelica.Units.SI.Temperature TEvaCoo_nominal
-    "Nominal temperature at secondary evaporator side in cooling mode"
-    annotation(Dialog(enable=use_rev, group="Nominal condition"));
-  parameter Modelica.Units.SI.Temperature TConHea_nominal=TConCoo_nominal
-    "Nominal temperature at secondary condenser side in heating mode"
-    annotation (Dialog(group="Nominal condition - Heating"));
-  parameter Modelica.Units.SI.Temperature TEvaHea_nominal=TEvaCoo_nominal
-    "Nominal temperature at secondary evaporator side in heating mode"
-    annotation (Dialog(group="Nominal condition - Heating"));
+    "Nominal temperature of the cooled fluid"
+    annotation(Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.Temperature TConCoo_nominal
+    "Nominal temperature of the heated fluid"
+    annotation(Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.Temperature TEvaHea_nominal
+    "Nominal temperature of the heated fluid"
+    annotation (Dialog(enable=use_rev, group="Nominal condition - Heating"));
+  parameter Modelica.Units.SI.Temperature TConHea_nominal
+    "Nominal temperature of the cooled fluid"
+    annotation (Dialog(enable=use_rev, group="Nominal condition - Heating"));
+
 
   Modelica.Blocks.Interfaces.BooleanInput coo if not use_busConOnl and use_rev
     "=true for cooling, =false for heating"

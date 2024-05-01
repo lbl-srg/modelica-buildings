@@ -275,28 +275,28 @@ partial model PartialReversibleRefrigerantMachine
     annotation (Placement(transformation(extent={{-112,-20},{-92,0}})));
   Modelica.Blocks.Interfaces.RealInput ySet if not use_busConOnl
     "Relative compressor speed between 0 and 1" annotation (Placement(
-        transformation(extent={{-172,4},{-140,36}}), iconTransformation(extent={{-122,10},
-            {-102,30}})));
+        transformation(extent={{-164,8},{-140,32}}), iconTransformation(extent={{-120,10},
+            {-102,28}})));
 
   Modelica.Blocks.Interfaces.RealInput TEvaAmb(final unit="K", displayUnit="degC")
     if use_evaCap and not use_busConOnl
     "Ambient temperature on the evaporator side" annotation (Placement(
         transformation(
-        extent={{10,-10},{-10,10}},
+        extent={{12,-12},{-12,12}},
         rotation=180,
-        origin={-150,-130}),iconTransformation(extent={{10,-10},{-10,10}},
-          origin={-112,-90},
+        origin={-152,-130}),iconTransformation(extent={{9,-9},{-9,9}},
+          origin={-111,-91},
         rotation=180)));
   Modelica.Blocks.Interfaces.RealInput TConAmb(final unit="K", displayUnit="degC")
     if use_conCap and not use_busConOnl
     "Ambient temperature on the condenser side" annotation (Placement(
         transformation(
-        extent={{-10,10},{10,-10}},
+        extent={{-12,12},{12,-12}},
         rotation=0,
-        origin={-152,130}),iconTransformation(
-        extent={{-10,10},{10,-10}},
+        origin={-152,120}),iconTransformation(
+        extent={{-9,9},{9,-9}},
         rotation=0,
-        origin={-112,90})));
+        origin={-111,89})));
 
   Buildings.Fluid.Sensors.MassFlowRate mEva_flow(redeclare final package Medium =
         MediumEva, final allowFlowReversal=allowFlowReversalEva)
@@ -407,18 +407,18 @@ equation
 
   // Non bus connections
   connect(safCtr.sigBus, sigBus) annotation (Line(
-      points={{-111.917,-16.0833},{-111.917,-16},{-116,-16},{-116,-40},{-140,-40},
-          {-140,-41},{-141,-41}},
+      points={{-111.917,-16.0833},{-111.917,-16},{-116,-16},{-116,-40},{-140,
+          -40},{-140,-41},{-141,-41}},
       color={255,204,51},
       thickness=0.5));
-  connect(safCtr.yOut, sigBus.yMea) annotation (Line(points={{-91.1667,-10},{-84,
-          -10},{-84,-40},{-138,-40},{-138,-42},{-140,-42},{-140,-41},{-141,-41}},
-                                                    color={0,0,127}));
-  connect(ySet, safCtr.ySet) annotation (Line(points={{-156,20},{-120,20},{-120,
+  connect(safCtr.yOut, sigBus.yMea) annotation (Line(points={{-91.1667,-10},{
+          -84,-10},{-84,-40},{-138,-40},{-138,-42},{-140,-42},{-140,-41},{-141,
+          -41}},                                    color={0,0,127}));
+  connect(ySet, safCtr.ySet) annotation (Line(points={{-152,20},{-120,20},{-120,
           -10},{-113.333,-10}},
                        color={0,0,127}));
   connect(TConAmb, varTOutCon.T) annotation (Line(
-      points={{-152,130},{-62,130}},
+      points={{-152,120},{-110,120},{-110,130},{-62,130}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(varTOutCon.port, con.port_out) annotation (Line(
@@ -426,7 +426,7 @@ equation
       color={191,0,0},
       pattern=LinePattern.Dash));
   connect(TEvaAmb, varTOutEva.T) annotation (Line(
-      points={{-150,-130},{-130,-130},{-130,-150},{-70,-150},{-70,-130},{-62,-130}},
+      points={{-152,-130},{-130,-130},{-130,-150},{-70,-150},{-70,-130},{-62,-130}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(eva.port_out, varTOutEva.port) annotation (Line(
@@ -492,12 +492,12 @@ equation
           -88,-70},{-128,-70},{-128,-40},{-134,-40},{-134,-41},{-141,-41}},
                                            color={255,0,255}));
   connect(TConAmb, sigBus.TConAmbMea) annotation (Line(
-      points={{-152,130},{-128,130},{-128,50},{-76,50},{-76,-42},{-78,-42},{-78,-41},
-          {-141,-41}},
+      points={{-152,120},{-128,120},{-128,50},{-76,50},{-76,-42},{-78,-42},{-78,
+          -41},{-141,-41}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(TEvaAmb, sigBus.TEvaAmbMea) annotation (Line(
-      points={{-150,-130},{-130,-130},{-130,-110},{-76,-110},{-76,-41},{-141,-41}},
+      points={{-152,-130},{-130,-130},{-130,-110},{-76,-110},{-76,-41},{-141,-41}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(hys.u, sigBus.yMea) annotation (Line(points={{-122,-90},{-132,-90},{-132,
@@ -524,11 +524,11 @@ equation
           12},{-76,-40},{-148,-40},{-148,-41},{-141,-41}},              color={0,
           0,127}));
   if not use_intSafCtr then
-    connect(ySet, sigBus.yMea) annotation (Line(points={{-156,20},{-120,20},{-120,
+    connect(ySet, sigBus.yMea) annotation (Line(points={{-152,20},{-120,20},{-120,
             -40},{-136,-40},{-136,-41},{-141,-41}},
                        color={0,0,127}));
   end if;
-  connect(ySet, sigBus.ySet) annotation (Line(points={{-156,20},{-120,20},{-120,
+  connect(ySet, sigBus.ySet) annotation (Line(points={{-152,20},{-120,20},{-120,
           -40},{-136,-40},{-136,-41},{-141,-41}},
                      color={0,0,127}));
   connect(refCyc.PEle, P) annotation (Line(points={{19.89,0.09},{26,0.09},{26,0},{
@@ -551,18 +551,18 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-16,83},{16,-83}},
+          extent={{-16,60},{16,-60}},
           fillColor={170,213,255},
           fillPattern=FillPattern.Solid,
           lineColor={0,0,0},
-          origin={1,-64},
+          origin={0,-64},
           rotation=90),
         Rectangle(
-          extent={{-17,83},{17,-83}},
+          extent={{-16,60},{16,-60}},
           fillColor={238,46,47},
           fillPattern=FillPattern.Solid,
           lineColor={0,0,0},
-          origin={1,61},
+          origin={0,60},
           rotation=90),
         Line(
           points={{-9,40},{9,40},{-5,-2},{9,-40},{-9,-40}},
@@ -577,12 +577,10 @@ equation
           origin={-5,56},
           rotation=-90),
         Rectangle(
-          extent={{-82,42},{84,-46}},
+          extent={{-60,42},{60,-46}},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
-        Line(points={{-88,60},{88,60}}, color={28,108,200}),
-        Line(points={{-88,-60},{88,-60}}, color={28,108,200}),
     Line(
     origin={-75.5,-80.333},
     points={{43.5,8.3333},{37.5,0.3333},{25.5,-1.667},{33.5,-9.667},{17.5,-11.667},{27.5,-21.667},{13.5,-23.667},
@@ -595,13 +593,13 @@ equation
           fillPattern=FillPattern.Solid,
           fillColor={0,0,0},
           visible=use_evaCap),
-    Line( origin={40.5,93.667},
+    Line( origin={24.5,93.667},
           points={{39.5,6.333},{37.5,0.3333},{25.5,-1.667},{33.5,-9.667},{17.5,
               -11.667},{27.5,-21.667},{13.5,-23.667},{11.5,-27.667}},
           smooth=Smooth.Bezier,
           visible=use_conCap),
         Polygon(
-          points={{86,110},{84,96},{74,102},{86,110}},
+          points={{70,110},{68,96},{58,102},{70,110}},
           lineColor={0,0,0},
           fillPattern=FillPattern.Solid,
           fillColor={0,0,0},
@@ -617,7 +615,77 @@ equation
           arrow={Arrow.None,Arrow.Filled},
           thickness=0.5,
           origin={0,-74},
-          rotation=180)}),
+          rotation=180),
+        Text(
+          extent={{-96,100},{-68,78}},
+          textColor={0,0,127},
+          visible=use_conCap and not use_busConOnl,
+          textString="TConAmb"),
+        Text(
+          extent={{-96,28},{-74,10}},
+          textColor={0,0,127},
+          visible=not use_busConOnl,
+          textString="ySet"),
+        Text(
+          extent={{-96,-80},{-68,-102}},
+          textColor={0,0,127},
+          visible=use_evaCap and not use_busConOnl,
+          textString="TEvaAmb"),
+        Text(
+          extent={{64,104},{96,76}},
+          textColor={0,0,127},
+          textString="QCon_flow"),
+        Text(
+          extent={{64,-74},{96,-102}},
+          textColor={0,0,127},
+          textString="QEva_flow"),
+        Text(
+          extent={{72,10},{96,-6}},
+          textColor={0,0,127},
+          textString="P"),
+        Text(
+          extent={{72,40},{96,16}},
+          textColor={0,0,127},
+          visible=use_COP,
+          textString="COP"),
+        Text(
+          extent={{72,-18},{96,-42}},
+          textColor={0,0,127},
+          visible=use_EER,
+          textString="EER"),
+        Rectangle(
+          extent={{34,42},{38,-46}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{14,22},{58,-20}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{36,22},{18,-10},{54,-10},{36,22}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-46,42},{-42,-46}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-44,2},{-54,-10},{-34,-10},{-44,2}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-44,2},{-54,12},{-34,12},{-44,2}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid)}),
        Diagram(coordinateSystem(extent={{-140,-160},{140,160}})),
     Documentation(revisions="<html><ul>
   <li>

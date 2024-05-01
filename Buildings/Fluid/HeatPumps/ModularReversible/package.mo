@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatPumps;
-package ModularReversible "Package for the modular reversible heat pumps"
+package ModularReversible "Package for reversible and non-reversible heat pumps using a modular model approach"
   extends Modelica.Icons.VariantsPackage;
 
 annotation (preferredView="info", Documentation(info="<html>

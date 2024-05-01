@@ -1,9 +1,9 @@
 within Buildings.Fluid.HeatPumps.ModularReversible;
 model AirToWaterTableData2D
   "Reversible air to water heat pump based on 2D manufacturer data in Europe"
-  extends Buildings.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialTableData2D(
-    redeclare package MediumEva = Buildings.Media.Air,
-    redeclare package MediumCon = Buildings.Media.Water,
+  extends Buildings.Fluid.HeatPumps.ModularReversible.TableData2D(
+    redeclare replaceable package MediumEva = Buildings.Media.Air,
+    redeclare replaceable package MediumCon = Buildings.Media.Water,
     redeclare replaceable Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericAirToWater datTabHea
       constrainedby Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericAirToWater,
     redeclare replaceable Buildings.Fluid.Chillers.ModularReversible.Data.TableData2D.Generic datTabCoo

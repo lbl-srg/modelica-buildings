@@ -24,6 +24,8 @@ partial model PartialModularComparison
     final use_conCap=false,
     final CCon=0,
     final GConOut=0,
+    final TEvaHea_nominal=0,
+    final TConHea_nominal=0,
     final GConIns=0,
     final tauEva=tau2,
     final TEvaCoo_nominal=TEva_nominal,

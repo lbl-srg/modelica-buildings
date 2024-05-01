@@ -1456,7 +1456,6 @@ Buildings/Fluid/HeatPumps/ModularReversible/BaseClasses/InflowTemperatureSensor.
 Buildings/Fluid/HeatPumps/ModularReversible/BaseClasses/LargeScaleWaterToWaterDeclarations.mo
 Buildings/Fluid/HeatPumps/ModularReversible/BaseClasses/PartialModularRefrigerantCycle.mo
 Buildings/Fluid/HeatPumps/ModularReversible/BaseClasses/PartialReversibleRefrigerantMachine.mo
-Buildings/Fluid/HeatPumps/ModularReversible/BaseClasses/PartialTableData2D.mo
 Buildings/Fluid/HeatPumps/ModularReversible/BaseClasses/RefrigerantCycle.mo
 Buildings/Fluid/HeatPumps/ModularReversible/BaseClasses/RefrigerantMachineControlBus.mo
 Buildings/Fluid/HeatPumps/ModularReversible/BaseClasses/package.mo
@@ -1547,6 +1546,7 @@ Buildings/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/Inertias/package.or
 Buildings/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/TableData2D.mo
 Buildings/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/package.mo
 Buildings/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/package.order
+Buildings/Fluid/HeatPumps/ModularReversible/TableData2D.mo
 Buildings/Fluid/HeatPumps/ModularReversible/UsersGuide.mo
 Buildings/Fluid/HeatPumps/ModularReversible/Validation/BaseClasses/PartialValidation.mo
 Buildings/Fluid/HeatPumps/ModularReversible/Validation/BaseClasses/package.mo

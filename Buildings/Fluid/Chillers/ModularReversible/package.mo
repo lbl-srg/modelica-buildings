@@ -1,5 +1,5 @@
 within Buildings.Fluid.Chillers;
-package ModularReversible "Package for the modular reversible chillers"
+package ModularReversible "Package for reversible and non-reversible chillers using a modular model approach"
 extends Modelica.Icons.VariantsPackage;
 
 annotation (preferredView="info", Documentation(info="<html>

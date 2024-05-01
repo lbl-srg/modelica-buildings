@@ -6,11 +6,11 @@ model OneRoomRadiatorHeatPumpControl
   parameter Modelica.Units.SI.Temperature TRooSetHea=293.15
     "Room set temperature for heating";
   parameter Modelica.Units.SI.Temperature TRooSetCoo=296.15
-    "Room set temperature for heating";
+    "Room set temperature for cooling";
   parameter Modelica.Units.SI.Temperature TRadMinSup=290.15
     "Minimal radiator supply temperature to avoid condensation effects";
   parameter Modelica.Units.SI.TemperatureDifference dTHysRoo=2
-    "Room set temperature for heating";
+    "Temperature hysteresis for room control";
   Modelica.Blocks.Logical.Hysteresis hysHea(
     final uLow=TRooSetHea - dTHysRoo,
     final uHigh=TRooSetHea + dTHysRoo,
@@ -62,8 +62,8 @@ model OneRoomRadiatorHeatPumpControl
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Modelica.Blocks.Sources.Constant constYSetZer(final k=0) "ySet equals zero"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=180,
-        origin={70,-90})));
+        rotation=0,
+        origin={30,-18})));
   Modelica.Blocks.Logical.Switch swiYSet "If no demand, switch heat pump off"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -127,10 +127,10 @@ equation
           78}},             color={0,0,127}));
   connect(constTSetRooCoo.y,PIDCoo. u_m) annotation (Line(points={{-39,50},{-10,50},
           {-10,58}},                         color={0,0,127}));
-  connect(swiSecForCoo.u3, constYSetZer.y) annotation (Line(points={{78,-18},{50,-18},
-          {50,-90},{59,-90}},    color={0,0,127}));
-  connect(constYSetZer.y, swiYSet.u3) annotation (Line(points={{59,-90},{50,-90},{
-          50,42},{58,42}},  color={0,0,127}));
+  connect(swiSecForCoo.u3, constYSetZer.y) annotation (Line(points={{78,-18},{
+          41,-18}},              color={0,0,127}));
+  connect(constYSetZer.y, swiYSet.u3) annotation (Line(points={{41,-18},{50,-18},
+          {50,42},{58,42}}, color={0,0,127}));
   connect(hysCoo.u, TRooMea) annotation (Line(points={{-102,-10},{-108,-10},{-108,
           0},{-140,0}},        color={0,0,127}));
   connect(TRooMea, hysHea.u) annotation (Line(points={{-140,0},{-108,0},{-108,20},
@@ -158,8 +158,9 @@ equation
           {-26,2},{-22,2}},color={255,0,255}));
   connect(heaIsOn.y, hea) annotation (Line(points={{-39,20},{-30,20},{-30,-60},{130,
           -60}},                        color={255,0,255}));
-  connect(cooValOrHea.y, swiSecForCoo.u2) annotation (Line(points={{1,-90},{36,-90},
-          {36,-10},{78,-10}},    color={255,0,255}));
+  connect(cooValOrHea.y, swiSecForCoo.u2) annotation (Line(points={{1,-90},{70,
+          -90},{70,-10},{78,-10}},
+                                 color={255,0,255}));
   connect(cooValOrHea.u2, conTru.y) annotation (Line(points={{-22,-98},{-32,-98},{
           -32,-100},{-39,-100}},          color={255,0,255}));
   connect(cooValOrHea.u2, hysSecCoo.y) annotation (Line(points={{-22,-98},{-32,-98},

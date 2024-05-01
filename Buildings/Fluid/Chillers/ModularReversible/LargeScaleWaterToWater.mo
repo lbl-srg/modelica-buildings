@@ -5,8 +5,8 @@ model LargeScaleWaterToWater "Large scale water to water chiller"
     dpCon_nominal=datTab.dpCon_nominal*scaFac^2,
     final dTEva_nominal=-QCoo_flow_nominal/cpEva/mEva_flow_nominal,
     final dTCon_nominal=(PEle_nominal - QCoo_flow_nominal)/cpCon/mCon_flow_nominal,
-    redeclare package MediumCon = Buildings.Media.Water,
-    redeclare package MediumEva = Buildings.Media.Water,
+    redeclare replaceable package MediumCon = Buildings.Media.Water,
+    redeclare replaceable package MediumEva = Buildings.Media.Water,
     final GEvaIns=0,
     final GEvaOut=0,
     final CEva=0,
@@ -14,6 +14,8 @@ model LargeScaleWaterToWater "Large scale water to water chiller"
     final GConIns=0,
     final GConOut=0,
     final CCon=0,
+    final TConHea_nominal=0,
+    final TEvaHea_nominal=0,
     final use_conCap=false,
         redeclare replaceable
     Buildings.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021 safCtrPar

@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatPumps.ModularReversible;
 model Modular
-  "Grey-box model for reversible heat pumps"
+  "Grey-box model for reversible and non-reversible heat pumps"
   extends
     Buildings.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialReversibleRefrigerantMachine(
     final use_COP=true,
@@ -10,8 +10,8 @@ model Modular
     final PEle_nominal=refCyc.refCycHeaPumHea.PEle_nominal,
     mCon_flow_nominal=QHea_flow_nominal/(dTCon_nominal*cpCon),
     mEva_flow_nominal=(QHea_flow_nominal - PEle_nominal)/(dTEva_nominal*cpEva),
-    use_rev=true,
-    redeclare Buildings.Fluid.HeatPumps.ModularReversible.BaseClasses.RefrigerantCycle refCyc(
+    use_rev=false,
+    redeclare final Buildings.Fluid.HeatPumps.ModularReversible.BaseClasses.RefrigerantCycle refCyc(
       redeclare model RefrigerantCycleHeatPumpHeating =
           RefrigerantCycleHeatPumpHeating,
       redeclare model RefrigerantCycleHeatPumpCooling =
@@ -50,16 +50,16 @@ model Modular
   "Refrigerant cycle module for the cooling mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
   parameter Modelica.Units.SI.Temperature TConHea_nominal
-    "Nominal temperature at secondary condenser side in heating mode"
+    "Nominal temperature of the heated fluid"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Temperature TEvaHea_nominal
-    "Nominal temperature at secondary evaporator side in heating mode"
+    "Nominal temperature of the cooled fluid"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Temperature TConCoo_nominal
-    "Nominal temperature at secondary condenser side in cooling mode"
+    "Nominal temperature of the cooled fluid"
     annotation(Dialog(enable=use_rev, group="Nominal condition - Cooling"));
   parameter Modelica.Units.SI.Temperature TEvaCoo_nominal
-    "Nominal temperature at secondary evaporator side in cooling mode"
+    "Nominal temperature of the heated fluid"
     annotation(Dialog(enable=use_rev, group="Nominal condition - Cooling"));
 
   Modelica.Blocks.Sources.BooleanConstant conHea(final k=true)
@@ -71,16 +71,15 @@ model Modular
         origin={-110,-130})));
   Modelica.Blocks.Interfaces.BooleanInput hea if not use_busConOnl and use_rev
     "=true for heating, =false for cooling"
-    annotation (Placement(transformation(extent={{-172,-86},{-140,-54}}),
-        iconTransformation(extent={{-120,-28},{-102,-10}})));
+    annotation (Placement(transformation(extent={{-164,-82},{-140,-58}}),
+        iconTransformation(extent={{-120,-30},{-102,-12}})));
 equation
   connect(conHea.y, sigBus.hea)
     annotation (Line(points={{-99,-130},{-76,-130},{-76,-40},{-140,-40},{-140,-41},
           {-141,-41}},          color={255,0,255}));
   connect(hea, sigBus.hea)
-    annotation (Line(points={{-156,-70},{-128,-70},{-128,-40},{-134,-40},{-134,
-          -41},{-141,-41}},
-                       color={255,0,255}));
+    annotation (Line(points={{-152,-70},{-128,-70},{-128,-40},{-134,-40},{-134,-41},
+          {-141,-41}}, color={255,0,255}));
   connect(eff.QUse_flow, refCycIneCon.y) annotation (Line(points={{98,37},{48,37},
           {48,66},{8.88178e-16,66},{8.88178e-16,61}}, color={0,0,127}));
   connect(eff.hea, sigBus.hea) annotation (Line(points={{98,30},{48,30},{48,0},{
@@ -90,7 +89,12 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  annotation (Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
+  annotation (Icon(coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
+          Text(
+          extent={{-100,-12},{-72,-30}},
+          textColor={255,85,255},
+          visible=not use_busConOnl and use_rev,
+          textString="hea")}),
     Diagram(coordinateSystem(extent={{-140,-160},{140,160}})),
     Documentation(revisions="
 <html>

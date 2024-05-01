@@ -153,7 +153,7 @@ equation
   Documentation(info="<html>
 <p>
   Given an input of <code>TCon</code> and <code>TEva</code>,
-  the model returns true if the given
+  the model returns false if the given
   point is outside of the given operational envelope.
 </p>
 <p>

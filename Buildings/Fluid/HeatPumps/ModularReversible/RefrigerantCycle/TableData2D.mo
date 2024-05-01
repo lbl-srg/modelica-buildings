@@ -161,11 +161,13 @@ equation
 </p>
 
 <h4>Scaling factor</h4>
+<p>
 For the scaling factor, the table data for condenser heat flow rate
 is evaluated at nominal conditions. Then, the table data is scaled linearly.
 This implies a constant COP over different design sizes:
+</p>
 <p><code>QCon_flow = scaFac * tabQCon_flow.y</code> </p>
-<p><code>PEle = scaFac * tabPel.y</code>
+<p><code>PEle = scaFac * tabPel.y</code></p>
 
 
 <h4>Known Limitations </h4>

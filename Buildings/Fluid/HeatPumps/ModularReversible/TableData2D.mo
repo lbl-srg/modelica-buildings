@@ -1,5 +1,5 @@
-within Buildings.Fluid.HeatPumps.ModularReversible.BaseClasses;
-partial model PartialTableData2D
+within Buildings.Fluid.HeatPumps.ModularReversible;
+model TableData2D
   "Reversible heat pump based on 2D manufacturer data"
   extends Buildings.Fluid.HeatPumps.ModularReversible.Modular(
     final use_rev=true,
@@ -152,4 +152,4 @@ https://www.beuth.de/de/norm/din-en-14511-1/298537524</a>
 </p>
 
 </html>"));
-end PartialTableData2D;
+end TableData2D;

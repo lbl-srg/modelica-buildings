@@ -1,9 +1,9 @@
 within Buildings.Fluid.HeatPumps.ModularReversible;
 model LargeScaleWaterToWater
   "Model with automatic parameter estimation for large scale water-to-water heat pumps"
-  extends Buildings.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialTableData2D(
-    redeclare package MediumCon = Buildings.Media.Water,
-    redeclare package MediumEva = Buildings.Media.Water,
+  extends Buildings.Fluid.HeatPumps.ModularReversible.TableData2D(
+    redeclare replaceable package MediumCon = Buildings.Media.Water,
+    redeclare replaceable package MediumEva = Buildings.Media.Water,
     final mCon_flow_nominal=autCalMasCon_flow,
     final mEva_flow_nominal=autCalMasEva_flow,
     final tauCon=autCalVCon*rhoCon/autCalMasCon_flow,
