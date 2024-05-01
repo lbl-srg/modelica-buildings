@@ -93,12 +93,12 @@ equation
         Ellipse(
           extent={{71,7},{85,-7}},
           lineColor=DynamicSelect({235,235,235},
-            if truFalHol.y then
+            if truFalHol1.y then
               {0,255,0}
             else
               {235,235,235}),
           fillColor=DynamicSelect({235,235,235},
-            if truFalHol.y then
+            if truFalHol1.y then
               {0,255,0}
             else
               {235,235,235}),
@@ -106,12 +106,12 @@ equation
         Ellipse(
           extent={{-83,7},{-69,-7}},
           lineColor=DynamicSelect({235,235,235},
-            if truFalHol.u then
+            if truFalHol1.u then
               {0,255,0}
             else
               {235,235,235}),
           fillColor=DynamicSelect({235,235,235},
-            if truFalHol.u then
+            if truFalHol1.u then
               {0,255,0}
             else
               {235,235,235}),
@@ -126,6 +126,10 @@ Block that ensure that the system runs for a minimum time once it is switched on
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 6, 2024, by Michael Wetter:<br/>
+Corrected wrong annotation.
+</li>
 <li>
 January 31, 2023, by Jianjun Hu:<br/>
 Added a true delay block to avoid triggering the pump operation by a spike input.
