@@ -102,8 +102,7 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  annotation (Icon(coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
-        Line(points={{-88,60},{88,60}}, color={28,108,200})}),
+  annotation (Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
     Diagram(coordinateSystem(extent={{-140,-160},{140,160}})),
     Documentation(revisions="<html><ul>
   <li>

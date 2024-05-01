@@ -76,9 +76,6 @@ model CarnotWithLosses
     startTime=900,
     offset=273.15 + 15) "Evaporator inlet temperature"
     annotation (Placement(transformation(extent={{52,-40},{72,-20}})));
-  Modelica.Blocks.Sources.BooleanStep chiCoo(startTime=1800, startValue=true)
-    "Chilling mode on"
-    annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 equation
   connect(souCon.ports[1], chi.port_a1) annotation (Line(
       points={{-40,16},{-20,16},{-20,16},{-5.55112e-16,16}},
@@ -104,10 +101,8 @@ equation
       points={{73,-30},{80,-30},{80,8},{62,8}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(ySet.y, chi.ySet) annotation (Line(points={{-39,60},{-16,60},{-16,12},
-          {-1.2,12}},                    color={0,0,127}));
-  connect(chiCoo.y, chi.coo) annotation (Line(points={{-39,-50},{-22,-50},{-22,7.9},
-          {-1.1,7.9}},           color={255,0,255}));
+  connect(ySet.y, chi.ySet) annotation (Line(points={{-39,60},{-16,60},{-16,
+          11.9},{-1.1,11.9}},            color={0,0,127}));
   annotation (experiment(Tolerance=1e-6, StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Chillers/ModularReversible/Examples/CarnotWithLosses.mos"
         "Simulate and plot"),
