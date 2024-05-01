@@ -28,7 +28,7 @@ model CalculateEfficiency
   Modelica.Blocks.Interfaces.RealOutput EER(min=0, final unit="1")
     "Output for calculated EER value"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
-  Utilities.Math.InverseXRegularized invXReg(delta=PEleMin)
+  Buildings.Utilities.Math.InverseXRegularized invXReg(delta=PEleMin)
     "Inverse of electrical power"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
 protected
