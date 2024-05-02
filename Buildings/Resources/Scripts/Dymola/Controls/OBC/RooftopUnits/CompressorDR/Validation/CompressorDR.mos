@@ -1,0 +1,9 @@
+simulateModel("Buildings.Controls.OBC.RooftopUnits.CompressorDR.Validation.CompressorDR", stopTime=3600, method="Cvode", tolerance=1e-06, resultFile="CompressorDR");
+createPlot(id=1, position={15, 15, 400, 400}, y={"intPul.y"}, range={0.0, 3600.0, 0.0, 3.0}, erase=false, autoscale=false, grid=true, filename="CompressorDR.mat", subPlot=101, colors={{28,108,200}}, thicknesses={0.5}, timeUnit="s");
+createPlot(id=1, position={15, 15, 400, 400}, y={"intPul1.y"}, range={0.0, 3600.0, 0.0, 3.0}, erase=false, autoscale=false, grid=true, subPlot=102, colors={{28,108,200}}, thicknesses={0.5}, timeUnit="s");
+createPlot(id=1, position={15, 15, 400, 400}, y={"intPul2.y"}, range={0.0, 3600.0, 0.0, 3.0}, erase=false, autoscale=false, grid=true, subPlot=103, colors={{28,108,200}}, thicknesses={0.5}, timeUnit="s");
+createPlot(id=1, position={15, 15, 400, 400}, y={"intPul3.y"}, range={0.0, 3600.0, 0.0, 3.0}, erase=false, autoscale=false, grid=true, subPlot=104, colors={{28,108,200}}, thicknesses={0.5}, timeUnit="s");
+createPlot(id=2, position={15, 15, 600, 400}, y={"ComSpeDR.yComSpe"}, range={0.0, 3600.0, 0.7, 1.1}, erase=false, grid=true, autoscale=false, subPlot=101, colors={{28,108,200}}, thicknesses={0.5}, timeUnit="s", displayUnits={""});
+createPlot(id=2, position={15, 15, 600, 400}, y={"ComSpeDR1.yComSpe"}, range={0.0, 3600.0, 0.7, 1.1}, erase=false, grid=true, autoscale=false, subPlot=102, colors={{28,108,200}}, thicknesses={0.5}, timeUnit="s", displayUnits={""});
+createPlot(id=2, position={15, 15, 600, 400}, y={"ComSpeDR2.yComSpe"}, range={0.0, 3600.0, 0.7, 1.1}, erase=false, grid=true, autoscale=false, subPlot=103, colors={{28,108,200}}, thicknesses={0.5}, timeUnit="s", displayUnits={""});
+createPlot(id=2, position={15, 15, 600, 400}, y={"ComSpeDR3.yComSpe"}, range={0.0, 3600.0, 0.7, 1.1}, erase=false, grid=true, autoscale=false, subPlot=104, colors={{28,108,200}}, thicknesses={0.5}, timeUnit="s", displayUnits={""});
