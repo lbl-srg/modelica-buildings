@@ -32,6 +32,16 @@ to <b style=\"color:blue\">existing</b> libraries:
     <td valign=\"top\">xxx.
     </td>
     </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Humidifiers</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Humidifiers.DXDehumidifier
+    </td>
+    <td valign=\"top\">Added direct expansion dehumidifier.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3438\">issue 3438</a>.
+    </td>
+</tr>
 </table>
 <!-- Backward compatible changes -->
 <p>
