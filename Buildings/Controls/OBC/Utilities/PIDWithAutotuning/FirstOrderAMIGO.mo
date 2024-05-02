@@ -356,13 +356,12 @@ The performance of the autotuning is affected by the parameters, including the
 typical range of control error, <code>r</code>, 
 the reference output for the tuning process, <code>yRef</code>, the lower value for
 the relay output, <code>yLow</code>, and the deadband, <code>deaBan</code>.
-<br>
 The following procedure can be used for determining the values of those parameters. 
 </p>
 <ol>
 <li>
 Perform the simulation without enabling autotuning and with a constant set point.
-Record the maximum and the minimum values of measurement after the system is somewhat steady.
+Record the maximum and the minimum values of measurement after the system is stable.
 </li>
 <li>
 The <code>r</code> should be adjusted so that the output of the relay controller,
