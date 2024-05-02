@@ -126,7 +126,7 @@ for type in "${!test_script[@]}"; do
     fi
 
     # Diff/master
-    diff_checksum="$(git diff --name-only origin/master | grep Resources/Scripts/travis/templates/$type.checksum)"
+    diff_checksum="$(git diff --name-only origin/master Resources/Scripts/travis/templates | grep Resources/Scripts/travis/templates/$type.checksum)"
     if (( $? == 0 ));  then
       echo "Computed checksum does not match checksum on master."
       if [ "$SKIP" = false ]; then
