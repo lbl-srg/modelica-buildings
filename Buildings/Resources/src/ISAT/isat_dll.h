@@ -28,7 +28,7 @@ extern int isat_dll(CosimulationData *cosim);
 /* Linux*/
 #else
 #include <pthread.h>
-int isat_dll(CosimulationData *cosim);
+void *isat_dll(CosimulationData *cosim);
 #endif
 
 

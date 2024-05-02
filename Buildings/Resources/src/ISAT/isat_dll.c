@@ -20,7 +20,7 @@
 | DLL interface to launch a separated thread for ISAT.
 | Called by the other program
 ******************************************************************************/
-int isat_dll(CosimulationData *cosim) {
+void *isat_dll(CosimulationData *cosim) {
 /* Windows*/
 #ifdef _MSC_VER
   DWORD dummy;
