@@ -14,30 +14,30 @@ block Xi_TDryBulTWetBul
     annotation (Evaluate=true);
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDryBul(
-    start=303,
     final quantity="ThermodynamicTemperature",
     final unit="K",
+    displayUnit="degC",
     min=0)
     "Dry bulb temperature"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
-        iconTransformation(extent={{-140,50},{-100,90}})));
+      iconTransformation(extent={{-140,50},{-100,90}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput p(
     final quantity="AbsolutePressure",
-    displayUnit="Pa",
+    final unit="Pa",
     min = 0)
     "Pressure"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
-        iconTransformation(extent={{-140,-110},{-100,-70}})));
+      iconTransformation(extent={{-140,-110},{-100,-70}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TWetBul(
-    start=293,
     final quantity="ThermodynamicTemperature",
     final unit="K",
+    displayUnit="degC",
     min=0)
     "Wet bulb temperature"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
-        iconTransformation(extent={{-140,-20},{-100,20}})));
+      iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput Xi[Medium.nXi]
     "Water vapor mass fraction"
@@ -49,17 +49,22 @@ protected
     if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i], string2="Water", caseSensitive=false)
     then i else 0) for i in 1:Medium.nX})
     "Index of water in medium composition vector";
+
   constant Real uniCon1(final unit="1/rad") = 1
     "Constant to satisfy unit check";
+
   constant Real uniConK(final unit="K/rad") = 1
     "Constant to satisfy unit check";
 
   Modelica.Units.NonSI.Temperature_degC TDryBul_degC
     "Dry bulb temperature in degree Celsius";
+
   Real rh_per(min=0)
     "Relative humidity in percentage";
-  Modelica.Units.SI.MassFraction XiSat(start=0.01, nominal=0.01)
+
+  Modelica.Units.SI.MassFraction XiSat(start=0.01)
     "Water vapor mass fraction at saturation";
+
   Modelica.Units.SI.MassFraction XiSatRefIn
     "Water vapor mass fraction at saturation, referenced to inlet mass flow rate";
 
@@ -99,6 +104,7 @@ equation
     TDryBul_degC = 0;
     rh_per       = 0;
   end if;
+
 annotation (
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}), graphics={

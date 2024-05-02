@@ -11,18 +11,12 @@ block DirectCalculations
   parameter Modelica.Units.SI.Length dep
     "Depth of the rigid media evaporative pad";
 
-  parameter Real effCoe[11] = {0.792714, 0.958569, -0.25193, -1.03215, 0.0262659,
-                               0.914869, -1.48241, -0.018992, 1.13137, 0.0327622,
-                               -0.145384}
-    "Coefficients for evaporative medium efficiency calculation";
-
   Real eff(
     final unit="1")
     "Evaporative humidifier efficiency";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput V_flow(
     final unit="m3/s",
-    displayUnit="m3/s",
     final quantity = "VolumeFlowRate")
     "Air volume flow rate"
     annotation (Placement(transformation(origin={-120,-20},extent={{-20,-20},{20,20}}),
@@ -46,7 +40,6 @@ block DirectCalculations
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput p(
     final unit="Pa",
-    displayUnit="Pa",
     final quantity="AbsolutePressure")
     "Pressure"
     annotation (Placement(transformation(origin={-120,-60},extent={{-20,-20},{20,20}}),
@@ -54,7 +47,6 @@ block DirectCalculations
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dmWat_flow(
     final unit="kg/s",
-    displayUnit="kg/s",
     final quantity="MassFlowRate")
     "Water vapor mass flow rate difference between inlet and outlet"
     annotation (Placement(transformation(origin={120,0}, extent={{-20,-20},{20,20}}),
@@ -77,10 +69,18 @@ block DirectCalculations
 
 protected
   parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
-    T=Medium.T_default, p=Medium.p_default, X=Medium.X_default)
+    T=Medium.T_default,
+    p=Medium.p_default,
+    X=Medium.X_default)
     "Default state of medium";
+
   parameter Modelica.Units.SI.Density rho_default=Medium.density(sta_default)
     "Density, used to compute fluid volume";
+
+  parameter Real effCoe[11] = {0.792714, 0.958569, -0.25193, -1.03215, 0.0262659,
+                               0.914869, -1.48241, -0.018992, 1.13137, 0.0327622,
+                               -0.145384}
+    "Coefficients for evaporative medium efficiency calculation";
 
 equation
   vel =abs(V_flow)/padAre;
@@ -114,8 +114,10 @@ the curve
     effCoe[11]*(dep<sup>3</sup>*vel<sup>2</sup>)
 </p>
 <p>
-where <code>effCoe[:]</code> is the evaporative efficiency coefficients for the media,
-<code>dep</code> is the depth of the evaporative media, and
+where <code>effCoe[:]</code> is the evaporative efficiency coefficients for the
+CelDek rigid media pad used in evaporative coolers. It is currently protected from
+modification by the user, but can be modified for other materials within this class
+by advanced users. <code>dep</code> is the depth of the evaporative media, and
 <code>vel</code> is the velocity of the fluid media which is calculated from the volume flowrate
 <code>V_flow</code> and evaporative media cross-sectional area <code>padAre</code>
 using
@@ -143,7 +145,7 @@ outlet air wetbulb temperature is the same as inlet air wetbulb temperature.
 </html>", revisions="<html>
 <ul>
 <li>
-Semptember 14, 2023 by Cerrina Mouchref, Karthikeya Devaprasad, Lingzhe Wang:<br/>
+September 14, 2023 by Cerrina Mouchref, Karthikeya Devaprasad, Lingzhe Wang:<br/>
 First implementation.
 </li>
 </ul>
