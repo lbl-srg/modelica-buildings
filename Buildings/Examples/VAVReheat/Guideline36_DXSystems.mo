@@ -120,16 +120,28 @@ model Guideline36_DXSystems
   annotation (
     Documentation(info="<html>
   <p>
-  This model replaced an air handler unit (AHU) within a variable air flow (VAV) system,
-  as detailed in 
-  <a href=\"modelica://Buildings.Examples.VAVReheat.Guideline36\">
-  Buildings.Examples.VAVReheat.Guideline36</a>, 
-  with a rooftop unit (RTU). 
+  This model consist of an HVAC system, a building envelope model and a model
+  for air flow through building leakage and through open doors.
+  </p>
+  <p>
+  The HVAC system is a variable air volume (VAV) flow system with economizer
+  and a direct expansion (DX) heating and cooling coil in the rooftop unit (RTU). 
+  There is also a reheat coil and an air damper in each of the five zone inlet branches.
+  </p>
+  <p>
+  See the model
+  <a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.Guideline36_DXSystems\">
+  Buildings.Examples.VAVReheat.BaseClasses.Guideline36_DXSystems</a>
+  for a description of the HVAC system, 
+  and see the model
+  <a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.Floor\">
+  Buildings.Examples.VAVReheat.BaseClasses.Floor</a>
+  for a description of the building envelope. 
   </p>
   </html>", revisions="<html>
   <ul>
   <li>
-  August 28, 2023, by Junke Wang and Karthik Devaprasad:<br/>
+  February 15, 2024, by Junke Wang and Karthik Devaprasad:<br/>
   First implementation.
   </li>
   </ul>
@@ -138,8 +150,8 @@ model Guideline36_DXSystems
           "modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/Guideline36_DXSystems.mos"
         "Simulate and plot"),
     experiment(
-      StartTime=15552000,
-      StopTime=15724800,
+      StartTime=16848000,
+      StopTime=17020800,
       Interval=3600,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),

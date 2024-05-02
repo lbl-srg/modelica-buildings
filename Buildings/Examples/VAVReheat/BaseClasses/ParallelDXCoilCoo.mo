@@ -83,6 +83,7 @@ model ParallelDXCoilCoo "Model for parallel DX coils"
     each final m_flow_nominal=mAir_flow_nominal,
     each final dpDamper_nominal=dpDamper_nominal,
     each final dpFixed_nominal=dpFixed_nominal)
+    "Damper for controlling airflow passing DX coils"
     annotation (Placement(transformation(extent={{-48,-10},{-28,10}})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort TSupCooCoi[nCoiCoo](
@@ -109,8 +110,9 @@ equation
       color={0,0,127}));
 
   for i in 1:nCoiCoo loop
-  connect(CooCoi[i].TOut,TOut)  annotation (Line(points={{-11,-3},{-24,-3},{-24,
-          -40},{-110,-40}}, color={0,0,127}));
+  connect(CooCoi[i].TOut,TOut)
+    annotation (Line(points={{-11,-3},{-24,-3},{-24,-40},{-110,-40}},
+      color={0,0,127}));
 
   connect(damPreInd[i].port_a, splRetOut.port_2)
     annotation (Line(points={{-48,0},{-60,0}}, color={0,127,255}));
@@ -143,7 +145,9 @@ equation
   connect(speRat, deaBan.u) annotation (Line(points={{-110,-80},{-20,-80},{-20,60},
           {-88,60},{-88,80},{-82,80}}, color={0,0,127}));
 
-  annotation (Icon(graphics={
+  annotation (defaultComponentName="ParallelDXCoilCoo",
+    Icon(coordinateSystem(preserveAspectRatio=false),
+      graphics={
         Rectangle(
           extent={{-70,60},{70,-60}},
           lineColor={0,0,255},
@@ -265,5 +269,27 @@ equation
           Text(
           extent={{80,92},{150,68}},
           textColor={0,0,127},
-          textString="TAirSupCoi")}));
+          textString="TAirSupCoi")}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
+  Documentation(info="<html>
+  <p>
+  This model consists of parallel DX cooling coils and associated control components, including: 
+  </p>
+  <ul>
+  <li>
+  Two junctions and a damper that controls airflow bypassing DX coils by input signal <code>uDam</code>
+  </li>
+  <li>
+  Vectorized temperature sensors after coil outlets and damplers that control airflow passing DX coils by 
+  on/off signals generated from speed ratio signals <code>speRat</code> with their deadband controls.
+  </li>
+  </ul>
+  </html>", revisions="<html>
+  <ul>
+  <li>
+  February 15, 2024, by Junke Wang and Karthik Devaprasad:<br/>
+  First implementation.
+  </li>
+  </ul>
+  </html>"));
 end ParallelDXCoilCoo;

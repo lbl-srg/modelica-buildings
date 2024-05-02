@@ -1,4 +1,4 @@
-simulateModel("Buildings.Examples.VAVReheat.Guideline36_DXSystems", stopTime=172800, method="cvode", tolerance=1e-06, resultFile="Guideline36_DXSystems");
+simulateModel("Buildings.Examples.VAVReheat.Guideline36_DXSystems", startTime=16848000, stopTime=17020800, method="cvode", tolerance=1e-06, resultFile="Guideline36_DXSystems");
 createPlot(id = 1,
  position = {26, 33, 808, 649},
  y = {"flo.sou.air.vol.T", "flo.eas.air.vol.T", "flo.nor.air.vol.T", "flo.wes.air.vol.T", "flo.cor.air.vol.T"},
@@ -56,7 +56,7 @@ createPlot(
 createPlot(
 	id=3, 
 	position={1000, 35, 600, 700},
-	y={"hvac.CooCoi[2].QSen_flow", "hvac.CooCoi[1].QSen_flow", "hvac.CooCoi[3].QSen_flow"}, 
+	y={"hvac.ParDXCoiCoo.CooCoi[1].QSen_flow", "hvac.ParDXCoiCoo.CooCoi[2].QSen_flow", "hvac.ParDXCoiCoo.CooCoi[3].QSen_flow", "hvac.ParDXCoiCoo.CooCoi[4].QSen_flow", "hvac.ParDXCoiCoo.CooCoi[5].QSen_flow", "hvac.ParDXCoiCoo.CooCoi[6].QSen_flow"}, 
 	autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -65,7 +65,7 @@ createPlot(
 	subPlot=1);
 createPlot(
 	id=3, 
-	y={"hvac.CooCoi[2].QLat_flow", "hvac.CooCoi[1].QLat_flow", "hvac.CooCoi[3].QLat_flow"}, 
+	y={"hvac.ParDXCoiCoo.CooCoi[1].QLat_flow", "hvac.ParDXCoiCoo.CooCoi[2].QLat_flow", "hvac.ParDXCoiCoo.CooCoi[3].QLat_flow", "hvac.ParDXCoiCoo.CooCoi[4].QLat_flow", "hvac.ParDXCoiCoo.CooCoi[5].QLat_flow", "hvac.ParDXCoiCoo.CooCoi[6].QLat_flow"}, 
 	autoscale=true,
     autoerase=true,
     autoreplot=true,
