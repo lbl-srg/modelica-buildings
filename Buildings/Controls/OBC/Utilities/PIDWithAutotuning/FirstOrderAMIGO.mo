@@ -28,7 +28,7 @@ block FirstOrderAMIGO
     "Lower value for the relay output";
   parameter Real deaBan(
     final min=1E-6)
-    "Deadband for holding the output value";
+    "Deadband for holding the relay output";
   parameter Real yRef
     "Reference output for the tuning process. It should be greater than the lower and less than the higher value of the relay output";
   parameter Real yMax = 1
@@ -360,6 +360,10 @@ the relay output, <code>yLow</code>, and the deadband, <code>deaBan</code>.
 The following procedure can be used for determining the values of those parameters. 
 </p>
 <ol>
+<li>
+Perform the simulation without enabling autotuning and with a constant set point.
+Record the maximum and the minimum values of measurement after the system is somewhat steady.
+</li>
 <li>
 The <code>r</code> should be adjusted so that the output of the relay controller,
 <code>rel.yDif</code>, is within the range from 0 to 1.
