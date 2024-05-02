@@ -41,11 +41,12 @@ OBJS = advection.o boundary.o chen_zero_equ_model.o cosimulation.o \
        usrfgh.o utility_isat.o\
 
 LIB = libisat.so
-LIBS = -lpthread -lc -lgfortran -llapack -lblas
+# LIBS = -lpthread -lc -lgfortran -llapack -lblas
 # LIBS = -pthread -lc -lgfortran -llapack -lblas
 # LIBS = -lpthread -lc -lgfortran -llapack
 # LIBS = -lpthread -lc -lgfortran
 # LIBS = -lc -lgfortran
+LIBS = -lpthread
 
 # Note that -fPIC is recommended on Linux according to the Modelica specification
 
@@ -55,7 +56,7 @@ all: clean
 	mv $(FFD)modelica_ffd_common.h $(FFD)m1.h
 	cp $(ISAT)modelica_ffd_common.h $(FFD)
 	$(CC) $(CC_FLAGS_$(ARCH)) -fPIC -c $(SRCS)
-	$(CC) -shared -fPIC -Wl,-soname,$(LIB) -o $(LIB) $(OBJS) libisatab_ser.a liblapack.a libblas.a $(LIBS)
+	$(CC) -shared -fPIC -Wl,-soname,$(LIB) -o $(LIB) $(OBJS) libisatab_ser.a liblapack.a libblas.a $(LIBS) -lc -lgfortran
 	rm -f $(OBJS)
 	mv $(LIB) $(BINDIR)
 	@echo "==== library generated in $(BINDIR)"
