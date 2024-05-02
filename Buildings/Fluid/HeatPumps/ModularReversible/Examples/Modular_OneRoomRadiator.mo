@@ -14,6 +14,7 @@ model Modular_OneRoomRadiator
     redeclare package MediumCon = MediumWat,
     redeclare package MediumEva = MediumAir,
     use_rev=true,
+    allowDifferentDeviceIdentifiers=true,
     QHea_flow_nominal=Q_flow_nominal,
     redeclare model RefrigerantCycleInertia =
         Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Inertias.NoInertia,
@@ -105,6 +106,11 @@ equation
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+  May 2, 2024, by Michael Wetter:<br/>
+  Refactored check for device identifiers.<br/>
+  This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">IBPSA, #1576</a>.
+</li>
 <li>
   <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
   First implementation (see issue <a href=

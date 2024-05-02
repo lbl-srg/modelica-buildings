@@ -4,7 +4,7 @@ model ConstantCarnotEffectiveness "Carnot EER with a constant Carnot effectivene
     Buildings.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle(
       useInChi=true,
       PEle_nominal=-QCoo_flow_nominal/EER_nominal,
-      datSou="ConstantCarnotEffectiveness");
+      devIde="ConstantCarnotEffectiveness");
   extends
     Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialCarnot(
      TAppCon_nominal=if cpCon < 1500 then 5 else 2,

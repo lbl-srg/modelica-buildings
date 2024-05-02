@@ -3245,12 +3245,6 @@ Buildings/Utilities/IO/SignalExchange/SignalTypes/package.order
 Buildings/Utilities/IO/SignalExchange/WeatherStation.mo
 Buildings/Utilities/IO/SignalExchange/package.mo
 Buildings/Utilities/IO/SignalExchange/package.order
-Buildings/Utilities/IO/Strings/Constant.mo
-Buildings/Utilities/IO/Strings/StringInput.mo
-Buildings/Utilities/IO/Strings/StringOutput.mo
-Buildings/Utilities/IO/Strings/StringPassThrough.mo
-Buildings/Utilities/IO/Strings/package.mo
-Buildings/Utilities/IO/Strings/package.order
 Buildings/Utilities/IO/package.mo
 Buildings/Utilities/IO/package.order
 Buildings/Utilities/Math/Average.mo

@@ -15,7 +15,8 @@ model Modular
       redeclare model RefrigerantCycleHeatPumpHeating =
           RefrigerantCycleHeatPumpHeating,
       redeclare model RefrigerantCycleHeatPumpCooling =
-          RefrigerantCycleHeatPumpCooling));
+          RefrigerantCycleHeatPumpCooling,
+      final allowDifferentDeviceIdentifiers=allowDifferentDeviceIdentifiers));
   parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal(min=Modelica.Constants.eps)
     "Nominal heating capacity"
     annotation (Dialog(group="Nominal condition"));
@@ -99,6 +100,11 @@ equation
     Documentation(revisions="
 <html>
 <ul>
+  <li>
+    May 2, 2024, by Michael Wetter:<br/>
+    Refactored check for device identifiers.<br/>
+    This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">IBPSA, #1576</a>.
+  </li>
   <li>
     <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
     Adjusted based on the discussion in this issue <a href=

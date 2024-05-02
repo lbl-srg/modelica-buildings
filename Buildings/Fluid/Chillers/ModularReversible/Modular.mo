@@ -15,9 +15,9 @@ model Modular
     mCon_flow_nominal=(PEle_nominal - QCoo_flow_nominal)/(dTCon_nominal*cpCon),
     use_rev=false,
     redeclare final Buildings.Fluid.Chillers.ModularReversible.BaseClasses.RefrigerantCycle refCyc(
-        redeclare model RefrigerantCycleChillerCooling =
-          RefrigerantCycleChillerCooling, redeclare model
-        RefrigerantCycleChillerHeating = RefrigerantCycleChillerHeating));
+      redeclare model RefrigerantCycleChillerCooling = RefrigerantCycleChillerCooling,
+      redeclare model RefrigerantCycleChillerHeating = RefrigerantCycleChillerHeating,
+      final allowDifferentDeviceIdentifiers=allowDifferentDeviceIdentifiers));
   parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal(max=0)
     "Nominal cooling capcaity"
       annotation(Dialog(group="Nominal condition"));
@@ -104,7 +104,13 @@ equation
       horizontalAlignment=TextAlignment.Right));
   annotation (Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
     Diagram(coordinateSystem(extent={{-140,-160},{140,160}})),
-    Documentation(revisions="<html><ul>
+    Documentation(revisions="<html>
+  <ul>
+  <li>
+  May 2, 2024, by Michael Wetter:<br/>
+  Refactored check for device identifiers.<br/>
+  This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">IBPSA, #1576</a>.
+  </li>
   <li>
     <i>May 22, 2019,</i> by Julian Matthes:<br/>
     First implementation (see issue <a href=

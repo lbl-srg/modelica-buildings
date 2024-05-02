@@ -10,9 +10,10 @@ partial model PartialRefrigerantCycle
   parameter Modelica.Units.SI.Temperature TEva_nominal
     "Nominal temperature at secondary evaporator side"
     annotation (Dialog(group="Nominal condition"));
-  parameter String datSou=""
+  parameter String devIde=""
     "Indicates the data source, used to warn users
-    about different data sources in reversible models";
+    about different vapor compression devices in reversible models";
+
   replaceable Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting iceFacCal
   constrainedby
     Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.BaseClasses.PartialIcingFactor
@@ -62,13 +63,7 @@ partial model PartialRefrigerantCycle
         rotation=270,
         origin={-30,-90})));
 
-  Buildings.Utilities.IO.Strings.StringOutput datSouOut
-  "String output of data source";
-protected
-  Buildings.Utilities.IO.Strings.Constant conStrSou(final k=datSou)
-    "Constant String with data source as output";
 equation
-  connect(conStrSou.y, datSouOut);
   connect(proRedQEva.y, QEva_flow) annotation (Line(points={{-30,-101},{-30,-108},
           {80,-108},{80,-130}},color={0,0,127}));
   connect(proRedQEva.y, redQCon.u1) annotation (Line(points={{-30,-101},{-30,-108},

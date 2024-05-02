@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle;
 model TableData2D "Performance data based on condenser outlet and evaporator inlet temperature"
   extends
     Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle(
-    final datSou=datTab.devIde,
+    final devIde=datTab.devIde,
     PEle_nominal=Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
         tabIdePEle,
         TCon_nominal,

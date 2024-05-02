@@ -1,6 +1,11 @@
 within Buildings.Fluid.Chillers.ModularReversible.BaseClasses;
 model RefrigerantCycle "Refrigerant cycle model of a chiller"
   extends Buildings.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialModularRefrigerantCycle;
+
+  parameter Boolean allowDifferentDeviceIdentifiers=false
+    "if use_rev=true, device data for cooling and heating need to entered. Set allowDifferentDeviceIdentifiers=true to allow different device identifiers devIde"
+    annotation(Dialog(enable=use_rev));
+
   replaceable model RefrigerantCycleChillerCooling =
       Buildings.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.NoCooling(
         useInChi=true)
@@ -25,26 +30,20 @@ model RefrigerantCycle "Refrigerant cycle model of a chiller"
     annotation (Placement(transformation(extent={{-60,38},{-19,80}}, rotation=0)));
 
 protected
-  Buildings.Utilities.IO.Strings.StringPassThrough strPasThr
-    "String pass through to enable conditional string data";
-  Buildings.Utilities.IO.Strings.Constant conStrSou(
-    final k=refCycChiCoo.datSou)
-   "Constant String data source";
+  parameter String devIde =
+    if use_rev then refCycChiHea.devIde else refCycChiCoo.devIde
+    "Data source for refrigerant cycle";
 
 initial algorithm
-  assert(
-    strPasThr.y == refCycChiCoo.datSou,
-    "In " + getInstanceName() + ": Data sources for reversible operation are not equal.
-    Cooling data source is " + refCycChiCoo.datSou + ", heating data source is "
-    + strPasThr.y + ". Only continue if this is intended.",
-    AssertionLevel.warning);
-equation
-  if use_rev then
-    connect(refCycChiHea.datSouOut, strPasThr.u);
-  else
-    connect(conStrSou.y, strPasThr.u);
+  if not allowDifferentDeviceIdentifiers then
+    assert(
+      devIde == refCycChiCoo.devIde,
+      "In " + getInstanceName() + ": Device identifiers devIde for reversible operation are not equal.
+      Cooling device identifier is '" + refCycChiCoo.devIde + "' but heating is '"
+      + devIde + "'. To allow this, set 'allowDifferentDeviceIdentifiers=true'.",
+      AssertionLevel.error);
   end if;
-
+equation
   connect(pasTrhModSet.u, sigBus.coo);
 
   connect(sigBus,refCycChiHea.sigBus)  annotation (Line(
@@ -152,7 +151,13 @@ equation
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255},
           textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=false)),
-    Documentation(revisions="<html><ul>
+    Documentation(revisions="<html>
+  <ul>
+  <li>
+  May 2, 2024, by Michael Wetter:<br/>
+  Refactored check for device identifiers.<br/>
+  This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">IBPSA, #1576</a>.
+  </li>
   <li>
     <i>May 22, 2019,</i> by Julian Matthes:<br/>
     First implementation (see issue <a href=

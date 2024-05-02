@@ -10,7 +10,7 @@ model NoCooling
     redeclare final
       Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
       iceFacCal,
-    datSou="",
+    devIde="NoCooling",
     QCoo_flow_nominal=0);
 
   Modelica.Blocks.Sources.Constant const(final k=0) "Zero energy flows"

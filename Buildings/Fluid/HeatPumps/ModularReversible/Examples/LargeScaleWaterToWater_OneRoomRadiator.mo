@@ -17,6 +17,7 @@ model LargeScaleWaterToWater_OneRoomRadiator
       redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.VeroLine80slash115dash2comma2slash2 per));
 
   Buildings.Fluid.HeatPumps.ModularReversible.LargeScaleWaterToWater heaPum(
+    allowDifferentDeviceIdentifiers=true,
     QHea_flow_nominal=Q_flow_nominal,
     use_intSafCtr=true,
     TConHea_nominal=TRadSup_nominal,

@@ -24,6 +24,7 @@ model CarnotWithLosses
         TAppCon_nominal=TAppCon_nominal,
         TAppEva_nominal=TAppEva_nominal,
         etaCarnot_nominal=etaCarnot_nominal),
+    final allowDifferentDeviceIdentifiers=false,
     redeclare model RefrigerantCycleInertia =
         Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Inertias.VariableOrder
         (

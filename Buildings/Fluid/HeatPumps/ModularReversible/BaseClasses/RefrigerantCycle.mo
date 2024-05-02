@@ -2,6 +2,11 @@ within Buildings.Fluid.HeatPumps.ModularReversible.BaseClasses;
 model RefrigerantCycle
   "Refrigerant cycle model of a heat pump"
   extends Buildings.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialModularRefrigerantCycle;
+
+  parameter Boolean allowDifferentDeviceIdentifiers=false
+    "if use_rev=true, device data for cooling and heating need to entered. Set allowDifferentDeviceIdentifiers=true to allow different device identifiers devIde"
+    annotation(Dialog(enable=use_rev));
+
   replaceable model RefrigerantCycleHeatPumpHeating =
     Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.NoHeating(
       useInHeaPum=true)
@@ -26,26 +31,21 @@ model RefrigerantCycle
   annotation (Placement(transformation(extent={{-60,40},{-19,80}}, rotation=0)));
 
 protected
-  Buildings.Utilities.IO.Strings.StringPassThrough strPasThr
-    "String pass through to enable conditional string data";
-  Buildings.Utilities.IO.Strings.Constant conStrSou(
-    final k=refCycHeaPumHea.datSou)
-    "Constant String data source";
+  parameter String devIde =
+    if use_rev then refCycHeaPumCoo.devIde else refCycHeaPumHea.devIde
+    "Data source for refrigerant cycle";
 
 initial algorithm
-  assert(
-    strPasThr.y == refCycHeaPumHea.datSou,
-    "In " + getInstanceName() + ": Data sources for reversible operation are not equal.
-    Heating data source is " + refCycHeaPumHea.datSou + ", cooling data source is "
-    + strPasThr.y + ". Only continue if this is intended.",
-    AssertionLevel.warning);
+  if not allowDifferentDeviceIdentifiers then
+    assert(
+      devIde == refCycHeaPumHea.devIde,
+      "In " + getInstanceName() + ": Device identifiers devIde for reversible operation are not equal.
+      Heating device identifier is '" + refCycHeaPumHea.devIde + "' but cooling is '"
+      + devIde + "'. To allow this, set 'allowDifferentDeviceIdentifiers=true'.",
+      AssertionLevel.error);
+  end if;
 
 equation
- if use_rev then
-  connect(refCycHeaPumCoo.datSouOut,  strPasThr.u);
- else
-  connect(conStrSou.y, strPasThr.u);
- end if;
   connect(pasTrhModSet.u, sigBus.hea);
 
   connect(sigBus,refCycHeaPumCoo.sigBus)  annotation (Line(
@@ -84,8 +84,9 @@ equation
           -53.1667,38.3333},{-53.1667,-8},{-58,-8}}, color={0,0,127}));
   connect(refCycHeaPumCoo.PEle, swiPEle.u3) annotation (Line(points={{-39.5,
           38.3333},{-39.5,-48},{-8,-48},{-8,-58}}, color={0,0,127}));
-  connect(refCycHeaPumHea.PEle, swiPEle.u1) annotation (Line(points={{40,38.3333},
-          {40,-48},{8,-48},{8,-58}}, color={0,0,127}));
+  connect(refCycHeaPumHea.PEle, swiPEle.u1) annotation (Line(points={{40,
+          38.3333},{40,-48},{8,-48},{8,-58}},
+                                     color={0,0,127}));
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Ellipse(
@@ -148,6 +149,11 @@ equation
           textString="%name")}),
           Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html><ul>
+  <li>
+    May 2, 2024, by Michael Wetter:<br/>
+    Refactored check for device identifiers.<br/>
+    This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">IBPSA, #1576</a>.
+  </li>
   <li>
     <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
     Adjusted based on the discussion in this issue <a href=

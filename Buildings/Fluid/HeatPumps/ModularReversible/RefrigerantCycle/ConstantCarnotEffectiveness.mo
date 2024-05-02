@@ -4,7 +4,7 @@ model ConstantCarnotEffectiveness "Carnot COP with a constant Carnot effectivene
     Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle(
       useInHeaPum=true,
       PEle_nominal=QHea_flow_nominal / COP_nominal,
-      datSou="ConstantCarnotEffectiveness");
+      devIde="ConstantCarnotEffectiveness");
   extends
     Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialCarnot(
      TAppCon_nominal=if cpCon < 1500 then 5 else 2,

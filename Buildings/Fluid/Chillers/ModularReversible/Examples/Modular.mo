@@ -9,6 +9,7 @@ model Modular
     redeclare package MediumCon = MediumCon,
     redeclare package MediumEva = MediumEva,
     use_rev=true,
+    allowDifferentDeviceIdentifiers=true,
     QCoo_flow_nominal=-30000,
     redeclare model RefrigerantCycleInertia =
         Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Inertias.VariableOrder

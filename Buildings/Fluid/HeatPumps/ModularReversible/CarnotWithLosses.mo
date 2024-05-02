@@ -24,6 +24,7 @@ model CarnotWithLosses
         etaCarnot_nominal=etaCarnot_nominal,
         TAppCon_nominal=TAppCon_nominal,
         TAppEva_nominal=TAppEva_nominal),
+    final allowDifferentDeviceIdentifiers=false,
     final use_evaCap,
     final use_conCap,
     redeclare model RefrigerantCycleInertia =
@@ -89,6 +90,11 @@ initial algorithm
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+  May 2, 2024, by Michael Wetter:<br/>
+  Refactored check for device identifiers.<br/>
+  This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">IBPSA, #1576</a>.
+</li>
 <li>
   <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
   First implementation (see issue <a href=
