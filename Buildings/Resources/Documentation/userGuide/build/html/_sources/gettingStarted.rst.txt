@@ -40,7 +40,7 @@ or by replacing existing component models by new ones.
 The example models can be found in the packages `Examples`.
 
 Study the detailed tutorials with step-by-step instructions for how to build system models,
-which can be found in the `Tutorial package <https://simulationresearch.lbl.gov/modelica/releases/v9.1.1/help/Buildings_Examples_Tutorial.html>`_.
+which can be found in the `Tutorial package <https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Examples_Tutorial.html>`_.
 
 Note that heat transfer models, which can be found in `Buildings.HeatTransfer.*.Examples`
 are easier to understand than fluid flow models because;
@@ -51,7 +51,7 @@ are easier to understand than fluid flow models because;
 
 To get started with Spawn of EnergyPlus, we recommend to first familiarize yourself with Modelica, as described above.
 Next, read the
-`user guide for the Spawn models <https://simulationresearch.lbl.gov/modelica/releases/v9.1.1/help/Buildings_ThermalZones_EnergyPlus_9_6_0_UsersGuide.html>`_
+`user guide for the Spawn models <https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_ThermalZones_EnergyPlus_9_6_0_UsersGuide.html>`_
 which provides step-by-step instructions and points to various examples.
 
 
@@ -65,7 +65,7 @@ Literature for Developers
 -------------------------
 
 It is essential that users who develop new thermo-fluid models to understand the concept of stream connectors.
-Stream connectors are explained in the Modelica language definition, available at https://modelica.org/documents,
+Stream connectors are explained in the Modelica language definition, available at https://modelica.org/language,
 and in the paper Franke et al. [Fra2009a]_.
 The `Buildings` library uses similar modeling principles, and the same base classes, as the `Modelica.Fluid` library.
 Hence, we also recommend reading the paper about the standardization of thermo-fluid models in Modelica.Fluid [Fra2009b]_.

@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "phNo.y",
+    "phPar.y",
+    "phInp.y"
+  };

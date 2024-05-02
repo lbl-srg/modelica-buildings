@@ -65,7 +65,8 @@ model AirHeating
     m_flow_nominal=mRec_flow_nominal,
     dp_nominal=200,
     tau=0,
-    show_T=true)
+    show_T=true,
+    QMax_flow=4000)
     "Ideal heater"
     annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
   Fluid.Sources.Boundary_pT pAtm(
@@ -143,13 +144,17 @@ equation
   connect(building.weaBus,freshAir.weaBus)
     annotation (Line(points={{-60,30},{-50,30},{-50,30.2},{-40,30.2}},color={255,204,51},thickness=0.5));
   connect(duc.port_a,zon.ports[1])
-    annotation (Line(points={{10,60},{37,60},{37,80.9}},color={0,127,255}));
+    annotation (Line(points={{10,60},{38.5,60},{38.5,80.9}},
+                                                        color={0,127,255}));
   connect(freshAir.ports[1],zon.ports[2])
-    annotation (Line(points={{-20,30},{39,30},{39,80.9}},color={0,127,255}));
+    annotation (Line(points={{-20,30},{39.5,30},{39.5,80.9}},
+                                                         color={0,127,255}));
   connect(fan.port_a,zon.ports[3])
-    annotation (Line(points={{40,-20},{20,-20},{20,10},{41,10},{41,80.9}},color={0,127,255}));
+    annotation (Line(points={{40,-20},{20,-20},{20,10},{40.5,10},{40.5,80.9}},
+                                                                          color={0,127,255}));
   connect(hea.port_b,zon.ports[4])
-    annotation (Line(points={{100,-20},{112,-20},{112,30},{43,30},{43,80.9}},color={0,127,255}));
+    annotation (Line(points={{100,-20},{112,-20},{112,30},{41.5,30},{41.5,80.9}},
+                                                                             color={0,127,255}));
   connect(duc.port_b,pAtm.ports[1])
     annotation (Line(points={{-10,60},{-20,60}},color={0,127,255}));
   connect(conPID.y,sta1.u)
@@ -197,7 +202,14 @@ Note that for simplicity, the model has no cooling system. Therefore, in summer,
 </p>
 </html>",
       revisions="<html>
-<ul><li>
+<ul>
+<li>
+March 13, 2024, by Michael Wetter:<br/>
+Updated <code>idf</code> file to add insulation, and restricted capacity of heater.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3707\">issue 3707</a>.
+</li>
+<li>
 March 1, 2018, by Michael Wetter:<br/>
 First implementation.
 </li>

@@ -61,10 +61,20 @@ function value <i>y<sup>1</sup></i> is returned.
 </p>
 <p>
 Note that if <code>xSup</code> and <code>ySup</code> only depend on parameters
-or constants, then
-<a href=\"modelica://Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation\">
-Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation</a>
-will be more efficient.
+or constants, and therefore will not change during the simulation,
+it is more efficient to first call
+<a href=\"modelica://Buildings.Utilities.Math.Functions.splineDerivatives\">
+Buildings.Utilities.Math.Functions.splineDerivatives</a>
+to find the derivatives, and then call
+<a href=\"modelica://Buildings.Utilities.Math.Functions.interpolate\">
+Buildings.Utilities.Math.Functions.interpolate</a> to perform the interpolation.
+This way the derivatives only need to be computed once upon initialisation,
+not at each step during the simulation.
+See the example implemented in
+<a href=\"modelica://Buildings.Utilities.Math.Functions.Examples.Interpolate\">
+Buildings.Utilities.Math.Functions.Examples.Interpolate</a>.
+</p>
+<p>
 In contrast to the function
 <a href=\"modelica://Modelica.Math.Vectors.interpolate\">
 Modelica.Math.Vectors.interpolate</a>

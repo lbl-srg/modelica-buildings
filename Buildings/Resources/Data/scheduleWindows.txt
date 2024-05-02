@@ -1,0 +1,7 @@
+# Comments start with a #
+# The user is responsible for making sure that the header dimensions are correct
+double tab1(3,5) # Comments can be added at the end of a line for adding local documentation
+mon:0:0:10          -  3   1  -
+# Comments can be added in the table too
+tue,thu:20:30:59  123  -  45  -
+wed                12  1   4  -
