@@ -33,8 +33,7 @@ model IndirectWet "Validation model for indirect wet evaporative cooler"
     redeclare final package Medium = MediumA,
     final nPorts=1)
     "Sink for secondary airflow"
-    annotation (Placement(transformation(origin={130,-40}, extent={{10,-10},{-10,
-            10}})));
+    annotation (Placement(transformation(origin={130,-40}, extent={{10,-10},{-10,10}})));
 
   Buildings.Fluid.Sources.MassFlowSource_T souPri(
     redeclare final package Medium = MediumA,

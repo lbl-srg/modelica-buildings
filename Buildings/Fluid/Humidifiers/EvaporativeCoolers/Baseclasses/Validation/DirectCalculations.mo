@@ -5,79 +5,88 @@ model DirectCalculations
 
   parameter Modelica.Units.SI.Area padAre = 0.6
     "Area of the rigid media evaporative pad";
+
   parameter Modelica.Units.SI.Length dep = 0.2
     "Depth of the rigid media evaporative pad";
+
   parameter Modelica.Units.SI.Length pAtm = 101325
     "Atmospheric pressure";
+
   parameter Modelica.Units.SI.ThermodynamicTemperature TDryBulSup_nominal = 296.15
     "Nominal supply air drybulb temperature";
+
   parameter Modelica.Units.SI.ThermodynamicTemperature TWetBulSup_nominal = 289.3
     "Nominal supply air wetbulb temperature";
+
   parameter Modelica.Units.SI.VolumeFlowRate V_flow_nominal = 1
     "Nominal supply air volume flowrate";
 
   Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.DirectCalculations
     dirEvaCoo(
     redeclare package Medium = Buildings.Media.Air,
-    padAre=padAre,
-    dep=dep)
+    final padAre=padAre,
+    final dep=dep)
     "Instance with time-varying volume flowrate signal"
     annotation (Placement(transformation(origin={30,50}, extent={{-10,-10},{10,10}})));
 
   Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.DirectCalculations
     dirEvaCoo1(
     redeclare package Medium = Buildings.Media.Air,
-    padAre=padAre,
-    dep=dep)
+    final padAre=padAre,
+    final dep=dep)
     "Instance with time-varying wetbulb temperature signal"
     annotation (Placement(transformation(origin={30,0}, extent={{-10,-10},{10,10}})));
 
   Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.DirectCalculations
     dirEvaCoo2(
     redeclare package Medium = Buildings.Media.Air,
-    padAre=padAre,
-    dep=dep)
+    final padAre=padAre,
+    final dep=dep)
     "Instance with time-varying drybulb temperature signal"
     annotation (Placement(transformation(origin={30,-50}, extent={{-10,-10},{10,10}})));
 
 protected
-  Modelica.Blocks.Sources.Constant TWetBulSupCon(k=TWetBulSup_nominal)
+  Modelica.Blocks.Sources.Constant TWetBulSupCon(
+    final k=TWetBulSup_nominal)
     "Constant wet bulb temperature signal"
     annotation (Placement(transformation(origin={-80,80}, extent={{-10,-10},{10,10}})));
 
-  Modelica.Blocks.Sources.Constant TDryBulSupCon(k=TDryBulSup_nominal)
+  Modelica.Blocks.Sources.Constant TDryBulSupCon(
+    final k=TDryBulSup_nominal)
     "Constant drybulb temperature signal"
     annotation (Placement(transformation(origin={-80,30}, extent={{-10,-10},{10,10}})));
 
   Modelica.Blocks.Sources.Ramp TWetBulSupRam(
-    duration=60,
-    height=5,
-    offset=TWetBulSup_nominal,
-    startTime=0)
+    final duration=60,
+    final height=5,
+    final offset=TWetBulSup_nominal,
+    final startTime=0)
     "Ramp signal for wet-bulb temperature"
     annotation (Placement(transformation(origin={-10,20}, extent={{-10,-10},{10,10}})));
 
   Modelica.Blocks.Sources.Ramp TDryBulSupRam(
-    duration=60,
-    height=15,
-    offset=TDryBulSup_nominal,
-    startTime=0)
+    final duration=60,
+    final height=15,
+    final offset=TDryBulSup_nominal,
+    final startTime=0)
     "Ramp signal for drybulb temperature"
     annotation (Placement(transformation(origin={-10,-26}, extent={{-10,-10},{10,10}})));
 
-  Modelica.Blocks.Sources.Constant V_flowCon(k=V_flow_nominal)
+  Modelica.Blocks.Sources.Constant V_flowCon(
+    final k=V_flow_nominal)
     "Constant volume flowrate signal"
     annotation (Placement(transformation(origin={-80,-30}, extent={{-10,-10},{10,10}})));
 
   Modelica.Blocks.Sources.Ramp V_flowRam(
-    duration=60,
-    height=0.5,
-    offset=V_flow_nominal,
-    startTime=0)
+    final duration=60,
+    final height=0.5,
+    final offset=V_flow_nominal,
+    final startTime=0)
     "Ramp signal for volume flowrate"
     annotation (Placement(transformation(origin={-10,80}, extent={{-10,-10},{10,10}})));
 
-  Modelica.Blocks.Sources.Constant pCon(k=pAtm)
+  Modelica.Blocks.Sources.Constant pCon(
+    final k=pAtm)
     "Constant pressure signal"
     annotation (Placement(transformation(origin={-80,-80}, extent={{-10,-10},{10,10}})));
 

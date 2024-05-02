@@ -17,18 +17,12 @@ model Direct
   parameter Modelica.Units.SI.Length dep
     "Depth of the rigid media evaporative pad";
 
-  parameter Real effCoe[11]={0.792714, 0.958569, -0.25193, -1.03215, 0.0262659,
-                             0.914869, -1.48241, -0.018992, 1.13137, 0.0327622,
-                             -0.145384}
-    "Coefficients for evaporative medium efficiency calculation";
-
   parameter Modelica.Units.SI.Time tau=30
     "Time constant at nominal flow rate (if energyDynamics <> SteadyState)"
     annotation (Dialog(tab="Dynamics", group="Nominal condition"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dmWat_flow(
     final unit="kg/s",
-    displayUnit="kg/s",
     final quantity="MassFlowRate")
     "Water vapor mass flow rate difference between inlet and outlet"
     annotation (Placement(transformation(origin={120,80}, extent={{-20,-20},{20,20}}),
@@ -74,8 +68,7 @@ model Direct
   Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.DirectCalculations dirEvaCoo(
     redeclare final package Medium = Medium,
     final dep=dep,
-    final padAre=padAre,
-    final effCoe=effCoe)
+    final padAre=padAre)
     "Direct evaporative cooling calculator"
     annotation (Placement(transformation(origin={30,60}, extent={{-10,-10},{10,10}})));
 
@@ -86,8 +79,11 @@ model Direct
 
 protected
   parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
-    T=Medium.T_default, p=Medium.p_default, X=Medium.X_default)
+    T=Medium.T_default,
+    p=Medium.p_default,
+    X=Medium.X_default)
     "Default state of medium";
+
   parameter Modelica.Units.SI.Density rho_default=Medium.density(sta_default)
     "Density, used to compute fluid volume";
 
@@ -103,11 +99,11 @@ equation
   connect(senTemWetBul.port_b,senVolFlo. port_a)
     annotation (Line(points={{-30,0},{-20,0}}));
   connect(res.port_b, vol.ports[1])
-    annotation (Line(points={{40,0},{79,0},{79,10}}, color = {0, 127, 255}));
+    annotation (Line(points={{40,0},{78,0},{78,10}}, color = {0, 127, 255}));
   connect(port_a, senTem.port_a)
     annotation (Line(points={{-100,0},{-80,0}}));
   connect(vol.ports[2], port_b)
-    annotation (Line(points={{81,10},{81,0},{100,0}}, color = {0, 127, 255}));
+    annotation (Line(points={{82,10},{82,0},{100,0}}, color = {0, 127, 255}));
   connect(senTem.port_a, senPre.port)
     annotation (Line(points={{-80,0},{-90,0},{-90,44}}, color={0,127,255}));
   connect(senPre.p, dirEvaCoo.p)
