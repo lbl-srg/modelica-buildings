@@ -19,8 +19,15 @@ record Generic
   final parameter Modelica.Units.SI.Angle[size(incAngDatDeg,1)] incAngDat=
     Modelica.Units.Conversions.from_deg(incAngDatDeg)
     "Incident angle data in radians";
-  parameter Real[size(incAngDatDeg,1)] incAngModDat(final min=0, final unit="1")
+  parameter Real[size(incAngDatDeg,1)] incAngModDat(
+    each final min=0,
+    each final unit="1")
     "Incident angle modifier data";
+
+  final parameter Boolean validated = validateAngles(
+    incAngDatDeg=incAngDatDeg,
+    incAngModDat=incAngModDat)
+    "True if data are valid, otherwise an assertion is issued";
 
 annotation (
 defaultComponentPrefixes="parameter",

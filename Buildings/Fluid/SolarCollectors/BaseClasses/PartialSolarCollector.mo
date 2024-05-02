@@ -125,11 +125,9 @@ partial model PartialSolarCollector "Partial model for solar collectors"
       rotation=180,
       origin={0,-20})));
 
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow QGai[nSeg]
-    "Rate of solar heat gain"
+  HeatTransfer.Sources.PrescribedHeatFlow QGai[nSeg] "Rate of solar heat gain"
     annotation (Placement(transformation(extent={{50,40},{70,60}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow QLos[nSeg]
-    "Rate of heat loss"
+  HeatTransfer.Sources.PrescribedHeatFlow QLos[nSeg] "Rate of heat loss"
     annotation (Placement(transformation(extent={{50,10},{70,30}})));
   replaceable parameter Buildings.Fluid.SolarCollectors.Data.GenericASHRAE93 per
     constrainedby Buildings.Fluid.SolarCollectors.Data.BaseClasses.Generic
@@ -187,7 +185,7 @@ initial equation
     level = AssertionLevel.warning);
 
   if sysConfig==Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Array then
-    assert(nPanelsPar_internal*nPanelsSer_internal==nPanels_internal,
+    assert(abs(nPanelsPar_internal*nPanelsSer_internal-nPanels_internal) < 1E-6,
       "In " + getInstanceName() +
       ": The product of the number of panels in series and parallel is not equal to the total number of panels in the array.",
       level = AssertionLevel.error);

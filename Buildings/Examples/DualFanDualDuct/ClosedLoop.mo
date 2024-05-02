@@ -149,7 +149,9 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Buildings.Examples.VAVReheat.BaseClasses.Controls.FanVFD conFanSupHot(
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=yFan_start,
-    xSet_nominal(displayUnit="Pa") = 30,
+    xSet_nominal(
+      final unit="Pa",
+      displayUnit="Pa") = 30,
     r_N_min=0.2,
     controllerType=Modelica.Blocks.Types.SimpleController.P,
     k=1) "Controller for fan of hot deck"
@@ -270,7 +272,9 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     from_dp=true) "West-facing thermal zone"
     annotation (Placement(transformation(extent={{1102,46},{1170,114}})));
   Buildings.Examples.VAVReheat.BaseClasses.Controls.FanVFD conFanRet(
-                        xSet_nominal(displayUnit="Pa") = 30,
+    xSet_nominal(
+      final unit="Pa",
+      displayUnit="Pa") = 30,
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=yFan_start,
     r_N_min=0.2,
@@ -517,7 +521,9 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Buildings.Examples.VAVReheat.BaseClasses.Controls.FanVFD conFanSupCol(
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=yFan_start,
-    xSet_nominal(displayUnit="Pa") = 30,
+    xSet_nominal(
+      final unit="Pa",
+      displayUnit="Pa") = 30,
     r_N_min=0.2) "Controller for fan of cold deck"
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
   Modelica.Blocks.Sources.Constant pStaBui_Set(y(final unit="Pa", min=0), k=30)
@@ -1240,6 +1246,10 @@ shading devices, Technical Report, Oct. 17, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 4, 2024, by Michael Wetter:<br/>
+Corrected wrong use of <code>displayUnit</code> attribute.
+</li>
 <li>
 August 22, 2022, by Hongxiang Fu:<br/>
 Replaced <code>fanSupCol</code> and <code>fanRet</code> with preconfigured

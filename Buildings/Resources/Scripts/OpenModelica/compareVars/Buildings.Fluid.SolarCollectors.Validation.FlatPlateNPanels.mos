@@ -4,8 +4,8 @@ compareVars :=
     "solCol1.vol[30].T",
     "solCol.solGai.QSol_flow[30]",
     "solCol1.solGai.QSol_flow[30]",
-    "solCol.heaLos.QLos[30]",
-    "solCol1.heaLos.QLos[30]",
+    "solCol.heaLos.QLos_flow[30]",
+    "solCol1.heaLos.QLos_flow[30]",
     "difHeaGai.y",
     "difHeaLos.y"
   };

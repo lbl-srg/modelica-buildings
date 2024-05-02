@@ -33,11 +33,12 @@ The computation of the
 </p>
 
 <h5>Performance data</h5>
+<p>
 Different sources exist to find ratings data of individual collectors.
 However, not all data might be available in one single data sheet.
 The table below specifies which input data of the model can be found in several
 well-known data sources:
-<p>
+</p>
 <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr>
 <th>Input data</th>
@@ -88,9 +89,9 @@ well-known data sources:
 <td> IAM(50°), eta0, a1, a2 </td>
 </tr>
 </table>
-</p>
 <p>
 Some extra important remarks regarding the performance data:
+</p>
 <ul>
 <li>
 Different areas can be defined for a solar collector: the gross, absorber, and
@@ -122,6 +123,7 @@ therefore correctly take this into account (e.g. using an empirical correction
 factor).
 </li>
 <li>
+<p>
 The relation between the incidence angle modifier (IAM) and incidence angle
 <code>&theta;</code> is calculated using cubic splines and measurement data
 provided in the data sheets.
@@ -157,7 +159,7 @@ multiplying the longitudinal and transversal IAM;
 using either the longitudinal or transversal IAM.
 </li>
 </ul>
-The model should therefore be used with extra care when dealing with
+The model should therefore be used with care when dealing with
 evacuated tube collectors.
 </li>
 <li>
@@ -225,9 +227,9 @@ the collector field has a mass flow rate equal to
 </li>
 <li>
 <code>Array</code>: If <code>Array</code> is selected it is assumed that the
-panels are mounted as a rectangular array with <code>nPanelsPar</code> rows, 
-each having <code>nPanelsSer</code> panels in series. As a result there is a 
-pressure drop corresponding to <code>dp_nominal</code> for each panel per row 
+panels are mounted as a rectangular array with <code>nPanelsPar</code> rows,
+each having <code>nPanelsSer</code> panels in series. As a result there is a
+pressure drop corresponding to <code>dp_nominal</code> for each panel per row
 and the effective <code>dp_nominal</code> for the system is
 <code>dp_nominal</code> * <code>nPanelsSer</code>.
 </li>

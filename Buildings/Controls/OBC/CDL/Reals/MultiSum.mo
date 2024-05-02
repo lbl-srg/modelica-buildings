@@ -9,10 +9,10 @@ block MultiSum
     1,
     nin)
     "Input gains";
-  Interfaces.RealInput u[nin]
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u[nin]
     "Connector of Real input signals"
     annotation (Placement(transformation(extent={{-140,20},{-100,-20}})));
-  Interfaces.RealOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
     "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 

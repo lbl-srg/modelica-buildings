@@ -15,10 +15,9 @@ Switch
 Timer
 TimerAccumulating
 Toggle
-TriggeredTrapezoid
 TrueDelay
 TrueFalseHold
-TrueHoldWithReset
+TrueHold
 VariablePulse
 Xor
 Sources

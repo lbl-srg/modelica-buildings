@@ -12,7 +12,7 @@ record FP_VerificationModel =
     final a1=2.8312,
     final a2=0.00119,
     final incAngDatDeg={0,10,20,30,40,50,60,70,80,90},
-    final incAngModDat={1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0},
+    final incAngModDat={1.0,0.9967,0.9862,0.9671,0.9360,0.8868,0.8065,0.6686,0.4906,0.0},
     final mDry=484)
   "FP - All inputs necessary for verification of EN12975 models"
     annotation (

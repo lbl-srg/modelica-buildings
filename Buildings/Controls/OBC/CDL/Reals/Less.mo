@@ -8,13 +8,13 @@ block Less
   parameter Boolean pre_y_start=false
     "Value of pre(y) at initial time"
     annotation (Dialog(tab="Advanced"));
-  Interfaces.RealInput u1
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u1
     "Input u1"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.RealInput u2
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u2
     "Input u2"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-  Interfaces.BooleanOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Output y"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
@@ -32,13 +32,13 @@ protected
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
   block LessNoHysteresis
     "Less block without hysteresis"
-    Interfaces.RealInput u1
+    Buildings.Controls.OBC.CDL.Interfaces.RealInput u1
       "Input u1"
       annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-    Interfaces.RealInput u2
+    Buildings.Controls.OBC.CDL.Interfaces.RealInput u2
       "Input u2"
       annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-    Interfaces.BooleanOutput y
+    Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
       "Output y"
       annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
@@ -69,13 +69,13 @@ protected
     parameter Boolean pre_y_start=false
       "Value of pre(y) at initial time"
       annotation (Dialog(tab="Advanced"));
-    Interfaces.RealInput u1
+    Buildings.Controls.OBC.CDL.Interfaces.RealInput u1
       "Input u1"
       annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-    Interfaces.RealInput u2
+    Buildings.Controls.OBC.CDL.Interfaces.RealInput u2
       "Input u2"
       annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-    Interfaces.BooleanOutput y
+    Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
       "Output y"
       annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 

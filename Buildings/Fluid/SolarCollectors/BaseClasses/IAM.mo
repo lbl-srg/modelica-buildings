@@ -1,9 +1,13 @@
 within Buildings.Fluid.SolarCollectors.BaseClasses;
 function IAM "Function for incident angle modifier"
+  extends Modelica.Icons.Function;
 
   input Modelica.Units.SI.Angle incAng "Incident angle";
   input Modelica.Units.SI.Angle[:] incAngDat "Incident angle data";
-  input Real[size(incAngDat,1)] incAngModDat(final min=0, final max=1, final unit="1") "Incident angle modifier data";
+  input Real[size(incAngDat,1)] incAngModDat(
+    each final min=0,
+    each final max=1,
+    each final unit="1") "Incident angle modifier data";
   input Real[size(incAngDat,1)] dMonotone "Incident angle modifier spline derivatives";
   output Real incAngMod "Incident angle modifier coefficient";
 protected
