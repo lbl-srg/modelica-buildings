@@ -156,8 +156,6 @@ before_install:
 # the html output may have small formatting differences which causes
 # the test to fail
 install:
-  - sudo apt-get install libblas-dev liblapack-dev
-  - sudo apt-get install libpthread-stubs0-dev
   - git lfs pull
   - pip3 install --upgrade pip wheel
   - pip3 install --only-binary=numpy,scipy,matplotlib numpy==1.21.4 scipy==1.7.3 matplotlib==3.5.1

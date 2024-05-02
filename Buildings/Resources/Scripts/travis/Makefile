@@ -158,8 +158,6 @@ endef
 
 test-dymola:
 	$(eval BUILDINGSPY_SKIP_STATISTICS_VERIFICATION := $(buiPyMod))
-	sudo apt-get install libblas-dev liblapack-dev && \
-	sudo apt-get install libpthread-stubs0-dev && \
 	(cd $(ROOT)/Buildings && \
 	  export PYTHONPATH=$(TRAVIS_BUILD_DIR)/Buildings/Resources/Python-Sources && \
 	  export BUILDINGSPY_SKIP_STATISTICS_VERIFICATION='$(BUILDINGSPY_SKIP_STATISTICS_VERIFICATION)' && \
