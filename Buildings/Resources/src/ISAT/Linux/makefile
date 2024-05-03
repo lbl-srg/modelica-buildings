@@ -46,8 +46,6 @@ LIBS = -lpthread -lc -lgfortran
 
 # Note that -fPIC is recommended on Linux according to the Modelica specification
 
-# $(CC) -shared -fPIC -Wl,-soname,$(LIB) -o $(LIB) $(OBJS) libisatab_ser.a $(LIBS)
-
 all: clean
 	mv $(FFD)modelica_ffd_common.h $(FFD)m1.h
 	cp $(ISAT)modelica_ffd_common.h $(FFD)
