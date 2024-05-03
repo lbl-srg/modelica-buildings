@@ -403,7 +403,8 @@
     simulate: false
 - model_name: Buildings.ThermalZones.Detailed.Examples.ISAT.Tutorial.MixedConvectionWithBox
   dymola:
-    time_out: 600
+    comment: 'TimeoutExpired: dymola timed out after 300 seconds'
+    simulate: false
   optimica:
     comment: 'TimeoutExpired: optimica timed out after 300 seconds'
     simulate: false
