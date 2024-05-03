@@ -22,100 +22,106 @@ block PlantRequests
     final unit="1",
     displayUnit="1") = 0.1
     "Valve position limit below which zero chilled water plant requests are sent when one request was previously being sent"
-    annotation(Dialog(tab="Request limits", group="Chilled water requests", enable=have_chiWatCoi));
+    annotation(Dialog(tab="Request limits", group="Chilled water plant requests", enable=have_chiWatCoi));
 
   parameter Real chiWatResReqLim0(
     final unit="1",
     displayUnit="1") = 0.85
     "Valve position limit below which zero chilled water reset requests are sent when one request was previously being sent"
-    annotation(Dialog(tab="Request limits", group="Chilled water requests", enable=have_chiWatCoi));
+    annotation(Dialog(tab="Request limits", group="Chilled water reset requests", enable=have_chiWatCoi));
 
   parameter Real chiWatPlaReqLim1(
     final unit="1",
     displayUnit="1") = 0.95
     "Valve position limit above which one chilled water plant request is sent"
-    annotation(Dialog(tab="Request limits", group="Chilled water requests", enable=have_chiWatCoi));
+    annotation(Dialog(tab="Request limits", group="Chilled water plant requests", enable=have_chiWatCoi));
+
+  parameter Real chiWatResReqLim1(
+    final unit="1",
+    displayUnit="1") = 0.95
+    "Valve position limit above which one chilled water reset request is sent"
+    annotation(Dialog(tab="Request limits", group="Chilled water reset requests", enable=have_chiWatCoi));
 
   parameter Real chiWatResReqLim2(
     final unit="K",
     final quantity="TemperatureDifference") = 2.78
     "Temperature difference limit between setpoint and supply air temperature above which two chilled water reset requests are sent"
-    annotation(Dialog(tab="Request limits", group="Chilled water requests", enable=have_chiWatCoi));
+    annotation(Dialog(tab="Request limits", group="Chilled water reset requests", enable=have_chiWatCoi));
 
   parameter Real chiWatResReqTimLim2(
     final unit="s",
     displayUnit="s",
     final quantity="Time") = 300
     "Time period for which chiWatResReqLim2 has to be exceeded before two chilled water reset requests are sent"
-    annotation(Dialog(tab="Request limits", group="Chilled water requests", enable=have_chiWatCoi));
+    annotation(Dialog(tab="Request limits", group="Chilled water reset requests", enable=have_chiWatCoi));
 
   parameter Real chiWatResReqLim3(
     final unit="K",
     final quantity="TemperatureDifference") = 5.56
     "Temperature difference limit between setpoint and supply air temperature above which three chilled water reset requests are sent"
-    annotation(Dialog(tab="Request limits", group="Chilled water requests", enable=have_chiWatCoi));
+    annotation(Dialog(tab="Request limits", group="Chilled water reset requests", enable=have_chiWatCoi));
 
   parameter Real chiWatResReqTimLim3(
     final unit="s",
     displayUnit="s",
     final quantity="Time") = 300
     "Time period for which chiWatResReqLim3 has to be exceeded before three chilled water reset requests are sent"
-    annotation(Dialog(tab="Request limits", group="Chilled water requests", enable=have_chiWatCoi));
+    annotation(Dialog(tab="Request limits", group="Chilled water reset requests", enable=have_chiWatCoi));
 
   parameter Real hotWatPlaReqLim0(
     final unit="1",
     displayUnit="1") = 0.1
     "Valve position limit below which zero hot water plant requests are sent when one request was previously being sent"
-    annotation(Dialog(tab="Request limits", group="Hot water requests", enable=have_hotWatCoi));
+    annotation(Dialog(tab="Request limits", group="Hot water plant requests", enable=have_hotWatCoi));
 
   parameter Real hotWatResReqLim0(
     final unit="1",
     displayUnit="1") = 0.85
     "Valve position limit below which zero hot water reset requests are sent when one request was previously being sent"
-    annotation(Dialog(tab="Request limits", group="Hot water requests", enable=have_hotWatCoi));
+    annotation(Dialog(tab="Request limits", group="Hot water reset requests", enable=have_hotWatCoi));
 
   parameter Real hotWatPlaReqLim1(
     final unit="1",
     displayUnit="1") = 0.95
     "Valve position limit above which one hot water plant request is sent"
-    annotation(Dialog(tab="Request limits", group="Hot water requests", enable=have_hotWatCoi));
+    annotation(Dialog(tab="Request limits", group="Hot water plant requests", enable=have_hotWatCoi));
+
+  parameter Real hotWatResReqLim1(
+    final unit="1",
+    displayUnit="1") = 0.95
+    "Valve position limit above which one hot water reset request is sent"
+    annotation(Dialog(tab="Request limits", group="Hot water reset requests", enable=have_hotWatCoi));
 
   parameter Real hotWatResReqLim2(
     final unit="K",
     final quantity="TemperatureDifference") = 8
     "Temperature difference limit between setpoint and supply air temperature above which two hot water reset requests are sent"
-    annotation(Dialog(tab="Request limits", group="Hot water requests", enable=have_hotWatCoi));
+    annotation(Dialog(tab="Request limits", group="Hot water reset requests", enable=have_hotWatCoi));
 
   parameter Real hotWatResReqTimLim2(
     final unit="s",
     displayUnit="s",
     final quantity="Time") = 300
     "Time period for which hotWatResReqLim2 has to be exceeded before two hot water reset requests are sent"
-    annotation(Dialog(tab="Request limits", group="Hot water requests", enable=have_hotWatCoi));
+    annotation(Dialog(tab="Request limits", group="Hot water reset requests", enable=have_hotWatCoi));
 
   parameter Real hotWatResReqLim3(
     final unit="K",
     final quantity="TemperatureDifference") = 17
     "Temperature difference limit between setpoint and supply air temperature above which three hot water reset requests are sent"
-    annotation(Dialog(tab="Request limits", group="Hot water requests", enable=have_hotWatCoi));
+    annotation(Dialog(tab="Request limits", group="Hot water reset requests", enable=have_hotWatCoi));
 
   parameter Real hotWatResReqTimLim3(
     final unit="s",
     displayUnit="s",
     final quantity="Time") = 300
     "Time period for which hotWatResReqLim3 has to be exceeded before three hot water reset requests are sent"
-    annotation(Dialog(tab="Request limits", group="Hot water requests", enable=have_hotWatCoi));
+    annotation(Dialog(tab="Request limits", group="Hot water reset requests", enable=have_hotWatCoi));
 
   parameter Real Thys(
     final unit="K",
     final quantity = "TemperatureDifference") = 0.1
     "Hysteresis for checking temperature difference"
-    annotation(Dialog(tab="Advanced"));
-
-  parameter Real posHys(
-    final unit="1",
-    displayUnit="1") = 0.05
-    "Hysteresis for checking valve position difference"
     annotation(Dialog(tab="Advanced"));
 
   parameter Real dFanSpe(
@@ -209,7 +215,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Integers.Multiply mulIntHea if have_hotWatCoi
     "Output reset requests only if fan is at max heating mode speed"
-    annotation (Placement(transformation(extent={{160,-10},{180,10}})));
+    annotation (Placement(transformation(extent={{160,-20},{180,0}})));
 
   Buildings.Controls.OBC.CDL.Reals.Subtract cooSupTemDif
     "Find the cooling supply temperature difference to the setpoint"
@@ -218,29 +224,29 @@ protected
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     final t=chiWatResReqLim3,
     final h=Thys) if have_chiWatCoi
-    "Check if the supply temperature is greater than the setpoint by a threshold value"
+    "Check if the supply temperature is greater than the setpoint by a threshold value for sending three reset requests"
     annotation (Placement(transformation(extent={{-80,190},{-60,210}})));
 
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr1(
     final t=chiWatResReqLim2,
     final h=Thys) if have_chiWatCoi
-    "Check if the supply temperature is greater than the setpoint by a threshold value"
+    "Check if the supply temperature is greater than the setpoint by a threshold value for sending two reset requests"
     annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
     final delayTime=chiWatResReqTimLim3) if have_chiWatCoi
-    "Check if the input has been true for a certain time"
+    "Ensure condition for sending three chilled water reset requests is true for minimum threshold time period"
     annotation (Placement(transformation(extent={{-40,190},{-20,210}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel1(
     final delayTime=chiWatResReqTimLim2) if have_chiWatCoi
-    "Check if the input has been true for a certain time"
+    "Ensure condition for sending two chilled water reset requests is true for minimum threshold time period"
     annotation (Placement(transformation(extent={{-40,140},{-20,160}})));
 
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr2(
-    final t=chiWatPlaReqLim1,
-    final h=posHys) if have_chiWatCoi
-    "Check if the chilled water valve position is greater than a threshold value"
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
+    final uLow=chiWatResReqLim0,
+    final uHigh=chiWatResReqLim1) if have_chiWatCoi
+    "Check chilled water valve position against threshold values for sending one reset request"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant thr(
@@ -261,16 +267,6 @@ protected
     "Constant 2"
     annotation (Placement(transformation(extent={{0,170},{20,190}})));
 
-  Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThr(
-    final t=chiWatResReqLim0,
-    final h=posHys) if have_chiWatCoi
-    "Check if the chilled water valve position is less than a threshold value"
-    annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Latch lat if have_chiWatCoi
-    "Keep true signal until other condition becomes true"
-    annotation (Placement(transformation(extent={{-40,90},{-20,110}})));
-
   Buildings.Controls.OBC.CDL.Integers.Switch chiWatRes1 if have_chiWatCoi
     "Send 1 chilled water reset request"
     annotation (Placement(transformation(extent={{80,90},{100,110}})));
@@ -285,87 +281,69 @@ protected
     "Constant 0"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Latch lat1 if have_chiWatCoi
-    "Keep true signal until other condition becomes true"
-    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
-
-  Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThr1(
-    final t=chiWatPlaReqLim0,
-    final h=posHys) if have_chiWatCoi
-    "Check if the chilled water valve position is less than a threshold value"
-    annotation (Placement(transformation(extent={{-120,4},{-100,24}})));
-
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi3 if have_chiWatCoi
     "Send 1 chiller plant request"
     annotation (Placement(transformation(extent={{80,10},{100,30}})));
 
   Buildings.Controls.OBC.CDL.Reals.Subtract heaSupTemDif if have_hotWatCoi
     "Find the heating supply temperature difference to the setpoint"
-    annotation (Placement(transformation(extent={{-140,-50},{-120,-30}})));
+    annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
 
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr3(
     final t=hotWatResReqLim3,
     final h=Thys) if have_hotWatCoi
-    "Check if the supply temperature is less than the setpoint by a threshold value"
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+    "Check if the supply temperature is less than the setpoint by a threshold value for sending three reset requests"
+    annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
 
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr4(
     final t=hotWatResReqLim2,
     final h=Thys) if have_hotWatCoi
-    "Check if the supply temperature is less than the setpoint by a threshold value"
-    annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
+    "Check if the supply temperature is less than the setpoint by a threshold value for sending two reset requests"
+    annotation (Placement(transformation(extent={{-80,-120},{-60,-100}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel2(
     final delayTime=hotWatResReqTimLim3) if have_hotWatCoi
-    "Check if the input has been true for a certain time"
-    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
+    "Ensure condition for sending three hot water reset requests is true for minimum threshold time period"
+    annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel3(
     final delayTime=hotWatResReqTimLim2) if have_hotWatCoi
-    "Check if the input has been true for a certain time"
-    annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
+    "Ensure condition for sending two hot water reset requests is true for minimum threshold time period"
+    annotation (Placement(transformation(extent={{-40,-120},{-20,-100}})));
 
   Buildings.Controls.OBC.CDL.Integers.Switch hotWatRes3 if have_hotWatCoi
     "Send 3 hot water reset request"
-    annotation (Placement(transformation(extent={{140,-50},{160,-30}})));
+    annotation (Placement(transformation(extent={{140,-70},{160,-50}})));
 
   Buildings.Controls.OBC.CDL.Integers.Switch hotWatRes2 if have_hotWatCoi
     "Send 2 hot water reset request"
-    annotation (Placement(transformation(extent={{100,-100},{120,-80}})));
-
-  Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThr2(
-    final t=hotWatResReqLim0,
-    final h=posHys) if have_hotWatCoi
-    "Check if the hot water valve position is less than a threshold value"
-    annotation (Placement(transformation(extent={{-120,-190},{-100,-170}})));
-
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr5(
-    final t=hotWatPlaReqLim1,
-    final h=posHys) if have_hotWatCoi
-    "Check if the hot water valve position is greater than a threshold value"
-    annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Latch lat2 if have_hotWatCoi
-    "Keep true signal until other condition becomes true"
-    annotation (Placement(transformation(extent={{-40,-150},{-20,-130}})));
+    annotation (Placement(transformation(extent={{100,-120},{120,-100}})));
 
   Buildings.Controls.OBC.CDL.Integers.Switch hotWatRes1 if have_hotWatCoi
     "Send 1 hot water reset request"
     annotation (Placement(transformation(extent={{60,-150},{80,-130}})));
 
-  Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThr3(
-    final t=hotWatPlaReqLim0,
-    final h=posHys) if have_hotWatCoi
-    "Check if the hot water valve position is less than a threshold value"
-    annotation (Placement(transformation(extent={{-120,-236},{-100,-216}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Latch lat3 if have_hotWatCoi
-    "Keep true signal until other condition becomes true"
-    annotation (Placement(transformation(extent={{-40,-230},{-20,-210}})));
-
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi1 if have_hotWatCoi
     "Send 1 hot water plant request"
     annotation (Placement(transformation(extent={{60,-230},{80,-210}})));
+
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys1(
+    final uLow=chiWatPlaReqLim0,
+    final uHigh=chiWatPlaReqLim1) if have_chiWatCoi
+    "Check chilled water valve position against threshold values for sending one plant request"
+    annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
+
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys2(
+    final uLow=hotWatResReqLim0,
+    final uHigh=hotWatResReqLim1) if have_hotWatCoi
+    "Check hot water valve position against threshold values for sending one reset request"
+    annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
+
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys3(
+    final uLow=hotWatPlaReqLim0,
+    final uHigh=hotWatPlaReqLim1) if have_hotWatCoi
+    "Check hot water valve position against threshold values for sending one plant request"
+    annotation (Placement(transformation(extent={{-120,-230},{-100,-210}})));
 
 equation
   connect(TAirSup, cooSupTemDif.u1) annotation (Line(points={{-220,200},{-180,200},
@@ -386,7 +364,7 @@ equation
   connect(cooSupTemDif.y, greThr1.u) annotation (Line(points={{-118,200},{-100,200},
           {-100,150},{-82,150}}, color={0,0,127}));
 
-  connect(uCooCoiSet, greThr2.u)
+  connect(uCooCoiSet, hys.u)
     annotation (Line(points={{-220,100},{-122,100}}, color={0,0,127}));
 
   connect(truDel.y, chiWatRes3.u2)
@@ -401,20 +379,8 @@ equation
   connect(two.y, chiWatRes2.u1) annotation (Line(points={{22,180},{50,180},{50,158},
           {118,158}}, color={255,127,0}));
 
-  connect(greThr2.y, lat.u)
-    annotation (Line(points={{-98,100},{-42,100}}, color={255,0,255}));
-
-  connect(uCooCoiSet, lesThr.u) annotation (Line(points={{-220,100},{-140,100},{
-          -140,60},{-122,60}}, color={0,0,127}));
-
-  connect(lesThr.y, lat.clr) annotation (Line(points={{-98,60},{-60,60},{-60,94},
-          {-42,94}}, color={255,0,255}));
-
   connect(one.y, chiWatRes1.u1) annotation (Line(points={{22,120},{40,120},{40,108},
           {78,108}}, color={255,127,0}));
-
-  connect(lat.y, chiWatRes1.u2)
-    annotation (Line(points={{-18,100},{78,100}}, color={255,0,255}));
 
   connect(chiWatRes1.y, chiWatRes2.u3) annotation (Line(points={{102,100},{110,100},
           {110,142},{118,142}}, color={255,127,0}));
@@ -424,18 +390,6 @@ equation
 
   connect(zer.y, chiWatRes1.u3) annotation (Line(points={{22,60},{30,60},{30,92},
           {78,92}}, color={255,127,0}));
-
-  connect(greThr2.y, lat1.u) annotation (Line(points={{-98,100},{-80,100},{-80,20},
-          {-42,20}}, color={255,0,255}));
-
-  connect(uCooCoiSet, lesThr1.u) annotation (Line(points={{-220,100},{-140,100},
-          {-140,14},{-122,14}}, color={0,0,127}));
-
-  connect(lesThr1.y, lat1.clr)
-    annotation (Line(points={{-98,14},{-42,14}}, color={255,0,255}));
-
-  connect(lat1.y, intSwi3.u2)
-    annotation (Line(points={{-18,20},{78,20}}, color={255,0,255}));
 
   connect(one.y, intSwi3.u1) annotation (Line(points={{22,120},{40,120},{40,28},
           {78,28}}, color={255,127,0}));
@@ -447,49 +401,37 @@ equation
     annotation (Line(points={{102,20},{220,20}}, color={255,127,0}));
 
   connect(TAirSup, heaSupTemDif.u2) annotation (Line(points={{-220,200},{-180,200},
-          {-180,-46},{-142,-46}}, color={0,0,127}));
+          {-180,-66},{-142,-66}}, color={0,0,127}));
 
   connect(greThr3.y, truDel2.u)
-    annotation (Line(points={{-58,-40},{-42,-40}}, color={255,0,255}));
+    annotation (Line(points={{-58,-60},{-42,-60}}, color={255,0,255}));
 
   connect(greThr4.y, truDel3.u)
-    annotation (Line(points={{-58,-90},{-42,-90}}, color={255,0,255}));
+    annotation (Line(points={{-58,-110},{-42,-110}},
+                                                   color={255,0,255}));
 
   connect(heaSupTemDif.y, greThr3.u)
-    annotation (Line(points={{-118,-40},{-82,-40}}, color={0,0,127}));
+    annotation (Line(points={{-118,-60},{-82,-60}}, color={0,0,127}));
 
-  connect(heaSupTemDif.y, greThr4.u) annotation (Line(points={{-118,-40},{-100,-40},
-          {-100,-90},{-82,-90}}, color={0,0,127}));
+  connect(heaSupTemDif.y, greThr4.u) annotation (Line(points={{-118,-60},{-100,-60},
+          {-100,-110},{-82,-110}},
+                                 color={0,0,127}));
 
   connect(truDel2.y, hotWatRes3.u2)
-    annotation (Line(points={{-18,-40},{138,-40}}, color={255,0,255}));
+    annotation (Line(points={{-18,-60},{138,-60}}, color={255,0,255}));
 
-  connect(thr.y, hotWatRes3.u1) annotation (Line(points={{22,232},{60,232},{60,-32},
-          {138,-32}}, color={255,127,0}));
+  connect(thr.y, hotWatRes3.u1) annotation (Line(points={{22,232},{60,232},{60,-52},
+          {138,-52}}, color={255,127,0}));
 
-  connect(hotWatRes2.y, hotWatRes3.u3) annotation (Line(points={{122,-90},{130,-90},
-          {130,-48},{138,-48}}, color={255,127,0}));
+  connect(hotWatRes2.y, hotWatRes3.u3) annotation (Line(points={{122,-110},{130,
+          -110},{130,-68},{138,-68}},
+                                color={255,127,0}));
 
-  connect(two.y, hotWatRes2.u1) annotation (Line(points={{22,180},{50,180},{50,-82},
-          {98,-82}},  color={255,127,0}));
+  connect(two.y, hotWatRes2.u1) annotation (Line(points={{22,180},{50,180},{50,-102},
+          {98,-102}}, color={255,127,0}));
 
   connect(truDel3.y, hotWatRes2.u2)
-    annotation (Line(points={{-18,-90},{98,-90}},  color={255,0,255}));
-
-  connect(uHeaCoiSet, greThr5.u)
-    annotation (Line(points={{-220,-140},{-122,-140}}, color={0,0,127}));
-
-  connect(greThr5.y, lat2.u)
-    annotation (Line(points={{-98,-140},{-42,-140}}, color={255,0,255}));
-
-  connect(uHeaCoiSet, lesThr2.u) annotation (Line(points={{-220,-140},{-140,-140},
-          {-140,-180},{-122,-180}}, color={0,0,127}));
-
-  connect(lesThr2.y, lat2.clr) annotation (Line(points={{-98,-180},{-60,-180},{-60,
-          -146},{-42,-146}}, color={255,0,255}));
-
-  connect(lat2.y, hotWatRes1.u2)
-    annotation (Line(points={{-18,-140},{58,-140}}, color={255,0,255}));
+    annotation (Line(points={{-18,-110},{98,-110}},color={255,0,255}));
 
   connect(one.y, hotWatRes1.u1) annotation (Line(points={{22,120},{40,120},{40,-132},
           {58,-132}}, color={255,127,0}));
@@ -498,19 +440,7 @@ equation
           {58,-148}}, color={255,127,0}));
 
   connect(hotWatRes1.y, hotWatRes2.u3) annotation (Line(points={{82,-140},{90,-140},
-          {90,-98},{98,-98}},         color={255,127,0}));
-
-  connect(uHeaCoiSet, lesThr3.u) annotation (Line(points={{-220,-140},{-140,-140},
-          {-140,-226},{-122,-226}}, color={0,0,127}));
-
-  connect(lesThr3.y, lat3.clr)
-    annotation (Line(points={{-98,-226},{-42,-226}}, color={255,0,255}));
-
-  connect(greThr5.y, lat3.u) annotation (Line(points={{-98,-140},{-80,-140},{-80,
-          -220},{-42,-220}}, color={255,0,255}));
-
-  connect(lat3.y, intSwi1.u2)
-    annotation (Line(points={{-18,-220},{58,-220}}, color={255,0,255}));
+          {90,-118},{98,-118}},       color={255,127,0}));
 
   connect(one.y, intSwi1.u1) annotation (Line(points={{22,120},{40,120},{40,-212},
           {58,-212}}, color={255,127,0}));
@@ -539,24 +469,39 @@ equation
   connect(mulIntCoo.y, yChiWatResReq) annotation (Line(points={{122,240},{220,240}},
                                 color={255,127,0}));
 
-  connect(hotWatRes3.y, mulIntHea.u2) annotation (Line(points={{162,-40},{170,-40},
-          {170,-20},{150,-20},{150,-6},{158,-6}}, color={255,127,0}));
+  connect(hotWatRes3.y, mulIntHea.u2) annotation (Line(points={{162,-60},{170,-60},
+          {170,-28},{152,-28},{152,-16},{158,-16}},
+                                                  color={255,127,0}));
 
   connect(hysFanHea.y, booToIntHea.u)
     annotation (Line(points={{-118,-10},{-92,-10}}, color={255,0,255}));
 
-  connect(booToIntHea.y, mulIntHea.u1) annotation (Line(points={{-68,-10},{140,-10},
-          {140,6},{158,6}}, color={255,127,0}));
+  connect(booToIntHea.y, mulIntHea.u1) annotation (Line(points={{-68,-10},{46,-10},
+          {46,-4},{158,-4}},color={255,127,0}));
 
   connect(uFan, hysFanHea.u) annotation (Line(points={{-220,240},{-170,240},{
           -170,-10},{-142,-10}}, color={0,0,127}));
 
-  connect(mulIntHea.y, yHotWatResReq) annotation (Line(points={{182,0},{192,0},{
-          192,-40},{220,-40}}, color={255,127,0}));
+  connect(mulIntHea.y, yHotWatResReq) annotation (Line(points={{182,-10},{192,-10},
+          {192,-40},{220,-40}},color={255,127,0}));
 
   connect(TAirSupSet, heaSupTemDif.u1) annotation (Line(points={{-220,160},{-190,
-          160},{-190,-34},{-142,-34}}, color={0,0,127}));
+          160},{-190,-54},{-142,-54}}, color={0,0,127}));
 
+  connect(hys.y, chiWatRes1.u2)
+    annotation (Line(points={{-98,100},{78,100}}, color={255,0,255}));
+  connect(uCooCoiSet, hys1.u) annotation (Line(points={{-220,100},{-140,100},{-140,
+          20},{-122,20}}, color={0,0,127}));
+  connect(hys1.y, intSwi3.u2)
+    annotation (Line(points={{-98,20},{78,20}}, color={255,0,255}));
+  connect(uHeaCoiSet, hys2.u)
+    annotation (Line(points={{-220,-140},{-122,-140}}, color={0,0,127}));
+  connect(hys2.y, hotWatRes1.u2)
+    annotation (Line(points={{-98,-140},{58,-140}}, color={255,0,255}));
+  connect(hys3.y, intSwi1.u2)
+    annotation (Line(points={{-98,-220},{58,-220}}, color={255,0,255}));
+  connect(hys3.u, uHeaCoiSet) annotation (Line(points={{-122,-220},{-140,-220},{
+          -140,-140},{-220,-140}}, color={0,0,127}));
 annotation (
   defaultComponentName="fcuPlaReq",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
