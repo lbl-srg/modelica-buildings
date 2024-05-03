@@ -28,9 +28,6 @@ Accordingly, data records for both test methods are available in
 <a href=\"modelica://Buildings.Fluid.SolarCollectors.Data\">
 Buildings.Fluid.SolarCollectors.Data</a>.
 </p>
-<p>
-The computation of the
-</p>
 
 <h5>Performance data</h5>
 <p>
@@ -71,7 +68,7 @@ well-known data sources:
 <td> dp_nominal </td>
 </tr>
 <tr>
-<td> b0, b1 </td>
+<td> incAngDatDeg, incAngModDat </td>
 <td> IAM({0°,10°,...,90°}) </td>
 <td> IAM({10°,20°,...,90°}) </td>
 <td> IAM(angle)-plot </td>
@@ -128,23 +125,6 @@ The relation between the incidence angle modifier (IAM) and incidence angle
 <code>&theta;</code> is calculated using cubic splines and measurement data
 provided in the data sheets.
 </p>
-<p>
-As reported in the Energyplus Engineering Reference, this relation is only valid
-for incident angles of 60 degrees or higher. However, as opposed to the EnergyPlus
-approach, the IAM is not set to 0 for incident angles greater than 60 degrees
-(see Buildings
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/785\">
-issue 785</a>).
-Therefore, the simulation results for incident angles greater than 60 degrees
-should be interpreted with care.
-</p>
-</li>
-<li>
-Recent data sheets do not provide a value for <code>b0</code> or
-<code>b1</code>, but report the IAM for several incidence angles.
-The values for <code>b0</code> and <code>b1</code> can be determined by fitting
-the tabular data (e.g. using the scipy function
-<a href=\"https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.curve_fit.html\"> <i>curve_fit</i></a>)
 </li>
 <li>
 Evacuated tube collectors have bi-axial IAMs due to its axisymetric geometry.
