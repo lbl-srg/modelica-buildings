@@ -388,8 +388,9 @@ int isat_cosimulation(CosimulationData *cosim) {
 	para.cosim = cosim;
 
 	if (para.cosim == NULL) {
-		cosim_log("isat_cosimulation: could not allocate memory",
-			COSIM_NORMAL);
+		cosim_log("In ffd.isat.c, isat_cosimulation: could not allocate memory for para.cosim.",
+		          COSIM_ERROR);
+		return -1;
 	}
 
 	if (isat_main() != 0) {
@@ -445,14 +446,59 @@ int isat_main () {
   sprintf(logMsg, "Executable start: %s", ctime(&tExeStart));
   cosim_log(logMsg, COSIM_NEW);
   para.bc = (BC_DATA *)malloc(sizeof(BC_DATA));
+  if (para.bc == NULL) {
+    cosim_log("In cosimulation.c, isat_main: could not allocate memory for para.bc.",
+			  COSIM_ERROR);
+	return -1;
+  }
   para.geom = (GEOM_DATA *)malloc(sizeof(GEOM_DATA));
+  if (para.geom == NULL) {
+    cosim_log("In cosimulation.c, isat_main: could not allocate memory for para.geom.",
+			  COSIM_ERROR);
+	return -1;
+  }
   para.inpu = (INPU_DATA *)malloc(sizeof(INPU_DATA));
+  if (para.inpu == NULL) {
+    cosim_log("In cosimulation.c, isat_main: could not allocate memory for para.inpu.",
+			  COSIM_ERROR);
+	return -1;
+  }
   para.outp = (OUTP_DATA *)malloc(sizeof(OUTP_DATA));
+  if (para.outp == NULL) {
+    cosim_log("In cosimulation.c, isat_main: could not allocate memory for para.outp.",
+			  COSIM_ERROR);
+	return -1;
+  }
   para.prob = (PROB_DATA *)malloc(sizeof(PROB_DATA));
+  if (para.prob == NULL) {
+    cosim_log("In cosimulation.c, isat_main: could not allocate memory for para.prob.",
+			  COSIM_ERROR);
+	return -1;
+  }
   para.mytime = (TIME_DATA *)malloc(sizeof(TIME_DATA));
+  if (para.mytime == NULL) {
+    cosim_log("In cosimulation.c, isat_main: could not allocate memory for para.mytime.",
+			  COSIM_ERROR);
+	return -1;
+  }
   para.solv = (SOLV_DATA *)malloc(sizeof(SOLV_DATA));
+  if (para.solv == NULL) {
+    cosim_log("In cosimulation.c, isat_main: could not allocate memory for para.solv.",
+			  COSIM_ERROR);
+	return -1;
+  }
   para.sens = (SENSOR_DATA *)malloc(sizeof(SENSOR_DATA));
+  if (para.sens == NULL) {
+    cosim_log("In cosimulation.c, isat_main: could not allocate memory for para.sens.",
+			  COSIM_ERROR);
+	return -1;
+  }
   para.init = (INIT_DATA *)malloc(sizeof(INIT_DATA));
+  if (para.init == NULL) {
+    cosim_log("In cosimulation.c, isat_main: could not allocate memory for para.init.",
+			  COSIM_ERROR);
+	return -1;
+  }
 
   cosim_log("isat_main(): Start ISAT-FFD simulation", COSIM_NORMAL);
 
@@ -874,6 +920,12 @@ void addHash() {
   int i;
 
   r = (hashStruct*)malloc( sizeof(hashStruct) );
+  if (r == NULL) {
+    cosim_log("In cosimulation.c, addHash: could not allocate memory for r.",
+			  COSIM_ERROR);
+	return -1;
+  }
+
   memset(r, 0, sizeof(hashStruct));
 
   for (i=0;i < nx; i++)
@@ -1502,7 +1554,17 @@ int cosim_loop() {
   float *input;
   int size = para.cosim->para->nSur + para.cosim->para->nPorts * 2 + para.cosim->para->nSou;
   para.cosim->ffd->input = (REAL*)malloc(size * sizeof(REAL));
+  if (para.cosim->ffd->input == NULL) {
+    cosim_log("In cosimulation.c, cosim_loop: could not allocate memory for para.cosim->ffd->input.",
+			  COSIM_ERROR);
+	return -1;
+  }
   para.cosim->ffd->output = (REAL*)malloc(num_output * sizeof(REAL));
+  if (para.cosim->ffd->output == NULL) {
+    cosim_log("In cosimulation.c, cosim_loop: could not allocate memory for para.cosim->ffd->output.",
+			  COSIM_ERROR);
+	return -1;
+  }
   flag = read_cosim_data(&para);
 
   for (i = 0; i < num_input; i++) {

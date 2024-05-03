@@ -164,6 +164,11 @@ int read_cosim_data(PARA_DATA *para) {
   int i=0, j=0;
   int size = para->cosim->para->nSur + para->cosim->para->nPorts * 2;
   float *input = malloc(sizeof(float)*size);
+  if (input == NULL) {
+    cosim_log("In cosimulation.c, read_cosim_data: could not allocate memory for input.",
+			  COSIM_ERROR);
+	return -1;
+  }
 
   cosim_log("-------------------------------------------------------------------",
 	COSIM_NORMAL);
