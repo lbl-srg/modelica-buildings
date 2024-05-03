@@ -3,20 +3,24 @@ block PlantRequests
   "Output plant requests for fan coil unit"
 
   parameter Boolean have_hotWatCoi = true
-    "True if the unit has a hot-water heating coil";
+    "True if the unit has a hot-water heating coil"
+    annotation(__cdl(ValueInReference=false));
 
   parameter Boolean have_chiWatCoi = true
-    "True if the unit has a chilled-water cooling coil";
+    "True if the unit has a chilled-water cooling coil"
+    annotation(__cdl(ValueInReference=false));
 
   parameter Real cooSpe_max(
     final unit="1",
     displayUnit="1") = 1
-    "Maximum cooling mode fan speed";
+    "Maximum cooling mode fan speed"
+    annotation(__cdl(ValueInReference=false));
 
   parameter Real heaSpe_max(
     final unit="1",
     displayUnit="1") = 0.6
-    "Maximum heating mode fan speed";
+    "Maximum heating mode fan speed"
+    annotation(__cdl(ValueInReference=false));
 
   parameter Real chiWatPlaReqLim0(
     final unit="1",
@@ -122,13 +126,13 @@ block PlantRequests
     final unit="K",
     final quantity = "TemperatureDifference") = 0.1
     "Hysteresis for checking temperature difference"
-    annotation(Dialog(tab="Advanced"));
+    annotation(__cdl(ValueInReference=false), Dialog(tab="Advanced"));
 
   parameter Real dFanSpe(
     final unit="1",
     displayUnit="1") = 0.05
     "Fan speed hysteresis difference"
-    annotation(Dialog(tab="Advanced"));
+    annotation(__cdl(ValueInReference=false), Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TAirSup(
     final unit="K",

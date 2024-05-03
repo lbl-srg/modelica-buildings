@@ -3,10 +3,12 @@ block SupplyAirTemperature
   "Subsequence for calculating supply air temperature setpoint"
 
   parameter Boolean have_cooCoi
-    "True if the unit has a cooling coil";
+    "True if the unit has a cooling coil"
+    annotation(__cdl(ValueInReference=false));
 
   parameter Boolean have_heaCoi
-    "True if the unit has a heating coil";
+    "True if the unit has a heating coil"
+    annotation(__cdl(ValueInReference=false));
 
   parameter Real uHea_min(
     final unit="1",
@@ -18,7 +20,8 @@ block SupplyAirTemperature
     final unit="K",
     displayUnit="degC") = 273.15 + 32
     "Supply air temperature setpoint at maximum heating loop signal"
-    annotation(Dialog(group="Heating loop", enable = have_heaCoi));
+    annotation(__cdl(ValueInReference=false),
+      Dialog(group="Heating loop", enable = have_heaCoi));
 
   parameter Real uHea_max(
     final unit="1",
@@ -36,7 +39,8 @@ block SupplyAirTemperature
     final unit="K",
     displayUnit="degC") = 273.15+12.8
     "Supply air temperature setpoint at maximum cooling loop signal"
-    annotation(Dialog(group="Cooling loop", enable = have_cooCoi));
+    annotation(__cdl(ValueInReference=false),
+      Dialog(group="Cooling loop", enable = have_cooCoi));
 
   parameter Real uCoo_max(
     final unit="1",
@@ -47,14 +51,18 @@ block SupplyAirTemperature
   parameter Real heaDea(
     final unit="1",
     displayUnit="1") = 0.05
-    "Heating loop signal limit above which setpoint operation changes from deadband mode to heating mode"
-    annotation(Dialog(group="Deadband", enable = have_heaCoi));
+    "Heating loop signal limit above which setpoint operation changes from deadband
+    mode to heating mode"
+    annotation(__cdl(ValueInReference=false),
+      Dialog(group="Deadband", enable = have_heaCoi));
 
   parameter Real cooDea(
     final unit="1",
     displayUnit="1") = 0.05
-    "Cooling loop signal limit above which setpoint operation changes from deadband mode to cooling mode"
-    annotation(Dialog(group="Deadband", enable = have_cooCoi));
+    "Cooling loop signal limit above which setpoint operation changes from deadband
+    mode to cooling mode"
+    annotation(__cdl(ValueInReference=false),
+      Dialog(group="Deadband", enable = have_cooCoi));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCooCoi=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of cooling coil controller"
@@ -124,7 +132,7 @@ block SupplyAirTemperature
     final unit="1",
     displayUnit="1") = 0.01
     "Hysteresis limits for deadband mode transitions"
-    annotation(Dialog(tab="Advanced"));
+    annotation(__cdl(ValueInReference=false), Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Fan
     "Fan proven on signal"
