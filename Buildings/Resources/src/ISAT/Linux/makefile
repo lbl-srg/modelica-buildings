@@ -50,7 +50,7 @@ all: clean
 	mv $(FFD)modelica_ffd_common.h $(FFD)m1.h
 	cp $(ISAT)modelica_ffd_common.h $(FFD)
 	$(CC) $(CC_FLAGS_$(ARCH)) -fPIC -c $(SRCS)
-	$(CC) -shared -fPIC -Wl,-soname,$(LIB) -o $(LIB) $(OBJS) libisatab_ser.a liblapack.a libblas.a $(LIBS)
+	$(CC) -shared -fPIC -Wl,-soname,$(LIB) -o $(LIB) $(OBJS) libisatab_ser.a liblapack.a $(LIBS)
 	rm -f $(OBJS)
 	mv $(LIB) $(BINDIR)
 	@echo "==== library generated in $(BINDIR)"
