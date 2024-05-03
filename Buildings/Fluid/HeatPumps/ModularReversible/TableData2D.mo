@@ -75,10 +75,10 @@ model TableData2D
     "Extrapolation of data outside the definition range"
     annotation (Dialog(tab="Advanced"));
 initial algorithm
-  assert(use_rev and ((scaFacHea - scaFacCoo) / scaFacHea * 100 < limWarDifSca),
-    "In " + getInstanceName() + ": Scaling factors for heating and cooling 
+  assert(use_rev and (abs(scaFacHea - scaFacCoo) / scaFacHea < limWarSca),
+    "In " + getInstanceName() + ": Scaling factors for heating and cooling
     operation differ by " + String((scaFacHea - scaFacCoo) / scaFacHea * 100) +
-    " %. The simulated nominal heating and cooling 
+    " %. The simulated nominal heating and cooling
     capacities may not be realistic for a single device",
     AssertionLevel.warning);
 
@@ -102,13 +102,13 @@ initial algorithm
   Also, icing is disabled as the performance degradation
   is already contained in the data.
 </p>
-  
+
 <h4>Sizing</h4>
 
 <p>
   At the nominal conditions, the refrigerant cycle model will
   calculate the unscaled nominal heat flow rate, which is
-  named <code>QHeaNoSca_flow_nominal</code> for heat pumps and 
+  named <code>QHeaNoSca_flow_nominal</code> for heat pumps and
   <code>QCooNoSca_flow_nominal</code> for chillers.
   This value is probably
   different from <code>QUse_flow_nominal</code> which is for sizing.
@@ -127,12 +127,12 @@ initial algorithm
   k = m&#775; &frasl; &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
 </p>
 <p>
-  Both <code>QHeaNoSca_flow_nominal</code> or <code>QCooNoSca_flow_nominal</code> 
+  Both <code>QHeaNoSca_flow_nominal</code> or <code>QCooNoSca_flow_nominal</code>
   and <code>scaFac</code>
   are calculated in the refrigerant cycle models.
 </p>
-  
-  
+
+
 <p>
 Please read the documentation of the model for heating at
   <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D\">

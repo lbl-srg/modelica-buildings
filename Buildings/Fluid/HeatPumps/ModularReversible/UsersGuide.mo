@@ -180,13 +180,13 @@ exchanger model has to be used for both condensation and evaporation.
 <p>
 In most cases, heat pumps and chillers extract/exhaust heat from/to
 an ambient source (air, soil, ground-water, etc.),
-and, consuming electrical energy, provide heating or cooling 
+and, consuming electrical energy, provide heating or cooling
 on the <i>useful</i> or <i>load side</i>.
 For building applications, this <i>useful / load side</i> is inside the building.
 The ambient heat is outside of the building, on the <i>ambient / source side</i>.
-However, vapor compression machines can also be used to provide heating 
+However, vapor compression machines can also be used to provide heating
 and cooling simultaneously.
-In this case, both sides provide utility to the energy system. 
+In this case, both sides provide utility to the energy system.
 Hence, both sides are <i>useful / load sides</i>.
 </p>
 <p>
@@ -301,7 +301,7 @@ The following tables summarizes the possible options.
   We use the notation <code>Set</code> to indicate a set value.
   It may be modified by the safety control blocks which produces a signal
   with the <code>Mea</code> notation. For example, the compressor
-  speed <code>ySet</code> is modified by the safety 
+  speed <code>ySet</code> is modified by the safety
   control block to <code>yMea</code>. If no safety violations
   occur, <code>ySet</code> equals <code>yMea</code>.
 </p>
@@ -373,7 +373,7 @@ The following tables summarizes the possible options.
   <a href=\"modelica://Buildings.Fluid.UsersGuide\">Buildings.Fluid.UsersGuide</a>
 </p>
 <p>
-  The nominal heat flow rate of the device is distinct for 
+  The nominal heat flow rate of the device is distinct for
   heat pumps and chillers.
   For heat pumps, it is the nominal
   condenser heat flow rate <code>QHea_flow_nominal</code>.
@@ -382,7 +382,7 @@ The following tables summarizes the possible options.
   This nominal heat flow rate is only valid at the
   nominal conditions. Whether parameters influence the nominal heat flow rates
   depends on the model approach used to estimate the heat flow rate and efficiencies.
-  Typically, at least nominal source and sink temperatures will influence the 
+  Typically, at least nominal source and sink temperatures will influence the
   nominal conditions:
 </p>
 <ul>
@@ -394,7 +394,7 @@ The following tables summarizes the possible options.
 </li>
 </ul>
 <p>
-  Depending on the model in use, this may be in- out outlet.
+  Depending on the model in use, this may be inlet or outlet.
 </p>
 <p>
   Another example would be inverter driven devices.
@@ -406,12 +406,24 @@ The following tables summarizes the possible options.
   be nessary.
 </p>
 <p>
-  Using the nominal conditions and the specified heat flow rate, 
-  the nominal electrical power consumption <code>PEle_nominal</code> is calculated. 
+  Using the nominal conditions and the specified heat flow rate,
+  the nominal electrical power consumption <code>PEle_nominal</code> is calculated.
   As reversible devices have typically a four-way-valve and a single
-  compressor, you have to make sure that the values for <code>PEle_nominal</code> 
-  are similar between heating and cooling. The pre-configured models 
+  compressor, you have to make sure that the values for <code>PEle_nominal</code>
+  are similar between heating and cooling. The pre-configured models
   warn about deviations if they are too large.
+</p>
+<p>
+  To change the capacity of the model, users should change
+  <code>QHea_flow_nominal</code> for heating operation and
+  <code>QCoo_flow_nominal</code> for cooling operation. This will then also
+  update the electricity use <code>PEle_nominal</code>.<br/>
+  For models with table-based performance curves, changing these values will also scale
+  the design mass flow rates and pressure drops.
+  The documentation of
+  <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.TableData2D\">
+  Buildings.Fluid.HeatPumps.ModularReversible.TableData2D</a>
+  further explains the scaling.
 </p>
 
 <h4>Safety controls</h4>

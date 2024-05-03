@@ -1452,7 +1452,6 @@ Buildings/Fluid/HeatPumps/Examples/package.order
 Buildings/Fluid/HeatPumps/ModularReversible/AirToWaterTableData2D.mo
 Buildings/Fluid/HeatPumps/ModularReversible/BaseClasses/CalculateEfficiency.mo
 Buildings/Fluid/HeatPumps/ModularReversible/BaseClasses/EvaporatorCondenserWithCapacity.mo
-Buildings/Fluid/HeatPumps/ModularReversible/BaseClasses/InflowTemperatureSensor.mo
 Buildings/Fluid/HeatPumps/ModularReversible/BaseClasses/LargeScaleWaterToWaterDeclarations.mo
 Buildings/Fluid/HeatPumps/ModularReversible/BaseClasses/PartialModularRefrigerantCycle.mo
 Buildings/Fluid/HeatPumps/ModularReversible/BaseClasses/PartialReversibleRefrigerantMachine.mo

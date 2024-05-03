@@ -161,7 +161,13 @@ equation
 <h4>Scaling factor</h4>
 <p>
 For the scaling factor, the table data for evaporator heat flow rate
-is evaluated at nominal conditions. Then, the table data is scaled linearly.
+is evaluated at nominal conditions. Hence, the scaling factor is</p>
+<pre>
+scaFac = QEva_flow_nominal/QUse_flow_nominal(TEva_nominal, TCon_nominal).
+
+</pre>
+<p>
+Using <code>scaFac</code>, the table data is scaled linearly.
 This implies a constant COP over different design sizes:
 </p>
 <p><code>QEva_flow = scaFac * tabQEva_flow.y</code> </p>
@@ -188,7 +194,7 @@ This implies a constant COP over different design sizes:
   the ouput of the tables linearly.
   For models including the compressor speed, check the SDF-Library
   dependent refrigerant cycle models in the
-  <a href=\"https://github.com/RWTH-EBC/AixLib\">AixLib</a>.
+  <a href=\"https://github.com/RWTH-EBC/AixLib\">AixLib</a> Library.
 </li>
 </ul>
 <h4>References</h4>

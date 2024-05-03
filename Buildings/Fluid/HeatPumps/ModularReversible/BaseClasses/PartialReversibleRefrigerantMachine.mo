@@ -207,8 +207,8 @@ partial model PartialReversibleRefrigerantMachine
   parameter Boolean calEff=true
     "=false to disable efficiency calculation, may speed up the simulation"
     annotation(Dialog(tab="Advanced"));
-  parameter Real limWarDifSca = 5
-    "Percentage of different scaling between cooling and heating to raise warning"
+  parameter Real limWarSca(final unit="1") = 0.05
+    "Allowed difference in scaling '|scaFacHea - scaFacCoo| / scaFacHea', if exceeded, a warning will be issued"
     annotation(Dialog(tab="Advanced"));
 
   Modelica.Units.SI.HeatFlowRate Q1_flow = QCon_flow
@@ -332,8 +332,10 @@ partial model PartialReversibleRefrigerantMachine
         rotation=270,
         origin={0,-50})));
 
-  Buildings.Fluid.HeatPumps.ModularReversible.BaseClasses.InflowTemperatureSensor senTConIn(
-    final y=MediumCon.temperature(MediumCon.setState_phX(
+  Modelica.Blocks.Sources.RealExpression senTConIn(
+    final y(
+      final unit="K",
+      displayUnit="degC")=MediumCon.temperature(MediumCon.setState_phX(
         port_a1.p,
         inStream(port_a1.h_outflow),
         inStream(port_a1.Xi_outflow))))
@@ -342,8 +344,10 @@ partial model PartialReversibleRefrigerantMachine
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-98,32})));
-  Buildings.Fluid.HeatPumps.ModularReversible.BaseClasses.InflowTemperatureSensor senTEvaIn(
-    final y=MediumEva.temperature(MediumEva.setState_phX(
+  Modelica.Blocks.Sources.RealExpression senTEvaIn(
+    final y(
+      final unit="K",
+      displayUnit="degC")=MediumEva.temperature(MediumEva.setState_phX(
         port_a2.p,
         inStream(port_a2.h_outflow),
         inStream(port_a2.Xi_outflow))))

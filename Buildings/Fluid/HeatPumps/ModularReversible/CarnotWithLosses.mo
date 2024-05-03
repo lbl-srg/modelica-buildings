@@ -50,11 +50,11 @@ model CarnotWithLosses
     annotation(Dialog(group="Refrigerant cycle inertia"));
 
 initial algorithm
-  assert(use_rev and ((refCyc.refCycHeaPumCoo.PEle_nominal - PEle_nominal) / PEle_nominal * 100 < limWarDifSca),
-    "In " + getInstanceName() + ": Nominal electrical powers for heating and cooling 
+  assert(use_rev and (abs(refCyc.refCycHeaPumCoo.PEle_nominal - PEle_nominal) / PEle_nominal < limWarSca),
+    "In " + getInstanceName() + ": Nominal electrical powers for heating and cooling
     operation differ by " + String((refCyc.refCycHeaPumCoo.PEle_nominal - PEle_nominal) / PEle_nominal * 100) +
-    " %. The simulated nominal heating and cooling 
-    capacities may not be realistic for a single device",
+    " %. The simulated nominal heating and cooling
+    capacities may not be realistic for a single device.",
     AssertionLevel.warning);
   annotation (Documentation(info="<html>
 <p>
