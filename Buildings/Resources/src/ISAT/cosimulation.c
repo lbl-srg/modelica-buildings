@@ -340,7 +340,7 @@ int write_cosim_data(PARA_DATA *para){
   | Set temperature of shading devices (currently not supported)
   ****************************************************************************/
   /*Note: we assumed a fixed value here, which can be assigned by isat outputs*/
-  if(para->cosim->para->sha==1) {
+  if (para->cosim->para->sha==1) {
     for(i=0; i<para->cosim->para->nConExtWin; i++) {
       para->cosim->ffd->TSha[i] = 20 + 273.15; /*assumed a fixed value*/
     }
@@ -372,7 +372,7 @@ int write_cosim_data(PARA_DATA *para){
   ****************************************************************************/
   for (i = 0; i < para->cosim->para->nSur; i++) {
     /* Set the B.C. Temperature*/
-    if(para->cosim->para->bouCon[i]==2) {
+    if (para->cosim->para->bouCon[i]==2) {
 		para->cosim->ffd->temHea[i] = 25 + 273.15; /*assumed a fixed value*/
     }
     /* Set the heat flux*/

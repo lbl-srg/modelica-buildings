@@ -483,7 +483,7 @@ int isat_main () {
   /****************************************************************************
   | Update non-rectangular input domain
   ****************************************************************************/
-  if (useBoundaryCenterRange){
+  if (useBoundaryCenterRange) {
   }
   /****************************************************************************
   | Use Binary Selected Point Training
@@ -577,7 +577,7 @@ void nDemArrEva(int dimension, double xStep[]) {
   int i = dimension - 1;
   double currentX=0.0;
 
-  if (i == -1){
+  if (i == -1) {
     /*Check hash table*/
     findHash();
     if (!p){
@@ -610,7 +610,7 @@ void evaluate(){
       x[i] = my_round(x[i],digAftdec);
     }
   }
-  if (useISAT){
+  if (useISAT) {
 	tStart = clock();
 
 	/* Windows*/
@@ -728,12 +728,12 @@ double getRandom (int dimension, int useNormalDistribution, int useUnboundedTest
 	  return xBoundary[dimension][0] + (xBoundary[dimension][1]-xBoundary[dimension][0]) * r/1000;
   } 
   else {
-	if (useUnboundedTest){
+	if (useUnboundedTest) {
 	  return randNormal (mu,sigma2);
 	}
-	else{
+	else {
 	  r = randNormal (mu,sigma);
-	  while (r < xBoundary[dimension][0] || r > xBoundary[dimension][1]){
+	  while (r < xBoundary[dimension][0] || r > xBoundary[dimension][1]) {
 		r = randNormal (mu,sigma);
 	  }
 	return r;
@@ -805,7 +805,7 @@ void binaryTrain () {
   if (RoundDigitsControl) digAftdec++;
     sumOfGroAdd  = stats[3]+stats[4];
     /*update xStep*/
-    for (i=0; i<nx; i++){
+    for (i=0; i<nx; i++) {
       xStep[i] = (xBoundary[i][1]- xBoundary[i][0])/divide;
     }
 

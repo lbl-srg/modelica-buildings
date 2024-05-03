@@ -41,7 +41,7 @@ int cfdExchangeData(double t0, double dt, const double *u, size_t nU, size_t nY,
 
   /*check if current modelica time equals to last time*/
   /*if yes, it means cfdExchangeData() was called multiple times at one synchronization point, then directly return*/
-  if(cosim->modelica->lt - t0 < 1E-6 && t0 - cosim->modelica->lt < 1E-6) {
+  if (cosim->modelica->lt - t0 < 1E-6 && t0 - cosim->modelica->lt < 1E-6) {
  /****************************************************************************
   | Copy data from CFD
   ****************************************************************************/
@@ -55,7 +55,7 @@ int cfdExchangeData(double t0, double dt, const double *u, size_t nU, size_t nY,
     i++;
 
     /* Get the temperature of shading device if there is a shading device*/
-    if(cosim->para->sha==1) {
+    if (cosim->para->sha==1) {
       for(j=0; j<cosim->para->nConExtWin; i++, j++) {
         y[i] = cosim->ffd->TSha[j];
       }
@@ -99,7 +99,7 @@ int cfdExchangeData(double t0, double dt, const double *u, size_t nU, size_t nY,
   |  1: data waiting for the other program to read
   --------------------------------------------------------------------------*/
   /* If previous data hasn't been read, wait*/
-  while(cosim->modelica->flag==1) {
+  while (cosim->modelica->flag==1) {
     if(cosim->para->ffdError==1) {
       ModelicaError(cosim->ffd->msg);
 	  return -1;
@@ -122,7 +122,7 @@ int cfdExchangeData(double t0, double dt, const double *u, size_t nU, size_t nY,
     cosim->modelica->temHea[i] = u[i];
   }
 
-  if(cosim->para->sha==1) {
+  if (cosim->para->sha==1) {
     for(j=0; j<cosim->para->nConExtWin; j++) {
       cosim->modelica->shaConSig[j] = u[i+j];
       cosim->modelica->shaAbsRad[j] = u[i+j+cosim->para->nConExtWin];
@@ -130,7 +130,7 @@ int cfdExchangeData(double t0, double dt, const double *u, size_t nU, size_t nY,
     i = i + 2*cosim->para->nConExtWin;
   }
 
-  if(cosim->para->nSou>0) {
+  if (cosim->para->nSou>0) {
     for(j=0; j<cosim->para->nSou; j++) {
       cosim->modelica->sourceHeat[j] = u[i+j];
     }
@@ -173,8 +173,8 @@ int cfdExchangeData(double t0, double dt, const double *u, size_t nU, size_t nY,
   | Copy data from CFD
   ****************************************************************************/
   /* If the data is not ready or not updated, check again*/
-  while(cosim->ffd->flag!=1) {
-    if(cosim->para->ffdError==1) {
+  while (cosim->ffd->flag!=1) {
+    if (cosim->para->ffdError==1) {
       ModelicaError(cosim->ffd->msg);
       return -1;
     }
@@ -193,7 +193,7 @@ int cfdExchangeData(double t0, double dt, const double *u, size_t nU, size_t nY,
   i++;
 
   /* Get the temperature of shading device if there is a shading device*/
-  if(cosim->para->sha==1) {
+  if (cosim->para->sha==1) {
     for(j=0; j<cosim->para->nConExtWin; i++, j++) {
       y[i] = cosim->ffd->TSha[j];
     }
