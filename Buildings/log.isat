@@ -1,0 +1,124 @@
+Executable start: Fri May  3 14:45:55 2024
+
+isat_main(): Start ISAT-FFD simulation
+-------------------------------------------------------------------
+read_isat_parameters(): Read isat parameters from file /home/jianjunhu/GitFolder/modelica-buildings/Buildings/Resources/Data/ThermalZones/Detailed/Examples/ISAT/Tutorial/MixedConvection/set.isat
+	Read general settings of isat:
+		isat.useISAT=1
+		isat.useBinarySelectedPoint=0
+		isat.digAftdec=2
+		isat.read_existing=0
+		isat.write_existing=0
+		isat.err_global=0.100000
+		isat.num_input=4
+		isat.num_output=2
+-------------------------------------------------------------------
+read_isat_input_output(): Read isat parameters from file /home/jianjunhu/GitFolder/modelica-buildings/Buildings/Resources/Data/ThermalZones/Detailed/Examples/ISAT/Tutorial/MixedConvection/set.isat
+	Read input settings of isat and ffd:
+		inpu.inpu_name[0]=inlet_temp
+		inpu.inpu_name[1]=inlet_mass
+		inpu.inpu_name[2]=sur_temp
+		inpu.inpu_name[3]=sur_temp
+		inpu.num_inlet=1
+		inpu.num_block=0
+		inpu.num_wall=6
+		inpu.dir_inlet=1
+		inpu.inlet_temp_re[0]=1
+		inpu.inlet_vel_re[0]=1
+		inpu.inlet_temp_wh[0]=1
+		inpu.inlet_vel_wh[0]=2
+		inpu.wall_re[0]=1
+		inpu.wall_re[1]=1
+		inpu.wall_re[2]=1
+		inpu.wall_re[3]=1
+		inpu.wall_re[4]=1
+		inpu.wall_re[5]=1
+		inpu.wall_wh[0]=3
+		inpu.wall_wh[1]=3
+		inpu.wall_wh[2]=3
+		inpu.wall_wh[3]=3
+		inpu.wall_wh[4]=3
+		inpu.wall_wh[5]=4
+	Read output settings of isat and ffd:
+		outp.outp_name[0]=temp_roo
+		outp.outp_name[1]=vel_sen
+		outp.outp_Boundary_upper[0]=293.150000
+		outp.outp_Boundary_upper[1]=1.000000
+		outp.outp_Boundary_lower[0]=273.150000
+		outp.outp_Boundary_lower[1]=0.000000
+-------------------------------------------------------------------
+read_cosim_data(): Start to read data from Modelica at t=0.000000[s]
+	para->cosim->ffd->input[0]: 10.000000
+	para->cosim->ffd->input[1]: 0.100000
+	para->cosim->ffd->input[2]: 10.000000
+	para->cosim->ffd->input[3]: 30.000000
+ffd_ISAT(): simulation started
+nQuery,stats[1-5], isat_cum, cpu_cum:	1	1.000000	0.000000	0.000000	0.000000	1.000000	5.000000	200.266403	200.273821
+	input[0]:	10.000000
+	input[1]:	0.100000
+	input[2]:	10.000000
+	input[3]:	30.000000
+	output[0]:	0.564121	284.432429
+	output[1]:	0.242084	0.242084
+-------------------------------------------------------------------
+write_cosim_data(): Start to write the following coupled simulation data to Modelica:
+	para->cosim->ffd->TRoo: 284.432429
+	para->cosim->ffd->output[0]: 284.432429
+	para->cosim->ffd->output[1]: 0.242084
+-------------------------------------------------------------------
+read_cosim_data(): Start to read data from Modelica at t=60.000000[s]
+	para->cosim->ffd->input[0]: 10.000000
+	para->cosim->ffd->input[1]: 0.100000
+	para->cosim->ffd->input[2]: 10.000000
+	para->cosim->ffd->input[3]: 30.000000
+nQuery,stats[1-5], isat_cum, cpu_cum:	2	2.000000	1.000000	0.000000	0.000000	1.000000	2.000000	200.266418	200.273922
+	input[0]:	10.000000
+	input[1]:	0.100000
+	input[2]:	10.000000
+	input[3]:	30.000000
+	output[0]:	0.564121	284.432429
+	output[1]:	0.242084	0.242084
+-------------------------------------------------------------------
+write_cosim_data(): Start to write the following coupled simulation data to Modelica:
+	para->cosim->ffd->TRoo: 284.432429
+	para->cosim->ffd->output[0]: 284.432429
+	para->cosim->ffd->output[1]: 0.242084
+-------------------------------------------------------------------
+read_cosim_data(): Start to read data from Modelica at t=120.000000[s]
+	para->cosim->ffd->input[0]: 10.000000
+	para->cosim->ffd->input[1]: 0.100000
+	para->cosim->ffd->input[2]: 10.000000
+	para->cosim->ffd->input[3]: 30.000000
+nQuery,stats[1-5], isat_cum, cpu_cum:	3	3.000000	2.000000	0.000000	0.000000	1.000000	2.000000	200.266434	200.274139
+	input[0]:	10.000000
+	input[1]:	0.100000
+	input[2]:	10.000000
+	input[3]:	30.000000
+	output[0]:	0.564121	284.432429
+	output[1]:	0.242084	0.242084
+-------------------------------------------------------------------
+write_cosim_data(): Start to write the following coupled simulation data to Modelica:
+	para->cosim->ffd->TRoo: 284.432429
+	para->cosim->ffd->output[0]: 284.432429
+	para->cosim->ffd->output[1]: 0.242084
+-------------------------------------------------------------------
+read_cosim_data(): Start to read data from Modelica at t=180.000000[s]
+	para->cosim->ffd->input[0]: 10.000000
+	para->cosim->ffd->input[1]: 0.100000
+	para->cosim->ffd->input[2]: 10.000000
+	para->cosim->ffd->input[3]: 30.000000
+nQuery,stats[1-5], isat_cum, cpu_cum:	4	4.000000	3.000000	0.000000	0.000000	1.000000	2.000000	200.266449	200.274303
+	input[0]:	9.990000
+	input[1]:	0.090000
+	input[2]:	9.990000
+	input[3]:	30.000000
+	output[0]:	0.564121	284.432429
+	output[1]:	0.242084	0.242084
+-------------------------------------------------------------------
+write_cosim_data(): Start to write the following coupled simulation data to Modelica:
+	para->cosim->ffd->TRoo: 284.432429
+	para->cosim->ffd->output[0]: 284.432429
+	para->cosim->ffd->output[1]: 0.242084
+-------------------------------------------------------------------
+cosim_loop(): Received stop command: cosim->para->flag = 0
+main(): Sent stopping signal to Modelica
