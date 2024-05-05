@@ -14,18 +14,15 @@ record Generic
     "Nominal mass flow rate per unit area of collector";
   parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa")
     "Nominal pressure drop";
-  parameter Modelica.Units.NonSI.Angle_deg[:] incAngDatDeg={0,10,20,30,40,50,60,70,80,90}
-    "Incident angle data in degrees";
-  final parameter Modelica.Units.SI.Angle[size(incAngDatDeg,1)] incAngDat=
-    Modelica.Units.Conversions.from_deg(incAngDatDeg)
-    "Incident angle data in radians";
-  parameter Real[size(incAngDatDeg,1)] incAngModDat(
+  parameter Modelica.Units.SI.Angle[:] incAngDat=Modelica.Units.Conversions.from_deg({0,10,20,30,40,50,60,70,80,90})
+    "Incident angle data";
+  parameter Real[size(incAngDat,1)] incAngModDat(
     each final min=0,
     each final unit="1")
     "Incident angle modifier data";
 
   final parameter Boolean validated = validateAngles(
-    incAngDatDeg=incAngDatDeg,
+    incAngDat=incAngDat,
     incAngModDat=incAngModDat)
     "True if data are valid, otherwise an assertion is issued";
 

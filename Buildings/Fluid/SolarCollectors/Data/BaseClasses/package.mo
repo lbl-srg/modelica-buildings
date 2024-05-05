@@ -7,5 +7,4 @@ annotation (Documentation(info="<html>
 Package with base classes for performance data for solar thermal collectors.
 </p>
 </html>"));
-
 end BaseClasses;
