@@ -19,7 +19,7 @@ model TemperatureResponseMatrix
       nu={300, 3600, 86400, 604800, 2592000, 31536000, 315360000},
       nTim=7) "Resulting temperature response matrix";
 
-annotation (experiment(StopTime=1.1,Tolerance=1e-6),
+annotation (experiment(StopTime=1,Tolerance=1e-6),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/ZonedThermalStorage/BaseClasses/HeatTransfer/Validation/TemperatureResponseMatrix.mos"
         "Simulate and plot"),
 Documentation(info="<html>
