@@ -8,3 +8,7 @@ convertClear();
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3809
 convertClass("Buildings.Templates.Plants.Controls.Utilities.SortWithIndices",
              "Buildings.Controls.OBC.CDL.Reals.Sort");
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3604
+convertClass("Buildings.Fluid.SolarCollectors",
+             "Buildings.Obsolete.Fluid.SolarCollectors");

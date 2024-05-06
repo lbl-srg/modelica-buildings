@@ -71,6 +71,21 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+    </td>
+</tr>
+<tr>
+    <td valign=\"top\">Buildings.Fluid.SolarCollectors
+    </td>
+    <td valign=\"top\">Refactored solar collector models to allow modeling of arrays of collectors,
+                       to facilitate use of rating data to parameterize the collector, and
+                       to improve calculation of performance for shallow solar incidence angles.<br/>
+                       The former models have been moved to <code>Buildings.Obsolete</code>.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3604\">#3604</a>.
+    </td>
+</tr>
+
 <tr><td colspan=\"2\"><b>Buildings.Templates</b>
     </td>
 </tr>
