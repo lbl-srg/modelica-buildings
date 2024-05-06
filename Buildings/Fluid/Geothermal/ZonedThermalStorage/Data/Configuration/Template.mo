@@ -71,6 +71,11 @@ This record is a template for the records in
 <a href=\"modelica://Buildings.Fluid.Geothermal.ZonedThermalStorage.Data.Configuration\">
 Buildings.Fluid.Geothermal.ZonedThermalStorage.Data.Configuration</a>.
 </p>
+<p>
+See <a href=\"modelica://Buildings.Fluid.Geothermal.ZonedThermalStorage.Data.Configuration.Example\">
+Buildings.Fluid.Geothermal.ZonedThermalStorage.Data.Configuration.Example</a>
+for how to use this record.
+</p>
 </html>",
 revisions="<html>
 <ul>
