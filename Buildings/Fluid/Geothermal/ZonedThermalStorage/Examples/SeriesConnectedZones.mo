@@ -66,14 +66,19 @@ model SeriesConnectedZones "Description"
         *borFieDat.conDat.nBor) "Heater"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
   parameter Data.Configuration.Example conDat
+    "Borefield configuration data"
     annotation (Placement(transformation(extent={{-58,-40},{-38,-20}})));
   parameter Data.Filling.Bentonite filDat
+    "Borehole filling data"
     annotation (Placement(transformation(extent={{-36,-40},{-16,-20}})));
   parameter Data.Soil.SandStone soiDat
+    "Soil data"
     annotation (Placement(transformation(extent={{-14,-40},{6,-20}})));
 
-  Modelica.Blocks.Sources.Cosine heaRat(amplitude=0.75,
-    f=1/(24*3600),                                      offset=0.5)
+  Modelica.Blocks.Sources.Cosine heaRat(
+    amplitude=0.75,
+    f=1/(24*3600),
+    offset=0.5)
     "Heating rate signal"
     annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
   Modelica.Blocks.Math.Sign sig

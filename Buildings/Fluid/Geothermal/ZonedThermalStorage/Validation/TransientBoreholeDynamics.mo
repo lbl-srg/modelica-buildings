@@ -72,10 +72,13 @@ model TransientBoreholeDynamics "Description"
     startTime=3600.*24*30*{0,1,3,7}) "Heating rate into each zone"
     annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
   parameter Data.Configuration.Example conDat
+    "Borefield configuration data"
     annotation (Placement(transformation(extent={{-58,-40},{-38,-20}})));
   parameter Data.Filling.Bentonite filDat
+    "Borehole filling data"
     annotation (Placement(transformation(extent={{-36,-40},{-16,-20}})));
   parameter Data.Soil.SandStone soiDat
+    "Soil data"
     annotation (Placement(transformation(extent={{-14,-40},{6,-20}})));
   Modelica.Blocks.Sources.CombiTimeTable timTabT(
     tableOnFile=true,
@@ -83,7 +86,8 @@ model TransientBoreholeDynamics "Description"
     columns={2,3,4,5},
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/Geothermal/ZonedThermalStorage/Validation/SteadyStateBoreholeDynamics.txt"),
-    y(each unit="degC", each displayUnit="degC"),
+    y(each unit="degC",
+      each displayUnit="degC"),
     timeScale=3600)
     "Reference results for the average borehole wall temperature in each zone"
     annotation (Placement(transformation(extent={{-30,30},{-10,50}})));

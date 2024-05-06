@@ -11,7 +11,8 @@ partial model PartialStorage
     final dp_nominal=borFieDat.conDat.dp_nominal,
     final computeFlowResistance={_dp_nominal > Modelica.Constants.eps for _dp_nominal in borFieDat.conDat.dp_nominal});
 
-  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+    "Medium in the borehole pipes"
       annotation (choices(
         choice(redeclare package Medium = Buildings.Media.Water "Water"),
         choice(redeclare package Medium =
@@ -35,7 +36,7 @@ partial model PartialStorage
   constant Real mSenFac(min=1)=1
     "Factor for scaling the sensible thermal mass of the volume";
   parameter Boolean dynFil=true
-    "Set to false to remove the dynamics of the filling material."
+    "Set to false to remove the dynamics of the filling material"
     annotation (Dialog(tab="Dynamics"));
 
   // Initialization
