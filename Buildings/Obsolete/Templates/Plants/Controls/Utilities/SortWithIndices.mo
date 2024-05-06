@@ -1,6 +1,7 @@
-within Buildings.Templates.Plants.Controls.Utilities;
+within Buildings.Obsolete.Templates.Plants.Controls.Utilities;
 block SortWithIndices
   "Sort elements of input vector in ascending or descending order"
+  extends Modelica.Icons.ObsoleteModel;
   parameter Integer nin(
     final min=0)=0
     "Number of input connections"
@@ -21,9 +22,8 @@ equation
   (y, yIdx)=Modelica.Math.Vectors.sort(u,
     ascending=ascending);
   annotation (
-    __cdl(
-      extensionBlock=true),
     defaultComponentName="sort",
+    obsolete = "This model is obsolete - Use Buildings.Controls.OBC.CDL.Reals.Sort instead",
     Icon(
       coordinateSystem(
         preserveAspectRatio=true,

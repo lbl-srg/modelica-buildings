@@ -1,7 +1,7 @@
-within Buildings.Templates.Plants.Controls.Utilities.Validation;
+within Buildings.Obsolete.Templates.Plants.Controls.Utilities.Validation;
 model SortWithIndices
   "Validation model for the Sort block"
-  Buildings.Templates.Plants.Controls.Utilities.SortWithIndices sorAsc(
+  Buildings.Obsolete.Templates.Plants.Controls.Utilities.SortWithIndices sorAsc(
     nin=5)
     "Block that sorts signals in ascending order"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
@@ -35,7 +35,7 @@ model SortWithIndices
     height=4)
     "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-60,-74},{-40,-54}})));
-  Buildings.Templates.Plants.Controls.Utilities.SortWithIndices sorDes(
+  Buildings.Obsolete.Templates.Plants.Controls.Utilities.SortWithIndices sorDes(
     nin=5,
     ascending=false)
     "Block that sorts signals in descending order"
@@ -67,13 +67,13 @@ equation
       StopTime=1.0,
       Tolerance=1e-06),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Controls/Utilities/Validation/SortWithIndices.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Templates/Plants/Controls/Utilities/Validation/SortWithIndices.mos" "Simulate and plot"),
     Documentation(
       info="<html>
 <p>
 Validation model for the block
-<a href=\"modelica://Buildings.Templates.Plants.Controls.Utilities.SortWithIndices\">
-Buildings.Templates.Plants.Controls.Utilities.SortWithIndices</a>.
+<a href=\"modelica://Buildings.Obsolete.Templates.Plants.Controls.Utilities.SortWithIndices\">
+Buildings.Obsolete.Templates.Plants.Controls.Utilities.SortWithIndices</a>.
 </p>
 <p>
 The input <code>u1</code> varies from <i>-2</i> to <i>+2</i>, input <code>u2</code> varies from <i>-1</i> to <i>+2</i>,

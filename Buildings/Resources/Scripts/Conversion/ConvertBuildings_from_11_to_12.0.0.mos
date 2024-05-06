@@ -1,0 +1,10 @@
+//  Conversion script for Buildings library
+//  from: Version 11
+//  to:   Version 12.0.0
+clear
+
+convertClear();
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3809
+convertClass("Buildings.Templates.Plants.Controls.Utilities.SortWithIndices",
+             "Buildings.Controls.OBC.CDL.Reals.Sort");
