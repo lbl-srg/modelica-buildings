@@ -51,9 +51,9 @@ model Effectiveness
     "Exhaust air flow rate"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 equation
-  connect(VSup.y, epsCal.VSup_flow)
+  connect(VSup.y, epsCal.mSup_flow)
     annotation (Line(points={{-59,70},{-28,70},{-28,8},{-14,8}}, color={0,0,127}));
-  connect(VExh.y, epsCal.VExh_flow)
+  connect(VExh.y, epsCal.mExh_flow)
     annotation (Line(points={{-59,30},{-40,30},{-40,4},{-14,4}}, color={0,0,127}));
   connect(whSpe.y, epsCal.uSpe)
     annotation (Line(points={{-59,0},{-14,0}}, color={0,0,127}));

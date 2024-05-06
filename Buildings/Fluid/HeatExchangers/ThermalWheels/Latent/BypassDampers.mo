@@ -3,6 +3,9 @@ model BypassDampers
   "Enthalpy recovery wheel with bypass dampers"
   extends
     Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.PartialWheel;
+  parameter Modelica.Units.SI.PressureDifference dpDam_nominal(displayUnit="Pa") = 20
+    "Nominal pressure drop of supply air dampers"
+    annotation (Dialog(group="Nominal condition"));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uBypDamPos(
     final unit="1",
     final min=0,
@@ -15,29 +18,29 @@ model BypassDampers
     annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Fluid.Actuators.Dampers.Exponential bypDamSup(
-    redeclare package Medium = Medium1,
-    final m_flow_nominal=m1_flow_nominal,
-    final dpDamper_nominal=dp1_nominal)
+    redeclare package Medium = Medium,
+    final m_flow_nominal=mSup_flow_nominal,
+    final dpDamper_nominal=dpDam_nominal)
     "Supply air bypass damper"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
   Buildings.Fluid.Actuators.Dampers.Exponential damSup(
-    redeclare package Medium = Medium1,
-    final m_flow_nominal=m1_flow_nominal,
-    final dpDamper_nominal=dp1_nominal)
+    redeclare package Medium = Medium,
+    final m_flow_nominal=mSup_flow_nominal,
+    final dpDamper_nominal=dpDam_nominal)
     "Supply air damper"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},rotation=0,origin={-50,40})));
   Buildings.Fluid.Actuators.Dampers.Exponential damExh(
-    redeclare package Medium = Medium2,
-    final m_flow_nominal=m2_flow_nominal,
-    final dpDamper_nominal=dp2_nominal)
+    redeclare package Medium = Medium,
+    final m_flow_nominal=mExh_flow_nominal,
+    final dpDamper_nominal=dpDam_nominal)
     "Exhaust air damper"
     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},rotation=-90,origin={60,-30})));
   Buildings.Fluid.Actuators.Dampers.Exponential bypDamExh(
-    redeclare package Medium = Medium2,
-    final m_flow_nominal=m2_flow_nominal,
-    final dpDamper_nominal=dp2_nominal)
+    redeclare package Medium = Medium,
+    final m_flow_nominal=mExh_flow_nominal,
+    final dpDamper_nominal=dpDam_nominal)
     "Exhaust air bypass damper"
     annotation (Placement(transformation(extent={{0,-70},{-20,-50}})));
 protected

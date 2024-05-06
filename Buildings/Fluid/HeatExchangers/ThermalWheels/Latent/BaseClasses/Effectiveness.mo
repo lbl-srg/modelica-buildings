@@ -18,8 +18,8 @@ model Effectiveness
     "Part load (75% of the nominal supply flow rate) sensible heat exchanger effectiveness at the heating mode";
   parameter Modelica.Units.SI.Efficiency epsLatHeaPL(final max=1)
     "Part load (75% of the nominal supply flow rate) latent heat exchanger effectiveness at the heating mode";
-  parameter Modelica.Units.SI.VolumeFlowRate VSup_flow_nominal
-    "Nominal supply air flow rate";
+  parameter Modelica.Units.SI.MassFlowRate mSup_flow_nominal
+    "Nominal supply air mass flow rate";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final min=0,
@@ -33,11 +33,11 @@ model Effectiveness
     displayUnit="degC")
     "Exhaust air temperature"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VSup_flow(final unit="m3/s")
-    "Supply air volumetric flow rate"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mSup_flow(final unit="kg/s")
+    "Supply air mass flow rate"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VExh_flow(final unit="m3/s")
-    "Exhaust air volumetric flow rate"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mExh_flow(final unit="kg/s")
+    "Exhaust air mass flow rate"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uSpe(
     final unit="1",
@@ -82,11 +82,11 @@ protected
 
 equation
   // Check if the air flows are too unbalanced
-  assert(VSup_flow - 2*VExh_flow < 0 or VExh_flow - 2*VSup_flow < 0,
+  assert(mSup_flow - 2*mExh_flow < 0 or mExh_flow - 2*mSup_flow < 0,
     "In " + getInstanceName() + ": The ratio of the supply flow rate to the exhaust flow rate should be in the range of [0.5, 2].",
     level=AssertionLevel.warning);
   // Calculate the average volumetric air flow and flow rate ratio.
-  rat = (VSup_flow + VExh_flow)/2/VSup_flow_nominal;
+  rat = (mSup_flow +mExh_flow) /2/mSup_flow_nominal;
   // Switch between cooling and heating modes based on the difference between the supply air temperature and the exhaust air temperature
   fraCoo = if (equSen_nominal and equSenPL and equLat_nominal and equLatPL) then 0.5 else Buildings.Utilities.Math.Functions.regStep(TSup-TExh, 1, 0, 1e-5);
 

@@ -2,22 +2,19 @@ within Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses;
 partial model PartialWheel
   "Partial model for enthalpy recovery wheel"
   extends Modelica.Blocks.Icons.Block;
-  replaceable package Medium1 =
+  replaceable package Medium =
     Modelica.Media.Interfaces.PartialCondensingGases
-    "Supply air";
-  replaceable package Medium2 =
-    Modelica.Media.Interfaces.PartialCondensingGases
-    "Exhaust air";
-  parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal
+    "Air";
+  parameter Modelica.Units.SI.MassFlowRate mSup_flow_nominal
     "Nominal supply air mass flow rate"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mExh_flow_nominal
     "Nominal exhaust air mass flow rate"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference dp1_nominal(displayUnit="Pa") = 500
+  parameter Modelica.Units.SI.PressureDifference dpSup_nominal(displayUnit="Pa") = 500
     "Nominal supply air pressure drop"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference dp2_nominal(displayUnit="Pa") = dp1_nominal
+  parameter Modelica.Units.SI.PressureDifference dpExh_nominal(displayUnit="Pa") = dpSup_nominal
     "Nominal exhaust air pressure drop"
     annotation (Dialog(group="Nominal condition"));
   parameter Real P_nominal(final unit="W")
@@ -41,19 +38,19 @@ partial model PartialWheel
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Efficiency epsSenCooPL(
     final max=1) = 0.75
-    "Part load (75% of the nominal supply flow rate) sensible heat exchanger effectiveness at the cooling mode"
+    "Part load (75% of the nominal supply mass flow rate) sensible heat exchanger effectiveness at the cooling mode"
     annotation (Dialog(group="Part load effectiveness"));
   parameter Modelica.Units.SI.Efficiency epsLatCooPL(
     final max=1) = 0.75
-    "Part load (75% of the nominal supply flow rate) latent heat exchanger effectiveness at the cooling mode"
+    "Part load (75% of the nominal supply mass flow rate) latent heat exchanger effectiveness at the cooling mode"
     annotation (Dialog(group="Part load effectiveness"));
   parameter Modelica.Units.SI.Efficiency epsSenHeaPL(
     final max=1) = 0.75
-    "Part load (75% of the nominal supply flow rate) sensible heat exchanger effectiveness at the heating mode"
+    "Part load (75% of the nominal supply mass flow rate) sensible heat exchanger effectiveness at the heating mode"
     annotation (Dialog(group="Part load effectiveness"));
   parameter Modelica.Units.SI.Efficiency epsLatHeaPL(
     final max=1) = 0.75
-    "Part load (75% of the nominal supply flow rate) latent heat exchanger effectiveness at the heating mode"
+    "Part load (75% of the nominal supply mass flow rate) latent heat exchanger effectiveness at the heating mode"
     annotation (Dialog(group="Part load effectiveness"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput P(
@@ -70,32 +67,27 @@ partial model PartialWheel
     annotation (Placement(transformation(extent={{100,-50},{140,-10}}),
         iconTransformation(extent={{100,-50},{140,-10}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a1(
-    redeclare final package Medium = Medium1)
+    redeclare final package Medium = Medium)
     "Fluid connector a1 of the supply air (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{-190,70},{-170,90}}),
         iconTransformation(extent={{-110,50},{-90,70}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b2(
-    redeclare final package Medium = Medium2)
+    redeclare final package Medium = Medium)
     "Fluid connector b2 of the exhaust air (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{-170,-70},{-190,-50}}),
         iconTransformation(extent={{-90,-70},{-110,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b1(
-    redeclare final package Medium = Medium1)
+    redeclare final package Medium = Medium)
     "Fluid connector b1 of the supply air (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{110,70},{90,90}}),
         iconTransformation(extent={{110,50},{90,70}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a2(
-    redeclare final package Medium = Medium2)
+    redeclare final package Medium = Medium)
     "Fluid connector a2 of the exhaust air (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
 
 protected
-  parameter Medium1.ThermodynamicState sta_nominal=Medium1.setState_pTX(
-      T=Buildings.Utilities.Psychrometrics.Constants.T_ref,
-      p=101325,
-      X=Medium1.X_default)
-   "State of the supply air at the default properties";
-    Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.Effectiveness effCal(
+  Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.Effectiveness effCal(
     final epsSenCoo_nominal=epsSenCoo_nominal,
     final epsLatCoo_nominal=epsLatCoo_nominal,
     final epsSenCooPL=epsSenCooPL,
@@ -104,45 +96,37 @@ protected
     final epsLatHea_nominal=epsLatHea_nominal,
     final epsSenHeaPL=epsSenHeaPL,
     final epsLatHeaPL=epsLatHeaPL,
-    final VSup_flow_nominal=m1_flow_nominal/Medium1.density(sta_nominal))
+    final mSup_flow_nominal=mSup_flow_nominal)
     "Calculates the effectiveness of heat exchange"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.HeatExchangerWithInputEffectiveness hex(
-    redeclare package Medium1 = Medium1,
-    redeclare package Medium2 = Medium2,
-    final m1_flow_nominal=m1_flow_nominal,
-    final m2_flow_nominal=m2_flow_nominal,
-    final dp1_nominal=dp1_nominal,
-    final dp2_nominal=dp2_nominal)
+    redeclare package Medium1 = Medium,
+    redeclare package Medium2 = Medium,
+    final m1_flow_nominal=mSup_flow_nominal,
+    final m2_flow_nominal=mExh_flow_nominal,
+    final dp1_nominal=dpSup_nominal,
+    final dp2_nominal=dpExh_nominal)
     "Heat exchanger"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Modelica.Blocks.Sources.RealExpression VSup_flow(
-    final y(final unit="m3/s")=hex.port_a1.m_flow/
-        Medium1.density(state=Medium1.setState_phX(
-        p=hex.port_a1.p,
-        h=hex.port_a1.h_outflow,
-        X=hex.port_a1.Xi_outflow)))
-    "Supply air volume flow rate"
+  Modelica.Blocks.Sources.RealExpression mSup_flow(
+    final y(final unit="kg/s")=hex.port_a1.m_flow)
+    "Supply air mass flow rate"
     annotation (Placement(transformation(extent={{-160,30},{-140,50}})));
-  Modelica.Blocks.Sources.RealExpression VExh_flow(
-    final y(final unit="m3/s")=hex.port_a2.m_flow/
-        Medium2.density(state=Medium2.setState_phX(
-        p=hex.port_a2.p,
-        h=hex.port_a2.h_outflow,
-        X=hex.port_a2.Xi_outflow)))
-    "Exhaust air volume flow rate"
+  Modelica.Blocks.Sources.RealExpression mExh_flow(
+    final y(final unit="kg/s")=hex.port_a2.m_flow)
+    "Exhaust air mass flow rate"
     annotation (Placement(transformation(extent={{-160,10},{-140,30}})));
   Modelica.Blocks.Sources.RealExpression TSup(
-    final y(final unit="K")=Medium1.temperature(
-      Medium1.setState_phX(
+    final y(final unit="K")=Medium.temperature(
+      Medium.setState_phX(
         p=port_a1.p,
         h=inStream(port_a1.h_outflow),
         X=inStream(port_a1.Xi_outflow))))
     "Supply air temperature"
     annotation (Placement(transformation(extent={{-160,-30},{-140,-10}})));
   Modelica.Blocks.Sources.RealExpression TExh(
-    final y(final unit="K")=Medium2.temperature(
-      Medium2.setState_phX(
+    final y(final unit="K")=Medium.temperature(
+      Medium.setState_phX(
         p=port_a2.p,
         h=inStream(port_a2.h_outflow),
         X=inStream(port_a2.Xi_outflow))))
@@ -168,10 +152,10 @@ equation
   connect(port_b2, hex.port_b2)
     annotation (Line(points={{-180,-60},{-40,-60},{-40,-6},{-10,-6}},
         color={0,127,255}));
-  connect(VSup_flow.y, effCal.VSup_flow)
+  connect(mSup_flow.y, effCal.mSup_flow)
     annotation (Line(points={{-139,40},{-110,40},{-110,8},{-102,8}},
         color={0,0,127}));
-  connect(VExh_flow.y, effCal.VExh_flow)
+  connect(mExh_flow.y, effCal.mExh_flow)
     annotation (Line(points={{-139,20},{-120,20},{-120,4},{-102,4}},
         color={0,0,127}));
   connect(epsSen, effCal.epsSen) annotation (Line(points={{120,30},{-60,30},{

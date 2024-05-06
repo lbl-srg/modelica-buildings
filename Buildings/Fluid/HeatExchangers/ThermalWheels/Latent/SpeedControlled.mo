@@ -3,8 +3,23 @@ model SpeedControlled
   "Enthalpy recovery wheel with a variable speed drive"
   extends
     Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.PartialWheel;
-  parameter Real a[:] = {1}
-    "Coefficients for power consumption curve for rotor. The sum of the elements must be equal to 1"
+  parameter Boolean defaultMotorEfficiencyCurve = true "= true, use the default motor efficiency curve"
+    annotation (Dialog(group="Efficiency"));
+  parameter Real table[:,:]=[0.8,1]
+    "Table of motor power efficiency as a function of the wheel speed ratio (first column)"
+    annotation (Dialog(group="Efficiency", enable = not defaultMotorEfficiencyCurve));
+  final parameter
+    Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot
+      motorEfficiency_default=
+        Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve(
+          P_nominal=P_nominal,
+          eta_max=1)
+    "default motor efficiency  vs. whell speed ratio";
+  final parameter Real xSpe[:] = if defaultMotorEfficiencyCurve then motorEfficiency_default.y else table[:,1]
+    "x-axis support points of the power efficiency curve"
+    annotation (Dialog(group="Efficiency"));
+  final parameter Real[size(xSpe,1)] yeta = if defaultMotorEfficiencyCurve then motorEfficiency_default.eta else table[:,2]
+    "y-axis support points of the power efficiency curve"
     annotation (Dialog(group="Efficiency"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uSpe(
@@ -15,15 +30,12 @@ model SpeedControlled
         iconTransformation(extent={{-140,-20},{-100,20}})));
 protected
   Modelica.Blocks.Sources.RealExpression PEle(
-    final y=P_nominal*Buildings.Utilities.Math.Functions.polynomial(a=a, x=uSpe))
+    final y=P_nominal*uSpe/Buildings.Utilities.Math.Functions.smoothInterpolation(
+      x=uSpe,
+      xSup=xSpe,
+      ySup=yeta))
     "Electric power consumption"
     annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
-
-initial equation
-  assert(abs(sum(a)-1) < Modelica.Constants.eps,
-         "In " + getInstanceName() + ": Power efficiency curve is wrong. 
-         The sum of the coefficients for power efficiency curve must be 1.",
-         level=AssertionLevel.error);
 
 equation
   connect(P, PEle.y)
@@ -35,7 +47,7 @@ equation
           {100,-60}}, color={0,127,255}));
   connect(effCal.uSpe, uSpe)
     annotation (Line(points={{-102,0},{-200,0}}, color={0,0,127}));
-annotation (
+    annotation (
    defaultComponentName="whe",
         Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
    graphics={
@@ -63,12 +75,13 @@ The operation of the heat recovery wheel is adjustable by modulating the wheel s
 Accordingly, the power consumption of this wheel is calculated by
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-P = P_nominal * (a<sub>1</sub> + a<sub>2</sub> uSpe + a<sub>3</sub> uSpe<sup>2</sup> + ...),
+P = P_nominal * eta,
 </p>
 <p>
 where <code>P_nominal</code> is the nominal wheel power consumption,
-<code>uSpe</code> is the wheel speed ratio, 
-and the <code>a[:]</code> are the coefficients for power efficiency curve.
+<code>uSpe</code> is the wheel speed ratio.
+The <code>eta</code> is the motor power efficiency and is obtained from performing a polynomial fit
+based on the user input data table.
 The sum of the coefficients must be <i>1</i>, otherwise the model stops with an error.
 Thus, when the speed ratio <code>uSpe=1</code>, the power consumption is equal to
 nominal consumption <code>P=P_nominal</code>.
