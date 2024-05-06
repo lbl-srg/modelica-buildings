@@ -60,7 +60,6 @@ inactive borehole length).
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Geothermal/ZonedThermalStorage/BorefieldGeometry_01.png\" />
 </p>
-
 <h4>How to use the borefield models</h4>
 <h5>Borefield data record</h5>
 <p>
@@ -136,6 +135,21 @@ of the filling material in the borehole(s).
 The <code>nSeg</code> parameter specifies the number of segments for the vertical discretization
 of the borehole(s).
 Further information on this discretization can be found in the &#34;Model description&#34; section below.
+</p>
+<h5>Fluid flow</h5>
+<p>
+In every zone, all boreholes are connected in parallel. Models that instantiate this borefield model need to provide the
+pressure drop or mass flow rate that is needed to distribute the flow to the different zones. Each zone of a borefield is connected
+between its <code>port_a</code> and <code>port_b</code>, e.g., flow that enters <code>port_a[1]</code> leaves at <code>port_b[1]</code>.
+Zones that operate in series can be configured by connecting the fluid
+ports of the respective zones. For example, suppose the borefield has the instance name <code>borFie</code>. Then,
+the connect statement
+</p>
+<pre>
+connect(borFie.port_b[1], borFie.port_a[2]);
+</pre>
+<p>
+connects the outlet of the first zone to the inlet of the second zone.
 </p>
 <h4>Model description</h4>
 <p>
