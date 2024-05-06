@@ -68,7 +68,7 @@ well-known data sources:
 <td> dp_nominal </td>
 </tr>
 <tr>
-<td> incAngDatDeg, incAngModDat </td>
+<td> incAngDat, incAngModDat </td>
 <td> IAM({0°,10°,...,90°}) </td>
 <td> IAM({10°,20°,...,90°}) </td>
 <td> IAM(angle)-plot </td>
