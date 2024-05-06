@@ -150,14 +150,14 @@ protected
     "Configuration data record for each borehole zone"
     annotation (Placement(transformation(extent={{62,-80},{82,-60}})));
 
-  Buildings.Fluid.BaseClasses.MassFlowRateMultiplier masFloDiv[nZon](redeclare
-      final package Medium = Medium, final k=nBorPerZon)
-                                                   "Division of flow rate"
+  Buildings.Fluid.BaseClasses.MassFlowRateMultiplier masFloDiv[nZon](
+    redeclare final package Medium = Medium,
+    final k=nBorPerZon) "Division of flow rate"
     annotation (Placement(transformation(extent={{-60,-50},{-80,-30}})));
 
-  Buildings.Fluid.BaseClasses.MassFlowRateMultiplier masFloMul[nZon](redeclare
-      final package Medium = Medium, final k=nBorPerZon)
-                                                   "Mass flow multiplier"
+  Buildings.Fluid.BaseClasses.MassFlowRateMultiplier masFloMul[nZon](
+    redeclare final package Medium = Medium,
+    final k=nBorPerZon) "Mass flow multiplier"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
 
   Modelica.Blocks.Sources.Constant TSoiUnd[nSeg](
