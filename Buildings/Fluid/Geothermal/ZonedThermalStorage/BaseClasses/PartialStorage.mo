@@ -33,8 +33,7 @@ partial model PartialStorage
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
-  constant Real mSenFac(min=1)=1
-    "Factor for scaling the sensible thermal mass of the volume";
+
   parameter Boolean dynFil=true
     "Set to false to remove the dynamics of the filling material"
     annotation (Dialog(tab="Dynamics"));
@@ -119,6 +118,9 @@ partial model PartialStorage
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
 
 protected
+  constant Real mSenFac(min=1)=1
+    "Factor for scaling the sensible thermal mass of the volume";
+
   parameter Modelica.Units.SI.Height z[nSeg]={borFieDat.conDat.hBor/nSeg*(i - 0.5) for i in 1:nSeg}
     "Distance from the surface to the considered segment";
 

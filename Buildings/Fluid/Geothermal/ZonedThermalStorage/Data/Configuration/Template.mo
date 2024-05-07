@@ -17,14 +17,14 @@ record Template
   parameter Modelica.Units.SI.MassFlowRate[nZon] mBor_flow_nominal
     "Nominal mass flow rate per borehole in each zone"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.MassFlowRate[nZon] mZon_flow_nominal = {mBor_flow_nominal[i] * nBorPerZon[i] for i in 1:nZon}
+  final parameter Modelica.Units.SI.MassFlowRate[nZon] mZon_flow_nominal = {mBor_flow_nominal[i] * nBorPerZon[i] for i in 1:nZon}
     "Nominal mass flow rate of each borefield zone"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Pressure[nZon] dp_nominal(each displayUnit="Pa")
     "Pressure losses for the entire borefield"
     annotation (Dialog(group="Nominal condition"));
   // -- Advanced flow parameters
-  parameter Modelica.Units.SI.MassFlowRate[nZon] mBor_flow_small(min=0) = 1E-4*abs(mBor_flow_nominal) "Small mass flow rate for regularization of zero flow"
+  final parameter Modelica.Units.SI.MassFlowRate[nZon] mBor_flow_small(min=0) = 1E-4*abs(mBor_flow_nominal) "Small mass flow rate for regularization of zero flow"
     annotation (Dialog(tab="Advanced"));
 
   //------------------------- Geometrical parameters ---------------------------
@@ -41,13 +41,13 @@ record Template
     annotation (Dialog(group="Borehole"));
   parameter Integer[nBor] iZon "Index of the zone corresponding to each borehole"
     annotation (Dialog(group="Borehole"));
-  parameter Integer[nZon] nBorPerZon = {sum({if iZon[j]==i then 1 else 0 for j in 1:nBor}) for i in 1:nZon}
+  final parameter Integer[nZon] nBorPerZon = {sum({if iZon[j]==i then 1 else 0 for j in 1:nBor}) for i in 1:nZon}
     "Number of boreholes per borefield zone"
     annotation (Dialog(group="Borehole"));
   parameter Modelica.Units.SI.Length[:,2] cooBor
     "Cartesian coordinates of the boreholes in meters"
     annotation (Dialog(group="Borehole"));
-  parameter Integer nBor = size(cooBor, 1) "Total number of boreholes"
+  final parameter Integer nBor = size(cooBor, 1) "Total number of boreholes"
     annotation (Dialog(group="Borehole"));
 
   // -- Tube
