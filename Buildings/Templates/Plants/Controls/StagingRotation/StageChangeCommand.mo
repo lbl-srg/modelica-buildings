@@ -44,23 +44,21 @@ block StageChangeCommand
     "Default specific heat capacity used to compute required capacity";
   parameter Real rho_default(min=0, unit="kg/m3")
     "Default density used to compute required capacity";
-  parameter Real dT(
-    final min=0,
-    final unit="K")
+  parameter Real dT(min=0, unit="K")
     "Delta-T triggering stage up command (>0)";
   parameter Real dtPri(
-    final min=0,
-    final unit="s")=900
+    min=0,
+    unit="s")=900
     "Runtime with high primary-setpoint Delta-T before staging up";
   parameter Real dtSec(
-    final min=0,
-    final unit="s",
-    start=600)=600
+    min=0,
+    start=600,
+    unit="s")=600
     "Runtime with high secondary-primary and secondary-setpoint Delta-T before staging up"
     annotation(Dialog(enable=have_pumSec));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1AvaSta[nSta]
     "Stage available signal"
-    annotation (Placement(transformation(extent={{-240,60},{-200,100}}),
+    annotation (Placement(transformation(extent={{-240,40},{-200,80}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1StaPro
     "Staging process in progress"
@@ -107,7 +105,7 @@ block StageChangeCommand
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant traMatStaEqu[nEqu, nSta](
     final k=traStaEqu)
     "Transpose of staging matrix"
-    annotation (Placement(transformation(extent={{-70,210},{-50,230}})));
+    annotation (Placement(transformation(extent={{-80,210},{-60,230}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor reqEquSta[nEqu](
     each final nin=nSta)
     "Extract equipment required at given stage"
@@ -115,14 +113,14 @@ block StageChangeCommand
   Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intScaRep(
     final nout=nEqu)
     "Replicate signal"
-    annotation (Placement(transformation(extent={{-104,190},{-84,210}})));
+    annotation (Placement(transformation(extent={{-110,190},{-90,210}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply capEquSta[nEqu]
     "Capacity of each equipment required at given stage"
     annotation (Placement(transformation(extent={{30,210},{50,230}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant capEquPar[nEqu](
     final k=capEqu)
     "Capacity of each equipment"
-    annotation (Placement(transformation(extent={{-70,150},{-50,170}})));
+    annotation (Placement(transformation(extent={{-80,150},{-60,170}})));
   Buildings.Controls.OBC.CDL.Reals.MultiSum capSta(
     nin=nEqu)
     "Compute nominal capacity of active stage"
@@ -159,6 +157,7 @@ block StageChangeCommand
     "Return true if stage index lower than active stage index"
     annotation (Placement(transformation(extent={{-150,90},{-130,110}})));
   Buildings.Controls.OBC.CDL.Logical.And idxStaLesActAva[nSta]
+    "Return true if stage index lower than active stage index and stage available"
     annotation (Placement(transformation(extent={{-110,70},{-90,90}})));
   Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intScaRep1(
     final nout=nSta)
@@ -167,7 +166,7 @@ block StageChangeCommand
   Utilities.LastTrueIndex idxLasTru(
     nin=nSta)
     "Index of next available lower stage"
-    annotation (Placement(transformation(extent={{-70,70},{-50,90}})));
+    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.Controls.OBC.CDL.Integers.Max maxInt1
     "Maximum between stage index and 1"
     annotation (Placement(transformation(extent={{-30,110},{-10,130}})));
@@ -242,17 +241,17 @@ block StageChangeCommand
     annotation (Placement(transformation(extent={{10,-150},{30,-130}})));
 equation
   connect(intScaRep.y, reqEquSta.index)
-    annotation (Line(points={{-82,200},{0,200},{0,208}},color={255,127,0}));
+    annotation (Line(points={{-88,200},{0,200},{0,208}},color={255,127,0}));
   connect(traMatStaEqu.y, reqEquSta.u)
-    annotation (Line(points={{-48,220},{-12,220}},color={0,0,127}));
+    annotation (Line(points={{-58,220},{-12,220}},color={0,0,127}));
   connect(reqEquSta.y, capEquSta.u1)
     annotation (Line(points={{12,220},{20,220},{20,226},{28,226}},color={0,0,127}));
   connect(capEquPar.y, capEquSta.u2)
-    annotation (Line(points={{-48,160},{20,160},{20,214},{28,214}},color={0,0,127}));
+    annotation (Line(points={{-58,160},{20,160},{20,214},{28,214}},color={0,0,127}));
   connect(capEquSta.y, capSta.u)
     annotation (Line(points={{52,220},{68,220}},color={0,0,127}));
   connect(intScaRep.u, maxInt.y)
-    annotation (Line(points={{-106,200},{-118,200}},color={255,127,0}));
+    annotation (Line(points={{-112,200},{-118,200}},color={255,127,0}));
   connect(idxSta.y, idxStaLesAct.u1)
     annotation (Line(points={{-158,140},{-154,140},{-154,100},{-152,100}},color={255,127,0}));
   connect(uSta, intScaRep1.u)
@@ -262,11 +261,11 @@ equation
   connect(idxStaLesAct.y, idxStaLesActAva.u1)
     annotation (Line(points={{-128,100},{-120,100},{-120,80},{-112,80}},color={255,0,255}));
   connect(u1AvaSta, idxStaLesActAva.u2)
-    annotation (Line(points={{-220,80},{-126,80},{-126,72},{-112,72}},color={255,0,255}));
+    annotation (Line(points={{-220,60},{-120,60},{-120,72},{-112,72}},color={255,0,255}));
   connect(idxStaLesActAva.y, idxLasTru.u1)
-    annotation (Line(points={{-88,80},{-72,80}},color={255,0,255}));
+    annotation (Line(points={{-88,80},{-82,80}},color={255,0,255}));
   connect(idxLasTru.y, maxInt1.u2)
-    annotation (Line(points={{-48,80},{-44,80},{-44,114},{-32,114}},color={255,127,0}));
+    annotation (Line(points={{-58,80},{-44,80},{-44,114},{-32,114}},color={255,127,0}));
   connect(one.y, maxInt1.u1)
     annotation (Line(points={{-158,180},{-40,180},{-40,126},{-32,126}},color={255,127,0}));
   connect(maxInt1.y, intScaRep2.u)
@@ -278,15 +277,15 @@ equation
   connect(intScaRep2.y, reqEquStaLow.index)
     annotation (Line(points={{32,120},{40,120},{40,140},{0,140},{0,168}},color={255,127,0}));
   connect(traMatStaEqu.y, reqEquStaLow.u)
-    annotation (Line(points={{-48,220},{-20,220},{-20,180},{-12,180}},color={0,0,127}));
+    annotation (Line(points={{-58,220},{-20,220},{-20,180},{-12,180}},color={0,0,127}));
   connect(reqEquStaLow.y, capEquStaLow.u2)
     annotation (Line(points={{12,180},{16,180},{16,174},{28,174}},color={0,0,127}));
   connect(capEquPar.y, capEquStaLow.u1)
-    annotation (Line(points={{-48,160},{20,160},{20,186},{28,186}},color={0,0,127}));
+    annotation (Line(points={{-58,160},{20,160},{20,186},{28,186}},color={0,0,127}));
   connect(capEquStaLow.y, capStaLow.u)
     annotation (Line(points={{52,180},{68,180}},color={0,0,127}));
   connect(idxLasTru.y, minInt.u2)
-    annotation (Line(points={{-48,80},{-44,80},{-44,74},{-32,74}},color={255,127,0}));
+    annotation (Line(points={{-58,80},{-44,80},{-44,74},{-32,74}},color={255,127,0}));
   connect(one.y, minInt.u1)
     annotation (Line(points={{-158,180},{-40,180},{-40,86},{-32,86}},color={255,127,0}));
   connect(minInt.y, intToRea.u)
@@ -358,10 +357,10 @@ equation
           {-100,-24},{-92,-24}}, color={0,0,127}));
   connect(TSupSet, faiSaf.TSupSet) annotation (Line(points={{-220,-80},{-180,-80},
           {-180,-16},{-92,-16}}, color={0,0,127}));
-  connect(faiSaf.y1, effOrFaiSaf.u1) annotation (Line(points={{-68,-20},{-20,-20},
-          {-20,-60},{8,-60}}, color={255,0,255}));
-  connect(timUp.passed, effOrFaiSaf.u2) annotation (Line(points={{-28,-108},{-20,
-          -108},{-20,-68},{8,-68}}, color={255,0,255}));
+  connect(faiSaf.y1, effOrFaiSaf.u1) annotation (Line(points={{-68,-20},{0,-20},
+          {0,-60},{8,-60}},   color={255,0,255}));
+  connect(timUp.passed, effOrFaiSaf.u2) annotation (Line(points={{-28,-108},{0,
+          -108},{0,-68},{8,-68}},   color={255,0,255}));
   connect(effOrFaiSaf.y, y1Up) annotation (Line(points={{32,-60},{180,-60},{180,
           80},{220,80}}, color={255,0,255}));
   connect(faiSaf.y1, notFaiSaf.u) annotation (Line(points={{-68,-20},{-56,-20},
@@ -369,7 +368,8 @@ equation
   connect(timDow.passed, effAndNotFaiSaf.u2)
     annotation (Line(points={{-28,-148},{8,-148}}, color={255,0,255}));
   connect(notFaiSaf.y, effAndNotFaiSaf.u1) annotation (Line(points={{-28,-40},{
-          0,-40},{0,-140},{8,-140}}, color={255,0,255}));
+          -20,-40},{-20,-140},{8,-140}},
+                                     color={255,0,255}));
   connect(effAndNotFaiSaf.y, y1Dow) annotation (Line(points={{32,-140},{180,
           -140},{180,-80},{220,-80}}, color={255,0,255}));
   annotation (
@@ -506,7 +506,7 @@ of <code>dtRun</code>.
 <ul>
 <li>
 May 31, 2024, by Antoine Gautier:<br/>
-Refactored using <code>LoadAverage</code> block and added failsafe stage up condition.
+Refactored using <code>LoadAverage</code> block and added failsafe condition.
 </li>
 <li>
 March 29, 2024, by Antoine Gautier:<br/>
