@@ -60,7 +60,7 @@ protected
 
   discrete Modelica.Units.SI.TemperatureDifference[nSegTot] delTBor0
     "Previous time step's temperature difference current borehole wall temperature minus initial borehole temperature";
-  discrete Real[nSegTot] derDelTBor0(unit="K/s")
+  discrete Real[nSegTot] derDelTBor0(each unit="K/s")
     "Derivative of wall temperature change from previous time steps";
   final parameter Real[nSegTot] dTStepdt(each fixed=false)
     "Time derivative of h_ii/(2*pi*H*Nb*ks) within most recent cell";
