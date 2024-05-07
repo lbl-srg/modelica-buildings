@@ -165,9 +165,7 @@ int read_cosim_data(PARA_DATA *para) {
   int size = para->cosim->para->nSur + para->cosim->para->nPorts * 2;
   float *input = malloc(sizeof(float)*size);
   if (input == NULL) {
-    cosim_log("In cosimulation.c, read_cosim_data: could not allocate memory for input.",
-			  COSIM_ERROR);
-	return -1;
+	ModelicaError("Failed to allocate memory for input in read_cosim_data() of cosimulation.c");
   }
 
   cosim_log("-------------------------------------------------------------------",

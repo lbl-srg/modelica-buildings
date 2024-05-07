@@ -58,19 +58,19 @@ int allocate_memory(PARA_DATA* para) {
   nb_var = C2BC + 1;
   var = (REAL * *) malloc(nb_var * sizeof(REAL*));
   if (var == NULL) {
-	ffd_log("allocate_memory(): Could not allocate memory for var.",
-		FFD_ERROR);
-	return 1;
+	  ffd_log("allocate_memory(): Could not allocate memory for var.",
+		  FFD_ERROR);
+	  return 1;
   }
 
   for (i = 0; i < nb_var; i++) {
-	var[i] = (REAL*) calloc(size, sizeof(REAL));
-	if (var[i] == NULL) {
-		sprintf(msg,
-			"allocate_memory(): Could not allocate memory for var[%d]", i);
-		ffd_log(msg, FFD_ERROR);
-		return 1;
-	}
+	  var[i] = (REAL*) calloc(size, sizeof(REAL));
+	  if (var[i] == NULL) {
+		  sprintf(msg,
+			  "allocate_memory(): Could not allocate memory for var[%d]", i);
+		  ffd_log(msg, FFD_ERROR);
+		  return 1;
+	  }
   }
 
   /****************************************************************************
@@ -84,26 +84,26 @@ int allocate_memory(PARA_DATA* para) {
   ****************************************************************************/
   BINDEX = (int**) malloc(6 * sizeof(int*));
   if (BINDEX == NULL) {
-	ffd_log("allocate_memory(): Could not allocate memory for BINDEX.",
-		FFD_ERROR);
-	return 1;
+	  ffd_log("allocate_memory(): Could not allocate memory for BINDEX.",
+		  FFD_ERROR);
+	  return 1;
   }
 
   for (i = 0; i < 6; i++) {
-	BINDEX[i] = (int*) malloc(size * sizeof(int));
-	if (BINDEX[i] == NULL) {
-		sprintf(msg,
-			"allocate_memory(): Could not allocate memory for BINDEX[%d]", i);
-		ffd_log(msg, FFD_ERROR);
-		return 1;
-	}
+	  BINDEX[i] = (int*) malloc(size * sizeof(int));
+	  if (BINDEX[i] == NULL) {
+		  sprintf(msg,
+			  "allocate_memory(): Could not allocate memory for BINDEX[%d]", i);
+		  ffd_log(msg, FFD_ERROR);
+		  return 1;
+	  }
   }
 
   /* initialize the BINDEX */
   for (i = 0; i < 6; i++) {
-	for (j = 0; j < size; j++) {
-		BINDEX[i][j] = 0;
-	}
+	  for (j = 0; j < size; j++) {
+		  BINDEX[i][j] = 0;
+	  }
   }
 
   return 0;
@@ -121,11 +121,11 @@ int ffd_cosimulation(CosimulationData *cosim) {
   para.cosim = cosim;
 
   if (ffd(1) != 0) {
-	cosim->para->ffdError = 1;
-	return 1;
+	  cosim->para->ffdError = 1;
+	  return 1;
   }
   else
-	return 0;
+	  return 0;
 } /* End of ffd_cosimulation()*/
 
 /****************************************************************************
@@ -205,18 +205,18 @@ int ffd(int cosimulation) {
   #endif
   
   if (para.solv->cosimulation != 1) {
-	if (para.outp->result_file == VTK) {
-		if (write_vtk_data(&para, var, "result") != 0) {
-			ffd_log("FFD_solver(): Could not write the result file.", FFD_ERROR);
-			return 1;
-		}
-	}
-	else if (para.outp->result_file == PLT) {
-		if (write_tecplot_data(&para, var, "result") != 0) {
-			ffd_log("FFD_solver(): Could not write the result file.", FFD_ERROR);
-			return 1;
-		}
-	}
+	  if (para.outp->result_file == VTK) {
+		  if (write_vtk_data(&para, var, "result") != 0) {
+			  ffd_log("FFD_solver(): Could not write the result file.", FFD_ERROR);
+			  return 1;
+		  }
+	  }
+	  else if (para.outp->result_file == PLT) {
+		  if (write_tecplot_data(&para, var, "result") != 0) {
+			  ffd_log("FFD_solver(): Could not write the result file.", FFD_ERROR);
+			  return 1;
+		  }
+	  }
   }
 
   /* Free the memory */
@@ -245,7 +245,7 @@ void modelicaError(char* msg) {
   /*Allocate memory for cosim->ffd->msg*/
   para.cosim->ffd->msg = (char*)malloc(400 * sizeof(char));
   if (para.cosim->ffd->msg == NULL) {
-	ffd_log("ffd(): Failed to allocate memory for cosim->ffd->msg", FFD_ERROR);
+	  ffd_log("ffd(): Failed to allocate memory for cosim->ffd->msg", FFD_ERROR);
   }
 
   strcpy(para.cosim->ffd->msg, msg);

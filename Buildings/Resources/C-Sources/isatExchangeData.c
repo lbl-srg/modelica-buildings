@@ -36,55 +36,55 @@ int isatExchangeData(double t0, double dt, double *u, size_t nU, size_t nY,
   size_t i, j, k;
 
   /*check if current modelica time equals to last time*/
-  /*if yes, it means cfdExchangeData() was called multiple times at one synchronization point, then directly return*/
-  if(cosim->modelica->lt - t0 < 1E-6 && t0 - cosim->modelica->lt < 1E-6){
- /****************************************************************************
+  /*if yes, it means isatExchangeData() was called multiple times at one synchronization point, then directly return*/
+  if (cosim->modelica->lt - t0 < 1E-6 && t0 - cosim->modelica->lt < 1E-6) {
+  /****************************************************************************
   | Copy data from CFD
   ****************************************************************************/
-  /* Get the temperature/heat flux for solid surface*/
-  for(i=0; i<cosim->para->nSur; i++) {
-    y[i] = cosim->ffd->temHea[i];
-  }
-
-  /* Get the averaged room temperature*/
-  y[i] = cosim->ffd->TRoo;
-  i++;
-
-  /* Get the temperature of shading device if there is a shading device*/
-  if(cosim->para->sha==1) {
-    for(j=0; j<cosim->para->nConExtWin; i++, j++) {
-      y[i] = cosim->ffd->TSha[j];
-    }
-  }
-
-  /* Get the temperature fluid at the fluid ports*/
-  for(j=0; j<cosim->para->nPorts; i++, j++) {
-    y[i] = cosim->ffd->TPor[j];
-  }
-
-  /* Get the mass fraction at fluid ports*/
-  for(j=0; j<cosim->para->nPorts; j++)
-    for(k=0; k<cosim->para->nXi; k++, i++) {
-       y[i] = cosim->ffd->XiPor[j][k];
+    /* Get the temperature/heat flux for solid surface*/
+    for(i=0; i<cosim->para->nSur; i++) {
+      y[i] = cosim->ffd->temHea[i];
     }
 
-  /* Get the trace substance at fluid ports*/
-  for(j=0; j<cosim->para->nPorts; j++)
-    for(k=0; k<cosim->para->nC; k++, i++) {
-       y[i] = cosim->ffd->CPor[j][k];
+    /* Get the averaged room temperature*/
+    y[i] = cosim->ffd->TRoo;
+    i++;
+
+    /* Get the temperature of shading device if there is a shading device*/
+    if(cosim->para->sha==1) {
+      for(j=0; j<cosim->para->nConExtWin; i++, j++) {
+        y[i] = cosim->ffd->TSha[j];
+      }
     }
 
-  /* Get the sensor data*/
-  for(j=0; j<cosim->para->nSen; j++, i++) {
-    y[i] = cosim->ffd->senVal[j];
-  }
+    /* Get the temperature fluid at the fluid ports*/
+    for(j=0; j<cosim->para->nPorts; i++, j++) {
+      y[i] = cosim->ffd->TPor[j];
+    }
 
-  /* Update the data status
-  cosim->ffd->flag = 0;*/
+    /* Get the mass fraction at fluid ports*/
+    for(j=0; j<cosim->para->nPorts; j++)
+      for(k=0; k<cosim->para->nXi; k++, i++) {
+        y[i] = cosim->ffd->XiPor[j][k];
+      }
 
-  *t1 = cosim->ffd->t;
+    /* Get the trace substance at fluid ports*/
+    for(j=0; j<cosim->para->nPorts; j++)
+      for(k=0; k<cosim->para->nC; k++, i++) {
+        y[i] = cosim->ffd->CPor[j][k];
+      }
 
-    return 0;
+    /* Get the sensor data*/
+    for(j=0; j<cosim->para->nSen; j++, i++) {
+      y[i] = cosim->ffd->senVal[j];
+    }
+
+    /* Update the data status
+    cosim->ffd->flag = 0;*/
+
+    *t1 = cosim->ffd->t;
+
+    return;
   }
 
   /*--------------------------------------------------------------------------
@@ -98,7 +98,7 @@ int isatExchangeData(double t0, double dt, double *u, size_t nU, size_t nY,
   while(cosim->modelica->flag==1) {
     if(cosim->para->ffdError==1) {
       ModelicaError(cosim->ffd->msg);
-	  return -1;
+	    return -1;
     }
     else {
       Sleep(10);
@@ -165,7 +165,7 @@ int isatExchangeData(double t0, double dt, double *u, size_t nU, size_t nY,
   while(cosim->ffd->flag!=1) {
     if(cosim->para->ffdError==1) {
       ModelicaError(cosim->ffd->msg);
-	  return -1;
+	    return -1;
     }
     else {
       Sleep(10);
@@ -215,5 +215,5 @@ int isatExchangeData(double t0, double dt, double *u, size_t nU, size_t nY,
 
   *t1 = cosim->ffd->t;
 
-  return 0;
+  return;
 } /* End of isatExchangeData()*/

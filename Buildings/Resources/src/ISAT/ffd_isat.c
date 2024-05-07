@@ -388,9 +388,7 @@ int isat_cosimulation(CosimulationData *cosim) {
 	para.cosim = cosim;
 
 	if (para.cosim == NULL) {
-		cosim_log("In ffd.isat.c, isat_cosimulation: could not allocate memory for para.cosim.",
-		          COSIM_ERROR);
-		return -1;
+		ModelicaError("Failed to allocate memory for para.cosim in isat_cosimulation() of ffd_isat.c");
 	}
 
 	if (isat_main() != 0) {
@@ -447,57 +445,39 @@ int isat_main () {
   cosim_log(logMsg, COSIM_NEW);
   para.bc = (BC_DATA *)malloc(sizeof(BC_DATA));
   if (para.bc == NULL) {
-    cosim_log("In cosimulation.c, isat_main: could not allocate memory for para.bc.",
-			  COSIM_ERROR);
-	return -1;
+    ModelicaError("Failed to allocate memory for para.bc in isat_main () of ffd_isat.c");
   }
   para.geom = (GEOM_DATA *)malloc(sizeof(GEOM_DATA));
   if (para.geom == NULL) {
-    cosim_log("In cosimulation.c, isat_main: could not allocate memory for para.geom.",
-			  COSIM_ERROR);
-	return -1;
+    ModelicaError("Failed to allocate memory for para.geom in isat_main () of ffd_isat.c");
   }
   para.inpu = (INPU_DATA *)malloc(sizeof(INPU_DATA));
   if (para.inpu == NULL) {
-    cosim_log("In cosimulation.c, isat_main: could not allocate memory for para.inpu.",
-			  COSIM_ERROR);
-	return -1;
+    ModelicaError("Failed to allocate memory for para.inpu in isat_main () of ffd_isat.c");
   }
   para.outp = (OUTP_DATA *)malloc(sizeof(OUTP_DATA));
   if (para.outp == NULL) {
-    cosim_log("In cosimulation.c, isat_main: could not allocate memory for para.outp.",
-			  COSIM_ERROR);
-	return -1;
+    ModelicaError("Failed to allocate memory for para.outp in isat_main () of ffd_isat.c");
   }
   para.prob = (PROB_DATA *)malloc(sizeof(PROB_DATA));
   if (para.prob == NULL) {
-    cosim_log("In cosimulation.c, isat_main: could not allocate memory for para.prob.",
-			  COSIM_ERROR);
-	return -1;
+    ModelicaError("Failed to allocate memory for para.prob in isat_main () of ffd_isat.c");
   }
   para.mytime = (TIME_DATA *)malloc(sizeof(TIME_DATA));
   if (para.mytime == NULL) {
-    cosim_log("In cosimulation.c, isat_main: could not allocate memory for para.mytime.",
-			  COSIM_ERROR);
-	return -1;
+    ModelicaError("Failed to allocate memory for para.mytime in isat_main () of ffd_isat.c");
   }
   para.solv = (SOLV_DATA *)malloc(sizeof(SOLV_DATA));
   if (para.solv == NULL) {
-    cosim_log("In cosimulation.c, isat_main: could not allocate memory for para.solv.",
-			  COSIM_ERROR);
-	return -1;
+    ModelicaError("Failed to allocate memory for para.solv in isat_main () of ffd_isat.c");
   }
   para.sens = (SENSOR_DATA *)malloc(sizeof(SENSOR_DATA));
   if (para.sens == NULL) {
-    cosim_log("In cosimulation.c, isat_main: could not allocate memory for para.sens.",
-			  COSIM_ERROR);
-	return -1;
+    ModelicaError("Failed to allocate memory for para.sens in isat_main () of ffd_isat.c");
   }
   para.init = (INIT_DATA *)malloc(sizeof(INIT_DATA));
   if (para.init == NULL) {
-    cosim_log("In cosimulation.c, isat_main: could not allocate memory for para.init.",
-			  COSIM_ERROR);
-	return -1;
+    ModelicaError("Failed to allocate memory for para.init in isat_main () of ffd_isat.c");
   }
 
   cosim_log("isat_main(): Start ISAT-FFD simulation", COSIM_NORMAL);
@@ -583,8 +563,7 @@ int allocate_memory_isat() {
 		xBoundary[i] = (REAL*)calloc(2, sizeof(REAL));
 		if (xBoundary[i] == NULL) {
 			sprintf(logMsg, "allocate_memory_isat(): Could not allocate memory for xBoundary[%d]", i);
-			cosim_log(logMsg, COSIM_ERROR);
-			return 1;
+			ModelicaError(logMsg);
 		}
 		else {
 			xBoundary[i][0] = 0;
@@ -594,8 +573,7 @@ int allocate_memory_isat() {
 		xBoundary2[i] = (REAL*)calloc(2, sizeof(REAL));
 		if (xBoundary2[i] == NULL) {
 			sprintf(logMsg, "allocate_memory_isat(): Could not allocate memory for xBoundary2[%d]", i);
-			cosim_log(logMsg, COSIM_ERROR);
-			return 1;
+			ModelicaError(logMsg);
 		}
 		else {
 			xBoundary2[i][0] = 0;
@@ -921,9 +899,7 @@ void addHash() {
 
   r = (hashStruct*)malloc( sizeof(hashStruct) );
   if (r == NULL) {
-    cosim_log("In cosimulation.c, addHash: could not allocate memory for r.",
-			  COSIM_ERROR);
-	return -1;
+    ModelicaError("Failed to allocate memory for i in addHash() of ffd_isat.c");
   }
 
   memset(r, 0, sizeof(hashStruct));
@@ -1555,15 +1531,11 @@ int cosim_loop() {
   int size = para.cosim->para->nSur + para.cosim->para->nPorts * 2 + para.cosim->para->nSou;
   para.cosim->ffd->input = (REAL*)malloc(size * sizeof(REAL));
   if (para.cosim->ffd->input == NULL) {
-    cosim_log("In cosimulation.c, cosim_loop: could not allocate memory for para.cosim->ffd->input.",
-			  COSIM_ERROR);
-	return -1;
+    ModelicaError("Failed to allocate memory for para.cosim->ffd->input in cosim_loop() of ffd_isat.c");
   }
   para.cosim->ffd->output = (REAL*)malloc(num_output * sizeof(REAL));
   if (para.cosim->ffd->output == NULL) {
-    cosim_log("In cosimulation.c, cosim_loop: could not allocate memory for para.cosim->ffd->output.",
-			  COSIM_ERROR);
-	return -1;
+    ModelicaError("Failed to allocate memory for para.cosim->ffd->output in cosim_loop() of ffd_isat.c");
   }
   flag = read_cosim_data(&para);
 

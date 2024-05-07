@@ -56,7 +56,7 @@ int isatStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
   cosim->para->fileName = (char *) malloc(sizeof(char)*(strlen(cfdFilNam)+1));
   if (cosim->para->fileName == NULL){
     ModelicaError("Failed to allocate memory for cosim->para->fileName in isatStartCosimulation.c");
-	return -1;
+	  return -1;
   }
   strcpy(cosim->para->fileName, cfdFilNam);
 
@@ -264,5 +264,5 @@ int isatStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
   ****************************************************************************/
   isat_dll(cosim);
 
-  return 0;
+  return;
 } /* End of isatStartCosimulation()*/
