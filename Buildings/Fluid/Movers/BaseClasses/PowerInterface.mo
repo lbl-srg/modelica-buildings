@@ -48,8 +48,7 @@ protected
 
 initial equation
   assert(homotopyInitialization, "In " + getInstanceName() +
-    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
-    level = AssertionLevel.warning);
+    ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.");
 
 equation
   // Hydraulic power (transmitted by shaft), etaHyd = WFlo/WHyd
