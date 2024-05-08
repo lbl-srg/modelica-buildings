@@ -160,10 +160,10 @@ equation
 
 <h4>Scaling factor</h4>
 <p>
-For the scaling factor, the table data for evaporator heat flow rate
+For the scaling factor, the table data for evaporator heat flow rate (<code>QEvaTabDat_flow</code>)
 is evaluated at nominal conditions. Hence, the scaling factor is</p>
 <pre>
-scaFac = QEva_flow_nominal/QUse_flow_nominal(TEva_nominal, TCon_nominal).
+scaFac = QEva_flow_nominal/QEvaTabDat_flow(TEva_nominal, TCon_nominal).
 
 </pre>
 <p>

@@ -162,11 +162,11 @@ equation
 
 <h4>Scaling factor</h4>
 <p>
-For the scaling factor, the table data for condenser heat flow rate
+For the scaling factor, the table data for condenser heat flow rate (<code>QConTabDat_flow</code>)
 is evaluated at nominal conditions. Hence, the scaling factor is
 </p>
 <pre>
-scaFac = QCon_flow_nominal/QUse_flow_nominal(TEva_nominal, TCon_nominal).
+scaFac = QCon_flow_nominal/QConTabDat_flow(TEva_nominal, TCon_nominal).
 
 </pre>
 <p>

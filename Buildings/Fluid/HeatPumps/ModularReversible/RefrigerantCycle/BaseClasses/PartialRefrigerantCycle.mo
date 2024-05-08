@@ -128,18 +128,5 @@ equation
   You can select different options for the modeling of the icing factor or
   implement your own approach.
 </p>
-
-<h4>Scaling factor</h4>
-<p>
-  Furthermore, different designs of the refrigerant machine
-  are modeled via a scaling factor <code>scaFac</code>.
-  To linearly scale the outputs of the model according to the specified
-  <code>QUse_flow_nominal</code>, children of this partial model must
-  specify <code>QUseNoSca_flow_nominal</code> based on the nominal parameters.
-  For heat pumps, <code>Use</code> is heating (<code>Hea</code>), for chillers
-  it is cooling (<code>Coo</code>).
-  Then, the scaling factor is calculated following:
-</p>
-<p><code>scaFac=QUse_flow_nominal/QUseNoSca_flow_nominal</code></p>
 </html>"));
 end PartialRefrigerantCycle;

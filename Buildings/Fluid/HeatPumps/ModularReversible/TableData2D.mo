@@ -111,7 +111,8 @@ initial algorithm
   named <code>QHeaNoSca_flow_nominal</code> for heat pumps and
   <code>QCooNoSca_flow_nominal</code> for chillers.
   This value is probably
-  different from <code>QUse_flow_nominal</code> which is for sizing.
+  different from <code>QHea_flow_nominal</code> and
+  <code>QCoo_flow_nominal</code> which is for sizing.
   For example, suppose you need a 7.6 kW heat pump,
   but the datasheets only provides 5 kW and 10 kW options.
   In such cases, the performance data and relevant parameters
