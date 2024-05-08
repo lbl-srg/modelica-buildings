@@ -3,10 +3,24 @@ model SpeedControlled
   "Sensible heat recovery wheel with a variable speed drive"
   extends
     Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.PartialWheel;
-  parameter Real a[:] = {1}
-    "Coefficients for power consumption curve for rotor. The sum of the elements must be equal to 1"
+  parameter Boolean defaultMotorEfficiencyCurve = true "= true, use the default motor efficiency curve"
     annotation (Dialog(group="Efficiency"));
-
+  parameter Real table[:,:]=[0.8,1]
+    "Table of motor power efficiency as a function of the wheel speed ratio (first column)"
+    annotation (Dialog(group="Efficiency", enable = not defaultMotorEfficiencyCurve));
+  final parameter
+    Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot
+      motorEfficiency_default=
+        Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve(
+          P_nominal=P_nominal,
+          eta_max=1)
+    "default motor efficiency  vs. whell speed ratio";
+  final parameter Real xSpe[:] = if defaultMotorEfficiencyCurve then motorEfficiency_default.y else table[:,1]
+    "x-axis support points of the power efficiency curve"
+    annotation (Dialog(group="Efficiency"));
+  final parameter Real[size(xSpe,1)] yeta = if defaultMotorEfficiencyCurve then motorEfficiency_default.eta else table[:,2]
+    "y-axis support points of the power efficiency curve"
+    annotation (Dialog(group="Efficiency"));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uSpe(
     final unit="1",
     final max=1)
@@ -15,16 +29,19 @@ model SpeedControlled
         iconTransformation(extent={{-140,-20},{-100,20}})));
 protected
   Modelica.Blocks.Sources.RealExpression PEle(
-    final y=P_nominal*Buildings.Utilities.Math.Functions.polynomial(a=a, x=uSpe))
+    final y=P_nominal*uSpe/Buildings.Utilities.Math.Functions.smoothInterpolation(
+      x=uSpe,
+      xSup=xSpe,
+      ySup=yeta))
     "Electric power consumption"
     annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
 
 initial equation
-  assert(abs(sum(a)-1) < Modelica.Constants.eps,
+  assert(table[end,1] < 1,
          "In " + getInstanceName() + ": Power efficiency curve is wrong. 
-         The sum of the coefficients for power efficiency curve must be 1.",
-         level=AssertionLevel.error);
-
+         No need to define efficiency for the nominal condition",
+         level=AssertionLevel.error)
+         "Check if the effiency for the nominal conidtion is defined.";
 equation
   connect(P, PEle.y)
     annotation (Line(points={{120,-90},{81,-90}}, color={0,0,127}));
@@ -62,20 +79,38 @@ The operation of the heat recovery wheel is adjustable by modulating the wheel s
 Accordingly, the power consumption of this wheel is calculated by
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-P = P_nominal * (a<sub>1</sub> + a<sub>2</sub> uSpe + a<sub>3</sub> uSpe<sup>2</sup> + ...),
+P = P_nominal * uSpe / eta,
 </p>
 <p>
 where <code>P_nominal</code> is the nominal wheel power consumption,
-<code>uSpe</code> is the wheel speed ratio, 
-and the <code>a[:]</code> are the coefficients for power efficiency curve.
-The sum of the coefficients must be <i>1</i>, otherwise the model stops with an error.
-Thus, when the speed ratio <code>uSpe=1</code>, the power consumption equal to
-nominal consumption, <code>P=P_nominal</code>.
+<code>uSpe</code> is the wheel speed ratio.
+The <code>eta</code> is the motor percent full-Load efficiency, i.e.,
+the ratio of the motor efficiency to that when the <code>uSpe</code> is <i>1</i>.   
+There are two ways to define <code>eta</code>:
+</p>
+<ul>
+<li>
+Default curves in U.S. DOE (2014).
+</li>
+<li>
+Polynomial fit based on the user input data table.
+</li>
+</ul>
+<p>
+One can switch between those two options with the parameter <code>defaultMotorEfficiencyCurve</code>.
 </p>
 <p>
-The sensible heat exchanger effectiveness is calculated with
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.Effectiveness\">
-Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.Effectiveness</a>.
+The sensible and latent effectiveness is calculated with
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.Effectiveness\">
+Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.Effectiveness</a>.
+</p>
+<h4>References</h4>
+<p>
+U.S. DOE (2014).
+<i>Determining Electric Motor Load and Efficiency.</i>
+URL:
+<a href=\"https://www.energy.gov/sites/prod/files/2014/04/f15/10097517.pdf\">
+https://www.energy.gov/sites/prod/files/2014/04/f15/10097517.pdf</a>
 </p>
 </html>", revisions="<html>
 <ul>

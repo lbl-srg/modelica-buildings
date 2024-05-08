@@ -2,22 +2,19 @@ within Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses;
 partial model PartialWheel
   "Partial model for sensible heat recovery wheel"
   extends Modelica.Blocks.Icons.Block;
-  replaceable package Medium1 =
+  replaceable package Medium =
     Modelica.Media.Interfaces.PartialCondensingGases
-    "Supply air";
-  replaceable package Medium2 =
-    Modelica.Media.Interfaces.PartialCondensingGases
-    "Exhaust air";
-  parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal
+    "Air";
+  parameter Modelica.Units.SI.MassFlowRate mSup_flow_nominal
     "Nominal supply air mass flow rate"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mExh_flow_nominal
     "Nominal exhaust air mass flow rate"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference dp1_nominal(displayUnit="Pa") = 500
+  parameter Modelica.Units.SI.PressureDifference dpSup_nominal(displayUnit="Pa") = 500
     "Nominal supply air pressure drop"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference dp2_nominal(displayUnit="Pa") = dp1_nominal
+  parameter Modelica.Units.SI.PressureDifference dpExh_nominal(displayUnit="Pa") = dpSup_nominal
     "Nominal exhaust air pressure drop"
     annotation (Dialog(group="Nominal condition"));
   parameter Real P_nominal(final unit="W")
@@ -50,38 +47,46 @@ partial model PartialWheel
         iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.HeatExchangerWithInputEffectiveness
     hex(
-    redeclare package Medium1 = Medium1,
-    redeclare package Medium2 = Medium2,
-    final m1_flow_nominal=m1_flow_nominal,
-    final m2_flow_nominal=m2_flow_nominal,
-    final dp1_nominal=dp1_nominal,
-    final dp2_nominal=dp2_nominal) "Heat exchanger"
+    redeclare package Medium1 = Medium,
+    redeclare package Medium2 = Medium,
+    final m1_flow_nominal=mSup_flow_nominal,
+    final m2_flow_nominal=mExh_flow_nominal,
+    final dp1_nominal=dpSup_nominal,
+    final dp2_nominal=dpExh_nominal) "Heat exchanger"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a1(
-    redeclare final package Medium = Medium1)
+    redeclare final package Medium = Medium)
     "Fluid connector a1 of the supply air (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{-190,70},{-170,90}}),
         iconTransformation(extent={{-110,50},{-90,70}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b2(
-    redeclare final package Medium = Medium2)
+    redeclare final package Medium = Medium)
     "Fluid connector b2 of the exhaust air (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{-170,-70},{-190,-50}}),
         iconTransformation(extent={{-90,-70},{-110,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b1(
-    redeclare final package Medium = Medium1)
+    redeclare final package Medium = Medium)
     "Fluid connector b1 of the supply air (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{110,70},{90,90}}),
         iconTransformation(extent={{110,50},{90,70}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a2(
-    redeclare final package Medium = Medium2)
+    redeclare final package Medium = Medium)
     "Fluid connector a2 of the exhaust air (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
 
+  Buildings.Fluid.Sensors.MassFlowRate senSupMasFlo(
+    redeclare package Medium = Medium)
+    "Supply air mass flow rate"
+    annotation (Placement(transformation(extent={{32,-4},{52,16}})));
+  Buildings.Fluid.Sensors.MassFlowRate senExhMasFlo(
+     redeclare package Medium = Medium)
+    "Exhaust air mass flow rate"
+    annotation (Placement(transformation(extent={{-70,-44},{-90,-24}})));
 protected
-  parameter Medium1.ThermodynamicState sta_nominal=Medium1.setState_pTX(
+  parameter Medium.ThermodynamicState sta_nominal=Medium.setState_pTX(
       T=Buildings.Utilities.Psychrometrics.Constants.T_ref,
       p=101325,
-      X=Medium1.X_default)
+      X=Medium.X_default)
    "State of the supply air at the default properties";
   Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.Effectiveness
     effCal(
@@ -89,36 +94,20 @@ protected
     final epsCooPL=epsCooPL,
     final epsHea_nominal=epsHea_nominal,
     final epsHeaPL=epsHeaPL,
-    final VSup_flow_nominal=m1_flow_nominal/Medium1.density(sta_nominal))
+    final mSup_flow_nominal=mSup_flow_nominal)
     "Calculates the effectiveness of heat exchange"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
-  Modelica.Blocks.Sources.RealExpression VSup_flow(
-    final y(final unit="m3/s")=hex.port_a1.m_flow/
-        Medium1.density(state=Medium1.setState_phX(
-        p=hex.port_a1.p,
-        h=hex.port_a1.h_outflow,
-        X=hex.port_a1.Xi_outflow)))
-    "Supply air volume flow rate"
-    annotation (Placement(transformation(extent={{-160,30},{-140,50}})));
-  Modelica.Blocks.Sources.RealExpression VExh_flow(
-    final y(final unit="m3/s")=hex.port_a2.m_flow/
-        Medium2.density(state=Medium2.setState_phX(
-        p=hex.port_a2.p,
-        h=hex.port_a2.h_outflow,
-        X=hex.port_a2.Xi_outflow)))
-    "Exhaust air volume flow rate"
-    annotation (Placement(transformation(extent={{-160,10},{-140,30}})));
   Modelica.Blocks.Sources.RealExpression TSup(
-    final y(final unit="K")=Medium1.temperature(
-      Medium1.setState_phX(
+    final y(final unit="K")=Medium.temperature(
+      Medium.setState_phX(
         p=port_a1.p,
         h=inStream(port_a1.h_outflow),
         X=inStream(port_a1.Xi_outflow))))
     "Supply air temperature"
-    annotation (Placement(transformation(extent={{-160,-30},{-140,-10}})));
+    annotation (Placement(transformation(extent={{-160,10},{-140,30}})));
   Modelica.Blocks.Sources.RealExpression TExh(
-    final y(final unit="K")=Medium2.temperature(
-      Medium2.setState_phX(
+    final y(final unit="K")=Medium.temperature(
+      Medium.setState_phX(
         p=port_a2.p,
         h=inStream(port_a2.h_outflow),
         X=inStream(port_a2.Xi_outflow))))
@@ -127,28 +116,28 @@ protected
 
 equation
   connect(TSup.y, effCal.TSup)
-    annotation (Line(points={{-139,-20},{-120,-20},{-120,-4},{-102,-4}},
+    annotation (Line(points={{-139,20},{-110,20},{-110,-4},{-102,-4}},
         color={0,0,127}));
   connect(TExh.y, effCal.TExh)
     annotation (Line(points={{-139,-40},{-110,-40},{-110,-8},{-102,-8}},
-        color={0,0,127}));
-  connect(hex.port_b1, port_b1)
-    annotation (Line(points={{10,6},{60,6},{60,80},{100,80}},
-        color={0,127,255}));
-  connect(port_b2, hex.port_b2)
-    annotation (Line(points={{-180,-60},{-40,-60},{-40,-6},{-10,-6}},
-        color={0,127,255}));
-  connect(VSup_flow.y, effCal.VSup_flow)
-    annotation (Line(points={{-139,40},{-110,40},{-110,8},{-102,8}},
-        color={0,0,127}));
-  connect(VExh_flow.y, effCal.VExh_flow)
-    annotation (Line(points={{-139,20},{-120,20},{-120,4},{-102,4}},
         color={0,0,127}));
   connect(effCal.eps, hex.eps)
     annotation (Line(points={{-78,0},{-12,0}}, color={0,0,127}));
   connect(effCal.eps, eps) annotation (Line(points={{-78,0},{-40,0},{-40,32},{
           80,32},{80,0},{120,0}},
                 color={0,0,127}));
+  connect(senExhMasFlo.port_b, port_b2) annotation (Line(points={{-90,-34},{-100,
+          -34},{-100,-60},{-180,-60}}, color={0,127,255}));
+  connect(senExhMasFlo.port_a, hex.port_b2) annotation (Line(points={{-70,-34},{
+          -16,-34},{-16,-6},{-10,-6}}, color={0,127,255}));
+  connect(hex.port_b1, senSupMasFlo.port_a)
+    annotation (Line(points={{10,6},{32,6}}, color={0,127,255}));
+  connect(senSupMasFlo.port_b, port_b1) annotation (Line(points={{52,6},{60,6},{
+          60,80},{100,80}}, color={0,127,255}));
+  connect(senExhMasFlo.m_flow, effCal.mExh_flow) annotation (Line(points={{-80,-23},
+          {-80,-16},{-106,-16},{-106,4},{-102,4}}, color={0,0,127}));
+  connect(senSupMasFlo.m_flow, effCal.mSup_flow) annotation (Line(points={{42,17},
+          {42,26},{-106,26},{-106,8},{-102,8}}, color={0,0,127}));
 annotation (
         defaultComponentName="whe",
         Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
@@ -207,7 +196,7 @@ annotation (
         Line(points={{-22,-74},{22,-74}}, color={0,0,0}),
         Line(points={{-22,78},{22,78}}, color={0,0,0})}),
           Diagram(
-        coordinateSystem(preserveAspectRatio=true, extent={{-180,-100},{100,180}})),
+        coordinateSystem(preserveAspectRatio=true, extent={{-180,-100},{100,100}})),
 Documentation(info="<html>
 <p>
 Partial model of a sensible heat recovery wheel.

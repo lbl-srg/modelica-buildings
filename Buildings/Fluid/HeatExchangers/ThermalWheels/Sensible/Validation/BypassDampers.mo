@@ -2,19 +2,17 @@ within Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.Validation;
 model BypassDampers
   "Test model for the sensible heat recovery wheel with bypass dampers"
   extends Modelica.Icons.Example;
-  package Medium1 = Buildings.Media.Air
-    "Supply air";
-  package Medium2 = Buildings.Media.Air
-    "Exhaust air";
+  package Medium = Buildings.Media.Air
+    "Air";
   Buildings.Fluid.Sources.Boundary_pT sin_2(
-    redeclare package Medium = Medium2,
+    redeclare package Medium = Medium,
     p(displayUnit="Pa") = 101325,
     T=273.15 + 10,
     nPorts=1)
     "Exhaust air sink"
     annotation (Placement(transformation(extent={{-80,-44},{-60,-24}})));
   Buildings.Fluid.Sources.Boundary_pT sou_2(
-    redeclare package Medium = Medium2,
+    redeclare package Medium = Medium,
     p(displayUnit="Pa") = 101325 + 500,
     T(displayUnit="degC") = 293.15,
     nPorts=1)
@@ -28,7 +26,7 @@ model BypassDampers
     "Supply air temperature"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Buildings.Fluid.Sources.Boundary_pT sin_1(
-    redeclare package Medium = Medium1,
+    redeclare package Medium = Medium,
     T=273.15 + 30,
     X={0.012,1 - 0.012},
     p(displayUnit="Pa") = 101325 - 500,
@@ -36,7 +34,7 @@ model BypassDampers
     "Supply air sink"
     annotation (Placement(transformation(extent={{90,20},{70,40}})));
   Buildings.Fluid.Sources.Boundary_pT sou_1(
-    redeclare package Medium = Medium1,
+    redeclare package Medium = Medium,
     T=273.15 + 50,
     X={0.012,1 - 0.012},
     use_T_in=true,
@@ -45,12 +43,11 @@ model BypassDampers
     "Supply air source"
     annotation (Placement(transformation(extent={{-40,26},{-20,46}})));
   Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BypassDampers whe(
-    redeclare package Medium1 = Medium1,
-    redeclare package Medium2 = Medium2,
-    m1_flow_nominal=5,
-    m2_flow_nominal=5,
-    dp1_nominal(displayUnit="Pa"),
-    dp2_nominal(displayUnit="Pa"),
+    redeclare package Medium = Medium,
+    mSup_flow_nominal=5,
+    mExh_flow_nominal=5,
+    dpSup_nominal(displayUnit="Pa"),
+    dpExh_nominal(displayUnit="Pa"),
     P_nominal=100) "Wheel"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Modelica.Blocks.Sources.Ramp bypDamPos(
@@ -66,12 +63,12 @@ model BypassDampers
     shift=72) "Operating signal"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senExhTem(
-    redeclare package Medium = Medium2,
+    redeclare package Medium = Medium,
     m_flow_nominal=5)
     "Temperature of the exhaust air"
     annotation (Placement(transformation(extent={{-30,-44},{-50,-24}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senSupTem(
-    redeclare package Medium = Medium1,
+    redeclare package Medium = Medium,
     m_flow_nominal=5)
     "Temperature of the supply air"
     annotation (Placement(transformation(extent={{60,20},{40,40}})));

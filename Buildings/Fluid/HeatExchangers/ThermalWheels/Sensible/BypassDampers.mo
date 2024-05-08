@@ -3,6 +3,9 @@ model BypassDampers
   "Sensible heat recovery wheel with bypass dampers"
   extends
     Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.PartialWheel;
+  parameter Modelica.Units.SI.PressureDifference dpDam_nominal(displayUnit="Pa") = 20
+    "Nominal pressure drop of supply air dampers"
+    annotation (Dialog(group="Nominal condition"));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uBypDamPos(
     final unit="1",
     final min=0,
@@ -15,29 +18,29 @@ model BypassDampers
     annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Fluid.Actuators.Dampers.Exponential bypDamSup(
-    redeclare package Medium = Medium1,
-    final m_flow_nominal=m1_flow_nominal,
-    final dpDamper_nominal=dp1_nominal)
+    redeclare package Medium = Medium,
+    final m_flow_nominal=mSup_flow_nominal,
+    final dpDamper_nominal=dpDam_nominal)
     "Supply air bypass damper"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
   Buildings.Fluid.Actuators.Dampers.Exponential damSup(
-    redeclare package Medium = Medium1,
-    final m_flow_nominal=m1_flow_nominal,
-    final dpDamper_nominal=dp1_nominal)
+    redeclare package Medium = Medium,
+    final m_flow_nominal=mSup_flow_nominal,
+    final dpDamper_nominal=dpDam_nominal)
     "Supply air damper"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},rotation=0,origin={-50,40})));
   Buildings.Fluid.Actuators.Dampers.Exponential damExh(
-    redeclare package Medium = Medium2,
-    final m_flow_nominal=m2_flow_nominal,
-    final dpDamper_nominal=dp2_nominal)
+    redeclare package Medium = Medium,
+    final m_flow_nominal=mExh_flow_nominal,
+    final dpDamper_nominal=dpDam_nominal)
     "Exhaust air damper"
     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},rotation=-90,origin={50,-40})));
   Buildings.Fluid.Actuators.Dampers.Exponential bypDamExh(
-    redeclare package Medium = Medium2,
-    final m_flow_nominal=m2_flow_nominal,
-    final dpDamper_nominal=dp2_nominal)
+    redeclare package Medium = Medium,
+    final m_flow_nominal=mExh_flow_nominal,
+    final dpDamper_nominal=dpDam_nominal)
     "Exhaust air bypass damper"
     annotation (Placement(transformation(extent={{0,-70},{-20,-50}})));
 protected
@@ -62,8 +65,6 @@ equation
     annotation (Line(points={{-40,80},{100,80}}, color={0,127,255}));
   connect(bypDamExh.port_a, port_a2)
     annotation (Line(points={{0,-60},{100,-60}},  color={0,127,255}));
-  connect(bypDamExh.port_b, port_b2)
-    annotation (Line(points={{-20,-60},{-180,-60}}, color={0,127,255}));
   connect(damExh.port_a, port_a2)
     annotation (Line(points={{50,-50},{50,-60},{100,-60}}, color={0,127,255}));
   connect(sub.y, damSup.y)
@@ -78,9 +79,6 @@ equation
   connect(bypDamExh.y, uBypDamPos)
     annotation (Line(points={{-10,-48},{-10,-30},{30,-30},{30,140},{-202,140}},
         color={0,0,127}));
-  connect(hex.port_b1, port_b1)
-    annotation (Line(points={{10,6},{60,6},{60,80},{100,80}},
-        color={0,127,255}));
   connect(hex.port_a2, damExh.port_b)
     annotation (Line(points={{10,-6},{50,-6},{50,-30}},
         color={0,127,255}));
@@ -102,6 +100,8 @@ equation
           -162,-80}}, color={255,0,255}));
   connect(PEle.y, P) annotation (Line(points={{-139,-80},{80,-80},{80,-90},{120,
           -90}}, color={0,0,127}));
+  connect(bypDamExh.port_b, port_b2)
+    annotation (Line(points={{-20,-60},{-180,-60}}, color={0,127,255}));
 annotation (
         defaultComponentName="whe",
         Icon(coordinateSystem(extent={{-100,-100},{100,100}}),

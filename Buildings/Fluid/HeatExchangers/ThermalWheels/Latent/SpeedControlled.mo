@@ -21,7 +21,6 @@ model SpeedControlled
   final parameter Real[size(xSpe,1)] yeta = if defaultMotorEfficiencyCurve then motorEfficiency_default.eta else table[:,2]
     "y-axis support points of the power efficiency curve"
     annotation (Dialog(group="Efficiency"));
-
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uSpe(
     final unit="1",
     final max=1)
@@ -37,16 +36,22 @@ protected
     "Electric power consumption"
     annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
 
+initial equation
+  assert(table[end,1] < 1,
+         "In " + getInstanceName() + ": Power efficiency curve is wrong. 
+         No need to define efficiency for the nominal condition",
+         level=AssertionLevel.error)
+         "Check if the effiency for the nominal conidtion is defined.";
+
 equation
   connect(P, PEle.y)
     annotation (Line(points={{120,-90},{81,-90}}, color={0,0,127}));
-  connect(port_a1, hex.port_a1) annotation (Line(points={{-180,80},{-40,80},{
-          -40,6},{-10,6}},
-                       color={0,127,255}));
-  connect(hex.port_a2, port_a2) annotation (Line(points={{10,-6},{60,-6},{60,-60},
-          {100,-60}}, color={0,127,255}));
   connect(effCal.uSpe, uSpe)
     annotation (Line(points={{-102,0},{-200,0}}, color={0,0,127}));
+  connect(hex.port_a2, port_a2) annotation (Line(points={{10,-6},{60,-6},{60,
+          -60},{100,-60},{100,-60}}, color={0,127,255}));
+  connect(hex.port_a1, port_a1) annotation (Line(points={{-10,6},{-32,6},{-32,
+          80},{-180,80}}, color={0,127,255}));
     annotation (
    defaultComponentName="whe",
         Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
@@ -75,21 +80,38 @@ The operation of the heat recovery wheel is adjustable by modulating the wheel s
 Accordingly, the power consumption of this wheel is calculated by
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-P = P_nominal * eta,
+P = P_nominal * uSpe / eta,
 </p>
 <p>
 where <code>P_nominal</code> is the nominal wheel power consumption,
 <code>uSpe</code> is the wheel speed ratio.
-The <code>eta</code> is the motor power efficiency and is obtained from performing a polynomial fit
-based on the user input data table.
-The sum of the coefficients must be <i>1</i>, otherwise the model stops with an error.
-Thus, when the speed ratio <code>uSpe=1</code>, the power consumption is equal to
-nominal consumption <code>P=P_nominal</code>.
+The <code>eta</code> is the motor percent full-Load efficiency, i.e.,
+the ratio of the motor efficiency to that when the <code>uSpe</code> is <i>1</i>.   
+There are two ways to define <code>eta</code>:
+</p>
+<ul>
+<li>
+Default curves in U.S. DOE (2014).
+</li>
+<li>
+Polynomial fit based on the user input data table.
+</li>
+</ul>
+<p>
+One can switch between those two options with the parameter <code>defaultMotorEfficiencyCurve</code>.
 </p>
 <p>
 The sensible and latent effectiveness is calculated with
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.Effectiveness\">
 Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.Effectiveness</a>.
+</p>
+<h4>References</h4>
+<p>
+U.S. DOE (2014).
+<i>Determining Electric Motor Load and Efficiency.</i>
+URL:
+<a href=\"https://www.energy.gov/sites/prod/files/2014/04/f15/10097517.pdf\">
+https://www.energy.gov/sites/prod/files/2014/04/f15/10097517.pdf</a>
 </p>
 </html>", revisions="<html>
 <ul>

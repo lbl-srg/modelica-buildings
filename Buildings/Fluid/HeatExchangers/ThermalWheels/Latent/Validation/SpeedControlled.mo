@@ -2,22 +2,20 @@ within Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.Validation;
 model SpeedControlled
   "Test model for the enthalpy recovery wheel with a variable speed drive"
   extends Modelica.Icons.Example;
-  package Medium1 = Buildings.Media.Air
-    "Supply air";
-  package Medium2 = Buildings.Media.Air
-    "Exhaust air";
+  package Medium = Buildings.Media.Air
+    "Air";
   Buildings.Fluid.Sources.Boundary_pT sin_2(
-    redeclare package Medium = Medium2,
+    redeclare package Medium = Medium,
     p(displayUnit="Pa") = 101325,
     T(displayUnit="K") = 273.15 + 10,
-    nPorts=1)
+    nPorts=2)
     "Exhaust air sink"
     annotation (Placement(transformation(extent={{-78,-50},{-58,-30}})));
   Buildings.Fluid.Sources.Boundary_pT sou_2(
-    redeclare package Medium = Medium2,
+    redeclare package Medium = Medium,
     p(displayUnit="Pa") = 101325 + 500,
     T(displayUnit="K") = 293.15,
-    nPorts=1)
+    nPorts=2)
     "Exhaust air source"
     annotation (Placement(transformation(extent={{90,-50},{70,-30}})));
   Modelica.Blocks.Sources.Ramp TSup(
@@ -28,35 +26,47 @@ model SpeedControlled
     "Supply air temperature"
     annotation (Placement(transformation(extent={{-80,24},{-60,44}})));
   Buildings.Fluid.Sources.Boundary_pT sin_1(
-    redeclare package Medium = Medium1,
+    redeclare package Medium = Medium,
     T=273.15 + 30,
     X={0.012,1 - 0.012},
     p(displayUnit="Pa") = 101325 - 500,
-    nPorts=1)
+    nPorts=2)
     "Supply air sink"
     annotation (Placement(transformation(extent={{90,20},{70,40}})));
   Buildings.Fluid.Sources.Boundary_pT sou_1(
-    redeclare package Medium = Medium1,
+    redeclare package Medium = Medium,
     T=273.15 + 50,
     X={0.012,1 - 0.012},
     use_T_in=true,
     p(displayUnit="Pa") = 101325,
-    nPorts=1)
+    nPorts=2)
     "Supply air source"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.SpeedControlled
-    whe(
-    redeclare package Medium1 = Medium1,
-    redeclare package Medium2 = Medium2,
-    m1_flow_nominal=5,
-    m2_flow_nominal=5,
+  Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.SpeedControlled wheUseDefCur(
+    redeclare package Medium = Medium,
+    mSup_flow_nominal=5,
+    mExh_flow_nominal=5,
     P_nominal=100,
     epsLatCoo_nominal=0.7,
     epsLatCooPL=0.6,
     epsLatHea_nominal=0.7,
-    epsLatHeaPL=0.6)
-    "Wheel"
-    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+    epsLatHeaPL=0.6,
+    defaultMotorEfficiencyCurve=false,
+    table=[0.8,1])
+    "Wheel with a user-defined curve"
+    annotation (Placement(transformation(extent={{2,14},{22,34}})));
+  Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.SpeedControlled wheDefCur(
+    redeclare package Medium = Medium,
+    mSup_flow_nominal=5,
+    mExh_flow_nominal=5,
+    P_nominal=100,
+    epsLatCoo_nominal=0.7,
+    epsLatCooPL=0.6,
+    epsLatHea_nominal=0.7,
+    epsLatHeaPL=0.6,
+    defaultMotorEfficiencyCurve=true)
+    "Wheel with a default curve"
+    annotation (Placement(transformation(extent={{2,-18},{22,2}})));
   Modelica.Blocks.Sources.Ramp wheSpe(
     height=0.3,
     duration=160,
@@ -65,33 +75,48 @@ model SpeedControlled
     "Wheel speed"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senExhTem(
-      redeclare package Medium = Medium2,
+      redeclare package Medium = Medium,
       m_flow_nominal=5)
       "Temperature of the exhaust air"
     annotation (Placement(transformation(extent={{-20,-50},{-40,-30}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senSupTem(
-      redeclare package Medium = Medium1,
+      redeclare package Medium = Medium,
       m_flow_nominal=5)
       "Temperature of the supply air"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
+
 equation
   connect(TSup.y, sou_1.T_in)
     annotation (Line(points={{-59,34},{-42,34}}, color={0,0,127}));
-  connect(sou_1.ports[1],whe. port_a1)
-    annotation (Line(points={{-20,30},{-10,30},{-10,6},{0,6}}, color={0,127,255}));
-  connect(whe.port_a2, sou_2.ports[1])
-    annotation (Line(points={{20,-6},{40,-6},{40,-40},{70,-40}}, color={0,127,255}));
-  connect(wheSpe.y, whe.uSpe)
-    annotation (Line(points={{-59,0},{-2,0}}, color={0,0,127}));
-
+  connect(sou_1.ports[2], wheUseDefCur.port_a1)
+    annotation (Line(points={{-20,31},{-10,31},{-10,30},{2,30}},
+    color={0,127,255}));
+  connect(wheUseDefCur.port_a2, sou_2.ports[1])
+    annotation (Line(points={{22,18},
+    {36,18},{36,-41},{70,-41}}, color={0,127,255}));
+  connect(wheSpe.y, wheUseDefCur.uSpe)
+    annotation (Line(points={{-59,0},{-10,0},
+    {-10,24},{0,24}}, color={0,0,127}));
   connect(senExhTem.port_b, sin_2.ports[1])
-    annotation (Line(points={{-40,-40},{-58,-40}}, color={0,127,255}));
-  connect(senExhTem.port_a, whe.port_b2) annotation (Line(points={{-20,-40},{-8,
-          -40},{-8,-6},{0,-6}}, color={0,127,255}));
-  connect(senSupTem.port_b, sin_1.ports[1])
-    annotation (Line(points={{60,30},{70,30}}, color={0,127,255}));
-  connect(senSupTem.port_a, whe.port_b1) annotation (Line(points={{40,30},{30,30},
-          {30,6},{20,6}}, color={0,127,255}));
+    annotation (Line(points={{-40,-40},{-50,-40},{-50,-41},{-58,-41}},
+    color={0,127,255}));
+  connect(senExhTem.port_a, wheUseDefCur.port_b2)
+    annotation (Line(points={{-20,-40},{-4,-40},{-4,18},{2,18}}, color={0,127,255}));
+  connect(senSupTem.port_b, sin_1.ports[2])
+    annotation (Line(points={{60,30},{66,30},{66,31},{70,31}},
+    color={0,127,255}));
+  connect(senSupTem.port_a, wheUseDefCur.port_b1)
+    annotation (Line(points={{40,30},{22,30}}, color={0,127,255}));
+  connect(wheDefCur.port_a1, sou_1.ports[1])
+    annotation (Line(points={{2,-2},{-16,-2},{-16,29},{-20,29}}, color={0,127,255}));
+  connect(wheDefCur.port_b2, sin_2.ports[2])
+    annotation (Line(points={{2,-14},{-50,-14},{-50,-39},{-58,-39}}, color={0,127,255}));
+  connect(wheDefCur.port_a2, sou_2.ports[2])
+    annotation (Line(points={{22,-14},{60,-14},{60,-39},{70,-39}}, color={0,127,255}));
+  connect(wheDefCur.port_b1, sin_1.ports[1])
+    annotation (Line(points={{22,-2},{62,-2},{62,29},{70,29}}, color={0,127,255}));
+  connect(wheDefCur.uSpe, wheSpe.y)
+    annotation (Line(points={{0,-8},{-50,-8},{-50,0},{-59,0}}, color={0,0,127}));
 annotation(experiment(Tolerance=1e-6, StopTime=360),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ThermalWheels/Latent/Validation/SpeedControlled.mos"
         "Simulate and plot"),
@@ -100,6 +125,11 @@ Documentation(info="<html>
 Example for the model
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.SpeedControlled\">
 Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.SpeedControlled</a>.
+</p>
+<p>
+This example considers two wheels:
+<code>wheUseDefCur</code> employs a user-defined efficiency curve;
+<code>wheDefCur</code> employs a default efficiency curve
 </p>
 <p>
 The input signals are configured as follows:
@@ -132,6 +162,11 @@ The leaving supply air temperature and the leaving exhaust air temperature
 follow the change of <i>TSup</i> before the 200 seconds.
 After 200 seconds, the leaving supply air temperature decreases
 and the leaving exhaust air temperature increases.
+</li>
+<li>
+The power consumption of the instance <code>wheUseDefCur</code> is higher than that of the instance <code>wheDefCur</code>
+when <i>uSpe</i> is less than 1.
+The power consumption of those two instances are identical when <i>uSpe</i> equals to <i>1</i>.
 </li>
 </ul>
 </html>", revisions="<html>
