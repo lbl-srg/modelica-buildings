@@ -611,7 +611,7 @@ equation
     P_internal=PEle;
     eta_internal=eta;
     WHyd = WFlo / Buildings.Utilities.Math.Functions.smoothMax(
-                    x1=etaMot, x2=1E-2, deltaX=1E-3);
+                    x1=etaHyd, x2=1E-2, deltaX=1E-3);
   end if;
   if per.etaHydMet==
        Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate then
@@ -642,21 +642,15 @@ equation
     else
       eta_internal = cha.efficiency(per=per.efficiency, V_flow=V_flow, d=etaDer, r_N=r_N, delta=delta);
     end if;
-    if per.powerOrEfficiencyIsHydraulic then
-      P_internal=WFlo/Buildings.Utilities.Math.Functions.smoothMax(
-                        x1=eta_internal, x2=1E-2, deltaX=1E-3);
-    else
-      P_internal=WHyd/Buildings.Utilities.Math.Functions.smoothMax(
-                        x1=eta_internal, x2=1E-2, deltaX=1E-3);
-    end if;
+    P_internal=WFlo/Buildings.Utilities.Math.Functions.smoothMax(
+                      x1=eta_internal, x2=1E-2, deltaX=1E-3);
   else // Not provided
     if per.powerOrEfficiencyIsHydraulic then
       eta_internal=0.7;
-      P_internal=WFlo/eta_internal;
     else
       eta_internal=0.49;
-      P_internal=WHyd/eta_internal;
     end if;
+    P_internal=WFlo/eta_internal;
   end if;
 
   // Motor efficiency etaMot
