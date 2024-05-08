@@ -438,8 +438,7 @@ the simulation stops.");
 
   assert(homotopyInitialization, "In " + getInstanceName() +
          ": The constant homotopyInitialization has been modified from its default
-         value. This constant will be removed in future releases.",
-         level = AssertionLevel.warning);
+         value. This constant will be removed in future releases.");
 
 equation
   // Assign values of dp and r_N, depending on which variable exists and is prescribed
