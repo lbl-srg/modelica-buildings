@@ -85,7 +85,7 @@ model SteadyStateBoreholeDynamics "Description"
     tableName="tab1",
     columns={2,3,4,5},
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
-    fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/Geothermal/ZonedThermalStorage/Validation/SteadyStateBoreholeDynamics.txt"),
+    fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/Geothermal/ZonedBorefields/Validation/SteadyStateBoreholeDynamics.txt"),
     y(each unit="degC", each displayUnit="degC"),
     timeScale=3600)
     "Reference results for the average borehole wall temperature in each zone"
