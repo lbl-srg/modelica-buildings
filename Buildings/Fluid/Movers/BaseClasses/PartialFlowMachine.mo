@@ -392,7 +392,8 @@ initial algorithm
 "*** Warning in " + getInstanceName() +
 ": Mover is flow or pressure controlled and uses default pressure curve.
 This leads to an approximate power consumption.
-Set nominalValuesDefineDefaultPressureCurve=true to suppress this warning.");
+Set nominalValuesDefineDefaultPressureCurve=true to suppress this warning.",
+         level=AssertionLevel.warning);
 
   // The control signal is dp or m_flow but the user did not provide a fan or pump curve.
   // Hence, the speed is computed using default values, which likely are wrong.
@@ -410,7 +411,8 @@ Set nominalValuesDefineDefaultPressureCurve=true to suppress this warning.");
 ": Mover is flow or pressure controlled, uses default pressure curve and
 has per.etaHydMet=.Power_VolumeFlowRate.
 As this can cause wrong power consumption, the model overrides this setting by using per.etaHydMet=.NotProvided.
-Set nominalValuesDefineDefaultPressureCurve=true to suppress this warning.");
+Set nominalValuesDefineDefaultPressureCurve=true to suppress this warning.",
+         level=AssertionLevel.warning);
 
   assert(per.havePressureCurve or
           not (per.etaHydMet ==
@@ -421,7 +423,8 @@ Set nominalValuesDefineDefaultPressureCurve=true to suppress this warning.");
 ": Mover has per.etaHydMet=.Power_VolumeFlowRate or per.etaHydMet=.EulerNumber.
 This requires per.pressure to be provided.
 Because it is not, the model overrides this setting by using per.etaHydMet=.NotProvided.
-Also consider using models under Movers.Preconfigured which autopopulate a pressure curve.");
+Also consider using models under Movers.Preconfigured which autopopulate a pressure curve.",
+         level=AssertionLevel.warning);
 
   assert(per.havePressureCurve or per.haveWMot_nominal or
           not (per.etaMotMet ==
@@ -432,7 +435,8 @@ Also consider using models under Movers.Preconfigured which autopopulate a press
 ": Mover has per.etaMotMet=.Efficiency_MotorPartLoadRatio or per.etaMotMet=.GenericCurve.
 This requires per.WMot_nominal or per.pressure to be provided. Because neither is provided,
 the model overrides this setting and by using per.etaMotMet=.NotProvided.
-Also consider using models under Movers.Preconfigured which autopopulate a pressure curve.");
+Also consider using models under Movers.Preconfigured which autopopulate a pressure curve.",
+         level=AssertionLevel.warning);
 
   assert(per.powerOrEfficiencyIsHydraulic or
           not (per.etaMotMet ==
@@ -443,7 +447,8 @@ Also consider using models under Movers.Preconfigured which autopopulate a press
 ": Mover has per.etaMotMet=.Efficiency_MotorPartLoadRatio or per.etaMotMet=.GenericCurve
 and provides information for total electric power instead of hydraulic power.
 This forms an algebraic loop. If simulation fails to converge,
-see the \"Motor efficiency\" section in the users guide for how to correct it.");
+see the \"Motor efficiency\" section in the users guide for how to correct it.",
+         level=AssertionLevel.warning);
 
 equation
   connect(prePow.port, vol.heatPort) annotation (Line(
