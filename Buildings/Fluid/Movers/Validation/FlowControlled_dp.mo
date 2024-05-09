@@ -4,11 +4,13 @@ model FlowControlled_dp "Fan with zero mass flow rate and head as input"
  extends Buildings.Fluid.Movers.Validation.BaseClasses.FlowMachine_ZeroFlow(
     gain(k=dp_nominal),
     redeclare Buildings.Fluid.Movers.FlowControlled_dp floMacSta(
+      nominalValuesDefineDefaultPressureCurve=true,
       redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal,
       use_inputFilter=false,
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState),
     redeclare Buildings.Fluid.Movers.FlowControlled_dp floMacDyn(
+      nominalValuesDefineDefaultPressureCurve=true,
       redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal,
       use_inputFilter=false,
@@ -37,6 +39,12 @@ This ensures that the actual speed is equal to the input signal.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 8, 2024, by Hongxiang Fu:<br/>
+Added nominal curve specification to suppress warning.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3819\">#3819</a>.
+</li>
 <li>
 November 5, 2015, by Michael Wetter:<br/>
 Changed parameters of fan since the power is no longer a parameter.
