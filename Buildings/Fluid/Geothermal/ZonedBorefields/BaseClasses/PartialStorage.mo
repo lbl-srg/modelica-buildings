@@ -9,7 +9,8 @@ partial model PartialStorage
     Buildings.Fluid.Geothermal.ZonedBorefields.Interfaces.TwoNPortsFlowResistanceParameters(
     final nPorts=nZon,
     final dp_nominal=borFieDat.conDat.dp_nominal,
-    final computeFlowResistance={_dp_nominal > Modelica.Constants.eps for _dp_nominal in borFieDat.conDat.dp_nominal});
+    final computeFlowResistance={_dp_nominal > Modelica.Constants.eps for _dp_nominal in borFieDat.conDat.dp_nominal})
+    annotation (IconMap(primitivesVisible = false));
 
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium in the borehole pipes"

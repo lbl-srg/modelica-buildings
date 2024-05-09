@@ -28,12 +28,14 @@ record TwoNPortsFlowResistanceParameters
 
 annotation (preferredView="info",
 Documentation(info="<html>
+<p>
 This class contains parameters that are used to
 compute the pressure drop in models that have one fluid stream.
 Note that the nominal mass flow rate is not declared here because the model
 <a href=\"modelica://Buildings.Fluid.Geothermal.ZonedBorefields.Interfaces.PartialTwoNPortsInterface\">
 PartialTwoNPortsInterface</a>
 already declares it.
+</p>
 </html>",
 revisions="<html>
 <ul>

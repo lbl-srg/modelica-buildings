@@ -112,8 +112,9 @@ equation
     annotation (Line(points={{-9,40},{10,40},{10,33.2}}, color={0,0,127}));
   connect(gai.y, pum.m_flow_in) annotation (Line(points={{10,19.4},{10,15.7},{10,
           15.7},{10,12}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(extent={{-100,-60},{140,80}})), Icon(
-        coordinateSystem(extent={{-100,-60},{140,80}})),
+  annotation (
+  Diagram(coordinateSystem(extent={{-100,-60},{140,80}})),
+  Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/ZonedBorefields/Examples/SeriesConnectedZones.mos"
         "Simulate and plot"),
   Documentation(info="<html>
