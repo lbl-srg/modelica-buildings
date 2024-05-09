@@ -3,6 +3,7 @@ block Fan "Declaration of an FMU that exports a fan"
    extends Buildings.Fluid.FMI.ExportContainers.ReplaceableTwoPort(
      redeclare replaceable package Medium =  Buildings.Media.Air,
      redeclare final Movers.FlowControlled_dp com(
+      nominalValuesDefineDefaultPressureCurve=true,
       final m_flow_nominal=m_flow_nominal,
       final use_inputFilter=
                           false,
@@ -43,6 +44,12 @@ Buildings.Fluid.Movers.FlowControlled_m_flow</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 9, 2024, by Hongxiang Fu:<br/>
+Added nominal curve specification to suppress warning.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3819\">#3819</a>.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
