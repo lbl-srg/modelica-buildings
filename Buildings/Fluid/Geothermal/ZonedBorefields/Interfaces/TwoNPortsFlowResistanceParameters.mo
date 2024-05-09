@@ -1,6 +1,7 @@
 within Buildings.Fluid.Geothermal.ZonedBorefields.Interfaces;
 record TwoNPortsFlowResistanceParameters
   "Parameters for flow resistance for models with two N ports"
+  extends Modelica.Icons.Record;
 
   parameter Integer nPorts(min=1)
     "Number of fluid ports on each side";
@@ -14,7 +15,8 @@ record TwoNPortsFlowResistanceParameters
     annotation (Evaluate=true, Dialog(enable = computeFlowResistance,
                 tab="Flow resistance"));
   parameter Modelica.Units.SI.PressureDifference dp_nominal[nPorts](
-    each min=0, each displayUnit="Pa") "Pressure difference"
+    each min=0,
+    each displayUnit="Pa") "Pressure difference"
     annotation (Dialog(group="Nominal condition"));
   parameter Boolean linearizeFlowResistance[nPorts] = fill(false, nPorts)
     "= true, use linear relation between m_flow and dp for any flow rate"
