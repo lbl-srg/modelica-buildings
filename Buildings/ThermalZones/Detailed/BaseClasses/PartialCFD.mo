@@ -49,16 +49,15 @@ partial model PartialCFD
   parameter String sourceName[nSou]=fill("",nSou)
     "Names of sources as declared in the CFD input file";
 
+  Modelica.Blocks.Interfaces.RealInput QIntSou[nSou](
+    each unit="W") if haveSource
+    "Internal source heat gain into room"
+    annotation (Placement(transformation(extent={{-300,-130},{-260,-90}}),
+        iconTransformation(extent={{-232,164},{-200,196}})));
   Modelica.Blocks.Interfaces.RealOutput yCFD[nSen]
     if haveSensor "Sensor for output from CFD"
     annotation (Placement(transformation(
      extent={{460,110},{480,130}}), iconTransformation(extent={{200,110},{220,130}})));
-
-public
-  Modelica.Blocks.Interfaces.RealInput QIntSou[nSou](each unit="W") if haveSource
-    "Internal source heat gain into room" annotation (Placement(transformation(
-          extent={{-300,-130},{-260,-90}}), iconTransformation(extent={{-232,164},
-            {-200,196}})));
 
 protected
   final parameter String absCfdFilNam = Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(cfdFilNam)
@@ -73,7 +72,6 @@ protected
   Modelica.Blocks.Sources.Constant conSha[nConExtWin](final k=uSha_fixed)
     if haveShade "Constant signal for shade"
     annotation (Placement(transformation(extent={{-260,170},{-240,190}})));
-
 
 equation
   connect(air.yCFD, yCFD) annotation (Line(
@@ -146,18 +144,43 @@ equation
           extent={{-218,198},{-142,166}},
           textColor={0,0,127},
           textString="s")}),
-    Documentation(info="<html>
-<p>Partial room model for detailed room model that computes the room air flow using external solvers. </p>
-<p>The simulation by external solvers is coupled to the thermal simulation of the room and, through the fluid port, to the air conditioning system. </p>
-<p>Currently, the supported external solvers are computational fluid dynamics (CFD) and In Situ Adaptive Tabulation (ISAT). See <a href=\"modelica://Buildings.ThermalZones.Detailed.UsersGuide\">Buildings.ThermalZones.Detailed.UsersGuide</a> for detailed explanations. </p>
+Documentation(info="<html>
+<p>
+Partial room model for detailed room model that computes the room air flow using
+external solvers.
+</p>
+<p>
+The simulation by external solvers is coupled to the thermal simulation of the room
+and, through the fluid port, to the air conditioning system.
+</p>
+<p>
+Currently, the supported external solvers are computational fluid dynamics (CFD)
+and In Situ Adaptive Tabulation (ISAT).
+See <a href=\"modelica://Buildings.ThermalZones.Detailed.UsersGuide\">
+Buildings.ThermalZones.Detailed.UsersGuide</a> for detailed explanations.
+</p>
 <h4>References</h4>
-<p><a name=\"ZUO2010\">W</a>angda Zuo. <a href=\"http://docs.lib.purdue.edu/dissertations/AAI3413824/\">Advanced simulations of air distributions in buildings</a>. Ph.D. Thesis, School of Mechanical Engineering, Purdue University, 2010. </p>
-<p>Wei Tian, Thomas Alonso Sevilla, Dan Li, Wangda Zuo, Michael Wetter. </p>
-<p><a href=\"https://www.tandfonline.com/doi/full/10.1080/19401493.2017.1288761\">Fast and Self-Learning Indoor Airflow Simulation Based on In Situ Adaptive Tabulation. </a></p>
-<p>Journal of Building Performance Simulation, 11(1), pp. 99-112, 2018.</p>
-<p>Xu Han, Wei Tian, Wangda Zuo, Michael Wetter, James W. VanGilder.</p>
-<p><a href=\"https://www.researchgate.net/profile/Wangda_Zuo/publication/333797408_Optimization_of_Workload_Distribution_of_Data_Centers_Based_on_a_Self-Learning_In_Situ_Adaptive_Tabulation_Model/links/5d0467bf299bf12e7be02981/Optimization-of-Workload-Distribution-of-Data-Centers-Based-on-a-Self-Learning-In-Situ-Adaptive-Tabulation-Model.pdf\">Optimization of Workload Distribution of Data Centers Based on a Self-Learning In Situ Adaptive Tabulation Model. </a></p>
-<p>Proc. of the 16th Conference of International Building Performance Simulation Association (Building Simulation 2019), Italy, September 2-4, Rome, 2019. </p>
+<p>
+<a name=\"ZUO2010\">W</a>angda Zuo.<br/>
+<a href=\"http://docs.lib.purdue.edu/dissertations/AAI3413824/\">
+Advanced simulations of air distributions in buildings</a>.<br/>
+Ph.D. Thesis, School of Mechanical Engineering, Purdue University, 2010.
+</p>
+<p>
+Wei Tian, Thomas Alonso Sevilla, Dan Li, Wangda Zuo, Michael Wetter.<br/>
+<a href=\"https://www.tandfonline.com/doi/full/10.1080/19401493.2017.1288761\">
+Fast and Self-Learning Indoor Airflow Simulation Based on In Situ Adaptive
+Tabulation</a>.<br/>
+Journal of Building Performance Simulation, 11(1), pp. 99-112, 2018.
+</p>
+<p>
+Xu Han, Wei Tian, Wangda Zuo, Michael Wetter, James W. VanGilder.<br/>
+<a href=\"https://www.researchgate.net/profile/Wangda_Zuo/publication/333797408_Optimization_of_Workload_Distribution_of_Data_Centers_Based_on_a_Self-Learning_In_Situ_Adaptive_Tabulation_Model/links/5d0467bf299bf12e7be02981/Optimization-of-Workload-Distribution-of-Data-Centers-Based-on-a-Self-Learning-In-Situ-Adaptive-Tabulation-Model.pdf\">
+Optimization of Workload Distribution of Data Centers Based on a Self-Learning In
+Situ Adaptive Tabulation Model</a>.<br/>
+Proc. of the 16th Conference of International Building Performance Simulation
+Association (Building Simulation 2019), Italy, September 2-4, Rome, 2019.
+</p>
 </html>",
 revisions="<html>
 <ul>

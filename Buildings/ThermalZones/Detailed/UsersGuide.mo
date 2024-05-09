@@ -1012,37 +1012,119 @@ Proc. of the 2014 ASHRAE/IBPSA-USA Building Simulation Conference, Atlanta, GA, 
     extends Modelica.Icons.Information;
   annotation (preferredView="info",
   Documentation(info="<html>
-<p>The model <a href=\"modelica://Buildings.ThermalZones.Detailed.ISAT\">Buildings.ThermalZones.Detailed.ISAT</a> is a room model in which the room air heat and mass balance is computed using the In Situ Adaptive Tabulation (ISAT). </p>
-<p>The model is identical with <a href=\"modelica://Buildings.ThermalZones.Detailed.CFD\">Buildings.ThermalZones.Detailed.CFD</a>, except for the following points: </p>
+<p>
+The model <a href=\"modelica://Buildings.ThermalZones.Detailed.ISAT\">
+Buildings.ThermalZones.Detailed.ISAT</a> is a room model in which the room air heat
+and mass balance is computed using the In Situ Adaptive Tabulation (ISAT).
+</p>
+<p>
+The model is identical with <a href=\"modelica://Buildings.ThermalZones.Detailed.CFD\">
+Buildings.ThermalZones.Detailed.CFD</a>, except for the following points:
+</p>
 <ul>
-<li>The heat and mass balance of the air is computed using ISAT. </li>
-<li>The ISAT is a reduced-order self-learning storage-and-retrieve algorithm for fast prediction of indoor airflow and thermal environment.</li>
-<li>The ISAT is linked with FFD program, which means ISAT calls FFD and returns results from FFD simulation when ISAT can not retrive it due to lack of data in ISAT database.</li>
-<li>Since ISAT is a data-driven model, more inputs and outputs will cause signifiantly increasing computing effort. Therefore, in our current settings, assumed fixed values are assigned for the heat flow rates from ports and surfaces. </li>
-<li>In other words, the inputs of the ISAT room model are identical with the CFD room model, but for outputs of the ISAT room model, currently it only supports to return outputs including temp_roo, temp_occ, vel_occ, temp_sen, vel_sen and temp_rack.</li>
-<li>If the users would like to return heat flow rates for ports and surfaces, they should revise the source codes in cosimulation.c and utility_isat.c in <span style=\"font-family: Courier New;\">Buildings\\Resources\\src\\ISAT\\</span> by outputing target values and assign them to modelica-shared variables.</li>
+<li>
+The heat and mass balance of the air is computed using ISAT.
+</li>
+<li>
+The ISAT is a reduced-order self-learning storage-and-retrieve algorithm for fast
+prediction of indoor airflow and thermal environment.
+</li>
+<li>
+The ISAT is linked with FFD program, which means ISAT calls FFD and returns results
+from FFD simulation when ISAT can not retrive it due to lack of data in ISAT database.
+</li>
+<li>
+Since ISAT is a data-driven model, more inputs and outputs will cause signifiantly
+increasing computing effort. Therefore, in our current settings, assumed fixed
+values are assigned for the heat flow rates from ports and surfaces.
+</li>
+<li>
+In other words, the inputs of the ISAT room model are identical with the CFD room
+model, but for outputs of the ISAT room model, currently it only supports to return
+outputs including temp_roo, temp_occ, vel_occ, temp_sen, vel_sen and temp_rack.
+</li>
+<li>
+If the users would like to return heat flow rates for ports and surfaces, they
+should revise the source codes in cosimulation.c and utility_isat.c in
+<span style=\"font-family: Courier New;\">Buildings\\Resources\\src\\ISAT\\</span>
+by outputing target values and assign them to modelica-shared variables.
+</li>
 </ul>
-<p>A description of the model assumptions and the implemention and validation of this room model can be found in <a href=\"https://www.tandfonline.com/doi/full/10.1080/19401493.2017.1288761\">Tian et al. (2018)</a> and in <a href=\"https://www.researchgate.net/profile/Wangda_Zuo/publication/333797408_Optimization_of_Workload_Distribution_of_Data_Centers_Based_on_a_Self-Learning_In_Situ_Adaptive_Tabulation_Model/links/5d0467bf299bf12e7be02981/Optimization-of-Workload-Distribution-of-Data-Centers-Based-on-a-Self-Learning-In-Situ-Adaptive-Tabulation-Model.pdf\">Han et al. (2019)</a>. </p>
-<p>Please refer to the <a href=\"https://www.colorado.edu/lab/sbs/data-center-package\">ISAT project website</a> for information on compiling the ISAT libraries and more detailed tutorials.</p>
+<p>
+A description of the model assumptions and the implemention and validation of this
+room model can be found in
+<a href=\"https://www.tandfonline.com/doi/full/10.1080/19401493.2017.1288761\">
+Tian et al. (2018)</a>
+and in
+<a href=\"https://www.researchgate.net/profile/Wangda_Zuo/publication/333797408_Optimization_of_Workload_Distribution_of_Data_Centers_Based_on_a_Self-Learning_In_Situ_Adaptive_Tabulation_Model/links/5d0467bf299bf12e7be02981/Optimization-of-Workload-Distribution-of-Data-Centers-Based-on-a-Self-Learning-In-Situ-Adaptive-Tabulation-Model.pdf\">
+Han et al. (2019)</a>.
+</p>
+<p>
+Please refer to the
+<a href=\"https://www.colorado.edu/lab/sbs/data-center-package\">
+ISAT project website</a>
+for information on compiling the ISAT libraries and more detailed tutorials.
+</p>
 <h4>Implementation</h4>
-<p>This section explains how the data exchange between Modelica and ISAT is implemented. The section is only of interest to developers. Users may skip this section. </p>
+<p>
+This section explains how the data exchange between Modelica and ISAT is implemented.
+The section is only of interest to developers. Users may skip this section.
+</p>
 <h5>Interface to Modelica models</h5>
-<p>Interfacing ISAT with the Modelica room air heat and mass balance is done in the model <a href=\"modelica://Buildings.ThermalZones.Detailed.BaseClasses.ISATAirHeatMassBalance\">Buildings.ThermalZones.Detailed.BaseClasses.ISATAirHeatMassBalance</a>. The classes and conventions used in this model to interface variables from Modelica and ISAT are the the same as the CFD room model except for the external solver.</p>
+<p>
+Interfacing ISAT with the Modelica room air heat and mass balance is done in the
+model <a href=\"modelica://Buildings.ThermalZones.Detailed.BaseClasses.ISATAirHeatMassBalance\">
+Buildings.ThermalZones.Detailed.BaseClasses.ISATAirHeatMassBalance</a>.
+The classes and conventions used in this model to interface variables from Modelica
+and ISAT are the the same as the CFD room model except for the external solver.
+</p>
 <h5>Data exchange with ISAT</h5>
-<p>The data exchange with the ISAT interface is done through the instance <span style=\"font-family: Courier New;\">cfd</span>, and implemented in <a href=\"modelica://Buildings.ThermalZones.Detailed.BaseClasses.ISATExchange\">Buildings.ThermalZones.Detailed.BaseClasses.ISATExchange</a>. This block exchanges the following data with the ISAT simulation: </p>
-<p>During the initialzation and simulation, the data sent from Modelica to ISAT are identical with that in <a href=\"modelica://Buildings.ThermalZones.Detailed.CFD\">Buildings.ThermalZones.Detailed.CFD</a>. The differences of the ISAT model are:</p>
+<p>
+The data exchange with the ISAT interface is done through the instance
+<span style=\"font-family: Courier New;\">cfd</span>, and implemented in
+<a href=\"modelica://Buildings.ThermalZones.Detailed.BaseClasses.ISATExchange\">
+Buildings.ThermalZones.Detailed.BaseClasses.ISATExchange</a>.
+This block exchanges the following data with the ISAT simulation:
+</p>
+<p>
+During the initialzation and simulation, the data sent from Modelica to ISAT are
+identical with that in <a href=\"modelica://Buildings.ThermalZones.Detailed.CFD\">
+Buildings.ThermalZones.Detailed.CFD</a>. The differences of the ISAT model are:
+</p>
 <ul>
-<li>Everytime modelica exchanges data with the ISAT, the ISAT will first check the database. If there is enough data to obtain results by local regressions, the ISAT retrieve outputs. If there is no enough data, the ISAT calls FFD and returns outputs from FFD simulations. Meanwhile, new data points will be added in the database. </li>
-<li>FFD performs transient simulations while ISAT could only return steady-state results. Hence, FFD could capture airflow and thermal dynamics by exchanging data with Modelica every few seconds. For ISAT, the samplePeriod should be large enough to ensure the airflow and thermal environment become steady-state.</li>
-<li>Compared to the CFD model, the ISAT model could take advantages of full simulation results by FFD, and accelerate the speed of coupled simulation by retrieving results based on database.</li>
+<li>
+Everytime modelica exchanges data with the ISAT, the ISAT will first check the
+database. If there is enough data to obtain results by local regressions, the ISAT
+retrieve outputs. If there is no enough data, the ISAT calls FFD and returns outputs
+from FFD simulations. Meanwhile, new data points will be added in the database.
+</li>
+<li>
+FFD performs transient simulations while ISAT could only return steady-state results.
+Hence, FFD could capture airflow and thermal dynamics by exchanging data with
+Modelica every few seconds. For ISAT, the samplePeriod should be large enough to
+ensure the airflow and thermal environment become steady-state.
+</li>
+<li>
+Compared to the CFD model, the ISAT model could take advantages of full simulation
+results by FFD, and accelerate the speed of coupled simulation by retrieving results
+based on database.
+</li>
 </ul>
 <h4>References</h4>
-<p>Wei Tian, Thomas Alonso Sevilla, Dan Li, Wangda Zuo, Michael Wetter. </p>
-<p><a href=\"https://www.tandfonline.com/doi/full/10.1080/19401493.2017.1288761\">Fast and Self-Learning Indoor Airflow Simulation Based on In Situ Adaptive Tabulation. </a></p>
-<p>Journal of Building Performance Simulation, 11(1), pp. 99-112, 2018.</p>
-<p>Xu Han, Wei Tian, Wangda Zuo, Michael Wetter, James W. VanGilder.</p>
-<p><a href=\"https://www.researchgate.net/profile/Wangda_Zuo/publication/333797408_Optimization_of_Workload_Distribution_of_Data_Centers_Based_on_a_Self-Learning_In_Situ_Adaptive_Tabulation_Model/links/5d0467bf299bf12e7be02981/Optimization-of-Workload-Distribution-of-Data-Centers-Based-on-a-Self-Learning-In-Situ-Adaptive-Tabulation-Model.pdf\">Optimization of Workload Distribution of Data Centers Based on a Self-Learning In Situ Adaptive Tabulation Model. </a></p>
-<p>Proc. of the 16th Conference of International Building Performance Simulation Association (Building Simulation 2019), Italy, September 2-4, Rome, 2019. </p>
+<p>
+Wei Tian, Thomas Alonso Sevilla, Dan Li, Wangda Zuo, Michael Wetter.<br/>
+<a href=\"https://www.tandfonline.com/doi/full/10.1080/19401493.2017.1288761\">
+Fast and Self-Learning Indoor Airflow Simulation Based on In Situ Adaptive Tabulation</a>.<br/>
+Journal of Building Performance Simulation, 11(1), pp. 99-112, 2018.
+</p>
+<p>
+Xu Han, Wei Tian, Wangda Zuo, Michael Wetter, James W. VanGilder.<br/>
+<a href=\"https://www.researchgate.net/profile/Wangda_Zuo/publication/333797408_Optimization_of_Workload_Distribution_of_Data_Centers_Based_on_a_Self-Learning_In_Situ_Adaptive_Tabulation_Model/links/5d0467bf299bf12e7be02981/Optimization-of-Workload-Distribution-of-Data-Centers-Based-on-a-Self-Learning-In-Situ-Adaptive-Tabulation-Model.pdf\">
+Optimization of Workload Distribution of Data Centers Based on a Self-Learning In
+Situ Adaptive Tabulation Model</a>.<br/>
+Proc. of the 16th Conference of International Building Performance Simulation
+Association (Building Simulation 2019), Italy, September 2-4, Rome, 2019.
+</p>
 </html>"));
   end ISAT;
   annotation (preferredView="info",
