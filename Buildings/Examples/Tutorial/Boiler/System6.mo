@@ -78,6 +78,7 @@ model System6
   Buildings.Fluid.Movers.FlowControlled_m_flow pumRad(
     redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    nominalValuesDefineDefaultPressureCurve=true,
     m_flow_nominal=mRad_flow_nominal) "Pump for radiator"
       annotation (Placement(transformation(
       extent={{-10,-10},{10,10}},
@@ -137,6 +138,7 @@ model System6
   Buildings.Fluid.Movers.FlowControlled_m_flow pumBoi(
       redeclare package Medium = MediumW,
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    nominalValuesDefineDefaultPressureCurve=true,
       m_flow_nominal=mBoi_flow_nominal) "Pump for boiler"
                         annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -588,6 +590,12 @@ maintained at their set point.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 9, 2024, by Hongxiang Fu:<br/>
+Added nominal curve specification to suppress warning.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3819\">#3819</a>.
+</li>
 <li>
 March 6, 2017, by Michael Wetter:<br/>
 Added missing density to computation of air mass flow rate.<br/>
