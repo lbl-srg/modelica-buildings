@@ -73,6 +73,7 @@ model RectangularBorefield "Example model of a rectangular borefield"
   Buildings.Fluid.Movers.FlowControlled_m_flow pum(
     redeclare package Medium = Medium,
     addPowerToMedium=false,
+    nominalValuesDefineDefaultPressureCurve=true,
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     inputType=Buildings.Fluid.Types.InputType.Constant,
@@ -119,6 +120,12 @@ where <code>dBorHol</code> is the distance between the boreholes,
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 9, 2024, by Hongxiang Fu:<br/>
+Added nominal curve specification to suppress warning.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3819\">#3819</a>.
+</li>
 <li>
 September 10, 2018, by Michael Wetter:<br/>
 First implementation.
