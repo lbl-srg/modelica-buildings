@@ -107,8 +107,9 @@ equation
   connect(hea.port_a,TBorFieOut. port_b) annotation (Line(points={{-30,0},{-80,
           0},{-80,60},{120,60},{120,0},{110,0}},
                                       color={0,127,255}));
-  connect(heaRat.y, hea.u) annotation (Line(points={{-49,20},{-38,20},{-38,6},{-32,
-          6}}, color={0,0,127}));
+  connect(heaRat.y, hea.u) annotation (Line(points={{-49,20},{-40,20},{-40,6},{
+          -32,6}},
+               color={0,0,127}));
   annotation (
   Diagram(coordinateSystem(extent={{-100,-60},{140,80}})),
   Icon(coordinateSystem(extent={{-100,-100},{100,100}})),

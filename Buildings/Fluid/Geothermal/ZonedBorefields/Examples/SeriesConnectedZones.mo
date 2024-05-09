@@ -80,18 +80,22 @@ model SeriesConnectedZones "Description"
     f=1/(24*3600),
     offset=0.5)
     "Heating rate signal"
-    annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
-  Modelica.Blocks.Math.Sign sig
+    annotation (Placement(transformation(extent={{-70,30},{-50,50}})));
+  Modelica.Blocks.Logical.GreaterThreshold
+                            sig
     "Sign of heating rate signal to determine flow direction"
     annotation (Placement(transformation(extent={{-30,30},{-10,50}})));
-  Modelica.Blocks.Math.Gain gai(k=conDat.mZon_flow_nominal[1])
+  Modelica.Blocks.Math.BooleanToReal
+                            gai(realTrue=conDat.mZon_flow_nominal[1], realFalse
+      =-conDat.mZon_flow_nominal[1])
     "Gain for fluid mass flow rate" annotation (Placement(transformation(
-        extent={{-6,-6},{6,6}},
-        rotation=-90,
-        origin={10,26})));
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={20,40})));
 equation
-  connect(heaRat.y, hea.u) annotation (Line(points={{-49,20},{-38,20},{-38,6},{-32,
-          6}}, color={0,0,127}));
+  connect(heaRat.y, hea.u) annotation (Line(points={{-49,40},{-40,40},{-40,6},{
+          -32,6}},
+               color={0,0,127}));
   connect(hea.port_b, pum.port_a)
     annotation (Line(points={{-10,0},{0,0}}, color={0,127,255}));
   connect(pum.port_b, TBorFieIn.port_a)
@@ -105,13 +109,15 @@ equation
   connect(TBorFieOut.port_b, hea.port_a) annotation (Line(points={{110,0},{120,0},
           {120,60},{-80,60},{-80,0},{-30,0}}, color={0,127,255}));
   connect(sin.ports[1], TBorFieOut.port_b)
-    annotation (Line(points={{100,30},{110,30},{110,0}}, color={0,127,255}));
-  connect(heaRat.y, sig.u) annotation (Line(points={{-49,20},{-38,20},{-38,40},{
-          -32,40}}, color={0,0,127}));
+    annotation (Line(points={{100,30},{120,30},{120,0},{110,0}},
+                                                         color={0,127,255}));
+  connect(heaRat.y, sig.u) annotation (Line(points={{-49,40},{-32,40}},
+                    color={0,0,127}));
+  connect(gai.y, pum.m_flow_in) annotation (Line(points={{31,40},{40,40},{40,20},
+          {10,20},{10,12}},
+                          color={0,0,127}));
   connect(sig.y, gai.u)
-    annotation (Line(points={{-9,40},{10,40},{10,33.2}}, color={0,0,127}));
-  connect(gai.y, pum.m_flow_in) annotation (Line(points={{10,19.4},{10,15.7},{10,
-          15.7},{10,12}}, color={0,0,127}));
+    annotation (Line(points={{-9,40},{8,40}}, color={255,0,255}));
   annotation (
   Diagram(coordinateSystem(extent={{-100,-60},{140,80}})),
   Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
