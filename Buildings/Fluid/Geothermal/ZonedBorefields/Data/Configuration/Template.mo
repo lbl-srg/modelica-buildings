@@ -24,7 +24,8 @@ record Template
     "Pressure losses for the entire borefield"
     annotation (Dialog(group="Nominal condition"));
   // -- Advanced flow parameters
-  final parameter Modelica.Units.SI.MassFlowRate[nZon] mBor_flow_small(each min=0) = 1E-4*abs(mBor_flow_nominal)
+  final parameter Modelica.Units.SI.MassFlowRate[nZon] mBor_flow_small(each min=0) =
+    {1E-4*abs(mBor_flow_nominal[i]) for i in 1:nZon}
     "Small mass flow rate for regularization of zero flow"
     annotation (Dialog(tab="Advanced"));
 
