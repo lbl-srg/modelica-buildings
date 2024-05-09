@@ -4,9 +4,11 @@ compareVars :=
     "senSupTem.T",
     "senExhTem.T",
     "sou_2.T",
-    "whe.port_a1.m_flow",
-    "whe.port_a2.m_flow",
-    "whe.uSpe",
-    "whe.epsSen",
-    "whe.epsLat"
+    "wheUseDefCur.port_a1.m_flow",
+    "wheUseDefCur.port_a2.m_flow",
+    "wheUseDefCur.uSpe",
+    "wheUseDefCur.epsSen",
+    "wheUseDefCur.epsLat",
+    "wheUseDefCur.P",
+    "wheDefCur.P"
   };

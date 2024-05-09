@@ -1,0 +1,23 @@
+simulateModel("Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.Examples.SpaceCooling", startTime=15552000, tolerance=1e-6, stopTime=15638400, method="CVode", resultFile="SpaceCooling");
+createPlot(id = 1,
+ position = {15, 10, 751, 680},
+ y = {"vol.T_start", "vol.T", "TOut.T", "cooCoi.sta_a2.T", "cooCoi.sta_b2.T"},
+ range = {0.0, 4000.0, 32.0, 16.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ description = false,
+ subPlot=101,
+ grid = true,
+ color = true,
+ online = false,
+ filename = "SpaceCoolingSystem3.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1,
+ colors = {{0, 0, 255}, {255, 0, 0}, {0, 128, 0}, {255, 0, 255}, {0, 0, 0}},
+ patterns = {LinePattern.Solid, LinePattern.Solid, LinePattern.Solid, LinePattern.Dash,
+LinePattern.Dash},
+ thicknesses = {0.25, 0.5, 0.25, 0.25, 0.25});
+createPlot(id=1, position={15, 10, 751, 680}, y={"opeSig.y"}, range={15550000.0, 15640000.0, 10.0, 30.0}, autoscale=false, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=1, position={15, 10, 751, 680}, y={"TOut.T", "senTemHXOut.T"}, range={15550000.0, 15640000.0, 10.0, 30.0}, grid=true, subPlot=103, colors={{0,128,0}, {28,108,200}}, timeUnit="s", displayUnits={"degC", "degC"});
+createPlot(id=2, position={95, 95, 734, 454}, y={"whe.port_a1.Xi_outflow[1]", "whe.port_b1.Xi_outflow[1]"}, range={15550000.0, 15640000.0, 0.007, 0.015}, grid=true, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"kg/kg", "kg/kg"});
