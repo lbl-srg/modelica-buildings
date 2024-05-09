@@ -1,0 +1,43 @@
+simulateModel("Buildings.Fluid.Geothermal.ZonedBorefields.Examples.SeriesConnectedZones", stopTime=2592000, method="Cvode", tolerance=1e-06, resultFile="SeriesConnectedZones");
+
+createPlot(
+  id=1,
+  position={15, 10, 592, 689},
+  y={"TBorFieIn.T", "TBorFieOut.T"},
+  autoscale = true,
+  autoerase = true,
+  autoreplot = true,
+  grid=true,
+  color=true,
+  filename="SeriesConnectedZones.mat",
+  leftTitleType = 1,
+  bottomTitleType = 1);
+
+createPlot(
+  id=2,
+  subPlot=1,
+  position={15, 10, 592, 689},
+  y={"borHol.TBorAve[1]", "borHol.TBorAve[2]", "borHol.TBorAve[3]", "borHol.TBorAve[4]"},
+  autoscale = true,
+  autoerase = true,
+  autoreplot = true,
+  grid=true,
+  color=true,
+  filename="SeriesConnectedZones.mat",
+  leftTitleType = 1,
+  bottomTitleType = 1);
+
+createPlot(
+  id=2,
+  subPlot=2,
+  position={15, 10, 592, 689},
+  y={"borHol.QBorAve[1]", "borHol.QBorAve[2]", "borHol.QBorAve[3]", "borHol.QBorAve[4]"},
+  autoscale = true,
+  autoerase = true,
+  autoreplot = true,
+  grid=true,
+  color=true,
+  filename="SeriesConnectedZones.mat",
+  leftTitleType = 1,
+  bottomTitleType = 1);
+

@@ -229,7 +229,7 @@
   optimica:
     comment: Timeout after 300 s
     time_out: 600
-- model_name: Buildings.Fluid.Geothermal.ZonedThermalStorage.Validation.TransientBoreholeDynamics
+- model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Validation.TransientBoreholeDynamics
   dymola:
     time_out: 900
 - model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DecouplingMixing
