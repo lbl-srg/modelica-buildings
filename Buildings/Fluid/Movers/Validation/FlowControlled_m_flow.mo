@@ -5,11 +5,13 @@ model FlowControlled_m_flow
  extends Buildings.Fluid.Movers.Validation.BaseClasses.FlowMachine_ZeroFlow(
     gain(k=m_flow_nominal),
     redeclare Buildings.Fluid.Movers.FlowControlled_m_flow floMacSta(
+      nominalValuesDefineDefaultPressureCurve=true,
       redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal,
       use_inputFilter=false,
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState),
     redeclare Buildings.Fluid.Movers.FlowControlled_m_flow floMacDyn(
+      nominalValuesDefineDefaultPressureCurve=true,
       redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal,
       use_inputFilter=false,
@@ -38,6 +40,12 @@ This ensures that the actual speed is equal to the input signal.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 8, 2024, by Hongxiang Fu:<br/>
+Added nominal curve specification to suppress warning.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3819\">#3819</a>.
+</li>
 <li>
 February 14, 2012, by Michael Wetter:<br/>
 Added filter for start-up and shut-down transient.
