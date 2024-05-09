@@ -69,7 +69,7 @@ partial model PartialStorage
     annotation (choicesAllMatching=true,Placement(transformation(extent={{-80,-80},{-60,-60}})));
   final parameter Integer nZon(min=1) = borFieDat.conDat.nZon
     "Total number of independent bore field zones";
-  final parameter Integer[nZon] nBorPerZon(min=1) = borFieDat.conDat.nBorPerZon
+  final parameter Integer[nZon] nBorPerZon(each min=1) = borFieDat.conDat.nBorPerZon
     "Number of boreholes per borefield zone";
 
   // Models
