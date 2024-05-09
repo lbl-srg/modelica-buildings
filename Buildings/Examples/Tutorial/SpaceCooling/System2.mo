@@ -70,6 +70,7 @@ model System2
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow fan(
     redeclare package Medium = MediumA,
+    nominalValuesDefineDefaultPressureCurve=true,
     m_flow_nominal=mA_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Supply air fan"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
@@ -524,6 +525,12 @@ from the model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 9, 2024, by Hongxiang Fu:<br/>
+Added nominal curve specification to suppress warning.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3819\">#3819</a>.
+</li>
 <li>
 September 20, 2021 by David Blum:<br/>
 Correct supply and return water parameterization.<br/>
