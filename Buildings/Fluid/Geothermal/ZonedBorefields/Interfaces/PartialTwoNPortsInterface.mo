@@ -25,32 +25,32 @@ partial model PartialTwoNPortsInterface
     "Pressure difference between port_a and port_b";
 
   Medium.ThermodynamicState sta_a[nPorts]=
-    {if allowFlowReversal then
-      Medium.setState_phX(port_a_i.p,
-                          noEvent(actualStream(port_a_i.h_outflow)),
-                          noEvent(actualStream(port_a_i.Xi_outflow)))
+    if allowFlowReversal then
+      Medium.setState_phX(port_a.p,
+                          noEvent(actualStream(port_a.h_outflow)),
+                          noEvent(actualStream(port_a.Xi_outflow)))
     else
-      Medium.setState_phX(port_a_i.p,
-                          noEvent(inStream(port_a_i.h_outflow)),
-                          noEvent(inStream(port_a_i.Xi_outflow))) for port_a_i in port_a}
+      Medium.setState_phX(port_a.p,
+                          noEvent(inStream(port_a.h_outflow)),
+                          noEvent(inStream(port_a.Xi_outflow)))
       if show_T "Medium properties in port_a";
 
   Medium.ThermodynamicState sta_b[nPorts]=
-    {if allowFlowReversal then
-      Medium.setState_phX(port_b_i.p,
-                          noEvent(actualStream(port_b_i.h_outflow)),
-                          noEvent(actualStream(port_b_i.Xi_outflow)))
+    if allowFlowReversal then
+      Medium.setState_phX(port_b.p,
+                          noEvent(actualStream(port_b.h_outflow)),
+                          noEvent(actualStream(port_b.Xi_outflow)))
     else
-      Medium.setState_phX(port_b_i.p,
-                          noEvent(port_b_i.h_outflow),
-                          noEvent(port_b_i.Xi_outflow)) for port_b_i in port_b}
+      Medium.setState_phX(port_b.p,
+                          noEvent(port_b.h_outflow),
+                          noEvent(port_b.Xi_outflow))
        if show_T "Medium properties in port_b";
 
 protected
   final parameter Modelica.Units.SI.MassFlowRate _m_flow_start=0
     "Start value for m_flow, used to avoid a warning if not set in m_flow, and to avoid m_flow.start in parameter window";
-  final parameter Modelica.Units.SI.PressureDifference _dp_start(displayUnit=
-        "Pa") = 0
+  final parameter Modelica.Units.SI.PressureDifference _dp_start(
+    displayUnit="Pa") = 0
     "Start value for dp, used to avoid a warning if not set in dp, and to avoid dp.start in parameter window";
 
   annotation (
@@ -79,6 +79,10 @@ and adds quantities that are used by many models such as
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 9, 2024, by Michael Wetter:<br/>
+Corrected handling of array for state calculations.
+</li>
 <li>
 February, 2024, by Massimo Cimmino:<br/>
 First implementation.
