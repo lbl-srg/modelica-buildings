@@ -264,5 +264,5 @@ int isatStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
   ****************************************************************************/
   isat_dll(cosim);
 
-  return;
+  return 0;
 } /* End of isatStartCosimulation()*/

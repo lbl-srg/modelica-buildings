@@ -84,7 +84,7 @@ int isatExchangeData(double t0, double dt, double *u, size_t nU, size_t nY,
 
     *t1 = cosim->ffd->t;
 
-    return;
+    return 0;
   }
 
   /*--------------------------------------------------------------------------
@@ -215,5 +215,5 @@ int isatExchangeData(double t0, double dt, double *u, size_t nU, size_t nY,
 
   *t1 = cosim->ffd->t;
 
-  return;
+  return 0;
 } /* End of isatExchangeData()*/
