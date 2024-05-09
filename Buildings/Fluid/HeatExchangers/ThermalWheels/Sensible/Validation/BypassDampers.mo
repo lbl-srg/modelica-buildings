@@ -83,15 +83,15 @@ equation
   connect(bypDamPos.y, whe.uBypDamPos) annotation (Line(points={{-59,0},{-2,0}},
     color={0,0,127}));
   connect(opeSig.y, whe.uRot) annotation (Line(points={{-58,70},{-10,70},{-10,8},
-          {-2,8}}, color={255,0,255}));
+    {-2,8}}, color={255,0,255}));
   connect(whe.port_b2, senExhTem.port_a) annotation (Line(points={{0,-6},{-20,-6},
-          {-20,-34},{-30,-34}}, color={0,127,255}));
+    {-20,-34},{-30,-34}}, color={0,127,255}));
   connect(senExhTem.port_b, sin_2.ports[1])
     annotation (Line(points={{-50,-34},{-60,-34}}, color={0,127,255}));
   connect(senSupTem.port_a, sin_1.ports[1])
     annotation (Line(points={{60,30},{70,30}}, color={0,127,255}));
   connect(senSupTem.port_b, whe.port_b1) annotation (Line(points={{40,30},{30,30},
-          {30,6},{20,6}}, color={0,127,255}));
+    {30,6},{20,6}}, color={0,127,255}));
 annotation(experiment(Tolerance=1e-6, StopTime=360),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ThermalWheels/Sensible/Validation/BypassDampers.mos"
         "Simulate and plot"),

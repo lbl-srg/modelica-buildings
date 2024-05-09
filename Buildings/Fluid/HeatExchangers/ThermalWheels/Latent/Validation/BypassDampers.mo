@@ -80,22 +80,22 @@ equation
     annotation (Line(points={{-59,34},{-42,34}}, color={0,0,127}));
   connect(sou_1.ports[1],whe.port_a1)
     annotation (Line(points={{-20,30},{-14,30},{-14,6},{0,6}},
-                                                     color={0,127,255}));
+    color={0,127,255}));
   connect(whe.port_a2, sou_2.ports[1])
     annotation (Line(points={{20,-6},{30,-6},{30,-40},{70,-40}},
-        color={0,127,255}));
+    color={0,127,255}));
   connect(bypDamPos.y, whe.uBypDamPos) annotation (Line(points={{-59,0},{-2,0}},
-                             color={0,0,127}));
-  connect(opeSig.y, whe.uRot) annotation (Line(points={{-58,70},{-10,70},{-10,8},
-          {-2,8}}, color={255,0,255}));
+    color={0,0,127}));
+  connect(opeSig.y, whe.uRot) annotation (Line(points={{-58,70},{-10,70},{-10,8},{-2,8}}, 
+    color={255,0,255}));
   connect(senExhTem.port_b, sin_2.ports[1])
     annotation (Line(points={{-40,-40},{-58,-40}}, color={0,127,255}));
-  connect(senExhTem.port_a, whe.port_b2) annotation (Line(points={{-20,-40},{-8,
-          -40},{-8,-6},{0,-6}}, color={0,127,255}));
+  connect(senExhTem.port_a, whe.port_b2) annotation (Line(points={{-20,-40},{-8,-40},{-8,-6},{0,-6}}, 
+    color={0,127,255}));
   connect(senSupTem.port_b, sin_1.ports[1])
     annotation (Line(points={{60,30},{70,30}}, color={0,127,255}));
-  connect(senSupTem.port_a, whe.port_b1) annotation (Line(points={{40,30},{28,30},
-          {28,6},{20,6}}, color={0,127,255}));
+  connect(senSupTem.port_a, whe.port_b1) annotation (Line(points={{40,30},{28,30},{28,6},{20,6}}, 
+    color={0,127,255}));
 annotation(experiment(Tolerance=1e-6, StopTime=360),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ThermalWheels/Latent/Validation/BypassDampers.mos"
         "Simulate and plot"),

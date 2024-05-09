@@ -40,11 +40,11 @@ partial model PartialWheel
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput P(
     final unit="W") "Electric power consumption"
     annotation (Placement(transformation(extent={{100,-110},{140,-70}}),
-        iconTransformation(extent={{100,-110},{140,-70}})));
+    iconTransformation(extent={{100,-110},{140,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput eps(final unit="1")
     "Sensible heat exchanger effectiveness"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
-        iconTransformation(extent={{100,-20},{140,20}})));
+    iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.HeatExchangerWithInputEffectiveness
     hex(
     redeclare package Medium1 = Medium,
@@ -58,17 +58,17 @@ partial model PartialWheel
     redeclare final package Medium = Medium)
     "Fluid connector a1 of the supply air (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{-190,70},{-170,90}}),
-        iconTransformation(extent={{-110,50},{-90,70}})));
+    iconTransformation(extent={{-110,50},{-90,70}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b2(
     redeclare final package Medium = Medium)
     "Fluid connector b2 of the exhaust air (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{-170,-70},{-190,-50}}),
-        iconTransformation(extent={{-90,-70},{-110,-50}})));
+    iconTransformation(extent={{-90,-70},{-110,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b1(
     redeclare final package Medium = Medium)
     "Fluid connector b1 of the supply air (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{110,70},{90,90}}),
-        iconTransformation(extent={{110,50},{90,70}})));
+    iconTransformation(extent={{110,50},{90,70}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a2(
     redeclare final package Medium = Medium)
     "Fluid connector a2 of the exhaust air (positive design flow direction is from port_a2 to port_b2)"
@@ -117,27 +117,28 @@ protected
 equation
   connect(TSup.y, effCal.TSup)
     annotation (Line(points={{-139,20},{-110,20},{-110,-4},{-102,-4}},
-        color={0,0,127}));
+    color={0,0,127}));
   connect(TExh.y, effCal.TExh)
     annotation (Line(points={{-139,-40},{-110,-40},{-110,-8},{-102,-8}},
-        color={0,0,127}));
+    color={0,0,127}));
   connect(effCal.eps, hex.eps)
     annotation (Line(points={{-78,0},{-12,0}}, color={0,0,127}));
-  connect(effCal.eps, eps) annotation (Line(points={{-78,0},{-40,0},{-40,32},{
-          80,32},{80,0},{120,0}},
-                color={0,0,127}));
-  connect(senExhMasFlo.port_b, port_b2) annotation (Line(points={{-90,-34},{-100,
-          -34},{-100,-60},{-180,-60}}, color={0,127,255}));
-  connect(senExhMasFlo.port_a, hex.port_b2) annotation (Line(points={{-70,-34},{
-          -16,-34},{-16,-6},{-10,-6}}, color={0,127,255}));
+  connect(effCal.eps, eps) 
+    annotation (Line(points={{-78,0},{-40,0},{-40,32},{80,32},{80,0},{120,0}},
+    color={0,0,127}));
+  connect(senExhMasFlo.port_b, port_b2) 
+    annotation (Line(points={{-90,-34},{-100,-34},{-100,-60},{-180,-60}},
+    color={0,127,255}));
+  connect(senExhMasFlo.port_a, hex.port_b2) annotation (Line(points={{-70,-34},{-16,-34},{-16,-6},{-10,-6}}, 
+    color={0,127,255}));
   connect(hex.port_b1, senSupMasFlo.port_a)
     annotation (Line(points={{10,6},{32,6}}, color={0,127,255}));
-  connect(senSupMasFlo.port_b, port_b1) annotation (Line(points={{52,6},{60,6},{
-          60,80},{100,80}}, color={0,127,255}));
-  connect(senExhMasFlo.m_flow, effCal.mExh_flow) annotation (Line(points={{-80,-23},
-          {-80,-16},{-106,-16},{-106,4},{-102,4}}, color={0,0,127}));
-  connect(senSupMasFlo.m_flow, effCal.mSup_flow) annotation (Line(points={{42,17},
-          {42,26},{-106,26},{-106,8},{-102,8}}, color={0,0,127}));
+  connect(senSupMasFlo.port_b, port_b1) annotation (Line(points={{52,6},{60,6},{60,80},{100,80}},
+    color={0,127,255}));
+  connect(senExhMasFlo.m_flow, effCal.mExh_flow) annotation (Line(points={{-80,-23},{-80,-16},{-106,-16},{-106,4},{-102,4}}, 
+    color={0,0,127}));
+  connect(senSupMasFlo.m_flow, effCal.mSup_flow) annotation (Line(points={{42,17},{42,26},{-106,26},{-106,8},{-102,8}}, 
+    color={0,0,127}));
 annotation (
         defaultComponentName="whe",
         Icon(coordinateSystem(extent={{-100,-100},{100,100}}),

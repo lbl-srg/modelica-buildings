@@ -111,26 +111,24 @@ model SpaceCooling "Space cooling system"
   Buildings.Fluid.Sources.Boundary_pT sinWat(nPorts=1, redeclare package Medium =
         MediumW) "Sink for water circuit"
     annotation (Placement(transformation(extent={{-80,-76},{-60,-56}})));
-  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
+  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     pAtmSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
     TDryBul=TOut_nominal,
     filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
     TDryBulSou=Buildings.BoundaryConditions.Types.DataSource.File)
     "Weather data reader"
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
-  BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
+  Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant mAir_flow(k=mA_flow_nominal)
     "Fan air flow rate"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemHXOut(redeclare package
-      Medium =
-        MediumA, m_flow_nominal=mA_flow_nominal)
+      Medium = MediumA, m_flow_nominal=mA_flow_nominal)
     "Temperature sensor for heat recovery outlet on supply side"
     annotation (Placement(transformation(extent={{-76,-26},{-64,-14}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemSupAir(redeclare package
-      Medium =
-        MediumA, m_flow_nominal=mA_flow_nominal)
+      Medium = MediumA, m_flow_nominal=mA_flow_nominal)
     "Temperature sensor for supply air"
     annotation (Placement(transformation(extent={{6,-26},{18,-14}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TRooSetPoi(k=TRooSet)
@@ -245,27 +243,33 @@ equation
       points={{-38,-100},{-30,-100},{-30,-92},{-22,-92}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(sub.y, con.u)
-    annotation (Line(points={{-108,-100},{-102,-100}}, color={0,0,127}));
-  connect(con.y, mWat_flow.u)
-    annotation (Line(points={{-78,-100},{-62,-100}}, color={255,0,255}));
-  connect(TRooSetPoi.y, sub.u1)
-    annotation (Line(points={{-148,-94},{-132,-94}}, color={0,0,127}));
-  connect(senTemRoo.T, sub.u2) annotation (Line(points={{91,80},{100,80},{100,-140},
-          {-140,-140},{-140,-106},{-132,-106}}, color={0,0,127}));
-  connect(whe.port_b2, out.ports[1]) annotation (Line(points={{-110,-32},{-116,-32},
-          {-116,-23},{-120,-23}}, color={0,127,255}));
-  connect(opeSig.y, whe.uRot) annotation (Line(points={{-150,20},{-116,20},{-116,
-          -18},{-112,-18}}, color={255,0,255}));
-  connect(bypDamPos.y, whe.uBypDamPos) annotation (Line(points={{-149,-50},{-118,
-          -50},{-118,-26},{-112,-26}}, color={0,0,127}));
+  connect(sub.y, con.u) annotation (Line(
+      points={{-108,-100},{-102,-100}},
+      color={0,0,127}));
+  connect(con.y, mWat_flow.u) annotation (Line(        points={{-78,-100},{-62,-100}},
+      color={255,0,255}));
+  connect(TRooSetPoi.y, sub.u1) annotation (Line(
+      points={{-148,-94},{-132,-94}},
+      color={0,0,127}));
+  connect(senTemRoo.T, sub.u2) annotation (Line(
+      points={{91,80},{100,80},{100,-140},{-140,-140},{-140,-106},{-132,-106}},
+      color={0,0,127}));
+  connect(whe.port_b2, out.ports[1]) annotation (Line(
+      points={{-110,-32},{-116,-32},{-116,-23},{-120,-23}},
+      color={0,127,255}));
+  connect(opeSig.y, whe.uRot) annotation (Line(
+      points={{-150,20},{-116,20},{-116,-18},{-112,-18}},
+      color={255,0,255}));
+  connect(bypDamPos.y, whe.uBypDamPos) annotation (Line(
+      points={{-149,-50},{-118,-50},{-118,-26},{-112,-26}},
+      color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
 This block is identical to
 <a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling.System3\">
 Buildings.Examples.Tutorial.SpaceCooling.System3</a>,
-except that the heat recovery device is modelled with <a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BypassDampers\">
-Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BypassDampers</a>.
+except that the heat recovery device is modeled with <a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BypassDampers\">
+Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BypassDampers</a>.
 </p>
 <p>
 The major input signals for the heat recovery device are configured as follows:
@@ -289,7 +293,7 @@ The outdoor temperature, <code>TOut.T</code>, and the temperature of the air lea
 becomes different at 6:00.
 </li>
 <li>
-Their difference becomes smaller and smaller after 6:00 and equals to <i>0</i> after 18:00.
+Their difference equals <i>0</i> after 18:00.
 </li>
 </ul>
 </html>", revisions="<html>
@@ -301,8 +305,7 @@ Buildings.Examples.Tutorial.SpaceCooling.System3</a>.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-180,-160},{120,
-            100}})),
+    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-180,-160},{120,100}})),
     __Dymola_Commands(file=
      "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ThermalWheels/Sensible/Examples/SpaceCooling.mos"
         "Simulate and plot"),

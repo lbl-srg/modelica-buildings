@@ -82,7 +82,7 @@ protected
 
 equation
   // Check if the air flows are too unbalanced
-  assert(mSup_flow - 2*mExh_flow < 0 or mExh_flow - 2*mSup_flow < 0,
+  assert(mSup_flow - 2*mExh_flow <= 0 and mExh_flow - 2*mSup_flow <= 0,
     "In " + getInstanceName() + ": The ratio of the supply flow rate to the exhaust flow rate should be in the range of [0.5, 2].",
     level=AssertionLevel.warning);
   // Calculate the average volumetric air flow and flow rate ratio.

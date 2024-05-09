@@ -76,31 +76,35 @@ model SpeedControlled
 equation
   connect(TSup.y, sou_1.T_in)
     annotation (Line(points={{-59,34},{-42,34}}, color={0,0,127}));
-  connect(sou_1.ports[1], wheUseDefCur.port_a1) annotation (Line(points={{-20,29},
-          {-10,29},{-10,16},{0,16}}, color={0,127,255}));
-  connect(wheUseDefCur.port_a2, sou_2.ports[1]) annotation (Line(points={{20,4},{
-          40,4},{40,-31},{70,-31}},  color={0,127,255}));
-  connect(wheSpe.y, wheUseDefCur.uSpe) annotation (Line(points={{-59,0},{-30,0},
-          {-30,10},{-2,10}}, color={0,0,127}));
-  connect(wheUseDefCur.port_b2, senExhTem.port_a) annotation (Line(points={{0,4},{
-          -6,4},{-6,-42},{-20,-42}},  color={0,127,255}));
+  connect(sou_1.ports[1], wheUseDefCur.port_a1) 
+    annotation (Line(points={{-20,29},
+    {-10,29},{-10,16},{0,16}}, color={0,127,255}));
+  connect(wheUseDefCur.port_a2, sou_2.ports[1]) 
+    annotation (Line(points={{20,4},{40,4},{40,-31},{70,-31}},
+    color={0,127,255}));
+  connect(wheSpe.y, wheUseDefCur.uSpe) 
+    annotation (Line(points={{-59,0},{-30,0},{-30,10},{-2,10}}, 
+    color={0,0,127}));
+  connect(wheUseDefCur.port_b2, senExhTem.port_a) 
+    annotation (Line(points={{0,4},{-6,4},{-6,-42},{-20,-42}},  color={0,127,255}));
   connect(senExhTem.port_b, sin_2.ports[1])
     annotation (Line(points={{-40,-42},{-48,-42},{-48,-41},{-58,-41}},
-                                                   color={0,127,255}));
-  connect(senSupTem.port_b, wheUseDefCur.port_b1) annotation (Line(points={{40,30},
-          {28,30},{28,16},{20,16}}, color={0,127,255}));
-  connect(wheDefCur.port_a1, sou_1.ports[2]) annotation (Line(points={{0,-14},{
-          -14,-14},{-14,31},{-20,31}}, color={0,127,255}));
-  connect(wheDefCur.port_b1, sin_1.ports[1]) annotation (Line(points={{20,-14},
-          {36,-14},{36,22},{64,22},{64,29},{72,29}}, color={0,127,255}));
-  connect(wheDefCur.port_b2, sin_2.ports[2]) annotation (Line(points={{0,-26},{
-          -48,-26},{-48,-39},{-58,-39}}, color={0,127,255}));
-  connect(wheDefCur.port_a2, sou_2.ports[2]) annotation (Line(points={{20,-26},
-          {52,-26},{52,-29},{70,-29}}, color={0,127,255}));
-  connect(wheDefCur.uSpe, wheSpe.y) annotation (Line(points={{-2,-20},{-30,-20},
-          {-30,0},{-59,0}}, color={0,0,127}));
-  connect(senSupTem.port_a, sin_1.ports[2]) annotation (Line(points={{60,30},{
-          66,30},{66,31},{72,31}}, color={0,127,255}));
+    color={0,127,255}));
+  connect(senSupTem.port_b, wheUseDefCur.port_b1) 
+    annotation (Line(points={{40,30},{28,30},{28,16},{20,16}}, color={0,127,255}));
+  connect(wheDefCur.port_a1, sou_1.ports[2]) 
+    annotation (Line(points={{0,-14},{-14,-14},{-14,31},{-20,31}}, color={0,127,255}));
+  connect(wheDefCur.port_b1, sin_1.ports[1]) \
+    annotation (Line(points={{20,-14},{36,-14},{36,22},{64,22},{64,29},{72,29}}, 
+    color={0,127,255}));
+  connect(wheDefCur.port_b2, sin_2.ports[2]) annotation (Line(points={{0,-26},{-48,-26},{-48,-39},{-58,-39}}, 
+    color={0,127,255}));
+  connect(wheDefCur.port_a2, sou_2.ports[2]) annotation (Line(points={{20,-26},{52,-26},{52,-29},{70,-29}}, 
+    color={0,127,255}));
+  connect(wheDefCur.uSpe, wheSpe.y) annotation (Line(points={{-2,-20},{-30,-20},{-30,0},{-59,0}},
+    color={0,0,127}));
+  connect(senSupTem.port_a, sin_1.ports[2]) annotation (Line(points={{60,30},{66,30},{66,31},{72,31}}, 
+    color={0,127,255}));
 annotation(experiment(Tolerance=1e-6, StopTime=360),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ThermalWheels/Sensible/Validation/SpeedControlled.mos"
         "Simulate and plot"),

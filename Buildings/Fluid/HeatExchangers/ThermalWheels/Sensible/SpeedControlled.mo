@@ -3,10 +3,11 @@ model SpeedControlled
   "Sensible heat recovery wheel with a variable speed drive"
   extends
     Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.PartialWheel;
-  parameter Boolean defaultMotorEfficiencyCurve = true "= true, use the default motor efficiency curve"
+  parameter Boolean defaultMotorEfficiencyCurve = true
+    "Set to true for using the default motor efficiency curve, or false for using the user-defined motor efficiency curve"
     annotation (Dialog(group="Efficiency"));
   parameter Real table[:,:]=[0.8,1]
-    "Table of motor power efficiency as a function of the wheel speed ratio (first column)"
+    "Table of user-defined motor efficiency curve:(first column:the wheel speed ratio, second column:motor power efficiency)"
     annotation (Dialog(group="Efficiency", enable = not defaultMotorEfficiencyCurve));
   final parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot
@@ -14,7 +15,7 @@ model SpeedControlled
         Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve(
           P_nominal=P_nominal,
           eta_max=1)
-    "default motor efficiency  vs. whell speed ratio";
+    "Default motor efficiency curve";
   final parameter Real xSpe[:] = if defaultMotorEfficiencyCurve then motorEfficiency_default.y else table[:,1]
     "x-axis support points of the power efficiency curve"
     annotation (Dialog(group="Efficiency"));
@@ -37,18 +38,18 @@ protected
     annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
 
 initial equation
-  assert(table[end,1] < 1,
+  assert(table[end,1] < 1 or defaultMotorEfficiencyCurve,
          "In " + getInstanceName() + ": Power efficiency curve is wrong. 
          No need to define efficiency for the nominal condition",
          level=AssertionLevel.error)
-         "Check if the effiency for the nominal conidtion is defined.";
+         "Check if the motor efficiency for the nominal condition is defined in the user-defined curve";
 equation
   connect(P, PEle.y)
     annotation (Line(points={{120,-90},{81,-90}}, color={0,0,127}));
-  connect(port_a1, hex.port_a1) annotation (Line(points={{-180,80},{-60,80},{-60,
-          6},{-10,6}}, color={0,127,255}));
+  connect(port_a1, hex.port_a1) annotation (Line(points={{-180,80},{-60,80},{-60,6},
+    {-10,6}}, color={0,127,255}));
   connect(hex.port_a2, port_a2) annotation (Line(points={{10,-6},{60,-6},{60,-60},
-          {100,-60}}, color={0,127,255}));
+    {100,-60}}, color={0,127,255}));
   connect(effCal.uSpe, uSpe)
     annotation (Line(points={{-102,0},{-200,0}}, color={0,0,127}));
 annotation (

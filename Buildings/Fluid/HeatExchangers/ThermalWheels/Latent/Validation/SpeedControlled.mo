@@ -92,16 +92,17 @@ equation
     annotation (Line(points={{-20,31},{-10,31},{-10,30},{2,30}},
     color={0,127,255}));
   connect(wheUseDefCur.port_a2, sou_2.ports[1])
-    annotation (Line(points={{22,18},
-    {36,18},{36,-41},{70,-41}}, color={0,127,255}));
+    annotation (Line(points={{22,18},{36,18},{36,-41},{70,-41}},
+    color={0,127,255}));
   connect(wheSpe.y, wheUseDefCur.uSpe)
-    annotation (Line(points={{-59,0},{-10,0},
-    {-10,24},{0,24}}, color={0,0,127}));
+    annotation (Line(points={{-59,0},{-10,0},{-10,24},{0,24}},
+    color={0,0,127}));
   connect(senExhTem.port_b, sin_2.ports[1])
     annotation (Line(points={{-40,-40},{-50,-40},{-50,-41},{-58,-41}},
     color={0,127,255}));
   connect(senExhTem.port_a, wheUseDefCur.port_b2)
-    annotation (Line(points={{-20,-40},{-4,-40},{-4,18},{2,18}}, color={0,127,255}));
+    annotation (Line(points={{-20,-40},{-4,-40},{-4,18},{2,18}},
+    color={0,127,255}));
   connect(senSupTem.port_b, sin_1.ports[2])
     annotation (Line(points={{60,30},{66,30},{66,31},{70,31}},
     color={0,127,255}));

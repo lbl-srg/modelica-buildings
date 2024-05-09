@@ -3,7 +3,7 @@ model BypassDampers
   "Enthalpy recovery wheel with bypass dampers"
   extends
     Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.PartialWheel;
-  parameter Modelica.Units.SI.PressureDifference dpDam_nominal(displayUnit="Pa") = 20
+  parameter Modelica.Units.SI.PressureDifference dpDamper_nominal(displayUnit="Pa") = 20
     "Nominal pressure drop of supply air dampers"
     annotation (Dialog(group="Nominal condition"));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uBypDamPos(
@@ -20,27 +20,27 @@ model BypassDampers
   Buildings.Fluid.Actuators.Dampers.Exponential bypDamSup(
     redeclare package Medium = Medium,
     final m_flow_nominal=mSup_flow_nominal,
-    final dpDamper_nominal=dpDam_nominal)
+    final dpDamper_nominal=dpDamper_nominal)
     "Supply air bypass damper"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
   Buildings.Fluid.Actuators.Dampers.Exponential damSup(
     redeclare package Medium = Medium,
     final m_flow_nominal=mSup_flow_nominal,
-    final dpDamper_nominal=dpDam_nominal)
+    final dpDamper_nominal=dpDamper_nominal)
     "Supply air damper"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},rotation=0,origin={-90,36})));
   Buildings.Fluid.Actuators.Dampers.Exponential damExh(
     redeclare package Medium = Medium,
     final m_flow_nominal=mExh_flow_nominal,
-    final dpDamper_nominal=dpDam_nominal)
+    final dpDamper_nominal=dpDamper_nominal)
     "Exhaust air damper"
     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},rotation=-90,origin={40,-44})));
   Buildings.Fluid.Actuators.Dampers.Exponential bypDamExh(
     redeclare package Medium = Medium,
     final m_flow_nominal=mExh_flow_nominal,
-    final dpDamper_nominal=dpDam_nominal)
+    final dpDamper_nominal=dpDamper_nominal)
     "Exhaust air bypass damper"
     annotation (Placement(transformation(extent={{0,-70},{-20,-50}})));
 protected
@@ -60,34 +60,34 @@ protected
 equation
   connect(sub.y, damSup.y)
     annotation (Line(points={{-78,100},{20,100},{20,54},{-90,54},{-90,48}},
-        color={0,0,127}));
+    color={0,0,127}));
   connect(damExh.y,sub. y)
     annotation (Line(points={{28,-44},{20,-44},{20,100},{-78,100}}, color={0,0,127}));
   connect(bypDamSup.y, uBypDamPos)
     annotation (Line(points={{-50,92},{-50,140},{-202,140}}, color={0,0,127}));
   connect(damSup.port_b, hex.port_a1)
     annotation (Line(points={{-80,36},{-30,36},{-30,6},{-10,6}},
-        color={0,127,255}));
+    color={0,127,255}));
   connect(bypDamExh.y, uBypDamPos)
     annotation (Line(points={{-10,-48},{-10,-30},{30,-30},{30,140},{-202,140}},
-        color={0,0,127}));
+    color={0,0,127}));
   connect(sub.u2, uBypDamPos)
     annotation (Line(points={{-102,94},{-160,94},{-160,140},{-202,140}},
-        color={0,0,127}));
+    color={0,0,127}));
   connect(uni.y, sub.u1)
     annotation (Line(points={{-119,120},{-110,120},{-110,106},{-102,106}},
-        color={0,0,127}));
+    color={0,0,127}));
   connect(uRot, booleanToReal.u)
     annotation (Line(points={{-200,0},{-162,0}}, color={255,0,255}));
   connect(booleanToReal.y, effCal.uSpe)
     annotation (Line(points={{-139,0},{-120,0},{-120,0},{-102,0}},
-        color={0,0,127}));
-  connect(PEle.y, P) annotation (Line(points={{-139,-80},{80,-80},{80,-90},{120,
-          -90}}, color={0,0,127}));
-  connect(PEle.u, uRot) annotation (Line(points={{-162,-80},{-168,-80},{-168,0},
-          {-200,0}}, color={255,0,255}));
-  connect(damSup.port_a, port_a1) annotation (Line(points={{-100,36},{-130,36},
-          {-130,80},{-180,80}}, color={0,127,255}));
+    color={0,0,127}));
+  connect(PEle.y, P) annotation (Line(points={{-139,-80},{80,-80},{80,-90},{120,-90}},
+    color={0,0,127}));
+  connect(PEle.u, uRot) annotation (Line(points={{-162,-80},{-168,-80},{-168,0},{-200,0}}, 
+    color={255,0,255}));
+  connect(damSup.port_a, port_a1) annotation (Line(points={{-100,36},{-130,36},{-130,80},{-180,80}}, 
+    color={0,127,255}));
   connect(damExh.port_b, hex.port_a2)
     annotation (Line(points={{40,-34},{40,-6},{10,-6}}, color={0,127,255}));
   connect(bypDamExh.port_b, port_b2)
