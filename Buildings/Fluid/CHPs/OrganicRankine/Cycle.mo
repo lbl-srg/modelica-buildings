@@ -426,7 +426,7 @@ line and therefore can be found as point <i>A</i>.
 the expander inlet or outlet depending on the shape of the cycle.
 The isobaric lines are not straight in this section, but they are
 assumed linear so that the method for <i>B</i> can be applied using the
-saturated vapour line and the reference line, albeit with less accuracy.
+saturated vapor line and the reference line, albeit with less accuracy.
 </li>
 </ul>
 <p>
@@ -445,7 +445,7 @@ alt=\"ComputationPaths\" width=\"1200\" height=\"300\"/></p>
 <ul>
 <li>
 A dry cycle is a cycle where the expansion starts from
-the saturated vapour line and ends in the superheated vapour region.
+the saturated vapor line and ends in the superheated vapor region.
 For either a dry fluid (a) or a wet fluid (b) undergoing such a cycle,
 <p align=\"center\" style=\"font-style:italic;\">
 h<sub>exp,out</sub> - h<sub>exp,in</sub>
@@ -455,7 +455,7 @@ where <i>h<sub>exp,out</sub></i> is solved and <i>h<sub>exp,in</sub></i> is know
 </li>
 <li>
 A wet cycle is a cycle where the expansion starts from
-the superheated vapour region and ends on the saturated vapour line.
+the superheated vapor region and ends on the saturated vapor line.
 In this scenario,
 <p align=\"center\" style=\"font-style:italic;\">
 h<sub>exp,out</sub> - h<sub>exp,in</sub>
@@ -463,7 +463,7 @@ h<sub>exp,out</sub> - h<sub>exp,in</sub>
 </p>
 where <i>h<sub>exp,out</sub></i> is known and <i>h<sub>exp,in</sub></i> is solved.
 For this fluid and this <i>&eta;<sub>exp</sub></i>,
-if the expansion started from the saturated vapour line,
+if the expansion started from the saturated vapor line,
 the outlet point would end up under the dome.
 </li>
 </ul>

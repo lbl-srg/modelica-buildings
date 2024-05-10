@@ -81,7 +81,7 @@ model InterpolateStates "Interpolate states of a working fluid"
       xd = pro.T,
       yd = pro.sSatVap,
       d = sSatVapDer_T)
-    "Specific entropy of saturated vapour at the condenser";
+    "Specific entropy of saturated vapor at the condenser";
   Modelica.Units.SI.SpecificEntropy sRefCon =
     Buildings.Utilities.Math.Functions.interpolate(
       u = pCon,
@@ -95,7 +95,7 @@ model InterpolateStates "Interpolate states of a working fluid"
       xd = pro.T,
       yd = pro.sSatVap,
       d = sSatVapDer_T)
-    "Specific entropy of saturated vapour at evaporating temperature";
+    "Specific entropy of saturated vapor at evaporating temperature";
   Modelica.Units.SI.SpecificEnthalpy hSatVapEva(
     displayUnit = "kJ/kg") =
     Buildings.Utilities.Math.Functions.interpolate(
@@ -103,7 +103,7 @@ model InterpolateStates "Interpolate states of a working fluid"
       xd = pro.T,
       yd = pro.hSatVap,
       d = hSatVapDer_T)
-    "Specific enthalpy of saturated vapour at evaporating temperature";
+    "Specific enthalpy of saturated vapor at evaporating temperature";
   Modelica.Units.SI.SpecificEntropy sRefEva =
     Buildings.Utilities.Math.Functions.interpolate(
       u = pEva,
@@ -118,7 +118,7 @@ model InterpolateStates "Interpolate states of a working fluid"
       xd = pro.T,
       yd = pro.hSatVap,
       d = hSatVapDer_T)
-    "Specific enthalpy of saturated vapour at the condensing temperature";
+    "Specific enthalpy of saturated vapor at the condensing temperature";
   Modelica.Units.SI.SpecificEnthalpy hRefCon(
     displayUnit = "kJ/kg") =
     Buildings.Utilities.Math.Functions.interpolate(
@@ -175,8 +175,8 @@ protected
 
   // Intermediate property computation
   // 1. Dry cycle
-  //      expander inlet = saturated vapour at evaporating pressure (known),
-  //      expander outlet = superheated vapour at condensing pressure (solved).
+  //      expander inlet = saturated vapor at evaporating pressure (known),
+  //      expander outlet = superheated vapor at condensing pressure (solved).
   Modelica.Units.SI.SpecificEntropy sExpOutDryIse = sSatVapEva
     "Specific entropy at isentropic expander outlet, assuming dry cycle";
   Modelica.Units.SI.SpecificEnthalpy hExpOutDryIse(
@@ -192,8 +192,8 @@ protected
     hSatVapEva - (hSatVapEva - hExpOutDryIse) * etaExp
     "Specific enthalpy at expander outlet, assuming dry cycle";
   // 2. Wet cycle
-  //      expander inlet = superheated vapour at evaporating pressure (solved),
-  //      expander outlet = saturated vapour at condensing pressure (known).
+  //      expander inlet = superheated vapor at evaporating pressure (solved),
+  //      expander outlet = saturated vapor at condensing pressure (known).
   Modelica.Units.SI.SpecificEntropy sExpInlWetIse = sSatVapCon
     "Specific entropy at isentropic expander inlet, assuming wet cycle";
   Modelica.Units.SI.SpecificEnthalpy hExpInlWetIse(
@@ -234,7 +234,7 @@ protected
       x = pro.T,
       y = pro.sSatVap,
       ensureMonotonicity = false)
-  "Derivative of saturated vapour entropy vs. temperature for cubic spline";
+  "Derivative of saturated vapor entropy vs. temperature for cubic spline";
   final parameter Real sRefDer_p[pro.n]=
     Buildings.Utilities.Math.Functions.splineDerivatives(
       x = pro.p,
@@ -252,7 +252,7 @@ protected
       x = pro.T,
       y = pro.hSatVap,
       ensureMonotonicity = false)
-  "Derivative of saturated vapour enthalpy vs. temperature for cubic spline";
+  "Derivative of saturated vapor enthalpy vs. temperature for cubic spline";
   final parameter Real hRefDer_p[pro.n]=
     Buildings.Utilities.Math.Functions.splineDerivatives(
       x = pro.p,

@@ -13,15 +13,15 @@ record Generic "Generic data record for working fluid properties"
   parameter Modelica.Units.SI.SpecificEntropy sSatLiq[n]
     "Specific entropy of saturated liquid";
   parameter Modelica.Units.SI.SpecificEntropy sSatVap[n]
-    "Specific entropy of saturated vapour";
+    "Specific entropy of saturated vapor";
   parameter Modelica.Units.SI.SpecificEntropy sRef[n]
-    "Specific entropy of superheated vapour reference line";
+    "Specific entropy of superheated vapor reference line";
   parameter Modelica.Units.SI.SpecificEnthalpy hSatLiq[n]
     "Specific enthalpy of saturated liquid";
   parameter Modelica.Units.SI.SpecificEnthalpy hSatVap[n]
-    "Specific enthalpy of saturated vapour";
+    "Specific enthalpy of saturated vapor";
   parameter Modelica.Units.SI.SpecificEnthalpy hRef[n]
-    "Specific enthalpy of superheated vapour reference line";
+    "Specific enthalpy of superheated vapor reference line";
 
   final parameter Integer n = size(T,1)
     "Array length";
