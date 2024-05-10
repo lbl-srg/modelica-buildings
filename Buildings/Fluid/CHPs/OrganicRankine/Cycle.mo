@@ -238,7 +238,7 @@ The Thermodynamic Properties section of this document details how these
 state points are found.
 </p>
 <p>
-An important underlying assumption is that all heat is dissipated, i.e.,
+An important assumption is that all heat is dissipated, i.e.,
 the cycle is not controlled thermal load.
 </p>
 <p align=\"center\">
