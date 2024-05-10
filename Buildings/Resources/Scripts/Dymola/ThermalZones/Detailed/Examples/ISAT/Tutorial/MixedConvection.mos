@@ -1,4 +1,4 @@
-simulateModel("Buildings.ThermalZones.Detailed.Examples.ISAT.Tutorial.MixedConvection", stopTime=180, method="Cvode", tolerance=1e-06, resultFile="MixedConvectionISAT");
+simulateModel("Buildings.ThermalZones.Detailed.Examples.ISAT.Tutorial.MixedConvection", stopTime=86400, method="Cvode", tolerance=1e-06, resultFile="MixedConvectionISAT");
 createPlot(id = 1,
  position = {0, 0, 2019, 1080},
  y = {"roo.yCFD[1]"},
@@ -17,7 +17,7 @@ createPlot(id = 1,
 createPlot(id = 1,
  position = {0, 0, 2019, 1080},
  y = {"roo.yCFD[2]"},
- range = {0.0, 1000.0, 0.08499999999999999, 0.11499999999999999},
+ range = {0.0, 1000.0, 0.085, 0.115},
  autoscale = true,
  autoerase = true,
  autoreplot = true,
