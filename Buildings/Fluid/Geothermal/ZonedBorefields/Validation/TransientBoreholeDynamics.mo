@@ -50,8 +50,9 @@ model TransientBoreholeDynamics "Description"
     soiDat=soiDat,
     conDat=conDat) "Borefield data"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Sources.Boundary_ph sin[nZon](redeclare each package Medium =
-        Medium, each nPorts=1) "Sink"
+  Sources.Boundary_ph sin[nZon](
+    redeclare each package Medium = Medium,
+    each nPorts=1) "Sink"
     annotation (Placement(transformation(extent={{80,20},{100,40}})));
   HeatExchangers.HeaterCooler_u hea[nZon](
     redeclare each package Medium = Medium,
