@@ -141,10 +141,10 @@ model System3
 //----------------------------------------------------------------------------//
 
   Buildings.Fluid.Movers.FlowControlled_m_flow pumBoi(
-      redeclare package Medium = MediumW,
-      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    redeclare package Medium = MediumW,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     nominalValuesDefineDefaultPressureCurve=true,
-      m_flow_nominal=mBoi_flow_nominal) "Pump for boiler"
+    m_flow_nominal=mBoi_flow_nominal) "Pump for boiler"
                         annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
