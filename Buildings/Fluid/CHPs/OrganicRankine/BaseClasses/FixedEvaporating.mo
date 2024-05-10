@@ -76,13 +76,13 @@ model FixedEvaporating
             {120,-70}})));
   Modelica.Blocks.Interfaces.RealOutput PEle(
     final quantity="Power",
-    final unit="W") = mWor_flow * (hExpInl - hExpOut)
-    "Electrical power output from the expander" annotation (Placement(
+    final unit="W")
+    "Electrical power generation from the expander" annotation (Placement(
         transformation(extent={{100,20},{140,60}}),  iconTransformation(extent={{100,30},
             {120,50}})));
   Modelica.Blocks.Interfaces.RealOutput PPum(
     final quantity="Power",
-    final unit="W") = mWor_flow * (hPumOut - hPumInl)
+    final unit="W")
     "Electrical power consumption of the pump" annotation (Placement(
         transformation(extent={{100,-60},{140,-20}}),iconTransformation(extent={
             {100,-50},{120,-30}})));
@@ -106,14 +106,8 @@ model FixedEvaporating
   Modelica.Units.SI.ThermodynamicTemperature TColPin(
     start = 300)
     "Cold fluid temperature at pinch point";
-  Modelica.Units.SI.MassFlowRate mWor_flow =
-    if ena and hys.y
-    then
-      Buildings.Utilities.Math.Functions.smoothMin(
-      x1=mWor_flow_internal,
-      x2=mWor_flow_max,
-      deltaX=mWor_flow_min*1E-2)
-    else 0 "Mass flow rate of the working fluid"
+  Modelica.Units.SI.MassFlowRate mWor_flow
+    "Mass flow rate of the working fluid"
     annotation (Dialog(group="Cycle"));
   Modelica.Blocks.Logical.Hysteresis hys(
     uLow = mWor_flow_min,
@@ -161,7 +155,6 @@ level=AssertionLevel.warning);
   = (hPinEva - hPumOut) * (THotIn - THotOut_internal);
   dTPinEva_set = THotPin_internal - TWorEva;
 
-
   // Condenser
   QCon_flow = mCol_flow * cpCol * (TColOut - TColIn);
   QCon_flow = mWor_flow * (hExpOut - hPumInl);
@@ -169,6 +162,18 @@ level=AssertionLevel.warning);
   (TColPin - TColIn) * (hExpOut - hPumInl)
   = (hPinCon - hPumInl) * (TColOut - TColIn);
   dTPinCon = TWorCon - TColPin;
+
+  // Other components
+  PEle = mWor_flow * (hExpInl - hExpOut);
+  PPum = mWor_flow * (hPumOut - hPumInl);
+  mWor_flow =
+    if ena and hys.y
+    then
+      Buildings.Utilities.Math.Functions.smoothMin(
+      x1=mWor_flow_internal,
+      x2=mWor_flow_max,
+      deltaX=mWor_flow_min*1E-2)
+    else 0;
 
   annotation(defaultComponentName="cyc",
   Documentation(info="<html>
