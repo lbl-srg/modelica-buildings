@@ -10,7 +10,7 @@ model SeriesConnectedZones "Description"
 
   Buildings.Fluid.Geothermal.ZonedBorefields.OneUTube borHol(
     redeclare package Medium = Medium,
-    nSeg=10,
+    nSeg=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     borFieDat=borFieDat,
     TExt0_start=T_start,

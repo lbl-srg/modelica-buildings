@@ -68,8 +68,8 @@ model SteadyStateBoreholeDynamics "Description"
   Modelica.Blocks.Sources.Pulse heaRat[nZon](
     each amplitude=1,
     each width=50,
-    period=3600.*24*60*{1,2,4,8},
-    startTime=3600.*24*30*{0,1,3,7}) "Heating rate into each zone"
+    period=3600.*24*60*{1,2},
+    startTime=3600.*24*30*{0,1}) "Heating rate into each zone"
     annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
   parameter ZonedBorefields.Data.Configuration.Example conDat
     "Borefield configuration data"
