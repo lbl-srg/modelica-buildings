@@ -385,6 +385,9 @@ a superheated vapor line (called the reference line).
 The values of these support points were obtained using CoolProp
 (<a href=\"https://www.coolprop.org\">https://www.coolprop.org</a>;
 Bell et al., 2014) through its Python wrapper and stored as Modelica records.
+The records included in this library have ten data points for each line.
+It is recommended to have at least four points to take full advantage of
+the cubit Hermite spline interpolation that is set up in this model.
 </p>
 <p>
 Thermodynamic state points in the cycle are determined by various schemes
