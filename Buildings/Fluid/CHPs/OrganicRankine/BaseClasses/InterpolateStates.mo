@@ -159,13 +159,13 @@ model InterpolateStates "Interpolate states of a working fluid"
 
   // Energy transfer
   Modelica.Units.SI.SpecificEnergy qEva = hExpInl - hPumOut
-    "Evaporator specific energy transfer (positive)";
+    "Evaporator specific energy transfer";
   Modelica.Units.SI.SpecificEnergy qCon = hPumInl - hExpOut
-    "Condenser specific energy transfer (negative)";
+    "Condenser specific energy transfer";
   Modelica.Units.SI.SpecificEnergy wExp = hExpOut - hExpInl
-    "Expander specific work (negative)";
+    "Expander specific work";
   Modelica.Units.SI.SpecificEnergy wPum = (pEva - pCon) / (rhoLiq * etaPum)
-    "Pump specific work (positive)";
+    "Pump specific work";
   Modelica.Units.SI.Efficiency etaThe(min=0) =
     (- wExp - wPum) / qEva "Thermal efficiency";
 

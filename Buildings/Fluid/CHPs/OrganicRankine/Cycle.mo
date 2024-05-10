@@ -80,20 +80,20 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
 
   Modelica.Blocks.Interfaces.RealOutput PEle(
     final quantity="Power",
-    final unit="W") "Electrical power output from the expander"
+    final unit="W") "Electrical power of the expander"
     annotation (Placement(
         transformation(extent={{100,10},{140,50}}), iconTransformation(extent={{100,20},
             {120,40}})));
   Modelica.Blocks.Interfaces.RealOutput QEva_flow(
     final quantity="HeatFlowRate",
-    final unit="W") "Evaporator heat flow rate (positive)" annotation (
+    final unit="W") "Evaporator heat flow rate" annotation (
       Placement(transformation(extent={{100,70},{140,110}}),iconTransformation(
           extent={{-10,-10},{10,10}},
         rotation=0,
         origin={110,90})));
   Modelica.Blocks.Interfaces.RealOutput QCon_flow(
     final quantity="HeatFlowRate",
-    final unit="W") "Condenser heat flow rate (positive)" annotation (
+    final unit="W") "Condenser heat flow rate" annotation (
       Placement(transformation(extent={{100,-110},{140,-70}}),
         iconTransformation(extent={{-10,-10},{10,10}},
         rotation=0,
