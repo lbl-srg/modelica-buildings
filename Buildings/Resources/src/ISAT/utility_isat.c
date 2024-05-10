@@ -265,7 +265,7 @@ REAL average_room_temp(PARA_DATA *para, REAL **var) {
 	ffd_log(msg, FFD_ERROR);
 	return 0;
   }
-}/* End of average_volume_temp( ) */
+}/* End of average_room_temp( ) */
 
 /******************************************************************************
 |  Calculate volume weighted averaged value of temperature in a space
