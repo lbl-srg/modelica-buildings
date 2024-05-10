@@ -579,7 +579,8 @@ this indicates that the model is correct.
 <ul>
 <li>
 April 9, 2024, by Hongxiang Fu:<br/>
-Added nominal curve specification to suppress warning.
+Specified <code>nominalValuesDefineDefaultPressureCurve=true</code>
+in the mover component to suppress a warning.
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3819\">#3819</a>.
 </li>
