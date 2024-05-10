@@ -158,11 +158,6 @@ protected
   Modelica.Blocks.Sources.RealExpression expMCol_flow(y=m2_flow)
     "Expression for condenser cold fluid flow rate"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Modelica.Blocks.Math.Gain gai(k=-1)
-    "Change the sign of evaporator heat flow rate"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=180,
-        origin={60,40})));
 equation
   connect(preHeaFloEva.port, vol1.heatPort) annotation (Line(points={{19,40},{-16,
           40},{-16,60},{-10,60}}, color={191,0,0}));
@@ -178,11 +173,6 @@ equation
           {-30,-4},{-11,-4}}, color={0,0,127}));
   connect(expMCol_flow.y, cyc.mCol_flow) annotation (Line(points={{-39,-30},{-20,
           -30},{-20,-8},{-11,-8}}, color={0,0,127}));
-  connect(cyc.QEva_flow, gai.u)
-    annotation (Line(points={{11,8},{80,8},{80,40},{72,40}},
-                                                     color={0,0,127}));
-  connect(gai.y, preHeaFloEva.Q_flow) annotation (Line(points={{49,40},{39,40}},
-                           color={0,0,127}));
   connect(cyc.PEle, PEle) annotation (Line(points={{11,4},{84,4},{84,30},{120,30}},
         color={0,0,127}));
   connect(ena, cyc.ena)
@@ -195,6 +185,8 @@ equation
                            color={255,0,255}));
   connect(cyc.PPum, PPum) annotation (Line(points={{11,-4},{84,-4},{84,-30},{120,
           -30}}, color={0,0,127}));
+  connect(cyc.QEva_flow, preHeaFloEva.Q_flow)
+    annotation (Line(points={{11,8},{80,8},{80,40},{39,40}}, color={0,0,127}));
   annotation (defaultComponentName = "orc",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Line(

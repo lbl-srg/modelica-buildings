@@ -141,16 +141,16 @@ If this is intended, set useLowCondenserPressureWarning = false to turn off this
 level=AssertionLevel.warning);
 
   // Evaporator
-  QEva_flow = mHot_flow * cpHot * (THotIn - THotOut);
-  QEva_flow = mWor_flow * (hExpInl - hPumOut);
+  QEva_flow = mHot_flow * cpHot * (THotOut - THotIn);
+  QEva_flow = mWor_flow * (hPumOut - hExpInl);
   // Pinch point
   (THotPin - THotOut) * (hExpInl - hPumOut)
   = (hPinEva - hPumOut) * (THotIn - THotOut);
   dTPinEva = THotPin - TWorEva;
 
   // Evaporator internal computation
-  QEva_flow_internal = mHot_flow * cpHot * (THotIn - THotOut_internal);
-  QEva_flow_internal = mWor_flow_internal * (hExpInl - hPumOut);
+  QEva_flow_internal = mHot_flow * cpHot * (THotOut_internal - THotIn);
+  QEva_flow_internal = mWor_flow_internal * (hPumOut - hExpInl);
   (THotPin_internal - THotOut_internal) * (hExpInl - hPumOut)
   = (hPinEva - hPumOut) * (THotIn - THotOut_internal);
   dTPinEva_set = THotPin_internal - TWorEva;
@@ -164,7 +164,7 @@ level=AssertionLevel.warning);
   dTPinCon = TWorCon - TColPin;
 
   // Other components
-  PEle = mWor_flow * (hExpInl - hExpOut);
+  PEle = mWor_flow * (hExpOut - hExpInl);
   PPum = mWor_flow * (hPumOut - hPumInl);
   mWor_flow =
     if ena and hys.y
