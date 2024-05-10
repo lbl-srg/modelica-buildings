@@ -56,8 +56,7 @@ model ORCHotWater "ORC that outputs hot water at a fixed temperature"
     Ni=0.2,
     initType=Modelica.Blocks.Types.Init.InitialOutput,
     y_start=0,
-    reverseActing=false)
-                        "PI controller"
+    reverseActing=false) "PI controller"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Modelica.Blocks.Sources.Constant TWatOut_set(k=55 + 273.15)
     "Set point of hot water output"
@@ -97,8 +96,7 @@ model ORCHotWater "ORC that outputs hot water at a fixed temperature"
     use_inputFilter=false,
     final m_flow_nominal=mCol_flow_nominal,
     final dpValve_nominal=dpValCol_nominal,
-    final dpFixed_nominal=fill(dpCon_nominal, 2))
-                                                 "Control valve"
+    final dpFixed_nominal=fill(dpCon_nominal, 2)) "Control valve"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
