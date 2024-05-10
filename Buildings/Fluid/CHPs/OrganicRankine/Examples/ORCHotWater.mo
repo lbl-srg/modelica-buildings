@@ -41,7 +41,7 @@ model ORCHotWater "ORC that outputs hot water at a fixed temperature"
     redeclare final package Medium = MediumHot,
     m_flow=mHot_flow_nominal,
     T=423.15,
-    nPorts=1)      "Evaporator hot fluid source"
+    nPorts=1) "Evaporator hot fluid source"
     annotation (Placement(transformation(extent={{-180,80},{-160,100}})));
   Buildings.Fluid.Sources.Boundary_pT sinHot(
     redeclare final package Medium = MediumHot,
@@ -60,20 +60,22 @@ model ORCHotWater "ORC that outputs hot water at a fixed temperature"
   Modelica.Blocks.Sources.Constant TWatOut_set(k=55 + 273.15)
     "Set point of hot water output"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
-  Buildings.Fluid.Sources.Boundary_pT       colBou(
+  Buildings.Fluid.Sources.Boundary_pT colBou(
     redeclare final package Medium = MediumCol,
     use_T_in=true,
     nPorts=2) "Cold fluid boundary conditions"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={110,-60})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTWatSup(redeclare final package
-      Medium = MediumCol, m_flow_nominal=mCol_flow_nominal,
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTWatSup(
+    redeclare final package Medium = MediumCol,
+    m_flow_nominal=mCol_flow_nominal,
     T_start=TCol_start)
     "Water supply temperature" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={70,-80})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTWatRet(redeclare final package
-      Medium = MediumCol, m_flow_nominal=mCol_flow_nominal,
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTWatRet(
+    redeclare final package Medium = MediumCol,
+    m_flow_nominal=mCol_flow_nominal,
     T_start=TCol_start)
     "Water return temperature" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -93,7 +95,8 @@ model ORCHotWater "ORC that outputs hot water at a fixed temperature"
     use_inputFilter=false,
     final m_flow_nominal=mCol_flow_nominal,
     final dpValve_nominal=dpValCol_nominal,
-    final dpFixed_nominal=fill(dpCon_nominal, 2))    "Control valve"
+    final dpFixed_nominal=fill(dpCon_nominal, 2))
+                                                 "Control valve"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
@@ -105,7 +108,7 @@ model ORCHotWater "ORC that outputs hot water at a fixed temperature"
     addPowerToMedium=false,
     m_flow_nominal=mCol_flow_nominal,
     dp_nominal=dpCon_nominal + dpValCol_nominal,
-    m_flow_start=0)                              "Cooling water pump"
+    m_flow_start=0) "Cooling water pump"
     annotation (Placement(transformation(extent={{-100,-50},{-120,-30}})));
   Buildings.Fluid.FixedResistances.Junction spl(
     redeclare final package Medium = MediumCol,
@@ -113,7 +116,7 @@ model ORCHotWater "ORC that outputs hot water at a fixed temperature"
     final dp_nominal=fill(0,3),
     final m_flow_nominal=mCol_flow_nominal .* {1,-1,-1},
     final from_dp=false,
-    T_start=TCol_start)     "Flow splitter"
+    T_start=TCol_start) "Flow splitter"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
@@ -130,7 +133,7 @@ model ORCHotWater "ORC that outputs hot water at a fixed temperature"
   Buildings.Fluid.Sensors.TemperatureTwoPort senTColOut(
     redeclare final package Medium = MediumCol,
     m_flow_nominal=mCol_flow_nominal,
-    T_start=TCol_start)                              annotation (Placement(
+    T_start=TCol_start) annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
@@ -161,8 +164,8 @@ equation
     annotation (Line(points={{60,-40},{50,-40}}, color={0,127,255}));
   connect(spl.port_3, val.port_3) annotation (Line(points={{40,-70},{40,-50}},
                               color={0,127,255}));
-  connect(spl.port_2, senTWatSup.port_a) annotation (Line(points={{50,-80},{60,
-          -80}},                     color={0,127,255}));
+  connect(spl.port_2, senTWatSup.port_a) annotation (Line(points={{50,-80},{60,-80}},
+                                     color={0,127,255}));
   connect(conPI.y, val.y)
     annotation (Line(points={{61,10},{80,10},{80,-20},{40,-20},{40,-28}},
                                                         color={0,0,127}));
@@ -170,8 +173,8 @@ equation
                           color={255,0,255}));
   connect(and1.y, orc.ena) annotation (Line(points={{-119,50},{-54,50},{-54,-34},
           {-38,-34}},color={255,0,255}));
-  connect(orc.port_b2,senTColOut. port_a) annotation (Line(points={{-40,-40},{
-          -60,-40}},                color={0,127,255}));
+  connect(orc.port_b2,senTColOut. port_a) annotation (Line(points={{-40,-40},{-60,
+          -40}},                    color={0,127,255}));
   connect(senTColOut.port_b, pum.port_a)
     annotation (Line(points={{-80,-40},{-100,-40}},  color={0,127,255}));
   connect(senTColOut.T, conPI.u_m) annotation (Line(points={{-70,-29},{-70,-12},
@@ -197,13 +200,14 @@ annotation(experiment(StopTime=900,Tolerance=1E-6),
   "Simulate and plot"),
   Documentation(info="<html>
 <p>
-This example model demonstrate how
+This example model demonstrates how
 <a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.Cycle\">
 Buildings.Fluid.CHPs.OrganicRankine.Cycle</a>
-can be integrated inside a system.
-The three-way valve is controlled to track hot water (cold fluid of the ORC)
-output temperature at a set point of 55 C which is used as hot water supply.
-The system and control are similar to that is implemented in
+can be integrated in a system.
+The three-way valve is controlled to track the hot water
+output temperature, which is the cold fluid of the ORC,
+at a set point of 55&deg;C.
+The system and control are similar to the one implemented in
 <a href=\"Modelica://Buildings.DHC.ETS.Combined.Subsystems.Validation.Chiller\">
 Buildings.DHC.ETS.Combined.Subsystems.Validation.Chiller</a>.
 </p>

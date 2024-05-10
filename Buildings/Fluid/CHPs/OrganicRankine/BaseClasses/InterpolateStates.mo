@@ -4,7 +4,7 @@ model InterpolateStates "Interpolate states of a working fluid"
   // Input properties
   replaceable parameter Buildings.Fluid.CHPs.OrganicRankine.Data.Generic pro
     "Property records of the working fluid"
-    annotation(Dialog(group="ORC inputs"),choicesAllMatching = true);
+    annotation(Dialog(group="ORC inputs"), choicesAllMatching = true);
 
   input Modelica.Units.SI.ThermodynamicTemperature TEva
     "Evaporating temperature";

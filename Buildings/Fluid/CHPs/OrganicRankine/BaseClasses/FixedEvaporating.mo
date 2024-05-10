@@ -179,12 +179,9 @@ level=AssertionLevel.warning);
   annotation(defaultComponentName="cyc",
   Documentation(info="<html>
 <p>
-Adding to
-<a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.InterpolateStates\">
-Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.InterpolateStates</a>,
-this model computes the pinch points, computes the energy exchange,
-and interfaces the input and output variables.
-The evaporating temperature is fixed as a parameter at this level.
+This model computes the pinch points and the energy exchange,
+and interfaces with the input and output variables.
+The evaporating temperature is fixed as a parameter.
 See the documentation of
 <a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.Cycle\">
 Buildings.Fluid.CHPs.OrganicRankine.Cycle</a>
