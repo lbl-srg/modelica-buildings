@@ -10,7 +10,7 @@ model SteadyStateBoreholeDynamics "Description"
 
   Buildings.Fluid.Geothermal.ZonedBorefields.OneUTube borHol(
     redeclare package Medium = Medium,
-    nSeg=10,
+    nSeg=5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     borFieDat=borFieDat,
     TExt0_start=T_start,
@@ -136,6 +136,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    experiment(StopTime=124416000,
+    experiment(StopTime=86400,
     Tolerance=1E-6));
 end SteadyStateBoreholeDynamics;

@@ -16,7 +16,8 @@ model TransientBoreholeDynamics "Description"
     TExt0_start=T_start,
     dT_dz=0,
     tLoaAgg= 864000,
-    dynFil=true, nCel = 3)
+    dynFil=true,
+    nCel = 3)
     "Borehole"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Movers.FlowControlled_m_flow pum[nZon](
