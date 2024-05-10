@@ -264,7 +264,7 @@ This difference is found from
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 (T<sub>pin,eva</sub> - T<sub>h,out</sub>)&nbsp;(h<sub>exp,in</sub> - h<sub>pum,out</sub>)
-= (T<sub>h,in</sub> - T<sub>h,out</sub>)&nbsp;(h<sub>eva,pin</sub> - h<sub>pum,out</sub>),<br/>
+= (T<sub>h,in</sub> - T<sub>h,out</sub>)&nbsp;(h<sub>pin,eva</sub> - h<sub>pum,out</sub>),<br/>
 &Delta;T<sub>pin,eva</sub> = T<sub>pin,eva</sub> - T<sub>w,eva</sub>.
 </p>
 <p>
@@ -275,8 +275,8 @@ replaced by their condenser counterparts where appropriate. Hence,
 Q&#775;<sub>con</sub> = m&#775;<sub>c</sub>&nbsp;c<sub>p,c</sub>&nbsp;(T<sub>c,in</sub> - T<sub>c,out</sub>),<br/>
 Q&#775;<sub>con</sub> = m&#775;<sub>w</sub>&nbsp;(h<sub>exp,out</sub> - h<sub>pum,in</sub>),<br/>
 (T<sub>c,pin</sub> - T<sub>c,in</sub>)&nbsp;(h<sub>exp,out</sub> - h<sub>pum,in</sub>)
-= (T<sub>c,out</sub> - T<sub>c,in</sub>)&nbsp;(h<sub>con,pin</sub> - h<sub>pum,in</sub>),<br/>
-&Delta;T<sub>con,pin</sub> = T<sub>w,con</sub> - T<sub>c,pin</sub>,
+= (T<sub>c,out</sub> - T<sub>c,in</sub>)&nbsp;(h<sub>pin,con</sub> - h<sub>pum,in</sub>),<br/>
+&Delta;T<sub>pin,con</sub> = T<sub>w,con</sub> - T<sub>c,pin</sub>,
 </p>
 <p>
 where the subscripts are
