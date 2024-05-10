@@ -17,7 +17,7 @@ model ORCHotWater "ORC that outputs hot water at a fixed temperature"
     mWor_flow_hysteresis=0.05,
     etaExp=0.8,
     etaPum=0.6) "Organic Rankine cycle"
-    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+    annotation (Placement(transformation(extent={{-40,-44},{-20,-24}})));
 
   package MediumHot = Buildings.Media.Air "Evaporator hot fluid";
   package MediumCol = Buildings.Media.Water "Condenser cold fluid";
@@ -116,8 +116,8 @@ model ORCHotWater "ORC that outputs hot water at a fixed temperature"
     T_start=TCol_start)     "Flow splitter"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=90,
-        origin={-180,-60})));
+        rotation=180,
+        origin={40,-80})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(
     realTrue = mCol_flow_nominal)
     "Constant speed primary pump control signal"
@@ -143,11 +143,11 @@ model ORCHotWater "ORC that outputs hot water at a fixed temperature"
     "Boolean table with initial false"
     annotation (Placement(transformation(extent={{-180,0},{-160,20}})));
 equation
-  connect(orc.port_b1, sinHot.ports[1]) annotation (Line(points={{-20,56},{-14,56},
-          {-14,90},{100,90}},
+  connect(orc.port_b1, sinHot.ports[1]) annotation (Line(points={{-20,-28},{-14,
+          -28},{-14,90},{100,90}},
                             color={0,127,255}));
   connect(souHot.ports[1], orc.port_a1) annotation (Line(points={{-160,90},{-46,
-          90},{-46,56},{-40,56}},
+          90},{-46,-28},{-40,-28}},
                               color={0,127,255}));
   connect(TWatOut_set.y, conPI.u_s)
     annotation (Line(points={{21,10},{38,10}}, color={0,0,127}));
@@ -159,31 +159,31 @@ equation
           {132,-56},{122,-56}},color={0,0,127}));
   connect(senTWatRet.port_b, val.port_1)
     annotation (Line(points={{60,-40},{50,-40}}, color={0,127,255}));
-  connect(spl.port_3, val.port_3) annotation (Line(points={{-170,-60},{40,-60},{
-          40,-50}},           color={0,127,255}));
-  connect(spl.port_2, senTWatSup.port_a) annotation (Line(points={{-180,-70},{-180,
-          -80},{60,-80}},            color={0,127,255}));
+  connect(spl.port_3, val.port_3) annotation (Line(points={{40,-70},{40,-50}},
+                              color={0,127,255}));
+  connect(spl.port_2, senTWatSup.port_a) annotation (Line(points={{50,-80},{60,
+          -80}},                     color={0,127,255}));
   connect(conPI.y, val.y)
     annotation (Line(points={{61,10},{80,10},{80,-20},{40,-20},{40,-28}},
                                                         color={0,0,127}));
   connect(greThr.y, and1.u1) annotation (Line(points={{-159,50},{-142,50}},
                           color={255,0,255}));
-  connect(and1.y, orc.ena) annotation (Line(points={{-119,50},{-38,50}},
-                     color={255,0,255}));
-  connect(orc.port_b2,senTColOut. port_a) annotation (Line(points={{-40,44},{-46,
-          44},{-46,-40},{-60,-40}}, color={0,127,255}));
+  connect(and1.y, orc.ena) annotation (Line(points={{-119,50},{-54,50},{-54,-34},
+          {-38,-34}},color={255,0,255}));
+  connect(orc.port_b2,senTColOut. port_a) annotation (Line(points={{-40,-40},{
+          -60,-40}},                color={0,127,255}));
   connect(senTColOut.port_b, pum.port_a)
     annotation (Line(points={{-80,-40},{-100,-40}},  color={0,127,255}));
   connect(senTColOut.T, conPI.u_m) annotation (Line(points={{-70,-29},{-70,-12},
           {50,-12},{50,-2}},             color={0,0,127}));
-  connect(val.port_2, orc.port_a2) annotation (Line(points={{30,-40},{-14,-40},{
-          -14,44},{-20,44}},
+  connect(val.port_2, orc.port_a2) annotation (Line(points={{30,-40},{-20,-40}},
                            color={0,127,255}));
   connect(pum.m_flow_in, booToRea.y)
     annotation (Line(points={{-110,-28},{-110,10},{-118,10}},
                                                             color={0,0,127}));
-  connect(spl.port_1, senMasFlo.port_b) annotation (Line(points={{-180,-50},{-180,
-          -40},{-160,-40}}, color={0,127,255}));
+  connect(spl.port_1, senMasFlo.port_b) annotation (Line(points={{30,-80},{-180,
+          -80},{-180,-40},{-160,-40}},
+                            color={0,127,255}));
   connect(senMasFlo.port_a, pum.port_b)
     annotation (Line(points={{-140,-40},{-120,-40}}, color={0,127,255}));
   connect(greThr.u, senMasFlo.m_flow) annotation (Line(points={{-182,50},{-190,50},
