@@ -86,14 +86,14 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
             {120,40}})));
   Modelica.Blocks.Interfaces.RealOutput QEva_flow(
     final quantity="HeatFlowRate",
-    final unit="W") "Evaporator heat flow rate" annotation (
+    final unit="W") "Evaporator heat flow rate into the cycle" annotation (
       Placement(transformation(extent={{100,70},{140,110}}),iconTransformation(
           extent={{-10,-10},{10,10}},
         rotation=0,
         origin={110,90})));
   Modelica.Blocks.Interfaces.RealOutput QCon_flow(
     final quantity="HeatFlowRate",
-    final unit="W") "Condenser heat flow rate" annotation (
+    final unit="W") "Condenser heat flow rate out of the cycle" annotation (
       Placement(transformation(extent={{100,-110},{140,-70}}),
         iconTransformation(extent={{-10,-10},{10,10}},
         rotation=0,
@@ -158,13 +158,17 @@ protected
   Modelica.Blocks.Sources.RealExpression expMCol_flow(y=m2_flow)
     "Expression for condenser cold fluid flow rate"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gaiEva(k=-1)
+    "Reverse sign of heat flow rate"
+    annotation (Placement(transformation(extent={{70,30},{50,50}})));
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gaiCon(k=-1)
+    "Reverse sign of heat flow rate"
+    annotation (Placement(transformation(extent={{70,-70},{50,-50}})));
 equation
   connect(preHeaFloEva.port, vol1.heatPort) annotation (Line(points={{19,40},{-16,
           40},{-16,60},{-10,60}}, color={191,0,0}));
   connect(preHeaFloCon.port, vol2.heatPort) annotation (Line(points={{21,-60},{12,
           -60}},                      color={191,0,0}));
-  connect(cyc.QCon_flow, preHeaFloCon.Q_flow) annotation (Line(points={{11,-8},{
-          50,-8},{50,-60},{41,-60}},  color={0,0,127}));
   connect(expTHotIn.y, cyc.THotIn) annotation (Line(points={{-39,30},{-20,30},{-20,
           8},{-11,8}},     color={0,0,127}));
   connect(expMHot_flow.y, cyc.mHot_flow) annotation (Line(points={{-39,10},{-30,
@@ -179,14 +183,21 @@ equation
     annotation (Line(points={{-120,0},{-11,0}}, color={255,0,255}));
   connect(cyc.QEva_flow, QEva_flow) annotation (Line(points={{11,8},{80,8},{80,90},
           {120,90}},     color={0,0,127}));
-  connect(cyc.QCon_flow, QCon_flow) annotation (Line(points={{11,-8},{50,-8},{50,
-          -90},{120,-90}},    color={0,0,127}));
+  connect(cyc.QCon_flow, QCon_flow) annotation (Line(points={{11,-8},{80,-8},{
+          80,-70},{96,-70},{96,-90},{120,-90}},
+                              color={0,0,127}));
   connect(cyc.on_actual, on_actual) annotation (Line(points={{11,0},{120,0}},
                            color={255,0,255}));
   connect(cyc.PPum, PPum) annotation (Line(points={{11,-4},{84,-4},{84,-30},{120,
           -30}}, color={0,0,127}));
-  connect(cyc.QEva_flow, preHeaFloEva.Q_flow)
-    annotation (Line(points={{11,8},{80,8},{80,40},{39,40}}, color={0,0,127}));
+  connect(cyc.QEva_flow, gaiEva.u)
+    annotation (Line(points={{11,8},{80,8},{80,40},{72,40}}, color={0,0,127}));
+  connect(gaiEva.y, preHeaFloEva.Q_flow)
+    annotation (Line(points={{48,40},{39,40}}, color={0,0,127}));
+  connect(cyc.QCon_flow, gaiCon.u) annotation (Line(points={{11,-8},{80,-8},{80,
+          -60},{72,-60}}, color={0,0,127}));
+  connect(gaiCon.y, preHeaFloCon.Q_flow)
+    annotation (Line(points={{48,-60},{41,-60}}, color={0,0,127}));
   annotation (defaultComponentName = "orc",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Line(
@@ -264,7 +275,7 @@ This difference is found from
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 (T<sub>pin,eva</sub> - T<sub>h,out</sub>)&nbsp;(h<sub>exp,in</sub> - h<sub>pum,out</sub>)
-= (T<sub>h,in</sub> - T<sub>h,out</sub>)&nbsp;(h<sub>pin,eva</sub> - h<sub>pum,out</sub>),<br/>
+= (T<sub>h,in</sub> - T<sub>h,out</sub>)&nbsp;(h<sub>eva,pin</sub> - h<sub>pum,out</sub>),<br/>
 &Delta;T<sub>pin,eva</sub> = T<sub>pin,eva</sub> - T<sub>w,eva</sub>.
 </p>
 <p>
@@ -275,8 +286,8 @@ replaced by their condenser counterparts where appropriate. Hence,
 Q&#775;<sub>con</sub> = m&#775;<sub>c</sub>&nbsp;c<sub>p,c</sub>&nbsp;(T<sub>c,in</sub> - T<sub>c,out</sub>),<br/>
 Q&#775;<sub>con</sub> = m&#775;<sub>w</sub>&nbsp;(h<sub>exp,out</sub> - h<sub>pum,in</sub>),<br/>
 (T<sub>c,pin</sub> - T<sub>c,in</sub>)&nbsp;(h<sub>exp,out</sub> - h<sub>pum,in</sub>)
-= (T<sub>c,out</sub> - T<sub>c,in</sub>)&nbsp;(h<sub>pin,con</sub> - h<sub>pum,in</sub>),<br/>
-&Delta;T<sub>pin,con</sub> = T<sub>w,con</sub> - T<sub>c,pin</sub>,
+= (T<sub>c,out</sub> - T<sub>c,in</sub>)&nbsp;(h<sub>con,pin</sub> - h<sub>pum,in</sub>),<br/>
+&Delta;T<sub>con,pin</sub> = T<sub>w,con</sub> - T<sub>c,pin</sub>,
 </p>
 <p>
 where the subscripts are

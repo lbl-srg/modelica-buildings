@@ -66,12 +66,13 @@ model FixedEvaporating
 
   Modelica.Blocks.Interfaces.RealOutput QEva_flow(
     final quantity="HeatFlowRate",
-    final unit="W") "Evaporator heat flow rate"
+    final unit="W") "Evaporator heat flow rate into the cycle"
     annotation (Placement(transformation(extent={{100,60},{140,100}}),
                              iconTransformation(extent={{100,70},{120,90}})));
   Modelica.Blocks.Interfaces.RealOutput QCon_flow(
     final quantity="HeatFlowRate",
-    final unit="W") "Condenser heat flow rate" annotation (Placement(
+    final unit="W") "Condenser heat flow rate out of the cycle"
+      annotation (Placement(
         transformation(extent={{100,-100},{140,-60}}),iconTransformation(extent={{100,-90},
             {120,-70}})));
   Modelica.Blocks.Interfaces.RealOutput PEle(
@@ -141,23 +142,23 @@ If this is intended, set useLowCondenserPressureWarning = false to turn off this
 level=AssertionLevel.warning);
 
   // Evaporator
-  QEva_flow = mHot_flow * cpHot * (THotOut - THotIn);
-  QEva_flow = mWor_flow * (hPumOut - hExpInl);
+  QEva_flow = mHot_flow * cpHot * (THotIn - THotOut);
+  QEva_flow = mWor_flow * (hExpInl - hPumOut);
   // Pinch point
   (THotPin - THotOut) * (hExpInl - hPumOut)
   = (hPinEva - hPumOut) * (THotIn - THotOut);
   dTPinEva = THotPin - TWorEva;
 
   // Evaporator internal computation
-  QEva_flow_internal = mHot_flow * cpHot * (THotOut_internal - THotIn);
-  QEva_flow_internal = mWor_flow_internal * (hPumOut - hExpInl);
+  QEva_flow_internal = mHot_flow * cpHot * (THotIn - THotOut_internal);
+  QEva_flow_internal = mWor_flow_internal * (hExpInl - hPumOut);
   (THotPin_internal - THotOut_internal) * (hExpInl - hPumOut)
   = (hPinEva - hPumOut) * (THotIn - THotOut_internal);
   dTPinEva_set = THotPin_internal - TWorEva;
 
   // Condenser
-  QCon_flow = mCol_flow * cpCol * (TColOut - TColIn);
-  QCon_flow = mWor_flow * (hExpOut - hPumInl);
+  QCon_flow = mCol_flow * cpCol * (TColIn - TColOut);
+  QCon_flow = mWor_flow * (hPumInl - hExpOut);
   // Pinch point
   (TColPin - TColIn) * (hExpOut - hPumInl)
   = (hPinCon - hPumInl) * (TColOut - TColIn);

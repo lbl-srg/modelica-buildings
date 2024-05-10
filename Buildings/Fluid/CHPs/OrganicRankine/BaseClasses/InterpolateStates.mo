@@ -159,9 +159,9 @@ model InterpolateStates "Interpolate states of a working fluid"
 
   // Energy transfer
   Modelica.Units.SI.SpecificEnergy qEva = hExpInl - hPumOut
-    "Evaporator specific energy transfer";
+    "Evaporator specific energy transfer into the cycle";
   Modelica.Units.SI.SpecificEnergy qCon = hPumInl - hExpOut
-    "Condenser specific energy transfer";
+    "Condenser specific energy transfer out of the cycle";
   Modelica.Units.SI.SpecificEnergy wExp = hExpOut - hExpInl
     "Expander specific work";
   Modelica.Units.SI.SpecificEnergy wPum = (pEva - pCon) / (rhoLiq * etaPum)
