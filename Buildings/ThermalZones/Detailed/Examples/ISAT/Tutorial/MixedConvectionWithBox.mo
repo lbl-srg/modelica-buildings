@@ -49,7 +49,7 @@ model MixedConvectionWithBox
     nSurBou = nSurBou,
     nPorts=2,
     portName={"Inlet","Outlet"},
-    samplePeriod=60,
+    samplePeriod=180,
     sourceName={"block"}) "Room model"
   annotation (Placement(transformation(extent={{80,-38},{120,2}})));
   HeatTransfer.Sources.FixedTemperature TOthWal[nSurBou-1](each T=283.15)
@@ -499,7 +499,7 @@ the users should revise the codes to output.
 <li>April 5, 2020, by Xu Han, Cary Faulkner, Wangda Zuo:<br>First implementation. </li>
 </ul>
 </html>"),
-    experiment(Tolerance=1e-06, StopTime=180),
+    experiment(Tolerance=1e-06, StopTime=1800),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/ISAT/Tutorial/MixedConvectionWithBox.mos"
         "Simulate and plot"),

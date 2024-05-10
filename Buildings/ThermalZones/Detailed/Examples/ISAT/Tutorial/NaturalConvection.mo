@@ -50,7 +50,7 @@ model NaturalConvection "Tutorial for the natural convection case"
    nConPar = nConPar,
    nConBou = nConBou,
    nSurBou = nSurBou,
-    samplePeriod=60,
+    samplePeriod=180,
    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Room model"
   annotation (Placement(transformation(extent={{60,-58},{100,-18}})));
   HeatTransfer.Sources.FixedTemperature           TWesWal(T=274.15)
@@ -434,8 +434,11 @@ First implementation.
 </li>
 </ul>
 <h4>References</h4>
-<p><a name=\"ZuoEtAl2012\">W</a>angda Zuo, Mingang Jin, Qingyan Chen, 2012.</p>
-<p><a href=\"http://doi.org/10.1080/19942060.2012.11015418\">Reduction of numerical viscosity in FFD model.</a></p>
-<p>Journal of Engineering Applications of Computational Fluid Mechanics, 6(2), p. 234-247. </p>
+<p>
+<a name=\"ZuoEtAl2012\">W</a>angda Zuo, Mingang Jin, Qingyan Chen, 2012.<br/>
+<a href=\"http://doi.org/10.1080/19942060.2012.11015418\">Reduction of numerical
+viscosity in FFD model</a>.<br/>
+Journal of Engineering Applications of Computational Fluid Mechanics,
+6(2), p. 234-247. </p>
 </html>"));
 end NaturalConvection;
