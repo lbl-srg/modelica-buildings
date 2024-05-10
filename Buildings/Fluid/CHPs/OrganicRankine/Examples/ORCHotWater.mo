@@ -125,8 +125,9 @@ model ORCHotWater "ORC that outputs hot water at a fixed temperature"
     realTrue = mCol_flow_nominal)
     "Constant speed primary pump control signal"
     annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
-  Modelica.Blocks.Logical.GreaterThreshold greThr(threshold=mCol_flow_nominal/2)
-    "Greather threshold"
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
+    uLow=mCol_flow_nominal/3,
+    uHigh=mCol_flow_nominal/2) "Hysteresis"
     annotation (Placement(transformation(extent={{-180,40},{-160,60}})));
   Modelica.Blocks.Logical.And and1
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
@@ -169,8 +170,6 @@ equation
   connect(conPI.y, val.y)
     annotation (Line(points={{61,10},{80,10},{80,-20},{40,-20},{40,-28}},
                                                         color={0,0,127}));
-  connect(greThr.y, and1.u1) annotation (Line(points={{-159,50},{-142,50}},
-                          color={255,0,255}));
   connect(and1.y, orc.ena) annotation (Line(points={{-119,50},{-54,50},{-54,-34},
           {-38,-34}},color={255,0,255}));
   connect(orc.port_b2,senTColOut. port_a) annotation (Line(points={{-40,-40},{-60,
@@ -189,12 +188,14 @@ equation
                             color={0,127,255}));
   connect(senMasFlo.port_a, pum.port_b)
     annotation (Line(points={{-140,-40},{-120,-40}}, color={0,127,255}));
-  connect(greThr.u, senMasFlo.m_flow) annotation (Line(points={{-182,50},{-190,50},
-          {-190,-20},{-150,-20},{-150,-29}}, color={0,0,127}));
   connect(booTab.y, booToRea.u)
     annotation (Line(points={{-159,10},{-142,10}}, color={255,0,255}));
   connect(booTab.y, and1.u2) annotation (Line(points={{-159,10},{-150,10},{-150,
           42},{-142,42}}, color={255,0,255}));
+  connect(hys.y, and1.u1)
+    annotation (Line(points={{-158,50},{-142,50}}, color={255,0,255}));
+  connect(senMasFlo.m_flow, hys.u) annotation (Line(points={{-150,-29},{-150,-20},
+          {-190,-20},{-190,50},{-182,50}}, color={0,0,127}));
 annotation(experiment(StopTime=900,Tolerance=1E-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/OrganicRankine/Examples/ORCHotWater.mos"
   "Simulate and plot"),
