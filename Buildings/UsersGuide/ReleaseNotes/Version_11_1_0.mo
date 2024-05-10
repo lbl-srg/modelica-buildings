@@ -84,7 +84,6 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">Buildings.Fluid.Boilers.Examples.BoilerPolynomialClosedLoop<br/>
                        Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.Fan<br/>
                        Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZones<br/>
-                       Buildings.Fluid.FMI.ExportContainers.Validation.RoomHVAC<br/>
                        Buildings.Fluid.Geothermal.Borefields.Examples.RectangularBorefield<br/>
                        Buildings.Fluid.Movers.Examples.MoverParameter<br/>
                        Buildings.Fluid.Movers.Validation.FlowControlled_dp<br/>
@@ -95,6 +94,16 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Specified <code>nominalValuesDefineDefaultPressureCurve=true</code>
                        in the mover component to suppress a warning.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3819\">#3819</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.FMI.ExportContainers</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.FMI.ExportContainers.Validation.RoomHVAC
+    </td>
+    <td valign=\"top\">Removed redundant <code>nominalValuesDefineDefaultPressureCurve=true</code>
+                       which is now modified in a lower-level model.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3819\">#3819</a>.
     </td>
 </tr>
