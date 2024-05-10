@@ -76,38 +76,38 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
   Modelica.Blocks.Interfaces.BooleanInput ena
     "Enable cycle; set false to force working fluid flow to zero" annotation (
       Placement(transformation(extent={{-140,-20},{-100,20}}),
-        iconTransformation(extent={{-90,-10},{-70,10}})));
+        iconTransformation(extent={{-120,-10},{-100,10}})));
 
   Modelica.Blocks.Interfaces.RealOutput PEle(
     final quantity="Power",
     final unit="W") "Electrical power output from the expander"
     annotation (Placement(
-        transformation(extent={{100,10},{140,50}}), iconTransformation(extent={{
-            70,20},{90,40}})));
+        transformation(extent={{100,10},{140,50}}), iconTransformation(extent={{100,20},
+            {120,40}})));
   Modelica.Blocks.Interfaces.RealOutput QEva_flow(
     final quantity="HeatFlowRate",
     final unit="W") "Evaporator heat flow rate (positive)" annotation (
       Placement(transformation(extent={{100,70},{140,110}}),iconTransformation(
           extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={40,90})));
+        rotation=0,
+        origin={110,90})));
   Modelica.Blocks.Interfaces.RealOutput QCon_flow(
     final quantity="HeatFlowRate",
     final unit="W") "Condenser heat flow rate (positive)" annotation (
       Placement(transformation(extent={{100,-110},{140,-70}}),
         iconTransformation(extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={40,-90})));
+        rotation=0,
+        origin={110,-90})));
   Modelica.Blocks.Interfaces.BooleanOutput on_actual
     "Actual on off status of the cycle" annotation (Placement(transformation(
-          extent={{100,-20},{140,20}}), iconTransformation(extent={{70,-10},{90,
-            10}})));
+          extent={{100,-20},{140,20}}), iconTransformation(extent={{100,-10},{
+            120,10}})));
   Modelica.Blocks.Interfaces.RealOutput PPum(
     final quantity="Power",
     final unit="W")
     "Electrical power consumption of the pump" annotation (Placement(
-        transformation(extent={{100,-50},{140,-10}}),iconTransformation(extent={{70,-40},
-            {90,-20}})));
+        transformation(extent={{100,-50},{140,-10}}),iconTransformation(extent={{100,-40},
+            {120,-20}})));
 
   Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.FixedEvaporating cyc(
     final pro=pro,
