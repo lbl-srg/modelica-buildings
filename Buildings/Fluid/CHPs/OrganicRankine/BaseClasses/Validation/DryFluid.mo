@@ -2,6 +2,16 @@ within Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.Validation;
 model DryFluid
   "Organic Rankine cycle with a dry working fluid"
   extends Modelica.Icons.Example;
+
+  parameter Modelica.Units.SI.ThermodynamicTemperature TEva = 450
+    "Evaporating temperature";
+  parameter Modelica.Units.SI.ThermodynamicTemperature TCon = 310
+    "Condensing temperature";
+  parameter Modelica.Units.SI.Efficiency etaExp = 0.85
+    "Expander efficiency";
+  parameter Modelica.Units.SI.Efficiency etaPum = 0.7
+    "Pump efficiency";
+
   Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.InterpolateStates cyc(
     final pro = pro,
     final TEva = TEva,
@@ -15,15 +25,6 @@ model DryFluid
     "Property record of the working fluid"
     annotation (Placement(transformation(extent={{60,60},{80,80}})),
       choicesAllMatching=true);
-
-  parameter Modelica.Units.SI.ThermodynamicTemperature TEva = 450
-    "Evaporating temperature";
-  parameter Modelica.Units.SI.ThermodynamicTemperature TCon = 310
-    "Condensing temperature";
-  parameter Modelica.Units.SI.Efficiency etaExp = 0.85
-    "Expander efficiency";
-  parameter Modelica.Units.SI.Efficiency etaPum = 0.7
-    "Pump efficiency";
 
 annotation(experiment(StopTime=1, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/OrganicRankine/BaseClasses/Validation/DryFluid.mos"

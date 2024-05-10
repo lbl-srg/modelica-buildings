@@ -5,6 +5,10 @@ model InterpolateStates "Interpolate states of a working fluid"
   replaceable parameter Buildings.Fluid.CHPs.OrganicRankine.Data.Generic pro
     "Property records of the working fluid"
     annotation(Dialog(group="ORC inputs"), choicesAllMatching = true);
+  parameter Modelica.Units.SI.SpecificEnthalpy h_small =
+    (max(pro.hSatVap) - min(pro.hSatLiq)) * 1E-4
+    "A small value for specific enthalpy regularisation"
+    annotation(Dialog(tab="Advanced"));
 
   input Modelica.Units.SI.ThermodynamicTemperature TEva
     "Evaporating temperature";
@@ -14,11 +18,6 @@ model InterpolateStates "Interpolate states of a working fluid"
     "Expander efficiency";
   input Modelica.Units.SI.Efficiency etaPum
     "Pump efficiency";
-
-  parameter Modelica.Units.SI.SpecificEnthalpy h_small =
-    (max(pro.hSatVap) - min(pro.hSatLiq)) * 1E-4
-    "A small value for specific enthalpy regularisation"
-    annotation(Dialog(tab="Advanced"));
 
   // Once-interpolated properties
   Modelica.Units.SI.AbsolutePressure pEva(

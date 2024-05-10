@@ -1,6 +1,23 @@
 within Buildings.Fluid.CHPs.OrganicRankine.Examples;
 model ORCHotWater "ORC that outputs hot water at a fixed temperature"
   extends Modelica.Icons.Example;
+
+  package MediumHot = Buildings.Media.Air "Evaporator hot fluid";
+  package MediumCol = Buildings.Media.Water "Condenser cold fluid";
+
+  parameter Modelica.Units.SI.MassFlowRate mHot_flow_nominal = 1
+    "Nominal mass flow rate of evaporator hot fluid";
+  parameter Modelica.Units.SI.MassFlowRate mCol_flow_nominal = 1.35
+    "Nominal mass flow rate of condenser cold fluid";
+  parameter Modelica.Units.SI.PressureDifference dpCon_nominal(
+    displayUnit = "Pa") = 10000
+    "Nominal pressure drop across the ORC condenser";
+  parameter Modelica.Units.SI.PressureDifference dpValCol_nominal(
+    displayUnit = "Pa") = 10000
+    "Nominal pressure difference used for valves in the cold fluid loop";
+  parameter Modelica.Units.SI.ThermodynamicTemperature TCol_start = 35 + 273.15
+    "Start value for cold fluid temperature";
+
   Buildings.Fluid.CHPs.OrganicRankine.Cycle orc(
     redeclare final package Medium1 = MediumHot,
     redeclare final package Medium2 = MediumCol,
@@ -18,21 +35,6 @@ model ORCHotWater "ORC that outputs hot water at a fixed temperature"
     etaExp=0.8,
     etaPum=0.6) "Organic Rankine cycle"
     annotation (Placement(transformation(extent={{-40,-44},{-20,-24}})));
-
-  package MediumHot = Buildings.Media.Air "Evaporator hot fluid";
-  package MediumCol = Buildings.Media.Water "Condenser cold fluid";
-  parameter Modelica.Units.SI.MassFlowRate mHot_flow_nominal = 1
-    "Nominal mass flow rate of evaporator hot fluid";
-  parameter Modelica.Units.SI.MassFlowRate mCol_flow_nominal = 1.35
-    "Nominal mass flow rate of condenser cold fluid";
-  parameter Modelica.Units.SI.PressureDifference dpCon_nominal(
-    displayUnit = "Pa") = 10000
-    "Nominal pressure drop across the ORC condenser";
-  parameter Modelica.Units.SI.PressureDifference dpValCol_nominal(
-    displayUnit = "Pa") = 10000
-    "Nominal pressure difference used for valves in the cold fluid loop";
-  parameter Modelica.Units.SI.ThermodynamicTemperature TCol_start = 35 + 273.15
-    "Start value for cold fluid temperature";
 
   Modelica.Units.SI.Efficiency etaThe = orc.PEle / max(orc.QEva_flow,1)
     "Thermal efficiency of the ORC";

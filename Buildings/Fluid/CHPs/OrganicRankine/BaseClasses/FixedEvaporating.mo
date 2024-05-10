@@ -5,7 +5,6 @@ model FixedEvaporating
     TEva=TWorEva,
     TCon=TWorCon);
 
-// Evaporator
   parameter Modelica.Units.SI.TemperatureDifference dTPinEva_set(
     final min = 0)
     "Set evaporator pinch point temperature difference"
@@ -16,91 +15,14 @@ model FixedEvaporating
   parameter Modelica.Units.SI.ThermodynamicTemperature TWorEva
     "Working fluid evaporator temperature"
     annotation(Dialog(group="Evaporator"));
-  Modelica.Blocks.Interfaces.RealInput THotIn(
-    final quantity="ThermodynamicTemperature",
-    final unit="K",
-    displayUnit="degC") "Incoming temperature of hot fluid in evaporator"
-    annotation (Placement(
-        transformation(extent={{-140,60},{-100,100}}),  iconTransformation(
-          extent={{-120,70},{-100,90}})));
-  Modelica.Blocks.Interfaces.RealInput mHot_flow(
-    final quantity="MassFlowRate",
-    final unit="kg/s") "Evaporator hot fluid flow rate"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
-        iconTransformation(extent={{-120,30},{-100,50}})));
-  Modelica.Blocks.Interfaces.RealOutput QEva_flow(
-    final quantity="HeatFlowRate",
-    final unit="W") "Evaporator heat flow rate"
-    annotation (Placement(transformation(extent={{100,60},{140,100}}),
-                             iconTransformation(extent={{100,70},{120,90}})));
-  Modelica.Units.SI.ThermodynamicTemperature THotOut(
-    start = TWorEva + dTPinEva_set)
-    "Outgoing temperature of the evaporator hot fluid";
-  Modelica.Units.SI.ThermodynamicTemperature THotPin(
-    start = TWorEva + dTPinEva_set)
-    "Hot fluid temperature at pinch point";
-  Modelica.Units.SI.TemperatureDifference dTPinEva(start = dTPinEva_set)
-    "Pinch point temperature difference of evaporator";
-
-// Condenser
   parameter Modelica.Units.SI.TemperatureDifference dTPinCon
     "Pinch point temperature difference of condenser"
     annotation(Dialog(group="Condenser"));
   parameter Modelica.Units.SI.SpecificHeatCapacity cpCol
     "Constant specific heat capacity"
     annotation(Dialog(group="Condenser"));
-  Modelica.Blocks.Interfaces.RealInput TColIn(
-    final quantity="ThermodynamicTemperature",
-    final unit="K",
-    displayUnit="degC") "Incoming temperature of cold fluid in condenser"
-    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
-        iconTransformation(extent={{-120,-50},{-100,-30}})));
-  Modelica.Blocks.Interfaces.RealInput mCol_flow(
-    final quantity="MassFlowRate",
-    final unit="kg/s") "Condenser cold fluid flow rate" annotation (Placement(
-        transformation(extent={{-140,-100},{-100,-60}}), iconTransformation(
-          extent={{-120,-90},{-100,-70}})));
-  Modelica.Units.SI.ThermodynamicTemperature TWorCon
-    "Working fluid condensing temperature";
-  Modelica.Blocks.Interfaces.RealOutput QCon_flow(
-    final quantity="HeatFlowRate",
-    final unit="W") "Condenser heat flow rate" annotation (Placement(
-        transformation(extent={{100,-100},{140,-60}}),iconTransformation(extent={{100,-90},
-            {120,-70}})));
-  Modelica.Units.SI.ThermodynamicTemperature TColOut
-    "Fluid temperature out of the condenser";
-  Modelica.Units.SI.ThermodynamicTemperature TColPin(
-    start = 300)
-    "Cold fluid temperature at pinch point";
   parameter Boolean useLowCondenserPressureWarning = true
     "If true, issues warning if pCon < 101325 Pa";
-
-// Expander
-  Modelica.Blocks.Interfaces.RealOutput PEle(
-    final quantity="Power",
-    final unit="W") = mWor_flow * (hExpInl - hExpOut)
-    "Electrical power output from the expander" annotation (Placement(
-        transformation(extent={{100,20},{140,60}}),  iconTransformation(extent={{100,30},
-            {120,50}})));
-
-// Pump
-  Modelica.Blocks.Interfaces.RealOutput PPum(
-    final quantity="Power",
-    final unit="W") = mWor_flow * (hPumOut - hPumInl)
-    "Electrical power consumption of the pump" annotation (Placement(
-        transformation(extent={{100,-60},{140,-20}}),iconTransformation(extent={
-            {100,-50},{120,-30}})));
-
-// Cycle
-  Modelica.Units.SI.MassFlowRate mWor_flow =
-    if ena and hys.y
-    then
-      Buildings.Utilities.Math.Functions.smoothMin(
-      x1=mWor_flow_internal,
-      x2=mWor_flow_max,
-      deltaX=mWor_flow_min*1E-2)
-    else 0 "Mass flow rate of the working fluid"
-    annotation (Dialog(group="Cycle"));
   parameter Modelica.Units.SI.MassFlowRate mWor_flow_max(
     final min = 0)
     "Upper bound of working fluid flow rate"
@@ -113,19 +35,91 @@ model FixedEvaporating
     final min = 0)
     "Hysteresis for turning off the cycle when flow too low"
     annotation(Dialog(group="Cycle"));
+
+  Modelica.Blocks.Interfaces.RealInput THotIn(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="degC") "Incoming temperature of hot fluid in evaporator"
+    annotation (Placement(
+        transformation(extent={{-140,60},{-100,100}}),  iconTransformation(
+          extent={{-120,70},{-100,90}})));
+  Modelica.Blocks.Interfaces.RealInput mHot_flow(
+    final quantity="MassFlowRate",
+    final unit="kg/s") "Evaporator hot fluid flow rate"
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
+        iconTransformation(extent={{-120,30},{-100,50}})));
+  Modelica.Blocks.Interfaces.RealInput TColIn(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="degC") "Incoming temperature of cold fluid in condenser"
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
+        iconTransformation(extent={{-120,-50},{-100,-30}})));
+  Modelica.Blocks.Interfaces.RealInput mCol_flow(
+    final quantity="MassFlowRate",
+    final unit="kg/s") "Condenser cold fluid flow rate" annotation (Placement(
+        transformation(extent={{-140,-100},{-100,-60}}), iconTransformation(
+          extent={{-120,-90},{-100,-70}})));
   Modelica.Blocks.Interfaces.BooleanInput ena
     "Enable cycle; set false to force working fluid flow to zero"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-120,-10},{-100,10}})));
+
+  Modelica.Blocks.Interfaces.RealOutput QEva_flow(
+    final quantity="HeatFlowRate",
+    final unit="W") "Evaporator heat flow rate"
+    annotation (Placement(transformation(extent={{100,60},{140,100}}),
+                             iconTransformation(extent={{100,70},{120,90}})));
+  Modelica.Blocks.Interfaces.RealOutput QCon_flow(
+    final quantity="HeatFlowRate",
+    final unit="W") "Condenser heat flow rate" annotation (Placement(
+        transformation(extent={{100,-100},{140,-60}}),iconTransformation(extent={{100,-90},
+            {120,-70}})));
+  Modelica.Blocks.Interfaces.RealOutput PEle(
+    final quantity="Power",
+    final unit="W") = mWor_flow * (hExpInl - hExpOut)
+    "Electrical power output from the expander" annotation (Placement(
+        transformation(extent={{100,20},{140,60}}),  iconTransformation(extent={{100,30},
+            {120,50}})));
+  Modelica.Blocks.Interfaces.RealOutput PPum(
+    final quantity="Power",
+    final unit="W") = mWor_flow * (hPumOut - hPumInl)
+    "Electrical power consumption of the pump" annotation (Placement(
+        transformation(extent={{100,-60},{140,-20}}),iconTransformation(extent={
+            {100,-50},{120,-30}})));
+  Modelica.Blocks.Interfaces.BooleanOutput on_actual = ena and hys.y
+    "Actual on off status of the cycle" annotation (Placement(transformation(
+          extent={{100,-20},{140,20}}), iconTransformation(extent={{100,-10},{120,
+            10}})));
+
+  Modelica.Units.SI.ThermodynamicTemperature THotOut(
+    start = TWorEva + dTPinEva_set)
+    "Outgoing temperature of the evaporator hot fluid";
+  Modelica.Units.SI.ThermodynamicTemperature THotPin(
+    start = TWorEva + dTPinEva_set)
+    "Hot fluid temperature at pinch point";
+  Modelica.Units.SI.TemperatureDifference dTPinEva(start = dTPinEva_set)
+    "Pinch point temperature difference of evaporator";
+  Modelica.Units.SI.ThermodynamicTemperature TWorCon
+    "Working fluid condensing temperature";
+  Modelica.Units.SI.ThermodynamicTemperature TColOut
+    "Fluid temperature out of the condenser";
+  Modelica.Units.SI.ThermodynamicTemperature TColPin(
+    start = 300)
+    "Cold fluid temperature at pinch point";
+  Modelica.Units.SI.MassFlowRate mWor_flow =
+    if ena and hys.y
+    then
+      Buildings.Utilities.Math.Functions.smoothMin(
+      x1=mWor_flow_internal,
+      x2=mWor_flow_max,
+      deltaX=mWor_flow_min*1E-2)
+    else 0 "Mass flow rate of the working fluid"
+    annotation (Dialog(group="Cycle"));
   Modelica.Blocks.Logical.Hysteresis hys(
     uLow = mWor_flow_min,
     uHigh = mWor_flow_min + mWor_flow_hysteresis,
     u = mWor_flow_internal)
     "Hysteresis for turning off cycle when working fluid flow too low";
-  Modelica.Blocks.Interfaces.BooleanOutput on_actual = ena and hys.y
-    "Actual on off status of the cycle" annotation (Placement(transformation(
-          extent={{100,-20},{140,20}}), iconTransformation(extent={{100,-10},{120,
-            10}})));
 
 protected
   Modelica.Units.SI.MassFlowRate mWor_flow_internal(

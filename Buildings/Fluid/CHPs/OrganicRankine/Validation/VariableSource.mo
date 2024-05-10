@@ -3,11 +3,12 @@ model VariableSource
   "ORC with waste heat stream with variable flow rate and temperature"
   extends Modelica.Icons.Example;
 
+  package MediumHot = Buildings.Media.Air "Evaporator hot fluid";
+  package MediumCol = Buildings.Media.Water "Condenser cold fluid";
+
   parameter Buildings.Fluid.CHPs.OrganicRankine.Data.WorkingFluids.R245fa pro
     "Property record of the working fluid"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
-  package MediumHot = Buildings.Media.Air "Evaporator hot fluid";
-  package MediumCol = Buildings.Media.Water "Condenser cold fluid";
   parameter Modelica.Units.SI.MassFlowRate mHot_flow_nominal = 1
     "Nominal mass flow rate of evaporator hot fluid";
   parameter Modelica.Units.SI.MassFlowRate mCol_flow_nominal = 1

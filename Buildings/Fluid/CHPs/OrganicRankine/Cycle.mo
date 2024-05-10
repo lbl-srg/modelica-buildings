@@ -16,28 +16,6 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
     final vol1(
       final prescribedHeatFlowRate=true));
 
-  Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.FixedEvaporating cyc(
-    final pro=pro,
-    final mWor_flow_max=mWor_flow_max,
-    final mWor_flow_min=mWor_flow_min,
-    final mWor_flow_hysteresis=mWor_flow_hysteresis,
-    final TWorEva =
-            if useEvaporatingPressure
-            then Buildings.Utilities.Math.Functions.smoothInterpolation(
-                   x = pWorEva,
-                   xSup = pro.p,
-                   ySup = pro.T)
-            else TWorEva,
-    final dTPinEva_set=dTPinEva_set,
-    final dTPinCon=dTPinCon,
-    final cpHot=Medium1.specificHeatCapacityCp(sta1_nominal),
-    final cpCol=Medium2.specificHeatCapacityCp(sta2_nominal),
-    final etaExp=etaExp,
-    final etaPum=etaPum,
-    final useLowCondenserPressureWarning=useLowCondenserPressureWarning)
-    "Thermodynamic computations of the organic Rankine cycle"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-
   replaceable parameter Buildings.Fluid.CHPs.OrganicRankine.Data.Generic pro
     constrainedby Buildings.Fluid.CHPs.OrganicRankine.Data.Generic
     "Property records of the working fluid"
@@ -95,16 +73,17 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
     "Pump efficiency"
     annotation(Dialog(group="Cycle"));
 
+  Modelica.Blocks.Interfaces.BooleanInput ena
+    "Enable cycle; set false to force working fluid flow to zero" annotation (
+      Placement(transformation(extent={{-140,-20},{-100,20}}),
+        iconTransformation(extent={{-90,-10},{-70,10}})));
+
   Modelica.Blocks.Interfaces.RealOutput PEle(
     final quantity="Power",
     final unit="W") "Electrical power output from the expander"
     annotation (Placement(
         transformation(extent={{100,10},{140,50}}), iconTransformation(extent={{
             70,20},{90,40}})));
-  Modelica.Blocks.Interfaces.BooleanInput ena
-    "Enable cycle; set false to force working fluid flow to zero" annotation (
-      Placement(transformation(extent={{-140,-20},{-100,20}}),
-        iconTransformation(extent={{-90,-10},{-70,10}})));
   Modelica.Blocks.Interfaces.RealOutput QEva_flow(
     final quantity="HeatFlowRate",
     final unit="W") "Evaporator heat flow rate (positive)" annotation (
@@ -129,6 +108,29 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
     "Electrical power consumption of the pump" annotation (Placement(
         transformation(extent={{100,-50},{140,-10}}),iconTransformation(extent={{70,-40},
             {90,-20}})));
+
+  Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.FixedEvaporating cyc(
+    final pro=pro,
+    final mWor_flow_max=mWor_flow_max,
+    final mWor_flow_min=mWor_flow_min,
+    final mWor_flow_hysteresis=mWor_flow_hysteresis,
+    final TWorEva =
+            if useEvaporatingPressure
+            then Buildings.Utilities.Math.Functions.smoothInterpolation(
+                   x = pWorEva,
+                   xSup = pro.p,
+                   ySup = pro.T)
+            else TWorEva,
+    final dTPinEva_set=dTPinEva_set,
+    final dTPinCon=dTPinCon,
+    final cpHot=Medium1.specificHeatCapacityCp(sta1_nominal),
+    final cpCol=Medium2.specificHeatCapacityCp(sta2_nominal),
+    final etaExp=etaExp,
+    final etaPum=etaPum,
+    final useLowCondenserPressureWarning=useLowCondenserPressureWarning)
+    "Thermodynamic computations of the organic Rankine cycle"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+
 protected
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloEva
     "Prescribed heat flow rate"
