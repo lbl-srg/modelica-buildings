@@ -14,10 +14,11 @@ function temporalSuperposition
   output Modelica.Units.SI.TemperatureDifference deltaTb[nSeg] "Delta T at wall";
 
 algorithm
-  deltaTb := kappa[:,:,1] * QAgg_flow[:,1];
-  for k in 2:curCel loop
-    deltaTb := deltaTb + kappa[:,:,k] * QAgg_flow[:,k];
-  end for;
+  deltaTb := zeros(nSeg); // fixme
+//  deltaTb := kappa[:,:,1] * QAgg_flow[:,1];
+//  for k in 2:curCel loop
+//    deltaTb := deltaTb + kappa[:,:,k] * QAgg_flow[:,k];
+//  end for;
 
   annotation (
 Inline=true,

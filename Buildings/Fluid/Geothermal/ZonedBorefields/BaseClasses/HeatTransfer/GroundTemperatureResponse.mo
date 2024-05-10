@@ -139,13 +139,16 @@ equation
 
     // Determine the temperature change at the next aggregation step (assuming
     // no loads until then)
+    if (false) then // fixme
+    delTBor0 = zeros(nSegTot);
+    else
     delTBor0 = Buildings.Fluid.Geothermal.ZonedBorefields.BaseClasses.HeatTransfer.temporalSuperposition(
       i=i,
       nSeg=nSegTot,
       QAgg_flow=QAggShi_flow,
       kappa=kappa,
       curCel=curCel);
-
+    end if;
     derDelTBor0 = (delTBor0 - delTBor_1d) / tLoaAgg;
   end when;
 
