@@ -9,7 +9,7 @@ record Generic "Generic data record for working fluid properties"
   parameter Modelica.Units.SI.Density rhoLiq[n]
     "Density of saturated liquid";
   parameter Modelica.Units.SI.TemperatureDifference dTRef
-    "Superheating differential temperature";
+    "Superheating temperature difference";
   parameter Modelica.Units.SI.SpecificEntropy sSatLiq[n]
     "Specific entropy of saturated liquid";
   parameter Modelica.Units.SI.SpecificEntropy sSatVap[n]
