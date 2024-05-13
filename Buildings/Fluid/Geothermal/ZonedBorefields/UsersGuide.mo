@@ -211,6 +211,12 @@ and
 <a href=\"modelica://Buildings.Fluid.Geothermal.ZonedBorefields.BaseClasses.HeatTransfer.ThermalResponseFactors.gFunction\">
 Buildings.Fluid.Geothermal.ZonedBorefields.BaseClasses.HeatTransfer.ThermalResponseFactors.gFunction</a>.
 </p>
+<h4>Calculation times</h4>
+<p>
+The calculation times for both the initialization and the time integration depends
+on the square of the number of zones and the number of segments.
+The number of boreholes should only weakly impact on the initialization time.
+</p>
 </html>"));
 
 end UsersGuide;
