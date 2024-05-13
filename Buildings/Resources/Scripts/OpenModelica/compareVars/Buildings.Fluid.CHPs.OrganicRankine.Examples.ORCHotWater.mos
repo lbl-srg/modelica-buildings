@@ -1,7 +1,7 @@
 compareVars :=
   {
     "pum.m_flow",
-    "orc.PEle",
+    "orc.PExp",
     "orc.PPum",
     "orc.QEva_flow",
     "orc.QCon_flow",

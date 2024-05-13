@@ -78,9 +78,9 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
       Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-120,-10},{-100,10}})));
 
-  Modelica.Blocks.Interfaces.RealOutput PEle(
+  Modelica.Blocks.Interfaces.RealOutput PExp(
     final quantity="Power",
-    final unit="W") "Electrical power of the expander"
+    final unit="W") "Expander power generation"
     annotation (Placement(
         transformation(extent={{100,10},{140,50}}), iconTransformation(extent={{100,20},
             {120,40}})));
@@ -171,7 +171,7 @@ equation
           {-30,-4},{-11,-4}}, color={0,0,127}));
   connect(expMCol_flow.y, cyc.mCol_flow) annotation (Line(points={{-39,-30},{-20,
           -30},{-20,-8},{-11,-8}}, color={0,0,127}));
-  connect(cyc.PEle, PEle) annotation (Line(points={{11,4},{84,4},{84,30},{120,30}},
+  connect(cyc.PExp,PExp)  annotation (Line(points={{11,4},{84,4},{84,30},{120,30}},
         color={0,0,127}));
   connect(ena, cyc.ena)
     annotation (Line(points={{-120,0},{-11,0}}, color={255,0,255}));

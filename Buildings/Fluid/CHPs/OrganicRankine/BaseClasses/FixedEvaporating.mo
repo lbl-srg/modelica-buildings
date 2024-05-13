@@ -75,10 +75,9 @@ model FixedEvaporating
       annotation (Placement(
         transformation(extent={{100,-100},{140,-60}}),iconTransformation(extent={{100,-90},
             {120,-70}})));
-  Modelica.Blocks.Interfaces.RealOutput PEle(
+  Modelica.Blocks.Interfaces.RealOutput PExp(
     final quantity="Power",
-    final unit="W")
-    "Electrical power generation from the expander" annotation (Placement(
+    final unit="W") "Expander power generation"     annotation (Placement(
         transformation(extent={{100,20},{140,60}}),  iconTransformation(extent={{100,30},
             {120,50}})));
   Modelica.Blocks.Interfaces.RealOutput PPum(
@@ -165,7 +164,7 @@ level=AssertionLevel.warning);
   dTPinCon = TWorCon - TColPin;
 
   // Other components
-  PEle = mWor_flow * (hExpOut - hExpInl);
+  PExp = mWor_flow * (hExpOut - hExpInl);
   PPum = mWor_flow * (hPumOut - hPumInl);
   mWor_flow =
     if ena and hys.y
