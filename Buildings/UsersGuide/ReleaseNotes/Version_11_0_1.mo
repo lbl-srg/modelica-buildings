@@ -37,6 +37,15 @@ to <b style=\"color:blue\">existing</b> libraries:
     <td valign=\"top\">xxx.
     </td>
     </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.ThermalWheels
+    </td>
+    <td valign=\"top\">Package of models for heat recovery and enthalpy recovery wheels.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3538\">issue 3538</a>.
+    </td>
+</tr>
 </table>
 <!-- Backward compatible changes -->
 <p>
