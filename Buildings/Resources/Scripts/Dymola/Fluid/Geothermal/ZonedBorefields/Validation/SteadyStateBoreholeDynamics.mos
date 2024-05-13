@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.Geothermal.ZonedBorefields.Validation.SteadyStateBoreholeDynamics", stopTime=124416000, method="Cvode", tolerance=1e-06, resultFile="SteadyStateBoreholeDynamics");
+simulateModel("Buildings.Fluid.Geothermal.ZonedBorefields.Validation.SteadyStateBoreholeDynamics", stopTime=31536000, method="Cvode", tolerance=1e-06, resultFile="SteadyStateBoreholeDynamics");
 
 createPlot(
   id=1,

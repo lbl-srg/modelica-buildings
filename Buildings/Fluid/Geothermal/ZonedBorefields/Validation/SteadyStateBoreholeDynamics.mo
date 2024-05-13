@@ -14,8 +14,8 @@ model SteadyStateBoreholeDynamics "Description"
 <p>
 This validation cases tests the independent operation of borefield zones for the
 borefield configured in
-<a href=\"modelica://Buildings.Fluid.Geothermal.ZonedBorefields.Data.Configuration.Example\">
-Buildings.Fluid.Geothermal.ZonedBorefields.Data.Configuration.Example</a>.
+<a href=\"modelica://Buildings.Fluid.Geothermal.ZonedBorefields.Data.Configuration.Validation\">
+Buildings.Fluid.Geothermal.ZonedBorefields.Data.Configuration.Validation</a>.
 </p>
 <p>
 The model assumes no dynamics in the boreholes. The heating rate to a zone is
@@ -32,6 +32,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    experiment(StopTime=124416000,
-    Tolerance=1E-6));
+    experiment(
+      StopTime=31536000,
+      Tolerance=1e-06));
 end SteadyStateBoreholeDynamics;
