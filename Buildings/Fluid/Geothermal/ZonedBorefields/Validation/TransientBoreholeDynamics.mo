@@ -10,12 +10,12 @@ model TransientBoreholeDynamics "Description"
 
   Buildings.Fluid.Geothermal.ZonedBorefields.OneUTube borHol(
     redeclare package Medium = Medium,
-    nSeg=10,
+    nSeg=6,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     borFieDat=borFieDat,
     TExt0_start=T_start,
     dT_dz=0,
-    tLoaAgg=300,
+    tLoaAgg=600,
     dynFil=true)
     "Borehole"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
@@ -44,7 +44,7 @@ model TransientBoreholeDynamics "Description"
     each tau=0) "Outlet temperature of the borefield"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   parameter
-    Buildings.Fluid.Geothermal.ZonedBorefields.Data.Borefield.Example
+    Buildings.Fluid.Geothermal.ZonedBorefields.Data.Borefield.Validation
     borFieDat(
     filDat=filDat,
     soiDat=soiDat,
@@ -69,10 +69,10 @@ model TransientBoreholeDynamics "Description"
   Modelica.Blocks.Sources.Pulse heaRat[nZon](
     each amplitude=1,
     each width=50,
-    period=3600.*24*60*{1,2,4,8},
-    startTime=3600.*24*30*{0,1,3,7}) "Heating rate into each zone"
+    period=3600.*24*60*{1,2},
+    startTime=3600.*24*30*{0,1})     "Heating rate into each zone"
     annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
-  parameter ZonedBorefields.Data.Configuration.Example conDat
+  parameter ZonedBorefields.Data.Configuration.Validation conDat
     "Borefield configuration data"
     annotation (Placement(transformation(extent={{-58,-40},{-38,-20}})));
   parameter ZonedBorefields.Data.Filling.Bentonite filDat
@@ -84,7 +84,7 @@ model TransientBoreholeDynamics "Description"
   Modelica.Blocks.Sources.CombiTimeTable timTabT(
     tableOnFile=true,
     tableName="tab1",
-    columns={2,3,4,5},
+    columns={2,3},
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/Geothermal/ZonedBorefields/Validation/SteadyStateBoreholeDynamics.txt"),
     y(each unit="degC",
@@ -120,8 +120,8 @@ equation
 <p>
 This validation cases tests the independent operation of borefield zones for the
 borefield configured in
-<a href=\"modelica://Buildings.Fluid.Geothermal.ZonedBorefields.Data.Configuration.Example\">
-Buildings.Fluid.Geothermal.ZonedBorefields.Data.Configuration.Example</a>.
+<a href=\"modelica://Buildings.Fluid.Geothermal.ZonedBorefields.Data.Configuration.Validation\">
+Buildings.Fluid.Geothermal.ZonedBorefields.Data.Configuration.Validation</a>.
 </p>
 <p>
 The heating rate to a zone is
