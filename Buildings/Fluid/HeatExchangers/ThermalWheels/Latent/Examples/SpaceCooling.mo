@@ -68,6 +68,10 @@ model SpaceCooling "Space cooling system"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow fan(
     redeclare package Medium = MediumA,
+    per(etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided,
+        etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided),
+
+    nominalValuesDefineDefaultPressureCurve=true,
     m_flow_nominal=mA_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Supply air fan"
@@ -158,9 +162,9 @@ model SpaceCooling "Space cooling system"
     annotation (Placement(transformation(extent={{-172,10},{-152,30}})));
   Modelica.Blocks.Sources.Ramp bypDamPos(
     height=0.5,
-    duration=86400/2,
+    duration=86400/4,
     offset=0,
-    startTime=15552000 + 6*3600)
+    startTime=15552000 + 12*3600)
     "Bypass damper position"
     annotation (Placement(transformation(extent={{-170,-60},{-150,-40}})));
 equation
@@ -173,7 +177,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(fan.port_b, vol.ports[1]) annotation (Line(
-      points={{60,-20},{69,-20},{69,20}},
+      points={{62,-20},{69,-20},{69,20}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(vol.ports[2],whe. port_a2) annotation (Line(
@@ -279,12 +283,12 @@ The major input signals for the heat recovery device are configured as follows:
 </p>
 <ul>
 <li>
-The operating signal <i>uRot</i> changes from <code>false</code> to <code>true</code> at 6:00
-and from <code>false</code> to <code>true</code> at 18:00.
+The operating signal <i>uRot</i> changes from <code>false</code> to <code>true</code> at 6:00 (15552000+6*3600 seconds)
+and from <code>false</code> to <code>true</code> at 18:00 (15552000+18*3600 seconds).
 </li>
 <li>
 The bypass damper position <i>uBypDamPos</i> changes from <i>0</i> to <i>0.5</i> 
-during the period from 200 seconds to 360 seconds.
+during the period from 12:00 to 18:00.
 </li>
 </ul>
 <p>

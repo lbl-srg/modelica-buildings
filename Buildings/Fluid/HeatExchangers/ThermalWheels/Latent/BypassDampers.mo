@@ -4,7 +4,7 @@ model BypassDampers
   extends
     Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.PartialWheel;
   parameter Modelica.Units.SI.PressureDifference dpDamper_nominal(displayUnit="Pa") = 20
-    "Nominal pressure drop of supply air dampers"
+    "Nominal pressure drop of dampers"
     annotation (Dialog(group="Nominal condition"));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uBypDamPos(
     final unit="1",
@@ -84,9 +84,9 @@ equation
     color={0,0,127}));
   connect(PEle.y, P) annotation (Line(points={{-139,-80},{80,-80},{80,-90},{120,-90}},
     color={0,0,127}));
-  connect(PEle.u, uRot) annotation (Line(points={{-162,-80},{-168,-80},{-168,0},{-200,0}}, 
+  connect(PEle.u, uRot) annotation (Line(points={{-162,-80},{-168,-80},{-168,0},{-200,0}},
     color={255,0,255}));
-  connect(damSup.port_a, port_a1) annotation (Line(points={{-100,36},{-130,36},{-130,80},{-180,80}}, 
+  connect(damSup.port_a, port_a1) annotation (Line(points={{-100,36},{-130,36},{-130,80},{-180,80}},
     color={0,127,255}));
   connect(damExh.port_b, hex.port_a2)
     annotation (Line(points={{40,-34},{40,-6},{10,-6}}, color={0,127,255}));

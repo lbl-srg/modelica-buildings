@@ -68,6 +68,9 @@ model SpaceCooling "Space cooling system"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow fan(
     redeclare package Medium = MediumA,
+    per(etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided,
+        etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided),
+    nominalValuesDefineDefaultPressureCurve=true,
     m_flow_nominal=mA_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Supply air fan"
@@ -108,8 +111,8 @@ model SpaceCooling "Space cooling system"
     use_m_flow_in=true,
     T=TWSup_nominal) "Source for water flow rate"
     annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
-  Buildings.Fluid.Sources.Boundary_pT sinWat(nPorts=1, redeclare package Medium =
-        MediumW) "Sink for water circuit"
+  Buildings.Fluid.Sources.Boundary_pT sinWat(nPorts=1, redeclare package Medium
+      = MediumW) "Sink for water circuit"
     annotation (Placement(transformation(extent={{-80,-76},{-60,-56}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     pAtmSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
@@ -156,9 +159,9 @@ model SpaceCooling "Space cooling system"
     annotation (Placement(transformation(extent={{-172,10},{-152,30}})));
   Modelica.Blocks.Sources.Ramp bypDamPos(
     height=0.5,
-    duration=86400/2,
+    duration=86400/4,
     offset=0,
-    startTime=15552000 + 6*3600)
+    startTime=15552000 + 12*3600)
     "Bypass damper position"
     annotation (Placement(transformation(extent={{-170,-60},{-150,-40}})));
 equation
@@ -276,12 +279,12 @@ The major input signals for the heat recovery device are configured as follows:
 </p>
 <ul>
 <li>
-The operating signal <i>uRot</i> changes from <code>false</code> to <code>true</code> at 6:00
-and from <code>false</code> to <code>true</code> at 18:00.
+The operating signal <i>uRot</i> changes from <code>false</code> to <code>true</code> at 6:00 (15552000+6*3600 seconds)
+and from <code>false</code> to <code>true</code> at 18:00 (15552000+18*3600 seconds).
 </li>
 <li>
 The bypass damper position <i>uBypDamPos</i> changes from <i>0</i> to <i>0.5</i> 
-during the period from 200 seconds to 360 seconds.
+during the period from 12:00 to 18:00.
 </li>
 </ul>
 <p>

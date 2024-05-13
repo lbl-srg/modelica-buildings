@@ -7,7 +7,7 @@ model SpeedControlled
     "Set to true for using the default motor efficiency curve, or false for using the user-defined motor efficiency curve"
     annotation (Dialog(group="Efficiency"));
   parameter Real table[:,:]=[0.8,1]
-    "Table of user-defined motor efficiency curve:(first column:the wheel speed ratio, second column:motor power efficiency)"
+    "Table of user-defined motor efficiency curve:(first column:the wheel speed ratio, second column:the percent full-load efficiency)"
     annotation (Dialog(group="Efficiency", enable = not defaultMotorEfficiencyCurve));
   final parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot
@@ -85,7 +85,7 @@ P = P_nominal * uSpe / eta,
 <p>
 where <code>P_nominal</code> is the nominal wheel power consumption,
 <code>uSpe</code> is the wheel speed ratio.
-The <code>eta</code> is the motor percent full-Load efficiency, i.e.,
+The <code>eta</code> is the motor percent full-load efficiency, i.e.,
 the ratio of the motor efficiency to that when the <code>uSpe</code> is <i>1</i>.   
 There are two ways to define <code>eta</code>:
 </p>
