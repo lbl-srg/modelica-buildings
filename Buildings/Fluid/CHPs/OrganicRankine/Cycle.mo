@@ -245,8 +245,8 @@ The cycle processes the heat at a fixed
 The evaporator heat exchange is governed by
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-Q&#775;<sub>eva</sub> = m&#775;<sub>h</sub>&nbsp;c<sub>p,h</sub>&nbsp;(T<sub>h,in</sub> - T<sub>h,out</sub>),<br/>
-Q&#775;<sub>eva</sub> = m&#775;<sub>w</sub>&nbsp;(h<sub>exp,in</sub> - h<sub>pum,out</sub>),
+Q&#775;<sub>eva</sub> = m&#775;<sub>h</sub>&nbsp;c<sub>p,h</sub>&nbsp;(T<sub>h,out</sub> - T<sub>h,in</sub>),<br/>
+Q&#775;<sub>eva</sub> = m&#775;<sub>w</sub>&nbsp;(h<sub>pum,out</sub> - h<sub>exp,in</sub>),
 </p>
 <p>
 where the subscripts are
@@ -273,8 +273,8 @@ The condenser side uses the same equations with the evaporator variables
 replaced by their condenser counterparts where appropriate. Hence,
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-Q&#775;<sub>con</sub> = m&#775;<sub>c</sub>&nbsp;c<sub>p,c</sub>&nbsp;(T<sub>c,in</sub> - T<sub>c,out</sub>),<br/>
-Q&#775;<sub>con</sub> = m&#775;<sub>w</sub>&nbsp;(h<sub>exp,out</sub> - h<sub>pum,in</sub>),<br/>
+Q&#775;<sub>con</sub> = m&#775;<sub>c</sub>&nbsp;c<sub>p,c</sub>&nbsp;(T<sub>c,out</sub> - T<sub>c,in</sub>),<br/>
+Q&#775;<sub>con</sub> = m&#775;<sub>w</sub>&nbsp;(h<sub>pum,in</sub> - h<sub>exp,out</sub>),<br/>
 (T<sub>c,pin</sub> - T<sub>c,in</sub>)&nbsp;(h<sub>exp,out</sub> - h<sub>pum,in</sub>)
 = (T<sub>c,out</sub> - T<sub>c,in</sub>)&nbsp;(h<sub>con,pin</sub> - h<sub>pum,in</sub>),<br/>
 &Delta;T<sub>con,pin</sub> = T<sub>w,con</sub> - T<sub>c,pin</sub>,
