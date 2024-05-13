@@ -158,16 +158,16 @@ model InterpolateStates "Interpolate states of a working fluid"
     "Superheating temperature differential";
 
   // Energy transfer
-  Modelica.Units.SI.SpecificEnergy qEva = hExpInl - hPumOut
+  Modelica.Units.SI.SpecificEnergy qEva = hPumOut - hExpInl
     "Evaporator specific energy transfer into the cycle";
-  Modelica.Units.SI.SpecificEnergy qCon = hPumInl - hExpOut
+  Modelica.Units.SI.SpecificEnergy qCon = hExpOut - hPumInl
     "Condenser specific energy transfer out of the cycle";
   Modelica.Units.SI.SpecificEnergy wExp = hExpOut - hExpInl
     "Expander specific work";
   Modelica.Units.SI.SpecificEnergy wPum = (pEva - pCon) / (rhoLiq * etaPum)
     "Pump specific work";
   Modelica.Units.SI.Efficiency etaThe(min=0) =
-    (- wExp - wPum) / qEva "Thermal efficiency";
+    (wExp + wPum) / qEva "Thermal efficiency";
 
 protected
   Modelica.Units.SI.SpecificEnthalpy h_reg = hExpOutDry - hSatVapCon

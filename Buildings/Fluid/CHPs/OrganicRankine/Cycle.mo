@@ -158,12 +158,6 @@ protected
   Modelica.Blocks.Sources.RealExpression expMCol_flow(y=m2_flow)
     "Expression for condenser cold fluid flow rate"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gaiEva(k=-1)
-    "Reverse sign of heat flow rate"
-    annotation (Placement(transformation(extent={{70,30},{50,50}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gaiCon(k=-1)
-    "Reverse sign of heat flow rate"
-    annotation (Placement(transformation(extent={{70,-70},{50,-50}})));
 equation
   connect(preHeaFloEva.port, vol1.heatPort) annotation (Line(points={{19,40},{-16,
           40},{-16,60},{-10,60}}, color={191,0,0}));
@@ -190,14 +184,10 @@ equation
                            color={255,0,255}));
   connect(cyc.PPum, PPum) annotation (Line(points={{11,-4},{84,-4},{84,-30},{120,
           -30}}, color={0,0,127}));
-  connect(cyc.QEva_flow, gaiEva.u)
-    annotation (Line(points={{11,8},{80,8},{80,40},{72,40}}, color={0,0,127}));
-  connect(gaiEva.y, preHeaFloEva.Q_flow)
-    annotation (Line(points={{48,40},{39,40}}, color={0,0,127}));
-  connect(cyc.QCon_flow, gaiCon.u) annotation (Line(points={{11,-8},{80,-8},{80,
-          -60},{72,-60}}, color={0,0,127}));
-  connect(gaiCon.y, preHeaFloCon.Q_flow)
-    annotation (Line(points={{48,-60},{41,-60}}, color={0,0,127}));
+  connect(cyc.QEva_flow, preHeaFloEva.Q_flow)
+    annotation (Line(points={{11,8},{80,8},{80,40},{39,40}}, color={0,0,127}));
+  connect(cyc.QCon_flow, preHeaFloCon.Q_flow) annotation (Line(points={{11,-8},
+          {80,-8},{80,-60},{41,-60}}, color={0,0,127}));
   annotation (defaultComponentName = "orc",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Line(
