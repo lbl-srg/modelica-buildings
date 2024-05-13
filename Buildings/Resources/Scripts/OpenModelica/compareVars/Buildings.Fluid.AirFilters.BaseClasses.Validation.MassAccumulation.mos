@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "masAcc.mCon",
+    "masAcc.mCon_flow"
+  };
