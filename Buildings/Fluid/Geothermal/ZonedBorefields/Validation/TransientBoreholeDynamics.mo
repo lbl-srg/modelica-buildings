@@ -3,6 +3,16 @@ model TransientBoreholeDynamics "Description"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water;
 
+  parameter ZonedBorefields.Data.Configuration.Validation conDat
+    "Borefield configuration data"
+    annotation (Placement(transformation(extent={{-58,-40},{-38,-20}})));
+  parameter ZonedBorefields.Data.Filling.Bentonite filDat
+    "Borehole filling data"
+    annotation (Placement(transformation(extent={{-36,-40},{-16,-20}})));
+  parameter ZonedBorefields.Data.Soil.SandStone soiDat
+    "Soil data"
+    annotation (Placement(transformation(extent={{-14,-40},{6,-20}})));
+
   parameter Modelica.Units.SI.Temperature T_start=273.15
     "Initial temperature of the soil";
   final parameter Integer nZon(min=1) = borFieDat.conDat.nZon
@@ -19,18 +29,15 @@ model TransientBoreholeDynamics "Description"
     dynFil=true)
     "Borehole"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Movers.FlowControlled_m_flow pum[nZon](
+  Movers.Preconfigured.FlowControlled_m_flow pum[nZon](
     redeclare each package Medium = Medium,
     each T_start=T_start,
-    redeclare Buildings.Fluid.Movers.Data.Generic per,
     each addPowerToMedium=false,
     each use_inputFilter=false,
     each energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal=borFieDat.conDat.mZon_flow_nominal,
-    each nominalValuesDefineDefaultPressureCurve=true,
-    each inputType=Buildings.Fluid.Types.InputType.Constant,
     each dp_nominal=60E3) "Circulation pump"
-    annotation (Placement(transformation(extent={{0,10},{20,-10}})));
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Sensors.TemperatureTwoPort TBorFieIn[nZon](
     redeclare each package Medium = Medium,
     each T_start=T_start,
@@ -70,17 +77,9 @@ model TransientBoreholeDynamics "Description"
     each amplitude=1,
     each width=50,
     period=3600.*24*60*{1,2},
-    startTime=3600.*24*30*{0,1})     "Heating rate into each zone"
+    startTime=3600.*24*30*{0,1}) "Heating rate into each zone"
     annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
-  parameter ZonedBorefields.Data.Configuration.Validation conDat
-    "Borefield configuration data"
-    annotation (Placement(transformation(extent={{-58,-40},{-38,-20}})));
-  parameter ZonedBorefields.Data.Filling.Bentonite filDat
-    "Borehole filling data"
-    annotation (Placement(transformation(extent={{-36,-40},{-16,-20}})));
-  parameter ZonedBorefields.Data.Soil.SandStone soiDat
-    "Soil data"
-    annotation (Placement(transformation(extent={{-14,-40},{6,-20}})));
+
   Modelica.Blocks.Sources.CombiTimeTable timTabT(
     tableOnFile=true,
     tableName="tab1",
@@ -91,8 +90,12 @@ model TransientBoreholeDynamics "Description"
       each displayUnit="degC"),
     timeScale=3600)
     "Reference results for the average borehole wall temperature in each zone"
-    annotation (Placement(transformation(extent={{-30,30},{-10,50}})));
+    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 
+  Modelica.Blocks.Sources.Constant m_flow_nominal[nZon](
+    k=borFieDat.conDat.mZon_flow_nominal)
+    "Design flow rates"
+    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 equation
   connect(TBorFieIn.port_b,borHol. port_a)
     annotation (Line(points={{50,0},{60,0}},       color={0,127,255}));
@@ -105,12 +108,14 @@ equation
                                   color={0,127,255}));
   connect(hea.port_b,pum. port_a)
     annotation (Line(points={{-10,0},{0,0}},           color={0,127,255}));
-  connect(hea.port_a,TBorFieOut. port_b) annotation (Line(points={{-30,0},{-80,
-          0},{-80,60},{120,60},{120,0},{110,0}},
+  connect(hea.port_a,TBorFieOut. port_b) annotation (Line(points={{-30,0},{-80,0},
+          {-80,72},{120,72},{120,0},{110,0}},
                                       color={0,127,255}));
   connect(heaRat.y, hea.u) annotation (Line(points={{-49,20},{-40,20},{-40,6},{
           -32,6}},
                color={0,0,127}));
+  connect(m_flow_nominal.y, pum.m_flow_in)
+    annotation (Line(points={{-19,50},{10,50},{10,12}}, color={0,0,127}));
   annotation (
   Diagram(coordinateSystem(extent={{-100,-60},{140,80}})),
   Icon(coordinateSystem(extent={{-100,-100},{100,100}})),

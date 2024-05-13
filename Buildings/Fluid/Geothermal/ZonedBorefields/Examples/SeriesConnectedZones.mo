@@ -3,7 +3,7 @@ model SeriesConnectedZones "Description"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water;
 
-  parameter Modelica.Units.SI.Temperature T_start=273.15
+  parameter Modelica.Units.SI.Temperature T_start=283.15
     "Initial temperature of the soil";
   final parameter Integer nZon(min=1) = borFieDat.conDat.nZon
     "Total number of independent bore field zones";
@@ -19,17 +19,14 @@ model SeriesConnectedZones "Description"
     dynFil=true)
     "Borehole"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Movers.FlowControlled_m_flow pum(
+  Movers.Preconfigured.FlowControlled_m_flow pum(
     redeclare package Medium = Medium,
     T_start=T_start,
     allowFlowReversal=true,
-    redeclare Buildings.Fluid.Movers.Data.Generic per,
     addPowerToMedium=false,
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal=borFieDat.conDat.mZon_flow_nominal[1],
-    nominalValuesDefineDefaultPressureCurve=true,
-    inputType=Buildings.Fluid.Types.InputType.Continuous,
     dp_nominal=60E3) "Circulation pump"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Sensors.TemperatureTwoPort TBorFieIn(
@@ -44,12 +41,11 @@ model SeriesConnectedZones "Description"
     m_flow_nominal=borFieDat.conDat.mZon_flow_nominal[1],
     tau=0) "Outlet temperature of the borefield"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  parameter
-    Buildings.Fluid.Geothermal.ZonedBorefields.Data.Borefield.Example
+  parameter Buildings.Fluid.Geothermal.ZonedBorefields.Data.Borefield.Validation
     borFieDat(
-    filDat=filDat,
-    soiDat=soiDat,
-    conDat=conDat) "Borefield data"
+      filDat=filDat,
+      soiDat=soiDat,
+      conDat=conDat) "Borefield data"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Sources.Boundary_ph sin(redeclare package Medium = Medium, nPorts=1)
     "Sink" annotation (Placement(transformation(extent={{80,20},{100,40}})));
@@ -65,7 +61,7 @@ model SeriesConnectedZones "Description"
     Q_flow_nominal=2*Modelica.Constants.pi*borFieDat.soiDat.kSoi*borFieDat.conDat.hBor
         *borFieDat.conDat.nBor) "Heater"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
-  parameter ZonedBorefields.Data.Configuration.Example conDat
+  parameter ZonedBorefields.Data.Configuration.Validation conDat
     "Borefield configuration data"
     annotation (Placement(transformation(extent={{-58,-40},{-38,-20}})));
   parameter ZonedBorefields.Data.Filling.Bentonite filDat
@@ -77,7 +73,7 @@ model SeriesConnectedZones "Description"
 
   Modelica.Blocks.Sources.Cosine heaRat(
     amplitude=0.75,
-    f=1/(24*3600),
+    f=1/(7*24*3600),
     offset=0.5)
     "Heating rate signal"
     annotation (Placement(transformation(extent={{-70,30},{-50,50}})));
@@ -125,10 +121,10 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geot
         "Simulate and plot"),
   Documentation(info="<html>
 <p>
-This example shows a borefield of 524 boreholes divided into 4 zones, as
+This example shows a borefield of 228 boreholes divided into 2 zones, as
 configured in
-<a href=\"modelica://Buildings.Fluid.Geothermal.ZonedBorefields.Data.Configuration.Example\">
-Buildings.Fluid.Geothermal.ZonedBorefields.Data.Configuration.Example</a>.
+<a href=\"modelica://Buildings.Fluid.Geothermal.ZonedBorefields.Data.Configuration.Validation\">
+Buildings.Fluid.Geothermal.ZonedBorefields.Data.Configuration.Validation</a>.
 </p>
 <p>
 The total heat flow rate is cyclical, and the flow direction reverses when the
@@ -137,6 +133,10 @@ heating signal changes from injection and extraction.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 13 2024, by Michael Wetter:<br/>
+Changed borefield and reconfigured source to avoid high frequency results in verification.
+</li>
 <li>
 February 2024, by Massimo Cimmino:<br/>
 First implementation.

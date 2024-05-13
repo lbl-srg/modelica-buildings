@@ -3,7 +3,7 @@ simulateModel("Buildings.Fluid.Geothermal.ZonedBorefields.Validation.TransientBo
 createPlot(
   id=1,
   position={15, 10, 592, 689},
-  y={"TBorFieIn[1].T", "TBorFieOut[1].T", "TBorFieIn[2].T", "TBorFieOut[2].T", "TBorFieIn[3].T", "TBorFieOut[3].T", "TBorFieIn[4].T", "TBorFieOut[4].T"},
+  y={"TBorFieIn[1].T", "TBorFieOut[1].T", "TBorFieIn[2].T", "TBorFieOut[2].T"},
   autoscale = true,
   autoerase = true,
   autoreplot = true,
@@ -16,7 +16,7 @@ createPlot(
 createPlot(
   id=2,
   position={15, 10, 592, 689},
-  y={"borHol.TBorAve[1]", "borHol.TBorAve[2]", "borHol.TBorAve[3]", "borHol.TBorAve[4]"},
+  y={"borHol.TBorAve[1]", "borHol.TBorAve[2]"},
   autoscale = true,
   autoerase = true,
   autoreplot = true,
