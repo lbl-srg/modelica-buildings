@@ -5,8 +5,7 @@ block CHWIsoVal "Sequence of enable or disable chilled water isolation valve"
     "Total number of chiller, which is also the total number of chilled water isolation valve";
   parameter Real chaChiWatIsoTim(
     final unit="s",
-    final quantity="Time",
-    displayUnit="h")
+    final quantity="Time")
     "Time to slowly change isolation valve, should be determined in the field";
   parameter Real iniValPos
     "Initial valve position, if it needs to turn on chiller, the value should be 0";
@@ -203,7 +202,7 @@ equation
     annotation (Line(points={{-58,-100},{40,-100},{40,-68},{58,-68}},
       color={0,0,127}));
   connect(swi1.y, swi.u3)
-    annotation (Line(points={{82,-60},{90,-60},{90,-48},{118,-48}},
+    annotation (Line(points={{82,-60},{110,-60},{110,-48},{118,-48}},
       color={0,0,127}));
   connect(uChiWatIsoVal, swi1.u1)
     annotation (Line(points={{-180,-100},{-140,-100},{-140,-52},{58,-52}},
@@ -220,7 +219,7 @@ equation
   connect(lin1.y, reaRep.u)
     annotation (Line(points={{62,60},{78,60}}, color={0,0,127}));
   connect(lat.y, tim.u)
-    annotation (Line(points={{42,-170},{50,-170},{50,-220},{-120,-220},{-120,60},
+    annotation (Line(points={{42,-170},{50,-170},{50,-220},{-110,-220},{-110,60},
           {-102,60}},        color={255,0,255}));
   connect(reaRep.y, swi2.u1)
     annotation (Line(points={{102,60},{120,60},{120,30},{40,30},{40,8},{58,8}},
@@ -268,14 +267,13 @@ equation
   connect(uUpsDevSta, lat1.u) annotation (Line(points={{-180,-140},{-130,-140},{
           -130,140},{-72,140}}, color={255,0,255}));
   connect(not1.y, truDel.u) annotation (Line(points={{-18,-200},{0,-200},{0,-230},
-          {-110,-230},{-110,100},{-102,100}}, color={255,0,255}));
+          {-120,-230},{-120,100},{-102,100}}, color={255,0,255}));
   connect(truDel.y, lat1.clr) annotation (Line(points={{-78,100},{-74,100},{-74,
           134},{-72,134}}, color={255,0,255}));
   connect(tim.passed, lat2.u) annotation (Line(points={{-78,52},{-60,52},{-60,120},
           {-42,120}}, color={255,0,255}));
   connect(truDel.y, lat2.clr) annotation (Line(points={{-78,100},{-74,100},{-74,
           114},{-42,114}}, color={255,0,255}));
-
   connect(and5.y, and1.u1)
     annotation (Line(points={{142,140},{148,140}}, color={255,0,255}));
   connect(and1.y, yEnaChiWatIsoVal)
@@ -355,9 +353,8 @@ have been fully open")}),
 Block updates chiller chilled water isolation valve enabling-disabling status when 
 there is stage change command (<code>chaPro=true</code>). It will also generate 
 status to indicate if the valve reset process has finished.
-This development is based on ASHRAE RP-1711 Advanced Sequences of Operation for 
-HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft on March 23, 2020), 
-section 5.2.4.16, item 5 and section 5.2.4.17, item 3, which specifies when 
+This development is based on ASHRAE Guideline 36-2021, 
+section 5.20.4.16, item e and section 5.20.4.17, item c, which specifies when 
 and how the isolation valve should be controlled when it is in stage changing process.
 </p>
 <ul>

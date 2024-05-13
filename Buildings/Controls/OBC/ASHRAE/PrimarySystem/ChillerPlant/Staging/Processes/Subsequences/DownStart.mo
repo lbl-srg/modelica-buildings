@@ -321,7 +321,7 @@ equation
   connect(disChi.yChi, yChi)
     annotation (Line(points={{22,-150},{140,-150},{140,-100},{200,-100}},
       color={255,0,255}));
-  connect(disChi.yReaDemLim, yReaDemLim)
+  connect(disChi.yRelDemLim, yReaDemLim)
     annotation (Line(points={{22,-158},{60,-158},{60,-140},{200,-140}},
       color={255,0,255}));
   connect(yOpeParLoaRatMin, chiDemRed.yOpeParLoaRatMin)
@@ -363,7 +363,7 @@ equation
   connect(lat2.y, minChiWatSet.uSubCha)
     annotation (Line(points={{42,150},{50,150},{50,108},{-20,108},{-20,66},{-2,66}},
       color={255,0,255}));
-  connect(disChi.yReaDemLim, pre.u)
+  connect(disChi.yRelDemLim, pre.u)
     annotation (Line(points={{22,-158},{60,-158},{60,-170},{78,-170}},
       color={255,0,255}));
   connect(pre.y, not1.u)
@@ -404,7 +404,6 @@ equation
           {50,118},{58,118}}, color={255,0,255}));
   connect(or2.y, minChiWatSet.uSubCha) annotation (Line(points={{42,200},{50,200},
           {50,108},{-20,108},{-20,66},{-2,66}}, color={255,0,255}));
-
   connect(con3.y, enaHeaCon.uEnaPla) annotation (Line(points={{-78,90},{-70,90},
           {-70,8},{-2,8}}, color={255,0,255}));
 annotation (
@@ -527,9 +526,8 @@ annotation (
 Documentation(info="<html>
 <p>
 Block that controls devices at the first step of chiller staging down process.
-This development is based on ASHRAE RP-1711 Advanced Sequences of Operation for
-HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft on March 23, 2020),
-section 5.2.4.17, item 1 and 2. The sections specifies the first step of
+This development is based on ASHRAE Guideline 36-2021,
+section 5.20.4.17, item a and b. The sections specifies the first step of
 staging down process.
 </p>
 <p>

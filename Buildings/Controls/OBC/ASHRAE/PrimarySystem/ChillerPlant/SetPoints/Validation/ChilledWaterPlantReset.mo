@@ -128,7 +128,7 @@ holds its value at 3600 seconds.
 </li>
 </ul>
 <p>
-The process of calculating the reset value is then follow the same steps.
+The process of calculating the reset value follows the same steps.
 For the instance <code>devRes</code>, besides the same process as showing in the
 instance <code>plaRes</code>, the <code>devRes</code> also shows that the reset
 value will be zero when the device is disabled (<code>uDevSta=false</code>).

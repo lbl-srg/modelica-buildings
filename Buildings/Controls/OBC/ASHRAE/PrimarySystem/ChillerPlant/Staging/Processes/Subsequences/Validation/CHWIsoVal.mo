@@ -65,7 +65,7 @@ equation
     annotation (Line(points={{-138,80},{-120,80},{-120,18},{-102,18}},
       color={255,127,0}));
   connect(valOne.y, enaChiIsoVal.uChiWatIsoVal[1])
-    annotation (Line(points={{-178,20},{-160,20},{-160,14},{-102,14}},
+    annotation (Line(points={{-178,20},{-160,20},{-160,14.5},{-102,14.5}},
       color={0,0,127}));
   connect(upsDevSta.y, enaChiIsoVal.uUpsDevSta)
     annotation (Line(points={{-138,-30},{-120,-30},{-120,5},{-102,5}},
@@ -74,17 +74,19 @@ equation
     annotation (Line(points={{-138,-70},{-110,-70},{-110,2},{-102,2}},
       color={255,0,255}));
   connect(enaChiIsoVal.yChiWatIsoVal[2], zerOrdHol.u)
-    annotation (Line(points={{-78,5},{-70,5},{-70,0},{-62,0}}, color={0,0,127}));
+    annotation (Line(points={{-78,4.5},{-70,4.5},{-70,0},{-62,0}},
+                                                               color={0,0,127}));
   connect(zerOrdHol.y, enaChiIsoVal.uChiWatIsoVal[2])
-    annotation (Line(points={{-38,0},{-20,0},{-20,60},{-140,60},{-140,16},
-      {-102,16}}, color={0,0,127}));
+    annotation (Line(points={{-38,0},{-20,0},{-20,60},{-140,60},{-140,15.5},{-102,
+          15.5}}, color={0,0,127}));
   connect(disChi.y, disChiIsoVal.nexChaChi)
     annotation (Line(points={{82,80},{110,80},{110,8},{118,8}},
       color={255,127,0}));
   connect(valOne1.y, disChiIsoVal.uChiWatIsoVal[1])
-    annotation (Line(points={{42,20},{60,20},{60,4},{118,4}}, color={0,0,127}));
+    annotation (Line(points={{42,20},{60,20},{60,4.5},{118,4.5}},
+                                                              color={0,0,127}));
   connect(disChiIsoVal.yChiWatIsoVal[2], zerOrdHol1.u)
-    annotation (Line(points={{142,-5},{150,-5},{150,-10},{158,-10}},
+    annotation (Line(points={{142,-5.5},{150,-5.5},{150,-10},{158,-10}},
       color={0,0,127}));
   connect(valOne1.y, swi.u3)
     annotation (Line(points={{42,20},{60,20},{60,32},{158,32}}, color={0,0,127}));
@@ -92,7 +94,7 @@ equation
     annotation (Line(points={{182,-10},{200,-10},{200,20},{150,20},{150,48},
       {158,48}}, color={0,0,127}));
   connect(swi.y, disChiIsoVal.uChiWatIsoVal[2])
-    annotation (Line(points={{182,40},{200,40},{200,60},{80,60},{80,6},{118,6}},
+    annotation (Line(points={{182,40},{200,40},{200,60},{80,60},{80,5.5},{118,5.5}},
       color={0,0,127}));
   connect(upsDevSta.y, disChiIsoVal.uUpsDevSta)
     annotation (Line(points={{-138,-30},{100,-30},{100,-5},{118,-5}},
@@ -114,6 +116,68 @@ This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.CHWIsoVal\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.CHWIsoVal</a>.
 </p>
+<p>
+It has two instances <code>enaChiIsoVal</code> and <code>disChiIsoVal</code> that
+shows the process of controlling chiller chilled water isolation valves during the
+chiller staging process.
+</p>
+<p>
+Note that when using the subsequences, 
+</p>
+<ul>
+<li>
+specify the parameter <code>iniValPos=0</code> and <code>endValPos=1</code>
+if instantiates the class in the staging up process controller, and
+</li>
+<li>
+specify the parameter <code>iniValPos=1</code> and <code>endValPos=0</code>
+if instantiates the class in the staging down process controller.
+</li>
+</ul>
+<p>
+For instance <code>enaChiIsoVal</code>,
+</p>
+<ul>
+<li>
+Before 540 seconds, the plant is not in staging up process. The isolation value 1
+is fully open (<code>yChiWatIsoVal[1]=1</code>) and the valve 2 is closed
+(<code>yChiWatIsoVal[2]=0</code>).
+</li>
+<li>
+Between 540 seconds and 720 seconds, the plant is in staging process. However, the
+process is not yet requiring the chilled water isolation values changing their
+status, as the <code>uUpsDevSta=false</code>.
+</li>
+<li>
+Since 720 seconds, the plant staging process requires the isolation valve changing
+their status (<code>uUpsDevSta=true</code>), and the chiller 2 is being enabled.
+Thus the process starts opening the isolation valve 2. As specified by
+<code>chaChiWatIsoTim=300 seconds</code>, it takes 5 minutes to fully open isolation
+valve 2 at 1020 seconds, and <code>yEnaChiWatIsoVal</code> becomes <code>true</code>.
+</li>
+</ul>
+<p>
+For instance <code>disChiIsoVal</code>,
+</p>
+<ul>
+<li>
+Before 540 seconds, the plant is not in staging down process. Both the isolation
+value 1 and 2 are fully open (<code>yChiWatIsoVal[1]=1</code>,
+<code>yChiWatIsoVal[2]=1</code>).
+</li>
+<li>
+Between 540 seconds and 720 seconds, the plant is in staging process. However,
+the process is not yet requiring the chilled water isolation values changing their
+status, as the <code>uUpsDevSta=false</code>.
+</li>
+<li>
+Since 720 seconds, the plant staging process requires the isolation valve changing
+their status (<code>uUpsDevSta=true</code>), and the chiller 2 is being disabled.
+Thus the process starts closing the isolation valve 2. As specified by
+<code>chaChiWatIsoTim=300 seconds</code>, it takes 5 minutes to fully close isolation
+valve 2 at 1020 seconds, and <code>yEnaChiWatIsoVal</code> becomes <code>true</code>.
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>

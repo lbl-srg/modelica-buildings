@@ -3,10 +3,10 @@ createPlot(id=1, position={20, 10, 800, 1200}, subPlot=1, y={"chiOnOff.nexEnaChi
 createPlot(id=1, position={20, 10, 800, 1200}, subPlot=2, y={"chiOnOff.uStaDow","chiOnOff.uEnaChiWatIsoVal"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
 createPlot(id=1, position={20, 10, 800, 1200}, subPlot=3, y={"chiOnOff.uChi[1]","chiOnOff.uChi[2]", "chiOnOff.uChi[3]"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200}});
 createPlot(id=1, position={20, 10, 800, 1200}, subPlot=4, y={"chiOnOff.yChi[1]","chiOnOff.yChi[2]", "chiOnOff.yChi[3]"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200}});
-createPlot(id=1, position={20, 10, 800, 1200}, subPlot=5, y={"chiOnOff.yReaDemLim"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={20, 10, 800, 1200}, subPlot=5, y={"chiOnOff.yRelDemLim"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200}});
 createPlot(id=2, position={830, 10, 800, 1200}, subPlot=1, y={"chiOff.nexEnaChi","chiOff.nexDisChi"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
 createPlot(id=2, position={830, 10, 800, 1200}, subPlot=2, y={"chiOff.uStaDow","chiOff.uEnaChiWatIsoVal"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
 createPlot(id=2, position={830, 10, 800, 1200}, subPlot=3, y={"chiOff.uChi[1]","chiOff.uChi[2]", "chiOff.uChi[3]"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200}});
 createPlot(id=2, position={830, 10, 800, 1200}, subPlot=4, y={"chiOff.yChi[1]","chiOff.yChi[2]", "chiOff.yChi[3]"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200}});
-createPlot(id=2, position={830, 10, 800, 1200}, subPlot=5, y={"chiOff.yReaDemLim"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={830, 10, 800, 1200}, subPlot=5, y={"chiOff.yRelDemLim"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200}});
 

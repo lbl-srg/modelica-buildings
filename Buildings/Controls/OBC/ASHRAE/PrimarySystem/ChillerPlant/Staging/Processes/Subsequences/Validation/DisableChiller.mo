@@ -73,7 +73,7 @@ equation
     annotation (Line(points={{-138,20},{-116,20},{-116,82},{-82,82}},
       color={255,0,255}));
   connect(chiOne.y, chiOnOff.uChi[1])
-    annotation (Line(points={{-138,-20},{-108,-20},{-108,76.6667},{-82,76.6667}},
+    annotation (Line(points={{-138,-20},{-108,-20},{-108,77.3333},{-82,77.3333}},
       color={255,0,255}));
   connect(upsDevSta.y, chiTwo.u2)
     annotation (Line(points={{-138,20},{-116,20},{-116,-40},{-42,-40}},
@@ -84,11 +84,11 @@ equation
   connect(chiOnOff.yChi[2], chiStaRet[1].u)
     annotation (Line(points={{-58,80},{-42,80}}, color={255,0,255}));
   connect(chiOnOff.yChi[3], chiStaRet[2].u) annotation (Line(points={{-58,
-          81.3333},{-50,81.3333},{-50,80},{-42,80}}, color={255,0,255}));
+          80.6667},{-50,80.6667},{-50,80},{-42,80}}, color={255,0,255}));
   connect(chiStaRet[1].y, chiTwo.u1) annotation (Line(points={{-18,80},{-10,80},
           {-10,0},{-50,0},{-50,-32},{-42,-32}}, color={255,0,255}));
   connect(chiStaRet[2].y, chiOnOff.uChi[3]) annotation (Line(points={{-18,80},{
-          -10,80},{-10,40},{-112,40},{-112,79.3333},{-82,79.3333}}, color={255,
+          -10,80},{-10,40},{-112,40},{-112,78.6667},{-82,78.6667}}, color={255,
           0,255}));
   connect(chiTwo.y, chiOnOff.uChi[2])
     annotation (Line(points={{-18,-40},{-10,-40},{-10,-70},{-120,-70},{-120,78},
@@ -106,7 +106,7 @@ equation
     annotation (Line(points={{-138,60},{56,60},{56,86},{100,86}},
       color={255,0,255}));
   connect(chiOne.y, chiOff.uChi[1])
-    annotation (Line(points={{-138,-20},{64,-20},{64,76.6667},{100,76.6667}},
+    annotation (Line(points={{-138,-20},{64,-20},{64,77.3333},{100,77.3333}},
       color={255,0,255}));
   connect(disChi.y, chiOff.nexDisChi)
     annotation (Line(points={{-138,-60},{76,-60},{76,75},{100,75}},
@@ -117,7 +117,7 @@ equation
   connect(chiOff.yChi[2], chiStaRet1[1].u)
     annotation (Line(points={{124,80},{138,80}}, color={255,0,255}));
   connect(chiOff.yChi[3], chiStaRet1[2].u) annotation (Line(points={{124,
-          81.3333},{132,81.3333},{132,80},{138,80}}, color={255,0,255}));
+          80.6667},{132,80.6667},{132,80},{138,80}}, color={255,0,255}));
   connect(staCha.y, chiTwo1.u2)
     annotation (Line(points={{-138,60},{56,60},{56,-40},{138,-40}},
       color={255,0,255}));
@@ -130,7 +130,7 @@ equation
     annotation (Line(points={{162,-40},{170,-40},{170,-70},{68,-70},
       {68,78},{100,78}}, color={255,0,255}));
   connect(chiStaRet1[2].y, chiOff.uChi[3]) annotation (Line(points={{162,80},{
-          170,80},{170,40},{72,40},{72,79.3333},{100,79.3333}}, color={255,0,
+          170,80},{170,40},{72,40},{72,78.6667},{100,78.6667}}, color={255,0,
           255}));
   connect(noUpDev.y, chiOff.uEnaChiWatIsoVal)
     annotation (Line(points={{42,20},{60,20},{60,82},{100,82}},
@@ -145,7 +145,55 @@ annotation (
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.DisableChiller\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.DisableChiller</a>.
+It shows the substeps of disabling chillers when the plant is in staging down process.
 </p>
+<p>
+The instance <code>chiOnOff</code> shows how to enable and disable chillers when
+the staging down process requires one chiller being enabled and another chiller
+being disabled. The instance <code>chiOff</code> shows how the chiller being
+disable when the staging down process does not require other chiller being enabled.
+</p>
+<p>
+For the instance <code>chiOnOff</code>, initially the plant has chiller 1 and 2
+operating. When staging down, it requires chiller 3 being enabled and chiller 2
+being disabled.
+</p>
+<ul>
+<li>
+Before 540 seconds, it does not require the plant staging down (<code>uStaDow=false</code>).
+The chiller 1 and 2 are operating, and chiller 3 is not operating.
+</li>
+<li>
+At period between 540 seconds and 720 seconds, the plant is in staing down process.
+However, the process is not yet requiring the chiller being enabled or disabled,
+as <code>uEnaChiWatIsoVal=false</code>.
+</li>
+<li>
+At 720 seconds, the staging down process requires chiller 2 being diabled and chiller
+3 being enabled (<code>nexEnaChi=3</code>, <code>nexDisChi=2</code>). The chiller
+3 becomes enabled.
+</li>
+<li>
+At 1020 seconds, which is 5 mintes after enabling chiller 3 (specified by
+<code>proOnTim</code>), chiller 2 becomes disabled and the chiller demand limit
+can be released (<code>yRelDemLim=true</code>.
+</li>
+</ul>
+<p>
+For the instance <code>chiOff</code>, initially the plant has chiller 1 and 2
+operating. When staging down, it disables chiller 2.
+</p>
+<ul>
+<li>
+Before 540 seconds, it does not require the plant staging down
+(<code>uStaDow=false</code>). The chiller 1 and 2 are operating, and chiller 3
+is not operating.
+</li>
+<li>
+At 540 seconds, the plant starts staging down (<code>uStaDow=true</code>).
+The chiller 2 is disabled immediately.
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>

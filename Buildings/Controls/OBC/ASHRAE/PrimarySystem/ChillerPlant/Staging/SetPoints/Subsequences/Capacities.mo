@@ -224,8 +224,9 @@ equation
           76}}, color={0,0,127}));
   connect(mul3.y, swi2.u3) annotation (Line(points={{82,70},{100,70},{100,52},{158,
           52}}, color={0,0,127}));
-  connect(booToRea[2].y, mul3.u2) annotation (Line(points={{-58,80},{-14,80},{-14,
-          64},{58,64}}, color={0,0,127}));
+  connect(booToRea[2].y, mul3.u2) annotation (Line(points={{-58,80},{-10,80},{
+          -10,64},{58,64}},
+                        color={0,0,127}));
   connect(intSwi[2].y, upCap.index)
     annotation (Line(points={{-58,30},{10,30},{10,78}}, color={255,127,0}));
   connect(mul4.y, swi1.u3) annotation (Line(points={{82,40},{100,40},{100,12},{158,

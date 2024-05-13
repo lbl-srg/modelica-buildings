@@ -4,8 +4,7 @@ block DisableChiller "Sequence for disabling chiller in stage-down process"
   parameter Integer nChi=2 "Total number of chillers";
   parameter Real proOnTim(
     final unit="s",
-    final quantity="Time",
-    displayUnit="h") = 300
+    final quantity="Time") = 300
     "Enabled chiller operation time to indicate if it is proven on";
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nexEnaChi
@@ -36,7 +35,7 @@ block DisableChiller "Sequence for disabling chiller in stage-down process"
     "Chiller enabling status"
     annotation (Placement(transformation(extent={{200,-140},{240,-100}}),
       iconTransformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yReaDemLim
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yRelDemLim
     "Release demand limit"
     annotation (Placement(transformation(extent={{200,-70},{240,-30}}),
       iconTransformation(extent={{100,-100},{140,-60}})));
@@ -297,7 +296,7 @@ equation
   connect(uOnOff, logSwi7.u2)
     annotation (Line(points={{-220,-120},{80,-120},{80,-52},{158,-52}},
       color={255,0,255}));
-  connect(logSwi7.y, yReaDemLim)
+  connect(logSwi7.y,yRelDemLim)
     annotation (Line(points={{182,-52},{202,-52},{202,-50},{220,-50}},
       color={255,0,255}));
   connect(tim.passed, not1.u)
@@ -309,7 +308,6 @@ equation
   connect(tim.passed, logSwi7.u1)
     annotation (Line(points={{-78,-8},{-40,-8},{-40,-44},{158,-44}},
       color={255,0,255}));
-
   connect(con3.y, logSwi7.u3) annotation (Line(points={{42,-70},{90,-70},{90,-60},
           {158,-60}}, color={255,0,255}));
 annotation (
@@ -374,7 +372,7 @@ annotation (
         Text(
           extent={{44,-72},{96,-84}},
           textColor={255,0,255},
-          textString="yReaDemLim")}),
+          textString="yRelDemLim")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-260},{200,260}}),
         graphics={
           Rectangle(
@@ -422,12 +420,11 @@ annotation (
 Documentation(info="<html>
 <p>
 Block that controlles chiller when there is staging down command <code>uStaDow=true</code>.
-This implementation is based on ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II – 
-Central Plants and Hydronic Systems (Draft on March 23, 2020), section 5.2.4.17,
-item 1.e and f. These two sections specify how to start the smaller chiller and shut
+This implementation is based on ASHRAE Guideline36-2021, section 5.20.4.17,
+item a.5 and a.6. These two sections specify how to start the smaller chiller and shut
 off larger chiller when the stage change requires large chiller off and small chill on.
 In other stage change, when it does not require chiller on/off, the chiller will then
-be shut off as specified in section 5.2.4.17, item 2.
+be shut off as specified in section 5.20.4.17, item b.
 </p>
 <p>
 When the stage-down process requires a smaller chiller being staged on and a larger
