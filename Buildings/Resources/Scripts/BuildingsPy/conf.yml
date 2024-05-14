@@ -242,10 +242,18 @@
     comment: Compilation seems to hang, may be related to Modelon ticket 956
 - model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Validation.TransientBoreholeDynamics
   dymola:
-    time_out: 900
+    time_out: 600
   optimica:
     translate: false
     comment: Singularity, likely related to Modelon ticket 956
+- model_name: Buildings.Fluid.HeatPumps.ModularReversible.Examples.AirToWater2D_OneRoomRadiator
+  openmodelica:
+    comment: returned non-zero exit status 2. Works with April 30 2024 OMC nightly build.
+    translate: false
+- model_name: Buildings.Fluid.HeatPumps.ModularReversible.Examples.LargeScaleWaterToWater_OneRoomRadiator
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization. Works with April 30 2024 OMC nightly build.
+    translate: false
 - model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DecouplingMixing
   openmodelica:
     comment: Timeout after 600 s on travis, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/600714398#L489
