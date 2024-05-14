@@ -12,9 +12,14 @@ Version 11.0.1 is ... xxx
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.Chillers.ModularReversible<br/>
+                       Buildings.Fluid.HeatPumps.ModularReversible
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Models for both reversible and non-reversible refrigerant machines (heat pumps and chillers) based on grey-box approaches.
+                       Either tabulated data or physical equations can be used to model the performance of the refrigerant cycle without
+                       modeling of the refrigerant properties.
+                       The models can be configured to enable built-in safety control such as minimum on- or off-time,
+                       operation within specified envelope, antifreeze protection and minimum flow rate.
     </td>
     </tr>
 </table>
