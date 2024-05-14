@@ -13,7 +13,7 @@ on the Buildings library.
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_12_0_0\">Version 12.0.0</a> (xxx, 2024)
 </li>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_11_0_1\">Version 11.0.1</a> (xxx)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_11_1_0\">Version 11.1.0</a> (xxx, 2024)
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_11_0_0\">Version 11.0.0</a> (April 9, 2024)
