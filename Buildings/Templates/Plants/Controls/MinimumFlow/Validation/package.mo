@@ -1,4 +1,4 @@
-within Buildings.Templates.Plants.Controls.HeatRecoveryChillers;
+within Buildings.Templates.Plants.Controls.MinimumFlow;
 package Validation
   "Collection of validation models"
   annotation (

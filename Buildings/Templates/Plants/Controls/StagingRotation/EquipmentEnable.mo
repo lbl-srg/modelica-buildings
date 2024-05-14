@@ -7,8 +7,8 @@ block EquipmentEnable
     each max=1)
     "Staging matrix – Equipment required for each stage"
     annotation (Evaluate=true);
-  final parameter Integer nEquAlt=max({sum({(if staEqu[i, j] > 0 and staEqu[i, j] < 1
-    then 1 else 0) for j in 1:nEqu}) for i in 1:nSta})
+  parameter Integer nEquAlt=if nEqu==1 then 1 else
+    max({sum({(if staEqu[i, j] > 0 and staEqu[i, j] < 1 then 1 else 0) for j in 1:nEqu}) for i in 1:nSta})
     "Number of lead/lag alternate equipment"
     annotation (Evaluate=true);
   final parameter Integer nSta=size(staEqu, 1)

@@ -58,6 +58,14 @@ record HeatPumpPlant
               [0] else pumHeaWatPri.per.pressure.dp)),
     each rho_default=pumHeaWatPri.rho_default)
     "Cast multiple pump record into single pump record array";
+  parameter Buildings.Templates.Components.Data.Valve valHeaWatMinByp(
+    final typ=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
+    m_flow_nominal=
+      if cfg.have_valHeaWatMinByp then ctl.VHeaWatHp_flow_min * cfg.rhoHeaWat_default
+      else 0,
+    dpValve_nominal=Buildings.Templates.Data.Defaults.dpValBypMin)
+    "HW minimum flow bypass valve"
+    annotation(Dialog(group="Primary HW loop", enable=cfg.have_valHeaWatMinByp));
   parameter Buildings.Templates.Components.Data.PumpMultiple pumHeaWatSec(
     final nPum=cfg.nPumHeaWatSec,
     final rho_default=cfg.rhoHeaWat_default,
@@ -94,6 +102,14 @@ record HeatPumpPlant
           0] else pumChiWatPri.per.pressure.dp)),
     each rho_default=pumChiWatPri.rho_default)
     "Cast multiple pump record into single pump record array";
+  parameter Buildings.Templates.Components.Data.Valve valChiWatMinByp(
+    final typ=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
+    m_flow_nominal=
+      if cfg.have_valChiWatMinByp then ctl.VChiWatHp_flow_min * cfg.rhoChiWat_default
+      else 0,
+    dpValve_nominal=Buildings.Templates.Data.Defaults.dpValBypMin)
+    "CHW minimum flow bypass valve"
+    annotation(Dialog(group="Primary CHW loop", enable=cfg.have_valChiWatMinByp));
   parameter Buildings.Templates.Components.Data.PumpMultiple pumChiWatSec(
     final nPum=cfg.nPumChiWatSec,
     final rho_default=cfg.rhoChiWat_default,
@@ -102,6 +118,7 @@ record HeatPumpPlant
     "Secondary CHW pumps"
     annotation (Dialog(group="Secondary CHW loop",
       enable=cfg.typPumChiWatSec==Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized));
+  // Sidestream HRC
   parameter Buildings.Templates.Components.Data.Chiller hrc(
     typ=if cfg.have_hrc then Buildings.Templates.Components.Types.Chiller.WaterCooled
       else Buildings.Templates.Components.Types.Chiller.None,

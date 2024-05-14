@@ -1,8 +1,8 @@
-simulateModel("Buildings.Templates.Plants.Controls.Pumps.Primary.Validation.VariableSpeedNoDpControl",
+simulateModel("Buildings.Templates.Plants.Controls.Pumps.Primary.Validation.VariableSpeed",
     method="cvode",
     tolerance=1e-6,
     stopTime=900.0,
-    resultFile="VariableSpeedNoDpControl");
+    resultFile="PumpsPrimaryVariableSpeed");
 createPlot(
     id=1,
     subPlot=1,

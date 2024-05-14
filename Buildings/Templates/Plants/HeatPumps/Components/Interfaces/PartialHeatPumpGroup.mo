@@ -125,8 +125,8 @@ model PartialHeatPumpGroup "Interface for heat pump group"
     annotation (Dialog(tab="Assumptions",
       enable=Buildings.Templates.Components.Types.HeatPump.WaterToWater),
     Evaluate=true);
-  parameter Boolean have_dpChiHeaWat=true
-    "Set to true for CHW/HW pressure drop computed by this model, false for external computation"
+  parameter Boolean have_dpChiHeaWatHp=true
+    "Set to true for HP CHW/HW pressure drop computed by this model, false for external computation"
     annotation (Evaluate=true,
     Dialog(tab="Assumptions"));
   parameter Boolean have_dpSou=true

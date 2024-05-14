@@ -10,13 +10,14 @@ model AirToWater
     final cfg(
       final typMod=hp.typMod));
   // Heat pumps, dedicated primary pumps and isolation valves
+  // The handling of HP pressure drop is accounted for within the isolation valve component.
   Buildings.Templates.Plants.HeatPumps.Components.HeatPumpGroups.AirToWater hp(
     redeclare final package MediumHeaWat=MediumHeaWat,
     redeclare final package MediumAir=MediumAir,
     final nHp=nHp,
     final is_rev=is_rev,
     final energyDynamics=energyDynamics,
-    final have_dpChiHeaWat=false,
+    final have_dpChiHeaWatHp=false,
     final have_dpSou=false,
     final dat=dat.hp,
     final allowFlowReversal=allowFlowReversal,
@@ -47,7 +48,8 @@ model AirToWater
     final dpHeaWatHp_nominal=fill(dat.hp.dpHeaWatHp_nominal, nHp),
     final mChiWatHp_flow_nominal=fill(dat.hp.mChiWatHp_flow_nominal, nHp),
     final energyDynamics=energyDynamics,
-    final allowFlowReversal=allowFlowReversal)
+    final allowFlowReversal=allowFlowReversal,
+    linearized=linearized)
     "Heat pump isolation valves"
     annotation (Placement(transformation(extent={{-540,-50},{-60,90}})));
   // Primary CHW loop
@@ -157,6 +159,21 @@ model AirToWater
     "Primary CHW return temperature"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,
       origin={60,0})));
+  Buildings.Templates.Components.Actuators.Valve valChiWatMinByp(
+    redeclare final package Medium=MediumChiWat,
+    final dat=dat.valChiWatMinByp,
+    final typ=if have_valChiWatMinByp then Buildings.Templates.Components.Types.Valve.TwoWayModulating
+      else Buildings.Templates.Components.Types.Valve.None,
+    final chaTwo=Buildings.Templates.Components.Types.ValveCharacteristicTwoWay.Linear,
+    final allowFlowReversal=allowFlowReversal,
+    final energyDynamics=energyDynamics,
+    linearized=linearized,
+    from_dp=true)
+    if have_valChiWatMinByp or have_bypChiWatFix
+    "CHW minimum flow bypass valve or fixed bypass depending on type of distribution"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={180,40})));
   // Secondary CHW loop
   Buildings.Templates.Components.Pumps.Multiple pumChiWatSec(
     final energyDynamics=energyDynamics,
@@ -332,13 +349,22 @@ model AirToWater
     "Fluid junction"
     annotation (Placement(transformation(extent={{10,10},{-10,-10}},rotation=0,
       origin={180,-360})));
-  Buildings.Fluid.Sources.Boundary_pT bouHeaWat(
-    redeclare final package Medium=MediumHeaWat,
-    p=Buildings.Templates.Data.Defaults.pHeaWat_rel_nominal + 101325,
-    nPorts=1) if have_heaWat
-    "Pressure boundary condition to mimic expansion tank"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=90,
-      origin={20,-340})));
+  Buildings.Templates.Components.Actuators.Valve valHeaWatMinByp(
+    redeclare final package Medium = MediumHeaWat,
+    final dat=dat.valHeaWatMinByp,
+    final typ=if have_valHeaWatMinByp then Buildings.Templates.Components.Types.Valve.TwoWayModulating
+         else Buildings.Templates.Components.Types.Valve.None,
+    final chaTwo=Buildings.Templates.Components.Types.ValveCharacteristicTwoWay.Linear,
+    final allowFlowReversal=allowFlowReversal,
+    final energyDynamics=energyDynamics,
+    linearized=linearized,
+    from_dp=true)
+    if have_valHeaWatMinByp or have_bypHeaWatFix
+    "HW minimum flow bypass valve or fixed bypass depending on type of distribution"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={180,-320})));
   // Secondary HW loop
   Buildings.Templates.Components.Pumps.Multiple pumHeaWatSec(
     final energyDynamics=energyDynamics,
@@ -517,6 +543,15 @@ model AirToWater
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={540,-360})));
+  Fluid.Sources.Boundary_pT bouHeaWat(
+    redeclare final package Medium = MediumHeaWat,
+    p=Buildings.Templates.Data.Defaults.pHeaWat_rel_nominal + 101325,
+    nPorts=1) if have_heaWat
+    "Pressure boundary condition mimicking expansion tank" annotation (
+      Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={140,-340})));
 equation
   /* Control point connection - start */
   connect(busWea, hp.busWea);
@@ -528,6 +563,8 @@ equation
   connect(bus.pumHeaWatPri, pumHeaWatPri.bus);
   connect(bus.pumChiWatSec, pumChiWatSec.bus);
   connect(bus.pumHeaWatSec, pumHeaWatSec.bus);
+  connect(bus.valChiWatMinByp, valChiWatMinByp.bus);
+  connect(bus.valHeaWatMinByp, valHeaWatMinByp.bus);
   connect(VChiWatPri_flow.y, bus.VChiWatPri_flow);
   connect(VHeaWatPri_flow.y, bus.VHeaWatPri_flow);
   connect(VChiWatSec_flow.y, bus.VChiWatSec_flow);
@@ -658,15 +695,6 @@ equation
       color={0,0,0},
       thickness=0.5,
       visible=have_heaWat and typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated));
-  connect(junHeaWatBypSup.port_3, junHeaWatBypRet.port_3)
-    annotation (Line(points={{180,-290},{180,-350}}, color={0,0,0},
-      thickness=0.5));
-  connect(junChiWatBypSup.port_3, junChiWatBypRet.port_3)
-    annotation (Line(
-      points={{180,70},{180,10}},
-      color={0,0,0},
-      thickness=0.5,
-      visible=have_chiWat));
   connect(junChiWatBypSup.port_2, TChiWatSecSup.port_a)
     annotation (Line(
       points={{190,80},{210,80}},
@@ -680,13 +708,6 @@ equation
   connect(junChiWatBypRet.port_1, TChiWatSecRet.port_b)
     annotation (Line(
       points={{190,0},{310,0}},
-      color={0,0,0},
-      pattern=LinePattern.Dash,
-      thickness=0.5,
-      visible=have_chiWat));
-  connect(junChiWatBypRet.port_2, TChiWatPriRet.port_a)
-    annotation (Line(
-      points={{170,0},{70,0}},
       color={0,0,0},
       pattern=LinePattern.Dash,
       thickness=0.5,
@@ -709,16 +730,8 @@ equation
       color={0,0,0},
       thickness=0.5,
       visible=have_chiWat and typPumChiWatSec <> Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized));
-  connect(bouHeaWat.ports[1], THeaWatPriRet.port_b)
-    annotation (Line(points={{20,-350},{20,-360},{50,-360}},
-                                                           color={0,127,255}));
   connect(junHeaWatBypRet.port_1, THeaWatSecRet.port_b)
     annotation (Line(points={{190,-360},{310,-360}}, color={0,0,0},
-      thickness=0.5,
-      pattern=LinePattern.Dash));
-  connect(junHeaWatBypRet.port_2, THeaWatPriRet.port_a) annotation (Line(
-      points={{170,-360},{70,-360}},
-      color={0,0,0},
       thickness=0.5,
       pattern=LinePattern.Dash));
   connect(THeaWatPriRet.port_b, valIso.port_aHeaWat) annotation (Line(
@@ -756,13 +769,19 @@ equation
       thickness=0.5,
       pattern=LinePattern.Dash));
   connect(junChiWatHrcEnt.port_2, junChiWatHrcLvg.port_1)
-    annotation (Line(points={{490,0},{390,0}}, color={0,0,0},
+    annotation (Line(
+      points={{490,0},{390,0}},
+      color={0,0,0},
       thickness=0.5,
-      pattern=LinePattern.Dash));
+      pattern=LinePattern.Dash,
+      visible=have_chiWat));
   connect(junChiWatHrcLvg.port_2, TChiWatSecRet.port_a)
-    annotation (Line(points={{370,0},{330,0}}, color={0,0,0},
+    annotation (Line(
+      points={{370,0},{330,0}},
+      color={0,0,0},
       thickness=0.5,
-      pattern=LinePattern.Dash));
+      pattern=LinePattern.Dash,
+      visible=have_chiWat));
   connect(hrc.port_b2, junChiWatHrcLvg.port_3)
     annotation (Line(points={{380,-88},{380,-10}}, color={0,0,0},
       thickness=0.5));
@@ -770,7 +789,8 @@ equation
       points={{600,0},{550,0}},
       color={0,0,0},
       pattern=LinePattern.Dash,
-      thickness=0.5));
+      thickness=0.5,
+      visible=have_chiWat));
   connect(TChiWatRetUpsHrc.port_b, junChiWatHrcEnt.port_1) annotation (Line(
       points={{530,0},{510,0}},
       color={0,0,0},
@@ -786,6 +806,32 @@ equation
       color={0,0,0},
       pattern=LinePattern.Dash,
       thickness=0.5));
+  connect(junChiWatBypSup.port_3, valChiWatMinByp.port_a)
+    annotation (Line(points={{180,70},{180,50}}, color={0,0,0},
+      thickness=0.5));
+  connect(valChiWatMinByp.port_b, junChiWatBypRet.port_3)
+    annotation (Line(points={{180,30},{180,10}}, color={0,0,0},
+      thickness=0.5));
+  connect(junHeaWatBypSup.port_3, valHeaWatMinByp.port_a)
+    annotation (Line(points={{180,-290},{180,-310}}, color={0,0,0},
+      thickness=0.5));
+  connect(valHeaWatMinByp.port_b, junHeaWatBypRet.port_3)
+    annotation (Line(points={{180,-330},{180,-350}}, color={0,0,0},
+      thickness=0.5));
+  connect(junChiWatBypRet.port_2, TChiWatPriRet.port_a)
+    annotation (Line(
+      points={{170,0},{70,0}},
+      color={0,0,0},
+      pattern=LinePattern.Dash,
+      thickness=0.5,
+      visible=have_chiWat));
+  connect(bouHeaWat.ports[1], junHeaWatBypRet.port_2) annotation (Line(points={{
+          140,-350},{140,-360},{170,-360}}, color={0,127,255}));
+  connect(junHeaWatBypRet.port_2, THeaWatPriRet.port_a) annotation (Line(
+      points={{170,-360},{70,-360}},
+      color={0,0,0},
+      thickness=0.5,
+      pattern=LinePattern.Dash));
   annotation (
     defaultComponentName="pla",
     Documentation(
@@ -801,7 +847,10 @@ through parameters, a typical configuration is shown in the image below.
 src=\"modelica://Buildings/Resources/Images/Templates/Plants/HeatPumps/AirToWater.png\"/>
 </p>
 <p>
-Only identical heat pumps are currently supported.
+Currently, only identical heat pumps are supported. 
+Although the template can accommodate any number of identical heat pumps, 
+the graphical feedback for system configuration via the diagram layer is 
+only accurate for up to 6 devices.
 </p>
 <p>
 The supported plant configurations are enumerated in the table below.
@@ -857,7 +906,8 @@ True
 <td>This option is only available for heating and cooling plants
 with dedicated primary pumps.
 If this option is not selected (default setting), each AWHP uses
-a common dedicated primary pump for HW and CHW.
+a common dedicated primary pump for HW and CHW –
+this pump is then denoted as the primary HW pump.
 Otherwise, each AWHP relies on a separate dedicated HW pump
 and a separate dedicated CHW pump.
 </td>

@@ -9,7 +9,7 @@ block StagingHeadered "Generic staging logic for headered pumps"
     annotation (Evaluate=true,
     Dialog(enable=nPum > 0));
   parameter Boolean is_ctlDp(start=false)
-    "Set to true for headered variable speed pumps using ∆p pump speed control"
+    "Set to true for variable speed pumps using ∆p pump speed control"
     annotation (Evaluate=true,
     Dialog(enable=is_hdr));
   parameter Boolean have_valInlIso(start=false)
@@ -384,16 +384,18 @@ Buildings.Templates.Plants.Controls.Pumps.Generic.StagingHeaderedDeltaP</a>.
 </p>
 <h4>Details</h4>
 <p>
-At its current stage of development, this block contains no
-logic for handling faulted equipment. 
-It is therefore assumed that all pumps are available at all times.
-</p>
-<p>
 To simplify integration into the plant controller this block also
 serves as a pass-through for the dedicated primary pump command signal 
 that is generated in
 <a href=\"modelica://Buildings.Templates.Plants.Controls.StagingRotation.EventSequencing\">
 Buildings.Templates.Plants.Controls.StagingRotation.EventSequencing</a>.
+For this purpose, the block includes the parameter <code>is_hdr</code> to
+specify whether the pumps are headered or dedicated.
+</p>
+<p>
+At its current stage of development, this block contains no
+logic for handling faulted equipment. 
+It is therefore assumed that all pumps are available at all times.
 </p>
 </html>", revisions="<html>
 <ul>

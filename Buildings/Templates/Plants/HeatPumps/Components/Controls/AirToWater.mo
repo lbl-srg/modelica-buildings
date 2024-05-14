@@ -14,17 +14,15 @@ model AirToWater
     final min=1)=size(staEqu, 1)
     "Number of stages"
     annotation (Evaluate=true);
-  final parameter Integer nEquAlt(
-    final min=0)=max({sum({(if staEqu[i, j] > 0 and staEqu[i, j] < 1 then 1 else 0) for j in 1:nHp}) for i in 1:nSta})
-    "Number of lead/lag alternate equipment"
-    annotation (Evaluate=true);
-  final parameter Integer idxEquAlt[nEquAlt]=Modelica.Math.BooleanVectors.index(
-    {Modelica.Math.BooleanVectors.anyTrue({staEqu[i,j] > 0 and staEqu[i,j] < 1 for i in 1:nSta})
-    for j in 1:nHp})
+  final parameter Integer idxEquAlt[ctl.nEquAlt]=Modelica.Math.BooleanVectors.index(
+    {Modelica.Math.BooleanVectors.anyTrue({
+      nHp==1 or staEqu[i,j] > 0 and staEqu[i,j] < 1 for i in 1:nSta})
+      for j in 1:nHp})
     "Indices of lead/lag alternate equipment"
     annotation (Evaluate=true,
     Dialog(group="Equipment staging and rotation"));
   Buildings.Templates.Plants.Controls.HeatPumps.AirToWater ctl(
+    final is_priOnl=cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only,
     final have_hrc_select=cfg.have_hrc,
     final TChiWatSupSet_max=dat.TChiWatSupSet_max,
     final TChiWatSup_nominal=dat.TChiWatSup_nominal,
@@ -32,7 +30,13 @@ model AirToWater
     final THeaWatSup_nominal=dat.THeaWatSup_nominal,
     final TOutChiWatLck=dat.TOutChiWatLck,
     final TOutHeaWatLck=dat.TOutHeaWatLck,
+    final VChiWatHp_flow_min=fill(dat.VChiWatHp_flow_min, cfg.nHp),
+    final VChiWatHp_flow_nominal=fill(dat.VChiWatHp_flow_nominal, cfg.nHp),
+    final VChiWatPri_flow_nominal=dat.VChiWatPri_flow_nominal,
     final VChiWatSec_flow_nominal=dat.VChiWatSec_flow_nominal,
+    final VHeaWatHp_flow_min=fill(dat.VHeaWatHp_flow_min, cfg.nHp),
+    final VHeaWatHp_flow_nominal=fill(dat.VHeaWatHp_flow_nominal, cfg.nHp),
+    final VHeaWatPri_flow_nominal=dat.VHeaWatPri_flow_nominal,
     final VHeaWatSec_flow_nominal=dat.VHeaWatSec_flow_nominal,
     final capCooHp_nominal=fill(dat.capCooHp_nominal, cfg.nHp),
     final capHeaHp_nominal=fill(dat.capHeaHp_nominal, cfg.nHp),
@@ -50,11 +54,9 @@ model AirToWater
     final have_heaWat=cfg.have_heaWat,
     final have_inpSch=have_inpSch,
     final have_pumChiWatPriDed_select=cfg.have_pumChiWatPriDed,
-    final have_pumChiWatSec_select=cfg.typPumChiWatSec==Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized,
-    final have_pumHeaWatSec_select=cfg.typPumHeaWatSec==Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized,
     final have_pumPriHdr=cfg.typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Headered,
-    final have_pumHeaWatPriVar=cfg.have_pumHeaWatPriVar,
-    final have_pumChiWatPriVar=cfg.have_pumChiWatPriVar,
+    final have_pumHeaWatPriVar_select=cfg.have_pumHeaWatPriVar,
+    final have_pumChiWatPriVar_select=cfg.have_pumChiWatPriVar,
     final have_senDpChiWatRemWir=cfg.have_senDpChiWatRemWir,
     final have_senDpHeaWatRemWir=cfg.have_senDpHeaWatRemWir,
     final have_senTChiWatPriRet_select=have_senTChiWatPriRet_select,
@@ -78,8 +80,12 @@ model AirToWater
     final schCoo=dat.schCoo,
     final schHea=dat.schHea,
     final staEqu=dat.staEqu,
+    final yPumChiWatPri_min=dat.yPumChiWatPri_min,
     final yPumChiWatPriSet=dat.yPumChiWatPriSet,
-    final yPumHeaWatPriSet=dat.yPumHeaWatPriSet)
+    final yPumChiWatSec_min=dat.yPumChiWatSec_min,
+    final yPumHeaWatPri_min=dat.yPumHeaWatPri_min,
+    final yPumHeaWatPriSet=dat.yPumHeaWatPriSet,
+    final yPumHeaWatSec_min=dat.yPumHeaWatSec_min)
     "Plant controller"
     annotation (Placement(transformation(extent={{-20,-32},{20,40}})));
   Buildings.Controls.OBC.CDL.Integers.MultiSum reqPlaHeaWatAirHan(
@@ -203,6 +209,8 @@ equation
   connect(ctl.y1ValChiWatHpOutIso, busValChiWatHpOutIso.y1);
   connect(ctl.y1ValHeaWatHpInlIso, busValHeaWatHpInlIso.y1);
   connect(ctl.y1ValHeaWatHpOutIso, busValHeaWatHpOutIso.y1);
+  connect(ctl.yValHeaWatMinByp, busValHeaWatMinByp.y);
+  connect(ctl.yValChiWatMinByp, busValChiWatMinByp.y);
   connect(ctl.yPumChiWatPriDed, busPumChiWatPri.y);
   connect(ctl.yPumChiWatPriHdr, busPumChiWatPri.y);
   connect(ctl.yPumChiWatSec, busPumChiWatSec.y);

@@ -5,18 +5,24 @@ block Enable
     final min=273.15,
     start=4 + 273.15,
     final unit="K",
-    displayUnit="degC") "Minimum allowable CHW supply temperature"
+    displayUnit="degC")
+    "Minimum allowable CHW supply temperature"
     annotation (Dialog(group="Information provided by designer"));
   parameter Real THeaWatSup_max(
     final min=273.15,
     start=60 + 273.15,
     final unit="K",
-    displayUnit="degC") "Maximum allowable HW supply temperature"
+    displayUnit="degC")
+    "Maximum allowable HW supply temperature"
     annotation (Dialog(group="Information provided by designer"));
-  parameter Real capCoo_min(final min=0, final unit="W")
+  parameter Real capCoo_min(
+    final min=0,
+    final unit="W")
     "Minimum cooling capacity below which cycling occurs"
     annotation (Dialog(group="Information provided by designer"));
-  parameter Real capHea_min(final min=0, final unit="W")
+  parameter Real capHea_min(
+    final min=0,
+    final unit="W")
     "Minimum heating capacity below which cycling occurs"
     annotation (Dialog(group="Information provided by designer"));
   parameter Real dtRun(
@@ -25,7 +31,8 @@ block Enable
     "Minimum runtime of enable and disable states";
   parameter Real dtLoa(
     final min=0,
-    final unit="s") = 10*60 "Runtime with sufficient load before enabling";
+    final unit="s")=10 * 60
+    "Runtime with sufficient load before enabling";
   parameter Real dtTem1(
     final min=0,
     final unit="s")=3 * 60
@@ -46,12 +53,16 @@ block Enable
     "HRC status"
     annotation (Placement(transformation(extent={{-240,40},{-200,80}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput QChiWatReq_flow(final unit=
-        "W") "CHW load" annotation (Placement(transformation(extent={{-240,-60},
-            {-200,-20}}), iconTransformation(extent={{-140,-40},{-100,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput QHeaWatReq_flow(final unit=
-        "W") "HW load" annotation (Placement(transformation(extent={{-240,-100},
-            {-200,-60}}), iconTransformation(extent={{-140,-60},{-100,-20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput QChiWatReq_flow(
+    final unit="W")
+    "CHW load"
+    annotation (Placement(transformation(extent={{-240,-60},{-200,-20}}),
+      iconTransformation(extent={{-140,-40},{-100,0}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput QHeaWatReq_flow(
+    final unit="W")
+    "HW load"
+    annotation (Placement(transformation(extent={{-240,-100},{-200,-60}}),
+      iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatHrcLvg(
     final unit="K",
     displayUnit="degC")
@@ -90,25 +101,31 @@ block Enable
     final t=dtRun)
     "Return true if heating plant has been enabled for specified duration"
     annotation (Placement(transformation(extent={{-180,98},{-160,118}})));
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold higLoaCoo(final t=
-        capCoo_min, h=1E-4*capCoo_min)
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold higLoaCoo(
+    final t=capCoo_min,
+    h=1E-4 * capCoo_min)
     "Compare CHW load to cycling limit (hysteresis is to avoid chattering with some simulators)"
     annotation (Placement(transformation(extent={{-180,-50},{-160,-30}})));
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold higLoaHea(final t=
-        capHea_min, h=1E-4*capHea_min)
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold higLoaHea(
+    final t=capHea_min,
+    h=1E-4 * capHea_min)
     "Compare HW load to cycling limit (hysteresis is to avoid chattering with some simulators)"
     annotation (Placement(transformation(extent={{-180,-90},{-160,-70}})));
-  Buildings.Controls.OBC.CDL.Reals.LessThreshold lowTChiWatLvg1(final t=
-        TChiWatSup_min + 1) "Return true if first temperature limit exceeded"
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold lowTChiWatLvg1(
+    final t=TChiWatSup_min + 1)
+    "Return true if first temperature limit exceeded"
     annotation (Placement(transformation(extent={{-180,-150},{-160,-130}})));
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold higTHeaWatLvg1(final t=
-        THeaWatSup_max - 1.5) "Return true if first temperature limit exceeded"
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold higTHeaWatLvg1(
+    final t=THeaWatSup_max - 1.5)
+    "Return true if first temperature limit exceeded"
     annotation (Placement(transformation(extent={{-180,-210},{-160,-190}})));
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold higTHeaWatLvg2(final t=
-        THeaWatSup_max) "Return true if second temperature limit exceeded"
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold higTHeaWatLvg2(
+    final t=THeaWatSup_max)
+    "Return true if second temperature limit exceeded"
     annotation (Placement(transformation(extent={{-140,-230},{-120,-210}})));
-  Buildings.Controls.OBC.CDL.Reals.LessThreshold lowTChiWatLvg2(final t=
-        TChiWatSup_min) "Return true if second temperature limit exceeded"
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold lowTChiWatLvg2(
+    final t=TChiWatSup_min)
+    "Return true if second temperature limit exceeded"
     annotation (Placement(transformation(extent={{-140,-170},{-120,-150}})));
   Buildings.Controls.OBC.CDL.Logical.Timer timTHeaWatLvg1(
     final t=dtTem1)
@@ -126,10 +143,12 @@ block Enable
     final t=dtTem2)
     "Return true if threshold exceeded for specified duration"
     annotation (Placement(transformation(extent={{-50,-170},{-30,-150}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer timLoaCoo(final t=dtLoa)
+  Buildings.Controls.OBC.CDL.Logical.Timer timLoaCoo(
+    final t=dtLoa)
     "Return true if threshold exceeded for specified duration"
     annotation (Placement(transformation(extent={{-32,-50},{-12,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer timLoaHea(final t=dtLoa)
+  Buildings.Controls.OBC.CDL.Logical.Timer timLoaHea(
+    final t=dtLoa)
     "Return true if threshold exceeded for specified duration"
     annotation (Placement(transformation(extent={{-32,-90},{-12,-70}})));
   Buildings.Controls.OBC.CDL.Logical.MultiAnd allEna(
@@ -146,12 +165,14 @@ block Enable
   Buildings.Controls.OBC.CDL.Logical.Not disHea
     "Return true if heating plant disabled"
     annotation (Placement(transformation(extent={{-180,70},{-160,90}})));
-  Buildings.Controls.OBC.CDL.Reals.LessThreshold lowLoaCoo(final t=capCoo_min,
-      h=1E-4*capCoo_min)
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold lowLoaCoo(
+    final t=capCoo_min,
+    h=1E-4 * capCoo_min)
     "Compare CHW load to cycling limit (hysteresis is to avoid chattering with some simulators)"
     annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
-  Buildings.Controls.OBC.CDL.Reals.LessThreshold lowLoaHea(final t=capHea_min,
-      h=1E-4*capHea_min)
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold lowLoaHea(
+    final t=capHea_min,
+    h=1E-4 * capHea_min)
     "Compare HW load to cycling limit (hysteresis is to avoid chattering with some simulators)"
     annotation (Placement(transformation(extent={{-110,-110},{-90,-90}})));
   Buildings.Controls.OBC.CDL.Logical.Or anyLowLoa
@@ -195,13 +216,12 @@ block Enable
     delayTime=5)
     "Delay so that mode setting is enabled prior to enabling the HRC"
     annotation (Placement(transformation(extent={{150,-10},{170,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Edge      edg
+  Buildings.Controls.OBC.CDL.Logical.Edge edg
     "Enable mode setting just before enabling the HRC"
     annotation (Placement(transformation(extent={{150,-50},{170,-30}})));
 equation
   connect(preEna.y, dis.u)
-    annotation (Line(points={{-128,200},{-72,200}},
-                                                  color={255,0,255}));
+    annotation (Line(points={{-128,200},{-72,200}},color={255,0,255}));
   connect(dis.y, runDis.u)
     annotation (Line(points={{-48,200},{-32,200}},color={255,0,255}));
   connect(u1Coo, timCooEna.u)
@@ -209,13 +229,12 @@ equation
   connect(u1Hea, timHeaEna.u)
     annotation (Line(points={{-220,100},{-190,100},{-190,108},{-182,108}},color={255,0,255}));
   connect(y1, preEna.u)
-    annotation (Line(points={{220,0},{180,0},{180,220},{-160,220},{-160,200},{-152,
-          200}},
+    annotation (Line(points={{220,0},{180,0},{180,220},{-160,220},{-160,200},{-152,200}},
       color={255,0,255}));
   connect(QChiWatReq_flow, higLoaCoo.u)
-    annotation (Line(points={{-220,-40},{-182,-40}}, color={0,0,127}));
+    annotation (Line(points={{-220,-40},{-182,-40}},color={0,0,127}));
   connect(QHeaWatReq_flow, higLoaHea.u)
-    annotation (Line(points={{-220,-80},{-182,-80}}, color={0,0,127}));
+    annotation (Line(points={{-220,-80},{-182,-80}},color={0,0,127}));
   connect(TChiWatHrcLvg, lowTChiWatLvg1.u)
     annotation (Line(points={{-220,-140},{-182,-140}},color={0,0,127}));
   connect(THeaWatHrcLvg, higTHeaWatLvg1.u)
@@ -245,7 +264,7 @@ equation
   connect(timHeaEna.passed, allEna.u[2])
     annotation (Line(points={{-158,100},{-2,100},{-2,-1.4},{28,-1.4}},color={255,0,255}));
   connect(runDis.passed, allEna.u[3])
-    annotation (Line(points={{-8,192},{2,192},{2,0},{28,0}}, color={255,0,255}));
+    annotation (Line(points={{-8,192},{2,192},{2,0},{28,0}},color={255,0,255}));
   connect(timLoaCoo.passed, allEna.u[4])
     annotation (Line(points={{-10,-48},{-2,-48},{-2,1.4},{28,1.4}},color={255,0,255}));
   connect(timLoaHea.passed, allEna.u[5])
@@ -253,31 +272,32 @@ equation
   connect(u1Coo, disCoo.u)
     annotation (Line(points={{-220,160},{-190,160},{-190,140},{-182,140}},color={255,0,255}));
   connect(u1Hea, disHea.u)
-    annotation (Line(points={{-220,100},{-190,100},{-190,80},{-182,80}},  color={255,0,255}));
+    annotation (Line(points={{-220,100},{-190,100},{-190,80},{-182,80}},color={255,0,255}));
   connect(disCoo.y, anyDis.u[1])
     annotation (Line(points={{-158,140},{60,140},{60,-102.8},{68,-102.8}},color={255,0,255}));
   connect(disHea.y, anyDis.u[2])
-    annotation (Line(points={{-158,80},{58,80},{58,-101.4},{68,-101.4}},  color={255,0,255}));
-  connect(QChiWatReq_flow, lowLoaCoo.u) annotation (Line(points={{-220,-40},{-190,
-          -40},{-190,-60},{-112,-60}}, color={0,0,127}));
-  connect(QChiWatReq_flow, lowLoaHea.u) annotation (Line(points={{-220,-40},{-190,
-          -40},{-190,-100},{-112,-100}}, color={0,0,127}));
-  connect(lowLoaCoo.y,anyLowLoa. u1)
+    annotation (Line(points={{-158,80},{58,80},{58,-101.4},{68,-101.4}},color={255,0,255}));
+  connect(QChiWatReq_flow, lowLoaCoo.u)
+    annotation (Line(points={{-220,-40},{-190,-40},{-190,-60},{-112,-60}},color={0,0,127}));
+  connect(QChiWatReq_flow, lowLoaHea.u)
+    annotation (Line(points={{-220,-40},{-190,-40},{-190,-100},{-112,-100}},
+      color={0,0,127}));
+  connect(lowLoaCoo.y, anyLowLoa.u1)
     annotation (Line(points={{-88,-60},{-72,-60}},color={255,0,255}));
-  connect(lowLoaHea.y,anyLowLoa. u2)
+  connect(lowLoaHea.y, anyLowLoa.u2)
     annotation (Line(points={{-88,-100},{-80,-100},{-80,-68},{-72,-68}},color={255,0,255}));
-  connect(off.y,anyLowLoaAndOff. u1)
+  connect(off.y, anyLowLoaAndOff.u1)
     annotation (Line(points={{-88,60},{-32,60}},color={255,0,255}));
-  connect(anyLowLoa.y,anyLowLoaAndOff. u2)
+  connect(anyLowLoa.y, anyLowLoaAndOff.u2)
     annotation (Line(points={{-48,-60},{-40,-60},{-40,52},{-32,52}},color={255,0,255}));
   connect(anyLowLoaAndOff.y, anyDis.u[3])
     annotation (Line(points={{-8,60},{56,60},{56,-100},{68,-100}},color={255,0,255}));
   connect(u1CooHrc, hea.u)
     annotation (Line(points={{-220,20},{-190,20},{-190,0},{-182,0}},color={255,0,255}));
-  connect(u1CooHrc, enaAndCoo.u2) annotation (Line(points={{-220,20},{-150,20},{
-          -150,12},{-112,12}}, color={255,0,255}));
-  connect(hea.y, enaAndHea.u2) annotation (Line(points={{-158,0},{-130,0},{-130,
-          -28},{-112,-28}}, color={255,0,255}));
+  connect(u1CooHrc, enaAndCoo.u2)
+    annotation (Line(points={{-220,20},{-150,20},{-150,12},{-112,12}},color={255,0,255}));
+  connect(hea.y, enaAndHea.u2)
+    annotation (Line(points={{-158,0},{-130,0},{-130,-28},{-112,-28}},color={255,0,255}));
   connect(timTHeaWatLvg1.passed, anyTHeaWatLvg.u1)
     annotation (Line(points={{-68,-200},{-12,-200}},color={255,0,255}));
   connect(timTChiWatLvg1.passed, anyTChiWatLvg.u1)
@@ -286,36 +306,36 @@ equation
     annotation (Line(points={{-28,-168},{-20,-168},{-20,-148},{-12,-148}},color={255,0,255}));
   connect(timTHeaWatLvg2.passed, anyTHeaWatLvg.u2)
     annotation (Line(points={{-28,-228},{-20,-228},{-20,-208},{-12,-208}},color={255,0,255}));
-  connect(anyTChiWatLvg.y,anyTChiWatLvgAndHea. u2)
+  connect(anyTChiWatLvg.y, anyTChiWatLvgAndHea.u2)
     annotation (Line(points={{12,-140},{16,-140},{16,-148},{30,-148}},color={255,0,255}));
   connect(anyTChiWatLvgAndHea.y, anyDis.u[4])
     annotation (Line(points={{54,-140},{58,-140},{58,-98.6},{68,-98.6}},color={255,0,255}));
-  connect(anyTHeaWatLvgAndCoo.y, anyDis.u[5]) annotation (Line(points={{52,-200},
-          {60,-200},{60,-97.2},{68,-97.2}}, color={255,0,255}));
+  connect(anyTHeaWatLvgAndCoo.y, anyDis.u[5])
+    annotation (Line(points={{52,-200},{60,-200},{60,-97.2},{68,-97.2}},color={255,0,255}));
   connect(allEna.y, enaDis.u)
     annotation (Line(points={{52,0},{100,0},{100,-40},{108,-40}},color={255,0,255}));
   connect(anyDis.y, enaDis.clr)
     annotation (Line(points={{92,-100},{100,-100},{100,-46},{108,-46}},color={255,0,255}));
   connect(enaDis.y, truDel.u)
     annotation (Line(points={{132,-40},{140,-40},{140,0},{148,0}},color={255,0,255}));
-  connect(truDel.y, y1) annotation (Line(points={{172,0},{190,0},{190,0},{220,0}},
-        color={255,0,255}));
+  connect(truDel.y, y1)
+    annotation (Line(points={{172,0},{190,0},{190,0},{220,0}},color={255,0,255}));
   connect(enaDis.y, edg.u)
-    annotation (Line(points={{132,-40},{148,-40}}, color={255,0,255}));
+    annotation (Line(points={{132,-40},{148,-40}},color={255,0,255}));
   connect(edg.y, y1SetMod)
-    annotation (Line(points={{172,-40},{220,-40}}, color={255,0,255}));
+    annotation (Line(points={{172,-40},{220,-40}},color={255,0,255}));
   connect(u1Hrc_actual, off.u)
-    annotation (Line(points={{-220,60},{-112,60}}, color={255,0,255}));
-  connect(preEna.y, enaAndCoo.u1) annotation (Line(points={{-128,200},{-120,200},
-          {-120,20},{-112,20}}, color={255,0,255}));
-  connect(preEna.y, enaAndHea.u1) annotation (Line(points={{-128,200},{-120,200},
-          {-120,-20},{-112,-20}}, color={255,0,255}));
-  connect(enaAndCoo.y, anyTHeaWatLvgAndCoo.u1) annotation (Line(points={{-88,20},
-          {22,20},{22,-200},{28,-200}}, color={255,0,255}));
-  connect(anyTHeaWatLvg.y, anyTHeaWatLvgAndCoo.u2) annotation (Line(points={{12,
-          -200},{20,-200},{20,-208},{28,-208}}, color={255,0,255}));
-  connect(enaAndHea.y, anyTChiWatLvgAndHea.u1) annotation (Line(points={{-88,
-          -20},{20,-20},{20,-140},{30,-140}}, color={255,0,255}));
+    annotation (Line(points={{-220,60},{-112,60}},color={255,0,255}));
+  connect(preEna.y, enaAndCoo.u1)
+    annotation (Line(points={{-128,200},{-120,200},{-120,20},{-112,20}},color={255,0,255}));
+  connect(preEna.y, enaAndHea.u1)
+    annotation (Line(points={{-128,200},{-120,200},{-120,-20},{-112,-20}},color={255,0,255}));
+  connect(enaAndCoo.y, anyTHeaWatLvgAndCoo.u1)
+    annotation (Line(points={{-88,20},{22,20},{22,-200},{28,-200}},color={255,0,255}));
+  connect(anyTHeaWatLvg.y, anyTHeaWatLvgAndCoo.u2)
+    annotation (Line(points={{12,-200},{20,-200},{20,-208},{28,-208}},color={255,0,255}));
+  connect(enaAndHea.y, anyTChiWatLvgAndHea.u1)
+    annotation (Line(points={{-88,-20},{20,-20},{20,-140},{30,-140}},color={255,0,255}));
   annotation (
     defaultComponentName="ena",
     Icon(

@@ -28,23 +28,28 @@ class AllSystems
           coeP={-5.8086010402,1.6894933858,5.1167787436,0,0},
           TRefLoa=pla.hp.TChiWatRetHp_nominal,
           TRefSou=pla.hp.TSouCooHp_nominal))),
-    pumHeaWatPri(dp_nominal=fill(
+    pumHeaWatPri(dp_nominal=fill(1.2*
       (if pla.cfg.have_chiWat and pla.cfg.typPumChiWatPri==Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
-        then max(pla.hp.dpHeaWatHp_nominal, pla.hp.dpChiWatHp_nominal) else  pla.hp.dpHeaWatHp_nominal) *1.2, pla.cfg.nPumHeaWatPri)
-           .+ (if pla.cfg.typDis == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Only
-           or pla.cfg.typDis == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
-           then Buildings.Templates.Data.Defaults.dpHeaWatLocSet_max else 0)),
+       then max(pla.hp.dpHeaWatHp_nominal, pla.hp.dpChiWatHp_nominal) else  pla.hp.dpHeaWatHp_nominal), pla.cfg.nPumHeaWatPri)
+       .+ (if pla.cfg.typDis == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Only
+       or pla.cfg.typDis == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
+       then Buildings.Templates.Data.Defaults.dpHeaWatLocSet_max else 0)),
     pumHeaWatSec(
       m_flow_nominal=fill(
-        pla.ctl.VHeaWatSec_flow_nominal*Buildings.Media.Water.d_const/max(1,pla.cfg.nPumHeaWatSec), pla.cfg.nPumHeaWatSec),
+        pla.ctl.VHeaWatSec_flow_nominal*Buildings.Media.Water.d_const/
+          max(1,pla.cfg.nPumHeaWatSec),
+        pla.cfg.nPumHeaWatSec),
       dp_nominal=fill(Buildings.Templates.Data.Defaults.dpHeaWatLocSet_max, pla.cfg.nPumHeaWatSec)),
-    pumChiWatPri(dp_nominal=fill(pla.hp.dpChiWatHp_nominal*1.2, pla.cfg.nPumChiWatPri)
-           .+ (if pla.cfg.typDis == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Only
-           or pla.cfg.typDis == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
-           then Buildings.Templates.Data.Defaults.dpChiWatLocSet_max else 0)),
+    pumChiWatPri(
+      dp_nominal=fill(1.2*pla.hp.dpChiWatHp_nominal, pla.cfg.nPumChiWatPri)
+        .+ (if pla.cfg.typDis == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Only
+        or pla.cfg.typDis == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
+        then Buildings.Templates.Data.Defaults.dpChiWatLocSet_max else 0)),
     pumChiWatSec(
       m_flow_nominal=fill(
-        pla.ctl.VChiWatSec_flow_nominal*Buildings.Media.Water.d_const/max(1,pla.cfg.nPumChiWatSec), pla.cfg.nPumChiWatSec),
+        pla.ctl.VChiWatSec_flow_nominal*Buildings.Media.Water.d_const/
+          max(1,pla.cfg.nPumChiWatSec),
+        pla.cfg.nPumChiWatSec),
       dp_nominal=fill(Buildings.Templates.Data.Defaults.dpChiWatLocSet_max, pla.cfg.nPumChiWatSec)),
     hrc(
       redeclare Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.ReformEIRChiller_Trane_CGWD_207kW_3_99COP_None per,

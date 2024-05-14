@@ -20,9 +20,9 @@ block StageChangeCommand
   final parameter Real traStaEqu[nEqu, nSta]={{staEqu[i, j] for i in 1:nSta} for j in 1:nEqu}
     "Transpose of staging matrix";
   parameter Real staEqu[:,:](
-    max=1,
-    min=0,
-    unit="1")
+    each final max=1,
+    each final min=0,
+    each final unit="1")
     "Staging matrix – Equipment required for each stage";
   final parameter Integer nSta=size(staEqu, 1)
     "Number of stages"
@@ -30,7 +30,9 @@ block StageChangeCommand
   final parameter Integer nEqu=size(staEqu, 2)
     "Number of equipment"
     annotation (Evaluate=true);
-  parameter Real capEqu[nEqu](min=0, unit="W")
+  parameter Real capEqu[nEqu](
+    each final min=0,
+    each final unit="W")
     "Design capacity of each equipment";
   parameter Real dtRun(
     min=0,

@@ -50,9 +50,12 @@ block PartialController "Interface for heat pump plant controller"
     annotation (Evaluate=true,
     Dialog(group="Configuration",
       enable=typ<>Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop and
-      cfg.have_heaWat and not cfg.have_hrc and have_senVHeaWatSec));
+      cfg.have_heaWat and not cfg.have_hrc and have_senVHeaWatSec
+      and cfg.typDis<>Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only));
   final parameter Boolean have_senVHeaWatPri=cfg.have_heaWat and
-    (if cfg.have_hrc or not have_senVHeaWatSec then true else have_senVHeaWatPri_select)
+    (if cfg.have_hrc or not have_senVHeaWatSec
+    or cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
+    then true else have_senVHeaWatPri_select)
     "Set to true for plants with primary HW flow sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   // Secondary flow sensor required for secondary HW pump staging.
@@ -65,10 +68,12 @@ block PartialController "Interface for heat pump plant controller"
     annotation (Evaluate=true,
     Dialog(group="Configuration",
       enable=typ<>Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop and
-      cfg.have_chiWat and not cfg.have_hrc and have_senVChiWatSec));
+      cfg.have_chiWat and not cfg.have_hrc and have_senVChiWatSec
+      and cfg.typDis<>Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only));
   final parameter Boolean have_senVChiWatPri=cfg.have_chiWat and
-    (if cfg.have_hrc or not have_senVChiWatSec then true
-    else have_senVChiWatPri_select)
+    (if cfg.have_hrc or not have_senVChiWatSec
+     or cfg.typDis<>Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
+     then true else have_senVChiWatPri_select)
     "Set to true for plants with primary CHW flow sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   // Secondary flow sensor required for secondary CHW pump staging.
@@ -198,12 +203,12 @@ protected
   Buildings.Templates.Components.Interfaces.Bus busPumHeaWatPri
     if cfg.typPumHeaWatPri<>Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
     "Primary HW pump control bus"
-    annotation (Placement(transformation(extent={{-260,100},{-220,140}}),
-      iconTransformation(extent={{-466,50},{-426,90}})));
-  Buildings.Templates.Components.Interfaces.Bus busPumHeaWatSec
-    if cfg.typPumHeaWatSec == Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized
-    "Secondary HW pump control bus"
     annotation (Placement(transformation(extent={{-260,60},{-220,100}}),
+      iconTransformation(extent={{-466,50},{-426,90}})));
+  Buildings.Templates.Components.Interfaces.Bus busPumHeaWatSec if cfg.typPumHeaWatSec
+     == Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized
+    "Secondary HW pump control bus"
+    annotation (Placement(transformation(extent={{-260,20},{-220,60}}),
       iconTransformation(extent={{-466,50},{-426,90}})));
   Buildings.Templates.Components.Interfaces.Bus busPumChiWatPri if cfg.typPumChiWatPri
      <> Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
@@ -228,12 +233,12 @@ protected
   Buildings.Templates.Components.Interfaces.Bus busValChiWatHpInlIso[nHp]
     if cfg.have_chiWat and cfg.have_valHpInlIso
     "Heat pump inlet CHW isolation valve control bus"
-    annotation (Placement(transformation(extent={{-260,-100},{-220,-60}}),
+    annotation (Placement(transformation(extent={{-260,-60},{-220,-20}}),
       iconTransformation(extent={{-466,50},{-426,90}})));
   Buildings.Templates.Components.Interfaces.Bus busValChiWatHpOutIso[nHp]
     if cfg.have_chiWat and cfg.have_valHpOutIso
     "Heat pump outlet CHW isolation valve control bus"
-    annotation (Placement(transformation(extent={{-260,-140},{-220,-100}}),
+    annotation (Placement(transformation(extent={{-260,-100},{-220,-60}}),
       iconTransformation(extent={{-466,50},{-426,90}})));
   Buildings.Templates.Components.Interfaces.Bus busPumChiWatHrc if cfg.have_hrc
     "Sidestream HRC CHW pump control bus" annotation (Placement(transformation(
@@ -246,6 +251,14 @@ protected
   Buildings.Templates.Components.Interfaces.Bus busHrc if cfg.have_hrc
     "Sidestream HRC control bus" annotation (Placement(transformation(extent={{-260,
             -300},{-220,-260}}), iconTransformation(extent={{-466,50},{-426,90}})));
+  Buildings.Templates.Components.Interfaces.Bus busValHeaWatMinByp
+    if cfg.have_valHeaWatMinByp "HW minimum flow bypass valve control bus"
+    annotation (Placement(transformation(extent={{-260,100},{-220,140}}),
+        iconTransformation(extent={{-466,50},{-426,90}})));
+  Buildings.Templates.Components.Interfaces.Bus busValChiWatMinByp
+    if cfg.have_valChiWatMinByp "CHW minimum flow bypass valve control bus"
+    annotation (Placement(transformation(extent={{-260,-140},{-220,-100}}),
+        iconTransformation(extent={{-466,50},{-426,90}})));
 equation
   /* Control point connection - start */
   connect(busPumHeaWatPri, bus.pumHeaWatPri);
@@ -257,6 +270,8 @@ equation
   connect(busValHeaWatHpOutIso, bus.valHeaWatHpOutIso);
   connect(busValChiWatHpInlIso, bus.valChiWatHpInlIso);
   connect(busValChiWatHpOutIso, bus.valChiWatHpOutIso);
+  connect(busValHeaWatMinByp, bus.valHeaWatMinByp);
+  connect(busValChiWatMinByp, bus.valChiWatMinByp);
   connect(busHrc, bus.hrc);
   connect(busPumChiWatHrc, bus.pumChiWatHrc);
   connect(busPumHeaWatHrc, bus.pumHeaWatHrc);

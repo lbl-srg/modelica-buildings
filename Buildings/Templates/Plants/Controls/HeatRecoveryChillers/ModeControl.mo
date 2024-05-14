@@ -10,12 +10,16 @@ block ModeControl
     "Enable mode setting"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput QChiWatReq_flow(final unit=
-        "W") "CHW load" annotation (Placement(transformation(extent={{-140,-20},
-            {-100,20}}), iconTransformation(extent={{-140,20},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput QHeaWatReq_flow(final unit=
-        "W") "HW load" annotation (Placement(transformation(extent={{-140,-40},
-            {-100,0}}), iconTransformation(extent={{-140,-20},{-100,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput QChiWatReq_flow(
+    final unit="W")
+    "CHW load"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
+      iconTransformation(extent={{-140,20},{-100,60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput QHeaWatReq_flow(
+    final unit="W")
+    "HW load"
+    annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
+      iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
     final unit="K",
     displayUnit="degC")
@@ -38,8 +42,8 @@ block ModeControl
     "Active supply temperature setpoint"
     annotation (Placement(transformation(extent={{100,-80},{140,-40}}),
       iconTransformation(extent={{100,-80},{140,-40}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter QEvaHea_flow(final k=1
-         - 1/COPHea_nominal)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter QEvaHea_flow(
+    final k=1 - 1 / COPHea_nominal)
     "Compute evaporator heat flow rate in heating mode"
     annotation (Placement(transformation(extent={{-88,-30},{-68,-10}})));
   Buildings.Controls.OBC.CDL.Reals.Less les
@@ -56,11 +60,11 @@ block ModeControl
     annotation (Placement(transformation(extent={{60,50},{40,70}})));
 equation
   connect(QHeaWatReq_flow, QEvaHea_flow.u)
-    annotation (Line(points={{-120,-20},{-90,-20}}, color={0,0,127}));
+    annotation (Line(points={{-120,-20},{-90,-20}},color={0,0,127}));
   connect(QChiWatReq_flow, les.u1)
-    annotation (Line(points={{-120,0},{-52,0}}, color={0,0,127}));
-  connect(QEvaHea_flow.y, les.u2) annotation (Line(points={{-66,-20},{-60,-20},
-          {-60,-8},{-52,-8}}, color={0,0,127}));
+    annotation (Line(points={{-120,0},{-52,0}},color={0,0,127}));
+  connect(QEvaHea_flow.y, les.u2)
+    annotation (Line(points={{-66,-20},{-60,-20},{-60,-8},{-52,-8}},color={0,0,127}));
   connect(TChiWatSupSet, selTSupSet.u1)
     annotation (Line(points={{-120,-60},{20,-60},{20,-52},{48,-52}},color={0,0,127}));
   connect(THeaWatSupSet, selTSupSet.u3)
