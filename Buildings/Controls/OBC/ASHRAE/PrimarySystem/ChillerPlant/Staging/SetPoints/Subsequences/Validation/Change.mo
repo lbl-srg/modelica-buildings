@@ -305,12 +305,14 @@ equation
           -130,0},{-42,0}}, color={255,0,255}));
   connect(greThr1.y, cha2.uPla) annotation (Line(points={{-138,30},{-88,30},{
           -88,-180},{-42,-180}}, color={255,0,255}));
-  connect(addInt3.y, maxInt1.u1) annotation (Line(points={{160,-10},{170,-10},{170,
-          -24},{178,-24}}, color={255,127,0}));
-  connect(addInt5.y, maxInt2.u1) annotation (Line(points={{160,-190},{170,-190},
+  connect(addInt3.y, maxInt1.u1) annotation (Line(points={{162,-10},{170,-10},{
+          170,-24},{178,-24}},
+                           color={255,127,0}));
+  connect(addInt5.y, maxInt2.u1) annotation (Line(points={{162,-190},{170,-190},
           {170,-204},{178,-204}}, color={255,127,0}));
-  connect(addInt1.y, maxInt.u1) annotation (Line(points={{160,170},{170,170},{170,
-          156},{178,156}}, color={255,127,0}));
+  connect(addInt1.y, maxInt.u1) annotation (Line(points={{162,170},{170,170},{
+          170,156},{178,156}},
+                           color={255,127,0}));
 annotation (
  experiment(StopTime=14000.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/SetPoints/Subsequences/Validation/Change.mos"

@@ -693,6 +693,9 @@ equation
     annotation (Line(points={{-38,-120},{-28,-120}}, color={255,0,255}));
   connect(nexChi.yDow, and7.u2) annotation (Line(points={{-18,347},{10,347},{10,
           -18},{-32,-18},{-32,-128},{-28,-128}}, color={255,0,255}));
+  connect(minChiWatFlo.yChaSet, minBypSet.yChaSet) annotation (Line(points={{
+          122,-328},{140,-328},{140,-340},{80,-340},{80,-370},{98,-370}}, color
+        ={255,0,255}));
 annotation (
   defaultComponentName="dowProCon",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-280,-400},{280,400}})),

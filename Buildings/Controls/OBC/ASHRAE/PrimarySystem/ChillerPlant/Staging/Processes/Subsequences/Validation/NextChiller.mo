@@ -323,7 +323,7 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subse
 </html>", revisions="<html>
 <ul>
 <li>
-September 26, by Jianjun Hu:<br/>
+September 26, 2019, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>

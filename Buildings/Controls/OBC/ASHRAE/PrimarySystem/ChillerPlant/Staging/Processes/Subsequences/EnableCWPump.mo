@@ -27,41 +27,27 @@ block EnableCWPump
       iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea
-    "Convert integer input to real output"
-    annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch swi "Logical switch"
-    annotation (Placement(transformation(extent={{40,30},{60,50}})));
+  Buildings.Controls.OBC.CDL.Integers.Switch swi "Logical switch"
+    annotation (Placement(transformation(extent={{80,30},{100,50}})));
   Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch swi1 "Logical switch"
-    annotation (Placement(transformation(extent={{0,70},{20,90}})));
+  Buildings.Controls.OBC.CDL.Integers.Switch swi1 "Logical switch"
+    annotation (Placement(transformation(extent={{-20,70},{0,90}})));
   Buildings.Controls.OBC.CDL.Logical.And and1 "Logicla and"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch swi2 "Logical switch"
-    annotation (Placement(transformation(extent={{0,0},{20,20}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch swi3 "Logical switch"
+  Buildings.Controls.OBC.CDL.Integers.Switch swi2 "Logical switch"
+    annotation (Placement(transformation(extent={{-20,0},{0,20}})));
+  Buildings.Controls.OBC.CDL.Integers.Switch swi3 "Logical switch"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
-  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
-    "Convert integer input to real output"
-    annotation (Placement(transformation(extent={{80,30},{100,50}})));
-  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea1
-    "Convert integer input to real output"
-    annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
 
 equation
-  connect(uStaSet, intToRea.u)
-    annotation (Line(points={{-140,-80},{-102,-80}}, color={255,127,0}));
   connect(uUpsDevSta, and2.u1)
     annotation (Line(points={{-140,80},{-82,80}}, color={255,0,255}));
   connect(uStaUp, and2.u2)
     annotation (Line(points={{-140,40},{-100,40},{-100,72},{-82,72}},
       color={255,0,255}));
   connect(and2.y, swi1.u2)
-    annotation (Line(points={{-58,80},{-2,80}}, color={255,0,255}));
-  connect(intToRea.y, swi1.u1)
-    annotation (Line(points={{-78,-80},{-40,-80},{-40,88},{-2,88}},
-      color={0,0,127}));
+    annotation (Line(points={{-58,80},{-22,80}},color={255,0,255}));
   connect(uUpsDevSta, and1.u1)
     annotation (Line(points={{-140,80},{-110,80},{-110,10},{-82,10}},
       color={255,0,255}));
@@ -69,37 +55,29 @@ equation
     annotation (Line(points={{-140,-10},{-100,-10},{-100,2},{-82,2}},
       color={255,0,255}));
   connect(and1.y, swi2.u2)
-    annotation (Line(points={{-58,10},{-2,10}}, color={255,0,255}));
-  connect(intToRea.y, swi2.u1)
-    annotation (Line(points={{-78,-80},{-40,-80},{-40,18},{-2,18}},
-      color={0,0,127}));
+    annotation (Line(points={{-58,10},{-22,10}},color={255,0,255}));
   connect(uStaUp, swi.u2)
-    annotation (Line(points={{-140,40},{38,40}}, color={255,0,255}));
-  connect(swi1.y, swi.u1)
-    annotation (Line(points={{22,80},{30,80},{30,48},{38,48}},
-      color={0,0,127}));
+    annotation (Line(points={{-140,40},{78,40}}, color={255,0,255}));
   connect(uStaDow, swi3.u2)
     annotation (Line(points={{-140,-10},{38,-10}}, color={255,0,255}));
-  connect(swi2.y, swi3.u1)
-    annotation (Line(points={{22,10},{30,10},{30,-2},{38,-2}},
-      color={0,0,127}));
-  connect(intToRea.y, swi3.u3)
-    annotation (Line(points={{-78,-80},{-40,-80},{-40,-18},{38,-18}},
-      color={0,0,127}));
-  connect(swi3.y, swi.u3)
-    annotation (Line(points={{62,-10},{70,-10},{70,20},{30,20},{30,32},{38,32}},
-      color={0,0,127}));
-  connect(swi.y, reaToInt.u)
-    annotation (Line(points={{62,40},{78,40}}, color={0,0,127}));
-  connect(reaToInt.y, yChiSta)
+  connect(uStaSet, swi3.u3) annotation (Line(points={{-140,-80},{-40,-80},{-40,-18},
+          {38,-18}}, color={255,127,0}));
+  connect(uStaSet, swi2.u1) annotation (Line(points={{-140,-80},{-40,-80},{-40,18},
+          {-22,18}}, color={255,127,0}));
+  connect(uStaSet, swi1.u1) annotation (Line(points={{-140,-80},{-40,-80},{-40,88},
+          {-22,88}}, color={255,127,0}));
+  connect(uChiSta, swi2.u3) annotation (Line(points={{-140,-40},{-30,-40},{-30,2},
+          {-22,2}}, color={255,127,0}));
+  connect(uChiSta, swi1.u3) annotation (Line(points={{-140,-40},{-30,-40},{-30,72},
+          {-22,72}}, color={255,127,0}));
+  connect(swi.y, yChiSta)
     annotation (Line(points={{102,40},{140,40}}, color={255,127,0}));
-  connect(uChiSta, intToRea1.u)
-    annotation (Line(points={{-140,-40},{-102,-40}}, color={255,127,0}));
-  connect(intToRea1.y, swi1.u3)
-    annotation (Line(points={{-78,-40},{-20,-40},{-20,72},{-2,72}}, color={0,0,127}));
-  connect(intToRea1.y, swi2.u3)
-    annotation (Line(points={{-78,-40},{-20,-40},{-20,2},{-2,2}}, color={0,0,127}));
-
+  connect(swi2.y, swi3.u1) annotation (Line(points={{2,10},{20,10},{20,-2},{38,-2}},
+        color={255,127,0}));
+  connect(swi3.y, swi.u3) annotation (Line(points={{62,-10},{70,-10},{70,32},{78,
+          32}}, color={255,127,0}));
+  connect(swi1.y, swi.u1) annotation (Line(points={{2,80},{70,80},{70,48},{78,48}},
+        color={255,127,0}));
 annotation (
   defaultComponentName="enaNexCWP",
   Diagram(coordinateSystem(preserveAspectRatio=false,

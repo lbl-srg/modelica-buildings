@@ -65,7 +65,7 @@ equation
     annotation (Line(points={{-138,20},{-116,20},{-116,82},{-82,82}},
       color={255,0,255}));
   connect(chiOne.y, enaDisChi.uChi[1])
-    annotation (Line(points={{-138,-20},{-112,-20},{-112,76.6667},{-82,76.6667}},
+    annotation (Line(points={{-138,-20},{-112,-20},{-112,77.3333},{-82,77.3333}},
       color={255,0,255}));
   connect(chiIsoVal.y, chiTwo.u2)
     annotation (Line(points={{-138,20},{-116,20},{-116,-40},{-42,-40}},
@@ -81,9 +81,9 @@ equation
   connect(enaDisChi.yChi[2], chiStaRet[1].u) annotation (Line(points={{-58,88},
           {-50,88},{-50,80},{-42,80}}, color={255,0,255}));
   connect(enaDisChi.yChi[3], chiStaRet[2].u) annotation (Line(points={{-58,
-          89.3333},{-50,89.3333},{-50,80},{-42,80}}, color={255,0,255}));
+          88.6667},{-50,88.6667},{-50,80},{-42,80}}, color={255,0,255}));
   connect(chiStaRet[2].y, enaDisChi.uChi[3]) annotation (Line(points={{-18,80},
-          {0,80},{0,40},{-104,40},{-104,79.3333},{-82,79.3333}}, color={255,0,
+          {0,80},{0,40},{-104,40},{-104,78.6667},{-82,78.6667}}, color={255,0,
           255}));
   connect(onOff.y, enaDisChi.uOnOff)
     annotation (Line(points={{-138,-60},{-100,-60},{-100,74},{-82,74}},
@@ -101,7 +101,7 @@ equation
     annotation (Line(points={{-138,20},{44,20},{44,82},{98,82}},
       color={255,0,255}));
   connect(chiOne.y, enaOneChi.uChi[1])
-    annotation (Line(points={{-138,-20},{48,-20},{48,76.6667},{98,76.6667}},
+    annotation (Line(points={{-138,-20},{48,-20},{48,77.3333},{98,77.3333}},
       color={255,0,255}));
   connect(chiOne.y, enaOneChi.uChi[2])
     annotation (Line(points={{-138,-20},{48,-20},{48,78},{98,78}},
@@ -113,9 +113,9 @@ equation
     annotation (Line(points={{42,-100},{60,-100},{60,71},{98,71}},
       color={255,127,0}));
   connect(enaOneChi.yChi[3], chiStaRet1.u) annotation (Line(points={{122,
-          89.3333},{130,89.3333},{130,80},{138,80}}, color={255,0,255}));
+          88.6667},{130,88.6667},{130,80},{138,80}}, color={255,0,255}));
   connect(chiStaRet1.y, enaOneChi.uChi[3]) annotation (Line(points={{162,80},{
-          180,80},{180,40},{52,40},{52,79.3333},{98,79.3333}}, color={255,0,255}));
+          180,80},{180,40},{52,40},{52,78.6667},{98,78.6667}}, color={255,0,255}));
 
 annotation (
  experiment(StopTime=3600, Tolerance=1e-06),
@@ -130,7 +130,7 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subse
 </html>", revisions="<html>
 <ul>
 <li>
-September 24, by Jianjun Hu:<br/>
+September 24, 2019, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>

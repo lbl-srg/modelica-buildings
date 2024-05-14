@@ -351,7 +351,8 @@ equation
       color={255,0,255}));
   connect(minChiWatSet.yChiWatMinFloSet, minBypSet.VMinChiWat_setpoint)
     annotation (Line(points={{62,-130},{70,-130},{70,-146},{30,-146},{30,-188},
-      {38,-188}},  color={0,0,127}));
+          {38,-188}},
+                   color={0,0,127}));
   connect(con3.y, minChiWatSet.uUpsDevSta)
     annotation (Line(points={{-138,-150},{-20,-150},{-20,-123},{38,-123}},
       color={255,0,255}));
@@ -409,8 +410,9 @@ equation
     annotation (Line(points={{122,-80},{140,-80},{140,-94},{20,-94},{20,-134},
       {38,-134}}, color={255,0,255}));
   connect(lat3.y, minBypSet.uUpsDevSta)
-    annotation (Line(points={{122,-80},{140,-80},{140,-94},{20,-94},{20,-172},
-      {38,-172}}, color={255,0,255}));
+    annotation (Line(points={{122,-80},{140,-80},{140,-94},{20,-94},{20,-172},{
+          38,-172}},
+                  color={255,0,255}));
   connect(edg1.y, lat3.clr)
     annotation (Line(points={{182,-230},{190,-230},{190,-250},{-50,-250},
       {-50,-86},{98,-86}}, color={255,0,255}));
@@ -455,6 +457,9 @@ equation
           -90,120},{-90,28},{-82,28}}, color={255,0,255}));
   connect(and2.y, and3.u2) annotation (Line(points={{62,150},{80,150},{80,120},{
           -90,120},{-90,-78},{-80,-78}}, color={255,0,255}));
+  connect(minChiWatSet.yChaSet, minBypSet.yChaSet) annotation (Line(points={{62,
+          -138},{66,-138},{66,-144},{24,-144},{24,-180},{38,-180}}, color={255,
+          0,255}));
 annotation (
   defaultComponentName="endUp",
   Diagram(coordinateSystem(preserveAspectRatio=false,

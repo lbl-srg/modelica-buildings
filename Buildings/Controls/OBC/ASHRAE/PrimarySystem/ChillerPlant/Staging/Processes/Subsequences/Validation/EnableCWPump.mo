@@ -115,10 +115,56 @@ This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.EnableCWPump\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.EnableCWPump</a>.
 </p>
+<p>
+It has two instances <code>staUpInd</code> and <code>staDowInd</code>, which shows
+the calculation of the chiller stage index in the staging up and staging down process.
+</p>
+<p>
+For the instance <code>staUpInd</code>,
+</p>
+<ul>
+<li>
+Before 540 seconds, the plant is not in staging up process. The chiller stage
+<code>yChiSta</code> equals previous stage setpoint, which is 1.
+</li>
+<li>
+In the period from 540 seconds to 720 seconds, the plant is in staging up process
+but the process is not yet requiring changing the condenser water pumps
+(<code>uUpsDevSta=false</code>). The chiller stage <code>yChiSta</code> still
+equals previous stage setpoint (1) but not yet equals the new setpoint
+<code>uStaSet</code> (2).
+</li>
+<li>
+Since the 720 seconds, the process requires changing the condenser water pumps
+(<code>uUpsDevSta=true</code>). The chiller stage <code>yChiSta</code> equals the
+new setpoint <code>uStaSet</code> (2).
+</li>
+</ul>
+<p>
+For the instance <code>staDowInd</code>,
+</p>
+<ul>
+<li>
+Before 540 seconds, the plant is not in staging down process. The chiller stage
+<code>yChiSta</code> equals previous stage setpoint, which is 2.
+</li>
+<li>
+In the period from 540 seconds to 720 seconds, the plant is in staging down process
+but the process is not yet requiring changing the condenser water pumps
+(<code>uUpsDevSta=false</code>). The chiller stage <code>yChiSta</code> still
+equals previous stage setpoint (2) but not yet equals the new setpoint
+<code>uStaSet</code> (1).
+</li>
+<li>
+Since the 720 seconds, the process requires changing the condenser water pumps
+(<code>uUpsDevSta=true</code>). The chiller stage <code>yChiSta</code> equals the
+new setpoint <code>uStaSet</code> (1).
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>
-September 24, by Jianjun Hu:<br/>
+September 24, 2019 by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>

@@ -11,14 +11,12 @@ block DownStart "Sequence for starting stage-down process"
     annotation (Dialog(group="Demand limit", enable=need_reduceChillerDemand));
   parameter Real holChiDemTim(
     final unit="s",
-    final quantity="Time",
-    displayUnit="h")=300
+    final quantity="Time")=300
     "Maximum time to wait for the actual demand less than percentage of current load"
     annotation (Dialog(group="Demand limit", enable=need_reduceChillerDemand));
   parameter Real byPasSetTim(
     final unit="s",
-    final quantity="Time",
-    displayUnit="h")
+    final quantity="Time")
     "Time constant for resetting minimum bypass flow"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
   parameter Real minFloSet[nChi](
@@ -35,26 +33,22 @@ block DownStart "Sequence for starting stage-down process"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
   parameter Real aftByPasSetTim(
     final unit="s",
-    final quantity="Time",
-    displayUnit="h")=60
+    final quantity="Time")=60
     "Time after setpoint achieved"
     annotation (Dialog(group="Reset bypass"));
   parameter Real waiTim(
     final unit="s",
-    final quantity="Time",
-    displayUnit="h")=30
+    final quantity="Time")=30
     "Waiting time after enabling next head pressure control"
     annotation (Dialog(group="Head pressure control"));
   parameter Real chaChiWatIsoTim(
     final unit="s",
-    final quantity="Time",
-    displayUnit="h")
+    final quantity="Time")
     "Time to slowly change isolation valve, should be determined in the field"
     annotation (Dialog(group="Chilled water isolation valve"));
   parameter Real proOnTim(
     final unit="s",
-    final quantity="Time",
-    displayUnit="h")=300
+    final quantity="Time")=300
     "Enabled chiller operation time to indicate if it is proven on"
     annotation (Dialog(group="Disable last chiller"));
   parameter Real relFloDif=0.05
@@ -361,7 +355,8 @@ equation
     annotation (Line(points={{42,150},{50,150},{50,118},{58,118}},
       color={255,0,255}));
   connect(lat2.y, minChiWatSet.uSubCha)
-    annotation (Line(points={{42,150},{50,150},{50,108},{-20,108},{-20,66},{-2,66}},
+    annotation (Line(points={{42,150},{50,150},{50,120},{-20,120},{-20,66},{-2,
+          66}},
       color={255,0,255}));
   connect(disChi.yRelDemLim, pre.u)
     annotation (Line(points={{22,-158},{60,-158},{60,-170},{78,-170}},
@@ -382,8 +377,9 @@ equation
   connect(enaHeaCon.yEnaHeaCon, lat3.u)
     annotation (Line(points={{22,6},{30,6},{30,-40},{58,-40}}, color={255,0,255}));
   connect(lat3.y, enaChiIsoVal.uUpsDevSta)
-    annotation (Line(points={{82,-40},{100,-40},{100,-60},{-20,-60},{-20,-105},
-      {-2,-105}}, color={255,0,255}));
+    annotation (Line(points={{82,-40},{100,-40},{100,-56},{-20,-56},{-20,-105},
+          {-2,-105}},
+                  color={255,0,255}));
   connect(clr, lat3.clr)
     annotation (Line(points={{-180,50},{-130,50},{-130,-46},{58,-46}},
       color={255,0,255}));
@@ -400,12 +396,16 @@ equation
     annotation (Line(points={{-78,200},{18,200}}, color={255,0,255}));
   connect(con3.y, or2.u2) annotation (Line(points={{-78,90},{-60,90},{-60,192},{
           18,192}}, color={255,0,255}));
-  connect(or2.y, minBypRes.uUpsDevSta) annotation (Line(points={{42,200},{50,200},
-          {50,118},{58,118}}, color={255,0,255}));
-  connect(or2.y, minChiWatSet.uSubCha) annotation (Line(points={{42,200},{50,200},
-          {50,108},{-20,108},{-20,66},{-2,66}}, color={255,0,255}));
+  connect(or2.y, minBypRes.uUpsDevSta) annotation (Line(points={{42,200},{50,
+          200},{50,118},{58,118}},
+                              color={255,0,255}));
+  connect(or2.y, minChiWatSet.uSubCha) annotation (Line(points={{42,200},{50,
+          200},{50,120},{-20,120},{-20,66},{-2,66}},
+                                                color={255,0,255}));
   connect(con3.y, enaHeaCon.uEnaPla) annotation (Line(points={{-78,90},{-70,90},
           {-70,8},{-2,8}}, color={255,0,255}));
+  connect(minChiWatSet.yChaSet, minBypRes.yChaSet) annotation (Line(points={{22,
+          62},{30,62},{30,110},{58,110}}, color={255,0,255}));
 annotation (
   defaultComponentName="staStaDow",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-200},{180,220}})),
