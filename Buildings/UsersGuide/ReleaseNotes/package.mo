@@ -10,6 +10,9 @@ on the Buildings library.
 </p>
 <ul>
 <li>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_12_0_0\">Version 12.0.0</a> (xxx, 2024)
+</li>
+<li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_11_1_0\">Version 11.1.0</a> (xxx, 2024)
 </li>
 <li>
