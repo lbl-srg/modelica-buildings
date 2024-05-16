@@ -1,8 +1,0 @@
-compareVars :=
-  {
-    "pump_y.P",
-    "pump_dp.P",
-    "pump_m_flow.P",
-    "pump_y.per.speed_nominal",
-    "y.y"
-  };
