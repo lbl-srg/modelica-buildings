@@ -125,12 +125,12 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(weaDat.weaBus,solCol. weaBus) annotation (Line(
-      points={{-160,70},{-2,70},{-2,65.6}},
+      points={{-160,70},{-2,70},{-2,64}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(weaDat.weaBus, pumCon.weaBus) annotation (Line(
-      points={{-160,70},{-152,70},{-152,6},{-140.2,6}},
+      points={{-160,70},{-152,70},{-152,5},{-140,5}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -159,11 +159,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(bou.ports[1], tan.port_a) annotation (Line(
-      points={{140,20},{80,20},{80,-20}},
+      points={{140,20},{100,20},{100,0}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(bou1.ports[1], tan.port_b) annotation (Line(
-      points={{140,-20},{120,-20}},
+      points={{140,-20},{120,-20},{120,-40},{100,-40}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(tan.heaPorVol[3], TTan.port) annotation (Line(
@@ -183,57 +183,68 @@ equation
         "Simulate and plot"),
    experiment(Tolerance=1e-6, StopTime=86400.0),
         Documentation(info="<html>
-          <p>
-            This example shows how several different models can be combined to create
-            an entire solar water heating system. The
-            <a href=\"modelica://Buildings.Fluid.Storage.StratifiedEnhancedInternalHex\">
-            Buildings.Fluid.Storage.StratifiedEnhancedInternalHex</a> (tan) model is
-            used to represent the tank filled with hot water. A loop, powered by a pump
-            (<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_m_flow\">
-            Buildings.Fluid.Movers.FlowControlled_m_flow</a>, pum), passes the water
-            through an expansion tank
-            (<a href=\"modelica://Buildings.Fluid.Storage.ExpansionVessel\">
-            Buildings.Fluid.Storage.ExpansionVessel</a>, exp), a temperature sensor
-            (<a href=\"modelica://Buildings.Fluid.Sensors.TemperatureTwoPort\">
-            Buildings.Fluid.Sensors.TemperatureTwoPort</a>, TIn), the solar collector
-            (<a href=\"modelica://Buildings.Fluid.SolarCollectors.ASHRAE93\">
-            Buildings.Fluid.SolarCollectors.ASHRAE93,</a> solCol) and a second temperature
-            sensor
-            (<a href=\"modelica://Buildings.Fluid.Sensors.TemperatureTwoPort\">
-            Buildings.Fluid.Sensors.TemperatureTwoPort</a>, TOut) before re-entering the
-            tank.
-          </p>
-          <p>
-            The solar collector is connected to the weather model
-            (<a href=\"modelica://Buildings.BoundaryConditions.WeatherData.ReaderTMY3\">
-            Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a>, weaDat) which passes
-            information for the San Francisco, CA, USA climate. This information is used to
-            identify both the heat gain in the water from the sun and the heat loss to the
-            ambient conditions.
-          </p>
-          <p>
-            The flow rate through the pump is controlled by a solar pump controller model
-            (<a href=\"modelica://Buildings.Fluid.SolarCollectors.Controls.CollectorPump\">
-            Buildings.Fluid.SolarCollectors.Controls.CollectorPump</a>, pumCon) and a
-            gain model. The controller outputs a binary on (1) / off (0) signal. The on/off
-            signal is passed through a boolean to real signal converter to set the pump
-            mass flow rate.
-          </p>
-          <p>
-            The heat ports for the tank are connected to an ambient temperature of 20
-            degrees C representing the temperature of the room the tank is stored in.
-          </p>
-          <p>
-            bou1 (<a href=\"modelica://Buildings.Fluid.Sources.MassFlowSource_T\">
-            Buildings.Fluid.Sources.MassFlowSource_T)</a> provides a constant mass flow
-            rate for a hot water draw while bou
-            (<a href=\"modelica://Buildings.Fluid.Sources.Boundary_pT\">
-            Buildings.Fluid.Sources.Boundary_pT)</a> provides a boundary
-            condition for the outlet of the draw.
-          </p>
-      </html>",
+<p>
+This example shows how several different models can be combined to create
+an entire solar water heating system.
+The
+<a href=\"modelica://Buildings.Fluid.Storage.StratifiedEnhancedInternalHex\">
+Buildings.Fluid.Storage.StratifiedEnhancedInternalHex</a> (tan) model is
+used to represent the tank filled with hot water.
+A loop, powered by a pump
+(<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_m_flow\">
+Buildings.Fluid.Movers.FlowControlled_m_flow</a>, pum), 
+passes the water through an expansion tank
+(<a href=\"modelica://Buildings.Fluid.Storage.ExpansionVessel\">
+Buildings.Fluid.Storage.ExpansionVessel</a>, exp),
+a temperature sensor
+(<a href=\"modelica://Buildings.Fluid.Sensors.TemperatureTwoPort\">
+Buildings.Fluid.Sensors.TemperatureTwoPort</a>, TIn),
+the solar collector
+(<a href=\"modelica://Buildings.Fluid.SolarCollectors.ASHRAE93\">
+Buildings.Fluid.SolarCollectors.ASHRAE93,</a> solCol),
+and a second temperature sensor
+(<a href=\"modelica://Buildings.Fluid.Sensors.TemperatureTwoPort\">
+Buildings.Fluid.Sensors.TemperatureTwoPort</a>, TOut)
+before re-entering the tank.
+</p>
+<p>
+The solar collector is connected to the weather model
+(<a href=\"modelica://Buildings.BoundaryConditions.WeatherData.ReaderTMY3\">
+Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a>, weaDat) which passes
+information for the San Francisco, CA, USA climate.
+This information is used to identify both the heat gain in the water 
+from the sun and the heat loss to the ambient conditions.
+</p>
+<p>
+The flow rate through the pump is controlled by a solar pump controller model
+(<a href=\"modelica://Buildings.Fluid.SolarCollectors.Controls.CollectorPump\">
+Buildings.Fluid.SolarCollectors.Controls.CollectorPump</a>, pumCon)
+and a gain model.
+The controller outputs a binary on (1) / off (0) signal.
+The on/off signal is passed through a boolean to real signal converter 
+to set the pump mass flow rate.
+</p>
+<p>
+The heat ports for the tank are connected to an ambient temperature of 
+20 degrees C representing the temperature of the room the tank is stored in.
+</p>
+<p>
+bou1 (<a href=\"modelica://Buildings.Fluid.Sources.MassFlowSource_T\">
+Buildings.Fluid.Sources.MassFlowSource_T)</a> provides a constant mass flow
+rate for a hot water draw while bou
+(<a href=\"modelica://Buildings.Fluid.Sources.Boundary_pT\">
+Buildings.Fluid.Sources.Boundary_pT)</a> 
+provides a boundary condition for the outlet of the draw.
+</p>
+</html>",
 revisions="<html>
 <ul>
+<li>
+February 15, 2024, by Jelger Jansen:<br/>
+Refactor model.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3604\">Buildings, #3604</a>.
+</li>
 <li>
 November 7, 2022, by Michael Wetter:<br/>
 Revised example to provide values for new parameters and to integrate the revised solar pump controller.<br/>
