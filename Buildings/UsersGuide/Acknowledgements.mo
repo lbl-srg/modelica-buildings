@@ -95,6 +95,8 @@ The following people have directly contributed to the implementation of the Buil
 </li>
 <li>Dan Li, University of Miami, Florida, USA
 </li>
+<li>Jelger Jansen, KU Leuven, Belgium
+</li>
 <li>Filip Jorissen, KU Leuven, Belgium
 </li>
 <li>Thierry S. Nouidui, Lawrence Berkeley National Laboratory, USA
