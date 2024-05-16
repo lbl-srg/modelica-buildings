@@ -37,6 +37,20 @@ to <b style=\"color:blue\">existing</b> libraries:
     <td valign=\"top\">xxx.
     </td>
     </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Movers.Validation.BaseClasses.ComparePower<br/>
+                       Buildings.Fluid.Movers.Validation.ComparePowerHydraulic<br/>
+                       Buildings.Fluid.Movers.Validation.ComparePowerInput<br/>
+                       Buildings.Fluid.Movers.Validation.ComparePowerTotal
+    </td>
+    <td valign=\"top\">Created new validation models to compare power estimation
+                       of different mover model setups.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1880\">IBPSA, #1880</a>.
+    </td>
+</tr>
 </table>
 <!-- Backward compatible changes -->
 <p>
@@ -155,6 +169,29 @@ that can lead to wrong simulation results):
 <tr><td valign=\"top\">xxx
     </td>
     <td valign=\"top\">xxx.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface
+    </td>
+    <td valign=\"top\">Corrected efficiency equations if
+                       <code>powerOrEfficiencyIsHydraulic=false</code>.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1880\">IBPSA, #1880</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Obsolete.Fluid.Movers</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Obsolete.Fluid.Movers.Validation.PowerExact<br/>
+                       Buildings.Obsolete.Fluid.Movers.Validation.PowerEuler<br/>
+                       Buildings.Obsolete.Fluid.Movers.Validation.PowerSimplified
+    </td>
+    <td valign=\"top\">Corrected efficiency assignment and moved to the Obsolete package.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1880\">IBPSA, #1880</a>.
     </td>
 </tr>
 </table>
