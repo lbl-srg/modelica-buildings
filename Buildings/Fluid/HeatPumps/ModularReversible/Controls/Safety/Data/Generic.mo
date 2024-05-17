@@ -7,6 +7,11 @@ record Generic "Generic record definition for safety control blocks"
   parameter Modelica.Units.SI.Time minOnTime
     "Mimimum on-time" annotation (Dialog(group=
           "On/Off Control", enable=use_minOnTime));
+  parameter Real ySetRed(unit="1")
+    "Reduced relative compressor speed to allow longer on-time"
+        annotation (
+          Dialog(group="On/Off Control",
+          enable=use_minOnTime));
   parameter Boolean use_minOffTime
     "=false to ignore minimum off time"
     annotation (Dialog(group="On/Off Control"),
@@ -21,11 +26,7 @@ record Generic "Generic record definition for safety control blocks"
   parameter Integer maxCycRat "Maximum cycle rate"
     annotation (Dialog(group="On/Off Control",
     enable=use_maxCycRat));
-  parameter Real ySetRed(unit="1")
-    "Reduced relative compressor speed to allow longer on-time"
-        annotation (
-          Dialog(group="On/Off Control",
-          enable=use_minOnTime));
+
   parameter Boolean onOffMea_start=true
     "Start value for the on-off signal of the device, true for on"
     annotation (
