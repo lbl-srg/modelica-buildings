@@ -13,7 +13,6 @@ model OneUTube "Single U-tube borehole heat exchanger"
     each final deltaM1=deltaM,
     each final deltaM2=deltaM,
     each final energyDynamics=energyDynamics,
-    each final dynFil=dynFil,
     each final mSenFac=mSenFac,
     final dp1_nominal={if i == 1 then dp_nominal else 0 for i in 1:nSeg},
     each final dp2_nominal=0,
@@ -91,11 +90,11 @@ equation
           textString="")}),
     Documentation(info="<html>
 <p>
-Model of a single U-tube borehole heat exchanger. 
+Model of a single U-tube borehole heat exchanger.
 The borehole heat exchanger is vertically discretized into
 <i>n<sub>seg</sub></i> elements of height
 <i>h=h<sub>Bor</sub>&frasl;n<sub>seg</sub></i>.
-Each segment contains a model for the heat transfer in the borehole, 
+Each segment contains a model for the heat transfer in the borehole,
 with a uniform borehole wall boundary temperature given by the
 <code>port_wall</code> port.
 </p>
@@ -108,6 +107,12 @@ into account. The vertical heat flow is assumed to be zero.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 17, 2024, by Michael Wetter:<br/>
+Updated model due to removal of parameter <code>dynFil</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1885\">IBPSA, #1885</a>.
+</li>
 <li>
 July 2018, by Alex Laferri&egrave;re:<br/>
 Following major changes to the structure of the Buildings.Fluid.HeatExchangers.Ground package,
