@@ -21,7 +21,7 @@ record Template
     "Nominal mass flow rate of each borefield zone"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Pressure[nZon] dp_nominal(each displayUnit="Pa")
-    "Pressure losses for the entire borefield"
+    "Pressure losses for each zone of the borefield"
     annotation (Dialog(group="Nominal condition"));
   // -- Advanced flow parameters
   final parameter Modelica.Units.SI.MassFlowRate[nZon] mBor_flow_small(each min=0) =
