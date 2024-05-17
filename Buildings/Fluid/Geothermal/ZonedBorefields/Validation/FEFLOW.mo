@@ -69,7 +69,7 @@ model FEFLOW "Comparative model validation with FEFLOW"
     y(each unit="K",
       each displayUnit="degC"))
     "Reference results for the borehole fluid outlet temperature in each zone from FEFLOW"
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 
   parameter Data.Configuration.Template conDat(
     borCon=Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel,
