@@ -15,8 +15,7 @@ model SeriesConnectedZones "Description"
     borFieDat=borFieDat,
     TExt0_start=T_start,
     dT_dz=0,
-    tLoaAgg=300,
-    dynFil=true)
+    tLoaAgg=300)
     "Borehole"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Movers.Preconfigured.FlowControlled_m_flow pum(

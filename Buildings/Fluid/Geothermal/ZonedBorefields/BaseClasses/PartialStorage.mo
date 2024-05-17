@@ -35,10 +35,6 @@ partial model PartialStorage
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
 
-  parameter Boolean dynFil=true
-    "Set to false to remove the dynamics of the filling material"
-    annotation (Dialog(tab="Dynamics"));
-
   // Initialization
   parameter Medium.AbsolutePressure p_start = Medium.p_default
     "Start value of pressure"
@@ -93,7 +89,6 @@ partial model PartialStorage
     each final energyDynamics=energyDynamics,
     each final p_start=p_start,
     each final mSenFac=mSenFac,
-    each final dynFil=dynFil,
     each final TFlu_start=TFlu_start,
     each final TGro_start=TGro_start) "Borehole"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));

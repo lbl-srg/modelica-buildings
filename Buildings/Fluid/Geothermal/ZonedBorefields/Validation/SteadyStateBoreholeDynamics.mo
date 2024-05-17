@@ -2,8 +2,9 @@ within Buildings.Fluid.Geothermal.ZonedBorefields.Validation;
 model SteadyStateBoreholeDynamics "Description"
   extends Buildings.Fluid.Geothermal.ZonedBorefields.Validation.TransientBoreholeDynamics(
     borHol(
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
-    dynFil=false));
+      energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial),
+      filDat(
+        steadyState=true));
 
   annotation (
   Diagram(coordinateSystem(extent={{-100,-60},{140,80}})),
