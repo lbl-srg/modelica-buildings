@@ -80,7 +80,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.Fluid.Geothermal.Borefields.BaseClasses.PartialBorefield
 
     </td>
-    <td valign=\"top\">Removed parameter <code>dynBil</code> to avoid allowing an inconsistent
+    <td valign=\"top\">Removed parameter <code>dynFil</code> to avoid allowing an inconsistent
                        declaration of the energy balance configuration for the borehole filling.<br/>
                        This is for
                        <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1885\">IBPSA, #1885</a>.
