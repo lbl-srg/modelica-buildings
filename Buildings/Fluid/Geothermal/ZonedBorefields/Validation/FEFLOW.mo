@@ -33,8 +33,7 @@ model FEFLOW "Comparative model validation with FEFLOW"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TExt0_start=T_start,
     borFieDat=borFieDat,
-    dT_dz=0,
-    tLoaAgg=600) "Borefield"
+    dT_dz=0) "Borefield"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
   Sensors.TemperatureTwoPort TBorFieIn[nZon](
     redeclare each package Medium = Medium,
