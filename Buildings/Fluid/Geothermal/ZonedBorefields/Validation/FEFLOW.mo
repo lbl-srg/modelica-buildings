@@ -30,11 +30,9 @@ model FEFLOW "Comparative model validation with FEFLOW"
   Buildings.Fluid.Geothermal.ZonedBorefields.TwoUTubes borFie(
     redeclare package Medium = Medium,
     allowFlowReversal=false,
-    nSeg=6,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    TExt_start=T_start*ones(6),
-    borFieDat=borFieDat,
     TExt0_start=T_start,
+    borFieDat=borFieDat,
     dT_dz=0,
     tLoaAgg=600) "Borefield"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
