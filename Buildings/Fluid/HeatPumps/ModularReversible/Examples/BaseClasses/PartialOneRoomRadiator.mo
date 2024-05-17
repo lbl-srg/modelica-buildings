@@ -71,11 +71,10 @@ partial model PartialOneRoomRadiator
 
 //----------------------------------------------------------------------------//
 
-  Movers.FlowControlled_m_flow pumHeaPum(
+  replaceable Buildings.Fluid.Movers.Preconfigured.FlowControlled_m_flow pumHeaPum(
     redeclare package Medium = MediumWat,
-    nominalValuesDefineDefaultPressureCurve=true,
     m_flow_nominal=mCon_flow_nominal,
-    m_flow_start=0.85,
+    m_flow_start=mCon_flow_nominal,
     T_start=TRadSup_nominal,
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
@@ -97,8 +96,8 @@ partial model PartialOneRoomRadiator
 //------------------------------------------------------------------------------------//
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+    Modelica.Utilities.Files.loadResource(
+      "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Weather data reader"
     annotation (Placement(transformation(extent={{-220,40},{-200,60}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
@@ -109,9 +108,9 @@ partial model PartialOneRoomRadiator
 
 //--------------------------------------------------------------------------------------//
 
-  Movers.FlowControlled_m_flow pumHeaPumSou(
+  Buildings.Fluid.Movers.Preconfigured.FlowControlled_m_flow pumHeaPumSou(
     redeclare package Medium = MediumWat,
-    m_flow_start=0.85,
+    m_flow_start=mEva_flow_nominal,
     m_flow_nominal=mEva_flow_nominal,
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
@@ -119,8 +118,9 @@ partial model PartialOneRoomRadiator
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-30,-180})));
-  Modelica.Blocks.Math.BooleanToReal booToReaPumCon(realTrue=mCon_flow_nominal,
-      y(start=0)) "Pump signal" annotation (Placement(transformation(
+  Modelica.Blocks.Math.BooleanToReal booToReaPumCon(
+    realTrue=mCon_flow_nominal,
+    y(start=0)) "Pump signal" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-110,-110})));
