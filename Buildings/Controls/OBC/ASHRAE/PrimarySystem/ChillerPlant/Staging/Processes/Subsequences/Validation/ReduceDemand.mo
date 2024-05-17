@@ -24,8 +24,8 @@ protected
     annotation (Placement(transformation(extent={{-260,-150},{-240,-130}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{-160,50},{-140,70}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiLoa(
-    final k=1000) "Chiller load"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiLoa(final k=50)
+                  "Chiller load"
     annotation (Placement(transformation(extent={{-260,50},{-240,70}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant zerLoa(
     final k=0) "Zero chiller load"
@@ -51,8 +51,8 @@ protected
     annotation (Placement(transformation(extent={{40,-150},{60,-130}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi1[2] "Logical switch"
     annotation (Placement(transformation(extent={{140,-50},{160,-30}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiLoa1(
-    final k=1000) "Chiller load"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiLoa1(final k=50)
+                  "Chiller load"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant yOpeParLoaRatMin1(
     final k=0.7)
@@ -160,6 +160,56 @@ This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.ReduceDemand\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.ReduceDemand</a>.
 </p>
+<p>
+It has two instances as below to demonstrate the process of reducing chiller demand
+when the plant is in staging process.
+</p>
+<p>
+The instance <code>chiDemRed</code> shows the process of reducing the chiller
+demand when the plant starts staging up.
+</p>
+<ul>
+<li>
+Before 90 seconds, the plant is not in staging process. There is no change to the
+chiller demand and it is not requiring demand reduction (<code>yChiDemRed=true</code>)).
+</li>
+<li>
+At 90 seconds, the staging process starts and it requires reducing the chiller
+demand (<code>uDemLim=true</code>, <code>yChiDemRed=false</code>). It requires
+reducing the demand by the larger value between <code>chiDemRedFac</code> (75%)
+and <code>yOpeParLoaRatMin</code> (which is 0.7 in this case), which reduces from
+50 A to 37.5 A (<code>yChiDem</code>).
+</li>
+<li>
+At 100 seconds, the chiller load becomes 37.5 A, which is less than 80% of the
+value before the staging (50 A). The demand reducing process is done
+(<code>yChiDemRed=true</code>).
+</li>
+</ul>
+
+<p>
+The instance <code>chiDemRed1</code> shows the process of reducing the chiller
+demand when the plant starts staging up. The process requires enabling a large
+chiller and disabling a small chiller.
+</p>
+<ul>
+<li>
+Before 90 seconds, the plant is not in staging process. There is no change to
+the chiller demand and it is not requiring demand reduction (<code>yChiDemRed=true</code>)).
+</li>
+<li>
+At 90 seconds, the staging process starts and it requires reducing the chiller
+demand (<code>uDemLim=true</code>, <code>yChiDemRed=false</code>). It requires
+reducing the demand by the larger value between <code>chiDemRedFac</code> (75%)
+and <code>yOpeParLoaRatMin</code> (which is 0.7 in this case). It requires reducing
+both chillers demand from 50 A to 37.5 A (<code>yChiDem</code>).
+</li>
+<li>
+At 100 seconds, both chillers load becomes 37.5 A, which is less than 80% of the
+value before the staging (50 A). The demand reducing process is done
+(<code>yChiDemRed=true</code>).
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>

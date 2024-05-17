@@ -70,12 +70,10 @@ equation
   connect(upsDevSta.y, enaChiIsoVal.uUpsDevSta)
     annotation (Line(points={{-138,-30},{-120,-30},{-120,5},{-102,5}},
       color={255,0,255}));
-  connect(staCha.y, enaChiIsoVal.chaPro)
-    annotation (Line(points={{-138,-70},{-110,-70},{-110,2},{-102,2}},
-      color={255,0,255}));
+  connect(staCha.y, enaChiIsoVal.uStaPro) annotation (Line(points={{-138,-70},{-110,
+          -70},{-110,2},{-102,2}}, color={255,0,255}));
   connect(enaChiIsoVal.yChiWatIsoVal[2], zerOrdHol.u)
-    annotation (Line(points={{-78,4.5},{-70,4.5},{-70,0},{-62,0}},
-                                                               color={0,0,127}));
+    annotation (Line(points={{-78,4.5},{-70,4.5},{-70,0},{-62,0}}, color={0,0,127}));
   connect(zerOrdHol.y, enaChiIsoVal.uChiWatIsoVal[2])
     annotation (Line(points={{-38,0},{-20,0},{-20,60},{-140,60},{-140,15.5},{-102,
           15.5}}, color={0,0,127}));
@@ -83,8 +81,7 @@ equation
     annotation (Line(points={{82,80},{110,80},{110,8},{118,8}},
       color={255,127,0}));
   connect(valOne1.y, disChiIsoVal.uChiWatIsoVal[1])
-    annotation (Line(points={{42,20},{60,20},{60,4.5},{118,4.5}},
-                                                              color={0,0,127}));
+    annotation (Line(points={{42,20},{60,20},{60,4.5},{118,4.5}}, color={0,0,127}));
   connect(disChiIsoVal.yChiWatIsoVal[2], zerOrdHol1.u)
     annotation (Line(points={{142,-5.5},{150,-5.5},{150,-10},{158,-10}},
       color={0,0,127}));
@@ -99,9 +96,8 @@ equation
   connect(upsDevSta.y, disChiIsoVal.uUpsDevSta)
     annotation (Line(points={{-138,-30},{100,-30},{100,-5},{118,-5}},
       color={255,0,255}));
-  connect(staCha.y, disChiIsoVal.chaPro)
-    annotation (Line(points={{-138,-70},{110,-70},{110,-8},{118,-8}},
-      color={255,0,255}));
+  connect(staCha.y, disChiIsoVal.uStaPro) annotation (Line(points={{-138,-70},{110,
+          -70},{110,-8},{118,-8}}, color={255,0,255}));
   connect(upsDevSta.y, swi.u2)
     annotation (Line(points={{-138,-30},{100,-30},{100,40},{158,40}},
       color={255,0,255}));

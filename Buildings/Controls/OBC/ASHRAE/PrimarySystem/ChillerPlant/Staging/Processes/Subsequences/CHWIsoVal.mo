@@ -26,10 +26,10 @@ block CHWIsoVal "Sequence of enable or disable chilled water isolation valve"
     "Status of resetting status of device before enabling or disabling isolation valve"
     annotation (Placement(transformation(extent={{-200,-160},{-160,-120}}),
       iconTransformation(extent={{-140,-70},{-100,-30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput chaPro
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaPro
     "Indicate if there is a stage up or stage down command"
     annotation (Placement(transformation(extent={{-200,-198},{-160,-158}}),
-      iconTransformation(extent={{-140,-100},{-100,-60}})));
+        iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiWatIsoVal[nChi](
     final unit=fill("1", nChi),
     final min=fill(0, nChi),
@@ -166,16 +166,15 @@ equation
     annotation (Line(points={{-78,60},{38,60}}, color={0,0,127}));
   connect(uUpsDevSta, edg.u)
     annotation (Line(points={{-180,-140},{-102,-140}}, color={255,0,255}));
-  connect(chaPro, and2.u2)
+  connect(uStaPro, and2.u2)
     annotation (Line(points={{-180,-178},{-42,-178}}, color={255,0,255}));
   connect(edg.y, and2.u1)
     annotation (Line(points={{-78,-140},{-60,-140},{-60,-170},{-42,-170}},
       color={255,0,255}));
   connect(and2.y, lat.u)
     annotation (Line(points={{-18,-170},{18,-170}}, color={255,0,255}));
-  connect(chaPro, not1.u)
-    annotation (Line(points={{-180,-178},{-80,-178},{-80,-200},{-42,-200}},
-      color={255,0,255}));
+  connect(uStaPro, not1.u) annotation (Line(points={{-180,-178},{-80,-178},{-80,
+          -200},{-42,-200}}, color={255,0,255}));
   connect(not1.y, lat.clr)
     annotation (Line(points={{-18,-200},{0,-200},{0,-176},{18,-176}},
       color={255,0,255}));
@@ -188,7 +187,7 @@ equation
     annotation (Line(points={{142,-40},{200,-40}}, color={0,0,127}));
   connect(booRep.y, triSam.trigger)
     annotation (Line(points={{42,-140},{60,-140},{60,-120},{-70,-120},{-70,-112}},
-                      color={255,0,255}));
+      color={255,0,255}));
   connect(and2.y, booRep.u)
     annotation (Line(points={{-18,-170},{0,-170},{0,-140},{18,-140}},
       color={255,0,255}));
@@ -220,7 +219,7 @@ equation
     annotation (Line(points={{62,60},{78,60}}, color={0,0,127}));
   connect(lat.y, tim.u)
     annotation (Line(points={{42,-170},{50,-170},{50,-220},{-110,-220},{-110,60},
-          {-102,60}},        color={255,0,255}));
+          {-102,60}}, color={255,0,255}));
   connect(reaRep.y, swi2.u1)
     annotation (Line(points={{102,60},{120,60},{120,30},{40,30},{40,8},{58,8}},
       color={0,0,127}));
@@ -263,7 +262,7 @@ equation
       color={255,127,0}));
   connect(lat1.y, and5.u2)
     annotation (Line(points={{-48,140},{46,140},{46,132},{118,132}},
-                                                   color={255,0,255}));
+      color={255,0,255}));
   connect(uUpsDevSta, lat1.u) annotation (Line(points={{-180,-140},{-130,-140},{
           -130,140},{-72,140}}, color={255,0,255}));
   connect(not1.y, truDel.u) annotation (Line(points={{-18,-200},{0,-200},{0,-230},
@@ -312,7 +311,7 @@ have been fully open")}),
           extent={{-96,-74},{-60,-86}},
           textColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="chaPro"),
+          textString="uStaPro"),
         Text(
           extent={{-96,-42},{-46,-56}},
           textColor={255,0,255},
@@ -351,7 +350,7 @@ have been fully open")}),
  Documentation(info="<html>
 <p>
 Block updates chiller chilled water isolation valve enabling-disabling status when 
-there is stage change command (<code>chaPro=true</code>). It will also generate 
+there is stage change command (<code>uStaPro=true</code>). It will also generate 
 status to indicate if the valve reset process has finished.
 This development is based on ASHRAE Guideline 36-2021, 
 section 5.20.4.16, item e and section 5.20.4.17, item c, which specifies when 
@@ -359,14 +358,14 @@ and how the isolation valve should be controlled when it is in stage changing pr
 </p>
 <ul>
 <li>
-When there is stage up command (<code>chaPro=true</code>) and next chiller 
+When there is stage up command (<code>uStaPro=true</code>) and next chiller 
 head pressure control has been enabled (<code>uUpsDevSta=true</code>),
 the chilled water isolation valve of next enabling chiller indicated 
 by <code>nexChaChi</code> will be enabled (<code>iniValPos=0</code>, 
 <code>endValPos=1</code>). 
 </li>
 <li>
-When there is stage down command (<code>chaPro=true</code>) and the disabling chiller 
+When there is stage down command (<code>uStaPro=true</code>) and the disabling chiller 
 (<code>nexChaChi</code>) has been shut off (<code>uUpsDevSta=true</code>),
 the chiller's isolation valve will be disabled (<code>iniValPos=1</code>, 
 <code>endValPos=0</code>). 

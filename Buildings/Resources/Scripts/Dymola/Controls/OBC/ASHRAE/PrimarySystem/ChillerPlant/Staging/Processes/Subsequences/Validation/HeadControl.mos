@@ -1,18 +1,18 @@
 simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.Validation.HeadControl", method="Cvode", stopTime=120, tolerance=1e-06, resultFile="enaHeaCon");
 
-createPlot(id=1, position={20, 10, 800, 1200}, subPlot=1, y={"enaHeaCon.chaPro","enaHeaCon.uUpsDevSta","enaHeaCon.uChiHeaCon[1]","enaHeaCon.uChiHeaCon[2]","enaHeaCon.yChiHeaCon[1]","enaHeaCon.yChiHeaCon[2]"}, range={0.0, 3600, 0, 0.02}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200},{28,108,200},{28,108,200},{28,108,200}});
+createPlot(id=1, position={20, 10, 800, 1200}, subPlot=1, y={"enaHeaCon.uStaPro","enaHeaCon.uUpsDevSta","enaHeaCon.uChiHeaCon[1]","enaHeaCon.uChiHeaCon[2]","enaHeaCon.yChiHeaCon[1]","enaHeaCon.yChiHeaCon[2]"}, range={0.0, 3600, 0, 0.02}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200},{28,108,200},{28,108,200},{28,108,200}});
 createPlot(id=1, position={20, 10, 800, 1200}, subPlot=2, y={"enaHeaCon.nexChaChi"}, range={0.0, 3600, 0, 0.02}, grid=true, colors={{28,108,200}});
 createPlot(id=1, position={20, 10, 800, 1200}, subPlot=3, y={"enaHeaCon.yEnaHeaCon"}, range={0.0, 3600, 0, 0.02}, grid=true, colors={{28,108,200}});
 
-createPlot(id=2, position={830, 10, 800, 1200}, subPlot=1, y={"disHeaCon.chaPro","disHeaCon.uUpsDevSta","disHeaCon.uChiHeaCon[1]","disHeaCon.uChiHeaCon[2]","disHeaCon.yChiHeaCon[1]","disHeaCon.yChiHeaCon[2]"}, range={0.0, 3600, 0, 0.02}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200},{28,108,200},{28,108,200},{28,108,200}});
+createPlot(id=2, position={830, 10, 800, 1200}, subPlot=1, y={"disHeaCon.uStaPro","disHeaCon.uUpsDevSta","disHeaCon.uChiHeaCon[1]","disHeaCon.uChiHeaCon[2]","disHeaCon.yChiHeaCon[1]","disHeaCon.yChiHeaCon[2]"}, range={0.0, 3600, 0, 0.02}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200},{28,108,200},{28,108,200},{28,108,200}});
 createPlot(id=2, position={830, 10, 800, 1200}, subPlot=2, y={"disHeaCon.nexChaChi"}, range={0.0, 3600, 0, 0.02}, grid=true, colors={{28,108,200}});
 createPlot(id=2, position={830, 10, 800, 1200}, subPlot=3, y={"disHeaCon.yEnaHeaCon"}, range={0.0, 3600, 0, 0.02}, grid=true, colors={{28,108,200}});
 
-createPlot(id=3, position={60, 50, 800, 1200}, subPlot=1, y={"disHeaCon1.chaPro","disHeaCon1.uUpsDevSta","disHeaCon1.uChiHeaCon[1]","disHeaCon1.uChiHeaCon[2]","disHeaCon1.yChiHeaCon[1]","disHeaCon1.yChiHeaCon[2]"}, range={0.0, 3600, 0, 0.02}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200},{28,108,200},{28,108,200},{28,108,200}});
+createPlot(id=3, position={60, 50, 800, 1200}, subPlot=1, y={"disHeaCon1.uStaPro","disHeaCon1.uUpsDevSta","disHeaCon1.uChiHeaCon[1]","disHeaCon1.uChiHeaCon[2]","disHeaCon1.yChiHeaCon[1]","disHeaCon1.yChiHeaCon[2]"}, range={0.0, 3600, 0, 0.02}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200},{28,108,200},{28,108,200},{28,108,200}});
 createPlot(id=3, position={60, 50, 800, 1200}, subPlot=2, y={"disHeaCon1.nexChaChi"}, range={0.0, 3600, 0, 0.02}, grid=true, colors={{28,108,200}});
 createPlot(id=3, position={60, 50, 800, 1200}, subPlot=3, y={"disHeaCon1.yEnaHeaCon"}, range={0.0, 3600, 0, 0.02}, grid=true, colors={{28,108,200}});
 
-createPlot(id=4, position={870, 50, 800, 1200}, subPlot=1, y={"enaHeaCon1.chaPro","enaHeaCon1.uUpsDevSta","enaHeaCon1.uChiHeaCon[1]","enaHeaCon1.uChiHeaCon[2]","enaHeaCon1.yChiHeaCon[1]","enaHeaCon1.yChiHeaCon[2]"}, range={0.0, 3600, 0, 0.02}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200},{28,108,200},{28,108,200},{28,108,200}});
+createPlot(id=4, position={870, 50, 800, 1200}, subPlot=1, y={"enaHeaCon1.uStaPro","enaHeaCon1.uUpsDevSta","enaHeaCon1.uChiHeaCon[1]","enaHeaCon1.uChiHeaCon[2]","enaHeaCon1.yChiHeaCon[1]","enaHeaCon1.yChiHeaCon[2]"}, range={0.0, 3600, 0, 0.02}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200},{28,108,200},{28,108,200},{28,108,200}});
 createPlot(id=4, position={870, 50, 800, 1200}, subPlot=2, y={"enaHeaCon1.nexChaChi"}, range={0.0, 3600, 0, 0.02}, grid=true, colors={{28,108,200}});
 createPlot(id=4, position={870, 50, 800, 1200}, subPlot=3, y={"enaHeaCon1.yEnaHeaCon"}, range={0.0, 3600, 0, 0.02}, grid=true, colors={{28,108,200}});
 

@@ -4,15 +4,15 @@ block EnableChiller "Sequence for enabling chiller"
   parameter Integer nChi=2 "Total number of chillers";
   parameter Real proOnTim(
     final unit="s",
-    final quantity="Time",
-    displayUnit="h") = 300
+    final quantity="Time") = 300
     "Enabled chiller operation time to indicate if it is proven on";
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nexEnaChi
     "Index of next enabling chiller"
     annotation (Placement(transformation(extent={{-240,100},{-200,140}}),
       iconTransformation(extent={{-140,70},{-100,110}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaUp "Stage-up command"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaUp
+    "Stage-up command"
     annotation (Placement(transformation(extent={{-240,40},{-200,80}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEnaChiWatIsoVal
@@ -88,16 +88,19 @@ protected
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam[nChi]
     "Record the old chiller status"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(final nout=nChi)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(
+    final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg
     "Rising edge, output true at the moment when input turns from false to true"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep2(final nout=nChi)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep2(
+    final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-20,-120},{0,-100}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep3(final nout=nChi)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep3(
+    final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
@@ -107,7 +110,8 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[nChi](
     final k=chiInd) "Chiller index array"
     annotation (Placement(transformation(extent={{-160,80},{-140,100}})));
-  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intRep1(final nout=nChi)
+  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intRep1(
+    final nout=nChi)
     "Replicate integer input"
     annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu1[nChi]
@@ -116,7 +120,8 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Switch logSwi3[nChi]
     "Logical switch"
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator  booRep4(final nout=nChi)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator  booRep4(
+    final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
   Buildings.Controls.OBC.CDL.Logical.Switch logSwi4 "Logical switch"
@@ -316,7 +321,7 @@ annotation (
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
           Text(
-          extent={{68,104},{148,96}},
+          extent={{14,174},{94,166}},
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
@@ -324,7 +329,7 @@ annotation (
           horizontalAlignment=TextAlignment.Right,
           textString="Output new chiller status array:"),
           Text(
-          extent={{46,-76},{124,-84}},
+          extent={{40,-72},{120,-88}},
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
@@ -333,7 +338,7 @@ annotation (
           textString="Disable 
 small chiller"),
           Text(
-          extent={{70,94},{262,74}},
+          extent={{16,168},{208,148}},
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
@@ -342,7 +347,7 @@ small chiller"),
           textString=
               "1. When the stage change does not require one chiller off and another chiller on."),
           Text(
-          extent={{72,76},{284,54}},
+          extent={{16,154},{208,136}},
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
@@ -351,7 +356,7 @@ small chiller"),
           textString="2. When the stage change does require one chiller off and another chiller on, 
 but the enabled chiller has not yet finished starting."),
           Text(
-          extent={{82,-122},{162,-130}},
+          extent={{-24,-132},{56,-140}},
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
@@ -359,21 +364,19 @@ but the enabled chiller has not yet finished starting."),
           horizontalAlignment=TextAlignment.Right,
           textString="Output new chiller status array:"),
           Text(
-          extent={{24,-132},{236,-154}},
+          extent={{-20,-142},{152,-158}},
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
-          textString="When the stage change does require one chiller off and another chiller on, 
-          and the enabled chiller has finished starting.")}),
+          textString="When the stage change does require one chiller off
+and another chiller on, and the enabled chiller has finished starting.")}),
 Documentation(info="<html>
 <p>
 Block that controlles chiller when there is staging up command <code>uStaUp=true</code>.
-
-This implementation is based on ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II – 
-Central Plants and Hydronic Systems (Draft on March 23, 2020), section 5.2.4.16,
-item 6 and item 7.a. These sections specify when the next chiller should be enabled
+This implementation is based on ASHRAE Guideline36-2021, section 5.20.4.16,
+item f and item g.1. These sections specify when the next chiller should be enabled
 and when the running smaller chiller should be diabled.
 </p>
 <p>

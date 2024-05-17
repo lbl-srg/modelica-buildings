@@ -5,13 +5,11 @@ block HeadControl
   parameter Integer nChi=2 "Total number of chiller";
   parameter Real thrTimEnb(
     final unit="s",
-    final quantity="Time",
-    displayUnit="h")=10
+    final quantity="Time")=10
     "Threshold time to enable head pressure control after condenser water pump being reset";
   parameter Real waiTim(
     final unit="s",
-    final quantity="Time",
-    displayUnit="h") = 30
+    final quantity="Time") = 30
     "Waiting time after enabling next head pressure control";
   parameter Boolean heaStaCha = true
     "Flag to indicate if head pressure control of next chiller should be ON or OFF: true = in stage-up process so it should be ON";
@@ -32,7 +30,7 @@ block HeadControl
     "Chillers head pressure control status"
     annotation (Placement(transformation(extent={{-220,-130},{-180,-90}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput chaPro
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaPro
     "Indicate if there is stage change"
     annotation (Placement(transformation(extent={{-220,32},{-180,72}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
@@ -91,10 +89,12 @@ protected
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi1[nChi] "Logical switch"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep2(final nout=nChi)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep2(
+    final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
-  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intRep(final nout=nChi)
+  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intRep(
+    final nout=nChi)
     "Replicate integer input"
     annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu[nChi]
@@ -105,7 +105,8 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1[nChi]
     "Convert boolean input to real output"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep3(final nout=nChi)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep3(
+    final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Buildings.Controls.OBC.CDL.Logical.Switch logSwi "Logical switch"
@@ -113,7 +114,8 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(final k=false)
     "False constant"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(final k=heaStaCha)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(
+    final k=heaStaCha)
     "Head control status change"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[nChi](
@@ -124,7 +126,8 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Switch logSwi1[nChi]
     "Logical switch"
     annotation (Placement(transformation(extent={{140,-90},{160,-70}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep4(final nout=nChi)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep4(
+    final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{40,-160},{60,-140}})));
   Buildings.Controls.OBC.CDL.Logical.Or or1
@@ -143,13 +146,12 @@ equation
   connect(edg.y, and2.u1)
     annotation (Line(points={{-138,100},{-120,100},{-120,80},{-170,80},{-170,60},
           {-162,60}}, color={255,0,255}));
-  connect(chaPro, and2.u2)
+  connect(uStaPro, and2.u2)
     annotation (Line(points={{-200,52},{-162,52}}, color={255,0,255}));
   connect(and2.y, lat.u)
     annotation (Line(points={{-138,60},{-102,60}}, color={255,0,255}));
-  connect(chaPro, not1.u)
-    annotation (Line(points={{-200,52},{-170,52},{-170,20},{-162,20}},
-      color={255,0,255}));
+  connect(uStaPro, not1.u) annotation (Line(points={{-200,52},{-170,52},{-170,20},
+          {-162,20}}, color={255,0,255}));
   connect(not1.y, lat.clr)
     annotation (Line(points={{-138,20},{-110,20},{-110,54},{-102,54}},
       color={255,0,255}));
@@ -219,9 +221,8 @@ equation
   connect(and2.y, booRep.u)
     annotation (Line(points={{-138,60},{-120,60},{-120,-130},{-102,-130}},
       color={255,0,255}));
-  connect(chaPro, booRep4.u)
-    annotation (Line(points={{-200,52},{-170,52},{-170,-150},{38,-150}},
-      color={255,0,255}));
+  connect(uStaPro, booRep4.u) annotation (Line(points={{-200,52},{-170,52},{-170,
+          -150},{38,-150}}, color={255,0,255}));
   connect(uChiHeaCon, logSwi1.u3)
     annotation (Line(points={{-200,-110},{-166,-110},{-166,-88},{138,-88}},
       color={255,0,255}));
@@ -305,11 +306,10 @@ annotation (
 Block that generates chiller head pressure control enabling status array when 
 there is stage change command (<code>chaPro=true</code>). It also generates status 
 to indicate if the head pressure control status change process has finished.
-This development is based on ASHRAE RP-1711 Advanced Sequences of Operation for 
-HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft on March 23, 2020):
+This development is based on ASHRAE Guideline 36-2021.
 </p>
 <p>
-In stage-up process, section 5.2.4.16, item 4: 
+In stage-up process, section 5.20.4.16, item d: 
 </p>
 <ul>
 <li>
@@ -320,7 +320,7 @@ Wait 30 seconds (<code>waiTim=30</code>).
 </ul>
 <p>
 In stage-up process when requires smaller chiller being shut off and larger chiller
-being enabled, section 5.2.4.16, item 7.c:
+being enabled, section 5.20.4.16, item g.3:
 </p>
 <ul>
 <li>
@@ -330,7 +330,7 @@ condenser water flow, disable the chiller's head pressure control loop,
 </li>
 </ul>
 <p>
-In stage-down process, section 5.2.4.17, item 4:
+In stage-down process, section 5.20.4.17, item d:
 </p>
 <ul>
 <li>
@@ -341,7 +341,7 @@ water flow, disable the chiller's head pressure control loop,
 </ul>
 <p>
 In stage-down process when requires smaller chiller being enabled and larger chiller
-being disabled, section 5.2.4.17, item 1.c:
+being disabled, section 5.20.4.17, item a.3:
 </p>
 <ul>
 <li>

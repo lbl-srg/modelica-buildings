@@ -108,9 +108,8 @@ equation
   connect(upStrDev.y, enaHeaCon.uUpsDevSta)
     annotation (Line(points={{-78,160},{-60,160},{-60,144},{-42,144}},
       color={255,0,255}));
-  connect(staUp.y, enaHeaCon.chaPro)
-    annotation (Line(points={{-78,120},{-60,120},{-60,140},{-42,140}},
-      color={255,0,255}));
+  connect(staUp.y, enaHeaCon.uStaPro) annotation (Line(points={{-78,120},{-60,120},
+          {-60,140},{-42,140}}, color={255,0,255}));
   connect(enaChi.y, enaHeaCon.nexChaChi)
     annotation (Line(points={{-78,60},{-56,60},{-56,136},{-42,136}},
       color={255,127,0}));
@@ -124,9 +123,8 @@ equation
   connect(upStrDev.y, disHeaCon.uUpsDevSta)
     annotation (Line(points={{-78,160},{40,160},{40,144},{58,144}},
       color={255,0,255}));
-  connect(staUp.y, disHeaCon.chaPro)
-    annotation (Line(points={{-78,120},{40,120},{40,140},{58,140}},
-      color={255,0,255}));
+  connect(staUp.y, disHeaCon.uStaPro) annotation (Line(points={{-78,120},{40,120},
+          {40,140},{58,140}}, color={255,0,255}));
   connect(disChi.y, disHeaCon.nexChaChi)
     annotation (Line(points={{22,60},{44,60},{44,136},{58,136}},
       color={255,127,0}));
@@ -153,9 +151,8 @@ equation
   connect(upStrDev1.y, disHeaCon1.uUpsDevSta)
     annotation (Line(points={{-78,-60},{-60,-60},{-60,-76},{-42,-76}},
       color={255,0,255}));
-  connect(staUp1.y, disHeaCon1.chaPro)
-    annotation (Line(points={{-78,-100},{-60,-100},{-60,-80},{-42,-80}},
-      color={255,0,255}));
+  connect(staUp1.y, disHeaCon1.uStaPro) annotation (Line(points={{-78,-100},{-60,
+          -100},{-60,-80},{-42,-80}}, color={255,0,255}));
   connect(disChi1.y, disHeaCon1.nexChaChi)
     annotation (Line(points={{-78,-150},{-56,-150},{-56,-84},{-42,-84}},
       color={255,127,0}));
@@ -180,9 +177,8 @@ equation
   connect(upStrDev1.y, enaHeaCon1.uUpsDevSta)
     annotation (Line(points={{-78,-60},{80,-60},{80,-76},{98,-76}},
       color={255,0,255}));
-  connect(staUp1.y, enaHeaCon1.chaPro)
-    annotation (Line(points={{-78,-100},{80,-100},{80,-80},{98,-80}},
-      color={255,0,255}));
+  connect(staUp1.y, enaHeaCon1.uStaPro) annotation (Line(points={{-78,-100},{80,
+          -100},{80,-80},{98,-80}}, color={255,0,255}));
   connect(enaChi1.y, enaHeaCon1.nexChaChi)
     annotation (Line(points={{82,-116},{84,-116},{84,-84},{98,-84}},
       color={255,127,0}));
@@ -209,7 +205,84 @@ annotation (
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.HeadControl\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.HeadControl</a>.
+It has four instances as below to demonstrate the process of chiller head pressure
+control when the plant is in staging process.
 </p>
+<p>
+The instance <code>enaHeaCon</code> shows the head pressure control when the plant
+is in staging up process and it will enable chiller 2 (<code>nexChaChi=2</code>).
+</p>
+<ul>
+<li>
+Before 18 seconds, the plant is not in the staging process, <code>uStaPro=false</code>.
+There is no change on the chiller head pressure control.
+</li>
+<li>
+At 24 seconds, the condenser water pump speed (or number) has been changed
+(<code>uUpsDevSta=true</code>). However, it is still not the time to change
+the chiller head pressure control.
+</li>
+<li>
+After the threshold time (<code>thrTimEna=10 seconds</code>) at 34 seconds, it
+enables the head pressure control of the enabling chiller 2.
+</li>
+<li>
+After the waiting time (<code>waiTim=30 seconds</code>) at 64 seconds, the head
+pressure control process is done (<code>yEnaHeaCon=true</code>).
+</li>
+</ul>
+<p>
+The instance <code>disHeaCon</code> shows the head pressure control when the plant
+is in staging up process and it requires enabling a large chiller and disabling a
+small chiller. In this case, it disables chiller 2 (<code>nexChaChi=2</code>).
+</p>
+<ul>
+<li>
+Before 18 seconds, the plant is not in the staging process, <code>uStaPro=false</code>.
+There is no change on the chiller head pressure control.
+</li>
+<li>
+At 24 seconds, the chiller 2 becomes not requesting for condenser water flow
+(<code>uUpsDevSta=true</code>). It disables the head pressure control of chiller 2
+and the head pressure control process is done (<code>yEnaHeaCon=true</code>).
+</li>
+</ul>
+<p>
+The instance <code>disHeaCon1</code> shows the head pressure control when the plant
+is in staging down process and it requires disabling chiller 2
+(<code>nexChaChi=2</code>).
+</p>
+<ul>
+<li>
+Before 18 seconds, the plant is not in the staging process, <code>uStaPro=false</code>.
+There is no change on the chiller head pressure control.
+</li>
+<li>
+At 24 seconds, the chiller 2 becomes not requesting for condenser water flow
+(<code>uUpsDevSta=true</code>). It disables the head pressure control of chiller 2
+and the head pressure control process is done (<code>yEnaHeaCon=true</code>).
+</li>
+</ul>
+<p>
+The instance <code>enaHeaCon1</code> shows the head pressure control when the plant
+is in staging down process and it requires disabling a large chiller and enabling
+a small chiller. In this case, it enables chiller 2 (<code>nexChaChi=2</code>).
+</p>
+<ul>
+<li>
+Before 18 seconds, the plant is not in the staging process, <code>uStaPro=false</code>.
+There is no change on the chiller head pressure control.
+</li>
+<li>
+At 24 seconds, the minimum flow bypass valve has changed the position
+(<code>uUpsDevSta=true</code>). It enables the head pressure control of the
+enabling chiller 2.
+</li>
+<li>
+After the waiting time (<code>waiTim=30 seconds</code>) at 54 seconds, the head
+pressure control process is done (<code>yEnaHeaCon=true</code>).
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>

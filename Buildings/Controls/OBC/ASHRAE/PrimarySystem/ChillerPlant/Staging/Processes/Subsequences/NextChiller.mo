@@ -119,7 +119,7 @@ protected
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
   Buildings.Controls.OBC.CDL.Integers.Multiply proInt3
     "Staging up process and it requires chiller on and off"
-    annotation (Placement(transformation(extent={{80,20},{100,40}})));
+    annotation (Placement(transformation(extent={{80,30},{100,50}})));
   Buildings.Controls.OBC.CDL.Integers.Multiply proInt4
     "Disabling chiller during stage up process"
     annotation (Placement(transformation(extent={{120,10},{140,30}})));
@@ -184,8 +184,6 @@ equation
           -94},{-42,-94}}, color={255,127,0}));
   connect(proInt1.y, disChiInd.u)
     annotation (Line(points={{-18,-100},{-2,-100}}, color={255,127,0}));
-  connect(cha.up, upPro.u) annotation (Line(points={{-198,136},{-160,136},{-160,
-          160},{-142,160}}, color={255,0,255}));
   connect(cha.down, dowPro.u) annotation (Line(points={{-198,124},{-160,124},{-160,
           80},{-142,80}}, color={255,0,255}));
   connect(enaDis.y, booToInt2.u) annotation (Line(points={{-18,-20},{-10,-20},{-10,
@@ -196,12 +194,12 @@ equation
           70,96},{78,96}},      color={255,127,0}));
   connect(enaChiInd.y, proInt2.u2) annotation (Line(points={{22,40},{40,40},{40,
           84},{78,84}},    color={255,127,0}));
-  connect(booToInt3.y, proInt3.u1) annotation (Line(points={{-78,160},{70,160},{
-          70,36},{78,36}},     color={255,127,0}));
-  connect(booToInt2.y, proInt3.u2) annotation (Line(points={{22,-60},{60,-60},{60,
-          24},{78,24}},       color={255,127,0}));
-  connect(proInt3.y, proInt4.u1) annotation (Line(points={{102,30},{110,30},{110,
-          26},{118,26}},   color={255,127,0}));
+  connect(booToInt3.y, proInt3.u1) annotation (Line(points={{-78,160},{70,160},
+          {70,46},{78,46}},    color={255,127,0}));
+  connect(booToInt2.y, proInt3.u2) annotation (Line(points={{22,-60},{60,-60},{
+          60,34},{78,34}},    color={255,127,0}));
+  connect(proInt3.y, proInt4.u1) annotation (Line(points={{102,40},{110,40},{
+          110,26},{118,26}}, color={255,127,0}));
   connect(disChiInd.y, proInt4.u2) annotation (Line(points={{22,-100},{50,-100},
           {50,14},{118,14}},   color={255,127,0}));
   connect(dowPro.y, booToInt4.u)
@@ -262,6 +260,9 @@ equation
           {198,-108}}, color={255,127,0}));
   connect(one.y, intSwi2.u3) annotation (Line(points={{102,-40},{180,-40},{180,-158},
           {198,-158}}, color={255,127,0}));
+  connect(cha.up, upPro.u) annotation (
+    Line(points = {{-198, 136}, {-160, 136}, {-160, 160}, {-142, 160}}, color = {255, 0, 255}));
+
 annotation (
   defaultComponentName="nexChi",
   Diagram(coordinateSystem(preserveAspectRatio=false,
@@ -332,8 +333,8 @@ annotation (
           textString="yDow")}),
 Documentation(info="<html>
 <p>
-This block identifies index of next enable (<code>yNexEnaChi</code> and 
-<code>yEnaSmaChi</code>) or disable chiller (<code>yDisSmaChi</code> and 
+This block identifies index of next enabling (<code>yNexEnaChi</code> and 
+<code>yEnaSmaChi</code>) or disabling chiller (<code>yDisSmaChi</code> and 
 <code>yLasDisChi</code>) based on current chiller stage setpoint
 <code>uStaSet</code> and the chiller status setpoint <code>uChiSet</code>.
 </p>
@@ -345,6 +346,26 @@ process (dicreased <code>uStaSet</code>) will disable only one existing chiller
 (<code>yOnOff=false</code>), or disable a larger chiller and enable a smaller
 chiller (<code>yOnOff=true</code>).
 </p>
+<p>
+<b>Note that when applying the sequence</b>:
+</p>
+<ul>
+<li>
+If it is not in the staging process, the outputs <code>yNexEnaChi</code>,
+<code>yDisSmaChi</code>, <code>yLasDisChi</code>, <code>yEnaSmaChi</code> equal 1.
+The <code>yOnOff</code> is <code>false</code>.
+</li>
+<li>
+If it is in the staging up process (<code>yUp=true</code>), the outputs
+<code>yLasDisChi</code> and <code>yEnaSmaChi</code>, which becomes valid only when
+it is in staging down process, equal to the default 1. 
+</li>
+<li>
+If it is in the staging down process (<code>yDow=true</code>), the outputs
+<code>yNexEnaChi</code> and <code>yDisSmaChi</code>, which becomes valid only when
+it is in staging up process, equal to the default 1. 
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>

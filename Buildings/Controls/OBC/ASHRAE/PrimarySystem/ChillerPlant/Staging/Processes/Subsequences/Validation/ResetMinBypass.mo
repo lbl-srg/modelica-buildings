@@ -5,7 +5,7 @@ model ResetMinBypass
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.ResetMinBypass
     minBypRes
     "Check if the setpoint has achieved"
-    annotation (Placement(transformation(extent={{40,38},{60,58}})));
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
 protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(
@@ -26,21 +26,16 @@ protected
     final duration=60,
     final offset=1,
     final startTime=120) "Minimum chiller water flow setpoint"
-    annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
+    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp meaFlo(
     final height=0.5,
     final duration=80,
     final offset=1,
     final startTime=120) "Measured chiller water flow"
-    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul3(
-    final width=0.25,
-    final period=600)
-    "Boolean pulse"
-    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Controls.OBC.CDL.Logical.Not upStrDev1
     "Upstream device reset status"
-    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+    annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
 
 equation
   connect(booPul2.y, upStrDev.u)
@@ -48,17 +43,18 @@ equation
   connect(booPul1.y, staUp.u)
     annotation (Line(points={{-58,40},{-42,40}}, color={255,0,255}));
   connect(upStrDev.y, minBypRes.uUpsDevSta)
-    annotation (Line(points={{-18,80},{20,80},{20,56},{38,56}}, color={255,0,255}));
-  connect(staUp.y, minBypRes.chaPro)
-    annotation (Line(points={{-18,40},{0,40},{0,52},{38,52}}, color={255,0,255}));
+    annotation (Line(points={{-18,80},{0,80},{0,8},{18,8}}, color={255,0,255}));
+  connect(staUp.y, minBypRes.uStaPro) annotation (Line(points={{-18,40},{-10,40},
+          {-10,4},{18,4}}, color={255,0,255}));
   connect(meaFlo.y, minBypRes.VChiWat_flow)
-    annotation (Line(points={{-18,-30},{8,-30},{8,44},{38,44}}, color={0,0,127}));
+    annotation (Line(points={{-18,0},{18,0}}, color={0,0,127}));
   connect(minFloSet.y, minBypRes.VMinChiWat_setpoint)
-    annotation (Line(points={{-18,-70},{12,-70},{12,40},{38,40}}, color={0,0,127}));
-  connect(booPul3.y, upStrDev1.u)
-    annotation (Line(points={{-58,0},{-42,0}}, color={255,0,255}));
-  connect(upStrDev1.y, minBypRes.yChaSet) annotation (Line(points={{-18,0},{4,0},
-          {4,48},{38,48}}, color={255,0,255}));
+    annotation (Line(points={{-18,-40},{0,-40},{0,-4},{18,-4}}, color={0,0,127}));
+  connect(upStrDev.y, upStrDev1.u) annotation (Line(points={{-18,80},{0,80},{0,20},
+          {-50,20},{-50,-80},{-42,-80}}, color={255,0,255}));
+  connect(upStrDev1.y, minBypRes.uSetChaPro)
+    annotation (Line(points={{-18,-80},{10,-80},{10,-8},{18,-8}}, color={255,0,255}));
+
 annotation (
  experiment(StopTime=600, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Processes/Subsequences/Validation/ResetMinBypass.mos"
@@ -69,6 +65,35 @@ This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.ResetMinBypass\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.ResetMinBypass</a>.
 </p>
+<p>
+The instance <code>minBypRes</code> shows the process of changing the bypass valve
+when the minimum bypass chilled water flow setpoint has been changed when the
+plant is in a staging up process.
+</p>
+<ul>
+<li>
+Before 90 seconds, the plant is not in staging process. There is no change to the
+minimum bypass valve (<code>yMinBypRes=true</code>).
+</li>
+<li>
+At 90 seconds, the plant starts staging process. However, it is not yet to change
+the bypass valve (<code>yMinBypRes=true</code>). As the upstream subprocess has
+not finished (<code>uUpsDevSta=false</code>).
+</li>
+<li>
+At 120 seconds, the plant is still in staging process and the upstream subprocess
+has finished (<code>uUpsDevSta=true</code>). It starts changing the minimum flow
+setpoint (<code>uSetChaPro=true</code>) and changing the bypass valve
+(<code>yMinBypRes=false</code>). The measured chiller water flow becomes different
+from its setpoint.
+</li>
+<li>
+At about 200 seconds, the measured chilled water flow achieved the setpoint. Thus
+the bypass valve position has been changed successfully. After 60 seconds to about
+260 seconds, the minimum bypass valve position changing process is finished
+(<code>yMinBypRes=true</code>).
+</li>
+</ui>
 </html>", revisions="<html>
 <ul>
 <li>

@@ -371,11 +371,10 @@ equation
   connect(chiDemRed.uChi, uChi)
     annotation (Line(points={{-82,111},{-220,111},{-220,80},{-260,80}},
       color={255,0,255}));
-  connect(lat.y, minBypSet.chaPro)
-    annotation (Line(points={{-118,150},{-100,150},{-100,84},{58,84}},
-      color={255,0,255}));
+  connect(lat.y, minBypSet.uStaPro) annotation (Line(points={{-118,150},{-100,
+          150},{-100,84},{58,84}}, color={255,0,255}));
   connect(minBypSet.VChiWat_flow, VChiWat_flow)
-    annotation (Line(points={{58,76},{-156,76},{-156,50},{-260,50}},
+    annotation (Line(points={{58,80},{-156,80},{-156,50},{-260,50}},
       color={0,0,127}));
   connect(lat.y, minChiWatFlo.uStaUp)
     annotation (Line(points={{-118,150},{-100,150},{-100,49},{18,49}},
@@ -395,9 +394,8 @@ equation
   connect(enaNexCWP.yChiSta, conWatPumCon.uChiSta)
     annotation (Line(points={{22,-10},{36,-10},{36,-61},{58,-61}},
       color={255,127,0}));
-  connect(lat.y, enaHeaCon.chaPro)
-    annotation (Line(points={{-118,150},{-100,150},{-100,-140},{58,-140}},
-      color={255,0,255}));
+  connect(lat.y, enaHeaCon.uStaPro) annotation (Line(points={{-118,150},{-100,
+          150},{-100,-140},{58,-140}}, color={255,0,255}));
   connect(nexChi.yNexEnaChi, enaHeaCon.nexChaChi)
     annotation (Line(points={{-58,174},{-36,174},{-36,-144},{58,-144}},
       color={255,127,0}));
@@ -407,9 +405,8 @@ equation
   connect(enaChiIsoVal.uChiWatIsoVal, uChiWatIsoVal)
     annotation (Line(points={{58,-195},{-96,-195},{-96,-250},{-260,-250}},
       color={0,0,127}));
-  connect(lat.y, enaChiIsoVal.chaPro)
-    annotation (Line(points={{-118,150},{-100,150},{-100,-208},{58,-208}},
-      color={255,0,255}));
+  connect(lat.y, enaChiIsoVal.uStaPro) annotation (Line(points={{-118,150},{-100,
+          150},{-100,-208},{58,-208}}, color={255,0,255}));
   connect(nexChi.yNexEnaChi, endUp.nexEnaChi)
     annotation (Line(points={{-58,174},{-36,174},{-36,-258},{18,-258}},
       color={255,127,0}));
@@ -509,7 +506,7 @@ equation
     annotation (Line(points={{-58,167},{-44,167},{-44,140},{-92,140},{-92,115},
           {-82,115}},color={255,0,255}));
   connect(minChiWatFlo.yChiWatMinFloSet, minBypSet.VMinChiWat_setpoint)
-    annotation (Line(points={{42,40},{50,40},{50,72},{58,72}},
+    annotation (Line(points={{42,40},{50,40},{50,76},{58,76}},
       color={0,0,127}));
   connect(minChiWatFlo.yChiWatMinFloSet, swi1.u3)
     annotation (Line(points={{42,40},{50,40},{50,32},{198,32}},
@@ -633,8 +630,8 @@ equation
     annotation (Line(points={{-178,230},{-142,230}}, color={255,0,255}));
   connect(truDel.y, logSwi1.u2) annotation (Line(points={{-118,230},{-80,230},{
           -80,240},{-42,240}}, color={255,0,255}));
-  connect(minChiWatFlo.yChaSet, minBypSet.yChaSet) annotation (Line(points={{42,
-          32},{46,32},{46,80},{58,80}}, color={255,0,255}));
+  connect(minChiWatFlo.yChaSet, minBypSet.uSetChaPro) annotation (Line(points={
+          {42,32},{46,32},{46,72},{58,72}}, color={255,0,255}));
 annotation (
   defaultComponentName="upProCon",
   Diagram(coordinateSystem(preserveAspectRatio=false,
