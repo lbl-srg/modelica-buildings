@@ -7,7 +7,6 @@ model Borefield "Geothermal borefield model"
     TExt0_start=282.55,
     final z0=10,
     final dT_dz=0.02,
-    final dynFil=true,
     borFieDat(
       filDat=Buildings.Fluid.Geothermal.Borefields.Data.Filling.Bentonite(
           kFil=2.0,
@@ -78,6 +77,12 @@ double U-tube parallel configuration.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+May 17, 2024, by Michael Wetter:<br/>
+Updated model due to removal of parameter <code>dynFil</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1885\">IBPSA, #1885</a>.
+</li>
 <li>
 January 8, 2024, by David Blum:<br/>
 Moved to <code>Buildings.DHC.Examples.Combined.BaseClasses.Borefield</code>.
