@@ -14,11 +14,15 @@ model LargeScaleWaterToWater_OneRoomRadiator
     pumHeaPumSou(dp_nominal=150000),
     pumHeaPum(dp_nominal=150000),
     sou(use_T_in=true));
+    pumHeaPumSou(dp_nominal=150000),
+    pumHeaPum(dp_nominal=150000),
+    sou(use_T_in=true));
 
   Buildings.Fluid.HeatPumps.ModularReversible.LargeScaleWaterToWater heaPum(
     allowDifferentDeviceIdentifiers=true,
     QHea_flow_nominal=Q_flow_nominal,
     use_intSafCtr=true,
+    QCoo_flow_nominal=-Q_flow_nominal/2,
     QCoo_flow_nominal=-Q_flow_nominal/2,
     TConHea_nominal=TRadSup_nominal,
     dpCon_nominal(displayUnit="Pa"),
@@ -29,6 +33,7 @@ model LargeScaleWaterToWater_OneRoomRadiator
       safCtrPar,
     TConCoo_nominal=oneRooRadHeaPumCtr.TRadMinSup,
     TEvaCoo_nominal=sou.T + 30,
+    TEvaCoo_nominal=sou.T + 30,
     redeclare
       Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN14511.WAMAK_WaterToWater_220kW
       datTabHea,
@@ -37,6 +42,16 @@ model LargeScaleWaterToWater_OneRoomRadiator
       datTabCoo)
     "Large scale water to water heat pump"
     annotation (Placement(transformation(extent={{20,-160},{0,-140}})));
+  Modelica.Blocks.Sources.Pulse TAirSouSte(
+    amplitude=20,
+    width=10,
+    period=86400,
+    offset=283.15,
+    startTime=86400/2) if witCoo "Air source temperature step for cooling phase"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-150,-200})));
   Modelica.Blocks.Sources.Pulse TAirSouSte(
     amplitude=20,
     width=10,
@@ -58,9 +73,13 @@ equation
           -144},{60,-30}},                color={0,127,255}));
   connect(oneRooRadHeaPumCtr.ySet, heaPum.ySet) annotation (Line(
         points={{-139.167,-66.6667},{26,-66.6667},{26,-148.1},{21.1,-148.1}},
+        points={{-139.167,-66.6667},{26,-66.6667},{26,-148.1},{21.1,-148.1}},
                                                                         color={
           0,0,127}));
   connect(oneRooRadHeaPumCtr.hea, heaPum.hea) annotation (Line(points={{
+          -139.167,-75},{32,-75},{32,-152.1},{21.1,-152.1}}, color={255,0,255}));
+  connect(TAirSouSte.y, sou.T_in) annotation (Line(points={{-139,-200},{-92,-200},
+          {-92,-196},{-82,-196}}, color={0,0,127}));
           -139.167,-75},{32,-75},{32,-152.1},{21.1,-152.1}}, color={255,0,255}));
   connect(TAirSouSte.y, sou.T_in) annotation (Line(points={{-139,-200},{-92,-200},
           {-92,-196},{-82,-196}}, color={0,0,127}));
@@ -90,10 +109,10 @@ equation
   Furthermore, this example demonstrates the warnings which
   are raised if two devices are combined with different sizes, leading
   to different scaling factors for heating and cooling operation.
-  If the default <code>QCoo_flow_nominal</code> is used (leading to
+  If the default <code>QCoo_flow_nominal</code> is used (leading to 
   the same scaling factors), the mass flow rates will differ.
   Setting the parameter <code>allowDifferentDeviceIdentifiers</code> to false,
-  an additional warning is raised, indicating that the table data for cooling and
+  an additional warning is raised, indicating that the table data for cooling and 
   heating operation do not originate from the same real device.
 </p>
 <p>
