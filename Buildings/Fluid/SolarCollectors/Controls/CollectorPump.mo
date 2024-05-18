@@ -25,7 +25,7 @@ model CollectorPump
     "Fluid temperature entering the collector"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput on
+  Modelica.Blocks.Interfaces.BooleanOutput on
     "Ouputs true if collector pump should be on"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
@@ -47,19 +47,20 @@ model CollectorPump
     final azi=azi)
       "Direct solar irradiation on a tilted surface"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Buildings.Controls.OBC.CDL.Reals.Add HTotTil(
+  Modelica.Blocks.Math.Add HTotTil(
     u1(final unit="W/m2"),
     u2(final unit="W/m2"),
     y(final unit="W/m2"))
     "Total irradiation on tilted surface"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
-      final uLow=0,
-      final uHigh=delQ_flow)
+  Modelica.Blocks.Logical.Hysteresis hys(
+    final uLow=0,
+    final uHigh=delQ_flow)
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 protected
-  Buildings.Controls.OBC.CDL.Reals.Subtract sub
+  Modelica.Blocks.Math.Add sub(
+    final k2=-1)
     "Difference between incident solar and required incident to compensate thermal losses"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 equation
@@ -82,12 +83,12 @@ equation
   connect(HDirTil.H, HTotTil.u2) annotation (Line(points={{-39,30},{-30,30},{-30,
           44},{-22,44}}, color={0,0,127}));
   connect(HTotTil.y, sub.u1)
-    annotation (Line(points={{2,50},{10,50},{10,6},{18,6}}, color={0,0,127}));
+    annotation (Line(points={{1,50},{10,50},{10,6},{18,6}}, color={0,0,127}));
   connect(criSol.G_TC, sub.u2) annotation (Line(points={{-38.4,-10},{10,-10},{10,
           -6},{18,-6}}, color={0,0,127}));
   connect(hys.u, sub.y)
-    annotation (Line(points={{58,0},{42,0}}, color={0,0,127}));
-  connect(on, hys.y) annotation (Line(points={{120,0},{82,0}},
+    annotation (Line(points={{58,0},{41,0}}, color={0,0,127}));
+  connect(on, hys.y) annotation (Line(points={{120,0},{81,0}},
         color={255,0,255}));
   annotation (
   defaultComponentName = "pumCon",
@@ -96,16 +97,16 @@ Documentation(info="<html>
 Pump on/off controller for a solar thermal system.
 </p>
 <p>
-This controller outputs whether the pump should be commanded on or off 
+This controller outputs whether the pump should be commanded on or off
 based on the incident solar radiation, the collector inlet temperature,
 and the system parameters.
-The pump is commanded on when the incident solar radiation is greater than 
-the critical radiation plus the offset <code>delQ_flow</code>, 
-and it is switched off if the incident solar radiation is 
+The pump is commanded on when the incident solar radiation is greater than
+the critical radiation plus the offset <code>delQ_flow</code>,
+and it is switched off if the incident solar radiation is
 below the critical radiation.
 </p>
 <p>
-The critical radiation is defined per Equation 6.8.2 in 
+The critical radiation is defined per Equation 6.8.2 in
 Duffie and Beckman (2006).
 It is
 </p>
