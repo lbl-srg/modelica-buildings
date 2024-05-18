@@ -24,8 +24,7 @@ model TransientBoreholeDynamics "Description"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     borFieDat=borFieDat,
     TExt0_start=T_start,
-    dT_dz=0,
-    tLoaAgg=600)
+    dT_dz=0)
     "Borehole"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Movers.Preconfigured.FlowControlled_m_flow pum[nZon](

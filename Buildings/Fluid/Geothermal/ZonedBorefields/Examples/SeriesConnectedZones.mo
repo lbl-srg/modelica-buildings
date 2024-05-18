@@ -10,12 +10,10 @@ model SeriesConnectedZones "Description"
 
   Buildings.Fluid.Geothermal.ZonedBorefields.OneUTube borHol(
     redeclare package Medium = Medium,
-    nSeg=10,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     borFieDat=borFieDat,
     TExt0_start=T_start,
-    dT_dz=0,
-    tLoaAgg=300)
+    dT_dz=0)
     "Borehole"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Movers.Preconfigured.FlowControlled_m_flow pum(
