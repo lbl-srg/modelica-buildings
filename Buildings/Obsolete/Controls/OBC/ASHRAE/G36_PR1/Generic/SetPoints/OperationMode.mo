@@ -86,16 +86,16 @@ block OperationMode "Block that outputs the operation mode"
       iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant occModInd(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant occModInd(
     final k=Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
     "Occupied mode "
     annotation (Placement(transformation(extent={{100,340},{120,360}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant unoPerInd(final k=0.0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant unoPerInd(final k=0.0)
     "Index to indicate unoccupied period"
     annotation (Placement(transformation(extent={{0,340},{20,360}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch corCooDowTim "Corrected cool down period"
+  Buildings.Controls.OBC.CDL.Reals.Switch corCooDowTim "Corrected cool down period"
     annotation (Placement(transformation(extent={{-220,240},{-200,260}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch corWarUpTim "Corrected warm-up period"
+  Buildings.Controls.OBC.CDL.Reals.Switch corWarUpTim "Corrected warm-up period"
     annotation (Placement(transformation(extent={{-200,140},{-180,160}})));
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(
     final t=4) "Check if the number of cold zones is not less than than 5"
@@ -109,49 +109,49 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Latch lat2
     "If all zone temperature are lower than unoccupied cooling setpoint by a given limit, then the setup mode should be off"
     annotation (Placement(transformation(extent={{-100,-200},{-80,-180}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys2(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys2(
     final pre_y_start=true,
     final uHigh=0,
     final uLow=-60)
     "Hysteresis that outputs if the maximum cool-down time is more than the allowed cool-down time"
     annotation (Placement(transformation(extent={{-260,240},{-240,260}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys3(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys3(
     final pre_y_start=true,
     final uHigh=0,
     final uLow=-60)
     "Hysteresis that outputs if the maximum warm-up time is more than allowed warm-up time"
     annotation (Placement(transformation(extent={{-260,140},{-240,160}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub5
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub5
     "Calculate differential between time-to-next-occupancy and the cool-down time"
     annotation (Placement(transformation(extent={{-160,240},{-140,260}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys4(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys4(
     final pre_y_start=false,
     final uHigh=0,
     final uLow=-60)
     "Hysteresis to check if the cooldown mode could be activated"
     annotation (Placement(transformation(extent={{-120,240},{-100,260}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys5(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys5(
     final pre_y_start=false,
     final uHigh=0,
     final uLow=-60)
     "Hysteresis to activate the warm-up model"
     annotation (Placement(transformation(extent={{-120,150},{-100,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub6
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub6
     "Calculate differential between time-to-next-occupancy and the warm-up time"
     annotation (Placement(transformation(extent={{-160,150},{-140,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys9(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys9(
     final pre_y_start=false,
     final uLow=-0.1,
     final uHigh=0.1)
     "Hysteresis that outputs if any zone temperature is lower than freeze protection threshold temperature"
     annotation (Placement(transformation(extent={{-180,-100},{-160,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys10(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys10(
     final pre_y_start=false,
     final uLow=-0.1,
     final uHigh=0.1)
     "Hysteresis that outputs if all zone temperature are higher than threshold temperature of ending freeze protection"
     annotation (Placement(transformation(extent={{-180,-140},{-160,-120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxWarCooTime(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxWarCooTime(
     final k=preWarCooTim)
     "Allowed maximum warm-up or cool-down time"
     annotation (Placement(transformation(extent={{-340,190},{-320,210}})));
@@ -234,28 +234,28 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Or or1
     "Check if the number of cold zone is more than 5 or all zones are cold"
     annotation (Placement(transformation(extent={{-220,20},{-200,40}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or3
+  Buildings.Obsolete.Controls.OBC.CDL.Logical.Or3 or3
     "Check if it is in occupied, cooldown, or warm-up mode"
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
   Buildings.Controls.OBC.CDL.Logical.Or or4
     "Check if the number of hot zone is more than 5 or all zones are hot"
     annotation (Placement(transformation(extent={{-220,-200},{-200,-180}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or5
+  Buildings.Obsolete.Controls.OBC.CDL.Logical.Or3 or5
     "Check if it is in Setback, Setback_freezeProtection, or Setup mode"
     annotation (Placement(transformation(extent={{-20,-350},{0,-330}})));
   Buildings.Controls.OBC.CDL.Logical.Or or6
     "Check if it is in any of the 6 modes except unoccupied mode"
     annotation (Placement(transformation(extent={{40,-370},{60,-350}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Switch between occupied mode index and unoccupied period index"
     annotation (Placement(transformation(extent={{160,310},{180,330}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi3
+  Buildings.Controls.OBC.CDL.Reals.Switch swi3
     "If the Cool-down, warm-up, or Occupied mode is on, then setback mode should not be activated."
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi4
+  Buildings.Controls.OBC.CDL.Reals.Switch swi4
     "If the Cool-down, warm-up, or Occupied mode is on, then freeze protection setback mode should not be activated."
     annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi5
+  Buildings.Controls.OBC.CDL.Reals.Switch swi5
     "If the Cool-down, warm-up, or Occupied mode is on, then setup mode should not be activated."
     annotation (Placement(transformation(extent={{60,-200},{80,-180}})));
   Buildings.Controls.OBC.CDL.Logical.Not not5 "Logical not"
@@ -273,13 +273,13 @@ protected
     final message="Level 4 alarm: window open during modes other than occupied mode")
     "Generate alarm message when window open during modes other than occupied mode"
     annotation (Placement(transformation(extent={{240,80},{260,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1
     "If occupied mode is on, then cool down mode should not be activated"
     annotation (Placement(transformation(extent={{140,270},{160,290}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger setBacMod1
     "Convert Real number to Integer number"
     annotation (Placement(transformation(extent={{180,270},{200,290}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi2
+  Buildings.Controls.OBC.CDL.Reals.Switch swi2
     "If occupied mode is on, then warm-up mode should not be activated."
     annotation (Placement(transformation(extent={{140,180},{160,200}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger setBacMod2
@@ -299,18 +299,18 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal allHot
     "Check if all zones are hot zone"
     annotation (Placement(transformation(extent={{-280,-230},{-260,-210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant actFreProTem(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant actFreProTem(
     final k=TZonFreProOn)
     "Threshold temperature to activate the freeze protection mode"
     annotation (Placement(transformation(extent={{-280,-110},{-260,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant endFreProTem(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant endFreProTem(
     final k=TZonFreProOff)
     "Threshold temperature to end the freeze protection mode"
     annotation (Placement(transformation(extent={{-280,-150},{-260,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub
     "Calculate differential between minimum zone temperature and freeze protection threshold temperature"
     annotation (Placement(transformation(extent={{-220,-100},{-200,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1
     "Calculate differential between maximum zone temperature and threshold temperature of ending freeze protection"
     annotation (Placement(transformation(extent={{-220,-140},{-200,-120}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2
@@ -319,10 +319,10 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Or or7
     "Enough hot zone or the high average zone temperature"
     annotation (Placement(transformation(extent={{-160,-200},{-140,-180}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub3
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub3
     "Calculate the difference between maximum cool down time and the allowed maximum cool down time"
     annotation (Placement(transformation(extent={{-300,240},{-280,260}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub4
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub4
     "Calculate the differential between maximum warm-up time and the allowed maximum warm-up time"
     annotation (Placement(transformation(extent={{-300,140},{-280,160}})));
   Buildings.Controls.OBC.CDL.Logical.Edge endSetBac

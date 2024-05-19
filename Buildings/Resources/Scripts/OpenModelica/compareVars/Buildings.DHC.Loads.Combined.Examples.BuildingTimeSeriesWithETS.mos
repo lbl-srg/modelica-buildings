@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "bui.ets.proHeaWat.heaPum.QCon_flow_nominal",
+    "bui.ets.proHeaWat.heaPum.QCon_flow",
+    "bui.ets.proHotWat.heaPum.QCon_flow_nominal",
+    "bui.ets.proHotWat.heaPum.QCon_flow",
+    "bui.PHea",
+    "bui.PPum",
+    "bui.bui.QReqHea_flow",
+    "bui.bui.QReqCoo_flow",
+    "bui.bui.QHea_flow",
+    "bui.bui.QCoo_flow"
+  };

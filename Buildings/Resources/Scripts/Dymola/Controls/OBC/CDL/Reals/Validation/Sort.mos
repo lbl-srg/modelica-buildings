@@ -1,0 +1,8 @@
+simulateModel("Buildings.Controls.OBC.CDL.Reals.Validation.Sort", method="Cvode", tolerance=1e-06, stopTime=1.0, resultFile="Sort1");
+createPlot(id=1, position={24, 14, 959, 865}, y={"sorAsc.u[1]", "sorAsc.u[2]", "sorAsc.u[3]", "sorAsc.u[4]", "sorAsc.u[5]"}, range={0.0, 1.0, -4.0, 6.0}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}}, timeUnit="s");
+createPlot(id=1, position={24, 14, 959, 865}, y={"sorAsc.y[1]", "sorAsc.y[2]", "sorAsc.y[3]", "sorAsc.y[4]", "sorAsc.y[5]"}, range={0.0, 1.0, -4.0, 6.0}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}}, timeUnit="s");
+createPlot(id=1, position={24, 14, 959, 865}, y={"sorDes.y[1]", "sorDes.y[2]", "sorDes.y[3]", "sorDes.y[4]", "sorDes.y[5]"}, range={0.0, 1.0, -6.0, 6.0}, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}}, timeUnit="s");
+createPlot(id=2, position={1001, 330, 1147, 549}, y={"sorAsc.yIdx[1]", "sorAsc.yIdx[2]", "sorAsc.yIdx[3]", "sorAsc.yIdx[4]", "sorAsc.yIdx[5]"}, range={0.0, 1.0, 0.0, 6.0}, grid=true, subPlot=101, colors={{28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=2, position={1001, 330, 1147, 549}, y={"sorDes.yIdx[1]", "sorDes.yIdx[2]", "sorDes.yIdx[3]", "sorDes.yIdx[4]", "sorDes.yIdx[5]"}, range={0.0, 1.0, 0.0, 6.0}, grid=true, subPlot=102, colors={{28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}}, timeUnit="s");
+
+

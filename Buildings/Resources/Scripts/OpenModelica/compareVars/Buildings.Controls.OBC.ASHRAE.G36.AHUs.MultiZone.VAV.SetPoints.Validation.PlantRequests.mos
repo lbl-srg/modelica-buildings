@@ -2,13 +2,13 @@ compareVars :=
   {
     "plaReq.TAirSup",
     "plaReq.TAirSupSet",
-    "plaReq.uCooCoi_actual",
-    "plaReq.uHeaCoi_actual",
+    "plaReq.uCooCoiSet",
+    "plaReq.uHeaCoiSet",
     "plaReq.yHotWatResReq",
     "plaReq.yHotWatPlaReq",
     "plaReq1.TAirSup",
     "plaReq1.TAirSupSet",
-    "plaReq1.uCooCoi_actual",
+    "plaReq1.uCooCoiSet",
     "plaReq1.yChiWatResReq",
     "plaReq1.yChiPlaReq"
   };

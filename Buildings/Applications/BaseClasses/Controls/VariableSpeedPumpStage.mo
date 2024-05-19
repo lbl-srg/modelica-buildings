@@ -99,8 +99,10 @@ model VariableSpeedPumpStage "Staging control for variable speed pumps"
     final integerFalse=0, final integerTrue=2)
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
   Buildings.Controls.OBC.CDL.Integers.Add addInt
+    "Outputs how many pumps are to be commanded on"
     annotation (Placement(transformation(extent={{60,-56},{80,-36}})));
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea
+    "Comparison from integer to real signal for number of pumps"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
   Modelica.Blocks.Interfaces.BooleanInput on
@@ -115,12 +117,12 @@ equation
       pattern=LinePattern.Dash));
   connect(con1.outPort, oneOn.inPort[1])
     annotation (Line(
-      points={{-50,38.5},{-50,26},{-50.5,26},{-50.5,21}},
+      points={{-50,38.5},{-50,26},{-49.75,26},{-49.75,21}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con2.inPort, oneOn.outPort[1])
     annotation (Line(
-      points={{-50,-26},{-50,-10},{-50.25,-10},{-50.25,-0.5}},
+      points={{-50,-26},{-50,-10},{-49.875,-10},{-49.875,-0.5}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con2.outPort, twoOn.inPort[1])
@@ -140,12 +142,12 @@ equation
       pattern=LinePattern.Dash));
   connect(con3.outPort, oneOn.inPort[2])
     annotation (Line(
-      points={{-10,-38.5},{-10,26},{-49.5,26},{-49.5,21}},
+      points={{-10,-38.5},{-10,26},{-50.25,26},{-50.25,21}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con4.inPort, oneOn.outPort[2])
     annotation (Line(
-      points={{-22,48},{-22,-10},{-49.75,-10},{-49.75,-0.5}},
+      points={{-22,48},{-22,-10},{-50.125,-10},{-50.125,-0.5}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(combiTable1Ds.y, y)

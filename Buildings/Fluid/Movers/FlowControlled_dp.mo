@@ -77,7 +77,7 @@ model FlowControlled_dp
 
   Modelica.Blocks.Interfaces.RealInput dpMea(
     final quantity="PressureDifference",
-    final displayUnit="Pa",
+    displayUnit="Pa",
     final unit="Pa")=gain.u if prescribeSystemPressure
     "Measurement of pressure difference between two points where the set point should be obtained"
     annotation (Placement(transformation(
@@ -271,8 +271,8 @@ The record has been moved to
 <a href=\"modelica://Buildings.Fluid.Movers.Data.SpeedControlled_y\">
 Buildings.Fluid.Movers.Data.SpeedControlled_y</a>
 as it makes sense to use it for the movers
-<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_Nrpm\">
-Buildings.Fluid.Movers.FlowControlled_Nrpm</a>
+<a href=\"modelica://Buildings.Obsolete.Fluid.Movers.FlowControlled_Nrpm\">
+Buildings.Obsolete.Fluid.Movers.FlowControlled_Nrpm</a>
 and
 <a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_y\">
 Buildings.Fluid.Movers.FlowControlled_y</a>.<br/>
