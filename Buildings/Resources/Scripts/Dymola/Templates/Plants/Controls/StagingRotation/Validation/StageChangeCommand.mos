@@ -1,0 +1,30 @@
+simulateModel("Buildings.Templates.Plants.Controls.StagingRotation.Validation.StageChangeCommand",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=20000.0,
+    resultFile="StageChangeCommand");
+createPlot(
+    id=1,
+    position={5, 5, 300, 600},
+    subPlot=1,
+    y={"chaSta.capReq.y", "chaSta.capSta.y", "chaSta.capStaLow.y", "capHea_nominal"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"y1UpHol.y", "y1DowHol.y"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
+createPlot(
+    id=1,
+    subPlot=3,
+    y={"idxSta.y"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);

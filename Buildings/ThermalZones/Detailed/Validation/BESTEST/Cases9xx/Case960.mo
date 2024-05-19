@@ -21,7 +21,9 @@ model Case960 "Case 900, but with an unconditioned sun-space"
       annualHea(Min=2.522*3.6e9, Max=2.860*3.6e9, Mean=2.693*3.6e9),
       annualCoo(Min=-0.789*3.6e9, Max=-0.950*3.6e9, Mean=-0.896*3.6e9),
       peakHea(Min=2.085*1000, Max=2.300*1000, Mean=2.196*1000),
-      peakCoo(Min=-1.338*1000, Max=-1.480*1000, Mean=-1.393*1000)));
+      peakCoo(Min=-1.338*1000, Max=-1.480*1000, Mean=-1.393*1000)),
+   heaCri(lowerLimit=2*3.6e9, upperLimit=3.4*3.6e9),
+   cooCri(lowerLimit=-0.62*3.6e9, upperLimit=-1.81*3.6e9));
 
   Buildings.HeatTransfer.Conduction.MultiLayer
     parWal(layers=matLayPar, A=8*2.7,
@@ -108,7 +110,8 @@ model Case960 "Case 900, but with an unconditioned sun-space"
     annotation (Placement(transformation(extent={{54,-134},{62,-126}})));
   Modelica.Blocks.Math.Product product1
     annotation (Placement(transformation(extent={{74,-138},{84,-128}})));
-  Buildings.Fluid.Sensors.Density density1(redeclare package Medium = MediumA)
+  Buildings.Fluid.Sensors.Density density1(redeclare package Medium = MediumA,
+      warnAboutOnePortConnection=false)
     "Air density inside the building"
     annotation (Placement(transformation(extent={{84,-162},{74,-152}})));
   Buildings.Fluid.FixedResistances.PressureDrop heaCoo1(
@@ -131,10 +134,10 @@ model Case960 "Case 900, but with an unconditioned sun-space"
     "Sun space room air temperature"
     annotation (Placement(transformation(extent={{5,-5},{-5,5}},
         rotation=0, origin={107,-11})));
-  Buildings.Controls.OBC.CDL.Continuous.MovingAverage TSunSpaHou(delta=3600)
+  Buildings.Controls.OBC.CDL.Reals.MovingAverage TSunSpaHou(delta=3600)
     "Hourly averaged room air temperature"
     annotation (Placement(transformation(extent={{88,-28},{96,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.MovingAverage TSunSpaAnn(delta=86400*365)
+  Buildings.Controls.OBC.CDL.Reals.MovingAverage TSunSpaAnn(delta=86400*365)
     "Annual averaged room air temperature"
     annotation (Placement(transformation(extent={{88,-40},{96,-32}})));
 equation
@@ -234,6 +237,18 @@ equation
           textString="BackZone")}),
             Documentation(revisions="<html>
 <ul>
+<li>
+March 26, 2024, by Michael Wetter:<br/>
+Configured the sensor parameter to suppress the warning about being a one-port connection.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3731\">#3731</a>
+</li>
+<li>
+May 12, 2023, by Jianjun Hu:<br/>
+Added test acceptance criteria limits.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3396\">issue 3396</a>.
+</li> 
 <li>
 September 16, 2021, by Michael Wetter:<br/>
 Removed assignment of parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>

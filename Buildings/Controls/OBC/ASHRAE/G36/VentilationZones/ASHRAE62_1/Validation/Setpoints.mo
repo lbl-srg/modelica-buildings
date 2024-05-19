@@ -48,11 +48,11 @@ model Setpoints "Validate the outdoor airflow setpoint according to the ASHRAE 6
     final VMin_flow=0.018)
     "Setpoints of a zone with  CO2 sensor and single zone VAV AHU"
     annotation (Placement(transformation(extent={{180,-20},{200,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ram(
     final duration=7200)
     "Generate ramp output"
     annotation (Placement(transformation(extent={{-200,100},{-180,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     final t=0.75)
     "Check if input is greater than 0.75"
     annotation (Placement(transformation(extent={{-160,100},{-140,120}})));
@@ -63,12 +63,12 @@ model Setpoints "Validate the outdoor airflow setpoint according to the ASHRAE 6
     final integerFalse=2)
     "Convert boolean input to integer output"
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine zonTem(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin zonTem(
     final amplitude=8,
     final freqHz=1/7200,
     final offset=273.15 + 15) "Zone temperature"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine disTem(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin disTem(
     final amplitude=-5,
     final freqHz=1/7200,
     final offset=273.15 + 20) "Discharge air temperature"
@@ -82,12 +82,12 @@ model Setpoints "Validate the outdoor airflow setpoint according to the ASHRAE 6
     final width=0.8)
     "Occupancy status"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp co2Con(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp co2Con(
     final height=300,
     final duration=7200,
     offset=800) "CO2 concentration"
     annotation (Placement(transformation(extent={{-80,-140},{-60,-120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ram1(
     final height=2.6,
     final duration=7200,
     offset=0.6) "Generate ramp output"
@@ -95,12 +95,12 @@ model Setpoints "Validate the outdoor airflow setpoint according to the ASHRAE 6
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
     "Convert real input to integer output"
     annotation (Placement(transformation(extent={{80,120},{100,140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine parFanFlo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin parFanFlo(
     final amplitude=0.01,
     final freqHz=1/7200,
     final offset=0.008) "Parallel fan flow rate"
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant CO2Set(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant CO2Set(
     final k=894)
     "CO2 concentration setpoint"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));

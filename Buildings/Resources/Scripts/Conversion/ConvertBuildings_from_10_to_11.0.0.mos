@@ -1,0 +1,74 @@
+//  Conversion script for Buildings library
+//  from: Version 10
+//  to:   Version 11.0.0
+clear
+
+convertClear();
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3689
+convertClass("Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset",
+             "Buildings.Controls.OBC.CDL.Logical.TrueHold");
+
+// Conversion of hot water load
+convertElement("Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger",
+               "loaSHW", "QReqHotWat_flow");
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3598
+// remove parameter binding computeFlowResistance which is now final
+convertModifiers("Buildings.Fluid.SolarCollectors.ASHRAE93",
+                {"computeFlowResistance"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.SolarCollectors.EN12975",
+                {"computeFlowResistance"}, fill("",0), true);
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3517
+convertClass("Buildings.Controls.OBC.CDL.Discrete.Examples",
+             "Buildings.Controls.OBC.CDL.Discrete.Validation");
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3526
+convertElement("Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.PlantRequests",
+               "uCooCoi_actual", "uCooCoiSet");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.PlantRequests",
+               "uHeaCoi_actual", "uHeaCoiSet");
+convertElement("Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReliefFan",
+               "yDam", "y1RelDam");
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3536
+convertClass("Buildings.Experimental.DHC.Plants.Combined.Subsystems.BaseClasses.MultipleCommands",
+             "Buildings.Templates.Components.Controls.MultipleCommands");
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3595
+convertClass("Buildings.Controls.OBC.CDL.Logical.Or3",
+             "Buildings.Obsolete.Controls.OBC.CDL.Logical.Or3");
+convertClass("Buildings.Controls.OBC.CDL.Logical.OnOffController",
+             "Buildings.Obsolete.Controls.OBC.CDL.Logical.OnOffController");
+convertClass("Buildings.Controls.OBC.CDL.Logical.TriggeredTrapezoid",
+             "Buildings.Obsolete.Controls.OBC.CDL.Logical.TriggeredTrapezoid");
+convertClass("Buildings.Controls.OBC.CDL.Logical.ZeroCrossing",
+             "Buildings.Obsolete.Controls.OBC.CDL.Logical.ZeroCrossing");
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3596
+convertClass("Buildings.Controls.OBC.CDL.Reals.Sources.ModelTime",
+             "Buildings.Controls.OBC.CDL.Reals.Sources.CivilTime");
+
+convertClass("Buildings.Experimental.DHC.Plants.Reservoir.BoreField",
+             "Buildings.DHC.ETS.Combined.Subsystems.Borefield");
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3431
+convertClass("Buildings.Fluid.Geothermal.BuriedPipes","Buildings.Fluid.FixedResistances.BuriedPipes");
+
+// Conversion for https://github.com/ibpsa/modelica-ibpsa/issues/1844
+convertClass("Buildings.Airflow.Multizone.BaseClasses.interpolate",
+             "Buildings.Utilities.Math.Functions.interpolate");
+convertClass("Buildings.Airflow.Multizone.BaseClasses.Examples.Interpolate",
+             "Buildings.Utilities.Math.Functions.Examples.Interpolate");
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3694
+convertClass("Buildings.Experimental.DHC.Networks.Distribution2PipePlugFlow", "Buildings.DHC.Networks.Distribution2PipePlugFlow_v");
+convertClass("Buildings.Experimental.DHC.Networks.Connection2PipePlugFlow", "Buildings.DHC.Networks.Connections.Connection2PipePlugFlow_v");
+convertClass("Buildings.Experimental.DHC.Networks.Controls.MainPump", "Buildings.DHC.Networks.Controls.MainPump1Pipe");
+convertClass("Buildings.Experimental.DHC.Networks.Combined.BaseClasses.PipeAutosize", "Buildings.DHC.Networks.Pipes.PipeAutosize");
+convertClass("Buildings.Experimental.DHC.Networks.Combined.BaseClasses.PipeStandard", "Buildings.DHC.Networks.Pipes.PipeStandard");
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3727
+convertClass("Buildings.Experimental.DHC", "Buildings.DHC");
+convertClass("Buildings.Experimental.DHC.EnergyTransferStations", "Buildings.DHC.ETS");

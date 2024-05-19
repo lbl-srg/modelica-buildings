@@ -122,41 +122,41 @@ block SumZone
         iconTransformation(extent={{100,-110},{140,-70}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum sysUncOutAir(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum sysUncOutAir(
     final nin=numZon)
     "Uncorrected outdoor airflow"
     annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum sysPriAirRate(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum sysPriAirRate(
     final nin=numZon)
     "System primary airflow rate"
     annotation (Placement(transformation(extent={{-10,-130},{10,-110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum sumDesZonPop(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum sumDesZonPop(
     final nin=numZon)
     "Sum of the design zone population for all zones"
     annotation (Placement(transformation(extent={{-10,110},{10,130}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum sumDesBreZonPop(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum sumDesBreZonPop(
     final nin=numZon)
     "Sum of the design breathing zone flow rate for population component"
     annotation (Placement(transformation(extent={{-10,80},{10,100}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum sumDesBreZonAre(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum sumDesBreZonAre(
     final nin=numZon)
     "Sum of the design breathing zone flow rate for area component"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract zonVenEff[numZon]
+  Buildings.Controls.OBC.CDL.Reals.Subtract zonVenEff[numZon]
     "Zone ventilation efficiency"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiMin desSysVenEff(
+  Buildings.Controls.OBC.CDL.Reals.MultiMin desSysVenEff(
     final nin=numZon)
     "Design system ventilation efficiency"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax maxPriOutAirFra(
+  Buildings.Controls.OBC.CDL.Reals.MultiMax maxPriOutAirFra(
     final nin=numZon)
     "Maximum zone outdoor air fraction"
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));

@@ -3,8 +3,8 @@ model Building
   "Model that declares a building to which EnergyPlus objects belong to"
   extends Modelica.Blocks.Icons.Block;
 
-  constant String spawnExe="spawn-0.3.0-0fa49be497"
-      "Name of the spawn executable, without extension, such as spawn-0.3.0-0fa49be497aaa"
+  constant String spawnExe="spawn-0.4.3-7048a72798"
+      "Name of the spawn executable, without extension, such as spawn-0.4.3-7048a72798aaa"
     annotation (HideResult=true);
 
   constant String idfVersion = "9_6_0"
@@ -13,8 +13,6 @@ model Building
   final constant String modelicaNameBuilding=getInstanceName()
     "Name of this instance"
     annotation (HideResult=true);
-  constant Real relativeSurfaceTolerance(min=1E-20) = 1E-6
-    "Relative tolerance of surface temperature calculations";
 
   constant Boolean usePrecompiledFMU=false
     "Set to true to use pre-compiled FMU with name specified by fmuName";
@@ -39,6 +37,14 @@ model Building
 
   parameter Boolean computeWetBulbTemperature=true
     "If true, then this model computes the wet bulb temperature"
+    annotation (Dialog(tab="Advanced"));
+
+  parameter Boolean setInitialRadiativeHeatGainToZero = true
+    "If true, then the radiative heat gain sent from Modelica to EnergyPlus is zero during the model initialization"
+    annotation (Dialog(tab="Advanced"), Evaluate=true);
+
+  parameter Real relativeSurfaceTolerance(min=1E-12) = 1E-6
+    "Relative tolerance of surface temperature calculations"
     annotation (Dialog(tab="Advanced"));
 
   parameter Boolean printUnits=true
@@ -147,9 +153,52 @@ must be provided. When starting the simulation, EnergyPlus will
 be run with the weather file whose name is identical to <code>epwName</code>,
 while Modelica will use the file specified by <code>weaName</code>.
 </p>
+<h4>Note regarding <code>setInitialRadiativeHeatGainToZero</code> and <code>relativeSurfaceTolerance</code></h4>
+<p>
+To configure models that connect components for radiative heat exchange to the thermal zone model,
+it is recommended to leave the parameter <code>setInitialRadiativeHeatGainToZero</code>
+at its default value <code>true</code>.
+This sets the radiative heat flow rate sent from Modelica to EnergyPlus
+to zero during the initialization of the model, thereby avoiding a potential nonlinear system
+of equations that may give convergence problems. This only affects the initialization of the model
+but not the time integration, hence the error should be small for typical models.
+</p>
+<p>
+If you decide to set <code>setInitialRadiativeHeatGainToZero = false</code>, you need to be aware of the following:
+If <code>setInitialRadiativeHeatGainToZero = false</code>,
+then the radiative heat gain from the model input is being used.
+If this radiative heat gain depends on the radiative temperature that is an output of the EnergyPlus model,
+a nonlinear equation is formed.
+Because in EnergyPlus, computing the radiative temperature involves an iterative solution,
+this can cause convergence problems due to having two nested solvers,
+the outer being the Modelica solver that solves for the radiative heat flow rate <code>QGaiRad_flow</code>,
+and the innner being the EnergyPlus solver that solves for the radiative temperature <code>TRad</code>.
+Hence, we recommend to leave <code>setInitialRadiativeHeatGainToZero = true</code>.
+</p>
+<p>
+If you decide to set <code>setInitialRadiativeHeatGainToZero = false</code>, you may need to also
+tighten the tolerance of the EnergyPlus solver by tightening <code>relativeSurfaceTolerance</code>,
+but one cannot assure that the nested nonlinear equations converge.
+</p>
+<p>
+Because a Modelica model does not have knowledge of the solver tolerance, automatically tightening
+<code>relativeSurfaceTolerance</code> as a function of the Modelica solver tolerance
+is not possible.
+</p>
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 16, 2024, by Michael Wetter:<br/>
+Introduced parameter <code>setInitialRadiativeHeatGainToZero</code>.
+This is required for
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Radiator\">
+Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Radiator</a>
+with OpenModelica.
+See info section for rationale.<br/>
+This was required for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3707\">#3707</a>.
+</li>
 <li>
 November 18, 2021, by Michael Wetter:<br/>
 Removed parameters <code>showWeatherData</code> and <code>generatePortableFMU</code>.

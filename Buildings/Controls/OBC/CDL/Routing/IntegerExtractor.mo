@@ -3,13 +3,13 @@ block IntegerExtractor
   "Extract scalar signal out of integer signal vector dependent on integer input index"
   parameter Integer nin=1
     "Number of inputs";
-  Interfaces.IntegerInput index
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput index
     "Index of input vector element to be extracted out"
     annotation (Placement(transformation(origin={0,-120},extent={{-20,-20},{20,20}},rotation=90)));
-  Interfaces.IntegerInput u[nin]
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u[nin]
     "Integer input signals"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.IntegerOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y
     "Integer signal extracted from input vector, u[index]"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 

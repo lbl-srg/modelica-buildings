@@ -3,7 +3,7 @@ block Constant
   "Output constant signal of type Boolean"
   parameter Boolean k
     "Constant output value";
-  Interfaces.BooleanOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 

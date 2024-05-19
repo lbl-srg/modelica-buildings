@@ -6,24 +6,24 @@ model Reliefs
     "Multi zone VAV AHU minimum outdoor air control - damper modulation"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxRetDam(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxRetDam(
     final k=0.9)
     "Return damper maximum position"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp temLoo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp temLoo(
     final duration=1800,
     final offset=-1,
     final height=2) "Temperature control loop output"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxOutDam(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxOutDam(
     final k=1)
     "Outdoor air damper maximum position"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minRetDam(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minRetDam(
     final k=0.1)
     "Return damper minimum position"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minOutDam(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minOutDam(
     final k=0)
     "Outdoor air damper minimum position"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
