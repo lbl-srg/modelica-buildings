@@ -1,4 +1,6 @@
 Controller
+PrimaryController
+SecondaryController
 BypassValve
 Generic
 Pumps
@@ -6,5 +8,3 @@ SetPoints
 Staging
 Types
 Validation
-PrimaryController
-SecondaryController
