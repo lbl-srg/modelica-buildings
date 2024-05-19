@@ -26,19 +26,19 @@ protected
     "Pump status"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant secFloSen(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant secFloSen(
     final k=8.5)
     "Flowrate sensor reading from secondary circuit"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine priFloSen(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sine priFloSen(
     final offset=8.5,
     final freqHz=1/10,
     final amplitude=1.5)
     "Flowrate sensor reading from primary circuit"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine decFloSen(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sine decFloSen(
     final offset=0,
     final freqHz=1/10,
     final amplitude=0.5)

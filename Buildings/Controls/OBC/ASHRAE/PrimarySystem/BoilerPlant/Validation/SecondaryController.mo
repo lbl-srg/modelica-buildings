@@ -225,27 +225,27 @@ protected
     "Logical pre block"
     annotation (Placement(transformation(extent={{290,30},{310,50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOut(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOut(
     final k=290)
     "Measured outdoor air drybulb temperature"
     annotation (Placement(transformation(extent={{-340,90},{-320,110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSup(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSup(
     final k=340)
     "Measured hot water supply temperature"
     annotation (Placement(transformation(extent={{-340,60},{-320,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TRet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TRet(
     final k=335)
     "Measured hot water return temperature"
     annotation (Placement(transformation(extent={{-340,30},{-320,50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VHotWat_flow[4](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant VHotWat_flow[4](
     final k={6e-5,9e-5,20e-5,0.0004})
     "Measured hot water volume flowrate in primary loop"
     annotation (Placement(transformation(extent={{-340,0},{-320,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dPHotWat[1](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dPHotWat[1](
     final k={4000})
     "Measured differential pressure between hot water supply and return in primary loop"
     annotation (Placement(transformation(extent={{-340,-30},{-320,-10}})));
@@ -255,7 +255,7 @@ protected
     "Boiler availability status vector"
     annotation (Placement(transformation(extent={{-340,-60},{-320,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sine sin(
     final amplitude=2,
     final freqHz=1/14400)
     "Sine input"
@@ -265,27 +265,27 @@ protected
     "Real to Integer conversion"
     annotation (Placement(transformation(extent={{-300,120},{-280,140}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOut1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOut1(
     final k=290)
     "Measured outdoor air drybulb temperature"
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSup1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSup1(
     final k=340)
     "Measured hot water supply temperature"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TRet1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TRet1(
     final k=335)
     "Measured hot water return temperature"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VHotWat_flow1[4](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant VHotWat_flow1[4](
     final k={6e-5,9e-5,20e-5,0.00029})
     "Measured hot water volume flowrate in primary loop"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dPHotWat1[1](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dPHotWat1[1](
     final k={4000})
     "Measured differential pressure between hot water supply and return in secondary loop"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
@@ -295,7 +295,7 @@ protected
     "Boiler availability status vector"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sine sin1(
     final amplitude=2, final freqHz=1/14400)
     "Sine input"
     annotation (Placement(transformation(extent={{-80,120},{-60,140}})));
@@ -304,32 +304,32 @@ protected
     "Real to Integer conversion"
     annotation (Placement(transformation(extent={{-40,120},{-20,140}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VHotWatSec_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant VHotWatSec_flow(
     final k=0.0003)
     "Measured hot water volume flowrate in secondary loop"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOut2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOut2(
     final k=290)
     "Measured outdoor air drybulb temperature"
     annotation (Placement(transformation(extent={{140,90},{160,110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSup2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSup2(
     final k=340)
     "Measured hot water supply temperature"
     annotation (Placement(transformation(extent={{140,60},{160,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TRet2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TRet2(
     final k=335)
     "Measured hot water return temperature"
     annotation (Placement(transformation(extent={{140,30},{160,50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VHotWat_flow2[4](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant VHotWat_flow2[4](
     final k={6e-5,9e-5,20e-5,0.00029})
     "Measured hot water volume flowrate in primary loop"
     annotation (Placement(transformation(extent={{140,0},{160,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dPHotWat2[1](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dPHotWat2[1](
     final k={4000})
     "Measured differential pressure between hot water supply and return in secondary loop"
     annotation (Placement(transformation(extent={{140,-30},{160,-10}})));
@@ -339,7 +339,7 @@ protected
     "Boiler availability status vector"
     annotation (Placement(transformation(extent={{140,-60},{160,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sine sin2(
     final amplitude=2,
     final freqHz=1/14400)
     "Sine input"
@@ -349,17 +349,17 @@ protected
     "Real to Integer conversion"
     annotation (Placement(transformation(extent={{180,120},{200,140}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VHotWatSec_flow1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant VHotWatSec_flow1(
     final k=0.0003)
     "Measured hot water volume flowrate in secondary loop"
     annotation (Placement(transformation(extent={{140,-100},{160,-80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     final t=0.5)
     "Check if schedule lets the controller enable the plant or not"
     annotation (Placement(transformation(extent={{-300,190},{-280,210}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable enaSch(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable enaSch(
     final table=schTab,
     final smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
     final timeScale=3600)

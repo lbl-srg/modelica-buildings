@@ -63,7 +63,7 @@ block CondensationControl
     final max=1) if have_priOnl
     "Minimum allowed setpoint of bypass valve position"
     annotation (Placement(transformation(extent={{100,0},{140,40}}),
-      iconTransformation(extent={{100,0},{140,40}})));
+      iconTransformation(extent={{100,20},{140,60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMinPriPumSpe(
     final unit="1",
@@ -72,7 +72,7 @@ block CondensationControl
     final max=1) if (have_varPriPum and not have_priOnl)
     "Minimum allowed primary pump speed"
     annotation (Placement(transformation(extent={{100,-40},{140,0}}),
-      iconTransformation(extent={{100,-40},{140,0}})));
+      iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMaxSecPumSpe(
     final unit="1",
@@ -81,23 +81,14 @@ block CondensationControl
     final max=1) if not have_priOnl
     "Maximum allowed secondary pump speed"
     annotation (Placement(transformation(extent={{100,-80},{140,-40}}),
-      iconTransformation(extent={{100,-80},{140,-40}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yConRegSig(
-    final unit="1",
-    final displayUnit="1",
-    final min=0,
-    final max=1)
-    "Condensation regulation signal"
-    annotation (Placement(transformation(extent={{100,40},{140,80}}),
-      iconTransformation(extent={{100,40},{140,80}})));
+      iconTransformation(extent={{100,-60},{140,-20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Pass 0 regulation signal if stage type is not non-condensing"
     annotation (Placement(transformation(extent={{-50,40},{-30,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
     final k=0)
     "Zero source"
     annotation (Placement(transformation(extent={{-90,20},{-70,40}})));
@@ -117,7 +108,7 @@ protected
     "Integer to Real conversion"
     annotation (Placement(transformation(extent={{-90,-80},{-70,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     final t=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler)
     "Identify if current stage is condensing type or non-condensing type"
     annotation (Placement(transformation(extent={{-10,-80},{10,-60}})));
@@ -171,8 +162,6 @@ equation
                                                            color={0,0,127}));
   connect(pumSpeLim.yMaxSecPumSpe, yMaxSecPumSpe) annotation (Line(points={{12,-5},
           {30,-5},{30,-60},{120,-60}}, color={0,0,127}));
-  connect(proReg.yRegSig, yConRegSig) annotation (Line(points={{-68,70},{20,70},
-          {20,60},{120,60}}, color={0,0,127}));
   annotation (defaultComponentName=
     "conSet",
     Icon(graphics={

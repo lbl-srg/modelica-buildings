@@ -92,45 +92,45 @@ protected
     "Block to resolve errors caused by zero index"
     annotation (Placement(transformation(extent={{-8,70},{12,90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset intWitRes
+  Buildings.Controls.OBC.CDL.Reals.IntegratorWithReset intWitRes
     "Used to break algebraic loop and sample the minimum flow setpoint at the start
     of stage change process to use as reference for calculations"
     annotation (Placement(transformation(extent={{140,-110},{160,-90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=1/bypSetRat)
     "Find time required for changing bypass position setpoint"
     annotation (Placement(transformation(extent={{210,-260},{230,-240}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub3
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub3
     "Find difference between new and old setpoints"
     annotation (Placement(transformation(extent={{230,-210},{250,-190}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Abs abs
+  Buildings.Controls.OBC.CDL.Reals.Abs abs
     "Ensure time required is positive"
     annotation (Placement(transformation(extent={{280,-260},{300,-240}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar1(
     final p=1e-6)
     "Calculate time required to reset setpoint"
     annotation (Placement(transformation(extent={{250,-260},{270,-240}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Greater gre(
+  Buildings.Controls.OBC.CDL.Reals.Greater gre(
     final h=0)
     "Check if time required for setpoint change has elapsed"
     annotation (Placement(transformation(extent={{200,-120},{220,-100}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con[nSta,nBoi](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con[nSta,nBoi](
     final k=minFloSetMat)
     "Design minimum boiler flowrate"
     annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1[nSta,nBoi](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1[nSta,nBoi](
     final k=maxFloSetMat)
     "Design maximum boiler flowrate"
     annotation (Placement(transformation(extent={{-120,-190},{-100,-170}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con2[nSta,nBoi](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con2[nSta,nBoi](
     final k=staMat)
     "Boiler staging matrix"
     annotation (Placement(transformation(extent={{-120,-230},{-100,-210}})));
@@ -147,41 +147,41 @@ protected
     "Logical And"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro[nSta,nBoi]
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro[nSta,nBoi]
     "Element-wise product"
     annotation (Placement(transformation(extent={{-80,-150},{-60,-130}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro1[nSta,nBoi]
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro1[nSta,nBoi]
     "Element-wise product"
     annotation (Placement(transformation(extent={{-80,-190},{-60,-170}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Divide div[nSta,nBoi]
+  Buildings.Controls.OBC.CDL.Reals.Divide div[nSta,nBoi]
     "Element-wise division"
     annotation (Placement(transformation(extent={{-20,-160},{0,-140}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar[nSta,nBoi](
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar[nSta,nBoi](
     final p=fill(1e-8,nSta,nBoi))
     "Prevent divison by zero"
     annotation (Placement(transformation(extent={{-50,-190},{-30,-170}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MatrixMax matMax(
+  Buildings.Controls.OBC.CDL.Reals.MatrixMax matMax(
     final rowMax=true,
     final nRow=nSta,
     final nCol=nBoi)
     "Identify maximum flowrate ratio for all boilers operating in stage"
     annotation (Placement(transformation(extent={{20,-160},{40,-140}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MatrixGain matGai(
+  Buildings.Controls.OBC.CDL.Reals.MatrixGain matGai(
     final K=staMat)
     "Sum of maximum flowrates of operating boilers"
     annotation (Placement(transformation(extent={{-40,-230},{-20,-210}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con3[nBoi](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con3[nBoi](
     final k=maxFloSet)
     "Design maximum boiler flowrate"
     annotation (Placement(transformation(extent={{-80,-230},{-60,-210}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro2
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro2
     "Product of flowrate ratio and maximum flowrate"
     annotation (Placement(transformation(extent={{140,60},{160,80}})));
 
@@ -204,7 +204,7 @@ protected
     "Constant Integer source"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Max max
+  Buildings.Controls.OBC.CDL.Reals.Max max
     "Max flowrate as per 5.3.8.2"
     annotation (Placement(transformation(extent={{100,90},{120,110}})));
 
@@ -213,7 +213,7 @@ protected
     "Extract max flowrate of current setpoint during stage-up or stage-down"
     annotation (Placement(transformation(extent={{0,-230},{20,-210}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add2
+  Buildings.Controls.OBC.CDL.Reals.Add add2
     "Max flowrate as per 5.3.8.2"
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
 
@@ -222,15 +222,15 @@ protected
     "Extract max flowrate of boiler being disabled during stage-up"
     annotation (Placement(transformation(extent={{-12,40},{8,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Pass minimum flow setpoint based on whether stage-up involves a boiler being disabled"
     annotation (Placement(transformation(extent={{140,0},{160,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro3
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro3
     "Product of flowrate ratio and maximum flowrate"
     annotation (Placement(transformation(extent={{92,-100},{112,-80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1
     "Pass minimum flow setpoint based on whether the plant is being staged-up or staged-down"
     annotation (Placement(transformation(extent={{290,-80},{310,-60}})));
 
@@ -246,7 +246,7 @@ protected
     "Set minimum flow setpoint as per 5.3.8.2 if uOnOff=True, else as per 5.3.8.1"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi2
+  Buildings.Controls.OBC.CDL.Reals.Switch swi2
     "Pass minimum flow setpoint based on whether stage-down involves a boiler being enabled"
     annotation (Placement(transformation(extent={{140,-160},{160,-140}})));
 
@@ -264,7 +264,7 @@ protected
     "Extract flow ratio of previous setpoint during stage-down"
     annotation (Placement(transformation(extent={{60,-280},{80,-260}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Max max1
+  Buildings.Controls.OBC.CDL.Reals.Max max1
     "Max flowrate as per 5.3.8.2"
     annotation (Placement(transformation(extent={{100,-260},{120,-240}})));
 
@@ -273,11 +273,11 @@ protected
     "Extract max flowrate of boiler being disabled during stage-down"
     annotation (Placement(transformation(extent={{-40,-270},{-20,-250}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add1
+  Buildings.Controls.OBC.CDL.Reals.Add add1
     "Max flowrate as per 5.3.8.2"
     annotation (Placement(transformation(extent={{100,-310},{120,-290}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro4
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro4
     "Product of flowrate ratio and maximum flowrate"
     annotation (Placement(transformation(extent={{140,-280},{160,-260}})));
 
@@ -285,15 +285,15 @@ protected
     "Turn on timer for slow change of setpoint"
     annotation (Placement(transformation(extent={{200,-50},{220,-30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Line lin
+  Buildings.Controls.OBC.CDL.Reals.Line lin
     "Change setpoint over a finite amnount of time during stage change"
     annotation (Placement(transformation(extent={{260,-10},{280,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Line lin1
+  Buildings.Controls.OBC.CDL.Reals.Line lin1
     "Change setpoint over a finite amnount of time during stage change"
     annotation (Placement(transformation(extent={{260,-150},{280,-130}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con4(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con4(
     final k=0)
     "Constant Real source"
     annotation (Placement(transformation(extent={{160,100},{180,120}})));
@@ -311,7 +311,7 @@ protected
     "Detect start of change in minimum flow setpoint"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi3
+  Buildings.Controls.OBC.CDL.Reals.Switch swi3
     "Pass new minimum flow setpoint based on whether the plant is being staged-up or staged-down"
     annotation (Placement(transformation(extent={{190,-210},{210,-190}})));
 

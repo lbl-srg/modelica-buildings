@@ -54,24 +54,24 @@ protected
     final period=600) "Boolean pulse signal"
     annotation (Placement(transformation(extent={{80,-190},{100,-170}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
     final k=1)
     "Constant source"
     annotation (Placement(transformation(extent={{-180,130},{-160,150}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(
     final k=1)
     "Constant source"
     annotation (Placement(transformation(extent={{-180,90},{-160,110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul3(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse pul3(
     final amplitude=1.2*0.1,
     final period=5*10*60,
     final offset=1 - 1.1*0.1)
     "Pulse source"
     annotation (Placement(transformation(extent={{-180,50},{-160,70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con4(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con4(
     final k=1)
     "Constant source"
     annotation (Placement(transformation(extent={{-180,10},{-160,30}})));
@@ -86,32 +86,32 @@ protected
     "Constant source"
     annotation (Placement(transformation(extent={{-180,-70},{-160,-50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con2(
     final k=80)
     "Constant input"
     annotation (Placement(transformation(extent={{-180,-110},{-160,-90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con3(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con3(
     final k=1.6)
     "Constant source"
     annotation (Placement(transformation(extent={{-180,170},{-160,190}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con5(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con5(
     final k=82)
     "Constant input"
     annotation (Placement(transformation(extent={{-180,-150},{-160,-130}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con8(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con8(
     final k=1)
     "Constant source"
     annotation (Placement(transformation(extent={{-50,130},{-30,150}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con9(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con9(
     final k=1)
     "Constant source"
     annotation (Placement(transformation(extent={{-50,90},{-30,110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con10(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con10(
     final k=1)
     "Constant source"
     annotation (Placement(transformation(extent={{-50,10},{-30,30}})));
@@ -126,22 +126,22 @@ protected
     "Constant source"
     annotation (Placement(transformation(extent={{-50,-70},{-30,-50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con12(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con12(
     final k=1.3)
     "Constant source"
     annotation (Placement(transformation(extent={{-50,170},{-30,190}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con15(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con15(
     final k=1)
     "Constant source"
     annotation (Placement(transformation(extent={{80,130},{100,150}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con16(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con16(
     final k=1)
     "Constant source"
     annotation (Placement(transformation(extent={{80,90},{100,110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con17(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con17(
     final k=1)
     "Constant source"
     annotation (Placement(transformation(extent={{80,10},{100,30}})));
@@ -156,39 +156,39 @@ protected
     "Constant source"
     annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con18(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con18(
     final k=80)
     "Constant input"
     annotation (Placement(transformation(extent={{80,-110},{100,-90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con19(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con19(
     final k=1.3)
     "Constant source"
     annotation (Placement(transformation(extent={{80,170},{100,190}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con20(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con20(
     final k=82)
     "Constant input"
     annotation (Placement(transformation(extent={{80,-150},{100,-130}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con21(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con21(
     final k=1.1)
     "Constant source"
     annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con13(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con13(
     final k=80)
     "Constant input"
     annotation (Placement(transformation(extent={{-50,-110},{-30,-90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse pul(
     final amplitude=-11.2,
     final period=2.5*900,
     final offset=81.1)
     "Pulse input"
     annotation (Placement(transformation(extent={{-50,-150},{-30,-130}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con11(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con11(
     final k=1.1)
     "Constant source"
     annotation (Placement(transformation(extent={{80,50},{100,70}})));

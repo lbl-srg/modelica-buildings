@@ -60,24 +60,24 @@ block EnableLag_flowrate
     annotation (Placement(transformation(extent={{140,-100},{180,-60}}),
       iconTransformation(extent={{100,-60},{140,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
     final uLow=(-1)*relFloHys,
     final uHigh=relFloHys)
     "Check if condition for enabling next lag pump is satisfied"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys1(
     final uLow=(-1)*relFloHys,
     final uHigh=relFloHys)
     "Check if condition for disabling last lag pump is satisfied"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter hotWatFloRat(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter hotWatFloRat(
     final k=1/VHotWat_flow_nominal)
     "Boiler hot water flow ratio"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar2(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar2(
     final p=staCon)
     "Add parameter"
     annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
@@ -93,7 +93,7 @@ block EnableLag_flowrate
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=1/nPum_nominal)
     "Divide by nominal number of pumps"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
@@ -102,7 +102,7 @@ protected
     "Logical Not"
     annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(
     final p=staCon)
     "Add parameter"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
@@ -120,16 +120,16 @@ protected
     "Convert Integer to Real"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar1(
     final p=-1)
     "Add real inputs"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub2
     "Difference between current flowrate ratio and limit for staging up"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1
     "Difference between current flowrate ratio and limit for staging down"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 
@@ -154,7 +154,7 @@ protected
     "Restart timer whenever change in pump status is detected"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(
     final k=1/nPum_nominal)
     "Divide by nominal number of pumps"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));

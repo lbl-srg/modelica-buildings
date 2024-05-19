@@ -10,7 +10,7 @@ model ProportionalRegulator
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sine sin(
     final amplitude=5,
     final freqHz=1/60,
     final offset=60)

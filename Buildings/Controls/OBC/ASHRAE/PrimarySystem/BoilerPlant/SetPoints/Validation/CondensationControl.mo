@@ -54,28 +54,28 @@ model CondensationControl
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sine sin(
     final amplitude=5,
     final freqHz=1/60,
     final offset=60)
     "Sine input"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sine sin1(
     final amplitude=5,
     final freqHz=1/60,
     final offset=60)
     "Sine input"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sine sin2(
     final amplitude=5,
     final freqHz=1/60,
     final offset=60)
     "Sine input"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin3(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sine sin3(
     final amplitude=5,
     final freqHz=1/60,
     final offset=60)

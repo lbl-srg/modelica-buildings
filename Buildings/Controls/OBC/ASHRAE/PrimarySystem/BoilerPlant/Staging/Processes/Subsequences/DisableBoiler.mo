@@ -85,7 +85,7 @@ protected
     "Convert boolean input to real output"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr[nBoi](
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greEquThr[nBoi](
     final t=fill(0.5, nBoi))
     "Convert real input to boolean output"
     annotation (Placement(transformation(extent={{20,90},{40,110}})));
@@ -183,7 +183,7 @@ protected
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-120,-250},{-100,-230}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr1[nBoi](
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greEquThr1[nBoi](
     final t=fill(0.5, nBoi))
     "Convert real input to boolean output"
     annotation (Placement(transformation(extent={{40,-220},{60,-200}})));

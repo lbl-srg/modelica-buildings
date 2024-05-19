@@ -35,6 +35,18 @@ block HybridPlantEnable "Stages lag primary loop in hybrid boiler plant"
         tab="General",
         group="Boiler plant configuration parameters"));
 
+  parameter Real plaOffThrTim(
+    final unit="s",
+    displayUnit="s") = 900
+    "Minimum time for which the plant has to stay off once it has been disabled"
+    annotation(Dialog(tab="General", group="Boiler plant configuration parameters"));
+
+  parameter Real plaOnThrTim(
+    final unit="s",
+    displayUnit="s") = plaOffThrTim
+    "Minimum time for which the boiler plant has to stay on once it has been enabled"
+    annotation(Dialog(tab="General", group="Boiler plant configuration parameters"));
+
   parameter Real avePer(
     final unit="s",
     displayUnit="s",
@@ -183,25 +195,25 @@ block HybridPlantEnable "Stages lag primary loop in hybrid boiler plant"
     annotation (Dialog(tab="Advanced", group="Failsafe condition parameters"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaChaProEnd
-    "Signal indicating end of stage change process"
+    "Signal indicating end of stage change process from lag primary loop"
     annotation (Placement(transformation(extent={{-240,-250},{-200,-210}}),
-      iconTransformation(extent={{-140,-220},{-100,-180}})));
+      iconTransformation(extent={{-140,-240},{-100,-200}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THotWatRetLagPri(
     final unit="K",
     displayUnit="K",
-    final quantity="ThermodynamicTemperature") if not have_priOnl
+    final quantity="ThermodynamicTemperature")
     "Measured temperature of return hot water in lag primary circuit"
     annotation (Placement(transformation(extent={{-240,-110},{-200,-70}}),
-        iconTransformation(extent={{-140,-100},{-100,-60}})));
+        iconTransformation(extent={{-140,-120},{-100,-80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THotWatRetSec(
     final unit="K",
     displayUnit="K",
-    final quantity="ThermodynamicTemperature") if not have_priOnl
+    final quantity="ThermodynamicTemperature")
     "Measured temperature of return hot water in secondary circuit"
     annotation (Placement(transformation(extent={{-240,-150},{-200,-110}}),
-      iconTransformation(extent={{-140,-140},{-100,-100}})));
+      iconTransformation(extent={{-140,-160},{-100,-120}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THotWatSupSet(
     final unit="K",
@@ -209,7 +221,7 @@ block HybridPlantEnable "Stages lag primary loop in hybrid boiler plant"
     final quantity="ThermodynamicTemperature")
     "Hot water supply temperature setpoint for plant"
     annotation (Placement(transformation(extent={{-240,70},{-200,110}}),
-      iconTransformation(extent={{-140,60},{-100,100}})));
+      iconTransformation(extent={{-140,40},{-100,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THotWatSup(
     final unit="K",
@@ -217,7 +229,7 @@ block HybridPlantEnable "Stages lag primary loop in hybrid boiler plant"
     final quantity="ThermodynamicTemperature")
     "Measured hot water supply temperature in the plant"
     annotation (Placement(transformation(extent={{-240,-50},{-200,-10}}),
-      iconTransformation(extent={{-140,-60},{-100,-20}})));
+      iconTransformation(extent={{-140,-80},{-100,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THotWatRet(
     final unit="K",
@@ -225,14 +237,14 @@ block HybridPlantEnable "Stages lag primary loop in hybrid boiler plant"
     final quantity="ThermodynamicTemperature")
     "Hot water return temperature in the plant"
     annotation (Placement(transformation(extent={{-240,30},{-200,70}}),
-      iconTransformation(extent={{-140,20},{-100,60}})));
+      iconTransformation(extent={{-140,0},{-100,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VHotWat_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s",
     displayUnit="m3/s") "Measured hot water flow rate in the plant"
     annotation (Placement(transformation(extent={{-240,-10},{-200,30}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
+      iconTransformation(extent={{-140,-40},{-100,0}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCapMinLagPri(
     final unit="W",
@@ -240,25 +252,25 @@ block HybridPlantEnable "Stages lag primary loop in hybrid boiler plant"
     final quantity="Power")
     "Minimum capacity of first stage of lag primary loop"   annotation (
       Placement(transformation(extent={{-240,140},{-200,180}}),
-        iconTransformation(extent={{-140,140},{-100,180}})));
+        iconTransformation(extent={{-140,120},{-100,160}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VMinSetLagPri_flow(
     final unit="m3/s",
     displayUnit="m3/s",
     final quantity="VolumeFlowRate")
     "Minimum flowrate setpoint of first stage of lag primary loop"  annotation (
      Placement(transformation(extent={{-240,110},{-200,150}}),
-        iconTransformation(extent={{-140,100},{-100,140}})));
+        iconTransformation(extent={{-140,80},{-100,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uPumSpeLagPri(final unit="1", displayUnit="1")
     "Measured pump speed of lag primary loop" annotation (Placement(
         transformation(extent={{-240,180},{-200,220}}), iconTransformation(
-          extent={{-140,180},{-100,220}})));
+          extent={{-140,160},{-100,200}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCapHigLeaPri(
     final unit="W",
     displayUnit="W",
     final quantity="Power")
     "Design capacity of highest stage in lead primary loop" annotation (
       Placement(transformation(extent={{-240,-200},{-200,-160}}),
-        iconTransformation(extent={{-140,-180},{-100,-140}})));
+        iconTransformation(extent={{-140,-200},{-100,-160}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yEnaNexPri "Enable next primary loop"
     annotation (Placement(transformation(extent={{200,-20},{240,20}}),
@@ -268,6 +280,30 @@ block HybridPlantEnable "Stages lag primary loop in hybrid boiler plant"
     capReq(final avePer=avePer) "Capacity requirement calculator"
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
 
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHigPriLea
+    "Current stage of lead primary loop is highest available" annotation (
+      Placement(transformation(extent={{-240,210},{-200,250}}),
+        iconTransformation(extent={{-140,200},{-100,240}})));
+  Buildings.Controls.OBC.CDL.Logical.Timer timEna(t=plaOnThrTim)
+    "Check if plant has been enabled for minimum threshold duration"
+    annotation (Placement(transformation(extent={{150,-90},{170,-70}})));
+  Buildings.Controls.OBC.CDL.Logical.Timer timDis(t=plaOffThrTim)
+    "Check if plant has been disabled for minimum threshold duration"
+    annotation (Placement(transformation(extent={{150,40},{170,60}})));
+  Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(nin=3)
+    "Enable the lag primary loop only if the lead primary loop is at its highest available stage, and the plant has been disabled for minimum threshold time"
+    annotation (Placement(transformation(extent={{30,80},{50,100}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or2
+    "Disable the lag primary loop either when the lead loop is not at its highest stage, or when required by down-staging calculations"
+    annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not1
+    "Generate true signal when the lead primary loop is not at its highest stage"
+    annotation (Placement(transformation(extent={{30,-120},{50,-100}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not2
+    annotation (Placement(transformation(extent={{120,40},{140,60}})));
+  Buildings.Controls.OBC.CDL.Logical.And and2
+    "Disable the lag primary loop only when the minimum enable time threshold has been exceeded"
+    annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
 protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Up staUpNexPri(
     final nSta=2,
@@ -310,7 +346,7 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt(integerTrue=2, integerFalse=1)
     annotation (Placement(transformation(extent={{150,-30},{170,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre
-    annotation (Placement(transformation(extent={{120,-30},{140,-10}})));
+    annotation (Placement(transformation(extent={{110,-30},{130,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(k=true)
     "Constant true signal for boiler availability"
     annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
@@ -340,10 +376,6 @@ equation
           {-80,34},{-2,34}},           color={255,127,0}));
   connect(conInt.y, staDowNexPri.uTyp) annotation (Line(points={{-98,-10},{-80,-10},
           {-80,-15},{-2,-15}},              color={255,127,0}));
-  connect(staUpNexPri.yStaUp, lat.u) annotation (Line(points={{22,34},{40,34},{40,
-          0},{68,0}},                 color={255,0,255}));
-  connect(staDowNexPri.yStaDow, lat.clr) annotation (Line(points={{22,-30},{40,-30},
-          {40,-6},{68,-6}},                color={255,0,255}));
   connect(conInt1.y, staUpNexPri.uAvaUp) annotation (Line(points={{-98,50},{-20,
           50},{-20,31},{-2,31}},            color={255,127,0}));
   connect(THotWatSupSet, staDowNexPri.THotWatSupSet) annotation (Line(points={{-220,90},
@@ -359,9 +391,9 @@ equation
   connect(booToInt.y, staDowNexPri.uCur) annotation (Line(points={{172,-20},{180,
           -20},{180,-60},{-20,-60},{-20,-18},{-2,-18}},    color={255,127,0}));
   connect(pre.y, booToInt.u)
-    annotation (Line(points={{142,-20},{148,-20}},
+    annotation (Line(points={{132,-20},{148,-20}},
                                                color={255,0,255}));
-  connect(lat.y, pre.u) annotation (Line(points={{92,0},{100,0},{100,-20},{118,-20}},
+  connect(lat.y, pre.u) annotation (Line(points={{92,0},{100,0},{100,-20},{108,-20}},
                       color={255,0,255}));
   connect(con.y, staUpNexPri.uAvaCur) annotation (Line(points={{-98,-60},{-74,-60},
           {-74,22},{-2,22}},           color={255,0,255}));
@@ -377,16 +409,42 @@ equation
           -180},{-52,-180},{-52,-33},{-2,-33}}, color={0,0,127}));
   connect(uCapHigLeaPri, staUpNexPri.uCapDes) annotation (Line(points={{-220,-180},
           {-52,-180},{-52,46},{-2,46}}, color={0,0,127}));
+  connect(pre.y, timEna.u) annotation (Line(points={{132,-20},{140,-20},{140,
+          -80},{148,-80}}, color={255,0,255}));
+  connect(staUpNexPri.yStaUp, mulAnd.u[1]) annotation (Line(points={{22,34},{26,
+          34},{26,94.6667},{28,94.6667}}, color={255,0,255}));
+  connect(uHigPriLea, mulAnd.u[2]) annotation (Line(points={{-220,230},{26,230},
+          {26,90},{28,90}}, color={255,0,255}));
+  connect(timDis.passed, mulAnd.u[3]) annotation (Line(points={{172,42},{180,42},
+          {180,120},{26,120},{26,85.3333},{28,85.3333}}, color={255,0,255}));
+  connect(mulAnd.y, lat.u) annotation (Line(points={{52,90},{60,90},{60,0},{68,
+          0}}, color={255,0,255}));
+  connect(staDowNexPri.yStaDow, or2.u1) annotation (Line(points={{22,-30},{30,
+          -30},{30,-80},{58,-80}}, color={255,0,255}));
+  connect(not1.y, or2.u2) annotation (Line(points={{52,-110},{56,-110},{56,-88},
+          {58,-88}}, color={255,0,255}));
+  connect(uHigPriLea, not1.u) annotation (Line(points={{-220,230},{26,230},{26,
+          -110},{28,-110}}, color={255,0,255}));
+  connect(timDis.u, not2.y)
+    annotation (Line(points={{148,50},{142,50}}, color={255,0,255}));
+  connect(pre.y, not2.u) annotation (Line(points={{132,-20},{140,-20},{140,20},
+          {110,20},{110,50},{118,50}}, color={255,0,255}));
+  connect(or2.y, and2.u1)
+    annotation (Line(points={{82,-80},{98,-80}}, color={255,0,255}));
+  connect(timEna.passed, and2.u2) annotation (Line(points={{172,-88},{180,-88},
+          {180,-100},{90,-100},{90,-88},{98,-88}}, color={255,0,255}));
+  connect(and2.y, lat.clr) annotation (Line(points={{122,-80},{130,-80},{130,
+          -40},{60,-40},{60,-6},{68,-6}}, color={255,0,255}));
   annotation (defaultComponentName = "hybPlaEna",
-        Icon(coordinateSystem(extent={{-100,-220},{100,220}}),
+        Icon(coordinateSystem(extent={{-100,-240},{100,240}}),
              graphics={
         Rectangle(
-        extent={{-100,-220},{100,220}},
+        extent={{-100,-240},{100,240}},
         lineColor={0,0,127},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Text(
-          extent={{-110,260},{110,220}},
+          extent={{-110,280},{110,240}},
           textColor={0,0,255},
           textString="%name")}), Diagram(
         coordinateSystem(preserveAspectRatio=false,

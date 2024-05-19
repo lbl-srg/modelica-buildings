@@ -41,7 +41,7 @@ protected
     "Upstream device status"
     annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant valOne(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant valOne(
     final k=1)
     "Valve one position, fully open"
     annotation (Placement(transformation(extent={{-200,10},{-180,30}})));
@@ -51,7 +51,7 @@ protected
     "Enabling boiler index"
     annotation (Placement(transformation(extent={{-160,70},{-140,90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant valOne1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant valOne1(
     final k=1)
     "Valve one position, fully open"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));

@@ -81,7 +81,7 @@ protected
     "Convert boolean input to real output"
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr[nBoi](
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greEquThr[nBoi](
     final t=fill(0.5, nBoi))
     "Check boilers that are on"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));

@@ -48,13 +48,14 @@ block ResetMinBypass
       iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
     final uLow=-relFloDif,
     final uHigh=0)
     "Check if boiler water flow rate is different from its setpoint"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And3 and1
+  Buildings.Controls.OBC.CDL.Logical.MultiAnd and1(
+    final nin=3)
     "Logical and"
     annotation (Placement(transformation(extent={{120,70},{140,90}})));
 
@@ -75,11 +76,11 @@ protected
     "Logical latch"
     annotation (Placement(transformation(extent={{80,30},{100,50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Divide div
+  Buildings.Controls.OBC.CDL.Reals.Divide div
     "Flow rate error divided by its setpoint"
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(
     final p=1e-6)
     "Add a small positive to avoid zero output"
     annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
@@ -96,7 +97,7 @@ protected
     "Rising edge"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub2
     "Find difference between measured flowrate and minimum flow setpoint"
     annotation (Placement(transformation(extent={{-148,-30},{-128,-10}})));
 
@@ -108,19 +109,11 @@ equation
     annotation (Line(points={{-180,40},{-140,40},{-140,72},{-82,72}},
       color={255,0,255}));
 
-  connect(and2.y, and1.u1)
-    annotation (Line(points={{-58,80},{-10,80},{-10,88},{118,88}},
-      color={255,0,255}));
-
   connect(and1.y,yMinBypRes)
     annotation (Line(points={{142,80},{180,80}}, color={255,0,255}));
 
   connect(chaPro, not1.u)
     annotation (Line(points={{-180,40},{-140,40},{-140,20},{-122,20}},
-      color={255,0,255}));
-
-  connect(lat.y, and1.u2)
-    annotation (Line(points={{102,40},{108,40},{108,80},{118,80}},
       color={255,0,255}));
 
   connect(VMinHotWatSet_flow, addPar.u)
@@ -160,12 +153,18 @@ equation
   connect(sub2.u2, VMinHotWatSet_flow) annotation (Line(points={{-150,-26},{-154,
           -26},{-154,-80},{-180,-80}}, color={0,0,127}));
 
-  connect(tim.passed, and1.u3) annotation (Line(points={{62,-28},{114,-28},{114,
-          72},{118,72}}, color={255,0,255}));
   connect(hys.y, and3.u2) annotation (Line(points={{-38,-60},{-10,-60},{-10,-28},
           {-2,-28}}, color={255,0,255}));
   connect(sub2.y, div.u1) annotation (Line(points={{-126,-20},{-110,-20},{-110,-54},
           {-102,-54}}, color={0,0,127}));
+  connect(and2.y, and1.u[1]) annotation (Line(points={{-58,80},{32,80},{32,
+          84.6667},{118,84.6667}},
+                          color={255,0,255}));
+  connect(lat.y, and1.u[2]) annotation (Line(points={{102,40},{112,40},{112,80},
+          {118,80}}, color={255,0,255}));
+  connect(tim.passed, and1.u[3]) annotation (Line(points={{62,-28},{114,-28},{
+          114,72},{118,72},{118,75.3333}},
+                                       color={255,0,255}));
 annotation (
   defaultComponentName="minBypRes",
   Icon(graphics={

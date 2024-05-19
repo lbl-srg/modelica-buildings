@@ -95,34 +95,34 @@ block EfficiencyCondition
       iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addParDivZer(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addParDivZer(
     final p=1e-6)
     "Add small value to input signal to prevent divide by zero"
     annotation (Placement(transformation(extent={{-110,90},{-90,110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addParDivZer1(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addParDivZer1(
     final p=1e-6)
     "Add small value to input signal to prevent divide by zero"
     annotation (Placement(transformation(extent={{-112,10},{-92,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Divide div
+  Buildings.Controls.OBC.CDL.Reals.Divide div
     "Divider to get relative value of required heating capacity"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(
     final p=1e-6)
     "Add small value to input signal to prevent divide by zero"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Divide div1
+  Buildings.Controls.OBC.CDL.Reals.Divide div1
     "Divider to get relative value of required heating capacity"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Divide div2
+  Buildings.Controls.OBC.CDL.Reals.Divide div2
     "Divider to get relative value of flow-rate"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
     final uLow=-sigDif,
     final uHigh=0)
     "Hysteresis loop for flow-rate condition"
@@ -133,13 +133,13 @@ protected
     "Constant boolean source"
     annotation (Placement(transformation(extent={{30,-20},{50,0}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys1(
     final uLow=fraNonConBoi - sigDif,
     final uHigh=fraNonConBoi)
     "Hysteresis loop for heating capacity condition of non-condensing boilers"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys2(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys2(
     final uLow=fraConBoi - sigDif,
     final uHigh=fraConBoi)
     "Hysteresis loop for heating capacity condition of condensing boilers"
@@ -154,7 +154,7 @@ protected
     "Pick out stage-type for next stage from vector"
     annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     final t=1)
     "Check for non-condensing boilers"
     annotation (Placement(transformation(extent={{30,-110},{50,-90}})));
@@ -171,7 +171,7 @@ protected
     "Switch for flow-rate condition"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1
     "Find difference between measurted flowrate and minimum flow setpoint for next higher stage"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 

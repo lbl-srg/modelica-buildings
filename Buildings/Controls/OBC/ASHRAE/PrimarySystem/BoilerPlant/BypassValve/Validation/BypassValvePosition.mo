@@ -11,12 +11,12 @@ block BypassValvePosition
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
     final k=1.2)
     "Minimum flow setpoint"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sine sin(
     final amplitude=0.5,
     final freqHz=1/75,
     final phase=0,
@@ -31,7 +31,7 @@ protected
     "Boolean pulse generator"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(
     final k=0.2)
     "Minimum valve position for condensation control"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
@@ -41,12 +41,12 @@ protected
     "Boolean replicator"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con2(
     final k=0)
     "Constant zero signal"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Pass zero flowrate when pumps are switched off"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
 

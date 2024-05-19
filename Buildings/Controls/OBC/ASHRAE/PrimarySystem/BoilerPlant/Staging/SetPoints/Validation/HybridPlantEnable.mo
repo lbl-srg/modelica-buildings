@@ -6,51 +6,53 @@ model HybridPlantEnable
     "Instance of hybrid plant enable controller"
     annotation (Placement(transformation(extent={{40,-22},{60,22}})));
 
+
 protected
-  CDL.Logical.Pre pre
+  Buildings.Controls.OBC.CDL.Logical.Pre pre
     "Pre block for routing back enable signal to stage change process completion input signal"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
-  CDL.Logical.Change cha "Detect changes in primary loop enable signal"
+
+  Buildings.Controls.OBC.CDL.Logical.Change cha "Detect changes in primary loop enable signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine THotWatRet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sine THotWatRet(
     final amplitude=7,
     final phase=0,
     final offset=273.15 + 22,
     final freqHz=1/43200) "Hot water return temeprature"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THotWatSupSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THotWatSupSet(
     final k=273.15 + 30)
     "Hot water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THotWatSup(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THotWatSup(
     final k=273.15 + 30)
     "Hot water supply temperature"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VHotWat_flow(final k=0.0037
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant VHotWat_flow(final k=0.0037
         /6)        "Hot water flow rate"
     annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THotWatRetSec(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THotWatRetSec(
     final k=273.15 + 26) "Hot water secondary loop return temperature"
     annotation (Placement(transformation(extent={{-50,-130},{-30,-110}})));
 
-  CDL.Continuous.Sources.Sine pumSpeLagPri(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sine pumSpeLagPri(
     final amplitude=0.5,
     final phase=3.1415926535898,
     final offset=0.3,
     final freqHz=1/43200) "Lag primary loop pump speed"
     annotation (Placement(transformation(extent={{-50,110},{-30,130}})));
-  CDL.Continuous.Sources.Constant minCapFirStaLagPri(final k=2400)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minCapFirStaLagPri(final k=2400)
     "Minimum capacity of first stage of lag primary loop"
     annotation (Placement(transformation(extent={{-50,70},{-30,90}})));
-  CDL.Continuous.Sources.Constant VMinFirStaLagPri(final k=0.2*0.0003)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant VMinFirStaLagPri(final k=0.2*0.0003)
     "Minimum flow setpoint for first stage of lag primary loop"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
-  CDL.Continuous.Sources.Constant desCapHigStaLeaPri(final k=30000*0.8)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant desCapHigStaLeaPri(final k=30000*0.8)
     "Design capacity of highest stage of lead primary loop"
     annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
 equation

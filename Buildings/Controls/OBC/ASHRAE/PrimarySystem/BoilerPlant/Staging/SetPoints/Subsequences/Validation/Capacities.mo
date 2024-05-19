@@ -27,12 +27,12 @@ model Capacities
     annotation (Placement(transformation(extent={{140,0},{160,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant desStaCap[3](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant desStaCap[3](
     final k={2e5,1e6,1.5e6})
     "Design stage capacities"
     annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minStaCap[3](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minStaCap[3](
     final k={4e4,2e5,3e5})
     "Minimum stage capacities"
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));

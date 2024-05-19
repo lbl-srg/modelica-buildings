@@ -106,7 +106,7 @@ protected
     "Identifies any available stages above the current stage"
     annotation (Placement(transformation(extent={{-140,70},{-120,90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiMin multiMin(
+  Buildings.Controls.OBC.CDL.Reals.MultiMin multiMin(
     final nin=nSta)
     "Minimum of a vector input"
     annotation (Placement(transformation(extent={{20,100},{40,120}})));
@@ -141,7 +141,7 @@ protected
     "Type converter"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax multiMax(
+  Buildings.Controls.OBC.CDL.Reals.MultiMax multiMax(
     final nin=nSta)
     "Maximum of a vector input"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
@@ -168,7 +168,7 @@ protected
     "Logical switch"
     annotation (Placement(transformation(extent={{180,-80},{200,-60}})));
 
-  CDL.Routing.BooleanExtractor                     extStaAva(
+  Buildings.Controls.OBC.CDL.Routing.BooleanExtractor                     extStaAva(
     final nin=nSta)
     "Extracts stage availability for the current stage"
     annotation (Placement(transformation(extent={{-200,-160},{-180,-140}})));

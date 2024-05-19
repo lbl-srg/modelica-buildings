@@ -134,20 +134,20 @@ protected
     "Extracts the minimum capacity of the current stage"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi2
+  Buildings.Controls.OBC.CDL.Reals.Switch swi2
     "Switch"
     annotation (Placement(transformation(extent={{160,50},{180,70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi4
+  Buildings.Controls.OBC.CDL.Reals.Switch swi4
     "Switch"
     annotation (Placement(transformation(extent={{160,-100},{180,-80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1
     "Outputs minimum current stage capacity as design stage down capacity if
     operating in the lowest available stage"
     annotation (Placement(transformation(extent={{100,10},{120,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=larGai)
     "Ouputs a very large and unachievable staging up capacity when current is
     the highest available stage"

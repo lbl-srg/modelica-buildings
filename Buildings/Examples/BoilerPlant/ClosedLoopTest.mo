@@ -80,7 +80,7 @@ model ClosedLoopTest "Closed loop testing model"
     "Boiler plant controller"
     annotation (Placement(transformation(extent={{-40,-34},{-20,34}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.PID conPID(
+  Buildings.Controls.OBC.CDL.Reals.PID conPID(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final k=10e-2,
     final Ti=300)
@@ -137,7 +137,7 @@ protected
     "Time table for internal heat gain"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
     final uLow=0.05,
     final uHigh=0.1)
     "Check if radiator control valve opening is above threshold for enabling boiler plant"
@@ -147,7 +147,7 @@ protected
     "Boolean to Integer conversion"
     annotation (Placement(transformation(extent={{160,100},{180,120}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys1(
     final uLow=0.85,
     final uHigh=0.9)
     "Check if radiator control valve opening is above threshold for rasing HHW supply temperature"
@@ -158,12 +158,12 @@ protected
     "Boolean to Integer conversion"
     annotation (Placement(transformation(extent={{150,20},{170,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=-1)
     "Convert to heating load"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(
     final p=273.15)
     "Convert temperature to Kelvin"
     annotation (Placement(transformation(extent={{-40,110},{-20,130}})));

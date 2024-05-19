@@ -36,12 +36,12 @@ protected
     "Pump status"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSecSup(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSecSup(
     final k=8.5)
     "Temperature sensor reading from secondary circuit"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TPriSup(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sine TPriSup(
     phase=3.1415926535898,
     final offset=8.5,
     final freqHz=1/3600,
@@ -49,7 +49,7 @@ protected
     "Temperature sensor reading from primary circuit"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TBoiSup2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sine TBoiSup2(
     phase=3.1415926535898,
     final offset=8,
     final freqHz=1/3600,

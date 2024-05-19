@@ -65,7 +65,7 @@ block PlantEnable
     annotation (Placement(transformation(extent={{10,60},{30,80}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=-1)
     "Invert signal for subtraction"
     annotation (Placement(transformation(extent={{-152,-30},{-132,-10}})));
@@ -97,12 +97,12 @@ protected
     "Logical Not"
     annotation (Placement(transformation(extent={{-10,-120},{10,-100}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(
     final p=TOutLoc)
     "Compare measured outdoor air temperature to boiler lockout temperature"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
     final uLow=-locDt,
     final uHigh=0)
     "Hysteresis loop to prevent cycling caused by measured value"

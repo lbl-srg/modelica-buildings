@@ -234,12 +234,21 @@ block Down
     annotation (Placement(transformation(extent={{-160,120},{-140,140}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addParDivZer(
+  Buildings.Controls.OBC.CDL.Logical.And and3
+    "Check failsafe condition and previous stage design capacity for staging down"
+    annotation (Placement(transformation(extent={{140,40},{160,60}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and7
+    "Check current stage minimum capacity and one of bypass valve position or pump 
+    speed for staging down"
+    annotation (Placement(transformation(extent={{180,-10},{200,10}})));
+
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addParDivZer(
     final p=1e-6)
     "Add small value to input signal to prevent divide by zero"
     annotation (Placement(transformation(extent={{-166,10},{-146,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addParDivZer1(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addParDivZer1(
     final p=1e-6)
     "Add small value to input signal to prevent divide by zero"
     annotation (Placement(transformation(extent={{-166,-66},{-146,-46}})));
@@ -248,11 +257,11 @@ protected
     "Logical Not"
     annotation (Placement(transformation(extent={{-120,120},{-100,140}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Divide div
+  Buildings.Controls.OBC.CDL.Reals.Divide div
     "Thermal capacity ratio"
     annotation (Placement(transformation(extent={{-150,44},{-130,64}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
     final uLow=fraMinFir,
     final uHigh=fraMinFir + sigDif)
     "Hysteresis loop"
@@ -262,25 +271,21 @@ protected
     "Logical Or"
     annotation (Placement(transformation(extent={{60,8},{80,28}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Divide div1
+  Buildings.Controls.OBC.CDL.Reals.Divide div1
     "Thermal capacity ratio"
     annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys1(
     final uLow=fraDesCap,
     final uHigh=fraDesCap + sigDif)
     "Hysteresis loop"
     annotation (Placement(transformation(extent={{-130,-40},{-110,-20}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And3 and3
-    "Logical And"
-    annotation (Placement(transformation(extent={{180,-10},{200,10}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub4 if not have_priOnl
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub4 if not have_priOnl
     "Compare primary and secondary circuit return temperature"
     annotation (Placement(transformation(extent={{-162,-190},{-142,-170}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys3(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys3(
     final uLow=TCirDif - dTemp,
     final uHigh=TCirDif) if not have_priOnl
     "Hysteresis loop"
@@ -324,13 +329,13 @@ protected
     "Logical Not"
     annotation (Placement(transformation(extent={{-90,-40},{-70,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys4(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys4(
     final uLow=bypValClo,
     final uHigh=bypValClo + sigDif) if have_priOnl
     "Hysteresis loop"
     annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys2(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys2(
     final uLow=sigDif,
     final uHigh=2*sigDif) if not have_priOnl
     "Hysteresis loop"
@@ -374,12 +379,12 @@ protected
     "Identify stage type of current stage"
     annotation (Placement(transformation(extent={{-140,-140},{-120,-120}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con2[nSta](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con2[nSta](
     final k=boiMinPriPumSpeSta) if not have_priOnl
     "Signal source for minimum primary pump speed for boiler plant stage"
     annotation (Placement(transformation(extent={{-170,-140},{-150,-120}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2 if not have_priOnl
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub2 if not have_priOnl
     "Compare pump speed signal and minimum pump speed for stage"
     annotation (Placement(transformation(extent={{-174,-90},{-154,-70}})));
 
@@ -424,20 +429,12 @@ equation
   connect(hys1.u, div1.y)
     annotation (Line(points={{-132,-30},{-134,-30},{-134,-30},{-138,-30}},
                                                    color={0,0,127}));
-  connect(and3.y, yStaDow)
-    annotation (Line(points={{202,0},{240,0}}, color={255,0,255}));
-  connect(and3.u1, not1.y) annotation (Line(points={{178,8},{150,8},{150,130},{-98,
-          130}},     color={255,0,255}));
-  connect(and3.u2, or2.y) annotation (Line(points={{178,0},{134,0},{134,18},{82,
-          18}}, color={255,0,255}));
   connect(sub4.u1, TPriHotWatRet) annotation (Line(points={{-164,-174},{-170,
           -174},{-170,-160},{-200,-160}}, color={0,0,127}));
   connect(sub4.u2, TSecHotWatRet) annotation (Line(points={{-164,-186},{-170,
           -186},{-170,-190},{-200,-190}}, color={0,0,127}));
   connect(hys3.u,sub4. y)
     annotation (Line(points={{-134,-180},{-140,-180}}, color={0,0,127}));
-  connect(logSwi.y, and3.u3) annotation (Line(points={{122,-40},{150,-40},{150,-8},
-          {178,-8}}, color={255,0,255}));
   connect(intToRea.u, uTyp) annotation (Line(points={{-62,-170},{-70,-170},{-70,
           -220}}, color={255,127,0}));
   connect(intToRea.y, extIndSig.u)
@@ -448,8 +445,6 @@ equation
           -82},{138,-82}}, color={255,0,255}));
   connect(or1.y, logSwi1.u3) annotation (Line(points={{82,-98},{138,-98}},
                       color={255,0,255}));
-  connect(and3.u2, logSwi1.y) annotation (Line(points={{178,0},{134,0},{134,-20},
-          {170,-20},{170,-90},{162,-90}}, color={255,0,255}));
   connect(div.u1, uCapReq) annotation (Line(points={{-152,60},{-200,60}},
                       color={0,0,127}));
   connect(div1.u1, uCapReq) annotation (Line(points={{-162,-24},{-172,-24},{-172,
@@ -546,6 +541,18 @@ equation
           -30},{-176,-56},{-168,-56}}, color={0,0,127}));
   connect(addParDivZer1.y, div1.u2) annotation (Line(points={{-144,-56},{-132,-56},
           {-132,-42},{-172,-42},{-172,-36},{-162,-36}}, color={0,0,127}));
+  connect(and7.y, yStaDow)
+    annotation (Line(points={{202,0},{240,0}}, color={255,0,255}));
+  connect(logSwi1.y, and7.u2) annotation (Line(points={{162,-90},{170,-90},{170,
+          -8},{178,-8}}, color={255,0,255}));
+  connect(or2.y, and7.u2) annotation (Line(points={{82,18},{120,18},{120,-8},{178,
+          -8}}, color={255,0,255}));
+  connect(and3.y, and7.u1) annotation (Line(points={{162,50},{170,50},{170,0},{178,
+          0}}, color={255,0,255}));
+  connect(logSwi.y, and3.u2) annotation (Line(points={{122,-40},{130,-40},{130,42},
+          {138,42}}, color={255,0,255}));
+  connect(not1.y, and3.u1) annotation (Line(points={{-98,130},{130,130},{130,50},
+          {138,50}}, color={255,0,255}));
 annotation(defaultComponentName = "staDow",
   Icon(coordinateSystem(extent={{-100,-160},{100,190}}),
       graphics={

@@ -443,12 +443,12 @@ protected
   parameter Integer pumInd[nPum]={i for i in 1:nPum}
     "Pump index, {1,2,...,n}";
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
     final k=0) if have_priOnl
     "Constant Real zero signal"
     annotation (Placement(transformation(extent={{40,-466},{60,-446}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     final t=0,
     final h=0) if not have_heaPriPum
     "Check if the lead boiler is turned on"
@@ -480,7 +480,7 @@ protected
     "Logical Or"
     annotation (Placement(transformation(extent={{72,-20},{92,0}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Max max if have_varPriPum
+  Buildings.Controls.OBC.CDL.Reals.Max max if have_varPriPum
     "Pass higher value"
     annotation (Placement(transformation(extent={{134,-556},{154,-536}})));
 
@@ -511,7 +511,7 @@ protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.Speed_flow
     pumSpeFlo(
     final controllerType=controllerType,
-    final primarySecondarySensors=use_priSecFloSen,
+    final use_priSecSen=use_priSecFloSen,
     final nPum=nPum,
     final minPumSpe=minPumSpe,
     final maxPumSpe=maxPumSpe,
@@ -525,7 +525,7 @@ protected
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Subsequences.Speed_temperature
     pumSpeTem(
-    final primarySecondarySensors=use_priTemSen,
+    final use_priSen=use_priTemSen,
     final nBoi=nBoi,
     final nPum=nPum,
     final numIgnReq=numIgnReq,

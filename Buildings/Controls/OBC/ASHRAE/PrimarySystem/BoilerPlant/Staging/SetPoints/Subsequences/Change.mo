@@ -77,7 +77,7 @@ protected
   parameter Integer staInd[nSta]={i for i in 1:nSta}
     "Stage index vector";
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(final k=0)
     "Zero boiler stage"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
@@ -90,7 +90,7 @@ protected
     "Triggered sampler"
     annotation (Placement(transformation(extent={{130,140},{150,160}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch switch1
+  Buildings.Controls.OBC.CDL.Reals.Switch switch1
     "Switch"
     annotation (Placement(transformation(extent={{-200,50},{-180,70}})));
 
@@ -116,7 +116,7 @@ protected
     "Holds stage switched to initially upon plant start"
     annotation (Placement(transformation(extent={{-320,150},{-300,170}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch switch2
+  Buildings.Controls.OBC.CDL.Reals.Switch switch2
     "Switch"
     annotation (Placement(transformation(extent={{40,140},{60,160}})));
 
@@ -128,7 +128,7 @@ protected
     "Boolean to Real conversion"
     annotation (Placement(transformation(extent={{200,0},{220,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr1(
     final t=0.5)
     "Check if plant is still enabled"
     annotation (Placement(transformation(extent={{280,0},{300,20}})));
@@ -205,7 +205,7 @@ protected
     "Edge detector"
     annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch switch3
+  Buildings.Controls.OBC.CDL.Reals.Switch switch3
     "Switch"
     annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
 
@@ -226,7 +226,7 @@ protected
     "Integer to Real conversion"
     annotation (Placement(transformation(extent={{-320,240},{-300,260}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiMin mulMin(
+  Buildings.Controls.OBC.CDL.Reals.MultiMin mulMin(
     final nin=nSta)
     "Find lowest available stage"
     annotation (Placement(transformation(extent={{-280,240},{-260,260}})));

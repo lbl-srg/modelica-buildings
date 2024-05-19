@@ -13,7 +13,7 @@ model ZeroIndexCorrection
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conCap(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conCap(
     final k=10)
     "Constant capacity value"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));

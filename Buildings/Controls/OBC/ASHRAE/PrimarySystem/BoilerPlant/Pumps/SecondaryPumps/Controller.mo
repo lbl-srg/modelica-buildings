@@ -352,7 +352,7 @@ protected
     "Unit delay for pump speed"
     annotation (Placement(transformation(extent={{-200,28},{-180,48}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Min min if have_varSecPum
+  Buildings.Controls.OBC.CDL.Reals.Min min if have_varSecPum
     "Ensure pump speed is below maximum speed for condensation control"
     annotation (Placement(transformation(extent={{160,-410},{180,-390}})));
 
@@ -624,8 +624,9 @@ equation
   connect(supResReq, enaHeaLeaPum.supResReq) annotation (Line(points={{-300,40},
           {-220,40},{-220,82},{-202,82}}, color={255,127,0}));
 
-  connect(min.y, uniDel.u) annotation (Line(points={{182,-400},{200,-400},{200,-418},
-          {-210,-418},{-210,38},{-202,38}}, color={0,0,127}));
+  connect(min.y, uniDel.u) annotation (Line(points={{182,-400},{258,-400},{258,
+          -420},{-210,-420},{-210,38},{-202,38}},
+                                            color={0,0,127}));
 
   connect(uniDel.y, enaLagSecPum.uPumSpe)
     annotation (Line(points={{-178,38},{-122,38}}, color={0,0,127}));

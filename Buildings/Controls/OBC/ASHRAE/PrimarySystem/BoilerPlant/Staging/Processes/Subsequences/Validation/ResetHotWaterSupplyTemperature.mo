@@ -40,7 +40,7 @@ protected
     "Vector of stage types"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sine sin(
     final amplitude=2,
     final freqHz=1/3200,
     final offset=333.2)

@@ -268,7 +268,7 @@ protected
     "Boolean pulse to start initial stage change"
     annotation (Placement(transformation(extent={{-370,250},{-350,270}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con3(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con3(
     final k=TMinSupNonConBoi + 1)
     "Measured hot water supply temperature signal"
     annotation (Placement(transformation(extent={{-180,280},{-160,300}})));
@@ -365,7 +365,7 @@ protected
     "Boolean pulse to start initial stage change"
     annotation (Placement(transformation(extent={{0,250},{20,270}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con8(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con8(
     final k=TMinSupNonConBoi - 1)
     "Measured hot water supply temperature signal"
     annotation (Placement(transformation(extent={{190,280},{210,300}})));
@@ -466,7 +466,7 @@ protected
     "Boolean pulse to start initial stage change"
     annotation (Placement(transformation(extent={{-380,-80},{-360,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con13(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con13(
     final k=TMinSupNonConBoi + 1)
     "Measured hot water supply temperature signal"
     annotation (Placement(transformation(extent={{-340,-60},{-320,-40}})));
@@ -567,7 +567,7 @@ protected
     "Boolean pulse to start initial stage change"
     annotation (Placement(transformation(extent={{200,-80},{220,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con18(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con18(
     final k=TMinSupNonConBoi - 1)
     "Measured hot water supply temperature signal"
     annotation (Placement(transformation(extent={{240,-60},{260,-40}})));
@@ -664,7 +664,7 @@ protected
     "Boolean pulse to start initial stage change"
     annotation (Placement(transformation(extent={{390,250},{410,270}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con23(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con23(
     final k=VNom_flow)
     "Calculated minimum flow rate signal"
     annotation (Placement(transformation(extent={{580,280},{600,300}})));
@@ -708,7 +708,7 @@ protected
     "Boolean replicator"
     annotation (Placement(transformation(extent={{650,60},{670,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con17(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con17(
     final k=1.1*VNom_flow)
     "Calculated minimum flow rate signal"
     annotation (Placement(transformation(extent={{540,260},{560,280}})));

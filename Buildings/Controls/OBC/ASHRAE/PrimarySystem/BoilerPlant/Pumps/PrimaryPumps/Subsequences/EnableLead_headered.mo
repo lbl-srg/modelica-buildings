@@ -19,7 +19,7 @@ block EnableLead_headered
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr[nBoi](
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr[nBoi](
     final t=fill(0.975,nBoi),
     final h=fill(0.025,nBoi))
     "Determine if the isolation valve is open based on valve position"

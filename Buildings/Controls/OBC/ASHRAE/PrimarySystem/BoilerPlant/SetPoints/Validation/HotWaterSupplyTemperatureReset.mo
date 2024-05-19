@@ -172,7 +172,7 @@ protected
     "Real to integer converter"
     annotation (Placement(transformation(extent={{60,90},{80,110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ram(
     final height=8,
     final duration=1800,
     final offset=2,
@@ -194,7 +194,7 @@ protected
     "Real to integer converter"
     annotation (Placement(transformation(extent={{-150,-90},{-130,-70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ram1(
     final height=8,
     final duration=1800,
     final offset=2,
@@ -262,7 +262,7 @@ protected
     "Real to integer converter"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ram2(
     final height=8,
     final duration=1800,
     final offset=2,
@@ -284,7 +284,7 @@ protected
     "Real to integer converter"
     annotation (Placement(transformation(extent={{-60,-180},{-40,-160}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sine sin(
     final amplitude=1.25,
     final freqHz=1/7200,
     final offset=2)

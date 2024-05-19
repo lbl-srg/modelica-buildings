@@ -27,72 +27,72 @@ block CapacityRequirement
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
     final k=333.15)
     "Constant input"
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sine sin(
     final amplitude=333.15 - 322.04,
     final freqHz=1/3600,
     final offset=322.04)
     "Sine input"
     annotation (Placement(transformation(extent={{-90,40},{-70,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(
     final k=1)
     "Constant input"
     annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con2(
     final k=322.04)
     "Constant input"
     annotation (Placement(transformation(extent={{10,40},{30,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sine sin1(
     final amplitude=333.15 - 322.04,
     final freqHz=1/3600,
     final offset=333.15)
     "Sine input"
     annotation (Placement(transformation(extent={{10,70},{30,90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con3(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con3(
     final k=1)
     "Constant input"
     annotation (Placement(transformation(extent={{10,10},{30,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con4(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con4(
     final k=333.15)
     "Constant input"
     annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sine sin2(
     final amplitude=1,
     final freqHz=1/3600,
     final offset=1)
     "Sine input"
     annotation (Placement(transformation(extent={{-90,-90},{-70,-70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con5(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con5(
     final k=322.04)
     "Constant input"
     annotation (Placement(transformation(extent={{-90,-60},{-70,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin3(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sine sin3(
     final amplitude=333.15 - 322.04,
     final freqHz=2/3600,
     final offset=322.04)
     "Sine input"
     annotation (Placement(transformation(extent={{10,-60},{30,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin4(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sine sin4(
     final amplitude=333.15 - 322.04,
     final freqHz=1/3600,
     final offset=333.15)
     "Sine input"
     annotation (Placement(transformation(extent={{10,-30},{30,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin5(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sine sin5(
     final amplitude=1,
     final freqHz=3/3600,
     final offset=1)

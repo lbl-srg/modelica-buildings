@@ -8,13 +8,13 @@ model EnableLead_headered
     "Enable lead hot water pump based on the status of hot water isolation valves"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse pul(
     final period=600,
     final shift=300)
     "Real pulse signal"
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse pul1(
     final period=1000,
     final shift=500)
     "Real pulse signal"

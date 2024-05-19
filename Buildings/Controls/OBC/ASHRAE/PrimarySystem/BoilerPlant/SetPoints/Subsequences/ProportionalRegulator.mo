@@ -32,22 +32,22 @@ block ProportionalRegulator
         iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub
     "Compare minimum return temperature setpoint to measured return temperature"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
     final k=TRetSet)
     "Constant signal source for minimum return temperature setpoint"
     annotation (Placement(transformation(extent={{-90,30},{-70,50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Limiter lim(
+  Buildings.Controls.OBC.CDL.Reals.Limiter lim(
     final uMax=TRetSet - TRetMinAll,
     final uMin=0)
     "Limit input for calculating control signal"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=1/(TRetSet - TRetMinAll))
     "Calculate control signal"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));

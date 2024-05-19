@@ -132,7 +132,7 @@ protected
     "Multi Or"
     annotation (Placement(transformation(extent={{-10,-100},{10,-80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi[nBoi] if have_heaPriPum
+  Buildings.Controls.OBC.CDL.Reals.Switch swi[nBoi] if have_heaPriPum
     "Real switch"
     annotation (Placement(transformation(extent={{140,-60},{160,-40}})));
 

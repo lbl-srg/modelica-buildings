@@ -8,7 +8,7 @@ block Up
 
   parameter Boolean have_heaPriPum = true
     "True: Headered hot water pumps;
- False: Dedicated hot water pumps"
+     False: Dedicated hot water pumps"
     annotation (Dialog(group="Boiler plant parameters"));
 
   parameter Integer nBoi=3
@@ -298,7 +298,7 @@ protected
     "Latch to short valve closing process in dedicated pump configuration plants"
     annotation (Placement(transformation(extent={{150,30},{170,50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi[nBoi] if have_heaPriPum
+  Buildings.Controls.OBC.CDL.Reals.Switch swi[nBoi] if have_heaPriPum
     "Pass valve position signal from valve opening controller once the opening process starts"
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
 
@@ -307,7 +307,7 @@ protected
     "Boolean replicator"
     annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1[nBoi] if have_heaPriPum
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1[nBoi] if have_heaPriPum
     "Pass valve position signal from valve closing controller once the closing process starts"
     annotation (Placement(transformation(extent={{100,-120},{120,-100}})));
 

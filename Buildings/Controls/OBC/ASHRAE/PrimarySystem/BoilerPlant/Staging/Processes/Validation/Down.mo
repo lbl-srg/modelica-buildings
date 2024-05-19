@@ -183,7 +183,7 @@ protected
     "Detect first triggering pulse and subsequent stage change completion signals"
     annotation (Placement(transformation(extent={{-130,110},{-110,130}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi[nBoi]
+  Buildings.Controls.OBC.CDL.Reals.Switch swi[nBoi]
     "Pass initial valve position and switch to signal from controller"
     annotation (Placement(transformation(extent={{-220,270},{-200,290}})));
 
@@ -193,7 +193,7 @@ protected
     "Boolean pulse to start initial stage change"
     annotation (Placement(transformation(extent={{-370,250},{-350,270}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con[nBoi](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con[nBoi](
     final k={1,1})
     "Initial isolation valve positions"
     annotation (Placement(transformation(extent={{-300,280},{-280,300}})));
@@ -374,7 +374,7 @@ protected
     "Detect first triggering pulse and subsequent stage change completion signals"
     annotation (Placement(transformation(extent={{-130,-226},{-110,-206}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi4[nBoi]
+  Buildings.Controls.OBC.CDL.Reals.Switch swi4[nBoi]
     "Pass initial valve position and switch to signal from controller"
     annotation (Placement(transformation(extent={{-220,-66},{-200,-46}})));
 
@@ -384,12 +384,12 @@ protected
     "Boolean pulse to start initial stage change"
     annotation (Placement(transformation(extent={{-370,-86},{-350,-66}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con22[nBoi](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con22[nBoi](
     final k={1,1})
     "Initial isolation valve positions"
     annotation (Placement(transformation(extent={{-300,-56},{-280,-36}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con23(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con23(
     final k=VNom_flow)
     "Calculated minimum flow rate signal"
     annotation (Placement(transformation(extent={{-180,-56},{-160,-36}})));
@@ -438,17 +438,17 @@ protected
     "Boolean replicator"
     annotation (Placement(transformation(extent={{-90,-280},{-70,-260}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con12(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con12(
     final k=1.1*VNom_flow)
     "Calculated minimum flow rate signal"
     annotation (Placement(transformation(extent={{-90,-26},{-70,-6}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con17(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con17(
     final k=VNom_flow)
     "Calculated minimum flow rate signal"
     annotation (Placement(transformation(extent={{-90,-66},{-70,-46}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi2
+  Buildings.Controls.OBC.CDL.Reals.Switch swi2
     "Pass different instances of measured flow-rate after stage change"
     annotation (Placement(transformation(extent={{-50,-46},{-30,-26}})));
 

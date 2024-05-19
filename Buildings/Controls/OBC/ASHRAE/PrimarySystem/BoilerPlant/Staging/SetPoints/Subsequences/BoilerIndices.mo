@@ -58,14 +58,14 @@ protected
     "Staging matrix"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MatrixMax matMax(
+  Buildings.Controls.OBC.CDL.Reals.MatrixMax matMax(
     final nRow=nSta,
     final nCol=nBoi,
     final rowMax=false)
     "Column-wise matrix maximum"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold boiInSta[nBoi](
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold boiInSta[nBoi](
     final t=fill(0.5, nBoi))
     "Identifies boilers designated to operate in a given stage"
     annotation (Placement(transformation(extent={{140,-10},{160,10}})));

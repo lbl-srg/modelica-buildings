@@ -21,7 +21,7 @@ model PumpSpeedLimits
     annotation (Placement(transformation(extent={{10,-30},{30,-10}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sine sin(
     final amplitude=0.6,
     final freqHz=1/60,
     final offset=0.50)

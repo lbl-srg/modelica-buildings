@@ -94,12 +94,12 @@ block Speed_localDp
     annotation (Placement(transformation(extent={{140,70},{180,110}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax maxRemDP(
+  Buildings.Controls.OBC.CDL.Reals.MultiMax maxRemDP(
     nin=nSen)
     "Highest output from differential pressure control loops"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Line locDpSet
+  Buildings.Controls.OBC.CDL.Reals.Line locDpSet
     "Local differential pressure setpoint"
     annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
 
@@ -116,7 +116,7 @@ block Speed_localDp
     annotation (Placement(transformation(extent={{60,80},{80,100}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conPID[nSen](
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset conPID[nSen](
     final controllerType=fill(controllerType, nSen),
     final k=fill(k, nSen),
     final Ti=fill(Ti, nSen),
@@ -145,27 +145,27 @@ protected
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-30,-60},{-10,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(
     final k=0)
     "Constant zero"
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant locDp_min(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant locDp_min(
     final k=minLocDp)
     "Minimum local differential pressure"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one(
     final k=1)
     "Constant one"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant locDp_max(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant locDp_max(
     final k=maxLocDp)
     "Maximum local differential pressure "
     annotation (Placement(transformation(extent={{40,-130},{60,-110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Divide div[nSen]
+  Buildings.Controls.OBC.CDL.Reals.Divide div[nSen]
     "Normalized pressure difference"
     annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
 

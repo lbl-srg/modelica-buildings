@@ -442,7 +442,7 @@ model BoilerPlant "Boiler plant model for closed loop testing"
     "Real replicator"
     annotation (Placement(transformation(extent={{280,0},{300,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys2(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys2(
     final uLow=0.05,
     final uHigh=0.09)
     "Check if pumps are on"
@@ -468,7 +468,7 @@ model BoilerPlant "Boiler plant model for closed loop testing"
     "Hold boiler enable status until boiler is proven on"
     annotation (Placement(transformation(extent={{-260,150},{-240,170}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conPIDBoi[2](
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset conPIDBoi[2](
     final controllerType={controllerTypeBoi1,controllerTypeBoi2},
     final k={kBoi1,kBoi2},
     final Ti={TiBoi1,TiBoi2},
@@ -479,7 +479,7 @@ model BoilerPlant "Boiler plant model for closed loop testing"
     "PI controller for operating boilers to regulating hot water supply temperature"
     annotation (Placement(transformation(extent={{40,-130},{60,-110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro1[2]
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro1[2]
     "Product of boiler power and current status"
     annotation (Placement(transformation(extent={{-120,-130},{-100,-110}})));
 
@@ -500,7 +500,7 @@ model BoilerPlant "Boiler plant model for closed loop testing"
       rotation=90,
       origin={-70,-10})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr[2](
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThr[2](
     final t=fill(0.02, 2),
     final h=fill(0.02/10, 2))
     "Determine if boilers are disabled"
@@ -534,7 +534,7 @@ model BoilerPlant "Boiler plant model for closed loop testing"
     "Boolean replicator"
     annotation (Placement(transformation(extent={{280,-120},{300,-100}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr3[2](
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr3[2](
     final t=fill(0.02,2),
     final h=fill(0.02/10, 2))
     "Check if boiler is enabled"
@@ -544,16 +544,16 @@ model BoilerPlant "Boiler plant model for closed loop testing"
     "Logical pre block"
     annotation (Placement(transformation(extent={{240,-210},{260,-190}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swiPum
+  Buildings.Controls.OBC.CDL.Reals.Switch swiPum
     "Switch for pump"
     annotation (Placement(transformation(extent={{-220,-20},{-200,0}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(
     final k=0)
     "Zero output signal"
     annotation (Placement(transformation(extent={{-300,-30},{-280,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conPIDPla(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset conPIDPla(
     final controllerType=controllerTypePla,
     final k=kPla,
     final Ti=TiPla,
@@ -567,7 +567,7 @@ model BoilerPlant "Boiler plant model for closed loop testing"
     "Detect changes to boiler status setpoints"
     annotation (Placement(transformation(extent={{-170,110},{-150,130}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Line lin[2]
+  Buildings.Controls.OBC.CDL.Reals.Line lin[2]
     "Intrapolate plant supply temperature PI signal to boiler supply temperature setpoint"
     annotation (Placement(transformation(extent={{-180,-190},{-160,-170}})));
 
@@ -576,17 +576,17 @@ model BoilerPlant "Boiler plant model for closed loop testing"
     "Replicate plant PI signal to each boiler PI controller"
     annotation (Placement(transformation(extent={{140,170},{160,190}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con[2](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con[2](
     final k=fill(0, 2))
     "Support point for boiler setpoint"
     annotation (Placement(transformation(extent={{-240,-150},{-220,-130}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1[2](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1[2](
     final k=fill(1, 2))
     "Support point for boiler setpoint"
     annotation (Placement(transformation(extent={{-240,-210},{-220,-190}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con2[2](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con2[2](
     final k=fill(TPlaHotWatSetMax, 2))
     "Max boiler plant supply temperature"
     annotation (Placement(transformation(extent={{-280,-190},{-260,-170}})));
@@ -595,7 +595,7 @@ model BoilerPlant "Boiler plant model for closed loop testing"
     "Detect plant enable signal becoming true"
     annotation (Placement(transformation(extent={{-130,170},{-110,190}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul
     "Send zero signal when the plant is disabled"
     annotation (Placement(transformation(extent={{100,170},{120,190}})));
 

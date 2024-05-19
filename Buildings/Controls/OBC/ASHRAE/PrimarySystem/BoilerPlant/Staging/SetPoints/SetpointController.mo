@@ -298,47 +298,47 @@ block SetpointController
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChaUpEdg
     "Boiler stage change higher edge signal"
     annotation (Placement(transformation(extent={{120,80},{160,120}}),
-      iconTransformation(extent={{100,40},{140,80}})));
+      iconTransformation(extent={{100,60},{140,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChaDowEdg
     "Boiler stage change lower edge signal"
     annotation (Placement(transformation(extent={{120,-40},{160,0}}),
-      iconTransformation(extent={{100,-40},{140,0}})));
+      iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yBoi[nBoi]
     "Boiler status setpoint vector for the current boiler stage setpoint"
     annotation (Placement(transformation(extent={{120,-80},{160,-40}}),
-      iconTransformation(extent={{100,-80},{140,-40}})));
+      iconTransformation(extent={{100,-60},{140,-20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChaEdg
     "Boiler stage change edge signal"
     annotation (Placement(transformation(extent={{120,20},{160,60}}),
-      iconTransformation(extent={{100,0},{140,40}})));
+      iconTransformation(extent={{100,20},{140,60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput ySta(
     final min=0,
     final max=nSta) "Boiler stage integer setpoint"
     annotation (Placement(transformation(extent={{120,120},{160,160}}),
-      iconTransformation(extent={{100,80},{140,120}})));
+      iconTransformation(extent={{100,100},{140,140}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yStaTyp[nSta]
     "Boiler stage type vector"
     annotation (Placement(transformation(extent={{120,180},{160,220}}),
-      iconTransformation(extent={{100,120},{140,160}})));
+      iconTransformation(extent={{100,140},{140,180}})));
 
-  CDL.Interfaces.RealOutput yCapMinFir(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCapMinFir(
     final unit="W",
     final quantity="Power")
     "First stage minimum capacity of this primary loop"
     annotation (Placement(transformation(extent={{120,-240},{160,-200}}),
-      iconTransformation(extent={{100,-120},{140,-80}})));
+      iconTransformation(extent={{100,-140},{140,-100}})));
 
-  CDL.Interfaces.RealOutput yCapDesHig(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCapDesHig(
     final unit="W",
     final quantity="Power")
     "Highest stage design capacity of this primary loop"
     annotation (Placement(transformation(extent={{120,-280},{160,-240}}),
-      iconTransformation(extent={{100,-160},{140,-120}})));
+      iconTransformation(extent={{100,-180},{140,-140}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.CapacityRequirement capReq1(
     final avePer=avePer)
@@ -350,6 +350,9 @@ block SetpointController
     "Stage capacity calculator to to find design and minimum capacities for staging calculations"
     annotation (Placement(transformation(extent={{-270,-180},{-250,-160}})));
 
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yHig "Current stage is highest available stage"
+    annotation (Placement(transformation(extent={{120,-140},{160,-100}}),
+        iconTransformation(extent={{100,-100},{140,-60}})));
 protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Change cha(
     final nSta=nSta,
@@ -390,7 +393,7 @@ protected
     final TDif=TDif,
     final TDifHys=TDifHys,
     final delFaiCon=delFaiCon) "Staging up calculator"
-    annotation (Placement(transformation(extent={{-140,-120},{-120,-88}})));
+    annotation (Placement(transformation(extent={{-140,-116},{-120,-84}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Down staDow(
     final have_priOnl=have_priOnl,
@@ -455,28 +458,35 @@ equation
           -276,-176},{-272,-176}}, color={255,0,255}));
   connect(sta.yLow, cap.uLow) annotation (Line(points={{-288,-214},{-274,-214},{
           -274,-179},{-272,-179}}, color={255,0,255}));
-  connect(cap.yDes, staUp.uCapDes) annotation (Line(points={{-248,-162},{-210,-162},
-          {-210,-92},{-142,-92}},   color={0,0,127}));
-  connect(cap.yUpMin, staUp.uCapUpMin) annotation (Line(points={{-248,-178},{-208,
-          -178},{-208,-95},{-142,-95}},   color={0,0,127}));
-  connect(conf.yTyp, staUp.uTyp) annotation (Line(points={{-338,-174},{-336,-174},
-          {-336,-226},{-206,-226},{-206,-104},{-142,-104}}, color={255,127,0}));
-  connect(sta.yAvaCur, staUp.uAvaCur) annotation (Line(points={{-288,-217},{-154,
-          -217},{-154,-116},{-142,-116}}, color={255,0,255}));
-  connect(THotWatSup, staUp.THotWatSup) annotation (Line(points={{-420,170},{-188,
-          170},{-188,-113},{-142,-113}}, color={0,0,127}));
-  connect(THotWatSupSet, staUp.THotWatSupSet) annotation (Line(points={{-420,290},
-          {-184,290},{-184,-110},{-142,-110}}, color={0,0,127}));
+  connect(cap.yDes, staUp.uCapDes) annotation (Line(points={{-248,-162},{-210,
+          -162},{-210,-88},{-142,-88}},
+                                    color={0,0,127}));
+  connect(cap.yUpMin, staUp.uCapUpMin) annotation (Line(points={{-248,-178},{
+          -208,-178},{-208,-91},{-142,-91}},
+                                          color={0,0,127}));
+  connect(conf.yTyp, staUp.uTyp) annotation (Line(points={{-338,-174},{-336,
+          -174},{-336,-226},{-206,-226},{-206,-100},{-142,-100}},
+                                                            color={255,127,0}));
+  connect(sta.yAvaCur, staUp.uAvaCur) annotation (Line(points={{-288,-217},{
+          -154,-217},{-154,-112},{-142,-112}},
+                                          color={255,0,255}));
+  connect(THotWatSup, staUp.THotWatSup) annotation (Line(points={{-420,170},{
+          -188,170},{-188,-109},{-142,-109}},
+                                         color={0,0,127}));
+  connect(THotWatSupSet, staUp.THotWatSupSet) annotation (Line(points={{-420,
+          290},{-184,290},{-184,-106},{-142,-106}},
+                                               color={0,0,127}));
   connect(VHotWat_flow, staUp.VHotWat_flow) annotation (Line(points={{-420,210},
-          {-194,210},{-194,-98},{-142,-98}},   color={0,0,127}));
+          {-194,210},{-194,-94},{-142,-94}},   color={0,0,127}));
   connect(staDow.THotWatSupSet, THotWatSupSet) annotation (Line(points={{-142,-231},
           {-184,-231},{-184,290},{-420,290}}, color={0,0,127}));
   connect(staDow.THotWatSup, THotWatSup) annotation (Line(points={{-142,-234},{-188,
           -234},{-188,170},{-420,170}}, color={0,0,127}));
   connect(staDow.uCapReq, capReq1.y) annotation (Line(points={{-142,-237},{-180,
           -237},{-180,250},{-338,250}}, color={0,0,127}));
-  connect(extIndSig.y, staUp.VUpMinSet_flow) annotation (Line(points={{-218,-110},
-          {-216,-110},{-216,-101},{-142,-101}}, color={0,0,127}));
+  connect(extIndSig.y, staUp.VUpMinSet_flow) annotation (Line(points={{-218,
+          -110},{-216,-110},{-216,-97},{-142,-97}},
+                                                color={0,0,127}));
   connect(extIndSig.u, VMinSet_flow) annotation (Line(points={{-242,-110},{-250,
           -110},{-250,130},{-420,130}}, color={0,0,127}));
   connect(extIndSig.index, sta.yAvaUp) annotation (Line(points={{-230,-122},{-230,
@@ -491,17 +501,18 @@ equation
           {-170,50},{-170,-252},{-142,-252}},  color={0,0,127}));
   connect(THotWatRetSec, staDow.TSecHotWatRet) annotation (Line(points={{-420,10},
           {-168,10},{-168,-255},{-142,-255}},  color={0,0,127}));
-  connect(capReq1.y, staUp.uCapReq) annotation (Line(points={{-338,250},{-180,250},
-          {-180,-89},{-142,-89}},        color={0,0,127}));
-  connect(sta.yAvaUp, staUp.uAvaUp) annotation (Line(points={{-288,-203},{-280,-203},
-          {-280,-154},{-202,-154},{-202,-107},{-142,-107}}, color={255,127,0}));
+  connect(capReq1.y, staUp.uCapReq) annotation (Line(points={{-338,250},{-180,
+          250},{-180,-85},{-142,-85}},   color={0,0,127}));
+  connect(sta.yAvaUp, staUp.uAvaUp) annotation (Line(points={{-288,-203},{-280,
+          -203},{-280,-154},{-202,-154},{-202,-103},{-142,-103}},
+                                                            color={255,127,0}));
   connect(u, staDow.uCur) annotation (Line(points={{-420,-110},{-328,-110},{-328,
           -228},{-142,-228}},       color={255,127,0}));
   connect(cha.uAvaUp, sta.yAvaUp) annotation (Line(points={{-22,-168},{-60,-168},
           {-60,-203},{-288,-203}}, color={255,127,0}));
   connect(cha.uAvaDow, sta.yAvaDow) annotation (Line(points={{-22,-172},{-56,-172},
           {-56,-206},{-288,-206}},       color={255,127,0}));
-  connect(staUp.yStaUp, cha.uUp) annotation (Line(points={{-118,-104},{-64,-104},
+  connect(staUp.yStaUp, cha.uUp) annotation (Line(points={{-118,-100},{-64,-100},
           {-64,-175},{-22,-175}}, color={255,0,255}));
   connect(staDow.yStaDow, cha.uDow) annotation (Line(points={{-118,-240},{-64,-240},
           {-64,-178},{-22,-178}}, color={255,0,255}));
@@ -520,8 +531,8 @@ equation
           {100,100},{140,100}}, color={255,0,255}));
   connect(cha.yChaDowEdg, yChaDowEdg) annotation (Line(points={{2,-176},{72,-176},
           {72,-20},{140,-20}},          color={255,0,255}));
-  connect(uStaChaProEnd, staUp.uStaChaProEnd) annotation (Line(points={{-420,-260},
-          {-150,-260},{-150,-119},{-142,-119}},         color={255,0,255}));
+  connect(uStaChaProEnd, staUp.uStaChaProEnd) annotation (Line(points={{-420,
+          -260},{-150,-260},{-150,-115},{-142,-115}},   color={255,0,255}));
   connect(conf.yAva, cha.uStaAva) annotation (Line(points={{-338,-178},{-332,
           -178},{-332,-280},{-30,-280},{-30,-162},{-22,-162}}, color={255,0,255}));
   connect(conf.yTyp, yStaTyp) annotation (Line(points={{-338,-174},{-336,-174},{
@@ -531,6 +542,8 @@ equation
   connect(conf.yCapMin[1], yCapMinFir) annotation (Line(points={{-338,-166},{
           -324,-166},{-324,-264},{80,-264},{80,-220},{140,-220}}, color={0,0,
           127}));
+  connect(sta.yHig, yHig) annotation (Line(points={{-288,-211},{-160,-211},{
+          -160,-120},{140,-120}}, color={255,0,255}));
   annotation (defaultComponentName = "staSetCon",
         Icon(coordinateSystem(extent={{-100,-260},{100,260}}),
              graphics={
@@ -544,7 +557,7 @@ equation
           textColor={0,0,255},
           textString="%name")}), Diagram(
         coordinateSystem(preserveAspectRatio=false,
-        extent={{-400,-300},{120,420}})),
+        extent={{-400,-300},{120,300}})),
 Documentation(info="<html>
 <p>
 The sequence is a boiler stage status setpoint controller that outputs the 

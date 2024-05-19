@@ -143,20 +143,20 @@ block Speed_temperature
     "Integer switch"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum1(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum mulSum1(
     final k=fill(1, nBoi),
     final nin=nBoi) if not use_priSen
     "Weighted average of boiler supply temperatures"
     annotation (Placement(transformation(extent={{80,-90},{100,-70}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
     final uLow=twoReqLimLow,
     final uHigh=twoReqLimHig)
     "Hysteresis loop for sending two requests"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys1(
     final uLow=oneReqLimLow,
     final uHigh=oneReqLimHig)
     "Hysteresis loop for sending one request"
@@ -199,23 +199,23 @@ protected
     "Boolean to Real converter"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con[nBoi](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con[nBoi](
     final k=boiDesFlo) if not use_priSen
     "Vector of boiler design flowrates"
     annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro1[nBoi] if not
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro1[nBoi] if not
     use_priSen
     "Vector of design flowrates only for enabled boilers; Zero for disabled boilers"
     annotation (Placement(transformation(extent={{-70,-70},{-50,-50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum mulSum(
     final k=fill(1, nBoi),
     final nin=nBoi) if not use_priSen
     "Sum of flowrates of all enabled boilers"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub2
     "Compare measured temperature in primary and secondary loops"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
 
@@ -224,12 +224,12 @@ protected
     "Check if any hot water primary pumps are enabled"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(
     final k=0)
     "Constant zero"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Logical switch"
     annotation (Placement(transformation(extent={{80,90},{100,110}})));
 
@@ -238,15 +238,15 @@ protected
     "Real replicator"
     annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Divide div[nBoi] if not use_priSen
+  Buildings.Controls.OBC.CDL.Reals.Divide div[nBoi] if not use_priSen
     "Calculate weights for average based on design flowrate"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro[nBoi] if not use_priSen
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro[nBoi] if not use_priSen
     "Calculate weighted boiler supply temperatures"
     annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(
     final p=1e-6) if not use_priSen
     "Pass non-zero divisor in case sum is zero"
     annotation (Placement(transformation(extent={{-10,-100},{10,-80}})));

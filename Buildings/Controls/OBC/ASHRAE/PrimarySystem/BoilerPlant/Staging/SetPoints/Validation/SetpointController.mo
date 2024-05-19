@@ -147,7 +147,7 @@ model SetpointController
     annotation (Placement(transformation(extent={{500,120},{520,140}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine THotWatRet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sine THotWatRet(
     final amplitude=7,
     final phase=0,
     final offset=273.15 + 22,
@@ -187,32 +187,32 @@ protected
     "Delay plant enable signal"
     annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THotWatSupSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THotWatSupSet(
     final k=273.15 + 30)
     "Hot water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-80,210},{-60,230}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zero(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zero(
     final k=10^(-10))
     "Constant"
     annotation (Placement(transformation(extent={{-160,110},{-140,130}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THotWatSup(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THotWatSup(
     final k=273.15 + 30)
     "Hot water supply temperature"
     annotation (Placement(transformation(extent={{-80,130},{-60,150}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VHotWat_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant VHotWat_flow(
     final k=0.037)
     "Hot water flow rate"
     annotation (Placement(transformation(extent={{-160,170},{-140,190}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THotWatRetSec(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THotWatRetSec(
     final k=273.15 + 26)
     "Hot water secondary loop return temperature"
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine uPumSpe(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sine uPumSpe(
     final amplitude=1,
     final offset=0,
     final freqHz=1/21600)
@@ -228,7 +228,7 @@ protected
     "Convert input into array"
     annotation (Placement(transformation(extent={{-120,-130},{-100,-110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine THotWatRet1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sine THotWatRet1(
     final amplitude=7,
     final phase=0,
     final offset=273.15 + 22,
@@ -269,32 +269,32 @@ protected
     "Delay plant enable signal"
     annotation (Placement(transformation(extent={{-120,-200},{-100,-180}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THotWatSupSet1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THotWatSupSet1(
     final k=273.15 + 30)
     "Hot water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zero1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zero1(
     final k=10^(-10))
     "Constant"
     annotation (Placement(transformation(extent={{-160,-130},{-140,-110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THotWatSup1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THotWatSup1(
     final k=273.15 + 30)
     "Hot water supply temperature"
     annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VHotWat_flow1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant VHotWat_flow1(
     final k=0.037)
     "Hot water flow rate"
     annotation (Placement(transformation(extent={{-160,-70},{-140,-50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THotWatRetSec1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THotWatRetSec1(
     final k=273.15 + 26)
     "Hot water secondary loop return temperature"
     annotation (Placement(transformation(extent={{-80,-150},{-60,-130}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine uPumSpe1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sine uPumSpe1(
     final amplitude=1,
     final offset=0,
     final freqHz=1/21600) "Pump speed signal"
@@ -309,7 +309,7 @@ protected
     "Convert input into array"
     annotation (Placement(transformation(extent={{280,110},{300,130}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine THotWatRet2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sine THotWatRet2(
     final amplitude=7,
     final phase=0,
     final offset=273.15 + 22,
@@ -350,27 +350,27 @@ protected
     "Delay plant enable signal"
     annotation (Placement(transformation(extent={{280,40},{300,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THotWatSupSet2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THotWatSupSet2(
     final k=273.15 + 30)
     "Hot water supply temperature setpoint"
     annotation (Placement(transformation(extent={{320,202},{340,222}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zero2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zero2(
     final k=10^(-10))
     "Constant"
     annotation (Placement(transformation(extent={{240,110},{260,130}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THotWatSup2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THotWatSup2(
     final k=273.15 + 30)
     "Hot water supply temperature"
     annotation (Placement(transformation(extent={{320,130},{340,150}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VHotWat_flow2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant VHotWat_flow2(
     final k=0.037)
     "Hot water flow rate"
     annotation (Placement(transformation(extent={{240,170},{260,190}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine uPumSpe2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sine uPumSpe2(
     final amplitude=1,
     final offset=0,
     final freqHz=1/21600) "Pump speed signal"
