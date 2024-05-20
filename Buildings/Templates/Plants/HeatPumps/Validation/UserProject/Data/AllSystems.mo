@@ -67,6 +67,8 @@ class AllSystems
       VChiWatSec_flow_nominal=pla.cfg.nHp * pla.ctl.VChiWatHp_flow_nominal / 1.1,
       dpChiWatRemSet_max={Buildings.Templates.Data.Defaults.dpChiWatRemSet_max},
       dpHeaWatRemSet_max={Buildings.Templates.Data.Defaults.dpHeaWatRemSet_max},
+      dpChiWatLocSet_max=Buildings.Templates.Data.Defaults.dpChiWatLocSet_max,
+      dpHeaWatLocSet_max=Buildings.Templates.Data.Defaults.dpHeaWatLocSet_max,
       THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
       TOutChiWatLck=273.15,
       TOutHeaWatLck=Buildings.Templates.Data.Defaults.TOutHeaWatLck,

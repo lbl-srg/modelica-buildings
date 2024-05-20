@@ -84,8 +84,7 @@ model AirToWater
       have_senTHeaWatPriRet_select=true,
       have_senTChiWatPriRet_select=true,
       have_senTHeaWatSecRet_select=false,
-      have_senTChiWatSecRet_select=true,
-      have_senDpHeaWatRemWir=true))
+      have_senTChiWatSecRet_select=true))
     "Heat pump plant"
     annotation (Placement(transformation(extent={{-80,-120},{-40,-80}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TDum(

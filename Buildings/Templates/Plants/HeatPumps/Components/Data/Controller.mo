@@ -72,9 +72,7 @@ record Controller
     "Minimum value to which the HW differential pressure can be reset - Remote sensor"
     annotation (Dialog(group=
       "Information provided by designer",
-      enable=cfg.have_heaWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
-        and (cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
-        or cfg.typPumHeaWatSec<>Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None)));
+      enable=cfg.have_heaWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater));
   // HACK(AntoineGautier):
   // Using cfg.nSenDpHeaWatRem for size(dpHeaWatRemSet_max, 1) is not supported by Dymola which fails to "evaluate and check the size declaration".
   // So the size is kept unassigned.
@@ -85,9 +83,25 @@ record Controller
     "Maximum HW differential pressure setpoint - Remote sensor"
     annotation (Dialog(group=
       "Information provided by testing, adjusting, and balancing contractor",
+      enable=cfg.have_heaWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater));
+  parameter Real dpHeaWatLocSet_min(
+    start=0,
+    final unit="Pa",
+    final min=0)=5 * 6895
+    "Minimum HW loop differential pressure setpoint local to the plant"
+    annotation (Dialog(group=
+      "Information provided by testing, adjusting, and balancing contractor",
       enable=cfg.have_heaWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
-        and (cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
-        or cfg.typPumHeaWatSec<>Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None)));
+        and not cfg.have_senDpHeaWatRemWir));
+  parameter Real dpHeaWatLocSet_max(
+    start=1E5,
+    final unit="Pa",
+    final min=0)
+    "Maximum HW loop differential pressure setpoint local to the plant"
+    annotation (Dialog(group=
+      "Information provided by testing, adjusting, and balancing contractor",
+      enable=cfg.have_heaWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
+        and not cfg.have_senDpHeaWatRemWir));
   parameter Real yPumHeaWatPriSet(
     final max=1,
     final min=0,
@@ -199,6 +213,24 @@ record Controller
       enable=cfg.have_chiWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
         and (cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
         or cfg.typPumChiWatSec<>Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None)));
+  parameter Real dpChiWatLocSet_min(
+    start=0,
+    final unit="Pa",
+    final min=0)=5 * 6895
+    "Minimum CHW loop differential pressure setpoint local to the plant"
+    annotation (Dialog(group=
+      "Information provided by testing, adjusting, and balancing contractor",
+      enable=cfg.have_chiWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
+        and not cfg.have_senDpChiWatRemWir));
+  parameter Real dpChiWatLocSet_max(
+    start=1E5,
+    final unit="Pa",
+    final min=0)
+    "Maximum CHW loop differential pressure setpoint local to the plant"
+    annotation (Dialog(group=
+      "Information provided by testing, adjusting, and balancing contractor",
+      enable=cfg.have_chiWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
+        and not cfg.have_senDpChiWatRemWir));
   parameter Real yPumChiWatPriSet(
     final max=1,
     final min=0,

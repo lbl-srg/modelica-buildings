@@ -161,6 +161,20 @@ model AirToWater
   Buildings.Controls.OBC.CDL.Integers.Add reqResChiWat
     "Sum of CHW reset requests of all loads served"
     annotation (Placement(transformation(extent={{110,64},{90,84}})));
+  Buildings.Templates.Plants.Controls.Pumps.Generic.ResetLocalDifferentialPressure
+    resDpHeaWatLoc[nSenDpHeaWatRem](
+    dpLocSet_min=fill(dat.dpHeaWatLocSet_min, nSenDpHeaWatRem),
+    dpLocSet_max=fill(dat.dpHeaWatLocSet_max, nSenDpHeaWatRem))
+    if cfg.have_heaWat and not have_senDpHeaWatRemWir
+    "Local HW DP reset"
+    annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
+  Buildings.Templates.Plants.Controls.Pumps.Generic.ResetLocalDifferentialPressure
+    resDpChiWatLoc[nSenDpChiWatRem](
+    dpLocSet_min=fill(dat.dpChiWatLocSet_min, nSenDpChiWatRem),
+    dpLocSet_max=fill(dat.dpChiWatLocSet_max, nSenDpChiWatRem))
+    if cfg.have_chiWat and not have_senDpChiWatRemWir
+    "Local CHW DP reset"
+    annotation (Placement(transformation(extent={{-70,-50},{-50,-30}})));
 equation
   /* Control point connection - start */
   // Inputs from plant control bus
@@ -180,9 +194,11 @@ equation
   connect(bus.dpChiWatLoc, ctl.dpChiWatLoc);
   connect(bus.dpChiWatLocSet, ctl.dpChiWatLocSet);
   connect(bus.dpChiWatRem, ctl.dpChiWatRem);
+  connect(bus.dpChiWatRem, resDpChiWatLoc.dpRem);
   connect(bus.dpHeaWatLoc, ctl.dpHeaWatLoc);
   connect(bus.dpHeaWatLocSet, ctl.dpHeaWatLocSet);
   connect(bus.dpHeaWatRem, ctl.dpHeaWatRem);
+  connect(bus.dpHeaWatRem, resDpHeaWatLoc.dpRem);
   connect(busHp.y1_actual, ctl.u1Hp_actual);
   connect(busPumChiWatPri.y1_actual, ctl.u1PumChiWatPri_actual);
   connect(busPumChiWatSec.y1_actual, ctl.u1PumChiWatSec_actual);
@@ -296,6 +312,16 @@ equation
   connect(reqResChiWat.y,ctl.nReqResChiWat)  annotation (Line(points={{88,74},{
           -34,74},{-34,12},{-22,12}},
                                   color={255,127,0}));
+  connect(resDpHeaWatLoc.dpLocSet, ctl.dpHeaWatLocSet) annotation (Line(points={
+          {-48.2,0},{-40,0},{-40,-22},{-22,-22}}, color={0,0,127}));
+  connect(resDpChiWatLoc.dpLocSet, ctl.dpChiWatLocSet) annotation (Line(points={
+          {-48.2,-40},{-40,-40},{-40,-28},{-22,-28}}, color={0,0,127}));
+  connect(ctl.dpChiWatRemSet, resDpChiWatLoc.dpRemSet) annotation (Line(points={
+          {22,-12},{40,-12},{40,-60},{-80,-60},{-80,-34},{-72,-34}}, color={0,0,
+          127}));
+  connect(ctl.dpHeaWatRemSet, resDpHeaWatLoc.dpRemSet) annotation (Line(points={
+          {22,-10},{34,-10},{34,-10},{42,-10},{42,-62},{-82,-62},{-82,6},{-72,6}},
+        color={0,0,127}));
   annotation (
     defaultComponentName="ctl", Documentation(info="<html>
 <p>
