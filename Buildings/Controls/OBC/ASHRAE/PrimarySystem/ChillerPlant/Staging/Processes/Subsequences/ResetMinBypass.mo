@@ -97,7 +97,7 @@ protected
     annotation (Placement(transformation(extent={{120,-10},{140,10}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg3
     "Edge when it starts changing the minimum bypass flow valve"
-    annotation (Placement(transformation(extent={{40,-130},{60,-110}})));
+    annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
   Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThr(
     final t=relFloDif,
     final h=0.5*relFloDif)
@@ -163,10 +163,9 @@ equation
           -40},{70,-88},{78,-88}}, color={255,0,255}));
   connect(or2.y, lat1.u)
     annotation (Line(points={{102,-80},{118,-80}}, color={255,0,255}));
-  connect(and6.y, edg3.u) annotation (Line(points={{22,-80},{30,-80},{30,-120},{
-          38,-120}}, color={255,0,255}));
-  connect(edg3.y, lat1.clr) annotation (Line(points={{62,-120},{110,-120},{110,-86},
-          {118,-86}}, color={255,0,255}));
+  connect(edg3.y, lat1.clr) annotation (Line(points={{62,-130},{110,-130},{110,
+          -86},{118,-86}},
+                      color={255,0,255}));
   connect(lat1.y, yMinBypRes)
     annotation (Line(points={{142,-80},{180,-80}}, color={255,0,255}));
   connect(abs.y, div.u1) annotation (Line(points={{-58,0},{-50,0},{-50,-20},{-110,
@@ -175,6 +174,8 @@ equation
     annotation (Line(points={{-78,-50},{-62,-50}}, color={0,0,127}));
   connect(lesThr.y, and3.u2) annotation (Line(points={{-38,-50},{-20,-50},{-20,-8},
           {-2,-8}}, color={255,0,255}));
+  connect(uStaPro, edg3.u) annotation (Line(points={{-180,80},{-154,80},{-154,
+          -130},{38,-130}}, color={255,0,255}));
 annotation (
   defaultComponentName="minBypRes",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
