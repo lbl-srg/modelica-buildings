@@ -233,6 +233,13 @@
   optimica:
     translate: false
     comment: Singularity, Modelon ticket 956
+- model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Validation.FEFLOW
+  openmodelica:
+    comment: Failure in evaluating borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel
+    translate: false
+  optimica:
+    translate: false
+    comment: Singularity, likely related to Modelon ticket 956
 - model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Validation.SteadyStateBoreholeDynamics
   openmodelica:
     translate: false
@@ -243,6 +250,8 @@
 - model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Validation.TransientBoreholeDynamics
   dymola:
     time_out: 600
+  openmodelica:
+    time_out: 900
   optimica:
     translate: false
     comment: Singularity, likely related to Modelon ticket 956
