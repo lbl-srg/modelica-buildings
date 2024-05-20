@@ -90,10 +90,10 @@ equation
   Furthermore, this example demonstrates the warnings which
   are raised if two devices are combined with different sizes, leading
   to different scaling factors for heating and cooling operation.
-  If the default <code>QCoo_flow_nominal</code> is used (leading to
+  If the default <code>QCoo_flow_nominal</code> is used (leading to 
   the same scaling factors), the mass flow rates will differ.
   Setting the parameter <code>allowDifferentDeviceIdentifiers</code> to false,
-  an additional warning is raised, indicating that the table data for cooling and
+  an additional warning is raised, indicating that the table data for cooling and 
   heating operation do not originate from the same real device.
 </p>
 <p>
