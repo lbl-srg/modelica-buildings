@@ -1064,7 +1064,7 @@ block AirToWater
     annotation (Placement(transformation(extent={{-300,20},{-260,60}}),
         iconTransformation(extent={{-240,-40},{-200,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSecSup(final unit="K",
-      displayUnit="degC") if have_chiWat and have_senTHeaWatSecSup
+      displayUnit="degC") if have_heaWat and have_senTHeaWatSecSup
     "Secondary HW supply temperature" annotation (Placement(transformation(
           extent={{-300,-40},{-260,0}}),   iconTransformation(extent={{-240,
             -100},{-200,-60}})));

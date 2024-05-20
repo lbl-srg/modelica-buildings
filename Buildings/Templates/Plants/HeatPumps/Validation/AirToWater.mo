@@ -66,10 +66,11 @@ model AirToWater
     annotation (Placement(transformation(extent={{110,-70},{130,-50}})));
   Buildings.Templates.Plants.HeatPumps.AirToWater pla(
     redeclare final package MediumHeaWat=Medium,
+    have_hrc_select=true,
     final dat=datAll.pla,
     final have_chiWat=have_chiWat,
     nHp=3,
-    typDis_select1=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only,
+    typDis_select1=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2,
     typArrPumPri=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
     typPumChiWatPri_select1=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
     final energyDynamics=energyDynamics,
@@ -93,17 +94,19 @@ model AirToWater
       displayUnit="degC"))
     "Placeholder signal for request generator"
     annotation (Placement(transformation(extent={{-180,150},{-160,170}})));
-  Fluid.Sensors.RelativePressure dpHeaWatRem_1(
-    redeclare final package Medium=Medium)
-    "HW differential pressure at one remote location"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=-90,
-      origin={40,-140})));
-  Fluid.Sensors.RelativePressure dpChiWatRem_1(
-    redeclare final package Medium=Medium)
-    if have_chiWat
-    "CHW differential pressure at one remote location"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=-90,
-      origin={40,-80})));
+  Fluid.Sensors.RelativePressure dpHeaWatRem[1](redeclare each final package Medium
+      = Medium) "HW differential pressure at one remote location" annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={40,-140})));
+  Fluid.Sensors.RelativePressure dpChiWatRem[1](redeclare each final package Medium
+      = Medium) if have_chiWat
+    "CHW differential pressure at one remote location" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={40,-80})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.PlantRequests reqPlaRes(
     final heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased,
     final cooCoi=if have_chiWat then Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
@@ -118,17 +121,6 @@ model AirToWater
     "Plant control bus"
     annotation (Placement(transformation(extent={{-100,-60},{-60,-20}}),
       iconTransformation(extent={{-370,-70},{-330,-30}})));
-  Buildings.Controls.OBC.CDL.Routing.RealVectorFilter dpChiWatRem(
-    final nin=pla.cfg.nSenDpChiWatRem,
-    final nout=pla.cfg.nSenDpChiWatRem)
-    if have_chiWat
-    "Gather all remote CHW differential pressure signals"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}})));
-  Buildings.Controls.OBC.CDL.Routing.RealVectorFilter dpHeaWatRem(
-    final nin=pla.cfg.nSenDpHeaWatRem,
-    final nout=pla.cfg.nSenDpHeaWatRem)
-    "Gather all remote HW differential pressure signals"
-    annotation (Placement(transformation(extent={{10,-50},{-10,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable ratFlo(
     table=[
       0, 0, 0;
@@ -228,10 +220,10 @@ equation
     annotation (Line(points={{90,-120},{110,-120}},color={0,127,255}));
   connect(pla.port_bHeaWat, loaHeaWat.port_a)
     annotation (Line(points={{-40,-110},{-20,-110},{-20,-120},{70,-120}},color={0,127,255}));
-  connect(loaChiWat.port_a, dpChiWatRem_1.port_a)
-    annotation (Line(points={{70,-60},{40,-60},{40,-70}},color={0,127,255}));
-  connect(dpHeaWatRem_1.port_a, loaHeaWat.port_a)
-    annotation (Line(points={{40,-130},{40,-120},{70,-120}},color={0,127,255}));
+  connect(loaChiWat.port_a, dpChiWatRem[1].port_a)
+    annotation (Line(points={{70,-60},{40,-60},{40,-70}}, color={0,127,255}));
+  connect(dpHeaWatRem[1].port_a, loaHeaWat.port_a) annotation (Line(points={{40,-130},
+          {40,-120},{70,-120}}, color={0,127,255}));
   connect(TDum.y, reqPlaRes.TAirSup)
     annotation (Line(points={{-158,160},{100,160},{100,140},{92,140}},color={0,0,127}));
   connect(TDum.y, reqPlaRes.TAirSupSet)
@@ -240,26 +232,18 @@ equation
     annotation (Line(points={{-40,140},{-40,-82}},color={255,204,51},thickness=0.5));
   connect(pla.bus, busPla)
     annotation (Line(points={{-80,-82},{-80,-40}},color={255,204,51},thickness=0.5));
-  connect(dpHeaWatRem.y, busPla.dpHeaWatRem)
-    annotation (Line(points={{-12,-40},{-80,-40}},color={0,0,127}));
-  connect(dpChiWatRem.y, busPla.dpChiWatRem)
-    annotation (Line(points={{-12,0},{-80,0},{-80,-40}},color={0,0,127}));
   connect(valDisChiWat.y_actual, reqPlaRes.uCooCoiSet)
     annotation (Line(points={{125,-53},{140,-53},{140,129},{92,129}},color={0,0,127}));
   connect(valDisHeaWat.y_actual, reqPlaRes.uHeaCoiSet)
     annotation (Line(points={{125,-113},{136,-113},{136,124},{92,124}},color={0,0,127}));
-  connect(dpHeaWatRem_1.p_rel, dpHeaWatRem.u[1])
-    annotation (Line(points={{31,-140},{20,-140},{20,-40},{12,-40}},color={0,0,127}));
-  connect(dpChiWatRem_1.p_rel, dpChiWatRem.u[1])
-    annotation (Line(points={{31,-80},{22,-80},{22,0},{12,0}},color={0,0,127}));
   connect(valDisChiWat.port_b, mChiWat_flow.port_a)
     annotation (Line(points={{130,-60},{160,-60},{160,-70}},color={0,127,255}));
-  connect(mChiWat_flow.port_b, dpChiWatRem_1.port_b)
-    annotation (Line(points={{160,-90},{160,-100},{40,-100},{40,-90}},color={0,127,255}));
+  connect(mChiWat_flow.port_b, dpChiWatRem[1].port_b) annotation (Line(points={{160,
+          -90},{160,-100},{40,-100},{40,-90}}, color={0,127,255}));
   connect(valDisHeaWat.port_b, mHeaWat_flow.port_a)
     annotation (Line(points={{130,-120},{160,-120},{160,-130}},color={0,127,255}));
-  connect(mHeaWat_flow.port_b, dpHeaWatRem_1.port_b)
-    annotation (Line(points={{160,-150},{160,-160},{40,-160},{40,-150}},color={0,127,255}));
+  connect(mHeaWat_flow.port_b, dpHeaWatRem[1].port_b) annotation (Line(points={{160,
+          -150},{160,-160},{40,-160},{40,-150}}, color={0,127,255}));
   connect(mHeaWat_flow.m_flow, norFlo[1].u)
     annotation (Line(points={{171,-140},{180,-140},{180,-12}},color={0,0,127}));
   connect(mChiWat_flow.m_flow, norFlo[2].u)
@@ -316,6 +300,18 @@ equation
     annotation (Line(points={{18,144},{12,144},{12,134},{2,134}},color={255,127,0}));
   connect(ph[2].y, mulInt[4].u2)
     annotation (Line(points={{18,144},{12,144},{12,134},{2,134}},color={255,127,0}));
+  connect(dpChiWatRem.p_rel, busPla.dpChiWatRem) annotation (Line(points={{31,-80},
+          {20.5,-80},{20.5,-40},{-80,-40}},        color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(dpHeaWatRem.p_rel, busPla.dpHeaWatRem) annotation (Line(points={{31,-140},
+          {18,-140},{18,-42},{-80,-42},{-80,-40}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
   annotation (
     __Dymola_Commands(
       file=
@@ -339,18 +335,18 @@ Three equally sized heat pumps are modeled. All can be lead/lag alternated.
 A unique aggregated load is modeled on each loop by means of a cooling or heating
 component controlled to maintain a constant <i>&Delta;T</i>
 and a modulating valve controlled to track a prescribed flow rate.
-An importance multiplier of <i>10</i> is applied to the plant requests 
+An importance multiplier of <i>10</i> is applied to the plant requests
 and reset requests generated from the valve position.
 </p>
 <p>
 The user can toggle the top-level parameter <code>have_chiWat</code>
-to switch between a cooling and heating system (the default setting) 
+to switch between a cooling and heating system (the default setting)
 to a heating-only system.
 Advanced equipment and control options can be modified via the parameter
 dialog of the plant component.
 </p>
 <p>
-Simulating this model shows how the plant responds to a varying load by 
+Simulating this model shows how the plant responds to a varying load by
 </p>
 <ul>
 <li>
@@ -360,21 +356,21 @@ staging or unstaging the AWHPs and associated primary pumps,
 rotating lead/lag alternate equipment to ensure even wear,
 </li>
 <li>
-resetting the supply temperature and remote differential pressure 
+resetting the supply temperature and remote differential pressure
 in both the CHW and HW loops based on the valve position,
 </li>
 <li>
-staging and controlling the secondary pumps to meet the 
+staging and controlling the secondary pumps to meet the
 remote differential pressure setpoint.
 </li>
 </ul>
 <h4>Details</h4>
 <p>
 By default, all valves within the plant are modeled considering a linear
-variation of the pressure drop with the flow rate (<code>pla.linearized=true</code>), 
-as opposed to the quadratic relationship usually considered for 
+variation of the pressure drop with the flow rate (<code>pla.linearized=true</code>),
+as opposed to the quadratic relationship usually considered for
 a turbulent flow regime.
-By limiting the size of the system of nonlinear equations, this setting 
+By limiting the size of the system of nonlinear equations, this setting
 reduces the risk of solver failure and the time to solution for testing
 various plant configurations.
 </p>

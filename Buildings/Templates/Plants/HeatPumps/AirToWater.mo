@@ -245,6 +245,14 @@ model AirToWater
     "Secondary CHW return temperature"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,
       origin={320,0})));
+  Buildings.Templates.Components.Sensors.DifferentialPressure dpChiWatLoc(
+    redeclare final package Medium = MediumChiWat,
+    text_rotation=90) if have_chiWat and not ctl.have_senDpChiWatRemWir
+    "Local CHW ∆p sensor"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={560.5,40})));
   // Primary HW loop
   Buildings.Templates.Components.Routing.SingleToMultiple inlPumHeaWatPri(
     redeclare final package Medium=MediumHeaWat,
@@ -436,6 +444,14 @@ model AirToWater
     "Secondary HW return temperature"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,
       origin={320,-360})));
+  Buildings.Templates.Components.Sensors.DifferentialPressure dpHeaWatLoc(
+    redeclare final package Medium = MediumHeaWat,
+    text_rotation=90) if have_heaWat and not ctl.have_senDpHeaWatRemWir
+    "Local HW ∆p sensor"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={560.5,-320})));
   Components.HeatRecoveryChiller hrc(
     redeclare final package MediumChiWat=MediumChiWat,
     redeclare final package MediumHeaWat=MediumHeaWat,
@@ -552,6 +568,7 @@ model AirToWater
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={140,-340})));
+
 equation
   /* Control point connection - start */
   connect(busWea, hp.busWea);
@@ -579,6 +596,8 @@ equation
   connect(THeaWatSecRet.y, bus.THeaWatSecRet);
   connect(THeaWatRetUpsHrc.y, bus.THeaWatRetUpsHrc);
   connect(TChiWatRetUpsHrc.y, bus.TChiWatRetUpsHrc);
+  connect(dpHeaWatLoc.y, bus.dpHeaWatLoc);
+  connect(dpChiWatLoc.y, bus.dpChiWatLoc);
   /* Control point connection - stop */
   connect(pumChiWatPri.ports_b, outPumChiWatPri.ports_a)
     annotation (Line(points={{0,80},{0,80}},  color={0,127,255}));
@@ -635,12 +654,6 @@ equation
   connect(pumPri.ports_bChiHeaWatHp, hp.ports_aChiHeaWat)
     annotation (Line(points={{-250,-130},{-250,-130}},
                                                     color={0,127,255}));
-  connect(VChiWatSec_flow.port_b, port_bChiWat)
-    annotation (Line(
-      points={{308,80},{600,80}},
-      color={0,0,0},
-      thickness=0.5,
-      visible=have_chiWat));
   connect(supChiWatSec.port_b, VChiWatSec_flow.port_a)
     annotation (Line(
       points={{270,80},{288,80}},
@@ -648,6 +661,24 @@ equation
       visible=have_chiWat and typPumChiWatSec <> Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized,
       thickness=0.5));
 
+  connect(port_bChiWat, dpChiWatLoc.port_a)
+    annotation (Line(
+      points={{600,80},{560.5,80},{560.5,50}},
+      color={0,127,255},
+      visible=false));
+  connect(dpChiWatLoc.port_b, port_aChiWat)
+    annotation (Line(
+      points={{560.5,30},{560.5,0},{600,0}},
+      color={0,127,255},
+      visible=false));
+  connect(port_bHeaWat, dpHeaWatLoc.port_a) annotation (Line(
+      points={{600,-280},{560.5,-280},{560.5,-310}},
+      color={0,127,255},
+      visible=false));
+  connect(dpHeaWatLoc.port_b, port_aHeaWat) annotation (Line(
+      points={{560.5,-330},{560.5,-360},{600,-360}},
+      color={0,127,255},
+      visible=false));
   connect(pumHeaWatPri.ports_b, outPumHeaWatPri.ports_a)
     annotation (Line(points={{0,-280},{0,-280}},  color={0,127,255}));
   connect(inlPumHeaWatPri.ports_b, pumHeaWatPri.ports_a)
@@ -832,6 +863,12 @@ equation
       color={0,0,0},
       thickness=0.5,
       pattern=LinePattern.Dash));
+  connect(VChiWatSec_flow.port_b, port_bChiWat)
+    annotation (Line(
+      points={{308,80},{600,80}},
+      color={0,0,0},
+      thickness=0.5,
+      visible=have_chiWat));
   annotation (
     defaultComponentName="pla",
     Documentation(
@@ -841,6 +878,12 @@ equation
 This template represents an air-to-water heat pump plant
 with closed-loop controls. While the heat pump plant configuration can be changed
 through parameters, a typical configuration is shown in the image below.
+For a detailed schematic of the actual plant configuration, refer to the diagram 
+view of the plant component. In Dymola, for example, you can access this by right-clicking 
+the component <code>pla</code> in the model 
+<a href=\"modelica://Buildings.Templates.Plants.HeatPumps.Validation.AirToWater\">
+Buildings.Templates.Plants.HeatPumps.Validation.AirToWater</a>
+and selecting \"Show Component\" from the context menu.
 </p>
 <p align=\"center\">
 <img alt=\"Image of heat pump plant\"
@@ -966,5 +1009,22 @@ ASHRAE, 2021. Guideline 36-2021, High-Performance Sequences of Operation
 for HVAC Systems. Atlanta, GA.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(graphics={
+        Polygon(
+          points={{560,80},{560,44},{561,44},{561,80}},
+          lineColor={0,0,0},
+          visible=have_chiWat and not ctl.have_senDpChiWatRemWir),
+        Polygon(
+          points={{560,36},{560,0},{561,0},{561,36}},
+          lineColor={0,0,0},
+          visible=have_chiWat and not ctl.have_senDpChiWatRemWir),
+        Polygon(
+          points={{560,-324},{560,-360},{561,-360},{561,-324}},
+          lineColor={0,0,0},
+          visible=have_heaWat and not ctl.have_senDpHeaWatRemWir),
+        Polygon(
+          points={{560,-280},{560,-316},{561,-316},{561,-280}},
+          lineColor={0,0,0},
+          visible=have_heaWat and not ctl.have_senDpHeaWatRemWir)}));
 end AirToWater;

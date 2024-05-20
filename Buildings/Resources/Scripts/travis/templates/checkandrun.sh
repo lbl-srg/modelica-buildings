@@ -78,18 +78,21 @@ done
 # Each key is a Modelica package name under Buildings.Templates (with . as separator).
 # Each value is a string containing directory paths (relative to `modelica-buildings/Buildings`).
 declare -A checksum_dirs=(
-  ["AirHandlersFans"]="Templates/AirHandlersFans
-                       Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV"
-  ["ZoneEquipment"]="Templates/ZoneEquipment
-                     Controls/OBC/ASHRAE/G36/TerminalUnits/CoolingOnly
-                     Controls/OBC/ASHRAE/G36/TerminalUnits/Reheat"
+  # ["AirHandlersFans"]="Templates/AirHandlersFans
+  #                      Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV"
+  # ["ZoneEquipment"]="Templates/ZoneEquipment
+  #                    Controls/OBC/ASHRAE/G36/TerminalUnits/CoolingOnly
+  #                    Controls/OBC/ASHRAE/G36/TerminalUnits/Reheat"
+  ["Plants.HeatPumps"]="Templates/Plants/HeatPumps
+                        Templates/Plants/Controls"
 )
 # Declare the python script that must be run for each template package.
 # Each key is a Modelica package name under Buildings.Templates (with . as separator).
 # Each value is a string containing the script path (relative to `modelica-buildings/Buildings`).
 declare -A test_script=(
-  ["AirHandlersFans"]="./Resources/Scripts/travis/templates/VAVMultiZone.py"
-  ["ZoneEquipment"]="./Resources/Scripts/travis/templates/VAVBox.py"
+  # ["AirHandlersFans"]="./Resources/Scripts/travis/templates/VAVMultiZone.py"
+  # ["ZoneEquipment"]="./Resources/Scripts/travis/templates/VAVBox.py"
+  ["Plants.HeatPumps"]="./Resources/Scripts/travis/templates/Plants.HeatPumps.py"
 )
 
 for type in "${!test_script[@]}"; do

@@ -63,7 +63,7 @@ block PartialController "Interface for heat pump plant controller"
     cfg.typPumHeaWatSec<>Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
     "Set to true for plants with secondary HW flow sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Boolean have_senVChiWatPri_select(start=false)
+  parameter Boolean have_senVChiWatPri_select(start=false)=have_senVHeaWatPri_select
     "Set to true for plants with primary CHW flow sensor"
     annotation (Evaluate=true,
     Dialog(group="Configuration",
@@ -91,7 +91,7 @@ block PartialController "Interface for heat pump plant controller"
     (if cfg.have_hrc or not have_senTHeaWatSecRet then true else have_senTHeaWatPriRet_select)
     "Set to true for plants with primary HW return temperature sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Boolean have_senTChiWatPriRet_select(start=false)
+  parameter Boolean have_senTChiWatPriRet_select(start=false)=have_senTHeaWatPriRet_select
     "Set to true for plants with primary CHW return temperature sensor"
     annotation (Evaluate=true,
     Dialog(group="Configuration",
@@ -121,7 +121,7 @@ block PartialController "Interface for heat pump plant controller"
       enable=typ<>Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop and
     cfg.typPumHeaWatSec<>Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
     and not cfg.have_hrc));
-  parameter Boolean have_senTChiWatSecRet_select(start=false)=false
+  parameter Boolean have_senTChiWatSecRet_select(start=false)=have_senTHeaWatSecRet_select
     "Set to true for plants with secondary CHW return temperature sensor"
     annotation (Evaluate=true, Dialog(group="Sensors",
     enable=typ<>Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop and
