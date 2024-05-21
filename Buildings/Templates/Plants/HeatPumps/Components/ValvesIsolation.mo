@@ -66,7 +66,7 @@ model ValvesIsolation
       enable=have_chiWat));
   parameter Modelica.Units.SI.PressureDifference dpValveHeaWat_nominal[nHp]=
     fill(Buildings.Templates.Data.Defaults.dpValIso, nHp)
-    "HW isolation valve pressure drop: identical for inlet and outlet valves"
+    "HW isolation valve pressure drop (identical for inlet and outlet valves)"
     annotation (Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.PressureDifference dpFixedHeaWat_nominal[nHp]=
     dpHeaWatHp_nominal + dpBalHeaWatHp_nominal
@@ -81,7 +81,7 @@ model ValvesIsolation
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpValveChiWat_nominal[nHp](
     each start=0)=fill(Buildings.Templates.Data.Defaults.dpValIso, nHp)
-    "Isolation valve CHW pressure drop: identical for inlet and outlet valves"
+    "Isolation valve CHW pressure drop (identical for inlet and outlet valves)"
     annotation (Dialog(group="Nominal condition",
       enable=have_chiWat));
   final parameter Modelica.Units.SI.PressureDifference dpFixedChiWat_nominal[nHp]=

@@ -81,10 +81,10 @@ model AirToWater
     final schHea=dat.schHea,
     final staEqu=dat.staEqu,
     final yPumChiWatPri_min=dat.yPumChiWatPri_min,
-    final yPumChiWatPriSet=dat.yPumChiWatPriSet,
+    yPumChiWatPriSet=dat.yPumChiWatPriSet,
     final yPumChiWatSec_min=dat.yPumChiWatSec_min,
     final yPumHeaWatPri_min=dat.yPumHeaWatPri_min,
-    final yPumHeaWatPriSet=dat.yPumHeaWatPriSet,
+    yPumHeaWatPriSet=dat.yPumHeaWatPriSet,
     final yPumHeaWatSec_min=dat.yPumHeaWatSec_min)
     "Plant controller"
     annotation (Placement(transformation(extent={{-20,-32},{20,40}})));

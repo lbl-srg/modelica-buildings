@@ -111,7 +111,8 @@ record Controller
     annotation (Dialog(group=
       "Information provided by testing, adjusting, and balancing contractor",
       enable=cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater and
-      cfg.have_heaWat and cfg.have_pumHeaWatPriVar));
+      cfg.have_heaWat and cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2
+      and cfg.have_pumHeaWatPriVar));
   parameter Real yPumHeaWatPri_min(
     final max=1,
     final min=0,

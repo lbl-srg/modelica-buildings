@@ -98,7 +98,7 @@ createPlot(
 createPlot(
     id=6,
     position={40, 40, 300, 600},
-    y={"pla.bus.VHeaWatPri_flow", "pla.bus.VHeaWatSec_flow", "datAll.pla.ctl.VHeaWatSec_flow_nominal"},
+    y={"pla.bus.VHeaWatPri_flow", "pla.bus.VHeaWatSec_flow", "datAll.pla.ctl.VHeaWatPri_flow_nominal", "datAll.pla.ctl.VHeaWatSec_flow_nominal"},
     autoscale=true,
     grid=true,
     timeUnit="h"
@@ -106,7 +106,7 @@ createPlot(
 createPlot(
     id=6,
     subPlot=2,
-    y={"pla.bus.VChiWatPri_flow", "pla.bus.VChiWatSec_flow", "datAll.pla.ctl.VChiWatSec_flow_nominal"},
+    y={"pla.bus.VChiWatPri_flow", "pla.bus.VChiWatSec_flow", "datAll.pla.ctl.VChiWatPri_flow_nominal", "datAll.pla.ctl.VChiWatSec_flow_nominal"},
     autoscale=true,
     grid=true,
     timeUnit="h"
