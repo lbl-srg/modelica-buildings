@@ -71,7 +71,22 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal</b>
+    </td>
+</tr>
+<tr>
+    <td valign=\"top\">Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.OneUTube<br/>
+                       Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.TwoUTube<br/>
+                       Buildings.Fluid.Geothermal.Borefields.BaseClasses.PartialBorefield
+
+    </td>
+    <td valign=\"top\">Removed parameter <code>dynFil</code> to avoid allowing an inconsistent
+                       declaration of the energy balance configuration for the borehole filling.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1885\">IBPSA, #1885</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.SolarCollectors</b>
     </td>
 </tr>
 <tr>
