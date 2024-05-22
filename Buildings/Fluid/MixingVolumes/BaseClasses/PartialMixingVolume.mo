@@ -119,12 +119,15 @@ protected
   Modelica.Blocks.Interfaces.RealOutput COut_internal[Medium.nC](each unit="1")
     "Internal connector for leaving trace substances of the component";
 
-  Buildings.HeatTransfer.Sources.PrescribedTemperature preTem
+  Buildings.HeatTransfer.Sources.PrescribedTemperature preTem(
+    port(T(start=T_start)))
     "Port temperature"
     annotation (Placement(transformation(extent={{-40,-10},{-60,10}})));
   Modelica.Blocks.Sources.RealExpression portT(y=T) "Port temperature"
     annotation (Placement(transformation(extent={{-10,-10},{-30,10}})));
-  Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloSen
+  Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloSen(
+    port_a(T(start=T_start)),
+    port_b(T(start=T_start)))
     "Heat flow sensor"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
 equation
