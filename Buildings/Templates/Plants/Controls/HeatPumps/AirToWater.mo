@@ -298,7 +298,7 @@ block AirToWater
       "Information provided by designer",
       enable=have_heaWat and have_pumHeaWatSec));
   parameter Real yPumHeaWatPriSet(
-    max=1,
+    max=2,
     min=0,
     start=1,
     unit="1")
@@ -386,7 +386,7 @@ block AirToWater
       "Information provided by designer",
       enable=have_pumChiWatSec));
   parameter Real yPumChiWatPriSet(
-    max=1,
+    max=2,
     min=0,
     start=1,
     unit="1")
@@ -1976,9 +1976,9 @@ equation
     Documentation(
       info="<html>
 <p>
-This block implements the sequence of operation for plants with 
+This block implements the sequence of operation for plants with
 air-to-water heat pumps.
-Most parts of the sequence of operation are similar to that 
+Most parts of the sequence of operation are similar to that
 described in ASHRAE, 2021 for chiller plants.
 </p>
 <p>
@@ -2001,20 +2001,20 @@ Variable primary-only<br/>
 Constant primary-variable secondary centralized
 </td>
 <td>
-It is assumed that the HW and the CHW loops have the 
-same type of distribution, as specified by this parameter.<br/> 
+It is assumed that the HW and the CHW loops have the
+same type of distribution, as specified by this parameter.<br/>
 Most AWHPs on the market use a reverse cycle for defrosting.
 This requires maximum primary flow during defrost cycles.
-Consequently, variable primary plants commonly adopt a high 
-minimum flow setpoint, typically close to the design flow rate, 
-effectively operating akin to constant primary plants but with 
-variable speed pumps controlling the loop differential pressure. 
+Consequently, variable primary plants commonly adopt a high
+minimum flow setpoint, typically close to the design flow rate,
+effectively operating akin to constant primary plants but with
+variable speed pumps controlling the loop differential pressure.
 While the flow rate directed towards the loads varies,
-the bypass valve control loop ensures a constant primary flow 
-for a given number of staged units.<br/> 
-\"Centralized secondary pumps\" refers to configurations with a single 
+the bypass valve control loop ensures a constant primary flow
+for a given number of staged units.<br/>
+\"Centralized secondary pumps\" refers to configurations with a single
 group of secondary pumps that is typically integrated into the plant.<br/>
-Distributed secondary pumps with multiple secondary loops served 
+Distributed secondary pumps with multiple secondary loops served
 by dedicated secondary pumps are currently not supported.
 </td>
 </tr>
@@ -2023,7 +2023,7 @@ by dedicated secondary pumps are currently not supported.
 Dedicated<br/>
 Headered
 </td>
-<td>It is assumed that the HW and the CHW loops have the 
+<td>It is assumed that the HW and the CHW loops have the
 same type of primary pump arrangement, as specified by this parameter.
 </td>
 </tr>
@@ -2032,12 +2032,12 @@ same type of primary pump arrangement, as specified by this parameter.
 False<br/>
 True
 </td>
-<td>This option is only available for heating and cooling plants 
+<td>This option is only available for heating and cooling plants
 with dedicated primary pumps.
 If this option is not selected, each AWHP uses
 a common dedicated primary pump for HW and CHW –
-this pump is then denoted as the primary HW pump. 
-Otherwise, each AWHP relies on a separate dedicated HW pump 
+this pump is then denoted as the primary HW pump.
+Otherwise, each AWHP relies on a separate dedicated HW pump
 and a separate dedicated CHW pump.
 </td>
 </tr>
@@ -2049,9 +2049,9 @@ Constant speed
 <td>
 For constant primary-variable secondary distributions, the variable
 speed primary pumps are commanded at fixed speeds, determined during the
-Testing, Adjusting and Balancing phase to provide design AWHP flow in 
+Testing, Adjusting and Balancing phase to provide design AWHP flow in
 heating and cooling modes.
-The same intent is achieved with constant speed primary pumps through the 
+The same intent is achieved with constant speed primary pumps through the
 use of balancing valves.<br/>
 This parameter is only available for constant primary-variable secondary plants.
 </td>
@@ -2066,8 +2066,8 @@ Constant speed
 </table>
 <h4>Details</h4>
 <p>
-A staging matrix <code>staEqu</code> is required as a parameter. 
-See the documentation of 
+A staging matrix <code>staEqu</code> is required as a parameter.
+See the documentation of
 <a href=\"modelica://Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable\">
 Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable</a>
 for the associated definition and requirements.
@@ -2096,7 +2096,7 @@ for HVAC Systems. Atlanta, GA.
 <ul>
 <li>
 May 31, 2024, by Antoine Gautier:<br/>
-Added optional sidetream heat recovery chiller, 
+Added optional sidetream heat recovery chiller,
 failsafe conditions for HP and pump staging.
 </li>
 <li>

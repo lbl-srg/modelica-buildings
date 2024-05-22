@@ -103,7 +103,7 @@ record Controller
       enable=cfg.have_heaWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
         and not cfg.have_senDpHeaWatRemWir));
   parameter Real yPumHeaWatPriSet(
-    final max=1,
+    final max=2,
     final min=0,
     start=1,
     final unit="1")
@@ -233,7 +233,7 @@ record Controller
       enable=cfg.have_chiWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
         and not cfg.have_senDpChiWatRemWir));
   parameter Real yPumChiWatPriSet(
-    final max=1,
+    final max=2,
     final min=0,
     start=1,
     final unit="1")

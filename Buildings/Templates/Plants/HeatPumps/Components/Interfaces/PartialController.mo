@@ -45,7 +45,7 @@ block PartialController "Interface for heat pump plant controller"
     annotation (Evaluate=true,
     Dialog(group="Configuration",
       enable=typ<>Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop));
-  parameter Boolean have_senVHeaWatPri_select(start=false)
+  parameter Boolean have_senVHeaWatPri_select(start=false)=false
     "Set to true for plants with primary HW flow sensor"
     annotation (Evaluate=true,
     Dialog(group="Configuration",
@@ -81,7 +81,7 @@ block PartialController "Interface for heat pump plant controller"
     cfg.typPumChiWatSec<>Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
     "Set to true for plants with secondary CHW flow sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Boolean have_senTHeaWatPriRet_select(start=false)
+  parameter Boolean have_senTHeaWatPriRet_select(start=false)=false
     "Set to true for plants with primary HW return temperature sensor"
     annotation (Evaluate=true,
     Dialog(group="Configuration",

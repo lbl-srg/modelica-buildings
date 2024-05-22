@@ -90,7 +90,7 @@ createPlot(
 createPlot(
     id=5,
     subPlot=2,
-    y={"dpHeaWatRem.y[1]", "pla.bus.dpHeaWatRemSet[1]", "dpChiWatRem.y[1]", "pla.bus.dpHeaWatRemSet[1]", "pla.bus.dpChiWatRemSet[1]"},
+    y={"pla.bus.dpHeaWatRem[1]", "pla.bus.dpHeaWatRemSet[1]", "pla.bus.dpChiWatRem[1]", "pla.bus.dpChiWatRemSet[1]"},
     autoscale=true,
     grid=true,
     timeUnit="h"

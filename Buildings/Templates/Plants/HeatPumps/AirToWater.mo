@@ -5,8 +5,8 @@ model AirToWater
     redeclare final package MediumChiWat=MediumHeaWat,
     redeclare final package MediumSou=MediumAir,
     redeclare Buildings.Templates.Plants.HeatPumps.Components.Controls.AirToWater ctl(ctl(
-      final yPumHeaWatPriSet=if is_dpBalYPumSetCal then yPumHeaWatPriSet else dat.ctl.yPumHeaWatPriSet,
-      final yPumChiWatPriSet=if is_dpBalYPumSetCal then yPumChiWatPriSet else dat.ctl.yPumChiWatPriSet)),
+      final yPumHeaWatPriSet=yPumHeaWatPriSet,
+      final yPumChiWatPriSet=yPumChiWatPriSet)),
     final typ=Buildings.Templates.Components.Types.HeatPump.AirToWater,
     final is_rev=have_chiWat,
     final cfg(
@@ -51,17 +51,17 @@ model AirToWater
         then dat.pumChiWatPriSin[1] else dat.pumHeaWatPriSin[1])
     else dat.dpBalChiWatHp_nominal
     "HP CHW balancing valve pressure drop at design CHW flow";
-  parameter Real yPumHeaWatPriSet(
+  final parameter Real yPumHeaWatPriSet(
     final fixed=false,
-    final max=1,
+    final max=2,
     final min=0,
     start=1,
     final unit="1")
     "Primary pump speed providing design heat pump flow in heating mode"
     annotation (Dialog(group="Information provided by testing, adjusting, and balancing contractor"));
-  parameter Real yPumChiWatPriSet(
+  final parameter Real yPumChiWatPriSet(
     final fixed=false,
-    final max=1,
+    final max=2,
     final min=0,
     start=1,
     final unit="1")
@@ -644,7 +644,7 @@ initial equation
       datPum=dat.pumHeaWatPriSin[1],
       r_N=yPumHeaWatPriSet);
   else
-    yPumHeaWatPriSet=1;
+    yPumHeaWatPriSet=dat.ctl.yPumHeaWatPriSet;
   end if;
   if is_dpBalYPumSetCal
     and have_chiWat
@@ -659,9 +659,30 @@ initial equation
         then dat.pumChiWatPriSin[1] else dat.pumHeaWatPriSin[1],
       r_N=yPumChiWatPriSet);
   else
-    yPumChiWatPriSet=1;
+    yPumChiWatPriSet=dat.ctl.yPumChiWatPriSet;
   end if;
-
+  if is_dpBalYPumSetCal then
+    if have_heaWat then
+      assert(dpBalHeaWatHp_nominal>=0,
+        "In "+ getInstanceName() + ": "+
+        "The calculated pressure drop for the HW balancing valve is negative, "+
+        "indicating that the primary pump curve needs to be revised.");
+      assert(yPumHeaWatPriSet >= 0.1 and yPumHeaWatPriSet <= 2,
+        "In "+ getInstanceName() + ": "+
+        "The calculated primary pump speed to provide the design HW flow is out of bounds, "+
+        "indicating that the primary pump curve needs to be revised.");
+    end if;
+    if have_chiWat then
+      assert(dpBalChiWatHp_nominal>=0,
+        "In "+ getInstanceName() + ": "+
+        "The calculated pressure drop for the CHW balancing valve is negative, "+
+        "indicating that the primary pump curve needs to be revised.");
+      assert(yPumChiWatPriSet >= 0.1 and yPumChiWatPriSet <= 2,
+        "In "+ getInstanceName() + ": "+
+        "The calculated primary pump speed to provide the design CHW flow is out of bounds, "+
+        "indicating that the primary pump curve needs to be revised.");
+    end if;
+  end if;
 equation
   /* Control point connection - start */
   connect(busWea, hp.busWea);
@@ -971,9 +992,9 @@ equation
 This template represents an air-to-water heat pump plant
 with closed-loop controls. While the heat pump plant configuration can be changed
 through parameters, a typical configuration is shown in the image below.
-For a detailed schematic of the actual plant configuration, refer to the diagram 
-view of the plant component. In Dymola, for example, you can access this by right-clicking 
-the component <code>pla</code> in the model 
+For a detailed schematic of the actual plant configuration, refer to the diagram
+view of the plant component. In Dymola, for example, you can access this by right-clicking
+the component <code>pla</code> in the model
 <a href=\"modelica://Buildings.Templates.Plants.HeatPumps.Validation.AirToWater\">
 Buildings.Templates.Plants.HeatPumps.Validation.AirToWater</a>
 and selecting \"Show Component\" from the context menu.
@@ -983,9 +1004,9 @@ and selecting \"Show Component\" from the context menu.
 src=\"modelica://Buildings/Resources/Images/Templates/Plants/HeatPumps/AirToWater.png\"/>
 </p>
 <p>
-Currently, only identical heat pumps are supported. 
-Although the template can accommodate any number of identical heat pumps, 
-the graphical feedback for system configuration via the diagram layer is 
+Currently, only identical heat pumps are supported.
+Although the template can accommodate any number of identical heat pumps,
+the graphical feedback for system configuration via the diagram layer is
 only accurate for up to 6 devices.
 </p>
 <p>

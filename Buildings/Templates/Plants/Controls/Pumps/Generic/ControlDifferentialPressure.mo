@@ -20,7 +20,7 @@ block ControlDifferentialPressure
   final parameter Real y_max(
     final unit="1",
     final min=0,
-    final max=1)=1
+    final max=2)=1
     "Maximum pump speed";
   parameter Real k(
     min=100 * Buildings.Controls.OBC.CDL.Constants.eps)=1

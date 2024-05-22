@@ -42,7 +42,7 @@ block VariableSpeed "Variable speed primary pumps"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration", enable=have_pumChiWatPri));
   parameter Real yPumHeaWatPriSet(
-    max=1,
+    max=2,
     min=0,
     start=1,
     unit="1")
@@ -51,7 +51,7 @@ block VariableSpeed "Variable speed primary pumps"
       "Information provided by testing, adjusting, and balancing contractor",
       enable=have_heaWat and not have_pumPriCtlDp));
   parameter Real yPumChiWatPriSet(
-    max=1,
+    max=2,
     min=0,
     start=1,
     unit="1")
@@ -456,7 +456,7 @@ Heating-only plants with variable speed primary pumps that are not controlled to
 </h5>
 <p>
 When commanded on, the primary HW pumps are commanded at a fixed
-speed <code>yPumHeaWatPriSet</code>, as determined during the Testing, Adjusting, 
+speed <code>yPumHeaWatPriSet</code>, as determined during the Testing, Adjusting,
 and Balancing phase to provide the design heat pump flow.
 </p>
 <h5>
@@ -464,7 +464,7 @@ Heating and cooling plants with common variable speed primary pumps that are not
 </h5>
 <p>
 When commanded on, the primary pumps are commanded at a fixed
-speed <code>yPumHeaWatPriSet</code> in heating mode or 
+speed <code>yPumHeaWatPriSet</code> in heating mode or
 <code>yPumChiWatPriSet</code> in cooling mode, as determined during the
 Testing, Adjusting, and Balancing phase to provide the design heat pump flow
 in heating mode or cooling mode.
@@ -477,8 +477,8 @@ When commanded on, the primary HW pumps are commanded at a fixed
 speed <code>yPumHeaWatPriSet</code>.
 When commanded on, the primary CHW pumps are commanded at a fixed
 speed <code>yPumChiWatPriSet</code>.
-The pump speed <code>yPumHeaWatPriSet</code> or <code>yPumChiWatPriSet</code> 
-is determined during the Testing, Adjusting, and Balancing phase to provide 
+The pump speed <code>yPumHeaWatPriSet</code> or <code>yPumChiWatPriSet</code>
+is determined during the Testing, Adjusting, and Balancing phase to provide
 the design heat pump flow in heating mode or cooling mode.
 </p>
 </html>", revisions="<html>
