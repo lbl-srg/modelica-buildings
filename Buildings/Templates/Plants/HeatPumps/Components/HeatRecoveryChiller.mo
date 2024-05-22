@@ -68,6 +68,7 @@ model HeatRecoveryChiller
     annotation (Placement(transformation(extent={{-10,-4},{10,16}})));
   Buildings.Templates.Components.Pumps.Single pumChiWat(
     have_var=false,
+    have_valChe=false,
     redeclare final package Medium=MediumChiWat,
     final dat=datPumChiWat,
     final energyDynamics=energyDynamics,
@@ -78,6 +79,7 @@ model HeatRecoveryChiller
     annotation (Placement(transformation(extent={{50,-70},{30,-50}})));
   Buildings.Templates.Components.Pumps.Single pumHeaWat(
     have_var=false,
+    have_valChe=false,
     redeclare final package Medium=MediumHeaWat,
     final dat=datPumHeaWat,
     final energyDynamics=energyDynamics,
@@ -142,14 +144,18 @@ equation
           extent={{520,-12},{420,88}},
           fileName="modelica://Buildings/Resources/Images/Templates/Components/Pumps/Single.svg"),
     Bitmap(
-      extent={{340,20},{260,100}},
-      fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/Check.svg"),
+          extent={{340,20},{260,100}},
+          fileName=
+              "modelica://Buildings/Resources/Images/Templates/Components/Valves/Check.svg",
+          visible=pumChiWat.have_valChe),
     Bitmap(
           extent={{-520,-132},{-420,-32}},
           fileName="modelica://Buildings/Resources/Images/Templates/Components/Pumps/Single.svg"),
     Bitmap(
-      extent={{-340,-100},{-260,-20}},
-      fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/Check.svg"),
+          extent={{-340,-100},{-260,-20}},
+          fileName=
+              "modelica://Buildings/Resources/Images/Templates/Components/Valves/Check.svg",
+          visible=pumHeaWat.have_valChe),
         Bitmap(
         extent={{420,120},{520,220}},
           fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/MotorStarter.svg"),

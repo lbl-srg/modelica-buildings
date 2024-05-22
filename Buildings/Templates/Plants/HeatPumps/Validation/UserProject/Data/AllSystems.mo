@@ -28,7 +28,7 @@ class AllSystems
           coeP={-5.8086010402,1.6894933858,5.1167787436,0,0},
           TRefLoa=pla.hp.TChiWatRetHp_nominal,
           TRefSou=pla.hp.TSouCooHp_nominal))),
-    pumHeaWatPri(dp_nominal=fill(1.3*
+    pumHeaWatPri(dp_nominal=fill(1.5*
       (if pla.cfg.have_chiWat and pla.cfg.typPumChiWatPri==Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
        then max(pla.hp.dpHeaWatHp_nominal, pla.hp.dpChiWatHp_nominal) else  pla.hp.dpHeaWatHp_nominal), pla.cfg.nPumHeaWatPri)
        .+ (if pla.cfg.typDis == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
@@ -40,7 +40,7 @@ class AllSystems
         pla.cfg.nPumHeaWatSec),
       dp_nominal=fill(Buildings.Templates.Data.Defaults.dpHeaWatLocSet_max, pla.cfg.nPumHeaWatSec)),
     pumChiWatPri(
-      dp_nominal=fill(1.3*pla.hp.dpChiWatHp_nominal, pla.cfg.nPumChiWatPri)
+      dp_nominal=fill(1.5*pla.hp.dpChiWatHp_nominal, pla.cfg.nPumChiWatPri)
         .+ (if pla.cfg.typDis == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
             then Buildings.Templates.Data.Defaults.dpChiWatLocSet_max else 0)),
     pumChiWatSec(

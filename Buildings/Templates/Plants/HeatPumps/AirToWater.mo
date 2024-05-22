@@ -91,8 +91,10 @@ model AirToWater
     final have_pumChiWatPriVar=have_pumChiWatPriVar,
     final datPumHeaWat=dat.pumHeaWatPri,
     final datPumChiWat=dat.pumChiWatPri,
-    final dpValCheHeaWat_nominal=fill(dat.dpValCheHeaWat_nominal, nPumHeaWatPri),
-    final dpValCheChiWat_nominal=fill(dat.dpValCheChiWat_nominal, nPumChiWatPri),
+    final dpValCheHeaWat_nominal=fill(dat.dpValCheHeaWat_nominal,
+      pumPri.nPum),
+    final dpValCheChiWat_nominal=fill(dat.dpValCheChiWat_nominal,
+      if have_pumChiWatPriDed then pumPri.nPum else 0),
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal)
     "Dedicated primary pumps"
