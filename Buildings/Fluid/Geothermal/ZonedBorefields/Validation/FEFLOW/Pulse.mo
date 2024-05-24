@@ -1,5 +1,5 @@
 within Buildings.Fluid.Geothermal.ZonedBorefields.Validation.FEFLOW;
-model Pulse "Comparative model validation with Pulse"
+model Pulse "Comparative model validation with FEFLOW for a pulse response"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water;
 
@@ -23,6 +23,28 @@ model Pulse "Comparative model validation with Pulse"
     soiDat=soiDat,
     conDat=conDat) "Borefield data"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+
+  parameter Data.Configuration.Template conDat(
+    borCon=Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel,
+    mBor_flow_nominal=20*995.586/24/3600*{1, 1},
+    each dp_nominal=85*4*100*{1, 1},
+    hBor=85,
+    rBor=0.075,
+    dBor=0.5,
+    nZon=2,
+    iZon={1,1,1,1,1,1,1,1,
+          1,1,1,1,1,1,1,1,
+          1,1,1,1,1,1,1,1,
+          2,2,2,2},
+    cooBor={{3,  1.5}, {6,  1.5}, {9,  1.5}, {12,  1.5}, {1.5,  4.5}, {4.5,  4.5}, {7.5,  4.5}, {10.5,  4.5},
+            {3,  7.5}, {6,  7.5}, {9,  7.5}, {12,  7.5}, {1.5, 10.5}, {4.5, 10.5}, {7.5, 10.5}, {10.5, 10.5},
+            {3, 13.5}, {6, 13.5}, {9, 13.5}, {12, 13.5}, {1.5, 16.5}, {4.5, 16.5}, {7.5, 16.5}, {10.5, 16.5},
+            {5.4, 22.5}, {10.8, 22.5}, {2.7, 28.5}, {8.1, 28.5}},
+    rTub=0.016,
+    kTub=0.42,
+    eTub=0.0029,
+    xC=(2*((0.04/2)^2))^(1/2)) "Construction data"
+    annotation (Placement(transformation(extent={{-58,-40},{-38,-20}})));
 
   final parameter Integer nZon(min=1) = borFieDat.conDat.nZon
     "Total number of independent bore field zones";
@@ -53,11 +75,12 @@ model Pulse "Comparative model validation with Pulse"
     redeclare each package Medium = Medium,
     each nPorts=1) "Sink"
     annotation (Placement(transformation(extent={{120,-10},{100,10}})));
-  Modelica.Blocks.Sources.Pulse m_flow[nZon](
+  replaceable Modelica.Blocks.Sources.Pulse m_flow[nZon](
     amplitude=borFieDat.conDat.mZon_flow_nominal,
     each width=50,
     each period=3600*24*10,
-    each startTime=0) "Mass flow rate into each zone"
+    each startTime=0) constrainedby Modelica.Blocks.Interfaces.SO
+    "Mass flow rate into each zone"
     annotation (Placement(transformation(extent={{-80,-2},{-60,18}})));
 
   Modelica.Blocks.Sources.CombiTimeTable TOut(
@@ -69,29 +92,7 @@ model Pulse "Comparative model validation with Pulse"
     y(each unit="K",
       each displayUnit="degC"))
     "Reference results for the borehole fluid outlet temperature in each zone from FEFLOW"
-    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-
-  parameter Data.Configuration.Template conDat(
-    borCon=Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel,
-    mBor_flow_nominal=20*995.586/24/3600*{1, 1},
-    each dp_nominal=85*4*100*{1, 1},
-    hBor=85,
-    rBor=0.075,
-    dBor=0.5,
-    nZon=2,
-    iZon={1,1,1,1,1,1,1,1,
-          1,1,1,1,1,1,1,1,
-          1,1,1,1,1,1,1,1,
-          2,2,2,2},
-    cooBor={{3,  1.5}, {6,  1.5}, {9,  1.5}, {12,  1.5}, {1.5,  4.5}, {4.5,  4.5}, {7.5,  4.5}, {10.5,  4.5},
-            {3,  7.5}, {6,  7.5}, {9,  7.5}, {12,  7.5}, {1.5, 10.5}, {4.5, 10.5}, {7.5, 10.5}, {10.5, 10.5},
-            {3, 13.5}, {6, 13.5}, {9, 13.5}, {12, 13.5}, {1.5, 16.5}, {4.5, 16.5}, {7.5, 16.5}, {10.5, 16.5},
-            {5.4, 22.5}, {10.8, 22.5}, {2.7, 28.5}, {8.1, 28.5}},
-    rTub=0.016,
-    kTub=0.42,
-    eTub=0.0029,
-    xC=(2*((0.04/2)^2))^(1/2)) "Construction data"
-    annotation (Placement(transformation(extent={{-58,-40},{-38,-20}})));
+    annotation (Placement(transformation(extent={{-80,46},{-60,66}})));
 
   Sources.MassFlowSource_T sou[nZon](
     redeclare each package Medium = Medium,
@@ -99,6 +100,12 @@ model Pulse "Comparative model validation with Pulse"
     each T=293.15,
     each nPorts=1) "Mass flow source"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+  Modelica.Blocks.Math.Add delT[nZon](
+    each final k1,
+    each final k2=-1,
+    y(each final unit="K"))
+    "Difference FEFLOW vs. Modelica outlet temperature"
+    annotation (Placement(transformation(extent={{80,40},{100,60}})));
 equation
   connect(TBorFieIn.port_b,borFie. port_a)
     annotation (Line(points={{20,0},{30,0}},       color={0,127,255}));
@@ -110,6 +117,10 @@ equation
     annotation (Line(points={{-20,0},{0,0}},   color={0,127,255}));
   connect(m_flow.y, sou.m_flow_in)
     annotation (Line(points={{-59,8},{-42,8}}, color={0,0,127}));
+  connect(delT.u1, TOut.y) annotation (Line(points={{78,56},{-59,56}},
+                color={0,0,127}));
+  connect(TBorFieOut.T, delT.u2)
+    annotation (Line(points={{70,11},{70,44},{78,44}}, color={0,0,127}));
   annotation (
   Diagram(coordinateSystem(extent={{-100,-60},{140,80}})),
   Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
@@ -118,7 +129,8 @@ equation
   Documentation(info="<html>
 <p>
 This validation cases compares the outlet temperature of a borefield with two
-zones against the temperatures that were calculated with the Pulse software.
+zones against the temperatures that were calculated with the FEFLOW software.
+The mass flow rate in both zones is a pulse function.
 </p>
 </html>",
 revisions="<html>
@@ -130,6 +142,6 @@ First implementation.
 </ul>
 </html>"),
     experiment(
-      StopTime=15552000,
+      StopTime=15465600,
       Tolerance=1e-06));
 end Pulse;
