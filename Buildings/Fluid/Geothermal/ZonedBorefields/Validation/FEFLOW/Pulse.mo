@@ -100,12 +100,6 @@ model Pulse "Comparative model validation with FEFLOW for a pulse response"
     each T=293.15,
     each nPorts=1) "Mass flow source"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Modelica.Blocks.Math.Add delT[nZon](
-    each final k1,
-    each final k2=-1,
-    y(each final unit="K"))
-    "Difference FEFLOW vs. Modelica outlet temperature"
-    annotation (Placement(transformation(extent={{80,40},{100,60}})));
 equation
   connect(TBorFieIn.port_b,borFie. port_a)
     annotation (Line(points={{20,0},{30,0}},       color={0,127,255}));
@@ -117,10 +111,6 @@ equation
     annotation (Line(points={{-20,0},{0,0}},   color={0,127,255}));
   connect(m_flow.y, sou.m_flow_in)
     annotation (Line(points={{-59,8},{-42,8}}, color={0,0,127}));
-  connect(delT.u1, TOut.y) annotation (Line(points={{78,56},{-59,56}},
-                color={0,0,127}));
-  connect(TBorFieOut.T, delT.u2)
-    annotation (Line(points={{70,11},{70,44},{78,44}}, color={0,0,127}));
   annotation (
   Diagram(coordinateSystem(extent={{-100,-60},{140,80}})),
   Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
@@ -131,6 +121,24 @@ equation
 This validation cases compares the outlet temperature of a borefield with two
 zones against the temperatures that were calculated with the FEFLOW software.
 The mass flow rate in both zones is a pulse function.
+</p>
+<p>
+The temperatures <code>TOut</code> are the leaving water temperatures from FEFLOW,
+computed with FEFLOW's analytical solution for the borehole heat transfer.
+Comparing <code>TOut</code> with the temperatures <code>TBorFieOut</code>
+shows good agreement except after the step changes in mass flow rate.
+The results after the step changes in mass flow rates
+show similar discrepancies as the comparison of FEFLOW's analytical and
+numerical solutions that is presented in the FEFLOW white paper (DHI-WASY 2010).
+In the FEFLOW white paper, it is explained that the reason for this difference is
+due to the FEFLOW's analytical solution not being valid for such short-time dynamics.
+Therefore, the validation of the Modelica implementation is satisfactory.
+</p>
+<h5>References</h5>
+<p>
+DHI-WASY Software FEFLOW. Finite Element Subsurface Flow &amp; Transport Simulation System.
+White Paper Vol. V.
+DHI-WASY GmbH. Berlin 2010.
 </p>
 </html>",
 revisions="<html>
