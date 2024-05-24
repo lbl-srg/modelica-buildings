@@ -65,10 +65,10 @@ model Pulse "Comparative model validation with Pulse"
     tableName="tab1",
     columns={2,3},
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
-    fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/Geothermal/ZonedBorefields/Validation/FEFLOW.txt"),
+    fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/Geothermal/ZonedBorefields/Validation/FEFLOW/Pulse.txt"),
     y(each unit="K",
       each displayUnit="degC"))
-    "Reference results for the borehole fluid outlet temperature in each zone from Pulse"
+    "Reference results for the borehole fluid outlet temperature in each zone from FEFLOW"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 
   parameter Data.Configuration.Template conDat(
