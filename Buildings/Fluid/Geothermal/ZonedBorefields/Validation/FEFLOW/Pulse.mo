@@ -1,5 +1,5 @@
-within Buildings.Fluid.Geothermal.ZonedBorefields.Validation;
-model FEFLOW "Comparative model validation with FEFLOW"
+within Buildings.Fluid.Geothermal.ZonedBorefields.Validation.FEFLOW;
+model Pulse "Comparative model validation with Pulse"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water;
 
@@ -68,7 +68,7 @@ model FEFLOW "Comparative model validation with FEFLOW"
     fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/Geothermal/ZonedBorefields/Validation/FEFLOW.txt"),
     y(each unit="K",
       each displayUnit="degC"))
-    "Reference results for the borehole fluid outlet temperature in each zone from FEFLOW"
+    "Reference results for the borehole fluid outlet temperature in each zone from Pulse"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 
   parameter Data.Configuration.Template conDat(
@@ -113,12 +113,12 @@ equation
   annotation (
   Diagram(coordinateSystem(extent={{-100,-60},{140,80}})),
   Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/ZonedBorefields/Validation/FEFLOW.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/ZonedBorefields/Validation/FEFLOW/Pulse.mos"
         "Simulate and plot"),
   Documentation(info="<html>
 <p>
 This validation cases compares the outlet temperature of a borefield with two
-zones against the temperatures that were calculated with the FEFLOW software.
+zones against the temperatures that were calculated with the Pulse software.
 </p>
 </html>",
 revisions="<html>
@@ -132,4 +132,4 @@ First implementation.
     experiment(
       StopTime=15552000,
       Tolerance=1e-06));
-end FEFLOW;
+end Pulse;
