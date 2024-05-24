@@ -1,5 +1,5 @@
 within Buildings.Fluid.Geothermal.ZonedBorefields.Validation;
-package FEFLOW "fixme: add brief description"
+package FEFLOW "Package with models for comparative model validation with FEFLOW"
   extends Modelica.Icons.ExamplesPackage;
 annotation (preferredView="info", Documentation(info="<html>
 <p>
