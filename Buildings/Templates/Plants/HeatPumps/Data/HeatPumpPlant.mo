@@ -76,6 +76,12 @@ record HeatPumpPlant
     dpValve_nominal=Buildings.Templates.Data.Defaults.dpValBypMin)
     "HW minimum flow bypass valve"
     annotation(Dialog(group="Primary HW loop", enable=cfg.have_valHeaWatMinByp));
+  parameter Modelica.Units.SI.Volume VTanHeaWat(start=0)=
+    if cfg.have_heaWat then 240 * cfg.nHp * hp.mHeaWatHp_flow_nominal / cfg.rhoHeaWat_default
+    else 0
+    "Volume of HW buffer tank"
+    annotation (Dialog(group="Primary HW loop",
+    enable=cfg.typTanHeaWat<>Buildings.Templates.Components.Types.IntegrationPoint.None));
   parameter Buildings.Templates.Components.Data.PumpMultiple pumHeaWatSec(
     final nPum=cfg.nPumHeaWatSec,
     final rho_default=cfg.rhoHeaWat_default,
@@ -121,6 +127,12 @@ record HeatPumpPlant
     dpValve_nominal=Buildings.Templates.Data.Defaults.dpValBypMin)
     "CHW minimum flow bypass valve"
     annotation(Dialog(group="Primary CHW loop", enable=cfg.have_valChiWatMinByp));
+  parameter Modelica.Units.SI.Volume VTanChiWat(start=0)=
+    if cfg.have_chiWat then 120 * cfg.nHp * hp.mChiWatHp_flow_nominal / cfg.rhoChiWat_default
+    else 0
+    "Volume of HW buffer tank"
+    annotation (Dialog(group="Primary CHW loop",
+    enable=cfg.typTanChiWat<>Buildings.Templates.Components.Types.IntegrationPoint.None));
   parameter Buildings.Templates.Components.Data.PumpMultiple pumChiWatSec(
     final nPum=cfg.nPumChiWatSec,
     final rho_default=cfg.rhoChiWat_default,

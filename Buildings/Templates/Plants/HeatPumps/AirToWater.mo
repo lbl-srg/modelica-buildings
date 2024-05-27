@@ -130,44 +130,41 @@ model AirToWater
     "Headered primary CHW pumps"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
   Buildings.Templates.Components.Routing.SingleToMultiple inlPumChiWatPri(
-    redeclare final package Medium=MediumChiWat,
+    redeclare final package Medium = MediumChiWat,
     final nPorts=nPumChiWatPri,
     final m_flow_nominal=mChiWatPri_flow_nominal,
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
-    final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply,
-    final icon_dy=300)
-    if have_chiWat and typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
+    final icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Supply,
+    final icon_dy=300) if have_chiWat and typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
     "Primary CHW pumps inlet manifold"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
   Buildings.Templates.Components.Routing.MultipleToSingle outPumChiWatPri(
-    redeclare final package Medium=MediumChiWat,
+    redeclare final package Medium = MediumChiWat,
     final nPorts=nPumChiWatPri,
     final m_flow_nominal=mChiWatPri_flow_nominal,
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
-    final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply,
-    final icon_dy=300)
-    if have_chiWat and typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
+    final icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Supply,
+    final icon_dy=300) if have_chiWat and typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
     "Primary CHW pumps outlet manifold"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
   Buildings.Templates.Components.Routing.PassThroughFluid supChiWatPri(
-    redeclare final package Medium=MediumChiWat,
-    final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply,
+    redeclare final package Medium = MediumChiWat,
+    final icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Supply,
     final allowFlowReversal=allowFlowReversal) if have_chiWat and typArrPumPri
      == Buildings.Templates.Components.Types.PumpArrangement.Dedicated
     "Primary CHW supply pipe - Plant with dedicated primary CHW pumps"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
   Buildings.Templates.Components.Sensors.VolumeFlowRate VChiWatPri_flow(
-    redeclare final package Medium=MediumChiWat,
+    redeclare final package Medium = MediumChiWat,
     final m_flow_nominal=mChiWatPri_flow_nominal,
     final allowFlowReversal=allowFlowReversal,
     final have_sen=ctl.have_senVChiWatPri,
     final text_flip=false,
     final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter,
-    icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply)
-    if have_chiWat
-    "Primary CHW volume flow rate"
+    icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Supply)
+    if have_chiWat "Primary CHW volume flow rate"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
   Buildings.Templates.Components.Routing.Junction junChiWatBypSup(
     redeclare final package Medium=MediumChiWat,
@@ -185,45 +182,45 @@ model AirToWater
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,
       origin={180,80})));
   Buildings.Templates.Components.Sensors.Temperature TChiWatPriSup(
-    redeclare final package Medium=MediumChiWat,
+    redeclare final package Medium = MediumChiWat,
     final have_sen=true,
     final m_flow_nominal=mChiWatPri_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
-    final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply,
+    final icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Supply,
     final allowFlowReversal=allowFlowReversal) if have_chiWat
-    "Primary CHW supply temperature"
-    annotation (Placement(transformation(
+    "Primary CHW supply temperature" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={60,80})));
   Buildings.Templates.Components.Routing.Junction junChiWatBypRet(
-    redeclare final package Medium=MediumChiWat,
+    redeclare final package Medium = MediumChiWat,
     final tau=tau,
-    final m_flow_nominal=mChiWatPri_flow_nominal * {1, - 1, 1},
+    final m_flow_nominal=mChiWatPri_flow_nominal*{1,-1,1},
     final energyDynamics=energyDynamics,
     dp_nominal=fill(0, 3),
     final portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-      else Modelica.Fluid.Types.PortFlowDirection.Entering,
+         else Modelica.Fluid.Types.PortFlowDirection.Entering,
     final portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-      else Modelica.Fluid.Types.PortFlowDirection.Leaving,
+         else Modelica.Fluid.Types.PortFlowDirection.Leaving,
     final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-      else Modelica.Fluid.Types.PortFlowDirection.Entering,
-    icon_pipe1=Buildings.Templates.Components.Types.IconPipe.Return,
-    icon_pipe3=Buildings.Templates.Components.Types.IconPipe.Supply)
-    if have_chiWat
-    "Fluid junction"
-    annotation (Placement(transformation(extent={{10,10},{-10,-10}},rotation=0,
-      origin={180,0})));
+         else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    icon_pipe1=Buildings.Templates.Components.Types.IntegrationPoint.Return,
+    icon_pipe3=Buildings.Templates.Components.Types.IntegrationPoint.Supply)
+    if have_chiWat "Fluid junction" annotation (Placement(transformation(
+        extent={{10,10},{-10,-10}},
+        rotation=0,
+        origin={180,0})));
   Buildings.Templates.Components.Sensors.Temperature TChiWatPriRet(
-    redeclare final package Medium=MediumChiWat,
+    redeclare final package Medium = MediumChiWat,
     final have_sen=ctl.have_senTChiWatPriRet,
     final m_flow_nominal=mChiWatPri_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
-    final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Return,
+    final icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Return,
     final allowFlowReversal=allowFlowReversal) if have_chiWat
-    "Primary CHW return temperature"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,
-      origin={60,0})));
+    "Primary CHW return temperature" annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={60,0})));
   Buildings.Templates.Components.Actuators.Valve valChiWatMinByp(
     redeclare final package Medium=MediumChiWat,
     final dat=dat.valChiWatMinByp,
@@ -239,6 +236,24 @@ model AirToWater
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={180,40})));
+  Buildings.Templates.Components.Tanks.Buffer tanChiWatSup(
+    redeclare final package Medium = MediumChiWat,
+    final have_tan=typTanChiWat == Buildings.Templates.Components.Types.IntegrationPoint.Supply,
+    final V=dat.VTanChiWat,
+    final m_flow_nominal=mChiWatPri_flow_nominal,
+    final icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Supply,
+    final energyDynamics=energyDynamics,
+    final allowFlowReversal=allowFlowReversal) "CHW buffer tank"
+    annotation (Placement(transformation(extent={{120,70},{140,90}})));
+  Buildings.Templates.Components.Tanks.Buffer tanChiWatRet(
+    redeclare final package Medium = MediumChiWat,
+    final have_tan=typTanChiWat == Buildings.Templates.Components.Types.IntegrationPoint.Return,
+    final V=dat.VTanChiWat,
+    final m_flow_nominal=mChiWatPri_flow_nominal,
+    final icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Return,
+    final energyDynamics=energyDynamics,
+    final allowFlowReversal=allowFlowReversal) "CHW buffer tank"
+    annotation (Placement(transformation(extent={{140,-10},{120,10}})));
   // Secondary CHW loop
   Buildings.Templates.Components.Pumps.Multiple pumChiWatSec(
     final energyDynamics=energyDynamics,
@@ -251,65 +266,64 @@ model AirToWater
     "Secondary CHW pumps"
     annotation (Placement(transformation(extent={{250,70},{270,90}})));
   Buildings.Templates.Components.Routing.SingleToMultiple inlPumChiWatSec(
-    redeclare final package Medium=MediumChiWat,
+    redeclare final package Medium = MediumChiWat,
     final nPorts=nPumChiWatSec,
     final m_flow_nominal=mChiWat_flow_nominal,
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
-    final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply,
-    final icon_dy=300) if
-    have_chiWat and typPumChiWatSec == Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized
+    final icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Supply,
+    final icon_dy=300) if have_chiWat and typPumChiWatSec == Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized
     "Secondary CHW pumps inlet manifold"
     annotation (Placement(transformation(extent={{230,70},{250,90}})));
   Buildings.Templates.Components.Routing.MultipleToSingle outPumChiWatSec(
-    redeclare final package Medium=MediumChiWat,
+    redeclare final package Medium = MediumChiWat,
     final nPorts=nPumChiWatSec,
     final m_flow_nominal=mChiWat_flow_nominal,
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
-    final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply,
-    final icon_dy=300) if
-    have_chiWat and typPumChiWatSec == Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized
+    final icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Supply,
+    final icon_dy=300) if have_chiWat and typPumChiWatSec == Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized
     "Secondary CHW pumps outlet manifold"
     annotation (Placement(transformation(extent={{270,70},{290,90}})));
   Buildings.Templates.Components.Routing.PassThroughFluid supChiWatSec(
-    redeclare final package Medium=MediumChiWat,
-    final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply,
+    redeclare final package Medium = MediumChiWat,
+    final icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Supply,
     final allowFlowReversal=allowFlowReversal) if have_chiWat and
     typPumChiWatSec <> Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized
     "Secondary CHW supply pipe - Plant without secondary CHW pumps"
     annotation (Placement(transformation(extent={{250,70},{270,90}})));
   Buildings.Templates.Components.Sensors.VolumeFlowRate VChiWatSec_flow(
-    redeclare final package Medium=MediumChiWat,
+    redeclare final package Medium = MediumChiWat,
     final m_flow_nominal=mChiWat_flow_nominal,
     final allowFlowReversal=allowFlowReversal,
     final have_sen=ctl.have_senVChiWatSec,
     final text_flip=false,
     final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter,
-    final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply)
-    if have_chiWat
-    "Secondary CHW volume flow rate"
+    final icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Supply)
+    if have_chiWat "Secondary CHW volume flow rate"
     annotation (Placement(transformation(extent={{288,70},{308,90}})));
   Buildings.Templates.Components.Sensors.Temperature TChiWatSecSup(
-    redeclare final package Medium=MediumChiWat,
+    redeclare final package Medium = MediumChiWat,
     final have_sen=ctl.have_senTChiWatSecSup,
     final m_flow_nominal=mChiWat_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
-    final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply,
+    final icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Supply,
     final allowFlowReversal=allowFlowReversal) if have_chiWat
-    "Secondary CHW supply temperature"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,
-      origin={220,80})));
+    "Secondary CHW supply temperature" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={220,80})));
   Buildings.Templates.Components.Sensors.Temperature TChiWatSecRet(
-    redeclare final package Medium=MediumChiWat,
+    redeclare final package Medium = MediumChiWat,
     final have_sen=ctl.have_senTChiWatSecRet,
     final m_flow_nominal=mChiWat_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
-    final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Return,
+    final icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Return,
     final allowFlowReversal=allowFlowReversal) if have_chiWat
-    "Secondary CHW return temperature"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,
-      origin={320,0})));
+    "Secondary CHW return temperature" annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={320,0})));
   Buildings.Templates.Components.Sensors.DifferentialPressure dpChiWatLoc(
     redeclare final package Medium = MediumChiWat,
     text_rotation=90) if have_chiWat and not ctl.have_senDpChiWatRemWir
@@ -320,14 +334,13 @@ model AirToWater
         origin={560.5,40})));
   // Primary HW loop
   Buildings.Templates.Components.Routing.SingleToMultiple inlPumHeaWatPri(
-    redeclare final package Medium=MediumHeaWat,
+    redeclare final package Medium = MediumHeaWat,
     final nPorts=nPumHeaWatPri,
     final m_flow_nominal=mHeaWatPri_flow_nominal,
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
-    final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply,
-    final icon_dy=300)
-    if have_heaWat and typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
+    final icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Supply,
+    final icon_dy=300) if have_heaWat and typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
     "Primary HW pumps inlet manifold"
     annotation (Placement(transformation(extent={{-40,-290},{-20,-270}})));
   Buildings.Templates.Components.Pumps.Multiple pumHeaWatPri(
@@ -343,31 +356,30 @@ model AirToWater
     "Headered primary HW pumps"
     annotation (Placement(transformation(extent={{-20,-290},{0,-270}})));
   Buildings.Templates.Components.Routing.MultipleToSingle outPumHeaWatPri(
-    redeclare final package Medium=MediumHeaWat,
+    redeclare final package Medium = MediumHeaWat,
     final nPorts=nPumHeaWatPri,
     final m_flow_nominal=mHeaWatPri_flow_nominal,
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
-    final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply,
-    final icon_dy=300)
-    if have_heaWat and typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
+    final icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Supply,
+    final icon_dy=300) if have_heaWat and typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
     "Primary HW pumps outlet manifold"
     annotation (Placement(transformation(extent={{0,-290},{20,-270}})));
   Buildings.Templates.Components.Routing.PassThroughFluid supHeaWatPri(
-    redeclare final package Medium=MediumHeaWat,
-    final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply,
+    redeclare final package Medium = MediumHeaWat,
+    final icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Supply,
     final allowFlowReversal=allowFlowReversal) if have_heaWat and typArrPumPri
      == Buildings.Templates.Components.Types.PumpArrangement.Dedicated
     "Primary HW supply pipe - Plant with dedicated primary HW pumps"
     annotation (Placement(transformation(extent={{-20,-290},{0,-270}})));
   Buildings.Templates.Components.Sensors.VolumeFlowRate VHeaWatPri_flow(
-    redeclare final package Medium=MediumHeaWat,
+    redeclare final package Medium = MediumHeaWat,
     final m_flow_nominal=mHeaWatPri_flow_nominal,
     final allowFlowReversal=allowFlowReversal,
     final have_sen=ctl.have_senVHeaWatPri,
     final text_flip=false,
     final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter,
-    icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply)
+    icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Supply)
     "Primary HW volume flow rate"
     annotation (Placement(transformation(extent={{20,-290},{40,-270}})));
   Buildings.Templates.Components.Routing.Junction junHeaWatBypSup(
@@ -386,43 +398,45 @@ model AirToWater
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,
       origin={180,-280})));
   Buildings.Templates.Components.Sensors.Temperature THeaWatPriSup(
-    redeclare final package Medium=MediumHeaWat,
+    redeclare final package Medium = MediumHeaWat,
     final have_sen=true,
     final m_flow_nominal=mHeaWatPri_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
-    final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply,
-    final allowFlowReversal=allowFlowReversal)
-    "Primary HW supply temperature"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,
-      origin={60,-280})));
+    final icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Supply,
+    final allowFlowReversal=allowFlowReversal) "Primary HW supply temperature"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={60,-280})));
   Buildings.Templates.Components.Sensors.Temperature THeaWatPriRet(
     redeclare final package Medium = MediumHeaWat,
     final have_sen=ctl.have_senTHeaWatPriRet,
     final m_flow_nominal=mHeaWatPri_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
-    final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Return,
-    final allowFlowReversal=allowFlowReversal)
-    "Primary HW return temperature"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,
-      origin={60,-360})));
+    final icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Return,
+    final allowFlowReversal=allowFlowReversal) "Primary HW return temperature"
+    annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={60,-360})));
   Buildings.Templates.Components.Routing.Junction junHeaWatBypRet(
-    redeclare final package Medium=MediumHeaWat,
+    redeclare final package Medium = MediumHeaWat,
     final tau=tau,
-    final m_flow_nominal=mHeaWatPri_flow_nominal * {1, - 1, 1},
+    final m_flow_nominal=mHeaWatPri_flow_nominal*{1,-1,1},
     final energyDynamics=energyDynamics,
     dp_nominal=fill(0, 3),
     final portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-      else Modelica.Fluid.Types.PortFlowDirection.Entering,
+         else Modelica.Fluid.Types.PortFlowDirection.Entering,
     final portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-      else Modelica.Fluid.Types.PortFlowDirection.Leaving,
+         else Modelica.Fluid.Types.PortFlowDirection.Leaving,
     final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-      else Modelica.Fluid.Types.PortFlowDirection.Entering,
-    icon_pipe1=Buildings.Templates.Components.Types.IconPipe.Return,
-    icon_pipe3=Buildings.Templates.Components.Types.IconPipe.Supply)
-    if have_heaWat
-    "Fluid junction"
-    annotation (Placement(transformation(extent={{10,10},{-10,-10}},rotation=0,
-      origin={180,-360})));
+         else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    icon_pipe1=Buildings.Templates.Components.Types.IntegrationPoint.Return,
+    icon_pipe3=Buildings.Templates.Components.Types.IntegrationPoint.Supply)
+    if have_heaWat "Fluid junction" annotation (Placement(transformation(
+        extent={{10,10},{-10,-10}},
+        rotation=0,
+        origin={180,-360})));
   Buildings.Templates.Components.Actuators.Valve valHeaWatMinByp(
     redeclare final package Medium = MediumHeaWat,
     final dat=dat.valHeaWatMinByp,
@@ -439,6 +453,24 @@ model AirToWater
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={180,-320})));
+  Buildings.Templates.Components.Tanks.Buffer tanHeaWatSup(
+    redeclare final package Medium = MediumHeaWat,
+    final have_tan=typTanHeaWat == Buildings.Templates.Components.Types.IntegrationPoint.Supply,
+    final V=dat.VTanHeaWat,
+    final m_flow_nominal=mHeaWatPri_flow_nominal,
+    final icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Supply,
+    final energyDynamics=energyDynamics,
+    final allowFlowReversal=allowFlowReversal) "HW buffer tank"
+    annotation (Placement(transformation(extent={{120,-290},{140,-270}})));
+  Buildings.Templates.Components.Tanks.Buffer tanHeaWatRet(
+    redeclare final package Medium = MediumHeaWat,
+    final have_tan=typTanHeaWat == Buildings.Templates.Components.Types.IntegrationPoint.Return,
+    final V=dat.VTanHeaWat,
+    final m_flow_nominal=mHeaWatPri_flow_nominal,
+    final icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Return,
+    final energyDynamics=energyDynamics,
+    final allowFlowReversal=allowFlowReversal) "HW buffer tank"
+    annotation (Placement(transformation(extent={{140,-370},{120,-350}})));
   // Secondary HW loop
   Buildings.Templates.Components.Pumps.Multiple pumHeaWatSec(
     final energyDynamics=energyDynamics,
@@ -452,64 +484,64 @@ model AirToWater
     "Secondary HW pumps"
     annotation (Placement(transformation(extent={{250,-290},{270,-270}})));
   Buildings.Templates.Components.Routing.SingleToMultiple inlPumHeaWatSec(
-    redeclare final package Medium=MediumHeaWat,
+    redeclare final package Medium = MediumHeaWat,
     final nPorts=nPumHeaWatSec,
     final m_flow_nominal=mHeaWat_flow_nominal,
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
-    final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply,
-    final icon_dy=300)
-    if typPumHeaWatSec == Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized
+    final icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Supply,
+    final icon_dy=300) if typPumHeaWatSec == Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized
     "Secondary HW pumps inlet manifold"
     annotation (Placement(transformation(extent={{230,-290},{250,-270}})));
   Buildings.Templates.Components.Routing.MultipleToSingle outPumHeaWatSec(
-    redeclare final package Medium=MediumHeaWat,
+    redeclare final package Medium = MediumHeaWat,
     final nPorts=nPumHeaWatSec,
     final m_flow_nominal=mHeaWat_flow_nominal,
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
-    final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply,
-    final icon_dy=300)
-    if typPumHeaWatSec == Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized
+    final icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Supply,
+    final icon_dy=300) if typPumHeaWatSec == Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized
     "Secondary HW pumps outlet manifold"
     annotation (Placement(transformation(extent={{270,-290},{290,-270}})));
   Buildings.Templates.Components.Routing.PassThroughFluid supHeaWatSec(
-    redeclare final package Medium=MediumHeaWat,
-    final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply,
+    redeclare final package Medium = MediumHeaWat,
+    final icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Supply,
     final allowFlowReversal=allowFlowReversal) if have_heaWat and
     typPumHeaWatSec <> Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized
     "Secondary HW supply pipe - Plant without secondary HW pumps"
     annotation (Placement(transformation(extent={{250,-290},{270,-270}})));
   Buildings.Templates.Components.Sensors.VolumeFlowRate VHeaWatSec_flow(
-    redeclare final package Medium=MediumHeaWat,
+    redeclare final package Medium = MediumHeaWat,
     final m_flow_nominal=mHeaWat_flow_nominal,
     final allowFlowReversal=allowFlowReversal,
     final have_sen=ctl.have_senVHeaWatSec,
     final text_flip=false,
     final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter,
-    final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply)
+    final icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Supply)
     "Secondary HW volume flow rate"
     annotation (Placement(transformation(extent={{290,-290},{310,-270}})));
   Buildings.Templates.Components.Sensors.Temperature THeaWatSecSup(
-    redeclare final package Medium=MediumHeaWat,
+    redeclare final package Medium = MediumHeaWat,
     final have_sen=ctl.have_senTHeaWatSecSup,
     final m_flow_nominal=mHeaWat_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
-    final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply,
+    final icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Supply,
     final allowFlowReversal=allowFlowReversal)
-    "Secondary HW supply temperature"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,
-      origin={220,-280})));
+    "Secondary HW supply temperature" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={220,-280})));
   Buildings.Templates.Components.Sensors.Temperature THeaWatSecRet(
-    redeclare final package Medium=MediumHeaWat,
+    redeclare final package Medium = MediumHeaWat,
     final have_sen=ctl.have_senTHeaWatSecRet,
     final m_flow_nominal=mHeaWat_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
-    final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Return,
+    final icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Return,
     final allowFlowReversal=allowFlowReversal)
-    "Secondary HW return temperature"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,
-      origin={320,-360})));
+    "Secondary HW return temperature" annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={320,-360})));
   Buildings.Templates.Components.Sensors.DifferentialPressure dpHeaWatLoc(
     redeclare final package Medium = MediumHeaWat,
     text_rotation=90) if have_heaWat and not ctl.have_senDpHeaWatRemWir
@@ -542,11 +574,12 @@ model AirToWater
          else Modelica.Fluid.Types.PortFlowDirection.Leaving,
     final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Leaving,
-    icon_pipe1=Buildings.Templates.Components.Types.IconPipe.Return,
-    icon_pipe3=Buildings.Templates.Components.Types.IconPipe.Return)
-    if have_heaWat "Fluid junction"
-    annotation (Placement(transformation(extent={{10,10},{-10,-10}},rotation=0,
-      origin={500,-360})));
+    icon_pipe1=Buildings.Templates.Components.Types.IntegrationPoint.Return,
+    icon_pipe3=Buildings.Templates.Components.Types.IntegrationPoint.Return)
+    if have_heaWat "Fluid junction" annotation (Placement(transformation(
+        extent={{10,10},{-10,-10}},
+        rotation=0,
+        origin={500,-360})));
   Buildings.Templates.Components.Routing.Junction junHeaWatHrcLvg(
     redeclare final package Medium = MediumHeaWat,
     final tau=tau,
@@ -559,8 +592,8 @@ model AirToWater
          else Modelica.Fluid.Types.PortFlowDirection.Leaving,
     final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Entering,
-    icon_pipe1=Buildings.Templates.Components.Types.IconPipe.Return,
-    icon_pipe3=Buildings.Templates.Components.Types.IconPipe.Supply)
+    icon_pipe1=Buildings.Templates.Components.Types.IntegrationPoint.Return,
+    icon_pipe3=Buildings.Templates.Components.Types.IntegrationPoint.Supply)
     if have_heaWat "Fluid junction" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=0,
@@ -577,13 +610,13 @@ model AirToWater
          else Modelica.Fluid.Types.PortFlowDirection.Leaving,
     final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Leaving,
-    icon_pipe1=Buildings.Templates.Components.Types.IconPipe.Return,
-    icon_pipe3=Buildings.Templates.Components.Types.IconPipe.Return)
+    icon_pipe1=Buildings.Templates.Components.Types.IntegrationPoint.Return,
+    icon_pipe3=Buildings.Templates.Components.Types.IntegrationPoint.Return)
     if have_chiWat "Fluid junction" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={500,0})));
-   Buildings.Templates.Components.Routing.Junction junChiWatHrcLvg(
+  Buildings.Templates.Components.Routing.Junction junChiWatHrcLvg(
     redeclare final package Medium = MediumChiWat,
     final tau=tau,
     final m_flow_nominal=mChiWat_flow_nominal*{1,-1,1},
@@ -595,18 +628,18 @@ model AirToWater
          else Modelica.Fluid.Types.PortFlowDirection.Leaving,
     final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Entering,
-    icon_pipe1=Buildings.Templates.Components.Types.IconPipe.Return,
-    icon_pipe3=Buildings.Templates.Components.Types.IconPipe.Supply)
-    if have_chiWat
-    "Fluid junction"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,
-      origin={380,0})));
+    icon_pipe1=Buildings.Templates.Components.Types.IntegrationPoint.Return,
+    icon_pipe3=Buildings.Templates.Components.Types.IntegrationPoint.Supply)
+    if have_chiWat "Fluid junction" annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={380,0})));
   Buildings.Templates.Components.Sensors.Temperature TChiWatRetUpsHrc(
     redeclare final package Medium = MediumChiWat,
     final have_sen=have_hrc,
     final m_flow_nominal=mChiWat_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
-    final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Return,
+    final icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Return,
     final allowFlowReversal=allowFlowReversal) if have_chiWat
     "CHW return temperature upstream of HRC" annotation (Placement(
         transformation(
@@ -618,7 +651,7 @@ model AirToWater
     final have_sen=have_hrc,
     final m_flow_nominal=mHeaWat_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
-    final icon_pipe=Buildings.Templates.Components.Types.IconPipe.Return,
+    final icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Return,
     final allowFlowReversal=allowFlowReversal)
     "HW return temperature upstream of HRC" annotation (Placement(
         transformation(
@@ -633,7 +666,7 @@ model AirToWater
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
-        origin={140,-340})));
+        origin={0,-340})));
 initial equation
   // Calculation of pump speed providing design flow.
   if is_dpBalYPumSetCal
@@ -742,12 +775,6 @@ equation
       color={0,0,0},
       thickness=0.5,
       visible=have_chiWat));
-  connect(TChiWatPriSup.port_b, junChiWatBypSup.port_1)
-    annotation (Line(
-      points={{70,80},{170,80}},
-      color={0,0,0},
-      thickness=0.5,
-      visible=have_chiWat));
   connect(pumChiWatSec.ports_b, outPumChiWatSec.ports_a)
     annotation (Line(points={{270,80},{270,80}},color={0,127,255}));
   connect(inlPumChiWatSec.ports_b, pumChiWatSec.ports_a)
@@ -804,9 +831,6 @@ equation
     annotation (Line(points={{20,-280},{20,-280}},color={0,127,255}));
   connect(VHeaWatPri_flow.port_b, THeaWatPriSup.port_a)
     annotation (Line(points={{40,-280},{50,-280}},  color={0,0,0},
-      thickness=0.5));
-  connect(THeaWatPriSup.port_b, junHeaWatBypSup.port_1)
-    annotation (Line(points={{70,-280},{170,-280}}, color={0,0,0},
       thickness=0.5));
   connect(pumHeaWatSec.ports_b, outPumHeaWatSec.ports_a)
     annotation (Line(points={{270,-280},{270,-280}},color={0,127,255}));
@@ -879,11 +903,6 @@ equation
       visible=have_chiWat and typPumChiWatSec <> Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized));
   connect(junHeaWatBypRet.port_1, THeaWatSecRet.port_b)
     annotation (Line(points={{190,-360},{310,-360}}, color={0,0,0},
-      thickness=0.5,
-      pattern=LinePattern.Dash));
-  connect(THeaWatPriRet.port_b, valIso.port_aHeaWat) annotation (Line(
-      points={{50,-360},{-584,-360},{-584,60},{-540,60}},
-      color={0,0,0},
       thickness=0.5,
       pattern=LinePattern.Dash));
   connect(outPumChiWatSec.port_b, VChiWatSec_flow.port_a) annotation (Line(
@@ -965,26 +984,59 @@ equation
   connect(valHeaWatMinByp.port_b, junHeaWatBypRet.port_3)
     annotation (Line(points={{180,-330},{180,-350}}, color={0,0,0},
       thickness=0.5));
-  connect(junChiWatBypRet.port_2, TChiWatPriRet.port_a)
-    annotation (Line(
-      points={{170,0},{70,0}},
-      color={0,0,0},
-      pattern=LinePattern.Dash,
-      thickness=0.5,
-      visible=have_chiWat));
-  connect(bouHeaWat.ports[1], junHeaWatBypRet.port_2) annotation (Line(points={{
-          140,-350},{140,-360},{170,-360}}, color={0,127,255}));
-  connect(junHeaWatBypRet.port_2, THeaWatPriRet.port_a) annotation (Line(
-      points={{170,-360},{70,-360}},
-      color={0,0,0},
-      thickness=0.5,
-      pattern=LinePattern.Dash));
   connect(VChiWatSec_flow.port_b, port_bChiWat)
     annotation (Line(
       points={{308,80},{600,80}},
       color={0,0,0},
       thickness=0.5,
       visible=have_chiWat));
+  connect(TChiWatPriSup.port_b, tanChiWatSup.port_a) annotation (Line(
+      points={{70,80},{120,80}},
+      color={0,0,0},
+      thickness=0.5,
+      visible=have_chiWat));
+  connect(tanChiWatSup.port_b, junChiWatBypSup.port_1) annotation (Line(
+      points={{140,80},{170,80}},
+      color={0,0,0},
+      thickness=0.5,
+      visible=have_chiWat));
+  connect(junChiWatBypRet.port_2, tanChiWatRet.port_a) annotation (Line(
+      points={{170,0},{140,0}},
+      color={0,0,0},
+      thickness=0.5,
+      visible=have_chiWat,
+      pattern=LinePattern.Dash));
+  connect(tanChiWatRet.port_b, TChiWatPriRet.port_a) annotation (Line(
+      points={{120,0},{70,0}},
+      color={0,0,0},
+      thickness=0.5,
+      visible=have_chiWat,
+      pattern=LinePattern.Dash));
+  connect(THeaWatPriSup.port_b, tanHeaWatSup.port_a) annotation (Line(
+      points={{70,-280},{120,-280}},
+      color={0,0,0},
+      thickness=0.5));
+  connect(tanHeaWatSup.port_b, junHeaWatBypSup.port_1) annotation (Line(
+      points={{140,-280},{170,-280}},
+      color={0,0,0},
+      thickness=0.5));
+  connect(junHeaWatBypRet.port_2, tanHeaWatRet.port_a) annotation (Line(
+      points={{170,-360},{140,-360}},
+      color={0,0,0},
+      thickness=0.5,
+      pattern=LinePattern.Dash));
+  connect(tanHeaWatRet.port_b, THeaWatPriRet.port_a) annotation (Line(
+      points={{120,-360},{70,-360}},
+      color={0,0,0},
+      thickness=0.5,
+      pattern=LinePattern.Dash));
+  connect(bouHeaWat.ports[1], THeaWatPriRet.port_b)
+    annotation (Line(points={{0,-350},{0,-360},{50,-360}}, color={0,127,255}));
+  connect(THeaWatPriRet.port_b, valIso.port_aHeaWat) annotation (Line(
+      points={{50,-360},{-580,-360},{-580,60},{-540,60}},
+      color={0,0,0},
+      thickness=0.5,
+      pattern=LinePattern.Dash));
   annotation (
     defaultComponentName="pla",
     Documentation(
@@ -1123,6 +1175,21 @@ coefficients for the sake of computational efficiency.
 <li id=\"ASHRAE2021\">
 ASHRAE, 2021. Guideline 36-2021, High-Performance Sequences of Operation
 for HVAC Systems. Atlanta, GA.
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+May 31, 2024, by Antoine Gautier:<br/>
+Added sidestream heat recovery chiller, primary-only pumping, 
+buffer tanks, failsafe staging conditions and internal computation 
+of pump speed or balancing valve ∆p to meet design flow.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3808\">#3808</a>.
+</li>
+<li>
+March 29, 2024, by Antoine Gautier:<br/>
+First implementation.
 </li>
 </ul>
 </html>"),

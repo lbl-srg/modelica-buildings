@@ -32,12 +32,6 @@ package Types
     Centralized
       "Variable secondary centralized")
     "Enumeration to specify the type of secondary HW pumps";
-  type SensorLocation = enumeration(
-    Return
-      "Sensor in the return line",
-    Supply
-      "Sensor in the supply line")
-    "Enumeration to specify the sensor location";
   annotation (
     Documentation(
       info="<html>

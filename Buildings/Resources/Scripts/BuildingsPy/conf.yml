@@ -319,9 +319,6 @@
   openmodelica:
     comment: Translation failed.
     translate: false
-  optimica:
-    comment: See https://github.com/lbl-srg/modelica-buildings/issues/3759
-    translate: false
 - model_name: Buildings.Templates.ZoneEquipment.Validation.VAVBoxCoolingOnly
   openmodelica:
     comment: Translation failed.

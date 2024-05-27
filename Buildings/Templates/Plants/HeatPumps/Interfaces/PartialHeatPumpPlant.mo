@@ -20,7 +20,7 @@ partial model PartialHeatPumpPlant
   Derived classes representing AWHP shall use:
   redeclare final package MediumSou = MediumAir
   */
-    replaceable package MediumSou=Buildings.Media.Water
+  replaceable package MediumSou=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Source-side medium"
     annotation (Dialog(enable=typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater),
@@ -89,6 +89,8 @@ partial model PartialHeatPumpPlant
     final typPumHeaWatPri=typPumHeaWatPri,
     final typPumChiWatSec=typPumChiWatSec,
     final typPumHeaWatSec=typPumHeaWatSec,
+    final typTanChiWat=typTanChiWat,
+    final typTanHeaWat=typTanHeaWat,
     final typCtl=ctl.typ,
     final nAirHan=ctl.nAirHan,
     final nEquZon=ctl.nEquZon,
@@ -205,6 +207,17 @@ partial model PartialHeatPumpPlant
     "Number of primary HW pumps"
     annotation (Evaluate=true,
     Dialog(group="Primary loop"));
+  parameter Buildings.Templates.Components.Types.IntegrationPoint typTanHeaWat_select(
+    start=Buildings.Templates.Components.Types.IntegrationPoint.None)=
+    Buildings.Templates.Components.Types.IntegrationPoint.Supply
+    "Specify if there is a HW buffer tank and where it is integrated into the system"
+    annotation (Evaluate=true,
+    Dialog(group="Primary loop", enable=have_heaWat));
+  final parameter Buildings.Templates.Components.Types.IntegrationPoint typTanHeaWat=
+    if have_heaWat then typTanHeaWat_select
+    else Buildings.Templates.Components.Types.IntegrationPoint.None
+    "Specify if there is a HW buffer tank and where it is integrated into the system"
+    annotation (Evaluate=true);
   // RFE: Only centralized secondary HW pumps are currently supported for primary-secondary plants.
   final parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary typPumHeaWatSec=
     if have_heaWat and (typDis == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2
@@ -294,6 +307,17 @@ partial model PartialHeatPumpPlant
     "Number of primary CHW pumps"
     annotation (Evaluate=true,
     Dialog(group="Primary loop"));
+  parameter Buildings.Templates.Components.Types.IntegrationPoint typTanChiWat_select(
+    start=Buildings.Templates.Components.Types.IntegrationPoint.None)=
+    Buildings.Templates.Components.Types.IntegrationPoint.Return
+    "Specify if there is a CHW buffer tank and where it is integrated into the system"
+    annotation (Evaluate=true,
+    Dialog(group="Primary loop", enable=have_chiWat));
+  final parameter Buildings.Templates.Components.Types.IntegrationPoint typTanChiWat=
+    if have_chiWat then typTanChiWat_select
+    else Buildings.Templates.Components.Types.IntegrationPoint.None
+    "Specify if there is a CHW buffer tank and where it is integrated into the system"
+    annotation (Evaluate=true);
   // RFE: Currently, only centralized secondary CHW pumps are supported for primary-secondary plants.
   final parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary typPumChiWatSec=
     if have_chiWat and (typDis == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2
