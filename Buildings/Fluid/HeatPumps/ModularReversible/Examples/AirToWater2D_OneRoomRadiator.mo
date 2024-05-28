@@ -7,9 +7,12 @@ model AirToWater2D_OneRoomRadiator
     mCon_flow_nominal=heaPum.mCon_flow_nominal,
     sin(nPorts=1, redeclare package Medium = MediumAir),
     booToReaPumEva(realTrue=heaPum.mEva_flow_nominal),
-    pumHeaPumSou(redeclare package Medium = MediumAir),
+    pumHeaPumSou(
+      dp_nominal=heaPum.dpEva_nominal,
+      redeclare package Medium = MediumAir),
     sou(use_T_in=true,
-        redeclare package Medium = MediumAir));
+      redeclare package Medium = MediumAir),
+    pumHeaPum(dp_nominal=heaPum.dpCon_nominal));
 
   Buildings.Fluid.HeatPumps.ModularReversible.AirToWaterTableData2D
     heaPum(
@@ -21,7 +24,6 @@ model AirToWater2D_OneRoomRadiator
     dpCon_nominal(displayUnit="Pa") = 2000,
     dpEva_nominal(displayUnit="Pa") = 200,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    QCoo_flow_nominal=-20000,
     TConHea_nominal=rad.TRad_nominal,
     TEvaHea_nominal=283.15,
     TConCoo_nominal=oneRooRadHeaPumCtr.TRadMinSup,
@@ -35,7 +37,8 @@ model AirToWater2D_OneRoomRadiator
     redeclare
       Buildings.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
       safCtrPar(
-      use_minOnTime=false,
+      use_minOnTime=true,
+      minOnTime=300,
       use_minOffTime=true,
       minOffTime=300,
       use_maxCycRat=true)) "Reversible heat pump based on 2D table data"
@@ -95,6 +98,11 @@ equation
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+  <i>May 5, 2024</i> by Fabian Wuellhorst:<br/>
+  Updated documentation and changed default value (see issue <a href=
+  \"https://github.com/ibpsa/modelica-ibpsa/issues/1876\">#1576</a>)
+</li>
 <li>
   <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
   First implementation (see issue <a href=
