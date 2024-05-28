@@ -11,15 +11,15 @@ model LargeScaleWaterToWater_OneRoomRadiator
     Q_flow_nominal=200000,
     sin(nPorts=1),
     booToReaPumEva(realTrue=heaPum.mEva_flow_nominal),
-    pumHeaPum(
-      redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.VeroLine80slash115dash2comma2slash2 per),
-    pumHeaPumSou(
-      redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.VeroLine80slash115dash2comma2slash2 per));
+    pumHeaPumSou(dp_nominal=150000),
+    pumHeaPum(dp_nominal=150000),
+    sou(use_T_in=true));
 
   Buildings.Fluid.HeatPumps.ModularReversible.LargeScaleWaterToWater heaPum(
     allowDifferentDeviceIdentifiers=true,
     QHea_flow_nominal=Q_flow_nominal,
     use_intSafCtr=true,
+    QCoo_flow_nominal=-Q_flow_nominal/2,
     TConHea_nominal=TRadSup_nominal,
     dpCon_nominal(displayUnit="Pa"),
     TEvaHea_nominal=sou.T,
@@ -28,7 +28,7 @@ model LargeScaleWaterToWater_OneRoomRadiator
     redeclare Buildings.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
       safCtrPar,
     TConCoo_nominal=oneRooRadHeaPumCtr.TRadMinSup,
-    TEvaCoo_nominal=sou.T + 10,
+    TEvaCoo_nominal=sou.T + 30,
     redeclare
       Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN14511.WAMAK_WaterToWater_220kW
       datTabHea,
@@ -37,6 +37,16 @@ model LargeScaleWaterToWater_OneRoomRadiator
       datTabCoo)
     "Large scale water to water heat pump"
     annotation (Placement(transformation(extent={{20,-160},{0,-140}})));
+  Modelica.Blocks.Sources.Pulse TAirSouSte(
+    amplitude=20,
+    width=10,
+    period=86400,
+    offset=283.15,
+    startTime=86400/2) if witCoo "Air source temperature step for cooling phase"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-150,-200})));
 equation
   connect(heaPum.port_b2, sin.ports[1]) annotation (Line(points={{20,-156},{38,
           -156},{38,-200},{60,-200}},               color={0,127,255}));
@@ -47,11 +57,13 @@ equation
   connect(heaPum.port_a1, temRet.port_b) annotation (Line(points={{20,-144},{60,
           -144},{60,-30}},                color={0,127,255}));
   connect(oneRooRadHeaPumCtr.ySet, heaPum.ySet) annotation (Line(
-        points={{-139.167,-66.6667},{26,-66.6667},{26,-148},{21.2,-148}},
+        points={{-139.167,-66.6667},{26,-66.6667},{26,-148.1},{21.1,-148.1}},
                                                                         color={
           0,0,127}));
   connect(oneRooRadHeaPumCtr.hea, heaPum.hea) annotation (Line(points={{
-          -139.167,-75},{32,-75},{32,-151.9},{21.1,-151.9}}, color={255,0,255}));
+          -139.167,-75},{32,-75},{32,-152.1},{21.1,-152.1}}, color={255,0,255}));
+  connect(TAirSouSte.y, sou.T_in) annotation (Line(points={{-139,-200},{-92,-200},
+          {-92,-196},{-82,-196}}, color={0,0,127}));
   annotation (
      __Dymola_Commands(file=
      "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/ModularReversible/Examples/LargeScaleWaterToWater_OneRoomRadiator.mos"
@@ -76,23 +88,14 @@ equation
 </p>
 <p>
   Furthermore, this example demonstrates the warnings which
-  are raised if the table data boundary conditions
-  (e.g. <code>mEva_flow_nominal</code>) deviates from
-  the parameter in use.
+  are raised if two devices are combined with different sizes, leading
+  to different scaling factors for heating and cooling operation.
+  If the default <code>QCoo_flow_nominal</code> is used (leading to 
+  the same scaling factors), the mass flow rates will differ.
+  Setting the parameter <code>allowDifferentDeviceIdentifiers</code> to false,
+  an additional warning is raised, indicating that the table data for cooling and 
+  heating operation do not originate from the same real device.
 </p>
-<p>
-  To fix this issue, the user has to either
-</p>
-<ol>
-<li>
-Check the assumption of using a different mass flow rate, or
-</li>
-<li>
-adjust the mass flow rates in the hydraulic system.
-If the deviation is too big, the system would also not
-work in reality.
-</li>
-</ol>
 <p>
   Please check the documentation of
   <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.Examples.BaseClasses.PartialOneRoomRadiator\">
