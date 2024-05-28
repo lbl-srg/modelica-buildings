@@ -1,6 +1,0 @@
-simulateModel("Buildings.Obsolete.Templates.Plants.Controls.Utilities.Validation.SortWithIndices", method="Cvode", tolerance=1e-06, stopTime=1.0, resultFile="SortWithIndices");
-createPlot(id=1, position={15, 15, 300, 600}, y={"sorAsc.u[1]", "sorAsc.u[2]", "sorAsc.u[3]", "sorAsc.u[4]", "sorAsc.u[5]"}, range={0.0, 0.0, -4.0, 6.0}, grid=true);
-createPlot(id=1, y={"sorAsc.y[1]", "sorAsc.y[2]", "sorAsc.y[3]", "sorAsc.y[4]", "sorAsc.y[5]"}, range={0.0, 0.0, -6.0, 6.0}, grid=true, subPlot=2);
-createPlot(id=1, y={"sorDes.y[1]", "sorDes.y[2]", "sorDes.y[3]", "sorDes.y[4]", "sorDes.y[5]"}, range={0.0, 0.0, -6.0, 6.0}, grid=true, subPlot=3);
-createPlot(id=2, position={325, 15, 300, 500}, y={"sorAsc.yIdx[1]", "sorAsc.yIdx[2]", "sorAsc.yIdx[3]", "sorAsc.yIdx[4]", "sorAsc.yIdx[5]"}, autoscale=true, grid=true, color=true, subPlot=1);
-createPlot(id=2, y={"sorDes.yIdx[1]", "sorDes.yIdx[2]", "sorDes.yIdx[3]", "sorDes.yIdx[4]", "sorDes.yIdx[5]"}, autoscale=true, grid=true, color=true, subPlot=2);

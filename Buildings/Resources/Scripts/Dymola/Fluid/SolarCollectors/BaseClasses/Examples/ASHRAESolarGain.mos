@@ -2,7 +2,7 @@ removePlots();
 simulateModel("Buildings.Fluid.SolarCollectors.BaseClasses.Examples.ASHRAESolarGain", tolerance=1e-6, stopTime=86400, method="dassl", resultFile="ASHRAESolarGain");
 createPlot(id = 1,
  position = {0, 0, 1000, 500},
- y = {"solGai.TFlu[1]", "solGai.TFlu[2]", "solGai.TFlu[3]"},
+ y = {"solHeaGai.TFlu[1]", "solHeaGai.TFlu[2]", "solHeaGai.TFlu[3]"},
  range = {0.0, 88000.0, 310.0, 440.0},
  autoscale = true,
  autoerase = true,
@@ -17,7 +17,7 @@ createPlot(id = 1,
  colors = {{0,0,255}, {255,0,0}, {0,128,0}});
 createPlot(id = 1,
  position = {0, 0, 1000, 500},
- y = {"solGai.QSol_flow[1]", "solGai.QSol_flow[2]", "solGai.QSol_flow[3]"},
+ y = {"solHeaGai.QSol_flow[1]", "solHeaGai.QSol_flow[2]", "solHeaGai.QSol_flow[3]"},
  range = {0.0, 88000.0, -20.0, 240.0},
  autoscale = true,
  autoerase = true,

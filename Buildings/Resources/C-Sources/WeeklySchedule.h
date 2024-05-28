@@ -24,20 +24,20 @@ typedef struct TimeDataTuple {
 
 
 typedef struct WeeklySchedule {
-  double t_offset;      /* Time offset for monday, midnight. */
-  int n_data_cols;      /* Number of used input columns */
-  int n_allocatedRules; /* Number rules for which a struct was allocated */
-  int n_allocatedRulesData; /* Number rules for which a data vector was allocated */
+  double t_offset;    /* Time offset for monday, midnight. */
+  int n_rows_in;      /* Number of input rows */
+  int n_cols_in;      /* Number of input columns */
 
   double previousTimestamp; /* Time where the schedule was called the previous time */
   int previousIndex;        /* Index where the schedule was called the previous time */
 
-
-  double * lastData;    /* A work vector */
-  char * token;         /* A piece of input string that is being parsed */
-  FILE* fp;             /* A file pointer */
-  char* buff2;          /* A text buffer */
-  struct TimeDataTuple **rules; /* An array of rule pointers */
+  int n_allocatedRules;
+  int n_allocatedRulesData;
+  double * lastData;
+  char * token;
+  FILE* fp;
+  char* buff2;
+  struct TimeDataTuple **rules;
 
 } WeeklySchedule;
 

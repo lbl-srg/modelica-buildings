@@ -1,36 +1,43 @@
 within Buildings.Fluid.SolarCollectors;
-model ASHRAE93 "Model of a solar thermal collector according to the ASHRAE Standard 93"
-  extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector(
-    redeclare Buildings.Fluid.SolarCollectors.Data.GenericASHRAE93 per);
+model ASHRAE93 "Model of a flat plate solar thermal collector"
+  extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector(final perPar=per);
+  parameter Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector per
+    "Performance data" annotation(choicesAllMatching=true,
+    Placement(transformation(extent={{60,-80},{80,-60}})));
 
   BaseClasses.ASHRAESolarGain solGai(
-    redeclare package Medium = Medium,
-    final nSeg=nSeg,
+    final B0=per.B0,
+    final B1=per.B1,
+    final shaCoe=shaCoe,
     final til=til,
-    final incAngDat=per.incAngDat,
-    final incAngModDat=per.incAngModDat,
+    final nSeg=nSeg,
     final y_intercept=per.y_intercept,
     final use_shaCoe_in=use_shaCoe_in,
-    final shaCoe=shaCoe,
-    final A_c=ATot_internal)
-    "Identifies heat gained from the sun using the ASHRAE Standard 93 calculations"
-             annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+    final A_c=TotalArea_internal,
+    redeclare package Medium = Medium)
+    "Identifies heat gained from the sun using standard ASHRAE93 calculations"
+             annotation (Placement(transformation(extent={{-20,38},{0,58}})));
 
   BaseClasses.ASHRAEHeatLoss heaLos(
-    redeclare package Medium = Medium,
     final nSeg=nSeg,
     final slope=per.slope,
-    final A_c=ATot_internal)
-    "Calculates the heat lost to the surroundings using the ASHRAE Standard 93 calculations"
-        annotation (Placement(transformation(extent={{-20,10},{0,30}})));
+    final y_intercept=per.y_intercept,
+    redeclare package Medium = Medium,
+    final G_nominal=per.G_nominal,
+    dT_nominal=per.dT_nominal,
+    final A_c=TotalArea_internal,
+    m_flow_nominal=per.mperA_flow_nominal*per.A*nPanels_internal,
+    final cp_default=cp_default)
+    "Calculates the heat lost to the surroundings using the ASHRAE93 standard calculations"
+        annotation (Placement(transformation(extent={{-20,6},{0,26}})));
 
 equation
   // Make sure the model is only used with the ASHRAE ratings data, and slope < 0
   assert(per.slope < 0,
-    "In " + getInstanceName() + ": The heat loss coefficient from the ASHRAE ratings data must be strictly negative. Obtained slope = " + String(per.slope));
+    "The heat loss coefficient from the ASHRAE ratings data must be strictly negative. Obtained slope = " + String(per.slope));
 
   connect(weaBus.TDryBul, heaLos.TEnv) annotation (Line(
-      points={{-99.95,80.05},{-90,80.05},{-90,26},{-22,26}},
+      points={{-100,96},{-88,96},{-88,22},{-22,22}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -38,39 +45,39 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(HDirTil.inc, solGai.incAng)    annotation (Line(
-      points={{-59,46},{-50,46},{-50,48},{-22,48}},
+      points={{-59,48},{-54,48},{-54,46},{-22,46}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(HDirTil.H, solGai.HDirTil)    annotation (Line(
-      points={{-59,50},{-50,50},{-50,52},{-22,52}},
+      points={{-59,52},{-52,52},{-52,50},{-22,50}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(HDifTilIso.HGroDifTil, solGai.HGroDifTil) annotation (Line(
-      points={{-59,74},{-40,74},{-40,55},{-22,55}},
+      points={{-59,74},{-50,74},{-50,52.8},{-22,52.8}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(HDifTilIso.HSkyDifTil, solGai.HSkyDifTil) annotation (Line(
-      points={{-59,86},{-30,86},{-30,58},{-22,58}},
+      points={{-59,86},{-48,86},{-48,56},{-22,56}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(shaCoe_in, solGai.shaCoe_in) annotation (Line(
-      points={{-120,40},{-40,40},{-40,45},{-22,45}},
+      points={{-120,26},{-54,26},{-54,43},{-22,43}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(solGai.QSol_flow, QGai.Q_flow) annotation (Line(
-      points={{1,50},{50,50}},
+  connect(solGai.QSol_flow, heaGai.Q_flow) annotation (Line(
+      points={{1,48},{50,48}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(temSen.T, heaLos.TFlu) annotation (Line(
-      points={{-11,-20},{-30,-20},{-30,14},{-22,14}},
+      points={{-8,-16},{-32,-16},{-32,10},{-22,10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(temSen.T, solGai.TFlu) annotation (Line(
-      points={{-11,-20},{-30,-20},{-30,42},{-22,42}},
+      points={{-8,-16},{-32,-16},{-32,40},{-22,40}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(heaLos.QLos_flow, QLos.Q_flow) annotation (Line(
-      points={{1,20},{50,20}},
+  connect(heaLos.QLos, QLos.Q_flow) annotation (Line(
+      points={{1,16},{50,16}},
       color={0,0,127},
       smooth=Smooth.None));
 annotation (
@@ -150,24 +157,28 @@ annotation (
 This component models a solar thermal collector according to the ASHRAE93
 test standard.
 </p>
-
+<h4>Notice</h4>
+<ul>
+<li>
+As mentioned in EnergyPlus 7.0.0 Engineering Reference, the SRCC
+incident angle modifier equation coefficients are only valid for
+incident angles of 60 degrees or less. Because these curves behave
+poorly for angles greater than 60 degrees the model does not
+calculate either direct or diffuse solar radiation gains when the
+incidence angle is greater than 60 degrees.
+</li>
+<li>
+By default, the estimated heat capacity of the collector without
+fluid is calculated based on the dry mass and the specific heat
+capacity of copper.
+</li>
+</ul>
 <h4>References</h4>
 <p>
-ASHRAE 93-2010 -- Methods of Testing to Determine the Thermal Performance of
-Solar Collectors (ANSI approved).
-</p>
-<p>
-<a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v23.2.0/EngineeringReference.pdf\">
-EnergyPlus 23.2.0 Engineering Reference</a>.
+<a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, October 13, 2011. <br/>
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-February 28, 2024, by Jelger Jansen:<br/>
-Refactor model.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3604\">Buildings, #3604</a>.
-</li>
 <li>
 December 11, 2023, by Michael Wetter:<br/>
 Corrected implementation of pressure drop calculation for the situation where the collectors are in parallel,

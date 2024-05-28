@@ -1,13 +1,15 @@
 within Buildings.Fluid.SolarCollectors.BaseClasses;
 block EN12975HeatLoss "Calculate the heat loss of a solar collector per EN12975"
   extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialHeatLoss(
-    QLos_internal = A_c/nSeg * {dT[i] * (a1 - a2 * dT[i]) for i in 1:nSeg});
+    final QLos_nominal = -A_c * (C1 * dT_nominal - C2 * dT_nominal^2)
+      "Heat loss at nominal condition, for reporting only",
+    QLos_internal = A_c/nSeg * {dT[i] * (C1 - C2 * dT[i]) for i in 1:nSeg});
 
-  parameter Modelica.Units.SI.CoefficientOfHeatTransfer a1(final min=0)
-    "a1 from ratings data";
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer C1(final min=0)
+    "C1 from ratings data";
 
-  parameter Real a2(final unit = "W/(m2.K2)", final min=0)
-    "a2 from ratings data";
+  parameter Real C2(final unit = "W/(m2.K2)", final min=0)
+    "C2 from ratings data";
 
 annotation (
 defaultComponentName="heaLos",
@@ -25,15 +27,12 @@ where <i>n<sub>seg</sub></i> is the number of segments, as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 Q<sub>los,i</sub> = A<sub>c</sub> &frasl; n<sub>seg</sub>
-(T<sub>env</sub>-T<sub>flu,i</sub>) (a<sub>1</sub> - a<sub>2</sub>
-  (T<sub>env</sub>-T<sub>flu,i</sub>))
+(T<sub>env</sub>-T<sub>flu,i</sub>) (C<sub>1</sub> - C<sub>2</sub> (T<sub>env</sub>-T<sub>flu,i</sub>))
 </p>
 <p>
 where
-<i>a<sub>1</sub> &gt; 0</i> is the heat loss coefficient
-from EN12975 ratings data,
-<i>a<sub>2</sub> &ge; 0</i> is the temperature dependence of heat loss
-from EN12975 ratings data,
+<i>C<sub>1</sub> &gt; 0</i> is the heat loss coefficient from EN12975 ratings data,
+<i>C<sub>2</sub> &ge; 0</i> is the temperature dependence of heat loss from EN12975 ratings data,
 <i>A<sub>c</sub></i> is the collector area,
 <i>T<sub>env</sub></i> is the environment temperature and
 <i>T<sub>flu,i</sub></i> is the fluid temperature in segment
@@ -59,19 +58,13 @@ If the arithmetic average temperature were used, then segments at the collector
 outlet could be cooled below the ambient temperature, which violates the 2nd law
 of Thermodynamics.
 </p>
-
 <h4>References</h4>
 <p>
 CEN 2006, European Standard 12975-1:2006, European Committee for Standardization
 </p>
-</html>", revisions="<html>
+</html>",
+revisions="<html>
 <ul>
-<li>
-February 15, 2024, by Jelger Jansen:<br/>
-Refactor model.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3604\">Buildings, #3604</a>.
-</li>
 <li>
 December 17, 2017, by Michael Wetter:<br/>
 Revised computation of heat loss.<br/>

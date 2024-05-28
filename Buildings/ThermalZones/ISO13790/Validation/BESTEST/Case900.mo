@@ -4,10 +4,10 @@ model Case900
     zon5R1C(hInt=2.74,
       redeclare replaceable Buildings.ThermalZones.ISO13790.Validation.BESTEST.Data.Case900Mass buiMas),
     annComBESTEST(
-      EHeaMax=  7.3476E+09,
-      EHeaMin=  4.2120E+09,
-      ECooMax=-11.3940E+09,
-      ECooMin= -7.6860E+09,
+      EHeaMax=7347600000,
+      EHeaMin=4212000000,
+      ECooMax=-11394000000,
+      ECooMin=-7686000000,
       PHeaMax=3797,
       PHeaMin=2850,
       PCooMax=-3871,
@@ -40,11 +40,6 @@ Case 900 is a heavy-weight building with room temperature control set to <i>20</
 for heating and <i>27</i>&deg;C for cooling. The room has no shade and a window that faces south.
 </p>
 </html>", revisions="<html><ul>
-<li>
-May 8, 2024, by Michael Wetter:<br/>
-Changed number format to avoid a warning in Optimica about number to be too large
-to be represented as an Integer.
-</li>
 <li>
 Mar 16, 2022, by Alessandro Maccarini:<br/>
 First implementation.
