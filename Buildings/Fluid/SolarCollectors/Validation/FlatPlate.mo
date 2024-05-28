@@ -43,7 +43,7 @@ model FlatPlate "Validation model for FlatPlate"
     tableName="TRNSYS",
     columns=2:5,
     fileName=Modelica.Utilities.Files.loadResource(
-       "modelica://Buildings/Resources/Data/Fluid/SolarCollectors/Validation/FlatPlate/TRNSYSAnnualData.txt"),
+       "modelica://Buildings/Fluid/SolarCollectors/Examples/ValidationData/TRNSYSAnnualData.txt"),
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
     "Data reader with inlet conditions from TRNSYS"
     annotation (Placement(transformation(extent={{-90,20},{-70,40}})));

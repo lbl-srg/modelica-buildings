@@ -15,7 +15,9 @@ partial model PartialInternalHEX
               "Propylene glycol water, 40% mass fraction")));
   constant Real mSenFac=1
     "Factor for scaling the sensible thermal mass of the volume";
-
+  parameter Boolean dynFil=true
+    "Set to false to remove the dynamics of the filling material"
+    annotation (Dialog(tab="Dynamics"));
   parameter Modelica.Units.SI.Length hSeg
     "Length of the internal heat exchanger";
   parameter Modelica.Units.SI.Volume VTubSeg=hSeg*Modelica.Constants.pi*(
@@ -87,12 +89,6 @@ need to be declared in models which extend this partial model:
 </ul>
 </html>", revisions="<html>
 <ul>
-<li>
-May 17, 2024, by Michael Wetter:<br/>
-Updated model due to removal of parameter <code>dynFil</code>.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1885\">IBPSA, #1885</a>.
-</li>
 <li>
 January 18, 2019, by Jianjun Hu:<br/>
 Limited the media choice to water and glycolWater.
