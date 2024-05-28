@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "ySet",
-    "yOut"
-  };

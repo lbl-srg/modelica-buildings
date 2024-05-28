@@ -1,5 +1,0 @@
-simulateModel("Buildings.Fluid.Chillers.ModularReversible.Validation.ConstantCarnotEffectiveness", tolerance=1e-6, stopTime=3600, method="CVode", resultFile="Chiller_ConstantCarnotEffectiveness");
-createPlot(id=2, position={39, 13, 913, 546}, y={"chi.refCyc.sigBus.TConInMea", "chi.refCyc.sigBus.TConOutMea", "chi.refCyc.sigBus.TEvaInMea", "chi.refCyc.sigBus.TEvaOutMea"}, range={0.0, 3600.0, 5.0, 40.0}, grid=true, filename="Chiller_ConstantCarnotEffectiveness.mat", colors={{28,108,200}, {238,46,47}, {0,140,72}, {180,56,148}});
-createPlot(id=2, position={39, 13, 913, 546}, y={"chi.QEva_flow", "chi.QCon_flow", "chi.P"}, range={0.0, 3600.0, -200000.0, 300000.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}});
-createPlot(id=2, position={39, 13, 913, 546}, y={"chi.dp1", "chi.dp2"}, range={0.0, 3600.0, 0.0, 14000.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
-createPlot(id=2, position={39, 13, 913, 546}, y={"chi.refCyc.refCycChiCoo.EER_nominal", "chi.EER"}, range={0.0, 3600.0, 3.0, 10.0}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}});

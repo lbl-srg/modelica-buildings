@@ -1,7 +1,7 @@
 within Buildings.Utilities.IO.Files.Examples;
 model WeeklySchedule "Weekly schedule example"
   extends Modelica.Icons.Example;
-  parameter String data = "#test:
+  parameter String data = "double tab1(3,5) #test:
 mon:0:0:10          -  3   1  -
 tue,thu:20:30:59  123  -  45  -
 wed                12  1   4  -" "Contents of schedule.txt";

@@ -1,9 +1,0 @@
-compareVars :=
-  {
-    "ySet",
-    "yOut",
-    "minFloRatSaf.sigBus.mEvaMea_flow",
-    "minFloRatSaf.sigBus.mConMea_flow",
-    "minFloRatSaf.mEvaMin_flow",
-    "minFloRatSaf.mConMin_flow"
-  };
