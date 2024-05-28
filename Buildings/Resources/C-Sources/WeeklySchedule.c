@@ -3,8 +3,6 @@
   This code implements a weekly schedule.
 
   Changelog:
-    April 9, 2024 by Filip Jorissen, Builtwins
-          Revisions for #1869 to remove a header requirement that contains the number of rows/columns.
     March 30, 2024 by Filip Jorissen, Builtwins
           Revisions for #1860 to avoid memory leaks when calling ModelicaFormatError.
     May 25, 2022 by Michael Wetter, LBNL
@@ -35,7 +33,6 @@ int cmpfun(const void * tuple1, const void * tuple2) {
 
 void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t_offset, const char* stringData) {
   const int bufLen = 255;
-  const int allocSize = 50;
   WeeklySchedule* scheduleID = NULL;
 
 
@@ -48,11 +45,10 @@ void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t
   int foundHeader = 0;    /* indicates whether a header has been found */
   int isHeaderLine = 0;   /* indicates whether we are currently parsing the header line */
   int tokensInLine = 0;   /* keeps track of the number of tokens in the current line: column index and sanity check */
-  int tokensInFirstLine = 0;
   int comment = 0;        /* we are parsing a comment */
-  int n_reservedRules = 0;/* number of rules for which we have allocated memory */
-  int n_reservedColumns = allocSize;/* number of columns for which we have allocated memory */
+  int n_rulesInMem = 0;   /* number of rules for which we have allocated memory */
   int n_rulesInRow = 0;   /* number of rules that exist in the current row */
+  int n_rowsPacked = 0;   /* number of rules */
   int n_newLines = 0;     /* number of newlines */
   int mustHaveNewLine = 0;/* The next character must be a newline */
   char c;                 /* the character that is being parsed in this iteration */
@@ -98,14 +94,6 @@ void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t
       weeklyScheduleFree(scheduleID);
       ModelicaFormatError("Failed to allocate memory for buff in WeeklySchedule.c.");
   }
-
-  scheduleID->rules = (TimeDataTuple**)calloc(sizeof(TimeDataTuple *), allocSize);
-  if ( scheduleID->rules == NULL){
-    weeklyScheduleFreeInit(scheduleID);
-    weeklyScheduleFree(scheduleID);
-    ModelicaFormatError("Failed to allocate memory for rules in WeeklySchedule.c.");
-  }
-  n_reservedRules = allocSize;
 
   /* Identify 'tokens' by splitting on (one or more) whitespace characters. */
   /* Each token is parsed and special behaviour is created for comments and the header. */
@@ -172,11 +160,87 @@ void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t
         tokenLen = strlen(scheduleID->token);
         index = 0;
 
+        /* ModelicaFormatWarning("Parsing token %s", scheduleID->token); */
+
         if (foundHeader == 0 && strcmp("double", scheduleID->token) == 0) {
 		  /* we found a header line, we expect a specific format after the whitespace */
-          foundHeader = 1; /* Avoid checking header line again */
-          comment = 1; /* Ignore the rest of the line */
-          ModelicaFormatWarning("Detected header line when reading weekly schedule '%s'. This is deprecated. Consider removing the line that starts with 'double tab1'.", name);
+          isHeaderLine = 1;
+          foundHeader = 1;
+        } else if ( isHeaderLine == 1 ) {  /* parse the header columns and rows */
+          char *source;
+          int ncharsRow;
+          int ncharsCol;
+
+          if (strncmp("tab1(", scheduleID->token, 4) != 0) {
+            weeklyScheduleFreeInit(scheduleID);
+            weeklyScheduleFree(scheduleID);
+            ModelicaFormatError("Incorrect header when reading weekly schedule '%s'. It should start with 'tab1('.", name);
+          }
+
+          source = scheduleID->token + 5;
+          ncharsRow = strcspn(source, ",");
+
+          if (tokenLen == ncharsRow + 5 ) {
+            weeklyScheduleFreeInit(scheduleID);
+            weeklyScheduleFree(scheduleID);
+            ModelicaFormatError("Incorrect header when reading weekly schedule '%s'. No comma was found in the header.", name);
+          }
+          if ( ncharsRow > bufLen - 2 ) {
+            weeklyScheduleFreeInit(scheduleID);
+            weeklyScheduleFree(scheduleID);
+            ModelicaFormatError("Header length exceeds buffer size.");
+          }
+          strncpy(scheduleID->buff2, source, ncharsRow);
+          scheduleID->buff2[ncharsRow] = '\0';
+
+          if (sscanf(scheduleID->buff2, "%i", &scheduleID->n_rows_in) != 1) {
+            weeklyScheduleFreeInit(scheduleID);
+            weeklyScheduleFree(scheduleID);
+            ModelicaFormatError("Error in intenger conversion in header while parsing %s in weekly schedule '%s'.", scheduleID->buff2, name);
+          }
+
+          source = source + ncharsRow + 1;
+          ncharsCol = strcspn(source, ")");
+          if (tokenLen == ncharsCol + ncharsRow + 5 + 1) {
+            weeklyScheduleFreeInit(scheduleID);
+            weeklyScheduleFree(scheduleID);
+            ModelicaFormatError("Incorrect header when reading weekly schedule '%s'. No closing bracket was found in the header.", name);
+          } else if (tokenLen > ncharsCol + ncharsRow + 5 + 1 + 1) {
+            weeklyScheduleFreeInit(scheduleID);
+            weeklyScheduleFree(scheduleID);
+            ModelicaFormatError("Incorrect header when reading weekly schedule '%s'. It has trailing characters: '%s'.", name, scheduleID->token + ncharsRow + ncharsCol + 7);
+          }
+          strncpy(scheduleID->buff2, source, ncharsCol);
+          scheduleID->buff2[ncharsCol] = '\0';
+          if (sscanf(scheduleID->buff2, "%i", &scheduleID->n_cols_in) != 1) {
+            weeklyScheduleFreeInit(scheduleID);
+            weeklyScheduleFree(scheduleID);
+            ModelicaFormatError("Error in integer conversion in header while parsing %s in weekly schedule '%s'..", scheduleID->buff2, name);
+          }
+          if (scheduleID->n_cols_in < 2) {
+            weeklyScheduleFreeInit(scheduleID);
+            weeklyScheduleFree(scheduleID);
+            ModelicaFormatError("Illegal number of columns '%i' when reading weekly schedule '%s'.", scheduleID->n_cols_in, name);
+          }
+          if (scheduleID->n_rows_in < 1) {
+            weeklyScheduleFreeInit(scheduleID);
+            weeklyScheduleFree(scheduleID);
+            ModelicaFormatError("Illegal number of rows '%i' when reading weekly schedule '%s'.", scheduleID->n_rows_in, name);
+          }
+          isHeaderLine = 0;
+          foundHeader = 1;
+          scheduleID->rules = (TimeDataTuple**)calloc(sizeof(TimeDataTuple *), scheduleID->n_rows_in);
+          if ( scheduleID->rules == NULL){
+            weeklyScheduleFreeInit(scheduleID);
+            weeklyScheduleFree(scheduleID);
+            ModelicaFormatError("Failed to allocate memory for rules in WeeklySchedule.c.");
+          }
+
+          n_rulesInMem = scheduleID->n_rows_in;
+        } else if (foundHeader == 0) {
+          weeklyScheduleFreeInit(scheduleID);
+          weeklyScheduleFree(scheduleID);
+          ModelicaFormatError("Illegal file format, no header was found when reading weekly schedule '%s'.", name);
         } else if (tokensInLine == 0) {
           /* 0 tokens have been found on this line, so we're parsing a date/time */
           const int ncharsDays = strcspn(scheduleID->token, ":");
@@ -270,9 +334,9 @@ void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t
             }
 
             /* expand the memory if the initially assigned memory block does not suffice*/
-            if (rule_i >= n_reservedRules) {
-              n_reservedRules += allocSize;
-              scheduleID->rules = (TimeDataTuple**)realloc(scheduleID->rules, sizeof(TimeDataTuple*) * n_reservedRules);
+            if (rule_i >= n_rulesInMem) {
+              n_rulesInMem += scheduleID->n_rows_in;
+              scheduleID->rules = (TimeDataTuple**)realloc(scheduleID->rules, sizeof(TimeDataTuple*) * n_rulesInMem);
               if (scheduleID->rules == NULL) {
                 weeklyScheduleFreeInit(scheduleID);
                 weeklyScheduleFree(scheduleID);
@@ -290,7 +354,7 @@ void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t
             scheduleID->n_allocatedRules++;
 
             scheduleID->rules[rule_i]->time = time_i;
-            scheduleID->rules[rule_i]->data = (double*)calloc(sizeof(double), n_reservedColumns);
+            scheduleID->rules[rule_i]->data = (double*)calloc(sizeof(double), (scheduleID->n_cols_in - 1));
             if ( scheduleID->rules[rule_i]->data == NULL){
               weeklyScheduleFreeInit(scheduleID);
               weeklyScheduleFree(scheduleID);
@@ -300,6 +364,8 @@ void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t
 
             rule_i++;
             n_rulesInRow++;
+            if (offset == 0) /* only for the first rule in this row*/
+              n_rowsPacked++;
 
             if (strlen(startIndex) == 3) { /*reached the end of the substring*/
               break;
@@ -312,18 +378,10 @@ void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t
           double val;
 
           /* a token has been found on this line before, so we're parsing some numerical data*/
-          if (tokensInFirstLine != 0 && tokensInLine + 1 > tokensInFirstLine){
-              weeklyScheduleFreeInit(scheduleID);
-              weeklyScheduleFree(scheduleID);
-              ModelicaFormatError("Too many columns on data line %i when reading weekly schedule '%s'. %i instead of %i.", line, name, tokensInLine + 1, tokensInFirstLine);
-          }else if (tokensInLine >= n_reservedColumns) { /* This code should only be reached upon passing the first line of data */
-            n_reservedColumns += allocSize;
-            scheduleID->rules[rule_i-1]->data = (double*)realloc(scheduleID->rules[rule_i-1]->data, sizeof(double)*n_reservedColumns);
-            if ( scheduleID->rules[rule_i-1]->data == NULL){
-              weeklyScheduleFreeInit(scheduleID);
-              weeklyScheduleFree(scheduleID);
-              ModelicaFormatError("Failed to reallocate memory for rules[rule_i-1]->data in WeeklySchedule.c.");
-            }
+          if (tokensInLine >= scheduleID->n_cols_in) {
+            weeklyScheduleFreeInit(scheduleID);
+            weeklyScheduleFree(scheduleID);
+            ModelicaFormatError("Too many columns on row %i when reading weekly schedule '%s'.", line, name);
           }
 
           if (sscanf(scheduleID->token, "%lf", &val) != 1) {
@@ -348,16 +406,12 @@ void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t
           ModelicaFormatError("Logic error when reading weekly schedule '%s'.", name); /*should not be able to end up here*/
         }
       }
-      if (c == '\n') { 
-        if (tokensInFirstLine == 0 && tokensInLine > 0){
-          tokensInFirstLine = tokensInLine;
-        }else if (tokensInLine > 0 && tokensInLine != tokensInFirstLine) {
+      if (c == '\n') { /*reset some internal variables*/
+        if (tokensInLine > 0 && tokensInLine != scheduleID->n_cols_in) {
           weeklyScheduleFreeInit(scheduleID);
           weeklyScheduleFree(scheduleID);
-          ModelicaFormatError("Too few columns on data line %i when reading weekly schedule '%s'. %i instead of %i", line, name, tokensInLine, tokensInFirstLine);
+          ModelicaFormatError("Incorrect number of columns on line %i when reading weekly schedule '%s'.", line, name);
         }
-
-        /*reset some internal variables*/
         line++;
         tokensInLine = 0;
         comment = 0;
@@ -372,19 +426,30 @@ void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t
     ModelicaFormatError("In weekly schedule '%s': The provided %s is incorrectly formatted since it does not contain newline characters.", name, tableOnFile ? "file": "string parameter");
   }
 
+  if (n_rowsPacked != scheduleID->n_rows_in) {
+    weeklyScheduleFreeInit(scheduleID);
+    weeklyScheduleFree(scheduleID);
+    ModelicaFormatError("Incorrect number of rows when reading weekly schedule '%s': %i instead of %i.", name, n_rowsPacked, scheduleID->n_rows_in);
+  }
+  if (scheduleID->n_cols_in < 1){
+      weeklyScheduleFreeInit(scheduleID);
+      weeklyScheduleFree(scheduleID);
+      ModelicaFormatError("The number of columns in the weekly schedule '%s' is %i, which is too small. ", name, scheduleID->n_cols_in);
+  }
+
   /* sort all data by time stamp*/
   qsort(scheduleID->rules, rule_i, sizeof(TimeDataTuple*), cmpfun);
 
   {
     /* working vector with zero initial value*/
-    scheduleID->lastData = (double*)calloc(sizeof(double), tokensInFirstLine - 1);
+    scheduleID->lastData = (double*)calloc(sizeof(double), scheduleID->n_cols_in - 1);
     if (scheduleID->lastData == NULL){
       weeklyScheduleFreeInit(scheduleID);
       weeklyScheduleFree(scheduleID);
-      ModelicaFormatError("Failed to allocate memory for lastData in WeeklySchedule.c., tokensInFirstLine - 1 = %d", tokensInFirstLine - 1);
+      ModelicaFormatError("Failed to allocate memory for lastData in WeeklySchedule.c., scheduleID->n_cols_in -1 = %d", scheduleID->n_cols_in - 1);
     }
 
-    memset(scheduleID->lastData, (char)(double)0, tokensInFirstLine - 1); /* set vector to zero initial guess*/
+    memset(scheduleID->lastData, (char)(double)0, scheduleID->n_cols_in - 1); /* set vector to zero initial guess*/
 
     /* Loop over all data and fill in wildcards using the last preceeding value.*/
     /* This may wrap back to the end of last week, therefore loop the data twice.*/
@@ -392,7 +457,7 @@ void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t
 
     for (i = 0; i < 2; ++i) {
       for (j = 0; j < rule_i; ++j) {
-        for (k = 0; k < tokensInFirstLine - 1; ++k) {
+        for (k = 0; k < scheduleID->n_cols_in - 1; ++k) {
           if ( scheduleID->rules[j]->data[k] != HUGE_VAL ) {
             scheduleID->lastData[k] = scheduleID->rules[j]->data[k];
           } else if (i > 0) {
@@ -409,7 +474,6 @@ void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t
   scheduleID->t_offset = t_offset;
   scheduleID->previousIndex = 0;
   scheduleID->previousTimestamp = HUGE_VAL;
-  scheduleID->n_data_cols = tokensInFirstLine - 1;
 
   weeklyScheduleFreeInit(scheduleID);
 
@@ -435,16 +499,12 @@ void weeklyScheduleFreeInit(void * ID) {
 
 
 void weeklyScheduleFree(void * ID) {
-  int i;
   WeeklySchedule* scheduleID = (WeeklySchedule*)ID;
 
-  if (ID == NULL) /* Otherwise OM segfaults when IBPSA.Utilities.IO.Files.Examples.WeeklySchedule triggers an error */
-    return;
-
+  int i;
   for (i = 0; i < scheduleID->n_allocatedRulesData; ++i) {
     free(scheduleID->rules[i]->data);
   }
- 
   for (i = 0; i < scheduleID->n_allocatedRules; ++i) {
     free(scheduleID->rules[i]);
   }
@@ -468,8 +528,8 @@ double getScheduleValue(void * ID, const int column, const double modelicaTime) 
 
   /* Not calling weeklyScheduleFreeInit() or weeklyScheduleFree() since weeklyScheduleFreeInit() has already been called at the end of the
   initialization and Modelica will call weeklyScheduleFree() upon a call of ModelicaFormatError) */
-  if (column < 0 || column > scheduleID->n_data_cols) {
-    ModelicaFormatError("The requested column index '%i' is outside of the table range '%i'.", column + 1, scheduleID->n_data_cols);
+  if (column < 0 || column > scheduleID->n_cols_in - 1) {
+    ModelicaFormatError("The requested column index '%i' is outside of the table range.", column + 1);
   }
   if (column == 0 ) {
     ModelicaFormatError("The column index 1 is not a data column and is reserved for 'time'. It should not be read.");

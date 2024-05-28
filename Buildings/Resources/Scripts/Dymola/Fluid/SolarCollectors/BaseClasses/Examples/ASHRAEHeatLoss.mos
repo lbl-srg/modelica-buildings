@@ -2,7 +2,7 @@ removePlots();
 simulateModel("Buildings.Fluid.SolarCollectors.BaseClasses.Examples.ASHRAEHeatLoss", tolerance=1e-6, stopTime=100, method="dassl", resultFile="ASHRAEHeatLoss");
 createPlot(id = 11,
  position = {0, 0, 1000, 500},
- y = {"heaLos.QLos_flow[1]", "heaLos.QLos_flow[2]", "heaLos.QLos_flow[3]"},
+ y = {"heaLos.QLos[1]", "heaLos.QLos[2]", "heaLos.QLos[3]"},
  range = {0.0, 100.0, -80.0, 10.0},
  autoscale = true,
  autoerase = true,

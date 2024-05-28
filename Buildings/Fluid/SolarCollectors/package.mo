@@ -1,14 +1,15 @@
 within Buildings.Fluid;
+
 package SolarCollectors "Package with models for solar collectors"
   extends Modelica.Icons.Package;
 
-  annotation (
+  annotation(
     Documentation(info = "<html>
   This package contains models which can be used to simulate solar thermal
   systems and examples describing their use.
   </html>"),
     Icon(
-      graphics={
+      graphics = {
         Polygon(origin = {14, -34}, fillColor = {136, 138, 133}, pattern = LinePattern.None, fillPattern = FillPattern.Solid,
           points = {{-70, -20}, {-32, -48}, {74, 28}, {30, 48}, {-70, -20}}),
         Ellipse(origin = {-59, 59}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-19, 19}, {19, -19}}),

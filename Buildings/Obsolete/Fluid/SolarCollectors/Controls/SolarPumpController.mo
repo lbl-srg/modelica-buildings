@@ -2,11 +2,10 @@ within Buildings.Obsolete.Fluid.SolarCollectors.Controls;
 model SolarPumpController
   "Controller which activates a circulation pump when solar radiation is above a critical level"
   extends Modelica.Blocks.Icons.Block;
-  extends Buildings.Obsolete.BaseClasses.ObsoleteModel;
 
   parameter Real delY(final unit = "W/m2") = 0.01
     "Width of the smoothHeaviside function";
-  parameter Buildings.Obsolete.Fluid.SolarCollectors.Data.GenericSolarCollector per
+  parameter Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector per
     "Performance data"
     annotation (choicesAllMatching=true, Placement(transformation(extent={{60,60},{80,80}})));
 
@@ -20,7 +19,7 @@ model SolarPumpController
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data input"
     annotation (Placement(transformation(extent={{-112,50},{-92,70}})));
 
-  Buildings.Obsolete.Fluid.SolarCollectors.Controls.BaseClasses.GCritCalc criSol(final
+  Buildings.Fluid.SolarCollectors.Controls.BaseClasses.GCritCalc criSol(final
       slope=per.slope, final y_intercept=per.y_intercept)
     "Calculates the critical insolation based on collector design and current weather conditions"
     annotation (Placement(transformation(extent={{-58,-20},{-38,0}})));
@@ -38,7 +37,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(weaBus.TDryBul, criSol.TEnv)    annotation (Line(
-      points={{-101.95,60.05},{-84,60.05},{-84,-4},{-60,-4}},
+      points={{-102,60},{-84,60},{-84,-4},{-60,-4}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -46,7 +45,7 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus.HDirNor, add.u1) annotation (Line(
-      points={{-101.95,60.05},{-34,60.05},{-34,6},{-22,6}},
+      points={{-102,60},{-34,60},{-34,6},{-22,6}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -66,7 +65,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (    defaultComponentName = "pumCon",
-   obsolete = "Obsolete model - use Buildings.Obsolete.Fluid.SolarCollectors.Controls.CollectorPump instead",
+   obsolete = "Obsolete model - use Buildings.Fluid.SolarCollectors.Controls.CollectorPump instead",
     Documentation(info = "<html>
       <p>
         This component models a pump controller which might be used in a solar thermal system.

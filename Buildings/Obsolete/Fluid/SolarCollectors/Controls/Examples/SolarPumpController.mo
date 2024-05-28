@@ -3,9 +3,9 @@ model SolarPumpController "Example for the solar pump controller"
   extends Modelica.Icons.Example;
   Buildings.Obsolete.Fluid.SolarCollectors.Controls.SolarPumpController
         pumCon(per=
-        Buildings.Obsolete.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_ThermaLiteHS20())
+        Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_ThermaLiteHS20())
     "Model controlling the on/off status of the pump"
-    annotation (Placement(transformation(extent={{0,0},{20,20}})));
+    annotation (Placement(transformation(extent={{-6,0},{14,20}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
      filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     "Weather data input file"
@@ -17,12 +17,12 @@ model SolarPumpController "Example for the solar pump controller"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
 equation
   connect(weaDat.weaBus, pumCon.weaBus)  annotation (Line(
-      points={{-40,30},{-20,30},{-20,16},{-0.2,16}},
+      points={{-40,30},{-20,30},{-20,16},{-6.2,16}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(sine.y, pumCon.TIn)  annotation (Line(
-      points={{-39,-10},{-20,-10},{-20,6},{-2,6}},
+      points={{-39,-10},{-20,-10},{-20,6},{-8,6}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation ( __Dymola_Commands(file=

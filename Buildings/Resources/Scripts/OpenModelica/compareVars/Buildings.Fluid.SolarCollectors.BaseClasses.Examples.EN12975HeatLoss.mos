@@ -1,8 +1,8 @@
 compareVars :=
   {
-    "heaLos.QLos_flow[1]",
-    "heaLos.QLos_flow[2]",
-    "heaLos.QLos_flow[3]",
+    "heaLos.QLos[1]",
+    "heaLos.QLos[2]",
+    "heaLos.QLos[3]",
     "TEnv.y",
     "T1.y",
     "T2.y",

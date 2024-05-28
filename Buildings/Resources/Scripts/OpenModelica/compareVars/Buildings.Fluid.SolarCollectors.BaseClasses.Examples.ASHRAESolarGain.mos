@@ -1,9 +1,9 @@
 compareVars :=
   {
-    "solGai.TFlu[1]",
-    "solGai.TFlu[2]",
-    "solGai.TFlu[3]",
-    "solGai.QSol_flow[1]",
-    "solGai.QSol_flow[2]",
-    "solGai.QSol_flow[3]"
+    "solHeaGai.TFlu[1]",
+    "solHeaGai.TFlu[2]",
+    "solHeaGai.TFlu[3]",
+    "solHeaGai.QSol_flow[1]",
+    "solHeaGai.QSol_flow[2]",
+    "solHeaGai.QSol_flow[3]"
   };
