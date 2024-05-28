@@ -6,14 +6,10 @@ compareVars :=
     "endUp.uChiHeaCon[2]",
     "endUp.uChi[1]",
     "endUp.uChi[2]",
-    "endUp.uChiWatReq[1]",
-    "endUp.uChiWatReq[2]",
-    "endUp.uConWatReq[1]",
-    "endUp.uConWatReq[2]",
-    "endUp.yChiWatIsoVal[1]",
-    "endUp.yChiWatIsoVal[2]",
-    "endUp.yChiHeaCon[1]",
-    "endUp.yChiHeaCon[2]",
+    "endUp.yChi[1]",
+    "endUp.yChi[2]",
     "endUp.yChiWatMinSet",
-    "endUp.yEndSta"
+    "endUp.yEndSta",
+    "triSam.u",
+    "triSam.y"
   };

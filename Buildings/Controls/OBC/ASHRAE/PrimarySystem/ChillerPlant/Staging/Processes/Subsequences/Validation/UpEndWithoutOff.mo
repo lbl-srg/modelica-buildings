@@ -12,6 +12,10 @@ model UpEndWithoutOff
     "End staging up process which does not require one chiller on and another chiller off"
     annotation (Placement(transformation(extent={{100,140},{120,160}})));
 
+  CDL.Reals.Sources.Sin sin(freqHz=1/1200)
+    annotation (Placement(transformation(extent={{80,190},{100,210}})));
+  CDL.Discrete.TriggeredSampler triSam
+    annotation (Placement(transformation(extent={{140,190},{160,210}})));
 protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
     final width=0.15,
@@ -91,8 +95,7 @@ equation
       color={255,0,255}));
   connect(chiOneSta.y, endUp.uChi[1])
     annotation (Line(points={{162,120},{174,120},{174,100},{32,100},{32,155.5},{
-          98,155.5}},
-                 color={255,0,255}));
+          98,155.5}}, color={255,0,255}));
   connect(chiTwoSta.y, endUp.uChi[2])
     annotation (Line(points={{162,80},{170,80},{170,60},{36,60},{36,156.5},{98,156.5}},
       color={255,0,255}));
@@ -104,15 +107,13 @@ equation
       color={255,127,0}));
   connect(chiOneSta.y, endUp.uChiWatReq[1])
     annotation (Line(points={{162,120},{174,120},{174,100},{48,100},{48,149.5},{
-          98,149.5}},
-                  color={255,0,255}));
+          98,149.5}}, color={255,0,255}));
   connect(chiTwoSta.y, endUp.uChiWatReq[2])
     annotation (Line(points={{162,80},{170,80},{170,60},{52,60},{52,150.5},{98,150.5}},
       color={255,0,255}));
   connect(chiOneSta.y, endUp.uConWatReq[1])
     annotation (Line(points={{162,120},{174,120},{174,100},{60,100},{60,145.5},{
-          98,145.5}},
-                 color={255,0,255}));
+          98,145.5}}, color={255,0,255}));
   connect(chiTwoSta.y, endUp.uConWatReq[2])
     annotation (Line(points={{162,80},{170,80},{170,60},{64,60},{64,146.5},{98,146.5}},
       color={255,0,255}));
@@ -128,7 +129,10 @@ equation
   connect(chiWatFlo.y, endUp.VMinChiWat_setpoint)
     annotation (Line(points={{-118,-240},{72,-240},{72,140},{98,140}},
       color={0,0,127}));
-
+  connect(sin.y, triSam.u)
+    annotation (Line(points={{102,200},{138,200}}, color={0,0,127}));
+  connect(endUp.yEndSta, triSam.trigger) annotation (Line(points={{122,143},{150,
+          143},{150,188}}, color={255,0,255}));
 annotation (
  experiment(StopTime=1200, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Processes/Subsequences/Validation/UpEndWithoutOff.mos"
@@ -139,6 +143,27 @@ This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.UpEnd\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.UpEnd</a>.
 </p>
+<p>
+It shows how the staging up process ends when the process does not require one chiller
+being enabled and another chiller being disabled. The instance <code>endUp</code>
+shows the results as below. It stages up from stage 1 which requires chiller 1 being
+enabled, to stage 2 which requires chiller 1 and chiller 2 being enabled.
+</p>
+<ul>
+<li>
+Before 180 seconds, the plant is not in stagingg up process (<code>uStaUp=false</code>).
+</li>
+<li>
+At 180 seconds, the plant starts staging up (<code>uStaUp=true</code>). However,
+it does not yet starts the subprocess of ending the staging process
+(<code>uEnaChiWatIsoVal=false</code>).
+</li>
+<li>
+At 240 seconds, the ending process starts (<code>uEnaChiWatIsoVal=true</code>).
+The chiller 2 is enabled (<code>yChi[2]=true</code>). The ending process is done
+(the output <code>yEndSta</code> has a rising edge).
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>

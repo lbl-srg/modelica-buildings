@@ -114,9 +114,8 @@ equation
     annotation (Line(points={{162,90},{176,90},{176,60},{-8,60},{-8,166.5},{58,166.5}},
       color={255,0,255}));
   connect(chiOneSta1.y, endUp1.uChi[1])
-    annotation (Line(points={{162,130},{180,130},{180,40},{-4,40},{-4,165.5},{58,
-          165.5}},
-      color={255,0,255}));
+    annotation (Line(points={{162,130},{180,130},{180,40},{-4,40},{-4,165.5},
+      {58,165.5}}, color={255,0,255}));
   connect(staUp1.y, endUp1.uOnOff)
     annotation (Line(points={{-118,90},{0,90},{0,164},{58,164}},
       color={255,0,255}));
@@ -138,9 +137,8 @@ equation
     annotation (Line(points={{162,90},{176,90},{176,60},{8,60},{8,160.5},{58,160.5}},
       color={255,0,255}));
   connect(chiOneSta1.y, endUp1.uChiWatReq[1])
-    annotation (Line(points={{162,130},{180,130},{180,40},{12,40},{12,159.5},{58,
-          159.5}},
-      color={255,0,255}));
+    annotation (Line(points={{162,130},{180,130},{180,40},{12,40},{12,159.5},
+      {58,159.5}}, color={255,0,255}));
   connect(fulOpe.y, chiIsoVal1.u3)
     annotation (Line(points={{-158,-70},{-140,-70},{-140,-78},{-102,-78}},
       color={0,0,127}));
@@ -157,9 +155,8 @@ equation
     annotation (Line(points={{-78,-70},{16,-70},{16,157.5},{58,157.5}},
       color={0,0,127}));
   connect(chiOneSta1.y, endUp1.uConWatReq[1])
-    annotation (Line(points={{162,130},{180,130},{180,40},{24,40},{24,155.5},{58,
-          155.5}},
-      color={255,0,255}));
+    annotation (Line(points={{162,130},{180,130},{180,40},{24,40},{24,155.5},
+      {58,155.5}}, color={255,0,255}));
   connect(chiTwoSta1.y, endUp1.uConWatReq[2])
     annotation (Line(points={{162,90},{176,90},{176,60},{28,60},{28,156.5},{58,156.5}},
       color={255,0,255}));
@@ -183,15 +180,12 @@ equation
       color={0,0,127}));
   connect(fulOpe.y, endUp1.uChiWatIsoVal[2])
     annotation (Line(points={{-158,-70},{-140,-70},{-140,-100},{20,-100},{20,158.5},
-          {58,158.5}},
-                 color={0,0,127}));
+          {58,158.5}}, color={0,0,127}));
   connect(enaHeaCon.y, endUp1.uChiHeaCon[2])
     annotation (Line(points={{-158,-160},{-140,-160},{-140,-180},{36,-180},{36,154.5},
-          {58,154.5}},
-                 color={255,0,255}));
+          {58,154.5}}, color={255,0,255}));
   connect(chiWatFlo2.y, endUp1.VMinChiWat_setpoint)
-    annotation (Line(points={{-158,-240},{44,-240},{44,150},{58,150}},
-      color={0,0,127}));
+    annotation (Line(points={{-158,-240},{44,-240},{44,150},{58,150}}, color={0,0,127}));
 
 annotation (
  experiment(StopTime=1200, Tolerance=1e-06),
@@ -203,6 +197,44 @@ This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.UpEnd\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.UpEnd</a>.
 </p>
+<p>
+It shows how the staging up process ends when the process requires one chiller
+being enabled and another chiller being disabled. The instance <code>endUp1</code>
+shows the results as below. It stages up from stage 1 which requires smaller chiller
+1 being enabled, to stage 2 which requires larger chiller 2 being enabled and
+chiller 1 being disabled.
+</p>
+<ul>
+<li>
+Before 180 seconds, the plant is not in stagingg up process (<code>uStaUp=false</code>).
+</li>
+<li>
+At 180 seconds, the plant starts staging up (<code>uStaUp=true</code>). However,
+it does not yet starts the subprocess of ending the staging process
+(<code>uEnaChiWatIsoVal=false</code>).
+</li>
+<li>
+At 240 seconds, the ending process starts (<code>uEnaChiWatIsoVal=true</code>).
+The chiller 2 is enabled (<code>uChi[2]=true</code>, <code>uChiWatReq[2]=true</code>,
+<code>uConWatReq[2]=true</code>).
+</li>
+<li>
+After 300 seconds at 540 seconds, the chiller 1 becomes disabled
+(<code>uChi[1]=false</code>). The chiller 1 becomes not requiring the chilled water
+and condenser water (<code>uChiWatReq[1]=false</code>, <code>uConWatReq[1]=false</code>).
+It starts slowly close the chilled water isolation valve of chiller 1.
+</li>
+<li>
+After 300 seconds (<code>chaChiWatIsoTim</code>) at 840 seconds, the chilled water
+isolation valve of chilelr 1 is fully closed. The head pressure control of chiller
+1 becomes disabled (<code>yChiHeaCon[1]</code>). The chilled water minimum flow
+setpoint chnages to the new setpoint.
+</li>
+<li>
+After 60 seconds (<code>aftByPasSetTim</code>) at 900 seconds, the ending process
+is done (<code>yEndSta=true</code>).
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>

@@ -57,7 +57,7 @@ block FlowSetpoint "Chilled water minimum flow setpoint for primary-only plants"
     final unit="m3/s",
     final min=0)
     "Chilled water minimum flow setpoint"
-    annotation (Placement(transformation(extent={{440,220},{480,260}}),
+    annotation (Placement(transformation(extent={{440,100},{480,140}}),
       iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChaSet
     "True: it is in the setpoint changing process"
@@ -79,16 +79,16 @@ protected
     annotation (Placement(transformation(extent={{-60,300},{-40,320}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim(final t=byPasSetTim)
     "Time after suppress chiller demand"
-    annotation (Placement(transformation(extent={{-218,510},{-198,530}})));
+    annotation (Placement(transformation(extent={{-220,510},{-200,530}})));
   Buildings.Controls.OBC.CDL.Reals.Line oneLeSet
     "Minimum flow setpoint when disabling one chiller"
-    annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
+    annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim1(final t=byPasSetTim)
     "Time after suppress chiller demand"
     annotation (Placement(transformation(extent={{-220,-300},{-200,-280}})));
   Buildings.Controls.OBC.CDL.Reals.Switch dowSet
     "Minimum flow chilled water flow setpoint when there is stage-down command"
-    annotation (Placement(transformation(extent={{240,-30},{260,-10}})));
+    annotation (Placement(transformation(extent={{240,-32},{260,-12}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
     annotation (Placement(transformation(extent={{-220,-330},{-200,-310}})));
   Buildings.Controls.OBC.CDL.Reals.Switch byPasSet1
@@ -173,7 +173,7 @@ protected
     "Minimum flow rate of operating chiller"
     annotation (Placement(transformation(extent={{-100,-140},{-80,-120}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2  "Logical and"
-    annotation (Placement(transformation(extent={{-400,90},{-380,110}})));
+    annotation (Placement(transformation(extent={{-400,110},{-380,130}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi9[nChi] if have_parChi
     "Flow rate ratio of operating chiller"
     annotation (Placement(transformation(extent={{-220,440},{-200,460}})));
@@ -237,7 +237,7 @@ protected
     annotation (Placement(transformation(extent={{160,-210},{180,-190}})));
   Buildings.Controls.OBC.CDL.Reals.Switch chaSet
     "Minimum flow chilled water flow setpoint when there is stage-change command"
-    annotation (Placement(transformation(extent={{300,140},{320,160}})));
+    annotation (Placement(transformation(extent={{300,190},{320,210}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{300,230},{320,250}})));
   Buildings.Controls.OBC.CDL.Logical.And and4 "Logical and"
@@ -249,7 +249,7 @@ protected
     annotation (Placement(transformation(extent={{-400,340},{-380,360}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=nChi) "Replicate boolean input"
-    annotation (Placement(transformation(extent={{-380,130},{-360,150}})));
+    annotation (Placement(transformation(extent={{-380,150},{-360,170}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greEquThr[nChi](
     final t=fill(0.5, nChi))
     "Convert real to boolean"
@@ -313,16 +313,26 @@ protected
     annotation (Placement(transformation(extent={{160,-510},{180,-490}})));
   Buildings.Controls.OBC.CDL.Logical.Not chaSetPro
     "True: it is in the setpoint changing process"
-    annotation (Placement(transformation(extent={{322,-450},{342,-430}})));
+    annotation (Placement(transformation(extent={{320,-450},{340,-430}})));
+  Buildings.Controls.OBC.CDL.Reals.Switch byPasSet3
+    "Minimum flow chilled water flow setpoint"
+    annotation (Placement(transformation(extent={{400,110},{420,130}})));
+  Buildings.Controls.OBC.CDL.Logical.Latch inStaCha
+    "In stage changing process"
+    annotation (Placement(transformation(extent={{340,110},{360,130}})));
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam1
+    "Setpoint at the moment when ending stage change"
+    annotation (Placement(transformation(extent={{340,70},{360,90}})));
+  Buildings.Controls.OBC.CDL.Logical.FallingEdge endSta
+    "End staging change"
+    annotation (Placement(transformation(extent={{240,50},{260,70}})));
 
 equation
   connect(uStaDow, not2.u)
     annotation (Line(points={{-460,-290},{-410,-290},{-410,-320},{-222,-320}},
       color={255,0,255}));
-  connect(byPasSet1.y, yChiWatMinFloSet)
-    annotation (Line(points={{422,240},{460,240}}, color={0,0,127}));
   connect(and1.y, tim.u)
-    annotation (Line(points={{-298,520},{-220,520}}, color={255,0,255}));
+    annotation (Line(points={{-298,520},{-222,520}}, color={255,0,255}));
   connect(uStaDow, and3.u1)
     annotation (Line(points={{-460,-290},{-322,-290}}, color={255,0,255}));
   connect(and3.y, tim1.u)
@@ -357,11 +367,11 @@ equation
   connect(swi3.y, multiMax2.u)
     annotation (Line(points={{-98,100},{-82,100}}, color={0,0,127}));
   connect(swi4.y, mulSum1.u)
-    annotation (Line(points={{-98,40},{-82,40}},     color={0,0,127}));
+    annotation (Line(points={{-98,40},{-82,40}}, color={0,0,127}));
   connect(swi5.y, multiMax1.u)
-    annotation (Line(points={{-98,-50},{-82,-50}},     color={0,0,127}));
+    annotation (Line(points={{-98,-50},{-82,-50}}, color={0,0,127}));
   connect(swi6.y, multiMax3.u)
-    annotation (Line(points={{-78,-130},{-22,-130}},   color={0,0,127}));
+    annotation (Line(points={{-78,-130},{-22,-130}}, color={0,0,127}));
   connect(multiMax1.y, max1.u1)
     annotation (Line(points={{-58,-50},{-40,-50},{-40,-84},{-22,-84}},
       color={0,0,127}));
@@ -369,18 +379,18 @@ equation
     annotation (Line(points={{-198,70},{-140,70},{-140,-130},{-102,-130}},
       color={255,0,255}));
   connect(uStaDow, or2.u2)
-    annotation (Line(points={{-460,-290},{-410,-290},{-410,92},{-402,92}},
+    annotation (Line(points={{-460,-290},{-410,-290},{-410,112},{-402,112}},
       color={255,0,255}));
   connect(uStaUp, or2.u1)
-    annotation (Line(points={{-460,520},{-410,520},{-410,100},{-402,100}},
+    annotation (Line(points={{-460,520},{-410,520},{-410,120},{-402,120}},
       color={255,0,255}));
   connect(booToRea.y, triSam.u)
     annotation (Line(points={{-378,350},{-362,350}}, color={0,0,127}));
   connect(or2.y, booRep.u)
-    annotation (Line(points={{-378,100},{-370,100},{-370,120},{-390,120},{-390,140},
-          {-382,140}}, color={255,0,255}));
+    annotation (Line(points={{-378,120},{-370,120},{-370,140},{-390,140},{-390,160},
+          {-382,160}}, color={255,0,255}));
   connect(booRep.y, triSam.trigger)
-    annotation (Line(points={{-358,140},{-350,140},{-350,338}}, color={255,0,255}));
+    annotation (Line(points={{-358,160},{-350,160},{-350,338}}, color={255,0,255}));
   connect(uChi, booToRea.u)
     annotation (Line(points={{-460,440},{-420,440},{-420,350},{-402,350}},
       color={255,0,255}));
@@ -519,19 +529,19 @@ equation
     annotation (Line(points={{2,170},{90,170},{90,322},{98,322}},
       color={0,0,127}));
   connect(tim.y, oneMorSet.u)
-    annotation (Line(points={{-196,520},{50,520},{50,330},{98,330}},
+    annotation (Line(points={{-198,520},{50,520},{50,330},{98,330}},
       color={0,0,127}));
   connect(con2.y, oneLeSet.x1)
-    annotation (Line(points={{-38,310},{70,310},{70,-32},{98,-32}},
+    annotation (Line(points={{-38,310},{70,310},{70,-22},{98,-22}},
       color={0,0,127}));
   connect(pro4.y, oneLeSet.f1)
-    annotation (Line(points={{-38,350},{60,350},{60,-36},{98,-36}},
+    annotation (Line(points={{-38,350},{60,350},{60,-26},{98,-26}},
       color={0,0,127}));
   connect(con3.y, oneLeSet.x2)
-    annotation (Line(points={{-38,268},{80,268},{80,-44},{98,-44}},
+    annotation (Line(points={{-38,268},{80,268},{80,-34},{98,-34}},
       color={0,0,127}));
   connect(pro2.y, oneLeSet.f2)
-    annotation (Line(points={{2,70},{50,70},{50,-48},{98,-48}},
+    annotation (Line(points={{2,70},{50,70},{50,-38},{98,-38}},
       color={0,0,127}));
   connect(oneMorSet.y, byPasSet2.u3)
     annotation (Line(points={{122,330},{170,330},{170,352},{178,352}},
@@ -583,29 +593,29 @@ equation
     annotation (Line(points={{-38,430},{40,430},{40,-192},{158,-192}},
       color={0,0,127}));
   connect(uOnOff, dowSet.u2)
-    annotation (Line(points={{-460,-220},{220,-220},{220,-20},{238,-20}},
+    annotation (Line(points={{-460,-220},{220,-220},{220,-22},{238,-22}},
       color={255,0,255}));
   connect(byPasSet4.y, dowSet.u1)
-    annotation (Line(points={{182,-200},{200,-200},{200,-12},{238,-12}},
+    annotation (Line(points={{182,-200},{200,-200},{200,-14},{238,-14}},
       color={0,0,127}));
   connect(uUpsDevSta, and3.u2)
     annotation (Line(points={{-460,480},{-430,480},{-430,-298},{-322,-298}},
       color={255,0,255}));
   connect(tim1.y, oneLeSet.u)
-    annotation (Line(points={{-198,-290},{30,-290},{30,-40},{98,-40}},
+    annotation (Line(points={{-198,-290},{30,-290},{30,-30},{98,-30}},
       color={0,0,127}));
   connect(oneLeSet.y, dowSet.u3)
-    annotation (Line(points={{122,-40},{180,-40},{180,-28},{238,-28}},
+    annotation (Line(points={{122,-30},{238,-30}},
       color={0,0,127}));
   connect(dowSet.y, chaSet.u3)
-    annotation (Line(points={{262,-20},{270,-20},{270,142},{298,142}},
+    annotation (Line(points={{262,-22},{270,-22},{270,192},{298,192}},
       color={0,0,127}));
   connect(upSet.y, chaSet.u1)
-    annotation (Line(points={{262,320},{270,320},{270,158},{298,158}},
+    annotation (Line(points={{262,320},{270,320},{270,208},{298,208}},
       color={0,0,127}));
   connect(uStaUp, chaSet.u2)
-    annotation (Line(points={{-460,520},{-410,520},{-410,500},{280,500},{280,150},
-          {298,150}}, color={255,0,255}));
+    annotation (Line(points={{-460,520},{-410,520},{-410,500},{280,500},{280,200},
+          {298,200}}, color={255,0,255}));
   connect(not1.y, and4.u1)
     annotation (Line(points={{322,240},{338,240}}, color={255,0,255}));
   connect(and4.y, byPasSet1.u2)
@@ -614,7 +624,7 @@ equation
     annotation (Line(points={{-198,-320},{330,-320},{330,232},{338,232}},
       color={255,0,255}));
   connect(chaSet.y, byPasSet1.u3)
-    annotation (Line(points={{322,150},{380,150},{380,232},{398,232}},
+    annotation (Line(points={{322,200},{380,200},{380,232},{398,232}},
       color={0,0,127}));
   connect(pro3.y, byPasSet1.u1)
     annotation (Line(points={{-38,430},{380,430},{380,248},{398,248}},
@@ -635,7 +645,7 @@ equation
     annotation (Line(points={{2,-90},{90,-90},{90,-258},{98,-258}},
       color={0,0,127}));
   connect(multiMax3.y, oneLeSet.f2)
-    annotation (Line(points={{2,-130},{50,-130},{50,-48},{98,-48}},
+    annotation (Line(points={{2,-130},{50,-130},{50,-38},{98,-38}},
       color={0,0,127}));
   connect(multiMax6.y, byPasSet2.u1)
     annotation (Line(points={{-58,-10},{40,-10},{40,368},{178,368}},
@@ -647,7 +657,7 @@ equation
     annotation (Line(points={{-58,-10},{40,-10},{40,280},{380,280},{380,248},{398,
           248}},     color={0,0,127}));
   connect(multiMax1.y, oneLeSet.f1)
-    annotation (Line(points={{-58,-50},{60,-50},{60,-36},{98,-36}},
+    annotation (Line(points={{-58,-50},{60,-50},{60,-26},{98,-26}},
       color={0,0,127}));
   connect(floRat.y, nexChiRat.u)
     annotation (Line(points={{-258,280},{-250,280},{-250,190},{-222,190}},
@@ -709,7 +719,7 @@ equation
           {18,-370}}, color={255,0,255}));
   connect(and1.y, or3.u2) annotation (Line(points={{-298,520},{-284,520},{-284,-448},
           {-62,-448}}, color={255,0,255}));
-  connect(tim.passed, or5.u2) annotation (Line(points={{-196,512},{-132,512},{-132,
+  connect(tim.passed, or5.u2) annotation (Line(points={{-198,512},{-132,512},{-132,
           -378},{18,-378}}, color={255,0,255}));
   connect(or5.y, edg.u)
     annotation (Line(points={{42,-370},{58,-370}}, color={255,0,255}));
@@ -728,9 +738,27 @@ equation
   connect(staChaSet.y, lat.clr) annotation (Line(points={{182,-500},{220,-500},{
           220,-446},{238,-446}}, color={255,0,255}));
   connect(lat.y, chaSetPro.u)
-    annotation (Line(points={{262,-440},{320,-440}}, color={255,0,255}));
+    annotation (Line(points={{262,-440},{318,-440}}, color={255,0,255}));
   connect(chaSetPro.y, yChaSet)
-    annotation (Line(points={{344,-440},{460,-440}}, color={255,0,255}));
+    annotation (Line(points={{342,-440},{460,-440}}, color={255,0,255}));
+  connect(byPasSet1.y, byPasSet3.u1) annotation (Line(points={{422,240},{430,240},
+          {430,180},{380,180},{380,128},{398,128}}, color={0,0,127}));
+  connect(inStaCha.y, byPasSet3.u2)
+    annotation (Line(points={{362,120},{398,120}}, color={255,0,255}));
+  connect(or2.y, inStaCha.u)
+    annotation (Line(points={{-378,120},{338,120}}, color={255,0,255}));
+  connect(byPasSet1.y, triSam1.u) annotation (Line(points={{422,240},{430,240},{
+          430,180},{320,180},{320,80},{338,80}}, color={0,0,127}));
+  connect(endSta.y, triSam1.trigger)
+    annotation (Line(points={{262,60},{350,60},{350,68}}, color={255,0,255}));
+  connect(or2.y, endSta.u) annotation (Line(points={{-378,120},{200,120},{200,60},
+          {238,60}}, color={255,0,255}));
+  connect(endSta.y, inStaCha.clr) annotation (Line(points={{262,60},{300,60},{300,
+          114},{338,114}}, color={255,0,255}));
+  connect(triSam1.y, byPasSet3.u3) annotation (Line(points={{362,80},{380,80},{380,
+          112},{398,112}}, color={0,0,127}));
+  connect(byPasSet3.y, yChiWatMinFloSet)
+    annotation (Line(points={{422,120},{460,120}}, color={0,0,127}));
 annotation (
   defaultComponentName="minChiFloSet",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
@@ -903,7 +931,7 @@ annotation (
           horizontalAlignment=TextAlignment.Right,
           textString="Minimum flow setpoint when"),
         Text(
-          extent={{-42,-60},{22,-74}},
+          extent={{-38,-60},{26,-74}},
           textColor={0,0,127},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,

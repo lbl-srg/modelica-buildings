@@ -174,7 +174,7 @@ equation
     annotation (Line(points={{-78,-50},{-62,-50}}, color={0,0,127}));
   connect(lesThr.y, and3.u2) annotation (Line(points={{-38,-50},{-20,-50},{-20,-8},
           {-2,-8}}, color={255,0,255}));
-  connect(uStaPro, edg3.u) annotation (Line(points={{-180,80},{-154,80},{-154,
+  connect(uStaPro, edg3.u) annotation (Line(points={{-180,80},{-30,80},{-30,
           -130},{38,-130}}, color={255,0,255}));
 annotation (
   defaultComponentName="minBypRes",
