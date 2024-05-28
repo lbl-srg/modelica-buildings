@@ -243,7 +243,8 @@ model AirToWater
     final m_flow_nominal=mChiWatPri_flow_nominal,
     final icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Supply,
     final energyDynamics=energyDynamics,
-    final allowFlowReversal=allowFlowReversal) "CHW buffer tank"
+    final allowFlowReversal=allowFlowReversal) if have_chiWat
+                                               "CHW buffer tank"
     annotation (Placement(transformation(extent={{120,70},{140,90}})));
   Buildings.Templates.Components.Tanks.Buffer tanChiWatRet(
     redeclare final package Medium = MediumChiWat,
@@ -252,7 +253,8 @@ model AirToWater
     final m_flow_nominal=mChiWatPri_flow_nominal,
     final icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Return,
     final energyDynamics=energyDynamics,
-    final allowFlowReversal=allowFlowReversal) "CHW buffer tank"
+    final allowFlowReversal=allowFlowReversal) if have_chiWat
+                                               "CHW buffer tank"
     annotation (Placement(transformation(extent={{140,-10},{120,10}})));
   // Secondary CHW loop
   Buildings.Templates.Components.Pumps.Multiple pumChiWatSec(
@@ -460,7 +462,8 @@ model AirToWater
     final m_flow_nominal=mHeaWatPri_flow_nominal,
     final icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Supply,
     final energyDynamics=energyDynamics,
-    final allowFlowReversal=allowFlowReversal) "HW buffer tank"
+    final allowFlowReversal=allowFlowReversal) if have_heaWat
+                                               "HW buffer tank"
     annotation (Placement(transformation(extent={{120,-290},{140,-270}})));
   Buildings.Templates.Components.Tanks.Buffer tanHeaWatRet(
     redeclare final package Medium = MediumHeaWat,
@@ -469,7 +472,8 @@ model AirToWater
     final m_flow_nominal=mHeaWatPri_flow_nominal,
     final icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Return,
     final energyDynamics=energyDynamics,
-    final allowFlowReversal=allowFlowReversal) "HW buffer tank"
+    final allowFlowReversal=allowFlowReversal) if have_heaWat
+                                               "HW buffer tank"
     annotation (Placement(transformation(extent={{140,-370},{120,-350}})));
   // Secondary HW loop
   Buildings.Templates.Components.Pumps.Multiple pumHeaWatSec(
@@ -1081,23 +1085,40 @@ Setting the parameter <code>have_chiWat</code> to true (default setting) allows
 modeling a plant that provides both heating hot water and chilled water.
 </td>
 </tr>
+<tr><td>Heat recovery</td>
+<td>
+<b>Without sidestream heat recovery chiller</b><br/>
+With sidestream heat recovery chiller
+</td>
+<td>
+This option is only available for heating and cooling plants.
+When selected, the template includes a chiller and its associated dedicated 
+primary CHW and CW pumps. 
+The chiller is considered connected in a sidestream configuration to both 
+the CHW return and the HW return.
+</td>
+</tr>
 <tr><td>Type of distribution</td>
 <td>
-<b>Constant primary-variable secondary centralized</b>
+<b>Constant primary-variable secondary centralized</b><br/>
+Variable primary-only
 </td>
 <td>
 It is assumed that the HW and the CHW loops have the
 same type of distribution, as specified by this parameter.<br/>
+Most AWHPs on the market use a reverse cycle for defrosting.
+This requires maximum primary flow during defrost cycles.
+Consequently, variable primary plants commonly adopt a high
+minimum flow setpoint, typically close to the design flow rate,
+effectively operating akin to constant primary plants but with
+variable speed pumps controlling the loop differential pressure.
+While the flow rate directed towards the loads varies,
+the bypass valve control loop ensures a constant primary flow
+for a given number of staged units.<br/>
 \"Centralized secondary pumps\" refers to configurations with a single
 group of secondary pumps that is typically integrated into the plant.<br/>
 Distributed secondary pumps with multiple secondary loops served
-by dedicated secondary pumps are currently not supported.<br/>
-Options are limited to constant primary distributions because most
-AWHPs on the market use a reverse cycle for defrosting.
-This requires maximum primary flow during defrost cycles and hinders
-variable primary distributions.<br/>
-An option for constant primary-only distributions with ∆p-controlled
-variable speed pumps will be added in a next release.
+by dedicated secondary pumps are currently not supported.
 </td>
 </tr>
 <tr><td>Type of primary pump arrangement</td>
@@ -1143,6 +1164,33 @@ use of balancing valves.
 Constant speed
 </td>
 <td>See the note above on primary HW pumps.</td>
+</tr>
+<tr><td>HW buffer tank</td>
+<td>
+<b>HW buffer tank in the primary supply</b><br/>
+HW buffer tank in the primary return<br/>
+No HW buffer tank
+</td>
+<td>By default, the HW buffer tank is considered integrated into the primary supply
+to mitigate the impact of defrost cycles on the temperature of the HW supplied to the loads.
+This assumes that the buffer tank is well-mixed.</br>
+The default sizing of the tank corresponds to <i>4</i>&nbps;min of the design primary flow rate.
+This is based on manufacturer recommendations, which account for the fact that defrost cycles
+can take <i>3</i> to <i>5</i>&nbps;min to complete. 
+</td>
+</tr>
+<tr><td>CHW buffer tank</td>
+<td>
+<b>CHW buffer tank in the primary return</b><br/>
+CHW buffer tank in the primary supply<br/>
+No CHW buffer tank
+</td>
+<td>By default, the CHW buffer tank is considered integrated into the primary return
+to mitigate the impact of rapid load variations on the plant controls.
+This assumes that the buffer tank is well-mixed.</br>
+The default sizing of the tank corresponds to <i>2</i>&nbps;min of the design primary flow rate,
+based on manufacturer recommendations. 
+</td>
 </tr>
 <tr><td>Controller</td>
 <td>

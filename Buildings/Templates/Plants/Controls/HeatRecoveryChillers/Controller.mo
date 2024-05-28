@@ -1,5 +1,6 @@
 within Buildings.Templates.Plants.Controls.HeatRecoveryChillers;
 block Controller
+  "Sidestream heat recovery chiller controller"
   parameter Boolean have_reqFlo=false
     "Set to true if HRC provides flow request point via network interface"
     annotation (Evaluate=true);
@@ -177,12 +178,10 @@ block Controller
     final COPHea_nominal=COPHea_nominal)
     "Set mode"
     annotation (Placement(transformation(extent={{30,-70},{50,-50}})));
-  Pumps.Primary.EnableDedicated pumChiWat(
-    final have_reqFlo=have_reqFlo)
+  Pumps.Primary.DisableDedicated pumChiWat(final have_reqFlo=have_reqFlo)
     "CHW pump control"
     annotation (Placement(transformation(extent={{30,110},{50,130}})));
-  Pumps.Primary.EnableDedicated pumHeaWat(
-    final have_reqFlo=have_reqFlo)
+  Pumps.Primary.DisableDedicated pumHeaWat(final have_reqFlo=have_reqFlo)
     "HW pump control"
     annotation (Placement(transformation(extent={{30,70},{50,90}})));
   Buildings.Controls.OBC.CDL.Logical.Pre preMod
@@ -274,5 +273,36 @@ equation
         Text(
           extent={{-150,210},{150,170}},
           textString="%name",
-          textColor={0,0,255})}));
+          textColor={0,0,255})}),
+    Documentation(info="<html>
+<p>
+The control sequence consists of the following parts.
+</p>
+<ul>
+<li>Heat recovery chiller enable logic: Refer to
+<a href=\"modelica://Buildings.Templates.Plants.Controls.HeatRecoveryChillers.Enable\">
+Buildings.Templates.Plants.Controls.HeatRecoveryChillers.Enable</a>.
+</li>
+<li>Heat recovery chiller CHW and HW pump control:
+The logic assumes constant speed pumps.
+The pumps are enabled as described in
+<a href=\"modelica://Buildings.Templates.Plants.Controls.HeatRecoveryChillers.Enable\">
+Buildings.Templates.Plants.Controls.HeatRecoveryChillers.Enable</a>
+and disabled as described in
+<a href=\"modelica://Buildings.Templates.Plants.Controls.Pumps.Primary.DisableDedicated\">
+Buildings.Templates.Plants.Controls.Pumps.Primary.DisableDedicated</a>.
+</li>
+<li>Heat recovery chiller mode control and setpoint selection: Refer to
+<a href=\"modelica://Buildings.Templates.Plants.Controls.HeatRecoveryChillers.ModeControl\">
+Buildings.Templates.Plants.Controls.HeatRecoveryChillers.ModeControl</a>.
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+May 31, 2024, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end Controller;

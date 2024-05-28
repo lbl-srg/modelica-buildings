@@ -1,8 +1,8 @@
-simulateModel("Buildings.Templates.Plants.Controls.HeatRecoveryChillers.Validation.Enable",
+simulateModel("Buildings.Templates.Plants.Controls.HeatRecoveryChillers.Validation.EnableAndModeControl",
     method="cvode",
     tolerance=1e-6,
     stopTime=86400.0,
-    resultFile="Enable");
+    resultFile="EnableAndModeControl");
 createPlot(
     id=1,
     subPlot=1,
@@ -15,7 +15,7 @@ createPlot(
 createPlot(
     id=1,
     subPlot=2,
-    y={"ena.QChiWatReq_flow", "ena.QHeaWatReq_flow", "ena.capCooHrc_min", "ena.capHeaHrc_min", "setMod.QEvaHea_flow.y"},
+    y={"ena.QChiWatReq_flow", "ena.QHeaWatReq_flow", "ena.capCoo_min", "ena.capHea_min", "setMod.QEvaHea_flow.y"},
     autoscale=true,
     grid=true,
     timeUnit="min"

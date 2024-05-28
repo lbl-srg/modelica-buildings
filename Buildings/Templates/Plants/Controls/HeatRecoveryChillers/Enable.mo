@@ -1,6 +1,6 @@
 within Buildings.Templates.Plants.Controls.HeatRecoveryChillers;
 block Enable
-  "Heat recovery chiller enable/disable"
+  "Heat recovery chiller and HRC CHW and HW pumps enable"
   parameter Real TChiWatSup_min(
     final min=273.15,
     start=4 + 273.15,

@@ -1,5 +1,5 @@
 within Buildings.Templates.Plants.Controls.Pumps.Primary;
-block EnableDedicated "Pump command for plants with dedicated primary pumps"
+block DisableDedicated "Pump disable for plants with dedicated primary pumps"
   parameter Boolean have_reqFlo=false
     "Set to true if plant equipment provides flow request point via network interface"
     annotation (Evaluate=true);
@@ -136,4 +136,4 @@ dedicated primary pumps in chiller and boiler plants.
 The enable signal <code>u1</code> is yielded by the staging event sequencing logic.
 </p>
 </html>"));
-end EnableDedicated;
+end DisableDedicated;

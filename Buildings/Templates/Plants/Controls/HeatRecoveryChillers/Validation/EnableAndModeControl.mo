@@ -1,5 +1,6 @@
 within Buildings.Templates.Plants.Controls.HeatRecoveryChillers.Validation;
-model Enable
+model EnableAndModeControl
+  "Validation model for sidestream HRC enable and mode control"
   parameter Real cp_default(
     final min=0,
     final unit="J/(kg.K)")=4184
@@ -285,7 +286,7 @@ equation
   annotation (
     __Dymola_Commands(
       file=
-        "modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Controls/HeatRecoveryChillers/Validation/Enable.mos"
+        "modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Controls/HeatRecoveryChillers/Validation/EnableAndModeControl.mos"
         "Simulate and plot"),
     experiment(
       StopTime=86400.0,
@@ -309,17 +310,38 @@ equation
     Documentation(
       info="<html>
 <p>
-This validates
+This model validates
 <a href=\"modelica://Buildings.Templates.Plants.Controls.HeatRecoveryChillers.Enable\">
 Buildings.Templates.Plants.Controls.HeatRecoveryChillers.Enable</a>
 and 
 <a href=\"modelica://Buildings.Templates.Plants.Controls.HeatRecoveryChillers.ModeControl\">
 Buildings.Templates.Plants.Controls.HeatRecoveryChillers.ModeControl</a>.
+Consequently, it also validates
+<a href=\"modelica://Buildings.Templates.Plants.Controls.HeatRecoveryChillers.Controller\">
+Buildings.Templates.Plants.Controls.HeatRecoveryChillers.Controller</a>,
+which is composed of the two former blocks.
 </p>
 <p>
-Controller exposed to varying HW and CHW ∆T.
-Testing the disabling logic based on a high HRC leaving HWT when the HRC
-is in cooling control mode.
+The validation uses varying ∆T for HW across the HRC condenser 
+and CHW across the HRC evaporator.
+The model verifies that:
 </p>
+<ul>
+<li>
+The HRC is effectively disabled when it is controlled in cooling mode 
+and the leaving HW temperature is high.
+</li>
+<li>
+The HRC control mode switches from cooling to heating when the 
+cooling load exceeds the calculated evaporator heat flow rate in heating mode.
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+May 31, 2024, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
-end Enable;
+end EnableAndModeControl;

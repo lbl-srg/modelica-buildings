@@ -1,4 +1,4 @@
-EnableDedicated
+DisableDedicated
 EnableLeadHeadered
 VariableSpeed
 Validation

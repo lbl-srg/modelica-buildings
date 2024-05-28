@@ -170,6 +170,9 @@ First implementation.
 <p>
 The minimum flow bypass valve is modulated based on a reverse acting control loop 
 to maintain the primary flow rate at setpoint.
+The setpoint is calculated as described in 
+<a href=\"modelica://Buildings.Templates.Plants.Controls.MinimumFlow.Setpoint\">
+Buildings.Templates.Plants.Controls.MinimumFlow.Setpoint</a>.
 </p>
 <p>
 <b>When using isolation valve command signals</b>

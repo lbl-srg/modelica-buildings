@@ -18,8 +18,7 @@ block VariableSpeed "Variable speed primary pumps"
   parameter Boolean have_pumChiWatPriDed(start=false)
     "Set to true for plants with separate dedicated primary CHW pumps"
     annotation (Evaluate=true,
-    Dialog(group="Plant configuration",
-      enable=have_chiWat and not have_pumPriHdr));
+    Dialog(group="Plant configuration", enable=have_chiWat and not have_pumPriHdr));
   final parameter Boolean have_pumChiWatPri=
     have_chiWat and (have_pumPriHdr or have_pumChiWatPriDed)
     "Set to true for plants with separate primary CHW pumps"
@@ -165,7 +164,7 @@ block VariableSpeed "Variable speed primary pumps"
     nout=nPumHeaWatPri)
     if have_pumHeaWatPri
     "Replicate signal"
-    annotation (Placement(transformation(extent={{70,-150},{90,-130}})));
+    annotation (Placement(transformation(extent={{92,-150},{112,-130}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator rep1(
     nout=nPumChiWatPri)
     if have_pumChiWatPri
@@ -210,12 +209,10 @@ block VariableSpeed "Variable speed primary pumps"
     annotation (Placement(transformation(extent={{10,-110},{30,-90}})));
   Utilities.PlaceholderReal ph[nPumHeaWatPri](
     each final have_inp=have_heaWat and have_chiWat and not have_pumChiWatPri
-         and not have_pumPriHdr,
-    each final have_inpPh=false,
-    each final u_internal=yPumHeaWatPriSet)
+         and not have_pumPriHdr, each final have_inpPh=true)
     if have_pumHeaWatPri and not have_pumPriHdr
     "Always use HW pump speed in case of separate dedicated CHW pumps "
-    annotation (Placement(transformation(extent={{80,-90},{100,-70}})));
+    annotation (Placement(transformation(extent={{92,-90},{112,-70}})));
   Generic.ControlDifferentialPressure ctlDpHeaWat(
     final have_senDpRemWir=have_senDpHeaWatRemWir,
     final k=kCtlDpHeaWat,
@@ -244,67 +241,71 @@ block VariableSpeed "Variable speed primary pumps"
       u_internal=yPumChiWatPriSet) if have_chiWat "Replace with fixed speed"
     annotation (Placement(transformation(extent={{-30,150},{-10,170}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumHeaWatPri_actual[
-    nPumHeaWatPri] if have_pumHeaWatPri "Primary HW pump status" annotation (
+    nPumHeaWatPri] if have_pumHeaWatPri and have_pumPriCtlDp
+                                        "Primary HW pump status" annotation (
       Placement(transformation(extent={{-200,180},{-160,220}}),
         iconTransformation(extent={{-140,80},{-100,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumChiWatPri_actual[
-    nPumChiWatPri] if have_pumChiWatPri "Primary CHW pump status" annotation (
+    nPumChiWatPri] if have_pumChiWatPri and have_pumPriCtlDp
+                                        "Primary CHW pump status" annotation (
       Placement(transformation(extent={{-200,160},{-160,200}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Not u1Coo[nEqu]
     if have_heaWat and have_chiWat and not have_pumChiWatPri
     "Return true if cooling mode command"
     annotation (Placement(transformation(extent={{-150,-150},{-130,-130}})));
-  Buildings.Controls.OBC.CDL.Logical.And u1CooAndOn[nPumHeaWatPri]
-    if have_heaWat and have_chiWat and not have_pumChiWatPri
+  Buildings.Controls.OBC.CDL.Logical.And u1CooAndOn[nPumHeaWatPri] if
+    have_heaWat and have_chiWat and not have_pumChiWatPri and have_pumPriCtlDp
     "Return true if cooling mode command and pump proven on"
     annotation (Placement(transformation(extent={{-140,138},{-120,158}})));
   Utilities.PlaceholderLogical phPumChiWatPriSta[if have_pumChiWatPri then
     nPumChiWatPri else nPumHeaWatPri](each final have_inp=have_pumChiWatPri,
-      each final have_inpPh=true) if have_chiWat
+      each final have_inpPh=true) if have_chiWat and have_pumPriCtlDp
     "Replace with common dedicated pump signal"
     annotation (Placement(transformation(extent={{-140,170},{-120,190}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatLoc(final unit="Pa")
-    if have_chiWat and not have_senDpChiWatRemWir
+    if have_chiWat and have_pumPriCtlDp and not have_senDpChiWatRemWir
     "Local CHW differential pressure"
     annotation (Placement(transformation(extent={{-200,-40},{-160,0}}),
       iconTransformation(extent={{-140,-140},{-100,-100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatLocSet[nSenDpChiWatRem](each final
             unit="Pa")
-    if have_chiWat and not have_senDpChiWatRemWir
+    if have_chiWat and have_pumPriCtlDp and not have_senDpChiWatRemWir
     "Local CHW differential pressure setpoint output from each of the remote loops"
     annotation (Placement(transformation(extent={{-200,-20},{-160,20}}),
       iconTransformation(extent={{-140,-120},{-100,-80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatRem[nSenDpChiWatRem](
-      each final unit="Pa") if have_chiWat and have_senDpChiWatRemWir
+      each final unit="Pa")
+    if have_chiWat and have_pumPriCtlDp and have_senDpChiWatRemWir
     "Remote CHW differential pressure"
     annotation (Placement(transformation(extent={{-200,0},{-160,40}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHeaWatLoc(final unit="Pa")
-    if have_heaWat and not have_senDpHeaWatRemWir
+    if have_heaWat and have_pumPriCtlDp and not have_senDpHeaWatRemWir
     "Local HW differential pressure"
     annotation (Placement(transformation(extent={{-200,40},{-160,80}}),
       iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHeaWatLocSet[nSenDpHeaWatRem](each final
             unit="Pa")
-    if have_heaWat and not have_senDpHeaWatRemWir
+    if have_heaWat and have_pumPriCtlDp and not have_senDpHeaWatRemWir
     "Local HW differential pressure setpoint output from each of the remote loops"
     annotation (Placement(transformation(extent={{-200,60},{-160,100}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHeaWatRem[nSenDpHeaWatRem](
-      each final unit="Pa") if have_heaWat and have_senDpHeaWatRemWir
+      each final unit="Pa")
+    if have_heaWat and have_pumPriCtlDp and have_senDpHeaWatRemWir
     "Remote HW differential pressure"
     annotation (Placement(transformation(extent={{-200,80},{-160,120}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHeaWatRemSet[
     nSenDpHeaWatRem](each final unit="Pa")
-    if have_heaWat and have_senDpHeaWatRemWir
+    if have_heaWat and have_pumPriCtlDp and have_senDpHeaWatRemWir
     "Remote HW differential pressure setpoint" annotation (Placement(
         transformation(extent={{-200,100},{-160,140}}), iconTransformation(
           extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatRemSet[
     nSenDpChiWatRem](each final unit="Pa")
-    if have_chiWat and have_senDpChiWatRemWir
+    if have_chiWat and have_pumPriCtlDp and have_senDpChiWatRemWir
     "Remote CHW differential pressure setpoint" annotation (Placement(
         transformation(extent={{-200,20},{-160,60}}), iconTransformation(extent
           ={{-140,-80},{-100,-40}})));
@@ -328,7 +329,7 @@ equation
     annotation (Line(points={{152,-100},{180,-100}},
                                                   color={0,0,127}));
   connect(zer.y, rep.u)
-    annotation (Line(points={{-108,-200},{-10,-200},{-10,-140},{68,-140}},
+    annotation (Line(points={{-108,-200},{-10,-200},{-10,-140},{90,-140}},
                                                                       color={0,0,127}));
   connect(zer.y, rep2.u)
     annotation (Line(points={{-108,-200},{8,-200}},
@@ -347,7 +348,7 @@ equation
     annotation (Line(points={{-108,-200},{-10,-200},{-10,52},{128,52}},
                                                                     color={0,0,127}));
   connect(rep.y, setPumHeaWatPriDed.u3)
-    annotation (Line(points={{92,-140},{110,-140},{110,-108},{128,-108}},
+    annotation (Line(points={{114,-140},{120,-140},{120,-108},{128,-108}},
                                                                       color={0,0,127}));
   connect(zer.y, setPumHeaWatPriHdr.u3)
     annotation (Line(points={{-108,-200},{-10,-200},{-10,92},{128,92}},
@@ -373,10 +374,11 @@ equation
   connect(rep4.y, selSpeHea.u3)
     annotation (Line(points={{32,-100},{40,-100},{40,-88},{48,-88}},
                                                                 color={0,0,127}));
-  connect(ph.y, setPumHeaWatPriDed.u1) annotation (Line(points={{102,-80},{110,-80},
-          {110,-92},{128,-92}}, color={0,0,127}));
+  connect(ph.y, setPumHeaWatPriDed.u1) annotation (Line(points={{114,-80},{118,
+          -80},{118,-92},{128,-92}},
+                                color={0,0,127}));
   connect(selSpeHea.y, ph.u)
-    annotation (Line(points={{72,-80},{78,-80}}, color={0,0,127}));
+    annotation (Line(points={{72,-80},{90,-80}}, color={0,0,127}));
   connect(ctlDpHeaWat.y, phSpePumHeaWatPri.u)
     annotation (Line(points={{-38,200},{-32,200}}, color={0,0,127}));
   connect(phSpePumHeaWatPri.y, setPumHeaWatPriHdr.u1) annotation (Line(points={{-8,200},
@@ -431,6 +433,8 @@ equation
   connect(ctlDpChiWat.dpLocSetMax, dpChiWatLocSetMax) annotation (Line(points={{-38,156},
           {-34,156},{-34,180},{140,180},{140,160},{180,160}},           color={
           0,0,127}));
+  connect(rep3.y, ph.uPh) annotation (Line(points={{32,-40},{80,-40},{80,-86},{
+          90,-86}}, color={0,0,127}));
   annotation (
     defaultComponentName="ctlPumPri",
     Icon(
@@ -451,8 +455,9 @@ equation
       coordinateSystem(
         extent={{-160,-220},{160,220}})),
     Documentation(info="<html>
+<h4>Plants with variable speed primary pumps that are not controlled to maintain differential pressure or flow setpoint</h4>
 <h5>
-Heating-only plants with variable speed primary pumps that are not controlled to maintain differential pressure or flow setpoint
+Heating-only plants
 </h5>
 <p>
 When commanded on, the primary HW pumps are commanded at a fixed
@@ -460,7 +465,15 @@ speed <code>yPumHeaWatPriSet</code>, as determined during the Testing, Adjusting
 and Balancing phase to provide the design heat pump flow.
 </p>
 <h5>
-Heating and cooling plants with common variable speed primary pumps that are not controlled to maintain differential pressure or flow setpoint
+Cooling-only plants
+</h5>
+<p>
+When commanded on, the primary CHW pumps are commanded at a fixed
+speed <code>yPumChiWatPriSet</code>, as determined during the Testing, Adjusting,
+and Balancing phase to provide the design heat pump flow.
+</p>
+<h5>
+Heating and cooling plants with common primary CHW and HW pumps
 </h5>
 <p>
 When commanded on, the primary pumps are commanded at a fixed
@@ -470,7 +483,7 @@ Testing, Adjusting, and Balancing phase to provide the design heat pump flow
 in heating mode or cooling mode.
 </p>
 <h5>
-Heating and cooling plants with separate variable speed primary pumps that are not controlled to maintain differential pressure or flow setpoint
+Heating and cooling plants with separate primary CHW and HW pumps
 </h5>
 <p>
 When commanded on, the primary HW pumps are commanded at a fixed
@@ -480,6 +493,51 @@ speed <code>yPumChiWatPriSet</code>.
 The pump speed <code>yPumHeaWatPriSet</code> or <code>yPumChiWatPriSet</code>
 is determined during the Testing, Adjusting, and Balancing phase to provide
 the design heat pump flow in heating mode or cooling mode.
+</p>
+<h4>Plants with variable speed primary pumps that are controlled to maintain differential pressure or flow setpoint</h4>
+<h5>
+Heating-only plants
+</h5>
+<p>
+The pumps are controlled as described in
+<a href=\"modelica://Buildings.Templates.Plants.Controls.Pumps.Generic.ControlDifferentialPressure\">
+Buildings.Templates.Plants.Controls.Pumps.Generic.ControlDifferentialPressure</a>.
+The \"pump proven on\" condition is evaluated based on the primary HW pump status.
+</p>
+<h5>
+Cooling-only plants
+</h5>
+<p>
+The pumps are controlled as described in
+<a href=\"modelica://Buildings.Templates.Plants.Controls.Pumps.Generic.ControlDifferentialPressure\">
+Buildings.Templates.Plants.Controls.Pumps.Generic.ControlDifferentialPressure</a>.
+The \"pump proven on\" condition is evaluated based on the primary CHW pump status.
+</p>
+<h5>
+Heating and cooling plants with common primary CHW and HW pumps
+</h5>
+<p>
+The pumps are controlled as described in
+<a href=\"modelica://Buildings.Templates.Plants.Controls.Pumps.Generic.ControlDifferentialPressure\">
+Buildings.Templates.Plants.Controls.Pumps.Generic.ControlDifferentialPressure</a>.
+For the HW loop, the \"pump proven on\" condition is evaluated based on the status
+of the primary pumps associated with heat pumps that are commanded in 
+heating mode.
+For the CHW loop, the \"pump proven on\" condition is evaluated based on the status
+of the primary pumps associated with heat pumps that are commanded in 
+cooling mode.
+</p>
+<h5>
+Heating and cooling plants with separate primary CHW and HW pumps
+</h5>
+<p>
+The pumps are controlled as described in
+<a href=\"modelica://Buildings.Templates.Plants.Controls.Pumps.Generic.ControlDifferentialPressure\">
+Buildings.Templates.Plants.Controls.Pumps.Generic.ControlDifferentialPressure</a>.
+For the HW loop, the \"pump proven on\" condition is evaluated based on the status
+of the primary HW pumps.
+For the CHW loop, the \"pump proven on\" condition is evaluated based on the status
+of the primary CHW pumps.
 </p>
 </html>", revisions="<html>
 <ul>

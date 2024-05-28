@@ -32,7 +32,7 @@ createPlot(
     id=2,
     subPlot=1,
     position={415, 5, 400, 600},
-    y={"staPumFaiSaf.dp", "staPumFaiSaf.dpSet"},
+    y={"staPumFaiSaf.dp[1]", "staPumFaiSaf.dpSet[1]"},
     autoscale=true,
     grid=true,
     timeUnit="min"

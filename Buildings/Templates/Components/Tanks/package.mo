@@ -4,7 +4,7 @@ package Tanks "Tank models"
 
   annotation (Documentation(info="<html>
 <p>
-This package contains models for storage or buffer tanks.
+This package contains models for storage and buffer tanks.
 </p>
 </html>"));
 end Tanks;

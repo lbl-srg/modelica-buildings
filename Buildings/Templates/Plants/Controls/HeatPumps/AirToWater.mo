@@ -1995,6 +1995,19 @@ Cooling-only
 <td>
 </td>
 </tr>
+<tr><td>Heat recovery</td>
+<td>
+Without sidestream heat recovery chiller<br/>
+With sidestream heat recovery chiller
+</td>
+<td>
+This option is only available for heating and cooling plants.
+When selected, the plant controller incorporates logic to manage a chiller 
+and its associated dedicated primary CHW and CW pumps. 
+The chiller is considered connected in a sidestream configuration to both 
+the CHW return and the HW return.
+</td>
+</tr>
 <tr><td>Type of distribution</td>
 <td>
 Variable primary-only<br/>
@@ -2096,8 +2109,10 @@ for HVAC Systems. Atlanta, GA.
 <ul>
 <li>
 May 31, 2024, by Antoine Gautier:<br/>
-Added optional sidetream heat recovery chiller,
-failsafe conditions for HP and pump staging.
+Added sidestream heat recovery chiller, primary-only pumping and
+failsafe staging conditions.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3808\">#3808</a>.
 </li>
 <li>
 March 29, 2024, by Antoine Gautier:<br/>

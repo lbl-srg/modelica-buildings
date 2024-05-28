@@ -7,8 +7,7 @@ model Controller
     V_flow_nominal={0.02,0.05},
     V_flow_min={0.01,0.03},
     nEna=2,
-    nEqu=2)
-    "Valve controller enabled by primary pump status"
+    nEqu=2) "Valve controller enabled by primary pump status"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   Buildings.Templates.Plants.Controls.MinimumFlow.Controller ctlFloMinVal(
     have_valInlIso=true,
@@ -16,8 +15,7 @@ model Controller
     V_flow_nominal={0.02,0.05},
     V_flow_min={0.01,0.03},
     nEna=2,
-    nEqu=2)
-    "Valve controller enabled by isolation valve command"
+    nEqu=2) "Valve controller enabled by isolation valve command"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable u1EquValPum(
     table=[0,0,0; 1,1,0; 2,1,1; 3,0,1; 4,0,0],
@@ -85,5 +83,12 @@ in two configurations: one where the bypass valve controller is enabled
 with the isolation valve command (component <code>ctlFloMinVal</code>), and 
 another where it is enabled with the primary pump status (component <code>ctlFloMinPum</code>).
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+May 31, 2024, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end Controller;

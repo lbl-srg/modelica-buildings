@@ -1,8 +1,8 @@
-simulateModel("Buildings.Templates.Plants.Controls.Pumps.Primary.Validation.EnableDedicated",
+simulateModel("Buildings.Templates.Plants.Controls.Pumps.Primary.Validation.DisableDedicated",
     method="cvode",
     tolerance=1e-6,
     stopTime=3600.0,
-    resultFile="EnableDedicated");
+    resultFile="DisableDedicated");
 createPlot(
     id=1,
     subPlot=1,

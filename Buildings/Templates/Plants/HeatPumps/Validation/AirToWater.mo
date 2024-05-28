@@ -322,7 +322,9 @@ cooling loads.
 The heating loads reach their peak value first, the cooling loads reach it last.
 </p>
 <p>
-Three equally sized heat pumps are modeled. All can be lead/lag alternated.
+Three equally sized heat pumps are modeled, which can all be lead/lag alternated.
+A heat recovery chiller is included (<code>pla.have_hrc_select=true</code>) 
+and connected to the HW and CHW return pipes (sidestream integration).
 A unique aggregated load is modeled on each loop by means of a cooling or heating
 component controlled to maintain a constant <i>&Delta;T</i>
 and a modulating valve controlled to track a prescribed flow rate.

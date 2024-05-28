@@ -296,10 +296,6 @@
   openmodelica:
     comment: Translation failed.
     translate: false
-- model_name: Buildings.Templates.Plants.Controls.Pumps.Primary.Validation.VariableSpeedNoDpControl
-  openmodelica:
-    comment: Translation failed.
-    translate: false
 - model_name: Buildings.Templates.Plants.HeatPumps.Components.Validation.HeatPumpGroupAirToWater
   openmodelica:
     comment: Translation failed.
